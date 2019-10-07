@@ -1,0 +1,5 @@
+.button {
+  --color-text: #0000ff;
+  color: var(--color-text);
+  margin: 10px;
+}
