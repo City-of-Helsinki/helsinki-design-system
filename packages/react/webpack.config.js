@@ -1,4 +1,5 @@
 const path = require("path");
+const { exec } = require("child_process");
 
 module.exports = {
   entry: "./src/index.ts",
