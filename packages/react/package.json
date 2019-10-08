@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "yarn run tcm && yarn run tsc && webpack --mode production",
-    "watch": "webpack --watch --mode development",
+    "watch": "webpack --watch --mode development & tcm src --watch",
     "tsc": "tsc",
     "tcm": "tcm src"
   },
