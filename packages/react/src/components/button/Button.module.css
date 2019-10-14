@@ -1,5 +1,6 @@
+@import "~hds-core/lib/typography.css";
+
 .button {
-  --color-text: #0000ff;
-  color: var(--color-text);
+  color: var(--color-body);
   margin: 10px;
 }
