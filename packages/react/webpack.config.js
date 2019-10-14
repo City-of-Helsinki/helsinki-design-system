@@ -1,15 +1,15 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = {
-  entry: "./src/index.ts",
+  entry: './src/index.ts',
   resolve: {
-    extensions: [".ts", ".tsx", ".js"]
+    extensions: ['.ts', '.tsx', '.js'],
   },
   output: {
-    filename: "index.js",
-    path: path.resolve(__dirname, "lib"),
-    libraryTarget: "umd",
-    library: "hds-react"
+    filename: 'index.js',
+    path: path.resolve(__dirname, 'lib'),
+    libraryTarget: 'umd',
+    library: 'hds-react',
   },
   module: {
     rules: [
@@ -17,22 +17,22 @@ module.exports = {
         test: /\.(js|ts)x?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
-          options: { presets: ["@babel/preset-env", "@babel/preset-react"] }
-        }
+          loader: 'babel-loader',
+          options: { presets: ['@babel/preset-env', '@babel/preset-react'] },
+        },
       },
       {
         test: /\.css$/i,
         use: [
-          "style-loader",
+          'style-loader',
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
-              modules: true
-            }
-          }
-        ]
-      }
-    ]
-  }
+              modules: true,
+            },
+          },
+        ],
+      },
+    ],
+  },
 };

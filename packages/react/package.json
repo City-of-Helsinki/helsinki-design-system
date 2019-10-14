@@ -8,13 +8,8 @@
     "watch": "webpack --watch --mode development & tcm src --watch",
     "tsc": "tsc",
     "tcm": "tcm src",
-    "lint": "yarn eslint \"src/**/*.{ts,tsx}\""
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn -s lint",
-      "pre-push": "yarn -s test"
-    }
+    "lint": "yarn eslint \"src/**/*.{ts,tsx}\"",
+    "pre-commit": "yarn -s lint"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
@@ -36,7 +31,6 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^2.1.2",
-    "husky": "^3.0.9",
     "prettier": "^1.18.2",
     "style-loader": "^1.0.0",
     "typed-css-modules": "^0.6.2",
