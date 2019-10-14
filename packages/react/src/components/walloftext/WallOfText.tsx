@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./WallOfText.module.css";
+import styles from './WallOfText.module.css';
 
 type Props = React.PropsWithChildren<{}>;
 
