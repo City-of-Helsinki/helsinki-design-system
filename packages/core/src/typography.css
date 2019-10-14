@@ -1,0 +1,5 @@
+@import "colors.css";
+
+body  {
+  color: var(--color-body);
+}
