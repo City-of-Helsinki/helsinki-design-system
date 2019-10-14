@@ -1,6 +1,6 @@
 {
   "name": "hds-react",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   "dependencies": {
     "react": "16.8.5",
     "react-dom": "16.8.5",
-    "hds-core": "^1.0.0"
+    "hds-core": "^0.1.0"
   },
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0",
