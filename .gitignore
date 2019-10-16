@@ -1,0 +1,6 @@
+*.log
+.DS_Store
+.jest-*
+lib
+node_modules
+site/
