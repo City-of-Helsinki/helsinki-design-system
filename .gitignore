@@ -3,5 +3,4 @@
 .jest-*
 lib
 node_modules
-test/
 site/
