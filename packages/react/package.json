@@ -6,6 +6,7 @@
   "scripts": {
     "build": "yarn run lint && yarn run tcm && yarn run tsc && webpack --mode production",
     "start": "webpack --watch --mode development & tcm src --watch & yarn storybook",
+    "scaffold": "node scripts/scaffold.js",
     "tsc": "tsc",
     "tcm": "tcm src",
     "lint": "yarn eslint \"src/**/*.{ts,tsx}\"",
@@ -34,6 +35,7 @@
     "@typescript-eslint/parser": "^2.3.3",
     "babel-loader": "^8.0.6",
     "babel-plugin-require-context-hook": "^1.0.0",
+    "chalk": "^2.4.2",
     "css-loader": "^3.2.0",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
@@ -45,6 +47,7 @@
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^2.1.2",
     "identity-obj-proxy": "^3.0.0",
+    "inquirer": "^7.0.0",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "react-scripts": "^3.2.0",
