@@ -6,13 +6,13 @@ Helsinki Design System is an open-souce design system built by the City of Helsi
 
 ## Getting started
 
-> **Helsinki Design System** uses [**Lerna**](https://lerna.js.org/) and [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) to manage dependencies during local development. This allows the separate packages to reference each other locally via symlinks.
+**Are you a developer? If yes, you'll probably want to first check out the components in [hds-react](packages/react) and [hds-core](packages/core).**
 
-Are you a developer? If yes, you'll probably want to first check out the components in [hds-core](packages/core) and [hds-react](packages/react).
+**Helsinki Design System** uses [**Lerna**](https://lerna.js.org/) and [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) to manage dependencies during local development. This allows the separate packages to reference each other locally via symlinks.
 
 ### Commands
 
-| Commands                           | Description                                   |
+| Command                            | Description                                   |
 | ---------------------------------- | --------------------------------------------- |
 | yarn                               | Install dependencies and link local packages. |
 | yarn start:\<platform>             | Start dev env for platform.                   |
