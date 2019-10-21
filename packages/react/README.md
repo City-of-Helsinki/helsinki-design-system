@@ -18,6 +18,20 @@ yarn
 yarn start:react
 ```
 
+## Contributing
+
+### Adding a component
+
+To add a new compoment, use the scaffold helper (in the react package folder):
+
+```
+yarn scaffold
+```
+
+### Workflow
+
+This project uses the [Git Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow). Happy branching!
+
 ## Built with
 
 - React with [TypeScript](https://www.typescriptlang.org/) support
@@ -25,7 +39,3 @@ yarn start:react
 - [CSS Modules](https://github.com/css-modules/css-modules) with [typed-css-modules](https://github.com/Quramy/typed-css-modules) for styles
 - [ESLint](https://github.com/eslint/eslint) for code analysis
 - [Jest](https://github.com/facebook/jest) with [React Testing Library](https://github.com/testing-library/react-testing-library) for testing
-
-## Contributing
-
-For collaboration, this project uses the [Git Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow). Happy branching!
