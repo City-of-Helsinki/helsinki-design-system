@@ -4,14 +4,14 @@
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
-    "build": "yarn run tcm && yarn run tsc && webpack --mode production",
-    "watch": "webpack --watch --mode development & tcm src --watch",
+    "build": "yarn run lint && yarn run tcm && yarn run tsc && webpack --mode production",
+    "start": "webpack --watch --mode development & tcm src --watch & yarn storybook",
     "tsc": "tsc",
     "tcm": "tcm src",
     "lint": "yarn eslint \"src/**/*.{ts,tsx}\"",
     "pre-commit": "yarn -s lint",
     "pre-push": "yarn -s test",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006 --quiet",
     "build-storybook": "build-storybook",
     "test": "jest"
   },
