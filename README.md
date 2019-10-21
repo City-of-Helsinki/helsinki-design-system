@@ -19,7 +19,7 @@ Are you a developer? If yes, you'll probably want to first check out the compone
 | yarn build:\<platform>             | Build packages for platform.                  |
 | lerna run build --scope \<package> | Build only \<package>.                        |
 
-To ensure code quality in the repo, every package will have their `pre-commit` and `pre-push` scripts run automatically before git commit and push.
+To ensure code quality in the repo, every package will have their `pre-commit` and `pre-push` scripts run automatically before git commit and push (added with [Husky](https://github.com/typicode/husky)).
 
 ## Documentation
 
