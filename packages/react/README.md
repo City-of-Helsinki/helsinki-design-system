@@ -28,16 +28,4 @@ yarn start:react
 
 ## Contributing
 
-The initial version of the Helsinki Design System is under development. We will accept new features, feature requests and help with improving the documentation in the future.
-https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow
-
-    "build": "yarn run lint && yarn run tcm && yarn run tsc && webpack --mode production",
-    "start": "webpack --watch --mode development & tcm src --watch & yarn storybook",
-    "tsc": "tsc",
-    "tcm": "tcm src",
-    "lint": "yarn eslint \"src/**/*.{ts,tsx}\"",
-    "pre-commit": "yarn -s lint",
-    "pre-push": "yarn -s test",
-    "storybook": "start-storybook -p 6006 --quiet",
-    "build-storybook": "build-storybook",
-    "test": "jest"
+For collaboration, this project uses the [Git Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow). Happy branching!
