@@ -9,8 +9,8 @@
     "lib"
   ],
   "scripts": {
-    "build": "yarn run postcss src/**/*.css --base src -d lib/",
-    "start": "yarn run postcss src/**/*.css --base src -d lib/ --watch"
+    "build": "yarn run postcss src/*.css --base src -d lib/",
+    "start": "yarn run postcss src/*.css --base src -d lib/ --watch"
   },
   "devDependencies": {
     "postcss": "^7.0.18",
