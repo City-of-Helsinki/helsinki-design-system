@@ -4,7 +4,7 @@ A collection of Helsinki Design System components implemented using React.
 
 ## Getting started
 
-> **Helsinki Design System** uses [**Lerna**](https://lerna.js.org/) and [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) to manage dependencies during local development. This allows the separate packages to reference each other locally via symlinks.
+> Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scripts across the repo as well as versioning and creating releases of the packages. [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) is used to manage dependencies. This allows the separate packages to reference each other via symlinks during local development.
 
 ```
 # Clone the repo
