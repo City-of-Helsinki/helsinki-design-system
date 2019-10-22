@@ -8,18 +8,19 @@ Helsinki Design System is an open-souce design system built by the City of Helsi
 
 **Are you a developer? If yes, you'll probably want to first check out the components in [hds-react](packages/react) and [hds-core](packages/core).**
 
-**Helsinki Design System** uses [**Lerna**](https://lerna.js.org/) and [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) to manage dependencies during local development. This allows the separate packages to reference each other locally via symlinks.
+Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scripts across the repo as well as versioning and creating releases of the packages. [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) is used to manage dependencies. This allows the separate packages to reference each other via symlinks during local development.
 
 ### Commands
 
-| Command                            | Description                                   |
-| ---------------------------------- | --------------------------------------------- |
-| yarn                               | Install dependencies and link local packages. |
-| yarn start:\<platform>             | Start dev env for platform.                   |
-| yarn build:\<platform>             | Build packages for platform.                  |
-| lerna run build --scope \<package> | Build only \<package>.                        |
+| Command                            | Description                                                |
+| ---------------------------------- | ---------------------------------------------------------- |
+| yarn                               | Install dependencies and link local packages.              |
+| yarn start:\<platform>             | Start dev env for platform.                                |
+| yarn build:\<platform>             | Build packages for platform.                               |
+| lerna run build --scope \<package> | Build only \<package>.                                     |
+| lerna publish                      | Publish packages that have changed since the last release. |
 
-To ensure code quality in the repo, every package will have their `pre-commit` and `pre-push` scripts run automatically before git commit and push (added with [Husky](https://github.com/typicode/husky)).
+To ensure code quality in the repo, every package will have their `pre-commit` and `pre-push` scripts run automatically before git commit and push (added with [**Husky**](https://github.com/typicode/husky)).
 
 ## Documentation
 
