@@ -1,7 +1,7 @@
-@import '~hds-core/lib/colors.css';
+@import '~hds-core/lib/helsinki.css';
 
 .wallOfText {
-  background-color: var(--color-body);
+  background-color: var(--color-background);
   overflow-y: auto;
   padding: 2rem;
 }
