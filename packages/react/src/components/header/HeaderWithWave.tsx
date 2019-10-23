@@ -7,7 +7,7 @@ type HeaderWithWaveProps = {
 };
 
 const HeaderWithWave: React.SFC<HeaderWithWaveProps> = ({ headingText }) => {
-  return <div className={styles.header}>{headingText}</div>;
+  return <div className={styles.headerWithWave}>{headingText}</div>;
 };
 
 export default HeaderWithWave;
