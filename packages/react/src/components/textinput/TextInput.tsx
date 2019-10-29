@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 
+import IconLock from '../../icons/IconLock';
 import styles from './TextInput.module.css';
-import lock from '../../assets/svg/lock-icon.svg';
 
 type Props = {
   id: string;
@@ -43,7 +43,7 @@ export default ({
   value = undefined,
 }: Props) => (
   <div
-    className={`${styles.textInput} 
+    className={`
       ${alternative ? styles.alternative : ''}
       ${disabled ? styles.disabled : ''}
       ${readOnly ? styles.readOnly : ''}
@@ -68,7 +68,7 @@ export default ({
       />
       {readOnly && (
         <div className={styles.lock}>
-          <img src={lock} alt="" />
+          <IconLock fill={`var(${alternative ? '--hds-theme-color-secondary' : '--hds-ui-color-black-80'})`} />
         </div>
       )}
     </div>
