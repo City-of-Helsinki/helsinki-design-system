@@ -1,11 +1,56 @@
 :root {
-  color: var(--color-body);
+  --hds-primary-font: "HelsinkiGrotesk-Regular";
+  --hds-primary-font-bold: "HelsinkiGrotesk-Bold";
+
+  --hds-text-base-size: 1em;
+
+  --hds-text-sm: 0.875em;
+  --hds-text-md: 1.125em;
+  --hds-text-lg: 1.25em;
+  --hds-text-xl: 1.5em;
+  --hds-text-xxl: 2.25em;
+  --hds-text-xxxl: 3.25em;
 }
 
-h1,
-h2,
+body {
+  font-family: var(--hds-primary-font);
+  font-size: var(--hds-text-base-size);
+  color: var(--hds-theme-color-body);
+}
+
+.text-bold {
+  font-family: var(--hds-theme-primary-font-bold);
+  font-weight: bold;
+}
+
+/* FONT SIZES */
+h1 {
+  font-size: var(--hds-text-xxxl);
+}
+
+h2 {
+  font-size: var(--hds-text-xxl);
+}
+
 h3,
+.text-xl {
+  font-size: var(--hds-text-xl);
+}
+
 h4,
-h5 {
-  color: var(--color-heading);
+.text-lg {
+  font-size: var(--hds-text-lg);
+}
+
+h5,
+.text-md {
+  font-size: var(--hds-text-md);
+}
+
+.subtitle {
+  font-size: var(--hds-text-base-size);
+}
+
+.text-sm {
+  font-size: var(--hds-text-sm);
 }
