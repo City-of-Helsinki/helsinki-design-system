@@ -1,6 +1,3 @@
-@import "~hds-core/lib/typography.css";
-
 .button {
-  color: var(--color-body);
   margin: 10px;
 }
