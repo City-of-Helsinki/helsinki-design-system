@@ -69,16 +69,16 @@
   --hds-ui-color-info-light: #dcf1f5;
 
   /* GRAY SHADES FOR UI COMPONENTS */
-  --hds-color-black: #000000;
-  --hds-color-white: #ffffff;
-  --hds-color-black-5: #f1f1f1;
-  --hds-color-black-10: #e5e5e5;
-  --hds-color-black-20: #cccccc;
-  --hds-color-black-30: #b2b2b2;
-  --hds-color-black-40: #999898;
-  --hds-color-black-50: #808080;
-  --hds-color-black-60: #666666;
-  --hds-color-black-70: #4c4c4c;
-  --hds-color-black-80: #333333;
-  --hds-color-black-90: #1a1a1a;
+  --hds-ui-color-black: #000000;
+  --hds-ui-color-white: #ffffff;
+  --hds-ui-color-black-5: #f1f1f1;
+  --hds-ui-color-black-10: #e5e5e5;
+  --hds-ui-color-black-20: #cccccc;
+  --hds-ui-color-black-30: #b2b2b2;
+  --hds-ui-color-black-40: #999898;
+  --hds-ui-color-black-50: #808080;
+  --hds-ui-color-black-60: #666666;
+  --hds-ui-color-black-70: #4c4c4c;
+  --hds-ui-color-black-80: #333333;
+  --hds-ui-color-black-90: #1a1a1a;
 }
