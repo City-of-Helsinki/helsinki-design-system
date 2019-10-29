@@ -53,4 +53,5 @@ h5,
 
 .text-sm {
   font-size: var(--hds-text-sm);
+  line-height: 1.86em;
 }
