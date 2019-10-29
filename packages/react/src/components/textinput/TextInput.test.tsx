@@ -5,6 +5,6 @@ import TextInput from './TextInput';
 
 describe('<TextInput /> spec', () => {
   it('renders the component', () => {
-    render(<TextInput />);
+    render(<TextInput id="myInput" label="My Input" />);
   });
 });
