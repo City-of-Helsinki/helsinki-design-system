@@ -1,0 +1,96 @@
+---
+title: "Feature notes"
+menuOrder: 4
+---
+
+# Helsinki Design System
+
+Components, principles, documentation and templates for the City of Helsinki design system.
+
+### Monorepo
+
+One repo for all
+
+- yarn workspaces for dependency management
+- Lerna for publishing packages
+
+vs.
+
+Two repos: components and site
+
+### Structure
+
+```
+- site
+- packages
+  - hds-core ("design tokens", colors, typography, spacing, grid, lists etc)
+  - hds-react
+    - storybook
+  - hds-tools
+    ...
+```
+
+Where to store the sketch lib? Abstract or github?
+
+### Component lib
+
+- "platforms" as separate packages: core, react
+- other option to have components as separate packages, but is there a benefit in this?
+- "compiled" js or just source code?
+
+### Site
+
+City-of-Helsinki/helsinki-design-system/site
+
+- Gatsby site (based on https://www.gatsbyjs.org/starters/hasura/gatsby-gitbook-starter/)
+- content:
+  - markdown/mdx in content folder
+  - pulled from component lib
+  - react components in-doc or links to storybook?
+- automatically depolyed to github pages(?)
+- for devs:
+
+  - examples (on pages / storybook links, tbd)
+  - guidelines
+    - code style guide
+      - https://github.com/City-of-Helsinki/bestpractice/blob/master/es.md
+    - checklist and browser support for new modules, DOD
+      - https://github.com/govau/design-system-components#checklist-and-browser-support
+      - https://github.com/City-of-Helsinki/bestpractice/blob/feature/definition-of-done/dod.md
+    - accessibility (https://web.dev/what-is-accessibility)
+      - [keyboard access](https://web.dev/keyboard-access/)
+        - logical tab order
+        - visibility of offscreen content
+      - screen readers
+        - [semantic HTML](https://web.dev/use-semantic-html/)
+        - [headings and landmarks](https://web.dev/headings-and-landmarks/)
+        - [skip links](https://web.dev/headings-and-landmarks/#bypass-repetitive-content-with-skip-links)
+    - tools
+  - collaboration
+
+#### Live Editing example
+
+```javascript react-live=true
+<button className={"btn btn-default"}>Change my text</button>
+```
+
+### Code style guide
+
+- AirBnB w/ exceptions, forced with linters
+
+Checklist for component requirements
+
+### Accessibility
+
+- WCAG 2.0, AA
+- tools: react-axe, eslint
+
+### Tools
+
+- Babel
+- ESLint + Prettier
+- Jest + Enzyme
+- CSS Modules / SCSS Modules (vars?)
+- Storybook
+- Typescript?
+- i18next?
