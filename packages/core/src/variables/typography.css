@@ -1,7 +1,4 @@
 :root {
-  --hds-primary-font: "HelsinkiGrotesk-Regular";
-  --hds-primary-font-bold: "HelsinkiGrotesk-Bold";
-
   --hds-text-base-size: 1em;
 
   --hds-text-sm: 0.875em;
@@ -12,7 +9,7 @@
   --hds-text-xxxl: 3.25em;
 }
 
-body {
+.text-body {
   font-family: var(--hds-primary-font);
   font-size: var(--hds-text-base-size);
   color: var(--hds-theme-color-body);
