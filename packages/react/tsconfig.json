@@ -1,20 +1,18 @@
 {
   "compilerOptions": {
+    "module": "commonjs",
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
+    "lib": ["dom", "es2015"],
+    "outDir": "lib",
     "allowSyntheticDefaultImports": true,
-    "strict": true,
+    "suppressImplicitAnyIndexErrors": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react",
-    "baseUrl": "src"
+    "sourceMap": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "jsx": "react"
   },
-  "include": ["src", ".storybook"]
+  "include": ["src", ".storybook"],
+  "compileOnSave": false,
+  "buildOnSave": false
 }

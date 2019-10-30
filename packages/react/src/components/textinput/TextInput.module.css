@@ -1,0 +1,91 @@
+.label {
+  composes: text-sm from '~hds-core/lib/helsinki.css';
+  composes: text-bold from '~hds-core/lib/helsinki.css';
+  display: block;
+}
+
+.hiddenLabel {
+  composes: hiddenFromScreen from '~hds-core/lib/helsinki.css';
+}
+
+.inputWrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.input {
+  composes: text-md from '~hds-core/lib/helsinki.css';
+  min-width: 18em;
+  height: 3.11em;
+  border: 2px solid var(--hds-ui-color-black-20);
+  border-radius: 1px;
+  padding: 0.888em 0.72em;
+}
+
+.input:focus {
+  outline-color: var(--hds-ui-color-black-90);
+  outline-style: solid;
+  outline-width: 2px;
+}
+
+.input::placeholder {
+  color: var(--hds-ui-color-black-30);
+}
+
+.helperText {
+  composes: text-sm from '~hds-core/lib/helsinki.css';
+  color: var(--hds-ui-color-black-70);
+}
+
+.disabled .input {
+  background-color: var(--hds-ui-color-black-10);
+  border-color: var(--hds-ui-color-black-10);
+}
+
+.invalid .label {
+  color: var(--hds-ui-color-error);
+}
+
+.invalid .input {
+  border-color: var(--hds-ui-color-error);
+}
+
+.invalidText {
+  composes: text-sm from '~hds-core/lib/helsinki.css';
+  color: var(--hds-ui-color-error);
+}
+
+.readOnly .input {
+  background-color: var(--hds-ui-color-black-5);
+}
+
+.readOnly .input:focus {
+  outline-color: var(--hds-ui-color-black-20);
+}
+
+.lock {
+  border: solid 2px var(--hds-ui-color-black-20);
+  height: 3.5em;
+  width: 3.5em;
+  position: absolute;
+  right: -0;
+  top: 0;
+  background: no-repeat center center;
+  background-color: inherit;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alternative .input {
+  border-color: var(--hds-theme-color-secondary);
+}
+
+.alternative.readOnly .input {
+  background-color: var(--hds-theme-color-secondary-light);
+}
+
+.alternative.readOnly .lock {
+  border-color: var(--hds-theme-color-secondary);
+}
