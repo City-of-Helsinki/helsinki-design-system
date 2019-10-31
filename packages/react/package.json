@@ -15,7 +15,7 @@
     "tcm": "tcm src",
     "lint": "yarn eslint \"src/**/*.{ts,tsx}\"",
     "pre-commit": "yarn -s lint",
-    "pre-push": "yarn -s test",
+    "pre-push": "yarn -s test && yarn build",
     "storybook": "start-storybook -p 6006 --quiet",
     "build-storybook": "build-storybook",
     "test": "jest"
