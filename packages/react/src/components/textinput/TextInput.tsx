@@ -3,10 +3,10 @@ import React, { ChangeEvent } from 'react';
 import IconLock from '../../icons/IconLock';
 import styles from './TextInput.module.css';
 
-type Props = {
+export type TextInputProps = {
   id: string;
-  label: string;
-
+  labelText?: string;
+  labelledBy?: string;
   alternative?: boolean;
   className?: string;
   defaultValue?: string;
@@ -25,8 +25,8 @@ type Props = {
 
 export default ({
   id,
-  label,
-
+  labelText = undefined,
+  labelledBy = undefined,
   alternative = false,
   className = '',
   defaultValue = undefined,
@@ -41,38 +41,53 @@ export default ({
   tooltipText = undefined,
   type = 'text',
   value = undefined,
-}: Props) => (
-  <div
-    className={`
+}: TextInputProps) => {
+  const label = labelText ? (
+    <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hiddenLabel : ''}`}>
+      {labelText}
+    </label>
+  ) : null;
+
+  const tooltip = tooltipText ? <div> {tooltipText}</div> : null;
+
+  const helper = helperText ? <div className={styles.helperText}>{helperText}</div> : null;
+
+  const invalidMsg = invalidText ? <div className={styles.invalidText}>{invalidText}</div> : null;
+
+  const inputIcon = readOnly ? (
+    <div className={styles.inputIcon}>
+      <IconLock fill={`var(${alternative ? '--hds-theme-color-secondary' : '--hds-ui-color-black-80'})`} />
+    </div>
+  ) : null;
+
+  return (
+    <div
+      className={`
       ${alternative ? styles.alternative : ''}
       ${disabled ? styles.disabled : ''}
       ${readOnly ? styles.readOnly : ''}
       ${invalid ? styles.invalid : ''}
       ${className}`}
-  >
-    <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hiddenLabel : ''}`}>
+    >
       {label}
-    </label>
-    {tooltipText && <p>{tooltipText}</p>}
-    <div className={styles.inputWrapper}>
-      <input
-        className={styles.input}
-        defaultValue={defaultValue}
-        disabled={disabled}
-        id={id}
-        readOnly={readOnly}
-        onChange={onChange}
-        placeholder={placeholder}
-        type={type}
-        value={value}
-      />
-      {readOnly && (
-        <div className={styles.lock}>
-          <IconLock fill={`var(${alternative ? '--hds-theme-color-secondary' : '--hds-ui-color-black-80'})`} />
-        </div>
-      )}
+      {tooltip}
+      <div className={styles.inputWrapper}>
+        <input
+          className={styles.input}
+          defaultValue={defaultValue}
+          aria-labelledby={labelledBy}
+          disabled={disabled}
+          id={id}
+          readOnly={readOnly}
+          onChange={onChange}
+          placeholder={placeholder}
+          type={type}
+          value={value}
+        />
+        {inputIcon}
+      </div>
+      {helper}
+      {invalidMsg}
     </div>
-    {helperText && <div className={styles.helperText}>{helperText}</div>}
-    {invalid && <div className={styles.invalidText}>{invalidText}</div>}
-  </div>
-);
+  );
+};
