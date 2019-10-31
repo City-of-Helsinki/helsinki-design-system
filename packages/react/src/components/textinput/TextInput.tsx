@@ -5,7 +5,8 @@ import styles from './TextInput.module.css';
 
 export type TextInputProps = {
   id: string;
-  labelText: string;
+  labelText?: string;
+  labelledBy?: string;
   alternative?: boolean;
   className?: string;
   defaultValue?: string;
@@ -25,6 +26,7 @@ export type TextInputProps = {
 export default ({
   id,
   labelText = undefined,
+  labelledBy = undefined,
   alternative = false,
   className = '',
   defaultValue = undefined,
@@ -58,6 +60,7 @@ export default ({
       <input
         className={styles.input}
         defaultValue={defaultValue}
+        aria-labelledby={labelledBy}
         disabled={disabled}
         id={id}
         readOnly={readOnly}
