@@ -67,7 +67,7 @@ export default ({
         value={value}
       />
       {readOnly && (
-        <div className={styles.lock}>
+        <div className={styles.inputIcon}>
           <IconLock fill={`var(${alternative ? '--hds-theme-color-secondary' : '--hds-ui-color-black-80'})`} />
         </div>
       )}

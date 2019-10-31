@@ -63,7 +63,7 @@
   outline-color: var(--hds-ui-color-black-20);
 }
 
-.lock {
+.inputIcon {
   border: solid 2px var(--hds-ui-color-black-20);
   height: 3.5em;
   width: 3.5em;
@@ -82,10 +82,10 @@
   border-color: var(--hds-theme-color-secondary);
 }
 
-.alternative.readOnly .input {
-  background-color: var(--hds-theme-color-secondary-light);
+.alternative .inputIcon {
+  border-color: var(--hds-theme-color-secondary);
 }
 
-.alternative.readOnly .lock {
-  border-color: var(--hds-theme-color-secondary);
+.alternative.readOnly .input {
+  background-color: var(--hds-theme-color-secondary-light);
 }
