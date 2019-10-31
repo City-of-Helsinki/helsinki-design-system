@@ -5,8 +5,7 @@ import styles from './TextInput.module.css';
 
 type Props = {
   id: string;
-  label: string;
-
+  labelText: string;
   alternative?: boolean;
   className?: string;
   defaultValue?: string;
@@ -25,8 +24,7 @@ type Props = {
 
 export default ({
   id,
-  label,
-
+  labelText = undefined,
   alternative = false,
   className = '',
   defaultValue = undefined,
@@ -50,9 +48,11 @@ export default ({
       ${invalid ? styles.invalid : ''}
       ${className}`}
   >
-    <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hiddenLabel : ''}`}>
-      {label}
-    </label>
+    {labelText && (
+      <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hiddenLabel : ''}`}>
+        {labelText}
+      </label>
+    )}
     {tooltipText && <p>{tooltipText}</p>}
     <div className={styles.inputWrapper}>
       <input
