@@ -3,7 +3,7 @@ import React, { ChangeEvent } from 'react';
 import IconLock from '../../icons/IconLock';
 import styles from './TextInput.module.css';
 
-type Props = {
+export type TextInputProps = {
   id: string;
   labelText: string;
   alternative?: boolean;
@@ -39,7 +39,7 @@ export default ({
   tooltipText = undefined,
   type = 'text',
   value = undefined,
-}: Props) => (
+}: TextInputProps) => (
   <div
     className={`
       ${alternative ? styles.alternative : ''}

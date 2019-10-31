@@ -6,8 +6,8 @@ import TextInput from './TextInput';
 (TextInput as React.FC).displayName = 'TextInput';
 
 const textInputProps = {
-  id: 'myInput',
-  label: 'A text input',
+  id: 'hdsInput',
+  labelText: 'HDS input field',
   placeholder: 'A placeholder text',
 };
 
