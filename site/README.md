@@ -1,6 +1,6 @@
 # Helsinki Design System documentation site
 
-Built with [docs](https://www.docz.site/).
+Built with [docz](https://www.docz.site/).
 
 ## Getting started
 
