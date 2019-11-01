@@ -1,5 +1,3 @@
-public
-.cache
-node_modules
-*DS_Store
-*.env
+node_modules/
+public/
+.docz/

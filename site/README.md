@@ -1,77 +1,56 @@
-# Helsinki Design System site
+# Helsinki Design System documentation site
 
-Built with [Gatsby](https://www.gatsbyjs.org/) using [gatsby-gitbook-starter](https://github.com/hasura/gatsby-gitbook-starter)
+Built with [docs](https://www.docz.site/).
 
-## Features
+## Getting started
 
-- Write using Markdown / [MDX](https://github.com/mdx-js/mdx)
-- GitBook style theme
-- Syntax Highlighting using Prism [`Bonus`: Code diff highlighting]
-- Search Integration with Algolia
-- Google Analytics Integration
-- Automatically generated sidebar navigation, table of contents, previous/next
-- Edit on Github
-- Fully customisable
-- Rich embeds and live code editor using MDX
-- Easy deployment: Deploy on Netlify / Now.sh / Docker
+### Run the dev env
 
-## 🔧 Configure
+```
+# Clone the repo
+git clone https://github.com/City-of-Helsinki/helsinki-design-system.git
+cd helsinki-design-system/site
 
-Write markdown files in `content` folder.
+# Install dependencies
+yarn
 
-Open `config.js` for templating variables. Broadly configuration is available for `gatsby`, `header`, `sidebar` and `siteMetadata`.
-
-- `gatsby` config for global configuration like
-
-  - `pathPrefix` - Gatsby Path Prefix
-  - `siteUrl` - Gatsby Site URL
-  - `gaTrackingId` - Google Analytics Tracking ID
-
-- `header` config for site header configuration like
-
-  - `title` - The title that appears on the top left
-  - `githubUrl` - The Github URL for the docs website
-  - `helpUrl` - Help URL for pointing to resources
-  - `tweetText` - Tweet text
-  - `links` - Links on the top right
-  - `search` - Enable search and [configure Algolia](https://www.gatsbyjs.org/docs/adding-search-with-algolia/)
-
-- `sidebar` config for navigation links configuration
-
-  - `forcedNavOrder` for left sidebar navigation order. It should be in the format "/<filename>"
-  - `frontLine` - whether to show a front line at the beginning of a nested menu.(Collapsing capability would be turned of if this option is set to true)
-  - `links` - Links on the bottom left of the sidebar
-  - `ignoreIndex` - Set this to true if the index.md file shouldn't appear on the left sidebar navigation. Typically this can be used for landing pages.
-
-- `siteMetadata` config for website related configuration
-
-  - `title` - Title of the website
-  - `description` - Description of the website
-  - `ogImage` - Social Media share og:image tag
-  - `docsLocation` - The Github URL for Edit on Github
-
-- For sub nesting in left sidebar, create a folder with the same name as the top level `.md` filename and the sub navigation is auto-generated. The sub navigation is alphabetically ordered.
-
-## Live Code Editor
-
-To render react components for live editing, add the `react-live=true` to the code section. For example:
-
-```javascript react-live=true
-<button>Edit my text</button>
+# Start React-development (watch packages for changes, launch Storybook)
+yarn start
 ```
 
-In the above code, just add `javascript react-live=true` after the triple quote ``` to start rendering react components that can be edited by users.
+With your dev server up, you can access the documentation at http://localhost:3000/ start writing your documentation.
 
-## 🤖 SEO friendly
+### Writing documentation
 
-This is a static site and comes with all the SEO benefits. Configure meta tags like title and description for each markdown file using MDX Frontmatter
+The documentation is written as md/mdx files in the `docs/` folder. Docz doesn't care for the subfolders, but for the sake of clarity, the folder structure should mirror the menu hierarchy. Once you create a new markdown file under `docs` it will be added in the documentation automatically (given it's valid of course).
 
-```markdown
+In addition to the markdown, the file contains a frontmatter header that will be used to give the page it's settings (see [Document settings](https://www.docz.site/docs/document-settings)).
+
+Example doc file:
+
+```
 ---
-title: "Title of the page"
-metaTitle: "Meta Title Tag for this page"
-metaDescription: "Meta Description Tag for this page"
+name: Example page
+route: /doc-example
+menu: Examples
 ---
+
+# Example page
+
+Hello, I'm an example of a mdx file!
 ```
 
-Canonical URLs are generated automatically.
+Here the page's name is _Example page_, it's path will be \<site-url>/_doc-example_ and it will be a subitem of the _Examples_ menu item in the site navigation.
+
+### Deployment
+
+```
+# generate static site
+yarn build
+```
+
+If everything goes well, you'll find the static site at `public/`.
+
+### App configuration
+
+Docz configuration is handled via the [`doczrc.js`](doczrc.js). Follow the [Project Configuration reference](https://www.docz.site/docs/project-configuration).
