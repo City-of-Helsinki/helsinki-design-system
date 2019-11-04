@@ -9,7 +9,6 @@
 }
 
 .inputWrapper {
-  display: inline-block;
   position: relative;
 }
 
@@ -27,8 +26,7 @@
 
 .input {
   composes: text-md from '~hds-core/lib/helsinki.css';
-  min-width: 18em;
-  height: 3.11em;
+  width: 100%;
   border: 2px solid var(--hds-ui-color-black-20);
   border-radius: 1px;
   padding: 0.888em 0.72em;
@@ -57,8 +55,8 @@
 
 .inputIcon {
   border: solid 2px var(--hds-ui-color-black-20);
-  height: 3.5em;
   width: 3.5em;
+  height: 100%;
   position: absolute;
   right: -0;
   top: 0;
