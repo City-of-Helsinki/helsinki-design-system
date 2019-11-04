@@ -56,20 +56,18 @@ export default ({
 
   const inputIcon = readOnly ? (
     <div className={styles.inputIcon}>
-      <IconLock />
+      <IconLock fill={`var(${alternative ? '--hds-theme-color-secondary' : '--hds-ui-color-black-80'})`} />
     </div>
   ) : null;
 
   return (
     <div
       className={`
-      ${styles.root}
-      ${alternative && !invalid ? styles.alternative : ''}
+      ${alternative ? styles.alternative : ''}
       ${disabled ? styles.disabled : ''}
       ${readOnly ? styles.readOnly : ''}
       ${invalid ? styles.invalid : ''}
-      ${className}
-      `}
+      ${className}`}
     >
       {label}
       {tooltip}
