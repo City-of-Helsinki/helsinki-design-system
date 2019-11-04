@@ -14,7 +14,7 @@ cd helsinki-design-system/site
 # Install dependencies
 yarn
 
-# Start React-development (watch packages for changes, launch Storybook)
+# Start dev server, watch for changes
 yarn start
 ```
 
