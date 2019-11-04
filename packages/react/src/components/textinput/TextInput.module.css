@@ -10,6 +10,7 @@
 
 .inputWrapper {
   position: relative;
+  border-color: var(--hds-ui-color-black-20);
 }
 
 .helperText {
@@ -27,8 +28,11 @@
 .input {
   composes: text-md from '~hds-core/lib/helsinki.css';
   width: 100%;
-  border: 2px solid var(--hds-ui-color-black-20);
+  border-width: 2px;
+  border-style: solid;
   border-radius: 1px;
+  border-color: inherit;
+  background-color: inherit;
   padding: 0.888em 0.72em;
 }
 
@@ -45,11 +49,11 @@
   color: var(--hds-ui-color-error);
 }
 
-.invalid .input {
+.invalid .inputWrapper {
   border-color: var(--hds-ui-color-error);
 }
 
-.readOnly .input {
+.readOnly .inputWrapper {
   background-color: var(--hds-ui-color-black-5);
 }
 
@@ -71,15 +75,15 @@
 
 /* ALT STYLE */
 
-.alternative .input {
+.alternative .inputWrapper {
   border-color: var(--hds-theme-color-secondary);
 }
 
 .alternative .inputIcon {
-  border-color: var(--hds-theme-color-secondary);
+  border-color: inherit;
 }
 
-.alternative.readOnly .input {
+.alternative.readOnly .inputWrapper {
   background-color: var(--hds-theme-color-secondary-light);
 }
 
