@@ -1,3 +1,8 @@
+.root {
+  border-color: var(--hds-ui-color-black-20);
+  fill: var(--hds-ui-color-black-95);
+}
+
 .label {
   composes: text-sm from '~hds-core/lib/helsinki.css';
   composes: text-bold from '~hds-core/lib/helsinki.css';
@@ -10,6 +15,8 @@
 
 .inputWrapper {
   position: relative;
+  border-color: inherit;
+  fill: inherit;
 }
 
 .helperText {
@@ -27,8 +34,10 @@
 .input {
   composes: text-md from '~hds-core/lib/helsinki.css';
   width: 100%;
-  border: 2px solid var(--hds-ui-color-black-20);
+  border-style: solid;
+  border-width: 2px;
   border-radius: 1px;
+  border-color: inherit;
   padding: 1em 0.72em;
 }
 
@@ -39,14 +48,16 @@
 .disabled .input {
   background-color: var(--hds-ui-color-black-10);
   border-color: var(--hds-ui-color-black-10);
+  fill: var(--hds-ui-color-black-10);
 }
 
 .invalid .label {
   color: var(--hds-ui-color-error);
 }
 
-.invalid .input {
+.invalid {
   border-color: var(--hds-ui-color-error);
+  fill: var(--hds-ui-color-error);
 }
 
 .readOnly .input {
@@ -54,8 +65,10 @@
 }
 
 .inputIcon {
-  border: solid 2px var(--hds-ui-color-black-20);
+  fill: inherit;
+  border-style: solid;
   border-width: 0 2px;
+  border-color: inherit;
   width: 3.5em;
   position: absolute;
   right: 0;
@@ -71,12 +84,9 @@
 
 /* ALT STYLE */
 
-.alternative .input {
+.alternative {
   border-color: var(--hds-theme-color-secondary);
-}
-
-.alternative .inputIcon {
-  border-color: var(--hds-theme-color-secondary);
+  fill: var(--hds-theme-color-secondary);
 }
 
 .alternative.readOnly .input {
