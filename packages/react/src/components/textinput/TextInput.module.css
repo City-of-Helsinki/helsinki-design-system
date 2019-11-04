@@ -29,7 +29,7 @@
   width: 100%;
   border: 2px solid var(--hds-ui-color-black-20);
   border-radius: 1px;
-  padding: 0.888em 0.72em;
+  padding: 1em 0.72em;
 }
 
 .input::placeholder {
