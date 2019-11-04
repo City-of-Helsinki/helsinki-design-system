@@ -11,6 +11,7 @@ const textInputProps = {
 
 describe('<TextInput /> spec', () => {
   it('renders the component', () => {
-    render(<TextInput {...textInputProps} />);
+    const { asFragment } = render(<TextInput {...textInputProps} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

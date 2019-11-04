@@ -9,32 +9,31 @@
 }
 
 .inputWrapper {
-  display: inline-block;
   position: relative;
-}
-
-.input {
-  composes: text-md from '~hds-core/lib/helsinki.css';
-  min-width: 18em;
-  height: 3.11em;
-  border: 2px solid var(--hds-ui-color-black-20);
-  border-radius: 1px;
-  padding: 0.888em 0.72em;
-}
-
-.input:focus {
-  outline-color: var(--hds-ui-color-black-90);
-  outline-style: solid;
-  outline-width: 2px;
-}
-
-.input::placeholder {
-  color: var(--hds-ui-color-black-30);
 }
 
 .helperText {
   composes: text-sm from '~hds-core/lib/helsinki.css';
   color: var(--hds-ui-color-black-70);
+}
+
+.invalidText {
+  composes: text-sm from '~hds-core/lib/helsinki.css';
+  color: var(--hds-ui-color-error);
+}
+
+/* INPUT */
+
+.input {
+  composes: text-md from '~hds-core/lib/helsinki.css';
+  width: 100%;
+  border: 2px solid var(--hds-ui-color-black-20);
+  border-radius: 1px;
+  padding: 0.888em 0.72em;
+}
+
+.input::placeholder {
+  color: var(--hds-ui-color-black-30);
 }
 
 .disabled .input {
@@ -50,26 +49,18 @@
   border-color: var(--hds-ui-color-error);
 }
 
-.invalidText {
-  composes: text-sm from '~hds-core/lib/helsinki.css';
-  color: var(--hds-ui-color-error);
-}
-
 .readOnly .input {
   background-color: var(--hds-ui-color-black-5);
 }
 
-.readOnly .input:focus {
-  outline-color: var(--hds-ui-color-black-20);
-}
-
 .inputIcon {
   border: solid 2px var(--hds-ui-color-black-20);
-  height: 3.5em;
+  border-width: 0 2px;
   width: 3.5em;
   position: absolute;
-  right: -0;
-  top: 0;
+  right: 0;
+  top: 2px;
+  bottom: 2px;
   background: no-repeat center center;
   background-color: inherit;
   z-index: 10;
@@ -77,6 +68,8 @@
   align-items: center;
   justify-content: center;
 }
+
+/* ALT STYLE */
 
 .alternative .input {
   border-color: var(--hds-theme-color-secondary);
@@ -88,4 +81,18 @@
 
 .alternative.readOnly .input {
   background-color: var(--hds-theme-color-secondary-light);
+}
+
+.alternative.readOnly .input:focus {
+  border-color: var(--hds-theme-color-secondary);
+}
+
+/* INPUT FOCUS */
+
+.input:focus {
+  border-color: var(--hds-ui-color-black-90);
+}
+
+.readOnly .input:focus {
+  border-color: var(--hds-ui-color-black-20);
 }

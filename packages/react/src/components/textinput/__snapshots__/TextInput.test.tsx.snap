@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextInput /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="
+      
+      
+      
+      
+      "
+  >
+    <label
+      class="label "
+      for="hdsInput"
+    >
+      HDS input field
+    </label>
+    <div
+      class="inputWrapper"
+    >
+      <input
+        class="input"
+        id="hdsInput"
+        placeholder="A placeholder text"
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
