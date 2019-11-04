@@ -49,7 +49,7 @@ const createComponentFiles = (templatePath, destination, name) => {
 
 const addExport = name => {
   const nameCapital = `${name[0].toUpperCase()}${name.slice(1)}`;
-  const exportString = `export { default as ${nameCapital} } from './components/${name.toLowerCase()}/${nameCapital}';\n`;
+  const exportString = `export { default as ${nameCapital}, ${nameCapital}Props } from './components/${name.toLowerCase()}/${nameCapital}';\n`;
   try {
     fs.appendFileSync('src/index.ts', exportString, 'utf-8');
   } catch (error) {
