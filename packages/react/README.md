@@ -4,6 +4,22 @@ A collection of Helsinki Design System components implemented using React.
 
 ## Getting started
 
+Install the package:
+
+```
+$ yarn add hds-react
+```
+
+Import components:
+
+```
+import { TextInput } from "hds-react";
+```
+
+## Contributing
+
+### Development environment
+
 > Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scripts across the repo as well as versioning and creating releases of the packages. [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) is used to manage dependencies. This allows the separate packages to reference each other via symlinks during local development.
 
 ```
@@ -18,7 +34,7 @@ yarn
 yarn start:react
 ```
 
-## Contributing
+The use of Storybook is recommended for component development.
 
 ### Adding a component
 

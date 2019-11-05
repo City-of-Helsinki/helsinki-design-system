@@ -1,0 +1,53 @@
+---
+name: Developer guidelines
+route: /guidelines/developers
+menu: Guidelines
+---
+
+# Developer Guidelines
+
+---
+
+## Overview
+
+Helsinki Design System is an open-souce design system built by the City of Helsinki. It consists of tools for development and design as well as resources and guidelines for creating user-friendly, accessible solutions for the city.
+
+## Core styles
+
+The core package provides Helsinki City brand colors, typography and base styles as css-styles and variables.
+
+[hds-core in GitHub](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core)
+
+## React components
+
+Helsinki Design System React library provides a collection of React component for building websites and applications. Using the components will help developers to rapidly create user interfaces that are in line with the Helsinki City Design Language as well as accessible and consistent in behavior across applications.
+
+[hds-react in GitHub](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react)
+
+### Using the library
+
+Install the package:
+
+```
+$ yarn add hds-react
+```
+
+Import components:
+
+```
+import { TextInput } from "hds-react";
+```
+
+## Contributing
+
+### Github
+
+The codebase for the Helsinki Design System components, core styles and documentation is in the public [Helsinki Design System repository in GitHub](https://github.com/City-of-Helsinki/helsinki-design-system/).
+
+The repository is a monorepo using Lerna for running scripts and versioning and creating releases of the packages. Yarn workspaces is used to manage dependencies.
+
+More info available in the [repo README](https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/README.md).
+
+### Workflow
+
+This project uses the [Git Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow). Happy branching!
