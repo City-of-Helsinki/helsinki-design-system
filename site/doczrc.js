@@ -1,4 +1,5 @@
 module.exports = {
+  base: "/helsinki-design-system/",
   dest: "/public",
   public: "/static",
   typescript: true,
