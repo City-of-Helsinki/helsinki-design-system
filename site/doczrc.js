@@ -1,5 +1,6 @@
 module.exports = {
   dest: "/public",
+  public: "/static",
   typescript: true,
   themeConfig: {
     showDarkModeSwitch: false
