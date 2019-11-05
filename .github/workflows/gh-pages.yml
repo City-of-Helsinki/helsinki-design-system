@@ -1,0 +1,45 @@
+name: github pages
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@master
+
+    - name: setup node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+
+    - name: install
+      run: npm install
+      working-directory: ./site
+
+    # - name: format
+    #   run: npm run format
+    #   working-directory: ./site
+
+    # - name: test
+    #   run: npm run test
+    #   working-directory: ./site
+
+    - name: build
+      run: npm run build
+      working-directory: ./site
+    
+    - name: Deploy
+      env:
+        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: ./site/public
+        SCRIPT_MODE: true
+      run: |
+        wget https://raw.githubusercontent.com/peaceiris/actions-gh-pages/v2.5.0/entrypoint.sh
+        bash ./entrypoint.sh
+        # with:
+        # keepFiles: true
