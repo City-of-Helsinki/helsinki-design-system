@@ -6,8 +6,7 @@ module.exports = ({ config, mode }) => {
       presets: [['react-app', { flow: false, typescript: true }]],
     },
   });
-  config.resolve.extensions.push('.ts', '.tsx');
-  config.module.rules.push({
+  config.module.rules.unshift({
     test: /\.stories\.tsx?$/,
     loaders: [
       {
@@ -17,5 +16,6 @@ module.exports = ({ config, mode }) => {
     ],
     enforce: 'pre',
   });
+  config.resolve.extensions.push('.ts', '.tsx');
   return config;
 };
