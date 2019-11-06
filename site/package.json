@@ -10,9 +10,10 @@
   },
   "dependencies": {
     "docz": "^2.0.0-rc.67",
-    "hds-core": "^0.2.2",
-    "hds-react": "^0.2.4",
     "react": "^16.11.0",
     "react-dom": "^16.11.0"
+  },
+  "devDependencies": {
+    "hds-react": "^0.2.4"
   }
 }
