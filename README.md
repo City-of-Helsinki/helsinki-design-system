@@ -24,7 +24,7 @@ To ensure code quality in the repo, every package will have their `pre-commit` a
 
 ## Documentation
 
-The documentation will be in the future on an upcoming webpage. For now, please refer to the packages and codebase in this repository.
+[Helsinki Design System documentation](https://city-of-helsinki.github.io/helsinki-design-system/)
 
 ## Contributing
 
