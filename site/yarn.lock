@@ -6220,6 +6220,20 @@ hastscript@^5.0.0:
     property-information "^5.0.1"
     space-separated-tokens "^1.0.0"
 
+hds-core@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-0.2.2.tgz#97fa47f45a17de57ff21851a20c5122f8db5b9e8"
+  integrity sha512-3N2qL7APZMoweJsCrrg1lotZDK4mpQaKbni9qZ7NU57FhZnIK9CWeYzlGpFjkEXGR6hhSNKzlKGrOryy4jSDUg==
+
+hds-react@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/hds-react/-/hds-react-0.2.4.tgz#d37f3e8e7f02ff6f5beb989adb1ff0c36b13b757"
+  integrity sha512-JSqXoprMXn0nCG9aMMEJj7Fu6ywKCI+qh5h0qAzEMT1Dt6Upw3F9DtKUOeAUvUinbFnrESh8/XyKLrlanjOYYA==
+  dependencies:
+    hds-core "^0.2.2"
+    react "^16.10.2"
+    react-dom "^16.10.2"
+
 he@1.2.x, he@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
@@ -10152,7 +10166,7 @@ react-docgen@^4.1.1:
     node-dir "^0.1.10"
     recast "^0.17.3"
 
-react-dom@^16.11.0:
+react-dom@^16.10.2, react-dom@^16.11.0:
   version "16.11.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.11.0.tgz#7e7c4a5a85a569d565c2462f5d345da2dd849af5"
   integrity sha512-nrRyIUE1e7j8PaXSPtyRKtz+2y9ubW/ghNgqKFHHAHaeP0fpF5uXR+sq8IMRHC+ZUxw7W9NyCDTBtwWxvkb0iA==
@@ -10249,7 +10263,7 @@ react-simple-code-editor@^0.10.0:
   resolved "https://registry.yarnpkg.com/react-simple-code-editor/-/react-simple-code-editor-0.10.0.tgz#73e7ac550a928069715482aeb33ccba36efe2373"
   integrity sha512-bL5W5mAxSW6+cLwqqVWY47Silqgy2DKDTR4hDBrLrUqC5BXc29YVx17l2IZk5v36VcDEq1Bszu2oHm1qBwKqBA==
 
-react@^16.11.0:
+react@^16.10.2, react@^16.11.0:
   version "16.11.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.11.0.tgz#d294545fe62299ccee83363599bf904e4a07fdbb"
   integrity sha512-M5Y8yITaLmU0ynd0r1Yvfq98Rmll6q8AxaEe88c8e7LxO8fZ2cNgmFt0aGAS9wzf1Ao32NKXtCl+/tVVtkxq6g==
