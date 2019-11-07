@@ -8,7 +8,7 @@ const themeConfig = {
 };
 
 const menu = [
-  "Introduction",
+  "Helsinki Design System",
   { name: "Get Started", menu: ["For designers", "For developers"] },
   "Guidelines",
   "Components",
