@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - master
+    - feature/buildstorybook
 
 jobs:
   build-deploy:
@@ -16,16 +17,33 @@ jobs:
       with:
         node-version: '10.x'
 
-    - name: install
+    - name: install base packages
+      run: yarn
+
+    - name: install site packages
       run: yarn
       working-directory: ./site
 
-    - name: build
+    - name: install react packages
+      run: yarn
+      working-directory: ./packages/react
+    
+    - name: build base packages
+      run: yarn build
+    
+    - name: build docz site
       run: yarn run build
       working-directory: ./site
       env:
         DOCZ_BASE: /helsinki-design-system/
     
+    - name: build storybook site
+      run: yarn build-storybook
+      working-directory: ./packages/react
+    
+    - name: move storybook under docz
+      run: mv ./packages/react/storybook-static ./site/public/storybook
+
     - name: Deploy
       env:
         ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
