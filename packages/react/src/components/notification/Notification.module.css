@@ -1,0 +1,46 @@
+@import '~hds-core/lib/helsinki.css';
+
+.notification {
+  margin: 0.75em 0 1.25em;
+  overflow-y: hidden;
+  position: relative;
+}
+
+.content {
+  border-top: 0.625em solid var(--hds-theme-color-primary);
+  background-color: var(--hds-theme-color-primary-extra-light);
+  padding: 1em 1.25em 1.25em;
+  position: relative;
+}
+
+.iconInfo {
+  vertical-align: middle;
+  margin-right: 0.625em;
+  margin-bottom: 0.2em;
+}
+
+.buttonClose {
+  position: absolute;
+  top: 1.25em;
+  right: 1.25em;
+  fill: var(--hds-theme-color-primary-light);
+}
+
+.buttonCloseText {
+  composes: hiddenFromScreen from '~hds-core/lib/helsinki.css';
+}
+
+.labelText {
+  composes: text-bold from '~hds-core/lib/helsinki.css';
+  vertical-align: middle;
+}
+
+.bodyText {
+  composes: text-sm from '~hds-core/lib/helsinki.css';
+  padding: 0.75em 0;
+}
+
+.alternative {
+  border-color: var(--hds-theme-color-secondary);
+  background-color: var(--hds-theme-color-secondary-extra-light);
+}
