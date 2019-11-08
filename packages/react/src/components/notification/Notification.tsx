@@ -12,11 +12,7 @@ export type NotificationProps = React.PropsWithChildren<{
 
 export default ({ children, labelText, alternative = false, onClickClose = null }: NotificationProps) => {
   return (
-    <div
-      className={`
-        ${alternative ? styles.alternative : ''} 
-        ${styles.notification}`}
-    >
+    <div className={[styles.notification, alternative && styles.alternative].filter(e => e).join(' ')}>
       <div className={styles.label}>
         <IconInfo className={styles.iconInfo} />
         <span className={styles.labelText}>{labelText}</span>

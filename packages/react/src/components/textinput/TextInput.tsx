@@ -79,13 +79,16 @@ export default ({
 
   return (
     <div
-      className={`
-      ${alternative ? styles.alternative : ''}
-      ${disabled ? styles.disabled : ''}
-      ${readOnly ? styles.readOnly : ''}
-      ${invalid ? styles.invalid : ''}
-      ${styles.root}
-      ${className}`}
+      className={[
+        styles.root,
+        alternative && styles.alternative,
+        disabled && styles.disabled,
+        readOnly && styles.readOnly,
+        invalid && styles.invalid,
+        className,
+      ]
+        .filter(e => e)
+        .join(' ')}
     >
       {label}
       {tooltipIcon}
