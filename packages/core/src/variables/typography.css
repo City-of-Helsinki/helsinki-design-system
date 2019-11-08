@@ -1,5 +1,6 @@
 :root {
   --hds-text-base-size: 1em;
+  --hds-text-base-line-height: 1.2;
 
   --hds-text-sm: 0.875em;
   --hds-text-md: 1.125em;
@@ -12,6 +13,7 @@
 .text-body {
   font-family: var(--hds-primary-font);
   font-size: var(--hds-text-base-size);
+  line-height: var(--hds-text-base-line-height);
   color: var(--hds-theme-color-body);
 }
 
