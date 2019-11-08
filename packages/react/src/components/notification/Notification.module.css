@@ -2,11 +2,6 @@
 
 .notification {
   margin: 0.75em 0 1.25em;
-  overflow-y: hidden;
-  position: relative;
-}
-
-.content {
   border-top: 0.625em solid var(--hds-theme-color-primary);
   background-color: var(--hds-theme-color-primary-extra-light);
   padding: 1em 1.25em 1.25em;
@@ -28,6 +23,10 @@
 
 .buttonCloseText {
   composes: hiddenFromScreen from '~hds-core/lib/helsinki.css';
+}
+
+.label {
+  padding-right: 1.25em;
 }
 
 .labelText {

@@ -12,24 +12,22 @@ export type NotificationProps = React.PropsWithChildren<{
 
 export default ({ children, labelText, alternative = false, onClickClose = null }: NotificationProps) => {
   return (
-    <div className={styles.notification}>
-      <div
-        className={`
+    <div
+      className={`
         ${alternative ? styles.alternative : ''} 
-        ${styles.content}`}
-      >
-        <div>
-          <IconInfo className={styles.iconInfo} />
-          <span className={styles.labelText}>{labelText}</span>
-          {onClickClose && (
-            <button type="button" className={styles.buttonClose} onClick={onClickClose}>
-              <IconClose />
-              <span className={styles.buttonCloseText}>close tooltip</span>
-            </button>
-          )}
-        </div>
-        <div className={styles.bodyText}>{children}</div>
+        ${styles.notification}`}
+    >
+      <div className={styles.label}>
+        <IconInfo className={styles.iconInfo} />
+        <span className={styles.labelText}>{labelText}</span>
+        {onClickClose && (
+          <button type="button" className={styles.buttonClose} onClick={onClickClose}>
+            <IconClose />
+            <span className={styles.buttonCloseText}>close tooltip</span>
+          </button>
+        )}
       </div>
+      <div className={styles.bodyText}>{children}</div>
     </div>
   );
 };
