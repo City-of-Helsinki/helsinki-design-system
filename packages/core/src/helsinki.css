@@ -11,9 +11,15 @@
   --hds-theme-color-primary-light: var(
     --hds-brand-color-coat-of-arms-blue-light-50
   );
+  --hds-theme-color-primary-extra-light: var(
+    --hds-brand-color-coat-of-arms-blue-light-20
+  );
 
   --hds-theme-color-secondary: var(--hds-brand-color-fog);
   --hds-theme-color-secondary-light: var(--hds-brand-color-fog-light-50);
+  --hds-theme-color-secondary-extra-light: var(
+    --hds-brand-color-coat-of-arms-fog-light-20
+  );
 
   --hds-theme-color-body: var(--hds-ui-color-black-90);
 }
