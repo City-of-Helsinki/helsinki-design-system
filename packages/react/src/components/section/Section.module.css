@@ -1,0 +1,42 @@
+.section .content {
+  background-color: var(--hds-theme-color-primary);
+  color: var(--hds-theme-color-primary-heading);
+  padding: 8.25em 6.25em;
+}
+
+.section.withKoros .content {
+  padding: 5.25em 6.25em;
+}
+
+.section.alternative .content {
+  background-color: var(--hds-theme-color-secondary);
+  color: var(--hds-theme-color-secondary-heading);
+}
+
+.section.withKoros {
+  fill: var(--hds-theme-color-primary);
+}
+
+.section.alternative.withKoros {
+  fill: var(--hds-theme-color-secondary);
+}
+
+.section.withKoros.basic {
+  margin: -1.1em 0;
+}
+
+.section.withKoros.beat {
+  margin: -5.1em 0;
+}
+
+.section.withKoros.pulse {
+  margin: -2.5em 0;
+}
+
+.section.withKoros.storm {
+  margin: -2.7em 0;
+}
+
+.section.withKoros.wave {
+  margin: -4em 0;
+}
