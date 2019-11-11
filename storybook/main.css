@@ -64,6 +64,9 @@
 
 body {
   font-family: 'HelsinkiGrotesk';
+  font-size: var(--hds-text-base-size);
+  color: var(--hds-theme-color-body);
+  line-height: var(--hds-text-base-line-height);
 }
 
 .Button_button__2cZ5P {
@@ -442,6 +445,16 @@ html {
   box-sizing: inherit;
 }
 
+button {
+  padding: 0;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+}
+
 .helsinki_hiddenFromScreen__3Ef8R {
   border: 0;
   clip: "rect(0 0 0 0)";
@@ -540,6 +553,7 @@ html {
 
 :root {
   --hds-text-base-size: 1em;
+  --hds-text-base-line-height: 1.2;
 
   --hds-text-sm: 0.875em;
   --hds-text-md: 1.125em;
@@ -554,6 +568,9 @@ html {
   font-size: 1em;
   font-size: 1em;
   font-size: var(--hds-text-base-size);
+  line-height: 1.2;
+  line-height: 1.2;
+  line-height: var(--hds-text-base-line-height);
   color: #1a1a1a;
   color: #1a1a1a;
   color: var(--hds-theme-color-body);
@@ -617,11 +634,62 @@ h5,
   --hds-theme-color-primary-light: var(
     --hds-brand-color-coat-of-arms-blue-light-50
   );
+  --hds-theme-color-primary-extra-light: var(
+    --hds-brand-color-coat-of-arms-blue-light-20
+  );
 
   --hds-theme-color-secondary: var(--hds-brand-color-fog);
   --hds-theme-color-secondary-light: var(--hds-brand-color-fog-light-50);
+  --hds-theme-color-secondary-extra-light: var(
+    --hds-brand-color-coat-of-arms-fog-light-20
+  );
 
   --hds-theme-color-body: var(--hds-ui-color-black-90);
+}
+
+.Notification_notification__1QWUO {
+  margin: 0.75em 0 1.25em;
+  border-top: 0.625em solid var(--hds-theme-color-primary);
+  background-color: var(--hds-theme-color-primary-extra-light);
+  padding: 1em 1.25em 1.25em;
+  position: relative;
+}
+
+.Notification_iconInfo__2nVEZ {
+  vertical-align: middle;
+  margin-right: 0.625em;
+  margin-bottom: 0.2em;
+}
+
+.Notification_buttonClose__PBMa9 {
+  position: absolute;
+  top: 1.25em;
+  right: 1.25em;
+  fill: var(--hds-theme-color-primary-light);
+}
+
+.Notification_buttonCloseText__2MwZK {
+}
+
+.Notification_label__2C4QP {
+  padding-right: 1.25em;
+}
+
+.Notification_labelText__11paX {
+  vertical-align: middle;
+}
+
+.Notification_bodyText__1BLL5 {
+  padding: 0.75em 0;
+}
+
+.Notification_alternative__1BPDv {
+  border-color: var(--hds-theme-color-secondary);
+  background-color: var(--hds-theme-color-secondary-extra-light);
+}
+
+.TextInput_root__5m0TS {
+  position: relative;
 }
 
 .TextInput_label__13MAH {
@@ -633,6 +701,7 @@ h5,
 
 .TextInput_inputWrapper__2R39j {
   position: relative;
+  border-color: var(--hds-ui-color-black-20);
 }
 
 .TextInput_helperText__1_D7n {
@@ -647,8 +716,11 @@ h5,
 
 .TextInput_input__1Ded8 {
   width: 100%;
-  border: 2px solid var(--hds-ui-color-black-20);
+  border-width: 2px;
+  border-style: solid;
   border-radius: 1px;
+  border-color: inherit;
+  background-color: inherit;
   padding: 0.888em 0.72em;
 }
 
@@ -681,12 +753,28 @@ h5,
   color: var(--hds-ui-color-error);
 }
 
-.TextInput_invalid__2whyp .TextInput_input__1Ded8 {
+.TextInput_invalid__2whyp .TextInput_inputWrapper__2R39j {
   border-color: var(--hds-ui-color-error);
 }
 
-.TextInput_readOnly__23Swk .TextInput_input__1Ded8 {
+.TextInput_readOnly__23Swk .TextInput_inputWrapper__2R39j {
   background-color: var(--hds-ui-color-black-5);
+}
+
+.TextInput_buttonTooltip__3Hjdy {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1.25em;
+  line-height: 0;
+  fill: var(--hds-ui-color-black-80);
+}
+
+.TextInput_buttonTooltip__3Hjdy svg {
+  width: 100%;
+}
+
+.TextInput_buttonTooltipText__3nFP9 {
 }
 
 .TextInput_inputIcon__3Yslw {
@@ -707,20 +795,30 @@ h5,
 
 /* ALT STYLE */
 
-.TextInput_alternative__3gvcJ .TextInput_input__1Ded8 {
+.TextInput_alternative__3gvcJ .TextInput_inputWrapper__2R39j {
   border-color: var(--hds-theme-color-secondary);
 }
 
 .TextInput_alternative__3gvcJ .TextInput_inputIcon__3Yslw {
-  border-color: var(--hds-theme-color-secondary);
+  border-color: inherit;
 }
 
-.TextInput_alternative__3gvcJ.TextInput_readOnly__23Swk .TextInput_input__1Ded8 {
+.TextInput_alternative__3gvcJ.TextInput_readOnly__23Swk .TextInput_inputWrapper__2R39j {
   background-color: var(--hds-theme-color-secondary-light);
+}
+
+.TextInput_alternative__3gvcJ .TextInput_inputIcon__3Yslw {
+  fill: var(--hds-theme-color-secondary);
 }
 
 .TextInput_alternative__3gvcJ.TextInput_readOnly__23Swk .TextInput_input__1Ded8:focus {
   border-color: var(--hds-theme-color-secondary);
+}
+
+/*  fill={`var(${alternative ? '--hds-theme-color-secondary' : '--hds-ui-color-black-80'})`} */
+
+.TextInput_alternative__3gvcJ .TextInput_buttonTooltip__3Hjdy {
+  fill: var(--hds-theme-color-secondary);
 }
 
 /* INPUT FOCUS */
