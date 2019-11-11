@@ -21,7 +21,7 @@ const getSVG = (type: string, patternName: string): React.SVGProps<SVGElement> =
   };
 
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="75">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="85">
       <defs>
         <pattern id={`${patternName}`} x="0" y="0" width="20" height="18" patternUnits="userSpaceOnUse">
           {patterns[type]}
@@ -36,13 +36,7 @@ export default ({ flipHorizontal = false, alternative = false, type = 'basic', c
   const patternName = `koros_${type}${alternative ? '_alt' : ''}`;
   return (
     <div
-      className={[
-        styles.koros,
-        styles[type],
-        className,
-        alternative && styles.alternative,
-        flipHorizontal && styles.flipHorizontal,
-      ]
+      className={[styles.koros, styles[type], className, flipHorizontal && styles.flipHorizontal]
         .filter(e => e)
         .join(' ')}
     >

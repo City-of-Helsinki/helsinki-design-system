@@ -51,7 +51,6 @@ storiesOf('Section', module)
         {placeholderText}
       </Section>
       {placeholderImg}
-      <Section alternative>This section has neither a heading or a koros.</Section>
       <Section koros="pulse">
         <h2>Pulse</h2>
         {placeholderText}
@@ -68,8 +67,15 @@ storiesOf('Section', module)
       </Section>
       <Section alternative />
       <Section koros="beat">
-        <h2>Beat</h2>
+        <h2>Default Beat</h2>
         {placeholderText}
       </Section>
+      <Section alternative />
+      <Section />
+      <Section alternative koros="beat">
+        <h2>Alternative Beat</h2>
+        {placeholderText}
+      </Section>
+      <Section>This section has neither a heading or a koros.</Section>
     </>
   ));
