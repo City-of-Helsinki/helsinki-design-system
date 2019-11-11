@@ -23,7 +23,7 @@ export const Sidebar = React.forwardRef((props, ref) => {
     if (ref.current && currentDocRef.current) {
       ref.current.scrollTo(0, currentDocRef.current.offsetTop);
     }
-  }, []);
+  });
   return (
     <>
       <Box onClick={props.onClick} sx={styles.overlay(props)}>

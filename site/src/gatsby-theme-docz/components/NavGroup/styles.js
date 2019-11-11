@@ -1,5 +1,6 @@
 export const wrapper = {
-  my: 3
+  my: 3,
+  marginBottom: "1em"
 };
 
 export const sublinkWrapper = {
