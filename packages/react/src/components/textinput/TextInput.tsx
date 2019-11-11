@@ -1,6 +1,8 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
+import Notification from '../notification/Notification';
 import IconLock from '../../icons/IconLock';
+import IconTooltip from '../../icons/IconTooltip';
 import styles from './TextInput.module.css';
 
 export type TextInputProps = {
@@ -18,6 +20,7 @@ export type TextInputProps = {
   onChange?: (event: ChangeEvent) => void;
   placeholder?: string;
   readOnly?: boolean;
+  tooltipLabel?: string;
   tooltipText?: string;
   type?: string;
   value?: string;
@@ -38,39 +41,58 @@ export default ({
   onChange = () => null,
   placeholder = '',
   readOnly = false,
+  tooltipLabel = undefined,
   tooltipText = undefined,
   type = 'text',
   value = undefined,
 }: TextInputProps) => {
-  const label = labelText ? (
+  const [tooltipOpen, toggleTooltip] = useState(false);
+
+  const label: JSX.Element = labelText ? (
     <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hiddenLabel : ''}`}>
       {labelText}
     </label>
   ) : null;
 
-  const tooltip = tooltipText ? <div> {tooltipText}</div> : null;
+  const tooltipIcon: JSX.Element = tooltipText ? (
+    <button type="button" className={styles.buttonTooltip} onClick={() => toggleTooltip(!tooltipOpen)}>
+      <IconTooltip />
+      <span className={styles.buttonTooltipText}>show tooltip</span>
+    </button>
+  ) : null;
 
-  const helper = helperText ? <div className={styles.helperText}>{helperText}</div> : null;
+  const tooltip: JSX.Element = tooltipText ? (
+    <Notification alternative={alternative} labelText={tooltipLabel} onClickClose={() => toggleTooltip(false)}>
+      {tooltipText}
+    </Notification>
+  ) : null;
 
-  const invalidMsg = invalidText ? <div className={styles.invalidText}>{invalidText}</div> : null;
+  const helper: JSX.Element = helperText ? <div className={styles.helperText}>{helperText}</div> : null;
+
+  const invalidMsg: JSX.Element = invalidText ? <div className={styles.invalidText}>{invalidText}</div> : null;
 
   const inputIcon = readOnly ? (
     <div className={styles.inputIcon}>
-      <IconLock fill={`var(${alternative ? '--hds-theme-color-secondary' : '--hds-ui-color-black-80'})`} />
+      <IconLock />
     </div>
   ) : null;
 
   return (
     <div
-      className={`
-      ${alternative ? styles.alternative : ''}
-      ${disabled ? styles.disabled : ''}
-      ${readOnly ? styles.readOnly : ''}
-      ${invalid ? styles.invalid : ''}
-      ${className}`}
+      className={[
+        styles.root,
+        alternative && styles.alternative,
+        disabled && styles.disabled,
+        readOnly && styles.readOnly,
+        invalid && styles.invalid,
+        className,
+      ]
+        .filter(e => e)
+        .join(' ')}
     >
       {label}
-      {tooltip}
+      {tooltipIcon}
+      {tooltipOpen && tooltip}
       <div className={styles.inputWrapper}>
         <input
           className={styles.input}

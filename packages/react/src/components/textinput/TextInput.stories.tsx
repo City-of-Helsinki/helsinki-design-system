@@ -16,48 +16,32 @@ const textInputProps = {
 
 storiesOf('TextInput', module)
   .addDecorator(WrapperDecorator)
-  .add('default', () => <TextInput {...textInputProps} />);
-
-storiesOf('TextInput', module)
-  .addDecorator(WrapperDecorator)
-  .add('with default value', () => <TextInput {...textInputProps} defaultValue="This is the default value" />);
-
-storiesOf('TextInput', module)
-  .addDecorator(WrapperDecorator)
-  .add('without placeholder', () => <TextInput {...textInputProps} placeholder={undefined} />);
-
-storiesOf('TextInput', module)
-  .addDecorator(WrapperDecorator)
-  .add('disabled', () => <TextInput {...textInputProps} disabled />);
-
-storiesOf('TextInput', module)
-  .addDecorator(WrapperDecorator)
-  .add('read only', () => <TextInput {...textInputProps} readOnly defaultValue="This is the default value" />);
-
-storiesOf('TextInput', module)
-  .addDecorator(WrapperDecorator)
-  .add('alternative', () => <TextInput {...textInputProps} alternative />);
-
-storiesOf('TextInput', module)
-  .addDecorator(WrapperDecorator)
+  .add('default', () => <TextInput {...textInputProps} />)
+  .add('with default value', () => <TextInput {...textInputProps} defaultValue="This is the default value" />)
+  .add('without placeholder', () => <TextInput {...textInputProps} placeholder={undefined} />)
+  .add('disabled', () => <TextInput {...textInputProps} disabled />)
+  .add('read only', () => <TextInput {...textInputProps} readOnly defaultValue="This is the default value" />)
+  .add('alternative', () => <TextInput {...textInputProps} alternative />)
   .add('alternative read only', () => (
     <TextInput {...textInputProps} alternative readOnly defaultValue="This is the default value" />
-  ));
-
-storiesOf('TextInput', module)
-  .addDecorator(WrapperDecorator)
-  .add('with label hidden', () => <TextInput {...textInputProps} hideLabel />);
-
-storiesOf('TextInput', module)
-  .addDecorator(WrapperDecorator)
-  .add('with tooltip', () => <TextInput {...textInputProps} tooltipText="Tooltip goes here" />);
-
-storiesOf('TextInput', module)
-  .addDecorator(WrapperDecorator)
-  .add('with helper text', () => <TextInput {...textInputProps} helperText="Helper text goes here" />);
-
-storiesOf('TextInput', module)
-  .addDecorator(WrapperDecorator)
+  ))
+  .add('with label hidden', () => <TextInput {...textInputProps} hideLabel />)
+  .add('with tooltip', () => (
+    <TextInput
+      {...textInputProps}
+      tooltipLabel="This is the tool tip label text"
+      tooltipText="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
+    />
+  ))
+  .add('alternative with tooltip', () => (
+    <TextInput
+      alternative
+      {...textInputProps}
+      tooltipLabel="This is the tool tip label text"
+      tooltipText="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
+    />
+  ))
+  .add('with helper text', () => <TextInput {...textInputProps} helperText="Helper text goes here" />)
   .add('with invalid input', () => (
     <TextInput {...textInputProps} invalid invalidText="This explains why the value is invalid" />
   ));
