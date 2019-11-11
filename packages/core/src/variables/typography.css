@@ -22,6 +22,14 @@
   font-weight: bold;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+  line-height: var(--hds-text-base-line-height);
+}
+
 /* FONT SIZES */
 h1 {
   font-size: var(--hds-text-xxxl);
@@ -52,5 +60,5 @@ h5,
 
 .text-sm {
   font-size: var(--hds-text-sm);
-  line-height: 1.86em;
+  line-height: 1.86;
 }
