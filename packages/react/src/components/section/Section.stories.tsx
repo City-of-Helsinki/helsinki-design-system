@@ -12,7 +12,7 @@ const placeholderText = (
 );
 
 const placeholderImg = (
-  <img src="https://picsum.photos/id/689/1440/720" alt="" theme={{ display: 'block', width: '100%' }} />
+  <img src="https://picsum.photos/id/689/1440/720" alt="" style={{ display: 'block', width: '100%' }} />
 );
 
 storiesOf('Section', module)
@@ -32,7 +32,7 @@ storiesOf('Section', module)
     </>
   ))
   .add('secondary', () => (
-    <Section theme="secondary">
+    <Section color="secondary">
       <h1>Lorem Ipsum</h1>
       {placeholderText}
     </Section>
@@ -40,7 +40,7 @@ storiesOf('Section', module)
   .add('secondary with koros', () => (
     <>
       {placeholderImg}
-      <Section theme="secondary" koros="basic">
+      <Section color="secondary" koros="basic">
         <h1>Lorem Ipsum</h1>
         {placeholderText}
       </Section>
@@ -48,7 +48,7 @@ storiesOf('Section', module)
   ))
   .add('multiple sections', () => (
     <>
-      <Section theme="secondary" koros="basic">
+      <Section color="secondary" koros="basic">
         <h1>Lorem Ipsum</h1>
         {placeholderText}
       </Section>
@@ -57,27 +57,27 @@ storiesOf('Section', module)
         <h2>Pulse</h2>
         {placeholderText}
       </Section>
-      <Section theme="primary">
+      <Section color="primary">
         <h2>No Koros</h2>
         This section does not have any koros.
       </Section>
       <Section />
-      <Section theme="tertiary" koros="beat">
+      <Section color="tertiary" koros="beat">
         <h2>secondary Beat</h2>
         {placeholderText}
       </Section>
       <Section />
-      <Section theme="secondary" koros="wave">
+      <Section color="secondary" koros="wave">
         <h2>Wave</h2>
         {placeholderText}
       </Section>
       <Section />
-      <Section theme="primary" koros="beat">
+      <Section color="primary" koros="beat">
         <h2>primary Beat</h2>
         {placeholderText}
       </Section>
-      <Section theme="tertiary" />
-      <Section theme="secondary" koros="storm">
+      <Section color="tertiary" />
+      <Section color="secondary" koros="storm">
         <h2>Storm</h2>
         {placeholderText}
       </Section>
