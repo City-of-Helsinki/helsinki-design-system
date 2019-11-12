@@ -7,6 +7,7 @@
 @import "variables/typography.css";
 
 :root {
+  /* COLORS */
   --hds-theme-color-primary: var(--hds-brand-color-coat-of-arms-blue);
   --hds-theme-color-primary-light: var(
     --hds-brand-color-coat-of-arms-blue-light-50
@@ -24,4 +25,13 @@
   --hds-theme-color-secondary-heading: var(--hds-ui-color-black);
 
   --hds-theme-color-body: var(--hds-ui-color-black-90);
+
+  /* SPACING */
+  --hds-theme-content-padding: 5.25em 6.25em;
+}
+
+@media all and (max-width: 768px) {
+  :root {
+    --hds-theme-content-padding: 1.5em 1em;
+  }
 }
