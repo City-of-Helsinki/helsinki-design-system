@@ -30,6 +30,10 @@
   line-height: var(--hds-text-body-line-height);
 }
 
+.text-body p {
+  margin: 2em 0;
+}
+
 .text-bold {
   font-family: var(--hds-theme-primary-font-bold);
   font-weight: bold;
