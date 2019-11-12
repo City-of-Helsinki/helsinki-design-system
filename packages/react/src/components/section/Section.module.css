@@ -1,16 +1,30 @@
-.section .content {
-  background-color: var(--hds-theme-color-primary);
-  color: var(--hds-theme-color-primary-heading);
-  padding: 8.25em 6.25em;
+@import '~hds-core/lib/helsinki.css';
+
+.section {
+  composes: text-body from '~hds-core/lib/helsinki.css';
 }
 
-.section.withKoros .content {
-  padding: 5.25em 6.25em;
+.section .contentWrapper {
+  padding: var(--hds-theme-content-padding);
+  background-color: var(--hds-theme-color-primary);
+}
+
+.section .content {
+  color: var(--hds-theme-color-primary-heading);
+  max-width: 72em;
+  margin: 0 auto;
+}
+
+.section.alternative .contentWrapper {
+  background-color: var(--hds-theme-color-secondary);
 }
 
 .section.alternative .content {
-  background-color: var(--hds-theme-color-secondary);
   color: var(--hds-theme-color-secondary-heading);
+}
+
+.section:not(.withKoros) .content {
+  padding: 4.5em 0;
 }
 
 .section.withKoros {

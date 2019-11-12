@@ -11,7 +11,9 @@ const placeholderText = (
   </>
 );
 
-const placeholderImg = <img src="https://picsum.photos/id/689/1440/480" alt="" style={{ display: 'block' }} />;
+const placeholderImg = (
+  <img src="https://picsum.photos/id/689/1440/720" alt="" style={{ display: 'block', width: '100%' }} />
+);
 
 storiesOf('Section', module)
   .add('default', () => (
@@ -55,7 +57,10 @@ storiesOf('Section', module)
         <h2>Pulse</h2>
         {placeholderText}
       </Section>
-      <Section alternative />
+      <Section alternative>
+        <h2>No Koros</h2>
+        This section does not have any koros.
+      </Section>
       <Section koros="storm">
         <h2>Storm</h2>
         {placeholderText}

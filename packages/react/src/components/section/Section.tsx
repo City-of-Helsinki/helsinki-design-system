@@ -10,7 +10,11 @@ export type SectionProps = React.PropsWithChildren<{
 }>;
 
 export default ({ children, alternative = false, className = '', koros = null }: SectionProps) => {
-  const content = <div className={styles.content}>{children}</div>;
+  const content = (
+    <div className={styles.contentWrapper}>
+      <div className={styles.content}>{children}</div>
+    </div>
+  );
 
   return (
     <div
