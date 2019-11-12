@@ -12,17 +12,17 @@ const placeholderText = (
 );
 
 const placeholderImg = (
-  <img src="https://picsum.photos/id/689/1440/720" alt="" style={{ display: 'block', width: '100%' }} />
+  <img src="https://picsum.photos/id/689/1440/720" alt="" theme={{ display: 'block', width: '100%' }} />
 );
 
 storiesOf('Section', module)
-  .add('default', () => (
+  .add('primary', () => (
     <Section>
       <h1>Lorem Ipsum</h1>
       {placeholderText}
     </Section>
   ))
-  .add('default with koros', () => (
+  .add('primary with koros', () => (
     <>
       <Section koros="basic">
         <h1>Lorem Ipsum</h1>
@@ -31,16 +31,16 @@ storiesOf('Section', module)
       {placeholderImg}
     </>
   ))
-  .add('alternative', () => (
-    <Section alternative>
+  .add('secondary', () => (
+    <Section theme="secondary">
       <h1>Lorem Ipsum</h1>
       {placeholderText}
     </Section>
   ))
-  .add('alternative with koros', () => (
+  .add('secondary with koros', () => (
     <>
       {placeholderImg}
-      <Section alternative koros="basic">
+      <Section theme="secondary" koros="basic">
         <h1>Lorem Ipsum</h1>
         {placeholderText}
       </Section>
@@ -48,7 +48,7 @@ storiesOf('Section', module)
   ))
   .add('multiple sections', () => (
     <>
-      <Section alternative koros="basic">
+      <Section theme="secondary" koros="basic">
         <h1>Lorem Ipsum</h1>
         {placeholderText}
       </Section>
@@ -57,28 +57,28 @@ storiesOf('Section', module)
         <h2>Pulse</h2>
         {placeholderText}
       </Section>
-      <Section alternative>
+      <Section theme="primary">
         <h2>No Koros</h2>
         This section does not have any koros.
       </Section>
-      <Section koros="storm">
-        <h2>Storm</h2>
+      <Section />
+      <Section theme="tertiary" koros="beat">
+        <h2>secondary Beat</h2>
         {placeholderText}
       </Section>
-      <Section alternative />
-      <Section koros="wave">
+      <Section />
+      <Section theme="secondary" koros="wave">
         <h2>Wave</h2>
         {placeholderText}
       </Section>
-      <Section alternative />
-      <Section koros="beat">
-        <h2>Default Beat</h2>
+      <Section />
+      <Section theme="primary" koros="beat">
+        <h2>primary Beat</h2>
         {placeholderText}
       </Section>
-      <Section alternative />
-      <Section />
-      <Section alternative koros="beat">
-        <h2>Alternative Beat</h2>
+      <Section theme="tertiary" />
+      <Section theme="secondary" koros="storm">
+        <h2>Storm</h2>
         {placeholderText}
       </Section>
       <Section>This section has neither a heading or a koros.</Section>
