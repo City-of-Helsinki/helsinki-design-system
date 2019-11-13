@@ -1,0 +1,19 @@
+---
+name: Table
+menu: Components
+---
+
+# Table
+
+---
+
+The table component makes information easier to compare and scan for users.
+
+## When to use this component
+Use the table component to let users to compare information in rows and columns.
+
+## When not to use this component
+Never use the table component to layout content on a page. Instead, use the components for this, for example text+photo.
+
+
+> Note to DS team: This might need defining! What other layout components is there to help creating layouts?
