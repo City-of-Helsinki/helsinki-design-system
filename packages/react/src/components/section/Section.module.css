@@ -28,7 +28,7 @@
 }
 
 .section:not(.withKoros) .content {
-  padding: 6em 0;
+  padding: 5em 0;
 }
 
 .section.withKoros.basic {
@@ -85,4 +85,18 @@
 
 .section.tertiary .content {
   color: var(--hds-theme-color-tertiary-heading);
+}
+
+@media all and (max-width: 768px) {
+  .section .content {
+    padding: 1em 0;
+  }
+
+  .section:not(.withKoros) .content {
+    padding: 2em 0;
+  }
+
+  .section.withKoros + .section:not(.withKoros) .content {
+    margin: 3em 0;
+  }
 }
