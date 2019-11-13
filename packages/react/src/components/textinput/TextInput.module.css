@@ -116,8 +116,6 @@
   border-color: var(--hds-theme-color-secondary);
 }
 
-/*  fill={`var(${alternative ? '--hds-theme-color-secondary' : '--hds-ui-color-black-80'})`} */
-
 .alternative .buttonTooltip {
   fill: var(--hds-theme-color-secondary);
 }
