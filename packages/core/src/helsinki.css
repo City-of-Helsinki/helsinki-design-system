@@ -5,6 +5,7 @@
 @import "utils/helpers.css";
 @import "variables/hds-brand-colors.css";
 @import "variables/typography.css";
+@import "variables/spacing.css";
 
 :root {
   /* COLORS */
@@ -35,13 +36,4 @@
     --hds-brand-color-coat-of-arms-suomenlinna-light-20
   );
   --hds-theme-color-tertiary-heading: var(--hds-ui-color-black);
-
-  /* SPACING */
-  --hds-theme-content-padding: 5.25em 6.25em;
-}
-
-@media all and (max-width: 768px) {
-  :root {
-    --hds-theme-content-padding: 1.5em 1em;
-  }
 }
