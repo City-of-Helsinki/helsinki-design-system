@@ -1,6 +1,17 @@
+---
+name: Buttons
+menu: Components
+---
+
+# Buttons
+
+---
+
 Buttons allow an application to communicate action and direct user intent.
 
-Styles
+
+
+## Styles
 There are different kinds of buttons in the buttons library:
 
 Primary
