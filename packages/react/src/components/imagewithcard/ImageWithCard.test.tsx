@@ -5,7 +5,7 @@ import ImageWithCard from './ImageWithCard';
 
 describe('<ImageWithCard /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<ImageWithCard />);
+    const { asFragment } = render(<ImageWithCard src="" />);
     expect(asFragment()).toMatchSnapshot();
   });
 });
