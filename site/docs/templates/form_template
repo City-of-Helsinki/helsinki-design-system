@@ -1,0 +1,35 @@
+---
+name: Form template
+menu: templates
+---
+
+# Form template
+
+---
+
+## Best Practices for Form Design
+The best design solution for any given form depends on many factors: the length of the form, the context of use, and the data being collected. The exact implementation you should use may vary in certain circumstances, but this is no excuse for ignoring guidelines altogether. Instead, use these recommendations as a starting point, and if you stray from these established best practices make certain you have a good reason for doing so.
+
+### Keep it short. 
+Eliminating unnecessary fields requires more time, but the reduced user effort and increased completion rates make it worthwhile. Remove fields which collect information that can be (a) derived in some other way, (b) collected more conveniently at a later date, or (c) simply omitted. 
+
+### Present fields in a single column layout. 
+Multiple columns interrupt the vertical momentum of moving down the form. Rather than requiring users to visually reorient themselves, keep them in the flow by sticking to a single column with a separate row for each field. (Exceptions to this rule: short and/or logically related fields such as City, State, and Zip Code can be presented on the same row.)
+
+### Match fields to the type and size of the input. 
+Avoid drop-downs when there are only 2 or 3 options that could be displayed as radio buttons (which require only a single click or tap). Text fields should be about the same size as the expected input since it’s extremely error prone when users can’t see their full entry.
+
+### Distinguish optional and required fields. 
+First, eliminate as many optional fields as possible (see the first recommendation above). If some fields truly are necessary, but only apply to a subset of users, don’t make users find out through trial and error. Limit the form to only 1 or 2 optional fields, and clearly label them as optional.
+
+### Explain any input or formatting requirements. 
+If a field requires a specific format or type of input, state the exact instructions. Don’t make users guess your obscure password requirements. The same applies to syntax rules such as punctuation or spacing for phone numbers or ZIP codes.
+
+### Provide highly visible and specific error messages. 
+Error should be signaled through a variety of cues, not solely through color: outline the field and use red text and an error icon, to ensure users don’t overlook this critical information. Now is not the time to be subtle.
+
+(Source: Norman Nielson Group)
+
+(insert Form Template)
+
+

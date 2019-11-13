@@ -1,0 +1,40 @@
+---
+name: Design
+menu: How to contribute
+---
+
+# Design
+
+---
+
+
+In Abstract, The Helsinki Design System Master files are located in project called “Helsinki Design System”.
+
+(link and picture - Sabrina has the image)
+
+If you have a component that isn’t yet part of the Design System, and you see that there is a need for a component like it in the design library, you can propose it to the HDS team via a ‘review request’. 
+
+## Proposing design:
+When you propose your design, the Lead Designer (to be named) of the design system library will review the design and also have an internal stakeholders review. When The Lead Designer approves the design, you can add your design to the library. Afterwards, communicate with the developers of your team about developing the component. You can also contact the lead developer of the design system about how to manage this.
+
+## Adding designs to library:
+When adding your designs to the design system libraries, first think about 
+* Check if the component already exist. If it does exist and does not fulfill your requirements, and if not; how easily could the existing component be changed to fulfill your requirements?
+* Is this component something that is needed and can be used in several projects, or just your project?
+* Is your component generic enough so it could be used in different projects?
+* ...
+* ...
+* ...
+
+To add your design to the design system library, start by creating a Branch either from the Master or another branch (the branches are named 'Your name DDMMYYYY').
+Do this with “Create a branch” feature within the Helsinki Design System project in Abstract.
+(picture here)
+
+When you're done with your edits, make a commit, along with a description of what changes were made to the Master Branch, your component, how should your component be used and where (give an example layout if possible). Then ask the Design lead (Person to be named?) to review the design >> via the green button “Request review” in Abstract.
+> (picture here of the review feature?)
+
+After your design has been approved, merge your branch. A merge combines the separate edits you did into either the Master directly, or another Branch. >> via the blue button ‘Merge branch’.
+> (picture here)
+
+After a Merge, you'll end up with an updated Master (or Branch), and an archived old Branch.
+Still got some questions? Ask your team member or visit https://www.abstract.com/how-it-works/
