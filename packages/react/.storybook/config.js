@@ -25,7 +25,6 @@ addParameters({
   },
   viewport: {
     viewports,
-    defaultViewport: 'narrow',
   },
 });
 
