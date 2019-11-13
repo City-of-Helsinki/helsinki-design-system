@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import Section from './Section';
+import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
 
 (Section as React.FC).displayName = 'Section';
 
@@ -11,9 +12,7 @@ const placeholderText = (
   </>
 );
 
-const placeholderImg = (
-  <img src="https://picsum.photos/id/689/1440/720" alt="" style={{ display: 'block', width: '100%' }} />
-);
+const placeholderImg = <img src={imageFile} alt="" style={{ display: 'block', width: '100%' }} />;
 
 storiesOf('Section', module)
   .add('primary', () => (
@@ -53,15 +52,15 @@ storiesOf('Section', module)
         {placeholderText}
       </Section>
       {placeholderImg}
-      <Section koros="pulse">
-        <h2>Pulse</h2>
-        {placeholderText}
-      </Section>
       <Section color="primary">
         <h2>No Koros</h2>
         This section does not have any koros.
       </Section>
-      <Section />
+      <Section koros="pulse">
+        <h2>Pulse</h2>
+        {placeholderText}
+      </Section>
+      <Section color="secondary" />
       <Section color="tertiary" koros="beat">
         <h2>secondary Beat</h2>
         {placeholderText}
