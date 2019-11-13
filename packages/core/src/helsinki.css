@@ -5,8 +5,13 @@
 @import "utils/helpers.css";
 @import "variables/hds-brand-colors.css";
 @import "variables/typography.css";
+@import "variables/spacing.css";
 
 :root {
+  /* COLORS */
+  --hds-theme-color-body: var(--hds-ui-color-black-90);
+
+  /* primary color */
   --hds-theme-color-primary: var(--hds-brand-color-coat-of-arms-blue);
   --hds-theme-color-primary-light: var(
     --hds-brand-color-coat-of-arms-blue-light-50
@@ -14,12 +19,21 @@
   --hds-theme-color-primary-extra-light: var(
     --hds-brand-color-coat-of-arms-blue-light-20
   );
+  --hds-theme-color-primary-heading: var(--hds-ui-color-white);
 
+  /* secondary color */
   --hds-theme-color-secondary: var(--hds-brand-color-fog);
   --hds-theme-color-secondary-light: var(--hds-brand-color-fog-light-50);
   --hds-theme-color-secondary-extra-light: var(
     --hds-brand-color-coat-of-arms-fog-light-20
   );
+  --hds-theme-color-secondary-heading: var(--hds-ui-color-black);
 
-  --hds-theme-color-body: var(--hds-ui-color-black-90);
+  /* tertiary color */
+  --hds-theme-color-tertiary: var(--hds-brand-color-suomenlinna);
+  --hds-theme-color-tertiary-light: var(--hds-brand-color-suomenlinna-light-50);
+  --hds-theme-color-tertiary-extra-light: var(
+    --hds-brand-color-coat-of-arms-suomenlinna-light-20
+  );
+  --hds-theme-color-tertiary-heading: var(--hds-ui-color-black);
 }

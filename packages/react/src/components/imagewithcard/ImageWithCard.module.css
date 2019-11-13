@@ -1,0 +1,160 @@
+@import '~hds-core/lib/helsinki.css';
+
+.wrapper {
+  top: 0;
+  margin: 0 auto;
+  height: 34.375em;
+  width: var(--hds-theme-content-width);
+}
+
+.image {
+  background-size: cover;
+  background-position: 50% 50%;
+  width: 100%;
+  height: 100%;
+}
+
+.cardContainer {
+  padding: 3.625em 3.625em;
+  position: relative;
+  margin: 0 auto;
+  top: -100%;
+  height: 100%;
+  max-width: var(--hds-theme-content-width);
+}
+
+.card {
+  composes: text-body from '~hds-core/lib/helsinki.css';
+  padding: 1em 3em;
+  background: white;
+  width: 45%;
+  min-height: 100%;
+}
+
+.rightAlignment .card {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.leftAlignment .image {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+/* SPLIT LAYOUT */
+
+.splitLayout {
+  height: 40.625em;
+}
+
+.splitLayout .cardContainer {
+  padding: 0;
+}
+
+@media all and (min-width: 769px) {
+  .splitLayout .image {
+    width: 57.5%;
+  }
+
+  .splitLayout .card {
+    width: 42.5%;
+  }
+}
+
+/* HOVER LAYOUT */
+
+.hoverLayout .cardContainer {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media all and (min-width: 769px) {
+  .hoverLayout .image {
+    width: 70%;
+  }
+
+  .hoverLayout .card {
+    width: 38.5%;
+  }
+}
+
+/* FULL WIDTH */
+
+.fullWidth:not(.splitLayout) .image,
+.fullWidth {
+  width: 100%;
+}
+
+/* COLOR THEMES */
+
+.fullWidth.primary,
+.primary .card {
+  background-color: var(--hds-theme-color-primary);
+  color: var(--hds-theme-color-primary-heading);
+}
+
+.fullWidth.secondary,
+.secondary .card {
+  background-color: var(--hds-theme-color-secondary);
+  color: var(--hds-theme-color-secondary-heading);
+}
+
+.fullWidth.tertiary,
+.tertiary .card {
+  background-color: var(--hds-theme-color-tertiary);
+  color: var(--hds-theme-color-tertiary-heading);
+}
+
+/* SMALL SCREEN DEFAULT & SPLIT */
+
+@media all and (max-width: 768px) {
+  .wrapper {
+    height: auto;
+    width: auto;
+  }
+
+  .wrapper.fullWidth {
+    background: none;
+  }
+
+  .image {
+    height: 26.25em;
+    width: auto;
+  }
+
+  .cardContainer {
+    width: auto;
+    height: auto;
+    margin: -4.625em 1em 0;
+    padding: 0;
+  }
+
+  .card {
+    width: auto;
+    padding: 1em;
+  }
+}
+
+/* SMALL SCREEN HOVER */
+
+@media all and (max-width: 768px) {
+  .hoverLayout.leftAlignment .image {
+    margin-left: 2.5em;
+  }
+
+  .hoverLayout.leftAlignment .card {
+    margin-right: 2.25em;
+  }
+
+  .hoverLayout.rightAlignment .image {
+    margin-right: 2.5em;
+  }
+
+  .hoverLayout.rightAlignment .card {
+    margin-left: 2.25em;
+  }
+
+  .hoverLayout .cardContainer {
+    margin: -2.875em 0 0;
+  }
+}

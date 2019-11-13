@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ImageWithCard /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="wrapper leftAlignment plain"
+  >
+    <div
+      class="image"
+      style="background-image: url();"
+    />
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,10 @@
+:root {
+  --hds-theme-content-padding: 2em 6.25em;
+  --hds-theme-content-width: 72em;
+}
+
+@media all and (max-width: 768px) {
+  :root {
+    --hds-theme-content-padding: 0.5em 1em;
+  }
+}

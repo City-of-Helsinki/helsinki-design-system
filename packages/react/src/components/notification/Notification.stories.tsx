@@ -12,19 +12,19 @@ const WrapperDecorator = storyFn => <div style={{ padding: '10px', maxWidth: '40
 storiesOf('Notification', module)
   .addDecorator(WrapperDecorator)
   .add('default', () => (
-    <Notification labelText="This is the tool tip label text">
+    <Notification labelText="label">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
     </Notification>
   ))
   .add('with close action', () => (
-    <Notification labelText="This is the tool tip label text" onClickClose={action('close-button-click')}>
+    <Notification labelText="label" onClickClose={action('close-button-click')}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
     </Notification>
   ))
   .add('alternative with close action', () => (
-    <Notification alternative labelText="This is the tool tip label text" onClickClose={action('close-button-click')}>
+    <Notification alternative labelText="label" onClickClose={action('close-button-click')}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
     </Notification>
