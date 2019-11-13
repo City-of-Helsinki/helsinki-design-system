@@ -11,7 +11,7 @@
 
 .section .content {
   color: var(--hds-theme-color-primary-heading);
-  max-width: 72em;
+  max-width: var(--hds-theme-content-width);
   margin: 0 auto;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .section:not(.withKoros) .content {
-  padding: 2em 0;
+  padding: 6em 0;
 }
 
 .section.withKoros.basic {
