@@ -1,0 +1,10 @@
+---
+name: Pagination
+menu: Components
+---
+
+# Pagination
+
+---
+
+Pagination is used for splitting up content or data into several pages, with a control for navigating to the next or previous page. Use pagination whenever the amount of the content on your page is overwhelming for the user and distracts the focus of the content.
