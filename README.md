@@ -1,3 +1,5 @@
+:books: [Helsinki Design System documentation](https://city-of-helsinki.github.io/helsinki-design-system/)
+
 # City of Helsinki Design System
 
 > A design system is a collection of reusable components, guided by clear standards, that can be assembled together to build any number of applications. - [Design Systems Handbook](https://www.designbetter.co/design-systems-handbook)
@@ -21,10 +23,6 @@ Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scrip
 | lerna publish                      | Publish packages that have changed since the last release. |
 
 To ensure code quality in the repo, every package will have their `pre-commit` and `pre-push` scripts run automatically before git commit and push (added with [**Husky**](https://github.com/typicode/husky)).
-
-## Documentation
-
-[Helsinki Design System documentation](https://city-of-helsinki.github.io/helsinki-design-system/)
 
 ## Contributing
 
