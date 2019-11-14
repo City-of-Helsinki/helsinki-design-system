@@ -4,3 +4,4 @@ export { default as Notification, NotificationProps } from './components/notific
 export { default as Section, SectionProps } from './components/section/Section';
 export { default as Koros, KorosProps } from './components/koros/Koros';
 export { default as ImageWithCard, ImageWithCardProps } from './components/imagewithcard/ImageWithCard';
+export { default as Columns, ColumnsProps } from './components/columns/Columns';
