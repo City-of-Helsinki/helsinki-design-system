@@ -1142,14 +1142,16 @@ h5,
   padding: 2rem;
 }
 
-.Columns_columns__34aHN {
-  display: grid;
-  grid-template-columns: 50% 50%;
-}
+@media all and (min-width: 769px) {
+  .Columns_columns__34aHN {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
 
-.Columns_columns__34aHN > div {
-  width: calc(100% - 3em);
-  margin-left: 1em;
+  .Columns_columns__34aHN > div {
+    width: calc(100% - 3em);
+    margin-left: 1em;
+  }
 }
 
 @media all and (max-width: 768px) {
