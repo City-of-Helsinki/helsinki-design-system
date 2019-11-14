@@ -1,11 +1,13 @@
-.columns {
-  display: grid;
-  grid-template-columns: 50% 50%;
-}
+@media all and (min-width: 769px) {
+  .columns {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
 
-.columns > div {
-  width: calc(100% - 3em);
-  margin-left: 1em;
+  .columns > div {
+    width: calc(100% - 3em);
+    margin-left: 1em;
+  }
 }
 
 @media all and (max-width: 768px) {
