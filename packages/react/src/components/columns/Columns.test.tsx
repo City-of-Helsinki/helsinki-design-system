@@ -6,6 +6,6 @@ import Columns from './Columns';
 describe('<Columns /> spec', () => {
   it('renders the component', () => {
     const { asFragment } = render(<Columns />);
-    expect(asFragment()).toMatchSnapshot(); 
+    expect(asFragment()).toMatchSnapshot();
   });
 });
