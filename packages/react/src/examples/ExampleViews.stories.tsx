@@ -11,7 +11,7 @@ import TextInput from '../components/textinput/TextInput';
 
 const ExampleView = () => (
   <>
-    <Section color="secondary" koros="basic">
+    <Section color="secondary" korosType="basic">
       <h1>Lorem ipsum dolor sit</h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna

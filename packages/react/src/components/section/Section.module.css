@@ -1,102 +1,102 @@
 @import '~hds-core/lib/helsinki.css';
 
 .section {
-  composes: text-body from '~hds-core/lib/helsinki.css';
-}
-
-.section .contentWrapper {
-  padding: var(--hds-theme-content-padding);
-  background-color: var(--hds-theme-color-primary);
-}
-
-.section .content {
-  color: var(--hds-theme-color-primary-heading);
-  max-width: var(--hds-theme-content-width);
-  margin: 0 auto;
+  position: relative;
 }
 
 .section.withKoros {
-  fill: var(--hds-ui-color-white);
+  padding: 2em 0;
+  z-index: 1;
 }
 
-.section .contentWrapper {
+.section:not(.withKoros) {
+  padding: 4em 0;
+}
+
+.content {
+  padding: var(--hds-theme-content-padding);
+  max-width: var(--hds-theme-content-width);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.section.plain {
   background-color: var(--hds-ui-color-white);
-}
-
-.section .content {
   color: var(--hds-ui-color-black);
 }
 
-.section:not(.withKoros) .content {
-  padding: 5em 0;
-}
-
-.section.withKoros.basic {
-  margin: -1em 0;
-}
-
-.section.withKoros.beat {
-  margin: -5.1em 0;
-}
-
-.section.withKoros.pulse {
-  margin: -2.2em 0;
-}
-
-.section.withKoros.storm {
-  margin: -2.3em 0;
-}
-
-.section.withKoros.wave {
-  margin: -3.4em 0;
-}
-
-.section.primary.withKoros {
-  fill: var(--hds-theme-color-primary);
-}
-
-.section.primary .contentWrapper {
+.section.primary {
   background-color: var(--hds-theme-color-primary);
-}
-
-.section.primary .content {
   color: var(--hds-theme-color-primary-heading);
 }
 
-.section.secondary.withKoros {
-  fill: var(--hds-theme-color-secondary);
-}
-
-.section.secondary .contentWrapper {
+.section.secondary {
   background-color: var(--hds-theme-color-secondary);
-}
-
-.section.secondary .content {
   color: var(--hds-theme-color-secondary-heading);
 }
 
-.section.tertiary.withKoros {
-  fill: var(--hds-theme-color-tertiary);
-}
-
-.section.tertiary .contentWrapper {
+.section.tertiary {
   background-color: var(--hds-theme-color-tertiary);
-}
-
-.section.tertiary .content {
   color: var(--hds-theme-color-tertiary-heading);
 }
 
-@media all and (max-width: 768px) {
-  .section .content {
-    padding: 1em 0;
-  }
+.section.plain .koros {
+  fill: var(--hds-ui-color-white);
+}
 
-  .section:not(.withKoros) .content {
-    padding: 2em 0;
-  }
+.section.primary .koros {
+  fill: var(--hds-theme-color-primary);
+}
 
-  .section.withKoros + .section:not(.withKoros) .content {
-    margin: 3em 0;
-  }
+.section.secondary .koros {
+  fill: var(--hds-theme-color-secondary);
+}
+
+.section.tertiary .koros {
+  fill: var(--hds-theme-color-tertiary);
+}
+
+.koros {
+  position: absolute;
+}
+
+.koros.basic.topKoros {
+  top: -1em;
+}
+
+.koros.beat.topKoros {
+  top: -4.5em;
+}
+
+.koros.pulse.topKoros {
+  top: -2.2em;
+}
+
+.koros.storm.topKoros {
+  top: -2.3em;
+}
+
+.koros.wave.topKoros {
+  top: -3.4em;
+}
+
+.koros.basic.bottomKoros {
+  bottom: -1em;
+}
+
+.koros.beat.bottomKoros {
+  bottom: -4.5em;
+}
+
+.koros.pulse.bottomKoros {
+  bottom: -2.2em;
+}
+
+.koros.storm.bottomKoros {
+  bottom: -2.3em;
+}
+
+.koros.wave.bottomKoros {
+  bottom: -3.4em;
 }

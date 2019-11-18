@@ -23,7 +23,7 @@ storiesOf('Section', module)
   ))
   .add('primary with koros', () => (
     <>
-      <Section koros="basic">
+      <Section korosType="basic">
         <h1>Lorem Ipsum</h1>
         {placeholderText}
       </Section>
@@ -39,7 +39,7 @@ storiesOf('Section', module)
   .add('secondary with koros', () => (
     <>
       {placeholderImg}
-      <Section color="secondary" koros="basic">
+      <Section color="secondary" korosType="basic">
         <h1>Lorem Ipsum</h1>
         {placeholderText}
       </Section>
@@ -47,7 +47,7 @@ storiesOf('Section', module)
   ))
   .add('multiple sections', () => (
     <>
-      <Section color="secondary" koros="basic">
+      <Section color="secondary" korosType="basic">
         <h1>Lorem Ipsum</h1>
         {placeholderText}
       </Section>
@@ -56,27 +56,27 @@ storiesOf('Section', module)
         <h2>No Koros</h2>
         This section does not have any koros.
       </Section>
-      <Section koros="pulse">
+      <Section korosType="pulse">
         <h2>Pulse</h2>
         {placeholderText}
       </Section>
-      <Section color="secondary" />
-      <Section color="tertiary" koros="beat">
+      <Section color="secondary">Secondary non-koros section</Section>
+      <Section color="tertiary" korosType="beat">
         <h2>secondary Beat</h2>
         {placeholderText}
       </Section>
       <Section />
-      <Section color="secondary" koros="wave">
+      <Section color="secondary" korosType="wave">
         <h2>Wave</h2>
         {placeholderText}
       </Section>
       <Section />
-      <Section color="primary" koros="beat">
+      <Section color="primary" korosType="beat">
         <h2>primary Beat</h2>
         {placeholderText}
       </Section>
       <Section color="tertiary" />
-      <Section color="secondary" koros="storm">
+      <Section color="secondary" korosType="storm">
         <h2>Storm</h2>
         {placeholderText}
       </Section>
