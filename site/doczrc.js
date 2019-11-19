@@ -9,10 +9,12 @@ const themeConfig = {
 
 const menu = [
   "Helsinki Design System",
-  { name: "Get Started", menu: ["For designers", "For developers"] },
+  {
+    name: "Get Started",
+    menu: ["Introduction", "For Designers", "For Developers"]
+  },
   "Guidelines",
-  "Components",
-  "Community"
+  "Components"
 ];
 
 export default {

@@ -14,6 +14,23 @@ A text field is an input field that the user can interact with and input content
 It has a range of options and supports several text formats including numbers.
 Text fields are normally found within a form but can also be part of a modal or search. Common text input types include: usernames, descriptions, URLs, emails, addresses, and plain text searches.
 
+## General guidelines
+
+Allow the text input to reflect the length of the content you expect the user to enter.
+
+- _Text input:_ When a single line of text is expected.
+- _Text area:_ When the input is more than one sentence.
+
+Where possible, add programmatic assistance. Detect and pre-fill inputs to reduce errors and save time. Use sentence-case for default values, detected values, and auto-completion text.
+
+## Best practises
+
+Text fields should:
+
+- be clear with a meaningful label, 1-3 word
+- be labeled as _optional_ when something is not required
+- only ask for information which is really needed
+
 ## Basic usage
 
 <Playground>
@@ -24,15 +41,6 @@ Text fields are normally found within a form but can also be part of a modal or 
   />
 </Playground>
 
-## General guidelines
-
-Allow the text input to reflect the length of the content you expect the user to enter.
-
-- _Text input:_ When a single line of text is expected.
-- _Text area:_ When the input is more than one sentence.
-
-Where possible, add programmatic assistance. Detect and pre-fill inputs to reduce errors and save time. Use sentence-case for default values, detected values, and auto-completion text.
-
 ## Content
 
 1. Label: Should indicate what sort of information the field requires and should be short and concise. Put labels directly above their input and align them to the left.
@@ -40,10 +48,8 @@ Where possible, add programmatic assistance. Detect and pre-fill inputs to reduc
 3. Helper text: Gives context about a field's input.
 4. Validation marker: Warns in case the input value isn’t valid.
 
-## Best practises
+_Textfield component default state:_  
+![Textfield component](../../static/component-textfield-explained.png "Textfield component")
 
-Text fields should:
-
-- be clear with a meaningful label, 1-3 word
-- be labeled as _optional_ when something is not required
-- only ask for information which is really needed
+_Textfield component error state:_  
+![Textfield component error state](../../static/component-textfield-explained-error.png "Textfield component error state")
