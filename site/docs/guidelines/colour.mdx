@@ -11,9 +11,15 @@ menu: Guidelines
 import Colors from "../../src/components/Colors";
 import ColorBox from "../../src/components/ColorBox";
 
-## Helsinki Design System colours
+## HDS colours
 
-### Brand colours
+Helsinki Design System uses the colours from the City of Helsinki brands. It has a built-in default theme but also provides means to create new themes with little effort. When creating new themes, it's important to use the brand and UI colours defined in the system. For ease of use, these are provided as CSS variables in [hds-core](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core).
+
+## Colour accessibility
+
+We are committed to complying with AA standard contrast ratios. To do this, choose primary, secondary, and extended colours that support usability by ensuring sufficient colour contrast between elements so that people with low vision can see and use the interface. **If you create a new theme, you need to ensure that it is accessible.**
+
+## Brand colours
 
 | colour name (en)    |  colour name (fi) |  css var name        |                                                                                                                     |
 | ------------------- | ----------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------- |
@@ -29,6 +35,21 @@ import ColorBox from "../../src/components/ColorBox";
 | Summer              |  Kesä             |  summer              | <Colors colorvar="--hds-brand-color-summer" variations={["-dark-50", "", "-light-50", "-light-20"]} />              |
 | Suomenlinna         |  Suomenlinna      |  suomenlinna         | <Colors colorvar="--hds-brand-color-suomenlinna" variations={["-dark-50", "", "-light-50", "-light-20"]} />         |
 | Tram                |  Spåra            |  tram                | <Colors colorvar="--hds-brand-color-tram" variations={["-dark-50", "", "-light-50", "-light-20"]} />                |
+
+## UI colours
+
+Status colours indicate valid, invalid or informational states on the service.
+
+| status  | dark                                               |  base                                           | light                                                  |
+| ------- | -------------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------ |
+| error   | -                                                  | <ColorBox color="var(--hds-ui-color-error)"/>   | <ColorBox color="var(--hds-ui-color-error-light)" />   |
+| success | -                                                  | <ColorBox color="var(--hds-ui-color-success)"/> | <ColorBox color="var(--hds-ui-color-success-light)" /> |
+| alert   | <ColorBox color="var(--hds-ui-color-alert-dark)"/> | <ColorBox color="var(--hds-ui-color-alert)"/>   | <ColorBox color="var(--hds-ui-color-alert-light)" />   |
+| info    | -                                                  | <ColorBox color="var(--hds-ui-color-info)"/>    | <ColorBox color="var(--hds-ui-color-info-light)" />    |
+
+|           | black                                         |  90                                              | 80                                               | 70                                               | 60                                               | 50                                               | 40                                               | 30                                               | 20                                               | 10                                               | 5                                               | white                                          |
+| --------- | --------------------------------------------- | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ----------------------------------------------- | ---------------------------------------------- |
+| greyscale | <ColorBox color="var(--hds-ui-color-black)"/> | <ColorBox color="var(--hds-ui-color-black-90)"/> | <ColorBox color="var(--hds-ui-color-black-80)"/> | <ColorBox color="var(--hds-ui-color-black-70)"/> | <ColorBox color="var(--hds-ui-color-black-60)"/> | <ColorBox color="var(--hds-ui-color-black-50)"/> | <ColorBox color="var(--hds-ui-color-black-40)"/> | <ColorBox color="var(--hds-ui-color-black-30)"/> | <ColorBox color="var(--hds-ui-color-black-20)"/> | <ColorBox color="var(--hds-ui-color-black-10)"/> | <ColorBox color="var(--hds-ui-color-black-5)"/> | <ColorBox color="var(--hds-ui-color-white)" /> |
 
 ## Using colours
 
@@ -51,22 +72,3 @@ The default theme has three base colours: _Coat of Arms Blue, Fog_ and _Suomenli
 | primary      | Coat of Arms Blue | <ColorBox color="var(--hds-theme-color-primary-dark)"/>   | <ColorBox color="var(--hds-theme-color-primary)"/>   | <ColorBox color="var(--hds-theme-color-primary-light)"/>   | <ColorBox color="var(--hds-theme-color-primary-extra-light)" />   |
 | secondary    | Fog               | <ColorBox color="var(--hds-theme-color-secondary-dark)"/> | <ColorBox color="var(--hds-theme-color-secondary)"/> | <ColorBox color="var(--hds-theme-color-secondary-light)"/> | <ColorBox color="var(--hds-theme-color-secondary-extra-light)" /> |
 | tertiary     | Suomenlinna       | <ColorBox color="var(--hds-theme-color-tertiary-dark)"/>  | <ColorBox color="var(--hds-theme-color-tertiary)"/>  | <ColorBox color="var(--hds-theme-color-tertiary-light)"/>  | <ColorBox color="var(--hds-theme-color-tertiary-extra-light)" />  |
-
-### UI colours
-
-Status colours indicate valid, invalid or informational states on the service.
-
-| status  | dark                                               |  base                                           | light                                                  |
-| ------- | -------------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------ |
-| error   | -                                                  | <ColorBox color="var(--hds-ui-color-error)"/>   | <ColorBox color="var(--hds-ui-color-error-light)" />   |
-| success | -                                                  | <ColorBox color="var(--hds-ui-color-success)"/> | <ColorBox color="var(--hds-ui-color-success-light)" /> |
-| alert   | <ColorBox color="var(--hds-ui-color-alert-dark)"/> | <ColorBox color="var(--hds-ui-color-alert)"/>   | <ColorBox color="var(--hds-ui-color-alert-light)" />   |
-| info    | -                                                  | <ColorBox color="var(--hds-ui-color-info)"/>    | <ColorBox color="var(--hds-ui-color-info-light)" />    |
-
-|           | black                                         |  90                                              | 80                                               | 70                                               | 60                                               | 50                                               | 40                                               | 30                                               | 20                                               | 10                                               | 5                                               | white                                          |
-| --------- | --------------------------------------------- | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ----------------------------------------------- | ---------------------------------------------- |
-| greyscale | <ColorBox color="var(--hds-ui-color-black)"/> | <ColorBox color="var(--hds-ui-color-black-90)"/> | <ColorBox color="var(--hds-ui-color-black-80)"/> | <ColorBox color="var(--hds-ui-color-black-70)"/> | <ColorBox color="var(--hds-ui-color-black-60)"/> | <ColorBox color="var(--hds-ui-color-black-50)"/> | <ColorBox color="var(--hds-ui-color-black-40)"/> | <ColorBox color="var(--hds-ui-color-black-30)"/> | <ColorBox color="var(--hds-ui-color-black-20)"/> | <ColorBox color="var(--hds-ui-color-black-10)"/> | <ColorBox color="var(--hds-ui-color-black-5)"/> | <ColorBox color="var(--hds-ui-color-white)" /> |
-
-## Colour accessibility
-
-We are committed to complying with AA standard contrast ratios. To do this, choose primary, secondary, and extended colours that support usability by ensuring sufficient color contrast between elements so that people with low vision can see and use the interface.
