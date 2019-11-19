@@ -3,55 +3,51 @@ name: github pages
 on:
   push:
     branches:
-    - master
-    - feature/buildstorybook
+      - master
+      - feature/buildstorybook
 
 jobs:
   build-deploy:
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@master
+      - uses: actions/checkout@master
 
-    - name: setup node
-      uses: actions/setup-node@v1
-      with:
-        node-version: '10.x'
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "10.x"
 
-    - name: install base packages
-      run: yarn
+      - name: install base packages
+        run: yarn
 
-    - name: install site packages
-      run: yarn
-      working-directory: ./site
+      - name: build base packages
+        run: yarn build
 
-    - name: install react packages
-      run: yarn
-      working-directory: ./packages/react
-    
-    - name: build base packages
-      run: yarn build
-    
-    - name: build docz site
-      run: yarn run build
-      working-directory: ./site
-      env:
-        DOCZ_BASE: /helsinki-design-system/
-    
-    - name: build storybook site
-      run: yarn build-storybook
-      working-directory: ./packages/react
-    
-    - name: move storybook under docz
-      run: mv ./packages/react/storybook-static ./site/public/storybook
+      - name: install site packages
+        run: yarn
+        working-directory: ./site
 
-    - name: Deploy
-      env:
-        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        PUBLISH_BRANCH: gh-pages
-        PUBLISH_DIR: ./site/public
-        SCRIPT_MODE: true
-      run: |
-        wget https://raw.githubusercontent.com/peaceiris/actions-gh-pages/v2.5.0/entrypoint.sh
-        bash ./entrypoint.sh
-        # with:
-        # keepFiles: true
+      - name: build docz site
+        run: yarn run build
+        working-directory: ./site
+        env:
+          DOCZ_BASE: /helsinki-design-system/
+
+      - name: build storybook site
+        run: yarn build-storybook
+        working-directory: ./packages/react
+
+      - name: move storybook under docz
+        run: mv ./packages/react/storybook-static ./site/public/storybook
+
+      - name: Deploy
+        env:
+          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: ./site/public
+          SCRIPT_MODE: true
+        run: |
+          wget https://raw.githubusercontent.com/peaceiris/actions-gh-pages/v2.5.0/entrypoint.sh
+          bash ./entrypoint.sh
+          # with:
+          # keepFiles: true
