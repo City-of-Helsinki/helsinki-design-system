@@ -854,7 +854,8 @@ h5,
 }
 
 .Koros_koros__kjwBh.Koros_flipHorizontal__2TPuw {
-  transform: scaleY(-1);
+  -webkit-transform: scaleY(-1);
+          transform: scaleY(-1);
 }
 
 .Notification_notification__1QWUO {
