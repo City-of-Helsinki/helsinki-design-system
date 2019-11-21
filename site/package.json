@@ -15,6 +15,6 @@
   },
   "devDependencies": {
     "hds-core": "file:../packages/core/",
-    "hds-react": "file:../packages/react/src/"
+    "hds-react": "file:../packages/react/"
   }
 }
