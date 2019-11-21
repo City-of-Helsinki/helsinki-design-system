@@ -9,12 +9,22 @@
     "build": "docz build"
   },
   "dependencies": {
-    "docz": "^2.0.0-rc.67",
+    "docz": "^2.0.0-rc.75",
     "react": "^16.11.0",
+<<<<<<< HEAD
+    "react-helmet": "^5.2.1",
     "react-dom": "^16.11.0"
   },
   "devDependencies": {
-    "hds-core": "file:../packages/core/",
-    "hds-react": "file:../packages/react/"
+    "hds-core": "../hds-core",
+    "hds-react": "../hds-react"
+=======
+    "react-dom": "^16.11.0",
+    "react-helmet": "^5.2.1"
+  },
+  "devDependencies": {
+    "hds-core": "0.3.0",
+    "hds-react": "0.3.0"
+>>>>>>> 931102e... fix installation
   }
 }

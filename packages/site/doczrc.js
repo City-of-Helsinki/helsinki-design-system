@@ -21,7 +21,7 @@ export default {
   dest: "/public",
   public: "/static",
   typescript: true,
-  files: "docs/**/*.{md,markdown,mdx}",
+  files: "docs/**/*.{markdown,mdx}",
   title: "Helsinki Design System",
   themeConfig,
   menu

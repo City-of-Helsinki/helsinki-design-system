@@ -10,6 +10,7 @@ module.exports = {
     path: path.resolve(__dirname, 'lib'),
     libraryTarget: 'umd',
     library: 'hds-react',
+    globalObject: 'window',
   },
   module: {
     rules: [
