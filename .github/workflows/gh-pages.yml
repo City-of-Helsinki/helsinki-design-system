@@ -22,14 +22,9 @@ jobs:
 
       - name: build packages
         run: yarn build
-        env:
-          DOCZ_BASE: /helsinki-design-system/
 
       - name: build storybook
         run: yarn build:storybook
-
-      - name: move storybook
-        run: yarn stage:storybook
 
       - name: deploy
         run: yarn deploy

@@ -18,6 +18,7 @@ const menu = [
 ];
 
 export default {
+  base: "/helsinki-design-system/",
   dest: "/public",
   public: "/static",
   typescript: true,

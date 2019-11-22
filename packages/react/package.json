@@ -22,7 +22,7 @@
     "pre-commit": "yarn -s lint",
     "pre-push": "yarn -s test && yarn build",
     "storybook": "start-storybook -p 6006 --quiet",
-    "build-storybook": "build-storybook --loglevel error -o storybook-static",
+    "build-storybook": "build-storybook --loglevel error -o ../../site/public/storybook",
     "test": "jest"
   },
   "devDependencies": {
