@@ -26,21 +26,7 @@ The documentation is written as md/mdx files in the `docs/` folder. Docz doesn't
 
 In addition to the markdown, the file contains a frontmatter header that will be used to give the page it's settings (see [Document settings](https://www.docz.site/docs/document-settings)).
 
-Example doc file:
-
-```
----
-name: Example page
-route: /doc-example
-menu: Examples
----
-
-# Example page
-
-Hello, I'm an example of a mdx file!
-```
-
-Here the page's name is _Example page_, it's path will be \<site-url>/_doc-example_ and it will be a subitem of the _Examples_ menu item in the site navigation.
+[Example doc file](examples/example.mdx)
 
 ### Deployment
 
