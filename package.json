@@ -7,11 +7,14 @@
   ],
   "scripts": {
     "build": "lerna run build",
-    "bootstrap": "lerna bootstrap --use-workspaces",
+    "build:core": "lerna run --scope hds-core build",
+    "build:react": "lerna run --scope hds-react build",
+    "build:site": "lerna run --scope site build",
+    "build:storybook": "lerna run --scope hds-react build-storybook",
     "start:react": "lerna run --scope hds-core --scope hds-react start --parallel",
-    "build:react": "lerna run --scope hds-core --scope hds-react build",
     "husky:pre-commit": "lerna run --concurrency 1 --stream pre-commit",
-    "husky:pre-push": "lerna run --concurrency 1 --stream pre-push"
+    "husky:pre-push": "lerna run --concurrency 1 --stream pre-push",
+    "deploy": "gh-pages -d ./site/public"
   },
   "devDependencies": {
     "husky": "^3.0.9",

@@ -20,36 +20,18 @@ jobs:
       - name: install base packages
         run: yarn
 
-      - name: build base packages
+      - name: build packages
         run: yarn build
-
-      - name: install site packages
-        run: yarn
-        working-directory: ./site
-
-      - name: build docz site
-        run: |
-          yarn run build
-          ./check_build.sh
-        working-directory: ./site
         env:
           DOCZ_BASE: /helsinki-design-system/
 
-      - name: build storybook site
-        run: yarn build-storybook
-        working-directory: ./packages/react
+      - name: build storybook
+        run: yarn build:storybook
 
-      - name: move storybook under docz
-        run: mv ./packages/react/storybook-static ./site/public/storybook
+      - name: move storybook
+        run: yarn stage:storybook
 
-      - name: Deploy
+      - name: deploy
+        run: yarn deploy
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./site/public
-          SCRIPT_MODE: true
-        run: |
-          wget https://raw.githubusercontent.com/peaceiris/actions-gh-pages/v2.5.0/entrypoint.sh
-          bash ./entrypoint.sh
-          # with:
-          # keepFiles: true

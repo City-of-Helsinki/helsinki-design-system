@@ -4,6 +4,11 @@
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
+  "workspaces": {
+    "nohoist": [
+      "@storybook/**"
+    ]
+  },
   "scripts": {
     "build": "yarn run lint && yarn run tcm && yarn run tsc:es5 && yarn run tsc:es6 && webpack --mode production",
     "postbuild": "yarn run copy-css-modules",
@@ -17,7 +22,7 @@
     "pre-commit": "yarn -s lint",
     "pre-push": "yarn -s test && yarn build",
     "storybook": "start-storybook -p 6006 --quiet",
-    "build-storybook": "build-storybook --loglevel error",
+    "build-storybook": "build-storybook --loglevel error -o storybook-static",
     "test": "jest"
   },
   "devDependencies": {

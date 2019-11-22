@@ -14,7 +14,10 @@
     "react-dom": "^16.11.0"
   },
   "devDependencies": {
-    "hds-core": "file:../packages/core/",
-    "hds-react": "file:../packages/react/"
+    "gh-pages": "^2.1.1",
+    "hds-core": "^0.3.0",
+    "hds-react": "^0.3.1",
+    "react-helmet": "^5.2.1",
+    "rimraf": "^3.0.0"
   }
 }
