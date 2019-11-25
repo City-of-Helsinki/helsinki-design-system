@@ -18,7 +18,7 @@
   position: absolute;
   top: 1.25em;
   right: 1.25em;
-  fill: var(--hds-theme-color-primary-light);
+  fill: var(--hds-theme-color-primary);
 }
 
 .buttonCloseText {
@@ -42,4 +42,8 @@
 .alternative {
   border-color: var(--hds-theme-color-secondary);
   background-color: var(--hds-theme-color-secondary-extra-light);
+}
+
+.alternative .buttonClose {
+  fill: var(--hds-theme-color-secondary);
 }
