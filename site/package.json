@@ -4,12 +4,22 @@
   "private": true,
   "description": "Documentation for Helsinki Design System",
   "license": "MIT",
+  "workspaces": {
+    "packages": [
+      "core/*",
+      "other-packages/*"
+    ],
+    "nohoist": [
+      "gatsby/*",
+      "docs/*"
+    ]
+  },
   "scripts": {
     "start": "docz dev",
     "build": "docz build"
   },
   "dependencies": {
-    "docz": "^2.0.0-rc.67",
+    "docz": "^2.0.0-rc.76",
     "react": "^16.11.0",
     "react-dom": "^16.11.0"
   },

@@ -19,7 +19,7 @@ const menu = [
 
 export default {
   base: "/helsinki-design-system/",
-  dest: "/public",
+  dest: "./public",
   public: "/static",
   typescript: true,
   files: "docs/**/*.{md,markdown,mdx}",

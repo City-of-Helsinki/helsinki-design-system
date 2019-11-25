@@ -40,7 +40,6 @@ menu: Examples
 Hello, I'm an example of a mdx file!
 ```
 
-Here the page's name is _Example page_, it's path will be \<site-url>/_doc-example_ and it will be a subitem of the _Examples_ menu item in the site navigation.
 
 ### Deployment
 

@@ -3,7 +3,9 @@
   "private": true,
   "license": "MIT",
   "workspaces": [
-    "packages/*"
+    "packages/core",
+    "packages/react",
+    "site"
   ],
   "scripts": {
     "build": "lerna run build",
