@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - feature/buildstorybook
 
 jobs:
   build-deploy:
@@ -26,7 +25,9 @@ jobs:
       - name: build storybook
         run: yarn build:storybook
 
-      - name: deploy
-        run: yarn deploy
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v2.5.0
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: ./site/public
