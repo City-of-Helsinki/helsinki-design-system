@@ -58,6 +58,7 @@
     "prettier": "^1.18.2",
     "react-scripts": "^3.2.0",
     "react-test-renderer": "^16.10.2",
+    "storybook-addon-jsx": "^7.1.13",
     "storybook-addon-root-attribute": "^0.2.2",
     "style-loader": "^1.0.0",
     "typed-css-modules": "^0.6.2",
