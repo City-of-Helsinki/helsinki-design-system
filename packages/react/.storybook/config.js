@@ -1,6 +1,8 @@
 import { configure, addDecorator, addParameters } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';
 import { withRootAttribute } from 'storybook-addon-root-attribute';
+import { jsxDecorator } from 'storybook-addon-jsx';
+
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 import './index.css';
@@ -18,6 +20,8 @@ const viewports = {
     },
   },
 };
+
+addDecorator(jsxDecorator);
 
 addDecorator(withA11y);
 addParameters({
