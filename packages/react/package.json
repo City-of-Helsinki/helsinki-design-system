@@ -68,7 +68,8 @@
   },
   "dependencies": {
     "hds-core": "^0.3.0",
-    "lodash.uniqueid": "^4.0.1"
+    "lodash.uniqueid": "^4.0.1",
+    "react-spring": "^8.0.27"
   },
   "peerDependencies": {
     "react": "^16.8.0",
