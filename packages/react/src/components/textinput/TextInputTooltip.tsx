@@ -1,5 +1,5 @@
 import React from 'react';
-import { Transition } from 'react-spring/renderprops';
+import { Transition } from 'react-spring/renderprops.cjs';
 
 import Notification from '../notification/Notification';
 
