@@ -1,0 +1,16 @@
+@import '~hds-core/lib/helsinki.css';
+
+.buttonCloseText {
+  composes: hiddenFromScreen from '~hds-core/lib/helsinki.css';
+}
+
+.buttonClose {
+  position: absolute;
+  top: 1.25em;
+  right: 1.25em;
+  fill: var(--hds-theme-color-primary);
+}
+
+.buttonClose.alternative {
+  fill: var(--hds-theme-color-secondary);
+}
