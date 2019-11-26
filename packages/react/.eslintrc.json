@@ -24,29 +24,20 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": [
-          "**/*.test.ts",
-          "**/*.test.tsx",
-          "**/test*.ts*",
-          "**/*.stories.tsx"
-        ]
+        "devDependencies": ["**/*.test.ts", "**/*.test.tsx", "**/test*.ts*", "**/*.stories.tsx"]
       }
     ],
     "import/order": [
       "error",
       {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          ["parent", "sibling", "index"]
-        ],
+        "groups": ["builtin", "external", "internal", ["parent", "sibling", "index"]],
         "newlines-between": "always"
       }
     ],
     "react/jsx-filename-extension": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
+    "react/jsx-curly-newline": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "react/prop-types": "off",
     "jsx-a11y/label-has-associated-control": [
