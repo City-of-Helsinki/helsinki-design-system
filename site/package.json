@@ -4,9 +4,15 @@
   "private": true,
   "description": "Documentation for Helsinki Design System",
   "license": "MIT",
+  "workspaces": {
+    "nohoist": [
+      "gatsby",
+      "gatsby/**"
+    ]
+  },
   "scripts": {
     "start": "docz dev",
-    "build": "docz build"
+    "build": "rimraf .docz/ public/ && docz build"
   },
   "dependencies": {
     "docz": "^2.0.0-rc.67",
@@ -14,7 +20,9 @@
     "react-dom": "^16.11.0"
   },
   "devDependencies": {
-    "hds-core": "file:../packages/core/",
-    "hds-react": "file:../packages/react/"
+    "hds-core": "^0.3.0",
+    "hds-react": "^0.3.1",
+    "react-helmet": "^5.2.1",
+    "rimraf": "^3.0.0"
   }
 }

@@ -17,25 +17,26 @@ jobs:
         with:
           node-version: "10.x"
 
-      - name: install base packages
+      - name: install dependencies
         run: yarn
 
-      - name: build base packages
+      - name: build core package
         run: yarn build
+        working-directory: ./packages/core
 
-      - name: install site packages
-        run: yarn
-        working-directory: ./site
+      - name: build react package
+        run: yarn build
+        working-directory: ./packages/react
 
       - name: build docz site
         run: |
-          yarn run build
+          yarn build
           ./check_build.sh
         working-directory: ./site
         env:
           DOCZ_BASE: /helsinki-design-system/
 
-      - name: build storybook site
+      - name: build storybook
         run: yarn build-storybook
         working-directory: ./packages/react
 
