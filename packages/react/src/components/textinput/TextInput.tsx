@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useState } from 'react';
 
-import Notification from '../notification/Notification';
 import IconLock from '../../icons/IconLock';
 import IconTooltip from '../../icons/IconTooltip';
 import styles from './TextInput.module.css';
+import TextInputTooltip from './TextInputTooltip';
 
 export type TextInputProps = {
   id: string;
@@ -62,9 +62,14 @@ export default ({
   ) : null;
 
   const tooltip: JSX.Element = tooltipText ? (
-    <Notification alternative={alternative} labelText={tooltipLabel} onClickClose={() => toggleTooltip(false)}>
+    <TextInputTooltip
+      open={tooltipOpen}
+      alternative={alternative}
+      labelText={tooltipLabel}
+      onClickClose={() => toggleTooltip(false)}
+    >
       {tooltipText}
-    </Notification>
+    </TextInputTooltip>
   ) : null;
 
   const helper: JSX.Element = helperText ? <div className={styles.helperText}>{helperText}</div> : null;
@@ -92,7 +97,7 @@ export default ({
     >
       {label}
       {tooltipIcon}
-      {tooltipOpen && tooltip}
+      {tooltip && tooltip}
       <div className={styles.inputWrapper}>
         <input
           className={styles.input}
