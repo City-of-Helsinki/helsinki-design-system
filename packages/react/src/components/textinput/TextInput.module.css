@@ -5,6 +5,7 @@
 .label {
   composes: text-sm from '~hds-core/lib/helsinki.css';
   composes: text-bold from '~hds-core/lib/helsinki.css';
+  margin-bottom: 0.2em;
   display: block;
 }
 
@@ -25,6 +26,21 @@
 .invalidText {
   composes: text-sm from '~hds-core/lib/helsinki.css';
   color: var(--hds-ui-color-error);
+}
+
+.iconTooltip {
+  width: 1.4375em;
+  height: 1.4375em;
+}
+
+.iconClose {
+  width: 1.125em;
+  height: 1.125em;
+}
+
+.iconLock {
+  width: 1em;
+  height: 1.375em;
 }
 
 /* INPUT */
@@ -65,13 +81,8 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 1.25em;
   line-height: 0;
   fill: var(--hds-ui-color-black-80);
-}
-
-.buttonTooltip svg {
-  width: 100%;
 }
 
 .buttonTooltipText {

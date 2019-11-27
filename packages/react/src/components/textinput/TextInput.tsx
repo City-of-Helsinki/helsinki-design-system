@@ -57,7 +57,7 @@ export default ({
 
   const tooltipIcon: JSX.Element = tooltipText ? (
     <button type="button" className={styles.buttonTooltip} onClick={() => setTooltipOpen(!isTooltipOpen)}>
-      <IconTooltip />
+      <IconTooltip className={styles.iconTooltip} />
       <span className={styles.buttonTooltipText}>show tooltip</span>
     </button>
   ) : null;
@@ -70,7 +70,7 @@ export default ({
           type="button"
           onClick={() => setTooltipOpen(false)}
         >
-          <IconClose />
+          <IconClose className={styles.iconClose} />
         </button>
         {tooltipText}
       </TextInputTooltip>
@@ -83,7 +83,7 @@ export default ({
 
   const inputIcon = readOnly ? (
     <div className={styles.inputIcon}>
-      <IconLock />
+      <IconLock className={styles.iconLock} />
     </div>
   ) : null;
 
