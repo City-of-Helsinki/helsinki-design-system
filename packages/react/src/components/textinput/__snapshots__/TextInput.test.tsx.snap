@@ -53,11 +53,6 @@ exports[`<TextInput /> spec renders the component with tooltip 1`] = `
           fill-rule="evenodd"
         />
       </svg>
-      <span
-        class="buttonTooltipText"
-      >
-        show tooltip
-      </span>
     </button>
     <div
       class="inputWrapper"
