@@ -28,16 +28,6 @@
   color: var(--hds-ui-color-error);
 }
 
-.iconTooltip {
-  width: 1.4375em;
-  height: 1.4375em;
-}
-
-.iconClose {
-  width: 1.125em;
-  height: 1.125em;
-}
-
 .iconLock {
   width: 1em;
   height: 1.375em;
@@ -77,26 +67,6 @@
   background-color: var(--hds-ui-color-black-5);
 }
 
-.buttonTooltip {
-  position: absolute;
-  top: 0;
-  right: 0;
-  line-height: 0;
-  fill: var(--hds-ui-color-black-80);
-}
-
-.buttonTooltipText {
-  composes: hiddenFromScreen from '~hds-core/lib/helsinki.css';
-}
-
-.buttonCloseTooltip {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 1.25em;
-  fill: var(--hds-theme-color-primary);
-}
-
 .inputIcon {
   border: solid 2px var(--hds-ui-color-black-20);
   border-width: 0 2px;
@@ -133,14 +103,6 @@
 
 .alternative.readOnly .input:focus {
   border-color: var(--hds-theme-color-secondary);
-}
-
-.alternative .buttonTooltip {
-  fill: var(--hds-theme-color-secondary);
-}
-
-.alternative .buttonCloseTooltip {
-  fill: var(--hds-theme-color-secondary);
 }
 
 /* INPUT FOCUS */

@@ -1,10 +1,8 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 
+import Tooltip from '../tooltip/Tooltip';
 import IconLock from '../../icons/IconLock';
-import IconTooltip from '../../icons/IconTooltip';
-import IconClose from '../../icons/IconClose';
 import styles from './TextInput.module.css';
-import TextInputTooltip from './TextInputTooltip';
 
 export type TextInputProps = {
   id: string;
@@ -47,34 +45,16 @@ export default ({
   type = 'text',
   value = undefined,
 }: TextInputProps) => {
-  const [isTooltipOpen, setTooltipOpen] = useState(false);
-
   const label: JSX.Element = labelText ? (
     <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hiddenLabel : ''}`}>
       {labelText}
     </label>
   ) : null;
 
-  const tooltipIcon: JSX.Element = tooltipText ? (
-    <button type="button" className={styles.buttonTooltip} onClick={() => setTooltipOpen(!isTooltipOpen)}>
-      <IconTooltip className={styles.iconTooltip} />
-      <span className={styles.buttonTooltipText}>show tooltip</span>
-    </button>
-  ) : null;
-
   const tooltip: JSX.Element = tooltipText ? (
-    <>
-      <TextInputTooltip open={isTooltipOpen} alternative={alternative} labelText={tooltipLabel}>
-        <button
-          className={[styles.buttonCloseTooltip, alternative && styles.alternative].filter(e => e).join(' ')}
-          type="button"
-          onClick={() => setTooltipOpen(false)}
-        >
-          <IconClose className={styles.iconClose} />
-        </button>
-        {tooltipText}
-      </TextInputTooltip>
-    </>
+    <Tooltip alternative={alternative} labelText={tooltipLabel}>
+      {tooltipText}
+    </Tooltip>
   ) : null;
 
   const helper: JSX.Element = helperText ? <div className={styles.helperText}>{helperText}</div> : null;
@@ -101,7 +81,6 @@ export default ({
         .join(' ')}
     >
       {label}
-      {tooltipIcon}
       {tooltip && tooltip}
       <div className={styles.inputWrapper}>
         <input
