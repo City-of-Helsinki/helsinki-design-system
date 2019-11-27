@@ -42,10 +42,10 @@ exports[`<TextInput /> spec renders the component with tooltip 1`] = `
       type="button"
     >
       <svg
-        class=""
-        height="23"
+        class="iconTooltip"
+        height="100%"
         viewBox="0 0 23 23"
-        width="23"
+        width="100%"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path

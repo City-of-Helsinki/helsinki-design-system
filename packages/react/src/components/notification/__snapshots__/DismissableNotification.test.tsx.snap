@@ -13,9 +13,9 @@ exports[`<DismissableNotification /> spec renders the component 1`] = `
       >
         <svg
           class="iconInfo"
-          height="23"
+          height="100%"
           viewBox="0 0 23 23"
-          width="23"
+          width="100%"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -37,10 +37,10 @@ exports[`<DismissableNotification /> spec renders the component 1`] = `
           type="button"
         >
           <svg
-            class=""
-            height="15"
+            class="iconClose"
+            height="100%"
             viewBox="0 0 15 15"
-            width="15"
+            width="100%"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
