@@ -27,7 +27,7 @@ export default ({ children, labelText, alternative = false }: DismissableNotific
                   setOpen(false);
                 }}
               >
-                <IconClose />
+                <IconClose className={styles.iconClose} />
               </button>
               {children}
             </Notification>
