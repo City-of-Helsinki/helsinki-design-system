@@ -14,17 +14,6 @@
   margin-bottom: 0.2em;
 }
 
-.buttonClose {
-  position: absolute;
-  top: 1.25em;
-  right: 1.25em;
-  fill: var(--hds-theme-color-primary);
-}
-
-.buttonCloseText {
-  composes: hiddenFromScreen from '~hds-core/lib/helsinki.css';
-}
-
 .label {
   padding-right: 1.25em;
 }
@@ -42,8 +31,4 @@
 .alternative {
   border-color: var(--hds-theme-color-secondary);
   background-color: var(--hds-theme-color-secondary-extra-light);
-}
-
-.alternative .buttonClose {
-  fill: var(--hds-theme-color-secondary);
 }
