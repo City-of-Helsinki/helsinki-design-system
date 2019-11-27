@@ -1,0 +1,33 @@
+@import '~hds-core/lib/helsinki.css';
+.tooltip {
+  margin: 0.75em 0 1.25em;
+  border-top: 0.625em solid var(--hds-theme-color-primary);
+  background-color: var(--hds-theme-color-primary-extra-light);
+  padding: 1em 1.25em 1.25em;
+  position: relative;
+}
+
+.iconInfo {
+  vertical-align: middle;
+  margin-right: 0.625em;
+  margin-bottom: 0.2em;
+}
+
+.label {
+  padding-right: 1.25em;
+}
+
+.labelText {
+  composes: text-bold from '~hds-core/lib/helsinki.css';
+  vertical-align: middle;
+}
+
+.bodyText {
+  composes: text-sm from '~hds-core/lib/helsinki.css';
+  padding: 0.75em 0;
+}
+
+.alternative {
+  border-color: var(--hds-theme-color-secondary);
+  background-color: var(--hds-theme-color-secondary-extra-light);
+}

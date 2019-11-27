@@ -78,6 +78,14 @@
   composes: hiddenFromScreen from '~hds-core/lib/helsinki.css';
 }
 
+.buttonCloseTooltip {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1.25em;
+  fill: var(--hds-theme-color-primary);
+}
+
 .inputIcon {
   border: solid 2px var(--hds-ui-color-black-20);
   border-width: 0 2px;
@@ -117,6 +125,10 @@
 }
 
 .alternative .buttonTooltip {
+  fill: var(--hds-theme-color-secondary);
+}
+
+.alternative .buttonCloseTooltip {
   fill: var(--hds-theme-color-secondary);
 }
 
