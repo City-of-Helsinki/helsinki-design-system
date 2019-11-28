@@ -16,7 +16,7 @@ const placeholderImg = <img src={imageFile} alt="" style={{ display: 'block', wi
 
 storiesOf('Section', module)
   .add('plain', () => (
-    <Section color="">
+    <Section>
       <h1>Lorem Ipsum</h1>
       {placeholderText}
     </Section>
