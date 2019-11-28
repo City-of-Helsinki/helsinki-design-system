@@ -1,0 +1,31 @@
+@import '~hds-core/lib/helsinki.css';
+
+.buttonClose {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1.875em;
+  fill: var(--hds-theme-color-primary);
+}
+
+.iconClose {
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.buttonClose.alternative {
+  fill: var(--hds-theme-color-secondary);
+}
+
+@media all and (max-width: 768px) {
+  .buttonClose {
+    padding: 1.25em;
+    width: 4.25em;
+    height: 4.25em;
+  }
+
+  .iconClose {
+    width: 1.125em;
+    height: 1.125em;
+  }
+}

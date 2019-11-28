@@ -2,27 +2,40 @@
 
 .notification {
   margin: 0.75em 0 1.25em;
-  border-top: 0.625em solid var(--hds-theme-color-primary);
+  padding: 1.875em 1.875em 1.25em;
+  border: 0 solid var(--hds-theme-color-primary);
+  border-left-width: 0.625em;
   background-color: var(--hds-theme-color-primary-extra-light);
-  padding: 1em 1.25em 1.25em;
   position: relative;
+}
+
+.icon {
+  height: 1.6em;
+  margin-right: 0.625em;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
 }
 
 .iconInfo {
   vertical-align: middle;
-  margin-right: 0.625em;
-  margin-bottom: 0.2em;
+  width: 1.4375em;
+  height: 1.4375em;
 }
 
-.buttonClose {
-  position: absolute;
-  top: 1.25em;
-  right: 1.25em;
-  fill: var(--hds-theme-color-primary);
+.iconWarning {
+  width: 1.875em;
+  height: 1.5625em;
 }
 
-.buttonCloseText {
-  composes: hiddenFromScreen from '~hds-core/lib/helsinki.css';
+.iconAttention {
+  width: 1.4375em;
+  height: 1.4375em;
+}
+
+.iconCheck {
+  width: 1.25em;
+  height: 0.9375em;
 }
 
 .label {
@@ -31,19 +44,34 @@
 
 .labelText {
   composes: text-bold from '~hds-core/lib/helsinki.css';
+  composes: text-md from '~hds-core/lib/helsinki.css';
   vertical-align: middle;
 }
 
 .bodyText {
-  composes: text-sm from '~hds-core/lib/helsinki.css';
+  composes: text-body from '~hds-core/lib/helsinki.css';
   padding: 0.75em 0;
 }
 
-.alternative {
-  border-color: var(--hds-theme-color-secondary);
-  background-color: var(--hds-theme-color-secondary-extra-light);
+.alert {
+  border-color: var(--hds-ui-color-alert-dark);
+  background-color: var(--hds-ui-color-alert-light);
 }
 
-.alternative .buttonClose {
-  fill: var(--hds-theme-color-secondary);
+.error {
+  border-color: var(--hds-ui-color-error);
+  background-color: var(--hds-ui-color-error-light);
+}
+
+.success {
+  border-color: var(--hds-ui-color-success);
+  background-color: var(--hds-ui-color-success-light);
+}
+
+@media all and (max-width: 768px) {
+  .notification {
+    border-left-width: 0;
+    border-top-width: 0.625em;
+    padding: 1em 1.25em 1.25em;
+  }
 }

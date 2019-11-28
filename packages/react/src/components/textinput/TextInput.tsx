@@ -1,9 +1,9 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 
+import classNames from '../../utils/classNames';
+import Tooltip from '../tooltip/Tooltip';
 import IconLock from '../../icons/IconLock';
-import IconTooltip from '../../icons/IconTooltip';
 import styles from './TextInput.module.css';
-import TextInputTooltip from './TextInputTooltip';
 
 export type TextInputProps = {
   id: string;
@@ -46,30 +46,16 @@ export default ({
   type = 'text',
   value = undefined,
 }: TextInputProps) => {
-  const [tooltipOpen, toggleTooltip] = useState(false);
-
   const label: JSX.Element = labelText ? (
     <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hiddenLabel : ''}`}>
       {labelText}
     </label>
   ) : null;
 
-  const tooltipIcon: JSX.Element = tooltipText ? (
-    <button type="button" className={styles.buttonTooltip} onClick={() => toggleTooltip(!tooltipOpen)}>
-      <IconTooltip />
-      <span className={styles.buttonTooltipText}>show tooltip</span>
-    </button>
-  ) : null;
-
   const tooltip: JSX.Element = tooltipText ? (
-    <TextInputTooltip
-      open={tooltipOpen}
-      alternative={alternative}
-      labelText={tooltipLabel}
-      onClickClose={() => toggleTooltip(false)}
-    >
+    <Tooltip alternative={alternative} labelText={tooltipLabel}>
       {tooltipText}
-    </TextInputTooltip>
+    </Tooltip>
   ) : null;
 
   const helper: JSX.Element = helperText ? <div className={styles.helperText}>{helperText}</div> : null;
@@ -78,25 +64,22 @@ export default ({
 
   const inputIcon = readOnly ? (
     <div className={styles.inputIcon}>
-      <IconLock />
+      <IconLock className={styles.iconLock} />
     </div>
   ) : null;
 
   return (
     <div
-      className={[
+      className={classNames(
         styles.root,
         alternative && styles.alternative,
         disabled && styles.disabled,
         readOnly && styles.readOnly,
         invalid && styles.invalid,
         className,
-      ]
-        .filter(e => e)
-        .join(' ')}
+      )}
     >
       {label}
-      {tooltipIcon}
       {tooltip && tooltip}
       <div className={styles.inputWrapper}>
         <input

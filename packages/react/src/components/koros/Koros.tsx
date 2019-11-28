@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import _uniqueId from 'lodash.uniqueid';
 
+import classNames from '../../utils/classNames';
 import styles from './Koros.module.css';
 
 export type KorosProps = {
@@ -42,11 +43,7 @@ export default ({ flipHorizontal = false, color = '', type = 'basic', className 
   const [id] = useState(_uniqueId(`${patternName}-`));
 
   return (
-    <div
-      className={[styles.koros, styles[type], className, flipHorizontal && styles.flipHorizontal]
-        .filter(e => e)
-        .join(' ')}
-    >
+    <div className={classNames(styles.koros, styles[type], className, flipHorizontal && styles.flipHorizontal)}>
       {getSVG(type, id)}
     </div>
   );
