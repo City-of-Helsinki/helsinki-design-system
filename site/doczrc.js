@@ -14,7 +14,10 @@ const menu = [
     menu: ["Introduction", "For Designers", "For Developers"]
   },
   "Guidelines",
-  "Components"
+  {
+    name: "Components",
+    menu: ["HDS Components"]
+  }
 ];
 
 export default {
