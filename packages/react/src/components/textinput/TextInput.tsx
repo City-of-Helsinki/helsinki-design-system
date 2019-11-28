@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from 'react';
 
+import classNames from '../../utils/classNames';
 import Tooltip from '../tooltip/Tooltip';
 import IconLock from '../../icons/IconLock';
 import styles from './TextInput.module.css';
@@ -69,16 +70,14 @@ export default ({
 
   return (
     <div
-      className={[
+      className={classNames(
         styles.root,
         alternative && styles.alternative,
         disabled && styles.disabled,
         readOnly && styles.readOnly,
         invalid && styles.invalid,
         className,
-      ]
-        .filter(e => e)
-        .join(' ')}
+      )}
     >
       {label}
       {tooltip && tooltip}

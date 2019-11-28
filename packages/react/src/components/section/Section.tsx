@@ -1,5 +1,6 @@
 import React from 'react';
 
+import classNames from '../../utils/classNames';
 import Koros from '../koros/Koros';
 import styles from './Section.module.css';
 
@@ -13,7 +14,7 @@ export default ({ children, className = '', color = 'plain', korosType = null }:
   const withKoros = korosType !== null;
 
   return (
-    <div className={[styles.section, styles[color], withKoros && styles.withKoros, className].filter(e => e).join(' ')}>
+    <div className={classNames(styles.section, styles[color], withKoros && styles.withKoros, className)}>
       {withKoros && <Koros type={korosType} className={`${styles.koros} ${styles.topKoros} ${styles[korosType]}`} />}
       <div className={styles.content}>{children}</div>
       {withKoros && (

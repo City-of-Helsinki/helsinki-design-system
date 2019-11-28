@@ -1,5 +1,6 @@
 import React from 'react';
 
+import classNames from '../../utils/classNames';
 import styles from './ImageWithCard.module.css';
 
 export type ImageWithCardProps = React.PropsWithChildren<{
@@ -22,16 +23,14 @@ export default ({
 }: ImageWithCardProps) => {
   return (
     <div
-      className={[
+      className={classNames(
         styles.wrapper,
         styles[`${cardAlignment}Alignment`],
         cardLayout && styles[`${cardLayout}Layout`],
         styles[color],
         fullWidth && styles.fullWidth,
         className,
-      ]
-        .filter(e => e)
-        .join(' ')}
+      )}
     >
       <div className={styles.image} style={{ backgroundImage: `url(${src})` }} />
       {children && (

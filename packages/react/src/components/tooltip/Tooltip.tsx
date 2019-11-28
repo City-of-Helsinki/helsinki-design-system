@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Transition } from 'react-spring/renderprops.cjs';
 
+import classNames from '../../utils/classNames';
 import IconInfo from '../../icons/IconInfo';
 import IconTooltip from '../../icons/IconTooltip';
 import styles from './Tooltip.module.css';
@@ -20,11 +21,13 @@ export default ({ children, labelText, alternative = false }: TooltipProps) => {
         <IconTooltip className={styles.iconTooltip} />
       </button>
       <TooltipTransition open={isOpen}>
-        <div className={[styles.tooltip, alternative && styles.alternative].filter(e => e).join(' ')}>
+        <div className={classNames(styles.tooltip, alternative && styles.alternative)}>
           <div className={styles.label}>
-            <IconInfo className={styles.iconInfo} />
+            <span aria-hidden="true">
+              <IconInfo className={styles.iconInfo} />
+            </span>
             <button
-              className={[styles.buttonClose, alternative && styles.alternative].filter(e => e).join(' ')}
+              className={classNames(styles.buttonClose, alternative && styles.alternative)}
               type="button"
               onClick={() => setOpen(false)}
             >
