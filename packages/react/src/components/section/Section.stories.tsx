@@ -15,15 +15,21 @@ const placeholderText = (
 const placeholderImg = <img src={imageFile} alt="" style={{ display: 'block', width: '100%' }} />;
 
 storiesOf('Section', module)
-  .add('primary', () => (
+  .add('plain', () => (
     <Section>
+      <h1>Lorem Ipsum</h1>
+      {placeholderText}
+    </Section>
+  ))
+  .add('primary', () => (
+    <Section color="primary">
       <h1>Lorem Ipsum</h1>
       {placeholderText}
     </Section>
   ))
   .add('primary with koros', () => (
     <>
-      <Section korosType="basic">
+      <Section color="primary" korosType="basic">
         <h1>Lorem Ipsum</h1>
         {placeholderText}
       </Section>
@@ -40,6 +46,21 @@ storiesOf('Section', module)
     <>
       {placeholderImg}
       <Section color="secondary" korosType="basic">
+        <h1>Lorem Ipsum</h1>
+        {placeholderText}
+      </Section>
+    </>
+  ))
+  .add('tertiary', () => (
+    <Section color="tertiary">
+      <h1>Lorem Ipsum</h1>
+      {placeholderText}
+    </Section>
+  ))
+  .add('tertiary with koros', () => (
+    <>
+      {placeholderImg}
+      <Section color="tertiary" korosType="basic">
         <h1>Lorem Ipsum</h1>
         {placeholderText}
       </Section>
