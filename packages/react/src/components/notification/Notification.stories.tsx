@@ -17,20 +17,26 @@ storiesOf('Notification', module)
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
     </Notification>
   ))
-  .add('alternative', () => (
-    <Notification labelText="label">
+  .add('warning', () => (
+    <Notification labelText="label" type="warning">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+    </Notification>
+  ))
+  .add('error', () => (
+    <Notification labelText="label" type="error">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+    </Notification>
+  ))
+  .add('success', () => (
+    <Notification labelText="label" type="success">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
     </Notification>
   ))
   .add('dismissable', () => (
     <DismissableNotification labelText="label">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
-    </DismissableNotification>
-  ))
-  .add('dismissable alternative', () => (
-    <DismissableNotification alternative labelText="label">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
     </DismissableNotification>

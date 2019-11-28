@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Transition } from 'react-spring/renderprops.cjs';
 
+import classNames from '../../utils/classNames';
 import Notification from './Notification';
 import IconClose from '../../icons/IconClose';
 import styles from './DismissableNotification.module.css';
@@ -19,9 +20,9 @@ export default ({ children, labelText, alternative = false }: DismissableNotific
         show &&
         (props => (
           <div style={{ ...props, ...{ overflowY: 'hidden' } }}>
-            <Notification labelText={labelText} alternative={alternative}>
+            <Notification labelText={labelText}>
               <button
-                className={[styles.buttonClose, alternative && styles.alternative].filter(e => e).join(' ')}
+                className={classNames(styles.buttonClose, alternative && styles.alternative)}
                 type="button"
                 onClick={() => {
                   setOpen(false);

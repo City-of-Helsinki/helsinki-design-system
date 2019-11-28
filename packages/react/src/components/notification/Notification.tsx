@@ -1,19 +1,34 @@
 import React from 'react';
 
+import classNames from '../../utils/classNames';
 import styles from './Notification.module.css';
 import IconInfo from '../../icons/IconInfo';
+import IconWarning from '../../icons/IconWarning';
+import IconAttention from '../../icons/IconAttention';
+import IconCheck from '../../icons/IconCheck';
 
 export type NotificationProps = React.PropsWithChildren<{
   labelText: string;
-  alternative?: boolean;
+  type?: 'notification' | 'error' | 'warning' | 'success';
 }>;
 
-export default ({ children, labelText, alternative = false }: NotificationProps) => (
-  <div className={[styles.notification, alternative && styles.alternative].filter(e => e).join(' ')}>
-    <div className={styles.label}>
-      <IconInfo className={styles.iconInfo} />
-      <span className={styles.labelText}>{labelText}</span>
+const icons = {
+  notification: <IconInfo className={styles.iconInfo} />,
+  error: <IconWarning className={styles.iconWarning} />,
+  warning: <IconAttention className={styles.iconAttention} />,
+  success: <IconCheck className={styles.iconCheck} />,
+};
+
+export default ({ children, labelText, type = 'notification' }: NotificationProps) => {
+  return (
+    <div className={classNames(styles.notification, styles[type])}>
+      <div className={styles.label}>
+        <span className={styles.icon} aria-hidden="true">
+          {icons[type]}
+        </span>
+        <span className={styles.labelText}>{labelText}</span>
+      </div>
+      <div className={styles.bodyText}>{children}</div>
     </div>
-    <div className={styles.bodyText}>{children}</div>
-  </div>
-);
+  );
+};
