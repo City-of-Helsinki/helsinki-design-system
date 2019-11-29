@@ -13,8 +13,16 @@
   height: 1.25em;
 }
 
-.buttonClose.alternative {
-  fill: var(--hds-theme-color-secondary);
+.buttonClose.warning {
+  fill: var(--hds-ui-color-alert-dark);
+}
+
+.buttonClose.error {
+  fill: var(--hds-ui-color-error);
+}
+
+.buttonClose.success {
+  fill: var(--hds-ui-color-success);
 }
 
 @media all and (max-width: 768px) {
