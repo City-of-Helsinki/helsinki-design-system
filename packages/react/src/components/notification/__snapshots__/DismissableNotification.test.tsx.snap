@@ -38,7 +38,7 @@ exports[`<DismissableNotification /> spec renders the component 1`] = `
         class="bodyText"
       >
         <button
-          class="buttonClose"
+          class="buttonClose undefined"
           type="button"
         >
           <svg
