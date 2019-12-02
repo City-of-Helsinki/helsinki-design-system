@@ -18,7 +18,7 @@
     --hds-brand-color-suomenlinna-light-20
   );
   --hds-theme-color-secondary-dark: var(--hds-brand-color-suomenlinna-dark-50);
-  --hds-theme-color-secondary-heading: var(--hds-ui-color-black);
+  --hds-theme-color-secondary-heading: var(--hds-ui-color-white);
 
   /* tertiary color */
   --hds-theme-color-tertiary: var(--hds-brand-color-copper);
