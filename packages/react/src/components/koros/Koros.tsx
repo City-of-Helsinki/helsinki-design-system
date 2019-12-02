@@ -6,7 +6,6 @@ import styles from './Koros.module.css';
 
 export type KorosProps = {
   flipHorizontal?: boolean;
-  color?: string;
   type?: 'basic' | 'beat' | 'pulse' | 'storm' | 'wave';
   className?: string;
 };
@@ -38,8 +37,8 @@ const getSVG = (type: string, patternName: string): React.SVGProps<SVGElement> =
   );
 };
 
-export default ({ flipHorizontal = false, color = '', type = 'basic', className = '' }: KorosProps) => {
-  const patternName = `koros_${type}${color}`;
+export default ({ flipHorizontal = false, type = 'basic', className = '' }: KorosProps) => {
+  const patternName = `koros_${type}`;
   const [id] = useState(_uniqueId(`${patternName}-`));
 
   return (
