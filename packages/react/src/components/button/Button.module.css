@@ -1,0 +1,142 @@
+/* @import "colors";
+@import "variables"; */
+
+.button {
+  composes: text-medium from '~hds-core/lib/helsinki.css';
+  display: inline-block;
+  padding: 1.125em 2em;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.primary {
+  background-color: var(--hds-theme-color-primary);
+  color: var(--hds-theme-color-primary-heading);
+}
+
+.primary.disabled {
+  background-color: var(--hds-theme-color-primary-light);
+}
+
+.primary:hover {
+  background-color: var(--hds-theme-color-primary-dark);
+}
+
+.secondary {
+  background-color: var(--hds-theme-color-secondary);
+  color: var(--hds-theme-color-secondary-heading);
+}
+
+.secondary.disabled {
+  background-color: var(--hds-theme-color-secondary-light);
+}
+
+.secondary:hover {
+  background-color: var(--hds-theme-color-secondary-dark);
+}
+
+.tertiary {
+  background-color: var(--hds-theme-color-tertiary);
+  color: var(--hds-theme-color-tertiary-heading);
+}
+
+.tertiary.disabled {
+  background-color: var(--hds-theme-color-tertiary-light);
+}
+
+.tertiary:hover {
+  background-color: var(--hds-theme-color-tertiary-dark);
+}
+
+.supplementary {
+  color: var(--hds-theme-color-primary);
+}
+
+.supplementary.disabled {
+  color: var(--hds-ui-color-black-30);
+}
+
+.supplementary:hover {
+  text-decoration: underline;
+}
+
+.small {
+  padding: 0.5em 1.5em;
+}
+
+/* .supplementary:after {
+  content: '';
+  position: absolute;
+  background-color: red;
+  width: 100%;
+  height: 3px;
+  left: 0;
+  margin: 0 1.125em;
+} */
+
+/* .btn {
+  border: 1px solid $black;
+  color: $black;
+  text-align: center;
+  height: $buttonHeight;
+  padding: $buttonPadding;
+  cursor: pointer;
+  position: relative;
+  font-weight: $buttonFontWeight;
+
+  .iconAtEnd {
+    svg {
+      height: 1.25rem;
+      width: 1.25rem;
+      fill: $hel-white;
+      stroke: $hel-white;
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  .iconAtStart {
+    svg {
+      height: 1.25rem;
+      width: 1.25rem;
+      fill: $hel-white;
+      stroke: $hel-white;
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+// Button sizes
+
+.mdSize {
+  font-size: $buttonFontSize;
+  min-height: $mediumButtonHeight;
+  padding: $mediumButtonPadding;
+}
+
+.smSize {
+  font-size: $buttonFontSize;
+  min-height: $smallButtonHeight;
+  padding: $smallButtonPadding;
+}
+
+// Button colors
+
+.primary {
+  background-color: $dark-green;
+  border-color: $dark-green;
+  color: $hel-white;  
+} */

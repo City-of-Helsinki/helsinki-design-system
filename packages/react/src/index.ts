@@ -7,3 +7,4 @@ export { default as Koros, KorosProps } from './components/koros/Koros';
 export { default as ImageWithCard, ImageWithCardProps } from './components/imagewithcard/ImageWithCard';
 export { default as Columns, ColumnsProps } from './components/columns/Columns';
 export { default as Tooltip, TooltipProps } from './components/tooltip/Tooltip';
+export { default as Button, ButtonProps } from './components/button/Button';
