@@ -10,6 +10,8 @@
   --hds-text-xl: 1.5em;
   --hds-text-xxl: 2.25em;
   --hds-text-xxxl: 3.25em;
+
+  --hds-theme-primary-font: "HelsinkiGrotesk";
 }
 
 @media all and (max-width: 768px) {
@@ -30,13 +32,18 @@
   line-height: var(--hds-text-body-line-height);
 }
 
-.text-body p {
-  margin: 2em 0;
+.text-medium {
+  font-family: var(--hds-theme-primary-font);
+  font-weight: 500;
 }
 
 .text-bold {
-  font-family: var(--hds-theme-primary-font-bold);
+  font-family: var(--hds-theme-primary-font);
   font-weight: bold;
+}
+
+.text-body p {
+  margin: 2em 0;
 }
 
 h1,
