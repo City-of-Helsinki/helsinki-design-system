@@ -36,25 +36,25 @@ storiesOf('Notification', module)
     </Notification>
   ))
   .add('dismissable', () => (
-    <DismissableNotification labelText="label">
+    <DismissableNotification labelText="label" closeButtonlabelText="dismiss">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
     </DismissableNotification>
   ))
   .add('dismissable warning', () => (
-    <DismissableNotification labelText="label" type="warning">
+    <DismissableNotification labelText="label" type="warning" closeButtonlabelText="dismiss">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
     </DismissableNotification>
   ))
   .add('dismissable error', () => (
-    <DismissableNotification labelText="label" type="error">
+    <DismissableNotification labelText="label" type="error" closeButtonlabelText="dismiss">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
     </DismissableNotification>
   ))
   .add('dismissable success', () => (
-    <DismissableNotification labelText="label" type="success">
+    <DismissableNotification labelText="label" type="success" closeButtonlabelText="dismiss">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
     </DismissableNotification>

@@ -9,16 +9,32 @@ import IconClose from '../../icons/IconClose';
 
 export type TooltipProps = React.PropsWithChildren<{
   labelText: string;
+  openButtonLabelText: string;
+  closeButtonLabelText: string;
   alternative?: boolean;
 }>;
 
-export default ({ children, labelText, alternative = false }: TooltipProps) => {
+export default ({
+  children,
+  labelText,
+  closeButtonLabelText,
+  openButtonLabelText,
+  alternative = false,
+}: TooltipProps) => {
   const [isOpen, setOpen] = useState(false);
 
   return (
     <>
-      <button type="button" className={styles.buttonTooltip} onClick={() => setOpen(!isOpen)}>
-        <IconTooltip className={styles.iconTooltip} />
+      <button
+        type="button"
+        title={isOpen ? closeButtonLabelText : openButtonLabelText}
+        aria-label={isOpen ? closeButtonLabelText : openButtonLabelText}
+        className={styles.buttonTooltip}
+        onClick={() => setOpen(!isOpen)}
+      >
+        <span aria-hidden="true">
+          <IconTooltip className={styles.iconTooltip} />
+        </span>
       </button>
       <TooltipTransition open={isOpen}>
         <div className={classNames(styles.tooltip, alternative && styles.alternative)}>
@@ -29,9 +45,13 @@ export default ({ children, labelText, alternative = false }: TooltipProps) => {
             <button
               className={classNames(styles.buttonClose, alternative && styles.alternative)}
               type="button"
+              title={closeButtonLabelText}
+              aria-label={closeButtonLabelText}
               onClick={() => setOpen(false)}
             >
-              <IconClose className={styles.iconClose} />
+              <span aria-hidden="true">
+                <IconClose className={styles.iconClose} />
+              </span>
             </button>
             <span className={styles.labelText}>{labelText}</span>
           </div>

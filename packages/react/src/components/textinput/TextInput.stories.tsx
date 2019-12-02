@@ -31,6 +31,8 @@ storiesOf('TextInput', module)
       {...textInputProps}
       tooltipLabel="tooltip label"
       tooltipText="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
+      tooltipOpenButtonLabel="show tooltip"
+      tooltipCloseButtonLabel="close tooltip"
     />
   ))
   .add('alternative with tooltip', () => (
@@ -39,6 +41,8 @@ storiesOf('TextInput', module)
       {...textInputProps}
       tooltipLabel="tooltip label"
       tooltipText="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
+      tooltipOpenButtonLabel="show tooltip"
+      tooltipCloseButtonLabel="close tooltip"
     />
   ))
   .add('with helper text', () => <TextInput {...textInputProps} helperText="helper text" />)

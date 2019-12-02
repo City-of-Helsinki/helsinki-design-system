@@ -6,7 +6,11 @@ import Notification, { NotificationProps } from './Notification';
 import IconClose from '../../icons/IconClose';
 import styles from './DismissableNotification.module.css';
 
-export default (props: NotificationProps) => {
+export type DismissableNotificationProps = {
+  closeButtonlabelText: string;
+} & NotificationProps;
+
+export default (props: DismissableNotificationProps) => {
   const [isOpen, setOpen] = useState(true);
 
   return (
@@ -19,6 +23,8 @@ export default (props: NotificationProps) => {
               <button
                 className={classNames(styles.buttonClose, styles[props.type])}
                 type="button"
+                title={props.closeButtonlabelText}
+                aria-label={props.closeButtonlabelText}
                 onClick={() => {
                   setOpen(false);
                 }}
