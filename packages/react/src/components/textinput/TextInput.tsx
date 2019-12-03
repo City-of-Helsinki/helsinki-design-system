@@ -22,8 +22,8 @@ export type TextInputProps = {
   readOnly?: boolean;
   tooltipLabel?: string;
   tooltipText?: string;
-  tooltipOpenButtonLabel?: string;
-  tooltipCloseButtonLabel?: string;
+  tooltipOpenButtonLabelText?: string;
+  tooltipCloseButtonLabelText?: string;
   type?: string;
   value?: string;
 };
@@ -47,8 +47,8 @@ export default ({
   tooltipText = undefined,
   type = 'text',
   value = undefined,
-  tooltipOpenButtonLabel = undefined,
-  tooltipCloseButtonLabel = undefined,
+  tooltipOpenButtonLabelText = undefined,
+  tooltipCloseButtonLabelText = undefined,
 }: TextInputProps) => {
   const label: JSX.Element = labelText ? (
     <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hiddenLabel : ''}`}>
@@ -60,8 +60,8 @@ export default ({
     <Tooltip
       alternative={alternative}
       labelText={tooltipLabel}
-      closeButtonLabelText={tooltipCloseButtonLabel}
-      openButtonLabelText={tooltipOpenButtonLabel}
+      closeButtonLabelText={tooltipCloseButtonLabelText}
+      openButtonLabelText={tooltipOpenButtonLabelText}
     >
       {tooltipText}
     </Tooltip>
