@@ -6,7 +6,7 @@ import DismissableNotification from './DismissableNotification';
 describe('<DismissableNotification /> spec', () => {
   it('renders the component', () => {
     const { asFragment } = render(
-      <DismissableNotification labelText="This is the tool tip label text">
+      <DismissableNotification labelText="This is the tooltip label text" closeButtonlabelText="Close tooltip">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
       </DismissableNotification>,
