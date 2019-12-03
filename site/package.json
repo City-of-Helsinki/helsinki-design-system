@@ -1,6 +1,6 @@
 {
   "name": "site",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": true,
   "description": "Documentation for Helsinki Design System",
   "license": "MIT",
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "hds-core": "^0.3.2",
-    "hds-react": "^0.4.3",
+    "hds-react": "^0.4.4",
     "react-helmet": "^5.2.1",
     "rimraf": "^3.0.0"
   }

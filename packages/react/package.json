@@ -1,6 +1,6 @@
 {
   "name": "hds-react",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
