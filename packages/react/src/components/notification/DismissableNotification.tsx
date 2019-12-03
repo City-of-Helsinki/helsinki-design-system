@@ -7,7 +7,7 @@ import IconClose from '../../icons/IconClose';
 import styles from './DismissableNotification.module.css';
 
 export type DismissableNotificationProps = {
-  closeButtonlabelText: string;
+  closeButtonLabelText: string;
 } & NotificationProps;
 
 export default (props: DismissableNotificationProps) => {
@@ -23,8 +23,8 @@ export default (props: DismissableNotificationProps) => {
               <button
                 className={classNames(styles.buttonClose, styles[props.type])}
                 type="button"
-                title={props.closeButtonlabelText}
-                aria-label={props.closeButtonlabelText}
+                title={props.closeButtonLabelText}
+                aria-label={props.closeButtonLabelText}
                 onClick={() => {
                   setOpen(false);
                 }}
