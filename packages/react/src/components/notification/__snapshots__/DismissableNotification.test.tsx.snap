@@ -31,14 +31,16 @@ exports[`<DismissableNotification /> spec renders the component 1`] = `
         <span
           class="labelText"
         >
-          This is the tool tip label text
+          This is the tooltip label text
         </span>
       </div>
       <div
         class="bodyText"
       >
         <button
+          aria-label="Close tooltip"
           class="buttonClose undefined"
+          title="Close tooltip"
           type="button"
         >
           <svg

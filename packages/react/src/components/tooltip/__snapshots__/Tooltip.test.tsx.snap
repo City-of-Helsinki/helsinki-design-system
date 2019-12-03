@@ -3,7 +3,9 @@
 exports[`<Tooltip /> spec renders the component 1`] = `
 <DocumentFragment>
   <button
+    aria-label="show tooltip"
     class="buttonTooltip"
+    title="show tooltip"
     type="button"
   >
     <span
