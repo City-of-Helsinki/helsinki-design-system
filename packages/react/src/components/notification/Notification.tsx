@@ -19,17 +19,14 @@ const icons = {
   success: <IconCheck className={styles.iconCheck} />,
 };
 
-export default ({ children = null, labelText, type = 'notification' }: NotificationProps) => {
-  console.log('chidll', children);
-  return (
-    <div className={classNames(styles.notification, styles[type])}>
-      <div className={styles.label}>
-        <span className={styles.icon} aria-hidden="true">
-          {icons[type]}
-        </span>
-        <span className={styles.labelText}>{labelText}</span>
-      </div>
-      {children && <div className={styles.bodyText}>{children}</div>}
+export default ({ children = null, labelText, type = 'notification' }: NotificationProps) => (
+  <div className={classNames(styles.notification, styles[type])}>
+    <div className={styles.label}>
+      <span className={styles.icon} aria-hidden="true">
+        {icons[type]}
+      </span>
+      <span className={styles.labelText}>{labelText}</span>
     </div>
-  );
-};
+    {children && <div className={styles.bodyText}>{children}</div>}
+  </div>
+);
