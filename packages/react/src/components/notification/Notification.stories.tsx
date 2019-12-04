@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 
 import Notification from './Notification';
 import DismissableNotification from './DismissableNotification';
@@ -36,26 +37,29 @@ storiesOf('Notification', module)
     </Notification>
   ))
   .add('dismissable', () => (
-    <DismissableNotification labelText="label" closeButtonLabelText="dismiss">
+    <DismissableNotification onClose={action('closed')} labelText="label" closeButtonLabelText="dismiss">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
     </DismissableNotification>
   ))
   .add('dismissable warning', () => (
-    <DismissableNotification labelText="label" type="warning" closeButtonLabelText="dismiss">
+    <DismissableNotification onClose={action('closed')} labelText="label" type="warning" closeButtonLabelText="dismiss">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
     </DismissableNotification>
   ))
   .add('dismissable error', () => (
-    <DismissableNotification labelText="label" type="error" closeButtonLabelText="dismiss">
+    <DismissableNotification onClose={action('closed')} labelText="label" type="error" closeButtonLabelText="dismiss">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
     </DismissableNotification>
   ))
   .add('dismissable success', () => (
-    <DismissableNotification labelText="label" type="success" closeButtonLabelText="dismiss">
+    <DismissableNotification onClose={action('closed')} labelText="label" type="success" closeButtonLabelText="dismiss">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
     </DismissableNotification>
+  ))
+  .add('dismissable no body', () => (
+    <DismissableNotification onClose={action('closed')} labelText="label" closeButtonLabelText="dismiss" />
   ));
