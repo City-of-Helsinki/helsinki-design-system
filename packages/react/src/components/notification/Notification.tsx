@@ -19,7 +19,8 @@ const icons = {
   success: <IconCheck className={styles.iconCheck} />,
 };
 
-export default ({ children, labelText, type = 'notification' }: NotificationProps) => {
+export default ({ children = null, labelText, type = 'notification' }: NotificationProps) => {
+  console.log('chidll', children);
   return (
     <div className={classNames(styles.notification, styles[type])}>
       <div className={styles.label}>
@@ -28,7 +29,7 @@ export default ({ children, labelText, type = 'notification' }: NotificationProp
         </span>
         <span className={styles.labelText}>{labelText}</span>
       </div>
-      <div className={styles.bodyText}>{children}</div>
+      {children && <div className={styles.bodyText}>{children}</div>}
     </div>
   );
 };

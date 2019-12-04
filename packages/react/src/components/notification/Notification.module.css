@@ -2,7 +2,7 @@
 
 .notification {
   margin: 0.75em 0 1.25em;
-  padding: 1.875em 1.875em 1.25em;
+  padding: 1.875em 1.875em 1.875em;
   border: 0 solid var(--hds-theme-color-primary);
   border-left-width: 0.625em;
   background-color: var(--hds-theme-color-primary-extra-light);
