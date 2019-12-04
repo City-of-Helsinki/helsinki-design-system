@@ -3,7 +3,7 @@
 exports[`<DismissableNotification /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
-    style="height: 0px; overflow-y: hidden;"
+    style="height: 0px; overflow-y: hidden; position: relative;"
   >
     <div
       class="notification notification"
@@ -37,28 +37,28 @@ exports[`<DismissableNotification /> spec renders the component 1`] = `
       <div
         class="bodyText"
       >
-        <button
-          aria-label="Close tooltip"
-          class="buttonClose undefined"
-          title="Close tooltip"
-          type="button"
-        >
-          <svg
-            class="iconClose"
-            height="100%"
-            viewBox="0 0 15 15"
-            width="100%"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M13.412 0L15 1.588 9.088 7.5 15 13.412 13.412 15 7.5 9.088 1.588 15 0 13.412 5.911 7.5 0 1.588 1.588 0 7.5 5.912 13.412 0z"
-              fill-rule="nonzero"
-            />
-          </svg>
-        </button>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
       </div>
     </div>
+    <button
+      aria-label="Close tooltip"
+      class="buttonClose null"
+      title="Close tooltip"
+      type="button"
+    >
+      <svg
+        class="iconClose"
+        height="100%"
+        viewBox="0 0 15 15"
+        width="100%"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M13.412 0L15 1.588 9.088 7.5 15 13.412 13.412 15 7.5 9.088 1.588 15 0 13.412 5.911 7.5 0 1.588 1.588 0 7.5 5.912 13.412 0z"
+          fill-rule="nonzero"
+        />
+      </svg>
+    </button>
   </div>
 </DocumentFragment>
 `;
