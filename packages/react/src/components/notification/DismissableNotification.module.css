@@ -2,7 +2,7 @@
 
 .buttonClose {
   position: absolute;
-  top: 0;
+  top: 0.85em;
   right: 0;
   padding: 1.875em;
   fill: var(--hds-theme-color-primary);
@@ -28,12 +28,13 @@
 @media all and (max-width: 768px) {
   .buttonClose {
     padding: 1.25em;
-    width: 4.25em;
-    height: 4.25em;
+    top: 1.35em;
+    width: 4em;
+    height: 4em;
   }
 
   .iconClose {
-    width: 1.125em;
-    height: 1.125em;
+    width: 0.9375em;
+    height: 0.9375em;
   }
 }
