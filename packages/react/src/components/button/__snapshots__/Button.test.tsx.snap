@@ -2,10 +2,15 @@
 
 exports[`<Button /> spec renders the component 1`] = `
 <DocumentFragment>
-  <div
+  <button
     class="button primary default"
+    type="button"
   >
-    My Button
-  </div>
+    <span
+      class="label"
+    >
+      My Button
+    </span>
+  </button>
 </DocumentFragment>
 `;
