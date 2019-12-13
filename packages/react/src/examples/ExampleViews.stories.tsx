@@ -8,6 +8,8 @@ import Section from '../components/section/Section';
 import Columns from '../components/columns/Columns';
 import ImageWithCard from '../components/imagewithcard/ImageWithCard';
 import TextInput from '../components/textinput/TextInput';
+import Button from '../components/button/Button';
+import IconAngleRight from '../icons/IconAngleRight';
 
 const ExampleView = () => (
   <>
@@ -30,6 +32,8 @@ const ExampleView = () => (
             consequat.
           </p>
           <TextInput id="myInput" alternative labelText="Lorem ipsum:" placeholder="dolor sit" />
+          <br />
+          <Button color="secondary">Lorem</Button>
         </div>
         <div>
           <p>
@@ -50,6 +54,9 @@ const ExampleView = () => (
         consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
         Excepteur sint obcaecat cupiditat non proident.
       </p>
+      <Button color="supplementary" iconRight={<IconAngleRight />}>
+        Ipsum
+      </Button>
     </ImageWithCard>
     <Section>
       <h2>
@@ -63,8 +70,10 @@ const ExampleView = () => (
         Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna
         aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi
         consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint obcaecat cupiditat non proident.
       </p>
+      <Button color="tertiary" iconRight={<IconAngleRight />}>
+        Lorem
+      </Button>
     </ImageWithCard>
   </>
 );
