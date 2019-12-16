@@ -3,8 +3,7 @@ import React, { ReactElement } from 'react';
 import styles from './Button.module.css';
 import classNames from '../../utils/classNames';
 
-export type ButtonProps = React.PropsWithChildren<{
-  children: string;
+export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   className?: string;
   disabled?: boolean;
   fullWidth?: boolean;
@@ -12,7 +11,7 @@ export type ButtonProps = React.PropsWithChildren<{
   size?: 'default' | 'small';
   iconLeft?: ReactElement;
   iconRight?: ReactElement;
-}>;
+};
 
 export default ({
   children,
@@ -23,6 +22,7 @@ export default ({
   size = 'default',
   iconLeft,
   iconRight,
+  ...rest
 }: ButtonProps) => {
   const iconElementLeft = iconLeft ? (
     <div className={styles.icon} aria-hidden="true">
@@ -48,6 +48,7 @@ export default ({
         fullWidth ? styles.fullWidth : '',
         className,
       )}
+      {...rest}
     >
       {iconElementLeft}
       <span className={styles.label}>{children}</span>
