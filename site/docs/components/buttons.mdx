@@ -4,15 +4,21 @@ menu: Components
 ---
 
 import { Playground } from "docz";
-import { Button } from "hds-react";
+import { Button, IconShare, IconAngleRight } from "hds-react";
 
 # Buttons
 
 ---
 
-Buttons allow an application to communicate action and direct user intent.
+Buttons allow an application to communicate action and direct user intent. Clear labeling and icons (where needed) are used to communicate the actions the buttons perform to the user.
 
 ## Styles
+
+### Using color in buttons
+
+Choose the primary button color by determining your main user interface colors from the brand colors. Use the primary button color also as secondary button color (border and text color). In supplementary button, the text color (and icon if used) is the same as the one used in primary and secondary buttons.
+
+When using strong brand colors in the user interface, you can use the button color based on the background color, since not all of the colors make the content accessible.
 
 There are different kinds of buttons in the buttons library:
 
@@ -39,7 +45,7 @@ Provides an alternative color button style.
 
 Is used in multiple scenarios. Used as supplementary buttons. They can be used for example inside components, like cards or such.
 
-### Sizes
+## Sizes
 
 The buttons come in two sizes; default and small. They can be also used with icons inside them.
 
@@ -56,13 +62,19 @@ The buttons come in two sizes; default and small. They can be also used with ico
   </Button>
 </Playground>
 
-### Using color in buttons
+## Icons
 
-Choose the primary button color by determining your main user interface colors from the brand colors. Use the primary button color also as secondary button color (border and text color). In supplementary button, the text color (and icon if used) is the same as the one used in primary and secondary buttons.
+The buttons can have icons attached before and after the label text. For some cases, both slots can be used at the same time.
 
-When using strong brand colors in the user interface, you can use the button color based on the background color, since not all of the colors make the content accessible.
+<Playground>
+  <Button iconLeft={<IconShare />}>Share</Button>
+  <Button iconRight={<IconAngleRight />} color="secondary">Continue</Button>
+  <Button iconLeft={<IconShare />} iconRight={<IconAngleRight />} color="tertiary">
+    Share
+  </Button>
+</Playground>
 
-## Button grouping
+## Grouping
 
 ### Constrained content
 
