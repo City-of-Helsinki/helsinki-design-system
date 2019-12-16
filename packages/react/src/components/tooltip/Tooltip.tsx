@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { Transition } from 'react-spring/renderprops.cjs';
 
 import classNames from '../../utils/classNames';
-import IconInfo from '../../icons/IconInfo';
-import IconTooltip from '../../icons/IconTooltip';
+import { IconInfo, IconTooltip, IconClose } from '../../icons';
 import styles from './Tooltip.module.css';
-import IconClose from '../../icons/IconClose';
 
 export type TooltipProps = React.PropsWithChildren<{
   labelText: string;

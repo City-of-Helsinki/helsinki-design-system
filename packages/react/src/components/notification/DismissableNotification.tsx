@@ -3,7 +3,7 @@ import { Transition } from 'react-spring/renderprops.cjs';
 
 import classNames from '../../utils/classNames';
 import Notification, { NotificationProps } from './Notification';
-import IconClose from '../../icons/IconClose';
+import { IconClose } from '../../icons';
 import styles from './DismissableNotification.module.css';
 
 export type DismissableNotificationProps = {

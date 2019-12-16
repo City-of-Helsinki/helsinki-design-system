@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 
 import classNames from '../../utils/classNames';
 import Tooltip from '../tooltip/Tooltip';
-import IconLock from '../../icons/IconLock';
+import { IconLock } from '../../icons';
 import styles from './TextInput.module.css';
 
 export type TextInputProps = {

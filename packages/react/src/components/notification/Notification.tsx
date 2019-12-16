@@ -2,10 +2,7 @@ import React from 'react';
 
 import classNames from '../../utils/classNames';
 import styles from './Notification.module.css';
-import IconInfo from '../../icons/IconInfo';
-import IconWarning from '../../icons/IconWarning';
-import IconAttention from '../../icons/IconAttention';
-import IconCheck from '../../icons/IconCheck';
+import { IconInfo, IconWarning, IconAttention, IconCheck } from '../../icons';
 
 export type NotificationProps = React.PropsWithChildren<{
   labelText: string;
