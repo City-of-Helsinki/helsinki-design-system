@@ -1,3 +1,4 @@
+export * from './icons';
 export { default as TextInput, TextInputProps } from './components/textinput/TextInput';
 export { default as Notification, NotificationProps } from './components/notification/Notification';
 export {

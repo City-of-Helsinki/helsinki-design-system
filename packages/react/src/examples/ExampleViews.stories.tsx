@@ -9,7 +9,7 @@ import Columns from '../components/columns/Columns';
 import ImageWithCard from '../components/imagewithcard/ImageWithCard';
 import TextInput from '../components/textinput/TextInput';
 import Button from '../components/button/Button';
-import IconAngleRight from '../icons/IconAngleRight';
+import { IconAngleRight } from '../icons';
 
 const ExampleView = () => (
   <>

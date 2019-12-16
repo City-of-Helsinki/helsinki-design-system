@@ -2,8 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import Button from './Button';
-import IconShare from '../../icons/IconShare';
-import IconAngleRight from '../../icons/IconAngleRight';
+import { IconShare, IconAngleRight } from '../../icons';
 
 (Button as React.FC).displayName = 'Button';
 
