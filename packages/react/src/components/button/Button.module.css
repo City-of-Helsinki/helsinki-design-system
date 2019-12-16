@@ -1,6 +1,5 @@
 .button {
   composes: text-medium from '~hds-core/lib/helsinki.css';
-  display: inline-block;
   padding: 0.875em 0.7em;
   transition-property: background-color, border-color;
   transition-duration: 0.15s;
@@ -12,6 +11,7 @@
   fill: currentColor;
   text-align: left;
   align-content: flex-start;
+  vertical-align: top;
 }
 
 .button:focus {
