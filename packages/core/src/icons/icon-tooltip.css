@@ -1,0 +1,6 @@
+@svg-load icon url(../svg/icon-tooltip.svg);
+
+.hds-icon--tooltip {
+  mask-image: svg-inline(icon);
+  -webkit-mask-image: svg-inline(icon);
+}
