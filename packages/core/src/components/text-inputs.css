@@ -1,0 +1,102 @@
+.hds-text-input {
+}
+
+.hds-text-input__label {
+  margin-bottom: 0.2em;
+  display: block;
+}
+
+.hds-text-input__input-wrapper {
+  position: relative;
+  border-color: var(--hds-ui-color-black-20);
+}
+
+.hds-text-input__input-wrapper input {
+  width: 100%;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 1px;
+  border-color: inherit;
+  background-color: inherit;
+  padding: 0.888em 0.72em;
+}
+
+.hds-text-input__input-wrapper input:focus {
+  border-color: var(--hds-ui-color-black-90);
+}
+
+.hds-text-input__input-wrapper input::placeholder {
+  color: var(--hds-ui-color-black-30);
+}
+
+.hds-text-input__helper-text {
+  color: var(--hds-ui-color-black-70);
+}
+
+.hds-text-input__invalid-text {
+  color: var(--hds-ui-color-error);
+}
+
+.hds-text-input--invalid .hds-text-input__label {
+  color: var(--hds-ui-color-error);
+}
+
+.hds-text-input--invalid .hds-text-input__input-wrapper {
+  border-color: var(--hds-ui-color-error);
+}
+
+.hds-text-input--read-only .hds-text-input__input-wrapper {
+  background-color: var(--hds-ui-color-black-5);
+}
+
+.hds-text-input--read-only .hds-text-input__input-wrapper input {
+  border-color: var(--hds-ui-color-black-10);
+  border: solid 2px var(--hds-ui-color-black-20);
+  color: inherit;
+}
+
+.hds-text-input__input-icon {
+  border: solid 2px var(--hds-ui-color-black-20);
+  border-width: 0 2px;
+  width: 3.5em;
+  position: absolute;
+  right: 0;
+  top: 2px;
+  bottom: 2px;
+  background: no-repeat center center;
+  background-color: inherit;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hds-text-input__input-icon .hds-icon {
+  width: 1em;
+  height: 1.375em;
+}
+
+.hds-text-input--alternative .hds-text-input__input-wrapper {
+  border-color: var(--hds-theme-color-secondary);
+}
+
+.hds-text-input--alternative .hds-text-input__input-wrapper input {
+  border-color: inherit;
+}
+
+.hds-text-input--alternative .hds-text-input__input-icon {
+  border-color: inherit;
+}
+
+.hds-text-input--alternative.hds-text-input--read-only
+  .hds-text-input__input-wrapper {
+  background-color: var(--hds-theme-color-secondary-light);
+}
+
+.hds-text-input--alternative .hds-text-input__input-icon .hds-icon {
+  color: var(--hds-theme-color-secondary);
+}
+
+.alternative.readOnly .input:focus {
+  border-color: var(--hds-theme-color-secondary);
+}

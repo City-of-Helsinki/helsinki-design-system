@@ -1,0 +1,6 @@
+@svg-load icon url(../svg/icon-double-like.svg);
+
+.hds-icon--double-like {
+  mask-image: svg-inline(icon);
+  -webkit-mask-image: svg-inline(icon);
+}
