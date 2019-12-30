@@ -12,14 +12,16 @@ hds-core/
 ├── src/                # source css
 └── lib/
     ├── components/     # collection of HDS component styles
-    │   ├── all.css           # bundled stylesheet including all components
-    │   ├── buttons.css       # individual component stylesheet
+    │   ├── all.css               # bundled stylesheet including all components
+    │   ├── <component name>.css  # individual component stylesheet
     │   :
+    │
     ├── icons/          # collection of HDS icon styles
-    │   ├── all.css           # bundled stylesheet including all icons
-    │   ├── icon.css          # base styles for icons
-    │   ├── icon-check.css    # individual icon stylesheet
+    │   ├── all.css               # bundled stylesheet including all icons
+    │   ├── icon.css              # base styles for icons
+    │   ├── icon-<icon name>.css  # individual icon stylesheet
     │   :
+    │
     ├── utils/          # utility stylesheets
     ├── variables/      # collection of css variables and base styles
     ├── helsinki.css    # default theme
