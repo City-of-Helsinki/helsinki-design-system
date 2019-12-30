@@ -51,3 +51,4 @@ Helsinki Design System uses a number of CSS variables to control coloring and la
 ## Built with
 
 - [PostCSS](https://github.com/postcss/postcss)
+- hds-core follows the [BEM methodology](http://getbem.com/)
