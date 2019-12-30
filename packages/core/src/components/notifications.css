@@ -1,0 +1,111 @@
+.hds-notification {
+  margin: 0.75em 0 1.25em;
+  padding: 1.875em 1.875em 1.875em;
+  border: 0 solid var(--hds-theme-color-primary);
+  border-left-width: 0.625em;
+  background-color: var(--hds-theme-color-primary-extra-light);
+  position: relative;
+}
+
+.hds-notification__label {
+  padding-right: 1.25em;
+}
+
+.hds-notification__label > span {
+  vertical-align: middle;
+}
+
+.hds-notification__label .hds-icon {
+  height: 1.6em;
+  width: 1.6em;
+  margin-right: 0.625em;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.hds-notification__label .hds-icon--info {
+  width: 1.4375em;
+  height: 1.4375em;
+}
+
+.hds-notification__label .hds-icon--warning {
+  width: 1.875em;
+  height: 1.5625em;
+}
+
+.hds-notification__label .hds-icon--attention {
+  width: 1.4375em;
+  height: 1.4375em;
+}
+
+.hds-notification__label .hds-icon--check {
+  width: 1.25em;
+  height: 0.9375em;
+}
+
+.hds-notification__body {
+  padding: 0.75em 0;
+}
+
+.hds-notification--warning {
+  border-color: var(--hds-ui-color-alert);
+  background-color: var(--hds-ui-color-alert-light);
+}
+
+.hds-notification--error {
+  border-color: var(--hds-ui-color-error);
+  background-color: var(--hds-ui-color-error-light);
+}
+
+.hds-notification--success {
+  border-color: var(--hds-ui-color-success);
+  background-color: var(--hds-ui-color-success-light);
+}
+
+.hds-notification__close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1.875em;
+  fill: var(--hds-theme-color-primary);
+}
+
+.hds-notification__close-button .hds-icon {
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.hds-notification--warning .hds-notification__close-button .hds-icon {
+  color: var(--hds-ui-color-alert-dark);
+}
+
+.hds-notification--error .hds-notification__close-button .hds-icon {
+  color: var(--hds-ui-color-error);
+}
+
+.hds-notification--success .hds-notification__close-button .hds-icon {
+  color: var(--hds-ui-color-success);
+}
+
+@media all and (max-width: 768px) {
+  .hds-notification {
+    border-left-width: 0;
+    border-top-width: 0.625em;
+    padding: 1em 1.25em 1.25em;
+  }
+}
+
+@media all and (max-width: 768px) {
+  .hds-notification__close-button {
+    padding: 1.25em;
+    top: 0;
+    width: 4em;
+    height: 4em;
+  }
+
+  .hds-notification__close-button .hds-icon {
+    width: 0.9375em;
+    height: 0.9375em;
+  }
+}
