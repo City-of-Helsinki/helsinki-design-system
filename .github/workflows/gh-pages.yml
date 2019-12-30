@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - feature/buildstorybook
 
 jobs:
   build-deploy:
@@ -42,6 +41,9 @@ jobs:
 
       - name: move storybook under docz
         run: mv ./packages/react/storybook-static ./site/public/storybook
+
+      - name: copy core examples under docz
+        run: mkdir -p ./site/public/core && cp -r ./packages/core/{examples,lib} ./site/public/core
 
       - name: Deploy
         env:
