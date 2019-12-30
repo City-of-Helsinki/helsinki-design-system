@@ -6,11 +6,19 @@ menu: Components
 import { Playground } from "docz";
 import { Button, IconShare, IconAngleRight } from "hds-react";
 
+import "hds-core/lib/components/buttons.css";
+import "hds-core/lib/icons/icon.css";
+import "hds-core/lib/icons/icon-share.css";
+import "hds-core/lib/icons/icon-angle-right.css";
+
 # Buttons
 
 ---
 
 Buttons allow an application to communicate action and direct user intent. Clear labeling and icons (where needed) are used to communicate the actions the buttons perform to the user.
+
+[Buttons in hds-core](/core/examples/button.html)  
+[Buttons in hds-react](/storybook/?path=/story/button--default)
 
 ## Styles
 
@@ -22,12 +30,30 @@ When using strong brand colors in the user interface, you can use the button col
 
 There are different kinds of buttons in the buttons library:
 
+#### Core:
+<Playground>
+  <button type="button" class="hds-button hds-button--primary">
+    <span class="hds-button__label text-medium">Primary</span>
+  </button>
+  <button type="button" class="hds-button hds-button--secondary">
+    <span class="hds-button__label text-medium">Secondary</span>
+  </button>
+  <button type="button" class="hds-button hds-button--tertiary">
+    <span class="hds-button__label text-medium">Tertiary</span>
+  </button>
+  <button type="button" class="hds-button hds-button--supplementary">
+    <span class="hds-button__label text-medium">Supplementary</span>
+  </button>
+</Playground>
+
+#### React:
 <Playground>
   <Button>Primary</Button>
   <Button color="secondary">Secondary</Button>
   <Button color="tertiary">Tertiary</Button>
   <Button color="supplementary">Supplementary</Button>
 </Playground>
+
 
 ### Primary
 
@@ -49,23 +75,48 @@ Is used in multiple scenarios. Used as supplementary buttons. They can be used f
 
 The buttons come in two sizes; default and small. They can be also used with icons inside them.
 
+#### Core:
 <Playground>
+  <button type="button" class="hds-button hds-button--primary">
+    <span class="hds-button__label text-medium">Primary</span>
+  </button>
+  <br/><br/>
+  <button type="button" class="hds-button hds-button--primary hds-button--small">
+    <span class="hds-button__label text-medium">Primary</span>
+  </button>
+</Playground>
+
+#### React:
+<Playground>
+  <Button size="default">Primary</Button>
+  <br/><br/>
   <Button size="small">Primary</Button>
-  <Button size="small" color="secondary">
-    Secondary
-  </Button>
-  <Button size="small" color="tertiary">
-    Tertiary
-  </Button>
-  <Button size="small" color="supplementary">
-    Supplementary
-  </Button>
 </Playground>
 
 ## Icons
 
 The buttons can have icons attached before and after the label text. For some cases, both slots can be used at the same time.
 
+#### Core:
+<Playground>
+  <button type="button" class="hds-button hds-button--primary">
+    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
+    <span class="hds-button__label text-medium">Share</span>
+  </button>
+
+  <button type="button" class="hds-button hds-button--secondary">
+    <span class="hds-button__label text-medium">Continue</span>
+    <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+  </button>
+
+  <button type="button" class="hds-button hds-button--tertiary">
+    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
+    <span class="hds-button__label text-medium">Share</span>
+    <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+  </button>
+</Playground>
+
+#### React
 <Playground>
   <Button iconLeft={<IconShare />}>Share</Button>
   <Button iconRight={<IconAngleRight />} color="secondary">Continue</Button>

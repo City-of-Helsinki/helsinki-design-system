@@ -6,6 +6,8 @@ menu: Components
 import { Playground } from "docz";
 import { TextInput } from "hds-react";
 
+import "hds-core/lib/components/text-inputs.css";
+
 # Text Fields
 
 ---
@@ -13,6 +15,9 @@ import { TextInput } from "hds-react";
 A text field is an input field that the user can interact with and input content and data. This component can be used for long and short form entries.
 It has a range of options and supports several text formats including numbers.
 Text fields are normally found within a form but can also be part of a modal or search. Common text input types include: usernames, descriptions, URLs, emails, addresses, and plain text searches.
+
+[Text inputs in hds-core](/core/examples/text-inputs.html)  
+[Text inputs in hds-react](/storybook/?path=/story/textinput--default)
 
 ## General guidelines
 
@@ -35,6 +40,28 @@ Text fields should:
 
 ### Basic
 
+#### Core:
+
+<Playground>
+  <div class="hds-text-input">
+    <label for="my-input" class="hds-text-input__label text-sm text-bold">
+      label
+    </label>
+    <div class="hds-text-input__input-wrapper">
+      <input
+        class="text-md"
+        type="text"
+        id="my-input"
+        placeholder="placeholder text"
+        value=""
+      />
+    </div>
+    <span class="hds-text-input__helper-text text-sm">helper text</span>
+  </div>
+</Playground>
+
+#### React:
+
 <Playground>
   <TextInput
     labelText="label"
@@ -44,6 +71,10 @@ Text fields should:
 </Playground>
 
 ### With tooltip
+
+_Text field tooltips are only in hds-react!_
+
+#### React:
 
 <Playground>
   <TextInput
