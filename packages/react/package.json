@@ -70,6 +70,8 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "hds-core": "^0.4.1",
     "lodash.uniqueid": "^4.0.1",
     "react-spring": "^8.0.27"
