@@ -1,0 +1,33 @@
+@import "colours";
+@import "spacings";
+
+.expandable {
+  display: flex;
+  align-items: center;
+  color: $black;
+}
+
+.headerBtn {
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  flex-grow: 1;
+}
+
+.arrow.up {
+  transform: rotate(180deg);
+}
+
+.children {
+  margin-left: units(2);
+  padding-left: units(0.5);
+  border-left: 2px solid $gray-200;
+  overflow: hidden;
+  max-height: 0;
+
+  &.expanded {
+    max-height: unset;
+  }
+}

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Expandable renders normally 1`] = `"<div class=\\"expandable\\"><div class=\\"headerBtn label\\" role=\\"button\\">Click me</div><div class=\\"headerBtn arrow\\"><button type=\\"button\\" class=\\"button secondary standard text\\"><div class=\\"icon standard standard\\"><svg class=\\"shape\\">angle-down.svg</svg></div></button></div></div><div class=\\"children\\"><div>one</div><div>two</div></div>"`;

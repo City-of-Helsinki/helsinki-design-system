@@ -1,0 +1,42 @@
+$base-unit: 1rem;
+
+$project-spacing-standard: (
+  '0.25': $base-unit * 0.25,
+  '0.5': $base-unit * 0.5,
+  '0.75': $base-unit * 0.75,
+  '1': $base-unit * 1,
+  '1.5': $base-unit * 1.5,
+  '2': $base-unit * 2,
+  '3': $base-unit * 3,
+  '4': $base-unit * 4,
+  '6': $base-unit * 6,
+  '8': $base-unit * 8,
+  '12': $base-unit * 12,
+  '16': $base-unit * 16,
+  '24': $base-unit * 24,
+  '32': $base-unit * 32,
+  '40': $base-unit * 40,
+  '48': $base-unit * 48,
+);
+
+/*
+===================================
+    Usage
+===================================
+.element {
+  margin: units(1) units(3);
+  padding: units(2);
+}
+*/
+
+@function units($value) {
+  $converted: if(type-of($value) == 'string', $value, inspect($value));
+
+  @if not map-has-key($project-spacing-standard, $converted) {
+    @error '`#{$value}` is not a valid spacing unit token. '
+          + 'Valid spacing unit tokens: '
+          + '#{map-keys($project-spacing-standard)}';
+  }
+
+  @return map-get($project-spacing-standard, $converted);
+}
