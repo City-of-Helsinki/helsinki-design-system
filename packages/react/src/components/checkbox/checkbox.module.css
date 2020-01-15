@@ -1,0 +1,37 @@
+@import "~hds-core/lib/helsinki.css";
+
+.checkbox input {
+  position: absolute;
+  opacity: 0;
+}
+
+.checkbox .overlay {
+  box-sizing: content-box;
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: solid var(--hds-theme-color-primary) 2px;
+  vertical-align: top;
+  cursor: pointer;
+  fill: var(--hds-ui-color-white);
+  position: absolute;
+  background-color: transparent;
+  border-radius: 0px;
+  border: 2px solid var(--hds-theme-color-primary);
+  transition: all 0.3s;
+}
+
+.checkbox .overlay .icon {
+  display: none;
+}
+
+.checkbox input:checked ~ .overlay {
+  background-color: var(--hds-theme-color-primary);
+  border-radius: 0px;
+  opacity: 1;
+  border: 2px solid var(--hds-theme-color-primary);
+}
+
+.checkbox input:checked ~ .overlay .icon {
+  display: block;
+}

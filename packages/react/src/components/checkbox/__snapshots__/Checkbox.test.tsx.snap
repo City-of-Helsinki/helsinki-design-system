@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Checkbox /> spec renders the component 1`] = `
+<DocumentFragment>
+  <label
+    class="checkbox"
+  >
+    <input
+      type="checkbox"
+    />
+    <span
+      class="overlay"
+    >
+      <svg
+        class=""
+        height="100%"
+        viewBox="0 0 20 15"
+        width="100%"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M7.143 15L0 7.799 2.021 5.76l5.122 5.163L17.979 0 20 2.038z"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </span>
+  </label>
+</DocumentFragment>
+`;
