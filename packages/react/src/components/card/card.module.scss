@@ -1,0 +1,42 @@
+@import 'spacings';
+@import 'colours';
+
+$padding: units(1);
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+
+  background-color: $gray-100;
+}
+
+.header {
+  width: auto;
+  background-color: $blue-500;
+  padding: $padding;
+  margin-bottom: units(0.5);
+  font-weight: bold;
+  color: white;
+}
+
+.body {
+  padding: $padding;
+  background-color: $white;
+}
+
+.standard {
+  background-color: inherit;
+}
+
+.brand {
+  background-color: $blue-500;
+}
+
+.primary {
+  background-color: $gray-100;
+}
+
+.secondary {
+  background-color: $gray-200;
+}
