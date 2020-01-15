@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Text /> spec renders the component 1`] = `
+<DocumentFragment>
+  <span
+    class="text standard span undefined undefined undefined"
+  />
+</DocumentFragment>
+`;
