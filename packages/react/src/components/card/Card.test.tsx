@@ -5,7 +5,7 @@ import Card from './Card';
 
 describe('<Card /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<Card />);
+    const { asFragment } = render(<Card>test</Card>);
     expect(asFragment()).toMatchSnapshot();
   });
 });
