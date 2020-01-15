@@ -11,3 +11,4 @@ export { default as ImageWithCard, ImageWithCardProps } from './components/image
 export { default as Columns, ColumnsProps } from './components/columns/Columns';
 export { default as Tooltip, TooltipProps } from './components/tooltip/Tooltip';
 export { default as Button, ButtonProps } from './components/button/Button';
+export { default as Sidebar, SidebarProps } from './components/sidebar/Sidebar';
