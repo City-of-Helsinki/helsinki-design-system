@@ -5,7 +5,7 @@ import styles from './sidebar.module.scss';
 export interface SidebarProps {
   className?: string;
   actions?: React.ReactNodeArray;
-  children: React.ReactNodeArray;
+  children?: React.ReactNodeArray;
 }
 
 const Sidebar: React.SFC<SidebarProps> = ({ actions = [], children }) => {

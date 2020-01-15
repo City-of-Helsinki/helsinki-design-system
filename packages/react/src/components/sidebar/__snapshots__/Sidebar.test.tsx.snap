@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Sidebar /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="sidebar"
+  >
+    <div
+      class="mainWrapper"
+    >
+      <div
+        class="elementWrapper"
+      >
+        <div>
+          one
+        </div>
+      </div>
+      <div
+        class="elementWrapper"
+      >
+        <div>
+          two
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
