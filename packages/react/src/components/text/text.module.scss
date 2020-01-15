@@ -1,0 +1,64 @@
+@import 'fonts';
+@import 'colours';
+
+.standard {
+  color: inherit;
+}
+
+.brand {
+  color: $blue-500;
+}
+
+.critical {
+  color: $red-500;
+}
+
+.secondary {
+  color: $gray-200;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.xs {
+  font-size: font-size(12);
+}
+
+.s {
+  font-size: font-size(14);
+}
+
+.m {
+  font-size: font-size(16);
+}
+
+.l {
+  font-size: font-size(18);
+}
+
+.xl {
+  font-size: font-size(20);
+}
+
+.xxl {
+  font-size: font-size(24);
+}
+
+.xxxl {
+  font-size: font-size(30);
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
