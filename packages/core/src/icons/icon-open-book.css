@@ -1,0 +1,6 @@
+@svg-load icon url(../svg/icon-open-book.svg);
+
+.hds-icon--open-book {
+  mask-image: svg-inline(icon);
+  -webkit-mask-image: svg-inline(icon);
+}

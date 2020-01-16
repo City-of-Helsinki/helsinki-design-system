@@ -19,6 +19,16 @@ const Wrapper = ({ children, size }) => (
 
 const stories = storiesOf('Icons', module);
 
+const makeSvgStyleRules = (color: string) => ({
+  fill: color,
+  stroke: color,
+  // Some icons rely on stroke for color; some will break if stroke is applied.
+  // Because of that, we apply a stroke, but set it as 0 so only icons with
+  // explicit stroke-width declarations will be 'stroked'.
+  strokeWidth: 0,
+  padding: '10px',
+});
+
 const req = require.context('.', false, /^.\/Icon.*.tsx$/);
 req.keys().forEach(fileName => {
   const Component = req(fileName).default;
@@ -27,7 +37,7 @@ req.keys().forEach(fileName => {
 
   stories.add(componentName, () => (
     <>
-      <div style={{ fill: '#333', padding: '10px' }}>
+      <div style={makeSvgStyleRules('#333')}>
         <Wrapper size="200px">
           <Component />
         </Wrapper>
@@ -41,7 +51,7 @@ req.keys().forEach(fileName => {
           <Component />
         </Wrapper>
       </div>
-      <div style={{ background: '#333', fill: '#fff', padding: '10px' }}>
+      <div style={{ background: '#333', ...makeSvgStyleRules('#fff') }}>
         <Wrapper size="200px">
           <Component />
         </Wrapper>
