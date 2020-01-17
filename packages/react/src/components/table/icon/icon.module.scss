@@ -1,0 +1,50 @@
+@import 'spacings';
+@import 'colours';
+
+.icon {
+  --icon-stroke-color: #{$black};
+  --icon-dimension: #{units(1.5)};
+
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: content-box;
+  width: var(--icon-dimension);
+  height: var(--icon-dimension);
+  fill: var(--icon-stroke-color);
+}
+
+.shape {
+  width: 100%;
+  height: 100%;
+}
+
+.standard {
+  --icon-stroke-color: inherit;
+}
+
+.small {
+  --icon-dimension: #{units(1)};
+}
+
+.large {
+  --icon-dimension: #{units(2)};
+}
+
+.brand {
+  --icon-stroke-color: #{$blue-500};
+}
+
+.secondary {
+  --icon-stroke-color: #{$gray-200};
+}
+
+.critical {
+  --icon-stroke-color: #{$red-500};
+}
+
+.outlined {
+  border: solid 2px;
+  border-radius: 50%;
+  border-color: var(--icon-stroke-color);
+  padding: units(0.5);
+}

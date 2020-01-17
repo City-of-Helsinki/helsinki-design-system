@@ -1,0 +1,49 @@
+$project-breakpoints: 'phone-down', 'tablet-portrait-down',
+  'tablet-landscape-down', 'desktop-down', 'big-desktop-up';
+
+/*
+===================================
+    Usage
+===================================
+.element {
+  padding: 10px;
+
+  @include for-size(desktop-down) {
+    padding: 20px;
+  }
+}
+*/
+
+@mixin for-size($range) {
+  $phone-upper-boundary: 600px;
+  $tablet-portrait-upper-boundary: 900px;
+  $tablet-landscape-upper-boundary: 1200px;
+  $desktop-upper-boundary: 1800px;
+
+  @if not index($project-breakpoints, $range) {
+    @error '`#{$range}` is not a valid breakpoint token. '
+            + 'Valid breakpoints: #{$project-breakpoints}';
+  }
+
+  @if $range == phone-down {
+    @media (max-width: $phone-upper-boundary) {
+      @content;
+    }
+  } @else if $range == tablet-portrait-down {
+    @media (max-width: $tablet-portrait-upper-boundary) {
+      @content;
+    }
+  } @else if $range == tablet-landscape-down {
+    @media (max-width: $tablet-landscape-upper-boundary) {
+      @content;
+    }
+  } @else if $range == desktop-down {
+    @media (max-width: $desktop-upper-boundary) {
+      @content;
+    }
+  } @else if $range == big-desktop-up {
+    @media (min-width: #{$desktop-upper-boundary + 1}) {
+      @content;
+    }
+  }
+}

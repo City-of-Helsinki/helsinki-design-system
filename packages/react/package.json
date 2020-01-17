@@ -69,9 +69,11 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
+    "classnames": "^2.2.6",
     "hds-core": "^0.4.1",
     "lodash.uniqueid": "^4.0.1",
-    "react-spring": "^8.0.27"
+    "react-spring": "^8.0.27",
+    "react-table": "^7.0.0-rc.15"
   },
   "peerDependencies": {
     "react": "^16.8.0",
