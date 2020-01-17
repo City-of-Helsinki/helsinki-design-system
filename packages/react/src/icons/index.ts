@@ -25,7 +25,7 @@ export { default as IconLips } from './IconLips';
 export { default as IconLocation } from './IconLocation';
 export { default as IconLock } from './IconLock';
 export { default as IconMenu } from './IconMenu';
-export { default as IconOpenBook } from './IconOpenBook';
+export { default as IconRead } from './IconRead';
 export { default as IconSearch } from './IconSearch';
 export { default as IconShare } from './IconShare';
 export { default as IconSmile } from './IconSmile';
