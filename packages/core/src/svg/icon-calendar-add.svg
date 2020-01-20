@@ -1,17 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 27 26">
-  <g stroke-width="1" fill="none" fill-rule="evenodd">
-    <g transform="translate(-49.000000, -1173.000000)" stroke-width="2">
-      <g transform="translate(25.000000, 850.000000)">
-        <g transform="translate(25.000000, 324.000000)">
-          <line x1="12.5" y1="19.1666667" x2="12.5" y2="12.5" stroke-linecap="square"></line>
-          <line x1="15.8333333" y1="15.8333333" x2="9.16666667" y2="15.8333333" stroke-linecap="square"></line>
-          <line x1="25" y1="8.33333333" x2="0" y2="8.33333333" ></line>
-          <rect stroke-linecap="square" x="0" y="3.33333333" width="25" height="20"></rect>
-          <line x1="6.66666667" y1="0" x2="6.66666667" y2="3.33333333" stroke-linecap="square"></line>
-          <line x1="18.3333333" y1="0" x2="18.3333333" y2="3.33333333" stroke-linecap="square"></line>
-        </g>
-      </g>
-    </g>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 26 26" fill-rule="evenodd">
+  <path d="M9.8,24.406l-9.8,0l0,-21.2l6.4,0l0,-2.2l2,0l0,2.2l9.2,0l0,-2.2l2,0l0,2.2l6.4,0l0,21.2l-16.2,0Zm14.2,-14.4l-22,0l0,12.4l7.791,0l0,0l14.209,0l0,-12.4Zm-9.5,5.327l2.333,0l0,2l-2.333,0l0,2.334l-2,0l0,-2.334l-2.333,0l0,-2l2.333,0l0,-2.333l2,0l0,2.333Zm9.5,-10.127l-22,0l0,2.8l22,0l0,-2.8Z"/>
 </svg>

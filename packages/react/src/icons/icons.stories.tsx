@@ -21,11 +21,6 @@ const stories = storiesOf('Icons', module);
 
 const makeSvgStyleRules = (color: string) => ({
   fill: color,
-  stroke: color,
-  // Some icons rely on stroke for color; some will break if stroke is applied.
-  // Because of that, we apply a stroke, but set it as 0 so only icons with
-  // explicit stroke-width declarations will be 'stroked'.
-  strokeWidth: 0,
   padding: '10px',
 });
 
