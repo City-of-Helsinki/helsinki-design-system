@@ -19,6 +19,11 @@ const Wrapper = ({ children, size }) => (
 
 const stories = storiesOf('Icons', module);
 
+const makeSvgStyleRules = (color: string) => ({
+  fill: color,
+  padding: '10px',
+});
+
 const req = require.context('.', false, /^.\/Icon.*.tsx$/);
 req.keys().forEach(fileName => {
   const Component = req(fileName).default;
@@ -27,7 +32,7 @@ req.keys().forEach(fileName => {
 
   stories.add(componentName, () => (
     <>
-      <div style={{ fill: '#333', padding: '10px' }}>
+      <div style={makeSvgStyleRules('#333')}>
         <Wrapper size="200px">
           <Component />
         </Wrapper>
@@ -41,7 +46,7 @@ req.keys().forEach(fileName => {
           <Component />
         </Wrapper>
       </div>
-      <div style={{ background: '#333', fill: '#fff', padding: '10px' }}>
+      <div style={{ background: '#333', ...makeSvgStyleRules('#fff') }}>
         <Wrapper size="200px">
           <Component />
         </Wrapper>
