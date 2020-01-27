@@ -1,4 +1,4 @@
-# hds-core
+# hds-core [![npm version](https://badge.fury.io/js/hds-react.svg)](https://www.npmjs.com/package/hds-react)
 
 Base styles and individual HTML component styles for the Helsinki Design System.
 
