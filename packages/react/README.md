@@ -1,6 +1,6 @@
 :books: [**See the components in Storybook**](https://city-of-helsinki.github.io/helsinki-design-system/storybook/)
 
-# hds-react [![npm version](https://badge.fury.io/js/hds-core.svg)](https://www.npmjs.com/package/hds-core)
+# hds-react [![npm version](https://badge.fury.io/js/hds-react.svg)](https://www.npmjs.com/package/hds-react)
 
 A collection of Helsinki Design System components implemented using React.
 
