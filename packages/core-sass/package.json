@@ -1,0 +1,8 @@
+{
+  "name": "core-sass",
+  "version": "1.0.0",
+  "description": "SASS modules for Helsinki Design System ",
+  "main": "index.js",
+  "repository": "https://github.com/City-of-Helsinki/helsinki-design-system",
+  "license": "MIT"
+}
