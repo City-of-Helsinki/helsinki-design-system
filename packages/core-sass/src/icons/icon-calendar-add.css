@@ -1,0 +1,6 @@
+@svg-load icon url(../svg/icon-calendar-add.svg);
+
+.hds-icon--calendar-add {
+  mask-image: svg-inline(icon);
+  -webkit-mask-image: svg-inline(icon);
+}

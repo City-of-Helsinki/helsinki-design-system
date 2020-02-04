@@ -1,0 +1,6 @@
+@svg-load icon url(../svg/icon-attention.svg);
+
+.hds-icon--attention {
+  mask-image: svg-inline(icon);
+  -webkit-mask-image: svg-inline(icon);
+}
