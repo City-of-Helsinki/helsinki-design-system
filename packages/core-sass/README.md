@@ -8,20 +8,19 @@ SASS library for the Helsinki Design System.
 
 ```
 hds-core-sass/
-├── examples/           # html example pages using core components
-├── src/                # source css
+├── src/                # source scss
     └── stylesheets/
     |   ├── base/
     |   │   ├── _reset.scss
     |   |   ├── _typography.scss
     |   │   ├── <component name>.css
     |   │   :
-    |   ├── utilities/          # utility stylesheets
+    |   ├── utilities/
     |   |    ├── _color_variables.scss
     |   ├── main.scss
     |
     └── icons/          # collection of HDS icon styles
-    │   ├── all.css               # bundled stylesheet including all icons
+    │   ├── all.css
     │   ├── icon.css              # base styles for icons
     │   ├── icon-<icon name>.css  # individual icon stylesheet
     │   :
