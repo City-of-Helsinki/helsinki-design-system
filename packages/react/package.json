@@ -1,6 +1,6 @@
 {
   "name": "hds-react",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -56,6 +56,8 @@
     "inquirer": "^7.0.0",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "react-scripts": "^3.2.0",
     "react-test-renderer": "^16.10.2",
     "storybook-addon-jsx": "^7.1.13",
@@ -67,7 +69,7 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
-    "hds-core": "^0.4.1",
+    "hds-core": "^0.4.2",
     "lodash.uniqueid": "^4.0.1",
     "react-spring": "^8.0.27"
   },

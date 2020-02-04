@@ -63,7 +63,7 @@ const scaffold = async () => {
   const { name } = await inquirer.prompt({
     type: 'input',
     name: 'name',
-    message: `What's the name of your component?`,
+    message: `What's the name of your component? (e.g. Testcomponent)`,
     validate: input => (input.split(' ').length < 2 ? true : `Invalid component name: ${input}`),
   });
 
