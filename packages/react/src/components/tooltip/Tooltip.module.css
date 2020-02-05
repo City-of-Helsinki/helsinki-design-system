@@ -1,4 +1,4 @@
-@import '~hds-core/lib/helsinki.css';
+@import "~hds-core/lib/helsinki.css";
 
 .iconTooltip {
   width: 1.4375em;
@@ -23,7 +23,6 @@
   top: 0;
   right: 0;
   padding: 1.25em;
-  width: 0;
   fill: var(--hds-theme-color-primary);
 }
 
@@ -52,12 +51,12 @@
 }
 
 .labelText {
-  composes: text-bold from '~hds-core/lib/helsinki.css';
+  composes: text-bold from "~hds-core/lib/helsinki.css";
   vertical-align: middle;
 }
 
 .tooltipBody {
-  composes: text-sm from '~hds-core/lib/helsinki.css';
+  composes: text-sm from "~hds-core/lib/helsinki.css";
   padding: 0.75em 0;
 }
 
