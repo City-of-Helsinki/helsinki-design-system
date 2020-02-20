@@ -46,6 +46,7 @@ jobs:
       #   run: mkdir -p ./site/public/core && cp -r ./packages/core/{examples,lib} ./site/public/core
 
       - name: release npm packages
+        run: npm whoami
         run: yarn release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
