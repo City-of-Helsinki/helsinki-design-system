@@ -3,7 +3,7 @@ name: github pages
 on:
   push:
     branches:
-      - master
+      - feature/automated-package-releases
 
 jobs:
   build-deploy:
@@ -27,35 +27,34 @@ jobs:
         run: yarn build
         working-directory: ./packages/react
 
-      - name: build docz site
-        run: |
-          yarn build
-          ./check_build.sh
-        working-directory: ./site
-        env:
-          DOCZ_BASE: /helsinki-design-system/
+      # - name: build docz site
+      #   run: |
+      #     yarn build
+      #     ./check_build.sh
+      #   working-directory: ./site
+      #   env:
+      #     DOCZ_BASE: /helsinki-design-system/
 
-      - name: build storybook
-        run: yarn build-storybook
-        working-directory: ./packages/react
+      # - name: build storybook
+      #   run: yarn build-storybook
+      #   working-directory: ./packages/react
 
-      - name: move storybook under docz
-        run: mv ./packages/react/storybook-static ./site/public/storybook
+      # - name: move storybook under docz
+      #   run: mv ./packages/react/storybook-static ./site/public/storybook
 
-      - name: copy core examples under docz
-        run: mkdir -p ./site/public/core && cp -r ./packages/core/{examples,lib} ./site/public/core
+      # - name: copy core examples under docz
+      #   run: mkdir -p ./site/public/core && cp -r ./packages/core/{examples,lib} ./site/public/core
 
       - name: release npm packages
         run: yarn release
-
-      - name: Deploy
-        env:
-          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./site/public
-          SCRIPT_MODE: true
-        run: |
-          wget https://raw.githubusercontent.com/peaceiris/actions-gh-pages/v2.5.0/entrypoint.sh
-          bash ./entrypoint.sh
-          # with:
-          # keepFiles: true
+      # - name: Deploy
+      #   env:
+      #     ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+      #     PUBLISH_BRANCH: gh-pages
+      #     PUBLISH_DIR: ./site/public
+      #     SCRIPT_MODE: true
+      #   run: |
+      #     wget https://raw.githubusercontent.com/peaceiris/actions-gh-pages/v2.5.0/entrypoint.sh
+      #     bash ./entrypoint.sh
+      #     # with:
+      #     # keepFiles: true
