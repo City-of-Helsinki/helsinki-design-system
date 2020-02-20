@@ -3,7 +3,7 @@ name: github pages
 on:
   push:
     branches:
-      - feature/automated-package-releases
+      - master
 
 jobs:
   build-deploy:
@@ -28,41 +28,37 @@ jobs:
         run: yarn build
         working-directory: ./packages/react
 
-      # - name: build docz site
-      #   run: |
-      #     yarn build
-      #     ./check_build.sh
-      #   working-directory: ./site
-      #   env:
-      #     DOCZ_BASE: /helsinki-design-system/
-
-      # - name: build storybook
-      #   run: yarn build-storybook
-      #   working-directory: ./packages/react
-
-      # - name: move storybook under docz
-      #   run: mv ./packages/react/storybook-static ./site/public/storybook
-
-      # - name: copy core examples under docz
-      #   run: mkdir -p ./site/public/core && cp -r ./packages/core/{examples,lib} ./site/public/core
-
-      - name: npm verification
-        run: npm whoami
+      - name: build docz site
+        run: |
+          yarn build
+          ./check_build.sh
+        working-directory: ./site
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          DOCZ_BASE: /helsinki-design-system/
+
+      - name: build storybook
+        run: yarn build-storybook
+        working-directory: ./packages/react
+
+      - name: move storybook under docz
+        run: mv ./packages/react/storybook-static ./site/public/storybook
+
+      - name: copy core examples under docz
+        run: mkdir -p ./site/public/core && cp -r ./packages/core/{examples,lib} ./site/public/core
 
       - name: release npm packages
         run: yarn release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      # - name: Deploy
-      #   env:
-      #     ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-      #     PUBLISH_BRANCH: gh-pages
-      #     PUBLISH_DIR: ./site/public
-      #     SCRIPT_MODE: true
-      #   run: |
-      #     wget https://raw.githubusercontent.com/peaceiris/actions-gh-pages/v2.5.0/entrypoint.sh
-      #     bash ./entrypoint.sh
-      #     # with:
-      #     # keepFiles: true
+
+      - name: Deploy
+        env:
+          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: ./site/public
+          SCRIPT_MODE: true
+        run: |
+          wget https://raw.githubusercontent.com/peaceiris/actions-gh-pages/v2.5.0/entrypoint.sh
+          bash ./entrypoint.sh
+          # with:
+          # keepFiles: true
