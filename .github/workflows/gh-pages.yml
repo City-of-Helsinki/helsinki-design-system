@@ -45,8 +45,12 @@ jobs:
       # - name: copy core examples under docz
       #   run: mkdir -p ./site/public/core && cp -r ./packages/core/{examples,lib} ./site/public/core
 
-      - name: release npm packages
+      - name: npm verification
         run: npm whoami
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: release npm packages
         run: yarn release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
