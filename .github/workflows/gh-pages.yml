@@ -45,6 +45,9 @@ jobs:
       - name: copy core examples under docz
         run: mkdir -p ./site/public/core && cp -r ./packages/core/{examples,lib} ./site/public/core
 
+      - name: release npm packages
+        run: yarn release
+
       - name: Deploy
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
