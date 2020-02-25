@@ -9710,7 +9710,7 @@ hastscript@^5.0.0:
     property-information "^5.0.0"
     space-separated-tokens "^1.0.0"
 
-hds-core@0.4.1, hds-core@^0.4.1:
+hds-core@0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-0.4.1.tgz#8076a47040509e103e43e7a12fda50002340f41e"
   integrity sha512-5YpJn663U36PT3XdbL3PJkwVoxZu9oNrjBl4ne6ulXEO+7q922huDc67/FyjBu8+IdKt1HgXWY9pdhF+U495Og==
@@ -13795,6 +13795,8 @@ param-case@2.1.x, param-case@^2.1.0, param-case@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/param-case/-/param-case-2.1.1.tgz#df94fd8cf6531ecf75e6bef9a0858fbc72be2247"
   integrity sha1-35T9jPZTHs915r75oIWPvHK+Ikc=
+  dependencies:
+    no-case "^2.2.0"
 
 parent-module@^1.0.0:
   version "1.0.1"
