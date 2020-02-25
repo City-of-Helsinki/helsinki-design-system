@@ -9710,6 +9710,20 @@ hastscript@^5.0.0:
     property-information "^5.0.0"
     space-separated-tokens "^1.0.0"
 
+hds-core@0.4.1, hds-core@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-0.4.1.tgz#8076a47040509e103e43e7a12fda50002340f41e"
+  integrity sha512-5YpJn663U36PT3XdbL3PJkwVoxZu9oNrjBl4ne6ulXEO+7q922huDc67/FyjBu8+IdKt1HgXWY9pdhF+U495Og==
+
+hds-react@0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/hds-react/-/hds-react-0.5.4.tgz#0a852272bc097d38d2ab6ee1c89694a15f071c12"
+  integrity sha512-7ga/4HhAvo5ahmkGwx/VwmRYt/BS1qQDw77yDVq+bDyYYrLuD296iNL9Ipxo9p4fuKE7r9OJjpBfCDpbBPRd1w==
+  dependencies:
+    hds-core "^0.4.1"
+    lodash.uniqueid "^4.0.1"
+    react-spring "^8.0.27"
+
 he@1.2.x, he@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
@@ -13781,8 +13795,6 @@ param-case@2.1.x, param-case@^2.1.0, param-case@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/param-case/-/param-case-2.1.1.tgz#df94fd8cf6531ecf75e6bef9a0858fbc72be2247"
   integrity sha1-35T9jPZTHs915r75oIWPvHK+Ikc=
-  dependencies:
-    no-case "^2.2.0"
 
 parent-module@^1.0.0:
   version "1.0.1"
@@ -15517,7 +15529,7 @@ react-docgen@^4.1.1:
     node-dir "^0.1.10"
     recast "^0.17.3"
 
-react-dom@^16.11.0, react-dom@^16.8.3:
+react-dom@^16.11.0, react-dom@^16.8.0, react-dom@^16.8.3:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.12.0.tgz#0da4b714b8d13c2038c9396b54a92baea633fe11"
   integrity sha512-LMxFfAGrcS3kETtQaCkTKjMiifahaMySFDn71fZUNpPHZQEzmk/GiAeIT8JSOrHB23fnuCOMruL2a8NYlw+8Gw==
@@ -15812,7 +15824,7 @@ react-textarea-autosize@^7.1.0:
     "@babel/runtime" "^7.1.2"
     prop-types "^15.6.0"
 
-react@^16.11.0, react@^16.8.3:
+react@^16.11.0, react@^16.8.0, react@^16.8.3:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
   integrity sha512-fglqy3k5E+81pA8s+7K0/T3DBCF0ZDOher1elBFzF7O6arXJgzyu/FW+COxFvAWXJoJN9KIZbT2LXlukwphYTA==

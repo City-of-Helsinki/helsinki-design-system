@@ -15,6 +15,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "10.x"
+          registry-url: "https://registry.npmjs.org"
 
       - name: install dependencies
         run: yarn
@@ -44,6 +45,11 @@ jobs:
 
       - name: copy core examples under docz
         run: mkdir -p ./site/public/core && cp -r ./packages/core/{examples,lib} ./site/public/core
+
+      - name: release npm packages
+        run: yarn release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Deploy
         env:
