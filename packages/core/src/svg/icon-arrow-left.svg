@@ -1,6 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24">
-  <g>
-    <polygon points="13.3706831 2 11.5237192 3.84696395 18.0000474 10.3242884 2 10.3242884 2 12.937334 17.9990512 12.937334 11.5237192 19.412666 13.3706831 21.2586338 23 11.6293169" transform="translate(12.500000, 11.629317) rotate(-180.000000) translate(-12.500000, -11.629317) " />
-  </g>
-</svg>
+<?xml version="1.0" encoding="UTF-8"?><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon transform="translate(12.5 11.629) rotate(180) translate(-12.5 -11.629)" points="13.371 2 11.524 3.847 18 10.324 2 10.324 2 12.937 17.999 12.937 11.524 19.413 13.371 21.259 23 11.629"/></svg>
