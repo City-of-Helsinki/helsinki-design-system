@@ -26,7 +26,7 @@
 }
 
 .text-body {
-  font-family: var(--hds-primary-font);
+  font-family: var(--hds-theme-primary-font);
   font-size: var(--hds-text-base-size);
   color: var(--hds-theme-color-body);
   line-height: var(--hds-text-body-line-height);
