@@ -4,9 +4,10 @@ import ColorBox from "./ColorBox";
 
 const Colors = ({ colorvar, variations }) => (
   <>
-    {variations.map(variation => (
-      <ColorBox color={`var(${colorvar}${variation})`} />
-    ))}
+    {variations.map(variation => {
+      const key = `var(${colorvar}${variation})`;
+      return <ColorBox key={key} color={key} />;
+    })}
   </>
 );
 
