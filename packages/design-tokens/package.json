@@ -1,0 +1,17 @@
+{
+  "name": "hds-design-tokens",
+  "version": "0.1.0",
+  "description": "Design tokens for the Helsinki Design System",
+  "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "node_modules/.bin/style-dictionary build",
+    "prepublishOnly": "yarn build"
+  },
+  "devDependencies": {
+    "style-dictionary": "^2.8.3"
+  }
+}

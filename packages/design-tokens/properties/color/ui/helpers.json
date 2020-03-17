@@ -1,0 +1,40 @@
+{
+  "color": {
+    "error": {
+      "value": "#c4123e",
+      "type": "color"
+    },
+    "error-light": {
+      "value": "#f6e2e6",
+      "type": "color"
+    },
+    "success": {
+      "value": "#007a64",
+      "type": "color"
+    },
+    "success-light": {
+      "value": "#e2f5f3",
+      "type": "color"
+    },
+    "alert": {
+      "value": "#ffda07",
+      "type": "color"
+    },
+    "alert-light": {
+      "value": "#fff4b4",
+      "type": "color"
+    },
+    "alert-dark": {
+      "value": "#986700",
+      "type": "color"
+    },
+    "info": {
+      "value": "#007293",
+      "type": "color"
+    },
+    "info-light": {
+      "value": "#dcf1f5",
+      "type": "color"
+    }
+  }
+}

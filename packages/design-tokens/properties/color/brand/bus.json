@@ -1,0 +1,20 @@
+{
+  "color": {
+    "bus": {
+      "value": "#0000bf",
+      "type": "color"
+    },
+    "bus-light-20": {
+      "value": "#ccccf2",
+      "type": "color"
+    },
+    "bus-light-50": {
+      "value": "#7f7fdf",
+      "type": "color"
+    },
+    "bus-dark-50": {
+      "value": "#000098",
+      "type": "color"
+    }
+  }
+}
