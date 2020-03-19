@@ -1,172 +1,233 @@
+/* mixin used to define primary button colors */
+@define-mixin button-primary $theme: bus, $labelColor: white,
+  $focusColor: $theme {
+  --background-color: var(--color-$(theme));
+  --color: var(--color-$(labelColor));
+
+  /* focus background */
+  &:focus {
+    --background-color: var(--color-$(theme));
+  }
+
+  /* hover background */
+  &:hover {
+    --background-color: var(--color-$(theme)-dark-50);
+  }
+
+  /* disabled background */
+  &[disabled] {
+    --background-color: var(--color-$(theme)-light-20);
+  }
+
+  /* border color */
+  &:not([disabled])::after {
+    --border-color: var(--color-$(theme));
+  }
+
+  /* border hover color */
+  &:not([disabled]):hover::after {
+    --border-color: var(--color-$(theme)-dark-50);
+  }
+
+  /* border focus color */
+  &:not([disabled]):focus::after,
+  &:not([disabled]):focus:hover::after {
+    --border-color: var(--color-$(focusColor));
+  }
+}
+
+/* mixin used to define secondary button colors */
+@define-mixin button-secondary $theme: bus, $labelColor: white,
+  $focusColor: $theme {
+  --background-color: transparent;
+  --color: var(--color-$(theme));
+
+  /* focus background */
+  &:focus {
+    --background-color: var(--color-$(theme));
+  }
+
+  /* hover background */
+  &:hover {
+    --background-color: var(--color-$(theme)-dark-50);
+  }
+
+  /* disabled background */
+  &[disabled] {
+    --background-color: var(--color-$(theme)-light-20);
+  }
+
+  /* hover, focus and disabled label color */
+  &:hover,
+  &:focus,
+  &[disabled] {
+    --color: var(--color-$(labelColor));
+  }
+
+  /* border color */
+  &:not([disabled])::after {
+    --border-color: var(--color-$(theme));
+  }
+
+  /* border hover color */
+  &:not([disabled]):hover::after {
+    --border-color: var(--color-$(theme)-dark-50);
+  }
+
+  /* border focus color */
+  &:not([disabled]):focus::after,
+  &:not([disabled]):focus:hover::after {
+    --border-color: var(--color-$(focusColor));
+  }
+}
+
+/* mixin used to define supplementary button colors */
+@define-mixin button-supplementary $theme: bus {
+  --background-color: transparent;
+  --color: var(--color-$(theme));
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  /* disabled label color */
+  &[disabled] {
+    --color: var(--color-black-30);
+  }
+
+  /* border focus color */
+  &:not([disabled]):focus::after {
+    --border-color: var(--color-$(theme));
+  }
+}
+
+/* CORE BUTTON */
+
 .hds-button {
-  padding: 0.875em 0.7em;
-  transition-property: background-color, border-color;
-  transition-duration: 0.15s;
+  --border-width: 4px;
+  --color: inherit;
+  background-color: var(--background-color, transparent);
+  color: var(--color);
+  padding: calc(0.9375em - var(--border-width)) calc(1em - var(--border-width));
   display: inline-flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  border: 4px solid rgba(0, 0, 0, 0);
+  border: var(--border-width) solid transparent;
   fill: currentColor;
   text-align: left;
   align-content: flex-start;
   vertical-align: top;
+
+  &:hover,
+  &:focus {
+    transition-property: background-color, border-color, color;
+    transition-duration: 100ms;
+  }
+
+  &[disabled] {
+    pointer-events: none;
+  }
+
+  &:focus {
+    background-clip: padding-box;
+    outline: none;
+  }
+
+  /* button border */
+  &:not([disabled])::after {
+    --border-color: transparent;
+    --border-width: 2px;
+    content: "";
+    display: block;
+    position: absolute;
+    top: calc(var(--border-width) * -2);
+    right: calc(var(--border-width) * -2);
+    bottom: calc(var(--border-width) * -2);
+    left: calc(var(--border-width) * -2);
+    border: var(--border-width) solid var(--border-color);
+
+    &:hover,
+    &:focus {
+      transition: border-color 100ms;
+    }
+  }
 }
 
-.hds-button[disabled] {
-  pointer-events: none;
+/* LABEL */
+
+.hds-button__label {
+  line-height: 26px;
+  padding: 0 1em;
 }
 
-.hds-button:focus {
-  background-clip: padding-box;
-}
-
-.hds-button:after {
-  content: "";
-  display: block;
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  border: 2px solid rgba(0, 0, 0, 0);
-}
-
-/* PRIMARY */
-
-.hds-button--primary {
-  background-color: var(--hds-theme-color-primary);
-  color: var(--hds-theme-color-primary-heading);
-}
-
-.hds-button--primary:after {
-  border-color: var(--hds-theme-color-primary);
-}
-
-.hds-button--primary[disabled] {
-  background-color: var(--hds-theme-color-primary-light);
-}
-
-.hds-button--primary[disabled]:after {
-  border-color: var(--hds-theme-color-primary-light);
-}
-
-.hds-button--primary:hover {
-  background-color: var(--hds-theme-color-primary-dark);
-}
-
-.hds-button--primary:hover:after {
-  border-color: var(--hds-theme-color-primary-dark);
-}
+/* ICON */
 
 .hds-button .hds-icon {
   height: 1.5em;
   width: 1.5em;
-  margin: -0.75em auto;
-}
-
-.hds-button__label {
-  margin: 0 1.375em;
-}
-
-.hds-button--fullwidth {
-  width: 100%;
-}
-
-.hds-button--fullwidth .hds-icon {
-  margin-right: 0;
-  margin-left: 0;
-}
-
-/* SECONDARY */
-
-.hds-button--secondary {
-  background-color: var(--hds-theme-color-secondary);
-  color: var(--hds-theme-color-secondary-heading);
-}
-
-.hds-button--secondary:after {
-  border-color: var(--hds-theme-color-secondary);
-}
-
-.hds-button--secondary[disabled] {
-  background-color: var(--hds-theme-color-secondary-light);
-}
-
-.hds-button--secondary[disabled]:after {
-  border-color: var(--hds-theme-color-secondary-light);
-}
-
-.hds-button--secondary:hover {
-  background-color: var(--hds-theme-color-secondary-dark);
-}
-
-.hds-button--secondary:hover:after {
-  border-color: var(--hds-theme-color-secondary-dark);
-}
-
-/* TERTIARY */
-
-.hds-button--tertiary {
-  background-color: var(--hds-theme-color-tertiary);
-  color: var(--hds-theme-color-tertiary-heading);
-}
-
-.hds-button--tertiary:after {
-  border-color: var(--hds-theme-color-tertiary);
-}
-
-.hds-button--tertiary[disabled] {
-  background-color: var(--hds-theme-color-tertiary-light);
-}
-
-.hds-button--tertiary[disabled]:after {
-  border-color: var(--hds-theme-color-tertiary-light);
-}
-
-.hds-button--tertiary:hover {
-  background-color: var(--hds-theme-color-tertiary-dark);
-}
-
-.hds-button--tertiary:hover:after {
-  border-color: var(--hds-theme-color-tertiary-dark);
-}
-
-/* SUPPLEMENTARY */
-
-.hds-button--supplementary:after {
-  border-color: currentColor;
-}
-
-.hds-button--supplementary:focus:after {
-  border-width: 4px;
-}
-
-.hds-button--supplementary[disabled] {
-  color: var(--hds-ui-color-black-30);
-}
-
-.hds-button--supplementary[disabled]:after {
-  border: var(--hds-ui-color-black-30);
-}
-
-.hds-button--supplementary:hover {
-  text-decoration: underline;
 }
 
 /* SMALL */
 
 .hds-button--small {
-  padding: 0.25em;
+  padding: calc(0.3125em - var(--border-width))
+    calc(1.5em - var(--border-width));
 }
 
 .hds-button--small .hds-icon {
   height: 1em;
   width: 1em;
-  margin: -0.5em auto;
 }
 
-.hds-button--small.fullWidth .icon {
-  margin-right: 0;
-  margin-left: 0;
+/* FULL WIDTH */
+
+.hds-button--fullwidth {
+  width: 100%;
+}
+
+/* PRIMARY (uses bus as default) */
+
+.hds-button--primary {
+  @mixin button-primary;
+}
+
+/* SECONDARY (uses bus as default) */
+
+.hds-button--secondary {
+  @mixin button-secondary bus;
+}
+
+/* SUPPLEMENTARY (uses bus as default) */
+
+.hds-button--supplementary {
+  @mixin button-supplementary bus;
+}
+
+/* BUTTON THEMES */
+
+/* bus (default) */
+.hds-button--primary.hds-button--theme-bus {
+  @mixin button-primary;
+}
+
+.hds-button--secondary.hds-button--theme-bus {
+  @mixin button-secondary;
+}
+
+.hds-button--supplementary.hds-button--theme-bus {
+  @mixin button-supplementary;
+}
+
+/* engel */
+.hds-button--primary.hds-button--theme-engel {
+  @mixin button-primary engel, black, black;
+}
+
+.hds-button--secondary.hds-button--theme-engel {
+  @mixin button-secondary engel, black, black;
+}
+
+.hds-button--supplementary.hds-button--theme-engel {
+  @mixin button-supplementary engel;
 }
