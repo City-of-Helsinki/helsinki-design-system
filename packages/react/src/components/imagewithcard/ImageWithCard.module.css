@@ -1,5 +1,3 @@
-@import '~hds-core/lib/helsinki.css';
-
 .wrapper {
   top: 0;
   margin: 0 auto;
@@ -24,7 +22,7 @@
 }
 
 .card {
-  composes: text-body from '~hds-core/lib/helsinki.css';
+  composes: text-body from 'hds-core/lib/helsinki.css';
   padding: 1em 3em;
   background: white;
   width: 45%;
