@@ -7,7 +7,8 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   className?: string;
   disabled?: boolean;
   fullWidth?: boolean;
-  color?: 'primary' | 'secondary' | 'tertiary' | 'supplementary';
+  variant?: 'primary' | 'secondary' | 'supplementary';
+  theme?: 'default' | 'bus' | 'engel';
   size?: 'default' | 'small';
   iconLeft?: ReactElement;
   iconRight?: ReactElement;
@@ -18,7 +19,8 @@ export default ({
   className,
   disabled = false,
   fullWidth,
-  color = 'primary',
+  variant = 'primary',
+  theme = 'default',
   size = 'default',
   iconLeft,
   iconRight,
@@ -31,7 +33,7 @@ export default ({
   ) : null;
 
   const iconElementRight = iconRight ? (
-    <div className={classNames(styles.icon, styles.iconRight)} aria-hidden="true">
+    <div className={classNames(styles.icon)} aria-hidden="true">
       {iconRight}
     </div>
   ) : null;
@@ -42,9 +44,9 @@ export default ({
       type="button"
       className={classNames(
         styles.button,
-        styles[color],
+        styles[variant],
+        styles[theme],
         styles[size],
-        disabled ? styles.disabled : '',
         fullWidth ? styles.fullWidth : '',
         className,
       )}

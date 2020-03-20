@@ -1,167 +1,48 @@
 .button {
   composes: text-medium from '~hds-core/lib/helsinki.css';
-  padding: 0.875em 0.7em;
-  transition-property: background-color, border-color;
-  transition-duration: 0.15s;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  border: 4px solid rgba(0, 0, 0, 0);
-  fill: currentColor;
-  text-align: left;
-  align-content: flex-start;
-  vertical-align: top;
-}
-
-.button:focus {
-  background-clip: padding-box;
-}
-
-.button:after {
-  content: '';
-  display: block;
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  border: 2px solid rgba(0, 0, 0, 0);
-}
-
-.fullWidth {
-  width: 100%;
-}
-
-.fullWidth .icon {
-  margin-right: 0;
-  margin-left: 0;
-}
-
-.disabled {
-  pointer-events: none;
+  composes: hds-button from '~hds-core/lib/components/buttons.css';
 }
 
 .label {
-  margin: 0 1.375em;
+  composes: hds-button__label from '~hds-core/lib/components/buttons.css';
+}
+
+.fullWidth {
+  composes: hds-button--fullwidth from '~hds-core/lib/components/buttons.css';
+}
+
+.small {
+  composes: hds-button--small from '~hds-core/lib/components/buttons.css';
 }
 
 .icon {
   height: 1.5em;
   width: 1.5em;
-  margin: -0.75em auto;
-}
-
-.iconRight {
-  order: 2;
-}
-
-.primary {
-  background-color: var(--hds-theme-color-primary);
-  color: var(--hds-theme-color-primary-heading);
-}
-
-.primary:after {
-  border-color: var(--hds-theme-color-primary);
-}
-
-.primary.disabled {
-  background-color: var(--hds-theme-color-primary-light);
-}
-
-.primary.disabled:after {
-  border-color: var(--hds-theme-color-primary-light);
-}
-
-.primary:hover {
-  background-color: var(--hds-theme-color-primary-dark);
-}
-
-.primary:hover:after {
-  border-color: var(--hds-theme-color-primary-dark);
-}
-
-.secondary {
-  background-color: var(--hds-theme-color-secondary);
-  color: var(--hds-theme-color-secondary-heading);
-}
-
-.secondary:after {
-  border-color: var(--hds-theme-color-secondary);
-}
-
-.secondary.disabled {
-  background-color: var(--hds-theme-color-secondary-light);
-}
-
-.secondary.disabled:after {
-  border-color: var(--hds-theme-color-secondary-light);
-}
-
-.secondary:hover {
-  background-color: var(--hds-theme-color-secondary-dark);
-}
-
-.secondary:hover:after {
-  border-color: var(--hds-theme-color-secondary-dark);
-}
-
-.tertiary {
-  background-color: var(--hds-theme-color-tertiary);
-  color: var(--hds-theme-color-tertiary-heading);
-}
-
-.tertiary:after {
-  border-color: var(--hds-theme-color-tertiary);
-}
-
-.tertiary.disabled {
-  background-color: var(--hds-theme-color-tertiary-light);
-}
-
-.tertiary.disabled:after {
-  border-color: var(--hds-theme-color-tertiary-light);
-}
-
-.tertiary:hover {
-  background-color: var(--hds-theme-color-tertiary-dark);
-}
-
-.tertiary:hover:after {
-  border-color: var(--hds-theme-color-tertiary-dark);
-}
-
-.supplementary:after {
-  border-color: currentColor;
-}
-
-.supplementary:focus:after {
-  border-width: 4px;
-}
-
-.supplementary.disabled {
-  color: var(--hds-ui-color-black-30);
-}
-
-.supplementary.disabled:after {
-  border: var(--hds-ui-color-black-30);
-}
-
-.supplementary:hover {
-  text-decoration: underline;
-}
-
-.small {
-  padding: 0.25em;
 }
 
 .small .icon {
   height: 1em;
   width: 1em;
-  margin: -0.5em auto;
 }
 
-.small.fullWidth .icon {
-  margin-right: 0;
-  margin-left: 0;
+.primary {
+  composes: hds-button--primary from '~hds-core/lib/components/buttons.css';
+}
+
+.secondary {
+  composes: hds-button--secondary from '~hds-core/lib/components/buttons.css';
+}
+
+.supplementary {
+  composes: hds-button--supplementary from '~hds-core/lib/components/buttons.css';
+}
+
+/* themes */
+
+.bus {
+  composes: hds-button--theme-bus from '~hds-core/lib/components/buttons.css';
+}
+
+.engel {
+  composes: hds-button--theme-engel from '~hds-core/lib/components/buttons.css';
 }
