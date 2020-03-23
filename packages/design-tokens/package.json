@@ -2,16 +2,18 @@
   "name": "hds-design-tokens",
   "version": "0.1.0",
   "description": "Design tokens for the Helsinki Design System",
+  "author": "Niclas Liimatainen <niclas.liimatainen@digia.com>",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
   "files": [
     "lib"
   ],
   "scripts": {
-    "build": "node_modules/.bin/style-dictionary build",
-    "prepublishOnly": "yarn build"
+    "build": "node_modules/.bin/style-dictionary build && node_modules/.bin/postcss lib/variables.css > lib/variables.min.css"
   },
   "devDependencies": {
+    "cssnano": "^4.1.10",
+    "postcss-cli": "^7.1.0",
     "style-dictionary": "^2.8.3"
   }
 }
