@@ -1,36 +1,23 @@
 .hds-button {
   --border-width: 2px;
   --border-gutter: calc(var(--border-width) * 2);
-  --background-color: transparent;
-  --background-color-hover: transparent;
-  --background-color-focus: transparent;
-  --background-color-hover-focus: transparent;
-  --background-color-disabled: transparent;
-  --border-color: transparent;
-  --border-color-hover: transparent;
-  --border-color-focus: transparent;
-  --border-color-hover-focus: transparent;
-  --border-color-disabled: transparent;
   --color: inherit;
-  --color-hover: inherit;
-  --color-focus: inherit;
-  --color-disabled: inherit;
 
-  background-color: var(--background-color);
+  background-color: var(--background-color, transparent);
   color: var(--color);
   padding: var(--border-width);
   display: inline-flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  border: var(--border-width) solid var(--border-color);
+  border: var(--border-width) solid var(--border-color, transparent);
   fill: currentColor;
   text-align: left;
   align-content: flex-start;
   vertical-align: top;
 }
 
-/* button color transitions */
+/* button transitions */
 .hds-button:hover,
 .hds-button:focus {
   transition-property: background-color, border-color, color;
@@ -38,42 +25,42 @@
 }
 
 .hds-button:hover {
-  background-color: var(--background-color-hover);
+  background-color: var(--background-color-hover, transparent);
   color: var(--color-hover);
 }
 
 .hds-button:focus {
   background-clip: content-box;
-  background-color: var(--background-color-focus);
+  background-color: var(--background-color-focus, transparent);
   color: var(--color-focus);
   outline: none;
 }
 
 .hds-button:focus:hover {
-  background-color: var(--background-color-hover-focus);
+  background-color: var(--background-color-hover-focus, transparent);
 }
 
 .hds-button[disabled] {
-  background-color: var(--background-color-disabled);
-  border-color: var(--border-color-disabled);
+  background-color: var(--background-color-disabled, transparent);
+  border-color: var(--border-color-disabled, transparent);
   color: var(--color-disabled);
   pointer-events: none;
 }
 
 .hds-button:not([disabled]) {
-  border-color: var(--border-color);
+  border-color: var(--border-color, transparent);
 }
 
 .hds-button:not([disabled]):hover {
-  border-color: var(--border-color-hover);
+  border-color: var(--border-color-hover, transparent);
 }
 
 .hds-button:not([disabled]):focus {
-  border-color: var(--border-color-focus);
+  border-color: var(--border-color-focus, transparent);
 }
 
 .hds-button:not([disabled]):focus:hover {
-  border-color: var(--border-color-hover-focus);
+  border-color: var(--border-color-hover-focus, transparent);
 }
 
 /* LABEL */
@@ -193,7 +180,6 @@
   --color-hover: var(--button-color-label-supplementary-hover);
   --color-focus: var(--button-color-label-supplementary-focus);
   --color-disabled: var(--button-color-label-supplementary-disabled);
-
 }
 
 .hds-button--supplementary:hover {
