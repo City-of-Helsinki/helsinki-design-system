@@ -1,183 +1,103 @@
-/* mixin used to define primary button colors */
-@define-mixin button-primary $theme: bus, $labelColor: white,
-  $focusColor: $theme {
-  --background-color: var(--color-$(theme));
-  --color: var(--color-$(labelColor));
-
-  /* focus background */
-  &:focus {
-    --background-color: var(--color-$(theme));
-  }
-
-  /* hover background */
-  &:hover {
-    --background-color: var(--color-$(theme)-dark-50);
-  }
-
-  /* disabled background */
-  &[disabled] {
-    --background-color: var(--color-$(theme)-light-20);
-  }
-
-  /* border color */
-  &:not([disabled])::after {
-    --border-color: var(--color-$(theme));
-  }
-
-  /* border hover color */
-  &:not([disabled]):hover::after {
-    --border-color: var(--color-$(theme)-dark-50);
-  }
-
-  /* border focus color */
-  &:not([disabled]):focus::after,
-  &:not([disabled]):focus:hover::after {
-    --border-color: var(--color-$(focusColor));
-  }
-}
-
-/* mixin used to define secondary button colors */
-@define-mixin button-secondary $theme: bus, $labelColor: white,
-  $focusColor: $theme {
-  --background-color: transparent;
-  --color: var(--color-$(theme));
-
-  /* focus background */
-  &:focus {
-    --background-color: var(--color-$(theme));
-  }
-
-  /* hover background */
-  &:hover {
-    --background-color: var(--color-$(theme)-dark-50);
-  }
-
-  /* disabled background */
-  &[disabled] {
-    --background-color: var(--color-$(theme)-light-20);
-  }
-
-  /* hover, focus and disabled label color */
-  &:hover,
-  &:focus,
-  &[disabled] {
-    --color: var(--color-$(labelColor));
-  }
-
-  /* border color */
-  &:not([disabled])::after {
-    --border-color: var(--color-$(theme));
-  }
-
-  /* border hover color */
-  &:not([disabled]):hover::after {
-    --border-color: var(--color-$(theme)-dark-50);
-  }
-
-  /* border focus color */
-  &:not([disabled]):focus::after,
-  &:not([disabled]):focus:hover::after {
-    --border-color: var(--color-$(focusColor));
-  }
-}
-
-/* mixin used to define supplementary button colors */
-@define-mixin button-supplementary $theme: bus {
-  --background-color: transparent;
-  --color: var(--color-$(theme));
-
-  &:hover {
-    text-decoration: underline;
-  }
-
-  /* disabled label color */
-  &[disabled] {
-    --color: var(--color-black-30);
-  }
-
-  /* border focus color */
-  &:not([disabled]):focus::after {
-    --border-color: var(--color-$(theme));
-  }
-}
-
-/* CORE BUTTON */
-
 .hds-button {
-  --border-width: 4px;
+  --border-width: 2px;
+  --border-gutter: calc(var(--border-width) * 2);
+  --background-color: transparent;
+  --background-color-hover: transparent;
+  --background-color-focus: transparent;
+  --background-color-hover-focus: transparent;
+  --background-color-disabled: transparent;
+  --border-color: transparent;
+  --border-color-hover: transparent;
+  --border-color-focus: transparent;
+  --border-color-hover-focus: transparent;
+  --border-color-disabled: transparent;
   --color: inherit;
-  background-color: var(--background-color, transparent);
+  --color-hover: inherit;
+  --color-focus: inherit;
+  --color-disabled: inherit;
+
+  background-color: var(--background-color);
   color: var(--color);
-  padding: calc(0.9375em - var(--border-width)) calc(1em - var(--border-width));
+  padding: var(--border-width);
   display: inline-flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  border: var(--border-width) solid transparent;
+  border: var(--border-width) solid var(--border-color);
   fill: currentColor;
   text-align: left;
   align-content: flex-start;
   vertical-align: top;
+}
 
-  &:hover,
-  &:focus {
-    transition-property: background-color, border-color, color;
-    transition-duration: 100ms;
-  }
+/* button color transitions */
+.hds-button:hover,
+.hds-button:focus {
+  transition-property: background-color, border-color, color;
+  transition-duration: 100ms;
+}
 
-  &[disabled] {
-    pointer-events: none;
-  }
+.hds-button:hover {
+  background-color: var(--background-color-hover);
+  color: var(--color-hover);
+}
 
-  &:focus {
-    background-clip: padding-box;
-    outline: none;
-  }
+.hds-button:focus {
+  background-clip: content-box;
+  background-color: var(--background-color-focus);
+  color: var(--color-focus);
+  outline: none;
+}
 
-  /* button border */
-  &:not([disabled])::after {
-    --border-color: transparent;
-    --border-width: 2px;
-    content: "";
-    display: block;
-    position: absolute;
-    top: calc(var(--border-width) * -2);
-    right: calc(var(--border-width) * -2);
-    bottom: calc(var(--border-width) * -2);
-    left: calc(var(--border-width) * -2);
-    border: var(--border-width) solid var(--border-color);
+.hds-button:focus:hover {
+  background-color: var(--background-color-hover-focus);
+}
 
-    &:hover,
-    &:focus {
-      transition: border-color 100ms;
-    }
-  }
+.hds-button[disabled] {
+  background-color: var(--background-color-disabled);
+  border-color: var(--border-color-disabled);
+  color: var(--color-disabled);
+  pointer-events: none;
+}
+
+.hds-button:not([disabled]) {
+  border-color: var(--border-color);
+}
+
+.hds-button:not([disabled]):hover {
+  border-color: var(--border-color-hover);
+}
+
+.hds-button:not([disabled]):focus {
+  border-color: var(--border-color-focus);
+}
+
+.hds-button:not([disabled]):focus:hover {
+  border-color: var(--border-color-hover-focus);
 }
 
 /* LABEL */
 
 .hds-button__label {
-  line-height: 26px;
-  padding: 0 1em;
+  line-height: 1.5em;
+  padding: 0.75em;
+
 }
 
-/* ICON */
-
-.hds-button .hds-icon {
-  height: 1.5em;
-  width: 1.5em;
+/* no icons */
+.hds-button__label:only-child {
+  margin: 0 1em;
 }
 
 /* SMALL */
+.hds-button--small .hds-button__label {
+  padding: 0.125em 0.5em;
 
-.hds-button--small {
-  padding: calc(0.3125em - var(--border-width))
-    calc(1.5em - var(--border-width));
 }
 
-.hds-button--small .hds-icon {
-  height: 1em;
-  width: 1em;
+/* no icons */
+.hds-button--small .hds-button__label:only-child {
+  margin: 0 0.75em;
 }
 
 /* FULL WIDTH */
@@ -186,48 +106,96 @@
   width: 100%;
 }
 
-/* PRIMARY (uses bus as default) */
+/* ICONS */
+
+/* left */
+.hds-button .hds-icon {
+  height: 1.5em;
+  margin: 0 var(--border-gutter) 0 0.75em;
+  width: 1.5em;
+}
+
+/* left small */
+.hds-button--small .hds-icon {
+  height: 1em;
+  margin: 0 var(--border-gutter) 0 0.5em;
+  width: 1em;
+}
+
+/* right */
+.hds-button__label ~ .hds-icon {
+  margin: 0 0.75em 0 calc(var(--border-gutter));
+}
+
+/* right small */
+.hds-button--small .hds-button__label ~ .hds-icon {
+  margin: 0 0.5em 0 var(--border-gutter);
+}
+
+/* PRIMARY */
 
 .hds-button--primary {
-  @mixin button-primary;
+  --background-color: var(--button-color-background-primary-default);
+  --background-color-hover: var(--button-color-background-primary-hover);
+  --background-color-focus: var(--button-color-background-primary-focus);
+  --background-color-hover-focus: var(--button-color-background-primary-hover-focus);
+  --background-color-disabled: var(--button-color-background-primary-disabled);
+
+  --border-color: var(--button-color-border-primary-default);
+  --border-color-hover: var(--button-color-border-primary-hover);
+  --border-color-focus: var(--button-color-border-primary-focus);
+  --border-color-hover-focus: var(--button-color-border-primary-hover-focus);
+  --border-color-disabled: var(--button-color-border-primary-disabled);
+
+  --color: var(--button-color-label-primary-default);
+  --color-hover: var(--button-color-label-primary-hover);
+  --color-focus: var(--button-color-label-primary-focus);
+  --color-disabled: var(--button-color-label-primary-disabled);
 }
 
-/* SECONDARY (uses bus as default) */
+/* SECONDARY */
 
 .hds-button--secondary {
-  @mixin button-secondary bus;
+  --background-color: var(--button-color-background-secondary-default);
+  --background-color-hover: var(--button-color-background-secondary-hover);
+  --background-color-focus: var(--button-color-background-secondary-focus);
+  --background-color-hover-focus: var(--button-color-background-secondary-hover-focus);
+  --background-color-disabled: var(--button-color-background-secondary-disabled);
+
+  --border-color: var(--button-color-border-secondary-default);
+  --border-color-hover: var(--button-color-border-secondary-hover);
+  --border-color-focus: var(--button-color-border-secondary-focus);
+  --border-color-hover-focus: var(--button-color-border-secondary-hover-focus);
+  --border-color-disabled: var(--button-color-border-secondary-disabled);
+
+  --color: var(--button-color-label-secondary-default);
+  --color-hover: var(--button-color-label-secondary-hover);
+  --color-focus: var(--button-color-label-secondary-focus);
+  --color-disabled: var(--button-color-label-secondary-disabled);
 }
 
-/* SUPPLEMENTARY (uses bus as default) */
+/* SUPPLEMENTARY */
 
 .hds-button--supplementary {
-  @mixin button-supplementary bus;
+  --background-color: var(--button-color-background-supplementary-default);
+  --background-color-hover: var(--button-color-background-supplementary-hover);
+  --background-color-focus: var(--button-color-background-supplementary-focus);
+  --background-color-hover-focus: var(--button-color-background-supplementary-hover-focus);
+  --background-color-disabled: var(--button-color-background-supplementary-disabled);
+
+  --border-color: var(--button-color-border-supplementary-default);
+  --border-color-hover: var(--button-color-border-supplementary-hover);
+  --border-color-focus: var(--button-color-border-supplementary-focus);
+  --border-color-hover-focus: var(--button-color-border-supplementary-hover-focus);
+  --border-color-disabled: var(--button-color-border-supplementary-disabled);
+
+  --color: var(--button-color-label-supplementary-default);
+  --color-hover: var(--button-color-label-supplementary-hover);
+  --color-focus: var(--button-color-label-supplementary-focus);
+  --color-disabled: var(--button-color-label-supplementary-disabled);
+
 }
 
-/* BUTTON THEMES */
-
-/* bus (default) */
-.hds-button--primary.hds-button--theme-bus {
-  @mixin button-primary;
-}
-
-.hds-button--secondary.hds-button--theme-bus {
-  @mixin button-secondary;
-}
-
-.hds-button--supplementary.hds-button--theme-bus {
-  @mixin button-supplementary;
-}
-
-/* engel */
-.hds-button--primary.hds-button--theme-engel {
-  @mixin button-primary engel, black, black;
-}
-
-.hds-button--secondary.hds-button--theme-engel {
-  @mixin button-secondary engel, black, black;
-}
-
-.hds-button--supplementary.hds-button--theme-engel {
-  @mixin button-supplementary engel;
+.hds-button--supplementary:hover {
+  text-decoration: underline;
 }
