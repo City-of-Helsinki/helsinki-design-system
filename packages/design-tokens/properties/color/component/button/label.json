@@ -1,7 +1,7 @@
 {
-  "button": {
-    "color": {
-      "label": {
+  "color": {
+    "label": {
+      "button": {
         "primary": {
           "default": {
             "value": "{color.white.value}",
@@ -12,6 +12,10 @@
             "type": "color"
           },
           "focus": {
+            "value": "{color.white.value}",
+            "type": "color"
+          },
+          "hover-focus": {
             "value": "{color.white.value}",
             "type": "color"
           },
@@ -26,15 +30,19 @@
             "type": "color"
           },
           "hover": {
-            "value": "{color.white.value}",
+            "value": "{color.bus-dark-50.value}",
             "type": "color"
           },
           "focus": {
-            "value": "{color.white.value}",
+            "value": "{color.bus.value}",
+            "type": "color"
+          },
+          "hover-focus": {
+            "value": "{color.bus-dark-50.value}",
             "type": "color"
           },
           "disabled": {
-            "value": "{color.white.value}",
+            "value": "{color.black-20.value}",
             "type": "color"
           }
         },
@@ -44,15 +52,19 @@
             "type": "color"
           },
           "hover": {
-            "value": "{color.bus.value}",
+            "value": "{color.bus-dark-50.value}",
             "type": "color"
           },
           "focus": {
             "value": "{color.bus.value}",
             "type": "color"
           },
+          "hover-focus": {
+            "value": "{color.bus-dark-50.value}",
+            "type": "color"
+          },
           "disabled": {
-            "value": "{color.black-30.value}",
+            "value": "{color.black-20.value}",
             "type": "color"
           }
         }
