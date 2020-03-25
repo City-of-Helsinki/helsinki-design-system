@@ -30,5 +30,5 @@ export default {
       extensions,
     }),
   ],
-  external: ['lodash', 'react-spring/renderprops.cjs'],
+  external: ['react', 'react-dom', 'lodash', 'react-spring/renderprops.cjs'],
 };
