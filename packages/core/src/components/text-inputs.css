@@ -111,3 +111,19 @@
   border-color: var(--input-border-color-disabled);
   color: var(--input-color-disabled);
 }
+
+/* READ-ONLY */
+
+.hds-text-input--read-only .hds-text-input__input-wrapper input,
+.hds-text-input--read-only .hds-text-input__input-wrapper textarea {
+  background-color: transparent;
+  border: 0;
+  color: var(--input-color);
+  padding: 0 0 1.375rem;
+  text-overflow: ellipsis;
+}
+
+.hds-text-input--read-only .hds-text-input__input-wrapper input::placeholder,
+.hds-text-input--read-only .hds-text-input__input-wrapper textarea::placeholder {
+  color: var(--placeholder-color);
+}
