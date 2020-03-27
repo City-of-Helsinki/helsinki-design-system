@@ -1,0 +1,12 @@
+{
+  "color": {
+    "placeholder": {
+      "text-input": {
+        "default": {
+          "value": "{color.black-40.value}",
+          "type": "color"
+        }
+      }
+    }
+  }
+}

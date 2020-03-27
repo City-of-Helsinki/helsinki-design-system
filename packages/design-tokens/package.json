@@ -9,7 +9,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "node_modules/.bin/style-dictionary build && node_modules/.bin/postcss lib/variables.css > lib/variables.min.css"
+    "build": "yarn run style-dictionary build && node_modules/.bin/postcss lib/variables.css > lib/variables.min.css"
   },
   "devDependencies": {
     "cssnano": "^4.1.10",
