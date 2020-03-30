@@ -1,5 +1,5 @@
 .button {
-  composes: text-medium from '~hds-core/lib/helsinki.css';
+  composes: text-medium from '~hds-core/lib/variables/typography.css';
   composes: hds-button from '~hds-core/lib/components/buttons.css';
 }
 
@@ -16,13 +16,7 @@
 }
 
 .icon {
-  height: 1.5em;
-  width: 1.5em;
-}
-
-.small .icon {
-  height: 1em;
-  width: 1em;
+  composes: hds-icon from '~hds-core/lib/components/buttons.css';
 }
 
 .primary {
@@ -35,14 +29,4 @@
 
 .supplementary {
   composes: hds-button--supplementary from '~hds-core/lib/components/buttons.css';
-}
-
-/* themes */
-
-.bus {
-  composes: hds-button--theme-bus from '~hds-core/lib/components/buttons.css';
-}
-
-.engel {
-  composes: hds-button--theme-engel from '~hds-core/lib/components/buttons.css';
 }

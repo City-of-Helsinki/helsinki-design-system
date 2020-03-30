@@ -241,38 +241,4 @@ storiesOf('Button', module)
         Button
       </Button>
     </>
-  ))
-  .add('theme', () => (
-    <>
-      <Button onClick={action('button-click')} theme="bus">
-        Bus (default)
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} variant="secondary" theme="bus">
-        Bus (default)
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} variant="supplementary" theme="bus">
-        Bus (default)
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} theme="engel">
-        Engel
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} variant="secondary" theme="engel">
-        Engel
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} variant="supplementary" theme="engel">
-        Engel
-      </Button>
-      <br />
-      <br />
-    </>
   ));
