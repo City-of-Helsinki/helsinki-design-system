@@ -123,45 +123,45 @@
 /* PRIMARY */
 
 .hds-button--primary {
-  --background-color: var(--button-color-background-primary-default);
-  --background-color-hover: var(--button-color-background-primary-hover);
-  --background-color-focus: var(--button-color-background-primary-focus);
-  --background-color-hover-focus: var(--button-color-background-primary-hover-focus);
-  --background-color-disabled: var(--button-color-background-primary-disabled);
+  --background-color: var(--color-background-button-primary-default);
+  --background-color-hover: var(--color-background-button-primary-hover);
+  --background-color-focus: var(--color-background-button-primary-focus);
+  --background-color-hover-focus: var(--color-background-button-primary-hover-focus);
+  --background-color-disabled: var(--color-background-button-primary-disabled);
 
-  --border-color: var(--button-color-border-primary-default);
-  --border-color-hover: var(--button-color-border-primary-hover);
-  --border-color-focus: var(--button-color-border-primary-focus);
-  --border-color-hover-focus: var(--button-color-border-primary-hover-focus);
-  --border-color-disabled: var(--button-color-border-primary-disabled);
+  --border-color: var(--color-border-button-primary-default);
+  --border-color-hover: var(--color-border-button-primary-hover);
+  --border-color-focus: var(--color-border-button-primary-focus);
+  --border-color-hover-focus: var(--color-border-button-primary-hover-focus);
+  --border-color-disabled: var(--color-border-button-primary-disabled);
 
-  --color: var(--button-color-label-primary-default);
-  --color-hover: var(--button-color-label-primary-hover);
-  --color-focus: var(--button-color-label-primary-focus);
-  --color-hover-focus: var(--button-color-label-primary-hover-focus);
-  --color-disabled: var(--button-color-label-primary-disabled);
+  --color: var(--color-label-button-primary-default);
+  --color-hover: var(--color-label-button-primary-hover);
+  --color-focus: var(--color-label-button-primary-focus);
+  --color-hover-focus: var(--color-label-button-primary-hover-focus);
+  --color-disabled: var(--color-label-button-primary-disabled);
 }
 
 /* SECONDARY */
 
 .hds-button--secondary {
-  --background-color: var(--button-color-background-secondary-default);
-  --background-color-hover: var(--button-color-background-secondary-hover);
-  --background-color-focus: var(--button-color-background-secondary-focus);
-  --background-color-hover-focus: var(--button-color-background-secondary-hover-focus);
-  --background-color-disabled: var(--button-color-background-secondary-disabled);
+  --background-color: var(--color-background-button-secondary-default);
+  --background-color-hover: var(--color-background-button-secondary-hover);
+  --background-color-focus: var(--color-background-button-secondary-focus);
+  --background-color-hover-focus: var(--color-background-button-secondary-hover-focus);
+  --background-color-disabled: var(--color-background-button-secondary-disabled);
 
-  --border-color: var(--button-color-border-secondary-default);
-  --border-color-hover: var(--button-color-border-secondary-hover);
-  --border-color-focus: var(--button-color-border-secondary-focus);
-  --border-color-hover-focus: var(--button-color-border-secondary-hover-focus);
-  --border-color-disabled: var(--button-color-border-secondary-disabled);
+  --border-color: var(--color-border-button-secondary-default);
+  --border-color-hover: var(--color-border-button-secondary-hover);
+  --border-color-focus: var(--color-border-button-secondary-focus);
+  --border-color-hover-focus: var(--color-border-button-secondary-hover-focus);
+  --border-color-disabled: var(--color-border-button-secondary-disabled);
 
-  --color: var(--button-color-label-secondary-default);
-  --color-hover: var(--button-color-label-secondary-hover);
-  --color-focus: var(--button-color-label-secondary-focus);
-  --color-hover-focus: var(--button-color-label-secondary-hover-focus);
-  --color-disabled: var(--button-color-label-secondary-disabled);
+  --color: var(--color-label-button-secondary-default);
+  --color-hover: var(--color-label-button-secondary-hover);
+  --color-focus: var(--color-label-button-secondary-focus);
+  --color-hover-focus: var(--color-label-button-secondary-hover-focus);
+  --color-disabled: var(--color-label-button-secondary-disabled);
 }
 
 .hds-button.hds-button--secondary::after {
@@ -183,23 +183,23 @@
 /* SUPPLEMENTARY */
 
 .hds-button--supplementary {
-  --background-color: var(--button-color-background-supplementary-default);
-  --background-color-hover: var(--button-color-background-supplementary-hover);
-  --background-color-focus: var(--button-color-background-supplementary-focus);
-  --background-color-hover-focus: var(--button-color-background-supplementary-hover-focus);
-  --background-color-disabled: var(--button-color-background-supplementary-disabled);
+  --background-color: var(--color-background-button-supplementary-default);
+  --background-color-hover: var(--color-background-button-supplementary-hover);
+  --background-color-focus: var(--color-background-button-supplementary-focus);
+  --background-color-hover-focus: var(--color-background-button-supplementary-hover-focus);
+  --background-color-disabled: var(--color-background-button-supplementary-disabled);
 
-  --border-color: var(--button-color-border-supplementary-default);
-  --border-color-hover: var(--button-color-border-supplementary-hover);
-  --border-color-focus: var(--button-color-border-supplementary-focus);
-  --border-color-hover-focus: var(--button-color-border-supplementary-hover-focus);
-  --border-color-disabled: var(--button-color-border-supplementary-disabled);
+  --border-color: var(--color-border-button-supplementary-default);
+  --border-color-hover: var(--color-border-button-supplementary-hover);
+  --border-color-focus: var(--color-border-button-supplementary-focus);
+  --border-color-hover-focus: var(--color-border-button-supplementary-hover-focus);
+  --border-color-disabled: var(--color-border-button-supplementary-disabled);
 
-  --color: var(--button-color-label-supplementary-default);
-  --color-hover: var(--button-color-label-supplementary-hover);
-  --color-focus: var(--button-color-label-supplementary-focus);
-  --color-hover-focus: var(--button-color-label-supplementary-hover-focus);
-  --color-disabled: var(--button-color-label-supplementary-disabled);
+  --color: var(--color-label-button-supplementary-default);
+  --color-hover: var(--color-label-button-supplementary-hover);
+  --color-focus: var(--color-label-button-supplementary-focus);
+  --color-hover-focus: var(--color-label-button-supplementary-hover-focus);
+  --color-disabled: var(--color-label-button-supplementary-disabled);
 }
 
 .hds-button--supplementary:hover {
