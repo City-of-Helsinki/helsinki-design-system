@@ -21,23 +21,9 @@ storiesOf('TextInput', module)
   .add('without placeholder', () => <TextInput {...textInputProps} placeholder={undefined} />)
   .add('disabled', () => <TextInput {...textInputProps} disabled />)
   .add('read only', () => <TextInput {...textInputProps} readOnly defaultValue="default value" />)
-  .add('alternative', () => <TextInput {...textInputProps} alternative />)
-  .add('alternative read only', () => (
-    <TextInput {...textInputProps} alternative readOnly defaultValue="default value" />
-  ))
   .add('with label hidden', () => <TextInput {...textInputProps} hideLabel />)
   .add('with tooltip', () => (
     <TextInput
-      {...textInputProps}
-      tooltipLabel="tooltip label"
-      tooltipText="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-      tooltipOpenButtonLabelText="show tooltip"
-      tooltipCloseButtonLabelText="close tooltip"
-    />
-  ))
-  .add('alternative with tooltip', () => (
-    <TextInput
-      alternative
       {...textInputProps}
       tooltipLabel="tooltip label"
       tooltipText="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"

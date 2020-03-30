@@ -15,7 +15,7 @@
   --input-border-color-focus: var(--color-border-text-input-focus);
   --input-border-color-invalid: var(--color-border-text-input-invalid);
   --input-border-color-disabled: var(--color-border-text-input-disabled);
-  --input-color: var(--color-input-text-input-default);
+  --input-color-default: var(--color-input-text-input-default);
   --input-color-disabled: var(--color-input-text-input-disabled);
   --label-color-default: var(--color-label-text-input-default);
   --label-color-invalid: currentColor;
@@ -118,7 +118,7 @@
 .hds-text-input--read-only .hds-text-input__input-wrapper textarea {
   background-color: transparent;
   border: 0;
-  color: var(--input-color);
+  color: var(--input-color-default);
   padding: 0 0 1.375rem;
   text-overflow: ellipsis;
 }
