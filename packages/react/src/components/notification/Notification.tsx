@@ -7,6 +7,7 @@ import { IconInfo, IconWarning, IconAttention, IconCheck } from '../../icons';
 export type NotificationProps = React.PropsWithChildren<{
   labelText: string;
   type?: 'notification' | 'error' | 'warning' | 'success';
+  className?: string;
 }>;
 
 const icons = {
@@ -16,8 +17,8 @@ const icons = {
   success: <IconCheck className={styles.iconCheck} />,
 };
 
-export default ({ children = null, labelText, type = 'notification' }: NotificationProps) => (
-  <div className={classNames(styles.notification, styles[type])}>
+export default ({ children = null, labelText, type = 'notification', className }: NotificationProps) => (
+  <div className={classNames(styles.notification, styles[type], className)}>
     <div className={styles.label}>
       <span className={styles.icon} aria-hidden="true">
         {icons[type]}
