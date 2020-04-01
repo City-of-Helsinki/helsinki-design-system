@@ -1,0 +1,158 @@
+.hds-radio-button {
+  --size: 30px;
+  --border-width: 2px;
+  --radio-size: calc(var(--size) * 0.8);
+
+  --background: var(--color-white);
+  --background-hover: var(--color-white);
+  --background-focus: var(--color-white);
+  --background-unselected-disabled: var(--color-black-5);
+  --background-selected-disabled: var(--color-white);
+
+  --border-color-selected: var(--color-bus);
+  --border-color-selected-hover: var(--color-bus-dark-50);
+  --border-color-focus: var(--color-black-90);
+  --border-color-disabled: #c4c4c4;
+
+  --border-color-unselected: #c4c4c4;
+  --border-color-unselected-hover: var(--color-black-90);
+
+  --circle-color-unselected: transparent;
+  --circle-color-selected: var(--color-bus);
+  --circle-color-hover: var(--color-bus-dark-50);
+  --circle-color-disabled: var(--color-black-10);
+
+  --focus-outline-color: var(--color-black-90);
+
+  --label-color: var(--color-black-90);
+  --label-color-disabled: var(--color-black-30);
+
+  align-items: center;
+  display: flex;
+  height: var(--size);
+  position: relative;
+}
+
+/* radio button transitions */
+.hds-radio-button input:hover + label::before,
+.hds-radio-button input:hover + label::after,
+.hds-radio-button input:focus + label::before,
+.hds-radio-button input:focus + label::after {
+  transition: 100ms linear;
+  transition-property: transform, background-color, border-color;
+}
+
+/* NATIVE INPUT */
+.hds-radio-button input {
+  height: var(--size);
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: var(--size);
+}
+
+/* LABEL */
+
+.hds-radio-button label {
+  color: var(--label-color);
+  cursor: pointer;
+  padding-left: calc(var(--size) + 0.375em);
+  position: relative;
+}
+
+/* CUSTOM RADIO BUTTON */
+
+.hds-radio-button label::before,
+.hds-radio-button label::after {
+  border-radius: 50%;
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* background & focus outline */
+.hds-radio-button label::before {
+  background-color: var(--background);
+  border: var(--border-width) solid transparent;
+  height: var(--size);
+  left: 0;
+  transform: translateY(-50%) scale(0.8);
+  width: var(--size);
+}
+
+/* background - hover */
+.hds-radio-button input:hover + label::before {
+  background-color: var(--background-hover);
+}
+
+/* background - focus */
+.hds-radio-button input:focus + label::before {
+  background-color: var(--background-focus);
+  border-color: var(--focus-outline-color);
+  transform: translateY(-50%) scale(1);
+}
+
+/* inner circle */
+.hds-radio-button label::after {
+  background-clip: content-box;
+  background-color: var(--circle-color-unselected);
+  border: var(--border-width) solid var(--border-color-unselected);
+  height: var(--radio-size);
+  left: calc((var(--size) - var(--radio-size)) / 2);
+  padding: calc((var(--radio-size) / 2 - var(--border-width) * 2) / 2);
+  width: var(--radio-size);
+}
+
+/* inner circle - selected */
+.hds-radio-button input:checked + label::after {
+  background-color: var(--circle-color-selected);
+  border-color: var(--border-color-selected);
+}
+
+/* inner circle - selected - hover */
+.hds-radio-button input:not(:disabled):checked:hover + label::after,
+.hds-radio-button input:not(:disabled):checked:hover:focus + label::after {
+  background-color: var(--circle-color-hover);
+  border-color: var(--border-color-selected-hover);
+}
+
+/* inner circle - unselected - hover */
+.hds-radio-button input:not(:disabled):hover + label::after,
+.hds-radio-button input:not(:disabled):hover:focus + label::after {
+  border-color: var(--border-color-unselected-hover);
+}
+
+/* inner circle - focus */
+.hds-radio-button input:not(:disabled):focus + label::after {
+  border-color: var(--border-color-focus);
+}
+
+/* DISABLED */
+
+/* label */
+.hds-radio-button input:disabled + label {
+  color: var(--label-color-disabled);
+  cursor: default;
+}
+
+/* background */
+.hds-radio-button input:disabled + label::before {
+  background-color: var(--background-unselected-disabled);
+}
+
+/* background - selected */
+.hds-radio-button input:checked:disabled + label::before {
+  background-color: var(--background-selected-disabled);
+}
+
+/* inner circle */
+.hds-radio-button input:disabled + label::after {
+  border-color: var(--border-color-disabled);
+}
+
+/* inner circle - selected */
+.hds-radio-button input:checked:disabled + label::after {
+  background-color: var(--circle-color-disabled);
+}

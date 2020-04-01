@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>HDS Radio Buttons</title>
+    <link rel="stylesheet" href="../lib/helsinki.css" />
+    <link rel="stylesheet" href="../lib/components/radio-buttons.css" />
+    <link rel="stylesheet" href="css/example_fonts.css" />
+    <style>
+      body {
+        max-width: 800px;
+        padding: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h3>Radio buttons</h3>
+
+    <div class="hds-radio-button">
+      <input type="radio" id="radio1" name="example" value="foo" />
+      <label for="radio1">Option 1</label>
+    </div>
+
+    <div class="hds-radio-button">
+      <input type="radio" id="radio2" name="example" value="bar" />
+      <label for="radio2">Option 2</label>
+    </div>
+
+    <div class="hds-radio-button">
+      <input type="radio" id="radio3" name="example" value="baz" disabled />
+      <label for="radio3">Option 3 (disabled)</label>
+    </div>
+
+    <div class="hds-radio-button">
+      <input type="radio" id="radio4" value="baz" checked disabled />
+      <label for="radio3">Option 4 (disabled + selected)</label>
+    </div>
+  </body>
+</html>
