@@ -2,13 +2,13 @@
 
 .hds-checkbox {
   --size: 32px;
-  --border-radius: 1px;
-  --border-width: 2px;
   /* checkbox size relative to the full size (--size) */
   --checkbox-scale: 0.75;
   --checkbox-size: calc(var(--size) * var(--checkbox-scale));
   /* icon size relative to the checkbox size (--checkbox-size) */
   --icon-scale: 0.75;
+  --border-radius: 1px;
+  --border-width: 2px;
 
   --outer-background: var(--color-white);
   --outer-background-hover: var(--color-white);
@@ -36,7 +36,7 @@
   --focus-outline-color: var(--color-black-90);
 
   --label-color: var(--color-black-90);
-  --label-color-disabled: var(--color-black-90);
+  --label-color-disabled: var(--color-black-40);
 
   align-items: center;
   display: flex;
