@@ -12,3 +12,4 @@ export { default as Columns, ColumnsProps } from './components/columns/Columns';
 export { default as Tooltip, TooltipProps } from './components/tooltip/Tooltip';
 export { default as Button, ButtonProps } from './components/button/Button';
 export { default as RadioButton, RadioButtonProps } from './components/radiobutton/RadioButton';
+export { default as Checkbox, CheckboxProps } from './components/checkbox/Checkbox';
