@@ -20,7 +20,7 @@ The use of Storybook is recommended for component development.
 
 ## Adding a component
 
-To add a new compoment, use the scaffold helper (in the react package folder):
+To add a new component, use the scaffold helper (in the react package folder):
 
 ```
 yarn scaffold
@@ -33,7 +33,7 @@ This project uses the [Git Feature Branch Workflow](https://www.atlassian.com/gi
 ## Built with
 
 - React with [TypeScript](https://www.typescriptlang.org/) support
-- bundled with [Webpack](https://github.com/webpack/webpack), compiled with [Babel](https://github.com/babel/babel)
+- bundled with [Rollup](https://github.com/rollup/rollup), compiled with [Babel](https://github.com/babel/babel)
 - [CSS Modules](https://github.com/css-modules/css-modules) with [typed-css-modules](https://github.com/Quramy/typed-css-modules) for styles
 - [ESLint](https://github.com/eslint/eslint) for code analysis
 - [Jest](https://github.com/facebook/jest) with [React Testing Library](https://github.com/testing-library/react-testing-library) for testing

@@ -1,5 +1,5 @@
 .button {
-  composes: text-medium from '~hds-core/lib/helsinki.css';
+  composes: text-medium from 'hds-core/lib/helsinki.css';
   padding: 0.875em 0.7em;
   transition-property: background-color, border-color;
   transition-duration: 0.15s;
