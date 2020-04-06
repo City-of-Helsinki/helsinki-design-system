@@ -1,4 +1,2 @@
-properties
-.gitignore
-config.json
-postcss.config.js
+.*
+node_modules

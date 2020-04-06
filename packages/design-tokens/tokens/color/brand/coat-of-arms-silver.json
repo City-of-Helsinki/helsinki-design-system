@@ -3,7 +3,8 @@
     "coat-of-arms": {
       "silver": {
         "value": "#dedfe1",
-        "type": "color"
+        "type": "color",
+        "primary": true
       }
     }
   }

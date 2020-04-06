@@ -2,19 +2,23 @@
   "color": {
     "summer": {
       "value": "#ffc61e",
-      "type": "color"
+      "type": "color",
+      "primary": true
     },
     "summer-light-20": {
       "value": "#fff3d2",
-      "type": "color"
+      "type": "color",
+      "primary": true
     },
     "summer-light-50": {
       "value": "#ffe28e",
-      "type": "color"
+      "type": "color",
+      "primary": true
     },
     "summer-dark-50": {
       "value": "#e2ab0a",
-      "type": "color"
+      "type": "color",
+      "primary": true
     }
   }
 }

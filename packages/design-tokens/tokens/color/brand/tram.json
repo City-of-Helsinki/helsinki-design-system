@@ -2,19 +2,23 @@
   "color": {
     "tram": {
       "value": "#009246",
-      "type": "color"
+      "type": "color",
+      "primary": true
     },
     "tram-light-20": {
       "value": "#cce9da",
-      "type": "color"
+      "type": "color",
+      "primary": true
     },
     "tram-light-50": {
       "value": "#80c8a2",
-      "type": "color"
+      "type": "color",
+      "primary": true
     },
     "tram-dark-50": {
       "value": "#007438",
-      "type": "color"
+      "type": "color",
+      "primary": true
     }
   }
 }

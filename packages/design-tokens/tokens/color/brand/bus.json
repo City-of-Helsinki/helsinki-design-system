@@ -2,19 +2,23 @@
   "color": {
     "bus": {
       "value": "#0000bf",
-      "type": "color"
+      "type": "color",
+      "primary": true
     },
     "bus-light-20": {
       "value": "#ccccf2",
-      "type": "color"
+      "type": "color",
+      "primary": true
     },
     "bus-light-50": {
       "value": "#7f7fdf",
-      "type": "color"
+      "type": "color",
+      "primary": true
     },
     "bus-dark-50": {
       "value": "#000098",
-      "type": "color"
+      "type": "color",
+      "primary": true
     }
   }
 }

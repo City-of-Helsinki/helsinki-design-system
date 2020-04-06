@@ -9,11 +9,13 @@
     "lib"
   ],
   "scripts": {
-    "build": "yarn run style-dictionary build && node_modules/.bin/postcss lib/variables.css > lib/variables.min.css"
+    "build": "yarn build-tokens && yarn minify-css",
+    "build-tokens": "node build.js",
+    "minify-css": "foreach -g \"lib/**/*.css\" -i \"lib/**/*.min.css\" -t 10 -x \"yarn cleancss -o #{dir}/#{name}.min.css #{path}\""
   },
   "devDependencies": {
-    "cssnano": "^4.1.10",
-    "postcss-cli": "^7.1.0",
+    "clean-css-cli": "^4.3.0",
+    "foreach-cli": "^1.8.1",
     "style-dictionary": "^2.8.3"
   }
 }
