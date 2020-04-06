@@ -1,0 +1,52 @@
+{
+  "spacing": {
+    "4xs": {
+      "value": "0.125rem",
+      "comment": "2px"
+    },
+    "3xs": {
+      "value": "0.25rem",
+      "comment": "4px"
+    },
+    "2xs": {
+      "value": "0.5rem",
+      "comment": "8px"
+    },
+    "xs": {
+      "value": "0.75rem",
+      "comment": "12px"
+    },
+    "s": {
+      "value": "1rem",
+      "comment": "16px"
+    },
+    "m": {
+      "value": "1.5rem",
+      "comment": "24px"
+    },
+    "l": {
+      "value": "2rem",
+      "comment": "32px"
+    },
+    "xl": {
+      "value": "2.5rem",
+      "comment": "40px"
+    },
+    "2xl": {
+      "value": "3.0rem",
+      "comment": "48px"
+    },
+    "3xl": {
+      "value": "3.5rem",
+      "comment": "56px"
+    },
+    "4xl": {
+      "value": "4rem",
+      "comment": "64px"
+    },
+    "5xl": {
+      "value": "4.5rem",
+      "comment": "72px"
+    }
+  }
+}
