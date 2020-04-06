@@ -16,6 +16,8 @@ module.exports = ({ config, mode }) => {
     ],
     enforce: 'pre',
   });
+  // we need an alias for hds-core to point webpack to the package as we can't use tilde (~) with rollup
+  config.resolve.alias['./hds-core'] = require('path').resolve(__dirname, '../../../node_modules/hds-core')
   config.resolve.extensions.push('.ts', '.tsx');
   return config;
 };
