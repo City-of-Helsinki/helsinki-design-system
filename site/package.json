@@ -15,14 +15,15 @@
     "build": "rimraf .docz/ public/ && docz build"
   },
   "dependencies": {
-    "docz": "^2.0.0-rc.67",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0"
+    "docz": "^2.3.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
+    "gatsby-cli": "^2.11.5",
     "hds-core": "0.4.1",
-    "hds-react": "0.5.4",
+    "hds-react": "^0.6.1",
     "react-helmet": "^5.2.1",
-    "rimraf": "^3.0.0"
+    "rimraf": "^3.0.2"
   }
 }
