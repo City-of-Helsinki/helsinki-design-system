@@ -1,0 +1,24 @@
+{
+  "color": {
+    "border": {
+      "text-input": {
+        "default": {
+          "value": "{color.black-20.value}",
+          "type": "color"
+        },
+        "focus": {
+          "value": "{color.black-90.value}",
+          "type": "color"
+        },
+        "invalid": {
+          "value": "{color.error.value}",
+          "type": "color"
+        },
+        "disabled": {
+          "value": "{color.black-10.value}",
+          "type": "color"
+        }
+      }
+    }
+  }
+}

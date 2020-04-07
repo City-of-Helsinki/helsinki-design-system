@@ -17,7 +17,9 @@ const menu = [
   {
     name: "Components",
     menu: ["HDS Components"]
-  }
+  },
+  "Design Tokens",
+  "About"
 ];
 
 export default {

@@ -1,0 +1,16 @@
+{
+  "color": {
+    "background": {
+      "text-input": {
+        "default": {
+          "value": "{color.white.value}",
+          "type": "color"
+        },
+        "disabled": {
+          "value": "{color.black-10.value}",
+          "type": "color"
+        }
+      }
+    }
+  }
+}

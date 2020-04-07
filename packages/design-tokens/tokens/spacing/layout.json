@@ -1,0 +1,34 @@
+{
+  "spacing": {
+    "layout": {
+      "2xs": {
+        "value": "1rem",
+        "comment": "16px"
+      },
+      "xs": {
+        "value": "1.5rem",
+        "comment": "24px"
+      },
+      "s": {
+        "value": "2rem",
+        "comment": "32px"
+      },
+      "m": {
+        "value": "3rem",
+        "comment": "48px"
+      },
+      "l": {
+        "value": "4rem",
+        "comment": "64px"
+      },
+      "xl": {
+        "value": "6rem",
+        "comment": "96px"
+      },
+      "2xl": {
+        "value": "8rem",
+        "comment": "128px"
+      }
+    }
+  }
+}

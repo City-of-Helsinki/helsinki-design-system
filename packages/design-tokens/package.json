@@ -1,0 +1,21 @@
+{
+  "name": "hds-design-tokens",
+  "version": "0.1.0",
+  "description": "Design tokens for the Helsinki Design System",
+  "author": "Niclas Liimatainen <niclas.liimatainen@digia.com>",
+  "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "yarn build-tokens && yarn minify-css",
+    "build-tokens": "node build.js",
+    "minify-css": "foreach -g \"lib/**/*.css\" -i \"lib/**/*.min.css\" -t 10 -x \"yarn cleancss -o #{dir}/#{name}.min.css #{path}\""
+  },
+  "devDependencies": {
+    "clean-css-cli": "^4.3.0",
+    "foreach-cli": "^1.8.1",
+    "style-dictionary": "^2.8.3"
+  }
+}
