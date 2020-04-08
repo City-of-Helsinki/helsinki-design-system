@@ -7,52 +7,60 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   className?: string;
   disabled?: boolean;
   fullWidth?: boolean;
-  color?: 'primary' | 'secondary' | 'tertiary' | 'supplementary';
+  variant?: 'primary' | 'secondary' | 'supplementary';
+  theme?: 'default' | 'bus' | 'engel';
   size?: 'default' | 'small';
   iconLeft?: ReactElement;
   iconRight?: ReactElement;
 };
 
-export default ({
-  children,
-  className,
-  disabled = false,
-  fullWidth,
-  color = 'primary',
-  size = 'default',
-  iconLeft,
-  iconRight,
-  ...rest
-}: ButtonProps) => {
-  const iconElementLeft = iconLeft ? (
-    <div className={styles.icon} aria-hidden="true">
-      {iconLeft}
-    </div>
-  ) : null;
+export default React.forwardRef(
+  (
+    {
+      children,
+      className,
+      disabled = false,
+      fullWidth,
+      variant = 'primary',
+      theme = 'default',
+      size = 'default',
+      iconLeft,
+      iconRight,
+      ...rest
+    }: ButtonProps,
+    ref: React.RefObject<HTMLButtonElement>,
+  ) => {
+    const iconElementLeft = iconLeft ? (
+      <div className={styles.icon} aria-hidden="true">
+        {iconLeft}
+      </div>
+    ) : null;
 
-  const iconElementRight = iconRight ? (
-    <div className={classNames(styles.icon, styles.iconRight)} aria-hidden="true">
-      {iconRight}
-    </div>
-  ) : null;
+    const iconElementRight = iconRight ? (
+      <div className={classNames(styles.icon)} aria-hidden="true">
+        {iconRight}
+      </div>
+    ) : null;
 
-  return (
-    <button
-      disabled={disabled}
-      type="button"
-      className={classNames(
-        styles.button,
-        styles[color],
-        styles[size],
-        disabled ? styles.disabled : '',
-        fullWidth ? styles.fullWidth : '',
-        className,
-      )}
-      {...rest}
-    >
-      {iconElementLeft}
-      <span className={styles.label}>{children}</span>
-      {iconElementRight}
-    </button>
-  );
-};
+    return (
+      <button
+        ref={ref}
+        disabled={disabled}
+        type="button"
+        className={classNames(
+          styles.button,
+          styles[variant],
+          styles[theme],
+          styles[size],
+          fullWidth ? styles.fullWidth : '',
+          className,
+        )}
+        {...rest}
+      >
+        {iconElementLeft}
+        <span className={styles.label}>{children}</span>
+        {iconElementRight}
+      </button>
+    );
+  },
+);

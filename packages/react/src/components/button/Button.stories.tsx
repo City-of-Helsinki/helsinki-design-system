@@ -33,6 +33,11 @@ storiesOf('Button', module)
       </Button>
       <br />
       <br />
+      <Button onClick={action('button-click')} size="small" iconLeft={<IconShare />}>
+        Button
+      </Button>
+      <br />
+      <br />
       <Button onClick={action('button-click')} iconRight={<IconAngleRight />}>
         Button
       </Button>
@@ -80,7 +85,7 @@ storiesOf('Button', module)
       </Button>
       <br />
       <br />
-      <Button onClick={action('button-click')} fullWidth iconRight={<IconShare />}>
+      <Button onClick={action('button-click')} fullWidth size="small" iconLeft={<IconShare />}>
         Button
       </Button>
       <br />
@@ -113,49 +118,49 @@ storiesOf('Button', module)
   ))
   .add('secondary', () => (
     <>
-      <Button onClick={action('button-click')} color="secondary">
+      <Button onClick={action('button-click')} variant="secondary">
         Button
       </Button>
       <br />
       <br />
-      <Button onClick={action('button-click')} color="secondary" disabled>
+      <Button onClick={action('button-click')} variant="secondary" disabled>
         Button
       </Button>
       <br />
       <br />
-      <Button onClick={action('button-click')} color="secondary" size="small">
+      <Button onClick={action('button-click')} variant="secondary" size="small">
         Button
       </Button>
       <br />
       <br />
-      <Button onClick={action('button-click')} color="secondary" size="small" disabled>
+      <Button onClick={action('button-click')} variant="secondary" size="small" disabled>
         Button
       </Button>
       <br />
       <br />
-      <Button onClick={action('button-click')} color="secondary" iconLeft={<IconShare />}>
+      <Button onClick={action('button-click')} variant="secondary" iconLeft={<IconShare />}>
         Button
       </Button>
       <br />
       <br />
-      <Button onClick={action('button-click')} color="secondary" size="small" iconLeft={<IconShare />}>
+      <Button onClick={action('button-click')} variant="secondary" size="small" iconLeft={<IconShare />}>
         Button
       </Button>
       <br />
       <br />
-      <Button onClick={action('button-click')} color="secondary" iconRight={<IconAngleRight />}>
+      <Button onClick={action('button-click')} variant="secondary" iconRight={<IconAngleRight />}>
         Button
       </Button>
       <br />
       <br />
-      <Button onClick={action('button-click')} color="secondary" size="small" iconRight={<IconAngleRight />}>
+      <Button onClick={action('button-click')} variant="secondary" size="small" iconRight={<IconAngleRight />}>
         Button
       </Button>
       <br />
       <br />
       <Button
         onClick={action('button-click')}
-        color="secondary"
+        variant="secondary"
         iconLeft={<IconShare />}
         iconRight={<IconAngleRight />}
       >
@@ -165,65 +170,7 @@ storiesOf('Button', module)
       <br />
       <Button
         onClick={action('button-click')}
-        color="secondary"
-        size="small"
-        iconLeft={<IconShare />}
-        iconRight={<IconAngleRight />}
-      >
-        Button
-      </Button>
-    </>
-  ))
-  .add('tertiary', () => (
-    <>
-      <Button onClick={action('button-click')} color="tertiary">
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="tertiary" disabled>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="tertiary" size="small">
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="tertiary" size="small" disabled>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="tertiary" iconLeft={<IconShare />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="tertiary" size="small" iconLeft={<IconShare />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="tertiary" iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="tertiary" size="small" iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="tertiary" iconLeft={<IconShare />} iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button
-        onClick={action('button-click')}
-        color="tertiary"
+        variant="secondary"
         size="small"
         iconLeft={<IconShare />}
         iconRight={<IconAngleRight />}
@@ -234,49 +181,49 @@ storiesOf('Button', module)
   ))
   .add('supplementary', () => (
     <>
-      <Button onClick={action('button-click')} color="supplementary">
+      <Button onClick={action('button-click')} variant="supplementary">
         Button
       </Button>
       <br />
       <br />
-      <Button onClick={action('button-click')} color="supplementary" disabled>
+      <Button onClick={action('button-click')} variant="supplementary" disabled>
         Button
       </Button>
       <br />
       <br />
-      <Button onClick={action('button-click')} color="supplementary" size="small">
+      <Button onClick={action('button-click')} variant="supplementary" size="small">
         Button
       </Button>
       <br />
       <br />
-      <Button onClick={action('button-click')} color="supplementary" size="small" disabled>
+      <Button onClick={action('button-click')} variant="supplementary" size="small" disabled>
         Button
       </Button>
       <br />
       <br />
-      <Button onClick={action('button-click')} color="supplementary" iconLeft={<IconShare />}>
+      <Button onClick={action('button-click')} variant="supplementary" iconLeft={<IconShare />}>
         Button
       </Button>
       <br />
       <br />
-      <Button onClick={action('button-click')} color="supplementary" size="small" iconLeft={<IconShare />}>
+      <Button onClick={action('button-click')} variant="supplementary" size="small" iconLeft={<IconShare />}>
         Button
       </Button>
       <br />
       <br />
-      <Button onClick={action('button-click')} color="supplementary" iconRight={<IconAngleRight />}>
+      <Button onClick={action('button-click')} variant="supplementary" iconRight={<IconAngleRight />}>
         Button
       </Button>
       <br />
       <br />
-      <Button onClick={action('button-click')} color="supplementary" size="small" iconRight={<IconAngleRight />}>
+      <Button onClick={action('button-click')} variant="supplementary" size="small" iconRight={<IconAngleRight />}>
         Button
       </Button>
       <br />
       <br />
       <Button
         onClick={action('button-click')}
-        color="supplementary"
+        variant="supplementary"
         iconLeft={<IconShare />}
         iconRight={<IconAngleRight />}
       >
@@ -286,7 +233,7 @@ storiesOf('Button', module)
       <br />
       <Button
         onClick={action('button-click')}
-        color="supplementary"
+        variant="supplementary"
         size="small"
         iconLeft={<IconShare />}
         iconRight={<IconAngleRight />}
