@@ -74,6 +74,7 @@
 
 .hds-button__label {
   line-height: 1.5em;
+  font-weight: 500;
   padding: var(--spacing-xs);
 }
 

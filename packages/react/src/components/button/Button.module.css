@@ -1,32 +1,49 @@
+@import 'hds-core/lib/base.css';
+
 .button {
-  composes: text-medium from '~hds-core/lib/variables/typography.css';
-  composes: hds-button from '~hds-core/lib/components/buttons.css';
+  composes: hds-button from 'hds-core/lib/components/buttons.css';
 }
 
 .label {
-  composes: hds-button__label from '~hds-core/lib/components/buttons.css';
+  composes: hds-button__label from 'hds-core/lib/components/buttons.css';
 }
 
 .fullWidth {
-  composes: hds-button--fullwidth from '~hds-core/lib/components/buttons.css';
+  composes: hds-button--fullwidth from 'hds-core/lib/components/buttons.css';
 }
 
 .small {
-  composes: hds-button--small from '~hds-core/lib/components/buttons.css';
+  composes: hds-button--small from 'hds-core/lib/components/buttons.css';
 }
 
 .icon {
-  composes: hds-icon from '~hds-core/lib/components/buttons.css';
+  composes: hds-icon from 'hds-core/lib/components/buttons.css';
 }
 
 .primary {
-  composes: hds-button--primary from '~hds-core/lib/components/buttons.css';
+  composes: hds-button--primary from 'hds-core/lib/components/buttons.css';
 }
 
 .secondary {
-  composes: hds-button--secondary from '~hds-core/lib/components/buttons.css';
+  composes: hds-button--secondary from 'hds-core/lib/components/buttons.css';
 }
 
 .supplementary {
-  composes: hds-button--supplementary from '~hds-core/lib/components/buttons.css';
+  composes: hds-button--supplementary from 'hds-core/lib/components/buttons.css';
+}
+
+.success {
+  composes: hds-button--success from 'hds-core/lib/components/buttons.css';
+}
+
+.danger {
+  composes: hds-button--danger from 'hds-core/lib/components/buttons.css';
+}
+
+.coat {
+  composes: hds-button--theme-coat from 'hds-core/lib/components/buttons.css';
+}
+
+.black {
+  composes: hds-button--theme-black from 'hds-core/lib/components/buttons.css';
 }

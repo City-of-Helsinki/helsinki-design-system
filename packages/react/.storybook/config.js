@@ -6,7 +6,6 @@ import { jsxDecorator } from 'storybook-addon-jsx';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 import './index.css';
-import 'hds-core/lib/engel.css';
 
 const viewports = {
   ...INITIAL_VIEWPORTS,
@@ -34,20 +33,6 @@ addParameters({
 });
 
 addDecorator(withRootAttribute);
-addParameters({
-  rootAttribute: {
-    defaultState: {
-      name: 'Theme: default',
-      value: null,
-    },
-    states: [
-      {
-        name: 'Theme: Engel',
-        value: 'engel',
-      },
-    ],
-  },
-});
 
 const req = require.context('../src', true, /\.stories\.tsx$/);
 

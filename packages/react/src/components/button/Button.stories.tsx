@@ -241,4 +241,49 @@ storiesOf('Button', module)
         Button
       </Button>
     </>
+  ))
+  .add('utility', () => (
+    <>
+      <Button onClick={action('button-click')} variant="success">
+        Success
+      </Button>
+      <br />
+      <br />
+      <Button onClick={action('button-click')} variant="danger">
+        Danger
+      </Button>
+    </>
+  ))
+  .add('themes', () => (
+    <>
+      <style>{`button {margin-right: var(--spacing-s)}`}</style>
+      <h5>default | bus</h5>
+      <Button onClick={action('button-click')}>Button</Button>
+      <Button onClick={action('button-click')} variant="secondary">
+        Button
+      </Button>
+      <Button onClick={action('button-click')} variant="supplementary">
+        Button
+      </Button>
+      <h5>coat</h5>
+      <Button onClick={action('button-click')} theme="coat">
+        Button
+      </Button>
+      <Button onClick={action('button-click')} theme="coat" variant="secondary">
+        Button
+      </Button>
+      <Button onClick={action('button-click')} theme="coat" variant="supplementary">
+        Button
+      </Button>
+      <h5>black</h5>
+      <Button onClick={action('button-click')} theme="black">
+        Button
+      </Button>
+      <Button onClick={action('button-click')} theme="black" variant="secondary">
+        Button
+      </Button>
+      <Button onClick={action('button-click')} theme="black" variant="supplementary">
+        Button
+      </Button>
+    </>
   ));

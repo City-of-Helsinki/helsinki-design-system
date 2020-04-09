@@ -7,8 +7,8 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   className?: string;
   disabled?: boolean;
   fullWidth?: boolean;
-  variant?: 'primary' | 'secondary' | 'supplementary';
-  theme?: 'default' | 'bus' | 'engel';
+  variant?: 'primary' | 'secondary' | 'supplementary' | 'success' | 'danger';
+  theme?: 'default' | 'bus' | 'coat' | 'black';
   size?: 'default' | 'small';
   iconLeft?: ReactElement;
   iconRight?: ReactElement;
