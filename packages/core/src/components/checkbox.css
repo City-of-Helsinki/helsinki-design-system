@@ -1,3 +1,6 @@
+/* import checkbox color variables */
+@import "hds-design-tokens/lib/color/component/checkbox.css";
+
 @svg-load icon url(../svg/icon-check.svg);
 
 .hds-checkbox {
@@ -10,33 +13,33 @@
   --border-radius: 1px;
   --border-width: 2px;
 
-  --outer-background: var(--color-white);
-  --outer-background-hover: var(--color-white);
-  --outer-background-focus: var(--color-white);
-  --outer-background-unselected-disabled: var(--color-black-10);
-  --outer-background-selected-disabled: var(--color-white);
+  --outer-background: var(--color-background-checkbox-outer-default);
+  --outer-background-hover: var(--color-background-checkbox-outer-hover);
+  --outer-background-focus: var(--color-background-checkbox-outer-focus);
+  --outer-background-unselected-disabled: var(--color-background-checkbox-outer-unselected-disabled);
+  --outer-background-selected-disabled: var(--color-background-checkbox-outer-selected-disabled);
 
-  --inner-background-unselected: transparent;
-  --inner-background-selected: var(--color-bus);
-  --inner-background-hover: var(--color-bus-dark-50);
-  --inner-background-disabled: var(--color-black-10);
+  --inner-background-unselected: var(--color-background-checkbox-inner-unselected);
+  --inner-background-selected: var(--color-background-checkbox-inner-selected);
+  --inner-background-hover: var(--color-background-checkbox-inner-hover);
+  --inner-background-disabled: var(--color-background-checkbox-inner-disabled);
 
-  --border-color-selected: var(--color-bus);
-  --border-color-selected-hover: var(--color-bus-dark-50);
-  --border-color-selected-focus: var(--color-bus);
-  --border-color-unselected: #c4c4c4;
-  --border-color-unselected-hover: var(--color-black-90);
-  --border-color-unselected-focus: var(--color-black);
-  --border-color-disabled: var(--color-black-10);
+  --border-color-selected: var(--color-border-checkbox-selected);
+  --border-color-selected-hover: var(--color-border-checkbox-selected-hover);
+  --border-color-selected-focus: var(--color-border-checkbox-selected-focus);
+  --border-color-unselected: var(--color-border-checkbox-unselected);
+  --border-color-unselected-hover: var(--color-border-checkbox-unselected-hover);
+  --border-color-unselected-focus: var(--color-border-checkbox-unselected-focus);
+  --border-color-disabled: var(--color-border-checkbox-disabled);
 
-  --icon-color-unselected: transparent;
-  --icon-color-selected: var(--color-white);
-  --icon-color-disabled: var(--color-white);
+  --icon-color-unselected: var(--color-icon-checkbox-unselected);
+  --icon-color-selected: var(--color-icon-checkbox-selected);
+  --icon-color-disabled: var(--color-icon-checkbox-disabled);
 
-  --focus-outline-color: var(--color-black-90);
+  --focus-outline-color: var(--color-focus-outline-checkbox-default);
 
-  --label-color: var(--color-black-90);
-  --label-color-disabled: var(--color-black-40);
+  --label-color: var(--color-label-checkbox-default);
+  --label-color-disabled: var(--color-label-checkbox-disabled);
 
   align-items: center;
   display: flex;
@@ -73,7 +76,7 @@
 .hds-checkbox label {
   color: var(--label-color);
   cursor: pointer;
-  padding-left: calc(var(--size) + 0.375em);
+  padding-left: calc(var(--size) + var(--spacing-2-xs));
   position: relative;
 }
 

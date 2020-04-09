@@ -1,0 +1,12 @@
+{
+  "color": {
+    "focus-outline": {
+      "checkbox": {
+        "default": {
+          "value": "{color.black-90.value}",
+          "type": "color"
+        }
+      }
+    }
+  }
+}

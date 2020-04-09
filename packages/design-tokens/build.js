@@ -105,4 +105,9 @@ Object.values({
     source: ['tokens/color/brand/*.json', 'tokens/color/ui/*.json', 'tokens/color/component/radio-button/*.json'],
     platforms: getPlatformConfig('radio-button', 'color/component', 'isComponentToken'),
   }),
+  // checkbox
+  checkbox: dictionary.extend({
+    source: ['tokens/color/brand/*.json', 'tokens/color/ui/*.json', 'tokens/color/component/checkbox/*.json'],
+    platforms: getPlatformConfig('checkbox', 'color/component', 'isComponentToken'),
+  }),
 }).forEach(item => item.buildAllPlatforms());

@@ -17,12 +17,12 @@
         "primary": true
       },
       "blue-light-50": {
-        "value": "#005b9e",
+        "value": "#80b8e2",
         "type": "color",
         "primary": true
       },
       "blue-dark-50": {
-        "value": "#000098",
+        "value": "#005b9e",
         "type": "color",
         "primary": true
       }
