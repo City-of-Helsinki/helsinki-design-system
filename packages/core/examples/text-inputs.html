@@ -4,10 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>HDS Text Inputs</title>
-    <link rel="stylesheet" href="../lib/helsinki.css" />
+    <link rel="stylesheet" href="../lib/base.css" />
     <link rel="stylesheet" href="../lib/components/text-inputs.css" />
-    <link rel="stylesheet" href="../lib/icons/icon.css" />
-    <link rel="stylesheet" href="../lib/icons/icon-lock.css" />
     <link rel="stylesheet" href="css/example_fonts.css" />
     <style>
       body {
@@ -18,22 +16,22 @@
   </head>
 
   <body>
+    <h2>Text input</h2>
+
     <h3>Default</h3>
 
     <div class="hds-text-input">
-      <label for="my-input" class="hds-text-input__label text-sm text-bold"
+      <label for="my-input2" class="hds-text-input__label"
         >Label text</label
       >
       <div class="hds-text-input__input-wrapper">
         <input
-          class="text-md"
           type="text"
-          id="my-input"
-          placeholder="default value"
-          value=""
+          id="my-input2"
+          placeholder="placeholder"
         />
       </div>
-      <span class="hds-text-input__helper-text text-sm">
+      <span class="hds-text-input__helper-text">
         This describes the purpose of this field.
       </span>
     </div>
@@ -41,206 +39,129 @@
     <h3>Read-only</h3>
 
     <div class="hds-text-input hds-text-input--read-only">
-      <label for="my-input" class="hds-text-input__label text-sm text-bold"
+      <label for="my-input23" class="hds-text-input__label"
         >Label text</label
       >
       <div class="hds-text-input__input-wrapper">
         <input
-          class="text-md"
           type="text"
-          id="my-input"
-          placeholder="default value"
-          value="text input value"
+          id="my-input23"
+          value="input value"
           disabled
         />
-        <div class="hds-text-input__input-icon">
-          <span class="hds-icon hds-icon--lock" aria-hidden="true"></span>
-        </div>
       </div>
     </div>
 
-    <h3>Alternative</h3>
+    <h3>Disabled</h3>
 
-    <div class="hds-text-input hds-text-input--alternative">
-      <label for="my-input" class="hds-text-input__label text-sm text-bold"
+    <div class="hds-text-input">
+      <label for="my-input3" class="hds-text-input__label"
         >Label text</label
       >
       <div class="hds-text-input__input-wrapper">
         <input
-          class="text-md"
           type="text"
-          id="my-input"
-          placeholder="default value"
-          value=""
+          id="my-input3"
+          placeholder="placeholder"
+          disabled
         />
-      </div>
-      <span class="hds-text-input__helper-text text-sm">
+        <span class="hds-text-input__helper-text">
         This describes the purpose of this field.
       </span>
-    </div>
-
-    <h3>Alternative Read-only</h3>
-
-    <div
-      class="hds-text-input hds-text-input--alternative hds-text-input--read-only"
-    >
-      <label for="my-input" class="hds-text-input__label text-sm text-bold"
-        >Label text</label
-      >
-      <div class="hds-text-input__input-wrapper">
-        <input
-          class="text-md"
-          type="text"
-          id="my-input"
-          placeholder="default value"
-          value="text input value"
-          disabled
-        />
-        <div class="hds-text-input__input-icon">
-          <span class="hds-icon hds-icon--lock" aria-hidden="true"></span>
-        </div>
       </div>
     </div>
 
     <h3>Invalid</h3>
 
     <div class="hds-text-input hds-text-input--invalid">
-      <label for="my-input" class="hds-text-input__label text-sm text-bold"
+      <label for="my-input5" class="hds-text-input__label"
         >Label text</label
       >
       <div class="hds-text-input__input-wrapper">
         <input
-          class="text-md"
           type="text"
-          id="my-input"
+          id="my-input5"
           placeholder="default value"
           value=""
         />
       </div>
 
-      <span class="hds-text-input__invalid-text text-sm">
+      <span class="hds-text-input__helper-text">
         This field is invalid!
       </span>
     </div>
 
-    <!-- 
-      
-      
-  const label: JSX.Element = labelText ? (
-    <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hiddenLabel : ''}`}>
-      {labelText}
-    </label>
-  ) : null;
+    <h2>Textarea</h2>
 
-  const helper: JSX.Element = helperText ? <div className={styles.helperText}>{helperText}</div> : null;
+    <h3>Default</h3>
 
-  const invalidMsg: JSX.Element = invalidText ? <div className={styles.invalidText}>{invalidText}</div> : null;
-
-  const inputIcon = readOnly ? (
-    <div className={styles.inputIcon}>
-      <IconLock className={styles.iconLock} />
-    </div>
-  ) : null;
-
-  return (
-    <div
-      className={classNames(
-        styles.root,
-        alternative && styles.alternative,
-        disabled && styles.disabled,
-        readOnly && styles.readOnly,
-        invalid && styles.invalid,
-        className,
-      )}
-    >
-      {label}
-      {tooltip && tooltip}
-      <div className={styles.inputWrapper}>
-        <input
-          className={styles.input}
-          defaultValue={defaultValue}
-          aria-labelledby={labelledBy}
-          disabled={disabled}
-          id={id}
-          readOnly={readOnly}
-          onChange={onChange}
-          placeholder={placeholder}
-          type={type}
-          value={value}
-        />
-        {inputIcon}
+    <div class="hds-text-input">
+      <label for="my-input12" class="hds-text-input__label"
+        >Label text</label
+      >
+      <div class="hds-text-input__input-wrapper">
+        <textarea
+          type="text"
+          id="my-input12"
+          placeholder="placeholder"
+        ></textarea>
       </div>
-      {helper}
-      {invalidMsg}
+      <span class="hds-text-input__helper-text">
+        This describes the purpose of this field.
+      </span>
     </div>
-      
-      
-      <h3>With close button</h3>
 
-  <div class="hds-notification">
-    <div class="hds-notification__label">
-      <span class="hds-icon hds-icon--info" aria-hidden="true"></span>
-      <span class="text-md text-bold">Label text</span>
-    </div>
-    <div class="hds-notification__body text-body">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris.
-    </div>
-    <button class="hds-notification__close-button" aria-label="Close notification" onClick="">
-      <span class="hds-icon hds-icon--close" aria-hidden="true"></span>
-    </button>
-  </div>
+    <h3>Read-only</h3>
 
-  <h3>Warning</h3>
+    <div class="hds-text-input hds-text-input--read-only">
+      <label for="my-input32" class="hds-text-input__label"
+      >Label text</label
+      >
+      <div class="hds-text-input__input-wrapper">
+        <textarea
+                type="text"
+                id="my-input32"
+                disabled
+        >input value</textarea>
+      </div>
+    </div>
 
-  <div class="hds-notification hds-notification--warning">
-    <div class="hds-notification__label">
-      <span class="hds-icon hds-icon--attention" aria-hidden="true"></span>
-      <span class="text-md text-bold">Label text</span>
-    </div>
-    <div class="hds-notification__body text-body">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris.
-    </div>
-    <button class="hds-notification__close-button" aria-label="Close notification" onClick="">
-      <span class="hds-icon hds-icon--close" aria-hidden="true"></span>
-    </button>
-  </div>
+    <h3>Disabled</h3>
 
-  <h3>Error</h3>
+    <div class="hds-text-input">
+      <label for="my-input13" class="hds-text-input__label"
+        >Label text</label
+      >
+      <div class="hds-text-input__input-wrapper">
+        <textarea
+          type="text"
+          id="my-input13"
+          placeholder="placeholder"
+          disabled
+        ></textarea>
+        <span class="hds-text-input__helper-text">
+        This describes the purpose of this field.
+      </span>
+      </div>
+    </div>
 
-  <div class="hds-notification hds-notification--error">
-    <div class="hds-notification__label">
-      <span class="hds-icon hds-icon--warning" aria-hidden="true"></span>
-      <span class="text-md text-bold">Label text</span>
-    </div>
-    <div class="hds-notification__body text-body">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris.
-    </div>
-    <button class="hds-notification__close-button" aria-label="Close notification" onClick="">
-      <span class="hds-icon hds-icon--close" aria-hidden="true"></span>
-    </button>
-  </div>
+    <h3>Invalid</h3>
 
-  <h3>Success</h3>
+    <div class="hds-text-input hds-text-input--invalid">
+      <label for="my-input15" class="hds-text-input__label"
+        >Label text</label
+      >
+      <div class="hds-text-input__input-wrapper">
+        <textarea
+          type="text"
+          id="my-input15"
+          placeholder="default value"
+        ></textarea>
+      </div>
 
-  <div class="hds-notification hds-notification--success">
-    <div class="hds-notification__label">
-      <span class="hds-icon hds-icon--check" aria-hidden="true"></span>
-      <span class="text-md text-bold">Label text</span>
+      <span class="hds-text-input__helper-text">
+        This field is invalid!
+      </span>
     </div>
-    <div class="hds-notification__body text-body">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris.
-    </div>
-    <button class="hds-notification__close-button" aria-label="Close notification" onClick="">
-      <span class="hds-icon hds-icon--close" aria-hidden="true"></span>
-    </button>
-  </div> -->
   </body>
 </html>
