@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>HDS Checkboxes</title>
+    <link rel="stylesheet" href="../lib/helsinki.css" />
+    <link rel="stylesheet" href="../lib/components/checkbox.css" />
+    <link rel="stylesheet" href="css/example_fonts.css" />
+    <style>
+      body {
+        max-width: 800px;
+        padding: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h3>Checkboxes</h3>
+
+    <div class="hds-checkbox">
+      <input type="checkbox" id="checkbox1" value="foo" checked />
+      <label for="checkbox1">Option 1</label>
+    </div>
+
+    <div class="hds-checkbox">
+      <input type="checkbox" id="checkbox2" value="bar" />
+      <label for="checkbox2">Option 2</label>
+    </div>
+
+    <div class="hds-checkbox">
+      <input type="checkbox" id="checkbox3" value="baz" disabled />
+      <label for="checkbox3">Option 3 (disabled)</label>
+    </div>
+
+    <div class="hds-checkbox">
+      <input type="checkbox" id="checkbox4" value="baz" checked disabled />
+      <label for="checkbox4">Option 4 (disabled + selected)</label>
+    </div>
+  </body>
+</html>
