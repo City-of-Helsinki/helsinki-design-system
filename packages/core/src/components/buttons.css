@@ -1,7 +1,5 @@
 /* import button color variables */
 @import "hds-design-tokens/lib/color/component/button.css";
-/* import spacing variables */
-@import "hds-design-tokens/lib/spacing/spacing.css";
 
 .hds-button {
   --border-width: 2px;

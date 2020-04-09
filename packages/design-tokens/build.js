@@ -100,4 +100,9 @@ Object.values({
     source: ['tokens/color/brand/*.json', 'tokens/color/ui/*.json', 'tokens/color/component/text-input/*.json'],
     platforms: getPlatformConfig('text-input', 'color/component', 'isComponentToken'),
   }),
+  // radio-button
+  radioButton: dictionary.extend({
+    source: ['tokens/color/brand/*.json', 'tokens/color/ui/*.json', 'tokens/color/component/radio-button/*.json'],
+    platforms: getPlatformConfig('radio-button', 'color/component', 'isComponentToken'),
+  }),
 }).forEach(item => item.buildAllPlatforms());

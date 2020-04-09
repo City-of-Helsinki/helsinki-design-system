@@ -1,7 +1,5 @@
 /* import text-input color variables */
 @import "hds-design-tokens/lib/color/component/text-input.css";
-/* import spacing variables */
-@import "hds-design-tokens/lib/spacing/spacing.css";
 
 @svg-load icon url(../svg/icon-info.svg);
 
