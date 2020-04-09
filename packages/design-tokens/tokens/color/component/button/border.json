@@ -42,7 +42,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{color.black-20.value}",
+            "value": "#c4c4c4",
             "type": "color"
           }
         },

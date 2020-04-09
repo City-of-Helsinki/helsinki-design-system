@@ -6,13 +6,18 @@
         "type": "color",
         "primary": true
       },
+      "blue-light-5": {
+        "value": "#f2f8fc",
+        "type": "color",
+        "primary": true
+      },
       "blue-light-20": {
         "value": "#cce2f3",
         "type": "color",
         "primary": true
       },
       "blue-light-50": {
-        "value": "#80b8e2",
+        "value": "#005b9e",
         "type": "color",
         "primary": true
       },

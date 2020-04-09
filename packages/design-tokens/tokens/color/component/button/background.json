@@ -29,13 +29,15 @@
             "value": "transparent"
           },
           "hover": {
-            "value": "transparent"
+            "value": "{color.bus-light-5.value}",
+            "type": "color"
           },
           "focus": {
             "value": "transparent"
           },
           "hover-focus": {
-            "value": "transparent"
+            "value": "{color.bus-light-5.value}",
+            "type": "color"
           },
           "disabled": {
             "value": "transparent"
@@ -46,13 +48,15 @@
             "value": "transparent"
           },
           "hover": {
-            "value": "transparent"
+            "value": "{color.bus-light-5.value}",
+            "type": "color"
           },
           "focus": {
             "value": "transparent"
           },
           "hover-focus": {
-            "value": "transparent"
+            "value": "{color.bus-light-5.value}",
+            "type": "color"
           },
           "disabled": {
             "value": "transparent"

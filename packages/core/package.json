@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "copyfiles": "^2.1.1",
+    "hds-design-tokens": "^0.1.0",
     "normalize.css": "^8.0.1",
     "postcss": "^7.0.18",
     "postcss-cli": "^6.1.3",
