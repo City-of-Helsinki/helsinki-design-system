@@ -1,297 +1,140 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
+import { boolean, radios, text, withKnobs } from '@storybook/addon-knobs';
+import { Props, Stories, Subtitle, Title } from '@storybook/addon-docs/dist/blocks';
 
 import Button from './Button';
-import { IconShare, IconAngleRight } from '../../icons';
+import { IconShare, IconAngleRight, IconSmile } from '../../icons';
 
-(Button as React.FC).displayName = 'Button';
+const onClick = action('button-click');
 
-storiesOf('Button', module)
-  .add('default', () => (
-    <>
-      <Button onClick={action('button-click')}>Button</Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} disabled>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} size="small">
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} size="small" disabled>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} iconLeft={<IconShare />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} size="small" iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} iconLeft={<IconShare />} iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} size="small" iconLeft={<IconShare />} iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-    </>
-  ))
-  .add('full width', () => (
-    <>
-      <Button onClick={action('button-click')} fullWidth>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} fullWidth disabled>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} fullWidth size="small">
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} fullWidth size="small" disabled>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} fullWidth iconLeft={<IconShare />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} fullWidth iconRight={<IconShare />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} fullWidth iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} fullWidth size="small" iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} fullWidth iconLeft={<IconShare />} iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button
-        onClick={action('button-click')}
-        fullWidth
-        size="small"
-        iconLeft={<IconShare />}
-        iconRight={<IconAngleRight />}
-      >
-        Button
-      </Button>
-    </>
-  ))
-  .add('secondary', () => (
-    <>
-      <Button onClick={action('button-click')} color="secondary">
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="secondary" disabled>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="secondary" size="small">
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="secondary" size="small" disabled>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="secondary" iconLeft={<IconShare />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="secondary" size="small" iconLeft={<IconShare />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="secondary" iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="secondary" size="small" iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button
-        onClick={action('button-click')}
-        color="secondary"
-        iconLeft={<IconShare />}
-        iconRight={<IconAngleRight />}
-      >
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button
-        onClick={action('button-click')}
-        color="secondary"
-        size="small"
-        iconLeft={<IconShare />}
-        iconRight={<IconAngleRight />}
-      >
-        Button
-      </Button>
-    </>
-  ))
-  .add('tertiary', () => (
-    <>
-      <Button onClick={action('button-click')} color="tertiary">
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="tertiary" disabled>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="tertiary" size="small">
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="tertiary" size="small" disabled>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="tertiary" iconLeft={<IconShare />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="tertiary" size="small" iconLeft={<IconShare />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="tertiary" iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="tertiary" size="small" iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="tertiary" iconLeft={<IconShare />} iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button
-        onClick={action('button-click')}
-        color="tertiary"
-        size="small"
-        iconLeft={<IconShare />}
-        iconRight={<IconAngleRight />}
-      >
-        Button
-      </Button>
-    </>
-  ))
-  .add('supplementary', () => (
-    <>
-      <Button onClick={action('button-click')} color="supplementary">
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="supplementary" disabled>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="supplementary" size="small">
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="supplementary" size="small" disabled>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="supplementary" iconLeft={<IconShare />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="supplementary" size="small" iconLeft={<IconShare />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="supplementary" iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button onClick={action('button-click')} color="supplementary" size="small" iconRight={<IconAngleRight />}>
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button
-        onClick={action('button-click')}
-        color="supplementary"
-        iconLeft={<IconShare />}
-        iconRight={<IconAngleRight />}
-      >
-        Button
-      </Button>
-      <br />
-      <br />
-      <Button
-        onClick={action('button-click')}
-        color="supplementary"
-        size="small"
-        iconLeft={<IconShare />}
-        iconRight={<IconAngleRight />}
-      >
-        Button
-      </Button>
-    </>
-  ));
+export default {
+  component: Button,
+  title: 'Components/Button',
+  decorators: [withKnobs],
+  parameters: {
+    docs: {
+      page: () => (
+        <>
+          <Title>Props</Title>
+          <Subtitle>Props, which are not mentioned below, are spread into the component</Subtitle>
+          <Props />
+          <Stories title="Examples" includePrimary />
+        </>
+      ),
+    },
+  },
+};
+
+/**
+ * Primary
+ */
+export const Primary = () => <Button onClick={onClick}>Button</Button>;
+
+/**
+ * Secondary
+ */
+export const Secondary = () => (
+  <Button onClick={onClick} color="secondary">
+    Button
+  </Button>
+);
+
+/**
+ * Supplementary
+ */
+export const Supplementary = () => (
+  <Button onClick={onClick} color="supplementary">
+    Button
+  </Button>
+);
+
+/**
+ * Small
+ */
+export const Small = () => (
+  <Button onClick={onClick} size="small">
+    Button
+  </Button>
+);
+
+/**
+ * Full width
+ */
+export const FullWidth = () => (
+  <Button onClick={onClick} fullWidth>
+    Button
+  </Button>
+);
+
+FullWidth.story = {
+  name: 'Full width',
+};
+
+/**
+ * Icons
+ */
+export const Icons = () => (
+  <>
+    <Button onClick={onClick} iconLeft={<IconShare />}>
+      Button
+    </Button>
+
+    <br />
+    <br />
+
+    <Button onClick={onClick} iconRight={<IconAngleRight />}>
+      Button
+    </Button>
+
+    <br />
+    <br />
+
+    <Button onClick={onClick} iconLeft={<IconShare />} iconRight={<IconAngleRight />}>
+      Button
+    </Button>
+  </>
+);
+
+/**
+ * Playground
+ */
+export const Playground = () => {
+  const label = text('Label', 'Button');
+  const color = radios(
+    'Color',
+    { primary: 'primary', secondary: 'secondary', supplementary: 'supplementary' },
+    'primary',
+  );
+  const size = radios('Size', { default: 'default', small: 'small' }, 'default');
+  const disabled = boolean('Disabled', false);
+  const fullWidth = boolean('Full width', false);
+  const iconLeft = boolean('Icon left', false);
+  const iconRight = boolean('Icon right', false);
+
+  return (
+    <Button
+      color={color}
+      disabled={disabled}
+      fullWidth={fullWidth}
+      size={size}
+      iconLeft={iconLeft ? <IconSmile /> : null}
+      iconRight={iconRight ? <IconSmile /> : null}
+    >
+      {label}
+    </Button>
+  );
+};
+
+Playground.story = {
+  parameters: {
+    previewTabs: {
+      'storybook/docs/panel': {
+        hidden: true,
+      },
+    },
+    docs: {
+      disable: true,
+    },
+  },
+};
