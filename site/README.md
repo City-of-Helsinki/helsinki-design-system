@@ -26,7 +26,8 @@ The documentation is written as md/mdx files in the `docs/` folder. Docz doesn't
 
 In addition to the markdown, the file contains a frontmatter header that will be used to give the page it's settings (see [Document settings](https://www.docz.site/docs/document-settings)).
 
-[Example doc file](examples/example.mdx)
+[Example page documentation file](examples/page.mdx)
+[Example component documentation file](examples/component.mdx)
 
 ### Deployment
 

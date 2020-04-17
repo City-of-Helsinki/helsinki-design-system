@@ -11,7 +11,7 @@
     ]
   },
   "scripts": {
-    "start": "docz dev",
+    "start": "rimraf .docz/ && docz dev",
     "build": "rimraf .docz/ public/ && docz build"
   },
   "dependencies": {

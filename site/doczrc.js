@@ -1,31 +1,37 @@
 const themeConfig = {
   showDarkModeSwitch: false,
+  showPlaygroundEditor: false,
   fonts: {
     body: '"HelsinkiGrotesk", Helvetica, Arial, MS Gothic, Meiryo, Osaka',
     heading: '"HelsinkiGrotesk", Helvetica, Arial, MS Gothic, Meiryo, Osaka',
-    monospace: "Menlo, monospace"
-  }
+    monospace: "Menlo, monospace",
+  },
 };
 
 const menu = [
   "Helsinki Design System",
   {
     name: "Get Started",
-    menu: ["Introduction", "For Designers", "For Developers"]
+    menu: ["Introduction", "For Designers", "For Developers"],
   },
   "Guidelines",
   {
     name: "Components",
-    menu: ["HDS Components"]
-  }
+    menu: ["HDS Components"],
+  },
+  {
+    name: "How to contribute",
+    menu: ["Documentation", "Components", "Design"],
+  },
 ];
 
 export default {
   dest: "/public",
   public: "/static",
   typescript: true,
+  src: "docs",
   files: "docs/**/*.{md,markdown,mdx}",
   title: "Helsinki Design System",
   themeConfig,
-  menu
+  menu,
 };
