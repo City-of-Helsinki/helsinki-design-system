@@ -1,52 +1,125 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
+import { boolean, radios, text, withKnobs } from '@storybook/addon-knobs';
+import { Props, Title } from '@storybook/addon-docs/dist/blocks';
 
 import ImageWithCard from './ImageWithCard';
 import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
 
-(ImageWithCard as React.FC).displayName = 'ImageWithCard';
+const contentTitle = 'Lorem ipsum';
+const contentText =
+  'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident.';
 
 const content = (
   <>
-    <h2>Lorem ipsum</h2>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna
-      aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi
-      consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-      sint obcaecat cupiditat non proident.
-    </p>
+    <h2>{contentTitle}</h2>
+    <p>{contentText}</p>
   </>
 );
 
-storiesOf('ImageWithCard', module)
-  .add('default', () => (
-    <ImageWithCard color="primary" src={imageFile}>
-      <h2>Lorem ipsum</h2>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna
-        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi
-        consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint obcaecat cupiditat non proident.
-      </p>
+export default {
+  component: ImageWithCard,
+  title: 'Components/ImageWithCard',
+  decorators: [withKnobs],
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      page: () => (
+        <>
+          <Title>Props</Title>
+          <Props />
+        </>
+      ),
+    },
+  },
+};
+
+/**
+ * Default
+ */
+export const Default = () => <ImageWithCard src={imageFile}>{content}</ImageWithCard>;
+
+/**
+ * Hover
+ */
+export const Hover = () => (
+  <ImageWithCard cardLayout="hover" src={imageFile}>
+    {content}
+  </ImageWithCard>
+);
+
+/**
+ * Hover full width
+ */
+export const HoverFullWidth = () => (
+  <ImageWithCard cardLayout="hover" fullWidth src={imageFile}>
+    {content}
+  </ImageWithCard>
+);
+
+HoverFullWidth.story = {
+  name: 'Hover full width',
+};
+
+/**
+ * Split
+ */
+export const Split = () => (
+  <ImageWithCard cardLayout="split" src={imageFile}>
+    {content}
+  </ImageWithCard>
+);
+
+/**
+ * Split full width
+ */
+export const SplitFullWidth = () => (
+  <ImageWithCard cardLayout="split" fullWidth src={imageFile}>
+    {content}
+  </ImageWithCard>
+);
+
+SplitFullWidth.story = {
+  name: 'Split full width',
+};
+
+/**
+ * Playground
+ */
+export const Playground = () => {
+  const cardTitle = text('Title', contentTitle);
+  const cardText = text('Text', contentText);
+  const color = radios(
+    'Color',
+    { plain: 'plain', primary: 'primary', secondary: 'secondary', tertiary: 'tertiary' },
+    'plain',
+  );
+  const fullWidth = boolean('Full width', false);
+  const cardAlignment = radios('Card alignment', { left: 'left', right: 'right' }, 'left');
+  const cardLayout = radios('Card layout', { hover: 'hover', split: 'split' }, null);
+
+  return (
+    <ImageWithCard
+      color={color}
+      cardAlignment={cardAlignment}
+      fullWidth={fullWidth}
+      cardLayout={cardLayout}
+      src={imageFile}
+    >
+      <h2>{cardTitle}</h2>
+      <p>{cardText}</p>
     </ImageWithCard>
-  ))
-  .add('split', () => (
-    <ImageWithCard color="primary" cardLayout="split" src={imageFile}>
-      {content}
-    </ImageWithCard>
-  ))
-  .add('split fullWidth', () => (
-    <ImageWithCard color="tertiary" cardAlignment="right" cardLayout="split" fullWidth src={imageFile}>
-      {content}
-    </ImageWithCard>
-  ))
-  .add('hover', () => (
-    <ImageWithCard color="primary" cardLayout="hover" src={imageFile}>
-      {content}
-    </ImageWithCard>
-  ))
-  .add('hover fullWidth', () => (
-    <ImageWithCard color="secondary" cardAlignment="right" cardLayout="hover" fullWidth src={imageFile}>
-      {content}
-    </ImageWithCard>
-  ));
+  );
+};
+
+Playground.story = {
+  parameters: {
+    previewTabs: {
+      'storybook/docs/panel': {
+        hidden: true,
+      },
+    },
+    docs: {
+      disable: true,
+    },
+  },
+};

@@ -28,7 +28,7 @@ export type TextInputProps = {
   value?: string;
 };
 
-export default ({
+const TextInput: React.FC<TextInputProps> = ({
   id,
   labelText = undefined,
   labelledBy = undefined,
@@ -110,3 +110,5 @@ export default ({
     </div>
   );
 };
+
+export default TextInput;

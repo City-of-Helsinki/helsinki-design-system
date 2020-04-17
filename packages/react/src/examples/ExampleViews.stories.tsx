@@ -1,5 +1,4 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 
 import imageFile from '../assets/img/placeholder_1920x1080.jpg';
 import imageFile2 from '../assets/img/placeholder_2_1920x1080.jpg';
@@ -11,7 +10,19 @@ import TextInput from '../components/textinput/TextInput';
 import Button from '../components/button/Button';
 import { IconAngleRight } from '../icons';
 
-const ExampleView = () => (
+export default {
+  title: 'Examples/Views',
+  parameters: {
+    layout: 'fullscreen',
+    previewTabs: {
+      'storybook/docs/panel': {
+        hidden: true,
+      },
+    },
+  },
+};
+
+export const ExampleView = () => (
   <>
     <Section color="secondary" korosType="basic">
       <h1>Lorem ipsum dolor sit</h1>
@@ -77,5 +88,3 @@ const ExampleView = () => (
     </ImageWithCard>
   </>
 );
-
-storiesOf('ExampleView', module).add('ExampleView', () => <ExampleView />);
