@@ -1,0 +1,24 @@
+{
+  "color": {
+    "suomenlinna": {
+      "value": "#f5a3c7",
+      "type": "color",
+      "primary": true
+    },
+    "suomenlinna-light-20": {
+      "value": "#fdecf3",
+      "type": "color",
+      "primary": true
+    },
+    "suomenlinna-light-50": {
+      "value": "#fad1e3",
+      "type": "color",
+      "primary": true
+    },
+    "suomenlinna-dark-50": {
+      "value": "#de7ba6",
+      "type": "color",
+      "primary": true
+    }
+  }
+}

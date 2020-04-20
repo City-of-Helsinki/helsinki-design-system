@@ -1,0 +1,18 @@
+{
+  "color": {
+    "label": {
+      "text-input": {
+        "default": {
+          "value": "{color.black-90.value}",
+          "type": "color",
+          "comment": "input label text color"
+        },
+        "invalid": {
+          "value": "{color.black-90.value}",
+          "type": "color",
+          "comment": "invalid input label text color"
+        }
+      }
+    }
+  }
+}

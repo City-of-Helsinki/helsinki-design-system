@@ -17,12 +17,10 @@ const menu = [
   "Guidelines",
   {
     name: "Components",
-    menu: ["HDS Components"],
+    menu: ["HDS Components"]
   },
-  {
-    name: "How to contribute",
-    menu: ["Documentation", "Components", "Design"],
-  },
+  "Design Tokens",
+  "About"
 ];
 
 export default {
