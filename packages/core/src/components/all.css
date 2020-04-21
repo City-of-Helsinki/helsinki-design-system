@@ -1,3 +1,3 @@
-@import "./buttons.css";
-@import "./notifications.css";
-@import "./text-inputs.css";
+@import "./button/button.css";
+@import "./notification/notification.css";
+@import "./text-input/text-input.css";
