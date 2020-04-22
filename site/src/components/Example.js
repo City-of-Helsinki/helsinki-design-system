@@ -1,19 +1,19 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Text from "./Text";
-import ColorBox from "./ColorBox";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Text from './Text';
+import ColorBox from './ColorBox';
 
 const Example = ({ color }) => (
   <div
     style={{
-      alignItems: "center",
-      display: "flex"
+      alignItems: 'center',
+      display: 'flex',
     }}
   >
     <Text
       color={color}
       style={{
-        marginRight: 10
+        marginRight: 10,
       }}
     />
     <ColorBox color={color} />
@@ -21,7 +21,7 @@ const Example = ({ color }) => (
 );
 
 Example.propTypes = {
-  color: PropTypes.string.isRequired
+  color: PropTypes.string.isRequired,
 };
 
 export default Example;
