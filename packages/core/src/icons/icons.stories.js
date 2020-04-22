@@ -9,7 +9,7 @@ export default {
 };
 
 const iconStories = require(__filename);
-const req = require.context('.', false, /(\w*icon-\w*).css$/);
+const req = require.context('.', false, /(icon\b-+).+?.css$/);
 req.keys().forEach((fileName) => {
   const icon = path.basename(fileName, '.css').substring(5);
   iconStories[icon] = () => `
