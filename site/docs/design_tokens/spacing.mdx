@@ -8,6 +8,7 @@ route: /design-tokens/spacing
 
 ---
 
+import "hds-design-tokens/lib/spacing/all.min.css";
 import Spacing from "../../src/components/Spacing";
 
 The spacing scale is based on our typographic scale. The values defined here are used for positioning elements in the user interfaces.
@@ -22,24 +23,24 @@ Empty space is also important in design. It can be used to separate sections on 
 
 ## Tokens
 
-Token              | CSS                              | SASS       | rem value | px value  | Example                     |
------------------- | ---------------------------------| -----------| --------- | --------- | --------------------------- |
-spacing.4xs        | --spacing-4-xs        | $spacing-4-xs         | 0.125     | 2         | <Spacing size="0.125rem" /> |
-spacing.3xs        | --spacing-3-xs        | $spacing-3-xs         | 0.25      | 4         | <Spacing size="0.25rem" />  |
-spacing.2xs        | --spacing-2-xs        | $spacing-2-xs         | 0.5       | 4         | <Spacing size="0.5rem" />   |
-spacing.xs         | --spacing-xs          | $spacing-xs           | 0.75      | 8         | <Spacing size="0.75rem" />  |
-spacing.s          | --spacing-s           | $spacing-s            | 1         | 16        | <Spacing size="1rem" />     |
-spacing.m          | --spacing-m           | $spacing-m            | 1.5       | 24        | <Spacing size="1.5rem" />   |
-spacing.l          | --spacing-l           | $spacing-l            | 2         | 32        | <Spacing size="2rem" />     |
-spacing.xl         | --spacing-xl          | $spacing-xl           | 2.5       | 40        | <Spacing size="2.5rem" />   |
-spacing.2xl        | --spacing-2-xl        | $spacing-2-xl         | 3         | 48        | <Spacing size="3rem" />     |
-spacing.3xl        | --spacing-3-xl        | $spacing-3-xl         | 3.5       | 56        | <Spacing size="3.5rem" />   |
-spacing.4xl        | --spacing-4-xl        | $spacing-4-xl         | 4         | 64        | <Spacing size="4rem" />     |
-spacing.5xl        | --spacing-5-xl        | $spacing-5-xl         | 4.5       | 72        | <Spacing size="4.5rem" />   |
-spacing.layout.2xs | --spacing-layout-2-xs | $spacing-layout-2-xs  | 1         | 16        | <Spacing size="1rem" />     |
-spacing.layout.xs  | --spacing-layout-xs   | $spacing-layout-xs    | 1.5       | 24        | <Spacing size="1.5rem" />   |
-spacing.layout.s   | --spacing-layout-s    | $spacing-layout-s     | 2         | 32        | <Spacing size="2rem" />     |
-spacing.layout.m   | --spacing-layout-m    | $spacing-layout-m     | 2         | 48        | <Spacing size="3rem" />     |
-spacing.layout.l   | --spacing-layout-l    | $spacing-layout-l     | 2         | 64        | <Spacing size="4rem" />     |
-spacing.layout.xl  | --spacing-layout-xl   | $spacing-layout-xl    | 2         | 96        | <Spacing size="6rem" />     |
-spacing.layout.2xl | --spacing-layout-2-xl | $spacing-layout-2-xl  | 8         | 128       | <Spacing size="8rem" />     |
+CSS                   | SASS                  | rem value | px value  | Example                                       |
+--------------------- | --------------------- | --------- | --------- | --------------------------------------------- |
+--spacing-4-xs        | $spacing-4-xs         | 0.125     | 2         | <Spacing size="var(--spacing-4-xs)" />        |
+--spacing-3-xs        | $spacing-3-xs         | 0.25      | 4         | <Spacing size="var(--spacing-3-xs)" />        |
+--spacing-2-xs        | $spacing-2-xs         | 0.5       | 4         | <Spacing size="var(--spacing-2-xs)" />        |
+--spacing-xs          | $spacing-xs           | 0.75      | 8         | <Spacing size="var(--spacing-xs)" />          |
+--spacing-s           | $spacing-s            | 1         | 16        | <Spacing size="var(--spacing-s)" />           |
+--spacing-m           | $spacing-m            | 1.5       | 24        | <Spacing size="var(--spacing-m)" />           |
+--spacing-l           | $spacing-l            | 2         | 32        | <Spacing size="var(--spacing-l)" />           |
+--spacing-xl          | $spacing-xl           | 2.5       | 40        | <Spacing size="var(--spacing-xl)" />          |
+--spacing-2-xl        | $spacing-2-xl         | 3         | 48        | <Spacing size="var(--spacing-2-xl)" />        |
+--spacing-3-xl        | $spacing-3-xl         | 3.5       | 56        | <Spacing size="var(--spacing-3-xl)" />        |
+--spacing-4-xl        | $spacing-4-xl         | 4         | 64        | <Spacing size="var(--spacing-4-xl)" />        |
+--spacing-5-xl        | $spacing-5-xl         | 4.5       | 72        | <Spacing size="var(--spacing-5-xl)" />        |
+--spacing-layout-2-xs | $spacing-layout-2-xs  | 1         | 16        | <Spacing size="var(--spacing-layout-2-xs)" /> |
+--spacing-layout-xs   | $spacing-layout-xs    | 1.5       | 24        | <Spacing size="var(--spacing-layout-xs)" />   |
+--spacing-layout-s    | $spacing-layout-s     | 2         | 32        | <Spacing size="var(--spacing-layout-s)" />    |
+--spacing-layout-m    | $spacing-layout-m     | 2         | 48        | <Spacing size="var(--spacing-layout-m)" />    |
+--spacing-layout-l    | $spacing-layout-l     | 2         | 64        | <Spacing size="var(--spacing-layout-l)" />    |
+--spacing-layout-xl   | $spacing-layout-xl    | 2         | 96        | <Spacing size="var(--spacing-layout-xl)" />   |
+--spacing-layout-2-xl | $spacing-layout-2-xl  | 8         | 128       | <Spacing size="var(--spacing-layout-2-xl)" /> |

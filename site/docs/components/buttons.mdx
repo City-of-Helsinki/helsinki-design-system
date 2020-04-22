@@ -1,15 +1,14 @@
 ---
 name: Buttons
 menu: Components
+route: /components/button
 ---
 
-import { Playground, Props } from "docz";
-import { Button, IconShare, IconAngleRight } from "hds-react";
+import { Playground } from "docz";
+import { Button } from "hds-react";
 
-import "hds-core/lib/components/buttons.css";
-import "hds-core/lib/icons/icon.css";
-import "hds-core/lib/icons/icon-share.css";
-import "hds-core/lib/icons/icon-angle-right.css";
+import ColorBox from "../../src/components/ColorBox";
+import Text from "../../src/components/Text";
 
 # Buttons
 
@@ -100,12 +99,71 @@ If required to achieve clearer user interface, you may also use additional utili
 
 ### Core
 
-[Buttons in hds-core](/core/examples/buttons.html)
+[Buttons in hds-core](/storybook/core/?path=/story/button--primary)
 
 ### React
 
-[Buttons in hds-react](/storybook/?path=/story/components-button--primary)
+[Buttons in hds-react](/storybook/react/?path=/story/components-button--primary)
 
-[Button API](/storybook/?path=/docs/components-button--primary)
+[Button API](/storybook/react/?path=/docs/components-button--primary)
 
 ## Tokens
+
+```css
+/* CSS */
+@import "hds-design-tokens/lib/color/component/button.css";
+/* SCSS */
+@import "hds-design-tokens/lib/color/component/button.scss";
+```
+```js
+// JS
+import 'hds-design-tokens/lib/color/component/button.css';
+```
+
+CSS                                                  | SASS                                               | Value       | Example
+---------------------------------------------------- | -------------------------------------------------- | ----------- | ------------------------------------------- |
+--color-background-button-primary-default            | $color-background-button-primary-default           | #0000bf     | <ColorBox color="#0000bf" />                |
+--color-background-button-primary-hover              | $color-background-button-primary-hover             | #000098     | <ColorBox color="#000098" />                |
+--color-background-button-primary-focus              | $color-background-button-primary-focus             | #0000bf     | <ColorBox color="#0000bf" />                |
+--color-background-button-primary-hover-focus        | $color-background-button-primary-hover-focus       | #000098     | <ColorBox color="#000098" />                |
+--color-background-button-primary-disabled           | $color-background-button-primary-disabled          | #cccccc     | <ColorBox color="#cccccc" />                |
+--color-background-button-secondary-default          | $color-background-button-secondary-default         | transparent | <ColorBox color="transparent" />            |
+--color-background-button-secondary-hover            | $color-background-button-secondary-hover           | transparent | <ColorBox color="transparent" />            |
+--color-background-button-secondary-focus            | $color-background-button-secondary-focus           | transparent | <ColorBox color="transparent" />            |
+--color-background-button-secondary-hover-focus      | $color-background-button-secondary-hover-focus     | transparent | <ColorBox color="transparent" />            |
+--color-background-button-secondary-disabled         | $color-background-button-secondary-disabled        | transparent | <ColorBox color="transparent" />            |
+--color-background-button-supplementary-default      | $color-background-button-supplementary-default     | transparent | <ColorBox color="transparent" />            |
+--color-background-button-supplementary-hover        | $color-background-button-supplementary-hover       | transparent | <ColorBox color="transparent" />            |
+--color-background-button-supplementary-focus        | $color-background-button-supplementary-focus       | transparent | <ColorBox color="transparent" />            |
+--color-background-button-supplementary-hover-focus  | $color-background-button-supplementary-hover-focus | transparent | <ColorBox color="transparent" />            |
+--color-background-button-supplementary-disabled     | $color-background-button-supplementary-disabled    | transparent | <ColorBox color="transparent" />            |
+--color-border-button-primary-default                | $color-border-button-primary-default               | #0000bf     | <ColorBox color="#0000bf" />                |
+--color-border-button-primary-hover                  | $color-border-button-primary-hover                 | #000098     | <ColorBox color="#000098" />                |
+--color-border-button-primary-focus                  | $color-border-button-primary-focus                 | #0000bf     | <ColorBox color="#0000bf" />                |
+--color-border-button-primary-hover-focus            | $color-border-button-primary-hover-focus           | #000098     | <ColorBox color="#000098" />                |
+--color-border-button-primary-disabled               | $color-border-button-primary-disabled              | #cccccc     | <ColorBox color="#cccccc" />                |
+--color-border-button-secondary-default              | $color-border-button-secondary-default             | #0000bf     | <ColorBox color="#0000bf" />                |
+--color-border-button-secondary-hover                | $color-border-button-secondary-hover               | #000098     | <ColorBox color="#000098" />                |
+--color-border-button-secondary-focus                | $color-border-button-secondary-focus               | #0000bf     | <ColorBox color="#0000bf" />                |
+--color-border-button-secondary-hover-focus          | $color-border-button-secondary-hover-focus         | #000098     | <ColorBox color="#000098" />                |
+--color-border-button-secondary-disabled             | $color-border-button-secondary-disabled            | #cccccc     | <ColorBox color="#cccccc" />                |
+--color-border-button-supplementary-default          | $color-border-button-supplementary-default         | transparent | <ColorBox color="transparent" />            |
+--color-border-button-supplementary-hover            | $color-border-button-supplementary-hover           | transparent | <ColorBox color="transparent" />            |
+--color-border-button-supplementary-focus            | $color-border-button-supplementary-focus           | #0000bf     | <ColorBox color="#0000bf" />                |
+--color-border-button-supplementary-hover-focus      | $color-border-button-supplementary-hover-focus     | #000098     | <ColorBox color="#000098" />                |
+--color-border-button-supplementary-disabled         | $color-border-button-supplementary-disabled        | transparent | <ColorBox color="transparent" />            |
+--color-label-button-primary-default                 | $color-label-button-primary-default                | #ffffff     | <Text color="#ffffff" />                    |
+--color-label-button-primary-hover                   | $color-label-button-primary-hover                  | #ffffff     | <Text color="#ffffff" />                    |
+--color-label-button-primary-focus                   | $color-label-button-primary-focus                  | #ffffff     | <Text color="#ffffff" />                    |
+--color-label-button-primary-hover-focus             | $color-label-button-primary-hover-focus            | #ffffff     | <Text color="#ffffff" />                    |
+--color-label-button-primary-disabled                | $color-label-button-primary-disabled               | #ffffff     | <Text color="#ffffff" />                    |
+--color-label-button-secondary-default               | $color-label-button-secondary-default              | #0000bf     | <Text color="#0000bf" />                    |
+--color-label-button-secondary-hover                 | $color-label-button-secondary-hover                | #000098     | <Text color="#000098" />                    |
+--color-label-button-secondary-focus                 | $color-label-button-secondary-focus                | #0000bf     | <Text color="#0000bf" />                    |
+--color-label-button-secondary-hover-focus           | $color-label-button-secondary-hover-focus          | #000098     | <Text color="#000098" />                    |
+--color-label-button-secondary-disabled              | $color-label-button-secondary-disabled             | #cccccc     | <Text color="#cccccc" />                    |
+--color-label-button-supplementary-default           | $color-label-button-supplementary-default          | #0000bf     | <Text color="#0000bf" />                    |
+--color-label-button-supplementary-hover             | $color-label-button-supplementary-hover            | #000098     | <Text color="#000098" />                    |
+--color-label-button-supplementary-focus             | $color-label-button-supplementary-focus            | #0000bf     | <Text color="#0000bf" />                    |
+--color-label-button-supplementary-hover-focus       | $color-label-button-supplementary-hover-focus      | #000098     | <Text color="#000098" />                    |
+--color-label-button-supplementary-disabled          | $color-label-button-supplementary-disabled         | #cccccc     | <Text color="#cccccc" />                    |
