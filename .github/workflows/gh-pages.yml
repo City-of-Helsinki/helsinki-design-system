@@ -40,15 +40,19 @@ jobs:
         env:
           DOCZ_BASE: /helsinki-design-system/
 
-      - name: build storybook
+      - name: build core storybook
+        run: yarn build-storybook
+        working-directory: ./packages/core
+
+      - name: move core storybook under docz
+        run: mkdir ./site/public/storybook && mv ./packages/core/storybook-static $_/core
+
+      - name: build react storybook
         run: yarn build-storybook
         working-directory: ./packages/react
 
-      - name: move storybook under docz
-        run: mv ./packages/react/storybook-static ./site/public/storybook
-
-      - name: copy core examples under docz
-        run: mkdir -p ./site/public/core && cp -r ./packages/core/{examples,lib} ./site/public/core
+      - name: move react storybook under docz
+        run: mv ./packages/react/storybook-static ./site/public/storybook/react
 
       - name: release npm packages
         run: yarn release
