@@ -12,10 +12,9 @@ const iconStories = require(__filename);
 const req = require.context('.', false, /(icon\b-+).+?.css$/);
 req.keys().forEach((fileName) => {
   const icon = path.basename(fileName, '.css').substring(5);
-  iconStories[icon] = () => `
-    <span class="hds-icon hds-icon--${icon}" style="width: 200px; height: 200px;"></span>
-    <span class="hds-icon hds-icon--${icon}" style="width: 100px; height: 100px;"></span>
-    <span class="hds-icon hds-icon--${icon}" style="width: 50px; height: 50px;"></span>
-    <span class="hds-icon hds-icon--${icon}" style="width: 25px; height: 25px;"></span>
-  `;
+  iconStories[icon] = () =>
+    [200, 100, 50, 25].reduce((acc, size) => {
+      acc += `<span class="hds-icon hds-icon--${icon}" style="width: ${size}px; height: ${size}px;"></span>`;
+      return acc;
+    }, '');
 });
