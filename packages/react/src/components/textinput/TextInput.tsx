@@ -26,7 +26,7 @@ export type TextInputProps = {
   value?: string;
 };
 
-export default React.forwardRef(
+const TextInput: React.FC<TextInputProps> = React.forwardRef(
   (
     {
       id,
@@ -95,3 +95,5 @@ export default React.forwardRef(
     );
   },
 );
+
+export default TextInput;

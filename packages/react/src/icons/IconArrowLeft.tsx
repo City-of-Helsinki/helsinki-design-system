@@ -1,8 +1,13 @@
 import React from 'react';
 
-type Props = { className?: string };
+type Props = {
+  /**
+   * Additional class names to apply to the icon
+   */
+  className?: string;
+};
 
-export default ({ className = '' }: Props) => (
+const IconArrowLeft: React.FC<Props> = ({ className = '' }: Props) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" className={className}>
     <g>
       <polygon
@@ -12,3 +17,5 @@ export default ({ className = '' }: Props) => (
     </g>
   </svg>
 );
+
+export default IconArrowLeft;

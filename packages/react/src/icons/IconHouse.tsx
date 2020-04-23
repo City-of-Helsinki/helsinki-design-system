@@ -1,8 +1,13 @@
 import React from 'react';
 
-type Props = { className?: string };
+type Props = {
+  /**
+   * Additional class names to apply to the icon
+   */
+  className?: string;
+};
 
-export default ({ className = '' }: Props) => (
+const IconHouse: React.FC<Props> = ({ className = '' }: Props) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 54 57" className={className}>
     <g stroke="none" strokeWidth="1" fillRule="evenodd">
       <g transform="translate(-930.000000, -654.000000)">
@@ -14,3 +19,5 @@ export default ({ className = '' }: Props) => (
     </g>
   </svg>
 );
+
+export default IconHouse;

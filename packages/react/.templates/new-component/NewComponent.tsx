@@ -4,6 +4,8 @@ import styles from './[-replace-name-capital-].module.css';
 
 export type [-replace-name-capital-]Props = React.PropsWithChildren<{}>;
 
-export default ({ children }: [-replace-name-capital-]Props) => {
+const [-replace-name-capital-]: React.FC<[-replace-name-capital-]Props> = ({ children }: [-replace-name-capital-]Props) => {
   return <div className={styles.[-replace-name-camel-]}>{children}</div>;
 };
+
+export default [-replace-name-capital-];

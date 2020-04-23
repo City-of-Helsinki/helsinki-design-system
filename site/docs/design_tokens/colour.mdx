@@ -8,6 +8,8 @@ route: /design-tokens/colour
 
 ---
 
+import "hds-design-tokens/lib/color/brand.min.css";
+import "hds-design-tokens/lib/color/ui.min.css";
 import Colors from "../../src/components/Colors";
 import ColorBox from "../../src/components/ColorBox";
 import Example from "../../src/components/Example";
@@ -22,20 +24,20 @@ We are committed to complying with AA standard contrast ratios. To do this, choo
 
 ## Brand colours
 
-| Colour name (en)    |  Colour name (fi) |                                                                                                                     |
-| ------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------- |
-| Coat of Arms Blue   |  Vaakuna          | <Colors colorvar="--hds-brand-color-coat-of-arms-blue" variations={["-dark-50", "", "-light-50", "-light-20"]} />   |
-| Coat of Arms Gold   |  Kulta            | <Colors colorvar="--hds-brand-color-coat-of-arms-gold" variations={["-dark-50", "", "-light-50", "-light-20"]} />   |
-| Coat of Arms Silver |  Hopea            | <Colors colorvar="--hds-brand-color-coat-of-arms-silver" variations={["-dark-50", "", "-light-50", "-light-20"]} /> |
-| Brick               |  Tiili            | <Colors colorvar="--hds-brand-color-brick" variations={["-dark-50", "", "-light-50", "-light-20"]} />               |
-| Bus                 |  Bussi            | <Colors colorvar="--hds-brand-color-bus" variations={["-dark-50", "", "-light-50", "-light-20"]} />                 |
-| Copper              |  Kupari           | <Colors colorvar="--hds-brand-color-copper" variations={["-dark-50", "", "-light-50", "-light-20"]} />              |
-| Engel               |  Engel            | <Colors colorvar="--hds-brand-color-engel" variations={["-dark-50", "", "-light-50", "-light-20"]} />               |
-| Fog                 |  Sumu             | <Colors colorvar="--hds-brand-color-fog" variations={["-dark-50", "", "-light-50", "-light-20"]} />                 |
-| Metro               |  Metro            | <Colors colorvar="--hds-brand-color-metro" variations={["-dark-50", "", "-light-50", "-light-20"]} />               |
-| Summer              |  Kesä             | <Colors colorvar="--hds-brand-color-summer" variations={["-dark-50", "", "-light-50", "-light-20"]} />              |
-| Suomenlinna         |  Suomenlinna      | <Colors colorvar="--hds-brand-color-suomenlinna" variations={["-dark-50", "", "-light-50", "-light-20"]} />         |
-| Tram                |  Spåra            | <Colors colorvar="--hds-brand-color-tram" variations={["-dark-50", "", "-light-50", "-light-20"]} />                |
+| Colour name (en)    |  Colour name (fi) |                                                                                                           |
+| ------------------- | ----------------- | --------------------------------------------------------------------------------------------------------- |
+| Coat of Arms Blue   |  Vaakuna          | <Colors colorvar="--color-coat-of-arms-blue" variations={["-dark-50", "", "-light-50", "-light-20"]} />   |
+| Coat of Arms Gold   |  Kulta            | <Colors colorvar="--color-coat-of-arms-gold" variations={["-dark-50", "", "-light-50", "-light-20"]} />   |
+| Coat of Arms Silver |  Hopea            | <Colors colorvar="--color-coat-of-arms-silver" variations={["-dark-50", "", "-light-50", "-light-20"]} /> |
+| Brick               |  Tiili            | <Colors colorvar="--color-brick" variations={["-dark-50", "", "-light-50", "-light-20"]} />               |
+| Bus                 |  Bussi            | <Colors colorvar="--color-bus" variations={["-dark-50", "", "-light-50", "-light-20"]} />                 |
+| Copper              |  Kupari           | <Colors colorvar="--color-copper" variations={["-dark-50", "", "-light-50", "-light-20"]} />              |
+| Engel               |  Engel            | <Colors colorvar="--color-engel" variations={["-dark-50", "", "-light-50", "-light-20"]} />               |
+| Fog                 |  Sumu             | <Colors colorvar="--color-fog" variations={["-dark-50", "", "-light-50", "-light-20"]} />                 |
+| Metro               |  Metro            | <Colors colorvar="--color-metro" variations={["-dark-50", "", "-light-50", "-light-20"]} />               |
+| Summer              |  Kesä             | <Colors colorvar="--color-summer" variations={["-dark-50", "", "-light-50", "-light-20"]} />              |
+| Suomenlinna         |  Suomenlinna      | <Colors colorvar="--color-suomenlinna" variations={["-dark-50", "", "-light-50", "-light-20"]} />         |
+| Tram                |  Spåra            | <Colors colorvar="--color-tram" variations={["-dark-50", "", "-light-50", "-light-20"]} />                |
 
 ## UI colours
 
@@ -43,14 +45,14 @@ Status colours indicate valid, invalid or informational states on the service.
 
 | Status  | Dark                                               |  Base                                           | Light                                                  |
 | ------- | -------------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------ |
-| error   | -                                                  | <ColorBox color="var(--hds-ui-color-error)"/>   | <ColorBox color="var(--hds-ui-color-error-light)" />   |
-| success | -                                                  | <ColorBox color="var(--hds-ui-color-success)"/> | <ColorBox color="var(--hds-ui-color-success-light)" /> |
-| alert   | <ColorBox color="var(--hds-ui-color-alert-dark)"/> | <ColorBox color="var(--hds-ui-color-alert)"/>   | <ColorBox color="var(--hds-ui-color-alert-light)" />   |
-| info    | -                                                  | <ColorBox color="var(--hds-ui-color-info)"/>    | <ColorBox color="var(--hds-ui-color-info-light)" />    |
+| error   | -                                                  | <ColorBox color="var(--color-error)"/>   | <ColorBox color="var(--hds-ui-color-error-light)" />   |
+| success | -                                                  | <ColorBox color="var(--color-success)"/> | <ColorBox color="var(--hds-ui-color-success-light)" /> |
+| alert   | <ColorBox color="var(--hds-ui-color-alert-dark)"/> | <ColorBox color="var(--color-alert)"/>   | <ColorBox color="var(--hds-ui-color-alert-light)" />   |
+| info    | -                                                  | <ColorBox color="var(--color-info)"/>    | <ColorBox color="var(--hds-ui-color-info-light)" />    |
 
-|           | black                                         |  90                                              | 80                                               | 70                                               | 60                                               | 50                                               | 40                                               | 30                                               | 20                                               | 10                                               | 5                                               | white                                          |
-| --------- | --------------------------------------------- | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ----------------------------------------------- | ---------------------------------------------- |
-| greyscale | <ColorBox color="var(--hds-ui-color-black)"/> | <ColorBox color="var(--hds-ui-color-black-90)"/> | <ColorBox color="var(--hds-ui-color-black-80)"/> | <ColorBox color="var(--hds-ui-color-black-70)"/> | <ColorBox color="var(--hds-ui-color-black-60)"/> | <ColorBox color="var(--hds-ui-color-black-50)"/> | <ColorBox color="var(--hds-ui-color-black-40)"/> | <ColorBox color="var(--hds-ui-color-black-30)"/> | <ColorBox color="var(--hds-ui-color-black-20)"/> | <ColorBox color="var(--hds-ui-color-black-10)"/> | <ColorBox color="var(--hds-ui-color-black-5)"/> | <ColorBox color="var(--hds-ui-color-white)" /> |
+|           | black                                   |  90                                      | 80                                        | 70                                        | 60                                        | 50                                        | 40                                        | 30                                        | 20                                        | 10                                        | 5                                        | white                                   |
+| --------- | --------------------------------------- | ---------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ---------------------------------------- | --------------------------------------- |
+| greyscale | <ColorBox color="var(--color-black)"/> | <ColorBox color="var(--color-black-90)"/> | <ColorBox color="var(--color-black-80)"/> | <ColorBox color="var(--color-black-70)"/> | <ColorBox color="var(--color-black-60)"/> | <ColorBox color="var(--color-black-50)"/> | <ColorBox color="var(--color-black-40)"/> | <ColorBox color="var(--color-black-30)"/> | <ColorBox color="var(--color-black-20)"/> | <ColorBox color="var(--color-black-10)"/> | <ColorBox color="var(--color-black-5)"/> | <ColorBox color="var(--color-white)" /> |
 
 ## Using colours
 
@@ -66,63 +68,63 @@ The service design uses colour themes including three colours with grayscale and
 
 ## Tokens
 
-Token                            | CSS                                 | SASS                               | Value   | Example
--------------------------------- | ----------------------------------- | ---------------------------------- | ------- | --------------------------------------------------------------------- |
-color.coat-of-arms.blue          |  --color-coat-of-arms-blue          |  $color-coat-of-arms-blue          | #0072c6 | <Example color="var(--hds-brand-color-coat-of-arms-blue)" />          |
-color.coat-of-arms.blue-light-20 |  --color-coat-of-arms-blue-light-20 |  $color-coat-of-arms-blue-light-20 | #cce2f3 | <Example color="var(--hds-brand-color-coat-of-arms-blue-light-20)" /> |
-color.coat-of-arms.blue-light-50 |  --color-coat-of-arms-blue-light-50 |  $color-coat-of-arms-blue-light-50 | #80b8e2 | <Example color="var(--hds-brand-color-coat-of-arms-blue-light-50)" /> |
-color.coat-of-arms.blue-dark-50  |  --color-coat-of-arms-blue-dark-50  |  $color-coat-of-arms-blue-dark-50  | #000098 | <Example color="var(--hds-brand-color-coat-of-arms-blue-dark-50)" />  |
-color.coat-of-arms.gold          |  --color-coat-of-arms-gold          |  $color-coat-of-arms-gold          | #c2a251 | <Example color="var(--hds-brand-color-coat-of-arms-gold)" />          |
-color.coat-of-arms.gold-light-20 |  --color-coat-of-arms-gold-light-20 |  $color-coat-of-arms-gold-light-20 | #f2ecdc | <Example color="var(--hds-brand-color-coat-of-arms-gold-light-20)" /> |
-color.coat-of-arms.gold-light-50 |  --color-coat-of-arms-gold-light-50 |  $color-coat-of-arms-gold-light-50 | #e0d0a8 | <Example color="var(--hds-brand-color-coat-of-arms-gold-light-50)" /> |
-color.coat-of-arms.gold-dark-50  |  --color-coat-of-arms-gold-dark-50  |  $color-coat-of-arms-gold-dark-50  | #977b34 | <Example color="var(--hds-brand-color-coat-of-arms-gold-dark-50)" />  |
-color.coat-of-arms.silver        |  --color-coat-of-arms-silver        |  $color-coat-of-arms-silver        | #dedfe1 | <Example color="var(--hds-brand-color-coat-of-arms-silver)" />        |
-color.copper                     |  --color-copper                     |  $color-copper                     | #00d7a7 | <Example color="var(--hds-brand-color-copper)" />                     |
-color.copper-light-20            |  --color-copper-light-20            |  $color-copper-light-20            | #ccf7ed | <Example color="var(--hds-brand-color-copper-light-20)" />            |
-color.copper-light-50            |  --color-copper-light-50            |  $color-copper-light-50            | #80ebd3 | <Example color="var(--hds-brand-color-copper-light-50)" />            |
-color.copper-dark-50             |  --color-copper-dark-50             |  $color-copper-dark-50             | #01b78e | <Example color="var(--hds-brand-color-copper-dark-50)" />             |
-color.engel                      |  --color-engel                      |  $color-engel                      | #ffe977 | <Example color="var(--hds-brand-color-engel)" />                      |
-color.engel-light-20             |  --color-engel-light-20             |  $color-engel-light-20             | #fffae3 | <Example color="var(--hds-brand-color-engel-light-20)" />             |
-color.engel-light-50             |  --color-engel-light-50             |  $color-engel-light-50             | #fff4bb | <Example color="var(--hds-brand-color-engel-light-50)" />             |
-color.engel-dark-50              |  --color-engel-dark-50              |  $color-engel-dark-50              | #f5da4e | <Example color="var(--hds-brand-color-engel-dark-50)" />              |
-color.fog                        |  --color-fog                        |  $color-fog                        | #9fc9eb | <Example color="var(--hds-brand-color-fog)" />                        |
-color.fog-light-20               |  --color-fog-light-20               |  $color-fog-light-20               | #ebf4fb | <Example color="var(--hds-brand-color-fog-light-20)" />               |
-color.fog-light-50               |  --color-fog-light-50               |  $color-fog-light-50               | #cfe4f5 | <Example color="var(--hds-brand-color-fog-light-50)" />               |
-color.fog-dark-50                |  --color-fog-dark-50                |  $color-fog-dark-50                | #78a4c7 | <Example color="var(--hds-brand-color-fog-dark-50)" />                |
-color.metro                      |  --color-metro                      |  $color-metro                      | #fd4f00 | <Example color="var(--hds-brand-color-metro)" />                      |
-color.metro-light-20             |  --color-metro-light-20             |  $color-metro-light-20             | #fedbcc | <Example color="var(--hds-brand-color-metro-light-20)" />             |
-color.metro-light-50             |  --color-metro-light-50             |  $color-metro-light-50             | #fea780 | <Example color="var(--hds-brand-color-metro-light-50)" />             |
-color.metro-dark-50              |  --color-metro-dark-50              |  $color-metro-dark-50              | #ca3f00 | <Example color="var(--hds-brand-color-metro-dark-50)" />              |
-color.summer                     |  --color-summer                     |  $color-summer                     | #ffc61e | <Example color="var(--hds-brand-color-summer)" />                     |
-color.summer-light-20            |  --color-summer-light-20            |  $color-summer-light-20            | #fff3d2 | <Example color="var(--hds-brand-color-summer-light-20)" />            |
-color.summer-light-50            |  --color-summer-light-50            |  $color-summer-light-50            | #ffe28e | <Example color="var(--hds-brand-color-summer-light-50)" />            |
-color.summer-dark-50             |  --color-summer-dark-50             |  $color-summer-dark-50             | #e2ab0a | <Example color="var(--hds-brand-color-summer-dark-50)" />             |
-color.suomenlinna                |  --color-suomenlinna                |  $color-suomenlinna                | #f5a3c7 | <Example color="var(--hds-brand-color-suomenlinna)" />                |
-color.suomenlinna-light-20       |  --color-suomenlinna-light-20       |  $color-suomenlinna-light-20       | #fdecf3 | <Example color="var(--hds-brand-color-suomenlinna-light-20)" />       |
-color.suomenlinna-light-50       |  --color-suomenlinna-light-50       |  $color-suomenlinna-light-50       | #fad1e3 | <Example color="var(--hds-brand-color-suomenlinna-light-50)" />       |
-color.suomenlinna-dark-50        |  --color-suomenlinna-dark-50        |  $color-suomenlinna-dark-50        | #de7ba6 | <Example color="var(--hds-brand-color-suomenlinna-dark-50)" />        |
-color.tram                       |  --color-tram                       |  $color-tram                       | #009246 | <Example color="var(--hds-brand-color-tram)" />                       |
-color.tram-light-20              |  --color-tram-light-20              |  $color-tram-light-20              | #cce9da | <Example color="var(--hds-brand-color-tram-light-20)" />              |
-color.tram-light-50              |  --color-tram-light-50              |  $color-tram-light-50              | #80c8a2 | <Example color="var(--hds-brand-color-tram-light-50)" />              |
-color.tram-dark-50               |  --color-tram-dark-50               |  $color-tram-dark-50               | #007438 | <Example color="var(--hds-brand-color-tram-dark-50)" />               |
-color.error                      |  --color-error                      |  $color-error                      | #c4123e | <Example color="var(--hds-ui-color-error)" />                         |
-color.error-light                |  --color-error-light                |  $color-error-light                | #f6e2e6 | <Example color="var(--hds-ui-color-error-light)" />                   |
-color.success                    |  --color-success                    |  $color-success:                   | #007a64 | <Example color="var(--hds-ui-color-success)" />                       |
-color.success-light              |  --color-success-light              |  $color-success-light              | #e2f5f3 | <Example color="var(--hds-ui-color-success-light)" />                 |
-color.alert                      |  --color-alert                      |  $color-alert                      | #ffda07 | <Example color="var(--hds-ui-color-alert)" />                         |
-color.alert-light                |  --color-alert-light                |  $color-alert-light                | #fff4b4 | <Example color="var(--hds-ui-color-alert-light)" />                   |
-color.alert-dark                 |  --color-alert-dark                 |  $color-alert-dark                 | #986700 | <Example color="var(--hds-ui-color-alert-dark)" />                    |
-color.info                       |  --color-info                       |  $color-info                       | #007293 | <Example color="var(--hds-ui-color-info)" />                          |
-color.info-light                 |  --color-info-light                 |  $color-info-light                 | #dcf1f5 | <Example color="var(--hds-ui-color-info-light)" />                    |
-color.white                      |  --color-white                      |  $color-white                      | #ffffff | <Example color="var(--hds-ui-color-white)" />                         |
-color.black-5                    |  --color-black-5                    |  $color-black-5                    | #f1f1f1 | <Example color="var(--hds-ui-color-black-5)" />                       |
-color.black-10                   |  --color-black-10                   |  $color-black-10                   | #e5e5e5 | <Example color="var(--hds-ui-color-black-10)" />                      |
-color.black-20                   |  --color-black-20                   |  $color-black-20                   | #cccccc | <Example color="var(--hds-ui-color-black-20)" />                      |
-color.black-30                   |  --color-black-30                   |  $color-black-30                   | #b2b2b2 | <Example color="var(--hds-ui-color-black-30)" />                      |
-color.black-40                   |  --color-black-40                   |  $color-black-40                   | #999898 | <Example color="var(--hds-ui-color-black-40)" />                      |
-color.black-50                   |  --color-black-50                   |  $color-black-50                   | #808080 | <Example color="var(--hds-ui-color-black-50)" />                      |
-color.black-60                   |  --color-black-60                   |  $color-black-60                   | #666666 | <Example color="var(--hds-ui-color-black-60)" />                      |
-color.black-70                   |  --color-black-70                   |  $color-black-70                   | #4c4c4c | <Example color="var(--hds-ui-color-black-70)" />                      |
-color.black-80                   |  --color-black-80                   |  $color-black-80                   | #333333 | <Example color="var(--hds-ui-color-black-80)" />                      |
-color.black-90                   |  --color-black-90                   |  $color-black-90                   | #1a1a1a | <Example color="var(--hds-ui-color-black-90)" />                      |
-color.black                      |  --color-black                      |  $color-black                      | #000000 | <Example color="var(--hds-ui-color-black)" />                         |
+CSS                                | SASS                              | Value   | Example
+---------------------------------- | --------------------------------- | ------- | --------------------------------------------------------------------- |
+--color-coat-of-arms-blue          | $color-coat-of-arms-blue          | #0072c6 | <Example color="var(--color-coat-of-arms-blue)" />          |
+--color-coat-of-arms-blue-light-20 | $color-coat-of-arms-blue-light-20 | #cce2f3 | <Example color="var(--color-coat-of-arms-blue-light-20)" /> |
+--color-coat-of-arms-blue-light-50 | $color-coat-of-arms-blue-light-50 | #80b8e2 | <Example color="var(--color-coat-of-arms-blue-light-50)" /> |
+--color-coat-of-arms-blue-dark-50  | $color-coat-of-arms-blue-dark-50  | #000098 | <Example color="var(--color-coat-of-arms-blue-dark-50)" />  |
+--color-coat-of-arms-gold          | $color-coat-of-arms-gold          | #c2a251 | <Example color="var(--color-coat-of-arms-gold)" />          |
+--color-coat-of-arms-gold-light-20 | $color-coat-of-arms-gold-light-20 | #f2ecdc | <Example color="var(--color-coat-of-arms-gold-light-20)" /> |
+--color-coat-of-arms-gold-light-50 | $color-coat-of-arms-gold-light-50 | #e0d0a8 | <Example color="var(--color-coat-of-arms-gold-light-50)" /> |
+--color-coat-of-arms-gold-dark-50  | $color-coat-of-arms-gold-dark-50  | #977b34 | <Example color="var(--color-coat-of-arms-gold-dark-50)" />  |
+--color-coat-of-arms-silver        | $color-coat-of-arms-silver        | #dedfe1 | <Example color="var(--color-coat-of-arms-silver)" />        |
+--color-copper                     | $color-copper                     | #00d7a7 | <Example color="var(--color-copper)" />                     |
+--color-copper-light-20            | $color-copper-light-20            | #ccf7ed | <Example color="var(--color-copper-light-20)" />            |
+--color-copper-light-50            | $color-copper-light-50            | #80ebd3 | <Example color="var(--color-copper-light-50)" />            |
+--color-copper-dark-50             | $color-copper-dark-50             | #01b78e | <Example color="var(--color-copper-dark-50)" />             |
+--color-engel                      | $color-engel                      | #ffe977 | <Example color="var(--color-engel)" />                      |
+--color-engel-light-20             | $color-engel-light-20             | #fffae3 | <Example color="var(--color-engel-light-20)" />             |
+--color-engel-light-50             | $color-engel-light-50             | #fff4bb | <Example color="var(--color-engel-light-50)" />             |
+--color-engel-dark-50              | $color-engel-dark-50              | #f5da4e | <Example color="var(--color-engel-dark-50)" />              |
+--color-fog                        | $color-fog                        | #9fc9eb | <Example color="var(--color-fog)" />                        |
+--color-fog-light-20               | $color-fog-light-20               | #ebf4fb | <Example color="var(--color-fog-light-20)" />               |
+--color-fog-light-50               | $color-fog-light-50               | #cfe4f5 | <Example color="var(--color-fog-light-50)" />               |
+--color-fog-dark-50                | $color-fog-dark-50                | #78a4c7 | <Example color="var(--color-fog-dark-50)" />                |
+--color-metro                      | $color-metro                      | #fd4f00 | <Example color="var(--color-metro)" />                      |
+--color-metro-light-20             | $color-metro-light-20             | #fedbcc | <Example color="var(--color-metro-light-20)" />             |
+--color-metro-light-50             | $color-metro-light-50             | #fea780 | <Example color="var(--color-metro-light-50)" />             |
+--color-metro-dark-50              | $color-metro-dark-50              | #ca3f00 | <Example color="var(--color-metro-dark-50)" />              |
+--color-summer                     | $color-summer                     | #ffc61e | <Example color="var(--color-summer)" />                     |
+--color-summer-light-20            | $color-summer-light-20            | #fff3d2 | <Example color="var(--color-summer-light-20)" />            |
+--color-summer-light-50            | $color-summer-light-50            | #ffe28e | <Example color="var(--color-summer-light-50)" />            |
+--color-summer-dark-50             | $color-summer-dark-50             | #e2ab0a | <Example color="var(--color-summer-dark-50)" />             |
+--color-suomenlinna                | $color-suomenlinna                | #f5a3c7 | <Example color="var(--color-suomenlinna)" />                |
+--color-suomenlinna-light-20       | $color-suomenlinna-light-20       | #fdecf3 | <Example color="var(--color-suomenlinna-light-20)" />       |
+--color-suomenlinna-light-50       | $color-suomenlinna-light-50       | #fad1e3 | <Example color="var(--color-suomenlinna-light-50)" />       |
+--color-suomenlinna-dark-50        | $color-suomenlinna-dark-50        | #de7ba6 | <Example color="var(--color-suomenlinna-dark-50)" />        |
+--color-tram                       | $color-tram                       | #009246 | <Example color="var(--color-tram)" />                       |
+--color-tram-light-20              | $color-tram-light-20              | #cce9da | <Example color="var(--color-tram-light-20)" />              |
+--color-tram-light-50              | $color-tram-light-50              | #80c8a2 | <Example color="var(--color-tram-light-50)" />              |
+--color-tram-dark-50               | $color-tram-dark-50               | #007438 | <Example color="var(--color-tram-dark-50)" />               |
+--color-error                      | $color-error                      | #c4123e | <Example color="var(--color-error)" />                      |
+--color-error-light                | $color-error-light                | #f6e2e6 | <Example color="var(--color-error-light)" />                |
+--color-success                    | $color-success:                   | #007a64 | <Example color="var(--color-success)" />                    |
+--color-success-light              | $color-success-light              | #e2f5f3 | <Example color="var(--color-success-light)" />              |
+--color-alert                      | $color-alert                      | #ffda07 | <Example color="var(--color-alert)" />                      |
+--color-alert-light                | $color-alert-light                | #fff4b4 | <Example color="var(--color-alert-light)" />                |
+--color-alert-dark                 | $color-alert-dark                 | #986700 | <Example color="var(--color-alert-dark)" />                 |
+--color-info                       | $color-info                       | #007293 | <Example color="var(--color-info)" />                       |
+--color-info-light                 | $color-info-light                 | #dcf1f5 | <Example color="var(--color-info-light)" />                 |
+--color-white                      | $color-white                      | #ffffff | <Example color="var(--color-white)" />                      |
+--color-black-5                    | $color-black-5                    | #f1f1f1 | <Example color="var(--color-black-5)" />                    |
+--color-black-10                   | $color-black-10                   | #e5e5e5 | <Example color="var(--color-black-10)" />                   |
+--color-black-20                   | $color-black-20                   | #cccccc | <Example color="var(--color-black-20)" />                   |
+--color-black-30                   | $color-black-30                   | #b2b2b2 | <Example color="var(--color-black-30)" />                   |
+--color-black-40                   | $color-black-40                   | #999898 | <Example color="var(--color-black-40)" />                   |
+--color-black-50                   | $color-black-50                   | #808080 | <Example color="var(--color-black-50)" />                   |
+--color-black-60                   | $color-black-60                   | #666666 | <Example color="var(--color-black-60)" />                   |
+--color-black-70                   | $color-black-70                   | #4c4c4c | <Example color="var(--color-black-70)" />                   |
+--color-black-80                   | $color-black-80                   | #333333 | <Example color="var(--color-black-80)" />                   |
+--color-black-90                   | $color-black-90                   | #1a1a1a | <Example color="var(--color-black-90)" />                   |
+--color-black                      | $color-black                      | #000000 | <Example color="var(--color-black)" />                      |

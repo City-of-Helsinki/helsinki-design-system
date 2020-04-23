@@ -12,7 +12,7 @@ export type ImageWithCardProps = React.PropsWithChildren<{
   className?: string;
 }>;
 
-export default ({
+const ImageWithCard: React.FC<ImageWithCardProps> = ({
   src,
   fullWidth = false,
   children,
@@ -41,3 +41,5 @@ export default ({
     </div>
   );
 };
+
+export default ImageWithCard;

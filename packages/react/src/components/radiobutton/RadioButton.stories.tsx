@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 
 import RadioButton from './RadioButton';
 
-const WrapperDecorator = storyFn => <div style={{ padding: '20px' }}> {storyFn()}</div>;
+const WrapperDecorator = (storyFn) => <div style={{ padding: '20px' }}> {storyFn()}</div>;
 
 (RadioButton as React.FC).displayName = 'RadioButton';
 
@@ -21,21 +21,21 @@ storiesOf('RadioButton', module)
           id="radio"
           value="foo"
           labelText="Option 1"
-          onChange={event => setRadioValue((event.target as HTMLInputElement).value)}
+          onChange={(event) => setRadioValue((event.target as HTMLInputElement).value)}
           checked={radioValue === 'foo'}
         />
         <RadioButton
           id="radio2"
           value="bar"
           labelText="Option 2"
-          onChange={event => setRadioValue((event.target as HTMLInputElement).value)}
+          onChange={(event) => setRadioValue((event.target as HTMLInputElement).value)}
           checked={radioValue === 'bar'}
         />
         <RadioButton
           id="radio3"
           value="baz"
           labelText="Option 3"
-          onChange={event => setRadioValue((event.target as HTMLInputElement).value)}
+          onChange={(event) => setRadioValue((event.target as HTMLInputElement).value)}
           checked={radioValue === 'baz'}
         />
       </>

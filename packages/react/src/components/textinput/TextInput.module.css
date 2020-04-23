@@ -1,34 +1,34 @@
 @import 'hds-core/lib/base.css';
 
 .root {
-  composes: hds-text-input from '~hds-core/lib/components/text-inputs.css';
+  composes: hds-text-input from 'hds-core/lib/components/text-input/text-input.css';
   position: relative;
 }
 
 .label {
-  composes: hds-text-input__label from '~hds-core/lib/components/text-inputs.css';
+  composes: hds-text-input__label from 'hds-core/lib/components/text-input/text-input.css';
 }
 
 .hiddenLabel {
-  composes: hiddenFromScreen from '~hds-core/lib/utils/helpers.css';
+  composes: hiddenFromScreen from 'hds-core/lib/utils/helpers.css';
 }
 
 .inputWrapper {
-  composes: hds-text-input__input-wrapper from '~hds-core/lib/components/text-inputs.css';
+  composes: hds-text-input__input-wrapper from 'hds-core/lib/components/text-input/text-input.css';
 }
 
 .helperText {
-  composes: hds-text-input__helper-text from '~hds-core/lib/components/text-inputs.css';
+  composes: hds-text-input__helper-text from 'hds-core/lib/components/text-input/text-input.css';
 }
 
 .invalidText {
-  composes: hds-text-input__helper-text from '~hds-core/lib/components/text-inputs.css';
+  composes: hds-text-input__helper-text from 'hds-core/lib/components/text-input/text-input.css';
 }
 
 .invalid {
-  composes: hds-text-input--invalid from '~hds-core/lib/components/text-inputs.css';
+  composes: hds-text-input--invalid from 'hds-core/lib/components/text-input/text-input.css';
 }
 
 .readOnly {
-  composes: hds-text-input--read-only from '~hds-core/lib/components/text-inputs.css';
+  composes: hds-text-input--read-only from 'hds-core/lib/components/text-input/text-input.css';
 }

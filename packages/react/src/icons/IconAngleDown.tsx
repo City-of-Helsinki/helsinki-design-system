@@ -1,8 +1,13 @@
 import React from 'react';
 
-type Props = { className?: string };
+type Props = {
+  /**
+   * Additional class names to apply to the icon
+   */
+  className?: string;
+};
 
-export default ({ className = '' }: Props) => (
+const IconAngleDown: React.FC<Props> = ({ className = '' }: Props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="100%"
@@ -15,3 +20,5 @@ export default ({ className = '' }: Props) => (
     </g>
   </svg>
 );
+
+export default IconAngleDown;

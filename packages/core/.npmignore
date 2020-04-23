@@ -1,4 +1,6 @@
-src
+node_modules
 .babelrc
 .gitignore
 postcss.config.js
+storybook-static
+src

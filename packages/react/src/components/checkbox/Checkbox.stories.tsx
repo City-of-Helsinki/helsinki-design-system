@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 
 import Checkbox from './Checkbox';
 
-const WrapperDecorator = storyFn => <div style={{ padding: '20px' }}> {storyFn()}</div>;
+const WrapperDecorator = (storyFn) => <div style={{ padding: '20px' }}> {storyFn()}</div>;
 
 (Checkbox as React.FC).displayName = 'Checkbox';
 
@@ -13,7 +13,7 @@ storiesOf('Checkbox', module)
     const [checkedItems, setCheckedItems] = useState({});
     const options = ['Option 1', 'Option 2', 'Option 3'];
 
-    const handleChange = e => {
+    const handleChange = (e) => {
       const item = e.target.name;
       const isChecked = e.target.checked;
       setCheckedItems({ ...checkedItems, [item]: isChecked });
@@ -21,7 +21,7 @@ storiesOf('Checkbox', module)
 
     return (
       <>
-        {options.map(item => (
+        {options.map((item) => (
           <Checkbox
             key={`checkbox-${item}`}
             id={`checkbox-${item}`}

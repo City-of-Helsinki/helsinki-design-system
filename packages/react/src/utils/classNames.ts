@@ -1,1 +1,1 @@
-export default (...args) => args.filter(e => e).join(' ');
+export default (...args) => args.filter((e) => e).join(' ');
