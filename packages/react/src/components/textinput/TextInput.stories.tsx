@@ -1,12 +1,7 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
+import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 
 import TextInput from './TextInput';
-
-// A simple Wrapper to control max-width and the spacing around inputs.
-const WrapperDecorator = storyFn => <div style={{ padding: '10px', maxWidth: '400px' }}> {storyFn()}</div>;
-
-(TextInput as React.FC).displayName = 'TextInput';
 
 const textInputProps = {
   id: 'hdsInput',
@@ -14,36 +9,142 @@ const textInputProps = {
   placeholder: 'placeholder text',
 };
 
-storiesOf('TextInput', module)
-  .addDecorator(WrapperDecorator)
-  .add('default', () => <TextInput {...textInputProps} />)
-  .add('with default value', () => <TextInput {...textInputProps} defaultValue="default value" />)
-  .add('without placeholder', () => <TextInput {...textInputProps} placeholder={undefined} />)
-  .add('disabled', () => <TextInput {...textInputProps} disabled />)
-  .add('read only', () => <TextInput {...textInputProps} readOnly defaultValue="default value" />)
-  .add('alternative', () => <TextInput {...textInputProps} alternative />)
-  .add('alternative read only', () => (
-    <TextInput {...textInputProps} alternative readOnly defaultValue="default value" />
-  ))
-  .add('with label hidden', () => <TextInput {...textInputProps} hideLabel />)
-  .add('with tooltip', () => (
+export default {
+  component: TextInput,
+  title: 'Components/TextInput',
+  decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
+};
+
+/**
+ * Default
+ */
+export const Default = () => <TextInput {...textInputProps} />;
+
+/**
+ * With default value
+ */
+export const WithDefaultValue = () => <TextInput {...textInputProps} defaultValue="default value" />;
+
+WithDefaultValue.story = {
+  name: 'With default value',
+};
+
+/**
+ * Without placeholder
+ */
+export const WithoutPlaceholder = () => <TextInput {...textInputProps} placeholder={undefined} />;
+
+WithoutPlaceholder.story = {
+  name: 'Without placeholder',
+};
+
+/**
+ * Disabled
+ */
+export const Disabled = () => <TextInput {...textInputProps} disabled />;
+
+/**
+ * Read-only
+ */
+export const ReadOnly = () => <TextInput {...textInputProps} readOnly defaultValue="default value" />;
+
+ReadOnly.story = {
+  name: 'Read-only',
+};
+
+/**
+ * With label hidden
+ */
+export const WithLabelHidden = () => <TextInput {...textInputProps} hideLabel />;
+
+WithLabelHidden.story = {
+  name: 'With label hidden',
+};
+
+/**
+ * With tooltip
+ */
+export const WithTooltip = () => (
+  <TextInput
+    {...textInputProps}
+    tooltipLabel="tooltip label"
+    tooltipText="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
+    tooltipOpenButtonLabelText="show tooltip"
+    tooltipCloseButtonLabelText="close tooltip"
+  />
+);
+
+WithTooltip.story = {
+  name: 'With tooltip',
+};
+
+/**
+ * With helper text
+ */
+export const WithHelperText = () => <TextInput {...textInputProps} helperText="helper text" />;
+
+WithHelperText.story = {
+  name: 'With helper text',
+};
+
+/**
+ * Invalid
+ */
+export const Invalid = () => <TextInput {...textInputProps} invalid invalidText="error text" />;
+
+/**
+ * Playground
+ */
+export const Playground = () => {
+  const groupGeneral = 'General';
+  const groupTooltip = 'Tooltip';
+
+  const label = text('Label', textInputProps.labelText, groupGeneral);
+  const placeholder = text('Placeholder', textInputProps.placeholder, groupGeneral);
+  const helperText = text('Helper text', 'helper text', groupGeneral);
+  const invalidText = text('Invalid text', 'error text', groupGeneral);
+  const disabled = boolean('Disabled', false, groupGeneral);
+  const readOnly = boolean('Read-only', false, groupGeneral);
+  const invalid = boolean('Invalid', false, groupGeneral);
+  const hideLabel = boolean('Hide label', false, groupGeneral);
+
+  const tooltipLabel = text('Tooltip label', 'tooltip label', groupTooltip);
+  const tooltipText = text(
+    'Tooltip text',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    groupTooltip,
+  );
+  const tooltipOpenButtonLabelText = text('Tooltip open label', 'show tooltip', groupTooltip);
+  const tooltipCloseButtonLabelText = text('Tooltip close label', 'close tooltip', groupTooltip);
+
+  return (
     <TextInput
       {...textInputProps}
-      tooltipLabel="tooltip label"
-      tooltipText="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-      tooltipOpenButtonLabelText="show tooltip"
-      tooltipCloseButtonLabelText="close tooltip"
+      labelText={label}
+      helperText={helperText}
+      invalidText={invalidText}
+      placeholder={placeholder}
+      readOnly={readOnly}
+      disabled={disabled}
+      invalid={invalid}
+      hideLabel={hideLabel}
+      tooltipLabel={tooltipLabel}
+      tooltipText={tooltipText}
+      tooltipOpenButtonLabelText={tooltipOpenButtonLabelText}
+      tooltipCloseButtonLabelText={tooltipCloseButtonLabelText}
     />
-  ))
-  .add('alternative with tooltip', () => (
-    <TextInput
-      alternative
-      {...textInputProps}
-      tooltipLabel="tooltip label"
-      tooltipText="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-      tooltipOpenButtonLabelText="show tooltip"
-      tooltipCloseButtonLabelText="close tooltip"
-    />
-  ))
-  .add('with helper text', () => <TextInput {...textInputProps} helperText="helper text" />)
-  .add('with invalid input', () => <TextInput {...textInputProps} invalid invalidText="error text" />);
+  );
+};
+
+Playground.story = {
+  parameters: {
+    previewTabs: {
+      'storybook/docs/panel': {
+        hidden: true,
+      },
+    },
+    docs: {
+      disable: true,
+    },
+  },
+};

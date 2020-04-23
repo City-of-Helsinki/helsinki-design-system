@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import ColorBox from "./ColorBox";
+import React from 'react';
+import PropTypes from 'prop-types';
+import ColorBox from './ColorBox';
 
 const Colors = ({ colorvar, variations }) => (
   <>
-    {variations.map(variation => {
+    {variations.map((variation) => {
       const key = `var(${colorvar}${variation})`;
       return <ColorBox key={key} color={key} />;
     })}
@@ -13,7 +13,7 @@ const Colors = ({ colorvar, variations }) => (
 
 Colors.propTypes = {
   colorvar: PropTypes.string.isRequired,
-  variations: PropTypes.array.isRequired
+  variations: PropTypes.array.isRequired,
 };
 
 export default Colors;

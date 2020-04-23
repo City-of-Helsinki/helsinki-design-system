@@ -16,7 +16,11 @@ const icons = {
   success: <IconCheck className={styles.iconCheck} />,
 };
 
-export default ({ children = null, labelText, type = 'notification' }: NotificationProps) => (
+const Notification: React.FC<NotificationProps> = ({
+  children = null,
+  labelText,
+  type = 'notification',
+}: NotificationProps) => (
   <div className={classNames(styles.notification, styles[type])}>
     <div className={styles.label}>
       <span className={styles.icon} aria-hidden="true">
@@ -27,3 +31,5 @@ export default ({ children = null, labelText, type = 'notification' }: Notificat
     {children && <div className={styles.bodyText}>{children}</div>}
   </div>
 );
+
+export default Notification;

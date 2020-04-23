@@ -100,4 +100,4 @@ Object.values({
     source: ['tokens/color/brand/*.json', 'tokens/color/ui/*.json', 'tokens/color/component/text-input/*.json'],
     platforms: getPlatformConfig('text-input', 'color/component', 'isComponentToken'),
   }),
-}).forEach(item => item.buildAllPlatforms());
+}).forEach((item) => item.buildAllPlatforms());

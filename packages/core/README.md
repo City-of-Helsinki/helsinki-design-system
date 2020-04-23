@@ -8,13 +8,13 @@ Base styles and individual HTML component styles for the Helsinki Design System.
 
 ```
 hds-core/
-├── examples/           # html example pages using core components
 ├── src/                # source css
 └── lib/
     ├── components/     # collection of HDS component styles
     │   ├── all.css               # bundled stylesheet including all components
-    │   ├── <component name>.css  # individual component stylesheet
-    │   :
+    |   └── <component name>/     # component stylesheets
+    │       ├── <component name>.css
+    │       :
     │
     ├── icons/          # collection of HDS icon styles
     │   ├── all.css               # bundled stylesheet including all icons
@@ -51,4 +51,5 @@ Helsinki Design System uses a number of CSS variables to control coloring and la
 ## Built with
 
 - [PostCSS](https://github.com/postcss/postcss)
+- [Storybook](https://storybook.js.org/)
 - hds-core follows the [BEM methodology](http://getbem.com/)

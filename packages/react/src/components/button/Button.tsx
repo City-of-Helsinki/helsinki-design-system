@@ -1,27 +1,56 @@
-import React, { ReactElement } from 'react';
+import React, { ReactNode, ReactElement } from 'react';
 
 import styles from './Button.module.css';
 import classNames from '../../utils/classNames';
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  /**
+   * The content of the button
+   */
+  children: ReactNode;
+  /**
+   * Additional class names to apply to the button
+   */
   className?: string;
-  disabled?: boolean;
-  fullWidth?: boolean;
+  /**
+   * Defines the button color
+   *
+   * Available options: `'primary' | 'secondary' | 'supplementary'`
+   */
   color?: 'primary' | 'secondary' | 'tertiary' | 'supplementary';
-  size?: 'default' | 'small';
+  /**
+   * If `true`, the button will be disabled
+   */
+  disabled?: boolean;
+  /**
+   * If `true`, the button will take up the full width of its container
+   */
+  fullWidth?: boolean;
+  /**
+   * Element placed on the left side of the button label
+   */
   iconLeft?: ReactElement;
+  /**
+   * Element placed on the right side of the button label
+   */
   iconRight?: ReactElement;
+  /**
+   * The size of the button
+   *
+   * Available options: `'default' | 'small'`
+   */
+  size?: 'default' | 'small';
 };
 
-export default ({
+const Button: React.FC<ButtonProps> = ({
   children,
   className,
-  disabled = false,
-  fullWidth,
   color = 'primary',
-  size = 'default',
+  disabled,
+  fullWidth,
   iconLeft,
   iconRight,
+  size = 'default',
   ...rest
 }: ButtonProps) => {
   const iconElementLeft = iconLeft ? (
@@ -56,3 +85,5 @@ export default ({
     </button>
   );
 };
+
+export default Button;

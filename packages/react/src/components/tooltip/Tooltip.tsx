@@ -12,7 +12,7 @@ export type TooltipProps = React.PropsWithChildren<{
   alternative?: boolean;
 }>;
 
-export default ({
+const Tooltip: React.FC<TooltipProps> = ({
   children,
   labelText,
   closeButtonLabelText,
@@ -70,6 +70,8 @@ const TooltipTransition = ({ children, open }: TooltipTransitionProps) => (
     enter={{ height: 'auto' }}
     leave={{ height: 0 }}
   >
-    {show => show && (props => <div style={{ ...props, ...{ overflowY: 'hidden' } }}>{children}</div>)}
+    {(show) => show && ((props) => <div style={{ ...props, ...{ overflowY: 'hidden' } }}>{children}</div>)}
   </Transition>
 );
+
+export default Tooltip;

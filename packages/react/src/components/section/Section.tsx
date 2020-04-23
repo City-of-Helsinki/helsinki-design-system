@@ -10,7 +10,12 @@ export type SectionProps = React.PropsWithChildren<{
   korosType?: 'basic' | 'beat' | 'pulse' | 'storm' | 'wave';
 }>;
 
-export default ({ children, className = '', color = 'plain', korosType = null }: SectionProps) => {
+const Section: React.FC<SectionProps> = ({
+  children,
+  className = '',
+  color = 'plain',
+  korosType = null,
+}: SectionProps) => {
   const withKoros = korosType !== null;
 
   return (
@@ -27,3 +32,5 @@ export default ({ children, className = '', color = 'plain', korosType = null }:
     </div>
   );
 };
+
+export default Section;
