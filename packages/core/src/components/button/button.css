@@ -3,29 +3,41 @@
 
 .hds-button {
   --border-width: 2px;
-  --border-gutter: calc(var(--border-width) * 2);
   --color: inherit;
 
-  background-color: var(--background-color, transparent);
-  color: var(--color);
-  padding: var(--border-width);
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  border: var(--border-width) solid var(--border-color, transparent);
-  fill: currentColor;
-  text-align: left;
   align-content: flex-start;
+  align-items: center;
+  background-color: var(--background-color, transparent);
+  border: var(--border-width) solid var(--border-color, transparent);
+  color: var(--color);
+  display: inline-flex;
+  fill: currentColor;
+  justify-content: center;
+  position: relative;
+  text-align: left;
   vertical-align: top;
+}
+
+/* focus outline */
+.hds-button::after {
+  --gutter: 2px;
+  --outline-width: 3px;
+  --size: 100%;
+
+  border: var(--outline-width) solid transparent;
+  content: '';
+  height: var(--size);
+  position: absolute;
+  width: var(--size);
 }
 
 /* button transitions */
 .hds-button:hover,
 .hds-button:focus,
-.hds-button.hds-button--secondary:focus::after {
-  transition-property: background-color, border-color, color;
-  transition-duration: 100ms;
+.hds-button:focus::after {
+  transition-property: background-color, border-color, color, width, height;
+  transition-duration: 75ms;
+  transition-timing-function: ease-out;
 }
 
 .hds-button:hover {
@@ -34,10 +46,15 @@
 }
 
 .hds-button:focus {
-  background-clip: content-box;
   background-color: var(--background-color-focus, transparent);
   color: var(--color-focus);
   outline: none;
+}
+
+/* outline focus */
+.hds-button:focus::after {
+  --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--gutter) * 2));
+  border-color: var(--outline-color);
 }
 
 .hds-button:focus:hover {
@@ -71,9 +88,9 @@
 /* LABEL */
 
 .hds-button__label {
-  line-height: 1.5em;
+  line-height: 1.25em;
   font-weight: 500;
-  padding: var(--spacing-xs);
+  padding: var(--spacing-s);
 }
 
 /* no icons */
@@ -83,7 +100,8 @@
 
 /* SMALL */
 .hds-button--small .hds-button__label {
-  padding: var(--spacing-4-xs) var(--spacing-2-xs);
+  line-height: 1em;
+  padding: var(--spacing-2-xs) var(--spacing-xs);
 
 }
 
@@ -103,25 +121,25 @@
 /* left */
 .hds-button .hds-icon {
   height: 1.5em;
-  margin: 0 var(--border-gutter) 0 var(--spacing-xs);
+  margin-left: var(--spacing-s);
   width: 1.5em;
 }
 
 /* left small */
 .hds-button--small .hds-icon {
   height: 1em;
-  margin: 0 var(--border-gutter) 0 var(--spacing-2-xs);
+  margin-left: var(--spacing-xs);
   width: 1em;
 }
 
 /* right */
 .hds-button__label ~ .hds-icon {
-  margin: 0 var(--spacing-xs) 0 calc(var(--border-gutter));
+  margin: 0 var(--spacing-s) 0 0;
 }
 
 /* right small */
 .hds-button--small .hds-button__label ~ .hds-icon {
-  margin: 0 var(--spacing-2-xs) 0 var(--border-gutter);
+  margin: 0 var(--spacing-xs) 0 0;
 }
 
 /* PRIMARY */
@@ -145,6 +163,8 @@
   --color-focus: var(--color-label-button-primary-focus);
   --color-hover-focus: var(--color-label-button-primary-hover-focus);
   --color-disabled: var(--color-label-button-primary-disabled);
+
+  --outline-color: var(--color-outline-button-primary);
 }
 
 /* SECONDARY */
@@ -168,22 +188,8 @@
   --color-focus: var(--color-label-button-secondary-focus);
   --color-hover-focus: var(--color-label-button-secondary-hover-focus);
   --color-disabled: var(--color-label-button-secondary-disabled);
-}
 
-.hds-button.hds-button--secondary::after {
-  border: var(--border-width) solid transparent;
-  content: '';
-  height: calc(100% - var(--border-gutter));
-  position: absolute;
-  width: calc(100% - var(--border-gutter));
-}
-
-.hds-button.hds-button--secondary:focus::after {
-  border-color: var(--border-color-focus);
-}
-
-.hds-button.hds-button--secondary:focus:hover::after {
-  border-color: var(--border-color-hover-focus);
+  --outline-color: var(--color-outline-button-secondary);
 }
 
 /* SUPPLEMENTARY */
@@ -206,6 +212,8 @@
   --color-focus: var(--color-label-button-supplementary-focus);
   --color-hover-focus: var(--color-label-button-supplementary-hover-focus);
   --color-disabled: var(--color-label-button-supplementary-disabled);
+
+  --outline-color: var(--color-outline-button-supplementary);
 }
 
 /* UTILITY */
@@ -213,37 +221,41 @@
 /* success */
 .hds-button--success {
   --background-color: var(--color-success);
-  --background-color-hover: var(--color-success);
+  --background-color-hover: var(--color-success-dark);
   --background-color-focus: var(--color-success);
-  --background-color-hover-focus: var(--color-success);
+  --background-color-hover-focus: var(--color-success-dark);
 
   --border-color: var(--color-success);
-  --border-color-hover: var(--color-success);
+  --border-color-hover: var(--color-success-dark);
   --border-color-focus: var(--color-success);
-  --border-color-hover-focus: var(--color-success);
+  --border-color-hover-focus: var(--color-success-dark);
 
   --color: var(--color-white);
   --color-hover: var(--color-white);
   --color-focus: var(--color-white);
   --color-hover-focus: var(--color-white);
+
+  --outline-color: var(--color-coat-of-arms-blue);
 }
 
 /* danger */
 .hds-button--danger {
   --background-color: var(--color-error);
-  --background-color-hover: var(--color-error);
+  --background-color-hover: var(--color-error-dark);
   --background-color-focus: var(--color-error);
-  --background-color-hover-focus: var(--color-error);
+  --background-color-hover-focus: var(--color-error-dark);
 
   --border-color: var(--color-error);
-  --border-color-hover: var(--color-error);
+  --border-color-hover: var(--color-error-dark);
   --border-color-focus: var(--color-error);
-  --border-color-hover-focus: var(--color-error);
+  --border-color-hover-focus: var(--color-error-dark);
 
   --color: var(--color-white);
   --color-hover: var(--color-white);
   --color-focus: var(--color-white);
   --color-hover-focus: var(--color-white);
+
+  --outline-color: var(--color-coat-of-arms-blue);
 }
 
 /* THEMES */

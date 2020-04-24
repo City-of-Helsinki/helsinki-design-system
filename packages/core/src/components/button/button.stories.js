@@ -4,10 +4,11 @@ import '../../icons/icon.css';
 import '../../icons/icon-share.css';
 import '../../icons/icon-angle-right.css';
 
-const label = '<span class="hds-button__label text-medium">Button</span>';
+const getLabel = (label = 'Button') => `<span class="hds-button__label text-medium">${label}</span>`;
 
 export default {
   title: 'Button',
+  decorators: [(storyFn) => `<style>.hds-button {margin-right: 1rem;}</style>${storyFn()}`],
 };
 
 /**
@@ -15,7 +16,7 @@ export default {
  */
 export const Primary = () => `
   <button type="button" class="hds-button hds-button--primary">
-    ${label}
+    ${getLabel()}
   </button>
 `;
 
@@ -24,7 +25,7 @@ export const Primary = () => `
  */
 export const Secondary = () => `
   <button type="button" class="hds-button hds-button--secondary">
-    ${label}
+    ${getLabel()}
   </button>
 `;
 
@@ -33,7 +34,25 @@ export const Secondary = () => `
  */
 export const Supplementary = () => `
   <button type="button" class="hds-button hds-button--supplementary">
-    ${label}
+    ${getLabel()}
+  </button>
+`;
+
+/**
+ * Success
+ */
+export const Success = () => `
+  <button type="button" class="hds-button hds-button--success">
+    ${getLabel()}
+  </button>
+`;
+
+/**
+ * Danger
+ */
+export const Danger = () => `
+  <button type="button" class="hds-button hds-button--danger">
+    ${getLabel()}
   </button>
 `;
 
@@ -42,7 +61,7 @@ export const Supplementary = () => `
  */
 export const FullWidth = () => `
   <button type="button" class="hds-button hds-button--primary hds-button--fullwidth">
-    ${label}
+    ${getLabel()}
   </button>
 `;
 
@@ -55,7 +74,7 @@ FullWidth.story = {
  */
 export const Small = () => `
   <button type="button" class="hds-button hds-button--primary hds-button--small">
-    ${label}
+    ${getLabel()}
   </button>
 `;
 
@@ -64,7 +83,7 @@ export const Small = () => `
  */
 export const Disabled = () => `
   <button type="button" disabled class="hds-button hds-button--primary">
-    ${label}
+    ${getLabel()}
   </button>
 `;
 
@@ -74,17 +93,68 @@ export const Disabled = () => `
 export const Icons = () => `
   <button type="button" class="hds-button hds-button--primary">
     <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
-    ${label}
+    ${getLabel()}
   </button>
   
   <button type="button" class="hds-button hds-button--primary">
-    ${label}
+    ${getLabel()}
     <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
   </button>
   
   <button type="button" class="hds-button hds-button--primary">
     <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
-    ${label}
+    ${getLabel()}
     <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+  </button>
+  
+  <br>
+  <br>
+  
+  <button type="button" class="hds-button hds-button--small hds-button--primary">
+    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
+    ${getLabel()}
+  </button>
+  
+  <button type="button" class="hds-button hds-button--small hds-button--primary">
+    ${getLabel()}
+    <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+  </button>
+  
+  <button type="button" class="hds-button hds-button--small hds-button--primary">
+    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
+    ${getLabel()}
+    <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+  </button>
+`;
+
+/**
+ * Themes
+ */
+export const Themes = () => `
+  <button type="button" class="hds-button hds-button--primary hds-button--theme-coat">
+    ${getLabel('coat')}
+  </button>
+  
+  <button type="button" class="hds-button hds-button--secondary hds-button--theme-coat">
+    ${getLabel('coat')}
+  </button>
+  
+  <button type="button" class="hds-button hds-button--supplementary hds-button--theme-coat">
+    ${getLabel('coat')}
+  </button>
+  
+  <br>
+  <br>
+  
+    <button type="button" class="hds-button hds-button--primary hds-button--theme-black">
+    ${getLabel('Black')}
+  </button>
+  
+  <button type="button" class="hds-button hds-button--secondary hds-button--theme-black">
+    ${getLabel('Black')}
+  </button>
+  
+  <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black">
+    ${getLabel('Black')}
   </button>
 `;

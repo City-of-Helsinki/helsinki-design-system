@@ -54,11 +54,11 @@
             "value": "transparent"
           },
           "focus": {
-            "value": "{color.bus.value}",
+            "value": "{color.coat-of-arms.blue.value}",
             "type": "color"
           },
           "hover-focus": {
-            "value": "{color.bus-dark-50.value}",
+            "value": "{color.coat-of-arms.blue.value}",
             "type": "color"
           },
           "disabled": {
