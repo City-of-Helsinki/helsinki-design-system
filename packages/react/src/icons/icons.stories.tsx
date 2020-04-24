@@ -17,7 +17,7 @@ const Wrapper = ({ children, size }) => (
   </div>
 );
 
-const stories = storiesOf('Icons', module);
+const stories = storiesOf('Components/Icons', module);
 
 const makeSvgStyleRules = (color: string) => ({
   fill: color,
@@ -25,14 +25,23 @@ const makeSvgStyleRules = (color: string) => ({
 });
 
 const req = require.context('.', false, /^.\/Icon.*.tsx$/);
-req.keys().forEach(fileName => {
+req.keys().forEach((fileName, index) => {
   const Component = req(fileName).default;
   const componentName = path.basename(fileName, '.tsx');
   Component.displayName = componentName;
 
+  if (index === 0) {
+    stories.addParameters({
+      component: Component,
+      docs: {
+        disable: true,
+      },
+    });
+  }
+
   stories.add(componentName, () => (
     <>
-      <div style={makeSvgStyleRules('#333')}>
+      <div style={makeSvgStyleRules('#111')}>
         <Wrapper size="200px">
           <Component />
         </Wrapper>
@@ -46,7 +55,7 @@ req.keys().forEach(fileName => {
           <Component />
         </Wrapper>
       </div>
-      <div style={{ background: '#333', ...makeSvgStyleRules('#fff') }}>
+      <div style={{ background: '#111', ...makeSvgStyleRules('#fff') }}>
         <Wrapper size="200px">
           <Component />
         </Wrapper>

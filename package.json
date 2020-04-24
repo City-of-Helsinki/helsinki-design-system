@@ -7,11 +7,13 @@
     "site"
   ],
   "scripts": {
-    "build": "yarn build:core && yarn build:react && yarn build:site",
+    "build": "yarn build:tokens && yarn build:core && yarn build:react && yarn build:site",
+    "build:tokens": "lerna run --scope hds-design-tokens build",
     "build:core": "lerna run --scope hds-core build",
     "build:react": "lerna run --scope hds-react build",
     "build:site": "lerna run --scope site build",
     "release": "lerna publish from-package --yes",
+    "start:core": "lerna run --scope hds-core start",
     "start:react": "lerna run --scope hds-core --scope hds-react start --parallel",
     "husky:pre-commit": "lerna run --concurrency 1 --stream pre-commit",
     "husky:pre-push": "lerna run --concurrency 1 --stream pre-push"

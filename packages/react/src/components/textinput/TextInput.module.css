@@ -3,14 +3,14 @@
 }
 
 .label {
-  composes: text-sm from '~hds-core/lib/helsinki.css';
-  composes: text-bold from '~hds-core/lib/helsinki.css';
+  composes: text-sm from 'hds-core/lib/helsinki.css';
+  composes: text-bold from 'hds-core/lib/helsinki.css';
   margin-bottom: 0.2em;
   display: block;
 }
 
 .hiddenLabel {
-  composes: hiddenFromScreen from '~hds-core/lib/helsinki.css';
+  composes: hiddenFromScreen from 'hds-core/lib/helsinki.css';
 }
 
 .inputWrapper {
@@ -19,12 +19,12 @@
 }
 
 .helperText {
-  composes: text-sm from '~hds-core/lib/helsinki.css';
+  composes: text-sm from 'hds-core/lib/helsinki.css';
   color: var(--hds-ui-color-black-70);
 }
 
 .invalidText {
-  composes: text-sm from '~hds-core/lib/helsinki.css';
+  composes: text-sm from 'hds-core/lib/helsinki.css';
   color: var(--hds-ui-color-error);
 }
 
@@ -36,7 +36,7 @@
 /* INPUT */
 
 .input {
-  composes: text-md from '~hds-core/lib/helsinki.css';
+  composes: text-md from 'hds-core/lib/helsinki.css';
   width: 100%;
   border-width: 2px;
   border-style: solid;

@@ -20,6 +20,7 @@
       "jsx": true
     }
   },
+  "ignorePatterns": ["*.module.css"],
   "rules": {
     "import/no-extraneous-dependencies": [
       "error",
@@ -40,6 +41,7 @@
     "react/jsx-curly-newline": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "react/prop-types": "off",
+    "import/extensions": "off",
     "jsx-a11y/label-has-associated-control": [
       2,
       {

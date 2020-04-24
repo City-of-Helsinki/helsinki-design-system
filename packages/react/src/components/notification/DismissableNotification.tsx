@@ -11,7 +11,7 @@ export type DismissableNotificationProps = {
   onClose?: () => void;
 } & NotificationProps;
 
-export default (props: DismissableNotificationProps) => {
+const DismissableNotification: React.FC<DismissableNotificationProps> = (props: DismissableNotificationProps) => {
   const [isOpen, setOpen] = useState(true);
   const { type = null, closeButtonLabelText = null, onClose = null, children = null } = props;
 
@@ -23,9 +23,9 @@ export default (props: DismissableNotificationProps) => {
       leave={{ height: 0 }}
       onDestroyed={onClose}
     >
-      {show =>
+      {(show) =>
         show &&
-        (transitionProps => (
+        ((transitionProps) => (
           <div style={{ ...transitionProps, ...{ overflowY: 'hidden', position: 'relative' } }}>
             <Notification {...props}>{children}</Notification>
             <button
@@ -45,3 +45,5 @@ export default (props: DismissableNotificationProps) => {
     </Transition>
   );
 };
+
+export default DismissableNotification;

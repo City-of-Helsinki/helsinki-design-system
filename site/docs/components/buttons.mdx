@@ -1,144 +1,169 @@
 ---
 name: Buttons
 menu: Components
+route: /components/button
 ---
 
 import { Playground } from "docz";
-import { Button, IconShare, IconAngleRight } from "hds-react";
+import { Button } from "hds-react";
 
-import "hds-core/lib/components/buttons.css";
-import "hds-core/lib/icons/icon.css";
-import "hds-core/lib/icons/icon-share.css";
-import "hds-core/lib/icons/icon-angle-right.css";
+import ColorBox from "../../src/components/ColorBox";
+import Text from "../../src/components/Text";
 
 # Buttons
 
----
+Buttons are meant to make actions easily visible and understandable to the user. HDS offers different kinds of button variations which each suit for different needs.
 
-Buttons allow an application to communicate action and direct user intent. Clear labeling and icons (where needed) are used to communicate the actions the buttons perform to the user.
+## Accessibility
 
-[Buttons in hds-core](/core/examples/buttons.html)  
-[Buttons in hds-react](/storybook/?path=/story/button--default)
+- It is advisable to use recommended button color combinations. These combinations are ensured to comply with WCAG AA requirements.
+- If using other than recommended button color combinations, remember to take accessibility (especially contrast), general usability and brand guidelines, into account. Related WCAG 2.1 guidelines to check compliance with are 1.4.1 Use of Color and 1.4.3 Contrast (Minimum).
 
-## Styles
+## How to use
+- Buttons are used to trigger an action. Be cautious when using buttons for navigating. In most cases you should prefer links for this purpose. 
+- Button label should always tell the action that the buttons is going to trigger. A good practice is to start the label with a verb and use two word labels at maximum.
+- Use provided button types to control the visual priority of the view. Priority of the button types is the following: Primary -> Secondary -> Supplementary.
+- Try to keep the amount of buttons in one view low. If there is a need for several actions in the view, consider using the smaller button variant.
 
-### Using color in buttons
+### Use of color
+Provided recommended button color variations have been designed to be the easy and safe choice for most projects. However, if you feel there is a need to use colors outside of recommended ones, you are allowed to do so. When designing your own button color variations, remember to take accessibility (especially contrast), general usability and brand guidelines into account. Related WCAG 2.1 guidelines to check compliance with are 1.4.1 Use of Color and 1.4.3 Contrast (Minimum).
 
-Choose the primary button color by determining your main user interface colors from the brand colors. Use the primary button color also as secondary button color (border and text color). In supplementary button, the text color (and icon if used) is the same as the one used in primary and secondary buttons.
+### Size
+In phone width, use full-width buttons. In other sizes use buttons that scale according to their content.
 
-When using strong brand colors in the user interface, you can use the button color based on the background color, since not all of the colors make the content accessible.
+## Primary button
+Primary button is reserved for the most important action on the screen. Primary action is usually either mandatory or essential for the user. Primary buttons are designed to clearly highlight the most important action and therefore you should avoid having multiple primary buttons in one screen. For less important actions, consider using secondary or supplementary buttons instead.
 
-There are different kinds of buttons in the buttons library:
-
-#### Core:
 <Playground>
-  <button type="button" class="hds-button hds-button--primary">
-    <span class="hds-button__label text-medium">Primary</span>
-  </button>
-  <button type="button" class="hds-button hds-button--secondary">
-    <span class="hds-button__label text-medium">Secondary</span>
-  </button>
-  <button type="button" class="hds-button hds-button--tertiary">
-    <span class="hds-button__label text-medium">Tertiary</span>
-  </button>
-  <button type="button" class="hds-button hds-button--supplementary">
-    <span class="hds-button__label text-medium">Supplementary</span>
-  </button>
+<Button>Primary</Button>
 </Playground>
 
-#### React:
+##### Core:
+```html
+<button type="button" class="hds-button hds-button--primary">
+  <span class="hds-button__label text-medium">Primary</span>
+</button>
+```
+
+##### React:
+```tsx
+<Button>Primary</Button>
+```
+
+## Secondary button
+Secondary buttons are used for actions which are not mandatory or essential for the user. Often screens will include multiple secondary buttons alongside one primary button.
+
 <Playground>
-  <Button>Primary</Button>
   <Button color="secondary">Secondary</Button>
-  <Button color="tertiary">Tertiary</Button>
+</Playground>
+
+##### Core:
+```html
+<button type="button" class="hds-button hds-button--secondary">
+  <span class="hds-button__label text-medium">Secondary</span>
+</button>
+```
+
+##### React:
+```tsx
+<Button color="secondary">Secondary</Button>
+```
+
+## Supplementary button
+Supplementary buttons can be used in similar cases as secondary buttons. However, supplementary buttons are meant for actions which are intentionally wanted to be less visible to the user. These kind of actions include i.e. cancel and dismiss functionalities.
+
+<Playground>
   <Button color="supplementary">Supplementary</Button>
 </Playground>
 
+##### Core:
+```html
+<button type="button" class="hds-button hds-button--supplementary">
+  <span class="hds-button__label text-medium">Supplementary</span>
+</button>
+```
 
-### Primary
+##### React:
+```tsx
+<Button color="supplementary">Supplementary</Button>
+```
 
-Directs the user’s attention to the primary action the application is suggesting that the user take. The solid background color as a visual style is used to highlight the most important actions. To avoid confusing users, don’t use more than one primary button within a section or view.
+## Utility button
+If required to achieve clearer user interface, you may also use additional utility colors. Different visual styles of these buttons can be used to better inform users of destructive or dangerous actions. To comply with WCAG requirement 1.4.1 Use of Color, these colors are often better when paired with an icon.
 
-### Secondary
-
-Provides a lighter weight button style. Used to indicate a secondary action that compliments a primary action or to reduce visual noise when there are many actions of equal importance on the page.
-
-### Tertiary
-
-Provides an alternative color button style.
-
-### Supplementary
-
-Is used in multiple scenarios. Used as supplementary buttons. They can be used for example inside components, like cards or such.
-
-## Sizes
-
-The buttons come in two sizes; default and small. They can be also used with icons inside them.
-
-#### Core:
 <Playground>
-  <button type="button" class="hds-button hds-button--primary">
-    <span class="hds-button__label text-medium">Primary</span>
-  </button>
-  <br/><br/>
-  <button type="button" class="hds-button hds-button--primary hds-button--small">
-    <span class="hds-button__label text-medium">Primary</span>
-  </button>
+  TODO
 </Playground>
 
-#### React:
-<Playground>
-  <Button size="default">Primary</Button>
-  <br/><br/>
-  <Button size="small">Primary</Button>
-</Playground>
+## Demos & API
 
-## Icons
+### Core
 
-The buttons can have icons attached before and after the label text. For some cases, both slots can be used at the same time.
+[Buttons in hds-core](/storybook/core/?path=/story/button--primary)
 
-#### Core:
-<Playground>
-  <button type="button" class="hds-button hds-button--primary">
-    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
-    <span class="hds-button__label text-medium">Share</span>
-  </button>
+### React
 
-  <button type="button" class="hds-button hds-button--secondary">
-    <span class="hds-button__label text-medium">Continue</span>
-    <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
-  </button>
+[Buttons in hds-react](/storybook/react/?path=/story/components-button--primary)
 
-  <button type="button" class="hds-button hds-button--tertiary">
-    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
-    <span class="hds-button__label text-medium">Share</span>
-    <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
-  </button>
-</Playground>
+[Button API](/storybook/react/?path=/docs/components-button--primary)
 
-#### React
-<Playground>
-  <Button iconLeft={<IconShare />}>Share</Button>
-  <Button iconRight={<IconAngleRight />} color="secondary">Continue</Button>
-  <Button iconLeft={<IconShare />} iconRight={<IconAngleRight />} color="tertiary">
-    Share
-  </Button>
-</Playground>
+## Tokens
 
-## Grouping
+```css
+/* CSS */
+@import "hds-design-tokens/lib/color/component/button.css";
+/* SCSS */
+@import "hds-design-tokens/lib/color/component/button.scss";
+```
+```js
+// JS
+import 'hds-design-tokens/lib/color/component/button.css';
+```
 
-### Constrained content
-
-A modal, card element or such and buttons are aligned to right, but horizontally next to each other: primary on right, secondary on left
-
-### Unconstrained content
-
-Buttons aligned to left, but horizontally next to each other: primary on left, secondary on right.
-
-### Narrow content
-
-Buttons aligned vertically on top of each other: primary on top, secondary below.
-
-### Call to action
-
-Do not use generic language that is not related to the action and not relating to the intent of the user. Use clear call to actions that also describes what can be found, or will happen after the user clicks the button.
+CSS                                                  | SASS                                               | Value       | Example
+---------------------------------------------------- | -------------------------------------------------- | ----------- | ------------------------------------------- |
+--color-background-button-primary-default            | $color-background-button-primary-default           | #0000bf     | <ColorBox color="#0000bf" />                |
+--color-background-button-primary-hover              | $color-background-button-primary-hover             | #000098     | <ColorBox color="#000098" />                |
+--color-background-button-primary-focus              | $color-background-button-primary-focus             | #0000bf     | <ColorBox color="#0000bf" />                |
+--color-background-button-primary-hover-focus        | $color-background-button-primary-hover-focus       | #000098     | <ColorBox color="#000098" />                |
+--color-background-button-primary-disabled           | $color-background-button-primary-disabled          | #cccccc     | <ColorBox color="#cccccc" />                |
+--color-background-button-secondary-default          | $color-background-button-secondary-default         | transparent | <ColorBox color="transparent" />            |
+--color-background-button-secondary-hover            | $color-background-button-secondary-hover           | transparent | <ColorBox color="transparent" />            |
+--color-background-button-secondary-focus            | $color-background-button-secondary-focus           | transparent | <ColorBox color="transparent" />            |
+--color-background-button-secondary-hover-focus      | $color-background-button-secondary-hover-focus     | transparent | <ColorBox color="transparent" />            |
+--color-background-button-secondary-disabled         | $color-background-button-secondary-disabled        | transparent | <ColorBox color="transparent" />            |
+--color-background-button-supplementary-default      | $color-background-button-supplementary-default     | transparent | <ColorBox color="transparent" />            |
+--color-background-button-supplementary-hover        | $color-background-button-supplementary-hover       | transparent | <ColorBox color="transparent" />            |
+--color-background-button-supplementary-focus        | $color-background-button-supplementary-focus       | transparent | <ColorBox color="transparent" />            |
+--color-background-button-supplementary-hover-focus  | $color-background-button-supplementary-hover-focus | transparent | <ColorBox color="transparent" />            |
+--color-background-button-supplementary-disabled     | $color-background-button-supplementary-disabled    | transparent | <ColorBox color="transparent" />            |
+--color-border-button-primary-default                | $color-border-button-primary-default               | #0000bf     | <ColorBox color="#0000bf" />                |
+--color-border-button-primary-hover                  | $color-border-button-primary-hover                 | #000098     | <ColorBox color="#000098" />                |
+--color-border-button-primary-focus                  | $color-border-button-primary-focus                 | #0000bf     | <ColorBox color="#0000bf" />                |
+--color-border-button-primary-hover-focus            | $color-border-button-primary-hover-focus           | #000098     | <ColorBox color="#000098" />                |
+--color-border-button-primary-disabled               | $color-border-button-primary-disabled              | #cccccc     | <ColorBox color="#cccccc" />                |
+--color-border-button-secondary-default              | $color-border-button-secondary-default             | #0000bf     | <ColorBox color="#0000bf" />                |
+--color-border-button-secondary-hover                | $color-border-button-secondary-hover               | #000098     | <ColorBox color="#000098" />                |
+--color-border-button-secondary-focus                | $color-border-button-secondary-focus               | #0000bf     | <ColorBox color="#0000bf" />                |
+--color-border-button-secondary-hover-focus          | $color-border-button-secondary-hover-focus         | #000098     | <ColorBox color="#000098" />                |
+--color-border-button-secondary-disabled             | $color-border-button-secondary-disabled            | #cccccc     | <ColorBox color="#cccccc" />                |
+--color-border-button-supplementary-default          | $color-border-button-supplementary-default         | transparent | <ColorBox color="transparent" />            |
+--color-border-button-supplementary-hover            | $color-border-button-supplementary-hover           | transparent | <ColorBox color="transparent" />            |
+--color-border-button-supplementary-focus            | $color-border-button-supplementary-focus           | #0000bf     | <ColorBox color="#0000bf" />                |
+--color-border-button-supplementary-hover-focus      | $color-border-button-supplementary-hover-focus     | #000098     | <ColorBox color="#000098" />                |
+--color-border-button-supplementary-disabled         | $color-border-button-supplementary-disabled        | transparent | <ColorBox color="transparent" />            |
+--color-label-button-primary-default                 | $color-label-button-primary-default                | #ffffff     | <Text color="#ffffff" />                    |
+--color-label-button-primary-hover                   | $color-label-button-primary-hover                  | #ffffff     | <Text color="#ffffff" />                    |
+--color-label-button-primary-focus                   | $color-label-button-primary-focus                  | #ffffff     | <Text color="#ffffff" />                    |
+--color-label-button-primary-hover-focus             | $color-label-button-primary-hover-focus            | #ffffff     | <Text color="#ffffff" />                    |
+--color-label-button-primary-disabled                | $color-label-button-primary-disabled               | #ffffff     | <Text color="#ffffff" />                    |
+--color-label-button-secondary-default               | $color-label-button-secondary-default              | #0000bf     | <Text color="#0000bf" />                    |
+--color-label-button-secondary-hover                 | $color-label-button-secondary-hover                | #000098     | <Text color="#000098" />                    |
+--color-label-button-secondary-focus                 | $color-label-button-secondary-focus                | #0000bf     | <Text color="#0000bf" />                    |
+--color-label-button-secondary-hover-focus           | $color-label-button-secondary-hover-focus          | #000098     | <Text color="#000098" />                    |
+--color-label-button-secondary-disabled              | $color-label-button-secondary-disabled             | #cccccc     | <Text color="#cccccc" />                    |
+--color-label-button-supplementary-default           | $color-label-button-supplementary-default          | #0000bf     | <Text color="#0000bf" />                    |
+--color-label-button-supplementary-hover             | $color-label-button-supplementary-hover            | #000098     | <Text color="#000098" />                    |
+--color-label-button-supplementary-focus             | $color-label-button-supplementary-focus            | #0000bf     | <Text color="#0000bf" />                    |
+--color-label-button-supplementary-hover-focus       | $color-label-button-supplementary-hover-focus      | #000098     | <Text color="#000098" />                    |
+--color-label-button-supplementary-disabled          | $color-label-button-supplementary-disabled         | #cccccc     | <Text color="#cccccc" />                    |

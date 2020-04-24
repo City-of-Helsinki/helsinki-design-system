@@ -1,0 +1,46 @@
+---
+name: Spacing
+menu: Design Tokens
+route: /design-tokens/spacing
+---
+
+# Spacing
+
+---
+
+import "hds-design-tokens/lib/spacing/all.min.css";
+import Spacing from "../../src/components/Spacing";
+
+The spacing scale is based on our typographic scale. The values defined here are used for positioning elements in the user interfaces.
+
+Multiplying and dividing these values is allowed using even numbers.
+
+With spacing of elements it is possible to create a hierarchy in the user interfaces. Notice that elements with more spacing around them tend to perceive higher importance than elements that have less space around them.
+
+Group elements together to be seen as a unit with smaller spacing.
+
+Empty space is also important in design. It can be used to separate sections on a page to create a focus to certain elements. Too dense information can be hard to digest for a user, so make sure to leave enough space in the user interfaces.
+
+## Tokens
+
+CSS                   | SASS                  | rem value | px value  | Example                                       |
+--------------------- | --------------------- | --------- | --------- | --------------------------------------------- |
+--spacing-4-xs        | $spacing-4-xs         | 0.125     | 2         | <Spacing size="var(--spacing-4-xs)" />        |
+--spacing-3-xs        | $spacing-3-xs         | 0.25      | 4         | <Spacing size="var(--spacing-3-xs)" />        |
+--spacing-2-xs        | $spacing-2-xs         | 0.5       | 4         | <Spacing size="var(--spacing-2-xs)" />        |
+--spacing-xs          | $spacing-xs           | 0.75      | 8         | <Spacing size="var(--spacing-xs)" />          |
+--spacing-s           | $spacing-s            | 1         | 16        | <Spacing size="var(--spacing-s)" />           |
+--spacing-m           | $spacing-m            | 1.5       | 24        | <Spacing size="var(--spacing-m)" />           |
+--spacing-l           | $spacing-l            | 2         | 32        | <Spacing size="var(--spacing-l)" />           |
+--spacing-xl          | $spacing-xl           | 2.5       | 40        | <Spacing size="var(--spacing-xl)" />          |
+--spacing-2-xl        | $spacing-2-xl         | 3         | 48        | <Spacing size="var(--spacing-2-xl)" />        |
+--spacing-3-xl        | $spacing-3-xl         | 3.5       | 56        | <Spacing size="var(--spacing-3-xl)" />        |
+--spacing-4-xl        | $spacing-4-xl         | 4         | 64        | <Spacing size="var(--spacing-4-xl)" />        |
+--spacing-5-xl        | $spacing-5-xl         | 4.5       | 72        | <Spacing size="var(--spacing-5-xl)" />        |
+--spacing-layout-2-xs | $spacing-layout-2-xs  | 1         | 16        | <Spacing size="var(--spacing-layout-2-xs)" /> |
+--spacing-layout-xs   | $spacing-layout-xs    | 1.5       | 24        | <Spacing size="var(--spacing-layout-xs)" />   |
+--spacing-layout-s    | $spacing-layout-s     | 2         | 32        | <Spacing size="var(--spacing-layout-s)" />    |
+--spacing-layout-m    | $spacing-layout-m     | 2         | 48        | <Spacing size="var(--spacing-layout-m)" />    |
+--spacing-layout-l    | $spacing-layout-l     | 2         | 64        | <Spacing size="var(--spacing-layout-l)" />    |
+--spacing-layout-xl   | $spacing-layout-xl    | 2         | 96        | <Spacing size="var(--spacing-layout-xl)" />   |
+--spacing-layout-2-xl | $spacing-layout-2-xl  | 8         | 128       | <Spacing size="var(--spacing-layout-2-xl)" /> |

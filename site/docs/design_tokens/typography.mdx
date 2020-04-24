@@ -1,0 +1,59 @@
+---
+name: Typography
+menu: Design Tokens
+route: /design-tokens/typography
+---
+
+# Typography
+
+---
+
+## Type face: Helsinki Grotesk
+
+**This is Helsinki Grotesk. Our chosen typeface.**
+
+Using our font styles consistently helps us create a clear hierarchy, organize information and help users find their way around our services.
+
+## Scale
+
+(You can find the basic typescale also in the Typography library in Abstract)
+
+### Headings
+
+import { Playground } from "docz";
+import "../../src/gatsby-theme-docz/assets/index.css";
+
+<Playground>
+  <h1>H1</h1>
+  <h2>H2</h2>
+  <h3>H3</h3>
+  <h4>H4</h4>
+  <h5>H5</h5>
+  <div className="subtitle">Subtitle</div>
+</Playground>
+
+### Body text
+
+<Playground>
+  <div className="text-xl">Body Extra Large</div>
+  <div className="text-lg">Body Large</div>
+  <div className="text-md">Body Medium</div>
+  <div className="text-body">Body Default</div>
+  <div className="text-sm">Body Small</div>
+</Playground>
+
+## Type style
+
+We use Bold or Regular as font weights.
+
+<Playground>
+  <div className="text-bold">
+    Bold is used in headers and subheader as well as to emphasize text.
+  </div>
+  <div>Regular is used for body text and Links.</div>
+  <div className="text-md">Medium is used only in button components.</div>
+</Playground>
+
+## Type colour
+
+Use black or white as text colour depending on the background. We advise to use other text colours sparingly if at all.

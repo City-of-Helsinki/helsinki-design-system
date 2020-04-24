@@ -1,0 +1,11 @@
+{
+  "color": {
+    "coat-of-arms": {
+      "silver": {
+        "value": "#dedfe1",
+        "type": "color",
+        "primary": true
+      }
+    }
+  }
+}

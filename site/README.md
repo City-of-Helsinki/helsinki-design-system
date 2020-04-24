@@ -26,7 +26,9 @@ The documentation is written as md/mdx files in the `docs/` folder. Docz doesn't
 
 In addition to the markdown, the file contains a frontmatter header that will be used to give the page it's settings (see [Document settings](https://www.docz.site/docs/document-settings)).
 
-[Example doc file](examples/example.mdx)
+[Example page documentation file](examples/page.mdx)
+
+[Example component documentation file](examples/component.mdx)
 
 ### Deployment
 
@@ -40,3 +42,29 @@ If everything goes well, you'll find the static site at `public/`.
 ### App configuration
 
 Docz configuration is handled via the [`doczrc.js`](doczrc.js). Follow the [Project Configuration reference](https://www.docz.site/docs/project-configuration).
+
+### Troubleshooting
+
+* Compiling error when running `yarn start`
+
+    ```
+    ERROR #98123 WEBPACK
+
+    Generating development JavaScript bundle failed
+
+    Failed to load config "react-app" to extend from.
+    Referenced from: BaseConfig
+    
+    File: .cache/app.js
+    ```
+  
+    Try running the following in the project root `rm -rf node_modules/ yarn.lock && yarn && yarn build && cd site && yarn start`
+
+
+* Error after running `yarn start` and opening http://localhost:3000/
+
+    ```
+    TypeError: Cannot read property 'find' of undefined
+    ```
+  
+    Make a change to any of the documentation `.mdx` files and refresh the page.
