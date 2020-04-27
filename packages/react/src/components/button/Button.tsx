@@ -15,7 +15,7 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   /**
    * Defines the button variant
    *
-   * Available options: `'primary' | 'secondary' | 'supplementary'`
+   * Available options: `'primary' | 'secondary' | 'supplementary' | 'success' | 'danger'`
    */
   variant?: 'primary' | 'secondary' | 'supplementary' | 'success' | 'danger';
   /**
