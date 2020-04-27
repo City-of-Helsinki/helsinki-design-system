@@ -12,8 +12,10 @@
     "lib"
   ],
   "scripts": {
-    "build": "rimraf lib/ && yarn run postcss 'src/**/*.css' --base src -d lib",
+    "build": "rimraf lib/ && yarn postcss-build",
     "start": "yarn storybook",
+    "postcss-build": "yarn run postcss 'src/**/*.css' --base src -d lib",
+    "postcss-watch": "yarn run postcss 'src/**/*.css' --base src -d lib --watch",
     "storybook": "start-storybook -p 6007 --quiet",
     "build-storybook": "build-storybook --loglevel error"
   },
