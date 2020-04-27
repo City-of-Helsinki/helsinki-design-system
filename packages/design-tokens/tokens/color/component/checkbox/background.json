@@ -2,44 +2,20 @@
   "color": {
     "background": {
       "checkbox": {
-        "outer": {
-          "default": {
-            "value": "{color.white.value}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{color.white.value}",
-            "type": "color"
-          },
-          "focus": {
-            "value": "{color.white.value}",
-            "type": "color"
-          },
-          "unselected-disabled": {
-            "value": "{color.black-10.value}",
-            "type": "color"
-          },
-          "selected-disabled": {
-            "value": "{color.white.value}",
-            "type": "color"
-          }
+        "unselected": {
+          "value": "transparent"
         },
-        "inner": {
-          "unselected": {
-            "value": "transparent"
-          },
-          "selected": {
-            "value": "{color.bus.value}",
-            "type": "color"
-          },
-          "hover": {
-            "value": "{color.bus-dark-50.value}",
-            "type": "color"
-          },
-          "disabled": {
-            "value": "{color.black-10.value}",
-            "type": "color"
-          }
+        "selected": {
+          "value": "{color.bus.value}",
+          "type": "color"
+        },
+        "hover": {
+          "value": "{color.bus-dark-50.value}",
+          "type": "color"
+        },
+        "disabled": {
+          "value": "{color.black-10.value}",
+          "type": "color"
         }
       }
     }

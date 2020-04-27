@@ -3,7 +3,7 @@
     "focus-outline": {
       "checkbox": {
         "default": {
-          "value": "{color.black-90.value}",
+          "value": "{color.coat-of-arms.blue.value}",
           "type": "color"
         }
       }
