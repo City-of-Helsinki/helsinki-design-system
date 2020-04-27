@@ -4,12 +4,41 @@ import styles from './RadioButton.module.css';
 import classNames from '../../utils/classNames';
 
 export type RadioButtonProps = React.InputHTMLAttributes<HTMLInputElement> & {
+  /**
+   * If `true`, the component is checked.
+   */
+  checked?: boolean;
+  /**
+   * Additional class names to apply to the radio button
+   */
   className?: string;
+  /**
+   * If `true`, the radio button will be disabled.
+   */
+  disabled?: boolean;
+  /**
+   * The id of the input element
+   */
   id: string;
+  /**
+   * The label for the radio button
+   */
   labelText?: string;
+  /**
+   * Callback fired when the state is changed.
+   */
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  /**
+   * Override or extend the styles applied to the component. See radio button [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/checkbox#tokens) for available CSS variables.
+   */
+  style?: React.CSSProperties;
+  /**
+   * The value of the component
+   */
+  value?: string;
 };
 
-export default React.forwardRef(
+const RadioButton: React.FC<RadioButtonProps> = React.forwardRef(
   (
     {
       checked = false,
@@ -17,27 +46,31 @@ export default React.forwardRef(
       disabled = false,
       id,
       labelText = undefined,
-      name = undefined,
       onChange = () => null,
+      style,
       value,
       ...rest
     }: RadioButtonProps,
     ref: React.RefObject<HTMLInputElement>,
   ) => (
-    <div className={classNames(styles.radioButton, className)}>
+    <div className={classNames(styles.radioButton, className)} style={style}>
       <input
         ref={ref}
         id={id}
+        className={classNames(styles.input)}
         onChange={onChange}
         value={value}
-        name={name}
         type="radio"
         disabled={disabled}
         checked={checked}
         aria-checked={checked}
         {...rest}
       />
-      <label htmlFor={id}>{labelText}</label>
+      <label htmlFor={id} className={classNames(styles.label)}>
+        {labelText}
+      </label>
     </div>
   ),
 );
+
+export default RadioButton;

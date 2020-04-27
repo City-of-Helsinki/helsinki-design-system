@@ -8,7 +8,7 @@ const getHelperText = (text = 'input', invalid = false) =>
   `<span class="hds-text-input__${invalid ? 'invalid' : 'helper'}-text text-sm">${text}</span>`;
 
 export default {
-  title: 'TextInput',
+  title: 'Text input',
 };
 
 /**

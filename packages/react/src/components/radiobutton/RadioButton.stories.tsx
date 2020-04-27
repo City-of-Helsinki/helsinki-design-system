@@ -1,43 +1,216 @@
 import React, { useState } from 'react';
-import { storiesOf } from '@storybook/react';
+import { color, number } from '@storybook/addon-knobs';
+import { Props, Stories, Subtitle, Title } from '@storybook/addon-docs/dist/blocks';
 
 import RadioButton from './RadioButton';
 
-const WrapperDecorator = (storyFn) => <div style={{ padding: '20px' }}> {storyFn()}</div>;
+export default {
+  component: RadioButton,
+  title: 'Components/RadioButton',
+  parameters: {
+    docs: {
+      page: () => (
+        <>
+          <Title>Props</Title>
+          <Subtitle>Props, which are not mentioned below, are spread into the component</Subtitle>
+          <Props />
+          <Stories title="Examples" includePrimary />
+        </>
+      ),
+    },
+  },
+};
 
-(RadioButton as React.FC).displayName = 'RadioButton';
+/**
+ * Default
+ */
+export const Default = () => <RadioButton id="radio" labelText="Label" />;
 
-storiesOf('RadioButton', module)
-  .addDecorator(WrapperDecorator)
-  .add('unselected', () => <RadioButton id="radio" labelText="Label" />)
-  .add('selected', () => <RadioButton id="radio" labelText="Label" checked />)
-  .add('disabled', () => <RadioButton id="radio" labelText="Label" disabled />)
-  .add('selected disabled', () => <RadioButton id="radio" labelText="Label" checked disabled />)
-  .add('example', () => {
-    const [radioValue, setRadioValue] = useState(null);
-    return (
-      <>
+/**
+ * Selected
+ */
+export const Selected = () => <RadioButton id="radio2" labelText="Label" checked />;
+
+/**
+ * Disabled
+ */
+export const Disabled = () => <RadioButton id="radio3" labelText="Label" disabled />;
+
+/**
+ * Selected & disabled
+ */
+export const SelectedDisabled = () => <RadioButton id="radio4" labelText="Label" checked disabled />;
+
+SelectedDisabled.story = {
+  name: 'Selected & disabled',
+};
+
+/**
+ * Custom
+ */
+export const Custom = () => {
+  const [radioValue, setRadioValue] = useState('foo');
+  const options = ['foo', 'bar'];
+
+  const customStyles = {
+    '--size': 36,
+    '--icon-scale': 0.65,
+    '--border-width': 3,
+    '--outline-width': 4,
+    '--border-color-selected': 'var(--color-success)',
+    '--border-color-selected-hover': 'var(--color-success-dark)',
+    '--border-color-selected-focus': 'var(--color-success)',
+    '--icon-color-selected': 'var(--color-success)',
+    '--icon-color-hover': 'var(--color-success-dark)',
+    '--focus-outline-color': 'var(--color-black-20)',
+  } as React.CSSProperties;
+
+  return (
+    <>
+      {options.map((option) => (
         <RadioButton
-          id="radio"
-          value="foo"
-          labelText="Option 1"
+          key={`radio-${option}`}
+          id={`radio-${option}`}
+          value={option}
+          labelText="Label"
+          style={customStyles}
+          checked={radioValue === option}
           onChange={(event) => setRadioValue((event.target as HTMLInputElement).value)}
-          checked={radioValue === 'foo'}
         />
+      ))}
+    </>
+  );
+};
+
+Custom.story = {
+  name: 'With custom styles',
+};
+
+/**
+ * Playground
+ */
+export const Playground = () => {
+  const [radioValue, setRadioValue] = useState(null);
+  const options = ['foo', 'bar', 'baz'];
+
+  const groupSize = 'Size';
+  const groupColor = 'Color';
+  const size = number(
+    'Size',
+    24,
+    {
+      range: true,
+      min: 10,
+      max: 100,
+      step: 1,
+    },
+    groupSize,
+  );
+  const iconScale = number(
+    'Icon scale',
+    0.5,
+    {
+      range: true,
+      min: 0.1,
+      max: 0.9,
+      step: 0.05,
+    },
+    groupSize,
+  );
+  const borderWidth = number(
+    'Border width',
+    2,
+    {
+      range: true,
+      min: 1,
+      max: 10,
+      step: 1,
+    },
+    groupSize,
+  );
+  const outlineWidth = number(
+    'Outline width',
+    3,
+    {
+      range: true,
+      min: 1,
+      max: 10,
+      step: 1,
+    },
+    groupSize,
+  );
+  const background = color('Background - unselected', '#ffffff', groupColor);
+  const backgroundHover = color('Background - hover', '#ffffff', groupColor);
+  const backgroundFocus = color('Background - focus', '#ffffff', groupColor);
+  const backgroundUnselectedDisabled = color('Background - unselected - disabled', '#e5e5e5', groupColor);
+  const backgroundSelectedDisabled = color('Background - selected - disabled', '#ffffff', groupColor);
+  const borderFocus = color('Border - focus', '#1a1a1a', groupColor);
+  const borderSelected = color('Border - selected', '#0000bf', groupColor);
+  const borderSelectedHover = color('Border - selected - hover', '#000098', groupColor);
+  const borderSelectedDisabled = color('Border - selected - disabled', '#cccccc', groupColor);
+  const borderUnselected = color('Border - unselected', '#c4c4c4', groupColor);
+  const borderUnselectedHover = color('Border - unselected - hover', '#1a1a1a', groupColor);
+  const borderUnselectedDisabled = color('Border - unselected - disabled', '#e5e5e5', groupColor);
+  const focusOutline = color('Focus outline', '#0072c6', groupColor);
+  const iconUnselected = color('Icon - unselected', 'rgba(0, 0, 0, 0)', groupColor);
+  const iconSelected = color('Icon - selected', '#0000bf', groupColor);
+  const iconDisabled = color('Icon - disabled', '#e5e5e5', groupColor);
+  const labelDefault = color('Label', '#1a1a1a', groupColor);
+  const labelDisabled = color('Label - disabled', '#999898', groupColor);
+
+  const styles = {
+    '--size': size,
+    '--icon-scale': iconScale,
+    '--border-width': borderWidth,
+    '--outline-width': outlineWidth,
+    '--background': background,
+    '--background-hover': backgroundHover,
+    '--background-focus': backgroundFocus,
+    '--background-unselected-disabled': backgroundUnselectedDisabled,
+    '--background-selected-disabled': backgroundSelectedDisabled,
+    '--border-color-focus': borderFocus,
+    '--border-color-selected': borderSelected,
+    '--border-color-selected-hover': borderSelectedHover,
+    '--border-color-selected-disabled': borderSelectedDisabled,
+    '--border-color-unselected': borderUnselected,
+    '--border-color-unselected-hover': borderUnselectedHover,
+    '--border-color-unselected-disabled': borderUnselectedDisabled,
+    '--focus-outline-color': focusOutline,
+    '--icon-color-unselected': iconUnselected,
+    '--icon-color-selected': iconSelected,
+    '--icon-color-disabled': iconDisabled,
+    '--label-color': labelDefault,
+    '--label-color-disabled': labelDisabled,
+  } as React.CSSProperties;
+
+  return (
+    <>
+      {options.map((option) => (
         <RadioButton
-          id="radio2"
-          value="bar"
-          labelText="Option 2"
+          key={`radio-${option}`}
+          id={`radio-${option}`}
+          value={option}
+          labelText="Label"
+          style={styles}
+          checked={radioValue === option}
           onChange={(event) => setRadioValue((event.target as HTMLInputElement).value)}
-          checked={radioValue === 'bar'}
         />
-        <RadioButton
-          id="radio3"
-          value="baz"
-          labelText="Option 3"
-          onChange={(event) => setRadioValue((event.target as HTMLInputElement).value)}
-          checked={radioValue === 'baz'}
-        />
-      </>
-    );
-  });
+      ))}
+      <RadioButton id="radio4" labelText="Label" style={styles} disabled />
+      <RadioButton id="radio5" labelText="Label" style={styles} disabled checked />
+    </>
+  );
+};
+
+Playground.story = {
+  parameters: {
+    previewTabs: {
+      'storybook/docs/panel': {
+        hidden: true,
+      },
+    },
+    docs: {
+      disable: true,
+    },
+  },
+};

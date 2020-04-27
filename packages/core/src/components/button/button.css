@@ -164,7 +164,7 @@
   --color-hover-focus: var(--color-label-button-primary-hover-focus);
   --color-disabled: var(--color-label-button-primary-disabled);
 
-  --outline-color: var(--color-outline-button-primary);
+  --outline-color: var(--color-focus-outline-button-primary);
 }
 
 /* SECONDARY */
@@ -189,7 +189,7 @@
   --color-hover-focus: var(--color-label-button-secondary-hover-focus);
   --color-disabled: var(--color-label-button-secondary-disabled);
 
-  --outline-color: var(--color-outline-button-secondary);
+  --outline-color: var(--color-focus-outline-button-secondary);
 }
 
 /* SUPPLEMENTARY */
@@ -213,7 +213,7 @@
   --color-hover-focus: var(--color-label-button-supplementary-hover-focus);
   --color-disabled: var(--color-label-button-supplementary-disabled);
 
-  --outline-color: var(--color-outline-button-supplementary);
+  --outline-color: var(--color-focus-outline-button-supplementary);
 }
 
 /* UTILITY */

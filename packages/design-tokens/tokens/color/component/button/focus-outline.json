@@ -1,6 +1,6 @@
 {
   "color": {
-    "outline": {
+    "focus-outline": {
       "button": {
         "primary": {
           "value": "{color.coat-of-arms.blue.value}",

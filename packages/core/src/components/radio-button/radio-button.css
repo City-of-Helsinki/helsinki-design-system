@@ -2,13 +2,11 @@
 @import "hds-design-tokens/lib/color/component/radio-button.css";
 
 .hds-radio-button {
-  --size: 30px;
-  /* radio button size relative to the full size (--size) */
-  --button-scale: 0.8;
-  --button-size: calc(var(--size) * var(--button-scale));
-  /* icon (circle) size relative to the radio button size (--button-size) */
+  --size: 24;
+  /* icon (circle) size relative to the radio button size (--size) */
   --icon-scale: 0.5;
-  --border-width: 2px;
+  --border-width: 2;
+  --outline-width: 3;
 
   --background: var(--color-background-radio-button-default);
   --background-hover: var(--color-background-radio-button-hover);
@@ -36,133 +34,142 @@
 
   align-items: center;
   display: flex;
-  height: var(--size);
+  height: calc(var(--size) * 1px);
   position: relative;
 }
 
+.hds-radio-button:not(:first-of-type) {
+  margin-top: var(--spacing-2-xs);
+}
+
 /* radio button transitions */
-.hds-radio-button input:hover + label::before,
-.hds-radio-button input:hover + label::after,
-.hds-radio-button input:focus + label::before,
-.hds-radio-button input:focus + label::after {
+.hds-radio-button .hds-radio-button__input:hover + .hds-radio-button__label::after,
+.hds-radio-button .hds-radio-button__input:focus + .hds-radio-button__label::after {
   transition: 75ms ease-out;
+  transition-property: background-color, border-color;
+}
+
+.hds-radio-button .hds-radio-button__input:hover + .hds-radio-button__label::before,
+.hds-radio-button .hds-radio-button__input:focus + .hds-radio-button__label::before {
+  transition: 100ms ease-out;
   transition-property: transform, background-color, border-color;
 }
 
 /* NATIVE INPUT */
-.hds-radio-button input {
-  height: var(--size);
+.hds-radio-button .hds-radio-button__input {
+  height: calc(var(--size) * 1px);
   left: 0;
   opacity: 0;
   position: absolute;
   top: 0;
-  width: var(--size);
+  width: calc(var(--size) * 1px);
 }
 
 /* LABEL */
 
-.hds-radio-button label {
+.hds-radio-button .hds-radio-button__label {
   color: var(--label-color);
   cursor: pointer;
-  padding-left: calc(var(--size) + var(--spacing-2-xs));
+  padding-left: calc((var(--size) * 1px) + var(--spacing-2-xs));
   position: relative;
 }
 
 /* CUSTOM RADIO BUTTON */
 
-.hds-radio-button label::before,
-.hds-radio-button label::after {
+.hds-radio-button .hds-radio-button__label::before,
+.hds-radio-button .hds-radio-button__label::after {
   border-radius: 50%;
   content: "";
+  left: 0;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
 
 /* background & focus outline */
-.hds-radio-button label::before {
-  background-color: var(--background);
-  border: var(--border-width) solid transparent;
-  height: var(--size);
-  left: 0;
-  transform: translateY(-50%) scale(var(--button-scale));
-  width: var(--size);
+.hds-radio-button .hds-radio-button__label::before {
+  background-color: var( --background);
+  border: calc(var( --outline-width) * 1px) solid transparent;
+  height: calc(var(--size) * 1px);
+  width: calc(var(--size) * 1px);
 }
 
 /* background - hover */
-.hds-radio-button input:hover + label::before {
+.hds-radio-button .hds-radio-button__input:hover + .hds-radio-button__label::before {
   background-color: var(--background-hover);
 }
 
 /* background - focus */
-.hds-radio-button input:focus + label::before {
+.hds-radio-button .hds-radio-button__input:focus + .hds-radio-button__label::before {
+  --outline-size: calc(var(--size) + var(--outline-width) * 2);
+  --scale: calc(var(--outline-size) / var(--size));
+
   background-color: var(--background-focus);
   border-color: var(--focus-outline-color);
-  transform: translateY(-50%) scale(1);
+  transform: translateY(-50%) scale(var(--scale));
 }
 
 /* inner circle */
-.hds-radio-button label::after {
+.hds-radio-button .hds-radio-button__label::after {
   background-clip: content-box;
   background-color: var(--icon-color-unselected);
-  border: var(--border-width) solid var(--border-color-unselected);
-  height: var(--button-size);
-  left: calc((var(--size) - var(--button-size)) / 2);
+  border: calc(var(--border-width) * 1px) solid var(--border-color-unselected);
+  height: calc(var(--size) * 1px);
   padding: calc(
-    (var(--button-size) / 2 - var(--border-width) * 2) * (1 - var(--icon-scale))
+    ((var(--size) * 1px) / 2 - var(--border-width) * 2px) * (1 - var(--icon-scale))
   );
-  width: var(--button-size);
+  width: calc(var(--size) * 1px);
 }
 
 /* inner circle - selected */
-.hds-radio-button input:checked + label::after {
+.hds-radio-button .hds-radio-button__input:checked + .hds-radio-button__label::after {
   background-color: var(--icon-color-selected);
   border-color: var(--border-color-selected);
 }
 
 /* inner circle - selected - hover */
-.hds-radio-button input:not(:disabled):checked:hover + label::after,
-.hds-radio-button input:not(:disabled):checked:hover:focus + label::after {
+.hds-radio-button .hds-radio-button__input:not(:disabled):checked:hover + .hds-radio-button__label::after,
+.hds-radio-button .hds-radio-button__input:not(:disabled):checked:hover:focus + .hds-radio-button__label::after {
   background-color: var(--icon-color-hover);
   border-color: var(--border-color-selected-hover);
 }
 
 /* inner circle - unselected - hover */
-.hds-radio-button input:not(:disabled):hover + label::after,
-.hds-radio-button input:not(:disabled):hover:focus + label::after {
+.hds-radio-button .hds-radio-button__input:not(:disabled):hover + .hds-radio-button__label::after,
+.hds-radio-button .hds-radio-button__input:not(:disabled):hover:focus + .hds-radio-button__label::after {
   border-color: var(--border-color-unselected-hover);
 }
 
 /* inner circle - focus */
-.hds-radio-button input:not(:disabled):focus + label::after {
+.hds-radio-button .hds-radio-button__input:not(:disabled):focus + .hds-radio-button__label::after {
   border-color: var(--border-color-focus);
 }
 
 /* DISABLED */
 
 /* label */
-.hds-radio-button input:disabled + label {
+.hds-radio-button .hds-radio-button__input:disabled + .hds-radio-button__label {
   color: var(--label-color-disabled);
   cursor: default;
 }
 
 /* background */
-.hds-radio-button input:disabled + label::before {
+.hds-radio-button .hds-radio-button__input:disabled + .hds-radio-button__label::before {
   background-color: var(--background-unselected-disabled);
 }
 
 /* background - selected */
-.hds-radio-button input:checked:disabled + label::before {
+.hds-radio-button .hds-radio-button__input:checked:disabled + .hds-radio-button__label::before {
   background-color: var(--background-selected-disabled);
 }
 
 /* inner circle - disabled */
-.hds-radio-button input:disabled + label::after {
+.hds-radio-button .hds-radio-button__input:disabled + .hds-radio-button__label::after {
   border-color: var(--border-color-unselected-disabled);
 }
 
 /* inner circle - selected - disabled */
-.hds-radio-button input:checked:disabled + label::after {
+.hds-radio-button .hds-radio-button__input:checked:disabled + .hds-radio-button__label::after {
   background-color: var(--icon-color-disabled);
   border-color: var(--border-color-selected-disabled);
 }
