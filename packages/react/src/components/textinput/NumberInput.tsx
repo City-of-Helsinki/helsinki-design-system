@@ -1,18 +1,23 @@
 import React from 'react';
 
-import styles from './InputWrapper.module.css';
 import InputWrapper, { InputWrapperProps } from './InputWrapper';
+import styles from './InputWrapper.module.css';
 
-export type TextInputProps = {
-  type?: string;
+export type NumberInputProps = {
+  step?: number;
+  defaultValue?: number;
+  value?: number;
+  min?: number;
+  max?: number;
 } & InputWrapperProps;
 
-const TextInput: React.FC<TextInputProps> = ({ type = 'text', ...props }) => {
-  const { defaultValue, labelledBy, disabled, id, readOnly, onChange, placeholder, value } = props;
+const NumberInput: React.FC<NumberInputProps> = ({ step, defaultValue, value, min, max, ...props }) => {
+  const { labelledBy, disabled, id, readOnly, onChange, placeholder } = props;
   return (
     <InputWrapper {...props}>
       <input
-        type={type}
+        type="number"
+        step={step}
         className={styles.input}
         defaultValue={defaultValue}
         aria-labelledby={labelledBy}
@@ -22,9 +27,11 @@ const TextInput: React.FC<TextInputProps> = ({ type = 'text', ...props }) => {
         onChange={onChange}
         placeholder={placeholder}
         value={value}
+        min={min}
+        max={max}
       />
     </InputWrapper>
   );
 };
 
-export default TextInput;
+export default NumberInput;

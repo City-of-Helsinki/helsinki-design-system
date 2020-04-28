@@ -1,18 +1,18 @@
 import React from 'react';
 
-import styles from './InputWrapper.module.css';
 import InputWrapper, { InputWrapperProps } from './InputWrapper';
+import styles from './InputWrapper.module.css';
 
-export type TextInputProps = {
-  type?: string;
+export type TextAreaProps = {
+  rows?: number;
+  cols?: number;
 } & InputWrapperProps;
 
-const TextInput: React.FC<TextInputProps> = ({ type = 'text', ...props }) => {
+const TextArea: React.FC<TextAreaProps> = ({ rows, cols, ...props }) => {
   const { defaultValue, labelledBy, disabled, id, readOnly, onChange, placeholder, value } = props;
   return (
     <InputWrapper {...props}>
-      <input
-        type={type}
+      <textarea
         className={styles.input}
         defaultValue={defaultValue}
         aria-labelledby={labelledBy}
@@ -22,9 +22,11 @@ const TextInput: React.FC<TextInputProps> = ({ type = 'text', ...props }) => {
         onChange={onChange}
         placeholder={placeholder}
         value={value}
+        rows={rows}
+        cols={cols}
       />
     </InputWrapper>
   );
 };
 
-export default TextInput;
+export default TextArea;
