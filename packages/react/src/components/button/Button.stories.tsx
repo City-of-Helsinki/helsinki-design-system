@@ -17,7 +17,7 @@ export default {
       page: () => (
         <>
           <Title>Props</Title>
-          <Subtitle>Props, which are not mentioned below, are spread into the component</Subtitle>
+          <Subtitle>Props, which are not mentioned below, are passed to the native element</Subtitle>
           <Props />
           <Stories title="Examples" includePrimary />
         </>

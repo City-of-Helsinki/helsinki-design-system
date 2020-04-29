@@ -1,20 +1,20 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 import { Props, Stories, Subtitle, Title } from '@storybook/addon-docs/dist/blocks';
 
-import TextInput from './TextInput';
-import Button from '../button/Button';
+import TextArea from './TextArea';
 
-const textInputProps = {
+const textAreaProps = {
   helperText: 'Assistive text',
-  id: 'hdsInput',
+  id: 'textArea',
   labelText: 'Label',
   placeholder: 'Placeholder',
 };
+const value = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 
 export default {
-  component: TextInput,
-  title: 'Components/TextInput',
+  component: TextArea,
+  title: 'Components/TextArea',
   decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
   parameters: {
     docs: {
@@ -33,76 +33,25 @@ export default {
 /**
  * Default
  */
-export const Default = () => <TextInput {...textInputProps} />;
-
-/**
- * Read-only
- */
-export const ReadOnly = () => <TextInput {...textInputProps} readOnly defaultValue="Text input value" />;
-
-ReadOnly.story = {
-  name: 'Read-only',
-};
+export const Default = () => <TextArea {...textAreaProps} />;
 
 /**
  * Disabled
  */
-export const Disabled = () => <TextInput {...textInputProps} disabled defaultValue="Text input value" />;
+export const Disabled = () => <TextArea {...textAreaProps} disabled defaultValue={value} />;
 
 /**
  * Invalid
  */
-export const Invalid = () => <TextInput {...textInputProps} invalid helperText="Error text" />;
+export const Invalid = () => <TextArea {...textAreaProps} invalid helperText="Error text" defaultValue={value} />;
 
 /**
  * With label hidden
  */
-export const WithLabelHidden = () => <TextInput {...textInputProps} hideLabel />;
+export const WithLabelHidden = () => <TextArea {...textAreaProps} hideLabel defaultValue={value} />;
 
 WithLabelHidden.story = {
   name: 'With label hidden',
-};
-
-/**
- * With tooltip
- */
-export const WithTooltip = () => (
-  <TextInput
-    {...textInputProps}
-    tooltipLabel="tooltip label"
-    tooltipText="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-    tooltipOpenButtonLabelText="show tooltip"
-    tooltipCloseButtonLabelText="close tooltip"
-  />
-);
-
-WithTooltip.story = {
-  name: 'With tooltip',
-};
-
-/**
- * NumberInput
- */
-export const NumberInput = () => <TextInput {...textInputProps} type="number" />;
-
-/**
- * Using ref
- */
-export const UsingRef = () => {
-  const ref = useRef(null);
-
-  return (
-    <>
-      <Button onClick={() => ref?.current?.focus()} style={{ marginBottom: '1rem' }} theme="black">
-        Focus input
-      </Button>
-      <TextInput {...textInputProps} ref={ref} />
-    </>
-  );
-};
-
-UsingRef.story = {
-  name: 'Using ref',
 };
 
 /**
@@ -112,12 +61,10 @@ export const Playground = () => {
   const groupGeneral = 'General';
   const groupTooltip = 'Tooltip';
 
-  const label = text('Label', textInputProps.labelText, groupGeneral);
-  const placeholder = text('Placeholder', textInputProps.placeholder, groupGeneral);
-  const helperText = text('Helper text', textInputProps.helperText, groupGeneral);
-  const type = text('Type', 'text', groupGeneral);
+  const label = text('Label', textAreaProps.labelText, groupGeneral);
+  const placeholder = text('Placeholder', textAreaProps.placeholder, groupGeneral);
+  const helperText = text('Helper text', textAreaProps.helperText, groupGeneral);
   const disabled = boolean('Disabled', false, groupGeneral);
-  const readOnly = boolean('Read-only', false, groupGeneral);
   const invalid = boolean('Invalid', false, groupGeneral);
   const hideLabel = boolean('Hide label', false, groupGeneral);
 
@@ -131,13 +78,11 @@ export const Playground = () => {
   const tooltipCloseButtonLabelText = text('Tooltip close label', 'Close tooltip', groupTooltip);
 
   return (
-    <TextInput
-      {...textInputProps}
-      type={type}
+    <TextArea
+      {...textAreaProps}
       labelText={label}
       helperText={helperText}
       placeholder={placeholder}
-      readOnly={readOnly}
       disabled={disabled}
       invalid={invalid}
       hideLabel={hideLabel}

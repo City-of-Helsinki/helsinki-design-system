@@ -1,13 +1,18 @@
+@import "../../utils/animations.css";
+
 /* import text-input color variables */
 @import "hds-design-tokens/lib/color/component/text-input.css";
 
 @svg-load icon url(../../svg/icon-info.svg);
 
 .hds-text-input {
+  --border-radius: 2px;
   --border-width: 2px;
+  --outline-width: 3px;
   --input-height: 56px;
   --textarea-height: 149px;
   --icon-size: 1.375em;
+  --label-height: 1.625rem;
 
   --helper-color-default: var(--color-helper-text-input-default);
   --helper-color-invalid: var(--color-helper-text-input-invalid);
@@ -15,6 +20,7 @@
   --input-background-default: var(--color-background-text-input-default);
   --input-background-disabled: var(--color-background-text-input-disabled);
   --input-border-color-default: var(--color-border-text-input-default);
+  --input-border-color-hover : var(--color-border-text-input-hover);
   --input-border-color-focus: var(--color-border-text-input-focus);
   --input-border-color-invalid: var(--color-border-text-input-invalid);
   --input-border-color-disabled: var(--color-border-text-input-disabled);
@@ -23,6 +29,21 @@
   --label-color-default: var(--color-label-text-input-default);
   --label-color-invalid: currentColor;
   --placeholder-color: var(--color-placeholder-text-input-default);
+  --focus-outline-color: var(--color-focus-outline-text-input-default);
+}
+
+/* text-input transitions */
+.hds-text-input .hds-text-input__input:hover {
+  transition: border-color 85ms ease-out;
+}
+
+.hds-text-input .hds-text-input__input:not([readonly]):focus {
+  transition: 85ms ease-out;
+  transition-property: box-shadow, transform;
+}
+
+.hds-text-input--invalid .hds-text-input__label {
+  transition: color 85ms linear;
 }
 
 /* LABEL */
@@ -32,7 +53,7 @@
   display: block;
   font-size: 0.875em;
   font-weight: bold;
-  line-height: 1.5625rem;
+  line-height: var(--label-height);
 }
 
 /* INPUT */
@@ -41,40 +62,51 @@
   position: relative;
 }
 
-.hds-text-input__input-wrapper input,
-.hds-text-input__input-wrapper textarea {
+.hds-text-input .hds-text-input__input {
   background-color: var(--input-background-default);
   border: var(--border-width) solid var(--input-border-color-default);
-  border-radius: 2px;
+  border-radius: var(--border-radius);
   color: var(--input-color-default);
   font-size: 1.125em;
   height: var(--input-height);
+  line-height: normal;
   padding: var(--spacing-s);
   width: 100%;
 }
 
-.hds-text-input__input-wrapper textarea {
+.hds-text-input textarea.hds-text-input__input {
   height: var(--textarea-height);
   min-height: var(--input-height);
   resize: vertical;
 }
 
-.hds-text-input__input-wrapper input:focus,
-.hds-text-input__input-wrapper textarea:focus {
+.hds-text-input .hds-text-input__input:hover {
+  border-color: var(--input-border-color-hover);
+}
+
+.hds-text-input .hds-text-input__input:focus {
   border-color: var(--input-border-color-focus);
   outline: none;
 }
 
-.hds-text-input__input-wrapper input::placeholder,
-.hds-text-input__input-wrapper textarea::placeholder {
+.hds-text-input .hds-text-input__input::placeholder {
   color: var(--placeholder-color);
+}
+
+/* FOCUS OUTLINE */
+
+.hds-text-input .hds-text-input__input:not([readonly]):focus {
+  box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+  transform: translate3d(0, 0, 0);
 }
 
 /* HELPER TEXT */
 
 .hds-text-input__helper-text {
   color: var(--helper-color-default);
-  line-height: 1.875rem;
+  display: block;
+  line-height: var(--label-height);
+  font-size: 0.875em;
 }
 
 /* INVALID */
@@ -87,46 +119,43 @@
   color: var(--helper-color-invalid);
 }
 
-.hds-text-input--invalid .hds-text-input__input-wrapper input,
-.hds-text-input--invalid .hds-text-input__input-wrapper textarea {
+.hds-text-input.hds-text-input--invalid .hds-text-input__input {
   border-color: var(--input-border-color-invalid);
   padding-right: calc(var(--icon-size) + var(--spacing-l));
 }
 
-/* icon */
-.hds-text-input--invalid .hds-text-input__input-wrapper::after {
+/* INVALID ICON */
+
+.hds-text-input.hds-text-input--invalid .hds-text-input__input-wrapper::after {
+  animation: fadeIn 85ms ease-out;
   background: var(--icon-color-invalid);
   content: '';
   height: var(--icon-size);
   mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
   position: absolute;
-  right:var(--border-width);
+  right: var(--border-width);
+  top: 0;
   transform: translate(calc(var(--spacing-s) * -1), calc(var(--input-height) / 2 - 50%));
   width: var(--icon-size);
 }
 
 /* DISABLED */
 
-.hds-text-input__input-wrapper input[disabled],
-.hds-text-input__input-wrapper textarea[disabled] {
+.hds-text-input .hds-text-input__input[disabled] {
   background-color: var(--input-background-disabled);
   border-color: var(--input-border-color-disabled);
   color: var(--input-color-disabled);
+  cursor: not-allowed;
 }
 
 /* READ-ONLY */
 
-.hds-text-input--read-only .hds-text-input__input-wrapper input,
-.hds-text-input--read-only .hds-text-input__input-wrapper textarea {
+.hds-text-input .hds-text-input__input[readonly] {
   background-color: transparent;
   border: 0;
   color: var(--input-color-default);
-  padding: 0 0 1.375rem;
-  text-overflow: ellipsis;
-}
-
-.hds-text-input--read-only .hds-text-input__input-wrapper input::placeholder,
-.hds-text-input--read-only .hds-text-input__input-wrapper textarea::placeholder {
-  color: var(--placeholder-color);
+  padding: 0;
+  /* fixes faded text color on Safari */
+  -webkit-text-fill-color: var(--input-color-default);
 }

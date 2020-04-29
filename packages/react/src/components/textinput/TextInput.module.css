@@ -17,6 +17,10 @@
   composes: hds-text-input__input-wrapper from 'hds-core/lib/components/text-input/text-input.css';
 }
 
+.input {
+  composes: hds-text-input__input from 'hds-core/lib/components/text-input/text-input.css';
+}
+
 .helperText {
   composes: hds-text-input__helper-text from 'hds-core/lib/components/text-input/text-input.css';
 }

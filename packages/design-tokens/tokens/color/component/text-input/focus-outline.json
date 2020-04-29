@@ -1,9 +1,9 @@
 {
   "color": {
-    "placeholder": {
+    "focus-outline": {
       "text-input": {
         "default": {
-          "value": "{color.black-60.value}",
+          "value": "{color.coat-of-arms.blue.value}",
           "type": "color"
         }
       }

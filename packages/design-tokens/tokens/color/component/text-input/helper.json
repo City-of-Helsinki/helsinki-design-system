@@ -3,7 +3,7 @@
     "helper": {
       "text-input": {
         "default": {
-          "value": "{color.black-50.value}",
+          "value": "{color.black-60.value}",
           "type": "color",
           "comment": "input helper text color"
         },
