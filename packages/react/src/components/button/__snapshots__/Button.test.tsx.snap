@@ -3,7 +3,7 @@
 exports[`<Button /> spec renders the component 1`] = `
 <DocumentFragment>
   <button
-    class="button primary default"
+    class="button primary default default"
     type="button"
   >
     <span
