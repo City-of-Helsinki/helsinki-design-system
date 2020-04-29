@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ChangeEventHandler, CSSProperties, FC, InputHTMLAttributes, RefObject } from 'react';
 
 import styles from './Checkbox.module.css';
 import classNames from '../../utils/classNames';
 
-export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
+export type CheckboxProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
-   * If `true`, the component is checked.
+   * If `true`, the component is checked
    */
   checked?: boolean;
   /**
@@ -13,7 +13,7 @@ export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
    */
   className?: string;
   /**
-   * If `true`, the checkbox will be disabled.
+   * If `true`, the checkbox will be disabled
    */
   disabled?: boolean;
   /**
@@ -25,33 +25,33 @@ export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
    */
   labelText?: string;
   /**
-   * Callback fired when the state is changed.
+   * Callback fired when the state is changed
    */
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   /**
-   * Override or extend the styles applied to the component. See checkbox [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/checkbox#tokens) for available CSS variables.
+   * Override or extend the styles applied to the component. See checkbox [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/checkbox#tokens) for available CSS variables
    */
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   /**
    * The value of the component
    */
   value?: string;
 };
 
-const Checkbox: React.FC<CheckboxProps> = React.forwardRef(
+const Checkbox: FC<CheckboxProps> = React.forwardRef(
   (
     {
       checked = false,
-      className = '',
+      className,
       disabled = false,
       id,
-      labelText = undefined,
+      labelText,
       onChange = () => null,
       style,
       value,
       ...rest
     }: CheckboxProps,
-    ref: React.RefObject<HTMLInputElement>,
+    ref: RefObject<HTMLInputElement>,
   ) => (
     <div className={classNames(styles.checkbox, className)} style={style}>
       <input

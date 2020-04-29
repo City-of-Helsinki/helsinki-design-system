@@ -51,10 +51,10 @@ SelectedDisabled.story = {
 export const Custom = () => {
   const [checked, setChecked] = useState(false);
   const customStyles = {
-    '--size': 40,
+    '--size': '40px',
     '--icon-scale': 0.6,
-    '--border-width': 3,
-    '--outline-width': 4,
+    '--border-width': '3px',
+    '--outline-width': '4px',
     '--background-selected': 'var(--color-success)',
     '--background-hover': 'var(--color-success-dark)',
     '--border-color-selected': 'var(--color-success)',
@@ -154,10 +154,10 @@ export const Playground = () => {
   const labelDisabled = color('Label - disabled', '#999898', groupColor);
 
   const styles = {
-    '--size': size,
+    '--size': `${size}px`,
     '--icon-scale': iconScale,
-    '--border-width': borderWidth,
-    '--outline-width': outlineWidth,
+    '--border-width': `${borderWidth}px`,
+    '--outline-width': `${outlineWidth}px`,
     '--background-unselected': backgroundUnselected,
     '--background-selected': backgroundSelected,
     '--background-hover': backgroundHover,

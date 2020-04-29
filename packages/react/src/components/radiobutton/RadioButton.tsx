@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ChangeEventHandler, CSSProperties, FC, InputHTMLAttributes, RefObject } from 'react';
 
 import styles from './RadioButton.module.css';
 import classNames from '../../utils/classNames';
 
-export type RadioButtonProps = React.InputHTMLAttributes<HTMLInputElement> & {
+export type RadioButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
-   * If `true`, the component is checked.
+   * If `true`, the component is checked
    */
   checked?: boolean;
   /**
@@ -13,7 +13,7 @@ export type RadioButtonProps = React.InputHTMLAttributes<HTMLInputElement> & {
    */
   className?: string;
   /**
-   * If `true`, the radio button will be disabled.
+   * If `true`, the radio button will be disabled
    */
   disabled?: boolean;
   /**
@@ -25,20 +25,20 @@ export type RadioButtonProps = React.InputHTMLAttributes<HTMLInputElement> & {
    */
   labelText?: string;
   /**
-   * Callback fired when the state is changed.
+   * Callback fired when the state is changed
    */
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   /**
-   * Override or extend the styles applied to the component. See radio button [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/checkbox#tokens) for available CSS variables.
+   * Override or extend the styles applied to the component. See radio button [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/checkbox#tokens) for available CSS variables
    */
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   /**
    * The value of the component
    */
   value?: string;
 };
 
-const RadioButton: React.FC<RadioButtonProps> = React.forwardRef(
+const RadioButton: FC<RadioButtonProps> = React.forwardRef(
   (
     {
       checked = false,
@@ -51,7 +51,7 @@ const RadioButton: React.FC<RadioButtonProps> = React.forwardRef(
       value,
       ...rest
     }: RadioButtonProps,
-    ref: React.RefObject<HTMLInputElement>,
+    ref: RefObject<HTMLInputElement>,
   ) => (
     <div className={classNames(styles.radioButton, className)} style={style}>
       <input

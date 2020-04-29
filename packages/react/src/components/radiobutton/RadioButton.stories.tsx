@@ -53,10 +53,10 @@ export const Custom = () => {
   const options = ['foo', 'bar'];
 
   const customStyles = {
-    '--size': 36,
+    '--size': '36px',
     '--icon-scale': 0.65,
-    '--border-width': 3,
-    '--outline-width': 4,
+    '--border-width': '3px',
+    '--outline-width': '4px',
     '--border-color-selected': 'var(--color-success)',
     '--border-color-selected-hover': 'var(--color-success-dark)',
     '--border-color-selected-focus': 'var(--color-success)',
@@ -159,10 +159,10 @@ export const Playground = () => {
   const labelDisabled = color('Label - disabled', '#999898', groupColor);
 
   const styles = {
-    '--size': size,
+    '--size': `${size}px`,
     '--icon-scale': iconScale,
-    '--border-width': borderWidth,
-    '--outline-width': outlineWidth,
+    '--border-width': `${borderWidth}px`,
+    '--outline-width': `${outlineWidth}px`,
     '--background': background,
     '--background-hover': backgroundHover,
     '--background-focus': backgroundFocus,

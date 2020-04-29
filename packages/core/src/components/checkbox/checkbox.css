@@ -4,12 +4,12 @@
 @svg-load icon url(../../svg/icon-check.svg);
 
 .hds-checkbox {
-  --size: 24;
+  --size: 24px;
   /* icon size relative to the checkbox size (--checkbox-size) */
   --icon-scale: 0.75;
   --border-radius: 1px;
-  --border-width: 2;
-  --outline-width: 3;
+  --border-width: 2px;
+  --outline-width: 3px;
 
   --background-unselected: var(--color-background-checkbox-unselected);
   --background-selected: var(--color-background-checkbox-selected);
@@ -35,7 +35,7 @@
 
   align-items: center;
   display: flex;
-  height: calc(var(--size) * 1px);
+  height: var(--size);
   position: relative;
 }
 
@@ -43,18 +43,18 @@
   margin-top: var(--spacing-2-xs);
 }
 
-/* radio button transitions */
+/* checkbox transitions */
 .hds-checkbox .hds-checkbox__input:hover::before,
 .hds-checkbox .hds-checkbox__input:focus::before,
 .hds-checkbox .hds-checkbox__input:hover + .hds-checkbox__label::after,
 .hds-checkbox .hds-checkbox__input:focus + .hds-checkbox__label::after {
-  transition: 75ms ease-out;
-  transition-property: transform, background-color, border-color;
+  transition: 85ms ease-out;
+  transition-property: background-color, border-color, transform;
 }
 
 .hds-checkbox .hds-checkbox__input:focus + .hds-checkbox__label::before {
-  transition: 100ms ease-out;
-  transition-property: transform, background-color, border-color;
+  transition: 85ms ease-out;
+  transition-property: box-shadow, transform;
 }
 
 /* NATIVE INPUT */
@@ -62,12 +62,12 @@
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
-  height: calc(var(--size) * 1px);
+  height: var(--size);
   left: 0;
   outline: none;
   position: absolute;
   top: 0;
-  width: calc(var(--size) * 1px);
+  width: var(--size);
 }
 
 /* LABEL */
@@ -75,7 +75,7 @@
 .hds-checkbox .hds-checkbox__label {
   color: var(--label-color);
   cursor: pointer;
-  padding-left: calc((var(--size) * 1px) + var(--spacing-2-xs));
+  padding-left: calc(var(--size) + var(--spacing-2-xs));
   position: relative;
 }
 
@@ -86,6 +86,7 @@
 .hds-checkbox .hds-checkbox__label::after {
   border-radius: var(--border-radius);
   content: "";
+  left: 0;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -94,52 +95,44 @@
 /* checkbox icon */
 .hds-checkbox .hds-checkbox__input::before {
   background-color: var(--icon-color-unselected);
-  height: calc((var(--size) * 1px));
+  height: var(--size);
   mask-image: svg-inline(icon);
   mask-position: center;
   mask-repeat: no-repeat;
-  mask-size: calc(var(--size) * 1px * var(--icon-scale));
+  mask-size: calc(var(--size) * var(--icon-scale));
   -webkit-mask-image: svg-inline(icon);
   -webkit-mask-position: center;
   -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: calc(var(--size) * 1px * var(--icon-scale));
-  width: calc((var(--size) * 1px));
-  transform: translateY(-50%) scale(0.6);
+  -webkit-mask-size: calc(var(--size) * var(--icon-scale));
+  width: var(--size);
+  transform: translate3d(0, -50%, 0) scale(0.6);
   z-index: 1;
 }
 
 /* checkbox icon - selected */
 .hds-checkbox .hds-checkbox__input:checked::before {
   background-color: var(--icon-color-selected);
-  transform: translateY(-50%) scale(1);
+  transform: translate3d(0, -50%, 0) scale(1);
 }
 
 /* focus outline */
 .hds-checkbox .hds-checkbox__label::before {
-  border: calc(var(--outline-width) * 1px) solid transparent;
-  height: calc((var(--size) * 1px));
-  left: 0;
-  transform: translateY(-50%);
-  width: calc((var(--size) * 1px));
+  height: var(--size);
+  width: var(--size);
 }
 
-/* focus outline- focus */
+/* focus outline - focus */
 .hds-checkbox .hds-checkbox__input:focus + .hds-checkbox__label::before {
-  --outline-size: calc(var(--size) + var(--outline-width) * 2);
-  --scale: calc(var(--outline-size) / var(--size));
-
-  border-color: var(--focus-outline-color);
-  transform: translateY(-50%) scale(var(--scale));
+  box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+  transform: translate3d(0, -50%, 0);
 }
 
 /* background */
 .hds-checkbox .hds-checkbox__label::after {
-  background-clip: content-box;
   background-color: var(--background-unselected);
-  border: calc(var(--border-width) * 1px) solid var(--border-color-unselected);
-  height: calc(var(--size) * 1px);
-  left: 0;
-  width: calc(var(--size) * 1px);
+  border: var(--border-width) solid var(--border-color-unselected);
+  height: var(--size);
+  width: var(--size);
 }
 
 /* background - selected */
@@ -176,7 +169,6 @@
 /* label */
 .hds-checkbox .hds-checkbox__input:disabled + .hds-checkbox__label {
   color: var(--label-color-disabled);
-  cursor: default;
 }
 
 /* checkbox icon - disabled */
@@ -188,4 +180,9 @@
 .hds-checkbox .hds-checkbox__input:disabled + .hds-checkbox__label::after {
   background-color: var(--background-disabled);
   border-color: var(--border-color-disabled);
+}
+
+.hds-checkbox .hds-checkbox__input:disabled,
+.hds-checkbox .hds-checkbox__input:disabled + .hds-checkbox__label {
+  cursor: not-allowed;
 }

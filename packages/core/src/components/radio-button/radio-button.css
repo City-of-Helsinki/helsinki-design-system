@@ -2,11 +2,11 @@
 @import "hds-design-tokens/lib/color/component/radio-button.css";
 
 .hds-radio-button {
-  --size: 24;
+  --size: 24px;
   /* icon (circle) size relative to the radio button size (--size) */
   --icon-scale: 0.5;
-  --border-width: 2;
-  --outline-width: 3;
+  --border-width: 2px;
+  --outline-width: 3px;
 
   --background: var(--color-background-radio-button-default);
   --background-hover: var(--color-background-radio-button-hover);
@@ -34,7 +34,7 @@
 
   align-items: center;
   display: flex;
-  height: calc(var(--size) * 1px);
+  height: var(--size);
   position: relative;
 }
 
@@ -45,24 +45,24 @@
 /* radio button transitions */
 .hds-radio-button .hds-radio-button__input:hover + .hds-radio-button__label::after,
 .hds-radio-button .hds-radio-button__input:focus + .hds-radio-button__label::after {
-  transition: 75ms ease-out;
+  transition: 85ms ease-out;
   transition-property: background-color, border-color;
 }
 
 .hds-radio-button .hds-radio-button__input:hover + .hds-radio-button__label::before,
 .hds-radio-button .hds-radio-button__input:focus + .hds-radio-button__label::before {
-  transition: 100ms ease-out;
-  transition-property: transform, background-color, border-color;
+  transition: 85ms ease-out;
+  transition-property: background-color, box-shadow, transform;
 }
 
 /* NATIVE INPUT */
 .hds-radio-button .hds-radio-button__input {
-  height: calc(var(--size) * 1px);
+  height: var(--size);
   left: 0;
   opacity: 0;
   position: absolute;
   top: 0;
-  width: calc(var(--size) * 1px);
+  width: var(--size);
 }
 
 /* LABEL */
@@ -70,7 +70,7 @@
 .hds-radio-button .hds-radio-button__label {
   color: var(--label-color);
   cursor: pointer;
-  padding-left: calc((var(--size) * 1px) + var(--spacing-2-xs));
+  padding-left: calc(var(--size) + var(--spacing-2-xs));
   position: relative;
 }
 
@@ -88,10 +88,9 @@
 
 /* background & focus outline */
 .hds-radio-button .hds-radio-button__label::before {
-  background-color: var( --background);
-  border: calc(var( --outline-width) * 1px) solid transparent;
-  height: calc(var(--size) * 1px);
-  width: calc(var(--size) * 1px);
+  background-color: var(--background);
+  height: var(--size);
+  width: var(--size);
 }
 
 /* background - hover */
@@ -101,24 +100,18 @@
 
 /* background - focus */
 .hds-radio-button .hds-radio-button__input:focus + .hds-radio-button__label::before {
-  --outline-size: calc(var(--size) + var(--outline-width) * 2);
-  --scale: calc(var(--outline-size) / var(--size));
-
-  background-color: var(--background-focus);
-  border-color: var(--focus-outline-color);
-  transform: translateY(-50%) scale(var(--scale));
+  box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+  transform: translate3d(0, -50%, 0);
 }
 
 /* inner circle */
 .hds-radio-button .hds-radio-button__label::after {
   background-clip: content-box;
   background-color: var(--icon-color-unselected);
-  border: calc(var(--border-width) * 1px) solid var(--border-color-unselected);
-  height: calc(var(--size) * 1px);
-  padding: calc(
-    ((var(--size) * 1px) / 2 - var(--border-width) * 2px) * (1 - var(--icon-scale))
-  );
-  width: calc(var(--size) * 1px);
+  border: var(--border-width) solid var(--border-color-unselected);
+  height: var(--size);
+  padding: calc((var(--size) / 2 - var(--border-width) * 2) * (1 - var(--icon-scale)));
+  width: var(--size);
 }
 
 /* inner circle - selected */
@@ -150,7 +143,6 @@
 /* label */
 .hds-radio-button .hds-radio-button__input:disabled + .hds-radio-button__label {
   color: var(--label-color-disabled);
-  cursor: default;
 }
 
 /* background */
@@ -172,4 +164,9 @@
 .hds-radio-button .hds-radio-button__input:checked:disabled + .hds-radio-button__label::after {
   background-color: var(--icon-color-disabled);
   border-color: var(--border-color-selected-disabled);
+}
+
+.hds-radio-button .hds-radio-button__input:disabled,
+.hds-radio-button .hds-radio-button__input:disabled + .hds-radio-button__label {
+  cursor: not-allowed;
 }
