@@ -30,33 +30,25 @@ const InputWrapper: FC<InputWrapperProps> = ({
   tooltipText,
   tooltipOpenButtonLabelText,
   tooltipCloseButtonLabelText,
-}: InputWrapperProps) => {
-  const label: JSX.Element = labelText ? (
-    <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hiddenLabel : ''}`}>
-      {labelText}
-    </label>
-  ) : null;
-
-  const tooltip: JSX.Element = tooltipText ? (
-    <Tooltip
-      labelText={tooltipLabel}
-      closeButtonLabelText={tooltipCloseButtonLabelText}
-      openButtonLabelText={tooltipOpenButtonLabelText}
-    >
-      {tooltipText}
-    </Tooltip>
-  ) : null;
-
-  const helper: JSX.Element = helperText ? <div className={styles.helperText}>{helperText}</div> : null;
-
-  return (
-    <div className={classNames(styles.root, invalid && styles.invalid, className)}>
-      {label}
-      {tooltip && tooltip}
-      <div className={classNames(styles.inputWrapper)}>{children}</div>
-      {helper}
-    </div>
-  );
-};
+}: InputWrapperProps) => (
+  <div className={classNames(styles.root, invalid && styles.invalid, className)}>
+    {labelText && (
+      <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hiddenLabel : ''}`}>
+        {labelText}
+      </label>
+    )}
+    {tooltipText && (
+      <Tooltip
+        labelText={tooltipLabel}
+        closeButtonLabelText={tooltipCloseButtonLabelText}
+        openButtonLabelText={tooltipOpenButtonLabelText}
+      >
+        {tooltipText}
+      </Tooltip>
+    )}
+    <div className={classNames(styles.inputWrapper)}>{children}</div>
+    {helperText && <div className={styles.helperText}>{helperText}</div>}
+  </div>
+);
 
 export default InputWrapper;

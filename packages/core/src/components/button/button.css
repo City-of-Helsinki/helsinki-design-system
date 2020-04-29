@@ -1,5 +1,3 @@
-@import "../../utils/animations.css";
-
 /* import button color variables */
 @import "hds-design-tokens/lib/color/component/button.css";
 
@@ -84,7 +82,6 @@
 
 .hds-button:focus::after {
   --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--gutter) * 2));
-  animation: fadeIn 85ms ease-out;
   border-color: var(--focus-outline-color);
 }
 

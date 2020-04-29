@@ -27,7 +27,7 @@
   --input-color-default: var(--color-input-text-input-default);
   --input-color-disabled: var(--color-input-text-input-disabled);
   --label-color-default: var(--color-label-text-input-default);
-  --label-color-invalid: currentColor;
+  --label-color-invalid: var(--color-label-text-input-invalid);
   --placeholder-color: var(--color-placeholder-text-input-default);
   --focus-outline-color: var(--color-focus-outline-text-input-default);
 }

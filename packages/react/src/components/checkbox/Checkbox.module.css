@@ -1,3 +1,5 @@
+@import 'hds-core/lib/base.css';
+
 .checkbox {
   composes: hds-checkbox from 'hds-core/lib/components/checkbox/checkbox.css';
 }
