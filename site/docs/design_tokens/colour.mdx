@@ -8,8 +8,6 @@ route: /design-tokens/colour
 
 ---
 
-import "hds-design-tokens/lib/color/brand.min.css";
-import "hds-design-tokens/lib/color/ui.min.css";
 import Colors from "../../src/components/Colors";
 import ColorBox from "../../src/components/ColorBox";
 import Example from "../../src/components/Example";
@@ -26,11 +24,11 @@ We are committed to complying with AA standard contrast ratios. To do this, choo
 
 | Colour name (en)    |  Colour name (fi) |                                                                                                           |
 | ------------------- | ----------------- | --------------------------------------------------------------------------------------------------------- |
-| Coat of Arms Blue   |  Vaakuna          | <Colors colorvar="--color-coat-of-arms-blue" variations={["-dark-50", "", "-light-50", "-light-20"]} />   |
+| Coat of Arms Blue   |  Vaakuna          | <Colors colorvar="--color-coat-of-arms-blue" variations={["-dark-50", "", "-light-50", "-light-20", "-light-5"]} />   |
 | Coat of Arms Gold   |  Kulta            | <Colors colorvar="--color-coat-of-arms-gold" variations={["-dark-50", "", "-light-50", "-light-20"]} />   |
 | Coat of Arms Silver |  Hopea            | <Colors colorvar="--color-coat-of-arms-silver" variations={["-dark-50", "", "-light-50", "-light-20"]} /> |
 | Brick               |  Tiili            | <Colors colorvar="--color-brick" variations={["-dark-50", "", "-light-50", "-light-20"]} />               |
-| Bus                 |  Bussi            | <Colors colorvar="--color-bus" variations={["-dark-50", "", "-light-50", "-light-20"]} />                 |
+| Bus                 |  Bussi            | <Colors colorvar="--color-bus" variations={["-dark-50", "", "-light-50", "-light-20", "-light-5"]} />                 |
 | Copper              |  Kupari           | <Colors colorvar="--color-copper" variations={["-dark-50", "", "-light-50", "-light-20"]} />              |
 | Engel               |  Engel            | <Colors colorvar="--color-engel" variations={["-dark-50", "", "-light-50", "-light-20"]} />               |
 | Fog                 |  Sumu             | <Colors colorvar="--color-fog" variations={["-dark-50", "", "-light-50", "-light-20"]} />                 |
@@ -43,15 +41,15 @@ We are committed to complying with AA standard contrast ratios. To do this, choo
 
 Status colours indicate valid, invalid or informational states on the service.
 
-| Status  | Dark                                               |  Base                                           | Light                                                  |
-| ------- | -------------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------ |
-| error   | -                                                  | <ColorBox color="var(--color-error)"/>   | <ColorBox color="var(--hds-ui-color-error-light)" />   |
-| success | -                                                  | <ColorBox color="var(--color-success)"/> | <ColorBox color="var(--hds-ui-color-success-light)" /> |
-| alert   | <ColorBox color="var(--hds-ui-color-alert-dark)"/> | <ColorBox color="var(--color-alert)"/>   | <ColorBox color="var(--hds-ui-color-alert-light)" />   |
-| info    | -                                                  | <ColorBox color="var(--color-info)"/>    | <ColorBox color="var(--hds-ui-color-info-light)" />    |
+| Status  | Dark                                          | Base                                     | Light                                           |
+| ------- | --------------------------------------------- | ---------------------------------------- | ----------------------------------------------- |
+| error   | <ColorBox color="var(--color-error-dark)"/>   | <ColorBox color="var(--color-error)"/>   | <ColorBox color="var(--color-error-light)" />   |
+| success | <ColorBox color="var(--color-success-dark)"/> | <ColorBox color="var(--color-success)"/> | <ColorBox color="var(--color-success-light)" /> |
+| alert   | <ColorBox color="var(--color-alert-dark)"/>   | <ColorBox color="var(--color-alert)"/>   | <ColorBox color="var(--color-alert-light)" />   |
+| info    | <ColorBox color="var(--color-info-dark)"/>    | <ColorBox color="var(--color-info)"/>    | <ColorBox color="var(--color-info-light)" />    |
 
-|           | black                                   |  90                                      | 80                                        | 70                                        | 60                                        | 50                                        | 40                                        | 30                                        | 20                                        | 10                                        | 5                                        | white                                   |
-| --------- | --------------------------------------- | ---------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ---------------------------------------- | --------------------------------------- |
+|           | black                                  |  90                                       | 80                                        | 70                                        | 60                                        | 50                                        | 40                                        | 30                                        | 20                                        | 10                                        | 5                                        | white                                   |
+| --------- | -------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ---------------------------------------- | --------------------------------------- |
 | greyscale | <ColorBox color="var(--color-black)"/> | <ColorBox color="var(--color-black-90)"/> | <ColorBox color="var(--color-black-80)"/> | <ColorBox color="var(--color-black-70)"/> | <ColorBox color="var(--color-black-60)"/> | <ColorBox color="var(--color-black-50)"/> | <ColorBox color="var(--color-black-40)"/> | <ColorBox color="var(--color-black-30)"/> | <ColorBox color="var(--color-black-20)"/> | <ColorBox color="var(--color-black-10)"/> | <ColorBox color="var(--color-black-5)"/> | <ColorBox color="var(--color-white)" /> |
 
 ## Using colours
@@ -69,8 +67,18 @@ The service design uses colour themes including three colours with grayscale and
 ## Tokens
 
 CSS                                | SASS                              | Value   | Example
----------------------------------- | --------------------------------- | ------- | --------------------------------------------------------------------- |
+---------------------------------- | --------------------------------- | ------- | ----------------------------------------------------------- |
+--color-brick                      | $color-brick                      | #bd2719 | <Example color="var(--color-brick)" />                      |
+--color-brick-light-20             | $color-brick-light-20             | #f1d3d1 | <Example color="var(--color-brick-light-20)" />             |
+--color-brick-light-50             | $color-brick-light-50             | #de938c | <Example color="var(--color-brick-light-50)" />             |
+--color-brick-dark-50              | $color-brick-dark-50              | #99160a | <Example color="var(--color-brick-dark-50)" />              |
+--color-bus                        | $color-bus                        | #0000bf | <Example color="var(--color-bus)" />                        |
+--color-bus-light-5                | $color-bus-light-5                | #f2f2fc | <Example color="var(--color-bus-light-5)" />                |
+--color-bus-light-20               | $color-bus-light-20               | #ccccf2 | <Example color="var(--color-bus-light-20)" />               |
+--color-bus-light-50               | $color-bus-light-50               | #7f7fdf | <Example color="var(--color-bus-light-50)" />               |
+--color-bus-dark-50                | $color-bus-dark-50                | #000098 | <Example color="var(--color-bus-dark-50)" />                |
 --color-coat-of-arms-blue          | $color-coat-of-arms-blue          | #0072c6 | <Example color="var(--color-coat-of-arms-blue)" />          |
+--color-coat-of-arms-blue-light-5  | $color-coat-of-arms-blue-light-5  | #f2f8fc | <Example color="var(--color-coat-of-arms-blue-light-5)" />  |
 --color-coat-of-arms-blue-light-20 | $color-coat-of-arms-blue-light-20 | #cce2f3 | <Example color="var(--color-coat-of-arms-blue-light-20)" /> |
 --color-coat-of-arms-blue-light-50 | $color-coat-of-arms-blue-light-50 | #80b8e2 | <Example color="var(--color-coat-of-arms-blue-light-50)" /> |
 --color-coat-of-arms-blue-dark-50  | $color-coat-of-arms-blue-dark-50  | #000098 | <Example color="var(--color-coat-of-arms-blue-dark-50)" />  |
@@ -109,13 +117,16 @@ CSS                                | SASS                              | Value  
 --color-tram-dark-50               | $color-tram-dark-50               | #007438 | <Example color="var(--color-tram-dark-50)" />               |
 --color-error                      | $color-error                      | #c4123e | <Example color="var(--color-error)" />                      |
 --color-error-light                | $color-error-light                | #f6e2e6 | <Example color="var(--color-error-light)" />                |
+--color-error-dark                 | $color-error-dark                 | #8d0d2d | <Example color="var(--color-error-dark)" />                 |
 --color-success                    | $color-success:                   | #007a64 | <Example color="var(--color-success)" />                    |
 --color-success-light              | $color-success-light              | #e2f5f3 | <Example color="var(--color-success-light)" />              |
+--color-success-dark               | $color-success-dark               | #006250 | <Example color="var(--color-success-dark)" />               |
 --color-alert                      | $color-alert                      | #ffda07 | <Example color="var(--color-alert)" />                      |
 --color-alert-light                | $color-alert-light                | #fff4b4 | <Example color="var(--color-alert-light)" />                |
 --color-alert-dark                 | $color-alert-dark                 | #986700 | <Example color="var(--color-alert-dark)" />                 |
 --color-info                       | $color-info                       | #007293 | <Example color="var(--color-info)" />                       |
 --color-info-light                 | $color-info-light                 | #dcf1f5 | <Example color="var(--color-info-light)" />                 |
+--color-info-dark                  | $color-info-dark                  | #005b76 | <Example color="var(--color-info-dark)" />                  |
 --color-white                      | $color-white                      | #ffffff | <Example color="var(--color-white)" />                      |
 --color-black-5                    | $color-black-5                    | #f1f1f1 | <Example color="var(--color-black-5)" />                    |
 --color-black-10                   | $color-black-10                   | #e5e5e5 | <Example color="var(--color-black-10)" />                   |

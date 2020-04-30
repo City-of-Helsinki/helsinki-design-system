@@ -1,0 +1,140 @@
+---
+name: Checkbox
+menu: Components
+route: /components/checkbox
+---
+
+import { Playground } from "docz";
+import { Checkbox } from "hds-react";
+
+import ColorBox from "../../src/components/ColorBox";
+import Text from "../../src/components/Text";
+
+# Checkboxes
+
+## Accessibility
+
+> TODO
+
+## How to use
+
+> TODO
+
+## Default
+
+<Playground>
+  <Checkbox id="checkbox1" labelText="Label" />
+</Playground>
+
+##### Core:
+```html
+<div class="hds-checkbox">
+  <input type="checkbox" id="checkbox" class="hds-checkbox__input" />
+  <label for="checkbox"  class="hds-checkbox__label">Label</label>
+</div>
+```
+
+##### React:
+```tsx
+<Checkbox id="checkbox" labelText="Label" />
+```
+
+## Selected
+
+<Playground>
+  <Checkbox id="checkbox2" labelText="Label" checked />
+</Playground>
+
+##### Core:
+```html
+<div class="hds-checkbox">
+  <input type="checkbox" id="checkbox" class="hds-checkbox__input" checked />
+  <label for="checkbox"  class="hds-checkbox__label">Label</label>
+</div>
+```
+
+##### React:
+```tsx
+<Checkbox id="checkbox" labelText="Label" checked />
+```
+
+## Disabled
+
+<Playground>
+  <Checkbox id="checkbox3" labelText="Label" disabled />
+  <Checkbox id="checkbox4" labelText="Label" checked disabled />
+</Playground>
+
+##### Core:
+```html
+<!-- Disabled -->
+<div class="hds-checkbox">
+  <input type="checkbox" id="checkbox" class="hds-checkbox__input" disabled />
+  <label for="checkbox"  class="hds-checkbox__label">Label</label>
+</div>
+
+<!-- Selected & disabled -->
+<div class="hds-checkbox">
+  <input type="checkbox" id="checkbox" class="hds-checkbox__input" checked disabled />
+  <label for="checkbox"  class="hds-checkbox__label">Label</label>
+</div>
+```
+
+##### React:
+```tsx
+/* Disabled */
+<Checkbox id="checkbox" labelText="Label" disabled />
+
+/* Selected & disabled */
+<Checkbox id="checkbox" labelText="Label" checked disabled />
+```
+
+## Demos & API
+
+### Core
+
+[Checkboxes in hds-core](/storybook/core/?path=/story/checkbox--default)
+
+### React
+
+[Checkboxes in hds-react](/storybook/react/?path=/story/components-checkbox--default)
+
+[Checkbox API](/storybook/react/?path=/docs/components-checkbox--default)
+
+## Tokens
+
+```css
+/* CSS */
+@import "hds-design-tokens/lib/color/component/checkbox.css";
+/* SCSS */
+@import "hds-design-tokens/lib/color/component/checkbox.scss";
+```
+```js
+// JS
+import 'hds-design-tokens/lib/color/component/checkbox.css';
+```
+
+CSS                                       | SASS                                    | Value       | Example
+----------------------------------------- | --------------------------------------- | ----------- | ------------------------------------------------------------------ |
+ --color-background-checkbox-unselected   | $color-background-checkbox-unselected   | transparent | <ColorBox color="var(--color-background-checkbox-unselected)" />   |
+ --color-background-checkbox-selected     | $color-background-checkbox-selected     | #0000bf     | <ColorBox color="var(--color-background-checkbox-selected)" />     |
+ --color-background-checkbox-hover        | $color-background-checkbox-hover        | #000098     | <ColorBox color="var(--color-background-checkbox-hover)" />        |
+ --color-background-checkbox-disabled     | $color-background-checkbox-disabled     | #e5e5e5     | <ColorBox color="var(--color-background-checkbox-disabled)" />     |
+ --color-border-checkbox-selected         | $color-border-checkbox-selected         | #0000bf     | <ColorBox color="var(--color-border-checkbox-selected)" />         |
+ --color-border-checkbox-selected-hover   | $color-border-checkbox-selected-hover   | #000098     | <ColorBox color="var(--color-border-checkbox-selected-hover)" />   |
+ --color-border-checkbox-selected-focus   | $color-border-checkbox-selected-focus   | #0000bf     | <ColorBox color="var(--color-border-checkbox-selected-focus)" />   |
+ --color-border-checkbox-unselected       | $color-border-checkbox-unselected       | #c4c4c4     | <ColorBox color="var(--color-border-checkbox-unselected)" />       |
+ --color-border-checkbox-unselected-hover | $color-border-checkbox-unselected-hover | #1a1a1a     | <ColorBox color="var(--color-border-checkbox-unselected-hover)" /> |
+ --color-border-checkbox-unselected-focus | $color-border-checkbox-unselected-focus | #000000     | <ColorBox color="var(--color-border-checkbox-unselected-focus)" /> |
+ --color-border-checkbox-disabled         | $color-border-checkbox-disabled         | #e5e5e5     | <ColorBox color="var(--color-border-checkbox-disabled)" />         |
+ --color-focus-outline-checkbox-default   | $color-focus-outline-checkbox-default   | #0072c6     | <ColorBox color="var(--color-focus-outline-checkbox-default)" />   |
+ --color-icon-checkbox-selected           | $color-icon-checkbox-selected           | #ffffff     | <ColorBox color="var(--color-icon-checkbox-selected)" />           |
+ --color-icon-checkbox-unselected         | $color-icon-checkbox-unselected         | transparent | <ColorBox color="var(--color-icon-checkbox-unselected)" />         |
+ --color-icon-checkbox-disabled           | $color-icon-checkbox-disabled           | #ffffff     | <ColorBox color="var(--color-icon-checkbox-disabled)" />           |
+ --color-label-checkbox-default           | $color-label-checkbox-default           | #1a1a1a     | <Text color="var(--color-label-checkbox-default)" />               |
+ --color-label-checkbox-disabled          | $color-label-checkbox-disabled          | #999898     | <Text color="var(--color-label-checkbox-disabled)" />              |
+
+
+
+
+
