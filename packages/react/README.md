@@ -1,4 +1,4 @@
-:books: [**See the components in Storybook**](https://city-of-helsinki.github.io/helsinki-design-system/storybook/)
+:books: [**See the components in Storybook**](https://city-of-helsinki.github.io/helsinki-design-system/storybook/react)
 
 # hds-react [![npm version](https://badge.fury.io/js/hds-react.svg)](https://www.npmjs.com/package/hds-react)
 

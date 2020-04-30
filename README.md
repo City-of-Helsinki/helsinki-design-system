@@ -4,7 +4,7 @@
 
 > A design system is a collection of reusable components, guided by clear standards, that can be assembled together to build any number of applications. - [Design Systems Handbook](https://www.designbetter.co/design-systems-handbook)
 
-Helsinki Design System is an open-souce design system built by the City of Helsinki. It consists of tools for development and design as well as resources and guidelines for creating user-friendly, accessible solutions for the city.
+Helsinki Design System is an open-source design system built by the City of Helsinki. It consists of tools for development and design as well as resources and guidelines for creating user-friendly, accessible solutions for the city.
 
 ## Getting started
 

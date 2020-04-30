@@ -4,6 +4,12 @@ Design tokens for the Helsinki Design System.
 
 ## Getting started
 
+### Installing the package:
+
+```
+$ yarn add hds-design-tokens
+```
+
 ### What's included
 
 ```
@@ -11,29 +17,24 @@ hds-design-tokens/
 ├── tokens/                                 # token source files
 └── lib/
     ├── color/
-        ├── component/
-            ├── all (.scss|.css)            # all component color variables
-            ├── button (.scss|.css)         # button color variables
-            └── text-input (.scss|.css)     # text-input color variables
-        ├── all (.scss|.css)                # brand and ui color variables
-        ├── brand (.scss|.css)              # brand color variables
-        └── ui (.scss|.css)                 # ui color variables
+    │    ├── component/
+    │    │   ├── all (.scss|.css)            # all component color variables
+    │    │   ├── <component> (.scss|.css)    # <component> color variables
+    │    │   :
+    │    │
+    │    ├── all (.scss|.css)                # brand and ui color variables
+    │    ├── brand (.scss|.css)              # brand color variables
+    │    └── ui (.scss|.css)                 # ui color variables
     ├── spacing/                            
-        ├── all (.scss|.css)                # all spacing variables
-        ├── layout (.scss|.css)             # layout spacing variables
-        └── spacing (.scss|.css)            # component spacing variables
+    │   ├── all (.scss|.css)                # all spacing variables
+    │   ├── layout (.scss|.css)             # layout spacing variables
+    │   └── spacing (.scss|.css)            # component spacing variables
     └── all (.scss|.css)                    # all variables
-```
-
-### Installing the package from npm:
-
-```
-$ yarn add hds-design-tokens
 ```
 
 ## Using the variables
 
-Import the `variables.css` or `variables.min.css` files to get access to the CSS variables or `variables.scss` for SASS variables.
+Import any of the available `.css` or `.scss` files. Imported CSS variables will be applied to the `:root` element. 
 
 ## Built with
 
