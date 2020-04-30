@@ -2,7 +2,7 @@ import { addParameters, configure } from '@storybook/html';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 import './index.css';
-import '../src/helsinki.css';
+import '../src/base.css';
 
 const viewports = {
   ...INITIAL_VIEWPORTS,

@@ -1,9 +1,9 @@
 .hds-notification {
   margin: 0.75em 0 1.25em;
   padding: 1.875em 1.875em 1.875em;
-  border: 0 solid var(--hds-theme-color-primary);
+  border: 0 solid var(--color-coat-of-arms-blue);
   border-left-width: 0.625em;
-  background-color: var(--hds-theme-color-primary-extra-light);
+  background-color: var(--color-coat-of-arms-blue-light-20);
   position: relative;
 }
 
@@ -49,18 +49,18 @@
 }
 
 .hds-notification--warning {
-  border-color: var(--hds-ui-color-alert);
-  background-color: var(--hds-ui-color-alert-light);
+  border-color: var(--color-alert);
+  background-color: var(--color-alert-light);
 }
 
 .hds-notification--error {
-  border-color: var(--hds-ui-color-error);
-  background-color: var(--hds-ui-color-error-light);
+  border-color: var(--color-error);
+  background-color: var(--color-error-light);
 }
 
 .hds-notification--success {
-  border-color: var(--hds-ui-color-success);
-  background-color: var(--hds-ui-color-success-light);
+  border-color: var(--color-success);
+  background-color: var(--color-success-light);
 }
 
 .hds-notification__close-button {
@@ -68,7 +68,7 @@
   top: 0;
   right: 0;
   padding: 1.875em;
-  fill: var(--hds-theme-color-primary);
+  fill: var(--color-coat-of-arms-blue);
 }
 
 .hds-notification__close-button .hds-icon {
@@ -77,15 +77,15 @@
 }
 
 .hds-notification--warning .hds-notification__close-button .hds-icon {
-  color: var(--hds-ui-color-alert-dark);
+  color: var(--color-alert-dark);
 }
 
 .hds-notification--error .hds-notification__close-button .hds-icon {
-  color: var(--hds-ui-color-error);
+  color: var(--color-error);
 }
 
 .hds-notification--success .hds-notification__close-button .hds-icon {
-  color: var(--hds-ui-color-success);
+  color: var(--color-success);
 }
 
 @media all and (max-width: 768px) {

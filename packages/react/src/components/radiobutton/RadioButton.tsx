@@ -29,7 +29,7 @@ export type RadioButtonProps = InputHTMLAttributes<HTMLInputElement> & {
    */
   onChange?: ChangeEventHandler<HTMLInputElement>;
   /**
-   * Override or extend the styles applied to the component. See radio button [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/checkbox#tokens) for available CSS variables
+   * Override or extend the styles applied to the component. See radio button [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/radio-button#tokens) for available CSS variables
    */
   style?: CSSProperties;
   /**

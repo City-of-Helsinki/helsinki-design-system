@@ -59,6 +59,7 @@
 /* INPUT */
 
 .hds-text-input__input-wrapper {
+  display: flex;
   position: relative;
 }
 

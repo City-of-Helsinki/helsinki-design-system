@@ -114,7 +114,7 @@
 }
 
 /* both icons */
-.hds-button--small .hds-button__label:not(:first-child):not(:last-child) {
+.hds-button--small .hds-button__label:not(:first-of-type):not(:last-of-type) {
   padding: var(--spacing-2-xs) var(--spacing-2-xs);
 }
 
@@ -151,12 +151,12 @@
 }
 
 /* both icons - left */
-.hds-icon:first-child:not(:last-of-type) {
+.hds-icon:first-of-type:not(:last-of-type) {
   margin: 0 0 0 var(--spacing-2-xs);
 }
 
 /* both icons - right */
-.hds-icon:last-child:not(:first-of-type) {
+.hds-icon:last-of-type:not(:first-of-type) {
   margin: 0 var(--spacing-2-xs) 0 0;
 }
 
