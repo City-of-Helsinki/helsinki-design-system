@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, FC, forwardRef, InputHTMLAttributes, RefObject } from 'react';
+import React, { ChangeEventHandler, CSSProperties, FC, forwardRef, InputHTMLAttributes, RefObject } from 'react';
 
 import styles from './TextInput.module.css';
 import InputWrapper from '../../internal/inputwrapper/InputWrapper';
@@ -49,6 +49,10 @@ export type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
    */
   readOnly?: boolean;
   /**
+   * Override or extend the styles applied to the component. See text field [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/text-field#tokens) for available CSS variables
+   */
+  style?: CSSProperties;
+  /**
    * The label of the tooltip
    */
   tooltipLabel?: string;
@@ -90,11 +94,12 @@ const TextInput: FC<TextInputProps> = forwardRef(
       id,
       labelText,
       onChange = () => null,
-      type = 'text',
+      style,
       tooltipLabel,
       tooltipText,
       tooltipOpenButtonLabelText,
       tooltipCloseButtonLabelText,
+      type = 'text',
       ...rest
     }: TextInputProps,
     ref?: RefObject<HTMLInputElement>,
@@ -106,6 +111,7 @@ const TextInput: FC<TextInputProps> = forwardRef(
       id,
       invalid,
       labelText,
+      style,
       tooltipLabel,
       tooltipText,
       tooltipOpenButtonLabelText,

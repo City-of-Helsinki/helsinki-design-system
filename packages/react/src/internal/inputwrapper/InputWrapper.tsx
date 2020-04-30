@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { CSSProperties, FC, ReactNode } from 'react';
 
 import styles from '../../components/textinput/TextInput.module.css';
 import Tooltip from '../../components/tooltip/Tooltip';
@@ -12,6 +12,7 @@ type InputWrapperProps = {
   id: string;
   invalid?: boolean;
   labelText?: string;
+  style?: CSSProperties;
   tooltipLabel?: string;
   tooltipText?: string;
   tooltipOpenButtonLabelText?: string;
@@ -26,12 +27,13 @@ const InputWrapper: FC<InputWrapperProps> = ({
   id,
   invalid = false,
   labelText,
+  style,
   tooltipLabel,
   tooltipText,
   tooltipOpenButtonLabelText,
   tooltipCloseButtonLabelText,
 }: InputWrapperProps) => (
-  <div className={classNames(styles.root, invalid && styles.invalid, className)}>
+  <div className={classNames(styles.root, invalid && styles.invalid, className)} style={style}>
     {labelText && (
       <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hiddenLabel : ''}`}>
         {labelText}
