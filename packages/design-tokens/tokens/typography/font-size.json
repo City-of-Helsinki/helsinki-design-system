@@ -1,0 +1,48 @@
+{
+  "fontsize": {
+    "h": {
+      "1": {
+        "value": "3.25rem",
+        "comment": "52px"
+      },
+      "2": {
+        "value": "2.25rem",
+        "comment": "36px"
+      },
+      "3": {
+        "value": "1.5rem",
+        "comment": "24px"
+      },
+      "4": {
+        "value": "1.25rem",
+        "comment": "20px"
+      },
+      "5": {
+        "value": "1.125rem",
+        "comment": "18px"
+      }
+    },
+    "subtitle": {
+      "value": "1rem",
+      "comment": "16px"
+    },
+    "body": {
+      "default": {
+        "value": "1rem",
+        "comment": "16px"
+      },
+      "small": {
+        "value": "0.875rem",
+        "comment": "14px"
+      },
+      "medium": {
+        "value": "1.125rem",
+        "comment": "18px"
+      },
+      "large": {
+        "value": "1.25rem",
+        "comment": "20px"
+      }
+    }
+  }
+}
