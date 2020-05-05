@@ -93,7 +93,7 @@ export const UsingRef = () => {
 
   return (
     <>
-      <Button onClick={() => ref?.current?.focus()} style={{ marginBottom: '1rem' }} theme="black">
+      <Button onClick={() => ref?.current?.focus()} style={{ marginBottom: '1rem' }} theme="black" size="small">
         Focus input
       </Button>
       <TextInput {...textInputProps} ref={ref} />

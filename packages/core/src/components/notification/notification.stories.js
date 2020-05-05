@@ -61,19 +61,25 @@ export const Error = () => `
 /**
  * With close button
  */
-export const WithClose = () => `
-    <div class="hds-notification">
-      ${getLabel()}
-      ${text}
-      <button
-        class="hds-notification__close-button"
-        aria-label="Close notification"
-        onclick=""
-      >
-        <span class="hds-icon hds-icon--close" aria-hidden="true"></span>
-      </button>
-    </div>
-`;
+export const WithClose = () =>
+  [null, 'success', 'warning', 'error']
+    .map(
+      (item) =>
+        `
+        <div class="hds-notification ${item ? `hds-notification--${item}` : ''}">
+          ${getLabel()}
+          ${text}
+          <button
+            class="hds-notification__close-button"
+            aria-label="Close notification"
+            onclick=""
+          >
+            <span class="hds-icon hds-icon--close" aria-hidden="true"></span>
+          </button>
+        </div>
+    `,
+    )
+    .join('');
 
 WithClose.story = {
   name: 'With close button',

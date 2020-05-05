@@ -32,8 +32,7 @@ hds-core/
     │
     ├── utils/          # utility stylesheets
     ├── variables/      # collection of css variables and base styles
-    ├── helsinki.css    # default theme
-    └── engel.css       # example alternative theme
+    └── base.css        # base styles
 ```
 
 ## Using the styles

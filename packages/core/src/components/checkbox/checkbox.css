@@ -5,7 +5,7 @@
 
 .hds-checkbox {
   --size: 24px;
-  /* icon size relative to the checkbox size (--checkbox-size) */
+  /* icon size relative to the checkbox size (--size) */
   --icon-scale: 0.75;
   --border-radius: 1px;
   --border-width: 2px;

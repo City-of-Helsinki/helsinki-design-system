@@ -1,4 +1,4 @@
-@import 'hds-core/lib/base.css';
+@import "hds-core";
 
 .root {
   composes: hds-text-input from 'hds-core/lib/components/text-input/text-input.css';

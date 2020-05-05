@@ -1,4 +1,4 @@
-@import 'hds-core/lib/base.css';
+@import "hds-core";
 
 .radioButton {
   composes: hds-radio-button from 'hds-core/lib/components/radio-button/radio-button.css';

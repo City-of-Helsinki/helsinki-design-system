@@ -1,3 +1,14 @@
+.wrapper {
+  --tooltip-background-default: var(--color-coat-of-arms-blue-light-20);
+  --tooltip-background-alternative: var(--color-fog-light-20);
+  --tooltip-border-default: var(--color-coat-of-arms-blue);
+  --tooltip-border-alternative: var(--color-fog);
+  --button-color-open: var(--color-black-90);
+  --button-color-open-alternative: var(--color-black-90);
+  --button-color-close: var(--color-coat-of-arms-blue-dark-50);
+  --button-color-close-alternative: var(--color-fog-dark-50);
+}
+
 .iconTooltip {
   width: 1.4375em;
   height: 1.4375em;
@@ -13,7 +24,11 @@
   top: 0;
   right: 0;
   line-height: 0;
-  fill: var(--hds-ui-color-black-80);
+  fill: var(--button-color-open);
+}
+
+.alternative .buttonTooltip {
+  fill: var(--button-color-open-alternative);
 }
 
 .buttonClose {
@@ -21,17 +36,17 @@
   top: 0;
   right: 0;
   padding: 1.25em;
-  fill: var(--hds-theme-color-primary);
+  fill: var(--button-color-close);
 }
 
 .alternative .buttonClose {
-  fill: var(--hds-theme-color-secondary);
+  fill: var(--button-color-close-alternative);
 }
 
 .tooltip {
   margin: 0.75em 0 1.25em;
-  border-top: 0.625em solid var(--hds-theme-color-primary);
-  background-color: var(--hds-theme-color-primary-extra-light);
+  border-top: 0.625em solid var(--tooltip-border-default);
+  background-color: var(--tooltip-background-default);
   padding: 1em 1.25em 1.25em;
   position: relative;
 }
@@ -49,16 +64,16 @@
 }
 
 .labelText {
-  composes: text-bold from 'hds-core/lib/helsinki.css';
+  composes: text-bold from 'hds-core/lib/utils/helpers.css';
   vertical-align: middle;
 }
 
 .tooltipBody {
-  composes: text-sm from 'hds-core/lib/helsinki.css';
+  composes: text-sm from 'hds-core/lib/utils/helpers.css';
   padding: 0.75em 0;
 }
 
 .alternative {
-  border-color: var(--hds-theme-color-secondary);
-  background-color: var(--hds-theme-color-secondary-extra-light);
+  border-color: var(--tooltip-border-alternative);
+  background-color: var(--tooltip-background-alternative);
 }

@@ -1,5 +1,4 @@
 import './button.css';
-import '../../base.css';
 import '../../icons/icon.css';
 import '../../icons/icon-share.css';
 import '../../icons/icon-angle-right.css';

@@ -1,4 +1,14 @@
 .section {
+  --section-background-plain: var(--color-white);
+  --section-background-primary: var(--color-coat-of-arms-blue);
+  --section-background-secondary: var(--color-fog);
+  --section-background-tertiary: var(--color-suomenlinna);
+
+  --section-color-plain: var(--color-black-90);
+  --section-color-primary: var(--color-white);
+  --section-color-secondary: var(--color-black-90);
+  --section-color-tertiary: var(--color-white);
+
   position: relative;
 }
 
@@ -12,47 +22,47 @@
 }
 
 .content {
-  padding: var(--hds-theme-content-padding);
-  max-width: var(--hds-theme-content-width);
+  padding: var(--spacing-layout-s) var(--spacing-layout-xl);
+  max-width: 72em;
   margin: 0 auto;
   position: relative;
   z-index: 1;
 }
 
 .section.plain {
-  background-color: var(--hds-ui-color-white);
-  color: var(--hds-ui-color-black);
+  background-color: var(--section-background-plain);
+  color: var(--section-color-plain);
 }
 
 .section.primary {
-  background-color: var(--hds-theme-color-primary);
-  color: var(--hds-theme-color-primary-heading);
+  background-color: var(--section-background-primary);
+  color: var(--section-color-primary);
 }
 
 .section.secondary {
-  background-color: var(--hds-theme-color-secondary);
-  color: var(--hds-theme-color-secondary-heading);
+  background-color: var(--section-background-secondary);
+  color: var(--section-color-secondary);
 }
 
 .section.tertiary {
-  background-color: var(--hds-theme-color-tertiary);
-  color: var(--hds-theme-color-tertiary-heading);
+  background-color: var(--section-background-tertiary);
+  color: var(--section-color-tertiary);
 }
 
 .section.plain .koros {
-  fill: var(--hds-ui-color-white);
+  fill: var(--section-background-plain);
 }
 
 .section.primary .koros {
-  fill: var(--hds-theme-color-primary);
+  fill: var(--section-background-primary);
 }
 
 .section.secondary .koros {
-  fill: var(--hds-theme-color-secondary);
+  fill: var(--section-background-secondary);
 }
 
 .section.tertiary .koros {
-  fill: var(--hds-theme-color-tertiary);
+  fill: var(--section-background-tertiary);
 }
 
 .koros {
@@ -97,4 +107,10 @@
 
 .koros.wave.bottomKoros {
   bottom: -3.4em;
+}
+
+@media all and (max-width: 768px) {
+  .content {
+    padding: 0.5em 1em;
+  }
 }
