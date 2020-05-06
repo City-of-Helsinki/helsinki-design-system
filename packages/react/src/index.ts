@@ -1,3 +1,6 @@
+// import core base styles
+import 'hds-core';
+
 export * from './icons';
 export { default as TextInput, TextInputProps } from './components/textinput/TextInput';
 export { default as TextArea, TextAreaProps } from './components/textinput/TextArea';
