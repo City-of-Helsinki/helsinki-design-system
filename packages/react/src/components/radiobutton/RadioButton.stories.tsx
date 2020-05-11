@@ -130,7 +130,7 @@ export const Playground = () => {
   const borderSelected = color('Border - selected', '#0000bf', groupColor);
   const borderSelectedHover = color('Border - selected - hover', '#000098', groupColor);
   const borderSelectedDisabled = color('Border - selected - disabled', '#cccccc', groupColor);
-  const borderUnselected = color('Border - unselected', '#c4c4c4', groupColor);
+  const borderUnselected = color('Border - unselected', '#808080', groupColor);
   const borderUnselectedHover = color('Border - unselected - hover', '#1a1a1a', groupColor);
   const borderUnselectedDisabled = color('Border - unselected - disabled', '#e5e5e5', groupColor);
   const focusOutline = color('Focus outline', '#0072c6', groupColor);
