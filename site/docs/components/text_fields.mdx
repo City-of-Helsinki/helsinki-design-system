@@ -1,101 +1,355 @@
 ---
-name: Text Fields
+name: Text fields
 menu: Components
 route: /components/text-field
 ---
 
 import { Playground } from "docz";
-import { TextInput } from "hds-react";
+import { TextArea, TextInput } from "hds-react";
 
-import "hds-core/lib/components/text-inputs.css";
+import ColorBox from "../../src/components/ColorBox";
+import Text from "../../src/components/Text";
 
 # Text Fields
-
----
 
 A text field is an input field that the user can interact with and input content and data. This component can be used for long and short form entries.
 It has a range of options and supports several text formats including numbers.
 Text fields are normally found within a form but can also be part of a modal or search. Common text input types include: usernames, descriptions, URLs, emails, addresses, and plain text searches.
 
+## Accessibility
+> TODO
+
+## How to use
+- Use a text input when a single line of text is expected. Use a text area for more than one sentence.
+- Where possible, add programmatic assistance. Detect and pre-fill inputs to reduce errors and save time. Use sentence-case for default values, detected values, and auto-completion text.
+
+## Size
+Allow the text input to reflect the length of the content you expect the user to enter.
+
+## Default
+
+<Playground>
+  <TextInput
+    id="input"
+    labelText="Label"
+    placeholder="Placeholder"
+    helperText="This is a text input"
+  />
+  <TextArea
+    id="textarea"
+    labelText="Label"
+    placeholder="Placeholder"
+    helperText="This is a text area"
+    style={{marginTop: 'var(--spacing-s)'}}
+  />
+</Playground>
+
+##### Core:
+```html
+<!-- Text input  -->
+<div class="hds-text-input">
+  <label for="input" class="hds-text-input__label">
+    Label
+  </label>
+  <div class="hds-text-input__input-wrapper">
+    <input id="input" class="hds-text-input__input" type="text" placeholder="Placeholder" />
+  </div>
+  <span class="hds-text-input__helper-text">Assistive text</span>
+</div>
+
+<!-- Text area  -->
+<div class="hds-text-input">
+  <label for="textarea" class="hds-text-input__label">
+    Label
+  </label>
+  <div class="hds-text-input__input-wrapper">
+    <textarea id="textarea" class="hds-text-input__input" placeholder="Placeholder"></textarea>
+  </div>
+  <span class="hds-text-input__helper-text">Assistive text</span>
+</div>
+```
+
+##### React:
+```tsx
+/* Text input */
+<TextInput
+  id="input"
+  labelText="Label"
+  placeholder="Placeholder"
+  helperText="Assistive text"
+/>
+
+/* Text area */
+<TextArea
+  id="textarea"
+  labelText="Label"
+  placeholder="Placeholder"
+  helperText="Assistive text"
+/>
+```
+
+## Read-only
+
+<Playground>
+  <TextInput
+    id="input2"
+    labelText="Label"
+    defaultValue="Text input value"
+    helperText="Assistive text"
+    readOnly
+  />
+</Playground>
+
+##### Core:
+```html
+<div class="hds-text-input">
+  <label for="input" class="hds-text-input__label">
+    Label
+  </label>
+  <div class="hds-text-input__input-wrapper">
+    <input id="input" class="hds-text-input__input" type="text" value="Text input value" readonly />
+  </div>
+  <span class="hds-text-input__helper-text">Assistive text</span>
+</div>
+```
+
+##### React:
+```tsx
+<TextInput
+  id="textarea"
+  labelText="Label"
+  defaultValue="Text input value"
+  helperText="Assistive text"
+  readOnly
+/>
+```
+
+
+## Disabled
+
+<Playground>
+  <TextInput
+    id="input3"
+    labelText="Label"
+    defaultValue="Text input value"
+    helperText="Assistive text"
+    disabled
+  />
+  <TextArea
+    id="textarea3"
+    labelText="Label"
+    defaultValue="Text area value"
+    helperText="Assistive text"
+    style={{marginTop: 'var(--spacing-s)'}}
+    disabled
+  />
+</Playground>
+
+##### Core:
+```html
+<!-- Text input -->
+<div class="hds-text-input">
+  <label for="input" class="hds-text-input__label">
+    Label
+  </label>
+  <div class="hds-text-input__input-wrapper">
+    <input id="input" class="hds-text-input__input" type="text" value="Text input value" disabled />
+  </div>
+  <span class="hds-text-input__helper-text">Assistive text</span>
+</div>
+
+<!-- Text area -->
+<div class="hds-text-input">
+  <label for="textarea" class="hds-text-input__label">
+    Label
+  </label>
+  <div class="hds-text-input__input-wrapper">
+    <textarea id="textarea" class="hds-text-input__input" disabled>
+      Text area value
+    </textarea>
+  </div>
+  <span class="hds-text-input__helper-text">Assistive text</span>
+</div>
+```
+
+##### React:
+```tsx
+/* Text input */
+<TextInput
+  id="input"
+  labelText="Label"
+  defaultValue="Text input value"
+  helperText="Assistive text"
+  disabled
+/>
+
+/* Text area */
+<TextArea
+  id="textarea"
+  labelText="Label"
+  defaultValue="Text input value"
+  helperText="Assistive text"
+  disabled
+/>
+```
+
+## Invalid
+
+<Playground>
+  <TextInput
+    id="input4"
+    labelText="Label"
+    defaultValue="Text input value"
+    helperText="Error text"
+    invalid
+  />
+  <TextArea
+    id="textarea4"
+    labelText="Label"
+    defaultValue="Text area value"
+    helperText="Error text"
+    style={{marginTop: 'var(--spacing-s)'}}
+    invalid
+  />
+</Playground>
+
+##### Core:
+```html
+<!-- Text input -->
+<div class="hds-text-input hds-text-input--invalid">
+  <label for="input" class="hds-text-input__label">
+    Label
+  </label>
+  <div class="hds-text-input__input-wrapper">
+    <input id="input" class="hds-text-input__input" type="text" value="Text input value" />
+  </div>
+  <span class="hds-text-input__helper-text">Error text</span>
+</div>
+
+<!-- Text area -->
+<div class="hds-text-input hds-text-input--invalid">
+  <label for="textarea" class="hds-text-input__label">
+    Label
+  </label>
+  <div class="hds-text-input__input-wrapper">
+    <textarea id="textarea" class="hds-text-input__input">
+      Text area value
+    </textarea>
+  </div>
+  <span class="hds-text-input__helper-text">Error text</span>
+</div>
+```
+
+##### React:
+```tsx
+/* Text input */
+<TextInput
+  id="input"
+  labelText="Label"
+  defaultValue="Text input value"
+  helperText="Error text"
+  invalid
+/>
+
+/* Text area */
+<TextArea
+  id="textarea"
+  labelText="Label"
+  defaultValue="Text input value"
+  helperText="Error text"
+  invalid
+/>
+```
+
+## With tooltip
+
+_Text field tooltips are only available in hds-react!_
+
+<Playground>
+  <TextInput
+    id="input5"
+    labelText="Label"
+    placeholder="Placeholder"
+    tooltipLabel="Tooltip label"
+    tooltipText="Tooltip text"
+  />
+  <TextArea
+    id="textarea5"
+    labelText="Label"
+    placeholder="Placeholder"
+    tooltipLabel="Tooltip label"
+    tooltipText="Tooltip text"
+    style={{marginTop: 'var(--spacing-s)'}}
+  />
+</Playground>
+
+##### React:
+```tsx
+/* Text input */
+<TextInput
+  id="input"
+  labelText="Label"
+  placeholder="Placeholder"
+  tooltipLabel="Tooltip label"
+  tooltipText="Tooltip text"
+/>
+
+/* Text area */
+<TextArea
+  id="textarea"
+  labelText="Label"
+  placeholder="Placeholder"
+  tooltipLabel="Tooltip label"
+  tooltipText="Tooltip text"
+/>
+```
+
+## Demos & API
+
+### Core
+
 [Text inputs in hds-core](/storybook/core/?path=/story/textinput--default)
+
+[Text areas in hds-core](/storybook/core/?path=/story/textarea--default)
+
+### React
 
 [Text inputs in hds-react](/storybook/react/?path=/story/components-textinput--default)
 
-## General guidelines
+[TextInput API](/storybook/react/?path=/docs/components-textinput--default)
 
-Allow the text input to reflect the length of the content you expect the user to enter.
+[Text areas in hds-react](/storybook/react/?path=/story/components-textarea--default)
 
-- _Text input:_ When a single line of text is expected.
-- _Text area:_ When the input is more than one sentence.
+[TextArea API](/storybook/react/?path=/docs/components-textarea--default)
 
-Where possible, add programmatic assistance. Detect and pre-fill inputs to reduce errors and save time. Use sentence-case for default values, detected values, and auto-completion text.
+## Tokens
 
-## Best practises
+```css
+/* CSS */
+@import "hds-design-tokens/lib/color/component/text-input.css";
+/* SCSS */
+@import "hds-design-tokens/lib/color/component/text-input.scss";
+```
+```js
+// JS
+import 'hds-design-tokens/lib/color/component/text-input.css';
+```
 
-Text fields should:
-
-- be clear with a meaningful label, 1-3 word
-- be labeled as _optional_ when something is not required
-- only ask for information which is really needed
-
-## Usage
-
-### Basic
-
-#### Core:
-
-<Playground>
-  <div class="hds-text-input">
-    <label for="my-input" class="hds-text-input__label text-sm text-bold">
-      label
-    </label>
-    <div class="hds-text-input__input-wrapper">
-      <input
-        class="text-md"
-        type="text"
-        id="my-input"
-        placeholder="placeholder text"
-        value=""
-      />
-    </div>
-    <span class="hds-text-input__helper-text text-sm">helper text</span>
-  </div>
-</Playground>
-
-#### React:
-
-<Playground>
-  <TextInput
-    labelText="label"
-    placeholder="placeholder text"
-    helperText="helper text"
-  />
-</Playground>
-
-### With tooltip
-
-_Text field tooltips are only in hds-react!_
-
-#### React:
-
-<Playground>
-  <TextInput
-    labelText="label"
-    placeholder="placeholder text"
-    tooltipLabel="tooltip label"
-    tooltipText="tooltip text"
-  />
-</Playground>
-
-## Content
-
-1. Label: Should indicate what sort of information the field requires and should be short and concise. Put labels directly above their input and align them to the left.
-2. Placeholder text: Provides hints or examples of what to enter. Placeholder text disappears after the user begins entering data into the input and should not contain crucial information.
-3. Helper text: Gives context about a field's input.
-4. Validation marker: Warns in case the input value isn’t valid.
-
-_Textfield component default state:_  
-![Textfield component](../../static/component-textfield-explained.png "Textfield component")
-
-_Textfield component error state:_  
-![Textfield component error state](../../static/component-textfield-explained-error.png "Textfield component error state")
+CSS                                      | SASS                                    | Value   | Example
+---------------------------------------- | --------------------------------------- | ------- | ------------------------------------------------------------------ |
+--color-background-text-input-default    | $color-background-text-input-default    | #ffffff | <ColorBox color="var(--color-background-text-input-default)" />    |
+--color-background-text-input-disabled   | $color-background-text-input-disabled   | #e5e5e5 | <ColorBox color="var(--color-background-text-input-disabled)" />   |
+--color-border-text-input-default        | $color-border-text-input-default        | #808080 | <ColorBox color="var(--color-border-text-input-default)" />        |
+--color-border-text-input-hover          | $color-border-text-input-hover          | #1a1a1a | <ColorBox color="var(--color-border-text-input-hover)" />          |
+--color-border-text-input-focus          | $color-border-text-input-focus          | #1a1a1a | <ColorBox color="var(--color-border-text-input-focus)" />          |
+--color-border-text-input-invalid        | $color-border-text-input-invalid        | #b01038 | <ColorBox color="var(--color-border-text-input-invalid)" />        |
+--color-border-text-input-disabled       | $color-border-text-input-disabled       | #e5e5e5 | <ColorBox color="var(--color-border-text-input-disabled)" />       |
+--color-focus-outline-text-input-default | $color-focus-outline-text-input-default | #0072c6 | <ColorBox color="var(--color-focus-outline-text-input-default)" /> |
+--color-helper-text-input-default        | $color-helper-text-input-default        | #666666 | <Text color="var(--color-helper-text-input-default)" />        |
+--color-helper-text-input-invalid        | $color-helper-text-input-invalid        | #b01038 | <Text color="var(--color-helper-text-input-invalid)" />        |
+--color-icon-text-input-invalid          | $color-icon-text-input-invalid          | #b01038 | <ColorBox color="var(--color-icon-text-input-invalid)" />          |
+--color-input-text-input-default         | $color-input-text-input-default         | #1a1a1a | <Text color="var(--color-input-text-input-default)" />         |
+--color-input-text-input-disabled        | $color-input-text-input-disabled        | #999898 | <Text color="var(--color-input-text-input-disabled)" />        |
+--color-label-text-input-default         | $color-label-text-input-default         | #1a1a1a | <Text color="var(--color-label-text-input-default)" />         |
+--color-label-text-input-invalid         | $color-label-text-input-invalid         | #1a1a1a | <Text color="var(--color-label-text-input-invalid)" />         |
+--color-placeholder-text-input-default   | $color-placeholder-text-input-default   | #666666 | <Text color="var(--color-placeholder-text-input-default)" />   |

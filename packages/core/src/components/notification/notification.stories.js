@@ -18,9 +18,6 @@ export default {
   decorators: [(storyFn) => `<div style="max-width:400px">${storyFn()}</div>`],
 };
 
-/**
- * Default
- */
 export const Default = () => `
     <div class="hds-notification">
       ${getLabel()}
@@ -28,9 +25,6 @@ export const Default = () => `
     </div>
 `;
 
-/**
- * Success
- */
 export const Success = () => `
     <div class="hds-notification hds-notification--success">
       ${getLabel('check')}
@@ -38,9 +32,6 @@ export const Success = () => `
     </div>
 `;
 
-/**
- * Warning
- */
 export const Warning = () => `
     <div class="hds-notification hds-notification--warning">
       ${getLabel('attention')}
@@ -48,9 +39,6 @@ export const Warning = () => `
     </div>
 `;
 
-/**
- * Error
- */
 export const Error = () => `
     <div class="hds-notification hds-notification--error">
       ${getLabel('warning')}
@@ -58,22 +46,25 @@ export const Error = () => `
     </div>
 `;
 
-/**
- * With close button
- */
-export const WithClose = () => `
-    <div class="hds-notification">
-      ${getLabel()}
-      ${text}
-      <button
-        class="hds-notification__close-button"
-        aria-label="Close notification"
-        onclick=""
-      >
-        <span class="hds-icon hds-icon--close" aria-hidden="true"></span>
-      </button>
-    </div>
-`;
+export const WithClose = () =>
+  [null, 'success', 'warning', 'error']
+    .map(
+      (item) =>
+        `
+        <div class="hds-notification ${item ? `hds-notification--${item}` : ''}">
+          ${getLabel()}
+          ${text}
+          <button
+            class="hds-notification__close-button"
+            aria-label="Close notification"
+            onclick=""
+          >
+            <span class="hds-icon hds-icon--close" aria-hidden="true"></span>
+          </button>
+        </div>
+    `,
+    )
+    .join('');
 
 WithClose.story = {
   name: 'With close button',

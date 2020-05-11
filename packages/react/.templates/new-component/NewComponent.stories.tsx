@@ -7,7 +7,4 @@ export default {
   title: '[-replace-name-capital-]',
 };
 
-/**
- * Example
- */
 export const Example = () => <[-replace-name-capital-]>[-replace-name-capital-]</[-replace-name-capital-]>;

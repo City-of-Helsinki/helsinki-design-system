@@ -1,0 +1,172 @@
+/* import radio-button color variables */
+@import "hds-design-tokens/lib/color/component/radio-button.css";
+
+.hds-radio-button {
+  --size: 24px;
+  /* icon (circle) size relative to the radio button size (--size) */
+  --icon-scale: 0.5;
+  --border-width: 2px;
+  --outline-width: 3px;
+
+  --background: var(--color-background-radio-button-default);
+  --background-hover: var(--color-background-radio-button-hover);
+  --background-focus: var(--color-background-radio-button-focus);
+  --background-unselected-disabled: var(--color-background-radio-button-unselected-disabled);
+  --background-selected-disabled: var(--color-background-radio-button-selected-disabled);
+
+  --border-color-focus: var(--color-border-radio-button-focus);
+  --border-color-selected: var(--color-border-radio-button-selected);
+  --border-color-selected-hover: var(--color-border-radio-button-selected-hover);
+  --border-color-selected-disabled: var(--color-border-radio-button-selected-disabled);
+  --border-color-unselected: var(--color-border-radio-button-unselected);
+  --border-color-unselected-hover: var(--color-border-radio-button-unselected-hover);
+  --border-color-unselected-disabled: var(--color-border-radio-button-unselected-disabled);
+
+  --icon-color-selected: var(--color-icon-radio-button-selected);
+  --icon-color-unselected: var(--color-icon-radio-button-unselected);
+  --icon-color-hover: var(--color-icon-radio-button-hover);
+  --icon-color-disabled: var(--color-icon-radio-button-disabled);
+
+  --focus-outline-color: var(--color-focus-outline-radio-button-default);
+
+  --label-color: var(--color-label-radio-button-default);
+  --label-color-disabled: var(--color-label-radio-button-disabled);
+
+  align-items: center;
+  display: flex;
+  height: var(--size);
+  position: relative;
+}
+
+.hds-radio-button:not(:first-of-type) {
+  margin-top: var(--spacing-2-xs);
+}
+
+/* radio button transitions */
+.hds-radio-button .hds-radio-button__input:hover + .hds-radio-button__label::after,
+.hds-radio-button .hds-radio-button__input:focus + .hds-radio-button__label::after {
+  transition: 85ms ease-out;
+  transition-property: background-color, border-color;
+}
+
+.hds-radio-button .hds-radio-button__input:hover + .hds-radio-button__label::before,
+.hds-radio-button .hds-radio-button__input:focus + .hds-radio-button__label::before {
+  transition: 85ms ease-out;
+  transition-property: background-color, box-shadow, transform;
+}
+
+/* NATIVE INPUT */
+.hds-radio-button .hds-radio-button__input {
+  height: var(--size);
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: var(--size);
+}
+
+/* LABEL */
+
+.hds-radio-button .hds-radio-button__label {
+  color: var(--label-color);
+  cursor: pointer;
+  padding-left: calc(var(--size) + var(--spacing-2-xs));
+  position: relative;
+}
+
+/* CUSTOM RADIO BUTTON */
+
+.hds-radio-button .hds-radio-button__label::before,
+.hds-radio-button .hds-radio-button__label::after {
+  border-radius: 50%;
+  content: "";
+  left: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* background & focus outline */
+.hds-radio-button .hds-radio-button__label::before {
+  background-color: var(--background);
+  height: var(--size);
+  width: var(--size);
+}
+
+/* background - hover */
+.hds-radio-button .hds-radio-button__input:hover + .hds-radio-button__label::before {
+  background-color: var(--background-hover);
+}
+
+/* background - focus */
+.hds-radio-button .hds-radio-button__input:focus + .hds-radio-button__label::before {
+  box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+  transform: translate3d(0, -50%, 0);
+}
+
+/* inner circle */
+.hds-radio-button .hds-radio-button__label::after {
+  background-clip: content-box;
+  background-color: var(--icon-color-unselected);
+  border: var(--border-width) solid var(--border-color-unselected);
+  height: var(--size);
+  padding: calc((var(--size) / 2 - var(--border-width) * 2) * (1 - var(--icon-scale)));
+  width: var(--size);
+}
+
+/* inner circle - selected */
+.hds-radio-button .hds-radio-button__input:checked + .hds-radio-button__label::after {
+  background-color: var(--icon-color-selected);
+  border-color: var(--border-color-selected);
+}
+
+/* inner circle - selected - hover */
+.hds-radio-button .hds-radio-button__input:not(:disabled):checked:hover + .hds-radio-button__label::after,
+.hds-radio-button .hds-radio-button__input:not(:disabled):checked:hover:focus + .hds-radio-button__label::after {
+  background-color: var(--icon-color-hover);
+  border-color: var(--border-color-selected-hover);
+}
+
+/* inner circle - unselected - hover */
+.hds-radio-button .hds-radio-button__input:not(:disabled):hover + .hds-radio-button__label::after,
+.hds-radio-button .hds-radio-button__input:not(:disabled):hover:focus + .hds-radio-button__label::after {
+  border-color: var(--border-color-unselected-hover);
+}
+
+/* inner circle - focus */
+.hds-radio-button .hds-radio-button__input:not(:disabled):focus + .hds-radio-button__label::after {
+  border-color: var(--border-color-focus);
+}
+
+/* DISABLED */
+
+/* label */
+.hds-radio-button .hds-radio-button__input:disabled + .hds-radio-button__label {
+  color: var(--label-color-disabled);
+}
+
+/* background */
+.hds-radio-button .hds-radio-button__input:disabled + .hds-radio-button__label::before {
+  background-color: var(--background-unselected-disabled);
+}
+
+/* background - selected */
+.hds-radio-button .hds-radio-button__input:checked:disabled + .hds-radio-button__label::before {
+  background-color: var(--background-selected-disabled);
+}
+
+/* inner circle - disabled */
+.hds-radio-button .hds-radio-button__input:disabled + .hds-radio-button__label::after {
+  border-color: var(--border-color-unselected-disabled);
+}
+
+/* inner circle - selected - disabled */
+.hds-radio-button .hds-radio-button__input:checked:disabled + .hds-radio-button__label::after {
+  background-color: var(--icon-color-disabled);
+  border-color: var(--border-color-selected-disabled);
+}
+
+.hds-radio-button .hds-radio-button__input:disabled,
+.hds-radio-button .hds-radio-button__input:disabled + .hds-radio-button__label {
+  cursor: not-allowed;
+}

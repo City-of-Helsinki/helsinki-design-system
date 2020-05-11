@@ -1,116 +1,38 @@
+@import "hds-core";
+
 .root {
+  composes: hds-text-input from 'hds-core/lib/components/text-input/text-input.css';
   position: relative;
 }
 
 .label {
-  composes: text-sm from 'hds-core/lib/helsinki.css';
-  composes: text-bold from 'hds-core/lib/helsinki.css';
-  margin-bottom: 0.2em;
-  display: block;
+  composes: hds-text-input__label from 'hds-core/lib/components/text-input/text-input.css';
 }
 
 .hiddenLabel {
-  composes: hiddenFromScreen from 'hds-core/lib/helsinki.css';
+  composes: hiddenFromScreen from 'hds-core/lib/utils/helpers.css';
 }
 
 .inputWrapper {
-  position: relative;
-  border-color: var(--hds-ui-color-black-20);
+  composes: hds-text-input__input-wrapper from 'hds-core/lib/components/text-input/text-input.css';
+}
+
+.input {
+  composes: hds-text-input__input from 'hds-core/lib/components/text-input/text-input.css';
 }
 
 .helperText {
-  composes: text-sm from 'hds-core/lib/helsinki.css';
-  color: var(--hds-ui-color-black-70);
+  composes: hds-text-input__helper-text from 'hds-core/lib/components/text-input/text-input.css';
 }
 
 .invalidText {
-  composes: text-sm from 'hds-core/lib/helsinki.css';
-  color: var(--hds-ui-color-error);
+  composes: hds-text-input__helper-text from 'hds-core/lib/components/text-input/text-input.css';
 }
 
-.iconLock {
-  width: 1em;
-  height: 1.375em;
+.invalid {
+  composes: hds-text-input--invalid from 'hds-core/lib/components/text-input/text-input.css';
 }
 
-/* INPUT */
-
-.input {
-  composes: text-md from 'hds-core/lib/helsinki.css';
-  width: 100%;
-  border-width: 2px;
-  border-style: solid;
-  border-radius: 1px;
-  border-color: inherit;
-  background-color: inherit;
-  padding: 0.888em 0.72em;
-}
-
-.input::placeholder {
-  color: var(--hds-ui-color-black-30);
-}
-
-.disabled .input {
-  background-color: var(--hds-ui-color-black-10);
-  border-color: var(--hds-ui-color-black-10);
-}
-
-.invalid .label {
-  color: var(--hds-ui-color-error);
-}
-
-.invalid .inputWrapper {
-  border-color: var(--hds-ui-color-error);
-}
-
-.readOnly .inputWrapper {
-  background-color: var(--hds-ui-color-black-5);
-}
-
-.inputIcon {
-  border: solid 2px var(--hds-ui-color-black-20);
-  border-width: 0 2px;
-  width: 3.5em;
-  position: absolute;
-  right: 0;
-  top: 2px;
-  bottom: 2px;
-  background: no-repeat center center;
-  background-color: inherit;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ALT STYLE */
-
-.alternative .inputWrapper {
-  border-color: var(--hds-theme-color-secondary);
-}
-
-.alternative .inputIcon {
-  border-color: inherit;
-}
-
-.alternative.readOnly .inputWrapper {
-  background-color: var(--hds-theme-color-secondary-light);
-}
-
-.alternative .inputIcon {
-  fill: var(--hds-theme-color-secondary);
-}
-
-.alternative.readOnly .input:focus {
-  border-color: var(--hds-theme-color-secondary);
-}
-
-/* INPUT FOCUS */
-
-.input:focus {
-  border-color: var(--hds-ui-color-black-90);
-}
-
-.readOnly .input:focus {
-  border-color: var(--hds-ui-color-black-20);
+.readOnly {
+  composes: hds-text-input--read-only from 'hds-core/lib/components/text-input/text-input.css';
 }

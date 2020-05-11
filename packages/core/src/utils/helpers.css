@@ -8,3 +8,45 @@
   overflow: hidden;
   position: absolute;
 }
+
+.text-body {
+  font-family: var(--font-default);
+  font-size: var(--fontsize-body-default);
+  color: var(--color-black-90);
+  line-height: var(--lineheight-l);
+}
+
+.text-body p {
+  margin: var(--spacing-l) 0;
+}
+
+.text-medium {
+  font-family: var(--font-default);
+  font-weight: 500;
+}
+
+.text-bold {
+  font-family: var(--font-default);
+  font-weight: bold;
+}
+
+.text-xl {
+  font-size: var(--fontsize-h-3);
+}
+
+.text-lg {
+  font-size: var(--fontsize-h-4);
+}
+
+.text-md {
+  font-size: var(--fontsize-h-5);
+}
+
+.subtitle {
+  font-size: var(--fontsize-subtitle);
+}
+
+.text-sm {
+  font-size: var(--fontsize-body-small);
+  line-height: var(--lineheight-xl);
+}

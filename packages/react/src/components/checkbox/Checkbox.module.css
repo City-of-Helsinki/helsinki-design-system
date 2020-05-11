@@ -1,0 +1,13 @@
+@import "hds-core";
+
+.checkbox {
+  composes: hds-checkbox from 'hds-core/lib/components/checkbox/checkbox.css';
+}
+
+.input {
+  composes: hds-checkbox__input from 'hds-core/lib/components/checkbox/checkbox.css';
+}
+
+.label {
+  composes: hds-checkbox__label from 'hds-core/lib/components/checkbox/checkbox.css';
+}

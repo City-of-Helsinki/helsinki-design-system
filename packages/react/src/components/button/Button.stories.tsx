@@ -17,7 +17,7 @@ export default {
       page: () => (
         <>
           <Title>Props</Title>
-          <Subtitle>Props, which are not mentioned below, are spread into the component</Subtitle>
+          <Subtitle>Props, which are not mentioned below, are passed to the native element</Subtitle>
           <Props />
           <Stories title="Examples" includePrimary />
         </>
@@ -26,41 +26,26 @@ export default {
   },
 };
 
-/**
- * Primary
- */
 export const Primary = () => <Button onClick={onClick}>Button</Button>;
 
-/**
- * Secondary
- */
 export const Secondary = () => (
-  <Button onClick={onClick} color="secondary">
+  <Button onClick={onClick} variant="secondary">
     Button
   </Button>
 );
 
-/**
- * Supplementary
- */
 export const Supplementary = () => (
-  <Button onClick={onClick} color="supplementary">
+  <Button onClick={onClick} variant="supplementary">
     Button
   </Button>
 );
 
-/**
- * Small
- */
 export const Small = () => (
   <Button onClick={onClick} size="small">
     Button
   </Button>
 );
 
-/**
- * Full width
- */
 export const FullWidth = () => (
   <Button onClick={onClick} fullWidth>
     Button
@@ -71,9 +56,6 @@ FullWidth.story = {
   name: 'Full width',
 };
 
-/**
- * Icons
- */
 export const Icons = () => (
   <>
     <Button onClick={onClick} iconLeft={<IconShare />}>
@@ -96,15 +78,27 @@ export const Icons = () => (
   </>
 );
 
-/**
- * Playground
- */
 export const Playground = () => {
   const label = text('Label', 'Button');
-  const color = radios(
-    'Color',
-    { primary: 'primary', secondary: 'secondary', supplementary: 'supplementary' },
+  const variant = radios(
+    'Variant',
+    {
+      primary: 'primary',
+      secondary: 'secondary',
+      supplementary: 'supplementary',
+      success: 'success',
+      danger: 'danger',
+    },
     'primary',
+  );
+  const theme = radios(
+    'Theme',
+    {
+      default: 'default',
+      coat: 'coat',
+      black: 'black',
+    },
+    'default',
   );
   const size = radios('Size', { default: 'default', small: 'small' }, 'default');
   const disabled = boolean('Disabled', false);
@@ -114,7 +108,8 @@ export const Playground = () => {
 
   return (
     <Button
-      color={color}
+      variant={variant}
+      theme={theme}
       disabled={disabled}
       fullWidth={fullWidth}
       size={size}

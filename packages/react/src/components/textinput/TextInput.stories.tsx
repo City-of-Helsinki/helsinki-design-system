@@ -1,69 +1,53 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
+import { Props, Stories, Subtitle, Title } from '@storybook/addon-docs/dist/blocks';
 
 import TextInput from './TextInput';
+import Button from '../button/Button';
 
 const textInputProps = {
+  helperText: 'Assistive text',
   id: 'hdsInput',
-  labelText: 'label',
-  placeholder: 'placeholder text',
+  labelText: 'Label',
+  placeholder: 'Placeholder',
 };
 
 export default {
   component: TextInput,
   title: 'Components/TextInput',
   decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
+  parameters: {
+    docs: {
+      page: () => (
+        <>
+          <Title>Props</Title>
+          <Subtitle>Props, which are not mentioned below, are passed to the native element</Subtitle>
+          <Props />
+          <Stories title="Examples" includePrimary />
+        </>
+      ),
+    },
+  },
 };
 
-/**
- * Default
- */
 export const Default = () => <TextInput {...textInputProps} />;
 
-/**
- * With default value
- */
-export const WithDefaultValue = () => <TextInput {...textInputProps} defaultValue="default value" />;
-
-WithDefaultValue.story = {
-  name: 'With default value',
-};
-
-/**
- * Without placeholder
- */
-export const WithoutPlaceholder = () => <TextInput {...textInputProps} placeholder={undefined} />;
-
-WithoutPlaceholder.story = {
-  name: 'Without placeholder',
-};
-
-/**
- * Disabled
- */
-export const Disabled = () => <TextInput {...textInputProps} disabled />;
-
-/**
- * Read-only
- */
-export const ReadOnly = () => <TextInput {...textInputProps} readOnly defaultValue="default value" />;
+export const ReadOnly = () => <TextInput {...textInputProps} readOnly defaultValue="Text input value" />;
 
 ReadOnly.story = {
   name: 'Read-only',
 };
 
-/**
- * With label hidden
- */
+export const Disabled = () => <TextInput {...textInputProps} disabled defaultValue="Text input value" />;
+
+export const Invalid = () => <TextInput {...textInputProps} invalid helperText="Error text" />;
+
 export const WithLabelHidden = () => <TextInput {...textInputProps} hideLabel />;
 
 WithLabelHidden.story = {
   name: 'With label hidden',
 };
 
-/**
- * With tooltip
- */
 export const WithTooltip = () => (
   <TextInput
     {...textInputProps}
@@ -78,51 +62,53 @@ WithTooltip.story = {
   name: 'With tooltip',
 };
 
-/**
- * With helper text
- */
-export const WithHelperText = () => <TextInput {...textInputProps} helperText="helper text" />;
+export const NumberInput = () => <TextInput {...textInputProps} type="number" />;
 
-WithHelperText.story = {
-  name: 'With helper text',
+export const UsingRef = () => {
+  const ref = useRef(null);
+
+  return (
+    <>
+      <Button onClick={() => ref?.current?.focus()} style={{ marginBottom: '1rem' }} theme="black" size="small">
+        Focus input
+      </Button>
+      <TextInput {...textInputProps} ref={ref} />
+    </>
+  );
 };
 
-/**
- * Invalid
- */
-export const Invalid = () => <TextInput {...textInputProps} invalid invalidText="error text" />;
+UsingRef.story = {
+  name: 'Using ref',
+};
 
-/**
- * Playground
- */
 export const Playground = () => {
   const groupGeneral = 'General';
   const groupTooltip = 'Tooltip';
 
   const label = text('Label', textInputProps.labelText, groupGeneral);
   const placeholder = text('Placeholder', textInputProps.placeholder, groupGeneral);
-  const helperText = text('Helper text', 'helper text', groupGeneral);
-  const invalidText = text('Invalid text', 'error text', groupGeneral);
+  const helperText = text('Helper text', textInputProps.helperText, groupGeneral);
+  const type = text('Type', 'text', groupGeneral);
   const disabled = boolean('Disabled', false, groupGeneral);
   const readOnly = boolean('Read-only', false, groupGeneral);
   const invalid = boolean('Invalid', false, groupGeneral);
   const hideLabel = boolean('Hide label', false, groupGeneral);
 
-  const tooltipLabel = text('Tooltip label', 'tooltip label', groupTooltip);
+  const tooltipLabel = text('Tooltip label', 'Tooltip label', groupTooltip);
   const tooltipText = text(
     'Tooltip text',
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     groupTooltip,
   );
-  const tooltipOpenButtonLabelText = text('Tooltip open label', 'show tooltip', groupTooltip);
-  const tooltipCloseButtonLabelText = text('Tooltip close label', 'close tooltip', groupTooltip);
+  const tooltipOpenButtonLabelText = text('Tooltip open label', 'Show tooltip', groupTooltip);
+  const tooltipCloseButtonLabelText = text('Tooltip close label', 'Close tooltip', groupTooltip);
 
   return (
     <TextInput
       {...textInputProps}
+      type={type}
       labelText={label}
       helperText={helperText}
-      invalidText={invalidText}
       placeholder={placeholder}
       readOnly={readOnly}
       disabled={disabled}

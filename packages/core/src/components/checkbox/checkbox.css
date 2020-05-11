@@ -1,0 +1,189 @@
+/* import checkbox color variables */
+@import "hds-design-tokens/lib/color/component/checkbox.css";
+
+@svg-load icon url(../../svg/icon-check.svg);
+
+.hds-checkbox {
+  --size: 24px;
+  /* icon size relative to the checkbox size (--size) */
+  --icon-scale: 0.75;
+  --border-radius: 1px;
+  --border-width: 2px;
+  --outline-width: 3px;
+
+  --background-unselected: var(--color-background-checkbox-unselected);
+  --background-selected: var(--color-background-checkbox-selected);
+  --background-hover: var(--color-background-checkbox-hover);
+  --background-disabled: var(--color-background-checkbox-disabled);
+
+  --border-color-selected: var(--color-border-checkbox-selected);
+  --border-color-selected-hover: var(--color-border-checkbox-selected-hover);
+  --border-color-selected-focus: var(--color-border-checkbox-selected-focus);
+  --border-color-unselected: var(--color-border-checkbox-unselected);
+  --border-color-unselected-hover: var(--color-border-checkbox-unselected-hover);
+  --border-color-unselected-focus: var(--color-border-checkbox-unselected-focus);
+  --border-color-disabled: var(--color-border-checkbox-disabled);
+
+  --icon-color-unselected: var(--color-icon-checkbox-unselected);
+  --icon-color-selected: var(--color-icon-checkbox-selected);
+  --icon-color-disabled: var(--color-icon-checkbox-disabled);
+
+  --focus-outline-color: var(--color-focus-outline-checkbox-default);
+
+  --label-color: var(--color-label-checkbox-default);
+  --label-color-disabled: var(--color-label-checkbox-disabled);
+
+  align-items: center;
+  display: flex;
+  height: var(--size);
+  position: relative;
+}
+
+.hds-checkbox:not(:first-of-type) {
+  margin-top: var(--spacing-2-xs);
+}
+
+/* checkbox transitions */
+.hds-checkbox .hds-checkbox__input:hover::before,
+.hds-checkbox .hds-checkbox__input:focus::before,
+.hds-checkbox .hds-checkbox__input:hover + .hds-checkbox__label::after,
+.hds-checkbox .hds-checkbox__input:focus + .hds-checkbox__label::after {
+  transition: 85ms ease-out;
+  transition-property: background-color, border-color, transform;
+}
+
+.hds-checkbox .hds-checkbox__input:focus + .hds-checkbox__label::before {
+  transition: 85ms ease-out;
+  transition-property: box-shadow, transform;
+}
+
+/* NATIVE INPUT */
+.hds-checkbox .hds-checkbox__input {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  height: var(--size);
+  left: 0;
+  outline: none;
+  position: absolute;
+  top: 0;
+  width: var(--size);
+}
+
+/* LABEL */
+
+.hds-checkbox .hds-checkbox__label {
+  color: var(--label-color);
+  cursor: pointer;
+  padding-left: calc(var(--size) + var(--spacing-2-xs));
+  position: relative;
+}
+
+/* CUSTOM CHECKBOX */
+
+.hds-checkbox .hds-checkbox__input::before,
+.hds-checkbox .hds-checkbox__label::before,
+.hds-checkbox .hds-checkbox__label::after {
+  border-radius: var(--border-radius);
+  content: "";
+  left: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* checkbox icon */
+.hds-checkbox .hds-checkbox__input::before {
+  background-color: var(--icon-color-unselected);
+  height: var(--size);
+  mask-image: svg-inline(icon);
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: calc(var(--size) * var(--icon-scale));
+  -webkit-mask-image: svg-inline(icon);
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: calc(var(--size) * var(--icon-scale));
+  width: var(--size);
+  transform: translate3d(0, -50%, 0) scale(0.6);
+  z-index: 1;
+}
+
+/* checkbox icon - selected */
+.hds-checkbox .hds-checkbox__input:checked::before {
+  background-color: var(--icon-color-selected);
+  transform: translate3d(0, -50%, 0) scale(1);
+}
+
+/* focus outline */
+.hds-checkbox .hds-checkbox__label::before {
+  height: var(--size);
+  width: var(--size);
+}
+
+/* focus outline - focus */
+.hds-checkbox .hds-checkbox__input:focus + .hds-checkbox__label::before {
+  box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+  transform: translate3d(0, -50%, 0);
+}
+
+/* background */
+.hds-checkbox .hds-checkbox__label::after {
+  background-color: var(--background-unselected);
+  border: var(--border-width) solid var(--border-color-unselected);
+  height: var(--size);
+  width: var(--size);
+}
+
+/* background - selected */
+.hds-checkbox .hds-checkbox__input:checked + .hds-checkbox__label::after {
+  background-color: var(--background-selected);
+  border-color: var(--border-color-selected);
+}
+
+/* background - selected - hover */
+.hds-checkbox .hds-checkbox__input:not(:disabled):checked:hover + .hds-checkbox__label::after,
+.hds-checkbox .hds-checkbox__input:not(:disabled):checked:hover:focus + .hds-checkbox__label::after {
+  background-color: var(--background-hover);
+  border-color: var(--border-color-selected-hover);
+}
+
+/* background - unselected - hover */
+.hds-checkbox .hds-checkbox__input:not(:disabled):hover + .hds-checkbox__label::after,
+.hds-checkbox .hds-checkbox__input:not(:disabled):hover:focus + .hds-checkbox__label::after {
+  border-color: var(--border-color-unselected-hover);
+}
+
+/* background - unselected - focus */
+.hds-checkbox .hds-checkbox__input:not(:disabled):focus + .hds-checkbox__label::after {
+  border-color: var(--border-color-unselected-focus);
+}
+
+/* background - selected - focus */
+.hds-checkbox .hds-checkbox__input:not(:disabled):checked:focus + .hds-checkbox__label::after {
+  border-color: var(--border-color-selected-focus);
+}
+
+/* DISABLED */
+
+/* label */
+.hds-checkbox .hds-checkbox__input:disabled + .hds-checkbox__label {
+  color: var(--label-color-disabled);
+}
+
+/* checkbox icon - disabled */
+.hds-checkbox .hds-checkbox__input:checked:disabled::before {
+  background-color: var(--icon-color-disabled);
+}
+
+/* background */
+.hds-checkbox .hds-checkbox__input:disabled + .hds-checkbox__label::after {
+  background-color: var(--background-disabled);
+  border-color: var(--border-color-disabled);
+}
+
+.hds-checkbox .hds-checkbox__input:disabled,
+.hds-checkbox .hds-checkbox__input:disabled + .hds-checkbox__label {
+  cursor: not-allowed;
+}

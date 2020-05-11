@@ -78,8 +78,8 @@
 }
 
 body {
-  font-family: "HelsinkiGrotesk";
-  font-size: var(--hds-text-base-size);
-  color: var(--hds-theme-color-body);
-  line-height: var(--hds-text-base-line-height);
+  font-family: var(--font-default);
+  font-size: var(--fontsize-body-default);
+  color: var(--color-black-90);
+  line-height: var(--lineheight-l);
 }

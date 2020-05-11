@@ -4,9 +4,9 @@ menu: Design Tokens
 route: /design-tokens/typography
 ---
 
-# Typography
+import Text from "../../src/components/Text";
 
----
+# Typography
 
 ## Type face: Helsinki Grotesk
 
@@ -57,3 +57,23 @@ We use Bold or Regular as font weights.
 ## Type colour
 
 Use black or white as text colour depending on the background. We advise to use other text colours sparingly if at all.
+
+## Tokens
+
+CSS             | SASS           | value | Example                                                                |
+--------------- | -------------- | ----- | ---------------------------------------------------------------------- |
+--font-default          | $font-default          | HelsinkiGrotesk |                                              |
+--fontsize-h-1          | $fontsize-h-1          | 3.25rem         | <Text size="var(--fontsize-h-1)" />          |
+--fontsize-h-2          | $fontsize-h-2          | 2.25rem         | <Text size="var(--fontsize-h-2)" />          |
+--fontsize-h-3          | $fontsize-h-3          | 1.5rem          | <Text size="var(--fontsize-h-3)" />          |
+--fontsize-h-4          | $fontsize-h-4          | 1.25rem         | <Text size="var(--fontsize-h-4)" />          |
+--fontsize-h-5          | $fontsize-h-5          | 1.125rem        | <Text size="var(--fontsize-h-5)" />          |
+--fontsize-subtitle     | $fontsize-subtitle     | 1rem            | <Text size="var(--fontsize-subtitle)" />     |
+--fontsize-body-default | $fontsize-body-default | 1rem            | <Text size="var(--fontsize-body-default)" /> |
+--fontsize-body-small   | $fontsize-body-small   | 0.875rem        | <Text size="var(--fontsize-body-small)" />   |
+--fontsize-body-medium  | $fontsize-body-medium  | 1.125rem        | <Text size="var(--fontsize-body-medium)" />  |
+--fontsize-body-large   | $fontsize-body-large   | 1.25rem         | <Text size="var(--fontsize-body-large)" />   |
+--lineheight-s          | $lineheight-s          | 1               |                                              |
+--lineheight-m          | $lineheight-m          | 1.2             |                                              |
+--lineheight-l          | $lineheight-l          | 1.5             |                                              |
+--lineheight-xl         | $lineheight-xl         | 1.75            |                                              |

@@ -42,7 +42,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{color.black-20.value}",
+            "value": "{color.black-40.value}",
             "type": "color"
           }
         },
@@ -64,7 +64,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{color.black-20.value}",
+            "value": "{color.black-40.value}",
             "type": "color"
           }
         }

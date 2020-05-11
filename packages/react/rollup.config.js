@@ -3,6 +3,7 @@ import { eslint } from 'rollup-plugin-eslint';
 import includePaths from 'rollup-plugin-includepaths';
 import postcss from 'rollup-plugin-postcss';
 import typescript from 'rollup-plugin-typescript2';
+import resolve from '@rollup/plugin-node-resolve';
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
@@ -21,8 +22,17 @@ export default {
   plugins: [
     eslint(),
     includePaths({ paths: ['src'], extensions }),
+    resolve(),
     postcss({
       modules: true,
+      minimize: {
+        preset: [
+          'default',
+          {
+            calc: false,
+          },
+        ],
+      },
     }),
     typescript(),
     babel({

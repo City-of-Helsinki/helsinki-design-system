@@ -1,12 +1,17 @@
 {
   "color": {
     "error": {
-      "value": "#c4123e",
+      "value": "#b01038",
       "type": "color",
       "primary": true
     },
     "error-light": {
       "value": "#f6e2e6",
+      "type": "color",
+      "primary": true
+    },
+    "error-dark": {
+      "value": "#8d0d2d",
       "type": "color",
       "primary": true
     },
@@ -17,6 +22,11 @@
     },
     "success-light": {
       "value": "#e2f5f3",
+      "type": "color",
+      "primary": true
+    },
+    "success-dark": {
+      "value": "#006250",
       "type": "color",
       "primary": true
     },
@@ -42,6 +52,11 @@
     },
     "info-light": {
       "value": "#dcf1f5",
+      "type": "color",
+      "primary": true
+    },
+    "info-dark": {
+      "value": "#005b76",
       "type": "color",
       "primary": true
     }

@@ -22,7 +22,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <button
         type="button"
         title={isOpen ? closeButtonLabelText : openButtonLabelText}
@@ -56,7 +56,7 @@ const Tooltip: React.FC<TooltipProps> = ({
           <div className={styles.tooltipBody}>{children}</div>
         </div>
       </TooltipTransition>
-    </>
+    </div>
   );
 };
 

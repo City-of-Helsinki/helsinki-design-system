@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Checkbox /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="checkbox"
+  >
+    <input
+      aria-checked="false"
+      class="input"
+      id="test"
+      type="checkbox"
+      value=""
+    />
+    <label
+      class="label"
+      for="test"
+    >
+      label text
+    </label>
+  </div>
+</DocumentFragment>
+`;

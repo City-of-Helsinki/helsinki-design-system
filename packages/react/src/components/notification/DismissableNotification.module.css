@@ -1,38 +1,19 @@
 .buttonClose {
-  position: absolute;
-  top: 0.85em;
-  right: 0;
-  padding: 1.875em;
-  fill: var(--hds-theme-color-primary);
+  composes: hds-notification__close-button from 'hds-core/lib/components/notification/notification.css';
 }
 
 .iconClose {
-  width: 1.25em;
-  height: 1.25em;
+  composes: hds-icon from 'hds-core/lib/components/notification/notification.css';
 }
 
-.buttonClose.warning {
-  fill: var(--hds-ui-color-alert-dark);
+.warning {
+  composes: hds-notification--warning from 'hds-core/lib/components/notification/notification.css';
 }
 
-.buttonClose.error {
-  fill: var(--hds-ui-color-error);
+.error {
+  composes: hds-notification--error from 'hds-core/lib/components/notification/notification.css';
 }
 
-.buttonClose.success {
-  fill: var(--hds-ui-color-success);
-}
-
-@media all and (max-width: 768px) {
-  .buttonClose {
-    padding: 1.25em;
-    top: 1.35em;
-    width: 4em;
-    height: 4em;
-  }
-
-  .iconClose {
-    width: 0.9375em;
-    height: 0.9375em;
-  }
+.success {
+  composes: hds-notification--success from 'hds-core/lib/components/notification/notification.css';
 }

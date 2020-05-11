@@ -21,39 +21,18 @@ export default {
   },
 };
 
-/**
- * Basic
- */
 export const Basic = () => <Koros />;
 
-/**
- * Beat
- */
 export const Beat = () => <Koros type="beat" />;
 
-/**
- * Pulse
- */
 export const Pulse = () => <Koros type="pulse" />;
 
-/**
- * Wave
- */
 export const Wave = () => <Koros type="wave" />;
 
-/**
- * Storm
- */
 export const Storm = () => <Koros type="storm" />;
 
-/**
- * Flipped
- */
 export const Flipped = () => <Koros flipHorizontal />;
 
-/**
- * Playground
- */
 export const Playground = () => {
   const type = radios('Type', { basic: 'basic', beat: 'beat', pulse: 'pulse', wave: 'wave', storm: 'storm' }, 'basic');
   const flipped = boolean('Flip horizontal', false);

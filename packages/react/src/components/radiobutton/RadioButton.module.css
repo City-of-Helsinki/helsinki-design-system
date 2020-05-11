@@ -1,0 +1,13 @@
+@import "hds-core";
+
+.radioButton {
+  composes: hds-radio-button from 'hds-core/lib/components/radio-button/radio-button.css';
+}
+
+.input {
+  composes: hds-radio-button__input from 'hds-core/lib/components/radio-button/radio-button.css';
+}
+
+.label {
+  composes: hds-radio-button__label from 'hds-core/lib/components/radio-button/radio-button.css';
+}

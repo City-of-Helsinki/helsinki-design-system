@@ -1,12 +1,12 @@
 {
   "name": "hds-react",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "scripts": {
     "build": "yarn run lint && yarn run tcm && rollup -c",
-    "start": "rollup -c --watch & tcm src --watch & yarn storybook",
+    "start": "yarn storybook",
     "scaffold": "node scripts/scaffold.js",
     "tsc:es5": "tsc",
     "tsc:es6": "tsc -m es6 --outDir lib-esm --moduleResolution node",
@@ -23,6 +23,7 @@
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.6.0",
+    "@rollup/plugin-node-resolve": "^7.1.3",
     "@storybook/addon-a11y": "6.0.0-alpha.41",
     "@storybook/addon-actions": "6.0.0-alpha.41",
     "@storybook/addon-backgrounds": "6.0.0-alpha.41",
@@ -71,7 +72,7 @@
     "typescript": "^3.6.3"
   },
   "dependencies": {
-    "hds-core": "^0.4.2",
+    "hds-core": "^0.6.0",
     "lodash": "^4.17.15",
     "react-spring": "^8.0.27"
   },

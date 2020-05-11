@@ -42,7 +42,7 @@
             "type": "color"
           },
           "disabled": {
-            "value": "{color.black-20.value}",
+            "value": "{color.black-50.value}",
             "type": "color"
           }
         },
@@ -54,11 +54,11 @@
             "value": "transparent"
           },
           "focus": {
-            "value": "{color.bus.value}",
+            "value": "{color.coat-of-arms.blue.value}",
             "type": "color"
           },
           "hover-focus": {
-            "value": "{color.bus-dark-50.value}",
+            "value": "{color.coat-of-arms.blue.value}",
             "type": "color"
           },
           "disabled": {

@@ -13,11 +13,17 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
    */
   className?: string;
   /**
-   * Defines the button color
+   * Defines the button variant
    *
-   * Available options: `'primary' | 'secondary' | 'supplementary'`
+   * Available options: `'primary' | 'secondary' | 'supplementary' | 'success' | 'danger'`
    */
-  color?: 'primary' | 'secondary' | 'tertiary' | 'supplementary';
+  variant?: 'primary' | 'secondary' | 'supplementary' | 'success' | 'danger';
+  /**
+   * Defines the button theme
+   *
+   * Available options: `'default' | 'coat' | 'black'`
+   */
+  theme?: 'default' | 'coat' | 'black';
   /**
    * If `true`, the button will be disabled
    */
@@ -42,48 +48,55 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: 'default' | 'small';
 };
 
-const Button: React.FC<ButtonProps> = ({
-  children,
-  className,
-  color = 'primary',
-  disabled,
-  fullWidth,
-  iconLeft,
-  iconRight,
-  size = 'default',
-  ...rest
-}: ButtonProps) => {
-  const iconElementLeft = iconLeft ? (
-    <div className={styles.icon} aria-hidden="true">
-      {iconLeft}
-    </div>
-  ) : null;
+const Button: React.FC<ButtonProps> = React.forwardRef(
+  (
+    {
+      children,
+      className,
+      disabled = false,
+      fullWidth,
+      size = 'default',
+      theme = 'default',
+      variant = 'primary',
+      iconLeft,
+      iconRight,
+      ...rest
+    }: ButtonProps,
+    ref: React.RefObject<HTMLButtonElement>,
+  ) => {
+    const iconElementLeft = iconLeft ? (
+      <div className={styles.icon} aria-hidden="true">
+        {iconLeft}
+      </div>
+    ) : null;
 
-  const iconElementRight = iconRight ? (
-    <div className={classNames(styles.icon, styles.iconRight)} aria-hidden="true">
-      {iconRight}
-    </div>
-  ) : null;
+    const iconElementRight = iconRight ? (
+      <div className={classNames(styles.icon)} aria-hidden="true">
+        {iconRight}
+      </div>
+    ) : null;
 
-  return (
-    <button
-      disabled={disabled}
-      type="button"
-      className={classNames(
-        styles.button,
-        styles[color],
-        styles[size],
-        disabled ? styles.disabled : '',
-        fullWidth ? styles.fullWidth : '',
-        className,
-      )}
-      {...rest}
-    >
-      {iconElementLeft}
-      <span className={styles.label}>{children}</span>
-      {iconElementRight}
-    </button>
-  );
-};
+    return (
+      <button
+        ref={ref}
+        disabled={disabled}
+        type="button"
+        className={classNames(
+          styles.button,
+          styles[variant],
+          styles[`theme-${theme}`],
+          styles[`size-${size}`],
+          fullWidth ? styles.fullWidth : '',
+          className,
+        )}
+        {...rest}
+      >
+        {iconElementLeft}
+        <span className={styles.label}>{children}</span>
+        {iconElementRight}
+      </button>
+    );
+  },
+);
 
 export default Button;
