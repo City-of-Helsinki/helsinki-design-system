@@ -37,9 +37,9 @@ hds-core/
 
 ## Using the styles
 
-At the minimum you'll need two stylesheets to use the core components: `base.css` (the base styles and CSS variables) and `components/all.css`. If you use any of the icons, you'll also need `icons/all.css`. Do note that the `all.css`-files bundle all the components and icons into single stylesheets and thus are large in filesize.
+To import styles for all the core components, you'll need two stylesheets: `base.css` (the base styles and CSS variables) and `components/all.css`. If you use any of the icons, you'll also need `icons/all.css`. Do note that the `all.css`-files bundle all the components and icons into single stylesheets and thus are large in filesize.
 
-Therefore, we do recommend that you use individual stylesheets where needed.
+Therefore, we do recommend that you use individual component and icon stylesheets instead of the bundled styles.
 
 ### Helsinki fonts
 
@@ -48,6 +48,9 @@ The Helsinki fonts are not included in the package due to copyright reasons.
 ### Overriding styles
 
 Helsinki Design System uses CSS variables from the [hds-design-tokens](https://www.npmjs.com/package/hds-design-tokens) package to control coloring and layout. You can override these variables where needed.
+
+## Development
+Read more [here](DEVELOPMENT.md)
 
 ## Built with
 

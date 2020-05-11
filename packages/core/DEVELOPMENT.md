@@ -16,7 +16,13 @@ yarn
 yarn start:core
 ```
 
-The use of Storybook is recommended for component development.
+This starts storybook. You can read about how to write storybook stories [here](https://storybook.js.org/docs/basics/writing-stories/). The use of Storybook is recommended for component development.
+
+### Design Tokens
+
+This project uses [hds-design-tokens](../design-tokens/README.md) as a dependency. It provides variables for colors, spacing, typography etc. that are used by the core package. Those variables should be used whenever possible. If you need to update or add new tokens, see [here](../design-tokens/README.md#adding-and-updating-tokens).
+
+Remember to always build the tokens after updating or adding new ones, otherwise they won't be available.
 
 ## Workflow
 
