@@ -84,8 +84,8 @@ const Button: React.FC<ButtonProps> = React.forwardRef(
         className={classNames(
           styles.button,
           styles[variant],
-          styles[theme],
-          styles[size],
+          styles[`theme-${theme}`],
+          styles[`size-${size}`],
           fullWidth ? styles.fullWidth : '',
           className,
         )}

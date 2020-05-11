@@ -12,7 +12,7 @@
   composes: hds-button--fullwidth from 'hds-core/lib/components/button/button.css';
 }
 
-.small {
+.size-small {
   composes: hds-button--small from 'hds-core/lib/components/button/button.css';
 }
 
@@ -40,10 +40,10 @@
   composes: hds-button--danger from 'hds-core/lib/components/button/button.css';
 }
 
-.coat {
+.theme-coat {
   composes: hds-button--theme-coat from 'hds-core/lib/components/button/button.css';
 }
 
-.black {
+.theme-black {
   composes: hds-button--theme-black from 'hds-core/lib/components/button/button.css';
 }
