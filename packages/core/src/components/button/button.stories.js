@@ -10,54 +10,36 @@ export default {
   decorators: [(storyFn) => `<style>.hds-button {margin-right: 1rem;}</style>${storyFn()}`],
 };
 
-/**
- * Primary
- */
 export const Primary = () => `
   <button type="button" class="hds-button hds-button--primary">
     ${getLabel()}
   </button>
 `;
 
-/**
- * Secondary
- */
 export const Secondary = () => `
   <button type="button" class="hds-button hds-button--secondary">
     ${getLabel()}
   </button>
 `;
 
-/**
- * Supplementary
- */
 export const Supplementary = () => `
   <button type="button" class="hds-button hds-button--supplementary">
     ${getLabel()}
   </button>
 `;
 
-/**
- * Success
- */
 export const Success = () => `
   <button type="button" class="hds-button hds-button--success">
     ${getLabel()}
   </button>
 `;
 
-/**
- * Danger
- */
 export const Danger = () => `
   <button type="button" class="hds-button hds-button--danger">
     ${getLabel()}
   </button>
 `;
 
-/**
- * Full width
- */
 export const FullWidth = () => `
   <button type="button" class="hds-button hds-button--primary hds-button--fullwidth">
     ${getLabel()}
@@ -68,27 +50,18 @@ FullWidth.story = {
   name: 'Full width',
 };
 
-/**
- * Small
- */
 export const Small = () => `
   <button type="button" class="hds-button hds-button--primary hds-button--small">
     ${getLabel()}
   </button>
 `;
 
-/**
- * Disabled
- */
 export const Disabled = () => `
   <button type="button" disabled class="hds-button hds-button--primary">
     ${getLabel()}
   </button>
 `;
 
-/**
- * Icons
- */
 export const Icons = () => `
   <button type="button" class="hds-button hds-button--primary">
     <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
@@ -126,9 +99,6 @@ export const Icons = () => `
   </button>
 `;
 
-/**
- * Themes
- */
 export const Themes = () => `
   <button type="button" class="hds-button hds-button--primary hds-button--theme-coat">
     ${getLabel('coat')}

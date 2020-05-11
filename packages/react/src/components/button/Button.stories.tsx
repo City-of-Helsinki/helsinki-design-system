@@ -26,41 +26,26 @@ export default {
   },
 };
 
-/**
- * Primary
- */
 export const Primary = () => <Button onClick={onClick}>Button</Button>;
 
-/**
- * Secondary
- */
 export const Secondary = () => (
   <Button onClick={onClick} variant="secondary">
     Button
   </Button>
 );
 
-/**
- * Supplementary
- */
 export const Supplementary = () => (
   <Button onClick={onClick} variant="supplementary">
     Button
   </Button>
 );
 
-/**
- * Small
- */
 export const Small = () => (
   <Button onClick={onClick} size="small">
     Button
   </Button>
 );
 
-/**
- * Full width
- */
 export const FullWidth = () => (
   <Button onClick={onClick} fullWidth>
     Button
@@ -71,9 +56,6 @@ FullWidth.story = {
   name: 'Full width',
 };
 
-/**
- * Icons
- */
 export const Icons = () => (
   <>
     <Button onClick={onClick} iconLeft={<IconShare />}>
@@ -96,9 +78,6 @@ export const Icons = () => (
   </>
 );
 
-/**
- * Playground
- */
 export const Playground = () => {
   const label = text('Label', 'Button');
   const variant = radios(

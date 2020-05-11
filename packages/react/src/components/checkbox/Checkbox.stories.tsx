@@ -21,33 +21,18 @@ export default {
   },
 };
 
-/**
- * Default
- */
 export const Default = () => <Checkbox id="checkbox" labelText="Label" />;
 
-/**
- * Selected
- */
 export const Selected = () => <Checkbox id="checkbox2" labelText="Label" checked />;
 
-/**
- * Disabled
- */
 export const Disabled = () => <Checkbox id="checkbox3" labelText="Label" disabled />;
 
-/**
- * Selected & disabled
- */
 export const SelectedDisabled = () => <Checkbox id="checkbox4" labelText="Label" checked disabled />;
 
 SelectedDisabled.story = {
   name: 'Selected & disabled',
 };
 
-/**
- * Custom
- */
 export const Custom = () => {
   const [checked, setChecked] = useState(false);
   const customStyles = {
@@ -77,9 +62,6 @@ Custom.story = {
   name: 'With custom styles',
 };
 
-/**
- * Playground
- */
 export const Playground = () => {
   const [checkedItems, setCheckedItems] = useState({});
   const options = ['Option 1', 'Option 2', 'Option 3'];

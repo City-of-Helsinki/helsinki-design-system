@@ -15,36 +15,24 @@ export default {
   decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
 };
 
-/**
- * Default
- */
 export const Default = () => (
   <DismissableNotification labelText="label" closeButtonLabelText="dismiss" onClose={onClose}>
     {content}
   </DismissableNotification>
 );
 
-/**
- * Warning
- */
 export const Warning = () => (
   <DismissableNotification labelText="label" closeButtonLabelText="dismiss" type="warning" onClose={onClose}>
     {content}
   </DismissableNotification>
 );
 
-/**
- * Error
- */
 export const Error = () => (
   <DismissableNotification labelText="label" closeButtonLabelText="dismiss" type="error" onClose={onClose}>
     {content}
   </DismissableNotification>
 );
 
-/**
- * Success
- */
 export const Success = () => (
   <DismissableNotification labelText="label" closeButtonLabelText="dismiss" type="success" onClose={onClose}>
     {content}

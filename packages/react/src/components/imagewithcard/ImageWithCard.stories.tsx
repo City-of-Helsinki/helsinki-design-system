@@ -33,23 +33,14 @@ export default {
   },
 };
 
-/**
- * Default
- */
 export const Default = () => <ImageWithCard src={imageFile}>{content}</ImageWithCard>;
 
-/**
- * Hover
- */
 export const Hover = () => (
   <ImageWithCard cardLayout="hover" src={imageFile}>
     {content}
   </ImageWithCard>
 );
 
-/**
- * Hover full width
- */
 export const HoverFullWidth = () => (
   <ImageWithCard cardLayout="hover" fullWidth src={imageFile}>
     {content}
@@ -60,18 +51,12 @@ HoverFullWidth.story = {
   name: 'Hover full width',
 };
 
-/**
- * Split
- */
 export const Split = () => (
   <ImageWithCard cardLayout="split" src={imageFile}>
     {content}
   </ImageWithCard>
 );
 
-/**
- * Split full width
- */
 export const SplitFullWidth = () => (
   <ImageWithCard cardLayout="split" fullWidth src={imageFile}>
     {content}
@@ -82,9 +67,6 @@ SplitFullWidth.story = {
   name: 'Split full width',
 };
 
-/**
- * Playground
- */
 export const Playground = () => {
   const cardTitle = text('Title', contentTitle);
   const cardText = text('Text', contentText);

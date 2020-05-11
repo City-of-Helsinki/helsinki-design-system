@@ -10,9 +10,6 @@ export default {
   decorators: [(storyFn) => `<div style="max-width: 400px">${storyFn()}</div>`],
 };
 
-/**
- * Default
- */
 export const Default = () => `
     <div class="hds-text-input">
       ${getLabel()}
@@ -27,9 +24,6 @@ export const Default = () => `
     </div>
 `;
 
-/**
- * Disabled
- */
 export const Disabled = () => `
     <div class="hds-text-input">
       ${getLabel('input3')}
@@ -45,9 +39,6 @@ export const Disabled = () => `
     </div>
 `;
 
-/**
- * Invalid
- */
 export const Invalid = () => `
    <div class="hds-text-input hds-text-input--invalid">
      ${getLabel('input4')}

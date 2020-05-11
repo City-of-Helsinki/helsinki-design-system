@@ -18,9 +18,6 @@ export default {
   decorators: [(storyFn) => `<div style="max-width:400px">${storyFn()}</div>`],
 };
 
-/**
- * Default
- */
 export const Default = () => `
     <div class="hds-notification">
       ${getLabel()}
@@ -28,9 +25,6 @@ export const Default = () => `
     </div>
 `;
 
-/**
- * Success
- */
 export const Success = () => `
     <div class="hds-notification hds-notification--success">
       ${getLabel('check')}
@@ -38,9 +32,6 @@ export const Success = () => `
     </div>
 `;
 
-/**
- * Warning
- */
 export const Warning = () => `
     <div class="hds-notification hds-notification--warning">
       ${getLabel('attention')}
@@ -48,9 +39,6 @@ export const Warning = () => `
     </div>
 `;
 
-/**
- * Error
- */
 export const Error = () => `
     <div class="hds-notification hds-notification--error">
       ${getLabel('warning')}
@@ -58,9 +46,6 @@ export const Error = () => `
     </div>
 `;
 
-/**
- * With close button
- */
 export const WithClose = () =>
   [null, 'success', 'warning', 'error']
     .map(

@@ -30,33 +30,18 @@ export default {
   },
 };
 
-/**
- * Default
- */
 export const Default = () => <TextArea {...textAreaProps} />;
 
-/**
- * Disabled
- */
 export const Disabled = () => <TextArea {...textAreaProps} disabled defaultValue={value} />;
 
-/**
- * Invalid
- */
 export const Invalid = () => <TextArea {...textAreaProps} invalid helperText="Error text" defaultValue={value} />;
 
-/**
- * With label hidden
- */
 export const WithLabelHidden = () => <TextArea {...textAreaProps} hideLabel defaultValue={value} />;
 
 WithLabelHidden.story = {
   name: 'With label hidden',
 };
 
-/**
- * Playground
- */
 export const Playground = () => {
   const groupGeneral = 'General';
   const groupTooltip = 'Tooltip';

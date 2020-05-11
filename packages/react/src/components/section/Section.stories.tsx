@@ -26,9 +26,6 @@ export default {
   },
 };
 
-/**
- * Plain
- */
 export const Plain = () => (
   <Section>
     <h1>{placeholderTitle}</h1>
@@ -36,9 +33,6 @@ export const Plain = () => (
   </Section>
 );
 
-/**
- * Primary
- */
 export const Primary = () => (
   <Section color="primary">
     <h1>{placeholderTitle}</h1>
@@ -46,9 +40,6 @@ export const Primary = () => (
   </Section>
 );
 
-/**
- * Secondary
- */
 export const Secondary = () => (
   <Section color="secondary">
     <h1>{placeholderTitle}</h1>
@@ -56,9 +47,6 @@ export const Secondary = () => (
   </Section>
 );
 
-/**
- * Tertiary
- */
 export const Tertiary = () => (
   <Section color="tertiary">
     <h1>{placeholderTitle}</h1>
@@ -66,9 +54,6 @@ export const Tertiary = () => (
   </Section>
 );
 
-/**
- * With koros
- */
 export const WithKoros = () => (
   <Section color="primary" korosType="basic">
     <h1>{placeholderTitle}</h1>
@@ -80,9 +65,6 @@ WithKoros.story = {
   name: 'With koros',
 };
 
-/**
- * Multiple
- */
 export const Multiple = () => (
   <>
     <Section color="secondary" korosType="basic">
@@ -126,9 +108,6 @@ Multiple.story = {
   name: 'Multiple sections',
 };
 
-/**
- * Playground
- */
 export const Playground = () => {
   const sectionTitle = text('Title', placeholderTitle);
   const sectionText = text('Text', placeholderText);

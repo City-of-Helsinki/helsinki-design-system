@@ -30,42 +30,24 @@ export default {
   },
 };
 
-/**
- * Default
- */
 export const Default = () => <TextInput {...textInputProps} />;
 
-/**
- * Read-only
- */
 export const ReadOnly = () => <TextInput {...textInputProps} readOnly defaultValue="Text input value" />;
 
 ReadOnly.story = {
   name: 'Read-only',
 };
 
-/**
- * Disabled
- */
 export const Disabled = () => <TextInput {...textInputProps} disabled defaultValue="Text input value" />;
 
-/**
- * Invalid
- */
 export const Invalid = () => <TextInput {...textInputProps} invalid helperText="Error text" />;
 
-/**
- * With label hidden
- */
 export const WithLabelHidden = () => <TextInput {...textInputProps} hideLabel />;
 
 WithLabelHidden.story = {
   name: 'With label hidden',
 };
 
-/**
- * With tooltip
- */
 export const WithTooltip = () => (
   <TextInput
     {...textInputProps}
@@ -80,14 +62,8 @@ WithTooltip.story = {
   name: 'With tooltip',
 };
 
-/**
- * NumberInput
- */
 export const NumberInput = () => <TextInput {...textInputProps} type="number" />;
 
-/**
- * Using ref
- */
 export const UsingRef = () => {
   const ref = useRef(null);
 
@@ -105,9 +81,6 @@ UsingRef.story = {
   name: 'Using ref',
 };
 
-/**
- * Playground
- */
 export const Playground = () => {
   const groupGeneral = 'General';
   const groupTooltip = 'Tooltip';

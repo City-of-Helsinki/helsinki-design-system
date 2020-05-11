@@ -21,33 +21,18 @@ export default {
   },
 };
 
-/**
- * Default
- */
 export const Default = () => <RadioButton id="radio" labelText="Label" />;
 
-/**
- * Selected
- */
 export const Selected = () => <RadioButton id="radio2" labelText="Label" checked />;
 
-/**
- * Disabled
- */
 export const Disabled = () => <RadioButton id="radio3" labelText="Label" disabled />;
 
-/**
- * Selected & disabled
- */
 export const SelectedDisabled = () => <RadioButton id="radio4" labelText="Label" checked disabled />;
 
 SelectedDisabled.story = {
   name: 'Selected & disabled',
 };
 
-/**
- * Custom
- */
 export const Custom = () => {
   const [radioValue, setRadioValue] = useState('foo');
   const options = ['foo', 'bar'];
@@ -86,9 +71,6 @@ Custom.story = {
   name: 'With custom styles',
 };
 
-/**
- * Playground
- */
 export const Playground = () => {
   const [radioValue, setRadioValue] = useState(null);
   const options = ['foo', 'bar', 'baz'];

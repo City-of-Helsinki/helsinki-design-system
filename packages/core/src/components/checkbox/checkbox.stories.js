@@ -6,9 +6,6 @@ export default {
   title: 'Checkbox',
 };
 
-/**
- * Default
- */
 export const Default = () => `
     <div class="hds-checkbox">
       <input type="checkbox" id="checkbox1" class="hds-checkbox__input" value="foo" />
@@ -16,9 +13,6 @@ export const Default = () => `
     </div>
 `;
 
-/**
- * Selected
- */
 export const Selected = () => `
     <div class="hds-checkbox">
       <input type="checkbox" id="checkbox2" class="hds-checkbox__input" value="bar" checked />
@@ -26,9 +20,6 @@ export const Selected = () => `
     </div>
 `;
 
-/**
- * Disabled
- */
 export const Disabled = () => `
     <div class="hds-checkbox">
       <input type="checkbox" id="checkbox3" class="hds-checkbox__input" value="baz" disabled />
@@ -36,9 +27,6 @@ export const Disabled = () => `
     </div>
 `;
 
-/**
- * Selected & Disabled
- */
 export const SelectedDisabled = () => `
     <div class="hds-checkbox">
       <input type="checkbox" id="checkbox4" class="hds-checkbox__input" value="bax" checked disabled />
