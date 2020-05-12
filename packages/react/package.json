@@ -6,7 +6,7 @@
   "module": "lib-esm/index.js",
   "scripts": {
     "build": "yarn run lint && yarn run tcm && rollup -c",
-    "start": "yarn storybook",
+    "start": "tcm src --watch & yarn storybook",
     "scaffold": "node scripts/scaffold.js",
     "tsc:es5": "tsc",
     "tsc:es6": "tsc -m es6 --outDir lib-esm --moduleResolution node",
@@ -72,6 +72,7 @@
     "typescript": "^3.6.3"
   },
   "dependencies": {
+    "downshift": "^5.2.5",
     "hds-core": "^0.6.0",
     "lodash": "^4.17.15",
     "react-spring": "^8.0.27"

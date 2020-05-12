@@ -7,6 +7,7 @@
   --icon-scale: 0.5;
   --border-width: 2px;
   --outline-width: 3px;
+  --label-padding: var(--spacing-2-xs);
 
   --background: var(--color-background-radio-button-default);
   --background-hover: var(--color-background-radio-button-hover);
@@ -70,7 +71,7 @@
 .hds-radio-button .hds-radio-button__label {
   color: var(--label-color);
   cursor: pointer;
-  padding-left: calc(var(--size) + var(--spacing-2-xs));
+  padding-left: calc(var(--size) + var(--label-padding));
   position: relative;
 }
 

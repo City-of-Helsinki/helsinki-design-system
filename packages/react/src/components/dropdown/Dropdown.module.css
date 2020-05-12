@@ -1,0 +1,290 @@
+.dropdown {
+  --border-radius: 2px;
+  --border-width: 2px;
+  --outline-width: 3px;
+  --input-height: 52px;
+  --icon-size: var(--fontsize-body-large);
+
+  --helper-color-default: #666666;
+  --helper-color-invalid: #b01038;
+  --icon-color-invalid: #b01038;
+  --input-background-default: #ffffff;
+  --input-background-disabled: #e5e5e5;
+  --input-border-color-default: #808080;
+  --input-border-color-hover : #1a1a1a;
+  --input-border-color-focus: #1a1a1a;
+  --input-border-color-invalid: #b01038;
+  --input-border-color-disabled: #e5e5e5;
+  --input-color-default: #1a1a1a;
+  --input-color-disabled:  #999898;
+  --label-color-default: #1a1a1a;
+  --label-color-invalid: #1a1a1a;
+  --placeholder-color: #808080;
+  --focus-outline-color: #0072c6;
+
+  position: relative;
+}
+
+/* TRANSITIONS */
+
+.input:hover {
+  transition: border-color 85ms ease-out;
+}
+
+.dropdown:focus-within .wrapper::before {
+  transition: 85ms ease-out;
+  transition-property: opacity, transform;
+}
+
+.invalid .label {
+  transition: color 85ms linear;
+}
+
+.angleIcon {
+  transition: transform 150ms cubic-bezier(0.39, 0.58, 0.57, 1);
+}
+
+/* WRAPPER FOR INPUT & TOGGLE */
+
+.wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* INPUT */
+
+.input {
+  background-color: var(--input-background-default);
+  border: var(--border-width) solid var(--input-border-color-default);
+  border-radius: var(--border-radius);
+  color: var(--input-color-default);
+  font-size: var(--fontsize-body-medium);
+  height: var(--input-height);
+  line-height: normal;
+  padding: var(--spacing-s) calc(var(--icon-size) + var(--spacing-l)) var(--spacing-s) var(--spacing-s);
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.input:hover {
+  border-color: var(--input-border-color-hover);
+}
+
+.input:focus {
+  border-color: var(--input-border-color-focus);
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--placeholder-color);
+}
+
+/* BUTTON */
+.button {
+  align-items: center;
+  composes: input;
+  display: flex;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+.button.placeholder {
+  color: var(--placeholder-color);
+}
+
+.button .buttonLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* INVALID */
+
+.invalid .label {
+  color: var(--label-color-invalid);
+}
+
+.invalid .helperText {
+  color: var(--helper-color-invalid);
+}
+
+.invalid .input {
+  border-color: var(--input-border-color-invalid);
+  padding-right: calc(var(--icon-size) * 2 + var(--spacing-2-xl));
+}
+
+/* DISABLED */
+
+.dropdown.disabled .wrapper > * {
+  cursor: not-allowed;
+}
+
+.input[disabled] {
+  background-color: var(--input-background-disabled);
+  border-color: var(--input-border-color-disabled);
+  color: var(--input-color-disabled);
+}
+
+/* FOCUS OUTLINE */
+
+.wrapper::before {
+  --offset: calc(var(--outline-width) * -1);
+
+  background-color: var(--focus-outline-color);
+  border-radius: var(--border-radius);
+  content: '';
+  height: calc(100% + var(--outline-width) * 2);
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transform: translate(var(--offset), var(--offset)) scale(0.98, 0.85);
+  width: calc(100% + var(--outline-width) * 2);
+  z-index: -1;
+}
+
+.dropdown:focus-within .wrapper::before {
+  opacity: 1;
+  transform: translate(var(--offset), var(--offset)) scale(1);
+}
+
+/* LABEL */
+
+.label {
+  color: var(--label-color-default);
+  display: block;
+  font-size: 0.875em;
+  font-weight: bold;
+  line-height: 1.625rem;
+}
+
+/* HELPER TEXT */
+
+.helperText {
+  composes: label;
+  color: var(--helper-color-default);
+  font-weight: normal;
+}
+
+/* OPTIONS LIST */
+
+.list {
+  display: none;
+}
+
+.dropdown.open .list {
+  border: solid var(--input-border-color-focus);
+  border-radius: var(--border-radius);
+  border-width: 0 var(--border-width) var(--border-width);
+  display: block;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  position: absolute;
+  transform: translateY(calc(var(--border-width) * -1));
+  width: 100%;
+}
+
+.list.overflow {
+  overflow-y: scroll;
+}
+
+.listItem {
+  align-items: center;
+  background-color: #fff; /* todo: variable */
+  color: #1a1a1a; /* todo: variable */
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--fontsize-body-medium);
+  height: var(--input-height);
+  line-height: var(--lineheight-s);
+  padding: var(--spacing-s);
+}
+
+.listItem.highlighted,
+.listItem.multiselect.highlighted.selected {
+  background-color: #e5e5e5; /* todo: variable */
+  color: #1a1a1a; /* todo: variable */
+}
+
+.listItem.selected {
+  background-color: #0000bf; /* todo: variable */
+  color: #fff; /* todo: variable */
+}
+
+.listItem.highlighted.selected {
+  background-color: #000098; /* todo: variable */
+  color: #fff; /* todo: variable */
+}
+
+/* multiselect */
+.listItem.multiselect {
+  justify-content: flex-start;
+}
+
+.listItem.multiselect.selected {
+  background-color: #fff; /* todo: variable */
+  color: #1a1a1a; /* todo: variable */
+}
+
+/* multiselect checkbox */
+.checkbox {
+  --label-padding: var(--spacing-s);
+
+  pointer-events: none;
+}
+
+.listItem.highlighted .checkbox {
+  --border-color-unselected: var(--color-black-90); /* todo: variable */
+}
+
+/* ICONS */
+
+/* angle icon */
+.angleIcon {
+  --padding: var(--spacing-2-xs);
+  --size: calc(var(--icon-size) + var(--padding) * 2);
+
+  fill: var(--input-color-default);
+  height: var(--size);
+  outline: none;
+  padding: var(--padding);
+  position: absolute;
+  right: calc(var(--spacing-s) + var(--border-width) - var(--padding));
+  top: 0;
+  transform: translateY(calc(var(--input-height) / 2 - 50%));
+  width: var(--size);
+}
+
+.dropdown.open .angleIcon {
+  transform: translateY(calc(var(--input-height) / 2 - 50%)) rotateX(180deg);
+}
+
+.dropdown.disabled .angleIcon {
+  fill: var(--input-color-disabled);
+}
+
+/* invalid icon */
+.invalidIcon {
+  --x: calc((var(--border-width) + (var(--spacing-l) + var(--icon-size)) * -1));
+  --y: calc(var(--input-height) / 2 - 50%);
+
+  content: '';
+  fill: var(--icon-color-invalid);
+  height: var(--icon-size);
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(var(--x), var(--y));
+  width: var(--icon-size);
+}
+
+/* list item selected icon */
+.selectedIcon {
+  fill: #fff; /* todo: variable */
+  height: var(--icon-size);
+  width: var(--icon-size);
+}
+

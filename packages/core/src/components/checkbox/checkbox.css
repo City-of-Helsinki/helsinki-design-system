@@ -10,6 +10,7 @@
   --border-radius: 1px;
   --border-width: 2px;
   --outline-width: 3px;
+  --label-padding: var(--spacing-2-xs);
 
   --background-unselected: var(--color-background-checkbox-unselected);
   --background-selected: var(--color-background-checkbox-selected);
@@ -76,7 +77,7 @@
 .hds-checkbox .hds-checkbox__label {
   color: var(--label-color);
   cursor: pointer;
-  padding-left: calc(var(--size) + var(--spacing-2-xs));
+  padding-left: calc(var(--size) + var(--label-padding));
   position: relative;
 }
 
