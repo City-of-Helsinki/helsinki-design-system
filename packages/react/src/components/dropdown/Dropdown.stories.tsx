@@ -1,8 +1,7 @@
 import React from 'react';
-import { boolean, withKnobs } from '@storybook/addon-knobs';
+import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 
 import Dropdown from './Dropdown';
-import Combobox from './Combobox';
 
 export default {
   component: Dropdown,
@@ -28,19 +27,22 @@ export const Disabled = () => (
   </Dropdown>
 );
 
-export const DefaultCombobox = () => (
-  <Combobox placeholder="Placeholder" inputId="combobox" labelText="Label" helperText="Assistive text" />
-);
-
 export const Playground = () => {
   const multiselect = boolean('Multiselect', false);
+  const filterable = boolean('Filterable', false);
   const invalid = boolean('Invalid', false);
+  const disabled = boolean('Disabled', false);
+  const closeMenuOnSelect = boolean('Close menu on select', true);
+  const placeholder = text('Placeholder', 'Placeholder');
 
   return (
     <Dropdown
       multiselect={multiselect}
+      filterable={filterable}
       invalid={invalid}
-      placeholder="Placeholder"
+      disabled={disabled}
+      placeholder={placeholder}
+      closeMenuOnSelect={closeMenuOnSelect}
       labelText="Label"
       helperText="Assistive text"
     />
