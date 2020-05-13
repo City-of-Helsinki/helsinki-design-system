@@ -15,13 +15,14 @@ const menu = [
     menu: ['Introduction', 'For Designers', 'For Developers'],
   },
   'Guidelines',
+  'Design tokens',
+  'Visual elements',
   {
     name: 'Components',
     menu: ['HDS Components'],
   },
-  'Design Tokens',
-  'About',
   'How to contribute',
+  'About'
 ];
 
 export default {
