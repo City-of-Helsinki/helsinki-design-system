@@ -72,7 +72,7 @@
     "typescript": "^3.6.3"
   },
   "dependencies": {
-    "hds-core": "^0.6.1",
+    "hds-core": "0.6.1",
     "lodash": "^4.17.15",
     "react-spring": "^8.0.27"
   },
