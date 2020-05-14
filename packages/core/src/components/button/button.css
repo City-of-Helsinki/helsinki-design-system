@@ -4,6 +4,8 @@
 .hds-button {
   --border-width: 2px;
   --color: inherit;
+  --outline-gutter: 2px;
+  --outline-width: 3px;
 
   align-content: flex-start;
   align-items: center;
@@ -15,7 +17,6 @@
   justify-content: center;
   padding: 0 var(--spacing-2-xs);
   position: relative;
-  text-align: left;
   vertical-align: top;
 }
 
@@ -69,8 +70,6 @@
 /* FOCUS OUTLINE */
 
 .hds-button::after {
-  --gutter: 2px;
-  --outline-width: 3px;
   --size: 100%;
 
   border: var(--outline-width) solid transparent;
@@ -81,16 +80,27 @@
 }
 
 .hds-button:focus::after {
-  --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--gutter) * 2));
+  --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
   border-color: var(--focus-outline-color);
+}
+
+/* submit input */
+input[type="submit"].hds-button:focus {
+  box-shadow: 0 0 0 var(--outline-gutter) var(--submit-input-focus-gutter-color), 0 0 0 calc(var(--outline-gutter) + var(--outline-width)) var(--focus-outline-color);
 }
 
 /* LABEL */
 
+input[type="submit"].hds-button,
 .hds-button__label {
   font-weight: 500;
   line-height: 1.25em;
   padding: var(--spacing-s);
+}
+
+input[type="submit"].hds-button {
+  cursor: pointer;
+  padding: var(--spacing-s) var(--spacing-l);
 }
 
 /* no icons */
@@ -103,9 +113,14 @@
   padding: 0;
 }
 
+input[type="submit"].hds-button--small,
 .hds-button--small .hds-button__label {
-  line-height: 1em;
+  line-height: var(--lineheight-s);
   padding: var(--spacing-2-xs) var(--spacing-xs);
+}
+
+input[type="submit"].hds-button--small {
+  padding: var(--spacing-2-xs) var(--spacing-m);
 }
 
 /* no icons */
@@ -193,6 +208,7 @@
   --color-disabled: var(--color-label-button-primary-disabled);
 
   --focus-outline-color: var(--color-focus-outline-button-primary);
+  --submit-input-focus-gutter-color: var(--color-white);
 }
 
 /* SECONDARY */
@@ -218,6 +234,7 @@
   --color-disabled: var(--color-label-button-secondary-disabled);
 
   --focus-outline-color: var(--color-focus-outline-button-secondary);
+  --submit-input-focus-gutter-color: var(--color-white);
 }
 
 /* SUPPLEMENTARY */
@@ -242,6 +259,7 @@
   --color-disabled: var(--color-label-button-supplementary-disabled);
 
   --focus-outline-color: var(--color-focus-outline-button-supplementary);
+  --submit-input-focus-gutter-color: transparent;
 }
 
 /* UTILITY */
