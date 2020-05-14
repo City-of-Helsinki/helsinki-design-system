@@ -73,7 +73,7 @@
   },
   "dependencies": {
     "downshift": "^5.2.5",
-    "hds-core": "^0.6.0",
+    "hds-core": "0.6.1",
     "lodash": "^4.17.15",
     "react-spring": "^8.0.27"
   },
