@@ -12,68 +12,46 @@ import Text from "../../src/components/Text";
 
 # Checkboxes
 
+Checkboxes are...
+
+## Principles
+
+> TODO
+
 ## Accessibility
 
 > TODO
 
-## How to use
-
-> TODO
-
-## Default
+## Usage & variations
 
 <Playground>
   <Checkbox id="checkbox1" labelText="Label" />
-</Playground>
-
-##### Core:
-```html
-<div class="hds-checkbox">
-  <input type="checkbox" id="checkbox" class="hds-checkbox__input" />
-  <label for="checkbox"  class="hds-checkbox__label">Label</label>
-</div>
-```
-
-##### React:
-```tsx
-<Checkbox id="checkbox" labelText="Label" />
-```
-
-## Selected
-
-<Playground>
   <Checkbox id="checkbox2" labelText="Label" checked />
-</Playground>
-
-##### Core:
-```html
-<div class="hds-checkbox">
-  <input type="checkbox" id="checkbox" class="hds-checkbox__input" checked />
-  <label for="checkbox"  class="hds-checkbox__label">Label</label>
-</div>
-```
-
-##### React:
-```tsx
-<Checkbox id="checkbox" labelText="Label" checked />
-```
-
-## Disabled
-
-<Playground>
   <Checkbox id="checkbox3" labelText="Label" disabled />
   <Checkbox id="checkbox4" labelText="Label" checked disabled />
 </Playground>
 
 ##### Core:
 ```html
+<!-- Enabled -->
+<div class="hds-checkbox">
+  <input type="checkbox" id="checkbox" class="hds-checkbox__input" />
+  <label for="checkbox"  class="hds-checkbox__label">Label</label>
+</div>
+
+<!-- Enabled & selected -->
+<div class="hds-checkbox">
+  <input type="checkbox" id="checkbox" class="hds-checkbox__input" checked />
+  <label for="checkbox"  class="hds-checkbox__label">Label</label>
+</div>
+
 <!-- Disabled -->
 <div class="hds-checkbox">
   <input type="checkbox" id="checkbox" class="hds-checkbox__input" disabled />
   <label for="checkbox"  class="hds-checkbox__label">Label</label>
 </div>
 
-<!-- Selected & disabled -->
+<!-- Disabled & selected -->
 <div class="hds-checkbox">
   <input type="checkbox" id="checkbox" class="hds-checkbox__input" checked disabled />
   <label for="checkbox"  class="hds-checkbox__label">Label</label>
@@ -82,11 +60,10 @@ import Text from "../../src/components/Text";
 
 ##### React:
 ```tsx
-/* Disabled */
-<Checkbox id="checkbox" labelText="Label" disabled />
-
-/* Selected & disabled */
-<Checkbox id="checkbox" labelText="Label" checked disabled />
+<Checkbox id="checkbox1" labelText="Label" />
+<Checkbox id="checkbox2" labelText="Label" checked />
+<Checkbox id="checkbox3" labelText="Label" disabled />
+<Checkbox id="checkbox4" labelText="Label" checked disabled />
 ```
 
 ## Demos & API

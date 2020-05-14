@@ -12,68 +12,46 @@ import Text from "../../src/components/Text";
 
 # Radio buttons
 
+Radio buttons are..
+
+## Principles
+
+> TODO
+
 ## Accessibility
 
 > TODO
 
-## How to use
-
-> TODO
-
-## Default
+## Usage & variations
 
 <Playground>
   <RadioButton id="radio" labelText="Label" />
-</Playground>
-
-##### Core:
-```html
-<div class="hds-checkbox">
-  <input type="radio" id="radio" class="hds-radio-button__input" />
-  <label for="radio"  class="hds-radio-button__label">Label</label>
-</div>
-```
-
-##### React:
-```tsx
-<RadioButton id="radio" labelText="Label" />
-```
-
-## Selected
-
-<Playground>
   <RadioButton id="radio2" labelText="Label" checked />
-</Playground>
-
-##### Core:
-```html
-<div class="hds-checkbox">
-  <input type="radio" id="radio" class="hds-radio-button__input" checked />
-  <label for="radio"  class="hds-radio-button__label">Label</label>
-</div>
-```
-
-##### React:
-```tsx
-<RadioButton id="radio" labelText="Label" checked />
-```
-
-## Disabled
-
-<Playground>
   <RadioButton id="radio3" labelText="Label" disabled />
   <RadioButton id="radio4" labelText="Label" checked disabled />
 </Playground>
 
 ##### Core:
 ```html
+<!-- Enabled-->
+<div class="hds-checkbox">
+  <input type="radio" id="radio" class="hds-radio-button__input" />
+  <label for="radio"  class="hds-radio-button__label">Label</label>
+</div>
+
+<!-- Enabled & selected -->
+<div class="hds-checkbox">
+  <input type="radio" id="radio" class="hds-radio-button__input" checked />
+  <label for="radio"  class="hds-radio-button__label">Label</label>
+</div>
+
 <!-- Disabled -->
 <div class="hds-checkbox">
   <input type="radio" id="radio" class="hds-radio-button__input" disabled />
   <label for="radio"  class="hds-radio-button__label">Label</label>
 </div>
 
-<!-- Selected & disabled -->
+<!-- Disabled & selected -->
 <div class="hds-checkbox">
   <input type="radio" id="radio" class="hds-radio-button__input" checked disabled />
   <label for="radio"  class="hds-radio-button__label">Label</label>
@@ -82,11 +60,10 @@ import Text from "../../src/components/Text";
 
 ##### React:
 ```tsx
-/* Disabled */
-<RadioButton id="radio" labelText="Label" disabled />
-
-/* Selected & disabled */
-<RadioButton id="radio" labelText="Label" checked disabled />
+<RadioButton id="radio" labelText="Label" />
+<RadioButton id="radio" labelText="Label" checked />
+<RadioButton id="radio3" labelText="Label" disabled />
+<RadioButton id="radio4" labelText="Label" checked disabled />
 ```
 
 ## Demos & API

@@ -14,12 +14,7 @@ import Text from "../../src/components/Text";
 
 Buttons are meant to make actions easily visible and understandable to the user. HDS offers different kinds of button variations which each suit for different needs.
 
-## Accessibility
-
-- It is advisable to use recommended button color combinations. These combinations are ensured to comply with WCAG AA requirements.
-- If using other than recommended button color combinations, remember to take accessibility (especially contrast), general usability and brand guidelines, into account. Related WCAG 2.1 guidelines to check compliance with are 1.4.1 Use of Color and 1.4.3 Contrast (Minimum).
-
-## How to use
+## Principles
 - Buttons are used to trigger an action. Be cautious when using buttons for navigating. In most cases you should prefer links for this purpose. 
 - Button label should always tell the action that the buttons is going to trigger. A good practice is to start the label with a verb and use two word labels at maximum.
 - Use provided button types to control the visual priority of the view. Priority of the button types is the following: Primary -> Secondary -> Supplementary.
@@ -31,7 +26,14 @@ Provided recommended button color variations have been designed to be the easy a
 ### Size
 In phone width, use full-width buttons. In other sizes use buttons that scale according to their content.
 
-## Primary button
+## Accessibility
+
+- It is advisable to use recommended button color combinations. These combinations are ensured to comply with WCAG AA requirements.
+- If using other than recommended button color combinations, remember to take accessibility (especially contrast), general usability and brand guidelines, into account. Related WCAG 2.1 guidelines to check compliance with are 1.4.1 Use of Color and 1.4.3 Contrast (Minimum).
+
+## Usage & variations
+
+### Primary button
 Primary button is reserved for the most important action on the screen. Primary action is usually either mandatory or essential for the user. Primary buttons are designed to clearly highlight the most important action and therefore you should avoid having multiple primary buttons in one screen. For less important actions, consider using secondary or supplementary buttons instead.
 
 <Playground>
@@ -50,7 +52,7 @@ Primary button is reserved for the most important action on the screen. Primary 
 <Button>Primary</Button>
 ```
 
-## Secondary button
+### Secondary button
 Secondary buttons are used for actions which are not mandatory or essential for the user. Often screens will include multiple secondary buttons alongside one primary button.
 
 <Playground>
@@ -69,7 +71,7 @@ Secondary buttons are used for actions which are not mandatory or essential for 
 <Button variant="secondary">Secondary</Button>
 ```
 
-## Supplementary button
+### Supplementary button
 Supplementary buttons can be used in similar cases as secondary buttons. However, supplementary buttons are meant for actions which are intentionally wanted to be less visible to the user. These kind of actions include i.e. cancel and dismiss functionalities.
 
 <Playground>
@@ -88,7 +90,7 @@ Supplementary buttons can be used in similar cases as secondary buttons. However
 <Button variant="supplementary">Supplementary</Button>
 ```
 
-## Utility buttons
+### Utility buttons
 If required to achieve clearer user interface, you may also use additional utility colors. Different visual styles of these buttons can be used to better inform users of destructive or dangerous actions. To comply with WCAG requirement 1.4.1 Use of Color, these colors are often better when paired with an icon.
 
 <Playground>
