@@ -87,10 +87,16 @@
 
 /* LABEL */
 
+input[type="submit"].hds-button,
 .hds-button__label {
   font-weight: 500;
   line-height: 1.25em;
   padding: var(--spacing-s);
+}
+
+input[type="submit"].hds-button {
+  cursor: pointer;
+  padding: var(--spacing-s) var(--spacing-l);
 }
 
 /* no icons */
@@ -103,9 +109,14 @@
   padding: 0;
 }
 
+input[type="submit"].hds-button--small,
 .hds-button--small .hds-button__label {
-  line-height: 1em;
+  line-height: var(--lineheight-s);
   padding: var(--spacing-2-xs) var(--spacing-xs);
+}
+
+input[type="submit"].hds-button--small {
+  padding: var(--spacing-2-xs) var(--spacing-m);
 }
 
 /* no icons */
