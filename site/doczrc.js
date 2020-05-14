@@ -11,18 +11,21 @@ const themeConfig = {
 const menu = [
   'Helsinki Design System',
   {
-    name: 'Get Started',
-    menu: ['Introduction', 'For Designers', 'For Developers'],
+    name: 'Getting started',
+    menu: ['Introduction', 'For designers', 'For developers'],
   },
   'Guidelines',
+  'Visual assets',
   'Design tokens',
-  'Visual elements',
   {
     name: 'Components',
-    menu: ['HDS Components'],
+    menu: ['Overview'],
   },
-  'How to contribute',
-  'About'
+  {
+    name: 'About',
+    menu: ['What is new', 'Product roadmap', 'Resources', 'Support'],
+  },
+  'Contributing'
 ];
 
 export default {
