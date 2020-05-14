@@ -33,6 +33,7 @@
   --label-color-disabled: var(--color-label-radio-button-disabled);
 
   display: flex;
+  min-height: var(--size);
   position: relative;
 }
 
