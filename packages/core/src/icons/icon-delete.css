@@ -1,0 +1,6 @@
+@svg-load icon url(../svg/icon-delete.svg);
+
+.hds-icon--delete {
+  mask-image: svg-inline(icon);
+  -webkit-mask-image: svg-inline(icon);
+}
