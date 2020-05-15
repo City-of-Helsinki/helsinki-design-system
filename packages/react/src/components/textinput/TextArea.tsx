@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, CSSProperties, FC, forwardRef, RefObject, TextareaHTMLAttributes } from 'react';
+import React, { ChangeEventHandler, CSSProperties, FC, forwardRef, Ref, TextareaHTMLAttributes } from 'react';
 
 import styles from './TextInput.module.css';
 import InputWrapper from '../../internal/inputwrapper/InputWrapper';
@@ -71,7 +71,7 @@ export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   /**
    * The `ref` is forwarded to the native textarea element.
    */
-  ref?: RefObject<HTMLTextAreaElement>;
+  ref?: Ref<HTMLTextAreaElement>;
 };
 
 const TextArea: FC<TextAreaProps> = forwardRef(
@@ -93,7 +93,7 @@ const TextArea: FC<TextAreaProps> = forwardRef(
       tooltipCloseButtonLabelText,
       ...rest
     }: TextAreaProps,
-    ref: RefObject<HTMLTextAreaElement>,
+    ref: Ref<HTMLTextAreaElement>,
   ) => {
     const wrapperProps = {
       className,
