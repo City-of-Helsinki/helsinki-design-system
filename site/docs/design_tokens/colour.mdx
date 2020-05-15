@@ -8,19 +8,21 @@ route: /design-tokens/colour
 
 ---
 
+import LargeParagraph from "../../src/components/LargeParagraph";
 import Colors from "../../src/components/Colors";
 import ColorBox from "../../src/components/ColorBox";
 import Example from "../../src/components/Example";
 
-## HDS colours
+<LargeParagraph>Helsinki Design System uses the colours from the City of Helsinki brands. It has a built-in default theme but also provides means to create new themes with little effort. </LargeParagraph>
 
-Helsinki Design System uses the colours from the City of Helsinki brands. It has a built-in default theme but also provides means to create new themes with little effort. When creating new themes, it's important to use the brand and UI colours defined in the system. For ease of use, these are provided as CSS and SASS variables in [hds-design-tokens](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/design-tokens).
+When creating new themes, it's important to use the brand and UI colours defined in the system. For ease of use, these are provided as CSS and SASS variables in [hds-design-tokens](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/design-tokens).
 
-## Colour accessibility
+## Accessibility
 
 We are committed to complying with AA standard contrast ratios. To do this, choose primary, secondary, and extended colours that support usability by ensuring sufficient colour contrast between elements so that people with low vision can see and use the interface. **If you create a new theme, you need to ensure that it is accessible.**
 
-## Brand colours
+## HDS Colours
+### Brand colours
 
 | Colour name (en)    |  Colour name (fi) |                                                                                                           |
 | ------------------- | ----------------- | --------------------------------------------------------------------------------------------------------- |
@@ -37,7 +39,7 @@ We are committed to complying with AA standard contrast ratios. To do this, choo
 | Suomenlinna         |  Suomenlinna      | <Colors colorvar="--color-suomenlinna" variations={["-dark-50", "", "-light-50", "-light-20"]} />         |
 | Tram                |  Spåra            | <Colors colorvar="--color-tram" variations={["-dark-50", "", "-light-50", "-light-20"]} />                |
 
-## UI colours
+### UI colours
 
 Status colours indicate valid, invalid or informational states on the service.
 
@@ -59,9 +61,7 @@ Status colours indicate valid, invalid or informational states on the service.
 The service design uses colour themes including three colours with grayscale and ui-helper colours. The colors are defined as [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/var) and are therefore customisable. In addition to the base colours, the schemes provide lighter and darker shades for the colours.
 
 - **Primary** colour is the color displayed most frequently across your services and components. If you are not using a secondary color, your primary color can also be used to accent elements.
-
 - **Secondary and tertiary** colours provide more ways to accent and distinguish your service. The secondary and tertiary colours should be applied sparingly to accent select parts of your UI.
-
 - **UI colours** consist of the neutral colour shades as well the common colours for feedback (error, warning, success, info).
 
 ## Tokens
