@@ -11,6 +11,7 @@
   align-items: center;
   background-color: var(--background-color, transparent);
   border: var(--border-width) solid var(--border-color, transparent);
+  border-radius: 0;
   color: var(--color);
   display: inline-flex;
   fill: currentColor;
