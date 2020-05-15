@@ -63,6 +63,8 @@
 }
 
 .hds-text-input .hds-text-input__input {
+  /* removes the input shadow on iOS */
+  -webkit-appearance: none;
   background-color: var(--input-background-default);
   border: var(--border-width) solid var(--input-border-color-default);
   border-radius: var(--border-radius);
@@ -133,6 +135,7 @@
   height: var(--icon-size);
   mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  pointer-events: none;
   position: absolute;
   right: var(--border-width);
   top: 0;
