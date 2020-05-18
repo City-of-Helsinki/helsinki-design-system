@@ -18,7 +18,7 @@ const LargeParagraph = ({
   </p>
 );
 
-Text.propTypes = {
+LargeParagraph.propTypes = {
   color: PropTypes.string,
   size: PropTypes.string,
 };
