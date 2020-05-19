@@ -4,62 +4,60 @@ menu: Design tokens
 route: /design-tokens/typography
 ---
 
+import LargeParagraph from "../../src/components/LargeParagraph";
 import Text from "../../src/components/Text";
-
-# Typography
-
-## Type face: Helsinki Grotesk
-
-**This is Helsinki Grotesk. Our chosen typeface.**
-
-Using our font styles consistently helps us create a clear hierarchy, organize information and help users find their way around our services.
-
-## Scale
-
-(You can find the basic typescale also in the Typography library in Abstract)
-
-### Headings
-
 import { Playground } from "docz";
 import "../../src/gatsby-theme-docz/assets/index.css";
 
+# Typography
+<LargeParagraph>In Helsinki Design system, typographic style is defined with heading elements and type tokens.</LargeParagraph>
+
+Typography can be used to organise information and help users find their way around our services. 
+
+Helsinki Design system uses the [Helsinki Grotesk](https://camelot-typefaces.com/helsinki-grotesk "Camelot Typefaces / Helsinki Grotesk") typeface, which is one of the most essential elements of the City of Helsinki brand identity. Preferably, no other typefaces should be used. 
+
+Subcontractors can purchase the font licenses from [Camelot Typefaces website](https://camelot-typefaces.com/helsinki-grotesk "Camelot Typefaces / Helsinki Grotesk").
+
+
+## Principles
+- **Use black or white text colour** depending on the background. Other text colours should be used sparingly if at all.
+- **Use typography consistently** throughout your service, to ensure that the content hierarchy and structure is a clear and easily understandable.
+- **Use heading levels semantically.** For example after **h1**, next heading should preferably be **h2**, not **h3**. If needed, the appearance and visual hierarchy of headings can be altered separately from semantic structure with the --fontsize tokens.
+
+
+## Accessibility
+- Always check that sufficient colour contrast between text and its background is maintained. All colour choices should comply with [WCAG 2.0 Standard at AA Level contrast ratios](https://www.w3.org/TR/WCAG20/#visual-audio-contrast "WCAG 2.0 Visual and audio contrast").
+- Avoid placing text over images, especially in small sizes.
+
+
+## Usage
+### Headings
 <Playground>
-  <h1>H1</h1>
-  <h2>H2</h2>
-  <h3>H3</h3>
-  <h4>H4</h4>
-  <h5>H5</h5>
-  <div className="subtitle">Subtitle</div>
+  <h1>Heading H1 (3.25 rem)</h1>
+  <h2>Heading H2 (2.25 rem)</h2>
+  <h3>Heading H3 (1.5 rem)</h3>
+  <h4>Heading H4 (1.25 rem)</h4>
+  <h5>Heading H5 (1.125 rem)</h5>
+  <div className="subtitle">Subtitle (1 rem)</div>
 </Playground>
 
 ### Body text
-
 <Playground>
-  <div className="text-xl">Body Extra Large</div>
-  <div className="text-lg">Body Large</div>
-  <div className="text-md">Body Medium</div>
-  <div className="text-body">Body Default</div>
-  <div className="text-sm">Body Small</div>
+  <div className="text-lg">Body Large (1.25 rem)</div>
+  <div className="text-md">Body Medium (1.125 rem)</div>
+  <div className="text-body">Body Default (1 rem)</div>
+  <div className="text-sm">Body Small (0.875 rem)</div>
 </Playground>
 
-## Type style
-
-We use Bold or Regular as font weights.
-
+### Type styles
 <Playground>
-  <div className="text-bold">
-    Bold is used in headers and subheader as well as to emphasize text.
-  </div>
-  <div>Regular is used for body text and Links.</div>
-  <div className="text-md">Medium is used only in button components.</div>
+  <div>Regular (400) is used for body text and Links.</div>
+  <div className="text-bold">Bold (700) is used in headings, as well as to emphasize body text.</div>
+  <div className="text-medium">Medium (500) is used only in button components.</div>
 </Playground>
 
-## Type colour
-
-Use black or white as text colour depending on the background. We advise to use other text colours sparingly if at all.
 
 ## Tokens
-
 CSS             | SASS           | value | Example                                                                |
 --------------- | -------------- | ----- | ---------------------------------------------------------------------- |
 --font-default          | $font-default          | HelsinkiGrotesk |                                              |
