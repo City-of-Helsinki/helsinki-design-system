@@ -7,7 +7,7 @@ const options = [{ value: 'foo' }, { value: 'bar' }, { value: 'baz' }];
 const dropdownProps = {
   options,
   label: 'Label',
-  helperText: 'Helper',
+  helper: 'Helper',
 };
 
 describe('<Dropdown /> spec', () => {

@@ -1,15 +1,12 @@
 @import "hds-core";
 
-.dropdown {
+.root {
   --border-radius: 2px;
   --border-width: 2px;
   --outline-width: 3px;
   --dropdown-height: 52px;
   --icon-size: var(--fontsize-body-large);
 
-  --helper-color-default: var(--color-black-60);
-  --helper-color-invalid: var(--color-error);
-  --icon-color-invalid: var(--color-error);
   --dropdown-background-default: var(--color-white);
   --dropdown-background-disabled: var(--color-black-10);
   --dropdown-border-color-default: var(--color-black-50);
@@ -19,10 +16,12 @@
   --dropdown-border-color-disabled: var(--color-black-10);
   --dropdown-color-default: var(--color-black-90);
   --dropdown-color-disabled: var(--color-black-40);
+  --focus-outline-color: var(--color-coat-of-arms-blue);
+  --helper-color-default: var(--color-black-60);
+  --helper-color-invalid: var(--color-error);
+  --icon-color-invalid: var(--color-error);
   --label-color-default: var(--color-black-90);
   --label-color-invalid: var(--color-black-90);
-  --placeholder-color: var(--color-black-60);
-  --focus-outline-color: var(--color-coat-of-arms-blue);
   --menu-separator-color: var(--color-black-20);
   --menu-item-background-default: var(--color-white);
   --menu-item-background-hover: var(--color-black-10);
@@ -38,13 +37,15 @@
   --menu-item-color-disabled: var(--color-black-40);
   --menu-item-icon-color-selected: var(--color-white);
   --menu-item-icon-color-disabled: var(--color-black-40);
+  --placeholder-color: var(--color-black-60);
 
   position: relative;
+  z-index: 0;
 }
 
 /* TRANSITIONS */
 
-.input:hover {
+.dropdown:hover {
   transition: border-color 85ms ease-out;
 }
 
@@ -70,7 +71,7 @@
 
 /* INPUT */
 
-.input {
+.dropdown {
   background-color: var(--dropdown-background-default);
   border: var(--border-width) solid var(--dropdown-border-color-default);
   border-radius: var(--border-radius);
@@ -83,35 +84,35 @@
   width: 100%;
 }
 
-.input:hover,
-.dropdown.open .input {
+.dropdown:hover,
+.root.open .dropdown {
   border-color: var(--dropdown-border-color-hover);
 }
 
-.input:focus {
+.dropdown:focus {
   border-color: var(--dropdown-border-color-focus);
   outline: none;
 }
 
-.input::placeholder {
+.dropdown::placeholder {
   color: var(--placeholder-color);
 }
 
 /* BUTTON */
 
-.button {
+.buttonDropdown {
   align-items: center;
-  composes: input;
+  composes: dropdown;
   display: flex;
   padding-bottom: 0;
   padding-top: 0;
 }
 
-.button.placeholder {
+.buttonDropdown.placeholder {
   color: var(--placeholder-color);
 }
 
-.button .buttonLabel {
+.buttonDropdown .buttonLabel {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -127,18 +128,18 @@
   color: var(--helper-color-invalid);
 }
 
-.invalid .input {
+.invalid .dropdown {
   border-color: var(--dropdown-border-color-invalid);
   padding-right: calc(var(--icon-size) * 2 + var(--spacing-2-xl));
 }
 
 /* DISABLED */
 
-.dropdown.disabled .wrapper > * {
+.root.disabled .wrapper > * {
   cursor: not-allowed;
 }
 
-.input[disabled] {
+.dropdown[disabled] {
   background-color: var(--dropdown-background-disabled);
   border-color: var(--dropdown-border-color-disabled);
   color: var(--dropdown-color-disabled);
@@ -162,7 +163,7 @@
   z-index: -1;
 }
 
-.dropdown:focus-within .wrapper::before {
+.root:focus-within .wrapper::before {
   opacity: 1;
   transform: translate(var(--offset), var(--offset)) scale(1);
 }
@@ -196,7 +197,7 @@
   display: none;
 }
 
-.dropdown.open .menu {
+.root.open .menu {
   border: solid var(--dropdown-border-color-focus);
   border-radius: var(--border-radius);
   border-width: 0 var(--border-width) var(--border-width);
@@ -208,7 +209,6 @@
   position: absolute;
   transform: translateY(calc(var(--border-width) * -1));
   width: 100%;
-  z-index: 1;
 }
 
 .menu.overflow {
@@ -295,11 +295,11 @@
   width: var(--size);
 }
 
-.dropdown.open .angleIcon {
+.root.open .angleIcon {
   transform: translateY(calc(var(--dropdown-height) / 2 - 50%)) rotateX(180deg);
 }
 
-.dropdown.disabled .angleIcon {
+.root.disabled .angleIcon {
   fill: var(--dropdown-color-disabled);
 }
 

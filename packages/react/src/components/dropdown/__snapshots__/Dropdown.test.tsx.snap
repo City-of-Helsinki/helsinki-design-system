@@ -3,7 +3,7 @@
 exports[`<Dropdown /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
-    class="dropdown"
+    class="root"
   >
     <label
       class="label"
@@ -19,7 +19,7 @@ exports[`<Dropdown /> spec renders the component 1`] = `
         aria-expanded="false"
         aria-haspopup="listbox"
         aria-labelledby="hds-label hds-toggle-button"
-        class="button placeholder"
+        class="buttonDropdown placeholder"
         id="hds-toggle-button"
         type="button"
       >

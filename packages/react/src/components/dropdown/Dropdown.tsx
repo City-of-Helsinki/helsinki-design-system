@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren, ReactNode, useState } from 'react';
+import React, { CSSProperties, FC, PropsWithChildren, ReactNode, useState } from 'react';
 import { useCombobox, useMultipleSelection, useSelect } from 'downshift';
 
 import styles from './Dropdown.module.css';
@@ -39,7 +39,7 @@ export type DropdownProps = {
   /**
    * The helper text content that will be shown below the dropdown
    */
-  helperText?: string;
+  helper?: string | ReactNode;
   /**
    * Hides the label above the dropdown
    */
@@ -54,11 +54,11 @@ export type DropdownProps = {
   defaultValues?: OptionType[];
   /**
    * Used to generate the first part of the id on the elements.
-   * You can override this id with one of your own, provided as a prop, or you can override the id for each element altogether using the `getItemId`, `labelId`, `inputId`, `menuId` and `toggleButtonId` props.
+   * You can override this id with one of your own, provided as a prop, or you can override the id for each element using the `getItemId`, `labelId`, `inputId`, `menuId` and `toggleButtonId` props.
    */
   id?: string;
   /**
-   * If `true`, the input and `helperText` will be displayed in an invalid state
+   * If `true`, the input and `helper` will be displayed in an invalid state
    */
   invalid?: boolean;
   /**
@@ -106,6 +106,10 @@ export type DropdownProps = {
    */
   placeholder?: string;
   /**
+   * Override or extend the root styles applied to the component
+   */
+  style?: CSSProperties;
+  /**
    * Used for `aria` attributes and the `id` prop for the toggle button (`button`)
    */
   toggleButtonId?: string;
@@ -142,7 +146,7 @@ const Dropdown: FC<DropdownProps> = ({
   disabled = false,
   filterable = false,
   getItemId,
-  helperText,
+  helper,
   hideLabel = false,
   invalid = false,
   isOptionDisabled,
@@ -158,6 +162,7 @@ const Dropdown: FC<DropdownProps> = ({
   optionLabelField = 'label',
   options = [],
   placeholder = '',
+  style,
   toggleButtonId,
   visibleOptions = 5,
 }: DropdownProps) => {
@@ -275,12 +280,13 @@ const Dropdown: FC<DropdownProps> = ({
   return (
     <div
       className={classNames(
-        styles.dropdown,
+        styles.root,
         invalid && styles.invalid,
         disabled && styles.disabled,
         isOpen && styles.open,
         className,
       )}
+      style={style}
     >
       {/* LABEL */}
       {label && (
@@ -296,7 +302,7 @@ const Dropdown: FC<DropdownProps> = ({
             {...combobox.getInputProps({
               ...getDropdownProps(),
               type: 'text',
-              className: styles.input,
+              className: styles.dropdown,
               disabled,
               placeholder,
             })}
@@ -311,7 +317,7 @@ const Dropdown: FC<DropdownProps> = ({
             // add aria attribute to button for combobox dropdowns
             ...(filterable && { 'aria-labelledby': labelId || `${id}-label` }),
             disabled,
-            className: classNames(!filterable && styles.button, showPlaceholder && styles.placeholder),
+            className: classNames(!filterable && styles.buttonDropdown, showPlaceholder && styles.placeholder),
           })}
         >
           {getButtonLabel()}
@@ -365,7 +371,7 @@ const Dropdown: FC<DropdownProps> = ({
             );
           })}
       </ul>
-      {helperText && <div className={styles.helperText}>{helperText}</div>}
+      {helper && <div className={styles.helperText}>{helper}</div>}
     </div>
   );
 };

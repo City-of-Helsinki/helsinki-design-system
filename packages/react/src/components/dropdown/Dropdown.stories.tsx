@@ -22,15 +22,15 @@ export default {
 };
 
 export const Default = () => (
-  <Dropdown options={options} placeholder="Choose one" label="Label" helperText="Assistive text" />
+  <Dropdown options={options} placeholder="Choose one" label="Label" helper="Assistive text" />
 );
 
 export const Invalid = () => (
-  <Dropdown options={options} placeholder="Placeholder" label="Label" helperText="Error text" invalid />
+  <Dropdown options={options} placeholder="Placeholder" label="Label" helper="Error text" invalid />
 );
 
 export const Disabled = () => (
-  <Dropdown options={options} placeholder="Placeholder" label="Label" helperText="Assistive text" disabled />
+  <Dropdown options={options} placeholder="Placeholder" label="Label" helper="Assistive text" disabled />
 );
 
 export const DisabledOptions = () => (
@@ -97,7 +97,7 @@ export const Playground = () => {
   const visibleOptions = number('Visible options', 5);
   const placeholder = text('Placeholder', 'Placeholder');
   const label = text('Label', 'Label');
-  const helperText = text('Helper text', 'Assistive text');
+  const helper = text('Helper text', 'Assistive text');
 
   return (
     <Dropdown
@@ -105,7 +105,7 @@ export const Playground = () => {
       closeMenuOnSelect={closeMenuOnSelect}
       disabled={disabled}
       filterable={filterable}
-      helperText={helperText}
+      helper={helper}
       hideLabel={hideLabel}
       invalid={invalid}
       label={label}
