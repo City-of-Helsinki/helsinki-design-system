@@ -3,68 +3,92 @@ name: Contributing
 route: /contributing
 ---
 
-# Design
+import LargeParagraph from "../src/components/LargeParagraph";
 
----
+# Contributing
 
-In Abstract, The Helsinki Design System Master files are located in project called _Helsinki Design System_.
+<LargeParagraph>
+    You can contribute content in different ways to HDS. This section gives you all the information needed to get started.
+</LargeParagraph>
 
-![HDS Master](../static/hds-master.png "HDS Master")
+## Before contributing
 
-The design assets are also available in the publicly shared [Helsinki Design System library collection](https://share.goabstract.com/bc16e8b2-b95f-4fac-b36b-f51097695cc7).
+Note that everything added to HDS has to have **design, implementation and documentation**. You may contribute only part of these but please note that HDS team has to implement all three parts before the feature can be released. 
 
-If you have a component that isn’t yet part of the Design System, and you see that there is a need for a component like it in the design library, you can propose it to the HDS team via a _review request_.
+Before you start contributing to HDS, please refer to following guidelines.
 
-## Proposing design
+### Tools needed
+Depending on the feature you want to be working on, you will need access at least some of these tools:
+- [Sketch](https://www.sketch.com/)
+- City of Helsinki [Abstract](https://www.abstract.com/)
+- City of Helsinki Slack (channel #designsystem)
+- [Git repository](https://github.com/City-of-Helsinki/helsinki-design-system)
 
-When you propose your design, the Lead Designer of the design system library will review the design and also have an internal stakeholders review. When The Lead Designer approves the design, you can add your design to the library. Afterwards, communicate with the developers of your team about developing the component. You can also contact the lead developer of the design system about how to manage this.
+### Process of adding new components
+Answer the following three questions to find out whether you should propose a new component.
 
-## Adding designs to library
+#### 1. Does it already exist?
+Before you start working or proposing a new component, it is important to check whether it already exists in HDS or in our roadmap.
 
-When adding your designs to the design system libraries, first think about
+- **First**, check if it exists in [HDS components](/components/overview).
+- **Second**, check if it exists on [HDS roadmap](/about/roadmap).
+- **Third**, check if someone else has already [proposed it](https://github.com/City-of-Helsinki/helsinki-design-system/issues).
 
-- Check if the component already exist. If it does exist and does not fulfill your requirements, and if not; how easily could the existing component be changed to fulfill your requirements?
-- Is this component something that is needed and can be used in several projects, or just your project?
-- Is your component generic enough so it could be used in different projects?
+#### 2. If not, how easily could the existing component be changed to fulfill new requirements?
+Go through the list of existing [HDS components](/components/overview). See if some of the components could be slightly altered to suit your needs while still fulfilling existing requirements. If yes, move on to [making a proposal for the change]().
 
-To add your design to the design system library, start by creating a Branch either from the Master or another branch (the branches are named _Your name DDMMYYYY_). Do this with _Create a branch_ feature within the Helsinki Design System project in Abstract.
+#### 3. If not, is this component something that is needed in several projects?
+Think outside of the scope of your project. Can this component be utilized in other projects as well? If not, could you make it something more generic to match needs of other projects? Discuss with other projects and community.
 
-When you're done with your edits, make a commit, along with a description of what changes were made to the Master Branch, your component, how should your component be used and where (give an example layout if possible). Then ask the Design lead to review the design >> via the green _Request review_ button in Abstract.
+## Design
 
-After your design has been approved, merge your branch. A merge combines the separate edits you did into either the Master directly, or another Branch. >> via the blue button _Merge branch_.
+HDS design versions are managed in City of Helsinki Abstract, in a project called Helsinki Design System. The design assets are also available as a kit which is downloadable from the official [HDS repository releases](https://github.com/City-of-Helsinki/helsinki-design-system/releases).
 
-After a Merge, you'll end up with an updated Master (or Branch), and an archived old Branch.  
-Still got some questions? Ask your team member or visit https://www.abstract.com/how-it-works/
+There are two ways of proposing new designs to be added to HDS.
 
-# Documentation
+### Opening a new branch to Abstract repository
 
----
+If you have an access to City of Helsinki Abstract and HDS repository, you can 
+- Create branch from Master branch. Branch name should follow naming convention [Your name] - [Component name], for example "John Doe - Dropdown"
+- Add all sufficient designs related to your proposals to their own file named HDS [Component name], for example "HDS Dropdown".
+- When done, make a commit, along with a description of what changes were made, your component, how should your component be used and where (give an example layout if possible).
+- Last, submit branch for review and add both Roni Jaakkola and Eemeli Nieminen as reviewers. They will provide feedback and suggest changes if needed.
 
-## You can contribute content in different ways.
+**Do not merge** your branch to Master. HDS team will do it if feature is accepted.
 
-### Editing pages
+### Creating an issue to GitHub repository
+
+If you do not have an access to City of Helsinki Abstract and HDS repository, you can 
+- Create issue in HDS GitHub repository. Use the component name as issue name and label it as "feature-request".
+- In issue body, follow "What & why" issue template when writing the issue. Be specific.
+- You may attach Sketch file containing the designs to the issue. You can also attach reference screenshots to illustrate your proposal better.
+
+### Guidelines for design
+
+_Coming soon!_
+
+## Implementation
+
+When contributing for implementation, create [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) to [HDS GitHub repository](https://github.com/City-of-Helsinki/helsinki-design-system).
+
+### Guidelines for implementation
+
+_Coming soon!_
+
+## Documentation
+
+When contributing for documentation, there are a couple of ways of doing it
+
+### Editing pages directly in GitHub website
 
 The easiest way to edit a page is with the Edit this page on Github link that appears at the bottom of every page on the site. The link opens the specific Github page where you can edit the content and propose the change with a pull request.
 
-### Regular content updates
+### Forking repository and setting up local environment
 
-If you are planning regular or more comprehensive content updates, you will want to fork the repo and install some of the tools we use to build the website. This will create an easier workflow for you long term.
+If you are planning regular or more comprehensive content updates, you will want to fork the repository and install some of the tools we use to build the website. This will create an easier workflow for you long term. Follow README in [document site package](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/site) to get you started setting up local development environment.
 
-### Content and style guidelines
+### Guidelines for writing documentation
 
-Before you get started, take a moment to review our content guidelines. Follow these to ensure consistency of experience across all services.
+_Coming soon!_
 
-### Use Markdown
 
-The website is written in Markdown, which makes it easy for anyone to contribute content in a systematic way. If you don’t already have a Markdown editor installed, there are plenty of free editors available online.
-
-### Guidelines for writing content
-
-> Work in progress
-
-# Implementation
-
----
-
-> Add information about how to contribute components to Helsinki Design System
-> Work in progress
