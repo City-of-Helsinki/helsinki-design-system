@@ -1,0 +1,127 @@
+---
+name: Dropdown
+menu: Components
+route: /components/dropdown
+---
+
+import { Playground } from "docz";
+import { Dropdown } from "hds-react";
+
+import ColorBox from "../../src/components/ColorBox";
+import Text from "../../src/components/Text";
+
+# Dropdowns
+
+>TODO
+
+## Accessibility
+
+>TODO
+
+## How to use
+
+>TODO
+
+## Default
+
+<Playground>
+<Dropdown
+  id="example1"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  placeholder="Choose one"
+  label="Label"
+  helper="Assistive text"
+  // Fixes Playground stack order
+  style={{zIndex: 10}}
+/>
+</Playground>
+
+## Disabled
+
+<Playground>
+<Dropdown
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  defaultValue={{ label: 'Plutonium' }}
+  label="Label"
+  helper="Assistive text"
+  disabled
+/>
+</Playground>
+
+## Invalid
+
+<Playground>
+<Dropdown
+  id="example2"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  defaultValue={{ label: 'Plutonium' }}
+  label="Label"
+  helper="Error text"
+  // Fixes Playground stack order
+  style={{zIndex: 10}}
+  invalid
+/>
+</Playground>
+
+## Filterable
+
+<Playground>
+<Dropdown
+  id="example3"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  placeholder="Choose one"
+  label="Label"
+  helper="Assistive text"
+  // Fixes Playground stack order
+  style={{zIndex: 10}}
+  filterable
+/>
+</Playground>
+
+## Multi-select
+
+<Playground>
+<Dropdown
+  id="example4"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  placeholder="Choose one"
+  label="Label"
+  helper="Assistive text"
+  // Fixes Playground stack order
+  style={{zIndex: 10}}
+  closeMenuOnSelect={false}
+  multiselect
+/>
+</Playground>
+
+## Demos & API
+
+### Core
+
+_Not included in hds-core!_
+
+### React
+
+[Dropdowns in hds-react](/storybook/react/?path=/story/components-dropdown--default)
+
+[Dropdown API](/storybook/react/?path=/docs/components-dropdown--default)
