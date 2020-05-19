@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Dropdown /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="dropdown"
+  >
+    <label
+      class="label"
+      for="hds-toggle-button"
+      id="hds-label"
+    >
+      Label
+    </label>
+    <div
+      class="wrapper"
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="listbox"
+        aria-labelledby="hds-label hds-toggle-button"
+        class="button placeholder"
+        id="hds-toggle-button"
+        type="button"
+      >
+        <span
+          class="buttonLabel"
+        />
+        <svg
+          class="angleIcon"
+          height="100%"
+          viewBox="0 0 199.404 199.404"
+          width="100%"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g>
+            <polygon
+              points="199.404,63.993 171.12,35.709 99.702,107.127 28.284,35.709 0,63.993 99.702,163.695  "
+            />
+          </g>
+        </svg>
+      </button>
+    </div>
+    <ul
+      aria-labelledby="hds-label"
+      class="menu"
+      id="hds-menu"
+      role="listbox"
+      style="max-height: calc(var(--dropdown-height) * 5);"
+      tabindex="-1"
+    />
+    <div
+      class="helperText"
+    >
+      Helper
+    </div>
+  </div>
+</DocumentFragment>
+`;

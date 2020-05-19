@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren, useState } from 'react';
+import React, { FC, PropsWithChildren, ReactNode, useState } from 'react';
 import { useCombobox, useMultipleSelection, useSelect } from 'downshift';
 
 import styles from './Dropdown.module.css';
@@ -6,174 +6,246 @@ import classNames from '../../utils/classNames';
 import { IconAngleDown, IconCheck, IconAttention } from '../../icons';
 import Checkbox from '../checkbox/Checkbox';
 
-// todo: Types
-// todo: API (onChange etc)
+type OptionType = {
+  [key: string]: any;
+};
 
-// fixme: type
-export type DropdownProps = PropsWithChildren<{
+export type DropdownProps = {
   /**
-   * Additional class names to apply to the button
+   * Controls the circular keyboard navigation between items. If set to `true`, when first item is highlighted, the Arrow Up will move highlight to the last item, and vice versa using Arrow Down.
+   */
+  circularNavigation?: boolean;
+  /**
+   * Additional class names to apply to the dropdown
    */
   className?: string;
   /**
    * Close the menu when the user selects an option
    */
   closeMenuOnSelect?: boolean;
+  /**
+   * If `true`, the dropdown will be disabled
+   */
   disabled?: boolean;
+  /**
+   * If `true`, the dropdown menu can be filtered
+   */
   filterable?: boolean;
+  /**
+   * Function used to get `aria` attributes and the `id` prop for menu options (`li`)
+   * @param index Data item index
+   */
+  getItemId?: (index: number) => string;
+  /**
+   * The helper text content that will be shown below the dropdown
+   */
   helperText?: string;
+  /**
+   * Hides the label above the dropdown
+   */
+  hideLabel?: boolean;
+  /**
+   * Item that should be selected when the dropdown is initialized
+   */
+  defaultValue?: OptionType;
+  /**
+   * Item(s) that should be selected when the dropdown is initialized. Use this instead of `initialSelectedItem` when `multiselect` is enabled
+   */
+  defaultValues?: OptionType[];
+  /**
+   * Used to generate the first part of the id on the elements.
+   * You can override this id with one of your own, provided as a prop, or you can override the id for each element altogether using the `getItemId`, `labelId`, `inputId`, `menuId` and `toggleButtonId` props.
+   */
+  id?: string;
+  /**
+   * If `true`, the input and `helperText` will be displayed in an invalid state
+   */
   invalid?: boolean;
+  /**
+   * A function used to detect whether an option is disabled ([example](/?path=/story/components-dropdown--disabled-options))
+   * @param option  Data item
+   * @param index   Data item index
+   */
+  isOptionDisabled?: (option: OptionType, index: number) => boolean;
+  /**
+   * Sets the data item field that represents the item label.
+   * E.g. an `optionLabelField` value of `'foo'` and a data item `{ foo: 'Label', bar: 'value' }`, would display `Label` in the menu for that specific item
+   */
+  optionLabelField?: string;
+  /**
+   * Used for `aria` attributes and the `id` prop for the label element
+   */
   labelId?: string;
-  labelText?: string;
+  /**
+   * The label for the dropdown
+   */
+  label?: string | ReactNode;
+  /**
+   * Used for `aria` attributes and the `id` prop for the input element when `filterable` is `true`
+   */
   inputId?: string;
+  /**
+   * Used for `aria` attributes and the `id` prop for the menu (`ul`)
+   */
+  menuId?: string;
+  /**
+   * Enables selecting multiple values if `true`
+   */
   multiselect?: boolean;
-  // todo: rename?
+  /**
+   * Callback fired when the state is changed
+   * @param selectedItems Selected item(s)
+   */
+  onChange?: (selectedItems: OptionType | OptionType[]) => void;
+  /**
+   * Array of options that should be shown in the menu
+   */
+  options: OptionType[];
+  /**
+   * Short hint displayed in the dropdown before the user enters a value
+   */
   placeholder?: string;
-  // todo: rename?
+  /**
+   * Used for `aria` attributes and the `id` prop for the toggle button (`button`)
+   */
+  toggleButtonId?: string;
+  /**
+   * Sets the number of options that are visible in the menu before it becomes scrollable
+   */
   visibleOptions?: number;
+};
+
+type WrapperProps = PropsWithChildren<{
+  filterable: boolean;
+  getComboboxProps: any;
 }>;
 
+/**
+ * Wrapper for input and toggle button that applies correct props based on dropdown mode
+ * @param filterable        Whether the dropdown is filterable
+ * @param getComboboxProps  Prop getter function required by Downshift to work correctly
+ * @param children
+ */
+const Wrapper: FC<WrapperProps> = ({ filterable, getComboboxProps, children }: WrapperProps) =>
+  filterable ? (
+    <div {...getComboboxProps({ className: styles.wrapper })}>{children}</div>
+  ) : (
+    <div className={styles.wrapper}>{children}</div>
+  );
+
 const Dropdown: FC<DropdownProps> = ({
+  circularNavigation = false,
   className,
   closeMenuOnSelect = true,
+  defaultValue = null,
+  defaultValues = [],
   disabled = false,
   filterable = false,
+  getItemId,
   helperText,
-  invalid,
+  hideLabel = false,
+  invalid = false,
+  isOptionDisabled,
+  label,
   labelId,
-  labelText,
+  id = 'hds',
   inputId,
+  menuId,
   multiselect = false,
+  onChange = () => {
+    // do nothing by default
+  },
+  optionLabelField = 'label',
+  options = [],
   placeholder = '',
+  toggleButtonId,
   visibleOptions = 5,
 }: DropdownProps) => {
-  // const objectItems: Item[] = [
-  //   { value: 'Option 1' },
-  //   { value: 'Option 2' },
-  //   { value: 'Option 3' },
-  //   { value: 'Option 4' },
-  //   { value: 'Option 5' },
-  //   { value: 'Option 6' },
-  //   { value: 'Option 7' },
-  //   { value: 'Option 8' },
-  //   { value: 'Option 9' },
-  //   { value: 'Option 10' },
-  // ];
-  // const items: string[] = [
-  const items: string[] = [
-    'Neptunium',
-    'Plutonium',
-    'Americium',
-    'Curium',
-    'Berkelium',
-    'Californium',
-    'Einsteinium',
-    'Fermium',
-    'Mendelevium',
-    'Nobelium',
-    'Lawrencium',
-    'Rutherfordium',
-    'Dubnium',
-    'Seaborgium',
-    'Bohrium',
-    'Hassium',
-    'Meitnerium',
-    'Darmstadtium',
-    'Roentgenium',
-    'Copernicium',
-    'Nihonium',
-    'Flerovium',
-    'Moscovium',
-    'Livermorium',
-    'Tennessine',
-    'Oganesson',
-  ];
-  // const [inputValue, setInputValue] = useState('');
-  const [inputValue] = useState('');
-  const [inputItems, setInputItems] = useState(items);
-  // const [menuOpen, setMenuOpen] = useState(false);
-  const { getDropdownProps, addSelectedItem, removeSelectedItem, selectedItems } = useMultipleSelection({});
-  // init combobox
-  const combobox = useCombobox({
-    inputValue: multiselect ? inputValue : undefined,
-    items: inputItems,
-    labelId,
-    inputId,
-    selectedItem: multiselect ? null : undefined,
-    // isOpen: menuOpen,
-    stateReducer: (state, actionAndChanges) => {
-      const { type, changes } = actionAndChanges;
-      // this prevents the menu from being closed when the user selects an item with 'Enter' or mouse
-      if (
-        !closeMenuOnSelect &&
-        (type === useCombobox.stateChangeTypes.InputKeyDownEnter || type === useCombobox.stateChangeTypes.ItemClick)
-      ) {
-        return {
-          ...changes,
-          isOpen: state.isOpen,
-          highlightedIndex: state.highlightedIndex,
-        };
-      }
-      return changes;
-    },
-    onInputValueChange: ({ inputValue: _inputValue }) =>
-      // setInputItems(items.filter((item) => !inputValue || item.includes(inputValue))),
-      setInputItems(items.filter((item) => !_inputValue || item.includes(_inputValue))),
-    // fixme: type
-    // eslint-disable-next-line
-    // @ts-ignore
-    onStateChange: ({ type, selectedItem }) => {
-      if (
-        selectedItem &&
-        (type === useCombobox.stateChangeTypes.InputKeyDownEnter ||
-          type === useCombobox.stateChangeTypes.ItemClick ||
-          type === useCombobox.stateChangeTypes.InputBlur)
-      ) {
-        console.log('combobox onStateChange _selectedItem', selectedItem);
-        selectedItems.includes(selectedItem) ? removeSelectedItem(selectedItem) : addSelectedItem(selectedItem);
-      }
-    },
-    // onStateChange: ({ inputValue: _inputValue, type, selectedItem, isOpen }) => {
-    //   switch (type) {
-    //     case useCombobox.stateChangeTypes.InputChange:
-    //       setInputValue(_inputValue);
-    //       break;
-    //     case useCombobox.stateChangeTypes.InputKeyDownEnter:
-    //     case useCombobox.stateChangeTypes.ItemClick:
-    //     case useCombobox.stateChangeTypes.InputBlur:
-    //       if (selectedItem) {
-    //         setInputValue('');
-    //         selectedItems.includes(selectedItem) ? removeSelectedItem(selectedItem) : addSelectedItem(selectedItem);
-    //         // selectItem(null);
-    //       }
-    //       break;
-    //     default:
-    //       break;
-    //   }
-    // },
-  });
-  const select = useSelect({
-    items,
-    labelId,
-    selectedItem: multiselect ? null : undefined,
-    // isOpen: true,
-    // fixme: type
-    // eslint-disable-next-line
-    // @ts-ignore
-    onStateChange: ({ type, selectedItem }) => {
-      if (
-        multiselect &&
-        selectedItem &&
-        (type === useSelect.stateChangeTypes.MenuKeyDownEnter ||
-          type === useSelect.stateChangeTypes.MenuKeyDownSpaceButton ||
-          type === useSelect.stateChangeTypes.ItemClick)
-      ) {
-        console.log('select onStateChange _selectedItem', selectedItem);
-        selectedItems.includes(selectedItem) ? removeSelectedItem(selectedItem) : addSelectedItem(selectedItem);
-      }
-    },
+  // todo: this should be removed when multiselect is supported together with the filterable prop
+  // https://helsinkisolutionoffice.atlassian.net/browse/HDS-200
+  if (filterable && multiselect) {
+    // eslint-disable-next-line no-param-reassign
+    multiselect = false;
+  }
+
+  // combobox menu options
+  const [inputItems, setInputItems] = useState(options);
+
+  // init multi-select
+  const { getDropdownProps, addSelectedItem, removeSelectedItem, selectedItems } = useMultipleSelection<OptionType>({
+    initialSelectedItems: defaultValues,
+    onSelectedItemsChange: ({ selectedItems: _selectedItems }) => multiselect && onChange(_selectedItems),
   });
 
+  // downshift needs a string representation for each option label
+  const itemToString = (item: OptionType): string => (item ? item[optionLabelField] ?? '' : '');
+
+  // handles state changes
+  const stateReducer = (state, { type, changes }) => {
+    const { selectedItem } = changes;
+    // flag for whether an item was selected
+    const itemSelection = ((filterable
+      ? [useCombobox.stateChangeTypes.InputKeyDownEnter, useCombobox.stateChangeTypes.ItemClick]
+      : [
+          useSelect.stateChangeTypes.MenuKeyDownEnter,
+          useSelect.stateChangeTypes.MenuKeyDownSpaceButton,
+          useSelect.stateChangeTypes.ItemClick,
+        ]) as string[]).includes(type);
+
+    // update selected items when multiselect is enabled
+    if (multiselect && selectedItem && itemSelection) {
+      selectedItems.includes(selectedItem) ? removeSelectedItem(selectedItem) : addSelectedItem(selectedItem);
+    }
+    // prevent the menu from being closed when the user selects an item
+    if (!closeMenuOnSelect && itemSelection) {
+      return {
+        ...changes,
+        isOpen: state.isOpen,
+        highlightedIndex: state.highlightedIndex,
+      };
+    }
+    return changes;
+  };
+
+  // shared props for select and combobox
+  const commonProps = {
+    circularNavigation,
+    getItemId,
+    id,
+    initialSelectedItem: defaultValue,
+    itemToString,
+    labelId,
+    menuId,
+    onSelectedItemChange: ({ selectedItem }) => !multiselect && onChange(selectedItem),
+    // selected items are handled by stateReducer when multiselect is enabled
+    ...(multiselect && { selectedItem: null }),
+    stateReducer,
+    toggleButtonId,
+  };
+
+  // init select
+  const select = useSelect<OptionType>({
+    items: options,
+    ...commonProps,
+  });
+
+  // init combobox
+  const combobox = useCombobox<OptionType>({
+    items: inputItems,
+    inputId,
+    onInputValueChange: ({ inputValue }) =>
+      setInputItems(
+        options.filter((item) => {
+          const input = inputValue.toLowerCase();
+          const optionItem = item[optionLabelField]?.toLowerCase() || '';
+
+          return optionItem.includes(input);
+        }),
+      ),
+    ...commonProps,
+  });
+
+  // get downshift props based on dropdown mode
   const {
     isOpen,
     selectedItem,
@@ -184,17 +256,21 @@ const Dropdown: FC<DropdownProps> = ({
     getItemProps,
   } = filterable ? combobox : select;
 
-  const getButtonLabel = () => {
+  // returns the toggle button label based on the dropdown mode
+  const getButtonLabel = (): ReactNode => {
     if (filterable) return null;
-    const label = multiselect ? selectedItems.join(', ') : selectedItem;
-    return <span className={styles.buttonLabel}>{label || placeholder}</span>;
+
+    const buttonLabel = multiselect
+      ? selectedItems.map((item) => item[optionLabelField]).join(', ')
+      : selectedItem?.[optionLabelField];
+
+    return <span className={styles.buttonLabel}>{buttonLabel || placeholder}</span>;
   };
 
-  // console.log('selectedItem', selectedItem);
-  // console.log('selectedItems', selectedItems);
-
-  // list options
-  const options = filterable ? inputItems : items;
+  // menu items
+  const menuOptions = filterable ? inputItems : options;
+  // show placeholder if no value is selected
+  const showPlaceholder = (multiselect && selectedItems.length === 0) || (!multiselect && !selectedItem);
 
   return (
     <div
@@ -206,108 +282,91 @@ const Dropdown: FC<DropdownProps> = ({
         className,
       )}
     >
-      {labelText && <label {...getLabelProps({ className: styles.label })}>{labelText}</label>}
-      <Wrapper filterable={filterable} comboboxProps={combobox.getComboboxProps({ className: styles.wrapper })}>
+      {/* LABEL */}
+      {label && (
+        <label {...getLabelProps({ className: classNames(styles.label, hideLabel ? styles.hiddenLabel : '') })}>
+          {label}
+        </label>
+      )}
+      {/* WRAPPER */}
+      <Wrapper filterable={filterable} getComboboxProps={combobox.getComboboxProps}>
+        {/* COMBOBOX INPUT */}
         {filterable && (
-          <>
-            {/* <div className={styles.selectedItems}> */}
-            {/*  <span>{selectedItems.join(', ')}</span> */}
-            {/* </div> */}
-            <input
-              {...{
-                ...combobox.getInputProps({
-                  ...getDropdownProps({ preventKeyAction: isOpen }),
-                  // ...getDropdownProps({ preventKeyAction: menuOpen }),
-                  className: styles.input,
-                  disabled,
-                  placeholder,
-                  // onFocus: () => setInputValue(''),
-                  // onBlur: () => setInputValue(selectedItems.join(', ')),
-                }),
-              }}
-            />
-          </>
+          <input
+            {...combobox.getInputProps({
+              ...getDropdownProps(),
+              type: 'text',
+              className: styles.input,
+              disabled,
+              placeholder,
+            })}
+          />
         )}
-        <ToggleButton
-          toggleButtonProps={getToggleButtonProps({
-            // fixme
-            // ...getDropdownProps({ preventKeyAction: isOpen }),
-            className: classNames(
-              // todo: rename class?
-              !filterable && styles.button,
-              // fixme: make it cleaner
-              ((multiselect && selectedItems.length === 0) || (!multiselect && !selectedItem)) && styles.placeholder,
-            ),
+        {/* TOGGLE BUTTON */}
+        <button
+          type="button"
+          {...getToggleButtonProps({
+            // add downshift dropdown props for non-combobox multi-select dropdowns
+            ...(!filterable && multiselect && { ...getDropdownProps() }),
+            // add aria attribute to button for combobox dropdowns
+            ...(filterable && { 'aria-labelledby': labelId || `${id}-label` }),
             disabled,
+            className: classNames(!filterable && styles.button, showPlaceholder && styles.placeholder),
           })}
         >
           {getButtonLabel()}
           <IconAngleDown className={styles.angleIcon} />
-        </ToggleButton>
+        </button>
         {invalid && <IconAttention className={styles.invalidIcon} />}
       </Wrapper>
-      <OptionList
-        menuProps={{
-          ...getMenuProps({
-            // fixme: overflow class
-            className: classNames(styles.list, options.length > visibleOptions && styles.overflow),
-            style: { maxHeight: `calc(var(--input-height) * ${visibleOptions})` },
-          }),
-        }}
+      {/* MENU */}
+      <ul
+        {...getMenuProps({
+          className: classNames(styles.menu, menuOptions.length > visibleOptions && styles.overflow),
+          style: { maxHeight: `calc(var(--dropdown-height) * ${visibleOptions})` },
+        })}
       >
         {isOpen &&
-          // {menuOpen &&
-          options.map((item, index) => (
-            <OptionListItem
-              key={item}
-              item={item}
-              selectedItem={selectedItem}
-              selectedItems={selectedItems}
-              multiselect={multiselect}
-              itemProps={{
-                ...getItemProps({
-                  key: item,
+          menuOptions.map((item, index) => {
+            const optionLabel = item[optionLabelField];
+            const selected = multiselect ? selectedItems.includes(item) : selectedItem === item;
+            const optionDisabled = typeof isOptionDisabled === 'function' ? isOptionDisabled(item, index) : false;
+
+            return (
+              <li
+                {...getItemProps({
+                  key: `item-${index}`,
                   index,
                   item,
+                  disabled: optionDisabled,
                   className: classNames(
-                    styles.listItem,
+                    styles.menuItem,
                     highlightedIndex === index && styles.highlighted,
                     selectedItem === item && styles.selected,
+                    optionDisabled && styles.disabled,
                   ),
-                }),
-              }}
-            />
-          ))}
-      </OptionList>
+                })}
+              >
+                {multiselect ? (
+                  <Checkbox
+                    className={styles.checkbox}
+                    id={optionLabel}
+                    labelText={optionLabel}
+                    checked={selected}
+                    disabled={optionDisabled}
+                  />
+                ) : (
+                  <>
+                    {optionLabel}
+                    {selected && <IconCheck className={styles.selectedIcon} />}
+                  </>
+                )}
+              </li>
+            );
+          })}
+      </ul>
       {helperText && <div className={styles.helperText}>{helperText}</div>}
     </div>
-  );
-};
-
-const Wrapper = ({ filterable, comboboxProps, children }) => {
-  return filterable ? <div {...comboboxProps}>{children}</div> : <div className={styles.wrapper}>{children}</div>;
-};
-
-const ToggleButton = ({ toggleButtonProps, children }) => (
-  <button type="button" {...toggleButtonProps}>
-    {children}
-  </button>
-);
-
-const OptionList = ({ menuProps, children }) => <ul {...menuProps}>{children}</ul>;
-
-const OptionListItem = ({ item, selectedItem, selectedItems, itemProps, multiselect }) => {
-  return (
-    <li {...itemProps}>
-      {multiselect ? (
-        <Checkbox className={styles.checkbox} id={item} labelText={item} checked={selectedItems.includes(item)} />
-      ) : (
-        <>
-          {item}
-          {selectedItem === item && <IconCheck className={styles.selectedIcon} />}
-        </>
-      )}
-    </li>
   );
 };
 

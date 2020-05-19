@@ -1,7 +1,19 @@
 import React from 'react';
-import { boolean, text, withKnobs } from '@storybook/addon-knobs';
+import { boolean, number, text, withKnobs } from '@storybook/addon-knobs';
 
 import Dropdown from './Dropdown';
+
+const options = [
+  { label: 'Plutonium' },
+  { label: 'Americium' },
+  { label: 'Copernicium' },
+  { label: 'Nihonium' },
+  { label: 'Flerovium' },
+  { label: 'Moscovium' },
+  { label: 'Livermorium' },
+  { label: 'Tennessine' },
+  { label: 'Oganesson' },
+];
 
 export default {
   component: Dropdown,
@@ -10,41 +22,97 @@ export default {
 };
 
 export const Default = () => (
-  <Dropdown placeholder="Choose one" labelText="Label" helperText="Assistive text">
-    Dropdown
-  </Dropdown>
+  <Dropdown options={options} placeholder="Choose one" label="Label" helperText="Assistive text" />
 );
 
 export const Invalid = () => (
-  <Dropdown placeholder="Placeholder" labelText="Label" helperText="Error text" invalid>
-    Dropdown
-  </Dropdown>
+  <Dropdown options={options} placeholder="Placeholder" label="Label" helperText="Error text" invalid />
 );
 
 export const Disabled = () => (
-  <Dropdown placeholder="Placeholder" labelText="Label" helperText="Assistive text" disabled>
-    Dropdown
-  </Dropdown>
+  <Dropdown options={options} placeholder="Placeholder" label="Label" helperText="Assistive text" disabled />
 );
+
+export const DisabledOptions = () => (
+  <Dropdown
+    options={options}
+    placeholder="Placeholder"
+    label="Label"
+    isOptionDisabled={(option, index) => [1, 2, 4].includes(index)}
+  />
+);
+
+DisabledOptions.story = {
+  name: 'With disabled options',
+};
+
+export const DefaultValue = () => (
+  <>
+    <Dropdown options={options} label="Dropdown with default value" defaultValue={options[2]} />
+    <br />
+    <Dropdown
+      options={options}
+      label="Multi-select dropdown with default values"
+      defaultValues={[options[2], options[3], options[4]]}
+      multiselect
+      closeMenuOnSelect={false}
+    />
+  </>
+);
+
+DefaultValue.story = {
+  name: 'With default value(s)',
+};
+
+export const Multiselect = () => (
+  <Dropdown
+    options={options}
+    label="Multi-select dropdown"
+    placeholder="Placeholder"
+    multiselect
+    closeMenuOnSelect={false}
+  />
+);
+
+Multiselect.story = {
+  name: 'With multiselect',
+};
+
+export const Combobox = () => (
+  <Dropdown options={options} label="Filterable dropdown (combobox)" placeholder="Placeholder" filterable />
+);
+
+Combobox.story = {
+  name: 'With filtering (combobox)',
+};
 
 export const Playground = () => {
   const multiselect = boolean('Multiselect', false);
   const filterable = boolean('Filterable', false);
   const invalid = boolean('Invalid', false);
   const disabled = boolean('Disabled', false);
+  const hideLabel = boolean('Hide label', false);
   const closeMenuOnSelect = boolean('Close menu on select', true);
+  const circularNavigation = boolean('Circular navigation', false);
+  const visibleOptions = number('Visible options', 5);
   const placeholder = text('Placeholder', 'Placeholder');
+  const label = text('Label', 'Label');
+  const helperText = text('Helper text', 'Assistive text');
 
   return (
     <Dropdown
-      multiselect={multiselect}
-      filterable={filterable}
-      invalid={invalid}
-      disabled={disabled}
-      placeholder={placeholder}
+      circularNavigation={circularNavigation}
       closeMenuOnSelect={closeMenuOnSelect}
-      labelText="Label"
-      helperText="Assistive text"
+      disabled={disabled}
+      filterable={filterable}
+      helperText={helperText}
+      hideLabel={hideLabel}
+      invalid={invalid}
+      label={label}
+      multiselect={multiselect}
+      options={options}
+      placeholder={placeholder}
+      visibleOptions={visibleOptions}
     />
   );
 };
