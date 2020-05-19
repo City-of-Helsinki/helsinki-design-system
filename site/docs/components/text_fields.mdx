@@ -11,27 +11,29 @@ import ColorBox from "../../src/components/ColorBox";
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Text from "../../src/components/Text";
 
-# Text Fields
+# Text fields
 
 <LargeParagraph>
-  A text field is an input field that the user can interact with and input content and data. This component can be used for long and short form entries.
-  It has a range of options and supports several text formats including numbers.
-  Text fields are normally found within a form but can also be part of a modal or search. Common text input types include: usernames, descriptions, URLs, emails, addresses, and plain text searches.
+  A text field is an input field that the user can interact with and input content and data. The user can also be provided with helper text if needed. Text inputs are used for shorter information while Text Areas can be used for multiline answers.
 </LargeParagraph>
 
 ## Principles
-- Use a text input when a single line of text is expected. Use a text area for more than one sentence.
-- Where possible, add programmatic assistance. Detect and pre-fill inputs to reduce errors and save time. Use sentence-case for default values, detected values, and auto-completion text.
-
-### Size
-Allow the text input to reflect the length of the content you expect the user to enter.
+- **Label should be always provided with text fields.** Only exception to this is the search field which can be identified from the magnifying glass icon.
+- Use a text input when a single line of text is expected. For multiline inputs, use a text area.
+- Allow the text input to reflect the length of the content you expect the user to enter.
+- If possible, add programmatic assistance. Detect and pre-fill inputs to reduce errors and save time. Use sentence-case for default values, detected values, and auto-completion text.
+- In the case of an erroneous input, aim to provide clear instructions to the user how to correct the mistake. Use text field error state and assistive/error text for this purpose.
 
 ## Accessibility
-> TODO
+- Placeholder text can be used to give hints and examples to the user what should be entered to the field. **However, all assistive technologies do not threat placeholder texts as labels and therefore they may ignore them completely.** Aim to provide the sufficient information to fill the input in the label. 
+- If possible, do input validation in client-side real time and provide the user with immediate feedback.
+- If possible, be forgiving of different input formats and small mistakes. It can greatly increase user experience of your product if you can fix common mistakes for the user.
 
 ## Usage and variations
 
-### TextInput
+### Text input
+
+Text input serves in most use cases when the user needs to enter information. Text input works well for short inputs that fit in one line and are not longer than one sentence.
 
 <Playground>
   <TextInput
@@ -121,7 +123,9 @@ Allow the text input to reflect the length of the content you expect the user to
 />
 ```
 
-### TextArea
+### Text area
+
+Text area is meant for situations where inputted text is multiline or contains more than one sentence.
 
 <Playground>
   <TextArea
@@ -219,6 +223,8 @@ Allow the text input to reflect the length of the content you expect the user to
 
 ### Read-only
 
+Read-only text input is used to indicate an input among other inputs that cannot be edited. This is needed in situations where, for example, the information has been gathered from other source and filled automatically. Read-only fields should not be confused with disabled text fields. Disabled text fields are used when there is an action the user can make to activate the field. Read-only text fields will stay uneditable in the same view.
+
 <Playground>
   <TextInput
     id="input2"
@@ -255,7 +261,11 @@ Allow the text input to reflect the length of the content you expect the user to
 
 ### With tooltip
 
+**NOTE! This component is work in progress and is subject to change in the future versions of HDS!**
+
 _Text field tooltips are only available in hds-react!_
+
+Both text input and text area can be provided with additional tooltip. Tooltip information should be considered as extra information, for example, why this information is gathered or how is it used. The user should have succifient information on how to fill the input field in label and assistive text.
 
 <Playground>
   <TextInput
