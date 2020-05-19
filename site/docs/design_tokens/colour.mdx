@@ -17,17 +17,19 @@ import Example from "../../src/components/Example";
 
 Colour can be used for branding, providing visual hierarchy and giving visual cues for action.
 
-The Helsinki Design system colour tokens are based on the City of Helsinki brand colour palette. More information on using and combining the brand colours in the [City of Helsinki Visual Identity Guidelines](https://brand.hel.fi/en/colours/ "City of Helsinki Visual Identity Guidelines").
+The Helsinki Design system colour tokens are based on the City of Helsinki brand colour palette. More information on using and combining the brand colours in the [City of Helsinki Visual Identity Guidelines](https://brand.hel.fi/en/colours/ "City of Helsinki Visual Identity Guidelines / Colour").
+
 
 ## Principles
-- Use bold colours to attract users attention to most important content and primary actions.
-- Use lighter hues and shades to fade less important information to background, but be sure to maintain an accessible colour contrast.
-- Different colour can also be used to differentiate sections or content types.
+- **Use bold colours to attract users attention** to most important content and primary actions.
+- **Use lighter hues and shades to fade less important information to background**, but be sure to maintain an accessible colour contrast.
+- Colour can also be used to differentiate sections or content types.
 
 
 ## Accessibility
 - When choosing and using colours, always check that sufficient colour contrast between the element and its background is maintained. All colour choices should comply with [WCAG 2.0 Standard at AA Level contrast ratios](https://www.w3.org/TR/WCAG20/#visual-audio-contrast "WCAG 2.0 Visual and audio contrast"). 
 - Don’t rely solely on colour when communicating information to user – especially crucial system information like error state, success state, or warnings. Also convey the same information with another modality, e.g. with a text label or icon that clearly indicates its meaning.
+
 
 ## Usage
 The design system uses a colour theme that includes:
@@ -38,43 +40,50 @@ The design system uses a colour theme that includes:
 
 The theming scheme also provides lighter and darker shades for the base colours.
 
-Colours are defined as [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/var) and the theme is therefore customisable. **If you create a new theme, you always ensure that it is accessible.**
+### Customising colours
+Colours are defined as [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/var) and the theme is therefore customisable. 
+
+**When customising colours always check that:**
+1. the colour combination follows the [City of Helsinki Visual Identity Guidelines](https://brand.hel.fi/en/colours/#safe-color-combinations "City of Helsinki Visual Identity Guidelines / Colour")
+2. the colour contrast is compliant with [WCAG 2.0 Standard at AA Level contrast ratios](https://www.w3.org/TR/WCAG20/#visual-audio-contrast "WCAG 2.0 Visual and audio contrast"). Note that font size affects the contrast criteria of text elements. You can find tools for checking contrast accessibility in the [Resources page](/about/resources "Resources")
+
 
 ## Colours
 
 ### Brand colours
 Brand colours are used for primary, secondary and tertiary colours. They should not be used for indicating system status. 
 
-| Colour name (en)    |  Colour name (fi) |                                                                                                           |
-| ------------------- | ----------------- | --------------------------------------------------------------------------------------------------------- |
-| Coat of Arms Blue   |  Vaakuna          | <Colors colorvar="--color-coat-of-arms-blue" variations={["-dark-50", "", "-light-50", "-light-20", "-light-5"]} />   |
-| Coat of Arms Gold   |  Kulta            | <Colors colorvar="--color-coat-of-arms-gold" variations={["-dark-50", "", "-light-50", "-light-20"]} />   |
-| Coat of Arms Silver |  Hopea            | <Colors colorvar="--color-coat-of-arms-silver" variations={["-dark-50", "", "-light-50", "-light-20"]} /> |
-| Brick               |  Tiili            | <Colors colorvar="--color-brick" variations={["-dark-50", "", "-light-50", "-light-20"]} />               |
-| Bus                 |  Bussi            | <Colors colorvar="--color-bus" variations={["-dark-50", "", "-light-50", "-light-20", "-light-5"]} />                 |
-| Copper              |  Kupari           | <Colors colorvar="--color-copper" variations={["-dark-50", "", "-light-50", "-light-20"]} />              |
-| Engel               |  Engel            | <Colors colorvar="--color-engel" variations={["-dark-50", "", "-light-50", "-light-20"]} />               |
-| Fog                 |  Sumu             | <Colors colorvar="--color-fog" variations={["-dark-50", "", "-light-50", "-light-20"]} />                 |
-| Metro               |  Metro            | <Colors colorvar="--color-metro" variations={["-dark-50", "", "-light-50", "-light-20"]} />               |
-| Summer              |  Kesä             | <Colors colorvar="--color-summer" variations={["-dark-50", "", "-light-50", "-light-20"]} />              |
-| Suomenlinna         |  Suomenlinna      | <Colors colorvar="--color-suomenlinna" variations={["-dark-50", "", "-light-50", "-light-20"]} />         |
-| Tram                |  Spåra            | <Colors colorvar="--color-tram" variations={["-dark-50", "", "-light-50", "-light-20"]} />                |
+| Colour name (en)    |  Colour name (fi) | Base colour                                          | Dark 50                                                      | Light 50                                                      | Light 20                                                      | Light 5                                                      |
+| ------------------- | ----------------- | ---------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------|
+| Coat of Arms Blue   |  Vaakuna          | <ColorBox color="var(--color-coat-of-arms-blue)"/>   | <ColorBox color="var(--color-coat-of-arms-blue-dark-50)"/>   | <ColorBox color="var(--color-coat-of-arms-blue-light-50)"/>   | <ColorBox color="var(--color-coat-of-arms-blue-light-20)"/>   | <ColorBox color="var(--color-coat-of-arms-blue-light-5)"/>   |
+| Coat of Arms Gold   |  Kulta            | <ColorBox color="var(--color-coat-of-arms-gold)"/>   | <ColorBox color="var(--color-coat-of-arms-gold-dark-50)"/>   | <ColorBox color="var(--color-coat-of-arms-gold-light-50)"/>   | <ColorBox color="var(--color-coat-of-arms-gold-light-20)"/>   |                                                              |
+| Coat of Arms Silver |  Hopea            | <ColorBox color="var(--color-coat-of-arms-silver)"/> | <ColorBox color="var(--color-coat-of-arms-silver-dark-50)"/> | <ColorBox color="var(--color-coat-of-arms-silver-light-50)"/> | <ColorBox color="var(--color-coat-of-arms-silver-light-20)"/> |                                                              |
+| Brick               |  Tiili            | <ColorBox color="var(--color-brick)"/>               | <ColorBox color="var(--color-brick-dark-50)"/>               | <ColorBox color="var(--color-brick-light-50)"/>               | <ColorBox color="var(--color-brick-light-20)"/>               |                                                              |
+| Bus                 |  Bussi            | <ColorBox color="var(--color-bus)"/>                 | <ColorBox color="var(--color-bus-dark-50)"/>                 | <ColorBox color="var(--color-bus-light-50)"/>                 | <ColorBox color="var(--color-bus-light-20)"/>                 | <ColorBox color="var(--color-bus-light-5)"/>                 |
+| Copper              |  Kupari           | <ColorBox color="var(--color-copper)"/>              | <ColorBox color="var(--color-copper-dark-50)"/>              | <ColorBox color="var(--color-copper-light-50)"/>              | <ColorBox color="var(--color-copper-light-20)"/>              |                                                              |
+| Engel               |  Engel            | <ColorBox color="var(--color-engel)"/>               | <ColorBox color="var(--color-engel-dark-50)"/>               | <ColorBox color="var(--color-engel-light-50)"/>               | <ColorBox color="var(--color-engel-light-20)"/>               |                                                              |
+| Fog                 |  Sumu             | <ColorBox color="var(--color-fog)"/>                 | <ColorBox color="var(--color-fog-dark-50)"/>                 | <ColorBox color="var(--color-fog-light-50)"/>                 | <ColorBox color="var(--color-fog-light-20)"/>                 |                                                              |
+| Metro               |  Metro            | <ColorBox color="var(--color-metro)"/>               | <ColorBox color="var(--color-metro-dark-50)"/>               | <ColorBox color="var(--color-metro-light-50)"/>               | <ColorBox color="var(--color-metro-light-20)"/>               |                                                              |
+| Summer              |  Kesä             | <ColorBox color="var(--color-summer)"/>              | <ColorBox color="var(--color-summer-dark-50)"/>              | <ColorBox color="var(--color-summer-light-50)"/>              | <ColorBox color="var(--color-summer-light-20)"/>              |                                                              |
+| Suomenlinna         |  Suomenlinna      | <ColorBox color="var(--color-suomenlinna)"/>         | <ColorBox color="var(--color-suomenlinna-dark-50)"/>         | <ColorBox color="var(--color-suomenlinna-light-50)"/>         | <ColorBox color="var(--color-suomenlinna-light-20)"/>         |                                                              |
+| Tram                |  Spåra            | <ColorBox color="var(--color-tram)"/>                | <ColorBox color="var(--color-tram-dark-50)"/>                | <ColorBox color="var(--color-tram-light-50)"/>                | <ColorBox color="var(--color-tram-light-20)"/>                |                                                              |
 
 
 ### UI colours
 Status colours are reserved exclusively for indicating valid, invalid or informational states on the service.
 
-| Status  | Dark                                           | Base                                     | Light                                           |
-| ------- | -----------------------------------------------| -----------------------------------------| ------------------------------------------------|
-| error   | <ColorBox color="var(--color-error-dark)"/>    | <ColorBox color="var(--color-error)"/>   | <ColorBox color="var(--color-error-light)" />   |
-| success | <ColorBox color="var(--color-success-dark)"/>  | <ColorBox color="var(--color-success)"/> | <ColorBox color="var(--color-success-light)" /> |
-| alert   | <ColorBox color="var(--color-alert-dark)"/>    | <ColorBox color="var(--color-alert)"/>   | <ColorBox color="var(--color-alert-light)" />   |
-| info    | <ColorBox color="var(--color-info-dark)"/>     | <ColorBox color="var(--color-info)"/>    | <ColorBox color="var(--color-info-light)" />    |
+| Status  | Base                                      | Dark                                           | Light                                            |
+| ------- | ----------------------------------------- | -----------------------------------------------| ------------------------------------------------ |
+| error   | <ColorBox color="var(--color-error)"/>    | <ColorBox color="var(--color-error-dark)"/>    | <ColorBox color="var(--color-error-light)" />    |
+| success | <ColorBox color="var(--color-success)"/>  | <ColorBox color="var(--color-success-dark)"/>  | <ColorBox color="var(--color-success-light)" />  |
+| alert   | <ColorBox color="var(--color-alert)"/>    | <ColorBox color="var(--color-alert-dark)"/>    | <ColorBox color="var(--color-alert-light)" />    |
+| info    | <ColorBox color="var(--color-info)"/>     | <ColorBox color="var(--color-info-dark)"/>     | <ColorBox color="var(--color-info-light)" />     |
 
 ### Grayscale
-|           | black                                  |  90                                       | 80                                        | 70                                        | 60                                        | 50                                        | 40                                        | 30                                        | 20                                        | 10                                        | 5                                        | white                                   |
-| --------- | -------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ---------------------------------------- | --------------------------------------- |
-| greyscale | <ColorBox color="var(--color-black)"/> | <ColorBox color="var(--color-black-90)"/> | <ColorBox color="var(--color-black-80)"/> | <ColorBox color="var(--color-black-70)"/> | <ColorBox color="var(--color-black-60)"/> | <ColorBox color="var(--color-black-50)"/> | <ColorBox color="var(--color-black-40)"/> | <ColorBox color="var(--color-black-30)"/> | <ColorBox color="var(--color-black-20)"/> | <ColorBox color="var(--color-black-10)"/> | <ColorBox color="var(--color-black-5)"/> | <ColorBox color="var(--color-white)" /> |
+| black                                  |  90                                       | 80                                        | 70                                        | 60                                        | 50                                        | 40                                        | 30                                        | 20                                        | 10                                        | 5                                        | white                                   |
+| -------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ---------------------------------------- | --------------------------------------- |
+| <ColorBox color="var(--color-black)"/> | <ColorBox color="var(--color-black-90)"/> | <ColorBox color="var(--color-black-80)"/> | <ColorBox color="var(--color-black-70)"/> | <ColorBox color="var(--color-black-60)"/> | <ColorBox color="var(--color-black-50)"/> | <ColorBox color="var(--color-black-40)"/> | <ColorBox color="var(--color-black-30)"/> | <ColorBox color="var(--color-black-20)"/> | <ColorBox color="var(--color-black-10)"/> | <ColorBox color="var(--color-black-5)"/> | <ColorBox color="var(--color-white)" /> |
+
 
 ## Tokens
 The colour tokens are provided as CSS and SASS variables in [hds-design-tokens](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/design-tokens).
