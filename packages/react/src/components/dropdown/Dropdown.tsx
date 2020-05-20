@@ -32,7 +32,7 @@ export type DropdownProps = {
    */
   filterable?: boolean;
   /**
-   * Function used to get `aria` attributes and the `id` prop for menu options (`li`)
+   * Function used to set the `id` prop for menu options (`li`). The returned `string` value will be set a the option `id`
    * @param index Data item index
    */
   getItemId?: (index: number) => string;
@@ -49,7 +49,7 @@ export type DropdownProps = {
    */
   defaultValue?: OptionType;
   /**
-   * Item(s) that should be selected when the dropdown is initialized. Use this instead of `initialSelectedItem` when `multiselect` is enabled
+   * Item(s) that should be selected when the dropdown is initialized. Use this instead of `defaultValue` when `multiselect` is enabled
    */
   defaultValues?: OptionType[];
   /**
@@ -73,7 +73,7 @@ export type DropdownProps = {
    */
   optionLabelField?: string;
   /**
-   * Used for `aria` attributes and the `id` prop for the label element
+   * Sets the `id` prop for the label element
    */
   labelId?: string;
   /**
@@ -81,15 +81,17 @@ export type DropdownProps = {
    */
   label?: string | ReactNode;
   /**
-   * Used for `aria` attributes and the `id` prop for the input element when `filterable` is `true`
+   * Sets the `id` prop for the input element when `filterable` is `true`
    */
   inputId?: string;
   /**
-   * Used for `aria` attributes and the `id` prop for the menu (`ul`)
+   * Sets the `id` prop for the menu (`ul`)
    */
   menuId?: string;
   /**
-   * Enables selecting multiple values if `true`
+   * Enables selecting multiple values if `true`.
+   *
+   * Note: Using multiselect together with the `filterable` prop is not yet supported. `multiselect` will be ignored if `filterable` is `true`
    */
   multiselect?: boolean;
   /**
@@ -110,7 +112,7 @@ export type DropdownProps = {
    */
   style?: CSSProperties;
   /**
-   * Used for `aria` attributes and the `id` prop for the toggle button (`button`)
+   * Sets the `id` prop for the toggle button (`button`)
    */
   toggleButtonId?: string;
   /**
