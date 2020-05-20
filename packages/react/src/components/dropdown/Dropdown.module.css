@@ -4,7 +4,7 @@
   --border-radius: 2px;
   --border-width: 2px;
   --outline-width: 3px;
-  --dropdown-height: 3.25rem;
+  --dropdown-height: var(--spacing-3-xl);
   --icon-size: var(--fontsize-body-large);
   --menu-z-index: 10;
 
