@@ -18,14 +18,14 @@ import Text from "../../src/components/Text";
 </LargeParagraph>
 
 ## Principles
-- Buttons are used to **trigger an action**. Be cautious when using buttons for navigating. In most cases you should prefer links for this purpose. 
+- **Buttons are used to trigger an action.** Be cautious when using buttons for navigating. In most cases you should prefer links for this purpose. 
 - Button label should always describe the action that the buttons is going to trigger. A good practice is to start the label with a verb and use two word labels at maximum.
 - Use provided button types to control the visual priority of the view. Priority of the button types is the following: *Primary -> Secondary -> Supplementary*.
 - In mobile screen sizes, use full-width buttons. In other sizes use buttons that scale according to their content.
 
 ## Accessibility
 
-- **It is advisable to use color combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customizing colors, refer to [color guidelines](/) to ensure accessibility.
+- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
 - In most cases, prefer using normal size buttons over small buttons. Default sized buttons are easier for users to notice and press.
 - Try to keep the amount of buttons in one view low. If there is a need for several actions in one view, consider using the smaller button variant.
 
@@ -36,7 +36,7 @@ Primary button is reserved for the most important action on the screen. Primary 
 
 <Playground>
 <Button>Primary</Button>
-<Button disabled>Primary</Button>
+<Button disabled>Primary disabled</Button>
 </Playground>
 
 ##### Core:
@@ -56,7 +56,7 @@ Secondary buttons are used for actions which are not mandatory or essential for 
 
 <Playground>
   <Button variant="secondary">Secondary</Button>
-  <Button variant="secondary" disabled>Secondary</Button>
+  <Button variant="secondary" disabled>Secondary disabled</Button>
 </Playground>
 
 ##### Core:
@@ -76,7 +76,7 @@ Supplementary buttons can be used in similar cases as secondary buttons. However
 
 <Playground>
   <Button variant="supplementary">Supplementary</Button>
-  <Button variant="supplementary" disabled>Supplementary</Button>
+  <Button variant="supplementary" disabled>Supplementary disabled</Button>
 </Playground>
 
 ##### Core:
@@ -92,7 +92,7 @@ Supplementary buttons can be used in similar cases as secondary buttons. However
 ```
 
 ### Icon buttons
-Icons can be added to buttons to make the action easier to understand. Sometimes it can be also beneficial to add icons to make important actions more distinguishable. It is not recommended to use buttons with icons without text label because users interpret icons in different ways. 
+Icons can be added to buttons to make the action easier to understand. Sometimes it can be also beneficial to add icons to make important actions more distinguishable. It is not recommended to use buttons with icons without text label because users interpret icons in different ways. More infomration on icon usage in the [icon guideleines](/visual-assets/icons "Icons").
 
 <Playground>
   <Button iconLeft={<IconShare />}>Button</Button>
