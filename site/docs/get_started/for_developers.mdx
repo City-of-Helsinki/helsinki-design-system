@@ -8,57 +8,41 @@ route: /developers
 
 ---
 
-Helsinki Design System provides a collection of ready-made components for building accessible websites and applications that are in line with the Helsinki City Design Language.
+import LargeParagraph from "../../src/components/LargeParagraph";
+
+<LargeParagraph>Helsinki Design System provides a collection of ready-made components for building accessible websites and applications that are in line with the Helsinki City Design Language.</LargeParagraph>
 
 ## Getting started
 
-**Start** with the following:
 
-1. Explore the [developer guidelines](guidelines/developers).
-2. Have a look at [Helsinki Design System in GitHub](https://github.com/City-of-Helsinki/helsinki-design-system). You'll probably want to take a peek at [hds-react](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react) and [hds-core](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core) first.
-3. Use the components in your solutions.
-4. If you want to contribute, please follow the [Git Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow).
+1. Have a look at [Helsinki Design System in GitHub](https://github.com/City-of-Helsinki/helsinki-design-system). You'll probably want to read the [repo README](https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/README.md "Read me") first and to take a peek at the [hds-react](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react) and [hds-core](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core).
+2. Explore the [Components documentation](/components "Components") and [HDS strorybook](https://city-of-helsinki.github.io/helsinki-design-system/storybook/core/ "HDS strorybook"), to see what’s there and how to implement them.
+3. If you want to contribute, see the [Contributing](/contributing "Contributing") page for more information. Please follow the [Git Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow).
 
 ## Core styles
+The core package provides Helsinki City brand colors, typography and base styles as css-styles and variables.
 
 [![https://nodei.co/npm/hds-core.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/hds-core.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/hds-core)
 
-The core package provides Helsinki City brand colors, typography and base styles as css-styles and variables.
-
-[hds-core in GitHub](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core)
+[hds-core in GitHub](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core "hds-core in GitHub")
 
 ## React components
+Helsinki Design System React library provides a collection of React component for building websites and applications. Using the components will help developers to rapidly create user interfaces that are in line with the Helsinki City Design Language as well as accessible and consistent in behavior across applications.
 
 [![https://nodei.co/npm/hds-react.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/hds-react.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/hds-react)
 
-Helsinki Design System React library provides a collection of React component for building websites and applications. Using the components will help developers to rapidly create user interfaces that are in line with the Helsinki City Design Language as well as accessible and consistent in behavior across applications.
+[hds-react in GitHub](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react "hds-react in GitHub")
 
-[hds-react in GitHub](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react)
+### Using the React components library
 
-### Using the library
-
-Install the package:
+#### Install the package:
 
 ```
 $ yarn add hds-react
 ```
 
-Import components:
+#### Import components:
 
 ```
 import { TextInput } from "hds-react";
 ```
-
-## Contributing
-
-### Github
-
-The codebase for the Helsinki Design System components, core styles and documentation is in the public [Helsinki Design System repository in GitHub](https://github.com/City-of-Helsinki/helsinki-design-system/).
-
-The repository is a monorepo using Lerna for running scripts and versioning and creating releases of the packages. Yarn workspaces is used to manage dependencies.
-
-More info available in the [repo README](https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/README.md).
-
-### Workflow
-
-This project uses the [Git Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow). Happy branching!
