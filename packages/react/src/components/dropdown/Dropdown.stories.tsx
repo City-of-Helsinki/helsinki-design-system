@@ -48,9 +48,10 @@ DisabledOptions.story = {
 
 export const DefaultValue = () => (
   <>
-    <Dropdown options={options} label="Dropdown with default value" defaultValue={options[2]} />
+    <Dropdown id="select" options={options} label="Dropdown with default value" defaultValue={options[2]} />
     <br />
     <Dropdown
+      id="multiselect"
       options={options}
       label="Multi-select dropdown with default values"
       defaultValues={[options[2], options[3], options[4]]}

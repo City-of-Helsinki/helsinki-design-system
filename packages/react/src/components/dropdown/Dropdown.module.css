@@ -6,6 +6,7 @@
   --outline-width: 3px;
   --dropdown-height: 52px;
   --icon-size: var(--fontsize-body-large);
+  --menu-z-index: 10;
 
   --dropdown-background-default: var(--color-white);
   --dropdown-background-disabled: var(--color-black-10);
@@ -40,7 +41,6 @@
   --placeholder-color: var(--color-black-60);
 
   position: relative;
-  z-index: 0;
 }
 
 /* TRANSITIONS */
@@ -67,6 +67,7 @@
 .wrapper {
   position: relative;
   width: 100%;
+  z-index: 0;
 }
 
 /* INPUT */
@@ -194,6 +195,7 @@
 
 .menu {
   display: none;
+  z-index: var(--menu-z-index);
 }
 
 .root.open .menu {
