@@ -22,7 +22,7 @@ export default {
 };
 
 export const Default = () => (
-  <Dropdown options={options} placeholder="Choose one" label="Label" helper="Assistive text" />
+  <Dropdown options={options} placeholder="Placeholder" label="Label" helper="Assistive text" />
 );
 
 export const Invalid = () => (
@@ -54,6 +54,7 @@ export const DefaultValue = () => (
       id="multiselect"
       options={options}
       label="Multi-select dropdown with default values"
+      placeholder="Placeholder"
       defaultValues={[options[2], options[3], options[4]]}
       multiselect
       closeMenuOnSelect={false}
