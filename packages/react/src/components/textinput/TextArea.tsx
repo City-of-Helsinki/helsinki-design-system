@@ -45,6 +45,10 @@ export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
    */
   placeholder?: string;
   /**
+   * If `true`, the label is displayed as required and the `textarea` element will be required.
+   */
+  required?: boolean;
+  /**
    * Override or extend the styles applied to the component. See text field [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/text-field#tokens) for available CSS variables
    */
   style?: CSSProperties;
@@ -86,6 +90,7 @@ const TextArea: FC<TextAreaProps> = forwardRef(
       id,
       labelText,
       onChange = () => null,
+      required,
       style,
       tooltipLabel,
       tooltipText,
@@ -102,6 +107,7 @@ const TextArea: FC<TextAreaProps> = forwardRef(
       id,
       invalid,
       labelText,
+      required,
       style,
       tooltipLabel,
       tooltipText,
@@ -118,6 +124,7 @@ const TextArea: FC<TextAreaProps> = forwardRef(
           id={id}
           onChange={onChange}
           ref={ref}
+          required={required}
           {...rest}
         />
       </InputWrapper>

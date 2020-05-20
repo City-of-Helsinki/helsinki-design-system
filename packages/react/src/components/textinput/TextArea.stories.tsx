@@ -50,6 +50,7 @@ export const Playground = () => {
   const placeholder = text('Placeholder', textAreaProps.placeholder, groupGeneral);
   const helperText = text('Helper text', textAreaProps.helperText, groupGeneral);
   const disabled = boolean('Disabled', false, groupGeneral);
+  const required = boolean('Required', false, groupGeneral);
   const invalid = boolean('Invalid', false, groupGeneral);
   const hideLabel = boolean('Hide label', false, groupGeneral);
 
@@ -71,6 +72,7 @@ export const Playground = () => {
       disabled={disabled}
       invalid={invalid}
       hideLabel={hideLabel}
+      required={required}
       tooltipLabel={tooltipLabel}
       tooltipText={tooltipText}
       tooltipOpenButtonLabelText={tooltipOpenButtonLabelText}

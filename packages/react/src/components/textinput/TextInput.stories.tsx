@@ -90,6 +90,7 @@ export const Playground = () => {
   const helperText = text('Helper text', textInputProps.helperText, groupGeneral);
   const type = text('Type', 'text', groupGeneral);
   const disabled = boolean('Disabled', false, groupGeneral);
+  const required = boolean('Required', false, groupGeneral);
   const readOnly = boolean('Read-only', false, groupGeneral);
   const invalid = boolean('Invalid', false, groupGeneral);
   const hideLabel = boolean('Hide label', false, groupGeneral);
@@ -114,6 +115,7 @@ export const Playground = () => {
       disabled={disabled}
       invalid={invalid}
       hideLabel={hideLabel}
+      required={required}
       tooltipLabel={tooltipLabel}
       tooltipText={tooltipText}
       tooltipOpenButtonLabelText={tooltipOpenButtonLabelText}

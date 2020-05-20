@@ -3,6 +3,7 @@ import React, { CSSProperties, FC, ReactNode } from 'react';
 import styles from '../../components/textinput/TextInput.module.css';
 import Tooltip from '../../components/tooltip/Tooltip';
 import classNames from '../../utils/classNames';
+import RequiredIndicator from '../requiredindicator/RequiredIndicator';
 
 type InputWrapperProps = {
   children?: ReactNode;
@@ -12,6 +13,7 @@ type InputWrapperProps = {
   id: string;
   invalid?: boolean;
   labelText?: string;
+  required?: boolean;
   style?: CSSProperties;
   tooltipLabel?: string;
   tooltipText?: string;
@@ -27,6 +29,7 @@ const InputWrapper: FC<InputWrapperProps> = ({
   id,
   invalid = false,
   labelText,
+  required = false,
   style,
   tooltipLabel,
   tooltipText,
@@ -37,6 +40,7 @@ const InputWrapper: FC<InputWrapperProps> = ({
     {labelText && (
       <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hiddenLabel : ''}`}>
         {labelText}
+        {required && <RequiredIndicator />}
       </label>
     )}
     {tooltipText && (
