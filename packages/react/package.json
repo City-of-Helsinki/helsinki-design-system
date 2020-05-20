@@ -64,7 +64,6 @@
     "react-test-renderer": "^16.10.2",
     "rollup": "^2.1.0",
     "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-eslint": "^7.0.0",
     "rollup-plugin-includepaths": "^0.2.3",
     "rollup-plugin-postcss": "^2.5.0",
     "rollup-plugin-typescript2": "^0.26.0",
@@ -73,7 +72,7 @@
     "typescript": "^3.6.3"
   },
   "dependencies": {
-    "downshift": "5.4.0",
+    "downshift": "5.4.2",
     "hds-core": "0.6.3",
     "lodash": "^4.17.15",
     "react-spring": "^8.0.27"

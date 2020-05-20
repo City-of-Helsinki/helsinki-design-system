@@ -186,7 +186,6 @@
 
 .helperText {
   color: var(--helper-color-default);
-  display: block;
   font-size: var(--fontsize-subtitle);
   margin-top: var(--spacing-3-xs);
 }
