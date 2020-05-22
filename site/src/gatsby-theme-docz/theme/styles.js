@@ -20,7 +20,7 @@ const styles = {
     fontSize: null
   },
   h2: {
-    fontSize: null
+    fontSize: "5 rem"
   },
   h3: {
     fontSize: null
