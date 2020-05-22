@@ -4,13 +4,15 @@ menu: Getting started
 route: /designers
 ---
 
-# For designers
+import LargeParagraph from "../../src/components/LargeParagraph";
 
 ---
 
-import LargeParagraph from "../../src/components/LargeParagraph";
+# For designers
 
-<LargeParagraph>The HDS design kit contains all the resources you need to get started designing beautiful and accessible user experiences, that follow the City of Helsinki brand.</LargeParagraph>
+<LargeParagraph>
+    The HDS design kit contains all the resources you need to get started designing beautiful and accessible user experiences, that follow the City of Helsinki brand.
+</LargeParagraph>
 
 The HDS design libraries are the single point of reference for your design. When you connect your design files with the design system libraries, you can use ready designed components and have them synced whenever the design system is updated.
 
@@ -24,33 +26,48 @@ Always keep these core principles in mind, when making design decisions:
 ## Getting started
 1. Explore the City of Helsinki [Visual Identity Guidelines](https://brand.hel.fi/ "City of Helsinki Visual Identity Guidelines") to learn the design principles of the brand.
 2. Take a look at the [Components documentation](/components "Components"), to see what’s there and how you can incorporate those into your designs.
-3. The design assets are available in the [Helsinki Design System library](https://share.goabstract.com/4be1120f-5c64-4937-9a56-0484b26e20d7). To use HDS libraries, you will need to install both Sketch and Abstract apps. See more on setting up the libraries below.
+3. The design assets are available either via direct design kit download or via the City of Helsinki Abstract. To use HDS libraries, you will need to install Sketch. See more on downloading and setting up the libraries below.
 4. If you have a an idea for improvements or a component that could be useful addition to the Design System, see the [Contributing](/contributing "Contributing") page for more information.
 
 ## Setting up
+
 ### Install the tools
-The HDS design workflow is based on **Sketch** and **Abstract**:
+The HDS design workflow is based on **Sketch** and **Abstract** (if you have access to Helsinki organisation):
 - [Sketch](https://www.sketch.com/ "Sketch - The digital design toolkit") is a **vector graphics editor** and is widely adopted by designers to create user interface designs for web and mobile services.
 - [Abstract](https://www.abstract.com/ "Abstract: Design Version Control, Collaboration & Handoff for teams") **design collaboration and version and managegement tool**, that enables designers to share Sketch files and libraries easily. By leveraging and extends the technology of Git, Abstract provides design teams with a lightweight workflow and stable tools so designers can work together with confidence.
 
 If you’re a newcomer to Sketch or Abstract, they offer both some great tutorials and help docs
-- [Sketch help docs](https://www.sketchapp.com/docs/ "Sketch help docs").
-- [Abstract help docs](https://www.abstract.com/help/ "Abstract help docs").
+- [Sketch help docs](https://www.sketchapp.com/docs/ "Sketch help docs")
+- [Abstract help docs](https://www.abstract.com/help/ "Abstract help docs")
 
-**To use HDS libraries, you will need to install both Sketch and Abstract**. Even though Abstract has a web application, It’s not possible to edit or create Sketch files with it. It is possible for your team members to view your designs and provide feedback.
+**You do not necessarily need Abstract to use HDS design libraries.** Abstract is a convenient way to get access and update Sketch libraires but we also offer downloadable HDS design kit. Read below to learn how to download the design kit. 
 
 ### Install fonts
 Make sure that you have the [Helsinki Grotesk](https://camelot-typefaces.com/helsinki-grotesk "Camelot Typefaces / Helsinki Grotesk") font installed.
 
 Subcontractors can purchase the font licenses from [Camelot Typefaces website](https://camelot-typefaces.com/helsinki-grotesk "Camelot Typefaces / Helsinki Grotesk").
 
-### Create a project in Abstract
+### Downloading HDS Design kit and linking libraries
+
+1. Head over to [HDS GitHub repository releases](https://github.com/City-of-Helsinki/helsinki-design-system/releases).
+2. Download `design-kit` (preferably the newest stable version) to your computer and unzip the package.
+3. Open Sketch and from the top bar thoose _Sketch > Preferences_.
+4. Choose tab _Libraries_ and press the button _Add library_.
+5. Browse to the unzipped folder you just downloaded and select libraries you want to import. Note, you can select multiple libraries by holding shift key. **You can import only part of the libraries but we recommend to import all for best experience.**
+
+![Linking libraries in Sketch preferences](../../static/fordesigners-hds-designkit.png "Linking libraries in Sketch preferences")
+
+### Setting up Abstract
+
+If you have access to the City of Helsinki Abstract organisation. You can use and link libraries directly from Abstract. **Note! Library versions in Abstract are considered development versions. They can change and things may be unstable.** Using libraries from Abstract allows you to get your hands on the newest components that are not necessarily released yet. If you need reliable libraries, download latest stable design kit release from the [GitHub repository](https://github.com/City-of-Helsinki/helsinki-design-system/releases).
+
+#### Create a project in Abstract
 
 You either need permission rights to create a new project in City of Helsinki organisation, or you need an invite to a created project in this organisation.
 
 ![Creating a new project in Abstract](../../static/fordesigners-abstract-create-new-project.png "Creating a new project in Abstract")
 
-### Add a Sketch file to the project
+#### Add a Sketch file to the project
 
 Once you’ve opened a project in Abstract, click _Overview_ on the left sidebar. From the view that opens on the right, choose _Add file > Create Sketch File_. Now you can enter a name for the new Sketch file.
 
@@ -60,19 +77,19 @@ Once finished, click _Create Sketch File_. Your new Sketch file will now appear 
 
 Once you have created your Sketch file in Abstract, **always open your design file straight from Abstract**. This way, all changes made to your file will be tracked and you have a version control over it.
 
-### Link the design system libraries to your design file
+#### Link the design system libraries to your design file
 
 Open up a Branch within the Abstract Project. Select the _Files_ tab  
-- From the top of the file list, select _Add File > Link Library…_  
-- Select the _Helsinki Design System project_  
-- Select one or multiple HDS Libraries and click _Link Libraries_
+1. From the top of the file list, select _Add File > Link Library…_  
+2. Select the _Helsinki Design System project_  
+3. Select one or multiple HDS Libraries and click _Link Libraries_
 
 Once you link the Design System Library to your Project, your components are kept in sync with the Master library. When changes are made to the Master Library, you’ll have the option to update your symbols from Master via an alert in the top right for proper version control.
 
 ![HDS master library](../../static/fordesigners-hds-master.png "HDS master library")
 
 
-## Using
+## Using libraries
 
 HDS components and icons live in the HDS libraries as Sketch symbols. 
 
