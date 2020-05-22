@@ -45,7 +45,8 @@ export const Sidebar = React.forwardRef((props, ref) => {
             }}
           >
             <img src={logo} alt="Helsinki Design System" height="60" />
-            <div>Design System</div>
+            <div><b>Design System</b></div>
+            <div>Alpha (0.10.0)</div>
           </Link>
         </div>
         <NavSearch
