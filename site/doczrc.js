@@ -23,7 +23,7 @@ const menu = [
   },
   {
     name: 'About',
-    menu: ['What is new', 'Roadmap', 'Resources', 'Support'],
+    menu: ['What is new', 'Roadmap', 'Resources', 'Support', 'Accessibility statement'],
   },
   'Contributing'
 ];
