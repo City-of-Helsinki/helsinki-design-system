@@ -9,7 +9,7 @@ import * as styles from "gatsby-theme-docz/src/components/Sidebar/styles";
 import { NavSearch } from "gatsby-theme-docz/src/components/NavSearch";
 import { NavLink } from "gatsby-theme-docz/src/components/NavLink";
 import { NavGroup } from "gatsby-theme-docz/src/components/NavGroup";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo.svg";
 
 export const Sidebar = React.forwardRef((props, ref) => {
   const [query, setQuery] = useState("");
