@@ -8,31 +8,39 @@ menu: Guidelines
 
 ---
 
-## City of Helsinki and accessibility
+import LargeParagraph from "../../src/components/LargeParagraph";
 
-[EU directive on web accessibility](https://eur-lex.europa.eu/eli/dir/2016/2102/oj) mandates that all new public sector websites published by September 23 2019 have to comply with [WCAG 2.0 Standard at AA Level](https://www.w3.org/TR/WCAG20/#conformance). On September 23 2020 all websites, new and old, have to meet this criteria. In addition, City of Helsinki has its own [content accessibility guidelines for the web](https://www.hel.fi/static/hki4all/ohjeet/saavutettavuus-opas.pdf) (only in Finnish for now). Internationally we talk about [a11y](https://a11yproject.com/).
+<LargeParagraph>The Helsinki Design System is desgined and built to be accessible for all, regardless of ability or situation.</LargeParagraph>
 
-In a nutshell, content should be
+## Standards
+### Global accessibility standards
+World Wide Web Consortium (W3C)’s [Web Accessibility Initiative (WAI)](https://www.w3.org/WAI/ "W3C Web Accessibility Initiative") is an effort to improve the accessibility of the World Wide Web for people of all abilities.
+The WAI contributors maintain [The Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/TR/WCAG20/ "WCAG 2.0 Guidelines"), which is the global accessibility standard.
 
-- **Perceivable**: content can be seen in many ways
-- **Operable** usable as intended
-- **Understandable** not too hard to use
-- **Robust** accessible by wide range of technologies, including old and new browsers.
+[The international A11Y Project](https://a11yproject.com/ "The A11Y Project") is a community-driven effort to make web accessibility easier.
 
-**General principles**
+### Accessibility in the City of Helsinki digital services
+[EU directive on web accessibility](https://eur-lex.europa.eu/eli/dir/2016/2102/oj "EU directive on web accessibility") mandates that all new public sector websites published by September 23 2019 have to comply with [WCAG 2.0 Standard at AA Level](https://www.w3.org/TR/WCAG20/#conformance "WCAG 2.0 Standard at AA Level"). On September 23 2020 all websites, new and old, have to meet this criteria. 
+
+The City of Helsinki also has its own [content accessibility guidelines](https://www.hel.fi/static/hki4all/ohjeet/saavutettavuus-opas.pdf) for the web (only in Finnish for now).
+
+
+## Principles
+The WCAG 2.0 Accessibility Standard outlines [four principles](https://www.w3.org/TR/WCAG20/#guidelines "WCAG 2.0 Principles") for what an accessible service should be:
+- **Perceivable**: Information and user interface components must be presentable to users in ways they can perceive. For example by providing text alternates to visual and time-based media.
+- **Operable** User interface components and navigation must be operable, for example with keyboard and assistive technologies. It should help users navigate, find content, and determine where they are.
+- **Understandable** the content should be readable and easy to understand, and the services should operate in a predictable way.
+- **Robust** accessible by wide range of technologies, including old and new browsers and assistive technologies.
+
+A few guidelines for developing accessible services:
 - Write standards compliant, semantic HTML and CSS
 - Support keyboard navigation and other standard accessibility functionalities
-- In [React](https://reactjs.org/docs/accessibility.html), use ARIA when there is no native markup.
+- In [React](https://reactjs.org/docs/accessibility.html "React / Accessibility"), use ARIA when there is no native markup.
 
-## Global accessibility standards
 
-World Wide Web Consortium (W3C)’s Web Accessibility Initiative (WAI) is an effort to improve the accessibility of the World Wide Web for people of all abilities.
-Web Accessibility Initiative (WAI) contributors create and maintain Web Content Accessibility Guidelines (WCAG), which is the global accessibility standard.
 
-**Resources:**  
-[Salesforce's accessibility blog posts](https://developer.salesforce.com/blogs/tag/accessibility)  
-[W3C Web Accessibility Initiative](https://www.w3.org/WAI/)  
-[WAI-ARIA Authoring Practices](https://www.w3.org/TR/wai-aria-practices-1.1/)  
-[WebAIM](https://webaim.org/)  
-[The A11Y Project](https://a11yproject.com/)  
-[Are My Colours Accessible?](https://www.aremycoloursaccessible.com/)
+## Further reading
+[WAI-ARIA Authoring Practices](https://www.w3.org/TR/wai-aria-practices-1.1/ "WAI-ARIA Authoring Practices")  
+[Salesforce's accessibility blog posts](https://developer.salesforce.com/blogs/tag/accessibility "Salesforce's accessibility blog posts")  
+[WebAIM](https://webaim.org/ "WebAIM")  
+[Are My Colours Accessible?](https://www.aremycoloursaccessible.com/ "Are My Colours Accessible?")
