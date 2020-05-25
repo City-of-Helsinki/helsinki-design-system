@@ -38,12 +38,12 @@ Text input serves in most use cases when the user needs to enter information. Te
 <Playground>
   <TextInput
     id="input"
-    labelText="Label"
+    label="Label"
     placeholder="Placeholder"
     helperText="Assistive text"
   />
   <TextInput
-    labelText="Label"
+    label="Label"
     defaultValue="Text input value"
     helperText="Assistive text"
     style={{marginTop: 'var(--spacing-s)'}}
@@ -51,7 +51,7 @@ Text input serves in most use cases when the user needs to enter information. Te
   />
   <TextInput
     id="input-invalid"
-    labelText="Label"
+    label="Label"
     defaultValue="Text input value"
     helperText="Error text"
     style={{marginTop: 'var(--spacing-s)'}}
@@ -100,7 +100,7 @@ Text input serves in most use cases when the user needs to enter information. Te
 /* Enabled */
 <TextInput
   id="input"
-  labelText="Label"
+  label="Label"
   placeholder="Placeholder"
   helperText="Assistive text"
 />
@@ -108,7 +108,7 @@ Text input serves in most use cases when the user needs to enter information. Te
 /* Disabled */
 <TextInput
   id="input"
-  labelText="Label"
+  label="Label"
   defaultValue="Text input value"
   helperText="Assistive text"
   disabled
@@ -117,7 +117,7 @@ Text input serves in most use cases when the user needs to enter information. Te
 /* Error */
 <TextInput
   id="input"
-  labelText="Label"
+  label="Label"
   defaultValue="Text input value"
   helperText="Error text"
   invalid
@@ -131,12 +131,12 @@ Text area is meant for situations where inputted text is multiline or contains m
 <Playground>
   <TextArea
     id="textarea"
-    labelText="Label"
+    label="Label"
     placeholder="Placeholder"
     helperText="Assistive text"
   />
   <TextArea
-    labelText="Label"
+    label="Label"
     defaultValue="Text area value"
     helperText="Assistive text"
     style={{marginTop: 'var(--spacing-s)'}}
@@ -144,7 +144,7 @@ Text area is meant for situations where inputted text is multiline or contains m
   />
   <TextArea
     id="textarea-invalid"
-    labelText="Label"
+    label="Label"
     defaultValue="Text area value"
     helperText="Error text"
     style={{marginTop: 'var(--spacing-s)'}}
@@ -197,7 +197,7 @@ Text area is meant for situations where inputted text is multiline or contains m
 /* Enabled */
 <TextArea
   id="textarea"
-  labelText="Label"
+  label="Label"
   placeholder="Placeholder"
   helperText="Assistive text"
 />
@@ -205,7 +205,7 @@ Text area is meant for situations where inputted text is multiline or contains m
 /* Disabled */
 <TextArea
   id="textarea"
-  labelText="Label"
+  label="Label"
   defaultValue="Text input value"
   helperText="Assistive text"
   disabled
@@ -214,7 +214,7 @@ Text area is meant for situations where inputted text is multiline or contains m
 /* Error */
 <TextArea
   id="textarea"
-  labelText="Label"
+  label="Label"
   defaultValue="Text input value"
   helperText="Error text"
   invalid
@@ -227,7 +227,7 @@ Read-only text input is used to indicate an input among other inputs that cannot
 
 <Playground>
   <TextInput
-    labelText="Label"
+    label="Label"
     defaultValue="Read-only value"
     helperText="Assistive text"
     readOnly
@@ -251,7 +251,7 @@ Read-only text input is used to indicate an input among other inputs that cannot
 ```tsx
 <TextInput
   id="textarea"
-  labelText="Label"
+  label="Label"
   defaultValue="Text input value"
   helperText="Assistive text"
   readOnly
@@ -264,19 +264,19 @@ Read-only text input is used to indicate an input among other inputs that cannot
 
 _Text field tooltips are only available in hds-react!_
 
-Both text input and text area can be provided with additional tooltip. Tooltip information should be considered as extra information, for example, why this information is gathered or how is it used. The user should have succifient information on how to fill the input field in label and assistive text.
+Both text input and text area can be provided with additional tooltip. Tooltip information should be considered as extra information, for example, why this information is gathered or how is it used. The user should have sufficient information on how to fill the input field in label and assistive text.
 
 <Playground>
   <TextInput
     id="input-tooltip"
-    labelText="Label"
+    label="Label"
     placeholder="Placeholder"
     tooltipLabel="Tooltip label"
     tooltipText="Tooltip text"
   />
   <TextArea
     id="textarea-tooltip"
-    labelText="Label"
+    label="Label"
     placeholder="Placeholder"
     tooltipLabel="Tooltip label"
     tooltipText="Tooltip text"
@@ -289,7 +289,7 @@ Both text input and text area can be provided with additional tooltip. Tooltip i
 /* Text input */
 <TextInput
   id="input"
-  labelText="Label"
+  label="Label"
   placeholder="Placeholder"
   tooltipLabel="Tooltip label"
   tooltipText="Tooltip text"
@@ -298,7 +298,7 @@ Both text input and text area can be provided with additional tooltip. Tooltip i
 /* Text area */
 <TextArea
   id="textarea"
-  labelText="Label"
+  label="Label"
   placeholder="Placeholder"
   tooltipLabel="Tooltip label"
   tooltipText="Tooltip text"

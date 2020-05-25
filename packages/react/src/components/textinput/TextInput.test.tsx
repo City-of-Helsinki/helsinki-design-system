@@ -5,7 +5,7 @@ import TextInput from './TextInput';
 
 const textInputProps = {
   id: 'hdsInput',
-  labelText: 'HDS input field',
+  label: 'HDS input field',
   placeholder: 'A placeholder text',
 };
 

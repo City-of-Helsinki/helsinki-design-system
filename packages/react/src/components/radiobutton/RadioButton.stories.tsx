@@ -21,13 +21,13 @@ export default {
   },
 };
 
-export const Default = () => <RadioButton id="radio" labelText="Label" />;
+export const Default = () => <RadioButton id="radio" label="Label" />;
 
-export const Selected = () => <RadioButton id="radio2" labelText="Label" checked />;
+export const Selected = () => <RadioButton id="radio2" label="Label" checked />;
 
-export const Disabled = () => <RadioButton id="radio3" labelText="Label" disabled />;
+export const Disabled = () => <RadioButton id="radio3" label="Label" disabled />;
 
-export const SelectedDisabled = () => <RadioButton id="radio4" labelText="Label" checked disabled />;
+export const SelectedDisabled = () => <RadioButton id="radio4" label="Label" checked disabled />;
 
 SelectedDisabled.story = {
   name: 'Selected & disabled',
@@ -57,7 +57,7 @@ export const Custom = () => {
           key={`radio-${option}`}
           id={`radio-${option}`}
           value={option}
-          labelText="Label"
+          label="Label"
           style={customStyles}
           checked={radioValue === option}
           onChange={(event) => setRadioValue((event.target as HTMLInputElement).value)}
@@ -69,6 +69,22 @@ export const Custom = () => {
 
 Custom.story = {
   name: 'With custom styles',
+};
+
+export const RichLabel = () => {
+  const label = (
+    <span>
+      Label with{' '}
+      <a style={{ color: 'var(--color-bus)' }} href="/?path=/story/components-radiobutton--rich-label">
+        link
+      </a>
+    </span>
+  );
+  return <RadioButton id="radio4" label={label} />;
+};
+
+RichLabel.story = {
+  name: 'With rich label',
 };
 
 export const Playground = () => {
@@ -172,14 +188,14 @@ export const Playground = () => {
           key={`radio-${option}`}
           id={`radio-${option}`}
           value={option}
-          labelText="Label"
+          label="Label"
           style={styles}
           checked={radioValue === option}
           onChange={(event) => setRadioValue((event.target as HTMLInputElement).value)}
         />
       ))}
-      <RadioButton id="radio4" labelText="Label" style={styles} disabled />
-      <RadioButton id="radio5" labelText="Label" style={styles} disabled checked />
+      <RadioButton id="radio4" label="Label" style={styles} disabled />
+      <RadioButton id="radio5" label="Label" style={styles} disabled checked />
     </>
   );
 };

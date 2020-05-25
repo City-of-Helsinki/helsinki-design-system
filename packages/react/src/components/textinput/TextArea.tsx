@@ -1,7 +1,15 @@
-import React, { ChangeEventHandler, CSSProperties, FC, forwardRef, Ref, TextareaHTMLAttributes } from 'react';
+import React, {
+  ChangeEventHandler,
+  CSSProperties,
+  FC,
+  forwardRef,
+  ReactNode,
+  Ref,
+  TextareaHTMLAttributes,
+} from 'react';
 
 import styles from './TextInput.module.css';
-import InputWrapper from '../../internal/inputwrapper/InputWrapper';
+import InputWrapper from '../../internal/input-wrapper/InputWrapper';
 
 export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   /**
@@ -35,6 +43,10 @@ export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   /**
    * The label for the textarea
    */
+  label?: string | ReactNode;
+  /**
+   * **[DEPRECATED]** This prop will be removed in a future version. Use the `label` prop instead
+   */
   labelText?: string;
   /**
    * Callback fired when the state is changed
@@ -44,6 +56,10 @@ export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
    * Short hint displayed in the textarea before the user enters a value
    */
   placeholder?: string;
+  /**
+   * If `true`, the label is displayed as required and the `textarea` element will be required
+   */
+  required?: boolean;
   /**
    * Override or extend the styles applied to the component. See text field [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/text-field#tokens) for available CSS variables
    */
@@ -84,8 +100,10 @@ const TextArea: FC<TextAreaProps> = forwardRef(
       hideLabel,
       invalid,
       id,
+      label,
       labelText,
       onChange = () => null,
+      required,
       style,
       tooltipLabel,
       tooltipText,
@@ -101,7 +119,9 @@ const TextArea: FC<TextAreaProps> = forwardRef(
       hideLabel,
       id,
       invalid,
+      label,
       labelText,
+      required,
       style,
       tooltipLabel,
       tooltipText,
@@ -110,7 +130,7 @@ const TextArea: FC<TextAreaProps> = forwardRef(
     };
 
     return (
-      <InputWrapper id={id} {...wrapperProps}>
+      <InputWrapper {...wrapperProps}>
         <textarea
           className={styles.input}
           defaultValue={defaultValue}
@@ -118,6 +138,7 @@ const TextArea: FC<TextAreaProps> = forwardRef(
           id={id}
           onChange={onChange}
           ref={ref}
+          required={required}
           {...rest}
         />
       </InputWrapper>
