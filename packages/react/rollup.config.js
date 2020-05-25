@@ -1,9 +1,9 @@
 import babel from 'rollup-plugin-babel';
-import { eslint } from 'rollup-plugin-eslint';
 import includePaths from 'rollup-plugin-includepaths';
 import postcss from 'rollup-plugin-postcss';
 import typescript from 'rollup-plugin-typescript2';
 import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
@@ -20,9 +20,14 @@ export default {
     },
   ],
   plugins: [
-    eslint(),
     includePaths({ paths: ['src'], extensions }),
     resolve(),
+    commonjs({
+      include: '../../node_modules/**',
+      namedExports: {
+        'react-is': ['isForwardRef', 'isValidElementType'],
+      },
+    }),
     postcss({
       modules: true,
       minimize: {

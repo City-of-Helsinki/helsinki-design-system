@@ -1,6 +1,5 @@
 import './text-input.css';
 import '../../icons/icon.css';
-import React from 'react';
 
 const getLabel = (id = 'input', label = 'Label text') =>
   `<label for="${id}" class="hds-text-input__label">${label}</label>`;
