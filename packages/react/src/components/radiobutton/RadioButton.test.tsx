@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import RadioButton from './RadioButton';
 
 const radioProps = {
-  labelText: 'label text',
+  label: 'label text',
   id: 'test',
 };
 

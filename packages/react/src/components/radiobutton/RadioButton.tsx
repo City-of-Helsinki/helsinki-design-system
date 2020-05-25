@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, CSSProperties, FC, InputHTMLAttributes, RefObject } from 'react';
+import React, { ChangeEventHandler, CSSProperties, FC, InputHTMLAttributes, ReactNode, Ref } from 'react';
 
 import styles from './RadioButton.module.css';
 import classNames from '../../utils/classNames';
@@ -23,6 +23,10 @@ export type RadioButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
    * The label for the radio button
    */
+  label?: string | ReactNode;
+  /**
+   * **[DEPRECATED]** This prop will be removed in a future version. Use the `label` prop instead
+   */
   labelText?: string;
   /**
    * Callback fired when the state is changed
@@ -45,13 +49,14 @@ const RadioButton: FC<RadioButtonProps> = React.forwardRef(
       className = '',
       disabled = false,
       id,
-      labelText = undefined,
+      label,
+      labelText,
       onChange = () => null,
       style,
       value,
       ...rest
     }: RadioButtonProps,
-    ref: RefObject<HTMLInputElement>,
+    ref: Ref<HTMLInputElement>,
   ) => (
     <div className={classNames(styles.radioButton, className)} style={style}>
       <input
@@ -67,7 +72,7 @@ const RadioButton: FC<RadioButtonProps> = React.forwardRef(
         {...rest}
       />
       <label htmlFor={id} className={classNames(styles.label)}>
-        {labelText}
+        {label || labelText}
       </label>
     </div>
   ),
