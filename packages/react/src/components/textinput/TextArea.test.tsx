@@ -5,7 +5,7 @@ import TextArea from './TextArea';
 
 const textAreaProps = {
   id: 'hdsInput',
-  labelText: 'HDS input field',
+  label: 'HDS input field',
   placeholder: 'A placeholder text',
 };
 

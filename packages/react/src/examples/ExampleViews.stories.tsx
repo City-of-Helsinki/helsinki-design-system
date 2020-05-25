@@ -42,7 +42,7 @@ export const ExampleView = () => (
             aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi
             consequat.
           </p>
-          <TextInput id="myInput" labelText="Lorem ipsum:" placeholder="dolor sit" />
+          <TextInput id="myInput" label="Lorem ipsum:" placeholder="dolor sit" />
           <br />
           <Button variant="secondary">Lorem</Button>
         </div>

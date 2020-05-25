@@ -21,13 +21,13 @@ export default {
   },
 };
 
-export const Default = () => <Checkbox id="checkbox" labelText="Label" />;
+export const Default = () => <Checkbox id="checkbox" label="Label" />;
 
-export const Selected = () => <Checkbox id="checkbox2" labelText="Label" checked />;
+export const Selected = () => <Checkbox id="checkbox2" label="Label" checked />;
 
-export const Disabled = () => <Checkbox id="checkbox3" labelText="Label" disabled />;
+export const Disabled = () => <Checkbox id="checkbox3" label="Label" disabled />;
 
-export const SelectedDisabled = () => <Checkbox id="checkbox4" labelText="Label" checked disabled />;
+export const SelectedDisabled = () => <Checkbox id="checkbox4" label="Label" checked disabled />;
 
 SelectedDisabled.story = {
   name: 'Selected & disabled',
@@ -50,7 +50,7 @@ export const Custom = () => {
   return (
     <Checkbox
       id="checkbox5"
-      labelText="Label"
+      label="Label"
       style={customStyles}
       checked={checked}
       onChange={() => setChecked(!checked)}
@@ -60,6 +60,22 @@ export const Custom = () => {
 
 Custom.story = {
   name: 'With custom styles',
+};
+
+export const RichLabel = () => {
+  const label = (
+    <span>
+      I agree to the{' '}
+      <a style={{ color: 'var(--color-bus)' }} href="/?path=/story/components-checkbox--rich-label">
+        Terms of service
+      </a>
+    </span>
+  );
+  return <Checkbox id="radio4" label={label} />;
+};
+
+RichLabel.story = {
+  name: 'With rich label',
 };
 
 export const Playground = () => {
@@ -165,15 +181,15 @@ export const Playground = () => {
         <Checkbox
           key={`checkbox-${item}`}
           id={`checkbox-${item}`}
-          labelText={item}
+          label={item}
           name={item}
           checked={checkedItems[item]}
           onChange={handleChange}
           style={styles}
         />
       ))}
-      <Checkbox id="checkbox7" labelText="Option 4" style={styles} disabled />
-      <Checkbox id="checkbox8" labelText="Option 5" style={styles} checked disabled />
+      <Checkbox id="checkbox7" label="Option 4" style={styles} disabled />
+      <Checkbox id="checkbox8" label="Option 5" style={styles} checked disabled />
     </>
   );
 };

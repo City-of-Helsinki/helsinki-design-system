@@ -8,7 +8,7 @@ import Button from '../button/Button';
 const textInputProps = {
   helperText: 'Assistive text',
   id: 'hdsInput',
-  labelText: 'Label',
+  label: 'Label',
   placeholder: 'Placeholder',
 };
 
@@ -85,11 +85,12 @@ export const Playground = () => {
   const groupGeneral = 'General';
   const groupTooltip = 'Tooltip';
 
-  const label = text('Label', textInputProps.labelText, groupGeneral);
+  const label = text('Label', textInputProps.label, groupGeneral);
   const placeholder = text('Placeholder', textInputProps.placeholder, groupGeneral);
   const helperText = text('Helper text', textInputProps.helperText, groupGeneral);
   const type = text('Type', 'text', groupGeneral);
   const disabled = boolean('Disabled', false, groupGeneral);
+  const required = boolean('Required', false, groupGeneral);
   const readOnly = boolean('Read-only', false, groupGeneral);
   const invalid = boolean('Invalid', false, groupGeneral);
   const hideLabel = boolean('Hide label', false, groupGeneral);
@@ -107,13 +108,14 @@ export const Playground = () => {
     <TextInput
       {...textInputProps}
       type={type}
-      labelText={label}
+      label={label}
       helperText={helperText}
       placeholder={placeholder}
       readOnly={readOnly}
       disabled={disabled}
       invalid={invalid}
       hideLabel={hideLabel}
+      required={required}
       tooltipLabel={tooltipLabel}
       tooltipText={tooltipText}
       tooltipOpenButtonLabelText={tooltipOpenButtonLabelText}

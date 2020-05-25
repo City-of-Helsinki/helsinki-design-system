@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FieldLabel /> spec renders the component 1`] = `
+<DocumentFragment>
+  <label
+    class="label "
+    for="test"
+  >
+    foo
+    <span
+      class="indicator"
+    >
+      *
+    </span>
+  </label>
+</DocumentFragment>
+`;

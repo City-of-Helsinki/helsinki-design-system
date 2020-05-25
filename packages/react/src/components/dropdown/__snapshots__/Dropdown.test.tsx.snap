@@ -6,7 +6,7 @@ exports[`<Dropdown /> spec renders the component 1`] = `
     class="root"
   >
     <label
-      class="label"
+      class="label "
       for="hds-toggle-button"
       id="hds-label"
     >
