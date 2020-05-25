@@ -14,8 +14,8 @@
     "minify-css": "foreach -g \"lib/**/*.css\" -i \"lib/**/*.min.css\" -t 10 -x \"yarn cleancss -o #{dir}/#{name}.min.css #{path}\""
   },
   "devDependencies": {
-    "clean-css-cli": "^4.3.0",
-    "foreach-cli": "^1.8.1",
-    "style-dictionary": "^2.8.3"
+    "clean-css-cli": "4.3.0",
+    "foreach-cli": "1.8.1",
+    "style-dictionary": "2.10.0"
   }
 }

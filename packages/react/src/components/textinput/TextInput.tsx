@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, CSSProperties, FC, forwardRef, InputHTMLAttributes, RefObject } from 'react';
+import React, { ChangeEventHandler, CSSProperties, FC, forwardRef, InputHTMLAttributes, Ref } from 'react';
 
 import styles from './TextInput.module.css';
 import InputWrapper from '../../internal/inputwrapper/InputWrapper';
@@ -83,7 +83,7 @@ export type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
    * The `ref` is forwarded to the native input element.
    */
-  ref?: RefObject<HTMLInputElement>;
+  ref?: Ref<HTMLInputElement>;
 };
 
 const TextInput: FC<TextInputProps> = forwardRef(
@@ -107,7 +107,7 @@ const TextInput: FC<TextInputProps> = forwardRef(
       type = 'text',
       ...rest
     }: TextInputProps,
-    ref?: RefObject<HTMLInputElement>,
+    ref?: Ref<HTMLInputElement>,
   ) => {
     const wrapperProps = {
       className,
