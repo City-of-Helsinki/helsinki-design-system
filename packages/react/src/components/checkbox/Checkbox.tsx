@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, CSSProperties, FC, InputHTMLAttributes, RefObject } from 'react';
+import React, { ChangeEventHandler, CSSProperties, FC, InputHTMLAttributes, ReactNode, Ref } from 'react';
 
 import styles from './Checkbox.module.css';
 import classNames from '../../utils/classNames';
@@ -23,6 +23,10 @@ export type CheckboxProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
    * The label for the checkbox
    */
+  label?: string | ReactNode;
+  /**
+   * **[DEPRECATED]** This prop will be removed in a future version. Use the `label` prop instead
+   */
   labelText?: string;
   /**
    * Callback fired when the state is changed
@@ -45,13 +49,14 @@ const Checkbox: FC<CheckboxProps> = React.forwardRef(
       className,
       disabled = false,
       id,
+      label,
       labelText,
       onChange = () => null,
       style,
       value,
       ...rest
     }: CheckboxProps,
-    ref: RefObject<HTMLInputElement>,
+    ref: Ref<HTMLInputElement>,
   ) => (
     <div className={classNames(styles.checkbox, className)} style={style}>
       <input
@@ -67,7 +72,7 @@ const Checkbox: FC<CheckboxProps> = React.forwardRef(
         {...rest}
       />
       <label htmlFor={id} className={classNames(styles.label)}>
-        {labelText}
+        {label || labelText}
       </label>
     </div>
   ),

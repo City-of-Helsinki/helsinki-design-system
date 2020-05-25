@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import Checkbox from './Checkbox';
 
 const checkboxProps = {
-  labelText: 'label text',
+  label: 'label text',
   id: 'test',
 };
 
