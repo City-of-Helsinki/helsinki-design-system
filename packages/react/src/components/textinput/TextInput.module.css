@@ -5,14 +5,6 @@
   position: relative;
 }
 
-.label {
-  composes: hds-text-input__label from 'hds-core/lib/components/text-input/text-input.css';
-}
-
-.hiddenLabel {
-  composes: hiddenFromScreen from 'hds-core/lib/utils/helpers.css';
-}
-
 .inputWrapper {
   composes: hds-text-input__input-wrapper from 'hds-core/lib/components/text-input/text-input.css';
 }

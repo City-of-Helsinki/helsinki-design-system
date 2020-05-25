@@ -7,7 +7,7 @@ import TextArea from './TextArea';
 const textAreaProps = {
   helperText: 'Assistive text',
   id: 'textArea',
-  labelText: 'Label',
+  label: 'Label',
   placeholder: 'Placeholder',
 };
 const value = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
@@ -46,7 +46,7 @@ export const Playground = () => {
   const groupGeneral = 'General';
   const groupTooltip = 'Tooltip';
 
-  const label = text('Label', textAreaProps.labelText, groupGeneral);
+  const label = text('Label', textAreaProps.label, groupGeneral);
   const placeholder = text('Placeholder', textAreaProps.placeholder, groupGeneral);
   const helperText = text('Helper text', textAreaProps.helperText, groupGeneral);
   const disabled = boolean('Disabled', false, groupGeneral);
@@ -66,7 +66,7 @@ export const Playground = () => {
   return (
     <TextArea
       {...textAreaProps}
-      labelText={label}
+      label={label}
       helperText={helperText}
       placeholder={placeholder}
       disabled={disabled}

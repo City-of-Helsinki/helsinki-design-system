@@ -21,8 +21,6 @@
   --helper-color-default: var(--color-black-60);
   --helper-color-invalid: var(--color-error);
   --icon-color-invalid: var(--color-error);
-  --label-color-default: var(--color-black-90);
-  --label-color-invalid: var(--color-black-90);
   --menu-separator-color: var(--color-black-20);
   --menu-item-background-default: var(--color-white);
   --menu-item-background-hover: var(--color-black-10);
@@ -52,10 +50,6 @@
 .dropdown:focus-within .wrapper::before {
   transition: 85ms ease-out;
   transition-property: opacity, transform;
-}
-
-.invalid .label {
-  transition: color 85ms linear;
 }
 
 .angleIcon {
@@ -121,10 +115,6 @@
 
 /* INVALID */
 
-.invalid .label {
-  color: var(--label-color-invalid);
-}
-
 .invalid .helperText {
   color: var(--helper-color-invalid);
 }
@@ -167,20 +157,6 @@
 .root:focus-within .wrapper::before {
   opacity: 1;
   transform: translate(var(--offset), var(--offset)) scale(1);
-}
-
-/* LABEL */
-
-.label {
-  color: var(--label-color-default);
-  display: block;
-  font-size: var(--fontsize-subtitle);
-  font-weight: bold;
-  margin-bottom: var(--spacing-3-xs);
-}
-
-.hiddenLabel {
-  composes: hiddenFromScreen from 'hds-core/lib/utils/helpers.css';
 }
 
 /* HELPER TEXT */

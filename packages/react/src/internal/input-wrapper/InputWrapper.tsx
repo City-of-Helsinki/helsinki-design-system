@@ -3,7 +3,7 @@ import React, { CSSProperties, FC, ReactNode } from 'react';
 import styles from '../../components/textinput/TextInput.module.css';
 import Tooltip from '../../components/tooltip/Tooltip';
 import classNames from '../../utils/classNames';
-import RequiredIndicator from '../requiredindicator/RequiredIndicator';
+import FieldLabel from '../field-label/FieldLabel';
 
 type InputWrapperProps = {
   children?: ReactNode;
@@ -12,6 +12,7 @@ type InputWrapperProps = {
   hideLabel?: boolean;
   id: string;
   invalid?: boolean;
+  label?: string | ReactNode;
   labelText?: string;
   required?: boolean;
   style?: CSSProperties;
@@ -28,6 +29,7 @@ const InputWrapper: FC<InputWrapperProps> = ({
   hideLabel = false,
   id,
   invalid = false,
+  label,
   labelText,
   required = false,
   style,
@@ -37,11 +39,8 @@ const InputWrapper: FC<InputWrapperProps> = ({
   tooltipCloseButtonLabelText,
 }: InputWrapperProps) => (
   <div className={classNames(styles.root, invalid && styles.invalid, className)} style={style}>
-    {labelText && (
-      <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hiddenLabel : ''}`}>
-        {labelText}
-        {required && <RequiredIndicator />}
-      </label>
+    {(label || labelText) && (
+      <FieldLabel inputId={id} hideLabel={hideLabel} label={label || labelText} required={required} />
     )}
     {tooltipText && (
       <Tooltip

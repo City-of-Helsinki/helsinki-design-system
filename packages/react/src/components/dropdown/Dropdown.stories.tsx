@@ -93,6 +93,7 @@ export const Playground = () => {
   const filterable = boolean('Filterable', false);
   const invalid = boolean('Invalid', false);
   const disabled = boolean('Disabled', false);
+  const required = boolean('Required', false);
   const hideLabel = boolean('Hide label', false);
   const closeMenuOnSelect = boolean('Close menu on select', true);
   const circularNavigation = boolean('Circular navigation', false);
@@ -110,6 +111,7 @@ export const Playground = () => {
       helper={helper}
       hideLabel={hideLabel}
       invalid={invalid}
+      required={required}
       label={label}
       multiselect={multiselect}
       options={options}

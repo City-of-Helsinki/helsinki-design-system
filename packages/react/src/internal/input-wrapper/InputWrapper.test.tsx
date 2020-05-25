@@ -5,7 +5,7 @@ import InputWrapper from './InputWrapper';
 
 const wrapperProps = {
   helperText: 'helper text',
-  labelText: 'label text',
+  label: 'label text',
   id: 'test',
 };
 

@@ -5,6 +5,7 @@ import styles from './Dropdown.module.css';
 import classNames from '../../utils/classNames';
 import { IconAngleDown, IconCheck, IconAttention } from '../../icons';
 import Checkbox from '../checkbox/Checkbox';
+import FieldLabel from '../../internal/field-label/FieldLabel';
 
 type OptionType = {
   [key: string]: any;
@@ -108,6 +109,10 @@ export type DropdownProps = {
    */
   placeholder?: string;
   /**
+   * If `true`, the label is displayed as required
+   */
+  required?: boolean;
+  /**
    * Override or extend the root styles applied to the component
    */
   style?: CSSProperties;
@@ -164,6 +169,7 @@ const Dropdown: FC<DropdownProps> = ({
   optionLabelField = 'label',
   options = [],
   placeholder = '',
+  required,
   style,
   toggleButtonId,
   visibleOptions = 5,
@@ -292,9 +298,7 @@ const Dropdown: FC<DropdownProps> = ({
     >
       {/* LABEL */}
       {label && (
-        <label {...getLabelProps({ className: classNames(styles.label, hideLabel ? styles.hiddenLabel : '') })}>
-          {label}
-        </label>
+        <FieldLabel inputId={id} hideLabel={hideLabel} label={label} required={required} {...getLabelProps()} />
       )}
       {/* WRAPPER */}
       <Wrapper filterable={filterable} getComboboxProps={combobox.getComboboxProps}>
@@ -359,7 +363,7 @@ const Dropdown: FC<DropdownProps> = ({
                   <Checkbox
                     className={styles.checkbox}
                     id={optionLabel}
-                    labelText={optionLabel}
+                    label={optionLabel}
                     checked={selected}
                     disabled={optionDisabled}
                   />

@@ -1,7 +1,7 @@
-import React, { ChangeEventHandler, CSSProperties, FC, forwardRef, InputHTMLAttributes, Ref } from 'react';
+import React, { ChangeEventHandler, CSSProperties, FC, forwardRef, InputHTMLAttributes, ReactNode, Ref } from 'react';
 
 import styles from './TextInput.module.css';
-import InputWrapper from '../../internal/inputwrapper/InputWrapper';
+import InputWrapper from '../../internal/input-wrapper/InputWrapper';
 
 export type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
@@ -35,6 +35,10 @@ export type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
    * The label for the input
    */
+  label?: string | ReactNode;
+  /**
+   * **[DEPRECATED]** This prop will be removed in a future version. Use the `label` prop instead
+   */
   labelText?: string;
   /**
    * Callback fired when the state is changed
@@ -49,7 +53,7 @@ export type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
    */
   readOnly?: boolean;
   /**
-   * If `true`, the label is displayed as required and the `input` element will be required.
+   * If `true`, the label is displayed as required and the `input` element will be required
    */
   required?: boolean;
   /**
@@ -96,6 +100,7 @@ const TextInput: FC<TextInputProps> = forwardRef(
       hideLabel,
       invalid,
       id,
+      label,
       labelText,
       onChange = () => null,
       required,
@@ -115,6 +120,7 @@ const TextInput: FC<TextInputProps> = forwardRef(
       hideLabel,
       id,
       invalid,
+      label,
       labelText,
       required,
       style,
@@ -125,7 +131,7 @@ const TextInput: FC<TextInputProps> = forwardRef(
     };
 
     return (
-      <InputWrapper id={id} {...wrapperProps}>
+      <InputWrapper {...wrapperProps}>
         <input
           className={styles.input}
           defaultValue={defaultValue}
