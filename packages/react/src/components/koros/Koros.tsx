@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash.uniqueid';
 
 import classNames from '../../utils/classNames';
 import styles from './Koros.module.css';

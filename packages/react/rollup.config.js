@@ -1,4 +1,4 @@
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 import includePaths from 'rollup-plugin-includepaths';
 import postcss from 'rollup-plugin-postcss';
 import typescript from 'rollup-plugin-typescript2';
@@ -41,9 +41,10 @@ export default {
     }),
     typescript(),
     babel({
+      babelHelpers: 'bundled',
       exclude: 'node_modules/**',
       extensions,
     }),
   ],
-  external: ['react', 'react-dom', 'lodash', 'react-spring/renderprops.cjs'],
+  external: ['react', 'react-dom', 'lodash.uniqueid', 'react-spring/renderprops.cjs'],
 };
