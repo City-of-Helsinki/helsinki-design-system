@@ -32,8 +32,11 @@ addParameters({
       </>
     ),
   },
-  backgrounds: [
-    { name: 'White', value: '#fff', default: true },
-    { name: 'Black', value: '#111' },
-  ],
+  backgrounds: {
+    default: 'White',
+    values: [
+      { name: 'White', value: '#fff' },
+      { name: 'Black', value: '#111' },
+    ],
+  },
 });

@@ -12,7 +12,6 @@
   --input-height: 56px;
   --textarea-height: 149px;
   --icon-size: 1.375em;
-  --label-height: 1.625rem;
 
   --helper-color-default: var(--color-helper-text-input-default);
   --helper-color-invalid: var(--color-helper-text-input-invalid);
@@ -51,9 +50,9 @@
 .hds-text-input__label {
   color: var(--label-color-default);
   display: block;
-  font-size: 0.875em;
+  font-size: var(--fontsize-subtitle);
   font-weight: bold;
-  line-height: var(--label-height);
+  margin-bottom: var(--spacing-3-xs);
 }
 
 /* INPUT */
@@ -64,6 +63,8 @@
 }
 
 .hds-text-input .hds-text-input__input {
+  /* removes the input shadow on iOS */
+  -webkit-appearance: none;
   background-color: var(--input-background-default);
   border: var(--border-width) solid var(--input-border-color-default);
   border-radius: var(--border-radius);
@@ -106,8 +107,8 @@
 .hds-text-input__helper-text {
   color: var(--helper-color-default);
   display: block;
-  line-height: var(--label-height);
-  font-size: 0.875em;
+  font-size: var(--fontsize-subtitle);
+  margin-top: var(--spacing-3-xs);
 }
 
 /* INVALID */
@@ -134,6 +135,7 @@
   height: var(--icon-size);
   mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  pointer-events: none;
   position: absolute;
   right: var(--border-width);
   top: 0;

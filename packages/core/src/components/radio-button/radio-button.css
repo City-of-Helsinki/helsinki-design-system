@@ -7,6 +7,7 @@
   --icon-scale: 0.5;
   --border-width: 2px;
   --outline-width: 3px;
+  --label-padding: var(--spacing-2-xs);
 
   --background: var(--color-background-radio-button-default);
   --background-hover: var(--color-background-radio-button-hover);
@@ -32,9 +33,8 @@
   --label-color: var(--color-label-radio-button-default);
   --label-color-disabled: var(--color-label-radio-button-disabled);
 
-  align-items: center;
   display: flex;
-  height: var(--size);
+  min-height: var(--size);
   position: relative;
 }
 
@@ -70,7 +70,7 @@
 .hds-radio-button .hds-radio-button__label {
   color: var(--label-color);
   cursor: pointer;
-  padding-left: calc(var(--size) + var(--spacing-2-xs));
+  padding-left: calc(var(--size) + var(--label-padding));
   position: relative;
 }
 
@@ -82,8 +82,7 @@
   content: "";
   left: 0;
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
 }
 
 /* background & focus outline */
@@ -101,7 +100,7 @@
 /* background - focus */
 .hds-radio-button .hds-radio-button__input:focus + .hds-radio-button__label::before {
   box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
-  transform: translate3d(0, -50%, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 /* inner circle */

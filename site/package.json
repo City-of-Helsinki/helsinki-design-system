@@ -1,6 +1,6 @@
 {
   "name": "site",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "private": true,
   "description": "Documentation for Helsinki Design System",
   "license": "MIT",
@@ -15,16 +15,16 @@
     "build": "rimraf .docz/ public/ && docz build"
   },
   "dependencies": {
-    "docz": "^2.3.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "docz": "2.3.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
   },
   "devDependencies": {
-    "gatsby-cli": "^2.11.5",
-    "hds-core": "0.6.0",
-    "hds-design-tokens": "^0.2.0",
-    "hds-react": "^0.7.0",
-    "react-helmet": "^6.0.0",
-    "rimraf": "^3.0.2"
+    "gatsby-cli": "2.12.29",
+    "hds-core": "0.6.3",
+    "hds-design-tokens": "0.2.0",
+    "hds-react": "0.7.2",
+    "react-helmet": "6.0.0",
+    "rimraf": "3.0.2"
   }
 }
