@@ -40,7 +40,7 @@ const InputWrapper: FC<InputWrapperProps> = ({
 }: InputWrapperProps) => (
   <div className={classNames(styles.root, invalid && styles.invalid, className)} style={style}>
     {(label || labelText) && (
-      <FieldLabel inputId={id} hideLabel={hideLabel} label={label || labelText} required={required} />
+      <FieldLabel inputId={id} hidden={hideLabel} label={label || labelText} required={required} />
     )}
     {tooltipText && (
       <Tooltip

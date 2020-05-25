@@ -8,7 +8,7 @@ type RequiredIndicatorProps = {
   style?: CSSProperties;
 };
 
-const RequiredIndicator: FC<RequiredIndicatorProps> = ({ className, style }: RequiredIndicatorProps) => (
+const RequiredIndicator: FC<RequiredIndicatorProps> = ({ className, style }) => (
   <span className={classNames(styles.indicator, className)} style={style}>
     *
   </span>

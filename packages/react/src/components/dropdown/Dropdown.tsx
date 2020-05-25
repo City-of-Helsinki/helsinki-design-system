@@ -297,9 +297,7 @@ const Dropdown: FC<DropdownProps> = ({
       style={style}
     >
       {/* LABEL */}
-      {label && (
-        <FieldLabel inputId={id} hideLabel={hideLabel} label={label} required={required} {...getLabelProps()} />
-      )}
+      {label && <FieldLabel inputId={id} hidden={hideLabel} label={label} required={required} {...getLabelProps()} />}
       {/* WRAPPER */}
       <Wrapper filterable={filterable} getComboboxProps={combobox.getComboboxProps}>
         {/* COMBOBOX INPUT */}
