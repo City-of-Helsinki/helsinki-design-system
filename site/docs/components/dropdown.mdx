@@ -45,59 +45,22 @@ import LargeParagraph from "../../src/components/LargeParagraph";
   label="Label"
   helper="Assistive text"
 />
-</Playground>
 
-##### React:
-```tsx
-<Dropdown
-  id="example1"
-  options={[
-    { label: 'Plutonium' },
-    { label: 'Americium' },
-    { label: 'Copernicium' },
-  ]}
-  placeholder="Choose one"
-  label="Label"
-  helper="Assistive text"
-/>
-```
-
-### Disabled
-
-<Playground>
-<Dropdown
-  options={[
-    { label: 'Plutonium' },
-    { label: 'Americium' },
-    { label: 'Copernicium' },
-  ]}
-  defaultValue={{ label: 'Plutonium' }}
-  label="Label"
-  helper="Assistive text"
-  disabled
-/>
-</Playground>
-
-##### React:
-```tsx
-<Dropdown
-  options={[
-    { label: 'Plutonium' },
-    { label: 'Americium' },
-    { label: 'Copernicium' },
-  ]}
-  defaultValue={{ label: 'Plutonium' }}
-  label="Label"
-  helper="Assistive text"
-  disabled
-/>
-```
-
-### Invalid
-
-<Playground>
 <Dropdown
   id="example2"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  defaultValue={{ label: 'Plutonium' }}
+  label="Label"
+  helper="Assistive text"
+  disabled
+/>
+
+<Dropdown
+  id="example3"
   options={[
     { label: 'Plutonium' },
     { label: 'Americium' },
@@ -112,8 +75,33 @@ import LargeParagraph from "../../src/components/LargeParagraph";
 
 ##### React:
 ```tsx
+/* Enabled */
 <Dropdown
-  id="example2"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  placeholder="Choose one"
+  label="Label"
+  helper="Assistive text"
+/>
+
+/* Disabled */
+<Dropdown
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  defaultValue={{ label: 'Plutonium' }}
+  label="Label"
+  helper="Assistive text"
+  disabled
+/>
+
+/* Error */
+<Dropdown
   options={[
     { label: 'Plutonium' },
     { label: 'Americium' },
