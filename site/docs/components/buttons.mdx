@@ -36,7 +36,7 @@ Primary button is reserved for the most important action on the screen. Primary 
 
 <Playground>
 <Button>Primary</Button>
-<Button disabled>Primary disabled</Button>
+<Button style={{marginLeft: 'var(--spacing-s)'}} disabled>Primary disabled</Button>
 </Playground>
 
 ##### Core:
@@ -56,7 +56,7 @@ Secondary buttons are used for actions which are not mandatory or essential for 
 
 <Playground>
   <Button variant="secondary">Secondary</Button>
-  <Button variant="secondary" disabled>Secondary disabled</Button>
+  <Button variant="secondary" style={{marginLeft: 'var(--spacing-s)'}} disabled>Secondary disabled</Button>
 </Playground>
 
 ##### Core:
@@ -76,7 +76,7 @@ Supplementary buttons can be used in similar cases as secondary buttons. However
 
 <Playground>
   <Button variant="supplementary">Supplementary</Button>
-  <Button variant="supplementary" disabled>Supplementary disabled</Button>
+  <Button variant="supplementary" style={{marginLeft: 'var(--spacing-s)'}} disabled>Supplementary disabled</Button>
 </Playground>
 
 ##### Core:
@@ -96,8 +96,8 @@ Icons can be added to buttons to make the action easier to understand. Sometimes
 
 <Playground>
   <Button iconLeft={<IconShare />}>Button</Button>
-  <Button iconRight={<IconAngleRight />}>Button</Button>
-  <Button iconLeft={<IconShare />} iconRight={<IconAngleRight />}>Button</Button>
+  <Button iconRight={<IconAngleRight />} style={{marginLeft: 'var(--spacing-s)'}}>Button</Button>
+  <Button iconLeft={<IconShare />} iconRight={<IconAngleRight />} style={{marginLeft: 'var(--spacing-s)'}}>Button</Button>
 </Playground>
 
 ##### Core:
@@ -131,8 +131,8 @@ It is recommended to use the standard button size in most cases. If there is a b
 
 <Playground>
   <Button size="small">Primary</Button>
-  <Button variant="secondary" size="small">Secondary</Button>
-  <Button variant="supplementary" size="small">Supplementary</Button>
+  <Button variant="secondary" size="small" style={{marginLeft: 'var(--spacing-s)'}}>Secondary</Button>
+  <Button variant="supplementary" size="small" style={{marginLeft: 'var(--spacing-s)'}}>Supplementary</Button>
 </Playground>
 
 ##### Core:
@@ -160,7 +160,7 @@ If required to achieve clearer user interface, you may also use additional utili
 
 <Playground>
   <Button variant="success">Success</Button>
-  <Button variant="danger">Danger</Button>
+  <Button variant="danger" style={{marginLeft: 'var(--spacing-s)'}}>Danger</Button>
 </Playground>
 
 ##### Core:

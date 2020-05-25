@@ -25,7 +25,7 @@ const menu = [
     name: 'About',
     menu: ['What is new', 'Roadmap', 'Resources', 'Support', 'Accessibility statement'],
   },
-  'Contributing'
+  'Contributing',
 ];
 
 export default {

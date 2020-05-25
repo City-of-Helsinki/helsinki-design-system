@@ -43,17 +43,18 @@ Text input serves in most use cases when the user needs to enter information. Te
     helperText="Assistive text"
   />
   <TextInput
-    id="input3"
     labelText="Label"
     defaultValue="Text input value"
     helperText="Assistive text"
+    style={{marginTop: 'var(--spacing-s)'}}
     disabled
   />
   <TextInput
-    id="input4"
+    id="input-invalid"
     labelText="Label"
     defaultValue="Text input value"
     helperText="Error text"
+    style={{marginTop: 'var(--spacing-s)'}}
     invalid
   />
 </Playground>
@@ -133,10 +134,8 @@ Text area is meant for situations where inputted text is multiline or contains m
     labelText="Label"
     placeholder="Placeholder"
     helperText="Assistive text"
-    style={{marginTop: 'var(--spacing-s)'}}
   />
   <TextArea
-    id="textarea3"
     labelText="Label"
     defaultValue="Text area value"
     helperText="Assistive text"
@@ -144,10 +143,11 @@ Text area is meant for situations where inputted text is multiline or contains m
     disabled
   />
   <TextArea
-    id="textarea"
+    id="textarea-invalid"
     labelText="Label"
     defaultValue="Text area value"
     helperText="Error text"
+    style={{marginTop: 'var(--spacing-s)'}}
     invalid
 />
 </Playground>
@@ -227,7 +227,6 @@ Read-only text input is used to indicate an input among other inputs that cannot
 
 <Playground>
   <TextInput
-    id="input2"
     labelText="Label"
     defaultValue="Read-only value"
     helperText="Assistive text"
@@ -269,14 +268,14 @@ Both text input and text area can be provided with additional tooltip. Tooltip i
 
 <Playground>
   <TextInput
-    id="input5"
+    id="input-tooltip"
     labelText="Label"
     placeholder="Placeholder"
     tooltipLabel="Tooltip label"
     tooltipText="Tooltip text"
   />
   <TextArea
-    id="textarea5"
+    id="textarea-tooltip"
     labelText="Label"
     placeholder="Placeholder"
     tooltipLabel="Tooltip label"
