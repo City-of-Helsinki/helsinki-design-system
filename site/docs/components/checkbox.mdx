@@ -8,72 +8,57 @@ import { Playground } from "docz";
 import { Checkbox } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
+import LargeParagraph from "../../src/components/LargeParagraph";
 import Text from "../../src/components/Text";
 
 # Checkboxes
 
+<LargeParagraph>
+  Checkboxes are used to pick an option when one or more options can be chosen. 
+</LargeParagraph>
+
+## Principles
+
+- If the user can only select one option from a list, use [radio buttons](/components/radio-button) instead.
+- Checkbox label should always describe clearly what will happen if the specific option is chosen. A good practice is to keep labels at maximum of three words long.
+- Checkboxes work independently from each other. This means that checking one option should never affect other checkboxes.
+- If possible, align checkbox groups vertically rather than horizontally. Vertical checkbox groups are easier to read.
+
 ## Accessibility
 
-> TODO
+- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colors, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
+- It is recommended to include heading for a checkbox group. This makes it easier for the user to understand context of the selection.
 
-## How to use
-
-> TODO
-
-## Default
+## Usage
 
 <Playground>
-  <Checkbox id="checkbox1" label="Label" />
+  <Checkbox label="Label" />
+  <Checkbox label="Label" checked />
+  <Checkbox label="Label" disabled />
+  <Checkbox label="Label" checked disabled />
 </Playground>
 
 ##### Core:
 ```html
+<!-- Enabled -->
 <div class="hds-checkbox">
   <input type="checkbox" id="checkbox" class="hds-checkbox__input" />
   <label for="checkbox"  class="hds-checkbox__label">Label</label>
 </div>
-```
 
-##### React:
-```tsx
-<Checkbox id="checkbox" label="Label" />
-```
-
-## Selected
-
-<Playground>
-  <Checkbox id="checkbox2" label="Label" checked />
-</Playground>
-
-##### Core:
-```html
+<!-- Enabled & selected -->
 <div class="hds-checkbox">
   <input type="checkbox" id="checkbox" class="hds-checkbox__input" checked />
   <label for="checkbox"  class="hds-checkbox__label">Label</label>
 </div>
-```
 
-##### React:
-```tsx
-<Checkbox id="checkbox" label="Label" checked />
-```
-
-## Disabled
-
-<Playground>
-  <Checkbox id="checkbox3" label="Label" disabled />
-  <Checkbox id="checkbox4" label="Label" checked disabled />
-</Playground>
-
-##### Core:
-```html
 <!-- Disabled -->
 <div class="hds-checkbox">
   <input type="checkbox" id="checkbox" class="hds-checkbox__input" disabled />
   <label for="checkbox"  class="hds-checkbox__label">Label</label>
 </div>
 
-<!-- Selected & disabled -->
+<!-- Disabled & selected -->
 <div class="hds-checkbox">
   <input type="checkbox" id="checkbox" class="hds-checkbox__input" checked disabled />
   <label for="checkbox"  class="hds-checkbox__label">Label</label>
@@ -82,11 +67,10 @@ import Text from "../../src/components/Text";
 
 ##### React:
 ```tsx
-/* Disabled */
-<Checkbox id="checkbox" label="Label" disabled />
-
-/* Selected & disabled */
-<Checkbox id="checkbox" label="Label" checked disabled />
+<Checkbox id="checkbox1" label="Label" />
+<Checkbox id="checkbox2" label="Label" checked />
+<Checkbox id="checkbox3" label="Label" disabled />
+<Checkbox id="checkbox4" label="Label" checked disabled />
 ```
 
 ## Demos & API

@@ -7,19 +7,28 @@ route: /components/koros
 import { Playground } from "docz";
 import { Koros } from "hds-react";
 
+import LargeParagraph from "../../src/components/LargeParagraph";
+
 # Koros
 
----
+<LargeParagraph>
+  Koros, also known as Wave motifs, are part of the visual identity of City of Helsinki. The Koros can be used as a visual elements, for example as part of the hero image or the footer, and as a divider of content in the user interface.
+</LargeParagraph>
 
-Koros, also known as Wave motifs, are part of the visual identity of City of Helsinki. They are graphic elements inspired by the Helsinki City crest. The wave motifs express the attitude established in the brand strategy: “One Hel of an Impact”.
+## Principles
 
-## General guidelines
+- Koros width should always match the screen width.
+- Koros is a very powerful visual element. Use them sparingly in one view.
+- Koros should be only used as filled. Do not use empty fill koros with borders.
+- Use koros as part of a background. Do not create new visual elements using koros.
 
-There are five Koros styles. An added visual interest is brought to the identity by means of the Koros. Using Koros adds high visual impact and makes the user interface recognizable as part of Helsinki city services.
+## Accessibility
 
-The Koros can be used, for example as part of the hero image, as part of the footer, and as a divider of content in the user interface.
+- It is allowed to use Koros in all brand colors. When choosing colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
 
-## Basic usage
+## Usage
+
+There are five Koro styles. An added visual interest is brought to the identity by means of the Koros. Using Koros adds high visual impact and makes the user interface recognisable as part of Helsinki city services. You can read more about using Koros in [Helsinki Visual Identity Guidelines](https://brand.hel.fi/en/wave-motifs/).
 
 <Playground>
   <Koros type="basic" />
@@ -32,3 +41,28 @@ The Koros can be used, for example as part of the hero image, as part of the foo
   <br />
   <Koros type="storm" />
 </Playground>
+
+##### React:
+```tsx
+<Koros type="basic" />
+<Koros type="beat" />
+<Koros type="pulse" />
+<Koros type="wave" />
+<Koros type="storm" />
+```
+
+## Demos & API
+
+### Core
+
+_Not included in hds-core!_
+
+### React
+
+[Koros in hds-react](/storybook/react/?path=/docs/components-koros--basic)
+
+[Koros API](/storybook/react/?path=/docs/components-koros--basic)
+
+## Tokens
+
+_No tokens._

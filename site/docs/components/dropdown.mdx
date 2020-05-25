@@ -9,20 +9,29 @@ import { Dropdown } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
 import Text from "../../src/components/Text";
+import LargeParagraph from "../../src/components/LargeParagraph";
 
 # Dropdowns
 
->TODO
+<LargeParagraph>
+  Dropdown offers user a list of options which one or multiple can be selected. Dropsdowns are often used as part of forms and filters.
+</LargeParagraph>
+
+> **Work in progress!**
+> 
+> The documentation of this component is still work in progress and subject to change.
+
+## Principles
+
+> Coming soon!
 
 ## Accessibility
 
->TODO
+> Coming soon!
 
-## How to use
+## Usage
 
->TODO
-
-## Default
+### Default
 
 <Playground>
 <Dropdown
@@ -36,11 +45,51 @@ import Text from "../../src/components/Text";
   label="Label"
   helper="Assistive text"
 />
+
+<Dropdown
+  id="example2"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  defaultValue={{ label: 'Plutonium' }}
+  label="Label"
+  helper="Assistive text"
+  style={{marginTop: 'var(--spacing-s)'}}
+  disabled
+/>
+
+<Dropdown
+  id="example3"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  defaultValue={{ label: 'Plutonium' }}
+  label="Label"
+  helper="Error text"
+  style={{marginTop: 'var(--spacing-s)'}}
+  invalid
+/>
 </Playground>
 
-## Disabled
+##### React:
+```tsx
+/* Enabled */
+<Dropdown
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  placeholder="Choose one"
+  label="Label"
+  helper="Assistive text"
+/>
 
-<Playground>
+/* Disabled */
 <Dropdown
   options={[
     { label: 'Plutonium' },
@@ -52,13 +101,9 @@ import Text from "../../src/components/Text";
   helper="Assistive text"
   disabled
 />
-</Playground>
 
-## Invalid
-
-<Playground>
+/* Error */
 <Dropdown
-  id="example2"
   options={[
     { label: 'Plutonium' },
     { label: 'Americium' },
@@ -69,9 +114,9 @@ import Text from "../../src/components/Text";
   helper="Error text"
   invalid
 />
-</Playground>
+```
 
-## Filterable
+### Filterable
 
 <Playground>
 <Dropdown
@@ -88,7 +133,23 @@ import Text from "../../src/components/Text";
 />
 </Playground>
 
-## Multi-select
+##### React:
+```tsx
+<Dropdown
+  id="example3"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  placeholder="Choose one"
+  label="Label"
+  helper="Assistive text"
+  filterable
+/>
+```
+
+### Multi-select
 
 <Playground>
 <Dropdown
@@ -106,6 +167,23 @@ import Text from "../../src/components/Text";
 />
 </Playground>
 
+##### React:
+```tsx
+<Dropdown
+  id="example4"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  placeholder="Choose one"
+  label="Label"
+  helper="Assistive text"
+  closeMenuOnSelect={false}
+  multiselect
+/>
+```
+
 ## Demos & API
 
 ### Core
@@ -117,3 +195,7 @@ _Not included in hds-core!_
 [Dropdowns in hds-react](/storybook/react/?path=/story/components-dropdown--default)
 
 [Dropdown API](/storybook/react/?path=/docs/components-dropdown--default)
+
+## Tokens
+
+_No tokens._

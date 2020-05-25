@@ -1,52 +1,52 @@
 ---
-name: HDS Components
+name: Overview
 menu: Components
 route: /components
 ---
 
+import LargeParagraph from "../../src/components/LargeParagraph";
+
 # Component overview
 
----
+<LargeParagraph>
+    This section lists all components currently available in HDS. Tokens and components are available in two separate npm packages, hds-core and hds-react. Refer to the component table below to check which components are supported in each package. 
+</LargeParagraph>
 
 ## Libraries
 
 ### Core styles
 
-The core package provides Helsinki City brand colors, typography and base styles as css-styles and variables. It also contains a collection of styles for components and icons that can be used in non-React applications.
+The core package provides Helsinki City brand colours, typography and base styles as css-styles and variables. It also contains a collection of styles for components and icons that can be used in non-React applications.
 
-The Core components and use cases are available in [Helsinki Design System Core Storybook](/storybook/core).
+The core components and technical documentation are available in [Helsinki Design System Core Storybook](/storybook/core).
 
-[hds-core in GitHub](https://www.npmjs.com/package/hds-core)
+[View hds-core in GitHub](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core)
 
 ### React components
 
 Helsinki Design System React library provides a collection of React component for building websites and applications. Using the components will help developers to rapidly create user interfaces that are in line with the Helsinki City Design Language as well as accessible and consistent in behavior across applications.
 
-The React components and use cases are available in [Helsinki Design System React Storybook](/storybook/react).
+The React components and technical documentation are available in [Helsinki Design System React Storybook](/storybook/react).
 
-[hds-react in GitHub](https://www.npmjs.com/package/hds-react)
+[View hds-react in GitHub](https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react)
 
-## Roadmap
+## Component status
 
-The component libraries are still experimental. The existing components can be used in projects but changes may still occur.
+Since HDS is still in alpha stage, the component libraries are still experimental. The existing components can be used in projects but changes may still occur.
 
-Component               | Core                                                        | React                                                                 | Docs                                      |
------------------------ | ----------------------------------------------------------- | --------------------------------------------------------------------- | ----------------------------------------- |
-TextInput               | [✔](/storybook/core/?path=/story/textinput--default)        | [✔](/storybook/react/?path=/story/components-textinput--default)      | [✔](/components/text-field)               |
-Tooltip (for TextInput) |                                                             | [✔](/storybook/react/?path=/story/components-textinput--with-tooltip) | [✔](/components/text-field#with-tooltip)  |
-TextArea                | [✔](/storybook/core/?path=/story/textarea--default)         | [✔](/storybook/react/?path=/story/components-textarea--default)       | [✔](/components/text-field)               |
-Notification            | [✔](/storybook/core/?path=/story/notification--default)     | [✔](/storybook/react/?path=/story/components-notification--default)   |                                           |
-Koros                   |                                                             | [✔](/storybook/react/?path=/story/components-koros--basic)            | [✔](/components/koros)                    |
-Section                 |                                                             | [✔](/storybook/react/?path=/story/components-section--with-koros)     |                                           |
-ImageWithCard           |                                                             | [✔](/storybook/react/?path=/story/components-imagewithcard--default)  |                                           |
-Button                  | [✔](/storybook/core/?path=/story/button--primary)           | [✔](/storybook/react/?path=/story/components-button--primary)         | [✔](/components/button)                   |
-Icons                   | [✔](/storybook/core/?path=/story/icons--angle-down)         | [✔](/storybook/react/?path=/story/components-icons--iconangledown)    |                                           |
-Dropdown                |                                                             | [✔](/storybook/react/?path=/story/components-dropdown--default)       | [✔](/components/dropdown)                 |
-Checkbox                | [✔](/storybook/core/?path=/story/checkbox--default)         | [✔](/storybook/react/?path=/story/components-checkbox--default)       | [✔](/components/checkbox)                 |
-RadioButton             | [✔](/storybook/core/?path=/story/radiobutton--default)      | [✔](/storybook/react/?path=/story/components-radiobutton--default)    | [✔](/components/radio-button)             |
-Header                  |                                                             |                                                                       |                                           |
-Footer                  |                                                             |                                                                       |                                           |
-Navigation              |                                                             |                                                                       |                                           |
-Card                    |                                                             |                                                                       |                                           |
-List                    |                                                             |                                                                       |                                           |
-Table                   |                                                             |                                                                       |                                           |
+For future components, see [Roadmap](/about/roadmap).
+
+Component                                                        | Status       | Core                                                    | React
+-----------------------------------------------------------------|--------------|---------------------------------------------------------|----------------------------------------------------------------------
+[Button](/components/button)                                     | Stable       | [✔](/storybook/core/?path=/story/button--primary)       | [✔](/storybook/react/?path=/story/components-button--primary)
+[Checkbox](/components/checkbox)                                 | Stable       | [✔](/storybook/core/?path=/story/checkbox--default)     | [✔](/storybook/react/?path=/story/components-checkbox--default)
+[Dropdown](/components/dropdown)                                 | Stable       |                                                         | [✔](/storybook/react/?path=/story/components-dropdown--default)
+[Icons](/visual-assets/icons)                                    | Stable       | [✔](/storybook/core/?path=/story/icons--angle-down)     | [✔](/storybook/react/?path=/story/components-icons--iconangledown)
+[Koros](/components/koros)                                       | Stable       |                                                         | [✔](/storybook/react/?path=/story/components-koros--basic)
+[Radio button](/components/radio-button)                         | Stable       | [✔](/storybook/core/?path=/story/radiobutton--default)  | [✔](/storybook/react/?path=/story/components-radiobutton--default)
+[Text input](/components/text-field)                             | Stable       | [✔](/storybook/core/?path=/story/textinput--default)    | [✔](/storybook/react/?path=/story/components-textinput--default)
+[Text area](/components/text-field#text-area)                    | Stable       | [✔](/storybook/core/?path=/story/textarea--default)     | [✔](/storybook/react/?path=/story/components-textarea--default)
+[Tooltip (for text fields)](/components/text-field#with-tooltip) | Experimental |                                                         | [✔](/storybook/react/?path=/story/components-textinput--with-tooltip)
+ImageWithCard                                                    | Experimental |                                                         | [✔](/storybook/react/?path=/story/components-imagewithcard--default)
+Notification                                                     | Experimental | [✔](/storybook/core/?path=/story/notification--default) | [✔](/storybook/react/?path=/story/components-notification--default)
+Section                                                          | Experimental |                                                         | [✔](/storybook/react/?path=/story/components-section--with-koros)
