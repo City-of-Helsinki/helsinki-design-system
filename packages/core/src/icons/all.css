@@ -34,3 +34,11 @@
 @import "./icon-volume.css";
 @import "./icon-warning.css";
 @import "./icon-wine.css";
+
+/* new */
+
+/* SoMe */
+@import "some/icon-discord.css";
+
+/* UI */
+@import "ui/icon-alert-circle.css";
