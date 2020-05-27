@@ -3,7 +3,7 @@ import { useCombobox, useMultipleSelection, useSelect } from 'downshift';
 
 import styles from './Dropdown.module.css';
 import classNames from '../../utils/classNames';
-import { IconAngleDown, IconCheck, IconAttention } from '../../icons';
+import { IconAngleDown, IconCheck, IconAlertCircle } from '../../icons';
 import Checkbox from '../checkbox/Checkbox';
 import FieldLabel from '../../internal/field-label/FieldLabel';
 
@@ -327,7 +327,7 @@ const Dropdown: FC<DropdownProps> = ({
           {getButtonLabel()}
           <IconAngleDown className={styles.angleIcon} />
         </button>
-        {invalid && <IconAttention className={styles.invalidIcon} />}
+        {invalid && <IconAlertCircle className={styles.invalidIcon} />}
       </Wrapper>
       {/* MENU */}
       <ul

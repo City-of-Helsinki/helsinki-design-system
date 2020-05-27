@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Transition } from 'react-spring/renderprops.cjs';
 
 import classNames from '../../utils/classNames';
-import { IconInfo, IconTooltip, IconClose } from '../../icons';
+import { IconInfoCircle, IconQuestionCircle, IconCross } from '../../icons';
+// import { IconInfoCircle, IconError, IconAlertCircle, IconCheck } from '../../icons';
 import styles from './Tooltip.module.css';
 
 export type TooltipProps = React.PropsWithChildren<{
@@ -31,14 +32,14 @@ const Tooltip: React.FC<TooltipProps> = ({
         onClick={() => setOpen(!isOpen)}
       >
         <span aria-hidden="true">
-          <IconTooltip className={styles.iconTooltip} />
+          <IconQuestionCircle className={styles.iconTooltip} />
         </span>
       </button>
       <TooltipTransition open={isOpen}>
         <div className={classNames(styles.tooltip, alternative && styles.alternative)}>
           <div className={styles.label}>
             <span aria-hidden="true">
-              <IconInfo className={styles.iconInfo} />
+              <IconInfoCircle className={styles.iconInfo} />
             </span>
             <button
               className={classNames(styles.buttonClose, alternative && styles.alternative)}
@@ -48,7 +49,7 @@ const Tooltip: React.FC<TooltipProps> = ({
               onClick={() => setOpen(false)}
             >
               <span aria-hidden="true">
-                <IconClose className={styles.iconClose} />
+                <IconCross className={styles.iconClose} />
               </span>
             </button>
             <span className={styles.labelText}>{labelText}</span>
