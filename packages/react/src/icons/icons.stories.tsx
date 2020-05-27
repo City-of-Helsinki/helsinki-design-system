@@ -3,12 +3,11 @@ import path from 'path';
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-const Wrapper = ({ children, size, color = 'var(--color-black)', style = {} }) => (
+// todo: remove wrapper
+const Wrapper = ({ children, color = 'var(--color-black)', style = {} }) => (
   <div
     style={{
       margin: '10px',
-      width: size,
-      height: size,
       display: 'inline-block',
       verticalAlign: 'middle',
       color,
@@ -39,16 +38,16 @@ req.keys().forEach((fileName, index) => {
   stories.add(componentName, () => (
     <>
       <div>
-        {[16, 24, 36, 48, 64].map((size) => (
-          <Wrapper key={`size-${size}`} size={`${size}px`}>
-            <Component />
+        {['xs', 's', 'm', 'l', 'xl'].map((size) => (
+          <Wrapper key={`size-${size}`}>
+            <Component size={size} />
           </Wrapper>
         ))}
       </div>
       <div style={{ background: 'var(--color-black)' }}>
-        {[16, 24, 36, 48, 64].map((size) => (
-          <Wrapper key={`size-${size}`} size={`${size}px`} style={{ color: '#fff' }}>
-            <Component />
+        {['xs', 's', 'm', 'l', 'xl'].map((size) => (
+          <Wrapper key={`size-${size}`} style={{ color: '#fff' }}>
+            <Component size={size} />
           </Wrapper>
         ))}
       </div>

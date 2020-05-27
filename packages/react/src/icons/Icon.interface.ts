@@ -2,6 +2,10 @@ import { CSSProperties } from 'react';
 
 export type IconProps = {
   /**
+   * Icon size
+   */
+  size?: 'xs' | 's' | 'm' | 'l' | 'xl';
+  /**
    * Additional class names to apply to the icon
    */
   className?: string;

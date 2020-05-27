@@ -1,0 +1,29 @@
+.xs {
+  --size: var(--spacing-s);
+  width: var(--size);
+  height: var(--size);
+}
+
+.s {
+  --size: var(--spacing-m);
+  width: var(--size);
+  height: var(--size);
+}
+
+.m {
+  --size: var(--spacing-l);
+  width: var(--size);
+  height: var(--size);
+}
+
+.l {
+  --size: var(--spacing-2-xl);
+  width: var(--size);
+  height: var(--size);
+}
+
+.xl {
+  --size: var(--spacing-4-xl);
+  width: var(--size);
+  height: var(--size);
+}
