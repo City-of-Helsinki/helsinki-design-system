@@ -3,7 +3,7 @@ import path from 'path';
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-const Wrapper = ({ children, size }) => (
+const Wrapper = ({ children, size, color = 'var(--color-black)', style = {} }) => (
   <div
     style={{
       margin: '10px',
@@ -11,6 +11,8 @@ const Wrapper = ({ children, size }) => (
       height: size,
       display: 'inline-block',
       verticalAlign: 'middle',
+      color,
+      ...style,
     }}
   >
     {children}
@@ -19,12 +21,7 @@ const Wrapper = ({ children, size }) => (
 
 const stories = storiesOf('Components/Icons', module);
 
-const makeSvgStyleRules = (color: string) => ({
-  fill: color,
-  padding: '10px',
-});
-
-const req = require.context('.', false, /^.\/Icon.*.tsx$/);
+const req = require.context('.', true, /Icon.*.tsx$/);
 req.keys().forEach((fileName, index) => {
   const Component = req(fileName).default;
   const componentName = path.basename(fileName, '.tsx');
@@ -41,33 +38,19 @@ req.keys().forEach((fileName, index) => {
 
   stories.add(componentName, () => (
     <>
-      <div style={makeSvgStyleRules('#111')}>
-        <Wrapper size="200px">
-          <Component />
-        </Wrapper>
-        <Wrapper size="100px">
-          <Component />
-        </Wrapper>
-        <Wrapper size="50px">
-          <Component />
-        </Wrapper>
-        <Wrapper size="25px">
-          <Component />
-        </Wrapper>
+      <div>
+        {[16, 24, 36, 48, 64].map((size) => (
+          <Wrapper key={`size-${size}`} size={`${size}px`}>
+            <Component />
+          </Wrapper>
+        ))}
       </div>
-      <div style={{ background: '#111', ...makeSvgStyleRules('#fff') }}>
-        <Wrapper size="200px">
-          <Component />
-        </Wrapper>
-        <Wrapper size="100px">
-          <Component />
-        </Wrapper>
-        <Wrapper size="50px">
-          <Component />
-        </Wrapper>
-        <Wrapper size="25px">
-          <Component />
-        </Wrapper>
+      <div style={{ background: 'var(--color-black)' }}>
+        {[16, 24, 36, 48, 64].map((size) => (
+          <Wrapper key={`size-${size}`} size={`${size}px`} style={{ color: '#fff' }}>
+            <Component />
+          </Wrapper>
+        ))}
       </div>
     </>
   ));
