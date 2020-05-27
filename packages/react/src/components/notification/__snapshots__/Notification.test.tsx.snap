@@ -13,7 +13,7 @@ exports[`<Notification /> spec renders the component 1`] = `
         class="icon"
       >
         <svg
-          class="iconInfo"
+          class="s iconInfo"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >

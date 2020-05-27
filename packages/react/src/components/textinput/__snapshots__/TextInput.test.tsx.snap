@@ -48,7 +48,7 @@ exports[`<TextInput /> spec renders the component with tooltip 1`] = `
           aria-hidden="true"
         >
           <svg
-            class="iconTooltip"
+            class="s iconTooltip"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
