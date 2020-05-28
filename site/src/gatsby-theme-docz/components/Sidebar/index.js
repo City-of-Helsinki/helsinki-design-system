@@ -1,22 +1,22 @@
 /** @jsx jsx */
-import React, { useState, useRef, useEffect } from "react";
-import { Global } from "@emotion/core";
-import { jsx, Box } from "theme-ui";
-import { useMenus, useCurrentDoc } from "docz";
-import { Link } from "gatsby";
+import React, { useState, useRef, useEffect } from 'react';
+import { Global } from '@emotion/core';
+import { jsx, Box } from 'theme-ui';
+import { useMenus, useCurrentDoc } from 'docz';
+import { Link } from 'gatsby';
 
-import * as styles from "gatsby-theme-docz/src/components/Sidebar/styles";
-import { NavSearch } from "gatsby-theme-docz/src/components/NavSearch";
-import { NavLink } from "gatsby-theme-docz/src/components/NavLink";
-import { NavGroup } from "gatsby-theme-docz/src/components/NavGroup";
-import logo from "../../assets/logo.svg";
+import * as styles from 'gatsby-theme-docz/src/components/Sidebar/styles';
+import { NavSearch } from 'gatsby-theme-docz/src/components/NavSearch';
+import { NavLink } from 'gatsby-theme-docz/src/components/NavLink';
+import { NavGroup } from 'gatsby-theme-docz/src/components/NavGroup';
+import logo from '../../assets/logo.svg';
 
 export const Sidebar = React.forwardRef((props, ref) => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const menus = useMenus({ query });
   const currentDoc = useCurrentDoc();
   const currentDocRef = useRef();
-  const handleChange = ev => {
+  const handleChange = (ev) => {
     setQuery(ev.target.value);
   };
   useEffect(() => {
@@ -32,32 +32,41 @@ export const Sidebar = React.forwardRef((props, ref) => {
       <Box ref={ref} sx={styles.wrapper(props)} data-testid="sidebar">
         <div
           style={{
-            textAlign: "center",
-            fontSize: "0.9em",
-            marginBottom: "2em"
+            textAlign: 'center',
+            fontSize: '0.9em',
+            marginBottom: '2em',
           }}
         >
           <Link
             to="/"
             style={{
-              color: "inherit",
-              textDecoration: "none"
+              color: 'inherit',
+              textDecoration: 'none',
             }}
           >
             <img src={logo} alt="Helsinki Design System" height="60" />
-            <div><b>Design System</b></div>
-            <div>Alpha (0.10.0)</div>
+            <div>
+              <b>Design System</b>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <img
+                style={{ filter: 'invert(1)' }}
+                alt="GitHub release (latest SemVer)"
+                src="https://img.shields.io/github/v/release/City-of-Helsinki/helsinki-design-system?label=&style=for-the-badge&color=%23000"
+              />
+            </div>
           </Link>
         </div>
-        <NavSearch
-          placeholder="Type to search..."
-          value={query}
-          onChange={handleChange}
-        />
+        <NavSearch placeholder="Type to search..." value={query} onChange={handleChange} />
         {menus &&
-          menus.map(menu => {
-            if (!menu.route)
-              return <NavGroup key={menu.id} item={menu} sidebarRef={ref} />;
+          menus.map((menu) => {
+            if (!menu.route) return <NavGroup key={menu.id} item={menu} sidebarRef={ref} />;
             if (menu.route === currentDoc.route) {
               return (
                 <NavLink key={menu.id} item={menu} ref={currentDocRef}>
