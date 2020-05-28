@@ -9,6 +9,7 @@ const IconDownloadCloud: React.FC<IconProps> = ({ size = 's', className = '', st
     className={classNames(styles.icon, styles[size], className)}
     style={style}
     viewBox="0 0 24 24"
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
   >
     <g fill="none" fillRule="evenodd">

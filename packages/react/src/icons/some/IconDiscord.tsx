@@ -9,6 +9,7 @@ const IconDiscord: React.FC<IconProps> = ({ size = 's', className = '', style = 
     className={classNames(styles.icon, styles[size], className)}
     style={style}
     viewBox="0 0 24 24"
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
   >
     <g fill="none" fillRule="evenodd">
