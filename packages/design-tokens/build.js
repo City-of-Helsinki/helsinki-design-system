@@ -92,6 +92,24 @@ Object.values({
     platforms: getPlatformConfig('layout', 'spacing'),
   }),
 
+  /* BREAKPOINTS */
+
+  // all breakpoint tokens
+  allBreakpoints: dictionary.extend({
+    source: ['tokens/breakpoint/*.json'],
+    platforms: getPlatformConfig('all', 'breakpoint'),
+  }),
+  // breakpoints
+  breakpoint: dictionary.extend({
+    source: ['tokens/breakpoint/breakpoint.json'],
+    platforms: getPlatformConfig('breakpoint', 'breakpoint'),
+  }),
+  // container widths
+  containerWidth: dictionary.extend({
+    source: ['tokens/breakpoint/container-width.json'],
+    platforms: getPlatformConfig('container-width', 'breakpoint'),
+  }),
+
   /* TYPOGRAPHY */
 
   // all typography tokens
