@@ -19,10 +19,16 @@ const Wrapper = ({ children, color = 'var(--color-black)', style = {} }) => (
   </div>
 );
 
+const storyKindMapping = [
+  { category: 'ui', name: 'UI' },
+  { category: 'some', name: 'SoMe' },
+];
+
 const req = require.context('.', true, /Icon.*.tsx$/);
 req.keys().forEach((fileName, index) => {
   const category = fileName.substring(fileName.indexOf('/') + 1, fileName.lastIndexOf('/'));
-  const story = storiesOf(`Components/Icons/${category}`, module);
+  const kind = storyKindMapping.find((item) => item.category === category)?.name;
+  const story = storiesOf(`Components/Icons/${kind}`, module);
   const Component = req(fileName).default;
   const componentName = path.basename(fileName, '.tsx');
   Component.displayName = componentName;
