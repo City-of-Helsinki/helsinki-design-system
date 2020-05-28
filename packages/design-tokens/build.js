@@ -95,17 +95,17 @@ Object.values({
   /* BREAKPOINTS */
 
   // all breakpoint tokens
-  allSpacings: dictionary.extend({
+  allBreakpoints: dictionary.extend({
     source: ['tokens/breakpoint/*.json'],
     platforms: getPlatformConfig('all', 'breakpoint'),
   }),
   // breakpoints
-  spacing: dictionary.extend({
+  breakpoint: dictionary.extend({
     source: ['tokens/breakpoint/breakpoint.json'],
     platforms: getPlatformConfig('breakpoint', 'breakpoint'),
   }),
   // container widths
-  spacing: dictionary.extend({
+  containerWidth: dictionary.extend({
     source: ['tokens/breakpoint/container-width.json'],
     platforms: getPlatformConfig('container-width', 'breakpoint'),
   }),
