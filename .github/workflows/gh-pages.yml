@@ -37,8 +37,6 @@ jobs:
           yarn build
           ./check_build.sh
         working-directory: ./site
-        env:
-          DOCZ_BASE: /helsinki-design-system/
 
       - name: build core storybook
         run: yarn build-storybook
