@@ -14,7 +14,7 @@ import Text from "../../src/components/Text";
 # Text fields
 
 <LargeParagraph>
-  A text field is an input field that the user can interact with and input content and data. The user can also be provided with helper text if needed. Text inputs are used for shorter information while Text Areas can be used for multiline answers.
+  A text field is an input field that the user can interact with and input content and data. The user can also be provided with helper text if needed. Text inputs are used for shorter information while Text areas can be used for multiline answers.
 </LargeParagraph>
 
 ## Principles
@@ -24,6 +24,7 @@ import Text from "../../src/components/Text";
 - If possible, add programmatic assistance. Detect and pre-fill inputs to reduce errors and save time. Use sentence-case for default values, detected values, and auto-completion text.
 - If possible, do input validation in client-side real time and provide the user with immediate feedback.
 - If possible, be forgiving of different input formats and small mistakes. It can greatly increase user experience of your product if you can fix common mistakes for the user.
+- To decrease cognitive load of the user, it is recommended to mark all required fields. Remember to provide explanation of the required field indicator at the top of your form.
 
 ## Accessibility
 - Placeholder text can be used to give hints and examples to the user what should be entered to the field. **However, all assistive technologies do not threat placeholder texts as labels and therefore they may ignore them completely.** Aim to provide the sufficient information to fill the input in the label.
@@ -41,6 +42,7 @@ Text input serves in most use cases when the user needs to enter information. Te
     label="Label"
     placeholder="Placeholder"
     helperText="Assistive text"
+    required
   />
   <TextInput
     label="Label"
@@ -103,6 +105,7 @@ Text input serves in most use cases when the user needs to enter information. Te
   label="Label"
   placeholder="Placeholder"
   helperText="Assistive text"
+  required
 />
 
 /* Disabled */
@@ -134,6 +137,7 @@ Text area is meant for situations where inputted text is multiline or contains m
     label="Label"
     placeholder="Placeholder"
     helperText="Assistive text"
+    required
   />
   <TextArea
     label="Label"
@@ -200,6 +204,7 @@ Text area is meant for situations where inputted text is multiline or contains m
   label="Label"
   placeholder="Placeholder"
   helperText="Assistive text"
+  required
 />
 
 /* Disabled */
@@ -309,7 +314,7 @@ Both text input and text area can be provided with additional tooltip. Tooltip i
 
 ### Core
 
-[Text inputs in hds-core](/storybook/core/?path=/story/textinput--default)
+[Text inputs in hds-core](/storybook/core/?path=/story/text-input--default)
 
 [Text areas in hds-core](/storybook/core/?path=/story/textarea--default)
 
