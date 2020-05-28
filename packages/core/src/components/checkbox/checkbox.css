@@ -1,12 +1,12 @@
 /* import checkbox color variables */
 @import "hds-design-tokens/lib/color/component/checkbox.css";
 
-@svg-load icon url(../../svg/icon-check.svg);
+@svg-load icon url(../../svg/ui/check.svg);
 
 .hds-checkbox {
   --size: 24px;
   /* icon size relative to the checkbox size (--size) */
-  --icon-scale: 0.75;
+  --icon-scale: 1;
   --border-radius: 1px;
   --border-width: 2px;
   --outline-width: 3px;

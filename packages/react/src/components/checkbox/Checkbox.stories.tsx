@@ -102,11 +102,11 @@ export const Playground = () => {
   );
   const iconScale = number(
     'Icon scale',
-    0.75,
+    1,
     {
       range: true,
       min: 0.1,
-      max: 0.9,
+      max: 1,
       step: 0.05,
     },
     groupSize,

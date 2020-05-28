@@ -3,7 +3,6 @@ import { Transition } from 'react-spring/renderprops.cjs';
 
 import classNames from '../../utils/classNames';
 import { IconInfoCircle, IconQuestionCircle, IconCross } from '../../icons';
-// import { IconInfoCircle, IconError, IconAlertCircle, IconCheck } from '../../icons';
 import styles from './Tooltip.module.css';
 
 export type TooltipProps = React.PropsWithChildren<{

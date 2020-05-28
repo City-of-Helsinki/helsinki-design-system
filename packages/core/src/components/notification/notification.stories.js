@@ -1,12 +1,12 @@
 import './notification.css';
 import '../../icons/icon.css';
-import '../../icons/icon-info.css';
-import '../../icons/icon-close.css';
-import '../../icons/icon-attention.css';
-import '../../icons/icon-warning.css';
-import '../../icons/icon-check.css';
+import '../../icons/ui/icon-info-circle.css';
+import '../../icons/ui/icon-cross.css';
+import '../../icons/ui/icon-alert-circle.css';
+import '../../icons/ui/icon-error.css';
+import '../../icons/ui/icon-check.css';
 
-const getLabel = (icon = 'info', label = 'Label text') =>
+const getLabel = (icon = 'info-circle', label = 'Label text') =>
   `<div class="hds-notification__label">
         <span class="hds-icon hds-icon--${icon}" aria-hidden="true"></span>
         <span class="text-md text-bold">${label}</span>
@@ -34,14 +34,14 @@ export const Success = () => `
 
 export const Warning = () => `
     <div class="hds-notification hds-notification--warning">
-      ${getLabel('attention')}
+      ${getLabel('alert-circle')}
       ${text}
     </div>
 `;
 
 export const Error = () => `
     <div class="hds-notification hds-notification--error">
-      ${getLabel('warning')}
+      ${getLabel('error')}
       ${text}
     </div>
 `;
@@ -59,7 +59,7 @@ export const WithClose = () =>
             aria-label="Close notification"
             onclick=""
           >
-            <span class="hds-icon hds-icon--close" aria-hidden="true"></span>
+            <span class="hds-icon hds-icon--cross" aria-hidden="true"></span>
           </button>
         </div>
     `,

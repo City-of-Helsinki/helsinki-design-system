@@ -3,13 +3,14 @@ import path from 'path';
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-// todo: remove wrapper
 const Wrapper = ({ children, color = 'var(--color-black)', style = {} }) => (
   <div
     style={{
-      margin: '10px',
-      display: 'inline-block',
-      verticalAlign: 'middle',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      display: 'flex',
+      maxWidth: 400,
+      padding: 'var(--spacing-s)',
       color,
       ...style,
     }}
@@ -18,16 +19,16 @@ const Wrapper = ({ children, color = 'var(--color-black)', style = {} }) => (
   </div>
 );
 
-const stories = storiesOf('Components/Icons', module);
-
 const req = require.context('.', true, /Icon.*.tsx$/);
 req.keys().forEach((fileName, index) => {
+  const category = fileName.substring(fileName.indexOf('/') + 1, fileName.lastIndexOf('/'));
+  const story = storiesOf(`Components/Icons/${category}`, module);
   const Component = req(fileName).default;
   const componentName = path.basename(fileName, '.tsx');
   Component.displayName = componentName;
 
   if (index === 0) {
-    stories.addParameters({
+    story.addParameters({
       component: Component,
       docs: {
         disable: true,
@@ -35,22 +36,18 @@ req.keys().forEach((fileName, index) => {
     });
   }
 
-  stories.add(componentName, () => (
+  story.add(componentName, () => (
     <>
-      <div>
+      <Wrapper>
         {['xs', 's', 'm', 'l', 'xl'].map((size) => (
-          <Wrapper key={`size-${size}`}>
-            <Component size={size} />
-          </Wrapper>
+          <Component key={`icon-black-${size}`} size={size} />
         ))}
-      </div>
-      <div style={{ background: 'var(--color-black)' }}>
+      </Wrapper>
+      <Wrapper style={{ background: 'var(--color-black)' }}>
         {['xs', 's', 'm', 'l', 'xl'].map((size) => (
-          <Wrapper key={`size-${size}`} style={{ color: '#fff' }}>
-            <Component size={size} />
-          </Wrapper>
+          <Component key={`icon-white-${size}`} size={size} style={{ color: '#fff' }} />
         ))}
-      </div>
+      </Wrapper>
     </>
   ));
 });
