@@ -37,6 +37,9 @@ jobs:
           yarn build
           ./check_build.sh
         working-directory: ./site
+      
+      - name: Copy CNAME file
+        run: cp CNAME public/
 
       - name: build core storybook
         run: yarn build-storybook
