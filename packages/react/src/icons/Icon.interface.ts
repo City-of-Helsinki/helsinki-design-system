@@ -10,7 +10,7 @@ export type IconProps = {
    */
   className?: string;
   /**
-   * Override or extend the styles applied to the component
+   * Override or extend the styles applied to the icon
    */
   style?: CSSProperties;
 };
