@@ -1,6 +1,0 @@
-@svg-load icon url(../svg/icon-warning.svg);
-
-.hds-icon--warning {
-  mask-image: svg-inline(icon);
-  -webkit-mask-image: svg-inline(icon);
-}
