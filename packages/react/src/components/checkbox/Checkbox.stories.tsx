@@ -65,10 +65,8 @@ Custom.story = {
 export const RichLabel = () => {
   const label = (
     <span>
-      I agree to the{' '}
-      <a style={{ color: 'var(--color-bus)' }} href="/?path=/story/components-checkbox--rich-label">
-        Terms of service
-      </a>
+      I have read city&apos;s {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+      <a style={{ color: 'var(--color-bus)', textDecoration: 'underline' }}>data protection principles</a>.
     </span>
   );
   return <Checkbox id="radio4" label={label} />;
