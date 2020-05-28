@@ -39,8 +39,7 @@ jobs:
         working-directory: ./site
       
       - name: Copy CNAME file
-        run: cp CNAME public/
-        working-directory: ./site
+        run: cp CNAME ./site/public/
 
       - name: build core storybook
         run: yarn build-storybook
