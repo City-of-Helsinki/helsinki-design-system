@@ -20,6 +20,11 @@
   composes: hds-icon from 'hds-core/lib/components/button/button.css';
 }
 
+.icon svg {
+  max-height: 100%;
+  max-width: 100%;
+}
+
 .primary {
   composes: hds-button--primary from 'hds-core/lib/components/button/button.css';
 }

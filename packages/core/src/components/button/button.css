@@ -14,7 +14,6 @@
   border-radius: 0;
   color: var(--color);
   display: inline-flex;
-  fill: currentColor;
   justify-content: center;
   padding: 0 var(--spacing-2-xs);
   position: relative;
@@ -144,9 +143,9 @@ input[type="submit"].hds-button--small {
 
 /* left */
 .hds-button .hds-icon {
-  height: 1.5em;
+  height: var(--spacing-m);
   margin-left: var(--spacing-s);
-  width: 1.5em;
+  width: var(--spacing-m);
 }
 
 /* right */

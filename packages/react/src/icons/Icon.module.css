@@ -1,29 +1,24 @@
+.icon {
+  composes: hds-icon from 'hds-core/lib/icons/icon.css';
+  background-color: transparent;
+}
+
 .xs {
-  --size: var(--spacing-s);
-  width: var(--size);
-  height: var(--size);
+  composes: hds-icon--size-xs from 'hds-core/lib/icons/icon.css';
 }
 
 .s {
-  --size: var(--spacing-m);
-  width: var(--size);
-  height: var(--size);
+  composes: hds-icon--size-s from 'hds-core/lib/icons/icon.css';
 }
 
 .m {
-  --size: var(--spacing-l);
-  width: var(--size);
-  height: var(--size);
+  composes: hds-icon--size-m from 'hds-core/lib/icons/icon.css';
 }
 
 .l {
-  --size: var(--spacing-2-xl);
-  width: var(--size);
-  height: var(--size);
+  composes: hds-icon--size-l from 'hds-core/lib/icons/icon.css';
 }
 
 .xl {
-  --size: var(--spacing-4-xl);
-  width: var(--size);
-  height: var(--size);
+  composes: hds-icon--size-xl from 'hds-core/lib/icons/icon.css';
 }

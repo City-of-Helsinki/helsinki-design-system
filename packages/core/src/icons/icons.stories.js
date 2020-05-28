@@ -10,11 +10,12 @@ export default {
 
 const iconStories = require(__filename);
 const req = require.context('.', true, /(icon\b-+).+?.css$/);
+
 req.keys().forEach((fileName) => {
   const icon = path.basename(fileName, '.css').substring('icon-'.length);
   iconStories[icon] = () =>
-    [16, 24, 36, 48, 64].reduce((acc, size) => {
-      acc += `<span class="hds-icon hds-icon--${icon}" style="width: ${size}px; height: ${size}px;"></span>`;
+    ['xs', 's', 'm', 'l', 'xl'].reduce((acc, size) => {
+      acc += `<span class="hds-icon hds-icon--${icon} hds-icon--size-${size}" style="vertical-align: middle"></span>`;
       return acc;
     }, '');
 });

@@ -1,3 +1,5 @@
+export { IconProps } from './Icon.interface';
+
 // SoMe
 export { default as IconDiscord } from './some/IconDiscord';
 export { default as IconFacebook } from './some/IconFacebook';
