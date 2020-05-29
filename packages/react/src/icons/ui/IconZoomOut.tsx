@@ -4,13 +4,13 @@ import { IconProps } from '../Icon.interface';
 import classNames from '../../utils/classNames';
 import styles from '../Icon.module.css';
 
-const IconZoomOut: React.FC<IconProps> = ({ size = 's', className = '', style = {} }: IconProps) => (
+const IconZoomOut: React.FC<IconProps> = ({ size = 's', className = '', style = {}, ...rest }: IconProps) => (
   <svg
     className={classNames(styles.icon, styles[size], className)}
     style={style}
     viewBox="0 0 24 24"
-    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
+    {...rest}
   >
     <g fill="none" fillRule="evenodd">
       <path d="M0 0h24v24H0z" />

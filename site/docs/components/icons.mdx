@@ -24,7 +24,7 @@ See the [icon library documentation](/visual-assets/icons "HDS Icons") for more 
 
 ## Accessibility
 - A text alternative must always be provided for icons using the WAI-ARIA defintion _aria-label_ or _aria-labelledby_. See [WCAG Text Alternatives guideline](https://www.w3.org/TR/WCAG20/#text-equiv-all "WCAG 2.0 Text Alternatives") for more information.
-- Illustrative icons should use the WAI-ARIA defintion _role='presentation'_.
+- Illustrative icons should use the WAI-ARIA definition _role='presentation'_.
 - The colour contrast between the icon and its background must comply with [AA Level contrast ratios](https://www.w3.org/TR/WCAG20/#visual-audio-contrast "WCAG 2.0 Visual and audio contrast").
 
 
@@ -33,45 +33,45 @@ See the [icon library documentation](/visual-assets/icons "HDS Icons") for more 
 ### Default
 
 <Playground>
-  <IconFaceSmile />
+  <IconFaceSmile role="presentation" />
 </Playground>
 
 ##### Core:
 ```html
-<i aria-hidden="true" class="hds-icon hds-icon--face-smile"></i>
+<i class="hds-icon hds-icon--face-smile" role="presentation"></i>
 ```
 
 ##### React:
 ```tsx
-<IconFaceSmile />
+<IconFaceSmile role="presentation" />
 ```
 
 ### Icon sizes
 
 <Playground>
-  <IconFaceSmile size="xs" />
-  <IconFaceSmile size="s" />
-  <IconFaceSmile size="m" />
-  <IconFaceSmile size="l" />
-  <IconFaceSmile size="xl" />
+  <IconFaceSmile size="xs" role="presentation" />
+  <IconFaceSmile size="s" role="presentation" />
+  <IconFaceSmile size="m" role="presentation" />
+  <IconFaceSmile size="l" role="presentation" />
+  <IconFaceSmile size="xl" role="presentation" />
 </Playground>
 
 ##### Core:
 ```html
-<i class="hds-icon hds-icon--face-smile hds-icon--size-xs" aria-hidden="true"></i>
-<i class="hds-icon hds-icon--face-smile hds-icon--size-s" aria-hidden="true"></i>
-<i class="hds-icon hds-icon--face-smile hds-icon--size-m" aria-hidden="true"></i>
-<i class="hds-icon hds-icon--face-smile hds-icon--size-l" aria-hidden="true"></i>
-<i class="hds-icon hds-icon--face-smile hds-icon--size-xl" aria-hidden="true"></i>
+<i class="hds-icon hds-icon--face-smile hds-icon--size-xs" role="presentation"></i>
+<i class="hds-icon hds-icon--face-smile hds-icon--size-s" role="presentation"></i>
+<i class="hds-icon hds-icon--face-smile hds-icon--size-m" role="presentation"></i>
+<i class="hds-icon hds-icon--face-smile hds-icon--size-l" role="presentation"></i>
+<i class="hds-icon hds-icon--face-smile hds-icon--size-xl" role="presentation"></i>
 ```
 
 ##### React:
 ```tsx
-<IconFaceSmile size="xs" />
-<IconFaceSmile size="s" />
-<IconFaceSmile size="m" />
-<IconFaceSmile size="l" />
-<IconFaceSmile size="xl" />
+<IconFaceSmile size="xs" role="presentation" />
+<IconFaceSmile size="s" role="presentation" />
+<IconFaceSmile size="m" role="presentation" />
+<IconFaceSmile size="l" role="presentation" />
+<IconFaceSmile size="xl" role="presentation" />
 ```
 
 ## Demos & API
