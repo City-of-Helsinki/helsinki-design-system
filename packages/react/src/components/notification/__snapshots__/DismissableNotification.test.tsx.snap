@@ -16,7 +16,6 @@ exports[`<DismissableNotification /> spec renders the component 1`] = `
           class="icon"
         >
           <svg
-            aria-hidden="true"
             class="icon s iconInfo"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +50,6 @@ exports[`<DismissableNotification /> spec renders the component 1`] = `
           type="button"
         >
           <svg
-            aria-hidden="true"
             class="icon s iconClose"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"

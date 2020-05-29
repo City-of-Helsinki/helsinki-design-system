@@ -15,7 +15,6 @@ exports[`<Tooltip /> spec renders the component 1`] = `
         aria-hidden="true"
       >
         <svg
-          aria-hidden="true"
           class="icon s iconTooltip"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
