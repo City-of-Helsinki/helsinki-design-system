@@ -15,24 +15,29 @@ import * as HDS from "hds-react";
     The HDS icon library is a set of icons specially designed for use in digital user interfaces. 
 </LargeParagraph>
 
-**The HDS icon library** follows the icon style defined in the Helsinki city brand guidelines, but the forms of the icons are simplified and adjusted for legibility in smaller sizes and pixel resolutions. Some icons have been added to the icon library additionally to the ones defined in the brand work, to make it easier to create easily understandable user interfaces.
+The HDS icon library follows the icon style defined in the Helsinki city brand guidelines but the forms of the icons are simplified and adjusted for legibility in smaller sizes and pixel resolutions. The icon library also provides user interface specific icons missing from the Helsinki City brand icons.
 
-## Design principles
+See the [Icon component documentation](/components/icons "Icon component") for instructions on implementing icons.
+
+## Visual principles
 > **Work in progress!**
 > 
-> Possible upcoming changes to brand guidelines due to accessibility improvements. These can also affect design principles and visual style of icons.
+> Possible upcoming changes to brand guidelines due to accessibility improvements. These can also affect the visual style and design principles of icons.
 
-## Accessibility
-- The colour contrast between the icon and its background must comply with [AA Level contrast ratios](https://www.w3.org/TR/WCAG20/#visual-audio-contrast "WCAG 2.0 Visual and audio contrast").
 
 ## Usage
-See [Icon component documentation](/components/icons "Icon component") for instructions on using icons in code.
+### Icon types
+The HDS icon library is categorised into four types of icons designed to be used for different purposes:
+1. **UI icons** are mainly intended for providing visual cues for interaction, increasing discoverability and learnability. The UI icons can be used for example in buttons or navigation. Using UI icons for purely decorative purposes and illustration should be avoided.
+2. **Illustrative icons** are more decorative and playful. They are intended for illustrating concepts and services.
+3. **Pictograms** are more complex icon styled pictures for illustrating concepts, services and processes.
+4. **SoMe icons** are logos of Helsinki city social media channels and digital services as ways of logging in. 
 
 ### Size
 The default size of the HDS icons is 24 × 24 px.
-- If needed, other sizes matching the HDS layout spacing can also be used.
+- If needed, other sizes matching the [layout spacing tokens](http://localhost:3000/design-tokens/spacing "Spacing documentation") can also be used.
 - When using the icons in 16 × 16 px, make sure the icon is still clear and legible.
-- Larger sizes than 64 × 64 px are not recommended
+- Larger sizes than 64 × 64 px are not recommended.
 
 <Image src="../../static/icon-sizes@2x.png" alt="HDS icon sizes" style="width:100%; max-width: 480px;" />
 
@@ -42,12 +47,6 @@ The default colour of the HDS icons is black or white, depending on the backgrou
 - See [colour guidelines](/design-tokens/colour "Colour") for further information.
 
 ## HDS Icons
-The HDS icon library is categorised into four types of icons designed to be used for different purposes:
-1. **UI icons** are mainly intended for providing visual cues for interaction, increasing discoverability and learnability. The UI icons can be used for example in buttons or navigation. Using UI icons for purely decorative purposes and illustration should be avoided.
-2. **Illustrative icons** are more decorative and playful. They are intended for illustrating concepts and services.
-3. **Pictograms** are more complex icon styled pictures for illustrating concepts, services and processes.
-4. **SoMe icons** are logos of Helsinki city social media channels and digital services as ways of logging in. 
-
 ### UI Icons		
 #### Arrows and operators		
 Icon	                    | Core              | React             | Usage
