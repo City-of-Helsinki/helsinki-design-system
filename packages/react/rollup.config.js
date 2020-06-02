@@ -24,9 +24,6 @@ export default {
     resolve(),
     commonjs({
       include: '../../node_modules/**',
-      namedExports: {
-        'react-is': ['isForwardRef', 'isValidElementType'],
-      },
     }),
     postcss({
       modules: true,
@@ -46,5 +43,5 @@ export default {
       extensions,
     }),
   ],
-  external: ['react', 'react-dom', 'lodash.uniqueid', 'react-spring/renderprops.cjs'],
+  external: ['react', 'react-dom', 'lodash.uniqueid', 'lodash.isequal', 'react-spring/renderprops.cjs'],
 };
