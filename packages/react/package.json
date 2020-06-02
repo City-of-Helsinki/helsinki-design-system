@@ -1,6 +1,6 @@
 {
   "name": "hds-react",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -72,7 +72,7 @@
   },
   "dependencies": {
     "downshift": "5.4.0",
-    "hds-core": "0.10.1",
+    "hds-core": "0.11.0",
     "lodash.uniqueid": "4.0.1",
     "react-spring": "8.0.27"
   },
