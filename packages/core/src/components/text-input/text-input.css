@@ -3,7 +3,7 @@
 /* import text-input color variables */
 @import "hds-design-tokens/lib/color/component/text-input.css";
 
-@svg-load icon url(../../svg/icon-info.svg);
+@svg-load icon url(../../svg/ui/alert-circle.svg);
 
 .hds-text-input {
   --border-radius: 2px;
@@ -11,7 +11,7 @@
   --outline-width: 3px;
   --input-height: 56px;
   --textarea-height: 149px;
-  --icon-size: 1.375em;
+  --icon-size: var(--spacing-m);
 
   --helper-color-default: var(--color-helper-text-input-default);
   --helper-color-invalid: var(--color-helper-text-input-invalid);

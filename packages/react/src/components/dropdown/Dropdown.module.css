@@ -5,7 +5,7 @@
   --border-width: 2px;
   --outline-width: 3px;
   --dropdown-height: var(--spacing-3-xl);
-  --icon-size: var(--fontsize-body-large);
+  --icon-size: var(--spacing-m);
   --menu-z-index: 10;
 
   --dropdown-background-default: var(--color-white);
@@ -259,17 +259,17 @@
 /* angle icon */
 .angleIcon {
   --padding: var(--spacing-2-xs);
-  --size: calc(var(--icon-size) + var(--padding) * 2);
+  --angle-size: calc(var(--icon-size) + var(--padding) * 2);
 
-  fill: var(--dropdown-color-default);
-  height: var(--size);
+  color: var(--dropdown-color-default);
+  height: var(--angle-size);
   outline: none;
   padding: var(--padding);
   position: absolute;
   right: calc(var(--spacing-s) + var(--border-width) - var(--padding));
   top: 0;
   transform: translateY(calc(var(--dropdown-height) / 2 - 50%));
-  width: var(--size);
+  width: var(--angle-size);
 }
 
 .root.open .angleIcon {
@@ -277,7 +277,7 @@
 }
 
 .root.disabled .angleIcon {
-  fill: var(--dropdown-color-disabled);
+  color: var(--dropdown-color-disabled);
 }
 
 /* invalid icon */
@@ -286,7 +286,7 @@
   --y: calc(var(--dropdown-height) / 2 - 50%);
 
   content: '';
-  fill: var(--icon-color-invalid);
+  color: var(--icon-color-invalid);
   height: var(--icon-size);
   pointer-events: none;
   position: absolute;
@@ -298,12 +298,12 @@
 
 /* menu item selected icon */
 .selectedIcon {
-  fill: var(--menu-item-icon-color-selected);
+  color: var(--menu-item-icon-color-selected);
   height: var(--icon-size);
   margin-left: auto;
   width: var(--icon-size);
 }
 
 .menuItem.disabled .selectedIcon {
-  fill: var(--menu-item-icon-color-disabled);
+  color: var(--menu-item-icon-color-disabled);
 }

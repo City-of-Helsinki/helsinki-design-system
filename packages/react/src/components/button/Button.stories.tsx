@@ -4,7 +4,7 @@ import { boolean, radios, text, withKnobs } from '@storybook/addon-knobs';
 import { Props, Stories, Subtitle, Title } from '@storybook/addon-docs/dist/blocks';
 
 import Button from './Button';
-import { IconShare, IconAngleRight, IconSmile } from '../../icons';
+import { IconShare, IconAngleRight, IconFaceSmile } from '../../icons';
 
 const onClick = action('button-click');
 
@@ -113,8 +113,8 @@ export const Playground = () => {
       disabled={disabled}
       fullWidth={fullWidth}
       size={size}
-      iconLeft={iconLeft ? <IconSmile /> : null}
-      iconRight={iconRight ? <IconSmile /> : null}
+      iconLeft={iconLeft ? <IconFaceSmile /> : null}
+      iconRight={iconRight ? <IconFaceSmile /> : null}
     >
       {label}
     </Button>

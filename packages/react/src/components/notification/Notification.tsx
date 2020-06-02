@@ -2,7 +2,7 @@ import React from 'react';
 
 import classNames from '../../utils/classNames';
 import styles from './Notification.module.css';
-import { IconInfo, IconWarning, IconAttention, IconCheck } from '../../icons';
+import { IconInfoCircle, IconError, IconAlertCircle, IconCheck } from '../../icons';
 
 export type NotificationProps = React.PropsWithChildren<{
   labelText: string;
@@ -10,9 +10,9 @@ export type NotificationProps = React.PropsWithChildren<{
 }>;
 
 const icons = {
-  notification: <IconInfo className={styles.iconInfo} />,
-  error: <IconWarning className={styles.iconWarning} />,
-  warning: <IconAttention className={styles.iconAttention} />,
+  notification: <IconInfoCircle className={styles.iconInfo} />,
+  error: <IconError className={styles.iconWarning} />,
+  warning: <IconAlertCircle className={styles.iconAttention} />,
   success: <IconCheck className={styles.iconCheck} />,
 };
 
