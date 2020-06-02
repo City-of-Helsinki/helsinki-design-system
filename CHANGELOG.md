@@ -104,6 +104,9 @@ in ([#155](https://github.com/City-of-Helsinki/helsinki-design-system/pull/155))
 - [Icons] `size` prop for defining the size of the icon. Available options are `xs`, `s`, `m`, `l` and `xl`. Size `s` is used by default. in ([#155](https://github.com/City-of-Helsinki/helsinki-design-system/pull/155))
 - [Icons] You can now pass any attributes supported by native SVG elements to the icon. Useful for defining `aria-` and `role` attributes. in ([#155](https://github.com/City-of-Helsinki/helsinki-design-system/pull/155))
 
+#### Changed
+- [Dropdown] Checking of whether an option is selected. in ([#159](https://github.com/City-of-Helsinki/helsinki-design-system/pull/159))
+
 ## [0.10.1] - May 26, 2020
 ### Documentation site
 #### Fixed
