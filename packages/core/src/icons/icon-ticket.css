@@ -1,6 +1,0 @@
-@svg-load icon url(../svg/icon-ticket.svg);
-
-.hds-icon--ticket {
-  mask-image: svg-inline(icon);
-  -webkit-mask-image: svg-inline(icon);
-}

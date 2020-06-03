@@ -1,19 +1,19 @@
 {
     "breakpoint": {
       "xs": {
-        "value": "320"
+        "value": "320px"
       },
       "s": {
-        "value": "576"
+        "value": "576px"
       },
       "m": {
-        "value": "768"
+        "value": "768px"
       },
       "l": {
-        "value": "992"
+        "value": "992px"
       },
       "xl": {
-        "value": "1224"
+        "value": "1224px"
       }
     }
   }

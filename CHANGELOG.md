@@ -6,6 +6,116 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.1] - June 2, 2020
+### Core
+#### Fixed
+- [Icons] Sizing bug
+
+### React
+#### Fixed
+- [Icons] Sizing bug
+
+## [0.11.0] - June 2, 2020
+### Core
+#### Breaking changes
+- [Icons] The following icons were removed: `boots`, `doublelike`, `food`, `lips`, `read`, `tree`, `wine`. in ([#155](https://github.com/City-of-Helsinki/helsinki-design-system/pull/155))
+- [Icons] The following icons were renamed:
+
+| Old name | New name |
+| --- | --- |
+| attention | alert-circle |
+| calendar-add | calendar-plus |
+| close | cross |
+| female | person-female |
+| fill | pen-line |
+| house | house-smoke |
+| info | info-circle |
+| language | globe |
+| menu | menu-hamburger |
+| person | user |
+| smile | face-smile |
+| tooltip | question-circle |
+| warning | error |
+
+in ([#155](https://github.com/City-of-Helsinki/helsinki-design-system/pull/155))
+
+#### Added
+- New icons. in ([#155](https://github.com/City-of-Helsinki/helsinki-design-system/pull/155))
+- [Icons] New classes for setting icon sizes. Available classes are `.hds-icon--size-xs`, `-s`, `-m`, `-l`, `-xl`. in ([#155](https://github.com/City-of-Helsinki/helsinki-design-system/pull/155))
+
+### Design tokens
+#### Added
+- Breakpoint tokens. in ([#153](https://github.com/City-of-Helsinki/helsinki-design-system/pull/153))
+- Maximum content width tokens. in ([#153](https://github.com/City-of-Helsinki/helsinki-design-system/pull/153))
+
+### Design kit
+#### Changed
+- Icons: All artboards to exportable
+- Icons: Changed name of error-circle to error
+- Icons: Removed unnecessary layer masks
+- Grids and Breakpoints: Changed breakpoint guidelines to match token implementation
+
+#### Fixed
+- Icons: Fixed volume-mute cross shape
+- Icons: Small optical corrections to angle icons
+- Icons: Fixed small errors in documentation artboards
+
+### Documentation site
+#### Added
+- Dropdown documentation page content
+- Grid guidelines documentation
+- Breakpoint design tokens documentation
+- Icon usage documentation
+- Icon component documentation
+- Instructions for setting up HDS libraries to "Getting started" section
+- Image of linking HDS libraries in Abstract
+- Link to full release notes to "What is new" section
+- Release badge to navigation sidebar
+- Analytics
+
+#### Changed
+- Clarified radio button vs dropdown choice to radio button page
+- Clarified instructions for setting up HDS libraries both for design kit and Abstract users
+- Clarified link label naming so it is more obvious where the link leads
+
+#### Fixed
+- Multiple typos
+- Minor punctuation errors and sentence structures
+- Broken links
+- Wrong version number in "What is new" section
+- Stretching issues of multiple images
+
+
+### React
+#### Breaking changes
+- [Icons] The following icons were removed: `IconBoots`, `IconDoubleLike`, `IconFood`, `IconLips`, `IconRead`, `IconTree`, `IconWine`
+- [Icons] The following icons were renamed:
+
+| Old name | New name |
+| --- | --- |
+| IconAttention | IconAlertCircle |
+| IconCalendarAdd | IconCalendarPlus |
+| IconClose | IconCross |
+| IconFemale | IconPersonFemale |
+| IconFill | IconPenLine |
+| IconHouse | IconHouseSmoke |
+| IconInfo | IconInfoCircle |
+| IconLanguage | IconGlobe |
+| IconMenu | IconMenuHamburger |
+| IconPerson | IconUser |
+| IconSmile | IconFaceSmile |
+| IconTooltip | IconQuestionCircle |
+| IconWarning | IconError |
+
+in ([#155](https://github.com/City-of-Helsinki/helsinki-design-system/pull/155))
+
+#### Added
+- [Icons] `size` prop for defining the size of the icon. Available options are `xs`, `s`, `m`, `l` and `xl`. Size `s` is used by default. in ([#155](https://github.com/City-of-Helsinki/helsinki-design-system/pull/155))
+- [Icons] You can now pass any attributes supported by native SVG elements to the icon. Useful for defining `aria-` and `role` attributes. in ([#155](https://github.com/City-of-Helsinki/helsinki-design-system/pull/155))
+
+#### Changed
+- [Dropdown] Checking of whether an option is selected. in ([#159](https://github.com/City-of-Helsinki/helsinki-design-system/pull/159))
+
 ## [0.10.1] - May 26, 2020
 ### Documentation site
 #### Fixed

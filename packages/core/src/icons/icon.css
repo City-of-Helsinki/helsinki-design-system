@@ -1,12 +1,33 @@
 .hds-icon {
+  --icon-size: 100%;
   display: inline-block;
   background-color: currentColor;
-  width: 100%;
-  height: 100%;
+  width: var(--icon-size);
+  height: var(--icon-size);
   mask-repeat: no-repeat;
   mask-position: center;
   mask-size: auto;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   -webkit-mask-size: auto;
+}
+
+.hds-icon.hds-icon--size-xs {
+  --icon-size: var(--spacing-layout-2-xs);
+}
+
+.hds-icon.hds-icon--size-s {
+  --icon-size: var(--spacing-layout-xs);
+}
+
+.hds-icon.hds-icon--size-m {
+  --icon-size: var(--spacing-layout-s);
+}
+
+.hds-icon.hds-icon--size-l {
+  --icon-size: var(--spacing-layout-m);
+}
+
+.hds-icon.hds-icon--size-xl {
+  --icon-size: var(--spacing-layout-l);
 }
