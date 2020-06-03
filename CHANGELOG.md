@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.1] - June 2, 2020
+### Core
+#### Fixed
+- [Icons] Sizing bug
+
+### React
+#### Fixed
+- [Icons] Sizing bug
+
 ## [0.11.0] - June 2, 2020
 ### Core
 #### Breaking changes
