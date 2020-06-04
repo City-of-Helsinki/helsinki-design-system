@@ -71,3 +71,13 @@
   font-style: italic;
   text-rendering: optimizeLegibility;
 }
+
+a.customLink {
+  align-items: center;
+  display: inline-flex;
+  text-decoration: none;
+}
+
+a.customLink:hover {
+  text-decoration: underline;
+}
