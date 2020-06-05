@@ -1,5 +1,3 @@
-@import "hds-core";
-
 .button {
   composes: hds-button from 'hds-core/lib/components/button/button.css';
 }
