@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { boolean, number, text, withKnobs } from '@storybook/addon-knobs';
 
 import Dropdown from './Dropdown';
+import Button from '../button/Button';
 
 const options = [
   { label: 'Plutonium' },
@@ -75,6 +76,50 @@ export const Multiselect = () => (
     closeMenuOnSelect={false}
   />
 );
+
+export const Controlled = () => {
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [multiselectSelectedItem, setMultiselectSelectedItem] = useState(null);
+
+  const handleSelectedItemChange = (item) => setSelectedItem(item);
+  const handleMultiselectSelectedItemChange = (item) => setMultiselectSelectedItem(item);
+
+  return (
+    <>
+      <Button onClick={() => setSelectedItem(null)}>Reset</Button>
+      {['Dropdown 1', 'Dropdown 2'].map((label) => (
+        <Dropdown
+          key={label}
+          options={options}
+          placeholder="Placeholder"
+          label={label}
+          onChange={handleSelectedItemChange}
+          selectedOption={selectedItem}
+          style={{ marginTop: 'var(--spacing-s)' }}
+        />
+      ))}
+      <Button onClick={() => setMultiselectSelectedItem(null)} style={{ marginTop: 'var(--spacing-xl)' }}>
+        Reset multiselect
+      </Button>
+      {['Multiselect 1', 'Multiselect 2'].map((label) => (
+        <Dropdown
+          key={label}
+          options={options}
+          placeholder="Placeholder"
+          label={label}
+          multiselect
+          onChange={handleMultiselectSelectedItemChange}
+          selectedOption={multiselectSelectedItem}
+          style={{ marginTop: 'var(--spacing-s)' }}
+        />
+      ))}
+    </>
+  );
+};
+
+Controlled.story = {
+  name: 'With controlled state',
+};
 
 Multiselect.story = {
   name: 'With multiselect',
