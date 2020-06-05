@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.3] - June 5, 2020
+### React
+#### Added
+- [Notification][DismissableNotification] `className` prop for applying additional class names to the notification
+
 ## [0.11.2] - June 5, 2020
 ### Documentation site
 #### Added
