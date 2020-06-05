@@ -6,6 +6,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.2] - June 5, 2020
+### Documentation site
+#### Added
+- Link to logo kit download to Visual elements/Logo page
+- Statement to Accessibility page about which WCAG guideline version HDS follows
+
+#### Changed
+- Moved Resources page to upper navigation level for better visibility
+- External links now include icon
+- External links now open to a new tab
+- "Work in progress" text now uses current implementation of Notification component
+- "Coming soon" text no longer uses block quote (text contrast was not accessible)
+- Names of links to Visual Identity Guidelines now clearly state the page title
+
+#### Fixed
+- Multiple typos
+- Multiple links that pointed to old WCAG 2.0 now point to WCAG 2.1 version
+- Blurry image on the Visual assets/Icons page
+
+### React
+#### Added
+- [Dropdown] `selectedOption` prop for controlling the selected option(s) of a dropdown
+
+#### Fixed
+- Removed redundant style imports causing browser console warnings
+
 ## [0.11.1] - June 2, 2020
 ### Core
 #### Fixed
