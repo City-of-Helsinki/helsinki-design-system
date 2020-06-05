@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.2] - June 5, 2020
+### React
+#### Fixed
+- Removed redundant style imports causing browser console warnings
+
 ## [0.11.1] - June 2, 2020
 ### Core
 #### Fixed
