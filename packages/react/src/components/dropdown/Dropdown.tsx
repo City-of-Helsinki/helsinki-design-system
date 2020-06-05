@@ -1,5 +1,6 @@
 import React, { CSSProperties, FC, PropsWithChildren, ReactNode, useState } from 'react';
 import { useCombobox, useMultipleSelection, useSelect } from 'downshift';
+import isEqual from 'lodash.isequal';
 
 import styles from './Dropdown.module.css';
 import classNames from '../../utils/classNames';
@@ -339,7 +340,7 @@ const Dropdown: FC<DropdownProps> = ({
         {isOpen &&
           menuOptions.map((item, index) => {
             const optionLabel = item[optionLabelField];
-            const selected = multiselect ? selectedItems.includes(item) : selectedItem === item;
+            const selected = multiselect ? selectedItems.includes(item) : isEqual(selectedItem, item);
             const optionDisabled = typeof isOptionDisabled === 'function' ? isOptionDisabled(item, index) : false;
 
             return (
@@ -352,7 +353,7 @@ const Dropdown: FC<DropdownProps> = ({
                   className: classNames(
                     styles.menuItem,
                     highlightedIndex === index && styles.highlighted,
-                    selectedItem === item && styles.selected,
+                    isEqual(selectedItem, item) && styles.selected,
                     optionDisabled && styles.disabled,
                   ),
                 })}

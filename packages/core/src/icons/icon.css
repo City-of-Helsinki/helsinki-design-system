@@ -2,8 +2,8 @@
   --icon-size: 100%;
   display: inline-block;
   background-color: currentColor;
-  width: var(--size);
-  height: var(--size);
+  width: var(--icon-size);
+  height: var(--icon-size);
   mask-repeat: no-repeat;
   mask-position: center;
   mask-size: auto;
@@ -13,21 +13,21 @@
 }
 
 .hds-icon.hds-icon--size-xs {
-  --size: var(--spacing-layout-2-xs);
+  --icon-size: var(--spacing-layout-2-xs);
 }
 
 .hds-icon.hds-icon--size-s {
-  --size: var(--spacing-layout-xs);
+  --icon-size: var(--spacing-layout-xs);
 }
 
 .hds-icon.hds-icon--size-m {
-  --size: var(--spacing-layout-s);
+  --icon-size: var(--spacing-layout-s);
 }
 
 .hds-icon.hds-icon--size-l {
-  --size: var(--spacing-layout-m);
+  --icon-size: var(--spacing-layout-m);
 }
 
 .hds-icon.hds-icon--size-xl {
-  --size: var(--spacing-layout-l);
+  --icon-size: var(--spacing-layout-l);
 }
