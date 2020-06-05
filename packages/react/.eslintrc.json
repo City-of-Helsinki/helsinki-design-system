@@ -53,7 +53,10 @@
       }
     ],
     "@typescript-eslint/explicit-member-accessibility": "off",
-    "react/state-in-constructor": [2, "never"]
+    "react/state-in-constructor": [2, "never"],
+    "no-unused-expressions": [2, {
+      "allowTernary": true
+    }]
   },
   "settings": {
     "react": {

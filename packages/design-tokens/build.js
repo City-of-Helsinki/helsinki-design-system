@@ -55,6 +55,9 @@ Object.values({
     source: ['tokens/**/*.json'],
     platforms: getPlatformConfig('all'),
   }),
+
+  /* COLORS */
+
   // all colors (excluding component specific colors)
   allColors: dictionary.extend({
     source: ['tokens/color/brand/*.json', 'tokens/color/ui/*.json'],
@@ -70,6 +73,9 @@ Object.values({
     source: ['tokens/color/ui/*.json'],
     platforms: getPlatformConfig('ui', 'color'),
   }),
+
+  /* SPACING */
+
   // all spacing tokens
   allSpacings: dictionary.extend({
     source: ['tokens/spacing/*.json'],
@@ -85,6 +91,47 @@ Object.values({
     source: ['tokens/spacing/layout.json'],
     platforms: getPlatformConfig('layout', 'spacing'),
   }),
+
+  /* BREAKPOINTS */
+
+  // all breakpoint tokens
+  allBreakpoints: dictionary.extend({
+    source: ['tokens/breakpoint/*.json'],
+    platforms: getPlatformConfig('all', 'breakpoint'),
+  }),
+  // breakpoints
+  breakpoint: dictionary.extend({
+    source: ['tokens/breakpoint/breakpoint.json'],
+    platforms: getPlatformConfig('breakpoint', 'breakpoint'),
+  }),
+  // container widths
+  containerWidth: dictionary.extend({
+    source: ['tokens/breakpoint/container-width.json'],
+    platforms: getPlatformConfig('container-width', 'breakpoint'),
+  }),
+
+  /* TYPOGRAPHY */
+
+  // all typography tokens
+  allTypography: dictionary.extend({
+    source: ['tokens/typography/*.json'],
+    platforms: getPlatformConfig('all', 'typography'),
+  }),
+  font: dictionary.extend({
+    source: ['tokens/typography/font.json'],
+    platforms: getPlatformConfig('font', 'typography'),
+  }),
+  fontSize: dictionary.extend({
+    source: ['tokens/typography/font-size.json'],
+    platforms: getPlatformConfig('font-size', 'typography'),
+  }),
+  lineHeight: dictionary.extend({
+    source: ['tokens/typography/line-height.json'],
+    platforms: getPlatformConfig('line-height', 'typography'),
+  }),
+
+  /* COMPONENT */
+
   // all component tokens
   allComponents: dictionary.extend({
     source: ['tokens/color/brand/*.json', 'tokens/color/ui/*.json', 'tokens/color/component/**/*.json'],
@@ -99,5 +146,15 @@ Object.values({
   textInput: dictionary.extend({
     source: ['tokens/color/brand/*.json', 'tokens/color/ui/*.json', 'tokens/color/component/text-input/*.json'],
     platforms: getPlatformConfig('text-input', 'color/component', 'isComponentToken'),
+  }),
+  // radio-button
+  radioButton: dictionary.extend({
+    source: ['tokens/color/brand/*.json', 'tokens/color/ui/*.json', 'tokens/color/component/radio-button/*.json'],
+    platforms: getPlatformConfig('radio-button', 'color/component', 'isComponentToken'),
+  }),
+  // checkbox
+  checkbox: dictionary.extend({
+    source: ['tokens/color/brand/*.json', 'tokens/color/ui/*.json', 'tokens/color/component/checkbox/*.json'],
+    platforms: getPlatformConfig('checkbox', 'color/component', 'isComponentToken'),
   }),
 }).forEach((item) => item.buildAllPlatforms());

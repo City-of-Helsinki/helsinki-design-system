@@ -37,8 +37,9 @@ jobs:
           yarn build
           ./check_build.sh
         working-directory: ./site
-        env:
-          DOCZ_BASE: /helsinki-design-system/
+      
+      - name: Copy CNAME file
+        run: cp CNAME ./site/public/
 
       - name: build core storybook
         run: yarn build-storybook

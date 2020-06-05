@@ -1,0 +1,213 @@
+---
+name: Dropdown
+menu: Components
+route: /components/dropdown
+---
+
+import { Playground } from "docz";
+import { Dropdown } from "hds-react";
+
+import ColorBox from "../../src/components/ColorBox";
+import Text from "../../src/components/Text";
+import LargeParagraph from "../../src/components/LargeParagraph";
+
+# Dropdowns
+
+<LargeParagraph>
+  A dropdown offers user a list of options which one or multiple can be selected. Dropdowns are often used as part of forms and filters.
+</LargeParagraph>
+
+## Principles
+
+- **A label should always be provided with dropdowns.** Aim for labels that are short, concise and easy to understand.
+- Dropdowns usually have four (4) or more options. When having only 2-4 options, it is usually better to use [radio button group](/components/radio-button). Also, if options need to be easily comparable (for example, product pricing), prefer radio buttons over dropdown.
+- It is recommended to set default option for the dropdown. If the default option is also the recommended option, you can mark the option with text "_(recommended)_".
+- If your dropdown has 8 or more options, consider using the [filterable](/components/dropdown#filterable) variant so the user can locate the wanted option easier.
+- Dropdown options should not span over one line. Aim for short texts for all options.
+- If possible, do input validation in client-side real time and provide the user with immediate feedback after selection.
+
+## Accessibility
+
+- Placeholder text can be used to give hints and examples to the user what is being selected with the dropdown. **However, all assistive technologies do not threat placeholder texts as labels and therefore they may ignore them completely.** Aim to provide the sufficient information to fill the input in the label. Also if possible, set default option for the dropdown so the placeholder is not needed.
+- In the case of an erroneous selection, aim to provide clear instructions to the user how to correct the mistake. Always provide text description of the error. In dropdowns it is usually possible to filter selectable options for the user to avoid errors completely.
+
+## Usage
+
+### Default
+
+Default dropdown serves in most use cases when the user needs to select one from 4 to 7 options. If there are 8 or more options available, consider using [filterable](/components/dropdown#filterable) variant.
+
+<Playground>
+<Dropdown
+  id="example1"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  placeholder="Choose one"
+  label="Label"
+  helper="Assistive text"
+/>
+
+<Dropdown
+  id="example2"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  defaultValue={{ label: 'Plutonium' }}
+  label="Label"
+  helper="Assistive text"
+  style={{marginTop: 'var(--spacing-s)'}}
+  disabled
+/>
+
+<Dropdown
+  id="example3"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  defaultValue={{ label: 'Plutonium' }}
+  label="Label"
+  helper="Error text"
+  style={{marginTop: 'var(--spacing-s)'}}
+  invalid
+/>
+</Playground>
+
+##### React:
+```tsx
+/* Enabled */
+<Dropdown
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  placeholder="Choose one"
+  label="Label"
+  helper="Assistive text"
+/>
+
+/* Disabled */
+<Dropdown
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  defaultValue={{ label: 'Plutonium' }}
+  label="Label"
+  helper="Assistive text"
+  disabled
+/>
+
+/* Error */
+<Dropdown
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  defaultValue={{ label: 'Plutonium' }}
+  label="Label"
+  helper="Error text"
+  invalid
+/>
+```
+
+### Filterable
+
+**NOTE! Accessibility of this component is still in validation.**
+
+Filterable dropdown variant works exactly like the default one except it allows filtering the options by typing while component is focused. This variant can increase usability when there are 8 or more options available.
+
+<Playground>
+<Dropdown
+  id="example3"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  placeholder="Choose one"
+  label="Label"
+  helper="Assistive text"
+  filterable
+/>
+</Playground>
+
+##### React:
+```tsx
+<Dropdown
+  id="example3"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  placeholder="Choose one"
+  label="Label"
+  helper="Assistive text"
+  filterable
+/>
+```
+
+### Multi-select
+
+**NOTE! This component is work in progress and is subject to change in the future versions of HDS!**
+
+Multi-select variant allows the user to select one or more options simultaneously.
+
+<Playground>
+<Dropdown
+  id="example4"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  placeholder="Choose one"
+  label="Label"
+  helper="Assistive text"
+  closeMenuOnSelect={false}
+  multiselect
+/>
+</Playground>
+
+##### React:
+```tsx
+<Dropdown
+  id="example4"
+  options={[
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+  ]}
+  placeholder="Choose one"
+  label="Label"
+  helper="Assistive text"
+  closeMenuOnSelect={false}
+  multiselect
+/>
+```
+
+## Demos & API
+
+### Core
+
+_Not included in hds-core!_
+
+### React
+
+[Dropdowns in hds-react](/storybook/react/?path=/story/components-dropdown--default)
+
+[Dropdown API](/storybook/react/?path=/docs/components-dropdown--default)
+
+## Tokens
+
+_No tokens._

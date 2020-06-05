@@ -42,9 +42,9 @@ export const ExampleView = () => (
             aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi
             consequat.
           </p>
-          <TextInput id="myInput" alternative labelText="Lorem ipsum:" placeholder="dolor sit" />
+          <TextInput id="myInput" label="Lorem ipsum:" placeholder="dolor sit" />
           <br />
-          <Button color="secondary">Lorem</Button>
+          <Button variant="secondary">Lorem</Button>
         </div>
         <div>
           <p>
@@ -65,7 +65,7 @@ export const ExampleView = () => (
         consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
         Excepteur sint obcaecat cupiditat non proident.
       </p>
-      <Button color="supplementary" iconRight={<IconAngleRight />}>
+      <Button variant="supplementary" iconRight={<IconAngleRight />}>
         Ipsum
       </Button>
     </ImageWithCard>
@@ -82,9 +82,7 @@ export const ExampleView = () => (
         aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi
         consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
       </p>
-      <Button color="tertiary" iconRight={<IconAngleRight />}>
-        Lorem
-      </Button>
+      <Button iconRight={<IconAngleRight />}>Lorem</Button>
     </ImageWithCard>
   </>
 );

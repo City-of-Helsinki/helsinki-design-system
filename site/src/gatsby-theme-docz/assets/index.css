@@ -1,4 +1,4 @@
-@import "~hds-core/lib/helsinki.css";
+@import "~hds-core";
 
 @font-face {
   font-family: "HelsinkiGrotesk";
@@ -70,4 +70,14 @@
   font-weight: 900;
   font-style: italic;
   text-rendering: optimizeLegibility;
+}
+
+a.customLink {
+  align-items: center;
+  display: inline-flex;
+  text-decoration: none;
+}
+
+a.customLink:hover {
+  text-decoration: underline;
 }

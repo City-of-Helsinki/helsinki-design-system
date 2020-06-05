@@ -1,9 +1,24 @@
 .hds-notification {
+  --background-color-default: var(--color-coat-of-arms-blue-light-20);
+  --background-color-success: var(--color-success-light);
+  --background-color-warning: var(--color-alert-light);
+  --background-color-error: var(--color-error-light);
+
+  --border-default: var(--color-coat-of-arms-blue);
+  --border-success: var(--color-success);
+  --border-warning: var(--color-alert);
+  --border-error: var(--color-error);
+
+  --close-button-default: var(--color-coat-of-arms-blue-dark-50);
+  --close-button-success: var(--color-success-dark);
+  --close-button-warning: var(--color-alert-dark);
+  --close-button-error: var(--color-error-dark);
+
   margin: 0.75em 0 1.25em;
   padding: 1.875em 1.875em 1.875em;
-  border: 0 solid var(--hds-theme-color-primary);
+  border: 0 solid var(--border-default);
   border-left-width: 0.625em;
-  background-color: var(--hds-theme-color-primary-extra-light);
+  background-color: var(--background-color-default);
   position: relative;
 }
 
@@ -15,33 +30,16 @@
   vertical-align: middle;
 }
 
+.hds-notification .hds-icon {
+  height: var(--spacing-m);
+  width: var(--spacing-m);
+}
+
 .hds-notification__label .hds-icon {
-  height: 1.6em;
-  width: 1.6em;
   margin-right: 0.625em;
   display: inline-flex;
   align-items: center;
   vertical-align: middle;
-}
-
-.hds-notification__label .hds-icon--info {
-  width: 1.4375em;
-  height: 1.4375em;
-}
-
-.hds-notification__label .hds-icon--warning {
-  width: 1.875em;
-  height: 1.5625em;
-}
-
-.hds-notification__label .hds-icon--attention {
-  width: 1.4375em;
-  height: 1.4375em;
-}
-
-.hds-notification__label .hds-icon--check {
-  width: 1.25em;
-  height: 0.9375em;
 }
 
 .hds-notification__body {
@@ -49,18 +47,18 @@
 }
 
 .hds-notification--warning {
-  border-color: var(--hds-ui-color-alert);
-  background-color: var(--hds-ui-color-alert-light);
+  border-color: var(--border-warning);
+  background-color: var(--background-color-warning);
 }
 
 .hds-notification--error {
-  border-color: var(--hds-ui-color-error);
-  background-color: var(--hds-ui-color-error-light);
+  border-color: var(--border-error);
+  background-color: var(--background-color-error);
 }
 
 .hds-notification--success {
-  border-color: var(--hds-ui-color-success);
-  background-color: var(--hds-ui-color-success-light);
+  border-color: var(--border-success);
+  background-color: var(--background-color-success);
 }
 
 .hds-notification__close-button {
@@ -68,24 +66,19 @@
   top: 0;
   right: 0;
   padding: 1.875em;
-  fill: var(--hds-theme-color-primary);
-}
-
-.hds-notification__close-button .hds-icon {
-  width: 1.25em;
-  height: 1.25em;
+  color: var(--close-button-default);
 }
 
 .hds-notification--warning .hds-notification__close-button .hds-icon {
-  color: var(--hds-ui-color-alert-dark);
+  color: var(--close-button-warning);
 }
 
 .hds-notification--error .hds-notification__close-button .hds-icon {
-  color: var(--hds-ui-color-error);
+  color: var(--close-button-error);
 }
 
 .hds-notification--success .hds-notification__close-button .hds-icon {
-  color: var(--hds-ui-color-success);
+  color: var(--close-button-success);
 }
 
 @media all and (max-width: 768px) {

@@ -12,32 +12,20 @@ export default {
   decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
 };
 
-/**
- * Default
- */
 export const Default = () => <Notification labelText="label">{content}</Notification>;
 
-/**
- * Warning
- */
 export const Warning = () => (
   <Notification labelText="label" type="warning">
     {content}
   </Notification>
 );
 
-/**
- * Error
- */
 export const Error = () => (
   <Notification labelText="label" type="error">
     {content}
   </Notification>
 );
 
-/**
- * Success
- */
 export const Success = () => (
   <Notification labelText="label" type="success">
     {content}

@@ -1,12 +1,12 @@
 import './notification.css';
 import '../../icons/icon.css';
-import '../../icons/icon-info.css';
-import '../../icons/icon-close.css';
-import '../../icons/icon-attention.css';
-import '../../icons/icon-warning.css';
-import '../../icons/icon-check.css';
+import '../../icons/ui/icon-info-circle.css';
+import '../../icons/ui/icon-cross.css';
+import '../../icons/ui/icon-alert-circle.css';
+import '../../icons/ui/icon-error.css';
+import '../../icons/ui/icon-check.css';
 
-const getLabel = (icon = 'info', label = 'Label text') =>
+const getLabel = (icon = 'info-circle', label = 'Label text') =>
   `<div class="hds-notification__label">
         <span class="hds-icon hds-icon--${icon}" aria-hidden="true"></span>
         <span class="text-md text-bold">${label}</span>
@@ -18,9 +18,6 @@ export default {
   decorators: [(storyFn) => `<div style="max-width:400px">${storyFn()}</div>`],
 };
 
-/**
- * Default
- */
 export const Default = () => `
     <div class="hds-notification">
       ${getLabel()}
@@ -28,9 +25,6 @@ export const Default = () => `
     </div>
 `;
 
-/**
- * Success
- */
 export const Success = () => `
     <div class="hds-notification hds-notification--success">
       ${getLabel('check')}
@@ -38,42 +32,39 @@ export const Success = () => `
     </div>
 `;
 
-/**
- * Warning
- */
 export const Warning = () => `
     <div class="hds-notification hds-notification--warning">
-      ${getLabel('attention')}
+      ${getLabel('alert-circle')}
       ${text}
     </div>
 `;
 
-/**
- * Error
- */
 export const Error = () => `
     <div class="hds-notification hds-notification--error">
-      ${getLabel('warning')}
+      ${getLabel('error')}
       ${text}
     </div>
 `;
 
-/**
- * With close button
- */
-export const WithClose = () => `
-    <div class="hds-notification">
-      ${getLabel()}
-      ${text}
-      <button
-        class="hds-notification__close-button"
-        aria-label="Close notification"
-        onclick=""
-      >
-        <span class="hds-icon hds-icon--close" aria-hidden="true"></span>
-      </button>
-    </div>
-`;
+export const WithClose = () =>
+  [null, 'success', 'warning', 'error']
+    .map(
+      (item) =>
+        `
+        <div class="hds-notification ${item ? `hds-notification--${item}` : ''}">
+          ${getLabel()}
+          ${text}
+          <button
+            class="hds-notification__close-button"
+            aria-label="Close notification"
+            onclick=""
+          >
+            <span class="hds-icon hds-icon--cross" aria-hidden="true"></span>
+          </button>
+        </div>
+    `,
+    )
+    .join('');
 
 WithClose.story = {
   name: 'With close button',

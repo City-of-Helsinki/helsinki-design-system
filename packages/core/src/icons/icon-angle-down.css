@@ -1,6 +1,0 @@
-@svg-load icon url(../svg/icon-angle-down.svg);
-
-.hds-icon--angle-down {
-  mask-image: svg-inline(icon);
-  -webkit-mask-image: svg-inline(icon);
-}

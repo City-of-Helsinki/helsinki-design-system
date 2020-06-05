@@ -1,53 +1,43 @@
 import './text-input.css';
 import '../../icons/icon.css';
-import '../../icons/icon-lock.css';
 
 const getLabel = (id = 'input', label = 'Label text') =>
-  `<label for="${id}" class="hds-text-input__label text-sm text-bold">${label}</label>`;
-const getHelperText = (text = 'input', invalid = false) =>
-  `<span class="hds-text-input__${invalid ? 'invalid' : 'helper'}-text text-sm">${text}</span>`;
+  `<label for="${id}" class="hds-text-input__label">${label}</label>`;
+const getHelperText = (text = 'Assistive text') => `<span class="hds-text-input__helper-text">${text}</span>`;
 
 export default {
-  title: 'TextInput',
+  title: 'Text input',
+  decorators: [(storyFn) => `<div style="max-width: 400px">${storyFn()}</div>`],
 };
 
-/**
- * Default
- */
 export const Default = () => `
     <div class="hds-text-input">
       ${getLabel()}
       <div class="hds-text-input__input-wrapper">
         <input
           id="input"
-          class="text-md"
+          class="hds-text-input__input"
           type="text"
-          placeholder="default value"
+          placeholder="Placeholder"
         />
       </div>
-      ${getHelperText('This describes the purpose of this field.')}
+      ${getHelperText()}
     </div>
 `;
 
-/**
- * Read-only
- */
 export const ReadOnly = () => `
-    <div class="hds-text-input hds-text-input--read-only">
+    <div class="hds-text-input">
       ${getLabel('input2')}
       <div class="hds-text-input__input-wrapper">
         <input
           id="input2"
-          class="text-md"
+          class="hds-text-input__input"
           type="text"
-          placeholder="default value"
-          value="text input value"
-          disabled
+          value="Text input value"
+          readonly
         />
-        <div class="hds-text-input__input-icon">
-          <span class="hds-icon hds-icon--lock" aria-hidden="true"></span>
-        </div>
       </div>
+      ${getHelperText()}
     </div>
 `;
 
@@ -55,20 +45,33 @@ ReadOnly.story = {
   name: 'Read-only',
 };
 
-/**
- * Invalid
- */
+export const Disabled = () => `
+    <div class="hds-text-input">
+      ${getLabel('input3')}
+      <div class="hds-text-input__input-wrapper">
+        <input
+          id="input3"
+          class="hds-text-input__input"
+          type="text"
+          value="Text input value"
+          disabled
+        />
+      </div>
+      ${getHelperText()}
+    </div>
+`;
+
 export const Invalid = () => `
    <div class="hds-text-input hds-text-input--invalid">
-     ${getLabel('input3')}
+     ${getLabel('input4')}
      <div class="hds-text-input__input-wrapper">
        <input
-         id="input3"
-         class="text-md"
+         id="input4"
+         class="hds-text-input__input"
          type="text"
-         placeholder="default value"
+         placeholder="Placeholder"
        />
      </div>
-     ${getHelperText('This field is invalid!', true)}
+     ${getHelperText('Error text')}
     </div>
 `;

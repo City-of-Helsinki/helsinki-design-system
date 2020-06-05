@@ -1,0 +1,16 @@
+{
+  "color": {
+    "label": {
+      "radio-button": {
+        "default": {
+          "value": "{color.black-90.value}",
+          "type": "color"
+        },
+        "disabled": {
+          "value": "{color.black-40.value}",
+          "type": "color"
+        }
+      }
+    }
+  }
+}

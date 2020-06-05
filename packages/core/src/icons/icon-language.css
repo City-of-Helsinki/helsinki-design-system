@@ -1,6 +1,0 @@
-@svg-load icon url(../svg/icon-language.svg);
-
-.hds-icon--language {
-  mask-image: svg-inline(icon);
-  -webkit-mask-image: svg-inline(icon);
-}

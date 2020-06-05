@@ -3,7 +3,7 @@ import { Transition } from 'react-spring/renderprops.cjs';
 
 import classNames from '../../utils/classNames';
 import Notification, { NotificationProps } from './Notification';
-import { IconClose } from '../../icons';
+import { IconCross } from '../../icons';
 import styles from './DismissableNotification.module.css';
 
 export type DismissableNotificationProps = {
@@ -27,18 +27,20 @@ const DismissableNotification: React.FC<DismissableNotificationProps> = (props: 
         show &&
         ((transitionProps) => (
           <div style={{ ...transitionProps, ...{ overflowY: 'hidden', position: 'relative' } }}>
-            <Notification {...props}>{children}</Notification>
-            <button
-              className={classNames(styles.buttonClose, styles[type])}
-              type="button"
-              title={closeButtonLabelText}
-              aria-label={closeButtonLabelText}
-              onClick={() => {
-                setOpen(false);
-              }}
-            >
-              <IconClose className={styles.iconClose} />
-            </button>
+            <Notification {...props}>
+              <button
+                className={classNames(styles.buttonClose, styles[type])}
+                type="button"
+                title={closeButtonLabelText}
+                aria-label={closeButtonLabelText}
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                <IconCross className={styles.iconClose} />
+              </button>
+              {children}
+            </Notification>
           </div>
         ))
       }

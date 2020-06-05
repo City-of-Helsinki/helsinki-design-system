@@ -1,6 +1,0 @@
-@svg-load icon url(../svg/icon-wine.svg);
-
-.hds-icon--wine {
-  mask-image: svg-inline(icon);
-  -webkit-mask-image: svg-inline(icon);
-}

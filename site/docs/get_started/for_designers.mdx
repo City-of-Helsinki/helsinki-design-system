@@ -1,118 +1,127 @@
 ---
-name: For Designers
-menu: Get Started
+name: For designers
+menu: Getting started
 route: /designers
 ---
 
-# For Designers
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
 
----
+# For designers
 
-Rapidly build beautiful and accessible experiences. The HDS kit contains all the resources you need to get started.
+<LargeParagraph>
+    The HDS design kit contains all the resources you need to get started designing beautiful and accessible user experiences that follow the City of Helsinki brand.
+</LargeParagraph>
 
-The Master libraries of 'Helsinki Design System' are the single point of reference for your design. When you connect your design files with the design system libraries, you can use ready designed components and have them synced whenever the design system is updated.
+The HDS design libraries are the single point of reference for your design. When you connect your design files with the design system libraries, you can have the components synced whenever the design system is updated.
 
-## Getting started
+## Principles
 
-**Start** with the following:
-
-1. Explore the guidelines to learn the Helsinki City product design patterns and principles.
-2. Take a look at the Components section, to see what’s there and how you can incorporate those into your designs.
-3. To start taking those into use, go to Abstract, set up your project and link the desired HDS library files (Helsinki Design System) to your project and sketch file. The design assets are available in the publicly shared [Helsinki Design System library collection](https://share.goabstract.com/bc16e8b2-b95f-4fac-b36b-f51097695cc7).
-4. If you have a component that isn’t yet part of the Design System, propose it to the HDS team via a ‘review request’. The Lead Designer will review the design and also present it to the CXO (Jukka) and the brand manager (Hannamari). When Lead Designer approves the design, add your design to the library. Afterwards, communicate with the developers of your team about developing the component.
-
-## Design principles
-
-We always keep the core principles in mind, when making design decisions. We encourage you to follow the same principles.
-
-- **Modular and flexible:** All components are designed to work seamlessly with one another and help people work smarter, better and faster.
-- **Consistent:** All components are designed to work together to ensure consistent and cohesive user experience.
+Always keep these core principles in mind when making design decisions:
+- **Modular and flexible:** All components are designed to work as reusable, customisable building blocks to help people work smarter, better and faster.
+- **Consistent:** All components are designed to fit together seamlessly to ensure consistent and cohesive user experience.
 - **Accessibility baked-in:** Accessibility is part of the process from start to end. It is designed to be accessible to all, regardless of ability or situation.
 
-## Tools
-
-Workflow with _Sketch + Abstract_:
-
-Sketch is a vector graphics editor and is widely adopted by designers across the globe to create user interface designs for web and mobile services.
-
-Abstract enables designers to reliably version and manage their Sketch files. By leveraging and extends the technology of Git, Abstract provides design teams with a lightweight workflow and stable tools so designers can work together with confidence.
+## Getting started
+1. Explore the City of Helsinki <Link href="https://brand.hel.fi/" external>Visual Identity Guidelines</Link> to learn the design principles of the brand.
+2. Take a look at the [Components documentation](/components "Components") to see what is available and how you can incorporate those into your designs.
+3. The design assets are available either via direct design kit download or via the City of Helsinki Abstract. To use HDS libraries, you will need to install Sketch. See more on downloading and setting up the libraries below.
+4. If you have an idea for improvements or a component that could be a useful addition to the Design System, see the [Contributing](/contributing "Contributing") page for more information.
 
 ## Setting up
 
-You will need to install Sketch and Abstract software.
+### Install the tools
+The HDS design workflow is based on **Sketch** and **Abstract** (if you have access to Helsinki organisation):
+- <Link href="https://www.sketch.com/" external>Sketch</Link> is a <b>vector graphics editor</b> and is widely adopted by designers to create user interface designs for web and mobile services.
+- <Link href="https://www.abstract.com/" external>Abstract</Link> is a <b>design collaboration and version and managegement tool</b> that enables designers to share Sketch files and libraries easily. By leveraging and extends the technology of Git, Abstract provides design teams with a lightweight workflow and stable tools so designers can work together with confidence.
 
-To edit Sketch design files in Abstract, you’ll need to download the Sketch software (link here) and the Abstract software (link here). Even though Abstract has a web application, It’s not possible to edit or create Sketch files with it. It is possible for your team members to view your designs and provide feedback.
 
-**Install fonts**
+If you are a newcomer to Sketch or Abstract, they both offer some great tutorials and help 
 
-Make sure that you have the Helsinki Grotesk font installed.
+- <Link href="https://www.sketchapp.com/docs/" external>Sketch help docs</Link>
+- <Link href="https://www.abstract.com/help/" external>Abstract help docs</Link>
 
-**Create a project in Abstract**
+**You do not necessarily need Abstract to use HDS design libraries.** Abstract is a convenient way to get access and update Sketch libraires, but we also offer downloadable HDS design kit. Read below to learn how to download the design kit. 
 
-You either need permission rights to create a new project in City of Helsinki organization, or you need an invite to a created project in this organization.
+### Install fonts
+<p>Make sure that you have the <Link href="https://camelot-typefaces.com/helsinki-grotesk" external>Helsinki Grotesk font</Link> installed.</p>
 
-![Creating a new project in Abstract](../../static/abstract-create-new-project.png "Creating a new project in Abstract")
+<p>Helsinki Grotesk font can be purchased from <Link href="https://camelot-typefaces.com/helsinki-grotesk" external>Camelot Typefaces website</Link></p>
 
-**Create a Sketch file**
+### Import HDS libraries
 
-Once you’ve opened a project, click _Master_ on the left sidebar and choose _Add file > Create Sketch File_ from the view that open on the right. Now you can enter a name for the new Sketch file.
+You can start using the HDS design libraries to your project in two ways:
 
-![Creating a new file in Abstract](../../static/abstract-create-new-file.png "Creating a new file in Abstract")
+#### 1. Downloading HDS Design kit and linking libraries in Sketch
+**This option gives you a stable version controlled package of all components released in the design system. ** You can choose what libraries you want to import, but we recommend importing all of them for best experience.
 
-File naming should follow the naming convention below:
+1. Head over to <Link href="https://github.com/City-of-Helsinki/helsinki-design-system/releases" external>HDS GitHub repository releases</Link>.
+2. Download `design-kit` (preferably the newest stable version) to your computer and unzip the package.
+3. Open Sketch and from the top bar thoose _Sketch > Preferences_.
+4. Choose tab _Libraries_ and press the button _Add library_.
+5. Browse to the unzipped folder you just downloaded and select libraries you want to import. Note, you can select multiple libraries by holding the shift key. 
 
-(Naming convention?)  
-Example 1:  
-Example 2:
+![Linking libraries in Sketch preferences](../../static/fordesigners-hds-designkit.png "Linking libraries in Sketch preferences")
 
-Once finished, click _Create Sketch File_. Your new Sketch file will now appear in the _Files_ list of Abstract.
+#### 2. Linking libraries from Abstract
+**This option keeps the components used in your designs in sync with the Master library.** When changes are made to the Master Library, you’ll have the option to update your symbols from Master via an alert in the top right corner in Sketch.
 
-Once you have created your Sketch file in Abstract, always open your design file straight from Abstract. This way, all changes made to your file will be tracked and you have a version control over it.
+You will need permissions to access the City of Helsinki Abstract organisation for using libraries from Abstract.
 
-**Link the design system libraries to your design file**
+<p>**Note! Library versions in Abstract are considered development versions. They can change and things may be unstable.** Using libraries from Abstract allows you to get your hands also on the newest components that are not released yet. If you need more reliable libraries, follow the instructions of option 1. above to download latest stable <Link href="https://github.com/City-of-Helsinki/helsinki-design-system/releases" external>HDS design kit release</Link>.</p>
 
-Open up any Branch within an Abstract Project and select the Files tab  
-Select _Add File -> Link Library…_  
-Select the _Helsinki Design System project_  
-Select one or multiple Libraries and click _Link Libraries_
+1. In Abstract, open up a branch within the project you are working on. You'll either need an invite to a existing project in the City of Helsinki organisation, or permissions to create a new project. See <Link href="https://www.abstract.com/help/getting-started/" external>Abstract documentation</Link> for more information on joining organizations and starting projects.
+2. From the top of the branch view, select the _Files_ tab
+3. From the top of the file list, select _Add File > Link Library…_  
+4. Select the _Helsinki Design System project_  
+5. Select one or multiple HDS Libraries and click _Link Libraries_
+6. Merge branch to the project master.
 
-Once you link the Design System Library to your Project, your components are kept in sync with the Master library. When changes are made to the Master Library, you’ll have the option to update your symbols from Master via an alert in the top right for proper version control.
+![HDS master library](../../static/fordesigners-abstract-link-libraries.png "HDS master library")
 
-![HDS master library](../../static/hds-master.png "HDS master library")
 
-### Using library components
+## Using libraries
 
-HDS components and icons live in the design kit as Sketch symbols.
+HDS components and icons live in the HDS libraries as Sketch symbols. 
 
-![HDS master files](../../static/hds-master-files.png "HDS master files")
+There are two kinds of symbols in Sketch — **_library symbols_** and **_document symbols_**. _Library symbols_ are available in any Sketch document, while _document symbols_ are specific to the document in which they are found. 
 
-**Library menu navigation**
+The HDS component symbols are _library symbols_. **Do not detach symbols from the library.** Once a symbol is detached, you will no longer receive updates as they are released.
 
-There are two kinds of symbols — library symbols and document symbols. Library symbols are available in any Sketch document, while document symbols are specific to the document in which they are found.
+![HDS master files](../../static/fordesigners-hds-master-files.png "HDS master files")
 
-From the Insert menu, select _Symbols → HDS [component name]_ to add symbols onto your page.
 
-![Inserting textfield component](../../static/component-textfield-insert.png "Inserting textfield component")
+### Adding component symbols to layouts
+Symbols are mainly organised into library files by component, except form components (checkboxes, radio buttons, dropdowns and text fields), that are grouped into one library HDS Form Components file for convenience. 
 
-Helsinki Design System symbols are built to be flexible, and designers should not detach symbols from the library. Once a symbol is detached, you will no longer receive updates as they are released.
+**You can add symbols to your layout in two ways:**
+1. From the _Insert_ menu, by selecting _Symbols > HDS [component name]_. After selecting a HDS component, you’ll see the variations and states of that component. Select the desired variant and place it on your artboard.
 
-**Structure of the symbols (library components)**
+![Inserting textfield component from Insert menu](../../static/fordesigners-component-textfield-insert.png "Inserting textfield component from Insert menu")
 
-Symbols are organised by component; after selecting a component, you’ll see the variations and states of that component.
-To add the whole component, select the desired variant and place it on your Artboard (see image above).
+2. From the _Components_ tab in the sidebar on the left, by selecting _HDS [component name]_. After selecting a HDS component, you’ll see the variations and states of that component. Select the desired variant from the sidebar, and drag it to your artboard. 
 
-_For even more configurability, use the individual building blocks found under the Items folder within the symbol. Be sure your custom design adheres to our design guidelines._
+You can also select _All_ and filter the components list by component or variant name.
 
-**Text styles**
+![Inserting component from Components tab](../../static/fordesigners-component-insert.png "Inserting component from Components tab")
 
-![Inserting header styles](../../static/typography-header-insert.png "Inserting header styles")
-![Inserting body styles](../../static/typography-body-insert.png "Inserting body styles")
+### Customising component symbols
+The component symbols use _smart layout_ for easy resizing. You can also configure the content and styling of symbol parts from the _Overrides_ section of symbol properties.
 
-**Library menu navigation**
+_When changing the colour or other styles of component symbols, be sure your custom design adheres to the design guidelines._ Styles within components are carefully considered. We do not recommend detaching the symbol to change default styles.
 
-From the main menu select _Insert → Text Styles → HDS Typography_ to insert a text style.  
-Text styles within components are carefully considered. We do not recommend detaching the symbol to change default styles.
+![Customising symbol overrides](../../static/fordesigners-component-overrides.png "Customising symbol overrides")
 
-## More on Sketch
 
-If you’re brand new to Sketch, they offer some great [tutorials and help docs](https://www.sketchapp.com/docs/).
+
+### Styling text elements
+Linking the HDS Typography library to your project adds the possibility to give HDS text styles to your text elements. You can add text styles to your layout in two ways:
+
+1. You can add a new text element with appropriate text style from the Insert menu: Select the HDS Typography from the Text styles section, choose the desired text style, and click anywhere on your artboard. This creates a new text element with the chosen style.
+
+![Inserting header styles](../../static/fordesigners-typography-header-insert.png "Inserting header styles")
+![Inserting body styles](../../static/fordesigners-typography-body-insert.png "Inserting body styles")
+
+2. You can give text styles to existing text elements by selecting the text element and changing its style from the _Appearance_ sidebar.
+
+![Changing text elements style](../../static/fordesigners-typography-textstyle-appearance.png "Changing text elements style")

@@ -3,6 +3,7 @@ import { Props, Stories, Title } from '@storybook/addon-docs/dist/blocks';
 import { addParameters } from '@storybook/react';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
+import 'hds-core';
 import './index.css';
 
 const viewports = {
@@ -32,8 +33,11 @@ addParameters({
       </>
     ),
   },
-  backgrounds: [
-    { name: 'White', value: '#fff', default: true },
-    { name: 'Black', value: '#111' },
-  ],
+  backgrounds: {
+    default: 'White',
+    values: [
+      { name: 'White', value: '#fff' },
+      { name: 'Black', value: '#111' },
+    ],
+  },
 });

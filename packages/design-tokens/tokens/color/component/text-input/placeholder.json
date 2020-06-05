@@ -3,7 +3,7 @@
     "placeholder": {
       "text-input": {
         "default": {
-          "value": "{color.black-40.value}",
+          "value": "{color.black-60.value}",
           "type": "color"
         }
       }

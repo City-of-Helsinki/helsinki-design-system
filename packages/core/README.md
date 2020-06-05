@@ -1,8 +1,16 @@
+:books: [**See the components in Storybook**](https://city-of-helsinki.github.io/helsinki-design-system/storybook/core)
+
 # hds-core [![npm version](https://badge.fury.io/js/hds-core.svg)](https://www.npmjs.com/package/hds-core)
 
 Base styles and individual HTML component styles for the Helsinki Design System.
 
 ## Getting started
+
+### Installing the package:
+
+```
+$ yarn add hds-core
+```
 
 ### What's included
 
@@ -24,29 +32,25 @@ hds-core/
     │
     ├── utils/          # utility stylesheets
     ├── variables/      # collection of css variables and base styles
-    ├── helsinki.css    # default theme
-    └── engel.css       # example alternative theme
-```
-
-### Installing the package from npm:
-
-```
-$ yarn add hds-core
+    └── base.css        # base styles
 ```
 
 ## Using the styles
 
-At the minimum you'll need two stylesheets to use the core components: `helsinki.css` (the base theme) and `components/all.css`. If you use any of the icons, you'll also need `icons/all.css`. Do note that the `all.css`-files bundle all the components and icons into single stylesheets and thus are large in filesize.
+To import styles for all the core components, you'll need two stylesheets: `base.css` (the base styles and CSS variables) and `components/all.css`. If you use any of the icons, you'll also need `icons/all.css`. Do note that the `all.css`-files bundle all the components and icons into single stylesheets and thus are large in filesize.
 
-Therefore, we do recommend that you use individual stylesheets where needed. For reference, see the files in `examples` folder. For example [buttons.html](examples/buttons.html).
+Therefore, we do recommend that you use individual component and icon stylesheets instead of the bundled styles.
 
 ### Helsinki fonts
 
-Due to copyright reasons the Helsinki fonts are not included in the package. To test your implementation you can use the `example_fonts` stylesheet in [examples/css/example_fonts.css](examples/css/example_fonts.css).
+The Helsinki fonts are not included in the package due to copyright reasons.
 
 ### Overriding styles
 
-Helsinki Design System uses a number of CSS variables to control coloring and layout. You can override these variables where needed. See the alternative theme (Engel)[src/engel.css] for an example.
+Helsinki Design System uses CSS variables from the [hds-design-tokens](https://www.npmjs.com/package/hds-design-tokens) package to control coloring and layout. You can override these variables where needed.
+
+## Development
+Read more [here](DEVELOPMENT.md)
 
 ## Built with
 

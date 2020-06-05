@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<InputWrapper /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="root"
+  >
+    <label
+      class="label "
+      for="test"
+    >
+      label text
+    </label>
+    <div
+      class="inputWrapper"
+    >
+      <input
+        id="test"
+      />
+    </div>
+    <div
+      class="helperText"
+    >
+      helper text
+    </div>
+  </div>
+</DocumentFragment>
+`;

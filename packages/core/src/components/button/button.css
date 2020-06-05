@@ -1,172 +1,411 @@
+/* import button color variables */
+@import "hds-design-tokens/lib/color/component/button.css";
+
 .hds-button {
-  padding: 0.875em 0.7em;
-  transition-property: background-color, border-color;
-  transition-duration: 0.15s;
+  --border-width: 2px;
+  --color: inherit;
+  --outline-gutter: 2px;
+  --outline-width: 3px;
+
+  align-content: flex-start;
+  align-items: center;
+  background-color: var(--background-color, transparent);
+  border: var(--border-width) solid var(--border-color, transparent);
+  border-radius: 0;
+  color: var(--color);
   display: inline-flex;
   justify-content: center;
-  align-items: center;
+  padding: 0 var(--spacing-2-xs);
   position: relative;
-  border: 4px solid rgba(0, 0, 0, 0);
-  fill: currentColor;
-  text-align: left;
-  align-content: flex-start;
   vertical-align: top;
 }
 
-.hds-button[disabled] {
-  pointer-events: none;
+/* button transitions */
+.hds-button:hover,
+.hds-button:focus {
+  transition-property: background-color, border-color, color;
+  transition-duration: 85ms;
+  transition-timing-function: ease-out;
+}
+
+.hds-button:hover {
+  background-color: var(--background-color-hover, transparent);
+  color: var(--color-hover);
 }
 
 .hds-button:focus {
-  background-clip: padding-box;
+  background-color: var(--background-color-focus, transparent);
+  color: var(--color-focus);
+  outline: none;
 }
 
-.hds-button:after {
-  content: "";
-  display: block;
+.hds-button:focus:hover {
+  background-color: var(--background-color-hover-focus, transparent);
+}
+
+.hds-button[disabled] {
+  background-color: var(--background-color-disabled, transparent);
+  border-color: var(--border-color-disabled, transparent);
+  color: var(--color-disabled);
+  pointer-events: none;
+}
+
+.hds-button:not([disabled]) {
+  border-color: var(--border-color, transparent);
+}
+
+.hds-button:not([disabled]):hover {
+  border-color: var(--border-color-hover, transparent);
+}
+
+.hds-button:not([disabled]):focus {
+  border-color: var(--border-color-focus, transparent);
+}
+
+.hds-button:not([disabled]):focus:hover {
+  border-color: var(--border-color-hover-focus, transparent);
+  color: var(--color-hover-focus);
+}
+
+/* FOCUS OUTLINE */
+
+.hds-button::after {
+  --size: 100%;
+
+  border: var(--outline-width) solid transparent;
+  content: '';
+  height: var(--size);
   position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  border: 2px solid rgba(0, 0, 0, 0);
+  width: var(--size);
 }
 
-/* PRIMARY */
-
-.hds-button--primary {
-  background-color: var(--hds-theme-color-primary);
-  color: var(--hds-theme-color-primary-heading);
+.hds-button:focus::after {
+  --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
+  border-color: var(--focus-outline-color);
 }
 
-.hds-button--primary:after {
-  border-color: var(--hds-theme-color-primary);
+/* submit input */
+input[type="submit"].hds-button:focus {
+  box-shadow: 0 0 0 var(--outline-gutter) var(--submit-input-focus-gutter-color), 0 0 0 calc(var(--outline-gutter) + var(--outline-width)) var(--focus-outline-color);
 }
 
-.hds-button--primary[disabled] {
-  background-color: var(--hds-theme-color-primary-light);
-}
+/* LABEL */
 
-.hds-button--primary[disabled]:after {
-  border-color: var(--hds-theme-color-primary-light);
-}
-
-.hds-button--primary:hover {
-  background-color: var(--hds-theme-color-primary-dark);
-}
-
-.hds-button--primary:hover:after {
-  border-color: var(--hds-theme-color-primary-dark);
-}
-
-.hds-button .hds-icon {
-  height: 1.5em;
-  width: 1.5em;
-  margin: -0.75em auto;
-}
-
+input[type="submit"].hds-button,
 .hds-button__label {
-  margin: 0 1.375em;
+  font-weight: 500;
+  line-height: 1.25em;
+  padding: var(--spacing-s);
 }
+
+input[type="submit"].hds-button {
+  cursor: pointer;
+  padding: var(--spacing-s) var(--spacing-l);
+}
+
+/* no icons */
+.hds-button__label:only-child {
+  margin: 0 var(--spacing-2-xs);
+}
+
+/* SMALL */
+.hds-button--small {
+  padding: 0;
+}
+
+input[type="submit"].hds-button--small,
+.hds-button--small .hds-button__label {
+  line-height: var(--lineheight-s);
+  padding: var(--spacing-2-xs) var(--spacing-xs);
+}
+
+input[type="submit"].hds-button--small {
+  padding: var(--spacing-2-xs) var(--spacing-m);
+}
+
+/* no icons */
+.hds-button--small .hds-button__label:only-child {
+  margin: 0 var(--spacing-xs);
+}
+
+/* both icons */
+.hds-button--small .hds-button__label:not(:first-of-type):not(:last-of-type) {
+  padding: var(--spacing-2-xs) var(--spacing-2-xs);
+}
+
+/* FULL WIDTH */
 
 .hds-button--fullwidth {
   width: 100%;
 }
 
-.hds-button--fullwidth .hds-icon {
-  margin-right: 0;
-  margin-left: 0;
+/* ICONS */
+
+/* left */
+.hds-button .hds-icon {
+  height: var(--spacing-m);
+  margin-left: var(--spacing-s);
+  width: var(--spacing-m);
+}
+
+/* right */
+.hds-button__label ~ .hds-icon {
+  margin: 0 var(--spacing-s) 0 0;
+}
+
+/* left - small */
+.hds-button--small .hds-icon {
+  height: 1.125em;
+  margin-left: var(--spacing-xs);
+  width: 1.125em;
+}
+
+/* right - small */
+.hds-button .hds-button--small .hds-button__label ~ .hds-icon {
+  margin: 0 var(--spacing-xs) 0 0;
+}
+
+/* both icons - left */
+.hds-button .hds-icon:first-of-type:not(:last-of-type) {
+  margin: 0 0 0 var(--spacing-2-xs);
+}
+
+/* both icons - right */
+.hds-button .hds-icon:last-of-type:not(:first-of-type) {
+  margin: 0 var(--spacing-2-xs) 0 0;
+}
+
+/* both icons - left - small */
+.hds-button--small .hds-icon:first-child:not(:last-of-type) {
+  margin: 0 0 0 var(--spacing-xs);
+}
+
+/* both icons - right - small */
+.hds-button--small .hds-icon:last-child:not(:first-of-type) {
+  margin: 0 var(--spacing-xs) 0 0;
+}
+
+/* PRIMARY */
+
+/* default (bus) */
+.hds-button--primary {
+  --background-color: var(--color-background-button-primary-default);
+  --background-color-hover: var(--color-background-button-primary-hover);
+  --background-color-focus: var(--color-background-button-primary-focus);
+  --background-color-hover-focus: var(--color-background-button-primary-hover-focus);
+  --background-color-disabled: var(--color-background-button-primary-disabled);
+
+  --border-color: var(--color-border-button-primary-default);
+  --border-color-hover: var(--color-border-button-primary-hover);
+  --border-color-focus: var(--color-border-button-primary-focus);
+  --border-color-hover-focus: var(--color-border-button-primary-hover-focus);
+  --border-color-disabled: var(--color-border-button-primary-disabled);
+
+  --color: var(--color-label-button-primary-default);
+  --color-hover: var(--color-label-button-primary-hover);
+  --color-focus: var(--color-label-button-primary-focus);
+  --color-hover-focus: var(--color-label-button-primary-hover-focus);
+  --color-disabled: var(--color-label-button-primary-disabled);
+
+  --focus-outline-color: var(--color-focus-outline-button-primary);
+  --submit-input-focus-gutter-color: var(--color-white);
 }
 
 /* SECONDARY */
 
+/* default (bus) */
 .hds-button--secondary {
-  background-color: var(--hds-theme-color-secondary);
-  color: var(--hds-theme-color-secondary-heading);
-}
+  --background-color: var(--color-background-button-secondary-default);
+  --background-color-hover: var(--color-background-button-secondary-hover);
+  --background-color-focus: var(--color-background-button-secondary-focus);
+  --background-color-hover-focus: var(--color-background-button-secondary-hover-focus);
+  --background-color-disabled: var(--color-background-button-secondary-disabled);
 
-.hds-button--secondary:after {
-  border-color: var(--hds-theme-color-secondary);
-}
+  --border-color: var(--color-border-button-secondary-default);
+  --border-color-hover: var(--color-border-button-secondary-hover);
+  --border-color-focus: var(--color-border-button-secondary-focus);
+  --border-color-hover-focus: var(--color-border-button-secondary-hover-focus);
+  --border-color-disabled: var(--color-border-button-secondary-disabled);
 
-.hds-button--secondary[disabled] {
-  background-color: var(--hds-theme-color-secondary-light);
-}
+  --color: var(--color-label-button-secondary-default);
+  --color-hover: var(--color-label-button-secondary-hover);
+  --color-focus: var(--color-label-button-secondary-focus);
+  --color-hover-focus: var(--color-label-button-secondary-hover-focus);
+  --color-disabled: var(--color-label-button-secondary-disabled);
 
-.hds-button--secondary[disabled]:after {
-  border-color: var(--hds-theme-color-secondary-light);
-}
-
-.hds-button--secondary:hover {
-  background-color: var(--hds-theme-color-secondary-dark);
-}
-
-.hds-button--secondary:hover:after {
-  border-color: var(--hds-theme-color-secondary-dark);
-}
-
-/* TERTIARY */
-
-.hds-button--tertiary {
-  background-color: var(--hds-theme-color-tertiary);
-  color: var(--hds-theme-color-tertiary-heading);
-}
-
-.hds-button--tertiary:after {
-  border-color: var(--hds-theme-color-tertiary);
-}
-
-.hds-button--tertiary[disabled] {
-  background-color: var(--hds-theme-color-tertiary-light);
-}
-
-.hds-button--tertiary[disabled]:after {
-  border-color: var(--hds-theme-color-tertiary-light);
-}
-
-.hds-button--tertiary:hover {
-  background-color: var(--hds-theme-color-tertiary-dark);
-}
-
-.hds-button--tertiary:hover:after {
-  border-color: var(--hds-theme-color-tertiary-dark);
+  --focus-outline-color: var(--color-focus-outline-button-secondary);
+  --submit-input-focus-gutter-color: var(--color-white);
 }
 
 /* SUPPLEMENTARY */
 
-.hds-button--supplementary:after {
-  border-color: currentColor;
+.hds-button--supplementary {
+  --background-color: var(--color-background-button-supplementary-default);
+  --background-color-hover: var(--color-background-button-supplementary-hover);
+  --background-color-focus: var(--color-background-button-supplementary-focus);
+  --background-color-hover-focus: var(--color-background-button-supplementary-hover-focus);
+  --background-color-disabled: var(--color-background-button-supplementary-disabled);
+
+  --border-color: var(--color-border-button-supplementary-default);
+  --border-color-hover: var(--color-border-button-supplementary-hover);
+  --border-color-focus: var(--color-border-button-supplementary-focus);
+  --border-color-hover-focus: var(--color-border-button-supplementary-hover-focus);
+  --border-color-disabled: var(--color-border-button-supplementary-disabled);
+
+  --color: var(--color-label-button-supplementary-default);
+  --color-hover: var(--color-label-button-supplementary-hover);
+  --color-focus: var(--color-label-button-supplementary-focus);
+  --color-hover-focus: var(--color-label-button-supplementary-hover-focus);
+  --color-disabled: var(--color-label-button-supplementary-disabled);
+
+  --focus-outline-color: var(--color-focus-outline-button-supplementary);
+  --submit-input-focus-gutter-color: transparent;
 }
 
-.hds-button--supplementary:focus:after {
-  border-width: 4px;
+/* UTILITY */
+
+/* success */
+.hds-button--success {
+  --background-color: var(--color-success);
+  --background-color-hover: var(--color-success-dark);
+  --background-color-focus: var(--color-success);
+  --background-color-hover-focus: var(--color-success-dark);
+
+  --border-color: var(--color-success);
+  --border-color-hover: var(--color-success-dark);
+  --border-color-focus: var(--color-success);
+  --border-color-hover-focus: var(--color-success-dark);
+
+  --color: var(--color-white);
+  --color-hover: var(--color-white);
+  --color-focus: var(--color-white);
+  --color-hover-focus: var(--color-white);
+
+  --focus-outline-color: var(--color-coat-of-arms-blue);
 }
 
-.hds-button--supplementary[disabled] {
-  color: var(--hds-ui-color-black-30);
+/* danger */
+.hds-button--danger {
+  --background-color: var(--color-error);
+  --background-color-hover: var(--color-error-dark);
+  --background-color-focus: var(--color-error);
+  --background-color-hover-focus: var(--color-error-dark);
+
+  --border-color: var(--color-error);
+  --border-color-hover: var(--color-error-dark);
+  --border-color-focus: var(--color-error);
+  --border-color-hover-focus: var(--color-error-dark);
+
+  --color: var(--color-white);
+  --color-hover: var(--color-white);
+  --color-focus: var(--color-white);
+  --color-hover-focus: var(--color-white);
+
+  --focus-outline-color: var(--color-coat-of-arms-blue);
 }
 
-.hds-button--supplementary[disabled]:after {
-  border: var(--hds-ui-color-black-30);
+/* THEMES */
+
+/* coat */
+.hds-button--primary.hds-button--theme-coat {
+  --background-color: var(--color-coat-of-arms-blue);
+  --background-color-hover: var(--color-coat-of-arms-blue-dark-50);
+  --background-color-focus: var(--color-coat-of-arms-blue);
+  --background-color-hover-focus: var(--color-coat-of-arms-blue-dark-50);
+
+  --border-color: var(--color-coat-of-arms-blue);
+  --border-color-hover: var(--color-coat-of-arms-blue-dark-50);
+  --border-color-focus: var(--color-coat-of-arms-blue);
+  --border-color-hover-focus: var(--color-coat-of-arms-blue-dark-50);
+
+  --color: var(--color-label-button-primary-default);
+  --color-hover: var(--color-label-button-primary-hover);
+  --color-focus: var(--color-label-button-primary-focus);
+  --color-hover-focus: var(--color-label-button-primary-hover-focus);
 }
 
-.hds-button--supplementary:hover {
-  text-decoration: underline;
+.hds-button--secondary.hds-button--theme-coat {
+  --background-color: transparent;
+  --background-color-hover: var(--color-coat-of-arms-blue-light-5);
+  --background-color-focus: transparent;
+  --background-color-hover-focus: var(--color-coat-of-arms-blue-light-5);
+
+  --border-color: var(--color-coat-of-arms-blue);
+  --border-color-hover: var(--color-coat-of-arms-blue-dark-50);
+  --border-color-focus: var(--color-coat-of-arms-blue);
+  --border-color-hover-focus: var(--color-coat-of-arms-blue-dark-50);
+
+  --color: var(--color-coat-of-arms-blue);
+  --color-hover: var(--color-coat-of-arms-blue);
+  --color-focus: var(--color-coat-of-arms-blue);
+  --color-hover-focus: var(--color-coat-of-arms-blue);
 }
 
-/* SMALL */
+.hds-button--supplementary.hds-button--theme-coat {
+  --background-color: transparent;
+  --background-color-hover: var(--color-coat-of-arms-blue-light-5);
+  --background-color-focus: transparent;
+  --background-color-hover-focus: var(--color-coat-of-arms-blue-light-5);
 
-.hds-button--small {
-  padding: 0.25em;
+  --border-color: transparent;
+  --border-color-hover: transparent;
+  --border-color-focus: var(--color-coat-of-arms-blue);
+  --border-color-hover-focus: var(--color-coat-of-arms-blue);
+
+  --color: var(--color-coat-of-arms-blue);
+  --color-hover: var(--color-coat-of-arms-blue);
+  --color-focus: var(--color-coat-of-arms-blue);
+  --color-hover-focus: var(--color-coat-of-arms-blue);
 }
 
-.hds-button--small .hds-icon {
-  height: 1em;
-  width: 1em;
-  margin: -0.5em auto;
+/* black */
+.hds-button--primary.hds-button--theme-black {
+  --background-color: var(--color-black);
+  --background-color-hover: var(--color-black);
+  --background-color-focus: var(--color-black);
+  --background-color-hover-focus: var(--color-black);
+
+  --border-color: var(--color-black);
+  --border-color-hover: var(--color-black);
+  --border-color-focus: var(--color-black);
+  --border-color-hover-focus: var(--color-black);
+
+  --color: var(--color-white);
+  --color-hover: var(--color-white);
+  --color-focus: var(--color-white);
+  --color-hover-focus: var(--color-white);
 }
 
-.hds-button--small.fullWidth .icon {
-  margin-right: 0;
-  margin-left: 0;
+.hds-button--secondary.hds-button--theme-black {
+  --background-color: transparent;
+  --background-color-hover: var(--color-black-5);
+  --background-color-focus: transparent;
+  --background-color-hover-focus: var(--color-black-5);
+
+  --border-color: var(--color-black);
+  --border-color-hover: var(--color-black);
+  --border-color-focus: var(--color-black);
+  --border-color-hover-focus: var(--color-black);
+
+  --color: var(--color-black);
+  --color-hover: var(--color-black);
+  --color-focus: var(--color-black);
+  --color-hover-focus: var(--color-black);
+}
+
+.hds-button--supplementary.hds-button--theme-black {
+  --background-color: transparent;
+  --background-color-hover: var(--color-black-5);
+  --background-color-focus: transparent;
+  --background-color-hover-focus: var(--color-black-5);
+
+  --border-color: transparent;
+  --border-color-hover: transparent;
+  --border-color-focus: var(--color-black);
+  --border-color-hover-focus: var(--color-black);
+
+  --color: var(--color-black);
+  --color-hover: var(--color-black);
+  --color-focus: var(--color-black);
+  --color-hover-focus: var(--color-black);
 }

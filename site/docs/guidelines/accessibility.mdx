@@ -4,36 +4,45 @@ route: /guidelines/accessibility
 menu: Guidelines
 ---
 
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
+
 # Accessibility
 
----
+<LargeParagraph>The Helsinki Design System is designed and built to be accessible for all, regardless of ability or situation.</LargeParagraph>
 
-## City of Helsinki and accessibility
 
-[EU directive on web accessibility](https://eur-lex.europa.eu/eli/dir/2016/2102/oj) mandates that all new public sector websites published by September 23 2019 have to comply with [WCAG 2.0 Standard at AA Level](https://www.w3.org/TR/WCAG20/#conformance). On September 23 2020 all websites, new and old, have to meet this criteria. In addition, City of Helsinki has its own [content accessibility guidelines for the web](https://www.hel.fi/static/hki4all/ohjeet/saavutettavuus-opas.pdf) (only in Finnish for now). Internationally we talk about [a11y](https://a11yproject.com/).
+## Standards
+### Global accessibility standards
+<p>World Wide Web Consortium (W3C)’s <Link href="https://www.w3.org/WAI/" external>Web Accessibility Initiative (WAI)</Link> is an effort to improve the accessibility of the World Wide Web for people of all abilities.
+The WAI contributors maintain <Link href="https://www.w3.org/TR/WCAG21/" external>The Web Content Accessibility Guidelines 2.1 (WCAG)</Link>, which is the global accessibility standard.</p>
 
-**In a nutshell, content should be**
+<p><Link href="https://a11yproject.com/" external>The international A11Y Project</Link> is a community-driven effort to make web accessibility easier.</p>
 
-- Perceivable (content can be seen in many ways)
-- Operable (usable as intended)
-- Understandable (not too hard to use)
-- Robust (accessible by wide range of technologies, including old and new browsers).
 
-**In general**
+### Accessibility in the City of Helsinki digital services
+<p><Link href="https://eur-lex.europa.eu/eli/dir/2016/2102/oj" external>EU directive on web accessibility</Link> mandates that all new public sector websites published by September 23 2019 have to comply with <Link href="https://www.w3.org/TR/WCAG20/#conformance" external>WCAG 2.0 Standard at AA Level</Link>. On 23/09/2020 all websites, new and old, have to meet this criteria. Note, that HDS follows follows WCAG 2.1 instead of WCAG 2.0. The publication of WCAG 2.1 does not deprecate or supersede WCAG 2.0 but W3C advices to use WCAG 2.1.</p> 
 
-- We should write standards compliant, semantic HTML and CSS
+<p>The City of Helsinki also has its own <Link href="https://www.hel.fi/static/liitteet/kanslia/TPR/opas_saavutettavaan_sisaltoon_EN.pdf" external>content accessibility guidelines</Link> for the web.</p>
+
+<p><Link href="https://dev.hel.fi/accessibility" external>Develop with Helsinki</Link> site offers quality content about accessibility for developers.</p>
+
+
+## Principles
+<p>The WCAG 2.1 Accessibility Standard outlines <Link href="https://www.w3.org/WAI/WCAG21/Understanding/intro#understanding-the-four-principles-of-accessibility" external>four principles</Link> for what an accessible service should be:</p>
+
+- **Perceivable**: Information and user interface components must be presentable to users in ways they can perceive. For example by providing text alternates to visual and time-based media.
+- **Operable**: User interface components and navigation must be operable, for example with keyboard and assistive technologies. It should help users navigate, find content, and determine where they are.
+- **Understandable**: the content should be readable and easy to understand, and the services should operate in a predictable way.
+- **Robust**: accessible by wide range of technologies, including old and new browsers and assistive technologies.
+
+A few guidelines for developing accessible services:
+- Write standards compliant, semantic HTML and CSS
 - Support keyboard navigation and other standard accessibility functionalities
-- In [React](https://reactjs.org/docs/accessibility.html), use ARIA when there is no native markup.
+- In React, use ARIA when there is no native markup. For more information, see <Link href="https://reactjs.org/docs/accessibility.html" external>React accessibility documentation</Link>
 
-## Global accessibility standards
 
-World Wide Web Consortium (W3C)’s Web Accessibility Initiative (WAI) is an effort to improve the accessibility of the World Wide Web for people of all abilities.
-Web Accessibility Initiative (WAI) contributors create and maintain Web Content Accessibility Guidelines (WCAG), which is the global accessibility standard.
-
-**Resources:**  
-[Salesforce's accessibility blog posts](https://developer.salesforce.com/blogs/tag/accessibility)  
-[W3C Web Accessibility Initiative](https://www.w3.org/WAI/)  
-[WAI-ARIA Authoring Practices](https://www.w3.org/TR/wai-aria-practices-1.1/)  
-[WebAIM](https://webaim.org/)  
-[The A11Y Project](https://a11yproject.com/)  
-[Are My Colours Accessible?](https://www.aremycoloursaccessible.com/)
+## Further reading
+- <Link href="https://www.w3.org/TR/wai-aria-practices-1.1/" external>WAI-ARIA Authoring Practices</Link>
+- <Link href="https://webaim.org/" external>WebAIM</Link>
+- <Link href="https://www.aremycoloursaccessible.com/" external>Are My Colours Accessible?</Link>
