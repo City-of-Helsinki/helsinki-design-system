@@ -114,6 +114,10 @@ export type DropdownProps = {
    */
   required?: boolean;
   /**
+   * The option(s) that should be selected
+   */
+  selectedOption?: OptionType | OptionType[];
+  /**
    * Override or extend the root styles applied to the component
    */
   style?: CSSProperties;
@@ -171,6 +175,7 @@ const Dropdown: FC<DropdownProps> = ({
   options = [],
   placeholder = '',
   required,
+  selectedOption,
   style,
   toggleButtonId,
   visibleOptions = 5,
@@ -188,6 +193,7 @@ const Dropdown: FC<DropdownProps> = ({
   // init multi-select
   const { getDropdownProps, addSelectedItem, removeSelectedItem, selectedItems } = useMultipleSelection<OptionType>({
     initialSelectedItems: defaultValues,
+    ...(multiselect && selectedOption !== undefined && { selectedItems: (selectedOption as OptionType[]) ?? [] }),
     onSelectedItemsChange: ({ selectedItems: _selectedItems }) => multiselect && onChange(_selectedItems),
   });
 
@@ -233,6 +239,9 @@ const Dropdown: FC<DropdownProps> = ({
     onSelectedItemChange: ({ selectedItem }) => !multiselect && onChange(selectedItem),
     // selected items are handled by stateReducer when multiselect is enabled
     ...(multiselect && { selectedItem: null }),
+    // a value for selectedOption indicates that the dropdown should be controlled
+    // don't set selectedItem if it's not, so that downshift can control the selected item(s)
+    ...(!multiselect && selectedOption !== undefined && { selectedItem: selectedOption }),
     stateReducer,
     toggleButtonId,
   };
