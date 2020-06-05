@@ -5,6 +5,7 @@ import styles from './Notification.module.css';
 import { IconInfoCircle, IconError, IconAlertCircle, IconCheck } from '../../icons';
 
 export type NotificationProps = React.PropsWithChildren<{
+  className?: string;
   labelText: string;
   type?: 'notification' | 'error' | 'warning' | 'success';
 }>;
@@ -20,8 +21,9 @@ const Notification: React.FC<NotificationProps> = ({
   children = null,
   labelText,
   type = 'notification',
+  className,
 }: NotificationProps) => (
-  <div className={classNames(styles.notification, styles[type])}>
+  <div className={classNames(styles.notification, styles[type], className)}>
     <div className={styles.label}>
       <span className={styles.icon} aria-hidden="true">
         {icons[type]}
