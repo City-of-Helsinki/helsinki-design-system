@@ -7,8 +7,8 @@ assignees: ''
 
 ---
 
-### Question
-Describe your issue. Be as precice as possible.
+## Question
+> Describe your issue. Be as precice as possible.
 
-### Additional context
-Add any other context about the problem here. You may also attach screenshots or links if needed.
+## Additional context
+> Add any other context about the problem here. You may also attach screenshots or links if needed.
