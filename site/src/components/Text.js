@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Text = ({ color = 'var(--color-black-90)', size = 'var(--fontsize-h-3)', style = {}, weight = 400 }) => (
+const Text = ({ color = 'var(--color-black-90)', size = 'var(--fontsize-heading-m)', style = {}, weight = 400 }) => (
   <span
     style={{
       fontSize: size,

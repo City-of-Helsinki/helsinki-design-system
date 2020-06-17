@@ -9,21 +9,21 @@ h5 {
 /* FONT SIZES */
 
 h1 {
-  font-size: var(--fontsize-h-1);
+  font-size: var(--fontsize-heading-xl);
 }
 
 h2 {
-  font-size: var(--fontsize-h-2);
+  font-size: var(--fontsize-heading-l);
 }
 
 h3 {
-  font-size: var(--fontsize-h-3);
+  font-size: var(--fontsize-heading-m);
 }
 
 h4 {
-  font-size: var(--fontsize-h-4);
+  font-size: var(--fontsize-heading-s);
 }
 
 h5 {
-  font-size: var(--fontsize-h-5);
+  font-size: var(--fontsize-heading-xs);
 }

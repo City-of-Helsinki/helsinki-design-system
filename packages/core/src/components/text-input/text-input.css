@@ -50,7 +50,7 @@
 .hds-text-input__label {
   color: var(--label-color-default);
   display: block;
-  font-size: var(--fontsize-subtitle);
+  font-size: var(--fontsize-body-m);
   font-weight: bold;
   margin-bottom: var(--spacing-3-xs);
 }
@@ -107,7 +107,7 @@
 .hds-text-input__helper-text {
   color: var(--helper-color-default);
   display: block;
-  font-size: var(--fontsize-subtitle);
+  font-size: var(--fontsize-body-m);
   margin-top: var(--spacing-3-xs);
 }
 
