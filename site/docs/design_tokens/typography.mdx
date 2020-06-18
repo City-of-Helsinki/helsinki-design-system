@@ -15,20 +15,18 @@ import "../../src/gatsby-theme-docz/assets/index.css";
 # Typography
 
 <LargeParagraph>
-  In Helsinki Design System, typographic style is defined with heading elements and type tokens.
+  Typography tokens are used to define typographic style of headings, body text and HDS components.
 </LargeParagraph>
 
-Typography can be used to organise information and help users find their way around our services. 
+Typography can be used to organise information and help users find their way around our services. For example using heading levels in a clear and consistent way helps users to understand the hierarchy and structure of the page. 
 
-<p>Helsinki Design system uses the <Link href="https://camelot-typefaces.com/helsinki-grotesk" external>Helsinki Grotesk typeface</Link>, which is one of the most essential elements of the City of Helsinki brand identity. Preferably, no other typefaces should be used.</p>
-
-<p>Subcontractors can purchase the font licenses from <Link href="https://camelot-typefaces.com/helsinki-grotesk" external>Camelot Typefaces website</Link>.</p>
+<p>Typography is also an essential part of the City of Helsinki brand identity. Helsinki Design system typography is based on the propiretary <strong>Helsinki Grotesk</strong> typeface. Preferably, no other typefaces should be used. The font licenses can be purchased from the <Link href="https://camelot-typefaces.com/helsinki-grotesk" external>Camelot Typefaces website</Link>.</p>
 
 
 ## Principles
-- **Use black or white text colour** depending on the background. Other text colours should be used sparingly if at all.
+- **Use black or white text colour** depending on the background. Other text colours should be used intentionally, if at all.
 - **Use typography consistently** throughout your service, to ensure that the content hierarchy and structure is clear and easily understandable.
-- **Use heading levels semantically.** For example after **h1**, next heading on the same page should be **h2**, not **h3**. If needed, the appearance and visual hierarchy of headings can be altered separately from semantic structure with the --fontsize tokens.
+- **Use heading levels semantically.** For example after **h1**, next heading on the same page should be **h2**, not **h3**. If needed, the appearance and visual hierarchy of headings can be altered separately from semantic structure with the font size tokens.
 
 
 ## Accessibility
@@ -37,47 +35,92 @@ Typography can be used to organise information and help users find their way aro
 
 
 ## Usage
-### Headings
+The HDS offers two different sets of font size tokens for heading and body text. The tokens define font size in rem values.
+
+### Heading sizes
+The heading font size tokens are heading level agnostic. This allows you to fit the **heading scale** to the specific needs of the service. In addition to _default_ and _small_ heading scale, custom scales can be also used.
+
 <Playground>
-  <h1>Heading H1 (3.25 rem)</h1>
-  <h2>Heading H2 (2.25 rem)</h2>
-  <h3>Heading H3 (1.5 rem)</h3>
-  <h4>Heading H4 (1.25 rem)</h4>
-  <h5>Heading H5 (1.125 rem)</h5>
-  <div className="subtitle">Subtitle (1 rem)</div>
+  <h1 style={{ fontSize: 'var(--fontsize-heading-xl) '}}>Heading XL (52 pt)</h1>
+  <h2 style={{ fontSize: 'var(--fontsize-heading-l) '}}>Heading L (36 pt)</h2>
+  <h3 style={{ fontSize: 'var(--fontsize-heading-m) '}}>Heading M (24 pt)</h3>
+  <h4 style={{ fontSize: 'var(--fontsize-heading-s) '}}>Heading S (20 pt)</h4>
+  <h5 style={{ fontSize: 'var(--fontsize-heading-xs) '}}>Heading XS (18 pt)</h5>
+  <h6 style={{ fontSize: 'var(--fontsize-heading-xxs) '}}>Heading XXS (16 pt)</h6>
 </Playground>
 
-### Body text
+| Token size      | Point size  | rem value | Default heading scale                                                                                                                      | Small heading scale                                                                                                                        |
+| --------------- | ----------- | ----------| ------------------------------------------------------------------------------------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------------ |
+|                 |             |           | Branding and user interface of most services.                                                                                              | Information heavy layouts and admin interfaces.                                                                                            |
+| **Heading XL**  | 52 pt       | 3.25      | <h1 style={{fontSize: 'var(--fontsize-heading-xl)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h1</h1>  |                                                                                                                                            |
+| **Heading L**   | 36 pt       | 2.25      | <h2 style={{fontSize: 'var(--fontsize-heading-l)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h2</h2>   | <h1 style={{fontSize: 'var(--fontsize-heading-l)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h1</h1>   |
+| **Heading M**   | 24 pt       | 1.5       | <h3 style={{fontSize: 'var(--fontsize-heading-m)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h3</h3>   | <h2 style={{fontSize: 'var(--fontsize-heading-m)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h2</h2>   |
+| **Heading S**   | 20 pt       | 1.25      | <h4 style={{fontSize: 'var(--fontsize-heading-s)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h4</h4>   | <h3 style={{fontSize: 'var(--fontsize-heading-s)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h3</h3>   |
+| **Heading XS**  | 18 pt       | 1.125     | <h5 style={{fontSize: 'var(--fontsize-heading-xs)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h5</h5>  | <h4 style={{fontSize: 'var(--fontsize-heading-xs)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h4</h4>  |
+| **Heading XXS** | 16 pt       | 1         |                                                                                                                                            | <h5 style={{fontSize: 'var(--fontsize-heading-xxs)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h5</h5> |
+
+### Body text sizes
+Body font size tokens allow more subtle variations of body text sizes for content hierarchy and legibility.
 <Playground>
-  <div className="text-lg">Body Large (1.25 rem)</div>
-  <div className="text-md">Body Medium (1.125 rem)</div>
-  <div className="text-body">Body Default (1 rem)</div>
-  <div className="text-sm">Body Small (0.875 rem)</div>
+  <div style={{ fontSize: 'var(--fontsize-body-xl)' }}>Body XL (20 pt)</div>
+  <div style={{ fontSize: 'var(--fontsize-body-l)' }}>Body L (18 pt)</div>
+  <div style={{ fontSize: 'var(--fontsize-body-m)' }}>Body M (16 pt)</div>
+  <div style={{ fontSize: 'var(--fontsize-body-s)' }}>Body S (14 pt)</div>
 </Playground>
 
-### Type styles
+| Token size  | Point size  | rem value | Usage                                                                               |
+| ----------- | ----------- | --------- | ----------------------------------------------------------------------------------- |
+| **Body XL** | 20 pt       | 1.25      | Emphasising short introductory texts and other subtiles                             |
+| **Body L**  | 18 pt       | 1.125     | Improving legibility of essential components, e.g. Text input and other form fields |
+| **Body M**  | 16 pt       | 1         | Body text default                                                                   |
+| **Body S**  | 14 pt       | 0.875     | Conserving space in data heavy layouts and small components, e.g. Status label      |
+
+
+### Line height
+Line height tokens can be used to control spacing between lines of text. The tokens define the ratio between line height and element font size.
 <Playground>
-  <div>Regular (400) is used for body text and links.</div>
-  <div className="text-bold">Bold (700) is used in headings, as well as to emphasize body text.</div>
-  <div className="text-medium">Medium (500) is used only in button components.</div>
+  <p style={{ lineHeight: 'var(--lineheight-s)' }}><strong>Line height S (1)</strong> / Body font size M &ndash; This is an example text to demonstrate line height tokens. This is an example text to demonstrate line height tokens. This is an example text to demonstrate line height tokens.</p>
+  <p style={{ lineHeight: 'var(--lineheight-m)' }}><strong>Line height M (1.2)</strong> / Body font size M &ndash; This is an example text to demonstrate line height tokens. This is an example text to demonstrate line height tokens. This is an example text to demonstrate line height tokens.</p>
+  <p style={{ lineHeight: 'var(--lineheight-l)' }}><strong>Line height L (1.5)</strong> / Body font size M &ndash; This is an example text to demonstrate line height tokens. This is an example text to demonstrate line height tokens. This is an example text to demonstrate line height tokens.</p>
+  <p style={{ lineHeight: 'var(--lineheight-xl)' }}><strong>Line height XL (1.75)</strong> / Body font size M &ndash; This is an example text to demonstrate line height tokens. This is an example text to demonstrate line height tokens. This is an example text to demonstrate line height tokens.</p>
 </Playground>
 
+| Token size        | Ratio | Usage                                                                           |
+| ----------------- | ------|-------------------------------------------------------------------------------- |
+| **Line heigh S**  | 1     | Buttons, navigation and other UI components.                                    |
+| **Line heigh M**  | 1.2   | Headings, lead texts and short paragraphs (no longer than 2-3 sentences).       |
+| **Line heigh L**  | 1.5   | Body text default. Optimal for longer text content and extended reading.        |
+| **Line heigh XL** | 1.75  | Smaller text sizes or if you need to emphasise text (i.e. quotes).              |
+
+### Font weights
+HDS typography uses three font weights.
+<Playground>
+  <p>Regular (400)</p>
+  <p style={{fontWeight:'500'}}>Medium (500)</p>
+  <p style={{fontWeight:'bold'}}>Bold (700)</p>
+</Playground>
+
+| Weight      | css value | Usage                                                         |
+| ----------- | --------- |-------------------------------------------------------------- |
+| **Regular** | 400       | Body text default                                             |
+| **Medium**  | 500       | Used for labels in components e.g. button and form components |
+| **Bold**    | 700       | Heading default. Used to emphasise body text.                 |
 
 ## Tokens
-CSS                    | SASS                  | value           | Example                                     |
----------------------- | --------------------- | --------------- | ------------------------------------------- |
---font-default         | $font-default         | HelsinkiGrotesk |                                             |
---fontsize-heading-xl  | $fontsize-heading-xl  | 3.25rem         | <Text size="var(--fontsize-heading-xl)" />  |
---fontsize-heading-l   | $fontsize-heading-l   | 2.25rem         | <Text size="var(--fontsize-heading-l)" />   |
---fontsize-heading-m   | $fontsize-heading-m   | 1.5rem          | <Text size="var(--fontsize-heading-m)" />   |
---fontsize-heading-s   | $fontsize-heading-s   | 1.25rem         | <Text size="var(--fontsize-heading-s)" />   |
---fontsize-heading-xs  | $fontsize-heading-xs  | 1.125rem        | <Text size="var(--fontsize-heading-xs)" />  |
---fontsize-heading-xxs | $fontsize-heading-xxs | 1rem            | <Text size="var(--fontsize-heading-xxs)" /> |
---fontsize-body-s      | $fontsize-body-s      | 0.875rem        | <Text size="var(--fontsize-body-s)" />      |
---fontsize-body-m      | $fontsize-body-m      | 1rem            | <Text size="var(--fontsize-body-m)" />      |
---fontsize-body-l      | $fontsize-body-l      | 1.125rem        | <Text size="var(--fontsize-body-l)" />      |
---fontsize-body-xl     | $fontsize-body-xl     | 1.25rem         | <Text size="var(--fontsize-body-xl)" />     |
---lineheight-s         | $lineheight-s         | 1               |                                             |
---lineheight-m         | $lineheight-m         | 1.2             |                                             |
---lineheight-l         | $lineheight-l         | 1.5             |                                             |
---lineheight-xl        | $lineheight-xl        | 1.75            |                                             |
+CSS                    | SASS                  | value            | Example                                     |
+---------------------- | --------------------- | ---------------- | ------------------------------------------- |
+--font-default         | $font-default         | HelsinkiGrotesk  |                                             |
+--fontsize-heading-xl  | $fontsize-heading-xl  | 3.25 rem         | <Text size="var(--fontsize-heading-xl)" />  |
+--fontsize-heading-l   | $fontsize-heading-l   | 2.25 rem         | <Text size="var(--fontsize-heading-l)" />   |
+--fontsize-heading-m   | $fontsize-heading-m   | 1.5 rem          | <Text size="var(--fontsize-heading-m)" />   |
+--fontsize-heading-s   | $fontsize-heading-s   | 1.25 rem         | <Text size="var(--fontsize-heading-s)" />   |
+--fontsize-heading-xs  | $fontsize-heading-xs  | 1.125 rem        | <Text size="var(--fontsize-heading-xs)" />  |
+--fontsize-heading-xxs | $fontsize-heading-xxs | 1 rem            | <Text size="var(--fontsize-heading-xxs)" /> |
+--fontsize-body-s      | $fontsize-body-s      | 0.875 rem        | <Text size="var(--fontsize-body-s)" />      |
+--fontsize-body-m      | $fontsize-body-m      | 1 rem            | <Text size="var(--fontsize-body-m)" />      |
+--fontsize-body-l      | $fontsize-body-l      | 1.125 rem        | <Text size="var(--fontsize-body-l)" />      |
+--fontsize-body-xl     | $fontsize-body-xl     | 1.25 rem         | <Text size="var(--fontsize-body-xl)" />     |
+--lineheight-s         | $lineheight-s         | 1                |                                             |
+--lineheight-m         | $lineheight-m         | 1.2              |                                             |
+--lineheight-l         | $lineheight-l         | 1.5              |                                             |
+--lineheight-xl        | $lineheight-xl        | 1.75             |                                             |
