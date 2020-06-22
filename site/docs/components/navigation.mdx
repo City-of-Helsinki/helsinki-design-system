@@ -21,7 +21,7 @@ import LargeParagraph from "../../src/components/LargeParagraph";
 - **It is heavily recommended to always include the navigation component in your service.**
 - Always position navigation to the top of the page. Keep the navigation in place so the user can always easily locate it. It is recommended to include navigation on every page of the service.
 - Navigation component is built to follow HDS [breakpoint tokens](/design-tokens/breakpoints). While it is recommended to follow HDS breakpoint tokens, you may alter navigation width to fit your service's needs.
-- Try to keep the order of actions (search, user, language select) in navigation consistent. Do not change the default order without a good reason.
+- **Try to keep the order of actions (search, user, language select) constitent in navigation.** Do not change the default order without a good reason.
 - Keep navigation menu link labels clear and consise. Prefer max 1-2 word long labels. Avoid starting multiple menu link labels with the same word.
 
 ## Accessibility
@@ -33,7 +33,7 @@ import LargeParagraph from "../../src/components/LargeParagraph";
 
 ### Default (2 lines)
 
-The default navigation includes separate line for navigation links. Therefore it is ideal choice for most services where navigation structure is more complicated.
+The default navigation includes separate line for navigation menu links. Therefore it is ideal choice for most services where navigation structure is more complicated.
 
 <Playground>
 
@@ -59,7 +59,7 @@ A service can opt to use smaller, 1 line navigation if 2 line navigation is too 
 
 ### Color variations
 
-HDS Navigation offers two variations for different background colors - one with white and one with black text elements. Use variation that achieves better contrast with the brand background colour of your choice. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
+HDS Navigation offers two variations with different background colors - one with white and one with black text elements. Use variation that achieves better contrast with the brand background colour of your choice. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
 
 <Playground>
 
@@ -72,7 +72,7 @@ HDS Navigation offers two variations for different background colors - one with 
 
 ### Navigation actions
 
-HDS Navigation component supports many features out of the box. The main navigation bar can be configured to feature search, language selection and user profile actions. 
+HDS Navigation component supports many commonly used features out of the box. The main navigation bar can be configured to include search, language selection and user profile actions. You may also easily customize the action row with your own actions.
 
 <Playground>
 
@@ -91,9 +91,9 @@ _Not included in hds-core!_
 
 ### React
 
-[Dropdowns in hds-react](/storybook/react/?path=/story/components-dropdown--default)
+[Navigation in hds-react](/)
 
-[Dropdown API](/storybook/react/?path=/docs/components-dropdown--default)
+[Navigation API](/)
 
 ## Tokens
 
