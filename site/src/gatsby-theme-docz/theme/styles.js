@@ -39,7 +39,7 @@ const styles = {
   },
   li: {
     marginBottom: 1,
-    maxWdith: 600,
+    maxWidth: 600,
   },
   ul: {
     marginBottom: 1,
