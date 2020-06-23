@@ -1,0 +1,71 @@
+---
+name: Status label
+menu: Components
+route: /components/status-label
+---
+
+import { Playground } from "docz";
+import { RadioButton } from "hds-react";
+
+import ColorBox from "../../src/components/ColorBox";
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
+import Text from "../../src/components/Text";
+
+# Status label
+
+<LargeParagraph>
+  Status labels can be used to highlight different statuses or items to the user. Status labels cannot be interacted with and they are only meant to convey relevant information.
+</LargeParagraph>
+
+## Principles
+
+- **A label should always be provided with a status label.**
+- Keep labels short and concise. Use 1-2 words at maximum and do not use labels expanding to two rows.
+- Use status colours consistenly. You can find guidelines on when to use each status colour in the [colour guidelines](/design-tokens/colour#ui-colours "UI colours").
+
+## Accessibility
+
+- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
+- Remember that colour should never be the only way of conveying information. Make sure the meaning of the status label is clearly described by the label text. Refer to <Link href="https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html" external>WCAG 2.1 Use of Color guideline</Link> for more information.
+
+## Usage
+
+<Playground>
+
+</Playground>
+
+##### Core:
+```html
+<!-- Core code goes here -->
+```
+
+##### React:
+```tsx
+
+```
+
+## Demos & API
+
+### Core
+
+[Status label in hds-core](/)
+
+### React
+
+[Status labels in hds-react](/)
+
+[StatusLabel API](/)
+
+## Tokens
+
+```css
+/* CSS */
+@import "hds-design-tokens/lib/color/component/radio-button.css";
+/* SCSS */
+@import "hds-design-tokens/lib/color/component/radio-button.scss";
+```
+```js
+// JS
+import 'hds-design-tokens/lib/color/component/radio-button.css';
+```
