@@ -76,9 +76,16 @@ Status colours are reserved exclusively for indicating valid, invalid or informa
 | Status  | Base                                      | Dark                                           | Light                                            |
 | ------- | ----------------------------------------- | -----------------------------------------------| ------------------------------------------------ |
 | error   | <ColorBox color="var(--color-error)"/>    | <ColorBox color="var(--color-error-dark)"/>    | <ColorBox color="var(--color-error-light)" />    |
-| success | <ColorBox color="var(--color-success)"/>  | <ColorBox color="var(--color-success-dark)"/>  | <ColorBox color="var(--color-success-light)" />  |
 | alert   | <ColorBox color="var(--color-alert)"/>    | <ColorBox color="var(--color-alert-dark)"/>    | <ColorBox color="var(--color-alert-light)" />    |
+| success | <ColorBox color="var(--color-success)"/>  | <ColorBox color="var(--color-success-dark)"/>  | <ColorBox color="var(--color-success-light)" />  |
 | info    | <ColorBox color="var(--color-info)"/>     | <ColorBox color="var(--color-info-dark)"/>     | <ColorBox color="var(--color-info-light)" />     |
+
+| Status  | Usage                                                                                                   | Example                                        |
+| ------- | ------------------------------------------------------------------------------------------------------- | -----------------------------------------------| 
+| error   | Error state which requires user's immediate actions.                                                    | _Form is missing critial information._         |
+| alert   | Warning state to catch user's attention but does not require immediate actions.                         | _Loading is taking longer than expected._      |
+| success | Positive state to inform user about success.                                                            | _Form submit was successful._                  |
+| info    | State which does not indicate clear success or failure but can be useful extra information to the user. | _User has received new messages._              |
 
 ### Grayscale
 | black                                  |  90                                       | 80                                        | 70                                        | 60                                        | 50                                        | 40                                        | 30                                        | 20                                        | 10                                        | 5                                        | white                                   |
