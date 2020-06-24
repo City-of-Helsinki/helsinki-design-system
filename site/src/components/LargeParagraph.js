@@ -11,6 +11,7 @@ const LargeParagraph = ({
     style={{
       fontSize: size,
       color,
+      maxWidth: 600,
       ...style,
     }}
   >
