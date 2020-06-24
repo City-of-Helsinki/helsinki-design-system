@@ -5,6 +5,7 @@ menu: Guidelines
 ---
 
 import LargeParagraph from "../../src/components/LargeParagraph";
+import Image from "../../src/components/Image";
 import { Notification } from "hds-react";
 
 # Grid
@@ -13,7 +14,7 @@ import { Notification } from "hds-react";
     Helsinki Design System follows a 12 column grid system which scales across five defined breakpoints. Using pre-defined grid system helps to keep visual consistency and rhythm across your designs and implementations.
 </LargeParagraph>
 
-<Notification labelText="Note!">
+<Notification labelText="Note!" className="siteNotification">
     HDS does not currently include an implementation of the grid. Grid is provided as specified breakpoints and other values which can be easily applied to most commonly used grid systems.
 </Notification>
 
@@ -35,7 +36,7 @@ Breakpoint token | Container-width token | # of columns | Margin (gutter) in px
 --breakpoint-l   | --container-width-l   | 12           | 24
 --breakpoint-xl  | --container-width-xl  | 12           | 24
 
-[![Breakpoint demonstration, you can see the same values in the table above](../../static/grid-breakpoint-demonstration.png)](../../static/grid-breakpoint-demonstration.png "Breakpoint demonstration")
+<Image src="../../static/grid-breakpoint-demonstration.png" alt="Breakpoint demonstration" style="max-width:100%" viewable/>
 
 ## Layout columns
 
@@ -43,11 +44,11 @@ Breakpoint token | Container-width token | # of columns | Margin (gutter) in px
 
 12 column grid can be divided into multiple smaller columns. Prefer simple and even column combinations to maintain visual consistency across all of screen sizes.
 
-[![Dividing columns to smaller columns](../../static/grid-layout-columns.png)](../../static/grid-layout-columns.png "Dividing columns to smaller columns")
+<Image src="../../static/grid-layout-columns.png" alt="Dividing columns to smaller columns" style="max-width:100%" viewable/>
 
 ### Column stacking
 
 When the breakpoint is reached, columns will stack starting from left. Developer or designer can also choose to alter column sizes if it helps to maintain clearer and more consistent view.
 
-[![When breakpoint changes, columns will stack to the next row starting from left](../../static/grid-column-stacking.png)](../../static/grid-column-stacking.png "When breakpoint changes, columns will stack to the next row starting from left")
+<Image src="../../static/grid-column-stacking.png" alt="When breakpoint changes, columns will stack to the next row starting from left" style="max-width:100%" viewable/>
 
