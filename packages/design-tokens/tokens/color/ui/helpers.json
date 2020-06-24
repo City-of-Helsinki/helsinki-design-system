@@ -41,22 +41,22 @@
       "primary": true
     },
     "alert-dark": {
-      "value": "#986700",
+      "value": "#d18200",
       "type": "color",
       "primary": true
     },
     "info": {
-      "value": "#007293",
+      "value": "#0062b9",
       "type": "color",
       "primary": true
     },
     "info-light": {
-      "value": "#dcf1f5",
+      "value": "#e5eff8",
       "type": "color",
       "primary": true
     },
     "info-dark": {
-      "value": "#005b76",
+      "value": "#004f94",
       "type": "color",
       "primary": true
     }
