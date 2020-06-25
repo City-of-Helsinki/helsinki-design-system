@@ -1,6 +1,6 @@
 ---
 name: Enhancement
-about: Request a change to existing component, pattern, token or documentation.
+about: Request a change to an existing component, pattern, token or documentation.
 title: ''
 labels: 'i: enhancement'
 assignees: ''
