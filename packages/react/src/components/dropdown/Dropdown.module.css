@@ -69,7 +69,7 @@
   border: var(--border-width) solid var(--dropdown-border-color-default);
   border-radius: var(--border-radius);
   color: var(--dropdown-color-default);
-  font-size: var(--fontsize-body-medium);
+  font-size: var(--fontsize-body-l);
   height: var(--dropdown-height);
   line-height: normal;
   padding: var(--spacing-s) calc(var(--icon-size) + var(--spacing-l)) var(--spacing-s) var(--spacing-s);
@@ -161,7 +161,7 @@
 
 .helperText {
   color: var(--helper-color-default);
-  font-size: var(--fontsize-subtitle);
+  font-size: var(--fontsize-body-m);
   margin-top: var(--spacing-3-xs);
 }
 
@@ -196,7 +196,7 @@
   color: var(--menu-item-color-default);
   cursor: default;
   display: flex;
-  font-size: var(--fontsize-body-medium);
+  font-size: var(--fontsize-body-l);
   justify-content: space-between;
   line-height: 1.333;
   min-height: var(--dropdown-height);
