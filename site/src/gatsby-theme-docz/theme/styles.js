@@ -1,7 +1,7 @@
 const styles = {
   Container: {
     p: 4,
-    maxWidth: 1040,
+    maxWidth: 1200,
   },
   root: {
     fontSize: null,
@@ -34,8 +34,23 @@ const styles = {
   h6: {
     fontSize: null,
   },
+  p: {
+    maxWidth: 600,
+  },
   li: {
     marginBottom: 1,
+    maxWidth: 600,
+  },
+  ul: {
+    marginBottom: 1,
+    maxWidth: 600,
+  },
+  ol: {
+    marginBottom: 1,
+    maxWidth: 600,
+  },
+  img: {
+    overflow: 'visible',
   },
   blockquote: {
     my: 4,

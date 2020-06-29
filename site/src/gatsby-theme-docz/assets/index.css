@@ -81,3 +81,7 @@ a.customLink {
 a.customLink:hover {
   text-decoration: underline;
 }
+
+.siteNotification {
+  max-width: 600px;
+}
