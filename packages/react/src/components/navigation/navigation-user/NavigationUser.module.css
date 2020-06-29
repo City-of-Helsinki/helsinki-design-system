@@ -1,0 +1,91 @@
+@value x-small-down, small-down, small-only, small-up from "../../../styles/breakpoints.css";
+
+.userDropdown {
+  --dropdown-border-color-default: transparent;
+  --dropdown-border-color-hover: transparent;
+  --dropdown-border-color-focus: transparent;
+  --dropdown-color-default: inherit;
+  --placeholder-color: inherit;
+  --dropdown-height: calc(var(--spacing-2-xl) - var(--outline-width) * 2);
+}
+
+/* SIGN IN BUTTON */
+.signInButton > span {
+  padding: var(--spacing-2-xs);
+}
+
+/* THEMES */
+
+/* black */
+.navigationUser.theme-black .userDropdown {
+  --dropdown-background-default: var(--color-black);
+}
+
+@media x-small-down {
+  .navigationUser {
+    padding: var(--spacing-m);
+  }
+}
+
+@media small-down {
+  .userName {
+    align-items: center;
+    display: flex;
+  }
+  .userName > svg {
+    margin-right: var(--spacing-xs);
+  }
+  .navigationUser > *:not(:first-child) {
+    margin-top: var(--spacing-s);
+  }
+}
+
+@media small-only {
+  .navigationUser {
+    padding: var(--spacing-m) var(--spacing-xs);
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .navigationUser {
+    display: flex;
+  }
+  .signInButton.signInButton {
+    --border-width: 3px;
+
+    --background-color: transparent;
+    --background-color-hover: transparent;
+    --background-color-hover-focus: transparent;
+    --border-color-focus: var(--color-coat-of-arms-blue);
+    --border-color-hover-focus: var(--color-coat-of-arms-blue);
+    --color: inherit;
+    --color-hover: inherit;
+    --color-focus: inherit;
+    --color-hover-focus: inherit;
+    --focus-outline-color: transparent;
+
+    border-radius: 2px;
+    height: 100%;
+    padding: var(--spacing-2-xs);
+  }
+  /* icon */
+  .signInButton.signInButton > div {
+    margin-left: 0;
+  }
+  /* label */
+  .signInButton > span {
+    display: none;
+  }
+
+  .navigationUser.theme-black .signInButton:focus {
+    border-color: var(--color-white);
+  }
+}
+@media only screen and (min-width: 992px) {
+  .signInButton.signInButton {
+    padding: 0 var(--spacing-3-xs);
+  }
+  .signInButton > span {
+    display: block;
+  }
+}
