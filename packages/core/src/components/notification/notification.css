@@ -4,15 +4,22 @@
   --notification-border-width: var(--spacing-2-xs);
   --notification-color: var(--color-black-90);
   --notification-focus-outline-color: var(--color-coat-of-arms-blue);
+  --notification-max-width-inline: none;
+  --notification-max-width-toast: 21rem;
+  --notification-offset: var(--spacing-layout-s);
+  --notification-z-index: 99;
 
   background-color: var(--notification-background-color);
   border: solid var(--notification-border-color);
-  border-width: var(--notification-border-width) 0 0;
+  border-width: 0 0 0 var(--notification-border-width);
   color: var(--notification-color);
   display: grid;
   gap: var(--spacing-s);
+  max-width: var(--notification-max-width-inline);
   padding: var(--spacing-s);
   position: relative;
+  width: 100%;
+  z-index: var(--notification-z-index);
 }
 
 /* LABEL */
@@ -84,10 +91,56 @@
   box-shadow: 0 0 0 3px var(--notification-focus-outline-color)
 }
 
-/* INLINE */
+/* TOAST POSITIONS */
 
-.hds-notification--inline {
-  border-width: 0 0 0 var(--notification-border-width);
+.hds-notification--top-left,
+.hds-notification--top-center,
+.hds-notification--top-right,
+.hds-notification--bottom-left,
+.hds-notification--bottom-center,
+.hds-notification--bottom-right {
+  border-width: var(--notification-border-width) 0 0;
+  max-width: var(--notification-max-width-toast);
+  position: fixed;
+  width: calc(100% - var(--spacing-l));
+}
+
+.hds-notification--top-left {
+  top: var(--notification-offset);
+  left: var(--notification-offset);
+}
+
+.hds-notification--top-center {
+  top: var(--notification-offset);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hds-notification--top-right {
+  top: var(--notification-offset);
+  right: var(--notification-offset);
+}
+
+.hds-notification--bottom-left {
+  bottom: var(--notification-offset);
+  left: var(--notification-offset);
+}
+
+.hds-notification--bottom-center {
+  bottom: var(--notification-offset);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hds-notification--bottom-right {
+  bottom: var(--notification-offset);
+  right: var(--notification-offset);
+}
+
+@media only screen and (max-width: 765.98px) {
+  .hds-notification {
+    --notification-offset: var(--spacing-s);
+  }
 }
 
 /* TYPES */

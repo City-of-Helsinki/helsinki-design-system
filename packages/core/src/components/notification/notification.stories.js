@@ -65,14 +65,14 @@ export const Error = () => `
     </div>
 `;
 
-export const Inline = () =>
-  [null, 'success', 'alert', 'error']
+export const Toast = () =>
+  ['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right']
     .map(
-      (type) =>
+      (position) =>
         `
-        <div class="hds-notification hds-notification--inline ${type ? `hds-notification--${type}` : ''}">
-          ${getLabel(type || 'info')}
-          ${text}
+        <div class="hds-notification hds-notification--${position}">
+          ${getLabel()}
+          ${position}
         </div>
     `,
     )
