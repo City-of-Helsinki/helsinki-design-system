@@ -59,6 +59,7 @@
 
 .hds-text-input__input-wrapper {
   display: flex;
+  height: 100%;
   position: relative;
 }
 
@@ -72,7 +73,7 @@
   font-size: 1.125em;
   height: var(--input-height);
   line-height: normal;
-  padding: var(--spacing-s);
+  padding: 0 var(--spacing-s);
   width: 100%;
 }
 
