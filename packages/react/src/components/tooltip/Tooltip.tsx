@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Transition } from 'react-spring/renderprops.cjs';
+import { Transition } from 'react-spring/universal';
 
 import classNames from '../../utils/classNames';
 import { IconInfoCircle, IconQuestionCircle, IconCross } from '../../icons';

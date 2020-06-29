@@ -1,8 +1,12 @@
-import React from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
+import React, { useEffect, useState } from 'react';
+import { boolean, radios, text, withKnobs } from '@storybook/addon-knobs';
 
-import Notification from './Notification';
+import Notification, { NotificationInlineSize, NotificationToastSize } from './Notification';
+import Button from '../button/Button';
 
+const props = {
+  label: 'Label',
+};
 const content =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.';
 
@@ -12,22 +16,120 @@ export default {
   decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
 };
 
-export const Default = () => <Notification labelText="label">{content}</Notification>;
+export const Default = () => <Notification {...props}>{content}</Notification>;
 
-export const Warning = () => (
-  <Notification labelText="label" type="warning">
+export const Alert = () => (
+  <Notification {...props} type="alert">
     {content}
   </Notification>
 );
 
 export const Error = () => (
-  <Notification labelText="label" type="error">
+  <Notification {...props} type="error">
     {content}
   </Notification>
 );
 
 export const Success = () => (
-  <Notification labelText="label" type="success">
+  <Notification {...props} type="success">
     {content}
   </Notification>
 );
+
+export const Small = () => <Notification {...props} size="small" />;
+
+export const Large = () => (
+  <Notification {...props} size="large">
+    {content}
+  </Notification>
+);
+
+export const Dismissible = () => {
+  const [open, setOpen] = useState(true);
+  return (
+    <>
+      {!open && <Button onClick={() => setOpen(true)}>Open notification</Button>}
+      {open && (
+        <Notification {...props} dismissible onClose={() => setOpen(false)} closeButtonLabelText="Close notification">
+          {content}
+        </Notification>
+      )}
+    </>
+  );
+};
+
+export const Playground = () => {
+  const [open, setOpen] = useState(true);
+  const label = text('Label', 'Label');
+  const body = text('Content', content);
+  const closeButtonLabelText = text('Close button label text', 'Close notification');
+  const type = radios(
+    'Type',
+    {
+      info: 'info',
+      success: 'success',
+      alert: 'alert',
+      error: 'error',
+    },
+    'info',
+  );
+  const size = radios(
+    'Size',
+    {
+      default: 'default',
+      small: 'small',
+      large: 'large',
+    },
+    'default',
+  );
+  const position = radios(
+    'Position',
+    {
+      inline: 'inline',
+      'top-left': 'top-left',
+      'top-center': 'top-center',
+      'top-right': 'top-right',
+      'bottom-left': 'bottom-left',
+      'bottom-center': 'bottom-center',
+      'bottom-right': 'bottom-right',
+    },
+    'inline',
+  );
+  const dismissible = boolean('Dismissible', false);
+
+  useEffect(() => {
+    if (position === 'inline') setOpen(true);
+  }, [position]);
+
+  let typedSize;
+  position === 'inline' ? (typedSize = size as NotificationInlineSize) : (typedSize = size as NotificationToastSize);
+
+  return (
+    <>
+      <Button
+        style={{
+          position: 'fixed',
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+        onClick={() => setOpen(!open)}
+      >
+        Toggle notification
+      </Button>
+      {open && (
+        <Notification
+          label={label}
+          type={type}
+          onClose={() => setOpen(false)}
+          position={position}
+          size={typedSize}
+          dismissible={dismissible}
+          closeButtonLabelText={closeButtonLabelText}
+        >
+          {size !== 'small' && body}
+        </Notification>
+      )}
+    </>
+  );
+};

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Transition } from 'react-spring/renderprops.cjs';
+import { Transition } from 'react-spring';
 
 import classNames from '../../utils/classNames';
 import Notification, { NotificationProps } from './Notification';
