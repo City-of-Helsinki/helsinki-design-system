@@ -110,6 +110,7 @@ export const Controlled = () => {
           multiselect
           onChange={handleMultiselectSelectedItemChange}
           selectedOption={multiselectSelectedItem}
+          closeMenuOnSelect={false}
           style={{ marginTop: 'var(--spacing-s)' }}
         />
       ))}
