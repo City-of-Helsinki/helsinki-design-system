@@ -3,7 +3,7 @@
 exports[`<DismissableNotification /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
-    style="height: 0px; overflow-y: hidden; position: relative;"
+    style="overflow-y: hidden; position: relative;"
   >
     <div
       class="notification notification"

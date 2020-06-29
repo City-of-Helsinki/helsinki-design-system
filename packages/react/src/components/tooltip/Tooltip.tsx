@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Transition } from 'react-spring/renderprops.cjs';
 
 import classNames from '../../utils/classNames';
 import { IconInfoCircle, IconQuestionCircle, IconCross } from '../../icons';
@@ -34,7 +33,7 @@ const Tooltip: React.FC<TooltipProps> = ({
           <IconQuestionCircle className={styles.iconTooltip} />
         </span>
       </button>
-      <TooltipTransition open={isOpen}>
+      {isOpen && (
         <div className={classNames(styles.tooltip, alternative && styles.alternative)}>
           <div className={styles.label}>
             <span aria-hidden="true">
@@ -55,23 +54,9 @@ const Tooltip: React.FC<TooltipProps> = ({
           </div>
           <div className={styles.tooltipBody}>{children}</div>
         </div>
-      </TooltipTransition>
+      )}
     </div>
   );
 };
-
-type TooltipTransitionProps = React.PropsWithChildren<{ open: boolean }>;
-
-const TooltipTransition = ({ children, open }: TooltipTransitionProps) => (
-  <Transition
-    config={{ tension: 300, friction: 30 }}
-    items={open}
-    from={{ height: 0 }}
-    enter={{ height: 'auto' }}
-    leave={{ height: 0 }}
-  >
-    {(show) => show && ((props) => <div style={{ ...props, ...{ overflowY: 'hidden' } }}>{children}</div>)}
-  </Transition>
-);
 
 export default Tooltip;

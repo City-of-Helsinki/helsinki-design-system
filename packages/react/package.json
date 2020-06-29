@@ -75,7 +75,7 @@
     "hds-core": "0.11.3",
     "lodash.isequal": "4.5.0",
     "lodash.uniqueid": "4.0.1",
-    "react-spring": "8.0.27"
+    "react-spring": "9.0.0-rc.3"
   },
   "peerDependencies": {
     "react": "^16.8.0",
