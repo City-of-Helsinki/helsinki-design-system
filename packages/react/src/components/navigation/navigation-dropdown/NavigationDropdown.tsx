@@ -22,7 +22,7 @@ const DROPDOWN_TRANSITION: UseTransitionProps = {
   enter: { transform: 'translate3d(0, 10px, 0)', opacity: 1 },
   config: {
     friction: 30,
-    tension: 400,
+    tension: 300,
   },
 };
 
