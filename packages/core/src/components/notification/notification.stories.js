@@ -55,7 +55,7 @@ export const WithClose = () =>
           ${getLabel()}
           ${text}
           <button
-            class="hds-notification__close-button"
+            class="hds-notification__close-button button-reset"
             aria-label="Close notification"
             onclick=""
           >

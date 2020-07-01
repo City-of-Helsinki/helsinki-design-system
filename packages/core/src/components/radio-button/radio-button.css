@@ -38,6 +38,13 @@
   position: relative;
 }
 
+.hds-radio-button,
+.hds-radio-button *,
+.hds-radio-button *::before,
+.hds-radio-button *::after {
+  box-sizing: border-box;
+}
+
 .hds-radio-button:not(:first-of-type) {
   margin-top: var(--spacing-2-xs);
 }

@@ -20,6 +20,7 @@
 }
 
 .buttonTooltip {
+  composes: button-reset from 'hds-core/lib/utils/helpers.css';
   position: absolute;
   top: 0;
   right: 0;
@@ -32,6 +33,7 @@
 }
 
 .buttonClose {
+  composes: button-reset from 'hds-core/lib/utils/helpers.css';
   position: absolute;
   top: 0;
   right: 0;

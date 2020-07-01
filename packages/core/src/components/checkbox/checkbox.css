@@ -39,6 +39,13 @@
   position: relative;
 }
 
+.hds-checkbox,
+.hds-checkbox *,
+.hds-checkbox *::before,
+.hds-checkbox *::after {
+  box-sizing: border-box;
+}
+
 .hds-checkbox:not(:first-of-type) {
   margin-top: var(--spacing-2-xs);
 }
