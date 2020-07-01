@@ -118,6 +118,10 @@ export type DropdownProps = {
    */
   selectedOption?: OptionType | OptionType[];
   /**
+   * Display selected options as buttons below dropdown
+   */
+  showSelectedBelow?: boolean;
+  /**
    * Override or extend the root styles applied to the component
    */
   style?: CSSProperties;
@@ -176,17 +180,11 @@ const Dropdown: FC<DropdownProps> = ({
   placeholder = '',
   required,
   selectedOption,
+  showSelectedBelow = false,
   style,
   toggleButtonId,
   visibleOptions = 5,
 }: DropdownProps) => {
-  // todo: this should be removed when multiselect is supported together with the filterable prop
-  // https://helsinkisolutionoffice.atlassian.net/browse/HDS-200
-  if (filterable && multiselect) {
-    // eslint-disable-next-line no-param-reassign
-    multiselect = false;
-  }
-
   // combobox menu options
   const [inputItems, setInputItems] = useState(options);
 
@@ -290,6 +288,14 @@ const Dropdown: FC<DropdownProps> = ({
     return <span className={styles.buttonLabel}>{buttonLabel || placeholder}</span>;
   };
 
+  const showSelectedItems = (items: OptionType | OptionType[]) => {
+    return items.map((item) => (
+      <button type="button" key={item.key} onClick={() => removeSelectedItem(item)}>
+        {item.label}
+      </button>
+    ));
+  };
+
   // menu items
   const menuOptions = filterable ? inputItems : options;
   // show placeholder if no value is selected
@@ -389,6 +395,7 @@ const Dropdown: FC<DropdownProps> = ({
             );
           })}
       </ul>
+      {showSelectedBelow && showSelectedItems(selectedItems)}
       {helper && <div className={styles.helperText}>{helper}</div>}
     </div>
   );

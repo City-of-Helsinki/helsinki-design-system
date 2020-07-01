@@ -133,6 +133,21 @@ Combobox.story = {
   name: 'With filtering (combobox)',
 };
 
+export const MultiSelectCombobox = () => (
+  <Dropdown
+    options={options}
+    label="Multiselect filterable dropdown (combobox) and buttons below"
+    placeholder="Placeholder"
+    filterable
+    multiselect
+    showSelectedBelow
+  />
+);
+
+MultiSelectCombobox.story = {
+  name: 'Multiselect with filtering (combobox) and buttons below',
+};
+
 export const Playground = () => {
   const multiselect = boolean('Multiselect', false);
   const filterable = boolean('Filterable', false);
