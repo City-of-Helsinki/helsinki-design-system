@@ -1,6 +1,3 @@
-/* import radio-button color variables */
-@import "hds-design-tokens/lib/color/component/radio-button.css";
-
 .hds-radio-button {
   --size: 24px;
   /* icon (circle) size relative to the radio button size (--size) */

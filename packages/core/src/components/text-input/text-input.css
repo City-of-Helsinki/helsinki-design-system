@@ -1,8 +1,5 @@
 @import "../../utils/animations.css";
 
-/* import text-input color variables */
-@import "hds-design-tokens/lib/color/component/text-input.css";
-
 @svg-load icon url(../../svg/ui/alert-circle.svg);
 
 .hds-text-input {

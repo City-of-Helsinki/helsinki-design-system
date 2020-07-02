@@ -1,6 +1,3 @@
-/* import checkbox color variables */
-@import "hds-design-tokens/lib/color/component/checkbox.css";
-
 @svg-load icon url(../../svg/ui/check.svg);
 
 .hds-checkbox {
