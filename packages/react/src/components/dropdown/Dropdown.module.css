@@ -35,6 +35,8 @@
   --menu-item-icon-color-selected: var(--color-white);
   --menu-item-icon-color-disabled: var(--color-black-40);
   --placeholder-color: var(--color-black-60);
+  --selected-option-background-color: var(--color-black-10);
+  --selected-option-color: var(--color-black-90);
 
   position: relative;
 }
@@ -120,6 +122,27 @@
 
 .buttonReset {
   composes: button-reset from 'hds-core/lib/utils/helpers.css';
+}
+
+/* MULTISELECT - SELECTED */
+
+.selectedOptionsWrapper .selectedOption {
+  margin-top: var(--spacing-xs);
+  margin-right: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-xs) var(--spacing-xs) var(--spacing-m);
+  display: inline-flex;
+  font-size: var(--fontsize-body-m);
+  justify-content: space-between;
+  background-color: var(--selected-option-background-color);
+  color: var(--selected-option-color);
+}
+
+.selectedOptionsWrapper .selectedOption button {
+
+}
+
+.selectedOptionIcon {
+  margin-left: var(--spacing-s);
 }
 
 /* INVALID */

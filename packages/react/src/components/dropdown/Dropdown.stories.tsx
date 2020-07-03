@@ -5,15 +5,16 @@ import Dropdown from './Dropdown';
 import Button from '../button/Button';
 
 const options = [
-  { label: 'Plutonium' },
+  { key: 'pl', label: 'Plutonium' },
   { label: 'Americium' },
-  { label: 'Copernicium' },
-  { label: 'Nihonium' },
-  { label: 'Flerovium' },
-  { label: 'Moscovium' },
-  { label: 'Livermorium' },
-  { label: 'Tennessine' },
-  { label: 'Oganesson' },
+  { key: 'co', label: 'Copernicium' },
+  { key: 'ni', label: 'Nihonium' },
+  { key: 'fl', label: 'Flerovium' },
+  { key: 'mo', label: 'Moscovium' },
+  { key: 'li', label: 'Livermorium' },
+  { key: 'te', label: 'Tennessine' },
+  { key: 'og', label: 'Oganesson' },
+  { key: 'og2', label: 'Oganesson' }, // Let's test with two items having identical label
 ];
 
 export default {
@@ -133,9 +134,10 @@ Combobox.story = {
   name: 'With filtering (combobox)',
 };
 
-export const MultiSelectCombobox = () => (
+export const MultiSelectFilterCombobox = () => (
   <Dropdown
     options={options}
+    closeMenuOnSelect={false}
     label="Multiselect filterable dropdown (combobox) and buttons below"
     placeholder="Placeholder"
     filterable
@@ -144,7 +146,7 @@ export const MultiSelectCombobox = () => (
   />
 );
 
-MultiSelectCombobox.story = {
+MultiSelectFilterCombobox.story = {
   name: 'Multiselect with filtering (combobox) and buttons below',
 };
 

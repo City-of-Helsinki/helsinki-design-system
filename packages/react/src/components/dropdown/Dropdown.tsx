@@ -4,7 +4,7 @@ import isEqual from 'lodash.isequal';
 
 import styles from './Dropdown.module.css';
 import classNames from '../../utils/classNames';
-import { IconAngleDown, IconCheck, IconAlertCircle } from '../../icons';
+import { IconAngleDown, IconCheck, IconAlertCircle, IconCross } from '../../icons';
 import Checkbox from '../checkbox/Checkbox';
 import FieldLabel from '../../internal/field-label/FieldLabel';
 
@@ -289,11 +289,22 @@ const Dropdown: FC<DropdownProps> = ({
   };
 
   const showSelectedItems = (items: OptionType | OptionType[]) => {
-    return items.map((item) => (
-      <button type="button" key={item.key} onClick={() => removeSelectedItem(item)}>
-        {item.label}
-      </button>
-    ));
+    return (
+      <div className={styles.selectedOptionsWrapper}>
+        {items.map((item) => {
+          return (
+            <button
+              type="button"
+              className={styles.selectedOption}
+              key={item.key || item.label}
+              onClick={() => removeSelectedItem(item)}
+            >
+              {item.label} <IconCross className={styles.selectedOptionIcon} />
+            </button>
+          );
+        })}
+      </div>
+    );
   };
 
   // menu items
@@ -365,7 +376,7 @@ const Dropdown: FC<DropdownProps> = ({
             return (
               <li
                 {...getItemProps({
-                  key: `item-${index}`,
+                  key: `item-${item.key || item.value}`,
                   index,
                   item,
                   disabled: optionDisabled,
