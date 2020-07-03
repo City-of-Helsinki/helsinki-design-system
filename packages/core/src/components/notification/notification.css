@@ -7,6 +7,7 @@
   --notification-max-width-inline: none;
   --notification-max-width-toast: 21rem;
   --notification-offset: var(--spacing-layout-s);
+  --notification-padding: var(--spacing-s);
   --notification-z-index: 99;
 
   background-color: var(--notification-background-color);
@@ -16,7 +17,7 @@
   display: grid;
   gap: var(--spacing-s);
   max-width: var(--notification-max-width-inline);
-  padding: var(--spacing-s);
+  padding: var(--notification-padding);
   position: relative;
   width: 100%;
   z-index: var(--notification-z-index);
@@ -39,7 +40,7 @@
 /* SMALL */
 
 .hds-notification--small {
-  padding: var(--spacing-2-xs);
+  --notification-padding: var(--spacing-2-xs);
 }
 
 .hds-notification--small .hds-notification__label {
@@ -50,7 +51,7 @@
 /* LARGE */
 
 .hds-notification--large {
-  padding: var(--spacing-l);
+  --notification-padding: var(--spacing-l);
 }
 
 .hds-notification--large .hds-notification__label {

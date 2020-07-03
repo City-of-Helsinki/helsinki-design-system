@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { boolean, radios, text, withKnobs } from '@storybook/addon-knobs';
+import { boolean, number, radios, text, withKnobs } from '@storybook/addon-knobs';
 
 import Notification, { NotificationInlineSize, NotificationToastSize } from './Notification';
 import Button from '../button/Button';
@@ -58,6 +58,20 @@ export const Dismissible = () => {
   );
 };
 
+export const AutoClose = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      {!open && <Button onClick={() => setOpen(true)}>Open notification</Button>}
+      {open && (
+        <Notification {...props} position="top-right" autoClose autoCloseDuration={2000} onClose={() => setOpen(false)}>
+          {content}
+        </Notification>
+      )}
+    </>
+  );
+};
+
 export const Playground = () => {
   const [open, setOpen] = useState(true);
   const label = text('Label', 'Label');
@@ -96,6 +110,8 @@ export const Playground = () => {
     'inline',
   );
   const dismissible = boolean('Dismissible', false);
+  const autoClose = boolean('Close automatically', false);
+  const autoCloseDuration = number('Auto close duration', 6000);
 
   useEffect(() => {
     if (position === 'inline') setOpen(true);
@@ -119,6 +135,8 @@ export const Playground = () => {
       </Button>
       {open && (
         <Notification
+          autoClose={autoClose}
+          autoCloseDuration={autoCloseDuration}
           label={label}
           type={type}
           onClose={() => setOpen(false)}
