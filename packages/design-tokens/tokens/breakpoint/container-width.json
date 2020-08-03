@@ -1,16 +1,16 @@
 {
     "container-width": {
       "xs": {
-        "value": "304"
+        "value": "288"
       },
       "s": {
-        "value": "560"
+        "value": "544"
       },
       "m": {
-        "value": "752"
+        "value": "720"
       },
       "l": {
-        "value": "968"
+        "value": "944"
       },
       "xl": {
         "value": "1200"
