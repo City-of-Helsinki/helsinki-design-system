@@ -21,21 +21,26 @@ import Text from "../../src/components/Text";
 ## Principles
 - Notifications are designed to capture users' attention. **Therefore, they should be used sparingly only for important information or updates.**
 - **Notification title should include the most important information about the notification.** Aim for title that is short, concise and easy to understand. Avoid titles that span over multiple lines.
-- Use notification levels and colours consistenly. You can find guidelines on when to use each status colour in the [colour guidelines](/design-tokens/colour#ui-colours "UI colours").
 - HDS offers multiple options for notification screen locations. Choose locations that fit best for your service and stay consistent.
+- **If you use automatically disappearing notifications, make sure the information is accessible elsewhere in case the user misses the notification.**
 
 ### When to use each notification type?
 - **Use inline notifications when information is related to the content or if you want to keep information visible at all times.** Inline notifications are part of the content and therefore they can be placed as close as possible to the related part of the content.
 - **Use toast notifications to inform the user about a specific event or change in the system status.** Toast notifications do not relate to any specific object on the page and therefore they are placed on top of the content (usually top right or bottom center).
+- **Use invisible notifications to make system state changes more apparent for screen reader users.** Some features (such as moving a product to the shopping cart) are apparent for regular users but screen readers may need extra assist.
+
+### When to use each notification level?
+- You can find guidelines on when to use each status colour in the [colour guidelines](/design-tokens/colour#ui-colours "UI colours"). Aim to use notification levels and colours consistenly across your service.
 
 ## Accessibility
-- Avoid using automatically disappearing toast notifications for critical information. It is possible that the notification disappears before the user or screen reader can react to the message. Refer to <Link href="https://www.w3.org/WAI/WCAG21/Understanding/no-timing.html" external>WCAG 2.1 No timing requirement</Link> for more information.
-- Remember that colour should never be the only way of conveying information. Make sure the meaning of the notification is clearly described by the title. Refer to <Link href="https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html" external>WCAG 2.1 Use of Color guideline</Link> for more information.
+- Avoid using automatically disappearing toast notifications for critical information or very long messages. It is possible that the notification disappears before the user or screen reader can react to the message. Refer to <Link href="https://www.w3.org/WAI/WCAG21/Understanding/no-timing.html" external>WCAG 2.1 No timing requirement</Link> for more information.
+- Remember that colour should never be the only way of conveying information. Make sure the meaning of the notification is clearly described by the title and body. Refer to <Link href="https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html" external>WCAG 2.1 Use of Color guideline</Link> for more information.
+- It is recommended (but not required) to offer a way to turn of less important notifications. Refer to <Link href="https://www.w3.org/WAI/WCAG21/Understanding/interruptions.html" external>WCAG 2.1 Interruptions guideline</Link> for more information.
 
 ## Usage & variations
 
 ### Inline
-...
+Inline notifications are used as part of the content. They closely relate to the part of the content and work best when placed as close as the related content as possible. Inline notifications are often used to provide or emphasise key information related to the content of the page. It is recommended not to make them closable - unless their information is not important or can be accessed somewhere else. Inline notifications greatly emphasise the information so they should be used sparingly in order not to dilute their effect. A good rule of thumb is to limit the number of simultaneous inline notifications to one.
 
 <Playground>
 
@@ -52,7 +57,7 @@ import Text from "../../src/components/Text";
 ```
 
 ### Toast
-...
+Toasts notifications provide lightweight feedback for changes in system status such as successful saving or Internet disconnection. Toasts appear on top of the content (usually top right or bottom center). By default they are set to disappear automatically. However, be wary using automatically disappearing toasts for critical information such as errors. It is also a good practise to make notifications accessible elsewhere in case the user misses them before they disappear.
 
 <Playground>
 
@@ -61,7 +66,23 @@ import Text from "../../src/components/Text";
 ##### Core:
 ```html
 
-</button>
+```
+
+##### React:
+```tsx
+
+```
+
+### Invisible
+Invisible notifications do not show up on screen and they are meant to aid screen reader users. Some updates to system status may be apparent to regular users through animations etc. However, screen readers can easily ignore this type of feedback. Invisible notifications are not visible to regular users but screen readers detect them. Use them to improve user experience for screen reader users.
+
+<Playground>
+
+</Playground>
+
+##### Core:
+```html
+
 ```
 
 ##### React:
@@ -73,13 +94,13 @@ import Text from "../../src/components/Text";
 
 ### Core
 
-[Notifications in hds-core](/storybook/core/?path=/story/button--primary)
+[Notifications in hds-core](//storybook/core/?path=/docs/notification--default)
 
 ### React
 
-[Notifications in hds-react](/storybook/react/?path=/story/components-button--primary)
+[Notifications in hds-react](/storybook/react/?path=/docs/components-notification--default)
 
-[Notifications API](/storybook/react/?path=/docs/components-button--primary)
+[Notifications API](/storybook/react/?path=/docs/components-notification--default)
 
 ## Tokens
 
@@ -97,50 +118,3 @@ import 'hds-design-tokens/lib/color/component/button.css';
 CSS                                                  | SASS                                               | Value       | Example
 ---------------------------------------------------- | -------------------------------------------------- | ----------- | ----------------------------------------------------------------------------- |
 --color-background-button-primary-default            | $color-background-button-primary-default           | #0000bf     | <ColorBox color="var(--color-background-button-primary-default)" />           |
---color-background-button-primary-hover              | $color-background-button-primary-hover             | #000098     | <ColorBox color="var(--color-background-button-primary-hover)" />             |
---color-background-button-primary-focus              | $color-background-button-primary-focus             | #0000bf     | <ColorBox color="var(--color-background-button-primary-focus)" />             |
---color-background-button-primary-hover-focus        | $color-background-button-primary-hover-focus       | #000098     | <ColorBox color="var(--color-background-button-primary-hover-focus)" />       |
---color-background-button-primary-disabled           | $color-background-button-primary-disabled          | #cccccc     | <ColorBox color="var(--color-background-button-primary-disabled)" />          |
---color-background-button-secondary-default          | $color-background-button-secondary-default         | transparent | <ColorBox color="var(--color-background-button-secondary-default)" />         |
---color-background-button-secondary-hover            | $color-background-button-secondary-hover           | #f2f2fc     | <ColorBox color="var(--color-background-button-secondary-hover)" />           |
---color-background-button-secondary-focus            | $color-background-button-secondary-focus           | transparent | <ColorBox color="var(--color-background-button-secondary-focus)" />           |
---color-background-button-secondary-hover-focus      | $color-background-button-secondary-hover-focus     | #f2f2fc     | <ColorBox color="var(--color-background-button-secondary-hover-focus)" />     |
---color-background-button-secondary-disabled         | $color-background-button-secondary-disabled        | transparent | <ColorBox color="var(--color-background-button-secondary-disabled)" />        |
---color-background-button-supplementary-default      | $color-background-button-supplementary-default     | transparent | <ColorBox color="var(--color-background-button-supplementary-default)" />     |
---color-background-button-supplementary-hover        | $color-background-button-supplementary-hover       | #f2f2fc     | <ColorBox color="var(--color-background-button-supplementary-hover)" />       |
---color-background-button-supplementary-focus        | $color-background-button-supplementary-focus       | transparent | <ColorBox color="var(--color-background-button-supplementary-focus)" />       |
---color-background-button-supplementary-hover-focus  | $color-background-button-supplementary-hover-focus | #f2f2fc     | <ColorBox color="var(--color-background-button-supplementary-hover-focus)" /> |
---color-background-button-supplementary-disabled     | $color-background-button-supplementary-disabled    | transparent | <ColorBox color="var(--color-background-button-supplementary-disabled)" />    |
---color-border-button-primary-default                | $color-border-button-primary-default               | #0000bf     | <ColorBox color="var(--color-border-button-primary-default)" />               |
---color-border-button-primary-hover                  | $color-border-button-primary-hover                 | #000098     | <ColorBox color="var(--color-border-button-primary-hover)" />                 |
---color-border-button-primary-focus                  | $color-border-button-primary-focus                 | #0000bf     | <ColorBox color="var(--color-border-button-primary-focus)" />                 |
---color-border-button-primary-hover-focus            | $color-border-button-primary-hover-focus           | #000098     | <ColorBox color="var(--color-border-button-primary-hover-focus)" />           |
---color-border-button-primary-disabled               | $color-border-button-primary-disabled              | #cccccc     | <ColorBox color="var(--color-border-button-primary-disabled)" />              |
---color-border-button-secondary-default              | $color-border-button-secondary-default             | #0000bf     | <ColorBox color="var(--color-border-button-secondary-default)" />             |
---color-border-button-secondary-hover                | $color-border-button-secondary-hover               | #000098     | <ColorBox color="var(--color-border-button-secondary-hover)" />               |
---color-border-button-secondary-focus                | $color-border-button-secondary-focus               | #0000bf     | <ColorBox color="var(--color-border-button-secondary-focus)" />               |
---color-border-button-secondary-hover-focus          | $color-border-button-secondary-hover-focus         | #000098     | <ColorBox color="var(--color-border-button-secondary-hover-focus)" />         |
---color-border-button-secondary-disabled             | $color-border-button-secondary-disabled            | #808080     | <ColorBox color="var(--color-border-button-secondary-disabled)" />            |
---color-border-button-supplementary-default          | $color-border-button-supplementary-default         | transparent | <ColorBox color="var(--color-border-button-supplementary-default)" />         |
---color-border-button-supplementary-hover            | $color-border-button-supplementary-hover           | transparent | <ColorBox color="var(--color-border-button-supplementary-hover)" />           |
---color-border-button-supplementary-focus            | $color-border-button-supplementary-focus           | #0072c6     | <ColorBox color="var(--color-border-button-supplementary-focus)" />           |
---color-border-button-supplementary-hover-focus      | $color-border-button-supplementary-hover-focus     | #0072c6     | <ColorBox color="var(--color-border-button-supplementary-hover-focus)" />     |
---color-border-button-supplementary-disabled         | $color-border-button-supplementary-disabled        | transparent | <ColorBox color="var(--color-border-button-supplementary-disabled)" />        |
---color-focus-outline-button-primary                 | $color-focus-outline-button-primary                | #0072c6     | <ColorBox color="var(--color-focus-outline-button-primary)" />                |
---color-focus-outline-button-secondary               | $color-focus-outline-button-secondary              | #0072c6     | <ColorBox color="var(--color-focus-outline-button-secondary)" />              |
---color-focus-outline-button-supplementary           | $color-focus-outline-button-supplementary          | transparent | <ColorBox color="var(--color-focus-outline-button-supplementary)" />          |
---color-label-button-primary-default                 | $color-label-button-primary-default                | #ffffff     | <Text color="var(--color-label-button-primary-default)" />                    |
---color-label-button-primary-hover                   | $color-label-button-primary-hover                  | #ffffff     | <Text color="var(--color-label-button-primary-hover)" />                      |
---color-label-button-primary-focus                   | $color-label-button-primary-focus                  | #ffffff     | <Text color="var(--color-label-button-primary-focus)" />                      |
---color-label-button-primary-hover-focus             | $color-label-button-primary-hover-focus            | #ffffff     | <Text color="var(--color-label-button-primary-hover-focus)" />                |
---color-label-button-primary-disabled                | $color-label-button-primary-disabled               | #ffffff     | <Text color="var(--color-label-button-primary-disabled)" />                   |
---color-label-button-secondary-default               | $color-label-button-secondary-default              | #0000bf     | <Text color="var(--color-label-button-secondary-default)" />                  |
---color-label-button-secondary-hover                 | $color-label-button-secondary-hover                | #000098     | <Text color="var(--color-label-button-secondary-hover)" />                    |
---color-label-button-secondary-focus                 | $color-label-button-secondary-focus                | #0000bf     | <Text color="var(--color-label-button-secondary-focus)" />                    |
---color-label-button-secondary-hover-focus           | $color-label-button-secondary-hover-focus          | #000098     | <Text color="var(--color-label-button-secondary-hover-focus)" />              |
---color-label-button-secondary-disabled              | $color-label-button-secondary-disabled             | #999898     | <Text color="var(--color-label-button-secondary-disabled)" />                 |
---color-label-button-supplementary-default           | $color-label-button-supplementary-default          | #0000bf     | <Text color="var(--color-label-button-supplementary-default)" />              |
---color-label-button-supplementary-hover             | $color-label-button-supplementary-hover            | #000098     | <Text color="var(--color-label-button-supplementary-hover)" />                |
---color-label-button-supplementary-focus             | $color-label-button-supplementary-focus            | #0000bf     | <Text color="var(--color-label-button-supplementary-focus)" />                |
---color-label-button-supplementary-hover-focus       | $color-label-button-supplementary-hover-focus      | #000098     | <Text color="var(--color-label-button-supplementary-hover-focus)" />          |
---color-label-button-supplementary-disabled          | $color-label-button-supplementary-disabled         | #999898     | <Text color="var(--color-label-button-supplementary-disabled)" />             |
