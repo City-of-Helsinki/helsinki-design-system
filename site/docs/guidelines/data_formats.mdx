@@ -15,22 +15,29 @@ import LargeParagraph from "../../src/components/LargeParagraph";
 ## Date and time
 
 ### Format
-Follow the following suggestions when presenting date and time in your services. It is recommended to use format according to user's locale.
+Follow the following suggestions when presenting date and time in your services. It is recommended to use format depending on user's locale.
 
-Type                          | Format in Finnish/Swedish              | Format in English/other                              | Notes
+Type                          | Format in Finnish/Swedish              | Format in English                                    | Notes
 ------------------------------|----------------------------------------|------------------------------------------------------|---------------------------------------------------------------------------------------------
 Time                          | 15:00                                  | 03:00 PM                                             | Use 24-hour clock or AM/PM depending on the locale. Use leading zeros.
+Time (in text)                | 15.00                                  | 03:00 PM                                             | Finnish/Swedish often use single dot instead of colon in written text. Leading zeros can be left out as well.
 Day, month and year           | 24.6.2020                              | 06/24/2020                                           | Note that English locale uses MM/DD/YYYY format rather than DD/MM/YYYY.
 Day, month and year (longer)  | 24. kesäkuuta 2020                     | 24 June 2020                                         | Using the written format of month makes the date easier to understand for different locales.
 Today, tomorrow, yesterday    | Tänään, klo 12:30                      | Today, 12:30 PM                                      | If talking about today, tomorrow or yesterday, written format is used instead of date.
-Time range                    | 12:30-16:30                            | 12:30-4:30 PM                                        | When using 12 hour time format, use only a single AM/PM if times are both AM/PM.
-Date range                    | 2-15. tammikuuta 2020 / 2.1.-5.2.2020  | Jan 2-15, 2020 / Jan 2 - Feb 5, 2020                 | Year and/or month can be only written once if both dates share the same year/month.
+
+### Ranges
+When presenting time or date ranges, consider making information simpler by leaving redundant AM/PM, month and year information out. **Note that when presenting ranges, en dash (–) should be used instead of a standard hyphen (-).**
+
+Type                          | Format in Finnish/Swedish              | Format in English                                    | Notes
+------------------------------|----------------------------------------|------------------------------------------------------|---------------------------------------------------------------------------------------------
+Time range                    | 12.30–16.30                            | 12:30–4:30 PM                                        | When using 12 hour time format, use only a single AM/PM if times are both AM/PM.
+Date range                    | 2.–15. tammikuuta 2020 / 2.1.–5.2.2020 | Jan 2–15, 2020 / Jan 2 – Feb 5, 2020                 | Year and/or month can be only written once if both dates share the same year/month.
 
 ### Time zones
 **Automatically use user's timezone if possible.** If not available, default to Finnish time and present the time zone as following:
 
-Type       | Format in Finnish/Swedish       | Format in English/other      | Notes
+Type       | Format in Finnish/Swedish       | Format in English            | Notes
 -----------|---------------------------------|------------------------------|---------------------------------------------------------------------------------------------
 Time zone  | UTC+2                           | UTC+2                        | Leading or trailing zeroes are rarely used for timezones.
-Time       | 15:00 UTC+2                     | 03:00 PM UTC+2               | Use 24-hour clock or AM/PM depending on the locale. Use leading zeros.
+Time       | 15.00 UTC+2                     | 03:00 PM UTC+2               | Use 24-hour clock or AM/PM depending on the locale. Use leading zeros.
 Date       | 24. kesäkuuta 2020, 15:30 UTC+2 | 24 June 2020, 03:30 PM UTC+2 | -
