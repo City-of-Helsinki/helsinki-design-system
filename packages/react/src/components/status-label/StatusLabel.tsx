@@ -20,8 +20,8 @@ export type StatusLabelProps = React.PropsWithChildren<{
   type?: StatusLabelType;
 }>;
 
-const StatusLabel = ({ children, className, dataTestId, type = 'neutral' }: StatusLabelProps) => (
-  <span className={classNames(styles.statusLabel, styles[type], className)} data-testid={dataTestId}>
+const StatusLabel = ({ children, className, dataTestId, type = 'neutral', ...rest }: StatusLabelProps) => (
+  <span className={classNames(styles.statusLabel, styles[type], className)} data-testid={dataTestId} {...rest}>
     {children}
   </span>
 );
