@@ -42,7 +42,7 @@ export type RadioButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   value?: string;
 };
 
-const RadioButton: FC<RadioButtonProps> = React.forwardRef(
+export const RadioButton: FC<RadioButtonProps> = React.forwardRef(
   (
     {
       checked = false,
@@ -77,5 +77,3 @@ const RadioButton: FC<RadioButtonProps> = React.forwardRef(
     </div>
   ),
 );
-
-export default RadioButton;

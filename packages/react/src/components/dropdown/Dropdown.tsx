@@ -5,7 +5,7 @@ import isEqual from 'lodash.isequal';
 import styles from './Dropdown.module.css';
 import classNames from '../../utils/classNames';
 import { IconAngleDown, IconCheck, IconAlertCircle } from '../../icons';
-import Checkbox from '../checkbox/Checkbox';
+import { Checkbox } from '../checkbox';
 import FieldLabel from '../../internal/field-label/FieldLabel';
 
 type OptionType = {
@@ -149,7 +149,7 @@ const Wrapper: FC<WrapperProps> = ({ filterable, getComboboxProps, children }: W
     <div className={styles.wrapper}>{children}</div>
   );
 
-const Dropdown: FC<DropdownProps> = ({
+export const Dropdown: FC<DropdownProps> = ({
   circularNavigation = false,
   className,
   closeMenuOnSelect = true,
@@ -389,5 +389,3 @@ const Dropdown: FC<DropdownProps> = ({
     </div>
   );
 };
-
-export default Dropdown;

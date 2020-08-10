@@ -1,5 +1,7 @@
 import React, { ReactNode, ReactElement } from 'react';
 
+// import core base styles
+import 'hds-core';
 import styles from './Button.module.css';
 import classNames from '../../utils/classNames';
 
@@ -48,7 +50,7 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: 'default' | 'small';
 };
 
-const Button: React.FC<ButtonProps> = React.forwardRef(
+export const Button: React.FC<ButtonProps> = React.forwardRef(
   (
     {
       children,
@@ -98,5 +100,3 @@ const Button: React.FC<ButtonProps> = React.forwardRef(
     );
   },
 );
-
-export default Button;

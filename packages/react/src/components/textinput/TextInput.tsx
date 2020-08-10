@@ -1,5 +1,7 @@
 import React, { ChangeEventHandler, CSSProperties, FC, forwardRef, InputHTMLAttributes, ReactNode, Ref } from 'react';
 
+// import core base styles
+import 'hds-core';
 import styles from './TextInput.module.css';
 import InputWrapper from '../../internal/input-wrapper/InputWrapper';
 
@@ -90,7 +92,7 @@ export type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
   ref?: Ref<HTMLInputElement>;
 };
 
-const TextInput: FC<TextInputProps> = forwardRef(
+export const TextInput: FC<TextInputProps> = forwardRef(
   (
     {
       className = '',
@@ -147,5 +149,3 @@ const TextInput: FC<TextInputProps> = forwardRef(
     );
   },
 );
-
-export default TextInput;
