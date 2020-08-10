@@ -5,12 +5,10 @@ route: /components/status-label
 ---
 
 import { Playground } from "docz";
-import { RadioButton } from "hds-react";
+import { StatusLabel } from "hds-react";
 
-import ColorBox from "../../src/components/ColorBox";
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Link from "../../src/components/Link";
-import Text from "../../src/components/Text";
 
 # Status label
 
@@ -22,7 +20,7 @@ import Text from "../../src/components/Text";
 
 - **A label should always be provided with a status label.**
 - Keep labels short and concise. Use 1-2 words at maximum and do not use labels expanding to two rows.
-- Use status colours consistenly. You can find guidelines on when to use each status colour in the [colour guidelines](/design-tokens/colour#ui-colours "UI colours").
+- Use status colours consistently. You can find guidelines on when to use each status colour in the [colour guidelines](/design-tokens/colour#ui-colours "UI colours").
 
 ## Accessibility
 
@@ -32,40 +30,49 @@ import Text from "../../src/components/Text";
 ## Usage
 
 <Playground>
-
+    <StatusLabel>Neutral (default)</StatusLabel>
+    <StatusLabel type="info">Info</StatusLabel>
+    <StatusLabel type="success">Success</StatusLabel>
+    <StatusLabel type="alert">Alert</StatusLabel>
+    <StatusLabel type="error">Error</StatusLabel>
 </Playground>
 
 ##### Core:
 ```html
-<!-- Core code goes here -->
+<span class="hds-status-label">
+  Default
+</span>
+<span class="hds-status-label hds-status-label--info">
+  Info
+</span>
+<span class="hds-status-label hds-status-label--success">
+  Success
+</span>
+<span class="hds-status-label hds-status-label--alert">
+  Alert
+</span>
+<span class="hds-status-label hds-status-label--error">
+  Error
+</span>
 ```
 
 ##### React:
 ```tsx
-
+<StatusLabel>Neutral</StatusLabel>
+<StatusLabel type="info">Info</StatusLabel>
+<StatusLabel type="success">Success</StatusLabel>
+<StatusLabel type="alert">Alert</StatusLabel>
+<StatusLabel type="error">Error</StatusLabel>
 ```
 
 ## Demos & API
 
 ### Core
 
-[Status label in hds-core](/)
+[Status labels in hds-core](/storybook/core/?path=/story/status-label--default)
 
 ### React
 
-[Status labels in hds-react](/)
+[Status labels in hds-react](/storybook/react/?path=/story/components-status-label--neutral)
 
-[StatusLabel API](/)
-
-## Tokens
-
-```css
-/* CSS */
-@import "hds-design-tokens/lib/color/component/radio-button.css";
-/* SCSS */
-@import "hds-design-tokens/lib/color/component/radio-button.scss";
-```
-```js
-// JS
-import 'hds-design-tokens/lib/color/component/radio-button.css';
-```
+[StatusLabel API](/storybook/react/?path=/docs/components-status-label--neutral)
