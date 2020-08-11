@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600px" height="128px" viewBox="0 0 600 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>start-develop-block</title>
+    <g id="start-develop-block" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy-3" fill="#00D7A7" x="0" y="-1.27897692e-13" width="600" height="128"></rect>
+        <path d="M48.1491562,79.8692661 L50.533043,74.9025229 L24.4505171,62.5905963 L50.533043,50.2786697 L48.1491562,45.3119266 L18,60.1422018 L18,65.0389908 L48.1491562,79.8692661 Z M57.8649973,94 L76.0246053,33 L70.1350027,33 L51.9753947,94 L57.8649973,94 Z M79.8508438,79.8692661 L110,65.0389908 L110,60.1422018 L79.8508438,45.3119266 L77.466957,50.2786697 L103.549483,62.5905963 L77.466957,74.9025229 L79.8508438,79.8692661 Z" id="Color" fill="#1A1A1A" fill-rule="nonzero"></path>
+        <text id="Responsive-navigation" font-family="HelsinkiGrotesk-Regular, Helsinki Grotesk" font-size="24" font-weight="normal" fill="#1A1A1A">
+            <tspan x="152" y="46">Getting Started</tspan>
+        </text>
+        <text id="For-Developers" font-family="HelsinkiGrotesk-Bold, Helsinki Grotesk" font-size="52" font-weight="bold" fill="#1A1A1A">
+            <tspan x="152" y="98">For Developers</tspan>
+        </text>
+    </g>
+</svg>

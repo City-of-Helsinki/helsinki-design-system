@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600px" height="128px" viewBox="0 0 600 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>start-intro-block</title>
+    <g id="start-intro-block" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" fill="#DEDFE1" x="0" y="0" width="600" height="128"></rect>
+        <text id="Responsive-navigation" font-family="HelsinkiGrotesk-Regular, Helsinki Grotesk" font-size="24" font-weight="normal" fill="#1A1A1A">
+            <tspan x="32" y="46">Helsinki Design System</tspan>
+        </text>
+        <text id="Introduction" font-family="HelsinkiGrotesk-Bold, Helsinki Grotesk" font-size="52" font-weight="bold" fill="#1A1A1A">
+            <tspan x="32" y="98">Introduction</tspan>
+        </text>
+    </g>
+</svg>
