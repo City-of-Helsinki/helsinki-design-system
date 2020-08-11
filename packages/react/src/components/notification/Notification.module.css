@@ -8,6 +8,10 @@
   padding-top: calc(var(--notification-padding) + var(--notification-border-width));
 }
 
+.notification.noBorder .close {
+  top: calc(var(--notification-close-button-offset) + var(--notification-border-width));
+}
+
 .autoClose {
   background-color: var(--notification-border-color);
   height: var(--notification-border-width);

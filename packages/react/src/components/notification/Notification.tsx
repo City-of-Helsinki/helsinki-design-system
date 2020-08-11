@@ -1,12 +1,10 @@
 import React, { AriaAttributes, PropsWithChildren, ReactNode, useEffect } from 'react';
 import { animated, useSpring } from 'react-spring';
+import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import classNames from '../../utils/classNames';
 import styles from './Notification.module.css';
 import { IconInfoCircle, IconError, IconAlertCircle, IconCheck, IconCross } from '../../icons';
-
-// todo: don't allow large size (?)
-// todo: don't allow autoClose for 'inline'
 
 export type NotificationType = 'info' | 'error' | 'alert' | 'success';
 export type NotificationInlineSize = 'default' | 'small' | 'large';
@@ -20,6 +18,7 @@ export type NotificationPosition =
   | 'bottom-center'
   | 'bottom-right';
 
+// todo: rename to CommonProps?
 type Props = PropsWithChildren<{
   autoClose?: boolean;
   autoCloseDuration?: number;
@@ -27,6 +26,11 @@ type Props = PropsWithChildren<{
 
   className?: string;
   dataTestId?: string;
+  /**
+   * Determines whether the notification should be visually hidden. Useful when notification should only be "seen" by screen readers.
+   * @default false
+   */
+  invisible?: boolean;
   label: string | ReactNode;
   open?: boolean;
   type?: NotificationType;
@@ -89,8 +93,8 @@ const getOpenTransition = (position: NotificationPosition) => {
  * @param duration
  */
 const getAutoCloseTransition = (duration: number) => ({
-  from: { transform: 'translate3d(0%, 0, 0)' },
-  to: { transform: 'translate3d(-100%, 0, 0)' },
+  from: { transform: 'translate3d(-100%, 0, 0)' },
+  to: { transform: 'translate3d(0%, 0, 0)' },
   config: {
     duration,
   },
@@ -104,6 +108,7 @@ const Notification = ({
   closeButtonLabelText,
   dataTestId,
   dismissible = false,
+  invisible = false,
   label,
   position = 'inline',
   onClose = () => {
@@ -113,16 +118,28 @@ const Notification = ({
   size = 'default',
   type = 'info',
 }: NotificationProps) => {
-  const Icon = icons[type];
+  /* eslint-disable */
+  // only allow size 'large' for inline notifications
+  if (position !== 'inline' && size === 'large') {
+    console.warn(`Size '${size}' is only allowed for inline positioned notifications`);
+    size = 'default';
+  }
+  // don't allow autoClose for inline notifications
+  if (position === 'inline' && autoClose) {
+    console.warn(`The 'autoClose' property is not allowed for inline positioned notifications`);
+    autoClose = false;
+  }
+  /* eslint-enable */
 
   useEffect(() => {
     const interval = setTimeout(() => {
       if (autoClose) onClose();
     }, autoCloseDuration);
-    return () => {
-      clearTimeout(interval);
-    };
+    return () => clearTimeout(interval);
   }, [autoClose, autoCloseDuration, onClose]);
+
+  // icon
+  const Icon = icons[type];
 
   // notification transition
   const openTransitionProps = position !== 'inline' ? getOpenTransition(position) : {};
@@ -137,41 +154,46 @@ const Notification = ({
 
   return (
     open && (
-      <animated.div
-        style={openTransition}
-        className={classNames(
-          styles[position],
-          styles.notification,
-          styles[size],
-          styles[type],
-          autoClose && styles.noBorder /* todo: fix applying of class */,
-          className,
-        )}
-        role={role}
-        aria-live={ariaLive}
-        aria-atomic="true"
-        data-testid={dataTestId}
-      >
-        {autoClose && <animated.div style={autoCloseTransition} className={styles.autoClose} />}
-        <div className={styles.label}>
-          <Icon className={styles.icon} />
-          <span>{label}</span>
-        </div>
-        {children && <div>{children}</div>}
-        {dismissible && (
-          <button
-            className={classNames(styles.close, styles[type])}
-            type="button"
-            title={closeButtonLabelText}
-            aria-label={closeButtonLabelText}
-            onClick={onClose}
-          >
-            <IconCross />
-          </button>
-        )}
-      </animated.div>
+      <NotificationWrapper invisible={invisible}>
+        <animated.div
+          style={openTransition}
+          className={classNames(
+            styles[position],
+            styles.notification,
+            styles[size],
+            styles[type],
+            autoClose && styles.noBorder /* todo: fix applying of class */,
+            className,
+          )}
+          role={role}
+          aria-live={ariaLive}
+          aria-atomic="true"
+          data-testid={dataTestId}
+        >
+          {autoClose && <animated.div style={autoCloseTransition} className={styles.autoClose} />}
+          <div className={styles.label}>
+            <Icon className={styles.icon} />
+            <span>{label}</span>
+          </div>
+          {children && <div>{children}</div>}
+          {dismissible && (
+            <button
+              className={classNames(styles.close, styles[type])}
+              type="button"
+              title={closeButtonLabelText}
+              aria-label={closeButtonLabelText}
+              onClick={onClose}
+            >
+              <IconCross aria-hidden />
+            </button>
+          )}
+        </animated.div>
+      </NotificationWrapper>
     )
   );
 };
+
+const NotificationWrapper = ({ invisible, children }) =>
+  invisible ? <VisuallyHidden>{children}</VisuallyHidden> : children;
 
 export default Notification;

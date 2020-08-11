@@ -44,6 +44,20 @@ export const Large = () => (
   </Notification>
 );
 
+export const Invisible = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(!open)}>Toggle notification</Button>
+      {open && (
+        <Notification label="Invisible notification" invisible>
+          I&apos;m only seen by screen readers
+        </Notification>
+      )}
+    </>
+  );
+};
+
 export const Dismissible = () => {
   const [open, setOpen] = useState(true);
   return (
@@ -64,7 +78,13 @@ export const AutoClose = () => {
     <>
       {!open && <Button onClick={() => setOpen(true)}>Open notification</Button>}
       {open && (
-        <Notification {...props} position="top-right" autoClose autoCloseDuration={2000} onClose={() => setOpen(false)}>
+        <Notification
+          {...props}
+          position="top-center"
+          autoClose
+          autoCloseDuration={3000}
+          onClose={() => setOpen(false)}
+        >
           {content}
         </Notification>
       )}
@@ -109,6 +129,7 @@ export const Playground = () => {
     },
     'inline',
   );
+  const invisible = boolean('Invisible', false);
   const dismissible = boolean('Dismissible', false);
   const autoClose = boolean('Close automatically', false);
   const autoCloseDuration = number('Auto close duration', 6000);
@@ -137,6 +158,7 @@ export const Playground = () => {
         <Notification
           autoClose={autoClose}
           autoCloseDuration={autoCloseDuration}
+          invisible={invisible}
           label={label}
           type={type}
           onClose={() => setOpen(false)}
@@ -150,4 +172,17 @@ export const Playground = () => {
       )}
     </>
   );
+};
+
+Playground.story = {
+  parameters: {
+    previewTabs: {
+      'storybook/docs/panel': {
+        hidden: true,
+      },
+    },
+    docs: {
+      disable: true,
+    },
+  },
 };
