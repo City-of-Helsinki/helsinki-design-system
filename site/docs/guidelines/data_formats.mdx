@@ -15,29 +15,30 @@ import LargeParagraph from "../../src/components/LargeParagraph";
 ## Date and time
 
 ### Format
-Follow these guidelines when presenting date and time in your services. It is recommended to use format depending on user's locale.
+**Helsinki services are recommended to follow Finnish date and time locale - even if the user is using some other language.** Follow these guidelines when presenting date and time in your services.
 
-Type                            | Format in Finnish/Swedish              | Format in English                                    | Notes
---------------------------------|----------------------------------------|------------------------------------------------------|---------------------------------------------------------------------------------------------
-Time (in forms, schedules etc.) | 15:00                                  | 03:00 PM                                             | Use 24-hour clock or AM/PM depending on the locale. Use leading zeros.
-Time (in text)                  | 15.00                                  | 03:00 PM                                             | Finnish/Swedish often use single dot instead of colon in written text. Leading zeros can be left out as well.
-Day, month and year             | 24.6.2020                              | 24/06/2020                                           | Note that UK English locale uses DD/MM/YYYY format rather than MM/DD/YYYY that US English uses.
-Day, month and year (longer)    | 24. kesäkuuta 2020                     | 24 June 2020                                         | Using the written format of month makes the date easier to understand for different locales.
-Today, tomorrow, yesterday      | Tänään, klo 12:30                      | Today, 12:30 PM                                      | If talking about today, tomorrow or yesterday, written format is used instead of date.
+Type                            | Format                        | Notes
+--------------------------------|-------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Time (in forms, schedules etc.) | 15:00, 02:00                  | When presenting times in forms and schedules, use leading zeros and a colon separator. 24-hour clock is always used.
+Time (in text)                  | 15.00, 2:00                   | When presenting times in written text, use single dot instead of colon separator. Leading zeros can be opted out as well. 24-hour clock is always used.
+Day, month and year             | 24.6.2020                     | Date format is DD.MM.YYYY even if user's locale is something else than Finnish.
+Day, month and year (longer)    | 24. June 2020, 24 June 2020   | Using the written format of month makes the date easier to understand for different locales. Note that technically English translation omits the dot after day number.
+Today, tomorrow, yesterday      | Today, 12:30                  | If talking about today, tomorrow or yesterday, written format is used instead of date.
 
 ### Ranges
-When presenting time or date ranges, consider making information simpler by leaving redundant AM/PM, month and year information out. **Note that when presenting ranges, en dash (–) should be used instead of a standard hyphen (-).**
+When presenting time or date ranges, consider making information simpler by leaving redundant month and year information out. **Note that when presenting ranges, en dash (–) should be used instead of a standard hyphen (-).**
 
-Type                          | Format in Finnish/Swedish              | Format in English                                    | Notes
-------------------------------|----------------------------------------|------------------------------------------------------|---------------------------------------------------------------------------------------------
-Time range                    | 12.30–16.30                            | 12:30–4:30 PM                                        | When using 12 hour time format, use only a single AM/PM if times are both AM/PM.
-Date range                    | 2.–15. tammikuuta 2020 / 2.1.–5.2.2020 | Jan 2–15, 2020 / Jan 2 – Feb 5, 2020                 | Year and/or month can be only written once if both dates share the same year/month.
+Type                                  | Format                                 | Notes
+--------------------------------------|----------------------------------------|---------------------------------------------------------------------------------------
+Time range (in forms, schedules etc.) | 12:30–16:30                            | When presenting times in forms and schedules, use leading zeros and a colon separator. 
+Time range (in text)                  | 12.30–16.30                            | When presenting times in written text, use single dot instead of colon separator.
+Date range                            | 2.–15. January 2020 / 2.1.–5.2.2020    | Year and/or month can be only written once if both dates share the same year/month.
 
 ### Time zones
 **Automatically use user's timezone if possible.** If not available, default to Finnish time and present the time zone as following:
 
-Type       | Format in Finnish/Swedish       | Format in English            | Notes
------------|---------------------------------|------------------------------|---------------------------------------------------------------------------------------------
-Time zone  | UTC+2                           | UTC+2                        | Leading or trailing zeroes are rarely used for timezones.
-Time       | 15.00 UTC+2                     | 03:00 PM UTC+2               | Use 24-hour clock or AM/PM depending on the locale. Use leading zeros.
-Date       | 24. kesäkuuta 2020, 15:30 UTC+2 | 24 June 2020, 03:30 PM UTC+2 | -
+Type       | Format                          | Notes
+-----------|---------------------------------|---------------------------------------------------------------------------------------------
+Time zone  | UTC+2                           | Leading or trailing zeroes are not recommended to be used for timezones.
+Time       | 15:00 UTC+2                     | -
+Date       | 24. June 2020, 15:30 UTC+2      | -
