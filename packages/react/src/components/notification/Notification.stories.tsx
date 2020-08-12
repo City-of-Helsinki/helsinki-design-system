@@ -82,9 +82,26 @@ export const AutoClose = () => {
     <>
       {!open && <Button onClick={() => setOpen(true)}>Open notification</Button>}
       {open && (
-        <Notification {...props} position="top-left" autoClose autoCloseDuration={3000} onClose={() => setOpen(false)}>
-          {content}
-        </Notification>
+        <>
+          <Notification
+            label="With progress bar"
+            position="top-left"
+            autoClose
+            autoCloseDuration={3000}
+            onClose={() => setOpen(false)}
+          >
+            {content}
+          </Notification>
+          <Notification
+            label="Without progress bar"
+            position="top-center"
+            autoClose
+            autoCloseDuration={3000}
+            displayAutoCloseProgress={false}
+          >
+            {content}
+          </Notification>
+        </>
       )}
     </>
   );
@@ -130,6 +147,7 @@ export const Playground = () => {
   const invisible = boolean('Invisible', false);
   const dismissible = boolean('Dismissible', false);
   const autoClose = boolean('Close automatically', false);
+  const displayAutoCloseProgress = boolean('Display auto close progress', true);
   const autoCloseDuration = number('Auto close duration', 6000);
 
   useEffect(() => {
@@ -156,6 +174,7 @@ export const Playground = () => {
         <Notification
           autoClose={autoClose}
           autoCloseDuration={autoCloseDuration}
+          displayAutoCloseProgress={displayAutoCloseProgress}
           invisible={invisible}
           label={label}
           type={type}

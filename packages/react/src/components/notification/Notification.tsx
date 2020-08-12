@@ -1,4 +1,4 @@
-import React, { AriaAttributes, PropsWithChildren, ReactNode, useEffect } from 'react';
+import React, { AriaAttributes, PropsWithChildren, ReactNode, useCallback, useEffect, useState } from 'react';
 import { animated, useSpring } from 'react-spring';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
@@ -25,14 +25,19 @@ type Props = PropsWithChildren<{
   onClose?: () => void;
 
   className?: string;
+  /**
+   * Duration of the close fade-out animation in milliseconds
+   * @default 100
+   */
+  closeAnimationDuration?: number;
   dataTestId?: string;
   /**
    * Determines whether the notification should be visually hidden. Useful when notification should only be "seen" by screen readers.
    * @default false
    */
+  displayAutoCloseProgress?: boolean;
   invisible?: boolean;
   label?: string | ReactNode;
-  open?: boolean;
   type?: NotificationType;
 }>;
 
@@ -60,6 +65,7 @@ type PositionAndSize =
 
 export type NotificationProps = Props & PositionAndSize & Dismissible;
 
+// Icon mapping for notification types
 const icons = {
   info: IconInfoCircle,
   success: IconCheck,
@@ -80,13 +86,26 @@ const getOpenTransition = (position: NotificationPosition) => {
       transform: `translate3d(${centerPositioned ? '-50%' : '0'}, ${animateFromTop ? '-' : ''}32px, 0)`,
       opacity: 0.66,
     },
-    to: { transform: `translate3d(${centerPositioned ? '-50%' : '0'}, 0, 0)`, opacity: 1 },
+    to: {
+      transform: `translate3d(${centerPositioned ? '-50%' : '0'}, 0, 0)`,
+      opacity: 1,
+    },
     config: {
       friction: 30,
       tension: 300,
     },
   };
 };
+
+/**
+ * Returns the properties for the "close" transition
+ * @param duration
+ */
+const getCloseTransition = (duration: number) => ({
+  from: { opacity: 1 },
+  to: { opacity: 0 },
+  config: { duration },
+});
 
 /**
  * Returns the properties for the "auto close" transition
@@ -105,16 +124,17 @@ const Notification = ({
   autoCloseDuration = 6000,
   children,
   className = '',
+  closeAnimationDuration = 100,
   closeButtonLabelText,
   dataTestId,
   dismissible = false,
+  displayAutoCloseProgress = true,
   invisible = false,
   label,
   position = 'inline',
   onClose = () => {
     // do nothing by default
   },
-  open = true,
   size = 'default',
   type = 'info',
 }: NotificationProps) => {
@@ -131,21 +151,32 @@ const Notification = ({
   }
   /* eslint-enable */
 
+  // internal state used for transitions
+  const [open, setOpen] = useState(true);
+
+  const handleClose = useCallback(() => {
+    // trigger close animation
+    setOpen(false);
+    // emit onClose callback after the animation is completed
+    setTimeout(() => onClose(), closeAnimationDuration);
+  }, [onClose, closeAnimationDuration]);
+
   useEffect(() => {
     const interval = setTimeout(() => {
-      if (autoClose) onClose();
+      if (autoClose) handleClose();
     }, autoCloseDuration);
     return () => clearTimeout(interval);
-  }, [autoClose, autoCloseDuration, onClose]);
+  }, [autoClose, autoCloseDuration, closeAnimationDuration, handleClose]);
 
   // icon
   const Icon = icons[type];
 
-  // notification transition
+  // notification transitions
   const openTransitionProps = position !== 'inline' ? getOpenTransition(position) : {};
-  const autoCloseTransitionProps = getAutoCloseTransition(autoCloseDuration);
+  const closeTransitionProps = getCloseTransition(closeAnimationDuration);
+  const autoCloseTransitionProps = displayAutoCloseProgress ? getAutoCloseTransition(autoCloseDuration) : {};
 
-  const openTransition = useSpring(openTransitionProps);
+  const notificationTransition = useSpring(open ? openTransitionProps : closeTransitionProps);
   const autoCloseTransition = useSpring(autoCloseTransitionProps);
 
   // accessibility attributes
@@ -153,43 +184,41 @@ const Notification = ({
   const role = type === 'error' ? 'alert' : 'status';
 
   return (
-    open && (
-      <ConditionalVisuallyHidden visuallyHidden={invisible}>
-        <animated.div
-          style={openTransition}
-          className={classNames(
-            styles[position],
-            styles.notification,
-            styles[size],
-            styles[type],
-            autoClose && styles.noBorder,
-            className,
-          )}
-          role={role}
-          aria-live={ariaLive}
-          aria-atomic="true"
-          data-testid={dataTestId}
-        >
-          {autoClose && <animated.div style={autoCloseTransition} className={styles.autoClose} />}
-          <div className={styles.label}>
-            <Icon className={styles.icon} />
-            <ConditionalVisuallyHidden visuallyHidden={size === 'small'}>{label}</ConditionalVisuallyHidden>
-          </div>
-          {children && <div className={styles.body}>{children}</div>}
-          {dismissible && (
-            <button
-              className={classNames(styles.close, styles[type])}
-              type="button"
-              title={closeButtonLabelText}
-              aria-label={closeButtonLabelText}
-              onClick={onClose}
-            >
-              <IconCross aria-hidden />
-            </button>
-          )}
-        </animated.div>
-      </ConditionalVisuallyHidden>
-    )
+    <ConditionalVisuallyHidden visuallyHidden={invisible}>
+      <animated.div
+        style={notificationTransition}
+        className={classNames(
+          styles[position],
+          styles.notification,
+          styles[size],
+          styles[type],
+          autoClose && styles.noBorder,
+          className,
+        )}
+        role={role}
+        aria-live={ariaLive}
+        aria-atomic="true"
+        data-testid={dataTestId}
+      >
+        {autoClose && <animated.div style={autoCloseTransition} className={styles.autoClose} />}
+        <div className={styles.label}>
+          <Icon className={styles.icon} />
+          <ConditionalVisuallyHidden visuallyHidden={size === 'small'}>{label}</ConditionalVisuallyHidden>
+        </div>
+        {children && <div className={styles.body}>{children}</div>}
+        {dismissible && (
+          <button
+            className={classNames(styles.close, styles[type])}
+            type="button"
+            title={closeButtonLabelText}
+            aria-label={closeButtonLabelText}
+            onClick={handleClose}
+          >
+            <IconCross aria-hidden />
+          </button>
+        )}
+      </animated.div>
+    </ConditionalVisuallyHidden>
   );
 };
 
