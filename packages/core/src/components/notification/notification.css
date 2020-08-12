@@ -41,11 +41,16 @@
 
 .hds-notification--small {
   --notification-padding: var(--spacing-2-xs);
+  display: flex;
+  gap: 0;
 }
 
 .hds-notification--small .hds-notification__label {
-  font-size: var(--fontsize-body-m);
-  font-weight: normal;
+  margin-right: 0;
+}
+
+.hds-notification--small .hds-notification__body {
+  margin-right: var(--spacing-l);
 }
 
 /* LARGE */

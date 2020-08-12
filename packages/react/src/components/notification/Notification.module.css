@@ -29,6 +29,10 @@
   composes: hds-notification__label from 'hds-core/lib/components/notification/notification.css';
 }
 
+.body {
+  composes: hds-notification__body from 'hds-core/lib/components/notification/notification.css';
+}
+
 .close {
   composes: hds-notification__close-button from 'hds-core/lib/components/notification/notification.css';
 }

@@ -31,7 +31,7 @@ type Props = PropsWithChildren<{
    * @default false
    */
   invisible?: boolean;
-  label: string | ReactNode;
+  label?: string | ReactNode;
   open?: boolean;
   type?: NotificationType;
 }>;
@@ -154,7 +154,7 @@ const Notification = ({
 
   return (
     open && (
-      <NotificationWrapper invisible={invisible}>
+      <ConditionalVisuallyHidden visuallyHidden={invisible}>
         <animated.div
           style={openTransition}
           className={classNames(
@@ -162,7 +162,7 @@ const Notification = ({
             styles.notification,
             styles[size],
             styles[type],
-            autoClose && styles.noBorder /* todo: fix applying of class */,
+            autoClose && styles.noBorder,
             className,
           )}
           role={role}
@@ -173,9 +173,9 @@ const Notification = ({
           {autoClose && <animated.div style={autoCloseTransition} className={styles.autoClose} />}
           <div className={styles.label}>
             <Icon className={styles.icon} />
-            <span>{label}</span>
+            <ConditionalVisuallyHidden visuallyHidden={size === 'small'}>{label}</ConditionalVisuallyHidden>
           </div>
-          {children && <div>{children}</div>}
+          {children && <div className={styles.body}>{children}</div>}
           {dismissible && (
             <button
               className={classNames(styles.close, styles[type])}
@@ -188,12 +188,18 @@ const Notification = ({
             </button>
           )}
         </animated.div>
-      </NotificationWrapper>
+      </ConditionalVisuallyHidden>
     )
   );
 };
 
-const NotificationWrapper = ({ invisible, children }) =>
-  invisible ? <VisuallyHidden>{children}</VisuallyHidden> : children;
+/**
+ * Conditionally hides the children visually, but leaves them accessible to assistive technology
+ * @param visuallyHidden  Flag that determines whether the children should be invisible
+ * @param children
+ * @constructor
+ */
+const ConditionalVisuallyHidden = ({ visuallyHidden, children }) =>
+  visuallyHidden ? <VisuallyHidden>{children}</VisuallyHidden> : children;
 
 export default Notification;

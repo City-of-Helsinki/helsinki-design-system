@@ -6,14 +6,15 @@ import '../../icons/ui/icon-alert-circle.css';
 import '../../icons/ui/icon-error.css';
 import '../../icons/ui/icon-check.css';
 
+const iconMapping = {
+  info: 'info-circle',
+  success: 'check',
+  alert: 'alert-circle',
+  error: 'error',
+};
+
 const getLabel = (type = 'info') => {
   const label = type[0].toUpperCase() + type.substring(1);
-  const iconMapping = {
-    info: 'info-circle',
-    success: 'check',
-    alert: 'alert-circle',
-    error: 'error',
-  };
   return `
     <div class="hds-notification__label">
       <span class="hds-icon hds-icon--${iconMapping[type]}" aria-hidden="true"></span>
@@ -79,24 +80,27 @@ export const Toast = () =>
     .join('');
 
 export const Small = () =>
-  [null, 'success', 'alert', 'error']
+  ['info', 'success', 'alert', 'error']
     .map(
       (type) =>
         `
         <div class="hds-notification hds-notification--small ${type ? `hds-notification--${type}` : ''}">
-          ${getLabel(type || 'info')}
+          <div class="hds-notification__label">
+            <span class="hds-icon hds-icon--${iconMapping[type]}" aria-hidden="true"></span>
+          </div>
+          <div class="hds-notification__body">${type[0].toUpperCase() + type.substring(1)}</div>
         </div>
     `,
     )
     .join('');
 
 export const Large = () =>
-  [null, 'success', 'alert', 'error']
+  ['info', 'success', 'alert', 'error']
     .map(
       (type) =>
         `
         <div class="hds-notification hds-notification--large ${type ? `hds-notification--${type}` : ''}">
-          ${getLabel(type || 'info')}
+          ${getLabel(type)}
           ${text}
         </div>
     `,
@@ -111,7 +115,10 @@ export const WithClose = () => `
     </div>
     <br>
     <div class="hds-notification hds-notification--small">
-      ${getLabel('info')}
+      <div class="hds-notification__label">
+        <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+      </div>
+      <div class="hds-notification__body">Info</div>
       ${closeButton}
     </div>
     <br>

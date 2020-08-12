@@ -36,7 +36,11 @@ export const Success = () => (
   </Notification>
 );
 
-export const Small = () => <Notification {...props} size="small" />;
+export const Small = () => (
+  <Notification label="Only visible for screen readers" size="small">
+    Message
+  </Notification>
+);
 
 export const Large = () => (
   <Notification {...props} size="large">
@@ -78,13 +82,7 @@ export const AutoClose = () => {
     <>
       {!open && <Button onClick={() => setOpen(true)}>Open notification</Button>}
       {open && (
-        <Notification
-          {...props}
-          position="top-center"
-          autoClose
-          autoCloseDuration={3000}
-          onClose={() => setOpen(false)}
-        >
+        <Notification {...props} position="top-left" autoClose autoCloseDuration={3000} onClose={() => setOpen(false)}>
           {content}
         </Notification>
       )}
@@ -167,7 +165,7 @@ export const Playground = () => {
           dismissible={dismissible}
           closeButtonLabelText={closeButtonLabelText}
         >
-          {size !== 'small' && body}
+          {body}
         </Notification>
       )}
     </>
