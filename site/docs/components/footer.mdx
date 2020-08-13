@@ -13,20 +13,19 @@ import LargeParagraph from "../../src/components/LargeParagraph";
 # Footer
 
 <LargeParagraph>
-    The Footer component is the counterpart of the Navigation. It provides a place for secondary navigation, site wide actions and additional information that can be found on every page.
+    The Footer component is located at the bottom of the page below the main body content. It provides a place for secondary navigation, site wide actions and additional information.
 </LargeParagraph>
 
-Because footer stays consistent throughout the site and is the last element of the page, it's often the place where find their way go when they are lost. Therefore it's a good place provide the user an additional way to navigate the service and to engage them with useful actions. The footer is also used for displaying metainformation for the service, like copyrights and legal statements.
+Footer stays consistent throughout the site and is often the place where users scroll to if they feel lost or don't find what they are looking for. It's a good place provide the user an additional way to navigate the service and to information that is hard to find through primary navigation, for example contact info, copyright and legal statements. The footer can also be used to engage the user with actions and links to social media.
 
 ## Principles
 
-- **It is strongly recommended to always include the footer component in your service.**
-- Always position footer to the bottom of the page. It is recommended to include footer on every page of the service.
+- **It is strongly recommended to always include the footer component in your service and on every page of the service.**
+- Always position the footer to the bottom of the page.
 - Footer component is built to follow HDS [breakpoint tokens](/design-tokens/breakpoints). While it is recommended to follow HDS breakpoint tokens, you may alter footer width to fit your service's needs.
-- **It is recommended that the footer includes at least navigation and base sections. The Utility section can be omitted if not needed** 
-- Keep the order of footer sections (navigation, utility, base) and actions inside sections consistent. Do not change the default order without a good reason.
+- Keep the order of footer sections (navigation, utility, base) and actions consistent. Do not change the default order without a good reason.
 - The footer navigation should follow the same structure and labelling as the primary navigation. All top level pages included in the primary navigation should also be visible in footer navigation.  
-- Sub-pages can either be included or omitted from the footer navigation. If sub-pages are included in footer, they should follow the same structure and labelling as in the primary navigation. All same level sub-pages should be visible. See Navigation section usage, for more information about possible variations of footer navigation.
+- If sub-pages are included in footer, they should also follow the same structure and labelling as in the primary navigation. All same level sub-pages should be visible.
 
 ## Accessibility
 
@@ -34,12 +33,12 @@ Because footer stays consistent throughout the site and is the last element of t
 - **When designing the footer link hierarchy, always think about keyboard and screen reader users.** Remember that keyboard users need to manually navigate to each element.
 
 ## Usage and variations
-The Footer consists of three sections: navigation, utility and base. Each section is customisable to fit the diverse needs of different services. Footer should always have at least Navigation, and Base sections. The Utility section is optional, and can be omitted entirely if necessary. Parts of the sections can also be hidden if not needed.
+The Footer consists of three sections: navigation, utility and base. Each section is customisable to fit the needs of the service. **It is recommended that the footer includes at least navigation and base sections.** The Utility section can be omitted entirely if not needed. Parts of the sections can also be hidden.
 - **Navigation section** contains the Helsinki framed logo, the name of the service and footer navigation. Navigation section variations for more information about customising the footer navigation.
 - **Utility section** contains links and actions not listed in main navigation. For example social media icons, and links to contact info, feedback, or back to top.
-- **Base section** is used for supplementary information, For example copyright information and links to accessibility statement, privacy policy, terms of use, etc.
+- **Base section** is used for supplementary information, For example copyright information and links to other meta information e.g. accessibility statement, privacy policy, terms of use, etc.
 
-The background colour and koro motif can also be customised.
+The background colour and koro can also be customised.
 
 ### Default
 The default footer uses the black text colour variant and includes all three sections. 
@@ -58,7 +57,7 @@ The default footer uses the black text colour variant and includes all three sec
 
 
 ### Color variations
-HDS Footer offers two variations optimised to be used with different background colours - one with white and one with black text elements. Use variation that achieves best contrast with the brand background colour of your choice.
+HDS Footer offers two variations optimised to be used with different background colours - with white text and with black text. Use variation that achieves best contrast between the text elements and the background colour of your choice.
 
 <Playground>
 
@@ -69,12 +68,11 @@ HDS Footer offers two variations optimised to be used with different background 
 /* React code example goes here */
 ```
 
-
 ### Navigation section variations
-Navigation section three four different layout options:
-- Default navigation includes only the main level navigation items. The laytout is optimised for up to eight menu items. 
-- Sitemap navigation includes also second level sub-pages. Sitemap can be used in footer to help user find pages quickly from a complicated page hierarchy.
-- The navigation can also be hidden altogehter. However, it is recommended, that the Helsinki framed logo and service name are always shown in the footer.
+Navigation section two different layout options:
+- **Default navigation** includes only the main level navigation items. The laytout is optimised for up to eight menu items.
+- **Sitemap navigation** includes also second level sub-pages. Sitemap can be used in footer to help user find pages quickly from a complicated page hierarchy.
+- The navigation can also be hidden altogehter. However, **it is strongly recommended, that the Helsinki framed logo and service name are always shown in the footer**.
 
 <Playground> 
 
