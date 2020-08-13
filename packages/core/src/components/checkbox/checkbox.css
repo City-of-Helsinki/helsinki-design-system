@@ -1,6 +1,3 @@
-/* import checkbox color variables */
-@import "hds-design-tokens/lib/color/component/checkbox.css";
-
 @svg-load icon url(../../svg/ui/check.svg);
 
 .hds-checkbox {
@@ -12,27 +9,27 @@
   --outline-width: 3px;
   --label-padding: var(--spacing-2-xs);
 
-  --background-unselected: var(--color-background-checkbox-unselected);
-  --background-selected: var(--color-background-checkbox-selected);
-  --background-hover: var(--color-background-checkbox-hover);
-  --background-disabled: var(--color-background-checkbox-disabled);
+  --background-unselected: transparent;
+  --background-selected: var(--color-bus);
+  --background-hover: var(--color-bus-dark-50);
+  --background-disabled: var(--color-black-10);
 
-  --border-color-selected: var(--color-border-checkbox-selected);
-  --border-color-selected-hover: var(--color-border-checkbox-selected-hover);
-  --border-color-selected-focus: var(--color-border-checkbox-selected-focus);
-  --border-color-unselected: var(--color-border-checkbox-unselected);
-  --border-color-unselected-hover: var(--color-border-checkbox-unselected-hover);
-  --border-color-unselected-focus: var(--color-border-checkbox-unselected-focus);
-  --border-color-disabled: var(--color-border-checkbox-disabled);
+  --border-color-selected: var(--color-bus);
+  --border-color-selected-hover: var(--color-bus-dark-50);
+  --border-color-selected-focus: var(--color-bus);
+  --border-color-unselected: var(--color-black-50);
+  --border-color-unselected-hover: var(--color-black-90);
+  --border-color-unselected-focus: var(--color-black-90);
+  --border-color-disabled: var(--color-black-10);
 
-  --icon-color-unselected: var(--color-icon-checkbox-unselected);
-  --icon-color-selected: var(--color-icon-checkbox-selected);
-  --icon-color-disabled: var(--color-icon-checkbox-disabled);
+  --icon-color-unselected: transparent;
+  --icon-color-selected: var(--color-white);
+  --icon-color-disabled: var(--color-white);
 
-  --focus-outline-color: var(--color-focus-outline-checkbox-default);
+  --focus-outline-color: var(--color-coat-of-arms-blue);
 
-  --label-color: var(--color-label-checkbox-default);
-  --label-color-disabled: var(--color-label-checkbox-disabled);
+  --label-color: var(--color-black-90);
+  --label-color-disabled: var(--color-black-40);
 
   display: flex;
   min-height: var(--size);

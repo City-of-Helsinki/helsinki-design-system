@@ -1,8 +1,5 @@
 @import "../../utils/animations.css";
 
-/* import text-input color variables */
-@import "hds-design-tokens/lib/color/component/text-input.css";
-
 @svg-load icon url(../../svg/ui/alert-circle.svg);
 
 .hds-text-input {
@@ -13,22 +10,22 @@
   --textarea-height: 149px;
   --icon-size: var(--spacing-m);
 
-  --helper-color-default: var(--color-helper-text-input-default);
-  --helper-color-invalid: var(--color-helper-text-input-invalid);
-  --icon-color-invalid: var(--color-icon-text-input-invalid);
-  --input-background-default: var(--color-background-text-input-default);
-  --input-background-disabled: var(--color-background-text-input-disabled);
-  --input-border-color-default: var(--color-border-text-input-default);
-  --input-border-color-hover : var(--color-border-text-input-hover);
-  --input-border-color-focus: var(--color-border-text-input-focus);
-  --input-border-color-invalid: var(--color-border-text-input-invalid);
-  --input-border-color-disabled: var(--color-border-text-input-disabled);
-  --input-color-default: var(--color-input-text-input-default);
-  --input-color-disabled: var(--color-input-text-input-disabled);
-  --label-color-default: var(--color-label-text-input-default);
-  --label-color-invalid: var(--color-label-text-input-invalid);
-  --placeholder-color: var(--color-placeholder-text-input-default);
-  --focus-outline-color: var(--color-focus-outline-text-input-default);
+  --helper-color-default: var(--color-black-60);
+  --helper-color-invalid: var(--color-error);
+  --icon-color-invalid: var(--color-error);
+  --input-background-default: var(--color-white);
+  --input-background-disabled: var(--color-black-10);
+  --input-border-color-default: var(--color-black-50);
+  --input-border-color-hover : var(--color-black-90);
+  --input-border-color-focus: var(--color-black-90);
+  --input-border-color-invalid: var(--color-error);
+  --input-border-color-disabled: var(--color-black-10);
+  --input-color-default: var(--color-black-90);
+  --input-color-disabled: var(--color-black-40);
+  --label-color-default: var(--color-black-90);
+  --label-color-invalid: var(--color-black-90);
+  --placeholder-color: var(--color-black-60);
+  --focus-outline-color: var(--color-coat-of-arms-blue);
 }
 
 /* text-input transitions */

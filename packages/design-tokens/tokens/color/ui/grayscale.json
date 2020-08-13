@@ -2,63 +2,51 @@
   "color": {
     "black": {
       "value": "#000000",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "white": {
       "value": "#ffffff",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "black-5": {
       "value": "#f1f1f1",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "black-10": {
       "value": "#e5e5e5",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "black-20": {
       "value": "#cccccc",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "black-30": {
       "value": "#b2b2b2",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "black-40": {
       "value": "#999898",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "black-50": {
       "value": "#808080",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "black-60": {
       "value": "#666666",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "black-70": {
       "value": "#4c4c4c",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "black-80": {
       "value": "#333333",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "black-90": {
       "value": "#1a1a1a",
-      "type": "color",
-      "primary": true
+      "type": "color"
     }
   }
 }
