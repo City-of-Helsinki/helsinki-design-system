@@ -3,23 +3,19 @@
     "coat-of-arms": {
       "gold": {
         "value": "#c2a251",
-        "type": "color",
-        "primary": true
+        "type": "color"
       },
       "gold-light-20": {
         "value": "#f2ecdc",
-        "type": "color",
-        "primary": true
+        "type": "color"
       },
       "gold-light-50": {
         "value": "#e0d0a8",
-        "type": "color",
-        "primary": true
+        "type": "color"
       },
       "gold-dark-50": {
         "value": "#977b34",
-        "type": "color",
-        "primary": true
+        "type": "color"
       }
     }
   }

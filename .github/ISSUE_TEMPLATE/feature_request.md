@@ -1,20 +1,21 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
+about: Request a new component, token or pattern.
 title: ''
 labels: ''
 assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+<!--
+Before you are requesting a new feature, please refer to current HDS Contribution guidelines (https://hds.hel.fi/contributing) and check if the feature is already on the HDS Roadmap (https://hds.hel.fi/about/roadmap).
+-->
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+## What
+> What are you proposing? Be as precise as possible.
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+## Why
+> Why is this new feature needed? Which services are currently using this kind of feature? If there is a similar kind of feature available in the HDS, please describe how this feature differs from it.
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+## Related material
+> Optionally, you may attach screenshots, Sketch files etc. to make your request more understandable. Also, you may provide links to similar content in other design systems.

@@ -1,8 +1,3 @@
 .indicator {
-  color: var(--color-black-90);
-  display: inline-block;
-  font-size: var(--fontsize-body-large);
-  line-height: 1;
-  margin-left: var(--spacing-2-xs);
-  transform: translateY(var(--spacing-3-xs));
+  composes: hds-text-input__required from 'hds-core/lib/components/text-input/text-input.css';
 }

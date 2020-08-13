@@ -2,23 +2,19 @@
   "color": {
     "fog": {
       "value": "#9fc9eb",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "fog-light-20": {
       "value": "#ebf4fb",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "fog-light-50": {
       "value": "#cfe4f5",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "fog-dark-50": {
       "value": "#78a4c7",
-      "type": "color",
-      "primary": true
+      "type": "color"
     }
   }
 }
