@@ -55,6 +55,17 @@
   margin-bottom: var(--spacing-3-xs);
 }
 
+/* REQUIRED */
+
+.hds-text-input__required {
+  color: var(--color-black-90);
+  display: inline-block;
+  font-size: var(--fontsize-body-xl);
+  line-height: 1;
+  margin-left: var(--spacing-2-xs);
+  transform: translateY(var(--spacing-3-xs));
+}
+
 /* INPUT */
 
 .hds-text-input__input-wrapper {
