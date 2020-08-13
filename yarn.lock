@@ -3257,7 +3257,7 @@
   dependencies:
     tslib "^1.11.2"
 
-"@react-aria/visually-hidden@^3.1.0":
+"@react-aria/visually-hidden@3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@react-aria/visually-hidden/-/visually-hidden-3.1.0.tgz#0dcbd55a92ebb0641b249ac5644cd6e8423c512b"
   integrity sha512-cZqtwQ8Rckzj8PS4LR/MGYPIKtXnw7OvJ+SLrEBq03EskYfyrdCeFBk9Lq4Ut91KK3aHLOrmy4h486FPb17A9w==
