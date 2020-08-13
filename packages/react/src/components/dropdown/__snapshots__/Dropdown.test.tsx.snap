@@ -19,7 +19,7 @@ exports[`<Dropdown /> spec renders the component 1`] = `
         aria-expanded="false"
         aria-haspopup="listbox"
         aria-labelledby="hds-label hds-toggle-button"
-        class="buttonDropdown placeholder"
+        class="buttonDropdown placeholder buttonReset"
         id="hds-toggle-button"
         type="button"
       >

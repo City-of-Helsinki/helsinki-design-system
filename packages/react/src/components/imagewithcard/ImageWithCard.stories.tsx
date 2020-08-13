@@ -11,8 +11,8 @@ const contentText =
 
 const content = (
   <>
-    <h2>{contentTitle}</h2>
-    <p>{contentText}</p>
+    <h2 style={{ fontSize: 'var(--fontsize-heading-l)' }}>{contentTitle}</h2>
+    <p style={{ margin: 'var(--spacing-l) 0' }}>{contentText}</p>
   </>
 );
 
@@ -87,8 +87,8 @@ export const Playground = () => {
       cardLayout={cardLayout}
       src={imageFile}
     >
-      <h2>{cardTitle}</h2>
-      <p>{cardText}</p>
+      <h2 style={{ fontSize: 'var(--fontsize-heading-l)' }}>{cardTitle}</h2>
+      <p style={{ margin: 'var(--spacing-l) 0' }}>{cardText}</p>
     </ImageWithCard>
   );
 };

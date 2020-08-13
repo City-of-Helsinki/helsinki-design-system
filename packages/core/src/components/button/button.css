@@ -20,6 +20,15 @@
   vertical-align: top;
 }
 
+.hds-button,
+.hds-button::before,
+.hds-button::after,
+.hds-button *,
+.hds-button *::before,
+.hds-button *::after {
+  box-sizing: border-box;
+}
+
 /* button transitions */
 .hds-button:hover,
 .hds-button:focus {

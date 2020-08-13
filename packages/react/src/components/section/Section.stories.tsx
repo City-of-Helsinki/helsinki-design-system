@@ -28,35 +28,35 @@ export default {
 
 export const Plain = () => (
   <Section>
-    <h1>{placeholderTitle}</h1>
+    <h1 style={{ fontSize: 'var(--fontsize-heading-xl)' }}>{placeholderTitle}</h1>
     {placeholderText}
   </Section>
 );
 
 export const Primary = () => (
   <Section color="primary">
-    <h1>{placeholderTitle}</h1>
+    <h1 style={{ fontSize: 'var(--fontsize-heading-xl)' }}>{placeholderTitle}</h1>
     {placeholderText}
   </Section>
 );
 
 export const Secondary = () => (
   <Section color="secondary">
-    <h1>{placeholderTitle}</h1>
+    <h1 style={{ fontSize: 'var(--fontsize-heading-xl)' }}>{placeholderTitle}</h1>
     {placeholderText}
   </Section>
 );
 
 export const Tertiary = () => (
   <Section color="tertiary">
-    <h1>{placeholderTitle}</h1>
+    <h1 style={{ fontSize: 'var(--fontsize-heading-xl)' }}>{placeholderTitle}</h1>
     {placeholderText}
   </Section>
 );
 
 export const WithKoros = () => (
   <Section color="primary" korosType="basic">
-    <h1>{placeholderTitle}</h1>
+    <h1 style={{ fontSize: 'var(--fontsize-heading-xl)' }}>{placeholderTitle}</h1>
     {placeholderText}
   </Section>
 );
@@ -68,36 +68,36 @@ WithKoros.story = {
 export const Multiple = () => (
   <>
     <Section color="secondary" korosType="basic">
-      <h1>{placeholderTitle}</h1>
+      <h1 style={{ fontSize: 'var(--fontsize-heading-xl)' }}>{placeholderTitle}</h1>
       {placeholderText}
     </Section>
     {placeholderImg}
     <Section color="primary">
-      <h2>No Koros</h2>
+      <h2 style={{ fontSize: 'var(--fontsize-heading-l)' }}>No Koros</h2>
       This section does not have any koros.
     </Section>
     <Section korosType="pulse">
-      <h2>Pulse</h2>
+      <h2 style={{ fontSize: 'var(--fontsize-heading-l)' }}>Pulse</h2>
       {placeholderText}
     </Section>
     <Section color="secondary">Secondary non-koros section</Section>
     <Section color="tertiary" korosType="beat">
-      <h2>secondary Beat</h2>
+      <h2 style={{ fontSize: 'var(--fontsize-heading-l)' }}>secondary Beat</h2>
       {placeholderText}
     </Section>
     <Section />
     <Section color="secondary" korosType="wave">
-      <h2>Wave</h2>
+      <h2 style={{ fontSize: 'var(--fontsize-heading-l)' }}>Wave</h2>
       {placeholderText}
     </Section>
     <Section />
     <Section color="primary" korosType="beat">
-      <h2>primary Beat</h2>
+      <h2 style={{ fontSize: 'var(--fontsize-heading-l)' }}>primary Beat</h2>
       {placeholderText}
     </Section>
     <Section color="tertiary" />
     <Section color="secondary" korosType="storm">
-      <h2>Storm</h2>
+      <h2 style={{ fontSize: 'var(--fontsize-heading-l)' }}>Storm</h2>
       {placeholderText}
     </Section>
     <Section>This section has neither a heading or a koros.</Section>
@@ -124,8 +124,8 @@ export const Playground = () => {
 
   return (
     <Section color={color} korosType={korosType}>
-      <h1>{sectionTitle}</h1>
-      <p>{sectionText}</p>
+      <h1 style={{ fontSize: 'var(--fontsize-heading-xl)' }}>{sectionTitle}</h1>
+      {sectionText}
     </Section>
   );
 };

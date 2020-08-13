@@ -83,3 +83,23 @@ body {
   color: var(--color-black-90);
   line-height: var(--lineheight-l);
 }
+
+h1 {
+  font-size: var(--fontsize-heading-l);
+}
+
+h2 {
+  font-size: var(--fontsize-heading-m);
+}
+
+h3 {
+  font-size: var(--fontsize-heading-s);
+}
+
+h4 {
+  font-size: var(--fontsize-heading-xs);
+}
+
+h5 {
+  font-size: var(--fontsize-heading-xxs);
+}
