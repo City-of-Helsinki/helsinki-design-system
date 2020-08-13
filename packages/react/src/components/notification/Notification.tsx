@@ -7,11 +7,8 @@ import styles from './Notification.module.css';
 import { IconInfoCircle, IconError, IconAlertCircle, IconCheck, IconCross } from '../../icons';
 
 export type NotificationType = 'info' | 'error' | 'alert' | 'success';
-export type NotificationInlineSize = 'default' | 'small' | 'large';
-export type NotificationToastSize = Exclude<NotificationInlineSize, 'large'>;
-
-export type InlineNotificationSize = 'default' | 'small' | 'large';
-export type ToastNotificationSize = Exclude<InlineNotificationSize, 'large'>;
+export type NotificationSizeInline = 'default' | 'small' | 'large';
+export type NotificationSizeToast = Exclude<NotificationSizeInline, 'large'>;
 
 export type NotificationPosition =
   | 'inline'
@@ -24,54 +21,82 @@ export type NotificationPosition =
 
 type CommonProps = PropsWithChildren<{
   /**
+   * Whether the notification should be closed automatically after a certain time
+   * @default false
+   */
+  autoClose?: boolean;
+  /**
+   * The duration before the notification is automatically closed. Used together with the `autoClose` prop.
+   * @default 6000
+   */
+  autoCloseDuration?: number;
+  /**
    * Additional class names to apply to the notification
    */
   className?: string;
   /**
-   * Duration of the close fade-out animation in milliseconds
-   * @default 100
+   * Duration of the close fade-out animation
+   * @default 85
+   */
+  closeAnimationDuration?: number;
+  /**
+   * Value for the data-testid attribute that is applied to the root component.
    */
   dataTestId?: string;
+  /**
+   * Displays a progress bar on top of the notification when `true`
+   * @default true
+   */
+  displayAutoCloseProgress?: boolean;
   /**
    * Determines whether the notification should be visually hidden. Useful when notification should only be "seen" by screen readers.
    * @default false
    */
   invisible?: boolean;
   /**
-   *
+   * The label of the notification.
+   * Note: Labels are not displayed visually for small notifications, but they are still accessible to assistive technology. This could be used to help screen reader users to better understand the context of the notification.
    */
   label?: string | ReactNode;
   /**
-   *
+   * Callback fired when the notification is closed
+   */
+  onClose?: () => void;
+  /**
+   * The type of the notification
    * @default 'info'
    */
   type?: NotificationType;
 }>;
 
 type PositionAndSize =
-  | ({ position?: 'inline' } & InlineNotificationProps)
-  | ({ position?: NotificationPosition } & ToastNotificationProps);
+  | { position?: 'inline'; size?: NotificationSizeInline }
+  | {
+      /**
+       * The position of the notification
+       */
+      position?: NotificationPosition;
+      /**
+       * The size of the notification
+       */
+      size?: NotificationSizeToast;
+    };
 
 type Dismissible =
-  | { dismissible?: false }
-  | { dismissible?: boolean; closeButtonAriaLabel: string; onClose?: () => void };
+  | { dismissible?: false; closeButtonLabelText?: string }
+  | {
+      /**
+       * Whether the notification can be closed
+       * @default false
+       */
+      dismissible?: boolean;
+      /**
+       * The aria-label and title for the close button
+       */
+      closeButtonLabelText: string;
+    };
 
-type AutoClose = {
-  autoClose?: boolean;
-  autoCloseDuration?: number;
-  displayAutoCloseProgress?: boolean;
-  onClose?: () => void;
-};
-
-type InlineNotificationProps = {
-  size?: InlineNotificationSize;
-};
-
-type ToastNotificationProps = {
-  size?: ToastNotificationSize;
-} & AutoClose;
-
-export type NotificationProps = CommonProps & Dismissible & PositionAndSize;
+export type NotificationProps = CommonProps & PositionAndSize & Dismissible;
 
 // Icon mapping for notification types
 const icons = {
@@ -132,8 +157,8 @@ const Notification = ({
   autoCloseDuration = 6000,
   children,
   className = '',
-  closeAnimationDuration = 100,
-  closeButtonAriaLabel,
+  closeAnimationDuration = 85,
+  closeButtonLabelText,
   dataTestId,
   dismissible = false,
   displayAutoCloseProgress = true,
@@ -174,7 +199,7 @@ const Notification = ({
       if (autoClose) handleClose();
     }, autoCloseDuration);
     return () => clearTimeout(interval);
-  }, [autoClose, autoCloseDuration, closeAnimationDuration, handleClose]);
+  }, [autoClose, autoCloseDuration, handleClose]);
 
   // icon
   const Icon = icons[type];
@@ -187,7 +212,7 @@ const Notification = ({
   const notificationTransition = useSpring(open ? openTransitionProps : closeTransitionProps);
   const autoCloseTransition = useSpring(autoCloseTransitionProps);
 
-  // accessibility attributes
+  // a11y attributes
   const ariaLive: AriaAttributes['aria-live'] = type === 'error' ? 'assertive' : 'polite';
   const role = type === 'error' ? 'alert' : 'status';
 
@@ -218,8 +243,8 @@ const Notification = ({
           <button
             className={classNames(styles.close, styles[type])}
             type="button"
-            title={closeButtonAriaLabel}
-            aria-label={closeButtonAriaLabel}
+            title={closeButtonLabelText}
+            aria-label={closeButtonLabelText}
             onClick={handleClose}
           >
             <IconCross aria-hidden />
@@ -232,7 +257,7 @@ const Notification = ({
 
 /**
  * Conditionally hides the children visually, but leaves them accessible to assistive technology
- * @param visuallyHidden  Flag that determines whether the children should be invisible
+ * @param visuallyHidden  Determines whether the children should be invisible
  * @param children
  * @constructor
  */

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { boolean, number, radios, text, withKnobs } from '@storybook/addon-knobs';
 
-import Notification, { NotificationInlineSize, NotificationToastSize } from './Notification';
+import Notification, { NotificationSizeInline, NotificationSizeToast } from './Notification';
 import Button from '../button/Button';
 
 const props = {
@@ -68,7 +68,7 @@ export const Dismissible = () => {
     <>
       {!open && <Button onClick={() => setOpen(true)}>Open notification</Button>}
       {open && (
-        <Notification {...props} dismissible onClose={() => setOpen(false)} closeButtonAriaLabel="Close notification">
+        <Notification {...props} dismissible onClose={() => setOpen(false)} closeButtonLabelText="Close notification">
           {content}
         </Notification>
       )}
@@ -111,7 +111,7 @@ export const Playground = () => {
   const [open, setOpen] = useState(true);
   const label = text('Label', 'Label');
   const body = text('Content', content);
-  const closeButtonAriaLabel = text('Close button label text', 'Close notification');
+  const closeButtonLabelText = text('Close button label text', 'Close notification');
   const type = radios(
     'Type',
     {
@@ -155,7 +155,7 @@ export const Playground = () => {
   }, [position]);
 
   let typedSize;
-  position === 'inline' ? (typedSize = size as NotificationInlineSize) : (typedSize = size as NotificationToastSize);
+  position === 'inline' ? (typedSize = size as NotificationSizeInline) : (typedSize = size as NotificationSizeToast);
 
   return (
     <>
@@ -182,7 +182,7 @@ export const Playground = () => {
           position={position}
           size={typedSize}
           dismissible={dismissible}
-          closeButtonAriaLabel={closeButtonAriaLabel}
+          closeButtonLabelText={closeButtonLabelText}
         >
           {body}
         </Notification>

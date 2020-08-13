@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Transition } from 'react-spring/universal';
+import { Transition, animated } from 'react-spring';
 
 import classNames from '../../utils/classNames';
 import { IconInfoCircle, IconQuestionCircle, IconCross } from '../../icons';
@@ -70,7 +70,7 @@ const TooltipTransition = ({ children, open }: TooltipTransitionProps) => (
     enter={{ height: 'auto' }}
     leave={{ height: 0 }}
   >
-    {(show) => show && ((props) => <div style={{ ...props, ...{ overflowY: 'hidden' } }}>{children}</div>)}
+    {(props, show) => show && <animated.div style={{ ...props, ...{ overflowY: 'hidden' } }}>{children}</animated.div>}
   </Transition>
 );
 
