@@ -9,6 +9,10 @@ import { IconInfoCircle, IconError, IconAlertCircle, IconCheck, IconCross } from
 export type NotificationType = 'info' | 'error' | 'alert' | 'success';
 export type NotificationInlineSize = 'default' | 'small' | 'large';
 export type NotificationToastSize = Exclude<NotificationInlineSize, 'large'>;
+
+export type InlineNotificationSize = 'default' | 'small' | 'large';
+export type ToastNotificationSize = Exclude<InlineNotificationSize, 'large'>;
+
 export type NotificationPosition =
   | 'inline'
   | 'top-left'
@@ -18,52 +22,56 @@ export type NotificationPosition =
   | 'bottom-center'
   | 'bottom-right';
 
-// todo: rename to CommonProps?
-type Props = PropsWithChildren<{
-  autoClose?: boolean;
-  autoCloseDuration?: number;
-  onClose?: () => void;
-
+type CommonProps = PropsWithChildren<{
+  /**
+   * Additional class names to apply to the notification
+   */
   className?: string;
   /**
    * Duration of the close fade-out animation in milliseconds
    * @default 100
    */
-  closeAnimationDuration?: number;
   dataTestId?: string;
   /**
    * Determines whether the notification should be visually hidden. Useful when notification should only be "seen" by screen readers.
    * @default false
    */
-  displayAutoCloseProgress?: boolean;
   invisible?: boolean;
+  /**
+   *
+   */
   label?: string | ReactNode;
+  /**
+   *
+   * @default 'info'
+   */
   type?: NotificationType;
 }>;
 
-type Dismissible =
-  | {
-      dismissible?: false;
-      closeButtonLabelText?: string;
-      // todo
-      // onClose?: undefined;
-    }
-  | {
-      dismissible: boolean;
-      closeButtonLabelText: string;
-      // onClose?: () => void;
-    };
-
 type PositionAndSize =
-  | { position?: 'inline'; size?: NotificationInlineSize }
-  /* todo: does the type checking work? */
-  | { position?: NotificationPosition; size?: NotificationToastSize };
+  | ({ position?: 'inline' } & InlineNotificationProps)
+  | ({ position?: NotificationPosition } & ToastNotificationProps);
 
-// type AutoClose =
-//   | { autoClose?: false; autoCloseDuration?: undefined }
-//   | { autoClose?: boolean; autoCloseDuration?: number; onClose?: () => void };
+type Dismissible =
+  | { dismissible?: false }
+  | { dismissible?: boolean; closeButtonAriaLabel: string; onClose?: () => void };
 
-export type NotificationProps = Props & PositionAndSize & Dismissible;
+type AutoClose = {
+  autoClose?: boolean;
+  autoCloseDuration?: number;
+  displayAutoCloseProgress?: boolean;
+  onClose?: () => void;
+};
+
+type InlineNotificationProps = {
+  size?: InlineNotificationSize;
+};
+
+type ToastNotificationProps = {
+  size?: ToastNotificationSize;
+} & AutoClose;
+
+export type NotificationProps = CommonProps & Dismissible & PositionAndSize;
 
 // Icon mapping for notification types
 const icons = {
@@ -125,7 +133,7 @@ const Notification = ({
   children,
   className = '',
   closeAnimationDuration = 100,
-  closeButtonLabelText,
+  closeButtonAriaLabel,
   dataTestId,
   dismissible = false,
   displayAutoCloseProgress = true,
@@ -210,8 +218,8 @@ const Notification = ({
           <button
             className={classNames(styles.close, styles[type])}
             type="button"
-            title={closeButtonLabelText}
-            aria-label={closeButtonLabelText}
+            title={closeButtonAriaLabel}
+            aria-label={closeButtonAriaLabel}
             onClick={handleClose}
           >
             <IconCross aria-hidden />

@@ -68,7 +68,7 @@ export const Dismissible = () => {
     <>
       {!open && <Button onClick={() => setOpen(true)}>Open notification</Button>}
       {open && (
-        <Notification {...props} dismissible onClose={() => setOpen(false)} closeButtonLabelText="Close notification">
+        <Notification {...props} dismissible onClose={() => setOpen(false)} closeButtonAriaLabel="Close notification">
           {content}
         </Notification>
       )}
@@ -111,7 +111,7 @@ export const Playground = () => {
   const [open, setOpen] = useState(true);
   const label = text('Label', 'Label');
   const body = text('Content', content);
-  const closeButtonLabelText = text('Close button label text', 'Close notification');
+  const closeButtonAriaLabel = text('Close button label text', 'Close notification');
   const type = radios(
     'Type',
     {
@@ -182,7 +182,7 @@ export const Playground = () => {
           position={position}
           size={typedSize}
           dismissible={dismissible}
-          closeButtonLabelText={closeButtonLabelText}
+          closeButtonAriaLabel={closeButtonAriaLabel}
         >
           {body}
         </Notification>
