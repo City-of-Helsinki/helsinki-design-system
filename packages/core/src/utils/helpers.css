@@ -9,15 +9,20 @@
   position: absolute;
 }
 
+.button-reset {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}
+
 .text-body {
   font-family: var(--font-default);
   font-size: var(--fontsize-body-m);
   color: var(--color-black-90);
   line-height: var(--lineheight-l);
-}
-
-.text-body p {
-  margin: var(--spacing-l) 0;
 }
 
 .text-medium {

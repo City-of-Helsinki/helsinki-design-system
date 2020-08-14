@@ -39,6 +39,13 @@
   position: relative;
 }
 
+.root,
+.root *,
+.root *::before,
+.root *::after {
+  box-sizing: border-box;
+}
+
 /* TRANSITIONS */
 
 .dropdown:hover {
@@ -109,6 +116,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.buttonReset {
+  composes: button-reset from 'hds-core/lib/utils/helpers.css';
 }
 
 /* INVALID */

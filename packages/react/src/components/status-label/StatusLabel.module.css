@@ -1,0 +1,19 @@
+.statusLabel {
+  composes: hds-status-label from 'hds-core/lib/components/status-label/status-label.css';
+}
+
+.info {
+  composes: hds-status-label--info from 'hds-core/lib/components/status-label/status-label.css';
+}
+
+.success {
+  composes: hds-status-label--success from 'hds-core/lib/components/status-label/status-label.css';
+}
+
+.alert {
+  composes: hds-status-label--alert from 'hds-core/lib/components/status-label/status-label.css';
+}
+
+.error {
+  composes: hds-status-label--error from 'hds-core/lib/components/status-label/status-label.css';
+}

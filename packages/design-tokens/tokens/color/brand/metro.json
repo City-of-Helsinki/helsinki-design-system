@@ -2,23 +2,19 @@
   "color": {
     "metro": {
       "value": "#fd4f00",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "metro-light-20": {
       "value": "#fedbcc",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "metro-light-50": {
       "value": "#fea780",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "metro-dark-50": {
       "value": "#ca3f00",
-      "type": "color",
-      "primary": true
+      "type": "color"
     }
   }
 }

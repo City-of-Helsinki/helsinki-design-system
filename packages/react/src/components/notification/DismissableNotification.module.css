@@ -1,5 +1,6 @@
 .buttonClose {
   composes: hds-notification__close-button from 'hds-core/lib/components/notification/notification.css';
+  composes: button-reset from 'hds-core/lib/utils/helpers.css';
 }
 
 .iconClose {

@@ -65,7 +65,7 @@ const loaderFn = () => {
     // combine all the stories in the module to create the "All" story
     storyModule.All = () =>
       moduleStories.reduce((acc, [key, component]) => {
-        const label = `<h5>${component?.story?.name ?? key}</h5>`;
+        const label = `<h4>${component?.story?.name ?? key}</h4>`;
         acc += `${label}${component()}`;
         return acc;
       }, '');

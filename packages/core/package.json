@@ -1,6 +1,6 @@
 {
   "name": "hds-core",
-  "version": "0.11.3",
+  "version": "0.12.0",
   "description": "Core styles for the Helsinki Design System",
   "author": "Anssi Lehtonen <lehtovaaralainen@gmail.com>",
   "contributors": [
@@ -8,15 +8,15 @@
   ],
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
-  "main": "lib/base.css",
+  "main": "lib/base.min.css",
   "files": [
     "lib"
   ],
   "scripts": {
     "build": "rimraf lib/ && yarn postcss-build",
     "start": "yarn storybook",
-    "postcss-build": "yarn run postcss 'src/**/*.css' --base src -d lib",
-    "postcss-watch": "yarn run postcss 'src/**/*.css' --base src -d lib --watch",
+    "postcss-build": "postcss 'src/**/*.css' --base src -d lib && postcss 'src/**/*.css' --base src -d lib --ext 'min.css' --env 'minify'",
+    "postcss-watch": "postcss 'src/**/*.css' --base src -d lib --watch",
     "storybook": "start-storybook -p 6007 --quiet",
     "build-storybook": "build-storybook --loglevel error"
   },
@@ -28,7 +28,8 @@
     "@storybook/addons": "6.0.0-beta.13",
     "@storybook/html": "6.0.0-beta.13",
     "copyfiles": "2.2.0",
-    "hds-design-tokens": "0.11.3",
+    "cssnano": "4.1.10",
+    "hds-design-tokens": "0.12.0",
     "normalize.css": "8.0.1",
     "postcss": "7.0.30",
     "postcss-cli": "7.1.1",

@@ -2,23 +2,19 @@
   "color": {
     "brick": {
       "value": "#bd2719",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "brick-light-20": {
       "value": "#f1d3d1",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "brick-light-50": {
       "value": "#de938c",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "brick-dark-50": {
       "value": "#99160a",
-      "type": "color",
-      "primary": true
+      "type": "color"
     }
   }
 }
