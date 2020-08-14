@@ -1,0 +1,79 @@
+---
+name: Status label
+menu: Components
+route: /components/status-label
+---
+
+import { Playground } from "docz";
+import { StatusLabel } from "hds-react";
+
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
+
+# Status label
+
+<LargeParagraph>
+  Status labels can be used to highlight different statuses or items to the user. Status labels cannot be interacted with and they are only meant to convey relevant information.
+</LargeParagraph>
+
+## Principles
+
+- **A label text should always be provided with a status label.** Do not use status labels without text or with icons.
+- Keep labels short and concise. Use 1-2 words at maximum and do not use labels expanding to two rows.
+- Use status colours consistently. You can find guidelines on when to use each status colour in the [colour guidelines](/design-tokens/colour#ui-colours "UI colours").
+- Status labels are often related to some other element on the page (e.g. table row). Aim to keep status label and their related elements close to each other so the user can easily interpret the relation.
+
+## Accessibility
+
+- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
+- Remember that colour should never be the only way of conveying information. Make sure the meaning of the status label is clearly described by the label text. Refer to <Link href="https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html" external>WCAG 2.1 Use of Color guideline</Link> for more information.
+
+## Usage
+
+<Playground>
+    <StatusLabel>Neutral (default)</StatusLabel>
+    <StatusLabel type="info" style={{marginLeft: 'var(--spacing-s)'}}>Info</StatusLabel>
+    <StatusLabel type="success" style={{marginLeft: 'var(--spacing-s)'}}>Success</StatusLabel>
+    <StatusLabel type="alert" style={{marginLeft: 'var(--spacing-s)'}}>Alert</StatusLabel>
+    <StatusLabel type="error" style={{marginLeft: 'var(--spacing-s)'}}>Error</StatusLabel>
+</Playground>
+
+##### Core:
+```html
+<span class="hds-status-label">
+  Default
+</span>
+<span class="hds-status-label hds-status-label--info">
+  Info
+</span>
+<span class="hds-status-label hds-status-label--success">
+  Success
+</span>
+<span class="hds-status-label hds-status-label--alert">
+  Alert
+</span>
+<span class="hds-status-label hds-status-label--error">
+  Error
+</span>
+```
+
+##### React:
+```tsx
+<StatusLabel>Neutral</StatusLabel>
+<StatusLabel type="info">Info</StatusLabel>
+<StatusLabel type="success">Success</StatusLabel>
+<StatusLabel type="alert">Alert</StatusLabel>
+<StatusLabel type="error">Error</StatusLabel>
+```
+
+## Demos & API
+
+### Core
+
+[Status labels in hds-core](/storybook/core/?path=/story/status-label--default)
+
+### React
+
+[Status labels in hds-react](/storybook/react/?path=/story/components-status-label--neutral)
+
+[StatusLabel API](/storybook/react/?path=/docs/components-status-label--neutral)

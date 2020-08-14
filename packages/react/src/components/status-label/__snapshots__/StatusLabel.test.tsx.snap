@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StatusLabel /> spec renders the component 1`] = `
+<DocumentFragment>
+  <span
+    class="statusLabel neutral"
+  />
+</DocumentFragment>
+`;
