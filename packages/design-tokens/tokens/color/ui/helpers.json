@@ -2,63 +2,51 @@
   "color": {
     "error": {
       "value": "#b01038",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "error-light": {
       "value": "#f6e2e6",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "error-dark": {
       "value": "#8d0d2d",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "success": {
       "value": "#007a64",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "success-light": {
       "value": "#e2f5f3",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "success-dark": {
       "value": "#006250",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "alert": {
       "value": "#ffda07",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "alert-light": {
       "value": "#fff4b4",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "alert-dark": {
-      "value": "#986700",
-      "type": "color",
-      "primary": true
+      "value": "#d18200",
+      "type": "color"
     },
     "info": {
-      "value": "#007293",
-      "type": "color",
-      "primary": true
+      "value": "#0062b9",
+      "type": "color"
     },
     "info-light": {
-      "value": "#dcf1f5",
-      "type": "color",
-      "primary": true
+      "value": "#e5eff8",
+      "type": "color"
     },
     "info-dark": {
-      "value": "#005b76",
-      "type": "color",
-      "primary": true
+      "value": "#004f94",
+      "type": "color"
     }
   }
 }

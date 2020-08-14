@@ -1,5 +1,3 @@
-@import "~hds-core";
-
 @font-face {
   font-family: "HelsinkiGrotesk";
   src: url("https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/565d73a693abe0776c801607ac28f0bf.woff")
@@ -72,6 +70,26 @@
   text-rendering: optimizeLegibility;
 }
 
+h1 {
+  font-size: var(--fontsize-heading-l);
+}
+
+h2 {
+  font-size: var(--fontsize-heading-m);
+}
+
+h3 {
+  font-size: var(--fontsize-heading-s);
+}
+
+h4 {
+  font-size: var(--fontsize-heading-xs);
+}
+
+h5 {
+  font-size: var(--fontsize-heading-xxs);
+}
+
 a.customLink {
   align-items: center;
   display: inline-flex;
@@ -80,4 +98,8 @@ a.customLink {
 
 a.customLink:hover {
   text-decoration: underline;
+}
+
+.siteNotification {
+  max-width: 600px;
 }

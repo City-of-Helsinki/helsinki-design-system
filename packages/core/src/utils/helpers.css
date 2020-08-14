@@ -9,15 +9,20 @@
   position: absolute;
 }
 
-.text-body {
-  font-family: var(--font-default);
-  font-size: var(--fontsize-body-default);
-  color: var(--color-black-90);
-  line-height: var(--lineheight-l);
+.button-reset {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
 }
 
-.text-body p {
-  margin: var(--spacing-l) 0;
+.text-body {
+  font-family: var(--font-default);
+  font-size: var(--fontsize-body-m);
+  color: var(--color-black-90);
+  line-height: var(--lineheight-l);
 }
 
 .text-medium {
@@ -31,22 +36,22 @@
 }
 
 .text-xl {
-  font-size: var(--fontsize-h-3);
+  font-size: var(--fontsize-heading-m);
 }
 
 .text-lg {
-  font-size: var(--fontsize-h-4);
+  font-size: var(--fontsize-heading-s);
 }
 
 .text-md {
-  font-size: var(--fontsize-h-5);
+  font-size: var(--fontsize-heading-xs);
 }
 
 .subtitle {
-  font-size: var(--fontsize-subtitle);
+  font-size: var(--fontsize-body-m);
 }
 
 .text-sm {
-  font-size: var(--fontsize-body-small);
+  font-size: var(--fontsize-body-s);
   line-height: var(--lineheight-xl);
 }
