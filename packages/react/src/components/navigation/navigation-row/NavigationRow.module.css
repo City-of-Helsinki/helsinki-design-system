@@ -11,6 +11,7 @@
 /* NAVIGATION ITEM */
 
 .navigationItem {
+  composes: button-reset from 'hds-core/lib/utils/helpers.css';
   align-items: center;
   color: inherit;
   display: flex;
@@ -18,6 +19,11 @@
   outline: none;
   position: relative;
   text-decoration: none;
+}
+
+.navigationItem:global(.navigationDropdown) :global .dropdownButton {
+  cursor: pointer;
+  font-weight: inherit;
 }
 
 .navigationItem:global(.navigationDropdown) :global .menu .menuItem > .option {
@@ -98,7 +104,7 @@
   }
 
   /* navigation item - dropdown - menu */
-  .navigationItem:global(.navigationDropdown) :global .menu {
+  .navigationItem:global(.navigationDropdown) :global .menu.menu {
     position: relative;
   }
 
@@ -201,10 +207,6 @@
     position: absolute;
     transform: translateY(var(--active-height));
     width: 100%;
-  }
-
-  .navigationItem:hover:not(:focus):not(:focus-within) {
-    overflow: hidden;
   }
 
   .navigationItem:hover:not(:focus)::after,

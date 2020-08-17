@@ -2,9 +2,10 @@
 
 .navigationDropdown {
   composes: root from '../../dropdown/Dropdown.module.css';
+}
 
+.navigationDropdown {
   --dropdown-height: var(--spacing-xl);
-
   --dropdown-background-default: var(--header-background-color);
   --dropdown-border-color-default: transparent;
   --dropdown-border-color-hover: transparent;
@@ -92,6 +93,7 @@
 }
 
 .option {
+  composes: button-reset from 'hds-core/lib/utils/helpers.css';
   align-items: center;
   background-color: inherit;
   color: inherit;

@@ -10,6 +10,7 @@
 
 /* button */
 .openSearch {
+  composes: button-reset from 'hds-core/lib/utils/helpers.css';
   align-items: center;
   display: flex;
   outline: none;
@@ -31,8 +32,6 @@
 .input {
   --input-height: 100%;
 
-  /* todo: ??? */
-  /*display: none;*/
   font-size: var(--fontsize-body-s);
   height: calc(100% - var(--outline-width) * 2);
 }
@@ -85,7 +84,7 @@
 
 @media small-up {
   .inputIcon {
-    right: calc(var(--spacing-m) + 2px); /* 2px is for the input border width */
+    right: calc(var(--spacing-s) + 2px); /* 2px is for the input border width */
   }
 }
 

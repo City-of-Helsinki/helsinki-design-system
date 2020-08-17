@@ -47,9 +47,16 @@
 
 
   background-color: var(--navigation-row-background-color);
+  box-sizing: border-box;
   color: var(--header-color);
 
   position: relative;
+}
+
+.header *,
+.header *::before,
+.header *::after {
+  box-sizing: inherit;
 }
 
 /* BLACK THEME */
@@ -116,6 +123,12 @@
   width: auto;
 }
 
+.skipToContent.skipToContent:focus::after {
+  --focus-outline-offset: calc((var(--outline-width) + var(--border-width) + var(--outline-gutter)) * -1);
+  left: var(--focus-outline-offset);
+  top: var(--focus-outline-offset);
+}
+
 /* LOGO */
 
 .logo {
@@ -179,15 +192,16 @@
 
 /* menu toggle */
 .mobileMenuToggle {
+  composes: button-reset from 'hds-core/lib/utils/helpers.css';
   display: flex;
   margin-left: auto;
-  outline: none;
   padding: var(--spacing-2-xs);
 }
 
 .mobileMenuToggle:focus {
   border-radius: var(--header-focus-outline-border-radius);
   box-shadow: 0 0 0 var(--header-focus-outline-width) var(--header-focus-outline-color);
+  outline: none;
 }
 
 /* MEDIA */
