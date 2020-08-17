@@ -36,6 +36,8 @@ const styles = {
   },
   p: {
     maxWidth: 600,
+    marginTop: 'var(--spacing-l)',
+    marginBottom: 'var(--spacing-l)',
   },
   li: {
     marginBottom: 1,
