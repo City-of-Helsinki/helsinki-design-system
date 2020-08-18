@@ -4,6 +4,8 @@ menu: Components
 route: /components
 ---
 
+import { StatusLabel } from "hds-react";
+
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Link from "../../src/components/Link";
 
@@ -33,21 +35,33 @@ The React components and technical documentation are available in [Helsinki Desi
 
 ## Component status
 
-Since HDS is still in alpha stage, the component libraries are still experimental. The existing components can be used in projects but changes may still occur.
+**Since HDS is still in alpha stage, the component libraries are still experimental. The existing components can be used in projects but changes may still occur even for stable components.**
+
+HDS uses a simple labeling system for components to communicate their completeness and susceptibility to changes:
+
+Status                                               | Description
+-----------------------------------------------------|--------------
+<StatusLabel type="alert">Pre-release</StatusLabel>  | Component may be missing some features and/or is subject to breaking changes. These components are also open for feedback. **Avoid using in production.**
+<StatusLabel type="info">Stable</StatusLabel>        | Component's implementation, design and documentation are stable and fully featured. **These components can be used in production.** **In alpha stage we reserve a possibility to do breaking changes to stable components but this is likely!** 
+<StatusLabel type="success">Accessible</StatusLabel> | Component has been tested for accessibility by a 3rd party auditor.
+<StatusLabel>New</StatusLabel>                       | Component has been released in or after the latest major release.
+<StatusLabel type="error">Updated</StatusLabel>      | A breaking change has been introduced to this component in the latest major release.
+<StatusLabel type="error">Deprecated</StatusLabel>   | Component will be removed in the upcoming major releases. **Avoid using in production.**
 
 For future components, see [Roadmap](/about/roadmap).
 
 Component                                                        | Status       | Core                                                    | React
 -----------------------------------------------------------------|--------------|---------------------------------------------------------|----------------------------------------------------------------------
-[Button](/components/button)                                     | Stable       | [✔](/storybook/core/?path=/story/button--primary)       | [✔](/storybook/react/?path=/story/components-button--primary)
-[Checkbox](/components/checkbox)                                 | Stable       | [✔](/storybook/core/?path=/story/checkbox--default)     | [✔](/storybook/react/?path=/story/components-checkbox--default)
-[Dropdown](/components/dropdown)                                 | Stable       |                                                         | [✔](/storybook/react/?path=/story/components-dropdown--default)
-[Icons](/visual-assets/icons)                                    | Stable       | [✔](/storybook/core/?path=/story/icons--angle-down)     | [✔](/storybook/react/?path=/story/components-icons--iconangledown)
-[Koros (wave elements)](/components/koros)                                       | Stable       |                                                         | [✔](/storybook/react/?path=/story/components-koros--basic)
-[Radio button](/components/radio-button)                         | Stable       | [✔](/storybook/core/?path=/story/radiobutton--default)  | [✔](/storybook/react/?path=/story/components-radiobutton--default)
-[Text input](/components/text-field)                             | Stable       | [✔](/storybook/core/?path=/story/textinput--default)    | [✔](/storybook/react/?path=/story/components-textinput--default)
-[Text area](/components/text-field#text-area)                    | Stable       | [✔](/storybook/core/?path=/story/textarea--default)     | [✔](/storybook/react/?path=/story/components-textarea--default)
-[Tooltip (for text fields)](/components/text-field#with-tooltip) | Experimental |                                                         | [✔](/storybook/react/?path=/story/components-textinput--with-tooltip)
-ImageWithCard                                                    | Experimental |                                                         | [✔](/storybook/react/?path=/story/components-imagewithcard--default)
-Notification                                                     | Experimental | [✔](/storybook/core/?path=/story/notification--default) | [✔](/storybook/react/?path=/story/components-notification--default)
-Section                                                          | Experimental |                                                         | [✔](/storybook/react/?path=/story/components-section--with-koros)
+[Button](/components/button)                                     | <StatusLabel type="info" >Stable</StatusLabel>       | [✔](/storybook/core/?path=/story/button--primary)            | [✔](/storybook/react/?path=/story/components-button--primary)
+[Checkbox](/components/checkbox)                                 | <StatusLabel type="info">Stable</StatusLabel>        | [✔](/storybook/core/?path=/story/checkbox--default)          | [✔](/storybook/react/?path=/story/components-checkbox--default)
+[Dropdown](/components/dropdown)                                 | <StatusLabel type="alert">Pre-release</StatusLabel>  |                                                              | [✔](/storybook/react/?path=/story/components-dropdown--default)
+[Icon](/components/icons)                                        | <StatusLabel type="info">Stable</StatusLabel>        | [✔](/storybook/core/?path=/story/icons--angle-down)         | [✔](/storybook/react/?path=/story/components-icons--iconangledown)
+Notification                                                     | <StatusLabel type="alert">Pre-release</StatusLabel>  | [✔](/storybook/core/?path=/story/notification--default)      | [✔](/storybook/react/?path=/story/components-notification--default)
+[Koros (wave elements)](/components/koros)                       | <StatusLabel type="info">Stable</StatusLabel>        |                                                              | [✔](/storybook/react/?path=/story/components-koros--basic)
+[Radio button](/components/radio-button)                         | <StatusLabel type="info">Stable</StatusLabel>        | [✔](/storybook/core/?path=/story/radiobutton--default)       | [✔](/storybook/react/?path=/story/components-radiobutton--default)
+[Status label](/components/status-label)                         | <StatusLabel type="alert">Pre-release</StatusLabel>  | [✔](/storybook/core/?path=/story/status-label--default)      | [✔](/storybook/react/?path=/story/components-status-label)
+[Text input](/components/text-field)                             | <StatusLabel type="info">Stable</StatusLabel>        | [✔](/storybook/core/?path=/story/textinput--default)         | [✔](/storybook/react/?path=/story/components-textinput--default)
+[Text area](/components/text-field#text-area)                    | <StatusLabel type="info">Stable</StatusLabel>        | [✔](/storybook/core/?path=/story/textarea--default)          | [✔](/storybook/react/?path=/story/components-textarea--default)
+[Tooltip (for text fields)](/components/text-field#with-tooltip) | <StatusLabel type="alert">Pre-release</StatusLabel>  |                                                              | [✔](/storybook/react/?path=/story/components-textinput--with-tooltip)
+ImageWithCard                                                    | <StatusLabel type="alert">Pre-release</StatusLabel>  |                                                              | [✔](/storybook/react/?path=/story/components-imagewithcard--default)
+Section                                                          | <StatusLabel type="alert">Pre-release</StatusLabel>  |                                                              | [✔](/storybook/react/?path=/story/components-section--with-koros)
