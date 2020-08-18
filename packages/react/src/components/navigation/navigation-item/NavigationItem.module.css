@@ -20,3 +20,13 @@
   composes: hds-button--supplementary from 'hds-core/lib/components/button/button.css';
   --border-width: 3px;
 }
+
+.primary::after,
+.secondary::after,
+.supplementary::after {
+  --offset: calc((var(--border-width) + var(--outline-gutter) + var(--outline-width)) * -1);
+  left: 0;
+  top: 0;
+  transform: translate(var(--offset), var(--offset));
+}
+

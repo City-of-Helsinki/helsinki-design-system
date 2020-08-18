@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { ReactNode, useContext, useRef } from 'react';
 import { useSelect } from 'downshift';
 import { animated, useTransition, UseTransitionProps } from 'react-spring';
 import isEqual from 'lodash.isequal';
@@ -14,7 +14,7 @@ import Button from '../../button/Button';
 // TODO: ACCESSIBILITY ATTRIBUTES
 
 const DROPDOWN_TRANSITION: UseTransitionProps = {
-  from: { transform: 'translate3d(0, -2px, 0)', opacity: 0.75 },
+  from: { transform: 'translate3d(0, -2px, 0)', opacity: 0.85 },
   enter: { transform: 'translate3d(0, 10px, 0)', opacity: 1 },
   config: {
     friction: 30,
@@ -43,11 +43,11 @@ export type NavigationLanguageSelectorProps = {
   /**
    * todo
    */
-  formatOptionLabel?: (option: OptionType, index: number) => string;
+  formatOptionLabel?: (option: OptionType, index: number) => string | ReactNode;
   /**
    * todo
    */
-  formatSelectedValue?: (option: OptionType) => string;
+  formatSelectedValue?: (option: OptionType) => string | ReactNode;
   /**
    * Dropdown id
    */
@@ -56,6 +56,7 @@ export type NavigationLanguageSelectorProps = {
    * Callback fired when the state is changed
    * @param selectedItem Selected item
    */
+  // todo ?
   onLanguageChange?: (selectedItem: { [key: string]: any }) => void;
   /**
    * Sets the data item field that represents the item label.
@@ -109,7 +110,7 @@ const LanguageSelectorDropdown = ({
     // downshift needs a string representation for each option label
     itemToString: (item: OptionType): string => (item ? item[optionLabelField] ?? '' : ''),
     onSelectedItemChange: ({ selectedItem: _selectedItem }) => {
-      onLanguageChange(_selectedItem);
+      if (!isEqual(value, _selectedItem)) onLanguageChange(_selectedItem);
       focusToggleButton();
     },
     selectedItem: value,

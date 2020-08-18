@@ -10,7 +10,7 @@ export type NavigationContextProps = {
   // todo: type?
   theme?: string;
   /**
-   * Whether
+   * todo
    */
   isMobile?: boolean;
   /**

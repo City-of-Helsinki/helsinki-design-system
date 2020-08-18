@@ -23,7 +23,7 @@
 
 @media x-small-down {
   .navigationUser {
-    padding: var(--spacing-m);
+    padding: var(--spacing-m) var(--spacing-s);
   }
 }
 

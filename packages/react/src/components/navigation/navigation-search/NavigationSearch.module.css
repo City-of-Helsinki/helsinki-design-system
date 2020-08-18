@@ -57,7 +57,7 @@
 
 @media x-small-down {
   .navigationSearch {
-    padding: var(--spacing-m);
+    padding: var(--spacing-m) var(--spacing-s);
   }
 
   .inputIcon {

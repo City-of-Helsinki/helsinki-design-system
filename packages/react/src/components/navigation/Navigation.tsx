@@ -1,4 +1,13 @@
-import React, { Children, FC, PropsWithChildren, ReactElement, ReactNode, useReducer, useState } from 'react';
+import React, {
+  Children,
+  FC,
+  PropsWithChildren,
+  ReactElement,
+  ReactNode,
+  useEffect,
+  useReducer,
+  useState,
+} from 'react';
 import { animated, useTransition, UseTransitionProps } from 'react-spring';
 
 import styles from './Navigation.module.css';
@@ -17,11 +26,8 @@ import IconCross from '../../icons/ui/IconCross';
 import IconMenuHamburger from '../../icons/ui/IconMenuHamburger';
 import { NavigationReducerAction, NavigationReducerState } from './Navigation.interface';
 
-// TODO: PROP FOR CONTROLLING MENU
-// TODO: PROP FOR CONTROLLING MENU
-
 const MOBILE_MENU_TRANSITION: UseTransitionProps = {
-  from: { transform: 'translate3d(0, -10%, 0)', opacity: 0.75 },
+  from: { transform: 'translate3d(0, -10%, 0)', opacity: 0.85 },
   enter: { transform: 'translate3d(0, 0%, 0)', opacity: 1 },
   config: {
     friction: 30,
@@ -33,6 +39,7 @@ export type NavigationProps = PropsWithChildren<
   {
     /**
      * If `true`, the mobile menu will be animated when opened
+     * @default true
      */
     animateOpen?: boolean;
     /**
@@ -40,21 +47,37 @@ export type NavigationProps = PropsWithChildren<
      */
     className?: string;
     /**
+     * If `true`, the navigation will be fixed to the top of the page
+     * @default false
+     */
+    fixed?: boolean;
+    /**
      * ID of the header element
      */
     id?: string;
     /**
      * The language of the Helsinki-logo
+     * @default 'fi'
      */
+    // todo: export type
     logoLanguage?: 'fi' | 'sv';
     /**
      * aria-label for the mobile menu toggle when the menu is open
      */
     menuCloseAriaLabel: string;
     /**
+     * Sets whether the mobile menu is open. Used together with the `onMenuToggle` prop to override the internal state handling.
+     * @default false
+     */
+    menuOpen?: boolean;
+    /**
      * aria-label for the mobile menu toggle when the menu is closed
      */
     menuOpenAriaLabel: string;
+    /**
+     * Callback fired when the mobile menu is toggled. Can be used together with the `menuOpen` prop to override the internal state handling.
+     */
+    onMenuToggle?: () => void;
     /**
      * ID of the element to jump to when the "skip to content" accessibility shortcut is clicked
      */
@@ -66,11 +89,15 @@ export type NavigationProps = PropsWithChildren<
     /**
      * Text for the "skip to content" accessibility shortcut
      */
-    skipToContentText: string;
+    skipToContentText: string | ReactNode;
     /**
      * todo
      */
-    title: string | ReactNode;
+    title: string;
+    /**
+     * todo
+     */
+    titleUrl?: string;
   } & Omit<NavigationContextProps, 'isMobile'>
 >;
 
@@ -84,7 +111,7 @@ const rearrangeChildrenForMobile = (children: ReactElement[], authenticated: boo
 
   // moves the component to the start of the array
   const moveComponentToTop = (name: string) => {
-    const index = rearrangedChildren.findIndex((item) => (item?.type as FC)?.displayName === name);
+    const index = rearrangedChildren.findIndex((item) => (item?.type as FC)?.name === name);
     if (index > -1) {
       const component = rearrangedChildren.splice(index, 1)[0];
       rearrangedChildren.splice(0, 0, component);
@@ -116,12 +143,22 @@ const reducer = (state: NavigationReducerState, action: NavigationReducerAction)
 };
 
 /**
- * Wrapper component for navigation content
+ * Wrapper component for header content
  * @param children
+ * @param logoLanguage
+ * @param title
+ * @param titleUrl
+ * @param mobileMenuOpen
  */
-const Wrapper = ({ children }) => (
+const HeaderWrapper = ({ children, logoLanguage, title, titleUrl }) => (
   <div className={styles.headerBackgroundWrapper}>
-    <div className={styles.headerContainer}>{children}</div>
+    <div className={styles.headerContainer}>
+      <a className={styles.title} href={titleUrl}>
+        <Logo className={styles.logo} language={logoLanguage} />
+        <span>{title}</span>
+      </a>
+      {children}
+    </div>
   </div>
 );
 
@@ -129,51 +166,53 @@ const Navigation = ({
   animateOpen = true,
   children,
   className,
+  fixed = false,
   id,
   logoLanguage = 'fi',
   menuCloseAriaLabel,
+  menuOpen = false,
   menuOpenAriaLabel,
+  onMenuToggle,
   skipTo,
   skipToContentAriaLabel,
   skipToContentText,
   theme = 'white',
   title,
+  titleUrl,
 }: NavigationProps) => {
   const isMobile = useMobile();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(menuOpen);
 
   const [{ authenticated, navigationRowDisplay }, dispatch] = useReducer(reducer, {
     authenticated: false,
     navigationRowDisplay: 'fullWidth',
   });
 
+  // close menu when changing between mobile and desktop
+  useEffect(() => setMobileMenuOpen(false), [isMobile]);
+  // set the menu open state when it's controlled by the prop
+  useEffect(() => setMobileMenuOpen(menuOpen), [menuOpen]);
+
   // navigation context
   const context = { dispatch, isMobile, theme };
   // ensure that children is an array
   const childrenAsArray = Children.toArray(children) as ReactElement[];
   // children without the navigation row
-  const childrenWithoutNavigation = childrenAsArray.filter(
-    (child) => (child.type as FC)?.displayName !== 'NavigationRow',
-  );
+  const childrenWithoutNavigation = childrenAsArray.filter((child) => (child.type as FC)?.name !== 'NavigationRow');
   // filter out the NavigationRow, so that it can be rendered correctly based on the 'navigationRowDisplay' value
-  const navigation = childrenAsArray.filter((child) => (child.type as FC)?.displayName === 'NavigationRow');
+  const navigation = childrenAsArray.filter((child) => (child.type as FC)?.name === 'NavigationRow');
 
   // children that will be rendered in the mobile menu
   let menuChildren = null;
 
   if (isMobile) {
     // navigation actions
-    const actions = childrenAsArray.find((child) => (child.type as FC)?.displayName === 'NavigationActions')?.props
-      ?.children;
+    const actions = childrenAsArray.find((child) => (child.type as FC).name === 'NavigationActions')?.props?.children;
     const items = Children.toArray([navigation, actions]) as ReactElement[];
+
     // rearrange children
     menuChildren = rearrangeChildrenForMobile(items, authenticated);
   }
-
-  // title that is displayed in the header. wrap a string title in a <span>, so that it can be styled properly
-  const headerTitle: ReactNode = (
-    <div className={styles.title}>{typeof title === 'string' ? <span>{title}</span> : title}</div>
-  );
 
   // mobile menu transition
   const transitionProps = animateOpen ? MOBILE_MENU_TRANSITION : {};
@@ -181,19 +220,28 @@ const Navigation = ({
 
   return (
     <NavigationContext.Provider value={context}>
-      <header id={id} className={classNames(styles.header, `${styles[`theme-${theme}`]} theme-${theme}`, className)}>
+      <header
+        id={id}
+        className={classNames(
+          styles.header,
+          fixed && styles.fixed,
+          mobileMenuOpen && styles.menuOpen,
+          `${styles[`theme-${theme}`]} theme-${theme}`,
+          className,
+        )}
+      >
         <a className={styles.skipToContent} href={skipTo} aria-label={skipToContentAriaLabel}>
           {skipToContentText}
         </a>
         {isMobile ? (
           <>
-            <Wrapper>
-              <Logo language={logoLanguage} className={styles.logo} />
-              {headerTitle}
+            <HeaderWrapper logoLanguage={logoLanguage} title={title} titleUrl={titleUrl}>
               <button
                 type="button"
                 className={styles.mobileMenuToggle}
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                onClick={() =>
+                  typeof onMenuToggle === 'function' ? onMenuToggle() : setMobileMenuOpen(!mobileMenuOpen)
+                }
               >
                 {mobileMenuOpen ? (
                   <IconCross aria-label={menuCloseAriaLabel} />
@@ -201,7 +249,7 @@ const Navigation = ({
                   <IconMenuHamburger aria-label={menuOpenAriaLabel} />
                 )}
               </button>
-            </Wrapper>
+            </HeaderWrapper>
             {mobileMenuTransition(
               (values, open) =>
                 open && (
@@ -213,14 +261,12 @@ const Navigation = ({
           </>
         ) : (
           <>
-            <Wrapper>
-              <Logo language={logoLanguage} className={styles.logo} />
-              {headerTitle}
+            <HeaderWrapper logoLanguage={logoLanguage} title={title} titleUrl={titleUrl}>
               {navigationRowDisplay === 'inline' && <div className={styles.headerContent}>{children}</div>}
               {navigationRowDisplay === 'fullWidth' && (
                 <div className={styles.headerContent}>{childrenWithoutNavigation}</div>
               )}
-            </Wrapper>
+            </HeaderWrapper>
             {navigationRowDisplay === 'fullWidth' && navigation}
           </>
         )}

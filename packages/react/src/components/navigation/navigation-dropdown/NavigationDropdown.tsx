@@ -18,7 +18,7 @@ import { IconAngleDown } from '../../../icons';
 import NavigationContext from '../NavigationContext';
 
 const DROPDOWN_TRANSITION: UseTransitionProps = {
-  from: { transform: 'translate3d(0, -2px, 0)', opacity: 0.75 },
+  from: { transform: 'translate3d(0, -2px, 0)', opacity: 0.85 },
   enter: { transform: 'translate3d(0, 10px, 0)', opacity: 1 },
   config: {
     friction: 30,
