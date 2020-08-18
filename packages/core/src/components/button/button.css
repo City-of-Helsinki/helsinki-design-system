@@ -10,6 +10,7 @@
   border: var(--border-width) solid var(--border-color, transparent);
   border-radius: 0;
   color: var(--color);
+  cursor: pointer;
   display: inline-flex;
   justify-content: center;
   padding: 0 var(--spacing-2-xs);
@@ -53,7 +54,7 @@
   background-color: var(--background-color-disabled, transparent);
   border-color: var(--border-color-disabled, transparent);
   color: var(--color-disabled);
-  pointer-events: none;
+  cursor: not-allowed;
 }
 
 .hds-button:not([disabled]) {
