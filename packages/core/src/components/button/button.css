@@ -10,6 +10,7 @@
   border: var(--border-width) solid var(--border-color, transparent);
   border-radius: 0;
   color: var(--color);
+  cursor: pointer;
   display: inline-flex;
   justify-content: center;
   padding: 0 var(--spacing-2-xs);
@@ -49,26 +50,26 @@
   background-color: var(--background-color-hover-focus, transparent);
 }
 
-.hds-button[disabled] {
+.hds-button:disabled {
   background-color: var(--background-color-disabled, transparent);
   border-color: var(--border-color-disabled, transparent);
   color: var(--color-disabled);
-  pointer-events: none;
+  cursor: not-allowed;
 }
 
-.hds-button:not([disabled]) {
+.hds-button:not(:disabled) {
   border-color: var(--border-color, transparent);
 }
 
-.hds-button:not([disabled]):hover {
+.hds-button:not(:disabled):hover {
   border-color: var(--border-color-hover, transparent);
 }
 
-.hds-button:not([disabled]):focus {
+.hds-button:not(:disabled):focus {
   border-color: var(--border-color-focus, transparent);
 }
 
-.hds-button:not([disabled]):focus:hover {
+.hds-button:not(:disabled):focus:hover {
   border-color: var(--border-color-hover-focus, transparent);
   color: var(--color-hover-focus);
 }
