@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.12.1] - August 19, 2020
+### Core
+#### Fixed
+- [Button] Fixed wrong cursor being shown for buttons
+
+### React
+#### Fixed
+- [Button] Fixed wrong cursor being shown for buttons
+
+
 ## [0.12.0] - August 14, 2020
 ### Core
 #### Breaking Changes
