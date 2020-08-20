@@ -8,9 +8,7 @@ exports[`<Navigation.Search /> spec renders the component 1`] = `
     <a
       class="skipToContent"
       href="#content"
-    >
-      Skip to content
-    </a>
+    />
     <div
       class="headerBackgroundWrapper"
     >
@@ -42,7 +40,7 @@ exports[`<Navigation.Search /> spec renders the component 1`] = `
           class="headerContent"
         >
           <div
-            class="navigationSearch theme-white"
+            class="navigationSearch"
           >
             <button
               class="openSearch"
@@ -68,9 +66,7 @@ exports[`<Navigation.Search /> spec renders the component 1`] = `
               </svg>
               <span
                 class="label"
-              >
-                Search
-              </span>
+              />
             </button>
           </div>
         </div>

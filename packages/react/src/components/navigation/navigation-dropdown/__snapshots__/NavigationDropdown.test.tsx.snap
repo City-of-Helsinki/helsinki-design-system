@@ -8,9 +8,7 @@ exports[`<Navigation.Dropdown /> spec renders the component 1`] = `
     <a
       class="skipToContent"
       href="#content"
-    >
-      Skip to content
-    </a>
+    />
     <div
       class="headerBackgroundWrapper"
     >
@@ -44,11 +42,14 @@ exports[`<Navigation.Dropdown /> spec renders the component 1`] = `
           <div
             class="navigationDropdown navigationDropdown"
           >
-            <label
-              class="srLabel"
-              for="downshift-0-toggle-button"
-              id="downshift-0-label"
-            />
+            <div
+              style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+            >
+              <label
+                for="downshift-0-toggle-button"
+                id="downshift-0-label"
+              />
+            </div>
             <div
               class="wrapper dropdownWrapper"
             >
@@ -88,7 +89,7 @@ exports[`<Navigation.Dropdown /> spec renders the component 1`] = `
               class="menu menu"
               id="downshift-0-menu"
               role="listbox"
-              style="transform: translate3d(0, -2px, 0); opacity: 0.85;"
+              style="transform: translate3d(0, -2px, 0);"
               tabindex="-1"
             />
           </div>

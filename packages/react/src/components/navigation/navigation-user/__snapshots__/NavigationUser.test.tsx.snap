@@ -8,9 +8,7 @@ exports[`<Navigation.User /> spec renders the component 1`] = `
     <a
       class="skipToContent"
       href="#content"
-    >
-      Skip to content
-    </a>
+    />
     <div
       class="headerBackgroundWrapper"
     >
@@ -42,7 +40,7 @@ exports[`<Navigation.User /> spec renders the component 1`] = `
           class="headerContent"
         >
           <div
-            class="navigationUser theme-white"
+            class="navigationUser"
           >
             <button
               class="button supplementary theme-black size-default fullWidth signInButton"
@@ -73,9 +71,7 @@ exports[`<Navigation.User /> spec renders the component 1`] = `
               </div>
               <span
                 class="label"
-              >
-                Sign in
-              </span>
+              />
             </button>
           </div>
         </div>

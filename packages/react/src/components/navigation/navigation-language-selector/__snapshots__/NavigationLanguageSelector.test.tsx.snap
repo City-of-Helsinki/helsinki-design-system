@@ -8,9 +8,7 @@ exports[`<Navigation.LanguageSelector /> spec renders the component 1`] = `
     <a
       class="skipToContent"
       href="#content"
-    >
-      Skip to content
-    </a>
+    />
     <div
       class="headerBackgroundWrapper"
     >
@@ -44,20 +42,23 @@ exports[`<Navigation.LanguageSelector /> spec renders the component 1`] = `
           <div
             class="languageSelectorDropdown"
           >
-            <label
-              class="srLabel"
-              for="downshift-0-toggle-button"
-              id="downshift-0-label"
-            />
+            <div
+              style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+            >
+              <label
+                for="languageDropdown-toggle-button"
+                id="languageDropdown-label"
+              />
+            </div>
             <div
               class="wrapper"
             >
               <button
                 aria-expanded="false"
                 aria-haspopup="listbox"
-                aria-labelledby="downshift-0-label downshift-0-toggle-button"
+                aria-labelledby="languageDropdown-label languageDropdown-toggle-button"
                 class="buttonDropdown placeholder"
-                id="downshift-0-toggle-button"
+                id="languageDropdown-toggle-button"
                 type="button"
               >
                 <span
@@ -84,11 +85,11 @@ exports[`<Navigation.LanguageSelector /> spec renders the component 1`] = `
               </button>
             </div>
             <ul
-              aria-labelledby="downshift-0-label"
+              aria-labelledby="languageDropdown-label"
               class="menu"
-              id="downshift-0-menu"
+              id="languageDropdown-menu"
               role="listbox"
-              style="transform: translate3d(0, -2px, 0); opacity: 0.85;"
+              style="transform: translate3d(0, -2px, 0);"
               tabindex="-1"
             />
           </div>
