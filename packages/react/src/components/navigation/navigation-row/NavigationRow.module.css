@@ -201,7 +201,8 @@
 
   /* NAVIGATION ITEM - ACTIVE */
 
-  .navigationItem.active::after {
+  .navigationItem.active::after,
+  .navigationItem:hover::after {
     --active-height: 5px;
 
     background-color: transparent;

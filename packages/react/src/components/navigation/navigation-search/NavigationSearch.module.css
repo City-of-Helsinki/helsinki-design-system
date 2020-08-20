@@ -1,4 +1,4 @@
-@value x-small-down, small-down, small-only, small-up from "../../../styles/breakpoints.css";
+@value x-small-down, small-down, small-only, small-up, medium-up, large-up, x-large-up from "../../../styles/breakpoints.css";
 
 .navigationSearch {
   align-items: center;
@@ -32,6 +32,8 @@
 .input {
   --input-height: 100%;
 
+  --focus-outline-color: var(--header-focus-outline-color);
+
   font-size: var(--fontsize-body-s);
   height: calc(100% - var(--outline-width) * 2);
 }
@@ -49,7 +51,7 @@
 /* THEMES */
 
 /* black */
-.navigationSearch.theme-black .inputIcon {
+header:global(.theme-black) .inputIcon {
   color: var(--color-black);
 }
 
@@ -61,14 +63,13 @@
   }
 
   .inputIcon {
-    right: calc(var(--spacing-xl) + 2px); /* 2px is for the input border width */
+    right: var(--spacing-l);
   }
 }
 
 @media small-down {
   .input {
-    /* fixme: rem */
-    --input-height: 44px;
+    --input-height: 2.75rem;
 
     font-size: var(--fontsize-body-s);
     height: calc(100% - var(--outline-width) * 2);
@@ -84,36 +85,37 @@
 
 @media small-up {
   .inputIcon {
-    right: calc(var(--spacing-s) + 2px); /* 2px is for the input border width */
+    right: var(--spacing-s);
   }
 }
 
-@media only screen and (min-width: 768px) {
+@media medium-up {
   .navigationSearch {
     cursor: pointer;
     height: 100%;
   }
+
   .navigationSearch.active .openSearch {
     visibility: hidden;
     display: none;
   }
+
   .navigationSearch.active .input {
     display: block;
     position: absolute;
     right: 0;
     width: 11rem;
   }
-  .navigationSearch.theme-black .input {
-    --focus-outline-color: var(--color-white);
-  }
 }
-@media only screen and (min-width: 992px) {
+
+@media large-up {
   .label {
     display: inline;
     margin-left: var(--spacing-2-xs);
   }
 }
-@media only screen and (min-width: 1224px) {
+
+@media x-large-up {
   .navigationSearch.active .input {
     width: 13rem;
   }

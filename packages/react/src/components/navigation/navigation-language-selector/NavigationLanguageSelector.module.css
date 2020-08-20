@@ -1,6 +1,6 @@
 @value x-small-only, small-only, medium-up from "../../../styles/breakpoints.css";
 
-.mobileContainer {
+.mobileLanguageContainer {
   display: grid;
   grid-gap: var(--spacing-3-xs);
   grid-template-columns: repeat(2, auto);
@@ -22,6 +22,7 @@
   --color-focus: var(--color-black-90);
   --color-hover-focus: var(--color-black-90);
 
+  pointer-events: none;
   text-decoration: none;
 }
 
@@ -73,9 +74,9 @@
 
 .buttonDropdown {
   composes: buttonDropdown from '../../dropdown/Dropdown.module.css';
+  cursor: pointer;
   font-weight: bold;
   padding: 0;
-  text-transform: uppercase;
 }
 
 .label {
@@ -83,20 +84,16 @@
   margin-left: var(--spacing-2-xs);
 }
 
-.srLabel {
-  composes: srLabel from '../navigation-dropdown/NavigationDropdown.module.css';
-}
-
 /* MEDIA */
 
 @media x-small-only {
-  .mobileContainer {
+  .mobileLanguageContainer {
     padding: var(--spacing-m) var(--spacing-s);
   }
 }
 
 @media small-only {
-  .mobileContainer {
+  .mobileLanguageContainer {
     grid-template-columns: repeat(3, auto);
     padding: var(--spacing-m);
   }
