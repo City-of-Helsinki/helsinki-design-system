@@ -26,7 +26,7 @@ export type NavigationLanguageSelectorProps<OptionType> = {
    */
   animateOpen?: boolean;
   /**
-   * aria-label for the dropdown. Can be used to give additional information to screen readers
+   * aria-label for the language dropdown. Can be used to give additional information to screen readers
    */
   ariaLabel?: string;
   /**
@@ -81,6 +81,7 @@ const LanguageSelectorDropdown = <OptionType,>({
   // filter out the active language from options
   const filteredOptions = options.filter((item) => !isEqual(item, value));
 
+  // focuses the dropdown toggle button
   const focusToggleButton = () => toggleButtonRef.current?.focus();
 
   // init select
@@ -93,11 +94,7 @@ const LanguageSelectorDropdown = <OptionType,>({
     isOpen,
     selectedItem,
   } = useSelect<OptionType>({
-    // todo: remove
-    // isOpen: true,
     id: 'languageDropdown',
-    // todo: fix focus instead
-    // defaultHighlightedIndex: 0,
     items: filteredOptions,
     // downshift needs a string representation for each option label
     itemToString: (item: OptionType): string => (item ? item[optionLabelField] ?? '' : ''),
@@ -141,6 +138,11 @@ const LanguageSelectorDropdown = <OptionType,>({
           style={values}
           {...getMenuProps({
             className: styles.menu,
+            onKeyDown: (event) => {
+              // focus toggle button when escape is pressed or when enter/space is pressed and no item is highlighted
+              if (event.key === 'Escape' || (['Enter', ' '].includes(event.key) && highlightedIndex < 0))
+                focusToggleButton();
+            },
           })}
         >
           {open &&

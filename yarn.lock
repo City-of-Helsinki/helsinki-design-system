@@ -3275,7 +3275,7 @@
     "@react-types/shared" "^3.2.0"
     clsx "^1.1.1"
 
-"@react-aria/visually-hidden@^3.2.0":
+"@react-aria/visually-hidden@3.2.0":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@react-aria/visually-hidden/-/visually-hidden-3.2.0.tgz#740730368c8572de397c9d82ff5700fd7e034907"
   integrity sha512-eqLfU4ISWyRb8UM1YFRnxXdjNpjQNixj0sHT8usWJNuQrZt0ebDdu/Kv2Ir3VUYr+GldoeKGYMDFHKwFLll1Hg==

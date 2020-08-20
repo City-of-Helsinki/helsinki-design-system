@@ -14,6 +14,10 @@ export type NavigationUserProps = PropsWithChildren<{
    */
   animateOpen?: boolean;
   /**
+   * aria-label for the user dropdown. Can be used to give additional information to screen readers
+   */
+  ariaLabel?: string;
+  /**
    * Flag for whether the user is authenticated
    */
   authenticated?: boolean;
@@ -33,6 +37,7 @@ export type NavigationUserProps = PropsWithChildren<{
 
 const NavigationUser = ({
   animateOpen = true,
+  ariaLabel,
   authenticated = false,
   children,
   label,
@@ -57,7 +62,13 @@ const NavigationUser = ({
       {children}
     </>
   ) : (
-    <NavigationDropdown animateOpen={animateOpen} id="userDropdown" icon={<IconUser />} label={userName}>
+    <NavigationDropdown
+      animateOpen={animateOpen}
+      ariaLabel={ariaLabel}
+      id="userDropdown"
+      icon={<IconUser />}
+      label={userName}
+    >
       {children}
     </NavigationDropdown>
   );

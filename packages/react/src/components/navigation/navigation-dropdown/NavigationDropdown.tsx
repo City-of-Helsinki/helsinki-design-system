@@ -37,7 +37,7 @@ type NavigationDropdownProps = PropsWithChildren<{
    */
   animateOpen?: boolean;
   /**
-   * Used to label the toggle button and the menu
+   * aria-label for the user dropdown. Can be used to give additional information to screen readers
    */
   ariaLabel?: string;
   /**
@@ -58,23 +58,6 @@ type NavigationDropdownProps = PropsWithChildren<{
   label?: string | ReactNode;
 }>;
 
-/**
- * Handles dropdown item selection
- * @param event
- * @param highlightedIndex
- */
-const handleSelect = (event: KeyboardEvent<HTMLElement>, highlightedIndex: number): void => {
-  // we need to programmatically click the selected item component
-  if (event.key === 'Enter' || event.key === 'Space') {
-    // menu child nodes
-    const { childNodes } = event.target as HTMLUListElement;
-    // get the selected option based on highlightedIndex
-    const selectedOption = (childNodes.item(highlightedIndex) as HTMLLIElement)?.firstChild as HTMLElement;
-    // eslint-disable-next-line no-unused-expressions
-    selectedOption?.click();
-  }
-};
-
 const NavigationDropdown: FC<NavigationDropdownProps> = ({
   active,
   animateOpen = true,
@@ -92,30 +75,35 @@ const NavigationDropdown: FC<NavigationDropdownProps> = ({
     isValidElement(child) ? cloneElement(child, { className: `${styles.option} option` }) : child,
   );
 
-  const focusToggleButton = () => {
-    console.log('NavDD focusToggleButton');
-    return toggleButtonRef.current?.focus();
+  // focuses the dropdown toggle button
+  const focusToggleButton = () => toggleButtonRef.current?.focus();
+
+  // Handles dropdown menu events
+  const handleMenuEvent = (event: KeyboardEvent<HTMLElement>, highlightedIndex: number): void => {
+    const clickAction = ['Enter', ' '].includes(event.key);
+    const closeAction = ['Tab', 'Escape'].includes(event.key);
+
+    // focus toggle button when tab/escape is pressed or when enter/space is pressed and no item is highlighted
+    if (closeAction || (clickAction && highlightedIndex < 0)) {
+      focusToggleButton();
+    }
+    // programmatically click the item component if it was selected
+    if (clickAction) {
+      // menu child nodes
+      const { childNodes } = event.target as HTMLUListElement;
+      // get the selected option based on highlightedIndex
+      const selectedOption = (childNodes.item(highlightedIndex) as HTMLLIElement)?.firstChild as HTMLElement;
+      // eslint-disable-next-line no-unused-expressions
+      selectedOption?.click();
+    }
   };
 
   // init select
-  const {
-    getItemProps,
-    getLabelProps,
-    getMenuProps,
-    getToggleButtonProps,
-    highlightedIndex,
-    isOpen,
-    reset,
-  } = useSelect<ReactNode>({
-    // todo: remove
-    // isOpen: true,
+  const { getItemProps, getLabelProps, getMenuProps, getToggleButtonProps, highlightedIndex, isOpen } = useSelect<
+    ReactNode
+  >({
     id,
     items: childrenWithClassName || [],
-    onSelectedItemChange: () => {
-      console.log('NavDD onSelectedItemChange');
-      focusToggleButton();
-      reset();
-    },
   });
 
   // menu transition
@@ -132,7 +120,6 @@ const NavigationDropdown: FC<NavigationDropdownProps> = ({
       )}
     >
       <VisuallyHidden>
-        {/* todo: test */}
         <label {...getLabelProps()}>{ariaLabel}</label>
       </VisuallyHidden>
       {/* WRAPPER */}
@@ -157,10 +144,7 @@ const NavigationDropdown: FC<NavigationDropdownProps> = ({
           style={values}
           {...getMenuProps({
             className: `${styles.menu} menu`,
-            onKeyDown: (event) => {
-              console.log('event', event);
-              handleSelect(event, highlightedIndex);
-            },
+            onKeyDown: (event) => handleMenuEvent(event, highlightedIndex),
           })}
         >
           {open &&

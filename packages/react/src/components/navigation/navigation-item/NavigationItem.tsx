@@ -18,13 +18,14 @@ export type OverwritableType<OwnProps, Type extends ElementType> = Prefer<OwnPro
 export interface NavigationDropdownOptionProps<T> {
   active?: boolean;
   as: T;
-  label: string | ReactNode;
+  label?: string | ReactNode;
   variant?: 'primary' | 'secondary' | 'supplementary';
 }
 
 const NavigationItem = <T extends ElementType = 'a'>({
   active,
   as,
+  children,
   className,
   label,
   variant,
@@ -39,6 +40,7 @@ const NavigationItem = <T extends ElementType = 'a'>({
       {...rest}
     >
       {label}
+      {children}
     </Item>
   );
 };

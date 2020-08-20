@@ -14,7 +14,7 @@
   align-items: center;
   display: flex;
   outline: none;
-  padding: var(--spacing-3-xs); /* todo: check this */
+  padding: var(--spacing-3-xs);
 }
 
 .navigationSearch.active .openSearch {

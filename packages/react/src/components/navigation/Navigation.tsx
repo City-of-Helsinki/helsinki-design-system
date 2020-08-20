@@ -92,7 +92,7 @@ export type NavigationProps = PropsWithChildren<
     /**
      * Text for the "skip to content" accessibility shortcut
      */
-    skipToContentText: string | ReactNode;
+    skipToContentLabel: string | ReactNode;
     /**
      * Defines the navigation theme
      * @default 'white'
@@ -101,7 +101,7 @@ export type NavigationProps = PropsWithChildren<
     /**
      * The title of the service shown next to the logo
      */
-    title?: string;
+    title?: string | ReactNode;
     /**
      * URL to navigate to when the logo or title is clicked
      */
@@ -168,7 +168,7 @@ const HeaderWrapper = ({ children, logoLanguage, onTitleClick, title, titleUrl }
         onClick={onTitleClick}
         {...(!titleUrl && onTitleClick && { tabIndex: 0 })}
       >
-        <Logo dataTestId="test" className={styles.logo} language={logoLanguage} />
+        <Logo className={styles.logo} language={logoLanguage} />
         {title && <span>{title}</span>}
       </a>
       {children}
@@ -190,7 +190,7 @@ const Navigation = ({
   onTitleClick,
   skipTo,
   skipToContentAriaLabel,
-  skipToContentText,
+  skipToContentLabel,
   theme = 'white',
   title,
   titleUrl,
@@ -250,7 +250,7 @@ const Navigation = ({
         )}
       >
         <a className={styles.skipToContent} href={skipTo} aria-label={skipToContentAriaLabel}>
-          {skipToContentText}
+          {skipToContentLabel}
         </a>
         {isMobile ? (
           <>
