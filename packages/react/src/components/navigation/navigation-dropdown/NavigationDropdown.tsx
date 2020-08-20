@@ -11,6 +11,7 @@ import React, {
 } from 'react';
 import { useSelect } from 'downshift';
 import { useTransition, animated, UseTransitionProps } from 'react-spring';
+import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import styles from './NavigationDropdown.module.css';
 import classNames from '../../../utils/classNames';
@@ -18,8 +19,8 @@ import { IconAngleDown } from '../../../icons';
 import NavigationContext from '../NavigationContext';
 
 const DROPDOWN_TRANSITION: UseTransitionProps = {
-  from: { transform: 'translate3d(0, -2px, 0)', opacity: 0.85 },
-  enter: { transform: 'translate3d(0, 10px, 0)', opacity: 1 },
+  from: { transform: 'translate3d(0, -2px, 0)' },
+  enter: { transform: 'translate3d(0, 10px, 0)' },
   config: {
     friction: 30,
     tension: 300,
@@ -112,8 +113,8 @@ const NavigationDropdown: FC<NavigationDropdownProps> = ({
     items: childrenWithClassName || [],
     onSelectedItemChange: () => {
       console.log('NavDD onSelectedItemChange');
-      reset();
       focusToggleButton();
+      reset();
     },
   });
 
@@ -130,13 +131,10 @@ const NavigationDropdown: FC<NavigationDropdownProps> = ({
         className,
       )}
     >
-      <label
-        {...getLabelProps({
-          className: styles.srLabel,
-        })}
-      >
-        {ariaLabel}
-      </label>
+      <VisuallyHidden>
+        {/* todo: test */}
+        <label {...getLabelProps()}>{ariaLabel}</label>
+      </VisuallyHidden>
       {/* WRAPPER */}
       <div className={`${styles.wrapper} dropdownWrapper`}>
         <button

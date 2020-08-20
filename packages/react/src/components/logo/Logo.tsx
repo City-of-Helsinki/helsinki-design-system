@@ -1,7 +1,9 @@
-import React, { CSSProperties, FC, ReactElement } from 'react';
+import React, { CSSProperties, ReactElement } from 'react';
 
 import styles from './Logo.module.css';
 import classNames from '../../utils/classNames';
+
+export type LogoLanguage = 'fi' | 'sv';
 
 export type LogoProps = {
   /**
@@ -9,9 +11,13 @@ export type LogoProps = {
    */
   className?: string;
   /**
+   * Adds a data-testid attribute to the root element with the given value
+   */
+  dataTestId?: string;
+  /**
    * The language of the Helsinki-logo
    */
-  language?: 'fi' | 'sv';
+  language?: LogoLanguage;
   /**
    * Override or extend the styles applied to the component
    */
@@ -40,8 +46,8 @@ const LogoSV = (props): ReactElement => (
   </svg>
 );
 
-const Logo: FC<LogoProps> = ({ className, language = 'fi', style }: LogoProps) => {
-  const props = { className: classNames(styles.logo, className), style };
+const Logo = ({ className, dataTestId, language = 'fi', style }: LogoProps) => {
+  const props = { className: classNames(styles.logo, className), style, 'data-testid': dataTestId };
 
   if (language === 'sv') {
     return <LogoSV {...props} />;

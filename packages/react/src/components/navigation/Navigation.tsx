@@ -12,7 +12,7 @@ import { animated, useTransition, UseTransitionProps } from 'react-spring';
 
 import styles from './Navigation.module.css';
 import classNames from '../../utils/classNames';
-import Logo from '../logo/Logo';
+import Logo, { LogoLanguage } from '../logo/Logo';
 import NavigationContext, { NavigationContextProps } from './NavigationContext';
 import NavigationRow from './navigation-row/NavigationRow';
 import NavigationItem from './navigation-item/NavigationItem';
@@ -59,14 +59,13 @@ export type NavigationProps = PropsWithChildren<
      * The language of the Helsinki-logo
      * @default 'fi'
      */
-    // todo: export type
-    logoLanguage?: 'fi' | 'sv';
+    logoLanguage?: LogoLanguage;
     /**
      * aria-label for the mobile menu toggle when the menu is open
      */
     menuCloseAriaLabel: string;
     /**
-     * Sets whether the mobile menu is open. Used together with the `onMenuToggle` prop to override the internal state handling.
+     * Sets whether the mobile menu is open. Used together with the `onMenuToggle` prop to override the internal state handling
      * @default false
      */
     menuOpen?: boolean;
@@ -75,9 +74,13 @@ export type NavigationProps = PropsWithChildren<
      */
     menuOpenAriaLabel: string;
     /**
-     * Callback fired when the mobile menu is toggled. Can be used together with the `menuOpen` prop to override the internal state handling.
+     * Callback fired when the mobile menu is toggled. Can be used together with the `menuOpen` prop to override the internal state handling
      */
     onMenuToggle?: () => void;
+    /**
+     * Callback fired when the title or logo is clicked
+     */
+    onTitleClick?: () => void;
     /**
      * ID of the element to jump to when the "skip to content" accessibility shortcut is clicked
      */
@@ -91,11 +94,16 @@ export type NavigationProps = PropsWithChildren<
      */
     skipToContentText: string | ReactNode;
     /**
-     * todo
+     * Defines the navigation theme
+     * @default 'white'
      */
-    title: string;
+    theme?: 'white' | 'black';
     /**
-     * todo
+     * The title of the service shown next to the logo
+     */
+    title?: string;
+    /**
+     * URL to navigate to when the logo or title is clicked
      */
     titleUrl?: string;
   } & Omit<NavigationContextProps, 'isMobile'>
@@ -146,16 +154,22 @@ const reducer = (state: NavigationReducerState, action: NavigationReducerAction)
  * Wrapper component for header content
  * @param children
  * @param logoLanguage
+ * @param onTitleClick
  * @param title
  * @param titleUrl
  * @param mobileMenuOpen
  */
-const HeaderWrapper = ({ children, logoLanguage, title, titleUrl }) => (
+const HeaderWrapper = ({ children, logoLanguage, onTitleClick, title, titleUrl }) => (
   <div className={styles.headerBackgroundWrapper}>
     <div className={styles.headerContainer}>
-      <a className={styles.title} href={titleUrl}>
-        <Logo className={styles.logo} language={logoLanguage} />
-        <span>{title}</span>
+      <a
+        className={styles.title}
+        href={titleUrl}
+        onClick={onTitleClick}
+        {...(!titleUrl && onTitleClick && { tabIndex: 0 })}
+      >
+        <Logo dataTestId="test" className={styles.logo} language={logoLanguage} />
+        {title && <span>{title}</span>}
       </a>
       {children}
     </div>
@@ -173,6 +187,7 @@ const Navigation = ({
   menuOpen = false,
   menuOpenAriaLabel,
   onMenuToggle,
+  onTitleClick,
   skipTo,
   skipToContentAriaLabel,
   skipToContentText,
@@ -218,6 +233,9 @@ const Navigation = ({
   const transitionProps = animateOpen ? MOBILE_MENU_TRANSITION : {};
   const mobileMenuTransition = useTransition<boolean, UseTransitionProps>(mobileMenuOpen, transitionProps);
 
+  // props for the header wrapper component
+  const headerWrapperProps = { logoLanguage, onTitleClick, title, titleUrl };
+
   return (
     <NavigationContext.Provider value={context}>
       <header
@@ -226,6 +244,7 @@ const Navigation = ({
           styles.header,
           fixed && styles.fixed,
           mobileMenuOpen && styles.menuOpen,
+          !title && styles.noTitle,
           `${styles[`theme-${theme}`]} theme-${theme}`,
           className,
         )}
@@ -235,7 +254,7 @@ const Navigation = ({
         </a>
         {isMobile ? (
           <>
-            <HeaderWrapper logoLanguage={logoLanguage} title={title} titleUrl={titleUrl}>
+            <HeaderWrapper {...headerWrapperProps}>
               <button
                 type="button"
                 className={styles.mobileMenuToggle}
@@ -261,7 +280,7 @@ const Navigation = ({
           </>
         ) : (
           <>
-            <HeaderWrapper logoLanguage={logoLanguage} title={title} titleUrl={titleUrl}>
+            <HeaderWrapper {...headerWrapperProps}>
               {navigationRowDisplay === 'inline' && <div className={styles.headerContent}>{children}</div>}
               {navigationRowDisplay === 'fullWidth' && (
                 <div className={styles.headerContent}>{childrenWithoutNavigation}</div>

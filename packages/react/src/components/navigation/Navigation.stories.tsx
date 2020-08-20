@@ -1,155 +1,123 @@
 import React, { useState } from 'react';
+import { radios, withKnobs, boolean } from '@storybook/addon-knobs';
 
 import Navigation from './Navigation';
-import { NavigationRowDisplay } from './Navigation.interface';
 // import IconUser from '../../icons/ui/IconUser';
 
 export default {
   component: Navigation,
   title: 'Components/Navigation',
+  decorators: [withKnobs],
   parameters: {
     layout: 'fullscreen',
   },
 };
 
-const languageOptions = [
-  { label: 'Suomeksi (FI)', value: 'fi' },
-  { label: 'På svenska (SV)', value: 'sv' },
-  { label: 'In English (EN)', value: 'en' },
-  { label: 'En français (FR)', value: 'fr' },
-  { label: 'Deutsche (DE)', value: 'de' },
-  { label: 'Pусский (RU)', value: 'ru' },
+type LanguageOption = { label: string; value: string };
+
+const languageOptions: LanguageOption[] = [
+  { label: 'Suomeksi', value: 'fi' },
+  { label: 'På svenska', value: 'sv' },
+  { label: 'In English', value: 'en' },
+  { label: 'En français', value: 'fr' },
+  { label: 'Auf deutsch', value: 'de' },
+  { label: 'По-русски', value: 'ru' },
 ];
 
-export const ASDF = () => {
-  return <Navigation.Row />;
-};
-
 export const Example = () => {
+  const theme = radios('Theme', { white: 'white', black: 'black' }, 'white');
+  const display = radios('Display', { inline: 'inline', fullWidth: 'fullWidth' }, 'fullWidth');
+  const fixed = boolean('Fixed', false);
+
   const [authenticated, setAuthenticated] = useState(true);
-  const [authenticatedBlack, setAuthenticatedBlack] = useState(true);
   const [language, setLanguage] = useState(languageOptions[0]);
+  // const language = languageOptions[0];
   const [active, setActive] = useState(false);
+  // const [menuOpen, setMenuOpen] = useState(false);
 
-  // const themes = ['white', 'black'];
-  // const row = ['fullWidth', 'inline'] as NavigationRowDisplay[];
-  const themes = ['white'];
-  // const themes = ['black'];
-  const row = ['fullWidth'] as NavigationRowDisplay[];
-  // const row = ['inline'] as NavigationRowDisplay[];
+  const logoLanguage = language.value === 'sv' ? 'sv' : 'fi';
+  const title = language.value === 'sv' ? 'Helsingfors Systembolaget' : 'Helsinki Design System';
 
-  return themes.map((theme) => {
-    const isBlackTheme = theme === 'black';
-    const title = isBlackTheme ? 'Helsingfors Systembolaget' : 'Helsinki Design Systeemi';
-    const logoLanguage = isBlackTheme ? 'sv' : 'fi';
+  // formats the selected value
+  const formatSelectedValue = ({ value }: LanguageOption): string => value.toUpperCase();
 
-    return row.map((display) => (
+  // formats each option label
+  const formatOptionLabel = ({ value, label }: LanguageOption): string => `${label} (${value.toUpperCase()})`;
+
+  return (
+    <>
       <Navigation
-        key={`nav-${theme}-${display}`}
+        fixed={fixed}
         logoLanguage={logoLanguage}
         menuCloseAriaLabel="Close menu"
+        // menuOpen={menuOpen}
         menuOpenAriaLabel="Open menu"
+        // onMenuToggle={() => setMenuOpen(!menuOpen)}
+        // onTitleClick={() => console.log('title clicked')}
         theme={theme}
-        // title={title}
-        title={<a href="https://google.com">{title}</a>}
+        title={title}
+        titleUrl="https://google.com"
         skipTo="#content"
-        skipToContentText="Skip to content"
+        skipToContentText="Skip to main content"
       >
         <Navigation.Row display={display}>
-          <Navigation.Item active href="https://google.com" target="_blank">
-            Link
-          </Navigation.Item>
-          <Navigation.Item active={active} as="button" type="button" onClick={() => setActive(!active)}>
-            Button
-          </Navigation.Item>
+          <Navigation.Item active label="Link" href="https://google.com" target="_blank" />
+          <Navigation.Item
+            active={active}
+            as="button"
+            label="Button"
+            type="button"
+            onClick={() => {
+              // setMenuOpen(false);
+              setActive(!active);
+            }}
+          />
           {/* <Navigation.Dropdown icon={<IconUser />} label="Dropdown"> */}
           <Navigation.Dropdown label="Dropdown">
-            <Navigation.Item href="https://google.com" target="_blank">
-              Link
-            </Navigation.Item>
-            <Navigation.Item as="button" type="button" onClick={() => console.log('button click')}>
-              Button
-            </Navigation.Item>
+            <Navigation.Item label="Link" href="https://google.com" target="_blank" />
+            <Navigation.Item as="button" type="button" onClick={() => console.log('button click')} label="Button" />
           </Navigation.Dropdown>
         </Navigation.Row>
         <Navigation.Actions>
-          <Navigation.Search />
+          <Navigation.Search
+            searchLabel="Search"
+            searchPlaceholder="Search page"
+            onBlur={(e) => console.log('NavigationSearch - onBlur', e)}
+            onFocus={(e) => console.log('NavigationSearch - onFocus', e)}
+            onSearchChange={(e) => console.log('NavigationSearch - onSearchChange', e)}
+            onSearchEnter={(e) => console.log('NavigationSearch - onSearchEnter', e)}
+          />
           <Navigation.User
-            authenticated={isBlackTheme ? authenticatedBlack : authenticated}
-            onSignIn={() => (isBlackTheme ? setAuthenticatedBlack(true) : setAuthenticated(true))}
+            authenticated={authenticated}
+            label="Sign in"
+            onSignIn={() => {
+              console.log('NavigationUser - onSignIn');
+              setAuthenticated(true);
+            }}
+            userName="John Doe"
           >
-            <Navigation.Item href="https://google.com" target="_blank" variant="secondary">
-              Your profile
-            </Navigation.Item>
+            <Navigation.Item label="Your profile" target="_blank" variant="secondary" />
             <Navigation.Item
               as="button"
               type="button"
               onClick={() => {
                 console.log('Sign out');
-                isBlackTheme ? setAuthenticatedBlack(false) : setAuthenticated(false);
+                setAuthenticated(false);
               }}
               variant="supplementary"
-            >
-              Sign out
-            </Navigation.Item>
+              label="Sign out"
+            />
           </Navigation.User>
           <Navigation.LanguageSelector
+            ariaLabel="Selected language"
             options={languageOptions}
-            formatSelectedValue={(item) => item.value}
-            // todo: rename?
+            formatSelectedValue={formatSelectedValue}
+            formatOptionLabel={formatOptionLabel}
             onLanguageChange={setLanguage}
             value={language}
           />
         </Navigation.Actions>
       </Navigation>
-    ));
-  });
-};
-
-export const LinkedEvents = () => {
-  const [authenticated, setAuthenticated] = useState(true);
-
-  return (
-    <Navigation
-      title="Linked events"
-      menuCloseAriaLabel="Close menu"
-      menuOpenAriaLabel="Open menu"
-      skipTo="#asd"
-      skipToContentText="Skip to main content"
-    >
-      <Navigation.Row>
-        <Navigation.Item active href="https://google.com" target="_blank">
-          Tapahtumien hallinta
-        </Navigation.Item>
-        <Navigation.Item as="button" type="button" onClick={() => console.log('button click')}>
-          Etsi tapahtumia
-        </Navigation.Item>
-        <Navigation.Item href="https://google.com" target="_blank">
-          Lisätietoja
-        </Navigation.Item>
-      </Navigation.Row>
-      <Navigation.Actions>
-        <Navigation.User authenticated={authenticated} onSignIn={() => setAuthenticated(true)}>
-          <Navigation.Item href="https://google.com" target="_blank">
-            Your profile
-          </Navigation.Item>
-          <Navigation.Item
-            as="button"
-            type="button"
-            onClick={() => {
-              console.log('Sign out');
-              setAuthenticated(false);
-            }}
-          >
-            Sign out
-          </Navigation.Item>
-        </Navigation.User>
-        <Navigation.LanguageSelector
-          options={languageOptions}
-          formatSelectedValue={(item) => item.value}
-          value={languageOptions[0]}
-        />
-      </Navigation.Actions>
-    </Navigation>
+    </>
   );
 };

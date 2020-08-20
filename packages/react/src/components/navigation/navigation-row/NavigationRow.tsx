@@ -20,6 +20,7 @@ const NavigationRow = ({ display = 'fullWidth', children }: NavigationRowProps) 
 
   useEffect(() => dispatch({ type: 'NAVIGATION_ROW', value: display }), [dispatch, display]);
 
+  // add classnames to children
   const childrenWithClassName = Children.map(children, (child) => {
     const isActive = (child as ReactElement)?.props?.active;
 

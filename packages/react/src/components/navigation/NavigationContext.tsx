@@ -4,17 +4,11 @@ import { NavigationReducerAction } from './Navigation.interface';
 
 export type NavigationContextProps = {
   /**
-   * Navigation bar theme
-   * Supported values are `white` (default) and `black`
-   */
-  // todo: type?
-  theme?: string;
-  /**
-   * todo
+   * Flag for whether the mobile view is active
    */
   isMobile?: boolean;
   /**
-   * todo
+   * dispatch method that is passed down to children
    */
   dispatch?: Dispatch<NavigationReducerAction>;
 };

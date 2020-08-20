@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, KeyboardEvent, useContext, useEffect, useRef, useState } from 'react';
+import React, { ChangeEventHandler, KeyboardEvent, FocusEvent, useContext, useEffect, useRef, useState } from 'react';
 import { useTransition, animated } from 'react-spring';
 
 import styles from './NavigationSearch.module.css';
@@ -7,13 +7,15 @@ import classNames from '../../../utils/classNames';
 import TextInput from '../../textinput/TextInput';
 import NavigationContext from '../NavigationContext';
 
-// TODO: ACCESSIBILITY ATTRIBUTES
-// TODO: ACCESSIBILITY ATTRIBUTES
-// TODO: ACCESSIBILITY ATTRIBUTES
-// TODO: onFocus prop?
-// TODO: onBlur prop?
-
 export type NavigationSearchProps = {
+  /**
+   * Callback fired when the search field is blurred
+   */
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
+  /**
+   * Callback fired when the search field is focused
+   */
+  onFocus?: (event: FocusEvent<HTMLInputElement>) => void;
   /**
    * Callback fired when the state is changed
    */
@@ -22,34 +24,50 @@ export type NavigationSearchProps = {
    * Callback fired when the Enter key is pressed
    */
   onSearchEnter?: (event: KeyboardEvent<HTMLInputElement>) => void;
+  /**
+   * Label shown when search field isn't active.
+   */
+  searchLabel: string;
+  /**
+   * Placeholder text shown in the search input field. Uses `searchLabel` as default.
+   */
+  searchPlaceholder?: string;
 };
 
 const AnimatedSearchIcon = animated(IconSearch);
 
 const NavigationSearch = ({
-  onSearchChange = (e) => {
+  onBlur = () => {
     // do nothing by default
-    // todo: remove
-    console.log('NavigationSearch - onSearchChange', e);
   },
-  onSearchEnter = (e) => {
+  onFocus = () => {
     // do nothing by default
-    // todo: remove
-    console.log('NavigationSearch - onSearchEnter', e);
   },
+  onSearchChange = () => {
+    // do nothing by default
+  },
+  onSearchEnter = () => {
+    // do nothing by default
+  },
+  searchLabel,
+  searchPlaceholder,
 }: NavigationSearchProps) => {
-  const { isMobile, theme } = useContext(NavigationContext);
+  const { isMobile } = useContext(NavigationContext);
   // search is always active in mobile
   const [searchActive, setSearchActive] = useState(isMobile);
   const input = useRef<HTMLInputElement>(null);
 
-  const focusInput = () => input.current?.focus();
+  // focuses the input field
+  const focusInput = (): void => input.current?.focus();
+
+  const handleBlur = (e): void => {
+    if (!isMobile) setSearchActive(false);
+    onBlur(e);
+  };
 
   useEffect(() => {
-    if (!isMobile && searchActive) {
-      focusInput();
-    }
-  }, [searchActive, isMobile]);
+    if (!isMobile && searchActive) focusInput();
+  }, [isMobile, searchActive]);
 
   // search field icon transition
   const transition = useTransition(searchActive, {
@@ -61,21 +79,22 @@ const NavigationSearch = ({
   });
 
   return (
-    <div className={classNames(styles.navigationSearch, styles[`theme-${theme}`], searchActive && styles.active)}>
+    <div className={classNames(styles.navigationSearch, searchActive && styles.active)}>
       {searchActive && (
         <>
           <TextInput
             className={styles.input}
             id="navigation-search"
             ref={input}
-            placeholder="Search"
+            placeholder={searchPlaceholder || searchLabel}
             onChange={onSearchChange}
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
                 onSearchEnter(e);
               }
             }}
-            onBlur={() => !isMobile && setSearchActive(false)}
+            onBlur={handleBlur}
+            onFocus={onFocus}
           />
           {transition((values, item) => item && <AnimatedSearchIcon style={values} className={styles.inputIcon} />)}
         </>
@@ -87,37 +106,8 @@ const NavigationSearch = ({
         onFocus={() => setSearchActive(true)}
       >
         <IconSearch />
-        <span className={styles.label}>Search</span>
+        <span className={styles.label}>{searchLabel}</span>
       </button>
-      {/* {searchActive ? ( */}
-      {/*  <> */}
-      {/*    <TextInput */}
-      {/*      className={styles.input} */}
-      {/*      id="navigation-search" */}
-      {/*      ref={input} */}
-      {/*      placeholder="Search" */}
-      {/*      onChange={onSearchChange} */}
-      {/*      onKeyPress={(e) => { */}
-      {/*        if (e.key === 'Enter') { */}
-      {/*          onSearchEnter(e); */}
-      {/*        } */}
-      {/*      }} */}
-      {/*      onBlur={() => !isMobile && setSearchActive(false)} */}
-      {/*    /> */}
-      {/*    {transition((values, item) => item && <AnimatedSearchIcon style={values} className={styles.inputIcon} />)} */}
-      {/*  </> */}
-      {/* ) : ( */}
-      {/*  // "Open search" button */}
-      {/*  <button */}
-      {/*    type="button" */}
-      {/*    className={styles.openSearch} */}
-      {/*    onClick={() => setSearchActive(true)} */}
-      {/*    onFocus={() => setSearchActive(true)} */}
-      {/*  > */}
-      {/*    <IconSearch /> */}
-      {/*    <span className={styles.label}>Search</span> */}
-      {/*  </button> */}
-      {/* )} */}
     </div>
   );
 };

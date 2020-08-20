@@ -2,74 +2,80 @@ import React, { PropsWithChildren, ReactNode, useContext, useEffect } from 'reac
 
 import styles from './NavigationUser.module.css';
 import IconSignin from '../../../icons/ui/IconSignin';
-import classNames from '../../../utils/classNames';
 import NavigationDropdown from '../navigation-dropdown/NavigationDropdown';
 import NavigationContext from '../NavigationContext';
 import IconUser from '../../../icons/ui/IconUser';
 import Button from '../../button/Button';
 
-// TODO: I18N
-// TODO: I18N
-// TODO: I18N
-// TODO: I18N
-// TODO: I18N
-// TODO: I18N
-
 export type NavigationUserProps = PropsWithChildren<{
+  /**
+   * If `true`, the dropdown will be animated when opened
+   * @default true
+   */
+  animateOpen?: boolean;
   /**
    * Flag for whether the user is authenticated
    */
-  // todo: required?
   authenticated?: boolean;
   /**
-   * todo
+   * Label for the "Sign in" button
+   */
+  label: string | ReactNode;
+  /**
+   * Callback fired when the "Sign in" button is clicked
    */
   onSignIn?: () => void;
+  /**
+   * Name of the user displayed in the dropdown
+   */
+  userName?: string | ReactNode;
 }>;
 
 const NavigationUser = ({
+  animateOpen = true,
   authenticated = false,
   children,
+  label,
   onSignIn = () => {
     // do nothing by default
-    // todo: remove
-    console.log('NavigationUser - onSignIn');
   },
+  userName,
 }: NavigationUserProps) => {
-  const { dispatch, isMobile, theme } = useContext(NavigationContext);
+  const { dispatch, isMobile } = useContext(NavigationContext);
 
+  // dispatch auth state
   useEffect(() => dispatch({ type: 'AUTHENTICATED', value: authenticated }), [authenticated, dispatch]);
 
   const userItems: ReactNode = isMobile ? (
     <>
-      <span className={styles.userName}>
-        <IconUser />
-        First name
-      </span>
+      {userName && (
+        <span className={styles.userName}>
+          <IconUser />
+          {userName}
+        </span>
+      )}
       {children}
     </>
   ) : (
-    // todo: add prop for id
-    // todo: add prop for label
-    <NavigationDropdown id="userDropdown" icon={<IconUser />} label="First name">
+    <NavigationDropdown animateOpen={animateOpen} id="userDropdown" icon={<IconUser />} label={userName}>
       {children}
     </NavigationDropdown>
   );
 
   return (
-    <div className={classNames(styles.navigationUser, styles[`theme-${theme}`])}>
+    <div className={styles.navigationUser}>
       {authenticated ? (
         userItems
       ) : (
         <Button
           className={styles.signInButton}
-          onClick={() => onSignIn()}
+          onClick={onSignIn}
           iconLeft={isMobile ? null : <IconSignin />}
           variant={isMobile ? 'primary' : 'supplementary'}
           theme="black"
           fullWidth
         >
-          Sign in
+          {label}
         </Button>
       )}
     </div>

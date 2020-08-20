@@ -2,6 +2,7 @@ import React, { ReactNode, useContext, useRef } from 'react';
 import { useSelect } from 'downshift';
 import { animated, useTransition, UseTransitionProps } from 'react-spring';
 import isEqual from 'lodash.isequal';
+import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import styles from './NavigationLanguageSelector.module.css';
 import classNames from '../../../utils/classNames';
@@ -9,31 +10,23 @@ import NavigationContext from '../NavigationContext';
 import { IconAngleDown } from '../../../icons';
 import Button from '../../button/Button';
 
-// TODO: ACCESSIBILITY ATTRIBUTES
-// TODO: ACCESSIBILITY ATTRIBUTES
-// TODO: ACCESSIBILITY ATTRIBUTES
-
 const DROPDOWN_TRANSITION: UseTransitionProps = {
-  from: { transform: 'translate3d(0, -2px, 0)', opacity: 0.85 },
-  enter: { transform: 'translate3d(0, 10px, 0)', opacity: 1 },
+  from: { transform: 'translate3d(0, -2px, 0)' },
+  enter: { transform: 'translate3d(0, 10px, 0)' },
   config: {
     friction: 30,
     tension: 300,
   },
 };
 
-// todo: move
-type OptionType = {
-  [key: string]: any;
-};
-
-export type NavigationLanguageSelectorProps = {
+export type NavigationLanguageSelectorProps<OptionType> = {
   /**
    * If `true`, the dropdown will be animated when opened
+   * @default true
    */
   animateOpen?: boolean;
   /**
-   * Used to label the toggle button and the menu
+   * aria-label for the dropdown. Can be used to give additional information to screen readers
    */
   ariaLabel?: string;
   /**
@@ -41,26 +34,24 @@ export type NavigationLanguageSelectorProps = {
    */
   className?: string;
   /**
-   * todo
+   * A function used to format what is displayed as the selected value
+   * @param option {OptionType}   Selection option
+   * @param index {number}        Option index
    */
   formatOptionLabel?: (option: OptionType, index: number) => string | ReactNode;
   /**
-   * todo
+   * A function used to format what is displayed as the option label
+   * @param option {OptionType}   Selection option
+   * @param index {number}        Option index
    */
   formatSelectedValue?: (option: OptionType) => string | ReactNode;
   /**
-   * Dropdown id
+   * Callback fired when the language is changed
    */
-  id?: string;
-  /**
-   * Callback fired when the state is changed
-   * @param selectedItem Selected item
-   */
-  // todo ?
-  onLanguageChange?: (selectedItem: { [key: string]: any }) => void;
+  onLanguageChange?: (selectedItem: OptionType) => void;
   /**
    * Sets the data item field that represents the item label.
-   * E.g. an `optionLabelField` value of `'foo'` and a data item `{ foo: 'Label', bar: 'value' }`, would display `Label` in the menu for that specific item
+   * E.g. an `optionLabelField` value of `'foo'` and a data item `{ foo: 'Label', bar: 'value' }`, would display `Label` in the dropdown menu for that specific item
    */
   optionLabelField?: string;
   /**
@@ -73,20 +64,19 @@ export type NavigationLanguageSelectorProps = {
   value: OptionType;
 };
 
-const LanguageSelectorDropdown = ({
+const LanguageSelectorDropdown = <OptionType,>({
   animateOpen = true,
   ariaLabel = '',
   className,
   formatOptionLabel,
   formatSelectedValue,
-  id,
   onLanguageChange = () => {
     // do nothing by default
   },
   optionLabelField = 'label',
   options = [],
   value,
-}: NavigationLanguageSelectorProps) => {
+}: NavigationLanguageSelectorProps<OptionType>) => {
   const toggleButtonRef = useRef(null);
   // filter out the active language from options
   const filteredOptions = options.filter((item) => !isEqual(item, value));
@@ -105,11 +95,14 @@ const LanguageSelectorDropdown = ({
   } = useSelect<OptionType>({
     // todo: remove
     // isOpen: true,
-    id,
+    id: 'languageDropdown',
+    // todo: fix focus instead
+    // defaultHighlightedIndex: 0,
     items: filteredOptions,
     // downshift needs a string representation for each option label
     itemToString: (item: OptionType): string => (item ? item[optionLabelField] ?? '' : ''),
     onSelectedItemChange: ({ selectedItem: _selectedItem }) => {
+      // only fire callback when the value changes
       if (!isEqual(value, _selectedItem)) onLanguageChange(_selectedItem);
       focusToggleButton();
     },
@@ -125,13 +118,9 @@ const LanguageSelectorDropdown = ({
 
   return (
     <div className={classNames(styles.languageSelectorDropdown, isOpen && styles.open, className)}>
-      <label
-        {...getLabelProps({
-          className: styles.srLabel,
-        })}
-      >
-        {ariaLabel}
-      </label>
+      <VisuallyHidden>
+        <label {...getLabelProps()}>{ariaLabel}</label>
+      </VisuallyHidden>
       {/* WRAPPER */}
       <div className={styles.wrapper}>
         <button
@@ -178,7 +167,7 @@ const LanguageSelectorDropdown = ({
   );
 };
 
-const NavigationLanguageSelector = (props: NavigationLanguageSelectorProps) => {
+const NavigationLanguageSelector = <OptionType,>(props: NavigationLanguageSelectorProps<OptionType>) => {
   const { isMobile } = useContext(NavigationContext);
   const {
     onLanguageChange = () => {
@@ -190,17 +179,17 @@ const NavigationLanguageSelector = (props: NavigationLanguageSelectorProps) => {
   } = props;
 
   return isMobile ? (
-    // todo: rename
-    <div className={styles.mobileContainer}>
+    <div className={styles.mobileLanguageContainer}>
       {options.map((item) => {
         const label = item[optionLabelField];
-        // todo: set defaults in NavigationLanguageSelector
+        const active = isEqual(item, value);
         return (
           <Button
             key={`item-${label}`}
-            className={classNames(styles.mobileLanguageItem, isEqual(item, value) && styles.active)}
+            className={classNames(styles.mobileLanguageItem, active && styles.active)}
             onClick={() => onLanguageChange(item)}
             size="small"
+            tabIndex={active ? -1 : 0}
             theme="coat"
             type="button"
             variant="supplementary"

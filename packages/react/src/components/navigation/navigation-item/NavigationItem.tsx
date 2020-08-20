@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { ComponentPropsWithoutRef, ElementType, ReactNode, useContext } from 'react';
 
 import classNames from '../../../utils/classNames';
 import styles from './NavigationItem.module.css';
@@ -8,34 +8,38 @@ type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 type Prefer<P, T> = P & Omit<T, keyof P>;
 
-type ElementPropsWithoutRef<T extends React.ElementType> = Pick<
-  React.ComponentPropsWithoutRef<T>,
-  keyof React.ComponentPropsWithoutRef<T>
+type ElementPropsWithoutRef<T extends ElementType> = Pick<
+  ComponentPropsWithoutRef<T>,
+  keyof ComponentPropsWithoutRef<T>
 >;
 
-export type OverwritableType<OwnProps, Type extends React.ElementType> = Prefer<OwnProps, ElementPropsWithoutRef<Type>>;
+export type OverwritableType<OwnProps, Type extends ElementType> = Prefer<OwnProps, ElementPropsWithoutRef<Type>>;
 
 export interface NavigationDropdownOptionProps<T> {
   active?: boolean;
-  variant?: 'primary' | 'secondary' | 'supplementary';
   as: T;
+  label: string | ReactNode;
+  variant?: 'primary' | 'secondary' | 'supplementary';
 }
 
-const NavigationItem = <T extends React.ElementType = 'a'>({
+const NavigationItem = <T extends ElementType = 'a'>({
   active,
   as,
   className,
+  label,
   variant,
   ...rest
 }: OverwritableType<NavigationDropdownOptionProps<T>, T>) => {
   const { isMobile } = useContext(NavigationContext);
-  const ElementType: React.ElementType = as;
+  const Item: ElementType = as;
   return (
-    <ElementType
+    <Item
       className={classNames(isMobile && styles[variant], className)}
       {...(active && { 'aria-current': 'page' })}
       {...rest}
-    />
+    >
+      {label}
+    </Item>
   );
 };
 
