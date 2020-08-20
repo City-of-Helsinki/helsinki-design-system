@@ -16,19 +16,23 @@ $ yarn add hds-design-tokens
 hds-design-tokens/
 ├── tokens/                                 # token source files
 └── lib/
+    ├── breakpoint/
+    │    ├── all (.scss|.css)
+    │    ├── breakpoint (.scss|.css)        # breakpoint variables
+    │    └── container-width (.scss|.css)   # container-width variables
     ├── color/
-    │    ├── component/
-    │    │   ├── all (.scss|.css)            # all component color variables
-    │    │   ├── <component> (.scss|.css)    # <component> color variables
-    │    │   :
-    │    │
-    │    ├── all (.scss|.css)                # brand and ui color variables
-    │    ├── brand (.scss|.css)              # brand color variables
-    │    └── ui (.scss|.css)                 # ui color variables
+    │    ├── all (.scss|.css)
+    │    ├── brand (.scss|.css)             # brand color variables
+    │    └── ui (.scss|.css)                # ui color variables
     ├── spacing/                            
-    │   ├── all (.scss|.css)                # all spacing variables
+    │   ├── all (.scss|.css)
     │   ├── layout (.scss|.css)             # layout spacing variables
     │   └── spacing (.scss|.css)            # component spacing variables
+    ├── typography/                            
+    │   ├── all (.scss|.css)
+    │   ├── font (.scss|.css)               # font variables
+    │   ├── font-size (.scss|.css)          # font-size variables
+    │   └── line-height (.scss|.css)        # line-height variables
     └── all (.scss|.css)                    # all variables
 ```
 
@@ -42,7 +46,7 @@ After the `.json` file with the tokens is done, you'll need to include it in the
 
 #### Example:
 
-Let’s say we wanted to add a `bar.json` file at the location `tokens/foo` to the build process. In the `build.js` file we would add the following:
+Let’s say that we wanted to add a `bar.json` file at the location `tokens/foo` to the build process. In the `build.js` file we would add the following:
 ```js
 // build the token files
 Object.values({

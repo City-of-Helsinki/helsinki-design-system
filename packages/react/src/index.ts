@@ -14,3 +14,4 @@ export { default as Button, ButtonProps } from './components/button/Button';
 export { default as RadioButton, RadioButtonProps } from './components/radiobutton/RadioButton';
 export { default as Checkbox, CheckboxProps } from './components/checkbox/Checkbox';
 export { default as Dropdown, DropdownProps } from './components/dropdown/Dropdown';
+export { default as StatusLabel, StatusLabelProps, StatusLabelType } from './components/status-label/StatusLabel';

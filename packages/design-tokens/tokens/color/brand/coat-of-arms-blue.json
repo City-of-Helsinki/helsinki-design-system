@@ -3,28 +3,23 @@
     "coat-of-arms": {
       "blue": {
         "value": "#0072c6",
-        "type": "color",
-        "primary": true
+        "type": "color"
       },
       "blue-light-5": {
         "value": "#f2f8fc",
-        "type": "color",
-        "primary": true
+        "type": "color"
       },
       "blue-light-20": {
         "value": "#cce2f3",
-        "type": "color",
-        "primary": true
+        "type": "color"
       },
       "blue-light-50": {
         "value": "#80b8e2",
-        "type": "color",
-        "primary": true
+        "type": "color"
       },
       "blue-dark-50": {
         "value": "#005b9e",
-        "type": "color",
-        "primary": true
+        "type": "color"
       }
     }
   }

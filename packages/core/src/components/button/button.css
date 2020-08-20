@@ -1,6 +1,3 @@
-/* import button color variables */
-@import "hds-design-tokens/lib/color/component/button.css";
-
 .hds-button {
   --border-width: 2px;
   --color: inherit;
@@ -13,11 +10,21 @@
   border: var(--border-width) solid var(--border-color, transparent);
   border-radius: 0;
   color: var(--color);
+  cursor: pointer;
   display: inline-flex;
   justify-content: center;
   padding: 0 var(--spacing-2-xs);
   position: relative;
   vertical-align: top;
+}
+
+.hds-button,
+.hds-button::before,
+.hds-button::after,
+.hds-button *,
+.hds-button *::before,
+.hds-button *::after {
+  box-sizing: border-box;
 }
 
 /* button transitions */
@@ -43,26 +50,26 @@
   background-color: var(--background-color-hover-focus, transparent);
 }
 
-.hds-button[disabled] {
+.hds-button:disabled {
   background-color: var(--background-color-disabled, transparent);
   border-color: var(--border-color-disabled, transparent);
   color: var(--color-disabled);
-  pointer-events: none;
+  cursor: not-allowed;
 }
 
-.hds-button:not([disabled]) {
+.hds-button:not(:disabled) {
   border-color: var(--border-color, transparent);
 }
 
-.hds-button:not([disabled]):hover {
+.hds-button:not(:disabled):hover {
   border-color: var(--border-color-hover, transparent);
 }
 
-.hds-button:not([disabled]):focus {
+.hds-button:not(:disabled):focus {
   border-color: var(--border-color-focus, transparent);
 }
 
-.hds-button:not([disabled]):focus:hover {
+.hds-button:not(:disabled):focus:hover {
   border-color: var(--border-color-hover-focus, transparent);
   color: var(--color-hover-focus);
 }
@@ -189,25 +196,25 @@ input[type="submit"].hds-button--small {
 
 /* default (bus) */
 .hds-button--primary {
-  --background-color: var(--color-background-button-primary-default);
-  --background-color-hover: var(--color-background-button-primary-hover);
-  --background-color-focus: var(--color-background-button-primary-focus);
-  --background-color-hover-focus: var(--color-background-button-primary-hover-focus);
-  --background-color-disabled: var(--color-background-button-primary-disabled);
+  --background-color: var(--color-bus);
+  --background-color-hover: var(--color-bus-dark-50);
+  --background-color-focus: var(--color-bus);
+  --background-color-hover-focus: var(--color-bus-dark-50);
+  --background-color-disabled: var(--color-black-20);
 
-  --border-color: var(--color-border-button-primary-default);
-  --border-color-hover: var(--color-border-button-primary-hover);
-  --border-color-focus: var(--color-border-button-primary-focus);
-  --border-color-hover-focus: var(--color-border-button-primary-hover-focus);
-  --border-color-disabled: var(--color-border-button-primary-disabled);
+  --border-color: var(--color-bus);
+  --border-color-hover: var(--color-bus-dark-50);
+  --border-color-focus: var(--color-bus);
+  --border-color-hover-focus: var(--color-bus-dark-50);
+  --border-color-disabled: var(--color-black-20);
 
-  --color: var(--color-label-button-primary-default);
-  --color-hover: var(--color-label-button-primary-hover);
-  --color-focus: var(--color-label-button-primary-focus);
-  --color-hover-focus: var(--color-label-button-primary-hover-focus);
-  --color-disabled: var(--color-label-button-primary-disabled);
+  --color: var(--color-white);
+  --color-hover: var(--color-white);
+  --color-focus: var(--color-white);
+  --color-hover-focus: var(--color-white);
+  --color-disabled: var(--color-white);
 
-  --focus-outline-color: var(--color-focus-outline-button-primary);
+  --focus-outline-color: var(--color-coat-of-arms-blue);
   --submit-input-focus-gutter-color: var(--color-white);
 }
 
@@ -215,50 +222,50 @@ input[type="submit"].hds-button--small {
 
 /* default (bus) */
 .hds-button--secondary {
-  --background-color: var(--color-background-button-secondary-default);
-  --background-color-hover: var(--color-background-button-secondary-hover);
-  --background-color-focus: var(--color-background-button-secondary-focus);
-  --background-color-hover-focus: var(--color-background-button-secondary-hover-focus);
-  --background-color-disabled: var(--color-background-button-secondary-disabled);
+  --background-color: transparent;
+  --background-color-hover: var(--color-bus-light-5);
+  --background-color-focus: transparent;
+  --background-color-hover-focus: var(--color-bus-light-5);
+  --background-color-disabled: transparent;
 
-  --border-color: var(--color-border-button-secondary-default);
-  --border-color-hover: var(--color-border-button-secondary-hover);
-  --border-color-focus: var(--color-border-button-secondary-focus);
-  --border-color-hover-focus: var(--color-border-button-secondary-hover-focus);
-  --border-color-disabled: var(--color-border-button-secondary-disabled);
+  --border-color: var(--color-bus);
+  --border-color-hover: var(--color-bus-dark-50);
+  --border-color-focus: var(--color-bus);
+  --border-color-hover-focus: var(--color-bus-dark-50);
+  --border-color-disabled: var(--color-black-50);
 
-  --color: var(--color-label-button-secondary-default);
-  --color-hover: var(--color-label-button-secondary-hover);
-  --color-focus: var(--color-label-button-secondary-focus);
-  --color-hover-focus: var(--color-label-button-secondary-hover-focus);
-  --color-disabled: var(--color-label-button-secondary-disabled);
+  --color: var(--color-bus);
+  --color-hover: var(--color-bus-dark-50);
+  --color-focus: var(--color-bus);
+  --color-hover-focus: var(--color-bus-dark-50);
+  --color-disabled: var(--color-black-40);
 
-  --focus-outline-color: var(--color-focus-outline-button-secondary);
+  --focus-outline-color: var(--color-coat-of-arms-blue);
   --submit-input-focus-gutter-color: var(--color-white);
 }
 
 /* SUPPLEMENTARY */
 
 .hds-button--supplementary {
-  --background-color: var(--color-background-button-supplementary-default);
-  --background-color-hover: var(--color-background-button-supplementary-hover);
-  --background-color-focus: var(--color-background-button-supplementary-focus);
-  --background-color-hover-focus: var(--color-background-button-supplementary-hover-focus);
-  --background-color-disabled: var(--color-background-button-supplementary-disabled);
+  --background-color: transparent;
+  --background-color-hover: var(--color-bus-light-5);
+  --background-color-focus: transparent;
+  --background-color-hover-focus: var(--color-bus-light-5);
+  --background-color-disabled: transparent;
 
-  --border-color: var(--color-border-button-supplementary-default);
-  --border-color-hover: var(--color-border-button-supplementary-hover);
-  --border-color-focus: var(--color-border-button-supplementary-focus);
-  --border-color-hover-focus: var(--color-border-button-supplementary-hover-focus);
-  --border-color-disabled: var(--color-border-button-supplementary-disabled);
+  --border-color: transparent;
+  --border-color-hover: transparent;
+  --border-color-focus: var(--color-coat-of-arms-blue);
+  --border-color-hover-focus: var(--color-coat-of-arms-blue);
+  --border-color-disabled: transparent;
 
-  --color: var(--color-label-button-supplementary-default);
-  --color-hover: var(--color-label-button-supplementary-hover);
-  --color-focus: var(--color-label-button-supplementary-focus);
-  --color-hover-focus: var(--color-label-button-supplementary-hover-focus);
-  --color-disabled: var(--color-label-button-supplementary-disabled);
+  --color: var(--color-bus);
+  --color-hover: var(--color-bus-dark-50);
+  --color-focus: var(--color-bus);
+  --color-hover-focus: var(--color-bus-dark-50);
+  --color-disabled: var(--color-black-40);
 
-  --focus-outline-color: var(--color-focus-outline-button-supplementary);
+  --focus-outline-color: transparent;
   --submit-input-focus-gutter-color: transparent;
 }
 
@@ -318,10 +325,10 @@ input[type="submit"].hds-button--small {
   --border-color-focus: var(--color-coat-of-arms-blue);
   --border-color-hover-focus: var(--color-coat-of-arms-blue-dark-50);
 
-  --color: var(--color-label-button-primary-default);
-  --color-hover: var(--color-label-button-primary-hover);
-  --color-focus: var(--color-label-button-primary-focus);
-  --color-hover-focus: var(--color-label-button-primary-hover-focus);
+  --color: var(--color-white);
+  --color-hover: var(--color-white);
+  --color-focus: var(--color-white);
+  --color-hover-focus: var(--color-white);
 }
 
 .hds-button--secondary.hds-button--theme-coat {

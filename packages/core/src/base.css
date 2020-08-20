@@ -1,8 +1,4 @@
 @import "normalize.css";
-@import "hds-design-tokens/lib/color/all.css";
-@import "hds-design-tokens/lib/spacing/all.css";
-@import "hds-design-tokens/lib/typography/all.css";
+@import "hds-design-tokens";
 @import "utils/animations.css";
-@import "utils/reset.css";
 @import "utils/helpers.css";
-@import "global/typography.css";

@@ -2,23 +2,19 @@
   "color": {
     "copper": {
       "value": "#00d7a7",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "copper-light-20": {
       "value": "#ccf7ed",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "copper-light-50": {
       "value": "#80ebd3",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "copper-dark-50": {
       "value": "#01b78e",
-      "type": "color",
-      "primary": true
+      "type": "color"
     }
   }
 }
