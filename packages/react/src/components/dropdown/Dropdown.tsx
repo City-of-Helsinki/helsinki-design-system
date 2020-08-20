@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC, PropsWithChildren, ReactNode, useState } from 'react';
+import React, { CSSProperties, FC, PropsWithChildren, ReactNode, useState, useRef } from 'react';
 import { useCombobox, useMultipleSelection, useSelect } from 'downshift';
 import isEqual from 'lodash.isequal';
 
@@ -187,6 +187,12 @@ const Dropdown: FC<DropdownProps> = ({
     multiselect = false;
   }
 
+  // toggle button ref
+  const toggleButtonRef = useRef(null);
+
+  // focuses the dropdown toggle button
+  const focusToggleButton = () => toggleButtonRef.current?.focus();
+
   // combobox menu options
   const [inputItems, setInputItems] = useState(options);
 
@@ -336,6 +342,8 @@ const Dropdown: FC<DropdownProps> = ({
               showPlaceholder && styles.placeholder,
               styles.buttonReset,
             ),
+            ref: toggleButtonRef,
+            refKey: 'ref',
           })}
         >
           {getButtonLabel()}
@@ -348,6 +356,9 @@ const Dropdown: FC<DropdownProps> = ({
         {...getMenuProps({
           className: classNames(styles.menu, menuOptions.length > visibleOptions && styles.overflow),
           style: { maxHeight: `calc(var(--dropdown-height) * ${visibleOptions})` },
+          onKeyDown: (event) => {
+            if (event.key === 'Tab') focusToggleButton();
+          },
         })}
       >
         {isOpen &&
