@@ -81,8 +81,12 @@
 
 .hds-notification__close-button {
   --notification-close-button-offset: var(--spacing-s);
+  background: none;
+  border: none;
+  cursor: pointer;
   display: flex;
   outline: none;
+  padding: 0;
   position: absolute;
   right: var(--notification-close-button-offset);
   top: var(--notification-close-button-offset);
