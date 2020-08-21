@@ -1,24 +1,45 @@
 # Helsinki Design System documentation site
 
-Built with [docz](https://www.docz.site/).
+This is the public documentation site of Helsinki Design System ([hds.hel.fi](https://hds.hel.fi/)). It is built with [docz](https://www.docz.site/) which is powered by [Gatsby](https://www.gatsbyjs.com/). Documentation site includes:
+
+- Getting started section for designers and developers
+- Guidelines for accessibility, grid, localisation and more
+- Guidelines for visual assets such as icons and Helsinki logo
+- Design token documentation
+- Component documentation
+- About section with news, release notes and road map
+- Resources section
+- Contribution guidelines
 
 ## Getting started
 
-### Run the dev env
+When making changes to the documentation website, recommended way to get it running locally. This way you can review and see your changes in real time like they would show up in production. 
 
+### Setting up local development environment
+
+1. Clone the HDS repository.
 ```
-# Clone the repo
 git clone https://github.com/City-of-Helsinki/helsinki-design-system.git
-cd helsinki-design-system/site
+```
 
-# Install dependencies
+2. Go to the root of the project and install dependencies with `yarn`.
+```
+cd helsinki-design-system
 yarn
+```
 
-# Start dev server, watch for changes
+3. Build packages with `yarn`. Note, you need to build all HDS packages since the documentation site uses those as well.
+```
+yarn build
+```
+
+4. Start the development server. It will watch for file changes automatically.
+```
+cd site
 yarn start
 ```
 
-With your dev server up, you can access the documentation at http://localhost:3000/ start writing your documentation.
+You may need to rerun `yarn build` if you make changes to `doczrc.js` config file or if other HDS packages are updated.
 
 ### Writing documentation
 
@@ -29,15 +50,6 @@ In addition to the markdown, the file contains a frontmatter header that will be
 [Example page documentation file](examples/page.mdx)
 
 [Example component documentation file](examples/component.mdx)
-
-### Deployment
-
-```
-# generate static site
-yarn build
-```
-
-If everything goes well, you'll find the static site at `public/`.
 
 ### App configuration
 
