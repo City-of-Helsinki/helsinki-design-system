@@ -54,8 +54,7 @@ export const Example = () => {
       // onMenuToggle={() => setMenuOpen(!menuOpen)}
       theme={theme}
       title={title}
-      // titleUrl="https://google.com"
-      onTitleClick={() => console.log('onTitleClick')}
+      titleUrl="https://google.com"
       skipTo="#content"
       skipToContentLabel="Skip to main content"
     >

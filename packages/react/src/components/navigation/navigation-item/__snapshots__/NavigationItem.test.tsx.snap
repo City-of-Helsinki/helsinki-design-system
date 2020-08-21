@@ -8,7 +8,9 @@ exports[`<Navigation.Item /> spec renders the component 1`] = `
     <a
       class="skipToContent"
       href="#content"
-    />
+    >
+      Skip to content
+    </a>
     <div
       class="headerBackgroundWrapper"
     >
