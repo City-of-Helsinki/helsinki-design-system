@@ -163,6 +163,9 @@ const HeaderWrapper = ({ children, logoLanguage, onTitleClick, title, titleUrl }
       <a
         className={styles.title}
         href={titleUrl}
+        onKeyPress={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') onTitleClick();
+        }}
         onClick={onTitleClick}
         {...(!titleUrl && onTitleClick && { tabIndex: 0 })}
       >

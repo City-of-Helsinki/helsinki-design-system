@@ -4,7 +4,9 @@
   --header-height: var(--spacing-4-xl);
   --header-focus-outline-width: 3px;
   --header-focus-outline-border-radius: 2px;
-
+  --navigation-dropdown-menu-border-radius: 0;
+  --navigation-dropdown-menu-border-width: 1px;
+  --navigation-dropdown-menu-min-width: 11rem;
   --header-z-index: 10;
   --mobile-menu-z-index: 9;
 
@@ -12,29 +14,13 @@
 
   --header-background-color: var(--color-white);
   --header-color: var(--color-black-90);
-  /*--header-background-color: var(--color-black-20);*/
-  /*--header-color: var(--color-black-50);*/
-
-  --navigation-dropdown-menu-border-radius: 0;
-  --navigation-dropdown-menu-border-width: 1px;
-  --navigation-dropdown-menu-min-width: 11rem;
-
   --header-divider-color: var(--color-black-20);
-
   --header-focus-outline-color: var(--color-coat-of-arms-blue);
-
   --mobile-menu-background-color: var(--color-white);
   --mobile-menu-color: var(--color-black-90);
-  /*--mobile-menu-background-color: var(--color-black-20);*/
-  /*--mobile-menu-color: var(--color-black-50);*/
-
   --navigation-row-background-color: var(--color-white);
   --navigation-row-color: var(--color-black-90);
-  /*--navigation-row-background-color: var(--color-black-20);*/
-  /*--navigation-row-color: var(--color-black-50);*/
   --navigation-row-focus-outline-color: var(--color-coat-of-arms-blue);
-
-  /* END THEME VARS */
 
   background-color: var(--navigation-row-background-color);
   box-sizing: border-box;

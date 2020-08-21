@@ -4,23 +4,27 @@ import classNames from '../../../utils/classNames';
 import styles from './NavigationItem.module.css';
 import NavigationContext from '../NavigationContext';
 
-type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+// utility type
+type MergeElementProps<T extends ElementType, P extends object = {}> = Omit<ComponentPropsWithoutRef<T>, keyof P> & P;
 
-type Prefer<P, T> = P & Omit<T, keyof P>;
-
-type ElementPropsWithoutRef<T extends ElementType> = Pick<
-  ComponentPropsWithoutRef<T>,
-  keyof ComponentPropsWithoutRef<T>
->;
-
-export type OverwritableType<OwnProps, Type extends ElementType> = Prefer<OwnProps, ElementPropsWithoutRef<Type>>;
-
-export interface NavigationDropdownOptionProps<T> {
+type ItemProps = {
+  /**
+   * If `true`, the item will be marked as active
+   */
   active?: boolean;
-  as: T;
+  /**
+   * The label for the item. Optionally, children can be passed
+   */
   label?: string | ReactNode;
+  /**
+   * Defines the button variant in mobile view. Intended to be used for user items
+   */
   variant?: 'primary' | 'secondary' | 'supplementary';
-}
+};
+
+type NavigationItemProps<Element extends ElementType = 'a'> = {
+  as?: Element;
+} & MergeElementProps<Element, ItemProps>;
 
 const NavigationItem = <T extends ElementType = 'a'>({
   active,
@@ -30,7 +34,7 @@ const NavigationItem = <T extends ElementType = 'a'>({
   label,
   variant,
   ...rest
-}: OverwritableType<NavigationDropdownOptionProps<T>, T>) => {
+}: NavigationItemProps<T>) => {
   const { isMobile } = useContext(NavigationContext);
   const Item: ElementType = as;
   return (

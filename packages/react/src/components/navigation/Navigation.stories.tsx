@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { radios, withKnobs, boolean } from '@storybook/addon-knobs';
 
 import Navigation from './Navigation';
-import { FullWidth } from '../button/Button.stories';
 
 export default {
   component: Navigation,
