@@ -54,7 +54,8 @@ export const Example = () => {
       // onMenuToggle={() => setMenuOpen(!menuOpen)}
       theme={theme}
       title={title}
-      titleUrl="https://google.com"
+      // titleUrl="https://google.com"
+      onTitleClick={() => console.log('onTitleClick')}
       skipTo="#content"
       skipToContentLabel="Skip to main content"
     >
@@ -87,16 +88,6 @@ export const Example = () => {
         {/* SEARCH */}
         <Navigation.Search searchLabel="Search" searchPlaceholder="Search page" />
 
-        {/* LANGUAGE SELECTOR */}
-        <Navigation.LanguageSelector
-          ariaLabel="Selected language"
-          options={languageOptions}
-          formatSelectedValue={formatSelectedValue}
-          formatOptionLabel={formatOptionLabel}
-          onLanguageChange={setLanguage}
-          value={language}
-        />
-
         {/* USER */}
         <Navigation.User
           authenticated={authenticated}
@@ -111,10 +102,18 @@ export const Example = () => {
             onClick={() => setAuthenticated(false)}
             variant="secondary"
             label="Sign out"
-          >
-            Sign out
-          </Navigation.Item>
+          />
         </Navigation.User>
+
+        {/* LANGUAGE SELECTOR */}
+        <Navigation.LanguageSelector
+          ariaLabel="Selected language"
+          options={languageOptions}
+          formatSelectedValue={formatSelectedValue}
+          formatOptionLabel={formatOptionLabel}
+          onLanguageChange={setLanguage}
+          value={language}
+        />
       </Navigation.Actions>
     </Navigation>
   );

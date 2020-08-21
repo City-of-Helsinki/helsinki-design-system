@@ -89,6 +89,7 @@
 .hds-text-input textarea.hds-text-input__input {
   height: var(--textarea-height);
   min-height: var(--input-height);
+  padding: var(--spacing-s);
   resize: vertical;
 }
 
