@@ -7,15 +7,15 @@ import { NavigationRowDisplay } from '../Navigation.interface';
 
 export type NavigationRowProps = React.PropsWithChildren<{
   /**
-   * Defines how the navigation row will be displayed.
+   * Defines where the navigation row will be displayed.
    * Supported values:
-   * fullWidth (default) - items will be displayed beneath the header
+   * subNav (default) - items will be displayed beneath the header
    * inline - items will be displayed in the header
    */
   display?: NavigationRowDisplay;
 }>;
 
-const NavigationRow = ({ display = 'fullWidth', children }: NavigationRowProps) => {
+const NavigationRow = ({ display = 'subNav', children }: NavigationRowProps) => {
   const { dispatch } = useContext(NavigationContext);
 
   useEffect(() => dispatch({ type: 'NAVIGATION_ROW', value: display }), [dispatch, display]);
@@ -32,9 +32,7 @@ const NavigationRow = ({ display = 'fullWidth', children }: NavigationRowProps) 
   });
 
   return (
-    <nav className={classNames(styles.navigation, display === 'fullWidth' && styles.fullWidth)}>
-      {childrenWithClassName}
-    </nav>
+    <nav className={classNames(styles.navigation, display === 'subNav' && styles.subNav)}>{childrenWithClassName}</nav>
   );
 };
 

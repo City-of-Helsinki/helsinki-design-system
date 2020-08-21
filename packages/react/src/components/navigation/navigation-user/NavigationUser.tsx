@@ -65,8 +65,8 @@ const NavigationUser = ({
     <NavigationDropdown
       animateOpen={animateOpen}
       ariaLabel={ariaLabel}
-      id="userDropdown"
       icon={<IconUser />}
+      id="userDropdown"
       label={userName}
     >
       {children}
@@ -80,11 +80,11 @@ const NavigationUser = ({
       ) : (
         <Button
           className={styles.signInButton}
-          onClick={onSignIn}
-          iconLeft={isMobile ? null : <IconSignin />}
-          variant={isMobile ? 'primary' : 'supplementary'}
-          theme="black"
           fullWidth
+          iconLeft={isMobile ? null : <IconSignin />}
+          onClick={onSignIn}
+          theme="black"
+          variant={isMobile ? 'primary' : 'supplementary'}
         >
           {label}
         </Button>

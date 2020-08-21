@@ -10,7 +10,7 @@ describe('<Navigation /> spec', () => {
         menuCloseAriaLabel="close"
         menuOpenAriaLabel="open"
         skipTo="#content"
-        skipToContentText="Skip to content"
+        skipToContentLabel="Skip to content"
         title="Foo"
       />,
     );

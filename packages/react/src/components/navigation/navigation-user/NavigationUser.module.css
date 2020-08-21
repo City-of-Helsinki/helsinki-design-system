@@ -1,4 +1,4 @@
-@value x-small-down, small-down, small-only, small-up, medium-up, large-up from "../../../styles/breakpoints.css";
+@value x-small-down, small-down, small-only, small-up, medium-only, medium-up, large-up from "../../../styles/breakpoints.css";
 
 .signInButton > span {
   padding: var(--spacing-2-xs);
@@ -31,6 +31,19 @@
   }
 }
 
+@media medium-only {
+  .signInButton > span {
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    text-decoration: none;
+    width: 1px;
+  }
+}
+
 @media medium-up {
   .navigationUser {
     display: flex;
@@ -59,19 +72,10 @@
   .signInButton.signInButton > div {
     margin-left: 0;
   }
-
-  /* label */
-  .signInButton > span {
-    display: none;
-  }
 }
 
 @media large-up {
   .signInButton.signInButton {
     padding: 0 var(--spacing-3-xs);
-  }
-
-  .signInButton > span {
-    display: block;
   }
 }

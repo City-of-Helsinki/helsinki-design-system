@@ -1,4 +1,4 @@
-@value x-small-down, small-down, small-only, small-up, medium-up, large-up, x-large-up from "../../../styles/breakpoints.css";
+@value x-small-down, small-down, small-only, small-up, medium-only, medium-up, large-up, x-large-up from "../../../styles/breakpoints.css";
 
 .navigationSearch {
   align-items: center;
@@ -18,11 +18,6 @@
 }
 
 .navigationSearch.active .openSearch {
-  display: none;
-}
-
-/* label */
-.label {
   display: none;
 }
 
@@ -86,6 +81,12 @@ header:global(.theme-black) .inputIcon {
 @media small-up {
   .inputIcon {
     right: var(--spacing-s);
+  }
+}
+
+@media medium-only {
+  .label {
+    composes: hiddenFromScreen from 'hds-core/lib/utils/helpers.css';
   }
 }
 

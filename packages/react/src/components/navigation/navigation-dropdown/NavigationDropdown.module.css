@@ -38,6 +38,7 @@
   padding: var(--spacing-3-xs) 0;
   right: calc(var(--outline-width) * -1);
   transform: translateY(calc(var(--outline-width) + var(--spacing-2-xs)));
+  width: auto;
 }
 
 .menuItem {
@@ -89,8 +90,9 @@
   display: flex;
   outline: none;
   padding: var(--spacing-xs) var(--spacing-s);
+  text-align: left;
   text-decoration: none;
-  width: 100%;
+  white-space: nowrap;
 }
 
 /* MEDIA */

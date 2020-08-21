@@ -35,79 +35,77 @@ const MOBILE_MENU_TRANSITION: UseTransitionProps = {
   },
 };
 
-export type NavigationProps = PropsWithChildren<
-  {
-    /**
-     * If `true`, the mobile menu will be animated when opened
-     * @default true
-     */
-    animateOpen?: boolean;
-    /**
-     * Additional class names to apply to the navigation
-     */
-    className?: string;
-    /**
-     * If `true`, the navigation will be fixed to the top of the page
-     * @default false
-     */
-    fixed?: boolean;
-    /**
-     * ID of the header element
-     */
-    id?: string;
-    /**
-     * The language of the Helsinki-logo
-     * @default 'fi'
-     */
-    logoLanguage?: LogoLanguage;
-    /**
-     * aria-label for the mobile menu toggle when the menu is open
-     */
-    menuCloseAriaLabel: string;
-    /**
-     * Sets whether the mobile menu is open. Used together with the `onMenuToggle` prop to override the internal state handling
-     * @default false
-     */
-    menuOpen?: boolean;
-    /**
-     * aria-label for the mobile menu toggle when the menu is closed
-     */
-    menuOpenAriaLabel: string;
-    /**
-     * Callback fired when the mobile menu is toggled. Can be used together with the `menuOpen` prop to override the internal state handling
-     */
-    onMenuToggle?: () => void;
-    /**
-     * Callback fired when the title or logo is clicked
-     */
-    onTitleClick?: () => void;
-    /**
-     * ID of the element to jump to when the "skip to content" accessibility shortcut is clicked
-     */
-    skipTo: string;
-    /**
-     * aria-label for the "skip to content" accessibility shortcut
-     */
-    skipToContentAriaLabel?: string;
-    /**
-     * Text for the "skip to content" accessibility shortcut
-     */
-    skipToContentLabel: string | ReactNode;
-    /**
-     * Defines the navigation theme
-     * @default 'white'
-     */
-    theme?: 'white' | 'black';
-    /**
-     * The title of the service shown next to the logo
-     */
-    title?: string | ReactNode;
-    /**
-     * URL to navigate to when the logo or title is clicked
-     */
-    titleUrl?: string;
-  } & Omit<NavigationContextProps, 'isMobile'>
->;
+export type NavigationProps = PropsWithChildren<{
+  /**
+   * If `true`, the mobile menu will be animated when opened
+   * @default true
+   */
+  animateOpen?: boolean;
+  /**
+   * Additional class names to apply to the navigation
+   */
+  className?: string;
+  /**
+   * If `true`, the navigation will be fixed to the top of the page
+   * @default false
+   */
+  fixed?: boolean;
+  /**
+   * ID of the header element
+   */
+  id?: string;
+  /**
+   * The language of the Helsinki-logo
+   * @default 'fi'
+   */
+  logoLanguage?: LogoLanguage;
+  /**
+   * aria-label for the mobile menu toggle when the menu is open
+   */
+  menuCloseAriaLabel: string;
+  /**
+   * Sets whether the mobile menu is open. Used together with the `onMenuToggle` prop to override the internal state handling
+   * @default false
+   */
+  menuOpen?: boolean;
+  /**
+   * aria-label for the mobile menu toggle when the menu is closed
+   */
+  menuOpenAriaLabel: string;
+  /**
+   * Callback fired when the mobile menu is toggled. Can be used together with the `menuOpen` prop to override the internal state handling
+   */
+  onMenuToggle?: () => void;
+  /**
+   * Callback fired when the title or logo is clicked
+   */
+  onTitleClick?: () => void;
+  /**
+   * ID of the element to jump to when the "skip to content" accessibility shortcut is clicked
+   */
+  skipTo: string;
+  /**
+   * aria-label for the "skip to content" accessibility shortcut
+   */
+  skipToContentAriaLabel?: string;
+  /**
+   * Text for the "skip to content" accessibility shortcut
+   */
+  skipToContentLabel: string | ReactNode;
+  /**
+   * Defines the navigation theme
+   * @default 'white'
+   */
+  theme?: 'white' | 'black';
+  /**
+   * The title of the service shown next to the logo
+   */
+  title?: string | ReactNode;
+  /**
+   * URL to navigate to when the logo or title is clicked
+   */
+  titleUrl?: string;
+}>;
 
 /**
  * Rearranges children, so that they are displayed in the correct order in the mobile menu
@@ -200,7 +198,7 @@ const Navigation = ({
 
   const [{ authenticated, navigationRowDisplay }, dispatch] = useReducer(reducer, {
     authenticated: false,
-    navigationRowDisplay: 'fullWidth',
+    navigationRowDisplay: 'subNav',
   });
 
   // close menu when changing between mobile and desktop
@@ -209,7 +207,7 @@ const Navigation = ({
   useEffect(() => setMobileMenuOpen(menuOpen), [menuOpen]);
 
   // navigation context
-  const context = { dispatch, isMobile, theme };
+  const context: NavigationContextProps = { dispatch, isMobile };
   // ensure that children is an array
   const childrenAsArray = Children.toArray(children) as ReactElement[];
   // children without the navigation row
@@ -282,11 +280,11 @@ const Navigation = ({
           <>
             <HeaderWrapper {...headerWrapperProps}>
               {navigationRowDisplay === 'inline' && <div className={styles.headerContent}>{children}</div>}
-              {navigationRowDisplay === 'fullWidth' && (
+              {navigationRowDisplay === 'subNav' && (
                 <div className={styles.headerContent}>{childrenWithoutNavigation}</div>
               )}
             </HeaderWrapper>
-            {navigationRowDisplay === 'fullWidth' && navigation}
+            {navigationRowDisplay === 'subNav' && navigation}
           </>
         )}
       </header>
