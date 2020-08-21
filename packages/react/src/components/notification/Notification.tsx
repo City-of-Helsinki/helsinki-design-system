@@ -171,18 +171,20 @@ const Notification = ({
   size = 'default',
   type = 'info',
 }: NotificationProps) => {
-  /* eslint-disable */
   // only allow size 'large' for inline notifications
   if (position !== 'inline' && size === 'large') {
+    // eslint-disable-next-line no-console
     console.warn(`Size '${size}' is only allowed for inline positioned notifications`);
+    // eslint-disable-next-line no-param-reassign
     size = 'default';
   }
   // don't allow autoClose for inline notifications
   if (position === 'inline' && autoClose) {
+    // eslint-disable-next-line no-console
     console.warn(`The 'autoClose' property is not allowed for inline positioned notifications`);
+    // eslint-disable-next-line no-param-reassign
     autoClose = false;
   }
-  /* eslint-enable */
 
   // internal state used for transitions
   const [open, setOpen] = useState(true);
