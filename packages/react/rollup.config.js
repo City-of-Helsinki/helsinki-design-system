@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import babel from '@rollup/plugin-babel';
 import includePaths from 'rollup-plugin-includepaths';
 import postcss from 'rollup-plugin-postcss';
@@ -43,5 +44,5 @@ export default {
       extensions,
     }),
   ],
-  external: ['react', 'react-dom', 'lodash.uniqueid', 'lodash.isequal', 'react-spring'],
+  external: ['react', 'react-dom', 'lodash.uniqueid', 'lodash.isequal', 'react-spring', '@react-aria/visually-hidden'],
 };

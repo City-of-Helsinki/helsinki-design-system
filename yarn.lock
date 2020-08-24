@@ -3,9 +3,9 @@
 
 
 "@alloc/types@^1.2.1":
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/@alloc/types/-/types-1.2.6.tgz#316665569ac0af7cab481f3916ac178f38dd1c66"
-  integrity sha512-uCxcUiMUVjLmUa/SCbtY4ghiqHllYNSOEXJqVmIlJdWi0201VSzjnomYlVJ6VneO/C4h96DG7s0nibhVKtQB6w==
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@alloc/types/-/types-1.3.0.tgz#904245b8d3260a4b7d8a801c12501968f64fac08"
+  integrity sha512-mH7LiFiq9g6rX2tvt1LtwsclfG5hnsmtIfkZiauAGrm1AwXhoRS0sF2WrN9JGN7eV5vFXqNaB0eXZ3IvMsVi9g==
 
 "@babel/cli@^7.5.5":
   version "7.10.1"
