@@ -19,6 +19,13 @@ export type LogoProps = {
    */
   language?: LogoLanguage;
   /**
+   * The size of the logo
+   *
+   * Available options: `'full' | 's' | 'm' | 'l'`
+   * @default 'full'
+   */
+  size?: 'full' | 'small' | 'medium' | 'large';
+  /**
    * Override or extend the styles applied to the component
    */
   style?: CSSProperties;
@@ -46,8 +53,12 @@ const LogoSV = (props): ReactElement => (
   </svg>
 );
 
-const Logo = ({ className, dataTestId, language = 'fi', style }: LogoProps) => {
-  const props = { className: classNames(styles.logo, className), style, 'data-testid': dataTestId };
+const Logo = ({ className, dataTestId, language = 'fi', size = 'full', style }: LogoProps) => {
+  const props = {
+    className: classNames(styles.logo, size !== 'full' && styles[size], className),
+    style,
+    'data-testid': dataTestId,
+  };
 
   if (language === 'sv') {
     return <LogoSV {...props} />;
