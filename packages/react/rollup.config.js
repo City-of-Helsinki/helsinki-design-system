@@ -35,7 +35,7 @@ const commonConfig = {
       extensions,
     }),
   ],
-  external: ['react', 'react-dom', 'lodash.uniqueid', 'lodash.isequal', 'react-spring/renderprops.cjs'],
+  external: ['react', 'react-dom', 'lodash.uniqueid', 'lodash.isequal', 'react-spring', '@react-aria/visually-hidden'],
 };
 
 export default [

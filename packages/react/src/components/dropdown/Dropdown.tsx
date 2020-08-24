@@ -331,7 +331,11 @@ export const Dropdown: FC<DropdownProps> = ({
             // add aria attribute to button for combobox dropdowns
             ...(filterable && { 'aria-labelledby': labelId || `${id}-label` }),
             disabled,
-            className: classNames(!filterable && styles.buttonDropdown, showPlaceholder && styles.placeholder),
+            className: classNames(
+              !filterable && styles.buttonDropdown,
+              showPlaceholder && styles.placeholder,
+              styles.buttonReset,
+            ),
           })}
         >
           {getButtonLabel()}

@@ -2,23 +2,19 @@
   "color": {
     "engel": {
       "value": "#ffe977",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "engel-light-20": {
       "value": "#fffae3",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "engel-light-50": {
       "value": "#fff4bb",
-      "type": "color",
-      "primary": true
+      "type": "color"
     },
     "engel-dark-50": {
       "value": "#f5da4e",
-      "type": "color",
-      "primary": true
+      "type": "color"
     }
   }
 }

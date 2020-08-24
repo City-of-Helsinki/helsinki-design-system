@@ -67,9 +67,10 @@ Text input serves in most use cases when the user needs to enter information. Te
 <div class="hds-text-input">
   <label for="input" class="hds-text-input__label">
     Label
+    <span class="hds-text-input__required">*</span>
   </label>
   <div class="hds-text-input__input-wrapper">
-    <input id="input" class="hds-text-input__input" type="text" placeholder="Placeholder" />
+    <input id="input" class="hds-text-input__input" type="text" placeholder="Placeholder" required />
   </div>
   <span class="hds-text-input__helper-text">Assistive text</span>
 </div>
@@ -162,9 +163,10 @@ Text area is meant for situations where inputted text is multiline or contains m
 <div class="hds-text-input">
   <label for="textarea" class="hds-text-input__label">
     Label
+    <span class="hds-text-input__required">*</span>
   </label>
   <div class="hds-text-input__input-wrapper">
-    <textarea id="textarea" class="hds-text-input__input" placeholder="Placeholder"></textarea>
+    <textarea id="textarea" class="hds-text-input__input" placeholder="Placeholder" required></textarea>
   </div>
   <span class="hds-text-input__helper-text">Assistive text</span>
 </div>
@@ -327,35 +329,3 @@ Both text input and text area can be provided with additional tooltip. Tooltip i
 [Text areas in hds-react](/storybook/react/?path=/story/components-textarea--default)
 
 [TextArea API](/storybook/react/?path=/docs/components-textarea--default)
-
-## Tokens
-
-```css
-/* CSS */
-@import "hds-design-tokens/lib/color/component/text-input.css";
-/* SCSS */
-@import "hds-design-tokens/lib/color/component/text-input.scss";
-```
-```js
-// JS
-import 'hds-design-tokens/lib/color/component/text-input.css';
-```
-
-CSS                                      | SASS                                    | Value   | Example
----------------------------------------- | --------------------------------------- | ------- | ------------------------------------------------------------------ |
---color-background-text-input-default    | $color-background-text-input-default    | #ffffff | <ColorBox color="var(--color-background-text-input-default)" />    |
---color-background-text-input-disabled   | $color-background-text-input-disabled   | #e5e5e5 | <ColorBox color="var(--color-background-text-input-disabled)" />   |
---color-border-text-input-default        | $color-border-text-input-default        | #808080 | <ColorBox color="var(--color-border-text-input-default)" />        |
---color-border-text-input-hover          | $color-border-text-input-hover          | #1a1a1a | <ColorBox color="var(--color-border-text-input-hover)" />          |
---color-border-text-input-focus          | $color-border-text-input-focus          | #1a1a1a | <ColorBox color="var(--color-border-text-input-focus)" />          |
---color-border-text-input-invalid        | $color-border-text-input-invalid        | #b01038 | <ColorBox color="var(--color-border-text-input-invalid)" />        |
---color-border-text-input-disabled       | $color-border-text-input-disabled       | #e5e5e5 | <ColorBox color="var(--color-border-text-input-disabled)" />       |
---color-focus-outline-text-input-default | $color-focus-outline-text-input-default | #0072c6 | <ColorBox color="var(--color-focus-outline-text-input-default)" /> |
---color-helper-text-input-default        | $color-helper-text-input-default        | #666666 | <Text color="var(--color-helper-text-input-default)" />        |
---color-helper-text-input-invalid        | $color-helper-text-input-invalid        | #b01038 | <Text color="var(--color-helper-text-input-invalid)" />        |
---color-icon-text-input-invalid          | $color-icon-text-input-invalid          | #b01038 | <ColorBox color="var(--color-icon-text-input-invalid)" />          |
---color-input-text-input-default         | $color-input-text-input-default         | #1a1a1a | <Text color="var(--color-input-text-input-default)" />         |
---color-input-text-input-disabled        | $color-input-text-input-disabled        | #999898 | <Text color="var(--color-input-text-input-disabled)" />        |
---color-label-text-input-default         | $color-label-text-input-default         | #1a1a1a | <Text color="var(--color-label-text-input-default)" />         |
---color-label-text-input-invalid         | $color-label-text-input-invalid         | #1a1a1a | <Text color="var(--color-label-text-input-invalid)" />         |
---color-placeholder-text-input-default   | $color-placeholder-text-input-default   | #666666 | <Text color="var(--color-placeholder-text-input-default)" />   |

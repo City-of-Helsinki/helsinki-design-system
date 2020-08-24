@@ -6,10 +6,126 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.12.1] - August 19, 2020
+### Core
+#### Fixed
+- [Button] Fixed wrong cursor being shown for buttons
+
+### React
+#### Fixed
+- [Button] Fixed wrong cursor being shown for buttons
+
+
+## [0.12.0] - August 14, 2020
+### Core
+#### Breaking Changes
+- Removed all global styles that were applied by the base.css file. in ([#199](https://github.com/City-of-Helsinki/helsinki-design-system/pull/199))
+    - There were some global styles applied by the `base.css` file to heading and button elements that were removed 
+
+#### Added
+- Status label component. in ([#204](https://github.com/City-of-Helsinki/helsinki-design-system/pull/204))
+- The core .css files are now available as minified and non-minified versions. in ([#201](https://github.com/City-of-Helsinki/helsinki-design-system/pull/201))
+- Required field indicator styles to the Core text-input and textarea components. in ([#198](https://github.com/City-of-Helsinki/helsinki-design-system/pull/198))
+
+### Design kit
+#### Added
+- Status label component
+- [Typography] New heading scale guidelines artboard
+- [Typography] Text style variants listing tables for Body and Headings
+- [Koros] Example of using Koros with images
+
+#### Changed
+- [Typography] Heading font sizes from H1–H6 to heading level agnostic T-shirt sizes (XXS–XL), to allow adapting heading level scale to layout
+- [Typography] Body sizes naming from Small, Default, Medium, Large to S,M,L,XL for consistency with overall HDS token naming convention and to help prevent possible confusion between the conflicting size-medium and weight-medium
+- [Typography] Style naming and numbering model to help navigate the library
+    - **Body/Heading** element level numbering removed as irrelevant
+    - **Size** numbering changed from 01 etc. to the pixel size of the style (at default 16px rem value)
+    - **Weight** numbering changed from 01 etc. to the equivalent CSS weight value:
+        - 400 Regular
+        - 500 Medium
+        - 700 Bold
+    - **Alignment** variant numbering changed to marking that differentiates the Alignment selection from Colour variant selection and visualises the effect this selection has on the text right in the name:
+        - Left
+        - Center
+        - (••• Right if needed in the future)
+    - **Colour and style** variant numbering changed to predefined structure:
+        - 01 Black
+        - 02 White
+        - 03 Disabled
+        - 04 Placeholder
+        - 05 Link
+        - 06 Error
+        - 07 Success
+        - Brand colour variants are listed without numbers
+    - [Grids and Breakpoints] Small tweaks were done to breakpoint and container width tokens to allow wider outside margins in edge cases between breakpoints. Other than breakpoint-xl, breakpoints are untouched while container widths between xs and l were made slightly smaller. To see exact values changed, please refer to the design tokens package notes
+    - [Colours] Changed UI helper colours to improve accessibility. Following tokens have been changed:
+        - `alert-dark` from #986700 to #d18200
+        - `info` from #007293 to #006b9
+        - `info-light` from #dcf1f5 to #e5eff8
+        - `info-dark` from #005b76 to #004f94
+- [Form Components] Increased Dropdown options from 3 to 5. Excess options can be easily hidden via using Sketch's Smart Layout features
+- [Form Components] Moved Dropdown component focus border behind dropdown rectangle background to reflect implementation
+- [Form Components] Symbolized Dropdown options. This means changing Dropdown option state (from resting to selected for example) is now done via overriding the symbol
+- [Koros] Improved Koros/M/ symbols colour override. Colour can now be changed with just one selection instead of two separate selections
+- Library updates for all libraries dependent on HDS Koros
+
+#### Fixed
+- [Typography] Unified text style line heights
+
+#### Removed
+- [Notifications] Temporarily removed Modals and Notifications library. New notifications will be added in the next update, and they will replace the old implementation
+
+#### Known issues
+- Some elements (e.g. buttons) do not resize correctly if the label is changed. This is due to a bug in Sketch related to Smart Layout. We are working with Sketch to try to resolve this issue
+
+### Design tokens
+#### Breaking changes
+- Removed all component specific tokens. in ([#203](https://github.com/City-of-Helsinki/helsinki-design-system/pull/203))
+- Re-named the font-size design tokens to comply with the latest typography guidelines. in ([#189](https://github.com/City-of-Helsinki/helsinki-design-system/pull/189))
+    - `fontsize-h-1` to `fontsize-heading-xl`
+    - `fontsize-h-2` to `fontsize-heading-l`
+    - `fontsize-h-3` to `fontsize-heading-m`
+    - `fontsize-h-4` to `fontsize-heading-s`
+    - `fontsize-h-5` to `fontsize-heading-xs`
+    - `fontsize-subtitle` to `fontsize-heading-xxs`
+    - `fontsize-body-small` to `fontsize-body-s`
+    - `fontsize-body-default` to `fontsize-body-m`
+    - `fontsize-body-medium` to `fontsize-body-l`
+    - `fontsize-body-large` to `fontsize-body-xl`
+
+### Changed
+- UI helper colours to improve accessibility. in ([#192](https://github.com/City-of-Helsinki/helsinki-design-system/pull/192))
+
+### Documentation Site
+#### Added
+- New issue templates and updated old ones to match HDS needs. in ([#188](https://github.com/City-of-Helsinki/helsinki-design-system/pull/188))
+
+### Changed
+- Documentation site layout improvements. in ([#191](https://github.com/City-of-Helsinki/helsinki-design-system/pull/191))
+- Roadmap page updated to match the current plan. Content also now matches the GitHub repo [Project board](https://github.com/City-of-Helsinki/helsinki-design-system/projects/1). in ([#187](https://github.com/City-of-Helsinki/helsinki-design-system/pull/187))
+
+### Fixed
+- Removed unnecessary dot from HDS mail address. in ([#208](https://github.com/City-of-Helsinki/helsinki-design-system/pull/208))
+- Incorrect px value of spacing-xs token in documentation page. in ([#193](https://github.com/City-of-Helsinki/helsinki-design-system/pull/193))
+- Small correction to breakpoint token documentation. in ([#190](https://github.com/City-of-Helsinki/helsinki-design-system/pull/190))
+
+### React
+#### Breaking Changes
+- Global styles were removed from hds-core. in ([#199](https://github.com/City-of-Helsinki/helsinki-design-system/pull/199))
+    - hds-core is used as a dependency, so the change also affects the hds-react package
+
+#### Added
+- StatusLabel component. in ([#204](https://github.com/City-of-Helsinki/helsinki-design-system/pull/204))
+
+### Changed
+- Removed outdated example view from storybook. in ([#200](https://github.com/City-of-Helsinki/helsinki-design-system/pull/200))
+
+
 ## [0.11.3] - June 5, 2020
 ### React
 #### Added
 - [Notification][DismissableNotification] `className` prop for applying additional class names to the notification
+
 
 ## [0.11.2] - June 5, 2020
 ### Documentation site
@@ -37,6 +153,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 - Removed redundant style imports causing browser console warnings
 
+
 ## [0.11.1] - June 2, 2020
 ### Core
 #### Fixed
@@ -45,6 +162,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### React
 #### Fixed
 - [Icons] Sizing bug
+
 
 ## [0.11.0] - June 2, 2020
 ### Core
@@ -116,7 +234,6 @@ in ([#155](https://github.com/City-of-Helsinki/helsinki-design-system/pull/155))
 - Wrong version number in "What is new" section
 - Stretching issues of multiple images
 
-
 ### React
 #### Breaking changes
 - [Icons] The following icons were removed: `IconBoots`, `IconDoubleLike`, `IconFood`, `IconLips`, `IconRead`, `IconTree`, `IconWine`
@@ -151,6 +268,7 @@ in ([#155](https://github.com/City-of-Helsinki/helsinki-design-system/pull/155))
 ### Documentation site
 #### Fixed
 - Link to GitHub
+
 
 ## [0.10.0] - May 26, 2020
 
