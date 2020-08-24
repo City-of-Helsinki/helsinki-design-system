@@ -39,39 +39,54 @@ cd site
 yarn start
 ```
 
-You may need to rerun `yarn build` if you make changes to `doczrc.js` config file or if other HDS packages are updated.
+5. Open the browser of your choice (Chrome recommended) and navigate to http://localhost:3000/. You should now see the documentation site.
 
-### Writing documentation
+**Note!** You may need to rerun `yarn build` if you make changes to `doczrc.js` config file or if other HDS packages are updated.
 
-The documentation is written as md/mdx files in the `docs/` folder. Docz doesn't care for the subfolders, but for the sake of clarity, the folder structure should mirror the menu hierarchy. Once you create a new markdown file under `docs` it will be added in the documentation automatically (given it's valid of course).
+## Writing documentation
 
-In addition to the markdown, the file contains a frontmatter header that will be used to give the page it's settings (see [Document settings](https://www.docz.site/docs/document-settings)).
+The documentation is written as `.mdx` files in the `docs/` folder. To keep things tidy, the folder structure should always mirror the site menu hierarchy.
 
-[Example page documentation file](examples/page.mdx)
+### General guidelines
+TODO
 
-[Example component documentation file](examples/component.mdx)
+### Using example page templates
 
-### App configuration
+HDS offers example page templates for most common pages such as component and design token documentation. If an example template is available for the page you are writing, it should be used. Example templates include basic title structure and general guidelines for content for each section. Currently available example template pages are:
+- [Component page template](examples/component.mdx)
+- [Design token page template](examples/design_token.mdx)
+- [General page template](examples/page.mdx)
+
+### Adding new pages
+
+To add new pages to documentation, simply add a new `.mdx` under the `docs/` folder inside a corresponding menu category. For example, if you are adding documentation for a new component, create a `<component name>.mdx` file to `docs/components/` folder. It is recommended to use example page templates provided in `site/examples/` folder.
+
+All docz pages should include a following frontmatter settings header at the top of the file:
+```
+---
+name: <COMPONENT_NAME>
+menu: Components
+route: /components/<COMPONENT_NAME>
+---
+```
+`name` specifies the page name shown in the browser. 
+`menu` specifies the category page is under in the menu hierarchy. 
+`route` specifies the URL format of the page. It should follow the naming of the category the page belongs to.
+For full documentation about document settings, refer to [Docz documentation - Document settings](https://www.docz.site/docs/document-settings).
+
+### Adding new categories
+
+Generally new pages will be added to the documentation page automatically without restarting the development server. However, if you are adding a completely new category you need to add it to the `doczrc.js` configuration file and build the site package again. For more info on how to configure docz, refer to [Docz documentation - Project configuration](https://www.docz.site/docs/project-configuration).
+
+## App configuration
 
 Docz configuration is handled via the [`doczrc.js`](doczrc.js). Follow the [Project Configuration reference](https://www.docz.site/docs/project-configuration).
 
-### Troubleshooting
+## Troubleshooting
 
-* Compiling error when running `yarn start`
-
-    ```
-    ERROR #98123 WEBPACK
-
-    Generating development JavaScript bundle failed
-
-    Failed to load config "react-app" to extend from.
-    Referenced from: BaseConfig
-    
-    File: .cache/app.js
-    ```
+* Most compiling errors when running `yarn start`
   
     Try running the following in the project root `rm -rf node_modules/ yarn.lock && yarn && yarn build && cd site && yarn start`
-
 
 * Error after running `yarn start` and opening http://localhost:3000/
 
