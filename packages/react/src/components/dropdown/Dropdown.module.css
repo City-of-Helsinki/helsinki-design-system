@@ -206,7 +206,7 @@
   align-items: center;
   background-color: var(--menu-item-background-default);
   color: var(--menu-item-color-default);
-  cursor: default;
+  cursor: pointer;
   display: flex;
   font-size: var(--fontsize-body-l);
   justify-content: space-between;
