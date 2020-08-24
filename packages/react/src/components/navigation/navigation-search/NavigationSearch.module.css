@@ -86,7 +86,14 @@ header:global(.theme-black) .inputIcon {
 
 @media medium-only {
   .label {
-    composes: hiddenFromScreen from 'hds-core/lib/utils/helpers.css';
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    text-decoration: none;
+    width: 1px;
   }
 }
 
