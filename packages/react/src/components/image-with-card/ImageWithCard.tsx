@@ -1,5 +1,7 @@
 import React from 'react';
 
+// import core base styles
+import 'hds-core';
 import classNames from '../../utils/classNames';
 import styles from './ImageWithCard.module.css';
 
@@ -12,7 +14,7 @@ export type ImageWithCardProps = React.PropsWithChildren<{
   className?: string;
 }>;
 
-const ImageWithCard: React.FC<ImageWithCardProps> = ({
+export function ImageWithCard({
   src,
   fullWidth = false,
   children,
@@ -20,7 +22,7 @@ const ImageWithCard: React.FC<ImageWithCardProps> = ({
   color = 'plain',
   cardLayout = null,
   className = null,
-}: ImageWithCardProps) => {
+}: ImageWithCardProps) {
   return (
     <div
       className={classNames(
@@ -40,6 +42,4 @@ const ImageWithCard: React.FC<ImageWithCardProps> = ({
       )}
     </div>
   );
-};
-
-export default ImageWithCard;
+}

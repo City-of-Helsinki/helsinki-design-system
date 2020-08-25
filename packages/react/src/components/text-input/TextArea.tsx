@@ -1,17 +1,11 @@
-import React, {
-  ChangeEventHandler,
-  CSSProperties,
-  FC,
-  forwardRef,
-  ReactNode,
-  Ref,
-  TextareaHTMLAttributes,
-} from 'react';
+import React from 'react';
 
+// import core base styles
+import 'hds-core';
 import styles from './TextInput.module.css';
 import InputWrapper from '../../internal/input-wrapper/InputWrapper';
 
-export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
+export type TextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   /**
    * Additional class names to apply to the textarea
    */
@@ -43,7 +37,7 @@ export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   /**
    * The label for the textarea
    */
-  label?: string | ReactNode;
+  label?: string | React.ReactNode;
   /**
    * **[DEPRECATED]** This prop will be removed in a future version. Use the `label` prop instead
    */
@@ -51,7 +45,7 @@ export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   /**
    * Callback fired when the state is changed
    */
-  onChange?: ChangeEventHandler<HTMLTextAreaElement>;
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
   /**
    * Short hint displayed in the textarea before the user enters a value
    */
@@ -63,7 +57,7 @@ export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   /**
    * Override or extend the styles applied to the component. See text field [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/text-field#tokens) for available CSS variables
    */
-  style?: CSSProperties;
+  style?: React.CSSProperties;
   /**
    * The label of the tooltip
    */
@@ -87,10 +81,10 @@ export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   /**
    * The `ref` is forwarded to the native textarea element.
    */
-  ref?: Ref<HTMLTextAreaElement>;
+  ref?: React.Ref<HTMLTextAreaElement>;
 };
 
-const TextArea: FC<TextAreaProps> = forwardRef(
+export const TextArea = React.forwardRef(
   (
     {
       className = '',
@@ -111,7 +105,7 @@ const TextArea: FC<TextAreaProps> = forwardRef(
       tooltipCloseButtonLabelText,
       ...rest
     }: TextAreaProps,
-    ref: Ref<HTMLTextAreaElement>,
+    ref: React.Ref<HTMLTextAreaElement>,
   ) => {
     const wrapperProps = {
       className,
@@ -145,5 +139,3 @@ const TextArea: FC<TextAreaProps> = forwardRef(
     );
   },
 );
-
-export default TextArea;

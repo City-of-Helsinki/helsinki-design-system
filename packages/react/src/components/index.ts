@@ -1,19 +1,14 @@
-// export { default as TextInput, TextInputProps } from './textinput/TextInput';
-export { default as TextArea, TextAreaProps } from './textinput/TextArea';
-export { default as Notification, NotificationProps } from './notification/Notification';
-export { default as Section, SectionProps } from './section/Section';
-export { default as Koros, KorosProps } from './koros/Koros';
-export { default as ImageWithCard, ImageWithCardProps } from './imagewithcard/ImageWithCard';
-export { default as Columns, ColumnsProps } from './columns/Columns';
-export { default as Tooltip, TooltipProps } from './tooltip/Tooltip';
-export { default as StatusLabel, StatusLabelProps, StatusLabelType } from './status-label/StatusLabel';
-// export { default as Button, ButtonProps } from './button/Button';
-// export { default as RadioButton, RadioButtonProps } from './radiobutton/RadioButton';
-// export { default as Checkbox, CheckboxProps } from './checkbox/Checkbox';
-// export { default as Dropdown, DropdownProps } from './dropdown/Dropdown';
+export * from './button';
+export * from './checkbox';
+export * from './columns';
+export * from './dropdown';
+export * from './image-with-card';
+export * from './koros';
+export * from './notification';
+export * from './radio-button';
+export * from './section';
+export * from './status-label';
+export * from './text-input';
+export * from './tooltip';
 
-export { Button, ButtonProps } from './button';
-export { Checkbox, CheckboxProps } from './checkbox';
-export { Dropdown, DropdownProps } from './dropdown';
-export { RadioButton, RadioButtonProps } from './radiobutton';
-export { TextInput, TextInputProps } from './textinput';
+// TODO: UPDATE SCAFFOLDING SCRIPT

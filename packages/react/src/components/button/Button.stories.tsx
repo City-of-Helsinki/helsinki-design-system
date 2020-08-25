@@ -3,8 +3,8 @@ import { action } from '@storybook/addon-actions';
 import { boolean, radios, text, withKnobs } from '@storybook/addon-knobs';
 import { Props, Stories, Subtitle, Title } from '@storybook/addon-docs/dist/blocks';
 
-import Button from './Button';
 import { IconShare, IconAngleRight, IconFaceSmile } from '../../icons';
+import { Button } from './Button';
 
 const onClick = action('button-click');
 

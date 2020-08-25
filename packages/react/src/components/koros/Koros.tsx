@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import uniqueId from 'lodash.uniqueid';
 
+// import core base styles
+import 'hds-core';
 import classNames from '../../utils/classNames';
 import styles from './Koros.module.css';
 
+export type KorosType = 'basic' | 'beat' | 'pulse' | 'storm' | 'wave';
+
 export type KorosProps = {
   flipHorizontal?: boolean;
-  type?: 'basic' | 'beat' | 'pulse' | 'storm' | 'wave';
+  type?: KorosType;
   className?: string;
 };
 
@@ -37,7 +41,7 @@ const getSVG = (type: string, patternName: string): React.SVGProps<SVGElement> =
   );
 };
 
-const Koros: React.FC<KorosProps> = ({ flipHorizontal = false, type = 'basic', className = '' }: KorosProps) => {
+export function Koros({ flipHorizontal = false, type = 'basic', className = '' }: KorosProps) {
   const patternName = `koros_${type}`;
   const [id] = useState(uniqueId(`${patternName}-`));
 
@@ -46,6 +50,4 @@ const Koros: React.FC<KorosProps> = ({ flipHorizontal = false, type = 'basic', c
       {getSVG(type, id)}
     </div>
   );
-};
-
-export default Koros;
+}

@@ -1,11 +1,11 @@
-import React, { ChangeEventHandler, CSSProperties, FC, forwardRef, InputHTMLAttributes, ReactNode, Ref } from 'react';
+import React from 'react';
 
 // import core base styles
 import 'hds-core';
 import styles from './TextInput.module.css';
 import InputWrapper from '../../internal/input-wrapper/InputWrapper';
 
-export type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
+export type TextInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   /**
    * Additional class names to apply to the text input
    */
@@ -37,7 +37,7 @@ export type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
    * The label for the input
    */
-  label?: string | ReactNode;
+  label?: string | React.ReactNode;
   /**
    * **[DEPRECATED]** This prop will be removed in a future version. Use the `label` prop instead
    */
@@ -45,7 +45,7 @@ export type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
    * Callback fired when the state is changed
    */
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   /**
    * Short hint displayed in the input before the user enters a value
    */
@@ -61,7 +61,7 @@ export type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
    * Override or extend the styles applied to the component. See text field [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/text-field#tokens) for available CSS variables
    */
-  style?: CSSProperties;
+  style?: React.CSSProperties;
   /**
    * The label of the tooltip
    */
@@ -89,10 +89,10 @@ export type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
    * The `ref` is forwarded to the native input element.
    */
-  ref?: Ref<HTMLInputElement>;
+  ref?: React.Ref<HTMLInputElement>;
 };
 
-export const TextInput: FC<TextInputProps> = forwardRef(
+export const TextInput = React.forwardRef(
   (
     {
       className = '',
@@ -114,7 +114,7 @@ export const TextInput: FC<TextInputProps> = forwardRef(
       type = 'text',
       ...rest
     }: TextInputProps,
-    ref?: Ref<HTMLInputElement>,
+    ref?: React.Ref<HTMLInputElement>,
   ) => {
     const wrapperProps = {
       className,

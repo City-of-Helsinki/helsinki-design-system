@@ -1,7 +1,9 @@
-import React, { AriaAttributes, PropsWithChildren, ReactNode, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { animated, useSpring } from 'react-spring';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
+// import core base styles
+import 'hds-core';
 import classNames from '../../utils/classNames';
 import styles from './Notification.module.css';
 import { IconInfoCircle, IconError, IconAlertCircle, IconCheck, IconCross } from '../../icons';
@@ -19,7 +21,7 @@ export type NotificationPosition =
   | 'bottom-center'
   | 'bottom-right';
 
-type CommonProps = PropsWithChildren<{
+type CommonProps = React.PropsWithChildren<{
   /**
    * Whether the notification should be closed automatically after a certain time
    * @default false
@@ -57,7 +59,7 @@ type CommonProps = PropsWithChildren<{
    * The label of the notification.
    * Note: Labels are not displayed visually for small notifications, but they are still accessible to assistive technology. This could be used to help screen reader users to better understand the context of the notification.
    */
-  label?: string | ReactNode;
+  label?: string | React.ReactNode;
   /**
    * Callback fired when the notification is closed
    */
@@ -152,7 +154,7 @@ const getAutoCloseTransition = (duration: number) => ({
   },
 });
 
-const Notification = ({
+export function Notification({
   autoClose = false,
   autoCloseDuration = 6000,
   children,
@@ -170,7 +172,7 @@ const Notification = ({
   },
   size = 'default',
   type = 'info',
-}: NotificationProps) => {
+}: NotificationProps) {
   // only allow size 'large' for inline notifications
   if (position !== 'inline' && size === 'large') {
     // eslint-disable-next-line no-console
@@ -215,7 +217,7 @@ const Notification = ({
   const autoCloseTransition = useSpring(autoCloseTransitionProps);
 
   // a11y attributes
-  const ariaLive: AriaAttributes['aria-live'] = type === 'error' ? 'assertive' : 'polite';
+  const ariaLive: React.AriaAttributes['aria-live'] = type === 'error' ? 'assertive' : 'polite';
   const role = type === 'error' ? 'alert' : 'status';
 
   return (
@@ -255,7 +257,7 @@ const Notification = ({
       </animated.div>
     </ConditionalVisuallyHidden>
   );
-};
+}
 
 /**
  * Conditionally hides the children visually, but leaves them accessible to assistive technology
@@ -263,7 +265,8 @@ const Notification = ({
  * @param children
  * @constructor
  */
-const ConditionalVisuallyHidden = ({ visuallyHidden, children }) =>
-  visuallyHidden ? <VisuallyHidden>{children}</VisuallyHidden> : children;
+function ConditionalVisuallyHidden({ visuallyHidden, children }) {
+  return visuallyHidden ? <VisuallyHidden>{children}</VisuallyHidden> : children;
+}
 
 export default Notification;

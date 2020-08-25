@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 import { Props, Stories, Subtitle, Title } from '@storybook/addon-docs/dist/blocks';
 
-import TextInput from './TextInput';
-import Button from '../button/Button';
+import { TextInput } from './TextInput';
+import { Button } from '../button';
 
 const textInputProps = {
   helperText: 'Assistive text',

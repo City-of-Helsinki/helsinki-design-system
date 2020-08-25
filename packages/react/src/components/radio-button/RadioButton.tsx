@@ -1,9 +1,11 @@
-import React, { ChangeEventHandler, CSSProperties, FC, InputHTMLAttributes, ReactNode, Ref } from 'react';
+import React from 'react';
 
+// import core base styles
+import 'hds-core';
 import styles from './RadioButton.module.css';
 import classNames from '../../utils/classNames';
 
-export type RadioButtonProps = InputHTMLAttributes<HTMLInputElement> & {
+export type RadioButtonProps = React.InputHTMLAttributes<HTMLInputElement> & {
   /**
    * If `true`, the component is checked
    */
@@ -23,7 +25,7 @@ export type RadioButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
    * The label for the radio button
    */
-  label?: string | ReactNode;
+  label?: string | React.ReactNode;
   /**
    * **[DEPRECATED]** This prop will be removed in a future version. Use the `label` prop instead
    */
@@ -31,18 +33,18 @@ export type RadioButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
    * Callback fired when the state is changed
    */
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   /**
    * Override or extend the styles applied to the component. See radio button [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/radio-button#tokens) for available CSS variables
    */
-  style?: CSSProperties;
+  style?: React.CSSProperties;
   /**
    * The value of the component
    */
   value?: string;
 };
 
-export const RadioButton: FC<RadioButtonProps> = React.forwardRef(
+export const RadioButton = React.forwardRef(
   (
     {
       checked = false,
@@ -56,7 +58,7 @@ export const RadioButton: FC<RadioButtonProps> = React.forwardRef(
       value,
       ...rest
     }: RadioButtonProps,
-    ref: Ref<HTMLInputElement>,
+    ref: React.Ref<HTMLInputElement>,
   ) => (
     <div className={classNames(styles.radioButton, className)} style={style}>
       <input

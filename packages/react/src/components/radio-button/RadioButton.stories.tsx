@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { color, number } from '@storybook/addon-knobs';
 import { Props, Stories, Subtitle, Title } from '@storybook/addon-docs/dist/blocks';
 
-import RadioButton from './RadioButton';
+import { RadioButton } from './RadioButton';
 
 export default {
   component: RadioButton,

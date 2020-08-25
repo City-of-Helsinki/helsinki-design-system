@@ -1,7 +1,9 @@
-import React, { CSSProperties, FC, PropsWithChildren, ReactNode, useState } from 'react';
+import React, { useState } from 'react';
 import { useCombobox, useMultipleSelection, useSelect } from 'downshift';
 import isEqual from 'lodash.isequal';
 
+// import core base styles
+import 'hds-core';
 import styles from './Dropdown.module.css';
 import classNames from '../../utils/classNames';
 import { IconAngleDown, IconCheck, IconAlertCircle } from '../../icons';
@@ -41,7 +43,7 @@ export type DropdownProps = {
   /**
    * The helper text content that will be shown below the dropdown
    */
-  helper?: string | ReactNode;
+  helper?: string | React.ReactNode;
   /**
    * Hides the label above the dropdown
    */
@@ -81,7 +83,7 @@ export type DropdownProps = {
   /**
    * The label for the dropdown
    */
-  label?: string | ReactNode;
+  label?: string | React.ReactNode;
   /**
    * Sets the `id` prop for the input element when `filterable` is `true`
    */
@@ -120,7 +122,7 @@ export type DropdownProps = {
   /**
    * Override or extend the root styles applied to the component
    */
-  style?: CSSProperties;
+  style?: React.CSSProperties;
   /**
    * Sets the `id` prop for the toggle button (`button`)
    */
@@ -131,7 +133,7 @@ export type DropdownProps = {
   visibleOptions?: number;
 };
 
-type WrapperProps = PropsWithChildren<{
+type WrapperProps = React.PropsWithChildren<{
   filterable: boolean;
   getComboboxProps: any;
 }>;
@@ -142,14 +144,15 @@ type WrapperProps = PropsWithChildren<{
  * @param getComboboxProps  Prop getter function required by Downshift to work correctly
  * @param children
  */
-const Wrapper: FC<WrapperProps> = ({ filterable, getComboboxProps, children }: WrapperProps) =>
-  filterable ? (
+function Wrapper({ filterable, getComboboxProps, children }: WrapperProps) {
+  return filterable ? (
     <div {...getComboboxProps({ className: styles.wrapper })}>{children}</div>
   ) : (
     <div className={styles.wrapper}>{children}</div>
   );
+}
 
-export const Dropdown: FC<DropdownProps> = ({
+export function Dropdown({
   circularNavigation = false,
   className,
   closeMenuOnSelect = true,
@@ -179,7 +182,7 @@ export const Dropdown: FC<DropdownProps> = ({
   style,
   toggleButtonId,
   visibleOptions = 5,
-}: DropdownProps) => {
+}: DropdownProps) {
   // todo: this should be removed when multiselect is supported together with the filterable prop
   // https://helsinkisolutionoffice.atlassian.net/browse/HDS-200
   if (filterable && multiselect) {
@@ -280,7 +283,7 @@ export const Dropdown: FC<DropdownProps> = ({
   } = filterable ? combobox : select;
 
   // returns the toggle button label based on the dropdown mode
-  const getButtonLabel = (): ReactNode => {
+  const getButtonLabel = (): React.ReactNode => {
     if (filterable) return null;
 
     const buttonLabel = multiselect
@@ -392,4 +395,4 @@ export const Dropdown: FC<DropdownProps> = ({
       {helper && <div className={styles.helperText}>{helper}</div>}
     </div>
   );
-};
+}

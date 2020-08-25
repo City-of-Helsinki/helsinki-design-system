@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Transition, animated } from 'react-spring';
 
+// import core base styles
+import 'hds-core';
 import classNames from '../../utils/classNames';
 import { IconInfoCircle, IconQuestionCircle, IconCross } from '../../icons';
 import styles from './Tooltip.module.css';
@@ -12,13 +14,13 @@ export type TooltipProps = React.PropsWithChildren<{
   alternative?: boolean;
 }>;
 
-const Tooltip: React.FC<TooltipProps> = ({
+export function Tooltip({
   children,
   labelText,
   closeButtonLabelText,
   openButtonLabelText,
   alternative = false,
-}: TooltipProps) => {
+}: TooltipProps) {
   const [isOpen, setOpen] = useState(false);
 
   return (
@@ -58,20 +60,24 @@ const Tooltip: React.FC<TooltipProps> = ({
       </TooltipTransition>
     </div>
   );
-};
+}
 
 type TooltipTransitionProps = React.PropsWithChildren<{ open: boolean }>;
 
-const TooltipTransition = ({ children, open }: TooltipTransitionProps) => (
-  <Transition
-    config={{ tension: 300, friction: 30 }}
-    items={open}
-    from={{ height: 0 }}
-    enter={{ height: 'auto' }}
-    leave={{ height: 0 }}
-  >
-    {(props, show) => show && <animated.div style={{ ...props, ...{ overflowY: 'hidden' } }}>{children}</animated.div>}
-  </Transition>
-);
+function TooltipTransition({ children, open }: TooltipTransitionProps) {
+  return (
+    <Transition
+      config={{ tension: 300, friction: 30 }}
+      items={open}
+      from={{ height: 0 }}
+      enter={{ height: 'auto' }}
+      leave={{ height: 0 }}
+    >
+      {(props, show) =>
+        show && <animated.div style={{ ...props, ...{ overflowY: 'hidden' } }}>{children}</animated.div>
+      }
+    </Transition>
+  );
+}
 
 export default Tooltip;

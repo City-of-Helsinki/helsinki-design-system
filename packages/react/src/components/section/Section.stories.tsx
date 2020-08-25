@@ -2,7 +2,7 @@ import React from 'react';
 import { Props, Title } from '@storybook/addon-docs/dist/blocks';
 import { radios, text } from '@storybook/addon-knobs';
 
-import Section from './Section';
+import { Section } from './Section';
 import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
 
 const placeholderTitle = 'Lorem ipsum';

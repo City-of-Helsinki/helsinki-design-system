@@ -2,7 +2,7 @@ import React from 'react';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 import { Props, Stories, Subtitle, Title } from '@storybook/addon-docs/dist/blocks';
 
-import TextArea from './TextArea';
+import { TextArea } from './TextArea';
 
 const textAreaProps = {
   helperText: 'Assistive text',

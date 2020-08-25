@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { color, number } from '@storybook/addon-knobs';
 import { Props, Stories, Subtitle, Title } from '@storybook/addon-docs/dist/blocks';
 
-import Checkbox from './Checkbox';
+import { Checkbox } from './Checkbox';
 
 export default {
   component: Checkbox,

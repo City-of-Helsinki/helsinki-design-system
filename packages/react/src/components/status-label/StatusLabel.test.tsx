@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import StatusLabel, { StatusLabelType } from './StatusLabel';
+import { StatusLabel, StatusLabelType } from './StatusLabel';
 
 describe('<StatusLabel /> spec', () => {
   it('renders the component', () => {

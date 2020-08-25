@@ -2,7 +2,7 @@ import React from 'react';
 import { boolean, radios, withKnobs } from '@storybook/addon-knobs';
 import { Props, Stories, Title } from '@storybook/addon-docs/dist/blocks';
 
-import Koros from './Koros';
+import { Koros } from './Koros';
 
 export default {
   component: Koros,
