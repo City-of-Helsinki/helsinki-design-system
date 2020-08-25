@@ -42,6 +42,7 @@
     "@typescript-eslint/explicit-function-return-type": "off",
     "react/prop-types": "off",
     "import/extensions": "off",
+    "import/prefer-default-export": "off",
     "jsx-a11y/label-has-associated-control": [
       2,
       {
