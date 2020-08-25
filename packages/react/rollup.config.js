@@ -16,7 +16,6 @@ const commonConfig = {
     commonjs({
       include: '../../node_modules/**',
     }),
-    terser(),
     postcss({
       modules: true,
       minimize: {
@@ -30,12 +29,28 @@ const commonConfig = {
     }),
     typescript(),
     babel({
-      babelHelpers: 'bundled',
+      babelrc: false,
+      babelHelpers: 'runtime',
       exclude: 'node_modules/**',
       extensions,
+      presets: [
+        ['@babel/preset-env', { targets: '>1%, not dead, not ie 11, not op_mini all' }],
+        '@babel/preset-react',
+        '@babel/preset-typescript',
+      ],
+      plugins: [['@babel/plugin-transform-runtime', { useESModules: true }]],
     }),
+    terser(),
   ],
-  external: ['react', 'react-dom', 'lodash.uniqueid', 'lodash.isequal', 'react-spring', '@react-aria/visually-hidden'],
+  external: [
+    /@babel\/runtime/,
+    'react',
+    'react-dom',
+    'lodash.uniqueid',
+    'lodash.isequal',
+    'react-spring',
+    '@react-aria/visually-hidden',
+  ],
 };
 
 export default [
@@ -78,7 +93,7 @@ export default [
     output: [
       {
         dir: 'lib',
-        format: 'es',
+        format: 'esm',
       },
     ],
     ...commonConfig,

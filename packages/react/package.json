@@ -5,6 +5,7 @@
   "main": "./umd/index.js",
   "module": "./index.js",
   "types": "./index.d.ts",
+  "files": ["lib"],
   "scripts": {
     "build": "yarn run lint && yarn run tcm && rollup -c",
     "start": "tcm src internal --watch & yarn storybook",
@@ -18,11 +19,11 @@
     "pre-push": "yarn -s test && yarn build",
     "storybook": "start-storybook -p 6006 --quiet",
     "build-storybook": "build-storybook --loglevel error",
-    "test": "jest",
-    "prepack": "cp -R ./lib/ ."
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/core": "7.9.6",
+    "@babel/plugin-transform-runtime": "7.11.0",
     "@babel/preset-env": "7.9.6",
     "@babel/preset-react": "7.9.4",
     "@babel/preset-typescript": "7.9.0",
@@ -75,6 +76,7 @@
     "typescript": "3.9.3"
   },
   "dependencies": {
+    "@babel/runtime": "7.11.2",
     "@react-aria/visually-hidden": "3.1.0",
     "downshift": "5.4.0",
     "hds-core": "0.12.1",

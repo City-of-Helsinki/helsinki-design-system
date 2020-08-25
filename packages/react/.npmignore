@@ -2,7 +2,6 @@
 **/tsconfig.json
 **/rollup.config.js
 **/jest.config.js
-lib
 scripts
 src
 storybook-static
