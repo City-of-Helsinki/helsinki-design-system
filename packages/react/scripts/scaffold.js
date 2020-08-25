@@ -2,14 +2,14 @@ const chalk = require('chalk');
 const fs = require('fs');
 const inquirer = require('inquirer');
 
-const exitError = msg => {
+const exitError = (msg) => {
   console.log(`${chalk.red.bold('Error:')} ${chalk.italic(msg)}`);
   process.exit(1);
 };
 
-const logStep = msg => console.log(`${chalk.green('✓')} ${msg}`);
+const logStep = (msg) => console.log(`${chalk.green('✓')} ${msg}`);
 
-const createFolder = path => {
+const createFolder = (path) => {
   if (fs.existsSync(path)) {
     exitError(`component already exists in ${path}!`);
   }
@@ -25,7 +25,7 @@ const createComponentFiles = (templatePath, destination, name) => {
 
   const files = fs.readdirSync(templatePath);
 
-  const newFiles = files.map(file => {
+  const newFiles = files.map((file) => {
     const sourcePath = `${templatePath}${file}`;
     const targetPath = `${destination}/${file
       .split('NewComponent')
@@ -47,7 +47,7 @@ const createComponentFiles = (templatePath, destination, name) => {
   return newFiles;
 };
 
-const addExport = name => {
+const addExport = (name) => {
   const nameCapital = `${name[0].toUpperCase()}${name.slice(1)}`;
   const exportString = `export { default as ${nameCapital}, ${nameCapital}Props } from './components/${name.toLowerCase()}/${nameCapital}';\n`;
   try {
@@ -64,7 +64,7 @@ const scaffold = async () => {
     type: 'input',
     name: 'name',
     message: `What's the name of your component? (e.g. Testcomponent)`,
-    validate: input => (input.split(' ').length < 2 ? true : `Invalid component name: ${input}`),
+    validate: (input) => (input.split(' ').length < 2 ? true : `Invalid component name: ${input}`),
   });
 
   const path = createFolder(`src/components/${name.toLowerCase()}`);
