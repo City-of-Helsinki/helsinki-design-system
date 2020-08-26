@@ -8,7 +8,7 @@ const getLabel = (id = 'input', required = false, label = 'Label text') =>
 const getHelperText = (text = 'Assistive text') => `<span class="hds-text-input__helper-text">${text}</span>`;
 
 export default {
-  title: 'Textarea',
+  title: 'Components/Textarea',
   decorators: [(storyFn) => `<div style="max-width: 400px">${storyFn()}</div>`],
 };
 

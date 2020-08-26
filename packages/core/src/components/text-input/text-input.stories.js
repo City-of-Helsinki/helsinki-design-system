@@ -8,7 +8,7 @@ const getLabel = (id = 'input', required = false, label = 'Label text') =>
 const getHelperText = (text = 'Assistive text') => `<span class="hds-text-input__helper-text">${text}</span>`;
 
 export default {
-  title: 'Text input',
+  title: 'Components/Text input',
   decorators: [(storyFn) => `<div style="max-width: 400px">${storyFn()}</div>`],
 };
 
@@ -42,10 +42,7 @@ export const ReadOnly = () => `
       ${getHelperText()}
     </div>
 `;
-
-ReadOnly.story = {
-  name: 'Read-only',
-};
+ReadOnly.storyName = 'Read-only';
 
 export const Disabled = () => `
     <div class="hds-text-input">
