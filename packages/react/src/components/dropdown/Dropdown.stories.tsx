@@ -42,10 +42,7 @@ export const DisabledOptions = () => (
     isOptionDisabled={(option, index) => [1, 2, 4].includes(index)}
   />
 );
-
-DisabledOptions.story = {
-  name: 'With disabled options',
-};
+DisabledOptions.storyName = 'With disabled options';
 
 export const DefaultValue = () => (
   <>
@@ -62,10 +59,7 @@ export const DefaultValue = () => (
     />
   </>
 );
-
-DefaultValue.story = {
-  name: 'With default value(s)',
-};
+DefaultValue.storyName = 'With default value(s)';
 
 export const Multiselect = () => (
   <Dropdown
@@ -76,6 +70,7 @@ export const Multiselect = () => (
     closeMenuOnSelect={false}
   />
 );
+Multiselect.storyName = 'With multiselect';
 
 export const Controlled = () => {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -116,22 +111,12 @@ export const Controlled = () => {
     </>
   );
 };
-
-Controlled.story = {
-  name: 'With controlled state',
-};
-
-Multiselect.story = {
-  name: 'With multiselect',
-};
+Controlled.storyName = 'With controlled state';
 
 export const Combobox = () => (
   <Dropdown options={options} label="Filterable dropdown (combobox)" placeholder="Placeholder" filterable />
 );
-
-Combobox.story = {
-  name: 'With filtering (combobox)',
-};
+Combobox.storyName = 'With filtering (combobox)';
 
 export const Playground = () => {
   const multiselect = boolean('Multiselect', false);
@@ -165,16 +150,13 @@ export const Playground = () => {
     />
   );
 };
-
-Playground.story = {
-  parameters: {
-    previewTabs: {
-      'storybook/docs/panel': {
-        hidden: true,
-      },
+Playground.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
     },
-    docs: {
-      disable: true,
-    },
+  },
+  docs: {
+    disable: true,
   },
 };

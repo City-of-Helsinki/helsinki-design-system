@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC, PropsWithChildren, ReactNode, useState } from 'react';
+import React, { CSSProperties, PropsWithChildren, ReactNode, useState } from 'react';
 import { useCombobox, useMultipleSelection, useSelect } from 'downshift';
 import isEqual from 'lodash.isequal';
 
@@ -35,7 +35,6 @@ export type DropdownProps = {
   filterable?: boolean;
   /**
    * Function used to set the `id` prop for menu options (`li`). The returned `string` value will be set a the option `id`
-   * @param index Data item index
    */
   getItemId?: (index: number) => string;
   /**
@@ -65,8 +64,6 @@ export type DropdownProps = {
   invalid?: boolean;
   /**
    * A function used to detect whether an option is disabled ([example](/?path=/story/components-dropdown--disabled-options))
-   * @param option  Data item
-   * @param index   Data item index
    */
   isOptionDisabled?: (option: OptionType, index: number) => boolean;
   /**
@@ -98,7 +95,6 @@ export type DropdownProps = {
   multiselect?: boolean;
   /**
    * Callback fired when the state is changed
-   * @param selectedItems Selected item(s)
    */
   onChange?: (selectedItems: OptionType | OptionType[]) => void;
   /**
@@ -142,14 +138,14 @@ type WrapperProps = PropsWithChildren<{
  * @param getComboboxProps  Prop getter function required by Downshift to work correctly
  * @param children
  */
-const Wrapper: FC<WrapperProps> = ({ filterable, getComboboxProps, children }: WrapperProps) =>
+const Wrapper = ({ filterable, getComboboxProps, children }: WrapperProps) =>
   filterable ? (
     <div {...getComboboxProps({ className: styles.wrapper })}>{children}</div>
   ) : (
     <div className={styles.wrapper}>{children}</div>
   );
 
-const Dropdown: FC<DropdownProps> = ({
+const Dropdown = ({
   circularNavigation = false,
   className,
   closeMenuOnSelect = true,
@@ -168,9 +164,7 @@ const Dropdown: FC<DropdownProps> = ({
   inputId,
   menuId,
   multiselect = false,
-  onChange = () => {
-    // do nothing by default
-  },
+  onChange = () => null,
   optionLabelField = 'label',
   options = [],
   placeholder = '',
