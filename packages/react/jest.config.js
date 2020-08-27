@@ -82,6 +82,7 @@ module.exports = {
   moduleNameMapper: {
     // return a mock css module
     '\\.(css|less|scss|sss|styl)$': 'identity-obj-proxy',
+    'hds-core': 'identity-obj-proxy',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
