@@ -2,10 +2,9 @@
   "name": "hds-react",
   "version": "0.12.1",
   "license": "MIT",
-  "main": "./lib/umd/index.js",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "files": ["lib"],
+  "main": "./umd/index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "build": "yarn run lint && yarn run tcm && rollup -c",
     "start": "tcm src internal --watch & yarn storybook",
@@ -19,7 +18,8 @@
     "pre-push": "yarn -s test && yarn build",
     "storybook": "start-storybook -p 6006 --quiet",
     "build-storybook": "build-storybook --loglevel error",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "cp -R lib/ ."
   },
   "devDependencies": {
     "@babel/core": "7.9.6",
