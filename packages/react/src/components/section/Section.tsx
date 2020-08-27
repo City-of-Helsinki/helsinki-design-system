@@ -12,7 +12,7 @@ export type SectionProps = React.PropsWithChildren<{
   korosType?: KorosType;
 }>;
 
-export function Section({ children, className = '', color = 'plain', korosType = null }: SectionProps) {
+export const Section = ({ children, className = '', color = 'plain', korosType = null }: SectionProps) => {
   const withKoros = korosType !== null;
 
   return (
@@ -28,4 +28,4 @@ export function Section({ children, className = '', color = 'plain', korosType =
       )}
     </div>
   );
-}
+};

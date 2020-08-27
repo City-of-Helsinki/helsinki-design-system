@@ -14,13 +14,13 @@ export type TooltipProps = React.PropsWithChildren<{
   alternative?: boolean;
 }>;
 
-export function Tooltip({
+export const Tooltip = ({
   children,
   labelText,
   closeButtonLabelText,
   openButtonLabelText,
   alternative = false,
-}: TooltipProps) {
+}: TooltipProps) => {
   const [isOpen, setOpen] = useState(false);
 
   return (
@@ -60,7 +60,7 @@ export function Tooltip({
       </TooltipTransition>
     </div>
   );
-}
+};
 
 type TooltipTransitionProps = React.PropsWithChildren<{ open: boolean }>;
 

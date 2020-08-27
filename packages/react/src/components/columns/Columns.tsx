@@ -6,6 +6,4 @@ import styles from './Columns.module.css';
 
 export type ColumnsProps = React.PropsWithChildren<{}>;
 
-export function Columns({ children }: ColumnsProps) {
-  return <div className={styles.columns}>{children}</div>;
-}
+export const Columns = ({ children }: ColumnsProps) => <div className={styles.columns}>{children}</div>;

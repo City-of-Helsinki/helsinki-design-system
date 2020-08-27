@@ -152,7 +152,7 @@ function Wrapper({ filterable, getComboboxProps, children }: WrapperProps) {
   );
 }
 
-export function Dropdown({
+export const Dropdown = ({
   circularNavigation = false,
   className,
   closeMenuOnSelect = true,
@@ -182,7 +182,7 @@ export function Dropdown({
   style,
   toggleButtonId,
   visibleOptions = 5,
-}: DropdownProps) {
+}: DropdownProps) => {
   // todo: this should be removed when multiselect is supported together with the filterable prop
   // https://helsinkisolutionoffice.atlassian.net/browse/HDS-200
   if (filterable && multiselect) {
@@ -395,4 +395,4 @@ export function Dropdown({
       {helper && <div className={styles.helperText}>{helper}</div>}
     </div>
   );
-}
+};

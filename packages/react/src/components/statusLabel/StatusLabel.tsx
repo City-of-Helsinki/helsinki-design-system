@@ -22,10 +22,8 @@ export type StatusLabelProps = React.PropsWithChildren<{
   type?: StatusLabelType;
 }>;
 
-export function StatusLabel({ children, className, dataTestId, type = 'neutral', ...rest }: StatusLabelProps) {
-  return (
-    <span className={classNames(styles.statusLabel, styles[type], className)} data-testid={dataTestId} {...rest}>
-      {children}
-    </span>
-  );
-}
+export const StatusLabel = ({ children, className, dataTestId, type = 'neutral', ...rest }: StatusLabelProps) => (
+  <span className={classNames(styles.statusLabel, styles[type], className)} data-testid={dataTestId} {...rest}>
+    {children}
+  </span>
+);

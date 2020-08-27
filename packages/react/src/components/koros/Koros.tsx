@@ -41,7 +41,7 @@ const getSVG = (type: string, patternName: string): React.SVGProps<SVGElement> =
   );
 };
 
-export function Koros({ flipHorizontal = false, type = 'basic', className = '' }: KorosProps) {
+export const Koros = ({ flipHorizontal = false, type = 'basic', className = '' }: KorosProps) => {
   const patternName = `koros_${type}`;
   const [id] = useState(uniqueId(`${patternName}-`));
 
@@ -50,4 +50,4 @@ export function Koros({ flipHorizontal = false, type = 'basic', className = '' }
       {getSVG(type, id)}
     </div>
   );
-}
+};

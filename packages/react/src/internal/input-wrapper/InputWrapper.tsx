@@ -1,6 +1,6 @@
 import React, { CSSProperties, FC, ReactNode } from 'react';
 
-import styles from '../../components/text-input/TextInput.module.css';
+import styles from '../../components/textInput/TextInput.module.css';
 import { Tooltip } from '../../components/tooltip';
 import classNames from '../../utils/classNames';
 import FieldLabel from '../field-label/FieldLabel';

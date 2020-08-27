@@ -154,7 +154,16 @@ const getAutoCloseTransition = (duration: number) => ({
   },
 });
 
-export function Notification({
+/**
+ * Conditionally hides the children visually, but leaves them accessible to assistive technology
+ * @param visuallyHidden  Determines whether the children should be invisible
+ * @param children
+ * @constructor
+ */
+const ConditionalVisuallyHidden = ({ visuallyHidden, children }) =>
+  visuallyHidden ? <VisuallyHidden>{children}</VisuallyHidden> : children;
+
+export const Notification = ({
   autoClose = false,
   autoCloseDuration = 6000,
   children,
@@ -172,7 +181,7 @@ export function Notification({
   },
   size = 'default',
   type = 'info',
-}: NotificationProps) {
+}: NotificationProps) => {
   // only allow size 'large' for inline notifications
   if (position !== 'inline' && size === 'large') {
     // eslint-disable-next-line no-console
@@ -257,16 +266,4 @@ export function Notification({
       </animated.div>
     </ConditionalVisuallyHidden>
   );
-}
-
-/**
- * Conditionally hides the children visually, but leaves them accessible to assistive technology
- * @param visuallyHidden  Determines whether the children should be invisible
- * @param children
- * @constructor
- */
-function ConditionalVisuallyHidden({ visuallyHidden, children }) {
-  return visuallyHidden ? <VisuallyHidden>{children}</VisuallyHidden> : children;
-}
-
-export default Notification;
+};
