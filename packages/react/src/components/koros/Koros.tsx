@@ -9,8 +9,19 @@ import styles from './Koros.module.css';
 export type KorosType = 'basic' | 'beat' | 'pulse' | 'storm' | 'wave';
 
 export type KorosProps = {
+  /**
+   * Whether the component should be flipped horizontally
+   */
   flipHorizontal?: boolean;
+  /**
+   * Koros type
+   *
+   * Available options: `'basic' | 'beat' | 'pulse' | 'storm' | 'wave'`
+   */
   type?: KorosType;
+  /**
+   * Additional class names to apply to component
+   */
   className?: string;
 };
 

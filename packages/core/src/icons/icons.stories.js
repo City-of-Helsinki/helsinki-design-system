@@ -4,7 +4,7 @@ import './all.css';
 import './icon.css';
 
 export default {
-  title: 'Icons',
+  title: 'Icons/Icons',
   decorators: [(storyFn) => `<style>.hds-icon {margin-right: var(--spacing-m);}</style>${storyFn()}`],
 };
 

@@ -5,12 +5,16 @@ import 'hds-core';
 import classNames from '../../utils/classNames';
 import styles from './ImageWithCard.module.css';
 
+export type ImageWithCardAlignment = 'left' | 'right';
+export type ImageWithCardLayout = 'hover' | 'split';
+export type ImageWithCardColor = 'primary' | 'secondary' | 'tertiary' | 'plain';
+
 export type ImageWithCardProps = React.PropsWithChildren<{
   src: string;
   fullWidth?: boolean;
-  cardAlignment?: 'left' | 'right';
-  cardLayout?: 'hover' | 'split';
-  color?: 'primary' | 'secondary' | 'tertiary' | 'plain';
+  cardAlignment?: ImageWithCardAlignment;
+  cardLayout?: ImageWithCardLayout;
+  color?: ImageWithCardColor;
   className?: string;
 }>;
 

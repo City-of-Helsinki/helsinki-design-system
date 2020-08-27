@@ -18,6 +18,8 @@ export type StatusLabelProps = React.PropsWithChildren<{
   dataTestId?: string;
   /**
    * The type of the status label
+   *
+   * Available options: `'neutral' | 'info' | 'success' | 'alert' | 'error'`
    */
   type?: StatusLabelType;
 }>;

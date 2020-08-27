@@ -6,8 +6,10 @@ import classNames from '../../utils/classNames';
 import { Koros, KorosType } from '../koros';
 import styles from './Section.module.css';
 
+export type SectionColor = 'primary' | 'secondary' | 'tertiary' | 'plain';
+
 export type SectionProps = React.PropsWithChildren<{
-  color?: 'primary' | 'secondary' | 'tertiary' | 'plain';
+  color?: SectionColor;
   className?: string;
   korosType?: KorosType;
 }>;

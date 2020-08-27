@@ -5,7 +5,7 @@ import 'hds-core';
 import styles from '../textInput/TextInput.module.css';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 
-export type TextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
+export type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
   /**
    * Additional class names to apply to the textarea
    */

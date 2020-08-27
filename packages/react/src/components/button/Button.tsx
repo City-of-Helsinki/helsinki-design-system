@@ -5,7 +5,11 @@ import 'hds-core';
 import styles from './Button.module.css';
 import classNames from '../../utils/classNames';
 
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+export type ButtonSize = 'default' | 'small';
+export type ButtonTheme = 'default' | 'coat' | 'black';
+export type ButtonVariant = 'primary' | 'secondary' | 'supplementary' | 'success' | 'danger';
+
+export type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
    * The content of the button
    */
@@ -19,13 +23,13 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
    *
    * Available options: `'primary' | 'secondary' | 'supplementary' | 'success' | 'danger'`
    */
-  variant?: 'primary' | 'secondary' | 'supplementary' | 'success' | 'danger';
+  variant?: ButtonVariant;
   /**
    * Defines the button theme
    *
    * Available options: `'default' | 'coat' | 'black'`
    */
-  theme?: 'default' | 'coat' | 'black';
+  theme?: ButtonTheme;
   /**
    * If `true`, the button will be disabled
    */
@@ -37,17 +41,17 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   /**
    * Element placed on the left side of the button label
    */
-  iconLeft?: React.ReactElement;
+  iconLeft?: React.ReactNode;
   /**
    * Element placed on the right side of the button label
    */
-  iconRight?: React.ReactElement;
+  iconRight?: React.ReactNode;
   /**
    * The size of the button
    *
    * Available options: `'default' | 'small'`
    */
-  size?: 'default' | 'small';
+  size?: ButtonSize;
 };
 
 export const Button = React.forwardRef(

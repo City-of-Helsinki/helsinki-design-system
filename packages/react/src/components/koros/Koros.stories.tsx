@@ -1,6 +1,6 @@
 import React from 'react';
 import { boolean, radios, withKnobs } from '@storybook/addon-knobs';
-import { Props, Stories, Title } from '@storybook/addon-docs/dist/blocks';
+import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import { Koros } from './Koros';
 
@@ -13,7 +13,7 @@ export default {
       page: () => (
         <>
           <Title>Props</Title>
-          <Props />
+          <ArgsTable />
           <Stories title="Examples" includePrimary />
         </>
       ),
@@ -39,16 +39,13 @@ export const Playground = () => {
 
   return <Koros type={type} flipHorizontal={flipped} />;
 };
-
-Playground.story = {
-  parameters: {
-    previewTabs: {
-      'storybook/docs/panel': {
-        hidden: true,
-      },
+Playground.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
     },
-    docs: {
-      disable: true,
-    },
+  },
+  docs: {
+    disable: true,
   },
 };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { color, number } from '@storybook/addon-knobs';
-import { Props, Stories, Subtitle, Title } from '@storybook/addon-docs/dist/blocks';
+import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import { Checkbox } from './Checkbox';
 
@@ -12,8 +12,7 @@ export default {
       page: () => (
         <>
           <Title>Props</Title>
-          <Subtitle>Props, which are not mentioned below, are passed to the native element</Subtitle>
-          <Props />
+          <ArgsTable />
           <Stories title="Examples" includePrimary />
         </>
       ),
@@ -28,10 +27,7 @@ export const Selected = () => <Checkbox id="checkbox2" label="Label" checked />;
 export const Disabled = () => <Checkbox id="checkbox3" label="Label" disabled />;
 
 export const SelectedDisabled = () => <Checkbox id="checkbox4" label="Label" checked disabled />;
-
-SelectedDisabled.story = {
-  name: 'Selected & disabled',
-};
+SelectedDisabled.storyName = 'Selected & disabled';
 
 export const Custom = () => {
   const [checked, setChecked] = useState(false);
@@ -57,10 +53,7 @@ export const Custom = () => {
     />
   );
 };
-
-Custom.story = {
-  name: 'With custom styles',
-};
+Custom.storyName = 'With custom styles';
 
 export const RichLabel = () => {
   const label = (
@@ -71,10 +64,7 @@ export const RichLabel = () => {
   );
   return <Checkbox id="radio4" label={label} />;
 };
-
-RichLabel.story = {
-  name: 'With rich label',
-};
+RichLabel.storyName = 'With rich label';
 
 export const Playground = () => {
   const [checkedItems, setCheckedItems] = useState({});
@@ -215,16 +205,13 @@ export const Playground = () => {
     </>
   );
 };
-
-Playground.story = {
-  parameters: {
-    previewTabs: {
-      'storybook/docs/panel': {
-        hidden: true,
-      },
+Playground.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
     },
-    docs: {
-      disable: true,
-    },
+  },
+  docs: {
+    disable: true,
   },
 };

@@ -5,7 +5,7 @@ import 'hds-core';
 import styles from './Checkbox.module.css';
 import classNames from '../../utils/classNames';
 
-export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
+export type CheckboxProps = React.ComponentPropsWithoutRef<'input'> & {
   /**
    * If `true`, the component is checked
    */
@@ -28,6 +28,7 @@ export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string | React.ReactNode;
   /**
    * **[DEPRECATED]** This prop will be removed in a future version. Use the `label` prop instead
+   * @deprecated
    */
   labelText?: string;
   /**
@@ -35,7 +36,7 @@ export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
    */
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   /**
-   * Override or extend the styles applied to the component. See checkbox [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/checkbox#tokens) for available CSS variables
+   * Override or extend the styles applied to the component
    */
   style?: React.CSSProperties;
   /**

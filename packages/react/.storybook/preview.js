@@ -1,5 +1,5 @@
 import React from 'react';
-import { Props, Stories, Title } from '@storybook/addon-docs/dist/blocks';
+import { ArgsTable, DocsContainer, Stories, Title } from '@storybook/addon-docs/blocks';
 import { addParameters } from '@storybook/react';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
@@ -25,10 +25,11 @@ addParameters({
     viewports,
   },
   docs: {
+    container: DocsContainer,
     page: () => (
       <>
         <Title>Props</Title>
-        <Props />
+        <ArgsTable />
         <Stories title="Examples" includePrimary />
       </>
     ),

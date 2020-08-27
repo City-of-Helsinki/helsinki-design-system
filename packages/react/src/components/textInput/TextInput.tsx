@@ -5,7 +5,7 @@ import 'hds-core';
 import styles from './TextInput.module.css';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 
-export type TextInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
   /**
    * Additional class names to apply to the text input
    */
@@ -59,7 +59,7 @@ export type TextInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
    */
   required?: boolean;
   /**
-   * Override or extend the styles applied to the component. See text field [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/text-field#tokens) for available CSS variables
+   * Override or extend the styles applied to the component
    */
   style?: React.CSSProperties;
   /**

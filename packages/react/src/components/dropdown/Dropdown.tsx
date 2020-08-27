@@ -37,7 +37,6 @@ export type DropdownProps = {
   filterable?: boolean;
   /**
    * Function used to set the `id` prop for menu options (`li`). The returned `string` value will be set a the option `id`
-   * @param index Data item index
    */
   getItemId?: (index: number) => string;
   /**
@@ -67,8 +66,6 @@ export type DropdownProps = {
   invalid?: boolean;
   /**
    * A function used to detect whether an option is disabled ([example](/?path=/story/components-dropdown--disabled-options))
-   * @param option  Data item
-   * @param index   Data item index
    */
   isOptionDisabled?: (option: OptionType, index: number) => boolean;
   /**
@@ -100,7 +97,6 @@ export type DropdownProps = {
   multiselect?: boolean;
   /**
    * Callback fired when the state is changed
-   * @param selectedItems Selected item(s)
    */
   onChange?: (selectedItems: OptionType | OptionType[]) => void;
   /**
@@ -144,13 +140,12 @@ type WrapperProps = React.PropsWithChildren<{
  * @param getComboboxProps  Prop getter function required by Downshift to work correctly
  * @param children
  */
-function Wrapper({ filterable, getComboboxProps, children }: WrapperProps) {
-  return filterable ? (
+const Wrapper = ({ filterable, getComboboxProps, children }: WrapperProps) =>
+  filterable ? (
     <div {...getComboboxProps({ className: styles.wrapper })}>{children}</div>
   ) : (
     <div className={styles.wrapper}>{children}</div>
   );
-}
 
 export const Dropdown = ({
   circularNavigation = false,
@@ -171,9 +166,7 @@ export const Dropdown = ({
   inputId,
   menuId,
   multiselect = false,
-  onChange = () => {
-    // do nothing by default
-  },
+  onChange = () => null,
   optionLabelField = 'label',
   options = [],
   placeholder = '',

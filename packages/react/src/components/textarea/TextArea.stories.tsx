@@ -1,6 +1,6 @@
 import React from 'react';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
-import { Props, Stories, Subtitle, Title } from '@storybook/addon-docs/dist/blocks';
+import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import { TextArea } from './TextArea';
 
@@ -21,8 +21,7 @@ export default {
       page: () => (
         <>
           <Title>Props</Title>
-          <Subtitle>Props, which are not mentioned below, are passed to the native element</Subtitle>
-          <Props />
+          <ArgsTable />
           <Stories title="Examples" includePrimary />
         </>
       ),
@@ -37,10 +36,7 @@ export const Disabled = () => <TextArea {...textAreaProps} disabled defaultValue
 export const Invalid = () => <TextArea {...textAreaProps} invalid helperText="Error text" defaultValue={value} />;
 
 export const WithLabelHidden = () => <TextArea {...textAreaProps} hideLabel defaultValue={value} />;
-
-WithLabelHidden.story = {
-  name: 'With label hidden',
-};
+WithLabelHidden.storyName = 'With label hidden';
 
 export const Playground = () => {
   const groupGeneral = 'General';
@@ -81,15 +77,13 @@ export const Playground = () => {
   );
 };
 
-Playground.story = {
-  parameters: {
-    previewTabs: {
-      'storybook/docs/panel': {
-        hidden: true,
-      },
+Playground.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
     },
-    docs: {
-      disable: true,
-    },
+  },
+  docs: {
+    disable: true,
   },
 };
