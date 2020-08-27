@@ -1,17 +1,9 @@
-import React, {
-  ChangeEventHandler,
-  CSSProperties,
-  FC,
-  forwardRef,
-  ReactNode,
-  Ref,
-  TextareaHTMLAttributes,
-} from 'react';
+import React, { ChangeEventHandler, CSSProperties, forwardRef, ReactNode, Ref } from 'react';
 
 import styles from './TextInput.module.css';
 import InputWrapper from '../../internal/input-wrapper/InputWrapper';
 
-export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
+export type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
   /**
    * Additional class names to apply to the textarea
    */
@@ -61,7 +53,7 @@ export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
    */
   required?: boolean;
   /**
-   * Override or extend the styles applied to the component. See text field [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/text-field#tokens) for available CSS variables
+   * Override or extend the styles applied to the component
    */
   style?: CSSProperties;
   /**
@@ -90,7 +82,7 @@ export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   ref?: Ref<HTMLTextAreaElement>;
 };
 
-const TextArea: FC<TextAreaProps> = forwardRef(
+const TextArea = forwardRef(
   (
     {
       className = '',

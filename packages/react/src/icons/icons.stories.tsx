@@ -28,7 +28,7 @@ const req = require.context('.', true, /Icon.*.tsx$/);
 req.keys().forEach((fileName, index) => {
   const category = fileName.substring(fileName.indexOf('/') + 1, fileName.lastIndexOf('/'));
   const kind = storyKindMapping.find((item) => item.category === category)?.name;
-  const story = storiesOf(`Components/Icons/${kind}`, module);
+  const story = storiesOf(`Icons/${kind}`, module);
   const Component = req(fileName).default;
   const componentName = path.basename(fileName, '.tsx');
   Component.displayName = componentName;

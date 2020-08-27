@@ -1,7 +1,7 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { boolean, radios, text, withKnobs } from '@storybook/addon-knobs';
-import { Props, Stories, Subtitle, Title } from '@storybook/addon-docs/dist/blocks';
+import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import Button from './Button';
 import { IconShare, IconAngleRight, IconFaceSmile } from '../../icons';
@@ -17,8 +17,7 @@ export default {
       page: () => (
         <>
           <Title>Props</Title>
-          <Subtitle>Props, which are not mentioned below, are passed to the native element</Subtitle>
-          <Props />
+          <ArgsTable />
           <Stories title="Examples" includePrimary />
         </>
       ),
@@ -51,10 +50,7 @@ export const FullWidth = () => (
     Button
   </Button>
 );
-
-FullWidth.story = {
-  name: 'Full width',
-};
+FullWidth.storyName = 'Full width';
 
 export const Icons = () => (
   <>
@@ -120,16 +116,13 @@ export const Playground = () => {
     </Button>
   );
 };
-
-Playground.story = {
-  parameters: {
-    previewTabs: {
-      'storybook/docs/panel': {
-        hidden: true,
-      },
+Playground.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
     },
-    docs: {
-      disable: true,
-    },
+  },
+  docs: {
+    disable: true,
   },
 };
