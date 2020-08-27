@@ -56,7 +56,7 @@ The documentation is written as `.mdx` files in the `docs/` folder. To keep thin
 
 ### Using example page templates
 
-HDS offers example page templates for the most common pages such as component and design token documentation. If an example template is available for the page you are writing, it should be used. Example templates include basic title structure and general guidelines for content for each section. Currently available example template pages are:
+HDS offers example page templates for the most common pages such as component and design token documentation. If an example template is available for the page you are writing, it should be used. Example templates include basic title structure and general guidelines for content for each section. Currently available example template pages are (note that GitHub Markdown viewer does not show file comments. Use raw format or read files with your code editor.):
 - [Component page template](examples/component.mdx)
 - [Design token page template](examples/design_token.mdx)
 - [General page template](examples/page.mdx)
@@ -80,8 +80,11 @@ route: /components/<COMPONENT_NAME>
 ---
 ```
 `name` specifies the page name shown in the browser. 
+
 `menu` specifies the category page is under in the menu hierarchy. 
+
 `route` specifies the URL format of the page. It should follow the naming of the category the page belongs to.
+
 For full documentation about document settings, refer to [Docz documentation - Document settings](https://www.docz.site/docs/document-settings).
 
 ### Adding new categories
