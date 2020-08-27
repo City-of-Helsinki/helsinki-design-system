@@ -8,7 +8,7 @@ import styles from './Dropdown.module.css';
 import classNames from '../../utils/classNames';
 import { IconAngleDown, IconCheck, IconAlertCircle } from '../../icons';
 import { Checkbox } from '../checkbox';
-import FieldLabel from '../../internal/field-label/FieldLabel';
+import { FieldLabel } from '../../internal/field-label/FieldLabel';
 
 type OptionType = {
   [key: string]: any;

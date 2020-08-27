@@ -3,7 +3,7 @@ import React from 'react';
 // import core base styles
 import 'hds-core';
 import styles from '../textInput/TextInput.module.css';
-import InputWrapper from '../../internal/input-wrapper/InputWrapper';
+import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 
 export type TextAreaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   /**

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import InputWrapper from './InputWrapper';
+import { InputWrapper } from './InputWrapper';
 
 const wrapperProps = {
   helperText: 'helper text',
