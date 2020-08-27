@@ -8,7 +8,6 @@ export * from './notification';
 export * from './radioButton';
 export * from './section';
 export * from './statusLabel';
+export * from './textarea';
 export * from './textInput';
 export * from './tooltip';
-
-// TODO: UPDATE SCAFFOLDING SCRIPT
