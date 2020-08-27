@@ -137,6 +137,28 @@ export const Playground = () => {
     },
     groupSize,
   );
+  const fontSize = number(
+    'Font-size',
+    16,
+    {
+      range: true,
+      min: 12,
+      max: 32,
+      step: 1,
+    },
+    groupSize,
+  );
+  const labelPadding = number(
+    'Label padding',
+    8,
+    {
+      range: true,
+      min: 4,
+      max: 32,
+      step: 2,
+    },
+    groupSize,
+  );
   const background = color('Background - unselected', '#ffffff', groupColor);
   const backgroundHover = color('Background - hover', '#ffffff', groupColor);
   const backgroundFocus = color('Background - focus', '#ffffff', groupColor);
@@ -161,6 +183,8 @@ export const Playground = () => {
     '--icon-scale': iconScale,
     '--border-width': `${borderWidth}px`,
     '--outline-width': `${outlineWidth}px`,
+    '--label-font-size': `${fontSize}px`,
+    '--label-padding': `${labelPadding}px`,
     '--background': background,
     '--background-hover': backgroundHover,
     '--background-focus': backgroundFocus,
