@@ -2,9 +2,9 @@
   "name": "hds-react",
   "version": "0.12.1",
   "license": "MIT",
-  "main": "./umd/index.js",
-  "module": "./index.js",
-  "types": "./index.d.ts",
+  "main": "./lib/umd/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "files": ["lib"],
   "scripts": {
     "build": "yarn run lint && yarn run tcm && rollup -c",
