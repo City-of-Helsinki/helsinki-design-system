@@ -1,1 +1,1 @@
-export { StatusLabel, StatusLabelProps, StatusLabelType } from './StatusLabel';
+export * from './StatusLabel';

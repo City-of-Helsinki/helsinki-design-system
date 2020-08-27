@@ -1,1 +1,1 @@
-export { TextArea, TextAreaProps } from './TextArea';
+export * from './TextArea';

@@ -1,1 +1,1 @@
-export { Koros, KorosProps, KorosType } from './Koros';
+export * from './Koros';

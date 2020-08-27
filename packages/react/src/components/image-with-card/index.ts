@@ -1,1 +1,1 @@
-export { ImageWithCard, ImageWithCardProps } from './ImageWithCard';
+export * from './ImageWithCard';
