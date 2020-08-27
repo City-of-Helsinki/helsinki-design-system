@@ -29,8 +29,8 @@ req.keys().forEach((fileName, index) => {
   const category = fileName.substring(fileName.indexOf('/') + 1, fileName.lastIndexOf('/'));
   const kind = storyKindMapping.find((item) => item.category === category)?.name;
   const story = storiesOf(`Components/Icons/${kind}`, module);
-  const Component = req(fileName).default;
   const componentName = path.basename(fileName, '.tsx');
+  const Component = req(fileName)[componentName];
   Component.displayName = componentName;
 
   if (index === 0) {
