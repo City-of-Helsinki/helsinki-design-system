@@ -48,14 +48,24 @@ yarn start
 The documentation is written as `.mdx` files in the `docs/` folder. To keep things tidy, the folder structure should always mirror the site menu hierarchy.
 
 ### General guidelines
-TODO
+- HDS documentation is written in British English.
+- The audience of the documentation includes every one at the City of Helsinki organisation with the main focus on developers, designers and product owners. Try to avoid technical jargon to keep documentation understandable for everyone.
+- HDS documentation aims to guide designers and developer and not restrict them. Most of the time the last word is left to the user of the design system. Keep this in mind - especially when writing component and token principles.
+- Documentation in Components and Design tokens sections always should have their counterpart both in design kit and implementation. HDS aims not to release documentation before implementation is released.
+- Documentation site styles take care of most of the accessibility issues. You mostly need to ensure that heading levels are used semantically (refer to [HDS typography documentation](https://hds.hel.fi/design-tokens/typography)) and external links are correctly visualized (you can use the HDS provided [Link component](src/components/Link.js)).
 
 ### Using example page templates
 
-HDS offers example page templates for most common pages such as component and design token documentation. If an example template is available for the page you are writing, it should be used. Example templates include basic title structure and general guidelines for content for each section. Currently available example template pages are:
+HDS offers example page templates for the most common pages such as component and design token documentation. If an example template is available for the page you are writing, it should be used. Example templates include basic title structure and general guidelines for content for each section. Currently available example template pages are:
 - [Component page template](examples/component.mdx)
 - [Design token page template](examples/design_token.mdx)
 - [General page template](examples/page.mdx)
+
+You can use the following command line command to quickly copy example templates to the right folder:
+```
+cd site/docs/<category_folder>
+cp ../../examples/<example_template>.mdx ./<component_name>.mdx
+```
 
 ### Adding new pages
 
@@ -78,20 +88,16 @@ For full documentation about document settings, refer to [Docz documentation - D
 
 Generally new pages will be added to the documentation page automatically without restarting the development server. However, if you are adding a completely new category you need to add it to the `doczrc.js` configuration file and build the site package again. For more info on how to configure docz, refer to [Docz documentation - Project configuration](https://www.docz.site/docs/project-configuration).
 
-## App configuration
-
-Docz configuration is handled via the [`doczrc.js`](doczrc.js). Follow the [Project Configuration reference](https://www.docz.site/docs/project-configuration).
-
 ## Troubleshooting
 
-* Most compiling errors when running `yarn start`
+### Most compiling errors when running `yarn start`
   
-    Try running the following in the project root `rm -rf node_modules/ yarn.lock && yarn && yarn build && cd site && yarn start`
+Try running the following in the project root folder:
+`rm -rf node_modules/ yarn.lock && yarn && yarn build && cd site && yarn start`
 
-* Error after running `yarn start` and opening http://localhost:3000/
+### Error after running `yarn start` and opening http://localhost:3000/
+```
+TypeError: Cannot read property 'find' of undefined
+```
 
-    ```
-    TypeError: Cannot read property 'find' of undefined
-    ```
-  
-    Make a change to any of the documentation `.mdx` files and refresh the page.
+Make a change to any of the documentation `.mdx` files and refresh the page. You can also try to clear browser's cache or doing a hard refresh.
