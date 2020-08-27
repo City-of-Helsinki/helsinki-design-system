@@ -93,12 +93,12 @@ Generally new pages will be added to the documentation page automatically withou
 
 ## Troubleshooting
 
-### Most compiling errors when running `yarn start`
+**Most compiling errors when running `yarn start`**
   
 Try running the following in the project root folder:
 `rm -rf node_modules/ yarn.lock && yarn && yarn build && cd site && yarn start`
 
-### Error after running `yarn start` and opening http://localhost:3000/
+**Error after running `yarn start` and opening http://localhost:3000/**
 ```
 TypeError: Cannot read property 'find' of undefined
 ```
