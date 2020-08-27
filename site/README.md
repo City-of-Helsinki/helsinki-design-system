@@ -2,6 +2,7 @@
 
 This is the public documentation site of Helsinki Design System ([hds.hel.fi](https://hds.hel.fi/)). It is built with [docz](https://www.docz.site/) which is powered by [Gatsby](https://www.gatsbyjs.com/). Documentation site includes:
 
+- General introduction of Helsinki Design System
 - Getting started section for designers and developers
 - Guidelines for accessibility, grid, localisation and more
 - Guidelines for visual assets such as icons and Helsinki logo
@@ -13,7 +14,7 @@ This is the public documentation site of Helsinki Design System ([hds.hel.fi](ht
 
 ## Getting started
 
-When making changes to the documentation website, recommended way to get it running locally. This way you can review and see your changes in real time like they would show up in production. 
+When making changes to the documentation website, recommended way is to get it running locally. This way you can review and see your changes in real time like they would show up in production. 
 
 ### Setting up local development environment
 
@@ -104,3 +105,7 @@ TypeError: Cannot read property 'find' of undefined
 ```
 
 Make a change to any of the documentation `.mdx` files and refresh the page. You can also try to clear browser's cache or doing a hard refresh.
+
+**After changes the page renders completely empty or some of the content does not show on the page**
+
+If you have used custom React components inlined (like the Link component), Gatsby does not render those paragraphs correctly. The fix is to wrap the text into paragraph tags. This way Gatsby 
