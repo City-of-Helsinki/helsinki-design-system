@@ -2,9 +2,10 @@
   "name": "hds-react",
   "version": "0.12.1",
   "license": "MIT",
-  "main": "./umd/index.js",
+  "main": "./index.js",
   "module": "./index.js",
   "types": "./index.d.ts",
+  "sideEffects": false,
   "scripts": {
     "build": "yarn run lint && yarn run tcm && rollup -c",
     "start": "tcm src internal --watch & yarn storybook",
