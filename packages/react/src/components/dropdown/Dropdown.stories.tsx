@@ -4,17 +4,21 @@ import { boolean, number, text, withKnobs } from '@storybook/addon-knobs';
 import Dropdown from './Dropdown';
 import Button from '../button/Button';
 
-const options = [
-  { label: 'Plutonium' },
-  { label: 'Americium' },
-  { label: 'Copernicium' },
-  { label: 'Nihonium' },
-  { label: 'Flerovium' },
-  { label: 'Moscovium' },
-  { label: 'Livermorium' },
-  { label: 'Tennessine' },
-  { label: 'Oganesson' },
-];
+function getOptions() {
+  return [
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+    { label: 'Nihonium' },
+    { label: 'Flerovium' },
+    { label: 'Moscovium' },
+    { label: 'Livermorium' },
+    { label: 'Tennessine' },
+    { label: 'Oganesson' },
+  ];
+}
+
+const options = getOptions();
 
 export default {
   component: Dropdown,
@@ -42,10 +46,7 @@ export const DisabledOptions = () => (
     isOptionDisabled={(option, index) => [1, 2, 4].includes(index)}
   />
 );
-
-DisabledOptions.story = {
-  name: 'With disabled options',
-};
+DisabledOptions.storyName = 'With disabled options';
 
 export const DefaultValue = () => (
   <>
@@ -62,10 +63,7 @@ export const DefaultValue = () => (
     />
   </>
 );
-
-DefaultValue.story = {
-  name: 'With default value(s)',
-};
+DefaultValue.storyName = 'With default value(s)';
 
 export const Multiselect = () => (
   <Dropdown
@@ -76,8 +74,15 @@ export const Multiselect = () => (
     closeMenuOnSelect={false}
   />
 );
+Multiselect.storyName = 'With multiselect';
 
 export const Controlled = () => {
+  // Initialize options within the render function to ensure that they
+  // are created a new on every render. This way this test case better
+  // ensures that the equality checks the Dropdown component does do not
+  // rely on reference equality.
+  const controlledOptions = getOptions();
+
   const [selectedItem, setSelectedItem] = useState(null);
   const [multiselectSelectedItem, setMultiselectSelectedItem] = useState(null);
 
@@ -90,7 +95,7 @@ export const Controlled = () => {
       {['Dropdown 1', 'Dropdown 2'].map((label) => (
         <Dropdown
           key={label}
-          options={options}
+          options={controlledOptions}
           placeholder="Placeholder"
           label={label}
           onChange={handleSelectedItemChange}
@@ -104,7 +109,7 @@ export const Controlled = () => {
       {['Multiselect 1', 'Multiselect 2'].map((label) => (
         <Dropdown
           key={label}
-          options={options}
+          options={controlledOptions}
           placeholder="Placeholder"
           label={label}
           multiselect
@@ -116,22 +121,12 @@ export const Controlled = () => {
     </>
   );
 };
-
-Controlled.story = {
-  name: 'With controlled state',
-};
-
-Multiselect.story = {
-  name: 'With multiselect',
-};
+Controlled.storyName = 'With controlled state';
 
 export const Combobox = () => (
   <Dropdown options={options} label="Filterable dropdown (combobox)" placeholder="Placeholder" filterable />
 );
-
-Combobox.story = {
-  name: 'With filtering (combobox)',
-};
+Combobox.storyName = 'With filtering (combobox)';
 
 export const Playground = () => {
   const multiselect = boolean('Multiselect', false);
@@ -165,16 +160,13 @@ export const Playground = () => {
     />
   );
 };
-
-Playground.story = {
-  parameters: {
-    previewTabs: {
-      'storybook/docs/panel': {
-        hidden: true,
-      },
+Playground.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
     },
-    docs: {
-      disable: true,
-    },
+  },
+  docs: {
+    disable: true,
   },
 };

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
-import { Props, Stories, Subtitle, Title } from '@storybook/addon-docs/dist/blocks';
+import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import TextInput from './TextInput';
 import Button from '../button/Button';
@@ -21,8 +21,7 @@ export default {
       page: () => (
         <>
           <Title>Props</Title>
-          <Subtitle>Props, which are not mentioned below, are passed to the native element</Subtitle>
-          <Props />
+          <ArgsTable />
           <Stories title="Examples" includePrimary />
         </>
       ),
@@ -33,20 +32,14 @@ export default {
 export const Default = () => <TextInput {...textInputProps} />;
 
 export const ReadOnly = () => <TextInput {...textInputProps} readOnly defaultValue="Text input value" />;
-
-ReadOnly.story = {
-  name: 'Read-only',
-};
+ReadOnly.storyName = 'Read-only';
 
 export const Disabled = () => <TextInput {...textInputProps} disabled defaultValue="Text input value" />;
 
 export const Invalid = () => <TextInput {...textInputProps} invalid helperText="Error text" />;
 
 export const WithLabelHidden = () => <TextInput {...textInputProps} hideLabel />;
-
-WithLabelHidden.story = {
-  name: 'With label hidden',
-};
+WithLabelHidden.storyName = 'With label hidden';
 
 export const WithTooltip = () => (
   <TextInput
@@ -57,10 +50,7 @@ export const WithTooltip = () => (
     tooltipCloseButtonLabelText="close tooltip"
   />
 );
-
-WithTooltip.story = {
-  name: 'With tooltip',
-};
+WithTooltip.storyName = 'With tooltip';
 
 export const NumberInput = () => <TextInput {...textInputProps} type="number" />;
 
@@ -76,10 +66,7 @@ export const UsingRef = () => {
     </>
   );
 };
-
-UsingRef.story = {
-  name: 'Using ref',
-};
+UsingRef.storyName = 'Using ref';
 
 export const Playground = () => {
   const groupGeneral = 'General';
@@ -123,16 +110,13 @@ export const Playground = () => {
     />
   );
 };
-
-Playground.story = {
-  parameters: {
-    previewTabs: {
-      'storybook/docs/panel': {
-        hidden: true,
-      },
+Playground.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
     },
-    docs: {
-      disable: true,
-    },
+  },
+  docs: {
+    disable: true,
   },
 };
