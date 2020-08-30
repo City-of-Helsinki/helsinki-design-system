@@ -1,6 +1,8 @@
 .item {
   composes: hds-button hds-button--fullwidth from 'hds-core/lib/components/button/button.css';
+}
 
+.item.item {
   padding: var(--spacing-3-xs);
   text-decoration: none;
 }
@@ -18,12 +20,15 @@
 .supplementary {
   composes: item;
   composes: hds-button--supplementary from 'hds-core/lib/components/button/button.css';
+}
+
+.item .supplementary {
   --border-width: 3px;
 }
 
-.primary::after,
-.secondary::after,
-.supplementary::after {
+.item .primary::after,
+.item .secondary::after,
+.item .supplementary::after {
   --offset: calc((var(--border-width) + var(--outline-gutter) + var(--outline-width)) * -1);
   left: 0;
   top: 0;

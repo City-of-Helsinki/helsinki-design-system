@@ -49,7 +49,7 @@
     display: flex;
   }
 
-  .signInButton.signInButton {
+  .navigationUser .signInButton {
     --border-width: 3px;
 
     --background-color: transparent;
@@ -69,13 +69,13 @@
   }
 
   /* icon */
-  .signInButton.signInButton > div {
+  .navigationUser .signInButton > div {
     margin-left: 0;
   }
 }
 
 @media large-up {
-  .signInButton.signInButton {
+  .navigationUser .signInButton {
     padding: 0 var(--spacing-3-xs);
   }
 }

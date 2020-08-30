@@ -4,7 +4,7 @@
   composes: root from '../../dropdown/Dropdown.module.css';
 }
 
-.navigationDropdown {
+.navigationDropdown.navigationDropdown {
   --dropdown-height: var(--spacing-xl);
   --dropdown-background-default: var(--header-background-color);
   --dropdown-border-color-default: transparent;
@@ -43,11 +43,14 @@
 
 .menuItem {
   composes: menuItem from '../../dropdown/Dropdown.module.css';
+}
+
+.navigationDropdown .menuItem {
   font-size: var(--fontsize-body-m);
   padding: 0;
 }
 
-.menuItem:first-child {
+.navigationDropdown .menuItem:first-child {
   border: 0;
 }
 
@@ -74,6 +77,9 @@
 
 .dropdownButton {
   composes: buttonDropdown from '../../dropdown/Dropdown.module.css';
+}
+
+.navigationDropdown .dropdownButton {
   cursor: pointer;
   padding: 0;
 }
@@ -84,6 +90,9 @@
 
 .option {
   composes: button-reset from 'hds-core/lib/utils/helpers.css';
+}
+
+.navigationDropdown .option {
   align-items: center;
   background-color: inherit;
   color: inherit;
