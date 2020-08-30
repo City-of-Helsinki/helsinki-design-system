@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useCombobox, useMultipleSelection, useSelect } from 'downshift';
 import isEqual from 'lodash.isequal';
 
@@ -147,6 +147,15 @@ const Wrapper = ({ filterable, getComboboxProps, children }: WrapperProps) =>
     <div className={styles.wrapper}>{children}</div>
   );
 
+/**
+ * Helper that checks if an item is in the selected options
+ * @param selectedOptions Currently selected options
+ * @param item            Item we want to check
+ */
+function getIsInSelectedOptions(selectedOptions: OptionType[], item: OptionType): boolean {
+  return selectedOptions.some((selectedOption: OptionType) => isEqual(selectedOption, item));
+}
+
 export const Dropdown = ({
   circularNavigation = false,
   className,
@@ -182,6 +191,12 @@ export const Dropdown = ({
     // eslint-disable-next-line no-param-reassign
     multiselect = false;
   }
+
+  // toggle button ref
+  const toggleButtonRef = useRef(null);
+
+  // focuses the dropdown toggle button
+  const focusToggleButton = () => toggleButtonRef.current?.focus();
 
   // combobox menu options
   const [inputItems, setInputItems] = useState(options);
@@ -332,6 +347,8 @@ export const Dropdown = ({
               showPlaceholder && styles.placeholder,
               styles.buttonReset,
             ),
+            ref: toggleButtonRef,
+            refKey: 'ref',
           })}
         >
           {getButtonLabel()}
@@ -344,12 +361,15 @@ export const Dropdown = ({
         {...getMenuProps({
           className: classNames(styles.menu, menuOptions.length > visibleOptions && styles.overflow),
           style: { maxHeight: `calc(var(--dropdown-height) * ${visibleOptions})` },
+          onKeyDown: (event) => {
+            if (event.key === 'Tab') focusToggleButton();
+          },
         })}
       >
         {isOpen &&
           menuOptions.map((item, index) => {
             const optionLabel = item[optionLabelField];
-            const selected = multiselect ? selectedItems.includes(item) : isEqual(selectedItem, item);
+            const selected = multiselect ? getIsInSelectedOptions(selectedItems, item) : isEqual(selectedItem, item);
             const optionDisabled = typeof isOptionDisabled === 'function' ? isOptionDisabled(item, index) : false;
 
             return (
