@@ -3,7 +3,8 @@
 }
 
 .item.item {
-  padding: var(--spacing-3-xs);
+  line-height: var(--lineheight-s);
+  padding: var(--spacing-2-xs);
   text-decoration: none;
 }
 

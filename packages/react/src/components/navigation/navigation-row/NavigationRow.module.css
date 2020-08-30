@@ -12,6 +12,9 @@
 
 .navigationItem {
   composes: button-reset from 'hds-core/lib/utils/helpers.css';
+}
+
+.navigation .navigationItem {
   align-items: center;
   color: inherit;
   display: flex;
@@ -89,7 +92,7 @@
   }
 
   /* navigation item - dropdown */
-  .navigationItem:global(.navigationDropdown) {
+  .navigationItem.navigationItem:global(.navigationDropdown) {
     --border-width: 0;
     --dropdown-background-default: var(--mobile-menu-background-color);
     --dropdown-height: var(--spacing-m);

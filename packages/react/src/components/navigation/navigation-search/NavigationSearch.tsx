@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useTransition, animated } from 'react-spring';
 
 import styles from './NavigationSearch.module.css';
-import IconSearch from '../../../icons/ui/IconSearch';
+import { IconSearch } from '../../../icons';
 import classNames from '../../../utils/classNames';
 import { TextInput } from '../../textInput';
 import { NavigationContext } from '../NavigationContext';

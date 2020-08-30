@@ -21,7 +21,7 @@ type ItemProps = {
    */
   label?: string | React.ReactNode;
   /**
-   * Defines the button variant in mobile view. Intended to be used for user items
+   * Defines the button variant in mobile view. Intended to be used within the `NavigationUser` component
    */
   variant?: 'primary' | 'secondary' | 'supplementary';
 };

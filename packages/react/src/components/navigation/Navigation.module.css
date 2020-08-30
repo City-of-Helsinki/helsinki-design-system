@@ -169,6 +169,9 @@
 /* menu toggle */
 .mobileMenuToggle {
   composes: button-reset from 'hds-core/lib/utils/helpers.css';
+}
+
+.mobileMenuToggle {
   display: flex;
   margin-left: auto;
   padding: var(--spacing-2-xs);

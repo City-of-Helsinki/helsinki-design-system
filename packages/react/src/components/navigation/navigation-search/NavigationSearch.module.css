@@ -1,4 +1,4 @@
-@value x-small-down, small-down, small-only, small-up, medium-only, medium-up, large-up, x-large-up from "../../../styles/breakpoints.css";
+@value x-small-down, small-down, small-only, medium-only, medium-up, large-up, x-large-up from "../../../styles/breakpoints.css";
 
 .navigationSearch {
   align-items: center;
@@ -11,6 +11,10 @@
 /* button */
 .openSearch {
   composes: button-reset from 'hds-core/lib/utils/helpers.css';
+
+}
+
+.navigationSearch .openSearch {
   align-items: center;
   display: flex;
   outline: none;
@@ -76,13 +80,12 @@ header:global(.theme-black) .inputIcon {
   .navigationSearch {
     padding: var(--spacing-m) var(--spacing-xs);
   }
-}
 
-@media small-up {
   .inputIcon {
-    right: var(--spacing-s);
+    right: calc(var(--spacing-s) + var(--spacing-xs));
   }
 }
+
 
 @media medium-only {
   .label {
@@ -113,6 +116,10 @@ header:global(.theme-black) .inputIcon {
     position: absolute;
     right: 0;
     width: 11rem;
+  }
+
+  .inputIcon {
+    right: var(--spacing-s);
   }
 }
 
