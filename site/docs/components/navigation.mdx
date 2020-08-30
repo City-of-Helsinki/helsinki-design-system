@@ -6,6 +6,7 @@ route: /components/navigation
 
 import { Playground } from "docz";
 
+import { Navigation } from "hds-react/components/Navigation";
 import ColorBox from "../../src/components/ColorBox";
 import Text from "../../src/components/Text";
 import LargeParagraph from "../../src/components/LargeParagraph";
@@ -21,8 +22,8 @@ import LargeParagraph from "../../src/components/LargeParagraph";
 - **It is strongly recommended to always include the navigation component in your service.**
 - Always position navigation to the top of the page. Keep the navigation in place so the user can always easily locate it. It is recommended to include navigation on every page of the service.
 - Navigation component is built to follow HDS [breakpoint tokens](/design-tokens/breakpoints). While it is recommended to follow HDS breakpoint tokens, you may alter navigation width to fit your service's needs.
-- **Try to keep the order of actions (search, user, language select) constitent in navigation.** Do not change the default order without a good reason.
-- Keep navigation menu link labels clear and consise. Prefer max 1-2 word long labels. Avoid starting multiple menu link labels with the same word.
+- **Try to keep the order of actions (search, user, language select) consistent in navigation.** Do not change the default order without a good reason.
+- Keep navigation menu link labels clear and concise. Prefer max 1-2 word long labels. Avoid starting multiple menu link labels with the same word.
 
 ## Accessibility
 
@@ -36,12 +37,30 @@ import LargeParagraph from "../../src/components/LargeParagraph";
 The default navigation includes separate line for navigation menu links. Therefore it is ideal choice for most services where navigation structure is more complicated.
 
 <Playground>
-
+<Navigation title="Helsinki Design System">
+  <Navigation.Row>
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+  </Navigation.Row>
+</Navigation>
 </Playground>
 
 ##### React:
 ```tsx
-/* React code example goes here */
+<Navigation title="Helsinki Design System">
+  <Navigation.Row>
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+  </Navigation.Row>
+</Navigation>
 ```
 
 ### Small (1 line)
@@ -49,12 +68,24 @@ The default navigation includes separate line for navigation menu links. Therefo
 A service can opt to use smaller, 1 line navigation if 2 line navigation is too heavy for its purpose. Smaller navigation is optimal for services that do not have complicated navigation structure (only 1-3 links in navigation) and do not need many navigation features such as search, profile and language selection.
 
 <Playground>
-
+<Navigation title="Helsinki Design System">
+  <Navigation.Row display="inline">
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+  </Navigation.Row>
+</Navigation>
 </Playground>
 
 ##### React:
 ```tsx
-/* React code example goes here */
+<Navigation title="Helsinki Design System">
+  <Navigation.Row display="inline">
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+  </Navigation.Row>
+</Navigation>
 ```
 
 ### Color variations
@@ -62,12 +93,41 @@ A service can opt to use smaller, 1 line navigation if 2 line navigation is too 
 HDS Navigation offers two variations with different background colors - one with white and one with black text elements. Use variation that achieves better contrast with the brand background colour of your choice. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
 
 <Playground>
-
+<Navigation title="Helsinki Design System">
+  <Navigation.Row display="inline">
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+  </Navigation.Row>
+</Navigation>
+<Navigation title="Helsinki Design System" theme="black">
+  <Navigation.Row display="inline">
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+  </Navigation.Row>
+</Navigation>
 </Playground>
 
 ##### React:
 ```tsx
-/* React code example goes here */
+{/* White (default) */}
+<Navigation title="Helsinki Design System">
+  <Navigation.Row display="inline">
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+  </Navigation.Row>
+</Navigation>
+
+{/* Black */}
+<Navigation title="Helsinki Design System" theme="black">
+  <Navigation.Row display="inline">
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+  </Navigation.Row>
+</Navigation>
 ```
 
 ### Navigation actions
@@ -75,12 +135,30 @@ HDS Navigation offers two variations with different background colors - one with
 HDS Navigation component supports many commonly used features out of the box. The main navigation bar can be configured to include search, language selection and user profile actions. You may also easily customize the action row with your own actions.
 
 <Playground>
-
+<Navigation title="Helsinki Design System">
+  <Navigation.Actions>
+    <Navigation.Search searchLabel="Search" searchPlaceholder="Search page" />
+    <Navigation.User label="Sign in" />
+    <Navigation.LanguageSelector
+      options={[{label: 'FI'}, {label: 'SV'}, {label: 'EN'}]}
+      value={{label: 'EN'}}
+    />
+  </Navigation.Actions>
+</Navigation>
 </Playground>
 
 ##### React:
 ```tsx
-/* React code example goes here */
+<Navigation title="Helsinki Design System">
+  <Navigation.Actions>
+    <Navigation.Search searchLabel="Search" searchPlaceholder="Search page" />
+    <Navigation.User label="Sign in" />
+    <Navigation.LanguageSelector
+      options={[{label: 'FI'}, {label: 'SV'}, {label: 'EN'}]}
+      value={{label: 'EN'}}
+    />
+  </Navigation.Actions>
+</Navigation>
 ```
 
 ## Demos & API
@@ -91,10 +169,6 @@ _Not included in hds-core!_
 
 ### React
 
-[Navigation in hds-react](/)
+[Navigation in hds-react](/storybook/react/?path=/story/components-navigation--example)
 
-[Navigation API](/)
-
-## Tokens
-
-_No tokens._
+[Navigation API](/storybook/react/?path=/docs/components-navigation--example)
