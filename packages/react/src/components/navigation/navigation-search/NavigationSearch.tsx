@@ -1,29 +1,29 @@
-import React, { ChangeEventHandler, KeyboardEvent, FocusEvent, useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useTransition, animated } from 'react-spring';
 
 import styles from './NavigationSearch.module.css';
 import IconSearch from '../../../icons/ui/IconSearch';
 import classNames from '../../../utils/classNames';
-import TextInput from '../../textInput/TextInput';
-import NavigationContext from '../NavigationContext';
+import { TextInput } from '../../textInput';
+import { NavigationContext } from '../NavigationContext';
 
 export type NavigationSearchProps = {
   /**
    * Callback fired when the search field is blurred
    */
-  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   /**
    * Callback fired when the search field is focused
    */
-  onFocus?: (event: FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   /**
    * Callback fired when the state is changed
    */
-  onSearchChange?: ChangeEventHandler<HTMLInputElement>;
+  onSearchChange?: React.ChangeEventHandler<HTMLInputElement>;
   /**
    * Callback fired when the Enter key is pressed
    */
-  onSearchEnter?: (event: KeyboardEvent<HTMLInputElement>) => void;
+  onSearchEnter?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   /**
    * Label shown when search field isn't active.
    */
@@ -36,19 +36,11 @@ export type NavigationSearchProps = {
 
 const AnimatedSearchIcon = animated(IconSearch);
 
-const NavigationSearch = ({
-  onBlur = () => {
-    // do nothing by default
-  },
-  onFocus = () => {
-    // do nothing by default
-  },
-  onSearchChange = () => {
-    // do nothing by default
-  },
-  onSearchEnter = () => {
-    // do nothing by default
-  },
+export const NavigationSearch = ({
+  onBlur = () => null,
+  onFocus = () => null,
+  onSearchChange = () => null,
+  onSearchEnter = () => null,
   searchLabel,
   searchPlaceholder,
 }: NavigationSearchProps) => {
@@ -111,5 +103,3 @@ const NavigationSearch = ({
     </div>
   );
 };
-
-export default NavigationSearch;

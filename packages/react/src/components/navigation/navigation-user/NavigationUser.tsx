@@ -1,13 +1,12 @@
-import React, { PropsWithChildren, ReactNode, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import styles from './NavigationUser.module.css';
-import IconSignin from '../../../icons/ui/IconSignin';
-import NavigationDropdown from '../navigation-dropdown/NavigationDropdown';
-import NavigationContext from '../NavigationContext';
-import IconUser from '../../../icons/ui/IconUser';
-import Button from '../../button/Button';
+import { NavigationDropdown } from '../navigation-dropdown/NavigationDropdown';
+import { NavigationContext } from '../NavigationContext';
+import { IconSignin, IconUser } from '../../../icons';
+import { Button } from '../../button';
 
-export type NavigationUserProps = PropsWithChildren<{
+export type NavigationUserProps = React.PropsWithChildren<{
   /**
    * If `true`, the dropdown will be animated when opened
    * @default true
@@ -24,7 +23,7 @@ export type NavigationUserProps = PropsWithChildren<{
   /**
    * Label for the "Sign in" button
    */
-  label: string | ReactNode;
+  label: string | React.ReactNode;
   /**
    * Callback fired when the "Sign in" button is clicked
    */
@@ -32,18 +31,16 @@ export type NavigationUserProps = PropsWithChildren<{
   /**
    * Name of the user displayed in the dropdown
    */
-  userName?: string | ReactNode;
+  userName?: string | React.ReactNode;
 }>;
 
-const NavigationUser = ({
+export const NavigationUser = ({
   animateOpen = true,
   ariaLabel,
   authenticated = false,
   children,
   label,
-  onSignIn = () => {
-    // do nothing by default
-  },
+  onSignIn = () => null,
   userName,
 }: NavigationUserProps) => {
   const { dispatch, isMobile } = useContext(NavigationContext);
@@ -51,7 +48,7 @@ const NavigationUser = ({
   // dispatch auth state
   useEffect(() => dispatch({ type: 'AUTHENTICATED', value: authenticated }), [authenticated, dispatch]);
 
-  const userItems: ReactNode = isMobile ? (
+  const userItems: React.ReactNode = isMobile ? (
     <>
       {userName && (
         <span className={styles.userName}>
@@ -92,5 +89,3 @@ const NavigationUser = ({
     </div>
   );
 };
-
-export default NavigationUser;

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 const MOBILE_BREAKPOINT = 768;
 const checkIfMobile = (): boolean => window.innerWidth < MOBILE_BREAKPOINT;
 
-export default (): boolean => {
+export const useMobile = (): boolean => {
   const [isMobile, setIsMobile] = useState(checkIfMobile());
 
   useEffect(() => {

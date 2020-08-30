@@ -1,8 +1,8 @@
-import React, { Children, cloneElement, isValidElement, ReactElement, useContext, useEffect } from 'react';
+import React, { cloneElement, isValidElement, useContext, useEffect } from 'react';
 
 import styles from './NavigationRow.module.css';
 import classNames from '../../../utils/classNames';
-import NavigationContext from '../NavigationContext';
+import { NavigationContext } from '../NavigationContext';
 import { NavigationRowDisplay } from '../Navigation.interface';
 
 export type NavigationRowProps = React.PropsWithChildren<{
@@ -15,14 +15,14 @@ export type NavigationRowProps = React.PropsWithChildren<{
   display?: NavigationRowDisplay;
 }>;
 
-const NavigationRow = ({ display = 'subNav', children }: NavigationRowProps) => {
+export const NavigationRow = ({ display = 'subNav', children }: NavigationRowProps) => {
   const { dispatch } = useContext(NavigationContext);
 
   useEffect(() => dispatch({ type: 'NAVIGATION_ROW', value: display }), [dispatch, display]);
 
   // add classnames to children
-  const childrenWithClassName = Children.map(children, (child) => {
-    const isActive = (child as ReactElement)?.props?.active;
+  const childrenWithClassName = React.Children.map(children, (child) => {
+    const isActive = (child as React.ReactElement)?.props?.active;
 
     return isValidElement(child)
       ? cloneElement(child, {
@@ -35,5 +35,3 @@ const NavigationRow = ({ display = 'subNav', children }: NavigationRowProps) => 
     <nav className={classNames(styles.navigation, display === 'subNav' && styles.subNav)}>{childrenWithClassName}</nav>
   );
 };
-
-export default NavigationRow;

@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { useSelect } from 'downshift';
 import { animated, useTransition, UseTransitionProps } from 'react-spring';
 import isEqual from 'lodash.isequal';
@@ -6,9 +6,9 @@ import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import styles from './NavigationLanguageSelector.module.css';
 import classNames from '../../../utils/classNames';
-import NavigationContext from '../NavigationContext';
+import { NavigationContext } from '../NavigationContext';
 import { IconAngleDown } from '../../../icons';
-import Button from '../../button/Button';
+import { Button } from '../../button';
 
 const DROPDOWN_TRANSITION: UseTransitionProps = {
   from: { transform: 'translate3d(0, -2px, 0)' },
@@ -38,13 +38,13 @@ export type NavigationLanguageSelectorProps<OptionType> = {
    * @param option {OptionType}   Selection option
    * @param index {number}        Option index
    */
-  formatOptionLabel?: (option: OptionType, index: number) => string | ReactNode;
+  formatOptionLabel?: (option: OptionType, index: number) => string | React.ReactNode;
   /**
    * A function used to format what is displayed as the option label
    * @param option {OptionType}   Selection option
    * @param index {number}        Option index
    */
-  formatSelectedValue?: (option: OptionType) => string | ReactNode;
+  formatSelectedValue?: (option: OptionType) => string | React.ReactNode;
   /**
    * Callback fired when the language is changed
    */
@@ -70,9 +70,7 @@ const LanguageSelectorDropdown = <OptionType,>({
   className,
   formatOptionLabel,
   formatSelectedValue,
-  onLanguageChange = () => {
-    // do nothing by default
-  },
+  onLanguageChange = () => null,
   optionLabelField = 'label',
   options = [],
   value,
@@ -169,16 +167,9 @@ const LanguageSelectorDropdown = <OptionType,>({
   );
 };
 
-const NavigationLanguageSelector = <OptionType,>(props: NavigationLanguageSelectorProps<OptionType>) => {
+export const NavigationLanguageSelector = <OptionType,>(props: NavigationLanguageSelectorProps<OptionType>) => {
   const { isMobile } = useContext(NavigationContext);
-  const {
-    onLanguageChange = () => {
-      // do nothing by default
-    },
-    options,
-    value,
-    optionLabelField = 'label',
-  } = props;
+  const { onLanguageChange = () => null, options, value, optionLabelField = 'label' } = props;
 
   return isMobile ? (
     <div className={styles.mobileLanguageContainer}>
@@ -205,5 +196,3 @@ const NavigationLanguageSelector = <OptionType,>(props: NavigationLanguageSelect
     <LanguageSelectorDropdown {...props} />
   );
 };
-
-export default NavigationLanguageSelector;

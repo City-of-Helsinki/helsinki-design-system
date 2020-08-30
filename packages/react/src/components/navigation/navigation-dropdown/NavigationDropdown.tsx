@@ -1,14 +1,4 @@
-import React, {
-  Children,
-  cloneElement,
-  FC,
-  isValidElement,
-  KeyboardEvent,
-  PropsWithChildren,
-  ReactNode,
-  useContext,
-  useRef,
-} from 'react';
+import React, { cloneElement, isValidElement, useContext, useRef } from 'react';
 import { useSelect } from 'downshift';
 import { useTransition, animated, UseTransitionProps } from 'react-spring';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
@@ -16,7 +6,7 @@ import { VisuallyHidden } from '@react-aria/visually-hidden';
 import styles from './NavigationDropdown.module.css';
 import classNames from '../../../utils/classNames';
 import { IconAngleDown } from '../../../icons';
-import NavigationContext from '../NavigationContext';
+import { NavigationContext } from '../NavigationContext';
 
 const DROPDOWN_TRANSITION: UseTransitionProps = {
   from: { transform: 'translate3d(0, -2px, 0)' },
@@ -27,7 +17,7 @@ const DROPDOWN_TRANSITION: UseTransitionProps = {
   },
 };
 
-type NavigationDropdownProps = PropsWithChildren<{
+export type NavigationDropdownProps = React.PropsWithChildren<{
   /**
    * If `true`, the dropdown will be marked as active
    */
@@ -47,7 +37,7 @@ type NavigationDropdownProps = PropsWithChildren<{
   /**
    * Icon to display in the dropdown
    */
-  icon?: ReactNode;
+  icon?: React.ReactNode;
   /**
    * Dropdown id
    */
@@ -55,10 +45,10 @@ type NavigationDropdownProps = PropsWithChildren<{
   /**
    * The label for the dropdown
    */
-  label?: string | ReactNode;
+  label?: string | React.ReactNode;
 }>;
 
-const NavigationDropdown: FC<NavigationDropdownProps> = ({
+export const NavigationDropdown = ({
   active,
   animateOpen = true,
   ariaLabel = '',
@@ -67,11 +57,11 @@ const NavigationDropdown: FC<NavigationDropdownProps> = ({
   icon = null,
   id,
   label = '',
-}) => {
+}: NavigationDropdownProps) => {
   const { isMobile } = useContext(NavigationContext);
   const toggleButtonRef = useRef(null);
   // add class name to every option, so that they can be styled
-  const childrenWithClassName = Children.map(children, (child) =>
+  const childrenWithClassName = React.Children.map(children, (child) =>
     isValidElement(child) ? cloneElement(child, { className: `${styles.option} option` }) : child,
   );
 
@@ -79,7 +69,7 @@ const NavigationDropdown: FC<NavigationDropdownProps> = ({
   const focusToggleButton = () => toggleButtonRef.current?.focus();
 
   // Handles dropdown menu events
-  const handleMenuEvent = (event: KeyboardEvent<HTMLElement>, highlightedIndex: number): void => {
+  const handleMenuEvent = (event: React.KeyboardEvent<HTMLElement>, highlightedIndex: number): void => {
     const clickAction = ['Enter', ' '].includes(event.key);
     const closeAction = ['Tab', 'Escape'].includes(event.key);
 
@@ -100,7 +90,7 @@ const NavigationDropdown: FC<NavigationDropdownProps> = ({
 
   // init select
   const { getItemProps, getLabelProps, getMenuProps, getToggleButtonProps, highlightedIndex, isOpen } = useSelect<
-    ReactNode
+    React.ReactNode
   >({
     id,
     items: childrenWithClassName || [],
@@ -168,5 +158,3 @@ const NavigationDropdown: FC<NavigationDropdownProps> = ({
     </div>
   );
 };
-
-export default NavigationDropdown;

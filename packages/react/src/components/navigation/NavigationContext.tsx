@@ -13,4 +13,4 @@ export type NavigationContextProps = {
   dispatch?: Dispatch<NavigationReducerAction>;
 };
 
-export default createContext<NavigationContextProps>({});
+export const NavigationContext = createContext<NavigationContextProps>({});

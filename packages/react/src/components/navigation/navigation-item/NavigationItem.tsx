@@ -1,11 +1,15 @@
-import React, { ComponentPropsWithoutRef, ElementType, ReactNode, useContext } from 'react';
+import React, { useContext } from 'react';
 
 import classNames from '../../../utils/classNames';
 import styles from './NavigationItem.module.css';
-import NavigationContext from '../NavigationContext';
+import { NavigationContext } from '../NavigationContext';
 
 // utility type
-type MergeElementProps<T extends ElementType, P extends object = {}> = Omit<ComponentPropsWithoutRef<T>, keyof P> & P;
+type MergeElementProps<T extends React.ElementType, P extends object = {}> = Omit<
+  React.ComponentPropsWithoutRef<T>,
+  keyof P
+> &
+  P;
 
 type ItemProps = {
   /**
@@ -15,18 +19,18 @@ type ItemProps = {
   /**
    * The label for the item. Optionally, children can be passed
    */
-  label?: string | ReactNode;
+  label?: string | React.ReactNode;
   /**
    * Defines the button variant in mobile view. Intended to be used for user items
    */
   variant?: 'primary' | 'secondary' | 'supplementary';
 };
 
-type NavigationItemProps<Element extends ElementType = 'a'> = {
+export type NavigationItemProps<Element extends React.ElementType = 'a'> = {
   as?: Element;
 } & MergeElementProps<Element, ItemProps>;
 
-const NavigationItem = <T extends ElementType = 'a'>({
+export const NavigationItem = <T extends React.ElementType = 'a'>({
   active,
   as,
   children,
@@ -36,7 +40,7 @@ const NavigationItem = <T extends ElementType = 'a'>({
   ...rest
 }: NavigationItemProps<T>) => {
   const { isMobile } = useContext(NavigationContext);
-  const Item: ElementType = as;
+  const Item: React.ElementType = as;
   return (
     <Item
       className={classNames(isMobile && styles[variant], className)}
@@ -52,5 +56,3 @@ const NavigationItem = <T extends ElementType = 'a'>({
 NavigationItem.defaultProps = {
   as: 'a',
 };
-
-export default NavigationItem;

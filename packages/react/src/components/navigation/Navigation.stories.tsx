@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { radios, withKnobs, boolean } from '@storybook/addon-knobs';
 
-import Navigation from './Navigation';
+import { Navigation } from './Navigation';
 
 export default {
   component: Navigation,
@@ -190,7 +190,4 @@ export const Jassari = () => {
     </Navigation>
   );
 };
-
-Jassari.story = {
-  name: 'Jässäri',
-};
+Jassari.storyName = 'Jässäri';

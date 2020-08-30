@@ -1,11 +1,7 @@
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 
 import styles from './NavigationActions.module.css';
 
-export type NavigationActionsProps = PropsWithChildren<{}>;
-
-const NavigationActions = ({ children }: NavigationActionsProps) => (
+export const NavigationActions = ({ children }: React.PropsWithChildren<{}>) => (
   <div className={styles.navigationActions}>{children}</div>
 );
-
-export default NavigationActions;

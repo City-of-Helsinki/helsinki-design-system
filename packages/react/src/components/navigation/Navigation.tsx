@@ -1,29 +1,19 @@
-import React, {
-  Children,
-  FC,
-  PropsWithChildren,
-  ReactElement,
-  ReactNode,
-  useEffect,
-  useReducer,
-  useState,
-} from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { animated, useTransition, UseTransitionProps } from 'react-spring';
 
 import styles from './Navigation.module.css';
 import classNames from '../../utils/classNames';
 import Logo, { LogoLanguage } from '../logo/Logo';
-import NavigationContext, { NavigationContextProps } from './NavigationContext';
-import NavigationRow from './navigation-row/NavigationRow';
-import NavigationItem from './navigation-item/NavigationItem';
-import NavigationActions from './navigation-actions/NavigationActions';
-import NavigationUser from './navigation-user/NavigationUser';
-import NavigationSearch from './navigation-search/NavigationSearch';
-import NavigationLanguageSelector from './navigation-language-selector/NavigationLanguageSelector';
-import NavigationDropdown from './navigation-dropdown/NavigationDropdown';
-import useMobile from '../../hooks/useMobile';
-import IconCross from '../../icons/ui/IconCross';
-import IconMenuHamburger from '../../icons/ui/IconMenuHamburger';
+import { NavigationContext, NavigationContextProps } from './NavigationContext';
+import { NavigationRow } from './navigation-row/NavigationRow';
+import { NavigationItem } from './navigation-item/NavigationItem';
+import { NavigationActions } from './navigation-actions/NavigationActions';
+import { NavigationUser } from './navigation-user/NavigationUser';
+import { NavigationSearch } from './navigation-search/NavigationSearch';
+import { NavigationLanguageSelector } from './navigation-language-selector/NavigationLanguageSelector';
+import { NavigationDropdown } from './navigation-dropdown/NavigationDropdown';
+import { useMobile } from '../../hooks/useMobile';
+import { IconCross, IconMenuHamburger } from '../../icons';
 import { NavigationReducerAction, NavigationReducerState } from './Navigation.interface';
 
 const MOBILE_MENU_TRANSITION: UseTransitionProps = {
@@ -35,7 +25,7 @@ const MOBILE_MENU_TRANSITION: UseTransitionProps = {
   },
 };
 
-export type NavigationProps = PropsWithChildren<{
+export type NavigationProps = React.PropsWithChildren<{
   /**
    * If `true`, the mobile menu will be animated when opened
    * @default true
@@ -91,7 +81,7 @@ export type NavigationProps = PropsWithChildren<{
   /**
    * Text for the "skip to content" accessibility shortcut
    */
-  skipToContentLabel: string | ReactNode;
+  skipToContentLabel: string | React.ReactNode;
   /**
    * Defines the navigation theme
    * @default 'white'
@@ -100,7 +90,7 @@ export type NavigationProps = PropsWithChildren<{
   /**
    * The title of the service shown next to the logo
    */
-  title?: string | ReactNode;
+  title?: string | React.ReactNode;
   /**
    * URL to navigate to when the logo or title is clicked
    */
@@ -109,15 +99,15 @@ export type NavigationProps = PropsWithChildren<{
 
 /**
  * Rearranges children, so that they are displayed in the correct order in the mobile menu
- * @param {ReactElement[]} children
+ * @param {React.ReactElement[]} children
  * @param {boolean} authenticated
  */
-const rearrangeChildrenForMobile = (children: ReactElement[], authenticated: boolean): ReactElement[] => {
+const rearrangeChildrenForMobile = (children: React.ReactElement[], authenticated: boolean): React.ReactElement[] => {
   const rearrangedChildren = [...children];
 
   // moves the component to the start of the array
   const moveComponentToTop = (name: string) => {
-    const index = rearrangedChildren.findIndex((item) => (item?.type as FC)?.name === name);
+    const index = rearrangedChildren.findIndex((item) => (item?.type as React.FC)?.name === name);
     if (index > -1) {
       const component = rearrangedChildren.splice(index, 1)[0];
       rearrangedChildren.splice(0, 0, component);
@@ -177,7 +167,7 @@ const HeaderWrapper = ({ children, logoLanguage, onTitleClick, title, titleUrl }
   </div>
 );
 
-const Navigation = ({
+export const Navigation = ({
   animateOpen = true,
   children,
   className,
@@ -212,19 +202,22 @@ const Navigation = ({
   // navigation context
   const context: NavigationContextProps = { dispatch, isMobile };
   // ensure that children is an array
-  const childrenAsArray = Children.toArray(children) as ReactElement[];
+  const childrenAsArray = React.Children.toArray(children) as React.ReactElement[];
   // children without the navigation row
-  const childrenWithoutNavigation = childrenAsArray.filter((child) => (child.type as FC)?.name !== 'NavigationRow');
+  const childrenWithoutNavigation = childrenAsArray.filter(
+    (child) => (child.type as React.FC)?.name !== 'NavigationRow',
+  );
   // filter out the NavigationRow, so that it can be rendered correctly based on the 'navigationRowDisplay' value
-  const navigation = childrenAsArray.filter((child) => (child.type as FC)?.name === 'NavigationRow');
+  const navigation = childrenAsArray.filter((child) => (child.type as React.FC)?.name === 'NavigationRow');
 
   // children that will be rendered in the mobile menu
   let menuChildren = null;
 
   if (isMobile) {
     // navigation actions
-    const actions = childrenAsArray.find((child) => (child.type as FC).name === 'NavigationActions')?.props?.children;
-    const items = Children.toArray([navigation, actions]) as ReactElement[];
+    const actions = childrenAsArray.find((child) => (child.type as React.FC).name === 'NavigationActions')?.props
+      ?.children;
+    const items = React.Children.toArray([navigation, actions]) as React.ReactElement[];
 
     // rearrange children
     menuChildren = rearrangeChildrenForMobile(items, authenticated);
@@ -302,5 +295,3 @@ Navigation.LanguageSelector = NavigationLanguageSelector;
 Navigation.Row = NavigationRow;
 Navigation.Search = NavigationSearch;
 Navigation.User = NavigationUser;
-
-export default Navigation;

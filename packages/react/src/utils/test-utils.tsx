@@ -1,8 +1,8 @@
 import React, { PropsWithChildren } from 'react';
 
-import Navigation from '../components/navigation/Navigation';
+import { Navigation } from '../components/navigation';
 
-const NavigationWrapper = ({ children }: PropsWithChildren<{}>) => (
+export const NavigationWrapper = ({ children }: PropsWithChildren<{}>) => (
   <Navigation
     menuCloseAriaLabel="close"
     menuOpenAriaLabel="open"
@@ -13,5 +13,3 @@ const NavigationWrapper = ({ children }: PropsWithChildren<{}>) => (
     {children}
   </Navigation>
 );
-
-export default NavigationWrapper;
