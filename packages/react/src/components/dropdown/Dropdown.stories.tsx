@@ -4,17 +4,21 @@ import { boolean, number, text, withKnobs } from '@storybook/addon-knobs';
 import Dropdown from './Dropdown';
 import Button from '../button/Button';
 
-const options = [
-  { label: 'Plutonium' },
-  { label: 'Americium' },
-  { label: 'Copernicium' },
-  { label: 'Nihonium' },
-  { label: 'Flerovium' },
-  { label: 'Moscovium' },
-  { label: 'Livermorium' },
-  { label: 'Tennessine' },
-  { label: 'Oganesson' },
-];
+function getOptions() {
+  return [
+    { label: 'Plutonium' },
+    { label: 'Americium' },
+    { label: 'Copernicium' },
+    { label: 'Nihonium' },
+    { label: 'Flerovium' },
+    { label: 'Moscovium' },
+    { label: 'Livermorium' },
+    { label: 'Tennessine' },
+    { label: 'Oganesson' },
+  ];
+}
+
+const options = getOptions();
 
 export default {
   component: Dropdown,
@@ -73,6 +77,12 @@ export const Multiselect = () => (
 Multiselect.storyName = 'With multiselect';
 
 export const Controlled = () => {
+  // Initialize options within the render function to ensure that they
+  // are created a new on every render. This way this test case better
+  // ensures that the equality checks the Dropdown component does do not
+  // rely on reference equality.
+  const controlledOptions = getOptions();
+
   const [selectedItem, setSelectedItem] = useState(null);
   const [multiselectSelectedItem, setMultiselectSelectedItem] = useState(null);
 
@@ -85,7 +95,7 @@ export const Controlled = () => {
       {['Dropdown 1', 'Dropdown 2'].map((label) => (
         <Dropdown
           key={label}
-          options={options}
+          options={controlledOptions}
           placeholder="Placeholder"
           label={label}
           onChange={handleSelectedItemChange}
@@ -99,7 +109,7 @@ export const Controlled = () => {
       {['Multiselect 1', 'Multiselect 2'].map((label) => (
         <Dropdown
           key={label}
-          options={options}
+          options={controlledOptions}
           placeholder="Placeholder"
           label={label}
           multiselect

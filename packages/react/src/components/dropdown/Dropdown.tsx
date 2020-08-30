@@ -145,6 +145,15 @@ const Wrapper = ({ filterable, getComboboxProps, children }: WrapperProps) =>
     <div className={styles.wrapper}>{children}</div>
   );
 
+/**
+ * Helper that checks if an item is in the selected options
+ * @param selectedOptions Currently selected options
+ * @param item            Item we want to check
+ */
+function getIsInSelectedOptions(selectedOptions: OptionType[], item: OptionType): boolean {
+  return selectedOptions.some((selectedOption: OptionType) => isEqual(selectedOption, item));
+}
+
 const Dropdown = ({
   circularNavigation = false,
   className,
@@ -347,7 +356,7 @@ const Dropdown = ({
         {isOpen &&
           menuOptions.map((item, index) => {
             const optionLabel = item[optionLabelField];
-            const selected = multiselect ? selectedItems.includes(item) : isEqual(selectedItem, item);
+            const selected = multiselect ? getIsInSelectedOptions(selectedItems, item) : isEqual(selectedItem, item);
             const optionDisabled = typeof isOptionDisabled === 'function' ? isOptionDisabled(item, index) : false;
 
             return (
