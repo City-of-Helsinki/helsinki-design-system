@@ -1,28 +1,28 @@
-import React, { CSSProperties, FC, ReactNode } from 'react';
+import React from 'react';
 
-import styles from '../../components/textinput/TextInput.module.css';
-import Tooltip from '../../components/tooltip/Tooltip';
+import styles from '../../components/textInput/TextInput.module.css';
+import { Tooltip } from '../../components/tooltip';
 import classNames from '../../utils/classNames';
-import FieldLabel from '../field-label/FieldLabel';
+import { FieldLabel } from '../field-label/FieldLabel';
 
 type InputWrapperProps = {
-  children?: ReactNode;
+  children?: React.ReactNode;
   className?: string;
   helperText?: string;
   hideLabel?: boolean;
   id: string;
   invalid?: boolean;
-  label?: string | ReactNode;
+  label?: string | React.ReactNode;
   labelText?: string;
   required?: boolean;
-  style?: CSSProperties;
+  style?: React.CSSProperties;
   tooltipLabel?: string;
   tooltipText?: string;
   tooltipOpenButtonLabelText?: string;
   tooltipCloseButtonLabelText?: string;
 };
 
-const InputWrapper: FC<InputWrapperProps> = ({
+export const InputWrapper = ({
   children,
   className = '',
   helperText,
@@ -55,5 +55,3 @@ const InputWrapper: FC<InputWrapperProps> = ({
     {helperText && <div className={styles.helperText}>{helperText}</div>}
   </div>
 );
-
-export default InputWrapper;

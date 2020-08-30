@@ -1,12 +1,14 @@
-import React, { CSSProperties, PropsWithChildren, ReactNode, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useCombobox, useMultipleSelection, useSelect } from 'downshift';
 import isEqual from 'lodash.isequal';
 
+// import core base styles
+import 'hds-core';
 import styles from './Dropdown.module.css';
 import classNames from '../../utils/classNames';
 import { IconAngleDown, IconCheck, IconAlertCircle } from '../../icons';
-import Checkbox from '../checkbox/Checkbox';
-import FieldLabel from '../../internal/field-label/FieldLabel';
+import { Checkbox } from '../checkbox';
+import { FieldLabel } from '../../internal/field-label/FieldLabel';
 
 type OptionType = {
   [key: string]: any;
@@ -40,7 +42,7 @@ export type DropdownProps = {
   /**
    * The helper text content that will be shown below the dropdown
    */
-  helper?: string | ReactNode;
+  helper?: string | React.ReactNode;
   /**
    * Hides the label above the dropdown
    */
@@ -78,7 +80,7 @@ export type DropdownProps = {
   /**
    * The label for the dropdown
    */
-  label?: string | ReactNode;
+  label?: string | React.ReactNode;
   /**
    * Sets the `id` prop for the input element when `filterable` is `true`
    */
@@ -116,7 +118,7 @@ export type DropdownProps = {
   /**
    * Override or extend the root styles applied to the component
    */
-  style?: CSSProperties;
+  style?: React.CSSProperties;
   /**
    * Sets the `id` prop for the toggle button (`button`)
    */
@@ -127,7 +129,7 @@ export type DropdownProps = {
   visibleOptions?: number;
 };
 
-type WrapperProps = PropsWithChildren<{
+type WrapperProps = React.PropsWithChildren<{
   filterable: boolean;
   getComboboxProps: any;
 }>;
@@ -154,7 +156,7 @@ function getIsInSelectedOptions(selectedOptions: OptionType[], item: OptionType)
   return selectedOptions.some((selectedOption: OptionType) => isEqual(selectedOption, item));
 }
 
-const Dropdown = ({
+export const Dropdown = ({
   circularNavigation = false,
   className,
   closeMenuOnSelect = true,
@@ -289,7 +291,7 @@ const Dropdown = ({
   } = filterable ? combobox : select;
 
   // returns the toggle button label based on the dropdown mode
-  const getButtonLabel = (): ReactNode => {
+  const getButtonLabel = (): React.ReactNode => {
     if (filterable) return null;
 
     const buttonLabel = multiselect
@@ -407,5 +409,3 @@ const Dropdown = ({
     </div>
   );
 };
-
-export default Dropdown;

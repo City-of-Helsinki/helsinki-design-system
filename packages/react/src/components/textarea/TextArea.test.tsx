@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import TextArea from './TextArea';
+import { TextArea } from './TextArea';
 
 const textAreaProps = {
   id: 'hdsInput',

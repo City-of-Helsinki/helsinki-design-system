@@ -1,5 +1,7 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
+// import core base styles
+import 'hds-core';
 import styles from './Button.module.css';
 import classNames from '../../utils/classNames';
 
@@ -11,7 +13,7 @@ export type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
    * The content of the button
    */
-  children: ReactNode;
+  children: React.ReactNode;
   /**
    * Additional class names to apply to the button
    */
@@ -39,11 +41,11 @@ export type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
    * Element placed on the left side of the button label
    */
-  iconLeft?: ReactNode;
+  iconLeft?: React.ReactNode;
   /**
    * Element placed on the right side of the button label
    */
-  iconRight?: ReactNode;
+  iconRight?: React.ReactNode;
   /**
    * The size of the button
    *
@@ -52,7 +54,7 @@ export type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
   size?: ButtonSize;
 };
 
-const Button = React.forwardRef(
+export const Button = React.forwardRef(
   (
     {
       children,
@@ -66,7 +68,7 @@ const Button = React.forwardRef(
       iconRight,
       ...rest
     }: ButtonProps,
-    ref: React.RefObject<HTMLButtonElement>,
+    ref: React.Ref<HTMLButtonElement>,
   ) => {
     const iconElementLeft = iconLeft ? (
       <div className={styles.icon} aria-hidden="true">
@@ -102,5 +104,3 @@ const Button = React.forwardRef(
     );
   },
 );
-
-export default Button;

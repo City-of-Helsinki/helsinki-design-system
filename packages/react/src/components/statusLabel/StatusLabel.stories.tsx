@@ -1,7 +1,7 @@
 import React from 'react';
 import { radios, text, withKnobs } from '@storybook/addon-knobs';
 
-import StatusLabel from './StatusLabel';
+import { StatusLabel } from './StatusLabel';
 
 export default {
   component: StatusLabel,

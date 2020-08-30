@@ -2,7 +2,7 @@ import React from 'react';
 import { boolean, radios, text, withKnobs } from '@storybook/addon-knobs';
 import { ArgsTable, Title } from '@storybook/addon-docs/blocks';
 
-import ImageWithCard from './ImageWithCard';
+import { ImageWithCard } from './ImageWithCard';
 import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
 
 const contentTitle = 'Lorem ipsum';

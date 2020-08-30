@@ -1,8 +1,8 @@
 .*
 **/tsconfig.json
-**/webpack.config.js
+**/rollup.config.js
 **/jest.config.js
-storybook-static
-node_modules
-src
+lib
 scripts
+src
+storybook-static

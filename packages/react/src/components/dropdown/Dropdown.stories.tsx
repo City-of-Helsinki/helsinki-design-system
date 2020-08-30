@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { boolean, number, text, withKnobs } from '@storybook/addon-knobs';
 
-import Dropdown from './Dropdown';
-import Button from '../button/Button';
+import { Dropdown } from './Dropdown';
+import { Button } from '../button';
 
 function getOptions() {
   return [

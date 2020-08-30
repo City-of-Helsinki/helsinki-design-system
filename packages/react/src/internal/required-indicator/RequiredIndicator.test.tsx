@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import RequiredIndicator from './RequiredIndicator';
+import { RequiredIndicator } from './RequiredIndicator';
 
 describe('<RequiredIndicator /> spec', () => {
   it('renders the component', () => {

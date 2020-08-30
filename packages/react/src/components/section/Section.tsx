@@ -1,21 +1,20 @@
 import React from 'react';
 
+// import core base styles
+import 'hds-core';
 import classNames from '../../utils/classNames';
-import Koros from '../koros/Koros';
+import { Koros, KorosType } from '../koros';
 import styles from './Section.module.css';
 
+export type SectionColor = 'primary' | 'secondary' | 'tertiary' | 'plain';
+
 export type SectionProps = React.PropsWithChildren<{
-  color?: 'primary' | 'secondary' | 'tertiary' | 'plain';
+  color?: SectionColor;
   className?: string;
-  korosType?: 'basic' | 'beat' | 'pulse' | 'storm' | 'wave';
+  korosType?: KorosType;
 }>;
 
-const Section: React.FC<SectionProps> = ({
-  children,
-  className = '',
-  color = 'plain',
-  korosType = null,
-}: SectionProps) => {
+export const Section = ({ children, className = '', color = 'plain', korosType = null }: SectionProps) => {
   const withKoros = korosType !== null;
 
   return (
@@ -32,5 +31,3 @@ const Section: React.FC<SectionProps> = ({
     </div>
   );
 };
-
-export default Section;

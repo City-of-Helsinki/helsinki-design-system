@@ -2,7 +2,7 @@ import React from 'react';
 import { ArgsTable, Title } from '@storybook/addon-docs/blocks';
 import { radios, text } from '@storybook/addon-knobs';
 
-import Section from './Section';
+import { Section } from './Section';
 import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
 
 const placeholderTitle = 'Lorem ipsum';

@@ -1,5 +1,7 @@
-import React, { ChangeEventHandler, CSSProperties, ReactNode, Ref } from 'react';
+import React from 'react';
 
+// import core base styles
+import 'hds-core';
 import styles from './RadioButton.module.css';
 import classNames from '../../utils/classNames';
 
@@ -23,7 +25,7 @@ export type RadioButtonProps = React.ComponentPropsWithoutRef<'input'> & {
   /**
    * The label for the radio button
    */
-  label?: string | ReactNode;
+  label?: string | React.ReactNode;
   /**
    * **[DEPRECATED]** This prop will be removed in a future version. Use the `label` prop instead
    * @deprecated
@@ -32,18 +34,18 @@ export type RadioButtonProps = React.ComponentPropsWithoutRef<'input'> & {
   /**
    * Callback fired when the state is changed
    */
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   /**
    * Override or extend the styles applied to the component
    */
-  style?: CSSProperties;
+  style?: React.CSSProperties;
   /**
    * The value of the component
    */
   value?: string;
 };
 
-const RadioButton = React.forwardRef(
+export const RadioButton = React.forwardRef(
   (
     {
       checked = false,
@@ -57,7 +59,7 @@ const RadioButton = React.forwardRef(
       value,
       ...rest
     }: RadioButtonProps,
-    ref: Ref<HTMLInputElement>,
+    ref: React.Ref<HTMLInputElement>,
   ) => (
     <div className={classNames(styles.radioButton, className)} style={style}>
       <input
@@ -78,5 +80,3 @@ const RadioButton = React.forwardRef(
     </div>
   ),
 );
-
-export default RadioButton;

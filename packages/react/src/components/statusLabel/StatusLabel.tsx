@@ -1,5 +1,7 @@
 import React from 'react';
 
+// import core base styles
+import 'hds-core';
 import styles from './StatusLabel.module.css';
 import classNames from '../../utils/classNames';
 
@@ -22,10 +24,8 @@ export type StatusLabelProps = React.PropsWithChildren<{
   type?: StatusLabelType;
 }>;
 
-const StatusLabel = ({ children, className, dataTestId, type = 'neutral', ...rest }: StatusLabelProps) => (
+export const StatusLabel = ({ children, className, dataTestId, type = 'neutral', ...rest }: StatusLabelProps) => (
   <span className={classNames(styles.statusLabel, styles[type], className)} data-testid={dataTestId} {...rest}>
     {children}
   </span>
 );
-
-export default StatusLabel;

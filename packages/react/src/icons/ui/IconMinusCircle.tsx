@@ -4,12 +4,12 @@ import { IconProps } from '../Icon.interface';
 import classNames from '../../utils/classNames';
 import styles from '../Icon.module.css';
 
-const IconMinusCircle: React.FC<IconProps> = ({ size = 's', className = '', style = {}, ...rest }: IconProps) => (
+export const IconMinusCircle = ({ size = 's', className = '', style = {}, ...rest }: IconProps) => (
   <svg
+    xmlns="http://www.w3.org/2000/svg"
     className={classNames(styles.icon, styles[size], className)}
     style={style}
     viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
     {...rest}
   >
     <g fill="none" fillRule="evenodd">
@@ -21,5 +21,3 @@ const IconMinusCircle: React.FC<IconProps> = ({ size = 's', className = '', styl
     </g>
   </svg>
 );
-
-export default IconMinusCircle;

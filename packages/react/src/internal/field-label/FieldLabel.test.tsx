@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import FieldLabel from './FieldLabel';
+import { FieldLabel } from './FieldLabel';
 
 describe('<FieldLabel /> spec', () => {
   it('renders the component', () => {
