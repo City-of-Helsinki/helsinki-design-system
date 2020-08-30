@@ -35,14 +35,10 @@ export type NavigationLanguageSelectorProps<OptionType> = {
   className?: string;
   /**
    * A function used to format what is displayed as the selected value
-   * @param option {OptionType}   Selection option
-   * @param index {number}        Option index
    */
   formatOptionLabel?: (option: OptionType, index: number) => string | React.ReactNode;
   /**
    * A function used to format what is displayed as the option label
-   * @param option {OptionType}   Selection option
-   * @param index {number}        Option index
    */
   formatSelectedValue?: (option: OptionType) => string | React.ReactNode;
   /**
@@ -51,7 +47,7 @@ export type NavigationLanguageSelectorProps<OptionType> = {
   onLanguageChange?: (selectedItem: OptionType) => void;
   /**
    * Sets the data item field that represents the item label.
-   * E.g. an `optionLabelField` value of `'foo'` and a data item `{ foo: 'Label', bar: 'value' }`, would display `Label` in the dropdown menu for that specific item
+   * E.g. an `optionLabelField` value of `'foo'` and a data item `{ foo: 'Suomeksi', bar: 'fi' }`, would display `Suomeksi` in the dropdown menu for that specific item
    */
   optionLabelField?: string;
   /**

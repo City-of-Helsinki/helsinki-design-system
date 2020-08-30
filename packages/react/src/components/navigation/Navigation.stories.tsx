@@ -2,10 +2,24 @@ import React, { useState } from 'react';
 import { radios, withKnobs, boolean } from '@storybook/addon-knobs';
 
 import { Navigation } from './Navigation';
+import { NavigationRow } from './navigation-row/NavigationRow';
+import { NavigationItem } from './navigation-item/NavigationItem';
+import { NavigationUser } from './navigation-user/NavigationUser';
+import { NavigationSearch } from './navigation-search/NavigationSearch';
+import { NavigationLanguageSelector } from './navigation-language-selector/NavigationLanguageSelector';
+import { NavigationDropdown } from './navigation-dropdown/NavigationDropdown';
 
 export default {
   component: Navigation,
   title: 'Components/Navigation',
+  subcomponents: {
+    NavigationRow,
+    NavigationItem,
+    NavigationDropdown,
+    NavigationSearch,
+    NavigationUser,
+    NavigationLanguageSelector,
+  },
   decorators: [withKnobs],
   parameters: {
     layout: 'fullscreen',
@@ -147,7 +161,7 @@ export const Jassari = () => {
     },
   };
   const [authenticated, setAuthenticated] = useState(false);
-  const [language, setLanguage] = useState(languageOptions[0]);
+  const [language, setLanguage] = useState(jassariLanguageOptions[0]);
 
   // show helsingfors logo if swedish is selected as the language
   const logoLanguage = language.value === 'sv' ? 'sv' : 'fi';

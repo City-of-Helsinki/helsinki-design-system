@@ -9,8 +9,10 @@ export type NavigationRowProps = React.PropsWithChildren<{
   /**
    * Defines where the navigation row will be displayed.
    * Supported values:
-   * subNav (default) - items will be displayed beneath the header
-   * inline - items will be displayed in the header
+   *
+   * `subNav` - items will be displayed beneath the header (default)
+   *
+   * `inline` - items will be displayed in the header
    */
   display?: NavigationRowDisplay;
 }>;

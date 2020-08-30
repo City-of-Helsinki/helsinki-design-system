@@ -15,8 +15,6 @@ export type KorosProps = {
   flipHorizontal?: boolean;
   /**
    * Koros type
-   *
-   * Available options: `'basic' | 'beat' | 'pulse' | 'storm' | 'wave'`
    */
   type?: KorosType;
   /**

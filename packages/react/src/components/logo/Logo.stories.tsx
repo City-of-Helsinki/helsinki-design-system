@@ -1,7 +1,7 @@
 import React from 'react';
 import { radios } from '@storybook/addon-knobs';
 
-import Logo from './Logo';
+import { Logo } from './Logo';
 
 export default {
   component: Logo,

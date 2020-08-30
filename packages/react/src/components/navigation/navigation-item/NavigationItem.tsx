@@ -27,6 +27,9 @@ type ItemProps = {
 };
 
 export type NavigationItemProps<Element extends React.ElementType = 'a'> = {
+  /**
+   * Element type
+   */
   as?: Element;
 } & MergeElementProps<Element, ItemProps>;
 

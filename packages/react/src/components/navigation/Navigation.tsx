@@ -3,7 +3,7 @@ import { animated, useTransition, UseTransitionProps } from 'react-spring';
 
 import styles from './Navigation.module.css';
 import classNames from '../../utils/classNames';
-import Logo, { LogoLanguage } from '../logo/Logo';
+import { Logo, LogoLanguage } from '../logo';
 import { NavigationContext, NavigationContextProps } from './NavigationContext';
 import { NavigationRow } from './navigation-row/NavigationRow';
 import { NavigationItem } from './navigation-item/NavigationItem';

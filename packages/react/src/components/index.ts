@@ -4,6 +4,7 @@ export * from './columns';
 export * from './dropdown';
 export * from './imageWithCard';
 export * from './koros';
+export * from './logo';
 export * from './navigation';
 export * from './notification';
 export * from './radioButton';

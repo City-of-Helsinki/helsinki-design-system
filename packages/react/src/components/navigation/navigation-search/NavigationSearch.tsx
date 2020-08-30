@@ -25,11 +25,11 @@ export type NavigationSearchProps = {
    */
   onSearchEnter?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   /**
-   * Label shown when search field isn't active.
+   * Label shown when search field isn't active
    */
   searchLabel: string;
   /**
-   * Placeholder text shown in the search input field. Uses `searchLabel` as default.
+   * Placeholder text shown in the search input field. Uses the `searchLabel` value by default
    */
   searchPlaceholder?: string;
 };

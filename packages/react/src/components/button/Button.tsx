@@ -20,14 +20,10 @@ export type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
   className?: string;
   /**
    * Defines the button variant
-   *
-   * Available options: `'primary' | 'secondary' | 'supplementary' | 'success' | 'danger'`
    */
   variant?: ButtonVariant;
   /**
    * Defines the button theme
-   *
-   * Available options: `'default' | 'coat' | 'black'`
    */
   theme?: ButtonTheme;
   /**
@@ -48,8 +44,6 @@ export type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
   iconRight?: React.ReactNode;
   /**
    * The size of the button
-   *
-   * Available options: `'default' | 'small'`
    */
   size?: ButtonSize;
 };
