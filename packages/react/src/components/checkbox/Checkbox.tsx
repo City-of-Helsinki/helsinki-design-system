@@ -1,9 +1,11 @@
-import React, { ChangeEventHandler, CSSProperties, FC, InputHTMLAttributes, ReactNode, Ref } from 'react';
+import React from 'react';
 
+// import core base styles
+import 'hds-core';
 import styles from './Checkbox.module.css';
 import classNames from '../../utils/classNames';
 
-export type CheckboxProps = InputHTMLAttributes<HTMLInputElement> & {
+export type CheckboxProps = React.ComponentPropsWithoutRef<'input'> & {
   /**
    * If `true`, the component is checked
    */
@@ -23,26 +25,27 @@ export type CheckboxProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
    * The label for the checkbox
    */
-  label?: string | ReactNode;
+  label?: string | React.ReactNode;
   /**
    * **[DEPRECATED]** This prop will be removed in a future version. Use the `label` prop instead
+   * @deprecated
    */
   labelText?: string;
   /**
    * Callback fired when the state is changed
    */
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   /**
-   * Override or extend the styles applied to the component. See checkbox [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/checkbox#tokens) for available CSS variables
+   * Override or extend the styles applied to the component
    */
-  style?: CSSProperties;
+  style?: React.CSSProperties;
   /**
    * The value of the component
    */
   value?: string;
 };
 
-const Checkbox: FC<CheckboxProps> = React.forwardRef(
+export const Checkbox = React.forwardRef(
   (
     {
       checked = false,
@@ -56,7 +59,7 @@ const Checkbox: FC<CheckboxProps> = React.forwardRef(
       value,
       ...rest
     }: CheckboxProps,
-    ref: Ref<HTMLInputElement>,
+    ref: React.Ref<HTMLInputElement>,
   ) => (
     <div className={classNames(styles.checkbox, className)} style={style}>
       <input
@@ -77,5 +80,3 @@ const Checkbox: FC<CheckboxProps> = React.forwardRef(
     </div>
   ),
 );
-
-export default Checkbox;

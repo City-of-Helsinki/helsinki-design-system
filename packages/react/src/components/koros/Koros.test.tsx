@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import Koros from './Koros';
+import { Koros } from './Koros';
 
 describe('<Koros /> spec', () => {
   it('renders the component', () => {

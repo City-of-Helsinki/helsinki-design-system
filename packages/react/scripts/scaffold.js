@@ -1,15 +1,16 @@
-const chalk = require('chalk');
 const fs = require('fs');
+
+const chalk = require('chalk');
 const inquirer = require('inquirer');
 
-const exitError = msg => {
+const exitError = (msg) => {
   console.log(`${chalk.red.bold('Error:')} ${chalk.italic(msg)}`);
   process.exit(1);
 };
 
-const logStep = msg => console.log(`${chalk.green('✓')} ${msg}`);
+const logStep = (msg) => console.log(`${chalk.green('✓')} ${msg}`);
 
-const createFolder = path => {
+const createFolder = (path) => {
   if (fs.existsSync(path)) {
     exitError(`component already exists in ${path}!`);
   }
@@ -25,7 +26,7 @@ const createComponentFiles = (templatePath, destination, name) => {
 
   const files = fs.readdirSync(templatePath);
 
-  const newFiles = files.map(file => {
+  const newFiles = files.map((file) => {
     const sourcePath = `${templatePath}${file}`;
     const targetPath = `${destination}/${file
       .split('NewComponent')
@@ -47,11 +48,10 @@ const createComponentFiles = (templatePath, destination, name) => {
   return newFiles;
 };
 
-const addExport = name => {
-  const nameCapital = `${name[0].toUpperCase()}${name.slice(1)}`;
-  const exportString = `export { default as ${nameCapital}, ${nameCapital}Props } from './components/${name.toLowerCase()}/${nameCapital}';\n`;
+const addExports = (name) => {
+  const exportString = `export * from './${name}';\n`;
   try {
-    fs.appendFileSync('src/index.ts', exportString, 'utf-8');
+    fs.appendFileSync('src/components/index.ts', exportString, 'utf-8');
   } catch (error) {
     exitError(`Failed to add export to index.ts: ${error}`);
   }
@@ -63,18 +63,19 @@ const scaffold = async () => {
   const { name } = await inquirer.prompt({
     type: 'input',
     name: 'name',
-    message: `What's the name of your component? (e.g. Testcomponent)`,
-    validate: input => (input.split(' ').length < 2 ? true : `Invalid component name: ${input}`),
+    message: `What's the name of your component? (e.g. TestComponent)`,
+    validate: (input) => (input.split(' ').length < 2 ? true : `Invalid component name: ${input}`),
   });
+  const nameCamel = `${name[0].toLowerCase()}${name.slice(1)}`;
 
-  const path = createFolder(`src/components/${name.toLowerCase()}`);
+  const path = createFolder(`src/components/${nameCamel}`);
   logStep(`${chalk.bold(`Created folder:`)}\n\t${chalk.italic(path)}`);
 
   const files = createComponentFiles('.templates/new-component/', path, name);
   logStep(`${chalk.bold(`Created files:`)}\n\t${chalk.italic(files.join('\n\t'))}`);
 
-  const exportString = addExport(name);
-  logStep(`${chalk.bold(`Added export to src/index.ts:`)}\n\t${chalk.italic(exportString)}`);
+  const exportString = addExports(nameCamel);
+  logStep(`${chalk.bold(`Added export to src/components/index.ts:`)}\n\t${chalk.italic(exportString)}`);
 
   logStep(
     `${chalk.bold(`Scaffolding done.`)} Run ${chalk.yellow.italic('yarn start')} to see your component in Storybook!`,

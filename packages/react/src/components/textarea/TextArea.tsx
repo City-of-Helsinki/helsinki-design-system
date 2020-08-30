@@ -1,41 +1,43 @@
-import React, { ChangeEventHandler, CSSProperties, FC, forwardRef, InputHTMLAttributes, ReactNode, Ref } from 'react';
+import React from 'react';
 
-import styles from './TextInput.module.css';
-import InputWrapper from '../../internal/input-wrapper/InputWrapper';
+// import core base styles
+import 'hds-core';
+import styles from '../textInput/TextInput.module.css';
+import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 
-export type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
+export type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
   /**
-   * Additional class names to apply to the text input
+   * Additional class names to apply to the textarea
    */
   className?: string;
   /**
-   * The default input element value. Use when the component is not controlled
+   * The default textarea element value. Use when the component is not controlled
    */
   defaultValue?: string;
   /**
-   * If `true`, the input will be disabled
+   * If `true`, the textarea will be disabled
    */
   disabled?: boolean;
   /**
-   * The helper text content that will be shown below the input
+   * The helper text content that will be shown below the textarea
    */
   helperText?: string;
   /**
-   * Hides the label above the input
+   * Hides the label above the textarea
    */
   hideLabel?: boolean;
   /**
-   * The id of the input element
+   * The id of the textarea element
    */
   id: string;
   /**
-   * If `true`, the input and `helperText` will be displayed in an invalid state.
+   * If `true`, the textarea and `helperText` will be displayed in an invalid state.
    */
   invalid?: boolean;
   /**
-   * The label for the input
+   * The label for the textarea
    */
-  label?: string | ReactNode;
+  label?: string | React.ReactNode;
   /**
    * **[DEPRECATED]** This prop will be removed in a future version. Use the `label` prop instead
    */
@@ -43,23 +45,19 @@ export type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
    * Callback fired when the state is changed
    */
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
   /**
-   * Short hint displayed in the input before the user enters a value
+   * Short hint displayed in the textarea before the user enters a value
    */
   placeholder?: string;
   /**
-   * If `true`, prevents the user from changing the value of the field (not from interacting with the field)
-   */
-  readOnly?: boolean;
-  /**
-   * If `true`, the label is displayed as required and the `input` element will be required
+   * If `true`, the label is displayed as required and the `textarea` element will be required
    */
   required?: boolean;
   /**
    * Override or extend the styles applied to the component. See text field [tokens](https://city-of-helsinki.github.io/helsinki-design-system/components/text-field#tokens) for available CSS variables
    */
-  style?: CSSProperties;
+  style?: React.CSSProperties;
   /**
    * The label of the tooltip
    */
@@ -77,20 +75,16 @@ export type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
    */
   tooltipCloseButtonLabelText?: string;
   /**
-   * Type of the input element
-   */
-  type?: string;
-  /**
-   * The value of the input element, required for a controlled component
+   * The value of the textarea element, required for a controlled component
    */
   value?: string;
   /**
-   * The `ref` is forwarded to the native input element.
+   * The `ref` is forwarded to the native textarea element.
    */
-  ref?: Ref<HTMLInputElement>;
+  ref?: React.Ref<HTMLTextAreaElement>;
 };
 
-const TextInput: FC<TextInputProps> = forwardRef(
+export const TextArea = React.forwardRef(
   (
     {
       className = '',
@@ -109,10 +103,9 @@ const TextInput: FC<TextInputProps> = forwardRef(
       tooltipText,
       tooltipOpenButtonLabelText,
       tooltipCloseButtonLabelText,
-      type = 'text',
       ...rest
-    }: TextInputProps,
-    ref?: Ref<HTMLInputElement>,
+    }: TextAreaProps,
+    ref: React.Ref<HTMLTextAreaElement>,
   ) => {
     const wrapperProps = {
       className,
@@ -132,7 +125,7 @@ const TextInput: FC<TextInputProps> = forwardRef(
 
     return (
       <InputWrapper {...wrapperProps}>
-        <input
+        <textarea
           className={styles.input}
           defaultValue={defaultValue}
           disabled={disabled}
@@ -140,12 +133,9 @@ const TextInput: FC<TextInputProps> = forwardRef(
           onChange={onChange}
           ref={ref}
           required={required}
-          type={type}
           {...rest}
         />
       </InputWrapper>
     );
   },
 );
-
-export default TextInput;

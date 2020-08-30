@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import Notification from './Notification';
+import { Notification } from './Notification';
 
 const label = 'This is the label text';
 const body =

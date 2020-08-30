@@ -1,13 +1,19 @@
-import React, { ReactNode, ReactElement } from 'react';
+import React from 'react';
 
+// import core base styles
+import 'hds-core';
 import styles from './Button.module.css';
 import classNames from '../../utils/classNames';
 
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+export type ButtonSize = 'default' | 'small';
+export type ButtonTheme = 'default' | 'coat' | 'black';
+export type ButtonVariant = 'primary' | 'secondary' | 'supplementary' | 'success' | 'danger';
+
+export type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
    * The content of the button
    */
-  children: ReactNode;
+  children: React.ReactNode;
   /**
    * Additional class names to apply to the button
    */
@@ -17,13 +23,13 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
    *
    * Available options: `'primary' | 'secondary' | 'supplementary' | 'success' | 'danger'`
    */
-  variant?: 'primary' | 'secondary' | 'supplementary' | 'success' | 'danger';
+  variant?: ButtonVariant;
   /**
    * Defines the button theme
    *
    * Available options: `'default' | 'coat' | 'black'`
    */
-  theme?: 'default' | 'coat' | 'black';
+  theme?: ButtonTheme;
   /**
    * If `true`, the button will be disabled
    */
@@ -35,20 +41,20 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   /**
    * Element placed on the left side of the button label
    */
-  iconLeft?: ReactElement;
+  iconLeft?: React.ReactNode;
   /**
    * Element placed on the right side of the button label
    */
-  iconRight?: ReactElement;
+  iconRight?: React.ReactNode;
   /**
    * The size of the button
    *
    * Available options: `'default' | 'small'`
    */
-  size?: 'default' | 'small';
+  size?: ButtonSize;
 };
 
-const Button: React.FC<ButtonProps> = React.forwardRef(
+export const Button = React.forwardRef(
   (
     {
       children,
@@ -62,7 +68,7 @@ const Button: React.FC<ButtonProps> = React.forwardRef(
       iconRight,
       ...rest
     }: ButtonProps,
-    ref: React.RefObject<HTMLButtonElement>,
+    ref: React.Ref<HTMLButtonElement>,
   ) => {
     const iconElementLeft = iconLeft ? (
       <div className={styles.icon} aria-hidden="true">
@@ -98,5 +104,3 @@ const Button: React.FC<ButtonProps> = React.forwardRef(
     );
   },
 );
-
-export default Button;

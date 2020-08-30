@@ -13,7 +13,8 @@
     "esModuleInterop": true,
     "jsx": "react"
   },
-  "include": ["src", ".storybook"],
+  "include": ["src"],
+  "exclude": ["**/*.test.tsx", "**/*.stories.tsx"],
   "compileOnSave": false,
   "buildOnSave": false
 }

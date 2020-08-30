@@ -6,7 +6,7 @@ import '../../icons/ui/icon-angle-right.css';
 const getLabel = (label = 'Button') => `<span class="hds-button__label">${label}</span>`;
 
 export default {
-  title: 'Button',
+  title: 'Components/Button',
   decorators: [(storyFn) => `<style>.hds-button {margin-right: 1rem;}</style>${storyFn()}`],
 };
 
@@ -45,10 +45,7 @@ export const FullWidth = () => `
     ${getLabel()}
   </button>
 `;
-
-FullWidth.story = {
-  name: 'Full width',
-};
+FullWidth.storyName = 'Full width';
 
 export const Small = () => `
   <button type="button" class="hds-button hds-button--primary hds-button--small">

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Props, Title } from '@storybook/addon-docs/dist/blocks';
+import { ArgsTable, Title } from '@storybook/addon-docs/blocks';
 import { radios, text } from '@storybook/addon-knobs';
 
-import Section from './Section';
+import { Section } from './Section';
 import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
 
 const placeholderTitle = 'Lorem ipsum';
@@ -19,7 +19,7 @@ export default {
       page: () => (
         <>
           <Title>Props</Title>
-          <Props />
+          <ArgsTable />
         </>
       ),
     },
@@ -60,10 +60,7 @@ export const WithKoros = () => (
     {placeholderText}
   </Section>
 );
-
-WithKoros.story = {
-  name: 'With koros',
-};
+WithKoros.storyName = 'With koros';
 
 export const Multiple = () => (
   <>
@@ -103,10 +100,7 @@ export const Multiple = () => (
     <Section>This section has neither a heading or a koros.</Section>
   </>
 );
-
-Multiple.story = {
-  name: 'Multiple sections',
-};
+Multiple.storyName = 'Multiple sections';
 
 export const Playground = () => {
   const sectionTitle = text('Title', placeholderTitle);
@@ -129,16 +123,13 @@ export const Playground = () => {
     </Section>
   );
 };
-
-Playground.story = {
-  parameters: {
-    previewTabs: {
-      'storybook/docs/panel': {
-        hidden: true,
-      },
+Playground.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
     },
-    docs: {
-      disable: true,
-    },
+  },
+  docs: {
+    disable: true,
   },
 };

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { boolean, number, radios, text, withKnobs } from '@storybook/addon-knobs';
 
-import Notification, { NotificationSizeInline, NotificationSizeToast } from './Notification';
-import Button from '../button/Button';
+import { Notification, NotificationSizeInline, NotificationSizeToast } from './Notification';
+import { Button } from '../button';
 
 const props = {
   label: 'Label',
@@ -190,16 +190,13 @@ export const Playground = () => {
     </>
   );
 };
-
-Playground.story = {
-  parameters: {
-    previewTabs: {
-      'storybook/docs/panel': {
-        hidden: true,
-      },
+Playground.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
     },
-    docs: {
-      disable: true,
-    },
+  },
+  docs: {
+    disable: true,
   },
 };

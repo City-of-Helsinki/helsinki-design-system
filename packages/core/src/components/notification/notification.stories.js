@@ -34,7 +34,7 @@ const closeButton = `
 `;
 
 export default {
-  title: 'Notification',
+  title: 'Components/Notification',
   decorators: [(storyFn) => `<div style="max-width:400px">${storyFn()}</div>`],
 };
 
@@ -128,7 +128,4 @@ export const WithClose = () => `
       ${closeButton}
     </div>
 `;
-
-WithClose.story = {
-  name: 'With close button',
-};
+WithClose.storyName = 'With close button';

@@ -1,8 +1,8 @@
 import React from 'react';
 import { boolean, radios, text, withKnobs } from '@storybook/addon-knobs';
-import { Props, Title } from '@storybook/addon-docs/dist/blocks';
+import { ArgsTable, Title } from '@storybook/addon-docs/blocks';
 
-import ImageWithCard from './ImageWithCard';
+import { ImageWithCard } from './ImageWithCard';
 import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
 
 const contentTitle = 'Lorem ipsum';
@@ -26,7 +26,7 @@ export default {
       page: () => (
         <>
           <Title>Props</Title>
-          <Props />
+          <ArgsTable />
         </>
       ),
     },
@@ -46,10 +46,7 @@ export const HoverFullWidth = () => (
     {content}
   </ImageWithCard>
 );
-
-HoverFullWidth.story = {
-  name: 'Hover full width',
-};
+HoverFullWidth.storyName = 'Hover full width';
 
 export const Split = () => (
   <ImageWithCard cardLayout="split" src={imageFile}>
@@ -62,10 +59,7 @@ export const SplitFullWidth = () => (
     {content}
   </ImageWithCard>
 );
-
-SplitFullWidth.story = {
-  name: 'Split full width',
-};
+SplitFullWidth.storyName = 'Split full width';
 
 export const Playground = () => {
   const cardTitle = text('Title', contentTitle);
@@ -92,16 +86,13 @@ export const Playground = () => {
     </ImageWithCard>
   );
 };
-
-Playground.story = {
-  parameters: {
-    previewTabs: {
-      'storybook/docs/panel': {
-        hidden: true,
-      },
+Playground.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
     },
-    docs: {
-      disable: true,
-    },
+  },
+  docs: {
+    disable: true,
   },
 };

@@ -1,20 +1,18 @@
-import React, { FC, ReactNode } from 'react';
+import React from 'react';
 
 import styles from './FieldLabel.module.css';
-import RequiredIndicator from '../required-indicator/RequiredIndicator';
+import { RequiredIndicator } from '../required-indicator/RequiredIndicator';
 
 type FieldLabelProps = {
   hidden?: boolean;
   inputId: string;
-  label: string | ReactNode;
+  label: string | React.ReactNode;
   required?: boolean;
 };
 
-const FieldLabel: FC<FieldLabelProps> = ({ hidden, inputId, label, required, ...rest }) => (
+export const FieldLabel = ({ hidden, inputId, label, required, ...rest }: FieldLabelProps) => (
   <label htmlFor={inputId} className={`${styles.label} ${hidden ? styles.hidden : ''}`} {...rest}>
     {label}
     {required && <RequiredIndicator />}
   </label>
 );
-
-export default FieldLabel;

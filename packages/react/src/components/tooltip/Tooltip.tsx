@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+// import core base styles
+import 'hds-core';
 import classNames from '../../utils/classNames';
 import { IconInfoCircle, IconQuestionCircle, IconCross } from '../../icons';
 import styles from './Tooltip.module.css';
@@ -11,7 +13,7 @@ export type TooltipProps = React.PropsWithChildren<{
   alternative?: boolean;
 }>;
 
-const Tooltip: React.FC<TooltipProps> = ({
+export const Tooltip = ({
   children,
   labelText,
   closeButtonLabelText,

@@ -3,7 +3,7 @@ import './checkbox.css';
 const getLabel = (id = 'input', label = 'Option') => `<label for="${id}"  class="hds-checkbox__label">${label}</label>`;
 
 export default {
-  title: 'Checkbox',
+  title: 'Components/Checkbox',
 };
 
 export const Default = () => `
@@ -33,7 +33,4 @@ export const SelectedDisabled = () => `
       ${getLabel('checkbox4')}
     </div>
 `;
-
-SelectedDisabled.story = {
-  name: 'Selected & disabled',
-};
+SelectedDisabled.storyName = 'Selected & disabled';

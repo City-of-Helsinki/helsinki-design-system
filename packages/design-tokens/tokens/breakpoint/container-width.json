@@ -1,16 +1,16 @@
 {
     "container-width": {
       "xs": {
-        "value": "304px"
+        "value": "288px"
       },
       "s": {
-        "value": "560px"
+        "value": "544px"
       },
       "m": {
-        "value": "752px"
+        "value": "720px"
       },
       "l": {
-        "value": "968px"
+        "value": "944px"
       },
       "xl": {
         "value": "1200px"

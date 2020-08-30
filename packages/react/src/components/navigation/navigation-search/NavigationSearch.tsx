@@ -4,7 +4,7 @@ import { useTransition, animated } from 'react-spring';
 import styles from './NavigationSearch.module.css';
 import IconSearch from '../../../icons/ui/IconSearch';
 import classNames from '../../../utils/classNames';
-import TextInput from '../../textinput/TextInput';
+import TextInput from '../../textInput/TextInput';
 import NavigationContext from '../NavigationContext';
 
 export type NavigationSearchProps = {

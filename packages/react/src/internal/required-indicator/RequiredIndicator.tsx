@@ -1,17 +1,15 @@
-import React, { CSSProperties, FC } from 'react';
+import React from 'react';
 
 import styles from './RequiredIndicator.module.css';
 import classNames from '../../utils/classNames';
 
 type RequiredIndicatorProps = {
   className?: string;
-  style?: CSSProperties;
+  style?: React.CSSProperties;
 };
 
-const RequiredIndicator: FC<RequiredIndicatorProps> = ({ className, style }) => (
+export const RequiredIndicator = ({ className, style }: RequiredIndicatorProps) => (
   <span className={classNames(styles.indicator, className)} style={style}>
     *
   </span>
 );
-
-export default RequiredIndicator;
