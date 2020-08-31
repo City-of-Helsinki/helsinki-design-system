@@ -5,10 +5,80 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-### React
+
+
+## [0.13.0] - September 1, 2020
+### Core
+#### Breaking Changes
+- [Notification] component was rewritten.
+    - `.hds-notification--warning` was renamed to `hds-notification--alert`
+    
 #### Fixed
-- [Dropdown] Reference equality comparison in multiselect mode
+- [Checkbox] Fixed a bug where the label wasn't aligned correctly. in ([#226](https://github.com/City-of-Helsinki/helsinki-design-system/pull/226))
+- [RadioButton] Fixed a bug where the label wasn't aligned correctly. in ([#226](https://github.com/City-of-Helsinki/helsinki-design-system/pull/226))
+
+### Design kit
+#### Added
+- Navigation symbols
+- Separate symbols for light and dark background colors
+- Separate symbols for each breakpoint
+- Free form navigation symbol for service which do not follow HDS breakpoint tokens
+- Modals and Notifications library back to the design kit
+- Inline notifications that are used within content. They can be configured to be closable.
+- Toast notifications that are animated into view from upper right or bottom. They can be configured to disappear automatically.
+- New Tooltip design (implementation not yet released)
+
+#### Changed
+- [Notifications] Removed "WIP" text from "HDS Modals and Notifications" file name
+- [Notifications] Separated notifications into two symbol groups; inline and toast
+- [Notifications] Updated color of alert notification line (is now accessible on the background)
+- [Notifications] Notification sizes are now named Large, Default and Small
+- [Notifications] Small notifications (both Inline and Toast) now scale horizontally rather than vertically
+- [Notifications] Title row now uses Smart layout. This which allows hiding icons if needed.
+
+#### Fixed
+- [Notifications] Multiple symbol scaling issues
+
+### Design tokens
+#### Changed
+- Added fallback fonts to the default font token
+
+### Documentation
+#### Added
+- Documentation for all new (implemented) components; Navigation and Notifications
+- New section: Data formats
+- Currently includes initial guidelines for formatting date and time data
+
+#### Changed
+- Updated Breakpoints documentation with new breakpoint and container width values
+- Updated Breakpoints documentation with new demonstration image
+
+### React
+#### Breaking Changes
+- [Notification] component was rewritten. in ([#212](https://github.com/City-of-Helsinki/helsinki-design-system/pull/212))
+    - DismissibleNotification was removed. Use the `dismissible` property instead.
+    - The `labelText` prop was renamed to `label`
+    - The supported types are now `info`, `error`, `alert` and `success`
+    - Full list of supported props can be found [here](https://hds.hel.fi/storybook/react/?path=/docs/components-notification--default)
+
+#### Added
+- Navigation component. ([#197](https://github.com/City-of-Helsinki/helsinki-design-system/pull/197))
+- Logo component. ([#197](https://github.com/City-of-Helsinki/helsinki-design-system/pull/197))
+
+#### Changed
+- Components are now bundled separately, making it possible to import only specific components instead of importing the whole package. in ([#229](https://github.com/City-of-Helsinki/helsinki-design-system/pull/229))
+    - E.g. importing the `Button` component can now be done like this `import { Button } from 'hds-react/components/Button'`. Importing components directly could reduce the bundle size.
+- Updated storybook. in ([#225](https://github.com/City-of-Helsinki/helsinki-design-system/pull/225))
+    - Storybook should now load considerably faster.
+
+#### Fixed
+- [Dropdown] Reference equality comparison in multiselect mode. in ([#231](https://github.com/City-of-Helsinki/helsinki-design-system/pull/231))
     - Previously a selected option would be labeled as selected only if the selected items contained the exact same object. This could result in unexpected behavior for instance when a multiselect dropdown was used as a controlled component and its options list was not static.
+- [Dropdown] Fixed focus issue when multiselect mode was enabled. in ([#222](https://github.com/City-of-Helsinki/helsinki-design-system/pull/222))
+    - Fixed a bug where multi-select drop-downs retained their focus styles after pressing tab when the dropdown menu was open. Pressing tab now also correctly moves the focus to the next element in the tab order.
+    
+- [Checkbox] Fixed a bug where the label wasn't aligned correctly. in ([#226](https://github.com/City-of-Helsinki/helsinki-design-system/pull/226))
+- [RadioButton] Fixed a bug where the label wasn't aligned correctly. in ([#226](https://github.com/City-of-Helsinki/helsinki-design-system/pull/226))
 
 
 ## [0.12.1] - August 19, 2020
