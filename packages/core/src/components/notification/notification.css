@@ -13,6 +13,7 @@
   background-color: var(--notification-background-color);
   border: solid var(--notification-border-color);
   border-width: 0 0 0 var(--notification-border-width);
+  box-sizing: border-box;
   color: var(--notification-color);
   display: grid;
   gap: var(--spacing-s);
