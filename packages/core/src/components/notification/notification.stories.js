@@ -107,6 +107,15 @@ export const Large = () =>
     )
     .join('');
 
+export const Invisible = () => `
+    <div class="hiddenFromScreen" aria-atomic="true" aria-live="assertive" role="status">
+        <div class="hds-notification">
+          ${getLabel()}
+          This notification is only visible to screen readers
+        </div>
+    </div>
+`;
+
 export const WithClose = () => `
     <div class="hds-notification">
       ${getLabel('info')}
