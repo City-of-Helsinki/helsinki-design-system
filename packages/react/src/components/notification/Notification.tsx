@@ -65,6 +65,10 @@ type CommonProps = React.PropsWithChildren<{
    */
   onClose?: () => void;
   /**
+   * Override or extend the styles applied to the component
+   */
+  style?: React.CSSProperties;
+  /**
    * The type of the notification
    *
    * Available options: `'info' | 'error' | 'alert' | 'success'`
@@ -184,6 +188,7 @@ export const Notification = ({
   position = 'inline',
   onClose = () => null,
   size = 'default',
+  style,
   type = 'info',
 }: NotificationProps) => {
   // only allow size 'large' for inline notifications
@@ -236,7 +241,7 @@ export const Notification = ({
   return (
     <ConditionalVisuallyHidden visuallyHidden={invisible}>
       <animated.div
-        style={notificationTransition}
+        style={{ ...notificationTransition, ...style }}
         className={classNames(
           styles[position],
           styles.notification,
