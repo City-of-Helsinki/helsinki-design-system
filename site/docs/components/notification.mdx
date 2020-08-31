@@ -43,7 +43,10 @@ import Text from "../../src/components/Text";
 Inline notifications are used as part of the content. They closely relate to the part of the content and work best when placed as close as the related content as possible. Inline notifications are often used to provide or emphasise key information related to the content of the page. It is recommended not to make them closable - unless their information is not important or can be accessed somewhere else. Inline notifications greatly emphasise the information so they should be used sparingly in order not to dilute their effect. A good rule of thumb is to limit the number of simultaneous inline notifications to one.
 
 <Playground>
-
+    <Notification label="New messages" dismissible>You have received new messages.</Notification>
+    <Notification label="Form done" type="success" dismissible>Form submit was successful!</Notification>
+    <Notification label="Slow loading" type="alert" dismissible>Loading is taking longer than expected.</Notification>
+    <Notification label="Missing information" type="error">Form is missing critical information.</Notification>
 </Playground>
 
 ##### Core:
@@ -60,7 +63,34 @@ Inline notifications are used as part of the content. They closely relate to the
 Toasts notifications provide lightweight feedback for changes in system status such as successful saving or Internet disconnection. Toasts appear on top of the content (usually top right or bottom center). By default they are set to disappear automatically. However, be wary using automatically disappearing toasts for critical information such as errors. It is also a good practise to make notifications accessible elsewhere in case the user misses them before they disappear.
 
 <Playground>
+    <Notification size="default" label="New messages">You have received new messages.</Notification>
+    <Notification size="default" label="Form done" type="success">Form submit was successful!</Notification>
+    <Notification size="default" label="Slow loading" type="alert">Loading is taking longer than expected.</Notification>
+    <Notification size="default" label="Missing information" type="error">Form is missing critical information.</Notification>
 
+    <Notification size="small" label="New messages">You have received new messages.</Notification>
+    <Notification size="small" label="Form done" type="success">Form submit was successful!</Notification>
+    <Notification size="small" label="Slow loading" type="alert">Loading is taking longer than expected.</Notification>
+    <Notification size="small" label="Missing information" type="error">Form is missing critical information.</Notification>
+</Playground>
+
+##### Core:
+```html
+
+```
+
+##### React:
+```tsx
+
+```
+
+### Notification sizes
+HDS notifications come in three different sizes, allowing the designer to choose 
+
+<Playground>
+    <Notification size="large" label="New messages">You have received new messages.</Notification>
+    <Notification size="default" label="New messages">You have received new messages.</Notification>
+    <Notification size="small" label="New messages">You have received new messages.</Notification>
 </Playground>
 
 ##### Core:
@@ -75,10 +105,6 @@ Toasts notifications provide lightweight feedback for changes in system status s
 
 ### Invisible
 Invisible notifications do not show up on screen and they are meant to aid screen reader users. Some updates to system status may be apparent to regular users through animations etc. However, screen readers can easily ignore this type of feedback. Invisible notifications are not visible to regular users but screen readers detect them. Use them to improve user experience for screen reader users.
-
-<Playground>
-
-</Playground>
 
 ##### Core:
 ```html
