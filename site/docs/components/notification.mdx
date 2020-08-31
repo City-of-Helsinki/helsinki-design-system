@@ -1,0 +1,146 @@
+---
+name: Notification
+menu: Components
+route: /components/notification
+---
+
+import { Playground } from "docz";
+import { Notification } from "hds-react";
+
+import ColorBox from "../../src/components/ColorBox";
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
+import Text from "../../src/components/Text";
+
+# Notifications
+
+<LargeParagraph>
+    Notifications are used to present timely information to the user. HDS offers two types of notifications for different use cases.
+</LargeParagraph>
+
+## Principles
+- Notifications are designed to capture users' attention. **Therefore, they should be used sparingly only for important information or updates.**
+- **Notification title should include the most important information about the notification.** Aim for title that is short, concise and easy to understand. Avoid titles that span over multiple lines.
+- HDS offers multiple options for notification screen locations. Choose locations that fit best for your service and stay consistent.
+- **If you use automatically disappearing notifications, make sure the information is accessible elsewhere in case the user misses the notification.**
+
+### When to use each notification type?
+- **Use inline notifications when information is related to the content or if you want to keep information visible at all times.** Inline notifications are part of the content and therefore they can be placed as close as possible to the related part of the content.
+- **Use toast notifications to inform the user about a specific event or change in the system status.** Toast notifications do not relate to any specific object on the page and therefore they are placed on top of the content (usually top right or bottom center).
+- **Use invisible notifications to make system state changes more apparent for screen reader users.** Some features (such as moving a product to the shopping cart) are apparent for regular users but screen readers may need extra assist.
+
+### When to use each status colour (info, success, alert, error)?
+- You can find guidelines on when to use each status colour in the [colour guidelines](/design-tokens/colour#ui-colours "UI colours"). Aim to use notification levels and colours consistently across your service.
+
+## Accessibility
+- Avoid using automatically disappearing toast notifications for critical information or very long messages. It is possible that the notification disappears before the user or screen reader can react to the message. Refer to <Link href="https://www.w3.org/WAI/WCAG21/Understanding/no-timing.html" external>WCAG 2.1 No timing requirement</Link> for more information.
+- Remember that colour should never be the only way of conveying information. Make sure the meaning of the notification is clearly described by the title and body. Refer to <Link href="https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html" external>WCAG 2.1 Use of Colour guideline</Link> for more information.
+- It is recommended (but not required) to offer a way to turn off less important notifications. Refer to <Link href="https://www.w3.org/WAI/WCAG21/Understanding/interruptions.html" external>WCAG 2.1 Interruptions guideline</Link> for more information.
+
+## Usage & variations
+
+### Inline
+Inline notifications are used as part of the content. They closely relate to the part of the content and work best when placed as close as the related content as possible. Inline notifications are often used to provide or emphasise key information related to the content of the page. It is recommended not to make them closable - unless their information is not important or can be accessed somewhere else. Inline notifications greatly emphasise the information so they should be used sparingly in order not to dilute their effect. A good rule of thumb is to limit the number of simultaneous inline notifications to one.
+
+<Playground>
+    <Notification label="New messages" dismissible>You have received new messages.</Notification>
+    <Notification label="Form done" type="success" dismissible>Form submit was successful!</Notification>
+    <Notification label="Slow loading" type="alert" dismissible>Loading is taking longer than expected.</Notification>
+    <Notification label="Missing information" type="error">Form is missing critical information.</Notification>
+</Playground>
+
+##### Core:
+```html
+
+```
+
+##### React:
+```tsx
+
+```
+
+### Toast
+Toasts notifications provide lightweight feedback for changes in system status such as successful saving or Internet disconnection. Toasts appear on top of the content (usually top right or bottom center). By default they are set to disappear automatically. However, be wary using automatically disappearing toasts for critical information such as errors. It is also a good practise to make notifications accessible elsewhere in case the user misses them before they disappear.
+
+<Playground>
+    <Notification size="default" label="New messages">You have received new messages.</Notification>
+    <Notification size="default" label="Form done" type="success">Form submit was successful!</Notification>
+    <Notification size="default" label="Slow loading" type="alert">Loading is taking longer than expected.</Notification>
+    <Notification size="default" label="Missing information" type="error">Form is missing critical information.</Notification>
+
+    <Notification size="small" label="New messages">You have received new messages.</Notification>
+    <Notification size="small" label="Form done" type="success">Form submit was successful!</Notification>
+    <Notification size="small" label="Slow loading" type="alert">Loading is taking longer than expected.</Notification>
+    <Notification size="small" label="Missing information" type="error">Form is missing critical information.</Notification>
+</Playground>
+
+##### Core:
+```html
+
+```
+
+##### React:
+```tsx
+
+```
+
+### Notification sizes
+HDS notifications come in three different sizes, allowing the designer to choose 
+
+<Playground>
+    <Notification size="large" label="New messages">You have received new messages.</Notification>
+    <Notification size="default" label="New messages">You have received new messages.</Notification>
+    <Notification size="small" label="New messages">You have received new messages.</Notification>
+</Playground>
+
+##### Core:
+```html
+
+```
+
+##### React:
+```tsx
+
+```
+
+### Invisible
+Invisible notifications do not show up on screen and they are meant to aid screen reader users. Some updates to system status may be apparent to regular users through animations etc. However, screen readers can easily ignore this type of feedback. Invisible notifications are not visible to regular users but screen readers detect them. Use them to improve user experience for screen reader users.
+
+##### Core:
+```html
+
+```
+
+##### React:
+```tsx
+
+```
+
+## Demos & API
+
+### Core
+
+[Notifications in hds-core](//storybook/core/?path=/docs/notification--default)
+
+### React
+
+[Notifications in hds-react](/storybook/react/?path=/docs/components-notification--default)
+
+[Notifications API](/storybook/react/?path=/docs/components-notification--default)
+
+## Tokens
+
+```css
+/* CSS */
+@import "hds-design-tokens/lib/color/component/button.css";
+/* SCSS */
+@import "hds-design-tokens/lib/color/component/button.scss";
+```
+```js
+// JS
+import 'hds-design-tokens/lib/color/component/button.css';
+```
+
+CSS                                                  | SASS                                               | Value       | Example
+---------------------------------------------------- | -------------------------------------------------- | ----------- | ----------------------------------------------------------------------------- |
+--color-background-button-primary-default            | $color-background-button-primary-default           | #0000bf     | <ColorBox color="var(--color-background-button-primary-default)" />           |
