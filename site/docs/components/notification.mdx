@@ -5,7 +5,7 @@ route: /components/notification
 ---
 
 import { Playground } from "docz";
-import { Notification } from "hds-react";
+import { Button, Notification } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
 import LargeParagraph from "../../src/components/LargeParagraph";
@@ -20,13 +20,13 @@ import Text from "../../src/components/Text";
 
 ## Principles
 - Notifications are designed to capture users' attention. **Therefore, they should be used sparingly only for important information or updates.**
-- **Notification title should include the most important information about the notification.** Aim for title that is short, concise and easy to understand. Avoid titles that span over multiple lines.
+- **Notification title should include the most important information about the notification.** Aim for a title that is short, concise and easy to understand. Avoid titles that span over multiple lines.
 - HDS offers multiple options for notification screen locations. Choose locations that fit best for your service and stay consistent.
 - **If you use automatically disappearing notifications, make sure the information is accessible elsewhere in case the user misses the notification.**
 
 ### When to use each notification type?
-- **Use inline notifications when information is related to the content or if you want to keep information visible at all times.** Inline notifications are part of the content and therefore they can be placed as close as possible to the related part of the content.
-- **Use toast notifications to inform the user about a specific event or change in the system status.** Toast notifications do not relate to any specific object on the page and therefore they are placed on top of the content (usually top right or bottom center).
+- **Use inline notifications when information is related to the content or if you want to keep information visible at all times.** Inline notifications are part of the content and should therefore be placed as close as possible to the related part of the content.
+- **Use toast notifications to inform the user about a specific event or change in the system status.** Toast notifications do not relate to any specific object on the page and are therefore placed on top of the content (usually top right or bottom center).
 - **Use invisible notifications to make system state changes more apparent for screen reader users.** Some features (such as moving a product to the shopping cart) are apparent for regular users but screen readers may need extra assist.
 
 ### When to use each status colour (info, success, alert, error)?
@@ -51,7 +51,41 @@ Inline notifications are used as part of the content. They closely relate to the
 
 ##### Core:
 ```html
+<!-- Default -->
+<div class="hds-notification">
+  <div class="hds-notification__label">
+    <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+    <span>New messages</span>
+  </div>
+  <div class="hds-notification__body">You have received new messages.</div>
+</div>
 
+<!-- Success -->
+<div class="hds-notification hds-notification--success">
+  <div class="hds-notification__label">
+    <span class="hds-icon hds-icon--check" aria-hidden="true"></span>
+    <span>Form done</span>
+  </div>
+  <div class="hds-notification__body">Form submit was successful!</div>
+</div>
+
+<!-- Alert -->
+<div class="hds-notification hds-notification--alert">
+  <div class="hds-notification__label">
+    <span class="hds-icon hds-icon--alert-circle" aria-hidden="true"></span>
+    <span>Slow loading</span>
+  </div>
+  <div class="hds-notification__body">Loading is taking longer than expected.</div>
+</div>
+
+<!-- Error -->
+<div class="hds-notification hds-notification--error">
+  <div class="hds-notification__label">
+    <span class="hds-icon hds-icon--error" aria-hidden="true"></span>
+    <span>Missing information</span>
+  </div>
+  <div class="hds-notification__body">Form is missing critical information.</div>
+</div>
 ```
 
 ##### React:
@@ -66,18 +100,64 @@ Inline notifications are used as part of the content. They closely relate to the
 Toasts notifications provide lightweight feedback for changes in system status such as successful saving or Internet disconnection. Toasts appear on top of the content (usually top right or bottom center). By default they are set to disappear automatically. However, be wary using automatically disappearing toasts for critical information such as errors. It is also a good practise to make notifications accessible elsewhere in case the user misses them before they disappear.
 
 <Playground>
-
+  {() => {
+    const [open, setOpen] = React.useState(false)
+    const [autoCloseOpen, setAutoCloseOpen] = React.useState(false)
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>Show toast</Button>
+        <Button onClick={() => setAutoCloseOpen(true)} style={{ display: "flex", marginTop: "var(--spacing-s)" }}>Show automatically disappearing toast</Button>
+        {open && (
+          <Notification label="New messages" position="top-right" dismissible closeButtonLabelText="Close toast" onClose={() => setOpen(false)} style={{ zIndex: 100 }}>
+            You have received new messages.
+          </Notification>
+        )}
+        {autoCloseOpen && (
+          <Notification label="New messages" position="top-right" dismissible autoClose closeButtonLabelText="Close toast" onClose={() => setAutoCloseOpen(false)} style={{ zIndex: 100 }}>
+            You have received new messages.
+          </Notification>
+        )}
+      </>
+    )
+  }}
 </Playground>
+
+
 
 ##### Core:
 ```html
-
+<div class="hds-notification hds-notification--top-right">
+  <div class="hds-notification__label">
+    <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+    <span>New messages</span>
+    <button class="hds-notification__close-button" aria-label="Close toast" type="button" onclick="">
+      <span class="hds-icon hds-icon--cross" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="hds-notification__body">You have received new messages.</div>
+</div>
 ```
 
 ##### React:
 ```tsx
-<Notification size="default" position="top-right" label="New messages" dismissible>You have received new messages.</Notification>
-<Notification size="default" position="top-right" label="New messages" dismissible autoClose displayAutoCloseProgress>You have received new messages.</Notification>
+{() => {
+  const [open, setOpen] = React.useState(false)
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Show toast</Button>
+      {open && (
+        <Notification
+          label="New messages"
+          position="top-right"
+          dismissible
+          onClose={() => setOpen(false)}
+        >
+          You have received new messages.
+        </Notification>
+      )}
+    </>
+  )
+}}
 ```
 
 ### Notification sizes
@@ -91,14 +171,38 @@ HDS notifications come in three different sizes, allowing the designer to choose
 
 ##### Core:
 ```html
+<!-- Large -->
+<div class="hds-notification hds-notification--large">
+  <div class="hds-notification__label">
+    <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+    <span>New messages</span>
+  </div>
+  <div class="hds-notification__body">You have received new messages.</div>
+</div>
 
+<!-- Default -->
+<div class="hds-notification">
+  <div class="hds-notification__label">
+    <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+    <span>New messages</span>
+  </div>
+  <div class="hds-notification__body">You have received new messages.</div>
+</div>
+
+<!-- Small -->
+<div class="hds-notification hds-notification--small">
+  <div class="hds-notification__label">
+    <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+  </div>
+  <div class="hds-notification__body">You have received new messages.</div>
+</div>
 ```
 
 ##### React:
 ```tsx
 <Notification size="large" label="New messages">You have received new messages.</Notification>
 <Notification size="default" label="New messages">You have received new messages.</Notification>
-<Notification size="small" label="New messages">You have received new messages.</Notification>
+<Notification size="small" label="New messages (only visible to screen readers)">You have received new messages.</Notification>
 ```
 
 ### Invisible
@@ -106,22 +210,30 @@ Invisible notifications do not show up on screen and they are meant to aid scree
 
 ##### Core:
 ```html
-
+<div class="hiddenFromScreen" aria-atomic="true" aria-live="assertive" role="status">
+  <div class="hds-notification">
+    <div class="hds-notification__label">
+      <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+      <span>New messages</span>
+    </div>
+    <div class="hds-notification__body">You have received new messages. This notification is invisible.</div>
+  </div>
+</div>
 ```
 
 ##### React:
 ```tsx
-<Notification size="default" label="New messages" invisible>You have received new messages. This notification is invisible.</Notification>
+<Notification label="New messages" invisible>You have received new messages. This notification is invisible.</Notification>
 ```
 
 ## Demos & API
 
 ### Core
 
-[Notifications in hds-core](//storybook/core/?path=/docs/notification--default)
+[Notifications in hds-core](/storybook/core/?path=/story/components-notification--default)
 
 ### React
 
-[Notifications in hds-react](/storybook/react/?path=/docs/components-notification--default)
+[Notifications in hds-react](/storybook/react/?path=/story/components-notification--default)
 
 [Notifications API](/storybook/react/?path=/docs/components-notification--default)
