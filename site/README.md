@@ -108,4 +108,4 @@ Make a change to any of the documentation `.mdx` files and refresh the page. You
 
 **After changes the page renders completely empty or some of the content does not show on the page**
 
-If you have used custom React components inlined (like the Link component), Gatsby does not render those paragraphs correctly. The fix is to wrap the text into paragraph tags. This way Gatsby 
+If you have used custom React components inlined (like the Link component), Gatsby does not render those paragraphs correctly. The fix is to wrap the text into paragraph tags. This way Gatsby correctly recognizes and renders React components.
