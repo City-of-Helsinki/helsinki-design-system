@@ -45,7 +45,6 @@ export const Example = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [language, setLanguage] = useState(languageOptions[0]);
   const [active, setActive] = useState<'link' | 'button' | 'dropdown'>();
-  // const [menuOpen, setMenuOpen] = useState(false);
 
   // show helsingfors logo if swedish is selected as the language
   const logoLanguage = language.value === 'sv' ? 'sv' : 'fi';
@@ -64,11 +63,9 @@ export const Example = () => {
       logoLanguage={logoLanguage}
       menuCloseAriaLabel="Close menu"
       menuOpenAriaLabel="Open menu"
-      // menuOpen={menuOpen}
-      // onMenuToggle={() => setMenuOpen(!menuOpen)}
       theme={theme}
       title={title}
-      titleUrl="https://google.com"
+      titleUrl="https://hel.fi"
       skipTo="#content"
       skipToContentLabel="Skip to main content"
     >
@@ -80,10 +77,7 @@ export const Example = () => {
           as="button"
           label="Button"
           type="button"
-          onClick={() => {
-            // setMenuOpen(false);
-            setActive('button');
-          }}
+          onClick={() => setActive('button')}
         />
         <Navigation.Dropdown active={active === 'dropdown'} label="Dropdown">
           <Navigation.Item label="Link to hel.fi" href="https://hel.fi" target="_blank" />
@@ -126,6 +120,29 @@ export const Example = () => {
           formatOptionLabel={formatOptionLabel}
           onLanguageChange={setLanguage}
           value={language}
+        />
+      </Navigation.Actions>
+    </Navigation>
+  );
+};
+
+export const ControlledMenu = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  return (
+    <Navigation
+      menuCloseAriaLabel="Close menu"
+      menuOpenAriaLabel="Open menu"
+      menuOpen={menuOpen}
+      onMenuToggle={() => setMenuOpen(!menuOpen)}
+      title="Controlled menu"
+      skipTo="#"
+      skipToContentLabel="Skip to main content"
+    >
+      <Navigation.Actions>
+        <Navigation.Search
+          searchLabel="Search"
+          searchPlaceholder="Type to close"
+          onSearchChange={() => setMenuOpen(false)}
         />
       </Navigation.Actions>
     </Navigation>
