@@ -20,7 +20,7 @@
     "storybook": "start-storybook -p 6006 --quiet",
     "build-storybook": "build-storybook --loglevel error",
     "test": "jest",
-    "prepublishOnly": "cp -R lib/ ."
+    "prepublishOnly": "cp -r ./lib/. ."
   },
   "devDependencies": {
     "@babel/core": "7.9.6",
