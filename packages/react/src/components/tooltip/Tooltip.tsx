@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Transition, animated } from 'react-spring';
 
 // import core base styles
 import 'hds-core';
@@ -36,7 +35,7 @@ export const Tooltip = ({
           <IconQuestionCircle className={styles.iconTooltip} />
         </span>
       </button>
-      <TooltipTransition open={isOpen}>
+      {isOpen && (
         <div className={classNames(styles.tooltip, alternative && styles.alternative)}>
           <div className={styles.label}>
             <span aria-hidden="true">
@@ -57,27 +56,9 @@ export const Tooltip = ({
           </div>
           <div className={styles.tooltipBody}>{children}</div>
         </div>
-      </TooltipTransition>
+      )}
     </div>
   );
 };
-
-type TooltipTransitionProps = React.PropsWithChildren<{ open: boolean }>;
-
-function TooltipTransition({ children, open }: TooltipTransitionProps) {
-  return (
-    <Transition
-      config={{ tension: 300, friction: 30 }}
-      items={open}
-      from={{ height: 0 }}
-      enter={{ height: 'auto' }}
-      leave={{ height: 0 }}
-    >
-      {(props, show) =>
-        show && <animated.div style={{ ...props, ...{ overflowY: 'hidden' } }}>{children}</animated.div>
-      }
-    </Transition>
-  );
-}
 
 export default Tooltip;

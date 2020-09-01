@@ -1,0 +1,137 @@
+@value x-small-down, small-down, small-only, medium-only, medium-up, large-up, x-large-up from "../../../styles/breakpoints.css";
+
+.navigationSearch {
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+/* OPEN SEARCH BUTTON */
+
+/* button */
+.openSearch {
+  composes: button-reset from 'hds-core/lib/utils/helpers.css';
+
+}
+
+.navigationSearch .openSearch {
+  align-items: center;
+  display: flex;
+  outline: none;
+  padding: var(--spacing-3-xs);
+}
+
+.navigationSearch.active .openSearch {
+  display: none;
+}
+
+/* SEARCH INPUT FIELD */
+
+/* input */
+.input {
+  --input-height: 100%;
+
+  --focus-outline-color: var(--header-focus-outline-color);
+
+  font-size: var(--fontsize-body-s);
+  height: calc(100% - var(--outline-width) * 2);
+}
+
+.input.input input {
+  padding-right: calc(var(--icon-size) + var(--spacing-l));
+}
+
+/* icon */
+.inputIcon {
+  pointer-events: none;
+  position: absolute;
+}
+
+/* THEMES */
+
+/* black */
+header:global(.theme-black) .inputIcon {
+  color: var(--color-black);
+}
+
+/* MEDIA */
+
+@media x-small-down {
+  .navigationSearch {
+    padding: var(--spacing-m) var(--spacing-s);
+  }
+
+  .inputIcon {
+    right: var(--spacing-l);
+  }
+}
+
+@media small-down {
+  .input {
+    --input-height: 2.75rem;
+
+    font-size: var(--fontsize-body-s);
+    height: calc(100% - var(--outline-width) * 2);
+    width: 100%;
+  }
+}
+
+@media small-only {
+  .navigationSearch {
+    padding: var(--spacing-m) var(--spacing-xs);
+  }
+
+  .inputIcon {
+    right: calc(var(--spacing-s) + var(--spacing-xs));
+  }
+}
+
+
+@media medium-only {
+  .label {
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    text-decoration: none;
+    width: 1px;
+  }
+}
+
+@media medium-up {
+  .navigationSearch {
+    cursor: pointer;
+    height: 100%;
+  }
+
+  .navigationSearch.active .openSearch {
+    visibility: hidden;
+    display: none;
+  }
+
+  .navigationSearch.active .input {
+    display: block;
+    position: absolute;
+    right: 0;
+    width: 11rem;
+  }
+
+  .inputIcon {
+    right: var(--spacing-s);
+  }
+}
+
+@media large-up {
+  .label {
+    display: inline;
+    margin-left: var(--spacing-2-xs);
+  }
+}
+
+@media x-large-up {
+  .navigationSearch.active .input {
+    width: 13rem;
+  }
+}
