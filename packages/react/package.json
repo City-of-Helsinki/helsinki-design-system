@@ -5,7 +5,7 @@
   "main": "./index.js",
   "module": "./index.js",
   "types": "./index.d.ts",
-  "sideEffects": false,
+  "sideEffects": ["*.css"],
   "scripts": {
     "build": "yarn run lint && yarn run tcm && rollup -c",
     "start": "tcm src internal --watch & yarn storybook",

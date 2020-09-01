@@ -37,9 +37,6 @@ export default {
       compact: true,
     },
   ],
-  treeshake: {
-    moduleSideEffects: false,
-  },
   plugins: [
     includePaths({ paths: ['src'], extensions }),
     resolve(),
