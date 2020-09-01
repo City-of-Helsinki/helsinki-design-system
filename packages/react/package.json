@@ -2,9 +2,10 @@
   "name": "hds-react",
   "version": "0.12.1",
   "license": "MIT",
-  "main": "./umd/index.js",
+  "main": "./index.js",
   "module": "./index.js",
   "types": "./index.d.ts",
+  "sideEffects": false,
   "scripts": {
     "build": "yarn run lint && yarn run tcm && rollup -c",
     "start": "tcm src internal --watch & yarn storybook",
@@ -77,7 +78,7 @@
   },
   "dependencies": {
     "@babel/runtime": "7.11.2",
-    "@react-aria/visually-hidden": "3.1.0",
+    "@react-aria/visually-hidden": "3.2.0",
     "downshift": "5.4.0",
     "hds-core": "0.12.1",
     "lodash.isequal": "4.5.0",

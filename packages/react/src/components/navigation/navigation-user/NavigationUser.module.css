@@ -1,0 +1,81 @@
+@value x-small-down, small-down, small-only, small-up, medium-only, medium-up, large-up from "../../../styles/breakpoints.css";
+
+.signInButton > span {
+  padding: var(--spacing-2-xs);
+}
+
+@media x-small-down {
+  .navigationUser {
+    padding: var(--spacing-m) var(--spacing-s);
+  }
+}
+
+@media small-down {
+  .userName {
+    align-items: center;
+    display: flex;
+  }
+
+  .userName > svg {
+    margin-right: var(--spacing-xs);
+  }
+
+  .navigationUser > *:not(:first-child) {
+    margin-top: var(--spacing-s);
+  }
+}
+
+@media small-only {
+  .navigationUser {
+    padding: var(--spacing-m) var(--spacing-xs);
+  }
+}
+
+@media medium-only {
+  .signInButton > span {
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    text-decoration: none;
+    width: 1px;
+  }
+}
+
+@media medium-up {
+  .navigationUser {
+    display: flex;
+  }
+
+  .navigationUser .signInButton {
+    --border-width: 3px;
+
+    --background-color: transparent;
+    --background-color-hover: transparent;
+    --background-color-hover-focus: transparent;
+    --border-color-focus: var(--header-focus-outline-color);
+    --border-color-hover-focus: var(--header-focus-outline-color);
+    --color: inherit;
+    --color-hover: inherit;
+    --color-focus: inherit;
+    --color-hover-focus: inherit;
+    --focus-outline-color: transparent;
+
+    border-radius: 2px;
+    height: 100%;
+    padding: var(--spacing-2-xs);
+  }
+
+  /* icon */
+  .navigationUser .signInButton > div {
+    margin-left: 0;
+  }
+}
+
+@media large-up {
+  .navigationUser .signInButton {
+    padding: 0 var(--spacing-3-xs);
+  }
+}

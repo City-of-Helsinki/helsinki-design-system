@@ -3436,13 +3436,33 @@
   dependencies:
     tslib "^1.11.2"
 
-"@react-aria/visually-hidden@3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@react-aria/visually-hidden/-/visually-hidden-3.1.0.tgz#0dcbd55a92ebb0641b249ac5644cd6e8423c512b"
-  integrity sha512-cZqtwQ8Rckzj8PS4LR/MGYPIKtXnw7OvJ+SLrEBq03EskYfyrdCeFBk9Lq4Ut91KK3aHLOrmy4h486FPb17A9w==
+"@react-aria/interactions@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@react-aria/interactions/-/interactions-3.2.0.tgz#43d28489f8e1ec333127221ed1a2a7c92783dd01"
+  integrity sha512-NhXnEOimpp+3K5XUbiM4DxhZ2LykT1Vy7iGaRk1alm7S//y+dxzNm7VzvjAI2+YeMbv6TbdtiPVfXB/+Xi+D9w==
   dependencies:
     "@babel/runtime" "^7.6.2"
-    classnames "^2.2.5"
+    "@react-aria/utils" "^3.2.0"
+    "@react-types/shared" "^3.2.0"
+
+"@react-aria/utils@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@react-aria/utils/-/utils-3.2.0.tgz#67d39dbba9d96612b4f9b3fe5c3243db4196b6f2"
+  integrity sha512-o2Far+gAnp78QksjlQTqo4Qq3A2f6ll931C7Q0RU2OIG/ImRHlSczqyMOPBlHRnEGyD+1ctWkmcHkdP4CvuD7g==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-types/shared" "^3.2.0"
+    clsx "^1.1.1"
+
+"@react-aria/visually-hidden@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@react-aria/visually-hidden/-/visually-hidden-3.2.0.tgz#740730368c8572de397c9d82ff5700fd7e034907"
+  integrity sha512-eqLfU4ISWyRb8UM1YFRnxXdjNpjQNixj0sHT8usWJNuQrZt0ebDdu/Kv2Ir3VUYr+GldoeKGYMDFHKwFLll1Hg==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/interactions" "^3.2.0"
+    "@react-aria/utils" "^3.2.0"
+    clsx "^1.1.1"
 
 "@react-spring/animated@9.0.0-rc.3":
   version "9.0.0-rc.3"
@@ -3523,6 +3543,11 @@
     "@react-spring/animated" "9.0.0-rc.3"
     "@react-spring/core" "9.0.0-rc.3"
     "@react-spring/shared" "9.0.0-rc.3"
+
+"@react-types/shared@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@react-types/shared/-/shared-3.2.0.tgz#531c320e6b8f01f614336c14cee50ecf9fca4a4d"
+  integrity sha512-0oVULza+qc8+j7I9OB74FVjbrH6JzUAYDAkTYXbsaPt/w4quAlgd4ADy9yxIVYyN1GCXp/z0AUuocaYDHA8O6Q==
 
 "@rollup/plugin-babel@5.2.0":
   version "5.2.0"
@@ -8051,6 +8076,11 @@ clone@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
+
+clsx@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
+  integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
 
 co@^4.6.0:
   version "4.6.0"

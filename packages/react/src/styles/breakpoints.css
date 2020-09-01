@@ -1,0 +1,15 @@
+@value small-up: only screen and (min-width: 576px);
+@value medium-up: only screen and (min-width: 768px);
+@value large-up: only screen and (min-width: 992px);
+@value x-large-up: only screen and (min-width: 1248px);
+
+@value x-small-down: only screen and (max-width: 575.98px);
+@value small-down: only screen and (max-width: 767.98px);
+@value medium-down: only screen and (max-width: 991.98px);
+@value large-down: only screen and (max-width: 1247.98px);
+
+@value x-small-only: only screen and (max-width: 575.98px);
+@value small-only: only screen and (min-width: 576px) and (max-width: 767.98px);
+@value medium-only: only screen and (min-width: 768px) and (max-width: 991.98px);
+@value large-only: only screen and (min-width: 992px) and (max-width: 1247.98px);
+@value x-large-only: only screen and (min-width: 1248px);

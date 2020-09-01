@@ -70,8 +70,6 @@ type CommonProps = React.PropsWithChildren<{
   style?: React.CSSProperties;
   /**
    * The type of the notification
-   *
-   * Available options: `'info' | 'error' | 'alert' | 'success'`
    * @default 'info'
    */
   type?: NotificationType;
@@ -82,14 +80,10 @@ type PositionAndSize =
   | {
       /**
        * The position of the notification
-       *
-       * Available options: `'inline' | 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'`
        */
       position?: NotificationPosition;
       /**
        * The size of the notification
-       *
-       * Available options: `'default' | 'small' | 'large'`
        */
       size?: NotificationSizeToast;
     };
