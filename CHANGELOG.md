@@ -20,12 +20,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Design kit
 #### Added
 - Navigation symbols
-- Separate symbols for light and dark background colors
-- Separate symbols for each breakpoint
-- Free form navigation symbol for service which do not follow HDS breakpoint tokens
+    - Separate symbols for light and dark background colors
+    - Separate symbols for each breakpoint
+    - Free form navigation symbol for service which do not follow HDS breakpoint tokens
 - Modals and Notifications library back to the design kit
-- Inline notifications that are used within content. They can be configured to be closable.
-- Toast notifications that are animated into view from upper right or bottom. They can be configured to disappear automatically.
+    - Inline notifications that are used within content. They can be configured to be closable.
+    - Toast notifications that are animated into view from upper right or bottom. They can be configured to disappear automatically.
 - New Tooltip design (implementation not yet released)
 
 #### Changed
