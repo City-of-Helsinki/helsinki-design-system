@@ -55,7 +55,7 @@
   font-size: var(--fontsize-body-m);
 }
 
-.menuItem:first-child {
+.languageSelectorDropdown .menuItem:first-child {
   border: 0;
 }
 

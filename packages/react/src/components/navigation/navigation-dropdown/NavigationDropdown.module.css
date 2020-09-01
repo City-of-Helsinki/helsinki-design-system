@@ -88,13 +88,10 @@
   font-size: var(--fontsize-body-m);
 }
 
-.option {
-  composes: button-reset from 'hds-core/lib/utils/helpers.css';
-}
-
 .navigationDropdown .option {
   align-items: center;
   background-color: inherit;
+  border: 0;
   color: inherit;
   display: flex;
   outline: none;
