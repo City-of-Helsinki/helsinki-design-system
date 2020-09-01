@@ -140,24 +140,13 @@ Toasts notifications provide lightweight feedback for changes in system status s
 
 ##### React:
 ```tsx
-{() => {
-  const [open, setOpen] = React.useState(false)
-  return (
-    <>
-      <Button onClick={() => setOpen(true)}>Show toast</Button>
-      {open && (
-        <Notification
-          label="New messages"
-          position="top-right"
-          dismissible
-          onClose={() => setOpen(false)}
-        >
-          You have received new messages.
-        </Notification>
-      )}
-    </>
-  )
-}}
+<Notification label="New messages" position="top-right" dismissible closeButtonLabelText="Close toast" onClose={() => setOpen(false)}>
+  You have received new messages.
+</Notification>
+
+<Notification label="New messages" position="top-right" dismissible autoClose closeButtonLabelText="Close toast" onClose={() => setAutoCloseOpen(false)}>
+  You have received new messages.
+</Notification>
 ```
 
 ### Notification sizes
@@ -200,8 +189,8 @@ HDS notifications come in three different sizes, allowing the designer to choose
 
 ##### React:
 ```tsx
-<Notification size="large" label="New messages">You have received new messages.</Notification>
-<Notification size="default" label="New messages">You have received new messages.</Notification>
+<Notification size="large" label="New messages (only visible to screen readers)">You have received new messages.</Notification>
+<Notification size="default" label="New messages (only visible to screen readers)">You have received new messages.</Notification>
 <Notification size="small" label="New messages (only visible to screen readers)">You have received new messages.</Notification>
 ```
 
