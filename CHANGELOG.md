@@ -42,6 +42,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Design tokens
 #### Changed
 - Added fallback fonts to the default font token
+- Updated the breakpoint and container width token values
+
+| breakpoint token | old  | new |
+| ---------------- | -----| ---- |
+| xl               | 1224 | 1248 |
+
+| container width token | old | new |
+| --------------------- | --- | --- |
+| xs                    | 304 | 288 |
+| s                     | 560 | 544 |
+| m                     | 752 | 720 |
+| l                     | 968 | 944 |
+| xl                    | 1200 | 1200 |
 
 ### Documentation
 #### Added
