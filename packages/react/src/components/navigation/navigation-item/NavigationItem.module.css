@@ -1,0 +1,38 @@
+.item {
+  composes: hds-button hds-button--fullwidth from 'hds-core/lib/components/button/button.css';
+}
+
+.item.item {
+  line-height: var(--lineheight-s);
+  padding: var(--spacing-2-xs);
+  text-decoration: none;
+}
+
+.primary {
+  composes: item;
+  composes: hds-button--primary from 'hds-core/lib/components/button/button.css';
+}
+
+.secondary {
+  composes: item;
+  composes: hds-button--secondary from 'hds-core/lib/components/button/button.css';
+}
+
+.supplementary {
+  composes: item;
+  composes: hds-button--supplementary from 'hds-core/lib/components/button/button.css';
+}
+
+.item .supplementary {
+  --border-width: 3px;
+}
+
+.item .primary::after,
+.item .secondary::after,
+.item .supplementary::after {
+  --offset: calc((var(--border-width) + var(--outline-gutter) + var(--outline-width)) * -1);
+  left: 0;
+  top: 0;
+  transform: translate(var(--offset), var(--offset));
+}
+

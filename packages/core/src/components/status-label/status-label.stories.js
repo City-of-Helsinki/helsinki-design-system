@@ -1,7 +1,7 @@
 import './status-label.css';
 
 export default {
-  title: 'Status label',
+  title: 'Components/Status label',
 };
 
 export const Default = () => `

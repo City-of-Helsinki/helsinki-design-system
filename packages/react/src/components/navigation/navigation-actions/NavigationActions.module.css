@@ -1,0 +1,30 @@
+@value medium-only, medium-up, large-only, x-large-up from "../../../styles/breakpoints.css";
+
+@media medium-up {
+  .navigationActions {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    flex: none;
+    margin-left: auto;
+    padding: var(--spacing-xs) 0;
+  }
+}
+
+@media medium-only {
+  .navigationActions > *:not(:first-child) {
+    margin-left: var(--spacing-xs);
+  }
+}
+
+@media large-only {
+  .navigationActions > *:not(:first-child) {
+    margin-left: var(--spacing-m);
+  }
+}
+
+@media x-large-up {
+  .navigationActions > *:not(:first-child) {
+    margin-left: var(--spacing-l);
+  }
+}

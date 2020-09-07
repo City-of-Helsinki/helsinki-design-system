@@ -1,12 +1,14 @@
-import React, { CSSProperties, FC, PropsWithChildren, ReactNode, useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useCombobox, useMultipleSelection, useSelect } from 'downshift';
 import isEqual from 'lodash.isequal';
 
+// import core base styles
+import 'hds-core';
 import styles from './Dropdown.module.css';
 import classNames from '../../utils/classNames';
 import { IconAngleDown, IconCheck, IconAlertCircle } from '../../icons';
-import Checkbox from '../checkbox/Checkbox';
-import FieldLabel from '../../internal/field-label/FieldLabel';
+import { Checkbox } from '../checkbox';
+import { FieldLabel } from '../../internal/field-label/FieldLabel';
 
 type OptionType = {
   [key: string]: any;
@@ -35,13 +37,12 @@ export type DropdownProps = {
   filterable?: boolean;
   /**
    * Function used to set the `id` prop for menu options (`li`). The returned `string` value will be set a the option `id`
-   * @param index Data item index
    */
   getItemId?: (index: number) => string;
   /**
    * The helper text content that will be shown below the dropdown
    */
-  helper?: string | ReactNode;
+  helper?: string | React.ReactNode;
   /**
    * Hides the label above the dropdown
    */
@@ -65,8 +66,6 @@ export type DropdownProps = {
   invalid?: boolean;
   /**
    * A function used to detect whether an option is disabled ([example](/?path=/story/components-dropdown--disabled-options))
-   * @param option  Data item
-   * @param index   Data item index
    */
   isOptionDisabled?: (option: OptionType, index: number) => boolean;
   /**
@@ -81,7 +80,7 @@ export type DropdownProps = {
   /**
    * The label for the dropdown
    */
-  label?: string | ReactNode;
+  label?: string | React.ReactNode;
   /**
    * Sets the `id` prop for the input element when `filterable` is `true`
    */
@@ -98,7 +97,6 @@ export type DropdownProps = {
   multiselect?: boolean;
   /**
    * Callback fired when the state is changed
-   * @param selectedItems Selected item(s)
    */
   onChange?: (selectedItems: OptionType | OptionType[]) => void;
   /**
@@ -120,7 +118,7 @@ export type DropdownProps = {
   /**
    * Override or extend the root styles applied to the component
    */
-  style?: CSSProperties;
+  style?: React.CSSProperties;
   /**
    * Sets the `id` prop for the toggle button (`button`)
    */
@@ -131,7 +129,7 @@ export type DropdownProps = {
   visibleOptions?: number;
 };
 
-type WrapperProps = PropsWithChildren<{
+type WrapperProps = React.PropsWithChildren<{
   filterable: boolean;
   getComboboxProps: any;
 }>;
@@ -142,14 +140,23 @@ type WrapperProps = PropsWithChildren<{
  * @param getComboboxProps  Prop getter function required by Downshift to work correctly
  * @param children
  */
-const Wrapper: FC<WrapperProps> = ({ filterable, getComboboxProps, children }: WrapperProps) =>
+const Wrapper = ({ filterable, getComboboxProps, children }: WrapperProps) =>
   filterable ? (
     <div {...getComboboxProps({ className: styles.wrapper })}>{children}</div>
   ) : (
     <div className={styles.wrapper}>{children}</div>
   );
 
-const Dropdown: FC<DropdownProps> = ({
+/**
+ * Helper that checks if an item is in the selected options
+ * @param selectedOptions Currently selected options
+ * @param item            Item we want to check
+ */
+function getIsInSelectedOptions(selectedOptions: OptionType[], item: OptionType): boolean {
+  return selectedOptions.some((selectedOption: OptionType) => isEqual(selectedOption, item));
+}
+
+export const Dropdown = ({
   circularNavigation = false,
   className,
   closeMenuOnSelect = true,
@@ -168,9 +175,7 @@ const Dropdown: FC<DropdownProps> = ({
   inputId,
   menuId,
   multiselect = false,
-  onChange = () => {
-    // do nothing by default
-  },
+  onChange = () => null,
   optionLabelField = 'label',
   options = [],
   placeholder = '',
@@ -186,6 +191,12 @@ const Dropdown: FC<DropdownProps> = ({
     // eslint-disable-next-line no-param-reassign
     multiselect = false;
   }
+
+  // toggle button ref
+  const toggleButtonRef = useRef(null);
+
+  // focuses the dropdown toggle button
+  const focusToggleButton = () => toggleButtonRef.current?.focus();
 
   // combobox menu options
   const [inputItems, setInputItems] = useState(options);
@@ -280,7 +291,7 @@ const Dropdown: FC<DropdownProps> = ({
   } = filterable ? combobox : select;
 
   // returns the toggle button label based on the dropdown mode
-  const getButtonLabel = (): ReactNode => {
+  const getButtonLabel = (): React.ReactNode => {
     if (filterable) return null;
 
     const buttonLabel = multiselect
@@ -336,6 +347,8 @@ const Dropdown: FC<DropdownProps> = ({
               showPlaceholder && styles.placeholder,
               styles.buttonReset,
             ),
+            ref: toggleButtonRef,
+            refKey: 'ref',
           })}
         >
           {getButtonLabel()}
@@ -348,12 +361,15 @@ const Dropdown: FC<DropdownProps> = ({
         {...getMenuProps({
           className: classNames(styles.menu, menuOptions.length > visibleOptions && styles.overflow),
           style: { maxHeight: `calc(var(--dropdown-height) * ${visibleOptions})` },
+          onKeyDown: (event) => {
+            if (event.key === 'Tab') focusToggleButton();
+          },
         })}
       >
         {isOpen &&
           menuOptions.map((item, index) => {
             const optionLabel = item[optionLabelField];
-            const selected = multiselect ? selectedItems.includes(item) : isEqual(selectedItem, item);
+            const selected = multiselect ? getIsInSelectedOptions(selectedItems, item) : isEqual(selectedItem, item);
             const optionDisabled = typeof isOptionDisabled === 'function' ? isOptionDisabled(item, index) : false;
 
             return (
@@ -393,5 +409,3 @@ const Dropdown: FC<DropdownProps> = ({
     </div>
   );
 };
-
-export default Dropdown;

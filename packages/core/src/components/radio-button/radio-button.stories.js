@@ -4,7 +4,7 @@ const getLabel = (id = 'input', label = 'Option') =>
   `<label for="${id}" class="hds-radio-button__label">${label}</label>`;
 
 export default {
-  title: 'Radio button',
+  title: 'Components/Radio button',
 };
 
 export const Default = () => `
@@ -34,7 +34,4 @@ export const SelectedDisabled = () => `
       ${getLabel('radio4')}
     </div>
 `;
-
-SelectedDisabled.story = {
-  name: 'Selected & disabled',
-};
+SelectedDisabled.storyName = 'Selected & disabled';

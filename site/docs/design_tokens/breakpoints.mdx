@@ -31,7 +31,7 @@ The breakpoint tokens are divided into two sets;
 - **Breakpoint tokens** define exact widths (in pixels) where the next breakpoint comes into effect. 
 - **Container width tokens** define maximum container width in each breakpoint.
 
-**Note how these two sets of tokens are linked.** You are supposed pick and use tokens from same level depending on the screen width. For example, when screen width is above 769 pixels and below 994 pixels you use `--breakpoint-m` token in combination with `--container-width-m` token.
+**Note how these two sets of tokens are linked.** You are supposed pick and use tokens from same level depending on the screen width. For example, when screen width is above 767 pixels and below 992 pixels you use `--breakpoint-m` token in combination with `--container-width-m` token.
 
 
 ## Tokens
@@ -42,15 +42,15 @@ CSS             | SASS           | px value | Scaling method
 --breakpoint-s  | $breakpoint-s  | ≥ 576    | Scale outside margins
 --breakpoint-m  | $breakpoint-m  | ≥ 768    | Scale outside margins
 --breakpoint-l  | $breakpoint-l  | ≥ 992    | Scale outside margins
---breakpoint-xl | $breakpoint-xl | ≥ 1224   | Scale outside margins
+--breakpoint-xl | $breakpoint-xl | ≥ 1248   | Scale outside margins
 
 ### Maximum container widths
 CSS                  | SASS                | px value
 ---------------------|---------------------|---------
---container-width-xs | $container-width-xs | 304
---container-width-s  | $container-width-s  | 560
---container-width-m  | $container-width-m  | 752
---container-width-l  | $container-width-l  | 968
+--container-width-xs | $container-width-xs | 288
+--container-width-s  | $container-width-s  | 544
+--container-width-m  | $container-width-m  | 720
+--container-width-l  | $container-width-l  | 944
 --container-width-xl | $container-width-xl | 1200
 
 

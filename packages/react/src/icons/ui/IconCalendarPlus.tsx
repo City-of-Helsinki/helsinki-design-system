@@ -4,13 +4,13 @@ import { IconProps } from '../Icon.interface';
 import classNames from '../../utils/classNames';
 import styles from '../Icon.module.css';
 
-const IconCalendarPlus: React.FC<IconProps> = ({ size = 's', className = '', style = {}, ...rest }: IconProps) => (
+export const IconCalendarPlus = ({ size = 's', className = '', style = {}, ...rest }: IconProps) => (
   <svg
     className={classNames(styles.icon, styles[size], className)}
     style={style}
     viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
     {...rest}
+    xmlns="http://www.w3.org/2000/svg"
   >
     <g fill="none" fillRule="evenodd">
       <path d="M0 0h24v24H0z" />
@@ -21,5 +21,3 @@ const IconCalendarPlus: React.FC<IconProps> = ({ size = 's', className = '', sty
     </g>
   </svg>
 );
-
-export default IconCalendarPlus;
