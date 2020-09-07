@@ -26,7 +26,10 @@ const menu = [
     menu: ['What is new', 'Roadmap', 'Support', 'Accessibility statement'],
   },
   'Resources',
-  'Contributing',
+  {
+    name: 'Contributing',
+    menu: ['Before contributing', 'Design', 'Implementation', 'Documentation'],
+  },
 ];
 
 export default {
