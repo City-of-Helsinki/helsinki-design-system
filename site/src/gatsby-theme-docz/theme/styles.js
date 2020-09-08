@@ -42,9 +42,6 @@ const styles = {
   li: {
     marginBottom: 1,
     maxWidth: 600,
-    '> p': {
-      m: 0,
-    },
   },
   ul: {
     marginBottom: 1,
