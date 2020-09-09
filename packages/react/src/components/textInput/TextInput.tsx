@@ -92,7 +92,7 @@ export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
   ref?: React.Ref<HTMLInputElement>;
 };
 
-export const TextInput = React.forwardRef(
+export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
       className = '',
