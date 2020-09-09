@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
+## [0.13.1] - September 9, 2020
+### Documentation
+#### Added
+- First version of date and time format guidelines
+- All components' statuses are now marked with labels. You can find the label explanations in the [Component overview page](https://hds.hel.fi/components)
+
+#### Changed
+- Updated For Designers section Abstract and Sketch screenshots
+
+#### Fixed
+- Fixed the core component storybook links 
+
+### React
+#### Fixed
+- Fixed typings for the `Button`, `Checkbox`, `RadioButton`, `TextArea` and `TextInput` components
+- [Dropdown] Fixed an issue where the label hover color couldn't be overridden for multiselect dropdowns
+
+
 ## [0.13.0] - September 1, 2020
 ### Core
 #### Breaking Changes
