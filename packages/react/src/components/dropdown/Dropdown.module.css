@@ -267,6 +267,7 @@
 
 .menuItem.highlighted .checkbox {
   --border-color-unselected: var(--color-black-90);
+  --label-color: var(--menu-item-color-hover);
 }
 
 /* ICONS */

@@ -382,8 +382,9 @@ export const Dropdown = ({
                   className: classNames(
                     styles.menuItem,
                     highlightedIndex === index && styles.highlighted,
-                    isEqual(selectedItem, item) && styles.selected,
+                    selected && styles.selected,
                     optionDisabled && styles.disabled,
+                    multiselect && styles.multiselect,
                   ),
                 })}
               >
