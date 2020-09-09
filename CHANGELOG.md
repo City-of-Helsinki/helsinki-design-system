@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Documentation
 #### Added
 - First version of date and time format guidelines
-- All components' statuses are now marked with labels. You can find the label explanations in the [Component overview page](https://hds.hel.fi/components)
+- All components' statuses are now marked with labels. You can find the label explanations in the [Component overview page](https://hds.hel.fi/components#component-status)
 
 #### Changed
 - Updated For Designers section Abstract and Sketch screenshots
@@ -21,8 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### React
 #### Fixed
-- Fixed typings for the `Button`, `Checkbox`, `RadioButton`, `TextArea` and `TextInput` components
-- [Dropdown] Fixed an issue where the label hover color couldn't be overridden for multiselect dropdowns
+- Fixed typings for the `Button`, `Checkbox`, `RadioButton`, `TextArea` and `TextInput` components. in ([#240](https://github.com/City-of-Helsinki/helsinki-design-system/pull/240))
+- [Dropdown] Fixed an issue where the label hover color couldn't be overridden for multiselect dropdowns. in ([#241](https://github.com/City-of-Helsinki/helsinki-design-system/pull/241))
 
 
 ## [0.13.0] - September 1, 2020
