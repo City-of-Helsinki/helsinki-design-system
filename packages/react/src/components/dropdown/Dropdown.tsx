@@ -344,8 +344,8 @@ export const Dropdown = ({
             disabled,
             className: classNames(
               !filterable && styles.buttonDropdown,
+              filterable && styles.filterDropdown,
               showPlaceholder && styles.placeholder,
-              styles.buttonReset,
             ),
             ref: toggleButtonRef,
             refKey: 'ref',
@@ -382,8 +382,9 @@ export const Dropdown = ({
                   className: classNames(
                     styles.menuItem,
                     highlightedIndex === index && styles.highlighted,
-                    isEqual(selectedItem, item) && styles.selected,
+                    selected && styles.selected,
                     optionDisabled && styles.disabled,
+                    multiselect && styles.multiselect,
                   ),
                 })}
               >
