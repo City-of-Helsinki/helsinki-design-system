@@ -344,8 +344,8 @@ export const Dropdown = ({
             disabled,
             className: classNames(
               !filterable && styles.buttonDropdown,
+              filterable && styles.filterDropdown,
               showPlaceholder && styles.placeholder,
-              styles.buttonReset,
             ),
             ref: toggleButtonRef,
             refKey: 'ref',

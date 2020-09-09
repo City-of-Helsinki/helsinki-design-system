@@ -118,8 +118,13 @@
   white-space: nowrap;
 }
 
-.buttonReset {
-  composes: button-reset from 'hds-core/lib/utils/helpers.css';
+.filterDropdown {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
 }
 
 /* INVALID */
