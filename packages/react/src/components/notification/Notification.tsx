@@ -237,7 +237,7 @@ export const Notification = ({
       <animated.div
         // there is an issue with react-spring -rc3 and a new version of @types/react: https://github.com/react-spring/react-spring/issues/1102
         // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-        style={{ ...(style as any), ...notificationTransition }}
+        style={{ ...notificationTransition, ...(style as any) }}
         className={classNames(
           styles[position],
           styles.notification,
