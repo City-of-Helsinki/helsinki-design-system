@@ -48,7 +48,7 @@ export type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
   size?: ButtonSize;
 };
 
-export const Button = React.forwardRef(
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       children,

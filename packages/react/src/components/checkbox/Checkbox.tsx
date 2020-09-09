@@ -45,7 +45,7 @@ export type CheckboxProps = React.ComponentPropsWithoutRef<'input'> & {
   value?: string;
 };
 
-export const Checkbox = React.forwardRef(
+export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
       checked = false,
