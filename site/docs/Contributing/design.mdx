@@ -7,31 +7,39 @@ route: /contributing/design
 import Image from "../../src/components/Image";
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Link from "../../src/components/Link";
-import { Notification } from "hds-react";
+import { Notification } from "hds-react"; 
+import { AlertCircle } from "hds-react";
 
 
 # Contributing to Design
 <LargeParagraph>
-* * *
+    Consistent design of components ensures a great user experience across services. You can contribute to HDS design libraries by proposing new components or additional features and fixes to existing ones.
 </LargeParagraph>
 
-<p>HDS design versions are managed in City of Helsinki Abstract, in a project called Helsinki Design System. The design assets are also available as a kit which is downloadable from the official <Link href="https://github.com/City-of-Helsinki/helsinki-design-system/releases" external>HDS repository releases</Link>.</p>
+<p>
+    HDS design versions are managed in City of Helsinki Abstract, in a project called <Link href="https://share.goabstract.com/4be1120f-5c64-4937-9a56-0484b26e20d7" external>Helsinki Design System</Link>.
+</p> 
+<p>
+    The design assets are also available as a design kit package which is downloadable from the official <Link href="https://github.com/City-of-Helsinki/helsinki-design-system/releases" external>HDS repository releases</Link>.
+</p>
 
 ## Proposing a design
 There are two ways of proposing new designs to be added to HDS.
 
 ### 1. Opening a new branch to Abstract repository
-If you have access to _City of Helsinki_ organisation and _Helsinki Desing System_ project in Abstract follow these steps: 
+If you have access to _City of Helsinki_ organisation and _Helsinki Design System_ project in Abstract follow these steps: 
 1. **Create branch from HDS Master branch.** Branch name should follow naming convention _Feature request: [Component name]_. If a related Jira ticet exists, add the number of the ticket in the end of the branch name (for example `Feature request: dropdown-multiselect (HDS-000)`). 
-2. **Add designs** related to your proposals to the component or catergory library file. If a suitable library for the component does not exist yet, add a new library file named `HDS [component name]` See [Guidelines for HDS design library files](/contributing/design#guidelines-for-naming-hds-design-files "Guidelines for HDS design library files") bellow for detailled instructions. 
+2. **Add designs** related to your proposals to the component or category library file. If a suitable library for the component does not exist yet, add a new library file named `HDS [component name]` See [Guidelines for HDS design library files](/contributing/design#guidelines-for-naming-hds-design-files "Guidelines for HDS design library files") bellow for more detailed instructions. 
 3. **When the design is done, make a commit** along with a description of what changes were made, your component, how should your component be used and where (give an example layout if possible).
 4. **Submit branch for review** and add HDS designers as reviewers. They will provide feedback and suggest changes if needed.
-<Notification size="small" label="Do not merge your branch to Master without a peer review." type="error" className="siteNotification">
+
+<Notification size="small" label="Design reviews" type="alert" className="siteNotification">
   Do not merge your branch to Master without an approved review. HDS team will run the merge if the feature is accepted.
 </Notification>
 
 ### 2. Creating an issue to GitHub repository
-If you do not have an access to City of Helsinki Abstract and HDS repository, you can **create an issue in HDS GitHub repository.** 
+<p>If you do not have an access to City of Helsinki Abstract and HDS repository, you can create an issue in <Link href="https://github.com/City-of-Helsinki/helsinki-design-system" external>HDS GitHub repository</Link>. </p>
+
 - Use the component name as issue name and label it as `feature-request`.
 - When writing the issue, follow "What & why" issue template. Be specific.
 - You may attach a Sketch file containing the designs to the issue. You can also attach reference screenshots to illustrate your proposal better.
@@ -39,6 +47,7 @@ If you do not have an access to City of Helsinki Abstract and HDS repository, yo
 --- 
 
 ## Guidelines for HDS design library files
+When designing together, things tend to get messy. Here's some guidelines and tips that help us keep HDS library files clean, consistent and easy to use for all.
 
 ### Symbol naming and hierarchy
 The symbol naming and folder structure of HDS Sketch libraries follows a hierarchy based on _CTI (Category-Type-Item)_ naming practice.
@@ -46,14 +55,14 @@ The CTI taxonomy is a guiding tool for deciding the hierarchy of symbols rather 
 
 The symbols and layer styles are sorted into folders by descending order of complexity in following hierarchy: 
 
+
 > Category / Type / Item / Sub item / Variants / State
 
 - ***Category*** defines the primitive nature of a property (for example every property in the category `Color` is always a color).
 - ***Type*** is a sub-category only applied to property tokens. 
 
 > **Example: Two levels of *types* in Colour *category*** 
->
-> <Image src="../../static/contributing-sketch-symbol-type.png" alt="Example: Two levels of types in Colour *category" style="max-width:250px;" viewable />
+> <Image src="../../static/contributing-sketch-symbol-type.png" alt="Two levels of types in Colour *category" style="max-width:250px;" viewable />
 
 
 - ***Item*** is the actual *React component* or *Token*. A standalone entity that is meaningful on its own, for example a (`Button`, `Dropdown`) or (`Black`, `White`). 
@@ -63,9 +72,9 @@ The symbols and layer styles are sorted into folders by descending order of comp
   - Variant levels should preferably be sorted in descending order of scale: 
     - *Theme* (light/dark)
     - *Role* (functionality, feature)
-    - *Breakpoint* (HDS brakepoints)
+    - *Breakpoint* (HDS breakpoints)
     - *Size* (small, medium, large…)
-    - *Shape* (horzontal/vertical)
+    - *Shape* (horizontal/vertical)
     - *Position*/orientation (left/center/right, top/middle/bottom)
     - *Content* (parts) 
     - *Layout* (alignment and position of content/parts) 
@@ -88,13 +97,13 @@ The symbols and layer styles are sorted into folders by descending order of comp
   - If a modifier adds something to the variant, a *plus sign* `+`  can be used instead (for example `01 Selection`, `02 Selection + text`…).
   - A modifier should be in *all lower case*.
   - If the variant hierarchy is particularly complex, variation levels can be added as modifiers to helps differentiating variations in the Sketch symbol menu (for example Body text variant `Body S - Regular - 01 Black - Center`).
-- ***(Clarifying information)*** can be added in the end of the name within parentheses ( ). For example the specific pixel size of a spacing token.
+- ***(Additional information)*** can be added in the end of the name within parentheses `( )`. For example the specific pixel size of a spacing token.
 
 > **Example: + modifiers used for additional features**
-> <Image src="../../static/contributing-sketch-symbol-modifiers.png" alt="Example: + modifiers used for additional features" style="max-width:200px" viewable />
+> <Image src="../../static/contributing-sketch-symbol-modifiers.png" alt="+ modifiers used for additional features" style="max-width:200px" viewable />
 
 > **Example: additional info about spacing token pixel values**
-> <Image src="../../static/contributing-sketch-symbol-additional.png" alt="Example: additional info about spacing token pixel values" style="max-width:200px" viewable />
+> <Image src="../../static/contributing-sketch-symbol-additional.png" alt="additional info about spacing token pixel values" style="max-width:200px" viewable />
 
 #### Internal symbol folders
 - ***x_Parts*** and ***x_Sections*** are helper symbols used only to enable customising component symbols in Sketch. They are not in themselves usable as components.
@@ -107,7 +116,7 @@ The symbols and layer styles are sorted into folders by descending order of comp
   - The `xx_` prefix keeps folders at the bottom of the menu, even bellow `x_Parts` and `x_Sections`.
 
 > **Example: *x_Parts*, *x_Sections* and *xx_Deprecated* folders on HDS Footer**
-> <Image src="../../static/contributing-sketch-symbol-parts-sections.png" alt="Example: x_Parts, x_Sections and xx_Deprecated folders on HDS Footer" style="max-width:200px" viewable />
+> <Image src="../../static/contributing-sketch-symbol-parts-sections.png" alt="x_Parts, x_Sections and xx_Deprecated folders on HDS Footer" style="max-width:200px" viewable />
 
 
 #### Pages
@@ -117,17 +126,17 @@ The symbols and layer styles are sorted into folders by descending order of comp
   - Example artboard name should state the component or feature introduced (for example `Example - Responsive sizes`).
   - Single component libraries, example artboards are grouped on `Examples` page.
   - In libraries with more than one component, example artboards can be grouped in the `[Component name]`  page together with component symbols.
-- Additional instructions about the using of Sketch symbols can be documented on Instructions artboards. For example Instructions - Footer sections.
+- **Additional instructions** about the using of Sketch symbols can be documented on `Instructions` artboards (for example `Instructions - Footer sections`).
   - If the library has instructions, they can be groped on the same page with examples named Examples & Instructions.
 - Internal symbols are grouped on x_Parts and x_Sections pages.
 - If the component has may different sections, each section can be grouped to their own page (for example `x_Section - Navigation`).
 - Deprecated symbols are grouped on xx_Deprecated page. 
 
-> **Example: pages in a single component library `HDS Navigation`**
-> <Image src="../../static/contributing-sketch-pages-single.png" alt="Example page structure of a single component library" style="max-width:230px" viewable />
+> **Example: pages in a single component library *HDS Navigation***
+> <Image src="../../static/contributing-sketch-pages-single.png" alt="Page structure of a single component library" style="max-width:230px" viewable />
 
-> **Example: pages in a multi component library `HDS Form fields`**
-> <Image src="../../static/contributing-sketch-pages-multi.png" alt="Example page structure of a multi component library" style="max-width:230px" viewable />
+> **Example: pages in a multi component library *HDS Form fields***
+> <Image src="../../static/contributing-sketch-pages-multi.png" alt="Page structure of a multi component library" style="max-width:230px" viewable />
 
 #### Library file name
 - ***HDS [Library name]*** is usually the same as the **_Item_ name of the** in singular form (for example `HDS Button`).
@@ -146,36 +155,56 @@ The symbols and layer styles are sorted into folders by descending order of comp
   - Start folder names with a _capital letter_.
 - **Emoji prefixes** and _all caps_ can be used in layer names to make the hierarchy of complex override menus clearer:
   - ❇️ **[SECTION NAME]** can be used to highlight _sections_ (for example `❇️ NAVIGATION`).
-  - 🔹**[Item]** can be used to highlight _overridable items_. The name can also be in _all caps_ to make it mor distinct (for example `🔹 Base - link`, `🔹DIVIDER`).
+  - 🔹**[Item]** can be used to highlight _overridable items_. The name can also be in _all caps_ to make it more distinct (for example `🔹 Base - link`, `🔹DIVIDER`).
+- **Sketch smart layout hacks** may demand extraneous groups to work. In these situations, mark `(smart layout)` in the name of the group.
+
+> **Example: Emoji prefixes in *HDS Footer* layer names**
+> <Image src="../../static/contributing-sketch-layer-prefix.png" alt="Emoji prefixes in HDS Footer layer names" style="max-width:230px" viewable />
+
 
 ### Naming variant types
 - **The basic form** of the component can be named `01 Basic`
 - **Recommended** variant can be named `01 Default`
+- **Size** variants are named with _T-shirt sizes_ `S`, `M`, `L`, `XL`, `2XL`…).
 - **Colour theme** variants are named `01 light` and `02 Dark` according to their background colour. 
-- **Brakepoints** are always named in the same way:
+- **breakpoints** are always named in the same way:
   - `01 XL Desktop (≥ 1248)`
   - `02 L Desktop (≥ 992)`
   - `03 M Tablet (≥ 768)`
   - `04 S Mobile (≥ 576)`
   - `05 XS Mobile (≥ 320)`
-- **Size** variants are named with _T-shirt sizes_ `S`, `M`, `L`, `XL`, `2XL`…).
+
+> **Example: Colour theme and breakpoint variants in HDS Footer**
+> <Image src="../../static/contributing-sketch-symbol-variants.png" alt="Colour theme and breakpoint variants of footer" style="max-width:230px" viewable />
+
 
 ### Sorting variants
 Numbering can be used in front of the name for listing symbols in specific order.
-- **Running numbering** with a leading zero is used for general sorting (for ecamole `01 Primary`, `02 Secondary`, `03 Supplementary`).
+- **Running numbering** with a leading zero is used for general sorting (for example `01 Primary`, `02 Secondary`, `03 Supplementary`).
 - **Semantic numbering** can be used to help communicating variants (for example naming font weights by css values: `400 Regular`, `500 Medium`, `700 Bold`.
 - A good practice is to order variants from simple to complex (for example `01 Text`, `02 Text + heading`…).
+
+> **Example: Sorting variants in *HDS Typography* uses custom prefix for alignment**
+> <Image src="../../static/contributing-sketch-symbol-sorting.png" alt="Sorting variants in HDS Tpography" style="max-width:180px" viewable />
+
 
 ---
 
 ## Quality assurance checklist 
-Following tips help keeping HDS design kit clean and easy to use. 
+With the following checklist you can check your design files before merging them to HDS master.
 
-Besides checking HDS library files, this list can also be applied to any Sketch project for better organisation and understandability.
+Besides checking HDS library files, this list can also be applied to any Sketch project for better organisation.
+
+<p>
+    This checklist is (in most parts) also available as a <Link href="https://www.sketch.com/extensions/assistants/" external>Sketch Assistant</Link>, that automatically runs a preflight check for Sketch files.
+</p> 
+<p> 
+    <Link href="sketch://add-assistant?url=https://github.com/ronijaakkola/hds-assistant/releases/latest/download/hds-assistant.tgz" external> Install the HDS assistant directly to currently open Sketch file.</Link>
+</p>
+
 
 ### Styles
-
-- **Use shared text and layer styles in components**
+**Use shared text and layer styles in components**
   - **Text layers** are styled with `HDS Typography` text styles. 
   - **Layer fills and borders** are styled with `HDS Colour` shared styles. 
   - Don’t use local styles. All styles used in HDS components should be found in HDS libraries.
@@ -201,7 +230,7 @@ Besides checking HDS library files, this list can also be applied to any Sketch 
 - **Ungroup unnecessary groups**
   - Groups should have at least two items in them.
   - Avoid groups that have only one another group in them.
-  - **Note:** in some sitautions Sketch smart layout demands using extraneous groups. In these situations, mark `(smart layout)` in the name of the group.
+  - **Note!** Sketch smart layout hacks may demand extraneous groups to work. In these situations, mark `(smart layout)` in the name of the group.
 
 ### Symbols and overrides
 - **Follow the HDS guidelines for symbol names and folder hierarchy**
