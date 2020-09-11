@@ -36,8 +36,7 @@ const styles = {
   },
   p: {
     maxWidth: 600,
-    marginTop: 'var(--spacing-l)',
-    marginBottom: 'var(--spacing-l)',
+    my: 'var(--spacing-layout-s)',
   },
   li: {
     marginBottom: 1,
@@ -55,14 +54,14 @@ const styles = {
     overflow: 'visible',
   },
   blockquote: {
-    my: 4,
+    my: 'var(--spacing-layout-s)',
     mx: 0,
-    py: 3,
-    px: 4,
-    bg: 'blockquote.bg',
+    py: 'var(--spacing-xs)',
+    px: 'var(--spacing-s)',
+    bg: 'var(--color-coat-of-arms-blue-light-5)',
     borderLeft: (t) => `5px solid ${t.colors.blockquote.boder}`,
-    color: 'blockquote.color',
-    fontStyle: 'italic',
+    color: 'var(--color-black-70)',
+    maxWidth: 600,
     '> p': {
       m: 0,
     },
