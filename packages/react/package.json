@@ -16,7 +16,6 @@
     "tsc:es5": "tsc",
     "tsc:es6": "tsc -m es6 --outDir lib-esm --moduleResolution node",
     "tcm": "tcm src",
-    "tsm": "tsm src",
     "lint": "yarn eslint \"src/**/*.{ts,tsx}\"",
     "pre-commit": "yarn -s lint",
     "pre-push": "yarn -s test && yarn build",
