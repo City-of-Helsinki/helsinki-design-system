@@ -9,9 +9,8 @@ const ColorContrast = ({
 }) => (
   <div
     style={{
-      display: 'inline-block',
-      width: 'var(--spacing-layout-m)',
-      height: 'var(--spacing-layout-m)',
+      width: 'var(--spacing-xl)',
+      height: 'var(--spacing-xl)',
       alignItems: 'center',
       justifyContent: 'center',
       display: 'flex',
@@ -26,6 +25,8 @@ const ColorContrast = ({
 
 ColorContrast.propTypes = {
   color: PropTypes.string.isRequired,
+  background: PropTypes.string.isRequired,
+  style: PropTypes.object,
 };
 
 export default ColorContrast;

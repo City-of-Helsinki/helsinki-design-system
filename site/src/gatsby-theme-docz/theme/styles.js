@@ -88,8 +88,8 @@ const styles = {
     borderSpacing: 0,
     [['th', 'td']]: {
       textAlign: 'left',
-      py: '4px',
-      pr: '4px',
+      py: 'var(--spacing-3-xs)',
+      pr: 'var(--spacing-m)',
       pl: 0,
       borderColor: 'muted',
       borderBottomStyle: 'solid',
@@ -100,7 +100,7 @@ const styles = {
     borderBottomWidth: '2px',
   },
   td: {
-    verticalAlign: 'top',
+    verticalAlign: 'middle',
     borderBottomWidth: '1px',
   },
   hr: {

@@ -10,6 +10,8 @@ import ColorBox from "../../src/components/ColorBox";
 import ColorContrast from "../../src/components/ColorContrast";
 import Example from "../../src/components/Example";
 import Link from "../../src/components/Link";
+import { IconError } from 'hds-react';
+
 
 # Colour
 
@@ -20,7 +22,6 @@ import Link from "../../src/components/Link";
 Colour can be used for branding, providing visual hierarchy and giving visual cues for action.
 
 <p>The Helsinki Design system colour tokens are based on the City of Helsinki brand colour palette. More information on using and combining the brand colours in the <Link href="https://brand.hel.fi/en/colours/" external>City of Helsinki Visual Identity Guidelines - Colours</Link>.</p>
-
 
 ## Principles
 - **Use bold colours to attract users attention** to most important content and primary actions.
@@ -57,18 +58,18 @@ Brand colours are used for primary, secondary and tertiary colours. They should 
 
 | Colour name (en)    |  Colour name (fi) | Base colour                                          | Dark 50                                                      | Light 50                                                      | Light 20                                                      | Light 5                                                      |
 | ------------------- | ----------------- | ---------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------|
-| Coat of Arms Blue   |  Vaakuna          | <ColorBox color="var(--color-coat-of-arms-blue)"/>   | <ColorBox color="var(--color-coat-of-arms-blue-dark-50)"/>   | <ColorBox color="var(--color-coat-of-arms-blue-light-50)"/>   | <ColorBox color="var(--color-coat-of-arms-blue-light-20)"/>   | <ColorBox color="var(--color-coat-of-arms-blue-light-5)"/>   |
-| Coat of Arms Gold   |  Kulta            | <ColorBox color="var(--color-coat-of-arms-gold)"/>   | <ColorBox color="var(--color-coat-of-arms-gold-dark-50)"/>   | <ColorBox color="var(--color-coat-of-arms-gold-light-50)"/>   | <ColorBox color="var(--color-coat-of-arms-gold-light-20)"/>   |                                                              |
-| Coat of Arms Silver |  Hopea            | <ColorBox color="var(--color-coat-of-arms-silver)"/> | <ColorBox color="var(--color-coat-of-arms-silver-dark-50)"/> | <ColorBox color="var(--color-coat-of-arms-silver-light-50)"/> | <ColorBox color="var(--color-coat-of-arms-silver-light-20)"/> |                                                              |
-| Brick               |  Tiili            | <ColorBox color="var(--color-brick)"/>               | <ColorBox color="var(--color-brick-dark-50)"/>               | <ColorBox color="var(--color-brick-light-50)"/>               | <ColorBox color="var(--color-brick-light-20)"/>               |                                                              |
-| Bus                 |  Bussi            | <ColorBox color="var(--color-bus)"/>                 | <ColorBox color="var(--color-bus-dark-50)"/>                 | <ColorBox color="var(--color-bus-light-50)"/>                 | <ColorBox color="var(--color-bus-light-20)"/>                 | <ColorBox color="var(--color-bus-light-5)"/>                 |
-| Copper              |  Kupari           | <ColorBox color="var(--color-copper)"/>              | <ColorBox color="var(--color-copper-dark-50)"/>              | <ColorBox color="var(--color-copper-light-50)"/>              | <ColorBox color="var(--color-copper-light-20)"/>              |                                                              |
-| Engel               |  Engel            | <ColorBox color="var(--color-engel)"/>               | <ColorBox color="var(--color-engel-dark-50)"/>               | <ColorBox color="var(--color-engel-light-50)"/>               | <ColorBox color="var(--color-engel-light-20)"/>               |                                                              |
-| Fog                 |  Sumu             | <ColorBox color="var(--color-fog)"/>                 | <ColorBox color="var(--color-fog-dark-50)"/>                 | <ColorBox color="var(--color-fog-light-50)"/>                 | <ColorBox color="var(--color-fog-light-20)"/>                 |                                                              |
-| Metro               |  Metro            | <ColorBox color="var(--color-metro)"/>               | <ColorBox color="var(--color-metro-dark-50)"/>               | <ColorBox color="var(--color-metro-light-50)"/>               | <ColorBox color="var(--color-metro-light-20)"/>               |                                                              |
-| Summer              |  Kesä             | <ColorBox color="var(--color-summer)"/>              | <ColorBox color="var(--color-summer-dark-50)"/>              | <ColorBox color="var(--color-summer-light-50)"/>              | <ColorBox color="var(--color-summer-light-20)"/>              |                                                              |
-| Suomenlinna         |  Suomenlinna      | <ColorBox color="var(--color-suomenlinna)"/>         | <ColorBox color="var(--color-suomenlinna-dark-50)"/>         | <ColorBox color="var(--color-suomenlinna-light-50)"/>         | <ColorBox color="var(--color-suomenlinna-light-20)"/>         |                                                              |
-| Tram                |  Spåra            | <ColorBox color="var(--color-tram)"/>                | <ColorBox color="var(--color-tram-dark-50)"/>                | <ColorBox color="var(--color-tram-light-50)"/>                | <ColorBox color="var(--color-tram-light-20)"/>                |                                                              |
+| Coat of Arms Blue   | Vaakuna           | <ColorBox color="var(--color-coat-of-arms-blue)"/>   | <ColorBox color="var(--color-coat-of-arms-blue-dark-50)"/>   | <ColorBox color="var(--color-coat-of-arms-blue-light-50)"/>   | <ColorBox color="var(--color-coat-of-arms-blue-light-20)"/>   | <ColorBox color="var(--color-coat-of-arms-blue-light-5)"/>   |
+| Coat of Arms Gold   | Kulta             | <ColorBox color="var(--color-coat-of-arms-gold)"/>   | <ColorBox color="var(--color-coat-of-arms-gold-dark-50)"/>   | <ColorBox color="var(--color-coat-of-arms-gold-light-50)"/>   | <ColorBox color="var(--color-coat-of-arms-gold-light-20)"/>   |                                                              |
+| Coat of Arms Silver | Hopea             | <ColorBox color="var(--color-coat-of-arms-silver)"/> | <ColorBox color="var(--color-coat-of-arms-silver-dark-50)"/> | <ColorBox color="var(--color-coat-of-arms-silver-light-50)"/> | <ColorBox color="var(--color-coat-of-arms-silver-light-20)"/> |                                                              |
+| Brick               | Tiili             | <ColorBox color="var(--color-brick)"/>               | <ColorBox color="var(--color-brick-dark-50)"/>               | <ColorBox color="var(--color-brick-light-50)"/>               | <ColorBox color="var(--color-brick-light-20)"/>               |                                                              |
+| Bus                 | Bussi             | <ColorBox color="var(--color-bus)"/>                 | <ColorBox color="var(--color-bus-dark-50)"/>                 | <ColorBox color="var(--color-bus-light-50)"/>                 | <ColorBox color="var(--color-bus-light-20)"/>                 | <ColorBox color="var(--color-bus-light-5)"/>                 |
+| Copper              | Kupari            | <ColorBox color="var(--color-copper)"/>              | <ColorBox color="var(--color-copper-dark-50)"/>              | <ColorBox color="var(--color-copper-light-50)"/>              | <ColorBox color="var(--color-copper-light-20)"/>              |                                                              |
+| Engel               | Engel             | <ColorBox color="var(--color-engel)"/>               | <ColorBox color="var(--color-engel-dark-50)"/>               | <ColorBox color="var(--color-engel-light-50)"/>               | <ColorBox color="var(--color-engel-light-20)"/>               |                                                              |
+| Fog                 | Sumu              | <ColorBox color="var(--color-fog)"/>                 | <ColorBox color="var(--color-fog-dark-50)"/>                 | <ColorBox color="var(--color-fog-light-50)"/>                 | <ColorBox color="var(--color-fog-light-20)"/>                 |                                                              |
+| Metro               | Metro             | <ColorBox color="var(--color-metro)"/>               | <ColorBox color="var(--color-metro-dark-50)"/>               | <ColorBox color="var(--color-metro-light-50)"/>               | <ColorBox color="var(--color-metro-light-20)"/>               |                                                              |
+| Summer              | Kesä              | <ColorBox color="var(--color-summer)"/>              | <ColorBox color="var(--color-summer-dark-50)"/>              | <ColorBox color="var(--color-summer-light-50)"/>              | <ColorBox color="var(--color-summer-light-20)"/>              |                                                              |
+| Suomenlinna         | Suomenlinna       | <ColorBox color="var(--color-suomenlinna)"/>         | <ColorBox color="var(--color-suomenlinna-dark-50)"/>         | <ColorBox color="var(--color-suomenlinna-light-50)"/>         | <ColorBox color="var(--color-suomenlinna-light-20)"/>         |                                                              |
+| Tram                | Spåra             | <ColorBox color="var(--color-tram)"/>                | <ColorBox color="var(--color-tram-dark-50)"/>                | <ColorBox color="var(--color-tram-light-50)"/>                | <ColorBox color="var(--color-tram-light-20)"/>                |                                                              |
 
 
 ### UI colours
@@ -88,13 +89,37 @@ Status colours are reserved exclusively for indicating valid, invalid or informa
 | <ColorBox color="var(--color-black)"/> | <ColorBox color="var(--color-black-90)"/> | <ColorBox color="var(--color-black-80)"/> | <ColorBox color="var(--color-black-70)"/> | <ColorBox color="var(--color-black-60)"/> | <ColorBox color="var(--color-black-50)"/> | <ColorBox color="var(--color-black-40)"/> | <ColorBox color="var(--color-black-30)"/> | <ColorBox color="var(--color-black-20)"/> | <ColorBox color="var(--color-black-10)"/> | <ColorBox color="var(--color-black-5)"/> | <ColorBox color="var(--color-white)" /> |
 
 
-## Recommended colour combinations
-Here you can find recommended colours for text and other informative elements on different background colours and their contrast accessibility level
+## Colour contrast accessibility
+Here you can find recommended colour combinatios for different brand colours and text or other informative elements in order of their contrast ratio.
+
 - **AA** and **AAA** means you can safely use the color combination on all text sizes
 - **AA for large text** means the text size should be at least 18 pt for regular weight or 14 pt for bold weight
 
+| Brand Colour      | Text Colour   | Colour contrast       | Example           |
+| ----------------- | ------------- | --------------------- | ----------------- |
+| **Engel**         | black         | AAA (14,26 : 1)   | <ColorContrast color="var(--color-black)" background="var(--color-engel)">AAA</ColorContrast> |
+| **Hopea**         | black         | AAA (13,08 : 1)   | <ColorContrast color="var(--color-black)" background="var(--color-coat-of-arms-silver)">AAA</ColorContrast> |
+| **Bussi**         | white         | AAA (11,98 : 1)   | <ColorContrast color="var(--color-white)" background="var(--color-bus)">AAA</ColorContrast> |
+| **Kesä**          | black         | AAA (11,08 : 1)   | <ColorContrast color="var(--color-black)" background="var(--color-summer)">AAA</ColorContrast> |
+| **Sumu**          | black         | AAA (9,99 : 1)    | <ColorContrast color="var(--color-black)" background="var(--color-fog)">AAA</ColorContrast> |
+| **Kupari**        | black         | AAA (9,37 : 1)    | <ColorContrast color="var(--color-black)" background="var(--color-copper)">AAA</ColorContrast> |
+| **Suomenlinna**   | black         | AAA (9,09 : 1)    | <ColorContrast color="var(--color-black)" background="var(--color-suomenlinna)">AAA</ColorContrast> |
+| **Kulta**         | black         | AAA (7,13 : 1)    | <ColorContrast color="var(--color-black)" background="var(--color-coat-of-arms-gold)">AAA</ColorContrast> |
+| **Tiili**         | white         | AA (6,06 : 1)     | <ColorContrast color="var(--color-white)" background="var(--color-brick)">AA</ColorContrast> |
+| **Metro**         | black         | AA (5,23 : 1)     | <ColorContrast color="var(--color-black)" background="var(--color-metro)">AA</ColorContrast> |
+| **Vaakuna**       | white         | AA (4,97 : 1)     | <ColorContrast color="var(--color-white)" background="var(--color-coat-of-arms-blue)">AA</ColorContrast> | 
+| **Spåra**         | white         | AA for large text (4,04 : 1) | <ColorContrast color="var(--color-white)" background="var(--color-tram)"><IconError/></ColorContrast> | 
 
-<ColorContrast color="var(--color-white)" background="var(--color-bus)">AAA</ColorContrast>
+For text and other informative elements on white background it is recommended to only use following brand colours:
+
+| Brand Colour  | Colour contrast   | Example           |
+| --------------| ----------------- | ----------------- |
+| **Bussi**     | AAA (11,98 : 1)   | <p style="font-size: var(--fontsize-body-xl); color:var(--color-bus); margin: var(--spacing-3-xs);">AAA</p> |
+| **Tiili**     | AA (6,06 : 1)     | <p style="font-size: var(--fontsize-body-xl); color: var(--color-brick); margin: var(--spacing-3-xs);">AA</p> |
+| **Vaakuna**   | AA (4,97 : 1)     | <p style="font-size: var(--fontsize-body-xl); color: var(--color-coat-of-arms-blue); margin: var(--spacing-3-xs);">AA</p> | 
+| **Spåra**     | AA for large text (4,04 : 1)  | <p style="font-size: var(--fontsize-body-xl); color: var(--color-tram); margin: var(--spacing-3-xs);"><IconError/></p> | 
+| **Metro**     | AA for large text (3,34 : 1)  | <p style="font-size: var(--fontsize-body-xl); color: var(--color-metro); margin: var(--spacing-3-xs);"><IconError/></p> |
+
 
 
 
