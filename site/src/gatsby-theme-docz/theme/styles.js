@@ -56,7 +56,7 @@ const styles = {
   blockquote: {
     my: 'var(--spacing-layout-s)',
     mx: 0,
-    py: 'var(--spacing-xs)',
+    py: 'var(--spacing-s)',
     px: 'var(--spacing-s)',
     bg: 'var(--color-coat-of-arms-blue-light-5)',
     borderLeft: (t) => `5px solid ${t.colors.blockquote.boder}`,
