@@ -7,6 +7,7 @@ route: /design-tokens/colour
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Colors from "../../src/components/Colors";
 import ColorBox from "../../src/components/ColorBox";
+import ColorContrast from "../../src/components/ColorContrast";
 import Example from "../../src/components/Example";
 import Link from "../../src/components/Link";
 
@@ -85,6 +86,17 @@ Status colours are reserved exclusively for indicating valid, invalid or informa
 | black                                  |  90                                       | 80                                        | 70                                        | 60                                        | 50                                        | 40                                        | 30                                        | 20                                        | 10                                        | 5                                        | white                                   |
 | -------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ---------------------------------------- | --------------------------------------- |
 | <ColorBox color="var(--color-black)"/> | <ColorBox color="var(--color-black-90)"/> | <ColorBox color="var(--color-black-80)"/> | <ColorBox color="var(--color-black-70)"/> | <ColorBox color="var(--color-black-60)"/> | <ColorBox color="var(--color-black-50)"/> | <ColorBox color="var(--color-black-40)"/> | <ColorBox color="var(--color-black-30)"/> | <ColorBox color="var(--color-black-20)"/> | <ColorBox color="var(--color-black-10)"/> | <ColorBox color="var(--color-black-5)"/> | <ColorBox color="var(--color-white)" /> |
+
+
+## Recommended colour combinations
+Here you can find recommended colours for text and other informative elements on different background colours and their contrast accessibility level
+- **AA** and **AAA** means you can safely use the color combination on all text sizes
+- **AA for large text** means the text size should be at least 18 pt for regular weight or 14 pt for bold weight
+
+
+<ColorContrast color="var(--color-white)" background="var(--color-bus)">AAA</ColorContrast>
+
+
 
 
 ## Tokens
