@@ -64,7 +64,7 @@
     "identity-obj-proxy": "3.0.0",
     "inquirer": "7.1.0",
     "jest": "26.0.1",
-    "node-sass": "^4.14.1",
+    "node-sass": "4.14.1",
     "path": "0.12.7",
     "prettier": "2.0.5",
     "react": "16.13.1",
