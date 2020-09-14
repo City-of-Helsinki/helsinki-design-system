@@ -70,7 +70,13 @@ const styles = {
     fontFamily: 'monospace',
   },
   inlineCode: {
-    fontFamily: 'monospace',
+    fontFamily: 'Inconsolata',
+    py: 0,
+    px: 'var(--spacing-4-xs)',
+    bg: 'var(--color-black-5)',
+    border: `1px solid var(--color-black-20)`,
+    color: 'var(--color-black-70)',
+    borderRadius: 3,
   },
   pre: {
     my: 4,
@@ -105,6 +111,7 @@ const styles = {
   hr: {
     border: 0,
     borderBottom: (t) => `1px solid ${t.colors.border}`,
+    my: 'var(--spacing-layout-s)',
   },
 };
 
