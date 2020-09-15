@@ -88,7 +88,11 @@ export const NavigationSearch = ({
             onBlur={handleBlur}
             onFocus={onFocus}
           />
-          {transition((values, item) => item && <AnimatedSearchIcon style={values} className={styles.inputIcon} />)}
+          {transition(
+            // there is an issue with react-spring -rc3 and a new version of @types/react: https://github.com/react-spring/react-spring/issues/1102
+            // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+            (values, item) => item && <AnimatedSearchIcon style={values as any} className={styles.inputIcon} />,
+          )}
         </>
       )}
       <button

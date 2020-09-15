@@ -1,0 +1,44 @@
+---
+name: Data formats
+route: /guidelines/data-formats
+menu: Guidelines
+---
+
+import LargeParagraph from "../../src/components/LargeParagraph";
+
+# Data formats
+
+<LargeParagraph>
+    Helsinki Design System suggests formats for commonly presented data to keep Helsinki services more consistent.
+</LargeParagraph>
+
+## Date and time
+
+### Format
+**Helsinki services are recommended to follow Finnish date and time locale - even if the user is using some other language.** Follow these guidelines when presenting date and time in your services.
+
+Type                            | Format                        | Notes
+--------------------------------|-------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Time (in forms, schedules etc.) | 15:00, 02:00                  | When presenting times in forms and schedules, use leading zeros and a colon separator. 24-hour clock is always used.
+Time (in text)                  | 15.00, 2.00                   | When presenting times in written text, use single dot instead of colon separator. Leading zeros can be opted out as well. 24-hour clock is always used.
+Day, month and year             | 24.6.2020                     | Date format is DD.MM.YYYY even if user's locale is something else than Finnish.
+Day, month and year (longer)    | 24. June 2020, 24 June 2020   | Using the written format of month makes the date easier to understand for different locales. Note that technically English translation omits the dot after day number.
+Today, tomorrow, yesterday      | Today, 12:30                  | If talking about today, tomorrow or yesterday, written format is used instead of date.
+
+### Ranges
+When presenting time or date ranges, consider making information simpler by leaving redundant month and year information out. **Note that when presenting ranges, en dash (–) should be used instead of a standard hyphen (-).**
+
+Type                                  | Format                                 | Notes
+--------------------------------------|----------------------------------------|---------------------------------------------------------------------------------------
+Time range (in forms, schedules etc.) | 12:30–16:30                            | When presenting times in forms and schedules, use leading zeros and a colon separator. 
+Time range (in text)                  | 12.30–16.30                            | When presenting times in written text, use single dot instead of colon separator.
+Date range                            | 2.–15. January 2020 / 2.1.–5.2.2020    | Year and/or month can be only written once if both dates share the same year/month.
+
+### Time zones
+**Automatically use user's timezone if possible.** If not available, default to Finnish time and present the time zone as following:
+
+Type       | Format                          | Notes
+-----------|---------------------------------|---------------------------------------------------------------------------------------------
+Time zone  | UTC+2                           | Leading or trailing zeroes are not recommended to be used for timezones.
+Time       | 15:00 UTC+2                     | -
+Date       | 24. June 2020, 15:30 UTC+2      | -

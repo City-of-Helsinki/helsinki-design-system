@@ -45,7 +45,7 @@ export type RadioButtonProps = React.ComponentPropsWithoutRef<'input'> & {
   value?: string;
 };
 
-export const RadioButton = React.forwardRef(
+export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
   (
     {
       checked = false,

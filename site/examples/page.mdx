@@ -1,11 +1,48 @@
 ---
 name: Example page
-route: /doc-example
-menu: Examples
+menu: Example category
+route: /page
 ---
+<!---
+With the above settings, page name will be "Example page", its path will be hds.hel.fi/page and it will be a subitem of the "Example category" in the site navigation.
+-->
 
-# Example page
+<!---
+Import all the needed components from HDS libraries.
+-->
+import { <COMPONENT_NAME> } from "hds-react";
 
-Hello, I'm an example of a mdx file!
+<!---
+Import documentation specific components. You can view what is available in /site/src/components/ folder.
+-->
+import LargeParagraph from "../../src/components/LargeParagraph";
 
-Here the page's name is _Example page_, it's path will be site-url/_doc-example_ and it will be a subitem of the _Examples_ menu item in the site navigation.
+# <PAGE_NAME>
+
+<LargeParagraph>
+    <!---
+    With a couple of sentences, describe the page content and its meaning for the reader.
+    -->
+</LargeParagraph>
+
+<!---
+If you want to add more introductory content, you can do that below LargeParagraph section. Keep this relatively short and simple.
+-->
+
+## Header level 2
+
+<!---
+Add your content here. Note, to comply with site accessibility requirements, do not skip heading levels. After header level 2, the next should be header level 3, and so on.
+-->
+
+### Header level 3
+
+<!---
+Add your content here. Note, to comply with site accessibility requirements, do not skip heading levels. After header level 2, the next should be header level 3, and so on.
+-->
+
+#### Header level 4
+
+<!---
+Add your content here. Note, to comply with site accessibility requirements, do not skip heading levels. After header level 2, the next should be header level 3, and so on.
+-->

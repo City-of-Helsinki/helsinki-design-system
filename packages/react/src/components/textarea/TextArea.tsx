@@ -84,7 +84,7 @@ export type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
   ref?: React.Ref<HTMLTextAreaElement>;
 };
 
-export const TextArea = React.forwardRef(
+export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
   (
     {
       className = '',
