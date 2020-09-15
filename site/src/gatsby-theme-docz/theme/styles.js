@@ -36,42 +36,45 @@ const styles = {
   },
   p: {
     maxWidth: 600,
-    marginTop: 'var(--spacing-l)',
-    marginBottom: 'var(--spacing-l)',
+    marginBottom: 'var(--spacing-layout-xs)',
   },
   li: {
-    marginBottom: 1,
+    marginBottom: 0,
     maxWidth: 600,
   },
   ul: {
-    marginBottom: 1,
+    marginBottom: 'var(--spacing-layout-xs)',
     maxWidth: 600,
   },
   ol: {
-    marginBottom: 1,
+    marginBottom: 'var(--spacing-layout-xs)',
     maxWidth: 600,
   },
   img: {
     overflow: 'visible',
+    marginBottom: 'var(--spacing-layout-xs)',
   },
   blockquote: {
-    my: 4,
+    my: 'var(--spacing-layout-xs)',
     mx: 0,
-    py: 3,
-    px: 4,
-    bg: 'blockquote.bg',
+    py: 'var(--spacing-s)',
+    px: 'var(--spacing-s)',
+    bg: 'var(--color-coat-of-arms-blue-light-5)',
     borderLeft: (t) => `5px solid ${t.colors.blockquote.boder}`,
-    color: 'blockquote.color',
-    fontStyle: 'italic',
-    '> p': {
-      m: 0,
-    },
+    color: 'var(--color-black-70)',
+    maxWidth: 600,
   },
   code: {
     fontFamily: 'monospace',
   },
   inlineCode: {
-    fontFamily: 'monospace',
+    fontFamily: 'Inconsolata',
+    py: 0,
+    px: 'var(--spacing-4-xs)',
+    bg: 'var(--color-black-5)',
+    border: `1px solid var(--color-black-20)`,
+    color: 'var(--color-black-70)',
+    borderRadius: 3,
   },
   pre: {
     my: 4,
@@ -106,6 +109,7 @@ const styles = {
   hr: {
     border: 0,
     borderBottom: (t) => `1px solid ${t.colors.border}`,
+    my: 'var(--spacing-layout-s)',
   },
 };
 

@@ -45,6 +45,7 @@ export default {
     }),
     postcss({
       modules: true,
+      use: ['sass'],
       minimize: {
         preset: [
           'default',
