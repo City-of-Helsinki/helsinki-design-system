@@ -9,8 +9,9 @@ const ColorContrast = ({
 }) => (
   <div
     style={{
-      width: 'var(--spacing-xl)',
-      height: 'var(--spacing-xl)',
+      fontSize: 'var(--fontsize-body-l)',
+      width: 'var(--spacing-2-xl)',
+      height: 'var(--spacing-2-xl)',
       alignItems: 'center',
       justifyContent: 'center',
       display: 'flex',
