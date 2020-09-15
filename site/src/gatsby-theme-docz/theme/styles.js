@@ -36,25 +36,26 @@ const styles = {
   },
   p: {
     maxWidth: 600,
-    my: 'var(--spacing-layout-s)',
+    marginBottom: 'var(--spacing-layout-xs)',
   },
   li: {
-    marginBottom: 1,
+    marginBottom: 0,
     maxWidth: 600,
   },
   ul: {
-    marginBottom: 1,
+    marginBottom: 'var(--spacing-layout-xs)',
     maxWidth: 600,
   },
   ol: {
-    marginBottom: 1,
+    marginBottom: 'var(--spacing-layout-xs)',
     maxWidth: 600,
   },
   img: {
     overflow: 'visible',
+    marginBottom: 'var(--spacing-layout-xs)',
   },
   blockquote: {
-    my: 'var(--spacing-layout-s)',
+    my: 'var(--spacing-layout-xs)',
     mx: 0,
     py: 'var(--spacing-s)',
     px: 'var(--spacing-s)',
@@ -62,12 +63,6 @@ const styles = {
     borderLeft: (t) => `5px solid ${t.colors.blockquote.boder}`,
     color: 'var(--color-black-70)',
     maxWidth: 600,
-    '> p': {
-      m: 0,
-    },
-    '> a > img': {
-      marginTop: 'var(--spacing-layout-2-xs)',
-    },
   },
   code: {
     fontFamily: 'monospace',
