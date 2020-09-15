@@ -65,6 +65,9 @@ const styles = {
     '> p': {
       m: 0,
     },
+    '> a > img': {
+      marginTop: 'var(--spacing-layout-2-xs)',
+    },
   },
   code: {
     fontFamily: 'monospace',
