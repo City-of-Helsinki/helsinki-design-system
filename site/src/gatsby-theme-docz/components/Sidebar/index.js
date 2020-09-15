@@ -63,7 +63,7 @@ export const Sidebar = React.forwardRef((props, ref) => {
             </div>
           </Link>
         </div>
-        <NavSearch placeholder="Type to search..." value={query} onChange={handleChange} />
+        <NavSearch placeholder="Type to search topics" value={query} onChange={handleChange} />
         {menus &&
           menus.map((menu) => {
             if (!menu.route) return <NavGroup key={menu.id} item={menu} sidebarRef={ref} />;
