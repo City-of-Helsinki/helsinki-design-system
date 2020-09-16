@@ -15,26 +15,39 @@ import LargeParagraph from "../../src/components/LargeParagraph";
 Here are some recommendations for localising content and navigation:
 
 - **The default language of Helsinki digital services is Finnish (FI).**
-- If possible, content should also be found at least in Swedish (SW) and English (EN).
-- Finnish (FI), Swedish (SW) and English (EN) languages should be treated as equal in content and language menus. For these languages it is recommended to provide full content.
-- Additional languages, sign language and plain language versions of content can be added depending on the targeted user group of the service. The content provided in additional languages can be a subset or a summary of the main content.
-- It is recommended, that Helsinki digital services follow Finnish date and time locale even if the user is using some other language. See the [HDS data format guidelines](https://hds.hel.fi/guidelines/data-formats "HDS data format guidelines") for more information.
-- The Helsinki framed logo is used in Finnish for all languages except Swedish and other Scandinavian language. For these languages the Swedish version of the framed logo (Helsingfors) should be used.
+  - It is recommended, that Helsinki digital services follow Finnish date and time locale even if the user is using some other language. See the [HDS data format guidelines](https://hds.hel.fi/guidelines/data-formats "HDS data format guidelines") for more information.
+- **Content should also be provided at least in Swedish (SW) and English (EN), if possible.**
+  - Finnish (FI), Swedish (SW) and English (EN) languages should be treated as equal in content and language menus. For these languages it is recommended to provide full content.
+  - For English (EN) locale, British English spelling should be used.
+  - For Swedish (SV) locale, the Helsingfors version of the framed logo should be used. Other languages use the default Helsinki framed logo.
+- **Additional languages**, sign language and plain language versions of content can be added depending on the targeted user group of the service. The content provided in additional languages can be a subset or a summary of the main content.
 
 
-- **Let the user select their preferred language.** Do not auto-localise content or menus unless the user is logged in and has picked a default language for them self.
-- The preferred method for switching languages is with the language picker action in [HDS Navigation component](https://hds.hel.fi/components/navigation "HDS Navigation component documentation"). 
-- When the user switches languages, the context should be preserved if localised version of the content is available.
-- The language picker component should show the selected language code (FI, SW, EN). 
-- Do not use flags to represent locale. Languages are not always country specific.
-- Listing languages for selection it is advised to write in which language the localisation is, in corresponding language in following format:
-    - Suomeksi (FI)
-    - På svenska (SW)
-    - In English (EN)
-    - Auf Deutsch (DE)
-    - En français (FR)
-    - Eesti keelel (ET)
-    - En español (SP)
-    - По-русски (RU)
-    - Af soomaali (SO)
-    - (AR) بالعربية
+- **Let the user select their preferred language.**
+  - Do not auto-localise content or menus unless the user has picked a default language for them self. 
+  - For logged in users the language selection can be a stored in user information.
+  - For non logged in users, the selection made in language picker can be stored with a cookie.
+- **When the user switches languages, the page context should be preserved.**
+  - When user switches language on a sub page, the corresponding page should be shown, instead of redirecting the user to front page.
+  - If a localised version of the content is not available, it is recommended to inform the user and provide possible next actions, instead of redirecting to front page.
+- **The preferred method for switching languages is with the language picker action in [HDS Navigation component](https://hds.hel.fi/components/navigation "HDS Navigation component documentation").**
+  - The available languages can also be listed as links in the navigation bar in stead of dropdown, if the services navigation is simple and there are less than three available languages.
+- **Do not use flags to represent locale.** Languages are not always country specific.
+  - The language picker component should show the selected language code (FI, SW, EN). 
+  - Listing languages for selection it is advised to write in which language the localisation is, in corresponding language in following format:
+    - `Suomeksi (FI)` (In Finnish)
+    - `På svenska (SV)` (In Swedish)
+    - `In English (EN)`
+    - `Auf Deutsch (DE)` (In German)
+    - `En français (FR)` (In French)
+    - `Eesti keelel (ET)` (In Estonian)
+    - `En español (SP)` (In Spanish)
+    - `Davvisámegillii (SE)` (In Northern Sami)
+    - `Anarâškielân (SMI)` (In Inari Sami)
+    - `Nuõrttsää´mǩiõ´lle (SKS)` (In Skolt Sami)
+    - `Af soomaali (SO)` (In Somalian)
+    - `По-русски (RU)` (In Russian)
+    - `日本語 (JP)` (Japanese)
+    - `中文 (ZH)` (Chinese)
+    - `(AR) بالعربية` (Arabic)
+    - `(FA) فارسی` (Fārsī)
