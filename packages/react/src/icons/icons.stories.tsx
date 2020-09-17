@@ -36,6 +36,7 @@ req.keys().forEach((fileName, index) => {
   if (index === 0) {
     story.addParameters({
       component: Component,
+      controls: { hideNoControlsWarning: true },
       docs: {
         disable: true,
       },

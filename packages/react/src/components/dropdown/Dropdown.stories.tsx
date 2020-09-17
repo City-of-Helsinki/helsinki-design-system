@@ -23,6 +23,9 @@ const options = getOptions();
 export default {
   component: Dropdown,
   title: 'Components/Dropdown',
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
 };
 

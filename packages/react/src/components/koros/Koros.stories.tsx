@@ -9,6 +9,7 @@ export default {
   title: 'Components/Koros',
   decorators: [withKnobs],
   parameters: {
+    controls: { hideNoControlsWarning: true },
     docs: {
       page: () => (
         <>

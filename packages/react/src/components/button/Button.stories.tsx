@@ -13,6 +13,7 @@ export default {
   title: 'Components/Button',
   decorators: [withKnobs],
   parameters: {
+    controls: { hideNoControlsWarning: true },
     docs: {
       page: () => (
         <>
