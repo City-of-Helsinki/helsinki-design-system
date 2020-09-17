@@ -1,0 +1,9 @@
+.itemGroup {
+  display: grid;
+  gap: var(--spacing-3-xs);
+  justify-items: start;
+
+  > * {
+    line-height: var(--lineheight-m);
+  }
+}

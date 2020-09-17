@@ -1,0 +1,81 @@
+@value x-small-only, small-only, small-down, medium-only, medium-up, large-only, large-up, x-large-up from "../../../styles/breakpoints.css";
+@import "../common";
+
+.navigation {
+  display: grid;
+  gap: var(--spacing-m);
+  justify-items: start;
+
+  > * {
+    line-height: var(--lineheight-m);
+  }
+
+  &.sitemap {
+    align-items: start;
+    gap: var(--spacing-l) var(--spacing-m);
+  }
+}
+
+@media x-small-only {
+  .navigation:not(.minimal):not(.sitemap) {
+    @include gridColumns(2)
+  }
+}
+
+@media small-only {
+  .navigation:not(.minimal):not(.sitemap) {
+    @include gridColumns(3)
+  }
+}
+
+@media small-down {
+  .navigation {
+    justify-content: center;
+    margin-top: var(--spacing-m);
+
+    &.sitemap {
+      grid-template-columns: repeat(2, auto);
+    }
+  }
+}
+
+@media medium-only {
+  .navigation {
+    margin-top: var(--spacing-m);
+
+    &.sitemap {
+      grid-template-columns: repeat(3, auto);
+    }
+  }
+}
+
+@media medium-up {
+  .navigation:not(.sitemap) {
+    grid-auto-flow: column;
+    justify-content: start;
+  }
+}
+
+@media large-only {
+  .navigation.sitemap {
+    grid-template-columns: repeat(4, auto);
+  }
+}
+
+@media large-up {
+  .navigation {
+    &:not(.minimal) {
+      margin-top: var(--spacing-m);
+    }
+
+    &.minimal {
+      margin-left: auto;
+    }
+  }
+}
+
+@media x-large-up {
+  .navigation.sitemap {
+    grid-template-columns: repeat(5, auto);
+  }
+}
