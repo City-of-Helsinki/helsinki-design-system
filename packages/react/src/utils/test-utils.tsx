@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 
 import { Navigation } from '../components/navigation';
+import { Footer } from '../components/footer';
 
 export const NavigationWrapper = ({ children }: PropsWithChildren<{}>) => (
   <Navigation
@@ -12,4 +13,10 @@ export const NavigationWrapper = ({ children }: PropsWithChildren<{}>) => (
   >
     {children}
   </Navigation>
+);
+
+export const FooterWrapper = ({ children }: PropsWithChildren<{}>) => (
+  <Footer footerAriaLabel="Foo" title="Bar">
+    {children}
+  </Footer>
 );
