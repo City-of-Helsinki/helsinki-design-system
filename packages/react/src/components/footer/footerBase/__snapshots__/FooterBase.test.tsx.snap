@@ -73,7 +73,11 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
       <div
         class="copyright"
       >
-        ©  2020 
+        <span
+          class="copyrightHolder"
+        >
+          ©  2020
+        </span>
       </div>
     </section>
   </footer>
