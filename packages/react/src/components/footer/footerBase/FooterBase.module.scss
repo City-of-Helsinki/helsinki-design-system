@@ -1,4 +1,4 @@
-@value x-small-only, small-only, small-down, medium-down, medium-only, medium-up, large-up from "../../../styles/breakpoints.css";
+@value x-small-only, small-down, small-only, small-up, medium-down, medium-only, medium-up, large-up from "../../../styles/breakpoints.css";
 @import "../common";
 
 .divider {
@@ -11,6 +11,7 @@
 }
 
 .copyright {
+  display: grid;
   font-size: var(--fontsize-body-s);
 }
 
@@ -26,14 +27,17 @@
 }
 
 @media x-small-only {
-  .base .links {
-    //@include gridColumns(3)
+  .copyright {
+
+    &Dot {
+      display: none;
+    }
   }
 }
 
 @media small-down {
   .copyright {
-    text-align: center;
+    justify-items: center;
   }
 
   .links {
@@ -43,8 +47,18 @@
 
 @media small-only {
   .base .links {
-    //@include gridColumns(5);
     @include gridColumns(3);
+  }
+
+  .copyright {
+    justify-content: center;
+  }
+}
+
+@media small-up {
+  .copyright {
+    grid-auto-flow: column;
+    gap: var(--spacing-3-xs);
   }
 }
 
@@ -65,6 +79,10 @@
 }
 
 @media medium-up {
+  .copyright {
+    justify-content: start;
+  }
+
   .links {
     grid-auto-flow: column;
     justify-content: start;

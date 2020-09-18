@@ -220,10 +220,11 @@ export const Example = (args) => (
     <Footer.Navigation navigationAriaLabel="Nostoja palveluista">
       <Footer.Item href="https://asiointi.hel.fi/wps/portal/login?locale=fi" label="Sähköinen asiointi" />
       <Footer.Item href="https://palvelukartta.hel.fi/" label="Palvelut kartalla" />
-      <Footer.Item href="https://reittiopas.fi/" label="Reittiopas" />
+      <Footer.Item href="https://hel.fi/yritystenhelsinki" label="Yritysten Helsinki" />
       <Footer.Item href="https://hel.fi/rekry/fi" label="Avoimet työpaikat" />
       <Footer.Item href="https://helsinkikanava.fi/fi_FI/" label="Videoita kaupungista" />
       <Footer.Item href="https://helmet.fi/" label="Kirjastot verkossa" />
+      <Footer.Item href="https://reittiopas.fi/" label="Reittiopas" />
     </Footer.Navigation>
     <Footer.Utilities backToTopLabel="Sivun alkuun">
       <Footer.SoMe>
