@@ -1,0 +1,94 @@
+---
+name: Tag
+menu: Components
+route: /components/tag
+---
+
+import { Playground } from "docz";
+import { StatusLabel, Notification } from "hds-react";
+
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
+
+# Tag
+
+<StatusLabel>New</StatusLabel>
+<StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel> 
+
+<LargeParagraph>
+  Tags are used to show attributes of an object or element such as categories. HDS also uses Tags to present filters selected for searches.
+</LargeParagraph>
+
+## Principles
+
+- **Tags are meant for presenting object attributes and filters.** If you are preseting status information, use [Status label component](/components/status-label) instead.
+- Keep labels short and concise. Use 1-2 words at maximum and do not use labels expanding to two rows.
+- Use status colours consistently. You can find guidelines on when to use each status colour in the [colour guidelines](/design-tokens/colour#ui-colours "UI colours").
+- Tags are often related to some other element on the page (e.g. table row or search field as filters). Aim to keep tags and their related elements close to each other so the user can easily interpret the relation.
+- Unlike status labels, tags can be configured to be clicable and deletable. You can use this feature to create links to category lists or removable filters.
+
+## Accessibility
+
+- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
+- If you are customising tag colours, make sure they are easily distinguishable from [HDS UI Colours](/design-tokens/colour#ui-colours). These colours are reserved to present UI state and status information in application using HDS.
+- Remember that colour should never be the only way of conveying information. Make sure the meaning of the status label is clearly described by the label text. Refer to <Link href="https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html" external>WCAG 2.1 Use of Color guideline</Link> for more information.
+
+## Usage and variations
+
+### Basic tags
+
+<Playground>
+
+</Playground>
+
+##### Core:
+```
+```
+
+##### React:
+```tsx
+
+```
+
+### Removable tags
+
+<Playground>
+
+</Playground>
+
+##### Core:
+```
+```
+
+##### React:
+```tsx
+
+```
+
+### Tags as filters
+
+<Playground>
+
+</Playground>
+
+##### Core:
+```
+```
+
+##### React:
+```tsx
+
+```
+
+
+## Demos & API
+
+### Core
+
+[Tags in hds-core](/storybook/core/?path=/story/components-status-label--default)
+
+### React
+
+[Tags in hds-react](/storybook/react/?path=/story/components-status-label--neutral)
+
+[Tags API](/storybook/react/?path=/docs/components-status-label--neutral)
