@@ -19,7 +19,3 @@ export interface FooterTheme {
   '--footer-divider-color'?: string;
   '--footer-focus-outline-color'?: string;
 }
-
-export interface FooterThemeWithProperties extends FooterTheme {
-  property?: string;
-}

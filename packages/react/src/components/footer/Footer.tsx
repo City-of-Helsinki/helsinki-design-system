@@ -71,7 +71,7 @@ export const Footer = ({
   const [navigation, childrenWithoutNavigation] = getComponentFromChildren(children, 'FooterNavigation');
   // handle custom themes
   if (theme && typeof theme !== 'string') {
-    setComponentTheme<FooterTheme>('.Footer_footer', theme);
+    setComponentTheme<FooterTheme>('Footer', theme);
   }
 
   return (
