@@ -89,3 +89,4 @@ export const NavigationUser = ({
     </div>
   );
 };
+NavigationUser.componentName = 'NavigationUser';

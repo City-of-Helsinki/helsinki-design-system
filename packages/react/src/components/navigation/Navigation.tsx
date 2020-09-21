@@ -15,6 +15,7 @@ import { NavigationDropdown } from './navigation-dropdown/NavigationDropdown';
 import { useMobile } from '../../hooks/useMobile';
 import { IconCross, IconMenuHamburger } from '../../icons';
 import { NavigationReducerAction, NavigationReducerState } from './Navigation.interface';
+import { FCWithName } from '../../common/types';
 
 const MOBILE_MENU_TRANSITION: UseTransitionProps = {
   from: { transform: 'translate3d(0, -10%, 0)', opacity: 0.85 },
@@ -107,7 +108,7 @@ const rearrangeChildrenForMobile = (children: React.ReactElement[], authenticate
 
   // moves the component to the start of the array
   const moveComponentToTop = (name: string) => {
-    const index = rearrangedChildren.findIndex((item) => (item?.type as React.FC)?.name === name);
+    const index = rearrangedChildren.findIndex((item) => (item?.type as FCWithName)?.componentName === name);
     if (index > -1) {
       const component = rearrangedChildren.splice(index, 1)[0];
       rearrangedChildren.splice(0, 0, component);
@@ -205,18 +206,18 @@ export const Navigation = ({
   const childrenAsArray = React.Children.toArray(children) as React.ReactElement[];
   // children without the navigation row
   const childrenWithoutNavigation = childrenAsArray.filter(
-    (child) => (child.type as React.FC)?.name !== 'NavigationRow',
+    (child) => (child.type as FCWithName)?.componentName !== 'NavigationRow',
   );
   // filter out the NavigationRow, so that it can be rendered correctly based on the 'navigationRowDisplay' value
-  const navigation = childrenAsArray.filter((child) => (child.type as React.FC)?.name === 'NavigationRow');
+  const navigation = childrenAsArray.filter((child) => (child.type as FCWithName)?.componentName === 'NavigationRow');
 
   // children that will be rendered in the mobile menu
   let menuChildren = null;
 
   if (isMobile) {
     // navigation actions
-    const actions = childrenAsArray.find((child) => (child.type as React.FC).name === 'NavigationActions')?.props
-      ?.children;
+    const actions = childrenAsArray.find((child) => (child.type as FCWithName).componentName === 'NavigationActions')
+      ?.props?.children;
     const items = React.Children.toArray([navigation, actions]) as React.ReactElement[];
 
     // rearrange children

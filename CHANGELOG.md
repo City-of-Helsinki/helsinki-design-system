@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
+## [0.13.2] - September 21, 2020
+### Documentation
+#### Added
+- Sketch file and symbol guidelines to the Contributing section
+- Logo component documentation page
+- HDS Colour contrast accessibility examples and guidelines
+- Localisation guidelines
+
+#### Changed
+- Improved styling of documentation site html elements to improve readability and visuals
+- Search bar placeholder text
+#### Removed
+- Links to HDS Core Logo documentation (Logo is not implemented in HDS Core yet)
+
+### React
+#### Fixed
+- [Navigation] Fixed an issue where the component didn't work correctly in production builds. in ([#255](https://github.com/City-of-Helsinki/helsinki-design-system/pull/255))
+    - The problem was caused by the navigation component names getting mangled in production builds.
+
+
 ## [0.13.1] - September 9, 2020
 ### Documentation
 #### Added
