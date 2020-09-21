@@ -216,7 +216,7 @@ export const Sitemap = (args) => {
 };
 
 export const Example = (args) => (
-  <Footer {...args}>
+  <Footer footerProps={{ lang: 'fi' }} {...args}>
     <Footer.Navigation navigationAriaLabel="Nostoja palveluista">
       <Footer.Item href="https://asiointi.hel.fi/wps/portal/login?locale=fi" label="Sähköinen asiointi" />
       <Footer.Item href="https://palvelukartta.hel.fi/" label="Palvelut kartalla" />
@@ -283,5 +283,4 @@ export const Example = (args) => (
 );
 Example.args = {
   footerAriaLabel: 'Helsingin kaupungin palvelun alatunniste',
-  titleAriaLabel: 'Helsingin kaupungin logo ja palvelun nimi',
 };

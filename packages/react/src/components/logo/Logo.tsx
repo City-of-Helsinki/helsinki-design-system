@@ -6,7 +6,7 @@ import classNames from '../../utils/classNames';
 export type LogoLanguage = 'fi' | 'sv';
 export type LogoSize = 'full' | 'small' | 'medium' | 'large';
 
-export type LogoProps = {
+export type LogoProps = React.ComponentPropsWithoutRef<'svg'> & {
   /**
    * Additional class names to apply to the logo
    */
@@ -53,11 +53,12 @@ const LogoSV = (props): React.ReactElement => (
   </svg>
 );
 
-export const Logo = ({ className, dataTestId, language = 'fi', size = 'full', style }: LogoProps) => {
+export const Logo = ({ className, dataTestId, language = 'fi', size = 'full', style, ...rest }: LogoProps) => {
   const props = {
     className: classNames(styles.logo, size !== 'full' && styles[size], className),
     style,
     'data-testid': dataTestId,
+    ...rest,
   };
 
   if (language === 'sv') {

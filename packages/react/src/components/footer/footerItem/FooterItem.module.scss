@@ -1,4 +1,3 @@
-@value small-down from "../../../styles/breakpoints.css";
 @import "../common";
 
 .item {
@@ -22,11 +21,4 @@
   min-width: var(--spacing-xs);
   transform: translateY(4px);
   width: var(--spacing-xs);
-}
-
-@media small-down {
-  .item {
-    hyphens: auto;
-    word-break: break-word;
-  }
 }

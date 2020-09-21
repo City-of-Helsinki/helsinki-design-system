@@ -5,7 +5,6 @@ exports[`<Footer.Item /> spec renders the component 1`] = `
   <footer
     aria-label="Foo"
     class="footer koros-basic theme-white"
-    lang="fi"
   >
     <div
       class="koros basic koros basic"

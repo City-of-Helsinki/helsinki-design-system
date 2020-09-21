@@ -4,8 +4,6 @@ import React from 'react';
 import 'hds-core';
 import styles from './FooterItemGroup.module.scss';
 
-export type FooterItemGroupProps = React.PropsWithChildren<{}>;
-
-export const FooterItemGroup = ({ children }: FooterItemGroupProps) => (
+export const FooterItemGroup = ({ children }: React.PropsWithChildren<{}>) => (
   <div className={styles.itemGroup}>{children}</div>
 );

@@ -34,12 +34,6 @@
   }
 }
 
-@media small-up {
-  .navigation {
-    justify-items: center;
-  }
-}
-
 @media medium-only {
   .navigation {
     margin-top: var(--spacing-m);

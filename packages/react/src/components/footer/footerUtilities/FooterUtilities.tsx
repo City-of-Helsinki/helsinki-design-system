@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 // import core base styles
 import 'hds-core';
@@ -22,10 +22,12 @@ export type FooterUtilitiesProps = React.PropsWithChildren<{
   showBackToTopButton?: boolean;
 }>;
 
+/**
+ * Scrolls to the top of the page and puts the focus on the first focusable element in the DOM
+ */
 const handleBackToTop = (): void => {
   // eslint-disable-next-line no-unused-expressions
   window?.scrollTo({ top: 0 });
-  // focus the first focusable element
   // eslint-disable-next-line no-unused-expressions
   getKeyboardFocusableElements()[0]?.focus();
 };
@@ -36,7 +38,6 @@ export const FooterUtilities = ({
   onBackToTopClick,
   showBackToTopButton = true,
 }: FooterUtilitiesProps) => {
-  const backTopButtonRef = useRef<HTMLButtonElement>(null);
   // filter out the SoMe group, so that other utils can be wrapped in a separate div
   const [soMeGroup, childrenWithoutSoMeGroup] = getComponentFromChildren(children, 'FooterSoMe');
 
@@ -49,7 +50,6 @@ export const FooterUtilities = ({
         {showBackToTopButton && (
           <button
             type="button"
-            ref={backTopButtonRef}
             className={styles.backToTopButton}
             onClick={(e) => (typeof onBackToTopClick === 'function' ? onBackToTopClick(e) : handleBackToTop())}
           >

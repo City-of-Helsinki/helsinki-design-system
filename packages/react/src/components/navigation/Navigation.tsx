@@ -211,8 +211,9 @@ export const Navigation = ({
 
   if (isMobile) {
     // navigation actions
-    const actions = getChildrenAsArray(children).find((child) => (child.type as React.FC).name === 'NavigationActions')
-      ?.props?.children;
+    const actions = getChildrenAsArray(children).find(
+      (child) => (child.type as FCWithName).componentName === 'NavigationActions',
+    )?.props?.children;
     const items = getChildrenAsArray([navigation, actions]);
 
     // rearrange children

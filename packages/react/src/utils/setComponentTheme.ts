@@ -21,6 +21,7 @@ export default <T>(selector: string, theme: T): void => {
     // set the theme
     Object.entries(theme).forEach(([property, value]) => rule.style.setProperty(property, value));
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.warn(`Could not find stylesheet to update with the "${selector}" selector!`);
   }
 };

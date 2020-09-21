@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from 'react';
+import React, { useReducer } from 'react';
 
 // import core base styles
 import 'hds-core';
@@ -19,9 +19,17 @@ import { getComponentFromChildren } from '../../utils/getChildren';
 
 export type FooterProps = React.PropsWithChildren<{
   /**
+   * Additional class names to apply to the footer
+   */
+  className?: string;
+  /**
    * The aria-label for the `<footer>` element. Describes the footer to screen reader users.
    */
   footerAriaLabel: string;
+  /**
+   * Props to pass to the native `<footer>` element
+   */
+  footerProps?: React.ComponentPropsWithoutRef<'footer'>;
   /**
    * Koros type to use in the footer
    */
@@ -34,10 +42,6 @@ export type FooterProps = React.PropsWithChildren<{
    * The title of the service shown next to the logo
    */
   title?: React.ReactNode;
-  /**
-   * The aria-label for the title. Describes the title to screen reader users.
-   */
-  titleAriaLabel?: string;
 }>;
 
 /**
@@ -45,23 +49,23 @@ export type FooterProps = React.PropsWithChildren<{
  * @param {ReducerState} state
  * @param {ReducerAction} action
  */
-const reducer = (state: FooterReducerState, action: FooterReducerAction): FooterReducerState => {
-  if (action.type === 'NAVIGATION_VARIANT') {
-    return { ...state, navigationVariant: action.value };
-  }
-
-  return state;
-};
+const reducer = (state: FooterReducerState, action: FooterReducerAction): FooterReducerState =>
+  action.type === 'NAVIGATION_VARIANT'
+    ? {
+        ...state,
+        navigationVariant: action.value,
+      }
+    : state;
 
 export const Footer = ({
   children,
+  className,
   footerAriaLabel,
+  footerProps,
   korosType = 'basic',
   theme = 'white',
   title,
-  titleAriaLabel,
 }: FooterProps) => {
-  const footerRef = useRef<HTMLDivElement>(null);
   const [{ navigationVariant }, dispatch] = useReducer(reducer, {
     navigationVariant: 'default',
   });
@@ -77,19 +81,18 @@ export const Footer = ({
   return (
     <FooterContext.Provider value={context}>
       <footer
-        // todo: remove lang
-        lang="fi"
+        {...footerProps}
         aria-label={footerAriaLabel}
-        ref={footerRef}
         className={classNames(
           styles.footer,
           styles[`koros-${korosType}`],
           typeof theme === 'string' ? styles[`theme-${theme}`] : 'custom',
+          className,
         )}
       >
         <Koros className={classNames(styles.koros, styles[korosType])} type={korosType} />
         <section className={classNames(styles.navigationContainer, styles[navigationVariant])}>
-          <div aria-label={titleAriaLabel} className={styles.titleWrapper}>
+          <div className={styles.titleWrapper}>
             <Logo size="medium" />
             {title && <span className={styles.title}>{title}</span>}
           </div>

@@ -13,7 +13,15 @@ export type FooterNavigationProps = React.PropsWithChildren<{
    */
   navigationAriaLabel: string;
   /**
-   * todo
+   * Defines how the navigation items will be displayed in the footer
+   *
+   * Supported values:
+   *
+   * `default` - Items will be displayed beneath the logo and title
+   *
+   * `minimal` - Items will be displayed inline with the logo and title. Intended to be used with 4 items or less.
+   *
+   * `sitemap` - Items will be displayed beneath the logo and title as groups with items and sub-items...
    */
   variant?: FooterNavigationVariant;
 }>;
@@ -29,3 +37,5 @@ export const FooterNavigation = ({ children, navigationAriaLabel, variant }: Foo
     </nav>
   );
 };
+
+FooterNavigation.componentName = 'FooterNavigation';

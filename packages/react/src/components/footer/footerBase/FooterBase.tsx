@@ -6,13 +6,13 @@ import styles from './FooterBase.module.scss';
 
 export type FooterBaseProps = React.PropsWithChildren<{
   /**
-   * todo
+   * Text to be displayed next to the copyright symbol
    */
-  copyrightHolder?: string | React.ReactNode;
+  copyrightHolder?: React.ReactNode;
   /**
-   * todo
+   * Text to be displayed after the copyright holder text
    */
-  copyrightText?: string | React.ReactNode;
+  copyrightText?: React.ReactNode;
 }>;
 
 export const FooterBase = ({ children, copyrightHolder, copyrightText }: FooterBaseProps) => {
