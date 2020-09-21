@@ -16,6 +16,7 @@ import { useMobile } from '../../hooks/useMobile';
 import { IconCross, IconMenuHamburger } from '../../icons';
 import { NavigationReducerAction, NavigationReducerState } from './Navigation.interface';
 import { getChildrenAsArray, getComponentFromChildren } from '../../utils/getChildren';
+import { FCWithName } from '../../common/types';
 
 const MOBILE_MENU_TRANSITION: UseTransitionProps = {
   from: { transform: 'translate3d(0, -10%, 0)', opacity: 0.85 },
@@ -108,7 +109,7 @@ const rearrangeChildrenForMobile = (children: React.ReactElement[], authenticate
 
   // moves the component to the start of the array
   const moveComponentToTop = (name: string) => {
-    const index = rearrangedChildren.findIndex((item) => (item?.type as React.FC)?.name === name);
+    const index = rearrangedChildren.findIndex((item) => (item?.type as FCWithName)?.componentName === name);
     if (index > -1) {
       const component = rearrangedChildren.splice(index, 1)[0];
       rearrangedChildren.splice(0, 0, component);

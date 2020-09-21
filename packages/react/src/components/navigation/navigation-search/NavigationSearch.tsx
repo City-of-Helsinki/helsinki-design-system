@@ -107,3 +107,4 @@ export const NavigationSearch = ({
     </div>
   );
 };
+NavigationSearch.displayName = 'NavigationSearch';

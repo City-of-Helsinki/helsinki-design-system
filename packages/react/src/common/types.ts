@@ -8,3 +8,8 @@ export type MergeElementProps<T extends React.ElementType, P extends object = {}
   keyof P
 > &
   P;
+
+/**
+ * Extends the React FunctionComponent type with the componentName key
+ */
+export type FCWithName = React.FC & { componentName: string };

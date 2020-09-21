@@ -1,0 +1,82 @@
+---
+name: Logo
+menu: Components
+route: /components/logo
+---
+
+import { Playground } from "docz";
+import { Logo, StatusLabel } from "hds-react";
+
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
+
+# Logo
+
+<StatusLabel>New</StatusLabel>
+<StatusLabel type="info" style={{marginLeft: 'var(--spacing-xs)'}}>Stable</StatusLabel> 
+
+<LargeParagraph>
+    Logo is used to identify the site or application as an official City of Helsinki service.
+</LargeParagraph>
+
+See the [logo visual asset documentation](/visual-assets/logo "City of Helsinki logo") for more information about principles of using the City of Helsinki logo.
+
+## Principles
+- Logo is automatically included in HDS Navigation and HDS Footer (not yet released) components. **Use the Logo component sparingly in other parts of the service.**
+- **It is recommended to include the service name next to the logo.** This helps the user more easily identify which city service they are currently using.
+- HDS Logo component includes translations for both Finnish and Swedish. **Use translation depending on the locale the user has chosen.** Swedish and Scandinavian languages uses the `sv` variant while other languages use `fi` variant.
+- This component is solely for the City of Helsinki logo. Do not use this component for logos of other parties.
+
+## Accessibility
+- A text alternative must always be provided for logos using the WAI-ARIA definition _aria-label_ or _aria-labelledby_. See <Link href="https://www.w3.org/TR/WCAG21/#text-alternatives" external>WCAG 2.1 Text Alternatives guideline</Link> for more information.
+- The colour contrast between the logo and its background must comply with <Link href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>AA Level contrast ratios</Link>. You can find more information about accessible color combinations in [Colour design token documentation](/design-tokens/colour).
+
+
+## Usage
+
+### Default
+
+<Playground>
+    <Logo language="fi" size="large" />
+    <Logo language="sv" size="large" style={{marginLeft: 'var(--spacing-s)'}}/>
+</Playground>
+
+##### React:
+```tsx
+<Logo language="fi" size="large" />
+<Logo language="sv" size="large" />
+```
+
+### Logo sizes
+
+<Playground>
+    <Logo language="fi" size="small" />
+    <Logo language="fi" size="medium" style={{marginLeft: 'var(--spacing-s)'}}/>
+    <Logo language="fi" size="large" style={{marginLeft: 'var(--spacing-s)'}}/>
+
+    <Logo language="sv" size="small" style={{marginLeft: 'var(--spacing-l)'}}/>
+    <Logo language="sv" size="medium" style={{marginLeft: 'var(--spacing-s)'}}/>
+    <Logo language="sv" size="large" style={{marginLeft: 'var(--spacing-s)'}}/>
+</Playground>
+
+##### React:
+```tsx
+<Logo language="fi" size="small" />
+<Logo language="fi" size="medium" />
+<Logo language="fi" size="large" />
+
+<Logo language="sv" size="small" />
+<Logo language="sv" size="medium" />
+<Logo language="sv" size="large" />
+```
+
+## Demos & API
+
+### Core
+
+_Not included in hds-core!_
+
+### React
+
+[Logo in hds-react](/storybook/react/?path=/story/components-logo--playground)
+

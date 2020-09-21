@@ -37,3 +37,4 @@ export const NavigationRow = ({ display = 'subNav', children }: NavigationRowPro
     <nav className={classNames(styles.navigation, display === 'subNav' && styles.subNav)}>{childrenWithClassName}</nav>
   );
 };
+NavigationRow.componentName = 'NavigationRow';
