@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 
 // import core base styles
 import 'hds-core';
@@ -14,7 +14,7 @@ import { FooterUtilities } from './footerUtilities/FooterUtilities';
 import { FooterSoMe } from './footerSoMe/FooterSoMe';
 import { FooterBase } from './footerBase/FooterBase';
 import { FooterContext, FooterContextProps } from './FooterContext';
-import { FooterReducerAction, FooterReducerState, FooterTheme } from './Footer.interface';
+import { FooterCustomTheme, FooterReducerAction, FooterReducerState, FooterTheme } from './Footer.interface';
 import { getComponentFromChildren } from '../../utils/getChildren';
 
 export type FooterProps = React.PropsWithChildren<{
@@ -27,7 +27,7 @@ export type FooterProps = React.PropsWithChildren<{
    */
   footerAriaLabel: string;
   /**
-   * Props to pass to the native `<footer>` element
+   * Props that will be passed to the native `<footer>` element
    */
   footerProps?: React.ComponentPropsWithoutRef<'footer'>;
   /**
@@ -35,9 +35,9 @@ export type FooterProps = React.PropsWithChildren<{
    */
   korosType?: KorosType;
   /**
-   * The title of the service shown next to the logo
+   * Defines the footer theme
    */
-  theme?: 'white' | 'black' | FooterTheme;
+  theme?: FooterTheme;
   /**
    * The title of the service shown next to the logo
    */
@@ -63,20 +63,22 @@ export const Footer = ({
   footerAriaLabel,
   footerProps,
   korosType = 'basic',
-  theme = 'white',
+  theme = 'light',
   title,
 }: FooterProps) => {
   const [{ navigationVariant }, dispatch] = useReducer(reducer, {
     navigationVariant: 'default',
   });
+  // handle custom themes
+  useEffect(() => {
+    if (theme && typeof theme !== 'string') {
+      setComponentTheme<FooterCustomTheme>('Footer', theme);
+    }
+  }, [theme]);
   // footer context
   const context: FooterContextProps = { dispatch };
   // filter out navigation from other children so that they can be rendered separately
   const [navigation, childrenWithoutNavigation] = getComponentFromChildren(children, 'FooterNavigation');
-  // handle custom themes
-  if (theme && typeof theme !== 'string') {
-    setComponentTheme<FooterTheme>('Footer', theme);
-  }
 
   return (
     <FooterContext.Provider value={context}>

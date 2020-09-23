@@ -70,10 +70,10 @@ export default {
     controls: { expanded: true },
     layout: 'fullscreen',
   },
-  args: { title: 'Helsinki Design System', korosType: 'basic', theme: 'white' },
+  args: { title: 'Helsinki Design System', korosType: 'basic', theme: 'light' },
   argTypes: {
     korosType: { control: { type: 'radio', options: ['basic', 'beat', 'pulse', 'storm', 'wave'] } },
-    theme: { control: { type: 'inline-radio', options: ['white', 'black'] } },
+    theme: { control: { type: 'inline-radio', options: ['light', 'dark'] } },
     title: { control: { type: 'text' } },
   },
 };
@@ -125,9 +125,9 @@ CustomTheme.storyName = 'Custom theme';
 CustomTheme.args = {
   theme: {
     '--footer-background': 'var(--color-engel)',
-    '--footer-color': 'var(--color-black)',
-    '--footer-divider-color': 'var(--color-black)',
-    '--footer-focus-outline-color': 'var(--color-black)',
+    '--footer-color': 'var(--color-black-90)',
+    '--footer-divider-color': 'var(--color-black-90)',
+    '--footer-focus-outline-color': 'var(--color-black-90)',
   },
 };
 CustomTheme.argTypes = {
@@ -138,82 +138,30 @@ CustomTheme.argTypes = {
   },
 };
 
-export const Sitemap = (args) => {
-  const labelMapping = {
-    1: 'Asuminen ja ympäristö',
-    2: 'Kulttuuri ja vapaa-aika',
-    3: 'Liikenne ja kadut',
-    4: 'Varhaiskasvatus ja koulutus',
-    5: 'Sosiaali- ja terveyspalvelut',
-    6: 'Työ ja yrittäminen',
-  };
-  const subLabelMapping = {
-    1: 'Hätätilanteet ja päivystys',
-    2: 'Terveyspalvelut',
-    3: 'Mielenterveys- ja päihdepalvelut',
-    4: 'Sosiaalinen tuki ja toimeentulo',
-    5: 'Ympäristö ja luonto',
-    6: 'Asuminen',
-    7: 'Kaavoitus',
-    8: 'Rakentaminen ja kiinteistöt',
-    9: 'Kaupunkisuunnittelu- ja rakentamishankkeet',
-    10: 'Elintarvikevalvonta ja ympäristöterveys',
-    11: 'Kirjastot',
-    12: 'Kulttuuri',
-    13: 'Liikunta',
-    14: 'Ulkoilu ja retkeily',
-    15: 'Matkailu',
-    16: 'Tapahtumat',
-    17: 'Liikenne- ja katusuunnittelu',
-    18: 'Katujen rakentaminen ja kunnossapito',
-    19: 'Joukkoliikenne',
-    20: 'Pysäköinti',
-  };
-
-  const getRandomNumberInRange = (min, max) => {
-    // eslint-disable-next-line no-param-reassign
-    min = Math.ceil(min);
-    // eslint-disable-next-line no-param-reassign
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  };
-
-  return (
-    <Footer footerAriaLabel={footerAriaLabel} {...args}>
-      <Footer.Navigation navigationAriaLabel={footerNavAriaLabel} variant="sitemap">
-        {createArray(getRandomNumberInRange(3, 6)).map((index) => (
-          <Footer.ItemGroup key={index}>
-            {createArray(getRandomNumberInRange(3, 6)).map((subIndex) => {
-              const subItem = subIndex !== 0;
-              return (
-                <Footer.Item
-                  key={subIndex}
-                  subItem={subItem}
-                  href="https://google.com"
-                  onClick={(e) => e.preventDefault()}
-                  label={
-                    subItem
-                      ? subLabelMapping[getRandomNumberInRange(1, 20)]
-                      : labelMapping[getRandomNumberInRange(1, 6)]
-                  }
-                />
-                // <Footer.Item
-                //   key={subIndex}
-                //   subItem={subItem}
-                //   href="https://google.com"
-                //   onClick={(e) => e.preventDefault()}
-                //   label={subItem ? 'Sub page' : 'Main Page'}
-                // />
-              );
-            })}
-          </Footer.ItemGroup>
-        ))}
-      </Footer.Navigation>
-      <Utilities />
-      <Base />
-    </Footer>
-  );
-};
+export const Sitemap = (args) => (
+  <Footer footerAriaLabel={footerAriaLabel} {...args}>
+    <Footer.Navigation navigationAriaLabel={footerNavAriaLabel} variant="sitemap">
+      {createArray(4).map((index) => (
+        <Footer.ItemGroup key={index}>
+          {createArray(6).map((subIndex) => {
+            const subItem = subIndex !== 0;
+            return (
+              <Footer.Item
+                key={subIndex}
+                subItem={subItem}
+                href="https://google.com"
+                onClick={(e) => e.preventDefault()}
+                label={subItem ? 'Sub page' : 'Main Page'}
+              />
+            );
+          })}
+        </Footer.ItemGroup>
+      ))}
+    </Footer.Navigation>
+    <Utilities />
+    <Base />
+  </Footer>
+);
 
 export const Example = (args) => (
   <Footer footerProps={{ lang: 'fi' }} {...args}>

@@ -17,7 +17,9 @@ export type FooterReducerAction = { type: 'NAVIGATION_VARIANT'; value: FooterNav
 
 export type FooterNavigationVariant = 'default' | 'minimal' | 'sitemap';
 
-export interface FooterTheme {
+export type FooterTheme = 'light' | 'dark' | FooterCustomTheme;
+
+export interface FooterCustomTheme {
   '--footer-background'?: string;
   '--footer-color'?: string;
   '--footer-divider-color'?: string;

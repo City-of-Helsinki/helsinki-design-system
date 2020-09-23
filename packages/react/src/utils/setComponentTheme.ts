@@ -4,6 +4,8 @@
  * @param theme
  */
 export default <T>(selector: string, theme: T): void => {
+  if (typeof window === 'undefined') return;
+
   const styleSheets = document?.styleSheets;
   // the index of the rule within the stylesheet that contains the custom theme styles
   let customRuleIndex = 0;

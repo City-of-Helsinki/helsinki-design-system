@@ -22,7 +22,7 @@ $koros-heights: (
   z-index: 1;
 
   // black theme overrides
-  &.theme-black {
+  &.theme-dark {
     --footer-background: var(--color-black-80);
     --footer-color: var(--color-white);
     --footer-focus-outline-color: var(--color-white);
