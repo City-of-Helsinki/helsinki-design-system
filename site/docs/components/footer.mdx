@@ -5,12 +5,16 @@ route: /components/footer
 ---
 
 import { Playground } from "docz";
+import { Footer, IconFacebook, IconInstagram, IconTiktok, IconTwitter, IconYoutube, StatusLabel } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
 import Text from "../../src/components/Text";
 import LargeParagraph from "../../src/components/LargeParagraph";
 
 # Footer
+
+<StatusLabel>New</StatusLabel>
+<StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel>
 
 <LargeParagraph>
     The Footer component is located at the bottom of the page below the main body content. It provides a place for secondary navigation, site wide actions and additional information.
@@ -47,40 +51,288 @@ The default footer uses the black text colour variant and includes all three sec
 - Base section includes text field for copyright or other meta information and is optimised for up to five supplementary links, depending on link length.
 
 <Playground>
-
+  <Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+    </Footer.Navigation>
+    <Footer.Utilities backToTopLabel="Back to top">
+        <Footer.SoMe>
+          <Footer.Item icon={<IconFacebook />} />
+          <Footer.Item icon={<IconTwitter />} />
+          <Footer.Item icon={<IconInstagram />} />
+          <Footer.Item icon={<IconYoutube />} />
+          <Footer.Item icon={<IconTiktok />} />
+        </Footer.SoMe>
+        <Footer.Item label="Contact us" />
+        <Footer.Item label="Give feedback" />
+      </Footer.Utilities>
+      <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+        <Footer.Item label="Link" />
+        <Footer.Item label="Link" />
+        <Footer.Item label="Link" />
+        <Footer.Item label="Link" />
+        <Footer.Item label="Link" />
+      </Footer.Base>
+  </Footer>
 </Playground>
 
 ##### React:
 ```tsx
-/* React code example goes here */
+<Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
+  <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+  </Footer.Navigation>
+  <br />
+  <Footer.Utilities backToTopLabel="Back to top">
+      <Footer.SoMe>
+        <Footer.Item icon={<IconFacebook />} />
+        <Footer.Item icon={<IconTwitter />} />
+        <Footer.Item icon={<IconInstagram />} />
+        <Footer.Item icon={<IconYoutube />} />
+        <Footer.Item icon={<IconTiktok />} />
+      </Footer.SoMe>
+      <Footer.Item label="Contact us" />
+      <Footer.Item label="Give feedback" />
+    </Footer.Utilities>
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+    </Footer.Base>
+</Footer>
 ```
 
 
 ### Color variations
-HDS Footer offers two variations optimised to be used with different background colours - with white text and with black text. Use variation that achieves best contrast between the text elements and the background colour of your choice.
+HDS Footer offers two variations optimised to be used with different background colours - with white text and with black text. Use the variation that achieves the best contrast between the text elements and the background colour of your choice.
 
 <Playground>
-
+  <Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+    </Footer.Navigation>
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+    </Footer.Base>
+  </Footer>
+  <br />
+  <Footer title="Helsinki Design System" theme="dark" footerAriaLabel="HDS Footer">
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+    </Footer.Navigation>
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+    </Footer.Base>
+  </Footer>
 </Playground>
 
 ##### React:
 ```tsx
-/* React code example goes here */
+{/* Light (default) */}
+<Footer title="Helsinki Design System">
+  <Footer.Navigation>
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+  </Footer.Navigation>
+  <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+    <Footer.Item label="Link" />
+    <Footer.Item label="Link" />
+    <Footer.Item label="Link" />
+  </Footer.Base>
+</Footer>
+{/* Dark */}
+<Footer title="Helsinki Design System" theme="dark">
+  <Footer.Navigation>
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+  </Footer.Navigation>
+  <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+    <Footer.Item label="Link" />
+    <Footer.Item label="Link" />
+    <Footer.Item label="Link" />
+  </Footer.Base>
+</Footer>
 ```
+
+
+### Custom theme
+All the footer colours can be customised, if the available colour variants don't suit your needs. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
+
+<Playground>
+  <Footer
+    title="Helsinki Design System"
+    footerAriaLabel="HDS Footer"
+    theme={{
+        '--footer-background': 'var(--color-engel)',
+        '--footer-color': 'var(--color-black-90)',
+        '--footer-divider-color': 'var(--color-black-90)',
+        '--footer-focus-outline-color': 'var(--color-black-90)',
+    }}
+  >
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+    </Footer.Navigation>
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+    </Footer.Base>
+  </Footer>
+</Playground>
+
+##### React:
+```tsx
+<Footer
+  title="Helsinki Design System"
+  theme={{
+      '--footer-background': 'var(--color-engel)',
+      '--footer-color': 'var(--color-black-90)',
+      '--footer-divider-color': 'var(--color-black-90)',
+      '--footer-focus-outline-color': 'var(--color-black-90)',
+  }}
+>
+  <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+  </Footer.Navigation>
+  <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+    <Footer.Item label="Link" />
+    <Footer.Item label="Link" />
+    <Footer.Item label="Link" />
+  </Footer.Base>
+</Footer>
+```
+
 
 ### Navigation section variations
 Navigation section two different layout options:
-- **Default navigation** includes only the main level navigation items. The laytout is optimised for up to eight menu items.
+- **Default navigation** includes only the main level navigation items. The layout is optimised for up to eight menu items.
+- **Minimal navigation** includes only the main level navigation items. The layout is optimised for up to four menu items.
 - **Sitemap navigation** includes also second level sub-pages. Sitemap can be used in footer to help user find pages quickly from a complicated page hierarchy.
-- The navigation can also be hidden altogehter. However, **it is strongly recommended, that the Helsinki framed logo and service name are always shown in the footer**.
+- The navigation can also be hidden altogether.
 
-<Playground> 
-
+<Playground>
+<Footer title="Default" footerAriaLabel="HDS Footer">
+  <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+  </Footer.Navigation>
+</Footer>
+<br />
+<Footer title="Minimal" footerAriaLabel="HDS Footer">
+  <Footer.Navigation variant="minimal" navigationAriaLabel="HDS Footer navigation">
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+  </Footer.Navigation>
+</Footer>
+<br />
+<Footer title="Sitemap" footerAriaLabel="HDS Footer">
+  <Footer.Navigation variant="sitemap" navigationAriaLabel="HDS Footer navigation">
+    {[1, 2, 3, 4].map((key) =>
+       <Footer.ItemGroup key={key}>
+          <Footer.Item label="Item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+      </Footer.ItemGroup>
+    )}
+  </Footer.Navigation>
+</Footer>
+<br />
+<Footer title="Hidden" footerAriaLabel="HDS Footer" />
 </Playground>
 
 ##### React:
 ```tsx
-/* React code example goes here */
+{/* Default */}
+<Footer title="Default">
+  <Footer.Navigation>
+      <Footer.Item label="Item" />
+      {...}
+  </Footer.Navigation>
+</Footer>
+{/* Minimal */}
+<Footer title="Minimal">
+  <Footer.Navigation variant="minimal">
+      <Footer.Item label="Item" />
+      {...}
+  </Footer.Navigation>
+</Footer>
+{/* Sitemap */}
+<Footer title="Sitemap">
+  <Footer.Navigation variant="sitemap">
+      <Footer.ItemGroup>
+          <Footer.Item label="Item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+      </Footer.ItemGroup>
+      {...}
+  </Footer.Navigation>
+</Footer>
+{/* Hidden */}
+<Footer title="Hidden" />
 ```
 
 
@@ -92,10 +344,6 @@ _Not included in hds-core!_
 
 ### React
 
-[Navigation in hds-react](/)
+[Footer in hds-react](/storybook/react/?path=/story/components-footer--default)
 
-[Navigation API](/)
-
-## Tokens
-
-_No tokens._
+[Footer API](/storybook/react/?path=/docs/components-footer--default)
