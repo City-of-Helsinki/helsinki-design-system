@@ -10,6 +10,7 @@ export * from './notification';
 export * from './radioButton';
 export * from './section';
 export * from './statusLabel';
+export * from './tag';
 export * from './textarea';
 export * from './textInput';
 export * from './tooltip';

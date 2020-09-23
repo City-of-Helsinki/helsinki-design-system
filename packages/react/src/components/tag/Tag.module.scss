@@ -1,0 +1,24 @@
+.tag {
+  composes: hds-status-label from 'hds-core/lib/components/status-label/status-label.css';
+  align-items: center;
+  display: inline-flex;
+  flex-direction: row-reverse;
+
+  &:focus-within {
+    box-shadow: 0 0 0 3px var(--color-coat-of-arms-blue);
+  }
+}
+
+// TODO: USE PLACEHOLDER CLASS WHEN FOOTER IS MERGED
+.deleteButton {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+
+  display: flex;
+  margin-right: var(--spacing-3-xs);
+  outline: none;
+}
