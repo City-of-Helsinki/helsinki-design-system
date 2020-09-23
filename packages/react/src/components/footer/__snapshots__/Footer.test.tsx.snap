@@ -4,7 +4,7 @@ exports[`<Footer /> spec renders the component 1`] = `
 <DocumentFragment>
   <footer
     aria-label="Foo"
-    class="footer koros-basic theme-white"
+    class="footer koros-basic theme-light"
   >
     <div
       class="koros basic koros basic"
