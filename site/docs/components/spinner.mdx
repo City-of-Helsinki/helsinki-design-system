@@ -1,0 +1,121 @@
+---
+name: Loading spinner
+menu: Components
+route: /components/spinner
+---
+
+<!---
+Import all the needed components from HDS libraries.
+import { <COMPONENT_NAME> } from "hds-react";
+-->
+
+<!---
+Import documentation specific components. You can view what is available in /site/src/components/ folder.
+-->
+import { Playground } from "docz";
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
+
+# Loading spinner
+
+<LargeParagraph>
+  Loading spinner is used for notifying users that their action is being processed or data retrieved from server.
+</LargeParagraph>
+
+The loading spinner do not provide details about nature of the processing, but it reassures the user that their action is being processed.
+
+## Principles
+- Use the loading spinner only if the wait time is anticipated to be longer than three seconds. A spinner that just flashes quickly in view can confuse the user.
+- Display the loading spinner in the same area and contextual level where the processing is taking place. For example if only the loader indicates that data is being retrieved for a specific content area, display the spinner in that same area.
+- If possible, provide a descpriptive label for the action being processed with the loading spinner.
+
+
+## Accessibility
+- The colour contrast between the loading spinner and its background must comply with <Link href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>AA Level contrast ratios</Link>. You can find more information about accessible color combinations in [Colour design token documentation](/design-tokens/colour).
+
+
+## Usage and variations
+
+The loading spinner comes in two sizes: 
+- Medium (64px) is used for larger content areas and full screen loading 
+- Small (24px) can be used for indicating more local changes in content.
+
+The colour of the spinner can also be customised to fit the colour theme of the service.
+
+<Playground>
+    
+</Playground>
+
+##### Core:
+```html
+<!---
+Add HTML (HDS Core package) code example here. This code should try to match the Playground code above. You may add comments in the code to make it more understandable.
+
+Note! This section should be left out if this component is not included in the Core package.
+-->
+```
+
+### 
+
+<!---
+Add a short description about the variant. What it is and when it should be used over other variants? Keep this relatively short, maximum of 5 sentences.
+-->
+
+<Playground>
+    
+</Playground>
+
+##### Core:
+```html
+<!---
+Add HTML (HDS Core package) code example here. This code should try to match the Playground code above. You may add comments in the code to make it more understandable.
+
+Note! This section should be left out if this component is not included in the Core package.
+-->
+```
+
+##### React:
+```tsx
+<!---
+Add React (HDS React package) code example here. This code should try to match the Playground code above. You may add comments in the code to make it more understandable.
+-->
+```
+
+### <COMPONENT_VARIANT2>
+
+<!---
+Add a short description about the variant. What it is and when it should be used over other variants? Keep this relatively short, maximum of 5 sentences.
+-->
+
+<Playground>
+    
+</Playground>
+
+##### Core:
+```html
+<!---
+Add HTML (HDS Core package) code example here. This code should try to match the Playground code above. You may add comments in the code to make it more understandable.
+
+Note! This section should be left out if this component is not included in the Core package.
+-->
+```
+
+##### React:
+```tsx
+<!---
+Add React (HDS React package) code example here. This code should try to match the Playground code above. You may add comments in the code to make it more understandable.
+-->
+```
+
+## Demos & API
+
+### Core
+
+[<COMPONENT_NAME> in hds-core](/storybook/core/?path=/story/<COMPONENT_PATH>)
+
+### React
+
+[<COMPONENT_NAME> in hds-react](/storybook/react/?path=/story/<COMPONENT_PATH>)
+
+[<COMPONENT_NAME> API](/storybook/react/?path=/docs/<COMPONENT_PATH>)
+
