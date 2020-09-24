@@ -3,6 +3,7 @@ import { boolean, number, text, withKnobs } from '@storybook/addon-knobs';
 
 import { Dropdown } from './Dropdown';
 import { Button } from '../button';
+import { Select } from './Select';
 
 function getOptions() {
   return [
@@ -29,6 +30,47 @@ export default {
 export const Default = () => (
   <Dropdown options={options} placeholder="Placeholder" label="Label" helper="Assistive text" />
 );
+
+export const SelectTest = () => (
+  <>
+    <Select label="Element:" helper="Choose an element" options={options} />
+    <Select
+      invalid
+      label="Element:"
+      helper="Choose an element"
+      options={options}
+      style={{ marginTop: 'var(--spacing-s)' }}
+    />
+  </>
+);
+
+export const SelectMultiselectTest = () => {
+  const log = (e): void => console.log('STORY', e);
+  return <Select label="Element:" helper="Choose an element" options={options} multiselect onChange={log} />;
+};
+
+export const SelectTestControlled = () => {
+  const controlledOptions = getOptions();
+
+  const [selectedItem, setSelectedItem] = useState(null);
+  const handleSelectedItemChange = (item) => setSelectedItem(item);
+
+  return (
+    <>
+      <Button onClick={() => setSelectedItem(null)}>Reset</Button>
+      <Button onClick={() => setSelectedItem(controlledOptions[0])} style={{ marginLeft: 'var(--spacing-s)' }}>
+        Select first option
+      </Button>
+      <Select
+        options={controlledOptions}
+        label="Element:"
+        helper="Choose an element"
+        onChange={handleSelectedItemChange}
+        value={selectedItem}
+      />
+    </>
+  );
+};
 
 export const Invalid = () => (
   <Dropdown options={options} placeholder="Placeholder" label="Label" helper="Error text" invalid />
