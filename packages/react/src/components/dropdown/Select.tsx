@@ -1,15 +1,20 @@
 import React from 'react';
-import { useSelect, useMultipleSelection, UseSelectStateChangeTypes } from 'downshift';
+import { useSelect, useMultipleSelection } from 'downshift';
 import isEqual from 'lodash.isequal';
 
 import 'hds-core';
 import styles from './Select.module.scss';
 import { FieldLabel } from '../../internal/field-label/FieldLabel';
 import classNames from '../../utils/classNames';
-import { IconAlertCircle, IconAngleDown, IconCheck, IconCrossCircle } from '../../icons';
+import { IconAngleDown, IconCheck, IconCrossCircle } from '../../icons';
 import { Checkbox } from '../checkbox';
+import { Tag } from '../tag';
 
 export type SelectProps<OptionType> = {
+  /**
+   * Additional class names to apply to the select
+   */
+  className?: string;
   /**
    * If `true`, the dropdown will be disabled
    */
@@ -87,6 +92,7 @@ function getIsInSelectedOptions<T>(selectedOptions: T[], item: T): boolean {
 }
 
 export const Select = <OptionType,>({
+  className,
   disabled = false,
   helper,
   invalid = false,
@@ -94,9 +100,10 @@ export const Select = <OptionType,>({
   label,
   multiselect,
   onChange = () => null,
+  // test using options without a label key and without optionLabelField defined
   optionLabelField = 'label',
   options = [],
-  placeholder = 'Placeholder',
+  placeholder,
   style,
   value,
   visibleOptions = 5,
@@ -109,10 +116,24 @@ export const Select = <OptionType,>({
     getDropdownProps,
     getSelectedItemProps,
     removeSelectedItem,
+    reset,
     selectedItems,
+    setSelectedItems,
   } = useMultipleSelection<OptionType>({
-    onSelectedItemsChange: ({ selectedItems: _selectedItems }) => {
-      console.log('onSelectedItemsChange selectedItems', _selectedItems);
+    // todo: create a prop for setting the removal message
+    getA11yRemovalMessage({ itemToString, removedSelectedItem }) {
+      console.log(
+        `getA11yRemovalMessage message: "${itemToString(removedSelectedItem[optionLabelField])} has been removed"`,
+      );
+      return `${itemToString(removedSelectedItem[optionLabelField])} has been removed`;
+    },
+    // sets focus on the first selected item when the select is initialized
+    defaultActiveIndex: 0,
+    initialActiveIndex: 0,
+    // todo: remove. just for testing
+    initialSelectedItems: [options[0], options[1]],
+    onSelectedItemsChange({ selectedItems: _selectedItems }) {
+      // console.log('onSelectedItemsChange selectedItems', _selectedItems);
       return multiselect && onChange(_selectedItems);
     },
     ...(multiselect && value !== undefined && { selectedItems: (value as OptionType[]) ?? [] }),
@@ -129,49 +150,77 @@ export const Select = <OptionType,>({
     selectedItem,
     selectItem,
   } = useSelect<OptionType>({
+    // todo: remove. for testing only.
+    // isOpen: true,
+    // todo: create a prop for setting the selection message and clear message
+    // todo: how can this be done for multiselect?
+    getA11ySelectionMessage({ selectedItem: _selectedItem }) {
+      if (!multiselect && _selectedItem) {
+        const message = `${_selectedItem?.[optionLabelField]} has been selected`;
+        console.log(`getA11ySelectionMessage message: "${message}"`);
+        return message;
+      }
+      return '';
+    },
     id,
     items: options,
     itemToString: (item): string => (item ? item[optionLabelField] ?? '' : ''),
-    // onSelectedItemChange: ({ selectedItem: _selectedItem }) => onChange(_selectedItem),
-    onSelectedItemChange: ({ selectedItem: _selectedItem }) => {
-      console.log('onSelectedItemChange selectedItem', _selectedItem);
-      if (!multiselect) onChange(_selectedItem);
-      // return !multiselect && onChange(_selectedItem);
-    },
+    onSelectedItemChange: ({ selectedItem: _selectedItem }) => !multiselect && onChange(_selectedItem),
     // a defined value indicates that the dropdown should be controlled
     // don't set selectedItem if it's not, so that downshift can control the selected item(s)
     ...(!multiselect && value !== undefined && { selectedItem: value as OptionType }),
-    // handles state changes
     stateReducer(state, { type, changes }) {
-      const { selectedItem: _selectedItem } = changes;
-      // flag for whether an item was selected
-      const itemSelection = ([
-        useSelect.stateChangeTypes.MenuKeyDownEnter,
-        useSelect.stateChangeTypes.MenuKeyDownSpaceButton,
-        useSelect.stateChangeTypes.ItemClick,
-      ] as UseSelectStateChangeTypes[]).includes(type);
-
-      // update selected items when multiselect is enabled
-      if (multiselect && _selectedItem && itemSelection) {
-        console.log('selectedItem', _selectedItem);
-
-        getIsInSelectedOptions(selectedItems, _selectedItem)
-          ? removeSelectedItem(_selectedItem)
-          : addSelectedItem(_selectedItem);
-        selectItem(null);
+      switch (type) {
+        case useSelect.stateChangeTypes.MenuKeyDownEnter:
+        case useSelect.stateChangeTypes.MenuKeyDownSpaceButton:
+        case useSelect.stateChangeTypes.ItemClick:
+          // prevent the menu from being closed when the user selects an item
+          if (multiselect) {
+            return {
+              ...changes,
+              isOpen: state.isOpen,
+              highlightedIndex: state.highlightedIndex,
+            };
+          }
+          return changes;
+        default:
+          return changes;
       }
-      // prevent the menu from being closed when the user selects an item
-      // if (!closeMenuOnSelect && itemSelection) {
-      if (multiselect && itemSelection) {
-        return {
-          ...changes,
-          isOpen: state.isOpen,
-          highlightedIndex: state.highlightedIndex,
-        };
+    },
+    onStateChange({ type, selectedItem: _selectedItem }) {
+      switch (type) {
+        case useSelect.stateChangeTypes.MenuKeyDownEnter:
+        case useSelect.stateChangeTypes.MenuKeyDownSpaceButton:
+        case useSelect.stateChangeTypes.ItemClick:
+        case useSelect.stateChangeTypes.MenuBlur:
+          if (multiselect && _selectedItem) {
+            getIsInSelectedOptions(selectedItems, _selectedItem)
+              ? setSelectedItems(selectedItems.filter((item) => !isEqual(item, _selectedItem)))
+              : addSelectedItem(_selectedItem);
+            selectItem(null);
+          }
+          break;
+        default:
+          break;
       }
-      return changes;
     },
   });
+
+  if (!multiselect) {
+    // we call the getDropdownProps getter function when multiselect isn't enabled
+    // in order to suppress the "You forgot to call the ..." error message thrown by downshift.
+    // we only need to apply the getter props to the toggle button when multiselect is enabled.
+    getDropdownProps({}, { suppressRefError: true });
+  }
+
+  // returns the toggle button label based on the dropdown mode
+  const getButtonLabel = (): React.ReactNode => {
+    let buttonLabel = selectedItem?.[optionLabelField] || placeholder;
+    if (multiselect) buttonLabel = selectedItems.length > 0 ? null : placeholder;
+    return <span>{buttonLabel}</span>;
+  };
+  // show placeholder if no value is selected
+  const showPlaceholder = (multiselect && selectedItems.length === 0) || (!multiselect && !selectedItem);
 
   return (
     <div
@@ -180,32 +229,50 @@ export const Select = <OptionType,>({
         invalid && styles.invalid,
         disabled && styles.disabled,
         isOpen && styles.open,
-        // className,
+        multiselect && styles.multiselect,
+        className,
       )}
       style={style}
     >
       {/* LABEL */}
       {label && <FieldLabel label={label} {...getLabelProps()} />}
-
-      {/* SELECTED ITEMS */}
-      <div className={styles.selectedItems}>
-        {selectedItems.map((_selectedItem, index) => (
-          <span
-            key={`selected-item-${_selectedItem?.[optionLabelField] ?? index}`}
-            {...getSelectedItemProps({ selectedItem: _selectedItem, index })}
-          >
-            {_selectedItem[optionLabelField]}
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-            <span onClick={() => removeSelectedItem(_selectedItem)}>
-              <IconCrossCircle />
-            </span>
-          </span>
-        ))}
-      </div>
-
       <div className={styles.wrapper}>
-        {/* INVALID ICON */}
-        {invalid && <IconAlertCircle className={styles.invalidIcon} />}
+        {multiselect && selectedItems.length > 0 && (
+          <>
+            {/* SELECTED ITEMS */}
+            <div className={styles.selectedItems}>
+              {selectedItems.map((_selectedItem, index) => {
+                const selectedItemLabel = _selectedItem[optionLabelField];
+
+                // console.log('getSelectedItemProps', getSelectedItemProps({ selectedItem: _selectedItem, index }));
+
+                return (
+                  <Tag
+                    className={styles.tag}
+                    key={selectedItemLabel}
+                    label={selectedItemLabel}
+                    // aria-describedby={`${id}-helper`}
+                    labelProps={{
+                      'aria-describedby': `${id}-label`,
+                      // 'aria-labelledby': `${id}-label hds-tag-label`,
+                      // 'aria-label': `Selected: ${selectedItemLabel}`,
+                    }}
+                    deleteButtonAriaLabel={`Remove: ${selectedItemLabel}`}
+                    onDelete={() => removeSelectedItem(_selectedItem)}
+                    {...getSelectedItemProps({ selectedItem: _selectedItem, index })}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  />
+                );
+              })}
+            </div>
+            {/* CLEAR BUTTON */}
+            <button type="button" className={styles.clearButton} onClick={() => reset()}>
+              <IconCrossCircle />
+            </button>
+          </>
+        )}
         {/* TOGGLE BUTTON */}
         <button
           type="button"
@@ -217,16 +284,19 @@ export const Select = <OptionType,>({
             // add downshift dropdown props when multiselect is enabled
             ...(multiselect && { ...getDropdownProps({ preventKeyAction: isOpen }) }),
             disabled,
-            className: classNames(styles.buttonDropdown, !selectedItem && styles.placeholder),
+            className: classNames(styles.button, showPlaceholder && styles.placeholder),
           })}
         >
-          <span className={styles.buttonLabel}>{selectedItem?.[optionLabelField] || placeholder}</span>
+          {/* <span className={styles.buttonLabel}>{selectedItem?.[optionLabelField] || placeholder}</span> */}
+          {getButtonLabel()}
           <IconAngleDown className={styles.angleIcon} />
         </button>
+        {/* INVALID ICON */}
+        {/* {invalid && <IconAlertCircle className={styles.invalidIcon} />} */}
         <ul
           {...getMenuProps({
             className: classNames(styles.menu, options.length > visibleOptions && styles.overflow),
-            style: { maxHeight: `calc(var(--dropdown-height) * ${visibleOptions})` },
+            style: { maxHeight: `calc(var(--menu-item-height) * ${visibleOptions})` },
           })}
         >
           {isOpen &&
@@ -247,6 +317,7 @@ export const Select = <OptionType,>({
                       highlightedIndex === index && styles.highlighted,
                       selected && styles.selected,
                       optionDisabled && styles.disabled,
+                      // todo: use root multiselect class?
                       multiselect && styles.multiselect,
                     ),
                   })}
@@ -272,7 +343,8 @@ export const Select = <OptionType,>({
         </ul>
       </div>
       {helper && (
-        <div id={`${id}-helper`} className={styles.helperText} aria-hidden="true">
+        // <div id={`${id}-helper`} className={styles.helperText} aria-hidden="true">
+        <div id={`${id}-helper`} className={styles.helperText}>
           {helper}
         </div>
       )}
