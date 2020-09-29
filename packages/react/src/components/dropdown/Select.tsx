@@ -259,7 +259,7 @@ export const Select = <OptionType,>({
         {multiselect && selectedItems.length > 0 && (
           <>
             {/* SELECTED ITEMS */}
-            <div className={styles.selectedItems}>
+            <div ref={selectedItemsContainerRef} className={styles.selectedItems}>
               {selectedItems.map((_selectedItem, index) => {
                 const selectedItemLabel = _selectedItem[optionLabelField];
                 const tagId = uniqueId('hds-tag-');
