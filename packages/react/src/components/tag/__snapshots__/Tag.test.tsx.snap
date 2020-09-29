@@ -7,7 +7,6 @@ exports[`<Tag /> spec renders the component 1`] = `
   >
     <span
       class="label"
-      id="hds-tag-label"
     />
   </div>
 </DocumentFragment>

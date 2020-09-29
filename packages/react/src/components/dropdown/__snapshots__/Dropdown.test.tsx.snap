@@ -7,8 +7,8 @@ exports[`<Select /> spec renders the component 1`] = `
   >
     <label
       class="label "
-      for="hds-select-toggle-button"
-      id="hds-select-label"
+      for="hds-select-1-toggle-button"
+      id="hds-select-1-label"
     >
       Label
     </label>
@@ -18,13 +18,12 @@ exports[`<Select /> spec renders the component 1`] = `
       <button
         aria-expanded="false"
         aria-haspopup="listbox"
-        aria-labelledby="hds-select-helper hds-select-label hds-select-toggle-button"
-        aria-owns="hds-select-menu"
+        aria-labelledby="hds-select-1-helper hds-select-1-label hds-select-1-toggle-button"
+        aria-owns="hds-select-1-menu"
         class="button placeholder"
-        id="hds-select-toggle-button"
+        id="hds-select-1-toggle-button"
         type="button"
       >
-        <span />
         <svg
           class="icon s angleIcon"
           viewBox="0 0 24 24"
@@ -45,17 +44,18 @@ exports[`<Select /> spec renders the component 1`] = `
         </svg>
       </button>
       <ul
-        aria-labelledby="hds-select-label"
+        aria-labelledby="hds-select-1-label"
         class="menu"
-        id="hds-select-menu"
+        id="hds-select-1-menu"
         role="listbox"
         style="max-height: calc(var(--menu-item-height) * 5);"
         tabindex="-1"
       />
     </div>
     <div
+      aria-hidden="true"
       class="helperText"
-      id="hds-select-helper"
+      id="hds-select-1-helper"
     >
       Helper
     </div>
