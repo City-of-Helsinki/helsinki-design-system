@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelect, useMultipleSelection } from 'downshift';
 import isEqual from 'lodash.isequal';
+import uniqueId from 'lodash.uniqueid';
 
 import 'hds-core';
+
 import styles from './Select.module.scss';
 import { FieldLabel } from '../../internal/field-label/FieldLabel';
 import classNames from '../../utils/classNames';
 import { IconAngleDown, IconCheck, IconCrossCircle } from '../../icons';
-import { Checkbox } from '../checkbox';
 import { Tag } from '../tag';
 
 export type SelectProps<OptionType> = {
@@ -23,6 +24,10 @@ export type SelectProps<OptionType> = {
    * A helper text that will be shown below the dropdown
    */
   helper?: React.ReactNode;
+  /**
+   * Used to generate the first part of the id on the elements.
+   */
+  id?: string;
   /**
    * If `true`, the input and `helper` will be displayed in an invalid state
    */
@@ -53,13 +58,13 @@ export type SelectProps<OptionType> = {
    */
   placeholder?: string;
   /**
+   * Label for selected items that is only visible to screen readers. Can be used to to give screen reader users additional information about the selected item.
+   */
+  selectedItemSrLabel?: string;
+  /**
    * Override or extend the root styles applied to the component
    */
   style?: React.CSSProperties;
-  // /**
-  //  * The selected value
-  //  */
-  // value?: OptionType;
   /**
    * Sets the number of options that are visible in the menu before it becomes scrollable
    */
@@ -70,6 +75,8 @@ type MultiselectProps<OptionType> =
   | {
       multiselect?: false;
       value?: OptionType;
+      clearButtonAriaLabel?: string;
+      selectedItemRemoveButtonAriaLabel?: string;
     }
   | {
       /**
@@ -80,6 +87,14 @@ type MultiselectProps<OptionType> =
        * The selected value(s)
        */
       value?: OptionType[];
+      /**
+       * The aria-label for the clear button
+       */
+      clearButtonAriaLabel: string;
+      /**
+       * The aria-label for the selected item remove button
+       */
+      selectedItemRemoveButtonAriaLabel: string;
     };
 
 /**
@@ -93,8 +108,10 @@ function getIsInSelectedOptions<T>(selectedOptions: T[], item: T): boolean {
 
 export const Select = <OptionType,>({
   className,
+  clearButtonAriaLabel,
   disabled = false,
   helper,
+  id = uniqueId('hds-select-'),
   invalid = false,
   isOptionDisabled,
   label,
@@ -104,14 +121,17 @@ export const Select = <OptionType,>({
   optionLabelField = 'label',
   options = [],
   placeholder,
+  selectedItemRemoveButtonAriaLabel,
+  selectedItemSrLabel,
   style,
   value,
   visibleOptions = 5,
 }: SelectProps<OptionType>) => {
-  const id = 'hds-select';
+  const selectedItemsContainerRef = useRef(null);
 
   // init multi-select
   const {
+    activeIndex,
     addSelectedItem,
     getDropdownProps,
     getSelectedItemProps,
@@ -133,7 +153,6 @@ export const Select = <OptionType,>({
     // todo: remove. just for testing
     initialSelectedItems: [options[0], options[1]],
     onSelectedItemsChange({ selectedItems: _selectedItems }) {
-      // console.log('onSelectedItemsChange selectedItems', _selectedItems);
       return multiselect && onChange(_selectedItems);
     },
     ...(multiselect && value !== undefined && { selectedItems: (value as OptionType[]) ?? [] }),
@@ -152,7 +171,7 @@ export const Select = <OptionType,>({
   } = useSelect<OptionType>({
     // todo: remove. for testing only.
     // isOpen: true,
-    // todo: create a prop for setting the selection message and clear message
+    // todo: create a prop for setting the selection message and "selections cleared" message
     // todo: how can this be done for multiselect?
     getA11ySelectionMessage({ selectedItem: _selectedItem }) {
       if (!multiselect && _selectedItem) {
@@ -167,7 +186,7 @@ export const Select = <OptionType,>({
     itemToString: (item): string => (item ? item[optionLabelField] ?? '' : ''),
     onSelectedItemChange: ({ selectedItem: _selectedItem }) => !multiselect && onChange(_selectedItem),
     // a defined value indicates that the dropdown should be controlled
-    // don't set selectedItem if it's not, so that downshift can control the selected item(s)
+    // don't set selectedItem if it's not, so that downshift can handle the state
     ...(!multiselect && value !== undefined && { selectedItem: value as OptionType }),
     stateReducer(state, { type, changes }) {
       switch (type) {
@@ -217,7 +236,7 @@ export const Select = <OptionType,>({
   const getButtonLabel = (): React.ReactNode => {
     let buttonLabel = selectedItem?.[optionLabelField] || placeholder;
     if (multiselect) buttonLabel = selectedItems.length > 0 ? null : placeholder;
-    return <span>{buttonLabel}</span>;
+    return buttonLabel;
   };
   // show placeholder if no value is selected
   const showPlaceholder = (multiselect && selectedItems.length === 0) || (!multiselect && !selectedItem);
@@ -243,32 +262,42 @@ export const Select = <OptionType,>({
             <div className={styles.selectedItems}>
               {selectedItems.map((_selectedItem, index) => {
                 const selectedItemLabel = _selectedItem[optionLabelField];
-
-                // console.log('getSelectedItemProps', getSelectedItemProps({ selectedItem: _selectedItem, index }));
+                const tagId = uniqueId('hds-tag-');
 
                 return (
                   <Tag
-                    className={styles.tag}
                     key={selectedItemLabel}
+                    className={styles.tag}
+                    id={tagId}
                     label={selectedItemLabel}
-                    // aria-describedby={`${id}-helper`}
-                    labelProps={{
-                      'aria-describedby': `${id}-label`,
-                      // 'aria-labelledby': `${id}-label hds-tag-label`,
-                      // 'aria-label': `Selected: ${selectedItemLabel}`,
-                    }}
-                    deleteButtonAriaLabel={`Remove: ${selectedItemLabel}`}
-                    onDelete={() => removeSelectedItem(_selectedItem)}
-                    {...getSelectedItemProps({ selectedItem: _selectedItem, index })}
-                    onClick={(e) => {
+                    labelProps={{ 'aria-labelledby': `${id}-label ${tagId}-label` }}
+                    deleteButtonAriaLabel={selectedItemRemoveButtonAriaLabel}
+                    onDelete={(e) => {
                       e.stopPropagation();
+                      removeSelectedItem(_selectedItem);
                     }}
+                    srOnlyLabel={selectedItemSrLabel}
+                    {...getSelectedItemProps({ selectedItem: _selectedItem, index })}
                   />
                 );
               })}
             </div>
             {/* CLEAR BUTTON */}
-            <button type="button" className={styles.clearButton} onClick={() => reset()}>
+            <button
+              type="button"
+              className={styles.clearButton}
+              onClick={() => reset()}
+              aria-label={clearButtonAriaLabel}
+              onFocus={() => {
+                // manually set the tabindex of the first selected item to "0"
+                // when the clear button is focused and Downshift's activeIndex is -1,
+                // otherwise shift+tabbing back to the selected items won't work as they have a tabindex value of -1.
+                if (activeIndex === -1) {
+                  // eslint-disable-next-line no-unused-expressions
+                  selectedItemsContainerRef?.current.childNodes[0].setAttribute('tabindex', '0');
+                }
+              }}
+            >
               <IconCrossCircle />
             </button>
           </>
@@ -280,6 +309,7 @@ export const Select = <OptionType,>({
             'aria-owns': getMenuProps().id,
             // prepend helper text id to the id's return by the downshift getter function,
             // so that the helper text will be read to screen reader users before the other labels.
+            // todo: only add helper id if a helper text is defined
             'aria-labelledby': `${id}-helper ${getToggleButtonProps()['aria-labelledby']}`,
             // add downshift dropdown props when multiselect is enabled
             ...(multiselect && { ...getDropdownProps({ preventKeyAction: isOpen }) }),
@@ -287,7 +317,6 @@ export const Select = <OptionType,>({
             className: classNames(styles.button, showPlaceholder && styles.placeholder),
           })}
         >
-          {/* <span className={styles.buttonLabel}>{selectedItem?.[optionLabelField] || placeholder}</span> */}
           {getButtonLabel()}
           <IconAngleDown className={styles.angleIcon} />
         </button>
@@ -295,6 +324,7 @@ export const Select = <OptionType,>({
         {/* {invalid && <IconAlertCircle className={styles.invalidIcon} />} */}
         <ul
           {...getMenuProps({
+            ...(multiselect && { 'aria-multiselectable': true }),
             className: classNames(styles.menu, options.length > visibleOptions && styles.overflow),
             style: { maxHeight: `calc(var(--menu-item-height) * ${visibleOptions})` },
           })}
@@ -303,6 +333,7 @@ export const Select = <OptionType,>({
             options.map((item, index) => {
               const optionLabel = item[optionLabelField];
               const selected = multiselect ? getIsInSelectedOptions(selectedItems, item) : isEqual(selectedItem, item);
+              // todo: add aria-disabled to disabled menu items
               const optionDisabled = typeof isOptionDisabled === 'function' ? isOptionDisabled(item, index) : false;
 
               return (
@@ -317,20 +348,17 @@ export const Select = <OptionType,>({
                       highlightedIndex === index && styles.highlighted,
                       selected && styles.selected,
                       optionDisabled && styles.disabled,
-                      // todo: use root multiselect class?
+                      // todo: use root multiselect class
                       multiselect && styles.multiselect,
                     ),
                   })}
+                  {...{ 'aria-selected': selected }}
                 >
                   {multiselect ? (
-                    <Checkbox
-                      className={styles.checkbox}
-                      id={optionLabel}
-                      label={optionLabel}
-                      checked={selected}
-                      disabled={optionDisabled}
-                      tabIndex={-1}
-                    />
+                    <>
+                      <IconCheck className={styles.checkbox} aria-hidden />
+                      {optionLabel}
+                    </>
                   ) : (
                     <>
                       {optionLabel}
@@ -343,8 +371,7 @@ export const Select = <OptionType,>({
         </ul>
       </div>
       {helper && (
-        // <div id={`${id}-helper`} className={styles.helperText} aria-hidden="true">
-        <div id={`${id}-helper`} className={styles.helperText}>
+        <div id={`${id}-helper`} className={styles.helperText} aria-hidden="true">
           {helper}
         </div>
       )}

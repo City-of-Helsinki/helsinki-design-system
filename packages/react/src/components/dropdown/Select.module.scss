@@ -154,8 +154,9 @@
   min-height: var(--menu-item-height);
   padding: var(--spacing-xs) var(--spacing-s);
 
-  &.highlighted,
-  &.multiselect.highlighted.selected {
+  //&.highlighted,
+  //&.multiselect.highlighted.selected {
+  &.highlighted {
     background-color: var(--menu-item-background-hover);
     color: var(--menu-item-color-hover);
   }
@@ -177,29 +178,29 @@
     cursor: not-allowed;
   }
 
-  // todo: move to multiselect section
-  // multiselect
-  &.multiselect {
-    justify-content: flex-start;
-  }
-
-  &.multiselect.selected {
-    background-color: var(--menu-item-background-multiselect-selected);
-    color: var(--menu-item-color-multiselect-selected);
-  }
+  //// todo: move to multiselect section
+  //// multiselect
+  //&.multiselect {
+  //  justify-content: flex-start;
+  //}
+  //
+  //&.multiselect.selected {
+  //  background-color: var(--menu-item-background-multiselect-selected);
+  //  color: var(--menu-item-color-multiselect-selected);
+  //}
 }
 
 /* multiselect checkbox */
-.checkbox {
-  --label-padding: var(--spacing-s);
-
-  pointer-events: none;
-}
-
-.menuItem.highlighted .checkbox {
-  --border-color-unselected: var(--color-black-90);
-  --label-color: var(--menu-item-color-hover);
-}
+//.checkbox {
+//  --label-padding: var(--spacing-s);
+//
+//  pointer-events: none;
+//}
+//
+//.menuItem.highlighted .checkbox {
+//  --border-color-unselected: var(--color-black-90);
+//  --label-color: var(--menu-item-color-hover);
+//}
 
 /**
  * HELPER TEXT
@@ -245,6 +246,7 @@
  * MULTISELECT
  */
 .multiselect {
+
   // selected items
   .selectedItems {
     display: flex;
@@ -256,6 +258,10 @@
     margin: var(--spacing-xs) 0 0 var(--spacing-xs);
     position: relative;
     z-index: 1;
+
+    &.hidden {
+      display: none;
+    }
   }
 
   // clear button
@@ -289,5 +295,47 @@
     top: 0;
     width: 100%;
     z-index: 0;
+
+    &:focus .angleIcon {
+      box-shadow: 0 0 0 var(--focus-outline-width) var(--focus-outline-color);
+    }
+  }
+
+  .menuItem {
+    justify-content: flex-start;
+
+    // checkbox
+    .checkbox {
+      border: var(--spacing-4-xs) solid var(--color-black-50);
+      box-sizing: border-box;
+      color: var(--menu-item-background-default);
+      content: '';
+      height: var(--icon-size);
+      margin-right: var(--spacing-xs);
+      width: var(--icon-size);
+    }
+
+    &.highlighted {
+      .checkbox {
+        border-color: var(--color-black-90);
+        color: var(--menu-item-background-hover);
+      }
+    }
+
+    &.selected {
+      background-color: var(--menu-item-background-multiselect-selected);
+      color: var(--menu-item-color-multiselect-selected);
+
+      .checkbox {
+        background-color: var(--color-bus);
+        border: 0;
+        color: var(--color-white);
+      }
+    }
+
+    &.highlighted.selected {
+      background-color: var(--menu-item-background-hover);
+      color: var(--menu-item-color-hover);
+    }
   }
 }

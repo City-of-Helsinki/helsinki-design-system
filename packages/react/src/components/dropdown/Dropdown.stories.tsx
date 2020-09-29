@@ -55,7 +55,19 @@ export const SelectTest = () => (
 
 export const SelectMultiselectTest = () => {
   const log = (e): void => console.log('STORY', e);
-  return <Select label="Choose an element" placeholder="Placeholder" options={options} multiselect onChange={log} />;
+  return (
+    <Select
+      label="Choose an element"
+      placeholder="Placeholder"
+      options={options}
+      multiselect
+      onChange={log}
+      clearButtonAriaLabel="Clear all selections"
+      selectedItemRemoveButtonAriaLabel="Remove item"
+      selectedItemSrLabel="Selected item"
+      // helper="Hello! I'm a helper"
+    />
+  );
 };
 
 export const SelectTestControlled = () => {
