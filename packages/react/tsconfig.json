@@ -2,8 +2,8 @@
   "compilerOptions": {
     "module": "ES2015",
     "moduleResolution": "Node",
-    "target": "es5",
-    "lib": ["dom", "es2015"],
+    "target": "es6",
+    "lib": ["es6", "dom", "dom.iterable"],
     "outDir": "lib",
     "allowSyntheticDefaultImports": true,
     "suppressImplicitAnyIndexErrors": true,

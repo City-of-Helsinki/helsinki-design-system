@@ -1,17 +1,22 @@
-.tag {
-  composes: hds-status-label from 'hds-core/lib/components/status-label/status-label.css';
-}
+// todo: move to core
 
-.tag.tag {
+.tag {
+  --tag-background: var(--color-black-10);
+  --tag-color: var(--color-black-90);
+  --tag-focus-outline-color: var(--color-coat-of-arms-blue);
+
   align-items: center;
+  background-color: var(--tag-background);
+  color: var(--tag-color);
   display: inline-flex;
   flex-direction: row-reverse;
+  font-size: var(--fontsize-body-s);
   outline: none;
   padding: 0 var(--spacing-2-xs) 0 0;
 
   &:focus,
   &:focus-within {
-    box-shadow: 0 0 0 3px var(--color-coat-of-arms-blue);
+    box-shadow: 0 0 0 3px var(--tag-focus-outline-color);
   }
 }
 

@@ -24,7 +24,8 @@ const options = getOptions();
 export default {
   component: Select,
   title: 'Components/Dropdown',
-  decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
+  // decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '420px' }}>{storyFn()}</div>],
+  decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '100%' }}>{storyFn()}</div>],
 };
 
 // export const Default = () => (
@@ -54,17 +55,19 @@ export const SelectTest = () => (
 );
 
 export const SelectMultiselectTest = () => {
-  const log = (e): void => console.log('STORY', e);
+  const controlledOptions = getOptions();
   return (
     <Select
       label="Choose an element"
       placeholder="Placeholder"
-      options={options}
+      options={controlledOptions}
       multiselect
-      onChange={log}
+      // onChange={(values): void => console.log('Change', values)}
+      // onBlur={() => console.log('Blur')}
+      // onFocus={() => console.log('Focus')}
       clearButtonAriaLabel="Clear all selections"
-      selectedItemRemoveButtonAriaLabel="Remove item"
-      selectedItemSrLabel="Selected item"
+      selectedItemRemoveButtonAriaLabel="Remove item {value}"
+      selectedItemSrLabel="Selected item {value}"
       // helper="Hello! I'm a helper"
     />
   );
@@ -74,7 +77,6 @@ export const SelectTestControlled = () => {
   const controlledOptions = getOptions();
 
   const [selectedItem, setSelectedItem] = useState(null);
-  const handleSelectedItemChange = (item) => setSelectedItem(item);
 
   return (
     <>
@@ -86,10 +88,38 @@ export const SelectTestControlled = () => {
         options={controlledOptions}
         label="Element:"
         helper="Choose an element"
-        onChange={handleSelectedItemChange}
+        onChange={setSelectedItem}
         placeholder="Placeholder"
         value={selectedItem}
         style={{ marginTop: 'var(--spacing-s)' }}
+      />
+    </>
+  );
+};
+
+export const SelectTestControlledMultiselect = () => {
+  const controlledOptions = getOptions();
+
+  const [selectedItems, setSelectedItems] = useState(null);
+
+  return (
+    <>
+      <Button onClick={() => setSelectedItems(null)}>Reset</Button>
+      <Button onClick={() => setSelectedItems(controlledOptions)} style={{ marginLeft: 'var(--spacing-s)' }}>
+        Select all
+      </Button>
+      <Select
+        options={controlledOptions}
+        label="Element:"
+        helper="Choose an element"
+        onChange={setSelectedItems}
+        placeholder="Placeholder"
+        value={selectedItems}
+        style={{ marginTop: 'var(--spacing-s)' }}
+        multiselect
+        clearButtonAriaLabel="Clear all selections"
+        selectedItemRemoveButtonAriaLabel="Remove item {value}"
+        selectedItemSrLabel="Selected item {value}"
       />
     </>
   );

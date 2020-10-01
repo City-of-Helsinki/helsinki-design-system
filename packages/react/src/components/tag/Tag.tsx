@@ -47,32 +47,25 @@ export const Tag = React.forwardRef<HTMLDivElement, TagProps>(
   (
     { className, deleteButtonAriaLabel, id, label, labelProps, onDelete, srOnlyLabel, ...rest }: TagProps,
     ref: React.Ref<HTMLDivElement>,
-  ) => {
-    return (
-      <div id={id} className={classNames(styles.tag, className)} ref={ref} {...rest}>
-        <span id={id && `${id}-label`} {...labelProps} className={styles.label}>
-          {srOnlyLabel && <VisuallyHidden>{srOnlyLabel}</VisuallyHidden>}
-          {label}
-        </span>
-        {typeof onDelete === 'function' && (
-          <button
-            // todo: remove. allow passing props to button instead
-            tabIndex={-1}
-            id={id && `${id}-delete-button`}
-            type="button"
-            className={styles.deleteButton}
-            aria-label={deleteButtonAriaLabel}
-            onClick={onDelete}
-            // onKeyUp={(e) => {
-            //   if (e.key === 'Backspace' || e.key === 'Delete') {
-            //     onDelete();
-            //   }
-            // }}
-          >
-            <IconCross className={styles.icon} />
-          </button>
-        )}
-      </div>
-    );
-  },
+  ) => (
+    <div id={id} className={classNames(styles.tag, className)} ref={ref} {...rest}>
+      <span id={id && `${id}-label`} {...labelProps} className={styles.label}>
+        {srOnlyLabel && <VisuallyHidden>{srOnlyLabel}</VisuallyHidden>}
+        <span aria-hidden={!!srOnlyLabel}>{label}</span>
+      </span>
+      {typeof onDelete === 'function' && (
+        <button
+          // todo: remove. allow passing props to button instead
+          tabIndex={-1}
+          id={id && `${id}-delete-button`}
+          type="button"
+          className={styles.deleteButton}
+          aria-label={deleteButtonAriaLabel}
+          onClick={onDelete}
+        >
+          <IconCross className={styles.icon} />
+        </button>
+      )}
+    </div>
+  ),
 );

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelect, useMultipleSelection } from 'downshift';
 import isEqual from 'lodash.isequal';
 import uniqueId from 'lodash.uniqueid';
@@ -8,14 +8,18 @@ import 'hds-core';
 import styles from './Select.module.scss';
 import { FieldLabel } from '../../internal/field-label/FieldLabel';
 import classNames from '../../utils/classNames';
-import { IconAngleDown, IconCheck, IconCrossCircle } from '../../icons';
-import { Tag } from '../tag';
+import { IconAngleDown, IconCheck } from '../../icons';
+import { SelectedItems } from '../../internal/selectedItems/SelectedItems';
 
 export type SelectProps<OptionType> = {
   /**
    * Additional class names to apply to the select
    */
   className?: string;
+  /**
+   * Flag for whether the clear selections button should be displayed
+   */
+  clearable?: boolean;
   /**
    * If `true`, the dropdown will be disabled
    */
@@ -33,7 +37,7 @@ export type SelectProps<OptionType> = {
    */
   invalid?: boolean;
   /**
-   * A function used to detect whether an option is disabled ([example](/?path=/story/components-dropdown--disabled-options))
+   * A function used to detect whether an option is disabled
    */
   isOptionDisabled?: (option: OptionType, index: number) => boolean;
   /**
@@ -41,9 +45,17 @@ export type SelectProps<OptionType> = {
    */
   label: React.ReactNode;
   /**
-   * Callback fired when the state is changed
+   * Callback function fired when the component is blurred
    */
-  onChange?: <T = unknown>(selectedItem: T) => void;
+  onBlur?: () => void;
+  /**
+   * Callback function fired when the state is changed
+   */
+  onChange?: <OptionType>(selectedItem: OptionType) => void;
+  /**
+   * Callback function fired when the component is focused
+   */
+  onFocus?: () => void;
   /**
    * Sets the data item field that represents the item label.
    * E.g. an `optionLabelField` value of `'foo'` and a data item `{ foo: 'Label', bar: 'value' }`, would display `Label` in the menu for that specific item
@@ -108,6 +120,7 @@ function getIsInSelectedOptions<T>(selectedOptions: T[], item: T): boolean {
 
 export const Select = <OptionType,>({
   className,
+  clearable = true,
   clearButtonAriaLabel,
   disabled = false,
   helper,
@@ -116,8 +129,10 @@ export const Select = <OptionType,>({
   isOptionDisabled,
   label,
   multiselect,
+  onBlur = () => null,
   onChange = () => null,
-  // test using options without a label key and without optionLabelField defined
+  onFocus = () => null,
+  // todo: test using options without a label key and without optionLabelField defined
   optionLabelField = 'label',
   options = [],
   placeholder,
@@ -127,7 +142,35 @@ export const Select = <OptionType,>({
   value,
   visibleOptions = 5,
 }: SelectProps<OptionType>) => {
-  const selectedItemsContainerRef = useRef(null);
+  // dropdown wrapper ref
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  // selected items container ref
+  const selectedItemsContainerRef = useRef<HTMLDivElement>(null);
+  // whether active focus is within the dropdown
+  const [hasFocus, setFocus] = useState(false);
+  // init focus & blur listeners and handle callbacks
+  useEffect(() => {
+    const wrapperEl = wrapperRef.current;
+
+    const focusHandler = (event: FocusEvent): void => {
+      const { relatedTarget, target, type } = event;
+
+      if (type === 'focus') {
+        setFocus(wrapperEl.contains(target as Node));
+      }
+      if (type === 'blur') {
+        setFocus(wrapperEl.contains(relatedTarget as Node));
+      }
+      if (!relatedTarget) {
+        type === 'focus' ? onFocus() : onBlur();
+      }
+    };
+
+    // set listeners
+    ['focus', 'blur'].forEach((type) => wrapperEl.addEventListener(type, focusHandler, true));
+    // cleanup
+    return () => ['focus', 'blur'].forEach((type) => wrapperEl.removeEventListener(type, focusHandler, true));
+  }, [onFocus, onBlur]);
 
   // init multi-select
   const {
@@ -138,8 +181,15 @@ export const Select = <OptionType,>({
     removeSelectedItem,
     reset,
     selectedItems,
+    setActiveIndex,
     setSelectedItems,
   } = useMultipleSelection<OptionType>({
+    // sets focus on the first selected item when the dropdown is initialized
+    defaultActiveIndex: 0,
+    initialActiveIndex: 0,
+    // todo: create prop
+    initialSelectedItems: [options[0], options[1], options[2], options[3]],
+    ...(multiselect && value !== undefined && { selectedItems: (value as OptionType[]) ?? [] }),
     // todo: create a prop for setting the removal message
     getA11yRemovalMessage({ itemToString, removedSelectedItem }) {
       console.log(
@@ -147,15 +197,42 @@ export const Select = <OptionType,>({
       );
       return `${itemToString(removedSelectedItem[optionLabelField])} has been removed`;
     },
-    // sets focus on the first selected item when the select is initialized
-    defaultActiveIndex: 0,
-    initialActiveIndex: 0,
-    // todo: remove. just for testing
-    initialSelectedItems: [options[0], options[1]],
     onSelectedItemsChange({ selectedItems: _selectedItems }) {
       return multiselect && onChange(_selectedItems);
     },
-    ...(multiselect && value !== undefined && { selectedItems: (value as OptionType[]) ?? [] }),
+    onStateChange({ type, activeIndex: _activeIndex }) {
+      let activeNode;
+
+      switch (type) {
+        case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownBackspace:
+        case useMultipleSelection.stateChangeTypes.FunctionRemoveSelectedItem:
+          activeNode = selectedItemsContainerRef.current?.childNodes[activeIndex] as HTMLDivElement;
+          if (!_activeIndex && activeNode) activeNode.focus();
+          break;
+        default:
+          break;
+      }
+    },
+    stateReducer(state, { type, changes }) {
+      let removedItemIndex;
+      let lastItemRemoved;
+      switch (type) {
+        case useMultipleSelection.stateChangeTypes.FunctionRemoveSelectedItem:
+          // get the index of the deleted item
+          removedItemIndex = state.selectedItems.findIndex((item) => !changes.selectedItems.includes(item));
+          // whether the removed item was last in selectedItems
+          lastItemRemoved = removedItemIndex === changes.selectedItems.length;
+
+          return {
+            ...changes,
+            // set the new last item as active if the removed item was last,
+            // otherwise set the item succeeding the removed one active
+            activeIndex: lastItemRemoved ? removedItemIndex - 1 : removedItemIndex,
+          };
+        default:
+          return changes;
+      }
+    },
   });
 
   // init select
@@ -171,6 +248,11 @@ export const Select = <OptionType,>({
   } = useSelect<OptionType>({
     // todo: remove. for testing only.
     // isOpen: true,
+    id,
+    items: options,
+    // a defined value indicates that the dropdown should be controlled
+    // don't set selectedItem if it's not, so that downshift can handle the state
+    ...(!multiselect && value !== undefined && { selectedItem: value as OptionType }),
     // todo: create a prop for setting the selection message and "selections cleared" message
     // todo: how can this be done for multiselect?
     getA11ySelectionMessage({ selectedItem: _selectedItem }) {
@@ -181,13 +263,25 @@ export const Select = <OptionType,>({
       }
       return '';
     },
-    id,
-    items: options,
     itemToString: (item): string => (item ? item[optionLabelField] ?? '' : ''),
     onSelectedItemChange: ({ selectedItem: _selectedItem }) => !multiselect && onChange(_selectedItem),
-    // a defined value indicates that the dropdown should be controlled
-    // don't set selectedItem if it's not, so that downshift can handle the state
-    ...(!multiselect && value !== undefined && { selectedItem: value as OptionType }),
+    onStateChange({ type, selectedItem: _selectedItem }) {
+      switch (type) {
+        case useSelect.stateChangeTypes.MenuKeyDownEnter:
+        case useSelect.stateChangeTypes.MenuKeyDownSpaceButton:
+        case useSelect.stateChangeTypes.ItemClick:
+        case useSelect.stateChangeTypes.MenuBlur:
+          if (multiselect && _selectedItem) {
+            getIsInSelectedOptions(selectedItems, _selectedItem)
+              ? setSelectedItems(selectedItems.filter((item) => !isEqual(item, _selectedItem)))
+              : addSelectedItem(_selectedItem);
+            selectItem(null);
+          }
+          break;
+        default:
+          break;
+      }
+    },
     stateReducer(state, { type, changes }) {
       switch (type) {
         case useSelect.stateChangeTypes.MenuKeyDownEnter:
@@ -206,23 +300,6 @@ export const Select = <OptionType,>({
           return changes;
       }
     },
-    onStateChange({ type, selectedItem: _selectedItem }) {
-      switch (type) {
-        case useSelect.stateChangeTypes.MenuKeyDownEnter:
-        case useSelect.stateChangeTypes.MenuKeyDownSpaceButton:
-        case useSelect.stateChangeTypes.ItemClick:
-        case useSelect.stateChangeTypes.MenuBlur:
-          if (multiselect && _selectedItem) {
-            getIsInSelectedOptions(selectedItems, _selectedItem)
-              ? setSelectedItems(selectedItems.filter((item) => !isEqual(item, _selectedItem)))
-              : addSelectedItem(_selectedItem);
-            selectItem(null);
-          }
-          break;
-        default:
-          break;
-      }
-    },
   });
 
   if (!multiselect) {
@@ -238,6 +315,7 @@ export const Select = <OptionType,>({
     if (multiselect) buttonLabel = selectedItems.length > 0 ? null : placeholder;
     return buttonLabel;
   };
+
   // show placeholder if no value is selected
   const showPlaceholder = (multiselect && selectedItems.length === 0) || (!multiselect && !selectedItem);
 
@@ -255,52 +333,25 @@ export const Select = <OptionType,>({
     >
       {/* LABEL */}
       {label && <FieldLabel label={label} {...getLabelProps()} />}
-      <div className={styles.wrapper}>
+      <div ref={wrapperRef} className={styles.wrapper}>
+        {/* SELECTED ITEMS */}
         {multiselect && selectedItems.length > 0 && (
-          <>
-            {/* SELECTED ITEMS */}
-            <div ref={selectedItemsContainerRef} className={styles.selectedItems}>
-              {selectedItems.map((_selectedItem, index) => {
-                const selectedItemLabel = _selectedItem[optionLabelField];
-                const tagId = uniqueId('hds-tag-');
-
-                return (
-                  <Tag
-                    key={selectedItemLabel}
-                    className={styles.tag}
-                    id={tagId}
-                    label={selectedItemLabel}
-                    labelProps={{ 'aria-labelledby': `${id}-label ${tagId}-label` }}
-                    deleteButtonAriaLabel={selectedItemRemoveButtonAriaLabel}
-                    onDelete={(e) => {
-                      e.stopPropagation();
-                      removeSelectedItem(_selectedItem);
-                    }}
-                    srOnlyLabel={selectedItemSrLabel}
-                    {...getSelectedItemProps({ selectedItem: _selectedItem, index })}
-                  />
-                );
-              })}
-            </div>
-            {/* CLEAR BUTTON */}
-            <button
-              type="button"
-              className={styles.clearButton}
-              onClick={() => reset()}
-              aria-label={clearButtonAriaLabel}
-              onFocus={() => {
-                // manually set the tabindex of the first selected item to "0"
-                // when the clear button is focused and Downshift's activeIndex is -1,
-                // otherwise shift+tabbing back to the selected items won't work as they have a tabindex value of -1.
-                if (activeIndex === -1) {
-                  // eslint-disable-next-line no-unused-expressions
-                  selectedItemsContainerRef?.current.childNodes[0].setAttribute('tabindex', '0');
-                }
-              }}
-            >
-              <IconCrossCircle />
-            </button>
-          </>
+          <SelectedItems
+            activeIndex={activeIndex}
+            clearable={clearable}
+            clearButtonAriaLabel={clearButtonAriaLabel}
+            dropdownId={id}
+            getSelectedItemProps={getSelectedItemProps}
+            hideItems={!hasFocus}
+            onClear={() => reset()}
+            onRemove={removeSelectedItem}
+            optionLabelField={optionLabelField}
+            removeButtonAriaLabel={selectedItemRemoveButtonAriaLabel}
+            selectedItems={selectedItems}
+            selectedItemSrLabel={selectedItemSrLabel}
+            selectedItemsContainerRef={selectedItemsContainerRef}
+            setActiveIndex={setActiveIndex}
+          />
         )}
         {/* TOGGLE BUTTON */}
         <button
@@ -349,7 +400,7 @@ export const Select = <OptionType,>({
                       selected && styles.selected,
                       optionDisabled && styles.disabled,
                       // todo: use root multiselect class
-                      multiselect && styles.multiselect,
+                      // multiselect && styles.multiselect,
                     ),
                   })}
                   {...{ 'aria-selected': selected }}

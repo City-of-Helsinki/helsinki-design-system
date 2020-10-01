@@ -1,7 +1,6 @@
 // todo: transitions
-// todo: test theming. selected icon etc.
+// todo: test theming. selected icon, checkbox etc.
 // todo: rename variables?
-// todo: multiselect styles
 
 .root {
   --border-radius: 2px;
@@ -65,6 +64,11 @@
   &:hover {
     border-color: var(--dropdown-border-color-hover);
   }
+
+  &:hover,
+  &:focus-within {
+    transition: border-color 85ms ease-out;
+  }
 }
 
 /**
@@ -99,7 +103,9 @@
 
 .angleIcon {
   color: var(--dropdown-color-default);
-  margin-left: auto;
+  position: absolute;
+  right: var(--spacing-s);
+  top: var(--spacing-xs);
   transform: translateY(2px);
 }
 
@@ -128,7 +134,6 @@
   outline: none;
   padding: 0;
   position: absolute;
-  //transform: translate(calc(var(--border-width) * -1), var(--divider-width));
   transform: translate(calc(var(--border-width) * -1), 100%);
   width: 100%;
 
@@ -154,8 +159,6 @@
   min-height: var(--menu-item-height);
   padding: var(--spacing-xs) var(--spacing-s);
 
-  //&.highlighted,
-  //&.multiselect.highlighted.selected {
   &.highlighted {
     background-color: var(--menu-item-background-hover);
     color: var(--menu-item-color-hover);
@@ -177,30 +180,7 @@
     color: var(--menu-item-color-disabled);
     cursor: not-allowed;
   }
-
-  //// todo: move to multiselect section
-  //// multiselect
-  //&.multiselect {
-  //  justify-content: flex-start;
-  //}
-  //
-  //&.multiselect.selected {
-  //  background-color: var(--menu-item-background-multiselect-selected);
-  //  color: var(--menu-item-color-multiselect-selected);
-  //}
 }
-
-/* multiselect checkbox */
-//.checkbox {
-//  --label-padding: var(--spacing-s);
-//
-//  pointer-events: none;
-//}
-//
-//.menuItem.highlighted .checkbox {
-//  --border-color-unselected: var(--color-black-90);
-//  --label-color: var(--menu-item-color-hover);
-//}
 
 /**
  * HELPER TEXT
@@ -245,49 +225,8 @@
 /**
  * MULTISELECT
  */
+
 .multiselect {
-
-  // selected items
-  .selectedItems {
-    display: flex;
-    flex-wrap: wrap;
-    padding: var(--spacing-4-xs) calc((var(--spacing-s) - var(--border-width)) * 2 + (var(--icon-size) * 2)) calc(var(--spacing-s) - var(--border-width)) var(--spacing-4-xs);
-  }
-
-  .tag {
-    margin: var(--spacing-xs) 0 0 var(--spacing-xs);
-    position: relative;
-    z-index: 1;
-
-    &.hidden {
-      display: none;
-    }
-  }
-
-  // clear button
-  // TODO: USE BUTTON RESET PLACEHOLDER CLASS WHEN FOOTER IS MERGED
-  .clearButton {
-    background: none;
-    border: none;
-    color: inherit;
-    cursor: pointer;
-    font: inherit;
-    padding: 0;
-
-
-    display: flex;
-    outline: none;
-    position: absolute;
-    right: calc(var(--border-width) * -1);
-    top: 0;
-    transform: translate(calc(var(--spacing-2-xl) * -1), calc(var(--menu-item-height) / 2 - 50%));
-    z-index: 1;
-
-    &:focus {
-      box-shadow: 0 0 0 var(--focus-outline-width) var(--focus-outline-color);
-    }
-  }
-
   .button {
     height: 100%;
     left: 0;
@@ -304,7 +243,6 @@
   .menuItem {
     justify-content: flex-start;
 
-    // checkbox
     .checkbox {
       border: var(--spacing-4-xs) solid var(--color-black-50);
       box-sizing: border-box;

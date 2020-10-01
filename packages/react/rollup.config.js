@@ -80,6 +80,8 @@ export default {
     'lodash.uniqueid',
     'lodash.isequal',
     'react-spring',
+    'react-use-measure',
+    'react-merge-refs',
     '@react-aria/visually-hidden',
   ],
 };
