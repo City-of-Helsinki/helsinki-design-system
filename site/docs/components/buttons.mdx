@@ -42,14 +42,14 @@ Primary button is reserved for the most important action on the screen. Primary 
 <Button style={{marginLeft: 'var(--spacing-s)'}} disabled>Primary disabled</Button>
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <button type="button" class="hds-button hds-button--primary">
   <span class="hds-button__label">Primary</span>
 </button>
 ```
 
-##### React:
+#### React code example:
 ```tsx
 <Button>Primary</Button>
 ```
@@ -62,14 +62,14 @@ Secondary buttons are used for actions which are not mandatory or essential for 
   <Button variant="secondary" style={{marginLeft: 'var(--spacing-s)'}} disabled>Secondary disabled</Button>
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <button type="button" class="hds-button hds-button--secondary">
   <span class="hds-button__label">Secondary</span>
 </button>
 ```
 
-##### React:
+#### React code example:
 ```tsx
 <Button variant="secondary">Secondary</Button>
 ```
@@ -82,14 +82,14 @@ Supplementary buttons can be used in similar cases as secondary buttons. However
   <Button variant="supplementary" style={{marginLeft: 'var(--spacing-s)'}} disabled>Supplementary disabled</Button>
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <button type="button" class="hds-button hds-button--supplementary">
   <span class="hds-button__label">Supplementary</span>
 </button>
 ```
 
-##### React:
+#### React code example:
 ```tsx
 <Button variant="supplementary">Supplementary</Button>
 ```
@@ -103,7 +103,7 @@ Icons can be added to buttons to make the action easier to understand. Sometimes
   <Button iconLeft={<IconShare />} iconRight={<IconAngleRight />} style={{marginLeft: 'var(--spacing-s)'}}>Button</Button>
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <button type="button" class="hds-button hds-button--primary">
   <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
@@ -122,7 +122,7 @@ Icons can be added to buttons to make the action easier to understand. Sometimes
 </button>
 ```
 
-##### React:
+#### React code example:
 ```tsx
 <Button iconLeft={<IconShare />}>Button</Button>
 <Button iconRight={<IconAngleRight />}>Button</Button>
@@ -138,7 +138,7 @@ It is recommended to use the standard button size in most cases. If there is a b
   <Button variant="supplementary" size="small" style={{marginLeft: 'var(--spacing-s)'}}>Supplementary</Button>
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <button type="button" class="hds-button hds-button--primary hds-button--small">
   <span class="hds-button__label">Button</span>
@@ -151,7 +151,7 @@ It is recommended to use the standard button size in most cases. If there is a b
 </button>
 ```
 
-##### React:
+#### React code example:
 ```tsx
 <Button size="small">Primary</Button>
 <Button variant="secondary" size="small">Secondary</Button>
@@ -166,7 +166,7 @@ It is recommended to use the standard button size in most cases. If there is a b
   <Button variant="danger" style={{marginLeft: 'var(--spacing-s)'}}>Delete</Button>
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <button type="button" class="hds-button hds-button--success">
   <span class="hds-button__label">Button</span>
@@ -177,7 +177,7 @@ It is recommended to use the standard button size in most cases. If there is a b
 </button>
 ```
 
-##### React:
+#### React code example:
 ```tsx
 <Button variant="success">Success</Button>
 <Button variant="danger">Danger</Button>
