@@ -31,6 +31,7 @@ import Text from "../../src/components/Text";
 
 - **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
 - In most cases, prefer using normal size buttons over small buttons. Default sized buttons are easier for users to notice and press.
+- HDS Buttons (even the Small variant) comply with <Link href="https://www.w3.org/TR/WCAG21/#target-size" external>WCAG 2.5.5 Target Size (AAA) guideline</Link>. Customizing button sizes is not recommended.
 
 ## Usage & variations
 
@@ -76,6 +77,8 @@ Secondary buttons are used for actions which are not mandatory or essential for 
 
 ### Supplementary button
 Supplementary buttons can be used in similar cases as secondary buttons. However, supplementary buttons are meant for actions which are intentionally wanted to be less visible to the user. These kind of actions include i.e. cancel and dismiss functionalities.
+
+Note! Since supplementary buttons do not have borders, accompanying icon is required to clearly distinguish them from links and passive text elements.
 
 <Playground>
   <Button variant="supplementary">Supplementary</Button>
