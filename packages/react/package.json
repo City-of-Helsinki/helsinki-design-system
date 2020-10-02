@@ -5,9 +5,6 @@
   "main": "./index.js",
   "module": "./index.js",
   "types": "./index.d.ts",
-  "sideEffects": [
-    "*.css"
-  ],
   "scripts": {
     "build": "rimraf lib/ && yarn run lint && yarn run tcm && rollup -c",
     "start": "tcm src internal --watch & yarn storybook",
