@@ -1,0 +1,1281 @@
+{
+  "index.cjs.js": {
+    "bundled": 529158,
+    "minified": 379888,
+    "gzipped": 71658
+  },
+  "style-inject.es-4a6aca40.js": {
+    "bundled": 670,
+    "minified": 388,
+    "gzipped": 262,
+    "treeshaked": {
+      "rollup": {
+        "code": 0,
+        "import_statements": 0
+      },
+      "webpack": {
+        "code": 951
+      }
+    }
+  },
+  "classNames-2c66e326.js": {
+    "bundled": 233,
+    "minified": 160,
+    "gzipped": 141,
+    "treeshaked": {
+      "rollup": {
+        "code": 0,
+        "import_statements": 0
+      },
+      "webpack": {
+        "code": 951
+      }
+    }
+  },
+  "IconAngleDown-97f084c0.js": {
+    "bundled": 1039,
+    "minified": 744,
+    "gzipped": 442,
+    "treeshaked": {
+      "rollup": {
+        "code": 113,
+        "import_statements": 113
+      },
+      "webpack": {
+        "code": 1196
+      }
+    }
+  },
+  "IconCheck-7cdf8694.js": {
+    "bundled": 1938,
+    "minified": 1387,
+    "gzipped": 560,
+    "treeshaked": {
+      "rollup": {
+        "code": 113,
+        "import_statements": 113
+      },
+      "webpack": {
+        "code": 1196
+      }
+    }
+  },
+  "Columns-5835a4a7.js": {
+    "bundled": 670,
+    "minified": 605,
+    "gzipped": 358,
+    "treeshaked": {
+      "rollup": {
+        "code": 370,
+        "import_statements": 95
+      },
+      "webpack": {
+        "code": 1424
+      }
+    }
+  },
+  "TextArea-d98686ea.js": {
+    "bundled": 1968,
+    "minified": 1181,
+    "gzipped": 565,
+    "treeshaked": {
+      "rollup": {
+        "code": 112,
+        "import_statements": 112
+      },
+      "webpack": {
+        "code": 1195
+      }
+    }
+  },
+  "tslib.es6-d3113bb1.js": {
+    "bundled": 1859,
+    "minified": 1619,
+    "gzipped": 834,
+    "treeshaked": {
+      "rollup": {
+        "code": 0,
+        "import_statements": 0
+      },
+      "webpack": {
+        "code": 951
+      }
+    }
+  },
+  "TextInput-2bf6e086.js": {
+    "bundled": 2053,
+    "minified": 1225,
+    "gzipped": 583,
+    "treeshaked": {
+      "rollup": {
+        "code": 112,
+        "import_statements": 112
+      },
+      "webpack": {
+        "code": 1195
+      }
+    }
+  },
+  "InputWrapper-5f3a9d63.js": {
+    "bundled": 7805,
+    "minified": 7073,
+    "gzipped": 1900,
+    "treeshaked": {
+      "rollup": {
+        "code": 5611,
+        "import_statements": 160
+      },
+      "webpack": {
+        "code": 6731
+      }
+    }
+  },
+  "components/Columns/index.js": {
+    "bundled": 154,
+    "minified": 143,
+    "gzipped": 123,
+    "treeshaked": {
+      "rollup": {
+        "code": 113,
+        "import_statements": 113
+      },
+      "webpack": {
+        "code": 1208
+      }
+    }
+  },
+  "Koros-2aeda5d6.js": {
+    "bundled": 2461,
+    "minified": 1775,
+    "gzipped": 814,
+    "treeshaked": {
+      "rollup": {
+        "code": 293,
+        "import_statements": 152
+      },
+      "webpack": {
+        "code": 1413
+      }
+    }
+  },
+  "components/Button/index.js": {
+    "bundled": 229,
+    "minified": 214,
+    "gzipped": 159,
+    "treeshaked": {
+      "rollup": {
+        "code": 177,
+        "import_statements": 177
+      },
+      "webpack": {
+        "code": 1346
+      }
+    }
+  },
+  "components/Notification/index.js": {
+    "bundled": 461,
+    "minified": 434,
+    "gzipped": 245,
+    "treeshaked": {
+      "rollup": {
+        "code": 375,
+        "import_statements": 375
+      },
+      "webpack": {
+        "code": 1761
+      }
+    }
+  },
+  "components/Section/index.js": {
+    "bundled": 253,
+    "minified": 236,
+    "gzipped": 167,
+    "treeshaked": {
+      "rollup": {
+        "code": 198,
+        "import_statements": 198
+      },
+      "webpack": {
+        "code": 1400
+      }
+    }
+  },
+  "ImageWithCard-07c03553.js": {
+    "bundled": 6272,
+    "minified": 5813,
+    "gzipped": 1494,
+    "treeshaked": {
+      "rollup": {
+        "code": 4490,
+        "import_statements": 128
+      },
+      "webpack": {
+        "code": 5577
+      }
+    }
+  },
+  "Icon.module-e854ac32.js": {
+    "bundled": 1261,
+    "minified": 1227,
+    "gzipped": 442,
+    "treeshaked": {
+      "rollup": {
+        "code": 828,
+        "import_statements": 50
+      },
+      "webpack": {
+        "code": 1816
+      }
+    }
+  },
+  "IconUser-7aa8dafe.js": {
+    "bundled": 3818,
+    "minified": 2715,
+    "gzipped": 768,
+    "treeshaked": {
+      "rollup": {
+        "code": 113,
+        "import_statements": 113
+      },
+      "webpack": {
+        "code": 1196
+      }
+    }
+  },
+  "Button-611ce5ae.js": {
+    "bundled": 13064,
+    "minified": 12459,
+    "gzipped": 2215,
+    "treeshaked": {
+      "rollup": {
+        "code": 10638,
+        "import_statements": 160
+      },
+      "webpack": {
+        "code": 11758
+      }
+    }
+  },
+  "Notification-8b983f3f.js": {
+    "bundled": 13456,
+    "minified": 9246,
+    "gzipped": 2339,
+    "treeshaked": {
+      "rollup": {
+        "code": 5500,
+        "import_statements": 299
+      },
+      "webpack": {
+        "code": 6776
+      }
+    }
+  },
+  "Tooltip-d0052d11.js": {
+    "bundled": 5534,
+    "minified": 4720,
+    "gzipped": 1400,
+    "treeshaked": {
+      "rollup": {
+        "code": 2800,
+        "import_statements": 240
+      },
+      "webpack": {
+        "code": 3986
+      }
+    }
+  },
+  "Section-7df80fae.js": {
+    "bundled": 4803,
+    "minified": 4390,
+    "gzipped": 1070,
+    "treeshaked": {
+      "rollup": {
+        "code": 3156,
+        "import_statements": 156
+      },
+      "webpack": {
+        "code": 4276
+      }
+    }
+  },
+  "components/index.js": {
+    "bundled": 1738,
+    "minified": 1603,
+    "gzipped": 687,
+    "treeshaked": {
+      "rollup": {
+        "code": 1283,
+        "import_statements": 1283
+      },
+      "webpack": {
+        "code": 3546
+      }
+    }
+  },
+  "IconInfoCircle-47712b7c.js": {
+    "bundled": 2081,
+    "minified": 1530,
+    "gzipped": 619,
+    "treeshaked": {
+      "rollup": {
+        "code": 113,
+        "import_statements": 113
+      },
+      "webpack": {
+        "code": 1196
+      }
+    }
+  },
+  "Checkbox-d39ae4a7.js": {
+    "bundled": 8034,
+    "minified": 7561,
+    "gzipped": 1697,
+    "treeshaked": {
+      "rollup": {
+        "code": 6555,
+        "import_statements": 160
+      },
+      "webpack": {
+        "code": 7675
+      }
+    }
+  },
+  "components/Checkbox/index.js": {
+    "bundled": 233,
+    "minified": 218,
+    "gzipped": 159,
+    "treeshaked": {
+      "rollup": {
+        "code": 179,
+        "import_statements": 179
+      },
+      "webpack": {
+        "code": 1348
+      }
+    }
+  },
+  "base.min-6dd6749f.js": {
+    "bundled": 6256,
+    "minified": 6244,
+    "gzipped": 2072,
+    "treeshaked": {
+      "rollup": {
+        "code": 6202,
+        "import_statements": 50
+      },
+      "webpack": {
+        "code": 7190
+      }
+    }
+  },
+  "components/ImageWithCard/index.js": {
+    "bundled": 205,
+    "minified": 192,
+    "gzipped": 148,
+    "treeshaked": {
+      "rollup": {
+        "code": 152,
+        "import_statements": 152
+      },
+      "webpack": {
+        "code": 1284
+      }
+    }
+  },
+  "icons/index.js": {
+    "bundled": 109658,
+    "minified": 83393,
+    "gzipped": 16545,
+    "treeshaked": {
+      "rollup": {
+        "code": 360,
+        "import_statements": 360
+      },
+      "webpack": {
+        "code": 1686
+      }
+    }
+  },
+  "StatusLabel-1b14952e.js": {
+    "bundled": 1986,
+    "minified": 1791,
+    "gzipped": 643,
+    "treeshaked": {
+      "rollup": {
+        "code": 938,
+        "import_statements": 160
+      },
+      "webpack": {
+        "code": 2058
+      }
+    }
+  },
+  "index.js": {
+    "bundled": 527550,
+    "minified": 366894,
+    "gzipped": 71396,
+    "treeshaked": {
+      "rollup": {
+        "code": 153071,
+        "import_statements": 364
+      },
+      "webpack": {
+        "code": 211809
+      }
+    }
+  },
+  "Logo-4fad8443.js": {
+    "bundled": 7580,
+    "minified": 7098,
+    "gzipped": 3194,
+    "treeshaked": {
+      "rollup": {
+        "code": 358,
+        "import_statements": 129
+      },
+      "webpack": {
+        "code": 1445
+      }
+    }
+  },
+  "components/Dropdown/index.js": {
+    "bundled": 717,
+    "minified": 680,
+    "gzipped": 337,
+    "treeshaked": {
+      "rollup": {
+        "code": 617,
+        "import_statements": 617
+      },
+      "webpack": {
+        "code": 2181
+      }
+    }
+  },
+  "IconQuestionCircle-63d2b5b6.js": {
+    "bundled": 1440,
+    "minified": 1141,
+    "gzipped": 660,
+    "treeshaked": {
+      "rollup": {
+        "code": 113,
+        "import_statements": 113
+      },
+      "webpack": {
+        "code": 1196
+      }
+    }
+  },
+  "IconError-e854c6de.js": {
+    "bundled": 1183,
+    "minified": 884,
+    "gzipped": 528,
+    "treeshaked": {
+      "rollup": {
+        "code": 113,
+        "import_statements": 113
+      },
+      "webpack": {
+        "code": 1196
+      }
+    }
+  },
+  "components/Navigation/index.js": {
+    "bundled": 1017,
+    "minified": 964,
+    "gzipped": 451,
+    "treeshaked": {
+      "rollup": {
+        "code": 875,
+        "import_statements": 875
+      },
+      "webpack": {
+        "code": 2735
+      }
+    }
+  },
+  "components/Logo/index.js": {
+    "bundled": 188,
+    "minified": 175,
+    "gzipped": 140,
+    "treeshaked": {
+      "rollup": {
+        "code": 144,
+        "import_statements": 144
+      },
+      "webpack": {
+        "code": 1276
+      }
+    }
+  },
+  "components/Koros/index.js": {
+    "bundled": 215,
+    "minified": 200,
+    "gzipped": 152,
+    "treeshaked": {
+      "rollup": {
+        "code": 168,
+        "import_statements": 168
+      },
+      "webpack": {
+        "code": 1333
+      }
+    }
+  },
+  "components/RadioButton/index.js": {
+    "bundled": 239,
+    "minified": 224,
+    "gzipped": 163,
+    "treeshaked": {
+      "rollup": {
+        "code": 182,
+        "import_statements": 182
+      },
+      "webpack": {
+        "code": 1351
+      }
+    }
+  },
+  "RadioButton-6fbf39e4.js": {
+    "bundled": 7969,
+    "minified": 7476,
+    "gzipped": 1458,
+    "treeshaked": {
+      "rollup": {
+        "code": 6407,
+        "import_statements": 160
+      },
+      "webpack": {
+        "code": 7527
+      }
+    }
+  },
+  "FieldLabel-d6f3e137.js": {
+    "bundled": 12969,
+    "minified": 12688,
+    "gzipped": 2200,
+    "treeshaked": {
+      "rollup": {
+        "code": 11816,
+        "import_statements": 129
+      },
+      "webpack": {
+        "code": 12913
+      }
+    }
+  },
+  "components/StatusLabel/index.js": {
+    "bundled": 239,
+    "minified": 224,
+    "gzipped": 162,
+    "treeshaked": {
+      "rollup": {
+        "code": 182,
+        "import_statements": 182
+      },
+      "webpack": {
+        "code": 1351
+      }
+    }
+  },
+  "components/Textarea/index.js": {
+    "bundled": 479,
+    "minified": 452,
+    "gzipped": 255,
+    "treeshaked": {
+      "rollup": {
+        "code": 389,
+        "import_statements": 389
+      },
+      "webpack": {
+        "code": 1783
+      }
+    }
+  },
+  "components/Tooltip/index.js": {
+    "bundled": 361,
+    "minified": 340,
+    "gzipped": 208,
+    "treeshaked": {
+      "rollup": {
+        "code": 290,
+        "import_statements": 290
+      },
+      "webpack": {
+        "code": 1570
+      }
+    }
+  },
+  "components/TextInput/index.js": {
+    "bundled": 481,
+    "minified": 454,
+    "gzipped": 252,
+    "treeshaked": {
+      "rollup": {
+        "code": 390,
+        "import_statements": 390
+      },
+      "webpack": {
+        "code": 1784
+      }
+    }
+  },
+  "Dropdown-03de14c8.js": {
+    "bundled": 20577,
+    "minified": 14763,
+    "gzipped": 3932,
+    "treeshaked": {
+      "rollup": {
+        "code": 8947,
+        "import_statements": 385
+      },
+      "webpack": {
+        "code": 10301
+      }
+    }
+  },
+  "IconZoomText-50a2ed14.js": {
+    "bundled": 109337,
+    "minified": 83418,
+    "gzipped": 16575,
+    "treeshaked": {
+      "rollup": {
+        "code": 113,
+        "import_statements": 113
+      },
+      "webpack": {
+        "code": 1196
+      }
+    }
+  },
+  "Navigation-accc8a26.js": {
+    "bundled": 100647,
+    "minified": 88801,
+    "gzipped": 11690,
+    "treeshaked": {
+      "rollup": {
+        "code": 69764,
+        "import_statements": 450
+      },
+      "webpack": {
+        "code": 85730
+      }
+    }
+  },
+  "downshift.esm-e87c5981.js": {
+    "bundled": 183963,
+    "minified": 82056,
+    "gzipped": 19061,
+    "treeshaked": {
+      "rollup": {
+        "code": 8640,
+        "import_statements": 234
+      },
+      "webpack": {
+        "code": 10642
+      }
+    }
+  },
+  "TextArea-db5d880d.js": {
+    "bundled": 1987,
+    "minified": 1178,
+    "gzipped": 565,
+    "treeshaked": {
+      "rollup": {
+        "code": 109,
+        "import_statements": 109
+      },
+      "webpack": {
+        "code": 1192
+      }
+    }
+  },
+  "Tooltip-0d4a332c.js": {
+    "bundled": 5573,
+    "minified": 4720,
+    "gzipped": 1402,
+    "treeshaked": {
+      "rollup": {
+        "code": 2800,
+        "import_statements": 240
+      },
+      "webpack": {
+        "code": 3986
+      }
+    }
+  },
+  "Columns-98406ea2.js": {
+    "bundled": 687,
+    "minified": 605,
+    "gzipped": 358,
+    "treeshaked": {
+      "rollup": {
+        "code": 370,
+        "import_statements": 95
+      },
+      "webpack": {
+        "code": 1424
+      }
+    }
+  },
+  "Notification-ba6d1ad3.js": {
+    "bundled": 13507,
+    "minified": 9246,
+    "gzipped": 2339,
+    "treeshaked": {
+      "rollup": {
+        "code": 5500,
+        "import_statements": 299
+      },
+      "webpack": {
+        "code": 6776
+      }
+    }
+  },
+  "TextInput-65997ecb.js": {
+    "bundled": 2072,
+    "minified": 1222,
+    "gzipped": 583,
+    "treeshaked": {
+      "rollup": {
+        "code": 109,
+        "import_statements": 109
+      },
+      "webpack": {
+        "code": 1192
+      }
+    }
+  },
+  "Section-296d2b6b.js": {
+    "bundled": 4830,
+    "minified": 4390,
+    "gzipped": 1073,
+    "treeshaked": {
+      "rollup": {
+        "code": 3156,
+        "import_statements": 156
+      },
+      "webpack": {
+        "code": 4276
+      }
+    }
+  },
+  "ImageWithCard-f19ddc8a.js": {
+    "bundled": 6294,
+    "minified": 5813,
+    "gzipped": 1496,
+    "treeshaked": {
+      "rollup": {
+        "code": 4490,
+        "import_statements": 128
+      },
+      "webpack": {
+        "code": 5577
+      }
+    }
+  },
+  "IconInfoCircle-09b35cd0.js": {
+    "bundled": 2105,
+    "minified": 1527,
+    "gzipped": 616,
+    "treeshaked": {
+      "rollup": {
+        "code": 110,
+        "import_statements": 110
+      },
+      "webpack": {
+        "code": 1193
+      }
+    }
+  },
+  "RadioButton-f77dd9c7.js": {
+    "bundled": 7994,
+    "minified": 7473,
+    "gzipped": 1457,
+    "treeshaked": {
+      "rollup": {
+        "code": 6404,
+        "import_statements": 157
+      },
+      "webpack": {
+        "code": 7524
+      }
+    }
+  },
+  "Logo-09995140.js": {
+    "bundled": 7602,
+    "minified": 7095,
+    "gzipped": 3191,
+    "treeshaked": {
+      "rollup": {
+        "code": 355,
+        "import_statements": 126
+      },
+      "webpack": {
+        "code": 1442
+      }
+    }
+  },
+  "Koros-8de9c649.js": {
+    "bundled": 2489,
+    "minified": 1775,
+    "gzipped": 816,
+    "treeshaked": {
+      "rollup": {
+        "code": 293,
+        "import_statements": 152
+      },
+      "webpack": {
+        "code": 1413
+      }
+    }
+  },
+  "_tslib-1c077215.js": {
+    "bundled": 1964,
+    "minified": 1619,
+    "gzipped": 834,
+    "treeshaked": {
+      "rollup": {
+        "code": 0,
+        "import_statements": 0
+      },
+      "webpack": {
+        "code": 951
+      }
+    }
+  },
+  "InputWrapper-c4b135db.js": {
+    "bundled": 7836,
+    "minified": 7073,
+    "gzipped": 1899,
+    "treeshaked": {
+      "rollup": {
+        "code": 5611,
+        "import_statements": 160
+      },
+      "webpack": {
+        "code": 6731
+      }
+    }
+  },
+  "FieldLabel-e50bf64c.js": {
+    "bundled": 12996,
+    "minified": 12685,
+    "gzipped": 2198,
+    "treeshaked": {
+      "rollup": {
+        "code": 11813,
+        "import_statements": 126
+      },
+      "webpack": {
+        "code": 12910
+      }
+    }
+  },
+  "IconAngleDown-19e75e0a.js": {
+    "bundled": 1036,
+    "minified": 741,
+    "gzipped": 441,
+    "treeshaked": {
+      "rollup": {
+        "code": 110,
+        "import_statements": 110
+      },
+      "webpack": {
+        "code": 1193
+      }
+    }
+  },
+  "IconQuestionCircle-f7e006f8.js": {
+    "bundled": 1437,
+    "minified": 1138,
+    "gzipped": 657,
+    "treeshaked": {
+      "rollup": {
+        "code": 110,
+        "import_statements": 110
+      },
+      "webpack": {
+        "code": 1193
+      }
+    }
+  },
+  "Checkbox-a451f72b.js": {
+    "bundled": 8059,
+    "minified": 7558,
+    "gzipped": 1695,
+    "treeshaked": {
+      "rollup": {
+        "code": 6552,
+        "import_statements": 157
+      },
+      "webpack": {
+        "code": 7672
+      }
+    }
+  },
+  "StatusLabel-95785e5b.js": {
+    "bundled": 2011,
+    "minified": 1788,
+    "gzipped": 643,
+    "treeshaked": {
+      "rollup": {
+        "code": 935,
+        "import_statements": 157
+      },
+      "webpack": {
+        "code": 2055
+      }
+    }
+  },
+  "Dropdown-9a8f89d4.js": {
+    "bundled": 20638,
+    "minified": 14760,
+    "gzipped": 3931,
+    "treeshaked": {
+      "rollup": {
+        "code": 8944,
+        "import_statements": 382
+      },
+      "webpack": {
+        "code": 10298
+      }
+    }
+  },
+  "IconCheck-23a20c4b.js": {
+    "bundled": 1962,
+    "minified": 1384,
+    "gzipped": 557,
+    "treeshaked": {
+      "rollup": {
+        "code": 110,
+        "import_statements": 110
+      },
+      "webpack": {
+        "code": 1193
+      }
+    }
+  },
+  "IconUser-e218f465.js": {
+    "bundled": 3848,
+    "minified": 2712,
+    "gzipped": 766,
+    "treeshaked": {
+      "rollup": {
+        "code": 110,
+        "import_statements": 110
+      },
+      "webpack": {
+        "code": 1193
+      }
+    }
+  },
+  "IconError-a51df81f.js": {
+    "bundled": 1180,
+    "minified": 881,
+    "gzipped": 526,
+    "treeshaked": {
+      "rollup": {
+        "code": 110,
+        "import_statements": 110
+      },
+      "webpack": {
+        "code": 1193
+      }
+    }
+  },
+  "Button-69e55ca4.js": {
+    "bundled": 13089,
+    "minified": 12456,
+    "gzipped": 2212,
+    "treeshaked": {
+      "rollup": {
+        "code": 10635,
+        "import_statements": 157
+      },
+      "webpack": {
+        "code": 11755
+      }
+    }
+  },
+  "Navigation-7fbddfed.js": {
+    "bundled": 100761,
+    "minified": 88798,
+    "gzipped": 11688,
+    "treeshaked": {
+      "rollup": {
+        "code": 69761,
+        "import_statements": 447
+      },
+      "webpack": {
+        "code": 85727
+      }
+    }
+  },
+  "downshift.esm-d439309d.js": {
+    "bundled": 184012,
+    "minified": 82056,
+    "gzipped": 19061,
+    "treeshaked": {
+      "rollup": {
+        "code": 8640,
+        "import_statements": 234
+      },
+      "webpack": {
+        "code": 10642
+      }
+    }
+  },
+  "Navigation-2bc47895.js": {
+    "bundled": 100761,
+    "minified": 88798,
+    "gzipped": 11681,
+    "treeshaked": {
+      "rollup": {
+        "code": 69761,
+        "import_statements": 447
+      },
+      "webpack": {
+        "code": 85727
+      }
+    }
+  },
+  "IconUser-3c3754b7.js": {
+    "bundled": 3851,
+    "minified": 2715,
+    "gzipped": 768,
+    "treeshaked": {
+      "rollup": {
+        "code": 113,
+        "import_statements": 113
+      },
+      "webpack": {
+        "code": 1196
+      }
+    }
+  },
+  "RadioButton-75f5ea3a.js": {
+    "bundled": 7997,
+    "minified": 7476,
+    "gzipped": 1458,
+    "treeshaked": {
+      "rollup": {
+        "code": 6407,
+        "import_statements": 160
+      },
+      "webpack": {
+        "code": 7527
+      }
+    }
+  },
+  "IconCheck-94a70b38.js": {
+    "bundled": 1965,
+    "minified": 1387,
+    "gzipped": 560,
+    "treeshaked": {
+      "rollup": {
+        "code": 113,
+        "import_statements": 113
+      },
+      "webpack": {
+        "code": 1196
+      }
+    }
+  },
+  "StatusLabel-8d402a5a.js": {
+    "bundled": 2014,
+    "minified": 1791,
+    "gzipped": 643,
+    "treeshaked": {
+      "rollup": {
+        "code": 938,
+        "import_statements": 160
+      },
+      "webpack": {
+        "code": 2058
+      }
+    }
+  },
+  "Button-fe700961.js": {
+    "bundled": 13092,
+    "minified": 12459,
+    "gzipped": 2213,
+    "treeshaked": {
+      "rollup": {
+        "code": 10638,
+        "import_statements": 160
+      },
+      "webpack": {
+        "code": 11758
+      }
+    }
+  },
+  "TextArea-b54901e3.js": {
+    "bundled": 1990,
+    "minified": 1181,
+    "gzipped": 566,
+    "treeshaked": {
+      "rollup": {
+        "code": 112,
+        "import_statements": 112
+      },
+      "webpack": {
+        "code": 1195
+      }
+    }
+  },
+  "Notification-6cbd9076.js": {
+    "bundled": 13887,
+    "minified": 10113,
+    "gzipped": 2665,
+    "treeshaked": {
+      "rollup": {
+        "code": 5553,
+        "import_statements": 352
+      },
+      "webpack": {
+        "code": 6897
+      }
+    }
+  },
+  "IconInfoCircle-5eca94c3.js": {
+    "bundled": 2108,
+    "minified": 1530,
+    "gzipped": 619,
+    "treeshaked": {
+      "rollup": {
+        "code": 113,
+        "import_statements": 113
+      },
+      "webpack": {
+        "code": 1196
+      }
+    }
+  },
+  "FieldLabel-760cf68d.js": {
+    "bundled": 12999,
+    "minified": 12688,
+    "gzipped": 2200,
+    "treeshaked": {
+      "rollup": {
+        "code": 11816,
+        "import_statements": 129
+      },
+      "webpack": {
+        "code": 12913
+      }
+    }
+  },
+  "Dropdown-6edf41fc.js": {
+    "bundled": 20641,
+    "minified": 14763,
+    "gzipped": 3933,
+    "treeshaked": {
+      "rollup": {
+        "code": 8947,
+        "import_statements": 385
+      },
+      "webpack": {
+        "code": 10301
+      }
+    }
+  },
+  "Logo-668b3c2b.js": {
+    "bundled": 7605,
+    "minified": 7098,
+    "gzipped": 3194,
+    "treeshaked": {
+      "rollup": {
+        "code": 358,
+        "import_statements": 129
+      },
+      "webpack": {
+        "code": 1445
+      }
+    }
+  },
+  "Tooltip-5577fb6b.js": {
+    "bundled": 5573,
+    "minified": 4720,
+    "gzipped": 1401,
+    "treeshaked": {
+      "rollup": {
+        "code": 2800,
+        "import_statements": 240
+      },
+      "webpack": {
+        "code": 3986
+      }
+    }
+  },
+  "Checkbox-781ceade.js": {
+    "bundled": 8062,
+    "minified": 7561,
+    "gzipped": 1697,
+    "treeshaked": {
+      "rollup": {
+        "code": 6555,
+        "import_statements": 160
+      },
+      "webpack": {
+        "code": 7675
+      }
+    }
+  },
+  "TextInput-afa6b48d.js": {
+    "bundled": 2075,
+    "minified": 1225,
+    "gzipped": 584,
+    "treeshaked": {
+      "rollup": {
+        "code": 112,
+        "import_statements": 112
+      },
+      "webpack": {
+        "code": 1195
+      }
+    }
+  },
+  "InputWrapper-e9c5f862.js": {
+    "bundled": 7836,
+    "minified": 7073,
+    "gzipped": 1902,
+    "treeshaked": {
+      "rollup": {
+        "code": 5611,
+        "import_statements": 160
+      },
+      "webpack": {
+        "code": 6731
+      }
+    }
+  },
+  "Navigation-6189e8dc.js": {
+    "bundled": 102215,
+    "minified": 89871,
+    "gzipped": 11934,
+    "treeshaked": {
+      "rollup": {
+        "code": 69821,
+        "import_statements": 502
+      },
+      "webpack": {
+        "code": 86739
+      }
+    }
+  },
+  "downshift.esm-94906fbd.js": {
+    "bundled": 183647,
+    "minified": 82056,
+    "gzipped": 19061,
+    "treeshaked": {
+      "rollup": {
+        "code": 8640,
+        "import_statements": 234
+      },
+      "webpack": {
+        "code": 10642
+      }
+    }
+  }
+}
