@@ -7,6 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
+## [0.13.3] - October 5, 2020
+### Documentation
+### Added
+- lang attributes for Finnish colour names in Colour documentation Brand colour table
+- lang attributes for verbose language description examples in Localisation guidelines
+- Title attributes to front page image links (could not repeat the original issue of reading alt tags in wrong language)
+- h3 headings after h2 “Usage” in component documentation pages, that missed a h3 heading level
+
+#### Changed
+- Moved Contribution category above Resources page in documentation site navigation
+- Updated the roadmap to reflect new beta release plans and accessibility work
+- Markdown links to Link component with external prop for links that open an new window
+- component documentation code example h5 headings to h4
+- component documentation code example heading text "React:" to "React code example:"
+- component documentation code example heading text "Core:" to "Core code example:"
+
+#### Fixed
+- Japanese language code JP to JA in Localisation guidelines
+- Spanish language code SP to ES in Localisation guidelines
+- Insufficient link text "Here" to more descriptive in Logo guidelines
+- Insufficient link text "filterable" to more descriptive "filterable variant" and added alt tag in Dropdown documentation
+- Fixed `<b>` tags to `<strong>`
+- Fixed `<i>` tags to `<em>`
+
+#### Removed
+- Removed the link to #designsystem-dev Slack channel in Support page (does not exist anymore)
+- Removed a text about issue labeling in Support page (mentioned label does not exist anymore)
+
+### React
+#### Added
+- Added a CommonJS bundle back to the package. in ([#265](https://github.com/City-of-Helsinki/helsinki-design-system/pull/265))
+
+#### Fixed
+- Fixed wrong `sideEffects` value that caused the core base styles to be tree shaken in production builds. in ([#265](https://github.com/City-of-Helsinki/helsinki-design-system/pull/265))
+
+
 ## [0.13.2] - September 21, 2020
 ### Documentation
 #### Added
