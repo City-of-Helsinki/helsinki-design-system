@@ -88,6 +88,6 @@ export default [
         format: 'esm',
       },
     ],
-    ...getConfig('esm', false),
+    ...getConfig('esm'),
   },
 ];
