@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ColorContrast = ({ 
-  color, 
-  background, 
-  style = {},
-  children
-}) => (
+const ColorContrast = ({ color, background, style = {}, children }) => (
   <div
     style={{
       fontSize: 'var(--fontsize-body-l)',
@@ -20,7 +15,7 @@ const ColorContrast = ({
       ...style,
     }}
   >
-      {children}
+    {children}
   </div>
 );
 

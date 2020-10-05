@@ -1,6 +1,5 @@
 node_modules/
 storybook-static/
 lib/
-lib-esm/
 _bundles/
 *.css.d.ts

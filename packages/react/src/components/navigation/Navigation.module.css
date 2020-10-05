@@ -296,7 +296,7 @@
 @media large-up {
   .headerContainer {
     margin: 0 auto;
-    max-width: var(--container-width-xl);
+    max-width: var(--breakpoint-xl);
   }
 }
 
