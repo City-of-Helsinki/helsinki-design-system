@@ -45,6 +45,7 @@ export const SelectTest = () => (
     <Select
       invalid
       icon={<IconFaceSad />}
+      defaultValue={options[0]}
       placeholder="Placeholder"
       label="Invalid"
       helper="Choose an element"
@@ -72,6 +73,7 @@ export const SelectMultiselectTest = () => {
       placeholder="Placeholder"
       options={controlledOptions}
       multiselect
+      defaultValue={controlledOptions.slice(0, 3)}
       // onChange={(values): void => console.log('Change', values)}
       // onBlur={() => console.log('Blur')}
       // onFocus={() => console.log('Focus')}
@@ -110,7 +112,7 @@ export const SelectTestControlled = () => {
 export const SelectTestControlledMultiselect = () => {
   const controlledOptions = getOptions();
 
-  const [selectedItems, setSelectedItems] = useState(null);
+  const [selectedItems, setSelectedItems] = useState([]);
 
   return (
     <>

@@ -90,10 +90,11 @@ export type SelectProps<OptionType> = {
 type MultiselectProps<OptionType> =
   | {
       multiselect?: false;
-      value?: OptionType;
       clearButtonAriaLabel?: string;
-      selectedItemRemoveButtonAriaLabel?: string;
+      defaultValue?: OptionType;
       icon?: React.ReactNode;
+      selectedItemRemoveButtonAriaLabel?: string;
+      value?: OptionType;
     }
   | {
       /**
@@ -101,21 +102,25 @@ type MultiselectProps<OptionType> =
        */
       multiselect?: boolean;
       /**
-       * The selected value(s)
-       */
-      value?: OptionType[];
-      /**
        * The aria-label for the clear button
        */
       clearButtonAriaLabel: string;
+      /**
+       * Value(s) that should be selected when the dropdown is initialized
+       */
+      defaultValue?: OptionType[];
+      /**
+       * Icon to be shown in the dropdown
+       */
+      icon?: undefined;
       /**
        * The aria-label for the selected item remove button
        */
       selectedItemRemoveButtonAriaLabel: string;
       /**
-       * Icon to be shown in the dropdown
+       * The selected value(s)
        */
-      icon?: undefined;
+      value?: OptionType[];
     };
 
 /**
@@ -131,6 +136,7 @@ export const Select = <OptionType,>({
   className,
   clearable = true,
   clearButtonAriaLabel,
+  defaultValue,
   disabled = false,
   error,
   helper,
@@ -198,8 +204,9 @@ export const Select = <OptionType,>({
     // sets focus on the first selected item when the dropdown is initialized
     defaultActiveIndex: 0,
     initialActiveIndex: 0,
-    // todo: create prop
-    initialSelectedItems: [options[0], options[1], options[2], options[3]],
+    // set the default value(s) when the dropdown is initialized
+    initialSelectedItems: (defaultValue as OptionType[]) ?? [],
+    // set the selected items when the dropdown is controlled
     ...(multiselect && value !== undefined && { selectedItems: (value as OptionType[]) ?? [] }),
     // todo: create a prop for setting the removal message
     getA11yRemovalMessage({ itemToString, removedSelectedItem }) {
@@ -261,6 +268,8 @@ export const Select = <OptionType,>({
     // isOpen: true,
     id,
     items: options,
+    // set the default value when the dropdown is initialized
+    initialSelectedItem: (defaultValue as OptionType) ?? null,
     // a defined value indicates that the dropdown should be controlled
     // don't set selectedItem if it's not, so that downshift can handle the state
     ...(!multiselect && value !== undefined && { selectedItem: value as OptionType }),
