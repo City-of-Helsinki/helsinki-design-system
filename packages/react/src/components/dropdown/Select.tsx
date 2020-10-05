@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelect, useMultipleSelection } from 'downshift';
+import { useSelect, useMultipleSelection, A11yRemovalMessage, A11yStatusMessageOptions } from 'downshift';
 import isEqual from 'lodash.isequal';
 import uniqueId from 'lodash.uniqueid';
 
@@ -28,6 +28,10 @@ export type SelectProps<OptionType> = {
    * If `true`, the dropdown will be disabled
    */
   disabled?: boolean;
+  /**
+   * Function used to generate an ARIA a11y message when the status changes. See [here](https://github.com/downshift-js/downshift/tree/master/src/hooks/useSelect#geta11ystatusmessage) for more information.
+   */
+  getA11yStatusMessage?: (options: A11yStatusMessageOptions<OptionType>) => string;
   /**
    * A helper text that will be shown below the dropdown
    */
@@ -100,6 +104,8 @@ type MultiselectProps<OptionType> =
       multiselect?: false;
       clearButtonAriaLabel?: string;
       defaultValue?: OptionType;
+      getA11yRemovalMessage?: undefined;
+      getA11ySelectionMessage?: (options: A11yStatusMessageOptions<OptionType>) => string;
       icon?: React.ReactNode;
       selectedItemRemoveButtonAriaLabel?: string;
       value?: OptionType;
@@ -117,6 +123,14 @@ type MultiselectProps<OptionType> =
        * Value(s) that should be selected when the dropdown is initialized
        */
       defaultValue?: OptionType[];
+      /**
+       * Function used to generate an ARIA a11y message when an item is removed. See [here](https://github.com/downshift-js/downshift/tree/master/src/hooks/useMultipleSelection#geta11yremovalmessage) for more information.
+       */
+      getA11yRemovalMessage?: (options: A11yRemovalMessage<OptionType>) => string;
+      /**
+       * Function used to generate an ARIA a11y message when an item is selected. See [here](https://github.com/downshift-js/downshift/tree/master/src/hooks/useSelect#geta11yselectionmessage) for more information.
+       */
+      getA11ySelectionMessage?: undefined;
       /**
        * Icon to be shown in the dropdown
        */
@@ -148,6 +162,9 @@ export const Select = <OptionType,>({
   defaultValue,
   disabled = false,
   error,
+  getA11yRemovalMessage = () => '',
+  getA11ySelectionMessage = () => '',
+  getA11yStatusMessage = () => '',
   helper,
   icon,
   id = uniqueId('hds-select-'),
@@ -158,7 +175,6 @@ export const Select = <OptionType,>({
   onBlur = () => null,
   onChange = () => null,
   onFocus = () => null,
-  // todo: test using options without a label key and without optionLabelField defined
   optionLabelField = 'label',
   options = [],
   placeholder,
@@ -218,13 +234,7 @@ export const Select = <OptionType,>({
     initialSelectedItems: (defaultValue as OptionType[]) ?? [],
     // set the selected items when the dropdown is controlled
     ...(multiselect && value !== undefined && { selectedItems: (value as OptionType[]) ?? [] }),
-    // todo: create a prop for setting the removal message
-    getA11yRemovalMessage({ itemToString, removedSelectedItem }) {
-      console.log(
-        `getA11yRemovalMessage message: "${itemToString(removedSelectedItem[optionLabelField])} has been removed"`,
-      );
-      return `${itemToString(removedSelectedItem[optionLabelField])} has been removed`;
-    },
+    getA11yRemovalMessage,
     onSelectedItemsChange({ selectedItems: _selectedItems }) {
       return multiselect && onChange(_selectedItems);
     },
@@ -275,8 +285,6 @@ export const Select = <OptionType,>({
     selectItem,
   } = useSelect<OptionType>({
     circularNavigation,
-    // todo: remove. for testing only.
-    // isOpen: true,
     id,
     items: options,
     // set the default value when the dropdown is initialized
@@ -284,16 +292,8 @@ export const Select = <OptionType,>({
     // a defined value indicates that the dropdown should be controlled
     // don't set selectedItem if it's not, so that downshift can handle the state
     ...(!multiselect && value !== undefined && { selectedItem: value as OptionType }),
-    // todo: create a prop for setting the selection message and "selections cleared" message
-    // todo: how can this be done for multiselect?
-    getA11ySelectionMessage({ selectedItem: _selectedItem }) {
-      if (!multiselect && _selectedItem) {
-        const message = `${_selectedItem?.[optionLabelField]} has been selected`;
-        console.log(`getA11ySelectionMessage message: "${message}"`);
-        return message;
-      }
-      return '';
-    },
+    getA11ySelectionMessage,
+    getA11yStatusMessage,
     itemToString: (item): string => (item ? item[optionLabelField] ?? '' : ''),
     onSelectedItemChange: ({ selectedItem: _selectedItem }) => !multiselect && onChange(_selectedItem),
     onStateChange({ type, selectedItem: _selectedItem }) {

@@ -41,6 +41,10 @@ export const SelectTest = () => (
       helper="Choose an element"
       placeholder="Placeholder"
       options={options}
+      getA11ySelectionMessage={({ selectedItem }) => {
+        console.log(`${selectedItem.label} has been selected`);
+        return `${selectedItem.label} has been selected`;
+      }}
     />
     <Select
       invalid
@@ -82,6 +86,10 @@ export const SelectMultiselectTest = () => {
       selectedItemRemoveButtonAriaLabel="Remove item {value}"
       selectedItemSrLabel="Selected item {value}"
       // helper="Hello! I'm a helper"
+      getA11yRemovalMessage={({ removedSelectedItem }) => {
+        console.log(`${removedSelectedItem.label} has been removed`);
+        return `${removedSelectedItem.label} has been removed`;
+      }}
     />
   );
 };
@@ -113,7 +121,7 @@ export const SelectTestControlled = () => {
 export const SelectTestControlledMultiselect = () => {
   const controlledOptions = getOptions();
 
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState(null);
 
   return (
     <>
