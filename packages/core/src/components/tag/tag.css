@@ -1,0 +1,29 @@
+.hds-tag {
+  --tag-background: var(--color-black-10);
+  --tag-color: var(--color-black-90);
+  --tag-focus-outline-color: var(--color-coat-of-arms-blue);
+
+  align-items: center;
+  background-color: var(--tag-background);
+  color: var(--tag-color);
+  display: inline-flex;
+  flex-direction: row-reverse;
+  font-size: var(--fontsize-body-s);
+  outline: none;
+  padding: 0 var(--spacing-2-xs) 0 0;
+}
+
+.hds-tag:focus,
+.hds-tag:focus-within {
+  box-shadow: 0 0 0 3px var(--tag-focus-outline-color);
+}
+
+.hds-tag__delete-button {
+ display: flex;
+ outline: none;
+}
+
+.hds-tag__delete-button .hds-icon {
+  height: var(--spacing-m);
+  width: var(--spacing-m);
+}

@@ -3,7 +3,6 @@ import React from 'react';
 
 // import core base styles
 import 'hds-core';
-// todo: dynamic import
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import styles from './Tag.module.scss';
@@ -49,7 +48,7 @@ export const Tag = React.forwardRef<HTMLDivElement, TagProps>(
     ref: React.Ref<HTMLDivElement>,
   ) => (
     <div id={id} className={classNames(styles.tag, className)} ref={ref} {...rest}>
-      <span id={id && `${id}-label`} {...labelProps} className={styles.label}>
+      <span id={id && `${id}-label`} {...labelProps}>
         {srOnlyLabel && <VisuallyHidden>{srOnlyLabel}</VisuallyHidden>}
         <span aria-hidden={!!srOnlyLabel}>{label}</span>
       </span>

@@ -1,23 +1,5 @@
-// todo: move to core
-
 .tag {
-  --tag-background: var(--color-black-10);
-  --tag-color: var(--color-black-90);
-  --tag-focus-outline-color: var(--color-coat-of-arms-blue);
-
-  align-items: center;
-  background-color: var(--tag-background);
-  color: var(--tag-color);
-  display: inline-flex;
-  flex-direction: row-reverse;
-  font-size: var(--fontsize-body-s);
-  outline: none;
-  padding: 0 var(--spacing-2-xs) 0 0;
-
-  &:focus,
-  &:focus-within {
-    box-shadow: 0 0 0 3px var(--tag-focus-outline-color);
-  }
+  composes: hds-tag from 'hds-core/lib/components/tag/tag.css';
 }
 
 // TODO: USE BUTTON RESET PLACEHOLDER CLASS WHEN FOOTER IS MERGED
@@ -28,8 +10,9 @@
   cursor: pointer;
   font: inherit;
   padding: 0;
-
-  display: flex;
-  //margin-right: var(--spacing-3-xs);
-  outline: none;
 }
+
+.deleteButton {
+  composes: hds-tag__delete-button from 'hds-core/lib/components/tag/tag.css';
+}
+
