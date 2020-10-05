@@ -5,9 +5,7 @@ exports[`<Tag /> spec renders the component 1`] = `
   <div
     class="tag"
   >
-    <span
-      class="label"
-    >
+    <span>
       <span
         aria-hidden="false"
       />
