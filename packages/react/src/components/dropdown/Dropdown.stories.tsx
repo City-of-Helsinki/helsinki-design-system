@@ -4,6 +4,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 // import { Dropdown } from './Dropdown';
 import { Button } from '../button';
 import { Select } from './Select';
+import { IconFaceNeutral, IconFaceSad, IconFaceSmile } from '../../icons';
 
 function getOptions() {
   return [
@@ -34,17 +35,26 @@ export default {
 
 export const SelectTest = () => (
   <>
-    <Select label="Default" helper="Choose an element" placeholder="Placeholder" options={options} />
+    <Select
+      icon={<IconFaceSmile />}
+      label="Default"
+      helper="Choose an element"
+      placeholder="Placeholder"
+      options={options}
+    />
     <Select
       invalid
+      icon={<IconFaceSad />}
       placeholder="Placeholder"
       label="Invalid"
       helper="Choose an element"
+      error="Wrong element!"
       options={options}
       style={{ marginTop: 'var(--spacing-s)' }}
     />
     <Select
       disabled
+      icon={<IconFaceNeutral />}
       placeholder="Placeholder"
       label="Disabled"
       helper="Choose an element"

@@ -31,7 +31,9 @@
     font-weight: bold;
     margin: var(--spacing-xs) 0 0 var(--spacing-xs);
     opacity: 1;
+    pointer-events: none;
     transition: 50ms cubic-bezier(0.47, 0, 0.75, 0.72);
+    user-select: none;
 
     &.hidden {
       @extend %hidden;

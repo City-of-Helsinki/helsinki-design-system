@@ -8,7 +8,7 @@ import 'hds-core';
 import styles from './Select.module.scss';
 import { FieldLabel } from '../../internal/field-label/FieldLabel';
 import classNames from '../../utils/classNames';
-import { IconAngleDown, IconCheck } from '../../icons';
+import { IconAlertCircle, IconAngleDown, IconCheck } from '../../icons';
 import { SelectedItems } from '../../internal/selectedItems/SelectedItems';
 
 export type SelectProps<OptionType> = {
@@ -29,7 +29,11 @@ export type SelectProps<OptionType> = {
    */
   helper?: React.ReactNode;
   /**
-   * Used to generate the first part of the id on the elements.
+   * An error text that will be shown below the dropdown when `invalid` is true
+   */
+  error?: React.ReactNode;
+  /**
+   * Used to generate the first part of the id on the elements
    */
   id?: string;
   /**
@@ -57,7 +61,7 @@ export type SelectProps<OptionType> = {
    */
   onFocus?: () => void;
   /**
-   * Sets the data item field that represents the item label.
+   * Sets the data item field that represents the item label
    * E.g. an `optionLabelField` value of `'foo'` and a data item `{ foo: 'Label', bar: 'value' }`, would display `Label` in the menu for that specific item
    */
   optionLabelField?: string;
@@ -70,7 +74,7 @@ export type SelectProps<OptionType> = {
    */
   placeholder?: string;
   /**
-   * Label for selected items that is only visible to screen readers. Can be used to to give screen reader users additional information about the selected item.
+   * Label for selected items that is only visible to screen readers. Can be used to to give screen reader users additional information about the selected item
    */
   selectedItemSrLabel?: string;
   /**
@@ -89,6 +93,7 @@ type MultiselectProps<OptionType> =
       value?: OptionType;
       clearButtonAriaLabel?: string;
       selectedItemRemoveButtonAriaLabel?: string;
+      icon?: React.ReactNode;
     }
   | {
       /**
@@ -107,6 +112,10 @@ type MultiselectProps<OptionType> =
        * The aria-label for the selected item remove button
        */
       selectedItemRemoveButtonAriaLabel: string;
+      /**
+       * Icon to be shown in the dropdown
+       */
+      icon?: undefined;
     };
 
 /**
@@ -123,7 +132,9 @@ export const Select = <OptionType,>({
   clearable = true,
   clearButtonAriaLabel,
   disabled = false,
+  error,
   helper,
+  icon,
   id = uniqueId('hds-select-'),
   invalid = false,
   isOptionDisabled,
@@ -284,6 +295,7 @@ export const Select = <OptionType,>({
     },
     stateReducer(state, { type, changes }) {
       switch (type) {
+        // todo: close dropdown if Enter is pressed, as suggested by auditors?
         case useSelect.stateChangeTypes.MenuKeyDownEnter:
         case useSelect.stateChangeTypes.MenuKeyDownSpaceButton:
         case useSelect.stateChangeTypes.ItemClick:
@@ -315,7 +327,12 @@ export const Select = <OptionType,>({
     if (multiselect) buttonLabel = selectedItems.length > 0 ? null : placeholder;
     return buttonLabel;
   };
-
+  // screen readers should read the labels in the following order:
+  // field label > helper text > error text > toggle button label
+  // helper and error texts should only be read if they have been defined
+  // prettier-ignore
+  const buttonAriaLabel =
+    `${getToggleButtonProps().id}${error ? ` ${id}-error` : ''}${helper ? ` ${id}-helper` : ''} ${getToggleButtonProps().id}`;
   // show placeholder if no value is selected
   const showPlaceholder = (multiselect && selectedItems.length === 0) || (!multiselect && !selectedItem);
 
@@ -358,21 +375,19 @@ export const Select = <OptionType,>({
           type="button"
           {...getToggleButtonProps({
             'aria-owns': getMenuProps().id,
-            // prepend helper text id to the id's return by the downshift getter function,
-            // so that the helper text will be read to screen reader users before the other labels.
-            // todo: only add helper id if a helper text is defined
-            'aria-labelledby': `${id}-helper ${getToggleButtonProps()['aria-labelledby']}`,
+            'aria-labelledby': buttonAriaLabel,
             // add downshift dropdown props when multiselect is enabled
             ...(multiselect && { ...getDropdownProps({ preventKeyAction: isOpen }) }),
+            ...(invalid && { 'aria-invalid': true }),
             disabled,
             className: classNames(styles.button, showPlaceholder && styles.placeholder),
           })}
         >
+          {/* icons are only supported by single selects */}
+          {icon && !multiselect && <span className={styles.icon}>{icon}</span>}
           {getButtonLabel()}
           <IconAngleDown className={styles.angleIcon} />
         </button>
-        {/* INVALID ICON */}
-        {/* {invalid && <IconAlertCircle className={styles.invalidIcon} />} */}
         <ul
           {...getMenuProps({
             ...(multiselect && { 'aria-multiselectable': true }),
@@ -384,7 +399,6 @@ export const Select = <OptionType,>({
             options.map((item, index) => {
               const optionLabel = item[optionLabelField];
               const selected = multiselect ? getIsInSelectedOptions(selectedItems, item) : isEqual(selectedItem, item);
-              // todo: add aria-disabled to disabled menu items
               const optionDisabled = typeof isOptionDisabled === 'function' ? isOptionDisabled(item, index) : false;
 
               return (
@@ -399,11 +413,10 @@ export const Select = <OptionType,>({
                       highlightedIndex === index && styles.highlighted,
                       selected && styles.selected,
                       optionDisabled && styles.disabled,
-                      // todo: use root multiselect class
-                      // multiselect && styles.multiselect,
                     ),
                   })}
                   {...{ 'aria-selected': selected }}
+                  {...(optionDisabled && { 'aria-disabled': true })}
                 >
                   {multiselect ? (
                     <>
@@ -421,6 +434,14 @@ export const Select = <OptionType,>({
             })}
         </ul>
       </div>
+      {/* INVALID TEXT */}
+      {invalid && error && (
+        <div id={`${id}-error`} className={styles.errorText} aria-hidden="true">
+          <IconAlertCircle className={styles.invalidIcon} />
+          {error}
+        </div>
+      )}
+      {/* HELPER TEXT */}
       {helper && (
         <div id={`${id}-helper`} className={styles.helperText} aria-hidden="true">
           {helper}
