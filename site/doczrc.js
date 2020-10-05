@@ -25,11 +25,11 @@ const menu = [
     name: 'About',
     menu: ['What is new', 'Roadmap', 'Support', 'Accessibility statement'],
   },
-  'Resources',
   {
     name: 'Contributing',
     menu: ['Before contributing', 'Design', 'Implementation', 'Documentation'],
   },
+  'Resources',
 ];
 
 export default {

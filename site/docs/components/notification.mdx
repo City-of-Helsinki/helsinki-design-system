@@ -52,7 +52,7 @@ Inline notifications are used as part of the content. They closely relate to the
     <Notification label="Missing information" type="error" style={{marginTop: 'var(--spacing-s)'}}>Form is missing critical information.</Notification>
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <!-- Default -->
 <div class="hds-notification">
@@ -91,7 +91,7 @@ Inline notifications are used as part of the content. They closely relate to the
 </div>
 ```
 
-##### React:
+#### React code example:
 ```tsx
 <Notification label="New messages" dismissible>You have received new messages.</Notification>
 <Notification label="Form done" type="success" dismissible>Form submit was successful!</Notification>
@@ -127,7 +127,7 @@ Toasts notifications provide lightweight feedback for changes in system status s
 
 
 
-##### Core:
+#### Core code example:
 ```html
 <div class="hds-notification hds-notification--top-right">
   <div class="hds-notification__label">
@@ -141,7 +141,7 @@ Toasts notifications provide lightweight feedback for changes in system status s
 </div>
 ```
 
-##### React:
+#### React code example:
 ```tsx
 <Notification label="New messages" position="top-right" dismissible closeButtonLabelText="Close toast" onClose={() => setOpen(false)}>
   You have received new messages.
@@ -161,7 +161,7 @@ HDS notifications come in three different sizes, allowing the designer to choose
     <Notification size="small" label="New messages" style={{marginTop: 'var(--spacing-s)'}}>You have received new messages.</Notification>
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <!-- Large -->
 <div class="hds-notification hds-notification--large">
@@ -190,7 +190,7 @@ HDS notifications come in three different sizes, allowing the designer to choose
 </div>
 ```
 
-##### React:
+#### React code example:
 ```tsx
 <Notification size="large" label="New messages (only visible to screen readers)">You have received new messages.</Notification>
 <Notification size="default" label="New messages (only visible to screen readers)">You have received new messages.</Notification>
@@ -200,7 +200,7 @@ HDS notifications come in three different sizes, allowing the designer to choose
 ### Invisible
 Invisible notifications do not show up on screen and they are meant to aid screen reader users. Some updates to system status may be apparent to regular users through animations etc. However, screen readers can easily ignore this type of feedback. Invisible notifications are not visible to regular users but screen readers detect them. Use them to improve user experience for screen reader users.
 
-##### Core:
+#### Core code example:
 ```html
 <div class="hiddenFromScreen" aria-atomic="true" aria-live="assertive" role="status">
   <div class="hds-notification">
@@ -213,7 +213,7 @@ Invisible notifications do not show up on screen and they are meant to aid scree
 </div>
 ```
 
-##### React:
+#### React code example:
 ```tsx
 <Notification label="New messages" invisible>You have received new messages. This notification is invisible.</Notification>
 ```
