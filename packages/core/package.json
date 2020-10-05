@@ -9,7 +9,6 @@
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
   "main": "lib/base.min.css",
-  "sideEffects": false,
   "files": [
     "lib"
   ],

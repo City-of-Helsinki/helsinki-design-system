@@ -5,7 +5,6 @@ import ts from '@wessberg/rollup-plugin-ts';
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
-import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
 import { terser } from 'rollup-plugin-terser';
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
@@ -20,7 +19,7 @@ const external = [
 
 const getExternal = (format) => (format === 'esm' ? [...external, /@babel\/runtime/] : external);
 
-const getConfig = (format, getSizeSnapshot) => ({
+const getConfig = (format) => ({
   plugins: [
     includePaths({ paths: ['src'], extensions }),
     resolve(),
@@ -46,7 +45,6 @@ const getConfig = (format, getSizeSnapshot) => ({
         ],
       },
     }),
-    getSizeSnapshot && sizeSnapshot(),
     terser(),
   ],
   external: getExternal(format),
@@ -64,17 +62,8 @@ export default [
     ...getConfig('cjs'),
   },
   {
-    input: 'src/index.ts',
-    output: [
-      {
-        file: 'lib/index.js',
-        format: 'esm',
-      },
-    ],
-    ...getConfig('esm'),
-  },
-  {
     input: {
+      index: 'src/index.ts',
       'components/index': 'src/components/index.ts',
       'icons/index': 'src/icons/index.ts',
       'components/Button/index': 'src/components/button/index.ts',
