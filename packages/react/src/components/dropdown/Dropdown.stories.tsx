@@ -69,6 +69,7 @@ export const SelectMultiselectTest = () => {
   const controlledOptions = getOptions();
   return (
     <Select
+      circularNavigation
       label="Choose an element"
       placeholder="Placeholder"
       options={controlledOptions}

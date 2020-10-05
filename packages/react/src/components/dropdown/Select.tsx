@@ -13,6 +13,10 @@ import { SelectedItems } from '../../internal/selectedItems/SelectedItems';
 
 export type SelectProps<OptionType> = {
   /**
+   * When set to `true`, allows moving from the first item to the last item with Arrow Up, and vice versa using Arrow Down.
+   */
+  circularNavigation?: boolean;
+  /**
    * Additional class names to apply to the select
    */
   className?: string;
@@ -133,6 +137,7 @@ function getIsInSelectedOptions<T>(selectedOptions: T[], item: T): boolean {
 }
 
 export const Select = <OptionType,>({
+  circularNavigation = false,
   className,
   clearable = true,
   clearButtonAriaLabel,
@@ -264,6 +269,7 @@ export const Select = <OptionType,>({
     selectedItem,
     selectItem,
   } = useSelect<OptionType>({
+    circularNavigation,
     // todo: remove. for testing only.
     // isOpen: true,
     id,
