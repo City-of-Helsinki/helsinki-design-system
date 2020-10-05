@@ -78,6 +78,10 @@ export type SelectProps<OptionType> = {
    */
   placeholder?: string;
   /**
+   * If `true`, marks the dropdown as required
+   */
+  required?: boolean;
+  /**
    * Label for selected items that is only visible to screen readers. Can be used to to give screen reader users additional information about the selected item
    */
   selectedItemSrLabel?: string;
@@ -158,6 +162,7 @@ export const Select = <OptionType,>({
   optionLabelField = 'label',
   options = [],
   placeholder,
+  required,
   selectedItemRemoveButtonAriaLabel,
   selectedItemSrLabel,
   style,
@@ -364,7 +369,7 @@ export const Select = <OptionType,>({
       style={style}
     >
       {/* LABEL */}
-      {label && <FieldLabel label={label} {...getLabelProps()} />}
+      {label && <FieldLabel label={label} required={required} {...getLabelProps()} />}
       <div ref={wrapperRef} className={styles.wrapper}>
         {/* SELECTED ITEMS */}
         {multiselect && selectedItems.length > 0 && (
@@ -406,6 +411,7 @@ export const Select = <OptionType,>({
         <ul
           {...getMenuProps({
             ...(multiselect && { 'aria-multiselectable': true }),
+            ...(required && { 'aria-required': true }),
             className: classNames(styles.menu, options.length > visibleOptions && styles.overflow),
             style: { maxHeight: `calc(var(--menu-item-height) * ${visibleOptions})` },
           })}
