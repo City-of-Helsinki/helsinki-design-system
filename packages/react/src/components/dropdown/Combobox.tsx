@@ -86,6 +86,8 @@ export const Combobox = <OptionType,>({
   const wrapperRef = useRef<HTMLDivElement>(null);
   // selected items container ref
   const selectedItemsContainerRef = useRef<HTMLDivElement>(null);
+  // combobox input ref
+  const inputRef = useRef<HTMLInputElement>(null);
   // whether active focus is within the dropdown
   const [hasFocus, setFocus] = useState(false);
   // tracks current combobox search value
@@ -115,6 +117,12 @@ export const Combobox = <OptionType,>({
   }, [onFocus, onBlur]);
 
   const getFilteredItems = (items: OptionType[]) => filter(items, search);
+
+  const focusInput = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
 
   // init multi-select
   const {
@@ -254,6 +262,16 @@ export const Combobox = <OptionType,>({
       : addSelectedItem(itemToBeSelected);
   };
 
+  const handleWrapperClick = () => {
+    focusInput();
+  };
+
+  // const handleWrapperKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+  //   if (e.key === 'Enter' || e.nativeEvent.code === 'Space') {
+  //     focusInput();
+  //   }
+  // };
+
   const handleMultiSelectInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     // 'keyCode' is deprecated. We can't use 'key', because it does not
     // support space. Alternative would be to use 'code', but it's not
@@ -304,7 +322,32 @@ export const Combobox = <OptionType,>({
     >
       {/* LABEL */}
       {label && <FieldLabel label={label} {...getLabelProps()} />}
-      <div ref={wrapperRef} className={classNames(styles.wrapper, comboboxStyles.wrapper)}>
+      {
+        // This onClick function is used so that mouse users are able to
+        // focus the Combobox without having to use the keyboard. The
+        // design calls for the input to be visually hidden until the
+        // user gives indication of wanting to access it.
+        // Keyboard and screen reader users will move through the
+        // selected items list and the clear button, after which they
+        // will find the input. It's assumed that mouse users can
+        // consume this information all at once and it's hence
+        // convenient to offer direct access to the input by clicking.
+        // In turn, providing this element as a focusable element would
+        // add one more item keyboard/screen reader users would need to
+        // move through.
+      }
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+      <div
+        ref={wrapperRef}
+        onClick={handleWrapperClick}
+        // Enabling these props would make this div accessible. Our
+        // assumption is that we don't want that, but I am not entirely
+        // confident.
+        // onKeyDown={handleWrapperKeyDown}
+        // tabIndex={0}
+        // role="button"
+        className={classNames(styles.wrapper, comboboxStyles.wrapper)}
+      >
         {/* SELECTED ITEMS */}
         {multiselect && selectedItems.length > 0 && (
           <SelectedItems
@@ -348,6 +391,7 @@ export const Combobox = <OptionType,>({
                     // actions in order to ensure that dropdown and
                     // input props don't conflict.
                     onKeyDown: handleMultiSelectInputKeyDown,
+                    ref: inputRef,
                   }),
                 }),
               })}
