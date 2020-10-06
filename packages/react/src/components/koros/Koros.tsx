@@ -39,7 +39,7 @@ const getSVG = (type: string, patternName: string): React.SVGProps<SVGElement> =
   };
 
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="85">
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
         <pattern id={`${patternName}`} x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
           {patterns[type]}
