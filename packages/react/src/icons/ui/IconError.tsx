@@ -10,6 +10,7 @@ export const IconError = ({ size = 's', className = '', style = {}, ...rest }: I
     style={style}
     viewBox="0 0 24 24"
     {...rest}
+    role="img"
     xmlns="http://www.w3.org/2000/svg"
   >
     <g fill="none" fillRule="evenodd">
