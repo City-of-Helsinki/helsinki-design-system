@@ -27,8 +27,8 @@ See the [icon library documentation](/visual-assets/icons "HDS Icons") for more 
 
 ## Accessibility
 - For icons that do not have a visual text label but are important must be given a text alternative using the WAI-ARIA definition _aria-label_ or _aria-labelledby_. See <Link href="https://www.w3.org/TR/WCAG21/#text-alternatives" external>WCAG 2.1 Text Alternatives guideline</Link> for more information.
-- If the icon has a visual text label associated with it, the icon can be hidden with `aria-hidden="true"` from assistive technologies. This prevents screenreaders repeating the same information twice (visual text followed by the icon description).
-- If the icon is only decorative
+- If the icon has a visual text label associated with it, the icon can be hidden from assistive technologies with `aria-hidden="true"`. This prevents screenreaders repeating the same information twice (visual text followed by the icon description).
+- If the icon is only decorative, it should be always hidden from assistive technologies with `aria-hidden="true"`.
 - The colour contrast between the icon and its background must comply with <Link href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>AA Level contrast ratios</Link>.
 
 ## Usage
