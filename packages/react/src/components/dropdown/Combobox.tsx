@@ -1,125 +1,59 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useSelect, useMultipleSelection } from 'downshift';
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
+import React, { useEffect, useRef, useState, KeyboardEvent } from 'react';
+import { useCombobox, useMultipleSelection } from 'downshift';
 import isEqual from 'lodash.isequal';
 import uniqueId from 'lodash.uniqueid';
 
 import 'hds-core';
 
 import styles from './Select.module.scss';
+import comboboxStyles from './Combobox.module.scss';
 import { FieldLabel } from '../../internal/field-label/FieldLabel';
 import classNames from '../../utils/classNames';
 import { IconAlertCircle, IconAngleDown, IconCheck } from '../../icons';
 import { SelectedItems } from '../../internal/selectedItems/SelectedItems';
+import { SelectProps } from './Select';
 import { getIsInSelectedOptions } from './dropdownUtils';
 
-export type SelectProps<OptionType> = {
-  /**
-   * Additional class names to apply to the select
-   */
-  className?: string;
-  /**
-   * Flag for whether the clear selections button should be displayed
-   */
-  clearable?: boolean;
-  /**
-   * If `true`, the dropdown will be disabled
-   */
-  disabled?: boolean;
-  /**
-   * A helper text that will be shown below the dropdown
-   */
-  helper?: React.ReactNode;
-  /**
-   * An error text that will be shown below the dropdown when `invalid` is true
-   */
-  error?: React.ReactNode;
-  /**
-   * Used to generate the first part of the id on the elements
-   */
-  id?: string;
-  /**
-   * If `true`, the input and `helper` will be displayed in an invalid state
-   */
-  invalid?: boolean;
-  /**
-   * A function used to detect whether an option is disabled
-   */
-  isOptionDisabled?: (option: OptionType, index: number) => boolean;
-  /**
-   * The label for the dropdown
-   */
-  label: React.ReactNode;
-  /**
-   * Callback function fired when the component is blurred
-   */
-  onBlur?: () => void;
-  /**
-   * Callback function fired when the state is changed
-   */
-  onChange?: <OptionType>(selectedItem: OptionType) => void;
-  /**
-   * Callback function fired when the component is focused
-   */
-  onFocus?: () => void;
-  /**
-   * Sets the data item field that represents the item label
-   * E.g. an `optionLabelField` value of `'foo'` and a data item `{ foo: 'Label', bar: 'value' }`, would display `Label` in the menu for that specific item
-   */
-  optionLabelField?: string;
-  /**
-   * Array of options that should be shown in the menu
-   */
-  options: OptionType[];
-  /**
-   * Short hint displayed in the dropdown before the user enters a value
-   */
-  placeholder?: string;
-  /**
-   * Label for selected items that is only visible to screen readers. Can be used to to give screen reader users additional information about the selected item
-   */
-  selectedItemSrLabel?: string;
-  /**
-   * Override or extend the root styles applied to the component
-   */
-  style?: React.CSSProperties;
-  /**
-   * Sets the number of options that are visible in the menu before it becomes scrollable
-   */
-  visibleOptions?: number;
-} & MultiselectProps<OptionType>;
+type FilterFunction<OptionType> = (options: OptionType[], search: string) => OptionType[];
 
-type MultiselectProps<OptionType> =
-  | {
-      multiselect?: false;
-      value?: OptionType;
-      clearButtonAriaLabel?: string;
-      selectedItemRemoveButtonAriaLabel?: string;
-      icon?: React.ReactNode;
-    }
-  | {
-      /**
-       * Enables selecting multiple values if `true`.
-       */
-      multiselect?: boolean;
-      /**
-       * The selected value(s)
-       */
-      value?: OptionType[];
-      /**
-       * The aria-label for the clear button
-       */
-      clearButtonAriaLabel: string;
-      /**
-       * The aria-label for the selected item remove button
-       */
-      selectedItemRemoveButtonAriaLabel: string;
-      /**
-       * Icon to be shown in the dropdown
-       */
-      icon?: undefined;
-    };
+export type ComboboxProps<OptionType> = SelectProps<OptionType> & {
+  /**
+   * If provided, this filter function will be used for filtering the
+   * combobox suggestions. If this prop is not provided, the default
+   * filter implementation is used. The default implementation assumes
+   * that the `optionLabelField` prop points to a string value that it
+   * can compare with the search value.
+   */
+  filter?: FilterFunction<OptionType>;
+};
 
-export const Select = <OptionType,>({
+function getDefaultFilter<OptionType>(labelField: string): FilterFunction<OptionType> {
+  return (options: OptionType[], search: string) => {
+    return options.filter((option) => {
+      const label = option[labelField];
+      const isLabelString = typeof label === 'string';
+
+      if (!label) {
+        // eslint-disable-next-line no-console
+        console.warn(`Filtering failed because field ${labelField} could not be found from OptionType`);
+
+        return false;
+      }
+
+      if (!isLabelString) {
+        // eslint-disable-next-line no-console
+        console.warn(`Filtering failed because field ${labelField} has a value that is not a string`);
+
+        return false;
+      }
+
+      return label.toLowerCase().startsWith(search.toLowerCase());
+    });
+  };
+}
+
+export const Combobox = <OptionType,>({
   className,
   clearable = true,
   clearButtonAriaLabel,
@@ -144,13 +78,18 @@ export const Select = <OptionType,>({
   style,
   value,
   visibleOptions = 5,
-}: SelectProps<OptionType>) => {
+  filter: userLandFilter,
+}: ComboboxProps<OptionType>) => {
+  const filter = userLandFilter || getDefaultFilter(optionLabelField);
+
   // dropdown wrapper ref
   const wrapperRef = useRef<HTMLDivElement>(null);
   // selected items container ref
   const selectedItemsContainerRef = useRef<HTMLDivElement>(null);
   // whether active focus is within the dropdown
   const [hasFocus, setFocus] = useState(false);
+  // tracks current combobox search value
+  const [search, setSearch] = useState<string>('');
   // init focus & blur listeners and handle callbacks
   useEffect(() => {
     const wrapperEl = wrapperRef.current;
@@ -175,6 +114,8 @@ export const Select = <OptionType,>({
     return () => ['focus', 'blur'].forEach((type) => wrapperEl.removeEventListener(type, focusHandler, true));
   }, [onFocus, onBlur]);
 
+  const getFilteredItems = (items: OptionType[]) => filter(items, search);
+
   // init multi-select
   const {
     activeIndex,
@@ -185,7 +126,7 @@ export const Select = <OptionType,>({
     reset,
     selectedItems,
     setActiveIndex,
-    setSelectedItems,
+    setSelectedItems: _setSelectedItems,
   } = useMultipleSelection<OptionType>({
     // sets focus on the first selected item when the dropdown is initialized
     defaultActiveIndex: 0,
@@ -195,6 +136,7 @@ export const Select = <OptionType,>({
     ...(multiselect && value !== undefined && { selectedItems: (value as OptionType[]) ?? [] }),
     // todo: create a prop for setting the removal message
     getA11yRemovalMessage({ itemToString, removedSelectedItem }) {
+      // eslint-disable-next-line no-console
       console.log(
         `getA11yRemovalMessage message: "${itemToString(removedSelectedItem[optionLabelField])} has been removed"`,
       );
@@ -248,11 +190,14 @@ export const Select = <OptionType,>({
     isOpen,
     selectedItem,
     selectItem,
-  } = useSelect<OptionType>({
-    // todo: remove. for testing only.
-    // isOpen: true,
+    getInputProps,
+    getComboboxProps,
+  } = useCombobox<OptionType>({
     id,
-    items: options,
+    items: getFilteredItems(options),
+    onInputValueChange: ({ inputValue }) => {
+      setSearch(inputValue);
+    },
     // a defined value indicates that the dropdown should be controlled
     // don't set selectedItem if it's not, so that downshift can handle the state
     ...(!multiselect && value !== undefined && { selectedItem: value as OptionType }),
@@ -261,6 +206,7 @@ export const Select = <OptionType,>({
     getA11ySelectionMessage({ selectedItem: _selectedItem }) {
       if (!multiselect && _selectedItem) {
         const message = `${_selectedItem?.[optionLabelField]} has been selected`;
+        // eslint-disable-next-line no-console
         console.log(`getA11ySelectionMessage message: "${message}"`);
         return message;
       }
@@ -270,13 +216,12 @@ export const Select = <OptionType,>({
     onSelectedItemChange: ({ selectedItem: _selectedItem }) => !multiselect && onChange(_selectedItem),
     onStateChange({ type, selectedItem: _selectedItem }) {
       switch (type) {
-        case useSelect.stateChangeTypes.MenuKeyDownEnter:
-        case useSelect.stateChangeTypes.MenuKeyDownSpaceButton:
-        case useSelect.stateChangeTypes.ItemClick:
-        case useSelect.stateChangeTypes.MenuBlur:
+        case useCombobox.stateChangeTypes.InputKeyDownEnter:
+        case useCombobox.stateChangeTypes.ItemClick:
+        case useCombobox.stateChangeTypes.InputBlur:
           if (multiselect && _selectedItem) {
             getIsInSelectedOptions(selectedItems, _selectedItem)
-              ? setSelectedItems(selectedItems.filter((item) => !isEqual(item, _selectedItem)))
+              ? _setSelectedItems(selectedItems.filter((item) => !isEqual(item, _selectedItem)))
               : addSelectedItem(_selectedItem);
             selectItem(null);
           }
@@ -287,10 +232,7 @@ export const Select = <OptionType,>({
     },
     stateReducer(state, { type, changes }) {
       switch (type) {
-        // todo: close dropdown if Enter is pressed, as suggested by auditors?
-        case useSelect.stateChangeTypes.MenuKeyDownEnter:
-        case useSelect.stateChangeTypes.MenuKeyDownSpaceButton:
-        case useSelect.stateChangeTypes.ItemClick:
+        case useCombobox.stateChangeTypes.ItemClick:
           // prevent the menu from being closed when the user selects an item
           if (multiselect) {
             return {
@@ -306,6 +248,34 @@ export const Select = <OptionType,>({
     },
   });
 
+  const setSelectedItems = (itemToBeSelected: OptionType) => {
+    getIsInSelectedOptions(selectedItems, itemToBeSelected)
+      ? _setSelectedItems(selectedItems.filter((item) => !isEqual(item, itemToBeSelected)))
+      : addSelectedItem(itemToBeSelected);
+  };
+
+  const handleMultiSelectInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    // 'keyCode' is deprecated. We can't use 'key', because it does not
+    // support space. Alternative would be to use 'code', but it's not
+    // supported by React. Instead we are using the underlying native
+    // element in order to access code.
+    if (e.nativeEvent.code === 'Space') {
+      // Prevent 'Space' from typing a space into the input.
+      // @ts-ignore
+      e.nativeEvent.preventDownshiftDefault = true;
+
+      const highlightedItem = getFilteredItems(options)[highlightedIndex];
+
+      setSelectedItems(highlightedItem);
+    }
+
+    // If the menu is open, prevent the events for dropdown from firing.
+    if (isOpen && (e.key === 'Backspace' || e.key === 'ArrowLeft')) {
+      // @ts-ignore
+      e.nativeEvent.preventDownshiftDefault = true;
+    }
+  };
+
   if (!multiselect) {
     // we call the getDropdownProps getter function when multiselect isn't enabled
     // in order to suppress the "You forgot to call the ..." error message thrown by downshift.
@@ -313,20 +283,12 @@ export const Select = <OptionType,>({
     getDropdownProps({}, { suppressRefError: true });
   }
 
-  // returns the toggle button label based on the dropdown mode
-  const getButtonLabel = (): React.ReactNode => {
-    let buttonLabel = selectedItem?.[optionLabelField] || placeholder;
-    if (multiselect) buttonLabel = selectedItems.length > 0 ? null : placeholder;
-    return buttonLabel;
-  };
-  // screen readers should read the labels in the following order:
-  // field label > helper text > error text > toggle button label
-  // helper and error texts should only be read if they have been defined
-  // prettier-ignore
-  const buttonAriaLabel =
-    `${getToggleButtonProps().id}${error ? ` ${id}-error` : ''}${helper ? ` ${id}-helper` : ''} ${getToggleButtonProps().id}`;
   // show placeholder if no value is selected
   const showPlaceholder = (multiselect && selectedItems.length === 0) || (!multiselect && !selectedItem);
+  // Input should be show when the combobox is open, or when it's
+  // closed, but no items are selected. The input should always be
+  // visible when multiselect mode is turned off.
+  const isInputVisible = !multiselect || isOpen || (!isOpen && selectedItems.length === 0);
 
   return (
     <div
@@ -342,7 +304,7 @@ export const Select = <OptionType,>({
     >
       {/* LABEL */}
       {label && <FieldLabel label={label} {...getLabelProps()} />}
-      <div ref={wrapperRef} className={styles.wrapper}>
+      <div ref={wrapperRef} className={classNames(styles.wrapper, comboboxStyles.wrapper)}>
         {/* SELECTED ITEMS */}
         {multiselect && selectedItems.length > 0 && (
           <SelectedItems
@@ -363,23 +325,60 @@ export const Select = <OptionType,>({
           />
         )}
         {/* TOGGLE BUTTON */}
-        <button
-          type="button"
-          {...getToggleButtonProps({
-            'aria-owns': getMenuProps().id,
-            'aria-labelledby': buttonAriaLabel,
-            // add downshift dropdown props when multiselect is enabled
-            ...(multiselect && { ...getDropdownProps({ preventKeyAction: isOpen }) }),
-            ...(invalid && { 'aria-invalid': true }),
-            disabled,
-            className: classNames(styles.button, showPlaceholder && styles.placeholder),
-          })}
-        >
-          {/* icons are only supported by single selects */}
-          {icon && !multiselect && <span className={styles.icon}>{icon}</span>}
-          {getButtonLabel()}
-          <IconAngleDown className={styles.angleIcon} />
-        </button>
+        <div {...getComboboxProps()} className={comboboxStyles.buttonInputStack}>
+          <div className={comboboxStyles.inputWrapper}>
+            {/* icons are only supported by single selects */}
+            {icon && !multiselect && <span className={classNames(styles.icon, comboboxStyles.inputIcon)}>{icon}</span>}
+            <input
+              {...getInputProps({
+                ...(multiselect && {
+                  ...getDropdownProps({
+                    // Change Downshift's default behavior with space.
+                    // Instead of typing a space character into the
+                    // search input, it now selects an item without
+                    // closing the dropdown menu.
+
+                    // Our custom keyDown handler also blocks other
+                    // dropdown key events when the menu is open. This
+                    // would normally be done with the
+                    // 'preventKeyAction' setting, but it would also
+                    // block our custom handler from executing, which
+                    // would break the special behavior we have
+                    // implemented for space. We want to block other key
+                    // actions in order to ensure that dropdown and
+                    // input props don't conflict.
+                    onKeyDown: handleMultiSelectInputKeyDown,
+                  }),
+                }),
+              })}
+              placeholder={placeholder}
+              className={classNames(
+                'hds-text-input__input',
+                comboboxStyles.input,
+                isInputVisible ? '' : comboboxStyles.hidden,
+              )}
+            />
+          </div>
+          <button
+            type="button"
+            {...getToggleButtonProps({
+              'aria-owns': getMenuProps().id,
+              // prepend helper text id to the id's return by the downshift getter function,
+              // so that the helper text will be read to screen reader users before the other labels.
+              // todo: only add helper id if a helper text is defined
+              'aria-labelledby': `${id}-helper ${getToggleButtonProps()['aria-labelledby']}`,
+              disabled,
+              className: classNames(
+                styles.button,
+                showPlaceholder && styles.placeholder,
+                !showPlaceholder && comboboxStyles.noPadding,
+                comboboxStyles.button,
+              ),
+            })}
+          >
+            <IconAngleDown className={styles.angleIcon} />
+          </button>
+        </div>
         <ul
           {...getMenuProps({
             ...(multiselect && { 'aria-multiselectable': true }),
@@ -388,9 +387,10 @@ export const Select = <OptionType,>({
           })}
         >
           {isOpen &&
-            options.map((item, index) => {
+            getFilteredItems(options).map((item, index) => {
               const optionLabel = item[optionLabelField];
               const selected = multiselect ? getIsInSelectedOptions(selectedItems, item) : isEqual(selectedItem, item);
+              // todo: add aria-disabled to disabled menu items
               const optionDisabled = typeof isOptionDisabled === 'function' ? isOptionDisabled(item, index) : false;
 
               return (
@@ -405,10 +405,11 @@ export const Select = <OptionType,>({
                       highlightedIndex === index && styles.highlighted,
                       selected && styles.selected,
                       optionDisabled && styles.disabled,
+                      // todo: use root multiselect class
+                      // multiselect && styles.multiselect,
                     ),
                   })}
                   {...{ 'aria-selected': selected }}
-                  {...(optionDisabled && { 'aria-disabled': true })}
                 >
                   {multiselect ? (
                     <>
