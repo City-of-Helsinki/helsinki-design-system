@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import React, { useEffect, useRef, useState, KeyboardEvent } from 'react';
+import React, { useRef, useState, KeyboardEvent, FocusEvent } from 'react';
 import { useCombobox, useMultipleSelection } from 'downshift';
 import isEqual from 'lodash.isequal';
 import uniqueId from 'lodash.uniqueid';
@@ -82,8 +82,6 @@ export const Combobox = <OptionType,>({
 }: ComboboxProps<OptionType>) => {
   const filter = userLandFilter || getDefaultFilter(optionLabelField);
 
-  // dropdown wrapper ref
-  const wrapperRef = useRef<HTMLDivElement>(null);
   // selected items container ref
   const selectedItemsContainerRef = useRef<HTMLDivElement>(null);
   // combobox input ref
@@ -92,29 +90,6 @@ export const Combobox = <OptionType,>({
   const [hasFocus, setFocus] = useState(false);
   // tracks current combobox search value
   const [search, setSearch] = useState<string>('');
-  // init focus & blur listeners and handle callbacks
-  useEffect(() => {
-    const wrapperEl = wrapperRef.current;
-
-    const focusHandler = (event: FocusEvent): void => {
-      const { relatedTarget, target, type } = event;
-
-      if (type === 'focus') {
-        setFocus(wrapperEl.contains(target as Node));
-      }
-      if (type === 'blur') {
-        setFocus(wrapperEl.contains(relatedTarget as Node));
-      }
-      if (!relatedTarget) {
-        type === 'focus' ? onFocus() : onBlur();
-      }
-    };
-
-    // set listeners
-    ['focus', 'blur'].forEach((type) => wrapperEl.addEventListener(type, focusHandler, true));
-    // cleanup
-    return () => ['focus', 'blur'].forEach((type) => wrapperEl.removeEventListener(type, focusHandler, true));
-  }, [onFocus, onBlur]);
 
   const getFilteredItems = (items: OptionType[]) => filter(items, search);
 
@@ -272,6 +247,30 @@ export const Combobox = <OptionType,>({
   //   }
   // };
 
+  const handleWrapperFocus = (e: FocusEvent<HTMLDivElement>) => {
+    // When the target element is inside the element with the handler,
+    // but the relatedTarget is not, we know that the focus has come to
+    // the element from outside of it.
+    if (
+      e &&
+      e.currentTarget.contains(e.target as Node) &&
+      (!e.relatedTarget || !e.currentTarget.contains(e.relatedTarget as Node))
+    ) {
+      setFocus(true);
+      onFocus();
+    }
+  };
+
+  const handleWrapperBlur = (e: FocusEvent<HTMLDivElement>) => {
+    // When the original initiator of the event is not inside the
+    // element with the handler, we know that focus has left the
+    // element.
+    if (e && !e.currentTarget.contains(e.relatedTarget as Node)) {
+      setFocus(false);
+      onBlur();
+    }
+  };
+
   const handleMultiSelectInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     // 'keyCode' is deprecated. We can't use 'key', because it does not
     // support space. Alternative would be to use 'code', but it's not
@@ -338,7 +337,8 @@ export const Combobox = <OptionType,>({
       }
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
       <div
-        ref={wrapperRef}
+        onFocus={handleWrapperFocus}
+        onBlur={handleWrapperBlur}
         onClick={handleWrapperClick}
         // Enabling these props would make this div accessible. Our
         // assumption is that we don't want that, but I am not entirely

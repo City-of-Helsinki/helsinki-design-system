@@ -160,6 +160,8 @@ export const ComboboxTest = () => {
         clearButtonAriaLabel="Clear all selections"
         selectedItemRemoveButtonAriaLabel="Remove item {value}"
         selectedItemSrLabel="Selected item {value}"
+        onFocus={action('onFocus')}
+        onBlur={action('onBlur')}
       />
     </>
   );
@@ -189,6 +191,8 @@ export const ComboboxMultiSelectTest = () => {
         clearButtonAriaLabel="Clear all selections"
         selectedItemRemoveButtonAriaLabel="Remove item {value}"
         selectedItemSrLabel="Selected item {value}"
+        onFocus={action('onFocus')}
+        onBlur={action('onBlur')}
       />
     </>
   );
