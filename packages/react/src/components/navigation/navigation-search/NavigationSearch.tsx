@@ -71,7 +71,7 @@ export const NavigationSearch = ({
   });
 
   return (
-    <div className={classNames(styles.navigationSearch, searchActive && styles.active)}>
+    <div className={classNames(styles.navigationSearch, searchActive && styles.active)} role="search">
       {searchActive && (
         <>
           <TextInput
