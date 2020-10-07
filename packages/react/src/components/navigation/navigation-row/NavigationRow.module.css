@@ -263,7 +263,7 @@
 @media large-up {
   .navigation.subNav {
     margin: 0 auto;
-    max-width: var(--container-width-xl);
+    max-width: var(--breakpoint-xl);
   }
 
   .navigationItem:not(:first-child) {

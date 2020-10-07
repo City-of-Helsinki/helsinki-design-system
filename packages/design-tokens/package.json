@@ -1,8 +1,8 @@
 {
   "name": "hds-design-tokens",
-  "version": "0.13.2",
+  "version": "0.13.3",
   "description": "Design tokens for the Helsinki Design System",
-  "author": "Niclas Liimatainen <niclas.liimatainen@digia.com>",
+  "author": "Niclas Liimatainen <niclas.liimatainen@gmail.com>",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
   "main": "lib/all.css",

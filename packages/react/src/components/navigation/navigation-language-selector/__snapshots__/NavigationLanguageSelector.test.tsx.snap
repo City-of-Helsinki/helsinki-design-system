@@ -68,6 +68,7 @@ exports[`<Navigation.LanguageSelector /> spec renders the component 1`] = `
                 />
                 <svg
                   class="icon s angleIcon"
+                  role="img"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >

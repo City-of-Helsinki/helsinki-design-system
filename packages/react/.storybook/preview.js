@@ -2,7 +2,6 @@ import React from 'react';
 import { ArgsTable, DocsContainer, Stories, Title } from '@storybook/addon-docs/blocks';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
-import 'hds-core';
 import './index.css';
 
 const viewports = {
