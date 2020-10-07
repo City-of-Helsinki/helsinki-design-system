@@ -10,6 +10,7 @@ exports[`<Footer.Item /> spec renders the component 1`] = `
       class="koros basic koros basic"
     >
       <svg
+        aria-hidden="true"
         height="85"
         width="100%"
         xmlns="http://www.w3.org/2000/svg"
