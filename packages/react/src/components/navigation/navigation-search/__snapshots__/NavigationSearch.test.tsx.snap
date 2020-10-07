@@ -43,6 +43,7 @@ exports[`<Navigation.Search /> spec renders the component 1`] = `
         >
           <div
             class="navigationSearch"
+            role="search"
           >
             <button
               class="openSearch"
