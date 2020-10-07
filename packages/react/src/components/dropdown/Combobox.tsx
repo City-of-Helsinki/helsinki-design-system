@@ -145,6 +145,7 @@ export const Combobox = <OptionType,>({
       let removedItemIndex;
       let lastItemRemoved;
       switch (type) {
+        case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownBackspace:
         case useMultipleSelection.stateChangeTypes.FunctionRemoveSelectedItem:
           // get the index of the deleted item
           removedItemIndex = state.selectedItems.findIndex((item) => !changes.selectedItems.includes(item));
@@ -155,7 +156,16 @@ export const Combobox = <OptionType,>({
             ...changes,
             // set the new last item as active if the removed item was last,
             // otherwise set the item succeeding the removed one active
-            activeIndex: lastItemRemoved ? removedItemIndex - 1 : removedItemIndex,
+            // Note: Here activeIndex updates at a different time in comparison
+            // with the Select component. In this component, when 'onStageChange'
+            // is called, the removed item still has a SelectedItem representing
+            // it in the DOM. This means that the succeeding SelectedItem is at
+            // index n + 1 instead of n. This is a concerning difference in
+            // behavior, because I don't know why this discrepancy takes place
+            // or if it can be relied on in all scenarios. It's possible that
+            // this component is just one event loop slower in pushing changes
+            // to the DOM.
+            activeIndex: lastItemRemoved ? removedItemIndex - 1 : removedItemIndex + 1,
           };
         default:
           return changes;
