@@ -291,9 +291,12 @@ export const Combobox = <OptionType,>({
       // @ts-ignore
       e.nativeEvent.preventDownshiftDefault = true;
 
-      const highlightedItem = getFilteredItems(options)[highlightedIndex];
+      // Only select an item if an index is highlighted
+      if (highlightedIndex > -1) {
+        const highlightedItem = getFilteredItems(options)[highlightedIndex];
 
-      setSelectedItems(highlightedItem);
+        setSelectedItems(highlightedItem);
+      }
     }
 
     // If the menu is open, prevent the events for dropdown from firing.
