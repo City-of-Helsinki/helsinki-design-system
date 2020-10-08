@@ -253,12 +253,6 @@ export const Combobox = <OptionType,>({
     focusInput();
   };
 
-  // const handleWrapperKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-  //   if (e.key === 'Enter' || e.nativeEvent.code === 'Space') {
-  //     focusInput();
-  //   }
-  // };
-
   const ignoreFocusHandlerWhenClickingItem = (handler: FocusEventHandler<HTMLDivElement>) => (
     event: FocusEvent<HTMLDivElement>,
   ) => {
@@ -381,12 +375,6 @@ export const Combobox = <OptionType,>({
         onFocus={ignoreFocusHandlerWhenClickingItem(handleWrapperFocus)}
         onBlur={ignoreFocusHandlerWhenClickingItem(handleWrapperBlur)}
         onClick={handleWrapperClick}
-        // Enabling these props would make this div accessible. Our
-        // assumption is that we don't want that, but I am not entirely
-        // confident.
-        // onKeyDown={handleWrapperKeyDown}
-        // tabIndex={0}
-        // role="button"
         className={classNames(styles.wrapper, comboboxStyles.wrapper)}
       >
         {/* SELECTED ITEMS */}
