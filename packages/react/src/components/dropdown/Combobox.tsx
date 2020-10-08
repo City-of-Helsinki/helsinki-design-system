@@ -285,11 +285,7 @@ export const Combobox = <OptionType,>({
   };
 
   const handleMultiSelectInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    // 'keyCode' is deprecated. We can't use 'key', because it does not
-    // support space. Alternative would be to use 'code', but it's not
-    // supported by React. Instead we are using the underlying native
-    // element in order to access code.
-    if (e.nativeEvent.code === 'Space') {
+    if (e.key === ' ') {
       // Prevent 'Space' from typing a space into the input.
       // @ts-ignore
       e.nativeEvent.preventDownshiftDefault = true;
