@@ -117,7 +117,7 @@ export const Combobox = <OptionType,>({
     defaultActiveIndex: 0,
     initialActiveIndex: 0,
     // todo: create prop
-    initialSelectedItems: [options[0], options[1], options[2], options[3]],
+    initialSelectedItems: [],
     ...(multiselect && value !== undefined && { selectedItems: (value as OptionType[]) ?? [] }),
     // todo: create a prop for setting the removal message
     getA11yRemovalMessage({ itemToString, removedSelectedItem }) {
