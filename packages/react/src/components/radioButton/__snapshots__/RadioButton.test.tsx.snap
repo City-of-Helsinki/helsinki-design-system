@@ -6,7 +6,6 @@ exports[`<RadioButton /> spec renders the component 1`] = `
     class="radioButton"
   >
     <input
-      aria-checked="false"
       class="input"
       id="test"
       type="radio"
