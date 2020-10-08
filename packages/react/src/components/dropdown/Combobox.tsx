@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import React, { useRef, useState, KeyboardEvent, FocusEvent } from 'react';
+import React, { useRef, useState, KeyboardEvent, FocusEvent, FocusEventHandler } from 'react';
 import { useCombobox, useMultipleSelection } from 'downshift';
 import isEqual from 'lodash.isequal';
 import uniqueId from 'lodash.uniqueid';
@@ -88,6 +88,8 @@ export const Combobox = <OptionType,>({
   const inputRef = useRef<HTMLInputElement>(null);
   // whether active focus is within the dropdown
   const [hasFocus, setFocus] = useState(false);
+  // Tracks whether any combobox item is being clicked
+  const [isClicking, setIsClicking] = useState<boolean>(false);
   // tracks current combobox search value
   const [search, setSearch] = useState<string>('');
 
@@ -257,12 +259,19 @@ export const Combobox = <OptionType,>({
   //   }
   // };
 
+  const ignoreFocusHandlerWhenClickingItem = (handler: FocusEventHandler<HTMLDivElement>) => (
+    event: FocusEvent<HTMLDivElement>,
+  ) => {
+    if (!isClicking) {
+      handler(event);
+    }
+  };
+
   const handleWrapperFocus = (e: FocusEvent<HTMLDivElement>) => {
     // When the target element is inside the element with the handler,
     // but the relatedTarget is not, we know that the focus has come to
     // the element from outside of it.
     if (
-      e &&
       e.currentTarget.contains(e.target as Node) &&
       (!e.relatedTarget || !e.currentTarget.contains(e.relatedTarget as Node))
     ) {
@@ -275,8 +284,11 @@ export const Combobox = <OptionType,>({
     // When the original initiator of the event is not inside the
     // element with the handler, we know that focus has left the
     // element.
-    if (e && !e.currentTarget.contains(e.relatedTarget as Node)) {
+    if (!e.currentTarget.contains(e.relatedTarget as Node)) {
       setFocus(false);
+      // If the user "fails" a click, in other words they mouse down on
+      // one element and mouse up on another, isClicking might have been
+      setIsClicking(false);
       onBlur();
     }
   };
@@ -350,8 +362,24 @@ export const Combobox = <OptionType,>({
       }
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
       <div
-        onFocus={handleWrapperFocus}
-        onBlur={handleWrapperBlur}
+        // When a user clicks on a combobox item, the focus on the page
+        // is momentarily lost. This will cause an event to fire which
+        // has its 'relatedTarget' field set as 'null'. An event like
+        // this looks exactly like a valid blur/focus event could look
+        // like. We can not distinct this scenario in the blur/focus
+        // handler.
+
+        // If we allow blur/focus to fire, the input will briefly be
+        // displayed as unfocused, which makes the selected items list
+        // limit its visible options, which in turn changes the dropdown
+        // position, which in turn makes selecting an item by click
+        // almost impossible.
+
+        // As a hackfix, we track whether any item is being clicked in
+        // the components state. If an item is clicked, we do not call
+        // the blur/focus handlers at all.
+        onFocus={ignoreFocusHandlerWhenClickingItem(handleWrapperFocus)}
+        onBlur={ignoreFocusHandlerWhenClickingItem(handleWrapperBlur)}
         onClick={handleWrapperClick}
         // Enabling these props would make this div accessible. Our
         // assumption is that we don't want that, but I am not entirely
@@ -465,6 +493,20 @@ export const Combobox = <OptionType,>({
                       // todo: use root multiselect class
                       // multiselect && styles.multiselect,
                     ),
+                    onMouseDown: () => {
+                      setIsClicking(true);
+                    },
+                    // We can't use 'onMouseDown' because it is fired
+                    // before 'onClick' which is too soon for us. Using
+                    // 'onClick' creates a niche case where it's
+                    // possible that the user fails to complete their
+                    // click. In other words, they mouse down on a
+                    // different element than they mouse up on. In this
+                    // scenario, the blur/focus events will be ignored
+                    // until the next successful click.
+                    onClick: () => {
+                      setIsClicking(false);
+                    },
                   })}
                   {...{ 'aria-selected': selected }}
                 >

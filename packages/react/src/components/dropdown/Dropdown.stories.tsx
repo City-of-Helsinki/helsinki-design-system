@@ -178,7 +178,7 @@ export const ComboboxMultiSelectTest = () => {
   };
 
   return (
-    <>
+    <div style={{ width: 400 }}>
       <Combobox
         options={controlledOptions}
         label="Element:"
@@ -194,7 +194,7 @@ export const ComboboxMultiSelectTest = () => {
         onFocus={action('onFocus')}
         onBlur={action('onBlur')}
       />
-    </>
+    </div>
   );
 };
 
