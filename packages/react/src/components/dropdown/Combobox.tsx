@@ -280,9 +280,6 @@ export const Combobox = <OptionType,>({
     // element.
     if (!e.currentTarget.contains(e.relatedTarget as Node)) {
       setFocus(false);
-      // If the user "fails" a click, in other words they mouse down on
-      // one element and mouse up on another, isClicking might have been
-      setIsClicking(false);
       onBlur();
     }
   };
