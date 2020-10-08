@@ -1,0 +1,14 @@
+.menuButton {
+  --menu-border-width: 1px;
+  --menu-max-width: 12rem;
+  --menu-top-margin: 0;
+  --menu-border-color: var(--color-black-90);
+
+  --menu-item-min-height: var(--spacing-xl);
+  --menu-item-background-color: var(--color-white);
+  --menu-item-background-color-highlighted: var(--color-bus);
+  --menu-item-color: var(--color-black-90);
+  --menu-item-color-highlighted: var(--color-white);
+
+  position: relative;
+}

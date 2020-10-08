@@ -1,0 +1,21 @@
+.menuItem {
+  display: flex;
+  min-height: var(--menu-item-min-height);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  color: var(--menu-item-color);
+  flex: 1;
+  outline: none;
+  padding: var(--spacing-2-xs) var(--spacing-s);
+  text-decoration: none;
+  line-height: var(--lineheight-m);
+
+  &:hover,
+  &:focus {
+    background-color: var(--menu-item-background-color-highlighted);
+    color: var(--menu-item-color-highlighted);
+  }
+}

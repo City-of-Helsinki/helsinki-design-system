@@ -1,0 +1,17 @@
+.menu {
+  &:not(.open) {
+    display: none;
+  }
+
+  &.open {
+    background-color: var(--menu-item-background-color);
+    border: var(--menu-border-width) solid var(--menu-border-color);
+    box-sizing: border-box;
+    left: 0;
+    list-style: none;
+    margin: var(--menu-top-margin) 0 0;
+    max-width: var(--menu-max-width);
+    padding: var(--spacing-3-xs) 0;
+    position: absolute;
+  }
+}
