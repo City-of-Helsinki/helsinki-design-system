@@ -1,0 +1,57 @@
+.wrapper.wrapper.wrapper {
+  height: unset;
+  min-height: var(--spacing-3-xl);
+}
+
+.buttonInputStack {
+  display: flex;
+  flex-direction: column;
+}
+
+.button.button.button {
+  position: unset;
+  padding: 0;
+}
+
+.noPadding {
+  padding: 0;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  padding-left: var(--spacing-s);
+  margin-right: calc((var(--spacing-m) - var(--spacing-s)) * -1);
+}
+
+.input {
+  padding: 0 var(--spacing-s);
+  width: 100%;
+  height: var(--spacing-3-xl);
+  box-sizing: border-box;
+
+  color: var(--input-color-default);
+  font-size: 1.125em;
+
+  background-color: var(--input-background-default);
+  border: none;
+  // The focus is given to the wrapping element instead of this input
+  // so we can hide the outline.
+  outline: none;
+  // Removes the input shadow on iOS
+  -webkit-appearance: none;
+
+  &:not(:focus).hidden {
+    border: 0;
+    clip: "rect(0 0 0 0)";
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+  }
+}

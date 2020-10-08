@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 
 // import { Dropdown } from './Dropdown';
 import { Button } from '../button';
 import { Select } from './Select';
 import { IconFaceNeutral, IconFaceSad, IconFaceSmile } from '../../icons';
+import { Combobox } from './Combobox';
 
 function getOptions() {
   return [
@@ -143,6 +145,67 @@ export const SelectTestControlledMultiselect = () => {
         selectedItemSrLabel="Selected item {value}"
       />
     </>
+  );
+};
+
+export const ComboboxTest = () => {
+  const controlledOptions = getOptions();
+
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const handleChange = (item) => {
+    action('onChange')(item);
+    setSelectedItem(item);
+  };
+
+  return (
+    <>
+      <Combobox
+        options={controlledOptions}
+        label="Element:"
+        helper="Choose an element"
+        onChange={handleChange}
+        placeholder="Placeholder"
+        value={selectedItem}
+        style={{ marginTop: 'var(--spacing-s)' }}
+        clearButtonAriaLabel="Clear all selections"
+        selectedItemRemoveButtonAriaLabel="Remove item {value}"
+        selectedItemSrLabel="Selected item {value}"
+        onFocus={action('onFocus')}
+        onBlur={action('onBlur')}
+      />
+    </>
+  );
+};
+
+export const ComboboxMultiSelectTest = () => {
+  const controlledOptions = getOptions();
+
+  const [selectedItems, setSelectedItems] = useState(null);
+
+  const handleChange = (items) => {
+    action('onChange')(items);
+    setSelectedItems(items);
+  };
+
+  return (
+    <div style={{ width: 400 }}>
+      <Combobox
+        options={controlledOptions}
+        label="Element:"
+        helper="Choose an element"
+        onChange={handleChange}
+        placeholder="Placeholder"
+        value={selectedItems}
+        style={{ marginTop: 'var(--spacing-s)' }}
+        multiselect
+        clearButtonAriaLabel="Clear all selections"
+        selectedItemRemoveButtonAriaLabel="Remove item {value}"
+        selectedItemSrLabel="Selected item {value}"
+        onFocus={action('onFocus')}
+        onBlur={action('onBlur')}
+      />
+    </div>
   );
 };
 

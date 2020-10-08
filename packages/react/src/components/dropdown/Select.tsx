@@ -10,6 +10,7 @@ import { FieldLabel } from '../../internal/field-label/FieldLabel';
 import classNames from '../../utils/classNames';
 import { IconAlertCircle, IconAngleDown, IconCheck } from '../../icons';
 import { SelectedItems } from '../../internal/selectedItems/SelectedItems';
+import { getIsInSelectedOptions } from './dropdownUtils';
 
 export type SelectProps<OptionType> = {
   /**
@@ -144,15 +145,6 @@ type MultiselectProps<OptionType> =
        */
       value?: OptionType[];
     };
-
-/**
- * Helper that checks if an item is in the selected options
- * @param selectedOptions Currently selected options
- * @param item            Item we want to check
- */
-function getIsInSelectedOptions<T>(selectedOptions: T[], item: T): boolean {
-  return selectedOptions.some((selectedOption: T) => isEqual(selectedOption, item));
-}
 
 export const Select = <OptionType,>({
   circularNavigation = false,
