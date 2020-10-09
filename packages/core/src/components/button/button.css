@@ -1,6 +1,7 @@
 .hds-button {
   --border-width: 2px;
   --color: inherit;
+  --min-size: 44px;
   --outline-gutter: 2px;
   --outline-width: 3px;
 
@@ -14,6 +15,8 @@
   display: inline-flex;
   font-weight: 500;
   justify-content: center;
+  min-height: var(--min-size);
+  min-width: var(--min-size);
   padding: 0 var(--spacing-2-xs);
   position: relative;
   vertical-align: top;
