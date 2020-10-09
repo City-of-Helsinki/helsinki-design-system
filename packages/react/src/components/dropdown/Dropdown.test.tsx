@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 // import { Dropdown } from './Dropdown';
-import { Select } from './Select';
+import { Select } from './select/Select';
 
 const options = [{ value: 'foo' }, { value: 'bar' }, { value: 'baz' }];
 const dropdownProps = {

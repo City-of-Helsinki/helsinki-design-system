@@ -1,16 +1,25 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useSelect, useMultipleSelection, A11yRemovalMessage, A11yStatusMessageOptions } from 'downshift';
+import React, { FocusEvent, useRef, useState } from 'react';
+import {
+  useSelect,
+  useMultipleSelection,
+  A11yRemovalMessage,
+  A11yStatusMessageOptions,
+  UseMultipleSelectionStateChange,
+  UseMultipleSelectionStateChangeOptions,
+  UseMultipleSelectionState,
+} from 'downshift';
 import isEqual from 'lodash.isequal';
 import uniqueId from 'lodash.uniqueid';
 
 import 'hds-core';
 
 import styles from './Select.module.scss';
-import { FieldLabel } from '../../internal/field-label/FieldLabel';
-import classNames from '../../utils/classNames';
-import { IconAlertCircle, IconAngleDown, IconCheck } from '../../icons';
-import { SelectedItems } from '../../internal/selectedItems/SelectedItems';
-import { getIsInSelectedOptions } from './dropdownUtils';
+import { FieldLabel } from '../../../internal/field-label/FieldLabel';
+import classNames from '../../../utils/classNames';
+import { IconAlertCircle, IconAngleDown } from '../../../icons';
+import { SelectedItems } from '../../../internal/selectedItems/SelectedItems';
+import { getIsElementBlurred, getIsElementFocused, getIsInSelectedOptions } from '../dropdownUtils';
+import { DropdownMenu } from '../dropdownMenu/DropdownMenu';
 
 export type SelectProps<OptionType> = {
   /**
@@ -146,6 +155,67 @@ type MultiselectProps<OptionType> =
       value?: OptionType[];
     };
 
+/**
+ * Multi-select state change handler
+ * @param type
+ * @param activeIndex
+ * @param currentActiveIndex
+ * @param selectedItemsContainerEl
+ */
+export function onMultiSelectStateChange<T>(
+  { type, activeIndex }: UseMultipleSelectionStateChange<T>,
+  currentActiveIndex,
+  selectedItemsContainerEl,
+) {
+  let activeNode;
+  const { FunctionRemoveSelectedItem, SelectedItemKeyDownBackspace } = useMultipleSelection.stateChangeTypes;
+
+  if (type === FunctionRemoveSelectedItem || type === SelectedItemKeyDownBackspace) {
+    activeNode = selectedItemsContainerEl?.childNodes[currentActiveIndex] as HTMLDivElement;
+    if (!activeIndex && activeNode) activeNode.focus();
+  }
+}
+
+/**
+ * Multi-select reducer function
+ * @param state
+ * @param type
+ * @param changes
+ * @param controlled
+ */
+export function multiSelectReducer<T>(
+  state: UseMultipleSelectionState<T>,
+  { type, changes }: UseMultipleSelectionStateChangeOptions<T>,
+  controlled: boolean,
+) {
+  const { FunctionRemoveSelectedItem, SelectedItemKeyDownBackspace } = useMultipleSelection.stateChangeTypes;
+
+  if (type === FunctionRemoveSelectedItem || type === SelectedItemKeyDownBackspace) {
+    // get the index of the deleted item
+    const removedItemIndex = state.selectedItems.findIndex((item) => !changes.selectedItems.includes(item));
+    // activeIndex updates at a different time depending on whether the
+    // component is controlled. For controlled components, when 'onStateChange'
+    // is called, the removed item still has a SelectedItem representing
+    // it in the DOM. This means that the succeeding SelectedItem is at
+    // index n + 1 instead of n
+    const adjustedIndex = controlled ? removedItemIndex + 1 : removedItemIndex;
+    // whether the removed item was last in selectedItems
+    const lastItemRemoved = removedItemIndex === changes.selectedItems.length;
+
+    // todo: set correct focus when using backspace
+    // todo: set correct focus when using backspace
+
+    return {
+      ...changes,
+      // set the new last item as active if the removed item was last,
+      // otherwise set the item succeeding the removed one active
+      activeIndex: lastItemRemoved ? removedItemIndex - 1 : adjustedIndex,
+    };
+  }
+
+  return changes;
+}
+
 export const Select = <OptionType,>({
   circularNavigation = false,
   className,
@@ -177,35 +247,12 @@ export const Select = <OptionType,>({
   value,
   visibleOptions = 5,
 }: SelectProps<OptionType>) => {
-  // dropdown wrapper ref
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  // flag for whether the component is controlled
+  const controlled = multiselect && value !== undefined;
   // selected items container ref
   const selectedItemsContainerRef = useRef<HTMLDivElement>(null);
   // whether active focus is within the dropdown
   const [hasFocus, setFocus] = useState(false);
-  // init focus & blur listeners and handle callbacks
-  useEffect(() => {
-    const wrapperEl = wrapperRef.current;
-
-    const focusHandler = (event: FocusEvent): void => {
-      const { relatedTarget, target, type } = event;
-
-      if (type === 'focus') {
-        setFocus(wrapperEl.contains(target as Node));
-      }
-      if (type === 'blur') {
-        setFocus(wrapperEl.contains(relatedTarget as Node));
-      }
-      if (!relatedTarget) {
-        type === 'focus' ? onFocus() : onBlur();
-      }
-    };
-
-    // set listeners
-    ['focus', 'blur'].forEach((type) => wrapperEl.addEventListener(type, focusHandler, true));
-    // cleanup
-    return () => ['focus', 'blur'].forEach((type) => wrapperEl.removeEventListener(type, focusHandler, true));
-  }, [onFocus, onBlur]);
 
   // init multi-select
   const {
@@ -225,44 +272,14 @@ export const Select = <OptionType,>({
     // set the default value(s) when the dropdown is initialized
     initialSelectedItems: (defaultValue as OptionType[]) ?? [],
     // set the selected items when the dropdown is controlled
-    ...(multiselect && value !== undefined && { selectedItems: (value as OptionType[]) ?? [] }),
+    ...(controlled && { selectedItems: (value as OptionType[]) ?? [] }),
     getA11yRemovalMessage,
     onSelectedItemsChange({ selectedItems: _selectedItems }) {
       return multiselect && onChange(_selectedItems);
     },
-    onStateChange({ type, activeIndex: _activeIndex }) {
-      let activeNode;
-
-      switch (type) {
-        case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownBackspace:
-        case useMultipleSelection.stateChangeTypes.FunctionRemoveSelectedItem:
-          activeNode = selectedItemsContainerRef.current?.childNodes[activeIndex] as HTMLDivElement;
-          if (!_activeIndex && activeNode) activeNode.focus();
-          break;
-        default:
-          break;
-      }
-    },
-    stateReducer(state, { type, changes }) {
-      let removedItemIndex;
-      let lastItemRemoved;
-      switch (type) {
-        case useMultipleSelection.stateChangeTypes.FunctionRemoveSelectedItem:
-          // get the index of the deleted item
-          removedItemIndex = state.selectedItems.findIndex((item) => !changes.selectedItems.includes(item));
-          // whether the removed item was last in selectedItems
-          lastItemRemoved = removedItemIndex === changes.selectedItems.length;
-
-          return {
-            ...changes,
-            // set the new last item as active if the removed item was last,
-            // otherwise set the item succeeding the removed one active
-            activeIndex: lastItemRemoved ? removedItemIndex - 1 : removedItemIndex,
-          };
-        default:
-          return changes;
-      }
-    },
+    onStateChange: (changes) =>
+      onMultiSelectStateChange<OptionType>(changes, activeIndex, selectedItemsContainerRef.current),
+    stateReducer: (state, actionAndChanges) => multiSelectReducer<OptionType>(state, actionAndChanges, controlled),
   });
 
   // init select
@@ -289,42 +306,48 @@ export const Select = <OptionType,>({
     itemToString: (item): string => (item ? item[optionLabelField] ?? '' : ''),
     onSelectedItemChange: ({ selectedItem: _selectedItem }) => !multiselect && onChange(_selectedItem),
     onStateChange({ type, selectedItem: _selectedItem }) {
-      switch (type) {
-        case useSelect.stateChangeTypes.MenuKeyDownEnter:
-        case useSelect.stateChangeTypes.MenuKeyDownSpaceButton:
-        case useSelect.stateChangeTypes.ItemClick:
-        case useSelect.stateChangeTypes.MenuBlur:
-          if (multiselect && _selectedItem) {
-            getIsInSelectedOptions(selectedItems, _selectedItem)
-              ? setSelectedItems(selectedItems.filter((item) => !isEqual(item, _selectedItem)))
-              : addSelectedItem(_selectedItem);
-            selectItem(null);
-          }
-          break;
-        default:
-          break;
+      const { ItemClick, MenuBlur, MenuKeyDownEnter, MenuKeyDownSpaceButton } = useSelect.stateChangeTypes;
+
+      if (
+        (type === ItemClick || type === MenuBlur || type === MenuKeyDownEnter || type === MenuKeyDownSpaceButton) &&
+        multiselect &&
+        _selectedItem
+      ) {
+        getIsInSelectedOptions(selectedItems, _selectedItem)
+          ? setSelectedItems(selectedItems.filter((item) => !isEqual(item, _selectedItem)))
+          : addSelectedItem(_selectedItem);
+        selectItem(null);
       }
     },
     stateReducer(state, { type, changes }) {
-      switch (type) {
-        // todo: close dropdown if Enter is pressed, as suggested by auditors?
-        case useSelect.stateChangeTypes.MenuKeyDownEnter:
-        case useSelect.stateChangeTypes.MenuKeyDownSpaceButton:
-        case useSelect.stateChangeTypes.ItemClick:
-          // prevent the menu from being closed when the user selects an item
-          if (multiselect) {
-            return {
-              ...changes,
-              isOpen: state.isOpen,
-              highlightedIndex: state.highlightedIndex,
-            };
-          }
-          return changes;
-        default:
-          return changes;
+      const { ItemClick, MenuKeyDownSpaceButton } = useSelect.stateChangeTypes;
+
+      // prevent the menu from being closed when the user selects an item by clicking or pressing space
+      if ((type === ItemClick || type === MenuKeyDownSpaceButton) && multiselect) {
+        return {
+          ...changes,
+          isOpen: state.isOpen,
+          highlightedIndex: state.highlightedIndex,
+        };
       }
+
+      return changes;
     },
   });
+
+  const handleWrapperFocus = (e: FocusEvent<HTMLDivElement>) => {
+    if (getIsElementFocused(e)) {
+      setFocus(true);
+      onFocus();
+    }
+  };
+
+  const handleWrapperBlur = (e: FocusEvent<HTMLDivElement>) => {
+    if (getIsElementBlurred(e)) {
+      setFocus(false);
+      onBlur();
+    }
+  };
 
   if (!multiselect) {
     // we call the getDropdownProps getter function when multiselect isn't enabled
@@ -348,6 +371,13 @@ export const Select = <OptionType,>({
   // show placeholder if no value is selected
   const showPlaceholder = (multiselect && selectedItems.length === 0) || (!multiselect && !selectedItem);
 
+  const menuProps = getMenuProps({
+    ...(multiselect && { 'aria-multiselectable': true }),
+    ...(required && { 'aria-required': true }),
+    className: classNames(styles.menu, options.length > visibleOptions && styles.overflow),
+    style: { maxHeight: `calc(var(--menu-item-height) * ${visibleOptions})` },
+  });
+
   return (
     <div
       className={classNames(
@@ -362,7 +392,7 @@ export const Select = <OptionType,>({
     >
       {/* LABEL */}
       {label && <FieldLabel label={label} required={required} {...getLabelProps()} />}
-      <div ref={wrapperRef} className={styles.wrapper}>
+      <div className={styles.wrapper} onFocus={handleWrapperFocus} onBlur={handleWrapperBlur}>
         {/* SELECTED ITEMS */}
         {multiselect && selectedItems.length > 0 && (
           <SelectedItems
@@ -400,52 +430,30 @@ export const Select = <OptionType,>({
           {getButtonLabel()}
           <IconAngleDown className={styles.angleIcon} />
         </button>
-        <ul
-          {...getMenuProps({
-            ...(multiselect && { 'aria-multiselectable': true }),
-            ...(required && { 'aria-required': true }),
-            className: classNames(styles.menu, options.length > visibleOptions && styles.overflow),
-            style: { maxHeight: `calc(var(--menu-item-height) * ${visibleOptions})` },
-          })}
-        >
-          {isOpen &&
-            options.map((item, index) => {
-              const optionLabel = item[optionLabelField];
-              const selected = multiselect ? getIsInSelectedOptions(selectedItems, item) : isEqual(selectedItem, item);
-              const optionDisabled = typeof isOptionDisabled === 'function' ? isOptionDisabled(item, index) : false;
-
-              return (
-                <li
-                  key={optionLabel}
-                  {...getItemProps({
-                    item,
-                    index,
-                    disabled: optionDisabled,
-                    className: classNames(
-                      styles.menuItem,
-                      highlightedIndex === index && styles.highlighted,
-                      selected && styles.selected,
-                      optionDisabled && styles.disabled,
-                    ),
-                  })}
-                  {...{ 'aria-selected': selected }}
-                  {...(optionDisabled && { 'aria-disabled': true })}
-                >
-                  {multiselect ? (
-                    <>
-                      <IconCheck className={styles.checkbox} aria-hidden />
-                      {optionLabel}
-                    </>
-                  ) : (
-                    <>
-                      {optionLabel}
-                      {selected && <IconCheck className={styles.selectedIcon} />}
-                    </>
-                  )}
-                </li>
-              );
-            })}
-        </ul>
+        {/* MENU */}
+        <DropdownMenu
+          getItemProps={(optionDisabled, index, item, selected) =>
+            getItemProps({
+              item,
+              index,
+              disabled: optionDisabled,
+              className: classNames(
+                styles.menuItem,
+                highlightedIndex === index && styles.highlighted,
+                selected && styles.selected,
+                optionDisabled && styles.disabled,
+              ),
+            })
+          }
+          isOptionDisabled={isOptionDisabled}
+          menuProps={menuProps}
+          multiselect={multiselect}
+          open={isOpen}
+          optionLabelField={optionLabelField}
+          options={options}
+          selectedItem={selectedItem}
+          selectedItems={selectedItems}
+        />
       </div>
       {/* INVALID TEXT */}
       {invalid && error && (

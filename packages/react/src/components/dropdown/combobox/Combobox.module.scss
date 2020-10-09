@@ -55,3 +55,15 @@
     position: absolute;
   }
 }
+
+// VIRTUAL TESTING
+.menu {
+  max-height: 260px;
+}
+
+.menuItem {
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}

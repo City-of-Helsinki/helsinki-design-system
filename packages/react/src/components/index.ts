@@ -1,7 +1,7 @@
 export * from './button';
 export * from './checkbox';
 export * from './columns';
-// export * from './dropdown';
+export * from './dropdown';
 export * from './imageWithCard';
 export * from './koros';
 export * from './logo';

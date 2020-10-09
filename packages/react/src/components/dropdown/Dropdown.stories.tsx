@@ -1,214 +1,29 @@
-import React, { useState } from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
-import { action } from '@storybook/addon-actions';
-
-// import { Dropdown } from './Dropdown';
-import { Button } from '../button';
-import { Select } from './Select';
-import { IconFaceNeutral, IconFaceSad, IconFaceSmile } from '../../icons';
-import { Combobox } from './Combobox';
-
-function getOptions() {
-  return [
-    { label: 'Plutonium' },
-    { label: 'Americium' },
-    { label: 'Copernicium' },
-    { label: 'Nihonium' },
-    { label: 'Flerovium' },
-    { label: 'Moscovium' },
-    { label: 'Livermorium' },
-    { label: 'Tennessine' },
-    { label: 'Oganesson' },
-  ];
-}
-
-const options = getOptions();
-
-export default {
-  component: Select,
-  title: 'Components/Dropdown',
-  // decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '420px' }}>{storyFn()}</div>],
-  decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '100%' }}>{storyFn()}</div>],
-};
-
-// export const Default = () => (
-//   <Dropdown options={options} placeholder="Placeholder" label="Label" helper="Assistive text" />
-// );
-
-export const SelectTest = () => (
-  <>
-    <Select
-      icon={<IconFaceSmile />}
-      label="Default"
-      helper="Choose an element"
-      placeholder="Placeholder"
-      options={options}
-      getA11ySelectionMessage={({ selectedItem }) => {
-        console.log(`${selectedItem.label} has been selected`);
-        return `${selectedItem.label} has been selected`;
-      }}
-    />
-    <Select
-      invalid
-      icon={<IconFaceSad />}
-      defaultValue={options[0]}
-      placeholder="Placeholder"
-      label="Invalid"
-      helper="Choose an element"
-      error="Wrong element!"
-      options={options}
-      style={{ marginTop: 'var(--spacing-s)' }}
-    />
-    <Select
-      disabled
-      icon={<IconFaceNeutral />}
-      placeholder="Placeholder"
-      label="Disabled"
-      helper="Choose an element"
-      options={options}
-      style={{ marginTop: 'var(--spacing-s)' }}
-    />
-  </>
-);
-
-export const SelectMultiselectTest = () => {
-  const controlledOptions = getOptions();
-  return (
-    <Select
-      circularNavigation
-      label="Choose an element"
-      placeholder="Placeholder"
-      options={controlledOptions}
-      multiselect
-      defaultValue={controlledOptions.slice(0, 3)}
-      // onChange={(values): void => console.log('Change', values)}
-      // onBlur={() => console.log('Blur')}
-      // onFocus={() => console.log('Focus')}
-      clearButtonAriaLabel="Clear all selections"
-      selectedItemRemoveButtonAriaLabel="Remove item {value}"
-      selectedItemSrLabel="Selected item {value}"
-      // helper="Hello! I'm a helper"
-      getA11yRemovalMessage={({ removedSelectedItem }) => {
-        console.log(`${removedSelectedItem.label} has been removed`);
-        return `${removedSelectedItem.label} has been removed`;
-      }}
-    />
-  );
-};
-
-export const SelectTestControlled = () => {
-  const controlledOptions = getOptions();
-
-  const [selectedItem, setSelectedItem] = useState(null);
-
-  return (
-    <>
-      <Button onClick={() => setSelectedItem(null)}>Reset</Button>
-      <Button onClick={() => setSelectedItem(controlledOptions[0])} style={{ marginLeft: 'var(--spacing-s)' }}>
-        Select first option
-      </Button>
-      <Select
-        options={controlledOptions}
-        label="Element:"
-        helper="Choose an element"
-        onChange={setSelectedItem}
-        placeholder="Placeholder"
-        value={selectedItem}
-        style={{ marginTop: 'var(--spacing-s)' }}
-      />
-    </>
-  );
-};
-
-export const SelectTestControlledMultiselect = () => {
-  const controlledOptions = getOptions();
-
-  const [selectedItems, setSelectedItems] = useState(null);
-
-  return (
-    <>
-      <Button onClick={() => setSelectedItems(null)}>Reset</Button>
-      <Button onClick={() => setSelectedItems(controlledOptions)} style={{ marginLeft: 'var(--spacing-s)' }}>
-        Select all
-      </Button>
-      <Select
-        options={controlledOptions}
-        label="Element:"
-        helper="Choose an element"
-        onChange={setSelectedItems}
-        placeholder="Placeholder"
-        value={selectedItems}
-        style={{ marginTop: 'var(--spacing-s)' }}
-        multiselect
-        clearButtonAriaLabel="Clear all selections"
-        selectedItemRemoveButtonAriaLabel="Remove item {value}"
-        selectedItemSrLabel="Selected item {value}"
-      />
-    </>
-  );
-};
-
-export const ComboboxTest = () => {
-  const controlledOptions = getOptions();
-
-  const [selectedItem, setSelectedItem] = useState(null);
-
-  const handleChange = (item) => {
-    action('onChange')(item);
-    setSelectedItem(item);
-  };
-
-  return (
-    <>
-      <Combobox
-        options={controlledOptions}
-        label="Element:"
-        helper="Choose an element"
-        onChange={handleChange}
-        placeholder="Placeholder"
-        value={selectedItem}
-        style={{ marginTop: 'var(--spacing-s)' }}
-        clearButtonAriaLabel="Clear all selections"
-        selectedItemRemoveButtonAriaLabel="Remove item {value}"
-        selectedItemSrLabel="Selected item {value}"
-        onFocus={action('onFocus')}
-        onBlur={action('onBlur')}
-      />
-    </>
-  );
-};
-
-export const ComboboxMultiSelectTest = () => {
-  const controlledOptions = getOptions();
-
-  const [selectedItems, setSelectedItems] = useState(null);
-
-  const handleChange = (items) => {
-    action('onChange')(items);
-    setSelectedItems(items);
-  };
-
-  return (
-    <div style={{ width: 400 }}>
-      <Combobox
-        options={controlledOptions}
-        label="Element:"
-        helper="Choose an element"
-        onChange={handleChange}
-        placeholder="Placeholder"
-        value={selectedItems}
-        style={{ marginTop: 'var(--spacing-s)' }}
-        multiselect
-        clearButtonAriaLabel="Clear all selections"
-        selectedItemRemoveButtonAriaLabel="Remove item {value}"
-        selectedItemSrLabel="Selected item {value}"
-        onFocus={action('onFocus')}
-        onBlur={action('onBlur')}
-      />
-    </div>
-  );
-};
-
+// import React, { useState } from 'react';
+// import { withKnobs } from '@storybook/addon-knobs';
+// import { action } from '@storybook/addon-actions';
+//
+// // import { Dropdown } from './Dropdown';
+// import { Button } from '../button';
+// import { Select } from './select/Select';
+// import { IconFaceNeutral, IconFaceSad, IconFaceSmile } from '../../icons';
+// import { Combobox } from './combobox/Combobox';
+//
+// function getOptions() {
+//   return [
+//     { label: 'Plutonium' },
+//     { label: 'Americium' },
+//     { label: 'Copernicium' },
+//     { label: 'Nihonium' },
+//     { label: 'Flerovium' },
+//     { label: 'Moscovium' },
+//     { label: 'Livermorium' },
+//     { label: 'Tennessine' },
+//     { label: 'Oganesson' },
+//   ];
+// }
+//
+// const options = getOptions();
+//
 // export const Invalid = () => (
 //   <Dropdown options={options} placeholder="Placeholder" label="Label" helper="Error text" invalid />
 // );

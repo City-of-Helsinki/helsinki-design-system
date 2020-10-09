@@ -1,19 +1,21 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import React, { useRef, useState, KeyboardEvent, FocusEvent, FocusEventHandler } from 'react';
+import React, { useRef, useState, KeyboardEvent, FocusEvent, FocusEventHandler, useMemo } from 'react';
 import { useCombobox, useMultipleSelection } from 'downshift';
 import isEqual from 'lodash.isequal';
 import uniqueId from 'lodash.uniqueid';
+import { useVirtual } from 'react-virtual';
 
 import 'hds-core';
 
-import styles from './Select.module.scss';
+import styles from '../select/Select.module.scss';
 import comboboxStyles from './Combobox.module.scss';
-import { FieldLabel } from '../../internal/field-label/FieldLabel';
-import classNames from '../../utils/classNames';
-import { IconAlertCircle, IconAngleDown, IconCheck } from '../../icons';
-import { SelectedItems } from '../../internal/selectedItems/SelectedItems';
-import { SelectProps } from './Select';
-import { getIsInSelectedOptions } from './dropdownUtils';
+import { FieldLabel } from '../../../internal/field-label/FieldLabel';
+import classNames from '../../../utils/classNames';
+import { IconAlertCircle, IconAngleDown } from '../../../icons';
+import { SelectedItems } from '../../../internal/selectedItems/SelectedItems';
+import { multiSelectReducer, onMultiSelectStateChange, SelectProps } from '../select/Select';
+import { getIsElementBlurred, getIsElementFocused, getIsInSelectedOptions } from '../dropdownUtils';
+import { DropdownMenu } from '../dropdownMenu/DropdownMenu';
 
 type FilterFunction<OptionType> = (options: OptionType[], search: string) => OptionType[];
 
@@ -54,14 +56,19 @@ function getDefaultFilter<OptionType>(labelField: string): FilterFunction<Option
 }
 
 export const Combobox = <OptionType,>({
+  circularNavigation = false,
   className,
   clearable = true,
   clearButtonAriaLabel,
+  defaultValue,
   disabled = false,
   error,
+  getA11yRemovalMessage = () => '',
+  getA11ySelectionMessage = () => '',
+  getA11yStatusMessage = () => '',
   helper,
   icon,
-  id = uniqueId('hds-select-'),
+  id = uniqueId('hds-combobox-'),
   invalid = false,
   isOptionDisabled,
   label,
@@ -69,10 +76,10 @@ export const Combobox = <OptionType,>({
   onBlur = () => null,
   onChange = () => null,
   onFocus = () => null,
-  // todo: test using options without a label key and without optionLabelField defined
   optionLabelField = 'label',
   options = [],
   placeholder,
+  required,
   selectedItemRemoveButtonAriaLabel,
   selectedItemSrLabel,
   style,
@@ -80,20 +87,33 @@ export const Combobox = <OptionType,>({
   visibleOptions = 5,
   filter: userLandFilter,
 }: ComboboxProps<OptionType>) => {
-  const filter = userLandFilter || getDefaultFilter(optionLabelField);
+  // const filter = userLandFilter || getDefaultFilter(optionLabelField);
 
+  // flag for whether the component is controlled
+  const controlled = multiselect && value !== undefined;
   // selected items container ref
-  const selectedItemsContainerRef = useRef<HTMLDivElement>(null);
+  const selectedItemsContainerRef = useRef<HTMLDivElement>();
   // combobox input ref
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>();
+  // menu ref
+  const menuRef = React.useRef<HTMLUListElement>();
   // whether active focus is within the dropdown
-  const [hasFocus, setFocus] = useState(false);
+  const [hasFocus, setFocus] = useState<boolean>(false);
   // Tracks whether any combobox item is being clicked
   const [isClicking, setIsClicking] = useState<boolean>(false);
   // tracks current combobox search value
   const [search, setSearch] = useState<string>('');
-
-  const getFilteredItems = (items: OptionType[]) => filter(items, search);
+  // memorise filtered items and only update them when any of the dependencies change
+  const getFilteredItems = useMemo<OptionType[]>(() => {
+    const filter = userLandFilter || getDefaultFilter(optionLabelField);
+    return filter(options, search);
+  }, [options, search, userLandFilter, optionLabelField]);
+  // virtualizer menu items to increase performance
+  const virtualizer = useVirtual<HTMLUListElement>({
+    size: getFilteredItems.length,
+    parentRef: menuRef,
+    overscan: 3,
+  });
 
   const focusInput = () => {
     if (inputRef.current) {
@@ -116,66 +136,19 @@ export const Combobox = <OptionType,>({
     // sets focus on the first selected item when the dropdown is initialized
     defaultActiveIndex: 0,
     initialActiveIndex: 0,
-    // todo: create prop
-    initialSelectedItems: [],
+    // set the default value(s) when the dropdown is initialized
+    initialSelectedItems: (defaultValue as OptionType[]) ?? [],
     ...(multiselect && value !== undefined && { selectedItems: (value as OptionType[]) ?? [] }),
-    // todo: create a prop for setting the removal message
-    getA11yRemovalMessage({ itemToString, removedSelectedItem }) {
-      // eslint-disable-next-line no-console
-      console.log(
-        `getA11yRemovalMessage message: "${itemToString(removedSelectedItem[optionLabelField])} has been removed"`,
-      );
-      return `${itemToString(removedSelectedItem[optionLabelField])} has been removed`;
-    },
+    getA11yRemovalMessage,
     onSelectedItemsChange({ selectedItems: _selectedItems }) {
       return multiselect && onChange(_selectedItems);
     },
-    onStateChange({ type, activeIndex: _activeIndex }) {
-      let activeNode;
-
-      switch (type) {
-        case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownBackspace:
-        case useMultipleSelection.stateChangeTypes.FunctionRemoveSelectedItem:
-          activeNode = selectedItemsContainerRef.current?.childNodes[activeIndex] as HTMLDivElement;
-          if (!_activeIndex && activeNode) activeNode.focus();
-          break;
-        default:
-          break;
-      }
-    },
-    stateReducer(state, { type, changes }) {
-      let removedItemIndex;
-      let lastItemRemoved;
-      switch (type) {
-        case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownBackspace:
-        case useMultipleSelection.stateChangeTypes.FunctionRemoveSelectedItem:
-          // get the index of the deleted item
-          removedItemIndex = state.selectedItems.findIndex((item) => !changes.selectedItems.includes(item));
-          // whether the removed item was last in selectedItems
-          lastItemRemoved = removedItemIndex === changes.selectedItems.length;
-
-          return {
-            ...changes,
-            // set the new last item as active if the removed item was last,
-            // otherwise set the item succeeding the removed one active
-            // Note: Here activeIndex updates at a different time in comparison
-            // with the Select component. In this component, when 'onStageChange'
-            // is called, the removed item still has a SelectedItem representing
-            // it in the DOM. This means that the succeeding SelectedItem is at
-            // index n + 1 instead of n. This is a concerning difference in
-            // behavior, because I don't know why this discrepancy takes place
-            // or if it can be relied on in all scenarios. It's possible that
-            // this component is just one event loop slower in pushing changes
-            // to the DOM.
-            activeIndex: lastItemRemoved ? removedItemIndex - 1 : removedItemIndex + 1,
-          };
-        default:
-          return changes;
-      }
-    },
+    onStateChange: (changes) =>
+      onMultiSelectStateChange<OptionType>(changes, activeIndex, selectedItemsContainerRef.current),
+    stateReducer: (state, actionAndChanges) => multiSelectReducer<OptionType>(state, actionAndChanges, controlled),
   });
 
-  // init select
+  // init combobox
   const {
     getItemProps,
     getLabelProps,
@@ -188,58 +161,42 @@ export const Combobox = <OptionType,>({
     getInputProps,
     getComboboxProps,
   } = useCombobox<OptionType>({
+    circularNavigation,
     id,
-    items: getFilteredItems(options),
-    onInputValueChange: ({ inputValue }) => {
-      setSearch(inputValue);
-    },
+    items: getFilteredItems,
+    // items: getFilteredItems(options),
+    onInputValueChange: ({ inputValue }) => setSearch(inputValue),
     // a defined value indicates that the dropdown should be controlled
     // don't set selectedItem if it's not, so that downshift can handle the state
     ...(!multiselect && value !== undefined && { selectedItem: value as OptionType }),
-    // todo: create a prop for setting the selection message and "selections cleared" message
-    // todo: how can this be done for multiselect?
-    getA11ySelectionMessage({ selectedItem: _selectedItem }) {
-      if (!multiselect && _selectedItem) {
-        const message = `${_selectedItem?.[optionLabelField]} has been selected`;
-        // eslint-disable-next-line no-console
-        console.log(`getA11ySelectionMessage message: "${message}"`);
-        return message;
-      }
-      return '';
-    },
+    getA11ySelectionMessage,
+    getA11yStatusMessage,
     itemToString: (item): string => (item ? item[optionLabelField] ?? '' : ''),
+    onHighlightedIndexChange: ({ highlightedIndex: _highlightedIndex }) => virtualizer.scrollToIndex(_highlightedIndex),
     onSelectedItemChange: ({ selectedItem: _selectedItem }) => !multiselect && onChange(_selectedItem),
     onStateChange({ type, selectedItem: _selectedItem }) {
-      switch (type) {
-        case useCombobox.stateChangeTypes.InputKeyDownEnter:
-        case useCombobox.stateChangeTypes.ItemClick:
-        case useCombobox.stateChangeTypes.InputBlur:
-          if (multiselect && _selectedItem) {
-            getIsInSelectedOptions(selectedItems, _selectedItem)
-              ? _setSelectedItems(selectedItems.filter((item) => !isEqual(item, _selectedItem)))
-              : addSelectedItem(_selectedItem);
-            selectItem(null);
-          }
-          break;
-        default:
-          break;
+      const { InputBlur, InputKeyDownEnter, ItemClick } = useCombobox.stateChangeTypes;
+
+      if ((type === InputBlur || type === InputKeyDownEnter || type === ItemClick) && multiselect && _selectedItem) {
+        getIsInSelectedOptions(selectedItems, _selectedItem)
+          ? _setSelectedItems(selectedItems.filter((item) => !isEqual(item, _selectedItem)))
+          : addSelectedItem(_selectedItem);
+        selectItem(null);
       }
     },
     stateReducer(state, { type, changes }) {
-      switch (type) {
-        case useCombobox.stateChangeTypes.ItemClick:
-          // prevent the menu from being closed when the user selects an item
-          if (multiselect) {
-            return {
-              ...changes,
-              isOpen: state.isOpen,
-              highlightedIndex: state.highlightedIndex,
-            };
-          }
-          return changes;
-        default:
-          return changes;
+      const { ItemClick } = useCombobox.stateChangeTypes;
+
+      // prevent the menu from being closed when the user selects an item by clicking
+      if (type === ItemClick && multiselect) {
+        return {
+          ...changes,
+          isOpen: state.isOpen,
+          highlightedIndex: state.highlightedIndex,
+        };
       }
+
+      return changes;
     },
   });
 
@@ -249,9 +206,7 @@ export const Combobox = <OptionType,>({
       : addSelectedItem(itemToBeSelected);
   };
 
-  const handleWrapperClick = () => {
-    focusInput();
-  };
+  const handleWrapperClick = () => focusInput();
 
   const ignoreFocusHandlerWhenClickingItem = (handler: FocusEventHandler<HTMLDivElement>) => (
     event: FocusEvent<HTMLDivElement>,
@@ -262,23 +217,14 @@ export const Combobox = <OptionType,>({
   };
 
   const handleWrapperFocus = (e: FocusEvent<HTMLDivElement>) => {
-    // When the target element is inside the element with the handler,
-    // but the relatedTarget is not, we know that the focus has come to
-    // the element from outside of it.
-    if (
-      e.currentTarget.contains(e.target as Node) &&
-      (!e.relatedTarget || !e.currentTarget.contains(e.relatedTarget as Node))
-    ) {
+    if (getIsElementFocused(e)) {
       setFocus(true);
       onFocus();
     }
   };
 
   const handleWrapperBlur = (e: FocusEvent<HTMLDivElement>) => {
-    // When the original initiator of the event is not inside the
-    // element with the handler, we know that focus has left the
-    // element.
-    if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+    if (getIsElementBlurred(e)) {
       setFocus(false);
       onBlur();
     }
@@ -292,7 +238,8 @@ export const Combobox = <OptionType,>({
 
       // Only select an item if an index is highlighted
       if (highlightedIndex > -1) {
-        const highlightedItem = getFilteredItems(options)[highlightedIndex];
+        const highlightedItem = getFilteredItems[highlightedIndex];
+        // const highlightedItem = getFilteredItems(options)[highlightedIndex];
 
         setSelectedItems(highlightedItem);
       }
@@ -389,13 +336,14 @@ export const Combobox = <OptionType,>({
             setActiveIndex={setActiveIndex}
           />
         )}
-        {/* TOGGLE BUTTON */}
         <div {...getComboboxProps()} className={comboboxStyles.buttonInputStack}>
           <div className={comboboxStyles.inputWrapper}>
             {/* icons are only supported by single selects */}
             {icon && !multiselect && <span className={classNames(styles.icon, comboboxStyles.inputIcon)}>{icon}</span>}
+            {/* INPUT */}
             <input
               {...getInputProps({
+                ...(invalid && { 'aria-invalid': true }),
                 ...(multiselect && {
                   ...getDropdownProps({
                     // Change Downshift's default behavior with space.
@@ -425,14 +373,12 @@ export const Combobox = <OptionType,>({
               )}
             />
           </div>
+          {/* TOGGLE BUTTON */}
           <button
             type="button"
             {...getToggleButtonProps({
-              'aria-owns': getMenuProps().id,
-              // prepend helper text id to the id's return by the downshift getter function,
-              // so that the helper text will be read to screen reader users before the other labels.
-              // todo: only add helper id if a helper text is defined
-              'aria-labelledby': `${id}-helper ${getToggleButtonProps()['aria-labelledby']}`,
+              // todo: button label
+              // 'aria-labelledby': buttonAriaLabel,
               disabled,
               className: classNames(
                 styles.button,
@@ -445,67 +391,59 @@ export const Combobox = <OptionType,>({
             <IconAngleDown className={styles.angleIcon} />
           </button>
         </div>
-        <ul
-          {...getMenuProps({
+        {/* MENU */}
+        <DropdownMenu
+          menuProps={getMenuProps({
             ...(multiselect && { 'aria-multiselectable': true }),
-            className: classNames(styles.menu, options.length > visibleOptions && styles.overflow),
-            style: { maxHeight: `calc(var(--menu-item-height) * ${visibleOptions})` },
+            ...(required && { 'aria-required': true }),
+            className: classNames(styles.menu, comboboxStyles.menu, options.length > visibleOptions && styles.overflow),
+            ref: menuRef,
           })}
-        >
-          {isOpen &&
-            getFilteredItems(options).map((item, index) => {
-              const optionLabel = item[optionLabelField];
-              const selected = multiselect ? getIsInSelectedOptions(selectedItems, item) : isEqual(selectedItem, item);
-              // todo: add aria-disabled to disabled menu items
-              const optionDisabled = typeof isOptionDisabled === 'function' ? isOptionDisabled(item, index) : false;
-
-              return (
-                <li
-                  key={optionLabel}
-                  {...getItemProps({
-                    item,
-                    index,
-                    disabled: optionDisabled,
-                    className: classNames(
-                      styles.menuItem,
-                      highlightedIndex === index && styles.highlighted,
-                      selected && styles.selected,
-                      optionDisabled && styles.disabled,
-                      // todo: use root multiselect class
-                      // multiselect && styles.multiselect,
-                    ),
-                    onMouseDown: () => {
-                      setIsClicking(true);
-                    },
-                    // We can't use 'onMouseDown' because it is fired
-                    // before 'onClick' which is too soon for us. Using
-                    // 'onClick' creates a niche case where it's
-                    // possible that the user fails to complete their
-                    // click. In other words, they mouse down on a
-                    // different element than they mouse up on. In this
-                    // scenario, the blur/focus events will be ignored
-                    // until the next successful click.
-                    onClick: () => {
-                      setIsClicking(false);
-                    },
-                  })}
-                  {...{ 'aria-selected': selected }}
-                >
-                  {multiselect ? (
-                    <>
-                      <IconCheck className={styles.checkbox} aria-hidden />
-                      {optionLabel}
-                    </>
-                  ) : (
-                    <>
-                      {optionLabel}
-                      {selected && <IconCheck className={styles.selectedIcon} />}
-                    </>
-                  )}
-                </li>
-              );
-            })}
-        </ul>
+          getItemProps={(optionDisabled, index, item, selected, virtualRow) =>
+            getItemProps({
+              item,
+              index,
+              disabled: optionDisabled,
+              className: classNames(
+                styles.menuItem,
+                comboboxStyles.menuItem,
+                highlightedIndex === index && styles.highlighted,
+                selected && styles.selected,
+                optionDisabled && styles.disabled,
+              ),
+              onMouseDown: () => {
+                setIsClicking(true);
+              },
+              // We can't use 'onMouseDown' because it is fired
+              // before 'onClick' which is too soon for us. Using
+              // 'onClick' creates a niche case where it's
+              // possible that the user fails to complete their
+              // click. In other words, they mouse down on a
+              // different element than they mouse up on. In this
+              // scenario, the blur/focus events will be ignored
+              // until the next successful click.
+              onClick: () => {
+                setIsClicking(false);
+              },
+              // todo: comment
+              ...(virtualRow && {
+                style: {
+                  transform: `translateY(${virtualRow.start}px`,
+                },
+                ref: virtualRow.measureRef,
+              }),
+            })
+          }
+          isOptionDisabled={isOptionDisabled}
+          multiselect={multiselect}
+          open={isOpen}
+          optionLabelField={optionLabelField}
+          options={getFilteredItems}
+          // options={getFilteredItems(options)}
+          selectedItem={selectedItem}
+          selectedItems={selectedItems}
+          virtualizer={virtualizer}
+        />
       </div>
       {/* INVALID TEXT */}
       {invalid && error && (
