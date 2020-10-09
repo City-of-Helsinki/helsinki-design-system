@@ -5,7 +5,6 @@ import { Button } from '../../button';
 import { Select } from './Select';
 import { IconFaceNeutral, IconFaceSad, IconFaceSmile } from '../../../icons';
 import { Combobox } from '..';
-import { action } from '@storybook/addon-actions';
 
 const testOptions = [
   {
