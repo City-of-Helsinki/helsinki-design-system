@@ -1,6 +1,8 @@
 import isEqual from 'lodash.isequal';
 import { FocusEvent } from 'react';
 
+export const DROPDOWN_MENU_ITEM_HEIGHT = 52;
+
 /**
  * Helper that checks if an item is in the selected options
  * @param selectedOptions Currently selected options

@@ -1,4 +1,11 @@
-.wrapper.wrapper.wrapper {
+@import "../dropdown";
+
+.root {
+  @extend %dropdownRoot;
+}
+
+.wrapper {
+  @extend %dropdownWrapper;
   height: unset;
   min-height: var(--spacing-3-xl);
 }
@@ -8,7 +15,8 @@
   flex-direction: column;
 }
 
-.button.button.button {
+.button {
+  @extend %dropdownToggleButton;
   position: unset;
   padding: 0;
 }
@@ -44,6 +52,7 @@
   // Removes the input shadow on iOS
   -webkit-appearance: none;
 
+  // todo: use helper class
   &:not(:focus).hidden {
     border: 0;
     clip: "rect(0 0 0 0)";
@@ -56,14 +65,62 @@
   }
 }
 
-// VIRTUAL TESTING
-.menu {
-  max-height: 260px;
+/**
+ * ANGLE ICON
+ */
+
+.angleIcon {
+  @extend %dropdownAngleIcon;
 }
 
+/**
+ * MENU
+ */
+
+.menu {
+  @extend %dropdownMenu;
+}
+
+/**
+ * MENU ITEM
+ */
+
 .menuItem {
+  @extend %dropdownMenuItem;
   left: 0;
   position: absolute;
   top: 0;
   width: 100%;
+}
+
+/**
+ * HELPER TEXT
+ */
+
+.helperText {
+  @extend %dropdownHelperText;
+}
+
+/**
+ * DISABLED
+ */
+
+.disabled {
+  @extend %dropdownDisabled;
+}
+
+/**
+ * INVALID
+ */
+
+.invalid {
+  @extend %dropdownInvalid;
+}
+
+/**
+ * MULTISELECT
+ */
+
+.multiselect {
+  @extend %dropdownMultiselect;
 }

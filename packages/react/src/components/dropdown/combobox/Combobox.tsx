@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import React, { useRef, useState, KeyboardEvent, FocusEvent, FocusEventHandler, useMemo } from 'react';
+import React, { useRef, useState, KeyboardEvent, FocusEvent, FocusEventHandler, useMemo, useCallback } from 'react';
 import { useCombobox, useMultipleSelection } from 'downshift';
 import isEqual from 'lodash.isequal';
 import uniqueId from 'lodash.uniqueid';
@@ -7,14 +7,19 @@ import { useVirtual } from 'react-virtual';
 
 import 'hds-core';
 
-import styles from '../select/Select.module.scss';
-import comboboxStyles from './Combobox.module.scss';
+// import styles from '../select/Select.module.scss';
+import styles from './Combobox.module.scss';
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 import classNames from '../../../utils/classNames';
 import { IconAlertCircle, IconAngleDown } from '../../../icons';
 import { SelectedItems } from '../../../internal/selectedItems/SelectedItems';
-import { multiSelectReducer, onMultiSelectStateChange, SelectProps } from '../select/Select';
-import { getIsElementBlurred, getIsElementFocused, getIsInSelectedOptions } from '../dropdownUtils';
+import { multiSelectReducer, onMultiSelectStateChange, SelectProps } from '../select';
+import {
+  DROPDOWN_MENU_ITEM_HEIGHT,
+  getIsElementBlurred,
+  getIsElementFocused,
+  getIsInSelectedOptions,
+} from '../dropdownUtils';
 import { DropdownMenu } from '../dropdownMenu/DropdownMenu';
 
 type FilterFunction<OptionType> = (options: OptionType[], search: string) => OptionType[];
@@ -108,11 +113,14 @@ export const Combobox = <OptionType,>({
     const filter = userLandFilter || getDefaultFilter(optionLabelField);
     return filter(options, search);
   }, [options, search, userLandFilter, optionLabelField]);
-  // virtualizer menu items to increase performance
+  // todo: Add virtualize prop
+  // todo: Fix virtualization styles, so that they work for both multiselect and combobox
+  // virtualize menu items to increase performance
   const virtualizer = useVirtual<HTMLUListElement>({
     size: getFilteredItems.length,
     parentRef: menuRef,
-    overscan: 3,
+    estimateSize: useCallback(() => DROPDOWN_MENU_ITEM_HEIGHT, []),
+    overscan: visibleOptions,
   });
 
   const focusInput = () => {
@@ -314,8 +322,8 @@ export const Combobox = <OptionType,>({
         // the blur/focus handlers at all.
         onFocus={ignoreFocusHandlerWhenClickingItem(handleWrapperFocus)}
         onBlur={ignoreFocusHandlerWhenClickingItem(handleWrapperBlur)}
-        onClick={handleWrapperClick}
-        className={classNames(styles.wrapper, comboboxStyles.wrapper)}
+        // onClick={handleWrapperClick}
+        className={classNames(styles.wrapper)}
       >
         {/* SELECTED ITEMS */}
         {multiselect && selectedItems.length > 0 && (
@@ -336,11 +344,38 @@ export const Combobox = <OptionType,>({
             setActiveIndex={setActiveIndex}
           />
         )}
-        <div {...getComboboxProps()} className={comboboxStyles.buttonInputStack}>
-          <div className={comboboxStyles.inputWrapper}>
-            {/* icons are only supported by single selects */}
-            {icon && !multiselect && <span className={classNames(styles.icon, comboboxStyles.inputIcon)}>{icon}</span>}
-            {/* INPUT */}
+        <div {...getComboboxProps()} className={styles.buttonInputStack}>
+          <input
+            {...getInputProps({
+              ...(invalid && { 'aria-invalid': true }),
+              ...(multiselect && {
+                ...getDropdownProps({
+                  // Change Downshift's default behavior with space.
+                  // Instead of typing a space character into the
+                  // search input, it now selects an item without
+                  // closing the dropdown menu.
+
+                  // Our custom keyDown handler also blocks other
+                  // dropdown key events when the menu is open. This
+                  // would normally be done with the
+                  // 'preventKeyAction' setting, but it would also
+                  // block our custom handler from executing, which
+                  // would break the special behavior we have
+                  // implemented for space. We want to block other key
+                  // actions in order to ensure that dropdown and
+                  // input props don't conflict.
+                  onKeyDown: handleMultiSelectInputKeyDown,
+                  ref: inputRef,
+                }),
+              }),
+            })}
+            placeholder={placeholder}
+            className={classNames(styles.input, isInputVisible ? '' : styles.hidden)}
+          />
+          {/* <div className={styles.inputWrapper}>
+             icons are only supported by single selects 
+            {icon && !multiselect && <span className={classNames(styles.icon, styles.inputIcon)}>{icon}</span>}
+             INPUT 
             <input
               {...getInputProps({
                 ...(invalid && { 'aria-invalid': true }),
@@ -350,7 +385,7 @@ export const Combobox = <OptionType,>({
                     // Instead of typing a space character into the
                     // search input, it now selects an item without
                     // closing the dropdown menu.
-
+          
                     // Our custom keyDown handler also blocks other
                     // dropdown key events when the menu is open. This
                     // would normally be done with the
@@ -366,13 +401,9 @@ export const Combobox = <OptionType,>({
                 }),
               })}
               placeholder={placeholder}
-              className={classNames(
-                'hds-text-input__input',
-                comboboxStyles.input,
-                isInputVisible ? '' : comboboxStyles.hidden,
-              )}
+              className={classNames(styles.input, isInputVisible ? '' : styles.hidden)}
             />
-          </div>
+          </div> */}
           {/* TOGGLE BUTTON */}
           <button
             type="button"
@@ -383,8 +414,7 @@ export const Combobox = <OptionType,>({
               className: classNames(
                 styles.button,
                 showPlaceholder && styles.placeholder,
-                !showPlaceholder && comboboxStyles.noPadding,
-                comboboxStyles.button,
+                !showPlaceholder && styles.noPadding,
               ),
             })}
           >
@@ -393,12 +423,6 @@ export const Combobox = <OptionType,>({
         </div>
         {/* MENU */}
         <DropdownMenu
-          menuProps={getMenuProps({
-            ...(multiselect && { 'aria-multiselectable': true }),
-            ...(required && { 'aria-required': true }),
-            className: classNames(styles.menu, comboboxStyles.menu, options.length > visibleOptions && styles.overflow),
-            ref: menuRef,
-          })}
           getItemProps={(optionDisabled, index, item, selected, virtualRow) =>
             getItemProps({
               item,
@@ -406,7 +430,6 @@ export const Combobox = <OptionType,>({
               disabled: optionDisabled,
               className: classNames(
                 styles.menuItem,
-                comboboxStyles.menuItem,
                 highlightedIndex === index && styles.highlighted,
                 selected && styles.selected,
                 optionDisabled && styles.disabled,
@@ -435,6 +458,14 @@ export const Combobox = <OptionType,>({
             })
           }
           isOptionDisabled={isOptionDisabled}
+          menuProps={getMenuProps({
+            ...(multiselect && { 'aria-multiselectable': true }),
+            ...(required && { 'aria-required': true }),
+            // className: classNames(styles.menu, options.length > visibleOptions && styles.overflow),
+            style: { maxHeight: DROPDOWN_MENU_ITEM_HEIGHT * visibleOptions },
+            ref: menuRef,
+          })}
+          menuStyles={styles}
           multiselect={multiselect}
           open={isOpen}
           optionLabelField={optionLabelField}
@@ -443,6 +474,7 @@ export const Combobox = <OptionType,>({
           selectedItem={selectedItem}
           selectedItems={selectedItems}
           virtualizer={virtualizer}
+          visibleOptions={visibleOptions}
         />
       </div>
       {/* INVALID TEXT */}

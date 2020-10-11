@@ -1,14 +1,15 @@
 import React from 'react';
 import isEqual from 'lodash.isequal';
 
-import styles from '../select/Select.module.scss';
 import { getIsInSelectedOptions } from '../dropdownUtils';
 import { IconCheck } from '../../../icons';
+import classNames from '../../../utils/classNames';
 
 export type DropdownMenuProps = {
   getItemProps: any;
   isOptionDisabled: any;
   menuProps: any;
+  menuStyles: any;
   multiselect: any;
   open: any;
   optionLabelField: any;
@@ -17,25 +18,28 @@ export type DropdownMenuProps = {
   selectedItem: any;
   selectedItems: any;
   virtualizer?: any;
+  visibleOptions: any;
 };
 
 export const DropdownMenu = ({
   getItemProps,
   isOptionDisabled,
   menuProps,
+  menuStyles,
   multiselect,
   open,
   optionLabelField,
   options,
-  virtualizer,
   selectedItem,
   selectedItems,
+  virtualizer,
+  visibleOptions,
 }: DropdownMenuProps) => {
   const isVirtualized = !!virtualizer;
   const listOptions = isVirtualized ? virtualizer.virtualItems : options;
 
   return (
-    <ul {...menuProps}>
+    <ul {...menuProps} className={classNames(menuStyles.menu, options.length > visibleOptions && menuStyles.overflow)}>
       {open && (
         <>
           {isVirtualized && <li key="total-size" aria-hidden style={{ height: virtualizer.totalSize }} />}
@@ -54,6 +58,7 @@ export const DropdownMenu = ({
                 key={optionLabel}
                 disabled={optionDisabled}
                 itemProps={itemProps}
+                menuStyles={menuStyles}
                 multiselect={multiselect}
                 label={optionLabel}
                 selected={selected}
@@ -66,18 +71,18 @@ export const DropdownMenu = ({
   );
 };
 
-export const DropdownMenuItem = ({ disabled, itemProps, multiselect, label, selected }) => {
+export const DropdownMenuItem = ({ disabled, itemProps, label, menuStyles, multiselect, selected }) => {
   return (
     <li {...itemProps} {...{ 'aria-selected': selected }} {...(disabled && { 'aria-disabled': true })}>
       {multiselect ? (
         <>
-          <IconCheck className={styles.checkbox} aria-hidden />
+          <IconCheck className={menuStyles.checkbox} aria-hidden />
           {label}
         </>
       ) : (
         <>
           {label}
-          {selected && <IconCheck className={styles.selectedIcon} />}
+          {selected && <IconCheck className={menuStyles.selectedIcon} />}
         </>
       )}
     </li>

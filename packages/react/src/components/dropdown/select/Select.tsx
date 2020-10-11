@@ -371,13 +371,6 @@ export const Select = <OptionType,>({
   // show placeholder if no value is selected
   const showPlaceholder = (multiselect && selectedItems.length === 0) || (!multiselect && !selectedItem);
 
-  const menuProps = getMenuProps({
-    ...(multiselect && { 'aria-multiselectable': true }),
-    ...(required && { 'aria-required': true }),
-    className: classNames(styles.menu, options.length > visibleOptions && styles.overflow),
-    style: { maxHeight: `calc(var(--menu-item-height) * ${visibleOptions})` },
-  });
-
   return (
     <div
       className={classNames(
@@ -446,13 +439,21 @@ export const Select = <OptionType,>({
             })
           }
           isOptionDisabled={isOptionDisabled}
-          menuProps={menuProps}
+          menuProps={getMenuProps({
+            ...(multiselect && { 'aria-multiselectable': true }),
+            ...(required && { 'aria-required': true }),
+            // className: classNames(styles.menu, options.length > visibleOptions && styles.overflow),
+            style: { maxHeight: `calc(var(--menu-item-height) * ${visibleOptions})` },
+          })}
+          menuStyles={styles}
           multiselect={multiselect}
           open={isOpen}
           optionLabelField={optionLabelField}
           options={options}
           selectedItem={selectedItem}
           selectedItems={selectedItems}
+          // todo: add virtualizer
+          visibleOptions={visibleOptions}
         />
       </div>
       {/* INVALID TEXT */}
