@@ -164,6 +164,7 @@ export const Combobox = <OptionType,>({
     isOpen,
     selectedItem,
     selectItem,
+    setInputValue,
     getInputProps,
     getComboboxProps,
   } = useCombobox<OptionType>({
@@ -199,6 +200,8 @@ export const Combobox = <OptionType,>({
           ...changes,
           isOpen: state.isOpen,
           highlightedIndex: state.highlightedIndex,
+          // reset input value
+          inputValue: '',
         };
       }
 
@@ -212,7 +215,14 @@ export const Combobox = <OptionType,>({
       : addSelectedItem(itemToBeSelected);
   };
 
-  const handleWrapperClick = () => focusInput();
+  const handleWrapperClick = (e) => {
+    const selectedItemsContainerEl = selectedItemsContainerRef.current;
+    const selectedItemClicked = selectedItemsContainerEl !== e.target && selectedItemsContainerEl?.contains(e.target);
+
+    if (!selectedItemClicked) {
+      focusInput();
+    }
+  };
 
   const ignoreFocusHandlerWhenClickingItem = (handler: FocusEventHandler<HTMLDivElement>) => (
     event: FocusEvent<HTMLDivElement>,
@@ -237,16 +247,18 @@ export const Combobox = <OptionType,>({
   };
 
   const handleMultiSelectInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    // todo: add Prop
+    if (e.key === 'Escape') {
+      e.stopPropagation();
+    }
+
     if (e.key === ' ') {
       // Prevent 'Space' from typing a space into the input.
-      // @ts-ignore
-      e.nativeEvent.preventDownshiftDefault = true;
+      e.preventDefault();
 
       // Only select an item if an index is highlighted
       if (highlightedIndex > -1) {
         const highlightedItem = getFilteredItems[highlightedIndex];
-        // const highlightedItem = getFilteredItems(options)[highlightedIndex];
-
         setSelectedItems(highlightedItem);
       }
     }
@@ -300,7 +312,6 @@ export const Combobox = <OptionType,>({
       }
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
       <div
-        {...getComboboxProps()}
         // When a user clicks on a combobox item, the focus on the page
         // is momentarily lost. This will cause an event to fire which
         // has its 'relatedTarget' field set as 'null'. An event like
@@ -321,6 +332,7 @@ export const Combobox = <OptionType,>({
         onBlur={ignoreFocusHandlerWhenClickingItem(handleWrapperBlur)}
         onClick={handleWrapperClick}
         className={classNames(styles.wrapper)}
+        ref={getComboboxProps().ref}
       >
         {/* SELECTED ITEMS */}
         {multiselect && selectedItems.length > 0 && (
@@ -332,7 +344,10 @@ export const Combobox = <OptionType,>({
             dropdownId={id}
             getSelectedItemProps={getSelectedItemProps}
             hideItems={!hasFocus}
-            onClear={() => reset()}
+            onClear={() => {
+              reset();
+              setInputValue('');
+            }}
             onRemove={removeSelectedItem}
             optionLabelField={optionLabelField}
             removeButtonAriaLabel={selectedItemRemoveButtonAriaLabel}
@@ -372,8 +387,13 @@ export const Combobox = <OptionType,>({
                 ref: inputRef,
               }),
             }),
+            type: 'text',
             disabled,
             required,
+            role: getComboboxProps().role,
+            'aria-expanded': getComboboxProps()['aria-expanded'],
+            'aria-haspopup': getComboboxProps()['aria-haspopup'],
+            'aria-owns': getComboboxProps()['aria-owns'],
           })}
           placeholder={placeholder}
           className={classNames(
@@ -436,6 +456,12 @@ export const Combobox = <OptionType,>({
             ...(required && { 'aria-required': true }),
             style: { maxHeight: DROPDOWN_MENU_ITEM_HEIGHT * visibleOptions },
             ref: menuRef,
+            onMouseLeave: (event) => {
+              // prevent downshift from resetting highlighted index on mouseleave
+              // @ts-ignore
+              // eslint-disable-next-line no-param-reassign
+              event.nativeEvent.preventDownshiftDefault = true;
+            },
           })}
           menuStyles={styles}
           multiselect={multiselect}
