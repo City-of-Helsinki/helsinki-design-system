@@ -1,10 +1,6 @@
 @import "../../../styles/common";
 @import "../dropdown";
 
-// TODO: FIX SAFARI STYLES
-// - INPUT HEIGHT
-// - CHECKBOX HOVER
-
 .root {
   @extend %dropdownRoot;
 }
@@ -63,7 +59,9 @@
 
   &::placeholder {
     color: var(--placeholder-color);
+    line-height: normal;
   }
+
   &:disabled::placeholder {
     color: var(--dropdown-color-disabled);
   }
@@ -83,10 +81,6 @@
 
 .menuItem {
   @extend %dropdownMenuItem;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
 }
 
 /**

@@ -687,6 +687,7 @@ export default {
 export const SelectTest = () => (
   <>
     <Select
+      virtualized
       icon={<IconFaceSmile />}
       label="Default"
       helper="Choose an element"
@@ -725,13 +726,15 @@ export const SelectMultiselectTest = () => {
   return (
     <>
       <Select
+        virtualized
         circularNavigation
         label="Choose an element"
         placeholder="Placeholder"
         options={controlledOptions}
         multiselect
+        // defaultValue={controlledOptions.slice(0, 3)}
         defaultValue={controlledOptions.slice(0, 3)}
-        // onChange={(values): void => console.log('Change', values)}
+        // onChange={(values) => console.log('onChange', values)}
         // onBlur={() => console.log('Blur')}
         // onFocus={() => console.log('Focus')}
         clearButtonAriaLabel="Clear all selections"
@@ -744,6 +747,7 @@ export const SelectMultiselectTest = () => {
         }}
       />
       <Combobox
+        virtualized
         circularNavigation
         label="Choose an element"
         placeholder="Placeholder"

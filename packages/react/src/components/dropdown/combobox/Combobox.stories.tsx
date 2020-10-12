@@ -711,6 +711,7 @@ export const ComboboxTest = () => {
       />
       <Combobox
         invalid
+        virtualized
         icon={<IconFaceSad />}
         options={controlledOptions}
         label="Element:"
@@ -760,6 +761,7 @@ export const ComboboxMultiSelectTest = () => {
     <Combobox
       options={controlledOptions}
       label="Element:"
+      virtualized
       helper="Choose an element"
       // onChange={handleChange}
       placeholder="Placeholder"

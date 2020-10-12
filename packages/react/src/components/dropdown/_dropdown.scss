@@ -179,6 +179,13 @@
     color: var(--menu-item-color-disabled);
     cursor: not-allowed;
   }
+
+  &.virtualized {
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
 }
 
 /**
@@ -257,7 +264,6 @@
       border-radius: 1px;
       box-sizing: border-box;
       color: var(--multiselect-checkbox-color-default);
-      content: '';
       height: var(--icon-size);
       margin-right: var(--spacing-xs);
       width: var(--icon-size);

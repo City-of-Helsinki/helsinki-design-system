@@ -45,8 +45,6 @@ export const DropdownMenu = ({
       {open && (
         <>
           {isVirtualized && <li key="total-size" aria-hidden style={{ height: virtualizer.totalSize }} />}
-          {/* {virtualizer.virtualItems.map((virtualRow) => { */}
-          {/* {listOptions.map((virtualRow) => { */}
           {listOptions.map((data, _index) => {
             const index = isVirtualized ? data.index : _index;
             const item = options[index];
@@ -79,7 +77,9 @@ export const DropdownMenuItem = ({ disabled, itemProps, label, menuStyles, multi
     <li {...itemProps} {...{ 'aria-selected': selected }} {...(disabled && { 'aria-disabled': true })}>
       {multiselect ? (
         <>
-          <IconCheck className={menuStyles.checkbox} aria-hidden />
+          <span className={menuStyles.checkbox} aria-hidden>
+            <IconCheck />
+          </span>
           {label}
         </>
       ) : (

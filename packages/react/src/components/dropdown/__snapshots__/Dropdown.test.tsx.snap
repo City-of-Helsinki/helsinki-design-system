@@ -18,7 +18,7 @@ exports[`<Select /> spec renders the component 1`] = `
       <button
         aria-expanded="false"
         aria-haspopup="listbox"
-        aria-labelledby="hds-select-1-toggle-button hds-select-1-helper hds-select-1-toggle-button"
+        aria-labelledby="hds-select-1-label hds-select-3-helper hds-select-1-toggle-button"
         aria-owns="hds-select-1-menu"
         class="button placeholder"
         id="hds-select-1-toggle-button"
@@ -56,7 +56,7 @@ exports[`<Select /> spec renders the component 1`] = `
     <div
       aria-hidden="true"
       class="helperText"
-      id="hds-select-1-helper"
+      id="hds-select-3-helper"
     >
       Helper
     </div>

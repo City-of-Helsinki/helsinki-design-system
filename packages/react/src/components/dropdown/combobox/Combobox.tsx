@@ -89,6 +89,7 @@ export const Combobox = <OptionType,>({
   selectedItemSrLabel,
   style,
   value,
+  virtualized = false,
   visibleOptions = 5,
   filter: userLandFilter,
 }: ComboboxProps<OptionType>) => {
@@ -146,9 +147,7 @@ export const Combobox = <OptionType,>({
     initialSelectedItems: (defaultValue as OptionType[]) ?? [],
     ...(multiselect && value !== undefined && { selectedItems: (value as OptionType[]) ?? [] }),
     getA11yRemovalMessage,
-    onSelectedItemsChange({ selectedItems: _selectedItems }) {
-      return multiselect && onChange(_selectedItems);
-    },
+    onSelectedItemsChange: ({ selectedItems: _selectedItems }) => multiselect && onChange(_selectedItems),
     onStateChange: (changes) =>
       onMultiSelectStateChange<OptionType>(changes, activeIndex, selectedItemsContainerRef.current),
     stateReducer: (state, actionAndChanges) => multiSelectReducer<OptionType>(state, actionAndChanges, controlled),
@@ -280,7 +279,14 @@ export const Combobox = <OptionType,>({
   // Input should be shown when the combobox is focused, or when it's
   // closed, but no items are selected. The input should always be
   // visible when multiselect mode is turned off.
-  const isInputVisible = !multiselect || hasFocus || (!hasFocus && selectedItems.length === 0);
+  const isInputVisible = !multiselect || isOpen || (!isOpen && selectedItems.length === 0);
+
+  // screen readers should read the labels in the following order:
+  // field label > helper text > error text > toggle button label
+  // helper and error texts should only be read if they have been defined
+  // prettier-ignore
+  const inputAriaLabel =
+    `${getLabelProps().id}${error ? ` ${id}-error` : ''}${helper ? ` ${id}-helper` : ''} ${getInputProps().id}`;
 
   return (
     <div
@@ -394,6 +400,7 @@ export const Combobox = <OptionType,>({
             'aria-expanded': getComboboxProps()['aria-expanded'],
             'aria-haspopup': getComboboxProps()['aria-haspopup'],
             'aria-owns': getComboboxProps()['aria-owns'],
+            'aria-labelledby': inputAriaLabel,
           })}
           placeholder={placeholder}
           className={classNames(
@@ -406,8 +413,6 @@ export const Combobox = <OptionType,>({
         <button
           type="button"
           {...getToggleButtonProps({
-            // todo: button label
-            // 'aria-labelledby': buttonAriaLabel,
             disabled,
             className: classNames(styles.button),
           })}
@@ -426,6 +431,7 @@ export const Combobox = <OptionType,>({
                 highlightedIndex === index && styles.highlighted,
                 selected && styles.selected,
                 optionDisabled && styles.disabled,
+                virtualized && styles.virtualized,
               ),
               onMouseDown: () => {
                 setIsClicking(true);
@@ -441,7 +447,7 @@ export const Combobox = <OptionType,>({
               onClick: () => {
                 setIsClicking(false);
               },
-              // todo: comment
+              // apply styles for virtualization to menu items
               ...(virtualRow && {
                 style: {
                   transform: `translateY(${virtualRow.start}px`,
@@ -470,7 +476,7 @@ export const Combobox = <OptionType,>({
           options={getFilteredItems}
           selectedItem={selectedItem}
           selectedItems={selectedItems}
-          virtualizer={virtualizer}
+          virtualizer={virtualized && virtualizer}
           visibleOptions={visibleOptions}
         />
       </div>

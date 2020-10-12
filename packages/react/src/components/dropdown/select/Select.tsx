@@ -1,4 +1,4 @@
-import React, { FocusEvent, useRef, useState } from 'react';
+import React, { FocusEvent, useCallback, useRef, useState } from 'react';
 import {
   useSelect,
   useMultipleSelection,
@@ -10,6 +10,7 @@ import {
 } from 'downshift';
 import isEqual from 'lodash.isequal';
 import uniqueId from 'lodash.uniqueid';
+import { useVirtual } from 'react-virtual';
 
 import 'hds-core';
 
@@ -18,7 +19,12 @@ import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 import classNames from '../../../utils/classNames';
 import { IconAlertCircle, IconAngleDown } from '../../../icons';
 import { SelectedItems } from '../../../internal/selectedItems/SelectedItems';
-import { getIsElementBlurred, getIsElementFocused, getIsInSelectedOptions } from '../dropdownUtils';
+import {
+  DROPDOWN_MENU_ITEM_HEIGHT,
+  getIsElementBlurred,
+  getIsElementFocused,
+  getIsInSelectedOptions,
+} from '../dropdownUtils';
 import { DropdownMenu } from '../dropdownMenu/DropdownMenu';
 
 export type SelectProps<OptionType> = {
@@ -73,7 +79,7 @@ export type SelectProps<OptionType> = {
   /**
    * Callback function fired when the state is changed
    */
-  onChange?: <OptionType>(selectedItem: OptionType) => void;
+  onChange?: (selected: OptionType | OptionType[]) => void;
   /**
    * Callback function fired when the component is focused
    */
@@ -103,6 +109,10 @@ export type SelectProps<OptionType> = {
    * Override or extend the root styles applied to the component
    */
   style?: React.CSSProperties;
+  /**
+   * todo
+   */
+  virtualized?: boolean;
   /**
    * Sets the number of options that are visible in the menu before it becomes scrollable
    */
@@ -202,9 +212,6 @@ export function multiSelectReducer<T>(
     // whether the removed item was last in selectedItems
     const lastItemRemoved = removedItemIndex === changes.selectedItems.length;
 
-    // todo: set correct focus when using backspace
-    // todo: set correct focus when using backspace
-
     return {
       ...changes,
       // set the new last item as active if the removed item was last,
@@ -233,7 +240,7 @@ export const Select = <OptionType,>({
   invalid = false,
   isOptionDisabled,
   label,
-  multiselect,
+  multiselect = false,
   onBlur = () => null,
   onChange = () => null,
   onFocus = () => null,
@@ -245,14 +252,24 @@ export const Select = <OptionType,>({
   selectedItemSrLabel,
   style,
   value,
+  virtualized = false,
   visibleOptions = 5,
 }: SelectProps<OptionType>) => {
   // flag for whether the component is controlled
   const controlled = multiselect && value !== undefined;
   // selected items container ref
   const selectedItemsContainerRef = useRef<HTMLDivElement>(null);
+  // menu ref
+  const menuRef = React.useRef<HTMLUListElement>();
   // whether active focus is within the dropdown
   const [hasFocus, setFocus] = useState(false);
+  // virtualize menu items to increase performance
+  const virtualizer = useVirtual<HTMLUListElement>({
+    size: options.length,
+    parentRef: menuRef,
+    estimateSize: useCallback(() => DROPDOWN_MENU_ITEM_HEIGHT, []),
+    overscan: visibleOptions,
+  });
 
   // init multi-select
   const {
@@ -274,9 +291,7 @@ export const Select = <OptionType,>({
     // set the selected items when the dropdown is controlled
     ...(controlled && { selectedItems: (value as OptionType[]) ?? [] }),
     getA11yRemovalMessage,
-    onSelectedItemsChange({ selectedItems: _selectedItems }) {
-      return multiselect && onChange(_selectedItems);
-    },
+    onSelectedItemsChange: ({ selectedItems: _selectedItems }) => multiselect && onChange(_selectedItems),
     onStateChange: (changes) =>
       onMultiSelectStateChange<OptionType>(changes, activeIndex, selectedItemsContainerRef.current),
     stateReducer: (state, actionAndChanges) => multiSelectReducer<OptionType>(state, actionAndChanges, controlled),
@@ -362,12 +377,14 @@ export const Select = <OptionType,>({
     if (multiselect) buttonLabel = selectedItems.length > 0 ? null : placeholder;
     return buttonLabel;
   };
+
   // screen readers should read the labels in the following order:
   // field label > helper text > error text > toggle button label
   // helper and error texts should only be read if they have been defined
   // prettier-ignore
   const buttonAriaLabel =
-    `${getToggleButtonProps().id}${error ? ` ${id}-error` : ''}${helper ? ` ${id}-helper` : ''} ${getToggleButtonProps().id}`;
+    `${getLabelProps().id}${error ? ` ${id}-error` : ''}${helper ? ` ${id}-helper` : ''} ${getToggleButtonProps().id}`;
+
   // show placeholder if no value is selected
   const showPlaceholder = (multiselect && selectedItems.length === 0) || (!multiselect && !selectedItem);
 
@@ -429,7 +446,7 @@ export const Select = <OptionType,>({
         </button>
         {/* MENU */}
         <DropdownMenu
-          getItemProps={(optionDisabled, index, item, selected) =>
+          getItemProps={(optionDisabled, index, item, selected, virtualRow) =>
             getItemProps({
               item,
               index,
@@ -439,15 +456,23 @@ export const Select = <OptionType,>({
                 highlightedIndex === index && styles.highlighted,
                 selected && styles.selected,
                 optionDisabled && styles.disabled,
+                virtualized && styles.virtualized,
               ),
+              // apply styles for virtualization to menu items
+              ...(virtualRow && {
+                style: {
+                  transform: `translateY(${virtualRow.start}px`,
+                },
+                ref: virtualRow.measureRef,
+              }),
             })
           }
           isOptionDisabled={isOptionDisabled}
           menuProps={getMenuProps({
             ...(multiselect && { 'aria-multiselectable': true }),
             ...(required && { 'aria-required': true }),
-            // className: classNames(styles.menu, options.length > visibleOptions && styles.overflow),
             style: { maxHeight: `calc(var(--menu-item-height) * ${visibleOptions})` },
+            ref: menuRef,
           })}
           menuStyles={styles}
           multiselect={multiselect}
@@ -456,7 +481,7 @@ export const Select = <OptionType,>({
           options={options}
           selectedItem={selectedItem}
           selectedItems={selectedItems}
-          // todo: add virtualizer
+          virtualizer={virtualized && virtualizer}
           visibleOptions={visibleOptions}
         />
       </div>
