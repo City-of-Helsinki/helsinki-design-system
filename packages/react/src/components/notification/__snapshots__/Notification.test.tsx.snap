@@ -2,41 +2,46 @@
 
 exports[`<Notification /> spec renders the component 1`] = `
 <DocumentFragment>
-  <div
+  <section
     aria-atomic="true"
-    aria-live="polite"
+    aria-label="Notification"
     class="inline notification default info"
-    role="status"
   >
     <div
-      class="label"
+      class="content"
+      role="alert"
     >
-      <svg
-        class="icon s icon"
-        role="img"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
+      <div
+        class="label"
+        role="heading"
       >
-        <g
-          fill="none"
-          fill-rule="evenodd"
+        <svg
+          class="icon s icon"
+          role="img"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <path
-            d="M0 0h24v24H0z"
-          />
-          <path
-            d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 2a8 8 0 100 16 8 8 0 000-16zm1 6v6.5h2V18H9v-1.5h2v-5H9V10h4zm-1.187-4a1.312 1.312 0 110 2.625 1.312 1.312 0 010-2.625z"
-            fill="currentColor"
-          />
-        </g>
-      </svg>
-      This is the label text
+          <g
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <path
+              d="M0 0h24v24H0z"
+            />
+            <path
+              d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 2a8 8 0 100 16 8 8 0 000-16zm1 6v6.5h2V18H9v-1.5h2v-5H9V10h4zm-1.187-4a1.312 1.312 0 110 2.625 1.312 1.312 0 010-2.625z"
+              fill="currentColor"
+            />
+          </g>
+        </svg>
+        This is the label text
+      </div>
+      <div
+        class="body"
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+      </div>
     </div>
-    <div
-      class="body"
-    >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
-    </div>
-  </div>
+  </section>
 </DocumentFragment>
 `;

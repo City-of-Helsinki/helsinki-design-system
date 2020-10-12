@@ -16,7 +16,7 @@ const iconMapping = {
 const getLabel = (type = 'info') => {
   const label = type[0].toUpperCase() + type.substring(1);
   return `
-    <div class="hds-notification__label">
+    <div class="hds-notification__label" role="heading">
       <span class="hds-icon hds-icon--${iconMapping[type]}" aria-hidden="true"></span>
       <span>${label}</span>
     </div>`;
@@ -39,31 +39,39 @@ export default {
 };
 
 export const Default = () => `
-    <div class="hds-notification">
-      ${getLabel()}
-      ${text}
-    </div>
+    <section aria-label="Notification" class="hds-notification">
+      <div role="alert" class="hds-notification__content">
+        ${getLabel()}
+        ${text}
+      </div>
+    </section>
 `;
 
 export const Success = () => `
-    <div class="hds-notification hds-notification--success">
-      ${getLabel('success')}
-      ${text}
-    </div>
+    <section aria-label="Notification" class="hds-notification hds-notification--success">
+      <div role="alert" class="hds-notification__content">
+        ${getLabel('success')}
+        ${text}
+      </div>
+    </section>
 `;
 
 export const Alert = () => `
-    <div class="hds-notification hds-notification--alert">
-      ${getLabel('alert')}
-      ${text}
-    </div>
+    <section aria-label="Notification" class="hds-notification hds-notification--alert">
+      <div role="alert" class="hds-notification__content">
+        ${getLabel('alert')}
+        ${text}
+      </div>
+    </section>
 `;
 
 export const Error = () => `
-    <div class="hds-notification hds-notification--error">
-      ${getLabel('error')}
-      ${text}
-    </div>
+    <section aria-label="Notification" class="hds-notification hds-notification--error">
+      <div role="alert" class="hds-notification__content">
+        ${getLabel('error')}
+        ${text}
+      </div>
+    </section>
 `;
 
 export const Toast = () =>
@@ -71,10 +79,12 @@ export const Toast = () =>
     .map(
       (position) =>
         `
-        <div class="hds-notification hds-notification--${position}">
-          ${getLabel()}
-          ${position}
-        </div>
+        <section aria-label="Notification" class="hds-notification hds-notification--${position}">
+          <div role="alert" class="hds-notification__content">
+            ${getLabel()}
+            ${position}
+          </div>
+        </section>
     `,
     )
     .join('');
@@ -84,12 +94,16 @@ export const Small = () =>
     .map(
       (type) =>
         `
-        <div class="hds-notification hds-notification--small ${type ? `hds-notification--${type}` : ''}">
-          <div class="hds-notification__label">
-            <span class="hds-icon hds-icon--${iconMapping[type]}" aria-hidden="true"></span>
+        <section aria-label="Notification" class="hds-notification hds-notification--small ${
+          type ? `hds-notification--${type}` : ''
+        }">
+          <div role="alert" class="hds-notification__content">
+            <div class="hds-notification__label">
+              <span class="hds-icon hds-icon--${iconMapping[type]}" aria-hidden="true"></span>
+            </div>
+            <div class="hds-notification__body">${type[0].toUpperCase() + type.substring(1)}</div>
           </div>
-          <div class="hds-notification__body">${type[0].toUpperCase() + type.substring(1)}</div>
-        </div>
+        </section>
     `,
     )
     .join('');
@@ -99,42 +113,54 @@ export const Large = () =>
     .map(
       (type) =>
         `
-        <div class="hds-notification hds-notification--large ${type ? `hds-notification--${type}` : ''}">
-          ${getLabel(type)}
-          ${text}
-        </div>
+        <section aria-label="Notification" class="hds-notification hds-notification--large ${
+          type ? `hds-notification--${type}` : ''
+        }">
+          <div role="alert" class="hds-notification__content">
+            ${getLabel(type)}
+            ${text}
+          </div>
+        </section>
     `,
     )
     .join('');
 
 export const Invisible = () => `
     <div class="hiddenFromScreen" aria-atomic="true" aria-live="assertive" role="status">
-        <div class="hds-notification">
+      <section aria-label="Notification" class="hds-notification">
+        <div role="alert" class="hds-notification__content">
           ${getLabel()}
           This notification is only visible to screen readers
         </div>
+      </section>
     </div>
 `;
 
 export const WithClose = () => `
-    <div class="hds-notification">
-      ${getLabel('info')}
-      ${text}
-      ${closeButton}
-    </div>
-    <br>
-    <div class="hds-notification hds-notification--small">
-      <div class="hds-notification__label">
-        <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+    <section aria-label="Notification" class="hds-notification">
+      <div role="alert" class="hds-notification__content">
+        ${getLabel('info')}
+        ${text}
       </div>
-      <div class="hds-notification__body">Info</div>
       ${closeButton}
-    </div>
+    </section>
     <br>
-    <div class="hds-notification hds-notification--large">
-      ${getLabel('info')}
-      ${text}
+    <section aria-label="Notification" class="hds-notification hds-notification--small">
+      <div role="alert" class="hds-notification__content">
+        <div class="hds-notification__label">
+          <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+        </div>
+        <div class="hds-notification__body">Info</div>
+      </div>
       ${closeButton}
-    </div>
+    </section>
+    <br>
+    <section aria-label="Notification" class="hds-notification hds-notification--large">
+      <div role="alert" class="hds-notification__content">
+        ${getLabel('info')}
+        ${text}
+      </div>
+      ${closeButton}
+    </section>
 `;
 WithClose.storyName = 'With close button';
