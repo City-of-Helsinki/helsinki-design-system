@@ -15,8 +15,4 @@ export const NavigationWrapper = ({ children }: PropsWithChildren<{}>) => (
   </Navigation>
 );
 
-export const FooterWrapper = ({ children }: PropsWithChildren<{}>) => (
-  <Footer footerAriaLabel="Foo" title="Bar">
-    {children}
-  </Footer>
-);
+export const FooterWrapper = ({ children }: PropsWithChildren<{}>) => <Footer title="Bar">{children}</Footer>;

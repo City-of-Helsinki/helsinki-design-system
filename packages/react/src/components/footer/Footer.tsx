@@ -23,10 +23,6 @@ export type FooterProps = React.PropsWithChildren<{
    */
   className?: string;
   /**
-   * The aria-label for the `<footer>` element. Describes the footer to screen reader users.
-   */
-  footerAriaLabel: string;
-  /**
    * Props that will be passed to the native `<footer>` element
    */
   footerProps?: React.ComponentPropsWithoutRef<'footer'>;
@@ -60,7 +56,6 @@ const reducer = (state: FooterReducerState, action: FooterReducerAction): Footer
 export const Footer = ({
   children,
   className,
-  footerAriaLabel,
   footerProps,
   korosType = 'basic',
   theme = 'light',
@@ -84,7 +79,6 @@ export const Footer = ({
     <FooterContext.Provider value={context}>
       <footer
         {...footerProps}
-        aria-label={footerAriaLabel}
         className={classNames(
           styles.footer,
           styles[`koros-${korosType}`],
@@ -95,8 +89,8 @@ export const Footer = ({
         <Koros className={classNames(styles.koros, styles[korosType])} type={korosType} />
         <section className={classNames(styles.navigationContainer, styles[navigationVariant])}>
           <div className={styles.titleWrapper}>
-            <Logo size="medium" />
-            {title && <span className={styles.title}>{title}</span>}
+            <Logo size="medium" aria-hidden />
+            {title && <h2 className={styles.title}>{title}</h2>}
           </div>
           {navigation}
         </section>

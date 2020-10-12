@@ -11,7 +11,7 @@ export type FooterNavigationProps = React.PropsWithChildren<{
   /**
    * The aria-label for the `<nav>` element. Describes the navigation to screen reader users.
    */
-  navigationAriaLabel: string;
+  navigationAriaLabel?: string;
   /**
    * Defines how the navigation items will be displayed in the footer
    *

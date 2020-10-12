@@ -83,6 +83,7 @@ $koros-heights: (
 }
 
 .title {
+  font-size: var(--fontsize-heading-xxs);
   font-weight: bold;
 }
 
@@ -118,7 +119,8 @@ $koros-heights: (
 
 @media x-large-up {
   // set max-width of footer sections
-  .footer > section {
+  .footer > section,
+  .footer > div:not(:first-child) {
     margin: 0 auto;
     max-width: var(--container-width-xl);
   }

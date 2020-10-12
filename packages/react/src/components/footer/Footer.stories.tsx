@@ -9,7 +9,6 @@ import { FooterUtilities } from './footerUtilities/FooterUtilities';
 import { FooterSoMe } from './footerSoMe/FooterSoMe';
 import { FooterBase } from './footerBase/FooterBase';
 
-const footerAriaLabel = 'Helsinki Design System';
 const footerNavAriaLabel = 'Footer navigation items';
 const createArray = (length: number): number[] => Array.from({ length }, (value, index) => index);
 
@@ -43,7 +42,7 @@ const Utilities = () => (
       <Footer.Item title="Link to Tiktok" aria-label="Link to Tiktok" icon={<IconTiktok />} href="https://tiktok.com" />
     </Footer.SoMe>
     <Footer.Item href="https://google.com" onClick={(e) => e.preventDefault()} label="Contact us" />
-    <Footer.Item as="button" type="button" label="Give feedback" />
+    <Footer.Item href="https://google.com" onClick={(e) => e.preventDefault()} label="Give feedback" />
   </Footer.Utilities>
 );
 
@@ -79,7 +78,7 @@ export default {
 };
 
 export const Default = (args) => (
-  <Footer footerAriaLabel={footerAriaLabel} {...args}>
+  <Footer {...args}>
     <Footer.Navigation navigationAriaLabel={footerNavAriaLabel}>
       {createArray(8).map((index) => (
         <Footer.Item key={index} href="https://google.com" onClick={(e) => e.preventDefault()} label="Nav item" />
@@ -91,7 +90,7 @@ export const Default = (args) => (
 );
 
 export const Minimal = (args) => (
-  <Footer footerAriaLabel={footerAriaLabel} {...args}>
+  <Footer {...args}>
     <Footer.Navigation navigationAriaLabel={footerNavAriaLabel} variant="minimal">
       {createArray(4).map((index) => (
         <Footer.Item key={index} href="https://google.com" onClick={(e) => e.preventDefault()} label="Nav item" />
@@ -103,7 +102,7 @@ export const Minimal = (args) => (
 );
 
 export const NoNav = (args) => (
-  <Footer footerAriaLabel={footerAriaLabel} {...args}>
+  <Footer {...args}>
     <Utilities />
     <Base />
   </Footer>
@@ -111,7 +110,7 @@ export const NoNav = (args) => (
 NoNav.storyName = 'No navigation';
 
 export const CustomTheme = (args) => (
-  <Footer footerAriaLabel={footerAriaLabel} {...args}>
+  <Footer {...args}>
     <Footer.Navigation navigationAriaLabel={footerNavAriaLabel}>
       {createArray(8).map((index) => (
         <Footer.Item key={index} href="https://google.com" onClick={(e) => e.preventDefault()} label="Nav item" />
@@ -139,7 +138,7 @@ CustomTheme.argTypes = {
 };
 
 export const Sitemap = (args) => (
-  <Footer footerAriaLabel={footerAriaLabel} {...args}>
+  <Footer {...args}>
     <Footer.Navigation navigationAriaLabel={footerNavAriaLabel} variant="sitemap">
       {createArray(4).map((index) => (
         <Footer.ItemGroup key={index}>
@@ -175,7 +174,7 @@ export const Example = (args) => (
       <Footer.Item href="https://reittiopas.fi/" label="Reittiopas" />
     </Footer.Navigation>
     <Footer.Utilities backToTopLabel="Sivun alkuun">
-      <Footer.SoMe>
+      <Footer.SoMe soMeSectionProps={{ 'aria-label': 'Helsinki sosiaalisessa mediassa' }}>
         <Footer.Item
           title="Helsingin kaupungin Facebook-tili"
           aria-label="Helsingin kaupungin Facebook-tili"
@@ -229,6 +228,3 @@ export const Example = (args) => (
     </Footer.Base>
   </Footer>
 );
-Example.args = {
-  footerAriaLabel: 'Helsingin kaupungin palvelun alatunniste',
-};

@@ -3,7 +3,6 @@
 exports[`<Footer.ItemGroup /> spec renders the component 1`] = `
 <DocumentFragment>
   <footer
-    aria-label="Foo"
     class="footer koros-basic theme-light"
   >
     <div
@@ -44,7 +43,9 @@ exports[`<Footer.ItemGroup /> spec renders the component 1`] = `
         class="titleWrapper"
       >
         <svg
+          aria-hidden="true"
           class="logo medium"
+          role="img"
           viewBox="0 0 78 36"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -57,11 +58,11 @@ exports[`<Footer.ItemGroup /> spec renders the component 1`] = `
             fill="currentColor"
           />
         </svg>
-        <span
+        <h2
           class="title"
         >
           Bar
-        </span>
+        </h2>
       </div>
     </section>
     <div

@@ -19,8 +19,8 @@ export const FooterBase = ({ children, copyrightHolder, copyrightText }: FooterB
   const year = new Date().getFullYear();
 
   return (
-    <section className={styles.base}>
-      <hr className={styles.divider} />
+    <div className={styles.base}>
+      <hr className={styles.divider} aria-hidden />
       <div className={styles.copyright}>
         <span className={styles.copyrightHolder}>
           © {copyrightHolder} {year}
@@ -33,6 +33,6 @@ export const FooterBase = ({ children, copyrightHolder, copyrightText }: FooterB
         )}
       </div>
       {children && <div className={styles.links}>{children}</div>}
-    </section>
+    </div>
   );
 };

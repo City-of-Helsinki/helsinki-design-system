@@ -42,14 +42,15 @@ export const FooterUtilities = ({
   const [soMeGroup, childrenWithoutSoMeGroup] = getComponentFromChildren(children, 'FooterSoMe');
 
   return (
-    <section className={styles.utilities}>
-      <hr className={styles.divider} />
+    <div className={styles.utilities}>
+      <hr className={styles.divider} aria-hidden />
       {soMeGroup}
       <div className={styles.links}>
         {childrenWithoutSoMeGroup}
         {showBackToTopButton && (
           <button
             type="button"
+            role="link"
             className={styles.backToTopButton}
             onClick={(e) => (typeof onBackToTopClick === 'function' ? onBackToTopClick(e) : handleBackToTop())}
           >
@@ -58,6 +59,6 @@ export const FooterUtilities = ({
           </button>
         )}
       </div>
-    </section>
+    </div>
   );
 };
