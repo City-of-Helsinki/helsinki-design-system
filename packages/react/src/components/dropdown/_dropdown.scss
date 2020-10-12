@@ -56,7 +56,7 @@
 
   &.open {
     .angleIcon {
-      transform: translateY(2px) rotateX(180deg);
+      transform: rotateX(180deg);
     }
 
     .menu {
@@ -94,32 +94,6 @@
 }
 
 /**
- * BUTTON
- */
-
-// TODO: USE BUTTON RESET PLACEHOLDER CLASS WHEN FOOTER IS MERGED
-%dropdownToggleButton {
-  background: none;
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  font: inherit;
-  padding: 0;
-
-  align-items: center;
-  color: var(--dropdown-color-default);
-  display: flex;
-  font-size: var(--fontsize-body-l);
-  outline: none;
-  padding: calc(var(--spacing-s) - var(--border-width) * 2) var(--spacing-s);
-  width: 100%;
-
-  &.placeholder {
-    color: var(--placeholder-color);
-  }
-}
-
-/**
  * ICON
  */
 
@@ -152,6 +126,7 @@
   border-width: var(--divider-width) var(--border-width) var(--border-width);
   bottom: 0;
   display: none;
+  left: 0;
   list-style: none;
   margin: 0;
   outline: none;
@@ -179,7 +154,6 @@
   display: flex;
   font-size: var(--fontsize-body-l);
   justify-content: space-between;
-  //line-height: 1.333;
   line-height: var(--lineheight-m);
   min-height: var(--menu-item-height);
   padding: var(--spacing-xs) var(--spacing-s);
@@ -268,19 +242,6 @@
  */
 
 %dropdownMultiselect {
-  .button {
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 0;
-
-    &:focus .angleIcon {
-      @extend %dropdownFocusOutline;
-    }
-  }
-
   .menuItem {
     justify-content: flex-start;
 

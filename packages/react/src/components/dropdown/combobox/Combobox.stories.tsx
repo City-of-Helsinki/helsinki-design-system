@@ -3,6 +3,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 
 import { Combobox } from './Combobox';
+import { IconFaceNeutral, IconFaceSad, IconFaceSmile } from '../../../icons';
 
 const testOptions = [
   {
@@ -693,6 +694,41 @@ export const ComboboxTest = () => {
   return (
     <>
       <Combobox
+        options={controlledOptions}
+        required
+        icon={<IconFaceSmile />}
+        label="Element:"
+        helper="Choose an element"
+        onChange={handleChange}
+        placeholder="Placeholder"
+        value={selectedItem}
+        style={{ marginTop: 'var(--spacing-s)' }}
+        clearButtonAriaLabel="Clear all selections"
+        selectedItemRemoveButtonAriaLabel="Remove item {value}"
+        selectedItemSrLabel="Selected item {value}"
+        onFocus={action('onFocus')}
+        onBlur={action('onBlur')}
+      />
+      <Combobox
+        invalid
+        icon={<IconFaceSad />}
+        options={controlledOptions}
+        label="Element:"
+        helper="Choose an element"
+        onChange={handleChange}
+        placeholder="Placeholder"
+        value={selectedItem}
+        style={{ marginTop: 'var(--spacing-s)' }}
+        clearButtonAriaLabel="Clear all selections"
+        selectedItemRemoveButtonAriaLabel="Remove item {value}"
+        selectedItemSrLabel="Selected item {value}"
+        onFocus={action('onFocus')}
+        onBlur={action('onBlur')}
+        error="Wrong element!"
+      />
+      <Combobox
+        disabled
+        icon={<IconFaceNeutral />}
         options={controlledOptions}
         label="Element:"
         helper="Choose an element"

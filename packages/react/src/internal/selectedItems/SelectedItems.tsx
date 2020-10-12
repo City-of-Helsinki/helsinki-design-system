@@ -14,6 +14,10 @@ type SelectedItemsProps<OptionType> = {
    */
   activeIndex: number;
   /**
+   * Additional class names to apply to the root element
+   */
+  className?: string;
+  /**
    * Flag for whether the clear selections button should be displayed
    */
   clearable?: boolean;
@@ -144,6 +148,7 @@ const handleItemHiding = (
 
 export const SelectedItems = <OptionType,>({
   activeIndex,
+  className,
   clearable = true,
   clearButtonAriaLabel,
   dropdownId,
@@ -191,7 +196,7 @@ export const SelectedItems = <OptionType,>({
     <>
       <div
         ref={mergeRefs<HTMLDivElement>([ref, selectedItemsContainerRef])}
-        className={classNames(styles.selectedItems, hideItems && styles.itemsHidden)}
+        className={classNames(styles.selectedItems, hideItems && styles.itemsHidden, className)}
       >
         {selectedItems.map((_selectedItem, index) => {
           const selectedItemLabel = _selectedItem[optionLabelField];

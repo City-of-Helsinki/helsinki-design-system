@@ -419,7 +419,11 @@ export const Select = <OptionType,>({
           })}
         >
           {/* icons are only supported by single selects */}
-          {icon && !multiselect && <span className={styles.icon}>{icon}</span>}
+          {icon && !multiselect && (
+            <span className={styles.icon} aria-hidden>
+              {icon}
+            </span>
+          )}
           {getButtonLabel()}
           <IconAngleDown className={styles.angleIcon} />
         </button>
@@ -458,14 +462,14 @@ export const Select = <OptionType,>({
       </div>
       {/* INVALID TEXT */}
       {invalid && error && (
-        <div id={`${id}-error`} className={styles.errorText} aria-hidden="true">
+        <div id={`${id}-error`} className={styles.errorText} aria-hidden>
           <IconAlertCircle className={styles.invalidIcon} />
           {error}
         </div>
       )}
       {/* HELPER TEXT */}
       {helper && (
-        <div id={`${id}-helper`} className={styles.helperText} aria-hidden="true">
+        <div id={`${id}-helper`} className={styles.helperText} aria-hidden>
           {helper}
         </div>
       )}

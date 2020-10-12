@@ -1,8 +1,18 @@
 // todo: test theming. selected icon, checkbox etc.
 @import "../dropdown";
 
+// TODO: FIX SAFARI STYLES
+// - INPUT HEIGHT
+// - CHECKBOX HOVER
+
 .root {
   @extend %dropdownRoot;
+
+  &.open {
+    .angleIcon {
+      transform: translateY(2px) rotateX(180deg);
+    }
+  }
 }
 
 /**
@@ -14,33 +24,33 @@
 }
 
 /**
- * BUTTON
+ * TOGGLE BUTTON
  */
 
 // TODO: USE BUTTON RESET PLACEHOLDER CLASS WHEN FOOTER IS MERGED
 .button {
-  @extend %dropdownToggleButton;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+
+  align-items: center;
+  color: var(--dropdown-color-default);
+  display: flex;
+  font-size: var(--fontsize-body-l);
+  outline: none;
+  padding: calc(var(--spacing-s) - var(--border-width) * 2) var(--spacing-s);
+  width: 100%;
+
+  &.placeholder {
+    color: var(--placeholder-color);
+  }
+  &.placeholder:disabled {
+    color: var(--dropdown-color-disabled);
+  }
 }
-//.button {
-//  background: none;
-//  border: none;
-//  color: inherit;
-//  cursor: pointer;
-//  font: inherit;
-//  padding: 0;
-//
-//  align-items: center;
-//  color: var(--dropdown-color-default);
-//  display: flex;
-//  font-size: var(--fontsize-body-l);
-//  outline: none;
-//  padding: calc(var(--spacing-s) - var(--border-width) * 2) var(--spacing-s);
-//  width: 100%;
-//
-//  &.placeholder {
-//    color: var(--placeholder-color);
-//  }
-//}
 
 /**
  * ICON
@@ -104,4 +114,17 @@
 
 .multiselect {
   @extend %dropdownMultiselect;
+
+  .button {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+
+    &:focus:not(:active) .angleIcon {
+      @extend %dropdownFocusOutline;
+    }
+  }
 }

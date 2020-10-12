@@ -21,6 +21,8 @@ export type DropdownMenuProps = {
   visibleOptions: any;
 };
 
+// todo: typing
+// todo: make generic
 export const DropdownMenu = ({
   getItemProps,
   isOptionDisabled,
@@ -71,6 +73,7 @@ export const DropdownMenu = ({
   );
 };
 
+// todo: typing
 export const DropdownMenuItem = ({ disabled, itemProps, label, menuStyles, multiselect, selected }) => {
   return (
     <li {...itemProps} {...{ 'aria-selected': selected }} {...(disabled && { 'aria-disabled': true })}>
