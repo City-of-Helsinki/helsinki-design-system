@@ -1,18 +1,10 @@
+@import "../../styles/common";
+
 .tag {
   composes: hds-tag from 'hds-core/lib/components/tag/tag.css';
 }
 
-// TODO: USE BUTTON RESET PLACEHOLDER CLASS WHEN FOOTER IS MERGED
 .deleteButton {
-  background: none;
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  font: inherit;
-  padding: 0;
-}
-
-.deleteButton {
+  @extend %buttonReset;
   composes: hds-tag__delete-button from 'hds-core/lib/components/tag/tag.css';
 }
-

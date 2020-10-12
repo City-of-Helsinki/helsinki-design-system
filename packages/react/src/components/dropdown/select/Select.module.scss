@@ -1,9 +1,10 @@
-// todo: test theming. selected icon, checkbox etc.
+@import "../../../styles/common";
 @import "../dropdown";
 
 // TODO: FIX SAFARI STYLES
 // - INPUT HEIGHT
 // - CHECKBOX HOVER
+// todo: test theming. selected icon, checkbox etc.
 
 .root {
   @extend %dropdownRoot;
@@ -27,15 +28,8 @@
  * TOGGLE BUTTON
  */
 
-// TODO: USE BUTTON RESET PLACEHOLDER CLASS WHEN FOOTER IS MERGED
 .button {
-  background: none;
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  font: inherit;
-  padding: 0;
-
+  @extend %buttonReset;
   align-items: center;
   color: var(--dropdown-color-default);
   display: flex;

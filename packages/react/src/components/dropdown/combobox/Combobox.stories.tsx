@@ -764,6 +764,7 @@ export const ComboboxMultiSelectTest = () => {
       // onChange={handleChange}
       placeholder="Placeholder"
       // value={selectedItems}
+      defaultValue={controlledOptions.slice(0, 3)}
       style={{ marginTop: 'var(--spacing-s)' }}
       multiselect
       clearButtonAriaLabel="Clear all selections"

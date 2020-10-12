@@ -1,3 +1,4 @@
+@import "../../../styles/common";
 @import "../dropdown";
 
 // TODO: FIX SAFARI STYLES
@@ -23,17 +24,11 @@
  */
 
 .button {
-  background: none;
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  font: inherit;
-  padding: 0;
-
+  @extend %buttonReset;
   @extend %dropdownAngleIcon;
-    color: var(--dropdown-color-default);
-    outline: none;
-    display: flex;
+  color: var(--dropdown-color-default);
+  outline: none;
+  display: flex;
 }
 
 .icon {
@@ -62,16 +57,8 @@
     padding-left: var(--spacing-s);
   }
 
-  // todo: use helper class
   &:not(:focus).hidden {
-    border: 0;
-    clip: "rect(0 0 0 0)";
-    height: 1px;
-    width: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    position: absolute;
+    @extend %hiddenFromScreen;
   }
 
   &::placeholder {
