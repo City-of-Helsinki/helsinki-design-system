@@ -1,0 +1,9 @@
+.soMe {
+  display: grid;
+  gap: var(--spacing-xs);
+  grid-auto-flow: column;
+
+  > * {
+    align-self: center;
+  }
+}

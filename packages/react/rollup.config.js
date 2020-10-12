@@ -70,6 +70,7 @@ export default [
       'components/Checkbox/index': 'src/components/checkbox/index.ts',
       'components/Columns/index': 'src/components/columns/index.ts',
       'components/Dropdown/index': 'src/components/dropdown/index.ts',
+      'components/Footer/index': 'src/components/footer/index.ts',
       'components/ImageWithCard/index': 'src/components/imageWithCard/index.ts',
       'components/Koros/index': 'src/components/koros/index.ts',
       'components/Logo/index': 'src/components/logo/index.ts',

@@ -3,13 +3,7 @@ import React, { useContext } from 'react';
 import classNames from '../../../utils/classNames';
 import styles from './NavigationItem.module.css';
 import { NavigationContext } from '../NavigationContext';
-
-// utility type
-type MergeElementProps<T extends React.ElementType, P extends object = {}> = Omit<
-  React.ComponentPropsWithoutRef<T>,
-  keyof P
-> &
-  P;
+import { MergeElementProps } from '../../../common/types';
 
 type ItemProps = {
   /**

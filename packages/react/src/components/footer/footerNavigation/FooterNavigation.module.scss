@@ -1,0 +1,87 @@
+@value small-only, small-down, medium-only, medium-up, large-only, large-up, x-large-up from "../../../styles/breakpoints.css";
+@import "../common";
+
+.navigation {
+  display: grid;
+  gap: var(--spacing-xs) var(--spacing-m);
+  justify-items: center;
+
+  > * {
+    line-height: var(--lineheight-m);
+  }
+
+  &.sitemap {
+    align-items: start;
+    justify-items: start;
+    gap: var(--spacing-l) var(--spacing-m);
+  }
+}
+
+@media small-only {
+  .navigation:not(.minimal):not(.sitemap) {
+    @include gridColumns(3)
+  }
+
+  .navigation.sitemap {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+
+@media small-down {
+  .navigation {
+    justify-content: center;
+    margin-top: var(--spacing-m);
+  }
+}
+
+@media medium-only {
+  .navigation {
+    margin-top: var(--spacing-m);
+
+    &.sitemap {
+      grid-template-columns: repeat(3, auto);
+    }
+  }
+}
+
+@media medium-up {
+  .navigation.minimal {
+    grid-auto-flow: column;
+    justify-content: start;
+  }
+
+  .navigation:not(.minimal):not(.sitemap) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    margin: var(--spacing-xs) 0 0 calc(var(--spacing-m) * -1);
+
+    > * {
+      margin: var(--spacing-xs) 0 0 var(--spacing-m);
+    }
+  }
+}
+
+@media large-only {
+  .navigation.sitemap {
+    grid-template-columns: repeat(4, auto);
+  }
+}
+
+@media large-up {
+  .navigation {
+    &:not(.minimal) {
+      margin-top: var(--spacing-m);
+    }
+
+    &.minimal {
+      margin-left: auto;
+    }
+  }
+}
+
+@media x-large-up {
+  .navigation.sitemap {
+    grid-template-columns: repeat(5, auto);
+  }
+}

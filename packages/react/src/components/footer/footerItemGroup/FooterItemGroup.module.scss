@@ -1,0 +1,14 @@
+.itemGroup {
+  display: grid;
+  gap: var(--spacing-3-xs);
+  justify-items: start;
+
+  h3 {
+    font-size: var(--fontsize-heading-xxs);
+    margin: 0;
+  }
+
+  > * {
+    line-height: var(--lineheight-m);
+  }
+}

@@ -13,6 +13,9 @@ const content =
 export default {
   component: Notification,
   title: 'Components/Notification',
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
 };
 
