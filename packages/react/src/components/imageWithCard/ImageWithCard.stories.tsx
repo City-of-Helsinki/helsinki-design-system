@@ -21,6 +21,7 @@ export default {
   title: 'Components/ImageWithCard',
   decorators: [withKnobs],
   parameters: {
+    controls: { hideNoControlsWarning: true },
     layout: 'fullscreen',
     docs: {
       page: () => (

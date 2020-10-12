@@ -4,6 +4,7 @@ exports[`<Logo /> spec renders the component 1`] = `
 <DocumentFragment>
   <svg
     class="logo"
+    role="img"
     viewBox="0 0 78 36"
     xmlns="http://www.w3.org/2000/svg"
   >

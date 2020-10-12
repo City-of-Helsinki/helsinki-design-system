@@ -1,0 +1,349 @@
+---
+name: Footer
+menu: Components
+route: /components/footer
+---
+
+import { Playground } from "docz";
+import { Footer, IconFacebook, IconInstagram, IconTiktok, IconTwitter, IconYoutube, StatusLabel } from "hds-react";
+
+import ColorBox from "../../src/components/ColorBox";
+import Text from "../../src/components/Text";
+import LargeParagraph from "../../src/components/LargeParagraph";
+
+# Footer
+
+<StatusLabel>New</StatusLabel>
+<StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel>
+
+<LargeParagraph>
+    The Footer component is located at the bottom of the page below the main body content. It provides a place for secondary navigation, site wide actions and additional information.
+</LargeParagraph>
+
+Footer stays consistent throughout the site and is often the place where users scroll to if they feel lost or don't find what they are looking for. It's a good place provide the user an additional way to navigate the service and to information that is hard to find through primary navigation, for example contact info, copyright and legal statements. The footer can also be used to engage the user with actions and links to social media.
+
+## Principles
+
+- **It is strongly recommended to always include the footer component in your service and on every page of the service.**
+- Always position the footer to the bottom of the page.
+- Footer component is built to follow HDS [breakpoint tokens](/design-tokens/breakpoints). While it is recommended to follow HDS breakpoint tokens, you may alter footer width to fit your service's needs.
+- Keep the order of footer sections (navigation, utility, base) and actions consistent. Do not change the default order without a good reason.
+- The footer navigation should follow the same structure and labelling as the primary navigation. All top level pages included in the primary navigation should also be visible in footer navigation.  
+- If sub-pages are included in footer, they should also follow the same structure and labelling as in the primary navigation. All same level sub-pages should be visible.
+
+## Accessibility
+
+- HDS Footer is designed to support many different brand colours. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
+- **When designing the footer link hierarchy, always think about keyboard and screen reader users.** Remember that keyboard users need to manually navigate to each element.
+
+## Usage and variations
+The Footer consists of three sections: navigation, utility and base. Each section is customisable to fit the needs of the service. **It is recommended that the footer includes at least navigation and base sections.** The Utility section can be omitted entirely if not needed. Parts of the sections can also be hidden.
+- **Navigation section** contains the Helsinki framed logo, the name of the service and footer navigation. Navigation section variations for more information about customising the footer navigation.
+- **Utility section** contains links and actions not listed in main navigation. For example social media icons, and links to contact info, feedback, or back to top.
+- **Base section** is used for supplementary information, For example copyright information and links to other meta information e.g. accessibility statement, privacy policy, terms of use, etc.
+
+The background colour and koro can also be customised.
+
+### Default
+The default footer uses the black text colour variant and includes all three sections. 
+- The navigation section shows the Helsinki framed logo, service name and navigation. Navigation is optimised for up to eight menu items. 
+- Utility section is optimised to display up to five social media icons and three action links. An icon can be added to action links.
+- Base section includes text field for copyright or other meta information and is optimised for up to five supplementary links, depending on link length.
+
+<Playground>
+  <Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+    </Footer.Navigation>
+    <Footer.Utilities backToTopLabel="Back to top">
+        <Footer.SoMe>
+          <Footer.Item icon={<IconFacebook />} />
+          <Footer.Item icon={<IconTwitter />} />
+          <Footer.Item icon={<IconInstagram />} />
+          <Footer.Item icon={<IconYoutube />} />
+          <Footer.Item icon={<IconTiktok />} />
+        </Footer.SoMe>
+        <Footer.Item label="Contact us" />
+        <Footer.Item label="Give feedback" />
+      </Footer.Utilities>
+      <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+        <Footer.Item label="Link" />
+        <Footer.Item label="Link" />
+        <Footer.Item label="Link" />
+        <Footer.Item label="Link" />
+        <Footer.Item label="Link" />
+      </Footer.Base>
+  </Footer>
+</Playground>
+
+##### React:
+```tsx
+<Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
+  <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+  </Footer.Navigation>
+  <br />
+  <Footer.Utilities backToTopLabel="Back to top">
+      <Footer.SoMe>
+        <Footer.Item icon={<IconFacebook />} />
+        <Footer.Item icon={<IconTwitter />} />
+        <Footer.Item icon={<IconInstagram />} />
+        <Footer.Item icon={<IconYoutube />} />
+        <Footer.Item icon={<IconTiktok />} />
+      </Footer.SoMe>
+      <Footer.Item label="Contact us" />
+      <Footer.Item label="Give feedback" />
+    </Footer.Utilities>
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+    </Footer.Base>
+</Footer>
+```
+
+
+### Color variations
+HDS Footer offers two variations optimised to be used with different background colours - with white text and with black text. Use the variation that achieves the best contrast between the text elements and the background colour of your choice.
+
+<Playground>
+  <Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+    </Footer.Navigation>
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+    </Footer.Base>
+  </Footer>
+  <br />
+  <Footer title="Helsinki Design System" theme="dark" footerAriaLabel="HDS Footer">
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+    </Footer.Navigation>
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+    </Footer.Base>
+  </Footer>
+</Playground>
+
+##### React:
+```tsx
+{/* Light (default) */}
+<Footer title="Helsinki Design System">
+  <Footer.Navigation>
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+  </Footer.Navigation>
+  <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+    <Footer.Item label="Link" />
+    <Footer.Item label="Link" />
+    <Footer.Item label="Link" />
+  </Footer.Base>
+</Footer>
+{/* Dark */}
+<Footer title="Helsinki Design System" theme="dark">
+  <Footer.Navigation>
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+  </Footer.Navigation>
+  <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+    <Footer.Item label="Link" />
+    <Footer.Item label="Link" />
+    <Footer.Item label="Link" />
+  </Footer.Base>
+</Footer>
+```
+
+
+### Custom theme
+All the footer colours can be customised, if the available colour variants don't suit your needs. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
+
+<Playground>
+  <Footer
+    title="Helsinki Design System"
+    footerAriaLabel="HDS Footer"
+    theme={{
+        '--footer-background': 'var(--color-engel)',
+        '--footer-color': 'var(--color-black-90)',
+        '--footer-divider-color': 'var(--color-black-90)',
+        '--footer-focus-outline-color': 'var(--color-black-90)',
+    }}
+  >
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+    </Footer.Navigation>
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+    </Footer.Base>
+  </Footer>
+</Playground>
+
+##### React:
+```tsx
+<Footer
+  title="Helsinki Design System"
+  theme={{
+      '--footer-background': 'var(--color-engel)',
+      '--footer-color': 'var(--color-black-90)',
+      '--footer-divider-color': 'var(--color-black-90)',
+      '--footer-focus-outline-color': 'var(--color-black-90)',
+  }}
+>
+  <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+  </Footer.Navigation>
+  <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+    <Footer.Item label="Link" />
+    <Footer.Item label="Link" />
+    <Footer.Item label="Link" />
+  </Footer.Base>
+</Footer>
+```
+
+
+### Navigation section variations
+Navigation section two different layout options:
+- **Default navigation** includes only the main level navigation items. The layout is optimised for up to eight menu items.
+- **Minimal navigation** includes only the main level navigation items. The layout is optimised for up to four menu items.
+- **Sitemap navigation** includes also second level sub-pages. Sitemap can be used in footer to help user find pages quickly from a complicated page hierarchy.
+- The navigation can also be hidden altogether.
+
+<Playground>
+<Footer title="Default" footerAriaLabel="HDS Footer">
+  <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+  </Footer.Navigation>
+</Footer>
+<br />
+<Footer title="Minimal" footerAriaLabel="HDS Footer">
+  <Footer.Navigation variant="minimal" navigationAriaLabel="HDS Footer navigation">
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+  </Footer.Navigation>
+</Footer>
+<br />
+<Footer title="Sitemap" footerAriaLabel="HDS Footer">
+  <Footer.Navigation variant="sitemap" navigationAriaLabel="HDS Footer navigation">
+    {[1, 2, 3, 4].map((key) =>
+       <Footer.ItemGroup key={key}>
+          <Footer.Item label="Item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+      </Footer.ItemGroup>
+    )}
+  </Footer.Navigation>
+</Footer>
+<br />
+<Footer title="Hidden" footerAriaLabel="HDS Footer" />
+</Playground>
+
+##### React:
+```tsx
+{/* Default */}
+<Footer title="Default">
+  <Footer.Navigation>
+      <Footer.Item label="Item" />
+      {...}
+  </Footer.Navigation>
+</Footer>
+{/* Minimal */}
+<Footer title="Minimal">
+  <Footer.Navigation variant="minimal">
+      <Footer.Item label="Item" />
+      {...}
+  </Footer.Navigation>
+</Footer>
+{/* Sitemap */}
+<Footer title="Sitemap">
+  <Footer.Navigation variant="sitemap">
+      <Footer.ItemGroup>
+          <Footer.Item label="Item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+      </Footer.ItemGroup>
+      {...}
+  </Footer.Navigation>
+</Footer>
+{/* Hidden */}
+<Footer title="Hidden" />
+```
+
+
+## Demos & API
+
+### Core
+
+_Not included in hds-core!_
+
+### React
+
+[Footer in hds-react](/storybook/react/?path=/story/components-footer--default)
+
+[Footer API](/storybook/react/?path=/docs/components-footer--default)

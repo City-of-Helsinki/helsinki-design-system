@@ -22,6 +22,7 @@ export default {
   },
   decorators: [withKnobs],
   parameters: {
+    controls: { hideNoControlsWarning: true },
     layout: 'fullscreen',
   },
 };

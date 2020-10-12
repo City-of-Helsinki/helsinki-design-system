@@ -8,6 +8,7 @@ module.exports = {
         configureJSX: true,
       },
     },
+    '@storybook/addon-controls',
     '@storybook/addon-viewport',
     '@storybook/addon-backgrounds',
     '@storybook/addon-knobs',

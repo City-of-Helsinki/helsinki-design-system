@@ -17,6 +17,7 @@ export default {
   title: 'Components/TextInput',
   decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
   parameters: {
+    controls: { hideNoControlsWarning: true },
     docs: {
       page: () => (
         <>

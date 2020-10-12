@@ -1,0 +1,127 @@
+@value small-down, medium-up, large-up, x-large-up from "../../styles/breakpoints.css";
+
+$koros-heights: (
+  'basic': 14px,
+  'beat': 70px,
+  'pulse': 34px,
+  'storm': 35px,
+  'wave': 54px,
+);
+
+.footer {
+  --footer-focus-outline-width: 3px;
+  --footer-focus-outline-border-radius: 2px;
+
+  --footer-background: var(--color-black-5);
+  --footer-color: var(--color-black);
+  --footer-divider-color: var(--color-black-20);
+  --footer-focus-outline-color: var(--color-coat-of-arms-blue);
+
+  color: var(--footer-color);
+  position: relative;
+  z-index: 1;
+
+  // black theme overrides
+  &.theme-dark {
+    --footer-background: var(--color-black-80);
+    --footer-color: var(--color-white);
+    --footer-focus-outline-color: var(--color-white);
+  }
+
+  // class where custom theme styles will be applied
+  &:global(.custom) {
+    content: ''
+  }
+
+  // footer background
+  &::before {
+    background-color: var(--footer-background);
+    bottom: 0;
+    content: '';
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+  }
+
+  // set background height based on koros type
+  @each $type, $height in $koros-heights {
+    &.koros-#{$type}::before {
+      height: calc(100% - #{$height});
+    }
+  }
+}
+
+.koros {
+  fill: var(--footer-background);
+  overflow: hidden;
+
+  svg {
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    width: 4028px; /* can't use relative units here, as we want to have the koro waves always centered */
+  }
+
+  @each $type, $height in $koros-heights {
+    &.#{$type} {
+      height: #{$height};
+    }
+  }
+}
+
+.navigationContainer {
+  padding: var(--spacing-l) var(--spacing-m) var(--spacing-m);
+
+  > *:only-child {
+    margin-bottom: var(--spacing-2-xs);
+  }
+}
+
+.titleWrapper {
+  align-items: center;
+  display: flex;
+}
+
+.title {
+  font-size: var(--fontsize-heading-xxs);
+  font-weight: bold;
+}
+
+@media small-down {
+  .titleWrapper {
+    flex-direction: column;
+  }
+
+  .title {
+    margin-top: var(--spacing-xs);
+  }
+}
+
+@media medium-up {
+  .navigationContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .title {
+    margin-left: var(--spacing-s);
+  }
+}
+
+@media large-up {
+  .navigationContainer.minimal {
+    align-items: center;
+    flex-direction: row;
+    padding-bottom: var(--spacing-l);
+  }
+}
+
+@media x-large-up {
+  // set max-width of footer sections
+  .footer > section,
+  .footer > div:not(:first-child) {
+    margin: 0 auto;
+    max-width: var(--container-width-xl);
+  }
+}

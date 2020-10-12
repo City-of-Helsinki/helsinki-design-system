@@ -11,6 +11,7 @@ export const IconAngleLeft = ({ size = 's', className = '', style = {}, ...rest 
     style={style}
     viewBox="0 0 24 24"
     {...rest}
+    role="img"
   >
     <g fill="none" fillRule="evenodd">
       <path d="M24 0v24H0V0z" />
