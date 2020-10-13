@@ -1,0 +1,35 @@
+.hds-card {
+  --background-color: var(--color-white);
+  --border-color: var(--color-black);
+  --border-width: 2px;
+  --padding: var(--spacing-m);
+
+  background-color: var(--background-color);
+  padding: var(--padding);
+}
+
+/* WITH BORDER */
+.hds-card--border {
+  border: var(--border-width) solid var(--border-color);
+}
+
+/* BODY */
+.hds-card__body {
+  display: grid;
+  gap: var(--spacing-s);
+  margin-bottom: var(--spacing-s);
+}
+.hds-card__body:last-child {
+  margin-bottom: 0;
+}
+
+/* HEADING */
+.hds-card__heading {
+  font-size: var(--fontsize-heading-m);
+  font-weight: bold;
+}
+
+/* BODY TEXT */
+.hds-card__text {
+  font-size: var(--fontsize-body-m);
+}
