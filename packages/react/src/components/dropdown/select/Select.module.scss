@@ -1,7 +1,5 @@
 @import "../../../styles/common";
-@import "../dropdown";
-
-// todo: test theming. selected icon, checkbox etc.
+@import "../dropdown.common";
 
 .root {
   @extend %dropdownRoot;

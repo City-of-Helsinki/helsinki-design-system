@@ -25,7 +25,7 @@ import {
   getIsElementFocused,
   getIsInSelectedOptions,
 } from '../dropdownUtils';
-import { DropdownMenu } from '../dropdownMenu/DropdownMenu';
+import { DropdownMenu } from '../../../internal/dropdownMenu/DropdownMenu';
 
 export type SelectProps<OptionType> = {
   /**
@@ -102,7 +102,9 @@ export type SelectProps<OptionType> = {
    */
   required?: boolean;
   /**
-   * Label for selected items that is only visible to screen readers. Can be used to to give screen reader users additional information about the selected item
+   * A label for the selected items that is only visible to screen readers. Can be used to to give screen reader users additional information about the selected item.
+   * You can use a special {value} token that will be replaced with the actual item value.
+   * E.g. an item with the label Foo and property value of `'Remove ${value}'` would become `aria-label="Remove Foo"`.
    */
   selectedItemSrLabel?: string;
   /**
@@ -110,7 +112,8 @@ export type SelectProps<OptionType> = {
    */
   style?: React.CSSProperties;
   /**
-   * todo
+   * If `true`, the menu options will be virtualized. This greatly increases performance when there are a lot of options,
+   * but screen readers won't be able to know how many options there are.
    */
   virtualized?: boolean;
   /**
@@ -156,7 +159,9 @@ type MultiselectProps<OptionType> =
        */
       icon?: undefined;
       /**
-       * The aria-label for the selected item remove button
+       * The aria-label for the selected item remove button.
+       * You can use a special {value} token that will be replaced with the actual item value.
+       * E.g. an item with the label Foo and property value of `'Remove ${value}'` would become `aria-label="Remove Foo"`.
        */
       selectedItemRemoveButtonAriaLabel: string;
       /**
@@ -405,7 +410,7 @@ export const Select = <OptionType,>({
       <div className={styles.wrapper} onFocus={handleWrapperFocus} onBlur={handleWrapperBlur}>
         {/* SELECTED ITEMS */}
         {multiselect && selectedItems.length > 0 && (
-          <SelectedItems
+          <SelectedItems<OptionType>
             activeIndex={activeIndex}
             clearable={clearable}
             clearButtonAriaLabel={clearButtonAriaLabel}
@@ -445,8 +450,8 @@ export const Select = <OptionType,>({
           <IconAngleDown className={styles.angleIcon} aria-hidden />
         </button>
         {/* MENU */}
-        <DropdownMenu
-          getItemProps={(optionDisabled, index, item, selected, virtualRow) =>
+        <DropdownMenu<OptionType>
+          getItemProps={(item, index, selected, optionDisabled, virtualRow) =>
             getItemProps({
               item,
               index,
@@ -471,7 +476,7 @@ export const Select = <OptionType,>({
           menuProps={getMenuProps({
             ...(multiselect && { 'aria-multiselectable': true }),
             ...(required && { 'aria-required': true }),
-            style: { maxHeight: `calc(var(--menu-item-height) * ${visibleOptions})` },
+            style: { maxHeight: DROPDOWN_MENU_ITEM_HEIGHT * visibleOptions },
             ref: menuRef,
           })}
           menuStyles={styles}

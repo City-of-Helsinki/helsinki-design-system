@@ -19,6 +19,10 @@ export type TagProps = {
    */
   deleteButtonAriaLabel?: string;
   /**
+   * Props that will be passed to the delete button `<button>` element.
+   */
+  deleteButtonProps?: React.ComponentPropsWithoutRef<'button'>;
+  /**
    * Used to generate the first part of the id on the elements.
    */
   id?: string;
@@ -33,8 +37,6 @@ export type TagProps = {
   /**
    * Callback function fired when the delete icon is clicked. If set, the delete icon will be shown.
    */
-  // onDelete?: () => void;
-  //  todo: check type
   onDelete?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   /**
    * Label that is only visible to screen readers. Can be used to to give screen reader users additional information about the tag.
@@ -44,7 +46,17 @@ export type TagProps = {
 
 export const Tag = React.forwardRef<HTMLDivElement, TagProps>(
   (
-    { className, deleteButtonAriaLabel, id, label, labelProps, onDelete, srOnlyLabel, ...rest }: TagProps,
+    {
+      className,
+      deleteButtonAriaLabel,
+      deleteButtonProps,
+      id = 'hds-tag',
+      label,
+      labelProps,
+      onDelete,
+      srOnlyLabel,
+      ...rest
+    }: TagProps,
     ref: React.Ref<HTMLDivElement>,
   ) => (
     <div id={id} className={classNames(styles.tag, className)} ref={ref} {...rest}>
@@ -54,8 +66,7 @@ export const Tag = React.forwardRef<HTMLDivElement, TagProps>(
       </span>
       {typeof onDelete === 'function' && (
         <button
-          // todo: remove. allow passing props to button instead
-          tabIndex={-1}
+          {...deleteButtonProps}
           id={id && `${id}-delete-button`}
           type="button"
           className={styles.deleteButton}

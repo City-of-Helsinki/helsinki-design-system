@@ -72,16 +72,16 @@ type SelectedItemsProps<OptionType> = {
 };
 
 /**
- * todo: Add comment to prop descriptions that {value} token can be used to get the item value
- * @param string
- * @param value
+ * Replaces a token in the given string with a value
+ * @param string  The string with the token that should be replaced
+ * @param value   The value to replace the token with
  */
 const replaceTokenWithValue = (string: string, value: string): string | undefined => string?.replace('{value}', value);
 
 /**
- * todo
- * @param element
- * @param property
+ * Returns the horizontal spacing of an element
+ * @param element   Element to get the spacing for
+ * @param property  The type of spacing, margin or padding
  */
 const getHorizontalSpacing = (element: Element, property: string): number => {
   if (!element) return 0;
@@ -119,6 +119,7 @@ const handleItemHiding = (
   const hiddenItems: HTMLDivElement[] = [];
 
   if (containerEl && hiddenCountEl) {
+    // filter out the item count indicator from the container child nodes
     const childNodes = [...containerEl.childNodes].filter(
       (node: HTMLDivElement | HTMLSpanElement) => node.tagName === 'DIV',
     ) as HTMLDivElement[];
@@ -126,7 +127,9 @@ const handleItemHiding = (
     const hiddenCountWidth = hiddenCountEl.offsetWidth + childSpacing;
     // available container width
     const containerWidth = containerEl.offsetWidth - hiddenCountWidth - containerSpacing;
-    // todo: comment
+    // loop through all selected items and add their width together.
+    // items whose combined width is less than that of the container element should be visible.
+    // items that don't fit inside the container on one row should be hidden.
     [...childNodes].reduce((combinedChildWidth: number, child: HTMLDivElement) => {
       const childWidth = child.offsetWidth + childSpacing;
       combinedChildWidth + childWidth < containerWidth ? visibleItems.push(child) : hiddenItems.push(child);
@@ -210,6 +213,10 @@ export const SelectedItems = <OptionType,>({
               label={selectedItemLabel}
               labelProps={{ 'aria-labelledby': `${dropdownId}-label ${tagId}-label` }}
               deleteButtonAriaLabel={replaceTokenWithValue(removeButtonAriaLabel, selectedItemLabel)}
+              // remove delete button from focus order
+              deleteButtonProps={{
+                tabIndex: -1,
+              }}
               onDelete={(e) => {
                 e.stopPropagation();
                 onRemove(_selectedItem);

@@ -7,7 +7,6 @@ import { useVirtual } from 'react-virtual';
 
 import 'hds-core';
 
-// import styles from '../select/Select.module.scss';
 import styles from './Combobox.module.scss';
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 import classNames from '../../../utils/classNames';
@@ -20,11 +19,16 @@ import {
   getIsElementFocused,
   getIsInSelectedOptions,
 } from '../dropdownUtils';
-import { DropdownMenu } from '../dropdownMenu/DropdownMenu';
+import { DropdownMenu } from '../../../internal/dropdownMenu/DropdownMenu';
 
 type FilterFunction<OptionType> = (options: OptionType[], search: string) => OptionType[];
 
 export type ComboboxProps<OptionType> = SelectProps<OptionType> & {
+  /**
+   * Prevents further propagation of the 'Escape' onKeyDown event when the menu is closed by pressing Esc.
+   * Useful e.g. when the component is used inside a modal.
+   */
+  catchEscapeKey?: boolean;
   /**
    * If provided, this filter function will be used for filtering the
    * combobox suggestions. If this prop is not provided, the default
@@ -61,6 +65,7 @@ function getDefaultFilter<OptionType>(labelField: string): FilterFunction<Option
 }
 
 export const Combobox = <OptionType,>({
+  catchEscapeKey,
   circularNavigation = false,
   className,
   clearable = true,
@@ -168,7 +173,6 @@ export const Combobox = <OptionType,>({
     circularNavigation,
     id,
     items: getFilteredItems,
-    // items: getFilteredItems(options),
     onInputValueChange: ({ inputValue }) => setSearch(inputValue),
     // a defined value indicates that the dropdown should be controlled
     // don't set selectedItem if it's not, so that downshift can handle the state
@@ -244,8 +248,8 @@ export const Combobox = <OptionType,>({
   };
 
   const handleMultiSelectInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    // todo: add Prop
-    if (e.key === 'Escape') {
+    // prevent further propagation
+    if (catchEscapeKey && e.key === 'Escape') {
       e.stopPropagation();
     }
 
@@ -274,7 +278,7 @@ export const Combobox = <OptionType,>({
     getDropdownProps({}, { suppressRefError: true });
   }
 
-  // Input should be shown when the combobox is focused, or when it's
+  // Input should be shown when the combobox is open, or when it's
   // closed, but no items are selected. The input should always be
   // visible when multiselect mode is turned off.
   const isInputVisible = !multiselect || isOpen || (!isOpen && selectedItems.length === 0);
@@ -340,7 +344,7 @@ export const Combobox = <OptionType,>({
       >
         {/* SELECTED ITEMS */}
         {multiselect && selectedItems.length > 0 && (
-          <SelectedItems
+          <SelectedItems<OptionType>
             activeIndex={activeIndex}
             className={styles.selectedItems}
             clearable={clearable}
@@ -418,8 +422,8 @@ export const Combobox = <OptionType,>({
           <IconAngleDown className={styles.angleIcon} aria-hidden />
         </button>
         {/* MENU */}
-        <DropdownMenu
-          getItemProps={(optionDisabled, index, item, selected, virtualRow) =>
+        <DropdownMenu<OptionType>
+          getItemProps={(item, index, selected, optionDisabled, virtualRow) =>
             getItemProps({
               item,
               index,

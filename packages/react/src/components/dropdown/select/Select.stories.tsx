@@ -37,6 +37,7 @@ export default {
     controls: { expanded: true },
   },
   args: {
+    id: getId(),
     label: 'Element',
     helper: 'Choose an element',
     placeholder: 'Placeholder',
