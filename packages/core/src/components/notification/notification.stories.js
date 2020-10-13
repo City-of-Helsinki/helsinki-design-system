@@ -16,7 +16,7 @@ const iconMapping = {
 const getLabel = (type = 'info') => {
   const label = type[0].toUpperCase() + type.substring(1);
   return `
-    <div class="hds-notification__label" role="heading">
+    <div class="hds-notification__label" role="heading" aria-level="2">
       <span class="hds-icon hds-icon--${iconMapping[type]}" aria-hidden="true"></span>
       <span>${label}</span>
     </div>`;

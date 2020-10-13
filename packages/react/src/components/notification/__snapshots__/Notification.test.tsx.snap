@@ -12,6 +12,7 @@ exports[`<Notification /> spec renders the component 1`] = `
       role="alert"
     >
       <div
+        aria-level="2"
         class="label"
         role="heading"
       >

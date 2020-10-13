@@ -248,7 +248,7 @@ export const Notification = ({
       >
         {autoClose && <animated.div style={autoCloseTransition} className={styles.autoClose} />}
         <div className={styles.content} role="alert">
-          <div className={styles.label} role="heading">
+          <div className={styles.label} role="heading" aria-level={2}>
             <Icon className={styles.icon} />
             <ConditionalVisuallyHidden visuallyHidden={size === 'small'}>{label}</ConditionalVisuallyHidden>
           </div>
