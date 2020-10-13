@@ -1,4 +1,4 @@
-import React, { FocusEvent, useCallback, useRef, useState } from 'react';
+import React, { FocusEvent, useCallback, useEffect, useRef, useState } from 'react';
 import {
   useSelect,
   useMultipleSelection,
@@ -26,6 +26,45 @@ import {
   getIsInSelectedOptions,
 } from '../dropdownUtils';
 import { DropdownMenu } from '../../../internal/dropdownMenu/DropdownMenu';
+import setComponentTheme from '../../../utils/setComponentTheme';
+
+export interface SelectCustomTheme {
+  '--dropdown-background-default'?: string;
+  '--dropdown-background-disabled'?: string;
+  '--dropdown-border-color-default'?: string;
+  '--dropdown-border-color-hover'?: string;
+  '--dropdown-border-color-hover-invalid'?: string;
+  '--dropdown-border-color-focus'?: string;
+  '--dropdown-border-color-invalid'?: string;
+  '--dropdown-border-color-disabled'?: string;
+  '--dropdown-color-default'?: string;
+  '--dropdown-color-disabled'?: string;
+  '--focus-outline-color'?: string;
+  '--helper-color-default'?: string;
+  '--helper-color-invalid'?: string;
+  '--menu-divider-color'?: string;
+  '--menu-item-background-default'?: string;
+  '--menu-item-background-hover'?: string;
+  '--menu-item-background-selected'?: string;
+  '--menu-item-background-selected-hover'?: string;
+  '--menu-item-background-disabled'?: string;
+  '--menu-item-color-default'?: string;
+  '--menu-item-color-hover'?: string;
+  '--menu-item-color-selected'?: string;
+  '--menu-item-color-selected-hover'?: string;
+  '--menu-item-color-disabled'?: string;
+  '--menu-item-icon-color-selected'?: string;
+  '--menu-item-icon-color-disabled'?: string;
+  '--multiselect-checkbox-background-selected'?: string;
+  '--multiselect-checkbox-background-disabled'?: string;
+  '--multiselect-checkbox-border-default'?: string;
+  '--multiselect-checkbox-border-hover'?: string;
+  '--multiselect-checkbox-border-disabled'?: string;
+  '--multiselect-checkbox-color-default'?: string;
+  '--multiselect-checkbox-color-selected'?: string;
+  '--multiselect-checkbox-color-selected-disabled'?: string;
+  '--placeholder-color'?: string;
+}
 
 export type SelectProps<OptionType> = {
   /**
@@ -111,6 +150,10 @@ export type SelectProps<OptionType> = {
    * Override or extend the root styles applied to the component
    */
   style?: React.CSSProperties;
+  /**
+   * Custom theme styles
+   */
+  theme?: SelectCustomTheme;
   /**
    * If `true`, the menu options will be virtualized. This greatly increases performance when there are a lot of options,
    * but screen readers won't be able to know how many options there are.
@@ -256,6 +299,7 @@ export const Select = <OptionType,>({
   selectedItemRemoveButtonAriaLabel,
   selectedItemSrLabel,
   style,
+  theme,
   value,
   virtualized = false,
   visibleOptions = 5,
@@ -275,6 +319,13 @@ export const Select = <OptionType,>({
     estimateSize: useCallback(() => DROPDOWN_MENU_ITEM_HEIGHT, []),
     overscan: visibleOptions,
   });
+
+  // handle custom themes
+  useEffect(() => {
+    if (theme) {
+      setComponentTheme<SelectCustomTheme>('Select', theme);
+    }
+  }, [theme]);
 
   // init multi-select
   const {
@@ -401,6 +452,7 @@ export const Select = <OptionType,>({
         disabled && styles.disabled,
         isOpen && styles.open,
         multiselect && styles.multiselect,
+        theme && 'custom',
         className,
       )}
       style={style}

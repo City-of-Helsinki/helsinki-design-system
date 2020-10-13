@@ -25,6 +25,7 @@ exports[`<Select /> spec renders the component 1`] = `
         type="button"
       >
         <svg
+          aria-hidden="true"
           class="icon s angleIcon"
           role="img"
           viewBox="0 0 24 24"
@@ -49,7 +50,7 @@ exports[`<Select /> spec renders the component 1`] = `
         class="menu"
         id="hds-select-1-menu"
         role="listbox"
-        style="max-height: calc(var(--menu-item-height) * 5);"
+        style="max-height: 260px;"
         tabindex="-1"
       />
     </div>

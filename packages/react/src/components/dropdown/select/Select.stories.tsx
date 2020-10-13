@@ -140,6 +140,48 @@ DisabledOptions.storyName = 'With disabled options';
 export const Icon = (args) => <Select {...args} icon={<IconFaceSmile />} />;
 Icon.storyName = 'With icon';
 
+export const CustomTheme = (args) => <Select {...args} multiselect />;
+CustomTheme.storyName = 'With custom theme';
+CustomTheme.args = {
+  theme: {
+    '--dropdown-background-default': 'var(--color-white)',
+    '--dropdown-background-disabled': 'var(--color-black-10)',
+    '--dropdown-border-color-default': 'var(--color-black-50)',
+    '--dropdown-border-color-hover': 'var(--color-black-90)',
+    '--dropdown-border-color-hover-invalid': 'var(--color-error-dark)',
+    '--dropdown-border-color-focus': 'var(--color-black-90)',
+    '--dropdown-border-color-invalid': 'var(--color-error)',
+    '--dropdown-border-color-disabled': 'var(--color-black-10)',
+    '--dropdown-color-default': 'var(--color-black-90)',
+    '--dropdown-color-disabled': 'var(--color-black-40)',
+    '--focus-outline-color': 'var(--color-black-90)',
+    '--helper-color-default': 'var(--color-black-60)',
+    '--helper-color-invalid': 'var(--color-error)',
+    '--menu-divider-color': 'var(--color-black-20)',
+    '--menu-item-background-default': 'var(--color-white)',
+    '--menu-item-background-hover': 'var(--color-bus)',
+    '--menu-item-background-selected': 'var(--color-white)',
+    '--menu-item-background-selected-hover': 'var(--color-bus)',
+    '--menu-item-background-disabled': 'var(--color-white)',
+    '--menu-item-color-default': 'var(--color-black-90)',
+    '--menu-item-color-hover': 'var(--color-white)',
+    '--menu-item-color-selected': 'var(--color-black-90)',
+    '--menu-item-color-selected-hover': 'var(--color-white)',
+    '--menu-item-color-disabled': 'var(--color-black-40)',
+    '--menu-item-icon-color-selected': 'var(--color-white)',
+    '--menu-item-icon-color-disabled': 'var(--color-black-40)',
+    '--multiselect-checkbox-background-selected': 'var(--color-black-90)',
+    '--multiselect-checkbox-background-disabled': 'var(--color-black-10)',
+    '--multiselect-checkbox-border-default': 'var(--color-black-50)',
+    '--multiselect-checkbox-border-hover': 'var(--color-black-90)',
+    '--multiselect-checkbox-border-disabled': 'var(--color-black-10)',
+    '--multiselect-checkbox-color-default': 'transparent',
+    '--multiselect-checkbox-color-selected': 'var(--color-white)',
+    '--multiselect-checkbox-color-selected-disabled': 'var(--color-white)',
+    '--placeholder-color': 'var(--color-black-60)',
+  },
+};
+
 export const SelectExample = (args) => {
   return <Select<Option> {...args} getA11ySelectionMessage={({ selectedItem }) => `${selectedItem.label} selected`} />;
 };

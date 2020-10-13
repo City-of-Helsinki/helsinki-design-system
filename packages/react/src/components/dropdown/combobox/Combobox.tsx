@@ -1,5 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import React, { useRef, useState, KeyboardEvent, FocusEvent, FocusEventHandler, useMemo, useCallback } from 'react';
+import React, {
+  useRef,
+  useState,
+  KeyboardEvent,
+  FocusEvent,
+  FocusEventHandler,
+  useMemo,
+  useCallback,
+  useEffect,
+} from 'react';
 import { useCombobox, useMultipleSelection } from 'downshift';
 import isEqual from 'lodash.isequal';
 import uniqueId from 'lodash.uniqueid';
@@ -12,7 +21,7 @@ import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 import classNames from '../../../utils/classNames';
 import { IconAlertCircle, IconAngleDown } from '../../../icons';
 import { SelectedItems } from '../../../internal/selectedItems/SelectedItems';
-import { multiSelectReducer, onMultiSelectStateChange, SelectProps } from '../select';
+import { multiSelectReducer, onMultiSelectStateChange, SelectCustomTheme, SelectProps } from '../select';
 import {
   DROPDOWN_MENU_ITEM_HEIGHT,
   getIsElementBlurred,
@@ -20,6 +29,7 @@ import {
   getIsInSelectedOptions,
 } from '../dropdownUtils';
 import { DropdownMenu } from '../../../internal/dropdownMenu/DropdownMenu';
+import setComponentTheme from '../../../utils/setComponentTheme';
 
 type FilterFunction<OptionType> = (options: OptionType[], search: string) => OptionType[];
 
@@ -98,6 +108,7 @@ export const Combobox = <OptionType,>({
   selectedItemSrLabel,
   showToggleButton = true,
   style,
+  theme,
   value,
   virtualized = false,
   visibleOptions = 5,
@@ -129,6 +140,13 @@ export const Combobox = <OptionType,>({
     estimateSize: useCallback(() => DROPDOWN_MENU_ITEM_HEIGHT, []),
     overscan: visibleOptions,
   });
+
+  // handle custom themes
+  useEffect(() => {
+    if (theme) {
+      setComponentTheme<SelectCustomTheme>('Combobox', theme);
+    }
+  }, [theme]);
 
   const focusInput = () => {
     if (inputRef.current) {
@@ -303,6 +321,7 @@ export const Combobox = <OptionType,>({
         disabled && styles.disabled,
         isOpen && styles.open,
         multiselect && styles.multiselect,
+        theme && 'custom',
         className,
       )}
       style={style}

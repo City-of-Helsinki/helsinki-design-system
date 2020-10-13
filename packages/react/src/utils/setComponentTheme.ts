@@ -1,5 +1,19 @@
 /**
  * Sets the given custom theme for the component
+ *
+ * For the custom theme to be applied, you need to do the following:
+ * 1. In the stylesheet of the component, add a rule for a 'global' class. E.g.
+ * ```scss
+ * .root {
+ *   ...
+ *
+ *   &:global(.custom) {
+ *     content: ''
+ *   }
+ * }
+ * ```
+ * 2. Add a global 'custom' class to the component root element where the css properties are defined
+ *
  * @param selector
  * @param theme
  */
