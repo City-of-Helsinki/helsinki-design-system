@@ -3,7 +3,6 @@ import React from 'react';
 
 // import core base styles
 import 'hds-core';
-import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import styles from './Tag.module.scss';
 import { IconCross } from '../../icons';
@@ -61,7 +60,7 @@ export const Tag = React.forwardRef<HTMLDivElement, TagProps>(
   ) => (
     <div id={id} className={classNames(styles.tag, className)} ref={ref} {...rest}>
       <span id={id && `${id}-label`} {...labelProps}>
-        {srOnlyLabel && <VisuallyHidden>{srOnlyLabel}</VisuallyHidden>}
+        {srOnlyLabel && <span className={styles.visuallyHidden}>{srOnlyLabel}</span>}
         <span aria-hidden={!!srOnlyLabel}>{label}</span>
       </span>
       {typeof onDelete === 'function' && (

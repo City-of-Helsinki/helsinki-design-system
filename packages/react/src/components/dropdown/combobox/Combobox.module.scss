@@ -25,6 +25,10 @@
   color: var(--dropdown-color-default);
   outline: none;
   display: flex;
+
+  &.hidden {
+    @extend %hiddenFromScreen;
+  }
 }
 
 .icon {
@@ -55,6 +59,11 @@
 
   &:not(:focus).hidden {
     @extend %hiddenFromScreen;
+  }
+
+  // don't add additional right padding if toggle button is hidden
+  &.noToggle {
+    padding-right: var(--spacing-s);
   }
 
   &::placeholder {
@@ -125,6 +134,11 @@
   .input {
     align-self: unset;
     padding: 0 calc(var(--spacing-l) + var(--icon-size)) 0 var(--spacing-s);
+
+    // don't add additional right padding if toggle button is hidden
+    &.noToggle {
+      padding-right: var(--spacing-s);
+    }
 
     // move input closer to selected items and remove right spacing that accounted for the toggle button
     &.adjustSpacing {

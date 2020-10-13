@@ -17,6 +17,10 @@
     overflow: hidden;
   }
 
+  &.noToggle {
+    padding-right: calc((var(--spacing-s) - var(--border-width)) * 2 + (var(--icon-size)));
+  }
+
   .tag {
     margin: var(--spacing-xs) 0 0 var(--spacing-xs);
     position: relative;
@@ -61,5 +65,9 @@
 
   &:focus {
     box-shadow: 0 0 0 var(--focus-outline-width) var(--focus-outline-color);
+  }
+
+  &.noToggle {
+    transform: translate(calc(var(--spacing-s) * -1), calc(var(--menu-item-height) / 2 - 50%));
   }
 }

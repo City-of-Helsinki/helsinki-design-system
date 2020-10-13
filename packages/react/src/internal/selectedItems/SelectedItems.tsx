@@ -69,6 +69,10 @@ type SelectedItemsProps<OptionType> = {
    * Downshift setActiveIndex function
    */
   setActiveIndex: (index: number) => void;
+  /**
+   * Whether the dropdown toggle button is hidden
+   */
+  toggleButtonHidden?: boolean;
 };
 
 /**
@@ -165,6 +169,7 @@ export const SelectedItems = <OptionType,>({
   selectedItemsContainerRef,
   selectedItemSrLabel,
   setActiveIndex,
+  toggleButtonHidden = false,
 }: SelectedItemsProps<OptionType>) => {
   const [ref, { width, height }] = useMeasure({ debounce: 0, scroll: false });
   const [hiddenCount, setHiddenCount] = useState(0);
@@ -199,7 +204,12 @@ export const SelectedItems = <OptionType,>({
     <>
       <div
         ref={mergeRefs<HTMLDivElement>([ref, selectedItemsContainerRef])}
-        className={classNames(styles.selectedItems, hideItems && styles.itemsHidden, className)}
+        className={classNames(
+          styles.selectedItems,
+          hideItems && styles.itemsHidden,
+          toggleButtonHidden && styles.noToggle,
+          className,
+        )}
       >
         {selectedItems.map((_selectedItem, index) => {
           const selectedItemLabel = _selectedItem[optionLabelField];
@@ -245,7 +255,7 @@ export const SelectedItems = <OptionType,>({
       {clearable && (
         <button
           type="button"
-          className={styles.clearButton}
+          className={classNames(styles.clearButton, toggleButtonHidden && styles.noToggle)}
           onClick={onClear}
           aria-label={clearButtonAriaLabel}
           onFocus={() => {

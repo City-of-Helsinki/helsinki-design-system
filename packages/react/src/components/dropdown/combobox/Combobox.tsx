@@ -37,6 +37,10 @@ export type ComboboxProps<OptionType> = SelectProps<OptionType> & {
    * can compare with the search value.
    */
   filter?: FilterFunction<OptionType>;
+  /**
+   * If `true`, displays a menu toggle button in the combobox
+   */
+  showToggleButton?: boolean;
 };
 
 function getDefaultFilter<OptionType>(labelField: string): FilterFunction<OptionType> {
@@ -92,6 +96,7 @@ export const Combobox = <OptionType,>({
   required,
   selectedItemRemoveButtonAriaLabel,
   selectedItemSrLabel,
+  showToggleButton = true,
   style,
   value,
   virtualized = false,
@@ -363,6 +368,7 @@ export const Combobox = <OptionType,>({
             selectedItemSrLabel={selectedItemSrLabel}
             selectedItemsContainerRef={selectedItemsContainerRef}
             setActiveIndex={setActiveIndex}
+            toggleButtonHidden={!showToggleButton}
           />
         )}
         {/* icons are only supported by single select comboboxes */}
@@ -408,6 +414,7 @@ export const Combobox = <OptionType,>({
           className={classNames(
             styles.input,
             !isInputVisible && styles.hidden,
+            !showToggleButton && styles.noToggle,
             hasFocus && selectedItems.length > 0 && styles.adjustSpacing,
           )}
         />
@@ -416,7 +423,7 @@ export const Combobox = <OptionType,>({
           type="button"
           {...getToggleButtonProps({
             disabled,
-            className: classNames(styles.button),
+            className: classNames(styles.button, !showToggleButton && styles.hidden),
           })}
         >
           <IconAngleDown className={styles.angleIcon} aria-hidden />
