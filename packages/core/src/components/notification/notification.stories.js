@@ -40,7 +40,7 @@ export default {
 
 export const Default = () => `
     <section aria-label="Notification" class="hds-notification">
-      <div role="alert" class="hds-notification__content">
+      <div class="hds-notification__content">
         ${getLabel()}
         ${text}
       </div>
@@ -49,7 +49,7 @@ export const Default = () => `
 
 export const Success = () => `
     <section aria-label="Notification" class="hds-notification hds-notification--success">
-      <div role="alert" class="hds-notification__content">
+      <div class="hds-notification__content">
         ${getLabel('success')}
         ${text}
       </div>
@@ -58,7 +58,7 @@ export const Success = () => `
 
 export const Alert = () => `
     <section aria-label="Notification" class="hds-notification hds-notification--alert">
-      <div role="alert" class="hds-notification__content">
+      <div class="hds-notification__content">
         ${getLabel('alert')}
         ${text}
       </div>
@@ -67,7 +67,7 @@ export const Alert = () => `
 
 export const Error = () => `
     <section aria-label="Notification" class="hds-notification hds-notification--error">
-      <div role="alert" class="hds-notification__content">
+      <div class="hds-notification__content">
         ${getLabel('error')}
         ${text}
       </div>
@@ -97,7 +97,7 @@ export const Small = () =>
         <section aria-label="Notification" class="hds-notification hds-notification--small ${
           type ? `hds-notification--${type}` : ''
         }">
-          <div role="alert" class="hds-notification__content">
+          <div class="hds-notification__content">
             <div class="hds-notification__label">
               <span class="hds-icon hds-icon--${iconMapping[type]}" aria-hidden="true"></span>
             </div>
@@ -116,7 +116,7 @@ export const Large = () =>
         <section aria-label="Notification" class="hds-notification hds-notification--large ${
           type ? `hds-notification--${type}` : ''
         }">
-          <div role="alert" class="hds-notification__content">
+          <div class="hds-notification__content">
             ${getLabel(type)}
             ${text}
           </div>
@@ -128,7 +128,7 @@ export const Large = () =>
 export const Invisible = () => `
     <div class="hiddenFromScreen" aria-atomic="true" aria-live="assertive" role="status">
       <section aria-label="Notification" class="hds-notification">
-        <div role="alert" class="hds-notification__content">
+        <div class="hds-notification__content">
           ${getLabel()}
           This notification is only visible to screen readers
         </div>
@@ -138,7 +138,7 @@ export const Invisible = () => `
 
 export const WithClose = () => `
     <section aria-label="Notification" class="hds-notification">
-      <div role="alert" class="hds-notification__content">
+      <div class="hds-notification__content">
         ${getLabel('info')}
         ${text}
       </div>
@@ -146,7 +146,7 @@ export const WithClose = () => `
     </section>
     <br>
     <section aria-label="Notification" class="hds-notification hds-notification--small">
-      <div role="alert" class="hds-notification__content">
+      <div class="hds-notification__content">
         <div class="hds-notification__label">
           <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
         </div>
@@ -156,7 +156,7 @@ export const WithClose = () => `
     </section>
     <br>
     <section aria-label="Notification" class="hds-notification hds-notification--large">
-      <div role="alert" class="hds-notification__content">
+      <div class="hds-notification__content">
         ${getLabel('info')}
         ${text}
       </div>

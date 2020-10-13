@@ -228,6 +228,9 @@ export const Notification = ({
   const notificationTransition = useSpring(open ? openTransitionProps : closeTransitionProps);
   const autoCloseTransition = useSpring(autoCloseTransitionProps);
 
+  // Set role="alert" for non-inline notifications
+  const role = position !== 'inline' ? 'alert' : null;
+
   return (
     <ConditionalVisuallyHidden visuallyHidden={invisible}>
       <animated.section
@@ -247,7 +250,7 @@ export const Notification = ({
         data-testid={dataTestId}
       >
         {autoClose && <animated.div style={autoCloseTransition} className={styles.autoClose} />}
-        <div className={styles.content} role="alert">
+        <div className={styles.content} role={role}>
           <div className={styles.label} role="heading" aria-level={2}>
             <Icon className={styles.icon} />
             <ConditionalVisuallyHidden visuallyHidden={size === 'small'}>{label}</ConditionalVisuallyHidden>
