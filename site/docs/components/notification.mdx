@@ -28,7 +28,7 @@ import Text from "../../src/components/Text";
 - **If you use automatically disappearing notifications, make sure the information is accessible elsewhere in case the user misses the notification.**
 
 ### When to use each notification type?
-- **Use inline notifications when information is related to the content or if you want to keep information visible at all times.** Inline notifications are part of the content and should therefore be placed as close as possible to the related part of the content.
+- **Use inline notifications when information is related to the content or if you want to keep information visible at all times.** Inline notifications are part of the content and should therefore be placed as close as possible to the related part of the content. Inline notifications should not be added to the page dynamically.
 - **Use toast notifications to inform the user about a specific event or change in the system status.** Toast notifications do not relate to any specific object on the page and are therefore placed on top of the content (usually top right or bottom center).
 - **Use invisible notifications to make system state changes more apparent for screen reader users.** Some features (such as moving a product to the shopping cart) are apparent for regular users but screen readers may need extra assist.
 
@@ -39,16 +39,19 @@ import Text from "../../src/components/Text";
 - Avoid using automatically disappearing toast notifications for critical information or very long messages. It is possible that the notification disappears before the user or screen reader can react to the message. Refer to <Link href="https://www.w3.org/WAI/WCAG21/Understanding/no-timing.html" external>WCAG 2.1 No timing requirement</Link> for more information.
 - Remember that colour should never be the only way of conveying information. Make sure the meaning of the notification is clearly described by the title and body. Refer to <Link href="https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html" external>WCAG 2.1 Use of Colour guideline</Link> for more information.
 - It is recommended (but not required) to offer a way to turn off less important notifications. Refer to <Link href="https://www.w3.org/WAI/WCAG21/Understanding/interruptions.html" external>WCAG 2.1 Interruptions guideline</Link> for more information.
+- HDS Toast notifications use `role="alert"` which means they are immediately announced to the screen reader as the node is inserted to the DOM. Inline notifications do not need this role since they are created during page load.
 
 ## Usage & variations
 
 ### Inline
 Inline notifications are used as part of the content. They closely relate to the part of the content and work best when placed as close as the related content as possible. Inline notifications are often used to provide or emphasise key information related to the content of the page. It is recommended not to make them closable - unless their information is not important or can be accessed somewhere else. Inline notifications greatly emphasise the information so they should be used sparingly in order not to dilute their effect. A good rule of thumb is to limit the number of simultaneous inline notifications to one.
 
+Note! Inline notifications should not be added to the page dynamically. For this use case, use [Toast notifications](#toast).
+
 <Playground>
-    <Notification label="New messages" dismissible>You have received new messages.</Notification>
-    <Notification label="Form done" type="success" dismissible style={{marginTop: 'var(--spacing-s)'}}>Form submit was successful!</Notification>
-    <Notification label="Slow loading" type="alert" dismissible style={{marginTop: 'var(--spacing-s)'}}>Loading is taking longer than expected.</Notification>
+    <Notification label="New messages">You have received new messages.</Notification>
+    <Notification label="Form done" type="success" style={{marginTop: 'var(--spacing-s)'}}>Form submit was successful!</Notification>
+    <Notification label="Slow loading" type="alert" style={{marginTop: 'var(--spacing-s)'}}>Loading is taking longer than expected.</Notification>
     <Notification label="Missing information" type="error" style={{marginTop: 'var(--spacing-s)'}}>Form is missing critical information.</Notification>
 </Playground>
 
