@@ -58,7 +58,7 @@ type SelectedItemsProps<OptionType> = {
    */
   selectedItems: OptionType[];
   /**
-   * todo
+   * Selected items container ref
    */
   selectedItemsContainerRef: React.MutableRefObject<HTMLDivElement>;
   /**
@@ -76,7 +76,7 @@ type SelectedItemsProps<OptionType> = {
  * @param string
  * @param value
  */
-const replaceTokenWithValue = (string: string, value: string): string => string.replace('{value}', value);
+const replaceTokenWithValue = (string: string, value: string): string | undefined => string?.replace('{value}', value);
 
 /**
  * todo

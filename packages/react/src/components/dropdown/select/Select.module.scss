@@ -38,6 +38,7 @@
   &.placeholder {
     color: var(--placeholder-color);
   }
+
   &.placeholder:disabled {
     color: var(--dropdown-color-disabled);
   }

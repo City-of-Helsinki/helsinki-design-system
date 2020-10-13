@@ -442,7 +442,7 @@ export const Select = <OptionType,>({
             </span>
           )}
           {getButtonLabel()}
-          <IconAngleDown className={styles.angleIcon} />
+          <IconAngleDown className={styles.angleIcon} aria-hidden />
         </button>
         {/* MENU */}
         <DropdownMenu

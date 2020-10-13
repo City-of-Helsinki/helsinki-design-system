@@ -112,8 +112,6 @@ export const Combobox = <OptionType,>({
     const filter = userLandFilter || getDefaultFilter(optionLabelField);
     return filter(options, search);
   }, [options, search, userLandFilter, optionLabelField]);
-  // todo: Add virtualize prop
-  // todo: Fix virtualization styles, so that they work for both multiselect and combobox
   // virtualize menu items to increase performance
   const virtualizer = useVirtual<HTMLUListElement>({
     size: getFilteredItems.length,
@@ -417,7 +415,7 @@ export const Combobox = <OptionType,>({
             className: classNames(styles.button),
           })}
         >
-          <IconAngleDown className={styles.angleIcon} />
+          <IconAngleDown className={styles.angleIcon} aria-hidden />
         </button>
         {/* MENU */}
         <DropdownMenu
