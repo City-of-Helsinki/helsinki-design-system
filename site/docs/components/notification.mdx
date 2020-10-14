@@ -58,40 +58,48 @@ Note! Inline notifications should not be added to the page dynamically. For this
 #### Core code example:
 ```html
 <!-- Default -->
-<div class="hds-notification">
-  <div class="hds-notification__label">
-    <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
-    <span>New messages</span>
+<section aria-label="Notification" class="hds-notification">
+  <div class="hds-notification__content">
+    <div class="hds-notification__label" role="heading" aria-level="2">
+      <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+      <span>New messages</span>
+    </div>
+    <div class="hds-notification__body">You have received new messages.</div>
   </div>
-  <div class="hds-notification__body">You have received new messages.</div>
-</div>
+</section>
 
 <!-- Success -->
-<div class="hds-notification hds-notification--success">
-  <div class="hds-notification__label">
-    <span class="hds-icon hds-icon--check" aria-hidden="true"></span>
-    <span>Form done</span>
+<section aria-label="Notification" class="hds-notification hds-notification--success">
+  <div class="hds-notification__content">
+    <div class="hds-notification__label" role="heading" aria-level="2">
+      <span class="hds-icon hds-icon--check" aria-hidden="true"></span>
+      <span>Form done</span>
+    </div>
+    <div class="hds-notification__body">Form submit was successful!</div>
   </div>
-  <div class="hds-notification__body">Form submit was successful!</div>
-</div>
+</section>
 
 <!-- Alert -->
-<div class="hds-notification hds-notification--alert">
-  <div class="hds-notification__label">
-    <span class="hds-icon hds-icon--alert-circle" aria-hidden="true"></span>
-    <span>Slow loading</span>
+<section aria-label="Notification" class="hds-notification hds-notification--alert">
+  <div class="hds-notification__content">
+    <div class="hds-notification__label" role="heading" aria-level="2">
+      <span class="hds-icon hds-icon--alert-circle" aria-hidden="true"></span>
+      <span>Slow loading</span>
+    </div>
+    <div class="hds-notification__body">Loading is taking longer than expected.</div>
   </div>
-  <div class="hds-notification__body">Loading is taking longer than expected.</div>
-</div>
+</section>
 
 <!-- Error -->
-<div class="hds-notification hds-notification--error">
-  <div class="hds-notification__label">
-    <span class="hds-icon hds-icon--error" aria-hidden="true"></span>
-    <span>Missing information</span>
+<section aria-label="Notification" class="hds-notification hds-notification--error">
+  <div class="hds-notification__content">
+    <div class="hds-notification__label" role="heading" aria-level="2">
+      <span class="hds-icon hds-icon--error" aria-hidden="true"></span>
+      <span>Missing information</span>
+    </div>
+    <div class="hds-notification__body">Form is missing critical information.</div>
   </div>
-  <div class="hds-notification__body">Form is missing critical information.</div>
-</div>
+</section>
 ```
 
 #### React code example:
@@ -132,16 +140,18 @@ Toasts notifications provide lightweight feedback for changes in system status s
 
 #### Core code example:
 ```html
-<div class="hds-notification hds-notification--top-right">
-  <div class="hds-notification__label">
-    <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
-    <span>New messages</span>
-    <button class="hds-notification__close-button" aria-label="Close toast" type="button" onclick="">
-      <span class="hds-icon hds-icon--cross" aria-hidden="true"></span>
-    </button>
+<section aria-label="Notification" class="hds-notification hds-notification--top-right">
+  <div role="alert" class="hds-notification__content">
+    <div class="hds-notification__label" role="heading" aria-level="2">
+      <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+      <span>New messages</span>
+    </div>
+    <div class="hds-notification__body">You have received new messages.</div>
   </div>
-  <div class="hds-notification__body">You have received new messages.</div>
-</div>
+  <button class="hds-notification__close-button" aria-label="Close toast" type="button" onclick="">
+    <span class="hds-icon hds-icon--cross" aria-hidden="true"></span>
+  </button>
+</section>
 ```
 
 #### React code example:
@@ -167,30 +177,36 @@ HDS notifications come in three different sizes, allowing the designer to choose
 #### Core code example:
 ```html
 <!-- Large -->
-<div class="hds-notification hds-notification--large">
-  <div class="hds-notification__label">
-    <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
-    <span>New messages</span>
+<section aria-label="Notification" class="hds-notification hds-notification--large">
+  <div class="hds-notification__content">
+    <div class="hds-notification__label" role="heading" aria-level="2">
+      <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+      <span>New messages</span>
+    </div>
+    <div class="hds-notification__body">You have received new messages.</div>
   </div>
-  <div class="hds-notification__body">You have received new messages.</div>
-</div>
+</section>
 
 <!-- Default -->
-<div class="hds-notification">
-  <div class="hds-notification__label">
-    <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
-    <span>New messages</span>
+<section aria-label="Notification" class="hds-notification">
+  <div class="hds-notification__content">
+    <div class="hds-notification__label" role="heading" aria-level="2">
+      <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+      <span>New messages</span>
+    </div>
+    <div class="hds-notification__body">You have received new messages.</div>
   </div>
-  <div class="hds-notification__body">You have received new messages.</div>
-</div>
+</section>
 
 <!-- Small -->
-<div class="hds-notification hds-notification--small">
-  <div class="hds-notification__label">
-    <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+<section aria-label="Notification" class="hds-notification hds-notification--small">
+  <div class="hds-notification__content">
+    <div class="hds-notification__label" role="heading" aria-level="2">
+      <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+    </div>
+    <div class="hds-notification__body">You have received new messages.</div>
   </div>
-  <div class="hds-notification__body">You have received new messages.</div>
-</div>
+</section>
 ```
 
 #### React code example:
@@ -206,13 +222,15 @@ Invisible notifications do not show up on screen and they are meant to aid scree
 #### Core code example:
 ```html
 <div class="hiddenFromScreen" aria-atomic="true" aria-live="assertive" role="status">
-  <div class="hds-notification">
-    <div class="hds-notification__label">
-      <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
-      <span>New messages</span>
+  <section aria-label="Notification" class="hds-notification">
+    <div class="hds-notification__content">
+      <div class="hds-notification__label" role="heading" aria-level="2">
+        <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+        <span>New messages</span>
+      </div>
+      <div class="hds-notification__body">You have received new messages. This notification is invisible.</div>
     </div>
-    <div class="hds-notification__body">You have received new messages. This notification is invisible.</div>
-  </div>
+  </section>
 </div>
 ```
 
