@@ -1,0 +1,215 @@
+---
+name: Forms
+menu: Patterns
+route: /patterns/forms
+---
+
+import { Playground } from "docz";
+import { Checkbox, StatusLabel } from "hds-react";
+import { Notification } from "hds-react";
+import { IconCheck } from "hds-react";
+import { IconError } from "hds-react";
+
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
+import Text from "../../src/components/Text";
+import Image from "../../src/components/Image";
+
+# Forms
+
+<StatusLabel>New</StatusLabel> 
+<StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel>
+
+<LargeParagraph>
+  Forms are groups of controls, that allow the user to input, modify and select data values or configure options. 
+</LargeParagraph>
+
+## Principles
+Forms should be designed to be as clear and straightforward as possible, to allow the user to complete the task quickly.
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <p style="color:var(--color-success);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></p>
+    <ul>
+        <li><strong>Only ask for absolutely necessary information</strong>
+            <ul style="margin-top:0;">
+                <li>respect the user’s privacy and GDPR regulations</li>
+            </ul>
+        </li>
+        <li><strong>Follow a logical, predictable order</strong> (for example first name, last name).</li>
+        <li><strong>Group related tasks</strong> under section titles to provide more context and make the interface easier to scan.</li>
+        <li><strong>Provide clear, descriptive headlines, fieldset legends and labels</strong> to help the user easily scan and get the gist of the form.</li>
+        <li><strong>Divide long forms into smaller steps </strong>to make it easier to understand and validate.</li>
+        <li><strong>Enable autocompleting values</strong> to provide automated assistance in filling out form field values.
+            <ul style="margin-top:0;">
+                <li>Provide an appropriate autocomplete attribute to fields.</li>
+            </ul>
+        </li>
+        <li><strong>Pre-populate known values</strong> if possible to make filling the form easier.
+            <ul style="margin-top:0;">
+                <li>The user should not be made to input the same information twice.</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <p style="color:var(--color-error);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></p>
+    <ul>
+        <li>The user <em>should</em> not be made to constantly switch between keyboard and mouse while filling the form.</li>
+    </ul>
+</div>
+
+## Accessibility
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <p style="color:var(--color-success);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></p>
+    <strong>A change in a form controls value or state <em>must never </em>trigger a change in page <em>context</em>.</strong>
+    <ul>
+        <li><strong>Form controls <em>must</em> only be used to change page <em>content</em>.</strong></li>
+        <li><strong>To trigger any change in <em>context</em>, an button <em>must</em> be used.</strong></li>
+        <li>A change in from control happens for example when:
+            <ul style="margin-top:0;">
+                <li>the control receives focus (<Link href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-receive-focus.html" external>WCAG 2.1 success criteria 3.2.1 On focus</Link>)</li>
+                <li>the value is changed (<Link href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-unpredictable-change.html" external>WCAG 2.1 success criteria 3.2.2 On input</Link>)</li>
+            </ul>
+        </li>
+        <li>A change in <em>content</em> is for example:
+            <ul style="margin-top:0;">
+                <li>Visual changes, such as an expanding an outline </li>
+                <li>Opening a dynamic menu or dropdown</li>
+            </ul>
+        </li>
+        <li>A change in <em>context</em> is for example:
+            <ul style="margin-top:0;">
+                <li>A major change in content, that changes the meaning of the page, or would look to a user as if they had moved to a new page. for example significantly re-arranging the content of a page.</li>
+                <li>Moving focus to a different component</li>
+                <li>Refreshing the page</li>
+                <li>Opening a new browser window or tab</li>
+                <li>Switching to an other user agent (web browser, madia player, plugin etc.)</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+---
+
+## Choosing the right component
+Different form controls have all different functionalities and specific use cases. Here are some guidelines on when each form control *should* be used.
+
+### Entering text
+Enable the user to **input a freeform string of text or numbers.**
+
+| Control   | Name        | Usage         | Examples      |
+| --------- | ----------- | ------------- | ------------- |
+| <Image src="../../static/patterns/form/form-choosing-textinput@2x.png" alt="Text input" style="max-width:250px;" viewable />  | Text input                | Entering short strings of texts or numbers no more than few words long.               |  |
+| <Image src="../../static/patterns/form/form-choosing-textarea@2x.png" alt="Text area" style="max-width:250px;" viewable />    | Text area                 | Entering multiple lines of text | Messages, descriptions, feedback, support requests  |  |
+| <p style="margin: var(--spacing-2-xs) 0;"><StatusLabel type="error">Coming soon</StatusLabel></p>                             | *Text input data types*   | <p>Text fields come in several varieties for different data types (date, password etc.) and specific purposes (e.g. search).</p><p style="margin-bottom:0"><strong>Separate components for most common input data types coming soon to HDS.</strong></p>| Names, phone numbers, addresses, search. |  |
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <p style="color:var(--color-success);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></p>
+    <ul>
+        <li>
+            Adjust the width to reflect the intended length of the content. 
+            <ul style="margin-top:0;">
+                <li>Align the width to the responsive column grid.</li>
+                <li>If an input is too long to be fully displayed in the field, truncate the value with ellipsis.</li>
+            </ul>
+        </li>
+        <li>Make sure users can enter their information at smaller screen sizes.</li>
+    </ul>
+</div>
+
+### Selecting from pre-defined options 
+Enable the user to enter an input by **selecting from a set of pre-defined options**.
+
+Each selection control has a specific use case. The main factors that determine which one is the appropriate for the given situation are:
+- how many options you need to present?
+- can the user select only one or multiple options at the same time?
+
+#### Short lists of choices
+| Control   | Name        | Usage         | Examples      |
+| --------- | ----------- | ------------- | ------------- |
+| <Image src="../../static/patterns/form/form-choosing-select-checkbox@2x.png" alt="Checkbox" style="max-width:250px;" viewable />              | Checkbox              | Selecting/deselecting a single option.                        | Agreeing to terms and conditions |
+| <Image src="../../static/patterns/form/form-choosing-select-checkboxgroup@2x.png" alt="Checkbox group" style="max-width:250px;" viewable />   | Checkbox group        | Selecting one or more options from a short list.              | <ul style="margin-bottom:0"><li>Adding optional items</li><li>Selecting all that apply</li></ul> |
+| <Image src="../../static/patterns/form/form-choosing-select-radio@2x.png" alt="Radio button group" style="max-width:250px;" viewable />       | Radio button group    | Selecting a single option from mutually exclusive choices.    | Picking a type |
+| <StatusLabel type="error">Coming soon</StatusLabel>                                                                                           | Toggle                | Choosing between binary options.                              | <ul style="margin-bottom:0"><li>On/off</li><li>Show/hide</li></ul> |
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <p style="color:var(--color-success);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></p>
+    <ul>
+        <li><strong>Related checkboxes must be grouped to a fieldset</strong> with a legend stating the selection being made made.</li>
+        <li><strong>Radio buttons must always be grouped to a fieldset</strong> with a legend stating the selection being made made.</li>
+    </ul>
+</div>
+
+
+#### Long list of choices
+| Control   | Name        | Usage         | Examples      |
+| --------- | ----------- | ------------- | ------------- |
+| <Image src="../../static/patterns/form/form-choosing-dropdown@2x.png" alt="Dropdown" style="max-width:250px;" viewable />         | Dropdown select       | <ul style="margin-bottom:0"><li>Selecting a single option </li><li>4–7 choices.</li><li>Comparable to a radio button group.</li></ul> | |
+| <Image src="../../static/patterns/form/form-choosing-dropdown-multi@2x.png" alt="Dropdown" style="max-width:250px;" viewable />   | Dropdown<br/>multi-select | <ul style="margin-bottom:0"><li>Selecting one or more options </li><li>4–7 choices.</li><li>Comparable to a checkbox group.</li></ul> | |
+| <Image src="../../static/patterns/form/form-choosing-combobox@2x.png" alt="Combobox" style="max-width:250px;" viewable />         | Combobox select       | <ul style="margin-bottom:0"><li>Selecting single option </li><li>more than 8 choices</li><li>Allows <strong>filtering options</strong> with text search.</li></ul> | Choosing for example city of residence, place of birth, or language preference |
+| <Image src="../../static/patterns/form/form-choosing-combobox-multi@2x.png" alt="Combobox" style="max-width:250px;" viewable />   | Combobox<br/>multi-select | <ul style="margin-bottom:0"><li>Selecting one or more options</li><li>more than 8 choices</li><li>Allows <strong>filtering options</strong> with text search.</li></ul> | | 
+
+
+<div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <p style="color:var(--color-error);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></p>
+    <ul>
+        <li><strong>Dropdown or combobox <em>must</em> never be used for listing links.</strong> Links cause a change in context (see <a href="#accessibility">form accessibility principles</a>)</li>
+    </ul>
+</div>
+
+## Performing actions
+To enable the user to **perform actions effecting the whole form or a group of form components**, buttons *should* be used.
+
+Individual form controls can also have action buttons attached to them, that let the user execute commands or other actions within the form element.
+
+| Control   | Name        | Usage         | Examples      |
+| --------- | ----------- | ------------- | ------------- |
+| <Image src="../../static/patterns/form/form-choosing-submit@2x.png" alt="Dropdown" style="max-width:250px;" viewable />           | Primary action        | **Submitting inputted data** to the defined form handler on the server. | Submit |
+| <Image src="../../static/patterns/form/form-choosing-secondary@2x.png" alt="Dropdown" style="max-width:250px;" viewable />        | Secondary action      | Allowing user to perform **important and form wide actions** before submitting: <ul style="margin-bottom:0"><li>Navigating multi-page forms</li><li>Making batch changes to the form fields</li><li>Cancelling the process and returning to previous view.</li></ul> | <ul style="margin-bottom:0"><li>Next/previous page</li><li>Batch clear form fields.</li></ul> |
+| <Image src="../../static/patterns/form/form-choosing-supplementary@2x.png" alt="Dropdown" style="max-width:250px;" viewable />    | Supplementary action  | Allows user to perform: <ul style="margin-bottom:0"><li><strong>Auxiliary functionalities</strong> that help the user, but are not essential in filling the form</li><li><strong>Inline actions</strong> that affect smaller sections of a form (for example a fieldset)</li></ul> | <ul style="margin-bottom:0"><li>Printing</li><li>Saving a draft</li><li>Adding or removing instances or rows to a data list (for example persons to a participant list)</li><li>Inputting data to a form control from an outside source (for example uploading an image, or fetching a location from Google maps)</li></ul> |
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <p><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></p>
+    <ul>
+        <li>All static forms must have a submit button.
+            <ul>
+                <li>When form controls are used to dynamically change content (for example filtering a dataset), submit button is not necessary.</li>
+                <li>The submit button must be the only primary action in a form.</li>
+            </ul>
+        </li>
+        <li>The submit button should be the last element of the form
+            <ul>
+                <li>All required fields and important information considering the form must be placed before the submit button.</li>
+                <li>For example: user is required to approve terms or conditions, or read “small print” before submitting the form.</li>
+            </ul>
+        </li>
+        <li>Keep it simple. Don't confuse the user by overcomplicating the form.
+            <ul>
+                <li>The number of secondary and supplementary actions in a form should be kept as few as possible.</li>
+                <li>Actions should be grouped together, to help the user understand all the actions available in the form at a glance.</li>
+                <li>Icons can be used to differentiate multiple actions.</li>
+            </ul>
+        </li>
+        <li>Prevent accidental loss of data when performing destructive actions. For example clearing all form fields.
+            <ul>
+                <li>The user should be asked to confirm the action (for example with a modal).</li>
+                <li>In multi-page forms the action should only be performed to the current page.</li>
+                <li>After clearing all form fields, the focus should be moved to the beginning of the form.</li>
+                <li>When performing non destructive actions, the user can be informed about the change made, for example with a toast notification.</li>
+            </ul>
+        </li>
+        <li>Supplementary actions should always have both text label and icon, to differentiate them from text links.
+            <ul>
+                <li>The Small button variant can be used for inline actions.</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <p style="color:var(--color-error);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></p>
+    <ul>
+        <li>The submit button must not be placed outside the form element. For example inside the footer.</li>
+        <li>Actions performed inside a form must not affect elements outside the form without confirming the action with submit.</li>
+    </ul>
+</div>
