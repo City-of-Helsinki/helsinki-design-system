@@ -5,7 +5,7 @@ route: /patterns/forms
 ---
 
 import { Playground } from "docz";
-import { Checkbox, StatusLabel } from "hds-react";
+import { StatusLabel } from "hds-react";
 import { Notification } from "hds-react";
 import { IconCheck } from "hds-react";
 import { IconError } from "hds-react";
@@ -17,17 +17,18 @@ import Image from "../../src/components/Image";
 
 # Forms
 
-<StatusLabel>New</StatusLabel> 
+<StatusLabel>New</StatusLabel>
 <StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel>
 
 <LargeParagraph>
-  Forms are groups of controls, that allow the user to input, modify and select data values or configure options. 
+  Forms are groups of controls, that allow the user to input, modify and select data values or configure options.
 </LargeParagraph>
 
 ## Principles
-Forms should be designed to be as clear and straightforward as possible, to allow the user to complete the task quickly.
+Forms *should* be designed to be as clear and straightforward as possible, to allow the user to complete the task quickly.
+
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
-    <p style="color:var(--color-success);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></p>
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
     <ul>
         <li><strong>Only ask for absolutely necessary information</strong>
             <ul style="margin-top:0;">
@@ -45,14 +46,14 @@ Forms should be designed to be as clear and straightforward as possible, to allo
         </li>
         <li><strong>Pre-populate known values</strong> if possible to make filling the form easier.
             <ul style="margin-top:0;">
-                <li>The user should not be made to input the same information twice.</li>
+                <li>The user <em>should not</em> be made to input the same information twice.</li>
             </ul>
         </li>
     </ul>
 </div>
 
 <div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
-    <p style="color:var(--color-error);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></p>
+    <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></div>
     <ul>
         <li>The user <em>should</em> not be made to constantly switch between keyboard and mouse while filling the form.</li>
     </ul>
@@ -60,7 +61,7 @@ Forms should be designed to be as clear and straightforward as possible, to allo
 
 ## Accessibility
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
-    <p style="color:var(--color-success);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></p>
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
     <strong>A change in a form controls value or state <em>must never </em>trigger a change in page <em>context</em>.</strong>
     <ul>
         <li><strong>Form controls <em>must</em> only be used to change page <em>content</em>.</strong></li>
@@ -104,7 +105,7 @@ Enable the user to **input a freeform string of text or numbers.**
 | <p style="margin: var(--spacing-2-xs) 0;"><StatusLabel type="error">Coming soon</StatusLabel></p>                             | *Text input data types*   | <p>Text fields come in several varieties for different data types (date, password etc.) and specific purposes (e.g. search).</p><p style="margin-bottom:0"><strong>Separate components for most common input data types coming soon to HDS.</strong></p>| Names, phone numbers, addresses, search. |  |
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
-    <p style="color:var(--color-success);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></p>
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
     <ul>
         <li>
             Adjust the width to reflect the intended length of the content. 
@@ -133,10 +134,10 @@ Each selection control has a specific use case. The main factors that determine 
 | <StatusLabel type="error">Coming soon</StatusLabel>                                                                                           | Toggle                | Choosing between binary options.                              | <ul style="margin-bottom:0"><li>On/off</li><li>Show/hide</li></ul> |
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
-    <p style="color:var(--color-success);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></p>
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
     <ul>
-        <li><strong>Related checkboxes must be grouped to a fieldset</strong> with a legend stating the selection being made made.</li>
-        <li><strong>Radio buttons must always be grouped to a fieldset</strong> with a legend stating the selection being made made.</li>
+        <li><strong>Related checkboxes <em>must</em> be grouped to a fieldset</strong> with a legend stating the selection being made made.</li>
+        <li><strong>Radio buttons <em>must</em> always be grouped to a fieldset</strong> with a legend stating the selection being made made.</li>
     </ul>
 </div>
 
@@ -145,13 +146,13 @@ Each selection control has a specific use case. The main factors that determine 
 | Control   | Name        | Usage         | Examples      |
 | --------- | ----------- | ------------- | ------------- |
 | <Image src="../../static/patterns/form/form-choosing-dropdown@2x.png" alt="Dropdown" style="max-width:250px;" viewable />         | Dropdown select       | <ul style="margin-bottom:0"><li>Selecting a single option </li><li>4–7 choices.</li><li>Comparable to a radio button group.</li></ul> | |
-| <Image src="../../static/patterns/form/form-choosing-dropdown-multi@2x.png" alt="Dropdown" style="max-width:250px;" viewable />   | Dropdown<br/>multi-select | <ul style="margin-bottom:0"><li>Selecting one or more options </li><li>4–7 choices.</li><li>Comparable to a checkbox group.</li></ul> | |
+| <Image src="../../static/patterns/form/form-choosing-dropdown-multi@2x.png" alt="Dropdown multi-select" style="max-width:250px;" viewable />   | Dropdown<br/>multi-select | <ul style="margin-bottom:0"><li>Selecting one or more options </li><li>4–7 choices.</li><li>Comparable to a checkbox group.</li></ul> | |
 | <Image src="../../static/patterns/form/form-choosing-combobox@2x.png" alt="Combobox" style="max-width:250px;" viewable />         | Combobox select       | <ul style="margin-bottom:0"><li>Selecting single option </li><li>more than 8 choices</li><li>Allows <strong>filtering options</strong> with text search.</li></ul> | Choosing for example city of residence, place of birth, or language preference |
-| <Image src="../../static/patterns/form/form-choosing-combobox-multi@2x.png" alt="Combobox" style="max-width:250px;" viewable />   | Combobox<br/>multi-select | <ul style="margin-bottom:0"><li>Selecting one or more options</li><li>more than 8 choices</li><li>Allows <strong>filtering options</strong> with text search.</li></ul> | | 
+| <Image src="../../static/patterns/form/form-choosing-combobox-multi@2x.png" alt="Combobox multi-select" style="max-width:250px;" viewable />   | Combobox<br/>multi-select | <ul style="margin-bottom:0"><li>Selecting one or more options</li><li>more than 8 choices</li><li>Allows <strong>filtering options</strong> with text search.</li></ul> | | 
 
 
 <div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
-    <p style="color:var(--color-error);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></p>
+    <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></div>
     <ul>
         <li><strong>Dropdown or combobox <em>must</em> never be used for listing links.</strong> Links cause a change in context (see <a href="#accessibility">form accessibility principles</a>)</li>
     </ul>
@@ -164,41 +165,41 @@ Individual form controls can also have action buttons attached to them, that let
 
 | Control   | Name        | Usage         | Examples      |
 | --------- | ----------- | ------------- | ------------- |
-| <Image src="../../static/patterns/form/form-choosing-submit@2x.png" alt="Dropdown" style="max-width:250px;" viewable />           | Primary action        | **Submitting inputted data** to the defined form handler on the server. | Submit |
-| <Image src="../../static/patterns/form/form-choosing-secondary@2x.png" alt="Dropdown" style="max-width:250px;" viewable />        | Secondary action      | Allowing user to perform **important and form wide actions** before submitting: <ul style="margin-bottom:0"><li>Navigating multi-page forms</li><li>Making batch changes to the form fields</li><li>Cancelling the process and returning to previous view.</li></ul> | <ul style="margin-bottom:0"><li>Next/previous page</li><li>Batch clear form fields.</li></ul> |
-| <Image src="../../static/patterns/form/form-choosing-supplementary@2x.png" alt="Dropdown" style="max-width:250px;" viewable />    | Supplementary action  | Allows user to perform: <ul style="margin-bottom:0"><li><strong>Auxiliary functionalities</strong> that help the user, but are not essential in filling the form</li><li><strong>Inline actions</strong> that affect smaller sections of a form (for example a fieldset)</li></ul> | <ul style="margin-bottom:0"><li>Printing</li><li>Saving a draft</li><li>Adding or removing instances or rows to a data list (for example persons to a participant list)</li><li>Inputting data to a form control from an outside source (for example uploading an image, or fetching a location from Google maps)</li></ul> |
+| <Image src="../../static/patterns/form/form-choosing-submit@2x.png" alt="rimary action button" style="max-width:250px;" viewable />               | Primary action        | **Submitting inputted data** to the defined form handler on the server. | Submit |
+| <Image src="../../static/patterns/form/form-choosing-secondary@2x.png" alt="Secondary action button" style="max-width:250px;" viewable />         | Secondary action      | Allowing user to perform **important and form wide actions** before submitting: <ul style="margin-bottom:0"><li>Navigating multi-page forms</li><li>Making batch changes to the form fields</li><li>Cancelling the process and returning to previous view.</li></ul> | <ul style="margin-bottom:0"><li>Next/previous page</li><li>Batch clear form fields.</li></ul> |
+| <Image src="../../static/patterns/form/form-choosing-supplementary@2x.png" alt="Supplementary action button" style="max-width:250px;" viewable /> | Supplementary action  | Allows user to perform: <ul style="margin-bottom:0"><li><strong>Auxiliary functionalities</strong> that help the user, but are not essential in filling the form</li><li><strong>Inline actions</strong> that affect smaller sections of a form (for example a fieldset)</li></ul> | <ul style="margin-bottom:0"><li>Printing</li><li>Saving a draft</li><li>Adding or removing instances or rows to a data list (for example persons to a participant list)</li><li>Inputting data to a form control from an outside source (for example uploading an image, or fetching a location from Google maps)</li></ul> |
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
     <p><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></p>
     <ul>
-        <li>All static forms must have a submit button.
+        <li><strong>All static forms <em>must</em> have a submit button.</strong>
             <ul>
                 <li>When form controls are used to dynamically change content (for example filtering a dataset), submit button is not necessary.</li>
-                <li>The submit button must be the only primary action in a form.</li>
+                <li>The submit button <em>must</em> be the only primary action in a form.</li>
             </ul>
         </li>
-        <li>The submit button should be the last element of the form
+        <li><strong>The submit button <em>should</em> be the last element of the form</strong>
             <ul>
-                <li>All required fields and important information considering the form must be placed before the submit button.</li>
+                <li>All required fields and important information considering the form <em>must</em> be placed before the submit button.</li>
                 <li>For example: user is required to approve terms or conditions, or read “small print” before submitting the form.</li>
             </ul>
         </li>
-        <li>Keep it simple. Don't confuse the user by overcomplicating the form.
+        <li><strong>Keep it simple.</strong> Don't confuse the user by overcomplicating the form.
             <ul>
-                <li>The number of secondary and supplementary actions in a form should be kept as few as possible.</li>
-                <li>Actions should be grouped together, to help the user understand all the actions available in the form at a glance.</li>
+                <li>The number of secondary and supplementary actions in a form <em>should</em> be kept as few as possible.</li>
+                <li>Actions <em>should</em> be grouped together, to help the user understand all the actions available in the form at a glance.</li>
                 <li>Icons can be used to differentiate multiple actions.</li>
             </ul>
         </li>
-        <li>Prevent accidental loss of data when performing destructive actions. For example clearing all form fields.
+        <li><strong>Prevent accidental loss of data when performing destructive actions.</strong> For example clearing all form fields.
             <ul>
-                <li>The user should be asked to confirm the action (for example with a modal).</li>
-                <li>In multi-page forms the action should only be performed to the current page.</li>
-                <li>After clearing all form fields, the focus should be moved to the beginning of the form.</li>
+                <li>The user <em>should</em> be asked to confirm the action (for example with a modal).</li>
+                <li>In multi-page forms the action <em>should</em> only be performed to the current page.</li>
+                <li>After clearing all form fields, the focus <em>should</em> be moved to the beginning of the form.</li>
                 <li>When performing non destructive actions, the user can be informed about the change made, for example with a toast notification.</li>
             </ul>
         </li>
-        <li>Supplementary actions should always have both text label and icon, to differentiate them from text links.
+        <li>Supplementary actions <em>should</em> always have both text label and icon, to differentiate them from text links.
             <ul>
                 <li>The Small button variant can be used for inline actions.</li>
             </ul>
@@ -207,9 +208,292 @@ Individual form controls can also have action buttons attached to them, that let
 </div>
 
 <div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
-    <p style="color:var(--color-error);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></p>
+    <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></div>
     <ul>
-        <li>The submit button must not be placed outside the form element. For example inside the footer.</li>
-        <li>Actions performed inside a form must not affect elements outside the form without confirming the action with submit.</li>
+        <li><strong>The submit button <em>must</em> not be placed outside the form element.</strong> For example inside the footer.</li>
+        <li><strong>Actions performed inside a form <em>must</em> not affect elements outside the form without confirming the action with submit.</strong></li>
     </ul>
 </div>
+
+---
+
+## Anatomy of a form control
+There are several different types of form controls, but they share similar basic elements and functionalities:
+<Image src="../../static/patterns/form/form-elements-contols@2x.png" alt="Form control" style="max-width:376px;" viewable /> 
+
+1. Input or selection
+2. Label
+3. Required field indicator
+4. Icon
+5. Action button
+
+
+### 1. Input field or selection
+The actual **interactive control element** that allows the user to input or information or select an option.
+<Image src="../../static/patterns/form/form-elements-contol@2x.png" alt="Form control input and selection" style="max-width:376px;" viewable /> 
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
+    <p><strong>Adjust the size</strong> of the input field or selection to indicate the length of the preferred input or average option.</p>
+</div>
+
+### 2. Label
+
+**The name of the form control**, that clearly states the purpose of the control or what information the user is required to input
+
+<Image src="../../static/patterns/form/form-elements-label@2x.png" alt="Form control label" style="max-width:376px;" viewable /> 
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
+    <ul>
+        <li><strong>All form components <em>must</em> have a text label.</strong>
+            <ul>
+                <li>The label can also be substituted with an action button added to the form control. </li>
+                <li>If an action button is used to substitute a label, it <em>must</em> have a text label, not just an icon.</li>
+                <li>An exception is made in the HDS navigation search component which follows a widely used pattern.</li>
+            </ul>
+        </li>
+        <li><strong>The Label <em>must</em> be always visible to the user.</strong></li>
+        <li>Be descriptive.
+            <ul>
+                <li><strong>The user <em>must</em> be able to understand the purpose of the form control from the label only.</strong></li>
+            </ul>
+        </li>
+        <li>Keep it short.
+            <ul>
+                <li>Preferably use less than five words.</li>
+                <li>If the user needs more information for filling the information, it <em>should</em> be provided with assistive text or tooltip.</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></div>
+    <ul>
+        <li>Use ALL CAPS.</li>
+        <li>Use a colon : after label names.</li>
+    </ul>
+</div>
+
+
+### 3. Required field indicator
+
+Marking that indicates a form control for which **the user *must* enter a value** in order to successfully submit the form. 
+
+<Image src="../../static/patterns/form/form-elements-required@2x.png" alt="Form control required indicator" style="max-width:376px;" viewable /> 
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
+    <ul>
+        <li><strong>aria-required="true" attribute <em>must</em> be always provided for required fields</strong>, even if they are not marked visually.</li>
+        <li>If all fields in the form are required
+            <ul>
+                <li>This <em>should</em> be stated in the form wide instructions at the beginning of the form.</li>
+                <li>The submit-button can also be disabled before all fields are filled.</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
+### 4. Icon
+
+Icon is a **supplementary visual representation of the label** displayed inside the form field.
+
+Icons can be used to:
+- **Emphasize** important form controls visually.
+- **Differentiate** similar form controls easier from each other.
+
+<Image src="../../static/patterns/form/form-elements-icon@2x.png" alt="Form control icon" style="max-width:376px;" viewable />
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
+    <ul>
+        <li>Be descriptive.
+            <ul>
+                <li>Choose an icon that clearly describes the type fo input or purpose of the form control</li>
+                <li>Do not use arbitrary or vague icons just for visual purposes.</li>
+            </ul>
+        </li>
+        <li>See <a href="/visual-assets/icons">HDS icon guidelines</a> for more information about using and choosing icons</li>
+    </ul>
+</div>
+
+<div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></div>
+    <p><strong>An icon <em>must</em> not be used to perform an action.</strong> Use an action button instead.</p>
+</div>
+
+
+### 5. Action button
+Some HDS form controls have actionable elements for **executing commands or other actions** within the form element. They provide an additional functionality to the form control for example to:
+- Execute a search with inputted value.
+- Clearing all selections in multi-select dropdowns.
+
+Although the action button is visually similar to an icon, the implementation is different. 
+
+<Image src="../../static/patterns/form/form-elements-action@2x.png" alt="Form control icon" style="max-width:376px;" viewable />
+
+<div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></div>
+    <p>In HDS form components, action buttons are used for predefined purposes and <em>should</em> not be customised.</p>
+</div>
+
+---
+
+## Guiding the user
+To help the user enter the **right information in the right format**, guidance can be provided on different levels:
+
+1. **Form main and sub-heading** summarise the purpose of the form
+2. **Form wide instructions** to help the user to better understand the functionality of the form
+3. **Contextual instructions** for helping the user to fill specific form controls
+
+### 1. Form heading and sub-heading
+The form heading **summarises the purpose of the form** and indicates the user where the form begins. 
+
+- The *main heading* should clearly and concisely **describe the purpose of the form**. 
+    - Full page forms should always have a main heading, but from smaller inline forms embedded to page content, the heading can be omitted.
+- If the purpose of the form cannot be sufficiently summarised by the main heading, it can **elaborated with a *sub-heading***.
+
+<playground>
+
+</playground>
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
+    <ul>
+        <li><strong>If the form has a main heading, it <em>must</em> be the first element</strong>
+            <ul style="margin-top:0;">
+                <li>The main heading <em>should</em> preferably be h1 element, even if visually styled as a smaller level heading.</li>
+            </ul>
+        </li>
+        <li>The the sub-heading <em>should</em> placed next after the main heading, and preferably be a h2 element.</li>
+        <li><strong>Keep it short and descriptive!</strong>
+            <ul style="margin-top:0;">
+                <li>Main heading <em>should</em> be less than five words.</li>
+                <li>Sub-heading <em>should</em> be less than two to three sentences.</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+### 2. Form wide instructions
+To help the user better understand the functionality of the form, instructions and other **information about filling the form and required information** should be provided in the beginning of the form. 
+
+<playground>
+    <h1>Form heading</h1>
+    <Notification>Text</Notification>
+</playground>
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
+    <ul>
+        <li>The instructions should be placed after the heading and sub-heading, before the first form control or fieldeset.</li>
+        <li>The inline notification component should be used for form wide instructions.</li>
+    </ul>
+</div> 
+
+### 3. Contextual instructions
+**Instructions related to specific form component** can be provided for the user in three different ways. They each have different uses and levels of importance:
+- **Assistive text** provides essential information 
+- **Tooltip** provides context or background information
+- **Placeholder** acts as a supplementary visual aid
+
+#### a) Assistive text
+A short secondary description that elaborates the label and helps the user to provide the **right information in the right format**.
+
+**The assistive text is always visible to the user, so any *essential* information the user needs to complete their task *must* be provided as assistive text.**
+- Displayed below the form control
+- Screen readers read the assistive text after the label when focusing the form element.
+
+<Image src="../../static/patterns/form/form-guiding-assistive@2x.png" alt="Form control required indicator" style="max-width:376px;" viewable /> 
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
+    <ul>
+        <li><strong>Keep it short and clear.</strong>
+            <ul>
+                <li>The user <em>should</em> be able to provide the right input based on the label and assistive text alone.</li>
+                <li>Assistive text <em>should</em> not be longer than the form control and more than two rows.</li>
+            </ul>
+        </li>
+    </ul>
+</div> 
+
+#### b) Tooltip
+A popup element that provides **context or background information** that is “nice to have” but not essential. 
+- *Should* be used to:
+    - Explain to users that may be unfamiliar with a particular form control.
+    - Offer a rationale for why certain information is needed.
+- An action button is added on the right side of the label.
+- The tooltip opens, when user clicks the action button.
+
+<Image src="../../static/patterns/form/form-guiding-tooltip@2x.png" alt="Form control required indicator" style="max-width:376px;" viewable /> 
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
+    <ul>
+        <li><strong>Be clear and concise.</strong>
+            <ul>
+                <li>Although tooltips can provide more information than the assistive text, they should preferably be less than two or three sentences long.</li>
+            </ul>
+        </li>
+        <li><strong>Provide a link to a separate page</strong>, if more detailed information is available.
+            <ul>
+                <li>Always open links from tooltips to a new window, so that the process of filling the form is not interrupted.</li>
+            </ul>
+        </li>
+    </ul>
+</div> 
+
+<div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></div>
+    <ul>
+        <li><strong>Make the tooltip open on hover.</strong>
+             <ul>
+                <li>The user should be able to select the text inside the tooltip element.</li>
+            </ul>
+        </li>
+        <li><strong>Tooltip must not be the sole way to provide essential information that the user must know to fill a value.</strong></li>
+    </ul>
+</div> 
+
+
+#### c) Placeholder text
+Placeholder text is a **supplementary visual aid** displayed inside the form control, that can be used form making the form easier to fill.
+
+It can be used to provide the user **a hint of what to enter or what is selected** with the form control: 
+- The preferred format of the input (e.g. Social security number: “DDMMYY-XXXX”)
+- An example value or option (e.g. City: “E.g. Helsinki”). 
+
+<Image src="../../static/patterns/form/form-guiding-placeholder@2x.png" alt="Form control required indicator" style="max-width:376px;" viewable /> 
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
+    <ul>
+        <li><strong>Write placeholder text in a way that it can immediately be recognised as not being an actual value.</strong>
+            <ul>
+                <li>Format examples <em>should</em> be generic rather than real values. If the placeholder seems like a actual value, the user can mistake the field to be already filled.</li>
+                <li>Values examples <em>should</em> preferably start in a way, that clearly indicates it is a placeholder. For example: Full name: “E.g. John Doe”, (in Finnish Koko nimi: “Esim. Matti meikäläinen”)</li>
+                <li>Leave the placeholder empty, if an example value that would be generic enough to be recognised as placeholder can’t be found.</li>
+                <li>Screen readers do not differentiate if the element is a placeholder or an actual value. Even though assistive technology users are usually accustomed to this, it can possibly cause confusion.</li>
+            </ul>
+        </li>
+    </ul>
+</div> 
+
+<div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></div>
+    <ul>
+        <li><strong>The placeholder <em>must</em> never be used as the only channel to provide crucial information.</strong>
+            <ul>
+                <li><strong>Corresponding information <em>must</em> also be provided within the label or assistive text</strong></li>
+                <li>Placeholder disappears once the user begins to input data </li>
+                <li>The way screen readers treat placeholders varies. Some read it only when no value has been inputted, some read it even when a value has been inputted.</li>
+                <li>An exception is made in the HDS navigation search component which follows a widely used pattern.</li>
+            </ul>
+        </li>
+     </ul>
+</div>
+
