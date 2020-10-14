@@ -1,3 +1,3 @@
-// export * from './Dropdown';
+export * from './dropdown';
 export * from './select';
 export * from './combobox';

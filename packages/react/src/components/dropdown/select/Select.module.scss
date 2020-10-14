@@ -29,6 +29,7 @@
   color: var(--dropdown-color-default);
   display: flex;
   font-size: var(--fontsize-body-l);
+  min-height: var(--menu-item-height);
   outline: none;
   padding: calc(var(--spacing-s) - var(--border-width) * 2) var(--spacing-s);
   width: 100%;

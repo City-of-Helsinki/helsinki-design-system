@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Select /> spec renders the component 1`] = `
+exports[`<Dropdown /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
     class="root"
   >
     <label
       class="label "
-      for="hds-select-1-toggle-button"
-      id="hds-select-1-label"
+      for="hds-toggle-button"
+      id="hds-label"
     >
       Label
     </label>
@@ -18,14 +18,15 @@ exports[`<Select /> spec renders the component 1`] = `
       <button
         aria-expanded="false"
         aria-haspopup="listbox"
-        aria-labelledby="hds-select-1-label hds-select-3-helper hds-select-1-toggle-button"
-        aria-owns="hds-select-1-menu"
-        class="button placeholder"
-        id="hds-select-1-toggle-button"
+        aria-labelledby="hds-label hds-toggle-button"
+        class="buttonDropdown placeholder"
+        id="hds-toggle-button"
         type="button"
       >
+        <span
+          class="buttonLabel"
+        />
         <svg
-          aria-hidden="true"
           class="icon s angleIcon"
           role="img"
           viewBox="0 0 24 24"
@@ -45,19 +46,17 @@ exports[`<Select /> spec renders the component 1`] = `
           </g>
         </svg>
       </button>
-      <ul
-        aria-labelledby="hds-select-1-label"
-        class="menu"
-        id="hds-select-1-menu"
-        role="listbox"
-        style="max-height: 260px;"
-        tabindex="-1"
-      />
     </div>
+    <ul
+      aria-labelledby="hds-label"
+      class="menu"
+      id="hds-menu"
+      role="listbox"
+      style="max-height: calc(var(--dropdown-height) * 5);"
+      tabindex="-1"
+    />
     <div
-      aria-hidden="true"
       class="helperText"
-      id="hds-select-3-helper"
     >
       Helper
     </div>
