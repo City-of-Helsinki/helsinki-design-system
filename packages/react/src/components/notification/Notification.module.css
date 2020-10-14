@@ -21,6 +21,10 @@
   width: 100%;
 }
 
+.content {
+  composes: hds-notification__content from 'hds-core/lib/components/notification/notification.css';
+}
+
 .icon {
   composes: hds-icon from 'hds-core/lib/components/notification/notification.css';
 }
