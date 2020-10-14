@@ -7,8 +7,6 @@ import './assets/index.css';
 const Wrapper = ({ children }) => (
   <React.Fragment>
     <Helmet>
-      <title>Helsinki Design System</title>
-
       <link rel="apple-touch-icon" sizes="57x57" href={require('./assets/apple-icon-57x57.png')} />
       <link rel="apple-touch-icon" sizes="60x60" href={require('./assets/apple-icon-60x60.png')} />
       <link rel="apple-touch-icon" sizes="72x72" href={require('./assets/apple-icon-72x72.png')} />
