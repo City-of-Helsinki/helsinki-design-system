@@ -32,6 +32,7 @@ type SelectedItemsProps<OptionType> = {
   /**
    * Downshift selected item getter function
    */
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   getSelectedItemProps: any;
   /**
    * Flag for whether selected items that horizontally don't fit the container should be hidden

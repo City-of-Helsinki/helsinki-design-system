@@ -1,4 +1,5 @@
 import React from 'react';
+import { action } from '@storybook/addon-actions';
 
 import { Tag } from './Tag';
 
@@ -9,5 +10,5 @@ export default {
 
 export const Example = () => {
   const label = 'Americum';
-  return <Tag deleteButtonAriaLabel={`Delete: ${label}`} onDelete={() => console.log('Delete!')} label={label} />;
+  return <Tag deleteButtonAriaLabel={`Delete: ${label}`} onDelete={() => action(`Delete: ${label}`)} label={label} />;
 };
