@@ -54,6 +54,21 @@ export type ComboboxProps<OptionType> = SelectProps<OptionType> & {
   showToggleButton?: boolean;
 };
 
+const defaultProps = {
+  circularNavigation: false,
+  clearable: true,
+  disabled: false,
+  id: uniqueId('hds-combobox-') as string,
+  onChange: () => null,
+  invalid: false,
+  multiselect: false,
+  optionLabelField: 'label',
+  options: [],
+  showToggleButton: true,
+  virtualized: false,
+  visibleOptions: 5,
+};
+
 function getDefaultFilter<OptionType>(labelField: string): FilterFunction<OptionType> {
   return (options: OptionType[], search: string) => {
     return options.filter((option) => {
@@ -81,7 +96,7 @@ function getDefaultFilter<OptionType>(labelField: string): FilterFunction<Option
 
 // we can't destructure the props here. after destructuring, the link
 // between the multiselect prop and the value, onChange etc. props would vanish
-export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
+export const Combobox = <OptionType,>(props: ComboboxProps<OptionType> & typeof defaultProps) => {
   // destructure common props
   const {
     catchEscapeKey,
@@ -526,17 +541,4 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     </div>
   );
 };
-Combobox.defaultProps = {
-  circularNavigation: false,
-  clearable: true,
-  disabled: false,
-  id: uniqueId('hds-combobox-') as string,
-  onChange: () => null,
-  invalid: false,
-  multiselect: false,
-  optionLabelField: 'label',
-  options: [],
-  showToggleButton: true,
-  virtualized: false,
-  visibleOptions: 5,
-} as Partial<ComboboxProps<unknown>>;
+Combobox.defaultProps = defaultProps;
