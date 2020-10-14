@@ -50,67 +50,77 @@ import LargeParagraph from "../../src/components/LargeParagraph";
 Select dropdown serves in most use cases when the user needs to select one of 4 to 7 options. If there are 8 or more options available, consider using [Combobox](#combobox-single-selection) to allow filtering.
 
 <Playground>
+{() => {
+  const options = [{ label: 'Plutonium' }, { label: 'Americium' }, { label: 'Copernicium' }, { label: 'Berkelium' }];
+  return (
+    <>
+      <Select required label="Label" helper="Assistive text" placeholder="Placeholder" options={options} />
+      <Select
+        disabled
+        label="Label"
+        helper="Assistive text"
+        placeholder="Placeholder"
+        options={options}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+      <Select
+        invalid
+        required
+        label="Label"
+        error="Error description"
+        placeholder="Placeholder"
+        options={options}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+      <Select
+        required
+        label="Label"
+        helper="Assistive text"
+        placeholder="Placeholder"
+        icon={<IconUser />}
+        options={[{ label: 'Adam' }, { label: 'Caitlyn' }, { label: 'Jack' }, { label: 'Sally' }]}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+    </>
+  )
+}}
+</Playground>
+
+#### React code example:
+```tsx
 <Select
   required
   label="Label"
   helper="Assistive text"
   placeholder="Placeholder"
-  options={[
-    { label: 'Plutonium' },
-    { label: 'Americium' },
-    { label: 'Copernicium' },
-    { label: 'Berkelium' },
-  ]}
+  options={[{ label: 'Plutonium' }, ...]}
 />
-
 <Select
   disabled
   label="Label"
   helper="Assistive text"
   placeholder="Placeholder"
-  options={[
-    { label: 'Plutonium' },
-    { label: 'Americium' },
-    { label: 'Copernicium' },
-    { label: 'Berkelium' },
-  ]}
-  style={{marginTop: 'var(--spacing-xs)'}}
+  options={[{ label: 'Plutonium' }, ...]}
+  style={{ marginTop: 'var(--spacing-xs)' }}
 />
-
 <Select
   invalid
   required
   label="Label"
   error="Error description"
   placeholder="Placeholder"
-  options={[
-    { label: 'Plutonium' },
-    { label: 'Americium' },
-    { label: 'Copernicium' },
-    { label: 'Berkelium' },
-  ]}
-  style={{marginTop: 'var(--spacing-xs)'}}
+  options={[{ label: 'Plutonium' }, ...]}
+  style={{ marginTop: 'var(--spacing-xs)' }}
 />
-
 <Select
   required
   label="Label"
   helper="Assistive text"
   placeholder="Placeholder"
   icon={<IconUser />}
-  options={[
-    { label: 'Adam' },
-    { label: 'Caitlyn' },
-    { label: 'Jack' },
-    { label: 'Sally' },
-  ]}
-  style={{marginTop: 'var(--spacing-xs)'}}
+  options={[{ label: 'Adam' }, ...]}
+  style={{ marginTop: 'var(--spacing-xs)' }}
 />
-</Playground>
-
-#### React code example:
-```tsx
-
 ```
 
 ### Select (multi-selection)
@@ -119,7 +129,7 @@ Select multi-selection variant allows the user to select one or more options sim
 
 <Playground>
 <Select
-  circularNavigation
+  multiselect
   required
   label="Label"
   placeholder="Placeholder"
@@ -130,14 +140,24 @@ Select multi-selection variant allows the user to select one or more options sim
     { label: 'Copernicium' },
     { label: 'Berkelium' },
   ]}
-  multiselect
   clearButtonAriaLabel="Clear all selections"
+  selectedItemRemoveButtonAriaLabel="Remove ${value}"
 />
 </Playground>
 
+
 #### React code example:
 ```tsx
-
+<Select
+  multiselect
+  required
+  label="Label"
+  placeholder="Placeholder"
+  helper="Assistive text"
+  options={[{ label: 'Plutonium' }, ...]}
+  clearButtonAriaLabel="Clear all selections"
+  selectedItemRemoveButtonAriaLabel="Remove ${value}"
+/>
 ```
 
 ### Combobox (single selection)
@@ -145,12 +165,8 @@ Select multi-selection variant allows the user to select one or more options sim
 Combobox dropdown serves in most use cases when the user needs to select one from 8 or more options (up to hundreds of options). Combobox variant features filtering options by typing.
 
 <Playground>
-<Combobox
-  required
-  label="Label"
-  helper="Assistive text"
-  placeholder="Placeholder"
-  options={[
+{() => {
+  const options = [
     { label: 'Americium' },
     { label: 'Berkelium' },
     { label: 'Californium' },
@@ -159,73 +175,85 @@ Combobox dropdown serves in most use cases when the user needs to select one fro
     { label: 'Fermium' },
     { label: 'Mendelevium' },
     { label: 'Plutonium' },
-  ]}
-  clearButtonAriaLabel="Clear all selections"
-/>
+  ]
+  return (
+    <>
+      <Combobox required label="Label" helper="Assistive text" placeholder="Placeholder" options={options} />
+      <Combobox
+        disabled
+        label="Label"
+        helper="Assistive text"
+        placeholder="Placeholder"
+        options={options}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+      <Combobox
+        invalid
+        required
+        label="Label"
+        error="Error description"
+        placeholder="Placeholder"
+        options={options}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+      <Combobox
+        required
+        label="Label"
+        helper="Assistive text"
+        placeholder="Placeholder"
+        icon={<IconUser />}
+        options={[
+          { label: 'Adam' },
+          { label: 'Allie' },
+          { label: 'Bob' },
+          { label: 'Caitlyn' },
+          { label: 'Jack' },
+          { label: 'Olivia' },
+          { label: 'Sally' },
+          { label: 'Sam' },
+        ]}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+    </>
+  )
+}}
+</Playground>
 
+#### React code example:
+```tsx
+<Combobox
+  required
+  label="Label"
+  helper="Assistive text"
+  placeholder="Placeholder"
+  options={[{ label: 'Americium' }...]}
+/>
 <Combobox
   disabled
   label="Label"
   helper="Assistive text"
   placeholder="Placeholder"
-  options={[
-    { label: 'Americium' },
-    { label: 'Berkelium' },
-    { label: 'Californium' },
-    { label: 'Copernicium' },
-    { label: 'Einsteinium' },
-    { label: 'Fermium' },
-    { label: 'Mendelevium' },
-    { label: 'Plutonium' },
-  ]}
-  clearButtonAriaLabel="Clear all selections"
-  style={{marginTop: 'var(--spacing-xs)'}}
+  options={[{ label: 'Americium' }...]}
+  style={{ marginTop: 'var(--spacing-xs)' }}
 />
-
 <Combobox
   invalid
   required
   label="Label"
-  placeholder="Placeholder"
   error="Error description"
-  options={[
-    { label: 'Americium' },
-    { label: 'Berkelium' },
-    { label: 'Californium' },
-    { label: 'Copernicium' },
-    { label: 'Einsteinium' },
-    { label: 'Fermium' },
-    { label: 'Mendelevium' },
-    { label: 'Plutonium' },
-  ]}
-  clearButtonAriaLabel="Clear all selections"
-  style={{marginTop: 'var(--spacing-xs)'}}
+  placeholder="Placeholder"
+  options={[{ label: 'Americium' }...]}
+  style={{ marginTop: 'var(--spacing-xs)' }}
 />
-
 <Combobox
   required
   label="Label"
   helper="Assistive text"
   placeholder="Placeholder"
   icon={<IconUser />}
-  options={[
-    { label: 'Adam' },
-    { label: 'Allie' },
-    { label: 'Bob' },
-    { label: 'Caitlyn' },
-    { label: 'Jack' },
-    { label: 'Olivia' },
-    { label: 'Sally' },
-    { label: 'Sam' },
-  ]}
-  clearButtonAriaLabel="Clear all selections"
-  style={{marginTop: 'var(--spacing-xs)'}}
+  options={[{ label: 'Adam' }, ...]}
+  style={{ marginTop: 'var(--spacing-xs)' }}
 />
-</Playground>
-
-#### React code example:
-```tsx
-
 ```
 
 ### Combobox (multi-selection)
@@ -250,12 +278,22 @@ Combobox multi-select variant allows the user to select one or more options simu
     { label: 'Plutonium' },
   ]}
   clearButtonAriaLabel="Clear all selections"
+  selectedItemRemoveButtonAriaLabel="Remove ${value}"
 />
 </Playground>
 
 #### React code example:
 ```tsx
-
+<Combobox
+  multiselect
+  required
+  label="Label"
+  helper="Assistive text"
+  placeholder="Placeholder"
+  options={[{ label: 'Americium' }, ...]}
+  clearButtonAriaLabel="Clear all selections"
+  selectedItemRemoveButtonAriaLabel="Remove ${value}"
+/>
 ```
 
 ## Demos & API
@@ -266,7 +304,11 @@ _Not included in hds-core!_
 
 ### React
 
-[Dropdowns in hds-react](/storybook/react/?path=/story/components-dropdown--default)
+[Select in hds-react](/storybook/react/?path=/story/components-dropdowns-select--default)
 
-[Dropdown API](/storybook/react/?path=/docs/components-dropdown--default)
+[Select API](/storybook/react/?path=/docs/components-dropdowns-select--default)
+
+[Combobox in hds-react](/storybook/react/?path=/story/components-dropdowns-combobox--default)
+
+[Combobox API](/storybook/react/?path=/docs/components-dropdowns-combobox--default)
 
