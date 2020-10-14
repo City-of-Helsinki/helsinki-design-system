@@ -10,7 +10,7 @@ import { IconFaceSmile } from '../../../icons';
 type Option = { label: string };
 
 function getId(): string {
-  return uniqueId('hds-select-');
+  return uniqueId('hds-combobox-');
 }
 
 function getOptions() {

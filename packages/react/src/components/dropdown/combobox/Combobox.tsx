@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
+/* eslint-disable react/destructuring-assignment */
 import React, {
   useRef,
   useState,
@@ -78,44 +79,40 @@ function getDefaultFilter<OptionType>(labelField: string): FilterFunction<Option
   };
 }
 
-export const Combobox = <OptionType,>({
-  catchEscapeKey,
-  circularNavigation = false,
-  className,
-  clearable = true,
-  clearButtonAriaLabel,
-  defaultValue,
-  disabled = false,
-  error,
-  getA11yRemovalMessage = () => '',
-  getA11ySelectionMessage = () => '',
-  getA11yStatusMessage = () => '',
-  helper,
-  icon,
-  id = uniqueId('hds-combobox-'),
-  invalid = false,
-  isOptionDisabled,
-  label,
-  multiselect,
-  onBlur = () => null,
-  onChange = () => null,
-  onFocus = () => null,
-  optionLabelField = 'label',
-  options = [],
-  placeholder,
-  required,
-  selectedItemRemoveButtonAriaLabel,
-  selectedItemSrLabel,
-  showToggleButton = true,
-  style,
-  theme,
-  value,
-  virtualized = false,
-  visibleOptions = 5,
-  filter: userLandFilter,
-}: ComboboxProps<OptionType>) => {
+// we can't destructure the props here. after destructuring, the link
+// between the multiselect prop and the value, onChange etc. props would vanish
+export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
+  // destructure common props
+  const {
+    catchEscapeKey,
+    circularNavigation,
+    className,
+    clearable,
+    disabled,
+    error,
+    getA11ySelectionMessage = () => '',
+    getA11yStatusMessage = () => '',
+    helper,
+    id,
+    invalid,
+    isOptionDisabled,
+    label,
+    onBlur = () => null,
+    onFocus = () => null,
+    optionLabelField,
+    options,
+    placeholder,
+    required,
+    showToggleButton,
+    style,
+    theme,
+    virtualized,
+    visibleOptions,
+    filter: userLandFilter,
+  } = props;
+
   // flag for whether the component is controlled
-  const controlled = multiselect && value !== undefined;
+  const controlled = props.multiselect && props.value !== undefined;
   // selected items container ref
   const selectedItemsContainerRef = useRef<HTMLDivElement>();
   // combobox input ref
@@ -170,10 +167,10 @@ export const Combobox = <OptionType,>({
     defaultActiveIndex: 0,
     initialActiveIndex: 0,
     // set the default value(s) when the dropdown is initialized
-    initialSelectedItems: (defaultValue as OptionType[]) ?? [],
-    ...(multiselect && value !== undefined && { selectedItems: (value as OptionType[]) ?? [] }),
-    getA11yRemovalMessage,
-    onSelectedItemsChange: ({ selectedItems: _selectedItems }) => multiselect && onChange(_selectedItems),
+    initialSelectedItems: (props.defaultValue as OptionType[]) ?? [],
+    ...(controlled && { selectedItems: (props.value as OptionType[]) ?? [] }),
+    getA11yRemovalMessage: (props.multiselect && props.getA11yRemovalMessage) ?? (() => ''),
+    onSelectedItemsChange: ({ selectedItems: _selectedItems }) => props.multiselect && props.onChange(_selectedItems),
     onStateChange: (changes) =>
       onMultiSelectStateChange<OptionType>(changes, activeIndex, selectedItemsContainerRef.current),
     stateReducer: (state, actionAndChanges) => multiSelectReducer<OptionType>(state, actionAndChanges, controlled),
@@ -199,16 +196,21 @@ export const Combobox = <OptionType,>({
     onInputValueChange: ({ inputValue }) => setSearch(inputValue),
     // a defined value indicates that the dropdown should be controlled
     // don't set selectedItem if it's not, so that downshift can handle the state
-    ...(!multiselect && value !== undefined && { selectedItem: value as OptionType }),
+    ...(props.multiselect === false && props.value !== undefined && { selectedItem: props.value }),
     getA11ySelectionMessage,
     getA11yStatusMessage,
     itemToString: (item): string => (item ? item[optionLabelField] ?? '' : ''),
     onHighlightedIndexChange: ({ highlightedIndex: _highlightedIndex }) => virtualizer.scrollToIndex(_highlightedIndex),
-    onSelectedItemChange: ({ selectedItem: _selectedItem }) => !multiselect && onChange(_selectedItem),
+    onSelectedItemChange: ({ selectedItem: _selectedItem }) =>
+      props.multiselect === false && props.onChange(_selectedItem),
     onStateChange({ type, selectedItem: _selectedItem }) {
       const { InputBlur, InputKeyDownEnter, ItemClick } = useCombobox.stateChangeTypes;
 
-      if ((type === InputBlur || type === InputKeyDownEnter || type === ItemClick) && multiselect && _selectedItem) {
+      if (
+        (type === InputBlur || type === InputKeyDownEnter || type === ItemClick) &&
+        props.multiselect &&
+        _selectedItem
+      ) {
         getIsInSelectedOptions(selectedItems, _selectedItem)
           ? _setSelectedItems(selectedItems.filter((item) => !isEqual(item, _selectedItem)))
           : addSelectedItem(_selectedItem);
@@ -219,7 +221,7 @@ export const Combobox = <OptionType,>({
       const { ItemClick } = useCombobox.stateChangeTypes;
 
       // prevent the menu from being closed when the user selects an item by clicking
-      if (type === ItemClick && multiselect) {
+      if (type === ItemClick && props.multiselect) {
         return {
           ...changes,
           isOpen: state.isOpen,
@@ -294,7 +296,7 @@ export const Combobox = <OptionType,>({
     }
   };
 
-  if (!multiselect) {
+  if (!props.multiselect) {
     // we call the getDropdownProps getter function when multiselect isn't enabled
     // in order to suppress the "You forgot to call the ..." error message thrown by downshift.
     // we only need to apply the getter props to the toggle button when multiselect is enabled.
@@ -304,7 +306,7 @@ export const Combobox = <OptionType,>({
   // Input should be shown when the combobox is open, or when it's
   // closed, but no items are selected. The input should always be
   // visible when multiselect mode is turned off.
-  const isInputVisible = !multiselect || isOpen || (!isOpen && selectedItems.length === 0);
+  const isInputVisible = !props.multiselect || isOpen || (!isOpen && selectedItems.length === 0);
 
   // screen readers should read the labels in the following order:
   // field label > helper text > error text > toggle button label
@@ -320,7 +322,7 @@ export const Combobox = <OptionType,>({
         invalid && styles.invalid,
         disabled && styles.disabled,
         isOpen && styles.open,
-        multiselect && styles.multiselect,
+        props.multiselect && styles.multiselect,
         theme && 'custom',
         className,
       )}
@@ -367,12 +369,12 @@ export const Combobox = <OptionType,>({
         ref={getComboboxProps().ref}
       >
         {/* SELECTED ITEMS */}
-        {multiselect && selectedItems.length > 0 && (
+        {props.multiselect && selectedItems.length > 0 && (
           <SelectedItems<OptionType>
             activeIndex={activeIndex}
             className={styles.selectedItems}
             clearable={clearable}
-            clearButtonAriaLabel={clearButtonAriaLabel}
+            clearButtonAriaLabel={props.clearButtonAriaLabel}
             dropdownId={id}
             getSelectedItemProps={getSelectedItemProps}
             hideItems={!hasFocus}
@@ -382,25 +384,25 @@ export const Combobox = <OptionType,>({
             }}
             onRemove={removeSelectedItem}
             optionLabelField={optionLabelField}
-            removeButtonAriaLabel={selectedItemRemoveButtonAriaLabel}
+            removeButtonAriaLabel={props.selectedItemRemoveButtonAriaLabel}
             selectedItems={selectedItems}
-            selectedItemSrLabel={selectedItemSrLabel}
+            selectedItemSrLabel={props.selectedItemSrLabel}
             selectedItemsContainerRef={selectedItemsContainerRef}
             setActiveIndex={setActiveIndex}
             toggleButtonHidden={!showToggleButton}
           />
         )}
-        {/* icons are only supported by single select comboboxes */}
-        {icon && !multiselect && (
+        {/* icons are only supported by the single select combobox */}
+        {props.multiselect === false && props.icon && (
           <span className={styles.icon} aria-hidden>
-            {icon}
+            {props.icon}
           </span>
         )}
         {/* FILTER INPUT */}
         <input
           {...getInputProps({
             ...(invalid && { 'aria-invalid': true }),
-            ...(multiselect && {
+            ...(props.multiselect && {
               ...getDropdownProps({
                 // Change Downshift's default behavior with space.
                 // Instead of typing a space character into the
@@ -486,7 +488,7 @@ export const Combobox = <OptionType,>({
           }
           isOptionDisabled={isOptionDisabled}
           menuProps={getMenuProps({
-            ...(multiselect && { 'aria-multiselectable': true }),
+            ...(props.multiselect && { 'aria-multiselectable': true }),
             ...(required && { 'aria-required': true }),
             style: { maxHeight: DROPDOWN_MENU_ITEM_HEIGHT * visibleOptions },
             ref: menuRef,
@@ -498,7 +500,7 @@ export const Combobox = <OptionType,>({
             },
           })}
           menuStyles={styles}
-          multiselect={multiselect}
+          multiselect={props.multiselect}
           open={isOpen}
           optionLabelField={optionLabelField}
           options={getFilteredItems}
@@ -524,3 +526,17 @@ export const Combobox = <OptionType,>({
     </div>
   );
 };
+Combobox.defaultProps = {
+  circularNavigation: false,
+  clearable: true,
+  disabled: false,
+  id: uniqueId('hds-combobox-') as string,
+  onChange: () => null,
+  invalid: false,
+  multiselect: false,
+  optionLabelField: 'label',
+  options: [],
+  showToggleButton: true,
+  virtualized: false,
+  visibleOptions: 5,
+} as Partial<ComboboxProps<unknown>>;

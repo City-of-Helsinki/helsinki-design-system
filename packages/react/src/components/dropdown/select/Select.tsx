@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { FocusEvent, useCallback, useEffect, useRef, useState } from 'react';
 import {
   useSelect,
@@ -66,9 +67,9 @@ export interface SelectCustomTheme {
   '--placeholder-color'?: string;
 }
 
-export type SelectProps<OptionType> = {
+export type CommonSelectProps<OptionType> = {
   /**
-   * When set to `true`, allows moving from the first item to the last item with Arrow Up, and vice versa using Arrow Down.
+   * When `true`, allows moving from the first item to the last item with Arrow Up, and vice versa using Arrow Down.
    */
   circularNavigation?: boolean;
   /**
@@ -83,6 +84,10 @@ export type SelectProps<OptionType> = {
    * If `true`, the dropdown will be disabled
    */
   disabled?: boolean;
+  /**
+   * Function used to generate an ARIA a11y message when an item is selected. See [here](https://github.com/downshift-js/downshift/tree/master/src/hooks/useSelect#geta11yselectionmessage) for more information.
+   */
+  getA11ySelectionMessage?: (options: A11yStatusMessageOptions<OptionType>) => string;
   /**
    * Function used to generate an ARIA a11y message when the status changes. See [here](https://github.com/downshift-js/downshift/tree/master/src/hooks/useSelect#geta11ystatusmessage) for more information.
    */
@@ -112,13 +117,9 @@ export type SelectProps<OptionType> = {
    */
   label: React.ReactNode;
   /**
-   * Callback function fired when the component is blurred
-   */
-  onBlur?: () => void;
-  /**
    * Callback function fired when the state is changed
    */
-  onChange?: (selected: OptionType | OptionType[]) => void;
+  onBlur?: () => void;
   /**
    * Callback function fired when the component is focused
    */
@@ -141,12 +142,6 @@ export type SelectProps<OptionType> = {
    */
   required?: boolean;
   /**
-   * A label for the selected items that is only visible to screen readers. Can be used to to give screen reader users additional information about the selected item.
-   * You can use a special {value} token that will be replaced with the actual item value.
-   * E.g. an item with the label Foo and property value of `'Remove ${value}'` would become `aria-label="Remove Foo"`.
-   */
-  selectedItemSrLabel?: string;
-  /**
    * Override or extend the root styles applied to the component
    */
   style?: React.CSSProperties;
@@ -163,55 +158,70 @@ export type SelectProps<OptionType> = {
    * Sets the number of options that are visible in the menu before it becomes scrollable
    */
   visibleOptions?: number;
-} & MultiselectProps<OptionType>;
+};
 
-type MultiselectProps<OptionType> =
-  | {
-      multiselect?: false;
-      clearButtonAriaLabel?: string;
-      defaultValue?: OptionType;
-      getA11yRemovalMessage?: undefined;
-      getA11ySelectionMessage?: (options: A11yStatusMessageOptions<OptionType>) => string;
-      icon?: React.ReactNode;
-      selectedItemRemoveButtonAriaLabel?: string;
-      value?: OptionType;
-    }
-  | {
-      /**
-       * Enables selecting multiple values if `true`.
-       */
-      multiselect?: boolean;
-      /**
-       * The aria-label for the clear button
-       */
-      clearButtonAriaLabel: string;
-      /**
-       * Value(s) that should be selected when the dropdown is initialized
-       */
-      defaultValue?: OptionType[];
-      /**
-       * Function used to generate an ARIA a11y message when an item is removed. See [here](https://github.com/downshift-js/downshift/tree/master/src/hooks/useMultipleSelection#geta11yremovalmessage) for more information.
-       */
-      getA11yRemovalMessage?: (options: A11yRemovalMessage<OptionType>) => string;
-      /**
-       * Function used to generate an ARIA a11y message when an item is selected. See [here](https://github.com/downshift-js/downshift/tree/master/src/hooks/useSelect#geta11yselectionmessage) for more information.
-       */
-      getA11ySelectionMessage?: undefined;
-      /**
-       * Icon to be shown in the dropdown
-       */
-      icon?: undefined;
-      /**
-       * The aria-label for the selected item remove button.
-       * You can use a special {value} token that will be replaced with the actual item value.
-       * E.g. an item with the label Foo and property value of `'Remove ${value}'` would become `aria-label="Remove Foo"`.
-       */
-      selectedItemRemoveButtonAriaLabel: string;
-      /**
-       * The selected value(s)
-       */
-      value?: OptionType[];
-    };
+export type SingleSelectProps<OptionType> = CommonSelectProps<OptionType> & {
+  /**
+   * When `true`, enables selecting multiple values
+   */
+  multiselect?: false;
+  /**
+   * Value that should be selected when the dropdown is initialized
+   */
+  defaultValue?: OptionType;
+  /**
+   * Icon to be shown in the dropdown
+   */
+  icon?: React.ReactNode;
+  /**
+   * Callback function fired when the state is changed
+   */
+  onChange?: (selected: OptionType) => void;
+  /**
+   * The selected value
+   */
+  value?: OptionType;
+};
+
+export type MultiSelectProps<OptionType> = CommonSelectProps<OptionType> & {
+  /**
+   * When `true`, enables selecting multiple values
+   */
+  multiselect: true;
+  /**
+   * The aria-label for the clear button
+   */
+  clearButtonAriaLabel: string;
+  /**
+   * Value(s) that should be selected when the dropdown is initialized
+   */
+  defaultValue?: OptionType[];
+  /**
+   * Function used to generate an ARIA a11y message when an item is removed. See [here](https://github.com/downshift-js/downshift/tree/master/src/hooks/useMultipleSelection#geta11yremovalmessage) for more information.
+   */
+  getA11yRemovalMessage?: (options: A11yRemovalMessage<OptionType>) => string;
+  /**
+   * Callback function fired when the state is changed
+   */
+  onChange?: (selected: OptionType[]) => void;
+  /**
+   * The aria-label for the selected item remove button.
+   * You can use a special {value} token that will be replaced with the actual item value.
+   * E.g. an item with the label Foo and property value of `'Remove ${value}'` would become `aria-label="Remove Foo"`.
+   */
+  selectedItemRemoveButtonAriaLabel: string;
+  /**
+   * A label for the selected items that is only visible to screen readers. Can be used to to give screen reader users additional information about the selected item.
+   * You can use a special {value} token that will be replaced with the actual item value.
+   * E.g. an item with the label Foo and property value of `'Selected item ${value}'` would become `aria-label="Selected item Foo"`.
+   */
+  selectedItemSrLabel?: string;
+  /**
+   * The selected value(s)
+   */
+  value?: OptionType[];
+};
+export type SelectProps<OptionType> = SingleSelectProps<OptionType> | MultiSelectProps<OptionType>;
 
 /**
  * Multi-select state change handler
@@ -271,47 +281,42 @@ export function multiSelectReducer<T>(
   return changes;
 }
 
-export const Select = <OptionType,>({
-  circularNavigation = false,
-  className,
-  clearable = true,
-  clearButtonAriaLabel,
-  defaultValue,
-  disabled = false,
-  error,
-  getA11yRemovalMessage = () => '',
-  getA11ySelectionMessage = () => '',
-  getA11yStatusMessage = () => '',
-  helper,
-  icon,
-  id = uniqueId('hds-select-'),
-  invalid = false,
-  isOptionDisabled,
-  label,
-  multiselect = false,
-  onBlur = () => null,
-  onChange = () => null,
-  onFocus = () => null,
-  optionLabelField = 'label',
-  options = [],
-  placeholder,
-  required,
-  selectedItemRemoveButtonAriaLabel,
-  selectedItemSrLabel,
-  style,
-  theme,
-  value,
-  virtualized = false,
-  visibleOptions = 5,
-}: SelectProps<OptionType>) => {
+// we can't destructure the props here. after destructuring, the link
+// between the multiselect prop and the value, onChange etc. props would vanish
+export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
+  // destructure common props
+  const {
+    circularNavigation,
+    className,
+    clearable,
+    disabled,
+    error,
+    getA11ySelectionMessage = () => '',
+    getA11yStatusMessage = () => '',
+    helper,
+    id,
+    invalid,
+    isOptionDisabled,
+    label,
+    onBlur = () => null,
+    onFocus = () => null,
+    optionLabelField,
+    options,
+    placeholder,
+    required,
+    style,
+    theme,
+    virtualized,
+    visibleOptions,
+  } = props;
   // flag for whether the component is controlled
-  const controlled = multiselect && value !== undefined;
+  const controlled = props.multiselect && props.value !== undefined;
   // selected items container ref
-  const selectedItemsContainerRef = useRef<HTMLDivElement>(null);
+  const selectedItemsContainerRef = useRef<HTMLDivElement>();
   // menu ref
   const menuRef = React.useRef<HTMLUListElement>();
   // whether active focus is within the dropdown
-  const [hasFocus, setFocus] = useState(false);
+  const [hasFocus, setFocus] = useState<boolean>(false);
   // virtualize menu items to increase performance
   const virtualizer = useVirtual<HTMLUListElement>({
     size: options.length,
@@ -343,11 +348,11 @@ export const Select = <OptionType,>({
     defaultActiveIndex: 0,
     initialActiveIndex: 0,
     // set the default value(s) when the dropdown is initialized
-    initialSelectedItems: (defaultValue as OptionType[]) ?? [],
+    initialSelectedItems: (props.defaultValue as OptionType[]) ?? [],
     // set the selected items when the dropdown is controlled
-    ...(controlled && { selectedItems: (value as OptionType[]) ?? [] }),
-    getA11yRemovalMessage,
-    onSelectedItemsChange: ({ selectedItems: _selectedItems }) => multiselect && onChange(_selectedItems),
+    ...(controlled && { selectedItems: (props.value as OptionType[]) ?? [] }),
+    getA11yRemovalMessage: (props.multiselect && props.getA11yRemovalMessage) ?? (() => ''),
+    onSelectedItemsChange: ({ selectedItems: _selectedItems }) => props.multiselect && props.onChange(_selectedItems),
     onStateChange: (changes) =>
       onMultiSelectStateChange<OptionType>(changes, activeIndex, selectedItemsContainerRef.current),
     stateReducer: (state, actionAndChanges) => multiSelectReducer<OptionType>(state, actionAndChanges, controlled),
@@ -368,20 +373,21 @@ export const Select = <OptionType,>({
     id,
     items: options,
     // set the default value when the dropdown is initialized
-    initialSelectedItem: (defaultValue as OptionType) ?? null,
+    initialSelectedItem: (props.defaultValue as OptionType) ?? null,
     // a defined value indicates that the dropdown should be controlled
     // don't set selectedItem if it's not, so that downshift can handle the state
-    ...(!multiselect && value !== undefined && { selectedItem: value as OptionType }),
+    ...(props.multiselect === false && props.value !== undefined && { selectedItem: props.value }),
     getA11ySelectionMessage,
     getA11yStatusMessage,
     itemToString: (item): string => (item ? item[optionLabelField] ?? '' : ''),
-    onSelectedItemChange: ({ selectedItem: _selectedItem }) => !multiselect && onChange(_selectedItem),
+    onSelectedItemChange: ({ selectedItem: _selectedItem }) =>
+      props.multiselect === false && props.onChange(_selectedItem),
     onStateChange({ type, selectedItem: _selectedItem }) {
       const { ItemClick, MenuBlur, MenuKeyDownEnter, MenuKeyDownSpaceButton } = useSelect.stateChangeTypes;
 
       if (
         (type === ItemClick || type === MenuBlur || type === MenuKeyDownEnter || type === MenuKeyDownSpaceButton) &&
-        multiselect &&
+        props.multiselect &&
         _selectedItem
       ) {
         getIsInSelectedOptions(selectedItems, _selectedItem)
@@ -394,7 +400,7 @@ export const Select = <OptionType,>({
       const { ItemClick, MenuKeyDownSpaceButton } = useSelect.stateChangeTypes;
 
       // prevent the menu from being closed when the user selects an item by clicking or pressing space
-      if ((type === ItemClick || type === MenuKeyDownSpaceButton) && multiselect) {
+      if ((type === ItemClick || type === MenuKeyDownSpaceButton) && props.multiselect) {
         return {
           ...changes,
           isOpen: state.isOpen,
@@ -420,7 +426,7 @@ export const Select = <OptionType,>({
     }
   };
 
-  if (!multiselect) {
+  if (!props.multiselect) {
     // we call the getDropdownProps getter function when multiselect isn't enabled
     // in order to suppress the "You forgot to call the ..." error message thrown by downshift.
     // we only need to apply the getter props to the toggle button when multiselect is enabled.
@@ -430,7 +436,7 @@ export const Select = <OptionType,>({
   // returns the toggle button label based on the dropdown mode
   const getButtonLabel = (): React.ReactNode => {
     let buttonLabel = selectedItem?.[optionLabelField] || placeholder;
-    if (multiselect) buttonLabel = selectedItems.length > 0 ? null : placeholder;
+    if (props.multiselect) buttonLabel = selectedItems.length > 0 ? null : placeholder;
     return buttonLabel;
   };
 
@@ -442,7 +448,7 @@ export const Select = <OptionType,>({
     `${getLabelProps().id}${error ? ` ${id}-error` : ''}${helper ? ` ${id}-helper` : ''} ${getToggleButtonProps().id}`;
 
   // show placeholder if no value is selected
-  const showPlaceholder = (multiselect && selectedItems.length === 0) || (!multiselect && !selectedItem);
+  const showPlaceholder = (props.multiselect && selectedItems.length === 0) || (!props.multiselect && !selectedItem);
 
   return (
     <div
@@ -451,7 +457,7 @@ export const Select = <OptionType,>({
         invalid && styles.invalid,
         disabled && styles.disabled,
         isOpen && styles.open,
-        multiselect && styles.multiselect,
+        props.multiselect && styles.multiselect,
         theme && 'custom',
         className,
       )}
@@ -461,20 +467,20 @@ export const Select = <OptionType,>({
       {label && <FieldLabel label={label} required={required} {...getLabelProps()} />}
       <div className={styles.wrapper} onFocus={handleWrapperFocus} onBlur={handleWrapperBlur}>
         {/* SELECTED ITEMS */}
-        {multiselect && selectedItems.length > 0 && (
+        {props.multiselect && selectedItems.length > 0 && (
           <SelectedItems<OptionType>
             activeIndex={activeIndex}
             clearable={clearable}
-            clearButtonAriaLabel={clearButtonAriaLabel}
+            clearButtonAriaLabel={props.clearButtonAriaLabel}
             dropdownId={id}
             getSelectedItemProps={getSelectedItemProps}
             hideItems={!hasFocus}
             onClear={() => reset()}
             onRemove={removeSelectedItem}
             optionLabelField={optionLabelField}
-            removeButtonAriaLabel={selectedItemRemoveButtonAriaLabel}
+            removeButtonAriaLabel={props.selectedItemRemoveButtonAriaLabel}
             selectedItems={selectedItems}
-            selectedItemSrLabel={selectedItemSrLabel}
+            selectedItemSrLabel={props.selectedItemSrLabel}
             selectedItemsContainerRef={selectedItemsContainerRef}
             setActiveIndex={setActiveIndex}
           />
@@ -486,16 +492,16 @@ export const Select = <OptionType,>({
             'aria-owns': getMenuProps().id,
             'aria-labelledby': buttonAriaLabel,
             // add downshift dropdown props when multiselect is enabled
-            ...(multiselect && { ...getDropdownProps({ preventKeyAction: isOpen }) }),
+            ...(props.multiselect && { ...getDropdownProps({ preventKeyAction: isOpen }) }),
             ...(invalid && { 'aria-invalid': true }),
             disabled,
             className: classNames(styles.button, showPlaceholder && styles.placeholder),
           })}
         >
           {/* icons are only supported by single selects */}
-          {icon && !multiselect && (
+          {props.multiselect === false && props.icon && (
             <span className={styles.icon} aria-hidden>
-              {icon}
+              {props.icon}
             </span>
           )}
           {getButtonLabel()}
@@ -526,13 +532,13 @@ export const Select = <OptionType,>({
           }
           isOptionDisabled={isOptionDisabled}
           menuProps={getMenuProps({
-            ...(multiselect && { 'aria-multiselectable': true }),
+            ...(props.multiselect && { 'aria-multiselectable': true }),
             ...(required && { 'aria-required': true }),
             style: { maxHeight: DROPDOWN_MENU_ITEM_HEIGHT * visibleOptions },
             ref: menuRef,
           })}
           menuStyles={styles}
-          multiselect={multiselect}
+          multiselect={props.multiselect}
           open={isOpen}
           optionLabelField={optionLabelField}
           options={options}
@@ -558,3 +564,16 @@ export const Select = <OptionType,>({
     </div>
   );
 };
+Select.defaultProps = {
+  circularNavigation: false,
+  clearable: true,
+  disabled: false,
+  id: uniqueId('hds-select-') as string,
+  onChange: () => null,
+  invalid: false,
+  multiselect: false,
+  optionLabelField: 'label',
+  options: [],
+  virtualized: false,
+  visibleOptions: 5,
+} as Partial<SelectProps<unknown>>;
