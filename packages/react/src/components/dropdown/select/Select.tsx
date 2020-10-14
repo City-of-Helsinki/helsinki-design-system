@@ -224,20 +224,6 @@ export type MultiSelectProps<OptionType> = CommonSelectProps<OptionType> & {
 
 export type SelectProps<OptionType> = SingleSelectProps<OptionType> | MultiSelectProps<OptionType>;
 
-const defaultProps = {
-  circularNavigation: false,
-  clearable: true,
-  disabled: false,
-  id: uniqueId('hds-select-') as string,
-  onChange: () => null,
-  invalid: false,
-  multiselect: false,
-  optionLabelField: 'label',
-  options: [],
-  virtualized: false,
-  visibleOptions: 5,
-};
-
 /**
  * Multi-select state change handler
  * @param type
@@ -298,7 +284,7 @@ export function multiSelectReducer<T>(
 
 // we can't destructure the props here. after destructuring, the link
 // between the multiselect prop and the value, onChange etc. props would vanish
-export const Select = <OptionType,>(props: SelectProps<OptionType> & typeof defaultProps) => {
+export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
   // destructure common props
   const {
     circularNavigation,
@@ -579,4 +565,16 @@ export const Select = <OptionType,>(props: SelectProps<OptionType> & typeof defa
     </div>
   );
 };
-Select.defaultProps = defaultProps;
+Select.defaultProps = {
+  circularNavigation: false,
+  clearable: true,
+  disabled: false,
+  id: uniqueId('hds-select-') as string,
+  onChange: () => null,
+  invalid: false,
+  multiselect: false,
+  optionLabelField: 'label',
+  options: [],
+  virtualized: false,
+  visibleOptions: 5,
+} as Partial<SelectProps<unknown>>;
