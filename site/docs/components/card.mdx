@@ -5,7 +5,7 @@ route: /components/card
 ---
 
 import { Playground } from "docz";
-import { StatusLabel } from "hds-react";
+import { StatusLabel, Card, Button } from "hds-react";
 
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Link from "../../src/components/Link";
@@ -34,27 +34,138 @@ import Link from "../../src/components/Link";
 Currently HDS offers empty base Cards. These and other HDS components can be used to create custom Cards for your project. By default, HDS recommends Cards without border style.
 
 <Playground>
-
+    <Card />
+    <Card border />
 </Playground>
 
 ##### Core:
 ```html
+<div class="hds-card"></div>
 
+<div class="hds-card hds-card--border"></div>
 ```
 
 ##### React:
 ```tsx
+<Card />
 
+<Card border />
+```
+
+### With heading and body text
+
+Additionally HDS offers styling for basic heading and body text inside the Card component. These can be used instead of custom elements.
+
+<Playground>
+    <Card
+      heading="Card"
+      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    />
+    <Card
+      border
+      heading="Card"
+      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    />
+</Playground>
+
+##### Core:
+```html
+<div class="hds-card">
+  <div class="hds-card__body">
+    <div class="hds-card__heading" role="heading" aria-level="2">Card</div>
+    <div class="hds-card__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+  </div>
+</div>
+
+<div class="hds-card hds-card--border">
+  <div class="hds-card__body">
+    <div class="hds-card__heading" role="heading" aria-level="2">Card</div>
+    <div class="hds-card__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+  </div>
+</div>
+```
+
+##### React:
+```tsx
+<Card
+  heading="Card"
+  text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+/>
+
+<Card
+  border
+  heading="Card"
+  text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+/>
+```
+
+### Using with other HDS components
+
+<Playground>
+    <Card
+      heading="Card"
+      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    >
+      <Button variant="secondary" theme="black">Button</Button>
+    </Card>
+    <Card
+      border
+      heading="Card"
+      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    >
+      <Button variant="secondary" theme="black">Button</Button>
+    </Card>
+</Playground>
+
+##### Core:
+```html
+<div class="hds-card">
+  <div class="hds-card__body">
+    <div class="hds-card__heading" role="heading" aria-level="2">Card</div>
+    <div class="hds-card__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+  </div>
+  <button type="button" class="hds-button hds-button--secondary hds-button--theme-black">
+    <span class="hds-button__label">Button</span>
+  </button>
+</div>
+
+<div class="hds-card hds-card--border">
+  <div class="hds-card__body">
+    <div class="hds-card__heading" role="heading" aria-level="2">Card</div>
+    <div class="hds-card__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+  </div>
+  <button type="button" class="hds-button hds-button--secondary hds-button--theme-black">
+    <span class="hds-button__label">Button</span>
+  </button>
+</div>
+```
+
+##### React:
+```tsx
+<Card
+  heading="Card"
+  text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+>
+  <Button variant="secondary" theme="black">Button</Button>
+</Card>
+
+<Card
+  border
+  heading="Card"
+  text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+>
+  <Button variant="secondary" theme="black">Button</Button>
+</Card>
 ```
 
 ## Demos & API
 
 ### Core
 
-[Cards in hds-core](/storybook/core/?path=/story/components-notification--default)
+[Cards in hds-core](/storybook/core/?path=/story/components-card--empty)
 
 ### React
 
-[Cards in hds-react](/storybook/react/?path=/story/components-notification--default)
+[Cards in hds-react](/storybook/react/?path=/story/components-card--empty)
 
-[Cards API](/storybook/react/?path=/docs/components-notification--default)
+[Cards API](/storybook/react/?path=/docs/components-card--empty)
