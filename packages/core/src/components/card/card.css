@@ -1,11 +1,12 @@
 .hds-card {
   --background-color: var(--color-white);
-  --border-color: var(--color-black);
+  --border-color: var(--color-black-90);
   --border-width: 2px;
-  --padding: var(--spacing-m);
+  --padding-horizontal: var(--spacing-l);
+  --padding-vertical: var(--spacing-m);
 
   background-color: var(--background-color);
-  padding: var(--padding);
+  padding: var(--padding-vertical) var(--padding-horizontal);
 }
 
 /* WITH BORDER */
@@ -16,8 +17,8 @@
 /* BODY */
 .hds-card__body {
   display: grid;
-  gap: var(--spacing-s);
-  margin-bottom: var(--spacing-s);
+  gap: var(--spacing-m);
+  margin-bottom: var(--spacing-l);
 }
 .hds-card__body:last-child {
   margin-bottom: 0;
@@ -27,9 +28,11 @@
 .hds-card__heading {
   font-size: var(--fontsize-heading-m);
   font-weight: bold;
+  line-height: var(--lineheight-m);
 }
 
 /* BODY TEXT */
 .hds-card__text {
   font-size: var(--fontsize-body-m);
+  line-height: var(--lineheight-l);
 }
