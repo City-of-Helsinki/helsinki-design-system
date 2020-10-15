@@ -4,11 +4,8 @@ menu: Patterns
 route: /patterns/forms
 ---
 
-import { Playground } from "docz";
-import { StatusLabel } from "hds-react";
-import { Notification } from "hds-react";
-import { IconCheck } from "hds-react";
-import { IconError } from "hds-react";
+import { RadioButton, StatusLabel, Notification } from "hds-react";
+import { IconCheck, IconError } from "hds-react";
 
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Link from "../../src/components/Link";
@@ -57,7 +54,7 @@ Forms *should* be designed to be as clear and straightforward as possible, to al
 <div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
     <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></div>
     <ul>
-        <li>The user <em>should</em> not be made to constantly switch between keyboard and mouse while filling the form.</li>
+        <li>The user <em>should not</em> be made to constantly switch between keyboard and mouse while filling the form.</li>
     </ul>
 </div>
 
@@ -223,7 +220,7 @@ Individual form controls can also have action buttons attached to them, that let
 
 ---
 
-## Anatomy of a form control
+## Basic elements of a form control 
 There are several different types of form controls, but they share similar basic elements and functionalities:
 <Image src="../../static/patterns/form/form-elements-contols@2x.png" alt="Form control" style="max-width:376px;" viewable /> 
 
@@ -354,7 +351,89 @@ Although the action button is visually similar to an icon, the implementation is
 
 ---
 
-## Guiding the user
+
+## Interacting with controls
+
+### Active and disabled
+Form controls are either *active* or *disabled* depending on for example selections made in previous controls in the form, or user permissions. 
+
+- **Active form controls can be focused and given a value.** Form components are active by default
+- **Disabled form controls cannot be clicked or focused with keyboard.**
+    - The disabled attribute is be set for a form control to keep a user from using it until some other condition has been met (for example a text input can be disabled before a checkbox is selected).
+
+<Image src="../../static/patterns/form/form-states-active-disabled@2x.png" alt="Active and disabled form controls" style="max-width:376px;" viewable /> 
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
+    <ul>
+        <li>Disabled form controls can also be hidden from view, but in most situations all fields, even the disabled ones should be shown to the user.
+            <ul>
+                <li>Showing all fields makes easier or the user to understand all the possible actions in the form.</li>
+                <li>Previously hidden fields suddenly appearing to a form can confuse the user.</li>
+                <li>As a rule of thumb, the field should only be hidden, if the user does not have permission to change it’s value.</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+---
+
+### Mouse over
+When the mouse cursor is over an active form control, a visual hover cue indicates the user that the form field can be interacted with.
+
+<Image src="../../static/patterns/form/form-states-hover@2x.png" alt="Hover indicator" style="max-width:376px;" viewable /> 
+
+---
+
+### Focus
+**An active form control receives focus** when the user either clicks the form control with mouse or navigates into it with keyboard. When the form control is focused, the user can fill or select values to it.
+
+- When a form component receives focus:
+    - A visual focus indicator tells a seeing user which form element is currently being interacted with.
+    - Screen reader reads the label and assistive text
+- Also the interactive elements inside a form control, for example action buttons and tags, can be focused independently when interacting with the main control.
+
+See [Navigating with keyboard section below](/#navigating-with-keyboard) for more information on helping the user navigate forms with keyboards.
+
+<Image src="../../static/patterns/form/form-states-focus@2x.png" alt="Focus indicator" style="max-width:376px;" viewable /> 
+
+---
+
+### Empty/unselected and filled/selected
+Form controls basic function is to allow the user enter an value either by input or selection.
+
+<Image src="../../static/patterns/form/form-states-filled@2x.png" alt="Empty and filled text fields" style="max-width:376px;" viewable /> 
+
+<Image src="../../static/patterns/form/form-states-selected@2x.png" alt="Unselected and selected form controls" style="max-width:376px;" viewable /> 
+
+
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
+    <p><strong>Help the user by minimising unnecessary and redundant work needed for filling the form. </strong>Especially long forms can become tedious to fill, especially, if the same information must be entered multiple times.</p>
+    <ul>
+        <li><strong>Provide a pre-selected default option</strong> if some option is known to be the most commonly used.</li>
+        <li><strong>Pre-populate known values if data is available.</strong>
+            <ul>
+                <li>The user <em>should</em> not be made to input the same information twice. [WCAG 2.2?]</li>
+            </ul>
+        </li>
+        <li><strong>Enable autocompleting values</strong> to provide automated assistance in filling out form field values.
+            <ul>
+                <li>An appropriate autocomplete attribute <em>should</em> be deigned for fields if possible.</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></div>
+    <p><strong>Selections that demand the users consent, like approving terms and conditions <em>must</em> never be pre-selected as default.</strong></p>
+</div>
+
+---
+
+## Providing instructions
 To help the user enter the **right information in the right format**, guidance can be provided on different levels:
 
 1. **Form main and sub-heading** summarise the purpose of the form
@@ -370,9 +449,8 @@ The form heading **summarises the purpose of the form** and indicates the user w
     - Full page forms should always have a main heading, but from smaller inline forms embedded to page content, the heading can be omitted.
 - If the purpose of the form cannot be sufficiently summarised by the main heading, it can **elaborated with a *sub-heading***.
 
-<playground>
+<Image src="../../static/patterns/form/form-guiding-headings@2x.png" alt="Form headings" style="max-width:376px;" viewable /> 
 
-</playground>
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
     <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
@@ -397,10 +475,8 @@ The form heading **summarises the purpose of the form** and indicates the user w
 ### 2. Form wide instructions
 To help the user better understand the functionality of the form, instructions and other **information about filling the form and required information** should be provided in the beginning of the form. 
 
-<playground>
-    <h1>Form heading</h1>
-    <Notification>Text</Notification>
-</playground>
+<Image src="../../static/patterns/form/form-guiding-instructions@2x.png" alt="For wide instructions" style="max-width:376px;" viewable /> 
+
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
     <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
@@ -517,85 +593,8 @@ It can be used to provide the user **a hint of what to enter or what is selected
 
 ---
 
-## Interacting with controls
 
-### Active and disabled
-Form controls are either *active* or *disabled* depending on for example selections made in previous controls in the form, or user permissions. 
-
-- **Active form controls can be focused and given a value.** Form components are active by default
-- **Disabled form controls cannot be clicked or focused with keyboard.**
-    - The disabled attribute is be set for a form control to keep a user from using it until some other condition has been met (for example a text input can be disabled before a checkbox is selected).
-
-<Image src="../../static/patterns/form/form-states-active-disabled@2x.png" alt="Active and disabled form controls" style="max-width:376px;" viewable /> 
-
-<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
-    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
-    <ul>
-        <li>Disabled form controls can also be hidden from view, but in most situations all fields, even the disabled ones should be shown to the user.
-            <ul>
-                <li>Showing all fields makes easier or the user to understand all the possible actions in the form.</li>
-                <li>Previously hidden fields suddenly appearing to a form can confuse the user.</li>
-                <li>As a rule of thumb, the field should only be hidden, if the user does not have permission to change it’s value.</li>
-            </ul>
-        </li>
-    </ul>
-</div>
-
----
-
-### Mouse over
-When the mouse cursor is over an active form control, a visual hover cue indicates the user that the form field can be interacted with.
-
-<Image src="../../static/patterns/form/form-states-hover@2x.png" alt="Hover indicator" style="max-width:376px;" viewable /> 
-
----
-
-### Focus
-**An active form control receives focus** when the user either clicks the form control with mouse or navigates into it with keyboard. When the form control is focused, the user can fill or select values to it.
-
-- When a form component receives focus:
-    - A visual focus indicator tells a seeing user which form element is currently being interacted with.
-    - Screen reader reads the label and assistive text
-- Also the interactive elements inside a form control, for example action buttons and tags, can be focused independently when interacting with the main control.
-
-See [Navigating with keyboard section below](/#navigating-with-keyboard) for more information on helping the user navigate forms with keyboards.
-
-<Image src="../../static/patterns/form/form-states-focus@2x.png" alt="Focus indicator" style="max-width:376px;" viewable /> 
-
----
-
-### Empty/unselected and filled/selected
-Form controls basic function is to allow the user enter an value either by input or selection.
-
-<Image src="../../static/patterns/form/form-states-filled@2x.png" alt="Empty and filled text fields" style="max-width:376px;" viewable /> 
-<Image src="../../static/patterns/form/form-states-selected@2x.png" alt="Unselected and selected form controls" style="max-width:376px;" viewable /> 
-
-
-
-<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
-    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
-    <p><strong>Help the user by minimising unnecessary and redundant work needed for filling the form. </strong>Especially long forms can become tedious to fill, especially, if the same information must be entered multiple times.</p>
-    <ul>
-        <li><strong>Provide a pre-selected default option</strong> if some option is known to be the most commonly used.</li>
-        <li><strong>Pre-populate known values if data is available.</strong>
-            <ul>
-                <li>The user <em>should</em> not be made to input the same information twice. [WCAG 2.2?]</li>
-            </ul>
-        </li>
-        <li><strong>Enable autocompleting values</strong> to provide automated assistance in filling out form field values.
-            <ul>
-                <li>An appropriate autocomplete attribute <em>should</em> be deigned for fields if possible.</li>
-            </ul>
-        </li>
-    </ul>
-</div>
-
-<div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
-    <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></div>
-    <p><strong>Selections that demand the users consent, like approving terms and conditions <em>must</em> never be pre-selected as default.</strong></p>
-</div>
-
-## Creating structure
+## Providing structure and hierarchy
 Forms can be made easier to understand for the user, by providing visual and semantic structure in different ways. 
 
 1. **Consistent layout** communicates the structure of the form clearly.
@@ -607,17 +606,16 @@ Forms can be made easier to understand for the user, by providing visual and sem
 Best practices for form layout.
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle', color: 'var(--color-success)' }} size="s"/>
-    <strong>Adjust field width according to preferred input.</strong>
+    <p>
+        <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle', color: 'var(--color-success)' }} size="s"/>
+        <strong>Prefer single column vertical layout over multi-column layout.</strong>
+    </p>
+    <ul>
+        <li>Stacking form controls vertically to form a "F-shaped" reading path throught the form takes more space, but makes the users path from control to control smoother.</li>
+        <li>If the user has to jump between more than one columns, the structure of the form, and reading path can beocome har to follow.</li>
+    </ul>
+    <Image src="../../static/patterns/form/form-layout-vertical@2x.png" alt="A F-shaped reading path throught the form" style="max-width:376px;" viewable /> 
 </div>
-<Image src="../../static/patterns/form/form-layout-@2x.png" alt="Adjust field width according to preferred input" style="max-width:376px;" viewable /> 
-
-
-<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle', color: 'var(--color-success)' }} size="s"/>
-    <strong>Align fields to column grid.</strong>
-</div>
-<Image src="../../static/patterns/form/form-layout-@2x.png" alt="Align fields to column grid" style="max-width:376px;" viewable /> 
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
     <p>
@@ -625,16 +623,42 @@ Best practices for form layout.
         <strong>Fields combining several inputs together with a fieldset, can be placed next to each other.</strong>
     </p>
     <div>For example:
-        <ul style="margin-bottom:0;">
+        <ul>
             <li>Two to three radio buttons with short labels</li>
             <li>First name / last name</li>
             <li>Date (day/month/year)</li>
             <li>Time (hour/minute/second)</li>
         </ul>
     </div>
+    <Image src="../../static/patterns/form/form-layout-horizontal@2x.png" alt="Fields combining several inputs together with a fieldset" style="max-width:376px;" viewable /> 
 </div>
 
-<Image src="../../static/patterns/form/form-layout-@2x.png" alt="Fields combining several inputs together with a fieldset" style="max-width:376px;" viewable /> 
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <p>
+        <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle', color: 'var(--color-success)' }} size="s"/>
+        <strong>Use <a href="/design-tokens/spacing">spacing tokens</a> for grouping form controls with proximity and separation</strong>
+    </p>
+    <ul>
+        <li>Use smaller spacing between controls that belong together and larger spacing between groups of controls</li>
+    </ul>
+    <Image src="../../static/patterns/form/form-layout-spacing@2x.png" alt="Use spacing for grouping form controls" style="max-width:376px;" viewable /> 
+</div>
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <p>
+        <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle', color: 'var(--color-success)' }} size="s"/>
+        <strong>Align form controls to <a href="/guidelines/grid">column grid</a>.</strong>
+    </p>
+    <Image src="../../static/patterns/form/form-layout-grid@2x.png" alt="Align fields to column grid" style="max-width:376px;" viewable /> 
+</div>
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <p>
+        <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle', color: 'var(--color-success)' }} size="s"/>
+        <strong>Adjust field width according to preferred input.</strong>
+    </p>
+    <Image src="../../static/patterns/form/form-layout-width@2x.png" alt="Adjust field width according to preferred input" style="max-width:376px;" viewable /> 
+</div>
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
     <p>
@@ -644,18 +668,18 @@ Best practices for form layout.
     <ol>
         <li>Submit (primary action)</li>
         <li>Secondary actions</li>
-        <li>Supplementary actions</li>
     </ol>
+    <Image src="../../static/patterns/form/form-layout-actions-form@2x.png" alt="Align form wide action buttons at the end of the form" style="max-width:376px;" viewable /> 
 </div>
 
-<Image src="../../static/patterns/form/form-layout-@2x.png" alt="Align form wide action buttons at the end of the form" style="max-width:376px;" viewable /> 
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
-        <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle', color: 'var(--color-success)' }} size="s"/>
-        <strong>Align supplementary action buttons related to singe form control to the right side of the form component</strong>
+        <p>
+            <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle', color: 'var(--color-success)' }} size="s"/>
+            <strong>Align supplementary action buttons related to singe form control or fieldset after or bellow the control</strong>
+        </p>
+        <Image src="../../static/patterns/form/form-layout-actions-field@2x.png" alt="Supplementary action" style="max-width:376px;" viewable />
 </div>
-
-<Image src="../../static/patterns/form/form-layout-@2x.png" alt="Supplementary action" style="max-width:376px;" viewable />
 
 ---
 
@@ -671,8 +695,7 @@ The fieldset element is used for grouping:
 - **Set of form controls that are closely related, but yield separate values.**
     - For example text inputs like “Name” (first + last), “Birthday” (day + month + year), “Address” (street address + zip + city)
 
-<Image src="../../static/patterns/form/form-grouping@2x.png" alt="Grouping related controls" style="max-width:376px;" viewable />
-
+<Image src="../../static/patterns/form/form-grouping@2x.png" alt="egmenting with section headings" style="max-width:376px;" viewable />
 
 --- 
 
@@ -703,7 +726,9 @@ Filling a long form can be daunting task for the user. One way to make a long fo
 
 This approach also makes fixing validation errors easier, when the inputted data can be validated and fixed step by step, and thus fever errors are shown at a same time.
 
-<Image src="../../static/patterns/form/form-steps@2x.png" alt="Dividing long forms into separate steps" style="max-width:376px;" viewable />
+<p><StatusLabel type="error" style={{marginRight: 'var(--spacing-3-xs)'}}>Coming soon</StatusLabel> <strong>The navigation component for multi-page forms has not yet been desinged or implemented in HDS.</strong></p>
+
+<Image src="../../static/patterns/form/form-steps@2x.png" alt="Dividing long forms into separate steps" style="max-width:500px;" viewable />
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
     <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
@@ -735,7 +760,7 @@ This approach also makes fixing validation errors easier, when the inputted data
 
 --- 
 
-## Navigating with keyboard
+## Keyboard navigation
 
 Navigating between form components with keyboard not only helps users with using assistive technologies, but makes filling forms easier for all users. Switching between mouse for navigation and keyboards for inputting values can become tedious, especially if the forms has lots of text input fields.
 
@@ -745,28 +770,28 @@ For this reason it is essential to ensure, that individual controls receive focu
 
 ### An example focus order for a single page form:
 
-<Image src="../../static/patterns/form/form-steps@2x.png" alt="An example focus order for a single page form" style="max-width:376px;" viewable />
+<Image src="../../static/patterns/form/form-focus-single@2x.png" alt="An example focus order for a single page form" style="max-width:500px;" viewable />
 
-1. Form heading H1
-2. Heading of form instructions area
-3. Content Form instructions area
-4. First field label / fieldset legend
-5. Fields/fieldsets from left to right – top to bottom
-6. Submit button
+1. Form main heading
+2. Form instructions
+3. First segment heading, fieldset or control
+4. Fields/fieldsets from left to right – top to bottom
+…
+5. Submit button
 
 ---
 
 ### An example focus order for a multi page form:
-<Image src="../../static/patterns/form/form-steps@2x.png" alt="An example focus order for a multi page form" style="max-width:376px;" viewable />
+<Image src="../../static/patterns/form/form-focus-multi@2x.png" alt="An example focus order for a multi page form" style="max-width:500px;" viewable />
 
-1. Form steps navigation
-2. Form heading H1
-3. Heading of form instructions area
-4. Content Form instructions area
-5. First field label / fieldset legend
-6. Fields/fieldsets from left to right – top to bottom
-7. Submit/next phase button
-8. Previous page button
+1. Form navigation
+2. Form heading
+3. Form instructions
+4. First segment heading, fieldset or control
+5. Fields/fieldsets from left to right – top to bottom
+…
+6. Next page or Submit button
+7. Previous page button
 
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
