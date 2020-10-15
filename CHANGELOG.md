@@ -15,8 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Notification] Added `role="heading"` and `aria-level="2"` to the notification label. in ([#273](https://github.com/City-of-Helsinki/helsinki-design-system/pull/273))
 
 #### Removed
-[Checkbox] Removed redundant aria-checked (already using `type="checkbox"`). in ([#271](https://github.com/City-of-Helsinki/helsinki-design-system/pull/271))
-[Radio button] Removed redundant aria-checked (already using `type="radio"`). in ([#271](https://github.com/City-of-Helsinki/helsinki-design-system/pull/271))
+- [Checkbox] Removed redundant aria-checked (already using `type="checkbox"`). in ([#271](https://github.com/City-of-Helsinki/helsinki-design-system/pull/271))
+- [Radio button] Removed redundant aria-checked (already using `type="radio"`). in ([#271](https://github.com/City-of-Helsinki/helsinki-design-system/pull/271))
 
 ### Design kit
 #### Added
