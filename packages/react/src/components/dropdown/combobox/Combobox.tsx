@@ -79,35 +79,34 @@ function getDefaultFilter<OptionType>(labelField: string): FilterFunction<Option
   };
 }
 
-// we can't destructure the props here. after destructuring, the link
-// between the multiselect prop and the value, onChange etc. props would vanish
 export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
-  // destructure common props
+  // we can't destructure all the props. after destructuring, the link
+  // between the multiselect prop and the value, onChange etc. props would vanish
   const {
     catchEscapeKey,
-    circularNavigation,
+    circularNavigation = false,
     className,
-    clearable,
-    disabled,
+    clearable = true,
+    disabled = false,
     error,
     getA11ySelectionMessage = () => '',
     getA11yStatusMessage = () => '',
     helper,
-    id,
-    invalid,
+    id = uniqueId('hds-combobox-') as string,
+    invalid = false,
     isOptionDisabled,
     label,
     onBlur = () => null,
     onFocus = () => null,
-    optionLabelField,
-    options,
+    optionLabelField = 'label',
+    options = [],
     placeholder,
     required,
-    showToggleButton,
+    showToggleButton = true,
     style,
     theme,
-    virtualized,
-    visibleOptions,
+    virtualized = false,
+    visibleOptions = 5,
     filter: userLandFilter,
   } = props;
 
@@ -167,8 +166,9 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     defaultActiveIndex: 0,
     initialActiveIndex: 0,
     // set the default value(s) when the dropdown is initialized
-    initialSelectedItems: (props.defaultValue as OptionType[]) ?? [],
-    ...(controlled && { selectedItems: (props.value as OptionType[]) ?? [] }),
+    ...(props.multiselect && { initialSelectedItems: props.defaultValue ?? [] }),
+    // set the selected items when the dropdown is controlled
+    ...(props.multiselect && props.value !== undefined && { selectedItems: props.value ?? [] }),
     getA11yRemovalMessage: (props.multiselect && props.getA11yRemovalMessage) ?? (() => ''),
     onSelectedItemsChange: ({ selectedItems: _selectedItems }) => props.multiselect && props.onChange(_selectedItems),
     onStateChange: (changes) =>
@@ -193,10 +193,12 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     circularNavigation,
     id,
     items: getFilteredItems,
-    onInputValueChange: ({ inputValue }) => setSearch(inputValue),
+    // set the default value when the dropdown is initialized
+    ...(props.multiselect === false && { initialSelectedItem: props.defaultValue ?? null }),
     // a defined value indicates that the dropdown should be controlled
     // don't set selectedItem if it's not, so that downshift can handle the state
     ...(props.multiselect === false && props.value !== undefined && { selectedItem: props.value }),
+    onInputValueChange: ({ inputValue }) => setSearch(inputValue),
     getA11ySelectionMessage,
     getA11yStatusMessage,
     itemToString: (item): string => (item ? item[optionLabelField] ?? '' : ''),
@@ -527,16 +529,5 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
   );
 };
 Combobox.defaultProps = {
-  circularNavigation: false,
-  clearable: true,
-  disabled: false,
-  id: uniqueId('hds-combobox-') as string,
-  onChange: () => null,
-  invalid: false,
   multiselect: false,
-  optionLabelField: 'label',
-  options: [],
-  showToggleButton: true,
-  virtualized: false,
-  visibleOptions: 5,
-} as Partial<ComboboxProps<unknown>>;
+};

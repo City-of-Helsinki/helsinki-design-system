@@ -282,33 +282,32 @@ export function multiSelectReducer<T>(
   return changes;
 }
 
-// we can't destructure the props here. after destructuring, the link
-// between the multiselect prop and the value, onChange etc. props would vanish
 export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
-  // destructure common props
+  // we can't destructure all the props. after destructuring, the link
+  // between the multiselect prop and the value, onChange etc. props would vanish
   const {
-    circularNavigation,
+    circularNavigation = false,
     className,
-    clearable,
-    disabled,
+    clearable = true,
+    disabled = false,
     error,
     getA11ySelectionMessage = () => '',
     getA11yStatusMessage = () => '',
     helper,
-    id,
+    id = uniqueId('hds-select-') as string,
     invalid,
     isOptionDisabled,
     label,
     onBlur = () => null,
     onFocus = () => null,
-    optionLabelField,
-    options,
+    optionLabelField = 'label',
+    options = [],
     placeholder,
     required,
     style,
     theme,
-    virtualized,
-    visibleOptions,
+    virtualized = false,
+    visibleOptions = 5,
   } = props;
   // flag for whether the component is controlled
   const controlled = props.multiselect && props.value !== undefined;
@@ -349,9 +348,9 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
     defaultActiveIndex: 0,
     initialActiveIndex: 0,
     // set the default value(s) when the dropdown is initialized
-    initialSelectedItems: (props.defaultValue as OptionType[]) ?? [],
+    ...(props.multiselect && { initialSelectedItems: props.defaultValue ?? [] }),
     // set the selected items when the dropdown is controlled
-    ...(controlled && { selectedItems: (props.value as OptionType[]) ?? [] }),
+    ...(props.multiselect && props.value !== undefined && { selectedItems: props.value ?? [] }),
     getA11yRemovalMessage: (props.multiselect && props.getA11yRemovalMessage) ?? (() => ''),
     onSelectedItemsChange: ({ selectedItems: _selectedItems }) => props.multiselect && props.onChange(_selectedItems),
     onStateChange: (changes) =>
@@ -374,7 +373,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
     id,
     items: options,
     // set the default value when the dropdown is initialized
-    initialSelectedItem: (props.defaultValue as OptionType) ?? null,
+    ...(props.multiselect === false && { initialSelectedItem: props.defaultValue ?? null }),
     // a defined value indicates that the dropdown should be controlled
     // don't set selectedItem if it's not, so that downshift can handle the state
     ...(props.multiselect === false && props.value !== undefined && { selectedItem: props.value }),
@@ -566,15 +565,5 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
   );
 };
 Select.defaultProps = {
-  circularNavigation: false,
-  clearable: true,
-  disabled: false,
-  id: uniqueId('hds-select-') as string,
-  onChange: () => null,
-  invalid: false,
   multiselect: false,
-  optionLabelField: 'label',
-  options: [],
-  virtualized: false,
-  visibleOptions: 5,
-} as Partial<SelectProps<unknown>>;
+};
