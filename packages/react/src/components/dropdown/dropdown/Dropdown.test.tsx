@@ -16,6 +16,3 @@ describe('<Dropdown /> spec', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 });
-
-// todo: write tests
-// https://helsinkisolutionoffice.atlassian.net/browse/HDS-224

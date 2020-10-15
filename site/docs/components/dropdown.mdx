@@ -5,196 +5,298 @@ route: /components/dropdown
 ---
 
 import { Playground } from "docz";
-import { Dropdown, StatusLabel } from "hds-react";
+import { Select, Combobox, IconUser, StatusLabel } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
 import Text from "../../src/components/Text";
 import LargeParagraph from "../../src/components/LargeParagraph";
 
+import Link from "../../src/components/Link";
+
 # Dropdown
 
-<StatusLabel type="alert">Pre-release</StatusLabel> 
+<StatusLabel type="error">Updated</StatusLabel> 
+<StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel>
 
 <LargeParagraph>
-  A dropdown offers user a list of options which one or multiple can be selected. Dropdowns are often used as part of forms and filters.
+  A dropdown offers a user a list of options, of which one or multiple can be selected. Dropdowns are often used as part of forms and filters.
 </LargeParagraph>
 
 ## Principles
 
 - **A label should always be provided with dropdowns.** Aim for labels that are short, concise and easy to understand.
-- Dropdowns usually have four (4) or more options. When having only 2-4 options, it is usually better to use [radio button group](/components/radio-button "Radio button group usage documentation"). Also, if options need to be easily comparable (for example, product pricing), prefer radio buttons over dropdown.
-- It is recommended to set default option for the dropdown. If the default option is also the recommended option, you can mark the option with text "_(recommended)_".
-- If your dropdown has 8 or more options, consider using the [filterable variant](/components/dropdown#filterable "Filterable dropdown usage documentation") so the user can locate the wanted option easier.
-- Dropdown options should not span over one line. Aim for short texts for all options.
-- If possible, do input validation in client-side real time and provide the user with immediate feedback after selection.
+- Dropdowns usually have four (4) or more options. When having only 2-3 options, it is usually better to use [radio buttons](/components/radio-button "Radio button documentation") or [checkboxes](/components/checkbox "Checkbox documentation"). Also, if options need to be easily comparable (for example, product pricing), prefer radio buttons over dropdown.
+- It is recommended to set default option for a single selection dropdown. If the default option is also the recommended option, you can mark the option with a text "_(recommended)_".
+- If your dropdown has 8 or more options, consider using the [Combobox](#combobox-single-selection) variant which offers filtering options by typing.
+- Try to avoid dropdown options that span over one line. Aim for short texts for all options.
+- If possible, do input validation client-side in real time and provide the user with immediate feedback after selection.
+
+### Should I use Select or Combobox?
+- **Use Select variant when**
+  - there are less than 8 options
+  - the user does not need to be able to filter options by typing
+- **Use Combobox variant when**
+  - there are 8 or more options
+  - the user needs to be able to filter options by typing
 
 ## Accessibility
 
-- Placeholder text can be used to give hints and examples to the user what is being selected with the dropdown. **However, all assistive technologies do not threat placeholder texts as labels and therefore they may ignore them completely.** Aim to provide the sufficient information to fill the input in the label. Also if possible, set default option for the dropdown so the placeholder is not needed.
+- Dropdowns should be only used as form controls or as value pickers. Do not use dropdowns for menus or navigation since they cannot contain links or buttons.
+- Do not use context change triggers (e.g. links) as dropdown options. See <Link href="https://www.w3.org/TR/WCAG21/#on-input" external>WCAG 3.2.2 On Input guideline</Link> for more information.
+- Placeholder text can be used to give hints and examples to the user what is being selected with the dropdown. **However, all assistive technologies do not threat placeholder texts as labels and therefore they may ignore them completely.** Aim to provide the sufficient information to fill the input in the label or in the assistive text. Also if possible, set default option for the dropdown so the placeholder is not needed.
 - In the case of an erroneous selection, aim to provide clear instructions to the user how to correct the mistake. Always provide text description of the error. In dropdowns it is usually possible to filter selectable options for the user to avoid errors completely.
+- HDS Dropdowns support `getA11ySelectionMessage` which should be included to give screen reader better feedback when an option is selected.
 
-## Usage
+## Usage & variations
 
-### Default
+### Select (single selection)
 
-Default dropdown serves in most use cases when the user needs to select one from 4 to 7 options. If there are 8 or more options available, consider using [filterable](/components/dropdown#filterable) variant.
+Select dropdown serves in most use cases when the user needs to select one of 4 to 7 options. If there are 8 or more options available, consider using [Combobox](#combobox-single-selection) to allow filtering.
 
 <Playground>
-<Dropdown
-  id="example1"
-  options={[
-    { label: 'Plutonium' },
-    { label: 'Americium' },
-    { label: 'Copernicium' },
-  ]}
-  placeholder="Choose one"
-  label="Label"
-  helper="Assistive text"
-/>
-
-<Dropdown
-  id="example2"
-  options={[
-    { label: 'Plutonium' },
-    { label: 'Americium' },
-    { label: 'Copernicium' },
-  ]}
-  defaultValue={{ label: 'Plutonium' }}
-  label="Label"
-  helper="Assistive text"
-  style={{marginTop: 'var(--spacing-s)'}}
-  disabled
-/>
-
-<Dropdown
-  id="example3"
-  options={[
-    { label: 'Plutonium' },
-    { label: 'Americium' },
-    { label: 'Copernicium' },
-  ]}
-  defaultValue={{ label: 'Plutonium' }}
-  label="Label"
-  helper="Error text"
-  style={{marginTop: 'var(--spacing-s)'}}
-  invalid
-/>
+{() => {
+  const options = [{ label: 'Plutonium' }, { label: 'Americium' }, { label: 'Copernicium' }, { label: 'Berkelium' }];
+  return (
+    <>
+      <Select required label="Label" helper="Assistive text" placeholder="Placeholder" options={options} />
+      <Select
+        disabled
+        label="Label"
+        helper="Assistive text"
+        placeholder="Placeholder"
+        options={options}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+      <Select
+        invalid
+        required
+        label="Label"
+        error="Error description"
+        placeholder="Placeholder"
+        options={options}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+      <Select
+        required
+        label="Label"
+        helper="Assistive text"
+        placeholder="Placeholder"
+        icon={<IconUser />}
+        options={[{ label: 'Adam' }, { label: 'Caitlyn' }, { label: 'Jack' }, { label: 'Sally' }]}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+    </>
+  )
+}}
 </Playground>
 
 #### React code example:
 ```tsx
-/* Enabled */
-<Dropdown
-  options={[
-    { label: 'Plutonium' },
-    { label: 'Americium' },
-    { label: 'Copernicium' },
-  ]}
-  placeholder="Choose one"
+<Select
+  required
   label="Label"
   helper="Assistive text"
+  placeholder="Placeholder"
+  options={[{ label: 'Plutonium' }, ...]}
 />
-
-/* Disabled */
-<Dropdown
-  options={[
-    { label: 'Plutonium' },
-    { label: 'Americium' },
-    { label: 'Copernicium' },
-  ]}
-  defaultValue={{ label: 'Plutonium' }}
-  label="Label"
-  helper="Assistive text"
+<Select
   disabled
-/>
-
-/* Error */
-<Dropdown
-  options={[
-    { label: 'Plutonium' },
-    { label: 'Americium' },
-    { label: 'Copernicium' },
-  ]}
-  defaultValue={{ label: 'Plutonium' }}
   label="Label"
-  helper="Error text"
+  helper="Assistive text"
+  placeholder="Placeholder"
+  options={[{ label: 'Plutonium' }, ...]}
+  style={{ marginTop: 'var(--spacing-xs)' }}
+/>
+<Select
   invalid
+  required
+  label="Label"
+  error="Error description"
+  placeholder="Placeholder"
+  options={[{ label: 'Plutonium' }, ...]}
+  style={{ marginTop: 'var(--spacing-xs)' }}
+/>
+<Select
+  required
+  label="Label"
+  helper="Assistive text"
+  placeholder="Placeholder"
+  icon={<IconUser />}
+  options={[{ label: 'Adam' }, ...]}
+  style={{ marginTop: 'var(--spacing-xs)' }}
 />
 ```
 
-### Filterable
+### Select (multi-selection)
 
-**NOTE! Accessibility of this component is still in validation.**
-
-Filterable dropdown variant works exactly like the default one except it allows filtering the options by typing while component is focused. This variant can increase usability when there are 8 or more options available.
+Select multi-selection variant allows the user to select one or more options simultaneously. Note! Select dropdown does not feature filtering options by typing. When this feature is needed or there are a large number of options available, consider using consider using [Combobox](#combobox-multi-selection).
 
 <Playground>
-<Dropdown
-  id="example3"
+<Select
+  multiselect
+  required
+  label="Label"
+  placeholder="Placeholder"
+  helper="Assistive text"
   options={[
     { label: 'Plutonium' },
     { label: 'Americium' },
     { label: 'Copernicium' },
+    { label: 'Berkelium' },
   ]}
-  placeholder="Choose one"
-  label="Label"
-  helper="Assistive text"
-  filterable
+  clearButtonAriaLabel="Clear all selections"
+  selectedItemRemoveButtonAriaLabel="Remove ${value}"
 />
 </Playground>
 
+
 #### React code example:
 ```tsx
-<Dropdown
-  id="example3"
-  options={[
-    { label: 'Plutonium' },
-    { label: 'Americium' },
-    { label: 'Copernicium' },
-  ]}
-  placeholder="Choose one"
+<Select
+  multiselect
+  required
   label="Label"
+  placeholder="Placeholder"
   helper="Assistive text"
-  filterable
+  options={[{ label: 'Plutonium' }, ...]}
+  clearButtonAriaLabel="Clear all selections"
+  selectedItemRemoveButtonAriaLabel="Remove ${value}"
 />
 ```
 
-### Multi-select
+### Combobox (single selection)
 
-**NOTE! This component is work in progress and is subject to change in the future versions of HDS!**
-
-Multi-select variant allows the user to select one or more options simultaneously.
+Combobox dropdown serves in most use cases when the user needs to select one from 8 or more options (up to hundreds of options). Combobox variant features filtering options by typing.
 
 <Playground>
-<Dropdown
-  id="example4"
-  options={[
-    { label: 'Plutonium' },
+{() => {
+  const options = [
     { label: 'Americium' },
+    { label: 'Berkelium' },
+    { label: 'Californium' },
     { label: 'Copernicium' },
-  ]}
-  placeholder="Choose one"
+    { label: 'Einsteinium' },
+    { label: 'Fermium' },
+    { label: 'Mendelevium' },
+    { label: 'Plutonium' },
+  ]
+  return (
+    <>
+      <Combobox required label="Label" helper="Assistive text" placeholder="Placeholder" options={options} />
+      <Combobox
+        disabled
+        label="Label"
+        helper="Assistive text"
+        placeholder="Placeholder"
+        options={options}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+      <Combobox
+        invalid
+        required
+        label="Label"
+        error="Error description"
+        placeholder="Placeholder"
+        options={options}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+      <Combobox
+        required
+        label="Label"
+        helper="Assistive text"
+        placeholder="Placeholder"
+        icon={<IconUser />}
+        options={[
+          { label: 'Adam' },
+          { label: 'Allie' },
+          { label: 'Bob' },
+          { label: 'Caitlyn' },
+          { label: 'Jack' },
+          { label: 'Olivia' },
+          { label: 'Sally' },
+          { label: 'Sam' },
+        ]}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+    </>
+  )
+}}
+</Playground>
+
+#### React code example:
+```tsx
+<Combobox
+  required
   label="Label"
   helper="Assistive text"
-  closeMenuOnSelect={false}
+  placeholder="Placeholder"
+  options={[{ label: 'Americium' }...]}
+/>
+<Combobox
+  disabled
+  label="Label"
+  helper="Assistive text"
+  placeholder="Placeholder"
+  options={[{ label: 'Americium' }...]}
+  style={{ marginTop: 'var(--spacing-xs)' }}
+/>
+<Combobox
+  invalid
+  required
+  label="Label"
+  error="Error description"
+  placeholder="Placeholder"
+  options={[{ label: 'Americium' }...]}
+  style={{ marginTop: 'var(--spacing-xs)' }}
+/>
+<Combobox
+  required
+  label="Label"
+  helper="Assistive text"
+  placeholder="Placeholder"
+  icon={<IconUser />}
+  options={[{ label: 'Adam' }, ...]}
+  style={{ marginTop: 'var(--spacing-xs)' }}
+/>
+```
+
+### Combobox (multi-selection)
+
+Combobox multi-select variant allows the user to select one or more options simultaneously. Combobox variant features filtering options by typing.
+
+<Playground>
+<Combobox
   multiselect
+  required
+  label="Label"
+  helper="Assistive text"
+  placeholder="Placeholder"
+  options={[
+    { label: 'Americium' },
+    { label: 'Berkelium' },
+    { label: 'Californium' },
+    { label: 'Copernicium' },
+    { label: 'Einsteinium' },
+    { label: 'Fermium' },
+    { label: 'Mendelevium' },
+    { label: 'Plutonium' },
+  ]}
+  clearButtonAriaLabel="Clear all selections"
+  selectedItemRemoveButtonAriaLabel="Remove ${value}"
 />
 </Playground>
 
 #### React code example:
 ```tsx
-<Dropdown
-  id="example4"
-  options={[
-    { label: 'Plutonium' },
-    { label: 'Americium' },
-    { label: 'Copernicium' },
-  ]}
-  placeholder="Choose one"
+<Combobox
+  multiselect
+  required
   label="Label"
   helper="Assistive text"
-  closeMenuOnSelect={false}
-  multiselect
+  placeholder="Placeholder"
+  options={[{ label: 'Americium' }, ...]}
+  clearButtonAriaLabel="Clear all selections"
+  selectedItemRemoveButtonAriaLabel="Remove ${value}"
 />
 ```
 
@@ -206,7 +308,11 @@ _Not included in hds-core!_
 
 ### React
 
-[Dropdowns in hds-react](/storybook/react/?path=/story/components-dropdown--default)
+[Select in hds-react](/storybook/react/?path=/story/components-dropdowns-select--default)
 
-[Dropdown API](/storybook/react/?path=/docs/components-dropdown--default)
+[Select API](/storybook/react/?path=/docs/components-dropdowns-select--default)
+
+[Combobox in hds-react](/storybook/react/?path=/story/components-dropdowns-combobox--default)
+
+[Combobox API](/storybook/react/?path=/docs/components-dropdowns-combobox--default)
 

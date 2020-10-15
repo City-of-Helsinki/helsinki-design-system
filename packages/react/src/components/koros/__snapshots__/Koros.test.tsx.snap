@@ -6,6 +6,7 @@ exports[`<Koros /> spec renders the component 1`] = `
     class="koros basic"
   >
     <svg
+      aria-hidden="true"
       height="85"
       width="100%"
       xmlns="http://www.w3.org/2000/svg"
@@ -36,6 +37,7 @@ exports[`<Koros /> spec renders the component 1`] = `
     class="koros basic"
   >
     <svg
+      aria-hidden="true"
       height="85"
       width="100%"
       xmlns="http://www.w3.org/2000/svg"
@@ -66,6 +68,7 @@ exports[`<Koros /> spec renders the component 1`] = `
     class="koros beat"
   >
     <svg
+      aria-hidden="true"
       height="85"
       width="100%"
       xmlns="http://www.w3.org/2000/svg"
@@ -96,6 +99,7 @@ exports[`<Koros /> spec renders the component 1`] = `
     class="koros pulse"
   >
     <svg
+      aria-hidden="true"
       height="85"
       width="100%"
       xmlns="http://www.w3.org/2000/svg"
@@ -126,6 +130,7 @@ exports[`<Koros /> spec renders the component 1`] = `
     class="koros wave"
   >
     <svg
+      aria-hidden="true"
       height="85"
       width="100%"
       xmlns="http://www.w3.org/2000/svg"
@@ -156,6 +161,7 @@ exports[`<Koros /> spec renders the component 1`] = `
     class="koros storm"
   >
     <svg
+      aria-hidden="true"
       height="85"
       width="100%"
       xmlns="http://www.w3.org/2000/svg"

@@ -71,7 +71,6 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         type="checkbox"
         disabled={disabled}
         checked={checked}
-        aria-checked={checked}
         {...rest}
       />
       <label htmlFor={id} className={classNames(styles.label)}>

@@ -8,6 +8,7 @@ export default {
   component: Checkbox,
   title: 'Components/Checkbox',
   parameters: {
+    controls: { hideNoControlsWarning: true },
     docs: {
       page: () => (
         <>

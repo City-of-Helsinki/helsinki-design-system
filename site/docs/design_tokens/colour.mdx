@@ -48,7 +48,7 @@ The theming scheme also provides lighter and darker shades for the base colours.
 
 **When customising colours always check that:**
 1. the colour combination follows the <Link href="https://brand.hel.fi/en/colours/#safe-color-combinations" external>City of Helsinki Visual Identity Guidelines - Safe color combinations</Link>
-2. the colour contrast is compliant with <Link href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>WCAG 2.1 Standard at AA Level contrast ratios</Link>. Note that font size affects the contrast criteria of text elements. You can find tools for checking contrast accessibility in the [Resources page](/about/resources "Resources")
+2. the colour contrast is compliant with <Link href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>WCAG 2.1 Standard at AA Level contrast ratios</Link>. Note that font size affects the contrast criteria of text elements. You can find tools for checking contrast accessibility in the [Resources page](/resources "Resources")
 
 
 ## HDS Colours
@@ -137,6 +137,20 @@ Status colours are reserved exclusively for indicating valid, invalid or informa
 | **Black 30**  | black 90      | **AAA** `10,9 : 1`    | <ColorContrast color="var(--color-black-90)" background="var(--color-black-30)">AAA</ColorContrast> | |
 | **Black 20**  | black 90      | **AAA** `13,8 : 1`    | <ColorContrast color="var(--color-black-90)" background="var(--color-black-20)">AAA</ColorContrast> | |
 | **Black 10**  | black 90      | **AAA** `15,6 : 1`    | <ColorContrast color="var(--color-black-90)" background="var(--color-black-10)">AAA</ColorContrast> | |
+
+### Focus colour
+HDS components use a custom focus colour styling instead of the default browser provided style. The default HDS focus style is accessible on light backgrounds. Since HDS does not offer dark mode, the focus style colour may require customising when using HDS components on darker backgrounds. The WCAG requirement for user interface element contrast is `3 : 1`.
+
+| Focus Colour           | Background Colour   | Focus style contrast | Example                                                                                                  |
+| ---------------------- | ------------------- | -------------------- | -------------------------------------------------------------------------------------------------------- |
+| **Vaakuna** (default)  | white               | **AA** `5 : 1`       | <ColorContrast color="var(--color-coat-of-arms-blue)" background="var(--color-white)">AA</ColorContrast> |
+| **Vaakuna** (default)  | black               | **AA** `4,2 : 1`     | <ColorContrast color="var(--color-coat-of-arms-blue)" background="var(--color-black)">AA</ColorContrast> |
+
+HDS focus style colour can be customised to better fit the theme of the service. However, the implementor must always ensure that the following WCAG requirements are met:
+- <Link href="https://www.w3.org/TR/WCAG21/#use-of-color" external>WCAG 1.4.1 Use of Color (Level A)</Link>
+- <Link href="https://www.w3.org/TR/WCAG21/#focus-order" external>WCAG 2.4.3 Focus Order (Level A)</Link> (while designing components with multiple focusable elements)
+- <Link href="https://www.w3.org/TR/WCAG21/#focus-visible" external>WCAG 2.4.7 Focus Visible (Level A)</Link>
+- While not officially part of WCAG yet, HDS also follows <Link href="https://www.w3.org/WAI/WCAG21/Understanding/focus-visible-enhanced" external>WCAG 2.4.11 Focus Visible (Enchanced)</Link>. Due to their draft status, these requirements may still change. But we still recommend following them for future-proofing.
 
 ## Tokens
 <p>The colour tokens are provided as CSS and SASS variables in <Link href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/design-tokens" external>hds-design-tokens repository in GitHub</Link>.</p>

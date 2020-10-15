@@ -14,6 +14,9 @@ const external = [
   'lodash.uniqueid',
   'lodash.isequal',
   'react-spring',
+  'react-use-measure',
+  'react-merge-refs',
+  'react-virtual',
   '@react-aria/visually-hidden',
 ];
 
@@ -69,7 +72,9 @@ export default [
       'components/Button/index': 'src/components/button/index.ts',
       'components/Checkbox/index': 'src/components/checkbox/index.ts',
       'components/Columns/index': 'src/components/columns/index.ts',
-      'components/Dropdown/index': 'src/components/dropdown/index.ts',
+      'components/Combobox/index': 'src/components/dropdown/combobox/index.ts',
+      'components/Dropdown/index': 'src/components/dropdown/dropdown/index.ts',
+      'components/Footer/index': 'src/components/footer/index.ts',
       'components/ImageWithCard/index': 'src/components/imageWithCard/index.ts',
       'components/Koros/index': 'src/components/koros/index.ts',
       'components/Logo/index': 'src/components/logo/index.ts',
@@ -77,6 +82,7 @@ export default [
       'components/Notification/index': 'src/components/notification/index.ts',
       'components/RadioButton/index': 'src/components/radioButton/index.ts',
       'components/Section/index': 'src/components/section/index.ts',
+      'components/Select/index': 'src/components/dropdown/select/index.ts',
       'components/StatusLabel/index': 'src/components/statusLabel/index.ts',
       'components/TextInput/index': 'src/components/textInput/index.ts',
       'components/Textarea/index': 'src/components/textarea/index.ts',

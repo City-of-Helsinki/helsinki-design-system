@@ -1,0 +1,69 @@
+@value small-down, small-only, medium-down, medium-only, medium-up, large-up from "../../../styles/breakpoints.css";
+@import "../common";
+
+.divider {
+  @extend %divider;
+}
+
+.utilities {
+  padding: 0 var(--spacing-m) var(--spacing-m);
+}
+
+.links {
+  display: grid;
+  gap: var(--spacing-xs);
+  justify-items: center;
+}
+
+.backToTopButton {
+  @extend %footerItem;
+}
+
+@media small-down {
+  .utilities {
+    justify-items: center;
+  }
+
+  .divider {
+    margin: 0 0 var(--spacing-xs);
+  }
+}
+
+@media small-only {
+  .links {
+    @include gridColumns(3)
+  }
+}
+
+@media medium-down {
+  .utilities {
+    display: grid;
+    gap: var(--spacing-xs);
+  }
+}
+
+@media medium-only {
+  .utilities {
+    justify-items: start;
+  }
+}
+
+@media medium-up {
+  .links {
+    gap: var(--spacing-m);
+    grid-auto-flow: column;
+  }
+}
+
+@media large-up {
+  .utilities {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .divider {
+    margin: 0 0 var(--spacing-m);
+  }
+}

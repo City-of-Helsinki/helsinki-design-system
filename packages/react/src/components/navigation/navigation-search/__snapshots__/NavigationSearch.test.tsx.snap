@@ -22,6 +22,7 @@ exports[`<Navigation.Search /> spec renders the component 1`] = `
         >
           <svg
             class="logo logo"
+            role="img"
             viewBox="0 0 78 36"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -43,6 +44,7 @@ exports[`<Navigation.Search /> spec renders the component 1`] = `
         >
           <div
             class="navigationSearch"
+            role="search"
           >
             <button
               class="openSearch"
@@ -50,6 +52,7 @@ exports[`<Navigation.Search /> spec renders the component 1`] = `
             >
               <svg
                 class="icon s"
+                role="img"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >

@@ -1,7 +1,7 @@
 @value medium-down, medium-only, large-up from "../../../styles/breakpoints.css";
 
 .navigationDropdown {
-  composes: root from '../../dropdown/Dropdown.module.css';
+  composes: root from '../../dropdown/dropdown/Dropdown.module.css';
 }
 
 .navigationDropdown.navigationDropdown {
@@ -16,15 +16,15 @@
 }
 
 .wrapper {
-  composes: wrapper from '../../dropdown/Dropdown.module.css';
+  composes: wrapper from '../../dropdown/dropdown/Dropdown.module.css';
 }
 
 .open {
-  composes: open from '../../dropdown/Dropdown.module.css';
+  composes: open from '../../dropdown/dropdown/Dropdown.module.css';
 }
 
 .menu {
-  composes: menu from '../../dropdown/Dropdown.module.css';
+  composes: menu from '../../dropdown/dropdown/Dropdown.module.css';
 }
 
 .navigationDropdown.open:not(.mobile) .menu {
@@ -42,7 +42,7 @@
 }
 
 .menuItem {
-  composes: menuItem from '../../dropdown/Dropdown.module.css';
+  composes: menuItem from '../../dropdown/dropdown/Dropdown.module.css';
 }
 
 .navigationDropdown .menuItem {
@@ -55,7 +55,7 @@
 }
 
 .highlighted {
-  composes: highlighted from '../../dropdown/Dropdown.module.css';
+  composes: highlighted from '../../dropdown/dropdown/Dropdown.module.css';
 }
 
 .angleIcon {
@@ -68,15 +68,15 @@
 }
 
 .placeholder {
-  composes: placeholder from '../../dropdown/Dropdown.module.css';
+  composes: placeholder from '../../dropdown/dropdown/Dropdown.module.css';
 }
 
 .disabled {
-  composes: disabled from '../../dropdown/Dropdown.module.css';
+  composes: disabled from '../../dropdown/dropdown/Dropdown.module.css';
 }
 
 .dropdownButton {
-  composes: buttonDropdown from '../../dropdown/Dropdown.module.css';
+  composes: buttonDropdown from '../../dropdown/dropdown/Dropdown.module.css';
 }
 
 .navigationDropdown .dropdownButton {

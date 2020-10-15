@@ -6,6 +6,9 @@ import { Logo } from './Logo';
 export default {
   component: Logo,
   title: 'Components/Logo',
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
 };
 
 export const Playground = () => {

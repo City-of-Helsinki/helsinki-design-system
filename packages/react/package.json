@@ -1,6 +1,6 @@
 {
   "name": "hds-react",
-  "version": "0.13.3",
+  "version": "0.14.0",
   "description": "React components for the Helsinki Design System",
   "author": "Anssi Lehtonen <lehtovaaralainen@gmail.com>",
   "contributors": [
@@ -12,7 +12,9 @@
   "module": "./index.js",
   "esnext": "./index.js",
   "types": "./index.d.ts",
-  "sideEffects": ["base.min-*"],
+  "sideEffects": [
+    "base.min-*"
+  ],
   "scripts": {
     "build": "rimraf lib/ && yarn run lint && yarn run tcm && rollup -c",
     "start": "tcm src internal --watch & yarn storybook",
@@ -26,7 +28,7 @@
     "pre-push": "yarn -s test && yarn build",
     "storybook": "start-storybook -p 6006 --quiet",
     "build-storybook": "build-storybook --loglevel error",
-    "test": "jest",
+    "test": "jest --env=jsdom-fourteen",
     "prepublishOnly": "cp -r ./lib/. ."
   },
   "devDependencies": {
@@ -35,12 +37,14 @@
     "@babel/preset-env": "7.11.5",
     "@babel/preset-react": "7.10.4",
     "@babel/preset-typescript": "7.9.0",
+    "@juggle/resize-observer": "3.2.0",
     "@rollup/plugin-babel": "5.2.1",
     "@rollup/plugin-commonjs": "15.1.0",
     "@rollup/plugin-node-resolve": "9.0.0",
     "@storybook/addon-a11y": "6.0.25",
     "@storybook/addon-actions": "6.0.25",
     "@storybook/addon-backgrounds": "6.0.25",
+    "@storybook/addon-controls": "6.0.25",
     "@storybook/addon-docs": "6.0.25",
     "@storybook/addon-knobs": "6.0.25",
     "@storybook/addon-links": "6.0.25",
@@ -88,11 +92,14 @@
   "dependencies": {
     "@babel/runtime": "7.11.2",
     "@react-aria/visually-hidden": "3.2.0",
-    "downshift": "5.4.0",
-    "hds-core": "0.13.3",
+    "downshift": "6.0.6",
+    "hds-core": "0.14.0",
     "lodash.isequal": "4.5.0",
     "lodash.uniqueid": "4.0.1",
-    "react-spring": "9.0.0-rc.3"
+    "react-merge-refs": "1.1.0",
+    "react-spring": "9.0.0-rc.3",
+    "react-use-measure": "2.0.1",
+    "react-virtual": "2.2.7"
   },
   "peerDependencies": {
     "react": "^16.8.0",
