@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Tag /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="tag"
+    id="hds-tag"
+  >
+    <span
+      id="hds-tag-label"
+    >
+      <span
+        aria-hidden="false"
+      />
+    </span>
+  </div>
+</DocumentFragment>
+`;

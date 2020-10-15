@@ -5,10 +5,10 @@ import isEqual from 'lodash.isequal';
 // import core base styles
 import 'hds-core';
 import styles from './Dropdown.module.css';
-import classNames from '../../utils/classNames';
-import { IconAngleDown, IconCheck, IconAlertCircle } from '../../icons';
-import { Checkbox } from '../checkbox';
-import { FieldLabel } from '../../internal/field-label/FieldLabel';
+import classNames from '../../../utils/classNames';
+import { IconAngleDown, IconCheck, IconAlertCircle } from '../../../icons';
+import { Checkbox } from '../../checkbox';
+import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 
 type OptionType = {
   [key: string]: any;
@@ -152,8 +152,8 @@ const Wrapper = ({ filterable, getComboboxProps, children }: WrapperProps) =>
  * @param selectedOptions Currently selected options
  * @param item            Item we want to check
  */
-function getIsInSelectedOptions(selectedOptions: OptionType[], item: OptionType): boolean {
-  return selectedOptions.some((selectedOption: OptionType) => isEqual(selectedOption, item));
+function getIsInSelectedOptions<T>(selectedOptions: T[], item: T): boolean {
+  return selectedOptions.some((selectedOption: T) => isEqual(selectedOption, item));
 }
 
 export const Dropdown = ({
@@ -238,29 +238,24 @@ export const Dropdown = ({
     return changes;
   };
 
-  // shared props for select and combobox
-  const commonProps = {
+  // init select
+  const select = useSelect<OptionType>({
+    items: options,
     circularNavigation,
     getItemId,
     id,
-    initialSelectedItem: defaultValue,
+    initialSelectedItem: (defaultValue as OptionType) ?? null,
     itemToString,
     labelId,
     menuId,
     onSelectedItemChange: ({ selectedItem }) => !multiselect && onChange(selectedItem),
     // selected items are handled by stateReducer when multiselect is enabled
-    ...(multiselect && { selectedItem: null }),
+    ...(multiselect && { selectedItem: null as OptionType[] }),
     // a value for selectedOption indicates that the dropdown should be controlled
     // don't set selectedItem if it's not, so that downshift can control the selected item(s)
-    ...(!multiselect && selectedOption !== undefined && { selectedItem: selectedOption }),
+    ...(!multiselect && selectedOption !== undefined && { selectedItem: selectedOption as OptionType }),
     stateReducer,
     toggleButtonId,
-  };
-
-  // init select
-  const select = useSelect<OptionType>({
-    items: options,
-    ...commonProps,
   });
 
   // init combobox
@@ -276,7 +271,21 @@ export const Dropdown = ({
           return optionItem.includes(input);
         }),
       ),
-    ...commonProps,
+    circularNavigation,
+    getItemId,
+    id,
+    initialSelectedItem: defaultValue,
+    itemToString,
+    labelId,
+    menuId,
+    onSelectedItemChange: ({ selectedItem }) => !multiselect && onChange(selectedItem),
+    // selected items are handled by stateReducer when multiselect is enabled
+    ...(multiselect && { selectedItem: null as OptionType[] }),
+    // a value for selectedOption indicates that the dropdown should be controlled
+    // don't set selectedItem if it's not, so that downshift can control the selected item(s)
+    ...(!multiselect && selectedOption !== undefined && { selectedItem: selectedOption as OptionType }),
+    stateReducer,
+    toggleButtonId,
   });
 
   // get downshift props based on dropdown mode
@@ -289,6 +298,19 @@ export const Dropdown = ({
     highlightedIndex,
     getItemProps,
   } = filterable ? combobox : select;
+
+  // we call the getter functions in order to suppress the "You forgot to call the ..." error messages thrown by downshift.
+  if (!multiselect) {
+    getDropdownProps({}, { suppressRefError: true });
+  }
+  if (!filterable) {
+    combobox.getMenuProps({}, { suppressRefError: true });
+    combobox.getInputProps({}, { suppressRefError: true });
+    combobox.getComboboxProps({}, { suppressRefError: true });
+  } else {
+    select.getMenuProps({}, { suppressRefError: true });
+    select.getToggleButtonProps({}, { suppressRefError: true });
+  }
 
   // returns the toggle button label based on the dropdown mode
   const getButtonLabel = (): React.ReactNode => {
@@ -338,7 +360,7 @@ export const Dropdown = ({
           type="button"
           {...getToggleButtonProps({
             // add downshift dropdown props for non-combobox multi-select dropdowns
-            ...(!filterable && multiselect && { ...getDropdownProps() }),
+            ...(!filterable && multiselect && { ...getDropdownProps({}, { suppressRefError: true }) }),
             // add aria attribute to button for combobox dropdowns
             ...(filterable && { 'aria-labelledby': labelId || `${id}-label` }),
             disabled,

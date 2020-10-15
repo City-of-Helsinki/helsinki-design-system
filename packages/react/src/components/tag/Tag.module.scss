@@ -1,0 +1,14 @@
+@import "../../styles/common";
+
+.tag {
+  composes: hds-tag from 'hds-core/lib/components/tag/tag.css';
+}
+
+.deleteButton {
+  @extend %buttonReset;
+  composes: hds-tag__delete-button from 'hds-core/lib/components/tag/tag.css';
+}
+
+.visuallyHidden {
+  @extend %hiddenFromScreen;
+}

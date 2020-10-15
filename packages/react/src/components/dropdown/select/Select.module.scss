@@ -1,0 +1,121 @@
+@import "../../../styles/common";
+@import "../dropdown.common";
+
+.root {
+  @extend %dropdownRoot;
+
+  &.open {
+    .angleIcon {
+      transform: translateY(2px) rotateX(180deg);
+    }
+  }
+}
+
+/**
+ * WRAPPER
+ */
+
+.wrapper {
+  @extend %dropdownWrapper;
+}
+
+/**
+ * TOGGLE BUTTON
+ */
+
+.button {
+  @extend %buttonReset;
+  align-items: center;
+  color: var(--dropdown-color-default);
+  display: flex;
+  font-size: var(--fontsize-body-l);
+  min-height: var(--menu-item-height);
+  outline: none;
+  padding: calc(var(--spacing-s) - var(--border-width) * 2) var(--spacing-s);
+  width: 100%;
+
+  &.placeholder {
+    color: var(--placeholder-color);
+  }
+
+  &.placeholder:disabled {
+    color: var(--dropdown-color-disabled);
+  }
+}
+
+/**
+ * ICON
+ */
+
+.icon {
+  @extend %dropdownIcon;
+}
+
+/**
+ * ANGLE ICON
+ */
+
+.angleIcon {
+  @extend %dropdownAngleIcon;
+}
+
+/**
+ * MENU
+ */
+
+.menu {
+  @extend %dropdownMenu;
+}
+
+/**
+ * MENU ITEM
+ */
+
+.menuItem {
+  @extend %dropdownMenuItem;
+}
+
+/**
+ * HELPER TEXT
+ */
+
+.helperText {
+  @extend %dropdownHelperText;
+}
+
+/**
+ * DISABLED
+ */
+
+.disabled {
+  @extend %dropdownDisabled;
+}
+
+/**
+ * INVALID
+ */
+
+.invalid {
+  @extend %dropdownInvalid;
+}
+
+/**
+ * MULTISELECT
+ */
+
+.multiselect {
+  @extend %dropdownMultiselect;
+
+  .button {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+
+    &:focus:not(:active) .angleIcon {
+      @extend %dropdownFocusOutline;
+    }
+  }
+}
