@@ -111,10 +111,6 @@ const styles = {
     borderBottom: (t) => `1px solid ${t.colors.border}`,
     my: 'var(--spacing-layout-s)',
   },
-  legend: {
-    fontWeight: 'medium',
-    marginBottom: 'var(--spacing-2-xs)',
-  },
 };
 
 export default styles;
