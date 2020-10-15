@@ -352,7 +352,8 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
     // set the selected items when the dropdown is controlled
     ...(props.multiselect && props.value !== undefined && { selectedItems: props.value ?? [] }),
     getA11yRemovalMessage: (props.multiselect && props.getA11yRemovalMessage) ?? (() => ''),
-    onSelectedItemsChange: ({ selectedItems: _selectedItems }) => props.multiselect && props.onChange(_selectedItems),
+    onSelectedItemsChange: ({ selectedItems: _selectedItems }) =>
+      props.multiselect && typeof props.onChange === 'function' && props.onChange(_selectedItems),
     onStateChange: (changes) =>
       onMultiSelectStateChange<OptionType>(changes, activeIndex, selectedItemsContainerRef.current),
     stateReducer: (state, actionAndChanges) => multiSelectReducer<OptionType>(state, actionAndChanges, controlled),
@@ -381,7 +382,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
     getA11yStatusMessage,
     itemToString: (item): string => (item ? item[optionLabelField] ?? '' : ''),
     onSelectedItemChange: ({ selectedItem: _selectedItem }) =>
-      props.multiselect === false && props.onChange(_selectedItem),
+      props.multiselect === false && typeof props.onChange === 'function' && props.onChange(_selectedItem),
     onStateChange({ type, selectedItem: _selectedItem }) {
       const { ItemClick, MenuBlur, MenuKeyDownEnter, MenuKeyDownSpaceButton } = useSelect.stateChangeTypes;
 
