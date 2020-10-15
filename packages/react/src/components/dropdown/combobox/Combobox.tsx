@@ -170,7 +170,8 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     // set the selected items when the dropdown is controlled
     ...(props.multiselect && props.value !== undefined && { selectedItems: props.value ?? [] }),
     getA11yRemovalMessage: (props.multiselect && props.getA11yRemovalMessage) ?? (() => ''),
-    onSelectedItemsChange: ({ selectedItems: _selectedItems }) => props.multiselect && props.onChange(_selectedItems),
+    onSelectedItemsChange: ({ selectedItems: _selectedItems }) =>
+      props.multiselect && typeof props.onChange === 'function' && props.onChange(_selectedItems),
     onStateChange: (changes) =>
       onMultiSelectStateChange<OptionType>(changes, activeIndex, selectedItemsContainerRef.current),
     stateReducer: (state, actionAndChanges) => multiSelectReducer<OptionType>(state, actionAndChanges, controlled),
@@ -204,7 +205,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     itemToString: (item): string => (item ? item[optionLabelField] ?? '' : ''),
     onHighlightedIndexChange: ({ highlightedIndex: _highlightedIndex }) => virtualizer.scrollToIndex(_highlightedIndex),
     onSelectedItemChange: ({ selectedItem: _selectedItem }) =>
-      props.multiselect === false && props.onChange(_selectedItem),
+      props.multiselect === false && typeof props.onChange === 'function' && props.onChange(_selectedItem),
     onStateChange({ type, selectedItem: _selectedItem }) {
       const { InputBlur, InputKeyDownEnter, ItemClick } = useCombobox.stateChangeTypes;
 
