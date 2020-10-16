@@ -26,7 +26,7 @@ import Link from "../../src/components/Link";
 - Currently HDS offers base Cards which you can use to build custom Cards for your project's needs. For inspiration and guidelines, you can find custom card examples in <Link href="https://share.goabstract.com/e6aa2ebd-1a49-4cb1-90ef-a44a6486c28b" external>HDS Example Custom Components - Abstract collection</Link>.
 
 ## Accessibility
-- The colour contrast between the Card and its background must comply with <Link href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>AA Level contrast ratios</Link>. If needed, you may use Card border to increase the Card contrast to its background.
+- The colour contrast between the Card and its background must comply with <Link href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>WCAG AA Level contrast ratios</Link>. If needed, you may use Card border to increase the Card contrast to its background.
 
 ## Usage & variations
 
@@ -34,18 +34,18 @@ import Link from "../../src/components/Link";
 Currently HDS offers empty base Cards. These and other HDS components can be used to create custom Cards for your project. By default, HDS recommends Cards without border style.
 
 <Playground>
-    <Card />
-    <Card border />
+  <Card />
+  <Card border />
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <div class="hds-card"></div>
 
 <div class="hds-card hds-card--border"></div>
 ```
 
-##### React:
+#### React code example:
 ```tsx
 <Card />
 
@@ -57,18 +57,18 @@ Currently HDS offers empty base Cards. These and other HDS components can be use
 Additionally HDS offers styling for basic heading and body text inside the Card component. These can be used instead of custom elements.
 
 <Playground>
-    <Card
-      heading="Card"
-      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    />
-    <Card
-      border
-      heading="Card"
-      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    />
+  <Card
+    heading="Card"
+    text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  />
+  <Card
+    border
+    heading="Card"
+    text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  />
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <div class="hds-card">
   <div class="hds-card__body">
@@ -85,7 +85,7 @@ Additionally HDS offers styling for basic heading and body text inside the Card 
 </div>
 ```
 
-##### React:
+#### React code example:
 ```tsx
 <Card
   heading="Card"
@@ -101,23 +101,25 @@ Additionally HDS offers styling for basic heading and body text inside the Card 
 
 ### Using with other HDS components
 
+Custom Cards can be easily built by using other HDS components and typography inside the Card.
+
 <Playground>
-    <Card
-      heading="Card"
-      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    >
-      <Button variant="secondary" theme="black">Button</Button>
-    </Card>
-    <Card
-      border
-      heading="Card"
-      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    >
-      <Button variant="secondary" theme="black">Button</Button>
-    </Card>
+  <Card
+    heading="Card"
+    text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  >
+    <Button variant="secondary" theme="black">Button</Button>
+  </Card>
+  <Card
+    border
+    heading="Card"
+    text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  >
+    <Button variant="secondary" theme="black">Button</Button>
+  </Card>
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <div class="hds-card">
   <div class="hds-card__body">
@@ -140,7 +142,7 @@ Additionally HDS offers styling for basic heading and body text inside the Card 
 </div>
 ```
 
-##### React:
+#### React code example:
 ```tsx
 <Card
   heading="Card"
