@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import { animated, useTransition, UseTransitionProps } from 'react-spring';
 
-import styles from './Navigation.module.css';
+import styles from './Navigation.module.scss';
 import classNames from '../../utils/classNames';
 import { Logo, LogoLanguage } from '../logo';
 import { NavigationContext, NavigationContextProps } from './NavigationContext';
