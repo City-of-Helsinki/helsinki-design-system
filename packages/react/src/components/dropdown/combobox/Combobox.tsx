@@ -23,14 +23,11 @@ import classNames from '../../../utils/classNames';
 import { IconAlertCircle, IconAngleDown } from '../../../icons';
 import { SelectedItems } from '../../../internal/selectedItems/SelectedItems';
 import { multiSelectReducer, onMultiSelectStateChange, SelectCustomTheme, SelectProps } from '../select';
-import {
-  DROPDOWN_MENU_ITEM_HEIGHT,
-  getIsElementBlurred,
-  getIsElementFocused,
-  getIsInSelectedOptions,
-} from '../dropdownUtils';
+import { DROPDOWN_MENU_ITEM_HEIGHT, getIsInSelectedOptions } from '../dropdownUtils';
 import { DropdownMenu } from '../../../internal/dropdownMenu/DropdownMenu';
 import setComponentTheme from '../../../utils/setComponentTheme';
+import getIsElementFocused from '../../../utils/getIsElementFocused';
+import getIsElementBlurred from '../../../utils/getIsElementBlurred';
 
 type FilterFunction<OptionType> = (options: OptionType[], search: string) => OptionType[];
 

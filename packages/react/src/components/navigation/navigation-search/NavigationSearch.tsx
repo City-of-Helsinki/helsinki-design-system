@@ -1,29 +1,33 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useTransition, animated } from 'react-spring';
+import React, { FocusEvent, useContext, useEffect, useRef, useState } from 'react';
 
-import styles from './NavigationSearch.module.css';
+import styles from './NavigationSearch.module.scss';
 import { IconSearch } from '../../../icons';
-import classNames from '../../../utils/classNames';
-import { TextInput } from '../../textInput';
 import { NavigationContext } from '../NavigationContext';
+import classNames from '../../../utils/classNames';
+import getIsElementFocused from '../../../utils/getIsElementFocused';
+import getIsElementBlurred from '../../../utils/getIsElementBlurred';
 
 export type NavigationSearchProps = {
   /**
    * Callback fired when the search field is blurred
    */
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: () => void;
   /**
    * Callback fired when the search field is focused
    */
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onFocus?: () => void;
   /**
    * Callback fired when the state is changed
    */
   onSearchChange?: React.ChangeEventHandler<HTMLInputElement>;
   /**
-   * Callback fired when the Enter key is pressed
+   * Callback fired when the search button or Enter key is pressed
    */
-  onSearchEnter?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  onSearch?: (event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLInputElement>) => void;
+  /**
+   * The aria-label for the search button. Uses `searchLabel` by default
+   */
+  searchButtonAriaLabel?: string;
   /**
    * Label shown when search field isn't active
    */
@@ -34,13 +38,12 @@ export type NavigationSearchProps = {
   searchPlaceholder?: string;
 };
 
-const AnimatedSearchIcon = animated(IconSearch);
-
 export const NavigationSearch = ({
   onBlur = () => null,
   onFocus = () => null,
   onSearchChange = () => null,
-  onSearchEnter = () => null,
+  onSearch = () => null,
+  searchButtonAriaLabel,
   searchLabel,
   searchPlaceholder,
 }: NavigationSearchProps) => {
@@ -52,58 +55,59 @@ export const NavigationSearch = ({
   // focuses the input field
   const focusInput = (): void => input.current?.focus();
 
-  const handleBlur = (e): void => {
-    if (!isMobile) setSearchActive(false);
-    onBlur(e);
-  };
-
   useEffect(() => {
     if (!isMobile && searchActive) focusInput();
   }, [isMobile, searchActive]);
 
-  // search field icon transition
-  const transition = useTransition(searchActive, {
-    from: { transform: 'translate3d(0, 8px, 0)', opacity: 0.5 },
-    enter: { transform: 'translate3d(0, 0, 0)', opacity: 1 },
-    config: {
-      friction: 20,
-    },
-  });
+  const handleFocus = (e: FocusEvent<HTMLDivElement>) => {
+    if (getIsElementFocused(e)) {
+      onFocus();
+    }
+  };
+
+  const handleBlur = (e: FocusEvent<HTMLDivElement>) => {
+    if (getIsElementBlurred(e)) {
+      if (!isMobile) setSearchActive(false);
+      onBlur();
+    }
+  };
 
   return (
-    <div className={classNames(styles.navigationSearch, searchActive && styles.active)} role="search">
+    <div className={classNames(styles.search, searchActive && styles.active)} role="search">
+      {!isMobile && (
+        <button
+          type="button"
+          className={styles.searchToggleButton}
+          onClick={() => setSearchActive(true)}
+          onFocus={() => setSearchActive(true)}
+        >
+          <IconSearch aria-hidden />
+          <span className={styles.label}>{searchLabel}</span>
+        </button>
+      )}
       {searchActive && (
-        <>
-          <TextInput
+        <div className={styles.searchContainer} onFocus={handleFocus} onBlur={handleBlur}>
+          <input
+            type="text"
             className={styles.input}
             id="navigation-search"
             ref={input}
             placeholder={searchPlaceholder || searchLabel}
             onChange={onSearchChange}
             onKeyPress={(e) => {
-              if (e.key === 'Enter') {
-                onSearchEnter(e);
-              }
+              if (e.key === 'Enter') onSearch(e);
             }}
-            onBlur={handleBlur}
-            onFocus={onFocus}
           />
-          {transition(
-            // there is an issue with react-spring -rc3 and a new version of @types/react: https://github.com/react-spring/react-spring/issues/1102
-            // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-            (values, item) => item && <AnimatedSearchIcon style={values as any} className={styles.inputIcon} />,
-          )}
-        </>
+          <button
+            type="button"
+            className={styles.searchButton}
+            aria-label={searchButtonAriaLabel || searchLabel}
+            onClick={(e) => onSearch(e)}
+          >
+            <IconSearch aria-hidden />
+          </button>
+        </div>
       )}
-      <button
-        type="button"
-        className={styles.openSearch}
-        onClick={() => setSearchActive(true)}
-        onFocus={() => setSearchActive(true)}
-      >
-        <IconSearch />
-        <span className={styles.label}>{searchLabel}</span>
-      </button>
     </div>
   );
 };
