@@ -18,7 +18,7 @@ import Image from "../../src/components/Image";
 <StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel>
 
 <LargeParagraph>
-  Forms are groups of controls, that allow the user to input, modify and select data values or configure options.
+  Forms are groups of controls that allow the user to input, modify and select data values or configure options.
 </LargeParagraph>
 
 ## Principles
@@ -59,8 +59,8 @@ Forms *should* be designed to be as clear and straightforward as possible, to al
 </div>
 
 ## Accessibility
-<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
-    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
+<div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
+    <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></div>
     <strong>A change in a form controls value or state <em>must never </em>trigger a change in page <em>context</em>.</strong>
     <ul style="margin-bottom:0;">
         <li><strong>Form controls <em>must</em> only be used to change page <em>content</em>.</strong></li>
@@ -79,11 +79,9 @@ Forms *should* be designed to be as clear and straightforward as possible, to al
         </li>
         <li>A change in <em>context</em> is for example:
             <ul style="margin-top:0;">
-                <li>A major change in content, that changes the meaning of the page, or would look to a user as if they had moved to a new page. for example significantly re-arranging the content of a page.</li>
+                <li>A major change in content or layout that alters the meaning of the page, or makes it look like a different page (for example significantly re-arranging the content of a page).</li>
                 <li>Moving focus to a different component</li>
-                <li>Refreshing the page</li>
                 <li>Opening a new browser window or tab</li>
-                <li>Switching to an other user agent (web browser, media player, plugin etc.)</li>
             </ul>
         </li>
     </ul>
@@ -99,7 +97,7 @@ Enable the user to **input a freeform string of text or numbers.**
 
 | Control   | Name        | Usage         | Examples      |
 | --------- | ----------- | ------------- | ------------- |
-| <Image src="../../static/patterns/form/form-choosing-textinput@2x.png" alt="Text input" style="max-width:250px;" viewable />  | Text input                | Entering short strings of texts or numbers no more than few words long.               |  |
+| <Image src="../../static/patterns/form/form-choosing-textinput@2x.png" alt="Text input" style="max-width:250px;" viewable />  | Text input                | Entering short strings of texts or numbers no more than a few words long.               |  |
 | <Image src="../../static/patterns/form/form-choosing-textarea@2x.png" alt="Text area" style="max-width:250px;" viewable />    | Text area                 | Entering multiple lines of text | Messages, descriptions, feedback, support requests  |  |
 | <p style="margin: var(--spacing-2-xs) 0;"><StatusLabel type="error">Coming soon</StatusLabel></p>                             | *Text input data types*   | <p>Text fields come in several varieties for different data types (date, password etc.) and specific purposes (e.g. search).</p><p style="margin-bottom:0"><strong>Separate components for most common input data types coming soon to HDS.</strong></p>| Names, phone numbers, addresses, search. |  |
 
@@ -109,11 +107,11 @@ Enable the user to **input a freeform string of text or numbers.**
         <li>
             Adjust the width to reflect the intended length of the content. 
             <ul style="margin-top:0;">
-                <li>Align the width to the responsive column grid.</li>
+                <li>Align the width to the <a href="/guidelines/grid">responsive column grid</a>.</li>
                 <li>If an input is too long to be fully displayed in the field, truncate the value with ellipsis.</li>
             </ul>
         </li>
-        <li>Make sure users can enter their information at smaller screen sizes.</li>
+        <li>Make sure users can enter their information even on smaller screen sizes and mobile devices.</li>
     </ul>
 </div>
 
@@ -129,7 +127,7 @@ Each selection control has a specific use case. The main factors that determine 
 #### Short lists of choices
 | Control   | Name        | Usage         | Examples      |
 | --------- | ----------- | ------------- | ------------- |
-| <Image src="../../static/patterns/form/form-choosing-select-checkbox@2x.png" alt="Checkbox" style="max-width:250px;" viewable />              | Checkbox              | Selecting/deselecting a single option.                        | Agreeing to terms and conditions |
+| <Image src="../../static/patterns/form/form-choosing-select-checkbox@2x.png" alt="Checkbox" style="max-width:250px;" viewable />              | Checkbox              | Selecting a single option.                        | Agreeing to terms and conditions |
 | <Image src="../../static/patterns/form/form-choosing-select-checkboxgroup@2x.png" alt="Checkbox group" style="max-width:250px;" viewable />   | Checkbox group        | Selecting one or more options from a short list.              | <ul style="margin-bottom:0"><li>Adding optional items</li><li>Selecting all that apply</li></ul> |
 | <Image src="../../static/patterns/form/form-choosing-select-radio@2x.png" alt="Radio button group" style="max-width:250px;" viewable />       | Radio button group    | Selecting a single option from mutually exclusive choices.    | Picking a type |
 | <StatusLabel type="error">Coming soon</StatusLabel>                                                                                           | Toggle                | Choosing between binary options.                              | <ul style="margin-bottom:0"><li>On/off</li><li>Show/hide</li></ul> |
@@ -137,8 +135,7 @@ Each selection control has a specific use case. The main factors that determine 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
     <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
     <ul style="margin-bottom:0;">
-        <li><strong>Related checkboxes <em>must</em> be grouped to a fieldset</strong> with a legend stating the selection being made made.</li>
-        <li><strong>Radio buttons <em>must</em> always be grouped to a fieldset</strong> with a legend stating the selection being made made.</li>
+        <li><strong>Related checkboxes and radio buttons <em>must</em> be grouped to a fieldset</strong> with a legend stating the selection being made made.</li>
     </ul>
 </div>
 
@@ -146,10 +143,10 @@ Each selection control has a specific use case. The main factors that determine 
 #### Long list of choices
 | Control   | Name        | Usage         | Examples      |
 | --------- | ----------- | ------------- | ------------- |
-| <Image src="../../static/patterns/form/form-choosing-dropdown@2x.png" alt="Dropdown" style="max-width:250px;" viewable />         | Dropdown select       | <ul style="margin-bottom:0"><li>Selecting a single option </li><li>4–7 choices.</li><li>Comparable to a radio button group.</li></ul> | |
-| <Image src="../../static/patterns/form/form-choosing-dropdown-multi@2x.png" alt="Dropdown multi-select" style="max-width:250px;" viewable />   | Dropdown<br/>multi-select | <ul style="margin-bottom:0"><li>Selecting one or more options </li><li>4–7 choices.</li><li>Comparable to a checkbox group.</li></ul> | |
-| <Image src="../../static/patterns/form/form-choosing-combobox@2x.png" alt="Combobox" style="max-width:250px;" viewable />         | Combobox select       | <ul style="margin-bottom:0"><li>Selecting single option </li><li>more than 8 choices</li><li>Allows <strong>filtering options</strong> with text search.</li></ul> | Choosing for example city of residence, place of birth, or language preference |
-| <Image src="../../static/patterns/form/form-choosing-combobox-multi@2x.png" alt="Combobox multi-select" style="max-width:250px;" viewable />   | Combobox<br/>multi-select | <ul style="margin-bottom:0"><li>Selecting one or more options</li><li>more than 8 choices</li><li>Allows <strong>filtering options</strong> with text search.</li></ul> | | 
+| <Image src="../../static/patterns/form/form-choosing-dropdown@2x.png" alt="Dropdown" style="max-width:250px;" viewable />         | Dropdown select       | <ul style="margin-bottom:0"><li>Selecting a single option.</li><li>4–7 choices.</li><li>Comparable to a radio button group.</li></ul> | |
+| <Image src="../../static/patterns/form/form-choosing-dropdown-multi@2x.png" alt="Dropdown multi-select" style="max-width:250px;" viewable />   | Dropdown<br/>multi-select | <ul style="margin-bottom:0"><li>Selecting multiple options </li><li>4–7 choices.</li><li>Comparable to a checkbox group.</li></ul> | |
+| <Image src="../../static/patterns/form/form-choosing-combobox@2x.png" alt="Combobox" style="max-width:250px;" viewable />         | Combobox select       | <ul style="margin-bottom:0"><li>Selecting single option.</li><li>more than 8 choices.</li><li>Allows <strong>filtering options</strong> with text search.</li></ul> | Choosing for example city of residence, place of birth, or language preference |
+| <Image src="../../static/patterns/form/form-choosing-combobox-multi@2x.png" alt="Combobox multi-select" style="max-width:250px;" viewable />   | Combobox<br/>multi-select | <ul style="margin-bottom:0"><li>Selecting multiple options.</li><li>more than 8 choices.</li><li>Allows <strong>filtering options.</strong> with text search.</li></ul> | | 
 
 
 <div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
@@ -170,7 +167,7 @@ Individual form controls can also have action buttons attached to them, that let
 | --------- | ----------- | ------------- | ------------- |
 | <Image src="../../static/patterns/form/form-choosing-submit@2x.png" alt="Primary action button" style="max-width:250px;" viewable />               | Primary action        | **Submitting inputted data** to the defined form handler on the server. | Submit |
 | <Image src="../../static/patterns/form/form-choosing-secondary@2x.png" alt="Secondary action button" style="max-width:250px;" viewable />         | Secondary action      | Allowing user to perform **important and form wide actions** before submitting: <ul style="margin-bottom:0"><li>Navigating multi-page forms</li><li>Making batch changes to the form fields</li><li>Cancelling the process and returning to previous view.</li></ul> | <ul style="margin-bottom:0"><li>Next/previous page</li><li>Batch clear form fields.</li></ul> |
-| <Image src="../../static/patterns/form/form-choosing-supplementary@2x.png" alt="Supplementary action button" style="max-width:250px;" viewable /> | Supplementary action  | Allows user to perform: <ul style="margin-bottom:0"><li><strong>Auxiliary functionalities</strong> that help the user, but are not essential in filling the form</li><li><strong>Inline actions</strong> that affect smaller sections of a form (for example a fieldset)</li></ul> | <ul style="margin-bottom:0"><li>Printing</li><li>Saving a draft</li><li>Adding or removing instances or rows to a data list (for example persons to a participant list)</li><li>Inputting data to a form control from an outside source (for example uploading an image, or fetching a location from Google maps)</li></ul> |
+| <Image src="../../static/patterns/form/form-choosing-supplementary@2x.png" alt="Supplementary action button" style="max-width:250px;" viewable /> | Supplementary action  | Allows user to perform: <ul style="margin-bottom:0"><li><strong>Auxiliary functionalities</strong> that help the user but are not essential in filling the form</li><li><strong>Inline actions</strong> that affect smaller sections of a form (for example a fieldset)</li></ul> | <ul style="margin-bottom:0"><li>Printing</li><li>Saving a draft</li><li>Adding or removing instances or rows to a data list (for example persons to a participant list)</li><li>Inputting data to a form control from an outside source (for example uploading an image, or fetching a location from Google maps)</li></ul> |
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
     <p><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></p>
@@ -245,7 +242,7 @@ The actual **interactive control element** that allows the user to input or info
 
 ### 2. Label
 
-**The name of the form control**, that clearly states the purpose of the control or what information the user is required to input
+**The name of the form control** that clearly states the purpose of the control or what information the user is required to input
 
 <Image src="../../static/patterns/form/form-elements-label@2x.png" alt="Form control label" style="max-width:376px;" viewable /> 
 
@@ -259,7 +256,7 @@ The actual **interactive control element** that allows the user to input or info
                 <li>An exception is made in the HDS navigation search component which follows a widely used pattern.</li>
             </ul>
         </li>
-        <li><strong>The Label <em>must</em> be always visible to the user.</strong></li>
+        <li><strong>The label <em>must</em> be always visible to the user.</strong></li>
         <li>Be descriptive.
             <ul>
                 <li><strong>The user <em>must</em> be able to understand the purpose of the form control from the label only.</strong></li>
@@ -297,7 +294,7 @@ Marking that indicates a form control for which **the user *must* enter a value*
         <li>If all fields in the form are required
             <ul>
                 <li>This <em>should</em> be stated in the form wide instructions at the beginning of the form.</li>
-                <li>The submit-button can also be disabled before all fields are filled.</li>
+                <li>The submit button can also be disabled before all fields are filled.</li>
             </ul>
         </li>
     </ul>
@@ -320,11 +317,11 @@ Icons can be used to:
     <ul style="margin-bottom:0;">
         <li>Be descriptive.
             <ul>
-                <li>Choose an icon that clearly describes the type fo input or purpose of the form control</li>
+                <li>Choose an icon that clearly describes the type fo input or purpose of the form control.</li>
                 <li>Do not use arbitrary or vague icons just for visual purposes.</li>
             </ul>
         </li>
-        <li>See <a href="/visual-assets/icons">HDS icon guidelines</a> for more information about using and choosing icons</li>
+        <li>See <a href="/visual-assets/icons">HDS icon guidelines</a> for more information about using and choosing icons.</li>
     </ul>
 </div>
 
@@ -366,11 +363,16 @@ Form controls are either *active* or *disabled* depending on for example selecti
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
     <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
     <ul style="margin-bottom:0;">
-        <li>Disabled form controls can also be hidden from view, but in most situations all fields, even the disabled ones should be shown to the user.
+        <li>Disabled form controls can also be hidden from view but in most situations all fields – even the disabled ones – should be shown to the user.
             <ul>
                 <li>Showing all fields makes easier or the user to understand all the possible actions in the form.</li>
                 <li>Previously hidden fields suddenly appearing to a form can confuse the user.</li>
-                <li>As a rule of thumb, the field should only be hidden, if the user does not have permission to change it’s value.</li>
+            </ul>
+        </li>
+        <li>As a rule of thumb, a disabled field <em>should</em> only be hidden, if the user 
+            <ul>
+                <li>is not priovided with a way to activate the field,</li>
+                <li>does not have the permission to change the fields value</li>
             </ul>
         </li>
     </ul>
@@ -378,35 +380,11 @@ Form controls are either *active* or *disabled* depending on for example selecti
 
 ---
 
-### Mouse over
-When the mouse cursor is over an active form control, a visual hover cue indicates the user that the form field can be interacted with.
-
-<Image src="../../static/patterns/form/form-states-hover@2x.png" alt="Hover indicator" style="max-width:376px;" viewable /> 
-
----
-
-### Focus
-**An active form control receives focus** when the user either clicks the form control with mouse or navigates into it with keyboard. When the form control is focused, the user can fill or select values to it.
-
-- When a form component receives focus:
-    - A visual focus indicator tells a seeing user which form element is currently being interacted with.
-    - Screen reader reads the label and assistive text
-- Also the interactive elements inside a form control, for example action buttons and tags, can be focused independently when interacting with the main control.
-
-See [Navigating with keyboard section below](/#navigating-with-keyboard) for more information on helping the user navigate forms with keyboards.
-
-<Image src="../../static/patterns/form/form-states-focus@2x.png" alt="Focus indicator" style="max-width:376px;" viewable /> 
-
----
-
 ### Empty/unselected and filled/selected
-Form controls basic function is to allow the user enter an value either by input or selection.
+Allowing the user enter a value either by input or selection is the **form controls main purpose**. Make it as easy and straightforward as possible for the user.
 
 <Image src="../../static/patterns/form/form-states-filled@2x.png" alt="Empty and filled text fields" style="max-width:376px;" viewable /> 
-
 <Image src="../../static/patterns/form/form-states-selected@2x.png" alt="Unselected and selected form controls" style="max-width:376px;" viewable /> 
-
-
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs);">
     <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
@@ -420,7 +398,7 @@ Form controls basic function is to allow the user enter an value either by input
         </li>
         <li><strong>Enable autocompleting values</strong> to provide automated assistance in filling out form field values.
             <ul>
-                <li>An appropriate autocomplete attribute <em>should</em> be deigned for fields if possible.</li>
+                <li>An appropriate autocomplete attribute <em>should</em> be defined for fields if possible.</li>
             </ul>
         </li>
     </ul>
@@ -440,13 +418,13 @@ To help the user enter the **right information in the right format**, guidance c
 2. **Form wide instructions** to help the user to better understand the functionality of the form
 3. **Contextual instructions** for helping the user to fill specific form controls
 
----
 
 ### 1. Form heading and sub-heading
 The form heading **summarises the purpose of the form** and indicates the user where the form begins. 
 
-- The *main heading* should clearly and concisely **describe the purpose of the form**. 
-    - Full page forms should always have a main heading, but from smaller inline forms embedded to page content, the heading can be omitted.
+- The *main heading should* clearly and concisely **describe the purpose of the form**. 
+    - Full page forms *should* always have a main heading. 
+    - From smaller inline forms embedded to page content, the heading can be omitted.
 - If the purpose of the form cannot be sufficiently summarised by the main heading, it can **elaborated with a *sub-heading***.
 
 <Image src="../../static/patterns/form/form-guiding-headings@2x.png" alt="Form headings" style="max-width:432px;" viewable /> 
@@ -460,7 +438,7 @@ The form heading **summarises the purpose of the form** and indicates the user w
                 <li>The main heading <em>should</em> preferably be h1 element, even if visually styled as a smaller level heading.</li>
             </ul>
         </li>
-        <li>The the sub-heading <em>should</em> placed next after the main heading, and preferably be a h2 element.</li>
+        <li>The the sub-heading <em>should</em> placed right after the main heading, and preferably be a h2 element.</li>
         <li><strong>Keep it short and descriptive!</strong>
             <ul style="margin-top:0;">
                 <li>Main heading <em>should</em> be less than five words.</li>
@@ -510,6 +488,7 @@ A short secondary description that elaborates the label and helps the user to pr
             <ul>
                 <li>The user <em>should</em> be able to provide the right input based on the label and assistive text alone.</li>
                 <li>Assistive text <em>should</em> not be longer than the form control and more than two rows.</li>
+                <li>The assistive text <em>should</em> only be used for essential information. Avoid causing unnecessary cognitive overload for the user by giving too much information.</li>
             </ul>
         </li>
     </ul>
@@ -555,11 +534,11 @@ A popup element that provides **context or background information** that is “n
 
 
 #### c) Placeholder text
-Placeholder text is a **supplementary visual aid** displayed inside the form control, that can be used form making the form easier to fill.
+Placeholder text is a **supplementary visual aid** displayed inside the form control that can be used form making the form easier to fill.
 
 It can be used to provide the user **a hint of what to enter or what is selected** with the form control: 
-- The preferred format of the input (e.g. Social security number: “DDMMYY-XXXX”)
-- An example value or option (e.g. City: “E.g. Helsinki”). 
+- The preferred format of the input (for example Social security number: "E.g. 000000-123A”)
+- An example value or option (for example City: “E.g. Helsinki”). 
 
 <Image src="../../static/patterns/form/form-guiding-placeholder@2x.png" alt="Placeholder text" style="max-width:376px;" viewable /> 
 
@@ -569,8 +548,8 @@ It can be used to provide the user **a hint of what to enter or what is selected
         <li><strong>Write placeholder text in a way that it can immediately be recognised as not being an actual value.</strong>
             <ul>
                 <li>Format examples <em>should</em> be generic rather than real values. If the placeholder seems like a actual value, the user can mistake the field to be already filled.</li>
-                <li>Values examples <em>should</em> preferably start in a way, that clearly indicates it is a placeholder. For example: Full name: “E.g. John Doe”, (in Finnish Koko nimi: “Esim. Matti meikäläinen”)</li>
-                <li>Leave the placeholder empty, if an example value that would be generic enough to be recognised as placeholder can’t be found.</li>
+                <li>Values examples <em>should</em> preferably start in a way that clearly indicates it is a placeholder. For example: Full name: “E.g. John Doe”, (in Finnish Koko nimi: “Esim. Matti Meikäläinen”)</li>
+                <li>Leave the placeholder empty if an example value that would be generic enough to be recognised as placeholder can’t be found.</li>
                 <li>Screen readers do not differentiate if the element is a placeholder or an actual value. Even though assistive technology users are usually accustomed to this, it can possibly cause confusion.</li>
             </ul>
         </li>
@@ -593,9 +572,8 @@ It can be used to provide the user **a hint of what to enter or what is selected
 
 ---
 
-
 ## Providing structure and hierarchy
-Forms can be made easier to understand for the user, by providing visual and semantic structure in different ways. 
+Forms can be made easier to understand for the user by providing visual and semantic structure in different ways. 
 
 1. **Consistent layout** communicates the structure of the form clearly.
 2. **Grouping related tasks** helps the user to understand what form controls belong together.
@@ -611,8 +589,8 @@ Best practices for form layout.
         <strong>Prefer single column vertical layout over multi-column layout.</strong>
     </p>
     <ul>
-        <li>Stacking form controls vertically to form a "F-shaped" reading path throught the form takes more space, but makes the users path from control to control smoother.</li>
-        <li>If the user has to jump between more than one columns, the structure of the form, and reading path can become har to follow.</li>
+        <li>Stacking form controls vertically to form a "F-shaped" reading path throught the form takes more space but makes the users path from control to control smoother.</li>
+        <li>If the user has to jump between more than one columns, the structure of the form, and reading path can become hard to follow.</li>
     </ul>
     <Image src="../../static/patterns/form/form-layout-vertical@2x.png" alt="A F-shaped reading path throught the form" style="max-width:424px;" viewable /> 
 </div>
@@ -692,7 +670,7 @@ The fieldset element is used for grouping:
 - **Set of form controls that together perform a task yielding a single value.**
     - The fieldset legend describes the selection made while the radio button or checkbox labels describe the options available.
     - Assistive technologies will also announce the number of selections inside the group when the fieldset receives focus.
-- **Set of form controls that are closely related, but yield separate values.**
+- **Set of form controls that are closely related but yield separate values.**
     - For example text inputs like “Name” (first + last), “Birthday” (day + month + year), “Address” (street address + zip + city)
 
 <Image src="../../static/patterns/form/form-grouping@2x.png" alt="Grouping with fieldsets" style="max-width:432px;" viewable />
@@ -716,7 +694,6 @@ To make the structure of the form even more understandable, **form controls that
         </li>
     </ul>
 </div>
-
 
 ---
 
@@ -762,9 +739,9 @@ This approach also makes fixing validation errors easier, when the inputted data
 
 ## Keyboard navigation
 
-Navigating between form components with keyboard not only helps users with using assistive technologies, but makes filling forms easier for all users. Switching between mouse for navigation and keyboards for inputting values can become tedious, especially if the forms has lots of text input fields.
+Navigating between form components with keyboard not only helps users with using assistive technologies but makes filling forms easier for all users. Switching between mouse for navigation and keyboards for inputting values can become tedious, especially if the forms has lots of text input fields.
 
-For this reason it is essential to ensure, that individual controls receive focus in a logical order:
+For this reason it is essential to ensure that individual controls receive focus in a logical order:
 - When user first enters a form give focus to the firs element by default, so users can tab through all the form elements. 
 - Proceed focusing individual controls from left to right – top to bottom. 
 
