@@ -1,0 +1,84 @@
+---
+name: Tooltip
+menu: Components
+route: /components/tooltip
+---
+
+import { Playground } from "docz";
+import { StatusLabel } from "hds-react";
+
+import ColorBox from "../../src/components/ColorBox";
+import LargeParagraph from "../../src/components/LargeParagraph";
+
+# Tooltip
+
+<StatusLabel>New</StatusLabel>
+<StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel> 
+
+<LargeParagraph>
+  Tooltips are used to present context or background information to the user.
+</LargeParagraph>
+
+## Principles
+- **Tooltip must not be the sole way to provide essential information that the user must know to perform a task (such as inputting a value).** This means Tooltip should display "nice to have" but not essential information.
+    - For more information on what elements should be used to present different kinds of information, refer to [HDS Form pattern - Providing instructions guideline](/)
+- **Be clear and consise in the Tooltip description.** Keep the description as short as two to three sentences. If longer explanations are needed, provide a link to a separate page.
+- HDS Tooltips come in two sizes; Default and Small. Only use the Small variant if the Tooltip text is less than 5 words long. Otherwise you should use the Default size variant.
+- HDS Tooltip implementation has automatic placement feature. You may also alter the Tooltip positioning but always remember to test that the Tooltip is fully visible on all screen sizes.
+
+## Accessibility
+- Even though HDS Tooltip does not include a visual title, one must be included for screen readers via using `aria-label`. The label can be as simple as "Info" but it can also feature more detailed description such as "More information about filling your personal details".
+- If a Tooltip contains a link, always open them to a new window, so that the process of filling the form is not interrupted.
+
+## Usage and variations
+
+### Default
+
+TODO
+
+<Playground>
+
+</Playground>
+
+#### React code example:
+```tsx
+
+```
+
+### Small
+
+TODO
+
+<Playground>
+
+</Playground>
+
+#### React code example:
+```tsx
+
+```
+
+### Positioning
+
+TODO
+
+<Playground>
+
+</Playground>
+
+#### React code example:
+```tsx
+
+```
+
+## Demos & API
+
+### Core
+
+_Not included in hds-core!_
+
+### React
+
+[Tooltips in hds-react](/storybook/react/?path=/story/components-textinput--default)
+
+[Tooltip API](/storybook/react/?path=/docs/components-textinput--default)
