@@ -24,17 +24,18 @@ import LargeParagraph from "../../src/components/LargeParagraph";
     - For more information on what elements should be used to present different kinds of information, refer to [HDS Form pattern - Providing instructions guideline](/)
 - **Be clear and consise in the Tooltip description.** Keep the description as short as two to three sentences. If longer explanations are needed, provide a link to a separate page.
 - HDS Tooltips come in two sizes; Default and Small. Only use the Small variant if the Tooltip text is less than 5 words long. Otherwise you should use the Default size variant.
-- HDS Tooltip implementation has automatic placement feature. You may also alter the Tooltip positioning but always remember to test that the Tooltip is fully visible on all screen sizes.
+- HDS Tooltip implementation has automatic placement feature which is the recommended option. You may also override the Tooltip positioning manually but always remember to test that the Tooltip is fully visible on all screen sizes.
 
 ## Accessibility
 - Even though HDS Tooltip does not include a visual title, one must be included for screen readers via using `aria-label`. The label can be as simple as "Info" but it can also feature more detailed description such as "More information about filling your personal details".
 - If a Tooltip contains a link, always open them to a new window, so that the process of filling the form is not interrupted.
+- Do not make the tooltip open on hover. The user should be able to select the text inside the tooltip element.
 
 ## Usage and variations
 
 ### Default
 
-TODO
+The default size Tooltip variant works in most situations where the Tooltip description is longer than a few words.
 
 <Playground>
 
@@ -47,7 +48,7 @@ TODO
 
 ### Small
 
-TODO
+A small size Tooltip variant can be used instead of the default one if description is only a few words long (less than 5 words). Also note that the small Tooltip should never replace labels (e.g. for icons). WCAG requires that labels are always visible and not hidden behind a Tooltip.
 
 <Playground>
 
@@ -60,7 +61,7 @@ TODO
 
 ### Positioning
 
-TODO
+HDS Tooltip implementation has automatic placement feature. It will automatically try to keep the Tooltip in the view and dynamically updates the positioning if the screen size changes. Tooltip positioning can also be overridden manually.
 
 <Playground>
 
