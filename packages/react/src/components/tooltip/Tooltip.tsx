@@ -1,64 +1,145 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Placement } from '@popperjs/core';
+import { usePopper } from 'react-popper';
 
 // import core base styles
 import 'hds-core';
+import styles from './Tooltip.module.scss';
+import { IconQuestionCircle } from '../../icons/ui/IconQuestionCircle';
 import classNames from '../../utils/classNames';
-import { IconInfoCircle, IconQuestionCircle, IconCross } from '../../icons';
-import styles from './Tooltip.module.css';
 
-export type TooltipProps = React.PropsWithChildren<{
-  labelText: string;
-  openButtonLabelText: string;
-  closeButtonLabelText: string;
-  alternative?: boolean;
+type TooltipProps = React.PropsWithChildren<{
+  /**
+   * The placement of the tooltip.
+   */
+  placement?: Placement;
+  /**
+   * Use the small tooltip variant.
+   */
+  small?: boolean;
+  /**
+   * Aria-label text for the tooltip trigger button.
+   */
+  buttonLabel?: string;
+  /**
+   * Aria-label text for the tooltip.
+   */
+  tooltipLabel?: string;
+  /**
+   * Additional wrapper class names.
+   */
+  className?: string;
+  /**
+   * Additional button class names.
+   */
+  buttonClassName?: string;
+  /**
+   * Additional tooltip class names.
+   */
+  tooltipClassName?: string;
 }>;
 
 export const Tooltip = ({
   children,
-  labelText,
-  closeButtonLabelText,
-  openButtonLabelText,
-  alternative = false,
+  placement = 'auto',
+  small = false,
+  buttonLabel = 'Tooltip',
+  tooltipLabel = 'Tooltip',
+  className,
+  buttonClassName,
+  tooltipClassName,
 }: TooltipProps) => {
-  const [isOpen, setOpen] = useState(false);
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+  const [arrowRef, setArrowRef] = useState(null); // The ref for the arrow must be a callback ref
+
+  // Initialize Popper.js
+  const { styles: popperStyles, attributes: popperAttributes, forceUpdate: updatePopper } = usePopper(
+    buttonRef.current,
+    tooltipRef.current,
+    {
+      placement,
+      modifiers: [
+        {
+          name: 'arrow',
+          options: {
+            element: arrowRef,
+          },
+        },
+        {
+          name: 'offset',
+          options: {
+            offset: [0, 10],
+          },
+        },
+      ],
+    },
+  );
+
+  // Calculate popper dimensions after tooltip is opened
+  useEffect(() => {
+    if (updatePopper !== null && isTooltipOpen === true) {
+      updatePopper();
+    }
+  }, [isTooltipOpen, updatePopper]);
+
+  // Toggle tooltip on button click
+  const onButtonClick = () => {
+    setIsTooltipOpen(!isTooltipOpen);
+  };
+
+  // Handle additional event listeners
+  useEffect(() => {
+    // Close with ESC key
+    const handleEscKey = (event: KeyboardEvent) => {
+      const key = event.key || event.keyCode;
+      if (isTooltipOpen && (key === 'Escape' || key === 'Esc' || key === 27)) {
+        setIsTooltipOpen(false);
+      }
+    };
+    // Clicks outside the component
+    const handleOutsideClick = (event: Event) => {
+      const target = event.target as Node;
+      if (isTooltipOpen && !buttonRef.current.contains(target) && !tooltipRef.current.contains(target)) {
+        setIsTooltipOpen(false);
+      }
+    };
+    document.addEventListener('keyup', handleEscKey);
+    document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('keyup', handleEscKey);
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  });
 
   return (
-    <div className={styles.wrapper}>
+    <div className={classNames(styles.wrapper, className)}>
       <button
+        ref={buttonRef}
         type="button"
-        title={isOpen ? closeButtonLabelText : openButtonLabelText}
-        aria-label={isOpen ? closeButtonLabelText : openButtonLabelText}
-        className={styles.buttonTooltip}
-        onClick={() => setOpen(!isOpen)}
+        className={classNames(styles.button, buttonClassName)}
+        title={buttonLabel}
+        aria-label={buttonLabel}
+        aria-expanded={isTooltipOpen}
+        onClick={onButtonClick}
       >
         <span aria-hidden="true">
-          <IconQuestionCircle className={styles.iconTooltip} />
+          <IconQuestionCircle />
         </span>
       </button>
-      {isOpen && (
-        <div className={classNames(styles.tooltip, alternative && styles.alternative)}>
-          <div className={styles.label}>
-            <span aria-hidden="true">
-              <IconInfoCircle className={styles.iconInfo} />
-            </span>
-            <button
-              className={classNames(styles.buttonClose, alternative && styles.alternative)}
-              type="button"
-              title={closeButtonLabelText}
-              aria-label={closeButtonLabelText}
-              onClick={() => setOpen(false)}
-            >
-              <span aria-hidden="true">
-                <IconCross className={styles.iconClose} />
-              </span>
-            </button>
-            <span className={styles.labelText}>{labelText}</span>
-          </div>
-          <div className={styles.tooltipBody}>{children}</div>
-        </div>
+      {isTooltipOpen && (
+        <section
+          aria-label={tooltipLabel}
+          ref={tooltipRef}
+          className={classNames(styles.tooltip, small && styles.small, tooltipClassName)}
+          style={popperStyles.popper}
+          {...popperAttributes.popper}
+        >
+          {children}
+          <div ref={setArrowRef} className={styles.arrow} style={popperStyles.arrow} {...popperAttributes.arrow} />
+        </section>
       )}
     </div>
   );
 };
-
-export default Tooltip;

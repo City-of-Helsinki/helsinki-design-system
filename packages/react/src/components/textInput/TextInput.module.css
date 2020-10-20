@@ -26,3 +26,9 @@
 .readOnly {
   composes: hds-text-input--read-only from 'hds-core/lib/components/text-input/text-input.css';
 }
+
+.tooltipButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

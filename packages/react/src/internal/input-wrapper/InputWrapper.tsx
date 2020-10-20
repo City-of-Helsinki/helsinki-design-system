@@ -44,9 +44,10 @@ export const InputWrapper = ({
     )}
     {tooltipText && (
       <Tooltip
-        labelText={tooltipLabel}
+        label={tooltipLabel}
         closeButtonLabelText={tooltipCloseButtonLabelText}
         openButtonLabelText={tooltipOpenButtonLabelText}
+        buttonClassName={styles.tooltipButton}
       >
         {tooltipText}
       </Tooltip>
