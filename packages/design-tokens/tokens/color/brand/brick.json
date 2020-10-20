@@ -5,15 +5,15 @@
       "type": "color"
     },
     "brick-light": {
-      "value": "#f1d3d1",
+      "value": "#ffeeed",
       "type": "color"
     },
     "brick-medium-light": {
-      "value": "#de938c",
+      "value": "#facbc8",
       "type": "color"
     },
     "brick-dark": {
-      "value": "#99160a",
+      "value": "#800e04",
       "type": "color"
     }
   }

@@ -5,15 +5,15 @@
       "type": "color"
     },
     "gold-light": {
-      "value": "#f2ecdc",
+      "value": "#f7f2e4",
       "type": "color"
     },
     "gold-medium-light": {
-      "value": "#e0d0a8",
+      "value": "#e8d7a7",
       "type": "color"
     },
     "gold-dark": {
-      "value": "#977b34",
+      "value": "#9e823c",
       "type": "color"
     }
   }

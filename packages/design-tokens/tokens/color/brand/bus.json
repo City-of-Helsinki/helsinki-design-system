@@ -5,15 +5,15 @@
       "type": "color"
     },
     "bus-light": {
-      "value": "#ccccf2",
+      "value": "#f0f0ff",
       "type": "color"
     },
     "bus-medium-light": {
-      "value": "#7f7fdf",
+      "value": "#ccccff",
       "type": "color"
     },
     "bus-dark": {
-      "value": "#000098",
+      "value": "#00005e",
       "type": "color"
     }
   }

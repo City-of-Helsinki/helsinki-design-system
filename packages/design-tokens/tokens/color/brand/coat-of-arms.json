@@ -5,15 +5,15 @@
       "type": "color"
     },
     "coat-of-arms-light": {
-      "value": "#cce2f3",
+      "value": "#e6f4ff",
       "type": "color"
     },
     "coat-of-arms-medium-light": {
-      "value": "#80b8e2",
+      "value": "#b5daf7",
       "type": "color"
     },
     "coat-of-arms-dark": {
-      "value": "#005b9e",
+      "value": "#005799",
       "type": "color"
     }
   }

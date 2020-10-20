@@ -5,15 +5,15 @@
       "type": "color"
     },
     "fog-light": {
-      "value": "#ebf4fb",
+      "value": "#e8f3fc",
       "type": "color"
     },
     "fog-medium-light": {
-      "value": "#cfe4f5",
+      "value": "#d0e6f7",
       "type": "color"
     },
     "fog-dark": {
-      "value": "#78a4c7",
+      "value": "#72a5cf",
       "type": "color"
     }
   }

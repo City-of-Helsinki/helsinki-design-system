@@ -5,15 +5,15 @@
       "type": "color"
     },
     "copper-light": {
-      "value": "#ccf7ed",
+      "value": "#cffaf1",
       "type": "color"
     },
     "copper-medium-light": {
-      "value": "#80ebd3",
+      "value": "#9ef0de",
       "type": "color"
     },
     "copper-dark": {
-      "value": "#01b78e",
+      "value": "#00a17d",
       "type": "color"
     }
   }

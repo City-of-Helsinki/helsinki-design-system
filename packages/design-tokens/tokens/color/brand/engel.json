@@ -5,15 +5,15 @@
       "type": "color"
     },
     "engel-light": {
-      "value": "#fffae3",
+      "value": "#fff9db",
       "type": "color"
     },
     "engel-medium-light": {
-      "value": "#fff4bb",
+      "value": "#fff3b8",
       "type": "color"
     },
     "engel-dark": {
-      "value": "#f5da4e",
+      "value": "#dbc030",
       "type": "color"
     }
   }
