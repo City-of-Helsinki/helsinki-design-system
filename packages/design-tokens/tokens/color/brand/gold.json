@@ -1,0 +1,20 @@
+{
+  "color": {
+    "gold": {
+      "value": "#c2a251",
+      "type": "color"
+    },
+    "gold-light": {
+      "value": "#f2ecdc",
+      "type": "color"
+    },
+    "gold-medium-light": {
+      "value": "#e0d0a8",
+      "type": "color"
+    },
+    "gold-dark": {
+      "value": "#977b34",
+      "type": "color"
+    }
+  }
+}

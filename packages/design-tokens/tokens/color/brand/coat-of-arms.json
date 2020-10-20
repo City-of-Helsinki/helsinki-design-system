@@ -1,0 +1,20 @@
+{
+  "color": {
+    "coat-of-arms": {
+      "value": "#0072c6",
+      "type": "color"
+    },
+    "coat-of-arms-light": {
+      "value": "#cce2f3",
+      "type": "color"
+    },
+    "coat-of-arms-medium-light": {
+      "value": "#80b8e2",
+      "type": "color"
+    },
+    "coat-of-arms-dark": {
+      "value": "#005b9e",
+      "type": "color"
+    }
+  }
+}

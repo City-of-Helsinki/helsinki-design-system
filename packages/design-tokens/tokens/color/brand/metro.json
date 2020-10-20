@@ -4,15 +4,15 @@
       "value": "#fd4f00",
       "type": "color"
     },
-    "metro-light-20": {
+    "metro-light": {
       "value": "#fedbcc",
       "type": "color"
     },
-    "metro-light-50": {
+    "metro-medium-light": {
       "value": "#fea780",
       "type": "color"
     },
-    "metro-dark-50": {
+    "metro-dark": {
       "value": "#ca3f00",
       "type": "color"
     }
