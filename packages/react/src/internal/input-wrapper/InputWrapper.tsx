@@ -18,8 +18,7 @@ type InputWrapperProps = {
   style?: React.CSSProperties;
   tooltipLabel?: string;
   tooltipText?: string;
-  tooltipOpenButtonLabelText?: string;
-  tooltipCloseButtonLabelText?: string;
+  tooltipButtonLabelText?: string;
 };
 
 export const InputWrapper = ({
@@ -35,20 +34,14 @@ export const InputWrapper = ({
   style,
   tooltipLabel,
   tooltipText,
-  tooltipOpenButtonLabelText,
-  tooltipCloseButtonLabelText,
+  tooltipButtonLabelText,
 }: InputWrapperProps) => (
   <div className={classNames(styles.root, invalid && styles.invalid, className)} style={style}>
     {(label || labelText) && (
       <FieldLabel inputId={id} hidden={hideLabel} label={label || labelText} required={required} />
     )}
     {tooltipText && (
-      <Tooltip
-        label={tooltipLabel}
-        closeButtonLabelText={tooltipCloseButtonLabelText}
-        openButtonLabelText={tooltipOpenButtonLabelText}
-        buttonClassName={styles.tooltipButton}
-      >
+      <Tooltip tooltipLabel={tooltipLabel} buttonLabel={tooltipButtonLabelText} buttonClassName={styles.tooltipButton}>
         {tooltipText}
       </Tooltip>
     )}

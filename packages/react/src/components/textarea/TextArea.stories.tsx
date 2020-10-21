@@ -51,14 +51,13 @@ export const Playground = () => {
   const invalid = boolean('Invalid', false, groupGeneral);
   const hideLabel = boolean('Hide label', false, groupGeneral);
 
-  const tooltipLabel = text('Tooltip label', 'Tooltip label', groupTooltip);
+  const tooltipLabel = text('Tooltip aria-label', 'Tooltip', groupTooltip);
   const tooltipText = text(
     'Tooltip text',
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     groupTooltip,
   );
-  const tooltipOpenButtonLabelText = text('Tooltip open label', 'Show tooltip', groupTooltip);
-  const tooltipCloseButtonLabelText = text('Tooltip close label', 'Close tooltip', groupTooltip);
+  const tooltipButtonLabelText = text('Tooltip trigger button aria-label', 'Tooltip', groupTooltip);
 
   return (
     <TextArea
@@ -72,8 +71,7 @@ export const Playground = () => {
       required={required}
       tooltipLabel={tooltipLabel}
       tooltipText={tooltipText}
-      tooltipOpenButtonLabelText={tooltipOpenButtonLabelText}
-      tooltipCloseButtonLabelText={tooltipCloseButtonLabelText}
+      tooltipButtonLabelText={tooltipButtonLabelText}
     />
   );
 };
