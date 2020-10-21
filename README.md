@@ -65,8 +65,8 @@ HDS is divided into three (3) separate packages:
 
 ## Getting started
 
-:wrench: – **Are you a developer? If yes, start by checking out [HDS - For developers page](https://hds.hel.fi/developers).**
-:art: – **Are you a designer? If yes, start by checking out [HDS - For designers page](https://hds.hel.fi/designers).**
+:wrench: **Are you a developer? If yes, start by checking out [HDS - For developers page](https://hds.hel.fi/developers).**<br />
+:art: **Are you a designer? If yes, start by checking out [HDS - For designers page](https://hds.hel.fi/designers).**
 
 Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scripts across the repo as well as versioning and creating releases of the packages. [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) is used to manage dependencies. This allows the separate packages to reference each other via symlinks during local development.
 
@@ -112,7 +112,7 @@ To ensure code quality in the repo, every package will have their `pre-commit` a
 
 ## Roadmap
 
-Helsinki Design System has a public roadmap. 
+Helsinki Design System has a public roadmap. For the long-term Roadmap, please refer to [HDS About - Roadmap page](https://hds.hel.fi/about/roadmap). If you are interested what the team is currently working on, refer to the [Design System Roadmap in Github](https://github.com/City-of-Helsinki/helsinki-design-system/projects/1).
 
 ## Contributing
 
