@@ -166,14 +166,12 @@ input[type="submit"].hds-button--small {
 
 /* left - small */
 .hds-button--small .hds-icon {
-  height: 1.125em;
-  margin-left: var(--spacing-xs);
-  width: 1.125em;
+  margin-left: var(--spacing-2-xs);
 }
 
 /* right - small */
 .hds-button .hds-button--small .hds-button__label ~ .hds-icon {
-  margin: 0 var(--spacing-xs) 0 0;
+  margin: 0 var(--spacing-2-xs) 0 0;
 }
 
 /* both icons - left */
@@ -188,12 +186,12 @@ input[type="submit"].hds-button--small {
 
 /* both icons - left - small */
 .hds-button--small .hds-icon:first-child:not(:last-of-type) {
-  margin: 0 0 0 var(--spacing-xs);
+  margin: 0 0 0 var(--spacing-2-xs);
 }
 
 /* both icons - right - small */
 .hds-button--small .hds-icon:last-child:not(:first-of-type) {
-  margin: 0 var(--spacing-xs) 0 0;
+  margin: 0 var(--spacing-2-xs) 0 0;
 }
 
 /* PRIMARY */
