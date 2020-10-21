@@ -7,10 +7,12 @@
   Helsinki Design System (HDS) is an open-source design system built by the City of Helsinki. It consists of tools for development and design as well as resources and guidelines for creating user-friendly, accessible solutions for the city.
 </div>
 
+<br />
+
 <div align="center">
   <!-- Version -->
   <a href="https://github.com/City-of-Helsinki/helsinki-design-system/releases/latest">
-    <img src="https://img.shields.io/github/v/release/City-of-Helsinki/helsinki-design-system?label=alpha-release&style=flat-square"
+    <img src="https://img.shields.io/github/v/release/City-of-Helsinki/helsinki-design-system?label=beta-release&style=flat-square"
       alt="Version" />
   </a>
   <!-- Licence -->
@@ -63,9 +65,36 @@ HDS is divided into three (3) separate packages:
 
 ## Getting started
 
-**Are you a developer? If yes, you'll probably want to first check out the components in [hds-react](packages/react) and [hds-core](packages/core).**
+:wrench: – **Are you a developer? If yes, start by checking out [HDS - For developers page](https://hds.hel.fi/developers).**
+:art: – **Are you a designer? If yes, start by checking out [HDS - For designers page](https://hds.hel.fi/designers).**
 
 Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scripts across the repo as well as versioning and creating releases of the packages. [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) is used to manage dependencies. This allows the separate packages to reference each other via symlinks during local development.
+
+### Using the packages in your project
+
+### Setting up local development environment
+
+1. Clone the HDS repository.
+```
+git clone https://github.com/City-of-Helsinki/helsinki-design-system.git
+```
+
+2. Go to the root of the project and install dependencies with `yarn`.
+```
+cd helsinki-design-system
+yarn
+```
+
+3. Build packages with `yarn`. This builds all packages; core, react, design-tokens and site (documentation).
+```
+yarn build
+```
+
+4. Start the development server. You can start these individually for each package. For example, to start the React Storybook, run:
+```
+cd packages/react
+yarn start
+```
 
 ### Commands
 
@@ -76,9 +105,22 @@ Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scrip
 | yarn build:\<platform>             | Build packages for platform.                               |
 | lerna run build --scope \<package> | Build only \<package>.                                     |
 | lerna publish                      | Publish packages that have changed since the last release. |
+| yarn test                          | Run tests.                                                 |
+| yarn test -u                       | Update snapshots.                                          | 
 
 To ensure code quality in the repo, every package will have their `pre-commit` and `pre-push` scripts run automatically before git commit and push (added with [**Husky**](https://github.com/typicode/husky)).
 
+## Roadmap
+
+Helsinki Design System has a public roadmap. 
+
 ## Contributing
 
-The initial version of the Helsinki Design System is under development. We will accept new features, feature requests and help with improving the documentation in the future.
+**Before contributing, it is recommended to read [HDS Contribution - Before contributing page](https://hds.hel.fi/contributing/before-contributing).**
+
+Helsinki Design System is under development, currently in the beta phase. We are accepting new features, feature requests and help with improving the documentation. There are multiple ways you can contribute:
+
+- Opening [issues](https://github.com/City-of-Helsinki/helsinki-design-system/issues) about bugs/improvements/new features/etc.
+- Opening [pull requests](https://github.com/City-of-Helsinki/helsinki-design-system/pulls) with changes/fixes/new features/etc.
+- Opening branches in Abstract to propose new component designs or design changes. More information about design contribution can be found in [HDS Contribution - Design page](https://hds.hel.fi/contributing/design).
+- Take part in discussion and commenting new HDS features. The easiest way to do this is to browse open [issues](https://github.com/City-of-Helsinki/helsinki-design-system/issues) and [pull requests](https://github.com/City-of-Helsinki/helsinki-design-system/pulls) and leave a comment! If you have an access to the City of Helsinki Slack, you may also join the discussion there. More info about the ways to contact us can be found in [HDS About - Support page](https://hds.hel.fi/about/support).
