@@ -5,15 +5,15 @@
       "type": "color"
     },
     "summer-light": {
-      "value": "#fff3d2",
+      "value": "#fff4d4",
       "type": "color"
     },
     "summer-medium-light": {
-      "value": "#ffe28e",
+      "value": "#ffe49c",
       "type": "color"
     },
     "summer-dark": {
-      "value": "#e2ab0a",
+      "value": "#cc9200",
       "type": "color"
     }
   }
