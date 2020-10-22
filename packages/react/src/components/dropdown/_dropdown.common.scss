@@ -52,6 +52,8 @@
   --multiselect-checkbox-color-selected-disabled: var(--color-white);
   --placeholder-color: var(--color-black-60);
 
+  position: relative;
+
   // class where custom theme styles will be applied
   &:global(.custom) {
     content: ''

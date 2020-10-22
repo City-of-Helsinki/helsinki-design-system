@@ -140,6 +140,16 @@ DisabledOptions.storyName = 'With disabled options';
 export const Icon = (args) => <Combobox {...args} icon={<IconFaceSmile />} />;
 Icon.storyName = 'With icon';
 
+export const Tooltip = (args) => (
+  <Combobox
+    {...args}
+    tooltipLabel="Tooltip"
+    tooltipButtonLabel="Tooltip"
+    tooltipText='Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.'
+  />
+);
+Tooltip.storyName = 'With tooltip';
+
 export const CustomTheme = (args) => <Combobox {...args} multiselect />;
 CustomTheme.storyName = 'With custom theme';
 CustomTheme.args = {

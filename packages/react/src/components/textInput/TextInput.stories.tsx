@@ -45,9 +45,9 @@ WithLabelHidden.storyName = 'With label hidden';
 export const WithTooltip = () => (
   <TextInput
     {...textInputProps}
-    tooltipLabel="tooltip label"
-    tooltipText="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-    tooltipButtonLabelText="Tooltip"
+    tooltipLabel="Tooltip"
+    tooltipButtonLabel="Tooltip"
+    tooltipText='Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.'
   />
 );
 WithTooltip.storyName = 'With tooltip';
@@ -85,7 +85,7 @@ export const Playground = () => {
   const tooltipLabel = text('Tooltip aria-label', 'Tooltip', groupTooltip);
   const tooltipText = text(
     'Tooltip text',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    'Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.',
     groupTooltip,
   );
   const tooltipButtonLabelText = text('Tooltip trigger button aria-label', 'Tooltip', groupTooltip);
@@ -104,7 +104,7 @@ export const Playground = () => {
       required={required}
       tooltipLabel={tooltipLabel}
       tooltipText={tooltipText}
-      tooltipButtonLabelText={tooltipButtonLabelText}
+      tooltipButtonLabel={tooltipButtonLabelText}
     />
   );
 };

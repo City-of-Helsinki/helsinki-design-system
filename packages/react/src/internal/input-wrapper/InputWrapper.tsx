@@ -1,7 +1,6 @@
 import React from 'react';
 
 import styles from '../../components/textInput/TextInput.module.css';
-import { Tooltip } from '../../components/tooltip';
 import classNames from '../../utils/classNames';
 import { FieldLabel } from '../field-label/FieldLabel';
 
@@ -18,7 +17,7 @@ type InputWrapperProps = {
   style?: React.CSSProperties;
   tooltipLabel?: string;
   tooltipText?: string;
-  tooltipButtonLabelText?: string;
+  tooltipButtonLabel?: string;
 };
 
 export const InputWrapper = ({
@@ -34,16 +33,19 @@ export const InputWrapper = ({
   style,
   tooltipLabel,
   tooltipText,
-  tooltipButtonLabelText,
+  tooltipButtonLabel,
 }: InputWrapperProps) => (
   <div className={classNames(styles.root, invalid && styles.invalid, className)} style={style}>
     {(label || labelText) && (
-      <FieldLabel inputId={id} hidden={hideLabel} label={label || labelText} required={required} />
-    )}
-    {tooltipText && (
-      <Tooltip tooltipLabel={tooltipLabel} buttonLabel={tooltipButtonLabelText} buttonClassName={styles.tooltipButton}>
-        {tooltipText}
-      </Tooltip>
+      <FieldLabel
+        inputId={id}
+        hidden={hideLabel}
+        label={label || labelText}
+        required={required}
+        tooltipLabel={tooltipLabel}
+        tooltipButtonLabel={tooltipButtonLabel}
+        tooltipText={tooltipText}
+      />
     )}
     <div className={classNames(styles.inputWrapper)}>{children}</div>
     {helperText && <div className={styles.helperText}>{helperText}</div>}

@@ -67,13 +67,13 @@ export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
    */
   tooltipLabel?: string;
   /**
+   * Aria-label text for the tooltip trigger button
+   */
+  tooltipButtonLabel?: string;
+  /**
    * The text content of the tooltip
    */
   tooltipText?: string;
-  /**
-   * Aria-label text for the tooltip trigger button
-   */
-  tooltipButtonLabelText?: string;
   /**
    * Type of the input element
    */
@@ -105,7 +105,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       style,
       tooltipLabel,
       tooltipText,
-      tooltipButtonLabelText,
+      tooltipButtonLabel,
       type = 'text',
       ...rest
     }: TextInputProps,
@@ -123,7 +123,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       style,
       tooltipLabel,
       tooltipText,
-      tooltipButtonLabelText,
+      tooltipButtonLabel,
     };
 
     return (

@@ -5,3 +5,9 @@
 .hidden {
   composes: hiddenFromScreen from 'hds-core/lib/utils/helpers.css';
 }
+
+.tooltipButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
