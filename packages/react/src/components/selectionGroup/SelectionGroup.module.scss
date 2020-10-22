@@ -1,0 +1,36 @@
+@import "../../styles/common";
+
+.selectionGroup {
+  --spacing: var(--spacing-s);
+  --label-color-default: var(--color-black-90);
+
+  border: 0;
+  padding: 0;
+}
+
+.selectionGroup > *:not(.items) {
+  float: left;
+}
+
+.label {
+  @extend %inputLabel;
+  margin-bottom: var(--spacing);
+}
+
+.items {
+  clear: left;
+  display: grid;
+  gap: var(--spacing);
+
+  &.vertical {
+    grid-auto-flow: row;
+  }
+  &.horizontal {
+    grid-auto-flow: column;
+  }
+}
+
+.tooltipButton {
+  margin-left: var(--spacing-2-xs);
+}
+

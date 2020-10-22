@@ -12,6 +12,7 @@ export * from './navigation';
 export * from './notification';
 export * from './radioButton';
 export * from './section';
+export * from './selectionGroup';
 export * from './statusLabel';
 export * from './tag';
 export * from './textarea';
