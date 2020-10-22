@@ -12,11 +12,12 @@ export default {
 
 export const Default = (args) => (
   <Tooltip {...args}>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.
+    Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to
+    three sentences. For longer descriptions, provide a link to a separate page.
   </Tooltip>
 );
 
-export const Small = (args) => <Tooltip {...args}>Lorem ipsum dolor</Tooltip>;
+export const Small = (args) => <Tooltip {...args}>Less than five words long</Tooltip>;
 Small.args = {
   small: true,
 };
