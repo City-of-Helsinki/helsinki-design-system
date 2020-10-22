@@ -59,9 +59,12 @@
 
 HDS is divided into three (3) separate packages:
 
-- [![npm](https://img.shields.io/npm/v/hds-design-tokens?label=hds-design-tokens&style=flat-square)](https://www.npmjs.com/package/hds-design-tokens) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/hds-design-tokens?label=gzipped%20size&style=flat-square)](https://bundlephobia.com/result?p=hds-design-tokens) – Basis of the HDS which includes base colors, typography etc. as design tokens.
-- [![npm](https://img.shields.io/npm/v/hds-core?label=hds-core&style=flat-square)](https://www.npmjs.com/package/hds-core) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/hds-core?label=gzipped%20size&style=flat-square)](https://bundlephobia.com/result?p=hds-core) – Helsinki City brand colors, typography and base styles as css-styles and variables
-- [![npm](https://img.shields.io/npm/v/hds-react?label=hds-react&style=flat-square)](https://www.npmjs.com/package/hds-react) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/hds-react?label=gzipped%20size&style=flat-square)](https://bundlephobia.com/result?p=hds-react) – Provides HDS components as React components
+- **hds-design-tokens** [![npm](https://img.shields.io/npm/v/hds-design-tokens?style=flat-square)](https://www.npmjs.com/package/hds-design-tokens) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/hds-design-tokens?label=gzipped%20size&style=flat-square)](https://bundlephobia.com/result?p=hds-design-tokens)
+    - Basis of the HDS which includes base colors, typography etc. as design tokens.
+- **hds-core** [![npm](https://img.shields.io/npm/v/hds-core?style=flat-square)](https://www.npmjs.com/package/hds-core) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/hds-core?label=gzipped%20size&style=flat-square)](https://bundlephobia.com/result?p=hds-core)
+    - Helsinki City brand colors, typography and base styles as css-styles and variables
+- **hds-react** [![npm](https://img.shields.io/npm/v/hds-react?style=flat-square)](https://www.npmjs.com/package/hds-react) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/hds-react?label=gzipped%20size&style=flat-square)](https://bundlephobia.com/result?p=hds-react)
+    - Provides HDS components as React components
 
 ## Getting started
 
@@ -104,11 +107,11 @@ yarn start:react
 
 | Command                            | Description                                                                        |
 | ---------------------------------- | ---------------------------------------------------------------------------------- |
-| yarn                               | Install dependencies and link local packages.                                      |
+| yarn                               | Installs dependencies and links local packages.                                    |
 | yarn build                         | Builds all the packages.                                                           |
-| yarn build:\<package>              | Builds the specified package (`tokens`, `core`, `react` or `site`).                |
-| yarn start:\<platform>             | Starts the development environment for the specified platform (`core` or `react`). |
-| lerna release                      | Publish packages that have changed since the last release.                         |
+| yarn build:\<package>              | Builds a specific package (`tokens`, `core`, `react` or `site`).                   |
+| yarn start:\<platform>             | Starts the development environment for a specific platform (`core` or `react`).    |
+| lerna release                      | Publishes packages that have changed since the last release.                       |
 
 To ensure code quality in the repo, every package will have their `pre-commit` and `pre-push` scripts run automatically before git commit and push (added with [**Husky**](https://github.com/typicode/husky)).
 

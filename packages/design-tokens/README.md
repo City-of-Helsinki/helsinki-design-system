@@ -45,8 +45,8 @@ JS
 import 'hds-design-tokens';
 ```
 
-SASS
-```sass
+SCSS
+```scss
 @import '~hds-design-tokens';
 ```
 
