@@ -59,9 +59,9 @@
 
 HDS is divided into three (3) separate packages:
 
-- [![npm](https://img.shields.io/npm/v/hds-core?label=hds-core&style=flat-square)](https://www.npmjs.com/package/hds-core) – Helsinki City brand colors, typography and base styles as css-styles and variables
-- [![npm](https://img.shields.io/npm/v/hds-react?label=hds-react&style=flat-square)](https://www.npmjs.com/package/hds-react) – Provides HDS components implemented using React
-- [![npm](https://img.shields.io/npm/v/hds-design-tokens?label=hds-design-tokens&style=flat-square)](https://www.npmjs.com/package/hds-design-tokens) – Basis of the HDS which includes base colors, typography etc. as design tokens.
+- [![npm](https://img.shields.io/npm/v/hds-design-tokens?label=hds-design-tokens&style=flat-square)](https://www.npmjs.com/package/hds-design-tokens) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/hds-design-tokens?label=gzipped%20size&style=flat-square)](https://bundlephobia.com/result?p=hds-design-tokens) – Basis of the HDS which includes base colors, typography etc. as design tokens.
+- [![npm](https://img.shields.io/npm/v/hds-core?label=hds-core&style=flat-square)](https://www.npmjs.com/package/hds-core) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/hds-core?label=gzipped%20size&style=flat-square)](https://bundlephobia.com/result?p=hds-core) – Helsinki City brand colors, typography and base styles as css-styles and variables
+- [![npm](https://img.shields.io/npm/v/hds-react?label=hds-react&style=flat-square)](https://www.npmjs.com/package/hds-react) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/hds-react?label=gzipped%20size&style=flat-square)](https://bundlephobia.com/result?p=hds-react) – Provides HDS components as React components
 
 ## Getting started
 
@@ -75,38 +75,35 @@ Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scrip
 ### Setting up local development environment
 
 1. Clone the HDS repository.
-```
+```bash
 git clone https://github.com/City-of-Helsinki/helsinki-design-system.git
 ```
 
 2. Go to the root of the project and install dependencies with `yarn`.
-```
+```bash
 cd helsinki-design-system
 yarn
 ```
 
-3. Build packages with `yarn`. This builds all packages; core, react, design-tokens and site (documentation).
-```
+3. Build packages with `yarn build`. This builds all packages; core, react, design-tokens and site (documentation).
+```bash
 yarn build
 ```
 
-4. Start the development server. You can start these individually for each package. For example, to start the React Storybook, run:
-```
-cd packages/react
-yarn start
+4. Start the development server. You can start these individually for each platform with `yarn start:<platform>`. For example, to start the React Storybook development environment, run:
+```bash
+yarn start:react
 ```
 
 ### Commands
 
-| Command                            | Description                                                |
-| ---------------------------------- | ---------------------------------------------------------- |
-| yarn                               | Install dependencies and link local packages.              |
-| yarn start:\<platform>             | Start dev env for platform.                                |
-| yarn build:\<platform>             | Build packages for platform.                               |
-| lerna run build --scope \<package> | Build only \<package>.                                     |
-| lerna publish                      | Publish packages that have changed since the last release. |
-| yarn test                          | Run tests.                                                 |
-| yarn test -u                       | Update snapshots.                                          | 
+| Command                            | Description                                                                        |
+| ---------------------------------- | ---------------------------------------------------------------------------------- |
+| yarn                               | Install dependencies and link local packages.                                      |
+| yarn build                         | Builds all the packages.                                                           |
+| yarn build:\<package>              | Builds the specified package (`tokens`, `core`, `react` or `site`).                |
+| yarn start:\<platform>             | Starts the development environment for the specified platform (`core` or `react`). |
+| lerna release                      | Publish packages that have changed since the last release.                         |
 
 To ensure code quality in the repo, every package will have their `pre-commit` and `pre-push` scripts run automatically before git commit and push (added with [**Husky**](https://github.com/typicode/husky)).
 

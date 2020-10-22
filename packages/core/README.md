@@ -1,15 +1,15 @@
-:books: [**See the components in Storybook**](https://city-of-helsinki.github.io/helsinki-design-system/storybook/core)
-
-# hds-core [![npm version](https://badge.fury.io/js/hds-core.svg)](https://www.npmjs.com/package/hds-core)
+# hds-core [![npm](https://img.shields.io/npm/v/hds-core?style=flat-square)](https://www.npmjs.com/package/hds-core) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/hds-core?label=gzipped%20size&style=flat-square)](https://bundlephobia.com/result?p=hds-core)
 
 Base styles and individual HTML component styles for the Helsinki Design System.
+
+:books: [See the components in Storybook](https://hds.hel.fi/storybook/core)
 
 ## Getting started
 
 ### Installing the package:
 
-```
-$ yarn add hds-core
+```bash
+yarn add hds-core
 ```
 
 ### What's included
@@ -50,7 +50,7 @@ The Helsinki fonts are not included in the package due to copyright reasons.
 Helsinki Design System uses CSS variables from the [hds-design-tokens](https://www.npmjs.com/package/hds-design-tokens) package to control coloring and layout. You can override these variables where needed.
 
 ## Development
-Read more [here](DEVELOPMENT.md)
+Read more [here](DEVELOPMENT.md).
 
 ## Built with
 
