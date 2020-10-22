@@ -12,10 +12,13 @@ A collection of Helsinki Design System components implemented using React.
 yarn add hds-react
 ```
 
-## Using the components:
+### Using the components:
 
 ```js
 import { TextInput } from "hds-react";
+
+// you can also import components individually instead of importing the whole package
+import { TextInput } from "hds-react/components/TextInput";
 ```
 
 ### Helsinki fonts

@@ -36,7 +36,7 @@ hds-design-tokens/
     └── all (.scss|.css)                    # all variables
 ```
 
-## Using the tokens
+### Using the tokens
 Import any of the available `.css` or `.scss` files. Imported CSS variables will be applied to the `:root` element.
 
 JS
@@ -47,7 +47,7 @@ import 'hds-design-tokens';
 
 SASS
 ```sass
-@import '~hds-design-tokens'\;
+@import '~hds-design-tokens';
 ```
 
 ## Development

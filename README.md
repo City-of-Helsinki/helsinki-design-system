@@ -71,6 +71,11 @@ HDS is divided into three (3) separate packages:
 Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scripts across the repo as well as versioning and creating releases of the packages. [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) is used to manage dependencies. This allows the separate packages to reference each other via symlinks during local development.
 
 ### Using the packages in your project
+See the package specific instructions on how to get started using the packages.
+
+- [hds-design-tokens](./packages/design-tokens/README.md#getting-started)
+- [hds-core](./packages/core/README.md#getting-started)
+- [hds-react](./packages/react/README.md#getting-started)
 
 ### Setting up local development environment
 
