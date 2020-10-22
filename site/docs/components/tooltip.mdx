@@ -38,12 +38,16 @@ import LargeParagraph from "../../src/components/LargeParagraph";
 The default size Tooltip variant works in most situations where the Tooltip description is longer than a few words.
 
 <Playground>
-  <Tooltip>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
+  <Tooltip>Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.</Tooltip>
 </Playground>
 
 #### React code example:
 ```tsx
-<Tooltip>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
+<Tooltip>
+  Tooltips contain "nice to have" information. 
+  Default Tooltip contents should not be longer than two to three sentences. 
+  For longer descriptions, provide a link to a separate page.
+</Tooltip>
 ```
 
 ### Small
@@ -51,12 +55,14 @@ The default size Tooltip variant works in most situations where the Tooltip desc
 A small size Tooltip variant can be used instead of the default one if description is only a few words long (less than 5 words). Also note that the small Tooltip should never replace labels (e.g. for icons). WCAG requires that labels are always visible and not hidden behind a Tooltip.
 
 <Playground>
-  <Tooltip small>Lorem ipsum dolor</Tooltip>
+  <Tooltip small>Less than five words long</Tooltip>
 </Playground>
 
 #### React code example:
 ```tsx
-<Tooltip small>Lorem ipsum dolor</Tooltip>
+<Tooltip small>
+  Less than five words long
+</Tooltip>
 ```
 
 ### Positioning
@@ -64,40 +70,40 @@ A small size Tooltip variant can be used instead of the default one if descripti
 HDS Tooltip implementation has automatic placement feature. It will automatically try to keep the Tooltip in the view and dynamically updates the positioning if the screen size changes. Tooltip positioning can also be overridden manually.
 
 <Playground>
-  <Tooltip placement="auto">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-  <Tooltip placement="auto-start">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-  <Tooltip placement="auto-end">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-  <Tooltip placement="top">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-  <Tooltip placement="top-start">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-  <Tooltip placement="top-end">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-  <Tooltip placement="bottom">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-  <Tooltip placement="bottom-start">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-  <Tooltip placement="bottom-end">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-  <Tooltip placement="right">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-  <Tooltip placement="right-start">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-  <Tooltip placement="right-end">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-  <Tooltip placement="left">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-  <Tooltip placement="left-start">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-  <Tooltip placement="left-end">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
+  <Tooltip placement="auto">Tooltip with auto placement setting</Tooltip>
+  <Tooltip placement="auto-start">Tooltip with auto-start placement setting</Tooltip>
+  <Tooltip placement="auto-end">Tooltip with auto-end placement setting</Tooltip>
+  <Tooltip placement="top">Tooltip with top placement setting</Tooltip>
+  <Tooltip placement="top-start">Tooltip with top-start placement setting</Tooltip>
+  <Tooltip placement="top-end">Tooltip with top-end placement setting</Tooltip>
+  <Tooltip placement="bottom">Tooltip with bottom placement setting</Tooltip>
+  <Tooltip placement="bottom-start">Tooltip with bottom-start placement setting</Tooltip>
+  <Tooltip placement="bottom-end">Tooltip with bottom-end placement setting</Tooltip>
+  <Tooltip placement="right">Tooltip with right placement setting</Tooltip>
+  <Tooltip placement="right-start">Tooltip with right-start placement setting</Tooltip>
+  <Tooltip placement="right-end">Tooltip with right-end placement setting</Tooltip>
+  <Tooltip placement="left">Tooltip with left placement setting</Tooltip>
+  <Tooltip placement="left-start">Tooltip with left-start placement setting</Tooltip>
+  <Tooltip placement="left-end">Tooltip with left-end placement setting</Tooltip>
 </Playground>
 
 #### React code example:
 ```tsx
-<Tooltip placement="auto">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-<Tooltip placement="auto-start">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-<Tooltip placement="auto-end">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-<Tooltip placement="top">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-<Tooltip placement="top-start">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-<Tooltip placement="top-end">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-<Tooltip placement="bottom">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-<Tooltip placement="bottom-start">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-<Tooltip placement="bottom-end">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-<Tooltip placement="right">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-<Tooltip placement="right-start">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-<Tooltip placement="right-end">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-<Tooltip placement="left">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-<Tooltip placement="left-start">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
-<Tooltip placement="left-end">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</Tooltip>
+<Tooltip placement="auto">Tooltip with auto placement setting</Tooltip>
+<Tooltip placement="auto-start">Tooltip with auto-start placement setting</Tooltip>
+<Tooltip placement="auto-end">Tooltip with auto-end placement setting</Tooltip>
+<Tooltip placement="top">Tooltip with top placement setting</Tooltip>
+<Tooltip placement="top-start">Tooltip with top-start placement setting</Tooltip>
+<Tooltip placement="top-end">Tooltip with top-end placement setting</Tooltip>
+<Tooltip placement="bottom">Tooltip with bottom placement setting</Tooltip>
+<Tooltip placement="bottom-start">Tooltip with bottom-start placement setting</Tooltip>
+<Tooltip placement="bottom-end">Tooltip with bottom-end placement setting</Tooltip>
+<Tooltip placement="right">Tooltip with right placement setting</Tooltip>
+<Tooltip placement="right-start">Tooltip with right-start placement setting</Tooltip>
+<Tooltip placement="right-end">Tooltip with right-end placement setting</Tooltip>
+<Tooltip placement="left">Tooltip with left placement setting</Tooltip>
+<Tooltip placement="left-start">Tooltip with left-start placement setting</Tooltip>
+<Tooltip placement="left-end">Tooltip with left-end placement setting</Tooltip>
 ```
 
 ## Demos & API
