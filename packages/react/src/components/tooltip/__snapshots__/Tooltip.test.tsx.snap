@@ -3,13 +3,13 @@
 exports[`<TooltipNew /> spec opens the tooltip when button is clicked 1`] = `
 <DocumentFragment>
   <div
-    class="wrapper"
+    class="wrapper className"
   >
     <button
       aria-expanded="true"
-      aria-label="Tooltip"
-      class="button"
-      title="Tooltip"
+      aria-label="Tooltip button"
+      class="button buttonClassName"
+      title="Tooltip button"
       type="button"
     >
       <span
@@ -37,10 +37,11 @@ exports[`<TooltipNew /> spec opens the tooltip when button is clicked 1`] = `
       </span>
     </button>
     <section
-      aria-label="Tooltip"
-      class="tooltip"
+      aria-label="Tooltip label"
+      class="tooltip small tooltipClassName"
       style="position: absolute; left: 0px; top: 0px;"
     >
+      Tooltip content
       <div
         class="arrow"
       />
@@ -52,13 +53,13 @@ exports[`<TooltipNew /> spec opens the tooltip when button is clicked 1`] = `
 exports[`<TooltipNew /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
-    class="wrapper"
+    class="wrapper className"
   >
     <button
       aria-expanded="false"
-      aria-label="Tooltip"
-      class="button"
-      title="Tooltip"
+      aria-label="Tooltip button"
+      class="button buttonClassName"
+      title="Tooltip button"
       type="button"
     >
       <span
