@@ -37,6 +37,12 @@
   }
 }
 
+/* TOGGLE BUTTON FOCUS OUTLINE */
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 var(--button-focus-outline-width) var(--button-focus-outline-color);
+}
+
 /* BORDER */
 .tooltip[data-popper-placement^="bottom"] {
   border-top: 8px solid var(--tooltip-border-color);
