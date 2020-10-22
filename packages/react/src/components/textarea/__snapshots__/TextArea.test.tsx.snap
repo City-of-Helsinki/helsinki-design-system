@@ -36,7 +36,7 @@ exports[`<Textarea /> spec renders the component with tooltip 1`] = `
       HDS input field
     </label>
     <div
-      class="wrapper"
+      class="root"
     >
       <button
         aria-expanded="false"

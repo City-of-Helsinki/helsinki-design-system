@@ -3,7 +3,7 @@
 exports[`<TooltipNew /> spec opens the tooltip when button is clicked 1`] = `
 <DocumentFragment>
   <div
-    class="wrapper className"
+    class="root className"
   >
     <button
       aria-expanded="true"
@@ -53,7 +53,7 @@ exports[`<TooltipNew /> spec opens the tooltip when button is clicked 1`] = `
 exports[`<TooltipNew /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
-    class="wrapper className"
+    class="root className"
   >
     <button
       aria-expanded="false"

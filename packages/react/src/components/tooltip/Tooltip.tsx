@@ -114,7 +114,7 @@ export const Tooltip = ({
   });
 
   return (
-    <div className={classNames(styles.wrapper, className)}>
+    <div className={classNames(styles.root, className)}>
       <button
         ref={buttonRef}
         type="button"
