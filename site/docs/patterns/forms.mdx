@@ -65,7 +65,7 @@ Forms *should* be designed to be as clear and straightforward as possible, to al
     <ul style="margin-bottom:0;">
         <li><strong>Form controls <em>must</em> only be used to change page <em>content</em>.</strong></li>
         <li><strong>To trigger any change in <em>context</em>, an button <em>must</em> be used.</strong></li>
-        <li>A change in from control happens for example when:
+        <li><em>A change in from control</em> happens for example when:
             <ul style="margin-top:0;">
                 <li>the control receives focus (<Link href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-receive-focus.html" external>WCAG 2.1 success criteria 3.2.1 On focus</Link>)</li>
                 <li>the value is changed (<Link href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-unpredictable-change.html" external>WCAG 2.1 success criteria 3.2.2 On input</Link>)</li>
@@ -75,6 +75,7 @@ Forms *should* be designed to be as clear and straightforward as possible, to al
             <ul style="margin-top:0;">
                 <li>Visual changes, such as an expanding an outline </li>
                 <li>Opening a dynamic menu or dropdown</li>
+                <li>Adding/removing or showing/hiding form controls based on previous selections (for example showing a set of additional questions related to a previous selection)</li>
             </ul>
         </li>
         <li>A change in <em>context</em> is for example:
@@ -397,9 +398,11 @@ Allowing the user enter a value either by input or selection is the **form contr
                 <li>The user <em>should</em> not be made to input the same information twice.</li>
             </ul>
         </li>
-        <li><strong>Enable autocompleting values</strong> to provide automated assistance in filling out form field values.
+        <li><strong>Enable autocompleting input</strong> to assist users filling forms by prefilling field values based on earlier user input (for example the user’s address).
             <ul>
-                <li>An appropriate autocomplete attribute <em>should</em> be defined for fields if possible.</li>
+                <li>The appropriate input purpose <em>should</em> be defined with autocomplete attribute where applicable.</li>
+                <li>The autocomplete attribute hints the browser that the field can be autocompleted, and the type of information required.</li>
+                <li>See more about <Link href="https://www.w3.org/TR/WCAG21/#input-purposes" external>input purpose terms used for autocomplete</Link>.</li>
             </ul>
         </li>
     </ul>
@@ -732,7 +735,12 @@ This approach also makes fixing validation errors easier, when the inputted data
                 <li>Disable next steps before all previous steps have been filled (and validated)</li>
             </ul>
         </li>
-        <li><strong>Validate the data after each step and let the user fix errors before proceeding to the next step</strong></li>
+        <li><strong>Validate the data after each step and let the user fix errors before proceeding to the next step</strong>
+            <ul>
+                <li>The user <em>should</em> only be allowed to proceed to next steps by clicking the "Next step" action button, to ensure the data is validated.</li>
+                <li>If the user navigates back to a previously filled step and changes any input value, the following steps <em>should</em> be disabled in the form navigation.</li>
+            </ul>
+        </li>
     </ul>
 </div>
 
@@ -777,7 +785,7 @@ For this reason it is essential to ensure that individual controls receive focus
     <ul style="margin-bottom:0;">
         <li><strong>Check the order in which individual controls in the form receive focus</strong>
             <ul>
-                <li>By default the focus order follows the DOM order, so in most cases checkin that the controls are in the right order in the DOM tree is sufficient.</li>
+                <li>By default the focus order follows the DOM order, so in most cases checking that the controls are in the right order in the DOM tree is sufficient.</li>
                 <li>If the focus order needs to deviate from DOM order, it can be customised with tabindex attributes.</li>            
             </ul>
         </li>
@@ -789,10 +797,10 @@ For this reason it is essential to ensure that individual controls receive focus
                 <li>Focus must not leave the form when the content is dynamically changed.</li>
             </ul>
         </li>
-        <li>In multi page forms, when the user proceeds to the next page, focus <em>should</em> be directed to the beginning of the form step, instead of the whole page.</li>
+        <li>In multi page forms, when the user proceeds to the next or previous page, focus <em>should</em> be directed to the heading of the form or current form step, instead of the beginning of the entire page. This helps the user to keep focus on the task at hand.</li>
         <li>tabindex="-1" can defined for the heading, fieldset legend or other element where the focus <em>should</em> be directed after a dynamic content change or page change.
             <ul>
-                <li>Not necessary in short inline forms.</li>
+                <li>Not necessary in forms embedded into content. In these cases focus can start from page heading and follow the DOM order.</li>
             </ul>
         </li>
     </ul>
