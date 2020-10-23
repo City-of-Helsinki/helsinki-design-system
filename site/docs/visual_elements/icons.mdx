@@ -6,14 +6,14 @@ menu: Visual assets
 
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Image from "../../src/components/Image";
-import { Notification } from "hds-react";
+import { Notification, StatusLabel } from "hds-react";
 import * as HDS from "hds-react";
 
 
 # Icons
 
 <LargeParagraph>
-    The HDS icon library is a set of icons specially designed for use in digital user interfaces. 
+    The HDS icon library is a set of icons specially designed for use in digital user interfaces.
 </LargeParagraph>
 
 The HDS icon library follows the icon style defined in the Helsinki city brand guidelines but the forms of the icons are simplified and adjusted for legibility in smaller sizes and pixel resolutions. The icon library also provides user interface specific icons missing from the Helsinki City brand icons.
@@ -21,9 +21,7 @@ The HDS icon library follows the icon style defined in the Helsinki city brand g
 See the [Icon component documentation](/components/icons "Icon component") for instructions on using icons in implementation.
 
 ## Visual principles
-<Notification label="Work in progress!" type="alert" className="siteNotification">
-    Possible upcoming changes to brand guidelines due to accessibility improvements. These can also affect the visual style and design principles of icons.
-</Notification>
+<StatusLabel type="error">Coming soon</StatusLabel>
 
 
 ## Usage
@@ -32,7 +30,7 @@ The HDS icon library is categorised into four types of icons designed to be used
 1. **UI icons** are mainly intended for providing visual cues for interaction, increasing discoverability and learnability. The UI icons can be used for example in buttons or navigation. Using UI icons for purely decorative purposes and illustration should be avoided.
 2. **Illustrative icons** are more decorative and playful. They are intended for illustrating concepts and services.
 3. **Pictograms** are more complex icon styled pictures for illustrating concepts, services and processes.
-4. **SoMe icons** are logos of Helsinki city social media channels and digital services as ways of logging in. 
+4. **SoMe icons** are logos of Helsinki city social media channels and digital services as ways of logging in.
 
 ### Size
 The default size of the HDS icons is 24 × 24 px.
@@ -43,70 +41,79 @@ The default size of the HDS icons is 24 × 24 px.
 <Image src="../../static/icon-sizes.png" alt="HDS icon sizes" style="width:100%; max-width: 550px;" viewable />
 
 ### Colour
-The default colour of the HDS icons is black or white, depending on the background. 
+The default colour of the HDS icons is black or white, depending on the background.
 - Other colours should be used sparingly and serve a clear purpose, preferably only highlighting error and other system status.
 - See [colour guidelines](/design-tokens/colour "Colour") for further information.
 
 ## HDS Icons
-### UI Icons		
-#### Arrows and operators		
-Icon	                    | Core              | React             | Usage
+### UI Icons
+#### Arrows and operators
+Icon                        | Core              | React             | Usage
 --------------------------- | ----------------- | ------------------|--------------------------
-<HDS.IconAngleDown />       | angle-down        | AngleDown	        | Dropdown
-<HDS.IconAngleLeft />       | angle-left        | AngleLeft	        |
+<HDS.IconAngleDown />       | angle-down        | AngleDown         | Dropdown open
+<HDS.IconAngleLeft />       | angle-left        | AngleLeft         |
 <HDS.IconAngleRight />      | angle-right       | AngleRight        |
-<HDS.IconAngleUp />         | angle-up          | AngleUp           | Dropdown
+<HDS.IconAngleUp />         | angle-up          | AngleUp           | Dropdown close
 <HDS.IconArrowDown />       | arrow-down        | ArrowDown         |
-<HDS.IconArrowLeft />       | arrow-left        | ArrowLeft	        |
-<HDS.IconArrowRight />      | arrow-right       | ArrowRight	    |
-<HDS.IconArrowUp />         | arrow-up          | ArrowUp	        |
-<HDS.IconCheck />           | check             | Check	            |
-<HDS.IconCross />           | cross             | Cross	            | Close
-<HDS.IconCrossCircle />     | cross-circle      | CrossCircle	    |
-<HDS.IconMinus />           | minus             | Minus	            |
-<HDS.IconMinusCircle />     | minus-circle      | MinusCircle	    |
-<HDS.IconPlus />            | plus              | Plus	            | Add
-<HDS.IconPlusCircle />      | plus-circle       | PlusCircle	    |
-
-
+<HDS.IconArrowLeft />       | arrow-left        | ArrowLeft         | Previous
+<HDS.IconArrowRight />      | arrow-right       | ArrowRight        | Next
+<HDS.IconArrowUp />         | arrow-up          | ArrowUp           |
+<HDS.IconCross />           | cross             | Cross             | Close
+<HDS.IconCrossCircle />     | cross-circle      | CrossCircle       | Remove
+<HDS.IconCrossCircleFill /> | cross-circle-fill | CrossCircleFill   | Remove alternative
+<HDS.IconMinus />           | minus             | Minus             |
+<HDS.IconMinusCircle />     | minus-circle      | MinusCircle       |
+<HDS.IconMinusCircleFill /> | minus-circle-fill | MinusCircleFill   |
+<HDS.IconPlus />            | plus              | Plus              |
+<HDS.IconPlusCircle />      | plus-circle       | PlusCircle        | Add
+<HDS.IconPlusCircleFill />  | plus-circle-fill  | PlusCircleFill    | Add alternative
 
 
 #### Notifications and expressions
-Icon	                    | Core              | React             | Usage
---------------------------- | ----------------- | ------------------|--------------------------
-<HDS.IconAlertCircle />     | alert-circle      | AlertCircle       | Alert
-<HDS.IconInfoCircle />      | info-circle       | InfoCircle        | Information
-<HDS.IconError />           | error             | Error             | Error
-<HDS.IconFaceNeutral />     | face-neutral      | FaceNeutral       |
-<HDS.IconFaceSad />         | face-sad          | FaceSad           |
-<HDS.IconFaceSmile />       | face-smile        | FaceSmile         | Success notification
-<HDS.IconHeart />           | heart             | Heart             | Like
-<HDS.IconHeartFill />       | heart-fill        | HeartFill         | Like selected
-<HDS.IconQuestionCircle />  | question-circle   | QuestionCircle    | Help, Tooltip
-<HDS.IconStar />            | star              | Star              | Rating
-<HDS.IconStarFill />        | star-fill         | StarFill          | Rating selected
+Icon                            | Core                  | React                 | Usage
+------------------------------- | --------------------- | ----------------------|--------------------------
+<HDS.IconAlertCircle />         | alert-circle          | AlertCircle           | Alert
+<HDS.IconAlertCircleFill />     | alert-circle-fill     | AlertCircleFill       | Alert alternative
+<HDS.IconCheck />               | check                 | Check                 |
+<HDS.IconCheckCircle />         | check-circle          | CheckCircle           | Success
+<HDS.IconCheckCircleFill />     | check-circle-fill     | CheckCircleFill       | Success alternative
+<HDS.IconInfoCircle />          | info-circle           | InfoCircle            | Information
+<HDS.IconInfoCircleFill />      | info-circle-fill      | InfoCircleFill        | Information alternative
+<HDS.IconError />               | error                 | Error                 | Error
+<HDS.IconErrorFill />           | error-fill            | ErrorFill             | Error alternative
+<HDS.IconFaceNeutral />         | face-neutral          | FaceNeutral           |
+<HDS.IconFaceSad />             | face-sad              | FaceSad               |
+<HDS.IconFaceSmile />           | face-smile            | FaceSmile             |
+<HDS.IconHeart />               | heart                 | Heart                 | Like
+<HDS.IconHeartFill />           | heart-fill            | HeartFill             | Like selected
+<HDS.IconQuestionCircle />      | question-circle       | QuestionCircle        | Help, Tooltip
+<HDS.IconQuestionCircleFill />  | question-circle-fill  | QuestionCircleFill    | Help alternative
+<HDS.IconStar />                | star                  | Star                  | Rating
+<HDS.IconStarFill />            | star-fill             | StarFill              | Rating selected
 
 
 #### Navigation
-Icon	                    | Core              | React             | Usage
+Icon                        | Core              | React             | Usage
 --------------------------- | ----------------- | ------------------|--------------------------
 <HDS.IconHome />            | home              | Home              | Home
 <HDS.IconHomeSmoke />       | home-smoke        | HomeSmoke         |
 <HDS.IconMenuHamburger />   | menu-hamburger    | MenuHamburger     | Mobile menu
 <HDS.IconMenuDots />        | menu-dots         | MenuDots          | Additional operations
+<HDS.IconRefresh />         | refresh           | Refresh           | Refresh page or content
 <HDS.IconSignin />          | signin            | Signin            | Sign in
 <HDS.IconSignout />         | signout           | Signout           | Sign out
 <HDS.IconSearch />          | search            | Search            | Search
 <HDS.IconUser />            | user              | User              | Username
 
 #### Actions and settings
-Icon	                    | Core              | React             | Usage
+Icon                        | Core              | React             | Usage
 --------------------------- | ----------------- | ------------------|--------------------------
 <HDS.IconBell />            | bell              | Bell              | Notification
 <HDS.IconBellCrossed />     | bell-crossed      | BellCrossed       | Disable notifications
 <HDS.IconCogwheel />        | cogwheel          | Cogwheel          | Settings
 <HDS.IconDownload />        | download          | Download          | Download file to device
 <HDS.IconDownloadCloud />   | download-cloud    | DownloadCloud     | Download from cloud service
+<HDS.IconDrag />            | drag              | Drag              | Drag handle for draggable elements
 <HDS.IconEye />             | eye               | Eye               | Show content
 <HDS.IconEyeCrossed />      | eye-crossed       | EyeCrossed        | Hide content
 <HDS.IconLock />            | lock              | Lock              | Content locked
@@ -118,85 +125,107 @@ Icon	                    | Core              | React             | Usage
 <HDS.IconZoomOut />         | zoom-out          | ZoomOut           | Decrease zoom level
 <HDS.IconZoomText />        | zoom-text         | ZoomText          | Text zoom settings
 
+
 #### Forms and data
-Icon	                    | Core              | React             | Usage
---------------------------- | ----------------- | ------------------|--------------------------
-<HDS.IconArrowRedo />       | arrow-redo        | ArrowRedo         | Redo edits
-<HDS.IconArrowUndo />       | arrow-undo        | ArrowUndo         | Undo edits
-<HDS.IconCalendar />        | calendar          | Calendar          | Date
-<HDS.IconCalendarClock />   | calendar-clock    | CalendarClock     | Date and time
-<HDS.IconCalendarCross />   | calendar-cross    | CalendarCross     | Remove date
-<HDS.IconCalendarPlus />    | calendar-plus     | CalendarPlus      | Add date
-<HDS.IconClock />           | clock             | Clock             | Time
-<HDS.IconClockCross />      | clock-cross       | ClockCross        | Remove time
-<HDS.IconClockPlus />       | clock-plus        | ClockPlus         | Add time
-<HDS.IconEnvelope />        | envelope          | Envelope          | Email address / message 
-<HDS.IconGlobe />           | globe             | Globe             | Web page address
-<HDS.IconGroup />           | group             | Group             | Group
-<HDS.IconLink />            | link              | Link              |                                               
-<HDS.IconLinkExternal />    | link-external     | LinkExternal      | Link to another website / opens in other tab
-<HDS.IconLocate />          | locate            | Locate            | Show users location
-<HDS.IconLocation />        | location          | Location          | Location
-<HDS.IconMap />             | map               | Map               | Map
-<HDS.IconPaperclip />       | paperclip         | Paperclip         | Attachment
-<HDS.IconPen />             | pen               | Pen               | Edit content
-<HDS.IconPenLine />         | pen-line          | PenLine           | Fill content
-<HDS.IconPersonFemale />    | person-female     | PersonFemale      | Gender female
-<HDS.IconPersonMale />      | person-male       | PersonMale        | Gender male
-<HDS.IconPersonWheelchair />| person-wheelchair | PersonWheelchair  | Accessibility
-<HDS.IconPhone />           | phone             | Phone             | Phone number
-<HDS.IconPhoto />           | photo             | Photo             | Photo or image file
-<HDS.IconPhotoPlus />       | photo-plus        | PhotoPlus         | Add photo or image file
-<HDS.IconSpeechbubble />    | speechbubble      | Speechbubble      | Chat / comment
-<HDS.IconSpeechbubbleText />| speechbubble-text | SpeechbubbleText  | Chat / comment
-<HDS.IconTrash />           | trash             | Trash             | Trash
+Icon                                    | Core                          | React             | Usage
+--------------------------------------- | ----------------------------- | ------------------|--------------------------
+<HDS.IconArrowRedo />                   | arrow-redo                    | ArrowRedo                 | Redo edits
+<HDS.IconArrowUndo />                   | arrow-undo                    | ArrowUndo                 | Undo edits
+<HDS.IconCalendar />                    | calendar                      | Calendar                  | Date
+<HDS.IconCalendarClock />               | calendar-clock                | CalendarClock             | Date and time
+<HDS.IconCalendarCross />               | calendar-cross                | CalendarCross             | Remove date
+<HDS.IconCalendarPlus />                | calendar-plus                 | CalendarPlus              | Add date
+<HDS.IconCalendarRecurring />           | calendar-recurring            | CalendarRecurring         | Recurring date
+<HDS.IconClock />                       | clock                         | Clock                     | Time
+<HDS.IconClockCross />                  | clock-cross                   | ClockCross                | Remove time
+<HDS.IconClockPlus />                   | clock-plus                    | ClockPlus                 | Add time
+<HDS.IconEnvelope />                    | envelope                      | Envelope                  | Email address / message
+<HDS.IconGlobe />                       | globe                         | Globe                     | Web page address
+<HDS.IconGroup />                       | group                         | Group                     | Group
+<HDS.IconLayers />                      | layers                        | Layers                    | Choose layers
+<HDS.IconLink />                        | link                          | Link                      |
+<HDS.IconLinkExternal />                | link-external                 | LinkExternal              | Link to another website / opens in other tab
+<HDS.IconLocate />                      | locate                        | Locate                    | Show users location
+<HDS.IconLocation />                    | location                      | Location                  | Location
+<HDS.IconMap />                         | map                           | Map                       | Map
+<HDS.IconPaperclip />                   | paperclip                     | Paperclip                 | Attachment
+<HDS.IconPen />                         | pen                           | Pen                       | Edit content
+<HDS.IconPenLine />                     | pen-line                      | PenLine                   | Fill content
+<HDS.IconPersonFemale />                | person-female                 | PersonFemale              | Gender female
+<HDS.IconPersonMale />                  | person-male                   | PersonMale                | Gender male
+<HDS.IconPersonWheelchair />            | person-wheelchair             | PersonWheelchair          | Accessibility
+<HDS.IconPhone />                       | phone                         | Phone                     | Phone number
+<HDS.IconPhoto />                       | photo                         | Photo                     | Photo or image file
+<HDS.IconPhotoPlus />                   | photo-plus                    | PhotoPlus                 | Add photo or image file
+<HDS.IconSliders />                     | sliders                       | Sliders                   | Filtter settings
+<HDS.IconSort />                        | sort                          | Sort                      | Toggle sorting
+<HDS.IconSortAscending />               | sort-ascending                | SortAscending             | Sorting from smallest to largest
+<HDS.IconSortDescending />              | sort-descending               | SortDescending            | Sorting from largest to smallest
+<HDS.IconSortAlbabeticalAscending />    | sort-albabetical-ascending    | SortAlbabeticalAscending  | Alphabetical sorting from A to Z
+<HDS.IconSortAlbabeticalDescending />   | sort-albabetical-descending   | SortAlbabeticalDescending | Alphabetical sorting from Z to A
+<HDS.IconSpeechbubble />                | speechbubble                  | Speechbubble              | Chat / comment
+<HDS.IconSpeechbubbleText />            | speechbubble-text             | SpeechbubbleText          | Chat / comment
+<HDS.IconTrash />                       | trash                         | Trash                     | Trash
+
 
 #### Media and devices
-Icon	                        | Core                  | React                 | Usage
+Icon                            | Core                  | React                 | Usage
 ------------------------------- | --------------------- | --------------------- |--------------------------
 <HDS.IconCamera />              | camera                | Camera                | Take photo
 <HDS.IconDisplay />             | display               | Display               | Display / desktop version
 <HDS.IconMicrophone />          | microphone            | Microphone            | Microphone / sound recording
 <HDS.IconMicrophoneCrossed />   | microphone-crossed    | MicrophoneCrossed     | Microphone disabled
 <HDS.IconMobile />              | mobile                | Mobile                | Mobile device / version
+<HDS.IconPlaybackFastforward /> | playback-fastforward  | PlaybackFastforward   | Fast forward
+<HDS.IconPlaybackNext />        | playback-next         | PlaybackNext          | Skip to next track
+<HDS.IconPlaybackPause />       | playback-pause        | PlaybackPause         | Pause
+<HDS.IconPlaybackPlay />        | playback-play         | PlaybackPlay          | Play
+<HDS.IconPlaybackPrevious />    | playback-previous     | PlaybackPrevious      | Skip to previous track
+<HDS.IconPlaybackRecord />      | playback-record       | PlaybackRecord        | Record
+<HDS.IconPlaybackRewind />      | playback-rewind       | PlaybackRewind        | Rewind
+<HDS.IconPlaybackStop />        | playback-stop         | PlaybackStop          | Stop
+<HDS.IconPodcast />             | podcast               | Podcast               | Podcast
+<HDS.IconPrinter />             | printer               | Printer               | Print
 <HDS.IconVideocamera />         | videocamera           | Videocamera           | Video
 <HDS.IconVideocameraCrossed />  | videocamera-crossed   | VideocameraCrossed    | Video disabled
 <HDS.IconVolumeHigh />          | volume-high           | VolumeHigh            | Volume control / Volume level set to high
 <HDS.IconVolumeLow />           | volume-low            | VolumeLow             | Volume level set to low
 <HDS.IconVolumeMinus />         | volume-minus          | VolumeMinus           | Decrease volume level
-<HDS.IconVolumeMute />          | volume-mute           | VolumeMute	        | Mute volume / volume level set to mute
+<HDS.IconVolumeMute />          | volume-mute           | VolumeMute            | Mute volume / volume level set to mute
 <HDS.IconVolumePlus />          | volume-plus           | VolumePlus            | Increase volume level
 <HDS.IconWifi />                | wifi                  | Wifi                  | Wifi connection
 <HDS.IconWifiCrossed />         | wifi-crossed          | WifiCrossed           | No wifi connection
 
 
-
 #### Other
-Icon	                    | Core              | React             | Usage
+Icon                        | Core              | React             | Usage
 --------------------------- | ----------------- | ------------------|--------------------------
-<HDS.IconTicket />	        | ticket            | Ticket            |
+<HDS.IconTicket />          | ticket            | Ticket            |
+<HDS.IconGlyphEuro />       | glyph-euro        | GlyphEuro         |
+<HDS.IconGlyphAt />         | glyph-at          | GlyphAt           | E-mail, mention user
+<HDS.IconCake />            | cake              | Cake              | Date of birth
 
 
 ### Illustrative icons
-> Coming soon!
+<StatusLabel type="error">Coming soon</StatusLabel>
 
 
 ### Pictograms
-> Coming soon!
-
+<StatusLabel type="error">Coming soon</StatusLabel>
 
 ### SoMe Icons
-Icon	                    | Core              | React             | Usage
+Icon                        | Core              | React             | Usage
 --------------------------- | ----------------- | ------------------|--------------------------
 <HDS.IconDiscord />         | discord           | Discord           |
 <HDS.IconFacebook />        | facebook          | Facebook          |
 <HDS.IconGoogle />          | google            | Google            | Google account login
 <HDS.IconInstagram />       | instagram         | Instagram         |
 <HDS.IconLinkedin />        | linkedin          | Linkedin          |
+<HDS.IconRss />             | rss               | Rss               |
 <HDS.IconSnapchat />        | snapchat          | Snapchat          |
 <HDS.IconTiktok />          | tiktok            | Tiktok            |
 <HDS.IconTwitch />          | twitch            | Twitch            |
 <HDS.IconTwitter />         | twitter           | Twitter           |
 <HDS.IconVimeo />           | vimeo             | Vimeo             |
-<HDS.IconYle />             | yle               | Yle               | Yle-tunnus account 
+<HDS.IconYle />             | yle               | Yle               | Yle-tunnus account
 <HDS.IconYoutube />         | youtube           | Youtube           |
