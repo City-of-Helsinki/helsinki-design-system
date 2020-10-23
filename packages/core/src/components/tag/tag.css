@@ -1,7 +1,7 @@
 .hds-tag {
   --tag-background: var(--color-black-10);
   --tag-color: var(--color-black-90);
-  --tag-focus-outline-color: var(--color-coat-of-arms-blue);
+  --tag-focus-outline-color: var(--color-coat-of-arms);
 
   align-items: center;
   background-color: var(--tag-background);

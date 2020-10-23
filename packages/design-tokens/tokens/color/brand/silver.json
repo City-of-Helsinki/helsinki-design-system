@@ -1,0 +1,20 @@
+{
+  "color": {
+    "silver": {
+      "value": "#dedfe1",
+      "type": "color"
+    },
+    "silver-light": {
+      "value": "#f7f7f8",
+      "type": "color"
+    },
+    "silver-medium-light": {
+      "value": "#efeff0",
+      "type": "color"
+    },
+    "silver-dark": {
+      "value": "#b0b8bf",
+      "type": "color"
+    }
+  }
+}
