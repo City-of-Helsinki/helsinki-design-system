@@ -1,4 +1,4 @@
-@svg-load icon url(../../svg/ui/rss.svg);
+@svg-load icon url(../../svg/some/rss.svg);
 
 .hds-icon--rss {
   mask-image: svg-inline(icon);

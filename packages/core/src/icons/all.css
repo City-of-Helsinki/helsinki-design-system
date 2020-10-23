@@ -4,6 +4,7 @@
 @import "some/icon-google.css";
 @import "some/icon-instagram.css";
 @import "some/icon-linkedin.css";
+@import "some/icon-rss.css";
 @import "some/icon-snapchat.css";
 @import "some/icon-tiktok.css";
 @import "some/icon-twitch.css";
@@ -132,7 +133,6 @@
 @import "ui/icon-printer.css";
 @import "ui/icon-question-circle-fill.css";
 @import "ui/icon-refresh.css";
-@import "ui/icon-rss.css";
 @import "ui/icon-sliders.css";
 @import "ui/icon-sort-alphabetical-ascending.css";
 @import "ui/icon-sort-alphabetical-descending.css";
