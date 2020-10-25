@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
+import { withKnobs } from '@storybook/addon-knobs';
 
 import { Card } from './Card';
 import { Button } from '../button';
@@ -7,67 +7,38 @@ import { Button } from '../button';
 export default {
   component: Card,
   title: 'Components/Card',
+  decorators: [withKnobs],
   parameters: {
-    controls: { hideNoControlsWarning: true },
-    docs: {
-      page: () => (
-        <>
-          <Title>Props</Title>
-          <ArgsTable />
-          <Stories title="Examples" includePrimary />
-        </>
-      ),
-    },
+    controls: { expanded: true },
   },
 };
 
-export const Empty = () => (
-  <>
-    <Card />
-    <br />
-    <br />
-    <Card border />
-  </>
-);
+export const Empty = (args) => <Card {...args} />;
 
-export const TextHeading = () => (
-  <>
-    <Card
-      heading="Card"
-      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    />
-    <br />
-    <br />
-    <Card
-      border
-      heading="Card"
-      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    />
-  </>
-);
-TextHeading.storyName = 'Text & heading';
+export const WithBorder = (args) => <Card {...args} />;
+WithBorder.storyName = 'With border';
+WithBorder.args = {
+  border: true,
+};
 
-export const TextHeadingButton = () => (
-  <>
-    <Card
-      heading="Card"
-      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    >
-      <Button variant="secondary" theme="black">
-        Button
-      </Button>
-    </Card>
-    <br />
-    <br />
-    <Card
-      border
-      heading="Card"
-      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    >
-      <Button variant="secondary" theme="black">
-        Button
-      </Button>
-    </Card>
-  </>
+export const TextHeading = (args) => <Card {...args} />;
+TextHeading.storyName = 'With text & heading';
+TextHeading.args = {
+  heading: 'Card',
+  text:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+};
+
+export const WithOtherComponents = (args) => (
+  <Card {...args}>
+    <Button variant="secondary" theme="black">
+      Button
+    </Button>
+  </Card>
 );
-TextHeadingButton.storyName = 'Text, heading & button';
+WithOtherComponents.storyName = 'With other components';
+WithOtherComponents.args = {
+  heading: 'Card',
+  text:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+};
