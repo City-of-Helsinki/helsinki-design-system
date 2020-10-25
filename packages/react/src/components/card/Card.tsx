@@ -2,7 +2,7 @@ import React from 'react';
 
 // import core base styles
 import 'hds-core';
-import styles from './Card.module.css';
+import styles from './Card.module.scss';
 import classNames from '../../utils/classNames';
 
 export type CardProps = {
