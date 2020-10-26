@@ -14,8 +14,12 @@ export const IconArrowRight = ({ size = 's', className = '', style = {}, ...rest
     xmlns="http://www.w3.org/2000/svg"
   >
     <g fill="none" fillRule="evenodd">
-      <path d="M0 0h24v24H0z" />
-      <path fill="currentColor" d="M12.586 7.05L14 5.636 20.364 12 14 18.364l-1.414-1.414 3.95-3.95H4v-2h12.535z" />
+      <rect width="24" height="24" />
+      <polygon
+        fill="currentColor"
+        points="10.5 5.5 12 7 8 11 20.5 11 20.5 13 8 13 12 17 10.5 18.5 4 12"
+        transform="matrix(-1 0 0 1 24.5 0)"
+      />
     </g>
   </svg>
 );
