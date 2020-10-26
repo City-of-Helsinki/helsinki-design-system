@@ -6,16 +6,16 @@ import styles from '../Icon.module.css';
 
 export const IconAngleLeft = ({ size = 's', className = '', style = {}, ...rest }: IconProps) => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
     className={classNames(styles.icon, styles[size], className)}
     style={style}
     viewBox="0 0 24 24"
     {...rest}
     role="img"
+    xmlns="http://www.w3.org/2000/svg"
   >
     <g fill="none" fillRule="evenodd">
-      <path d="M24 0v24H0V0z" />
-      <path fill="currentColor" d="M10.5 12l5 5-1.5 1.5L7.5 12 14 5.5 15.5 7z" />
+      <polygon points="24 0 24 24 0 24 0 0" />
+      <polygon fill="currentColor" points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7" />
     </g>
   </svg>
 );

@@ -4,16 +4,16 @@
       "value": "#bd2719",
       "type": "color"
     },
-    "brick-light-20": {
-      "value": "#f1d3d1",
+    "brick-light": {
+      "value": "#ffeeed",
       "type": "color"
     },
-    "brick-light-50": {
-      "value": "#de938c",
+    "brick-medium-light": {
+      "value": "#facbc8",
       "type": "color"
     },
-    "brick-dark-50": {
-      "value": "#99160a",
+    "brick-dark": {
+      "value": "#800e04",
       "type": "color"
     }
   }

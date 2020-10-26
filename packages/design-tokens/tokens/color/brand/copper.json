@@ -4,16 +4,16 @@
       "value": "#00d7a7",
       "type": "color"
     },
-    "copper-light-20": {
-      "value": "#ccf7ed",
+    "copper-light": {
+      "value": "#cffaf1",
       "type": "color"
     },
-    "copper-light-50": {
-      "value": "#80ebd3",
+    "copper-medium-light": {
+      "value": "#9ef0de",
       "type": "color"
     },
-    "copper-dark-50": {
-      "value": "#01b78e",
+    "copper-dark": {
+      "value": "#00a17d",
       "type": "color"
     }
   }

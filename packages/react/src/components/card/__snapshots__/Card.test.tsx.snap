@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Card /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="card"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Card /> spec renders with additional props and children 1`] = `
+<DocumentFragment>
+  <div
+    class="card border"
+  >
+    <div
+      class="body"
+    >
+      <div
+        aria-level="2"
+        class="heading"
+        role="heading"
+      >
+        Foo
+      </div>
+      <div
+        class="text"
+      >
+        Bar
+      </div>
+    </div>
+    Baz
+  </div>
+</DocumentFragment>
+`;

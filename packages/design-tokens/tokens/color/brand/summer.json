@@ -4,16 +4,16 @@
       "value": "#ffc61e",
       "type": "color"
     },
-    "summer-light-20": {
-      "value": "#fff3d2",
+    "summer-light": {
+      "value": "#fff4d4",
       "type": "color"
     },
-    "summer-light-50": {
-      "value": "#ffe28e",
+    "summer-medium-light": {
+      "value": "#ffe49c",
       "type": "color"
     },
-    "summer-dark-50": {
-      "value": "#e2ab0a",
+    "summer-dark": {
+      "value": "#cc9200",
       "type": "color"
     }
   }

@@ -4,16 +4,16 @@
       "value": "#ffe977",
       "type": "color"
     },
-    "engel-light-20": {
-      "value": "#fffae3",
+    "engel-light": {
+      "value": "#fff9db",
       "type": "color"
     },
-    "engel-light-50": {
-      "value": "#fff4bb",
+    "engel-medium-light": {
+      "value": "#fff3b8",
       "type": "color"
     },
-    "engel-dark-50": {
-      "value": "#f5da4e",
+    "engel-dark": {
+      "value": "#dbc030",
       "type": "color"
     }
   }

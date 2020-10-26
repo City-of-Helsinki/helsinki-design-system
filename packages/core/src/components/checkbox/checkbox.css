@@ -12,11 +12,11 @@
 
   --background-unselected: transparent;
   --background-selected: var(--color-bus);
-  --background-hover: var(--color-bus-dark-50);
+  --background-hover: var(--color-bus-dark);
   --background-disabled: var(--color-black-10);
 
   --border-color-selected: var(--color-bus);
-  --border-color-selected-hover: var(--color-bus-dark-50);
+  --border-color-selected-hover: var(--color-bus-dark);
   --border-color-selected-focus: var(--color-bus);
   --border-color-unselected: var(--color-black-50);
   --border-color-unselected-hover: var(--color-black-90);
@@ -27,7 +27,7 @@
   --icon-color-selected: var(--color-white);
   --icon-color-disabled: var(--color-white);
 
-  --focus-outline-color: var(--color-coat-of-arms-blue);
+  --focus-outline-color: var(--color-coat-of-arms);
 
   --label-color: var(--color-black-90);
   --label-color-disabled: var(--color-black-40);

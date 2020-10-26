@@ -25,7 +25,7 @@
   --label-color-default: var(--color-black-90);
   --label-color-invalid: var(--color-black-90);
   --placeholder-color: var(--color-black-60);
-  --focus-outline-color: var(--color-coat-of-arms-blue);
+  --focus-outline-color: var(--color-coat-of-arms);
 }
 
 /* text-input transitions */

@@ -155,6 +155,18 @@ export type CommonSelectProps<OptionType> = {
    * Sets the number of options that are visible in the menu before it becomes scrollable
    */
   visibleOptions?: number;
+  /**
+   * Aria-label text for the tooltip
+   */
+  tooltipLabel?: string;
+  /**
+   * Aria-label text for the tooltip trigger button
+   */
+  tooltipButtonLabel?: string;
+  /**
+   * The text content of the tooltip
+   */
+  tooltipText?: string;
 };
 
 export type SingleSelectProps<OptionType> = CommonSelectProps<OptionType> & {
@@ -305,6 +317,9 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
     theme,
     virtualized = false,
     visibleOptions = 5,
+    tooltipLabel,
+    tooltipButtonLabel,
+    tooltipText,
   } = props;
   // flag for whether the component is controlled
   const controlled = props.multiselect && props.value !== undefined;
@@ -457,7 +472,16 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
       style={style}
     >
       {/* LABEL */}
-      {label && <FieldLabel label={label} required={required} {...getLabelProps()} />}
+      {label && (
+        <FieldLabel
+          label={label}
+          required={required}
+          {...getLabelProps()}
+          tooltipLabel={tooltipLabel}
+          tooltipButtonLabel={tooltipButtonLabel}
+          tooltipText={tooltipText}
+        />
+      )}
       <div className={styles.wrapper} onFocus={handleWrapperFocus} onBlur={handleWrapperBlur}>
         {/* SELECTED ITEMS */}
         {props.multiselect && selectedItems.length > 0 && (

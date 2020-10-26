@@ -96,6 +96,9 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     virtualized = false,
     visibleOptions = 5,
     filter: userLandFilter,
+    tooltipLabel,
+    tooltipButtonLabel,
+    tooltipText,
   } = props;
 
   // flag for whether the component is controlled
@@ -315,7 +318,16 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
       style={style}
     >
       {/* LABEL */}
-      {label && <FieldLabel label={label} required={required} {...getLabelProps()} />}
+      {label && (
+        <FieldLabel
+          label={label}
+          required={required}
+          {...getLabelProps()}
+          tooltipLabel={tooltipLabel}
+          tooltipButtonLabel={tooltipButtonLabel}
+          tooltipText={tooltipText}
+        />
+      )}
       {
         // This onClick function is used so that mouse users are able to
         // focus the Combobox without having to use the keyboard. The

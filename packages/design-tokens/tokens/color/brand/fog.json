@@ -4,16 +4,16 @@
       "value": "#9fc9eb",
       "type": "color"
     },
-    "fog-light-20": {
-      "value": "#ebf4fb",
+    "fog-light": {
+      "value": "#e8f3fc",
       "type": "color"
     },
-    "fog-light-50": {
-      "value": "#cfe4f5",
+    "fog-medium-light": {
+      "value": "#d0e6f7",
       "type": "color"
     },
-    "fog-dark-50": {
-      "value": "#78a4c7",
+    "fog-dark": {
+      "value": "#72a5cf",
       "type": "color"
     }
   }

@@ -1,5 +1,5 @@
 .wrapper {
-  --card-background-primary: var(--color-coat-of-arms-blue);
+  --card-background-primary: var(--color-coat-of-arms);
   --card-background-secondary: var(--color-fog);
   --card-background-tertiary: var(--color-suomenlinna);
 
