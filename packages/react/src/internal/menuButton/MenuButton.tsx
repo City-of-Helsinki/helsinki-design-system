@@ -122,6 +122,10 @@ const handleKeydown = (
 ) => {
   const { key } = event;
 
+  if (key === 'ArrowUp' || key === 'ArrowDown') {
+    // prevent the default page scrolling behaviour
+    event.preventDefault();
+  }
   if (key === ' ' || key === 'Enter' || key === 'ArrowDown') {
     dispatch({ type: 'FOCUS_FIRST_ITEM' });
   }
