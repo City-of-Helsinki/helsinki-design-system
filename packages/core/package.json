@@ -1,10 +1,10 @@
 {
   "name": "hds-core",
-  "version": "0.13.2",
+  "version": "0.14.0",
   "description": "Core styles for the Helsinki Design System",
   "author": "Anssi Lehtonen <lehtovaaralainen@gmail.com>",
   "contributors": [
-    "Niclas Liimatainen <niclas.liimatainen@digia.com>"
+    "Niclas Liimatainen <niclas.liimatainen@gmail.com>"
   ],
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
@@ -29,7 +29,7 @@
     "@storybook/html": "6.0.19",
     "copyfiles": "2.2.0",
     "cssnano": "4.1.10",
-    "hds-design-tokens": "0.13.2",
+    "hds-design-tokens": "0.14.0",
     "normalize.css": "8.0.1",
     "postcss": "7.0.30",
     "postcss-cli": "7.1.1",

@@ -48,7 +48,7 @@
 }
 
 .menuItem {
-  composes: menuItem from '../../dropdown/Dropdown.module.css';
+  composes: menuItem from '../../dropdown/dropdown/Dropdown.module.css';
 }
 
 .languageSelectorDropdown .menuItem {
@@ -60,7 +60,7 @@
 }
 
 .highlighted {
-  composes: highlighted from '../../dropdown/Dropdown.module.css';
+  composes: highlighted from '../../dropdown/dropdown/Dropdown.module.css';
 }
 
 .angleIcon {
@@ -68,15 +68,15 @@
 }
 
 .placeholder {
-  composes: placeholder from '../../dropdown/Dropdown.module.css';
+  composes: placeholder from '../../dropdown/dropdown/Dropdown.module.css';
 }
 
 .disabled {
-  composes: disabled from '../../dropdown/Dropdown.module.css';
+  composes: disabled from '../../dropdown/dropdown/Dropdown.module.css';
 }
 
 .buttonDropdown {
-  composes: buttonDropdown from '../../dropdown/Dropdown.module.css';
+  composes: buttonDropdown from '../../dropdown/dropdown/Dropdown.module.css';
 }
 
 .languageSelectorDropdown .buttonDropdown {

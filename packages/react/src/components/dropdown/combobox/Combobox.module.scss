@@ -1,0 +1,149 @@
+@import "../../../styles/common";
+@import "../dropdown.common";
+
+.root {
+  @extend %dropdownRoot;
+}
+
+/**
+ * WRAPPER
+ */
+
+.wrapper {
+  @extend %dropdownWrapper;
+  align-items: center;
+  display: flex;
+}
+
+/**
+ * TOGGLE BUTTON
+ */
+
+.button {
+  @extend %buttonReset;
+  @extend %dropdownAngleIcon;
+  color: var(--dropdown-color-default);
+  outline: none;
+  display: flex;
+
+  &.hidden {
+    @extend %hiddenFromScreen;
+  }
+}
+
+.icon {
+  @extend %dropdownIcon;
+  margin-left: var(--spacing-s);
+}
+
+.input {
+  align-self: stretch;
+  background-color: var(--input-background-default);
+  border: none;
+  box-sizing: border-box;
+  color: var(--input-color-default);
+  font-size: var(--fontsize-body-l);
+  height: var(--menu-item-height);
+  // The focus is given to the wrapping element instead of this input
+  // so we can hide the outline.
+  outline: none;
+  padding: 0 calc(var(--spacing-l) + var(--icon-size)) 0 0;
+  // Removes the input shadow on iOS
+  -webkit-appearance: none;
+  width: 100%;
+
+  // add left padding when there is no icon
+  &:first-child {
+    padding-left: var(--spacing-s);
+  }
+
+  &:not(:focus).hidden {
+    @extend %hiddenFromScreen;
+  }
+
+  // don't add additional right padding if toggle button is hidden
+  &.noToggle {
+    padding-right: var(--spacing-s);
+  }
+
+  &::placeholder {
+    color: var(--placeholder-color);
+    line-height: normal;
+  }
+
+  &:disabled::placeholder {
+    color: var(--dropdown-color-disabled);
+  }
+}
+
+/**
+ * MENU
+ */
+
+.menu {
+  @extend %dropdownMenu;
+}
+
+/**
+ * MENU ITEM
+ */
+
+.menuItem {
+  @extend %dropdownMenuItem;
+}
+
+/**
+ * HELPER TEXT
+ */
+
+.helperText {
+  @extend %dropdownHelperText;
+}
+
+/**
+ * DISABLED
+ */
+
+.disabled {
+  @extend %dropdownDisabled;
+}
+
+/**
+ * INVALID
+ */
+
+.invalid {
+  @extend %dropdownInvalid;
+}
+
+/**
+ * MULTISELECT
+ */
+
+.multiselect {
+  @extend %dropdownMultiselect;
+
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .selectedItems {
+    align-self: stretch;
+  }
+
+  .input {
+    align-self: unset;
+    padding: 0 calc(var(--spacing-l) + var(--icon-size)) 0 var(--spacing-s);
+
+    // don't add additional right padding if toggle button is hidden
+    &.noToggle {
+      padding-right: var(--spacing-s);
+    }
+
+    // move input closer to selected items and remove right spacing that accounted for the toggle button
+    &.adjustSpacing {
+      margin-top: calc(var(--spacing-2-xs) * -1);
+      padding: 0 var(--spacing-s);
+    }
+  }
+}

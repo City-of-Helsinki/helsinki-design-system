@@ -1,0 +1,98 @@
+@value x-small-only, small-down, small-only, small-up, medium-down, medium-only, medium-up, large-up from "../../../styles/breakpoints.css";
+@import "../common";
+
+.divider {
+  @extend %divider;
+}
+
+.base {
+  display: flex;
+  padding: 0 var(--spacing-m) var(--spacing-m);
+}
+
+.copyright {
+  display: grid;
+  font-size: var(--fontsize-body-s);
+}
+
+.links {
+  display: grid;
+  gap: var(--spacing-xs);
+}
+
+// link items
+.base .links > * {
+  font-size: var(--fontsize-body-s);
+  text-decoration: underline;
+}
+
+@media x-small-only {
+  .copyright {
+
+    &Dot {
+      display: none;
+    }
+  }
+}
+
+@media small-down {
+  .copyright {
+    justify-items: center;
+  }
+
+  .links {
+    justify-content: center;
+  }
+}
+
+@media small-only {
+  .base .links {
+    @include gridColumns(3);
+  }
+
+  .copyright {
+    justify-content: center;
+  }
+}
+
+@media small-up {
+  .copyright {
+    grid-auto-flow: column;
+    gap: var(--spacing-3-xs);
+  }
+}
+
+@media medium-down {
+  .base {
+    flex-direction: column;
+  }
+
+  .links {
+    margin-top: var(--spacing-2-xs);
+  }
+}
+
+@media medium-only {
+  .links {
+    margin-top: var(--spacing-2-xs);
+  }
+}
+
+@media medium-up {
+  .copyright {
+    justify-content: start;
+  }
+
+  .links {
+    grid-auto-flow: column;
+    justify-content: start;
+  }
+}
+
+@media large-up {
+  .base {
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}

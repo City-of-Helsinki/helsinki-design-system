@@ -26,55 +26,55 @@ See the [icon library documentation](/visual-assets/icons "HDS Icons") for more 
 - **An icon and its related content or label should have the same meaning.** Conflicting and ambivalent interpretations can have a negative effect on usability and accessibility.
 
 ## Accessibility
-- A text alternative must always be provided for icons using the WAI-ARIA definition _aria-label_ or _aria-labelledby_. See <Link href="https://www.w3.org/TR/WCAG21/#text-alternatives" external>WCAG 2.1 Text Alternatives guideline</Link> for more information.
-- Illustrative icons should use the WAI-ARIA definition _role='presentation'_.
+- For icons that do not have a visual text label but are important must be given a text alternative using the WAI-ARIA definition _aria-label_ or _aria-labelledby_. See <Link href="https://www.w3.org/TR/WCAG21/#text-alternatives" external>WCAG 2.1 Text Alternatives guideline</Link> for more information.
+- If the icon has a visual text label associated with it, the icon can be hidden from assistive technologies with `aria-hidden="true"`. This prevents screenreaders repeating the same information twice (visual text followed by the icon description).
+- If the icon is only decorative, it should be always hidden from assistive technologies with `aria-hidden="true"`.
 - The colour contrast between the icon and its background must comply with <Link href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>AA Level contrast ratios</Link>.
-
 
 ## Usage
 
 ### Default
 
 <Playground>
-  <IconFaceSmile role="presentation" />
+  <IconFaceSmile aria-hidden="true" />
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
-<i class="hds-icon hds-icon--face-smile" role="presentation"></i>
+<i class="hds-icon hds-icon--face-smile" aria-hidden="true"></i>
 ```
 
-##### React:
+#### React code example:
 ```tsx
-<IconFaceSmile role="presentation" />
+<IconFaceSmile aria-hidden="true" />
 ```
 
 ### Icon sizes
 
 <Playground>
-  <IconFaceSmile size="xs" role="presentation" />
-  <IconFaceSmile size="s" role="presentation" />
-  <IconFaceSmile size="m" role="presentation" />
-  <IconFaceSmile size="l" role="presentation" />
-  <IconFaceSmile size="xl" role="presentation" />
+  <IconFaceSmile size="xs" aria-hidden="true" />
+  <IconFaceSmile size="s" aria-hidden="true" />
+  <IconFaceSmile size="m" aria-hidden="true" />
+  <IconFaceSmile size="l" aria-hidden="true" />
+  <IconFaceSmile size="xl" aria-hidden="true" />
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
-<i class="hds-icon hds-icon--face-smile hds-icon--size-xs" role="presentation"></i>
-<i class="hds-icon hds-icon--face-smile hds-icon--size-s" role="presentation"></i>
-<i class="hds-icon hds-icon--face-smile hds-icon--size-m" role="presentation"></i>
-<i class="hds-icon hds-icon--face-smile hds-icon--size-l" role="presentation"></i>
-<i class="hds-icon hds-icon--face-smile hds-icon--size-xl" role="presentation"></i>
+<i class="hds-icon hds-icon--face-smile hds-icon--size-xs" aria-hidden="true"></i>
+<i class="hds-icon hds-icon--face-smile hds-icon--size-s" aria-hidden="true"></i>
+<i class="hds-icon hds-icon--face-smile hds-icon--size-m" aria-hidden="true"></i>
+<i class="hds-icon hds-icon--face-smile hds-icon--size-l" aria-hidden="true"></i>
+<i class="hds-icon hds-icon--face-smile hds-icon--size-xl" aria-hidden="true"></i>
 ```
 
-##### React:
+#### React code example:
 ```tsx
-<IconFaceSmile size="xs" role="presentation" />
-<IconFaceSmile size="s" role="presentation" />
-<IconFaceSmile size="m" role="presentation" />
-<IconFaceSmile size="l" role="presentation" />
-<IconFaceSmile size="xl" role="presentation" />
+<IconFaceSmile size="xs" aria-hidden="true" />
+<IconFaceSmile size="s" aria-hidden="true" />
+<IconFaceSmile size="m" aria-hidden="true" />
+<IconFaceSmile size="l" aria-hidden="true" />
+<IconFaceSmile size="xl" aria-hidden="true" />
 ```
 
 ## Demos & API

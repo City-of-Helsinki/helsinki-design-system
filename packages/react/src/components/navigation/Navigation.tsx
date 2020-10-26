@@ -15,6 +15,7 @@ import { NavigationDropdown } from './navigation-dropdown/NavigationDropdown';
 import { useMobile } from '../../hooks/useMobile';
 import { IconCross, IconMenuHamburger } from '../../icons';
 import { NavigationReducerAction, NavigationReducerState } from './Navigation.interface';
+import { getChildrenAsArray, getComponentFromChildren } from '../../utils/getChildren';
 import { FCWithName } from '../../common/types';
 
 const MOBILE_MENU_TRANSITION: UseTransitionProps = {
@@ -202,23 +203,18 @@ export const Navigation = ({
 
   // navigation context
   const context: NavigationContextProps = { dispatch, isMobile };
-  // ensure that children is an array
-  const childrenAsArray = React.Children.toArray(children) as React.ReactElement[];
-  // children without the navigation row
-  const childrenWithoutNavigation = childrenAsArray.filter(
-    (child) => (child.type as FCWithName)?.componentName !== 'NavigationRow',
-  );
   // filter out the NavigationRow, so that it can be rendered correctly based on the 'navigationRowDisplay' value
-  const navigation = childrenAsArray.filter((child) => (child.type as FCWithName)?.componentName === 'NavigationRow');
+  const [navigation, childrenWithoutNavigation] = getComponentFromChildren(children, 'NavigationRow');
 
   // children that will be rendered in the mobile menu
   let menuChildren = null;
 
   if (isMobile) {
     // navigation actions
-    const actions = childrenAsArray.find((child) => (child.type as FCWithName).componentName === 'NavigationActions')
-      ?.props?.children;
-    const items = React.Children.toArray([navigation, actions]) as React.ReactElement[];
+    const actions = getChildrenAsArray(children).find(
+      (child) => (child.type as FCWithName).componentName === 'NavigationActions',
+    )?.props?.children;
+    const items = getChildrenAsArray([navigation, actions]);
 
     // rearrange children
     menuChildren = rearrangeChildrenForMobile(items, authenticated);

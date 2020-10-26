@@ -1,0 +1,69 @@
+// COMMON FOOTER STYLES AND UTILS
+@import "../../styles/common";
+
+/**
+ * footer section divider
+ */
+%divider {
+  background-color: var(--footer-divider-color);
+  border: 0;
+  height: 1px;
+  margin: 0 0 var(--spacing-xs);
+  width: 100%;
+}
+
+/**
+ * footer item
+ */
+%footerItem {
+  @extend %buttonReset;
+  align-items: center;
+  align-self: start;
+  color: inherit;
+  display: flex;
+  font-weight: 500;
+  justify-content: center;
+  outline: none;
+  position: relative;
+  text-decoration: none;
+
+  &:hover:not(:focus) {
+    text-decoration: underline;
+  }
+
+  &:focus::after {
+    --focus-outline-size: calc(100% + var(--spacing-2-xs));
+    border: var(--footer-focus-outline-width) solid var(--footer-focus-outline-color);
+    border-radius: var(--footer-focus-outline-border-radius);
+    box-sizing: border-box;
+    content: '';
+    height: var(--focus-outline-size);
+    position: absolute;
+    width: var(--focus-outline-size);
+  }
+}
+
+/**
+ * Creates grid columns based on the given value. Centers all "orphan" items on the last row.
+ */
+@mixin gridColumns($columns) {
+  $centeringOptions: (
+          5: (1: 7, 2: 6, 3: 5, 4: 4),
+          4: (1: 6, 2: 5, 3: 4),
+          3: (1: 5, 2: 4),
+          2: (1: 4)
+  );
+
+  grid-template-columns: repeat(#{$columns * 2}, auto);
+
+  & > * {
+    grid-column: span 2;
+
+    // center orphan items
+    @each $orphans, $columnEnd in map-get($centeringOptions, $columns) {
+      &:nth-last-child(#{$orphans}):nth-child(#{$columns}n + 1) {
+        grid-column-end: $columnEnd;
+      }
+    }
+  }
+}

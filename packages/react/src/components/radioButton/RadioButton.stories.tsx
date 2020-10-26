@@ -8,6 +8,7 @@ export default {
   component: RadioButton,
   title: 'Components/RadioButton',
   parameters: {
+    controls: { hideNoControlsWarning: true },
     docs: {
       page: () => (
         <>

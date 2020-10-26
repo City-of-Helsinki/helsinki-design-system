@@ -1,0 +1,24 @@
+@import "../common";
+
+.item {
+  @extend %footerItem;
+
+  // spacing between icon and label
+  & > *:nth-child(2) {
+    margin-left: var(--spacing-3-xs);
+  }
+
+  &.subItem {
+    font-weight: normal;
+    margin-top: var(--spacing-3-xs);
+  }
+}
+
+// angle icon
+.subItemIcon {
+  align-self: start;
+  height: var(--spacing-xs);
+  min-width: var(--spacing-xs);
+  transform: translateY(4px);
+  width: var(--spacing-xs);
+}

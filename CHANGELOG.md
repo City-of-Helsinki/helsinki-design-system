@@ -6,6 +6,137 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.0] - October 15, 2020
+### Core
+#### Changed
+- [Icons] Added `role="img"` to all icons. in ([#268](https://github.com/City-of-Helsinki/helsinki-design-system/pull/268))
+- [Notification] Changed wrapping HTML element from `div` to `section`. in ([#273](https://github.com/City-of-Helsinki/helsinki-design-system/pull/273))
+- [Notification] Added `role="alert"` for toast notifications. Removed `role` attribute from inline notifications. in ([#273](https://github.com/City-of-Helsinki/helsinki-design-system/pull/273))
+- [Notification] Added `role="heading"` and `aria-level="2"` to the notification label. in ([#273](https://github.com/City-of-Helsinki/helsinki-design-system/pull/273))
+
+#### Removed
+- [Checkbox] Removed redundant aria-checked (already using `type="checkbox"`). in ([#271](https://github.com/City-of-Helsinki/helsinki-design-system/pull/271))
+- [Radio button] Removed redundant aria-checked (already using `type="radio"`). in ([#271](https://github.com/City-of-Helsinki/helsinki-design-system/pull/271))
+
+### Design kit
+#### Added
+- New component: Footer
+- New component: Tag (documentation coming soon)
+- New component: Card (implementation coming soon)
+    - Example card layouts (Card on top of a photo, Image card)
+- New component: Placeholders
+    - Image placeholder (e.g. for a blog post which is missing the thumbnail image)
+    - Avatar placeholder (e.g. for a user that is missing an avatar)
+- New version of Multiselect Dropdown component. The multiselect component was divided into two separate components; Select and Combobox. Select will act like the old implementation, but it does not offer filtering. Combobox will work similarly, but it will include filtering. This change was made for accessibility reasons. Separating the implementation was needed to make keyboard and screen reader use working well and according to standards.
+
+#### Changed
+- HDS Library symbol naming and structure standardized to follow new [HDS Sketch guidelines](https://hds.hel.fi/contributing/design#guidelines-for-hds-design-library-files). This includes naming changes to most symbols but below you can find a list of the most important changes.
+    - Internal (only used in HDS libraries) symbols are now grouped in x_Parts symbol folder
+    - Internal (only used in HDS libraries) section symbols are now grouped in x_Sections symbol folder
+    - Renamed and rearranged multiple symbol showcase artboards
+    - [Buttons] Changed local text style in Button 02 Secondary hover states to use shared style
+    - [Navigation] Changed symbol folder hierarchy for easier symbol swapping
+    - [Modals and Notifications] Changed layer order in symbols to match layout
+    - [Modals and Notifications] Fixed sub-pixel positioning in Default Alert Toast
+    - [Typography] Added text styles used in HDS Footer: `Body S - Medium - 05 Link - Black` and `Body S - Medium - 05 Link - White`
+- Renamed "HDS Text and Photo" library to "HDS Cards"
+- [Cards] Moved current "Text+Photo" symbols to new "Example card layouts" page
+- [Cards] Converted current "Text+Photo" symbols to use new Card symbols
+- [Cards] Renamed "Text+Photo" symbols to "Card on top of a photo"
+- [Form Components] Replaced old checkbox symbols in Multiselect with current symbols
+- [Form Components] **Old Multiselect Dropdown symbols were moved to xx_Deprecated category.** These will be removed in future updates, but you may continue to use them if you do not have time to upgrade to the new design.
+- [Form Components] Updated Dropdown option hover style to use brand colours. Same style is also used when browsing the options with keyboard.
+- [Form Components] Symbolized error text (was previously a styled Assistive text)
+- [Form Components] Moved the error icon from inside the input to the front of the error text.
+- [Form Components] Added assistive text below the error description in all related component error states. This change was made to increase accessibility in situations where assistive text is essential information to fix input errors.
+- [Form Components] Updated Dropdown symbol showcase artboards to reflect new changes and features.
+- [Navigation] Added 2 Rows variant to 02 Dark
+- [Navigation] Added Mobile sizes open variant to 02 Dark
+- [Navigation] Renamed some layers to better match their usage
+
+#### Removed
+- [Form Components] Unnecessary overrides from Dropdown option symbols
+- [Navigation] Redundant folders from Navigation symbols
+
+### Documentation
+#### Added
+- Footer documentation
+- [Icons] Added a recommendation to use aria-hidden="true" instead of role="presentation
+- [Logo] Added guidelines for adding aria-labels for logos and service names
+
+#### Changed
+- Made improvements to focus colour guideline in Colour token page
+- Made documentation page titles dynamic (now titles also feature page names)
+- [Dropdown] Updated Dropdown documentation to reflect implementation changes
+- [Dropdown] Made improvements and clarifications to the Dropdown accessibility documentation
+
+#### Removed
+- Broken mailto-link from the Support page
+
+### React
+#### Added
+- Footer component. in ([#253](https://github.com/City-of-Helsinki/helsinki-design-system/pull/253))
+ 
+#### Changed
+- [Dropdown] The Dropdown component has gone through a complete overhaul, and the component was divided into two components; Select and Combobox. in ([#258](https://github.com/City-of-Helsinki/helsinki-design-system/pull/258))
+- [Icons] Added `role="img"` to all icons. in ([#268](https://github.com/City-of-Helsinki/helsinki-design-system/pull/268))
+- [Koros] Added `aria-hidden="true"` to the wave SVG. in ([#269](https://github.com/City-of-Helsinki/helsinki-design-system/pull/269))
+- [Logo] Added `role="img"` to logo SVG. in ([#272](https://github.com/City-of-Helsinki/helsinki-design-system/pull/272))
+- [Navigation] Added `role="search` to Navigation search wrapping div. in ([#270](https://github.com/City-of-Helsinki/helsinki-design-system/pull/270))
+- [Notification] Changed wrapping HTML element from `div` to `section`. in ([#273](https://github.com/City-of-Helsinki/helsinki-design-system/pull/273))
+- [Notification] Added `role="alert"` for toast notifications. Removed `role` attribute from inline notifications. in ([#273](https://github.com/City-of-Helsinki/helsinki-design-system/pull/273))
+- [Notification] Added `role="heading"` and `aria-level="2"` to the notification label. in ([#273](https://github.com/City-of-Helsinki/helsinki-design-system/pull/273))
+
+#### Fixed
+- [Navigation] Fixed an issue where search appeared below navigation links in the mobile menu. in ([#270](https://github.com/City-of-Helsinki/helsinki-design-system/pull/270))
+
+#### Removed
+- [Checkbox] Removed redundant aria-checked (already using `type="checkbox"`). in ([#271](https://github.com/City-of-Helsinki/helsinki-design-system/pull/271))
+- [Radio button] Removed redundant aria-checked (already using `type="radio"`). in ([#271](https://github.com/City-of-Helsinki/helsinki-design-system/pull/271))
+
+#### Deprecated
+- [Dropdown] The `Dropdown` component has been deprecated and will be removed in a future release, please use `Select` or `Combobox` instead. in ([#258](https://github.com/City-of-Helsinki/helsinki-design-system/pull/258))
+
+
+## [0.13.3] - October 5, 2020
+### Documentation
+### Added
+- lang attributes for Finnish colour names in Colour documentation Brand colour table
+- lang attributes for verbose language description examples in Localisation guidelines
+- Title attributes to front page image links (could not repeat the original issue of reading alt tags in wrong language)
+- h3 headings after h2 “Usage” in component documentation pages, that missed a h3 heading level
+
+#### Changed
+- Moved Contribution category above Resources page in documentation site navigation
+- Updated the roadmap to reflect new beta release plans and accessibility work
+- Markdown links to Link component with external prop for links that open an new window
+- component documentation code example h5 headings to h4
+- component documentation code example heading text "React:" to "React code example:"
+- component documentation code example heading text "Core:" to "Core code example:"
+
+#### Fixed
+- Japanese language code JP to JA in Localisation guidelines
+- Spanish language code SP to ES in Localisation guidelines
+- Insufficient link text "Here" to more descriptive in Logo guidelines
+- Insufficient link text "filterable" to more descriptive "filterable variant" and added alt tag in Dropdown documentation
+- Fixed `<b>` tags to `<strong>`
+- Fixed `<i>` tags to `<em>`
+
+#### Removed
+- Removed the link to #designsystem-dev Slack channel in Support page (does not exist anymore)
+- Removed a text about issue labeling in Support page (mentioned label does not exist anymore)
+
+### React
+#### Added
+- Added a CommonJS bundle back to the package. in ([#265](https://github.com/City-of-Helsinki/helsinki-design-system/pull/265))
+
+#### Fixed
+- Fixed the wrong `sideEffects` value that caused the core base styles to be tree shaken in CRA production builds. in ([#265](https://github.com/City-of-Helsinki/helsinki-design-system/pull/265))
+- [Navigation] Fixed the wrong maximum width of the component. in ([#265](https://github.com/City-of-Helsinki/helsinki-design-system/pull/265))
+- [Dropdown] Fixed the label font weight. in ([#265](https://github.com/City-of-Helsinki/helsinki-design-system/pull/265))
+- [TextArea] Fixed the label font weight. in ([#265](https://github.com/City-of-Helsinki/helsinki-design-system/pull/265))
+- [TextInput] Fixed the label font weight. in ([#265](https://github.com/City-of-Helsinki/helsinki-design-system/pull/265))
+
 
 ## [0.13.2] - September 21, 2020
 ### Documentation

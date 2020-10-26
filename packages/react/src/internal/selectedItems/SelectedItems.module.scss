@@ -1,0 +1,73 @@
+%hidden {
+  left: -9999px;
+  position: absolute;
+  top: -9999px;
+  visibility: hidden;
+}
+
+.selectedItems {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  padding: var(--spacing-4-xs) calc((var(--spacing-s) - var(--border-width)) * 2 + (var(--icon-size) * 2)) calc(var(--spacing-s) - var(--border-width)) var(--spacing-4-xs);
+
+  &.itemsHidden {
+    box-sizing: border-box;
+    height: var(--menu-item-height);
+    overflow: hidden;
+  }
+
+  &.noToggle {
+    padding-right: calc((var(--spacing-s) - var(--border-width)) * 2 + (var(--icon-size)));
+  }
+
+  .tag {
+    margin: var(--spacing-xs) 0 0 var(--spacing-xs);
+    position: relative;
+    z-index: 1;
+
+    &.hidden {
+      @extend %hidden;
+    }
+  }
+
+  .hiddenItemsCount {
+    font-weight: bold;
+    margin: var(--spacing-xs) 0 0 var(--spacing-xs);
+    opacity: 1;
+    pointer-events: none;
+    transition: 50ms cubic-bezier(0.47, 0, 0.75, 0.72);
+    user-select: none;
+
+    &.hidden {
+      @extend %hidden;
+      opacity: 0;
+    }
+  }
+}
+
+.clearButton {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+
+
+  display: flex;
+  outline: none;
+  position: absolute;
+  right: calc(var(--border-width) * -1);
+  top: 0;
+  transform: translate(calc(var(--spacing-2-xl) * -1), calc(var(--menu-item-height) / 2 - 50%));
+  z-index: 1;
+
+  &:focus {
+    box-shadow: 0 0 0 var(--focus-outline-width) var(--focus-outline-color);
+  }
+
+  &.noToggle {
+    transform: translate(calc(var(--spacing-s) * -1), calc(var(--menu-item-height) / 2 - 50%));
+  }
+}

@@ -8,6 +8,7 @@ exports[`<FieldLabel /> spec renders the component 1`] = `
   >
     foo
     <span
+      aria-hidden="true"
       class="indicator"
     >
       *

@@ -228,13 +228,12 @@ export const Notification = ({
   const notificationTransition = useSpring(open ? openTransitionProps : closeTransitionProps);
   const autoCloseTransition = useSpring(autoCloseTransitionProps);
 
-  // a11y attributes
-  const ariaLive: React.AriaAttributes['aria-live'] = type === 'error' ? 'assertive' : 'polite';
-  const role = type === 'error' ? 'alert' : 'status';
+  // Set role="alert" for non-inline notifications
+  const role = position !== 'inline' ? 'alert' : null;
 
   return (
     <ConditionalVisuallyHidden visuallyHidden={invisible}>
-      <animated.div
+      <animated.section
         // there is an issue with react-spring -rc3 and a new version of @types/react: https://github.com/react-spring/react-spring/issues/1102
         // eslint-disable-next-line  @typescript-eslint/no-explicit-any
         style={{ ...notificationTransition, ...(style as any) }}
@@ -246,17 +245,18 @@ export const Notification = ({
           autoClose && styles.noBorder,
           className,
         )}
-        role={role}
-        aria-live={ariaLive}
+        aria-label="Notification"
         aria-atomic="true"
         data-testid={dataTestId}
       >
         {autoClose && <animated.div style={autoCloseTransition} className={styles.autoClose} />}
-        <div className={styles.label}>
-          <Icon className={styles.icon} />
-          <ConditionalVisuallyHidden visuallyHidden={size === 'small'}>{label}</ConditionalVisuallyHidden>
+        <div className={styles.content} role={role}>
+          <div className={styles.label} role="heading" aria-level={2}>
+            <Icon className={styles.icon} />
+            <ConditionalVisuallyHidden visuallyHidden={size === 'small'}>{label}</ConditionalVisuallyHidden>
+          </div>
+          {children && <div className={styles.body}>{children}</div>}
         </div>
-        {children && <div className={styles.body}>{children}</div>}
         {dismissible && (
           <button
             className={classNames(styles.close, styles[type])}
@@ -268,7 +268,7 @@ export const Notification = ({
             <IconCross aria-hidden />
           </button>
         )}
-      </animated.div>
+      </animated.section>
     </ConditionalVisuallyHidden>
   );
 };

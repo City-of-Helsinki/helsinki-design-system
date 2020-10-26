@@ -14,6 +14,7 @@ export default {
   component: Section,
   title: 'Components/Section',
   parameters: {
+    controls: { hideNoControlsWarning: true },
     layout: 'fullscreen',
     docs: {
       page: () => (

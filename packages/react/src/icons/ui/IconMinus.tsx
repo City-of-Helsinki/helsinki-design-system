@@ -11,6 +11,7 @@ export const IconMinus = ({ size = 's', className = '', style = {}, ...rest }: I
     style={style}
     viewBox="0 0 24 24"
     {...rest}
+    role="img"
   >
     <g fill="none" fillRule="evenodd">
       <path d="M0 0h24v24H0z" />

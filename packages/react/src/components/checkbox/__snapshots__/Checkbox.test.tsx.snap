@@ -6,7 +6,6 @@ exports[`<Checkbox /> spec renders the component 1`] = `
     class="checkbox"
   >
     <input
-      aria-checked="false"
       class="input"
       id="test"
       type="checkbox"

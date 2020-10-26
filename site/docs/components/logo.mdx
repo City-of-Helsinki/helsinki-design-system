@@ -23,12 +23,15 @@ See the [logo visual asset documentation](/visual-assets/logo "City of Helsinki 
 
 ## Principles
 - Logo is automatically included in HDS Navigation and HDS Footer (not yet released) components. **Use the Logo component sparingly in other parts of the service.**
-- **It is recommended to include the service name next to the logo.** This helps the user more easily identify which city service they are currently using.
+- **You should include the service name next to the logo.** This helps the user more easily identify which city service they are currently using.
 - HDS Logo component includes translations for both Finnish and Swedish. **Use translation depending on the locale the user has chosen.** Swedish and Scandinavian languages uses the `sv` variant while other languages use `fi` variant.
+- The Logo component should act as a link to the main page of the service.
 - This component is solely for the City of Helsinki logo. Do not use this component for logos of other parties.
 
 ## Accessibility
-- A text alternative must always be provided for logos using the WAI-ARIA definition _aria-label_ or _aria-labelledby_. See <Link href="https://www.w3.org/TR/WCAG21/#text-alternatives" external>WCAG 2.1 Text Alternatives guideline</Link> for more information.
+- A text alternative must always be provided for logos using the WAI-ARIA definition `aria-label`. See <Link href="https://www.w3.org/TR/WCAG21/#text-alternatives" external>WCAG 2.1 Text Alternatives guideline</Link> for more information.
+    - When using the logo alone without a service name, provide a localised `aria-label` _"City of Helsinki"_.
+    - When using the logo with the service name, provide a localised `aria-label` _"City of Helsinki: [Name of the service]"_.
 - The colour contrast between the logo and its background must comply with <Link href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>AA Level contrast ratios</Link>. You can find more information about accessible color combinations in [Colour design token documentation](/design-tokens/colour).
 
 
@@ -41,7 +44,7 @@ See the [logo visual asset documentation](/visual-assets/logo "City of Helsinki 
     <Logo language="sv" size="large" style={{marginLeft: 'var(--spacing-s)'}}/>
 </Playground>
 
-##### React:
+#### React code example:
 ```tsx
 <Logo language="fi" size="large" />
 <Logo language="sv" size="large" />
@@ -59,7 +62,7 @@ See the [logo visual asset documentation](/visual-assets/logo "City of Helsinki 
     <Logo language="sv" size="large" style={{marginLeft: 'var(--spacing-s)'}}/>
 </Playground>
 
-##### React:
+#### React code example:
 ```tsx
 <Logo language="fi" size="small" />
 <Logo language="fi" size="medium" />

@@ -6,6 +6,9 @@ import { StatusLabel } from './StatusLabel';
 export default {
   component: StatusLabel,
   title: 'Components/Status label',
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
   decorators: [withKnobs],
 };
 
