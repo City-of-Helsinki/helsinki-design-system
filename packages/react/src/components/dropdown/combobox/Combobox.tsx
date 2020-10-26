@@ -1,15 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 /* eslint-disable react/destructuring-assignment */
-import React, {
-  useRef,
-  useState,
-  KeyboardEvent,
-  FocusEvent,
-  FocusEventHandler,
-  useMemo,
-  useCallback,
-  useEffect,
-} from 'react';
+import React, { useRef, useState, KeyboardEvent, FocusEvent, FocusEventHandler, useMemo, useCallback } from 'react';
 import { useCombobox, useMultipleSelection } from 'downshift';
 import isEqual from 'lodash.isequal';
 import uniqueId from 'lodash.uniqueid';
@@ -25,9 +16,9 @@ import { SelectedItems } from '../../../internal/selectedItems/SelectedItems';
 import { multiSelectReducer, onMultiSelectStateChange, SelectCustomTheme, SelectProps } from '../select';
 import { DROPDOWN_MENU_ITEM_HEIGHT, getIsInSelectedOptions } from '../dropdownUtils';
 import { DropdownMenu } from '../../../internal/dropdownMenu/DropdownMenu';
-import setComponentTheme from '../../../utils/setComponentTheme';
 import getIsElementFocused from '../../../utils/getIsElementFocused';
 import getIsElementBlurred from '../../../utils/getIsElementBlurred';
+import { useTheme } from '../../../hooks/useTheme';
 
 type FilterFunction<OptionType> = (options: OptionType[], search: string) => OptionType[];
 
@@ -109,6 +100,8 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
 
   // flag for whether the component is controlled
   const controlled = props.multiselect && props.value !== undefined;
+  // custom theme class that is applied to the root element
+  const customThemeClass = useTheme<SelectCustomTheme>(styles.root, theme);
   // selected items container ref
   const selectedItemsContainerRef = useRef<HTMLDivElement>();
   // combobox input ref
@@ -133,13 +126,6 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     estimateSize: useCallback(() => DROPDOWN_MENU_ITEM_HEIGHT, []),
     overscan: visibleOptions,
   });
-
-  // handle custom themes
-  useEffect(() => {
-    if (theme) {
-      setComponentTheme<SelectCustomTheme>('Combobox', theme);
-    }
-  }, [theme]);
 
   const focusInput = () => {
     if (inputRef.current) {
@@ -323,7 +309,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
         disabled && styles.disabled,
         isOpen && styles.open,
         props.multiselect && styles.multiselect,
-        theme && 'custom',
+        customThemeClass,
         className,
       )}
       style={style}

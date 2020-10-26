@@ -1,5 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
-import React, { FocusEvent, useCallback, useEffect, useRef, useState } from 'react';
+import React, { FocusEvent, useCallback, useRef, useState } from 'react';
 import {
   useSelect,
   useMultipleSelection,
@@ -22,9 +22,9 @@ import { IconAlertCircle, IconAngleDown } from '../../../icons';
 import { SelectedItems } from '../../../internal/selectedItems/SelectedItems';
 import { DROPDOWN_MENU_ITEM_HEIGHT, getIsInSelectedOptions } from '../dropdownUtils';
 import { DropdownMenu } from '../../../internal/dropdownMenu/DropdownMenu';
-import setComponentTheme from '../../../utils/setComponentTheme';
 import getIsElementFocused from '../../../utils/getIsElementFocused';
 import getIsElementBlurred from '../../../utils/getIsElementBlurred';
+import { useTheme } from '../../../hooks/useTheme';
 
 export interface SelectCustomTheme {
   '--dropdown-background-default'?: string;
@@ -308,6 +308,8 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
   } = props;
   // flag for whether the component is controlled
   const controlled = props.multiselect && props.value !== undefined;
+  // custom theme class that is applied to the root element
+  const customThemeClass = useTheme<SelectCustomTheme>(styles.root, theme);
   // selected items container ref
   const selectedItemsContainerRef = useRef<HTMLDivElement>();
   // menu ref
@@ -321,13 +323,6 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
     estimateSize: useCallback(() => DROPDOWN_MENU_ITEM_HEIGHT, []),
     overscan: visibleOptions,
   });
-
-  // handle custom themes
-  useEffect(() => {
-    if (theme) {
-      setComponentTheme<SelectCustomTheme>('Select', theme);
-    }
-  }, [theme]);
 
   // init multi-select
   const {
@@ -456,7 +451,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
         disabled && styles.disabled,
         isOpen && styles.open,
         props.multiselect && styles.multiselect,
-        theme && 'custom',
+        customThemeClass,
         className,
       )}
       style={style}

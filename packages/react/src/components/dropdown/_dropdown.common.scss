@@ -52,11 +52,6 @@
   --multiselect-checkbox-color-selected-disabled: var(--color-white);
   --placeholder-color: var(--color-black-60);
 
-  // class where custom theme styles will be applied
-  &:global(.custom) {
-    content: ''
-  }
-
   &.open {
     .angleIcon {
       transform: rotateX(180deg);

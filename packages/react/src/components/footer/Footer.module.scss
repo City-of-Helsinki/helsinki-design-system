@@ -28,11 +28,6 @@ $koros-heights: (
     --footer-focus-outline-color: var(--color-white);
   }
 
-  // class where custom theme styles will be applied
-  &:global(.custom) {
-    content: ''
-  }
-
   // footer background
   &::before {
     background-color: var(--footer-background);
