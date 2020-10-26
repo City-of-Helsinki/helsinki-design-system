@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './FieldLabel.module.css';
+import styles from './FieldLabel.module.scss';
 import { RequiredIndicator } from '../required-indicator/RequiredIndicator';
 import { Tooltip } from '../../components/tooltip';
 
