@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import React, { useState } from 'react';
 import { action } from '@storybook/addon-actions';
 
@@ -8,8 +9,7 @@ import { NavigationUser } from './navigationUser/NavigationUser';
 import { NavigationSearch } from './navigationSearch/NavigationSearch';
 import { NavigationLanguageSelector } from './navigationLanguageSelector/NavigationLanguageSelector';
 import { NavigationDropdown } from './navigationDropdown/NavigationDropdown';
-import { IconFaceSmile, IconGlobe, IconSignout } from '../../icons';
-import { Button } from '../button';
+import { IconSignout } from '../../icons';
 
 type LanguageOption = {
   label: string;
@@ -50,105 +50,61 @@ export default {
   },
 };
 
-export const Default = ({ searchLabel, searchPlaceholder, authenticated, userName, ...args }) => {
-  const [showIcons, setShowIcons] = useState(false);
-  return (
-    <>
-      <Navigation {...args}>
-        {/* NAVIGATION ROW */}
-        <Navigation.Row>
-          <Navigation.Item
-            icon={showIcons && <IconFaceSmile aria-hidden />}
-            href="#"
-            label="Link"
-            onClick={(e) => e.preventDefault()}
-          />
-          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
-          <Navigation.Item
-            icon={showIcons && <IconFaceSmile aria-hidden />}
-            href="#"
-            label="Link"
-            onClick={(e) => e.preventDefault()}
-          />
-          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
-          <Navigation.Dropdown icon={showIcons && <IconFaceSmile aria-hidden />} label="Dropdown">
-            <Navigation.Item
-              icon={showIcons && <IconFaceSmile aria-hidden />}
-              href="#"
-              label="Link"
-              onClick={(e) => e.preventDefault()}
-            />
-            <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
-            <Navigation.Item
-              icon={showIcons && <IconFaceSmile aria-hidden />}
-              href="#"
-              label="Link"
-              onClick={(e) => e.preventDefault()}
-            />
-            <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
-          </Navigation.Dropdown>
-        </Navigation.Row>
+export const Default = ({ searchLabel, searchPlaceholder, authenticated, userName, ...args }) => (
+  // @ts-ignore
+  <Navigation {...args}>
+    {/* NAVIGATION ROW */}
+    <Navigation.Row>
+      <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+      <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+      <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+      <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+      <Navigation.Dropdown label="Dropdown">
+        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+      </Navigation.Dropdown>
+    </Navigation.Row>
 
-        {/* NAVIGATION ACTIONS */}
-        <Navigation.Actions>
-          {/* SEARCH */}
-          <Navigation.Search
-            searchLabel={searchLabel}
-            searchPlaceholder={searchPlaceholder}
-            onSearch={(e) => action('onSearch')(e)}
-            onSearchChange={(e) => action('onSearchChange')(e)}
-          />
+    {/* NAVIGATION ACTIONS */}
+    <Navigation.Actions>
+      {/* SEARCH */}
+      <Navigation.Search
+        searchLabel={searchLabel}
+        searchPlaceholder={searchPlaceholder}
+        onSearch={(e) => action('onSearch')(e)}
+        onSearchChange={(e) => action('onSearchChange')(e)}
+      />
 
-          {/* USER */}
-          <Navigation.User authenticated={authenticated} label="Sign in" userName={userName}>
-            <Navigation.Item label="Link" href="#" variant="secondary" onClick={(e) => e.preventDefault()} />
-            <Navigation.Item
-              label="Sign out"
-              href="#"
-              icon={<IconSignout aria-hidden />}
-              variant="supplementary"
-              onClick={(e) => e.preventDefault()}
-            />
-          </Navigation.User>
+      {/* USER */}
+      <Navigation.User authenticated={authenticated} label="Sign in" userName={userName}>
+        <Navigation.Item label="Link" href="#" variant="secondary" onClick={(e) => e.preventDefault()} />
+        <Navigation.Item
+          label="Sign out"
+          href="#"
+          icon={<IconSignout aria-hidden />}
+          variant="supplementary"
+          onClick={(e) => e.preventDefault()}
+        />
+      </Navigation.User>
 
-          {/* LANGUAGE SELECTOR */}
-          <Navigation.LanguageSelector icon={showIcons && <IconGlobe />} label="FI">
-            <Navigation.Item
-              icon={showIcons && <IconFaceSmile aria-hidden />}
-              href="#"
-              onClick={(e) => e.preventDefault()}
-              label="Suomeksi"
-            />
-            <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="På svenska" />
-            <Navigation.Item
-              icon={showIcons && <IconFaceSmile aria-hidden />}
-              href="#"
-              onClick={(e) => e.preventDefault()}
-              label="In English"
-            />
-            <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="En français" />
-            <Navigation.Item
-              icon={showIcons && <IconFaceSmile aria-hidden />}
-              href="#"
-              onClick={(e) => e.preventDefault()}
-              label="Auf deutsch"
-            />
-            <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="По-русски" />
-          </Navigation.LanguageSelector>
-        </Navigation.Actions>
-      </Navigation>
-      <Button
-        onClick={() => setShowIcons(!showIcons)}
-        style={{ marginTop: 'var(--spacing-l)', marginLeft: 'var(--spacing-l)' }}
-      >
-        Toggle icons
-      </Button>
-    </>
-  );
-};
+      {/* LANGUAGE SELECTOR */}
+      <Navigation.LanguageSelector label="FI">
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="Suomeksi" />
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="På svenska" />
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="In English" />
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="En français" />
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="Auf deutsch" />
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="По-русски" />
+      </Navigation.LanguageSelector>
+    </Navigation.Actions>
+  </Navigation>
+);
 
 export const Inline = ({ searchLabel, searchPlaceholder, authenticated, userName, ...args }) => {
   return (
+    // @ts-ignore
     <Navigation {...args}>
       {/* NAVIGATION ROW */}
       <Navigation.Row variant="inline">
@@ -200,6 +156,7 @@ export const Inline = ({ searchLabel, searchPlaceholder, authenticated, userName
 
 export const CustomTheme = ({ searchLabel, searchPlaceholder, authenticated, userName, ...args }) => {
   return (
+    // @ts-ignore
     <Navigation {...args}>
       {/* NAVIGATION ROW */}
       <Navigation.Row>
@@ -381,6 +338,7 @@ export const Example = ({ userName, ...args }) => {
 
   return (
     <>
+      {/* @ts-ignore */}
       <Navigation
         {...args}
         logoLanguage={logoLanguage}
