@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import mergeRefs from 'react-merge-refs';
 import useMeasure from 'react-use-measure';
 import uniqueId from 'lodash.uniqueid';
+import { ResizeObserver } from '@juggle/resize-observer';
 
 import styles from './SelectedItems.module.scss';
 import { Tag } from '../../components/tag';
@@ -172,7 +173,7 @@ export const SelectedItems = <OptionType,>({
   setActiveIndex,
   toggleButtonHidden = false,
 }: SelectedItemsProps<OptionType>) => {
-  const [ref, { width, height }] = useMeasure({ debounce: 0, scroll: false });
+  const [ref, { width, height }] = useMeasure({ debounce: 0, scroll: false, polyfill: ResizeObserver });
   const [hiddenCount, setHiddenCount] = useState(0);
   const hiddenItemsCountRef = useRef<HTMLSpanElement>();
   const hiddenCountEl = hiddenItemsCountRef.current;

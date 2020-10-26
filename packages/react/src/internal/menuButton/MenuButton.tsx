@@ -4,6 +4,7 @@ import 'hds-core';
 import uniqueId from 'lodash.uniqueid';
 import mergeRefs from 'react-merge-refs';
 import useMeasure from 'react-use-measure';
+import { ResizeObserver } from '@juggle/resize-observer';
 
 import styles from './MenuButton.module.scss';
 import { Menu } from './menu/Menu';
@@ -138,7 +139,7 @@ export const MenuButton = ({
   label,
   menuOffset,
 }: MenuButtonProps) => {
-  const [ref, menuContainerSize] = useMeasure({ debounce: 0, scroll: false });
+  const [ref, menuContainerSize] = useMeasure({ debounce: 0, scroll: false, polyfill: ResizeObserver });
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const buttonId = `${id}-button`;

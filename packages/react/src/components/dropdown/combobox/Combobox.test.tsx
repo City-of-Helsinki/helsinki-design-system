@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import { ResizeObserver } from '@juggle/resize-observer';
 
 import { Combobox, ComboboxProps } from './Combobox';
 
@@ -45,22 +43,6 @@ describe('<Combobox />', () => {
   });
 
   describe('in multi select mode', () => {
-    // The version of JSDom we use does not have built in support for
-    // ResizeObserver, so we polyfilling it.
-    let originalResizeObserver;
-
-    beforeEach(() => {
-      // @ts-ignore
-      originalResizeObserver = window.ResizeObserver;
-      // @ts-ignore
-      window.ResizeObserver = ResizeObserver;
-    });
-
-    afterEach(() => {
-      // @ts-ignore
-      window.ResizeObserver = originalResizeObserver;
-    });
-
     it('user should be able to search and choose multiple options', () => {
       const onChange = jest.fn();
       const { getAllByLabelText, getAllByRole, queryAllByText } = getWrapper({
