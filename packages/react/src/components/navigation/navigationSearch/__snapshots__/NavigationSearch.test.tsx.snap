@@ -73,7 +73,9 @@ exports[`<Navigation.Search /> spec renders the component 1`] = `
               </svg>
               <span
                 class="label"
-              />
+              >
+                Search
+              </span>
             </button>
           </div>
         </div>

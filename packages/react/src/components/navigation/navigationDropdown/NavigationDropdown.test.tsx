@@ -24,7 +24,7 @@ describe('<Navigation.Dropdown /> spec', () => {
   });
 
   it('renders the component', () => {
-    const { asFragment } = render(<NavigationDropdown />, { wrapper: NavigationWrapper });
+    const { asFragment } = render(<NavigationDropdown label="Foo" />, { wrapper: NavigationWrapper });
     expect(asFragment()).toMatchSnapshot();
   });
 });

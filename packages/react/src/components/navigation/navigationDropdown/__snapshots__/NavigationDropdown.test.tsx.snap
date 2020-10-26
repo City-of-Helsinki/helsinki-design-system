@@ -55,7 +55,9 @@ exports[`<Navigation.Dropdown /> spec renders the component 1`] = `
             >
               <span
                 class="toggleButtonLabel"
-              />
+              >
+                Foo
+              </span>
               <svg
                 class="icon s"
                 role="img"

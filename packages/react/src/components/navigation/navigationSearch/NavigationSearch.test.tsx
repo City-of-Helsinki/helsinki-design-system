@@ -6,7 +6,7 @@ import { NavigationWrapper } from '../../../utils/test-utils';
 
 describe('<Navigation.Search /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<NavigationSearch />, { wrapper: NavigationWrapper });
+    const { asFragment } = render(<NavigationSearch searchLabel="Search" />, { wrapper: NavigationWrapper });
     expect(asFragment()).toMatchSnapshot();
   });
 });

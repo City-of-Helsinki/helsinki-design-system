@@ -14,7 +14,9 @@ exports[`<MenuButton /> spec renders the component 1`] = `
     >
       <span
         class="toggleButtonLabel"
-      />
+      >
+        Foo
+      </span>
       <svg
         class="icon s"
         role="img"
@@ -42,7 +44,34 @@ exports[`<MenuButton /> spec renders the component 1`] = `
       role="menu"
       style="top: 0px; min-width: 190px;"
       tabindex="-1"
-    />
+    >
+      <li
+        class="menuItem"
+        role="none"
+      >
+        <a
+          class="item "
+          href="#foo"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Foo
+        </a>
+      </li>
+      <li
+        class="menuItem"
+        role="none"
+      >
+        <a
+          class="item "
+          href="#bar"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Bar
+        </a>
+      </li>
+    </ul>
   </div>
 </DocumentFragment>
 `;

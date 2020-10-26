@@ -6,7 +6,7 @@ import { NavigationWrapper } from '../../../utils/test-utils';
 
 describe('<Navigation.User /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<NavigationUser />, { wrapper: NavigationWrapper });
+    const { asFragment } = render(<NavigationUser label="Foo" />, { wrapper: NavigationWrapper });
     expect(asFragment()).toMatchSnapshot();
   });
 });

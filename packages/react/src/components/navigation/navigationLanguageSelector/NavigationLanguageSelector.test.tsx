@@ -6,8 +6,6 @@ import { ResizeObserver } from '@juggle/resize-observer';
 import { NavigationLanguageSelector } from './NavigationLanguageSelector';
 import { NavigationWrapper } from '../../../utils/test-utils';
 
-const options = [{ value: 'foo' }, { value: 'bar' }];
-
 describe('<Navigation.LanguageSelector /> spec', () => {
   // The version of JSDom we use does not have built in support for
   // ResizeObserver, so we're polyfilling it.
@@ -26,7 +24,7 @@ describe('<Navigation.LanguageSelector /> spec', () => {
   });
 
   it('renders the component', () => {
-    const { asFragment } = render(<NavigationLanguageSelector options={options} value={options[0]} />, {
+    const { asFragment } = render(<NavigationLanguageSelector label="Foo" />, {
       wrapper: NavigationWrapper,
     });
     expect(asFragment()).toMatchSnapshot();
