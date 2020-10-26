@@ -17,7 +17,9 @@ const external = [
   'react-use-measure',
   'react-merge-refs',
   'react-virtual',
+  'react-popper',
   '@juggle/resize-observer',
+  '@popperjs/core',
   '@react-aria/visually-hidden',
 ];
 
