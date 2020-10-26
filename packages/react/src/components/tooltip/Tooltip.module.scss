@@ -2,10 +2,10 @@
 
 .root {
   --button-focus-outline-width: 3px;
-  --button-focus-outline-color: var(--color-coat-of-arms-blue);
+  --button-focus-outline-color: var(--color-coat-of-arms);
   --tooltip-arrow-size: 8px;
-  --tooltip-background: var(--color-coat-of-arms-blue-light-20);
-  --tooltip-border-color: var(--color-coat-of-arms-blue);
+  --tooltip-background: var(--color-coat-of-arms-light);
+  --tooltip-border-color: var(--color-coat-of-arms);
   --tooltip-spacing-default: var(--spacing-s);
   --tooltip-spacing-small: var(--spacing-3-xs) var(--spacing-2-xs);
 }
