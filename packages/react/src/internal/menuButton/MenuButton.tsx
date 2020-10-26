@@ -2,15 +2,42 @@ import React, { useEffect, useReducer, useRef } from 'react';
 // import core base styles
 import 'hds-core';
 import uniqueId from 'lodash.uniqueid';
+import mergeRefs from 'react-merge-refs';
+import useMeasure from 'react-use-measure';
 
 import styles from './MenuButton.module.scss';
-import { Button } from '../../components/button';
 import { Menu } from './menu/Menu';
 import { MenuButtonContext } from './MenuButtonContext';
 import { MenuButtonReducerAction, MenuButtonReducerState } from './MenuButton.interface';
 import { IconAngleDown, IconAngleUp } from '../../icons';
+import classNames from '../../utils/classNames';
 
-export type MenuButtonProps = React.PropsWithChildren<{ id?: string }>;
+export type MenuButtonProps = React.PropsWithChildren<{
+  /**
+   * aria-label for the dropdown toggle button
+   */
+  buttonAriaLabel?: string;
+  /**
+   * Additional class names to apply to the dropdown
+   */
+  className?: string;
+  /**
+   * Used to generate the first part of the id on the elements
+   */
+  id?: string;
+  /**
+   * Icon to be displayed in the dropdown
+   */
+  icon?: React.ReactNode;
+  /**
+   * Label for the dropdown
+   */
+  label: React.ReactNode;
+  /**
+   * Spacing between the toggle button and the menu
+   */
+  menuOffset?: number;
+}>;
 
 /**
  * MenuButton reducer
@@ -18,9 +45,6 @@ export type MenuButtonProps = React.PropsWithChildren<{ id?: string }>;
  * @param {ReducerAction} action
  */
 const reducer = (state: MenuButtonReducerState, action: MenuButtonReducerAction): MenuButtonReducerState => {
-  console.log('state', state);
-  console.log('action', action);
-
   const { focusedIndex, menuItems } = state;
   const menuItemCount = menuItems.length;
 
@@ -105,7 +129,16 @@ const handleKeydown = (
   }
 };
 
-export const MenuButton = ({ children, id = uniqueId('hds-menu-button-') }: MenuButtonProps) => {
+export const MenuButton = ({
+  buttonAriaLabel,
+  children,
+  className,
+  icon,
+  id = uniqueId('hds-menu-button-'),
+  label,
+  menuOffset,
+}: MenuButtonProps) => {
+  const [ref, menuContainerSize] = useMeasure({ debounce: 0, scroll: false });
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const buttonId = `${id}-button`;
@@ -133,27 +166,30 @@ export const MenuButton = ({ children, id = uniqueId('hds-menu-button-') }: Menu
 
   return (
     <MenuButtonContext.Provider value={{ state, dispatch }}>
-      <div ref={containerRef} className={styles.menuButton}>
-        <Button
+      <div ref={mergeRefs<HTMLDivElement>([ref, containerRef])} className={classNames(styles.menuButton, className)}>
+        <button
+          type="button"
           ref={buttonRef}
           id={buttonId}
-          iconRight={menuOpen ? <IconAngleUp /> : <IconAngleDown />}
+          className={styles.toggleButton}
+          aria-label={buttonAriaLabel}
           aria-haspopup="menu"
           aria-controls={menuId}
           {...(menuOpen && { 'aria-expanded': true })}
-          onMouseUp={() => {
-            console.log('onMouseUp');
-            dispatch({ type: 'TOGGLE_MENU' });
-          }}
-          onKeyDown={(e) => {
-            console.log('onKeyDown');
-            menuOpen ? dispatch({ type: 'TOGGLE_MENU' }) : handleKeydown(e, dispatch);
-          }}
+          onMouseUp={() => dispatch({ type: 'TOGGLE_MENU' })}
+          onKeyDown={(e) => (menuOpen ? dispatch({ type: 'TOGGLE_MENU' }) : handleKeydown(e, dispatch))}
         >
-          {/* todo: label */}
-          WAI-ARIA Quick LinksMenuButton
-        </Button>
-        <Menu id={menuId} aria-labelledby={buttonId} menuButtonRef={buttonRef}>
+          {icon}
+          <span className={styles.toggleButtonLabel}>{label}</span>
+          {menuOpen ? <IconAngleUp /> : <IconAngleDown />}
+        </button>
+        <Menu
+          id={menuId}
+          aria-labelledby={buttonId}
+          menuButtonRef={buttonRef}
+          menuContainerSize={menuContainerSize}
+          menuOffset={menuOffset}
+        >
           {children}
         </Menu>
       </div>

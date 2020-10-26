@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { RectReadOnly } from 'react-use-measure';
 
 import classNames from '../../../utils/classNames';
 import styles from './Menu.module.scss';
@@ -6,14 +7,18 @@ import { MenuItem } from '../menuItem/MenuItem';
 import { MenuButtonContext } from '../MenuButtonContext';
 import { MenuButtonReducerAction } from '../MenuButton.interface';
 
-type MenuStyles = Partial<{
-  top: number;
-  minWidth: number;
-}>;
+type MenuStyles = {
+  top?: number;
+  minWidth?: string | number;
+};
 
 type MenuProps = React.ComponentPropsWithoutRef<'ul'> & {
   menuButtonRef: React.MutableRefObject<HTMLButtonElement>;
+  menuContainerSize: RectReadOnly;
+  menuOffset?: number;
 };
+
+const MENU_MIN_WIDTH = 190;
 
 const isPrintableCharacter = (str): boolean => str.length === 1 && str.match(/\S/);
 
@@ -23,8 +28,13 @@ const handleKeydown = (
 ) => {
   const { altKey, ctrlKey, key, metaKey } = event;
 
-  if (ctrlKey || altKey || metaKey || key === ' ' || key === 'Enter') {
+  if (ctrlKey || altKey || metaKey || key === ' ') {
     return;
+  }
+
+  if (['ArrowUp', 'ArrowDown', 'Home', 'PageUp', 'End', 'PageDown'].includes(key)) {
+    // prevent the default page scrolling behaviour
+    event.preventDefault();
   }
 
   switch (key) {
@@ -33,6 +43,7 @@ const handleKeydown = (
       break;
 
     case 'Escape':
+    case 'Enter':
       dispatch({ type: 'TOGGLE_MENU' });
       break;
 
@@ -62,7 +73,7 @@ const handleKeydown = (
   }
 };
 
-export const Menu = ({ children, menuButtonRef, ...rest }: MenuProps) => {
+export const Menu = ({ children, menuButtonRef, menuContainerSize, menuOffset = 0, ...rest }: MenuProps) => {
   const {
     state: { focusedIndex, menuItems, menuOpen },
     dispatch,
@@ -70,11 +81,13 @@ export const Menu = ({ children, menuButtonRef, ...rest }: MenuProps) => {
   const menuRef = useRef<HTMLUListElement>(null);
   const [menuStyles, setMenuStyles] = useState<MenuStyles>({});
 
-  // get the button height
+  // get the container height
   useEffect(() => {
-    const { height = 0, width = 0 } = menuButtonRef.current?.getBoundingClientRect();
-    setMenuStyles({ top: height, minWidth: width });
-  }, [menuButtonRef]);
+    const { height = 0, width = 0 } = menuContainerSize;
+    // the menu width should be at least 190px
+    const minWidth = MENU_MIN_WIDTH >= width ? MENU_MIN_WIDTH : width;
+    setMenuStyles({ top: height + menuOffset, minWidth });
+  }, [menuContainerSize, menuOffset]);
 
   // get the menu items
   useEffect(() => {
@@ -104,10 +117,9 @@ export const Menu = ({ children, menuButtonRef, ...rest }: MenuProps) => {
       style={menuStyles}
       {...rest}
     >
-      {React.Children.toArray(children).map((child, index) => {
-        // eslint-disable-next-line react/no-array-index-key
-        return <MenuItem key={index}>{child}</MenuItem>;
-      })}
+      {React.Children.toArray(children).map((child: React.ReactElement) => (
+        <MenuItem key={child.key}>{child}</MenuItem>
+      ))}
     </ul>
   );
 };

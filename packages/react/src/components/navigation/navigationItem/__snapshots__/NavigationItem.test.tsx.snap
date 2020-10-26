@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Navigation /> spec renders the component 1`] = `
+exports[`<Navigation.Item /> spec renders the component 1`] = `
 <DocumentFragment>
   <header
     class="header theme-light"
@@ -42,7 +42,15 @@ exports[`<Navigation /> spec renders the component 1`] = `
         </a>
         <div
           class="headerContent"
-        />
+        >
+          <a
+            class=""
+          >
+            <span
+              class="label"
+            />
+          </a>
+        </div>
       </div>
     </div>
   </header>

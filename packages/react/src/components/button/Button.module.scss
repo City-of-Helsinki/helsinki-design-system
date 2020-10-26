@@ -1,0 +1,54 @@
+@import "button.common";
+
+.button {
+  @extend %button;
+}
+
+.label {
+  @extend %label;
+}
+
+.fullWidth {
+  @extend %fullWidth;
+}
+
+.size-small {
+  @extend %size-small;
+}
+
+.icon {
+  @extend %icon;
+
+  svg {
+    max-height: 100%;
+    max-width: 100%;
+  }
+}
+
+.primary {
+  @extend %primary;
+}
+
+.secondary {
+  @extend %secondary;
+}
+
+.supplementary {
+  @extend %supplementary;
+}
+
+.success {
+  @extend %success;
+}
+
+.danger {
+  @extend %danger;
+}
+
+.theme-coat {
+  @extend %theme-coat;
+}
+
+.theme-black {
+  @extend %theme-black;
+}

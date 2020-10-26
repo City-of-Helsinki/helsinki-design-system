@@ -3,9 +3,10 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { ResizeObserver } from '@juggle/resize-observer';
 
-import { MenuButton } from './MenuButton';
+import { NavigationDropdown } from './NavigationDropdown';
+import { NavigationWrapper } from '../../../utils/test-utils';
 
-describe('<MenuButton /> spec', () => {
+describe('<Navigation.Dropdown /> spec', () => {
   // The version of JSDom we use does not have built in support for
   // ResizeObserver, so we're polyfilling it.
   let originalResizeObserver;
@@ -23,7 +24,7 @@ describe('<MenuButton /> spec', () => {
   });
 
   it('renders the component', () => {
-    const { asFragment } = render(<MenuButton />);
+    const { asFragment } = render(<NavigationDropdown />, { wrapper: NavigationWrapper });
     expect(asFragment()).toMatchSnapshot();
   });
 });

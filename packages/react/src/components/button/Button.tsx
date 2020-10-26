@@ -2,7 +2,7 @@ import React from 'react';
 
 // import core base styles
 import 'hds-core';
-import styles from './Button.module.css';
+import styles from './Button.module.scss';
 import classNames from '../../utils/classNames';
 
 export type ButtonSize = 'default' | 'small';

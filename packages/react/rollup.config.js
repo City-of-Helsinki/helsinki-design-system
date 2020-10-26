@@ -44,6 +44,9 @@ const getConfig = (format) => ({
           'default',
           {
             calc: false,
+            discardUnused: true,
+            mergeIdents: true,
+            reduceIdents: true,
           },
         ],
       },

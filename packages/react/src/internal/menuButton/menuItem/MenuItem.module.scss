@@ -4,14 +4,15 @@
 }
 
 .item {
-  display: flex;
   align-items: center;
   color: var(--menu-item-color);
+  display: flex;
   flex: 1;
+  line-height: var(--lineheight-m);
   outline: none;
   padding: var(--spacing-2-xs) var(--spacing-s);
   text-decoration: none;
-  line-height: var(--lineheight-m);
+  width: max-content;
 
   &:hover,
   &:focus {

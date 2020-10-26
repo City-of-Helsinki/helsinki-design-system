@@ -1,0 +1,24 @@
+@import "../navigation.common";
+@value small-down from "../../../styles/breakpoints.css";
+
+.languageDropdown {
+  button {
+    font-size: var(--fontsize-body-l);
+    font-weight: bold;
+  }
+
+  &#{&} {
+    --menu-button-focus-outline-color: var(--header-focus-outline-color);
+
+    > ul {
+      @extend %navigationActionDropdown;
+    }
+  }
+}
+
+@media small-down {
+  .languageDropdown {
+    position: absolute;
+    right: var(--spacing-5-xl);
+  }
+}
