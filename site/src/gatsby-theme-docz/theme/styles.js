@@ -59,7 +59,7 @@ const styles = {
     mx: 0,
     py: 'var(--spacing-s)',
     px: 'var(--spacing-s)',
-    bg: 'var(--color-coat-of-arms-blue-light-5)',
+    bg: 'var(--color-coat-of-arms-light)',
     borderLeft: (t) => `5px solid ${t.colors.blockquote.boder}`,
     color: 'var(--color-black-70)',
     maxWidth: 600,

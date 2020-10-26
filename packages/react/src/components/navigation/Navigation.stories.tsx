@@ -218,7 +218,7 @@ CustomTheme.args = {
     '--mobile-menu-color': 'var(--color-black-90)',
     '--navigation-row-background-color': 'var(--color-white)',
     '--navigation-row-color': 'var(--color-black-90)',
-    '--navigation-row-focus-outline-color': 'var(--color-coat-of-arms-blue)',
+    '--navigation-row-focus-outline-color': 'var(--color-coat-of-arms)',
   },
 };
 CustomTheme.argTypes = {
