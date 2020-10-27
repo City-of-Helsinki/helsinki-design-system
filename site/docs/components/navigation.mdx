@@ -42,7 +42,13 @@ import LargeParagraph from "../../src/components/LargeParagraph";
 The default navigation includes separate line for navigation menu links. Therefore it is ideal choice for most services where navigation structure is more complicated.
 
 <Playground>
-<Navigation title="Helsinki Design System">
+<Navigation
+  title="Helsinki Design System"
+  menuCloseAriaLabel="Close menu"
+  menuOpenAriaLabel="Open menu"
+  skipTo="#content"
+  skipToContentLabel="Skip to content"
+>
   <Navigation.Row>
     <Navigation.Item label="Item" />
     <Navigation.Item label="Item" />
@@ -56,7 +62,13 @@ The default navigation includes separate line for navigation menu links. Therefo
 
 #### React code example:
 ```tsx
-<Navigation title="Helsinki Design System">
+<Navigation
+  title="Helsinki Design System"
+  menuCloseAriaLabel="Close menu"
+  menuOpenAriaLabel="Open menu"
+  skipTo="#content"
+  skipToContentLabel="Skip to content"
+>
   <Navigation.Row>
     <Navigation.Item label="Item" />
     <Navigation.Item label="Item" />
@@ -73,8 +85,14 @@ The default navigation includes separate line for navigation menu links. Therefo
 A service can opt to use smaller, 1 line navigation if 2 line navigation is too heavy for its purpose. Smaller navigation is optimal for services that do not have complicated navigation structure (only 1-3 links in navigation) and do not need many navigation features such as search, profile and language selection.
 
 <Playground>
-<Navigation title="Helsinki Design System">
-  <Navigation.Row display="inline">
+<Navigation
+  title="Helsinki Design System"
+  menuCloseAriaLabel="Close menu"
+  menuOpenAriaLabel="Open menu"
+  skipTo="#content"
+  skipToContentLabel="Skip to content"
+>
+  <Navigation.Row variant="inline">
     <Navigation.Item label="Item" />
     <Navigation.Item label="Item" />
     <Navigation.Item label="Item" />
@@ -84,8 +102,14 @@ A service can opt to use smaller, 1 line navigation if 2 line navigation is too 
 
 #### React code example:
 ```tsx
-<Navigation title="Helsinki Design System">
-  <Navigation.Row display="inline">
+<Navigation
+  title="Helsinki Design System"
+  menuCloseAriaLabel="Close menu"
+  menuOpenAriaLabel="Open menu"
+  skipTo="#content"
+  skipToContentLabel="Skip to content"
+>
+  <Navigation.Row variant="inline">
     <Navigation.Item label="Item" />
     <Navigation.Item label="Item" />
     <Navigation.Item label="Item" />
@@ -98,15 +122,28 @@ A service can opt to use smaller, 1 line navigation if 2 line navigation is too 
 HDS Navigation offers two variations with different background colors - one with white and one with black text elements. Use variation that achieves better contrast with the brand background colour of your choice. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
 
 <Playground>
-<Navigation title="Helsinki Design System">
-  <Navigation.Row display="inline">
+<Navigation
+  title="Helsinki Design System"
+  menuCloseAriaLabel="Close menu"
+  menuOpenAriaLabel="Open menu"
+  skipTo="#content"
+  skipToContentLabel="Skip to content"
+>
+  <Navigation.Row variant="inline">
     <Navigation.Item label="Item" />
     <Navigation.Item label="Item" />
     <Navigation.Item label="Item" />
   </Navigation.Row>
 </Navigation>
-<Navigation title="Helsinki Design System" theme="black">
-  <Navigation.Row display="inline">
+<Navigation
+  theme="dark"
+  title="Helsinki Design System"
+  menuCloseAriaLabel="Close menu"
+  menuOpenAriaLabel="Open menu"
+  skipTo="#content"
+  skipToContentLabel="Skip to content"
+>
+  <Navigation.Row variant="inline">
     <Navigation.Item label="Item" />
     <Navigation.Item label="Item" />
     <Navigation.Item label="Item" />
@@ -116,18 +153,74 @@ HDS Navigation offers two variations with different background colors - one with
 
 #### React code example:
 ```tsx
-{/* White (default) */}
-<Navigation title="Helsinki Design System">
-  <Navigation.Row display="inline">
+{/* Light (default) */}
+<Navigation
+  title="Helsinki Design System"
+  menuCloseAriaLabel="Close menu"
+  menuOpenAriaLabel="Open menu"
+  skipTo="#content"
+  skipToContentLabel="Skip to content"
+>
+  <Navigation.Row variant="inline">
     <Navigation.Item label="Item" />
     <Navigation.Item label="Item" />
     <Navigation.Item label="Item" />
   </Navigation.Row>
 </Navigation>
 
-{/* Black */}
-<Navigation title="Helsinki Design System" theme="black">
-  <Navigation.Row display="inline">
+{/* Dark */}
+<Navigation
+  theme="dark"
+  title="Helsinki Design System"
+  menuCloseAriaLabel="Close menu"
+  menuOpenAriaLabel="Open menu"
+  skipTo="#content"
+  skipToContentLabel="Skip to content"
+>
+  <Navigation.Row variant="inline">
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+    <Navigation.Item label="Item" />
+  </Navigation.Row>
+</Navigation>
+```
+
+### Custom theme
+All the navigation colours can be customised, if the available colour variants don't suit your needs. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
+
+<Playground>
+  <Navigation
+    theme={{
+      '--header-background-color': 'var(--color-engel)',
+    }}
+    title="Helsinki Design System"
+    menuCloseAriaLabel="Close menu"
+    menuOpenAriaLabel="Open menu"
+    skipTo="#content"
+    skipToContentLabel="Skip to content"
+  >
+    <Navigation.Row variant="inline">
+      <Navigation.Item label="Item" />
+      <Navigation.Item label="Item" />
+      <Navigation.Item label="Item" />
+    </Navigation.Row>
+  </Navigation>
+</Playground>
+
+
+#### React code example:
+```tsx
+<Navigation
+  theme={{
+    '--header-background-color': 'var(--color-engel)',
+  }}
+  title="Helsinki Design System"
+  menuCloseAriaLabel="Close menu"
+  menuOpenAriaLabel="Open menu"
+  skipTo="#content"
+  skipToContentLabel="Skip to content"
+>
+  <Navigation.Row variant="inline">
     <Navigation.Item label="Item" />
     <Navigation.Item label="Item" />
     <Navigation.Item label="Item" />
@@ -144,10 +237,11 @@ HDS Navigation component supports many commonly used features out of the box. Th
   <Navigation.Actions>
     <Navigation.Search searchLabel="Search" searchPlaceholder="Search page" />
     <Navigation.User label="Sign in" />
-    <Navigation.LanguageSelector
-      options={[{label: 'FI'}, {label: 'SV'}, {label: 'EN'}]}
-      value={{label: 'EN'}}
-    />
+    <Navigation.LanguageSelector label="FI">
+      <Navigation.Item label="Suomeksi" />
+      <Navigation.Item label="På svenska" />
+      <Navigation.Item label="In English" />
+    </Navigation.LanguageSelector>
   </Navigation.Actions>
 </Navigation>
 </Playground>
@@ -158,10 +252,11 @@ HDS Navigation component supports many commonly used features out of the box. Th
   <Navigation.Actions>
     <Navigation.Search searchLabel="Search" searchPlaceholder="Search page" />
     <Navigation.User label="Sign in" />
-    <Navigation.LanguageSelector
-      options={[{label: 'FI'}, {label: 'SV'}, {label: 'EN'}]}
-      value={{label: 'EN'}}
-    />
+    <Navigation.LanguageSelector label="FI">
+      <Navigation.Item label="Suomeksi" />
+      <Navigation.Item label="På svenska" />
+      <Navigation.Item label="In English" />
+    </Navigation.LanguageSelector>
   </Navigation.Actions>
 </Navigation>
 ```
