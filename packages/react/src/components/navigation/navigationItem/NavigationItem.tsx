@@ -11,6 +11,10 @@ type ItemProps = {
    */
   active?: boolean;
   /**
+   * Icon placed on the left side of the item label
+   */
+  icon?: React.ReactNode;
+  /**
    * The label for the item. Optionally, children can be passed
    */
   label?: React.ReactNode;
