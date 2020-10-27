@@ -14,32 +14,32 @@ const button = `<button type="button" class="hds-button hds-button--secondary hd
     </button>`;
 
 export const Empty = () => `
-  <div class="hds-card"></div>
+  <div class="hds-card" role="region"></div>
   <br>
   <br>
-  <div class="hds-card hds-card--border"></div>
+  <div class="hds-card hds-card--border" role="region"></div>
 `;
 
 export const TextHeading = () => `
-  <div class="hds-card">
+  <div class="hds-card" role="region">
     ${body}
   </div>
   <br>
   <br>
-  <div class="hds-card hds-card--border">
+  <div class="hds-card hds-card--border" role="region">
     ${body}
   </div>
 `;
 TextHeading.storyName = 'Text & heading';
 
 export const TextHeadingButton = () => `
-  <div class="hds-card">
+  <div class="hds-card" role="region">
     ${body}
     ${button}
   </div>
   <br>
   <br>
-  <div class="hds-card hds-card--border">
+  <div class="hds-card hds-card--border" role="region">
     ${body}
     ${button}
   </div>

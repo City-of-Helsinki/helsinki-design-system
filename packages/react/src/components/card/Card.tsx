@@ -26,12 +26,12 @@ export type CardProps = {
    * Additional children to render inside the card.
    */
   children?: React.ReactNode;
-};
+} & React.HTMLProps<HTMLDivElement>;
 
-export const Card = ({ border, heading, text, className, children }: CardProps) => {
+export const Card = ({ border, heading, text, className, children, ...divProps }: CardProps) => {
   const hasBody = !!heading || !!text;
   return (
-    <div className={classNames(styles.card, border && styles.border, className)}>
+    <div className={classNames(styles.card, border && styles.border, className)} role="region" {...divProps}>
       {hasBody && (
         <div className={styles.body}>
           {heading && (
