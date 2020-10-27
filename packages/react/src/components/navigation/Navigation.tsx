@@ -38,18 +38,14 @@ export type NavigationProps = React.PropsWithChildren<{
    */
   logoLanguage?: LogoLanguage;
   /**
-   * aria-label for the mobile menu toggle when the menu is open
-   */
-  menuCloseAriaLabel: string;
-  /**
    * Sets whether the mobile menu is open. Used together with the `onMenuToggle` prop to override the internal state handling
    * @default false
    */
   menuOpen?: boolean;
   /**
-   * aria-label for the mobile menu toggle when the menu is closed
+   * aria-label for the mobile menu toggle button
    */
-  menuOpenAriaLabel: string;
+  menuToggleAriaLabel: string;
   /**
    * Callback fired when the mobile menu is toggled. Can be used together with the `menuOpen` prop to override the internal state handling
    */
@@ -167,9 +163,8 @@ export const Navigation = ({
   fixed = false,
   id,
   logoLanguage = 'fi',
-  menuCloseAriaLabel,
   menuOpen = false,
-  menuOpenAriaLabel,
+  menuToggleAriaLabel,
   onMenuToggle,
   onTitleClick,
   skipTo,
@@ -249,20 +244,24 @@ export const Navigation = ({
             <HeaderWrapper {...headerWrapperProps}>
               {languageSelector}
               <button
+                aria-label={menuToggleAriaLabel}
+                aria-haspopup="true"
+                aria-expanded={mobileMenuOpen}
+                {...(mobileMenuOpen && { 'aria-controls': 'hds-mobile-menu' })}
                 type="button"
                 className={styles.mobileMenuToggle}
                 onClick={() =>
                   typeof onMenuToggle === 'function' ? onMenuToggle() : setMobileMenuOpen(!mobileMenuOpen)
                 }
               >
-                {mobileMenuOpen ? (
-                  <IconCross aria-label={menuCloseAriaLabel} />
-                ) : (
-                  <IconMenuHamburger aria-label={menuOpenAriaLabel} />
-                )}
+                {mobileMenuOpen ? <IconCross aria-hidden /> : <IconMenuHamburger aria-hidden />}
               </button>
             </HeaderWrapper>
-            {mobileMenuOpen && <div className={styles.mobileMenu}>{menuChildren}</div>}
+            {mobileMenuOpen && (
+              <div id="hds-mobile-menu" className={styles.mobileMenu}>
+                {menuChildren}
+              </div>
+            )}
           </>
         ) : (
           <>

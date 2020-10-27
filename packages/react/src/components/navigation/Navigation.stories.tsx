@@ -36,8 +36,7 @@ export default {
     titleAriaLabel: 'Helsinki: Helsinki Design System',
     titleUrl: 'https://hel.fi',
     theme: 'light',
-    menuCloseAriaLabel: 'Close menu',
-    menuOpenAriaLabel: 'Open menu',
+    menuToggleAriaLabel: 'Menu',
     skipTo: '#content',
     skipToContentLabel: 'Skip to main content',
     searchLabel: 'Search',
@@ -241,6 +240,11 @@ export const Example = ({ userName, ...args }) => {
       sv: 'Helsingfors: Helsingfors stad',
       en: 'Helsinki: City of Helsinki',
     },
+    menuToggleAria: {
+      fi: 'Valikko',
+      sv: 'Meny',
+      en: 'Menu',
+    },
     search: {
       fi: 'Hae',
       sv: 'Sök',
@@ -345,6 +349,7 @@ export const Example = ({ userName, ...args }) => {
         title={i18n.title[language]}
         titleAriaLabel={i18n.titleAria[language]}
         skipToContentLabel={i18n.skip[language]}
+        menuToggleAriaLabel={i18n.menuToggleAria[language]}
       >
         {/* NAVIGATION ROW */}
         <Navigation.Row>
