@@ -7,14 +7,14 @@
   }
 
   // dropdown menu
-  > ul {
+  > div {
     // remove margins from children
-    li * {
+    * {
       margin: 0;
     }
 
     // dropdown menu item
-    li > * {
+    > * {
       font-weight: normal;
 
       // dropdown menu item icon
@@ -59,7 +59,7 @@
     }
 
     // dropdown menu
-    > ul {
+    > div {
       --menu-border-width: 0;
       --menu-width: calc(100% - (var(--spacing-xl) + var(--header-focus-outline-width)));
       --menu-item-background-color: transparent;
@@ -70,13 +70,13 @@
       margin-left: var(--spacing-l);
       max-width: unset;
       position: relative;
+      width: auto;
       // override inline min-width and top styles applied by the MenuButton component
       min-width: auto !important;
       top: 0 !important;
 
-      li > * {
+      > * {
         padding-left: var(--spacing-2-xs);
-        width: auto;
 
         &:focus {
           box-shadow: 0 0 0 var(--header-focus-outline-width) var(--header-focus-outline-color);

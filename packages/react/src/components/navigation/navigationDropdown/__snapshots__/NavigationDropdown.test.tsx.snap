@@ -47,10 +47,11 @@ exports[`<Navigation.Dropdown /> spec renders the component 1`] = `
             class="menuButton"
           >
             <button
-              aria-controls="hds-menu-button-2-menu"
-              aria-haspopup="menu"
+              aria-controls="hds-menu-button-1-menu"
+              aria-expanded="false"
+              aria-haspopup="true"
               class="toggleButton"
-              id="hds-menu-button-2-button"
+              id="hds-menu-button-1-button"
               type="button"
             >
               <span
@@ -78,13 +79,12 @@ exports[`<Navigation.Dropdown /> spec renders the component 1`] = `
                 </g>
               </svg>
             </button>
-            <ul
-              aria-labelledby="hds-menu-button-2-button"
+            <div
+              aria-labelledby="hds-menu-button-1-button"
               class="menu"
-              id="hds-menu-button-2-menu"
-              role="menu"
+              id="hds-menu-button-1-menu"
+              role="region"
               style="top: 0px; min-width: 190px;"
-              tabindex="-1"
             />
           </div>
         </div>

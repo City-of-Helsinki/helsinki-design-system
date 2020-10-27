@@ -48,7 +48,8 @@ exports[`<Navigation.LanguageSelector /> spec renders the component 1`] = `
           >
             <button
               aria-controls="languageSelector-menu"
-              aria-haspopup="menu"
+              aria-expanded="false"
+              aria-haspopup="true"
               class="toggleButton"
               id="languageSelector-button"
               type="button"
@@ -78,13 +79,12 @@ exports[`<Navigation.LanguageSelector /> spec renders the component 1`] = `
                 </g>
               </svg>
             </button>
-            <ul
+            <div
               aria-labelledby="languageSelector-button"
               class="menu"
               id="languageSelector-menu"
-              role="menu"
+              role="region"
               style="top: 10px; min-width: 190px;"
-              tabindex="-1"
             />
           </div>
         </div>

@@ -6,12 +6,30 @@
   &.open {
     background-color: var(--menu-item-background-color);
     border: var(--menu-border-width) solid var(--menu-border-color);
-    box-sizing: border-box;
     left: 0;
-    list-style: none;
     margin: var(--menu-top-margin) 0 0;
     max-width: var(--menu-max-width);
     padding: var(--spacing-3-xs) 0;
     position: absolute;
+    width: max-content;
+  }
+}
+
+.item {
+  align-items: center;
+  box-sizing: border-box;
+  color: var(--menu-item-color);
+  display: flex;
+  flex: 1;
+  line-height: var(--lineheight-m);
+  min-height: var(--menu-item-min-height);
+  outline: none;
+  padding: var(--spacing-2-xs) var(--spacing-s);
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    background-color: var(--menu-item-background-color-highlighted);
+    color: var(--menu-item-color-highlighted);
   }
 }
