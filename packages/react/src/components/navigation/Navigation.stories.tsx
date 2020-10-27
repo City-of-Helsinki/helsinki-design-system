@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 import React, { useState } from 'react';
-import { action } from '@storybook/addon-actions';
 
 import { Navigation } from './Navigation';
 import { NavigationRow } from './navigationRow/NavigationRow';
@@ -69,12 +68,7 @@ export const Default = ({ searchLabel, searchPlaceholder, authenticated, userNam
     {/* NAVIGATION ACTIONS */}
     <Navigation.Actions>
       {/* SEARCH */}
-      <Navigation.Search
-        searchLabel={searchLabel}
-        searchPlaceholder={searchPlaceholder}
-        onSearch={(e) => action('onSearch')(e)}
-        onSearchChange={(e) => action('onSearchChange')(e)}
-      />
+      <Navigation.Search searchLabel={searchLabel} searchPlaceholder={searchPlaceholder} />
 
       {/* USER */}
       <Navigation.User authenticated={authenticated} label="Sign in" userName={userName}>
@@ -120,12 +114,7 @@ export const Inline = ({ searchLabel, searchPlaceholder, authenticated, userName
       {/* NAVIGATION ACTIONS */}
       <Navigation.Actions>
         {/* SEARCH */}
-        <Navigation.Search
-          searchLabel={searchLabel}
-          searchPlaceholder={searchPlaceholder}
-          onSearch={(e) => action('onSearch')(e)}
-          onSearchChange={(e) => action('onSearchChange')(e)}
-        />
+        <Navigation.Search searchLabel={searchLabel} searchPlaceholder={searchPlaceholder} />
 
         {/* USER */}
         <Navigation.User authenticated={authenticated} label="Sign in" userName={userName}>
@@ -174,12 +163,7 @@ export const CustomTheme = ({ searchLabel, searchPlaceholder, authenticated, use
       {/* NAVIGATION ACTIONS */}
       <Navigation.Actions>
         {/* SEARCH */}
-        <Navigation.Search
-          searchLabel={searchLabel}
-          searchPlaceholder={searchPlaceholder}
-          onSearch={(e) => action('onSearch')(e)}
-          onSearchChange={(e) => action('onSearchChange')(e)}
-        />
+        <Navigation.Search searchLabel={searchLabel} searchPlaceholder={searchPlaceholder} />
 
         {/* USER */}
         <Navigation.User authenticated={authenticated} label="Sign in" userName={userName}>
@@ -388,12 +372,7 @@ export const Example = ({ userName, ...args }) => {
         {/* NAVIGATION ACTIONS */}
         <Navigation.Actions>
           {/* SEARCH */}
-          <Navigation.Search
-            searchLabel={i18n.search[language]}
-            searchPlaceholder={i18n.searchPlaceholder[language]}
-            onSearch={(e) => action('onSearch')(e)}
-            onSearchChange={(e) => action('onSearchChange')(e)}
-          />
+          <Navigation.Search searchLabel={i18n.search[language]} searchPlaceholder={i18n.searchPlaceholder[language]} />
 
           {/* USER */}
           <Navigation.User

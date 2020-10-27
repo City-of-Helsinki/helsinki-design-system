@@ -10,9 +10,14 @@
 .searchToggleButton {
   @extend %buttonReset;
   align-items: center;
+  border-radius: 2px;
   display: flex;
   outline: none;
   padding: var(--spacing-3-xs);
+
+  &:focus {
+    box-shadow: 0 0 0 var(--header-focus-outline-width) var(--header-focus-outline-color);
+  }
 }
 
 .searchContainer {
