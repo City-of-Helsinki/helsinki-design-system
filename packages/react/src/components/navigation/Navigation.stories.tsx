@@ -260,9 +260,9 @@ export const Example = ({ userName, ...args }) => {
       en: 'Skip to main content',
     },
     languageSelectorLabel: {
-      fi: 'Kieli: Suomi',
-      sv: 'Språk: Svenska',
-      en: 'Language: English',
+      fi: 'Kieli: Suomi. Vaihda kieli. Change language. Ändra språk.',
+      sv: 'Språk: Svenska. Ändra språk. Vaihda kieli. Change language.',
+      en: 'Language: English. Change language. Vaihda kieli. Ändra språk.',
     },
     navigation: [
       {
