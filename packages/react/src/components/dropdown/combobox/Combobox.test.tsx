@@ -19,6 +19,7 @@ const defaultProps: ComboboxProps<{ label: string; value: string }> = {
   clearButtonAriaLabel: 'Clear all selections',
   selectedItemRemoveButtonAriaLabel: 'Remove item {value}',
   selectedItemSrLabel: 'Selected item {value}',
+  toggleButtonAriaLabel: 'Open the combobox',
 };
 
 const getWrapper = (props?: unknown) => render(<Combobox {...defaultProps} {...props} />);

@@ -49,9 +49,13 @@ export type ComboboxProps<OptionType> = SelectProps<OptionType> & {
    */
   filter?: FilterFunction<OptionType>;
   /**
-   * If `true`, displays a menu toggle button in the combobox
+   * If `true`, displays a menu toggle button in the combobox.
    */
   showToggleButton?: boolean;
+  /**
+   * aria-label for the menu toggle button. The label for the combobox will be prepended to the given value.
+   */
+  toggleButtonAriaLabel: string;
 };
 
 function getDefaultFilter<OptionType>(labelField: string): FilterFunction<OptionType> {
@@ -108,6 +112,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     virtualized = false,
     visibleOptions = 5,
     filter: userLandFilter,
+    toggleButtonAriaLabel,
     tooltipLabel,
     tooltipButtonLabel,
     tooltipText,
@@ -460,6 +465,8 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
           {...getToggleButtonProps({
             disabled,
             className: classNames(styles.button, !showToggleButton && styles.hidden),
+            'aria-label': `${label}: ${toggleButtonAriaLabel}`,
+            ...(invalid && { 'aria-invalid': true }),
           })}
         >
           <IconAngleDown className={styles.angleIcon} aria-hidden />
