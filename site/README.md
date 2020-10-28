@@ -49,11 +49,8 @@ yarn start
 The documentation is written as `.mdx` files in the `docs/` folder. To keep things tidy, the folder structure should always mirror the site menu hierarchy.
 
 ### General guidelines
-- HDS documentation is written in British English.
-- The audience of the documentation includes every one at the City of Helsinki organisation with the main focus on developers, designers and product owners. Try to avoid technical jargon to keep documentation understandable for everyone.
-- HDS documentation aims to guide designers and developer and not restrict them. Most of the time the last word is left to the user of the design system. Keep this in mind - especially when writing component and token principles.
-- Documentation in Components and Design tokens sections always should have their counterpart both in design kit and implementation. HDS aims not to release documentation before implementation is released.
-- Documentation site styles take care of most of the accessibility issues. You mostly need to ensure that heading levels are used semantically (refer to [HDS typography documentation](https://hds.hel.fi/design-tokens/typography)) and external links are correctly visualized (you can use the HDS provided [Link component](src/components/Link.js)).
+
+For general guidelines for documentation, refer to [HDS documentation contribution guidelines](https://hds.hel.fi/contributing/documentation)).
 
 ### Using example page templates
 
