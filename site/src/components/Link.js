@@ -20,7 +20,9 @@ const Link = ({
       {...rest}
     >
       {children}
-      {external && <IconLinkExternal style={{ marginLeft: 'var(--spacing-3-xs)' }} size="xs" aria-label="Opens in a new window." />}
+      {external && (
+        <IconLinkExternal style={{ marginLeft: 'var(--spacing-3-xs)' }} size="xs" aria-label="Opens in a new window." />
+      )}
     </a>
   );
 };

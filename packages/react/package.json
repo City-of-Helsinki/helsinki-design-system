@@ -37,7 +37,6 @@
     "@babel/preset-env": "7.11.5",
     "@babel/preset-react": "7.10.4",
     "@babel/preset-typescript": "7.9.0",
-    "@juggle/resize-observer": "3.2.0",
     "@rollup/plugin-babel": "5.2.1",
     "@rollup/plugin-commonjs": "15.1.0",
     "@rollup/plugin-node-resolve": "9.0.0",
@@ -91,6 +90,7 @@
   },
   "dependencies": {
     "@babel/runtime": "7.11.2",
+    "@juggle/resize-observer": "3.2.0",
     "@popperjs/core": "2.5.3",
     "@react-aria/visually-hidden": "3.2.0",
     "downshift": "6.0.6",

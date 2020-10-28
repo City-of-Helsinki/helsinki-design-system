@@ -3,7 +3,7 @@
 exports[`<Navigation /> spec renders the component 1`] = `
 <DocumentFragment>
   <header
-    class="header theme-white theme-white"
+    class="header theme-light"
   >
     <a
       class="skipToContent"
@@ -21,6 +21,7 @@ exports[`<Navigation /> spec renders the component 1`] = `
           class="title"
         >
           <svg
+            aria-hidden="true"
             class="logo logo"
             role="img"
             viewBox="0 0 78 36"

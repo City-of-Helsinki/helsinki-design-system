@@ -17,6 +17,9 @@ const external = [
   'react-use-measure',
   'react-merge-refs',
   'react-virtual',
+  'react-popper',
+  '@juggle/resize-observer',
+  '@popperjs/core',
   '@react-aria/visually-hidden',
 ];
 
@@ -44,6 +47,9 @@ const getConfig = (format) => ({
           'default',
           {
             calc: false,
+            discardUnused: true,
+            mergeIdents: true,
+            reduceIdents: true,
           },
         ],
       },
@@ -70,6 +76,7 @@ export default [
       'components/index': 'src/components/index.ts',
       'icons/index': 'src/icons/index.ts',
       'components/Button/index': 'src/components/button/index.ts',
+      'components/Card/index': 'src/components/card/index.ts',
       'components/Checkbox/index': 'src/components/checkbox/index.ts',
       'components/Columns/index': 'src/components/columns/index.ts',
       'components/Combobox/index': 'src/components/dropdown/combobox/index.ts',

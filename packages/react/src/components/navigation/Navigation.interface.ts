@@ -6,14 +6,30 @@ export type NavigationReducerState = {
   /**
    * Defines where the navigation row will be displayed.
    * Supported values:
-   * subNav (default) - items will be displayed beneath the header
-   * inline - items will be displayed in the header
+   *
+   * `default` - items will be displayed beneath the header
+   *
+   * `inline` - items will be displayed in the header
    */
-  navigationRowDisplay?: NavigationRowDisplay;
+  navigationVariant?: NavigationVariant;
 };
 
 export type NavigationReducerAction =
   | { type: 'AUTHENTICATED'; value: boolean }
-  | { type: 'NAVIGATION_ROW'; value: NavigationRowDisplay };
+  | { type: 'NAVIGATION_ROW'; value: NavigationVariant };
 
-export type NavigationRowDisplay = 'inline' | 'subNav';
+export type NavigationVariant = 'default' | 'inline';
+
+export type NavigationTheme = 'light' | 'dark' | NavigationCustomTheme;
+
+export interface NavigationCustomTheme {
+  '--header-background-color'?: string;
+  '--header-color'?: string;
+  '--header-divider-color'?: string;
+  '--header-focus-outline-color'?: string;
+  '--mobile-menu-background-color'?: string;
+  '--mobile-menu-color'?: string;
+  '--navigation-row-background-color'?: string;
+  '--navigation-row-color'?: string;
+  '--navigation-row-focus-outline-color'?: string;
+}

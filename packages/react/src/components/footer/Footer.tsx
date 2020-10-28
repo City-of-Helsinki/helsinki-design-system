@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useReducer } from 'react';
 
 // import core base styles
 import 'hds-core';
@@ -6,7 +6,6 @@ import styles from './Footer.module.scss';
 import { Logo } from '../logo';
 import { Koros, KorosType } from '../koros';
 import classNames from '../../utils/classNames';
-import setComponentTheme from '../../utils/setComponentTheme';
 import { FooterNavigation } from './footerNavigation/FooterNavigation';
 import { FooterItemGroup } from './footerItemGroup/FooterItemGroup';
 import { FooterItem } from './footerItem/FooterItem';
@@ -14,8 +13,9 @@ import { FooterUtilities } from './footerUtilities/FooterUtilities';
 import { FooterSoMe } from './footerSoMe/FooterSoMe';
 import { FooterBase } from './footerBase/FooterBase';
 import { FooterContext, FooterContextProps } from './FooterContext';
-import { FooterCustomTheme, FooterReducerAction, FooterReducerState, FooterTheme } from './Footer.interface';
+import { FooterReducerAction, FooterReducerState, FooterTheme } from './Footer.interface';
 import { getComponentFromChildren } from '../../utils/getChildren';
+import { useTheme } from '../../hooks/useTheme';
 
 export type FooterProps = React.PropsWithChildren<{
   /**
@@ -64,12 +64,8 @@ export const Footer = ({
   const [{ navigationVariant }, dispatch] = useReducer(reducer, {
     navigationVariant: 'default',
   });
-  // handle custom themes
-  useEffect(() => {
-    if (theme && typeof theme !== 'string') {
-      setComponentTheme<FooterCustomTheme>('Footer', theme);
-    }
-  }, [theme]);
+  // custom theme class that is applied to the root element
+  const customThemeClass = useTheme<FooterTheme>(styles.footer, theme);
   // footer context
   const context: FooterContextProps = { dispatch };
   // filter out navigation from other children so that they can be rendered separately
@@ -82,7 +78,8 @@ export const Footer = ({
         className={classNames(
           styles.footer,
           styles[`koros-${korosType}`],
-          typeof theme === 'string' ? styles[`theme-${theme}`] : 'custom',
+          typeof theme === 'string' && styles[`theme-${theme}`],
+          customThemeClass,
           className,
         )}
       >

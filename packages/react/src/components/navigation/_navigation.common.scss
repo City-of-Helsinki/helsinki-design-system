@@ -1,0 +1,18 @@
+// common styles for navigation action dropdowns
+%navigationActionDropdown {
+  left: unset;
+  right: 0;
+
+  // remove margins from children
+  * {
+    margin: 0;
+  }
+
+  > * {
+    // add margin to icons
+    span:first-of-type:not(:only-of-type) {
+      align-self: flex-start;
+      margin: 0 var(--spacing-2-xs) 0 calc(var(--spacing-3-xs) * -1);
+    }
+  }
+}

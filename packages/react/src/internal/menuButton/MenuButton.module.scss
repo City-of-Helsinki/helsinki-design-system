@@ -1,0 +1,46 @@
+@import "../../styles/common";
+@value x-large-up from "../../styles/breakpoints.css";
+
+.menuButton {
+  --menu-border-width: 1px;
+  --menu-max-width: 20rem;
+  --menu-top-margin: 0;
+  --menu-item-min-height: var(--spacing-xl);
+
+  --menu-button-focus-outline-color: var(--color-coat-of-arms);
+  --menu-border-color: var(--color-black-90);
+  --menu-item-background-color: var(--color-white);
+  --menu-item-background-color-highlighted: var(--color-bus);
+  --menu-item-color: var(--color-black-90);
+  --menu-item-color-highlighted: var(--color-white);
+
+  border-radius: 2px;
+  position: relative;
+
+  &:focus-within {
+    box-shadow: 0 0 0 3px var(--menu-button-focus-outline-color);
+  }
+}
+
+.toggleButton {
+  @extend %buttonReset;
+  align-items: center;
+  display: flex;
+  line-height: var(--lineheight-s);
+  outline: none;
+  padding: var(--spacing-3-xs) 0;
+
+  > * {
+    pointer-events: none;
+  }
+}
+
+.toggleButtonLabel {
+  margin: 0 var(--spacing-3-xs);
+}
+
+@media x-large-up {
+  .toggleButtonLabel {
+    margin: 0 var(--spacing-2-xs);
+  }
+}
