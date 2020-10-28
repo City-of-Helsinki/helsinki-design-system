@@ -93,6 +93,10 @@
   .base {
     align-items: center;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-end;
+  }
+
+  .copyright {
+    margin-right: auto;
   }
 }

@@ -21,17 +21,19 @@ export const FooterBase = ({ children, copyrightHolder, copyrightText }: FooterB
   return (
     <div className={styles.base}>
       <hr className={styles.divider} aria-hidden />
-      <div className={styles.copyright}>
-        <span className={styles.copyrightHolder}>
-          © {copyrightHolder} {year}
-        </span>
-        {copyrightText && (
-          <>
-            <span className={styles.copyrightDot}>•</span>
-            <span className={styles.copyrightText}>{copyrightText}</span>
-          </>
-        )}
-      </div>
+      {(copyrightHolder || copyrightText) && (
+        <div className={styles.copyright}>
+          <span className={styles.copyrightHolder}>
+            © {copyrightHolder} {year}
+          </span>
+          {copyrightText && (
+            <>
+              <span className={styles.copyrightDot}>•</span>
+              <span className={styles.copyrightText}>{copyrightText}</span>
+            </>
+          )}
+        </div>
+      )}
       {children && <div className={styles.links}>{children}</div>}
     </div>
   );

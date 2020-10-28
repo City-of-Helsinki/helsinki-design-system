@@ -78,7 +78,17 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
         <span
           class="copyrightHolder"
         >
-          ©  2020
+          © Copyright 2020
+        </span>
+        <span
+          class="copyrightDot"
+        >
+          •
+        </span>
+        <span
+          class="copyrightText"
+        >
+          All rights reserved
         </span>
       </div>
     </div>
