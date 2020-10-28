@@ -24,6 +24,7 @@ export const Secondary = () => `
 
 export const Supplementary = () => `
   <button type="button" class="hds-button hds-button--supplementary">
+    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
     ${getLabel()}
   </button>
 `;
