@@ -1,5 +1,10 @@
 .card {
   composes: hds-card from 'hds-core/lib/components/card/card.css';
+  
+  // class where custom theme styles will be applied
+  &:global(.custom) {
+    content: ''
+  }
 }
 
 .border {
