@@ -45,6 +45,7 @@ export default {
     onBlur: action('onBlur'),
     onChange: (change) => action('onChange')(change),
     onFocus: action('onFocus'),
+    toggleButtonAriaLabel: 'Open the combobox',
   },
 };
 
