@@ -83,7 +83,7 @@ export const NavigationSearch = ({
   };
 
   return (
-    <div className={classNames(styles.search, searchActive && styles.active)}>
+    <div className={classNames(styles.search, searchActive && styles.active)} role="search">
       {!isMobile && (
         <button type="button" className={styles.searchToggleButton} onClick={() => setSearchActive(true)}>
           <IconSearch aria-hidden />
@@ -91,7 +91,7 @@ export const NavigationSearch = ({
         </button>
       )}
       {searchActive && (
-        <div className={styles.searchContainer} onFocus={handleFocus} onBlur={handleBlur} role="search">
+        <div className={styles.searchContainer} onFocus={handleFocus} onBlur={handleBlur}>
           <input
             type="text"
             className={styles.input}

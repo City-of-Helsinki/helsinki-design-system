@@ -45,6 +45,7 @@ exports[`<Navigation.Search /> spec renders the component 1`] = `
         >
           <div
             class="search"
+            role="search"
           >
             <button
               class="searchToggleButton"
