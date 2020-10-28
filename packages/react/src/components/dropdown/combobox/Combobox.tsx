@@ -212,7 +212,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
       }
     },
     stateReducer(state, { type, changes }) {
-      const { ItemClick } = useCombobox.stateChangeTypes;
+      const { ItemClick, InputBlur } = useCombobox.stateChangeTypes;
       const { selectedItem: _selectedItem, inputValue } = changes;
 
       // clear the selected item if the input value doesn't match the selected item label
@@ -220,6 +220,14 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
         return {
           ...changes,
           selectedItem: null,
+        };
+      }
+
+      // clear the input value on blur if there's no selected item
+      if (type === InputBlur && !props.multiselect && !_selectedItem) {
+        return {
+          ...changes,
+          inputValue: '',
         };
       }
 
