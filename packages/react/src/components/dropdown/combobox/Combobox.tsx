@@ -230,6 +230,15 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     },
     stateReducer(state, { type, changes }) {
       const { ItemClick } = useCombobox.stateChangeTypes;
+      const { selectedItem: _selectedItem, inputValue } = changes;
+
+      // clear the selected item if the input value doesn't match the selected item label
+      if (!props.multiselect && _selectedItem && _selectedItem[optionLabelField] !== inputValue) {
+        return {
+          ...changes,
+          selectedItem: null,
+        };
+      }
 
       // prevent the menu from being closed when the user selects an item by clicking
       if (type === ItemClick && props.multiselect) {
