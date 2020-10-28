@@ -1,7 +1,8 @@
 @import "../../styles/common";
 
 .selectionGroup {
-  --spacing: var(--spacing-s);
+  --spacing-col: 1.25rem;
+  --spacing-row: var(--spacing-s);
   --label-color-default: var(--color-black-90);
 
   border: 0;
@@ -14,13 +15,14 @@
 
 .label {
   @extend %inputLabel;
-  margin-bottom: var(--spacing);
+  margin-bottom: var(--spacing-row);
 }
 
 .items {
   clear: left;
   display: grid;
-  gap: var(--spacing);
+  gap: var(--spacing-row) var(--spacing-col);
+  justify-content: start;
 
   &.vertical {
     grid-auto-flow: row;

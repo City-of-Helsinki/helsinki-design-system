@@ -1,5 +1,6 @@
 .hds-selection-group {
-  --spacing: var(--spacing-s);
+  --spacing-col: 1.25rem;
+  --spacing-row: var(--spacing-s);
   --label-color-default: var(--color-black-90);
 
   border: 0;
@@ -15,7 +16,7 @@
   display: block;
   font-size: var(--fontsize-body-m);
   font-weight: 500;
-  margin-bottom: var(--spacing);
+  margin-bottom: var(--spacing-row);
 }
 
 .hds-selection-group__required {
@@ -30,7 +31,8 @@
 .hds-selection-group__items {
   clear: left;
   display: grid;
-  gap: var(--spacing);
+  gap: var(--spacing-row) var(--spacing-col);
+  justify-content: start;
 }
 
 .hds-selection-group__items--vertical {
