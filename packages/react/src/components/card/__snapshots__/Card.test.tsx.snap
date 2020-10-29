@@ -4,6 +4,7 @@ exports[`<Card /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
     class="card"
+    role="region"
   />
 </DocumentFragment>
 `;
@@ -12,6 +13,7 @@ exports[`<Card /> spec renders with additional props and children 1`] = `
 <DocumentFragment>
   <div
     class="card border"
+    role="region"
   >
     <div
       class="body"

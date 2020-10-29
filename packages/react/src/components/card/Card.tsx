@@ -4,6 +4,15 @@ import React from 'react';
 import 'hds-core';
 import styles from './Card.module.scss';
 import classNames from '../../utils/classNames';
+import { useTheme } from '../../hooks/useTheme';
+
+export interface CardCustomTheme {
+  '--background-color'?: string;
+  '--border-color'?: string;
+  '--border-width'?: string;
+  '--padding-horizontal': string;
+  '--padding-vertical': string;
+}
 
 export type CardProps = {
   /**
@@ -23,15 +32,26 @@ export type CardProps = {
    */
   className?: string;
   /**
+   * Custom theme styles
+   */
+  theme?: CardCustomTheme;
+  /**
    * Additional children to render inside the card.
    */
   children?: React.ReactNode;
-};
+} & React.HTMLProps<HTMLDivElement>;
 
-export const Card = ({ border, heading, text, className, children }: CardProps) => {
+export const Card = ({ border, heading, text, className, theme, children, ...divProps }: CardProps) => {
+  // custom theme
+  const customThemeClass = useTheme<CardCustomTheme>(styles.card, theme);
+
   const hasBody = !!heading || !!text;
   return (
-    <div className={classNames(styles.card, border && styles.border, className)}>
+    <div
+      className={classNames(styles.card, border && styles.border, customThemeClass, className)}
+      role="region"
+      {...divProps}
+    >
       {hasBody && (
         <div className={styles.body}>
           {heading && (

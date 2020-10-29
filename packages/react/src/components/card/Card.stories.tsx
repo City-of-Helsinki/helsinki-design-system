@@ -42,3 +42,19 @@ WithOtherComponents.args = {
   text:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
 };
+
+export const WithCustomTheme = (args) => <Card {...args} />;
+WithCustomTheme.storyName = 'With custom theme';
+WithCustomTheme.args = {
+  border: true,
+  heading: 'Card',
+  text:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  theme: {
+    '--background-color': 'var(--color-white)',
+    '--border-color': 'var(--color-black-90)',
+    '--border-width': '2px',
+    '--padding-horizontal': 'var(--spacing-l)',
+    '--padding-vertical': 'var(--spacing-m)',
+  },
+};
