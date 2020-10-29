@@ -1,15 +1,15 @@
-:books: [**See the components in Storybook**](https://city-of-helsinki.github.io/helsinki-design-system/storybook/core)
-
-# hds-core [![npm version](https://badge.fury.io/js/hds-core.svg)](https://www.npmjs.com/package/hds-core)
+# hds-core [![npm](https://img.shields.io/npm/v/hds-core?style=flat-square)](https://www.npmjs.com/package/hds-core) [![npm bundle size](https://img.shields.io/bundlephobia/minzip/hds-core?label=gzipped%20size&style=flat-square)](https://bundlephobia.com/result?p=hds-core)
 
 Base styles and individual HTML component styles for the Helsinki Design System.
+
+:books: [See the components in Storybook](https://hds.hel.fi/storybook/core)
 
 ## Getting started
 
 ### Installing the package:
 
-```
-$ yarn add hds-core
+```bash
+yarn add hds-core
 ```
 
 ### What's included
@@ -35,11 +35,17 @@ hds-core/
     └── base.css        # base styles
 ```
 
-## Using the styles
+### Using the styles
 
 To import styles for all the core components, you'll need two stylesheets: `base.css` (the base styles and CSS variables) and `components/all.css`. If you use any of the icons, you'll also need `icons/all.css`. Do note that the `all.css`-files bundle all the components and icons into single stylesheets and thus are large in filesize.
 
 Therefore, we do recommend that you use individual component and icon stylesheets instead of the bundled styles.
+
+JS
+```js
+// import base styles and css variables
+import "hds-core";
+```
 
 ### Helsinki fonts
 
@@ -47,10 +53,10 @@ The Helsinki fonts are not included in the package due to copyright reasons.
 
 ### Overriding styles
 
-Helsinki Design System uses CSS variables from the [hds-design-tokens](https://www.npmjs.com/package/hds-design-tokens) package to control coloring and layout. You can override these variables where needed.
+Helsinki Design System uses CSS variables from the [hds-design-tokens](https://www.npmjs.com/package/hds-design-tokens) package to control coloring, spacing and layout. You can override these variables if necessary, but it is not recommended.
 
 ## Development
-Read more [here](DEVELOPMENT.md)
+Read more [here](DEVELOPMENT.md).
 
 ## Built with
 
