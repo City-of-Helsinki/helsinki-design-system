@@ -6,6 +6,238 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.15.0] - October 29, 2020
+### Breaking changes
+#### Design tokens
+- Renamed colour tokens
+    - `--color-coat-of-arms-blue` to `coat-of-arms`
+    - `--color-coat-of-arms-gold` to `gold`
+    - `--color-coat-of-arms-silver` to `silver`
+    - `--color-[color name]-dark-50` to `--color-[color name]-dark`
+    - `--color-[color name]-light-20` to `--color-[color name]-light`
+    - `--color-[color name]-light-50` to `--color-[color name]-medium-light`
+- Replaced tokens `-light-05` with `-light `
+- Changed colour token values of `-light`, `-medium-light`, and `-dark`:
+    - `--color-brick-light` to `#ffeeed`
+    - `--color-brick-medium-light` to `#facbc8`
+    - `--color-brick-dark` to `#800e04`
+    - `--color-bus-light` to `#f0f0ff`
+    - `--color-bus-medium-light` to `#ccccff`
+    - `--color-bus-dark` to `#00005e`
+    - `--color-coat-of-arms-light` to `#e6f4ff`
+    - `--color-coat-of-arms-medium-light` to `#b5daf7`
+    - `--color-coat-of-arms-dark` to `#005799`
+    - `--color-gold-light` to `#f7f2e4`
+    - `--color-gold-medium-light` to `#e8d7a7`
+    - `--color-gold-dark` to `#9e823c`
+    - `--color-silver-dark` to `#b0b8bf`
+    - `--color-copper-light` to `#cffaf1`
+    - `--color-copper-medium-light` to `#9ef0de`
+    - `--color-copper-dark` to `#00a17d`
+    - `--color-engel-light` to `#fff9db`
+    - `--color-engel-medium-light` to `#fff3b8`
+    - `--color-engel-dark` to `#dbc030`
+    - `--color-fog-light` to `#e8f3fc`
+    - `--color-fog-medium-light` to `#d0e6f7`
+    - `--color-fog-dark` to `#72a5cf`
+    - `--color-metro-light` to `#ffeee6`
+    - `--color-metro-medium-light` to `#ffcab3`
+    - `--color-metro-dark` to `#bd2f00`
+    - `--color-summer-light` to `#fff4d4`
+    - `--color-summer-medium-light` to `#ffe49c`
+    - `--color-summer-dark` to `#cc9200`
+    - `--color-suomenlinna-light` to `#fff0f7`
+    - `--color-suomenlinna-medium-light` to `#ffdbeb`
+    - `--color-suomenlinna-dark` to `#e673a5`
+    - `--color-tram-light` to `#dff7eb`
+    - `--color-tram-medium-light` to `#a3e3c2`
+    - `--color-tram-dark` to `#006631`
+    
+#### React
+- [Navigation] in ([#288](https://github.com/City-of-Helsinki/helsinki-design-system/pull/288))
+    - The `animateOpen` prop was removed.
+    - Replaced `menuCloseAriaLabel` and `menuOpenAriaLabel` props with a single `menuToggleAriaLabel` prop
+    - The supported values for the `theme` prop were changed from `white` and `black` to `light` and `dark`.
+    - [Navigation.Dropdown] The component was completely re-written. The old dropdown used a role="listbox" implementation that is intended be used in forms. It now uses a simple "menu button" implementation.
+        - The component is still used the same way as before, but the supported props changed. The supported props can be seen [here](https://hds.hel.fi/storybook/react/?path=/docs/components-navigation--default) under the NavigationDropdown tab.
+    - [Navigation.User] The dropdown used by the component was completely re-written for the same reason as above.
+        - The component is still used the same way as before, but the supported props changed. The supported props can be seen [here](https://hds.hel.fi/storybook/react/?path=/docs/components-navigation--default) under the NavigationUser tab.
+    - [Navigation.LanguageSelector] The component was completely re-written for the same reason as above.
+        - The component no longer accepts options, instead it is used similarly as the `Navigation.Dropdown` component.
+        ```tsx
+        <Navigation.LanguageSelector label="FI">
+          <Navigation.Item href="#" label="Suomeksi" />
+          <Navigation.Item href="#" label="På svenska" />
+          <Navigation.Item href="#" label="In English" />
+        </Navigation.LanguageSelector>
+        ```
+      The supported props can be seen [here](https://hds.hel.fi/storybook/react/?path=/docs/components-navigation--default) under the NavigationLanguageSelector tab.
+    - [Navigation.Row]
+        - The prop `display` was renamed to `variant`, and the supported values for the prop were changed from `subNav` and `inline` to `default` and `inline`.
+    - [Navigation.Search]
+        - The `onSearchEnter` callback was renamed to `onSearch` as it can now be fired by pressing enter, or the search button. 
+        - The focus event is no longer passed in the `onFocus` and `onBlur` callbacks.
+- [Combobox] Added a required prop - `toggleButtonAriaLabel` - that is used to describe the menu toggle button to screen readers. in ([#295](https://github.com/City-of-Helsinki/helsinki-design-system/pull/295))
+- [TextArea] Replaced `tooltipOpenButtonLabelText` and `tooltipCloseButtonLabelText` props with a single `tooltipButtonLabel` prop. in ([#283](https://github.com/City-of-Helsinki/helsinki-design-system/pull/283))
+- [TextInput] Replaced `tooltipOpenButtonLabelText` and `tooltipCloseButtonLabelText` props with a single `tooltipButtonLabel` prop. in ([#283](https://github.com/City-of-Helsinki/helsinki-design-system/pull/283))
+
+## Design kit
+### Added
+- [Colours] New shared style for focus style on dark backgrounds
+- [Navigation] New icon variant for Navigation dropdown options
+- [Buttons] Icon left and icon right variants for all Small buttons.
+- [Form Components] Added horizontal version of selection groups (both for checkbox and radio button)
+- [Icons] Added new icons
+    - cake (usage: birthday)
+    - calendar-recurring
+    - check-circle
+    - drag (usage: draggable elements)  
+    - glyph-at
+    - glyph-euro
+    - layers
+    - playback-play
+    - playback-stop
+    - playback-pause
+    - playback-record
+    - playback-next
+    - playback-previous
+    - playback-fastforward
+    - playback-rewind
+    - podcast
+    - printer
+    - refresh
+    - rss
+    - sliders (usage: filters)
+    - sort
+    - sort-ascending
+    - sort-descending
+    - sort-alphabetical-ascending
+    - sort-alphabetical-descending
+- [Icons] Added new icons fill-variants for better accessibility
+    - error-fill
+    - alert-circle-fill
+    - info-circle-fill
+    - check-circle-fill
+    - cross-circle-fill
+    - plus-circle-fill
+    - minus-circle-fill
+    - question-circle-fill
+
+### Changed
+- Updated design library files to Sketch version 69
+- [Colour] Renamed colour tokens to value-agnostic light, light-medium and dark
+- [Colour] Adjusted token values light, light-medium and dark colour to improve theming
+- [Navigation] In mobile navigation menu, moved the language selection from the bottom of the menu to the top navigation bar
+    - Fixed issues reported in the accessibility audit.
+    - Updated example artboards to reflect new language selection position
+- [Navigation] Changed "sign out" button to use Supplementary/Small/Text and Icon Left symbol instead of the only Text variant
+- [Buttons] Increased the height of Small button variants by 8 pixels to comply with WCAG 2.5.5 Target Size.
+- [Buttons] Changed the minimum symbol width of Small buttons variants to 44 pixels to ensure complying with WCAG 2.5.5 Target Size.
+- [Buttons] Improved Small button variant symbol scaling
+- [Buttons] Shortened the spacing between icon and label in Supplementary button from 8px to 4px.
+- [Form Components] Checkbox + label symbols to use Smart layout
+- [Form Components] Radio button + label symbols to use Smart layout
+
+### Fixed
+- [Form Components] Disabled state radio button borders now use shared styles
+- [Form Components] Fixed small issues in Checkbox symbols
+    - Fixed incorrect label spacing in Checkbox/Hover - selected
+    - Fixed broken symbol link caused by Sketch 69 update in Checkbox/Unselected
+- [Icons] Fixed legibility and pixel snapping of icons
+    - microphone
+    - microphone-crossed
+    - volume-low
+    - volume-high
+    - arrow-up
+    - arrow-right
+    - arrow-left
+    - arrow-down
+    - arrow-undo
+    - arrow-redo
+    - angle-right
+    - calendar-cross
+    - clock-cross
+    - check
+    - download-cloud
+    - display
+    - cross
+    - cross-circle
+    - upload-cloud
+
+### Removed
+- [Colour] Removed color tokens -light-05
+
+### Deprecated
+- [Buttons] Supplementary button symbols without icons were deprecated and symbol will be completely removed in an upcoming release. This change was made to increase accessibility and usability of supplementary buttons.
+
+## Documentation
+### Added
+- First HDS Pattern: Forms, documenting best practices and accessiblity considerations of designing and building forms with HDS
+- [Tooltip] Component documentation
+- [Card] Component documentation
+- Documentation site content guidelines to the Contribution section
+
+
+### Changed
+- Updated all Component statuses in the Component overview
+    - All components were marked Accessible
+    - All components except Navigation and Footer were marked Stable
+- [Button] Updated the documentation to reflect changes to Supplementary and Small buttons
+- [Colour] Changed HDS Colour library documentation to match design and implementation
+- [Icons] Icon visual assets documentation to match additions and changes in implementation
+- Documentation site accessibility guidelines and statement
+- Guidelines were updated to describe the basis of HDS accessibility as well as the process of ensuring accessibility.
+- The accessibility statement was updated to list all currently known accessibility issues of the HDS documentation site. The reason for not fixing the issues was also stated.
+- Updated Roadmap
+- Updated What’s new section
+
+### Fixed
+- Fixed multiple broken links in the documentation site:
+- Contribution page links on many pages
+- Some Storybook links in the Component overview page
+- Added links to dev.hel.fi site in Getting started, Contribution and Resources sections
+- Added a small note about font purchase requirement for designers
+- Changed the documentation page title to be dynamic (now includes the page name in the HTML title)
+
+## Core
+### Added
+- [Icons] Added new icons
+- New component: Card
+
+### Changed
+- Updated components to use the renamed tokens. in ([#282](https://github.com/City-of-Helsinki/helsinki-design-system/pull/282))
+- [Button] Changed the minimum width and height of the `small` button. in ([#274](https://github.com/City-of-Helsinki/helsinki-design-system/pull/274))
+- [Button] Shortened the spacing between icon and label in Supplementary button to 4px. in ([#274](https://github.com/City-of-Helsinki/helsinki-design-system/pull/274))
+
+
+## React
+### Added
+- [Icons] Added new icons. in ([#286](https://github.com/City-of-Helsinki/helsinki-design-system/pull/286))
+- New component: Tooltip. in ([#283](https://github.com/City-of-Helsinki/helsinki-design-system/pull/283))
+- New component: Card. in ([#276](https://github.com/City-of-Helsinki/helsinki-design-system/pull/276))
+- [Navigation]
+    - Added a prop - `titleAriaLabel` - that is used to describe the logo and service to screen readers. in ([#288](https://github.com/City-of-Helsinki/helsinki-design-system/pull/288))
+    - [Navigation.Search] Added a prop - `searchButtonAriaLabel` - that is used to describe search button to screen readers. in ([#288](https://github.com/City-of-Helsinki/helsinki-design-system/pull/288))
+
+### Changed
+- Updated components to use the renamed tokens. in ([#282](https://github.com/City-of-Helsinki/helsinki-design-system/pull/282))
+- [Accessibility] Added warning when using other than strings as `Checkbox` or `RadioButton` label. in ([#300](https://github.com/City-of-Helsinki/helsinki-design-system/pull/300))
+- [Button] Set `iconLeft` or `iconRight` as required for supplementary buttons. in ([#274](https://github.com/City-of-Helsinki/helsinki-design-system/pull/274))
+- [Button] Changed the minimum width and height of the `small` button. in ([#274](https://github.com/City-of-Helsinki/helsinki-design-system/pull/274))
+- [Button] Shortened the spacing between icon and label in Supplementary button to 4px. in ([#274](https://github.com/City-of-Helsinki/helsinki-design-system/pull/274))
+- [Combobox] The selection is now cleared if the input value doesn't match the selected value. in ([#295](https://github.com/City-of-Helsinki/helsinki-design-system/pull/295))
+- [Combobox] The input value is now cleared if there's no selected item when the field is blurred. in ([#299](https://github.com/City-of-Helsinki/helsinki-design-system/pull/299))
+- [Footer] The copyright text is now hidden if neither `copyrightHolder` or `copyrightText` is defined. in ([#298](https://github.com/City-of-Helsinki/helsinki-design-system/pull/298))
+- [Navigation] This update contains many accessibility improvements and bug fixes to the component. in ([#288](https://github.com/City-of-Helsinki/helsinki-design-system/pull/288))
+    - The language selector is now always visible in the header. It used to be displayed at the bottom of the menu in mobile
+    - The search now needs to be activated when using a keyboard. It used to be activated when the search button received focus
+    - The search icon in the input for the `Navigation.Search` component was changed to a button
+    - The mobile menu toggle now uses the correct aria attributes
+
+### Fixed
+- [Navigation] Fixed an issue where the `className` prop for `Navigation.Item` wasn't applied when the component was used inside the `Navigation.Row` component. in ([#288](https://github.com/City-of-Helsinki/helsinki-design-system/pull/288))
+
+
 ## [0.14.0] - October 15, 2020
 ### Core
 #### Changed
