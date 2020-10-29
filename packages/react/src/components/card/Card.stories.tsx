@@ -54,6 +54,7 @@ WithCustomTheme.args = {
     '--background-color': 'var(--color-white)',
     '--border-color': 'var(--color-black-90)',
     '--border-width': '2px',
+    '--color': 'var(--color-black-90)',
     '--padding-horizontal': 'var(--spacing-l)',
     '--padding-vertical': 'var(--spacing-m)',
   },
