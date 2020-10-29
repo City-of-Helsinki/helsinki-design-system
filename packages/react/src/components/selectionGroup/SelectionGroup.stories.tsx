@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
-import uniqueId from 'lodash.uniqueid';
 
 import { SelectionGroup } from './SelectionGroup';
 import { Checkbox } from '../checkbox';
@@ -20,10 +19,6 @@ export default {
   },
 };
 
-const getKey = (type: string) => {
-  return uniqueId(`hds-${type}-`);
-};
-
 const getCheckboxItems = (
   numberOfItems: number,
   checked: { [key: string]: boolean },
@@ -34,7 +29,7 @@ const getCheckboxItems = (
       id={`checkbox${i}`}
       label={`Option ${i + 1}`}
       name={`checkbox${i}`}
-      key={getKey('checkbox')}
+      key={`checkbox${i}`} // eslint-disable-line react/no-array-index-key
       checked={checked[`checkbox${i}`]}
       onChange={handleChange}
     />
@@ -49,7 +44,7 @@ const getRadioButtonItems = (
     <RadioButton
       id={`radio${i}`}
       label={`Option ${i + 1}`}
-      key={getKey('radio')}
+      key={`radio${i}`} // eslint-disable-line react/no-array-index-key
       value={`radio${i}`}
       name="radio"
       checked={radioValue === `radio${i}`}
