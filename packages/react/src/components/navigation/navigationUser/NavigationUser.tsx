@@ -1,11 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 
 import styles from './NavigationUser.module.scss';
-import { NavigationDropdown } from '../navigationDropdown/NavigationDropdown';
 import { NavigationContext } from '../NavigationContext';
 import { IconSignin, IconUser } from '../../../icons';
 import { Button } from '../../button';
-import { MenuButtonProps } from '../../../internal/menuButton/MenuButton';
+import { MenuButton, MenuButtonProps } from '../../../internal/menuButton/MenuButton';
 
 export type NavigationUserProps = MenuButtonProps & {
   /**
@@ -51,7 +50,7 @@ export const NavigationUser = ({
       {children}
     </>
   ) : (
-    <NavigationDropdown
+    <MenuButton
       className={styles.userDropdown}
       icon={<IconUser aria-hidden />}
       id={id}
@@ -60,7 +59,7 @@ export const NavigationUser = ({
       {...dropdownProps}
     >
       {children}
-    </NavigationDropdown>
+    </MenuButton>
   );
 
   return (
