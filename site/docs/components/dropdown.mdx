@@ -182,12 +182,13 @@ Combobox dropdown serves in most use cases when the user needs to select one fro
   ]
   return (
     <>
-      <Combobox required label="Label" helper="Assistive text" placeholder="Placeholder" options={options} />
+      <Combobox required label="Label" helper="Assistive text" placeholder="Placeholder" toggleButtonAriaLabel="Toggle menu" options={options} />
       <Combobox
         disabled
         label="Label"
         helper="Assistive text"
         placeholder="Placeholder"
+        toggleButtonAriaLabel="Toggle menu"
         options={options}
         style={{ marginTop: 'var(--spacing-xs)' }}
       />
@@ -197,6 +198,7 @@ Combobox dropdown serves in most use cases when the user needs to select one fro
         label="Label"
         error="Error description"
         placeholder="Placeholder"
+        toggleButtonAriaLabel="Toggle menu"
         options={options}
         style={{ marginTop: 'var(--spacing-xs)' }}
       />
@@ -205,6 +207,7 @@ Combobox dropdown serves in most use cases when the user needs to select one fro
         label="Label"
         helper="Assistive text"
         placeholder="Placeholder"
+        toggleButtonAriaLabel="Toggle menu"
         icon={<IconUser />}
         options={[
           { label: 'Adam' },
@@ -230,14 +233,16 @@ Combobox dropdown serves in most use cases when the user needs to select one fro
   label="Label"
   helper="Assistive text"
   placeholder="Placeholder"
-  options={[{ label: 'Americium' }...]}
+  toggleButtonAriaLabel="Toggle menu"
+  options={[{ label: 'Americium' }, ...]}
 />
 <Combobox
   disabled
   label="Label"
   helper="Assistive text"
   placeholder="Placeholder"
-  options={[{ label: 'Americium' }...]}
+  toggleButtonAriaLabel="Toggle menu"
+  options={[{ label: 'Americium' }, ...]}
   style={{ marginTop: 'var(--spacing-xs)' }}
 />
 <Combobox
@@ -246,7 +251,8 @@ Combobox dropdown serves in most use cases when the user needs to select one fro
   label="Label"
   error="Error description"
   placeholder="Placeholder"
-  options={[{ label: 'Americium' }...]}
+  toggleButtonAriaLabel="Toggle menu"
+  options={[{ label: 'Americium' }, ...]}
   style={{ marginTop: 'var(--spacing-xs)' }}
 />
 <Combobox
@@ -255,6 +261,7 @@ Combobox dropdown serves in most use cases when the user needs to select one fro
   helper="Assistive text"
   placeholder="Placeholder"
   icon={<IconUser />}
+  toggleButtonAriaLabel="Toggle menu"
   options={[{ label: 'Adam' }, ...]}
   style={{ marginTop: 'var(--spacing-xs)' }}
 />
@@ -283,6 +290,7 @@ Combobox multi-select variant allows the user to select one or more options simu
   ]}
   clearButtonAriaLabel="Clear all selections"
   selectedItemRemoveButtonAriaLabel="Remove ${value}"
+  toggleButtonAriaLabel="Toggle menu"
 />
 </Playground>
 
@@ -297,6 +305,7 @@ Combobox multi-select variant allows the user to select one or more options simu
   options={[{ label: 'Americium' }, ...]}
   clearButtonAriaLabel="Clear all selections"
   selectedItemRemoveButtonAriaLabel="Remove ${value}"
+  toggleButtonAriaLabel="Toggle menu"
 />
 ```
 
