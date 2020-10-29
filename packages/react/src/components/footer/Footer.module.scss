@@ -47,7 +47,7 @@ $koros-heights: (
 }
 
 .koros {
-  fill: var(--footer-background);
+  fill: var(--footer-background, transparent);
   overflow: hidden;
 
   svg {
