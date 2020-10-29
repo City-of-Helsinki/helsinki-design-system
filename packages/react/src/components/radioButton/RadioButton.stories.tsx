@@ -65,19 +65,6 @@ export const Custom = () => {
 };
 Custom.storyName = 'With custom styles';
 
-export const RichLabel = () => {
-  const label = (
-    <span>
-      Label with{' '}
-      <a style={{ color: 'var(--color-bus)' }} href="/?path=/story/components-radiobutton--rich-label">
-        link
-      </a>
-    </span>
-  );
-  return <RadioButton id="radio4" label={label} />;
-};
-RichLabel.storyName = 'With rich label';
-
 export const Playground = () => {
   const [radioValue, setRadioValue] = useState(null);
   const options = ['foo', 'bar', 'baz'];
