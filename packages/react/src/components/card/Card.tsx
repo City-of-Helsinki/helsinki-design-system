@@ -10,6 +10,7 @@ export interface CardCustomTheme {
   '--background-color'?: string;
   '--border-color'?: string;
   '--border-width'?: string;
+  '--color'?: string;
   '--padding-horizontal': string;
   '--padding-vertical': string;
 }
