@@ -35,7 +35,7 @@ export const Secondary = () => (
 );
 
 export const Supplementary = () => (
-  <Button onClick={onClick} variant="supplementary">
+  <Button onClick={onClick} variant="supplementary" iconLeft={<IconShare />}>
     Button
   </Button>
 );

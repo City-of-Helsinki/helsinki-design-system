@@ -1,6 +1,7 @@
 .hds-button {
   --border-width: 2px;
   --color: inherit;
+  --min-size: 44px;
   --outline-gutter: 2px;
   --outline-width: 3px;
 
@@ -14,6 +15,8 @@
   display: inline-flex;
   font-weight: 500;
   justify-content: center;
+  min-height: var(--min-size);
+  min-width: var(--min-size);
   padding: 0 var(--spacing-2-xs);
   position: relative;
   vertical-align: top;
@@ -116,6 +119,20 @@ input[type="submit"].hds-button {
   margin: 0 var(--spacing-2-xs);
 }
 
+/* supplementary with right icon */
+.hds-button--supplementary .hds-button__label:first-child {
+  padding-right: var(--spacing-3-xs);
+}
+/* supplementary with left icon */
+.hds-button--supplementary .hds-icon + .hds-button__label:last-child {
+  padding-left: var(--spacing-3-xs);
+}
+/* supplementary with both icons */
+.hds-button--supplementary .hds-icon + .hds-button__label:not(:last-child) {
+  padding-left: var(--spacing-3-xs);
+  padding-right: var(--spacing-3-xs);
+}
+
 /* SMALL */
 .hds-button--small {
   padding: 0;
@@ -163,14 +180,12 @@ input[type="submit"].hds-button--small {
 
 /* left - small */
 .hds-button--small .hds-icon {
-  height: 1.125em;
-  margin-left: var(--spacing-xs);
-  width: 1.125em;
+  margin-left: var(--spacing-2-xs);
 }
 
 /* right - small */
 .hds-button .hds-button--small .hds-button__label ~ .hds-icon {
-  margin: 0 var(--spacing-xs) 0 0;
+  margin: 0 var(--spacing-2-xs) 0 0;
 }
 
 /* both icons - left */
@@ -185,12 +200,12 @@ input[type="submit"].hds-button--small {
 
 /* both icons - left - small */
 .hds-button--small .hds-icon:first-child:not(:last-of-type) {
-  margin: 0 0 0 var(--spacing-xs);
+  margin: 0 0 0 var(--spacing-2-xs);
 }
 
 /* both icons - right - small */
 .hds-button--small .hds-icon:last-child:not(:first-of-type) {
-  margin: 0 var(--spacing-xs) 0 0;
+  margin: 0 var(--spacing-2-xs) 0 0;
 }
 
 /* PRIMARY */

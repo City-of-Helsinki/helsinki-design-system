@@ -9,7 +9,7 @@ export type ButtonSize = 'default' | 'small';
 export type ButtonTheme = 'default' | 'coat' | 'black';
 export type ButtonVariant = 'primary' | 'secondary' | 'supplementary' | 'success' | 'danger';
 
-export type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
+export type CommonButtonProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
    * The content of the button
    */
@@ -21,7 +21,7 @@ export type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
    * Defines the button variant
    */
-  variant?: ButtonVariant;
+  variant?: Exclude<ButtonVariant, 'supplementary'>;
   /**
    * Defines the button theme
    */
@@ -47,6 +47,20 @@ export type ButtonProps = React.ComponentPropsWithoutRef<'button'> & {
    */
   size?: ButtonSize;
 };
+
+// Supplementary variant requires iconLeft or iconRight
+export type SupplementaryButtonProps = Omit<CommonButtonProps, 'variant'> & {
+  variant: 'supplementary';
+} & (
+    | {
+        iconLeft: React.ReactNode;
+      }
+    | {
+        iconRight: React.ReactNode;
+      }
+  );
+
+export type ButtonProps = CommonButtonProps | SupplementaryButtonProps;
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (

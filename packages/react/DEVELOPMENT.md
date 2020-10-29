@@ -4,23 +4,45 @@
 
 > Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scripts across the repo as well as versioning and creating releases of the packages. [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) is used to manage dependencies. This allows the separate packages to reference each other via symlinks during local development.
 
-```
-# Clone the repo
+### Setting up local development environment
+
+1. Clone the HDS repository.
+```bash
 git clone https://github.com/City-of-Helsinki/helsinki-design-system.git
+```
+
+2. Go to the root of the project and install dependencies with `yarn`.
+```bash
 cd helsinki-design-system
-
-# Install dependencies
 yarn
+```
 
-# Start React-development (watch packages for changes, launch Storybook)
+3. Build the hds-core and hds-design-tokens packages. hds-react uses these packages as dependencies.
+```bash
+yarn build:tokens && yarn build:core
+```
+
+4. Start the development server.
+```bash
 yarn start:react
 ```
 
-The use of Storybook is recommended for component development.
+This starts the storybook development environment. You can read about how to write storybook stories [here](https://storybook.js.org/docs/react/get-started/whats-a-story). The use of Storybook is recommended for component development.
+
+### Commands                                                                                  
+                                                                                              
+| Command                            | Description                                               | 
+| ---------------------------------- | --------------------------------------------------------- | 
+| yarn                               | Install dependencies and link local packages.             | 
+| yarn build                         | Builds the package.                                       | 
+| yarn start                         | Starts the development environment.                       | 
+| yarn test                          | Runs the tests.                                           | 
+| yarn lint                          | Runs the linting.                                         | 
+| yarn scaffold                      | Runs the scaffolding script for creating a new component. | 
 
 ## Adding a component
 
-To add a new component, use the scaffold helper (in the react package folder):
+To add a new component, use the scaffold helper. In the react package folder, run:
 
 ```
 yarn scaffold
@@ -29,15 +51,6 @@ yarn scaffold
 ## Workflow
 
 This project uses the [Git Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow). Happy branching!
-
-## Built with
-
-- React with [TypeScript](https://www.typescriptlang.org/) support
-- bundled with [Rollup](https://github.com/rollup/rollup), compiled with [Babel](https://github.com/babel/babel)
-- [CSS Modules](https://github.com/css-modules/css-modules) with [typed-css-modules](https://github.com/Quramy/typed-css-modules) for styles
-- [ESLint](https://github.com/eslint/eslint) for code analysis
-- [Jest](https://github.com/facebook/jest) with [React Testing Library](https://github.com/testing-library/react-testing-library) for testing
-
 
 ## Git
 

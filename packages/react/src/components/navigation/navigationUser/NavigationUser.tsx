@@ -62,23 +62,23 @@ export const NavigationUser = ({
     </MenuButton>
   );
 
-  return (
-    <div className={styles.user}>
-      {authenticated ? (
-        userItems
-      ) : (
-        <Button
-          className={styles.signInButton}
-          fullWidth
-          iconLeft={isMobile ? null : <IconSignin aria-hidden />}
-          onClick={onSignIn}
-          theme="black"
-          variant={isMobile ? 'primary' : 'supplementary'}
-        >
-          {label}
-        </Button>
-      )}
-    </div>
+  const signInButton = isMobile ? (
+    <Button className={styles.signInButton} fullWidth onClick={onSignIn} theme="black" variant="primary">
+      {label}
+    </Button>
+  ) : (
+    <Button
+      className={styles.signInButton}
+      fullWidth
+      iconLeft={<IconSignin aria-hidden />}
+      onClick={onSignIn}
+      theme="black"
+      variant="supplementary"
+    >
+      {label}
+    </Button>
   );
+
+  return <div className={styles.user}>{authenticated ? userItems : signInButton}</div>;
 };
 NavigationUser.componentName = 'NavigationUser';
