@@ -56,17 +56,6 @@ export const Custom = () => {
 };
 Custom.storyName = 'With custom styles';
 
-export const RichLabel = () => {
-  const label = (
-    <span>
-      I have read city&apos;s {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-      <a style={{ color: 'var(--color-bus)', textDecoration: 'underline' }}>data protection principles</a>.
-    </span>
-  );
-  return <Checkbox id="radio4" label={label} />;
-};
-RichLabel.storyName = 'With rich label';
-
 export const Playground = () => {
   const [checkedItems, setCheckedItems] = useState({});
   const options = ['Option 1', 'Option 2', 'Option 3'];
