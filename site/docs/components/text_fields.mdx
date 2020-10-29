@@ -270,11 +270,7 @@ Read-only text input is used to indicate an input among other inputs that cannot
 
 ### With tooltip
 
-**NOTE! This component is work in progress and is subject to change in the future versions of HDS!**
-
-_Text field tooltips are only available in hds-react!_
-
-Both text input and text area can be provided with additional tooltip. Tooltip information should be considered as extra information, for example, why this information is gathered or how is it used. The user should have sufficient information on how to fill the input field in label and assistive text.
+Both text input and text area can be provided with additional tooltip. Tooltip information should be considered as extra information, for example, why this information is gathered or how is it used. The user should have sufficient information on how to fill the input field in label and assistive text. You can find more information about Tooltips how they are used from the [Tooltip documentation page](/components/tooltip).
 
 <Playground>
   <TextInput
@@ -282,14 +278,16 @@ Both text input and text area can be provided with additional tooltip. Tooltip i
     label="Label"
     placeholder="Placeholder"
     tooltipLabel="Tooltip label"
-    tooltipText="Tooltip text"
+    tooltipButtonLabel="Tooltip button label"
+    tooltipText="Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
   />
   <TextArea
     id="textarea-tooltip"
     label="Label"
     placeholder="Placeholder"
     tooltipLabel="Tooltip label"
-    tooltipText="Tooltip text"
+    tooltipButtonLabel="Tooltip button label"
+    tooltipText="Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
     style={{marginTop: 'var(--spacing-s)'}}
   />
 </Playground>
@@ -302,7 +300,8 @@ Both text input and text area can be provided with additional tooltip. Tooltip i
   label="Label"
   placeholder="Placeholder"
   tooltipLabel="Tooltip label"
-  tooltipText="Tooltip text"
+  tooltipButtonLabel="Tooltip button label"
+  tooltipText="Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
 />
 
 /* Text area */
@@ -311,7 +310,8 @@ Both text input and text area can be provided with additional tooltip. Tooltip i
   label="Label"
   placeholder="Placeholder"
   tooltipLabel="Tooltip label"
-  tooltipText="Tooltip text"
+  tooltipButtonLabel="Tooltip button label"
+  tooltipText="Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
 />
 ```
 

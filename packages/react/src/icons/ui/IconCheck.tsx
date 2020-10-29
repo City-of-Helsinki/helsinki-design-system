@@ -14,8 +14,8 @@ export const IconCheck = ({ size = 's', className = '', style = {}, ...rest }: I
     xmlns="http://www.w3.org/2000/svg"
   >
     <g fill="none" fillRule="evenodd">
-      <path d="M0 0h24v24H0z" />
-      <path fill="currentColor" d="M20.763 7.414L10 18l-5.5-5.5 1.25-1.25 4.25 4L19.35 6z" />
+      <rect width="24" height="24" />
+      <polygon fill="currentColor" points="21 7 10 18 4.5 12.5 6 11 10 15 19.5 5.5" />
     </g>
   </svg>
 );

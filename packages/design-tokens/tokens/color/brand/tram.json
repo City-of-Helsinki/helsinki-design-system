@@ -4,16 +4,16 @@
       "value": "#009246",
       "type": "color"
     },
-    "tram-light-20": {
-      "value": "#cce9da",
+    "tram-light": {
+      "value": "#dff7eb",
       "type": "color"
     },
-    "tram-light-50": {
-      "value": "#80c8a2",
+    "tram-medium-light": {
+      "value": "#a3e3c2",
       "type": "color"
     },
-    "tram-dark-50": {
-      "value": "#007438",
+    "tram-dark": {
+      "value": "#006631",
       "type": "color"
     }
   }

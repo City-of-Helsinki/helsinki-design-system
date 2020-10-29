@@ -3,7 +3,7 @@
   --notification-border-color: var(--color-info);
   --notification-border-width: var(--spacing-2-xs);
   --notification-color: var(--color-black-90);
-  --notification-focus-outline-color: var(--color-coat-of-arms-blue);
+  --notification-focus-outline-color: var(--color-coat-of-arms);
   --notification-max-width-inline: none;
   --notification-max-width-toast: 21rem;
   --notification-offset: var(--spacing-layout-s);

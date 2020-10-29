@@ -4,16 +4,16 @@
       "value": "#f5a3c7",
       "type": "color"
     },
-    "suomenlinna-light-20": {
-      "value": "#fdecf3",
+    "suomenlinna-light": {
+      "value": "#fff0f7",
       "type": "color"
     },
-    "suomenlinna-light-50": {
-      "value": "#fad1e3",
+    "suomenlinna-medium-light": {
+      "value": "#ffdbeb",
       "type": "color"
     },
-    "suomenlinna-dark-50": {
-      "value": "#de7ba6",
+    "suomenlinna-dark": {
+      "value": "#e673a5",
       "type": "color"
     }
   }

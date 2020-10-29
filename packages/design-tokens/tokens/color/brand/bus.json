@@ -4,20 +4,16 @@
       "value": "#0000bf",
       "type": "color"
     },
-    "bus-light-5": {
-      "value": "#f2f2fc",
+    "bus-light": {
+      "value": "#f0f0ff",
       "type": "color"
     },
-    "bus-light-20": {
-      "value": "#ccccf2",
+    "bus-medium-light": {
+      "value": "#ccccff",
       "type": "color"
     },
-    "bus-light-50": {
-      "value": "#7f7fdf",
-      "type": "color"
-    },
-    "bus-dark-50": {
-      "value": "#000098",
+    "bus-dark": {
+      "value": "#00005e",
       "type": "color"
     }
   }

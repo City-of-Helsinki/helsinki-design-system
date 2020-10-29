@@ -14,10 +14,10 @@ export const IconCross = ({ size = 's', className = '', style = {}, ...rest }: I
     xmlns="http://www.w3.org/2000/svg"
   >
     <g fill="none" fillRule="evenodd">
-      <path d="M0 0h24v24H0z" />
-      <path
+      <rect width="24" height="24" />
+      <polygon
         fill="currentColor"
-        d="M17.657 7.757L13.414 12l4.243 4.243-1.414 1.414L12 13.414l-4.243 4.243-1.414-1.414L10.586 12 6.343 7.757l1.414-1.414L12 10.586l4.243-4.243z"
+        points="18 7.5 13.5 12 18 16.5 16.5 18 12 13.5 7.5 18 6 16.5 10.5 12 6 7.5 7.5 6 12 10.5 16.5 6"
       />
     </g>
   </svg>

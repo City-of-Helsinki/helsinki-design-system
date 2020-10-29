@@ -59,21 +59,17 @@ export type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
    */
   style?: React.CSSProperties;
   /**
-   * The label of the tooltip
+   * Aria-label text for the tooltip
    */
   tooltipLabel?: string;
+  /**
+   * Aria-label text for the tooltip trigger button
+   */
+  tooltipButtonLabel?: string;
   /**
    * The text content of the tooltip
    */
   tooltipText?: string;
-  /**
-   * The title for the tooltip open button
-   */
-  tooltipOpenButtonLabelText?: string;
-  /**
-   * The title for the tooltip close button
-   */
-  tooltipCloseButtonLabelText?: string;
   /**
    * The value of the textarea element, required for a controlled component
    */
@@ -101,8 +97,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       style,
       tooltipLabel,
       tooltipText,
-      tooltipOpenButtonLabelText,
-      tooltipCloseButtonLabelText,
+      tooltipButtonLabel,
       ...rest
     }: TextAreaProps,
     ref: React.Ref<HTMLTextAreaElement>,
@@ -119,8 +114,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       style,
       tooltipLabel,
       tooltipText,
-      tooltipOpenButtonLabelText,
-      tooltipCloseButtonLabelText,
+      tooltipButtonLabel,
     };
 
     return (

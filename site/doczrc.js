@@ -21,6 +21,7 @@ const menu = [
     name: 'Components',
     menu: ['Overview'],
   },
+  'Patterns',
   {
     name: 'About',
     menu: ['What is new', 'Roadmap', 'Support', 'Accessibility statement'],

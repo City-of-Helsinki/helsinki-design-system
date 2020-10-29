@@ -41,7 +41,9 @@ The design system uses a colour theme that includes:
 - **UI colours:** the common colours for feedback (error, warning, success, info).
 - **Grayscale:** neutral colour shades.
 
-The theming scheme also provides lighter and darker shades for the base colours.
+The colour palette also provides lighter and darker variants for the base colours.
+- **Do not use light and dark variants as the main colour of a page.**
+- Light and dark variants should only be used in addition to base colours for theming UI component states and differentiating information types.
 
 ### Customising colours
 <p>Colours are defined as <Link href="https://developer.mozilla.org/en-US/docs/Web/CSS/var" external>CSS variables</Link> and the theme is therefore customisable.</p>
@@ -56,20 +58,20 @@ The theming scheme also provides lighter and darker shades for the base colours.
 ### Brand colours
 Brand colours are used for primary, secondary and tertiary colours. They should not be used for indicating system status. 
 
-| Colour name (en)    | Colour name (fi)            | Base colour                                          | Dark 50                                                      | Light 50                                                      | Light 20                                                      | Light 5                                                      |
-| ------------------- | --------------------------- | ---------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------|
-| Coat of Arms Blue   | <span lang="fi">Vaakuna</span>    | <ColorBox color="var(--color-coat-of-arms-blue)"/>   | <ColorBox color="var(--color-coat-of-arms-blue-dark-50)"/>   | <ColorBox color="var(--color-coat-of-arms-blue-light-50)"/>   | <ColorBox color="var(--color-coat-of-arms-blue-light-20)"/>   | <ColorBox color="var(--color-coat-of-arms-blue-light-5)"/>   |
-| Coat of Arms Gold   | <span lang="fi">Kulta</span>      | <ColorBox color="var(--color-coat-of-arms-gold)"/>   | <ColorBox color="var(--color-coat-of-arms-gold-dark-50)"/>   | <ColorBox color="var(--color-coat-of-arms-gold-light-50)"/>   | <ColorBox color="var(--color-coat-of-arms-gold-light-20)"/>   |                                                              |
-| Coat of Arms Silver | <span lang="fi">Hopea</span>      | <ColorBox color="var(--color-coat-of-arms-silver)"/> | <ColorBox color="var(--color-coat-of-arms-silver-dark-50)"/> | <ColorBox color="var(--color-coat-of-arms-silver-light-50)"/> | <ColorBox color="var(--color-coat-of-arms-silver-light-20)"/> |                                                              |
-| Brick               | <span lang="fi">Tiili</span>      | <ColorBox color="var(--color-brick)"/>               | <ColorBox color="var(--color-brick-dark-50)"/>               | <ColorBox color="var(--color-brick-light-50)"/>               | <ColorBox color="var(--color-brick-light-20)"/>               |                                                              |
-| Bus                 | <span lang="fi">Bussi</span>      | <ColorBox color="var(--color-bus)"/>                 | <ColorBox color="var(--color-bus-dark-50)"/>                 | <ColorBox color="var(--color-bus-light-50)"/>                 | <ColorBox color="var(--color-bus-light-20)"/>                 | <ColorBox color="var(--color-bus-light-5)"/>                 |
-| Copper              | <span lang="fi">Kupari</span>     | <ColorBox color="var(--color-copper)"/>              | <ColorBox color="var(--color-copper-dark-50)"/>              | <ColorBox color="var(--color-copper-light-50)"/>              | <ColorBox color="var(--color-copper-light-20)"/>              |                                                              |
-| Engel               | <span lang="fi">Engel</span>      | <ColorBox color="var(--color-engel)"/>               | <ColorBox color="var(--color-engel-dark-50)"/>               | <ColorBox color="var(--color-engel-light-50)"/>               | <ColorBox color="var(--color-engel-light-20)"/>               |                                                              |
-| Fog                 | <span lang="fi">Sumu</span>       | <ColorBox color="var(--color-fog)"/>                 | <ColorBox color="var(--color-fog-dark-50)"/>                 | <ColorBox color="var(--color-fog-light-50)"/>                 | <ColorBox color="var(--color-fog-light-20)"/>                 |                                                              |
-| Metro               | <span lang="fi">Metro</span>      | <ColorBox color="var(--color-metro)"/>               | <ColorBox color="var(--color-metro-dark-50)"/>               | <ColorBox color="var(--color-metro-light-50)"/>               | <ColorBox color="var(--color-metro-light-20)"/>               |                                                              |
-| Summer              | <span lang="fi">Kesä</span>       | <ColorBox color="var(--color-summer)"/>              | <ColorBox color="var(--color-summer-dark-50)"/>              | <ColorBox color="var(--color-summer-light-50)"/>              | <ColorBox color="var(--color-summer-light-20)"/>              |                                                              |
-| Suomenlinna         | <span lang="fi">Suomenlinna</span>| <ColorBox color="var(--color-suomenlinna)"/>         | <ColorBox color="var(--color-suomenlinna-dark-50)"/>         | <ColorBox color="var(--color-suomenlinna-light-50)"/>         | <ColorBox color="var(--color-suomenlinna-light-20)"/>         |                                                              |
-| Tram                | <span lang="fi">Spåra</span>      | <ColorBox color="var(--color-tram)"/>                | <ColorBox color="var(--color-tram-dark-50)"/>                | <ColorBox color="var(--color-tram-light-50)"/>                | <ColorBox color="var(--color-tram-light-20)"/>                |                                                              |
+| Colour name (en)    | Colour name (fi)                    | Base colour                                          | Dark                                                      | Medium light                                                     | Light                                                     |
+| ------------------- | ----------------------------------- | ---------------------------------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------- | --------------------------------------------------------- |
+| Coat of Arms        | <span lang="fi">Vaakuna</span>      | <ColorBox color="var(--color-coat-of-arms)"/>        | <ColorBox color="var(--color-coat-of-arms-dark)"/>        | <ColorBox color="var(--color-coat-of-arms-medium-light)"/>        | <ColorBox color="var(--color-coat-of-arms-light)"/>        |
+| Gold                | <span lang="fi">Kulta</span>        | <ColorBox color="var(--color-gold)"/>                | <ColorBox color="var(--color-gold-dark)"/>                | <ColorBox color="var(--color-gold-medium-light)"/>                | <ColorBox color="var(--color-gold-light)"/>                |
+| Silver              | <span lang="fi">Hopea</span>        | <ColorBox color="var(--color-silver)"/>              | <ColorBox color="var(--color-silver-dark)"/>              | <ColorBox color="var(--color-silver-medium-light)"/>             | <ColorBox color="var(--color-silver-light)"/>             |
+| Brick               | <span lang="fi">Tiili</span>        | <ColorBox color="var(--color-brick)"/>               | <ColorBox color="var(--color-brick-dark)"/>               | <ColorBox color="var(--color-brick-medium-light)"/>               | <ColorBox color="var(--color-brick-light)"/>               |
+| Bus                 | <span lang="fi">Bussi</span>        | <ColorBox color="var(--color-bus)"/>                 | <ColorBox color="var(--color-bus-dark)"/>                 | <ColorBox color="var(--color-bus-medium-light)"/>                 | <ColorBox color="var(--color-bus-light)"/>                 |
+| Copper              | <span lang="fi">Kupari</span>       | <ColorBox color="var(--color-copper)"/>              | <ColorBox color="var(--color-copper-dark)"/>              | <ColorBox color="var(--color-copper-medium-light)"/>              | <ColorBox color="var(--color-copper-light)"/>              |
+| Engel               | <span lang="fi">Engel</span>        | <ColorBox color="var(--color-engel)"/>               | <ColorBox color="var(--color-engel-dark)"/>               | <ColorBox color="var(--color-engel-medium-light)"/>               | <ColorBox color="var(--color-engel-light)"/>               |
+| Fog                 | <span lang="fi">Sumu</span>         | <ColorBox color="var(--color-fog)"/>                 | <ColorBox color="var(--color-fog-dark)"/>                 | <ColorBox color="var(--color-fog-medium-light)"/>                 | <ColorBox color="var(--color-fog-light)"/>                 |
+| Metro               | <span lang="fi">Metro</span>        | <ColorBox color="var(--color-metro)"/>               | <ColorBox color="var(--color-metro-dark)"/>               | <ColorBox color="var(--color-metro-medium-light)"/>               | <ColorBox color="var(--color-metro-light)"/>               |
+| Summer              | <span lang="fi">Kesä</span>         | <ColorBox color="var(--color-summer)"/>              | <ColorBox color="var(--color-summer-dark)"/>              | <ColorBox color="var(--color-summer-medium-light)"/>              | <ColorBox color="var(--color-summer-light)"/>              |
+| Suomenlinna         | <span lang="fi">Suomenlinna</span>  | <ColorBox color="var(--color-suomenlinna)"/>         | <ColorBox color="var(--color-suomenlinna-dark)"/>         | <ColorBox color="var(--color-suomenlinna-medium-light)"/>         | <ColorBox color="var(--color-suomenlinna-light)"/>         |
+| Tram                | <span lang="fi">Spåra</span>        | <ColorBox color="var(--color-tram)"/>                | <ColorBox color="var(--color-tram-dark)"/>                | <ColorBox color="var(--color-tram-medium-light)"/>                | <ColorBox color="var(--color-tram-light)"/>                |
 
 
 ### UI colours
@@ -100,17 +102,17 @@ Status colours are reserved exclusively for indicating valid, invalid or informa
 
 | Brand Colour      | Text Colour   | Colour contrast       | Example           |
 | ----------------- | ------------- | --------------------- | ----------------- |
-| **Engel**         | black 90      | **AAA** `14,3 : 1`  | <ColorContrast color="var(--color-black-90)" background="var(--color-engel)">AAA</ColorContrast> |
-| **Hopea**         | black 90      | **AAA** `13,1 : 1`  | <ColorContrast color="var(--color-black-90)" background="var(--color-coat-of-arms-silver)">AAA</ColorContrast> |
-| **Bussi**         | white         | **AAA** `12 : 1`    | <ColorContrast color="var(--color-white)" background="var(--color-bus)">AAA</ColorContrast> |
-| **Kesä**          | black 90      | **AAA** `11,1 : 1`  | <ColorContrast color="var(--color-black-90)" background="var(--color-summer)">AAA</ColorContrast> |
-| **Sumu**          | black 90      | **AAA** `10 : 1`    | <ColorContrast color="var(--color-black-90)" background="var(--color-fog)">AAA</ColorContrast> |
-| **Kupari**        | black 90      | **AAA** `9,4 : 1`   | <ColorContrast color="var(--color-black-90)" background="var(--color-copper)">AAA</ColorContrast> |
-| **Suomenlinna**   | black 90      | **AAA** `9,1 : 1`   | <ColorContrast color="var(--color-black-90)" background="var(--color-suomenlinna)">AAA</ColorContrast> |
-| **Kulta**         | black 90      | **AAA** `7,1 : 1`   | <ColorContrast color="var(--color-black-90)" background="var(--color-coat-of-arms-gold)">AAA</ColorContrast> |
+| **Engel**         | black 90      | **AAA** `14,3 : 1`    | <ColorContrast color="var(--color-black-90)" background="var(--color-engel)">AAA</ColorContrast> |
+| **Hopea**         | black 90      | **AAA** `13,1 : 1`    | <ColorContrast color="var(--color-black-90)" background="var(--color-silver)">AAA</ColorContrast> |
+| **Bussi**         | white         | **AAA** `12 : 1`      | <ColorContrast color="var(--color-white)" background="var(--color-bus)">AAA</ColorContrast> |
+| **Kesä**          | black 90      | **AAA** `11,1 : 1`    | <ColorContrast color="var(--color-black-90)" background="var(--color-summer)">AAA</ColorContrast> |
+| **Sumu**          | black 90      | **AAA** `10 : 1`      | <ColorContrast color="var(--color-black-90)" background="var(--color-fog)">AAA</ColorContrast> |
+| **Kupari**        | black 90      | **AAA** `9,4 : 1`     | <ColorContrast color="var(--color-black-90)" background="var(--color-copper)">AAA</ColorContrast> |
+| **Suomenlinna**   | black 90      | **AAA** `9,1 : 1`     | <ColorContrast color="var(--color-black-90)" background="var(--color-suomenlinna)">AAA</ColorContrast> |
+| **Kulta**         | black 90      | **AAA** `7,1 : 1`     | <ColorContrast color="var(--color-black-90)" background="var(--color-gold)">AAA</ColorContrast> |
 | **Tiili**         | white         | **AA** (AAA for large text) `6,1 : 1` | <ColorContrast color="var(--color-white)" background="var(--color-brick)">AA</ColorContrast> |
 | **Metro**         | black 90      | **AA** (AAA for large text) `5,2 : 1` | <ColorContrast color="var(--color-black-90)" background="var(--color-metro)">AA</ColorContrast> |
-| **Vaakuna**       | white         | **AA** (AAA for large text) `5 : 1`   | <ColorContrast color="var(--color-white)" background="var(--color-coat-of-arms-blue)">AA</ColorContrast> | 
+| **Vaakuna**       | white         | **AA** (AAA for large text) `5 : 1`   | <ColorContrast color="var(--color-white)" background="var(--color-coat-of-arms)">AA</ColorContrast> | 
 | **Spåra**         | white         | <p style="margin:0; color: var(--color-black-60);">AA for large text `4 : 1`</p>| <ColorContrast color="var(--color-white)" background="var(--color-tram)"><IconError/></ColorContrast> | 
 
 **For text and other informative elements on white background** it is recommended to only use following brand colours:
@@ -119,7 +121,7 @@ Status colours are reserved exclusively for indicating valid, invalid or informa
 | --------------| ----------------- | ----------------- |
 | **Bussi**     | **AAA** `12 : 1`| <p style="font-size: var(--fontsize-body-l); color:var(--color-bus); margin: var(--spacing-3-xs);">AAA</p> |
 | **Tiili**     | **AA** (AAA for large text) `6,1 : 1` | <p style="font-size: var(--fontsize-body-l); color: var(--color-brick); margin: var(--spacing-3-xs);">AA</p> |
-| **Vaakuna**   | **AA** (AAA for large text) `5 : 1`   | <p style="font-size: var(--fontsize-body-l); color: var(--color-coat-of-arms-blue); margin: var(--spacing-3-xs);">AA</p> | 
+| **Vaakuna**   | **AA** (AAA for large text) `5 : 1`   | <p style="font-size: var(--fontsize-body-l); color: var(--color-coat-of-arms); margin: var(--spacing-3-xs);">AA</p> | 
 | **Spåra**     | <p style="margin:0; color: var(--color-black-60);">AA for large text `4 : 1`</p>      | <p style="font-size: var(--fontsize-body-l); color: var(--color-tram); margin: var(--spacing-3-xs);"><IconError/></p> | 
 | **Metro**     | <p style="margin:0; color: var(--color-black-60);">AA for large text `3,3 : 1`</p>  | <p style="font-size: var(--fontsize-body-l); color: var(--color-metro); margin: var(--spacing-3-xs);"><IconError/></p> |
 
@@ -143,8 +145,8 @@ HDS components use a custom focus colour styling instead of the default browser 
 
 | Focus Colour           | Background Colour   | Focus style contrast | Example                                                                                                  |
 | ---------------------- | ------------------- | -------------------- | -------------------------------------------------------------------------------------------------------- |
-| **Vaakuna** (default)  | white               | **AA** `5 : 1`       | <ColorContrast color="var(--color-coat-of-arms-blue)" background="var(--color-white)">AA</ColorContrast> |
-| **Vaakuna** (default)  | black               | **AA** `4,2 : 1`     | <ColorContrast color="var(--color-coat-of-arms-blue)" background="var(--color-black)">AA</ColorContrast> |
+| **Vaakuna** (default)  | white               | **AA** `5 : 1`       | <ColorContrast color="var(--color-coat-of-arms)" background="var(--color-white)">AA</ColorContrast> |
+| **Vaakuna** (default)  | black               | **AA** `4,2 : 1`     | <ColorContrast color="var(--color-coat-of-arms)" background="var(--color-black)">AA</ColorContrast> |
 
 HDS focus style colour can be customised to better fit the theme of the service. However, the implementor must always ensure that the following WCAG requirements are met:
 - <Link href="https://www.w3.org/TR/WCAG21/#use-of-color" external>WCAG 1.4.1 Use of Color (Level A)</Link>
@@ -155,76 +157,77 @@ HDS focus style colour can be customised to better fit the theme of the service.
 ## Tokens
 <p>The colour tokens are provided as CSS and SASS variables in <Link href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/design-tokens" external>hds-design-tokens repository in GitHub</Link>.</p>
 
-CSS                                | SASS                              | Value   | Example
----------------------------------- | --------------------------------- | ------- | ----------------------------------------------------------- |
---color-brick                      | $color-brick                      | #bd2719 | <Example color="var(--color-brick)" />                      |
---color-brick-light-20             | $color-brick-light-20             | #f1d3d1 | <Example color="var(--color-brick-light-20)" />             |
---color-brick-light-50             | $color-brick-light-50             | #de938c | <Example color="var(--color-brick-light-50)" />             |
---color-brick-dark-50              | $color-brick-dark-50              | #99160a | <Example color="var(--color-brick-dark-50)" />              |
---color-bus                        | $color-bus                        | #0000bf | <Example color="var(--color-bus)" />                        |
---color-bus-light-5                | $color-bus-light-5                | #f2f2fc | <Example color="var(--color-bus-light-5)" />                |
---color-bus-light-20               | $color-bus-light-20               | #ccccf2 | <Example color="var(--color-bus-light-20)" />               |
---color-bus-light-50               | $color-bus-light-50               | #7f7fdf | <Example color="var(--color-bus-light-50)" />               |
---color-bus-dark-50                | $color-bus-dark-50                | #000098 | <Example color="var(--color-bus-dark-50)" />                |
---color-coat-of-arms-blue          | $color-coat-of-arms-blue          | #0072c6 | <Example color="var(--color-coat-of-arms-blue)" />          |
---color-coat-of-arms-blue-light-5  | $color-coat-of-arms-blue-light-5  | #f2f8fc | <Example color="var(--color-coat-of-arms-blue-light-5)" />  |
---color-coat-of-arms-blue-light-20 | $color-coat-of-arms-blue-light-20 | #cce2f3 | <Example color="var(--color-coat-of-arms-blue-light-20)" /> |
---color-coat-of-arms-blue-light-50 | $color-coat-of-arms-blue-light-50 | #80b8e2 | <Example color="var(--color-coat-of-arms-blue-light-50)" /> |
---color-coat-of-arms-blue-dark-50  | $color-coat-of-arms-blue-dark-50  | #000098 | <Example color="var(--color-coat-of-arms-blue-dark-50)" />  |
---color-coat-of-arms-gold          | $color-coat-of-arms-gold          | #c2a251 | <Example color="var(--color-coat-of-arms-gold)" />          |
---color-coat-of-arms-gold-light-20 | $color-coat-of-arms-gold-light-20 | #f2ecdc | <Example color="var(--color-coat-of-arms-gold-light-20)" /> |
---color-coat-of-arms-gold-light-50 | $color-coat-of-arms-gold-light-50 | #e0d0a8 | <Example color="var(--color-coat-of-arms-gold-light-50)" /> |
---color-coat-of-arms-gold-dark-50  | $color-coat-of-arms-gold-dark-50  | #977b34 | <Example color="var(--color-coat-of-arms-gold-dark-50)" />  |
---color-coat-of-arms-silver        | $color-coat-of-arms-silver        | #dedfe1 | <Example color="var(--color-coat-of-arms-silver)" />        |
---color-copper                     | $color-copper                     | #00d7a7 | <Example color="var(--color-copper)" />                     |
---color-copper-light-20            | $color-copper-light-20            | #ccf7ed | <Example color="var(--color-copper-light-20)" />            |
---color-copper-light-50            | $color-copper-light-50            | #80ebd3 | <Example color="var(--color-copper-light-50)" />            |
---color-copper-dark-50             | $color-copper-dark-50             | #01b78e | <Example color="var(--color-copper-dark-50)" />             |
---color-engel                      | $color-engel                      | #ffe977 | <Example color="var(--color-engel)" />                      |
---color-engel-light-20             | $color-engel-light-20             | #fffae3 | <Example color="var(--color-engel-light-20)" />             |
---color-engel-light-50             | $color-engel-light-50             | #fff4bb | <Example color="var(--color-engel-light-50)" />             |
---color-engel-dark-50              | $color-engel-dark-50              | #f5da4e | <Example color="var(--color-engel-dark-50)" />              |
---color-fog                        | $color-fog                        | #9fc9eb | <Example color="var(--color-fog)" />                        |
---color-fog-light-20               | $color-fog-light-20               | #ebf4fb | <Example color="var(--color-fog-light-20)" />               |
---color-fog-light-50               | $color-fog-light-50               | #cfe4f5 | <Example color="var(--color-fog-light-50)" />               |
---color-fog-dark-50                | $color-fog-dark-50                | #78a4c7 | <Example color="var(--color-fog-dark-50)" />                |
---color-metro                      | $color-metro                      | #fd4f00 | <Example color="var(--color-metro)" />                      |
---color-metro-light-20             | $color-metro-light-20             | #fedbcc | <Example color="var(--color-metro-light-20)" />             |
---color-metro-light-50             | $color-metro-light-50             | #fea780 | <Example color="var(--color-metro-light-50)" />             |
---color-metro-dark-50              | $color-metro-dark-50              | #ca3f00 | <Example color="var(--color-metro-dark-50)" />              |
---color-summer                     | $color-summer                     | #ffc61e | <Example color="var(--color-summer)" />                     |
---color-summer-light-20            | $color-summer-light-20            | #fff3d2 | <Example color="var(--color-summer-light-20)" />            |
---color-summer-light-50            | $color-summer-light-50            | #ffe28e | <Example color="var(--color-summer-light-50)" />            |
---color-summer-dark-50             | $color-summer-dark-50             | #e2ab0a | <Example color="var(--color-summer-dark-50)" />             |
---color-suomenlinna                | $color-suomenlinna                | #f5a3c7 | <Example color="var(--color-suomenlinna)" />                |
---color-suomenlinna-light-20       | $color-suomenlinna-light-20       | #fdecf3 | <Example color="var(--color-suomenlinna-light-20)" />       |
---color-suomenlinna-light-50       | $color-suomenlinna-light-50       | #fad1e3 | <Example color="var(--color-suomenlinna-light-50)" />       |
---color-suomenlinna-dark-50        | $color-suomenlinna-dark-50        | #de7ba6 | <Example color="var(--color-suomenlinna-dark-50)" />        |
---color-tram                       | $color-tram                       | #009246 | <Example color="var(--color-tram)" />                       |
---color-tram-light-20              | $color-tram-light-20              | #cce9da | <Example color="var(--color-tram-light-20)" />              |
---color-tram-light-50              | $color-tram-light-50              | #80c8a2 | <Example color="var(--color-tram-light-50)" />              |
---color-tram-dark-50               | $color-tram-dark-50               | #007438 | <Example color="var(--color-tram-dark-50)" />               |
---color-error                      | $color-error                      | #c4123e | <Example color="var(--color-error)" />                      |
---color-error-light                | $color-error-light                | #f6e2e6 | <Example color="var(--color-error-light)" />                |
---color-error-dark                 | $color-error-dark                 | #8d0d2d | <Example color="var(--color-error-dark)" />                 |
---color-success                    | $color-success:                   | #007a64 | <Example color="var(--color-success)" />                    |
---color-success-light              | $color-success-light              | #e2f5f3 | <Example color="var(--color-success-light)" />              |
---color-success-dark               | $color-success-dark               | #006250 | <Example color="var(--color-success-dark)" />               |
---color-alert                      | $color-alert                      | #ffda07 | <Example color="var(--color-alert)" />                      |
---color-alert-light                | $color-alert-light                | #fff4b4 | <Example color="var(--color-alert-light)" />                |
---color-alert-dark                 | $color-alert-dark                 | #986700 | <Example color="var(--color-alert-dark)" />                 |
---color-info                       | $color-info                       | #007293 | <Example color="var(--color-info)" />                       |
---color-info-light                 | $color-info-light                 | #dcf1f5 | <Example color="var(--color-info-light)" />                 |
---color-info-dark                  | $color-info-dark                  | #005b76 | <Example color="var(--color-info-dark)" />                  |
---color-white                      | $color-white                      | #ffffff | <Example color="var(--color-white)" />                      |
---color-black-5                    | $color-black-5                    | #f1f1f1 | <Example color="var(--color-black-5)" />                    |
---color-black-10                   | $color-black-10                   | #e5e5e5 | <Example color="var(--color-black-10)" />                   |
---color-black-20                   | $color-black-20                   | #cccccc | <Example color="var(--color-black-20)" />                   |
---color-black-30                   | $color-black-30                   | #b2b2b2 | <Example color="var(--color-black-30)" />                   |
---color-black-40                   | $color-black-40                   | #999898 | <Example color="var(--color-black-40)" />                   |
---color-black-50                   | $color-black-50                   | #808080 | <Example color="var(--color-black-50)" />                   |
---color-black-60                   | $color-black-60                   | #666666 | <Example color="var(--color-black-60)" />                   |
---color-black-70                   | $color-black-70                   | #4c4c4c | <Example color="var(--color-black-70)" />                   |
---color-black-80                   | $color-black-80                   | #333333 | <Example color="var(--color-black-80)" />                   |
---color-black-90                   | $color-black-90                   | #1a1a1a | <Example color="var(--color-black-90)" />                   |
---color-black                      | $color-black                      | #000000 | <Example color="var(--color-black)" />                      |
+CSS                                 | SASS                              | Value   | Example                                                     |
+----------------------------------- | --------------------------------- | ------- | ----------------------------------------------------------- |
+--color-brick                       | $color-brick                      | #bd2719 | <Example color="var(--color-brick)" />                      |
+--color-brick-light                 | $color-brick-light                | #ffeeed | <Example color="var(--color-brick-light)" />                 |
+--color-brick-medium-light          | $color-brick-medium-light         | #facbc8 | <Example color="var(--color-brick-medium-light)" />          |
+--color-brick-dark                  | $color-brick-dark                 | #800e04 | <Example color="var(--color-brick-dark)" />                 |
+--color-bus                         | $color-bus                        | #0000bf | <Example color="var(--color-bus)" />                        |
+--color-bus-light                   | $color-bus-light                  | #f0f0ff | <Example color="var(--color-bus-light)" />                   |
+--color-bus-medium-light            | $color-bus-medium-light           | #ccccff | <Example color="var(--color-bus-medium-light)" />            |
+--color-bus-dark                    | $color-bus-dark                   | #00005e | <Example color="var(--color-bus-dark)" />                   |
+--color-coat-of-arms                | $color-coat-of-arms               | #0072c6 | <Example color="var(--color-coat-of-arms)" />               |
+--color-coat-of-arms-light          | $color-coat-of-arms-light         | #e6f4ff | <Example color="var(--color-coat-of-arms-light)" />          |
+--color-coat-of-arms-medium-light   | $color-coat-of-arms-medium-light  | #b5daf7 | <Example color="var(--color-coat-of-arms-medium-light)" />   |
+--color-coat-of-arms-dark           | $color-coat-of-arms-dark          | #005799 | <Example color="var(--color-coat-of-arms-dark)" />          |
+--color-gold                        | $color-gold                       | #c2a251 | <Example color="var(--color-gold)" />                       |
+--color-gold-light                  | $color-gold-light                 | #f7f2e4 | <Example color="var(--color-gold-light)" />                  |
+--color-gold-medium-light           | $color-gold-medium-light          | #e8d7a7 | <Example color="var(--color-gold-medium-light)" />           |
+--color-gold-dark                   | $color-gold-dark                  | #9e823c | <Example color="var(--color-gold-dark)" />                  |
+--color-silver                      | $color-silver                     | #dedfe1 | <Example color="var(--color-silver)" />                     |
+--color-silver-light                | $color-silver-light               | #f7f7f8 | <Example color="var(--color-silver)" />                     |
+--color-silver-medium-light         | $color-silver-medium-light        | #efeff0 | <Example color="var(--color-silver-light)" />               |
+--color-silver-dark                 | $color-silver-dark                | #b0b8bf | <Example color="var(--color-silver-medium-light)" />        |
+--color-copper                      | $color-copper                     | #00d7a7 | <Example color="var(--color-copper)" />                     |
+--color-copper-light                | $color-copper-light               | #cffaf1 | <Example color="var(--color-copper-light)" />                |
+--color-copper-medium-light         | $color-copper-medium-light        | #9ef0de | <Example color="var(--color-copper-medium-light)" />         |
+--color-copper-dark                 | $color-copper-dark                | #00a17d | <Example color="var(--color-copper-dark)" />                |
+--color-engel                       | $color-engel                      | #ffe977 | <Example color="var(--color-engel)" />                      |
+--color-engel-light                 | $color-engel-light                | #fff9db | <Example color="var(--color-engel-light)" />                 |
+--color-engel-medium-light          | $color-engel-medium-light         | #fff3b8 | <Example color="var(--color-engel-medium-light)" />          |
+--color-engel-dark                  | $color-engel-dark                 | #dbc030 | <Example color="var(--color-engel-dark)" />                 |
+--color-fog                         | $color-fog                        | #9fc9eb | <Example color="var(--color-fog)" />                        |
+--color-fog-light                   | $color-fog-light                  | #e8f3fc | <Example color="var(--color-fog-light)" />                   |
+--color-fog-medium-light            | $color-fog-medium-light           | #d0e6f7 | <Example color="var(--color-fog-medium-light)" />            |
+--color-fog-dark                    | $color-fog-dark                   | #72a5cf | <Example color="var(--color-fog-dark)" />                   |
+--color-metro                       | $color-metro                      | #fd4f00 | <Example color="var(--color-metro)" />                      |
+--color-metro-light                 | $color-metro-light                | #ffeee6 | <Example color="var(--color-metro-light)" />                 |
+--color-metro-medium-light          | $color-metro-medium-light         | #ffcab3 | <Example color="var(--color-metro-medium-light)" />          |
+--color-metro-dark                  | $color-metro-dark                 | #bd2f00 | <Example color="var(--color-metro-dark)" />                 |
+--color-summer                      | $color-summer                     | #ffc61e | <Example color="var(--color-summer)" />                     |
+--color-summer-light                | $color-summer-light               | #fff4d4 | <Example color="var(--color-summer-light)" />                |
+--color-summer-medium-light         | $color-summer-medium-light        | #ffe49c | <Example color="var(--color-summer-medium-light)" />         |
+--color-summer-dark                 | $color-summer-dark                | #cc9200 | <Example color="var(--color-summer-dark)" />                |
+--color-suomenlinna                 | $color-suomenlinna                | #f5a3c7 | <Example color="var(--color-suomenlinna)" />                |
+--color-suomenlinna-light           | $color-suomenlinna-light          | #fff0f7 | <Example color="var(--color-suomenlinna-light)" />           |
+--color-suomenlinna-medium-light    | $color-suomenlinna-medium-light   | #ffdbeb | <Example color="var(--color-suomenlinna-medium-light)" />    |
+--color-suomenlinna-dark            | $color-suomenlinna-dark           | #e673a5 | <Example color="var(--color-suomenlinna-dark)" />           |
+--color-tram                        | $color-tram                       | #009246 | <Example color="var(--color-tram)" />                       |
+--color-tram-light                  | $color-tram-light                 | #dff7eb | <Example color="var(--color-tram-light)" />                  |
+--color-tram-medium-light           | $color-tram-medium-light          | #a3e3c2 | <Example color="var(--color-tram-medium-light)" />           |
+--color-tram-dark                   | $color-tram-dark                  | #006631 | <Example color="var(--color-tram-dark)" />                  |
+--color-error                       | $color-error                      | #c4123e | <Example color="var(--color-error)" />                      |
+--color-error-light                 | $color-error-light                | #f6e2e6 | <Example color="var(--color-error-light)" />                |
+--color-error-dark                  | $color-error-dark                 | #8d0d2d | <Example color="var(--color-error-dark)" />                 |
+--color-success                     | $color-success:                   | #007a64 | <Example color="var(--color-success)" />                    |
+--color-success-light               | $color-success-light              | #e2f5f3 | <Example color="var(--color-success-light)" />              |
+--color-success-dark                | $color-success-dark               | #006250 | <Example color="var(--color-success-dark)" />               |
+--color-alert                       | $color-alert                      | #ffda07 | <Example color="var(--color-alert)" />                      |
+--color-alert-light                 | $color-alert-light                | #fff4b4 | <Example color="var(--color-alert-light)" />                |
+--color-alert-dark                  | $color-alert-dark                 | #986700 | <Example color="var(--color-alert-dark)" />                 |
+--color-info                        | $color-info                       | #007293 | <Example color="var(--color-info)" />                       |
+--color-info-light                  | $color-info-light                 | #dcf1f5 | <Example color="var(--color-info-light)" />                 |
+--color-info-dark                   | $color-info-dark                  | #005b76 | <Example color="var(--color-info-dark)" />                  |
+--color-white                       | $color-white                      | #ffffff | <Example color="var(--color-white)" />                      |
+--color-black-5                     | $color-black-5                    | #f1f1f1 | <Example color="var(--color-black-5)" />                    |
+--color-black-10                    | $color-black-10                   | #e5e5e5 | <Example color="var(--color-black-10)" />                   |
+--color-black-20                    | $color-black-20                   | #cccccc | <Example color="var(--color-black-20)" />                   |
+--color-black-30                    | $color-black-30                   | #b2b2b2 | <Example color="var(--color-black-30)" />                   |
+--color-black-40                    | $color-black-40                   | #999898 | <Example color="var(--color-black-40)" />                   |
+--color-black-50                    | $color-black-50                   | #808080 | <Example color="var(--color-black-50)" />                   |
+--color-black-60                    | $color-black-60                   | #666666 | <Example color="var(--color-black-60)" />                   |
+--color-black-70                    | $color-black-70                   | #4c4c4c | <Example color="var(--color-black-70)" />                   |
+--color-black-80                    | $color-black-80                   | #333333 | <Example color="var(--color-black-80)" />                   |
+--color-black-90                    | $color-black-90                   | #1a1a1a | <Example color="var(--color-black-90)" />                   |
+--color-black                       | $color-black                      | #000000 | <Example color="var(--color-black)" />                      |

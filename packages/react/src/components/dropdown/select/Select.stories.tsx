@@ -140,6 +140,15 @@ DisabledOptions.storyName = 'With disabled options';
 export const Icon = (args) => <Select {...args} icon={<IconFaceSmile />} />;
 Icon.storyName = 'With icon';
 
+export const Tooltip = (args) => <Select {...args} />;
+Tooltip.storyName = 'With tooltip';
+Tooltip.args = {
+  tooltipLabel: 'Tooltip',
+  tooltipButtonLabel: 'Tooltip',
+  tooltipText:
+    'Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.',
+};
+
 export const CustomTheme = (args) => <Select {...args} multiselect />;
 CustomTheme.storyName = 'With custom theme';
 CustomTheme.args = {

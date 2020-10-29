@@ -39,6 +39,16 @@ export const Invalid = () => <TextArea {...textAreaProps} invalid helperText="Er
 export const WithLabelHidden = () => <TextArea {...textAreaProps} hideLabel defaultValue={value} />;
 WithLabelHidden.storyName = 'With label hidden';
 
+export const WithTooltip = () => (
+  <TextArea
+    {...textAreaProps}
+    tooltipLabel="Tooltip"
+    tooltipButtonLabel="Tooltip"
+    tooltipText='Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.'
+  />
+);
+WithTooltip.storyName = 'With tooltip';
+
 export const Playground = () => {
   const groupGeneral = 'General';
   const groupTooltip = 'Tooltip';
@@ -51,14 +61,13 @@ export const Playground = () => {
   const invalid = boolean('Invalid', false, groupGeneral);
   const hideLabel = boolean('Hide label', false, groupGeneral);
 
-  const tooltipLabel = text('Tooltip label', 'Tooltip label', groupTooltip);
+  const tooltipLabel = text('Tooltip aria-label', 'Tooltip', groupTooltip);
   const tooltipText = text(
     'Tooltip text',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    'Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.',
     groupTooltip,
   );
-  const tooltipOpenButtonLabelText = text('Tooltip open label', 'Show tooltip', groupTooltip);
-  const tooltipCloseButtonLabelText = text('Tooltip close label', 'Close tooltip', groupTooltip);
+  const tooltipButtonLabelText = text('Tooltip trigger button aria-label', 'Tooltip', groupTooltip);
 
   return (
     <TextArea
@@ -72,8 +81,7 @@ export const Playground = () => {
       required={required}
       tooltipLabel={tooltipLabel}
       tooltipText={tooltipText}
-      tooltipOpenButtonLabelText={tooltipOpenButtonLabelText}
-      tooltipCloseButtonLabelText={tooltipCloseButtonLabelText}
+      tooltipButtonLabel={tooltipButtonLabelText}
     />
   );
 };

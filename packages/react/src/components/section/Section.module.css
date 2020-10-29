@@ -1,6 +1,6 @@
 .section {
   --section-background-plain: var(--color-white);
-  --section-background-primary: var(--color-coat-of-arms-blue);
+  --section-background-primary: var(--color-coat-of-arms);
   --section-background-secondary: var(--color-fog);
   --section-background-tertiary: var(--color-suomenlinna);
 

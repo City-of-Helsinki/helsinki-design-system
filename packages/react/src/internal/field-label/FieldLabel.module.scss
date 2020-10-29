@@ -1,0 +1,19 @@
+@import "../../styles/common";
+
+.label {
+  color: var(--label-color-default, var(--color-black-90));
+  display: block;
+  font-size: var(--fontsize-body-m);
+  font-weight: 500;
+  margin-bottom: var(--spacing-3-xs);
+}
+
+.hidden {
+  @extend %hiddenFromScreen;
+}
+
+.tooltipButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
