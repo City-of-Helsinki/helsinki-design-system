@@ -60,22 +60,30 @@ export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
       ...rest
     }: RadioButtonProps,
     ref: React.Ref<HTMLInputElement>,
-  ) => (
-    <div className={classNames(styles.radioButton, className)} style={style}>
-      <input
-        ref={ref}
-        id={id}
-        className={classNames(styles.input)}
-        onChange={onChange}
-        value={value}
-        type="radio"
-        disabled={disabled}
-        checked={checked}
-        {...rest}
-      />
-      <label htmlFor={id} className={classNames(styles.label)}>
-        {label || labelText}
-      </label>
-    </div>
-  ),
+  ) => {
+    if (label && typeof label !== 'string' && typeof label !== 'number') {
+      console.warn(
+        'Using ReactElement as a label is against good usability and accessibility practices. Please prefer plain strings.',
+      );
+    }
+
+    return (
+      <div className={classNames(styles.radioButton, className)} style={style}>
+        <input
+          ref={ref}
+          id={id}
+          className={classNames(styles.input)}
+          onChange={onChange}
+          value={value}
+          type="radio"
+          disabled={disabled}
+          checked={checked}
+          {...rest}
+        />
+        <label htmlFor={id} className={classNames(styles.label)}>
+          {label || labelText}
+        </label>
+      </div>
+    );
+  },
 );
