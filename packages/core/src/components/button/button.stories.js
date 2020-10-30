@@ -2,6 +2,7 @@ import './button.css';
 import '../../icons/icon.css';
 import '../../icons/ui/icon-share.css';
 import '../../icons/ui/icon-angle-right.css';
+import '../../icons/ui/icon-trash.css';
 
 const getLabel = (label = 'Button') => `<span class="hds-button__label">${label}</span>`;
 
@@ -24,7 +25,7 @@ export const Secondary = () => `
 
 export const Supplementary = () => `
   <button type="button" class="hds-button hds-button--supplementary">
-    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
+    <span aria-hidden="true" class="hds-icon hds-icon--trash"></span>
     ${getLabel()}
   </button>
 `;
