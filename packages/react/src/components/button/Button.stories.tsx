@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { boolean, radios, text, withKnobs } from '@storybook/addon-knobs';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
-import { IconShare, IconAngleRight, IconFaceSmile } from '../../icons';
+import { IconShare, IconAngleRight, IconFaceSmile, IconTrash } from '../../icons';
 import { Button } from './Button';
 
 const onClick = action('button-click');
@@ -35,7 +35,7 @@ export const Secondary = () => (
 );
 
 export const Supplementary = () => (
-  <Button onClick={onClick} variant="supplementary" iconLeft={<IconShare />}>
+  <Button onClick={onClick} variant="supplementary" iconLeft={<IconTrash />}>
     Button
   </Button>
 );
