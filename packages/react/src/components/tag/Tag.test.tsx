@@ -5,7 +5,7 @@ import { Tag } from './Tag';
 
 describe('<Tag /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<Tag />);
+    const { asFragment } = render(<Tag label="Foo" />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

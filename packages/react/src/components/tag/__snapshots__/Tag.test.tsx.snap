@@ -7,11 +7,14 @@ exports[`<Tag /> spec renders the component 1`] = `
     id="hds-tag"
   >
     <span
+      class="label"
       id="hds-tag-label"
     >
       <span
         aria-hidden="false"
-      />
+      >
+        Foo
+      </span>
     </span>
   </div>
 </DocumentFragment>
