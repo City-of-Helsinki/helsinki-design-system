@@ -5,7 +5,7 @@ route: /components/button
 ---
 
 import { Playground } from "docz";
-import { Button, IconShare, IconAngleRight, StatusLabel } from "hds-react";
+import { Button, IconShare, IconAngleRight, IconCogwheel, StatusLabel } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
 import LargeParagraph from "../../src/components/LargeParagraph";
@@ -82,8 +82,8 @@ Supplementary buttons can be used in similar cases as secondary buttons. However
 Note! Since supplementary buttons do not have borders, accompanying icon is required to clearly distinguish them from links and passive text elements.
 
 <Playground>
-  <Button variant="supplementary">Supplementary</Button>
-  <Button variant="supplementary" style={{marginLeft: 'var(--spacing-s)'}} disabled>Supplementary disabled</Button>
+  <Button variant="supplementary" iconLeft={<IconCogwheel />}>Supplementary</Button>
+  <Button variant="supplementary" iconLeft={<IconCogwheel />} style={{marginLeft: 'var(--spacing-s)'}} disabled>Supplementary disabled</Button>
 </Playground>
 
 #### Core code example:
