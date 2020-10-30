@@ -9,32 +9,38 @@ import { Tooltip } from '../tooltip';
 
 export type Direction = 'vertical' | 'horizontal';
 
-export type SelectionGroupProps = React.PropsWithChildren<{
-  /**
-   * The label for the selection group.
-   */
-  label?: string;
-  /**
-   * The direction in which child components should be rendered in.
-   */
-  direction?: Direction;
-  /**
-   * If `true`, the label is displayed as required.
-   */
-  required?: boolean;
-  /**
-   * Aria-label text for the tooltip
-   */
-  tooltipLabel?: string;
-  /**
-   * Aria-label text for the tooltip trigger button
-   */
-  tooltipButtonLabel?: string;
-  /**
-   * The text content of the tooltip
-   */
-  tooltipText?: string;
-}>;
+export type SelectionGroupProps = React.PropsWithChildren<
+  {
+    /**
+     * The label for the selection group.
+     */
+    label?: string;
+    /**
+     * The direction in which child components should be rendered in.
+     */
+    direction?: Direction;
+    /**
+     * If `true`, the label is displayed as required.
+     */
+    required?: boolean;
+    /**
+     * Aria-label text for the tooltip
+     */
+    tooltipLabel?: string;
+    /**
+     * Aria-label text for the tooltip trigger button
+     */
+    tooltipButtonLabel?: string;
+    /**
+     * The text content of the tooltip
+     */
+    tooltipText?: string;
+    /**
+     * Additional class names
+     */
+    className?: string;
+  } & React.HTMLProps<HTMLFieldSetElement>
+>;
 
 export const SelectionGroup = ({
   label,
@@ -44,9 +50,11 @@ export const SelectionGroup = ({
   tooltipButtonLabel,
   tooltipText,
   children,
+  className,
+  ...fieldSetProps
 }: SelectionGroupProps) => {
   return (
-    <fieldset className={styles.selectionGroup}>
+    <fieldset className={classNames(styles.selectionGroup, className)} {...fieldSetProps}>
       <legend className={styles.label}>
         {label} {required && <RequiredIndicator />}
       </legend>
