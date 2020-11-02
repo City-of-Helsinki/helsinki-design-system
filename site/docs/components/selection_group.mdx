@@ -1,0 +1,235 @@
+---
+name: Selection group
+menu: Components
+route: /components/selection-group
+---
+
+import { Playground } from "docz";
+import { SelectionGroup, RadioButton, Checkbox, StatusLabel } from "hds-react";
+
+import ColorBox from "../../src/components/ColorBox";
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Text from "../../src/components/Text";
+
+# Selection group
+
+<StatusLabel>New</StatusLabel>
+<StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel>
+<StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
+
+<LargeParagraph>
+  Selection group allows grouping related form selection elements (such as Checkboxes) to each other.
+</LargeParagraph>
+
+## Principles
+
+- Currently, Selection group can contain either Checkboxes or Radio buttons.
+  - If the user can select more than one option from a list, use [checkboxes](/components/checkbox).
+  - If the user can only select one option from a list, use [radio buttons](/components/radio-button).
+- **Default option must be set for Radio button groups.** For Checkbox groups this is recommended.
+- Visible label must be given to the Selection group. The label should be clear and describe the choice the user is about to make.
+- Selection group can be aligned both vertically and horizontally. **Vertical alignment is recommended.** Horizontal alignment can be used when there are less than 4 options.
+  -  Note that horizontal Selection groups must not span to multiple lines.
+
+## Accessibility
+
+- Selection group uses HTML Fieldsets in the background. You need to give identical `name` property for each option to group them together for assistive technologies.
+- Aim to make the order of Selection group options as intuitive as possible for assistive technologies. This depends on the group content. An alphabetical ordering is a good starting point but for some content it can be possible order them by size (smaller to larger) etc.
+
+## Usage & variants
+
+### Vertical group
+
+Vertical selection group is the recommended way to present grouped form controls. Vertical checkbox groups are generally easier to perceive and read.
+
+<Playground>
+  <SelectionGroup label="Vertical checkbox group">
+    <Checkbox name="v-checkbox" label="Option" checked />
+    <Checkbox name="v-checkbox" label="Option" checked />
+    <Checkbox name="v-checkbox" label="Option" />
+    <Checkbox name="v-checkbox" label="Option" />
+  </SelectionGroup>
+  <br />
+  <SelectionGroup label="Vertical radio group">
+    <RadioButton name="v-radio" label="Option" checked />
+    <RadioButton name="v-radio" label="Option" />
+    <RadioButton name="v-radio" label="Option" />
+    <RadioButton name="v-radio" label="Option" />
+  </SelectionGroup>
+</Playground>
+
+#### Core code example:
+```html
+<fieldset class="hds-selection-group">
+  <legend class="hds-selection-group__legend">Vertical checkbox group</legend>
+  <div class="hds-selection-group__items">
+    <div class="hds-selection-group__item">
+      <div class="hds-checkbox">
+        <input type="checkbox" id="checkbox1" class="hds-checkbox__input" value="foo" checked />
+        <label for="checkbox1" class="hds-checkbox__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-checkbox">
+        <input type="checkbox" id="checkbox2" class="hds-checkbox__input" value="bar" checked/>
+        <label for="checkbox2" class="hds-checkbox__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-checkbox">
+        <input type="checkbox" id="checkbox3" class="hds-checkbox__input" value="baz" />
+        <label for="checkbox3" class="hds-checkbox__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-checkbox">
+        <input type="checkbox" id="checkbox4" class="hds-checkbox__input" value="qux" />
+        <label for="checkbox4" class="hds-checkbox__label">Option</label>
+      </div>
+    </div>
+  </div>
+</fieldset>
+
+<fieldset class="hds-selection-group">
+  <legend class="hds-selection-group__legend">Vertical radio group</legend>
+  <div class="hds-selection-group__items">
+    <div class="hds-selection-group__item">
+      <div class="hds-radio-button">
+        <input type="radio" id="radio1" class="hds-radio-button__input" name="example" value="foo" checked />
+        <label for="radio1" class="hds-radio-button__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-radio-button">
+        <input type="radio" id="radio2" class="hds-radio-button__input" name="example" value="bar" />
+        <label for="radio2" class="hds-radio-button__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-radio-button">
+        <input type="radio" id="radio3" class="hds-radio-button__input" name="example" value="baz" />
+        <label for="radio3" class="hds-radio-button__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-radio-button">
+        <input type="radio" id="radio4" class="hds-radio-button__input" name="example" value="qux" />
+        <label for="radio4" class="hds-radio-button__label">Option</label>
+      </div>
+    </div>
+  </div>
+</fieldset>
+```
+
+#### React code example:
+```tsx
+<SelectionGroup label="Vertical checkbox group">
+  <Checkbox name="v-checkbox" label="Option" checked />
+  <Checkbox name="v-checkbox" label="Option" checked />
+  <Checkbox name="v-checkbox" label="Option" />
+  <Checkbox name="v-checkbox" label="Option" />
+</SelectionGroup>
+
+<SelectionGroup label="Vertical radio group">
+  <RadioButton name="v-radio" label="Option" checked />
+  <RadioButton name="v-radio" label="Option" />
+  <RadioButton name="v-radio" label="Option" />
+  <RadioButton name="v-radio" label="Option" />
+</SelectionGroup>
+```
+
+### Horizontal group
+
+Horizontal selection group can be used in situations where there are only a few (less than 4) options. Otherwise the vertical alignment is recommended.
+
+<Playground>
+  <SelectionGroup label="Horizontal checkbox group" direction="horizontal">
+    <Checkbox name="h_checkbox" label="Option" checked />
+    <Checkbox name="h_checkbox" label="Option" checked />
+    <Checkbox name="h_checkbox"label="Option" />
+  </SelectionGroup>
+  <br />
+  <SelectionGroup label="Horizontal radio group" direction="horizontal">
+    <RadioButton name="h_radio" label="Option" checked />
+    <RadioButton name="h_radio" label="Option" />
+    <RadioButton name="h_radio" label="Option" />
+  </SelectionGroup>
+</Playground>
+
+#### Core code example:
+```html
+<fieldset class="hds-selection-group">
+  <legend class="hds-selection-group__legend">Horizontal checkbox group</legend>
+  <div class="hds-selection-group__items hds-selection-group__items--horizontal">
+    <div class="hds-selection-group__item">
+      <div class="hds-checkbox">
+        <input type="checkbox" id="checkbox1" class="hds-checkbox__input" value="foo" checked />
+        <label for="checkbox1" class="hds-checkbox__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-checkbox">
+        <input type="checkbox" id="checkbox2" class="hds-checkbox__input" value="bar" checked/>
+        <label for="checkbox2" class="hds-checkbox__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-checkbox">
+        <input type="checkbox" id="checkbox3" class="hds-checkbox__input" value="baz" />
+        <label for="checkbox3" class="hds-checkbox__label">Option</label>
+      </div>
+    </div>
+  </div>
+</fieldset>
+
+<fieldset class="hds-selection-group">
+  <legend class="hds-selection-group__legend">Horizontal radio group</legend>
+  <div class="hds-selection-group__items hds-selection-group__items--horizontal">
+    <div class="hds-selection-group__item">
+      <div class="hds-radio-button">
+        <input type="radio" id="radio1" class="hds-radio-button__input" name="example" value="foo" checked />
+        <label for="radio1" class="hds-radio-button__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-radio-button">
+        <input type="radio" id="radio2" class="hds-radio-button__input" name="example" value="bar" />
+        <label for="radio2" class="hds-radio-button__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-radio-button">
+        <input type="radio" id="radio3" class="hds-radio-button__input" name="example" value="baz" />
+        <label for="radio3" class="hds-radio-button__label">Option</label>
+      </div>
+    </div>
+  </div>
+</fieldset>
+```
+
+#### React code example:
+```tsx
+<SelectionGroup label="Horizontal checkbox group" direction="horizontal">
+  <Checkbox name="h_checkbox" label="Option" checked />
+  <Checkbox name="h_checkbox" label="Option" checked />
+  <Checkbox name="h_checkbox"label="Option" />
+</SelectionGroup>
+
+<SelectionGroup label="Horizontal radio group" direction="horizontal">
+  <RadioButton name="h_radio" label="Option" checked />
+  <RadioButton name="h_radio" label="Option" />
+  <RadioButton name="h_radio" label="Option" />
+</SelectionGroup>
+```
+
+## Demos & API
+
+### Core
+
+[SelectionGroup in hds-core](/storybook/core/?path=/story/components-selection-group--default)
+
+### React
+
+[SelectionGroup in hds-react](/storybook/react/?path=/story/components-selectiongroup--default)
+
+[SelectionGroup API](/storybook/react/?path=/docs/components-selectiongroup--default)
