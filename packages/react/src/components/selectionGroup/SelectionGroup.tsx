@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // import core base styles
 import 'hds-core';
@@ -53,6 +53,26 @@ export const SelectionGroup = ({
   className,
   ...fieldSetProps
 }: SelectionGroupProps) => {
+  useEffect(() => {
+    let hasRadios = false;
+    let hasCheckedRadios = false;
+    React.Children.forEach(children, (child) => {
+      const reactElement = child as React.ReactElement;
+      const { displayName } = reactElement.type as React.FunctionComponent;
+      if (displayName === 'RadioButton') {
+        hasRadios = true;
+        if (reactElement.props.checked === true) {
+          hasCheckedRadios = true;
+        }
+      }
+    });
+    if (hasRadios && !hasCheckedRadios) {
+      console.warn(
+        'All radio buttons in a SelectionGroup are unchecked. One radio button should be checked by default.',
+      );
+    }
+  }, [children]);
+
   return (
     <fieldset className={classNames(styles.selectionGroup, className)} {...fieldSetProps}>
       <legend className={styles.label}>
