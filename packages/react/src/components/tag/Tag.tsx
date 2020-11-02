@@ -7,6 +7,14 @@ import 'hds-core';
 import styles from './Tag.module.scss';
 import { IconCross } from '../../icons';
 import classNames from '../../utils/classNames';
+import { useTheme } from '../../hooks/useTheme';
+import getModulesClassName from '../../utils/getModulesClassName';
+
+export interface TagCustomTheme {
+  '--tag-background'?: string;
+  '--tag-color'?: string;
+  '--tag-focus-outline-color'?: string;
+}
 
 export type TagProps = {
   /**
@@ -49,6 +57,10 @@ export type TagProps = {
    * Label that is only visible to screen readers. Can be used to to give screen reader users additional information about the tag.
    */
   srOnlyLabel?: string;
+  /**
+   * Custom theme styles
+   */
+  theme: TagCustomTheme;
 };
 
 export const Tag = React.forwardRef<HTMLDivElement, TagProps>(
@@ -64,10 +76,13 @@ export const Tag = React.forwardRef<HTMLDivElement, TagProps>(
       onDelete,
       role = 'link',
       srOnlyLabel,
+      theme,
       ...rest
     }: TagProps,
     ref: React.Ref<HTMLDivElement>,
   ) => {
+    // custom theme class that is applied to the root element
+    const customThemeClass = useTheme<TagCustomTheme>(getModulesClassName(styles.tag), theme);
     const clickable = typeof onClick === 'function';
     const deletable = typeof onDelete === 'function';
 
@@ -79,7 +94,7 @@ export const Tag = React.forwardRef<HTMLDivElement, TagProps>(
     return (
       <div
         id={id}
-        className={classNames(styles.tag, className)}
+        className={classNames(styles.tag, customThemeClass, className)}
         ref={ref}
         {...(clickable && { tabIndex: 0, role, onClick, onKeyDown })}
         {...rest}

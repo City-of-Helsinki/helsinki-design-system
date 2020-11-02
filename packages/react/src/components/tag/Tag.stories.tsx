@@ -37,3 +37,12 @@ export const Deletable = (args) => {
   );
 };
 Deletable.storyName = 'Deletable tag';
+
+export const CustomTheme = (args) => <Tag {...args} onClick={() => action(`Click: ${args.label}`)()} />;
+CustomTheme.args = {
+  theme: {
+    '--tag-background': 'var(--color-engel)',
+    '--tag-color': 'var(--color-black-90)',
+    '--tag-focus-outline-color': 'var(--color-black-90)',
+  },
+};
