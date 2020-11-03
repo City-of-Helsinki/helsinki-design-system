@@ -6,6 +6,7 @@ export * from './dropdown';
 export * from './footer';
 export * from './imageWithCard';
 export * from './koros';
+export * from './loadingSpinner';
 export * from './logo';
 export * from './navigation';
 export * from './notification';

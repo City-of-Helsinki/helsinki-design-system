@@ -1,0 +1,7 @@
+.loadingSpinner {
+  composes: hds-loading-spinner from 'hds-core/lib/components/loading-spinner/loading-spinner.css';
+}
+
+.small {
+  composes: hds-loading-spinner--small from 'hds-core/lib/components/loading-spinner/loading-spinner.css';
+}
