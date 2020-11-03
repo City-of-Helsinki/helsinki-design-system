@@ -56,9 +56,7 @@
 }
 
 // dropdown item styles
-.dropdownItem {
-  composes: dropdownItem from '../navigationDropdown/NavigationDropdown.module.scss';
-}
+@import "../navigationDropdown/NavigationDropdown.module.scss";
 
 .rowItem,
 .dropdownItem {
