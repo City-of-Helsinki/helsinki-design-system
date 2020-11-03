@@ -42,25 +42,25 @@ import Link from "../../src/components/Link";
 By default, Tags are non-interactable elements. They only include a label and do not have any specific styling.
 
 <Playground>
-<Tag label="News" />
-<Tag label="Announcements" style={{ marginLeft: 'var(--spacing-s)' }} />
+<Tag>News</Tag>
+<Tag style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</Tag>
 </Playground>
 
 ##### Core:
 ```html
 <div class="hds-tag">
-  <span class="hds-tag__label">Label</span>
+  <span class="hds-tag__label">News</span>
 </div>
 
 <div class="hds-tag">
-  <span class="hds-tag__label">Label</span>
+  <span class="hds-tag__label">Announcements</span>
 </div>
 ```
 
 ##### React:
 ```tsx
-<Tag label="News" />
-<Tag label="Announcements" />
+<Tag>News</Tag>
+<Tag>Announcements</Tag>
 ```
 
 ### Clickable tags
@@ -70,8 +70,8 @@ Tags can be configured to be interactable by giving them an `onClick` function p
 Remember to add descriptive `aria-label` to clearly indicate the link target or action to assistive technologies.
 
 <Playground>
-<Tag label="News" role="link" onClick={() => {}} aria-label="Move to category: News" />
-<Tag label="Announcements" role="link" onClick={() => {}} aria-label="Move to category: Announcements" style={{ marginLeft: 'var(--spacing-s)' }} />
+<Tag role="link" onClick={() => {}} aria-label="Move to category: News">News</Tag>
+<Tag role="link" onClick={() => {}} aria-label="Move to category: Announcements" style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</Tag>
 </Playground>
 
 ##### Core:
@@ -88,18 +88,16 @@ Remember to add descriptive `aria-label` to clearly indicate the link target or 
 ##### React:
 ```tsx
 <Tag 
-  label="News" 
   role="link" 
   onClick={() => {}} 
   aria-label="Move to category: News" 
-/>
+>News</Tag>
 
 <Tag 
-  label="Announcements" 
   role="link" 
   onClick={() => {}} 
   aria-label="Move to category: Announcements" 
-/>
+>Announcements</Tag>
 ```
 
 ### Deletable tags
@@ -109,8 +107,8 @@ Tags can be configured to be deletable by giving them an `onDelete` function pro
 Remember to add descriptive `aria-label` to the delete button to clearly indicate what the user is deleting when triggering the action.
 
 <Playground>
-<Tag label="News" onDelete={() => {}} deleteButtonAriaLabel="Delete filter: News" />
-<Tag label="Announcements" onDelete={() => {}} deleteButtonAriaLabel="Delete filter: Announcements" style={{ marginLeft: 'var(--spacing-s)' }} />
+<Tag onDelete={() => {}} deleteButtonAriaLabel="Delete filter: News">News</Tag>
+<Tag onDelete={() => {}} deleteButtonAriaLabel="Delete filter: Announcements" style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</Tag>
 </Playground>
 
 ##### Core:
@@ -133,16 +131,14 @@ Remember to add descriptive `aria-label` to the delete button to clearly indicat
 ##### React:
 ```tsx
 <Tag 
-  label="News" 
   onDelete={() => {}} 
   deleteButtonAriaLabel="Delete filter: News" 
-/>
+>News</Tag>
 
 <Tag 
-  label="Announcements" 
   onDelete={() => {}} 
   deleteButtonAriaLabel="Delete filter: Announcements" 
-/>
+>Announcements</Tag>
 ```
 
 
