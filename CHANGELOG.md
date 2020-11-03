@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### React
 #### Fixed
-- Fixed a stylesheet bundle issue with `Navigation` component
+- Fixed a stylesheet bundle issue with `Navigation` component, which caused invalid styles for mobile navigation with dropdown items.
 
 ## [0.15.0] - October 29, 2020
 ### Breaking changes
