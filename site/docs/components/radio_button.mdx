@@ -83,41 +83,49 @@ import Text from "../../src/components/Text";
 Related radio buttons can be grouped together with the Selection group component. See [HDS Selection group page](/components/selection-group) for full documentation.
 
 <Playground>
-  <SelectionGroup label="Radio group label">
-    <RadioButton name="v-radio" label="Option" checked />
-    <RadioButton name="v-radio" label="Option" />
-    <RadioButton name="v-radio" label="Option" />
-    <RadioButton name="v-radio" label="Option" />
-  </SelectionGroup>
+  {() => {
+    const [selectedItem, setSelectedItem] = React.useState("1");
+    const onChange = (event) => {
+      setSelectedItem(event.target.value);
+    };
+    return (
+      <SelectionGroup label="Radio button group">
+        <RadioButton id="v-radio1" name="v-radio" value="1" label="Option" checked={selectedItem === "1"} onChange={onChange} />
+        <RadioButton id="v-radio2" name="v-radio" value="2" label="Option" checked={selectedItem === "2"} onChange={onChange} />
+        <RadioButton id="v-radio3" name="v-radio" value="3" label="Option" checked={selectedItem === "3"} onChange={onChange} />
+        <RadioButton id="v-radio4" name="v-radio" value="4" label="Option" checked={selectedItem === "4"} onChange={onChange} />
+      </SelectionGroup>
+    );
+  }}
 </Playground>
 
 #### Core code example:
 ```html
 <fieldset class="hds-selection-group">
-  <legend class="hds-selection-group__legend">Radio group label</legend>
+  <legend class="hds-selection-group__legend">Radio button group</legend>
   <div class="hds-selection-group__items">
     <div class="hds-selection-group__item">
       <div class="hds-radio-button">
-        <input type="radio" id="radio1" class="hds-radio-button__input" name="example" value="foo" checked />
-        <label for="radio1" class="hds-radio-button__label">Option</label>
+        <input type="radio" id="v-radio1" name="v-radio" class="hds-radio-button__input" name="example" value="foo" checked />
+        <label for="v-radio1" class="hds-radio-button__label">Option</label>
       </div>
     </div>
     <div class="hds-selection-group__item">
       <div class="hds-radio-button">
-        <input type="radio" id="radio2" class="hds-radio-button__input" name="example" value="bar" />
-        <label for="radio2" class="hds-radio-button__label">Option</label>
+        <input type="radio" id="v-radio2" name="v-radio" class="hds-radio-button__input" name="example" value="bar" />
+        <label for="v-radio2" class="hds-radio-button__label">Option</label>
       </div>
     </div>
     <div class="hds-selection-group__item">
       <div class="hds-radio-button">
-        <input type="radio" id="radio3" class="hds-radio-button__input" name="example" value="baz" />
-        <label for="radio3" class="hds-radio-button__label">Option</label>
+        <input type="radio" id="v-radio3" name="v-radio" class="hds-radio-button__input" name="example" value="baz" />
+        <label for="v-radio3" class="hds-radio-button__label">Option</label>
       </div>
     </div>
     <div class="hds-selection-group__item">
       <div class="hds-radio-button">
-        <input type="radio" id="radio4" class="hds-radio-button__input" name="example" value="qux" />
-        <label for="radio4" class="hds-radio-button__label">Option</label>
+        <input type="radio" id="v-radio4" name="v-radio" class="hds-radio-button__input" name="example" value="qux" />
+        <label for="v-radio4" class="hds-radio-button__label">Option</label>
       </div>
     </div>
   </div>
@@ -126,11 +134,11 @@ Related radio buttons can be grouped together with the Selection group component
 
 #### React code example:
 ```tsx
-<SelectionGroup label="Vertical radio group">
-  <RadioButton name="v-radio" label="Option" checked />
-  <RadioButton name="v-radio" label="Option" />
-  <RadioButton name="v-radio" label="Option" />
-  <RadioButton name="v-radio" label="Option" />
+<SelectionGroup label="Radio button group">
+  <RadioButton id="v-radio1" name="v-radio" value="1" label="Option" checked />
+  <RadioButton id="v-radio2" name="v-radio" value="2" label="Option" />
+  <RadioButton id="v-radio3" name="v-radio" value="3" label="Option" />
+  <RadioButton id="v-radio4" name="v-radio" value="4" label="Option" />
 </SelectionGroup>
 ```
 

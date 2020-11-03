@@ -82,41 +82,49 @@ import Text from "../../src/components/Text";
 Related checkboxes can be grouped together with the Selection group component. See [HDS Selection group page](/components/selection-group) for full documentation.
 
 <Playground>
-  <SelectionGroup label="Checkbox group label">
-    <Checkbox name="v-checkbox" label="Option" checked />
-    <Checkbox name="v-checkbox" label="Option" checked />
-    <Checkbox name="v-checkbox" label="Option" />
-    <Checkbox name="v-checkbox" label="Option" />
-  </SelectionGroup>
+  {() => {
+    const [checkedItems, setCheckedItems] = React.useState({ "v-checkbox1": true, "v-checkbox2": true });
+    const onChange = (event) => {
+      setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
+    };
+    return (
+      <SelectionGroup label="Checkbox group">
+        <Checkbox id="v-checkbox1" name="v-checkbox1" label="Option" checked={checkedItems["v-checkbox1"]} onChange={onChange} />
+        <Checkbox id="v-checkbox2" name="v-checkbox2" label="Option" checked={checkedItems["v-checkbox2"]} onChange={onChange} />
+        <Checkbox id="v-checkbox3" name="v-checkbox3" label="Option" checked={checkedItems["v-checkbox3"]} onChange={onChange} />
+        <Checkbox id="v-checkbox4" name="v-checkbox4" label="Option" checked={checkedItems["v-checkbox4"]} onChange={onChange} />
+      </SelectionGroup>
+    );
+  }}
 </Playground>
 
 #### Core code example:
 ```html
 <fieldset class="hds-selection-group">
-  <legend class="hds-selection-group__legend">Checkbox group label</legend>
+  <legend class="hds-selection-group__legend">Checkbox group</legend>
   <div class="hds-selection-group__items">
     <div class="hds-selection-group__item">
       <div class="hds-checkbox">
-        <input type="checkbox" id="checkbox1" class="hds-checkbox__input" value="foo" checked />
-        <label for="checkbox1" class="hds-checkbox__label">Option</label>
+        <input type="checkbox" id="v-checkbox1" name="v-checkbox1" class="hds-checkbox__input" value="foo" checked />
+        <label for="v-checkbox1" class="hds-checkbox__label">Option</label>
       </div>
     </div>
     <div class="hds-selection-group__item">
       <div class="hds-checkbox">
-        <input type="checkbox" id="checkbox2" class="hds-checkbox__input" value="bar" checked/>
-        <label for="checkbox2" class="hds-checkbox__label">Option</label>
+        <input type="checkbox" id="v-checkbox2" name="v-checkbox2" class="hds-checkbox__input" value="bar" checked/>
+        <label for="v-checkbox2" class="hds-checkbox__label">Option</label>
       </div>
     </div>
     <div class="hds-selection-group__item">
       <div class="hds-checkbox">
-        <input type="checkbox" id="checkbox3" class="hds-checkbox__input" value="baz" />
-        <label for="checkbox3" class="hds-checkbox__label">Option</label>
+        <input type="checkbox" id="v-checkbox3" name="v-checkbox3" class="hds-checkbox__input" value="baz" />
+        <label for="v-checkbox3" class="hds-checkbox__label">Option</label>
       </div>
     </div>
     <div class="hds-selection-group__item">
       <div class="hds-checkbox">
-        <input type="checkbox" id="checkbox4" class="hds-checkbox__input" value="qux" />
-        <label for="checkbox4" class="hds-checkbox__label">Option</label>
+        <input type="checkbox" id="v-checkbox4" name="v-checkbox4" class="hds-checkbox__input" value="qux" />
+        <label for="v-checkbox4" class="hds-checkbox__label">Option</label>
       </div>
     </div>
   </div>
@@ -125,11 +133,11 @@ Related checkboxes can be grouped together with the Selection group component. S
 
 #### React code example:
 ```tsx
-<SelectionGroup label="Vertical checkbox group">
-  <Checkbox name="v-checkbox" label="Option" checked />
-  <Checkbox name="v-checkbox" label="Option" checked />
-  <Checkbox name="v-checkbox" label="Option" />
-  <Checkbox name="v-checkbox" label="Option" />
+<SelectionGroup label="Checkbox group">
+  <Checkbox id="v-checkbox1" name="v-checkbox1" label="Option" checked />
+  <Checkbox id="v-checkbox2" name="v-checkbox2" label="Option" checked />
+  <Checkbox id="v-checkbox3" name="v-checkbox3" label="Option" />
+  <Checkbox id="v-checkbox4" name="v-checkbox4" label="Option" />
 </SelectionGroup>
 ```
 
