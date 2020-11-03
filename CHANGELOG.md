@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.15.1] - November 3, 2020
+### Documentation
+#### Changed
+- Updated Supplementary button examples
+- Added accordion and form validation to roadmap
+
+### React
+#### Fixed
+- Fixed a stylesheet bundle issue with `Navigation` component
+
 ## [0.15.0] - October 29, 2020
 ### Breaking changes
 #### Design tokens
