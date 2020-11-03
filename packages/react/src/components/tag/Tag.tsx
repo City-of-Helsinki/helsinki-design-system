@@ -18,6 +18,10 @@ export interface TagCustomTheme {
 
 export type TagProps = {
   /**
+   * The label for the tag
+   */
+  children: React.ReactNode;
+  /**
    * Additional class names to apply to the tag
    */
   className?: string;
@@ -33,10 +37,6 @@ export type TagProps = {
    * Used to generate the first part of the id on the elements.
    */
   id?: string;
-  /**
-   * The label for the tag
-   */
-  label: React.ReactNode;
   /**
    * Props that will be passed to the label `<span>` element.
    */
@@ -60,17 +60,17 @@ export type TagProps = {
   /**
    * Custom theme styles
    */
-  theme: TagCustomTheme;
+  theme?: TagCustomTheme;
 };
 
 export const Tag = React.forwardRef<HTMLDivElement, TagProps>(
   (
     {
+      children,
       className,
       deleteButtonAriaLabel,
       deleteButtonProps,
       id = 'hds-tag',
-      label,
       labelProps,
       onClick,
       onDelete,
@@ -101,7 +101,7 @@ export const Tag = React.forwardRef<HTMLDivElement, TagProps>(
       >
         <span id={id && `${id}-label`} className={styles.label} {...labelProps}>
           {srOnlyLabel && <span className={styles.visuallyHidden}>{srOnlyLabel}</span>}
-          <span aria-hidden={!!srOnlyLabel}>{label}</span>
+          <span aria-hidden={!!srOnlyLabel}>{children}</span>
         </span>
         {deletable && (
           <button
