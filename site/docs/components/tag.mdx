@@ -5,7 +5,7 @@ route: /components/tag
 ---
 
 import { Playground } from "docz";
-import { StatusLabel, Notification } from "hds-react";
+import { Tag, StatusLabel } from "hds-react";
 
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Link from "../../src/components/Link";
@@ -13,7 +13,8 @@ import Link from "../../src/components/Link";
 # Tag
 
 <StatusLabel>New</StatusLabel>
-<StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel> 
+<StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel>
+<StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel> 
 
 <LargeParagraph>
   Tags are used to show attributes of an object or element such as categories. HDS also uses Tags to present filters selected for searches.
@@ -21,13 +22,15 @@ import Link from "../../src/components/Link";
 
 ## Principles
 
-- **Tags are meant for presenting object attributes and filters.** If you are preseting status information, use [Status label component](/components/status-label) instead.
+- **Tags are meant for presenting object attributes and filters.** If you are presenting status information, use [Status label component](/components/status-label) instead.
 - Keep labels short and concise. Use 1-2 words at maximum and do not use labels expanding to two rows.
 - Tags are often related to some other element on the page (e.g. table row or search field as filters). Aim to keep tags and their related elements close to each other so the user can easily interpret the relation.
-- Unlike status labels, tags can be configured to be clickable and deletable. You can use this feature to create removable filters/selections and links to category lists or .
+- Unlike status labels, **tags can be configured to be clickable and deletable**. You can use this feature to create removable filters/selections or links to category filtered pages.
 
 ## Accessibility
 
+- If the Tag is clickable, you must assign it with `role="link"`. If Tag click triggers an action on the same page (e.g. filters a list), use `role="button"` instead.
+  - For interactable Tags you must set a descriptive `aria-label` for assistive technologies so the user understands what happens if the Tag is clicked. For example `aria-label="Move to category: <category name>"`.
 - **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
 - If you are customising tag colours, make sure they are easily distinguishable from [HDS UI Colours](/design-tokens/colour#ui-colours). These colours are reserved to present UI state and status information in applications using HDS.
 - Remember that colour should never be the only way of conveying information. Make sure the meaning of the status label is clearly described by the label text. Refer to <Link href="https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html" external>WCAG 2.1 Use of Color guideline</Link> for more information.
@@ -36,47 +39,110 @@ import Link from "../../src/components/Link";
 
 ### Basic tags
 
-<Playground>
+By default, Tags are non-interactable elements. They only include a label and do not have any specific styling.
 
+<Playground>
+<Tag label="News" />
+<Tag label="Announcements" style={{ marginLeft: 'var(--spacing-s)' }} />
 </Playground>
 
 ##### Core:
-```
+```html
+<div class="hds-tag">
+  <span class="hds-tag__label">Label</span>
+</div>
+
+<div class="hds-tag">
+  <span class="hds-tag__label">Label</span>
+</div>
 ```
 
 ##### React:
 ```tsx
-
+<Tag label="News" />
+<Tag label="Announcements" />
 ```
 
-### Removable tags
+### Clickable tags
+
+Tags can be configured to be interactable by giving them an `onClick` function prop. This way Tags can act as links or actions. Since these Tags are fully interactable they can be also focused and receive default HDS focus indicator styling.
+
+Remember to add descriptive `aria-label` to clearly indicate the link target or action to assistive technologies.
 
 <Playground>
-
+<Tag label="News" role="link" onClick={() => {}} aria-label="Move to category: News" />
+<Tag label="Announcements" role="link" onClick={() => {}} aria-label="Move to category: Announcements" style={{ marginLeft: 'var(--spacing-s)' }} />
 </Playground>
 
 ##### Core:
-```
+```html
+<div class="hds-tag" role="link" tabindex="0" onclick="" aria-label="Move to category: News">
+  <span class="hds-tag__label">News</span>
+</div>
+
+<div class="hds-tag" role="link" tabindex="0" onclick="" aria-label="Move to category: Announcements">
+  <span class="hds-tag__label">Announcements</span>
+</div>
 ```
 
 ##### React:
 ```tsx
+<Tag 
+  label="News" 
+  role="link" 
+  onClick={() => {}} 
+  aria-label="Move to category: News" 
+/>
 
+<Tag 
+  label="Announcements" 
+  role="link" 
+  onClick={() => {}} 
+  aria-label="Move to category: Announcements" 
+/>
 ```
 
-### Tags as filters
+### Deletable tags
+
+Tags can be configured to be deletable by giving them an `onDelete` function prop. This enables a delete icon inside the Tag. Deleting can be useful in situations where Tags are used as filters (e.g. for search).
+
+Remember to add descriptive `aria-label` to the delete button to clearly indicate what the user is deleting when triggering the action.
 
 <Playground>
-
+<Tag label="News" onDelete={() => {}} deleteButtonAriaLabel="Delete filter: News" />
+<Tag label="Announcements" onDelete={() => {}} deleteButtonAriaLabel="Delete filter: Announcements" style={{ marginLeft: 'var(--spacing-s)' }} />
 </Playground>
 
 ##### Core:
-```
+```html
+<div class="hds-tag">
+  <span class="hds-tag__label">News</span>
+  <button aria-label="Delete filter: News" class="hds-tag__delete-button button-reset">
+      <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
+  </button>
+</div>
+
+<div class="hds-tag">
+  <span class="hds-tag__label">Announcements</span>
+  <button aria-label="Delete filter: Announcements" class="hds-tag__delete-button button-reset">
+      <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
+  </button>
+</div>
 ```
 
 ##### React:
 ```tsx
+<Tag 
+  label="News" 
+  onDelete={() => {}} 
+  deleteButtonAriaLabel="Delete filter: News" 
+/>
 
+<Tag 
+  label="Announcements" 
+  onDelete={() => {}} 
+  deleteButtonAriaLabel="Delete filter: Announcements" 
+/>
 ```
 
 
@@ -84,10 +150,10 @@ import Link from "../../src/components/Link";
 
 ### Core
 
-[Tags in hds-core](/storybook/core/?path=/story/components-status-label--default)
+[Tags in hds-core](/storybook/core/?path=/story/components-tag--default)
 
 ### React
 
-[Tags in hds-react](/storybook/react/?path=/story/components-status-label--neutral)
+[Tags in hds-react](/storybook/react/?path=/story/components-tag--default)
 
-[Tags API](/storybook/react/?path=/docs/components-status-label--neutral)
+[Tags API](/storybook/react/?path=/docs/components-tag--default)
