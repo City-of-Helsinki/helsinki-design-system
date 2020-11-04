@@ -1,0 +1,33 @@
+.hds-container {
+  box-sizing: border-box;
+}
+
+@media (min-width: 320px) {
+  .hds-container {
+    max-width: var(--container-width-xs);
+  }
+}
+
+@media (min-width: 576px) {
+  .hds-container {
+    max-width: var(--container-width-s);
+  }
+}
+
+@media (min-width: 768px) {
+  .hds-container {
+    max-width: var(--container-width-m);
+  }
+}
+
+@media (min-width: 992px) {
+  .hds-container {
+    max-width: var(--container-width-l);
+  }
+}
+
+@media (min-width: 1248px) {
+  .hds-container {
+    max-width: var(--container-width-xl);
+  }
+}

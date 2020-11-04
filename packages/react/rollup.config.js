@@ -80,6 +80,7 @@ export default [
       'components/Checkbox/index': 'src/components/checkbox/index.ts',
       'components/Columns/index': 'src/components/columns/index.ts',
       'components/Combobox/index': 'src/components/dropdown/combobox/index.ts',
+      'components/Container/index': 'src/components/container/index.ts',
       'components/Dropdown/index': 'src/components/dropdown/dropdown/index.ts',
       'components/Footer/index': 'src/components/footer/index.ts',
       'components/ImageWithCard/index': 'src/components/imageWithCard/index.ts',
