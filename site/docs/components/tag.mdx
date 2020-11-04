@@ -37,7 +37,7 @@ import Link from "../../src/components/Link";
 
 ### Which role attribute should be used with Tags?
 - HDS Tags can be clickable. In this case, it needs either a `role=“link”` or  `role=“button”` as an attribute. The role value should be decided as follows:
-  - If the user’s focus is moved to another location or another page is opened, the role should be “link”. Example: The user clicks a Tag labeled as "News". The tag takes the user to a new page which lists all items tagged as "News".
+  - If the user’s focus is moved to another location or another page is opened, the role should be `link`. Example: The user clicks a Tag labeled as "News". The tag takes the user to a new page which lists all items tagged as "News".
   - If, however, the tag will result in the page’s content being dynamically changed (i.e. Tag triggers an action), use `role=“button”`. Example: Clicking the tag will cause a search below to be filtered.
 
 ## Usage and variations
