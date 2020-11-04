@@ -5,3 +5,7 @@
 .small {
   composes: hds-loading-spinner--small from 'hds-core/lib/components/loading-spinner/loading-spinner.css';
 }
+
+.multicolor {
+  composes: hds-loading-spinner--multicolor from 'hds-core/lib/components/loading-spinner/loading-spinner.css';
+}

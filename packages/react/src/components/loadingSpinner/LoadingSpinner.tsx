@@ -9,6 +9,9 @@ import getModulesClassName from '../../utils/getModulesClassName';
 
 export interface LoadingSpinnerCustomTheme {
   '--spinner-color'?: string;
+  '--spinner-color-stage1'?: string;
+  '--spinner-color-stage2'?: string;
+  '--spinner-color-stage3'?: string;
 }
 
 export type LoadingSpinnerProps = {
@@ -16,6 +19,11 @@ export type LoadingSpinnerProps = {
    * Additional class names for loading spinner.
    */
   className?: string;
+  /**
+   * If `true`, the multicolor variant is used.
+   * @default false
+   */
+  multicolor?: boolean;
   /**
    * If `true`, the small variant is used.
    * @default false
@@ -43,6 +51,7 @@ export type LoadingSpinnerProps = {
 
 export const LoadingSpinner = ({
   className,
+  multicolor = false,
   small = false,
   theme,
   valuemax = 100,
@@ -53,7 +62,13 @@ export const LoadingSpinner = ({
   const customThemeClass = useTheme<LoadingSpinnerCustomTheme>(getModulesClassName(styles.loadingSpinner), theme);
   return (
     <div
-      className={classNames(styles.loadingSpinner, small && styles.small, customThemeClass, className)}
+      className={classNames(
+        styles.loadingSpinner,
+        small && styles.small,
+        multicolor && styles.multicolor,
+        customThemeClass,
+        className,
+      )}
       role="progressbar"
       aria-valuemin={valuemin}
       aria-valuemax={valuemax}
