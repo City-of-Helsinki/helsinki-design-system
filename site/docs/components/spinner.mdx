@@ -7,6 +7,7 @@ route: /components/spinner
 import { Playground } from "docz";
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Link from "../../src/components/Link";
+import { LoadingSpinner } from "hds-react";
 
 # Loading spinner
 
@@ -34,34 +35,95 @@ The loading spinner comes in two sizes:
 - Small (24px) can be used for indicating more local changes in content.
 
 <Playground>
-    
+  <LoadingSpinner />
+  <br />
+  <LoadingSpinner small />
 </Playground>
 
 ##### Core:
 ```html
+<div class="hds-loading-spinner" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
 
+<div class="hds-loading-spinner hds-loading-spinner--small" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
 ```
 
 ##### React:
 ```tsx
-
+<LoadingSpinner />
+<LoadingSpinner small />
 ```
 
 ### Customized loading spinner
 The colour of the spinner can be customised to fit the colour theme of the service. HDS Loading spinner even supports shifting between multiple colours. Colour shifting should be used sparingly only if the theme of the service calls for it.
 
 <Playground>
-    
+  <LoadingSpinner
+    theme={{
+      '--spinner-color': 'var(--color-suomenlinna)',
+    }}
+  />
+  <br />
+  <LoadingSpinner
+    multicolor
+    theme={{
+      '--spinner-color-stage1': 'var(--color-engel)',
+      '--spinner-color-stage2': 'var(--color-summer)',
+      '--spinner-color-stage3': 'var(--color-metro)'
+    }}
+  />
 </Playground>
 
 ##### Core:
 ```html
+<style>
+  .hds-loading-spinner.custom-single-color {
+    --spinner-color: var(--color-suomenlinna);
+  }
+</style>
+<div class="hds-loading-spinner custom-single-color" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
 
+<style>
+  .hds-loading-spinner.custom-multi-color {
+    --spinner-color-stage1: var(--color-engel);
+    --spinner-color-stage2: var(--color-summer);
+    --spinner-color-stage3: var(--color-metro);
+  }
+</style>
+<div class="hds-loading-spinner hds-loading-spinner--multicolor custom-multi-color" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
 ```
 
 ##### React:
 ```tsx
+<LoadingSpinner
+  theme={{
+    '--spinner-color': 'var(--color-suomenlinna)',
+  }}
+/>
 
+<LoadingSpinner
+  multicolor
+  theme={{
+    '--spinner-color-stage1': 'var(--color-engel)',
+    '--spinner-color-stage2': 'var(--color-summer)',
+    '--spinner-color-stage3': 'var(--color-metro)'
+  }}
+/>
 ```
 
 ## Demos & API
