@@ -20,14 +20,6 @@ export const Small = () => `
   </div>
 `;
 
-export const Multicolor = () => `
-  <div class="hds-loading-spinner hds-loading-spinner--multicolor" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-`;
-
 export const CustomTheme = () => `
   <style>
     .hds-loading-spinner.custom-single-color {

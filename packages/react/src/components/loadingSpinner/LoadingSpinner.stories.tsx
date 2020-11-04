@@ -14,11 +14,6 @@ Small.args = {
   small: true,
 };
 
-export const Multicolor = (args) => <LoadingSpinner {...args} />;
-Multicolor.args = {
-  multicolor: true,
-};
-
 export const CustomTheme = (args) => (
   <>
     <LoadingSpinner {...args} multicolor={false} />
