@@ -1,13 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { LoadingSpinner } from './LoadingSpinner';
+import { Button } from '../button';
 
 export default {
   component: LoadingSpinner,
   title: 'Components/LoadingSpinner',
 };
 
-export const Default = (args) => <LoadingSpinner {...args} />;
+export const Default = (args) => {
+  const [showSpinner1, setShowSpinner1] = useState(false);
+  const [showSpinner2, setShowSpinner2] = useState(false);
+  const [showSpinner3, setShowSpinner3] = useState(false);
+
+  return (
+    <>
+      <div style={{ marginBottom: 'var(--spacing-s)' }}>
+        <Button onClick={() => setShowSpinner1(!showSpinner1)}>
+          {showSpinner1 ? 'Remove' : 'Add'} loading spinner #1
+        </Button>
+      </div>
+      <div style={{ marginBottom: 'var(--spacing-s)' }}>
+        <Button onClick={() => setShowSpinner2(!showSpinner2)}>
+          {showSpinner2 ? 'Remove' : 'Add'} loading spinner #2
+        </Button>
+      </div>
+      <div style={{ marginBottom: 'var(--spacing-s)' }}>
+        <Button onClick={() => setShowSpinner3(!showSpinner3)}>
+          {showSpinner3 ? 'Remove' : 'Add'} loading spinner #3
+        </Button>
+      </div>
+      {showSpinner1 && <LoadingSpinner {...args} />}
+      {showSpinner2 && <LoadingSpinner {...args} />}
+      {showSpinner3 && <LoadingSpinner {...args} />}
+    </>
+  );
+};
 
 export const Small = (args) => <LoadingSpinner {...args} />;
 Small.args = {

@@ -2,10 +2,12 @@ import React from 'react';
 
 // import core base styles
 import 'hds-core';
+
 import styles from './LoadingSpinner.module.scss';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
 import getModulesClassName from '../../utils/getModulesClassName';
+import { useNotificationArea } from './useNotificationArea';
 
 export interface LoadingSpinnerCustomTheme {
   '--spinner-color'?: string;
@@ -34,15 +36,15 @@ export type LoadingSpinnerProps = {
    */
   theme?: LoadingSpinnerCustomTheme;
   /**
-   * Value for aria-valuemax attribute.
-   * @default 100
+   * Text to show for screen readers when spinner is visible.
+   * @default "Page is loading"
    */
-  valuemax?: number;
+  loadingText?: string;
   /**
-   * Value for aria-valuemin attribute.
-   * @default 0
+   * Text to show for screen readers when spinner is removed.
+   * @default "Page has finished loading"
    */
-  valuemin?: number;
+  loadingFinishedText?: string;
   /**
    * Value for aria-valuenow attribute. Required unless the loading status is indeterminate.
    */
@@ -54,12 +56,14 @@ export const LoadingSpinner = ({
   multicolor = false,
   small = false,
   theme,
-  valuemax = 100,
-  valuemin = 0,
-  valuenow,
+  loadingText = 'Page is loading',
+  loadingFinishedText = 'Page has finished loading',
   ...rest
 }: LoadingSpinnerProps) => {
   const customThemeClass = useTheme<LoadingSpinnerCustomTheme>(getModulesClassName(styles.loadingSpinner), theme);
+
+  useNotificationArea(loadingText, loadingFinishedText);
+
   return (
     <div
       className={classNames(
@@ -69,10 +73,6 @@ export const LoadingSpinner = ({
         customThemeClass,
         className,
       )}
-      role="progressbar"
-      aria-valuemin={valuemin}
-      aria-valuemax={valuemax}
-      aria-valuenow={valuenow}
       {...rest}
     >
       <div />
