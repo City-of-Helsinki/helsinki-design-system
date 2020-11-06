@@ -13,6 +13,10 @@ type DropdownMenuProps<T> = {
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   getItemProps(item: T, index: number, selected: boolean, disabled: boolean, virtualItem: VirtualItem | null): any;
   /**
+   * String to be highlighted in a item
+   */
+  highlightValue?: string;
+  /**
    * Function used to detect whether an option is disabled
    */
   isOptionDisabled: (option: T, index: number) => boolean;
@@ -64,6 +68,7 @@ type DropdownMenuProps<T> = {
 
 export const DropdownMenu = <T,>({
   getItemProps,
+  highlightValue,
   isOptionDisabled,
   menuProps,
   menuStyles,
@@ -105,6 +110,7 @@ export const DropdownMenu = <T,>({
               <DropdownMenuItem
                 key={optionLabel}
                 disabled={disabled}
+                highlightValue={highlightValue}
                 itemProps={itemProps}
                 menuStyles={menuStyles}
                 multiselect={multiselect}
@@ -124,6 +130,10 @@ type DropdownMenuItemProps = {
    * Whether the item is disabled
    */
   disabled: boolean;
+  /**
+   * String to highlight
+   */
+  highlightValue?: string;
   /**
    * Downshift item props
    */
@@ -149,12 +159,21 @@ type DropdownMenuItemProps = {
 
 export const DropdownMenuItem = ({
   disabled,
+  highlightValue,
   itemProps,
   label,
   menuStyles,
   multiselect,
   selected,
 }: DropdownMenuItemProps) => {
+  const getHighligtedValue = (labelValue: string) => {
+    return labelValue.replace(new RegExp(highlightValue, 'gi'), (match) => `<mark>${match}</mark>`);
+  };
+  const highlightLabel = (value: string) => {
+    // eslint-disable-next-line react/no-danger
+    return <span className={menuStyles.highlighted} dangerouslySetInnerHTML={{ __html: getHighligtedValue(value) }} />;
+  };
+
   return (
     <li {...itemProps} {...{ 'aria-selected': selected }} {...(disabled && { 'aria-disabled': true })}>
       {multiselect ? (
@@ -162,11 +181,11 @@ export const DropdownMenuItem = ({
           <span className={menuStyles.checkbox} aria-hidden>
             <IconCheck />
           </span>
-          {label}
+          {highlightValue ? highlightLabel(label) : label}
         </>
       ) : (
         <>
-          {label}
+          {highlightValue ? highlightLabel(label) : label}
           {selected && <IconCheck className={menuStyles.selectedIcon} />}
         </>
       )}

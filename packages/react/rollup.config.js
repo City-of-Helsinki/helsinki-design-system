@@ -89,6 +89,7 @@ export default [
       'components/Navigation/index': 'src/components/navigation/index.ts',
       'components/Notification/index': 'src/components/notification/index.ts',
       'components/RadioButton/index': 'src/components/radioButton/index.ts',
+      'components/SearchInput/index': 'src/components/searchInput/index.ts',
       'components/Section/index': 'src/components/section/index.ts',
       'components/Select/index': 'src/components/dropdown/select/index.ts',
       'components/SelectionGroup/index': 'src/components/selectionGroup/index.ts',
