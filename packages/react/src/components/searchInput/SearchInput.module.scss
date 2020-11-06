@@ -1,0 +1,132 @@
+@import "../../styles/common";
+@import "../dropdown/dropdown.common";
+
+
+.root {
+  @extend %dropdownRoot;
+  --helper-color-default: var(--color-black-60);
+}
+
+/**
+ * WRAPPER
+ */
+ .wrapper {
+  @extend %dropdownWrapper;
+  align-items: center;
+  display: flex;
+}
+
+.buttons {
+  position: absolute;
+  right: var(--spacing-s);
+  top: var(--spacing-xs);
+  transform: translateY(2px);
+  display: flex;
+}
+
+.button {
+  @extend %buttonReset;
+  color: var(--dropdown-color-default);
+  outline: none;
+  display: flex;
+  margin-left: var(--spacing-xs);
+
+  &.hidden {
+    @extend %hiddenFromScreen;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 var(--focus-outline-width) var(--focus-outline-color);
+  }
+}
+
+.searchIcon {
+  color: var(--dropdown-color-default);
+  display: flex;
+}
+
+.input {
+  align-self: stretch;
+  background-color: var(--input-background-default);
+  border: none;
+  box-sizing: border-box;
+  color: var(--input-color-default);
+  font-size: var(--fontsize-body-l);
+  height: var(--menu-item-height);
+  // The focus is given to the wrapping element instead of this input
+  // so we can hide the outline.
+  outline: none;
+  padding: 0 calc(var(--spacing-l) + var(--icon-size)) 0 0;
+  // Removes the input shadow on iOS
+  -webkit-appearance: none;
+  width: 100%;
+
+  // add left padding when there is no icon
+  &:first-child {
+    padding-left: var(--spacing-s);
+  }
+
+  &:not(:focus).hidden {
+    @extend %hiddenFromScreen;
+  }
+
+  // don't add additional right padding if toggle button is hidden
+  &.noToggle {
+    padding-right: var(--spacing-s);
+  }
+
+  &::placeholder {
+    color: var(--placeholder-color);
+    line-height: normal;
+  }
+
+  &:disabled::placeholder {
+    color: var(--dropdown-color-disabled);
+  }
+}
+
+/**
+ * MENU
+ */
+.menu {
+  @extend %dropdownMenu;
+}
+
+/**
+ * MENU ITEM
+ */
+.menuItem {
+  @extend %dropdownMenuItem;
+
+  .highlighted {
+    font-weight: bold;
+    
+    mark {
+      background: none;
+      font-weight: normal;
+      color: inherit;
+    }
+  }
+}
+
+.helperText {
+  color: var(--helper-color-default);
+  display: block;
+  font-size: var(--fontsize-body-m);
+  margin-top: var(--spacing-3-xs);
+}
+
+.loadingSpinnerContainer {
+  @extend %dropdownMenu;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--menu-item-background-default);
+  text-align: center;
+  padding: var(--spacing-m) 0;
+}
+
+.loadingSpinner {
+  margin-bottom: var(--spacing-2-xs);
+}
