@@ -5,7 +5,7 @@ export default {
 };
 
 export const Default = () => `
-  <div class="hds-loading-spinner" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+  <div class="hds-loading-spinner">
     <div></div>
     <div></div>
     <div></div>
@@ -13,7 +13,7 @@ export const Default = () => `
 `;
 
 export const Small = () => `
-  <div class="hds-loading-spinner hds-loading-spinner--small" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+  <div class="hds-loading-spinner hds-loading-spinner--small">
     <div></div>
     <div></div>
     <div></div>
@@ -26,7 +26,7 @@ export const CustomTheme = () => `
       --spinner-color: var(--color-suomenlinna);
     }
   </style>
-  <div class="hds-loading-spinner custom-single-color" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+  <div class="hds-loading-spinner custom-single-color">
     <div></div>
     <div></div>
     <div></div>
@@ -41,7 +41,7 @@ export const CustomTheme = () => `
       --spinner-color-stage3: var(--color-metro);
     }
   </style>
-  <div class="hds-loading-spinner hds-loading-spinner--multicolor custom-multi-color" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+  <div class="hds-loading-spinner hds-loading-spinner--multicolor custom-multi-color">
     <div></div>
     <div></div>
     <div></div>
