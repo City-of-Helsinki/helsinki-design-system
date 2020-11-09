@@ -9,44 +9,44 @@ const getCheckboxLabel = (id = 'input', label = 'Option') =>
 const getRadioLabel = (id = 'input', label = 'Option') =>
   `<label for="${id}" class="hds-radio-button__label">${label}</label>`;
 
-const getCheckboxes = () => `
+const getCheckboxes = (key) => `
       <div class="hds-selection-group__item">
         <div class="hds-checkbox">
-          <input type="checkbox" id="checkbox1" class="hds-checkbox__input" value="foo" />
-          ${getCheckboxLabel('checkbox1', 'Option 1')}
+          <input type="checkbox" id="checkbox${key}1" name="checkbox${key}1" class="hds-checkbox__input" value="foo" />
+          ${getCheckboxLabel(`checkbox${key}1`, 'Option 1')}
         </div>
       </div>
       <div class="hds-selection-group__item">
         <div class="hds-checkbox">
-          <input type="checkbox" id="checkbox2" class="hds-checkbox__input" value="bar" />
-          ${getCheckboxLabel('checkbox2', 'Option 2')}
+          <input type="checkbox" id="checkbox${key}2" name="checkbox${key}2" class="hds-checkbox__input" value="bar" />
+          ${getCheckboxLabel(`checkbox${key}2`, 'Option 2')}
         </div>
       </div>
       <div class="hds-selection-group__item">
         <div class="hds-checkbox">
-          <input type="checkbox" id="checkbox3" class="hds-checkbox__input" value="baz" />
-          ${getCheckboxLabel('checkbox3', 'Option 3')}
+          <input type="checkbox" id="checkbox${key}3" name="checkbox${key}3" class="hds-checkbox__input" value="baz" />
+          ${getCheckboxLabel(`checkbox${key}3`, 'Option 3')}
         </div>
       </div>
 `;
 
-const getRadios = () => `
+const getRadios = (key) => `
       <div class="hds-selection-group__item">
         <div class="hds-radio-button">
-          <input type="radio" id="radio1" class="hds-radio-button__input" name="example" value="foo" />
-          ${getRadioLabel('radio1', 'Option 1')}
+          <input type="radio" id="radio${key}1" class="hds-radio-button__input" name="radio${key}" value="foo" checked />
+          ${getRadioLabel(`radio${key}1`, 'Option 1')}
         </div>
       </div>
       <div class="hds-selection-group__item">
         <div class="hds-radio-button">
-          <input type="radio" id="radio2" class="hds-radio-button__input" name="example" value="bar" />
-          ${getRadioLabel('radio2', 'Option 2')}
+          <input type="radio" id="radio${key}2" class="hds-radio-button__input" name="radio${key}" value="bar" />
+          ${getRadioLabel(`radio${key}2`, 'Option 2')}
         </div>
       </div>
       <div class="hds-selection-group__item">
         <div class="hds-radio-button">
-          <input type="radio" id="radio3" class="hds-radio-button__input" name="example" value="baz" />
-          ${getRadioLabel('radio3', 'Option 3')}
+          <input type="radio" id="radio${key}3" class="hds-radio-button__input" name="radio${key}" value="baz" />
+          ${getRadioLabel(`radio${key}3`, 'Option 3')}
         </div>
       </div>
 `;
@@ -60,7 +60,7 @@ export const Default = () => `
   <fieldset class="hds-selection-group">
     <legend class="hds-selection-group__legend">Label</legend>
     <div class="hds-selection-group__items">
-      ${getCheckboxes()}
+      ${getCheckboxes('Default')}
     </div>
   </fieldset>
   <br/>
@@ -68,7 +68,7 @@ export const Default = () => `
   <fieldset class="hds-selection-group">
     <legend class="hds-selection-group__legend">Label</legend>
     <div class="hds-selection-group__items">
-      ${getRadios()}
+      ${getRadios('Default')}
     </div>
   </fieldset>
 `;
@@ -77,7 +77,7 @@ export const Horizontal = () => `
   <fieldset class="hds-selection-group">
     <legend class="hds-selection-group__legend">Label</legend>
     <div class="hds-selection-group__items hds-selection-group__items--horizontal">
-      ${getCheckboxes()}
+      ${getCheckboxes('Horizontal')}
     </div>
   </fieldset>
   <br/>
@@ -85,7 +85,7 @@ export const Horizontal = () => `
   <fieldset class="hds-selection-group">
     <legend class="hds-selection-group__legend">Label</legend>
     <div class="hds-selection-group__items hds-selection-group__items--horizontal">
-      ${getRadios()}
+      ${getRadios('Horizontal')}
     </div>
   </fieldset>
 `;
@@ -97,7 +97,7 @@ export const Required = () => `
       <span class="hds-selection-group__required">*</span>
     </legend>
     <div class="hds-selection-group__items">
-      ${getCheckboxes()}
+      ${getCheckboxes('Required')}
     </div>
   </fieldset>
   <br/>
@@ -108,7 +108,7 @@ export const Required = () => `
       <span class="hds-selection-group__required">*</span>
     </legend>
     <div class="hds-selection-group__items">
-      ${getRadios()}
+      ${getRadios('Required')}
     </div>
   </fieldset>
 `;

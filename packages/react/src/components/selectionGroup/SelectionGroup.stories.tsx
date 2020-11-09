@@ -54,7 +54,7 @@ const getRadioButtonItems = (
 
 export const Default = ({ numberOfItems, ...args }) => {
   const [checkedItems, setCheckedItems] = useState({});
-  const [radioValue, setRadioValue] = useState(null);
+  const [radioValue, setRadioValue] = useState('radio0');
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     const item = e.target.name;
     const isChecked = e.target.checked;
@@ -77,7 +77,7 @@ export const Default = ({ numberOfItems, ...args }) => {
 
 export const Horizontal = ({ numberOfItems, ...args }) => {
   const [checkedItems, setCheckedItems] = useState({});
-  const [radioValue, setRadioValue] = useState(null);
+  const [radioValue, setRadioValue] = useState('radio0');
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     const item = e.target.name;
     const isChecked = e.target.checked;
@@ -103,7 +103,7 @@ Horizontal.args = {
 
 export const Required = ({ numberOfItems, ...args }) => {
   const [checkedItems, setCheckedItems] = useState({});
-  const [radioValue, setRadioValue] = useState(null);
+  const [radioValue, setRadioValue] = useState('radio0');
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     const item = e.target.name;
     const isChecked = e.target.checked;
@@ -129,7 +129,7 @@ Required.args = {
 
 export const WithTooltip = ({ numberOfItems, ...args }) => {
   const [checkedItems, setCheckedItems] = useState({});
-  const [radioValue, setRadioValue] = useState(null);
+  const [radioValue, setRadioValue] = useState('radio0');
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     const item = e.target.name;
     const isChecked = e.target.checked;
