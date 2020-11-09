@@ -6,7 +6,6 @@ import 'hds-core';
 import styles from './LoadingSpinner.module.scss';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
-import getModulesClassName from '../../utils/getModulesClassName';
 import { useNotificationArea } from './useNotificationArea';
 
 export interface LoadingSpinnerCustomTheme {
@@ -60,7 +59,7 @@ export const LoadingSpinner = ({
   loadingFinishedText = 'Page has finished loading',
   ...rest
 }: LoadingSpinnerProps) => {
-  const customThemeClass = useTheme<LoadingSpinnerCustomTheme>(getModulesClassName(styles.loadingSpinner), theme);
+  const customThemeClass = useTheme<LoadingSpinnerCustomTheme>(styles.loadingSpinner, theme);
 
   useNotificationArea(loadingText, loadingFinishedText);
 
