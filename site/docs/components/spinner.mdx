@@ -69,6 +69,8 @@ The loading spinner comes in two sizes:
 ### Customized loading spinner
 The colour of the spinner can be customised to fit the colour theme of the service. HDS Loading spinner even supports shifting between multiple colours. Colour shifting should be used sparingly and only if the theme of the service calls for it.
 
+Note! When using multicolor loading spinners, at least half of the colors must have sufficient contrast `3:1` against the spinner background.
+
 <Playground>
   <LoadingSpinner
     theme={{
@@ -80,8 +82,8 @@ The colour of the spinner can be customised to fit the colour theme of the servi
     multicolor
     theme={{
       '--spinner-color-stage1': 'var(--color-coat-of-arms)',
-      '--spinner-color-stage2': 'var(--color-copper)',
-      '--spinner-color-stage3': 'var(--color-suomenlinna)'
+      '--spinner-color-stage2': 'var(--color-tram)',
+      '--spinner-color-stage3': 'var(--color-metro)'
     }}
   />
 </Playground>
@@ -104,8 +106,8 @@ The colour of the spinner can be customised to fit the colour theme of the servi
 <style>
   .hds-loading-spinner.custom-multi-color {
     --spinner-color-stage1: var(--color-coat-of-arms);
-    --spinner-color-stage2: var(--color-copper);
-    --spinner-color-stage3: var(--color-suomenlinna);
+    --spinner-color-stage2: var(--color-tram);
+    --spinner-color-stage3: var(--color-metro);
   }
 </style>
 <div class="hds-loading-spinner hds-loading-spinner--multicolor custom-multi-color" role="progressbar" aria-valuemin="0" aria-valuemax="100">
@@ -127,8 +129,8 @@ The colour of the spinner can be customised to fit the colour theme of the servi
   multicolor
   theme={{
     '--spinner-color-stage1': 'var(--color-coat-of-arms)',
-    '--spinner-color-stage2': 'var(--color-copper)',
-    '--spinner-color-stage3': 'var(--color-suomenlinna)'
+    '--spinner-color-stage2': 'var(--color-tram)',
+    '--spinner-color-stage3': 'var(--color-metro)'
   }}
 />
 ```
