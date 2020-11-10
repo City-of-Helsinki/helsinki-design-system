@@ -52,9 +52,9 @@ export const CustomTheme = (args) => (
 CustomTheme.storyName = 'Custom theme';
 CustomTheme.args = {
   theme: {
-    '--spinner-color': 'var(--color-suomenlinna)',
-    '--spinner-color-stage1': 'var(--color-engel)',
-    '--spinner-color-stage2': 'var(--color-summer)',
+    '--spinner-color': 'var(--color-tram)',
+    '--spinner-color-stage1': 'var(--color-coat-of-arms)',
+    '--spinner-color-stage2': 'var(--color-tram)',
     '--spinner-color-stage3': 'var(--color-metro)',
   },
 };

@@ -23,7 +23,7 @@ export const Small = () => `
 export const CustomTheme = () => `
   <style>
     .hds-loading-spinner.custom-single-color {
-      --spinner-color: var(--color-suomenlinna);
+      --spinner-color: var(--color-tram);
     }
   </style>
   <div class="hds-loading-spinner custom-single-color">
@@ -36,8 +36,8 @@ export const CustomTheme = () => `
 
   <style>
     .hds-loading-spinner.custom-multi-color {
-      --spinner-color-stage1: var(--color-engel);
-      --spinner-color-stage2: var(--color-summer);
+      --spinner-color-stage1: var(--color-coat-of-arms);
+      --spinner-color-stage2: var(--color-tram);
       --spinner-color-stage3: var(--color-metro);
     }
   </style>
