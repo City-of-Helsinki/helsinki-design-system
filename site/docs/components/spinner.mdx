@@ -20,11 +20,16 @@ The loading spinner do not provide details about nature of the processing but it
 ## Principles
 - **Use the loading spinner only if the wait time is anticipated to be longer than three seconds.** A spinner that just flashes quickly in view can confuse the user.
 - Display the loading spinner in the same area and contextual level where the processing is taking place. For example, if only the loader indicates that data is being retrieved for a specific content area, display the spinner in that same area.
-- If possible, provide a descpriptive label for the action being processed with the loading spinner.
+- If possible, provide a descpriptive visual label for the action being processed with the loading spinner.
 
 
 ## Accessibility
 - The colour contrast between the loading spinner and its background must comply with <Link href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>AA Level contrast ratios</Link>. You can find more information about accessible color combinations in [Colour design token documentation](/design-tokens/colour).
+- Multiple simultaneous loading spinners can be very confusing for assistive technologies. **HDS Loading spinner React component is built in a way that only reads one alert for screen readers** - even if there were multiple on the screen. If you are not able to use this feature, it is recommended to only show one loading spinner at a time.
+- HDS Loading spinner must be given labels to describe the loading event. Use `loadingText` prop for description for loading and `loadingFinishedText` prop for description for loading finishing.
+  - Descriptions should not be too detailed. You should use generic descriptions such as "_The page content is loading_" and "_The page content loading was finished_".
+  - If there are multiple spinners on the screen, they all must have identical descriptions. Remember that the description is read to screen readers only once.
+  - If the spinner also has a visual label, it can be hidden from assistive technologies to avoid description to be read twice.
 
 
 ## Usage and variations
@@ -62,30 +67,31 @@ The loading spinner comes in two sizes:
 ```
 
 ### Customized loading spinner
-The colour of the spinner can be customised to fit the colour theme of the service. HDS Loading spinner even supports shifting between multiple colours. Colour shifting should be used sparingly only if the theme of the service calls for it.
+The colour of the spinner can be customised to fit the colour theme of the service. HDS Loading spinner even supports shifting between multiple colours. Colour shifting should be used sparingly and only if the theme of the service calls for it.
 
 <Playground>
   <LoadingSpinner
     theme={{
-      '--spinner-color': 'var(--color-suomenlinna)',
+      '--spinner-color': 'var(--color-tram)',
     }}
   />
   <br />
   <LoadingSpinner
     multicolor
     theme={{
-      '--spinner-color-stage1': 'var(--color-engel)',
-      '--spinner-color-stage2': 'var(--color-summer)',
-      '--spinner-color-stage3': 'var(--color-metro)'
+      '--spinner-color-stage1': 'var(--color-coat-of-arms)',
+      '--spinner-color-stage2': 'var(--color-copper)',
+      '--spinner-color-stage3': 'var(--color-suomenlinna)'
     }}
   />
 </Playground>
 
 ##### Core:
 ```html
+<!-- Single color -->
 <style>
   .hds-loading-spinner.custom-single-color {
-    --spinner-color: var(--color-suomenlinna);
+    --spinner-color: var(--color-tram);
   }
 </style>
 <div class="hds-loading-spinner custom-single-color" role="progressbar" aria-valuemin="0" aria-valuemax="100">
@@ -94,11 +100,12 @@ The colour of the spinner can be customised to fit the colour theme of the servi
   <div></div>
 </div>
 
+<!-- Multi color -->
 <style>
   .hds-loading-spinner.custom-multi-color {
-    --spinner-color-stage1: var(--color-engel);
-    --spinner-color-stage2: var(--color-summer);
-    --spinner-color-stage3: var(--color-metro);
+    --spinner-color-stage1: var(--color-coat-of-arms);
+    --spinner-color-stage2: var(--color-copper);
+    --spinner-color-stage3: var(--color-suomenlinna);
   }
 </style>
 <div class="hds-loading-spinner hds-loading-spinner--multicolor custom-multi-color" role="progressbar" aria-valuemin="0" aria-valuemax="100">
@@ -112,16 +119,16 @@ The colour of the spinner can be customised to fit the colour theme of the servi
 ```tsx
 <LoadingSpinner
   theme={{
-    '--spinner-color': 'var(--color-suomenlinna)',
+    '--spinner-color': 'var(--color-tram)',
   }}
 />
 
 <LoadingSpinner
   multicolor
   theme={{
-    '--spinner-color-stage1': 'var(--color-engel)',
-    '--spinner-color-stage2': 'var(--color-summer)',
-    '--spinner-color-stage3': 'var(--color-metro)'
+    '--spinner-color-stage1': 'var(--color-coat-of-arms)',
+    '--spinner-color-stage2': 'var(--color-copper)',
+    '--spinner-color-stage3': 'var(--color-suomenlinna)'
   }}
 />
 ```
