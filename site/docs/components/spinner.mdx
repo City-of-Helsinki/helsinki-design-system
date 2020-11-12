@@ -7,9 +7,13 @@ route: /components/spinner
 import { Playground } from "docz";
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Link from "../../src/components/Link";
-import { LoadingSpinner } from "hds-react";
+import { LoadingSpinner, StatusLabel } from "hds-react";
 
 # Loading spinner
+
+<StatusLabel>New</StatusLabel>
+<StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel>
+<StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
 
 <LargeParagraph>
   Loading spinner is used for notifying users that their action is being processed or data retrieved from server.
