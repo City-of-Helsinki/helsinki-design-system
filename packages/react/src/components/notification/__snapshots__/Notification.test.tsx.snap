@@ -16,6 +16,7 @@ exports[`<Notification /> spec renders the component 1`] = `
         role="heading"
       >
         <svg
+          aria-hidden="true"
           class="icon s icon"
           role="img"
           viewBox="0 0 24 24"
