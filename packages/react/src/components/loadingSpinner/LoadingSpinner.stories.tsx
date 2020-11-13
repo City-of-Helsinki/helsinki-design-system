@@ -8,7 +8,31 @@ export default {
   title: 'Components/LoadingSpinner',
 };
 
-export const Default = (args) => {
+export const Default = (args) => <LoadingSpinner {...args} />;
+
+export const Small = (args) => <LoadingSpinner {...args} />;
+Small.args = {
+  small: true,
+};
+
+export const CustomTheme = (args) => (
+  <>
+    <LoadingSpinner {...args} multicolor={false} />
+    <br />
+    <LoadingSpinner {...args} multicolor />
+  </>
+);
+CustomTheme.storyName = 'Custom theme';
+CustomTheme.args = {
+  theme: {
+    '--spinner-color': 'var(--color-tram)',
+    '--spinner-color-stage1': 'var(--color-coat-of-arms)',
+    '--spinner-color-stage2': 'var(--color-tram)',
+    '--spinner-color-stage3': 'var(--color-metro)',
+  },
+};
+
+export const MultipleSpinners = (args) => {
   const [showSpinner1, setShowSpinner1] = useState(false);
   const [showSpinner2, setShowSpinner2] = useState(false);
   const [showSpinner3, setShowSpinner3] = useState(false);
@@ -36,25 +60,4 @@ export const Default = (args) => {
     </>
   );
 };
-
-export const Small = (args) => <LoadingSpinner {...args} />;
-Small.args = {
-  small: true,
-};
-
-export const CustomTheme = (args) => (
-  <>
-    <LoadingSpinner {...args} multicolor={false} />
-    <br />
-    <LoadingSpinner {...args} multicolor />
-  </>
-);
-CustomTheme.storyName = 'Custom theme';
-CustomTheme.args = {
-  theme: {
-    '--spinner-color': 'var(--color-tram)',
-    '--spinner-color-stage1': 'var(--color-coat-of-arms)',
-    '--spinner-color-stage2': 'var(--color-tram)',
-    '--spinner-color-stage3': 'var(--color-metro)',
-  },
-};
+MultipleSpinners.storyName = 'Multiple spinners';
