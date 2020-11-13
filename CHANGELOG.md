@@ -6,6 +6,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.16.0] - November 13, 2020
+### Design kit
+#### Added
+- New library HDS Loaders
+    - New component: Loading spinner
+    - New component: Loading skeleton (implementation still missing)
+- [Form Components] Added horizontal version of selection groups (both for checkbox and radio button)
+
+#### Changed
+- [Form Components] Checkbox + label symbols to use Smart layout
+- [Form Componenst] Radio button + label symbols to use Smart layout
+
+#### Fixed
+- [Form Components] Disabled state radio button borders now use shared styles
+
+### Documentation
+#### Added
+- Documentation for Loading spinner component
+- Documentation for Tag component
+- Documentation for Selection group component
+
+#### Changed
+- Added a link to Container component Storybook examples to Grid and Breakpoint documentation
+
+#### Fixed
+- Small fixes to Notification documentation subtitles
+- Checkbox Playground examples are now interactable
+- Radio button Playground examples are now interactable
+
+### Core
+#### Added
+- New component: Loading spinner (in [#311](https://github.com/City-of-Helsinki/helsinki-design-system/pull/311))
+- New component: Selection group (in [#292](https://github.com/City-of-Helsinki/helsinki-design-system/pull/292))
+
+### React
+#### Added
+- New component: LoadingSpinner (in [#311](https://github.com/City-of-Helsinki/helsinki-design-system/pull/311))
+- New component: SelectionGroup (in [#292](https://github.com/City-of-Helsinki/helsinki-design-system/pull/292))
+- New component: Tag (in [#308](https://github.com/City-of-Helsinki/helsinki-design-system/pull/308))
+
+#### Fixed
+- [Accessibility] Added missing `aria-hidden` attribute to the icon in `Notification` component (in [#313](https://github.com/City-of-Helsinki/helsinki-design-system/pull/313))
+
 ## [0.15.1] - November 3, 2020
 ### Documentation
 #### Changed
