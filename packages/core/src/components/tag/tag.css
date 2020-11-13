@@ -10,12 +10,24 @@
   flex-direction: row-reverse;
   font-size: var(--fontsize-body-s);
   outline: none;
-  padding: 0 var(--spacing-2-xs) 0 0;
 }
 
 .hds-tag:focus,
 .hds-tag:focus-within {
   box-shadow: 0 0 0 3px var(--tag-focus-outline-color);
+}
+
+.hds-tag[tabindex='0'] {
+  cursor: pointer;
+}
+
+.hds-tag__label {
+  line-height: var(--lineheight-m);
+  padding: var(--spacing-3-xs) var(--spacing-2-xs);
+}
+
+.hds-tag__label:not(:only-child) {
+  padding: 0 var(--spacing-2-xs) 0 0;
 }
 
 .hds-tag__delete-button {

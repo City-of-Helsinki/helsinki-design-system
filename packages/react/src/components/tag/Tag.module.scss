@@ -4,6 +4,10 @@
   composes: hds-tag from 'hds-core/lib/components/tag/tag.css';
 }
 
+.label {
+  composes: hds-tag__label from 'hds-core/lib/components/tag/tag.css';
+}
+
 .deleteButton {
   @extend %buttonReset;
   composes: hds-tag__delete-button from 'hds-core/lib/components/tag/tag.css';

@@ -12,13 +12,14 @@ const setComponentTheme = <T,>(selector: string, theme: T, customClass: string):
   if (typeof window === 'undefined') return;
 
   // checks if the given css rule contains the custom class selector
-  const hasCustomRule = (rule: CSSRule): boolean => rule.cssText.includes(`${selector}.${customClass}`);
+  const hasCustomRule = (rule: CSSStyleRule): boolean => rule.selectorText?.includes(`${selector}.${customClass}`);
 
   try {
     const { styleSheets } = document;
     // the index of the parent stylesheet
     const parentIndex = [...styleSheets].findIndex(
-      (styleSheet) => [...styleSheet.cssRules].findIndex((rule) => rule.cssText.includes(selector)) >= 0,
+      (styleSheet) =>
+        [...styleSheet.cssRules].findIndex((rule: CSSStyleRule) => rule.selectorText?.includes(selector)) >= 0,
     );
     // style sheet containing the css rules for the selector
     const parentStyleSheet = styleSheets[parentIndex];
