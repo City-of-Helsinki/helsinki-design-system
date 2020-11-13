@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SelectionGroup /> spec renders the component 1`] = `
+<DocumentFragment>
+  <fieldset
+    class="selectionGroup"
+  >
+    <legend
+      class="label"
+    >
+       
+    </legend>
+    <div
+      class="items vertical"
+    >
+      <div
+        class="item"
+      >
+        <div
+          class="checkbox"
+        >
+          <input
+            class="input"
+            id="checkbox"
+            type="checkbox"
+            value=""
+          />
+          <label
+            class="label"
+            for="checkbox"
+          />
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</DocumentFragment>
+`;

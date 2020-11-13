@@ -5,7 +5,7 @@ route: /components/checkbox
 ---
 
 import { Playground } from "docz";
-import { Checkbox, StatusLabel } from "hds-react";
+import { Checkbox, StatusLabel, SelectionGroup } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
 import LargeParagraph from "../../src/components/LargeParagraph";
@@ -25,12 +25,12 @@ import Text from "../../src/components/Text";
 - If the user can only select one option from a list, use [radio buttons](/components/radio-button) instead.
 - Checkbox label should always describe clearly what will happen if the specific option is chosen. A good practice is to keep labels at maximum of three words long.
 - Checkboxes work independently from each other. This means that checking one option should never affect other checkboxes.
-- If possible, align checkbox groups vertically rather than horizontally. Vertical checkbox groups are easier to read.
+- If Checkboxes are related to each other, use [HDS Selection group](/components/selection-group) to achieve that. 
 
 ## Accessibility
 
 - **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colors, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
-- It is recommended to include heading for a checkbox group. This makes it easier for the user to understand context of the selection.
+- When multiple Checkboxes are related to each other, group them together using [HDS Selection group](/components/selection-group). Selection group also includes a title for the group.
 
 ## Usage
 ### Checkbox with label
@@ -75,6 +75,70 @@ import Text from "../../src/components/Text";
 <Checkbox id="checkbox2" label="Label" checked />
 <Checkbox id="checkbox3" label="Label" disabled />
 <Checkbox id="checkbox4" label="Label" checked disabled />
+```
+
+### Checkbox group
+
+Related checkboxes can be grouped together with the Selection group component. See [HDS Selection group page](/components/selection-group) for full documentation.
+
+<Playground>
+  {() => {
+    const [checkedItems, setCheckedItems] = React.useState({ "v-checkbox1": true, "v-checkbox2": true });
+    const onChange = (event) => {
+      setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
+    };
+    return (
+      <SelectionGroup label="Checkbox group">
+        <Checkbox id="v-checkbox1" name="v-checkbox1" label="Option" checked={checkedItems["v-checkbox1"]} onChange={onChange} />
+        <Checkbox id="v-checkbox2" name="v-checkbox2" label="Option" checked={checkedItems["v-checkbox2"]} onChange={onChange} />
+        <Checkbox id="v-checkbox3" name="v-checkbox3" label="Option" checked={checkedItems["v-checkbox3"]} onChange={onChange} />
+        <Checkbox id="v-checkbox4" name="v-checkbox4" label="Option" checked={checkedItems["v-checkbox4"]} onChange={onChange} />
+      </SelectionGroup>
+    );
+  }}
+</Playground>
+
+#### Core code example:
+```html
+<fieldset class="hds-selection-group">
+  <legend class="hds-selection-group__legend">Checkbox group</legend>
+  <div class="hds-selection-group__items">
+    <div class="hds-selection-group__item">
+      <div class="hds-checkbox">
+        <input type="checkbox" id="v-checkbox1" name="v-checkbox1" class="hds-checkbox__input" value="foo" checked />
+        <label for="v-checkbox1" class="hds-checkbox__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-checkbox">
+        <input type="checkbox" id="v-checkbox2" name="v-checkbox2" class="hds-checkbox__input" value="bar" checked/>
+        <label for="v-checkbox2" class="hds-checkbox__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-checkbox">
+        <input type="checkbox" id="v-checkbox3" name="v-checkbox3" class="hds-checkbox__input" value="baz" />
+        <label for="v-checkbox3" class="hds-checkbox__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-checkbox">
+        <input type="checkbox" id="v-checkbox4" name="v-checkbox4" class="hds-checkbox__input" value="qux" />
+        <label for="v-checkbox4" class="hds-checkbox__label">Option</label>
+      </div>
+    </div>
+  </div>
+</fieldset>
+```
+
+#### React code example:
+```tsx
+<SelectionGroup label="Checkbox group">
+  <Checkbox id="v-checkbox1" name="v-checkbox1" label="Option" checked />
+  <Checkbox id="v-checkbox2" name="v-checkbox2" label="Option" checked />
+  <Checkbox id="v-checkbox3" name="v-checkbox3" label="Option" />
+  <Checkbox id="v-checkbox4" name="v-checkbox4" label="Option" />
+</SelectionGroup>
 ```
 
 ## Demos & API

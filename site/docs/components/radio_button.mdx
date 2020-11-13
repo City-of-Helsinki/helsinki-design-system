@@ -5,7 +5,7 @@ route: /components/radio-button
 ---
 
 import { Playground } from "docz";
-import { RadioButton, StatusLabel } from "hds-react";
+import { RadioButton, StatusLabel, SelectionGroup } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
 import LargeParagraph from "../../src/components/LargeParagraph";
@@ -26,13 +26,12 @@ import Text from "../../src/components/Text";
 - Radio button label should always describe clearly what will happen if the specific option is chosen. A good practice is to keep labels at maximum of three words long.
 - It is recommended to have default option checked for radio button groups Radio button groups.
 - When there are more than 4 options, consider switching to [dropdown](/components/dropdown) component.
-- If possible, align radio button groups vertically rather than horizontally. Vertical radio button groups are easier to read.
+- If Radio buttons are related to each other, use [HDS Selection group](/components/selection-group) to achieve that. 
 
 ## Accessibility
 
 - **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
-- It is recommended to include heading for a radio button group. This makes it easier for the user to understand context of the selection.
-
+- When multiple Radio buttons are related to each other, group them together using [HDS Selection group](/components/selection-group). Selection group also includes a title for the group.
 
 ## Usage
 ### Radio button with label
@@ -77,6 +76,70 @@ import Text from "../../src/components/Text";
 <RadioButton id="radio" label="Label" checked />
 <RadioButton id="radio3" label="Label" disabled />
 <RadioButton id="radio4" label="Label" checked disabled />
+```
+
+### Radio button group
+
+Related radio buttons can be grouped together with the Selection group component. See [HDS Selection group page](/components/selection-group) for full documentation.
+
+<Playground>
+  {() => {
+    const [selectedItem, setSelectedItem] = React.useState("1");
+    const onChange = (event) => {
+      setSelectedItem(event.target.value);
+    };
+    return (
+      <SelectionGroup label="Radio button group">
+        <RadioButton id="v-radio1" name="v-radio" value="1" label="Option" checked={selectedItem === "1"} onChange={onChange} />
+        <RadioButton id="v-radio2" name="v-radio" value="2" label="Option" checked={selectedItem === "2"} onChange={onChange} />
+        <RadioButton id="v-radio3" name="v-radio" value="3" label="Option" checked={selectedItem === "3"} onChange={onChange} />
+        <RadioButton id="v-radio4" name="v-radio" value="4" label="Option" checked={selectedItem === "4"} onChange={onChange} />
+      </SelectionGroup>
+    );
+  }}
+</Playground>
+
+#### Core code example:
+```html
+<fieldset class="hds-selection-group">
+  <legend class="hds-selection-group__legend">Radio button group</legend>
+  <div class="hds-selection-group__items">
+    <div class="hds-selection-group__item">
+      <div class="hds-radio-button">
+        <input type="radio" id="v-radio1" name="v-radio" class="hds-radio-button__input" name="example" value="foo" checked />
+        <label for="v-radio1" class="hds-radio-button__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-radio-button">
+        <input type="radio" id="v-radio2" name="v-radio" class="hds-radio-button__input" name="example" value="bar" />
+        <label for="v-radio2" class="hds-radio-button__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-radio-button">
+        <input type="radio" id="v-radio3" name="v-radio" class="hds-radio-button__input" name="example" value="baz" />
+        <label for="v-radio3" class="hds-radio-button__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-radio-button">
+        <input type="radio" id="v-radio4" name="v-radio" class="hds-radio-button__input" name="example" value="qux" />
+        <label for="v-radio4" class="hds-radio-button__label">Option</label>
+      </div>
+    </div>
+  </div>
+</fieldset>
+```
+
+#### React code example:
+```tsx
+<SelectionGroup label="Radio button group">
+  <RadioButton id="v-radio1" name="v-radio" value="1" label="Option" checked />
+  <RadioButton id="v-radio2" name="v-radio" value="2" label="Option" />
+  <RadioButton id="v-radio3" name="v-radio" value="3" label="Option" />
+  <RadioButton id="v-radio4" name="v-radio" value="4" label="Option" />
+</SelectionGroup>
 ```
 
 ## Demos & API

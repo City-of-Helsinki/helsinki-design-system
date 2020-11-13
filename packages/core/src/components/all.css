@@ -3,6 +3,7 @@
 @import "./checkbox/checkbox.css";
 @import "./notification/notification.css";
 @import "./radio-button/radio-button.css";
+@import "./selection-group/selection-group.css";
 @import "./status-label/status-label.css";
 @import "./tag/tag.css";
 @import "./text-input/text-input.css";

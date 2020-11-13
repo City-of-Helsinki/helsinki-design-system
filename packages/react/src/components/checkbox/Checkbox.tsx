@@ -62,6 +62,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     ref: React.Ref<HTMLInputElement>,
   ) => {
     if (label && typeof label !== 'string' && typeof label !== 'number') {
+      // eslint-disable-next-line no-console
       console.warn(
         'Using ReactElement as a label is against good usability and accessibility practices. Please prefer plain strings.',
       );
