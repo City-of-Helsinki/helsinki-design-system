@@ -8,7 +8,6 @@ import styles from './Tag.module.scss';
 import { IconCross } from '../../icons';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
-import getModulesClassName from '../../utils/getModulesClassName';
 
 export interface TagCustomTheme {
   '--tag-background'?: string;
@@ -82,7 +81,7 @@ export const Tag = React.forwardRef<HTMLDivElement, TagProps>(
     ref: React.Ref<HTMLDivElement>,
   ) => {
     // custom theme class that is applied to the root element
-    const customThemeClass = useTheme<TagCustomTheme>(getModulesClassName(styles.tag), theme);
+    const customThemeClass = useTheme<TagCustomTheme>(styles.tag, theme);
     const clickable = typeof onClick === 'function';
     const deletable = typeof onDelete === 'function';
 
