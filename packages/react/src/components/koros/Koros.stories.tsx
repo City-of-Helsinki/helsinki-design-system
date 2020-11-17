@@ -34,6 +34,8 @@ export const Storm = () => <Koros type="storm" />;
 
 export const Flipped = () => <Koros flipHorizontal />;
 
+export const CustomColor = () => <Koros style={{ fill: 'var(--color-coat-of-arms)' }} />;
+
 export const Playground = () => {
   const type = radios('Type', { basic: 'basic', beat: 'beat', pulse: 'pulse', wave: 'wave', storm: 'storm' }, 'basic');
   const flipped = boolean('Flip horizontal', false);
