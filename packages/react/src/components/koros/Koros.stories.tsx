@@ -32,7 +32,23 @@ export const Wave = () => <Koros type="wave" />;
 
 export const Storm = () => <Koros type="storm" />;
 
-export const Flipped = () => <Koros flipHorizontal />;
+export const Flipped = () => (
+  <>
+    <Koros flipHorizontal />
+    <br />
+    <br />
+    <Koros type="beat" flipHorizontal />
+    <br />
+    <br />
+    <Koros type="pulse" flipHorizontal />
+    <br />
+    <br />
+    <Koros type="wave" flipHorizontal />
+    <br />
+    <br />
+    <Koros type="storm" flipHorizontal />
+  </>
+);
 
 export const CustomColor = () => <Koros style={{ fill: 'var(--color-coat-of-arms)' }} />;
 
