@@ -21,6 +21,10 @@ export type MenuButtonProps = React.PropsWithChildren<{
    */
   className?: string;
   /**
+   * Should the menu close after item is clicked
+   */
+  closeOnItemClick?: boolean;
+  /**
    * Used to generate the first part of the id on the elements
    */
   id?: string;
@@ -42,6 +46,7 @@ export const MenuButton = ({
   buttonAriaLabel,
   children,
   className,
+  closeOnItemClick = false,
   icon,
   id: _id,
   label,
@@ -88,6 +93,7 @@ export const MenuButton = ({
         menuContainerSize={menuContainerSize}
         menuOffset={menuOffset}
         menuOpen={menuOpen}
+        onItemClick={closeOnItemClick ? () => setMenuOpen(false) : undefined}
       >
         {children}
       </Menu>

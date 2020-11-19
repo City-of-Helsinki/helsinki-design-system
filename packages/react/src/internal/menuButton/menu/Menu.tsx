@@ -1,4 +1,4 @@
-import React, { cloneElement, isValidElement, useEffect, useRef, useState } from 'react';
+import React, { cloneElement, isValidElement, useEffect, useRef, useState, MouseEvent } from 'react';
 import { RectReadOnly } from 'react-use-measure';
 
 import classNames from '../../../utils/classNames';
@@ -13,11 +13,12 @@ type MenuProps = React.ComponentPropsWithoutRef<'div'> & {
   menuContainerSize: RectReadOnly;
   menuOffset?: number;
   menuOpen: boolean;
+  onItemClick?: (event: MouseEvent<HTMLElement>) => void;
 };
 
 const MENU_MIN_WIDTH = 190;
 
-export const Menu = ({ children, menuContainerSize, menuOffset = 0, menuOpen, ...rest }: MenuProps) => {
+export const Menu = ({ children, menuContainerSize, menuOffset = 0, menuOpen, onItemClick, ...rest }: MenuProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const [menuStyles, setMenuStyles] = useState<MenuStyles>({});
 
@@ -42,6 +43,17 @@ export const Menu = ({ children, menuContainerSize, menuOffset = 0, menuOpen, ..
           ? cloneElement(child, {
               // add class name(s) to child
               className: `${styles.item} ${child.props.className || ''}`,
+              // add onclick handler(s) to child
+              onClick: (event: MouseEvent<HTMLElement>) => {
+                // Call the individual child onClick function
+                if (typeof child.props.onClick === 'function') {
+                  child.props.onClick(event);
+                }
+                // Call the common onItemClick function
+                if (typeof onItemClick === 'function') {
+                  onItemClick(event);
+                }
+              },
             })
           : child;
       })}
