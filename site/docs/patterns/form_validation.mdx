@@ -4,7 +4,7 @@ menu: Patterns
 route: /patterns/form-validation
 ---
 
-import { StatusLabel } from "hds-react";
+import { StatusLabel, Notification } from "hds-react";
 
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Link from "../../src/components/Link";
@@ -17,5 +17,101 @@ import Image from "../../src/components/Image";
 <StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel>
 
 <LargeParagraph>
-  TODO
+  Forms are very common in the City of Helsinki services. Users making errors in forms is just as common. HDS Form validation pattern aims to clearly indicate erroneous inputs to users and make it as effortless as possible to fix them.
 </LargeParagraph>
+
+## Principles
+- HDS pattern is based on the following basic principles
+    - It must be easy for the user to locate the erroneous input field
+    - The error message is clearly visible and is easy to understand
+    - The error message stays on the screen as long as the error has been fixed
+
+All following methods follow these principles even though their implementation may differ from each other.
+
+## Types of validation
+This page will provide basic principles for all as well as links to Storybook examples on how to use each validation method in practice. HDS pattern proposes three (3) form validation methods:
+
+1. [Dynamic](#dynamic-validation): performed individually for each form control, when the user has entered a value and/or moves the focus to the next interactive element.
+2. [Static](#static-validation): performed for the whole form at once, when the user submits the form or proceeds to the next step.
+3. [Hybrid](#hybrid-validation): both validation methods can also be utilised in parallel, benefitting from each other.
+
+<Notification label="Why are different validation methods allowed?" className="siteNotification">
+  There is a wide range of services in the City of Helsinki. Some projects are restricted to static validation due to technical limitations (e.g. no JavaScript). For these reasons HDS offers multiple validation methods and has examples for all kinds of projects available.
+</Notification>
+
+
+### Dynamic validation
+In dynamic form validation the user input is validated immediately after the focus leaves the current form element and moves to the next one. If an error is found during the validation, the form control is set to an error state.
+
+**Dynamic form validation is recommended way to do input validation in the City of Helsinki services**. The method allows the user to fix the error immediately rather than after the form has been submitted. This can greatly reduce cognitive load of the user since they neither do have to locate the erroneous input nor switch their context to the next input before fixing the error.
+
+[See interactive dynamic form validation example in HDS Storybook](/)
+
+### Static validation
+In static form validation the validation is done when the form is submitted or the next page is loaded. In this case the validation can be done either in the browser and/or in the service backend. This method is common for services which cannot use JavaScript for dynamic approach.
+
+The general issue of static validation is that it is possible that there are multiple erroneous inputs after the validation. To make it easier for the user to go through the errors, **HDS recommends using validation summary pattern** in which all errors are gathered to one list on top of the form. The list contains all errors found the the form and an anchor link to each form control. You can read more about the [validation summary pattern in its own section](#validation-summary-pattern).
+
+[See interactive static form validation example in HDS Storybook](/)
+
+### Hybrid validation
+
+---
+
+## Presenting validation results
+
+### Form control error/success messages
+
+When a form control has been gone through either dynamic or static validation, the state of the component should change indicating the inputed value has been validated.
+
+Depending on the result of the validation, message is displayed below the form field if the value is valid or invalid.
+
+#### 1. Error message
+Error message indicates that a required field is left empty or the inputted value is in wrong format. **The error message must be displayed if the value did not pass validation**
+
+If the form control has an assistive text, it is displayed below the validation message. **The assistive text should be never hidden when the error description is active.** The user may need the information provided by the assistive text when correcting the error.
+
+<Image src="../../static/patterns/form/form-states-error@2x.png" alt="Form control error state" style="max-width:376px;" viewable />
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
+    <ul style="margin-bottom:0;">
+        <li><strong>Keep it short</strong>
+            <ul>
+                <li>Validation text <em>should</em> not run longer than the form control and more than two rows.</li>
+            </ul>
+        </li>
+        <li><strong>Be clear, specific and easy to understand</strong>
+          <ul>
+                <li><strong>An error text must clearly state</strong>
+                    <ul>
+                      <li>precise descriptions of exact problems</li>
+                      <li>a specific solution or constructive advice on how to fix the problem.</li>
+                    </ul>
+                </li>
+                <li>For example “Please select a language” or “Email address needs to have an @ sign”</li>
+          </ul>
+        </li>
+        <li><strong>Be friendly</strong>
+            <ul>
+                <li>Avoid negative expressions or blaming the user (for example “You did not enter your first name”)</li>
+                <li>Instead use positive words and a provide a correct solution (for example “Please enter your first name”)</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
+    <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></div>
+    <ul style="margin-bottom:0;">
+        <li><strong>Use vague statements</strong> (for example “There has been an error”).</li>
+        <li><strong>Use technical terms or developer jargon</strong> (for example “Syntax error”). Use terms lay people can understand.</li>
+        <li><strong>Output raw system errors</strong> (for example “Error 123-xyz”).</li>
+    </ul>
+</div>
+
+#### 2. Success message
+Success message indicates that an inputted value has passed form validation. Success messages are optional and they are mostly meant for complex inputs where the user must know if the input passed the validation (e.g. passwords).
+
+
+### Validation summary pattern
