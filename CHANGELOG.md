@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.16.1] - November 19, 2020
+### React
+#### Fixed
+- [Navigation] Fixed language selector menu not closing after language is selected (in [#321](https://github.com/City-of-Helsinki/helsinki-design-system/pull/321))
+
 ## [0.16.0] - November 13, 2020
 ### Design kit
 #### Added
