@@ -19,6 +19,10 @@ export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
    */
   disabled?: boolean;
   /**
+   * The error text content that will be shown below the input
+   */
+  errorText?: string;
+  /**
    * The helper text content that will be shown below the input
    */
   helperText?: string;
@@ -94,6 +98,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       className = '',
       disabled = false,
       defaultValue,
+      errorText,
       helperText,
       hideLabel,
       invalid,
@@ -113,6 +118,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   ) => {
     const wrapperProps = {
       className,
+      errorText,
       helperText,
       hideLabel,
       id,

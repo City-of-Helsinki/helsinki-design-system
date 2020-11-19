@@ -34,7 +34,7 @@ export const Default = () => <TextArea {...textAreaProps} />;
 
 export const Disabled = () => <TextArea {...textAreaProps} disabled defaultValue={value} />;
 
-export const Invalid = () => <TextArea {...textAreaProps} invalid helperText="Error text" defaultValue={value} />;
+export const Invalid = () => <TextArea {...textAreaProps} invalid errorText="Error text" defaultValue={value} />;
 
 export const WithLabelHidden = () => <TextArea {...textAreaProps} hideLabel defaultValue={value} />;
 WithLabelHidden.storyName = 'With label hidden';

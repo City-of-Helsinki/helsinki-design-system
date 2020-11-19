@@ -7,6 +7,7 @@ import { FieldLabel } from '../field-label/FieldLabel';
 type InputWrapperProps = {
   children?: React.ReactNode;
   className?: string;
+  errorText?: string;
   helperText?: string;
   hideLabel?: boolean;
   id: string;
@@ -23,6 +24,7 @@ type InputWrapperProps = {
 export const InputWrapper = ({
   children,
   className = '',
+  errorText,
   helperText,
   hideLabel = false,
   id,
@@ -48,6 +50,7 @@ export const InputWrapper = ({
       />
     )}
     <div className={classNames(styles.inputWrapper)}>{children}</div>
+    {errorText && <div className={styles.errorText}>{errorText}</div>}
     {helperText && <div className={styles.helperText}>{helperText}</div>}
   </div>
 );

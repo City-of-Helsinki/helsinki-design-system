@@ -37,7 +37,7 @@ ReadOnly.storyName = 'Read-only';
 
 export const Disabled = () => <TextInput {...textInputProps} disabled defaultValue="Text input value" />;
 
-export const Invalid = () => <TextInput {...textInputProps} invalid helperText="Error text" />;
+export const Invalid = () => <TextInput {...textInputProps} invalid errorText="Error text" />;
 
 export const WithLabelHidden = () => <TextInput {...textInputProps} hideLabel />;
 WithLabelHidden.storyName = 'With label hidden';
@@ -80,6 +80,7 @@ export const Playground = () => {
   const required = boolean('Required', false, groupGeneral);
   const readOnly = boolean('Read-only', false, groupGeneral);
   const invalid = boolean('Invalid', false, groupGeneral);
+  const errorText = text('Error text', undefined, groupGeneral);
   const hideLabel = boolean('Hide label', false, groupGeneral);
 
   const tooltipLabel = text('Tooltip aria-label', 'Tooltip', groupTooltip);
@@ -100,6 +101,7 @@ export const Playground = () => {
       readOnly={readOnly}
       disabled={disabled}
       invalid={invalid}
+      errorText={errorText}
       hideLabel={hideLabel}
       required={required}
       tooltipLabel={tooltipLabel}

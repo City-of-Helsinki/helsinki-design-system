@@ -6,6 +6,7 @@ const getLabel = (id = 'input', required = false, label = 'Label text') =>
     required ? '<span class="hds-text-input__required">*</span>' : ''
   }</label>`;
 const getHelperText = (text = 'Assistive text') => `<span class="hds-text-input__helper-text">${text}</span>`;
+const getErrorText = (text = 'Error text') => `<span class="hds-text-input__error-text">${text}</span>`;
 
 export default {
   title: 'Components/Text input',
@@ -71,7 +72,8 @@ export const Invalid = () => `
          placeholder="Placeholder"
        />
      </div>
-     ${getHelperText('Error text')}
+     ${getErrorText()}
+     ${getHelperText()}
     </div>
 `;
 

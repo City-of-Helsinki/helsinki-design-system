@@ -19,6 +19,10 @@ export type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
    */
   disabled?: boolean;
   /**
+   * The error text content that will be shown below the textarea
+   */
+  errorText?: string;
+  /**
    * The helper text content that will be shown below the textarea
    */
   helperText?: string;
@@ -86,6 +90,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       className = '',
       disabled = false,
       defaultValue,
+      errorText,
       helperText,
       hideLabel,
       invalid,
@@ -104,6 +109,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ) => {
     const wrapperProps = {
       className,
+      errorText,
       helperText,
       hideLabel,
       id,
