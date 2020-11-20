@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ErrorSummary /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    aria-atomic="true"
+    aria-label="Error summary"
+    class="notification default error customClass"
+  >
+    <div
+      class="content"
+    >
+      <div
+        aria-level="2"
+        class="label"
+        role="heading"
+        tabindex="-1"
+      >
+        <svg
+          aria-hidden="true"
+          class="icon s icon"
+          role="img"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <path
+              d="M0 0h24v24H0z"
+            />
+            <path
+              d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 2a8 8 0 100 16 8 8 0 000-16zm1 12v2h-2v-2h2zm0-10v8h-2V6h2z"
+              fill="currentColor"
+            />
+          </g>
+        </svg>
+        Form contains following errors
+      </div>
+      <div
+        class="errorSummaryBody"
+      >
+        <ul>
+          <li>
+            Error 1: 
+            <a
+              href="#field1"
+            >
+              Please enter your first name
+            </a>
+          </li>
+          <li>
+            Error 2: 
+            <a
+              href="#field2"
+            >
+              Please enter your last name
+            </a>
+          </li>
+          <li>
+            Error 3: 
+            <a
+              href="#field3"
+            >
+              Please enter a valid email address
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

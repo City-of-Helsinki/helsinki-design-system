@@ -5,6 +5,7 @@
 @import "./koros/koros.css";
 @import "./loading-spinner/loading-spinner.css";
 @import "./notification/notification.css";
+@import "./error-summary/error-summary.css";
 @import "./radio-button/radio-button.css";
 @import "./selection-group/selection-group.css";
 @import "./status-label/status-label.css";
