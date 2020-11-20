@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { Button, Notification, TextInput, Checkbox } from '../../components';
+import { Button, ErrorSummary, TextInput, Checkbox } from '../../components';
 
 export default {
   title: 'Patterns/Form validation',
@@ -17,9 +17,6 @@ const FormItem = ({ children }: React.PropsWithChildren<{}>) => {
 };
 
 export const Static = () => {
-  // Reference to the error notification element
-  const errorNotificationRef = useRef<HTMLDivElement>(null);
-
   // Form error state
   const [hasErrors, setHasErrors] = useState<boolean>(false);
 
@@ -58,16 +55,6 @@ export const Static = () => {
     setHasErrors(Object.values(formik.errors).length > 0 && Object.values(formik.touched).length > 0);
   }, [formik.errors, formik.touched]);
 
-  // Focus the error notification after it's rendered
-  useEffect(() => {
-    if (errorNotificationRef.current) {
-      // Find the heading inside the notification and focus it
-      const heading = errorNotificationRef.current.querySelector('div[role=heading]');
-      heading.setAttribute('tabindex', '-1');
-      (heading as HTMLDivElement).focus();
-    }
-  }, [errorNotificationRef.current]);
-
   // Handle the form submit button click
   const onSubmitButtonClick = () => {
     setHasErrors(false);
@@ -77,24 +64,15 @@ export const Static = () => {
   return (
     <form>
       {hasErrors && (
-        <Notification
-          type="error"
-          label="Form contains the following errors"
-          position="inline"
-          style={{ marginBottom: 'var(--spacing-m)' }}
-          ref={errorNotificationRef}
-        >
+        <ErrorSummary label="Form contains following errors" style={{ marginBottom: 'var(--spacing-m)' }} autofocus>
           <ul>
             {Object.entries(formik.errors).map(([field, error], index) => (
               <li key={error}>
-                Error {index + 1}:{' '}
-                <a href={`#${field}`} style={{ color: 'inherit', textDecoration: 'none' }}>
-                  {error}
-                </a>
+                Error {index + 1}: <a href={`#${field}`}>{error}</a>
               </li>
             ))}
           </ul>
-        </Notification>
+        </ErrorSummary>
       )}
       <FormItem>
         <TextInput
