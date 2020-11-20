@@ -43,7 +43,7 @@ This page will provide basic principles for all as well as links to Storybook ex
 
 
 ### Dynamic validation
-In dynamic form validation the user input is validated immediately after the focus leaves the current form element and moves to the next one. If an error is found during the validation, the form control is set to an error state.
+In dynamic form validation the user input is **validated immediately after the focus leaves the current form element** and moves to the next one. If an error is found during the validation, the form control is set to an error state.
 
 **Dynamic form validation is recommended way to do input validation in the City of Helsinki services**. The method allows the user to fix the error immediately rather than after the form has been submitted. This can greatly reduce cognitive load of the user since they neither do have to locate the erroneous input nor switch their context to the next input before fixing the error.
 
@@ -74,7 +74,7 @@ When a form control has been gone through either dynamic or static validation, t
 Depending on the result of the validation, message is displayed below the form field if the value is valid or invalid.
 
 #### 1. Error message
-Error message indicates that a required field is left empty or the inputted value is in wrong format. **The error message must be displayed if the value did not pass validation**
+Error message indicates that a required field is left empty or the inputted value is in wrong format. **The error message must be displayed if the value did not pass validation**. The error message is visible until the error is fixed.
 
 If the form control has an assistive text, it is displayed below the validation message. **The assistive text should be never hidden when the error description is active.** The user may need the information provided by the assistive text when correcting the error.
 
@@ -85,7 +85,7 @@ If the form control has an assistive text, it is displayed below the validation 
     <ul style="margin-bottom:0;">
         <li><strong>Keep it short</strong>
             <ul>
-                <li>Validation text <em>should</em> not run longer than the form control and more than two rows.</li>
+                <li>Error text <em>should</em> not run longer than the form control and more than two rows.</li>
             </ul>
         </li>
         <li><strong>Be clear, specific and easy to understand</strong>
