@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Formik, useFormik, Form } from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { Button, ErrorSummary, TextInput, Checkbox } from '../../components';
@@ -117,6 +117,7 @@ export const Static = () => {
           label="I accept the terms of this service"
           checked={!!formik.values.acceptTerms}
           onChange={formik.handleChange}
+          errorText={hasErrors && formik.errors.acceptTerms}
         />
       </FormItem>
       <FormItem>
@@ -207,6 +208,8 @@ export const Dynamic = () => {
           label="I accept the terms of this service"
           checked={!!formik.values.acceptTerms}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          errorText={formik.touched.acceptTerms && formik.errors.acceptTerms}
         />
       </FormItem>
       <FormItem>
