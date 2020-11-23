@@ -85,7 +85,7 @@ export const MenuButton = ({
       >
         {icon}
         <span className={styles.toggleButtonLabel}>{label}</span>
-        {menuOpen ? <IconAngleUp /> : <IconAngleDown />}
+        {menuOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />}
       </button>
       <Menu
         id={menuId}

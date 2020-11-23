@@ -19,6 +19,7 @@ exports[`<MenuButton /> spec renders the component 1`] = `
         Foo
       </span>
       <svg
+        aria-hidden="true"
         class="icon s"
         role="img"
         viewBox="0 0 24 24"
