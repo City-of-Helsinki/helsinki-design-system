@@ -48,6 +48,18 @@ To add a new component, use the scaffold helper. In the react package folder, ru
 yarn scaffold
 ```
 
+Note that components at `packages/react` are tested for visual regression by Loki, so images of new items should be added to references.
+
+You can add new or update existing reference images with follwoing command. Note `storiesFilter`, as otherwise all images are retaken which takes ages. 
+Command uses Chrome in Docker container to prevent issues with Retina screen resolution, so Docker needs to be available. Also storybook should be running.
+```
+yarn update-reference-images --storiesFilter "<regexp of added story>"
+```
+
+Note that failure on the CI gives different update command, as tests are running against static storybook. You can still use `storiesFilter` from that command to retake failed reference images.
+
+Note that images are stored to repo with [git lfs](https://git-lfs.github.com/).
+
 ## Workflow
 
 This project uses the [Git Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow). Happy branching!

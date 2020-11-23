@@ -26,10 +26,12 @@
     "lint": "yarn eslint \"src/**/*.{ts,tsx}\"",
     "pre-commit": "yarn -s lint",
     "pre-push": "yarn -s test && yarn build",
-    "storybook": "start-storybook -p 6006 --quiet",
+    "storybook": "start-storybook -p 6006 --quiet --no-dll",
     "build-storybook": "build-storybook --loglevel error --no-dll",
     "test": "jest --env=jsdom-fourteen",
-    "prepublishOnly": "cp -r ./lib/. ."
+    "prepublishOnly": "cp -r ./lib/. .",
+    "test-ci": "loki test --requireReference --verboseRenderer --reactUri file:./storybook-static",
+    "update-reference-images": "loki update"
   },
   "devDependencies": {
     "@babel/core": "7.11.6",
@@ -73,6 +75,7 @@
     "identity-obj-proxy": "3.0.0",
     "inquirer": "7.1.0",
     "jest": "26.0.1",
+    "loki": "^0.26.0",
     "node-sass": "4.14.1",
     "path": "0.12.7",
     "prettier": "2.0.5",
@@ -106,5 +109,21 @@
   "peerDependencies": {
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
+  },
+  "loki": {
+    "chromeRetries": 2,
+    "configurations": {
+      "chrome.laptop": {
+        "target": "chrome.docker",
+        "width": 1366,
+        "height": 768,
+        "mobile": false
+      },
+      "chrome.iphone7": {
+        "target": "chrome.docker",
+        "preset": "iPhone 7"
+      }
+    },
+    "skipStories": "Icons/.*"
   }
 }
