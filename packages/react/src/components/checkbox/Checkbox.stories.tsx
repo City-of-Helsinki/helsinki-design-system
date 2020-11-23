@@ -27,6 +27,8 @@ export const Selected = () => <Checkbox id="checkbox2" label="Label" checked />;
 
 export const Disabled = () => <Checkbox id="checkbox3" label="Label" disabled />;
 
+export const Invalid = () => <Checkbox id="checkbox" label="Label" errorText="Error text" />;
+
 export const SelectedDisabled = () => <Checkbox id="checkbox4" label="Label" checked disabled />;
 SelectedDisabled.storyName = 'Selected & disabled';
 

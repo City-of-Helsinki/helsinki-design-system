@@ -127,6 +127,33 @@ Required.args = {
   required: true,
 };
 
+export const Invalid = ({ numberOfItems, ...args }) => {
+  const [checkedItems, setCheckedItems] = useState({});
+  const [radioValue, setRadioValue] = useState('radio0');
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const item = e.target.name;
+    const isChecked = e.target.checked;
+    setCheckedItems({ ...checkedItems, [item]: isChecked });
+  };
+  const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setRadioValue(e.target.value);
+  };
+  const checkboxes = getCheckboxItems(numberOfItems, checkedItems, handleCheckboxChange);
+  const radiobuttons = getRadioButtonItems(numberOfItems, radioValue, handleRadioChange);
+  return (
+    <>
+      <SelectionGroup {...args}>{checkboxes}</SelectionGroup>
+      <br />
+      <br />
+      <SelectionGroup {...args}>{radiobuttons}</SelectionGroup>
+    </>
+  );
+};
+Invalid.args = {
+  required: true,
+  errorText: 'Error text',
+};
+
 export const WithTooltip = ({ numberOfItems, ...args }) => {
   const [checkedItems, setCheckedItems] = useState({});
   const [radioValue, setRadioValue] = useState('radio0');

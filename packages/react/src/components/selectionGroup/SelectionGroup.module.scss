@@ -4,6 +4,7 @@
   --spacing-col: 1.25rem;
   --spacing-row: var(--spacing-s);
   --label-color-default: var(--color-black-90);
+  --icon-size: var(--spacing-m);
 
   border: 0;
   padding: 0;
@@ -34,5 +35,9 @@
 
 .tooltipButton {
   margin-left: var(--spacing-2-xs);
+}
+
+.errorText {
+  composes: hds-selection-group__error-text from 'hds-core/lib/components/selection-group/selection-group.css';
 }
 

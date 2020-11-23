@@ -35,7 +35,7 @@ export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
    */
   id: string;
   /**
-   * If `true`, the input and `helperText` will be displayed in an invalid state.
+   * If `true`, the input will be displayed in an invalid state.
    */
   invalid?: boolean;
   /**

@@ -34,3 +34,11 @@ export const SelectedDisabled = () => `
     </div>
 `;
 SelectedDisabled.storyName = 'Selected & disabled';
+
+export const Invalid = () => `
+    <div class="hds-checkbox">
+      <input type="checkbox" id="checkbox3" class="hds-checkbox__input" value="baz" />
+      ${getLabel('checkbox3')}
+      <div class="hds-checkbox__error-text">Error text</div>
+    </div>
+`;
