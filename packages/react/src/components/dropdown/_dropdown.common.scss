@@ -7,7 +7,6 @@
  * ROOT
  */
 %dropdownRoot {
-  --border-radius: 2px;
   --border-width: 2px;
   --divider-width: 1px;
   --focus-outline-width: 3px;
@@ -71,7 +70,6 @@
 %dropdownWrapper {
   background-color: var(--dropdown-background-default);
   border: var(--border-width) solid var(--dropdown-border-color-default);
-  border-radius: var(--border-radius);
   box-sizing: border-box;
   min-height: var(--dropdown-height);
   position: relative;
@@ -121,7 +119,6 @@
 %dropdownMenu {
   border: solid var(--dropdown-border-color-focus);
   border-top-color: var(--menu-divider-color);
-  border-radius: var(--border-radius);
   border-width: var(--divider-width) var(--border-width) var(--border-width);
   bottom: 0;
   display: none;
@@ -260,7 +257,6 @@
 
     .checkbox {
       border: var(--spacing-4-xs) solid var(--multiselect-checkbox-border-default);
-      border-radius: 1px;
       box-sizing: border-box;
       color: var(--multiselect-checkbox-color-default);
       height: var(--icon-size);

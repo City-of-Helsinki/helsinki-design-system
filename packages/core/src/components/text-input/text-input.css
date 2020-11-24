@@ -3,7 +3,6 @@
 @svg-load icon url(../../svg/ui/alert-circle.svg);
 
 .hds-text-input {
-  --border-radius: 2px;
   --border-width: 2px;
   --outline-width: 3px;
   --input-height: 56px;
@@ -76,7 +75,6 @@
   -webkit-appearance: none;
   background-color: var(--input-background-default);
   border: var(--border-width) solid var(--input-border-color-default);
-  border-radius: var(--border-radius);
   box-sizing: border-box;
   color: var(--input-color-default);
   font-size: 1.125em;
