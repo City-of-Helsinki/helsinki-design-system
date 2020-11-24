@@ -6,6 +6,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.17.0] - November 24, 2020
+### Design kit
+#### Changed
+- Removed non-semantic rounded corners from HDS to more accurately match the brand guidelines
+    - [Form Components] Changed corner radius from 2px to 0px in Checkbox symbols
+    - [Form Components] Changed corner radius from 2px to 0px in Radio button symbols
+    - [Form Components] Changed corner radius from 2px to 0px in Combobox symbols
+    - [Form Components] Changed corner radius from 2px to 0px in Select symbols
+    - [Form Components] Changed corner radius from 2px to 0px in Text field symbols
+
+#### Fixed
+- [Form Components] Fixed an issue in Checkbox + Label symbols where the label was scaled incorrectly when the checkbox status was overridden
+- [Modals and Notifications] Fixed incorrect scaling in Notification/Inline/Default symbols
+- [Typography] Incorrect black colour in some of the shared body text styles
+
+#### Removed
+- [Form Components] Removed redundant internal symbols
+
+### Documentation
+#### Added
+- Link to Koros Core documentation to the Koros documentation page
+- Koros Core to Component overview page
+- Note about the Container component to Breakpoint token page
+- Note about the Container component to Grid guideline page
+
+### Core
+#### Changed
+- [Checkbox] Removed rounded corners (in [#319](https://github.com/City-of-Helsinki/helsinki-design-system/pull/319))
+- [Textarea] Removed rounded corners (in [#319](https://github.com/City-of-Helsinki/helsinki-design-system/pull/319))
+- [Text input] Removed rounded corners (in [#319](https://github.com/City-of-Helsinki/helsinki-design-system/pull/319))
+
+#### Added
+- New component: Koros (in [#318](https://github.com/City-of-Helsinki/helsinki-design-system/pull/318))
+- New component: Container (in [#312](https://github.com/City-of-Helsinki/helsinki-design-system/pull/312))
+
+### React
+#### Changed
+- [Checkbox] Removed rounded corners (in [#319](https://github.com/City-of-Helsinki/helsinki-design-system/pull/319))
+- [Combobox] Removed rounded corners (in [#319](https://github.com/City-of-Helsinki/helsinki-design-system/pull/319))
+- [Select] Removed rounded corners (in [#319](https://github.com/City-of-Helsinki/helsinki-design-system/pull/319))
+- [TextArea] Removed rounded corners (in [#319](https://github.com/City-of-Helsinki/helsinki-design-system/pull/319))
+- [TextInput] Removed rounded corners (in [#319](https://github.com/City-of-Helsinki/helsinki-design-system/pull/319))
+
+#### Fixed
+- [Navigation] Added missing `aria-hidden` attribute to dropdown menu icon (in [#324](https://github.com/City-of-Helsinki/helsinki-design-system/pull/324))
+
+#### Added
+- New component: `Container` (in [#312](https://github.com/City-of-Helsinki/helsinki-design-system/pull/312))
+
 ## [0.16.1] - November 19, 2020
 ### React
 #### Fixed
