@@ -89,13 +89,14 @@ Note! Since supplementary buttons do not have borders, accompanying icon is requ
 #### Core code example:
 ```html
 <button type="button" class="hds-button hds-button--supplementary">
+  <span aria-hidden="true" class="hds-icon hds-icon--trash"></span>
   <span class="hds-button__label">Supplementary</span>
 </button>
 ```
 
 #### React code example:
 ```tsx
-<Button variant="supplementary">Supplementary</Button>
+<Button variant="supplementary" iconLeft={<IconTrash />}>Supplementary</Button>
 ```
 
 ### Icon buttons
