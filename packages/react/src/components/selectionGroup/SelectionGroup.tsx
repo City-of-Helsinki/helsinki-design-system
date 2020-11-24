@@ -67,6 +67,7 @@ export const SelectionGroup = ({
       }
     });
     if (hasRadios && !hasCheckedRadios) {
+      // eslint-disable-next-line no-console
       console.warn(
         'All radio buttons in a SelectionGroup are unchecked. One radio button should be checked by default.',
       );
