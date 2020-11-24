@@ -1,0 +1,8 @@
+.hds-koros {
+  width: 100%;
+  line-height: 0;
+}
+
+.hds-koros--flip-horizontal {
+  transform: scaleY(-1);
+}
