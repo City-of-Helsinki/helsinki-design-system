@@ -63,6 +63,10 @@ export type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
    */
   style?: React.CSSProperties;
   /**
+   * The success text content that will be shown below the text area
+   */
+  successText?: string;
+  /**
    * Aria-label text for the tooltip
    */
   tooltipLabel?: string;
@@ -100,6 +104,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       onChange = () => null,
       required,
       style,
+      successText,
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
@@ -118,6 +123,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       labelText,
       required,
       style,
+      successText,
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,

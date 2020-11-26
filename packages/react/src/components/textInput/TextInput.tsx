@@ -67,6 +67,10 @@ export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
    */
   style?: React.CSSProperties;
   /**
+   * The success text content that will be shown below the input
+   */
+  successText?: string;
+  /**
    * Aria-label text for the tooltip
    */
   tooltipLabel?: string;
@@ -108,6 +112,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       onChange = () => null,
       required,
       style,
+      successText,
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
@@ -127,6 +132,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       labelText,
       required,
       style,
+      successText,
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,

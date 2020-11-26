@@ -39,6 +39,8 @@ export const Disabled = () => <TextInput {...textInputProps} disabled defaultVal
 
 export const Invalid = () => <TextInput {...textInputProps} invalid errorText="Error text" />;
 
+export const Success = () => <TextInput {...textInputProps} successText="Success text" />;
+
 export const WithLabelHidden = () => <TextInput {...textInputProps} hideLabel />;
 WithLabelHidden.storyName = 'With label hidden';
 
