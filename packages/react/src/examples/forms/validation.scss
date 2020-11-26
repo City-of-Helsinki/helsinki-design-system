@@ -1,0 +1,50 @@
+.hds-example-form {
+  margin: 0 auto;
+
+  &__title {
+    color: var(--color-bus);
+    font-size: var(--fontsize-heading-l);
+    line-height: var(--lineheight-m);
+    margin: 0 0 var(--spacing-m) 0;
+  }
+
+  &__required-info {
+    font-size: var(--fontsize-body-m);
+    line-height: var(--lineheight-l);
+    margin: 0 0 var(--spacing-l) 0;
+  }
+
+  &__section {
+    margin-bottom: var(--spacing-xl);
+
+    &-title {
+      color: var(--color-bus);
+      font-size: var(--fontsize-heading-s);
+      line-height: var(--lineheight-m);
+      margin: 0 0 var(--spacing-m);
+    }
+  }
+
+  &__item {
+    margin-bottom: var(--spacing-m);
+  }
+
+  @media (min-width: 576px) {
+    &__grid {
+      &-6-6 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-m);
+      }
+      &-8-4 {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: var(--spacing-m);
+      }
+      &-6-6:last-child,
+      &-8-4:last-child {
+        margin-bottom: calc(-1 * var(--spacing-m));
+      }
+    }
+  }
+}

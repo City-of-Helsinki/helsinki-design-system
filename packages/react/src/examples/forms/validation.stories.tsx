@@ -11,54 +11,13 @@ import {
   SelectionGroup,
   RadioButton,
   TextArea,
+  Container,
 } from '../../components';
+
+import './validation.scss';
 
 export default {
   title: 'Patterns/Form validation',
-  decorators: [
-    (storyFn) => (
-      <div style={{ maxWidth: '800px' }}>
-        <style type="text/css">
-          {`
-            .hds-example-form__title {
-              color: var(--color-bus);
-              font-size: var(--fontsize-heading-l);
-              line-height: var(--lineheight-m);
-              margin: 0 0 var(--spacing-m) 0;
-            }
-            .hds-example-form__required-info {
-              font-size: var(--fontsize-body-m);
-              line-height: var(--lineheight-l);
-              margin: 0 0 var(--spacing-l) 0;
-            }
-            .hds-example-form__section {
-              margin-bottom: var(--spacing-xl);
-            }
-            .hds-example-form__section-title {
-              color: var(--color-bus);
-              font-size: var(--fontsize-heading-s);
-              line-height: var(--lineheight-m);
-              margin: 0 0 var(--spacing-m);
-            }
-            .hds-example-form__grid-6-6 {
-              display: grid;
-              grid-template-columns: 1fr 1fr;
-              gap: var(--spacing-m);
-            }
-            .hds-example-form__grid-8-4 {
-              display: grid;
-              grid-template-columns: 2fr 1fr;
-              gap: var(--spacing-m);
-            }
-            .hds-example-form__item {
-              margin-bottom: var(--spacing-m);
-            }
-          `}
-        </style>
-        {storyFn()}
-      </div>
-    ),
-  ],
   parameters: {
     controls: { hideNoControlsWarning: true },
   },
@@ -68,11 +27,16 @@ const FormItem = ({ children }: React.PropsWithChildren<{}>) => {
   return <div style={{ marginBottom: 'var(--spacing-m)' }}>{children}</div>;
 };
 
+const isValidDate = (value?: string) => {
+  const dateParts = typeof value === 'string' ? value.split('.') : [];
+  return !Number.isNaN(Date.parse(`${dateParts[1]}/${dateParts[0]}/${dateParts[2]}`));
+};
+
 export const Static = () => {
   // Form error state
   const [hasErrors, setHasErrors] = useState<boolean>(false);
 
-  // Define the validation schema
+  // The validation schema
   const schema = Yup.object().shape({
     firstName: Yup.string().required('First name is required'),
     lastName: Yup.string().required('Last name is required'),
@@ -90,8 +54,10 @@ export const Static = () => {
       ['continuous', 'temporary'],
       'Parking period must be either continuous or temporary',
     ),
-
-    acceptTerms: Yup.boolean().oneOf([true], 'You must accept the terms'),
+    permitEndDate: Yup.string()
+      .required('Permit end date is required')
+      .test('is-date', 'Permit end date must be in DD.MM.YYYY format.', isValidDate),
+    acceptTerms: Yup.boolean().oneOf([true], 'You must read and accept the terms and conditions'),
   });
 
   // Initialize formik
@@ -108,6 +74,7 @@ export const Static = () => {
       parkingPeriod: 'continuous',
       permitEndDate: '',
       additionalRequests: '',
+      acceptTerms: false,
     },
     validateOnChange: false, // Disable validation on field change
     validateOnBlur: false, // Disable validation on field blur
@@ -128,198 +95,226 @@ export const Static = () => {
     formik.validateForm().then(() => formik.submitForm());
   };
 
+  // Get the focusable field id based on field name
+  const getFocusableFieldId = (fieldName: string): string => {
+    // For the city select element, focus the toggle button
+    if (fieldName === 'city') {
+      return `${fieldName}-toggle-button`;
+    }
+    return fieldName;
+  };
+
   return (
-    <form>
-      <h2 className="hds-example-form__title">Residental parking permit application</h2>
+    <Container className="hds-example-form">
+      <form>
+        <h2 className="hds-example-form__title">Residental parking permit application</h2>
 
-      {hasErrors && (
-        <ErrorSummary label="Form contains following errors" style={{ marginBottom: 'var(--spacing-m)' }} autofocus>
-          <ul>
-            {Object.entries(formik.errors).map(([field, error], index) => (
-              <li key={error}>
-                Error {index + 1}: <a href={`#${field}`}>{error}</a>
-              </li>
-            ))}
-          </ul>
-        </ErrorSummary>
-      )}
+        {hasErrors && (
+          <ErrorSummary label="Form contains following errors" style={{ marginBottom: 'var(--spacing-m)' }} autofocus>
+            <ul>
+              {Object.entries(formik.errors).map(([field, error], index) => (
+                <li key={error}>
+                  Error {index + 1}: <a href={`#${getFocusableFieldId(field)}`}>{error}</a>
+                </li>
+              ))}
+            </ul>
+          </ErrorSummary>
+        )}
 
-      <p className="hds-example-form__required-info">All fields marked with * are required</p>
+        <p className="hds-example-form__required-info">All fields marked with * are required</p>
 
-      <div className="hds-example-form__section">
-        <h3 className="hds-example-form__section-title">Contact information</h3>
-        <div className="hds-example-form__grid-6-6">
-          <div className="hds-example-form__item">
-            <TextInput
-              id="firstName"
-              name="firstName"
-              label="First name"
-              onChange={formik.handleChange}
-              value={formik.values.firstName}
-              invalid={!!(hasErrors && formik.errors.firstName)}
-              errorText={hasErrors && formik.errors.firstName}
-              required
-            />
+        <div className="hds-example-form__section">
+          <h3 className="hds-example-form__section-title">Contact information</h3>
+          <div className="hds-example-form__grid-6-6">
+            <div className="hds-example-form__item">
+              <TextInput
+                id="firstName"
+                name="firstName"
+                label="First name"
+                onChange={formik.handleChange}
+                value={formik.values.firstName}
+                invalid={!!(hasErrors && formik.errors.firstName)}
+                errorText={hasErrors && formik.errors.firstName}
+                required
+              />
+            </div>
+            <div className="hds-example-form__item">
+              <TextInput
+                id="lastName"
+                name="lastName"
+                label="Last name"
+                onChange={formik.handleChange}
+                value={formik.values.lastName}
+                invalid={!!(hasErrors && formik.errors.lastName)}
+                errorText={hasErrors && formik.errors.lastName}
+                required
+              />
+            </div>
+          </div>
+          <div className="hds-example-form__grid-8-4">
+            <div className="hds-example-form__item">
+              <Select<{ label: string }>
+                id="city"
+                label="City"
+                options={[{ label: 'Espoo' }, { label: 'Helsinki' }, { label: 'Vantaa' }]}
+                onChange={(value: { label: string }) => {
+                  formik.setFieldValue('city', value.label);
+                }}
+                value={{ label: formik.values.city }}
+                invalid={!!(hasErrors && formik.errors.city)}
+                error={hasErrors && formik.errors.city}
+                required
+              />
+            </div>
+            <div className="hds-example-form__item">
+              <TextInput
+                id="postalCode"
+                name="postalCode"
+                label="Postal code"
+                onChange={formik.handleChange}
+                value={formik.values.postalCode}
+                invalid={!!(hasErrors && formik.errors.postalCode)}
+                errorText={hasErrors && formik.errors.postalCode}
+                required
+              />
+            </div>
           </div>
           <div className="hds-example-form__item">
             <TextInput
-              id="lastName"
-              name="lastName"
-              label="Last name"
+              id="email"
+              name="email"
+              label="Email address"
               onChange={formik.handleChange}
-              value={formik.values.lastName}
-              invalid={!!(hasErrors && formik.errors.lastName)}
-              errorText={hasErrors && formik.errors.lastName}
+              value={formik.values.email}
+              invalid={!!(hasErrors && formik.errors.email)}
+              errorText={hasErrors && formik.errors.email}
               required
             />
           </div>
         </div>
-        <div className="hds-example-form__grid-8-4">
-          <div className="hds-example-form__item">
-            <Select<{ label: string }>
-              id="city"
-              label="City"
-              options={[{ label: 'Espoo' }, { label: 'Helsinki' }, { label: 'Vantaa' }]}
-              onChange={(value: { label: string }) => {
-                formik.setFieldValue('city', value.label);
-              }}
-              value={{ label: formik.values.city }}
-              invalid={!!(hasErrors && formik.errors.city)}
-              error={hasErrors && formik.errors.city}
-              required
-            />
+        <div className="hds-example-form__section">
+          <h3 className="hds-example-form__section-title">Vehicle information</h3>
+          <div className="hds-example-form__grid-6-6">
+            <div className="hds-example-form__item">
+              <TextInput
+                id="registerPlate"
+                name="registerPlate"
+                label="Register plate number"
+                placeholder="E.g. ABC-123"
+                helperText="Use format XXX-NNN"
+                onChange={formik.handleChange}
+                value={formik.values.registerPlate}
+                invalid={!!(hasErrors && formik.errors.registerPlate)}
+                errorText={hasErrors && formik.errors.registerPlate}
+                required
+              />
+            </div>
+          </div>
+          <div className="hds-example-form__grid-6-6">
+            <div className="hds-example-form__item">
+              <TextInput
+                id="brand"
+                name="brand"
+                label="Vehicle brand"
+                placeholder="E.g. Skoda"
+                onChange={formik.handleChange}
+                value={formik.values.brand}
+                invalid={!!(hasErrors && formik.errors.brand)}
+                errorText={hasErrors && formik.errors.brand}
+                required
+              />
+            </div>
+            <div className="hds-example-form__item">
+              <TextInput
+                id="model"
+                name="model"
+                label="Vehicle model"
+                placeholder="E.g. Octavia"
+                onChange={formik.handleChange}
+                value={formik.values.model}
+                invalid={!!(hasErrors && formik.errors.model)}
+                errorText={hasErrors && formik.errors.model}
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div className="hds-example-form__section">
+          <h3 className="hds-example-form__section-title">Parking information</h3>
+          <div className="hds-example-form__grid-6-6">
+            <div className="hds-example-form__item">
+              <SelectionGroup
+                label="Parking period"
+                direction="horizontal"
+                required
+                errorText={hasErrors && formik.errors.parkingPeriod}
+              >
+                <RadioButton
+                  id="parkingPeriodContinuous"
+                  name="parkingPeriod"
+                  value="continuous"
+                  label="Continuous"
+                  onChange={formik.handleChange}
+                  checked={formik.values.parkingPeriod === 'continuous'}
+                />
+                <RadioButton
+                  id="parkingPeriodTemporary"
+                  name="parkingPeriod"
+                  value="temporary"
+                  label="Temporary"
+                  onChange={formik.handleChange}
+                  checked={formik.values.parkingPeriod === 'temporary'}
+                />
+              </SelectionGroup>
+            </div>
+            <div className="hds-example-form__item">
+              <TextInput
+                id="permitEndDate"
+                name="permitEndDate"
+                label="Permit end date"
+                helperText="Use format DD.MM.YYYY"
+                onChange={formik.handleChange}
+                value={formik.values.permitEndDate}
+                invalid={!!(hasErrors && formik.errors.permitEndDate)}
+                errorText={hasErrors && formik.errors.permitEndDate}
+                required
+              />
+            </div>
           </div>
           <div className="hds-example-form__item">
-            <TextInput
-              id="postalCode"
-              name="postalCode"
-              label="Postal code"
+            <TextArea
+              id="additionalRequests"
+              name="additionalRequests"
+              label="Additional requests"
+              placeholder="E.g. Request for a parking space near a specific location"
               onChange={formik.handleChange}
-              value={formik.values.postalCode}
-              invalid={!!(hasErrors && formik.errors.postalCode)}
-              errorText={hasErrors && formik.errors.postalCode}
+              value={formik.values.additionalRequests}
+              invalid={!!(hasErrors && formik.errors.additionalRequests)}
+              errorText={hasErrors && formik.errors.additionalRequests}
+            />
+          </div>
+        </div>
+        <div className="hds-example-form__section">
+          <div className="hds-example-form__item">
+            <Checkbox
+              id="acceptTerms"
+              name="acceptTerms"
+              label="I have read and I accept the terms and conditions"
               required
+              checked={formik.values.acceptTerms === true}
+              errorText={hasErrors && formik.errors.acceptTerms}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
           </div>
         </div>
         <div className="hds-example-form__item">
-          <TextInput
-            id="email"
-            name="email"
-            label="Email address"
-            onChange={formik.handleChange}
-            value={formik.values.email}
-            invalid={!!(hasErrors && formik.errors.email)}
-            errorText={hasErrors && formik.errors.email}
-            required
-          />
+          <Button type="button" onClick={onSubmitButtonClick}>
+            Submit
+          </Button>
         </div>
-      </div>
-      <div className="hds-example-form__section">
-        <h3 className="hds-example-form__section-title">Vehicle information</h3>
-        <div className="hds-example-form__grid-6-6">
-          <div className="hds-example-form__item">
-            <TextInput
-              id="registerPlate"
-              name="registerPlate"
-              label="Register plate number"
-              placeholder="E.g. ABC-123"
-              helperText="Use format XXX-NNN"
-              onChange={formik.handleChange}
-              value={formik.values.registerPlate}
-              invalid={!!(hasErrors && formik.errors.registerPlate)}
-              errorText={hasErrors && formik.errors.registerPlate}
-              required
-            />
-          </div>
-        </div>
-        <div className="hds-example-form__grid-6-6">
-          <div className="hds-example-form__item">
-            <TextInput
-              id="brand"
-              name="brand"
-              label="Vehicle brand"
-              placeholder="E.g. Skoda"
-              onChange={formik.handleChange}
-              value={formik.values.brand}
-              invalid={!!(hasErrors && formik.errors.brand)}
-              errorText={hasErrors && formik.errors.brand}
-              required
-            />
-          </div>
-          <div className="hds-example-form__item">
-            <TextInput
-              id="model"
-              name="model"
-              label="Vehicle model"
-              placeholder="E.g. Octavia"
-              onChange={formik.handleChange}
-              value={formik.values.model}
-              invalid={!!(hasErrors && formik.errors.model)}
-              errorText={hasErrors && formik.errors.model}
-              required
-            />
-          </div>
-        </div>
-        <div className="hds-example-form__grid-6-6">
-          <div className="hds-example-form__item">
-            <SelectionGroup
-              label="Parking period"
-              direction="horizontal"
-              required
-              errorText={hasErrors && formik.errors.parkingPeriod}
-            >
-              <RadioButton
-                id="parkingPeriodContinuous"
-                name="parkingPeriod"
-                value="continuous"
-                label="Continuous"
-                onChange={formik.handleChange}
-                checked={formik.values.parkingPeriod === 'continuous'}
-              />
-              <RadioButton
-                id="parkingPeriodTemporary"
-                name="parkingPeriod"
-                value="temporary"
-                label="Temporary"
-                onChange={formik.handleChange}
-                checked={formik.values.parkingPeriod === 'temporary'}
-              />
-            </SelectionGroup>
-          </div>
-          <div className="hds-example-form__item">
-            <TextInput
-              id="permitEndDate"
-              name="permitEndDate"
-              label="Permit end date"
-              helperText="Use format DD.MM.YYYY"
-              onChange={formik.handleChange}
-              value={formik.values.permitEndDate}
-              invalid={!!(hasErrors && formik.errors.permitEndDate)}
-              errorText={hasErrors && formik.errors.permitEndDate}
-              required
-            />
-          </div>
-        </div>
-        <div className="hds-example-form__item">
-          <TextArea
-            id="additionalRequests"
-            name="additionalRequests"
-            label="Additional requests"
-            placeholder="E.g. Octavia"
-            onChange={formik.handleChange}
-            value={formik.values.additionalRequests}
-            invalid={!!(hasErrors && formik.errors.additionalRequests)}
-            errorText={hasErrors && formik.errors.additionalRequests}
-          />
-        </div>
-      </div>
-      <FormItem>
-        <Button type="button" onClick={onSubmitButtonClick}>
-          Submit
-        </Button>
-      </FormItem>
-    </form>
+      </form>
+    </Container>
   );
 };
 
