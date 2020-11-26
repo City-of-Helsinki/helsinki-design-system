@@ -38,26 +38,28 @@ export const Static = () => {
 
   // The validation schema
   const schema = Yup.object().shape({
-    firstName: Yup.string().required('First name is required'),
-    lastName: Yup.string().required('Last name is required'),
-    city: Yup.string().required('City is required'),
+    firstName: Yup.string().required('Please enter your first name'),
+    lastName: Yup.string().required('Please enter your last name'),
+    city: Yup.string().required('Please select your city of residence'),
     postalCode: Yup.string()
-      .matches(/^\d+$/, 'Postal code must contain numbers only')
-      .required('Postal code is required'),
-    email: Yup.string().email('Email is invalid').required('Email is invalid'),
+      .matches(/^\d+$/, 'Postal code can only contain numbers')
+      .length(5, 'Postal code needs to contain 5 numbers')
+      .required('Please enter your postal code'),
+    email: Yup.string().email('Please check the email address format').required('Please enter your email address'),
     registerPlate: Yup.string()
-      .matches(/^\w{1,3}-\d{1,3}$/, 'Invalid register plate number')
-      .required('Register plate number is required'),
-    brand: Yup.string().required('Vehicle brand is required'),
-    model: Yup.string().required('Vehicle model is required'),
-    parkingPeriod: Yup.string().oneOf(
-      ['continuous', 'temporary'],
-      'Parking period must be either continuous or temporary',
-    ),
-    permitEndDate: Yup.string()
-      .required('Permit end date is required')
-      .test('is-date', 'Permit end date must be in DD.MM.YYYY format.', isValidDate),
-    acceptTerms: Yup.boolean().oneOf([true], 'You must read and accept the terms and conditions'),
+      .matches(/^\w{2,3}-\d{1,3}$/, 'Register plate number must include 2-3 letters, a hyphen and 1-3 numbers.')
+      .required('Please enter a register plate number'),
+    brand: Yup.string().required('Please enter a vehicle brand'),
+    model: Yup.string().required('Please enter a vehicle model'),
+    parkingPeriod: Yup.string().oneOf(['continuous', 'temporary'], 'Please select a parking pediod'),
+    permitEndDate: Yup.string().when('parkingPeriod', {
+      is: 'temporary',
+      then: Yup.string()
+        .required('Please enter a permit end date')
+        .test('is-date', 'Please enter a permit end date in DD.MM.YYYY format.', isValidDate),
+      otherwise: Yup.string(),
+    }),
+    acceptTerms: Yup.boolean().oneOf([true], 'Please accept the terms and conditions'),
   });
 
   // Initialize formik
@@ -189,6 +191,7 @@ export const Static = () => {
               invalid={!!(hasErrors && formik.errors.email)}
               errorText={hasErrors && formik.errors.email}
               required
+              tooltipText="We will send a confirmation to this email address. You may also receive important updates about your parking permit via email."
             />
           </div>
         </div>
@@ -206,6 +209,11 @@ export const Static = () => {
                 value={formik.values.registerPlate}
                 invalid={!!(hasErrors && formik.errors.registerPlate)}
                 errorText={hasErrors && formik.errors.registerPlate}
+                successText={
+                  formik.touched.registerPlate && !formik.errors.registerPlate
+                    ? 'Register plate number is valid'
+                    : undefined
+                }
                 required
               />
             </div>
@@ -267,19 +275,22 @@ export const Static = () => {
                 />
               </SelectionGroup>
             </div>
-            <div className="hds-example-form__item">
-              <TextInput
-                id="permitEndDate"
-                name="permitEndDate"
-                label="Permit end date"
-                helperText="Use format DD.MM.YYYY"
-                onChange={formik.handleChange}
-                value={formik.values.permitEndDate}
-                invalid={!!(hasErrors && formik.errors.permitEndDate)}
-                errorText={hasErrors && formik.errors.permitEndDate}
-                required
-              />
-            </div>
+            {formik.values.parkingPeriod === 'temporary' && (
+              <div className="hds-example-form__item">
+                <TextInput
+                  id="permitEndDate"
+                  name="permitEndDate"
+                  label="Permit end date"
+                  helperText="Use format DD.MM.YYYY"
+                  onChange={formik.handleChange}
+                  value={formik.values.permitEndDate}
+                  invalid={!!(hasErrors && formik.errors.permitEndDate)}
+                  errorText={hasErrors && formik.errors.permitEndDate}
+                  required
+                  tooltipText="This is the last date you need the permit to be active. The permit will expire at the inputted date at 23:59 o'clock."
+                />
+              </div>
+            )}
           </div>
           <div className="hds-example-form__item">
             <TextArea
@@ -306,6 +317,15 @@ export const Static = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
+            <div className="hds-example-form__terms">
+              <a
+                href="https://www.hel.fi/static/liitteet/kanslia/rekisteriselosteet/Kymp/Kymp-EU-Maksullisen-pysakoinnin-ja-pysakointitunnusten-asiakasrekisteri.pdf"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Read the terms of service
+              </a>
+            </div>
           </div>
         </div>
         <div className="hds-example-form__item">

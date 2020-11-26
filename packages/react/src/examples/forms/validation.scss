@@ -29,6 +29,15 @@
     margin-bottom: var(--spacing-m);
   }
 
+  &__terms {
+    margin-top: var(--spacing-2-xs);
+    margin-left: var(--spacing-l);
+
+    a {
+      color: var(--color-bus);
+    }
+  }
+
   @media (min-width: 576px) {
     &__grid {
       &-6-6 {
