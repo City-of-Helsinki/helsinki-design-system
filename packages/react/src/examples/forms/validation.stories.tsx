@@ -78,6 +78,7 @@ const renderFormFields = (
   onSubmit: (e: FormEvent<HTMLFormElement>) => void,
   getErrorMessage: (fieldName: string) => string,
   errorSummary?: React.ReactNode,
+  getSuccessMessage?: (fieldName: string) => string,
 ) => (
   <Container className="hds-example-form">
     <form onSubmit={onSubmit} noValidate>
@@ -176,11 +177,7 @@ const renderFormFields = (
               value={formik.values.registerPlate}
               invalid={!!getErrorMessage('registerPlate')}
               errorText={getErrorMessage('registerPlate')}
-              successText={
-                formik.touched.registerPlate && !formik.errors.registerPlate
-                  ? 'Register plate number is valid'
-                  : undefined
-              }
+              successText={getSuccessMessage ? getSuccessMessage('registerPlate') : undefined}
               required
             />
           </div>
@@ -373,11 +370,19 @@ export const Dynamic = () => {
     },
   });
 
-  // Get the error message for a field
+  // Get error message for a field
   const getErrorMessage = (fieldName: string) => {
     return formik.touched[fieldName] && formik.errors[fieldName];
   };
 
+  // Get success message for a field
+  const getSuccessMessage = (fieldName: string) => {
+    if (fieldName === 'registerPlate') {
+      return formik.touched[fieldName] && !formik.errors[fieldName] ? 'Register plate number is valid' : undefined;
+    }
+    return null;
+  };
+
   // Render the form
-  return renderFormFields(formik, formik.handleSubmit, getErrorMessage);
+  return renderFormFields(formik, formik.handleSubmit, getErrorMessage, null, getSuccessMessage);
 };
