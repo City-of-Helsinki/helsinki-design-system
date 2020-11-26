@@ -33,7 +33,9 @@
     margin-top: var(--spacing-2-xs);
     margin-left: var(--spacing-l);
 
-    a {
+    span {
+      cursor: pointer;
+      text-decoration: underline;
       color: var(--color-bus);
     }
   }
