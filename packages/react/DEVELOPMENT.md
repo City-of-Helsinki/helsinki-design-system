@@ -38,7 +38,9 @@ This starts the storybook development environment. You can read about how to wri
 | yarn start                         | Starts the development environment.                       | 
 | yarn test                          | Runs the tests.                                           | 
 | yarn lint                          | Runs the linting.                                         | 
-| yarn scaffold                      | Runs the scaffolding script for creating a new component. | 
+| yarn scaffold                      | Runs the scaffolding script for creating a new component. |
+| yarn visual-test                   | Runst the visual regression tests.                        |
+| yarn update-reference-images       | Update reference images for visual regression tests.      | 
 
 ## Adding a component
 
@@ -48,17 +50,23 @@ To add a new component, use the scaffold helper. In the react package folder, ru
 yarn scaffold
 ```
 
-Note that components at `packages/react` are tested for visual regression by Loki, so images of new items should be added to references.
+Also note the section below about visual regression tests and adding new components.
 
-You can add new or update existing reference images with follwoing command. Note `storiesFilter`, as otherwise all images are retaken which takes ages. 
-Command uses Chrome in Docker container to prevent issues with Retina screen resolution, so Docker needs to be available. Also storybook should be running.
+## Visual regression tests
+
+`hds-react` uses [Loki](https://loki.js.org/) for visual regression testing.
+
+To run the visual regression tests, you must first build the storybook by running `yarn build-storybook`. Then you can proceed with the test run by running `yarn visual-test`.
+
+When adding a new component or after making visual changes to some existing component, you must update the corresponding the reference image. This is done by the following command:
+
 ```
 yarn update-reference-images --storiesFilter "<regexp of added story>"
 ```
 
-Note that failure on the CI gives different update command, as tests are running against static storybook. You can still use `storiesFilter` from that command to retake failed reference images.
+You should pass the component story filename with `--storiesFilter` flag in order to update the reference images only for that single component.
 
-Note that images are stored to repo with [git lfs](https://git-lfs.github.com/).
+Note: Loki is using the Chrome browser inside a Docker container, so Docker needs to be available. Reference images are stored in this repository with [git lfs](https://git-lfs.github.com/).
 
 ## Workflow
 
