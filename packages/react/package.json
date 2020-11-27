@@ -30,7 +30,7 @@
     "build-storybook": "build-storybook --loglevel error --no-dll",
     "test": "jest --env=jsdom-fourteen",
     "prepublishOnly": "cp -r ./lib/. .",
-    "test-ci": "loki test --requireReference --verboseRenderer --reactUri file:./storybook-static",
+    "visual-test": "loki test --requireReference --verboseRenderer --reactUri file:./storybook-static",
     "update-reference-images": "loki update"
   },
   "devDependencies": {

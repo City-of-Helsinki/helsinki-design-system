@@ -85,7 +85,7 @@ jobs:
           yarn add loki
 
       - name: visually test react package with ${{ matrix.loki_configuration }}
-        run: yarn test-ci ${{ matrix.loki_configuration }}
+        run: yarn visual-test ${{ matrix.loki_configuration }}
 
       - name: upload reference and actual images with ${{ matrix.loki_configuration }} in case of failure
         uses: actions/upload-artifact@v2
