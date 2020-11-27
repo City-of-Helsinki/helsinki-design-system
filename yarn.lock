@@ -17496,7 +17496,7 @@ loglevelnext@^1.0.1:
     es6-symbol "^3.1.1"
     object.assign "^4.1.0"
 
-loki@^0.26.0:
+loki@0.26.0:
   version "0.26.0"
   resolved "https://registry.yarnpkg.com/loki/-/loki-0.26.0.tgz#3c3ac1c9c1fb5838dabadd17ac13d6cd9521a792"
   integrity sha512-ydoV0e+EqVLoqZZmlU/ZuB6C11npqemPzCsasIhngqBXXbhepJTXinUw23VKvt6vnjLOQjeE1x51kIhsJHY91A==
