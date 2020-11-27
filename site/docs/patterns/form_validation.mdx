@@ -33,9 +33,9 @@ This page will provide basic principles for all as well as links to Storybook ex
 
 | Method   | What does it mean?  | When to use it?  |
 | -------- | --------------- | ---------------- |
-| [Dynamic](#dynamic-validation) | Validation performed individually for each form control, when the user has entered a value and/or moves the focus to the next interactive element | Preferred method when client-side scripting (e.g. JavaScript) is available |
-| [Static](#static-validation)   | Validation performed for the whole form at once, when the user submits the form or proceeds to the next step                                      | Use when client-side scripting is not possible |
-| [Hybrid](#hybrid-validation)   | Dynamic and static methods utilised in parallel, benefitting from each other                                                                      | Use when some of the validation has to be done when the form is submitted but client-side scripting is still possible |
+| [Dynamic](#dynamic-validation) | **Recommended option.** Validation performed individually for each form control, when the user has entered a value and/or moves the focus to the next interactive element | Preferred method when client-side scripting (e.g. JavaScript) is available |
+| [Static](#static-validation)   | Validation performed for the whole form at once, when the user submits the form or proceeds to the next step                                                              | Use when client-side scripting is not possible |
+| [Hybrid](#hybrid-validation)   | Dynamic and static methods utilised in parallel, benefitting from each other                                                                                              | Use when some of the validation has to be done when the form is submitted but client-side scripting is still possible |
 
 <Notification label="Why are different validation methods allowed?" className="siteNotification">
   There is a wide range of services in the City of Helsinki. Some projects are restricted to static validation due to technical limitations (e.g. no JavaScript). For these reasons HDS offers multiple validation methods and has examples available for all kinds of projects.
@@ -43,11 +43,15 @@ This page will provide basic principles for all as well as links to Storybook ex
 
 
 ### Dynamic validation
+**This is the recommended validation method in the City of Helsinki services.**
+
 In dynamic form validation the user input is **validated immediately after the focus leaves the current form element** and moves to the next one. If an error is found during the validation, the form control is set to an error state.
 
 **Dynamic form validation is recommended way to do input validation in the City of Helsinki services**. The method allows the user to fix the error immediately rather than after the form has been submitted. This can greatly reduce cognitive load of the user since they neither do have to locate the erroneous input nor switch their context to the next input before fixing the error.
 
 [See interactive dynamic form validation example in HDS Storybook](/)
+
+[See dynamic form validation code example in HDS Storybook](/)
 
 ### Static validation
 In static form validation the validation is done when the form is submitted or the next page is loaded. In this case the validation can be done either in the browser and/or in the service backend. This method is common for services which cannot use JavaScript for dynamic approach.
@@ -56,12 +60,16 @@ The general issue of static validation is that it is possible that there are mul
 
 [See interactive static form validation example in HDS Storybook](/)
 
+[See static form validation code example in HDS Storybook](/)
+
 ### Hybrid validation
 Dynamic and static validation methods can be also used in parallel. This is particularly useful if part of the validation has to be done in the backend (e.g. checking if a user already exists). In this case, basic input validation can be done dynamically and other validations when the form is submitted. As in static validation, **HDS recommends using validation summary pattern** for errors that are found on form submit. You can read more about the [validation summary pattern in its own section](#validation-summary-pattern).
 
 The advantage of hybrid validation is that because form controls are validated dynamically, the user generally receives less errors after the form submit. **It is always recommended to use dynamic validation approach first** but if some static validation is required, the hybrid validation approach can be used.
 
 [See interactive hybrid form validation example in HDS Storybook](/)
+
+[See hybrid form validation code example in HDS Storybook](/)
 
 ---
 
