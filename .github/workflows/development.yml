@@ -1,0 +1,95 @@
+name: development
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+          
+      - name: Checkout LFS objects
+        run: git lfs checkout
+
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+          registry-url: "https://registry.npmjs.org"
+      
+      - name: install dependencies
+        run: yarn
+
+      - name: build design tokens package
+        run: yarn build
+        working-directory: ./packages/design-tokens
+
+      - name: build core package
+        run: yarn build
+        working-directory: ./packages/core
+
+      - name: build react package
+        run: yarn build
+        working-directory: ./packages/react
+
+      - name: test react package
+        run: yarn test
+        working-directory: ./packages/react
+      
+      - name: build storybook for react
+        run: yarn build-storybook
+        working-directory: ./packages/react
+
+      - name: Store storybook as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: storybook-${{ github.sha }}
+          path: |
+            packages/react/.loki
+            packages/react/storybook-static
+            packages/react/package.json
+          retention-days: 1
+
+  visual-tests:
+    needs: build-test
+    if: ${{ !contains('hotfix/', github.ref) }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        loki_configuration: [ 'laptop', 'iphone7' ]
+
+    steps:
+      - name: download storybook
+        uses: actions/download-artifact@v2
+        with:
+          name: storybook-${{ github.sha }}
+
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: install dependencies for visual testing
+        run: |
+          sudo apt update
+          sudo apt install graphicsmagick -y
+          yarn add loki
+
+      - name: visually test react package with ${{ matrix.loki_configuration }}
+        run: yarn visual-test ${{ matrix.loki_configuration }}
+
+      - name: upload reference and actual images with ${{ matrix.loki_configuration }} in case of failure
+        uses: actions/upload-artifact@v2
+        with:
+          name: loki_images_${{ matrix.loki_configuration }}
+          path: .loki/*/*${{ matrix.loki_configuration }}*.*
+        if: failure()
