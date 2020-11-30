@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 import React from 'react';
 import { render } from '@testing-library/react';
+import { axe } from 'jest-axe';
 
 import { Select, SelectProps } from './Select';
 
@@ -26,5 +27,10 @@ describe('<Select /> spec', () => {
   it('renders the component', () => {
     const { asFragment } = getWrapper();
     expect(asFragment()).toMatchSnapshot();
+  });
+  it('should not have basic accessibility issues', async () => {
+    const { container } = getWrapper();
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

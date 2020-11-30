@@ -5,6 +5,7 @@ exports[`<Logo /> spec renders the component 1`] = `
   <svg
     class="logo"
     role="img"
+    title="Helsingin kaupunki"
     viewBox="0 0 78 36"
     xmlns="http://www.w3.org/2000/svg"
   >
