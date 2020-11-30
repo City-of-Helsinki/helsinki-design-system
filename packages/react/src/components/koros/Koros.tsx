@@ -21,6 +21,10 @@ export type KorosProps = {
    * Additional class names to apply to component
    */
   className?: string;
+  /**
+   * Additional style properties to apply to component
+   */
+  style?: React.CSSProperties;
 };
 
 const getSVG = (type: string, patternName: string): React.SVGProps<SVGElement> => {
@@ -50,12 +54,15 @@ const getSVG = (type: string, patternName: string): React.SVGProps<SVGElement> =
   );
 };
 
-export const Koros = ({ flipHorizontal = false, type = 'basic', className = '' }: KorosProps) => {
+export const Koros = ({ flipHorizontal = false, type = 'basic', className = '', style }: KorosProps) => {
   const patternName = `koros_${type}`;
   const [id] = useState(uniqueId(`${patternName}-`));
 
   return (
-    <div className={classNames(styles.koros, styles[type], className, flipHorizontal && styles.flipHorizontal)}>
+    <div
+      className={classNames(styles.koros, styles[type], className, flipHorizontal && styles.flipHorizontal)}
+      style={style}
+    >
       {getSVG(type, id)}
     </div>
   );

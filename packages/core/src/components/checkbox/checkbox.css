@@ -4,7 +4,6 @@
   --size: 24px;
   /* icon size relative to the checkbox size (--size) */
   --icon-scale: 1;
-  --border-radius: 1px;
   --border-width: 2px;
   --outline-width: 3px;
   --label-font-size: var(--fontsize-body-m);
@@ -93,7 +92,6 @@
 .hds-checkbox .hds-checkbox__input::before,
 .hds-checkbox .hds-checkbox__label::before,
 .hds-checkbox .hds-checkbox__label::after {
-  border-radius: var(--border-radius);
   content: "";
   left: 0;
   position: absolute;

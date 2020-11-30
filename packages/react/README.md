@@ -36,3 +36,4 @@ Read more [here](DEVELOPMENT.md).
 - [ESLint](https://github.com/eslint/eslint) for code analysis
 - [Prettier](https://github.com/prettier/prettier) for code formatting
 - [Jest](https://github.com/facebook/jest) with [React Testing Library](https://github.com/testing-library/react-testing-library) for testing
+- [Loki](https://loki.js.org/) for visual regression testing

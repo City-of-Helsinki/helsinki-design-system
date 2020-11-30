@@ -15,14 +15,24 @@ const setComponentTheme = <T,>(selector: string, theme: T, customClass: string):
   const hasCustomRule = (rule: CSSStyleRule): boolean => rule.selectorText?.includes(`${selector}.${customClass}`);
 
   try {
-    const { styleSheets } = document;
     // the index of the parent stylesheet
-    const parentIndex = [...styleSheets].findIndex(
-      (styleSheet) =>
-        [...styleSheet.cssRules].findIndex((rule: CSSStyleRule) => rule.selectorText?.includes(selector)) >= 0,
-    );
+    let parentIndex = [...document.styleSheets].findIndex((styleSheet) => {
+      // Accessing external stylesheet's cssRules might throw an error
+      try {
+        return [...styleSheet.cssRules].findIndex((rule: CSSStyleRule) => rule.selectorText?.includes(selector)) >= 0;
+      } catch (e) {
+        return false;
+      }
+    });
+    // If parent stylesheet was not found, create a new one. This can happen with server-side-rendering
+    // when styles are bundled into an external file, which we cant access.
+    if (parentIndex === -1) {
+      const stylesheetElement = document.createElement('style');
+      document.head.appendChild(stylesheetElement);
+      parentIndex = document.styleSheets.length - 1;
+    }
     // style sheet containing the css rules for the selector
-    const parentStyleSheet = styleSheets[parentIndex];
+    const parentStyleSheet = document.styleSheets[parentIndex];
     // parent css rules
     const parentCssRules = parentStyleSheet.cssRules;
     // the index of the rule within the stylesheet where the custom theme styles will be set
