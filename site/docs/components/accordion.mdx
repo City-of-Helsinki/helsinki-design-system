@@ -1,0 +1,101 @@
+---
+name: Accordion
+menu: Components
+route: /components/accordion
+---
+
+import { Playground } from "docz";
+import { StatusLabel } from "hds-react";
+
+import ColorBox from "../../src/components/ColorBox";
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
+import Text from "../../src/components/Text";
+
+# Accordion
+
+<StatusLabel type="alert">Pre-release</StatusLabel>
+<StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
+
+<LargeParagraph>
+    Accordions can be used to hide and reveal information. When used correctly, they are a good way to make higher amount of information easier to digest for the user.
+</LargeParagraph>
+
+## Principles
+- Use accordions to allow the user to quickly glance the information and then choose to open sections that are interesting to them.
+- **Accordions must be given a header which describes the accordion content.** This header also acts as the label for the expand button. The header level can be chosen depending on the structure of the page.
+- **Do not put essential or must-read information inside accordions.** If the user is expected to open all of the accordions while using the service, then it is likely that the information should not be inside accordions at all.
+- Do not use accordions to create step-by-step forms. You must not expect that the user opens all accordions in a specific order.
+- Accordions should initially be closed when the page is loaded.
+- Expanding or closing the accordion should only affect to the related accordion area. You also should not auto-close or auto-open accordions.
+
+## Accessibility
+- Use HDS provided accordion elements when creating custom accordions. These elements pass accessibility testing.
+- When creating custom accordions, make sure that the expanded accordion area directly follows the accordion button in the DOM tree.
+    - If you must place the accordion area somewhere else, use `aria-owns` attribute to indicate the relationship. However, be aware that this attribute does not necessarily work with all screen readers.
+- Make sure that the keyboard user is able to navigate out of the accordion area without closing the accordion. See <Link href="https://www.w3.org/TR/WCAG21/#no-keyboard-trap" external>WCAG 2.1.2 No Keyboard Trap guideline</Link> for more information.
+
+## Usage & variations
+
+### Accordion
+Basic HDS accordions provide two different visuals to choose from. These implementations are easy to take into use if you do not need any special functionality.
+
+<Playground>
+
+</Playground>
+
+#### Core code example:
+```html
+
+```
+
+#### React code example:
+```tsx
+
+```
+
+### Accordion with custom styles
+Basic accordions can be also stylized with custom themes to fit the visuals of your service.
+
+<Playground>
+
+</Playground>
+
+#### Core code example:
+```html
+
+```
+
+#### React code example:
+```tsx
+
+```
+
+### Custom accordion
+If the basic accordion components do not fit for your needs, you can build a custom accordion by using HDS provided accordion elements.
+
+<Playground>
+
+</Playground>
+
+#### Core code example:
+```html
+
+```
+
+#### React code example:
+```tsx
+
+```
+
+## Demos & API
+
+### Core
+
+[Accordion in hds-core](/storybook/core/?path=/story/components-button--primary)
+
+### React
+
+[Accordion in hds-react](/storybook/react/?path=/story/components-button--primary)
+
+[Accordion API](/storybook/react/?path=/docs/components-button--primary)
