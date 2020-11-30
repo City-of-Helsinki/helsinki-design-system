@@ -61,6 +61,10 @@ export type SearchInputProps<SuggestionItem> = {
    */
   searchButtonAriaLabel?: string;
   /**
+   * Override or extend the styles applied to the component
+   */
+  style?: React.CSSProperties;
+  /**
    * Field of the SuggestionItem that represents the item label.
    * E.g. an `suggestionLabelField` value of `'foo'` and a suggestion item `{ foo: 'Label', bar: 'value' }`, would display `'Label'` in the menu for that specific suggestion.
    */
@@ -83,6 +87,7 @@ export const SearchInput = <SuggestionItem,>({
   loadingSpinnerText = 'Loading suggestions',
   onSubmit,
   searchButtonAriaLabel = 'Search',
+  style,
   suggestionLabelField,
   visibleSuggestions = 8,
 }: SearchInputProps<SuggestionItem>) => {
@@ -128,7 +133,7 @@ export const SearchInput = <SuggestionItem,>({
   };
 
   return (
-    <div className={classNames(styles.root, isOpen && styles.open, className)}>
+    <div className={classNames(styles.root, isOpen && styles.open, className)} style={style}>
       {label && <FieldLabel label={label} {...getLabelProps()} />}
       <div className={classNames(styles.wrapper)} ref={getComboboxProps().ref}>
         <input
