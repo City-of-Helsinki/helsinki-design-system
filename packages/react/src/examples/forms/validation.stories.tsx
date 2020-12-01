@@ -7,3 +7,4 @@ export default {
 
 export * from './validationStatic.stories';
 export * from './validationDynamic.stories';
+export * from './validationHybrid.stories';
