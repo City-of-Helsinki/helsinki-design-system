@@ -353,3 +353,7 @@ export const Dynamic = () => {
     </Container>
   );
 };
+
+Dynamic.story = {
+  parameters: { loki: { skip: true } },
+};

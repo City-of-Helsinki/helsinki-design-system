@@ -351,3 +351,7 @@ export const Static = () => {
     </Container>
   );
 };
+
+Static.story = {
+  parameters: { loki: { skip: true } },
+};
