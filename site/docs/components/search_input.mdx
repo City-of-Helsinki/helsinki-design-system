@@ -87,6 +87,35 @@ If available, suggestions can also be included with the HDS search input. Sugges
   }}
 </Playground>
 
+<br/>
+When fetching suggestions is taking longer than 1.5 seconds, a loading spinner will be displayed below the input until suggestions are received.
+<br/><br/>
+
+<Playground>
+  {() => {
+    const fruits = ['Apple', 'Apricot', 'Avocado', 'Banana', 'Blackberry', 'Blueberry', 'Cherry', 'Coconut', 'Cranberry', 'Date', 'Dragonfruit', 'Fig', 'Gooseberry', 'Grape', 'Honeyberry', 'Jackfruit', 'Kiwifruit', 'Lemon', 'Lime', 'Mango', 'Melon', 'Nectarine', 'Orange', 'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Pineapple', 'Raspberry', 'Satsuma', 'Start fruit', 'Strawberry', 'Tangelo', 'Tomato'].map((fruit) => ({ value: fruit }));
+    
+    const getSuggestions = (inputValue) => new Promise((resolve, reject) => {
+      const filteredItems = fruits.filter((fruit) => {
+        return fruit.value.toLowerCase().indexOf(inputValue.toLowerCase()) > -1;
+      });
+      setTimeout(() => resolve(filteredItems), 3000);
+    });
+    
+    return (
+      <SearchInput 
+        label="Search for a fruit" 
+        helperText="Assistive text" 
+        searchButtonAriaLabel="Search" 
+        clearButtonAriaLabel="Clear search field"
+        suggestionLabelField="value"
+        getSuggestions={getSuggestions}
+        onSubmit={submittedValue => console.log('Submitted value:', submittedValue)}
+      />
+    );
+  }}
+</Playground>
+
 #### React code example:
 ```tsx
 {() => {
@@ -114,13 +143,15 @@ If available, suggestions can also be included with the HDS search input. Sugges
 ```
 
 ### With suggestions and highlighting
-HDS search input also supports suggestion highlighting. This means that the suggestion not part of the initial search keyword is highlighted. In some cases this can be beneficial to the user to differentiate between search suggestions. 
+HDS search input also supports suggestion highlighting. This means that the suggestion not part of the initial search keyword is highlighted. In some cases this can be beneficial to the user to differentiate between search suggestions.
+
+Suggestion highlighting is activated with `highlightSuggestions` property and it becomes visible after at least three characters are typed into the input.
 
 Note! This feature is experimental and we are looking to improve it after project feedback.
 
 <Playground>
   {() => {
-    const educations = ['Daycare eduation', 'Preschool education', 'Basic education', 'Upper secondary education', 'vocational education', 'Polytechnic education', 'University education', 'Adult education centre'].map((education) => ({ value: education }));
+    const educations = ['Daycare eduation', 'Preschool education', 'Basic education', 'Upper secondary education', 'Vocational education', 'Polytechnic education', 'University education', 'Adult education centre'].map((education) => ({ value: education }));
     
     const getSuggestions = (inputValue) => new Promise((resolve, reject) => {
       const filteredItems = educations.filter((education) => {
