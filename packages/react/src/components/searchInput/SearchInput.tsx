@@ -11,7 +11,7 @@ import classNames from '../../utils/classNames';
 import { IconCrossCircle, IconSearch } from '../../icons';
 import { GetSuggestionsFunction, SUGGESTIONS_DEBOUNCE_VALUE, useSuggestions } from './useSuggestions';
 import { DROPDOWN_MENU_ITEM_HEIGHT } from '../dropdown/dropdownUtils';
-import { LOADING_SPINNER_TIMEOUT, useShowLoadingSpinner } from '../../utils/useShowLoadingSpinner';
+import { useShowLoadingSpinner } from '../../hooks/useShowLoadingSpinner';
 import { LoadingSpinner } from '../loadingSpinner';
 
 export type SearchInputProps<SuggestionItem> = {
@@ -95,7 +95,7 @@ export const SearchInput = <SuggestionItem,>({
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
   const { suggestions, isLoading } = useSuggestions<SuggestionItem>(inputValue, getSuggestions, isSubmitted);
-  const showLoadingSpinner = useShowLoadingSpinner(isLoading, LOADING_SPINNER_TIMEOUT - SUGGESTIONS_DEBOUNCE_VALUE);
+  const showLoadingSpinner = useShowLoadingSpinner(isLoading, 1500 - SUGGESTIONS_DEBOUNCE_VALUE);
   const {
     isOpen,
     getLabelProps,
@@ -184,7 +184,7 @@ export const SearchInput = <SuggestionItem,>({
           open={isOpen && !showLoadingSpinner}
           selectedItem={null}
           selectedItems={[]}
-          highlightValue={highlightSuggestions && inputValue}
+          highlightValue={highlightSuggestions && inputValue.length >= 3 && inputValue}
           visibleOptions={visibleSuggestions}
           menuStyles={styles}
           options={suggestions}

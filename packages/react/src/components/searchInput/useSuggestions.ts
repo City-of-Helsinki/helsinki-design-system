@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { cancellablePromise } from '../../utils/cancellablePromise';
-import { useDebouncedEffect } from '../../utils/useDebouncedEffect';
+import { useDebouncedEffect } from '../../hooks/useDebouncedEffect';
 
 export type GetSuggestionsFunction<SuggestionItemType> = (searchString: string) => Promise<SuggestionItemType[]>;
 

@@ -103,6 +103,36 @@ WithSuggestions.args = {
   helperText: 'Assistive text',
 };
 
+export const WithSuggestionsAndHighlighting = (args) => {
+  type SuggestionItemType = {
+    value: string;
+  };
+
+  const getSuggestions = async (inputValue: string): Promise<SuggestionItemType[]> => {
+    const suggestions = await asynchronousSearchOperation(inputValue);
+    return suggestions;
+  };
+
+  const onSubmit = (value: string) => {
+    console.log('Submitted value:', value);
+  };
+
+  return (
+    <SearchInput<SuggestionItemType>
+      {...args}
+      suggestionLabelField="value"
+      getSuggestions={getSuggestions}
+      onSubmit={onSubmit}
+    />
+  );
+};
+WithSuggestionsAndHighlighting.storyName = 'With suggestions and highlighting';
+WithSuggestionsAndHighlighting.args = {
+  label: 'Search for a fruit',
+  helperText: 'Assistive text',
+  highlightSuggestions: true,
+};
+
 export const WithSuggestionsSpinner = (args) => {
   type SuggestionItemType = {
     value: string;
