@@ -210,6 +210,7 @@ export const Static = () => {
               invalid={!!getErrorMessage('email')}
               errorText={getErrorMessage('email')}
               required
+              tooltipButtonLabel="Tooltip: Email address"
               tooltipText="We will send a confirmation to this email address. You may also receive important updates about your parking permit via email."
             />
           </div>
@@ -307,6 +308,7 @@ export const Static = () => {
                   invalid={!!getErrorMessage('permitEndDate')}
                   errorText={getErrorMessage('permitEndDate')}
                   required
+                  tooltipButtonLabel="Tooltip: Permit end date"
                   tooltipText="This is the last date you need the permit to be active. The permit will expire at the inputted date at 23:59 o'clock."
                 />
               </div>
@@ -323,6 +325,7 @@ export const Static = () => {
               value={formik.values.additionalRequests}
               invalid={!!getErrorMessage('additionalRequests')}
               errorText={getErrorMessage('additionalRequests')}
+              tooltipButtonLabel="Tooltip: Additional requests"
               tooltipText="Here you may leave extra requests regarding the parking space. For example, you may request space near a specific location. If you have a large vehicle, you may request a larger space."
             />
           </div>
@@ -352,6 +355,4 @@ export const Static = () => {
   );
 };
 
-Static.story = {
-  parameters: { loki: { skip: true } },
-};
+Static.parameters = { loki: { skip: true } };
