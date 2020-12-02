@@ -323,6 +323,7 @@ export const Static = () => {
               value={formik.values.additionalRequests}
               invalid={!!getErrorMessage('additionalRequests')}
               errorText={getErrorMessage('additionalRequests')}
+              tooltipText="Here you may leave extra requests regarding the parking space. For example, you may request space near a specific location. If you have a large vehicle, you may request a larger space."
             />
           </div>
         </div>
