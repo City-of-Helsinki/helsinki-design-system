@@ -92,7 +92,7 @@ export const Hybrid = () => {
    */
   const getErrorMessage = (fieldName: string) => {
     if (hasBackendErrors && fieldName === 'registerPlate' && !formik.touched[fieldName]) {
-      return 'Parking permit already exists for given register plate number';
+      return 'Permit for this plate number already exists. Only one permit per vehicle is allowed.';
     }
     return (formik.touched[fieldName] || isSubmitted) && formik.errors[fieldName];
   };
@@ -145,7 +145,10 @@ export const Hybrid = () => {
       <ErrorSummary label="Form contains following errors" className="hds-example-form__error-summary" autofocus>
         <ul>
           <li>
-            Error 1: <a href="#registerPlate">Parking permit already exists for given register plate number</a>
+            Error 1:{' '}
+            <a href="#registerPlate">
+              Permit for this plate number already exists. Only one permit per vehicle is allowed.
+            </a>
           </li>
         </ul>
       </ErrorSummary>
