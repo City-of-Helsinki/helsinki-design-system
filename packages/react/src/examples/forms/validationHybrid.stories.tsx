@@ -12,7 +12,6 @@ import {
   SelectionGroup,
   RadioButton,
   TextArea,
-  Container,
   ErrorSummary,
 } from '../../components';
 
@@ -155,7 +154,7 @@ export const Hybrid = () => {
     ) : null;
 
   return (
-    <Container className="hds-example-form">
+    <div className="hds-example-form">
       <form onSubmit={onSubmit} noValidate>
         <h2 className="hds-example-form__title">Residental parking permit application</h2>
         {renderErrorSummary()}
@@ -381,7 +380,7 @@ export const Hybrid = () => {
           <Button type="submit">Submit</Button>
         </div>
       </form>
-    </Container>
+    </div>
   );
 };
 

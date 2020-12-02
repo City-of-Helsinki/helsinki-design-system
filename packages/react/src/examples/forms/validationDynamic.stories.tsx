@@ -4,16 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { getCitites, isValidDate } from './validationUtils';
-import {
-  Button,
-  TextInput,
-  Checkbox,
-  Select,
-  SelectionGroup,
-  RadioButton,
-  TextArea,
-  Container,
-} from '../../components';
+import { Button, TextInput, Checkbox, Select, SelectionGroup, RadioButton, TextArea } from '../../components';
 
 import './validation.scss';
 
@@ -125,7 +116,7 @@ export const Dynamic = () => {
   };
 
   return (
-    <Container className="hds-example-form">
+    <div className="hds-example-form">
       <form onSubmit={onSubmit} noValidate>
         <h2 className="hds-example-form__title">Residental parking permit application</h2>
         <div className="hds-example-form__required-info">All fields marked with * are required</div>
@@ -350,7 +341,7 @@ export const Dynamic = () => {
           <Button type="submit">Submit</Button>
         </div>
       </form>
-    </Container>
+    </div>
   );
 };
 
