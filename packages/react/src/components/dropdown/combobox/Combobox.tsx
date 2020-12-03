@@ -458,6 +458,8 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
             !showToggleButton && styles.noToggle,
             hasFocus && selectedItems.length > 0 && styles.adjustSpacing,
           )}
+          autoCorrect="off"
+          autoComplete="off"
         />
         {/* TOGGLE BUTTON */}
         <button
