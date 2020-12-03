@@ -120,4 +120,6 @@ const cities = [
   'Äänekoski',
 ];
 
-export const getCitites = () => cities.map((city) => ({ label: city }));
+export type CityOptionType = { label: string };
+
+export const getCitites = (): CityOptionType[] => cities.map((city) => ({ label: city }));

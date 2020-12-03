@@ -3,8 +3,8 @@ import React, { FormEvent, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { getCitites, isValidDate } from './validationUtils';
-import { Button, TextInput, Checkbox, Select, SelectionGroup, RadioButton, TextArea } from '../../components';
+import { CityOptionType, getCitites, isValidDate } from './validationUtils';
+import { Button, TextInput, Checkbox, SelectionGroup, RadioButton, TextArea, Combobox } from '../../components';
 
 import './validation.scss';
 
@@ -154,17 +154,19 @@ export const Dynamic = () => {
           </div>
           <div className="hds-example-form__grid-8-4">
             <div className="hds-example-form__item">
-              <Select
+              <Combobox<CityOptionType>
                 id="city"
                 label="City"
+                optionLabelField="label"
                 options={cities}
-                onChange={(value: { label: string }) => {
-                  formik.setFieldValue('city', value.label);
+                onChange={(selected: CityOptionType) => {
+                  formik.setFieldValue('city', selected ? selected.label : '');
                 }}
                 onBlur={() => {
                   formik.handleBlur({ target: { name: 'city' } });
                 }}
-                value={{ label: formik.values.city }}
+                defaultValue={{ label: formik.values.city }}
+                toggleButtonAriaLabel="Toggle"
                 invalid={!!getErrorMessage('city')}
                 error={getErrorMessage('city')}
                 required
