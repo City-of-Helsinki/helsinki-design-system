@@ -129,6 +129,11 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       tooltipButtonLabel,
     };
 
+    // Compose aria-describedby attribute
+    const ariaDescribedBy = [helperText && `${id}-helper`, errorText && `${id}-error`, successText && `${id}-success`]
+      .filter((item) => item)
+      .join(' ');
+
     return (
       <InputWrapper {...wrapperProps}>
         <textarea
@@ -139,6 +144,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
           onChange={onChange}
           ref={ref}
           required={required}
+          aria-describedby={ariaDescribedBy}
           {...rest}
         />
       </InputWrapper>

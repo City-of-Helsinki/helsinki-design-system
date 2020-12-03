@@ -55,8 +55,20 @@ export const InputWrapper = ({
       />
     )}
     <div className={classNames(styles.inputWrapper)}>{children}</div>
-    {errorText && <div className={styles.errorText}>{errorText}</div>}
-    {successText && <div className={styles.successText}>{successText}</div>}
-    {helperText && <div className={styles.helperText}>{helperText}</div>}
+    {errorText && (
+      <div className={styles.errorText} id={`${id}-error`}>
+        {errorText}
+      </div>
+    )}
+    {successText && (
+      <div className={styles.successText} id={`${id}-success`}>
+        {successText}
+      </div>
+    )}
+    {helperText && (
+      <div className={styles.helperText} id={`${id}-helper`}>
+        {helperText}
+      </div>
+    )}
   </div>
 );
