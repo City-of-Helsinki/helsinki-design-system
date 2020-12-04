@@ -9,7 +9,7 @@ describe('<SelectionGroup /> spec', () => {
   it('renders the component', () => {
     const { asFragment } = render(
       <SelectionGroup>
-        <Checkbox id="checkbox" />
+        <Checkbox id="checkbox" label="Foo" />
       </SelectionGroup>,
     );
     expect(asFragment()).toMatchSnapshot();
@@ -17,7 +17,7 @@ describe('<SelectionGroup /> spec', () => {
   it('should not have basic accessibility issues', async () => {
     const { container } = render(
       <SelectionGroup>
-        <Checkbox id="checkbox" />
+        <Checkbox id="checkbox" label="Foo" />
       </SelectionGroup>,
     );
     const results = await axe(container);
