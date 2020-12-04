@@ -28,6 +28,10 @@ import Image from "../../src/components/Image";
 
 All following methods follow these principles even though their implementation may differ from each other.
 
+<Notification label="Frontend vs backend validation" className="siteNotification">
+  HDS form validation pattern only concerns validation that happens in the frontend. You must never trust the frontend validation alone. Make the validation process in the backend too.
+</Notification>
+
 ## Types of validation
 This page will provide basic principles for all as well as links to Storybook examples on how to use each validation method in practice. HDS pattern proposes three (3) form validation methods:
 
@@ -41,7 +45,6 @@ This page will provide basic principles for all as well as links to Storybook ex
   There is a wide range of services in the City of Helsinki. Some projects are restricted to static validation due to technical limitations (e.g. no JavaScript). For these reasons HDS offers multiple validation methods and has examples available for all kinds of projects.
 </Notification>
 
-
 ### Dynamic validation
 **This is the recommended validation method in the City of Helsinki services.**
 
@@ -49,27 +52,27 @@ In dynamic form validation the user input is **validated immediately after the f
 
 **Dynamic form validation is recommended way to do input validation in the City of Helsinki services**. The method allows the user to fix the error immediately rather than after the form has been submitted. This can greatly reduce cognitive load of the user since they neither do have to locate the erroneous input nor switch their context to the next input before fixing the error.
 
-[See interactive dynamic form validation example in HDS Storybook](/)
+[See interactive dynamic form validation example in HDS Storybook](/storybook/react/iframe.html?id=patterns-form-validation--dynamic&viewMode=story)
 
-[See dynamic form validation code example in HDS Storybook](/)
+[See dynamic form validation code example in HDS Storybook](/storybook/react/?path=/docs/patterns-form-validation--static#dynamic)
 
 ### Static validation
 In static form validation the validation is done when the form is submitted or the next page is loaded. In this case the validation can be done either in the browser and/or in the service backend. This method is common for services which cannot use JavaScript for dynamic approach.
 
 The general issue of static validation is that it is possible that there are multiple erroneous inputs after the validation. To make it easier for the user to go through the errors, **HDS recommends using validation summary pattern** in which all errors are gathered to one list on top of the form. The list contains all errors found the the form and an anchor link to each form control. You can read more about the [validation summary pattern in its own section](#validation-summary-pattern).
 
-[See interactive static form validation example in HDS Storybook](/)
+[See interactive static form validation example in HDS Storybook](/storybook/react/iframe.html?id=patterns-form-validation--static&viewMode=story)
 
-[See static form validation code example in HDS Storybook](/)
+[See static form validation code example in HDS Storybook](/storybook/react/?path=/docs/patterns-form-validation--static#static)
 
 ### Hybrid validation
 Dynamic and static validation methods can be also used in parallel. This is particularly useful if part of the validation has to be done in the backend (e.g. checking if a user already exists). In this case, basic input validation can be done dynamically and other validations when the form is submitted. As in static validation, **HDS recommends using validation summary pattern** for errors that are found on form submit. You can read more about the [validation summary pattern in its own section](#validation-summary-pattern).
 
 The advantage of hybrid validation is that because form controls are validated dynamically, the user generally receives less errors after the form submit. **It is always recommended to use dynamic validation approach first** but if some static validation is required, the hybrid validation approach can be used.
 
-[See interactive hybrid form validation example in HDS Storybook](/)
+[See interactive hybrid form validation example in HDS Storybook](/storybook/react/iframe.html?id=patterns-form-validation--hybrid&viewMode=story)
 
-[See hybrid form validation code example in HDS Storybook](/)
+[See hybrid form validation code example in HDS Storybook](/storybook/react/?path=/docs/patterns-form-validation--static#hybrid)
 
 ---
 
@@ -126,8 +129,14 @@ If the form control has an assistive text, it is displayed below the validation 
 </div>
 
 #### 2. Success message
-Success message indicates that an inputted value has passed form validation. Success messages are optional and they are mostly meant for complex inputs where the user must know if the input passed the validation (e.g. passwords).
+Success message indicates that an inputted value has passed form validation. Success messages are optional and **they should only be used when the user must know if the input passed the validation**. This is often the case for the following cases:
+- The input format is very complex such as requiring a specific amount of characters or certain special characters (e.g. a social security number)
+- When it is critical for the process that the user inputs the information correctly
+- When the user is not easily able to determine if the input is valid or not (e.g. new password inputs, inputs validated dynamically from the backend)
 
+<Image src="../../static/patterns/form-validation/form-validation-message-success@2x.png" alt="Form control success state" style="max-width:376px;" viewable />
+
+It is better to avoid using success validation if there is not clear need for it. Using redundant success messages creates unnecessary visual noise to the view.
 
 ### Validation summary pattern
 
@@ -146,4 +155,4 @@ The usage of the error summary component is triggered when the form is submitted
 
 <Image src="../../static/patterns/form-validation/validation-pattern-example@2x.png" alt="Validation summary example" style="max-width:432px;" viewable />
 
-You can see the validation summary pattern in action in HDS Storybook [static validation example]() and [hybrid validation example]().
+You can see the validation summary pattern in action in HDS Storybook [static validation example](/storybook/react/iframe.html?id=patterns-form-validation--static&viewMode=story) and [hybrid validation example](/storybook/react/iframe.html?id=patterns-form-validation--hybrid&viewMode=story).
