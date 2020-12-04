@@ -4,7 +4,6 @@ export default {
     controls: { hideNoControlsWarning: true },
   },
 };
-
-export * from './validationStatic.stories';
 export * from './validationDynamic.stories';
+export * from './validationStatic.stories';
 export * from './validationHybrid.stories';
