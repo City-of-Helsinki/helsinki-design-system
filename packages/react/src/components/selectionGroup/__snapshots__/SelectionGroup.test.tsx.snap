@@ -28,7 +28,9 @@ exports[`<SelectionGroup /> spec renders the component 1`] = `
           <label
             class="label"
             for="checkbox"
-          />
+          >
+            Foo
+          </label>
         </div>
       </div>
     </div>

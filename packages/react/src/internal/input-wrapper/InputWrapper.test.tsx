@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { axe } from 'jest-axe';
 
 import { InputWrapper } from './InputWrapper';
 
@@ -17,5 +18,14 @@ describe('<InputWrapper /> spec', () => {
       </InputWrapper>,
     );
     expect(asFragment()).toMatchSnapshot();
+  });
+  it('should not have basic accessibility issues', async () => {
+    const { container } = render(
+      <InputWrapper {...wrapperProps}>
+        <input id="test" />
+      </InputWrapper>,
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

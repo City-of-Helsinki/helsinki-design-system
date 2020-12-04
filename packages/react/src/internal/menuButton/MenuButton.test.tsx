@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { axe } from 'jest-axe';
 
 import { MenuButton } from './MenuButton';
 
@@ -12,5 +13,15 @@ describe('<MenuButton /> spec', () => {
       </MenuButton>,
     );
     expect(asFragment()).toMatchSnapshot();
+  });
+  it('should not have basic accessibility issues', async () => {
+    const { container } = render(
+      <MenuButton label="Foo">
+        <a href="#foo">Foo</a>
+        <a href="#bar">Bar</a>
+      </MenuButton>,
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

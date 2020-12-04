@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { axe } from 'jest-axe';
 
 import { Notification } from './Notification';
 
@@ -11,6 +12,11 @@ describe('<Notification /> spec', () => {
   it('renders the component', () => {
     const { asFragment } = render(<Notification label={label}>{body}</Notification>);
     expect(asFragment()).toMatchSnapshot();
+  });
+  it('should not have basic accessibility issues', async () => {
+    const { container } = render(<Notification label={label}>{body}</Notification>);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
   it('adds className prop to notification classes', () => {
     const { container } = render(
