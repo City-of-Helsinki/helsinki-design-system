@@ -117,6 +117,7 @@ export const Dynamic = () => {
 
   return (
     <div className="hds-example-form">
+      <h1 className="hds-example-form__main-title">Dynamic from validation example</h1>
       <form onSubmit={onSubmit} noValidate>
         <h2 className="hds-example-form__title">Residental parking permit application</h2>
         <div className="hds-example-form__required-info">All fields marked with * are required</div>

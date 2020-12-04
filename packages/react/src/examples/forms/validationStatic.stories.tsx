@@ -133,6 +133,7 @@ export const Static = () => {
 
   return (
     <div className="hds-example-form">
+      <h1 className="hds-example-form__main-title">Static from validation example</h1>
       <form onSubmit={onSubmit} noValidate>
         <h2 className="hds-example-form__title">Residental parking permit application</h2>
         {renderErrorSummary()}

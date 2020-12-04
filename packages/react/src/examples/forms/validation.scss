@@ -2,6 +2,13 @@
   margin: 0 auto;
   max-width: 792px;
 
+  &__main-title {
+    color: var(--color-bus);
+    font-size: var(--fontsize-heading-xl);
+    line-height: var(--lineheight-m);
+    margin: 0 0 var(--spacing-m) 0;
+  }
+
   &__title {
     color: var(--color-bus);
     font-size: var(--fontsize-heading-l);
