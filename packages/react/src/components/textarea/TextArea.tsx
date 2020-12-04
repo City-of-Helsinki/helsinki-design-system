@@ -144,7 +144,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
           onChange={onChange}
           ref={ref}
           required={required}
-          aria-describedby={ariaDescribedBy}
+          aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : null}
           {...rest}
         />
       </InputWrapper>

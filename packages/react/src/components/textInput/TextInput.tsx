@@ -154,7 +154,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           ref={ref}
           required={required}
           type={type}
-          aria-describedby={ariaDescribedBy}
+          aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : null}
           {...rest}
         />
       </InputWrapper>

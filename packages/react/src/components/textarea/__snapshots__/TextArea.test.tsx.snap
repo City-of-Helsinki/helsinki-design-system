@@ -15,7 +15,6 @@ exports[`<Textarea /> spec renders the component 1`] = `
       class="inputWrapper"
     >
       <textarea
-        aria-describedby=""
         class="input"
         id="hdsInput"
         placeholder="A placeholder text"
@@ -75,7 +74,6 @@ exports[`<Textarea /> spec renders the component with tooltip 1`] = `
       class="inputWrapper"
     >
       <textarea
-        aria-describedby=""
         class="input"
         id="hdsInput"
         placeholder="A placeholder text"
