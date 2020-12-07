@@ -165,3 +165,8 @@ The usage of the error summary component is triggered when the form is submitted
 You can see the validation summary pattern in action in HDS Storybook [static validation example](/storybook/react/iframe.html?id=patterns-form-validation--static&viewMode=story) and [hybrid validation example](/storybook/react/iframe.html?id=patterns-form-validation--hybrid&viewMode=story).
 
 ### Validation in multi-page forms
+<p><StatusLabel type="error" style={{marginRight: 'var(--spacing-3-xs)'}}>Coming soon</StatusLabel> <strong>The navigation component for multi-page forms has not yet been designed or implemented in HDS.</strong></p>
+
+HDS Form pattern suggests dividing longer forms into separate steps. You can read more about this in the [HDS Form pattern documentation](/patterns/forms#4-dividing-long-forms-into-separate-steps).
+
+**Validation is strongly recommended to be done separately for each page of the form.** This means that the user should not be able to proceed to the next form step before all the input fields have been validated on the current step. If some selection can make a selection in a previous step invalid, this should be clearly indicated to the user.
