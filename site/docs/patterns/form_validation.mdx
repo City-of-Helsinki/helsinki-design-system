@@ -129,7 +129,7 @@ If the form control has an assistive text, it is displayed below the validation 
 </div>
 
 ##### Fixing errors
-When the input is in the error state, the user will eventually try to correct the error.
+When the input is in the error state, the user will eventually try to correct the error. The way how the input reacts to this depends on the validation method in use.
 
 **In dynamic and hybrid validation**, checking if the error has been fixed should be done after each character change. For example, if the user has forgotten to input @ sign for an email input, the error disappears immediately when the @ sign is added.
 
@@ -163,3 +163,5 @@ The usage of the error summary component is triggered when the form is submitted
 <Image src="../../static/patterns/form-validation/validation-pattern-example@2x.png" alt="Validation summary example" style="max-width:432px;" viewable />
 
 You can see the validation summary pattern in action in HDS Storybook [static validation example](/storybook/react/iframe.html?id=patterns-form-validation--static&viewMode=story) and [hybrid validation example](/storybook/react/iframe.html?id=patterns-form-validation--hybrid&viewMode=story).
+
+### Validation in multi-page forms
