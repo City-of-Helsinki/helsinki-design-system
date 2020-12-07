@@ -128,6 +128,13 @@ If the form control has an assistive text, it is displayed below the validation 
     </ul>
 </div>
 
+##### Fixing errors
+When the input is in the error state, the user will eventually try to correct the error.
+
+**In dynamic and hybrid validation**, checking if the error has been fixed should be done after each character change. For example, if the user has forgotten to input @ sign for an email input, the error disappears immediately when the @ sign is added.
+
+**In static validation**, checking if the error has been fixed dynamically is not possible. The only way to check if the errors have been fixed is to submit the form again.
+
 #### 2. Success message
 Success message indicates that an inputted value has passed form validation. Success messages are optional and **they should only be used when the user must know if the input passed the validation**. This is often the case for the following cases:
 - The input format is very complex such as requiring a specific amount of characters or certain special characters (e.g. a social security number)
