@@ -1,0 +1,66 @@
+.accordion {
+  --header-font-color: var(--color-black-90);
+  --header-font-size: var(--fontsize-heading-m);
+  --header-line-height: var(--lineheight-m);
+  --spacing: var(--spacing-m);
+  --button-border-color-hover: var(--color-coat-of-arms);
+  --border-color: var(--color-black-60);
+  --button-size: 28px;
+
+  border-bottom: 1px solid var(--border-color);
+
+  &.card {
+    border: 2px solid var(--border-color);
+    padding-left: var(--spacing);
+    padding-right: var(--spacing);
+  }
+}
+
+.accordionHeader {
+  position: relative;
+  font-size: var(--header-font-size);
+  font-weight: bold;
+  line-height: var(--header-line-height);
+  padding-top: var(--spacing);
+  padding-bottom: var(--spacing);
+  padding-right: var(--button-size);
+}
+
+.accordionButton {
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  width: var(--button-size);
+  height: var(--button-size);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--header-font-color);
+
+  position: absolute;
+  top: 50%;
+  right: 0;
+
+  margin-top: calc(-1*(var(--button-size)/2));
+  padding: 0;
+
+  &:focus {
+    outline: none;
+    border: 2px solid var(--button-border-color-hover, transparent);
+  }
+
+  .accordionButtonIcon {
+    width: 100%;
+    height: 100%;
+    color: black;
+  }
+}
+
+.accordionContent {
+  font-size: var(--fontsize-body-m);
+  line-height: var(--lineheight-l);
+  padding-bottom: var(--spacing);
+}
