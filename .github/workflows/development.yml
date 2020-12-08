@@ -5,6 +5,7 @@ on:
 
 jobs:
   build-test:
+    if: ${{ !contains('hotfix/', github.ref) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
