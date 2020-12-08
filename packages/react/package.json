@@ -1,6 +1,6 @@
 {
   "name": "hds-react",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "React components for the Helsinki Design System",
   "author": "Anssi Lehtonen <lehtovaaralainen@gmail.com>",
   "contributors": [
@@ -102,7 +102,7 @@
     "@popperjs/core": "2.5.3",
     "@react-aria/visually-hidden": "3.2.0",
     "downshift": "6.0.6",
-    "hds-core": "0.17.0",
+    "hds-core": "0.18.0",
     "lodash.isequal": "4.5.0",
     "lodash.uniqueid": "4.0.1",
     "react-merge-refs": "1.1.0",
