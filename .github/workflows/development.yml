@@ -58,7 +58,7 @@ jobs:
 
   visual-tests:
     needs: build-test
-    if: ${{ !contains('hotfix/', github.ref) }}
+    if: "!contains(github.ref, 'hotfix')"
     runs-on: ubuntu-latest
 
     strategy:
