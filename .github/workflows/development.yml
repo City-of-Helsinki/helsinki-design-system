@@ -2,10 +2,12 @@ name: development
 
 on:
   pull_request:
+  push:
+    branches:
+      - master
 
 jobs:
   build-test:
-    if: ${{ !contains('hotfix/', github.ref) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -51,7 +53,7 @@ jobs:
           path: |
             packages/react/.loki
             packages/react/storybook-static
-            packages/react/package.json
+            packages/react/.lokirc.json
           retention-days: 1
 
   visual-tests:
@@ -80,10 +82,10 @@ jobs:
         run: |
           sudo apt update
           sudo apt install graphicsmagick -y
-          yarn add loki
+          yarn add loki@0.26.0
 
       - name: visually test react package with ${{ matrix.loki_configuration }}
-        run: yarn visual-test ${{ matrix.loki_configuration }}
+        run: ./node_modules/.bin/loki test --requireReference --verboseRenderer --reactUri file:./storybook-static visual-test ${{ matrix.loki_configuration }}
 
       - name: upload reference and actual images with ${{ matrix.loki_configuration }} in case of failure
         uses: actions/upload-artifact@v2
