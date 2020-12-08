@@ -167,108 +167,113 @@ const getAutoCloseTransition = (duration: number) => ({
 const ConditionalVisuallyHidden = ({ visuallyHidden, children }) =>
   visuallyHidden ? <VisuallyHidden>{children}</VisuallyHidden> : children;
 
-export const Notification = ({
-  autoClose = false,
-  autoCloseDuration = 6000,
-  children,
-  className = '',
-  closeAnimationDuration = 85,
-  closeButtonLabelText,
-  dataTestId,
-  dismissible = false,
-  displayAutoCloseProgress = true,
-  invisible = false,
-  label,
-  position = 'inline',
-  onClose = () => null,
-  size = 'default',
-  style,
-  type = 'info',
-}: NotificationProps) => {
-  // only allow size 'large' for inline notifications
-  if (position !== 'inline' && size === 'large') {
-    // eslint-disable-next-line no-console
-    console.warn(`Size '${size}' is only allowed for inline positioned notifications`);
-    // eslint-disable-next-line no-param-reassign
-    size = 'default';
-  }
-  // don't allow autoClose for inline notifications
-  if (position === 'inline' && autoClose) {
-    // eslint-disable-next-line no-console
-    console.warn(`The 'autoClose' property is not allowed for inline positioned notifications`);
-    // eslint-disable-next-line no-param-reassign
-    autoClose = false;
-  }
+export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
+  (
+    {
+      autoClose = false,
+      autoCloseDuration = 6000,
+      children,
+      className = '',
+      closeAnimationDuration = 85,
+      closeButtonLabelText,
+      dataTestId,
+      dismissible = false,
+      displayAutoCloseProgress = true,
+      invisible = false,
+      label,
+      position = 'inline',
+      onClose = () => null,
+      size = 'default',
+      style,
+      type = 'info',
+    }: NotificationProps,
+    ref,
+  ) => {
+    // only allow size 'large' for inline notifications
+    if (position !== 'inline' && size === 'large') {
+      // eslint-disable-next-line no-console
+      console.warn(`Size '${size}' is only allowed for inline positioned notifications`);
+      // eslint-disable-next-line no-param-reassign
+      size = 'default';
+    }
+    // don't allow autoClose for inline notifications
+    if (position === 'inline' && autoClose) {
+      // eslint-disable-next-line no-console
+      console.warn(`The 'autoClose' property is not allowed for inline positioned notifications`);
+      // eslint-disable-next-line no-param-reassign
+      autoClose = false;
+    }
 
-  // internal state used for transitions
-  const [open, setOpen] = useState(true);
+    // internal state used for transitions
+    const [open, setOpen] = useState(true);
 
-  const handleClose = useCallback(() => {
-    // trigger close animation
-    setOpen(false);
-    // emit onClose callback after the animation is completed
-    setTimeout(() => onClose(), closeAnimationDuration);
-  }, [onClose, closeAnimationDuration]);
+    const handleClose = useCallback(() => {
+      // trigger close animation
+      setOpen(false);
+      // emit onClose callback after the animation is completed
+      setTimeout(() => onClose(), closeAnimationDuration);
+    }, [onClose, closeAnimationDuration]);
 
-  useEffect(() => {
-    const interval = setTimeout(() => {
-      if (autoClose) handleClose();
-    }, autoCloseDuration);
-    return () => clearTimeout(interval);
-  }, [autoClose, autoCloseDuration, handleClose]);
+    useEffect(() => {
+      const interval = setTimeout(() => {
+        if (autoClose) handleClose();
+      }, autoCloseDuration);
+      return () => clearTimeout(interval);
+    }, [autoClose, autoCloseDuration, handleClose]);
 
-  // icon
-  const Icon = icons[type];
+    // icon
+    const Icon = icons[type];
 
-  // notification transitions
-  const openTransitionProps = position !== 'inline' ? getOpenTransition(position) : {};
-  const closeTransitionProps = getCloseTransition(closeAnimationDuration);
-  const autoCloseTransitionProps = displayAutoCloseProgress ? getAutoCloseTransition(autoCloseDuration) : {};
+    // notification transitions
+    const openTransitionProps = position !== 'inline' ? getOpenTransition(position) : {};
+    const closeTransitionProps = getCloseTransition(closeAnimationDuration);
+    const autoCloseTransitionProps = displayAutoCloseProgress ? getAutoCloseTransition(autoCloseDuration) : {};
 
-  const notificationTransition = useSpring(open ? openTransitionProps : closeTransitionProps);
-  const autoCloseTransition = useSpring(autoCloseTransitionProps);
+    const notificationTransition = useSpring(open ? openTransitionProps : closeTransitionProps);
+    const autoCloseTransition = useSpring(autoCloseTransitionProps);
 
-  // Set role="alert" for non-inline notifications
-  const role = position !== 'inline' ? 'alert' : null;
+    // Set role="alert" for non-inline notifications
+    const role = position !== 'inline' ? 'alert' : null;
 
-  return (
-    <ConditionalVisuallyHidden visuallyHidden={invisible}>
-      <animated.section
-        // there is an issue with react-spring -rc3 and a new version of @types/react: https://github.com/react-spring/react-spring/issues/1102
-        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-        style={{ ...notificationTransition, ...(style as any) }}
-        className={classNames(
-          styles[position],
-          styles.notification,
-          styles[size],
-          styles[type],
-          autoClose && styles.noBorder,
-          className,
-        )}
-        aria-label="Notification"
-        aria-atomic="true"
-        data-testid={dataTestId}
-      >
-        {autoClose && <animated.div style={autoCloseTransition} className={styles.autoClose} />}
-        <div className={styles.content} role={role}>
-          <div className={styles.label} role="heading" aria-level={2}>
-            <Icon className={styles.icon} aria-hidden />
-            <ConditionalVisuallyHidden visuallyHidden={size === 'small'}>{label}</ConditionalVisuallyHidden>
+    return (
+      <ConditionalVisuallyHidden visuallyHidden={invisible}>
+        <animated.section
+          // there is an issue with react-spring -rc3 and a new version of @types/react: https://github.com/react-spring/react-spring/issues/1102
+          // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+          style={{ ...notificationTransition, ...(style as any) }}
+          className={classNames(
+            styles[position],
+            styles.notification,
+            styles[size],
+            styles[type],
+            autoClose && styles.noBorder,
+            className,
+          )}
+          aria-label="Notification"
+          aria-atomic="true"
+          data-testid={dataTestId}
+        >
+          {autoClose && <animated.div style={autoCloseTransition} className={styles.autoClose} />}
+          <div className={styles.content} role={role} ref={ref}>
+            <div className={styles.label} role="heading" aria-level={2}>
+              <Icon className={styles.icon} aria-hidden />
+              <ConditionalVisuallyHidden visuallyHidden={size === 'small'}>{label}</ConditionalVisuallyHidden>
+            </div>
+            {children && <div className={styles.body}>{children}</div>}
           </div>
-          {children && <div className={styles.body}>{children}</div>}
-        </div>
-        {dismissible && (
-          <button
-            className={classNames(styles.close, styles[type])}
-            type="button"
-            title={closeButtonLabelText}
-            aria-label={closeButtonLabelText}
-            onClick={handleClose}
-          >
-            <IconCross aria-hidden />
-          </button>
-        )}
-      </animated.section>
-    </ConditionalVisuallyHidden>
-  );
-};
+          {dismissible && (
+            <button
+              className={classNames(styles.close, styles[type])}
+              type="button"
+              title={closeButtonLabelText}
+              aria-label={closeButtonLabelText}
+              onClick={handleClose}
+            >
+              <IconCross aria-hidden />
+            </button>
+          )}
+        </animated.section>
+      </ConditionalVisuallyHidden>
+    );
+  },
+);

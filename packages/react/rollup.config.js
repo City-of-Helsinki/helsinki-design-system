@@ -82,6 +82,7 @@ export default [
       'components/Combobox/index': 'src/components/dropdown/combobox/index.ts',
       'components/Container/index': 'src/components/container/index.ts',
       'components/Dropdown/index': 'src/components/dropdown/dropdown/index.ts',
+      'components/ErrorSummary/index': 'src/components/errorSummary/index.ts',
       'components/Footer/index': 'src/components/footer/index.ts',
       'components/ImageWithCard/index': 'src/components/imageWithCard/index.ts',
       'components/Koros/index': 'src/components/koros/index.ts',

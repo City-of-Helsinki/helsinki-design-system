@@ -3,10 +3,9 @@
 exports[`<RequiredIndicator /> spec renders the component 1`] = `
 <DocumentFragment>
   <span
-    aria-hidden="true"
     class="indicator"
   >
-    *
+     *
   </span>
 </DocumentFragment>
 `;

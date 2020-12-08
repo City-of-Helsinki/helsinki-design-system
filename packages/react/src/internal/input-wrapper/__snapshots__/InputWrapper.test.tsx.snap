@@ -20,6 +20,7 @@ exports[`<InputWrapper /> spec renders the component 1`] = `
     </div>
     <div
       class="helperText"
+      id="test-helper"
     >
       helper text
     </div>

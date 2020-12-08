@@ -11,6 +11,10 @@
   composes: hds-text-input__input from 'hds-core/lib/components/text-input/text-input.css';
 }
 
+.errorText {
+  composes: hds-text-input__error-text from 'hds-core/lib/components/text-input/text-input.css';
+}
+
 .helperText {
   composes: hds-text-input__helper-text from 'hds-core/lib/components/text-input/text-input.css';
 }
@@ -19,8 +23,16 @@
   composes: hds-text-input__helper-text from 'hds-core/lib/components/text-input/text-input.css';
 }
 
+.successText {
+  composes: hds-text-input__success-text from 'hds-core/lib/components/text-input/text-input.css';
+}
+
 .invalid {
   composes: hds-text-input--invalid from 'hds-core/lib/components/text-input/text-input.css';
+}
+
+.success {
+  composes: hds-text-input--success from 'hds-core/lib/components/text-input/text-input.css';
 }
 
 .readOnly {

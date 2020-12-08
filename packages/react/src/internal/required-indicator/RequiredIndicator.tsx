@@ -9,7 +9,8 @@ type RequiredIndicatorProps = {
 };
 
 export const RequiredIndicator = ({ className, style }: RequiredIndicatorProps) => (
-  <span aria-hidden className={classNames(styles.indicator, className)} style={style}>
+  <span className={classNames(styles.indicator, className)} style={style}>
+    {' '}
     *
   </span>
 );

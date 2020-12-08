@@ -112,3 +112,28 @@ export const Required = () => `
     </div>
   </fieldset>
 `;
+
+export const Invalid = () => `
+  <fieldset class="hds-selection-group">
+    <legend class="hds-selection-group__legend">
+      Label
+      <span class="hds-selection-group__required">*</span>
+    </legend>
+    <div class="hds-selection-group__items">
+      ${getCheckboxes('Required')}
+    </div>
+    <div class="hds-selection-group__error-text">Error text</div>
+  </fieldset>
+  <br/>
+  <br/>
+  <fieldset class="hds-selection-group">
+    <legend class="hds-selection-group__legend">
+      Label
+      <span class="hds-selection-group__required">*</span>
+    </legend>
+    <div class="hds-selection-group__items">
+      ${getRadios('Required')}
+    </div>
+    <div class="hds-selection-group__error-text">Error text</div>
+  </fieldset>
+`;

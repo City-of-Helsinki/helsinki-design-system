@@ -20,6 +20,10 @@ export type SelectionGroupProps = React.PropsWithChildren<
      */
     direction?: Direction;
     /**
+     * The error text content that will be shown below the selection group
+     */
+    errorText?: string;
+    /**
      * If `true`, the label is displayed as required.
      */
     required?: boolean;
@@ -45,6 +49,7 @@ export type SelectionGroupProps = React.PropsWithChildren<
 export const SelectionGroup = ({
   label,
   direction = 'vertical',
+  errorText,
   required,
   tooltipLabel,
   tooltipButtonLabel,
@@ -89,6 +94,7 @@ export const SelectionGroup = ({
           <div className={styles.item}>{child}</div>
         ))}
       </div>
+      {errorText && <div className={styles.errorText}>{errorText}</div>}
     </fieldset>
   );
 };

@@ -19,6 +19,10 @@ export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
    */
   disabled?: boolean;
   /**
+   * The error text content that will be shown below the input
+   */
+  errorText?: string;
+  /**
    * The helper text content that will be shown below the input
    */
   helperText?: string;
@@ -31,7 +35,7 @@ export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
    */
   id: string;
   /**
-   * If `true`, the input and `helperText` will be displayed in an invalid state.
+   * If `true`, the input will be displayed in an invalid state.
    */
   invalid?: boolean;
   /**
@@ -62,6 +66,10 @@ export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
    * Override or extend the styles applied to the component
    */
   style?: React.CSSProperties;
+  /**
+   * The success text content that will be shown below the input
+   */
+  successText?: string;
   /**
    * Aria-label text for the tooltip
    */
@@ -94,6 +102,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       className = '',
       disabled = false,
       defaultValue,
+      errorText,
       helperText,
       hideLabel,
       invalid,
@@ -103,6 +112,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       onChange = () => null,
       required,
       style,
+      successText,
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
@@ -113,6 +123,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   ) => {
     const wrapperProps = {
       className,
+      errorText,
       helperText,
       hideLabel,
       id,
@@ -121,10 +132,16 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       labelText,
       required,
       style,
+      successText,
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
     };
+
+    // Compose aria-describedby attribute
+    const ariaDescribedBy = [helperText && `${id}-helper`, errorText && `${id}-error`, successText && `${id}-success`]
+      .filter((item) => item)
+      .join(' ');
 
     return (
       <InputWrapper {...wrapperProps}>
@@ -137,6 +154,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           ref={ref}
           required={required}
           type={type}
+          aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : null}
           {...rest}
         />
       </InputWrapper>

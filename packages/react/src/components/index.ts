@@ -4,6 +4,7 @@ export * from './checkbox';
 export * from './columns';
 export * from './container';
 export * from './dropdown';
+export * from './errorSummary';
 export * from './footer';
 export * from './imageWithCard';
 export * from './koros';

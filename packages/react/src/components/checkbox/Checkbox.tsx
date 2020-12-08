@@ -19,6 +19,10 @@ export type CheckboxProps = React.ComponentPropsWithoutRef<'input'> & {
    */
   disabled?: boolean;
   /**
+   * The error text content that will be shown below the checkbox
+   */
+  errorText?: string;
+  /**
    * The id of the input element
    */
   id: string;
@@ -51,6 +55,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       checked = false,
       className,
       disabled = false,
+      errorText,
       id,
       label,
       labelText,
@@ -79,11 +84,17 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           type="checkbox"
           disabled={disabled}
           checked={checked}
+          aria-describedby={errorText ? `${id}-error` : null}
           {...rest}
         />
         <label htmlFor={id} className={classNames(styles.label)}>
           {label || labelText}
         </label>
+        {errorText && (
+          <div className={styles.errorText} id={`${id}-error`}>
+            {errorText}
+          </div>
+        )}
       </div>
     );
   },

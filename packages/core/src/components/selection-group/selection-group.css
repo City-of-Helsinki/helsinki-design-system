@@ -1,7 +1,10 @@
+@svg-load icon url(../../svg/ui/alert-circle.svg);
+
 .hds-selection-group {
   --spacing-col: 1.25rem;
   --spacing-row: var(--spacing-s);
   --label-color-default: var(--color-black-90);
+  --icon-size: var(--spacing-m);
 
   border: 0;
   padding: 0;
@@ -41,4 +44,25 @@
 
 .hds-selection-group__items--horizontal {
   grid-auto-flow: column;
+}
+
+.hds-selection-group__error-text {
+  position: relative;
+  color: var(--color-error);
+  display: block;
+  font-size: var(--fontsize-body-m);
+  margin-top: var(--spacing-xs);
+  padding-left: calc(var(--icon-size) + var(--spacing-2-xs));
+}
+.hds-selection-group__error-text::before {
+  background: var(--color-error);
+  content: '';
+  height: var(--icon-size);
+  mask-image: svg-inline(icon);
+  -webkit-mask-image: svg-inline(icon);
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--icon-size);
 }
