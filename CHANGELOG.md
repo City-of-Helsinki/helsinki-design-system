@@ -6,6 +6,61 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.18.0] - December 8, 2020
+### Design kit
+#### Added
+- [Form Components] Search field input symbols
+- [Form Components] Search suggestion symbols
+- [Form Components] Error summary symbols. These can be used to list all errors in a form when using a static validation approach.
+- [Form Components] Error state for Checkbox, Radio button and Selection group symbols
+- [Form Components] Success state for Text Input and Text Area symbols
+- [Typography] Default link style for small sized medium body text
+
+#### Changed
+- Updated all HDS library files to Sketch 70 file version
+- [Form Components] Renamed “Text field/01 Input/06 Fixed” to “Text field/01 Input/07 Fixed”
+- [Typography] Default link text style colour from #0072c6 to #0000bf to ensure better contrast on varying backgrounds
+
+#### Fixed
+- [Form Components] Incorrect order numbering in TextInput example artboards
+
+#### Removed
+- [Form Components] Redundant internal symbols
+
+### Documentation
+#### Added
+- Documentation for the SearchInput component
+- Documentation for the Form validation pattern
+
+#### Changed
+- Updated Roapmap to reflect the current state and plans of the project
+
+### Core
+#### Changed
+- [TextInput, TextArea] Error icon moved below the input next to the error text (in [#320](https://github.com/City-of-Helsinki/helsinki-design-system/pull/320))
+
+#### Added
+- New component: Error summary (in [#320](https://github.com/City-of-Helsinki/helsinki-design-system/pull/320))
+- [Text input, textarea, checkbox, selection group] Added error text for validation error message (in [#320](https://github.com/City-of-Helsinki/helsinki-design-system/pull/320))
+- [Text input, textArea] Added success text (in [#320](https://github.com/City-of-Helsinki/helsinki-design-system/pull/320))
+
+### React
+#### Changed
+- [TextInput, TextArea] Error icon moved below the input next to the error text (in [#320](https://github.com/City-of-Helsinki/helsinki-design-system/pull/320))
+
+#### Removed
+- Removed `aria-hidden` attribute from input required indicator ("*") (in [#320](https://github.com/City-of-Helsinki/helsinki-design-system/pull/320))
+
+#### Added
+- New component: ErrorSummary (in [#320](https://github.com/City-of-Helsinki/helsinki-design-system/pull/320))
+- New component: SearchInput (in [#317](https://github.com/City-of-Helsinki/helsinki-design-system/pull/317))
+- Added examples of form validation using Yup and Formik (in [#320](https://github.com/City-of-Helsinki/helsinki-design-system/pull/320))
+- [TextInput, TextArea] Added `successText` prop for success state message (in [#320](https://github.com/City-of-Helsinki/helsinki-design-system/pull/320))
+- [TextInput, TextArea, Checkbox, SelectionGroup] Added `errorText` prop for validation error message (in [#320](https://github.com/City-of-Helsinki/helsinki-design-system/pull/320))
+- [TextInput, TextArea] Added `aria-describedby` input attribute to reference error text, success text and assistive text (in [#320](https://github.com/City-of-Helsinki/helsinki-design-system/pull/320))
+- Visual regression tests using [Loki](https://loki.js.org/) (in [#323](https://github.com/City-of-Helsinki/helsinki-design-system/pull/323))
+- Accessibility tests using `jest-axe` (in [#334](https://github.com/City-of-Helsinki/helsinki-design-system/pull/323))
+
 ## [0.17.0] - November 24, 2020
 ### Design kit
 #### Changed
