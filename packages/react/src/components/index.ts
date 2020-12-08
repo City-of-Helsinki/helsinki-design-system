@@ -13,6 +13,7 @@ export * from './logo';
 export * from './navigation';
 export * from './notification';
 export * from './radioButton';
+export * from './searchInput';
 export * from './section';
 export * from './selectionGroup';
 export * from './statusLabel';
