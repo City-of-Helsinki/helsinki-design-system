@@ -43,10 +43,12 @@ jobs:
         working-directory: ./packages/react
       
       - name: build storybook for react
+        if: ${{ !(contains(github.head_ref, 'hotfix') || contains(github.ref, 'hotfix')) }}
         run: yarn build-storybook
         working-directory: ./packages/react
 
       - name: Store storybook as artifact
+        if: ${{ !(contains(github.head_ref, 'hotfix') || contains(github.ref, 'hotfix')) }}
         uses: actions/upload-artifact@v2
         with:
           name: storybook-${{ github.sha }}
@@ -56,9 +58,10 @@ jobs:
             packages/react/.lokirc.json
           retention-days: 1
 
-  visual-tests:
+  visual-tests: 
     needs: build-test
-    if: "!contains(github.ref, 'hotfix')"
+    # No visual testing in hotfixes
+    if: ${{ !(contains(github.head_ref, 'hotfix') || contains(github.ref, 'hotfix')) }}
     runs-on: ubuntu-latest
 
     strategy:
