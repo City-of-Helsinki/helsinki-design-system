@@ -1,18 +1,28 @@
 .accordion {
+  --background-color: var(--colro-white);
+  --border-color: var(--color-black-60);
+  --padding-horizontal: var(--spacing-m);
+  --padding-vertical: var(--spacing-m);
   --header-font-color: var(--color-black-90);
   --header-font-size: var(--fontsize-heading-m);
   --header-line-height: var(--lineheight-m);
-  --spacing: var(--spacing-m);
-  --button-border-color-hover: var(--color-coat-of-arms);
-  --border-color: var(--color-black-60);
   --button-size: 28px;
+  --button-border-color-hover: var(--color-coat-of-arms);
+  --content-font-size: var(--fontsize-body-m);
+  --content-line-height: var(--lineheight-l);
 
-  border-bottom: 1px solid var(--border-color);
+  &:not(.card) {
+    border-bottom: 1px solid var(--border-color);
+  }
 
   &.card {
+    background-color: var(--background-color);
+    padding-left: var(--padding-horizontal);
+    padding-right: var(--padding-horizontal);
+  }
+
+  &.border {
     border: 2px solid var(--border-color);
-    padding-left: var(--spacing);
-    padding-right: var(--spacing);
   }
 }
 
@@ -21,8 +31,8 @@
   font-size: var(--header-font-size);
   font-weight: bold;
   line-height: var(--header-line-height);
-  padding-top: var(--spacing);
-  padding-bottom: var(--spacing);
+  padding-top: var(--padding-vertical);
+  padding-bottom: var(--padding-vertical);
   padding-right: var(--button-size);
 }
 
@@ -55,12 +65,12 @@
   .accordionButtonIcon {
     width: 100%;
     height: 100%;
-    color: black;
+    color: var(--header-font-color);
   }
 }
 
 .accordionContent {
-  font-size: var(--fontsize-body-m);
-  line-height: var(--lineheight-l);
-  padding-bottom: var(--spacing);
+  font-size: var(--content-font-size);
+  line-height: var(--content-line-height);
+  padding-bottom: var(--padding-vertical);
 }
