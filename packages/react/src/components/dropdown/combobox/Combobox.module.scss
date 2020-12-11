@@ -68,7 +68,7 @@
 
   &::placeholder {
     color: var(--placeholder-color);
-    line-height: normal;
+    opacity: 1;
   }
 
   &:disabled::placeholder {
