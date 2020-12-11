@@ -39,6 +39,7 @@ export const CardAccordion = (args) => (
         '--header-line-height': 'var(--lineheight-m)',
         '--button-size': '28px',
         '--button-border-color-hover': 'var(--color-coat-of-arms)',
+        '--content-font-color': 'var(--color-black-90)',
         '--content-font-size': 'var(--fontsize-body-m)',
         '--content-line-height': 'var(--lineheight-l)',
       }}
