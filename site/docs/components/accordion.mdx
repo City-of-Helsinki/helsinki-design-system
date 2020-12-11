@@ -5,7 +5,7 @@ route: /components/accordion
 ---
 
 import { Playground } from "docz";
-import { Accordion, StatusLabel } from "hds-react";
+import { Accordion, StatusLabel, useAccordion, IconAngleUp, IconAngleDown, Button, Card, SelectionGroup, Checkbox } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
 import LargeParagraph from "../../src/components/LargeParagraph";
@@ -75,11 +75,6 @@ You can also use HDS Cards as a container for your Accordions. Cards offer the s
     />
 </Playground>
 
-#### Core code example:
-```html
-
-```
-
 #### React code example:
 ```tsx
 <Accordion 
@@ -102,6 +97,51 @@ You can visually customize HDS Accordions
         children="To publish your data, open your profile settings and click buttton 'Publish'."
         style={{ maxWidth: '360px'}}
         theme={{
+            '--background-color': 'var(--color-white)',
+            '--border-color': 'var(--color-coat-of-arms)',
+            '--padding-horizontal': 'var(--spacing-m)',
+            '--padding-vertical': 'var(--spacing-m)',
+            '--header-font-color': 'var(--color-black-90)',
+            '--header-font-size': 'var(--fontsize-heading-m)',
+            '--header-line-height': 'var(--lineheight-m)',
+            '--button-size': '28px',
+            '--button-border-color-hover': 'var(--color-coat-of-arms)',
+            '--content-font-color': 'var(--color-black-90)',
+            '--content-font-size': 'var(--fontsize-body-m)',
+            '--content-line-height': 'var(--lineheight-l)',
+        }}
+    />
+
+    <Accordion 
+        card 
+        heading="How to publish data?"
+        children="To publish your data, open your profile settings and click buttton 'Publish'."
+        style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)'}}
+        theme={{
+            '--background-color': 'var(--color-bus)',
+            '--padding-horizontal': 'var(--spacing-m)',
+            '--padding-vertical': 'var(--spacing-m)',
+            '--header-font-color': 'var(--color-white)',
+            '--header-font-size': 'var(--fontsize-heading-m)',
+            '--header-line-height': 'var(--lineheight-m)',
+            '--button-size': '28px',
+            '--button-border-color-hover': 'var(--color-white)',
+            '--content-font-color': 'var(--color-white)',
+            '--content-font-size': 'var(--fontsize-body-m)',
+            '--content-line-height': 'var(--lineheight-l)',
+        }}
+    />
+</Playground>
+
+#### React code example:
+```tsx
+<Accordion 
+    card 
+    border
+    heading="How to publish data?"
+    children="To publish your data, open your profile settings and click buttton 'Publish'."
+    style={{ maxWidth: '360px'}}
+    theme={{
         '--background-color': 'var(--color-white)',
         '--border-color': 'var(--color-coat-of-arms)',
         '--padding-horizontal': 'var(--spacing-m)',
@@ -111,17 +151,18 @@ You can visually customize HDS Accordions
         '--header-line-height': 'var(--lineheight-m)',
         '--button-size': '28px',
         '--button-border-color-hover': 'var(--color-coat-of-arms)',
+        '--content-font-color': 'var(--color-black-90)',
         '--content-font-size': 'var(--fontsize-body-m)',
         '--content-line-height': 'var(--lineheight-l)',
-      }}
-    />
+    }}
+/>
 
-    <Accordion 
-        card 
-        heading="How to publish data?"
-        children="To publish your data, open your profile settings and click buttton 'Publish'."
-        style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)'}}
-        theme={{
+<Accordion 
+    card 
+    heading="How to publish data?"
+    children="To publish your data, open your profile settings and click buttton 'Publish'."
+    style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)'}}
+    theme={{
         '--background-color': 'var(--color-bus)',
         '--padding-horizontal': 'var(--spacing-m)',
         '--padding-vertical': 'var(--spacing-m)',
@@ -130,37 +171,67 @@ You can visually customize HDS Accordions
         '--header-line-height': 'var(--lineheight-m)',
         '--button-size': '28px',
         '--button-border-color-hover': 'var(--color-white)',
+        '--content-font-color': 'var(--color-white)',
         '--content-font-size': 'var(--fontsize-body-m)',
         '--content-line-height': 'var(--lineheight-l)',
-      }}
-    />
-</Playground>
-
-#### Core code example:
-```html
-
-```
-
-#### React code example:
-```tsx
-
+    }}
+/>
 ```
 
 ### Custom accordion
 If the basic accordion components do not fit for your needs, you can build a custom accordion by using HDS provided accordion elements.
 
 <Playground>
-
+{() => {
+    const initiallyOpen = false;
+    const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen });
+    const icon = isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />;
+    const [checkedItems, setCheckedItems] = React.useState({});
+    const onChange = (event) => {
+      setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
+    };
+    return (
+        <>
+            <Button iconLeft={icon} {...buttonProps}>
+                Advanced filters
+            </Button>
+            <Card
+                border
+                aria-label="Advanced filters"
+                style={{ marginTop: 'var(--spacing-m)' }}
+                {...contentProps}
+            >
+                <SelectionGroup label="Filter by element" direction="horizontal">
+                    <Checkbox id="Plutonium" name="Plutonium" label="Plutonium" checked={checkedItems["Plutonium"]} onChange={onChange} />
+                    <Checkbox id="Americium" name="Americium" label="Americium" checked={checkedItems["Americium"]} onChange={onChange} />
+                    <Checkbox id="Copernicium" name="Copernicium" label="Copernicium" checked={checkedItems["Copernicium"]} onChange={onChange} />
+                </SelectionGroup>
+            </Card>
+        </>
+    );
+}}
 </Playground>
-
-#### Core code example:
-```html
-
-```
 
 #### React code example:
 ```tsx
+import { Accordion, useAccordion, Button, Card } from 'hds-react';
 
+const CustomAccordion = () => {
+    // Handle accordion state with useAccordion hook
+    const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen: false });
+
+    // Change icon based on accordion open state
+    const icon = isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />;
+
+    return (
+        <>
+            <Button iconLeft={icon} {...buttonProps}>Advanced filters</Button>
+            <Card border aria-label="Advanced filters" {...contentProps}>
+                Accordion content
+            </Card>
+        </>
+    );
+}
 ```
 
 ## Demos & API
