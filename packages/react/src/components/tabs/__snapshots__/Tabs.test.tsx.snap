@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Tabs /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="tabs"
+  >
+    <ul
+      class="tablist"
+      role="tablist"
+    >
+      <li
+        aria-controls="tab-0-panel"
+        aria-selected="true"
+        class="tab active"
+        role="tab"
+        tabindex="0"
+      >
+        Foo
+      </li>
+      <li
+        aria-controls="tab-1-panel"
+        aria-selected="false"
+        class="tab"
+        role="tab"
+        tabindex="-1"
+      >
+        Bar
+      </li>
+    </ul>
+    <div
+      class="tabPanel"
+      id="tab-0-panel"
+    >
+      Fizz
+    </div>
+  </div>
+</DocumentFragment>
+`;

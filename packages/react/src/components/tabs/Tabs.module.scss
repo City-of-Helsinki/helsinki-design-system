@@ -1,0 +1,89 @@
+.tabs {
+  --tablist-border-color: var(--color-black-20);
+  --tablist-border-size: 1px;
+  --tab-color: var(--color-bus);
+  --tab-font-size: var(--fontsize-body-m);
+  --tab-height: 48px;
+  --tab-min-width: 148px;
+  --tab-spacing: var(--spacing-s);
+  --tab-active-border-size: 5px;
+  --tab-active-border-color: var(--color-bus);
+  --tab-focus-outline-size: 2px;
+  --tab-focus-outline-color: var(--color-coat-of-arms);
+}
+.tabs.small {
+  --tab-min-width: 0;
+  --tab-font-size: var(--fontsize-body-s);
+  --tab-active-border-size: 3px;
+}
+
+.tablist {
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  white-space: nowrap;
+  padding: var(--tab-focus-outline-size);
+  overflow-x: hidden;
+  overflow-y: visible;
+  margin-bottom: -1px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: var(--tablist-border-size);
+    background: var(--tablist-border-color);
+    bottom: 1px;
+    left: 0;
+  }
+}
+
+.tab {
+  font-size: var(--tab-font-size);
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  min-width: var(--tab-min-width);
+  height: var(--tab-height);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: var(--tab-spacing);
+  padding-right: var(--tab-spacing);
+  cursor: pointer;
+  color: var(--tab-color);
+
+  &:focus {
+    outline: none;
+
+    &:after {
+      --size: calc(100% + var(--tab-focus-outline-size) * 2);
+      box-sizing: border-box;
+      position: absolute;
+      content: '';
+      width: var(--size);
+      height: var(--size);
+      border: var(--tab-focus-outline-size) solid var(--tab-focus-outline-color);
+      outline: none;
+      top: calc(-1 * var(--tab-focus-outline-size));
+      left: calc(-1 * var(--tab-focus-outline-size))
+    }
+  }
+
+  &.active {
+    &:before {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: var(--tab-active-border-size);
+      bottom: 0;
+      background-color: var(--tab-active-border-color);
+    }
+  }
+}
+
+.tabPanel {}
