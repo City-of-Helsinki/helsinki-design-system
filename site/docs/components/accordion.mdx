@@ -5,7 +5,7 @@ route: /components/accordion
 ---
 
 import { Playground } from "docz";
-import { Accordion, StatusLabel, useAccordion, IconAngleUp, IconAngleDown, Button, Card, SelectionGroup, Checkbox } from "hds-react";
+import { Accordion, StatusLabel, useAccordion, IconAngleUp, IconAngleDown, Button, Card, Select, Combobox } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
 import LargeParagraph from "../../src/components/LargeParagraph";
@@ -14,7 +14,8 @@ import Text from "../../src/components/Text";
 
 # Accordion
 
-<StatusLabel type="alert">Pre-release</StatusLabel>
+<StatusLabel>New</StatusLabel>
+<StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel>
 <StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
 
 <LargeParagraph>
@@ -47,11 +48,6 @@ Basic HDS Accordions provide two different visuals to choose from. These impleme
         style={{ maxWidth: '360px' }}
     />
 </Playground>
-
-#### Core code example:
-```html
-
-```
 
 #### React code example:
 ```tsx
@@ -87,7 +83,7 @@ You can also use HDS Cards as a container for your Accordions. Cards offer the s
 ```
 
 ### Accordion with custom styles
-You can visually customize HDS Accordions 
+You can easily customize HDS Accordions by giving them a `theme` prop.
 
 <Playground>
     <Accordion 
@@ -95,15 +91,15 @@ You can visually customize HDS Accordions
         border
         heading="How to publish data?"
         children="To publish your data, open your profile settings and click buttton 'Publish'."
-        style={{ maxWidth: '360px'}}
+        style={{ maxWidth: '480px'}}
         theme={{
             '--background-color': 'var(--color-white)',
-            '--border-color': 'var(--color-coat-of-arms)',
+            '--border-color': 'var(--color-brick)',
             '--padding-horizontal': 'var(--spacing-m)',
             '--padding-vertical': 'var(--spacing-m)',
             '--header-font-color': 'var(--color-black-90)',
-            '--header-font-size': 'var(--fontsize-heading-m)',
-            '--header-line-height': 'var(--lineheight-m)',
+            '--header-font-size': 'var(--fontsize-heading-l)',
+            '--header-line-height': 'var(--lineheight-l)',
             '--button-size': '28px',
             '--button-border-color-hover': 'var(--color-coat-of-arms)',
             '--content-font-color': 'var(--color-black-90)',
@@ -122,8 +118,8 @@ You can visually customize HDS Accordions
             '--padding-horizontal': 'var(--spacing-m)',
             '--padding-vertical': 'var(--spacing-m)',
             '--header-font-color': 'var(--color-white)',
-            '--header-font-size': 'var(--fontsize-heading-m)',
-            '--header-line-height': 'var(--lineheight-m)',
+            '--header-font-size': 'var(--fontsize-heading-s)',
+            '--header-line-height': 'var(--lineheight-s)',
             '--button-size': '28px',
             '--button-border-color-hover': 'var(--color-white)',
             '--content-font-color': 'var(--color-white)',
@@ -143,12 +139,12 @@ You can visually customize HDS Accordions
     style={{ maxWidth: '360px'}}
     theme={{
         '--background-color': 'var(--color-white)',
-        '--border-color': 'var(--color-coat-of-arms)',
+        '--border-color': 'var(--color-brick)',
         '--padding-horizontal': 'var(--spacing-m)',
         '--padding-vertical': 'var(--spacing-m)',
         '--header-font-color': 'var(--color-black-90)',
-        '--header-font-size': 'var(--fontsize-heading-m)',
-        '--header-line-height': 'var(--lineheight-m)',
+        '--header-font-size': 'var(--fontsize-heading-l)',
+        '--header-line-height': 'var(--lineheight-l)',
         '--button-size': '28px',
         '--button-border-color-hover': 'var(--color-coat-of-arms)',
         '--content-font-color': 'var(--color-black-90)',
@@ -167,8 +163,8 @@ You can visually customize HDS Accordions
         '--padding-horizontal': 'var(--spacing-m)',
         '--padding-vertical': 'var(--spacing-m)',
         '--header-font-color': 'var(--color-white)',
-        '--header-font-size': 'var(--fontsize-heading-m)',
-        '--header-line-height': 'var(--lineheight-m)',
+        '--header-font-size': 'var(--fontsize-heading-s)',
+        '--header-line-height': 'var(--lineheight-s)',
         '--button-size': '28px',
         '--button-border-color-hover': 'var(--color-white)',
         '--content-font-color': 'var(--color-white)',
@@ -198,14 +194,42 @@ If the basic accordion components do not fit for your needs, you can build a cus
             <Card
                 border
                 aria-label="Advanced filters"
-                style={{ marginTop: 'var(--spacing-m)' }}
+                style={{ marginTop: 'var(--spacing-m)'}}
                 {...contentProps}
             >
-                <SelectionGroup label="Filter by element" direction="horizontal">
-                    <Checkbox id="Plutonium" name="Plutonium" label="Plutonium" checked={checkedItems["Plutonium"]} onChange={onChange} />
-                    <Checkbox id="Americium" name="Americium" label="Americium" checked={checkedItems["Americium"]} onChange={onChange} />
-                    <Checkbox id="Copernicium" name="Copernicium" label="Copernicium" checked={checkedItems["Copernicium"]} onChange={onChange} />
-                </SelectionGroup>
+                <Select
+                    multiselect
+                    label="Filter by event category"
+                    placeholder="No selected categories"
+                    options={[
+                        { label: 'Culture & arts' },
+                        { label: 'Sports' },
+                        { label: 'Museums' },
+                        { label: 'Music' },
+                    ]}
+                    clearButtonAriaLabel="Clear all selections"
+                    selectedItemRemoveButtonAriaLabel="Remove ${value}"
+                    style={{ maxWidth: '360px'}}
+                />
+                <Select
+                    multiselect
+                    label="Filter by event location"
+                    placeholder="No selected locations"
+                    options={[
+                        { label: 'Haaga' },
+                        { label: 'Herttoniemi' },
+                        { label: 'Kallio' },
+                        { label: 'Kamppi' },
+                        { label: 'Laajasalo' },
+                        { label: 'Lauttasaari' },
+                        { label: 'Mellunkylä' },
+                        { label: 'Pasila' },
+                    ]}
+                    clearButtonAriaLabel="Clear all selections"
+                    selectedItemRemoveButtonAriaLabel="Remove ${value}"
+                    toggleButtonAriaLabel="Toggle menu"
+                    style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)'}}
+                />
             </Card>
         </>
     );
@@ -238,10 +262,10 @@ const CustomAccordion = () => {
 
 ### Core
 
-[Accordion in hds-core](/storybook/core/?path=/story/components-button--primary)
+_Not included in hds-core!_
 
 ### React
 
-[Accordion in hds-react](/storybook/react/?path=/story/components-button--primary)
+[Accordion in hds-react](/storybook/react/?path=/story/components-accordion--default)
 
-[Accordion API](/storybook/react/?path=/docs/components-button--primary)
+[Accordion API](/storybook/react/?path=/docs/components-accordion--default)
