@@ -64,7 +64,7 @@ export const Tab = ({ children, className, index, style }: TabProps) => {
       onFocus={onFocus}
       ref={ref}
     >
-      {children}
+      <span>{children}</span>
     </li>
   );
 };

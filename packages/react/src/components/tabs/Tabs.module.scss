@@ -25,39 +25,44 @@
   list-style: none;
   white-space: nowrap;
   padding: var(--tab-focus-outline-size);
-  overflow-x: hidden;
-  overflow-y: visible;
   margin-bottom: -1px;
-
-  &:before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: var(--tablist-border-size);
-    background: var(--tablist-border-color);
-    bottom: 1px;
-    left: 0;
-  }
+  overflow-x: hidden;
 }
 
 .tab {
-  font-size: var(--tab-font-size);
-  position: relative;
-  box-sizing: border-box;
   display: inline-block;
   margin: 0;
   padding: 0;
-  min-width: var(--tab-min-width);
-  height: var(--tab-height);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: var(--tab-spacing);
-  padding-right: var(--tab-spacing);
-  cursor: pointer;
-  color: var(--tab-color);
+  outline: none;
 
-  &:focus {
+  span {
+    font-size: var(--tab-font-size);
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    min-width: var(--tab-min-width);
+    height: var(--tab-height);
+    align-items: center;
+    justify-content: center;
+    padding-left: var(--tab-spacing);
+    padding-right: var(--tab-spacing);
+    cursor: pointer;
+    color: var(--tab-color);
+
+    &:before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: var(--tablist-border-size);
+      background: var(--tablist-border-color);
+      bottom: 0;
+      z-index: 100;
+    }
+  }
+
+  &:focus span {
     outline: none;
 
     &:after {
@@ -65,23 +70,25 @@
       box-sizing: border-box;
       position: absolute;
       content: '';
-      width: var(--size);
+      width: 100%;
       height: var(--size);
       border: var(--tab-focus-outline-size) solid var(--tab-focus-outline-color);
       outline: none;
       top: calc(-1 * var(--tab-focus-outline-size));
-      left: calc(-1 * var(--tab-focus-outline-size))
+      left: 0;
+      z-index: 200;
     }
   }
 
   &.active {
-    &:before {
-      position: absolute;
+    span:before {
       content: '';
+      position: absolute;
       width: 100%;
       height: var(--tab-active-border-size);
       bottom: 0;
       background-color: var(--tab-active-border-color);
+      z-index: 100;
     }
   }
 }

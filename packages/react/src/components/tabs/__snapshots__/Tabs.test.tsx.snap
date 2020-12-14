@@ -8,6 +8,7 @@ exports[`<Tabs /> spec renders the component 1`] = `
     <ul
       class="tablist"
       role="tablist"
+      style="transform: translateX(0px);"
     >
       <li
         aria-controls="tab-0-panel"
@@ -16,7 +17,9 @@ exports[`<Tabs /> spec renders the component 1`] = `
         role="tab"
         tabindex="0"
       >
-        Foo
+        <span>
+          Foo
+        </span>
       </li>
       <li
         aria-controls="tab-1-panel"
@@ -25,7 +28,9 @@ exports[`<Tabs /> spec renders the component 1`] = `
         role="tab"
         tabindex="-1"
       >
-        Bar
+        <span>
+          Bar
+        </span>
       </li>
     </ul>
     <div
