@@ -44,18 +44,20 @@ Basic HDS Accordions provide two different visuals to choose from. These impleme
 <Playground>
     <Accordion
         heading="How to publish data?"
-        children="To publish your data, open your profile settings and click buttton 'Publish'."
         style={{ maxWidth: '360px' }}
-    />
+    >
+        To publish your data, open your profile settings and click buttton 'Publish'.
+    </Accordion>
 </Playground>
 
 #### React code example:
 ```tsx
 <Accordion
     heading="How to publish data?"
-    children="To publish your data, open your profile settings and click buttton 'Publish'."
     style={{ maxWidth: '360px' }}
-/>
+>
+    To publish your data, open your profile settings and click buttton 'Publish'.
+</Accordion>
 ```
 
 ### Accordion with a card
@@ -66,9 +68,10 @@ You can also use HDS Cards as a container for your Accordions. Cards offer the s
         card 
         border
         heading="How to publish data?"
-        children="To publish your data, open your profile settings and click buttton 'Publish'."
         style={{ maxWidth: '360px'}}
-    />
+    >
+        To publish your data, open your profile settings and click buttton 'Publish'.
+    </Accordion>
 </Playground>
 
 #### React code example:
@@ -77,9 +80,10 @@ You can also use HDS Cards as a container for your Accordions. Cards offer the s
     card 
     border
     heading="How to publish data?"
-    children="To publish your data, open your profile settings and click buttton 'Publish'."
     style={{ maxWidth: '360px'}}
-/>
+>
+    To publish your data, open your profile settings and click buttton 'Publish'.
+</Accordion>
 ```
 
 ### Accordion with custom styles
@@ -90,7 +94,6 @@ You can easily customize HDS Accordions by giving them a `theme` prop.
         card 
         border
         heading="How to publish data?"
-        children="To publish your data, open your profile settings and click buttton 'Publish'."
         style={{ maxWidth: '480px'}}
         theme={{
             '--background-color': 'var(--color-white)',
@@ -106,12 +109,13 @@ You can easily customize HDS Accordions by giving them a `theme` prop.
             '--content-font-size': 'var(--fontsize-body-m)',
             '--content-line-height': 'var(--lineheight-l)',
         }}
-    />
+    >
+        To publish your data, open your profile settings and click buttton 'Publish'.
+    </Accordion>
 
     <Accordion 
         card 
         heading="How to publish data?"
-        children="To publish your data, open your profile settings and click buttton 'Publish'."
         style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)'}}
         theme={{
             '--background-color': 'var(--color-bus)',
@@ -126,7 +130,9 @@ You can easily customize HDS Accordions by giving them a `theme` prop.
             '--content-font-size': 'var(--fontsize-body-m)',
             '--content-line-height': 'var(--lineheight-l)',
         }}
-    />
+    >
+        To publish your data, open your profile settings and click buttton 'Publish'.
+    </Accordion>
 </Playground>
 
 #### React code example:
@@ -135,7 +141,6 @@ You can easily customize HDS Accordions by giving them a `theme` prop.
     card 
     border
     heading="How to publish data?"
-    children="To publish your data, open your profile settings and click buttton 'Publish'."
     style={{ maxWidth: '360px'}}
     theme={{
         '--background-color': 'var(--color-white)',
@@ -151,12 +156,13 @@ You can easily customize HDS Accordions by giving them a `theme` prop.
         '--content-font-size': 'var(--fontsize-body-m)',
         '--content-line-height': 'var(--lineheight-l)',
     }}
-/>
+>
+    To publish your data, open your profile settings and click buttton 'Publish'.
+</Accordion>
 
 <Accordion 
     card 
     heading="How to publish data?"
-    children="To publish your data, open your profile settings and click buttton 'Publish'."
     style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)'}}
     theme={{
         '--background-color': 'var(--color-bus)',
@@ -171,7 +177,9 @@ You can easily customize HDS Accordions by giving them a `theme` prop.
         '--content-font-size': 'var(--fontsize-body-m)',
         '--content-line-height': 'var(--lineheight-l)',
     }}
-/>
+>
+    To publish your data, open your profile settings and click buttton 'Publish'.
+</Accordion>
 ```
 
 ### Custom accordion
@@ -182,10 +190,6 @@ If the basic accordion components do not fit for your needs, you can build a cus
     const initiallyOpen = false;
     const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen });
     const icon = isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />;
-    const [checkedItems, setCheckedItems] = React.useState({});
-    const onChange = (event) => {
-      setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
-    };
     return (
         <>
             <Button iconLeft={icon} {...buttonProps}>
@@ -208,7 +212,7 @@ If the basic accordion components do not fit for your needs, you can build a cus
                         { label: 'Music' },
                     ]}
                     clearButtonAriaLabel="Clear all selections"
-                    selectedItemRemoveButtonAriaLabel="Remove ${value}"
+                    selectedItemRemoveButtonAriaLabel="Remove"
                     style={{ maxWidth: '360px'}}
                 />
                 <Select
@@ -226,8 +230,7 @@ If the basic accordion components do not fit for your needs, you can build a cus
                         { label: 'Pasila' },
                     ]}
                     clearButtonAriaLabel="Clear all selections"
-                    selectedItemRemoveButtonAriaLabel="Remove ${value}"
-                    toggleButtonAriaLabel="Toggle menu"
+                    selectedItemRemoveButtonAriaLabel="Remove"
                     style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)'}}
                 />
             </Card>

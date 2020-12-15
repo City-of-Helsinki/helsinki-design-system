@@ -3,19 +3,21 @@ import React from 'react';
 import { IconAngleDown, IconAngleUp } from '../../icons';
 import { Button } from '../button';
 import { Card } from '../card';
+import { Select } from '../dropdown/select';
 import { Accordion } from './Accordion';
 import { useAccordion } from './useAccordion';
 
 export default {
   component: Accordion,
   title: 'Components/Accordion',
-  decorators: [(storyFn) => <div style={{ maxWidth: '360px' }}>{storyFn()}</div>],
+  decorators: [(storyFn) => <div style={{ maxWidth: '480px' }}>{storyFn()}</div>],
   parameters: {
     controls: { hideNoControlsWarning: true },
   },
   args: {
     heading: 'How to publish data?',
     children: 'To publish your data, open your profile settings and click buttton "Publish".',
+    style: { maxWidth: '360px' },
   },
 };
 
@@ -25,18 +27,27 @@ export const CardAccordion = (args) => (
   <>
     <Accordion {...args} card />
     <Accordion {...args} card border />
+  </>
+);
+CardAccordion.storyName = 'Card';
+CardAccordion.args = {
+  style: { marginBottom: 'var(--spacing-m)', maxWidth: '360px' },
+};
+
+export const CustomTheme = (args) => (
+  <>
     <Accordion
       {...args}
       card
       border
       theme={{
         '--background-color': 'var(--color-white)',
-        '--border-color': 'var(--color-coat-of-arms)',
+        '--border-color': 'var(--color-brick)',
         '--padding-horizontal': 'var(--spacing-m)',
         '--padding-vertical': 'var(--spacing-m)',
         '--header-font-color': 'var(--color-black-90)',
-        '--header-font-size': 'var(--fontsize-heading-m)',
-        '--header-line-height': 'var(--lineheight-m)',
+        '--header-font-size': 'var(--fontsize-heading-l)',
+        '--header-line-height': 'var(--lineheight-l)',
         '--button-size': '28px',
         '--button-border-color-hover': 'var(--color-coat-of-arms)',
         '--content-font-color': 'var(--color-black-90)',
@@ -44,28 +55,69 @@ export const CardAccordion = (args) => (
         '--content-line-height': 'var(--lineheight-l)',
       }}
     />
+    <Accordion
+      {...args}
+      card
+      style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)' }}
+      theme={{
+        '--background-color': 'var(--color-bus)',
+        '--padding-horizontal': 'var(--spacing-m)',
+        '--padding-vertical': 'var(--spacing-m)',
+        '--header-font-color': 'var(--color-white)',
+        '--header-font-size': 'var(--fontsize-heading-s)',
+        '--header-line-height': 'var(--lineheight-s)',
+        '--button-size': '28px',
+        '--button-border-color-hover': 'var(--color-white)',
+        '--content-font-color': 'var(--color-white)',
+        '--content-font-size': 'var(--fontsize-body-m)',
+        '--content-line-height': 'var(--lineheight-l)',
+      }}
+    />
   </>
 );
-CardAccordion.storyName = 'Card';
-CardAccordion.args = {
-  style: { marginBottom: 'var(--spacing-m)' },
+CustomTheme.storyName = 'Custom theme';
+CustomTheme.args = {
+  style: { marginBottom: 'var(--spacing-m)', maxWidth: '480px' },
 };
 
-export const Custom = () => {
+export const CustomAccordion = () => {
   const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen: false });
-
   const icon = isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />;
-
   return (
     <>
       <Button iconLeft={icon} {...buttonProps}>
         Advanced filters
       </Button>
-      <Card border aria-label="Advanced filters" style={{ marginTop: '20px' }} {...contentProps}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolorem dolore libero hic culpa nisi et ipsam in
-        voluptatibus, iste numquam repellendus officia quam repudiandae animi aspernatur sint fugiat excepturi!
+      <Card border aria-label="Advanced filters" style={{ marginTop: 'var(--spacing-m)' }} {...contentProps}>
+        <Select
+          multiselect
+          label="Filter by event category"
+          placeholder="No selected categories"
+          options={[{ label: 'Culture & arts' }, { label: 'Sports' }, { label: 'Museums' }, { label: 'Music' }]}
+          clearButtonAriaLabel="Clear all selections"
+          selectedItemRemoveButtonAriaLabel="Remove"
+        />
+        <Select
+          multiselect
+          label="Filter by event location"
+          placeholder="No selected locations"
+          options={[
+            { label: 'Haaga' },
+            { label: 'Herttoniemi' },
+            { label: 'Kallio' },
+            { label: 'Kamppi' },
+            { label: 'Laajasalo' },
+            { label: 'Lauttasaari' },
+            { label: 'Mellunkylä' },
+            { label: 'Pasila' },
+          ]}
+          clearButtonAriaLabel="Clear all selections"
+          selectedItemRemoveButtonAriaLabel="Remove"
+          style={{ marginTop: 'var(--spacing-s)' }}
+        />
       </Card>
     </>
   );
 };
-Custom.args = {};
+CustomAccordion.storyName = 'Custom accordion';
+CustomAccordion.args = {};
