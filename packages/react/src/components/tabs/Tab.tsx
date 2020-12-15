@@ -24,27 +24,35 @@ export const Tab = ({ children, className, index, style }: TabProps) => {
   const { activeTab, focusedTab, setFocusedTab, setActiveTab } = useContext(TabsContext);
   const isActive = activeTab === index;
 
-  // Focus the tab when matching focusedTab index is
-  // provided from the context
+  /**
+   * Focus the tab based on focusedTab provided by the context
+   */
   useEffect(() => {
     if (focusedTab === index) {
       ref.current.focus();
     }
   }, [focusedTab, index]);
 
-  // Set active when clicked
+  /**
+   * Set the tab as active when clicked
+   */
   const onClick = () => {
     setActiveTab(index);
   };
 
-  // Set active when enter is pressed
+  /**
+   * Set the tab as active when enter is pressed
+   * @param event
+   */
   const onKeyDown = (event: React.KeyboardEvent<HTMLLIElement>) => {
     if (event.key === 'Enter') {
       setActiveTab(index);
     }
   };
 
-  // Handle the focus event
+  /**
+   * Handle the focus event
+   */
   const onFocus = () => {
     if (focusedTab !== index) {
       setFocusedTab(index);

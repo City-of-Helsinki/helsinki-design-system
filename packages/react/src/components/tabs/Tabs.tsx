@@ -19,12 +19,16 @@ export const Tabs = ({ children, small = false }: TabsProps) => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const [focusedTab, setFocusedTab] = useState<number>(null);
 
-  // Filter out TabList from children
+  /**
+   * Get the TabList from children
+   */
   const tabList = React.Children.toArray(children).filter((child) => {
     return React.isValidElement(child) && (child.type as FCWithName).componentName === 'TabList';
   });
 
-  // Filter out TabPanels from children
+  /**
+   * Get TabPanels from children
+   */
   const tabPanels = React.Children.toArray(children)
     .filter((child) => {
       return React.isValidElement(child) && (child.type as FCWithName).componentName === 'TabPanel';
