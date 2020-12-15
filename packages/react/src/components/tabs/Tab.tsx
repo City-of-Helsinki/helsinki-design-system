@@ -65,6 +65,7 @@ export const Tab = ({ children, className, index, style }: TabProps) => {
       aria-selected={isActive}
       aria-controls={`tab-${index}-panel`}
       tabIndex={isActive ? 0 : -1}
+      id={`tab-${index}-button`}
       className={classNames(styles.tab, isActive && styles.active, className)}
       style={style}
       onClick={onClick}

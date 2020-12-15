@@ -16,6 +16,7 @@ exports[`<Tabs /> spec renders the component 1`] = `
           aria-controls="tab-0-panel"
           aria-selected="true"
           class="tab active"
+          id="tab-0-button"
           role="tab"
           tabindex="0"
         >
@@ -27,6 +28,7 @@ exports[`<Tabs /> spec renders the component 1`] = `
           aria-controls="tab-1-panel"
           aria-selected="false"
           class="tab"
+          id="tab-1-button"
           role="tab"
           tabindex="-1"
         >
@@ -37,8 +39,10 @@ exports[`<Tabs /> spec renders the component 1`] = `
       </ul>
     </div>
     <div
+      aria-labelledby="tab-0-button"
       class="tabPanel"
       id="tab-0-panel"
+      role="tabpanel"
     >
       Fizz
     </div>

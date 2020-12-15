@@ -23,7 +23,13 @@ export const TabPanel = ({ children, className, index, style }: TabPanelProps) =
   const isActive = activeTab === index;
 
   return isActive ? (
-    <div id={`tab-${index}-panel`} className={classNames(styles.tabPanel, className)} style={style}>
+    <div
+      id={`tab-${index}-panel`}
+      role="tabpanel"
+      aria-labelledby={`tab-${index}-button`}
+      className={classNames(styles.tabPanel, className)}
+      style={style}
+    >
       {children}
     </div>
   ) : null;
