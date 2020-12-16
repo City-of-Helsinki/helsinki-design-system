@@ -29,7 +29,7 @@ export const Tab = ({ children, className, index, style }: TabProps) => {
    */
   useEffect(() => {
     if (focusedTab === index) {
-      ref.current.focus();
+      ref.current.focus({ preventScroll: true });
     }
   }, [focusedTab, index]);
 
@@ -38,6 +38,7 @@ export const Tab = ({ children, className, index, style }: TabProps) => {
    */
   const onClick = () => {
     setActiveTab(index);
+    setFocusedTab(index);
   };
 
   /**
@@ -53,7 +54,8 @@ export const Tab = ({ children, className, index, style }: TabProps) => {
   /**
    * Handle the focus event
    */
-  const onFocus = () => {
+  const onFocus = (event: React.FocusEvent<HTMLLIElement>) => {
+    event.preventDefault();
     if (focusedTab !== index) {
       setFocusedTab(index);
     }

@@ -6,37 +6,41 @@ exports[`<Tabs /> spec renders the component 1`] = `
     class="tabs"
   >
     <div
-      class="tablistContainer"
+      class="tablistBar"
     >
-      <ul
+      <div
         class="tablist"
-        role="tablist"
       >
-        <li
-          aria-controls="tab-0-panel"
-          aria-selected="true"
-          class="tab active"
-          id="tab-0-button"
-          role="tab"
-          tabindex="0"
+        <ul
+          role="tablist"
+          style="width: 0px;"
         >
-          <span>
-            Foo
-          </span>
-        </li>
-        <li
-          aria-controls="tab-1-panel"
-          aria-selected="false"
-          class="tab"
-          id="tab-1-button"
-          role="tab"
-          tabindex="-1"
-        >
-          <span>
-            Bar
-          </span>
-        </li>
-      </ul>
+          <li
+            aria-controls="tab-0-panel"
+            aria-selected="true"
+            class="tab active"
+            id="tab-0-button"
+            role="tab"
+            tabindex="0"
+          >
+            <span>
+              Foo
+            </span>
+          </li>
+          <li
+            aria-controls="tab-1-panel"
+            aria-selected="false"
+            class="tab"
+            id="tab-1-button"
+            role="tab"
+            tabindex="-1"
+          >
+            <span>
+              Bar
+            </span>
+          </li>
+        </ul>
+      </div>
     </div>
     <div
       aria-labelledby="tab-0-button"

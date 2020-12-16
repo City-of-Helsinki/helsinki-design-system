@@ -19,7 +19,7 @@
   --tab-active-border-size: 3px;
 }
 
-.tablistContainer {
+.tablistBar {
   display: flex;
   flex-direction: row;
 }
@@ -66,13 +66,17 @@
   flex-grow: 1;
   position: relative;
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  white-space: nowrap;
-  padding: var(--tab-focus-outline-size) 0;
   margin-bottom: -1px;
   overflow-x: hidden;
+
+  ul {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    white-space: nowrap;
+    padding: var(--tab-focus-outline-size) 0;
+  }
 }
 
 .tab {
