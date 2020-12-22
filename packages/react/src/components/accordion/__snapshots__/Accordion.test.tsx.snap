@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Accordion /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="accordion"
+    id="accordion-1"
+  >
+    <div
+      class="accordionHeader"
+    >
+      <div
+        aria-level="2"
+        id="accordion-1-heading"
+        role="heading"
+      >
+        Foo
+      </div>
+      <button
+        aria-expanded="false"
+        aria-labelledby="accordion-1-heading"
+        class="accordionButton"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="icon s accordionButtonIcon"
+          role="img"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <path
+              d="M0 0h24v24H0z"
+            />
+            <path
+              d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
+              fill="currentColor"
+            />
+          </g>
+        </svg>
+      </button>
+    </div>
+    <div
+      aria-labelledby="accordion-1-heading"
+      class="accordionContent"
+      id="accordion-1-content"
+      role="region"
+      style="display: none;"
+    >
+      Bar
+    </div>
+  </div>
+</DocumentFragment>
+`;

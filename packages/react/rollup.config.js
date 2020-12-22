@@ -75,6 +75,7 @@ export default [
       index: 'src/index.ts',
       'components/index': 'src/components/index.ts',
       'icons/index': 'src/icons/index.ts',
+      'components/Accordion/index': 'src/components/accordion/index.ts',
       'components/Button/index': 'src/components/button/index.ts',
       'components/Card/index': 'src/components/card/index.ts',
       'components/Checkbox/index': 'src/components/checkbox/index.ts',
