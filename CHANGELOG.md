@@ -6,6 +6,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.19.0] - December 22, 2020
+### Design kit
+#### Added
+- HDS Accordion library, including
+    - Two accordion symbols; Basic and With card variants
+    - Empty accordion variant for building custom accordions
+    - Tips how to build custom accordions using Buttons with icons
+
+#### Changed
+- [Buttons] Decreased Default Supplementary button minimum width from 136px to 124px
+
+### Documentation
+#### Added
+- Accordion component documentation
+
+#### Changed
+- [Card] Small clarification about component intractability
+- [Status label] Small clarification about icon usage with the component
+
+#### Fixed
+- Added Search input component to the Component overview list (was missing in the previous release)
+
+### Core
+#### Fixed
+- [Text input, Textarea] Fixed placeholder text color on Firefox (in [#342](https://github.com/City-of-Helsinki/helsinki-design-system/pull/342))
+
+### React
+#### Changed
+- [Footer] Added `logoLanguage` prop to Footer component (in [#339](https://github.com/City-of-Helsinki/helsinki-design-system/pull/339))
+
+#### Fixed
+- [TextInput, TextArea, Combobox] Fixed placeholder text color on Firefox (in [#342](https://github.com/City-of-Helsinki/helsinki-design-system/pull/342))
+- [Combobox] Fixed placeholder text alignment on Firefox (in [#342](https://github.com/City-of-Helsinki/helsinki-design-system/pull/342))
+
+#### Added
+- New component: Accordion (in [#331](https://github.com/City-of-Helsinki/helsinki-design-system/pull/331/files))
+- New hook: `useAccordion` for implementing custom accordions (in [#331](https://github.com/City-of-Helsinki/helsinki-design-system/pull/331/files))
+
 ## [0.18.0] - December 8, 2020
 ### Design kit
 #### Added
