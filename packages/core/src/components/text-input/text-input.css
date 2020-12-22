@@ -105,6 +105,7 @@
 
 .hds-text-input .hds-text-input__input::placeholder {
   color: var(--placeholder-color);
+  opacity: 1;
 }
 
 /* FOCUS OUTLINE */
