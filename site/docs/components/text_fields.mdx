@@ -9,6 +9,7 @@ import { TextArea, TextInput, StatusLabel } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
 import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
 import Text from "../../src/components/Text";
 
 # Text fields
@@ -31,6 +32,7 @@ import Text from "../../src/components/Text";
 
 ## Accessibility
 - Placeholder text can be used to give hints and examples to the user what should be entered to the field. **However, all assistive technologies do not threat placeholder texts as labels and therefore they may ignore them completely.** Aim to provide the sufficient information to fill the input in the label.
+- It is required to use `autocomplete` attribute if input control is listed in the common input purposes list. You can read the full list of common input purposes at <Link href="https://www.w3.org/TR/WCAG21/#input-purposes" external>WCAG 2.1 documentation website</Link>. You can read more about the requirement from <Link href="https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose" external>WCAG 2.1 Identify Input Purpose guideline</Link>.
 - In the case of an erroneous input, aim to provide clear instructions to the user how to correct the mistake. Always provide text description of the error.
 
 ## Usage and variations
