@@ -46,11 +46,11 @@ Default tab variant is suitable for most use cases. It features tabs that are at
 <Playground>
 <Tabs>
     <TabList style={{marginBottom: 'var(--spacing-m)'}}>
-      <Tab>Daycare</Tab>
-      <Tab>Pre-school</Tab>
-      <Tab>Basic education</Tab>
-      <Tab>Upper secondary</Tab>
-      <Tab>University</Tab>
+        <Tab>Daycare</Tab>
+        <Tab>Pre-school</Tab>
+        <Tab>Basic education</Tab>
+        <Tab>Upper secondary</Tab>
+        <Tab>University</Tab>
     </TabList>
     <TabPanel>Daytime care for people who cannot be fully independent, such as children or elderly people.</TabPanel>
     <TabPanel>
@@ -72,7 +72,20 @@ Default tab variant is suitable for most use cases. It features tabs that are at
 
 #### React code example:
 ```tsx
-<Button>Primary</Button>
+<Tabs>
+    <TabList style={{marginBottom: 'var(--spacing-m)'}}>
+        <Tab>Daycare</Tab>
+        <Tab>Pre-school</Tab>
+        <Tab>Basic education</Tab>
+        <Tab>Upper secondary</Tab>
+        <Tab>University</Tab>
+    </TabList>
+    <TabPanel>Daytime care for people who cannot be fully independent, such as children or elderly people.</TabPanel>
+    <TabPanel>...</TabPanel>
+    <TabPanel>...</TabPanel>
+    <TabPanel>...</TabPanel>
+    <TabPanel>...</TabPanel>
+</Tabs>
 ```
 
 ### Small
@@ -81,11 +94,11 @@ Small tabs variant can be used on smaller screens or when you are tight on space
 <Playground>
 <Tabs small>
     <TabList style={{marginBottom: 'var(--spacing-m)'}}>
-      <Tab>Daycare</Tab>
-      <Tab>Pre-school</Tab>
-      <Tab>Basic education</Tab>
-      <Tab>Upper secondary</Tab>
-      <Tab>University</Tab>
+        <Tab>Daycare</Tab>
+        <Tab>Pre-school</Tab>
+        <Tab>Basic education</Tab>
+        <Tab>Upper secondary</Tab>
+        <Tab>University</Tab>
     </TabList>
     <TabPanel>Daytime care for people who cannot be fully independent, such as children or elderly people.</TabPanel>
     <TabPanel>
@@ -107,7 +120,20 @@ Small tabs variant can be used on smaller screens or when you are tight on space
 
 #### React code example:
 ```tsx
-<Button>Primary</Button>
+<Tabs small>
+    <TabList style={{marginBottom: 'var(--spacing-m)'}}>
+        <Tab>Daycare</Tab>
+        <Tab>Pre-school</Tab>
+        <Tab>Basic education</Tab>
+        <Tab>Upper secondary</Tab>
+        <Tab>University</Tab>
+    </TabList>
+    <TabPanel>Daytime care for people who cannot be fully independent, such as children or elderly people.</TabPanel>
+    <TabPanel>...</TabPanel>
+    <TabPanel>...</TabPanel>
+    <TabPanel>...</TabPanel>
+    <TabPanel>...</TabPanel>
+</Tabs>
 ```
 
 ### Overflow tabs
@@ -146,7 +172,23 @@ Note! It is generally recommended that before relying on the overflow you attemp
 
 #### React code example:
 ```tsx
-<Button variant="secondary">Secondary</Button>
+// TabList does not fit into this container
+<div style={{maxWidth: '400px'}}>
+    <Tabs>
+        <TabList style={{marginBottom: 'var(--spacing-m)'}}>
+            <Tab>Daycare</Tab>
+            <Tab>Pre-school</Tab>
+            <Tab>Basic education</Tab>
+            <Tab>Upper secondary</Tab>
+            <Tab>University</Tab>
+        </TabList>
+        <TabPanel>Daytime care for people who cannot be fully independent, such as children or elderly people.</TabPanel>
+        <TabPanel>...</TabPanel>
+        <TabPanel>...</TabPanel>
+        <TabPanel>...</TabPanel>
+        <TabPanel>...</TabPanel>
+    </Tabs>
+</div>
 ```
 
 ## Demos & API
