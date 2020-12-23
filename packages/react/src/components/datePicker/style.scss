@@ -1,0 +1,202 @@
+@import "../../styles/common";
+
+:root {
+  --date-background: transparent;
+  --date-color: var(--color-black-90);
+
+  --outside-date-background: transparent;
+  --outside-date-color: var(--color-black-40);
+
+  --selected-date-background: var(--color-bus);
+  --selected-date-color: #fff;
+
+  --table-width: 100%;
+
+  --horizontal-spacing: var(--spacing-s);
+  --vertical-spacing: var(--spacing-s);
+
+  @media only screen and (min-width: 576px) {
+    --table-width: 308px;
+  }
+}
+
+.hds-datepicker {
+  position: relative;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+  display: inline-block;
+  width: 100%;
+  max-width: calc(var(--table-width) + 2 * var(--horizontal-spacing));
+  padding: var(--vertical-spacing) var(--horizontal-spacing);
+}
+
+.hds-datepicker__month-table {
+  border-collapse: collapse;
+  border-spacing: 2px;
+  width: 100%;
+  max-width: var(--table-width);
+}
+
+.hds-datepicker__head {
+  &__weekday {
+    font-size: var(--fontsize-body-m);
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-bottom: 6px;
+
+    &-vhidden {
+      @extend %hiddenFromScreen;
+    }
+  }
+}
+
+.hds-datepicker__day-cell {
+  width: calc(100%/7);
+  margin: 0 4px 0 0;
+  padding: 3px;
+  line-height: 0;
+}
+
+.hds-datepicker__day {
+  width: 100%;
+  padding: 0 0 100% 0;
+  margin: 0;
+  position: relative;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  display: inline-flex;
+  line-height: 1;
+  overflow: hidden;
+
+  --background-color: var(--date-background);
+  --color: var(--date-color);
+
+  &--selected {
+    --background-color: var(--selected-date-background);
+    --color: var(--selected-date-color);
+  }
+
+  &--outside {
+    pointer-events: none;
+    --background-color: var(--outside-date-background);
+    --color: var(--outside-date-color);
+  }
+
+  &--today {
+    &:after {
+      content: '';
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      bottom: 7px;
+      height: 2px;
+      background: var(--color);
+    }
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-coat-of-arms);
+  }
+
+  &__wrapper {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--background-color);
+    color: var(--color);
+    font-size: 1rem;
+    line-height: 1rem;
+
+    &-vhidden {
+      @extend %hiddenFromScreen;
+    }
+  }
+}
+
+.hds-datepicker__navigation {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-s);
+
+  &__select {
+    --icon-size: 24px;
+    position: relative;
+    margin-right: var(--spacing-s);
+
+    select {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    &-label {
+      --label-spacing: 0.3rem;
+      position: relative;
+      padding: 0.15rem calc(var(--icon-size)) 0.15rem 0.3rem;
+      font-size: var(--fontsize-body-xl);
+      pointer-events: none;
+      font-weight: bold;
+    }
+
+    select:focus + &-label {
+      box-shadow: 0 0 0 3px var(--color-coat-of-arms);
+    }
+
+    &-icon {
+      position: absolute;
+      pointer-events: none;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: var(--icon-size);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        width: var(--icon-size);
+        height: var(--icon-size);
+      }
+    }
+  }
+
+  &__buttons {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    transform: translateY(-3px);
+
+    button {
+      cursor: pointer;
+      padding: 0.15rem;
+      background: transparent;
+      border: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: calc(25px + 0.15rem);
+      height: calc(25px + 0.15rem);
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--color-coat-of-arms);
+      }
+    }
+  }
+}
+
+.hds-datepicker__bottom-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

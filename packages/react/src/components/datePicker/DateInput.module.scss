@@ -1,0 +1,18 @@
+.wrapper {
+  position: relative;
+}
+
+.pickerWrapper {
+  position: absolute;
+  right: 0;
+  left: 0;
+  transition: opacity 150ms;
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: none;
+  transform: translateY(5px);
+
+  > * {
+    pointer-events: auto;
+  }
+}
