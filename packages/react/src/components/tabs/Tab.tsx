@@ -46,7 +46,9 @@ export const Tab = ({ children, className, index, style }: TabProps) => {
    * @param event
    */
   const onKeyDown = (event: React.KeyboardEvent<HTMLLIElement>) => {
-    if (event.key === 'Enter') {
+    const isEnter = event.key === 'Enter' || event.keyCode === 13;
+    const isSpace = event.key === ' ' || event.keyCode === 32;
+    if (isEnter || isSpace) {
       setActiveTab(index);
     }
   };
