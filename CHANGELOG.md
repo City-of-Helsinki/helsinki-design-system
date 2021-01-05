@@ -6,6 +6,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.20.0] - January 5, 2021
+### Design kit
+#### Changed
+- Renamed “HDS Pagination” to “HDS Tabs and Pages”
+- [Cards] Optimized images to reduce library file size
+- [Cards] Updated links to shared typography styles
+
+#### Added
+- New library HDS Tabs and Pages
+    - [Tabs and Pages] Tab list symbols of two sizes; Default and Small
+    - [Tabs and Pages] Overflow tab list variant. This can be used in smaller screens and spaces where all tabs do not fit horizontally on the view.
+    - [Tabs and Pages] Symbols for single tabs. These can be used to build tab lists with custom widths etc.
+    - Library also includes old pagination symbols but they are not yet implemented into HDS and the design is subject to change
+- [Color] Shared style for a lighter (2px) focus border. This style can be used in tight spaces or when the default 3px focus border is too visually distractive.
+
+### Documentation
+#### Added
+- Documentation for Tabs component
+
+#### Changed
+- [TextField] Added a note about autocomplete WCAG requirement
+
+### React
+#### Added
+- New component: Tabs (in [#343](https://github.com/City-of-Helsinki/helsinki-design-system/pull/343))
+
 ## [0.19.0] - December 22, 2020
 ### Design kit
 #### Added
