@@ -1,0 +1,76 @@
+---
+name: Date input
+menu: Components
+route: /components/date-input
+---
+
+import { Playground } from "docz";
+import { StatusLabel  } from "hds-react";
+
+import ColorBox from "../../src/components/ColorBox";
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
+import Text from "../../src/components/Text";
+
+# Date input
+
+<StatusLabel>New</StatusLabel>
+<StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel>
+<StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
+
+<LargeParagraph>
+    Date input allows the user to easily input a specific date or a date range. By default, HDS date input is supplied with a date picker functionality.
+</LargeParagraph>
+
+## Principles
+- Only use a date input when you can expect the user to input a specific date. If it can be hard for the user to determine which date they should choose or if the selected date can be vague, let the user choose, for example, a week, month or a date range. 
+    - When selecting weeks or months, it is usually better to use [the dropdown select component](/components/dropdown#select).
+- Pay close attention to the date input label. It should clearly describe the date the user is expected to input. A good label describes the input, such as "Arrival date".
+- The date input should be provided with an assistive text which tells the user the expected date format. Do not rely on a placeholder text alone because it will disappear when the user starts typing. The recommended way to show the expected format is to use the assistive text below the input.
+    - As specified in [the data format guidelines](/guidelines/data-formats), Helsinki services will always use DD.MM.YYYY format. Do not use the English date format even if the user is using English locale.
+- When asking for date ranges, you should use two separate date inputs instead of trying to use one input or picker for both dates.
+
+### When to use the date picker?
+- **Use the date picker** (calendar) when it is useful for the user to see how the selected date is related to other dates and/or which weekday it is.
+- **Do not use the date picker** if the date is easily remembered or is obvious for the user or if the date is further into the past or the future. A date of birth is a good example of a situation where the date picker should not be used.
+
+## Accessibility
+- HDS date input allows the user to input the date manually without using the picker. Whenever you require the user to input dates, you should also allow the manual input.
+
+## Usage & variations
+
+### Date input with a picker
+TODO
+
+<Playground>
+
+</Playground>
+
+#### React code example:
+```tsx
+
+```
+
+### Date input without a picker
+TODO
+
+<Playground>
+
+</Playground>
+
+#### React code example:
+```tsx
+
+```
+
+## Demos & API
+
+### Core
+
+_Not included in hds-core!_
+
+### React
+
+[Date input in hds-react](/storybook/react/?path=/story/components-accordion--default)
+
+[Date input API](/storybook/react/?path=/docs/components-accordion--default)
