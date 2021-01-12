@@ -2,6 +2,7 @@ import { format, parse, isValid } from 'date-fns';
 import React, { useState, useRef, useEffect } from 'react';
 
 import { IconCalendar } from '../../icons';
+import classNames from '../../utils/classNames';
 import { TextInput } from '../textInput';
 import { DatePicker } from './components/DatePicker';
 import styles from './DateInput.module.scss';
@@ -103,8 +104,7 @@ export const DateInput = () => {
       />
       <div
         ref={pickerWrapperRef}
-        className={styles.pickerWrapper}
-        style={{ opacity: showPicker ? 1 : 0 }}
+        className={classNames(styles.pickerWrapper, showPicker && styles.isVisible)}
         role="dialog"
         aria-modal="true"
         aria-hidden={showPicker ? undefined : true}
