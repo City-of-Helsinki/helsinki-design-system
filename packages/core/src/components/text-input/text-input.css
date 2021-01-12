@@ -35,7 +35,7 @@
   transition: border-color 85ms ease-out;
 }
 
-.hds-text-input .hds-text-input__input:not([readonly]):focus {
+.hds-text-input:focus-within .hds-text-input__input:not([readonly]) {
   transition: 85ms ease-out;
   transition-property: box-shadow, transform;
 }
@@ -99,7 +99,7 @@
   border-color: var(--input-border-color-hover);
 }
 
-.hds-text-input .hds-text-input__input:focus {
+.hds-text-input:focus-within .hds-text-input__input {
   border-color: var(--input-border-color-focus);
   outline: none;
 }
@@ -111,7 +111,7 @@
 
 /* FOCUS OUTLINE */
 
-.hds-text-input .hds-text-input__input:not([readonly]):focus {
+.hds-text-input:focus-within .hds-text-input__input:not([readonly]) {
   box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
   transform: translate3d(0, 0, 0);
 }
