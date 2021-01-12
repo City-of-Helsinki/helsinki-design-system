@@ -38,6 +38,7 @@ export interface DayPickerProps {
    * CSS class to add to the root element.
    */
   className?: string;
+  confirmDate?: boolean;
   /**
    * Style to apply to the root element.
    */
@@ -82,10 +83,12 @@ export interface DayPickerProps {
    * the user interface.
    */
   locale?: Locale;
+  selectButtonLabel: string;
+  closeButtonLabel: string;
   /**
    * Event handler when the user clicks on a day.
    */
-  onDayClick?: DayClickEventHandler;
+  onDaySelect?: DayClickEventHandler;
   /**
    * Event handler when the month changes.
    */

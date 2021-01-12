@@ -21,6 +21,8 @@ export const defaultProps: DayPickerProps = {
   nextMonthLabel: 'Next month',
   month: startOfMonth(new Date()),
   prevMonthLabel: 'Previous month',
+  selectButtonLabel: 'Select',
+  closeButtonLabel: 'Close',
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onCloseButtonClick: () => {},
 };

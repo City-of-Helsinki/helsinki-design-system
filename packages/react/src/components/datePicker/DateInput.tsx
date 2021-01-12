@@ -1,13 +1,55 @@
-import { format, parse, isValid } from 'date-fns';
+import { format, parse, isValid, Locale } from 'date-fns';
 import React, { useState, useRef, useEffect } from 'react';
+import english from 'date-fns/locale/en-GB';
 
 import { IconCalendar } from '../../icons';
 import classNames from '../../utils/classNames';
-import { TextInput } from '../textInput';
+import { TextInput, TextInputProps } from '../textInput';
 import { DatePicker } from './components/DatePicker';
 import styles from './DateInput.module.scss';
 
-export const DateInput = () => {
+export type DateInputProps = TextInputProps & {
+  /**
+   * When `true`, the selected date must be confirmed with the "select" button
+   */
+  confirmDate?: boolean;
+  /**
+   * Date format based on date-fns format tokens (https://date-fns.org/docs/format)
+   * @default "d.M.yyyy"
+   */
+  dateFormat?: string;
+  /**
+   * Calendar button aria-label
+   * @default "Choose date"
+   */
+  openButtonAriaLabel?: string;
+  /**
+   * Select button label
+   * @default "Select"
+   */
+  selectButtonLabel?: string;
+  /**
+   * Close button label
+   * @default "Close"
+   */
+  closeButtonLabel?: string;
+  /**
+   * Locale. See date-fns documentation for more information: https://date-fns.org/docs/I18n
+   *
+   * @default "English with weeks starting on monday"
+   */
+  locale?: Locale;
+};
+
+export const DateInput = ({
+  confirmDate = true,
+  dateFormat = 'd.M.yyyy',
+  openButtonAriaLabel = 'Choose date',
+  locale = english,
+  selectButtonLabel = 'Select',
+  closeButtonLabel = 'Close',
+  ...textInputProps
+}: DateInputProps) => {
   const pickerWrapperRef = useRef<HTMLDivElement>();
   const [inputValue, setInputValue] = useState<string>('');
   const [showPicker, setShowPicker] = useState(false);
@@ -88,16 +130,15 @@ export const DateInput = () => {
     setShowPicker(!showPicker);
   };
 
-  const dateFormat = 'dd.MM.yyyy';
+  // Parse input value to Date
   const date = parse(inputValue, dateFormat, new Date());
 
   return (
     <div className={styles.wrapper}>
       <TextInput
-        id="date"
-        label="Pick a date"
+        {...textInputProps}
         buttonIcon={<IconCalendar aria-hidden />}
-        buttonAriaLabel="Open date picker"
+        buttonAriaLabel={openButtonAriaLabel}
         onButtonClick={onButtonClick}
         onChange={(event) => setInputValue(event.target.value)}
         value={inputValue}
@@ -110,14 +151,19 @@ export const DateInput = () => {
         aria-hidden={showPicker ? undefined : true}
       >
         <DatePicker
+          locale={locale}
+          confirmDate={confirmDate}
           selected={isValid(date) ? date : undefined}
           initialMonth={new Date(2021, 0)}
-          onDayClick={(day) => {
+          onDaySelect={(day) => {
+            setShowPicker(false);
             setInputValue(format(day, dateFormat));
           }}
           onCloseButtonClick={() => {
             setShowPicker(false);
           }}
+          selectButtonLabel={selectButtonLabel}
+          closeButtonLabel={closeButtonLabel}
         />
       </div>
     </div>

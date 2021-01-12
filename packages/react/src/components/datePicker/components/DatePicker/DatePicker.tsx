@@ -10,6 +10,7 @@ import '../../style.scss';
 import { MonthTable } from '../MonthTable';
 import { IconCross } from '../../../..';
 import { Button } from '../../../button';
+import { IconCheck } from '../../../../icons';
 
 const keyCode = {
   TAB: 9,
@@ -25,13 +26,17 @@ export const DatePicker = (providedProps: DayPickerProps) => {
   const {
     initialMonth,
     onMonthChange,
-    onDayClick,
+    onDaySelect,
     locale,
     fromMonth,
     toMonth,
     nextMonthLabel,
     prevMonthLabel,
     onCloseButtonClick,
+    selected,
+    confirmDate,
+    selectButtonLabel,
+    closeButtonLabel,
   } = {
     ...defaultProps,
     ...providedProps,
@@ -56,6 +61,16 @@ export const DatePicker = (providedProps: DayPickerProps) => {
    * Currently selected date
    */
   const [selectedDate, setSelectedDate] = useState<Date>(null);
+
+  /**
+   * Update the selected date from props
+   */
+  useEffect(() => {
+    if (selected && selected instanceof Date) {
+      setSelectedDate(selected);
+      setCurrentMonth(startOfMonth(selected));
+    }
+  }, [selected]);
 
   /**
    * Focus the selected date button
@@ -98,8 +113,17 @@ export const DatePicker = (providedProps: DayPickerProps) => {
    */
   const handleDayClick = (date: Date, e: React.MouseEvent) => {
     setSelectedDate(date);
-    if (onDayClick) {
-      onDayClick(date, e);
+    if (onDaySelect && !confirmDate) {
+      onDaySelect(date, e);
+    }
+  };
+
+  /**
+   * Handle confirm button click
+   */
+  const handleConfirmClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    if (onDaySelect) {
+      onDaySelect(selectedDate, event);
     }
   };
 
@@ -157,15 +181,26 @@ export const DatePicker = (providedProps: DayPickerProps) => {
       }}
     >
       <div className="hds-datepicker" ref={datepickerRef}>
-        <MonthTable month={currentMonth} dayPickerProps={{ ...defaultProps, ...providedProps }} />
+        <MonthTable month={currentMonth} />
         <div className="hds-datepicker__bottom-buttons">
+          {confirmDate && (
+            <Button
+              disabled={!selectedDate}
+              size="small"
+              variant="secondary"
+              iconLeft={<IconCheck aria-hidden />}
+              onClick={handleConfirmClick}
+            >
+              {selectButtonLabel}
+            </Button>
+          )}
           <Button
             size="small"
             variant="supplementary"
             iconLeft={<IconCross aria-hidden />}
             onClick={onCloseButtonClick}
           >
-            Close
+            {closeButtonLabel}
           </Button>
         </div>
       </div>

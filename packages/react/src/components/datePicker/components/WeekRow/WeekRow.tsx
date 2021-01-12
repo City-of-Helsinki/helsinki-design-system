@@ -1,20 +1,24 @@
-import React from 'react';
-import { getUnixTime, isToday } from 'date-fns';
+import React, { useContext } from 'react';
+import { endOfWeek, getUnixTime, isToday, startOfWeek } from 'date-fns';
+import { eachDayOfInterval } from 'date-fns/esm';
 
-import { WeekRowProps } from './types';
 import { Day } from '../Day/Day';
+import { DatePickerContext } from '../../context/DatePickerContext';
 
-/**
- * Render a week row.
- *
- * @category Components
- * @private
- */
+export type WeekRowProps = {
+  week: Date;
+};
+
 export const WeekRow = (props: WeekRowProps) => {
   const { week } = props;
+  const { locale } = useContext(DatePickerContext);
+
+  const daysInterval = { start: startOfWeek(week, { locale }), end: endOfWeek(week, { locale }) };
+  const days = eachDayOfInterval(daysInterval);
+
   return (
     <tr>
-      {week.map((day) => (
+      {days.map((day) => (
         <td
           className="hds-datepicker__day-cell"
           key={getUnixTime(day)}

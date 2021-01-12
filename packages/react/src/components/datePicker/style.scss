@@ -21,6 +21,7 @@
 }
 
 .hds-datepicker {
+  background: #fff;
   position: relative;
   box-sizing: border-box;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
@@ -137,6 +138,7 @@
       opacity: 0;
       width: 100%;
       height: 100%;
+      text-transform: capitalize;
     }
 
     &-label {
@@ -146,6 +148,7 @@
       font-size: var(--fontsize-body-xl);
       pointer-events: none;
       font-weight: bold;
+      text-transform: capitalize;
     }
 
     select:focus + &-label {
@@ -199,4 +202,9 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin: var(--spacing-s);
+
+  button:nth-child(2) {
+    margin-left: var(--spacing-s);
+  }
 }

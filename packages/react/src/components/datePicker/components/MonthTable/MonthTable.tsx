@@ -1,20 +1,21 @@
-import React from 'react';
+import { eachWeekOfInterval, endOfMonth, startOfMonth } from 'date-fns/esm';
+import React, { useContext } from 'react';
 
+import { DatePickerContext } from '../../context/DatePickerContext';
 import { Head } from '../Head';
 import { MonthNavigation } from '../MonthNavigation';
 import { WeekRow } from '../WeekRow/WeekRow';
-import { getWeeks } from './getWeeks';
-import { MonthTableProps } from './types';
 
-/**
- * Render the month table.
- * @category Components
- */
+export type MonthTableProps = {
+  month: Date;
+};
+
 export const MonthTable = (props: MonthTableProps) => {
-  const { month, dayPickerProps } = props;
-  const { locale } = dayPickerProps;
+  const { locale } = useContext(DatePickerContext);
+  const { month } = props;
 
-  const weeks = getWeeks(month, dayPickerProps);
+  const weeksInterval = { start: startOfMonth(month), end: endOfMonth(month) };
+  const weeks = eachWeekOfInterval(weeksInterval, { locale });
 
   return (
     <div>
@@ -22,14 +23,8 @@ export const MonthTable = (props: MonthTableProps) => {
       <table className="hds-datepicker__month-table">
         <Head locale={locale} />
         <tbody>
-          {Object.keys(weeks).map((weekNumber) => (
-            <WeekRow
-              currentMonth={month}
-              key={weekNumber}
-              week={weeks[weekNumber]}
-              weekNumber={Number(weekNumber)}
-              dayPickerProps={dayPickerProps}
-            />
+          {weeks.map((week) => (
+            <WeekRow key={week.toString()} week={week} />
           ))}
         </tbody>
       </table>

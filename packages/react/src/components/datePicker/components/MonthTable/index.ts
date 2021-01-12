@@ -1,2 +1,1 @@
-export { MonthTable } from './MonthTable';
-export * from './types';
+export * from './MonthTable';
