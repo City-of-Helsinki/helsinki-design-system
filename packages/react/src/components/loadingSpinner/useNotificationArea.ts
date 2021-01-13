@@ -74,7 +74,7 @@ export const useNotificationArea = (loadingTextVal: string, finishedTextVal: str
     if (getActiveIds().length === 0) {
       setFinishedText();
       setTimeout(() => {
-        if (getActiveIds().length === 0) {
+        if (getActiveIds().length === 0 && notificationArea.current.parentNode) {
           notificationArea.current.parentNode.removeChild(notificationArea.current);
         }
       }, 1000);
