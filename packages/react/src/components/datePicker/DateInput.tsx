@@ -50,8 +50,18 @@ export const DateInput = ({
   ...textInputProps
 }: DateInputProps) => {
   const pickerWrapperRef = useRef<HTMLDivElement>();
+  const inputRef = useRef<HTMLInputElement>();
   const [inputValue, setInputValue] = useState<string>('');
   const [showPicker, setShowPicker] = useState(false);
+
+  const focusButton = () => {
+    if (inputRef.current) {
+      const button = inputRef.current.parentNode.querySelector('button');
+      if (button) {
+        button.focus();
+      }
+    }
+  };
 
   /**
    * Close datepicker when clicked outside
@@ -60,6 +70,7 @@ export const DateInput = ({
     const handleClickOutsideWrapper = (event: MouseEvent) => {
       if (showPicker === true && pickerWrapperRef.current && !pickerWrapperRef.current.contains(event.target as Node)) {
         setShowPicker(false);
+        focusButton();
       }
     };
     window.addEventListener('click', handleClickOutsideWrapper);
@@ -168,10 +179,12 @@ export const DateInput = ({
           initialMonth={new Date(2021, 0)}
           onDaySelect={(day) => {
             setShowPicker(false);
+            focusButton();
             setInputValue(format(day, dateFormat));
           }}
           onCloseButtonClick={() => {
             setShowPicker(false);
+            focusButton();
           }}
           selectButtonLabel={selectButtonLabel}
           closeButtonLabel={closeButtonLabel}
