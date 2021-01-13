@@ -1,7 +1,4 @@
 import React from 'react';
-import finnish from 'date-fns/locale/fi';
-import swedish from 'date-fns/locale/sv';
-import english from 'date-fns/locale/en-GB';
 
 import { DatePicker } from '.';
 import { DateInput } from './DateInput';
@@ -28,22 +25,16 @@ export const Localization = () => {
         <DateInput
           id="date"
           label="Valitse päivämäärä"
-          locale={finnish}
+          language="fi"
           selectButtonLabel="Valitse"
           closeButtonLabel="Sulje"
         />
       </div>
       <div style={{ marginBottom: 'var(--spacing-m)' }}>
-        <DateInput
-          id="date"
-          label="Välj ett datum"
-          locale={swedish}
-          selectButtonLabel="Välj"
-          closeButtonLabel="Stäng"
-        />
+        <DateInput id="date" label="Välj ett datum" language="sv" selectButtonLabel="Välj" closeButtonLabel="Stäng" />
       </div>
       <div style={{ marginBottom: 'var(--spacing-m)' }}>
-        <DateInput id="date" label="Choose a date" locale={english} />
+        <DateInput id="date" label="Choose a date" language="en" />
       </div>
     </div>
   );

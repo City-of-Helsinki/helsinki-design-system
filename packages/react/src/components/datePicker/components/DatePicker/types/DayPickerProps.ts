@@ -1,5 +1,4 @@
 /* eslint-disable import/no-cycle */
-import Locale from 'date-fns/locale';
 import React from 'react';
 
 import { DayMatcher } from './Modifiers';
@@ -65,24 +64,13 @@ export interface DayPickerProps {
    */
   month?: Date;
   /**
-   * Label used for the previous month button in [[Navigation]]. Set it to
-   * empty string to hide the button.
-   */
-  prevMonthLabel?: string;
-  /**
-   * Label used for the next month button in [[Navigation]]. Set it to empty
-   * string to hide the button.
-   */
-  nextMonthLabel?: string;
-  /**
    * Apply the `selected` modifiers to the matching days.
    */
   selected?: DayMatcher;
   /**
-   * A locale object to localize
-   * the user interface.
+   * Language of the user interface
    */
-  locale?: Locale;
+  language?: 'en' | 'fi' | 'sv';
   selectButtonLabel: string;
   closeButtonLabel: string;
   /**

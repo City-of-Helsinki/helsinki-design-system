@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import addDays from 'date-fns/addDays';
 import startOfMonth from 'date-fns/startOfMonth';
 import format from 'date-fns/format';
+import english from 'date-fns/locale/en-GB';
+import finnish from 'date-fns/locale/fi';
+import swedish from 'date-fns/locale/sv';
 
 import { defaultProps } from './defaults/defaultProps';
 import { DatePickerContext } from '../../context/DatePickerContext';
@@ -27,11 +30,9 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     initialMonth,
     onMonthChange,
     onDaySelect,
-    locale,
+    language,
     fromMonth,
     toMonth,
-    nextMonthLabel,
-    prevMonthLabel,
     onCloseButtonClick,
     selected,
     confirmDate,
@@ -160,6 +161,10 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     }
   };
 
+  const getLocaleByLanguage = (lang: 'en' | 'fi' | 'sv') => {
+    return { en: english, fi: finnish, sv: swedish }[lang];
+  };
+
   return (
     <DatePickerContext.Provider
       value={{
@@ -169,9 +174,8 @@ export const DatePicker = (providedProps: DayPickerProps) => {
         currentMonth,
         focusedDate,
         selectedDate,
-        locale,
-        nextMonthLabel,
-        prevMonthLabel,
+        locale: getLocaleByLanguage(language),
+        language,
         setCurrentMonth,
         setFocusedDate,
         setSelectedDate,

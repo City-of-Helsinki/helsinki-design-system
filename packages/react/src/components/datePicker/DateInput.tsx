@@ -1,6 +1,5 @@
-import { format, parse, isValid, Locale } from 'date-fns';
+import { format, parse, isValid } from 'date-fns';
 import React, { useState, useRef, useEffect } from 'react';
-import english from 'date-fns/locale/en-GB';
 
 import { IconCalendar } from '../../icons';
 import classNames from '../../utils/classNames';
@@ -34,18 +33,18 @@ export type DateInputProps = TextInputProps & {
    */
   closeButtonLabel?: string;
   /**
-   * Locale. See date-fns documentation for more information: https://date-fns.org/docs/I18n
+   * Language
    *
-   * @default "English with weeks starting on monday"
+   * @default "en"
    */
-  locale?: Locale;
+  language?: 'en' | 'fi' | 'sv';
 };
 
 export const DateInput = ({
   confirmDate = true,
   dateFormat = 'd.M.yyyy',
-  openButtonAriaLabel = 'Choose date',
-  locale = english,
+  openButtonAriaLabel,
+  language = 'en',
   selectButtonLabel = 'Select',
   closeButtonLabel = 'Close',
   ...textInputProps
@@ -133,15 +132,27 @@ export const DateInput = ({
   // Parse input value to Date
   const date = parse(inputValue, dateFormat, new Date());
 
+  const getOpenButtonLabel = () => {
+    if (openButtonAriaLabel) {
+      return openButtonAriaLabel;
+    }
+    return {
+      en: 'Choose date',
+      fi: 'Valitse päivämäärä',
+      sv: 'Välj datum',
+    }[language];
+  };
+
   return (
     <div className={styles.wrapper}>
       <TextInput
         {...textInputProps}
         buttonIcon={<IconCalendar aria-hidden />}
-        buttonAriaLabel={openButtonAriaLabel}
+        buttonAriaLabel={getOpenButtonLabel()}
         onButtonClick={onButtonClick}
         onChange={(event) => setInputValue(event.target.value)}
         value={inputValue}
+        ref={inputRef}
       />
       <div
         ref={pickerWrapperRef}
@@ -151,7 +162,7 @@ export const DateInput = ({
         aria-hidden={showPicker ? undefined : true}
       >
         <DatePicker
-          locale={locale}
+          language={language}
           confirmDate={confirmDate}
           selected={isValid(date) ? date : undefined}
           initialMonth={new Date(2021, 0)}

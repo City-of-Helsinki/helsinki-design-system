@@ -21,9 +21,7 @@ export interface MonthCaptionProps {
  * @category Components
  */
 export const MonthNavigation = ({ month }: MonthCaptionProps) => {
-  const { locale, handleMonthChange, fromMonth, toMonth, nextMonthLabel, prevMonthLabel } = useContext(
-    DatePickerContext,
-  );
+  const { locale, language, handleMonthChange, fromMonth, toMonth } = useContext(DatePickerContext);
   const selectedYear = month.getFullYear();
   const minYear = selectedYear - 10;
   const maxYear = selectedYear + 10;
@@ -58,6 +56,22 @@ export const MonthNavigation = ({ month }: MonthCaptionProps) => {
   const onNextClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     if (!nextMonth) return;
     handleMonthChange(nextMonth, e);
+  };
+
+  const getPrevMonthLabel = () => {
+    return {
+      en: 'Previous month',
+      fi: 'Edellinen kuukausi',
+      sv: 'Föregående månad',
+    }[language];
+  };
+
+  const getNextMonthLabel = () => {
+    return {
+      en: 'Next month',
+      fi: 'Seuraava kuukausi',
+      sv: 'Nästa månad',
+    }[language];
   };
 
   return (
@@ -101,16 +115,12 @@ export const MonthNavigation = ({ month }: MonthCaptionProps) => {
         </div>
       </div>
       <div className="hds-datepicker__navigation__buttons">
-        {prevMonthLabel && (
-          <button disabled={!prevMonth} type="button" onClick={onPrevClick} aria-label={prevMonthLabel}>
-            <IconAngleLeft aria-hidden />
-          </button>
-        )}
-        {nextMonthLabel && (
-          <button disabled={!prevMonth} type="button" onClick={onNextClick} aria-label={nextMonthLabel}>
-            <IconAngleRight aria-hidden />
-          </button>
-        )}
+        <button disabled={!prevMonth} type="button" onClick={onPrevClick} aria-label={getPrevMonthLabel()}>
+          <IconAngleLeft aria-hidden />
+        </button>
+        <button disabled={!prevMonth} type="button" onClick={onNextClick} aria-label={getNextMonthLabel()}>
+          <IconAngleRight aria-hidden />
+        </button>
       </div>
     </div>
   );

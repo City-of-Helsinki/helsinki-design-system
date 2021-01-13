@@ -83,7 +83,7 @@ export const Day = ({ day }: DayProps) => {
       <span className="hds-datepicker__day__wrapper" aria-hidden>
         {format(day, 'd', { locale })}
       </span>
-      <span className="hds-datepicker__day__wrapper-vhidden">{format(day, 'EEEE, MMMM	d', { locale })}</span>
+      <span className="hds-datepicker__day__wrapper-vhidden">{format(day, 'LLLL d', { locale })}</span>
     </DayElement>
   );
 };

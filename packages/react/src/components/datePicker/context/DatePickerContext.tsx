@@ -9,8 +9,7 @@ export type DatePickerContextType = {
   focusedDate: Date | null;
   selectedDate: Date | null;
   locale: Locale;
-  nextMonthLabel: string;
-  prevMonthLabel: string;
+  language: 'en' | 'fi' | 'sv';
 
   setCurrentMonth: (Date) => void;
   setFocusedDate: (date: Date | null) => void;
