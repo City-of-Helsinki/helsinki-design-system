@@ -188,6 +188,35 @@ It is recommended to use the standard button size in most cases. If there is a b
 <Button variant="danger">Danger</Button>
 ```
 
+#### React code example:
+```tsx
+<Button size="small">Primary</Button>
+<Button variant="secondary" size="small">Secondary</Button>
+<Button variant="supplementary" size="small">Supplementary</Button>
+```
+
+### Loading buttons
+<p>If action triggered by the button press is not immediate, a loading button state should be shown to the user to indicate the loading period.</p>
+
+When the loading action is triggered at the button press, the button will change its state to loading. After the loading is complete, either the next page loads or if the page stays the same, you should use other methods (such as notifications) to indicate the loading result.
+
+**Note!** It is not recommended to use Supplementary buttons for loading actions since they can be hard to the user to differenciate from the loading state button.
+
+<Playground>
+  <div style={{ fontSize: 'var(--fontsize-body-m)', marginBottom: 'var(--spacing-m)' }}>Click the button to see loading button state in action. When loading is completed, a toast notification is shown to indicate the success.</div>
+  <Button>Save form</Button>
+</Playground>
+
+#### Core code example:
+```html
+
+```
+
+#### React code example:
+```tsx
+
+```
+
 ## Demos & API
 
 ### Core
