@@ -1,13 +1,17 @@
 import { format, parse, isValid } from 'date-fns';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 
 import { IconCalendar } from '../../icons';
 import classNames from '../../utils/classNames';
 import { TextInput, TextInputProps } from '../textInput';
-import { DatePicker } from './components/DatePicker';
+import { DatePicker } from './components/datePicker';
 import styles from './DateInput.module.scss';
 
-export type DateInputProps = TextInputProps & {
+export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
+  /**
+   * Close button label
+   */
+  closeButtonLabel?: string;
   /**
    * When `true`, the selected date must be confirmed with the "select" button
    */
@@ -18,35 +22,37 @@ export type DateInputProps = TextInputProps & {
    */
   dateFormat?: string;
   /**
-   * Calendar button aria-label
-   * @default "Choose date"
+   * The initial month open in calendar.
    */
-  openButtonAriaLabel?: string;
-  /**
-   * Select button label
-   * @default "Select"
-   */
-  selectButtonLabel?: string;
-  /**
-   * Close button label
-   * @default "Close"
-   */
-  closeButtonLabel?: string;
+  initialMonth?: Date;
   /**
    * Language
    *
    * @default "en"
    */
   language?: 'en' | 'fi' | 'sv';
+  /**
+   * Callback fired when text input value is changed
+   */
+  onChange?: (value: string, valueAsDate: Date) => void;
+  /**
+   * Calendar button aria-label
+   */
+  openButtonAriaLabel?: string;
+  /**
+   * Select button label
+   */
+  selectButtonLabel?: string;
 };
 
 export const DateInput = ({
+  closeButtonLabel,
   confirmDate = true,
   dateFormat = 'd.M.yyyy',
-  openButtonAriaLabel,
+  initialMonth = new Date(),
   language = 'en',
-  selectButtonLabel = 'Select',
-  closeButtonLabel = 'Close',
+  openButtonAriaLabel,
+  selectButtonLabel,
   ...textInputProps
 }: DateInputProps) => {
   const pickerWrapperRef = useRef<HTMLDivElement>();
@@ -54,7 +60,12 @@ export const DateInput = ({
   const [inputValue, setInputValue] = useState<string>('');
   const [showPicker, setShowPicker] = useState(false);
 
-  const focusButton = () => {
+  /**
+   * Close the datepicker modal
+   */
+  const closeDatePicker = () => {
+    setShowPicker(false);
+    // Focus the date picker open button
     if (inputRef.current) {
       const button = inputRef.current.parentNode.querySelector('button');
       if (button) {
@@ -68,9 +79,9 @@ export const DateInput = ({
    */
   useEffect(() => {
     const handleClickOutsideWrapper = (event: MouseEvent) => {
-      if (showPicker === true && pickerWrapperRef.current && !pickerWrapperRef.current.contains(event.target as Node)) {
-        setShowPicker(false);
-        focusButton();
+      const isOutside = pickerWrapperRef.current && !pickerWrapperRef.current.contains(event.target as Node);
+      if (showPicker === true && isOutside) {
+        closeDatePicker();
       }
     };
     window.addEventListener('click', handleClickOutsideWrapper);
@@ -83,13 +94,15 @@ export const DateInput = ({
    * Handle tab inside date picker
    */
   useEffect(() => {
-    const handleTab = (event: KeyboardEvent) => {
+    const pickerModalElement = pickerWrapperRef.current;
+    const tabbleEventHandler = (event: KeyboardEvent) => {
       // Skip if pressed key was not tab
-      if (!(event.key === 'Tab' || event.keyCode === 9)) {
+      const isTab = event.key === 'Tab' || event.keyCode === 9;
+      if (!isTab) {
         return;
       }
       // Get all focusable elements inside the modal
-      const focusableElements = pickerWrapperRef.current.querySelectorAll(
+      const focusableElements = pickerModalElement.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
       );
       const firstFocusableElement = focusableElements[0];
@@ -97,23 +110,23 @@ export const DateInput = ({
 
       // Check if shift key is pressed
       if (event.shiftKey) {
-        // If currently active element is the first element, focus the last one
+        // If currently focused element is the first element, move focus the last one
         if (document.activeElement === firstFocusableElement) {
           (lastFocusableElement as HTMLElement).focus();
           event.preventDefault();
         }
       }
-      // If shift is not pressed and active element is the last element, focust the first one
+      // If shift is not pressed and currently focused element is the last element,
+      // move focust the first one
       else if (document.activeElement === lastFocusableElement) {
         (firstFocusableElement as HTMLElement).focus();
         event.preventDefault();
       }
     };
-    const pickerModal = pickerWrapperRef.current;
-    pickerModal.addEventListener('keydown', handleTab);
+    pickerModalElement.addEventListener('keydown', tabbleEventHandler);
     return () => {
-      if (pickerModal) {
-        pickerModal.removeEventListener('keydown', handleTab);
+      if (pickerModalElement) {
+        pickerModalElement.removeEventListener('keydown', tabbleEventHandler);
       }
     };
   }, []);
@@ -133,16 +146,26 @@ export const DateInput = ({
   }, [showPicker]);
 
   /**
-   * Handle the toggle button clicks
+   * Handle the date picker open button
    */
-  const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onOpenButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setShowPicker(!showPicker);
   };
 
-  // Parse input value to Date
-  const date = parse(inputValue, dateFormat, new Date());
+  // Parse input value string to date
+  const stringToDate = useCallback((value: string) => parse(value, dateFormat, new Date()), [dateFormat]);
 
+  // Handle the input change
+  const handleInputChange = (value: string) => {
+    setInputValue(value);
+    const valueAsDate = stringToDate(value);
+    if (textInputProps.onChange) {
+      textInputProps.onChange(value, valueAsDate);
+    }
+  };
+
+  // Get the open button label based on language
   const getOpenButtonLabel = () => {
     if (openButtonAriaLabel) {
       return openButtonAriaLabel;
@@ -154,14 +177,43 @@ export const DateInput = ({
     }[language];
   };
 
+  // Get the select button label based on language
+  const getSelectButtonLabel = () => {
+    if (selectButtonLabel) {
+      return selectButtonLabel;
+    }
+    return {
+      en: 'Select',
+      fi: 'Valitse',
+      sv: 'Välj',
+    }[language];
+  };
+
+  // Get the close button label based on language
+  const getCloseButtonLabel = () => {
+    if (closeButtonLabel) {
+      return closeButtonLabel;
+    }
+    return {
+      en: 'Close',
+      fi: 'Sulje',
+      sv: 'Stäng',
+    }[language];
+  };
+
+  // Get the current value as Date object
+  const inputValueAsDate = stringToDate(inputValue);
+
   return (
     <div className={styles.wrapper}>
       <TextInput
         {...textInputProps}
         buttonIcon={<IconCalendar aria-hidden />}
         buttonAriaLabel={getOpenButtonLabel()}
-        onButtonClick={onButtonClick}
-        onChange={(event) => setInputValue(event.target.value)}
+        onButtonClick={onOpenButtonClick}
+        onChange={(event) => {
+          handleInputChange(event.target.value);
+        }}
         value={inputValue}
         ref={inputRef}
       />
@@ -175,19 +227,15 @@ export const DateInput = ({
         <DatePicker
           language={language}
           confirmDate={confirmDate}
-          selected={isValid(date) ? date : undefined}
-          initialMonth={new Date(2021, 0)}
+          selected={isValid(inputValueAsDate) ? inputValueAsDate : undefined}
+          initialMonth={initialMonth}
           onDaySelect={(day) => {
-            setShowPicker(false);
-            focusButton();
-            setInputValue(format(day, dateFormat));
+            closeDatePicker();
+            handleInputChange(format(day, dateFormat));
           }}
-          onCloseButtonClick={() => {
-            setShowPicker(false);
-            focusButton();
-          }}
-          selectButtonLabel={selectButtonLabel}
-          closeButtonLabel={closeButtonLabel}
+          onCloseButtonClick={closeDatePicker}
+          selectButtonLabel={getSelectButtonLabel()}
+          closeButtonLabel={getCloseButtonLabel()}
         />
       </div>
     </div>

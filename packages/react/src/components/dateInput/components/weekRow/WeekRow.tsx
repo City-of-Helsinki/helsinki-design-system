@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
-import { endOfWeek, getUnixTime, isToday, startOfWeek } from 'date-fns';
-import { eachDayOfInterval } from 'date-fns/esm';
+import endOfWeek from 'date-fns/endOfWeek';
+import getUnixTime from 'date-fns/getUnixTime';
+import isToday from 'date-fns/isToday';
+import startOfWeek from 'date-fns/startOfWeek';
+import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 
-import { Day } from '../Day/Day';
+import { Day } from '../day';
 import { DatePickerContext } from '../../context/DatePickerContext';
 
 export type WeekRowProps = {

@@ -1,9 +1,9 @@
+import React, { ChangeEvent, useContext } from 'react';
 import eachMonthOfInterval from 'date-fns/eachMonthOfInterval';
 import format from 'date-fns/format';
 import eachYearOfInterval from 'date-fns/eachYearOfInterval';
-import React, { ChangeEvent, useContext } from 'react';
-import { startOfMonth } from 'date-fns';
-import { addMonths } from 'date-fns/esm';
+import startOfMonth from 'date-fns/startOfMonth';
+import addMonths from 'date-fns/addMonths';
 
 import { DatePickerContext } from '../../context/DatePickerContext';
 import { IconAngleDown, IconAngleLeft, IconAngleRight } from '../../../../icons';

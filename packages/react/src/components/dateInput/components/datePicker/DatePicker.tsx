@@ -1,3 +1,5 @@
+import './DatePicker.scss';
+
 import React, { useState, useRef, useEffect } from 'react';
 import addDays from 'date-fns/addDays';
 import startOfMonth from 'date-fns/startOfMonth';
@@ -9,8 +11,7 @@ import swedish from 'date-fns/locale/sv';
 import { defaultProps } from './defaults/defaultProps';
 import { DatePickerContext } from '../../context/DatePickerContext';
 import { DayPickerProps } from './types';
-import '../../style.scss';
-import { MonthTable } from '../MonthTable';
+import { MonthTable } from '../monthTable';
 import { IconCross } from '../../../..';
 import { Button } from '../../../button';
 import { IconCheck } from '../../../../icons';

@@ -15,10 +15,14 @@
   visibility: hidden;
   will-change: opacity, visibility;
   z-index: 900;
+  overflow: hidden;
+  height: 0;
 
   &.isVisible {
     opacity: 1;
     visibility: visible;
+    height: auto;
+    overflow: visible;
 
     > * {
       pointer-events: auto;

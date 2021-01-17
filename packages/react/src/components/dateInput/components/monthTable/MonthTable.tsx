@@ -1,10 +1,12 @@
-import { eachWeekOfInterval, endOfMonth, startOfMonth } from 'date-fns/esm';
 import React, { useContext } from 'react';
+import eachWeekOfInterval from 'date-fns/eachWeekOfInterval';
+import endOfMonth from 'date-fns/endOfMonth';
+import startOfMonth from 'date-fns/startOfMonth';
 
 import { DatePickerContext } from '../../context/DatePickerContext';
-import { Head } from '../Head';
-import { MonthNavigation } from '../MonthNavigation';
-import { WeekRow } from '../WeekRow/WeekRow';
+import { Head } from '../head';
+import { MonthNavigation } from '../monthNavigation';
+import { WeekRow } from '../weekRow';
 
 export type MonthTableProps = {
   month: Date;

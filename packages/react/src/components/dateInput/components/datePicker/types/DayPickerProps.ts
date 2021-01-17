@@ -1,24 +1,6 @@
 /* eslint-disable import/no-cycle */
 import React from 'react';
 
-import { DayMatcher } from './Modifiers';
-import { DayPickerElements } from './DayPickerElements';
-
-/**
- * An object defining the CSS class names for each [DayPicker
- * element](./enumerations#daypickerelements).
- */
-export type DayPickerClassNames = {
-  [name in DayPickerElements]?: string;
-};
-/**
- * An object defining the inline style for each [DayPicker
- * element](./enumerations#daypickerelements).
- */
-export type DayPickerStyles = {
-  [name in DayPickerElements]?: React.CSSProperties;
-};
-
 /**
  * Event handler when a day is clicked.
  */
@@ -37,6 +19,9 @@ export interface DayPickerProps {
    * CSS class to add to the root element.
    */
   className?: string;
+  /**
+   * Should the date be confirmed with a button
+   */
   confirmDate?: boolean;
   /**
    * Style to apply to the root element.
@@ -64,14 +49,20 @@ export interface DayPickerProps {
    */
   month?: Date;
   /**
-   * Apply the `selected` modifiers to the matching days.
+   * Date currently selected
    */
-  selected?: DayMatcher;
+  selected?: Date;
   /**
    * Language of the user interface
    */
   language?: 'en' | 'fi' | 'sv';
+  /**
+   * Label for the select button.
+   */
   selectButtonLabel: string;
+  /**
+   * Label for the close button.
+   */
   closeButtonLabel: string;
   /**
    * Event handler when the user clicks on a day.
