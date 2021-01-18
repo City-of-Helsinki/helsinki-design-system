@@ -6,7 +6,7 @@ import { axe } from 'jest-axe';
 
 import { DateInput } from './DateInput';
 
-describe('<Accordion /> spec', () => {
+describe('<DateInput /> spec', () => {
   const RealDate = Date;
   const mockDate = (isoDate: string) => {
     (global as any).Date = class extends RealDate {

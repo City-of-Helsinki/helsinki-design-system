@@ -14,6 +14,7 @@ export default {
     label: 'Choose a date',
     language: 'en',
     confirmDate: true,
+    datePicker: true,
     onChange: (value: string, valueAsDate: Date) => {
       // eslint-disable-next-line no-console
       console.log(value, valueAsDate);
@@ -48,4 +49,12 @@ export const Localization = (args) => {
       </div>
     </div>
   );
+};
+
+export const WithoutDatePicker = (args) => {
+  return <DateInput {...args} />;
+};
+WithoutDatePicker.storyName = 'Without date picker';
+WithoutDatePicker.args = {
+  datePicker: false,
 };

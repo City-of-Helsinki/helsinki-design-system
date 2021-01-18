@@ -17,10 +17,9 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
    */
   confirmDate?: boolean;
   /**
-   * Date format based on date-fns format tokens (https://date-fns.org/docs/format)
-   * @default "d.M.yyyy"
+   * Enable date picker alongside the input
    */
-  dateFormat?: string;
+  datePicker?: boolean;
   /**
    * The initial month open in calendar.
    */
@@ -48,13 +47,15 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
 export const DateInput = ({
   closeButtonLabel,
   confirmDate = true,
-  dateFormat = 'd.M.yyyy',
+  datePicker = true,
   initialMonth = new Date(),
   language = 'en',
   openButtonAriaLabel,
   selectButtonLabel,
   ...textInputProps
 }: DateInputProps) => {
+  const dateFormat = 'd.M.yyyy';
+
   const pickerWrapperRef = useRef<HTMLDivElement>();
   const inputRef = useRef<HTMLInputElement>();
   const [inputValue, setInputValue] = useState<string>('');
@@ -123,7 +124,9 @@ export const DateInput = ({
         event.preventDefault();
       }
     };
-    pickerModalElement.addEventListener('keydown', tabbleEventHandler);
+    if (pickerModalElement) {
+      pickerModalElement.addEventListener('keydown', tabbleEventHandler);
+    }
     return () => {
       if (pickerModalElement) {
         pickerModalElement.removeEventListener('keydown', tabbleEventHandler);
@@ -158,10 +161,12 @@ export const DateInput = ({
 
   // Handle the input change
   const handleInputChange = (value: string) => {
-    setInputValue(value);
-    const valueAsDate = stringToDate(value);
+    const disallowedCharacters = /[^0-9.]+/g;
+    const newValue = value.replace(disallowedCharacters, '');
+    setInputValue(newValue);
+    const valueAsDate = stringToDate(newValue);
     if (textInputProps.onChange) {
-      textInputProps.onChange(value, valueAsDate);
+      textInputProps.onChange(newValue, valueAsDate);
     }
   };
 
@@ -208,36 +213,40 @@ export const DateInput = ({
     <div className={styles.wrapper}>
       <TextInput
         {...textInputProps}
-        buttonIcon={<IconCalendar aria-hidden />}
-        buttonAriaLabel={getOpenButtonLabel()}
-        onButtonClick={onOpenButtonClick}
+        buttonIcon={datePicker ? <IconCalendar aria-hidden /> : undefined}
+        buttonAriaLabel={datePicker ? getOpenButtonLabel() : undefined}
+        onButtonClick={datePicker ? onOpenButtonClick : undefined}
         onChange={(event) => {
           handleInputChange(event.target.value);
         }}
         value={inputValue}
         ref={inputRef}
+        inputMode="numeric"
+        required
       />
-      <div
-        ref={pickerWrapperRef}
-        className={classNames(styles.pickerWrapper, showPicker && styles.isVisible)}
-        role="dialog"
-        aria-modal="true"
-        aria-hidden={showPicker ? undefined : true}
-      >
-        <DatePicker
-          language={language}
-          confirmDate={confirmDate}
-          selected={isValid(inputValueAsDate) ? inputValueAsDate : undefined}
-          initialMonth={initialMonth}
-          onDaySelect={(day) => {
-            closeDatePicker();
-            handleInputChange(format(day, dateFormat));
-          }}
-          onCloseButtonClick={closeDatePicker}
-          selectButtonLabel={getSelectButtonLabel()}
-          closeButtonLabel={getCloseButtonLabel()}
-        />
-      </div>
+      {datePicker && (
+        <div
+          ref={pickerWrapperRef}
+          className={classNames(styles.pickerWrapper, showPicker && styles.isVisible)}
+          role="dialog"
+          aria-modal="true"
+          aria-hidden={showPicker ? undefined : true}
+        >
+          <DatePicker
+            language={language}
+            confirmDate={confirmDate}
+            selected={isValid(inputValueAsDate) ? inputValueAsDate : undefined}
+            initialMonth={initialMonth}
+            onDaySelect={(day) => {
+              closeDatePicker();
+              handleInputChange(format(day, dateFormat));
+            }}
+            onCloseButtonClick={closeDatePicker}
+            selectButtonLabel={getSelectButtonLabel()}
+            closeButtonLabel={getCloseButtonLabel()}
+          />
+        </div>
+      )}
     </div>
   );
 };

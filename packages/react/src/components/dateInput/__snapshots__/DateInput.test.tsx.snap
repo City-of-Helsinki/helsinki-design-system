@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Accordion /> spec renders the component with additional props 1`] = `
+exports[`<DateInput /> spec renders the component with additional props 1`] = `
 <DocumentFragment>
   <div
     class="wrapper"
@@ -13,6 +13,11 @@ exports[`<Accordion /> spec renders the component with additional props 1`] = `
         for="date"
       >
         Foo
+        <span
+          class="indicator"
+        >
+           *
+        </span>
       </label>
       <div
         class="inputWrapper"
@@ -20,6 +25,8 @@ exports[`<Accordion /> spec renders the component with additional props 1`] = `
         <input
           class="input hasButton"
           id="date"
+          inputmode="numeric"
+          required=""
           type="text"
           value=""
         />
@@ -1314,7 +1321,7 @@ exports[`<Accordion /> spec renders the component with additional props 1`] = `
 </DocumentFragment>
 `;
 
-exports[`<Accordion /> spec renders the component with default props 1`] = `
+exports[`<DateInput /> spec renders the component with default props 1`] = `
 <DocumentFragment>
   <div
     class="wrapper"
@@ -1328,6 +1335,8 @@ exports[`<Accordion /> spec renders the component with default props 1`] = `
         <input
           class="input hasButton"
           id="date"
+          inputmode="numeric"
+          required=""
           type="text"
           value=""
         />
@@ -2659,7 +2668,7 @@ exports[`<Accordion /> spec renders the component with default props 1`] = `
 </DocumentFragment>
 `;
 
-exports[`<Accordion /> spec renders the component with different languages 1`] = `
+exports[`<DateInput /> spec renders the component with different languages 1`] = `
 <DocumentFragment>
   <div
     class="wrapper"
@@ -2673,6 +2682,8 @@ exports[`<Accordion /> spec renders the component with different languages 1`] =
         <input
           class="input hasButton"
           id="date"
+          inputmode="numeric"
+          required=""
           type="text"
           value=""
         />
@@ -4013,6 +4024,8 @@ exports[`<Accordion /> spec renders the component with different languages 1`] =
         <input
           class="input hasButton"
           id="date"
+          inputmode="numeric"
+          required=""
           type="text"
           value=""
         />
@@ -5353,6 +5366,8 @@ exports[`<Accordion /> spec renders the component with different languages 1`] =
         <input
           class="input hasButton"
           id="date"
+          inputmode="numeric"
+          required=""
           type="text"
           value=""
         />
