@@ -13,11 +13,6 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
         for="date"
       >
         Foo
-        <span
-          class="indicator"
-        >
-           *
-        </span>
       </label>
       <div
         class="inputWrapper"
@@ -26,7 +21,6 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
           class="input hasButton"
           id="date"
           inputmode="numeric"
-          required=""
           type="text"
           value=""
         />
@@ -1336,7 +1330,6 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
           class="input hasButton"
           id="date"
           inputmode="numeric"
-          required=""
           type="text"
           value=""
         />
@@ -2683,7 +2676,6 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
           class="input hasButton"
           id="date"
           inputmode="numeric"
-          required=""
           type="text"
           value=""
         />
@@ -4025,7 +4017,6 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
           class="input hasButton"
           id="date"
           inputmode="numeric"
-          required=""
           type="text"
           value=""
         />
@@ -5367,7 +5358,6 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
           class="input hasButton"
           id="date"
           inputmode="numeric"
-          required=""
           type="text"
           value=""
         />

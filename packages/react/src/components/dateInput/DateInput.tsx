@@ -222,7 +222,6 @@ export const DateInput = ({
         value={inputValue}
         ref={inputRef}
         inputMode="numeric"
-        required
       />
       {datePicker && (
         <div
