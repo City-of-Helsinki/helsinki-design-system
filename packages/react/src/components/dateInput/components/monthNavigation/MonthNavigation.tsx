@@ -7,6 +7,7 @@ import addMonths from 'date-fns/addMonths';
 
 import { DatePickerContext } from '../../context/DatePickerContext';
 import { IconAngleDown, IconAngleLeft, IconAngleRight } from '../../../../icons';
+import styles from '../datePicker/DatePicker.module.scss';
 
 export interface MonthCaptionProps {
   /**
@@ -75,8 +76,8 @@ export const MonthNavigation = ({ month }: MonthCaptionProps) => {
   };
 
   return (
-    <div className="hds-datepicker__navigation">
-      <div className="hds-datepicker__navigation__select">
+    <div className={styles['hds-datepicker__navigation']}>
+      <div className={styles['hds-datepicker__navigation__select']}>
         <select aria-label="Month" onChange={onMonthChange} value={month.getMonth()}>
           {eachMonthOfInterval({ start: new Date(selectedYear, 0, 1), end: new Date(selectedYear, 11, 31) }).map(
             (monthDate) => {
@@ -89,14 +90,14 @@ export const MonthNavigation = ({ month }: MonthCaptionProps) => {
             },
           )}
         </select>
-        <div className="hds-datepicker__navigation__select-label" aria-hidden>
+        <div className={styles['hds-datepicker__navigation__select-label']} aria-hidden>
           {format(month, 'LLL', { locale })}
-          <div className="hds-datepicker__navigation__select-icon">
+          <div className={styles['hds-datepicker__navigation__select-icon']}>
             <IconAngleDown />
           </div>
         </div>
       </div>
-      <div className="hds-datepicker__navigation__select">
+      <div className={styles['hds-datepicker__navigation__select']}>
         <select aria-label="Year" onChange={onYearChange} value={selectedYear}>
           {eachYearOfInterval({ start: new Date(minYear, 1, 1), end: new Date(maxYear, 1, 1) }).map((yearDate) => {
             const year = yearDate.getFullYear();
@@ -107,14 +108,14 @@ export const MonthNavigation = ({ month }: MonthCaptionProps) => {
             );
           })}
         </select>
-        <div className="hds-datepicker__navigation__select-label" aria-hidden>
+        <div className={styles['hds-datepicker__navigation__select-label']} aria-hidden>
           {month.getFullYear()}
-          <div className="hds-datepicker__navigation__select-icon">
+          <div className={styles['hds-datepicker__navigation__select-icon']}>
             <IconAngleDown aria-hidden />
           </div>
         </div>
       </div>
-      <div className="hds-datepicker__navigation__buttons">
+      <div className={styles['hds-datepicker__navigation__buttons']}>
         <button disabled={!prevMonth} type="button" onClick={onPrevClick} aria-label={getPrevMonthLabel()}>
           <IconAngleLeft aria-hidden />
         </button>

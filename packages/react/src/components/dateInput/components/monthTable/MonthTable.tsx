@@ -7,6 +7,7 @@ import { DatePickerContext } from '../../context/DatePickerContext';
 import { Head } from '../head';
 import { MonthNavigation } from '../monthNavigation';
 import { WeekRow } from '../weekRow';
+import styles from '../datePicker/DatePicker.module.scss';
 
 export type MonthTableProps = {
   month: Date;
@@ -22,7 +23,7 @@ export const MonthTable = (props: MonthTableProps) => {
   return (
     <div>
       <MonthNavigation month={month} />
-      <table className="hds-datepicker__month-table">
+      <table className={styles['hds-datepicker__month-table']}>
         <Head locale={locale} />
         <tbody>
           {weeks.map((week) => (

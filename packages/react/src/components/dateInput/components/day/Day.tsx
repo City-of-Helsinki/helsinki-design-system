@@ -9,6 +9,7 @@ import startOfMonth from 'date-fns/startOfMonth';
 
 import { DatePickerContext } from '../../context/DatePickerContext';
 import cn from '../../../../utils/classNames';
+import styles from '../datePicker/DatePicker.module.scss';
 
 export type DayProps = {
   /**
@@ -69,21 +70,21 @@ export const Day = ({ day }: DayProps) => {
     ref: isInteractive ? dayRef : undefined,
     tabIndex: isInteractive ? tabIndex : undefined,
     className: cn(
-      'hds-datepicker__day',
-      isToday(day) && 'hds-datepicker__day--today',
-      isSameDay(day, selectedDate) && 'hds-datepicker__day--selected',
-      isDisabled && 'hds-datepicker__day--disabled',
-      isOutsideCurrentMonth && 'hds-datepicker__day--outside',
+      styles['hds-datepicker__day'],
+      isToday(day) && styles['hds-datepicker__day--today'],
+      isSameDay(day, selectedDate) && styles['hds-datepicker__day--selected'],
+      isDisabled && styles['hds-datepicker__day--disabled'],
+      isOutsideCurrentMonth && styles['hds-datepicker__day--outside'],
     ),
     'data-date': format(day, 'yyyy-MM-dd'),
   };
 
   return (
     <DayElement {...dayElementProps}>
-      <span className="hds-datepicker__day__wrapper" aria-hidden>
+      <span className={styles['hds-datepicker__day__wrapper']} aria-hidden>
         {format(day, 'd', { locale })}
       </span>
-      <span className="hds-datepicker__day__wrapper-vhidden">{format(day, 'LLLL d', { locale })}</span>
+      <span className={styles['hds-datepicker__day__wrapper-vhidden']}>{format(day, 'LLLL d', { locale })}</span>
     </DayElement>
   );
 };

@@ -1,5 +1,3 @@
-import './DatePicker.scss';
-
 import React, { useState, useRef, useEffect } from 'react';
 import addDays from 'date-fns/addDays';
 import startOfMonth from 'date-fns/startOfMonth';
@@ -8,6 +6,7 @@ import english from 'date-fns/locale/en-GB';
 import finnish from 'date-fns/locale/fi';
 import swedish from 'date-fns/locale/sv';
 
+import styles from './DatePicker.module.scss';
 import { defaultProps } from './defaults/defaultProps';
 import { DatePickerContext } from '../../context/DatePickerContext';
 import { DayPickerProps } from './types';
@@ -185,9 +184,9 @@ export const DatePicker = (providedProps: DayPickerProps) => {
         handleMonthChange,
       }}
     >
-      <div className="hds-datepicker" ref={datepickerRef}>
+      <div className={styles['hds-datepicker']} ref={datepickerRef}>
         <MonthTable month={currentMonth} />
-        <div className="hds-datepicker__bottom-buttons">
+        <div className={styles['hds-datepicker__bottom-buttons']}>
           {confirmDate && (
             <Button
               disabled={!selectedDate}

@@ -7,6 +7,7 @@ import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 
 import { Day } from '../day';
 import { DatePickerContext } from '../../context/DatePickerContext';
+import styles from '../datePicker/DatePicker.module.scss';
 
 export type WeekRowProps = {
   week: Date;
@@ -23,7 +24,7 @@ export const WeekRow = (props: WeekRowProps) => {
     <tr>
       {days.map((day) => (
         <td
-          className="hds-datepicker__day-cell"
+          className={styles['hds-datepicker__day-cell']}
           key={getUnixTime(day)}
           aria-current={isToday(day) ? 'date' : undefined}
         >

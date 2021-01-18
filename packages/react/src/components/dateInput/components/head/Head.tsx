@@ -1,5 +1,6 @@
 import React from 'react';
 
+import styles from '../datePicker/DatePicker.module.scss';
 import { getWeekdaysNames } from './getWeekdaysNames';
 
 export interface HeadProps {
@@ -16,9 +17,9 @@ export const Head = ({ locale }: HeadProps) => {
     <thead>
       <tr>
         {weekdayNames.map((names) => (
-          <th key={names[0]} scope="col" className="hds-datepicker__head__weekday">
+          <th key={names[0]} scope="col" className={styles['hds-datepicker__head__weekday']}>
             <span aria-hidden>{names[0]}</span>
-            <span className="hds-datepicker__head__weekday-vhidden">{names[1]}</span>
+            <span className={styles['hds-datepicker__head__weekday-vhidden']}>{names[1]}</span>
           </th>
         ))}
       </tr>
