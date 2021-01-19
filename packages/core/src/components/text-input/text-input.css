@@ -85,6 +85,7 @@
   line-height: normal;
   padding: 0 var(--spacing-s);
   width: 100%;
+  will-change: transform, box-shadow;
 }
 
 .hds-text-input textarea.hds-text-input__input {
