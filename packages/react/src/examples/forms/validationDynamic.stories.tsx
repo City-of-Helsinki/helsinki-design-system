@@ -135,6 +135,7 @@ export const Dynamic = () => {
                 invalid={!!getErrorMessage('firstName')}
                 aria-invalid={!!getErrorMessage('firstName')}
                 errorText={getErrorMessage('firstName')}
+                autoComplete="given-name"
                 required
               />
             </div>
@@ -149,6 +150,7 @@ export const Dynamic = () => {
                 invalid={!!getErrorMessage('lastName')}
                 aria-invalid={!!getErrorMessage('lastName')}
                 errorText={getErrorMessage('lastName')}
+                autoComplete="family-name"
                 required
               />
             </div>
@@ -184,6 +186,7 @@ export const Dynamic = () => {
                 invalid={!!getErrorMessage('postalCode')}
                 aria-invalid={!!getErrorMessage('postalCode')}
                 errorText={getErrorMessage('postalCode')}
+                autoComplete="postal-code"
                 required
               />
             </div>
@@ -199,6 +202,7 @@ export const Dynamic = () => {
               invalid={!!getErrorMessage('email')}
               aria-invalid={!!getErrorMessage('email')}
               errorText={getErrorMessage('email')}
+              autoComplete="email"
               required
               tooltipButtonLabel="Tooltip: Email address"
               tooltipText="We will send a confirmation to this email address. You may also receive important updates about your parking permit via email."

@@ -151,6 +151,7 @@ export const Static = () => {
                 value={formik.values.firstName}
                 invalid={!!getErrorMessage('firstName')}
                 errorText={getErrorMessage('firstName')}
+                autoComplete="given-name"
                 required
               />
             </div>
@@ -164,6 +165,7 @@ export const Static = () => {
                 value={formik.values.lastName}
                 invalid={!!getErrorMessage('lastName')}
                 errorText={getErrorMessage('lastName')}
+                autoComplete="family-name"
                 required
               />
             </div>
@@ -198,6 +200,7 @@ export const Static = () => {
                 value={formik.values.postalCode}
                 invalid={!!getErrorMessage('postalCode')}
                 errorText={getErrorMessage('postalCode')}
+                autoComplete="postal-code"
                 required
               />
             </div>
@@ -212,6 +215,7 @@ export const Static = () => {
               value={formik.values.email}
               invalid={!!getErrorMessage('email')}
               errorText={getErrorMessage('email')}
+              autoComplete="email"
               required
               tooltipButtonLabel="Tooltip: Email address"
               tooltipText="We will send a confirmation to this email address. You may also receive important updates about your parking permit via email."
