@@ -6,6 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.21.0] - January 19, 2021
+
+### Core
+#### Added
+- New component: Search input (in [#345](https://github.com/City-of-Helsinki/helsinki-design-system/pull/345))
+
+### React
+#### Added
+- Added `autocomplete` attribute for applicable fields in form validation examples (in [#359](https://github.com/City-of-Helsinki/helsinki-design-system/pull/359))
+
+#### Fixed
+- [LoadingSpinner] Fixed a bug related to cleaning of the notification area (in [#355](https://github.com/City-of-Helsinki/helsinki-design-system/pull/355))
+- [TextInput, TextArea] Fixed focus outline animation glitch inside grid layout (in [#356](https://github.com/City-of-Helsinki/helsinki-design-system/pull/356))
+
 ## [0.20.0] - January 5, 2021
 ### Design kit
 #### Changed
