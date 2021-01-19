@@ -29,6 +29,7 @@ import Text from "../../src/components/Text";
 - The date input should be provided with an assistive text which tells the user the expected date format. Do not rely on a placeholder text alone because it will disappear when the user starts typing. The recommended way to show the expected format is to use the assistive text below the input.
     - As specified in [the data format guidelines](/guidelines/data-formats), Helsinki services will always use D.M.YYYY format. Do not use the English date format even if the user is using English locale.
 - When asking for date ranges, you should use two separate date inputs instead of trying to use one input or picker for both dates.
+- HDS Date picker acts as a modal. This means that clicking outside of the picker closes it. Closing the picker this way also cancels the selection made in the picker.
 
 ### When to use the date picker?
 - **Use the date picker** (calendar) when it is useful for the user to see how the selected date is related to other dates and/or which weekday it is.
@@ -70,7 +71,9 @@ Out of the box, HDS date input will include an openable date picker which allows
 ```
 
 ### Date input without a confirmation
-The default HDS date picker requires a confirmation after the date has been selected from the calendar. If your service is mostly desktop or meant for administration, the confirmation can be disabled with `disableConfirmation` prop to allow more fluid user experience when selecting multiple dates in a row. In all other types of services, it is recommended to not disable the confirmation step.
+The default HDS date picker requires a confirmation after the date has been selected from the calendar. If your service is mostly desktop or meant for administration, the confirmation can be disabled with `disableConfirmation` prop to allow more fluid user experience when selecting multiple dates in a row. Note that this option makes the calendar close automatically immediately when the date is chosen.
+
+In all other types of services, it is recommended to not disable the confirmation step.
 
 <Playground>
 <div style={{maxWidth: '400px'}}>
