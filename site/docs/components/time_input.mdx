@@ -1,0 +1,88 @@
+---
+name: Time input
+menu: Components
+route: /components/time-input
+---
+
+import { Playground } from "docz";
+import { StatusLabel } from "hds-react";
+
+import ColorBox from "../../src/components/ColorBox";
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
+import Text from "../../src/components/Text";
+
+# Time input
+
+<StatusLabel type="alert">Pre-release</StatusLabel>
+<StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
+
+<LargeParagraph>
+    TODO
+</LargeParagraph>
+
+## Principles
+- Only use a time input when you can expect the user to input a specific time. If it can be hard for the user to determine which time they should choose or if the selected time slot can be vague, let the user choose, for example, a time of day (e.g. morning) or a specific day etc.
+- **Pay close attention to the time input label.** It should clearly describe the time the user is expected to input. A good label describes the input, such as "Event start time".
+- Because HDS time input forces the input to a specific format, it is not required to describe the expected format in the assistive text.
+- As specified in [the data format guidelines](/guidelines/data-formats), Helsinki services use 24 hour clock and can either use leading zeros or omit them. The time input will always show leading zeros.
+- When asking for time ranges, you should use two separate time inputs instead of trying to use one input or picker for both times.
+
+### Should I use an input or a select?
+- **Use time input when**
+  - when the user needs to input the time very accurately (e.g. a parking start time)
+  - there are no strict format requirements or specific time slots available to show
+- **Use time select when**
+  - time format is very strict, e.g. only XX:00 and XX:30 times are allowed
+  - there are only a set amount of time slots available (e.g. reserving a doctor appointment)
+
+## Accessibility
+- HDS time input allows the user to input the date manually. Whenever you require the user to input times, you should also allow the manual input.
+
+## Usage and variations
+
+### Time input
+TODO
+
+<Playground>
+
+</Playground>
+
+#### Core code example:
+```html
+
+```
+
+#### React code example:
+```tsx
+
+```
+
+### Time select
+TODO
+
+<Playground>
+
+</Playground>
+
+#### Core code example:
+```html
+
+```
+
+#### React code example:
+```tsx
+
+```
+
+## Demos & API
+
+### Core
+
+[Time inputs in hds-core](/storybook/core/?path=/story/components-text-input--default)
+
+### React
+
+[Time inputs in hds-react](/storybook/react/?path=/story/components-textinput--default)
+
+[TimeInput API](/storybook/react/?path=/docs/components-textinput--default)
