@@ -7,6 +7,7 @@
 @import "./notification/notification.css";
 @import "./error-summary/error-summary.css";
 @import "./radio-button/radio-button.css";
+@import "./search-input/search-input.css";
 @import "./selection-group/selection-group.css";
 @import "./status-label/status-label.css";
 @import "./tag/tag.css";

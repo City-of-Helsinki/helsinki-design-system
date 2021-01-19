@@ -48,6 +48,30 @@ The basic version of the search input is a plain text field with search and clea
   />
 </Playground>
 
+
+#### Core code example:
+```html
+<div class="hds-search-input">
+  <label for="example" class="hds-search-input__label">Search</label>
+  <div class="hds-search-input__input-wrapper">
+    <input
+      id="example"
+      class="hds-search-input__input"
+      type="text"
+    />
+    <div class="hds-search-input__buttons">
+      <button
+        type="button"
+        aria-label="Search"
+        class="hds-search-input__button"
+      >
+        <i class="hds-icon hds-icon--search hds-icon--size-s" aria-hidden="true"></i>
+    </div>
+  </div>
+  <span class="hds-search-input__helper-text">Assistive text</span>
+</div>
+```
+
 #### React code example:
 ```tsx
 <SearchInput 
@@ -209,7 +233,7 @@ Note! This feature is experimental and we are looking to improve it after projec
 
 ### Core
 
-_Not included in hds-core!_
+[Search input in hds-core](/storybook/core/?path=/story/components-search-input--default)
 
 ### React
 
