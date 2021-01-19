@@ -27,7 +27,7 @@ import Text from "../../src/components/Text";
     - When selecting weeks or months, it is usually better to use [the dropdown select component](/components/dropdown#select).
 - Pay close attention to the date input label. It should clearly describe the date the user is expected to input. A good label describes the input, such as "Arrival date".
 - The date input should be provided with an assistive text which tells the user the expected date format. Do not rely on a placeholder text alone because it will disappear when the user starts typing. The recommended way to show the expected format is to use the assistive text below the input.
-    - As specified in [the data format guidelines](/guidelines/data-formats), Helsinki services will always use DD.MM.YYYY format. Do not use the English date format even if the user is using English locale.
+    - As specified in [the data format guidelines](/guidelines/data-formats), Helsinki services will always use D.M.YYYY format. Do not use the English date format even if the user is using English locale.
 - When asking for date ranges, you should use two separate date inputs instead of trying to use one input or picker for both dates.
 
 ### When to use the date picker?
@@ -40,38 +40,171 @@ import Text from "../../src/components/Text";
 ## Usage & variations
 
 ### Date input with a picker
-TODO
+Out of the box, HDS date input will include an openable date picker which allows the user to select the date via a calendar view. The date can be also inputted manually. This is the recommended setup for most use cases.
 
 <Playground>
+<div style={{maxWidth: '400px'}}>
     <DateInput 
-        label="Choose a date"
         helperText="Use format D.M.YYYY"
-        required
-    />
-</Playground>
-
-#### React code example:
-```tsx
-
-```
-
-### Date input without a picker
-TODO
-
-<Playground>
-    <DateInput
         id="date"
-        datePicker={false}
-        initialMonth={new Date("2021-01-18T13:49:01.692Z")}
+        initialMonth={new Date()}
         label="Choose a date"
         language="en"
         onChange={function noRefCheck(){}}
-  />
+        required
+    />
+</div>
 </Playground>
 
 #### React code example:
 ```tsx
+<DateInput 
+    helperText="Use format D.M.YYYY"
+    id="date"
+    initialMonth={new Date()}
+    label="Choose a date"
+    language="en"
+    onChange={function noRefCheck(){}}
+    required
+/>
+```
 
+### Date input without a confirmation
+The default HDS date picker requires a confirmation after the date has been selected from the calendar. If your service is mostly desktop or meant for administration, the confirmation can be disabled with `disableConfirmation` prop to allow more fluid user experience when selecting multiple dates in a row. In all other types of services, it is recommended to not disable the confirmation step.
+
+<Playground>
+<div style={{maxWidth: '400px'}}>
+    <DateInput
+        disableConfirmation
+        helperText="Use format D.M.YYYY"
+        id="date"
+        initialMonth={new Date()}
+        label="Choose a date"
+        language="en"
+        onChange={function noRefCheck(){}}
+        required
+    />
+</div>
+</Playground>
+
+#### React code example:
+```tsx
+<DateInput
+    disableConfirmation
+    helperText="Use format D.M.YYYY"
+    id="date"
+    initialMonth={new Date()}
+    label="Choose a date"
+    language="en"
+    onChange={function noRefCheck(){}}
+    required
+/>
+```
+
+### Date input without a picker
+It is possible to disable the date picker functionality by supplying a `disableDatePicker` prop to the input. To learn when the date picker should be hidden, see [when to use date picker](http://localhost:3000/components/date-input#when-to-use-the-date-picker) above.
+
+<Playground>
+<div style={{maxWidth: '400px'}}>
+    <DateInput
+        confirmDate
+        disableDatePicker
+        helperText="Use format D.M.YYYY"
+        id="date"
+        initialMonth={new Date()}
+        label="Choose a date"
+        language="en"
+        onChange={function noRefCheck(){}}
+        required
+  />
+</div>
+</Playground>
+
+#### React code example:
+```tsx
+<DateInput
+    confirmDate
+    disableDatePicker
+    helperText="Use format D.M.YYYY"
+    id="date"
+    initialMonth={new Date()}
+    label="Choose a date"
+    language="en"
+    onChange={function noRefCheck(){}}
+    required
+/>
+```
+
+### Localised date inputs
+To make things easier, HDS provides Finnish, Swedish and English translations for the date picker. Translations include all elements in the picker as well as aria labels for accessibility. You can change the translation by altering `language` prop.
+
+<Playground>
+<div style={{maxWidth: '400px'}}>
+    <DateInput 
+        helperText="Use format D.M.YYYY"
+        id="date"
+        initialMonth={new Date()}
+        label="Choose a date"
+        language="en"
+        onChange={function noRefCheck(){}}
+        required
+        style={{marginBottom: 'var(--spacing-s)'}}
+    />
+
+    <DateInput 
+        helperText="Käytä muotoa P.K.VVVV"
+        id="date"
+        initialMonth={new Date()}
+        label="Valitse päivämäärä"
+        language="fi"
+        onChange={function noRefCheck(){}}
+        required
+        style={{marginBottom: 'var(--spacing-s)'}}
+    />
+
+    <DateInput 
+        helperText="Använd ett format D.M.ÅÅÅÅ"
+        id="date"
+        initialMonth={new Date()}
+        label="Välj ett datum"
+        language="sv"
+        onChange={function noRefCheck(){}}
+        required
+    />
+</div>
+</Playground>
+
+#### React code example:
+```tsx
+<DateInput 
+    helperText="Use format D.M.YYYY"
+    id="date"
+    initialMonth={new Date()}
+    label="Choose a date"
+    language="en"
+    onChange={function noRefCheck(){}}
+    required
+/>
+
+<DateInput 
+    helperText="Käytä muotoa P.K.VVVV"
+    id="date"
+    initialMonth={new Date()}
+    label="Valitse päivämäärä"
+    language="fi"
+    onChange={function noRefCheck(){}}
+    required
+/>
+
+<DateInput 
+    helperText="Använd ett format D.M.ÅÅÅÅ"
+    id="date"
+    initialMonth={new Date()}
+    label="Välj ett datum"
+    language="sv"
+    onChange={function noRefCheck(){}}
+    required
+/>
 ```
 
 ## Demos & API
@@ -82,6 +215,6 @@ _Not included in hds-core!_
 
 ### React
 
-[Date input in hds-react](/storybook/react/?path=/story/components-accordion--default)
+[Date input in hds-react](/storybook/react/?path=/story/components-dateinput--default)
 
-[Date input API](/storybook/react/?path=/docs/components-accordion--default)
+[Date input API](/storybook/react/?path=/docs/components-dateinput--default)
