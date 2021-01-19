@@ -35,7 +35,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     toMonth,
     onCloseButtonClick,
     selected,
-    confirmDate,
+    disableConfirmation,
     selectButtonLabel,
     closeButtonLabel,
   } = {
@@ -114,7 +114,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
    */
   const handleDayClick = (date: Date, e: React.MouseEvent) => {
     setSelectedDate(date);
-    if (onDaySelect && !confirmDate) {
+    if (onDaySelect && disableConfirmation) {
       onDaySelect(date, e);
     }
   };
@@ -187,7 +187,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
       <div className={styles['hds-datepicker']} ref={datepickerRef}>
         <MonthTable month={currentMonth} />
         <div className={styles['hds-datepicker__bottom-buttons']}>
-          {confirmDate && (
+          {!disableConfirmation && (
             <Button
               disabled={!selectedDate}
               size="small"

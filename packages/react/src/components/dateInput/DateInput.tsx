@@ -13,9 +13,9 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
    */
   closeButtonLabel?: string;
   /**
-   * When `true`, the selected date must be confirmed with the "select" button
+   * Select the date from date picker without confirmation button.
    */
-  confirmDate?: boolean;
+  disableConfirmation?: boolean;
   /**
    * Show the input without the date picker.
    */
@@ -46,7 +46,7 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
 
 export const DateInput = ({
   closeButtonLabel,
-  confirmDate = true,
+  disableConfirmation = false,
   disableDatePicker = false,
   initialMonth = new Date(),
   language = 'en',
@@ -233,7 +233,7 @@ export const DateInput = ({
           >
             <DatePicker
               language={language}
-              confirmDate={confirmDate}
+              disableConfirmation={disableConfirmation}
               selected={isValid(inputValueAsDate) ? inputValueAsDate : undefined}
               initialMonth={initialMonth}
               onDaySelect={(day) => {

@@ -14,7 +14,7 @@ export default {
     label: 'Choose a date',
     helperText: 'Assistive text',
     language: 'en',
-    confirmDate: true,
+    disableConfirmation: false,
     disableDatePicker: false,
     onChange: (value: string, valueAsDate: Date) => {
       // eslint-disable-next-line no-console
@@ -32,7 +32,7 @@ export const WithoutConfirmation = (args) => {
 };
 WithoutConfirmation.storyName = 'Without confirmation';
 WithoutConfirmation.args = {
-  confirmDate: false,
+  disableConfirmation: true,
 };
 
 export const Localization = (args) => {

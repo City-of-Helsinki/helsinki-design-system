@@ -37,7 +37,7 @@ describe('<DateInput /> spec', () => {
     expect(asFragment()).toMatchSnapshot();
   });
   it('renders the component with additional props', () => {
-    const { asFragment } = render(<DateInput id="date" label="Foo" confirmDate={false} />);
+    const { asFragment } = render(<DateInput id="date" label="Foo" disableConfirmation />);
     expect(asFragment()).toMatchSnapshot();
   });
   it('renders the component with different languages', () => {

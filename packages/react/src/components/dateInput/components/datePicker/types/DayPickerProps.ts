@@ -20,9 +20,9 @@ export interface DayPickerProps {
    */
   className?: string;
   /**
-   * Should the date be confirmed with a button
+   * Select the date from date picker without confirmation button.
    */
-  confirmDate?: boolean;
+  disableConfirmation?: boolean;
   /**
    * Style to apply to the root element.
    */
