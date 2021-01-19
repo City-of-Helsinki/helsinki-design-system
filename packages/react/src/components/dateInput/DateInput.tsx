@@ -64,10 +64,11 @@ export const DateInput = ({
   /**
    * Close the datepicker modal
    */
-  const closeDatePicker = () => {
+  const closeDatePicker = (focusToggleButton = true) => {
     setShowPicker(false);
+
     // Focus the date picker open button
-    if (inputRef.current) {
+    if (inputRef.current && focusToggleButton) {
       const button = inputRef.current.parentNode.querySelector('button');
       if (button) {
         button.focus();
@@ -82,7 +83,8 @@ export const DateInput = ({
     const handleClickOutsideWrapper = (event: MouseEvent) => {
       const isOutside = pickerWrapperRef.current && !pickerWrapperRef.current.contains(event.target as Node);
       if (showPicker === true && isOutside) {
-        closeDatePicker();
+        const focusToggleButton = document.activeElement === null || document.activeElement.tagName === 'BODY';
+        closeDatePicker(focusToggleButton);
       }
     };
     window.addEventListener('click', handleClickOutsideWrapper);
@@ -240,7 +242,7 @@ export const DateInput = ({
                 closeDatePicker();
                 handleInputChange(format(day, dateFormat));
               }}
-              onCloseButtonClick={closeDatePicker}
+              onCloseButtonClick={() => closeDatePicker()}
               selectButtonLabel={getSelectButtonLabel()}
               closeButtonLabel={getCloseButtonLabel()}
             />
