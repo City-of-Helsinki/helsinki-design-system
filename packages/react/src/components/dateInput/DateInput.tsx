@@ -222,30 +222,31 @@ export const DateInput = ({
         value={inputValue}
         ref={inputRef}
         inputMode="numeric"
-      />
-      {disableDatePicker === false && (
-        <div
-          ref={pickerWrapperRef}
-          className={classNames(styles.pickerWrapper, showPicker && styles.isVisible)}
-          role="dialog"
-          aria-modal="true"
-          aria-hidden={showPicker ? undefined : true}
-        >
-          <DatePicker
-            language={language}
-            confirmDate={confirmDate}
-            selected={isValid(inputValueAsDate) ? inputValueAsDate : undefined}
-            initialMonth={initialMonth}
-            onDaySelect={(day) => {
-              closeDatePicker();
-              handleInputChange(format(day, dateFormat));
-            }}
-            onCloseButtonClick={closeDatePicker}
-            selectButtonLabel={getSelectButtonLabel()}
-            closeButtonLabel={getCloseButtonLabel()}
-          />
-        </div>
-      )}
+      >
+        {disableDatePicker === false && (
+          <div
+            ref={pickerWrapperRef}
+            className={classNames(styles.pickerWrapper, showPicker && styles.isVisible)}
+            role="dialog"
+            aria-modal="true"
+            aria-hidden={showPicker ? undefined : true}
+          >
+            <DatePicker
+              language={language}
+              confirmDate={confirmDate}
+              selected={isValid(inputValueAsDate) ? inputValueAsDate : undefined}
+              initialMonth={initialMonth}
+              onDaySelect={(day) => {
+                closeDatePicker();
+                handleInputChange(format(day, dateFormat));
+              }}
+              onCloseButtonClick={closeDatePicker}
+              selectButtonLabel={getSelectButtonLabel()}
+              closeButtonLabel={getCloseButtonLabel()}
+            />
+          </div>
+        )}
+      </TextInput>
     </div>
   );
 };

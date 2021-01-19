@@ -4,13 +4,13 @@
 
 .pickerWrapper {
   position: absolute;
+  top: calc(var(--input-height) + 7px);
   right: 0;
   left: 0;
   transition: opacity 150ms;
   display: flex;
   justify-content: flex-end;
   pointer-events: none;
-  transform: translateY(5px);
   opacity: 0;
   visibility: hidden;
   will-change: opacity, visibility;

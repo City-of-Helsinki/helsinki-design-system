@@ -12,6 +12,7 @@ export default {
   args: {
     id: 'date',
     label: 'Choose a date',
+    helperText: 'Assistive text',
     language: 'en',
     confirmDate: true,
     disableDatePicker: false,

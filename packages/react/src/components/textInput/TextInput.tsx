@@ -12,6 +12,10 @@ export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
    */
   className?: string;
   /**
+   * Additional children to render after the input.
+   */
+  children?: React.ReactNode;
+  /**
    * The default input element value. Use when the component is not controlled
    */
   defaultValue?: string;
@@ -113,6 +117,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
       className = '',
+      children,
       disabled = false,
       defaultValue,
       errorText,
@@ -182,6 +187,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             </button>
           </div>
         )}
+        {children}
       </InputWrapper>
     );
   },
