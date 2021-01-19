@@ -5,7 +5,7 @@ route: /components/date-input
 ---
 
 import { Playground } from "docz";
-import { StatusLabel  } from "hds-react";
+import { StatusLabel, DateInput } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
 import LargeParagraph from "../../src/components/LargeParagraph";
@@ -43,7 +43,11 @@ import Text from "../../src/components/Text";
 TODO
 
 <Playground>
-
+    <DateInput 
+        label="Choose a date"
+        helperText="Use format D.M.YYYY"
+        required
+    />
 </Playground>
 
 #### React code example:
@@ -55,7 +59,14 @@ TODO
 TODO
 
 <Playground>
-
+    <DateInput
+        id="date"
+        datePicker={false}
+        initialMonth={new Date("2021-01-18T13:49:01.692Z")}
+        label="Choose a date"
+        language="en"
+        onChange={function noRefCheck(){}}
+  />
 </Playground>
 
 #### React code example:
