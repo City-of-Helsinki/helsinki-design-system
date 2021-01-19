@@ -20,6 +20,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [LoadingSpinner] Fixed a bug related to cleaning of the notification area (in [#355](https://github.com/City-of-Helsinki/helsinki-design-system/pull/355))
 - [TextInput, TextArea] Fixed focus outline animation glitch inside grid layout (in [#356](https://github.com/City-of-Helsinki/helsinki-design-system/pull/356))
 
+### Documentation
+#### Changed
+- Updated status of multiple components to reflect their current completeness
+    - Tooltip from `Pre-release` to `Stable`
+    - Accordion from `Pre-release` to `Stable`
+    - Card from `Pre-release` to `Stable`
+    - Tag from `Pre-release` to `Stable`
+    - SelectionGroup from `Pre-release` to `Stable`
+- Removed `New` status from components that have been released more than 1 major release ago
+
 ## [0.20.0] - January 5, 2021
 ### Design kit
 #### Changed
