@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TimeInput /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="root"
+  >
+    <div
+      class="inputWrapper"
+    >
+      <input
+        class="input"
+        id="time"
+        placeholder="hh:mm"
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
