@@ -13,6 +13,7 @@ const external = [
   'react-dom',
   'lodash.uniqueid',
   'lodash.isequal',
+  'lodash.isfunction',
   'react-spring',
   'react-use-measure',
   'react-merge-refs',
@@ -102,6 +103,7 @@ export default [
       'components/Tag/index': 'src/components/tag/index.ts',
       'components/TextInput/index': 'src/components/textInput/index.ts',
       'components/Textarea/index': 'src/components/textarea/index.ts',
+      'components/TimeInput/index': 'src/components/timeInput/index.ts',
       'components/Tooltip/index': 'src/components/tooltip/index.ts',
     },
     output: [
