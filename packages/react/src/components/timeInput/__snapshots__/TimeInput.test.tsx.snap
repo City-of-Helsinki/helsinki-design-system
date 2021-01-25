@@ -8,13 +8,42 @@ exports[`<TimeInput /> spec renders the component 1`] = `
     <div
       class="inputWrapper"
     >
-      <input
+      <div
         class="input"
-        id="time"
-        placeholder="hh:mm"
-        type="text"
-        value=""
-      />
+      >
+        <input
+          aria-hidden="true"
+          class="fullInput"
+          id="time"
+          readonly=""
+          tabindex="0"
+          type="text"
+          value=""
+        />
+        <input
+          aria-label="Hours"
+          class="partialInput"
+          id="time-hours"
+          inputmode="numeric"
+          placeholder="--"
+          type="text"
+          value=""
+        />
+        <div
+          class="divider"
+        >
+          :
+        </div>
+        <input
+          aria-label="Minutes"
+          class="partialInput"
+          id="time-minutes"
+          inputmode="numeric"
+          placeholder="--"
+          type="text"
+          value=""
+        />
+      </div>
     </div>
   </div>
 </DocumentFragment>
