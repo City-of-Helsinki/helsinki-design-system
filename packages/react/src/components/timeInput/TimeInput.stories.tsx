@@ -1,18 +1,23 @@
 import React from 'react';
 
 import { TimeInput } from './TimeInput';
-import { TimeInputAlternative } from './TimeInputAlternative';
 
 export default {
-  component: TimeInputAlternative,
+  component: TimeInput,
   title: 'Components/TimeInput',
   decorators: [(storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
+  parameters: {
+    controls: { expanded: true },
+  },
+  args: {
+    id: 'time',
+    label: 'Label',
+    helperText: 'Assistive text',
+    defaultValue: '00:00',
+    disabled: false,
+  },
 };
 
-export const Example = () => {
-  return <TimeInput id="time" label="Label" helperText="Assistive text" />;
-};
-
-export const Alternative = () => {
-  return <TimeInputAlternative id="time" label="Label" helperText="Assistive text" />;
+export const Default = (args) => {
+  return <TimeInput {...args} />;
 };
