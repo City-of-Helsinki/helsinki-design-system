@@ -27,23 +27,6 @@ $koros-heights: (
     --footer-color: var(--color-white);
     --footer-focus-outline-color: var(--color-white);
   }
-
-  // footer background
-  &::before {
-    background-color: var(--footer-background);
-    bottom: 0;
-    content: '';
-    position: absolute;
-    width: 100%;
-    z-index: -1;
-  }
-
-  // set background height based on koros type
-  @each $type, $height in $koros-heights {
-    &.koros-#{$type}::before {
-      height: calc(100% - #{$height});
-    }
-  }
 }
 
 .koros {
@@ -62,6 +45,10 @@ $koros-heights: (
       height: #{$height};
     }
   }
+}
+
+.footerContent {
+  background-color: var(--footer-background);
 }
 
 .navigationContainer {
@@ -114,8 +101,8 @@ $koros-heights: (
 
 @media x-large-up {
   // set max-width of footer sections
-  .footer > section,
-  .footer > div:not(:first-child) {
+  .footer > .footerContent > section,
+  .footer > .footerContent > div:not(:first-child) {
     margin: 0 auto;
     max-width: var(--container-width-xl);
   }
