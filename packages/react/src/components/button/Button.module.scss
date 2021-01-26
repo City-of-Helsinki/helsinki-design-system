@@ -37,6 +37,29 @@
   @extend %supplementary;
 }
 
+.isLoading {
+  --background-color: transparent;
+  --background-color-hover: transparent;
+  --background-color-focus: transparent;
+  --background-color-hover-focus: transparent;
+  --background-color-disabled: transparent;
+
+  --border-color: transparent;
+  --border-color-hover: transparent;
+  --border-color-focus: transparent;
+  --border-color-hover-focus: transparent;
+  --border-color-disabled: transparent;
+
+  --color: var(--color-black-90);
+  --color: var(--color-black-90);
+  --color-hover: var(--color-black-90);
+  --color-focus: var(--color-black-90);
+  --color-hover-focus: var(--color-black-90);
+  --color-disabled: var(--color-black-90);
+
+  cursor: wait;
+}
+
 .success {
   @extend %success;
 }

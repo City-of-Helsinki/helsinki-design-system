@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { action } from '@storybook/addon-actions';
 import { boolean, radios, text, withKnobs } from '@storybook/addon-knobs';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
@@ -75,6 +75,39 @@ export const Icons = () => (
   </>
 );
 
+export const Loading = (args) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const onButtonClick: React.MouseEventHandler<HTMLButtonElement> = () => {
+    setIsLoading(true);
+  };
+  useEffect(() => {
+    let timeout;
+    if (isLoading) {
+      timeout = setTimeout(() => {
+        setIsLoading(false);
+      }, 5000);
+    }
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [isLoading]);
+  return (
+    <>
+      <Button
+        {...{ ...args, iconLeft: args.variant === 'supplementary' ? <IconTrash /> : undefined }}
+        onClick={onButtonClick}
+        isLoading={isLoading}
+        loadingText="Saving your changes"
+      >
+        Button
+      </Button>
+    </>
+  );
+};
+Loading.args = {
+  variant: 'primary',
+};
+
 export const Playground = () => {
   const label = text('Label', 'Button');
   const variant = radios(
@@ -102,6 +135,8 @@ export const Playground = () => {
   const fullWidth = boolean('Full width', false);
   const iconLeft = boolean('Icon left', false);
   const iconRight = boolean('Icon right', false);
+  const isLoading = boolean('Is loading', false);
+  const loadingText = text('Loading text', 'Saving your changes');
 
   return (
     <Button
@@ -112,6 +147,8 @@ export const Playground = () => {
       size={size}
       iconLeft={iconLeft ? <IconFaceSmile /> : null}
       iconRight={iconRight ? <IconFaceSmile /> : null}
+      isLoading={isLoading}
+      loadingText={loadingText}
     >
       {label}
     </Button>
