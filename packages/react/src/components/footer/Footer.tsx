@@ -87,7 +87,8 @@ export const Footer = ({
           typeof theme === 'string' && styles[`theme-${theme}`],
           customThemeClass,
           className,
-        )}>
+        )}
+      >
         <Koros className={classNames(styles.koros, styles[korosType])} type={korosType} />
         <div className={styles.footerContent}>
           <section className={classNames(styles.navigationContainer, styles[navigationVariant])}>
