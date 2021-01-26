@@ -102,7 +102,7 @@ $koros-heights: (
 @media x-large-up {
   // set max-width of footer sections
   .footer > .footerContent > section,
-  .footer > .footerContent > div:not(:first-child) {
+  .footer > .footerContent > div {
     margin: 0 auto;
     max-width: var(--container-width-xl);
   }
