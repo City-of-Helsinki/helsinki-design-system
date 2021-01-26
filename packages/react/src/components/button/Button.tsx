@@ -3,6 +3,7 @@ import React from 'react';
 // import core base styles
 import 'hds-core';
 import styles from './Button.module.scss';
+import loadingSpinnerStyles from '../loadingSpinner/LoadingSpinner.module.scss';
 import classNames from '../../utils/classNames';
 
 export type ButtonSize = 'default' | 'small';
@@ -46,6 +47,14 @@ export type CommonButtonProps = React.ComponentPropsWithoutRef<'button'> & {
    * The size of the button
    */
   size?: ButtonSize;
+  /**
+   * If `true` a loading spinner is displayed inside the button along `loadingText`
+   */
+  isLoading?: boolean;
+  /**
+   * Loading text to show alongside loading spinner
+   */
+  loadingText?: string;
 };
 
 // Supplementary variant requires iconLeft or iconRight
@@ -60,7 +69,13 @@ export type SupplementaryButtonProps = Omit<CommonButtonProps, 'variant'> & {
       }
   );
 
-export type ButtonProps = CommonButtonProps | SupplementaryButtonProps;
+// Loading button requires loading text
+export type LoadingButtonProps = Omit<CommonButtonProps, 'isLoading' | 'loadingText'> & {
+  isLoading: true;
+  loadingText: string;
+};
+
+export type ButtonProps = CommonButtonProps | SupplementaryButtonProps | LoadingButtonProps;
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -74,6 +89,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant = 'primary',
       iconLeft,
       iconRight,
+      isLoading = false,
+      loadingText,
+      onClick,
       ...rest
     }: ButtonProps,
     ref: React.Ref<HTMLButtonElement>,
@@ -90,10 +108,23 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       </div>
     ) : null;
 
+    const loadingSpinner = (
+      <div className={classNames(loadingSpinnerStyles.loadingSpinner, loadingSpinnerStyles.small)}>
+        <div />
+        <div />
+        <div />
+      </div>
+    );
+
+    const loadingOnClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+      event.preventDefault();
+    };
+
     return (
       <button
         ref={ref}
         disabled={disabled}
+        aria-disabled={isLoading || disabled || undefined}
         type="button"
         className={classNames(
           styles.button,
@@ -101,13 +132,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           styles[`theme-${theme}`],
           styles[`size-${size}`],
           fullWidth ? styles.fullWidth : '',
+          isLoading ? styles.isLoading : '',
           className,
         )}
+        onClick={isLoading ? loadingOnClick : onClick}
         {...rest}
       >
-        {iconElementLeft}
-        <span className={styles.label}>{children}</span>
-        {iconElementRight}
+        {isLoading ? loadingSpinner : iconElementLeft}
+        <span className={styles.label}>{isLoading ? loadingText : children}</span>
+        {isLoading ? null : iconElementRight}
       </button>
     );
   },
