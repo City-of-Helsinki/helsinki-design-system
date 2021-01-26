@@ -18,8 +18,6 @@ $koros-heights: (
   --footer-focus-outline-color: var(--color-coat-of-arms);
 
   color: var(--footer-color);
-  position: relative;
-  z-index: 1;
 
   // black theme overrides
   &.theme-dark {
