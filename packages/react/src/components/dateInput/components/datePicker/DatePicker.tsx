@@ -11,9 +11,8 @@ import { defaultProps } from './defaults/defaultProps';
 import { DatePickerContext } from '../../context/DatePickerContext';
 import { DayPickerProps } from './types';
 import { MonthTable } from '../monthTable';
-import { IconCross } from '../../../..';
 import { Button } from '../../../button';
-import { IconCheck } from '../../../../icons';
+import { IconCheck, IconCross } from '../../../../icons';
 
 const keyCode = {
   TAB: 9,
