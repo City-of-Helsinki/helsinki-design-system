@@ -1272,6 +1272,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
             >
               <button
                 class="button supplementary theme-default size-small"
+                data-testid="closeButton"
                 type="button"
               >
                 <div
@@ -2581,6 +2582,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
             >
               <button
                 class="button secondary theme-default size-small"
+                data-testid="selectButton"
                 disabled=""
                 type="button"
               >
@@ -2618,6 +2620,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
               </button>
               <button
                 class="button supplementary theme-default size-small"
+                data-testid="closeButton"
                 type="button"
               >
                 <div
@@ -3927,6 +3930,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
             >
               <button
                 class="button secondary theme-default size-small"
+                data-testid="selectButton"
                 disabled=""
                 type="button"
               >
@@ -3964,6 +3968,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
               </button>
               <button
                 class="button supplementary theme-default size-small"
+                data-testid="closeButton"
                 type="button"
               >
                 <div
@@ -5268,6 +5273,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
             >
               <button
                 class="button secondary theme-default size-small"
+                data-testid="selectButton"
                 disabled=""
                 type="button"
               >
@@ -5305,6 +5311,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
               </button>
               <button
                 class="button supplementary theme-default size-small"
+                data-testid="closeButton"
                 type="button"
               >
                 <div
@@ -6609,6 +6616,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
             >
               <button
                 class="button secondary theme-default size-small"
+                data-testid="selectButton"
                 disabled=""
                 type="button"
               >
@@ -6646,6 +6654,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
               </button>
               <button
                 class="button supplementary theme-default size-small"
+                data-testid="closeButton"
                 type="button"
               >
                 <div

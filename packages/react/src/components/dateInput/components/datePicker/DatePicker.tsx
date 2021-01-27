@@ -193,6 +193,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
               variant="secondary"
               iconLeft={<IconCheck aria-hidden />}
               onClick={handleConfirmClick}
+              data-testid="selectButton"
             >
               {selectButtonLabel}
             </Button>
@@ -202,6 +203,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
             variant="supplementary"
             iconLeft={<IconCross aria-hidden />}
             onClick={onCloseButtonClick}
+            data-testid="closeButton"
           >
             {closeButtonLabel}
           </Button>
