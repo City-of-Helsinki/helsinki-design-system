@@ -52,14 +52,25 @@ export const DateInput = ({
   language = 'en',
   openButtonAriaLabel,
   selectButtonLabel,
+  defaultValue = '',
+  value: providedValue = '',
   ...textInputProps
 }: DateInputProps) => {
   const dateFormat = 'd.M.yyyy';
 
   const pickerWrapperRef = useRef<HTMLDivElement>();
   const inputRef = useRef<HTMLInputElement>();
-  const [inputValue, setInputValue] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>(providedValue || defaultValue);
   const [showPicker, setShowPicker] = useState(false);
+
+  /**
+   * Set the input value if value prop changes
+   */
+  useEffect(() => {
+    if (providedValue) {
+      setInputValue(providedValue);
+    }
+  }, [providedValue]);
 
   /**
    * Close the datepicker modal

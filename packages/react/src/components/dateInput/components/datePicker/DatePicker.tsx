@@ -50,7 +50,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
   /**
    * Current month
    */
-  const [currentMonth, setCurrentMonth] = useState(startOfMonth(initialMonth || new Date()));
+  const [currentMonth, setCurrentMonth] = useState(startOfMonth(selected || initialMonth || new Date()));
 
   /**
    * Currently focused date
@@ -60,7 +60,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
   /**
    * Currently selected date
    */
-  const [selectedDate, setSelectedDate] = useState<Date>(null);
+  const [selectedDate, setSelectedDate] = useState<Date>(selected || null);
 
   /**
    * Update the selected date from props
