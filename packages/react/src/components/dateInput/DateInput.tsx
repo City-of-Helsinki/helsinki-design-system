@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 
 import { IconCalendar } from '../../icons';
 import classNames from '../../utils/classNames';
+import { scrollIntoViewIfNeeded } from '../../utils/scrollIntoViewIfNeeded';
 import { TextInput, TextInputProps } from '../textInput';
 import { DatePicker } from './components/datePicker';
 import styles from './DateInput.module.scss';
@@ -158,6 +159,7 @@ export const DateInput = ({
       if (firstFocusableElement) {
         (firstFocusableElement as HTMLElement).focus();
       }
+      scrollIntoViewIfNeeded(pickerWrapperRef.current);
     }
   }, [showPicker]);
 
