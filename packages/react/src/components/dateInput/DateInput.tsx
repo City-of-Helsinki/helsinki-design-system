@@ -153,14 +153,20 @@ export const DateInput = ({
    * when opened.
    */
   useEffect(() => {
+    let scrollTimeout;
     if (showPicker === true && pickerWrapperRef.current) {
       const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
       const firstFocusableElement = pickerWrapperRef.current.querySelector(focusableElements);
       if (firstFocusableElement) {
         (firstFocusableElement as HTMLElement).focus();
       }
-      scrollIntoViewIfNeeded(pickerWrapperRef.current);
+      scrollTimeout = setTimeout(() => {
+        scrollIntoViewIfNeeded(pickerWrapperRef.current);
+      }, 30);
     }
+    return () => {
+      clearTimeout(scrollTimeout);
+    };
   }, [showPicker]);
 
   /**
