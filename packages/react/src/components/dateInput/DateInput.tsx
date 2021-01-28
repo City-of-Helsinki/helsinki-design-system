@@ -1,4 +1,4 @@
-import { format, parse, isValid } from 'date-fns';
+import { format, parse, isValid, subYears, addYears, startOfMonth, endOfMonth } from 'date-fns';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 
 import { IconCalendar } from '../../icons';
@@ -43,6 +43,14 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
    * Select button label
    */
   selectButtonLabel?: string;
+  /**
+   * Minumum date to show in the datepicker calendar. Defaults to start of the month one year before current date.
+   */
+  minDate?: Date;
+  /**
+   * Maximum date to show in the datepicker calendar. Defaults to end of the month one year from current date.
+   */
+  maxDate?: Date;
 };
 
 export const DateInput = ({
@@ -55,6 +63,8 @@ export const DateInput = ({
   selectButtonLabel,
   defaultValue = '',
   value: providedValue = '',
+  minDate,
+  maxDate,
   ...textInputProps
 }: DateInputProps) => {
   const dateFormat = 'd.M.yyyy';
@@ -264,6 +274,8 @@ export const DateInput = ({
               onCloseButtonClick={() => closeDatePicker()}
               selectButtonLabel={getSelectButtonLabel()}
               closeButtonLabel={getCloseButtonLabel()}
+              minDate={minDate && isValid(minDate) ? minDate : startOfMonth(subYears(new Date(), 10))}
+              maxDate={maxDate && isValid(maxDate) ? maxDate : endOfMonth(addYears(new Date(), 10))}
             />
           </div>
         )}

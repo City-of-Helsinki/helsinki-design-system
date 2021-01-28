@@ -4,8 +4,8 @@ import React from 'react';
 export type DatePickerContextType = {
   datepickerRef: React.MutableRefObject<HTMLDivElement>;
   currentMonth: Date;
-  fromMonth?: Date;
-  toMonth?: Date;
+  minDate: Date;
+  maxDate: Date;
   focusedDate: Date | null;
   selectedDate: Date | null;
   locale: Locale;

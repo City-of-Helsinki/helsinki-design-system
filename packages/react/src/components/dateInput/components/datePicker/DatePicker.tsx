@@ -1,5 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import addDays from 'date-fns/addDays';
+import endOfDay from 'date-fns/endOfDay';
+import startOfDay from 'date-fns/startOfDay';
+import isAfter from 'date-fns/isAfter';
+import isBefore from 'date-fns/isBefore';
 import startOfMonth from 'date-fns/startOfMonth';
 import format from 'date-fns/format';
 import english from 'date-fns/locale/en-GB';
@@ -30,8 +34,8 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     onMonthChange,
     onDaySelect,
     language,
-    fromMonth,
-    toMonth,
+    minDate,
+    maxDate,
     onCloseButtonClick,
     selected,
     disableConfirmation,
@@ -66,11 +70,16 @@ export const DatePicker = (providedProps: DayPickerProps) => {
    * Update the selected date from props
    */
   useEffect(() => {
-    if (selected && selected instanceof Date) {
+    if (
+      selected &&
+      selected instanceof Date &&
+      isAfter(endOfDay(selected), startOfDay(minDate)) &&
+      isBefore(startOfDay(selected), endOfDay(maxDate))
+    ) {
       setSelectedDate(selected);
       setCurrentMonth(startOfMonth(selected));
     }
-  }, [selected]);
+  }, [selected, maxDate, minDate]);
 
   /**
    * Focus the selected date button
@@ -103,8 +112,13 @@ export const DatePicker = (providedProps: DayPickerProps) => {
   const addToFocusedDate = (days: number) => {
     if (focusedDate !== null) {
       const nextDate = addDays(focusedDate, days);
-      setCurrentMonth(startOfMonth(nextDate));
-      setFocusedDate(nextDate);
+      const isAfterMinDate = isAfter(endOfDay(nextDate), startOfDay(minDate));
+      const isBeforeMaxDate = isBefore(startOfDay(nextDate), endOfDay(maxDate));
+
+      if (isAfterMinDate && isBeforeMaxDate) {
+        setCurrentMonth(startOfMonth(nextDate));
+        setFocusedDate(nextDate);
+      }
     }
   };
 
@@ -168,8 +182,8 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     <DatePickerContext.Provider
       value={{
         datepickerRef,
-        fromMonth,
-        toMonth,
+        minDate,
+        maxDate,
         currentMonth,
         focusedDate,
         selectedDate,

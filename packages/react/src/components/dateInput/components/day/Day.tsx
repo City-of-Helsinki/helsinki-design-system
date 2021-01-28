@@ -6,6 +6,8 @@ import isBefore from 'date-fns/isBefore';
 import isSameDay from 'date-fns/isSameDay';
 import isToday from 'date-fns/isToday';
 import startOfMonth from 'date-fns/startOfMonth';
+import endOfDay from 'date-fns/endOfDay';
+import startOfDay from 'date-fns/startOfDay';
 
 import { DatePickerContext } from '../../context/DatePickerContext';
 import cn from '../../../../utils/classNames';
@@ -31,13 +33,17 @@ export const Day = ({ day }: DayProps) => {
     locale,
     onDayClick,
     handleKeyboardNavigation,
+    minDate,
+    maxDate,
   } = React.useContext(DatePickerContext);
   const dayRef = React.useRef<HTMLButtonElement>();
   const isPreviousMonth = isBefore(day, startOfMonth(currentMonth));
   const isNextMonth = isAfter(day, endOfMonth(currentMonth));
   const isOutsideCurrentMonth = isPreviousMonth || isNextMonth;
+  const isBeforeMinDate = isBefore(day, startOfDay(minDate));
+  const isAfterMaxDate = isAfter(day, endOfDay(maxDate));
   const isHidden = isOutsideCurrentMonth;
-  const isDisabled = isOutsideCurrentMonth;
+  const isDisabled = isOutsideCurrentMonth || isBeforeMinDate || isAfterMaxDate;
   const isInteractive = onDayClick && !isDisabled;
 
   // Select the HTML element based on interactivity
@@ -74,7 +80,7 @@ export const Day = ({ day }: DayProps) => {
       isToday(day) && styles['hds-datepicker__day--today'],
       isSameDay(day, selectedDate) && styles['hds-datepicker__day--selected'],
       isDisabled && styles['hds-datepicker__day--disabled'],
-      isOutsideCurrentMonth && styles['hds-datepicker__day--outside'],
+      isDisabled && styles['hds-datepicker__day--outside'],
     ),
     'data-date': format(day, 'yyyy-MM-dd'),
   };

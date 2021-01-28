@@ -4,6 +4,9 @@ import format from 'date-fns/format';
 import eachYearOfInterval from 'date-fns/eachYearOfInterval';
 import startOfMonth from 'date-fns/startOfMonth';
 import addMonths from 'date-fns/addMonths';
+import endOfMonth from 'date-fns/endOfMonth';
+import endOfYear from 'date-fns/endOfYear';
+import startOfYear from 'date-fns/startOfYear';
 
 import { DatePickerContext } from '../../context/DatePickerContext';
 import { IconAngleDown, IconAngleLeft, IconAngleRight } from '../../../../icons';
@@ -22,18 +25,16 @@ export interface MonthCaptionProps {
  * @category Components
  */
 export const MonthNavigation = ({ month }: MonthCaptionProps) => {
-  const { locale, language, handleMonthChange, fromMonth, toMonth } = useContext(DatePickerContext);
+  const { locale, language, handleMonthChange, minDate, maxDate } = useContext(DatePickerContext);
   const selectedYear = month.getFullYear();
-  const minYear = selectedYear - 10;
-  const maxYear = selectedYear + 10;
 
   let prevMonth: Date | undefined;
-  if (!fromMonth || month > startOfMonth(fromMonth)) {
+  if (!minDate || month > startOfMonth(minDate)) {
     prevMonth = addMonths(month, -1);
   }
 
   let nextMonth: Date | undefined;
-  if (!toMonth || addMonths(month, 1) <= startOfMonth(toMonth)) {
+  if (!maxDate || addMonths(month, 1) <= startOfMonth(maxDate)) {
     nextMonth = addMonths(month, 1);
   }
 
@@ -82,8 +83,9 @@ export const MonthNavigation = ({ month }: MonthCaptionProps) => {
           {eachMonthOfInterval({ start: new Date(selectedYear, 0, 1), end: new Date(selectedYear, 11, 31) }).map(
             (monthDate) => {
               const monthNumber = monthDate.getMonth();
+              const isDisabled = startOfMonth(minDate) > monthDate || endOfMonth(maxDate) < monthDate;
               return (
-                <option value={monthNumber} key={monthNumber}>
+                <option value={monthNumber} key={monthNumber} disabled={isDisabled}>
                   {format(monthDate, 'LLLL', { locale })}
                 </option>
               );
@@ -99,7 +101,7 @@ export const MonthNavigation = ({ month }: MonthCaptionProps) => {
       </div>
       <div className={styles['hds-datepicker__navigation__select']}>
         <select aria-label="Year" onChange={onYearChange} value={selectedYear}>
-          {eachYearOfInterval({ start: new Date(minYear, 1, 1), end: new Date(maxYear, 1, 1) }).map((yearDate) => {
+          {eachYearOfInterval({ start: startOfYear(minDate), end: endOfYear(maxDate) }).map((yearDate) => {
             const year = yearDate.getFullYear();
             return (
               <option value={year} key={year}>
@@ -119,7 +121,7 @@ export const MonthNavigation = ({ month }: MonthCaptionProps) => {
         <button disabled={!prevMonth} type="button" onClick={onPrevClick} aria-label={getPrevMonthLabel()}>
           <IconAngleLeft aria-hidden />
         </button>
-        <button disabled={!prevMonth} type="button" onClick={onNextClick} aria-label={getNextMonthLabel()}>
+        <button disabled={!nextMonth} type="button" onClick={onNextClick} aria-label={getNextMonthLabel()}>
           <IconAngleRight aria-hidden />
         </button>
       </div>

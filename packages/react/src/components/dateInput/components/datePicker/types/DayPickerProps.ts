@@ -32,17 +32,13 @@ export interface DayPickerProps {
    */
   initialMonth?: Date;
   /**
-   * Allow navigation after (and including) the specified month.
-   *
-   * @see toMonth
+   * Allow navigation after (and including) the specified date.
    */
-  fromMonth?: Date;
+  minDate?: Date;
   /**
-   * Allow navigation before (and including) the specified month.
-   *
-   * @see fromMonth
+   * Allow navigation before (and including) the specified date.
    */
-  toMonth?: Date;
+  maxDate?: Date;
   /**
    * The rendered month. Implement [[onMonthChange]] to enable months
    * navigation.
