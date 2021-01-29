@@ -9,6 +9,7 @@ import format from 'date-fns/format';
 import english from 'date-fns/locale/en-GB';
 import finnish from 'date-fns/locale/fi';
 import swedish from 'date-fns/locale/sv';
+import isValid from 'date-fns/isValid';
 
 import styles from './DatePicker.module.scss';
 import { defaultProps } from './defaults/defaultProps';
@@ -72,12 +73,14 @@ export const DatePicker = (providedProps: DayPickerProps) => {
   useEffect(() => {
     if (
       selected &&
-      selected instanceof Date &&
+      isValid(selected) &&
       isAfter(endOfDay(selected), startOfDay(minDate)) &&
       isBefore(startOfDay(selected), endOfDay(maxDate))
     ) {
       setSelectedDate(selected);
       setCurrentMonth(startOfMonth(selected));
+    } else {
+      setSelectedDate(null);
     }
   }, [selected, maxDate, minDate]);
 

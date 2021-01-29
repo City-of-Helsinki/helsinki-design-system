@@ -242,4 +242,29 @@ describe('<DateInput /> spec', () => {
     expect(currentDateButton).toHaveAttribute('aria-pressed', 'true');
     expect(currentDateButton).toHaveClass('hds-datepicker__day--selected');
   });
+
+  it('setting invalid date as the input value resets the selected date in calendar', async () => {
+    const { container } = render(<DateInput id="date" label="Foo" value="10.02.2022" />);
+
+    // TextInput should have the correct value
+    expect(screen.getByRole('textbox')).toHaveValue('10.02.2022');
+
+    // Click the calendar button
+    fireEvent.click(screen.getByLabelText('Choose date'));
+
+    // Month select should have correct value
+    expect(screen.getByLabelText('Month')).toHaveValue('1');
+    expect(screen.getByLabelText('Year')).toHaveValue('2022');
+
+    // The corresponding button should now have aria-pressed="true" attribute and selected class
+    const currentDateButton = container.querySelector('button[data-date="2022-02-10"]');
+    expect(currentDateButton).toHaveAttribute('aria-pressed', 'true');
+    expect(currentDateButton).toHaveClass('hds-datepicker__day--selected');
+
+    // Set invalid date as the input value
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: '20' } });
+
+    // No date should be selected in the calendar
+    expect(container.querySelector('[aria-pressed="true"')).toBeNull();
+  });
 });
