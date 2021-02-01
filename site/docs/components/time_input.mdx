@@ -5,7 +5,7 @@ route: /components/time-input
 ---
 
 import { Playground } from "docz";
-import { StatusLabel } from "hds-react";
+import { StatusLabel, TimeInput, Select } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
 import LargeParagraph from "../../src/components/LargeParagraph";
@@ -14,7 +14,8 @@ import Text from "../../src/components/Text";
 
 # Time input
 
-<StatusLabel type="alert">Pre-release</StatusLabel>
+<StatusLabel>New</StatusLabel>
+<StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel>
 <StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
 
 <LargeParagraph>
@@ -34,7 +35,7 @@ import Text from "../../src/components/Text";
 - **Use time input when**
   - when the user needs to input the time very accurately (e.g. a parking start time)
   - there are no strict format requirements or specific time slots available to show
-- **Use time select when**
+- **Use HDS select when**
   - the time format is very strict, e.g. only XX:00 and XX:30 times are allowed
   - there are only a set amount of time slots available (e.g. reserving a doctor appointment)
 
@@ -44,47 +45,71 @@ import Text from "../../src/components/Text";
 ## Usage and variations
 
 ### Time input
-TODO
+HDS TimeInput allows manual and accurate input for times. It is the best choice when the input needs to be very accurate or when a specific time slots cannot be determined for the user.
 
 <Playground>
-
+  <TimeInput 
+    id="time"
+    label="label"
+    helperText="Assistive text"
+    defaultValue="12:00"
+    style={{ maxWidth: '400px' }}
+  />
 </Playground>
-
-#### Core code example:
-```html
-
-```
 
 #### React code example:
 ```tsx
-
+<TimeInput 
+  id="time"
+  label="label"
+  helperText="Assistive text"
+  defaultValue="12:00"
+/>
 ```
 
-### Time select
-TODO
+### Using HDS Select for times
+It is better to use [HDS Select](/components/dropdown#select-single-selection) for selecting times when the time format is very strict or when there are only a set amount of time slots available.
 
 <Playground>
-
+  <Select
+    required
+    label="Label"
+    placeholder="Placeholder"
+    helper="Assistive text"
+    options={[
+      { label: '12:00' },
+      { label: '14:00' },
+      { label: '16:00' },
+      { label: '18:00' },
+    ]}
+    style={{ maxWidth: '400px' }}
+  />
 </Playground>
-
-#### Core code example:
-```html
-
-```
 
 #### React code example:
 ```tsx
-
+<Select
+  required
+  label="Label"
+  placeholder="Placeholder"
+  helper="Assistive text"
+  options={[
+    { label: '12:00' },
+    { label: '14:00' },
+    { label: '16:00' },
+    { label: '18:00' },
+  ]}
+/>
 ```
 
 ## Demos & API
 
 ### Core
 
-[Time inputs in hds-core](/storybook/core/?path=/story/components-text-input--default)
+_Not included in hds-core!_
 
 ### React
 
-[Time inputs in hds-react](/storybook/react/?path=/story/components-textinput--default)
+[Time inputs in hds-react](/storybook/react/?path=/story/components-timeinput--default)
 
-[TimeInput API](/storybook/react/?path=/docs/components-textinput--default)
+[TimeInput API](/storybook/react/?path=/docs/components-timeinput--default)
