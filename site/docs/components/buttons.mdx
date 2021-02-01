@@ -204,13 +204,14 @@ When the loading action is triggered at the button press, the button will change
 
 <Playground>
   <div style={{ fontSize: 'var(--fontsize-body-m)', marginBottom: 'var(--spacing-m)' }}>Click the button to see loading button state in action. When loading is completed, a toast notification is shown to indicate the success.</div>
-  <Button>Save form</Button>
+  <Button
+    loadingText="Saving your changes"
+    onClick={function noRefCheck(){}}
+    size="default"
+  >
+    Save form
+  </Button>
 </Playground>
-
-#### Core code example:
-```html
-
-```
 
 #### React code example:
 ```tsx
