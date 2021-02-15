@@ -53,7 +53,7 @@ export const Default = ({ searchLabel, searchPlaceholder, authenticated, userNam
   <Navigation {...args}>
     {/* NAVIGATION ROW */}
     <Navigation.Row>
-      <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+      <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />
       <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
       <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
       <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
@@ -101,7 +101,7 @@ export const Inline = ({ searchLabel, searchPlaceholder, authenticated, userName
     <Navigation {...args}>
       {/* NAVIGATION ROW */}
       <Navigation.Row variant="inline">
-        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />
         <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
         <Navigation.Dropdown label="Dropdown">
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
@@ -148,7 +148,7 @@ export const CustomTheme = ({ searchLabel, searchPlaceholder, authenticated, use
     <Navigation {...args}>
       {/* NAVIGATION ROW */}
       <Navigation.Row>
-        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />
         <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
         <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
         <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
