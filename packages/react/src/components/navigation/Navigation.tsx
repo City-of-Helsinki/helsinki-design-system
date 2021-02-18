@@ -17,6 +17,7 @@ import { NavigationReducerAction, NavigationReducerState, NavigationTheme } from
 import { getChildrenAsArray, getComponentFromChildren } from '../../utils/getChildren';
 import { FCWithName } from '../../common/types';
 import { useTheme } from '../../hooks/useTheme';
+import { MediaContextProvider, MobileMedia, DesktopMedia } from '../../internal/media/Media';
 
 export type NavigationProps = React.PropsWithChildren<{
   /**
@@ -195,54 +196,47 @@ export const Navigation = ({
   // filter out the NavigationRow, so that it can be rendered correctly based on the 'navigationVariant' value
   const [navigation, childrenWithoutNavigation] = getComponentFromChildren(children, 'NavigationRow');
 
-  // children that will be rendered in the mobile menu
-  let menuChildren = null;
-  let languageSelector = null;
-  let actionsWithoutLanguageSelector = null;
+  // Mobile navigation actions
+  const mobileActions = getChildrenAsArray(children).find(
+    (child) => (child.type as FCWithName).componentName === 'NavigationActions',
+  )?.props?.children;
 
-  if (isMobile) {
-    // navigation actions
-    const actions = getChildrenAsArray(children).find(
-      (child) => (child.type as FCWithName).componentName === 'NavigationActions',
-    )?.props?.children;
+  // filter out the NavigationLanguageSelector, so that it can be rendered in the header instead of the mobile menu
+  const [mobileLanguageSelector, mobileActionsWithoutLanguageSelector] = getComponentFromChildren(
+    mobileActions,
+    'NavigationLanguageSelector',
+  );
 
-    // filter out the NavigationLanguageSelector, so that it can be rendered in the header instead of the mobile menu
-    [languageSelector, actionsWithoutLanguageSelector] = getComponentFromChildren(
-      actions,
-      'NavigationLanguageSelector',
-    );
+  // items that will be shown in the mobile menu
+  const mobileMenuItems = getChildrenAsArray([navigation, mobileActionsWithoutLanguageSelector]);
 
-    // items that will be shown in the mobile menu
-    const items = getChildrenAsArray([navigation, actionsWithoutLanguageSelector]);
-
-    // rearrange children
-    menuChildren = rearrangeChildrenForMobile(items, authenticated);
-  }
+  // rearrange children
+  const mobileMenuChildren = rearrangeChildrenForMobile(mobileMenuItems, authenticated);
 
   // props for the header wrapper component
   const headerWrapperProps = { logoLanguage, onTitleClick, title, titleAriaLabel, titleUrl };
 
   return (
     <NavigationContext.Provider value={context}>
-      <header
-        id={id}
-        className={classNames(
-          styles.header,
-          fixed && styles.fixed,
-          mobileMenuOpen && styles.menuOpen,
-          !title && styles.noTitle,
-          styles[`theme-${theme}`],
-          customThemeClass,
-          className,
-        )}
-      >
-        <a className={styles.skipToContent} href={skipTo} aria-label={skipToContentAriaLabel}>
-          {skipToContentLabel}
-        </a>
-        {isMobile ? (
-          <>
+      <MediaContextProvider>
+        <header
+          id={id}
+          className={classNames(
+            styles.header,
+            fixed && styles.fixed,
+            mobileMenuOpen && styles.menuOpen,
+            !title && styles.noTitle,
+            styles[`theme-${theme}`],
+            customThemeClass,
+            className,
+          )}
+        >
+          <a className={styles.skipToContent} href={skipTo} aria-label={skipToContentAriaLabel}>
+            {skipToContentLabel}
+          </a>
+          <MobileMedia>
             <HeaderWrapper {...headerWrapperProps}>
-              {languageSelector}
+              {mobileLanguageSelector}
               <button
                 aria-label={menuToggleAriaLabel}
                 aria-haspopup="true"
@@ -259,12 +253,11 @@ export const Navigation = ({
             </HeaderWrapper>
             {mobileMenuOpen && (
               <div id="hds-mobile-menu" className={styles.mobileMenu}>
-                {menuChildren}
+                {mobileMenuChildren}
               </div>
             )}
-          </>
-        ) : (
-          <>
+          </MobileMedia>
+          <DesktopMedia>
             <HeaderWrapper {...headerWrapperProps}>
               {navigationVariant === 'inline' && <div className={styles.headerContent}>{children}</div>}
               {navigationVariant === 'default' && (
@@ -272,9 +265,9 @@ export const Navigation = ({
               )}
             </HeaderWrapper>
             {navigationVariant === 'default' && navigation}
-          </>
-        )}
-      </header>
+          </DesktopMedia>
+        </header>
+      </MediaContextProvider>
     </NavigationContext.Provider>
   );
 };

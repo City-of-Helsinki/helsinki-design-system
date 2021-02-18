@@ -5,6 +5,7 @@ import { NavigationContext } from '../NavigationContext';
 import { IconSignin, IconUser } from '../../../icons';
 import { Button } from '../../button';
 import { MenuButton, MenuButtonProps } from '../../../internal/menuButton/MenuButton';
+import { DesktopMedia, MobileMedia } from '../../../internal/media/Media';
 
 export type NavigationUserProps = MenuButtonProps & {
   /**
@@ -34,49 +35,57 @@ export const NavigationUser = ({
   userName,
   ...dropdownProps
 }: NavigationUserProps) => {
-  const { dispatch, isMobile } = useContext(NavigationContext);
+  const { dispatch } = useContext(NavigationContext);
 
   // dispatch auth state
   useEffect(() => dispatch({ type: 'AUTHENTICATED', value: authenticated }), [authenticated, dispatch]);
 
-  const userItems: React.ReactNode = isMobile ? (
+  const userItems = (
     <>
-      {userName && (
-        <span className={styles.userName}>
-          <IconUser aria-hidden />
-          {userName}
-        </span>
-      )}
-      {children}
+      <MobileMedia>
+        {userName && (
+          <span className={styles.userName}>
+            <IconUser aria-hidden />
+            {userName}
+          </span>
+        )}
+        {children}
+      </MobileMedia>
+      <DesktopMedia>
+        <MenuButton
+          className={styles.userDropdown}
+          icon={<IconUser aria-hidden />}
+          id={id}
+          label={userName}
+          menuOffset={10}
+          {...dropdownProps}
+        >
+          {children}
+        </MenuButton>
+      </DesktopMedia>
     </>
-  ) : (
-    <MenuButton
-      className={styles.userDropdown}
-      icon={<IconUser aria-hidden />}
-      id={id}
-      label={userName}
-      menuOffset={10}
-      {...dropdownProps}
-    >
-      {children}
-    </MenuButton>
   );
 
-  const signInButton = isMobile ? (
-    <Button className={styles.signInButton} fullWidth onClick={onSignIn} theme="black" variant="primary">
-      {label}
-    </Button>
-  ) : (
-    <Button
-      className={styles.signInButton}
-      fullWidth
-      iconLeft={<IconSignin aria-hidden />}
-      onClick={onSignIn}
-      theme="black"
-      variant="supplementary"
-    >
-      {label}
-    </Button>
+  const signInButton = (
+    <>
+      <MobileMedia>
+        <Button className={styles.signInButton} fullWidth onClick={onSignIn} theme="black" variant="primary">
+          {label}
+        </Button>
+      </MobileMedia>
+      <DesktopMedia>
+        <Button
+          className={styles.signInButton}
+          fullWidth
+          iconLeft={<IconSignin aria-hidden />}
+          onClick={onSignIn}
+          theme="black"
+          variant="supplementary"
+        >
+          {label}
+        </Button>
+      </DesktopMedia>
+    </>
   );
 
   return <div className={styles.user}>{authenticated ? userItems : signInButton}</div>;
