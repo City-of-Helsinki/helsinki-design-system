@@ -6,6 +6,7 @@ import { NavigationContext } from '../NavigationContext';
 import classNames from '../../../utils/classNames';
 import getIsElementFocused from '../../../utils/getIsElementFocused';
 import getIsElementBlurred from '../../../utils/getIsElementBlurred';
+import { DesktopMedia } from '../../../internal/media/Media';
 
 export type NavigationSearchProps = {
   /**
@@ -84,12 +85,12 @@ export const NavigationSearch = ({
 
   return (
     <div className={classNames(styles.search, searchActive && styles.active)} role="search">
-      {!isMobile && (
+      <DesktopMedia>
         <button type="button" className={styles.searchToggleButton} onClick={() => setSearchActive(true)}>
           <IconSearch aria-hidden />
           <span className={styles.label}>{searchLabel}</span>
         </button>
-      )}
+      </DesktopMedia>
       {searchActive && (
         <div className={styles.searchContainer} onFocus={handleFocus} onBlur={handleBlur}>
           <input
