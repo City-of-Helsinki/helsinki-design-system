@@ -5,7 +5,7 @@ import { NavigationContext } from '../NavigationContext';
 import { IconSignin, IconUser } from '../../../icons';
 import { Button } from '../../button';
 import { MenuButton, MenuButtonProps } from '../../../internal/menuButton/MenuButton';
-import { DesktopMedia, MobileMedia } from '../../../internal/media/Media';
+import { DesktopMedia, MobileMedia } from '../../../internal/ssr/Media';
 
 export type NavigationUserProps = MenuButtonProps & {
   /**

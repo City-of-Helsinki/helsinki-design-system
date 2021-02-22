@@ -6,6 +6,7 @@ import classNames from '../../../utils/classNames';
 import { NavigationContext } from '../NavigationContext';
 import { NavigationVariant } from '../Navigation.interface';
 import { FCWithName } from '../../../common/types';
+import { ShowAfterComponentMounted } from '../../../internal/ssr/ShowAfterComponentMounted';
 
 export type NavigationRowProps = React.PropsWithChildren<{
   /**
@@ -43,7 +44,12 @@ export const NavigationRow = ({ variant = 'default', children }: NavigationRowPr
   });
 
   return (
-    <nav className={classNames(styles.navigation, variant === 'default' && styles.subNav)}>{childrenWithClassName}</nav>
+    <ShowAfterComponentMounted
+      as="nav"
+      className={classNames(styles.navigation, variant === 'default' && styles.subNav)}
+    >
+      {childrenWithClassName}
+    </ShowAfterComponentMounted>
   );
 };
 NavigationRow.componentName = 'NavigationRow';

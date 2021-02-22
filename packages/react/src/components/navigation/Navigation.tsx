@@ -17,7 +17,40 @@ import { NavigationReducerAction, NavigationReducerState, NavigationTheme } from
 import { getChildrenAsArray, getComponentFromChildren } from '../../utils/getChildren';
 import { FCWithName } from '../../common/types';
 import { useTheme } from '../../hooks/useTheme';
-import { MediaContextProvider, MobileMedia, DesktopMedia } from '../../internal/media/Media';
+import { MediaContextProvider, MobileMedia, DesktopMedia, mediaStylesAsString } from '../../internal/ssr/Media';
+import { ShowAfterComponentMounted } from '../../internal/ssr/ShowAfterComponentMounted';
+
+/**
+ * Navigation Styles as String (for server side rendering)
+ * You need to inject this string as page header style, for example:
+ * <pre>
+ * import React from "react"
+ * import ReactDOMServer from "react-dom/server"
+ * import express from "express"
+ * import { App } from "./App"
+ * import { navigationStylesForSSR } from "hds-react"
+ *
+ * const app = express()
+ *
+ * app.get("/", (req, res) => {
+ *  const html = ReactDOMServer.renderToString(<App />)
+ *
+ *  res.send(`
+ *    <html>
+ *      <head>
+ *        <title>SSR Example</title>
+ *      <!–– Inject the generated styles into the page head -->
+ *       <style type="text/css">${navigationStylesForSSR}</style>
+ *     </head>
+ *     <body>
+ *        <div id="react">${html}</div>
+ *      </body>
+ *    </html>
+ *  `)
+ * })
+ * </pre>
+ */
+export const navigationStylesForSSR = mediaStylesAsString;
 
 export type NavigationProps = React.PropsWithChildren<{
   /**
@@ -151,7 +184,7 @@ const HeaderWrapper = ({ children, logoLanguage, onTitleClick, title, titleAriaL
         {...(!titleUrl && onTitleClick && { tabIndex: 0 })}
       >
         <Logo className={styles.logo} language={logoLanguage} aria-hidden />
-        {title && <span>{title}</span>}
+        {title && <ShowAfterComponentMounted>{title}</ShowAfterComponentMounted>}
       </a>
       {children}
     </div>
