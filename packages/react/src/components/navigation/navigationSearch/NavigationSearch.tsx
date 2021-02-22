@@ -6,7 +6,7 @@ import { NavigationContext } from '../NavigationContext';
 import classNames from '../../../utils/classNames';
 import getIsElementFocused from '../../../utils/getIsElementFocused';
 import getIsElementBlurred from '../../../utils/getIsElementBlurred';
-import { DesktopMedia } from '../../../internal/media/Media';
+import { DesktopMedia } from '../../../internal/ssr/Media';
 
 export type NavigationSearchProps = {
   /**

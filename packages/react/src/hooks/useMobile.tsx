@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { breakpoints } from '../internal/media/Media';
+import { breakpoints } from '../internal/ssr/Media';
 
 const checkIfMobile = (): boolean => (typeof window !== 'undefined' && window.innerWidth < breakpoints.m) || false;
 
