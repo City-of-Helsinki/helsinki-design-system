@@ -18,7 +18,7 @@ import { getChildrenAsArray, getComponentFromChildren } from '../../utils/getChi
 import { FCWithName } from '../../common/types';
 import { useTheme } from '../../hooks/useTheme';
 import { MediaContextProvider, MobileMedia, DesktopMedia, mediaStylesAsString } from '../../internal/ssr/Media';
-import { ShowAfterComponentMounted } from '../../internal/ssr/ShowAfterComponentMounted';
+import { VisibleAfterComponentMounted } from '../../internal/ssr/VisibleAfterComponentMounted';
 
 /**
  * Navigation Styles as String (for server side rendering)
@@ -184,7 +184,7 @@ const HeaderWrapper = ({ children, logoLanguage, onTitleClick, title, titleAriaL
         {...(!titleUrl && onTitleClick && { tabIndex: 0 })}
       >
         <Logo className={styles.logo} language={logoLanguage} aria-hidden />
-        {title && <ShowAfterComponentMounted>{title}</ShowAfterComponentMounted>}
+        {title && <VisibleAfterComponentMounted>{title}</VisibleAfterComponentMounted>}
       </a>
       {children}
     </div>
