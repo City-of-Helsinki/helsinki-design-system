@@ -1,6 +1,6 @@
-import React, { useState, useEffect, ElementType, ComponentPropsWithoutRef } from 'react';
+import React, { ComponentPropsWithoutRef, ElementType, ReactElement, useEffect, useState } from 'react';
 /**
- * This avoids broken UI layout when useing SSR: Element is hidden when server renders it
+ * This avoids broken UI layout when using SSR: Element is hidden when server renders it
  * and becomes visible on client side render. See tip on: https://reactjs.org/docs/hooks-reference.html#uselayouteffect
  */
 
@@ -15,10 +15,10 @@ export const RenderAfterComponentMounted = <Element extends ElementType>({
   children,
   as = 'span',
   ...props
-}: Props<Element>) => {
-  const [isPageLoaded, setPageLoaded] = useState(false);
-  useEffect(() => setPageLoaded(true), []);
-  if (!isPageLoaded) {
+}: Props<Element>): ReactElement | null => {
+  const [isComponentMounted, setComponentMounted] = useState(false);
+  useEffect(() => setComponentMounted(true), []);
+  if (!isComponentMounted) {
     return null;
   }
   const Component: ElementType = as;
