@@ -40,7 +40,9 @@ exports[`<Navigation.Item /> spec renders the component 1`] = `
                 fill="currentColor"
               />
             </svg>
-            <span>
+            <span
+              style=""
+            >
               Foo
             </span>
           </a>
@@ -104,7 +106,9 @@ exports[`<Navigation.Item /> spec renders the component 1`] = `
                 fill="currentColor"
               />
             </svg>
-            <span>
+            <span
+              style=""
+            >
               Foo
             </span>
           </a>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, ElementType, ComponentPropsWithoutRef } from 'react';
 /**
- * This avoids broken UI layout when useing SSR: Element is hidden when server renders it
- * and becomes visible on client side render. See tip on: https://reactjs.org/docs/hooks-reference.html#uselayouteffect
+ * This avoids broken UI layout when useing SSR: Element is hidden (but reserves it's space on layout) when server renders it
+ * and becomes visible on client side render.
+ * See tip on: https://reactjs.org/docs/hooks-reference.html#uselayouteffect
  */
 
 export type Props<Element extends ElementType> = {
@@ -14,15 +15,16 @@ export type Props<Element extends ElementType> = {
 export const ShowAfterComponentMounted = <Element extends ElementType>({
   children,
   as = 'span',
-  ...rest
+  ...props
 }: Props<Element>) => {
   const [isPageLoaded, setPageLoaded] = useState(false);
   useEffect(() => setPageLoaded(true), []);
-  const { style: propsStyle } = rest;
-  const style = (!isPageLoaded && { visibility: 'hidden' }) || undefined;
-  const props = { ...rest, ...(style && { style: { ...propsStyle, style } }) };
-
+  const { style: propsStyle } = props;
+  const style = { ...propsStyle, ...(!isPageLoaded && { visibility: 'hidden' }) };
   const Component: ElementType = as;
-
-  return <Component {...props}>{children}</Component>;
+  return (
+    <Component {...props} style={style}>
+      {children}
+    </Component>
+  );
 };
