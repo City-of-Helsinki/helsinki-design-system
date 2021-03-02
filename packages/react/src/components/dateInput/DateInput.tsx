@@ -241,7 +241,7 @@ export const DateInput = ({
   const inputValueAsDate = stringToDate(inputValue);
 
   return (
-    <div className={styles.wrapper}>
+    <div lang={language} className={styles.wrapper}>
       <TextInput
         {...textInputProps}
         buttonIcon={disableDatePicker ? undefined : <IconCalendar aria-hidden />}
