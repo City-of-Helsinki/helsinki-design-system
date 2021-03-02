@@ -4,6 +4,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
 <DocumentFragment>
   <div
     class="wrapper"
+    lang="en"
   >
     <div
       class="root"
@@ -1320,6 +1321,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
 <DocumentFragment>
   <div
     class="wrapper"
+    lang="en"
   >
     <div
       class="root"
@@ -2668,6 +2670,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
 <DocumentFragment>
   <div
     class="wrapper"
+    lang="en"
   >
     <div
       class="root"
@@ -4011,6 +4014,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
   </div>
   <div
     class="wrapper"
+    lang="fi"
   >
     <div
       class="root"
@@ -4072,7 +4076,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
                   class="hds-datepicker__navigation__select"
                 >
                   <select
-                    aria-label="Month"
+                    aria-label="Kuukausi"
                   >
                     <option
                       value="0"
@@ -4169,7 +4173,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
                   class="hds-datepicker__navigation__select"
                 >
                   <select
-                    aria-label="Year"
+                    aria-label="Vuosi"
                   >
                     <option
                       value="2011"
@@ -5354,6 +5358,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
   </div>
   <div
     class="wrapper"
+    lang="sv"
   >
     <div
       class="root"
@@ -5415,7 +5420,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
                   class="hds-datepicker__navigation__select"
                 >
                   <select
-                    aria-label="Month"
+                    aria-label="Månad"
                   >
                     <option
                       value="0"
@@ -5512,7 +5517,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
                   class="hds-datepicker__navigation__select"
                 >
                   <select
-                    aria-label="Year"
+                    aria-label="År"
                   >
                     <option
                       value="2011"
