@@ -7,7 +7,7 @@ import { TextInputProps } from '../textInput/TextInput';
 import styles from './TimeInput.module.scss';
 import classNames from '../../utils/classNames';
 
-const NUMBER_KEYS = '0,1,2,3,4,5,6,7,8,9'.split(',');
+const NUMBER_KEYS: string[] = '0,1,2,3,4,5,6,7,8,9'.split(',');
 
 /**
  * Pad a one-char string with a leading zero
