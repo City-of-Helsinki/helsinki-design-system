@@ -2,7 +2,7 @@ import React from 'react';
 
 // import core base styles
 import 'hds-core';
-import styles from './[-replace-name-capital-].module.css';
+import styles from './[-replace-name-capital-].module.scss';
 
 export type [-replace-name-capital-]Props = React.PropsWithChildren<{}>;
 
