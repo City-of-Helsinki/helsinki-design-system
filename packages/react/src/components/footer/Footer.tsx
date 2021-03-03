@@ -90,14 +90,16 @@ export const Footer = ({
         )}
       >
         <Koros className={classNames(styles.koros, styles[korosType])} type={korosType} />
-        <section className={classNames(styles.navigationContainer, styles[navigationVariant])}>
-          <div className={styles.titleWrapper}>
-            <Logo size="medium" language={logoLanguage} aria-hidden />
-            {title && <h2 className={styles.title}>{title}</h2>}
-          </div>
-          {navigation}
-        </section>
-        {childrenWithoutNavigation}
+        <div className={styles.footerContent}>
+          <section className={classNames(styles.navigationContainer, styles[navigationVariant])}>
+            <div className={styles.titleWrapper}>
+              <Logo size="medium" language={logoLanguage} aria-hidden />
+              {title && <h2 className={styles.title}>{title}</h2>}
+            </div>
+            {navigation}
+          </section>
+          {childrenWithoutNavigation}
+        </div>
       </footer>
     </FooterContext.Provider>
   );
