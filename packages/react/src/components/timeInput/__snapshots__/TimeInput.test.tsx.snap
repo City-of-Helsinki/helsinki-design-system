@@ -9,7 +9,7 @@ exports[`<TimeInput /> spec renders the component 1`] = `
       class="inputWrapper"
     >
       <div
-        class="input"
+        class="input timeInput"
       >
         <input
           aria-hidden="true"
