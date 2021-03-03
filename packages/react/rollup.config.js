@@ -82,6 +82,7 @@ export default [
       'components/Columns/index': 'src/components/columns/index.ts',
       'components/Combobox/index': 'src/components/dropdown/combobox/index.ts',
       'components/Container/index': 'src/components/container/index.ts',
+      'components/DateInput/index': 'src/components/dateInput/index.ts',
       'components/Dropdown/index': 'src/components/dropdown/dropdown/index.ts',
       'components/ErrorSummary/index': 'src/components/errorSummary/index.ts',
       'components/Footer/index': 'src/components/footer/index.ts',

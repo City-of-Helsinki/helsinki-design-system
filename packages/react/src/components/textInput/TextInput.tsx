@@ -4,12 +4,17 @@ import React from 'react';
 import 'hds-core';
 import styles from './TextInput.module.css';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
+import classNames from '../../utils/classNames';
 
 export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
   /**
    * Additional class names to apply to the text input
    */
   className?: string;
+  /**
+   * Additional children to render after the input.
+   */
+  children?: React.ReactNode;
   /**
    * The default input element value. Use when the component is not controlled
    */
@@ -94,12 +99,25 @@ export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
    * The `ref` is forwarded to the native input element.
    */
   ref?: React.Ref<HTMLInputElement>;
+  /**
+   * Button icon
+   */
+  buttonIcon?: React.ReactNode;
+  /**
+   * Button aria-label
+   */
+  buttonAriaLabel?: string;
+  /**
+   * Button click callback
+   */
+  onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
       className = '',
+      children,
       disabled = false,
       defaultValue,
       errorText,
@@ -117,6 +135,9 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       tooltipText,
       tooltipButtonLabel,
       type = 'text',
+      buttonIcon,
+      buttonAriaLabel,
+      onButtonClick,
       ...rest
     }: TextInputProps,
     ref?: React.Ref<HTMLInputElement>,
@@ -143,10 +164,12 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       .filter((item) => item)
       .join(' ');
 
+    const hasButton = Boolean(buttonIcon && onButtonClick);
+
     return (
       <InputWrapper {...wrapperProps}>
         <input
-          className={styles.input}
+          className={classNames(styles.input, hasButton && styles.hasButton)}
           defaultValue={defaultValue}
           disabled={disabled}
           id={id}
@@ -157,6 +180,14 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : null}
           {...rest}
         />
+        {hasButton && (
+          <div className={styles.buttonWrapper}>
+            <button className={styles.button} type="button" onClick={onButtonClick} aria-label={buttonAriaLabel}>
+              {buttonIcon}
+            </button>
+          </div>
+        )}
+        {children}
       </InputWrapper>
     );
   },
