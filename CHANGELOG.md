@@ -6,6 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.22.0] - March 3, 2021
+
+### React Components
+#### Added
+- New Date Input component with Datepicker
+
+#### Fixed
+- Remove unwanted footer border in Safari browser
+
+#### Tooling
+- Improve React component scaffolding script
+
+### Documentation
+#### Changed
+- HDS roadmap updated
+- Add active link state to Navigation examples
+
+#### Fixed
+- Fix spelling in documentation
+
 ## [0.21.0] - January 19, 2021
 
 ### Core
