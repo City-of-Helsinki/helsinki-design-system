@@ -20,6 +20,12 @@ exports[`<TimeInput /> spec renders the component 1`] = `
           type="text"
           value=""
         />
+        <label
+          class="partialInputLabel"
+          for="time-hours"
+        >
+          hours
+        </label>
         <input
           aria-label="Hours"
           class="partialInput"
@@ -34,6 +40,12 @@ exports[`<TimeInput /> spec renders the component 1`] = `
         >
           :
         </div>
+        <label
+          class="partialInputLabel"
+          for="time-minutes"
+        >
+          minutes
+        </label>
         <input
           aria-label="Minutes"
           class="partialInput"
