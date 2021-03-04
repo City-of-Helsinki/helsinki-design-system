@@ -6,6 +6,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.22.0] - March 3, 2021
+
+### Design kit
+#### Added
+- Date field and date picker
+#### Fixed
+- Incorrect text color in TextInput Disabled state
+
+### React Components
+#### Added
+- New date input with date picker
+
+#### Fixed
+- Remove unwanted footer border in Safari browser
+
+#### Tooling
+- Improve React component scaffolding script
+
+### Documentation
+#### Added
+- Date input and date picker documentation
+
+#### Changed
+- HDS roadmap updated
+- Add active link state to Navigation examples
+
+#### Fixed
+- Fix spelling in documentation
+- Localisation page URL use British English
+- Clarified data format guidelines for leading zeros for dates (leading zeros are not used for dates)
+
 ## [0.21.0] - January 19, 2021
 
 ### Core
