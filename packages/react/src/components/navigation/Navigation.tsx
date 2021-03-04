@@ -13,12 +13,16 @@ import { NavigationLanguageSelector } from './navigationLanguageSelector/Navigat
 import { NavigationDropdown } from './navigationDropdown/NavigationDropdown';
 import { useMobile } from '../../hooks/useMobile';
 import { IconCross, IconMenuHamburger } from '../../icons';
-import { NavigationReducerAction, NavigationReducerState, NavigationTheme } from './Navigation.interface';
+import {
+  NavigationReducerAction,
+  NavigationReducerState,
+  NavigationTheme,
+  NavigationVariant,
+} from './Navigation.interface';
 import { getChildrenAsArray, getComponentFromChildren } from '../../utils/getChildren';
 import { FCWithName } from '../../common/types';
 import { useTheme } from '../../hooks/useTheme';
 import { MediaContextProvider, MobileMedia, DesktopMedia, mediaStylesAsString } from '../../internal/ssr/Media';
-import { VisibleAfterComponentMounted } from '../../internal/ssr/VisibleAfterComponentMounted';
 
 /**
  * Navigation Styles as String (for server side rendering)
@@ -144,6 +148,13 @@ const rearrangeChildrenForMobile = (children: React.ReactElement[], authenticate
   return rearrangedChildren;
 };
 
+const getNavigationVariantFromChild = (children: React.ReactNode): NavigationVariant => {
+  const navigationRow = getChildrenAsArray(children).find(
+    (child) => (child.type as FCWithName).componentName === 'NavigationRow',
+  );
+  return navigationRow?.props?.variant || 'default';
+};
+
 /**
  * Navigation reducer
  * @param {ReducerState} state
@@ -184,7 +195,7 @@ const HeaderWrapper = ({ children, logoLanguage, onTitleClick, title, titleAriaL
         {...(!titleUrl && onTitleClick && { tabIndex: 0 })}
       >
         <Logo className={styles.logo} language={logoLanguage} aria-hidden />
-        {title && <VisibleAfterComponentMounted>{title}</VisibleAfterComponentMounted>}
+        {title && <span>{title}</span>}
       </a>
       {children}
     </div>
@@ -216,7 +227,7 @@ export const Navigation = ({
 
   const [{ authenticated, navigationVariant }, dispatch] = useReducer(reducer, {
     authenticated: false,
-    navigationVariant: 'default',
+    navigationVariant: getNavigationVariantFromChild(children),
   });
 
   // close menu when changing between mobile and desktop
