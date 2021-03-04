@@ -1,3 +1,5 @@
+@import "../../styles/common";
+
 .timeInputFrame {
   display: inline-flex;
   align-items: center;
@@ -28,6 +30,10 @@
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
+}
+
+.partialInputLabel {
+  @extend %hiddenFromScreen;
 }
 
 .partialInput, .divider {
