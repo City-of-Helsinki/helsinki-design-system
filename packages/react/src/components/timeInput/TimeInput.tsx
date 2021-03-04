@@ -248,7 +248,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 
     // Compose props for the input frame
     const frameProps = {
-      className: classNames(textInputStyles.input, styles.timeInput, disabled && styles.disabled),
+      className: classNames(textInputStyles.input, styles.timeInputFrame, disabled && styles.disabled),
       onClick: (event: React.MouseEvent) => {
         if (event.target !== hoursInputRef.current && event.target !== minutesInputRef.current) {
           hoursInputRef.current.focus();
