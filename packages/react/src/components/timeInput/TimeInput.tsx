@@ -256,6 +256,9 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       },
     };
 
+    const hourInputId = `${id}-hours`;
+    const minuteInputId = `${id}-minutes`;
+
     return (
       <InputWrapper {...wrapperProps} id={`${id}-hours`}>
         <div {...frameProps}>
@@ -273,11 +276,14 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             value={time}
             {...rest}
           />
+          <label htmlFor={hourInputId} className={styles.partialInputLabel}>
+            hours
+          </label>
           <input
             className={styles.partialInput}
             type="text"
             disabled={disabled}
-            id={`${id}-hours`}
+            id={hourInputId}
             ref={hoursInputRef}
             value={hours}
             inputMode="numeric"
@@ -291,11 +297,14 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             placeholder="--"
           />
           <div className={styles.divider}>:</div>
+          <label htmlFor={minuteInputId} className={styles.partialInputLabel}>
+            minutes
+          </label>
           <input
             className={styles.partialInput}
             type="text"
             disabled={disabled}
-            id={`${id}-minutes`}
+            id={minuteInputId}
             ref={minutesInputRef}
             value={minutes}
             inputMode="numeric"
