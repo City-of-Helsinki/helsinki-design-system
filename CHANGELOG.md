@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### React Components
 #### Added
-- New Date Input component with Datepicker
+- New date input with date picker
 
 #### Fixed
 - Remove unwanted footer border in Safari browser
