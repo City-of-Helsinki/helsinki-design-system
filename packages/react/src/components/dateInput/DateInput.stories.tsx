@@ -35,7 +35,7 @@ WithoutConfirmation.args = {
   disableConfirmation: true,
 };
 
-export const Localization = (args) => {
+export const Localisation = (args) => {
   const bottomMargin = { marginBottom: 'var(--spacing-m)' };
   return (
     <div>
