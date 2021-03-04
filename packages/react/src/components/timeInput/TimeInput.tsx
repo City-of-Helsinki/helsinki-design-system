@@ -46,6 +46,9 @@ const getDefaultValues = (defaultValue?: string): string[] | null => {
   return null;
 };
 
+const isNumber = (possibleNumber: number): boolean =>
+  typeof possibleNumber === 'number' && !Number.isNaN(possibleNumber);
+
 export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
@@ -140,17 +143,12 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       const intValue = parseInt(value, 10);
 
       // Allow numbers only
-      if (!value.match(/^(\d{1,2})?$/)) {
+      if (!isNumber(intValue)) {
         event.preventDefault();
         return false;
       }
-      // Must be between 0 and 23
-      if (intValue < 0 || intValue > 23) {
-        event.preventDefault();
-        return false;
-      }
-      const newValue = intValue >= 3 ? zeroPad(value) : value;
-      updateTimeInput(newValue, minutes);
+
+      updateTimeInput(value, minutes);
       return true;
     };
 
@@ -162,17 +160,12 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       const intValue = parseInt(value, 10);
 
       // Allow numbers only
-      if (!value.match(/^(\d{1,2})?$/)) {
+      if (!isNumber(intValue)) {
         event.preventDefault();
         return false;
       }
-      // Must be between 0 and 59
-      if (intValue < 0 || intValue > 59) {
-        event.preventDefault();
-        return false;
-      }
-      const newValue = intValue >= 6 ? zeroPad(value) : value;
-      updateTimeInput(hours, newValue);
+
+      updateTimeInput(hours, value);
       return true;
     };
 
@@ -180,7 +173,11 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
      * Focus minutes input after hours input has 2 chars
      */
     const onHoursKeyUp: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
-      if (event.currentTarget.value.length === 2 && NUMBER_KEYS.includes(event.key)) {
+      if (
+        event.currentTarget.value.length === 2 &&
+        event.currentTarget.value !== '00' &&
+        NUMBER_KEYS.includes(event.key)
+      ) {
         minutesInputRef.current.focus();
       }
     };
