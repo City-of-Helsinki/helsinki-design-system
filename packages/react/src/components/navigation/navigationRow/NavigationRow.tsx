@@ -1,12 +1,10 @@
-import React, { cloneElement, isValidElement, useContext, useEffect } from 'react';
+import React, { cloneElement, isValidElement } from 'react';
 
 import styles from './NavigationRow.module.scss';
 import itemStyles from '../navigationItem/NavigationItem.module.scss';
 import classNames from '../../../utils/classNames';
-import { NavigationContext } from '../NavigationContext';
 import { NavigationVariant } from '../Navigation.interface';
 import { FCWithName } from '../../../common/types';
-import { RenderAfterComponentMounted } from '../../../internal/ssr/RenderAfterComponentMounted';
 
 export type NavigationRowProps = React.PropsWithChildren<{
   /**
@@ -21,9 +19,9 @@ export type NavigationRowProps = React.PropsWithChildren<{
 }>;
 
 export const NavigationRow = ({ variant = 'default', children }: NavigationRowProps) => {
-  const { dispatch } = useContext(NavigationContext);
-
-  useEffect(() => dispatch({ type: 'NAVIGATION_ROW', value: variant }), [dispatch, variant]);
+  // Can be deleted??
+  // const { dispatch } = useContext(NavigationContext);
+  // useEffect(() => dispatch({ type: 'NAVIGATION_ROW', value: variant }), [dispatch, variant]);
 
   // add classnames to children
   const childrenWithClassName = React.Children.map(children, (child) => {
@@ -44,12 +42,7 @@ export const NavigationRow = ({ variant = 'default', children }: NavigationRowPr
   });
 
   return (
-    <RenderAfterComponentMounted
-      as="nav"
-      className={classNames(styles.navigation, variant === 'default' && styles.subNav)}
-    >
-      {childrenWithClassName}
-    </RenderAfterComponentMounted>
+    <nav className={classNames(styles.navigation, variant === 'default' && styles.subNav)}>{childrenWithClassName}</nav>
   );
 };
 NavigationRow.componentName = 'NavigationRow';
