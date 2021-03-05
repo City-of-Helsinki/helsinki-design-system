@@ -46,8 +46,7 @@ const getDefaultValues = (defaultValue?: string): string[] | null => {
   return null;
 };
 
-const isNumber = (possibleNumber: number): boolean =>
-  typeof possibleNumber === 'number' && !Number.isNaN(possibleNumber);
+const isShortNumericString = (inputValue: string): boolean => inputValue.match(/^(\d{1,2})?$/) !== null;
 
 export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   (
@@ -140,10 +139,9 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
      */
     const onHoursChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
       const value = event.target.value.slice(-2);
-      const intValue = parseInt(value, 10);
 
-      // Allow numbers only
-      if (!isNumber(intValue)) {
+      // Allow number string only
+      if (isShortNumericString(value)) {
         event.preventDefault();
         return false;
       }
@@ -157,10 +155,9 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
      */
     const onMinutesChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
       const value = event.target.value.slice(-2);
-      const intValue = parseInt(value, 10);
 
-      // Allow numbers only
-      if (!isNumber(intValue)) {
+      // Allow numbers string only
+      if (isShortNumericString(value)) {
         event.preventDefault();
         return false;
       }
