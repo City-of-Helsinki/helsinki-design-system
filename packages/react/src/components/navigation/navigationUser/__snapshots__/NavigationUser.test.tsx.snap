@@ -12,7 +12,7 @@ exports[`<Navigation.User /> spec renders the component 1`] = `
       Skip to content
     </a>
     <div
-      class="fresnel-container fresnel-between-xs-m "
+      class="belowM"
     >
       <div
         class="headerBackgroundWrapper"
@@ -40,9 +40,7 @@ exports[`<Navigation.User /> spec renders the component 1`] = `
                 fill="currentColor"
               />
             </svg>
-            <span
-              style=""
-            >
+            <span>
               Foo
             </span>
           </a>
@@ -78,7 +76,7 @@ exports[`<Navigation.User /> spec renders the component 1`] = `
       </div>
     </div>
     <div
-      class="fresnel-container fresnel-greaterThanOrEqual-m "
+      class="aboveM"
     >
       <div
         class="headerBackgroundWrapper"
@@ -106,9 +104,7 @@ exports[`<Navigation.User /> spec renders the component 1`] = `
                 fill="currentColor"
               />
             </svg>
-            <span
-              style=""
-            >
+            <span>
               Foo
             </span>
           </a>
@@ -119,10 +115,21 @@ exports[`<Navigation.User /> spec renders the component 1`] = `
               class="user"
             >
               <div
-                class="fresnel-container fresnel-between-xs-m "
-              />
+                class="belowM"
+              >
+                <button
+                  class="button primary theme-black size-default fullWidth signInButton"
+                  type="button"
+                >
+                  <span
+                    class="label"
+                  >
+                    Foo
+                  </span>
+                </button>
+              </div>
               <div
-                class="fresnel-container fresnel-greaterThanOrEqual-m "
+                class="aboveM"
               >
                 <button
                   class="button supplementary theme-black size-default fullWidth signInButton"

@@ -1,0 +1,51 @@
+@import "../../styles/layout";
+
+
+.aboveS {
+  @include respond_below(s) {
+    display: none !important;
+  }
+}
+
+.aboveM {
+  @include respond_below(m) {
+    display: none !important;
+  }
+}
+
+.aboveL {
+  @include respond_below(l) {
+    display: none !important;
+  }
+}
+
+.aboveXL {
+  @include respond_below(xl) {
+    display: none !important;
+  }
+}
+
+.belowS {
+  @include respond_above(s) {
+    display: none !important;
+  }
+}
+
+.belowM {
+  @include respond_above(m) {
+    display: none !important;
+  }
+}
+
+.belowL  {
+  @include respond_above(l) {
+    display: none !important;
+  }
+}
+
+.belowXL {
+  @include respond_above(xl) {
+    display: none !important;
+  }
+}
+
