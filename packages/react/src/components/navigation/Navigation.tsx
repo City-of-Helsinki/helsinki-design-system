@@ -22,39 +22,7 @@ import {
 import { getChildrenAsArray, getComponentFromChildren } from '../../utils/getChildren';
 import { FCWithName } from '../../common/types';
 import { useTheme } from '../../hooks/useTheme';
-import { MediaContextProvider, MobileMedia, DesktopMedia, mediaStylesAsString } from '../../internal/ssr/Media';
-
-/**
- * Navigation Styles as String (for server side rendering)
- * You need to inject this string as page header style, for example:
- * <pre>
- * import React from "react"
- * import ReactDOMServer from "react-dom/server"
- * import express from "express"
- * import { App } from "./App"
- * import { navigationStylesForSSR } from "hds-react"
- *
- * const app = express()
- *
- * app.get("/", (req, res) => {
- *  const html = ReactDOMServer.renderToString(<App />)
- *
- *  res.send(`
- *    <html>
- *      <head>
- *        <title>SSR Example</title>
- *      <!–– Inject the generated styles into the page head -->
- *       <style type="text/css">${navigationStylesForSSR}</style>
- *     </head>
- *     <body>
- *        <div id="react">${html}</div>
- *      </body>
- *    </html>
- *  `)
- * })
- * </pre>
- */
-export const navigationStylesForSSR = mediaStylesAsString;
+import Visible from '../visible/Visible';
 
 export type NavigationProps = React.PropsWithChildren<{
   /**
@@ -262,56 +230,50 @@ export const Navigation = ({
 
   return (
     <NavigationContext.Provider value={context}>
-      <MediaContextProvider>
-        <header
-          id={id}
-          className={classNames(
-            styles.header,
-            fixed && styles.fixed,
-            mobileMenuOpen && styles.menuOpen,
-            !title && styles.noTitle,
-            styles[`theme-${theme}`],
-            customThemeClass,
-            className,
+      <header
+        id={id}
+        className={classNames(
+          styles.header,
+          fixed && styles.fixed,
+          mobileMenuOpen && styles.menuOpen,
+          !title && styles.noTitle,
+          styles[`theme-${theme}`],
+          customThemeClass,
+          className,
+        )}
+      >
+        <a className={styles.skipToContent} href={skipTo} aria-label={skipToContentAriaLabel}>
+          {skipToContentLabel}
+        </a>
+        <Visible below="m">
+          <HeaderWrapper {...headerWrapperProps}>
+            {mobileLanguageSelector}
+            <button
+              aria-label={menuToggleAriaLabel}
+              aria-haspopup="true"
+              aria-expanded={mobileMenuOpen}
+              {...(mobileMenuOpen && { 'aria-controls': 'hds-mobile-menu' })}
+              type="button"
+              className={styles.mobileMenuToggle}
+              onClick={() => (typeof onMenuToggle === 'function' ? onMenuToggle() : setMobileMenuOpen(!mobileMenuOpen))}
+            >
+              {mobileMenuOpen ? <IconCross aria-hidden /> : <IconMenuHamburger aria-hidden />}
+            </button>
+          </HeaderWrapper>
+          {mobileMenuOpen && (
+            <div id="hds-mobile-menu" className={styles.mobileMenu}>
+              {mobileMenuChildren}
+            </div>
           )}
-        >
-          <a className={styles.skipToContent} href={skipTo} aria-label={skipToContentAriaLabel}>
-            {skipToContentLabel}
-          </a>
-          <MobileMedia>
-            <HeaderWrapper {...headerWrapperProps}>
-              {mobileLanguageSelector}
-              <button
-                aria-label={menuToggleAriaLabel}
-                aria-haspopup="true"
-                aria-expanded={mobileMenuOpen}
-                {...(mobileMenuOpen && { 'aria-controls': 'hds-mobile-menu' })}
-                type="button"
-                className={styles.mobileMenuToggle}
-                onClick={() =>
-                  typeof onMenuToggle === 'function' ? onMenuToggle() : setMobileMenuOpen(!mobileMenuOpen)
-                }
-              >
-                {mobileMenuOpen ? <IconCross aria-hidden /> : <IconMenuHamburger aria-hidden />}
-              </button>
-            </HeaderWrapper>
-            {mobileMenuOpen && (
-              <div id="hds-mobile-menu" className={styles.mobileMenu}>
-                {mobileMenuChildren}
-              </div>
-            )}
-          </MobileMedia>
-          <DesktopMedia>
-            <HeaderWrapper {...headerWrapperProps}>
-              {navigationVariant === 'inline' && <div className={styles.headerContent}>{children}</div>}
-              {navigationVariant === 'default' && (
-                <div className={styles.headerContent}>{childrenWithoutNavigation}</div>
-              )}
-            </HeaderWrapper>
-            {navigationVariant === 'default' && navigation}
-          </DesktopMedia>
-        </header>
-      </MediaContextProvider>
+        </Visible>
+        <Visible above="m">
+          <HeaderWrapper {...headerWrapperProps}>
+            {navigationVariant === 'inline' && <div className={styles.headerContent}>{children}</div>}
+            {navigationVariant === 'default' && <div className={styles.headerContent}>{childrenWithoutNavigation}</div>}
+          </HeaderWrapper>
+          {navigationVariant === 'default' && navigation}
+        </Visible>
+      </header>
     </NavigationContext.Provider>
   );
 };

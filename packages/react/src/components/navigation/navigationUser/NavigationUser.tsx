@@ -5,7 +5,7 @@ import { NavigationContext } from '../NavigationContext';
 import { IconSignin, IconUser } from '../../../icons';
 import { Button } from '../../button';
 import { MenuButton, MenuButtonProps } from '../../../internal/menuButton/MenuButton';
-import { DesktopMedia, MobileMedia } from '../../../internal/ssr/Media';
+import Visible from '../../visible/Visible';
 
 export type NavigationUserProps = MenuButtonProps & {
   /**
@@ -42,7 +42,7 @@ export const NavigationUser = ({
 
   const userItems = (
     <>
-      <MobileMedia>
+      <Visible above="m">
         {userName && (
           <span className={styles.userName}>
             <IconUser aria-hidden />
@@ -50,8 +50,8 @@ export const NavigationUser = ({
           </span>
         )}
         {children}
-      </MobileMedia>
-      <DesktopMedia>
+      </Visible>
+      <Visible below="m">
         <MenuButton
           className={styles.userDropdown}
           icon={<IconUser aria-hidden />}
@@ -62,18 +62,18 @@ export const NavigationUser = ({
         >
           {children}
         </MenuButton>
-      </DesktopMedia>
+      </Visible>
     </>
   );
 
   const signInButton = (
     <>
-      <MobileMedia>
+      <Visible below="m">
         <Button className={styles.signInButton} fullWidth onClick={onSignIn} theme="black" variant="primary">
           {label}
         </Button>
-      </MobileMedia>
-      <DesktopMedia>
+      </Visible>
+      <Visible above="m">
         <Button
           className={styles.signInButton}
           fullWidth
@@ -84,7 +84,7 @@ export const NavigationUser = ({
         >
           {label}
         </Button>
-      </DesktopMedia>
+      </Visible>
     </>
   );
 
