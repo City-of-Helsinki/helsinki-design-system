@@ -141,7 +141,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       const value = event.target.value.slice(-2);
 
       // Allow number string only
-      if (isShortNumericString(value)) {
+      if (!isShortNumericString(value)) {
         event.preventDefault();
         return false;
       }
@@ -157,7 +157,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       const value = event.target.value.slice(-2);
 
       // Allow numbers string only
-      if (isShortNumericString(value)) {
+      if (!isShortNumericString(value)) {
         event.preventDefault();
         return false;
       }
