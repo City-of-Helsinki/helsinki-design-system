@@ -16,7 +16,7 @@
     "base.min-*"
   ],
   "scripts": {
-    "build": "rimraf lib/ && yarn run tcm && rollup -c",
+    "build": "rimraf lib/ && yarn run lint && yarn run tcm && rollup -c",
     "start": "tcm src internal --watch & yarn storybook --no-dll",
     "scaffold": "node scripts/scaffold.js",
     "icon": "node scripts/icon.js",
