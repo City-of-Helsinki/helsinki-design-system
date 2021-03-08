@@ -15,12 +15,6 @@
       border-color: var(--input-border-color-disabled);
     }
   }
-
-  // TODO: It would be better to make text-input's focus styles more flexible. But it requires changes to core styles which might have unwanted results.
-  &:not([readonly]):focus {
-    box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
-    transform: translate3d(0, 0, 0);
-  }
 }
 
 .fullInput {
