@@ -8,6 +8,17 @@ import textInputStyles from '../textInput/TextInput.module.css';
 import styles from './TimeInput.module.scss';
 import classNames from '../../utils/classNames';
 
+export type TimeInputProps = TextInputProps & {
+  /**
+   * A visually hidden label for the hours. Helps to navigate the component with screen readers.
+   */
+  hoursLabel: string;
+  /**
+   * A visually hidden label for the minutes. Helps to navigate the component with screen readers.
+   */
+  minutesLabel: string;
+};
+
 const NUMBER_KEYS: string[] = '0,1,2,3,4,5,6,7,8,9'.split(',');
 
 /**
@@ -48,7 +59,7 @@ const getDefaultValues = (defaultValue?: string): string[] | null => {
 
 const isShortNumericString = (inputValue: string): boolean => inputValue.match(/^(\d{1,2})?$/) !== null;
 
-export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
+export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
   (
     {
       className = '',
@@ -61,6 +72,8 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       id,
       label,
       labelText,
+      hoursLabel,
+      minutesLabel,
       onChange = () => null,
       required,
       style,
@@ -70,7 +83,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       tooltipButtonLabel,
       type = 'text',
       ...rest
-    }: TextInputProps,
+    }: TimeInputProps,
     ref?: React.Ref<HTMLInputElement>,
   ) => {
     const defaultValues = getDefaultValues(defaultValue);
@@ -271,7 +284,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
             {...rest}
           />
           <label htmlFor={hourInputId} className={styles.partialInputLabel}>
-            hours
+            {hoursLabel}
           </label>
           <input
             className={styles.partialInput}
@@ -292,7 +305,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           />
           <div className={styles.divider}>:</div>
           <label htmlFor={minuteInputId} className={styles.partialInputLabel}>
-            minutes
+            {minutesLabel}
           </label>
           <input
             className={styles.partialInput}

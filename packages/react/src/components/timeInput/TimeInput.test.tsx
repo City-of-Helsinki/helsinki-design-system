@@ -6,18 +6,18 @@ import { TimeInput } from './TimeInput';
 
 describe('<TimeInput /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<TimeInput id="time" />);
+    const { asFragment } = render(<TimeInput id="time" hoursLabel="hours" minutesLabel="minutes" />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should not have basic accessibility issues', async () => {
-    const { container } = render(<TimeInput id="time" />);
+    const { container } = render(<TimeInput id="time" hoursLabel="hours" minutesLabel="minutes" />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 
   it('should update time value when numeric hours and minutes strings are typed', async () => {
-    const { container } = render(<TimeInput id="time" label="timer" />);
+    const { container } = render(<TimeInput id="time" label="timer" hoursLabel="hours" minutesLabel="minutes" />);
     const hoursInput = screen.getByLabelText('Hours', { selector: 'input' });
     fireEvent.input(hoursInput, {
       target: {
@@ -37,7 +37,7 @@ describe('<TimeInput /> spec', () => {
   });
 
   it('should move focus to minutes input when numeric hours string is typed', async () => {
-    render(<TimeInput id="time" label="timer" />);
+    render(<TimeInput id="time" label="timer" hoursLabel="hours" minutesLabel="minutes" />);
     const hoursInput = screen.getByLabelText('Hours', { selector: 'input' });
     fireEvent.input(hoursInput, {
       target: {
@@ -49,7 +49,7 @@ describe('<TimeInput /> spec', () => {
   });
 
   it('should not update hours value when non-numeric string is typed', async () => {
-    render(<TimeInput id="time" label="timer" />);
+    render(<TimeInput id="time" label="timer" hoursLabel="hours" minutesLabel="minutes" />);
     const hoursInput = screen.getByLabelText('Hours', { selector: 'input' });
     fireEvent.input(hoursInput, {
       target: {
@@ -61,7 +61,7 @@ describe('<TimeInput /> spec', () => {
   });
 
   it('should not update minutes value when non-numeric string is typed', async () => {
-    render(<TimeInput id="time" label="timer" />);
+    render(<TimeInput id="time" label="timer" hoursLabel="hours" minutesLabel="minutes" />);
     const minutesInput = screen.getByLabelText('Minutes', { selector: 'input' });
     fireEvent.input(minutesInput, {
       target: {
