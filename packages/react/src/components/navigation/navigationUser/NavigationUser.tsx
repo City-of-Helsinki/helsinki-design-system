@@ -5,7 +5,7 @@ import { NavigationContext } from '../NavigationContext';
 import { IconSignin, IconUser } from '../../../icons';
 import { Button } from '../../button';
 import { MenuButton, MenuButtonProps } from '../../../internal/menuButton/MenuButton';
-import { Visible } from '../../visible/Visible';
+import { Visible } from '../../visible';
 
 export type NavigationUserProps = MenuButtonProps & {
   /**
@@ -42,7 +42,7 @@ export const NavigationUser = ({
 
   const userItems = (
     <>
-      <Visible above="m">
+      <Visible below="m">
         {userName && (
           <span className={styles.userName}>
             <IconUser aria-hidden />
@@ -51,7 +51,7 @@ export const NavigationUser = ({
         )}
         {children}
       </Visible>
-      <Visible below="m">
+      <Visible above="m">
         <MenuButton
           className={styles.userDropdown}
           icon={<IconUser aria-hidden />}
