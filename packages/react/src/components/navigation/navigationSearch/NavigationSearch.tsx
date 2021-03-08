@@ -6,7 +6,7 @@ import { NavigationContext } from '../NavigationContext';
 import classNames from '../../../utils/classNames';
 import getIsElementFocused from '../../../utils/getIsElementFocused';
 import getIsElementBlurred from '../../../utils/getIsElementBlurred';
-import { Visible } from '../../visible';
+import { Visible } from '../../../internal/visible/Visible';
 
 export type NavigationSearchProps = {
   /**
