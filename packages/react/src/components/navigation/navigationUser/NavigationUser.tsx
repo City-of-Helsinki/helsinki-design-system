@@ -5,7 +5,7 @@ import { NavigationContext } from '../NavigationContext';
 import { IconSignin, IconUser } from '../../../icons';
 import { Button } from '../../button';
 import { MenuButton, MenuButtonProps } from '../../../internal/menuButton/MenuButton';
-import Visible from '../../visible/Visible';
+import { Visible } from '../../visible/Visible';
 
 export type NavigationUserProps = MenuButtonProps & {
   /**

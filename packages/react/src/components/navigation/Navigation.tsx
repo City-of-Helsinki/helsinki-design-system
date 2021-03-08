@@ -22,7 +22,7 @@ import {
 import { getChildrenAsArray, getComponentFromChildren } from '../../utils/getChildren';
 import { FCWithName } from '../../common/types';
 import { useTheme } from '../../hooks/useTheme';
-import Visible from '../visible/Visible';
+import { Visible } from '../visible/Visible';
 
 export type NavigationProps = React.PropsWithChildren<{
   /**
