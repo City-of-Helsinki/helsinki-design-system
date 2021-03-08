@@ -12,6 +12,8 @@ export default {
   args: {
     id: 'time',
     label: 'Label',
+    hoursLabel: 'hours',
+    minutesLabel: 'minutes',
     helperText: 'Assistive text',
     defaultValue: '00:00',
     disabled: false,
