@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
 import { TimeInput } from './TimeInput';
@@ -18,57 +19,28 @@ describe('<TimeInput /> spec', () => {
 
   it('should update time value when numeric hours and minutes strings are typed', async () => {
     const { container } = render(<TimeInput id="time" label="timer" hoursLabel="hours" minutesLabel="minutes" />);
-    const hoursInput = screen.getByLabelText('Hours', { selector: 'input' });
-    fireEvent.input(hoursInput, {
-      target: {
-        value: '12',
-      },
-    });
-    fireEvent.keyUp(hoursInput, { key: '2' });
-
-    const minutesInput = screen.getByLabelText('Minutes', { selector: 'input' });
-    fireEvent.input(minutesInput, {
-      target: {
-        value: '00',
-      },
-    });
-    fireEvent.keyUp(minutesInput, { key: '0' });
+    userEvent.type(screen.getByLabelText('Hours', { selector: 'input' }), '12');
+    userEvent.type(screen.getByLabelText('Minutes', { selector: 'input' }), '00');
     expect(container.querySelector('#time')).toHaveValue('12:00');
   });
 
   it('should move focus to minutes input when numeric hours string is typed', async () => {
     render(<TimeInput id="time" label="timer" hoursLabel="hours" minutesLabel="minutes" />);
-    const hoursInput = screen.getByLabelText('Hours', { selector: 'input' });
-    fireEvent.input(hoursInput, {
-      target: {
-        value: '12',
-      },
-    });
-    fireEvent.keyUp(hoursInput, { key: '2' });
+    userEvent.type(screen.getByLabelText('Hours', { selector: 'input' }), '12');
     expect(screen.getByLabelText('Minutes', { selector: 'input' })).toHaveFocus();
   });
 
   it('should not update hours value when non-numeric string is typed', async () => {
     render(<TimeInput id="time" label="timer" hoursLabel="hours" minutesLabel="minutes" />);
     const hoursInput = screen.getByLabelText('Hours', { selector: 'input' });
-    fireEvent.input(hoursInput, {
-      target: {
-        value: 'test',
-      },
-    });
-    fireEvent.keyUp(hoursInput, { key: 't' });
+    userEvent.type(hoursInput, 'test');
     expect(hoursInput).toHaveValue('');
   });
 
   it('should not update minutes value when non-numeric string is typed', async () => {
     render(<TimeInput id="time" label="timer" hoursLabel="hours" minutesLabel="minutes" />);
     const minutesInput = screen.getByLabelText('Minutes', { selector: 'input' });
-    fireEvent.input(minutesInput, {
-      target: {
-        value: 'test',
-      },
-    });
-    fireEvent.keyUp(minutesInput, { key: 't' });
+    userEvent.type(minutesInput, 'test');
     expect(minutesInput).toHaveValue('');
   });
 });
