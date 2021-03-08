@@ -2008,6 +2008,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.12.5":
+  version "7.13.9"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.13.9.tgz#97dbe2116e2630c489f22e0656decd60aaa1fcee"
+  integrity sha512-aY2kU+xgJ3dJ1eU6FMB9EH8dIe8dmusF1xEku52joLvw6eAFN0AI+WxCLDnpev2LEejWBAy2sBvBOBAjI3zmvA==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/standalone@^7.10.2":
   version "7.12.2"
   resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.12.2.tgz#af1068abf12c1b8296c655fdd4fce093e57f1a73"
@@ -5643,6 +5650,13 @@
     "@babel/runtime" "^7.9.6"
     "@testing-library/dom" "^7.2.2"
     "@types/testing-library__react" "^10.0.1"
+
+"@testing-library/user-event@^12.8.1":
+  version "12.8.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-12.8.1.tgz#aa897d6e7f0cf2208385abc2da2ac3f5844bbd00"
+  integrity sha512-u521YhkCKip0DQNDpfj9V97PU7UlCTkW5jURUD4JipuVe/xDJ32dJSIHlT2pqAs/I91OFB8p6LtqaLZpOu8BWQ==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
 
 "@theme-ui/typography@^0.2.5":
   version "0.2.46"
