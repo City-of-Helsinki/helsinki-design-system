@@ -13,7 +13,7 @@ type Props = {
 
 const capitalize = (str?: string) => str?.toUpperCase() || '';
 
-const Visible: React.FC<Props> = ({ above, below, children, className }) => {
+export const Visible: React.FC<Props> = ({ above, below, children, className }) => {
   return (
     <div
       className={classNames(className, {
@@ -25,5 +25,3 @@ const Visible: React.FC<Props> = ({ above, below, children, className }) => {
     </div>
   );
 };
-
-export default Visible;

@@ -24,3 +24,4 @@ export * from './textarea';
 export * from './textInput';
 export * from './tooltip';
 export * from './tabs';
+export * from './visible';
