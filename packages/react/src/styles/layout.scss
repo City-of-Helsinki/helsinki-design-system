@@ -1,90 +1,53 @@
+@import '~hds-design-tokens/lib/all.scss';
+
 //
 //  MEDIA QUERIES
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
-// A map of breakpoints.
+// A list of breakpoints.
 $breakpoints: (
-  s: 576px,
-  m: 768px,
-  l: 992px,
-  xl: 1248px,
+  $breakpoint-xs,
+  $breakpoint-s,
+  $breakpoint-m,
+  $breakpoint-l,
+  $breakpoint-xl,
 );
-
 //
 //  RESPOND ABOVE
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
-// @include respond-above(sm) {}
+// @include respond-above($breakpoint.s) {}
 @mixin respond-above($breakpoint) {
-  // If the breakpoint exists in the map.
-  @if map-has-key($breakpoints, $breakpoint) {
-    // Get the breakpoint value.
-    $breakpoint-value: map-get($breakpoints, $breakpoint);
 
-    // Write the media query.
-    @media (min-width: $breakpoint-value) {
-      @content;
-    }
-
-    // If the breakpoint doesn't exist in the map.
-  } @else {
+  @if not index($breakpoints, $breakpoint) {
+    // If the breakpoint doesn't exist in the list.
     // Log a warning.
     @warn 'Invalid breakpoint: #{$breakpoint}.';
+  } @else {
+    // If the breakpoint exists in the list.
+    // Write the media query.
+    @media only screen and (min-width: $breakpoint) {
+      @content;
+    }
   }
 }
+
 
 //
 //  RESPOND BELOW
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
-// @include respond-below(sm) {}
+// @include respond-below($breakpoint.s) {}
 @mixin respond-below($breakpoint) {
-  // If the breakpoint exists in the map.
-  @if map-has-key($breakpoints, $breakpoint) {
-    // Get the breakpoint value.
-    $breakpoint-value: map-get($breakpoints, $breakpoint);
 
-    // Write the media query.
-    @media (max-width: ($breakpoint-value - 1)) {
-      @content;
-    }
-
-    // If the breakpoint doesn't exist in the map.
-  } @else {
+  @if not index($breakpoints, $breakpoint) {
+    // If the breakpoint doesn't exist in the list.
     // Log a warning.
     @warn 'Invalid breakpoint: #{$breakpoint}.';
-  }
-}
-
-//
-//  RESPOND BETWEEN
-//––––––––––––––––––––––––––––––––––––––––––––––––––
-
-// @include respond-between(sm, md) {}
-@mixin respond-between($lower, $upper) {
-  // If both the lower and upper breakpoints exist in the map.
-  @if map-has-key($breakpoints, $lower) and map-has-key($breakpoints, $upper) {
-    // Get the lower and upper breakpoints.
-    $lower-breakpoint: map-get($breakpoints, $lower);
-    $upper-breakpoint: map-get($breakpoints, $upper);
-
-    // Write the media query.
-    @media (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
-      @content;
-    }
-
-    // If one or both of the breakpoints don't exist.
   } @else {
-    // If lower breakpoint is invalid.
-    @if (map-has-key($breakpoints, $lower) == false) {
-      // Log a warning.
-      @warn 'Your lower breakpoint was invalid: #{$lower}.';
-    }
-
-    // If upper breakpoint is invalid.
-    @if (map-has-key($breakpoints, $upper) == false) {
-      // Log a warning.
-      @warn 'Your upper breakpoint was invalid: #{$upper}.';
+    // Write the media query.
+    @media only screen and (max-width: ($breakpoint - 1)) {
+      @content;
     }
   }
 }

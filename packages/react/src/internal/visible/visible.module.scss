@@ -1,50 +1,50 @@
 @import "../../styles/layout";
-
+@import '~hds-design-tokens/lib/all.scss';
 
 .aboveS {
-  @include respond_below(s) {
+  @include respond_below($breakpoint-s) {
     display: none !important;
   }
 }
 
 .aboveM {
-  @include respond_below(m) {
+  @include respond_below($breakpoint-m) {
     display: none !important;
   }
 }
 
 .aboveL {
-  @include respond_below(l) {
+  @include respond_below($breakpoint-l) {
     display: none !important;
   }
 }
 
 .aboveXL {
-  @include respond_below(xl) {
+  @include respond_below($breakpoint-xl) {
     display: none !important;
   }
 }
 
 .belowS {
-  @include respond_above(s) {
+  @include respond_above($breakpoint-s) {
     display: none !important;
   }
 }
 
 .belowM {
-  @include respond_above(m) {
+  @include respond_above($breakpoint-m) {
     display: none !important;
   }
 }
 
 .belowL  {
-  @include respond_above(l) {
+  @include respond_above($breakpoint-l) {
     display: none !important;
   }
 }
 
 .belowXL {
-  @include respond_above(xl) {
+  @include respond_above($breakpoint-xl) {
     display: none !important;
   }
 }
