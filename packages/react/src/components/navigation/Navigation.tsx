@@ -173,7 +173,7 @@ export const Navigation = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(menuOpen);
 
   const [authenticated, setAuthenticated] = useState(false);
-  const navigationVariant = getNavigationVariantFromChild(children);
+  const [navigationVariant, setNavigationVariant] = useState(getNavigationVariantFromChild(children));
 
   // close menu when changing between mobile and desktop
   useEffect(() => setMobileMenuOpen(false), [isMobile]);
@@ -181,7 +181,7 @@ export const Navigation = ({
   useEffect(() => setMobileMenuOpen(menuOpen), [menuOpen]);
 
   // navigation context
-  const context: NavigationContextProps = { setAuthenticated, isMobile };
+  const context: NavigationContextProps = { setAuthenticated, setNavigationVariant, isMobile };
   // filter out the NavigationRow, so that it can be rendered correctly based on the 'navigationVariant' value
   const [navigation, childrenWithoutNavigation] = getComponentFromChildren(children, 'NavigationRow');
 
