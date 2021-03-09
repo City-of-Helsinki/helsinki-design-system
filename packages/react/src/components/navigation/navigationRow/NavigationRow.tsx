@@ -1,10 +1,11 @@
-import React, { cloneElement, isValidElement } from 'react';
+import React, { cloneElement, isValidElement, useContext, useEffect } from 'react';
 
 import styles from './NavigationRow.module.scss';
 import itemStyles from '../navigationItem/NavigationItem.module.scss';
 import classNames from '../../../utils/classNames';
 import { NavigationVariant } from '../Navigation.interface';
 import { FCWithName } from '../../../common/types';
+import { NavigationContext } from '../NavigationContext';
 
 export type NavigationRowProps = React.PropsWithChildren<{
   /**
@@ -19,6 +20,10 @@ export type NavigationRowProps = React.PropsWithChildren<{
 }>;
 
 export const NavigationRow = ({ variant = 'default', children }: NavigationRowProps) => {
+  const { setNavigationVariant } = useContext(NavigationContext);
+
+  useEffect(() => setNavigationVariant(variant), [variant]);
+
   // add classnames to children
   const childrenWithClassName = React.Children.map(children, (child) => {
     const reactElement = child as React.ReactElement;
