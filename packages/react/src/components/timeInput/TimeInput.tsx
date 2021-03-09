@@ -299,7 +299,6 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
             onKeyUp={onHoursKeyUp}
             onFocus={onInputFocus}
             onBlur={onHoursBlur}
-            aria-label="Hours"
             aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : undefined}
             placeholder="--"
           />
@@ -319,7 +318,6 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
             onKeyDown={onMinutesKeyDown}
             onFocus={onInputFocus}
             onBlur={onMinutesBlur}
-            aria-label="Minutes"
             aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : undefined}
             placeholder="--"
           />
