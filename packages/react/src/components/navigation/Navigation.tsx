@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './Navigation.module.scss';
 import classNames from '../../utils/classNames';
@@ -13,12 +13,7 @@ import { NavigationLanguageSelector } from './navigationLanguageSelector/Navigat
 import { NavigationDropdown } from './navigationDropdown/NavigationDropdown';
 import { useMobile } from '../../hooks/useMobile';
 import { IconCross, IconMenuHamburger } from '../../icons';
-import {
-  NavigationReducerAction,
-  NavigationReducerState,
-  NavigationTheme,
-  NavigationVariant,
-} from './Navigation.interface';
+import { NavigationTheme, NavigationVariant } from './Navigation.interface';
 import { getChildrenAsArray, getComponentFromChildren } from '../../utils/getChildren';
 import { FCWithName } from '../../common/types';
 import { useTheme } from '../../hooks/useTheme';
@@ -124,22 +119,6 @@ const getNavigationVariantFromChild = (children: React.ReactNode): NavigationVar
 };
 
 /**
- * Navigation reducer
- * @param {ReducerState} state
- * @param {ReducerAction} action
- */
-const reducer = (state: NavigationReducerState, action: NavigationReducerAction): NavigationReducerState => {
-  if (action.type === 'AUTHENTICATED') {
-    return { ...state, authenticated: action.value };
-  }
-  if (action.type === 'NAVIGATION_ROW') {
-    return { ...state, navigationVariant: action.value };
-  }
-
-  return state;
-};
-
-/**
  * Wrapper component for header content
  * @param children
  * @param logoLanguage
@@ -193,10 +172,8 @@ export const Navigation = ({
   const customThemeClass = useTheme<NavigationTheme>(styles.header, theme);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(menuOpen);
 
-  const [{ authenticated, navigationVariant }, dispatch] = useReducer(reducer, {
-    authenticated: false,
-    navigationVariant: getNavigationVariantFromChild(children),
-  });
+  const [authenticated, setAuthenticated] = useState(false);
+  const navigationVariant = getNavigationVariantFromChild(children);
 
   // close menu when changing between mobile and desktop
   useEffect(() => setMobileMenuOpen(false), [isMobile]);
@@ -204,7 +181,7 @@ export const Navigation = ({
   useEffect(() => setMobileMenuOpen(menuOpen), [menuOpen]);
 
   // navigation context
-  const context: NavigationContextProps = { dispatch, isMobile };
+  const context: NavigationContextProps = { setAuthenticated, isMobile };
   // filter out the NavigationRow, so that it can be rendered correctly based on the 'navigationVariant' value
   const [navigation, childrenWithoutNavigation] = getComponentFromChildren(children, 'NavigationRow');
 

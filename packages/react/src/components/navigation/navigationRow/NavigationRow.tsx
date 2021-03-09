@@ -19,10 +19,6 @@ export type NavigationRowProps = React.PropsWithChildren<{
 }>;
 
 export const NavigationRow = ({ variant = 'default', children }: NavigationRowProps) => {
-  // Can be deleted??
-  // const { dispatch } = useContext(NavigationContext);
-  // useEffect(() => dispatch({ type: 'NAVIGATION_ROW', value: variant }), [dispatch, variant]);
-
   // add classnames to children
   const childrenWithClassName = React.Children.map(children, (child) => {
     const reactElement = child as React.ReactElement;
