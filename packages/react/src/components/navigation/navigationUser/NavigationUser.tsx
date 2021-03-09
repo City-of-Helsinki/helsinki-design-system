@@ -35,10 +35,10 @@ export const NavigationUser = ({
   userName,
   ...dropdownProps
 }: NavigationUserProps) => {
-  const { dispatch } = useContext(NavigationContext);
+  const { setAuthenticated } = useContext(NavigationContext);
 
   // dispatch auth state
-  useEffect(() => dispatch({ type: 'AUTHENTICATED', value: authenticated }), [authenticated, dispatch]);
+  useEffect(() => setAuthenticated(authenticated), [authenticated]);
 
   const userItems = (
     <>
