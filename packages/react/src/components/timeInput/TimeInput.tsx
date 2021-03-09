@@ -279,7 +279,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
             ref={inputRef}
             required={required}
             type={type}
-            tabIndex={0}
+            tabIndex={-1}
             value={time}
             {...rest}
           />
