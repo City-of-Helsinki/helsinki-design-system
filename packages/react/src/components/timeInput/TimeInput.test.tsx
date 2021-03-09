@@ -17,28 +17,28 @@ describe('<TimeInput /> spec', () => {
     expect(results).toHaveNoViolations();
   });
 
-  it('should update time value when numeric hours and minutes strings are typed', async () => {
-    const { container } = render(<TimeInput id="time" label="timer" hoursLabel="hours" minutesLabel="minutes" />);
+  it('should update time value when numeric hours and minutes are typed', async () => {
+    const { container } = render(<TimeInput id="time" label="timer" hoursLabel="Hours" minutesLabel="Minutes" />);
     userEvent.type(screen.getByLabelText('Hours', { selector: 'input' }), '12');
     userEvent.type(screen.getByLabelText('Minutes', { selector: 'input' }), '00');
     expect(container.querySelector('#time')).toHaveValue('12:00');
   });
 
-  it('should move focus to minutes input when numeric hours string is typed', async () => {
-    render(<TimeInput id="time" label="timer" hoursLabel="hours" minutesLabel="minutes" />);
+  it('should move focus to minutes input when numeric hours is typed', async () => {
+    render(<TimeInput id="time" label="timer" hoursLabel="Hours" minutesLabel="Minutes" />);
     userEvent.type(screen.getByLabelText('Hours', { selector: 'input' }), '12');
     expect(screen.getByLabelText('Minutes', { selector: 'input' })).toHaveFocus();
   });
 
   it('should not update hours value when non-numeric string is typed', async () => {
-    render(<TimeInput id="time" label="timer" hoursLabel="hours" minutesLabel="minutes" />);
+    render(<TimeInput id="time" label="timer" hoursLabel="Hours" minutesLabel="Minutes" />);
     const hoursInput = screen.getByLabelText('Hours', { selector: 'input' });
     userEvent.type(hoursInput, 'test');
     expect(hoursInput).toHaveValue('');
   });
 
   it('should not update minutes value when non-numeric string is typed', async () => {
-    render(<TimeInput id="time" label="timer" hoursLabel="hours" minutesLabel="minutes" />);
+    render(<TimeInput id="time" label="timer" hoursLabel="Hours" minutesLabel="Minutes" />);
     const minutesInput = screen.getByLabelText('Minutes', { selector: 'input' });
     userEvent.type(minutesInput, 'test');
     expect(minutesInput).toHaveValue('');

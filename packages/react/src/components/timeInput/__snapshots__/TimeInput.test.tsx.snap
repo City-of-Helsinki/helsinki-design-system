@@ -16,7 +16,7 @@ exports[`<TimeInput /> spec renders the component 1`] = `
           class="fullInput"
           id="time"
           readonly=""
-          tabindex="0"
+          tabindex="-1"
           type="text"
           value=""
         />
@@ -27,7 +27,6 @@ exports[`<TimeInput /> spec renders the component 1`] = `
           hours
         </label>
         <input
-          aria-label="Hours"
           class="partialInput"
           id="time-hours"
           inputmode="numeric"
@@ -47,7 +46,6 @@ exports[`<TimeInput /> spec renders the component 1`] = `
           minutes
         </label>
         <input
-          aria-label="Minutes"
           class="partialInput"
           id="time-minutes"
           inputmode="numeric"
