@@ -102,7 +102,6 @@
     "@juggle/resize-observer": "3.2.0",
     "@popperjs/core": "2.5.3",
     "@react-aria/visually-hidden": "3.2.0",
-    "classnames": "^2.2.6",
     "date-fns": "2.16.1",
     "downshift": "6.0.6",
     "hds-core": "0.22.0",
