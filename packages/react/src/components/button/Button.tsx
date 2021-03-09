@@ -2,8 +2,8 @@ import React from 'react';
 
 // import core base styles
 import 'hds-core';
+import { LoadingSpinner } from '../loadingSpinner';
 import styles from './Button.module.scss';
-import loadingSpinnerStyles from '../loadingSpinner/LoadingSpinner.module.scss';
 import classNames from '../../utils/classNames';
 
 export type ButtonSize = 'default' | 'small';
@@ -108,14 +108,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       </div>
     ) : null;
 
-    const loadingSpinner = (
-      <div className={classNames(loadingSpinnerStyles.loadingSpinner, loadingSpinnerStyles.small)}>
-        <div />
-        <div />
-        <div />
-      </div>
-    );
-
     const loadingOnClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
       event.preventDefault();
     };
@@ -138,7 +130,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         onClick={isLoading ? loadingOnClick : onClick}
         {...rest}
       >
-        {isLoading ? loadingSpinner : iconElementLeft}
+        {isLoading ? <LoadingSpinner small /> : iconElementLeft}
         <span className={styles.label}>{isLoading ? loadingText : children}</span>
         {isLoading ? null : iconElementRight}
       </button>
