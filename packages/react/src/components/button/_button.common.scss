@@ -30,6 +30,10 @@
   composes: hds-button--supplementary from 'hds-core/lib/components/button/button.css';
 }
 
+%loading {
+  composes: hds-button--loading from 'hds-core/lib/components/button/button.css';
+}
+
 %success {
   composes: hds-button--success from 'hds-core/lib/components/button/button.css';
 }
