@@ -38,7 +38,7 @@ export const NavigationUser = ({
   const { setAuthenticated } = useContext(NavigationContext);
 
   // dispatch auth state
-  useEffect(() => setAuthenticated(authenticated), [authenticated]);
+  useEffect(() => setAuthenticated(authenticated), [setAuthenticated, authenticated]);
 
   const userItems = (
     <>
