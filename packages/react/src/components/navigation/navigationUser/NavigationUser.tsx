@@ -5,6 +5,7 @@ import { NavigationContext } from '../NavigationContext';
 import { IconSignin, IconUser } from '../../../icons';
 import { Button } from '../../button';
 import { MenuButton, MenuButtonProps } from '../../../internal/menuButton/MenuButton';
+import { Visible } from '../../../internal/visible/Visible';
 
 export type NavigationUserProps = MenuButtonProps & {
   /**
@@ -34,49 +35,57 @@ export const NavigationUser = ({
   userName,
   ...dropdownProps
 }: NavigationUserProps) => {
-  const { dispatch, isMobile } = useContext(NavigationContext);
+  const { setAuthenticated } = useContext(NavigationContext);
 
   // dispatch auth state
-  useEffect(() => dispatch({ type: 'AUTHENTICATED', value: authenticated }), [authenticated, dispatch]);
+  useEffect(() => setAuthenticated(authenticated), [authenticated]);
 
-  const userItems: React.ReactNode = isMobile ? (
+  const userItems = (
     <>
-      {userName && (
-        <span className={styles.userName}>
-          <IconUser aria-hidden />
-          {userName}
-        </span>
-      )}
-      {children}
+      <Visible below="m">
+        {userName && (
+          <span className={styles.userName}>
+            <IconUser aria-hidden />
+            {userName}
+          </span>
+        )}
+        {children}
+      </Visible>
+      <Visible above="m">
+        <MenuButton
+          className={styles.userDropdown}
+          icon={<IconUser aria-hidden />}
+          id={id}
+          label={userName}
+          menuOffset={10}
+          {...dropdownProps}
+        >
+          {children}
+        </MenuButton>
+      </Visible>
     </>
-  ) : (
-    <MenuButton
-      className={styles.userDropdown}
-      icon={<IconUser aria-hidden />}
-      id={id}
-      label={userName}
-      menuOffset={10}
-      {...dropdownProps}
-    >
-      {children}
-    </MenuButton>
   );
 
-  const signInButton = isMobile ? (
-    <Button className={styles.signInButton} fullWidth onClick={onSignIn} theme="black" variant="primary">
-      {label}
-    </Button>
-  ) : (
-    <Button
-      className={styles.signInButton}
-      fullWidth
-      iconLeft={<IconSignin aria-hidden />}
-      onClick={onSignIn}
-      theme="black"
-      variant="supplementary"
-    >
-      {label}
-    </Button>
+  const signInButton = (
+    <>
+      <Visible below="m">
+        <Button className={styles.signInButton} fullWidth onClick={onSignIn} theme="black" variant="primary">
+          {label}
+        </Button>
+      </Visible>
+      <Visible above="m">
+        <Button
+          className={styles.signInButton}
+          fullWidth
+          iconLeft={<IconSignin aria-hidden />}
+          onClick={onSignIn}
+          theme="black"
+          variant="supplementary"
+        >
+          {label}
+        </Button>
+      </Visible>
+    </>
   );
 
   return <div className={styles.user}>{authenticated ? userItems : signInButton}</div>;

@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './Navigation.module.scss';
 import classNames from '../../utils/classNames';
@@ -13,10 +13,11 @@ import { NavigationLanguageSelector } from './navigationLanguageSelector/Navigat
 import { NavigationDropdown } from './navigationDropdown/NavigationDropdown';
 import { useMobile } from '../../hooks/useMobile';
 import { IconCross, IconMenuHamburger } from '../../icons';
-import { NavigationReducerAction, NavigationReducerState, NavigationTheme } from './Navigation.interface';
+import { NavigationTheme, NavigationVariant } from './Navigation.interface';
 import { getChildrenAsArray, getComponentFromChildren } from '../../utils/getChildren';
 import { FCWithName } from '../../common/types';
 import { useTheme } from '../../hooks/useTheme';
+import { Visible } from '../../internal/visible/Visible';
 
 export type NavigationProps = React.PropsWithChildren<{
   /**
@@ -110,20 +111,11 @@ const rearrangeChildrenForMobile = (children: React.ReactElement[], authenticate
   return rearrangedChildren;
 };
 
-/**
- * Navigation reducer
- * @param {ReducerState} state
- * @param {ReducerAction} action
- */
-const reducer = (state: NavigationReducerState, action: NavigationReducerAction): NavigationReducerState => {
-  if (action.type === 'AUTHENTICATED') {
-    return { ...state, authenticated: action.value };
-  }
-  if (action.type === 'NAVIGATION_ROW') {
-    return { ...state, navigationVariant: action.value };
-  }
-
-  return state;
+const getNavigationVariantFromChild = (children: React.ReactNode): NavigationVariant => {
+  const navigationRow = getChildrenAsArray(children).find(
+    (child) => (child.type as FCWithName).componentName === 'NavigationRow',
+  );
+  return navigationRow?.props?.variant || 'default';
 };
 
 /**
@@ -180,10 +172,8 @@ export const Navigation = ({
   const customThemeClass = useTheme<NavigationTheme>(styles.header, theme);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(menuOpen);
 
-  const [{ authenticated, navigationVariant }, dispatch] = useReducer(reducer, {
-    authenticated: false,
-    navigationVariant: 'default',
-  });
+  const [authenticated, setAuthenticated] = useState(false);
+  const [navigationVariant, setNavigationVariant] = useState(getNavigationVariantFromChild(children));
 
   // close menu when changing between mobile and desktop
   useEffect(() => setMobileMenuOpen(false), [isMobile]);
@@ -191,33 +181,26 @@ export const Navigation = ({
   useEffect(() => setMobileMenuOpen(menuOpen), [menuOpen]);
 
   // navigation context
-  const context: NavigationContextProps = { dispatch, isMobile };
+  const context: NavigationContextProps = { setAuthenticated, setNavigationVariant, isMobile };
   // filter out the NavigationRow, so that it can be rendered correctly based on the 'navigationVariant' value
   const [navigation, childrenWithoutNavigation] = getComponentFromChildren(children, 'NavigationRow');
 
-  // children that will be rendered in the mobile menu
-  let menuChildren = null;
-  let languageSelector = null;
-  let actionsWithoutLanguageSelector = null;
+  // Mobile navigation actions
+  const mobileActions = getChildrenAsArray(children).find(
+    (child) => (child.type as FCWithName).componentName === 'NavigationActions',
+  )?.props?.children;
 
-  if (isMobile) {
-    // navigation actions
-    const actions = getChildrenAsArray(children).find(
-      (child) => (child.type as FCWithName).componentName === 'NavigationActions',
-    )?.props?.children;
+  // filter out the NavigationLanguageSelector, so that it can be rendered in the header instead of the mobile menu
+  const [mobileLanguageSelector, mobileActionsWithoutLanguageSelector] = getComponentFromChildren(
+    mobileActions,
+    'NavigationLanguageSelector',
+  );
 
-    // filter out the NavigationLanguageSelector, so that it can be rendered in the header instead of the mobile menu
-    [languageSelector, actionsWithoutLanguageSelector] = getComponentFromChildren(
-      actions,
-      'NavigationLanguageSelector',
-    );
+  // items that will be shown in the mobile menu
+  const mobileMenuItems = getChildrenAsArray([navigation, mobileActionsWithoutLanguageSelector]);
 
-    // items that will be shown in the mobile menu
-    const items = getChildrenAsArray([navigation, actionsWithoutLanguageSelector]);
-
-    // rearrange children
-    menuChildren = rearrangeChildrenForMobile(items, authenticated);
-  }
+  // rearrange children
+  const mobileMenuChildren = rearrangeChildrenForMobile(mobileMenuItems, authenticated);
 
   // props for the header wrapper component
   const headerWrapperProps = { logoLanguage, onTitleClick, title, titleAriaLabel, titleUrl };
@@ -239,41 +222,34 @@ export const Navigation = ({
         <a className={styles.skipToContent} href={skipTo} aria-label={skipToContentAriaLabel}>
           {skipToContentLabel}
         </a>
-        {isMobile ? (
-          <>
-            <HeaderWrapper {...headerWrapperProps}>
-              {languageSelector}
-              <button
-                aria-label={menuToggleAriaLabel}
-                aria-haspopup="true"
-                aria-expanded={mobileMenuOpen}
-                {...(mobileMenuOpen && { 'aria-controls': 'hds-mobile-menu' })}
-                type="button"
-                className={styles.mobileMenuToggle}
-                onClick={() =>
-                  typeof onMenuToggle === 'function' ? onMenuToggle() : setMobileMenuOpen(!mobileMenuOpen)
-                }
-              >
-                {mobileMenuOpen ? <IconCross aria-hidden /> : <IconMenuHamburger aria-hidden />}
-              </button>
-            </HeaderWrapper>
-            {mobileMenuOpen && (
-              <div id="hds-mobile-menu" className={styles.mobileMenu}>
-                {menuChildren}
-              </div>
-            )}
-          </>
-        ) : (
-          <>
-            <HeaderWrapper {...headerWrapperProps}>
-              {navigationVariant === 'inline' && <div className={styles.headerContent}>{children}</div>}
-              {navigationVariant === 'default' && (
-                <div className={styles.headerContent}>{childrenWithoutNavigation}</div>
-              )}
-            </HeaderWrapper>
-            {navigationVariant === 'default' && navigation}
-          </>
-        )}
+        <Visible below="m">
+          <HeaderWrapper {...headerWrapperProps}>
+            {mobileLanguageSelector}
+            <button
+              aria-label={menuToggleAriaLabel}
+              aria-haspopup="true"
+              aria-expanded={mobileMenuOpen}
+              {...(mobileMenuOpen && { 'aria-controls': 'hds-mobile-menu' })}
+              type="button"
+              className={styles.mobileMenuToggle}
+              onClick={() => (typeof onMenuToggle === 'function' ? onMenuToggle() : setMobileMenuOpen(!mobileMenuOpen))}
+            >
+              {mobileMenuOpen ? <IconCross aria-hidden /> : <IconMenuHamburger aria-hidden />}
+            </button>
+          </HeaderWrapper>
+          {mobileMenuOpen && (
+            <div id="hds-mobile-menu" className={styles.mobileMenu}>
+              {mobileMenuChildren}
+            </div>
+          )}
+        </Visible>
+        <Visible above="m">
+          <HeaderWrapper {...headerWrapperProps}>
+            {navigationVariant === 'inline' && <div className={styles.headerContent}>{children}</div>}
+            {navigationVariant === 'default' && <div className={styles.headerContent}>{childrenWithoutNavigation}</div>}
+          </HeaderWrapper>
+          {navigationVariant === 'default' && navigation}
+        </Visible>
       </header>
     </NavigationContext.Provider>
   );
