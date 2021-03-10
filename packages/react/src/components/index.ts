@@ -22,5 +22,6 @@ export * from './statusLabel';
 export * from './tag';
 export * from './textarea';
 export * from './textInput';
+export * from './timeInput';
 export * from './tooltip';
 export * from './tabs';
