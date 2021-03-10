@@ -22,7 +22,7 @@ export type NavigationRowProps = React.PropsWithChildren<{
 export const NavigationRow = ({ variant = 'default', children }: NavigationRowProps) => {
   const { setNavigationVariant } = useContext(NavigationContext);
 
-  useEffect(() => setNavigationVariant(variant), [variant]);
+  useEffect(() => setNavigationVariant(variant), [setNavigationVariant, variant]);
 
   // add classnames to children
   const childrenWithClassName = React.Children.map(children, (child) => {
