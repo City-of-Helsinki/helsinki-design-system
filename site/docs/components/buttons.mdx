@@ -250,10 +250,22 @@ When the loading action is triggered at the button press, the button will change
   }}
 </Playground>
 
+#### Core code example:
+```html
+<button type="button" class="hds-button hds-button--loading">
+  <div class="hds-loading-spinner hds-loading-spinner--small">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  Saving form changes
+</button>
+```
+
 #### React code example:
 ```tsx
-<Button isLoading={false} loadingText="Saving form changes">
-    Save form
+<Button isLoading={true} loadingText="Saving form changes">
+    Saving form changes
 </Button>
 ```
 
