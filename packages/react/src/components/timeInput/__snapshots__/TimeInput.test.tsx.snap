@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TimeInput /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="root"
+  >
+    <div
+      class="inputWrapper"
+    >
+      <div
+        class="input timeInputFrame"
+      >
+        <input
+          aria-hidden="true"
+          class="fullInput"
+          id="time"
+          readonly=""
+          tabindex="-1"
+          type="text"
+          value=""
+        />
+        <label
+          class="partialInputLabel"
+          for="time-hours"
+        >
+          hours
+        </label>
+        <input
+          class="partialInput"
+          id="time-hours"
+          inputmode="numeric"
+          placeholder="--"
+          type="text"
+          value=""
+        />
+        <div
+          class="divider"
+        >
+          :
+        </div>
+        <label
+          class="partialInputLabel"
+          for="time-minutes"
+        >
+          minutes
+        </label>
+        <input
+          class="partialInput"
+          id="time-minutes"
+          inputmode="numeric"
+          placeholder="--"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
