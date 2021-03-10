@@ -75,7 +75,13 @@ export const Icons = () => (
   </>
 );
 
-export const Loading = (args) => {
+export const Loading = () => (
+  <Button isLoading loadingText="Saving your changes">
+    Button
+  </Button>
+);
+
+export const LoadingOnClick = (args) => {
   const [isLoading, setIsLoading] = useState(false);
   const onButtonClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     setIsLoading(true);
@@ -104,7 +110,7 @@ export const Loading = (args) => {
     </>
   );
 };
-Loading.args = {
+LoadingOnClick.args = {
   variant: 'primary',
 };
 
