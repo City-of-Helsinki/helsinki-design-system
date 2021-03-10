@@ -98,6 +98,17 @@ export const Icons = () => `
   </button>
 `;
 
+export const Loading = () => `
+  <button type="button" class="hds-button hds-button--loading">
+    <div class="hds-loading-spinner hds-loading-spinner--small">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    ${getLabel()}
+  </button>
+`;
+
 export const Themes = () => `
   <button type="button" class="hds-button hds-button--primary hds-button--theme-coat">
     ${getLabel('coat')}
