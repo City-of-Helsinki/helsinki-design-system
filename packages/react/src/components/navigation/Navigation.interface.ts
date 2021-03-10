@@ -1,23 +1,11 @@
-export type NavigationReducerState = {
-  /**
-   * Flag for whether the user is authenticated
-   */
-  authenticated?: boolean;
-  /**
-   * Defines where the navigation row will be displayed.
-   * Supported values:
-   *
-   * `default` - items will be displayed beneath the header
-   *
-   * `inline` - items will be displayed in the header
-   */
-  navigationVariant?: NavigationVariant;
-};
-
-export type NavigationReducerAction =
-  | { type: 'AUTHENTICATED'; value: boolean }
-  | { type: 'NAVIGATION_ROW'; value: NavigationVariant };
-
+/**
+ * Defines where the navigation row will be displayed.
+ * Supported values:
+ *
+ * `default` - items will be displayed beneath the header
+ *
+ * `inline` - items will be displayed in the header
+ */
 export type NavigationVariant = 'default' | 'inline';
 
 export type NavigationTheme = 'light' | 'dark' | NavigationCustomTheme;

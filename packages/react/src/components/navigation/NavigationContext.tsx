@@ -1,6 +1,6 @@
-import { createContext, Dispatch } from 'react';
+import { createContext } from 'react';
 
-import { NavigationReducerAction } from './Navigation.interface';
+import { NavigationVariant } from './Navigation.interface';
 
 export type NavigationContextProps = {
   /**
@@ -8,9 +8,14 @@ export type NavigationContextProps = {
    */
   isMobile?: boolean;
   /**
-   * dispatch method that is passed down to children
+   * Updates authenticated status for the Navigation component
    */
-  dispatch?: Dispatch<NavigationReducerAction>;
+  setAuthenticated?: (authenticated: boolean) => void;
+
+  /**
+   * Updates navigation variant for the Navigation component
+   */
+  setNavigationVariant?: (navigationVariant: NavigationVariant) => void;
 };
 
 export const NavigationContext = createContext<NavigationContextProps>({});
