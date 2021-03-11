@@ -1,4 +1,4 @@
-import React, { FocusEventHandler, useLayoutEffect, useRef, useState } from 'react';
+import React, { FocusEventHandler, useEffect, useRef, useState } from 'react';
 import 'hds-core';
 import isFunction from 'lodash.isfunction';
 
@@ -128,7 +128,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
     /**
      * Merge props.ref to the internal ref
      */
-    useLayoutEffect(() => {
+    useEffect(() => {
       if (ref) {
         if (isFunction(ref)) {
           (ref as (instance: HTMLInputElement) => void)(inputRef.current);
