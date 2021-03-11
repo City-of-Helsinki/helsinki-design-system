@@ -8,7 +8,7 @@ import textInputStyles from '../textInput/TextInput.module.css';
 import styles from './TimeInput.module.scss';
 import classNames from '../../utils/classNames';
 
-export type TimeInputProps = TextInputProps & {
+export type TimeInputProps = Omit<TextInputProps, 'buttonIcon' | 'buttonAriaLabel' | 'onButtonClick'> & {
   /**
    * A visually hidden label for the hours. Helps to navigate the component with screen readers.
    */
