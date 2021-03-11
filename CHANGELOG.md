@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.23.0] - March 3, 2021
+## [0.23.0] - March 12, 2021
 
 ### Design kit
 #### Added
