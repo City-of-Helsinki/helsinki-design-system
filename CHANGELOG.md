@@ -6,6 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.23.0] - March 12, 2021
+
+### Design kit
+#### Added
+- Time Input
+
+### React Components
+#### Added
+- New Time Input component
+
+#### Fixed
+- Navigation component server side rendering issue
+
+### Documentation
+#### Added
+- Time Input component documentation
+
+#### Changed
+- HDS roadmap updated
+
 ## [0.22.0] - March 3, 2021
 
 ### Design kit
