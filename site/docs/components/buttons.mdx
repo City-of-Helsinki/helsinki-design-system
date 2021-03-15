@@ -243,7 +243,7 @@ When the loading action is triggered at the button press, the button will change
              onClose={() => {
                setShowNotification(false)
              }}>
-             Form submit was successful!
+             Saving your form was successful.
           </Notification>}
       </>
     )
@@ -251,22 +251,53 @@ When the loading action is triggered at the button press, the button will change
 </Playground>
 
 #### Core code example:
-```html
-<button type="button" class="hds-button hds-button--loading">
-  <div class="hds-loading-spinner hds-loading-spinner--small">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-  Saving form changes
-</button>
-```
+_Feature not supported in hds-core!_
 
 #### React code example:
 ```tsx
-<Button isLoading={true} loadingText="Saving form changes">
-    Saving form changes
-</Button>
+{() => {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [showNotification, setShowNotification] = React.useState(false);
+  React.useEffect(() => {
+    let timeout;
+    if (isLoading) {
+      timeout = setTimeout(() => {
+        setShowNotification(true);
+        setIsLoading(false);
+      }, 2000);
+    }
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [isLoading]);
+  return (
+    <>
+      <Button
+        isLoading={isLoading}
+        loadingText="Saving form changes"
+        onClick={() => {
+          setShowNotification(false);
+          setIsLoading(true);
+        }}>
+        Save form
+      </Button>
+      {showNotification
+      && <Notification
+            key={new Date().toString()}
+            position="top-right"
+            displayAutoCloseProgress={false}
+            autoClose
+            dismissible
+            label="Form saved!"
+            type="success"
+            onClose={() => {
+              setShowNotification(false)
+            }}>
+            Saving your form was successful.
+        </Notification>}
+    </>
+  )
+}}
 ```
 
 ## Demos & API
