@@ -6,6 +6,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.23.1] - March 15, 2021
+
+### Design kit
+#### Changed
+- [Form Components] Combined Date and Time input under the same symbol group “Date and time”
+
+#### Fixed
+- [Form Components] Incorrect typography styles in the example artboards
+
+#### Removed
+- [Form Components] Time select symbols that were left out of the implementation. Use HDS Select instead.
+
+### Documentation
+#### Changed
+- Updated Roadmap
+
 ## [0.23.0] - March 12, 2021
 
 ### Design kit
