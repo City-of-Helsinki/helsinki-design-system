@@ -1,0 +1,81 @@
+@import '../../styles/common';
+
+:root {
+  --dialog-backdrop-background-color: rgba(0, 0, 0, 0.3);
+  --dialog-border-color: var(--color-bus);
+  --dialog-close-button-color: var(--color-coat-of-arms);
+  --dialog-min-width: 590px;
+}
+
+//for document body element
+.dialogVisibleBody {
+  height: 100vh !important;
+  overflow-y: hidden !important;
+}
+
+.dialogBackdrop {
+  background: var(--dialog-backdrop-background-color);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 500;
+}
+
+.dialogWrapper {
+  left: 50%;
+  outline: 0;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: inherit;
+  z-index: 700;
+}
+
+.dialog {
+  background: white;
+  box-sizing: border-box;
+  border-top: 10px solid var(--dialog-border-color);
+  position: relative;
+  margin: auto;
+  padding: var(--spacing-s) var(--spacing-m) var(--spacing-m);
+  min-width: var(--dialog-min-width);
+  width: 100%;
+  z-index: 100;
+}
+
+.dialogHeader {
+  align-items: center;
+  display: flex;
+
+  .dialogTitleIcon + .dialogTitle {
+    margin-left: var(--spacing-xs);
+  }
+}
+
+.dialogTitleIcon {
+  display: inline-flex;
+}
+
+.dialogTitle {
+  font-size: var(--fontsize-heading-s);
+}
+
+.dialogClose {
+  color: var(--dialog-close-button-color);
+  margin-left: auto;
+}
+
+.dialogContent {
+  line-height: var(--lineheight-l);
+  margin-top: var(--spacing-s);
+}
+
+.dialogActionButtons {
+  margin-top: var(--spacing-xl);
+
+  > * + * {
+    margin-left: var(--spacing-s);
+  }
+}
