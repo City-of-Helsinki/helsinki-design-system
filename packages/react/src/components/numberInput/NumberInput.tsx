@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import isFunction from 'lodash.isfunction';
 
-// import core base styles
 import 'hds-core';
 import styles from './NumberInput.module.scss';
 import { IconMinus, IconPlus } from '../../icons';
