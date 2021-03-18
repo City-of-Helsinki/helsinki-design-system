@@ -28,9 +28,24 @@ CustomStep.args = {
   id: 'CustomStep',
   step: 10,
   helperText: 'Assistive text',
-  label: 'Label',
+  label: 'Label for step 10',
   minusStepButtonAriaLabel: 'Decrease by ten',
   plusStepButtonAriaLabel: 'Increase by ten',
+  placeholder: 'Placeholder',
+  unit: '€',
+};
+
+export const WithMinAndMax = (args) => <NumberInput {...args} />;
+WithMinAndMax.storyName = 'With min and max value';
+WithMinAndMax.args = {
+  id: 'WithMinAndMax',
+  step: 1,
+  min: 15,
+  max: 40,
+  helperText: 'Assistive text',
+  label: 'Label for min 15 max 40',
+  minusStepButtonAriaLabel: 'Decrease by one',
+  plusStepButtonAriaLabel: 'Increase by one',
   placeholder: 'Placeholder',
   unit: '€',
 };
