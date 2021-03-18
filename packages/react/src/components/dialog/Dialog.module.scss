@@ -45,37 +45,7 @@
   z-index: 100;
 }
 
-.dialogHeader {
-  align-items: center;
-  display: flex;
-
-  .dialogTitleIcon + .dialogTitle {
-    margin-left: var(--spacing-xs);
-  }
-}
-
-.dialogTitleIcon {
-  display: inline-flex;
-}
-
-.dialogTitle {
-  font-size: var(--fontsize-heading-s);
-}
-
 .dialogClose {
   color: var(--dialog-close-button-color);
   margin-left: auto;
-}
-
-.dialogContent {
-  line-height: var(--lineheight-l);
-  margin-top: var(--spacing-s);
-}
-
-.dialogActionButtons {
-  margin-top: var(--spacing-xl);
-
-  > * + * {
-    margin-left: var(--spacing-s);
-  }
 }

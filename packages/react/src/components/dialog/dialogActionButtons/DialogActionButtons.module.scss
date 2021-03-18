@@ -1,0 +1,9 @@
+@import '../../../styles/common';
+
+.dialogActionButtons {
+  margin-top: var(--spacing-xl);
+
+  > * + * {
+    margin-left: var(--spacing-s);
+  }
+}
