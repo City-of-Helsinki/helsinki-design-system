@@ -1,0 +1,18 @@
+@import '../../../styles/common';
+
+.dialogHeader {
+  align-items: center;
+  display: flex;
+
+  .dialogTitleIcon + .dialogTitle {
+    margin-left: var(--spacing-xs);
+  }
+}
+
+.dialogTitleIcon {
+  display: inline-flex;
+}
+
+.dialogTitle {
+  font-size: var(--fontsize-heading-s);
+}
