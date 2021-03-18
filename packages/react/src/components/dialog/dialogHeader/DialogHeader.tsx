@@ -29,7 +29,7 @@ export const DialogHeader = ({ id, title, iconLeft }: DialogHeaderProps) => {
   return (
     <div className={styles.dialogHeader}>
       {iconLeft && (
-        <div className={styles.icon} aria-hidden="true">
+        <div className={styles.dialogTitleIcon} aria-hidden="true">
           {iconLeft}
         </div>
       )}
