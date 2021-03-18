@@ -1,11 +1,5 @@
 @import '../../styles/common';
-
-:root {
-  --dialog-backdrop-background-color: rgba(0, 0, 0, 0.3);
-  --dialog-border-color: var(--color-bus);
-  --dialog-close-button-color: var(--color-coat-of-arms);
-  --dialog-min-width: 590px;
-}
+@value medium-up from "../../styles/breakpoints.css";
 
 //for document body element
 .dialogVisibleBody {
@@ -13,36 +7,49 @@
   overflow-y: hidden !important;
 }
 
-.dialogBackdrop {
-  background: var(--dialog-backdrop-background-color);
+.dialogContainer {
+  --accent-line: var(--color-bus);
+  --color-overlay: rgba(0, 0, 0, 0.3);
+  --width: 336px;
+
   height: 100%;
   left: 0;
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 500;
+  z-index: 100;
 }
 
-.dialogWrapper {
-  left: 50%;
-  outline: 0;
+.dialogBackdrop {
+  background: var(--color-overlay);
+  height: 100%;
+  left: 0;
   position: fixed;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: inherit;
-  z-index: 700;
+  top: 0;
+  width: 100%;
+  z-index: 200;
 }
 
 .dialog {
   background: white;
   box-sizing: border-box;
-  border-top: 10px solid var(--dialog-border-color);
-  position: relative;
+  border-top: 10px solid var(--accent-line);
+  left: 50%;
   margin: auto;
+  max-width: 100%;
+  outline: 0;
   padding: var(--spacing-s) var(--spacing-m) var(--spacing-m);
-  min-width: var(--dialog-min-width);
-  width: 100%;
-  z-index: 100;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--width, 336px);
+  z-index: 300;
+}
+
+@media medium-up {
+  .dialog {
+    min-width: var(--min-width, 558px);
+  }
 }
 
 .dialogClose {
