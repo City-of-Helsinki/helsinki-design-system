@@ -24,16 +24,16 @@ export const DialogHeader = ({ id, title, iconLeft }: DialogHeaderProps) => {
     if (titleRef.current) {
       titleRef.current.focus();
     }
-  });
+  }, [titleRef]);
 
   return (
     <div className={styles.dialogHeader}>
-      {iconLeft && (
-        <div className={styles.dialogTitleIcon} aria-hidden="true">
-          {iconLeft}
-        </div>
-      )}
-      <h2 id={id} className={styles.dialogTitle} ref={titleRef}>
+      <h2 id={id} tabIndex={-1} className={styles.dialogTitle} ref={titleRef}>
+        {iconLeft && (
+          <span className={styles.dialogTitleLeftIcon} aria-hidden="true">
+            {iconLeft}
+          </span>
+        )}
         {title}
       </h2>
     </div>

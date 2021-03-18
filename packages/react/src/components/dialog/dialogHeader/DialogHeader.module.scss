@@ -3,16 +3,15 @@
 .dialogHeader {
   align-items: center;
   display: flex;
-
-  .dialogTitleIcon + .dialogTitle {
-    margin-left: var(--spacing-xs);
-  }
-}
-
-.dialogTitleIcon {
-  display: inline-flex;
 }
 
 .dialogTitle {
+  align-items: center;
+  display: flex;
   font-size: var(--fontsize-heading-s);
+
+  .dialogTitleLeftIcon {
+    display: inline-flex;
+    margin-right: var(--spacing-xs);
+  }
 }
