@@ -10,11 +10,13 @@
   input[type=number] {
     -moz-appearance: textfield !important;
   }
+  width: 100%;
 }
 
 .numberInputWithSteps {
   padding-left: 68px !important;
   padding-right: 68px !important;
+  text-align: center;
 }
 
 @mixin stepButton {
@@ -33,13 +35,13 @@
 
 .minusButtonWrapper {
   @include stepButton;
-  left: 0;
+  left: 2px; // required for button outline to render by design
   border-right: solid 1px #cccccc;
 }
 
 .plusButtonWrapper {
   @include stepButton;
-  right: 0;
+  right: 2px; // required for button outline to render by design
   border-left: solid 1px #cccccc;
 }
 
@@ -56,4 +58,9 @@
   height: 100%;
   overflow: hidden;
   font-size: 1rem;
+
+  &:focus {
+    outline: 3px solid var(--focus-outline-color);
+    outline-offset: -5px;
+  }
 }
