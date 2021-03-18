@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { Dialog, DialogHeader, DialogContent, DialogActionButtons } from './Dialog';
 import { Button } from '../button/Button';
+import { Dialog } from './Dialog';
 import { IconAlertCircle } from '../../icons';
 
 export default {
@@ -25,23 +25,23 @@ export const Example = (args) => {
     <>
       <Button onClick={() => setOpen(true)}>Open Dialog</Button>
       <Dialog id={args.id} aria-labelledby={args.titleId} aria-describedby={args.contentId} isOpen={open} close={close}>
-        <DialogHeader id={args.titleId} title="Confirmation dialog" leftIcon={<IconAlertCircle />} />
-        <DialogContent id={args.contentId}>
+        <Dialog.Header id={args.titleId} title="Confirmation dialog" iconLeft={<IconAlertCircle />} />
+        <Dialog.Content id={args.contentId}>
           <p>Are you sure you want to continue?</p>
-          <DialogActionButtons>
-            <Button
-              onClick={() => {
-                console.log('confirm');
-                close();
-              }}
-            >
-              Continue
-            </Button>
-            <Button onClick={close} variant="secondary">
-              Cancel
-            </Button>
-          </DialogActionButtons>
-        </DialogContent>
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button
+            onClick={() => {
+              console.log('confirm');
+              close();
+            }}
+          >
+            Continue
+          </Button>
+          <Button onClick={close} variant="secondary">
+            Cancel
+          </Button>
+        </Dialog.ActionButtons>
       </Dialog>
     </>
   );

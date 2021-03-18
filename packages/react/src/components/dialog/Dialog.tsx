@@ -15,26 +15,36 @@ export interface DialogCustomTheme {
 }
 
 export type DialogHeaderProps = React.PropsWithChildren<{
+  /**
+   * The id of the heading element.
+   */
   id: string;
+  /**
+   * The text of the heading element.
+   */
   title: string;
-  leftIcon?: ReactNode;
+  /**
+   * Element placed on the left side of the heading element.
+   */
+  iconLeft?: React.ReactNode;
 }>;
 
-export const DialogHeader = ({ id, title, leftIcon }: DialogHeaderProps) => {
+const DialogHeader = ({ id, title, iconLeft }: DialogHeaderProps) => {
   const titleRef: RefObject<HTMLHeadingElement> = React.createRef();
 
   useEffect(() => {
-    const currentRef = titleRef.current;
-
-    if (currentRef) currentRef.focus();
-    return (): void => {
-      if (currentRef) currentRef.blur();
-    };
+    if (titleRef.current) {
+      titleRef.current.focus();
+    }
   });
 
   return (
     <div className={styles.dialogHeader}>
-      {leftIcon && <span className={styles.dialogTitleIcon}>{leftIcon}</span>}
+      {iconLeft && (
+        <div className={styles.icon} aria-hidden="true">
+          {iconLeft}
+        </div>
+      )}
       <h2 id={id} className={styles.dialogTitle} ref={titleRef}>
         {title}
       </h2>
@@ -42,12 +52,20 @@ export const DialogHeader = ({ id, title, leftIcon }: DialogHeaderProps) => {
   );
 };
 
+DialogHeader.componentName = 'DialogHeader';
+
 export type DialogContentProps = React.PropsWithChildren<{
+  /**
+   * The id of the content element.
+   */
   id: string;
+  /**
+   * Children to render inside the content element.
+   */
   children: ReactNode | ReactNodeArray;
 }>;
 
-export const DialogContent = ({ id, children }: DialogContentProps) => {
+const DialogContent = ({ id, children }: DialogContentProps) => {
   return (
     <div id={id} className={styles.dialogContent}>
       {children}
@@ -55,20 +73,45 @@ export const DialogContent = ({ id, children }: DialogContentProps) => {
   );
 };
 
+DialogContent.componentName = 'DialogContent';
+
 export type DialogActionButtonProps = React.PropsWithChildren<{
+  /**
+   * Children to render inside the action buttons element.
+   */
   children: ReactNode | ReactNodeArray;
 }>;
 
-export const DialogActionButtons = ({ children }: DialogActionButtonProps) => {
+const DialogActionButtons = ({ children }: DialogActionButtonProps) => {
   return <div className={styles.dialogActionButtons}>{children}</div>;
 };
 
+DialogActionButtons.componentName = 'DialogActionButtons';
+
 export type DialogProps = React.PropsWithChildren<{
+  /**
+   * The id of the dialog element.
+   */
   id: string;
+  /**
+   * The id of the heading element.
+   */
   'aria-labelledby': string;
+  /**
+   * The id of the info element.
+   */
   'aria-describedby': string;
+  /**
+   * When `true`, dialog is visible,
+   */
   isOpen: boolean;
+  /**
+   * A function to control the isOpen property.
+   */
   close?: () => void;
+  /**
+   * Children to render inside the dialog element.
+   */
   children: ReactNode | ReactNodeArray;
 }>;
 
@@ -110,3 +153,7 @@ export const Dialog = ({ id, isOpen, children, close, ...props }: DialogProps) =
 
   return isOpen ? ReactDOM.createPortal(<DialogComponent />, document.body) : null;
 };
+
+Dialog.Header = DialogHeader;
+Dialog.Content = DialogContent;
+Dialog.ActionButtons = DialogActionButtons;
