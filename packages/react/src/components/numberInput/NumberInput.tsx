@@ -11,8 +11,12 @@ import classNames from '../../utils/classNames';
 
 export type NumberInputProps = Omit<
   TextInputProps,
-  'buttonIcon' | 'buttonAriaLabel' | 'onButtonClick' | 'children' | 'label'
+  'buttonIcon' | 'buttonAriaLabel' | 'onButtonClick' | 'children' | 'label' | 'value' | 'defaultValue'
 > & {
+  /**
+   * The default input element value. Use when the component is not controlled
+   */
+  defaultValue?: number;
   /**
    * The label for the input
    */
@@ -26,6 +30,14 @@ export type NumberInputProps = Omit<
    */
   min?: number;
   /**
+   * The aria label for minus step button
+   */
+  minusStepButtonAriaLabel?: string;
+  /**
+   * The aria label for plus step button
+   */
+  plusStepButtonAriaLabel?: string;
+  /**
    * Number intervals that are used when using increase/decrease steppers.
    */
   step?: number;
@@ -34,13 +46,9 @@ export type NumberInputProps = Omit<
    */
   unit?: string;
   /**
-   * The aria label for minus step button
+   * The value of the input element, required for a controlled component
    */
-  minusStepButtonAriaLabel?: string;
-  /**
-   * The aria label for plus step button
-   */
-  plusStepButtonAriaLabel?: string;
+  value?: number;
 };
 
 function combineLabelAndUnit(label: string, unit: string): string | undefined {
@@ -154,7 +162,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                   }}
                   aria-label={minusStepButtonAriaLabel || 'Decrease by one'}
                 >
-                  <IconMinus />
+                  <IconMinus aria-hidden="true" />
                 </button>
               </div>
               <div className={styles.plusButtonWrapper}>
@@ -168,7 +176,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                   }}
                   aria-label={plusStepButtonAriaLabel || 'Increase by one'}
                 >
-                  <IconPlus />
+                  <IconPlus aria-hidden="true" />
                 </button>
               </div>
             </>

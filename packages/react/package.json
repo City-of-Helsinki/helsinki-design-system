@@ -28,7 +28,7 @@
     "pre-push": "yarn -s test && yarn build",
     "storybook": "start-storybook -p 6006 --quiet --no-dll",
     "build-storybook": "build-storybook --loglevel error --no-dll",
-    "test": "jest --env=jsdom-fourteen",
+    "test": "jest --env=jest-environment-jsdom-sixteen",
     "prepublishOnly": "cp -r ./lib/. .",
     "visual-test": "loki test --requireReference --verboseRenderer --reactUri file:./storybook-static",
     "update-reference-images": "loki update"
@@ -82,6 +82,7 @@
     "inquirer": "7.1.0",
     "jest": "26.0.1",
     "jest-axe": "4.1.0",
+    "jest-environment-jsdom-sixteen": "^1.0.3",
     "loki": "0.26.0",
     "node-sass": "4.14.1",
     "path": "0.12.7",
