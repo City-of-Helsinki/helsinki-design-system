@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NumberInput /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="root"
+  >
+    <label
+      class="label "
+      for="numberInputTestId"
+    >
+      Testi label number input
+    </label>
+    <div
+      class="inputWrapper"
+    >
+      <div
+        class="numberInputContainer"
+      >
+        <input
+          class="input"
+          id="numberInputTestId"
+          type="number"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<NumberInput /> spec renders the component with steppers 1`] = `
+<DocumentFragment>
+  <div
+    class="root"
+  >
+    <label
+      class="label "
+      for="numberInputTestId"
+    >
+      Testi label number input
+    </label>
+    <div
+      class="inputWrapper"
+    >
+      <div
+        class="numberInputContainer"
+      >
+        <input
+          class="input numberInputWithSteps"
+          id="numberInputTestId"
+          step="10"
+          type="number"
+          value=""
+        />
+        <div
+          class="minusButtonWrapper"
+        >
+          <button
+            aria-label="Decrease 10 euros"
+            class="button"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="icon s"
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M6 11h12v2H6z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </button>
+        </div>
+        <div
+          class="plusButtonWrapper"
+        >
+          <button
+            aria-label="Add 10 euros"
+            class="button"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="icon s"
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M13 6v5h5v2h-5v5h-2v-5H6v-2h5V6z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
