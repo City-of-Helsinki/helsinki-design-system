@@ -1,9 +1,27 @@
 @import '../../../styles/common';
+@value medium-up from "../../../styles/breakpoints.css";
 
 .dialogActionButtons {
   margin-top: var(--spacing-xl);
 
+  > * {
+    width: 100%;
+  }
+
   > * + * {
-    margin-left: var(--spacing-s);
+    margin-top: var(--spacing-s);
+  }
+}
+
+@media medium-up {
+  .dialogActionButtons {
+    > * {
+      width: auto;
+    }
+
+    > * + * {
+      margin-left: var(--spacing-s);
+      margin-top: 0;
+    }
   }
 }
