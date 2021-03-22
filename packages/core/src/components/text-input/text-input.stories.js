@@ -118,7 +118,6 @@ export const Number = () => `
          id="input6"
          class="hds-text-input__input"
          type="number"
-         placeholder="Placeholder"
        />
      </div>
      ${getHelperText()}
