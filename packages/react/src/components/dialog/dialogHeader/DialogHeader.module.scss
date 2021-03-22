@@ -6,12 +6,14 @@
 }
 
 .dialogTitle {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   font-size: var(--fontsize-heading-s);
+  padding-right: 3rem;
 
   .dialogTitleLeftIcon {
     display: inline-flex;
     margin-right: var(--spacing-2-xs);
+    margin-top: 2px;
   }
 }

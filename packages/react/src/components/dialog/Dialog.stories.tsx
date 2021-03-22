@@ -27,7 +27,9 @@ export const Example = (args) => {
       <Dialog id={args.id} aria-labelledby={args.titleId} aria-describedby={args.contentId} isOpen={open} close={close}>
         <Dialog.Header id={args.titleId} title="Confirmation dialog" iconLeft={<IconAlertCircle />} />
         <Dialog.Content id={args.contentId}>
-          <p>Are you sure you want to continue?</p>
+          <p>
+            Are you sure you want to continue? <a href="https://hds.heli.fi">HDS Documentation</a>
+          </p>
         </Dialog.Content>
         <Dialog.ActionButtons>
           <Button

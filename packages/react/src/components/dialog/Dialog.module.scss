@@ -53,6 +53,11 @@
 }
 
 .dialogClose {
+  @extend %buttonReset;
   color: var(--dialog-close-button-color);
-  margin-left: auto;
+  line-height: 1;
+  padding: var(--spacing-2-xs);
+  position: absolute;
+  right: 2rem;
+  top: 1.5rem;
 }
