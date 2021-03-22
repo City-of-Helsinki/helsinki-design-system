@@ -39,10 +39,20 @@
   border-right: solid 1px #cccccc;
 }
 
+.minusButtonWrapperWithoutBorder {
+  @include stepButton;
+  left: 2px; // required for button outline to render by design
+}
+
 .plusButtonWrapper {
   @include stepButton;
   right: 2px; // required for button outline to render by design
   border-left: solid 1px #cccccc;
+}
+
+.plusButtonWrapperWithoutBorder {
+  @include stepButton;
+  right: 2px; // required for button outline to render by design
 }
 
 .button {
@@ -58,6 +68,10 @@
   height: 100%;
   overflow: hidden;
   font-size: 1rem;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 
   &:focus {
     outline: 3px solid var(--focus-outline-color);

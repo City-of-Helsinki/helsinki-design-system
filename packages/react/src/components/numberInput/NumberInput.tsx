@@ -151,9 +151,10 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
           />
           {step && (
             <>
-              <div className={styles.minusButtonWrapper}>
+              <div className={disabled ? styles.minusButtonWrapperWithoutBorder : styles.minusButtonWrapper}>
                 <button
                   className={styles.button}
+                  disabled={disabled}
                   type="button"
                   onClick={(event) => {
                     // Prevent default to not submit form if we happen to be inside form
@@ -165,9 +166,10 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                   <IconMinus aria-hidden="true" />
                 </button>
               </div>
-              <div className={styles.plusButtonWrapper}>
+              <div className={disabled ? styles.plusButtonWrapperWithoutBorder : styles.plusButtonWrapper}>
                 <button
                   className={styles.button}
+                  disabled={disabled}
                   type="button"
                   onClick={(event) => {
                     // Prevent default to not submit form if we happen to be inside form
