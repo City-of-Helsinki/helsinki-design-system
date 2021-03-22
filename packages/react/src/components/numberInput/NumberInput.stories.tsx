@@ -16,9 +16,7 @@ Default.args = {
   helperText: 'Assistive text',
   label: 'Label',
   minusStepButtonAriaLabel: 'Decrease by one',
-  placeholder: 'Placeholder',
   plusStepButtonAriaLabel: 'Increase by one',
-  step: 1,
   unit: '€',
 };
 
