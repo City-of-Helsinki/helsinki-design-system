@@ -1,4 +1,4 @@
-import React, { ReactNode, ReactNodeArray, useEffect } from 'react';
+import React, { ReactNode, ReactNodeArray, useEffect, RefObject } from 'react';
 import ReactDOM from 'react-dom';
 
 // import core base styles
@@ -53,6 +53,7 @@ export type DialogProps = React.PropsWithChildren<{
 
 export const Dialog = ({ id, isOpen, children, close, className, theme, ...props }: DialogProps) => {
   const customThemeClass = useTheme<DialogCustomTheme>(styles.dialog, theme);
+  const dialogRef: RefObject<HTMLInputElement> = React.createRef();
 
   const { 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby } = props;
 
@@ -78,17 +79,40 @@ export const Dialog = ({ id, isOpen, children, close, className, theme, ...props
     };
   });
 
+  const onTabBarrierFocus = (isFirst: boolean) => () => {
+    if (dialogRef.current) {
+      const focusableElements: NodeList = dialogRef.current.querySelectorAll(
+        'a, button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select',
+      );
+
+      if (focusableElements.length) {
+        if (isFirst) {
+          (focusableElements[focusableElements.length - 1] as HTMLElement).focus();
+        } else {
+          (focusableElements[0] as HTMLElement).focus();
+        }
+      }
+    }
+  };
+
   const DialogComponent = (): JSX.Element => (
     <div className={styles.dialogContainer}>
       <div className={styles.dialogBackdrop} />
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         id={id}
         className={classNames(styles.dialog, customThemeClass, className)}
         aria-labelledby={ariaLabelledby}
       >
-        <div aria-describedby={ariaDescribedby}>{children}</div>
+        <div aria-describedby={ariaDescribedby}>
+          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+          <div onFocus={onTabBarrierFocus(true)} tabIndex={0} />
+          {children}
+          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+          <div onFocus={onTabBarrierFocus(false)} tabIndex={0} />
+        </div>
       </div>
     </div>
   );
