@@ -35,6 +35,20 @@ CustomStep.args = {
   unit: '€',
 };
 
+export const Disabled = (args) => <NumberInput {...args} />;
+Disabled.storyName = 'Disabled';
+Disabled.args = {
+  id: 'Disabled',
+  step: 10,
+  helperText: 'Assistive text',
+  label: 'Label for step 10',
+  minusStepButtonAriaLabel: 'Decrease by ten',
+  plusStepButtonAriaLabel: 'Increase by ten',
+  placeholder: 'Placeholder',
+  unit: '€',
+  disabled: true,
+};
+
 export const WithMinAndMax = (args) => <NumberInput {...args} />;
 WithMinAndMax.storyName = 'With min and max value';
 WithMinAndMax.args = {
