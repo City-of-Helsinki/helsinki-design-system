@@ -93,6 +93,7 @@ export default [
       'components/Logo/index': 'src/components/logo/index.ts',
       'components/Navigation/index': 'src/components/navigation/index.ts',
       'components/Notification/index': 'src/components/notification/index.ts',
+      'components/NumberInput/index': 'src/components/numberInput/index.ts',
       'components/RadioButton/index': 'src/components/radioButton/index.ts',
       'components/SearchInput/index': 'src/components/searchInput/index.ts',
       'components/Section/index': 'src/components/section/index.ts',
