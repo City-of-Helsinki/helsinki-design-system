@@ -6,6 +6,7 @@ import 'hds-core';
 import styles from './Dialog.module.scss';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
+import { IconCross } from '../../icons';
 import { DialogActionButtons } from './dialogActionButtons/DialogActionButtons';
 import { DialogHeader } from './dialogHeader/DialogHeader';
 import { DialogContent } from './dialogContent/DialogContent';
@@ -109,6 +110,9 @@ export const Dialog = ({ id, isOpen, children, close, className, theme, ...props
         <div aria-describedby={ariaDescribedby}>
           {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
           <div onFocus={onTabBarrierFocus(true)} tabIndex={0} />
+          <button className={styles.dialogClose} type="button" aria-label="Close" onClick={() => close()}>
+            <IconCross />
+          </button>
           {children}
           {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
           <div onFocus={onTabBarrierFocus(false)} tabIndex={0} />
