@@ -38,7 +38,7 @@ Disabled.args = {
   id: 'Disabled',
   step: 10,
   helperText: 'Assistive text',
-  label: 'Label for step 10',
+  label: 'Label for disabled',
   minusStepButtonAriaLabel: 'Decrease by ten',
   plusStepButtonAriaLabel: 'Increase by ten',
   unit: '€',
@@ -56,15 +56,6 @@ WithMinAndMax.args = {
   label: 'Label for min 15 max 40',
   minusStepButtonAriaLabel: 'Decrease by one',
   plusStepButtonAriaLabel: 'Increase by one',
-  unit: '€',
-};
-
-export const WithoutSteps = (args) => <NumberInput {...args} />;
-WithoutSteps.storyName = 'Without steps';
-WithoutSteps.args = {
-  id: 'WithoutSteps',
-  helperText: 'Assistive text',
-  label: 'Label',
   unit: '€',
 };
 
