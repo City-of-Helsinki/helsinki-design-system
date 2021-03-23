@@ -16,9 +16,7 @@ Default.args = {
   helperText: 'Assistive text',
   label: 'Label',
   minusStepButtonAriaLabel: 'Decrease by one',
-  placeholder: 'Placeholder',
   plusStepButtonAriaLabel: 'Increase by one',
-  step: 1,
   unit: '€',
 };
 
@@ -31,7 +29,6 @@ CustomStep.args = {
   label: 'Label for step 10',
   minusStepButtonAriaLabel: 'Decrease by ten',
   plusStepButtonAriaLabel: 'Increase by ten',
-  placeholder: 'Placeholder',
   unit: '€',
 };
 
@@ -41,10 +38,9 @@ Disabled.args = {
   id: 'Disabled',
   step: 10,
   helperText: 'Assistive text',
-  label: 'Label for step 10',
+  label: 'Label for disabled',
   minusStepButtonAriaLabel: 'Decrease by ten',
   plusStepButtonAriaLabel: 'Increase by ten',
-  placeholder: 'Placeholder',
   unit: '€',
   disabled: true,
 };
@@ -60,16 +56,18 @@ WithMinAndMax.args = {
   label: 'Label for min 15 max 40',
   minusStepButtonAriaLabel: 'Decrease by one',
   plusStepButtonAriaLabel: 'Increase by one',
-  placeholder: 'Placeholder',
   unit: '€',
 };
 
-export const WithoutSteps = (args) => <NumberInput {...args} />;
-WithoutSteps.storyName = 'Without steps';
-WithoutSteps.args = {
-  id: 'WithoutSteps',
+export const WithDefaultValue = (args) => <NumberInput {...args} />;
+WithDefaultValue.storyName = 'With a default value';
+WithDefaultValue.args = {
+  id: 'WithDefaultValue',
+  step: 10,
+  defaultValue: 20,
   helperText: 'Assistive text',
-  label: 'Label',
-  placeholder: 'Placeholder',
+  label: 'Label for default 20, step 10',
+  minusStepButtonAriaLabel: 'Decrease by ten',
+  plusStepButtonAriaLabel: 'Increase by ten',
   unit: '€',
 };

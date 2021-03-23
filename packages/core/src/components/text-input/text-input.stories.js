@@ -109,3 +109,17 @@ export const Required = () => `
      ${getHelperText()}
     </div>
 `;
+
+export const Number = () => `
+   <div class="hds-text-input">
+     ${getLabel('input6')}
+     <div class="hds-text-input__input-wrapper">
+       <input
+         id="input6"
+         class="hds-text-input__input"
+         type="number"
+       />
+     </div>
+     ${getHelperText()}
+    </div>
+`;

@@ -11,7 +11,7 @@ import classNames from '../../utils/classNames';
 
 export type NumberInputProps = Omit<
   TextInputProps,
-  'buttonIcon' | 'buttonAriaLabel' | 'onButtonClick' | 'children' | 'label' | 'value' | 'defaultValue'
+  'buttonIcon' | 'buttonAriaLabel' | 'onButtonClick' | 'children' | 'label' | 'value' | 'defaultValue' | 'placeholder'
 > & {
   /**
    * The default input element value. Use when the component is not controlled
