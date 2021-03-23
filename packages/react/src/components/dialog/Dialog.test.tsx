@@ -7,7 +7,10 @@ import { Button } from '../button/Button';
 import { IconAlertCircle } from '../../icons';
 
 // Because Dialog uses React's createPortal we need to provide a container for render
-const renderDialog = (dialogComponent: JSX.Element) => render(dialogComponent, { container: document.body });
+const renderDialog = (dialogComponent: JSX.Element) => {
+  const dialogContainer = document.createElement('div');
+  return render(dialogComponent, { container: document.body.appendChild(dialogContainer) });
+};
 
 describe('<Dialog /> spec', () => {
   const id = 'test-dialog-id';
