@@ -46,7 +46,7 @@
 .dialog {
   background: white;
   box-sizing: border-box;
-  margin: auto;
+  margin: auto var(--spacing-2-xs);
   max-height: max-content;
   max-width: 100%;
   padding: var(--spacing-s) var(--spacing-m) var(--spacing-m);
@@ -56,6 +56,7 @@
 
 @media medium-up {
   .dialog {
+    margin: auto;
     min-width: var(--width, 558px);
   }
 }
