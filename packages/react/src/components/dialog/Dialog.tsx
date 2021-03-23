@@ -111,7 +111,7 @@ export const Dialog = ({ id, isOpen, children, close, className, theme, ...props
           {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
           <div onFocus={onTabBarrierFocus(true)} tabIndex={0} />
           <button className={styles.dialogClose} type="button" aria-label="Close" onClick={() => close()}>
-            <IconCross />
+            <IconCross aria-hidden="true" />
           </button>
           {children}
           {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
