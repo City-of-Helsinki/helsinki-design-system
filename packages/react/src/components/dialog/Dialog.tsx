@@ -14,7 +14,7 @@ import { DialogContent } from './dialogContent/DialogContent';
 export interface DialogCustomTheme {
   '--accent-line'?: string;
   '--color-overlay'?: string;
-  '--min-width'?: string;
+  '--width'?: string;
 }
 
 export type DialogProps = React.PropsWithChildren<{
@@ -53,7 +53,7 @@ export type DialogProps = React.PropsWithChildren<{
 }>;
 
 export const Dialog = ({ id, isOpen, children, close, className, theme, ...props }: DialogProps) => {
-  const customThemeClass = useTheme<DialogCustomTheme>(styles.dialog, theme);
+  const customThemeClass = useTheme<DialogCustomTheme>(styles.dialogContainer, theme);
   const dialogRef: RefObject<HTMLInputElement> = React.createRef();
 
   const { 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby } = props;
@@ -97,14 +97,14 @@ export const Dialog = ({ id, isOpen, children, close, className, theme, ...props
   };
 
   const DialogComponent = (): JSX.Element => (
-    <div className={styles.dialogContainer}>
+    <div className={classNames(styles.dialogContainer, customThemeClass)}>
       <div className={styles.dialogBackdrop} />
       <div
         ref={dialogRef}
         role="dialog"
         aria-modal="true"
         id={id}
-        className={classNames(styles.dialog, customThemeClass, className)}
+        className={classNames(styles.dialog, className)}
         aria-labelledby={ariaLabelledby}
       >
         <div aria-describedby={ariaDescribedby}>

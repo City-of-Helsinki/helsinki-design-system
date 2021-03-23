@@ -18,10 +18,18 @@
   top: 0;
   width: 100%;
   z-index: 100;
+
+  .dialogBackdrop {
+    background: var(--color-overlay);
+  }
+
+  .dialog {
+    border-top: 10px solid var(--accent-line);
+    width: var(--width);
+  }
 }
 
 .dialogBackdrop {
-  background: var(--color-overlay);
   height: 100%;
   left: 0;
   position: fixed;
@@ -42,13 +50,12 @@
   position: fixed;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: var(--width, 336px);
   z-index: 300;
 }
 
 @media medium-up {
   .dialog {
-    min-width: var(--min-width, 558px);
+    min-width: var(--width, 558px);
   }
 }
 
