@@ -66,7 +66,16 @@ When applicable, an unit can be set for the input by using the `unit` prop.
 
 #### Core code example:
 ```html
-
+<div class="hds-text-input">
+  <label for="input" class="hds-text-input__label">
+    Total compensation (€)
+    <span class="hds-text-input__required">*</span>
+  </label>
+  <div class="hds-text-input__input-wrapper">
+    <input id="input" value="1000" class="hds-text-input__input" type="number" placeholder="Placeholder" required />
+  </div>
+  <span class="hds-text-input__helper-text">Assistive text</span>
+</div>
 ```
 
 #### React code example:
