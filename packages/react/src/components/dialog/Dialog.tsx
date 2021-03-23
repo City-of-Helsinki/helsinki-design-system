@@ -88,7 +88,9 @@ export const Dialog = ({ id, isOpen, children, close, className, focusAfterClose
       if (isOpen) {
         document.removeEventListener('keydown', onKeyDown, false);
         document.body.classList.remove(styles.dialogVisibleBody);
-        setFocusAfterClose();
+        if (focusAfterCloseId) {
+          setFocusAfterClose();
+        }
       }
     };
   });
