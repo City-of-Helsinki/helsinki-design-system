@@ -8,8 +8,8 @@
 }
 
 .dialogContainer {
-  --accent-line: var(--color-bus);
-  --color-overlay: rgba(0, 0, 0, 0.3);
+  --accent-line-color: var(--color-bus);
+  --overlay-color: rgba(0, 0, 0, 0.3);
   --width: 558px;
 
   align-items: center;
@@ -24,11 +24,11 @@
   overflow: auto;
 
   .dialogBackdrop {
-    background: var(--color-overlay);
+    background: var(--overlay-color);
   }
 
   .dialog {
-    border-top: 10px solid var(--accent-line);
+    border-top: 10px solid var(--accent-line-color);
     width: var(--width);
   }
 }
@@ -46,7 +46,6 @@
 .dialog {
   background: white;
   box-sizing: border-box;
-  border-top: 10px solid var(--accent-line);
   margin: auto;
   max-height: max-content;
   max-width: 100%;
