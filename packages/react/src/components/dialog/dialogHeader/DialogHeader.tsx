@@ -2,7 +2,7 @@ import React, { RefObject, useEffect } from 'react';
 
 import styles from './DialogHeader.module.scss';
 
-export type DialogHeaderProps = React.PropsWithChildren<{
+export type DialogHeaderProps = {
   /**
    * The id of the heading element.
    */
@@ -15,7 +15,7 @@ export type DialogHeaderProps = React.PropsWithChildren<{
    * Element placed on the left side of the heading element.
    */
   iconLeft?: React.ReactNode;
-}>;
+};
 
 export const DialogHeader = ({ id, title, iconLeft }: DialogHeaderProps) => {
   const titleRef: RefObject<HTMLHeadingElement> = React.createRef();

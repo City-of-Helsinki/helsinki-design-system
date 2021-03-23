@@ -1,4 +1,4 @@
-import React, { ReactNode, ReactNodeArray, useEffect, RefObject } from 'react';
+import React, { useEffect, RefObject } from 'react';
 import ReactDOM from 'react-dom';
 
 // import core base styles
@@ -50,10 +50,6 @@ export type DialogProps = React.PropsWithChildren<{
    * Additional class names to apply to the dialog.
    */
   className?: string;
-  /**
-   * Children to render inside the dialog element.
-   */
-  children: ReactNode | ReactNodeArray;
 }>;
 
 export const Dialog = ({ id, isOpen, children, close, className, focusAfterCloseId, theme, ...props }: DialogProps) => {
