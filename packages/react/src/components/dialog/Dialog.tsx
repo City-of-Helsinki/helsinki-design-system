@@ -39,6 +39,10 @@ export type DialogProps = React.PropsWithChildren<{
    */
   close?: () => void;
   /**
+   * The id of the element which will get focus after the dialog is closed.
+   */
+  focusAfterCloseId?: string;
+  /**
    * Custom theme styles
    */
   theme?: DialogCustomTheme;
@@ -52,19 +56,25 @@ export type DialogProps = React.PropsWithChildren<{
   children: ReactNode | ReactNodeArray;
 }>;
 
-export const Dialog = ({ id, isOpen, children, close, className, theme, ...props }: DialogProps) => {
+export const Dialog = ({ id, isOpen, children, close, className, focusAfterCloseId, theme, ...props }: DialogProps) => {
   const customThemeClass = useTheme<DialogCustomTheme>(styles.dialogContainer, theme);
   const dialogRef: RefObject<HTMLInputElement> = React.createRef();
 
   const { 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby } = props;
 
-  const onClose = (): void => {
-    close();
-  };
-
   const onKeyDown = (event: KeyboardEvent): void => {
     if (event.key === 'Escape') {
-      onClose();
+      close();
+    }
+  };
+
+  const setFocusAfterClose = (): void => {
+    const focusElement = document.getElementById(focusAfterCloseId);
+    if (focusElement) {
+      focusElement.focus();
+    } else {
+      // eslint-disable-next-line no-console
+      console.warn('The "focusAfterCloseId" property did not match any element.');
     }
   };
 
@@ -75,8 +85,11 @@ export const Dialog = ({ id, isOpen, children, close, className, theme, ...props
     }
 
     return (): void => {
-      document.removeEventListener('keydown', onKeyDown, false);
-      document.body.classList.remove(styles.dialogVisibleBody);
+      if (isOpen) {
+        document.removeEventListener('keydown', onKeyDown, false);
+        document.body.classList.remove(styles.dialogVisibleBody);
+        setFocusAfterClose();
+      }
     };
   });
 
