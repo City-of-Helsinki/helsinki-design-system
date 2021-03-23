@@ -58,12 +58,6 @@ export const Dialog = ({ id, isOpen, children, close, className, focusAfterClose
 
   const { 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby } = props;
 
-  const onKeyDown = (event: KeyboardEvent): void => {
-    if (event.key === 'Escape') {
-      close();
-    }
-  };
-
   const setFocusAfterClose = (): void => {
     const focusElement = document.getElementById(focusAfterCloseId);
     if (focusElement) {
@@ -71,6 +65,12 @@ export const Dialog = ({ id, isOpen, children, close, className, focusAfterClose
     } else {
       // eslint-disable-next-line no-console
       console.warn('The "focusAfterCloseId" property did not match any element.');
+    }
+  };
+
+  const onKeyDown = (event: KeyboardEvent): void => {
+    if (event.key === 'Escape') {
+      close();
     }
   };
 
