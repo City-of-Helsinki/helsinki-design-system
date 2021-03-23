@@ -27,9 +27,9 @@ export type DialogProps = React.PropsWithChildren<{
    */
   'aria-labelledby': string;
   /**
-   * The id of the info element.
+   * The id of the content description element which is usually a paragraph. The paragraph should be part of the content.
    */
-  'aria-describedby': string;
+  'aria-describedby'?: string;
   /**
    * When `true`, dialog is visible,
    */

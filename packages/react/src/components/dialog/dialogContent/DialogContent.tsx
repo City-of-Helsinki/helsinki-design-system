@@ -6,7 +6,7 @@ export type DialogContentProps = React.PropsWithChildren<{
   /**
    * The id of the content element.
    */
-  id: string;
+  id?: string;
   /**
    * Children to render inside the content element.
    */
