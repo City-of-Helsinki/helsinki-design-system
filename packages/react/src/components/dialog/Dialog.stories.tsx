@@ -16,6 +16,7 @@ export default {
     id: 'example-dialog',
     'aria-labelled-by': 'example-dialog-title',
     'aria-describedby': 'example-dialog-content',
+    focusAfterCloseId: 'open-dialog-button',
   },
 };
 
@@ -25,13 +26,16 @@ export const Default = (args) => {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Open Dialog</Button>
+      <Button id={args.focusAfterCloseId} onClick={() => setOpen(true)}>
+        Open Dialog
+      </Button>
       <Dialog
         id={args.id}
         aria-labelledby={args['aria-labelledby']}
         aria-describedby={args['aria-describedby']}
         isOpen={open}
         close={close}
+        focusAfterCloseId={args.focusAfterCloseId}
       >
         <Dialog.Header
           id={args['aria-labelledby']}
@@ -80,32 +84,33 @@ export const Confirmation = (args) => {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Open Confirmation Dialog</Button>
+      <Button id={args.focusAfterCloseId} onClick={() => setOpen(true)}>
+        Open Confirmation Dialog
+      </Button>
       <Dialog
         id={args.id}
         aria-labelledby={args['aria-labelledby']}
         aria-describedby={args['aria-describedby']}
         isOpen={open}
         close={close}
-        theme={args.theme}
+        focusAfterCloseId={args.focusAfterCloseId}
       >
         <Dialog.Header
           id={args['aria-labelledby']}
-          title="Delete item dialog"
+          title="Confirm dialog"
           iconLeft={<IconAlertCircle aria-hidden="true" />}
         />
         <Dialog.Content>
-          <p id={args['aria-describedby']}>Are you sure you want to delete the item?</p>
+          <p id={args['aria-describedby']}>Are you sure you want to continue?</p>
         </Dialog.Content>
         <Dialog.ActionButtons>
           <Button
-            variant="danger"
             onClick={() => {
-              console.log('delete');
+              console.log('Confirm');
               close();
             }}
           >
-            Delete
+            Confirm
           </Button>
           <Button onClick={close} variant="secondary">
             Cancel
@@ -122,7 +127,5 @@ Confirmation.args = {
   id: 'delete-dialog',
   'aria-labelledby': 'delete-dialog-title',
   'aria-describedby': 'delete-dialog-description',
-  theme: {
-    '--accent-line-color': 'var(--color-brick)',
-  },
+  focusAfterCloseId: 'open-confimation-dialog-button',
 };
