@@ -5,6 +5,7 @@ import 'hds-core';
 import styles from './TextInput.module.css';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import classNames from '../../utils/classNames';
+import comboseAriaDescribedBy from '../../utils/comboseAriaDescribedBy';
 
 export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
   /**
@@ -160,9 +161,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     };
 
     // Compose aria-describedby attribute
-    const ariaDescribedBy = [helperText && `${id}-helper`, errorText && `${id}-error`, successText && `${id}-success`]
-      .filter((item) => item)
-      .join(' ');
+    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText);
 
     const hasButton = Boolean(buttonIcon && onButtonClick);
 

@@ -8,6 +8,7 @@ import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import { TextInputProps } from '../textInput';
 import textInputStyles from '../textInput/TextInput.module.css';
 import classNames from '../../utils/classNames';
+import comboseAriaDescribedBy from '../../utils/comboseAriaDescribedBy';
 
 export type NumberInputProps = Omit<
   TextInputProps,
@@ -127,9 +128,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
     }, [inputRef, ref]);
 
     // Compose aria-describedby attribute
-    const ariaDescribedBy = [helperText && `${id}-helper`, errorText && `${id}-error`, successText && `${id}-success`]
-      .filter((item) => item)
-      .join(' ');
+    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText);
 
     return (
       <InputWrapper {...wrapperProps}>
