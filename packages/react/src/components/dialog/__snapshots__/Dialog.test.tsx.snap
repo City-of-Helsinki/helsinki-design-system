@@ -84,39 +84,25 @@ exports[`<Dialog /> spec renders the component 1`] = `
                 </g>
               </svg>
             </span>
-            Confirmation dialog
+            test dialog title
           </h2>
         </div>
         <div
           class="dialogContent"
-          id="test-dialog-description-id"
         >
-          <p>
-            Confirmation Dialog
+          <p
+            id="test-dialog-description-id"
+          >
+            This is a test dialog content
           </p>
         </div>
         <div
           class="dialogActionButtons"
         >
           <button
-            class="button primary theme-default size-default"
             type="button"
           >
-            <span
-              class="label"
-            >
-              Continue
-            </span>
-          </button>
-          <button
-            class="button secondary theme-default size-default"
-            type="button"
-          >
-            <span
-              class="label"
-            >
-              Cancel
-            </span>
+            Button inside Dialog
           </button>
         </div>
         <div
