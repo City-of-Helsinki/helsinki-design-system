@@ -112,9 +112,18 @@ Steppers can be enabled via providing a `step` property. Use this variant when v
 </Playground>
 
 
-#### Core code example:
+#### Core code example (functionality differs from the React one):
 ```html
-
+<div class="hds-text-input">
+  <label for="input" class="hds-text-input__label">
+    Total compensation (€)
+    <span class="hds-text-input__required">*</span>
+  </label>
+  <div class="hds-text-input__input-wrapper">
+    <input id="input" value="1000" class="hds-text-input__input" type="number" step="1" placeholder="Placeholder" required />
+  </div>
+  <span class="hds-text-input__helper-text">Assistive text</span>
+</div>
 ```
 
 #### React code example:
@@ -149,9 +158,18 @@ If your input has special requirements, it is a good practice to describe them i
 </Playground>
 
 
-#### Core code example:
+#### Core code example (functionality differs from the React one):
 ```html
-
+<div class="hds-text-input">
+  <label for="input" class="hds-text-input__label">
+    Number of attendees
+    <span class="hds-text-input__required">*</span>
+  </label>
+  <div class="hds-text-input__input-wrapper">
+    <input id="input" value="1000" class="hds-text-input__input" type="number" step="1" min="3" max="99" placeholder="Placeholder" required />
+  </div>
+  <span class="hds-text-input__helper-text">Assistive text</span>
+</div>
 ```
 
 #### React code example:
