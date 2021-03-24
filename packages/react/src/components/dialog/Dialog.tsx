@@ -39,6 +39,10 @@ export type DialogProps = React.PropsWithChildren<{
    */
   close?: () => void;
   /**
+   * A close button label for screen readers.
+   */
+  closeButtonAriaLabel?: string;
+  /**
    * The id of the element which will get focus after the dialog is closed.
    */
   focusAfterCloseId?: string;
@@ -52,8 +56,19 @@ export type DialogProps = React.PropsWithChildren<{
   className?: string;
 }>;
 
-export const Dialog = ({ id, isOpen, children, close, className, focusAfterCloseId, theme, ...props }: DialogProps) => {
+export const Dialog = ({
+  id,
+  isOpen,
+  children,
+  close,
+  closeButtonAriaLabel,
+  focusAfterCloseId,
+  theme,
+  className,
+  ...props
+}: DialogProps) => {
   const customThemeClass = useTheme<DialogCustomTheme>(styles.dialogContainer, theme);
+  const closeButtonLabel = closeButtonAriaLabel || 'Close';
   const dialogRef: RefObject<HTMLInputElement> = React.createRef();
 
   const { 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby } = props;
@@ -121,7 +136,7 @@ export const Dialog = ({ id, isOpen, children, close, className, focusAfterClose
         <div aria-describedby={ariaDescribedby}>
           {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
           <div onFocus={onTabBarrierFocus(true)} tabIndex={0} />
-          <button className={styles.dialogClose} type="button" aria-label="Close" onClick={() => close()}>
+          <button className={styles.dialogClose} type="button" aria-label={closeButtonLabel} onClick={() => close()}>
             <IconCross aria-hidden="true" />
           </button>
           {children}
