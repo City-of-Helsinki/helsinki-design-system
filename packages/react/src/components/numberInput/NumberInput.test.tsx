@@ -29,13 +29,13 @@ describe('<NumberInput /> spec', () => {
   it('should increase value correct amount when user clicks step up button', async () => {
     render(<NumberInput defaultValue={10} step={10} {...numberInputProps} />);
     userEvent.click(screen.getByRole('button', { name: 'Add 10 euros' }));
-    const numberInput = screen.getByLabelText('Testi label number input', { selector: 'input' });
+    const numberInput = screen.getByLabelText('Test label number input', { selector: 'input' });
     expect(numberInput).toHaveValue(20);
   });
   it('should decrease value correct amount when user clicks step down button', async () => {
     render(<NumberInput defaultValue={10} step={10} {...numberInputProps} />);
     userEvent.click(screen.getByRole('button', { name: 'Decrease 10 euros' }));
-    const numberInput = screen.getByLabelText('Testi label number input', { selector: 'input' });
+    const numberInput = screen.getByLabelText('Test label number input', { selector: 'input' });
     expect(numberInput).toHaveValue(0);
   });
 });

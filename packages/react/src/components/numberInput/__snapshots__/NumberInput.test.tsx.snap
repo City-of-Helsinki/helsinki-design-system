@@ -9,7 +9,7 @@ exports[`<NumberInput /> spec renders the component 1`] = `
       class="label "
       for="numberInputTestId"
     >
-      Testi label number input
+      Test label number input
     </label>
     <div
       class="inputWrapper"
@@ -38,7 +38,7 @@ exports[`<NumberInput /> spec renders the component with steppers 1`] = `
       class="label "
       for="numberInputTestId"
     >
-      Testi label number input
+      Test label number input
     </label>
     <div
       class="inputWrapper"
