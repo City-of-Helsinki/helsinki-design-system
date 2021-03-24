@@ -1,26 +1,32 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { cleanup, render } from '@testing-library/react';
+import { getQueriesForElement } from '@testing-library/dom';
 import { axe } from 'jest-axe';
 
 import { Dialog } from './Dialog';
 import { Button } from '../button/Button';
 import { IconAlertCircle } from '../../icons';
 
-// Because Dialog uses React's createPortal we need to provide a container for render
-const renderDialog = (dialogComponent: JSX.Element) => {
-  const dialogContainer = document.createElement('div');
-  return render(dialogComponent, { container: document.body.appendChild(dialogContainer) });
+const id = 'test-dialog-id';
+const titleId = 'test-dialog-title-id';
+const contentId = 'test-dialog-description-id';
+const isOpen = true;
+const close = () => false;
+
+const renderDialog = (dialogComponent: JSX.Element): { baseElement: HTMLElement; dialog: HTMLElement } => {
+  const { baseElement } = render(dialogComponent);
+  return { baseElement, dialog: getQueriesForElement(baseElement).queryByRole('dialog') };
 };
 
 describe('<Dialog /> spec', () => {
-  const id = 'test-dialog-id';
-  const titleId = 'test-dialog-title-id';
-  const contentId = 'test-dialog-description-id';
-  const isOpen = true;
-  const close = () => false;
+  beforeEach(() => {
+    cleanup();
+  });
 
   it('renders the component', () => {
-    const { asFragment } = renderDialog(
+    // Because the dialog is rendered with React's createPortal inside the document.body we need to compare baseElement to snapshot.
+    // Besides, it is beneficial to include the document.body into a snapshot since the dialog will toggle its class.
+    const { baseElement } = renderDialog(
       <Dialog id={id} aria-labelledby={titleId} aria-describedby={contentId} isOpen={isOpen} close={close}>
         <Dialog.Header id={titleId} title="Confirmation dialog" iconLeft={<IconAlertCircle aria-hidden="true" />} />
         <Dialog.Content id={contentId}>
@@ -41,11 +47,11 @@ describe('<Dialog /> spec', () => {
       </Dialog>,
     );
 
-    expect(asFragment()).toMatchSnapshot();
+    expect(baseElement).toMatchSnapshot();
   });
 
   it('should not have basic accessibility issues', async () => {
-    const { container } = renderDialog(
+    const { dialog } = renderDialog(
       <Dialog id={id} aria-labelledby={titleId} aria-describedby={contentId} isOpen={isOpen} close={close}>
         <Dialog.Header id={titleId} title="Confirmation dialog" iconLeft={<IconAlertCircle aria-hidden="true" />} />
         <Dialog.Content id={contentId}>
@@ -65,7 +71,7 @@ describe('<Dialog /> spec', () => {
         </Dialog.ActionButtons>
       </Dialog>,
     );
-    const results = await axe(container);
+    const results = await axe(dialog);
     expect(results).toHaveNoViolations();
   });
 });
