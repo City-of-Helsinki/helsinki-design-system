@@ -63,7 +63,7 @@ export const Default = (args) => {
         <Dialog.ActionButtons>
           <Button
             onClick={() => {
-              console.log('Add item');
+              // Add operations here
               close();
             }}
           >
@@ -106,7 +106,7 @@ export const Confirmation = (args) => {
         <Dialog.ActionButtons>
           <Button
             onClick={() => {
-              console.log('Confirm');
+              // Add confirm operations here
               close();
             }}
           >
