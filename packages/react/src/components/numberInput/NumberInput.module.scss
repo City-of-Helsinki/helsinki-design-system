@@ -28,31 +28,30 @@
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  margin-top: 2px;
-  margin-bottom: 2px;
+  margin: 2px;
   width: 52px;
 }
 
 .minusButtonWrapper {
   @include stepButton;
-  left: 2px; // required for button outline to render by design
+  left: 0;
   border-right: solid 1px #cccccc;
 }
 
 .minusButtonWrapperWithoutBorder {
   @include stepButton;
-  left: 2px; // required for button outline to render by design
+  left: 0;
 }
 
 .plusButtonWrapper {
   @include stepButton;
-  right: 2px; // required for button outline to render by design
+  right: 0;
   border-left: solid 1px #cccccc;
 }
 
 .plusButtonWrapperWithoutBorder {
   @include stepButton;
-  right: 2px; // required for button outline to render by design
+  right: 0;
 }
 
 .button {
