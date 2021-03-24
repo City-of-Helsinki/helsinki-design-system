@@ -7,7 +7,7 @@ import { NumberInput } from './NumberInput';
 
 const numberInputProps = {
   id: 'numberInputTestId',
-  label: 'Testi label number input',
+  label: 'Test label number input',
   plusStepButtonAriaLabel: 'Add 10 euros',
   minusStepButtonAriaLabel: 'Decrease 10 euros',
 };
