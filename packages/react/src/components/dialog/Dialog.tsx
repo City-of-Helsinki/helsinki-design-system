@@ -12,8 +12,8 @@ import { DialogHeader } from './dialogHeader/DialogHeader';
 import { DialogContent } from './dialogContent/DialogContent';
 
 export interface DialogCustomTheme {
-  '--accent-line'?: string;
-  '--color-overlay'?: string;
+  '--accent-line-color'?: string;
+  '--overlay-color'?: string;
   '--width'?: string;
 }
 
