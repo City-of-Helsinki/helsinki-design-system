@@ -4,6 +4,7 @@ import React from 'react';
 import 'hds-core';
 import styles from '../textInput/TextInput.module.css';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
+import comboseAriaDescribedBy from '../../utils/comboseAriaDescribedBy';
 
 export type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
   /**
@@ -130,9 +131,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
     };
 
     // Compose aria-describedby attribute
-    const ariaDescribedBy = [helperText && `${id}-helper`, errorText && `${id}-error`, successText && `${id}-success`]
-      .filter((item) => item)
-      .join(' ');
+    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText);
 
     return (
       <InputWrapper {...wrapperProps}>
