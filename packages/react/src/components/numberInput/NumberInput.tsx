@@ -51,7 +51,7 @@ export type NumberInputProps = Omit<
   value?: number;
 };
 
-function combineLabelAndUnit(label: string, unit: string): string | undefined {
+function combineLabelAndUnit(label: string, unit: string | undefined): string | undefined {
   if (!label && unit) {
     return `(${unit})`;
   }
