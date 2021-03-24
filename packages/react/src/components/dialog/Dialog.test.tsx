@@ -1,77 +1,161 @@
-import React from 'react';
-import { cleanup, render } from '@testing-library/react';
-import { getQueriesForElement } from '@testing-library/dom';
+import React, { useState } from 'react';
+import { act } from 'react-dom/test-utils';
+import { cleanup, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
-import { Dialog } from './Dialog';
-import { Button } from '../button/Button';
+import { Dialog, DialogProps } from './Dialog';
+import { DialogHeaderProps } from './dialogHeader/DialogHeader';
 import { IconAlertCircle } from '../../icons';
 
-const id = 'test-dialog-id';
-const titleId = 'test-dialog-title-id';
-const contentId = 'test-dialog-description-id';
-const isOpen = true;
-const close = () => false;
+const contentDescriptionId = 'test-dialog-description-id';
+const descriptionText = 'This is a test dialog content';
+const contentButtonText = 'Button inside Dialog';
 
-const renderDialog = (dialogComponent: JSX.Element): { baseElement: HTMLElement; dialog: HTMLElement } => {
-  const { baseElement } = render(dialogComponent);
-  return { baseElement, dialog: getQueriesForElement(baseElement).queryByRole('dialog') };
+const dialogHeaderProps: DialogHeaderProps = {
+  id: 'test-dialog-title-id',
+  title: 'test dialog title',
 };
 
+const dialogProps: DialogProps = {
+  id: 'test-dialog-id',
+  isOpen: false,
+  'aria-labelledby': dialogHeaderProps.id,
+  'aria-describedby': contentDescriptionId,
+  close: () => false,
+  closeButtonAriaLabel: 'Close',
+};
+
+const renderTestDialogComponent = ({
+  isTestDialogOpen = false,
+  closeTestDialog = () => false,
+  focusTestButtonAfterClose,
+}: {
+  isTestDialogOpen?: boolean;
+  closeTestDialog?: () => void;
+  focusTestButtonAfterClose?: string;
+}) =>
+  render(
+    <Dialog
+      id={dialogProps.id}
+      aria-labelledby={dialogProps['aria-labelledby']}
+      aria-describedby={dialogProps['aria-describedby']}
+      isOpen={isTestDialogOpen}
+      close={closeTestDialog}
+      focusAfterCloseId={focusTestButtonAfterClose}
+    >
+      <Dialog.Header
+        id={dialogHeaderProps.id}
+        title={dialogHeaderProps.title}
+        iconLeft={<IconAlertCircle aria-hidden="true" />}
+      />
+      <Dialog.Content>
+        <p id={dialogProps['aria-describedby']}>{descriptionText}</p>
+      </Dialog.Content>
+      <Dialog.ActionButtons>
+        <button type="button">{contentButtonText}</button>
+      </Dialog.ActionButtons>
+    </Dialog>,
+  );
+
 describe('<Dialog /> spec', () => {
-  beforeEach(() => {
-    cleanup();
-  });
+  beforeEach(cleanup);
 
   it('renders the component', () => {
     // Because the dialog is rendered with React's createPortal inside the document.body we need to compare baseElement to snapshot.
     // Besides, it is beneficial to include the document.body into a snapshot since the dialog will toggle its class.
-    const { baseElement } = renderDialog(
-      <Dialog id={id} aria-labelledby={titleId} aria-describedby={contentId} isOpen={isOpen} close={close}>
-        <Dialog.Header id={titleId} title="Confirmation dialog" iconLeft={<IconAlertCircle aria-hidden="true" />} />
-        <Dialog.Content id={contentId}>
-          <p>Confirmation Dialog</p>
-        </Dialog.Content>
-        <Dialog.ActionButtons>
-          <Button
-            onClick={() => {
-              close();
-            }}
-          >
-            Continue
-          </Button>
-          <Button onClick={close} variant="secondary">
-            Cancel
-          </Button>
-        </Dialog.ActionButtons>
-      </Dialog>,
-    );
-
+    const { baseElement } = renderTestDialogComponent({ isTestDialogOpen: true });
     expect(baseElement).toMatchSnapshot();
   });
 
   it('should not have basic accessibility issues', async () => {
-    const { dialog } = renderDialog(
-      <Dialog id={id} aria-labelledby={titleId} aria-describedby={contentId} isOpen={isOpen} close={close}>
-        <Dialog.Header id={titleId} title="Confirmation dialog" iconLeft={<IconAlertCircle aria-hidden="true" />} />
-        <Dialog.Content id={contentId}>
-          <p>Confirmation Dialog</p>
-        </Dialog.Content>
-        <Dialog.ActionButtons>
-          <Button
-            onClick={() => {
-              close();
-            }}
+    renderTestDialogComponent({ isTestDialogOpen: true });
+    const dialog = await axe(screen.queryByRole('dialog'));
+    expect(dialog).toHaveNoViolations();
+  });
+
+  it('should rotate focus when user navigates with tabs', async () => {
+    renderTestDialogComponent({ isTestDialogOpen: true });
+    expect(screen.getByText(dialogHeaderProps.title)).toHaveFocus();
+    userEvent.tab();
+    expect(screen.getByText(contentButtonText)).toHaveFocus();
+    userEvent.tab();
+    expect(screen.getByLabelText(dialogProps.closeButtonAriaLabel)).toHaveFocus();
+    userEvent.tab();
+    expect(screen.getByText(contentButtonText)).toHaveFocus();
+  });
+
+  it('should rotate focus backwards when user navigates with shift + tab', async () => {
+    renderTestDialogComponent({ isTestDialogOpen: true });
+    expect(screen.getByText(dialogHeaderProps.title)).toHaveFocus();
+    userEvent.tab({ shift: true });
+    expect(screen.getByLabelText(dialogProps.closeButtonAriaLabel)).toHaveFocus();
+    userEvent.tab({ shift: true });
+    expect(screen.getByText(contentButtonText)).toHaveFocus();
+  });
+
+  it('should shift focus to external open button after dialog close', async () => {
+    const openButtonId = 'open-button-id';
+    const openButtonText = 'Open Dialog';
+    const OpenButtonAndDialog = () => {
+      const [isOpen, setIsOpen] = useState<boolean>(false);
+
+      return (
+        <>
+          <button id={openButtonId} type="button" onClick={() => setIsOpen(true)}>
+            {openButtonText}
+          </button>
+          <Dialog
+            id={dialogProps.id}
+            aria-labelledby={dialogProps['aria-labelledby']}
+            isOpen={isOpen}
+            close={() => setIsOpen(false)}
+            focusAfterCloseId={openButtonId}
           >
-            Continue
-          </Button>
-          <Button onClick={close} variant="secondary">
-            Cancel
-          </Button>
-        </Dialog.ActionButtons>
-      </Dialog>,
-    );
-    const results = await axe(dialog);
-    expect(results).toHaveNoViolations();
+            <Dialog.Header id={dialogHeaderProps.id} title={dialogHeaderProps.title} />
+            <Dialog.Content>
+              <p>Dialog content</p>
+            </Dialog.Content>
+          </Dialog>
+        </>
+      );
+    };
+    render(<OpenButtonAndDialog />);
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(screen.getByText(openButtonText)).not.toHaveFocus();
+    act(() => {
+      userEvent.click(screen.getByText(openButtonText));
+    });
+    expect(screen.queryByRole('dialog')).toBeInTheDocument();
+    act(() => {
+      userEvent.click(screen.getByLabelText(dialogProps.closeButtonAriaLabel));
+    });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(screen.getByText(openButtonText)).toHaveFocus();
+  });
+
+  it('should close dialog when user presses Escape key', async () => {
+    const DialogWithOpenState = () => {
+      const [isOpen, setIsOpen] = useState<boolean>(true);
+      return (
+        <Dialog
+          id={dialogProps.id}
+          aria-labelledby={dialogProps['aria-labelledby']}
+          isOpen={isOpen}
+          close={() => setIsOpen(false)}
+        >
+          <Dialog.Header id={dialogHeaderProps.id} title={dialogHeaderProps.title} />
+          <Dialog.Content>
+            <p>Dialog content</p>
+          </Dialog.Content>
+        </Dialog>
+      );
+    };
+    render(<DialogWithOpenState />);
+    expect(screen.queryByRole('dialog')).toBeInTheDocument();
+    act(() => {
+      userEvent.type(screen.queryByRole('dialog'), '{esc}');
+    });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 });
