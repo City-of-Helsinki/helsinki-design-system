@@ -62,8 +62,10 @@ export const MenuButton = ({
   useEffect(() => {
     // closes the menu when a user clicks outside the container element
     const handleOutsideClick = (e: MouseEvent) => {
-      if (menuOpen && !containerRef.current.contains(e.target as Node)) {
-        setMenuOpen(false);
+      if (containerRef.current) {
+        if (menuOpen && !containerRef.current.contains(e.target as Node)) {
+          setMenuOpen(false);
+        }
       }
     };
 
