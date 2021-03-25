@@ -116,14 +116,13 @@ export const Dialog = ({ id, isOpen, children, close, focusAfterCloseId, theme, 
         id={id}
         className={classNames(styles.dialog, className)}
         aria-labelledby={ariaLabelledby}
+        aria-describedby={ariaDescribedby}
       >
-        <div aria-describedby={ariaDescribedby}>
-          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-          <div onFocus={onTabBarrierFocus(true)} tabIndex={0} />
-          {children}
-          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-          <div onFocus={onTabBarrierFocus(false)} tabIndex={0} />
-        </div>
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+        <div onFocus={onTabBarrierFocus(true)} tabIndex={0} />
+        {children}
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+        <div onFocus={onTabBarrierFocus(false)} tabIndex={0} />
       </div>
     </div>
   );
