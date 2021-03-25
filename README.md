@@ -79,7 +79,10 @@ See the package specific instructions on how to get started using the packages.
 
 ### Setting up local development environment
 
-0. Install [git lfs](https://git-lfs.github.com/) which is used to store images outside repository.
+0. Download and Install [git lfs](https://git-lfs.github.com/) which is used to store images outside repository.
+```bash
+git lfs install
+```
 1. Clone the HDS repository.
 ```bash
 git clone https://github.com/City-of-Helsinki/helsinki-design-system.git
