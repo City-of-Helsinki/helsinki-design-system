@@ -61,7 +61,7 @@ describe('<Combobox />', () => {
       // Choose one option
       fireEvent.click(visibleOptions[0]);
       // Ensure that it's visible in selected items
-      expect(queryAllByText(options[0].label).length).toEqual(1);
+      expect(queryAllByText(options[0].label).length).toEqual(2);
       // Ensure that it has been passed upwards with onChange
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(onChange).toHaveBeenCalledWith([options[0]]);
@@ -71,8 +71,8 @@ describe('<Combobox />', () => {
       fireEvent.click(getAllByRole('option')[1]);
       // Ensure that previous and current selection are visible in
       // selected items
-      expect(queryAllByText(options[0].label).length).toEqual(1);
-      expect(queryAllByText(options[4].label).length).toEqual(1);
+      expect(queryAllByText(options[0].label).length).toEqual(2);
+      expect(queryAllByText(options[4].label).length).toEqual(2);
       // Ensure that the current selection is passed correctly with
       // onChange
       expect(onChange).toHaveBeenCalledTimes(2);
