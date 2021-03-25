@@ -9,6 +9,14 @@ describe('<Button /> spec', () => {
     const { asFragment } = render(<Button>My Button</Button>);
     expect(asFragment()).toMatchSnapshot();
   });
+  it('renders the loading button component', () => {
+    const { asFragment } = render(
+      <Button isLoading loadingText="foo">
+        My Button
+      </Button>,
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
   it('should not have basic accessibility issues', async () => {
     const { container } = render(<Button>My Button</Button>);
     const results = await axe(container);

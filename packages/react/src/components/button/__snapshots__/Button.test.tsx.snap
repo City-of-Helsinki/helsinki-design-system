@@ -14,3 +14,26 @@ exports[`<Button /> spec renders the component 1`] = `
   </button>
 </DocumentFragment>
 `;
+
+exports[`<Button /> spec renders the loading button component 1`] = `
+<DocumentFragment>
+  <button
+    aria-disabled="true"
+    class="button primary theme-default size-default isLoading"
+    type="button"
+  >
+    <div
+      class="loadingSpinner small"
+    >
+      <div />
+      <div />
+      <div />
+    </div>
+    <span
+      class="label"
+    >
+      foo
+    </span>
+  </button>
+</DocumentFragment>
+`;

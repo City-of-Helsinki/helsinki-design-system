@@ -2583,6 +2583,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
               class="hds-datepicker__bottom-buttons"
             >
               <button
+                aria-disabled="true"
                 class="button secondary theme-default size-small"
                 data-testid="selectButton"
                 disabled=""
@@ -3932,6 +3933,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
               class="hds-datepicker__bottom-buttons"
             >
               <button
+                aria-disabled="true"
                 class="button secondary theme-default size-small"
                 data-testid="selectButton"
                 disabled=""
@@ -5276,6 +5278,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
               class="hds-datepicker__bottom-buttons"
             >
               <button
+                aria-disabled="true"
                 class="button secondary theme-default size-small"
                 data-testid="selectButton"
                 disabled=""
@@ -6620,6 +6623,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
               class="hds-datepicker__bottom-buttons"
             >
               <button
+                aria-disabled="true"
                 class="button secondary theme-default size-small"
                 data-testid="selectButton"
                 disabled=""
