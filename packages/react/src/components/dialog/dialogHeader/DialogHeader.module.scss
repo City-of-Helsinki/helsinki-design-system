@@ -1,7 +1,7 @@
 @import '../../../styles/common';
 
 .dialogHeader {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
 }
 
@@ -9,12 +9,28 @@
   align-items: flex-start;
   display: flex;
   font-size: var(--fontsize-heading-s);
-  margin-right: 1rem;
-  padding-right: 1rem;
+  margin: var(--spacing-s) 0;
+  order: 0;
+  padding-right: var(--spacing-s);
 
   .dialogTitleLeftIcon {
     display: inline-flex;
     margin-right: var(--spacing-2-xs);
     margin-top: 2px;
   }
+}
+
+.dialogHeaderClose {
+  @extend %buttonReset;
+  color: var(--dialog-close-button-color);
+  display: block;
+  height: 44px;
+  font-size: 0;
+  line-height: 1;
+  margin-left: auto;
+  margin-top: var(--spacing-2-xs);
+  min-width: 44px;
+  order: 1;
+  padding: 0;
+  vertical-align: middle;
 }
