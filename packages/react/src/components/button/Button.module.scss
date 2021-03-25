@@ -37,6 +37,10 @@
   @extend %supplementary;
 }
 
+.isLoading {
+  @extend %loading;
+}
+
 .success {
   @extend %success;
 }
