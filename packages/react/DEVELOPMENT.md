@@ -59,7 +59,7 @@ Also note the section below about visual regression tests and adding new compone
 ## Visual regression tests
 
 `hds-react` uses [Loki](https://loki.js.org/) for visual regression testing. Make sure [git lfs](https://git-lfs.github.com/) is installed properly
-before running visual test or modifying reference images. Reference images are stored in this repository with git-lfs.
+before running visual tests or modifying reference images. Reference images are stored in this repository with git-lfs.
 Loki is using the Chrome browser inside a Docker container, so Docker needs to also be available.
 
 ### Running visual tests
@@ -69,7 +69,7 @@ To run the visual regression tests, you must first build the storybook by runnin
 ### Updating reference images
 
 When adding a new component or after making visual changes to some existing component, you must update the corresponding reference image.
-Before you can do this, you must start local react storybook by issuing the following command in the root of the whole project:
+Before you can do this, you must start the local react storybook by issuing the following command in the root of the whole project:
 ```
 yarn start:react
 ```
