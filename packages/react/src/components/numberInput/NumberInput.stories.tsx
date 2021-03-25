@@ -13,6 +13,7 @@ export default {
 
 export const Default = (args) => <NumberInput {...args} />;
 Default.args = {
+  id: 'Default',
   helperText: 'Assistive text',
   label: 'Label',
   minusStepButtonAriaLabel: 'Decrease by one',
