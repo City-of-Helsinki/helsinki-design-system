@@ -6,6 +6,10 @@
 
 ### Setting up local development environment
 
+0. Download and Install [git lfs](https://git-lfs.github.com/) which is used to store images outside repository.
+```bash
+git lfs install
+```
 1. Clone the HDS repository.
 ```bash
 git clone https://github.com/City-of-Helsinki/helsinki-design-system.git
@@ -54,19 +58,27 @@ Also note the section below about visual regression tests and adding new compone
 
 ## Visual regression tests
 
-`hds-react` uses [Loki](https://loki.js.org/) for visual regression testing.
+`hds-react` uses [Loki](https://loki.js.org/) for visual regression testing. Make sure [git lfs](https://git-lfs.github.com/) is installed properly
+before running visual test or modifying reference images. Reference images are stored in this repository with git-lfs.
+Loki is using the Chrome browser inside a Docker container, so Docker needs to also be available.
+
+### Running visual tests
 
 To run the visual regression tests, you must first build the storybook by running `yarn build-storybook`. Then you can proceed with the test run by running `yarn visual-test`.
 
-When adding a new component or after making visual changes to some existing component, you must update the corresponding the reference image. This is done by the following command:
+### Updating reference images
 
+When adding a new component or after making visual changes to some existing component, you must update the corresponding reference image.
+Before you can do this, you must start local react storybook by issuing the following command in the root of the whole project:
 ```
-yarn update-reference-images --storiesFilter "<regexp of added story>"
+yarn start:react
+```
+Then leave the storybook on the background and switch to another terminal window. Go to packages/react and issue this command:
+```
+yarn update-reference-images --storiesFilter "<name of the component or name of the story>"
 ```
 
-You should pass the component story filename with `--storiesFilter` flag in order to update the reference images only for that single component.
-
-Note: Loki is using the Chrome browser inside a Docker container, so Docker needs to be available. Reference images are stored in this repository with [git lfs](https://git-lfs.github.com/).
+You should pass the component name with `--storiesFilter` flag in order to update the reference images only for that single component.
 
 ## Workflow
 
