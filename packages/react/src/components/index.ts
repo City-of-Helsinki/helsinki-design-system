@@ -25,3 +25,4 @@ export * from './textInput';
 export * from './timeInput';
 export * from './tooltip';
 export * from './tabs';
+export * from './numberInput';

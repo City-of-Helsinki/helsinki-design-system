@@ -7,6 +7,7 @@ import { TextInputProps } from '../textInput/TextInput';
 import textInputStyles from '../textInput/TextInput.module.css';
 import styles from './TimeInput.module.scss';
 import classNames from '../../utils/classNames';
+import comboseAriaDescribedBy from '../../utils/comboseAriaDescribedBy';
 
 export type TimeInputProps = Omit<TextInputProps, 'children' | 'buttonIcon' | 'buttonAriaLabel' | 'onButtonClick'> & {
   /**
@@ -249,9 +250,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
     };
 
     // Compose aria-describedby attribute
-    const ariaDescribedBy = [helperText && `${id}-helper`, errorText && `${id}-error`, successText && `${id}-success`]
-      .filter((item) => item)
-      .join(' ');
+    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText);
 
     // Compose props for the input frame
     const frameProps = {
