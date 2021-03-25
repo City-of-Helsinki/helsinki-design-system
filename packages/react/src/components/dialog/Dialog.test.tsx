@@ -8,7 +8,7 @@ import { Dialog, DialogProps } from './Dialog';
 import { DialogHeaderProps } from './dialogHeader/DialogHeader';
 import { IconAlertCircle } from '../../icons';
 
-const contentDescriptionId = 'test-dialog-description-id';
+const descriptionId = 'test-dialog-description-id';
 const descriptionText = 'This is a test dialog content';
 const contentButtonText = 'Button inside Dialog';
 
@@ -21,28 +21,20 @@ const dialogProps: DialogProps = {
   id: 'test-dialog-id',
   isOpen: false,
   'aria-labelledby': dialogHeaderProps.id,
-  'aria-describedby': contentDescriptionId,
+  'aria-describedby': descriptionId,
   close: () => false,
   closeButtonAriaLabel: 'Close',
 };
 
-const renderTestDialogComponent = ({
-  isTestDialogOpen = false,
-  closeTestDialog = () => false,
-  focusTestButtonAfterClose,
-}: {
-  isTestDialogOpen?: boolean;
-  closeTestDialog?: () => void;
-  focusTestButtonAfterClose?: string;
-}) =>
+const renderOpenDialog = () =>
   render(
     <Dialog
       id={dialogProps.id}
       aria-labelledby={dialogProps['aria-labelledby']}
       aria-describedby={dialogProps['aria-describedby']}
-      isOpen={isTestDialogOpen}
-      close={closeTestDialog}
-      focusAfterCloseId={focusTestButtonAfterClose}
+      isOpen
+      close={() => false}
+      closeButtonAriaLabel={dialogProps.closeButtonAriaLabel}
     >
       <Dialog.Header
         id={dialogHeaderProps.id}
@@ -64,18 +56,18 @@ describe('<Dialog /> spec', () => {
   it('renders the component', () => {
     // Because the dialog is rendered with React's createPortal inside the document.body we need to compare baseElement to snapshot.
     // Besides, it is beneficial to include the document.body into a snapshot since the dialog will toggle its class.
-    const { baseElement } = renderTestDialogComponent({ isTestDialogOpen: true });
+    const { baseElement } = renderOpenDialog();
     expect(baseElement).toMatchSnapshot();
   });
 
   it('should not have basic accessibility issues', async () => {
-    renderTestDialogComponent({ isTestDialogOpen: true });
+    renderOpenDialog();
     const dialog = await axe(screen.queryByRole('dialog'));
     expect(dialog).toHaveNoViolations();
   });
 
   it('should rotate focus when user navigates with tabs', async () => {
-    renderTestDialogComponent({ isTestDialogOpen: true });
+    renderOpenDialog();
     expect(screen.getByText(dialogHeaderProps.title)).toHaveFocus();
     userEvent.tab();
     expect(screen.getByText(contentButtonText)).toHaveFocus();
@@ -86,7 +78,7 @@ describe('<Dialog /> spec', () => {
   });
 
   it('should rotate focus backwards when user navigates with shift + tab', async () => {
-    renderTestDialogComponent({ isTestDialogOpen: true });
+    renderOpenDialog();
     expect(screen.getByText(dialogHeaderProps.title)).toHaveFocus();
     userEvent.tab({ shift: true });
     expect(screen.getByLabelText(dialogProps.closeButtonAriaLabel)).toHaveFocus();
