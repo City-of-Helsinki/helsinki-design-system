@@ -6,7 +6,6 @@ import 'hds-core';
 import styles from './Dialog.module.scss';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
-import { IconCross } from '../../icons';
 import { DialogActionButtons } from './dialogActionButtons/DialogActionButtons';
 import { DialogHeader } from './dialogHeader/DialogHeader';
 import { DialogContent } from './dialogContent/DialogContent';
@@ -35,13 +34,9 @@ export type DialogProps = React.PropsWithChildren<{
    */
   isOpen: boolean;
   /**
-   * A function to control the isOpen property.
+   * A function to set isOpen property to `false`.
    */
   close?: () => void;
-  /**
-   * A close button label for screen readers.
-   */
-  closeButtonAriaLabel?: string;
   /**
    * The id of the element which will get focus after the dialog is closed.
    */
@@ -56,19 +51,8 @@ export type DialogProps = React.PropsWithChildren<{
   className?: string;
 }>;
 
-export const Dialog = ({
-  id,
-  isOpen,
-  children,
-  close,
-  closeButtonAriaLabel,
-  focusAfterCloseId,
-  theme,
-  className,
-  ...props
-}: DialogProps) => {
+export const Dialog = ({ id, isOpen, children, close, focusAfterCloseId, theme, className, ...props }: DialogProps) => {
   const customThemeClass = useTheme<DialogCustomTheme>(styles.dialogContainer, theme);
-  const closeButtonLabel = closeButtonAriaLabel || 'Close';
   const dialogRef: RefObject<HTMLInputElement> = React.createRef();
 
   const { 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby } = props;
@@ -136,9 +120,6 @@ export const Dialog = ({
         <div aria-describedby={ariaDescribedby}>
           {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
           <div onFocus={onTabBarrierFocus(true)} tabIndex={0} />
-          <button className={styles.dialogClose} type="button" aria-label={closeButtonLabel} onClick={() => close()}>
-            <IconCross aria-hidden="true" />
-          </button>
           {children}
           {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
           <div onFocus={onTabBarrierFocus(false)} tabIndex={0} />
