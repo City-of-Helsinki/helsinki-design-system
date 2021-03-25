@@ -70,10 +70,15 @@ Body font size tokens allow more subtle variations of body text sizes for improv
 | Token size  | px value    | rem value | Usage                                                                                |
 | ----------- | ----------- | --------- | ------------------------------------------------------------------------------------ |
 | **Body XL** | 20 px       | 1.25      | Emphasising short introductory texts and other subtiles.                             |
-| **Body L**  | 18 px       | 1.125     | Improving legibility of essential components, e.g. Text input and other form fields. |
-| **Body M**  | 16 px       | 1         | Body text default.                                                         |
+| **Body L**  | 18 px       | 1.125     | Improving legibility of essential components, e.g. Text input and other form fields. Can also be used as the default body text size if the layout is not text heavy. |
+| **Body M**  | 16 px       | 1         | **Body text default.**                                                               |
 | **Body S**  | 14 px       | 0.875     | Conserving space in data heavy layouts and small components, e.g. Status label.      |
 
+When choosing the body text size, start with the default `Body M (16 px)` token. It is a good starting point for most text heavy user interfaces. This is also the minimum for the body text size in Helsinki services. This body text size can be used on all screen sizes.
+
+The smaller `Body S (14px)` token should only be used in secondary text content and inside components. 
+
+If your service is not text heavy, you can experiment with using the `Body L, 18px` token as the default body text size. In this case, it is recommended to use smaller `Body M (16 px)` token for mobile breakpoints `breakpoint-s` and `breakpoint-xs`.
 
 ### Line height
 Line height tokens can be used to control spacing between lines of text. The tokens define the ratio between line height and element font size.
