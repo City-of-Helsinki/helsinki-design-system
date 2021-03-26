@@ -68,7 +68,7 @@ export const Dialog = ({ id, isOpen, children, close, focusAfterCloseId, theme, 
   };
 
   const onKeyDown = (event: KeyboardEvent): void => {
-    if (event.key === 'Escape') {
+    if (close && event.key === 'Escape') {
       close();
     }
   };
