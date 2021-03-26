@@ -83,8 +83,15 @@ describe('<Dialog /> spec', () => {
     expect(screen.getByText(dialogHeaderProps.title)).toHaveFocus();
     userEvent.tab({ shift: true });
     expect(screen.getByLabelText(closeButtonAriaLabel)).toHaveFocus();
-    userEvent.tab({ shift: true });
-    expect(screen.getByText(contentButtonText)).toHaveFocus();
+  });
+
+  it('should return focus into dialog with tab after outside click', async () => {
+    renderOpenDialog();
+    expect(screen.getByText(dialogHeaderProps.title)).toHaveFocus();
+    userEvent.click(document.body);
+    expect(screen.getByText(dialogHeaderProps.title)).not.toHaveFocus();
+    userEvent.tab();
+    expect(screen.getByLabelText(closeButtonAriaLabel)).toHaveFocus();
   });
 
   it('should shift focus to external open button after dialog close', async () => {
