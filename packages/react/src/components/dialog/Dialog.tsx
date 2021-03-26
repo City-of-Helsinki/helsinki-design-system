@@ -125,6 +125,10 @@ export type DialogProps = React.PropsWithChildren<{
    */
   focusAfterCloseId?: string;
   /**
+   * When `true` dialog content is scrollable if needed. Use only for long text contents.
+   */
+  scrollable?: true;
+  /**
    * Custom theme styles
    */
   theme?: DialogCustomTheme;
@@ -134,7 +138,17 @@ export type DialogProps = React.PropsWithChildren<{
   className?: string;
 }>;
 
-export const Dialog = ({ id, isOpen, children, close, focusAfterCloseId, theme, className, ...props }: DialogProps) => {
+export const Dialog = ({
+  id,
+  isOpen,
+  children,
+  close,
+  focusAfterCloseId,
+  scrollable,
+  theme,
+  className,
+  ...props
+}: DialogProps) => {
   const customThemeClass = useTheme<DialogCustomTheme>(styles.dialogContainer, theme);
   const dialogRef: RefObject<HTMLInputElement> = React.createRef();
 
@@ -183,7 +197,7 @@ export const Dialog = ({ id, isOpen, children, close, focusAfterCloseId, theme, 
         role="dialog"
         aria-modal="true"
         id={id}
-        className={classNames(styles.dialog, className)}
+        className={classNames(styles.dialog, scrollable && styles.dialogScrollable, className)}
         aria-labelledby={ariaLabelledby}
         aria-describedby={ariaDescribedby}
       >

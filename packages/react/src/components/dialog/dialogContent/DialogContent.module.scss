@@ -1,6 +1,8 @@
 @import '../../../styles/common';
+@import '../_dialog.common';
 
 .dialogContent {
-  line-height: var(--lineheight-l);
+  @extend %dialogComponentSidePaddings;
   margin-top: var(--spacing-s);
+  overflow-y: auto;
 }
