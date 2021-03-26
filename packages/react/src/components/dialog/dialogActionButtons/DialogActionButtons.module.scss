@@ -1,7 +1,9 @@
 @import '../../../styles/common';
+@import '../_dialog.common';
 @value medium-up from "../../../styles/breakpoints.css";
 
 .dialogActionButtons {
+  @extend %dialogComponentSidePaddings;
   margin-top: var(--spacing-xl);
 
   > * {

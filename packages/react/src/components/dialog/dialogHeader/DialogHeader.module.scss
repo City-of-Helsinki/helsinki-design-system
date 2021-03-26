@@ -1,6 +1,8 @@
 @import '../../../styles/common';
+@import '../_dialog.common';
 
 .dialogHeader {
+  @extend %dialogComponentSidePaddings;
   align-items: flex-start;
   display: flex;
 }

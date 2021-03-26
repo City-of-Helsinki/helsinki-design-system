@@ -7,6 +7,10 @@ export type DialogContentProps = React.PropsWithChildren<{
    * The id of the content element.
    */
   id?: string;
+  /**
+   * When `true` content is scrollable. Use only for long text contents.
+   */
+  scrollable?: true;
 }>;
 
 export const DialogContent = ({ id, children }: DialogContentProps) => {
