@@ -1,4 +1,4 @@
-import React, { useEffect, RefObject } from 'react';
+import React, { useEffect, RefObject, useRef } from 'react';
 import ReactDOM from 'react-dom';
 
 // import core base styles
@@ -15,6 +15,89 @@ export interface DialogCustomTheme {
   '--overlay-color'?: string;
   '--width'?: string;
 }
+
+type TabBarrierProps = {
+  id: string;
+  tabIndex: number;
+  'aria-hidden': boolean;
+};
+
+const defaultBarrierProps: Partial<TabBarrierProps> = {
+  tabIndex: 0,
+  'aria-hidden': true,
+};
+
+const findFocusableDialogElements = (dialogElement: HTMLElement): NodeList =>
+  dialogElement.querySelectorAll(
+    'a, button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select',
+  );
+
+const focusFirstDialogElement = (dialogElement?: HTMLElement) => {
+  if (dialogElement) {
+    const focusableElements = findFocusableDialogElements(dialogElement);
+
+    if (focusableElements.length) {
+      (focusableElements[0] as HTMLElement).focus();
+    }
+  }
+};
+
+const focusLastDialogElement = (dialogElement?: HTMLElement) => {
+  if (dialogElement) {
+    const focusableElements = findFocusableDialogElements(dialogElement);
+    if (focusableElements.length) {
+      (focusableElements[focusableElements.length - 1] as HTMLElement).focus();
+    }
+  }
+};
+
+const addDocumentStartTabBarrier = (dialogElement?: HTMLElement): HTMLDivElement => {
+  const element = document.createElement('div');
+  element.className = 'hds-dialog-start-tab-barrier';
+  element.tabIndex = defaultBarrierProps.tabIndex;
+  element['aria-hidden'] = defaultBarrierProps.tabIndex['aria-hidden'];
+  element.addEventListener('focus', () => focusFirstDialogElement(dialogElement));
+  document.body.insertBefore(element, document.body.firstChild);
+  return element;
+};
+
+const addDocumentEndTabBarrier = (dialogElement?: HTMLElement): HTMLDivElement => {
+  const element = document.createElement('div');
+  element.className = 'hds-dialog-end-tab-barrier';
+  element.tabIndex = defaultBarrierProps.tabIndex;
+  element['aria-hidden'] = defaultBarrierProps.tabIndex['aria-hidden'];
+  element.addEventListener('focus', () => focusLastDialogElement(dialogElement));
+  document.body.appendChild(element);
+  return element;
+};
+
+const clearDocumentTabBarrier = (tabBarrier: HTMLDivElement): null => {
+  tabBarrier.parentElement.removeChild(tabBarrier);
+  return null;
+};
+
+export const useDocumentTabBarriers = (dialogRef: RefObject<HTMLDivElement>) => {
+  const firstBarrier = useRef<HTMLDivElement>(null);
+  const lastBarrier = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (dialogRef.current) {
+      firstBarrier.current = addDocumentStartTabBarrier(dialogRef.current);
+      lastBarrier.current = addDocumentEndTabBarrier(dialogRef.current);
+    }
+    return () => {
+      if (firstBarrier.current && lastBarrier.current) {
+        firstBarrier.current = clearDocumentTabBarrier(firstBarrier.current);
+        lastBarrier.current = clearDocumentTabBarrier(lastBarrier.current);
+      }
+    };
+  }, [dialogRef]);
+};
+
+const ContentTabBarrier = ({ onFocus }: { onFocus: () => void }): JSX.Element => {
+  /* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */
+  return <div {...defaultBarrierProps} onFocus={onFocus} />;
+};
 
 export type DialogProps = React.PropsWithChildren<{
   /**
@@ -90,25 +173,11 @@ export const Dialog = ({ id, isOpen, children, close, focusAfterCloseId, theme, 
     };
   });
 
-  const onTabBarrierFocus = (isFirst: boolean) => () => {
-    if (dialogRef.current) {
-      const focusableElements: NodeList = dialogRef.current.querySelectorAll(
-        'a, button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select',
-      );
-
-      if (focusableElements.length) {
-        if (isFirst) {
-          (focusableElements[focusableElements.length - 1] as HTMLElement).focus();
-        } else {
-          (focusableElements[0] as HTMLElement).focus();
-        }
-      }
-    }
-  };
+  useDocumentTabBarriers(dialogRef);
 
   const DialogComponent = (): JSX.Element => (
     <div className={classNames(styles.dialogContainer, customThemeClass)}>
-      <div className={styles.dialogBackdrop} />
+      <div tabIndex={-1} className={styles.dialogBackdrop} />
       <div
         ref={dialogRef}
         role="dialog"
@@ -118,11 +187,9 @@ export const Dialog = ({ id, isOpen, children, close, focusAfterCloseId, theme, 
         aria-labelledby={ariaLabelledby}
         aria-describedby={ariaDescribedby}
       >
-        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-        <div onFocus={onTabBarrierFocus(true)} tabIndex={0} />
+        <ContentTabBarrier onFocus={() => focusLastDialogElement(dialogRef.current)} />
         {children}
-        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-        <div onFocus={onTabBarrierFocus(false)} tabIndex={0} />
+        <ContentTabBarrier onFocus={() => focusFirstDialogElement(dialogRef.current)} />
       </div>
     </div>
   );
