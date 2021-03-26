@@ -4,12 +4,17 @@ exports[`<Dialog /> spec renders the component 1`] = `
 <body
   class="dialogVisibleBody"
 >
+  <div
+    class="hds-dialog-start-tab-barrier"
+    tabindex="0"
+  />
   <div />
   <div
     class="dialogContainer"
   >
     <div
       class="dialogBackdrop"
+      tabindex="-1"
     />
     <div
       aria-describedby="test-dialog-description-id"
@@ -20,6 +25,7 @@ exports[`<Dialog /> spec renders the component 1`] = `
       role="dialog"
     >
       <div
+        aria-hidden="true"
         tabindex="0"
       />
       <div
@@ -104,9 +110,14 @@ exports[`<Dialog /> spec renders the component 1`] = `
         </button>
       </div>
       <div
+        aria-hidden="true"
         tabindex="0"
       />
     </div>
   </div>
+  <div
+    class="hds-dialog-end-tab-barrier"
+    tabindex="0"
+  />
 </body>
 `;
