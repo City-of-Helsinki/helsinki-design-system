@@ -19,6 +19,7 @@ exports[`<Button /> spec renders the loading button component 1`] = `
 <DocumentFragment>
   <button
     aria-disabled="true"
+    aria-label="foo"
     class="button primary theme-default size-default isLoading"
     type="button"
   >
