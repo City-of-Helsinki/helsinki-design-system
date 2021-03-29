@@ -39,7 +39,11 @@
 @import "ui/icon-cogwheel.css";
 @import "ui/icon-cross-circle.css";
 @import "ui/icon-cross.css";
+@import "ui/icon-customer-bot-negative.css";
+@import "ui/icon-customer-bot-neutral.css";
+@import "ui/icon-customer-bot-positive.css";
 @import "ui/icon-display.css";
+@import "ui/icon-document.css";
 @import "ui/icon-download-cloud.css";
 @import "ui/icon-download.css";
 @import "ui/icon-envelope.css";
@@ -51,6 +55,7 @@
 @import "ui/icon-face-smile.css";
 @import "ui/icon-globe.css";
 @import "ui/icon-group.css";
+@import "ui/icon-headphones.css";
 @import "ui/icon-heart-fill.css";
 @import "ui/icon-heart.css";
 @import "ui/icon-home-smoke.css";
@@ -82,6 +87,9 @@
 @import "ui/icon-plus-circle.css";
 @import "ui/icon-plus.css";
 @import "ui/icon-question-circle.css";
+@import "ui/icon-refresh.css";
+@import "ui/icon-save-diskette-fill.css";
+@import "ui/icon-save-diskette.css";
 @import "ui/icon-search.css";
 @import "ui/icon-share.css";
 @import "ui/icon-signin.css";
@@ -90,6 +98,9 @@
 @import "ui/icon-speechbubble.css";
 @import "ui/icon-star-fill.css";
 @import "ui/icon-star.css";
+@import "ui/icon-text-bold.css";
+@import "ui/icon-text-italic.css";
+@import "ui/icon-text-tool.css";
 @import "ui/icon-ticket.css";
 @import "ui/icon-trash.css";
 @import "ui/icon-upload-cloud.css";
