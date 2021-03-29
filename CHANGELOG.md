@@ -6,6 +6,68 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.24.0] - March 29, 2021
+
+### Design kit
+#### Added
+- [Buttons] Loading button which can be shown during a loading action triggered by a button press
+- [Form Components] Number input symbols
+- [Icons] New set of icons, including customer-bot-negative, customer-bot-neutral, customer-bot-positive, document, headphones, save-diskette-fill, save-diskette, text-bold, text-italic and text-tool
+
+#### Changed
+- [Buttons] Changed the button state example artboard to use new Supplementary button symbols
+- [Buttons] Increased Supplementary button inner spacing between icon and text label from 4px to 8px. Shorter spacing did not work well with icons with a large padding. This change is not fully implemented yet.
+- [Form Components] Increased spacing between input field action buttons from 8px to 16px. This change was made to make it easier to tap actions on smaller screen sizes. This change is not fully implemented yet.
+- [Icons] Divided icons into descriptive groups
+- [Icons] Updated icon symbol export options
+
+### React Components
+#### Added
+- Number Input
+- [Buttons] Loading Button
+- [Icons] New icons:
+    - customer-bot-negative
+    - customer-bot-neutral
+    - customer-bot-positive
+    - document
+    - headphones
+    - save-diskette-fill
+    - save-diskette
+    - text-bold
+    - text-italic
+    - text-tool
+
+#### Fixed
+- Navigation Component logout problem in SSR
+
+### Core
+#### Added
+- Number Input
+- [Buttons] Loading Button
+- [Icons] New icons:
+    - customer-bot-negative
+    - customer-bot-neutral
+    - customer-bot-positive
+    - document
+    - headphones
+    - save-diskette-fill
+    - save-diskette
+    - text-bold
+    - text-italic
+    - text-tool
+
+### Documentation
+#### Added
+- Number input documentation
+- [Buttons] Loading button documentation
+- [Icons] Documentation for new icons
+- More detailed documentation about body text usage on mobile screens
+
+#### Fixed
+- Broken Storybook links for TextInput and TextArea
+- Broken link in TimeInput documentation
+- Incorrect text colour in TextInput error state examples
+
 ## [0.23.1] - March 15, 2021
 
 ### Design kit
