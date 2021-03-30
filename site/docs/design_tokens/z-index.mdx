@@ -1,0 +1,52 @@
+---
+name: Z-index
+menu: Design tokens
+route: /design-tokens/z-index
+---
+
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Image from "../../src/components/Image";
+
+
+# Z-index
+
+<LargeParagraph>Z-index tokens specify the order in which elements appear on the users screen.</LargeParagraph>
+
+## Principles
+- **HDS Z-index tokens are mainly meant for keeping values consistent inside the design system but they can be used for the same purposes in other projects as well.**
+  - This means projects are not required to follow HDS z-index tokens.
+- **Note that z-index is heavily context dependent.** Using the same z-index value in two different elements may result in different stacking order.
+- When creating custom elements, it is recommended to follow HDS specified stacking order (specified below). Most elements should be positioned on the "Content" layer.
+
+## Usage
+The z-index tokens follow a simple scale with a steps of 100. For consistency, the default value is `auto`.
+
+## Stacking order in HDS
+
+HDS uses the following layer structure to position elements in the vertical stack.
+
+0. Background
+1. Content
+2. Navigation (Top Navigation and Footer) and accompanying header elements
+3. Menu elements (expandable menu elements such as dropdown or date picker)
+4. Tooltip
+5. Overlay
+6. Modals (dialogs)
+7. Toasts
+
+<Image src="../../static/z-index-stacking-order-example.png" alt="Stacking order example" viewable />
+
+## Tokens
+
+CSS                   | SASS                  | value
+--------------------- | --------------------- | --------- |
+--z-index-background  | $z-index-background   | -100      |
+--z-index-default     | $z-index-default      | `auto`    |
+--z-index-level-1     | $z-index-level-1      | 100       |
+--z-index-level-2     | $z-index-level-2      | 200       |
+--z-index-level-3     | $z-index-level-3      | 300       |
+--z-index-level-4     | $z-index-level-4      | 400       |
+--z-index-level-5     | $z-index-level-5      | 500       |
+--z-index-level-6     | $z-index-level-6      | 600       |
+
+
