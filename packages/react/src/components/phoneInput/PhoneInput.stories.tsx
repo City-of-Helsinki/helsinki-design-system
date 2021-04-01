@@ -43,20 +43,27 @@ WithDefaultValue.args = {
 export const WithCountryCode = (args) => {
   const options = [{ label: 'Finland (+358)' }, { label: 'UK (+46)' }];
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '200px 328px', columnGap: '16px' }}>
-      <Combobox
-        id="hds-select-1"
-        label="With country code"
-        helper="Assistive text"
-        options={options}
-        defaultValue={{ label: 'Finland (+358)' }}
-        onBlur={() => action('onBlur')}
-        onChange={(change) => action('onChange')(change)}
-        onFocus={() => action('onFocus')}
-        toggleButtonAriaLabel="Choose country code"
-      />
-      <PhoneInput style={{ marginTop: 'auto', marginBottom: 'auto' }} {...args} />
-    </div>
+    <>
+      <p id="work-phone" style={{ fontSize: '18px', fontWeight: 'bold' }}>
+        Work phone
+      </p>
+      <div style={{ display: 'grid', gridTemplateColumns: '200px 328px', columnGap: '16px' }}>
+        <Combobox
+          id="hds-select-1"
+          label="Country code"
+          helper="Assistive text"
+          aria-describedby="work-phone"
+          options={options}
+          defaultValue={{ label: 'Finland (+358)' }}
+          onBlur={() => action('onBlur')}
+          onChange={(change) => action('onChange')(change)}
+          onFocus={() => action('onFocus')}
+          required
+          toggleButtonAriaLabel="Choose country code"
+        />
+        <PhoneInput {...args} />
+      </div>
+    </>
   );
 };
 
@@ -64,4 +71,7 @@ WithCountryCode.storyName = 'With select countrycode';
 WithCountryCode.args = {
   id: 'WithCountryCode',
   defaultValue: '0451234567',
+  'aria-describedby': 'work-phone',
+  label: 'Phone number',
+  required: true,
 };
