@@ -445,7 +445,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
   const getButtonLabel = (): React.ReactNode => {
     let buttonLabel = selectedItem?.[optionLabelField] || placeholder;
     if (props.multiselect) buttonLabel = selectedItems.length > 0 ? null : placeholder;
-    return buttonLabel;
+    return buttonLabel && <span className={styles.buttonLabel}>{buttonLabel}</span>;
   };
 
   // screen readers should read the labels in the following order:
