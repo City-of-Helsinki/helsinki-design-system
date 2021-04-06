@@ -100,54 +100,73 @@ const ContentTabBarrier = ({ onFocus }: { onFocus: () => void }): JSX.Element =>
   return <div {...defaultBarrierProps} onFocus={onFocus} />;
 };
 
-export type DialogProps = React.PropsWithChildren<{
-  /**
-   * The id of the dialog element.
-   */
-  id: string;
-  /**
-   * The id of the heading element.
-   */
-  'aria-labelledby': string;
-  /**
-   * The id of the content description element which is usually a paragraph. The paragraph should be part of the content.
-   */
-  'aria-describedby'?: string;
-  /**
-   * When `true`, dialog is visible,
-   */
-  isOpen: boolean;
-  /**
-   * A function to set isOpen property to `false`.
-   */
-  close?: () => void;
-  /**
-   * The element which will get focus after the dialog is closed.
-   */
-  focusAfterCloseElement?: HTMLElement;
-  /**
-   * When `true` dialog content is scrollable if needed. Use only for long text contents.
-   */
-  scrollable?: true;
-  /**
-   * Custom theme styles
-   */
-  theme?: DialogCustomTheme;
-  /**
-   * Additional class names to apply to the dialog.
-   */
-  className?: string;
-  /**
-   * Target element where dialog is rendered. The dialog is rendered into the document.body by default.
-   */
-  targetElement?: HTMLElement;
-}>;
+type DialogCloseProps =
+  | {
+      /**
+       * A function to set isOpen property to `false`. The dialog header will have a close-button if this property exists
+       */
+      close: () => void;
+      /**
+       * A close button label for screen readers. Required with close property.
+       */
+      closeButtonAriaLabel: string;
+    }
+  | {
+      close?: undefined;
+      closeButtonAriaLabel?: undefined;
+    };
+
+export type DialogProps = React.PropsWithChildren<
+  {
+    /**
+     * The id of the dialog element.
+     */
+    id: string;
+    /**
+     * The id of the heading element.
+     */
+    'aria-labelledby': string;
+    /**
+     * The id of the content description element which is usually a paragraph. The paragraph should be part of the content.
+     */
+    'aria-describedby'?: string;
+    /**
+     * When `true`, dialog is visible,
+     */
+    isOpen: boolean;
+    /**
+     * A function to set isOpen property to `false`.
+     */
+    close?: () => void;
+    /**
+     * The element which will get focus after the dialog is closed.
+     */
+    focusAfterCloseElement?: HTMLElement;
+    /**
+     * When `true` dialog content is scrollable if needed. Use only for long text contents.
+     */
+    scrollable?: true;
+    /**
+     * Custom theme styles
+     */
+    theme?: DialogCustomTheme;
+    /**
+     * Additional class names to apply to the dialog.
+     */
+    className?: string;
+    /**
+     * Target element where dialog is rendered. The dialog is rendered into the document.body by default.
+     */
+    targetElement?: HTMLElement;
+  } & DialogCloseProps
+>;
 
 export const Dialog = ({
   id,
   isOpen,
   children,
   close,
+  closeButtonAriaLabel,
   focusAfterCloseElement,
   scrollable,
   theme,
@@ -155,7 +174,7 @@ export const Dialog = ({
   targetElement,
   ...props
 }: DialogProps) => {
-  const dialogContextProps: DialogContextProps = { scrollable };
+  const dialogContextProps: DialogContextProps = { scrollable, close, closeButtonAriaLabel };
   const customThemeClass = useTheme<DialogCustomTheme>(styles.dialogContainer, theme);
   const dialogRef: RefObject<HTMLInputElement> = React.createRef();
 

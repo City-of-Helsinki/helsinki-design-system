@@ -34,13 +34,12 @@ const renderOpenDialog = () =>
       aria-describedby={dialogProps['aria-describedby']}
       isOpen
       close={closeFn}
+      closeButtonAriaLabel={closeButtonAriaLabel}
     >
       <Dialog.Header
         id={dialogHeaderProps.id}
         title={dialogHeaderProps.title}
         iconLeft={<IconAlertCircle aria-hidden="true" />}
-        close={closeFn}
-        closeButtonAriaLabel={closeButtonAriaLabel}
       />
       <Dialog.Content>
         <p id={dialogProps['aria-describedby']}>{descriptionText}</p>
@@ -112,14 +111,10 @@ describe('<Dialog /> spec', () => {
             aria-labelledby={dialogProps['aria-labelledby']}
             isOpen={isOpen}
             close={close}
+            closeButtonAriaLabel="Close"
             focusAfterCloseElement={openButtonRef.current}
           >
-            <Dialog.Header
-              id={dialogHeaderProps.id}
-              title={dialogHeaderProps.title}
-              close={close}
-              closeButtonAriaLabel="Close"
-            />
+            <Dialog.Header id={dialogHeaderProps.id} title={dialogHeaderProps.title} />
             <Dialog.Content>
               <p>Dialog content</p>
             </Dialog.Content>
@@ -150,6 +145,7 @@ describe('<Dialog /> spec', () => {
           aria-labelledby={dialogProps['aria-labelledby']}
           isOpen={isOpen}
           close={() => setIsOpen(false)}
+          closeButtonAriaLabel="Close"
         >
           <Dialog.Header id={dialogHeaderProps.id} title={dialogHeaderProps.title} />
           <Dialog.Content>

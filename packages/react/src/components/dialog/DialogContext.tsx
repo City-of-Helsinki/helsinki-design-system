@@ -5,6 +5,8 @@ export type DialogContextProps = {
    * scrollable boolean that is passed down to children
    */
   scrollable?: boolean;
+  close?: () => void;
+  closeButtonAriaLabel?: string;
 };
 
 export const DialogContext = React.createContext<DialogContextProps>({});

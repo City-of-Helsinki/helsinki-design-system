@@ -1,23 +1,8 @@
-import React, { RefObject, useEffect } from 'react';
+import React, { RefObject, useContext, useEffect } from 'react';
 
 import { IconCross } from '../../../icons';
 import styles from './DialogHeader.module.scss';
-
-type HeaderCloseProps =
-  | {
-      /**
-       * A function to set isOpen property to `false`. The dialog header will have a close-button if this property exists
-       */
-      close: () => void;
-      /**
-       * A close button label for screen readers. Required with close property.
-       */
-      closeButtonAriaLabel: string;
-    }
-  | {
-      close?: undefined;
-      closeButtonAriaLabel?: undefined;
-    };
+import { DialogContext } from '../DialogContext';
 
 export type DialogHeaderProps = {
   /**
@@ -32,9 +17,10 @@ export type DialogHeaderProps = {
    * Element placed on the left side of the heading element.
    */
   iconLeft?: React.ReactNode;
-} & HeaderCloseProps;
+};
 
-export const DialogHeader = ({ id, title, iconLeft, close, closeButtonAriaLabel }: DialogHeaderProps) => {
+export const DialogHeader = ({ id, title, iconLeft }: DialogHeaderProps) => {
+  const { close, closeButtonAriaLabel } = useContext(DialogContext);
   const titleRef: RefObject<HTMLHeadingElement> = React.createRef();
 
   useEffect(() => {
