@@ -97,6 +97,7 @@ export const Confirmation = (args) => {
         aria-labelledby={args['aria-labelledby']}
         aria-describedby={args['aria-describedby']}
         isOpen={open}
+        focusAfterCloseElement={openButtonRef.current}
         targetElement={dialogTargetElement}
       >
         <Dialog.Header
@@ -149,6 +150,7 @@ export const ScrollableConfirmation = (args) => {
         aria-labelledby={args['aria-labelledby']}
         aria-describedby={args['aria-describedby']}
         isOpen={open}
+        focusAfterCloseElement={openButtonRef.current}
         targetElement={dialogTargetElement}
         scrollable
       >
