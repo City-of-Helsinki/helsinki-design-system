@@ -38,13 +38,13 @@ export const Default = (args) => {
         isOpen={open}
         focusAfterCloseElement={openButtonRef.current}
         targetElement={dialogTargetElement}
+        close={close}
+        closeButtonAriaLabel="Close"
       >
         <Dialog.Header
           id={args['aria-labelledby']}
           title="Add new item"
           iconLeft={<IconPlusCircle aria-hidden="true" />}
-          close={close}
-          closeButtonAriaLabel="Close"
         />
         <Dialog.Content>
           <p id={args['aria-describedby']}>Add new item form. All fields are mandatory.</p>
@@ -93,7 +93,6 @@ export const Confirmation = (args) => {
       aria-labelledby={args['aria-labelledby']}
       aria-describedby={args['aria-describedby']}
       isOpen={open}
-      close={close}
       targetElement={dialogTargetElement}
     >
       <Dialog.Header
@@ -140,7 +139,6 @@ export const ScrollableConfirmation = (args) => {
       aria-labelledby={args['aria-labelledby']}
       aria-describedby={args['aria-describedby']}
       isOpen={open}
-      close={close}
       targetElement={dialogTargetElement}
       scrollable
     >
