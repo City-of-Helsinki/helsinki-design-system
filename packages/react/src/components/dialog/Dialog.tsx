@@ -103,7 +103,7 @@ const ContentTabBarrier = ({ onFocus }: { onFocus: () => void }): JSX.Element =>
 type DialogCloseProps =
   | {
       /**
-       * A function to set isOpen property to `false`. The dialog header will have a close-button if this property exists
+       * A function to set isOpen property to `false`. The dialog header will have a close-button if this property exists. The dialog will also close on Escape keypress.
        */
       close: () => void;
       /**
@@ -134,10 +134,6 @@ export type DialogProps = React.PropsWithChildren<
      * When `true`, dialog is visible,
      */
     isOpen: boolean;
-    /**
-     * A function to set isOpen property to `false`.
-     */
-    close?: () => void;
     /**
      * The element which will get focus after the dialog is closed.
      */
