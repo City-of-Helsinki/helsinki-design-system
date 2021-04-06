@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PhoneInput /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="root"
+  >
+    <label
+      class="label "
+      for="phone-input"
+    >
+      test label
+    </label>
+    <div
+      class="inputWrapper"
+    >
+      <input
+        autocomplete="tel"
+        class="input"
+        id="phone-input"
+        type="tel"
+        value=""
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
