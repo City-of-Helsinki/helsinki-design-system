@@ -20,7 +20,7 @@ export default {
 };
 
 export const Default = (args) => {
-  const dialogTargetElement = document.getElementById('root');
+  const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
   const openButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(false);
   const close = () => setOpen(false);
