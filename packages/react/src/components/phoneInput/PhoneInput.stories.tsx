@@ -37,7 +37,7 @@ WithDefaultValue.args = {
   id: 'WithDefaultValue',
   defaultValue: '0451234567',
   helperText: 'Assistive text',
-  label: 'Label for default valued phone input',
+  label: 'Label for default value',
 };
 
 export const WithCountryCode = (args) => {
