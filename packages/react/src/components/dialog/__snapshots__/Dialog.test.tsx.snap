@@ -13,6 +13,10 @@ exports[`<Dialog /> spec renders the component 1`] = `
     class="dialogContainer"
   >
     <div
+      aria-hidden="true"
+      tabindex="0"
+    />
+    <div
       class="dialogBackdrop"
       tabindex="-1"
     />
@@ -24,10 +28,6 @@ exports[`<Dialog /> spec renders the component 1`] = `
       id="test-dialog-id"
       role="dialog"
     >
-      <div
-        aria-hidden="true"
-        tabindex="0"
-      />
       <div
         class="dialogHeader"
       >
@@ -109,11 +109,11 @@ exports[`<Dialog /> spec renders the component 1`] = `
           Button inside Dialog
         </button>
       </div>
-      <div
-        aria-hidden="true"
-        tabindex="0"
-      />
     </div>
+    <div
+      aria-hidden="true"
+      tabindex="0"
+    />
   </div>
   <div
     class="hds-dialog-end-tab-barrier"

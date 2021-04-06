@@ -213,6 +213,7 @@ export const Dialog = ({
   const DialogComponent = (): JSX.Element => (
     <DialogContext.Provider value={dialogContextProps}>
       <div className={classNames(styles.dialogContainer, customThemeClass)}>
+        <ContentTabBarrier onFocus={() => focusLastDialogElement(dialogRef.current)} />
         <div tabIndex={-1} className={styles.dialogBackdrop} />
         <div
           ref={dialogRef}
@@ -223,10 +224,9 @@ export const Dialog = ({
           aria-labelledby={ariaLabelledby}
           aria-describedby={ariaDescribedby}
         >
-          <ContentTabBarrier onFocus={() => focusLastDialogElement(dialogRef.current)} />
           {children}
-          <ContentTabBarrier onFocus={() => focusFirstDialogElement(dialogRef.current)} />
         </div>
+        <ContentTabBarrier onFocus={() => focusFirstDialogElement(dialogRef.current)} />
       </div>
     </DialogContext.Provider>
   );
