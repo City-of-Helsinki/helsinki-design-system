@@ -7,7 +7,7 @@ import { Combobox } from '../dropdown/combobox';
 export default {
   component: PhoneInput,
   title: 'Components/PhoneInput',
-  decorators: [(storyFn) => <div style={{ maxWidth: '544px' }}>{storyFn()}</div>],
+  decorators: [(storyFn) => <div style={{ maxWidth: '300px' }}>{storyFn()}</div>],
   parameters: {
     controls: { expanded: true },
   },
@@ -47,7 +47,7 @@ export const WithCountryCode = (args) => {
       <p id="work-phone" style={{ fontSize: '18px', fontWeight: 'bold' }}>
         Work phone
       </p>
-      <div style={{ display: 'grid', gridTemplateColumns: '200px 328px', columnGap: '16px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '200px 300px', columnGap: '16px' }}>
         <Combobox
           id="hds-select-1"
           label="Country code"
@@ -75,3 +75,4 @@ WithCountryCode.args = {
   label: 'Phone number',
   required: true,
 };
+WithCountryCode.decorators = [(storyFn) => <div style={{ maxWidth: '516px' }}>{storyFn()}</div>];
