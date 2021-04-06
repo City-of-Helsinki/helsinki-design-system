@@ -83,21 +83,21 @@ export const Default = (args) => {
 
 export const Confirmation = (args) => {
   const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
-  const openButtonRef = useRef(null);
+  const openConfirmationButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(true);
   const close = () => setOpen(false);
 
   return (
     <>
-      <Button ref={openButtonRef} onClick={() => setOpen(true)}>
-        Open Dialog
+      <Button ref={openConfirmationButtonRef} onClick={() => setOpen(true)}>
+        Open Confirmation Dialog
       </Button>
       <Dialog
         id={args.id}
         aria-labelledby={args['aria-labelledby']}
         aria-describedby={args['aria-describedby']}
         isOpen={open}
-        focusAfterCloseElement={openButtonRef.current}
+        focusAfterCloseElement={openConfirmationButtonRef.current}
         targetElement={dialogTargetElement}
       >
         <Dialog.Header
@@ -136,21 +136,21 @@ Confirmation.args = {
 
 export const ScrollableConfirmation = (args) => {
   const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
-  const openButtonRef = useRef(null);
+  const openScrollableConfirmationButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(true);
   const close = () => setOpen(false);
 
   return (
     <>
-      <Button ref={openButtonRef} onClick={() => setOpen(true)}>
-        Open Dialog
+      <Button ref={openScrollableConfirmationButtonRef} onClick={() => setOpen(true)}>
+        Open Scrollable Confirmation Dialog
       </Button>
       <Dialog
         id={args.id}
         aria-labelledby={args['aria-labelledby']}
         aria-describedby={args['aria-describedby']}
         isOpen={open}
-        focusAfterCloseElement={openButtonRef.current}
+        focusAfterCloseElement={openScrollableConfirmationButtonRef.current}
         targetElement={dialogTargetElement}
         scrollable
       >
