@@ -137,6 +137,10 @@ export type DialogProps = React.PropsWithChildren<{
    * Additional class names to apply to the dialog.
    */
   className?: string;
+  /**
+   * Target element where dialog is rendered. The dialog is rendered into the document.body by default.
+   */
+  targetElement?: HTMLElement;
 }>;
 
 export const Dialog = ({
@@ -148,6 +152,7 @@ export const Dialog = ({
   scrollable,
   theme,
   className,
+  targetElement,
   ...props
 }: DialogProps) => {
   const dialogContextProps: DialogContextProps = { scrollable };
@@ -212,7 +217,7 @@ export const Dialog = ({
     </DialogContext.Provider>
   );
 
-  return isOpen ? ReactDOM.createPortal(<DialogComponent />, document.body) : null;
+  return isOpen ? ReactDOM.createPortal(<DialogComponent />, targetElement || document.body) : null;
 };
 
 Dialog.Header = DialogHeader;
