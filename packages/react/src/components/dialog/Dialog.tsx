@@ -1,4 +1,4 @@
-import React, { useEffect, RefObject, useRef } from 'react';
+import React, { useEffect, RefObject, useRef, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 
 // import core base styles
@@ -122,9 +122,9 @@ export type DialogProps = React.PropsWithChildren<{
    */
   close?: () => void;
   /**
-   * The id of the element which will get focus after the dialog is closed.
+   * The element which will get focus after the dialog is closed.
    */
-  focusAfterCloseId?: string;
+  focusAfterCloseElement?: HTMLElement;
   /**
    * When `true` dialog content is scrollable if needed. Use only for long text contents.
    */
@@ -148,7 +148,7 @@ export const Dialog = ({
   isOpen,
   children,
   close,
-  focusAfterCloseId,
+  focusAfterCloseElement,
   scrollable,
   theme,
   className,
@@ -161,15 +161,14 @@ export const Dialog = ({
 
   const { 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby } = props;
 
-  const setFocusAfterClose = (): void => {
-    const focusElement = document.getElementById(focusAfterCloseId);
-    if (focusElement) {
-      focusElement.focus();
+  const setFocusAfterClose = useCallback((): void => {
+    if (focusAfterCloseElement) {
+      focusAfterCloseElement.focus();
     } else {
       // eslint-disable-next-line no-console
-      console.warn('The "focusAfterCloseId" property did not match any element.');
+      console.warn('The "focusAfterCloseElement" property did not match any element.');
     }
-  };
+  }, [focusAfterCloseElement]);
 
   const onKeyDown = (event: KeyboardEvent): void => {
     if (close && event.key === 'Escape') {
@@ -187,7 +186,7 @@ export const Dialog = ({
       if (isOpen) {
         document.removeEventListener('keydown', onKeyDown, false);
         document.body.classList.remove(styles.dialogVisibleBody);
-        if (focusAfterCloseId) {
+        if (focusAfterCloseElement) {
           setFocusAfterClose();
         }
       }
