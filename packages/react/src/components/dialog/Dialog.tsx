@@ -141,7 +141,7 @@ export type DialogProps = React.PropsWithChildren<
     /**
      * When `true` dialog content is scrollable if needed. Use only for long text contents.
      */
-    scrollable?: true;
+    scrollable?: boolean;
     /**
      * Custom theme styles
      */
