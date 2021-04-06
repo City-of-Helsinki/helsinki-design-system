@@ -75,17 +75,6 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
           (ref as React.MutableRefObject<HTMLInputElement>).current = inputRef.current;
         }
       }
-      inputRef.current.addEventListener('input', () => {
-        inputRef.current.value = inputRef.current.value.replace(/[^0-9+]/g, '');
-      });
-
-      const currentRef = inputRef.current;
-
-      return () => {
-        currentRef.removeEventListener('input', () => {
-          currentRef.value = currentRef.value.replace(/[^0-9+]/g, '');
-        });
-      };
     }, [inputRef, ref]);
 
     // Compose aria-describedby attribute
