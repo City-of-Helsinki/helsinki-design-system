@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
+import classNames from '../../../utils/classNames';
 import styles from './DialogContent.module.scss';
+import { DialogContext } from '../DialogContext';
 
 export type DialogContentProps = React.PropsWithChildren<{
   /**
    * The id of the content element.
    */
   id?: string;
-  /**
-   * When `true` content is scrollable. Use only for long text contents.
-   */
-  scrollable?: true;
 }>;
 
 export const DialogContent = ({ id, children }: DialogContentProps) => {
+  const { scrollable } = useContext(DialogContext);
+
   return (
-    <div id={id} className={styles.dialogContent}>
+    <div id={id} className={classNames(styles.dialogContent, scrollable && styles.dialogContentScrollable)}>
       {children}
     </div>
   );

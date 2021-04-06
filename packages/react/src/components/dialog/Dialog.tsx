@@ -9,6 +9,7 @@ import { useTheme } from '../../hooks/useTheme';
 import { DialogActionButtons } from './dialogActionButtons/DialogActionButtons';
 import { DialogHeader } from './dialogHeader/DialogHeader';
 import { DialogContent } from './dialogContent/DialogContent';
+import { DialogContext, DialogContextProps } from './DialogContext';
 
 export interface DialogCustomTheme {
   '--accent-line-color'?: string;
@@ -149,6 +150,7 @@ export const Dialog = ({
   className,
   ...props
 }: DialogProps) => {
+  const dialogContextProps: DialogContextProps = { scrollable };
   const customThemeClass = useTheme<DialogCustomTheme>(styles.dialogContainer, theme);
   const dialogRef: RefObject<HTMLInputElement> = React.createRef();
 
@@ -190,22 +192,24 @@ export const Dialog = ({
   useDocumentTabBarriers(dialogRef);
 
   const DialogComponent = (): JSX.Element => (
-    <div className={classNames(styles.dialogContainer, customThemeClass)}>
-      <div tabIndex={-1} className={styles.dialogBackdrop} />
-      <div
-        ref={dialogRef}
-        role="dialog"
-        aria-modal="true"
-        id={id}
-        className={classNames(styles.dialog, scrollable && styles.dialogScrollable, className)}
-        aria-labelledby={ariaLabelledby}
-        aria-describedby={ariaDescribedby}
-      >
-        <ContentTabBarrier onFocus={() => focusLastDialogElement(dialogRef.current)} />
-        {children}
-        <ContentTabBarrier onFocus={() => focusFirstDialogElement(dialogRef.current)} />
+    <DialogContext.Provider value={dialogContextProps}>
+      <div className={classNames(styles.dialogContainer, customThemeClass)}>
+        <div tabIndex={-1} className={styles.dialogBackdrop} />
+        <div
+          ref={dialogRef}
+          role="dialog"
+          aria-modal="true"
+          id={id}
+          className={classNames(styles.dialog, scrollable && styles.dialogScrollable, className)}
+          aria-labelledby={ariaLabelledby}
+          aria-describedby={ariaDescribedby}
+        >
+          <ContentTabBarrier onFocus={() => focusLastDialogElement(dialogRef.current)} />
+          {children}
+          <ContentTabBarrier onFocus={() => focusFirstDialogElement(dialogRef.current)} />
+        </div>
       </div>
-    </div>
+    </DialogContext.Provider>
   );
 
   return isOpen ? ReactDOM.createPortal(<DialogComponent />, document.body) : null;

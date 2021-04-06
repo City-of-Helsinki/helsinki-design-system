@@ -56,7 +56,7 @@
 }
 
 .dialogScrollable {
-  max-height: 80%;
+  max-height: calc(100% - 4rem);
   overflow: hidden;
 }
 
