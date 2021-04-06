@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { RefObject, useState } from 'react';
 import { act } from 'react-dom/test-utils';
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -97,13 +97,14 @@ describe('<Dialog /> spec', () => {
   it('should shift focus to external open button after dialog close', async () => {
     const openButtonId = 'open-button-id';
     const openButtonText = 'Open Dialog';
+    const openButtonRef: RefObject<HTMLButtonElement> = React.createRef();
     const OpenButtonAndDialog = () => {
       const [isOpen, setIsOpen] = useState<boolean>(false);
       const close = () => setIsOpen(false);
 
       return (
         <>
-          <button id={openButtonId} type="button" onClick={() => setIsOpen(true)}>
+          <button id={openButtonId} ref={openButtonRef} type="button" onClick={() => setIsOpen(true)}>
             {openButtonText}
           </button>
           <Dialog
@@ -111,7 +112,7 @@ describe('<Dialog /> spec', () => {
             aria-labelledby={dialogProps['aria-labelledby']}
             isOpen={isOpen}
             close={close}
-            focusAfterCloseId={openButtonId}
+            focusAfterCloseElement={openButtonRef.current}
           >
             <Dialog.Header
               id={dialogHeaderProps.id}
