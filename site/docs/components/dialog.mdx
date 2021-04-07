@@ -5,7 +5,7 @@ route: /components/dialog
 ---
 
 import { Playground } from "docz";
-import { StatusLabel, Button, Dialog } from "hds-react";
+import { StatusLabel, Button, Dialog, IconAlertCircle } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
 import LargeParagraph from "../../src/components/LargeParagraph";
@@ -54,11 +54,13 @@ Info dialogs are used to convey important information to the user. Info dialogs 
 
 <Playground>
   {() => {
+    const dialogTargetRef = React.useRef(null);
     const openInfoDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
     return (
       <>
+        <div ref={dialogTargetRef}/>
         <Button ref={openInfoDialogButtonRef} onClick={() => setIsOpen(true)}>
           Open Info Dialog
         </Button>
@@ -70,10 +72,12 @@ Info dialogs are used to convey important information to the user. Info dialogs 
           close={() => setIsOpen(false)}
           closeButtonLabelText="Close info dialog"
           focusAfterCloseElement={openInfoDialogButtonRef.current}
+          targetElement={dialogTargetRef.current}
         >
           <Dialog.Header
             id="info-dialog-title"
             title="Info dialog"
+            iconLeft={<IconAlertCircle aria-hidden="true" />}
           />
           <Dialog.Content>
             <p id="info-dialog-content">Info dialog content</p>
@@ -99,11 +103,13 @@ Confirm dialogs are used when an action is required from the user. Confirm dialo
 
 <Playground>
   {() => {
+    const confirmationDialogTarget = React.useRef(null);
     const openConfirmationDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
     return (
       <>
+        <div ref={confirmationDialogTarget}/>
         <Button ref={openConfirmationDialogButtonRef} onClick={() => setIsOpen(true)}>
           Open Confirmation Dialog
         </Button>
@@ -113,10 +119,12 @@ Confirm dialogs are used when an action is required from the user. Confirm dialo
           aria-describedby="confirmation-dialog-info"
           isOpen={isOpen}
           focusAfterCloseElement={openConfirmationDialogButtonRef.current}
+          targetElement={confirmationDialogTarget.current}
         >
           <Dialog.Header
             id="confirmation-dialog-title"
             title="Confirmation dialog"
+            iconLeft={<IconAlertCircle aria-hidden="true" />}
           />
           <Dialog.Content>
             <p id="confirmation-dialog-info">Are you sure you want to continue?</p>
@@ -146,11 +154,13 @@ Danger dialog is a variant of a confirm dialog. They are used in similar use cas
 
 <Playground>
   {() => {
+    const dangerDialogTargetRef = React.useRef(null);
     const openDeleteDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
     return (
       <>
+        <div ref={dangerDialogTargetRef}/>
         <Button ref={openDeleteDialogButtonRef} onClick={() => setIsOpen(true)}>
           Open Delete Dialog
         </Button>
@@ -160,10 +170,12 @@ Danger dialog is a variant of a confirm dialog. They are used in similar use cas
           aria-describedby="delete-dialog-info"
           isOpen={isOpen}
           focusAfterCloseElement={openDeleteDialogButtonRef.current}
+          targetElement={dangerDialogTargetRef.current}
         >
           <Dialog.Header
             id="delete-dialog-title"
             title="Delete dialog"
+            iconLeft={<IconAlertCircle aria-hidden="true" />}
           />
           <Dialog.Content>
             <p id="delete-dialog-info">Are you sure you want to delete?</p>
@@ -192,11 +204,13 @@ While not recommended, HDS supports scrollable dialogs if there is a large amoun
 
 <Playground>
   {() => {
+    const termsDialogTargetRef = React.useRef(null);
     const openTermsDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
     return (
       <>
+        <div ref={termsDialogTargetRef}/>
         <Button ref={openTermsDialogButtonRef} onClick={() => setIsOpen(true)}>
           Open Terms Dialog
         </Button>
@@ -206,11 +220,13 @@ While not recommended, HDS supports scrollable dialogs if there is a large amoun
           aria-describedby="terms-dialog-info"
           isOpen={isOpen}
           focusAfterCloseElement={openTermsDialogButtonRef.current}
+          targetElement={termsDialogTargetRef.current}
           scrollable
         >
           <Dialog.Header
             id="terms-dialog-title"
             title="Terms dialog"
+            iconLeft={<IconAlertCircle aria-hidden="true" />}
           />
           <Dialog.Content>
             <h3 id="terms-dialog-info">Do you accept the terms?</h3>
