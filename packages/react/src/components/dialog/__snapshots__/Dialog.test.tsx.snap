@@ -24,7 +24,7 @@ exports[`<Dialog /> spec renders the component 1`] = `
       aria-describedby="test-dialog-description-id"
       aria-labelledby="test-dialog-title-id"
       aria-modal="true"
-      class="dialog"
+      class="dialog primary"
       id="test-dialog-id"
       role="dialog"
     >
