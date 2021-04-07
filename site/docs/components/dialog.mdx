@@ -5,7 +5,7 @@ route: /components/dialog
 ---
 
 import { Playground } from "docz";
-import { StatusLabel } from "hds-react";
+import { StatusLabel, Button, Dialog } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
 import LargeParagraph from "../../src/components/LargeParagraph";
@@ -53,7 +53,40 @@ import Text from "../../src/components/Text";
 Info dialogs are used to convey important information to the user. Info dialogs only include one button which the user can use to acknowledge the information.
 
 <Playground>
-
+  {() => {
+    const openInfoDialogButtonRef = React.useRef(null);
+    const [isOpen, setIsOpen] = React.useState(false);
+    const close = () => setIsOpen(false);
+    return (
+      <>
+        <Button ref={openInfoDialogButtonRef} onClick={() => setIsOpen(true)}>
+          Open Info Dialog
+        </Button>
+        <Dialog
+          id="info-dialog"
+          aria-labelledby="info-dialog-title"
+          aria-describedby="info-dialog-content"
+          isOpen={isOpen}
+          close={() => setIsOpen(false)}
+          closeButtonLabelText="Close info dialog"
+          focusAfterCloseElement={openInfoDialogButtonRef.current}
+        >
+          <Dialog.Header
+            id="info-dialog-title"
+            title="Info dialog"
+          />
+          <Dialog.Content>
+            <p id="info-dialog-content">Info dialog content</p>
+          </Dialog.Content>
+          <Dialog.ActionButtons>
+            <Button onClick={close}>
+              Close
+            </Button>
+          </Dialog.ActionButtons>
+        </Dialog>
+      </>
+    )
+  }}
 </Playground>
 
 #### React code example:
@@ -65,8 +98,43 @@ Info dialogs are used to convey important information to the user. Info dialogs 
 Confirm dialogs are used when an action is required from the user. Confirm dialogs always include at least two actions; one primary action (e.g. Confirm) and one secondary action (e.g. Cancel). However, more than two actions are allowed if it is needed.
 
 <Playground>
-
+  {() => {
+    const openConfirmationDialogButtonRef = React.useRef(null);
+    const [isOpen, setIsOpen] = React.useState(false);
+    const close = () => setIsOpen(false);
+    return (
+      <>
+        <Button ref={openConfirmationDialogButtonRef} onClick={() => setIsOpen(true)}>
+          Open Confirmation Dialog
+        </Button>
+        <Dialog
+          id="confirmation-dialog"
+          aria-labelledby="confirmation-dialog-title"
+          aria-describedby="confirmation-dialog-info"
+          isOpen={isOpen}
+          focusAfterCloseElement={openConfirmationDialogButtonRef.current}
+        >
+          <Dialog.Header
+            id="confirmation-dialog-title"
+            title="Confirmation dialog"
+          />
+          <Dialog.Content>
+            <p id="confirmation-dialog-info">Are you sure you want to continue?</p>
+          </Dialog.Content>
+          <Dialog.ActionButtons>
+            <Button onClick={close}>
+              Confirm
+            </Button>
+            <Button onClick={close} variant="secondary">
+              Cancel
+            </Button>
+          </Dialog.ActionButtons>
+        </Dialog>
+      </>
+    )
+  }}
 </Playground>
+
 
 #### React code example:
 ```tsx
@@ -77,7 +145,41 @@ Confirm dialogs are used when an action is required from the user. Confirm dialo
 Danger dialog is a variant of a confirm dialog. They are used in similar use cases but Danger dialogs are meant for situations where the action user is going to choose may be destructive or otherwise irreversible or very critical. Danger dialog emphasizes this by using HDS error status colours. Also, it reverses the action button order so that the destructive action is last in the button list.
 
 <Playground>
-
+  {() => {
+    const openDeleteDialogButtonRef = React.useRef(null);
+    const [isOpen, setIsOpen] = React.useState(false);
+    const close = () => setIsOpen(false);
+    return (
+      <>
+        <Button ref={openDeleteDialogButtonRef} onClick={() => setIsOpen(true)}>
+          Open Delete Dialog
+        </Button>
+        <Dialog
+          id="delete-dialog"
+          aria-labelledby="delete-dialog-title"
+          aria-describedby="delete-dialog-info"
+          isOpen={isOpen}
+          focusAfterCloseElement={openDeleteDialogButtonRef.current}
+        >
+          <Dialog.Header
+            id="delete-dialog-title"
+            title="Delete dialog"
+          />
+          <Dialog.Content>
+            <p id="delete-dialog-info">Are you sure you want to delete?</p>
+          </Dialog.Content>
+          <Dialog.ActionButtons>
+            <Button onClick={close}>
+              Delete
+            </Button>
+            <Button onClick={close} variant="secondary">
+              Cancel
+            </Button>
+          </Dialog.ActionButtons>
+        </Dialog>
+      </>
+    )
+  }}
 </Playground>
 
 #### React code example:
@@ -89,7 +191,97 @@ Danger dialog is a variant of a confirm dialog. They are used in similar use cas
 While not recommended, HDS supports scrollable dialogs if there is a large amount of content (e.g. terms of use). **It is recommended to consider other options than a dialog to present the same data since it can be harder for the user to form a clear understanding of the presented content.**
 
 <Playground>
-
+  {() => {
+    const openTermsDialogButtonRef = React.useRef(null);
+    const [isOpen, setIsOpen] = React.useState(false);
+    const close = () => setIsOpen(false);
+    return (
+      <>
+        <Button ref={openTermsDialogButtonRef} onClick={() => setIsOpen(true)}>
+          Open Terms Dialog
+        </Button>
+        <Dialog
+          id="terms-dialog"
+          aria-labelledby="terms-dialog-title"
+          aria-describedby="terms-dialog-info"
+          isOpen={isOpen}
+          focusAfterCloseElement={openTermsDialogButtonRef.current}
+          scrollable
+        >
+          <Dialog.Header
+            id="terms-dialog-title"
+            title="Terms dialog"
+          />
+          <Dialog.Content>
+            <h3 id="terms-dialog-info">Do you accept the terms?</h3>
+            <p>
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+              aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+              dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+              sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+              magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+              suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+              ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+              nulla pariatur?
+            </p>
+            <p>
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+              aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+              dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+              sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+              magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+              suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+              ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+              nulla pariatur?
+            </p>
+            <p>
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+              aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+              dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+              sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+              magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+              suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+              ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+              nulla pariatur?
+            </p>
+            <p>
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+              aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+              dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+              sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+              magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+              suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+              ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+              nulla pariatur?
+            </p>
+            <p>
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+              aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+              dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+              sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+              magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+              suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+              ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+              nulla pariatur?
+            </p>
+          </Dialog.Content>
+          <Dialog.ActionButtons>
+            <Button onClick={close}>
+              Accept terms
+            </Button>
+            <Button onClick={close} variant="secondary">
+              Cancel
+            </Button>
+          </Dialog.ActionButtons>
+        </Dialog>
+      </>
+    )
+  }}
 </Playground>
 
 #### React code example:
