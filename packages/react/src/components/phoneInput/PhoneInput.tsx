@@ -1,5 +1,4 @@
-import React, { useEffect, useRef } from 'react';
-import isFunction from 'lodash.isfunction';
+import React from 'react';
 
 import 'hds-core';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
@@ -60,23 +59,6 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
       tooltipButtonLabel,
     };
 
-    const inputRef = useRef<HTMLInputElement>(null);
-
-    /**
-     * Merge props.ref to the internal ref. This is needed because we need the ref ourself and cannot rely on
-     * component user to provide it.
-     */
-    useEffect(() => {
-      if (ref) {
-        if (isFunction(ref)) {
-          (ref as (instance: HTMLInputElement) => void)(inputRef.current);
-        } else {
-          // eslint-disable-next-line no-param-reassign
-          (ref as React.MutableRefObject<HTMLInputElement>).current = inputRef.current;
-        }
-      }
-    }, [inputRef, ref]);
-
     // Compose aria-describedby attribute
     const ariaDescribedBy = [customAriaDescribedBy, comboseAriaDescribedBy(id, helperText, errorText, successText)]
       .filter((item) => item)
@@ -90,7 +72,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
           disabled={disabled}
           id={id}
           onChange={onChange}
-          ref={inputRef}
+          ref={ref}
           required={required}
           type={type}
           aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : null}
