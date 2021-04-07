@@ -5,7 +5,7 @@ route: /components/dialog
 ---
 
 import { Playground } from "docz";
-import { StatusLabel, Button, Dialog, IconInfoCircle, IconQuestionCircle, IconAlertCircle } from "hds-react";
+import { StatusLabel, Button, Dialog, TextArea, TextInput, IconInfoCircle, IconQuestionCircle, IconAlertCircle, IconPlusCircle, IconTrash } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
 import LargeParagraph from "../../src/components/LargeParagraph";
@@ -165,6 +165,7 @@ Danger dialog is a variant of a confirm dialog. They are used in similar use cas
           Open Delete dialog
         </Button>
         <Dialog
+          variant="danger"
           id="delete-dialog"
           aria-labelledby="delete-dialog-title"
           aria-describedby="delete-dialog-info"
@@ -181,10 +182,17 @@ Danger dialog is a variant of a confirm dialog. They are used in similar use cas
             <p id="delete-dialog-info">The blog post will be deleted immediately. Deletion is permanent and it cannot be reverted.</p>
           </Dialog.Content>
           <Dialog.ActionButtons>
-            <Button onClick={close} variant="secondary">
+            <Button onClick={close} theme="black" variant="secondary">
               Cancel
             </Button>
-            <Button onClick={close}>
+            <Button
+              variant="danger"
+              iconLeft={<IconTrash aria-hidden="true" />}
+              onClick={() => {
+                // Add confirm operations here
+                close();
+              }}
+            >
               Delete the blog post
             </Button>
           </Dialog.ActionButtons>
@@ -309,7 +317,63 @@ While not recommended, HDS supports scrollable dialogs if there is a large amoun
 HDS Dialog elements can be used to build custom dialogs. Using HDS provided elements ensures the base level accessibility for the components. They also visually match to other HDS components.
 
 <Playground>
-
+  {() => {
+    const dangerDialogTargetRef = React.useRef(null);
+    const openDeleteDialogButtonRef = React.useRef(null);
+    const [isOpen, setIsOpen] = React.useState(false);
+    const close = () => setIsOpen(false);
+    return (
+      <>
+        <div ref={dangerDialogTargetRef}/>
+        <Button ref={openDeleteDialogButtonRef} onClick={() => setIsOpen(true)}>
+          Open Dialog with custom content
+        </Button>
+        <Dialog
+          id="delete-dialog"
+          aria-labelledby="delete-dialog-title"
+          aria-describedby="delete-dialog-info"
+          isOpen={isOpen}
+          focusAfterCloseElement={openDeleteDialogButtonRef.current}
+          targetElement={dangerDialogTargetRef.current}
+        >
+        <Dialog.Header
+          id="custom-dialog-title"
+          title="Add new item"
+        />
+        <Dialog.Content>
+          <p id="custom-dialog-info">Add a new item by filling the information below. All fields are mandatory.</p>
+          <TextInput
+            id="item-name"
+            label="Item name"
+            placeholder="E.g. Item 1"
+            helperText="Item's name must be unique."
+            required
+          />
+          <br />
+          <TextArea
+            id="item-description"
+            label="Item description"
+            placeholder="E.g. Item 1 is the first item of the system."
+            required
+          />
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button
+            onClick={() => {
+              // Add operations here
+              close();
+            }}
+          >
+            Add item
+          </Button>
+          <Button onClick={close} variant="secondary">
+            Cancel
+          </Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+      </>
+    )
+  }}
 </Playground>
 
 #### React code example:
