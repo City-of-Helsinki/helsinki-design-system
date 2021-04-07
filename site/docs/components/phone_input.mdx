@@ -54,7 +54,22 @@ Note! Default value is used here for demonstration purposes. It should not be us
 
 #### Core code example:
 ```html
-
+<div class="hds-text-input">
+  <label for="input" class="hds-text-input__label">
+    Label
+    <span class="hds-text-input__required">*</span>
+  </label>
+  <div class="hds-text-input__input-wrapper">
+    <input
+      id="input1"
+      class="hds-text-input__input"
+      type="tel"
+      autocomplete="tel"
+      value="0451234567"
+    />
+  </div>
+  <span class="hds-text-input__helper-text">Assistive text</span>
+</div>
 ```
 
 #### React code example:
