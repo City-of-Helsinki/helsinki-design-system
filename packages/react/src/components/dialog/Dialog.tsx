@@ -14,7 +14,6 @@ import { DialogContext, DialogContextProps } from './DialogContext';
 export interface DialogCustomTheme {
   '--accent-line-color'?: string;
   '--overlay-color'?: string;
-  '--width'?: string;
 }
 
 type TabBarrierProps = {
@@ -143,6 +142,10 @@ export type DialogProps = React.PropsWithChildren<
      */
     scrollable?: boolean;
     /**
+     * Additional styles
+     */
+    style?: React.CSSProperties;
+    /**
      * Custom theme styles
      */
     theme?: DialogCustomTheme;
@@ -165,6 +168,7 @@ export const Dialog = ({
   closeButtonLabelText,
   focusAfterCloseElement,
   scrollable,
+  style,
   theme,
   className,
   targetElement,
@@ -221,6 +225,7 @@ export const Dialog = ({
           aria-modal="true"
           id={id}
           className={classNames(styles.dialog, scrollable && styles.dialogScrollable, className)}
+          style={style}
           aria-labelledby={ariaLabelledby}
           aria-describedby={ariaDescribedby}
         >
