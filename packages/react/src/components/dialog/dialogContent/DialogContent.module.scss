@@ -2,7 +2,8 @@
 @import '../_dialog.common';
 
 .dialogContent {
-  @extend %dialogComponentSidePaddings;
+  @include dialogComponentSidePaddings;
+  padding-bottom: var(--spacing-2-xs);
   overflow-y: auto;
 }
 
