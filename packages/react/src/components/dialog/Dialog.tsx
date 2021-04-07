@@ -99,6 +99,8 @@ const ContentTabBarrier = ({ onFocus }: { onFocus: () => void }): JSX.Element =>
   return <div {...defaultBarrierProps} onFocus={onFocus} />;
 };
 
+export type DialogVariant = 'primary' | 'danger';
+
 type DialogCloseProps =
   | {
       /**
@@ -142,6 +144,10 @@ export type DialogProps = React.PropsWithChildren<
      */
     scrollable?: boolean;
     /**
+     * Defines the dialog variant
+     */
+    variant?: DialogVariant;
+    /**
      * Additional styles
      */
     style?: React.CSSProperties;
@@ -168,6 +174,7 @@ export const Dialog = ({
   closeButtonLabelText,
   focusAfterCloseElement,
   scrollable,
+  variant = 'primary',
   style,
   theme,
   className,
@@ -224,7 +231,7 @@ export const Dialog = ({
           role="dialog"
           aria-modal="true"
           id={id}
-          className={classNames(styles.dialog, scrollable && styles.dialogScrollable, className)}
+          className={classNames(styles.dialog, scrollable && styles.dialogScrollable, styles[variant], className)}
           style={style}
           aria-labelledby={ariaLabelledby}
           aria-describedby={ariaDescribedby}

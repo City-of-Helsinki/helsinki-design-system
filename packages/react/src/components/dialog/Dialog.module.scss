@@ -30,6 +30,10 @@
     border-top: 10px solid var(--accent-line-color);
     width: 558px;
   }
+
+  .dialog.danger {
+    border-top-color: var(--color-error);
+  }
 }
 
 .dialogBackdrop {
