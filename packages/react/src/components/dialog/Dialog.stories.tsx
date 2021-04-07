@@ -4,7 +4,7 @@ import { Button } from '../button/Button';
 import { TextArea } from '../textarea/TextArea';
 import { TextInput } from '../textInput/TextInput';
 import { Dialog } from './Dialog';
-import { IconAlertCircle, IconPlusCircle } from '../../icons';
+import { IconAlertCircle, IconPlusCircle, IconTrash } from '../../icons';
 
 export default {
   component: Dialog,
@@ -132,6 +132,62 @@ Confirmation.args = {
   id: 'confirmation-dialog',
   'aria-labelledby': 'confirmation-dialog-title',
   'aria-describedby': 'confirmation-dialog-description',
+};
+
+export const Danger = (args) => {
+  const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
+  const openDangerButtonRef = useRef(null);
+  const [open, setOpen] = useState<boolean>(true);
+  const close = () => setOpen(false);
+
+  return (
+    <>
+      <Button variant="danger" ref={openDangerButtonRef} onClick={() => setOpen(true)}>
+        Open Danger Dialog
+      </Button>
+      <Dialog
+        variant="danger"
+        id={args.id}
+        aria-labelledby={args['aria-labelledby']}
+        aria-describedby={args['aria-describedby']}
+        isOpen={open}
+        focusAfterCloseElement={openDangerButtonRef.current}
+        targetElement={dialogTargetElement}
+      >
+        <Dialog.Header
+          id={args['aria-labelledby']}
+          title="Delete item"
+          iconLeft={<IconAlertCircle aria-hidden="true" />}
+        />
+        <Dialog.Content>
+          <p id={args['aria-describedby']}>Are you sure you want to delete the item?</p>
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button theme="black" variant="secondary" onClick={close}>
+            Cancel
+          </Button>
+          <Button
+            variant="danger"
+            iconLeft={<IconTrash aria-hidden="true" />}
+            onClick={() => {
+              // Add confirm operations here
+              close();
+            }}
+          >
+            Delete
+          </Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  );
+};
+
+Danger.storyName = 'Danger';
+
+Danger.args = {
+  id: 'danger-dialog',
+  'aria-labelledby': 'danger-dialog-title',
+  'aria-describedby': 'danger-dialog-description',
 };
 
 export const ScrollableConfirmation = (args) => {
