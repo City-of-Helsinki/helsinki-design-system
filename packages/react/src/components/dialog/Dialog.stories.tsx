@@ -11,6 +11,7 @@ export default {
   title: 'Components/Dialog',
   parameters: {
     controls: { expanded: true },
+    loki: { skip: true },
   },
   args: {
     id: 'example-dialog',
