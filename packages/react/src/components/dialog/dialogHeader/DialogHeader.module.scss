@@ -2,16 +2,19 @@
 @import '../_dialog.common';
 
 .dialogHeader {
-  @extend %dialogComponentSidePaddings;
+  @include dialogComponentSidePaddings;
   align-items: flex-start;
   display: flex;
+  padding-top: var(--spacing-m);
+  padding-bottom: var(--spacing-s);
+
 }
 
 .dialogTitle {
   align-items: flex-start;
   display: flex;
   font-size: var(--fontsize-heading-s);
-  margin: var(--spacing-s) 0;
+  margin: 0;
   order: 0;
   padding-right: var(--spacing-s);
 
@@ -30,7 +33,7 @@
   font-size: 0;
   line-height: 1;
   margin-left: auto;
-  margin-top: var(--spacing-2-xs);
+  margin-top: calc(-1 * var(--spacing-2-xs));
   min-width: 44px;
   order: 1;
   padding: 0;
