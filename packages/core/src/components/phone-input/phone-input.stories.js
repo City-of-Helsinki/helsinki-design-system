@@ -23,5 +23,5 @@ export const Default = () => `
        />
      </div>
      <span class="hds-text-input__helper-text">Assistive text</span>
-    </div>
+   </div>
 `;
