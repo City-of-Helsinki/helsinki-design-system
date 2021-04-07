@@ -209,12 +209,10 @@ export const Dialog = ({
     }
 
     return (): void => {
-      if (isOpen) {
-        document.removeEventListener('keydown', onKeyDown, false);
-        document.body.classList.remove(styles.dialogVisibleBody);
-        if (focusAfterCloseElement) {
-          setFocusAfterClose();
-        }
+      document.removeEventListener('keydown', onKeyDown, false);
+      document.body.classList.remove(styles.dialogVisibleBody);
+      if (focusAfterCloseElement) {
+        setFocusAfterClose();
       }
     };
   });
