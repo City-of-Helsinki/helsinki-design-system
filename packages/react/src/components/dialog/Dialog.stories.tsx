@@ -46,12 +46,14 @@ export const Default = (args) => {
           iconLeft={<IconPlusCircle aria-hidden="true" />}
         />
         <Dialog.Content>
-          <p id={args['aria-describedby']}>Add new item form. All fields are mandatory.</p>
+          <p id={args['aria-describedby']}>
+            Add a new item by filling the information below. All fields are mandatory.
+          </p>
           <TextInput
             id="item-name"
             label="Item name"
             placeholder="E.g. Item 1"
-            helperText="Item's name is a mandatory field."
+            helperText="Item's name must be unique."
             required
           />
           <br />
@@ -59,7 +61,6 @@ export const Default = (args) => {
             id="item-description"
             label="Item description"
             placeholder="E.g. Item 1 is the first item of the system."
-            helperText="Item's description is a mandatory field."
             required
           />
         </Dialog.Content>
