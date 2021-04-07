@@ -107,13 +107,13 @@ type DialogCloseProps =
        */
       close: () => void;
       /**
-       * A close button label for screen readers. Required with close property.
+       * The aria-label for the close button. Required with close property.
        */
-      closeButtonAriaLabel: string;
+      closeButtonLabelText: string;
     }
   | {
       close?: undefined;
-      closeButtonAriaLabel?: undefined;
+      closeButtonLabelText?: undefined;
     };
 
 export type DialogProps = React.PropsWithChildren<
@@ -162,7 +162,7 @@ export const Dialog = ({
   isOpen,
   children,
   close,
-  closeButtonAriaLabel,
+  closeButtonLabelText,
   focusAfterCloseElement,
   scrollable,
   theme,
@@ -170,7 +170,7 @@ export const Dialog = ({
   targetElement,
   ...props
 }: DialogProps) => {
-  const dialogContextProps: DialogContextProps = { scrollable, close, closeButtonAriaLabel };
+  const dialogContextProps: DialogContextProps = { scrollable, close, closeButtonLabelText };
   const customThemeClass = useTheme<DialogCustomTheme>(styles.dialogContainer, theme);
   const dialogRef: RefObject<HTMLInputElement> = React.createRef();
 

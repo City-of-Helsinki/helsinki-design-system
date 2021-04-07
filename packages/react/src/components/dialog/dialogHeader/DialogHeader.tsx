@@ -20,7 +20,7 @@ export type DialogHeaderProps = {
 };
 
 export const DialogHeader = ({ id, title, iconLeft }: DialogHeaderProps) => {
-  const { close, closeButtonAriaLabel } = useContext(DialogContext);
+  const { close, closeButtonLabelText } = useContext(DialogContext);
   const titleRef: RefObject<HTMLHeadingElement> = React.createRef();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export const DialogHeader = ({ id, title, iconLeft }: DialogHeaderProps) => {
         <button
           className={styles.dialogHeaderClose}
           type="button"
-          aria-label={closeButtonAriaLabel || 'Close'}
+          aria-label={closeButtonLabelText || 'Close'}
           onClick={() => close()}
         >
           <IconCross aria-hidden="true" />
