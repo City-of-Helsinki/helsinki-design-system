@@ -12,7 +12,7 @@ const descriptionId = 'test-dialog-description-id';
 const descriptionText = 'This is a test dialog content';
 const contentButtonText = 'Button inside Dialog';
 const closeFn = () => false;
-const closeButtonAriaLabel = 'Close';
+const closeButtonLabelText = 'Close';
 
 const dialogHeaderProps: DialogHeaderProps = {
   id: 'test-dialog-title-id',
@@ -34,7 +34,7 @@ const renderOpenDialog = () =>
       aria-describedby={dialogProps['aria-describedby']}
       isOpen
       close={closeFn}
-      closeButtonAriaLabel={closeButtonAriaLabel}
+      closeButtonLabelText={closeButtonLabelText}
     >
       <Dialog.Header
         id={dialogHeaderProps.id}
@@ -72,7 +72,7 @@ describe('<Dialog /> spec', () => {
     userEvent.tab();
     expect(screen.getByText(contentButtonText)).toHaveFocus();
     userEvent.tab();
-    expect(screen.getByLabelText(closeButtonAriaLabel)).toHaveFocus();
+    expect(screen.getByLabelText(closeButtonLabelText)).toHaveFocus();
     userEvent.tab();
     expect(screen.getByText(contentButtonText)).toHaveFocus();
   });
@@ -81,7 +81,7 @@ describe('<Dialog /> spec', () => {
     renderOpenDialog();
     expect(screen.getByText(dialogHeaderProps.title)).toHaveFocus();
     userEvent.tab({ shift: true });
-    expect(screen.getByLabelText(closeButtonAriaLabel)).toHaveFocus();
+    expect(screen.getByLabelText(closeButtonLabelText)).toHaveFocus();
   });
 
   it('should return focus into dialog with tab after outside click', async () => {
@@ -90,7 +90,7 @@ describe('<Dialog /> spec', () => {
     userEvent.click(document.body);
     expect(screen.getByText(dialogHeaderProps.title)).not.toHaveFocus();
     userEvent.tab();
-    expect(screen.getByLabelText(closeButtonAriaLabel)).toHaveFocus();
+    expect(screen.getByLabelText(closeButtonLabelText)).toHaveFocus();
   });
 
   it('should shift focus to external open button after dialog close', async () => {
@@ -111,7 +111,7 @@ describe('<Dialog /> spec', () => {
             aria-labelledby={dialogProps['aria-labelledby']}
             isOpen={isOpen}
             close={close}
-            closeButtonAriaLabel="Close"
+            closeButtonLabelText="Close"
             focusAfterCloseElement={openButtonRef.current}
           >
             <Dialog.Header id={dialogHeaderProps.id} title={dialogHeaderProps.title} />
@@ -130,7 +130,7 @@ describe('<Dialog /> spec', () => {
     });
     expect(screen.queryByRole('dialog')).toBeInTheDocument();
     act(() => {
-      userEvent.click(screen.getByLabelText(closeButtonAriaLabel));
+      userEvent.click(screen.getByLabelText(closeButtonLabelText));
     });
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     expect(screen.getByText(openButtonText)).toHaveFocus();
@@ -145,7 +145,7 @@ describe('<Dialog /> spec', () => {
           aria-labelledby={dialogProps['aria-labelledby']}
           isOpen={isOpen}
           close={() => setIsOpen(false)}
-          closeButtonAriaLabel="Close"
+          closeButtonLabelText="Close"
         >
           <Dialog.Header id={dialogHeaderProps.id} title={dialogHeaderProps.title} />
           <Dialog.Content>

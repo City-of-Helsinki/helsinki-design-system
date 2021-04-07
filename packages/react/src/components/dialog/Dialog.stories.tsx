@@ -38,7 +38,7 @@ export const Default = (args) => {
         focusAfterCloseElement={openButtonRef.current}
         targetElement={dialogTargetElement}
         close={close}
-        closeButtonAriaLabel="Close"
+        closeButtonLabelText="Close"
       >
         <Dialog.Header
           id={args['aria-labelledby']}
