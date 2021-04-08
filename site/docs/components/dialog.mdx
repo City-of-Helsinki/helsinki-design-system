@@ -55,7 +55,7 @@ Info dialogs are used to convey important information to the user. Info dialogs 
 
 <Playground>
   {() => {
-    const dialogTargetRef = React.useRef(null);
+    const dialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles.
     const openInfoDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
@@ -81,7 +81,8 @@ Info dialogs are used to convey important information to the user. Info dialogs 
             iconLeft={<IconInfoCircle aria-hidden="true" />}
           />
           <Dialog.Content>
-            <p id="info-dialog-content">Please note that the terms of this service have changed. You can review the changes in the user settings.</p>
+            <p id="info-dialog-content" className="text-body">
+              Please note that the terms of this service have changed. You can review the changes in the user settings.</p>
           </Dialog.Content>
           <Dialog.ActionButtons>
             <Button onClick={close}>
@@ -97,13 +98,11 @@ Info dialogs are used to convey important information to the user. Info dialogs 
 #### React code example:
 ```tsx
 {() => {
-    const dialogTargetRef = React.useRef(null);
     const openInfoDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
     return (
       <>
-        <div ref={dialogTargetRef}/>
         <Button ref={openInfoDialogButtonRef} onClick={() => setIsOpen(true)}>
           Open Info dialog
         </Button>
@@ -115,7 +114,6 @@ Info dialogs are used to convey important information to the user. Info dialogs 
           close={() => setIsOpen(false)}
           closeButtonLabelText="Close info dialog"
           focusAfterCloseElement={openInfoDialogButtonRef.current}
-          targetElement={dialogTargetRef.current}
         >
           <Dialog.Header
             id="info-dialog-title"
@@ -123,7 +121,9 @@ Info dialogs are used to convey important information to the user. Info dialogs 
             iconLeft={<IconInfoCircle aria-hidden="true" />}
           />
           <Dialog.Content>
-            <p id="info-dialog-content">Please note that the terms of this service have changed. You can review the changes in the user settings.</p>
+            <p id="info-dialog-content" className="text-body">
+              Please note that the terms of this service have changed. You can review the changes in the user settings.
+            </p>
           </Dialog.Content>
           <Dialog.ActionButtons>
             <Button onClick={close}>
@@ -141,7 +141,7 @@ Confirm dialogs are used when an action is required from the user. Confirm dialo
 
 <Playground>
   {() => {
-    const confirmationDialogTarget = React.useRef(null);
+    const confirmationDialogTarget = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles.
     const openConfirmationDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
@@ -165,7 +165,9 @@ Confirm dialogs are used when an action is required from the user. Confirm dialo
             iconLeft={<IconQuestionCircle aria-hidden="true" />}
           />
           <Dialog.Content>
-            <p id="confirmation-dialog-info">You have not filled all form fields. Do you still want to continue? You can later return to edit this form. Saved forms can be accessed in your personal profile. </p>
+            <p id="confirmation-dialog-info" className="text-body">
+              You have not filled all form fields. Do you still want to continue? You can later return to edit this form. Saved forms can be accessed in your personal profile.
+            </p>
           </Dialog.Content>
           <Dialog.ActionButtons>
             <Button onClick={close}>
@@ -185,13 +187,11 @@ Confirm dialogs are used when an action is required from the user. Confirm dialo
 #### React code example:
 ```tsx
   {() => {
-    const confirmationDialogTarget = React.useRef(null);
     const openConfirmationDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
     return (
       <>
-        <div ref={confirmationDialogTarget}/>
         <Button ref={openConfirmationDialogButtonRef} onClick={() => setIsOpen(true)}>
           Open Confirmation dialog
         </Button>
@@ -201,7 +201,6 @@ Confirm dialogs are used when an action is required from the user. Confirm dialo
           aria-describedby="confirmation-dialog-info"
           isOpen={isOpen}
           focusAfterCloseElement={openConfirmationDialogButtonRef.current}
-          targetElement={confirmationDialogTarget.current}
         >
           <Dialog.Header
             id="confirmation-dialog-title"
@@ -209,7 +208,9 @@ Confirm dialogs are used when an action is required from the user. Confirm dialo
             iconLeft={<IconQuestionCircle aria-hidden="true" />}
           />
           <Dialog.Content>
-            <p id="confirmation-dialog-info">You have not filled all form fields. Do you still want to continue? You can later return to edit this form. Saved forms can be accessed in your personal profile. </p>
+            <p id="confirmation-dialog-info" className="text-body">
+              You have not filled all form fields. Do you still want to continue? You can later return to edit this form. Saved forms can be accessed in your personal profile.
+            </p>
           </Dialog.Content>
           <Dialog.ActionButtons>
             <Button onClick={close}>
@@ -230,7 +231,7 @@ Danger dialog is a variant of a confirm dialog. They are used in similar use cas
 
 <Playground>
   {() => {
-    const dangerDialogTargetRef = React.useRef(null);
+    const dangerDialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles.
     const openDeleteDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
@@ -255,7 +256,9 @@ Danger dialog is a variant of a confirm dialog. They are used in similar use cas
             iconLeft={<IconAlertCircle aria-hidden="true" />}
           />
           <Dialog.Content>
-            <p id="delete-dialog-info">The blog post will be deleted immediately. Deletion is permanent and it cannot be reverted.</p>
+            <p id="delete-dialog-info" className="text-body">
+              The blog post will be deleted immediately. Deletion is permanent and it cannot be reverted.
+            </p>
           </Dialog.Content>
           <Dialog.ActionButtons>
             <Button onClick={close} theme="black" variant="secondary">
@@ -281,13 +284,11 @@ Danger dialog is a variant of a confirm dialog. They are used in similar use cas
 #### React code example:
 ```tsx
 {() => {
-    const dangerDialogTargetRef = React.useRef(null);
     const openDeleteDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
     return (
       <>
-        <div ref={dangerDialogTargetRef}/>
         <Button ref={openDeleteDialogButtonRef} onClick={() => setIsOpen(true)}>
           Open Delete dialog
         </Button>
@@ -298,7 +299,6 @@ Danger dialog is a variant of a confirm dialog. They are used in similar use cas
           aria-describedby="delete-dialog-info"
           isOpen={isOpen}
           focusAfterCloseElement={openDeleteDialogButtonRef.current}
-          targetElement={dangerDialogTargetRef.current}
         >
           <Dialog.Header
             id="delete-dialog-title"
@@ -306,7 +306,9 @@ Danger dialog is a variant of a confirm dialog. They are used in similar use cas
             iconLeft={<IconAlertCircle aria-hidden="true" />}
           />
           <Dialog.Content>
-            <p id="delete-dialog-info">The blog post will be deleted immediately. Deletion is permanent and it cannot be reverted.</p>
+            <p id="delete-dialog-info" className="text-body">
+              The blog post will be deleted immediately. Deletion is permanent and it cannot be reverted.
+            </p>
           </Dialog.Content>
           <Dialog.ActionButtons>
             <Button onClick={close} theme="black" variant="secondary">
@@ -334,7 +336,7 @@ While not recommended, HDS supports scrollable dialogs if there is a large amoun
 
 <Playground>
   {() => {
-    const termsDialogTargetRef = React.useRef(null);
+    const termsDialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles.
     const openTermsDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
@@ -360,7 +362,7 @@ While not recommended, HDS supports scrollable dialogs if there is a large amoun
           />
           <Dialog.Content>
             <h3 id="terms-dialog-info">Terms of service</h3>
-            <p>
+            <p className="text-body">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
               aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
               Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
@@ -371,7 +373,7 @@ While not recommended, HDS supports scrollable dialogs if there is a large amoun
               ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
               nulla pariatur?
             </p>
-            <p>
+            <p className="text-body">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
               aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
               Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
@@ -382,7 +384,7 @@ While not recommended, HDS supports scrollable dialogs if there is a large amoun
               ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
               nulla pariatur?
             </p>
-            <p>
+            <p className="text-body">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
               aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
               Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
@@ -393,7 +395,7 @@ While not recommended, HDS supports scrollable dialogs if there is a large amoun
               ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
               nulla pariatur?
             </p>
-            <p>
+            <p className="text-body">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
               aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
               Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
@@ -404,7 +406,7 @@ While not recommended, HDS supports scrollable dialogs if there is a large amoun
               ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
               nulla pariatur?
             </p>
-            <p>
+            <p className="text-body">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
               aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
               Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
@@ -433,13 +435,11 @@ While not recommended, HDS supports scrollable dialogs if there is a large amoun
 #### React code example:
 ```tsx
 {() => {
-    const termsDialogTargetRef = React.useRef(null);
     const openTermsDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
     return (
       <>
-        <div ref={termsDialogTargetRef}/>
         <Button ref={openTermsDialogButtonRef} onClick={() => setIsOpen(true)}>
           Open Terms dialog
         </Button>
@@ -449,7 +449,6 @@ While not recommended, HDS supports scrollable dialogs if there is a large amoun
           aria-describedby="terms-dialog-info"
           isOpen={isOpen}
           focusAfterCloseElement={openTermsDialogButtonRef.current}
-          targetElement={termsDialogTargetRef.current}
           scrollable
         >
           <Dialog.Header
@@ -459,7 +458,7 @@ While not recommended, HDS supports scrollable dialogs if there is a large amoun
           />
           <Dialog.Content>
             <h3 id="terms-dialog-info">Terms of service</h3>
-            <p>
+            <p className="text-body">
               ...
             </p>
           </Dialog.Content>
@@ -505,7 +504,9 @@ HDS Dialog elements can be used to build custom dialogs. Using HDS provided elem
           title="Add new item"
         />
         <Dialog.Content>
-          <p id="custom-dialog-info">Add a new item by filling the information below. All fields are mandatory.</p>
+          <p id="custom-dialog-info" className="text-body">
+            Add a new item by filling the information below. All fields are mandatory.
+          </p>
           <TextInput
             id="item-name"
             label="Item name"
@@ -566,7 +567,9 @@ HDS Dialog elements can be used to build custom dialogs. Using HDS provided elem
           title="Add new item"
         />
         <Dialog.Content>
-          <p id="custom-dialog-info">Add a new item by filling the information below. All fields are mandatory.</p>
+          <p id="custom-dialog-info" className="text-body">
+            Add a new item by filling the information below. All fields are mandatory.
+          </p>
           <TextInput
             id="item-name"
             label="Item name"
