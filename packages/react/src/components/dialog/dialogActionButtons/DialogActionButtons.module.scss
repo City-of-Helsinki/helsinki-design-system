@@ -5,7 +5,7 @@
 .dialogActionButtons {
   @include dialogComponentSidePaddings;
   padding-bottom: var(--spacing-m);
-  padding-top: var(--spacing-m);
+  padding-top: var(--spacing-s);
 
   > * {
     width: 100%;

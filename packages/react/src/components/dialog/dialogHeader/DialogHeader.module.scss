@@ -1,13 +1,13 @@
 @import '../../../styles/common';
 @import '../_dialog.common';
+@value medium-up from "../../../styles/breakpoints.css";
 
 .dialogHeader {
   @include dialogComponentSidePaddings;
   align-items: flex-start;
   display: flex;
   padding-top: var(--spacing-m);
-  padding-bottom: var(--spacing-s);
-
+  padding-bottom: var(--spacing-3-xs);
 }
 
 .dialogTitle {
@@ -38,4 +38,10 @@
   order: 1;
   padding: 0;
   vertical-align: middle;
+}
+
+@media medium-up {
+  .dialogHeader {
+    padding-bottom: var(--spacing-2-xs);
+  }
 }
