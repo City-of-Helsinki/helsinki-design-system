@@ -209,10 +209,13 @@ export const Dialog = ({
     }
 
     return (): void => {
-      document.removeEventListener('keydown', onKeyDown, false);
-      document.body.classList.remove(styles.dialogVisibleBody);
-      if (focusAfterCloseElement) {
-        setFocusAfterClose();
+      if (isOpen) {
+        // Ensure that clean-up is run only when dialog will be closed
+        document.removeEventListener('keydown', onKeyDown, false);
+        document.body.classList.remove(styles.dialogVisibleBody);
+        if (focusAfterCloseElement) {
+          setFocusAfterClose();
+        }
       }
     };
   });
