@@ -187,38 +187,28 @@ export const Dialog = ({
 
   const { 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby } = props;
 
-  const setFocusAfterClose = useCallback((): void => {
-    if (focusAfterCloseElement) {
-      focusAfterCloseElement.focus();
-    } else {
-      // eslint-disable-next-line no-console
-      console.warn('The "focusAfterCloseElement" property did not match any element.');
-    }
-  }, [focusAfterCloseElement]);
-
-  const onKeyDown = (event: KeyboardEvent): void => {
-    if (close && event.key === 'Escape') {
-      close();
-    }
-  };
+  const onKeyDown = useCallback(
+    (event: KeyboardEvent): void => {
+      if (close && event.key === 'Escape') {
+        close();
+      }
+    },
+    [close],
+  );
 
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add(styles.dialogVisibleBody);
       document.addEventListener('keydown', onKeyDown, false);
     }
-
     return (): void => {
-      if (isOpen) {
-        // Ensure that clean-up is run only when dialog will be closed
-        document.removeEventListener('keydown', onKeyDown, false);
-        document.body.classList.remove(styles.dialogVisibleBody);
-        if (focusAfterCloseElement) {
-          setFocusAfterClose();
-        }
+      document.removeEventListener('keydown', onKeyDown, false);
+      document.body.classList.remove(styles.dialogVisibleBody);
+      if (isOpen && focusAfterCloseElement) {
+        focusAfterCloseElement.focus();
       }
     };
-  });
+  }, [focusAfterCloseElement, isOpen, onKeyDown]);
 
   useDocumentTabBarriers(dialogRef);
 
