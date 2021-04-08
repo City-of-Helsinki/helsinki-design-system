@@ -31,6 +31,7 @@ import Text from "../../src/components/Text";
 - If your dialog contains form elements, follow [HDS form](/patterns/forms) and [form validation patterns](/patterns/form-validation) similarly as you would in a regular forms.
 - As dialogs always contain buttons, pay close attention that the button labels describe the action it is going to trigger. You can read more information about this in the [HDS Button documentation page](/components/button).
     - Following the same guidelines as the HDS Form pattern, dialog action buttons are placed at the left side of the dialog and the primary action will be the first one from the left.
+    - If some of the actions are destructive or irreversible, the button order should be reversed so so that the destructive actions are last in the button list. See [Danger dialog example](#danger-dialogo) for more information.
 - Opening a dialog should be always triggered by the user. Do not open dialogs without user action.
     - Also make sure that the dialog is related to the current context.
 
