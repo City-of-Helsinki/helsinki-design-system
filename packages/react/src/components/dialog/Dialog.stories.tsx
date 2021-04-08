@@ -47,7 +47,7 @@ export const Default = (args) => {
           iconLeft={<IconPlusCircle aria-hidden="true" />}
         />
         <Dialog.Content>
-          <p id={args['aria-describedby']}>
+          <p id={args['aria-describedby']} className="text-body">
             Add a new item by filling the information below. All fields are mandatory.
           </p>
           <TextInput
@@ -108,7 +108,9 @@ export const Confirmation = (args) => {
           iconLeft={<IconAlertCircle aria-hidden="true" />}
         />
         <Dialog.Content>
-          <p id={args['aria-describedby']}>Are you sure you want to continue?</p>
+          <p id={args['aria-describedby']} className="text-body">
+            Are you sure you want to continue?
+          </p>
         </Dialog.Content>
         <Dialog.ActionButtons>
           <Button
@@ -162,7 +164,9 @@ export const Danger = (args) => {
           iconLeft={<IconAlertCircle aria-hidden="true" />}
         />
         <Dialog.Content>
-          <p id={args['aria-describedby']}>Are you sure you want to delete the item?</p>
+          <p id={args['aria-describedby']} className="text-body">
+            Are you sure you want to delete the item?
+          </p>
         </Dialog.Content>
         <Dialog.ActionButtons>
           <Button theme="black" variant="secondary" onClick={close}>
@@ -220,7 +224,7 @@ export const ScrollableConfirmation = (args) => {
         />
         <Dialog.Content>
           <h3 id={args['aria-describedby']}>Are you sure you want to continue?</h3>
-          <p>
+          <p className="text-body">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
             aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
             Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
@@ -232,7 +236,7 @@ export const ScrollableConfirmation = (args) => {
             nulla pariatur?
           </p>
 
-          <p>
+          <p className="text-body">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
             aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
             Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
@@ -244,7 +248,7 @@ export const ScrollableConfirmation = (args) => {
             nulla pariatur?
           </p>
 
-          <p>
+          <p className="text-body">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
             aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
             Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
@@ -256,7 +260,7 @@ export const ScrollableConfirmation = (args) => {
             nulla pariatur?
           </p>
 
-          <p>
+          <p className="text-body">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
             aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
             Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
