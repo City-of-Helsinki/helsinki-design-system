@@ -13,7 +13,6 @@ type InputWrapperProps = {
   id: string;
   invalid?: boolean;
   label?: string | React.ReactNode;
-  labelText?: string;
   required?: boolean;
   style?: React.CSSProperties;
   successText?: string;
@@ -31,7 +30,6 @@ export const InputWrapper = ({
   id,
   invalid = false,
   label,
-  labelText,
   required = false,
   style,
   successText,
@@ -43,11 +41,11 @@ export const InputWrapper = ({
     className={classNames(styles.root, invalid && styles.invalid, successText && styles.success, className)}
     style={style}
   >
-    {(label || labelText) && (
+    {label && (
       <FieldLabel
         inputId={id}
         hidden={hideLabel}
-        label={label || labelText}
+        label={label}
         required={required}
         tooltipLabel={tooltipLabel}
         tooltipButtonLabel={tooltipButtonLabel}
