@@ -1,4 +1,4 @@
-import React, { useEffect, RefObject, useRef, useCallback } from 'react';
+import React, { useEffect, RefObject, useRef, useCallback, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 // import core base styles
@@ -182,6 +182,7 @@ export const Dialog = ({
   ...props
 }: DialogProps) => {
   const dialogContextProps: DialogContextProps = { scrollable, close, closeButtonLabelText };
+  const [isReadyToShowDialog, setIsReadyToShowDialog] = useState<boolean>(false);
   const customThemeClass = useTheme<DialogCustomTheme>(styles.dialogContainer, theme);
   const dialogRef: RefObject<HTMLInputElement> = React.createRef();
 
@@ -198,12 +199,16 @@ export const Dialog = ({
 
   useEffect(() => {
     if (isOpen) {
-      document.body.classList.add(styles.dialogVisibleBody);
+      if (document.body.scrollHeight > document.documentElement.clientHeight) {
+        document.body.classList.add(styles.dialogVisibleBodyWithHiddenScrollbars);
+      }
       document.addEventListener('keydown', onKeyDown, false);
+      setIsReadyToShowDialog(true);
     }
     return (): void => {
+      setIsReadyToShowDialog(false);
       document.removeEventListener('keydown', onKeyDown, false);
-      document.body.classList.remove(styles.dialogVisibleBody);
+      document.body.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
       if (isOpen && focusAfterCloseElement) {
         focusAfterCloseElement.focus();
       }
@@ -222,7 +227,13 @@ export const Dialog = ({
           role="dialog"
           aria-modal="true"
           id={id}
-          className={classNames(styles.dialog, scrollable && styles.dialogScrollable, styles[variant], className)}
+          className={classNames(
+            styles.dialog,
+            isReadyToShowDialog && styles.dialogVisible,
+            scrollable && styles.dialogScrollable,
+            styles[variant],
+            className,
+          )}
           style={style}
           aria-labelledby={ariaLabelledby}
           aria-describedby={ariaDescribedby}

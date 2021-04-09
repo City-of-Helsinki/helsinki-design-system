@@ -2,10 +2,10 @@
 
 @value medium-up from "../../styles/breakpoints.css";
 
-//for document body element
-.dialogVisibleBody {
+.dialogVisibleBodyWithHiddenScrollbars {
   height: 100vh !important;
   overflow-y: hidden !important;
+  padding-right: 15px !important;
 }
 
 .dialogContainer {
@@ -56,6 +56,11 @@
   max-width: 100%;
   position: relative;
   z-index: 900;
+  visibility: hidden;
+}
+
+.dialogVisible {
+  visibility: visible !important;
 }
 
 .dialogScrollable {
