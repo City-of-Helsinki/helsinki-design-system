@@ -27,11 +27,6 @@ export type RadioButtonProps = React.ComponentPropsWithoutRef<'input'> & {
    */
   label?: string | React.ReactNode;
   /**
-   * **[DEPRECATED]** This prop will be removed in a future version. Use the `label` prop instead
-   * @deprecated
-   */
-  labelText?: string;
-  /**
    * Callback fired when the state is changed
    */
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
@@ -53,7 +48,6 @@ export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
       disabled = false,
       id,
       label,
-      labelText,
       onChange = () => null,
       style,
       value,
@@ -82,7 +76,7 @@ export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
           {...rest}
         />
         <label htmlFor={id} className={classNames(styles.label)}>
-          {label || labelText}
+          {label}
         </label>
       </div>
     );
