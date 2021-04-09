@@ -49,10 +49,6 @@ export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
    */
   label?: string | React.ReactNode;
   /**
-   * **[DEPRECATED]** This prop will be removed in a future version. Use the `label` prop instead
-   */
-  labelText?: string;
-  /**
    * Callback fired when the state is changed
    */
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
@@ -127,7 +123,6 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       invalid,
       id,
       label,
-      labelText,
       onChange = () => null,
       required,
       style,
@@ -151,7 +146,6 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       id,
       invalid,
       label,
-      labelText,
       required,
       style,
       successText,
