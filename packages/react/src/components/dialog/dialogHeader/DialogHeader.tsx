@@ -31,24 +31,26 @@ export const DialogHeader = ({ id, title, iconLeft }: DialogHeaderProps) => {
 
   return (
     <div className={styles.dialogHeader}>
-      {close && (
-        <button
-          className={styles.dialogHeaderClose}
-          type="button"
-          aria-label={closeButtonLabelText || 'Close'}
-          onClick={() => close()}
-        >
-          <IconCross aria-hidden="true" />
-        </button>
-      )}
-      <h2 id={id} tabIndex={-1} className={styles.dialogTitle} ref={titleRef}>
-        {iconLeft && (
-          <span className={styles.dialogTitleLeftIcon} aria-hidden="true">
-            {iconLeft}
-          </span>
+      <div className={styles.dialogHeaderContent}>
+        {close && (
+          <button
+            className={styles.dialogHeaderClose}
+            type="button"
+            aria-label={closeButtonLabelText || 'Close'}
+            onClick={() => close()}
+          >
+            <IconCross aria-hidden="true" />
+          </button>
         )}
-        {title}
-      </h2>
+        <h2 id={id} tabIndex={-1} className={styles.dialogTitle} ref={titleRef}>
+          {iconLeft && (
+            <span className={styles.dialogTitleLeftIcon} aria-hidden="true">
+              {iconLeft}
+            </span>
+          )}
+          {title}
+        </h2>
+      </div>
     </div>
   );
 };

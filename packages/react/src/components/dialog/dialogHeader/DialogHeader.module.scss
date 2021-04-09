@@ -4,10 +4,14 @@
 
 .dialogHeader {
   @include dialogComponentSidePaddings;
-  align-items: flex-start;
-  display: flex;
+  display: block;
   padding-top: var(--spacing-m);
   padding-bottom: var(--spacing-3-xs);
+}
+
+.dialogHeaderContent {
+  align-items: flex-start;
+  display: flex;
 }
 
 .dialogTitle {
