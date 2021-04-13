@@ -17,7 +17,7 @@
     "release": "lerna publish from-package --yes",
     "husky:pre-commit": "lerna run --concurrency 1 --stream pre-commit",
     "husky:pre-push": "lerna run --concurrency 1 --stream pre-push",
-    "update-versions": "lerna version --no-git-tag-version --no-push --amend --yes"
+    "update-versions": "lerna version --exact --no-git-tag-version --no-push --amend --yes"
   },
   "devDependencies": {
     "husky": "^3.1.0",
