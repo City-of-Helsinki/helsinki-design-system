@@ -185,6 +185,7 @@ export const Dialog = ({
   const [isReadyToShowDialog, setIsReadyToShowDialog] = useState<boolean>(false);
   const customThemeClass = useTheme<DialogCustomTheme>(styles.dialogContainer, theme);
   const dialogRef: RefObject<HTMLInputElement> = React.createRef();
+  const bodyRightPaddingStyleRef = React.useRef<string>(null);
 
   const { 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby } = props;
 
@@ -200,6 +201,13 @@ export const Dialog = ({
   useEffect(() => {
     if (isOpen) {
       if (document.body.scrollHeight > document.documentElement.clientHeight) {
+        const documentScrollbarWidth: number = window.innerWidth - document.documentElement.clientWidth;
+        if (documentScrollbarWidth > 0) {
+          // Store body element's right padding declaration.
+          bodyRightPaddingStyleRef.current = document.body.style.paddingRight;
+          const bodyPaddingRightInPixels: number = parseInt(window.getComputedStyle(document.body).paddingRight, 10);
+          document.body.style.paddingRight = `${bodyPaddingRightInPixels + documentScrollbarWidth}px`;
+        }
         document.body.classList.add(styles.dialogVisibleBodyWithHiddenScrollbars);
       }
       document.addEventListener('keydown', onKeyDown, false);
@@ -209,8 +217,12 @@ export const Dialog = ({
       setIsReadyToShowDialog(false);
       document.removeEventListener('keydown', onKeyDown, false);
       document.body.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
-      if (isOpen && focusAfterCloseElement) {
-        focusAfterCloseElement.focus();
+      if (isOpen) {
+        // Reset body elements right padding.
+        document.body.style.paddingRight = bodyRightPaddingStyleRef.current || '';
+        if (focusAfterCloseElement) {
+          focusAfterCloseElement.focus();
+        }
       }
     };
   }, [focusAfterCloseElement, isOpen, onKeyDown]);
