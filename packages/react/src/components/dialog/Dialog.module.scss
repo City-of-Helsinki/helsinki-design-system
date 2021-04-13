@@ -4,8 +4,7 @@
 
 .dialogVisibleBodyWithHiddenScrollbars {
   height: 100vh !important;
-  overflow-y: hidden !important;
-  padding-right: 15px !important;
+  overflow: hidden !important;
 }
 
 .dialogContainer {
