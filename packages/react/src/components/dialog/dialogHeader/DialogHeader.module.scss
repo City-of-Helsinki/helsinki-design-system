@@ -2,6 +2,12 @@
 @import '../_dialog.common';
 @value medium-up from "../../../styles/breakpoints.css";
 
+@mixin dialogHeaderComponentFocus {
+  box-shadow: 0 0 0 3px var(--color-coat-of-arms);
+  outline: none;
+  text-decoration: none;
+}
+
 .dialogHeader {
   @include dialogComponentSidePaddings;
   display: block;
@@ -20,7 +26,11 @@
   font-size: var(--fontsize-heading-s);
   margin: 0;
   order: 0;
-  padding-right: var(--spacing-s);
+  padding-right: var(--spacing-2-xs);
+
+  &:focus {
+    @include dialogHeaderComponentFocus;
+  }
 
   .dialogTitleLeftIcon {
     display: inline-flex;
@@ -42,6 +52,10 @@
   order: 1;
   padding: 0;
   vertical-align: middle;
+
+  &:focus {
+    @include dialogHeaderComponentFocus;
+  }
 }
 
 @media medium-up {
