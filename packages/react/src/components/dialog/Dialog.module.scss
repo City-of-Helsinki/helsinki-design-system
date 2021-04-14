@@ -1,0 +1,74 @@
+@import '../../styles/common';
+
+@value medium-up from "../../styles/breakpoints.css";
+
+.dialogVisibleBodyWithHiddenScrollbars {
+  height: 100vh !important;
+  overflow: hidden !important;
+}
+
+.dialogContainer {
+  --accent-line-color: var(--color-bus);
+  --overlay-color: rgba(0, 0, 0, 0.3);
+
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 800;
+  overflow: auto;
+
+  .dialogBackdrop {
+    background: var(--overlay-color);
+  }
+
+  .dialog {
+    border-top: 10px solid var(--accent-line-color);
+    width: 558px;
+  }
+
+  .dialog.danger {
+    border-top-color: var(--color-error);
+  }
+}
+
+.dialogBackdrop {
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+}
+
+.dialog {
+  background: white;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin: auto var(--spacing-s);
+  max-width: 100%;
+  position: relative;
+  z-index: 900;
+  visibility: hidden;
+}
+
+.dialogVisible {
+  visibility: visible !important;
+}
+
+.dialogScrollable {
+  max-height: calc(100% - 4rem);
+  overflow: hidden;
+}
+
+@media medium-up {
+  .dialog {
+    margin: auto;
+  }
+}
