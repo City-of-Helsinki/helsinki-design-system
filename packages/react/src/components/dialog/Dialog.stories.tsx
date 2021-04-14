@@ -4,7 +4,7 @@ import { Button } from '../button/Button';
 import { TextArea } from '../textarea/TextArea';
 import { TextInput } from '../textInput/TextInput';
 import { Dialog } from './Dialog';
-import { IconAlertCircle, IconPlusCircle, IconTrash } from '../../icons';
+import { IconAlertCircle, IconInfoCircle, IconPlusCircle, IconTrash } from '../../icons';
 
 export default {
   component: Dialog,
@@ -36,7 +36,7 @@ export const Default = (args) => {
         aria-labelledby={args['aria-labelledby']}
         aria-describedby={args['aria-describedby']}
         isOpen={open}
-        focusAfterCloseElement={openButtonRef.current}
+        focusAfterCloseRef={openButtonRef}
         targetElement={dialogTargetElement}
         close={close}
         closeButtonLabelText="Close"
@@ -99,7 +99,7 @@ export const Confirmation = (args) => {
         aria-labelledby={args['aria-labelledby']}
         aria-describedby={args['aria-describedby']}
         isOpen={open}
-        focusAfterCloseElement={openConfirmationButtonRef.current}
+        focusAfterCloseRef={openConfirmationButtonRef}
         targetElement={dialogTargetElement}
       >
         <Dialog.Header
@@ -155,7 +155,7 @@ export const Danger = (args) => {
         aria-labelledby={args['aria-labelledby']}
         aria-describedby={args['aria-describedby']}
         isOpen={open}
-        focusAfterCloseElement={openDangerButtonRef.current}
+        focusAfterCloseRef={openDangerButtonRef}
         targetElement={dialogTargetElement}
       >
         <Dialog.Header
@@ -213,7 +213,7 @@ export const ScrollableConfirmation = (args) => {
         aria-labelledby={args['aria-labelledby']}
         aria-describedby={args['aria-describedby']}
         isOpen={open}
-        focusAfterCloseElement={openScrollableConfirmationButtonRef.current}
+        focusAfterCloseRef={openScrollableConfirmationButtonRef}
         targetElement={dialogTargetElement}
         scrollable
       >
@@ -320,4 +320,115 @@ ScrollableConfirmation.args = {
   id: 'confirmation-scrollable-dialog',
   'aria-labelledby': 'confirmation-scrollable-title',
   'aria-describedby': 'confirmation-scrollable-description',
+};
+
+export const ConfirmationWithTerms = (args) => {
+  const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
+  const openConfirmationButtonRef = useRef(null);
+  const [open, setOpen] = useState<boolean>(false);
+  const [termsOpen, setTermsOpen] = useState<boolean>(false);
+  const close = () => setOpen(false);
+  const openTermsButtonRef = useRef(null);
+  const closeTerms = () => setTermsOpen(false);
+  const openTermsDialog = () => setTermsOpen(true);
+
+  return (
+    <>
+      <Button ref={openConfirmationButtonRef} onClick={() => setOpen(true)}>
+        Open Accept terms Dialog
+      </Button>
+      <Dialog
+        id={args.id}
+        style={{ width: '800px' }}
+        aria-labelledby={args['aria-labelledby']}
+        aria-describedby={args['aria-describedby']}
+        isOpen={open}
+        focusAfterCloseRef={openConfirmationButtonRef}
+        targetElement={dialogTargetElement}
+      >
+        <Dialog.Header
+          id={args['aria-labelledby']}
+          title="Accept terms dialog"
+          iconLeft={<IconAlertCircle aria-hidden="true" />}
+        />
+        <Dialog.Content>
+          <p className="text-body">
+            Accept terms?
+            <br />
+            <br />
+            <Button
+              variant="secondary"
+              iconLeft={<IconInfoCircle aria-hidden="true" />}
+              ref={openTermsButtonRef}
+              onClick={() => openTermsDialog()}
+            >
+              Open terms dialog
+            </Button>
+          </p>
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button
+            onClick={() => {
+              // Add confirm operations here
+              close();
+            }}
+          >
+            Confirm
+          </Button>
+          <Button onClick={close} variant="secondary">
+            Cancel
+          </Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+      <div>
+        <Dialog
+          id={args.termsId}
+          aria-labelledby={args.termsLabelId}
+          aria-describedby={args.termsDescriptionId}
+          isOpen={termsOpen}
+          focusAfterCloseRef={openTermsButtonRef}
+          close={closeTerms}
+          closeButtonLabelText="Close terms dialog"
+        >
+          <Dialog.Header id={args.termsLabelId} title="Service terms" />
+          <Dialog.Content>
+            <p id={args.termsDescriptionId} className="text-body">
+              These are the terms of the service.
+            </p>
+            <p className="text-body">
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+              rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+              explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+              consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
+              dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
+              incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
+              exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
+              vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui
+              dolorem eum fugiat quo voluptas nulla pariatur?
+            </p>
+          </Dialog.Content>
+          <Dialog.ActionButtons>
+            <Button
+              onClick={() => {
+                closeTerms();
+              }}
+            >
+              Close
+            </Button>
+          </Dialog.ActionButtons>
+        </Dialog>
+      </div>
+    </>
+  );
+};
+
+ConfirmationWithTerms.storyName = 'Confirmation dialog with terms dialog';
+
+ConfirmationWithTerms.args = {
+  id: 'confirmation-dialog',
+  'aria-labelledby': 'confirmation-title',
+  'aria-describedby': 'confirmation-description',
+  termsId: 'terms-dialog',
+  termsLabelId: 'terms-dialog-title',
+  termsDescriptionId: 'terms-dialog-description',
 };

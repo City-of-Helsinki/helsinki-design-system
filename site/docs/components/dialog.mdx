@@ -72,7 +72,7 @@ Info dialogs are used to convey important information to the user. Info dialogs 
           isOpen={isOpen}
           close={() => setIsOpen(false)}
           closeButtonLabelText="Close info dialog"
-          focusAfterCloseElement={openInfoDialogButtonRef.current}
+          focusAfterCloseRef={openInfoDialogButtonRef}
           targetElement={dialogTargetRef.current}
         >
           <Dialog.Header
@@ -113,7 +113,7 @@ Info dialogs are used to convey important information to the user. Info dialogs 
           isOpen={isOpen}
           close={() => setIsOpen(false)}
           closeButtonLabelText="Close info dialog"
-          focusAfterCloseElement={openInfoDialogButtonRef.current}
+          focusAfterCloseRef={openInfoDialogButtonRef}
         >
           <Dialog.Header
             id="info-dialog-title"
@@ -156,7 +156,7 @@ Confirm dialogs are used when an action is required from the user. Confirm dialo
           aria-labelledby="confirmation-dialog-title"
           aria-describedby="confirmation-dialog-info"
           isOpen={isOpen}
-          focusAfterCloseElement={openConfirmationDialogButtonRef.current}
+          focusAfterCloseRef={openConfirmationDialogButtonRef}
           targetElement={confirmationDialogTarget.current}
         >
           <Dialog.Header
@@ -200,7 +200,7 @@ Confirm dialogs are used when an action is required from the user. Confirm dialo
           aria-labelledby="confirmation-dialog-title"
           aria-describedby="confirmation-dialog-info"
           isOpen={isOpen}
-          focusAfterCloseElement={openConfirmationDialogButtonRef.current}
+          focusAfterCloseRef={openConfirmationDialogButtonRef}
         >
           <Dialog.Header
             id="confirmation-dialog-title"
@@ -247,7 +247,7 @@ Danger dialog is a variant of a confirm dialog. They are used in similar use cas
           aria-labelledby="delete-dialog-title"
           aria-describedby="delete-dialog-info"
           isOpen={isOpen}
-          focusAfterCloseElement={openDeleteDialogButtonRef.current}
+          focusAfterCloseRef={openDeleteDialogButtonRef}
           targetElement={dangerDialogTargetRef.current}
         >
           <Dialog.Header
@@ -298,7 +298,7 @@ Danger dialog is a variant of a confirm dialog. They are used in similar use cas
           aria-labelledby="delete-dialog-title"
           aria-describedby="delete-dialog-info"
           isOpen={isOpen}
-          focusAfterCloseElement={openDeleteDialogButtonRef.current}
+          focusAfterCloseRef={openDeleteDialogButtonRef}
         >
           <Dialog.Header
             id="delete-dialog-title"
@@ -351,7 +351,7 @@ While not recommended, HDS supports scrollable dialogs if there is a large amoun
           aria-labelledby="terms-dialog-title"
           aria-describedby="terms-dialog-info"
           isOpen={isOpen}
-          focusAfterCloseElement={openTermsDialogButtonRef.current}
+          focusAfterCloseRef={openTermsDialogButtonRef}
           targetElement={termsDialogTargetRef.current}
           scrollable
         >
@@ -448,7 +448,7 @@ While not recommended, HDS supports scrollable dialogs if there is a large amoun
           aria-labelledby="terms-dialog-title"
           aria-describedby="terms-dialog-info"
           isOpen={isOpen}
-          focusAfterCloseElement={openTermsDialogButtonRef.current}
+          focusAfterCloseRef={openTermsDialogButtonRef}
           scrollable
         >
           <Dialog.Header
@@ -496,7 +496,7 @@ HDS Dialog elements can be used to build custom dialogs. Using HDS provided elem
           aria-labelledby="delete-dialog-title"
           aria-describedby="delete-dialog-info"
           isOpen={isOpen}
-          focusAfterCloseElement={openDeleteDialogButtonRef.current}
+          focusAfterCloseRef={openDeleteDialogButtonRef}
           targetElement={dangerDialogTargetRef.current}
         >
         <Dialog.Header
@@ -559,8 +559,7 @@ HDS Dialog elements can be used to build custom dialogs. Using HDS provided elem
           aria-labelledby="delete-dialog-title"
           aria-describedby="delete-dialog-info"
           isOpen={isOpen}
-          focusAfterCloseElement={openDeleteDialogButtonRef.current}
-          targetElement={dangerDialogTargetRef.current}
+          focusAfterCloseRef={openDeleteDialogButtonRef}
         >
         <Dialog.Header
           id="custom-dialog-title"

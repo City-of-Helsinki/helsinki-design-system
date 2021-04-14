@@ -112,7 +112,7 @@ describe('<Dialog /> spec', () => {
             isOpen={isOpen}
             close={close}
             closeButtonLabelText="Close"
-            focusAfterCloseElement={openButtonRef.current}
+            focusAfterCloseRef={openButtonRef}
           >
             <Dialog.Header id={dialogHeaderProps.id} title={dialogHeaderProps.title} />
             <Dialog.Content>
