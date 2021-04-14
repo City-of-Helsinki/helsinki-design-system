@@ -44,10 +44,6 @@ export type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
    */
   label?: string | React.ReactNode;
   /**
-   * **[DEPRECATED]** This prop will be removed in a future version. Use the `label` prop instead
-   */
-  labelText?: string;
-  /**
    * Callback fired when the state is changed
    */
   onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
@@ -101,7 +97,6 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       invalid,
       id,
       label,
-      labelText,
       onChange = () => null,
       required,
       style,
@@ -121,7 +116,6 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       id,
       invalid,
       label,
-      labelText,
       required,
       style,
       successText,
