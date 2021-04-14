@@ -1,0 +1,83 @@
+@import '../../../styles/common';
+@import '../_dialog.common';
+@value medium-up from "../../../styles/breakpoints.css";
+
+.dialogHeader {
+  @include dialogComponentSidePaddings;
+  display: block;
+  padding-top: var(--spacing-m);
+  padding-bottom: var(--spacing-3-xs);
+}
+
+.dialogHeaderContent {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dialogTitle {
+  --outline-x-gutter: 4px;
+  --outline-y-gutter: 2px;
+  --outline-width: 3px;
+
+  align-items: flex-start;
+  box-sizing: border-box;
+  display: flex;
+  font-size: var(--fontsize-heading-s);
+  margin: 0;
+  order: 0;
+  outline: none;
+  padding-right: var(--spacing-3-xs);
+  position: relative;
+
+  &::after {
+    box-sizing: border-box;
+    border: var(--outline-width) solid transparent;
+    content: '';
+    display: block;
+    height: 100%;
+    left: calc((var(--outline-width) + var(--outline-x-gutter)) * -1);
+    position: absolute;
+    top: calc((var(--outline-width) + var(--outline-y-gutter)) * -1);;
+    width: 100%;
+  }
+
+  &:focus::after {
+    border-color: var(--color-coat-of-arms);
+    height: calc(100% + calc((var(--outline-width) + var(--outline-y-gutter)) * 2));
+    width: calc(100% + calc((var(--outline-width) + var(--outline-x-gutter)) * 2));
+  }
+
+  .dialogTitleLeftIcon {
+    display: inline-flex;
+    margin-right: var(--spacing-2-xs);
+    margin-top: 2px;
+  }
+}
+
+.dialogHeaderClose {
+  @extend %buttonReset;
+  color: var(--dialog-close-button-color);
+  display: block;
+  height: 44px;
+  font-size: 0;
+  line-height: 1;
+  margin-left: var(--spacing-2-xs);
+  margin-top: calc(-1 * var(--spacing-2-xs));
+  min-width: 44px;
+  order: 1;
+  padding: 0;
+  vertical-align: middle;
+
+  &:focus {
+    box-shadow: 0 0 0 3px var(--color-coat-of-arms);
+    outline: none;
+    text-decoration: none;
+  }
+}
+
+@media medium-up {
+  .dialogHeader {
+    padding-bottom: var(--spacing-2-xs);
+  }
+}

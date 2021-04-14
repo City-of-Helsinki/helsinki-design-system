@@ -1,0 +1,12 @@
+// common styles for dialog components
+@value medium-up from "../../../styles/breakpoints.css";
+
+@mixin dialogComponentSidePaddings {
+  padding-left: var(--spacing-m);
+  padding-right: var(--spacing-m);
+
+  @media medium-up {
+    padding-left: var(--spacing-l);
+    padding-right: var(--spacing-l);
+  }
+}
