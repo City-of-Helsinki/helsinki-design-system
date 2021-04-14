@@ -24,6 +24,10 @@ type FilterFunction<OptionType> = (options: OptionType[], search: string) => Opt
 
 export type ComboboxProps<OptionType> = SelectProps<OptionType> & {
   /**
+   * Custom aria-describedby added to the input element
+   */
+  'aria-describedby'?: string;
+  /**
    * Prevents further propagation of the 'Escape' onKeyDown event when the menu is closed by pressing Esc.
    * Useful e.g. when the component is used inside a modal.
    */
@@ -75,6 +79,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
   // we can't destructure all the props. after destructuring, the link
   // between the multiselect prop and the value, onChange etc. props would vanish
   const {
+    'aria-describedby': customAriaDescribedBy,
     catchEscapeKey,
     circularNavigation = false,
     className,
@@ -450,6 +455,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
             'aria-haspopup': getComboboxProps()['aria-haspopup'],
             'aria-owns': getComboboxProps()['aria-owns'],
             'aria-labelledby': inputAriaLabel,
+            'aria-describedby': customAriaDescribedBy,
           })}
           placeholder={placeholder}
           className={classNames(

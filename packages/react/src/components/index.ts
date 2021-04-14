@@ -26,3 +26,4 @@ export * from './timeInput';
 export * from './tooltip';
 export * from './tabs';
 export * from './numberInput';
+export * from './phoneInput';

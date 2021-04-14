@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import isFunction from 'lodash.isfunction';
 
 import 'hds-core';
 import styles from './NumberInput.module.scss';
@@ -9,6 +8,7 @@ import { TextInputProps } from '../textInput';
 import textInputStyles from '../textInput/TextInput.module.css';
 import classNames from '../../utils/classNames';
 import comboseAriaDescribedBy from '../../utils/comboseAriaDescribedBy';
+import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
 
 export type NumberInputProps = Omit<
   TextInputProps,
@@ -116,12 +116,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
      */
     useEffect(() => {
       if (ref) {
-        if (isFunction(ref)) {
-          (ref as (instance: HTMLInputElement) => void)(inputRef.current);
-        } else {
-          // eslint-disable-next-line no-param-reassign
-          (ref as React.MutableRefObject<HTMLInputElement>).current = inputRef.current;
-        }
+        mergeRefWithInternalRef(ref, inputRef);
       }
     }, [inputRef, ref]);
 
