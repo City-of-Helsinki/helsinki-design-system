@@ -136,6 +136,10 @@ export type DialogProps = React.PropsWithChildren<
      */
     isOpen: boolean;
     /**
+     * The element ref which will get focus after the dialog is closed.
+     */
+    focusAfterCloseRef?: RefObject<HTMLElement>;
+    /**
      * The element which will get focus after the dialog is closed.
      */
     focusAfterCloseElement?: HTMLElement;
@@ -173,6 +177,7 @@ export const Dialog = ({
   close,
   closeButtonLabelText,
   focusAfterCloseElement,
+  focusAfterCloseRef,
   scrollable,
   variant = 'primary',
   style,
@@ -198,6 +203,10 @@ export const Dialog = ({
     [close],
   );
 
+  const getElementToFocusAfterClose = useCallback((): HTMLElement | undefined => {
+    return focusAfterCloseElement || (focusAfterCloseRef && focusAfterCloseRef.current);
+  }, [focusAfterCloseElement, focusAfterCloseRef]);
+
   useEffect(() => {
     if (isOpen) {
       if (document.body.scrollHeight > document.documentElement.clientHeight) {
@@ -220,12 +229,13 @@ export const Dialog = ({
       if (isOpen) {
         // Reset body elements right padding.
         document.body.style.paddingRight = bodyRightPaddingStyleRef.current || '';
-        if (focusAfterCloseElement) {
-          focusAfterCloseElement.focus();
+        const elementToFocus: HTMLElement | undefined = getElementToFocusAfterClose();
+        if (elementToFocus) {
+          elementToFocus.focus();
         }
       }
     };
-  }, [focusAfterCloseElement, isOpen, onKeyDown]);
+  }, [isOpen, onKeyDown, getElementToFocusAfterClose]);
 
   useDocumentTabBarriers(dialogRef);
 
