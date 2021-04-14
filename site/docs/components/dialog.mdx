@@ -34,6 +34,7 @@ import Text from "../../src/components/Text";
     - If some of the actions are destructive or irreversible, the button order should be reversed so so that the destructive actions are last in the button list. See [Danger dialog example](#danger-dialogo) for more information.
 - Opening a dialog should be always triggered by the user. Do not open dialogs without user action.
     - Also make sure that the dialog is related to the current context.
+  - It is not recommended to open dialogs on top of other dialogs. However, this is supported by HDS Dialogs if it is needed.
 
 ### When to use each dialog type?
 | Type                           | When to use it?                                                                                                     | Example
