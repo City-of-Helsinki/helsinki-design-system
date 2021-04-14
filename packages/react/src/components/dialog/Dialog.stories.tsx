@@ -335,7 +335,7 @@ export const ConfirmationWithTerms = (args) => {
   return (
     <>
       <Button ref={openConfirmationButtonRef} onClick={() => setOpen(true)}>
-        Open Accept terms Dialog
+        Open Accept Terms Dialog
       </Button>
       <Dialog
         id={args.id}
@@ -352,8 +352,8 @@ export const ConfirmationWithTerms = (args) => {
           iconLeft={<IconAlertCircle aria-hidden="true" />}
         />
         <Dialog.Content>
-          <p className="text-body">
-            Accept terms?
+          <p id={args['aria-describedby']} className="text-body">
+            Do you want to accept terms of the service?
             <br />
             <br />
             <Button
@@ -362,8 +362,44 @@ export const ConfirmationWithTerms = (args) => {
               ref={openTermsButtonRef}
               onClick={() => openTermsDialog()}
             >
-              Open terms dialog
+              Open service terms dialog
             </Button>
+            <Dialog
+              id={args.termsId}
+              aria-labelledby={args.termsLabelId}
+              aria-describedby={args.termsDescriptionId}
+              isOpen={termsOpen}
+              focusAfterCloseRef={openTermsButtonRef}
+              close={closeTerms}
+              closeButtonLabelText="Close terms dialog"
+            >
+              <Dialog.Header id={args.termsLabelId} title="Service terms" />
+              <Dialog.Content>
+                <p id={args.termsDescriptionId} className="text-body">
+                  These are the terms of the service.
+                </p>
+                <p className="text-body">
+                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
+                  totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta
+                  sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+                  consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
+                  dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
+                  incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
+                  exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis
+                  autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel
+                  illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+                </p>
+              </Dialog.Content>
+              <Dialog.ActionButtons>
+                <Button
+                  onClick={() => {
+                    closeTerms();
+                  }}
+                >
+                  Close
+                </Button>
+              </Dialog.ActionButtons>
+            </Dialog>
           </p>
         </Dialog.Content>
         <Dialog.ActionButtons>
@@ -373,51 +409,13 @@ export const ConfirmationWithTerms = (args) => {
               close();
             }}
           >
-            Confirm
+            Accept terms
           </Button>
           <Button onClick={close} variant="secondary">
             Cancel
           </Button>
         </Dialog.ActionButtons>
       </Dialog>
-      <div>
-        <Dialog
-          id={args.termsId}
-          aria-labelledby={args.termsLabelId}
-          aria-describedby={args.termsDescriptionId}
-          isOpen={termsOpen}
-          focusAfterCloseRef={openTermsButtonRef}
-          close={closeTerms}
-          closeButtonLabelText="Close terms dialog"
-        >
-          <Dialog.Header id={args.termsLabelId} title="Service terms" />
-          <Dialog.Content>
-            <p id={args.termsDescriptionId} className="text-body">
-              These are the terms of the service.
-            </p>
-            <p className="text-body">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-              rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-              explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-              consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
-              dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
-              incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
-              exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
-              vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui
-              dolorem eum fugiat quo voluptas nulla pariatur?
-            </p>
-          </Dialog.Content>
-          <Dialog.ActionButtons>
-            <Button
-              onClick={() => {
-                closeTerms();
-              }}
-            >
-              Close
-            </Button>
-          </Dialog.ActionButtons>
-        </Dialog>
-      </div>
     </>
   );
 };
