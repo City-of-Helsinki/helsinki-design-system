@@ -423,6 +423,10 @@ export const ConfirmationWithTerms = (args) => {
 
 ConfirmationWithTerms.storyName = 'Confirmation dialog with terms dialog';
 
+ConfirmationWithTerms.parameters = {
+  loki: { skip: true },
+};
+
 ConfirmationWithTerms.args = {
   id: 'confirmation-dialog',
   'aria-labelledby': 'confirmation-title',
