@@ -56,7 +56,7 @@ Info dialogs are used to convey important information to the user. Info dialogs 
 
 <Playground>
   {() => {
-    const dialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles.
+    const dialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
     const openInfoDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
@@ -142,7 +142,7 @@ Confirm dialogs are used when an action is required from the user. Confirm dialo
 
 <Playground>
   {() => {
-    const confirmationDialogTarget = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles.
+    const confirmationDialogTarget = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
     const openConfirmationDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
@@ -232,7 +232,7 @@ Danger dialog is a variant of a confirm dialog. They are used in similar use cas
 
 <Playground>
   {() => {
-    const dangerDialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles.
+    const dangerDialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
     const openDeleteDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
@@ -337,7 +337,7 @@ While not recommended, HDS supports scrollable dialogs if there is a large amoun
 
 <Playground>
   {() => {
-    const termsDialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles.
+    const termsDialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
     const openTermsDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
@@ -482,23 +482,23 @@ HDS Dialog elements can be used to build custom dialogs. Using HDS provided elem
 
 <Playground>
   {() => {
-    const dangerDialogTargetRef = React.useRef(null);
-    const openDeleteDialogButtonRef = React.useRef(null);
+    const customDialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
+    const openCustomDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
     return (
       <>
-        <div ref={dangerDialogTargetRef}/>
-        <Button ref={openDeleteDialogButtonRef} onClick={() => setIsOpen(true)}>
+        <div ref={customDialogTargetRef}/>
+        <Button ref={openCustomDialogButtonRef} onClick={() => setIsOpen(true)}>
           Open Dialog with custom content
         </Button>
         <Dialog
-          id="delete-dialog"
-          aria-labelledby="delete-dialog-title"
-          aria-describedby="delete-dialog-info"
+          id="custom-dialog"
+          aria-labelledby="custom-dialog-title"
+          aria-describedby="custom-dialog-info"
           isOpen={isOpen}
-          focusAfterCloseRef={openDeleteDialogButtonRef}
-          targetElement={dangerDialogTargetRef.current}
+          focusAfterCloseRef={openCustomDialogButtonRef}
+          targetElement={customDialogTargetRef.current}
         >
         <Dialog.Header
           id="custom-dialog-title"
@@ -545,22 +545,20 @@ HDS Dialog elements can be used to build custom dialogs. Using HDS provided elem
 #### React code example:
 ```tsx
 {() => {
-    const dangerDialogTargetRef = React.useRef(null);
-    const openDeleteDialogButtonRef = React.useRef(null);
+    const openCustomDialogButtonRef = React.useRef(null);
     const [isOpen, setIsOpen] = React.useState(false);
     const close = () => setIsOpen(false);
     return (
       <>
-        <div ref={dangerDialogTargetRef}/>
-        <Button ref={openDeleteDialogButtonRef} onClick={() => setIsOpen(true)}>
+        <Button ref={openCustomDialogButtonRef} onClick={() => setIsOpen(true)}>
           Open Dialog with custom content
         </Button>
         <Dialog
-          id="delete-dialog"
-          aria-labelledby="delete-dialog-title"
-          aria-describedby="delete-dialog-info"
+          id="custom-dialog"
+          aria-labelledby="custom-dialog-title"
+          aria-describedby="custom-dialog-info"
           isOpen={isOpen}
-          focusAfterCloseRef={openDeleteDialogButtonRef}
+          focusAfterCloseRef={openCustomDialogButtonRef}
         >
         <Dialog.Header
           id="custom-dialog-title"
