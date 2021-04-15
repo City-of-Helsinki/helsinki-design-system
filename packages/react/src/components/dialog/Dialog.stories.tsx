@@ -21,7 +21,6 @@ export default {
 };
 
 export const Default = (args) => {
-  const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
   const openButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(false);
   const close = () => setOpen(false);
@@ -37,7 +36,6 @@ export const Default = (args) => {
         aria-describedby={args['aria-describedby']}
         isOpen={open}
         focusAfterCloseRef={openButtonRef}
-        targetElement={dialogTargetElement}
         close={close}
         closeButtonLabelText="Close"
       >
@@ -323,7 +321,6 @@ ScrollableConfirmation.args = {
 };
 
 export const ConfirmationWithTerms = (args) => {
-  const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
   const openConfirmationButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(false);
   const [termsOpen, setTermsOpen] = useState<boolean>(false);
@@ -344,7 +341,6 @@ export const ConfirmationWithTerms = (args) => {
         aria-describedby={args['aria-describedby']}
         isOpen={open}
         focusAfterCloseRef={openConfirmationButtonRef}
-        targetElement={dialogTargetElement}
       >
         <Dialog.Header
           id={args['aria-labelledby']}
@@ -388,7 +384,6 @@ export const ConfirmationWithTerms = (args) => {
         focusAfterCloseRef={openTermsButtonRef}
         close={closeTerms}
         closeButtonLabelText="Close terms dialog"
-        targetElement={dialogTargetElement}
       >
         <Dialog.Header id={args.termsLabelId} title="Service terms" />
         <Dialog.Content>
