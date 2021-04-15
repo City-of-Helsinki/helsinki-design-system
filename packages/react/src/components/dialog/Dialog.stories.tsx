@@ -81,6 +81,7 @@ export const Default = (args) => {
   );
 };
 
+// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
 export const Confirmation = (args) => {
   const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
   const openConfirmationButtonRef = useRef(null);
@@ -136,6 +137,18 @@ Confirmation.args = {
   'aria-describedby': 'confirmation-dialog-description',
 };
 
+Confirmation.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
+    },
+  },
+  docs: {
+    disable: true,
+  },
+};
+
+// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
 export const Danger = (args) => {
   const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
   const openDangerButtonRef = useRef(null);
@@ -194,6 +207,18 @@ Danger.args = {
   'aria-describedby': 'danger-dialog-description',
 };
 
+Danger.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
+    },
+  },
+  docs: {
+    disable: true,
+  },
+};
+
+// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
 export const ScrollableConfirmation = (args) => {
   const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
   const openScrollableConfirmationButtonRef = useRef(null);
@@ -320,6 +345,18 @@ ScrollableConfirmation.args = {
   'aria-describedby': 'confirmation-scrollable-description',
 };
 
+ScrollableConfirmation.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
+    },
+  },
+  docs: {
+    disable: true,
+  },
+};
+
+// This dialog story is not part of the Storybooks' docs section.
 export const ConfirmationWithTerms = (args) => {
   const openConfirmationButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(false);
@@ -429,4 +466,15 @@ ConfirmationWithTerms.args = {
   termsId: 'terms-dialog',
   termsLabelId: 'terms-dialog-title',
   termsDescriptionId: 'terms-dialog-description',
+};
+
+ConfirmationWithTerms.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
+    },
+  },
+  docs: {
+    disable: true,
+  },
 };
