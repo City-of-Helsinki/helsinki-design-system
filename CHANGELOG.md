@@ -30,12 +30,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated Roadmap
 - Clarified definition of stable
 
+
 ### Design kit
 #### Added
 - [Buttons] Full-width button symbols. These are visually identical to default HDS Buttons but can be stretched in width (i.e. they use no smart layout which would resize the buttons).
 - [Color] Added a shared fill style for a screen overlay
-- [Form Components] Added a default phone number input field symbols
-- [Form Components] Added a country/service code -select symbols
+- [Form Components] Phone number input field symbols
 - [Modals and Notifications] Dialog symbols with following variants: Confirm, Info, Danger and Scrollable
 
 ### Removed
