@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.25.0] - April 15, 2021
 
+### React Components
+#### Breaking Changes
+#### Removed
+- [TextInput, TextArea, Number Input, Checkbox, RadioButton] Removed deprecated labelText property
+
+#### Added
+- Phone Input
+- Dialog
+
+#### Fixed
+- [Select] Fixed content overlap with long labels
+
 ### Documentation
 #### Added
 - Dialog documentation
@@ -28,17 +40,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 - [Form Components] Removed deprecated phone number input from Text field > Input
-
-### React Components
-#### Added
-- Phone Input
-- Dialog
-
-### Fixed
-- [Select] Fixed content overlap with long labels
-
-### Removed
-- [TextInput, TextArea, Number Input, Checkbox, RadioButton] Removed deprecated labelText property
 
 ## [0.24.0] - March 29, 2021
 
