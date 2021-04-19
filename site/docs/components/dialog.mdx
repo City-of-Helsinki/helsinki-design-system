@@ -73,7 +73,7 @@ Info dialogs are used to convey important information to the user. Info dialogs 
           aria-labelledby={titleId}
           aria-describedby={descriptionId}
           isOpen={isOpen}
-          close={() => setIsOpen(false)}
+          close={close}
           closeButtonLabelText="Close info dialog"
           focusAfterCloseRef={openInfoDialogButtonRef}
           targetElement={dialogTargetRef.current}
@@ -116,7 +116,7 @@ Info dialogs are used to convey important information to the user. Info dialogs 
           aria-labelledby={titleId}
           aria-describedby={descriptionId}
           isOpen={isOpen}
-          close={() => setIsOpen(false)}
+          close={close}
           closeButtonLabelText="Close info dialog"
           focusAfterCloseRef={openInfoDialogButtonRef}
         >
