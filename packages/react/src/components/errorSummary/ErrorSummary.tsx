@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from 'react';
 import 'hds-core';
 import notificationStyles from '../notification/Notification.module.css';
 import errorSummaryStyles from './ErrorSummary.module.scss';
-import { IconAlertCircle } from '../../icons';
+import { IconAlertCircleFill } from '../../icons';
 import classNames from '../../utils/classNames';
 
 export type ErrorSummarySize = 'default' | 'large';
@@ -57,7 +57,7 @@ export const ErrorSummary = React.forwardRef<HTMLDivElement, ErrorSummaryProps>(
       >
         <div className={notificationStyles.content}>
           <div className={notificationStyles.label} role="heading" aria-level={2} tabIndex={-1} ref={labelRef}>
-            <IconAlertCircle className={notificationStyles.icon} aria-hidden />
+            <IconAlertCircleFill className={notificationStyles.icon} aria-hidden />
             {label}
           </div>
           <div className={(notificationStyles.body, errorSummaryStyles.errorSummaryBody)}>{children}</div>
