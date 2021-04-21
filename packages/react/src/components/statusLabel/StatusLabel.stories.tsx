@@ -65,3 +65,14 @@ export const Playground = () => {
 
   return <StatusLabel type={type}>{label}</StatusLabel>;
 };
+
+Playground.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
+    },
+  },
+  docs: {
+    disable: true,
+  },
+};
