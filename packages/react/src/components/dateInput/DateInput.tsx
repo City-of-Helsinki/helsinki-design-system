@@ -202,7 +202,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
      */
     useEffect(() => {
       if (ref) {
-        console.log('ref', ref);
         mergeRefWithInternalRef(ref, inputRef);
       }
     }, [inputRef, ref]);
