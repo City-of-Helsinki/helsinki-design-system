@@ -28,6 +28,7 @@
   display: inline-block;
   width: 100%;
   max-width: calc(var(--table-width) + 2 * var(--horizontal-spacing));
+  min-width: var(--container-width-xs);
   padding: var(--vertical-spacing) var(--horizontal-spacing);
 }
 
