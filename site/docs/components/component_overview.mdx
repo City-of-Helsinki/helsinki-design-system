@@ -36,14 +36,12 @@ The React components and technical documentation are available in [Helsinki Desi
 
 ## Component status
 
-**Since HDS is still in beta stage, the component libraries are still experimental. The existing components can be used in projects but changes may still occur even for stable components.**
-
 HDS uses a simple labeling system for components to communicate their completeness and susceptibility to changes:
 
 Status                                               | Description
 -----------------------------------------------------|--------------
 <StatusLabel type="alert">Pre-release</StatusLabel>  | Component is open for feedback. It has been released/changed recently and we are monitoring if it needs fixes. **Be cautious of using in production** because breaking changes are still possible.
-<StatusLabel type="info">Stable</StatusLabel>        | Component's implementation, design and documentation are stable and fully featured. **These components can be used in production.** If there are any breaking changes that cannot be avoided, the major version number is increased and the aim is to communicate these changes as early as possible.
+<StatusLabel type="info">Stable</StatusLabel>        | Component's implementation, design and documentation are stable. **These components can be used in production.** If there are any breaking changes that cannot be avoided, the major version number is increased and the aim is to communicate these changes as early as possible. Enhancements are also possible without breaking changes.
 <StatusLabel type="success">Accessible</StatusLabel> | Component has been tested for accessibility by a 3rd party auditor.
 <StatusLabel>New</StatusLabel>                       | Component has been released in or after the latest major release.
 <StatusLabel type="error">Updated</StatusLabel>      | A breaking change has been introduced to this component in the latest major release.
