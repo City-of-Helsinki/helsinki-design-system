@@ -23,7 +23,7 @@
     "tsc:es5": "tsc",
     "tsc:es6": "tsc -m es6 --outDir lib-esm --moduleResolution node",
     "tcm": "tcm src",
-    "ts-check": "tsc --noEmit --project tsconfig.json",
+    "ts-check": "tcm src internal && tsc --noEmit --project tsconfig.json",
     "lint": "yarn ts-check && yarn eslint \"src/**/*.{ts,tsx}\"",
     "pre-commit": "yarn -s lint",
     "pre-push": "yarn -s test && yarn build",
