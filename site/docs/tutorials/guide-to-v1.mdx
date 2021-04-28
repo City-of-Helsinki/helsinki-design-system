@@ -4,6 +4,8 @@ route: /tutorials/guide-to-v1
 menu: Tutorials
 ---
 
+import { Notification } from "hds-react";
+
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Link from "../../src/components/Link";
 
@@ -11,11 +13,13 @@ import Link from "../../src/components/Link";
 
 <LargeParagraph>
     Here you will find some useful information to make your transition to HDS 1.0 as smooth as possible.
-    
 </LargeParagraph>
 
-***"TLDR (Too long, didn't read) " ***
-Developers: Don't use deprecated Dropdown or LabelText props anymore. Designers: Update your Sketch to 71.
+<Notification label="TLDR (Too long, didn't read)" className="siteNotification">
+<b>Developers:</b> Update deprecated Dropdown to Select or Combobox component. Do not use deprecated LabelText React property, use Label instead.
+<br /><br />
+<b>Designers:</b> Update your Sketch to version 71.
+</Notification>
 
 ## How does this update affect my work?
 The biggest change is that Helsinki Design System is now officially in production and not in beta anymore. In most cases this does not affect your work. It gives you certainty that you can use the components in your own projects. Most of the HDS components have now been marked as Stable. You can review the full list of the current components and their statuses in the [Component overview page](/components).
