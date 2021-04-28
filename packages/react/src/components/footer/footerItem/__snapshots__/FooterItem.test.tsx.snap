@@ -71,7 +71,6 @@ exports[`<Footer.Item /> spec renders the component 1`] = `
       </section>
       <a
         class="item"
-        value="Foo"
       />
     </div>
   </footer>
