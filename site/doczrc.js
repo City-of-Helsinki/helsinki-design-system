@@ -14,6 +14,7 @@ const menu = [
     name: 'Getting started',
     menu: ['Introduction', 'For designers', 'For developers'],
   },
+  'Tutorials',
   'Guidelines',
   'Visual assets',
   'Design tokens',
