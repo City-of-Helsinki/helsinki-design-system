@@ -7,11 +7,11 @@ import { FooterWrapper } from '../../../utils/test-utils';
 
 describe('<Footer.Item /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<FooterItem value="Foo" />, { wrapper: FooterWrapper });
+    const { asFragment } = render(<FooterItem />, { wrapper: FooterWrapper });
     expect(asFragment()).toMatchSnapshot();
   });
   it('should not have basic accessibility issues', async () => {
-    const { container } = render(<FooterItem value="Foo" />, { wrapper: FooterWrapper });
+    const { container } = render(<FooterItem />, { wrapper: FooterWrapper });
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

@@ -5,6 +5,13 @@ exports[`<SearchInput /> spec renders the component 1`] = `
   <div
     class="root"
   >
+    <label
+      class="label "
+      for="downshift-0-input"
+      id="downshift-1-label"
+    >
+      Search
+    </label>
     <div
       class="wrapper"
     >
