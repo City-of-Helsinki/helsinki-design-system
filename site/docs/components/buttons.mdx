@@ -20,8 +20,8 @@ import Link from "../../src/components/Link";
 </LargeParagraph>
 
 ## Principles
-- **Buttons are used to trigger an action.** Be cautious when using buttons for navigating. In most cases you should prefer links for this purpose. 
-- Button label should always describe the action that the buttons is going to trigger. A good practice is to start the label with a verb and use two word labels at maximum.
+- **Buttons are used to trigger an action.** Be cautious when using buttons for navigating. In most cases, you should prefer links for this purpose. 
+- Button label should always describe the action that the buttons is going to trigger. A good practice is to start the label with a verb and use two-word labels at maximum.
 - Use provided button types to control the visual priority of the view. Priority of the button types is the following: *Primary -> Secondary -> Supplementary*.
 - In mobile screen sizes, use full-width buttons. In other sizes use buttons that scale according to their content.
 - Try to keep the amount of buttons in one view low. If there is a need for several actions in one view, consider using the smaller button variant.
@@ -35,7 +35,7 @@ import Link from "../../src/components/Link";
 ## Usage & variations
 
 ### Primary button
-Primary button is reserved for the most important action on the screen. Primary action is usually either mandatory or essential for the user. Primary buttons are designed to clearly highlight the most important action and therefore you should avoid having multiple primary buttons in one screen. For less important actions, consider using secondary or supplementary buttons instead.
+A Primary button is reserved for the most important action on the screen. Primary action is usually either mandatory or essential for the user. Primary buttons are designed to clearly highlight the most important action, and therefore you should avoid having multiple primary buttons on one screen. For less important actions, consider using secondary or supplementary buttons instead.
 
 <Playground>
 <Button>Primary</Button>
@@ -77,7 +77,7 @@ Secondary buttons are used for actions which are not mandatory or essential for 
 ### Supplementary button
 Supplementary buttons can be used in similar cases as secondary buttons. However, supplementary buttons are meant for actions which are intentionally wanted to be less visible to the user. These kind of actions include i.e. cancel and dismiss functionalities.
 
-Note! Since supplementary buttons do not have borders, accompanying icon is required to clearly distinguish them from links and passive text elements.
+Note! Since supplementary buttons do not have borders, an accompanying icon is required to clearly distinguish them from links and passive text elements.
 
 <Playground>
   <Button variant="supplementary" iconLeft={<IconTrash />}>Supplementary</Button>
@@ -98,7 +98,7 @@ Note! Since supplementary buttons do not have borders, accompanying icon is requ
 ```
 
 ### Icon buttons
-Icons can be added to buttons to make the action easier to understand. Sometimes it can be also beneficial to add icons to make important actions more distinguishable. It is not recommended to use buttons with icons without text label because users interpret icons in different ways. More information on icon usage in the [icon guidelines](/visual-assets/icons "Icons").
+Icons can be added to buttons to make the action easier to understand. Sometimes it can also be beneficial to add icons to make important actions more distinguishable. It is not recommended to use buttons with icons without text label because users interpret icons in different ways. More information on icon usage in the [icon guidelines](/visual-assets/icons "Icons").
 
 <Playground>
   <Button iconLeft={<IconShare />}>Button</Button>
@@ -194,7 +194,7 @@ It is recommended to use the standard button size in most cases. If there is a b
 ```
 
 ### Loading buttons
-<p>If action triggered by the button press is not immediate, a loading button state should be shown to the user to indicate the loading period.</p>
+<p>If an action triggered by the button press is not immediate, a loading button state should be shown to the user to indicate the loading period.</p>
 
 When the loading action is triggered at the button press, the button will change its state to loading. After the loading is complete, either the next page loads or if the page stays the same, you should use other methods (such as notifications) to indicate the loading result.
 
