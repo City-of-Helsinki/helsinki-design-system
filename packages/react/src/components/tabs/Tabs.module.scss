@@ -44,12 +44,12 @@
   }
 
   button {
-    box-sizing: border-box;
     @extend %buttonReset;
+    box-sizing: border-box;
     width: 100%;
     height: 26px;
     overflow: hidden;
-    border-radius: none;
+    border-radius: unset;
     border: var(--tab-focus-outline-size) solid transparent;
     display: inline-flex;
     align-items: center;
@@ -142,5 +142,3 @@
     }
   }
 }
-
-.tabPanel {}

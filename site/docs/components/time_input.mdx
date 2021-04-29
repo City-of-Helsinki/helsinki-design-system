@@ -14,8 +14,7 @@ import Text from "../../src/components/Text";
 
 # Time input
 
-<StatusLabel>New</StatusLabel>
-<StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel>
+<StatusLabel type="alert">Draft</StatusLabel>
 <StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
 
 <LargeParagraph>
@@ -28,7 +27,7 @@ import Text from "../../src/components/Text";
 - **HDS Time input does not validate time in any way.** This means you need to make sure to validate the input if your project requires it.
 - It is recommended to give the time input a default value.
 - Because HDS time input forces the input to a specific format, it is not required to describe the expected format in the assistive text.
-- As specified in [the data format guidelines](/guidelines/data-formats), Helsinki services use 24 hour clock and can either use leading zeros or omit them. The time input will always show leading zeros.
+- As specified in [the data format guidelines](/guidelines/data-formats), Helsinki services use a 24-hour clock and can either use leading zeros or omit them. The time input will always show leading zeros.
 - When asking for time ranges, you should use two separate time inputs instead of trying to use one input or picker for both times.
 - Time is often asked alongside a date. Use the [HDS date input](/components/date-input) for asking dates.
 
@@ -48,7 +47,7 @@ import Text from "../../src/components/Text";
 ## Usage and variations
 
 ### Time input
-HDS TimeInput allows manual and accurate input for times. It is the best choice when the input needs to be very accurate or when a specific time slots cannot be determined for the user.
+HDS TimeInput allows manual and accurate input for times. It is the best choice when the input needs to be very accurate or when a specific time slot cannot be determined for the user.
 
 <Playground>
   <TimeInput 

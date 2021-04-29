@@ -2,8 +2,6 @@ import React, { useContext } from 'react';
 
 // import core base styles
 import 'hds-core';
-import styles from './Tabs.module.scss';
-import classNames from '../../utils/classNames';
 import { TabsContext } from './TabsContext';
 
 export type TabPanelProps = React.PropsWithChildren<{
@@ -27,7 +25,7 @@ export const TabPanel = ({ children, className, index, style }: TabPanelProps) =
       id={`tab-${index}-panel`}
       role="tabpanel"
       aria-labelledby={`tab-${index}-button`}
-      className={classNames(styles.tabPanel, className)}
+      className={className}
       style={style}
     >
       {children}

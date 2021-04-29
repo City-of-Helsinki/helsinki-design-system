@@ -26,20 +26,20 @@ import Text from "../../src/components/Text";
 - Use a text input when a single line of text is expected. For multiline inputs, use a text area.
 - Allow the text input to reflect the length of the content you expect the user to enter.
 - If possible, add programmatic assistance. Detect and pre-fill inputs to reduce errors and save time. Use sentence-case for default values, detected values, and auto-completion text.
-- If possible, do input validation in client-side real time and provide the user with immediate feedback. See [HDS Form validation pattern page](/patterns/form-validation) for more information.
+- If possible, do input validation in client-side real-time and provide the user with immediate feedback. See [HDS Form validation pattern page](/patterns/form-validation) for more information.
 - If possible, be forgiving of different input formats and small mistakes. It can greatly increase user experience of your product if you can fix common mistakes for the user.
-- To decrease cognitive load of the user, it is recommended to mark all required fields. Remember to provide explanation of the required field indicator at the top of your form.
+- To decrease a cognitive load of the user, it is recommended to mark all required fields. Remember to provide explanation of the required field indicator at the top of your form.
 
 ## Accessibility
 - Placeholder text can be used to give hints and examples to the user what should be entered to the field. **However, all assistive technologies do not threat placeholder texts as labels and therefore they may ignore them completely.** Aim to provide the sufficient information to fill the input in the label.
 - It is required to use `autocomplete` attribute if input control is listed in the common input purposes list. You can read the full list of common input purposes at <Link href="https://www.w3.org/TR/WCAG21/#input-purposes" external>WCAG 2.1 documentation website</Link>. You can read more about the requirement from <Link href="https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose" external>WCAG 2.1 Identify Input Purpose guideline</Link>.
-- In the case of an erroneous input, aim to provide clear instructions to the user how to correct the mistake. Always provide text description of the error.
+- In the case of an erroneous input, aim to provide clear instructions to the user on how to correct the mistake. Always provide a text description of the error.
 
 ## Usage and variations
 
 ### Text input
 
-Text input serves in most use cases when the user needs to enter information. Text input works well for short inputs that fit in one line and are not longer than one sentence.
+A text input serves in most use cases when the user needs to enter information. Text input works well for short inputs that fit in one line and are not longer than one sentence.
 
 <Playground>
   <TextInput
@@ -138,7 +138,7 @@ Text input serves in most use cases when the user needs to enter information. Te
 
 ### Text area
 
-Text area is meant for situations where inputted text is multiline or contains more than one sentence.
+A text area is meant for situations where inputted text is multiline or contains more than one sentence.
 
 <Playground>
   <TextArea
