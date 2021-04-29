@@ -27,11 +27,12 @@ exports[`<ErrorSummary /> spec renders the component 1`] = `
             fill="none"
             fill-rule="evenodd"
           >
-            <path
-              d="M0 0h24v24H0z"
+            <rect
+              height="24"
+              width="24"
             />
             <path
-              d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 2a8 8 0 100 16 8 8 0 000-16zm1 12v2h-2v-2h2zm0-10v8h-2V6h2z"
+              d="M12,3 C16.9705627,3 21,7.02943725 21,12 C21,16.9705627 16.9705627,21 12,21 C7.02943725,21 3,16.9705627 3,12 C3,7.02943725 7.02943725,3 12,3 Z M13,16 L13,18 L11,18 L11,16 L13,16 Z M13,6 L13,14 L11,14 L11,6 L13,6 Z"
               fill="currentColor"
             />
           </g>

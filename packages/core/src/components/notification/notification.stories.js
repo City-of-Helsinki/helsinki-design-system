@@ -7,10 +7,10 @@ import '../../icons/ui/icon-error.css';
 import '../../icons/ui/icon-check.css';
 
 const iconMapping = {
-  info: 'info-circle',
-  success: 'check',
-  alert: 'alert-circle',
-  error: 'error',
+  info: 'info-circle-fill',
+  success: 'check-circle-fill',
+  alert: 'alert-circle-fill',
+  error: 'error-fill',
 };
 
 const getLabel = (type = 'info') => {
@@ -148,7 +148,7 @@ export const WithClose = () => `
     <section aria-label="Notification" class="hds-notification hds-notification--small">
       <div class="hds-notification__content">
         <div class="hds-notification__label">
-          <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+          <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
         </div>
         <div class="hds-notification__body">Info</div>
       </div>
