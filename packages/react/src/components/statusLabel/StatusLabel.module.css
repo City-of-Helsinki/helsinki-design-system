@@ -2,14 +2,6 @@
   composes: hds-status-label from 'hds-core/lib/components/status-label/status-label.css';
 }
 
-.statusLabelWithIcon {
-  composes: hds-status-label--with-icon from 'hds-core/lib/components/status-label/status-label.css';
-}
-
-.statusLabelIcon {
-  composes: hds-status-label-icon from 'hds-core/lib/components/status-label/status-label.css';
-}
-
 .info {
   composes: hds-status-label--info from 'hds-core/lib/components/status-label/status-label.css';
 }
