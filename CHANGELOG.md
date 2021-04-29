@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0.] - April, 29, 2021
+## [1.0.0] - April, 29, 2021
 
 ### React Components
 #### Breaking Changes
@@ -82,16 +82,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 - Component Pre-release status is now known as Draft
-- Slightly updated the Draft status description in the Component overview page
+- Slightly updated the Draft status description on the Component overview page
 - Updated multiple component statuses for the production release
 - Loading spinner from Draft to Stable
 - Tabs from Draft to Stable
 - ImageWithCard from Draft to Stable
 - Section from Draft to Stable
 - Removed beta mentions from the website
-- Updated Roapmap and What’s new section
+- Updated Roadmap and What’s new section
 - Updated Form pattern example images to use the fill icon style in error and success messages
-- Updated Dialog code examples to follow better practises
+- Updated Dialog code examples to follow better practices
 
 #### Fixed
 
