@@ -44,7 +44,6 @@ exports[`<Tabs /> spec renders the component 1`] = `
     </div>
     <div
       aria-labelledby="tab-0-button"
-      class="tabPanel"
       id="tab-0-panel"
       role="tabpanel"
     >
