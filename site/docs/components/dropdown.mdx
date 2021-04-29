@@ -26,10 +26,10 @@ import Link from "../../src/components/Link";
 
 - **A label should always be provided with dropdowns.** Aim for labels that are short, concise and easy to understand.
 - Dropdowns usually have four (4) or more options. When having only 2-3 options, it is usually better to use [radio buttons](/components/radio-button "Radio button documentation") or [checkboxes](/components/checkbox "Checkbox documentation"). Also, if options need to be easily comparable (for example, product pricing), prefer radio buttons over dropdown.
-- It is recommended to set default option for a single selection dropdown. If the default option is also the recommended option, you can mark the option with a text "_(recommended)_".
+- It is recommended to set a default option for a single selection dropdown. If the default option is also the recommended option, you can mark the option with a text "_(recommended)_".
 - If your dropdown has 8 or more options, consider using the [Combobox](#combobox-single-selection) variant which offers filtering options by typing.
 - Try to avoid dropdown options that span over one line. Aim for short texts for all options.
-- If possible, do input validation client-side in real time and provide the user with immediate feedback after selection.
+- If possible, do input validation client-side in real-time and provide the user with immediate feedback after selection.
 
 ### Should I use Select or Combobox?
 - **Use Select variant when**
@@ -45,7 +45,7 @@ import Link from "../../src/components/Link";
 - Do not use context change triggers (e.g. links) as dropdown options. See <Link href="https://www.w3.org/TR/WCAG21/#on-input" external>WCAG 3.2.2 On Input guideline</Link> for more information.
 - Placeholder text can be used to give hints and examples to the user what is being selected with the dropdown. **However, all assistive technologies do not threat placeholder texts as labels and therefore they may ignore them completely.** Aim to provide the sufficient information to fill the input in the label or in the assistive text. Also if possible, set default option for the dropdown so the placeholder is not needed.
 - In the case of an erroneous selection, aim to provide clear instructions to the user how to correct the mistake. Always provide text description of the error. In dropdowns it is usually possible to filter selectable options for the user to avoid errors completely.
-- HDS Dropdowns support `getA11ySelectionMessage` which should be included to give screen reader better feedback when an option is selected.
+- HDS Dropdowns support `getA11ySelectionMessage` that should be included to give screen reader better feedback when an option is selected.
 
 ## Usage & variations
 

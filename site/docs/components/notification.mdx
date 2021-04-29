@@ -30,7 +30,7 @@ import Text from "../../src/components/Text";
 ### When to use each notification type?
 - **Use inline notifications when information is related to the content or if you want to keep information visible at all times.** Inline notifications are part of the content and should therefore be placed as close as possible to the related part of the content. Inline notifications should not be added to the page dynamically.
 - **Use toast notifications to inform the user about a specific event or change in the system status.** Toast notifications do not relate to any specific object on the page and are therefore placed on top of the content (usually top right or bottom center).
-- **Use invisible notifications to make system state changes more apparent for screen reader users.** Some features (such as moving a product to the shopping cart) are apparent for regular users but screen readers may need extra assist.
+- **Use invisible notifications to make system state changes more apparent for screen reader users.** Some features (such as moving a product to the shopping cart) are apparent for regular users, but screen readers may need extra assist.
 
 ### When to use each status colour (info, success, alert, error)?
 - You can find guidelines on when to use each status colour in the [colour guidelines](/design-tokens/colour#ui-colours "UI colours"). Aim to use notification levels and colours consistently across your service.
@@ -44,7 +44,7 @@ import Text from "../../src/components/Text";
 ## Usage and variations
 
 ### Inline
-Inline notifications are used as part of the content. They closely relate to the part of the content and work best when placed as close as the related content as possible. Inline notifications are often used to provide or emphasise key information related to the content of the page. It is recommended not to make them closable - unless their information is not important or can be accessed somewhere else. Inline notifications greatly emphasise the information so they should be used sparingly in order not to dilute their effect. A good rule of thumb is to limit the number of simultaneous inline notifications to one.
+Inline notifications are used as part of the content. They closely relate to the part of the content and work best when placed as close to the related content as possible. Inline notifications are often used to provide or emphasise key information related to the content of the page. It is recommended not to make them closable - unless their information is not important or can be accessed somewhere else. Inline notifications greatly emphasise the information so they should be used sparingly in order not to dilute their effect. A good rule of thumb is to limit the number of simultaneous inline notifications to one.
 
 Note! Inline notifications should not be added to the page dynamically. For this use case, use [Toast notifications](#toast).
 
@@ -61,7 +61,7 @@ Note! Inline notifications should not be added to the page dynamically. For this
 <section aria-label="Notification" class="hds-notification">
   <div class="hds-notification__content">
     <div class="hds-notification__label" role="heading" aria-level="2">
-      <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+      <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
       <span>New messages</span>
     </div>
     <div class="hds-notification__body">You have received new messages.</div>
@@ -72,7 +72,7 @@ Note! Inline notifications should not be added to the page dynamically. For this
 <section aria-label="Notification" class="hds-notification hds-notification--success">
   <div class="hds-notification__content">
     <div class="hds-notification__label" role="heading" aria-level="2">
-      <span class="hds-icon hds-icon--check" aria-hidden="true"></span>
+      <span class="hds-icon hds-icon--check-circle-fill" aria-hidden="true"></span>
       <span>Form done</span>
     </div>
     <div class="hds-notification__body">Form submit was successful!</div>
@@ -83,7 +83,7 @@ Note! Inline notifications should not be added to the page dynamically. For this
 <section aria-label="Notification" class="hds-notification hds-notification--alert">
   <div class="hds-notification__content">
     <div class="hds-notification__label" role="heading" aria-level="2">
-      <span class="hds-icon hds-icon--alert-circle" aria-hidden="true"></span>
+      <span class="hds-icon hds-icon--alert-circle-fill" aria-hidden="true"></span>
       <span>Slow loading</span>
     </div>
     <div class="hds-notification__body">Loading is taking longer than expected.</div>
@@ -94,7 +94,7 @@ Note! Inline notifications should not be added to the page dynamically. For this
 <section aria-label="Notification" class="hds-notification hds-notification--error">
   <div class="hds-notification__content">
     <div class="hds-notification__label" role="heading" aria-level="2">
-      <span class="hds-icon hds-icon--error" aria-hidden="true"></span>
+      <span class="hds-icon hds-icon--error-fill" aria-hidden="true"></span>
       <span>Missing information</span>
     </div>
     <div class="hds-notification__body">Form is missing critical information.</div>
@@ -143,7 +143,7 @@ Toasts notifications provide lightweight feedback for changes in system status s
 <section aria-label="Notification" class="hds-notification hds-notification--top-right">
   <div role="alert" class="hds-notification__content">
     <div class="hds-notification__label" role="heading" aria-level="2">
-      <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+      <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
       <span>New messages</span>
     </div>
     <div class="hds-notification__body">You have received new messages.</div>
@@ -180,7 +180,7 @@ HDS notifications come in three different sizes, allowing the designer to choose
 <section aria-label="Notification" class="hds-notification hds-notification--large">
   <div class="hds-notification__content">
     <div class="hds-notification__label" role="heading" aria-level="2">
-      <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+      <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
       <span>New messages</span>
     </div>
     <div class="hds-notification__body">You have received new messages.</div>
@@ -191,7 +191,7 @@ HDS notifications come in three different sizes, allowing the designer to choose
 <section aria-label="Notification" class="hds-notification">
   <div class="hds-notification__content">
     <div class="hds-notification__label" role="heading" aria-level="2">
-      <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+      <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
       <span>New messages</span>
     </div>
     <div class="hds-notification__body">You have received new messages.</div>
@@ -202,7 +202,7 @@ HDS notifications come in three different sizes, allowing the designer to choose
 <section aria-label="Notification" class="hds-notification hds-notification--small">
   <div class="hds-notification__content">
     <div class="hds-notification__label" role="heading" aria-level="2">
-      <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+      <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
     </div>
     <div class="hds-notification__body">You have received new messages.</div>
   </div>
@@ -225,7 +225,7 @@ Invisible notifications do not show up on screen and they are meant to aid scree
   <section aria-label="Notification" class="hds-notification">
     <div class="hds-notification__content">
       <div class="hds-notification__label" role="heading" aria-level="2">
-        <span class="hds-icon hds-icon--info-circle" aria-hidden="true"></span>
+        <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
         <span>New messages</span>
       </div>
       <div class="hds-notification__body">You have received new messages. This notification is invisible.</div>

@@ -24,10 +24,11 @@
   background: #fff;
   position: relative;
   box-sizing: border-box;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
   display: inline-block;
   width: 100%;
   max-width: calc(var(--table-width) + 2 * var(--horizontal-spacing));
+  min-width: var(--container-width-xs);
   padding: var(--vertical-spacing) var(--horizontal-spacing);
 }
 

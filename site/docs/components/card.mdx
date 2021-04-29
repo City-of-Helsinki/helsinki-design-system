@@ -21,19 +21,19 @@ import Link from "../../src/components/Link";
 
 ## Principles
 - **Use Cards sparingly.** While they can drastically improve service's understandability and readibility, overusing them may result in confusing and complex user interfaces.
-- **Cards work very well for listing heterogenous content** such as news items, blog posts or upcoming events.
+- **Cards work very well for listing heterogenous content** such as news items, blog posts, or upcoming events.
 - **Cards can also be used to emphasize important content** such as site CTA (Call To Action).
 - **Default Cards must not be used as interactive elements themselves.** This means that the whole Card should not be clickable. Elements inside the Card can still be interactable.
 - Currently HDS offers base Cards which you can use to build custom Cards for your project's needs. For inspiration and guidelines, you can find custom card examples in <Link href="https://share.goabstract.com/e6aa2ebd-1a49-4cb1-90ef-a44a6486c28b" external>HDS Example Custom Components - Abstract collection</Link>.
 
 ## Accessibility
-- Card must have either a visual heading or `aria-label` as title. This describes the Card's content for assistive technologies.
-- The colour contrast between the Card and its background must comply with <Link href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>WCAG AA Level contrast ratios</Link>. If needed, you may use Card border to increase the Card contrast to its background.
+- Card must have either a visual heading or `aria-label` as a title. This describes the Card's content for assistive technologies.
+- The colour contrast between the Card and its background must comply with <Link href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>WCAG AA Level contrast ratios</Link>. If needed, you may use a Card border to increase the Card contrast to its background.
 
 ## Usage & variations
 
 ### Empty
-Currently HDS offers empty base Cards. These and other HDS components can be used to create custom Cards for your project. By default, HDS recommends Cards without border style.
+Currently, HDS offers empty base Cards. These and other HDS components can be used to create custom Cards for your project. By default, HDS recommends Cards without border style.
 
 <Playground>
   <Card />
@@ -56,7 +56,7 @@ Currently HDS offers empty base Cards. These and other HDS components can be use
 
 ### With heading and body text
 
-Additionally HDS offers styling for basic heading and body text inside the Card component. These can be used instead of custom elements.
+Additionally, HDS offers styling for basic heading and body text inside the Card component. These can be used instead of custom elements.
 
 <Playground>
   <Card

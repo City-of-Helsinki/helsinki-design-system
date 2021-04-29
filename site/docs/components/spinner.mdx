@@ -11,7 +11,7 @@ import { LoadingSpinner, StatusLabel } from "hds-react";
 
 # Loading spinner
 
-<StatusLabel type="alert" style={{marginLeft: 'var(--spacing-xs)'}}>Pre-release</StatusLabel>
+<StatusLabel type="info">Stable</StatusLabel>
 <StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
 
 <LargeParagraph>
@@ -21,9 +21,9 @@ import { LoadingSpinner, StatusLabel } from "hds-react";
 The loading spinner do not provide details about nature of the processing but it reassures the user that their action is being processed.
 
 ## Principles
-- **Use the loading spinner only if the wait time is anticipated to be longer than three seconds.** A spinner that just flashes quickly in view can confuse the user.
+- **Use the loading spinner only if the wait time is anticipated to be longer than three seconds.** A spinner that only quickly flashes in view can confuse the user.
 - Display the loading spinner in the same area and contextual level where the processing is taking place. For example, if only the loader indicates that data is being retrieved for a specific content area, display the spinner in that same area.
-- If possible, provide a descpriptive visual label for the action being processed with the loading spinner.
+- If possible, provide a descriptive visual label for the action being processed with the loading spinner.
 
 
 ## Accessibility
@@ -39,7 +39,7 @@ The loading spinner do not provide details about nature of the processing but it
 
 ### Basic loading spinner
 The loading spinner comes in two sizes: 
-- Medium (64px) is used for larger content areas and full screen loading 
+- Medium (64px) is used for larger content areas and for full-screen loading 
 - Small (24px) can be used for indicating more local changes in content.
 
 <Playground>

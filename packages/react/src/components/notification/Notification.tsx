@@ -6,7 +6,7 @@ import { VisuallyHidden } from '@react-aria/visually-hidden';
 import 'hds-core';
 import classNames from '../../utils/classNames';
 import styles from './Notification.module.css';
-import { IconInfoCircle, IconError, IconAlertCircle, IconCheck, IconCross } from '../../icons';
+import { IconInfoCircleFill, IconErrorFill, IconAlertCircleFill, IconCheckCircleFill, IconCross } from '../../icons';
 
 export type NotificationType = 'info' | 'error' | 'alert' | 'success';
 export type NotificationSizeInline = 'default' | 'small' | 'large';
@@ -106,10 +106,10 @@ export type NotificationProps = CommonProps & PositionAndSize & Dismissible;
 
 // Icon mapping for notification types
 const icons = {
-  info: IconInfoCircle,
-  success: IconCheck,
-  error: IconError,
-  alert: IconAlertCircle,
+  info: IconInfoCircleFill,
+  success: IconCheckCircleFill,
+  error: IconErrorFill,
+  alert: IconAlertCircleFill,
 };
 
 /**
