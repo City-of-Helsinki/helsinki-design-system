@@ -1,4 +1,4 @@
-<h1 align="center">Helsinki Design System (beta)</h1>
+<h1 align="center">Helsinki Design System</h1>
 
 <div align="center">
   <strong>Design System for the City of Helsinki</strong>
@@ -12,7 +12,7 @@
 <div align="center">
   <!-- Version -->
   <a href="https://github.com/City-of-Helsinki/helsinki-design-system/releases/latest">
-    <img src="https://img.shields.io/github/v/release/City-of-Helsinki/helsinki-design-system?label=beta-release&style=flat-square"
+    <img src="https://img.shields.io/github/v/release/City-of-Helsinki/helsinki-design-system?label=version&style=flat-square"
       alt="Version" />
   </a>
   <!-- Licence -->
@@ -124,7 +124,7 @@ Helsinki Design System has a public roadmap. For the long-term Roadmap, please r
 
 **Before contributing, it is recommended to read [HDS Contribution - Before contributing page](https://hds.hel.fi/contributing/before-contributing).**
 
-Helsinki Design System is under development, currently in the beta phase. We are accepting new features, feature requests and help with improving the documentation. There are multiple ways you can contribute:
+We are accepting new features, feature requests and help with improving the documentation. There are multiple ways you can contribute:
 
 - Opening [issues](https://github.com/City-of-Helsinki/helsinki-design-system/issues) about bugs/improvements/new features/etc.
 - Opening [pull requests](https://github.com/City-of-Helsinki/helsinki-design-system/pulls) with changes/fixes/new features/etc.
