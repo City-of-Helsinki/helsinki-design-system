@@ -5,7 +5,7 @@ import { SearchInput } from './SearchInput';
 
 describe('<SearchInput /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<SearchInput onSubmit={() => null} suggestionLabelField="" />);
+    const { asFragment } = render(<SearchInput label="Search" onSubmit={() => null} />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

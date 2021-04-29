@@ -6,11 +6,11 @@ import { Footer } from './Footer';
 
 describe('<Footer /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<Footer footerAriaLabel="Foo" title="Bar" />);
+    const { asFragment } = render(<Footer title="Bar" />);
     expect(asFragment()).toMatchSnapshot();
   });
   it('should not have basic accessibility issues', async () => {
-    const { container } = render(<Footer footerAriaLabel="Foo" title="Bar" />);
+    const { container } = render(<Footer title="Bar" />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
