@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replaced notifications' icons with fill icons
 
 #### Fixed
-- [TextInput] Removed text input 100% height
+- [TextInput] Fixed text input height inside flexbox
 - [DateInput] Fixed ref property
 - [DateInput] Added datepicker min-width
 
