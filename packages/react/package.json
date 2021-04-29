@@ -2,10 +2,6 @@
   "name": "hds-react",
   "version": "0.25.0",
   "description": "React components for the Helsinki Design System",
-  "author": "Anssi Lehtonen <lehtovaaralainen@gmail.com>",
-  "contributors": [
-    "Niclas Liimatainen <niclas.liimatainen@gmail.com>"
-  ],
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
   "main": "./cjs/index.js",
