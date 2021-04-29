@@ -24,9 +24,9 @@ import Text from "../../src/components/Text";
 ## Principles
 - **Contents of the tabs in a single tab list should have a relation to each other. Do not use tabs for only navigation purposes but actually group views within a context.**
 - **Pay close attention to tab labels.** They should clearly indicate the contents of the tab so the user can reliably guess what they will find inside the tab.
-    - Keep tab labels short and concice - maximum of 1-2 words long. Do not use ALL CAPS in tab labels.
-- It is recommended that the maximum amount of tabs in a single tablist is six (6).
-- **When using tabs, keep in mind that the user should not be required to compare information between tabs.** Constantly switching between tabs can be a very cumbersome experience so make sure that all information that the user needs in available in a single view.
+    - Keep tab labels short and concise - maximum of 1-2 words long. Do not use ALL CAPS in tab labels.
+- It is recommended that the maximum amount of tabs in a single tab list is six (6).
+- **When using tabs, keep in mind that the user should not be required to compare information between tabs.** Constantly switching between tabs can be a very cumbersome experience, so make sure that all information that the user needs is available in a single view.
 - **Do not use HDS Tabs to create step-by-step forms.** You must not expect that the user activates all tabs in a specific order.
 - Do not span tab lists into multiple rows. If you are running out of space, consider if using tabs is the correct option or use [the overflow functionality](#overflow-tabs) that HDS Tabs offer.
 
@@ -35,7 +35,7 @@ import Text from "../../src/components/Text";
 - **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
 - The TabPanel must appear right below the TabList in the DOM tree. This means that the next focusable element after the TabList will be the tab's content.
 - While HDS Tabs are accessible, you must ensure that the content displayed in the TabPanel is also accessible.
-- HDS Tabs use manual activation. This means that when using tabs with a keyboard, each tab must be separately activated with Enter/Space and they do not activate automatically. If you are creating custom tabs for your project, follow the same control scheme.
+- HDS Tabs use manual activation. This means that when using tabs with a keyboard, each tab must be separately activated with Enter/Space, and they do not activate automatically. If you are creating custom tabs for your project, follow the same control scheme.
 
 ## Usage & variations
 
@@ -138,7 +138,7 @@ Small tabs variant can be used on smaller screens or when you are tight on space
 ### Overflow tabs
 HDS Tabs have an automatic overflow functionality when the TabList does not fit into its container. In this case, an overflow indicator icon is shown at the edge of the TabList if there are tabs outside of the visible area. TabList scrolls automatically when the user selects tabs, presses the overflow icon or uses keyboard controls to move between tabs.
 
-Note! It is generally recommended that before relying on the overflow you attempt other solutions first. For example, you can try using the small tabs variant or reducing the amount of tabs in the tablist.
+Note! It is generally recommended that before relying on the overflow you attempt other solutions first. For example, you can try using the small tabs variant or reducing the number of tabs in the tablist.
 
 <Playground>
 <div style={{maxWidth: '400px'}}>

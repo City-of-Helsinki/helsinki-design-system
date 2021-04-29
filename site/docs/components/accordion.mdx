@@ -23,7 +23,7 @@ import Text from "../../src/components/Text";
 
 ## Principles
 - Use accordions to allow the user to quickly glance the information and then choose to open sections that are interesting to them.
-- **Accordions must be given a header which describes the accordion content.** This header also acts as the label for the expand button. The header level can be chosen depending on the structure of the page.
+- **Accordions must be given a header that describes the accordion content.** This header also acts as the label for the expand button. The header level can be chosen depending on the structure of the page.
 - **Do not put essential or must-read information inside accordions.** If the user is expected to open all of the accordions while using the service, then it is likely that the information should not be inside accordions.
     - Accordions work well when the user usually needs only part of the information. You may also consider placing parts of lower importance inside accordions while the most important parts are always visible.
 - Do not use accordions to create step-by-step forms. You must not expect that the user opens all accordions in a specific order.
@@ -34,7 +34,7 @@ import Text from "../../src/components/Text";
 - Use HDS provided accordion elements when creating custom accordions. These elements pass accessibility testing.
 - When creating custom accordions, make sure that the expanded accordion area directly follows the accordion button in the DOM tree.
     - If you must place the accordion area somewhere else, use `aria-owns` attribute to indicate the relationship. However, be aware that this attribute does not necessarily work with all screen readers.
-- Make sure that the keyboard user is able to navigate out of the accordion area without closing the accordion. See <Link href="https://www.w3.org/TR/WCAG21/#no-keyboard-trap" external>WCAG 2.1.2 No Keyboard Trap guideline</Link> for more information.
+- Make sure that the keyboard user can navigate out of the accordion area without closing the accordion. See <Link href="https://www.w3.org/TR/WCAG21/#no-keyboard-trap" external>WCAG 2.1.2 No Keyboard Trap guideline</Link> for more information.
 
 ## Usage & variations
 
@@ -65,7 +65,7 @@ This style is visually less distracting and it works well when there are multipl
 ### Accordion with a card
 You can also use HDS Cards as a container for your Accordions. Cards offer the same customizability options as default HDS Cards. To learn more about Cards and their customization, refer to [HDS Card documentation](/components/card).
 
-If you have multiple accordions one below another or a lot of accordions in the same view, consider using the visually more light [default styling variant](#default-accordion) instead of this one.
+If you have multiple accordions one below another or many accordions in the same view, consider using the visually more light [default styling variant](#default-accordion) instead of this one.
 
 <Playground>
     <Accordion 
