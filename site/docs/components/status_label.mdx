@@ -5,7 +5,7 @@ route: /components/status-label
 ---
 
 import { Playground } from "docz";
-import { IconInfoCircle, IconCheckCircle, StatusLabel } from "hds-react";
+import { StatusLabel } from "hds-react";
 
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Link from "../../src/components/Link";
@@ -40,11 +40,6 @@ import Link from "../../src/components/Link";
     <StatusLabel type="success" style={{marginLeft: 'var(--spacing-s)'}}>Success</StatusLabel>
     <StatusLabel type="alert" style={{marginLeft: 'var(--spacing-s)'}}>Alert</StatusLabel>
     <StatusLabel type="error" style={{marginLeft: 'var(--spacing-s)'}}>Error</StatusLabel>
-    <StatusLabel style={{marginLeft: 'var(--spacing-s)'}} iconLeft={<IconInfoCircle />}>Default</StatusLabel>
-    <StatusLabel type="info" style={{marginLeft: 'var(--spacing-s)'}} iconLeft={<IconInfoCircle />}>Info</StatusLabel>
-    <StatusLabel type="success" style={{marginLeft: 'var(--spacing-s)'}} iconLeft={<IconCheckCircle />}>Success</StatusLabel>
-    <StatusLabel type="alert" style={{marginLeft: 'var(--spacing-s)'}} iconLeft={<IconInfoCircle />}>Alert</StatusLabel>
-    <StatusLabel type="error" style={{marginLeft: 'var(--spacing-s)'}} iconLeft={<IconInfoCircle />}>Error</StatusLabel>
 </Playground>
 
 #### Core code example:
@@ -64,26 +59,6 @@ import Link from "../../src/components/Link";
 <span class="hds-status-label hds-status-label--error">
   Error
 </span>
-<span class='hds-status-label hds-status-label--with-icon'>
-  <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--info-circle'></span>
-  Default
-</span>
-<span class="hds-status-label hds-status-label--with-icon hds-status-label--info">
- <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--info-circle'></span>
-  Info
-</span>
-<span class='hds-status-label hds-status-label--with-icon hds-status-label--success'>
-  <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--check-circle'></span>
-  Success
-</span>
-<span class='hds-status-label hds-status-label--with-icon hds-status-label--alert'>
-  <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--alert-circle'></span>
-  Alert
-</span>
-<span class='hds-status-label hds-status-label--with-icon hds-status-label--error'>
-  <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--alert-circle'></span>
-  Error
-</span>
 ```
 
 #### React code example:
@@ -93,11 +68,6 @@ import Link from "../../src/components/Link";
 <StatusLabel type="success">Success</StatusLabel>
 <StatusLabel type="alert">Alert</StatusLabel>
 <StatusLabel type="error">Error</StatusLabel>
-<StatusLabel iconLeft={<IconInfoCircle />}>Default</StatusLabel>
-<StatusLabel type="info" iconLeft={<IconInfoCircle />}>Info</StatusLabel>
-<StatusLabel type="success" iconLeft={<IconCheckCircle />}>Success</StatusLabel>
-<StatusLabel type="alert" iconLeft={<IconInfoCircle />}>Alert</StatusLabel>
-<StatusLabel type="error" iconLeft={<IconInfoCircle />}>Error</StatusLabel>
 ```
 
 ## Demos & API
