@@ -15,8 +15,6 @@ export default {
   },
   args: {
     id: 'example-dialog',
-    'aria-labelled-by': 'example-dialog-title',
-    'aria-describedby': 'example-dialog-content',
   },
 };
 
@@ -24,6 +22,8 @@ export const Default = (args) => {
   const openButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(false);
   const close = () => setOpen(false);
+  const titleId = 'custom-dialog-title';
+  const descriptionId = 'custom-dialog-content';
 
   return (
     <>
@@ -32,20 +32,16 @@ export const Default = (args) => {
       </Button>
       <Dialog
         id={args.id}
-        aria-labelledby={args['aria-labelledby']}
-        aria-describedby={args['aria-describedby']}
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
         isOpen={open}
         focusAfterCloseRef={openButtonRef}
         close={close}
         closeButtonLabelText="Close"
       >
-        <Dialog.Header
-          id={args['aria-labelledby']}
-          title="Add new item"
-          iconLeft={<IconPlusCircle aria-hidden="true" />}
-        />
+        <Dialog.Header id={titleId} title="Add new item" iconLeft={<IconPlusCircle aria-hidden="true" />} />
         <Dialog.Content>
-          <p id={args['aria-describedby']} className="text-body">
+          <p id={descriptionId} className="text-body">
             Add a new item by filling the information below. All fields are mandatory.
           </p>
           <TextInput
@@ -87,6 +83,8 @@ export const Confirmation = (args) => {
   const openConfirmationButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(true);
   const close = () => setOpen(false);
+  const titleId = 'confirmation-dialog-title';
+  const descriptionId = 'confirmation-dialog-description';
 
   return (
     <>
@@ -95,19 +93,15 @@ export const Confirmation = (args) => {
       </Button>
       <Dialog
         id={args.id}
-        aria-labelledby={args['aria-labelledby']}
-        aria-describedby={args['aria-describedby']}
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
         isOpen={open}
         focusAfterCloseRef={openConfirmationButtonRef}
         targetElement={dialogTargetElement}
       >
-        <Dialog.Header
-          id={args['aria-labelledby']}
-          title="Confirm dialog"
-          iconLeft={<IconAlertCircle aria-hidden="true" />}
-        />
+        <Dialog.Header id={titleId} title="Confirm dialog" iconLeft={<IconAlertCircle aria-hidden="true" />} />
         <Dialog.Content>
-          <p id={args['aria-describedby']} className="text-body">
+          <p id={descriptionId} className="text-body">
             Are you sure you want to continue?
           </p>
         </Dialog.Content>
@@ -133,8 +127,6 @@ Confirmation.storyName = 'Confirmation';
 
 Confirmation.args = {
   id: 'confirmation-dialog',
-  'aria-labelledby': 'confirmation-dialog-title',
-  'aria-describedby': 'confirmation-dialog-description',
 };
 
 Confirmation.parameters = {
@@ -154,6 +146,8 @@ export const Danger = (args) => {
   const openDangerButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(true);
   const close = () => setOpen(false);
+  const titleId = 'danger-dialog-title';
+  const descriptionId = 'danger-dialog-description';
 
   return (
     <>
@@ -163,19 +157,15 @@ export const Danger = (args) => {
       <Dialog
         variant="danger"
         id={args.id}
-        aria-labelledby={args['aria-labelledby']}
-        aria-describedby={args['aria-describedby']}
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
         isOpen={open}
         focusAfterCloseRef={openDangerButtonRef}
         targetElement={dialogTargetElement}
       >
-        <Dialog.Header
-          id={args['aria-labelledby']}
-          title="Delete item"
-          iconLeft={<IconAlertCircle aria-hidden="true" />}
-        />
+        <Dialog.Header id={titleId} title="Delete item" iconLeft={<IconAlertCircle aria-hidden="true" />} />
         <Dialog.Content>
-          <p id={args['aria-describedby']} className="text-body">
+          <p id={descriptionId} className="text-body">
             Are you sure you want to delete the item?
           </p>
         </Dialog.Content>
@@ -203,8 +193,6 @@ Danger.storyName = 'Danger';
 
 Danger.args = {
   id: 'danger-dialog',
-  'aria-labelledby': 'danger-dialog-title',
-  'aria-describedby': 'danger-dialog-description',
 };
 
 Danger.parameters = {
@@ -224,6 +212,8 @@ export const ScrollableConfirmation = (args) => {
   const openScrollableConfirmationButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(true);
   const close = () => setOpen(false);
+  const titleId = 'confirmation-scrollable-title';
+  const descriptionId = 'confirmation-scrollable-description';
 
   return (
     <>
@@ -233,20 +223,16 @@ export const ScrollableConfirmation = (args) => {
       <Dialog
         id={args.id}
         style={{ width: '800px' }}
-        aria-labelledby={args['aria-labelledby']}
-        aria-describedby={args['aria-describedby']}
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
         isOpen={open}
         focusAfterCloseRef={openScrollableConfirmationButtonRef}
         targetElement={dialogTargetElement}
         scrollable
       >
-        <Dialog.Header
-          id={args['aria-labelledby']}
-          title="Confirm dialog"
-          iconLeft={<IconAlertCircle aria-hidden="true" />}
-        />
+        <Dialog.Header id={titleId} title="Confirm dialog" iconLeft={<IconAlertCircle aria-hidden="true" />} />
         <Dialog.Content>
-          <h3 id={args['aria-describedby']}>Are you sure you want to continue?</h3>
+          <h3 id={descriptionId}>Are you sure you want to continue?</h3>
           <p className="text-body">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
             aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
@@ -341,8 +327,6 @@ ScrollableConfirmation.storyName = 'Scrollable confirmation';
 
 ScrollableConfirmation.args = {
   id: 'confirmation-scrollable-dialog',
-  'aria-labelledby': 'confirmation-scrollable-title',
-  'aria-describedby': 'confirmation-scrollable-description',
 };
 
 ScrollableConfirmation.parameters = {
@@ -365,6 +349,10 @@ export const ConfirmationWithTerms = (args) => {
   const openTermsButtonRef = useRef(null);
   const closeTerms = () => setTermsOpen(false);
   const openTermsDialog = () => setTermsOpen(true);
+  const confirmationTitleId = 'confirmation-title';
+  const confirmationDescriptionId = 'confirmation-description';
+  const termsTitleId = 'terms-title';
+  const termsDescriptionId = 'terms-description';
 
   return (
     <>
@@ -374,18 +362,18 @@ export const ConfirmationWithTerms = (args) => {
       <Dialog
         id={args.id}
         style={{ width: '800px' }}
-        aria-labelledby={args['aria-labelledby']}
-        aria-describedby={args['aria-describedby']}
+        aria-labelledby={confirmationTitleId}
+        aria-describedby={confirmationDescriptionId}
         isOpen={open}
         focusAfterCloseRef={openConfirmationButtonRef}
       >
         <Dialog.Header
-          id={args['aria-labelledby']}
+          id={confirmationTitleId}
           title="Accept terms dialog"
           iconLeft={<IconAlertCircle aria-hidden="true" />}
         />
         <Dialog.Content>
-          <p id={args['aria-describedby']} className="text-body">
+          <p id={confirmationDescriptionId} className="text-body">
             Do you want to accept terms of the service?
             <br />
             <br />
@@ -415,16 +403,16 @@ export const ConfirmationWithTerms = (args) => {
       </Dialog>
       <Dialog
         id={args.termsId}
-        aria-labelledby={args.termsLabelId}
-        aria-describedby={args.termsDescriptionId}
+        aria-labelledby={termsTitleId}
+        aria-describedby={termsDescriptionId}
         isOpen={termsOpen}
         focusAfterCloseRef={openTermsButtonRef}
         close={closeTerms}
         closeButtonLabelText="Close terms dialog"
       >
-        <Dialog.Header id={args.termsLabelId} title="Service terms" />
+        <Dialog.Header id={termsTitleId} title="Service terms" />
         <Dialog.Content>
-          <p id={args.termsDescriptionId} className="text-body">
+          <p id={termsDescriptionId} className="text-body">
             These are the terms of the service.
           </p>
           <p className="text-body">
@@ -461,11 +449,7 @@ ConfirmationWithTerms.parameters = {
 
 ConfirmationWithTerms.args = {
   id: 'confirmation-dialog',
-  'aria-labelledby': 'confirmation-title',
-  'aria-describedby': 'confirmation-description',
   termsId: 'terms-dialog',
-  termsLabelId: 'terms-dialog-title',
-  termsDescriptionId: 'terms-dialog-description',
 };
 
 ConfirmationWithTerms.parameters = {
