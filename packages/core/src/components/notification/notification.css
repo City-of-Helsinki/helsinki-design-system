@@ -2,6 +2,7 @@
   --notification-background-color: var(--color-info-light);
   --notification-border-color: var(--color-info);
   --notification-border-width: var(--spacing-2-xs);
+  --notification-icon-color: var(--color-info);
   --notification-color: var(--color-black-90);
   --notification-focus-outline-color: var(--color-coat-of-arms);
   --notification-max-width-inline: none;
@@ -40,6 +41,7 @@
 }
 
 .hds-notification__label > .hds-icon {
+  color: var(--notification-icon-color);
   margin-right: var(--spacing-2-xs);
 }
 
@@ -167,14 +169,17 @@
 .hds-notification--success {
   --notification-background-color: var(--color-success-light);
   --notification-border-color: var(--color-success);
+  --notification-icon-color: var(--color-success);
 }
 
 .hds-notification--alert {
   --notification-background-color: var(--color-alert-light);
   --notification-border-color: var(--color-alert-dark);
+  --notification-icon-color: var(--color-alert-dark);
 }
 
 .hds-notification--error {
   --notification-background-color: var(--color-error-light);
   --notification-border-color: var(--color-error);
+  --notification-icon-color: var(--color-error);
 }
