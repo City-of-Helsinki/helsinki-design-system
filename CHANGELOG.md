@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - April, 29, 2021
+## [1.0.0] - May, 3, 2021
 
 ### React Components
 #### Breaking Changes
@@ -71,7 +71,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Footer] Previously deprecated Footer symbols
 - [Form Components] Previously deprecated multi-select dropdown symbols
 - [Tabs] Paging symbols since they have not been implemented yet
-
 
 ### Documentation
 
