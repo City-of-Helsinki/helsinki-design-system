@@ -6,6 +6,103 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - April, 29, 2021
+
+### React Components
+#### Breaking Changes
+#### Removed
+- [Dropdowns] Removed deprecated Dropdown component
+
+#### Changed
+- Replaced alert and helper text icons with fill icons in form components
+- Replaced notifications' icons with fill icons
+
+#### Fixed
+- [TextInput] Fixed text input height inside flexbox
+- [DateInput] Fixed ref property
+- [DateInput] Added datepicker min-width
+
+### Design kit
+
+#### Added
+- [Logo] New favicon symbols with Light, Dark, Light transparent and Dark transparent variations
+  - Favicon 16×16
+  - Favicon 32×32
+  - Favicon 48×48
+  - MSTile 150×150
+  - Apple touch icon 180×180
+  - Android/Chrome favicon 192×192
+  - Android/Chrome favicon 256×256
+  - Safari pinned tab 260×260
+
+#### Changed
+
+- Updated all HDS libraries to Sketch version 71 (71.2)
+- [Color] Cleaned up layer naming
+- [Footer] Updated typography and icon library links
+- [Form Components] Error text icon now uses a fill icon variant (alert-circle-fill)
+- [Form Components] Success text icon now uses a fill icon variant (check-circle-fill)
+- [Form Components] Updated Tag symbol library links
+- [Form Components] Changed DateInput assistive text date format from DD.MM.YYYY to D.M.YYYY
+- [Koros] Cleaned up layer naming and order
+- [Labels and Tags] Updated typography and icon library links
+- [Navigation] Mobile navigation symbols now use full-width button symbols. This fixes the issue where it was not possible to alter mobile navigation button labels without detaching the symbol.
+- [Navigation] Updated icon library links
+- [Modals and Notifications] Improved example artboard naming
+- [Modals and Notifications] Notification title icon now uses fill icon variants
+- [Modals and Notifications] Notification title icon now uses a corresponding status colour instead of black
+- [Page templates] Updated mobile page template example with a correct content width
+- [Page templates] Cleaned up artboard and layer naming
+- [Placeholders and templates] Improved example artboard spacing
+- [Placeholders and templates] Updated typography library links
+- [Tabs] Renamed “HDS Tabs and Pages” to “HDS Tabs” to better match the library contents
+- [Typography] Cleaned up layer naming and order
+
+#### Fixed
+
+- [Modals & Notifications] Clarified layer naming of Inline Notification variant symbols
+- [Navigation] Incorrect icon library links
+- [Navigation] Improved mobile navigation symbol scaling when instance size is increased horizontally
+
+#### Removed
+
+- [Accordion] Previously deprecated “List” symbols
+- [Buttons] Previously deprecated Supplementary button symbols
+- [Footer] Previously deprecated Footer symbols
+- [Form Components] Previously deprecated multi-select dropdown symbols
+- [Tabs] Paging symbols since they have not been implemented yet
+
+
+### Documentation
+
+#### Added
+
+- Tutorial for transitioning to the HDS 1.0 version from older versions
+
+#### Changed
+
+- Component Pre-release status is now known as Draft
+- Slightly updated the Draft status description on the Component overview page
+- Updated multiple component statuses for the production release
+- Loading spinner from Draft to Stable
+- Tabs from Draft to Stable
+- ImageWithCard from Draft to Stable
+- Section from Draft to Stable
+- Removed beta mentions from the website
+- Updated Roadmap and What’s new section
+- Updated Form pattern example images to use the fill icon style in error and success messages
+- Updated Dialog code examples to follow better practices
+
+#### Fixed
+
+- Typos on most documentation pages
+
+#### Removed
+
+- Previously deprecated Dropdown component from the Component overview page table
+- Redundant rows of LockOpen icon from the Icons page table
+
+
 ## [0.25.0] - April 15, 2021
 
 ### React Components
