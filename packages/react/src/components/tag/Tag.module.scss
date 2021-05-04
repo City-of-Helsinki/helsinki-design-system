@@ -42,11 +42,6 @@
   outline: none;
 }
 
-.deleteButtonon .hds-icon {
-  height: var(--spacing-m);
-  width: var(--spacing-m);
-}
-
 .visuallyHidden {
   @extend %hiddenFromScreen;
 }
