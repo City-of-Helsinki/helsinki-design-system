@@ -37,11 +37,7 @@ Clickable.storyName = 'Clickable tag';
 
 export const Deletable = (args) => {
   return (
-    <Tag
-      {...args}
-      deleteButtonAriaLabel={`Delete: ${args.label}`}
-      onDelete={() => action(`Delete: ${args.children}`)()}
-    >
+    <Tag {...args} deleteButtonAriaLabel="Delete item" onDelete={() => action(`Delete: ${args.children}`)()}>
       {args.children}
     </Tag>
   );
