@@ -67,6 +67,10 @@
   font-size: 1rem;
 }
 
+.button:disabled {
+  cursor: not-allowed;
+}
+
 .button:focus {
   outline: none;
   box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
