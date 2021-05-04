@@ -207,6 +207,7 @@ export const MultiSelectExample = (args) => {
       selectedItemRemoveButtonAriaLabel="Remove element {value}"
       selectedItemSrLabel="Selected element {value}"
       getA11yRemovalMessage={({ removedSelectedItem }) => `${removedSelectedItem.label} was removed`}
+      value={[options[0], options[1]]}
     />
   );
 };
