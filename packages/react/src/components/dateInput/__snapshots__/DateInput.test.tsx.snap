@@ -60,6 +60,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
           aria-modal="true"
           class="pickerWrapper"
           role="dialog"
+          style="position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="hds-datepicker"
@@ -1371,6 +1372,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
           aria-modal="true"
           class="pickerWrapper"
           role="dialog"
+          style="position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="hds-datepicker"
@@ -2721,6 +2723,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
           aria-modal="true"
           class="pickerWrapper"
           role="dialog"
+          style="position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="hds-datepicker"
@@ -4066,6 +4069,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
           aria-modal="true"
           class="pickerWrapper"
           role="dialog"
+          style="position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="hds-datepicker"
@@ -5411,6 +5415,7 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
           aria-modal="true"
           class="pickerWrapper"
           role="dialog"
+          style="position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="hds-datepicker"

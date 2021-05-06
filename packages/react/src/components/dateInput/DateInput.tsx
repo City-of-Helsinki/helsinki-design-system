@@ -1,5 +1,6 @@
 import { format, parse, isValid, subYears, addYears, startOfMonth, endOfMonth } from 'date-fns';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { usePopper } from 'react-popper';
 
 import { IconCalendar } from '../../icons';
 import classNames from '../../utils/classNames';
@@ -82,6 +83,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const inputRef = useRef<HTMLInputElement>();
     const [inputValue, setInputValue] = useState<string>(providedValue || defaultValue);
     const [showPicker, setShowPicker] = useState(false);
+    const getOpenButton = (): HTMLButtonElement | null => inputRef.current?.parentNode.querySelector('button');
 
     /**
      * Set the input value if value prop changes
@@ -100,7 +102,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
       // Focus the date picker open button
       if (inputRef.current && focusToggleButton) {
-        const button = inputRef.current.parentNode.querySelector('button');
+        const button = getOpenButton();
         if (button) {
           button.focus();
         }
@@ -112,10 +114,14 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
      */
     useEffect(() => {
       const handleClickOutsideWrapper = (event: MouseEvent) => {
-        const isOutside = pickerWrapperRef.current && !pickerWrapperRef.current.contains(event.target as Node);
-        if (showPicker === true && isOutside) {
-          const focusToggleButton = document.activeElement === null || document.activeElement.tagName === 'BODY';
-          closeDatePicker(focusToggleButton);
+        if (showPicker === true) {
+          const openButton = getOpenButton();
+          const isOpenButton = (openButton && openButton === event.target) || openButton.contains(event.target as Node);
+          const isOutside = pickerWrapperRef.current && !pickerWrapperRef.current.contains(event.target as Node);
+          if (!isOpenButton && isOutside) {
+            const focusToggleButton = document.activeElement === null || document.activeElement.tagName === 'BODY';
+            closeDatePicker(focusToggleButton);
+          }
         }
       };
       window.addEventListener('click', handleClickOutsideWrapper);
@@ -259,6 +265,29 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     // Get the current value as Date object
     const inputValueAsDate = stringToDate(inputValue);
 
+    // Initialize Popper.js
+    const { styles: datePickerPopperStyles, attributes: datePickerPopperAttributes } = usePopper(
+      inputRef.current,
+      pickerWrapperRef.current,
+      {
+        placement: 'bottom-end',
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [0, 5],
+            },
+          },
+          {
+            name: 'flip',
+            options: {
+              allowedAutoPlacements: ['bottom-start', 'bottom-end'],
+            },
+          },
+        ],
+      },
+    );
+
     return (
       <div lang={language} className={styles.wrapper}>
         <TextInput
@@ -280,6 +309,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
               role="dialog"
               aria-modal="true"
               aria-hidden={showPicker ? undefined : true}
+              style={datePickerPopperStyles.popper}
+              {...datePickerPopperAttributes.popper}
             >
               <DatePicker
                 language={language}
