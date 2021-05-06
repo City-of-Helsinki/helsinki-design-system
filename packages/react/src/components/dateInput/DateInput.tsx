@@ -116,7 +116,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       const handleClickOutsideWrapper = (event: MouseEvent) => {
         if (showPicker === true) {
           const openButton = getOpenButton();
-          const isOpenButton = (openButton && openButton === event.target) || openButton.contains(event.target as Node);
+          const isOpenButton = openButton && (openButton === event.target || openButton.contains(event.target as Node));
           const isOutside = pickerWrapperRef.current && !pickerWrapperRef.current.contains(event.target as Node);
           if (!isOpenButton && isOutside) {
             const focusToggleButton = document.activeElement === null || document.activeElement.tagName === 'BODY';
