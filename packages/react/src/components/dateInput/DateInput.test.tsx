@@ -294,6 +294,6 @@ describe('<DateInput /> spec', () => {
     });
 
     // No date should be selected in the calendar
-    expect(container.querySelector('[aria-pressed="true"')).toBeNull();
+    expect(container.querySelector('[aria-pressed="true"]')).toBeNull();
   });
 });
