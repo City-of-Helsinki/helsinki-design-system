@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-classes-per-file */
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { axe } from 'jest-axe';
@@ -37,10 +38,12 @@ describe('<DateInput /> spec', () => {
     const { asFragment } = render(<DateInput id="date" />);
     expect(asFragment()).toMatchSnapshot();
   });
+
   it('renders the component with additional props', () => {
     const { asFragment } = render(<DateInput id="date" label="Foo" disableConfirmation />);
     expect(asFragment()).toMatchSnapshot();
   });
+
   it('renders the component with different languages', () => {
     const { asFragment } = render(
       <>
@@ -51,6 +54,7 @@ describe('<DateInput /> spec', () => {
     );
     expect(asFragment()).toMatchSnapshot();
   });
+
   it('passes accessibility test', async () => {
     const { container } = render(<DateInput id="date" label="Foo" />);
     const results = await axe(container);
@@ -64,7 +68,9 @@ describe('<DateInput /> spec', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
 
     // Click the calendar button
-    fireEvent.click(screen.getByLabelText('Choose date'));
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Choose date'));
+    });
 
     // Calendar dialog should be visible
     expect(screen.getByRole('dialog')).toBeVisible();
@@ -80,7 +86,9 @@ describe('<DateInput /> spec', () => {
     const { container } = render(<DateInput id="date" label="Foo" />);
 
     // Click the calendar button
-    fireEvent.click(screen.getByLabelText('Choose date'));
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Choose date'));
+    });
 
     // Current date should be selected
     expect(screen.getByLabelText('Month')).toHaveValue('0');
@@ -98,7 +106,9 @@ describe('<DateInput /> spec', () => {
     const { container } = render(<DateInput id="date" label="Foo" />);
 
     // Click the calendar button
-    fireEvent.click(screen.getByLabelText('Choose date'));
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Choose date'));
+    });
 
     // Change month to February and year to 2022
     fireEvent.change(screen.getByLabelText('Month'), { target: { value: '1' } });
@@ -120,7 +130,9 @@ describe('<DateInput /> spec', () => {
     const { container } = render(<DateInput id="date" label="Foo" />);
 
     // Click the calendar button
-    fireEvent.click(screen.getByLabelText('Choose date'));
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Choose date'));
+    });
 
     // Change month to February and year to 2022
     fireEvent.change(screen.getByLabelText('Month'), { target: { value: '1' } });
@@ -143,7 +155,9 @@ describe('<DateInput /> spec', () => {
     const { container } = render(<DateInput id="date" label="Foo" />);
 
     // Click the calendar button
-    fireEvent.click(screen.getByLabelText('Choose date'));
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Choose date'));
+    });
 
     // Change month to February and year to 2022
     fireEvent.change(screen.getByLabelText('Month'), { target: { value: '1' } });
@@ -166,7 +180,9 @@ describe('<DateInput /> spec', () => {
     const { container } = render(<DateInput id="date" label="Foo" />);
 
     // Click the calendar button
-    fireEvent.click(screen.getByLabelText('Choose date'));
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Choose date'));
+    });
 
     // Change month to February and year to 2022
     fireEvent.change(screen.getByLabelText('Month'), { target: { value: '1' } });
@@ -189,7 +205,9 @@ describe('<DateInput /> spec', () => {
     const { container } = render(<DateInput id="date" label="Foo" disableConfirmation />);
 
     // Click the calendar button
-    fireEvent.click(screen.getByLabelText('Choose date'));
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Choose date'));
+    });
 
     // Change month to February and year to 2022
     fireEvent.change(screen.getByLabelText('Month'), { target: { value: '1' } });
@@ -212,7 +230,9 @@ describe('<DateInput /> spec', () => {
     expect(screen.getByRole('textbox')).toHaveValue('10.02.2022');
 
     // Click the calendar button
-    fireEvent.click(screen.getByLabelText('Choose date'));
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Choose date'));
+    });
 
     // Month select should have correct value
     expect(screen.getByLabelText('Month')).toHaveValue('1');
@@ -231,7 +251,9 @@ describe('<DateInput /> spec', () => {
     expect(screen.getByRole('textbox')).toHaveValue('10.02.2022');
 
     // Click the calendar button
-    fireEvent.click(screen.getByLabelText('Choose date'));
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Choose date'));
+    });
 
     // Month select should have correct value
     expect(screen.getByLabelText('Month')).toHaveValue('1');
@@ -250,7 +272,9 @@ describe('<DateInput /> spec', () => {
     expect(screen.getByRole('textbox')).toHaveValue('10.02.2022');
 
     // Click the calendar button
-    fireEvent.click(screen.getByLabelText('Choose date'));
+    await act(async () => {
+      fireEvent.click(screen.getByLabelText('Choose date'));
+    });
 
     // Month select should have correct value
     expect(screen.getByLabelText('Month')).toHaveValue('1');
