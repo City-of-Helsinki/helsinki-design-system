@@ -8,7 +8,7 @@ import { IconEye, IconEyeCrossed } from '../../icons';
 
 export type PasswordInputProps = Omit<
   TextInputProps,
-  'buttonIcon' | 'buttonAriaLabel' | 'onButtonClick' | 'children' | 'label' | 'placeholder'
+  'buttonIcon' | 'buttonAriaLabel' | 'onButtonClick' | 'children' | 'label' | 'type'
 > & {
   /**
    * The label for the input
@@ -26,6 +26,11 @@ export type PasswordInputProps = Omit<
    * Aria label for conceal password button
    */
   concealPasswordButtonAriaLabel?: string;
+  /**
+   * Type of the password input. Only applied when includeShowPasswordButton is false.
+   * Use this if you wish to not have show password button, or you wish to apply external show password button.
+   */
+  type?: string;
 };
 
 export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
