@@ -41,7 +41,7 @@ WithDefaultValue.args = {
   id: 'WithDefaultValue',
   helperText: 'Assistive text',
   defaultValue: '0451234567',
-  label: 'Label for disabled',
+  label: 'Label for with default value',
   revealPasswordButtonAriaLabel: 'Show password',
   concealPasswordButtonAriaLabel: 'Hide password',
 };
