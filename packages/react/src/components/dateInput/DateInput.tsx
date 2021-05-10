@@ -281,7 +281,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           {
             name: 'flip',
             options: {
-              allowedAutoPlacements: ['bottom-start', 'bottom-end'],
+              fallbackPlacements: ['bottom-start', 'top-end'],
             },
           },
         ],
