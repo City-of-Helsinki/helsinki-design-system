@@ -83,7 +83,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const inputRef = useRef<HTMLInputElement>();
     const [inputValue, setInputValue] = useState<string>(providedValue || defaultValue);
     const [showPicker, setShowPicker] = useState(false);
-    const getOpenButton = (): HTMLButtonElement | null => inputRef.current?.parentNode.querySelector('button');
+    const getToggleButton = (): HTMLButtonElement | null => inputRef.current?.parentNode.querySelector('button');
 
     /**
      * Set the input value if value prop changes
@@ -102,7 +102,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
       // Focus the date picker open button
       if (inputRef.current && focusToggleButton) {
-        const button = getOpenButton();
+        const button = getToggleButton();
         if (button) {
           button.focus();
         }
@@ -115,10 +115,11 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     useEffect(() => {
       const handleClickOutsideWrapper = (event: MouseEvent) => {
         if (showPicker === true) {
-          const openButton = getOpenButton();
-          const isOpenButton = openButton && (openButton === event.target || openButton.contains(event.target as Node));
           const isOutside = pickerWrapperRef.current && !pickerWrapperRef.current.contains(event.target as Node);
-          if (!isOpenButton && isOutside) {
+          const toggleButton = getToggleButton();
+          const isToggleButton =
+            toggleButton && (toggleButton === event.target || toggleButton.contains(event.target as Node));
+          if (isOutside && !isToggleButton) {
             const focusToggleButton = document.activeElement === null || document.activeElement.tagName === 'BODY';
             closeDatePicker(focusToggleButton);
           }
