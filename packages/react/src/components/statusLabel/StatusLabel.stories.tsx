@@ -6,7 +6,7 @@ import { IconCheckCircle, IconInfoCircle, IconAlertCircle, IconError } from '../
 
 export default {
   component: StatusLabel,
-  title: 'Components/Status label',
+  title: 'Components/StatusLabel',
   parameters: {
     controls: { hideNoControlsWarning: true },
   },
