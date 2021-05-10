@@ -2,7 +2,7 @@ import React from 'react';
 import { radios, text, withKnobs } from '@storybook/addon-knobs';
 
 import { StatusLabel } from './StatusLabel';
-import { IconCheckCircle, IconInfoCircle } from '../../icons';
+import { IconCheckCircle, IconInfoCircle, IconAlertCircle, IconError } from '../../icons';
 
 export default {
   component: StatusLabel,
@@ -38,12 +38,12 @@ export const Icons = () => (
     </StatusLabel>
     <br />
     <br />
-    <StatusLabel type="alert" iconLeft={<IconInfoCircle />}>
+    <StatusLabel type="alert" iconLeft={<IconAlertCircle />}>
       Alert
     </StatusLabel>
     <br />
     <br />
-    <StatusLabel type="error" iconLeft={<IconInfoCircle />}>
+    <StatusLabel type="error" iconLeft={<IconError />}>
       Error
     </StatusLabel>
   </>
