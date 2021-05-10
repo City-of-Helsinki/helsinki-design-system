@@ -15,9 +15,14 @@ export type PasswordInputProps = Omit<
    */
   label: string;
   /**
-   * Boolean value for whether the component will include show / hide password button
+   * Boolean value for whether the component will include show / hide password button. Defaults to true.
    */
   includeShowPasswordButton?: boolean;
+  /**
+   * Boolean value for whether the component will initially reveal the password or not.
+   * Only applied when includeShowPasswordButton is true. Defaults to false.
+   */
+  initiallyRevealed?: boolean;
   /**
    * Aria label for reveal password button
    */
@@ -39,6 +44,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
       concealPasswordButtonAriaLabel,
       disabled = false,
       includeShowPasswordButton = true,
+      initiallyRevealed = false,
       revealPasswordButtonAriaLabel,
       type,
       ...passwordInputProps
@@ -48,7 +54,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
     let revealPassword;
     let setRevealPassword;
     if (includeShowPasswordButton) {
-      [revealPassword, setRevealPassword] = useState<boolean>(false);
+      [revealPassword, setRevealPassword] = useState<boolean>(initiallyRevealed);
     }
 
     const getPasswordButtonAriaLabel = () => {
