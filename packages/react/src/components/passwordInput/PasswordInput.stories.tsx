@@ -34,6 +34,17 @@ Disabled.args = {
   revealPasswordButtonAriaLabel: 'Show password',
   concealPasswordButtonAriaLabel: 'Hide password',
 };
+
+export const WithDefaultValue = (args) => <PasswordInput {...args} />;
+WithDefaultValue.storyName = 'WithDefaultValue';
+WithDefaultValue.args = {
+  id: 'WithDefaultValue',
+  helperText: 'Assistive text',
+  defaultValue: '0451234567',
+  label: 'Label for disabled',
+  revealPasswordButtonAriaLabel: 'Show password',
+  concealPasswordButtonAriaLabel: 'Hide password',
+};
 export const AutoCompleteOn = (args) => <PasswordInput {...args} />;
 AutoCompleteOn.storyName = 'Autocomplete on';
 AutoCompleteOn.args = {
