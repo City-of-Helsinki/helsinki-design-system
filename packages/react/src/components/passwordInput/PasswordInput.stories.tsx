@@ -45,6 +45,18 @@ WithDefaultValue.args = {
   revealPasswordButtonAriaLabel: 'Show password',
   concealPasswordButtonAriaLabel: 'Hide password',
 };
+
+export const InitiallyRevealed = (args) => <PasswordInput {...args} />;
+InitiallyRevealed.storyName = 'InitiallyRevealed';
+InitiallyRevealed.args = {
+  id: 'InitiallyRevealed',
+  helperText: 'Assistive text',
+  defaultValue: '0451234567',
+  label: 'Label for initially revealed',
+  initiallyRevealed: true,
+  revealPasswordButtonAriaLabel: 'Show password',
+  concealPasswordButtonAriaLabel: 'Hide password',
+};
 export const AutoCompleteOn = (args) => <PasswordInput {...args} />;
 AutoCompleteOn.storyName = 'Autocomplete on';
 AutoCompleteOn.args = {
