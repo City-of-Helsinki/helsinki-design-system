@@ -68,7 +68,7 @@ export const Icons = () => `
   <br />
 
   <span class='hds-status-label hds-status-label--with-icon hds-status-label--error'>
-    <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--alert-circle'></span>
+    <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--error'></span>
     Error
   </span>
 `;
