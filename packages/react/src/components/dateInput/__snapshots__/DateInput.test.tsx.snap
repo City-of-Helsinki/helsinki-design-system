@@ -1266,6 +1266,176 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
                       </button>
                     </td>
                   </tr>
+                  <tr>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-01"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          1
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 1
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-02"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          2
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 2
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-03"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          3
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 3
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-04"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          4
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 4
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-05"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          5
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 5
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-06"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          6
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 6
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-07"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          7
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 7
+                        </span>
+                      </span>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -2576,6 +2746,176 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                           January 31
                         </span>
                       </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-01"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          1
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 1
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-02"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          2
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 2
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-03"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          3
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 3
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-04"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          4
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 4
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-05"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          5
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 5
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-06"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          6
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 6
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-07"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          7
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 7
+                        </span>
+                      </span>
                     </td>
                   </tr>
                 </tbody>
@@ -3929,6 +4269,176 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
                       </button>
                     </td>
                   </tr>
+                  <tr>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-01"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          1
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 1
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-02"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          2
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 2
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-03"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          3
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 3
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-04"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          4
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 4
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-05"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          5
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 5
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-06"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          6
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 6
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-07"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          7
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          February 7
+                        </span>
+                      </span>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -5275,6 +5785,176 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
                       </button>
                     </td>
                   </tr>
+                  <tr>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-01"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          1
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          helmikuu 1
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-02"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          2
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          helmikuu 2
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-03"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          3
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          helmikuu 3
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-04"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          4
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          helmikuu 4
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-05"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          5
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          helmikuu 5
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-06"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          6
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          helmikuu 6
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-07"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          7
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          helmikuu 7
+                        </span>
+                      </span>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -6619,6 +7299,176 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
                           januari 31
                         </span>
                       </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-01"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          1
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          februari 1
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-02"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          2
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          februari 2
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-03"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          3
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          februari 3
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-04"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          4
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          februari 4
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-05"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          5
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          februari 5
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-06"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          6
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          februari 6
+                        </span>
+                      </span>
+                    </td>
+                    <td
+                      class="hds-datepicker__day-cell"
+                    >
+                      <span
+                        aria-disabled="true"
+                        aria-hidden="true"
+                        aria-pressed="false"
+                        class="hds-datepicker__day hds-datepicker__day--disabled hds-datepicker__day--outside"
+                        data-date="2021-02-07"
+                        disabled=""
+                      >
+                        <span
+                          aria-hidden="true"
+                          class="hds-datepicker__day__wrapper"
+                        >
+                          7
+                        </span>
+                        <span
+                          class="hds-datepicker__day__wrapper-vhidden"
+                        >
+                          februari 7
+                        </span>
+                      </span>
                     </td>
                   </tr>
                 </tbody>
