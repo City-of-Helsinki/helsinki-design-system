@@ -76,3 +76,15 @@ body {
   color: var(--color-black-90);
   line-height: var(--lineheight-l);
 }
+
+.password-input--external-show-password-button {
+  display: grid;
+  grid-template-columns: 400px 200px;
+  gap: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .password-input--external-show-password-button {
+    grid-template-columns: 300px;
+  }
+}

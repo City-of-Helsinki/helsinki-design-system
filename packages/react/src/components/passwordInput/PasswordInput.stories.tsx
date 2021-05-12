@@ -94,7 +94,7 @@ Invalid.args = {
 export const WithExternalShowPasswordButton = () => {
   const [revealPassword, setRevealPassword] = useState<boolean>(false);
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '400px 200px', gap: '20px' }}>
+    <div className="password-input--external-show-password-button">
       <PasswordInput
         label="Label for external show password button"
         id="external-password-button"
