@@ -3,6 +3,7 @@
 }
 
 .pickerWrapper {
+  box-sizing: border-box;
   transition: opacity 150ms;
   display: flex;
   justify-content: flex-end;
@@ -13,6 +14,7 @@
   z-index: 900;
   overflow: hidden;
   height: 0;
+  width: 100%;
 
   &.isVisible {
     opacity: 1;
