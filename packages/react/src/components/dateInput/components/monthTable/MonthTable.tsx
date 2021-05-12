@@ -20,10 +20,12 @@ export const MonthTable = (props: MonthTableProps) => {
   const { month }: { month: Date } = props;
   const start: Date = startOfMonth(month);
   const end: Date = endOfMonth(month);
-  const monthWeeks: number = getWeeksInMonth(month, { weekStartsOn: 1 });
-  const amountOfVisibleWeeks = 6;
+  const monthCalendarWeeks: number = getWeeksInMonth(month, { weekStartsOn: 1 });
+  const maxAmountOfCalendarWeeks = 6;
   const weeksEnd: Date =
-    monthWeeks === amountOfVisibleWeeks ? end : add(end, { weeks: amountOfVisibleWeeks - monthWeeks }); // To ensure equal height month tables, we need to add extra week rows at the end of the table.
+    monthCalendarWeeks === maxAmountOfCalendarWeeks
+      ? end
+      : add(end, { weeks: maxAmountOfCalendarWeeks - monthCalendarWeeks }); // To ensure equal height month tables, we need to add extra week rows at the end of the table.
   const weeksInterval: { start: Date; end: Date } = { start, end: weeksEnd };
   const weeks: Date[] = eachWeekOfInterval(weeksInterval, { locale });
 
