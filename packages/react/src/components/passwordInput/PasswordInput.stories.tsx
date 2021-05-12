@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { PasswordInput } from './PasswordInput';
 import { Button } from '../button';
 import { IconEye, IconEyeCrossed } from '../../icons';
-import { useMobile } from '../../hooks/useMobile';
 
 export default {
   component: PasswordInput,
@@ -94,9 +93,8 @@ Invalid.args = {
 
 export const WithExternalShowPasswordButton = () => {
   const [revealPassword, setRevealPassword] = useState<boolean>(false);
-  const isMobile = useMobile();
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '300px' : '400px 200px', gap: '20px' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '400px 200px', gap: '20px' }}>
       <PasswordInput
         label="Label for external show password button"
         id="external-password-button"
