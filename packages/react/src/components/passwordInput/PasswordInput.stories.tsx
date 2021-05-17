@@ -102,13 +102,15 @@ export const WithExternalShowPasswordButton = () => {
         helperText="Assistive text"
         type={revealPassword ? 'text' : 'password'}
       />
-      <Button
-        variant="supplementary"
-        onClick={() => setRevealPassword(!revealPassword)}
-        iconLeft={revealPassword ? <IconEyeCrossed aria-hidden /> : <IconEye aria-hidden />}
-      >
-        {revealPassword ? 'Hide password' : 'Show password'}
-      </Button>
+      <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+        <Button
+          variant="supplementary"
+          onClick={() => setRevealPassword(!revealPassword)}
+          iconLeft={revealPassword ? <IconEyeCrossed aria-hidden /> : <IconEye aria-hidden />}
+        >
+          {revealPassword ? 'Hide password' : 'Show password'}
+        </Button>
+      </div>
     </div>
   );
 };
