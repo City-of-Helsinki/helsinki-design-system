@@ -38,6 +38,13 @@ export type PasswordInputProps = Omit<
   type?: string;
 };
 
+type textInputProps = {
+  type: string;
+  buttonIcon?: React.ReactNode;
+  buttonAriaLabel?: string;
+  onButtonClick?: () => {};
+};
+
 export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
   (
     {
@@ -57,43 +64,24 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
       [revealPassword, setRevealPassword] = useState<boolean>(initiallyRevealed);
     }
 
-    const getPasswordButtonAriaLabel = () => {
-      if (revealPassword) {
-        return concealPasswordButtonAriaLabel;
-      }
-      return revealPasswordButtonAriaLabel;
-    };
-
-    const renderPasswordButton = () => {
-      if (revealPassword) {
-        return <IconEyeCrossed aria-hidden className={disabled ? styles.disabledShowPasswordButton : ''} />;
-      }
-      return <IconEye aria-hidden className={disabled ? styles.disabledShowPasswordButton : ''} />;
-    };
-
-    const resolveType = () => {
+    const getTextInputProps = (): textInputProps => {
       if (includeShowPasswordButton) {
-        if (revealPassword) {
-          return 'text';
-        }
-        return 'password';
+        return {
+          type: revealPassword ? 'text' : 'password',
+          buttonIcon: revealPassword ? (
+            <IconEyeCrossed aria-hidden className={disabled ? styles.disabledShowPasswordButton : ''} />
+          ) : (
+            <IconEye aria-hidden className={disabled ? styles.disabledShowPasswordButton : ''} />
+          ),
+          buttonAriaLabel: revealPassword ? concealPasswordButtonAriaLabel : revealPasswordButtonAriaLabel,
+          onButtonClick: () => setRevealPassword(!revealPassword),
+        };
       }
-      if (type) {
-        return type;
-      }
-      return 'password';
+      return {
+        type: type || 'password',
+      };
     };
 
-    return (
-      <TextInput
-        {...passwordInputProps}
-        buttonAriaLabel={includeShowPasswordButton ? getPasswordButtonAriaLabel() : undefined}
-        buttonIcon={includeShowPasswordButton ? renderPasswordButton() : undefined}
-        disabled={disabled}
-        onButtonClick={includeShowPasswordButton ? () => setRevealPassword(!revealPassword) : undefined}
-        ref={ref}
-        type={resolveType()}
-      />
-    );
+    return <TextInput {...passwordInputProps} {...getTextInputProps()} disabled={disabled} ref={ref} />;
   },
 );
