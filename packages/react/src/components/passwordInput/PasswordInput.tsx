@@ -66,15 +66,19 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
 
     const getTextInputProps = (): textInputProps => {
       if (includeShowPasswordButton) {
+        if (revealPassword) {
+          return {
+            type: 'text',
+            buttonIcon: <IconEyeCrossed aria-hidden className={disabled ? styles.disabledShowPasswordButton : ''} />,
+            buttonAriaLabel: concealPasswordButtonAriaLabel,
+            onButtonClick: () => setRevealPassword(false),
+          };
+        }
         return {
-          type: revealPassword ? 'text' : 'password',
-          buttonIcon: revealPassword ? (
-            <IconEyeCrossed aria-hidden className={disabled ? styles.disabledShowPasswordButton : ''} />
-          ) : (
-            <IconEye aria-hidden className={disabled ? styles.disabledShowPasswordButton : ''} />
-          ),
-          buttonAriaLabel: revealPassword ? concealPasswordButtonAriaLabel : revealPasswordButtonAriaLabel,
-          onButtonClick: () => setRevealPassword(!revealPassword),
+          type: 'password',
+          buttonIcon: <IconEye aria-hidden className={disabled ? styles.disabledShowPasswordButton : ''} />,
+          buttonAriaLabel: revealPasswordButtonAriaLabel,
+          onButtonClick: () => setRevealPassword(true),
         };
       }
       return {
