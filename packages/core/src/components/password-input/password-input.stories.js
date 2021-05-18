@@ -20,11 +20,11 @@ export const Default = () => `
          class="hds-text-input__input"
          type="password"
        />
-       <div class="hds-search-input__buttons">
+       <div class="hds-text-input__buttons">
          <button
            type="button"
            aria-label="Search"
-           class="hds-search-input__button"
+           class="hds-text-input__button"
          >
            <i class="hds-icon hds-icon--eye hds-icon--size-s" aria-hidden="true"></i>
        </div>
