@@ -1,5 +1,6 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import { axe } from 'jest-axe';
 
@@ -50,23 +51,13 @@ describe('<PasswordInput /> spec', () => {
     expect(container.querySelector('[data-test="password-input"]').type).toBe('password');
 
     await act(async () => {
-      const showPasswordButton = screen.getByLabelText('Show password');
-
-      if (!showPasswordButton) {
-        throw new Error('showPasswordButton not found');
-      }
-      await fireEvent.click(showPasswordButton);
+      userEvent.click(screen.getByLabelText('Show password'));
     });
 
     expect(container.querySelector('[data-test="password-input"]').type).toBe('text');
 
     await act(async () => {
-      const hidePasswordButton = screen.getByLabelText('Hide password');
-
-      if (!hidePasswordButton) {
-        throw new Error('hidePasswordButton not found');
-      }
-      await fireEvent.click(hidePasswordButton);
+      userEvent.click(screen.getByLabelText('Hide password'));
     });
 
     expect(container.querySelector('[data-test="password-input"]').type).toBe('password');
