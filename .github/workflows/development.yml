@@ -67,7 +67,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        loki_configuration: [ 'laptop', 'iphone7' ]
+        loki_configuration: [ 'laptop_Components_[A-M]', 'laptop_Components_[N-Z]', 'iphone7_Components_[A-M]', 'iphone7_Components_[N-Z]' ]
 
     steps:
       - name: download storybook
@@ -88,7 +88,7 @@ jobs:
           yarn add loki@0.26.0
 
       - name: visually test react package with ${{ matrix.loki_configuration }}
-        run: ./node_modules/.bin/loki test --requireReference --verboseRenderer --reactUri file:./storybook-static ${{ matrix.loki_configuration }}
+        run: ./node_modules/.bin/loki test --requireReference --verboseRenderer --reactUri file:./storybook-static --storiesFilter /${{ matrix.loki_configuration }}/
 
       - name: upload reference and actual images with ${{ matrix.loki_configuration }} in case of failure
         uses: actions/upload-artifact@v2
