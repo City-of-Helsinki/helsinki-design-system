@@ -15,9 +15,7 @@ export type MonthTableProps = {
   month: Date;
 };
 
-export const MonthTable = (props: MonthTableProps) => {
-  const { locale } = useContext(DatePickerContext);
-  const { month }: { month: Date } = props;
+const getCalendarWeeks = (month: Date, locale: Locale): Date[] => {
   const start: Date = startOfMonth(month);
   const end: Date = endOfMonth(month);
   const monthCalendarWeeks: number = getWeeksInMonth(month, { weekStartsOn: 1 });
@@ -27,7 +25,13 @@ export const MonthTable = (props: MonthTableProps) => {
       ? end
       : add(end, { weeks: maxAmountOfCalendarWeeks - monthCalendarWeeks }); // To ensure equal height month tables, we need to add extra week rows at the end of the table.
   const weeksInterval: { start: Date; end: Date } = { start, end: weeksEnd };
-  const weeks: Date[] = eachWeekOfInterval(weeksInterval, { locale });
+  return eachWeekOfInterval(weeksInterval, { locale });
+};
+
+export const MonthTable = (props: MonthTableProps) => {
+  const { locale } = useContext(DatePickerContext);
+  const { month }: { month: Date } = props;
+  const weeks: Date[] = getCalendarWeeks(month, locale);
 
   return (
     <div>
