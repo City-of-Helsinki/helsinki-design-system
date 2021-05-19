@@ -1,4 +1,5 @@
 @import "../../../../styles/common";
+@value small-up from "../../../../styles/breakpoints.css";
 
 :root {
   --date-background: transparent;
@@ -30,7 +31,7 @@
   min-width: calc(100vw - 2 * var(--spacing-s));
   padding: var(--vertical-spacing) var(--horizontal-spacing);
 
-  @media only screen and (min-width: 576px) {
+  @media small-up {
     min-width: calc(var(--table-width) + 2 * var(--spacing-s));
   }
 }
