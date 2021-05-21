@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FocusEvent } from 'react';
 
 import styles from '../../components/textInput/TextInput.module.css';
 import classNames from '../../utils/classNames';
@@ -13,7 +13,7 @@ type InputWrapperProps = {
   id: string;
   invalid?: boolean;
   label?: string | React.ReactNode;
-  onBlur?: (event: any) => void;
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
   required?: boolean;
   style?: React.CSSProperties;
   successText?: string;
