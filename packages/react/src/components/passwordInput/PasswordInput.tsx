@@ -3,8 +3,12 @@ import React, { useState } from 'react';
 // import core base styles
 import 'hds-core';
 import styles from './PasswordInput.module.scss';
-import { TextInput, TextInputProps } from '../textInput';
+import { TextInputProps } from '../textInput';
 import { IconEye, IconEyeCrossed } from '../../icons';
+import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
+import classNames from '../../utils/classNames';
+import textInputStyles from '../textInput/TextInput.module.css';
+import comboseAriaDescribedBy from '../../utils/comboseAriaDescribedBy';
 
 export type PasswordInputProps = Omit<
   TextInputProps,
@@ -38,54 +42,123 @@ export type PasswordInputProps = Omit<
   type?: string;
 };
 
-type textInputProps = {
-  type: string;
-  buttonIcon?: React.ReactNode;
-  buttonAriaLabel?: string;
-  onButtonClick?: () => {};
+type ButtonProps = {
+  'aria-label': string;
+  onClick: () => void;
 };
 
 export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
   (
     {
+      className,
+      errorText,
+      helperText,
+      hideLabel,
+      id,
+      invalid,
+      label,
+      required,
+      style,
+      successText,
+      tooltipLabel,
+      tooltipText,
+      tooltipButtonLabel,
       concealPasswordButtonAriaLabel,
       disabled = false,
       includeShowPasswordButton = true,
       initiallyRevealed = false,
+      onBlur,
       revealPasswordButtonAriaLabel,
       type,
       ...passwordInputProps
     }: PasswordInputProps,
     ref?: React.Ref<HTMLInputElement>,
   ) => {
+    const wrapperProps = {
+      className,
+      errorText,
+      helperText,
+      hideLabel,
+      id,
+      invalid,
+      label,
+      required,
+      style,
+      successText,
+      tooltipLabel,
+      tooltipText,
+      tooltipButtonLabel,
+    };
+
     let revealPassword;
     let setRevealPassword;
     if (includeShowPasswordButton) {
       [revealPassword, setRevealPassword] = useState<boolean>(initiallyRevealed);
     }
 
-    const getTextInputProps = (): textInputProps => {
-      if (includeShowPasswordButton) {
-        if (revealPassword) {
-          return {
-            type: 'text',
-            buttonIcon: <IconEyeCrossed aria-hidden className={disabled ? styles.disabledShowPasswordButton : ''} />,
-            buttonAriaLabel: concealPasswordButtonAriaLabel,
-            onButtonClick: () => setRevealPassword(false),
-          };
+    const handleOnBlur = (event): void => {
+      if (!event.currentTarget.contains(event.relatedTarget)) {
+        if (includeShowPasswordButton) {
+          if (revealPassword) {
+            setRevealPassword(false);
+          }
         }
+      }
+      if (typeof onBlur === 'function') {
+        onBlur(event);
+      }
+    };
+
+    const getButtonProps = (): ButtonProps => {
+      if (revealPassword) {
         return {
-          type: 'password',
-          buttonIcon: <IconEye aria-hidden className={disabled ? styles.disabledShowPasswordButton : ''} />,
-          buttonAriaLabel: revealPasswordButtonAriaLabel,
-          onButtonClick: () => setRevealPassword(true),
+          'aria-label': concealPasswordButtonAriaLabel,
+          onClick: () => setRevealPassword(false),
         };
       }
       return {
-        type: type || 'password',
+        'aria-label': revealPasswordButtonAriaLabel,
+        onClick: () => setRevealPassword(true),
       };
     };
 
-    return <TextInput {...passwordInputProps} {...getTextInputProps()} disabled={disabled} ref={ref} />;
+    const resolveType = (): string => {
+      if (includeShowPasswordButton) {
+        if (revealPassword) {
+          return 'text';
+        }
+        return 'password';
+      }
+      return type || 'password';
+    };
+
+    // Compose aria-describedby attribute
+    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText);
+
+    return (
+      <InputWrapper onBlur={handleOnBlur} {...wrapperProps}>
+        <input
+          className={classNames(textInputStyles.input, includeShowPasswordButton && textInputStyles.hasButton)}
+          disabled={disabled}
+          id={id}
+          ref={ref}
+          required={required}
+          type={resolveType()}
+          aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : null}
+          {...passwordInputProps}
+        />
+        {includeShowPasswordButton && (
+          <div className={textInputStyles.buttonWrapper}>
+            {/* eslint-disable-next-line react/button-has-type */}
+            <button className={textInputStyles.button} type="button" disabled={disabled} {...getButtonProps()}>
+              {revealPassword && (
+                <IconEyeCrossed aria-hidden className={disabled ? styles.disabledShowPasswordButton : ''} />
+              )}
+              {!revealPassword && <IconEye aria-hidden className={disabled ? styles.disabledShowPasswordButton : ''} />}
+            </button>
+          </div>
+        )}
+      </InputWrapper>
+    );
   },
 );
