@@ -3,10 +3,6 @@
 }
 
 .pickerWrapper {
-  position: absolute;
-  top: calc(var(--input-height) + 7px);
-  right: 0;
-  left: 0;
   transition: opacity 150ms;
   display: flex;
   justify-content: flex-end;
