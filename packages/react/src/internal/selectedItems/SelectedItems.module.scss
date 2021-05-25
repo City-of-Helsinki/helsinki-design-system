@@ -5,11 +5,12 @@
   visibility: hidden;
 }
 
+
 .selectedItems {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  padding: var(--spacing-4-xs) calc((var(--spacing-s) - var(--border-width)) * 2 + (var(--icon-size) * 2)) calc(var(--spacing-s) - var(--border-width)) var(--spacing-4-xs);
+  padding: var(--spacing-4-xs) calc((var(--spacing-s) - var(--border-width)) * 2 + (var(--icon-size) * 2)) calc(var(--spacing-2-xs) + var(--border-width)) var(--spacing-4-xs);
 
   &.itemsHidden {
     box-sizing: border-box;
@@ -22,7 +23,7 @@
   }
 
   .tag {
-    margin: var(--spacing-xs) 0 0 var(--spacing-xs);
+    margin: var(--spacing-2-xs) 0 0 var(--spacing-2-xs);
     position: relative;
     z-index: 1;
 

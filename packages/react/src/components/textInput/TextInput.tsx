@@ -175,7 +175,13 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         />
         {hasButton && (
           <div className={styles.buttonWrapper}>
-            <button className={styles.button} type="button" onClick={onButtonClick} aria-label={buttonAriaLabel}>
+            <button
+              className={styles.button}
+              disabled={disabled}
+              type="button"
+              onClick={onButtonClick}
+              aria-label={buttonAriaLabel}
+            >
               {buttonIcon}
             </button>
           </div>
