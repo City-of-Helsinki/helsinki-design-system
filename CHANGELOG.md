@@ -6,6 +6,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - May, 25, 2021
+
+### React Components
+
+#### Added
+- Password Input
+
+#### Changed
+- [Labels & Tags] Added icon support for StatusLabel
+- [Labels & Tags] Increased the height of StatusLabel and Tag
+
+#### Fixed
+- [DateInput] Datepicker will use fallback positions if there is not enough space in the bottom and left.
+
+### Design kit
+
+#### Added
+- [Color] Usage example images
+- [Form Components] Password input symbols, including
+- Input with a built-in visibility icon to display masked characters
+- Input with external visibility icon buttons to reveal masked characters
+- [Labels & Tags] StatusLabel with an icon variant
+
+#### Changed
+- [Color] Updated colour style example artboards to include some guidelines on how the colours can be used
+- [Color] Separated fill colour example artboards into separate artboards Brand, Status and Grayscale
+- [Form Components] Updated spacing and size of Select symbols to match newly sized Tag component
+- [Form Components] Updated spacing and size of Combobox symbolss to match newly sized Tag component
+- [Color] Renamed “Focus - light border” style to “Focus - slim border”
+- [Labels & Tags] Slightly increased the size of the Default StatusLabel variant to match with the new icon variant
+- [Labels & Tags] Slightly increased the size of the Tag to match with the new StatusLabel with icon variant
+
+### Documentation
+
+#### Added
+- Documentation for the PasswordInput
+- New examples of StatusLabel with icon to the StatusLabel documentation page
+- Link to colour usage example images to the Colour documentation page
+
+#### Changed
+- Improved Storybook loading times
+
+
 ## [1.0.0] - May, 3, 2021
 
 ### React Components
