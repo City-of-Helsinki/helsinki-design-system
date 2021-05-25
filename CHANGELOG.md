@@ -46,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Link to colour usage example images to the Colour documentation page
 
 #### Changed
-- Improved Storybook loading times by updating the Storybook to version 6.2.9
+- Updated Storybook to version 6.2.9 to improve loading times
 
 
 ## [1.0.0] - May, 3, 2021
