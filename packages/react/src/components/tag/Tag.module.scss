@@ -4,6 +4,8 @@
   --tag-background: var(--color-black-10);
   --tag-color: var(--color-black-90);
   --tag-focus-outline-color: var(--color-coat-of-arms);
+  --tag-height: 32px;
+
 
   align-items: center;
   background-color: var(--tag-background);
@@ -11,6 +13,8 @@
   display: inline-flex;
   flex-direction: row-reverse;
   font-size: var(--fontsize-body-s);
+  min-height: var(--tag-height);
+  line-height: var(--tag-height);
   outline: none;
 }
 
@@ -36,11 +40,6 @@
   @extend %buttonReset;
   display: flex;
   outline: none;
-}
-
-.deleteButtonon .hds-icon {
-  height: var(--spacing-m);
-  width: var(--spacing-m);
 }
 
 .visuallyHidden {

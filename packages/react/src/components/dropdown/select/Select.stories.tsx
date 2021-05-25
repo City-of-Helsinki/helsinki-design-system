@@ -196,7 +196,14 @@ export const SelectExample = (args) => {
 };
 SelectExample.storyName = 'Select example';
 
-export const MultiSelectExample = (args) => {
+export const MultiSelectExample = ({ options: itemOptions, ...args }) => {
+  const [selectedItems, setSelectedItems] = useState([itemOptions[0], itemOptions[1]]);
+
+  const handleMultiSelectChange = (item) => {
+    action('onChange')(item);
+    setSelectedItems(item);
+  };
+
   return (
     <Select<Option>
       {...args}
@@ -207,6 +214,9 @@ export const MultiSelectExample = (args) => {
       selectedItemRemoveButtonAriaLabel="Remove element {value}"
       selectedItemSrLabel="Selected element {value}"
       getA11yRemovalMessage={({ removedSelectedItem }) => `${removedSelectedItem.label} was removed`}
+      onChange={handleMultiSelectChange}
+      value={selectedItems}
+      options={itemOptions}
     />
   );
 };
