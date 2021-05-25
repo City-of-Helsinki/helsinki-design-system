@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FocusEvent } from 'react';
 
 import styles from '../../components/textInput/TextInput.module.css';
 import classNames from '../../utils/classNames';
@@ -13,6 +13,7 @@ type InputWrapperProps = {
   id: string;
   invalid?: boolean;
   label?: string | React.ReactNode;
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
   required?: boolean;
   style?: React.CSSProperties;
   successText?: string;
@@ -30,6 +31,7 @@ export const InputWrapper = ({
   id,
   invalid = false,
   label,
+  onBlur,
   required = false,
   style,
   successText,
@@ -38,6 +40,7 @@ export const InputWrapper = ({
   tooltipButtonLabel,
 }: InputWrapperProps) => (
   <div
+    onBlur={onBlur}
     className={classNames(styles.root, invalid && styles.invalid, successText && styles.success, className)}
     style={style}
   >
