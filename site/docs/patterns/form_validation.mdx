@@ -144,11 +144,22 @@ Success message indicates that an inputted value has passed form validation. Suc
 
 It is better to avoid using success validation if there is not clear need for it. Using redundant success messages creates unnecessary visual noise to the view.
 
+### Validation of multiple input fields
+In some cases, multiple input fields can be related to each other in a way that a change in one of them may cause errors in the other inputs. In this situation, one specific error may relate to multiple inputs in the same time. 
+
+An example of this could be having two date inputs for setting a start and an end time. If the end time is setting to be earlier than the start time both date inputs become erroneous. Since assistive technologies only see one input at a time, all related inputs should be set to the error state and given an appropriate error message. The error message can be the same for all inputs or more input specific if the situation allows so. This method has been illustrated in the image below.
+
+<Image src="../../static/patterns/form-validation/multiple-fields-validation@2x.png" alt="Showing error messages of multiple input fields" style="max-width:482px;" viewable />
+
+In some cases, it may be possible that having the same error message in multiple inputs can be confusing to the user. This is especially probable in cases where the error clearly relates to one specific input but it still makes values of the other inputs invalid. In these cases, you may consider **visually hiding** the error message from all but the related input. However, even though hidden, for accessibility reasons the error message should still exist in all related inputs. This is illustrated in the following image where both inputs are in the error state but the error message is visually hidden from the second "End date" input.
+
+<Image src="../../static/patterns/form-validation/multiple-fields-validation-hidden-error@2x.png" alt="Showing error messages of multiple input fields with one hidden" style="max-width:482px;" viewable />
+
 ### Validation summary pattern
 
 **When using static or hybrid validation methods, HDS recommends using a validation summary to clearly list errors found during the form submit**. Validation summary pattern uses an error summary component which is provided by HDS. The error summary is notification-like element which lists all errors (and their descriptions) found in the form and provides anchor links to each erroneus input for easy access. 
 
-You can read more about the error summary component in [its separate documentation page]().
+You can learn more about the error summary component in [HDS React Storybook](/storybook/react/?path=/story/components-errorsummary--default).
 
 <Image src="../../static/patterns/form-validation/error-summary@2x.png" alt="Error summary component" style="max-width:482px;" viewable />
 
