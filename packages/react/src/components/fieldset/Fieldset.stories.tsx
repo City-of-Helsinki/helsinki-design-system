@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
 
 import { Fieldset } from './Fieldset';
-import { RadioButton } from '../radioButton/RadioButton';
 import { TextInput } from '../textInput/TextInput';
 
 export default {
@@ -12,61 +11,15 @@ export default {
   parameters: {
     controls: { expanded: true },
   },
+  args: {
+    border: false,
+    heading: 'Applicant information',
+  },
 };
 
-export const Default = () => {
-  const options = [
-    { label: 'Text', value: 'text' },
-    { label: 'CSV', value: 'csv' },
-    { label: 'HTML', value: 'html' },
-  ];
-
-  const [radioValue, setRadioValue] = useState<string>(options[0].value);
-
+export const Default = (args) => {
   return (
-    <Fieldset heading="Output format">
-      {options.map((option) => (
-        <RadioButton
-          key={`radio-${option.value}`}
-          id={`radio-${option.value}`}
-          value={option.value}
-          label={option.label}
-          checked={radioValue === option.value}
-          onChange={(event) => setRadioValue((event.target as HTMLInputElement).value)}
-        />
-      ))}
-    </Fieldset>
-  );
-};
-
-export const WithBorders = () => {
-  const options = [
-    { label: 'Text', value: 'text' },
-    { label: 'CSV', value: 'csv' },
-    { label: 'HTML', value: 'html' },
-  ];
-
-  const [radioValue, setRadioValue] = useState<string>(options[0].value);
-
-  return (
-    <Fieldset heading="Output format" border>
-      {options.map((option) => (
-        <RadioButton
-          key={`radio-${option.value}`}
-          id={`radio-${option.value}`}
-          value={option.value}
-          label={option.label}
-          checked={radioValue === option.value}
-          onChange={(event) => setRadioValue((event.target as HTMLInputElement).value)}
-        />
-      ))}
-    </Fieldset>
-  );
-};
-
-export const DefaultFieldGroups = () => {
-  return (
-    <Fieldset heading="Applicant information">
+    <Fieldset heading={args.heading} border={args.border}>
       <div
         style={{ display: 'grid', gridGap: '12px 16px', gridTemplateColumns: 'repeat(auto-fill, minmax(245px, 1fr))' }}
       >
@@ -92,9 +45,9 @@ export const DefaultFieldGroups = () => {
   );
 };
 
-export const FieldGroupsWithBorders = () => {
+export const WithBorder = (args) => {
   return (
-    <Fieldset heading="Applicant information" border>
+    <Fieldset heading={args.heading} border={args.border}>
       <div
         style={{
           display: 'grid',
@@ -122,4 +75,9 @@ export const FieldGroupsWithBorders = () => {
       </div>
     </Fieldset>
   );
+};
+
+WithBorder.args = {
+  border: true,
+  heading: 'Applicant information',
 };
