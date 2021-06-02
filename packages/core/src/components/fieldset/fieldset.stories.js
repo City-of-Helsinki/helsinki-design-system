@@ -50,7 +50,7 @@ export const Default = () => `
        ${firstNameInput}
        ${lastNameInput}
        </div>
-      <div style='display: grid; grid-gap: 12px 16px; grid-template-columns: repeat(auto-fill, minmax(245px, 1fr)); margin-top: 12px'>
+      <div style='margin-top: 12px'>
        ${socialSecurityNumberInput}
       </div>
     </fieldset>
@@ -63,7 +63,7 @@ export const WithBorders = () => `
        ${firstNameInput}
        ${lastNameInput}
        </div>
-      <div style='display: grid; grid-gap: 12px 16px; grid-template-columns: repeat(auto-fill, minmax(245px, 1fr)); margin-top: 12px'>
+      <div style='margin-top: 12px'>
        ${socialSecurityNumberInput}
       </div>
     </fieldset>
