@@ -1,0 +1,170 @@
+---
+name: Fieldset
+menu: Components
+route: /components/fieldset
+---
+
+import { Playground } from 'docz';
+import { Fieldset, StatusLabel, SelectionGroup, RadioButton, TextInput } from 'hds-react';
+
+import ColorBox from '../../src/components/ColorBox';
+import LargeParagraph from '../../src/components/LargeParagraph';
+import Text from '../../src/components/Text';
+
+# Fieldset
+
+<StatusLabel type="alert">Draft</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  Accessible
+</StatusLabel>
+
+<LargeParagraph>Fieldset allows grouping of related form inputs.</LargeParagraph>
+
+## Principles
+
+- Fieldset component should be used to group related form inputs.
+- A heading must be given to the Fieldset. The heading should be clear and describe the input group.
+- **HDS Fieldset does not style the children in any way.** You may have to add space between the inputs to distinguish them from each other.
+- TBD..
+
+## Accessibility
+
+- TBD...
+
+## Usage & variants
+
+### Default
+
+By default, Fieldset component does not have border.
+
+#### React code example:
+
+<Playground>
+  <Fieldset heading="Applicant information" style={{ maxWidth: '400px' }}>
+    <TextInput id="first-name" name="first-name" label="First name" />
+    <TextInput id="last-name" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
+    <TextInput
+      id="social-security-number"
+      name="social-security-number"
+      label="Social security number"
+      placeholder="Eg. 111299-1234"
+      style={{ marginTop: '12px' }}
+    />
+  </Fieldset>
+</Playground>
+
+#### Core code example:
+
+```html
+<fieldset class="hds-fieldset" style="max-width: 400px">
+  <legend class="hds-fieldset-legend">Applicant information</legend>
+  <div class="hds-text-input">
+    First name *
+    <div class="hds-text-input__input-wrapper">
+      <input id="first-name" name="first-name" class="hds-text-input__input" type="text" />
+    </div>
+  </div>
+  <div class="hds-text-input" style="margin-top: 12px">
+    Last name *
+    <div class="hds-text-input__input-wrapper">
+      <input id="last-name" name="last-name" class="hds-text-input__input" type="text" />
+    </div>
+  </div>
+  <div class="hds-text-input" style="margin-top: 12px">
+    Last name *
+    <div class="hds-text-input__input-wrapper">
+      <input id="last-name" name="last-name" class="hds-text-input__input" type="text" />
+    </div>
+  </div>
+</fieldset>
+```
+
+#### React code example:
+
+```tsx
+<Fieldset heading="Applicant information" style={{ maxWidth: '400px' }}>
+  <TextInput id="first-name" name="first-name" label="First name" />
+  <TextInput id="last-name" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
+  <TextInput
+    id="social-security-number"
+    name="social-security-number"
+    label="Social security number"
+    placeholder="Eg. 111299-1234"
+    style={{ marginTop: '12px' }}
+  />
+</Fieldset>
+```
+
+### With border
+
+A fieldset with a border makes an input group more distinguished if needed.
+
+#### React code example:
+
+<Playground>
+  <Fieldset heading="Applicant information" border style={{ maxWidth: '400px' }}>
+    <TextInput id="first-name" name="first-name" label="First name" />
+    <TextInput id="last-name" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
+    <TextInput
+      id="social-security-number"
+      name="social-security-number"
+      label="Social security number"
+      placeholder="Eg. 111299-1234"
+      style={{ marginTop: '12px' }}
+    />
+  </Fieldset>
+</Playground>
+
+#### Core code example:
+
+```html
+<fieldset class="hds-fieldset hds-fieldset--border" style="max-width: 400px">
+  <legend class="hds-fieldset-legend">Applicant information</legend>
+  <div class="hds-text-input">
+    First name *
+    <div class="hds-text-input__input-wrapper">
+      <input id="first-name" name="first-name" class="hds-text-input__input" type="text" />
+    </div>
+  </div>
+  <div class="hds-text-input" style="margin-top: 12px">
+    Last name *
+    <div class="hds-text-input__input-wrapper">
+      <input id="last-name" name="last-name" class="hds-text-input__input" type="text" />
+    </div>
+  </div>
+  <div class="hds-text-input" style="margin-top: 12px">
+    Last name *
+    <div class="hds-text-input__input-wrapper">
+      <input id="last-name" name="last-name" class="hds-text-input__input" type="text" />
+    </div>
+  </div>
+</fieldset>
+```
+
+#### React code example:
+
+```tsx
+<Fieldset heading="Applicant information" border style={{ maxWidth: '400px' }}>
+  <TextInput id="first-name" name="first-name" label="First name" />
+  <TextInput id="last-name" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
+  <TextInput
+    id="social-security-number"
+    name="social-security-number"
+    label="Social security number"
+    placeholder="Eg. 111299-1234"
+    style={{ marginTop: '12px' }}
+  />
+</Fieldset>
+```
+
+## Demos & API
+
+### Core
+
+[Fieldset in hds-core](/storybook/core/?path=/story/components-fieldset--default)
+
+### React
+
+[Fieldset in hds-react](/storybook/react/?path=/story/components-fieldset--default)
+
+[Fieldset API](/storybook/react/?path=/docs/components-fieldset--default)
