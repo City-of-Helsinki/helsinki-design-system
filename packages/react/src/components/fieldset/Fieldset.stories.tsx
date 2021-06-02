@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
 
 import { Fieldset } from './Fieldset';
 import { TextInput } from '../textInput/TextInput';
+import { RadioButton } from '../radioButton/RadioButton';
+import { SelectionGroup } from '../selectionGroup/SelectionGroup';
 
 export default {
   component: Fieldset,
@@ -28,9 +30,6 @@ export const Default = (args) => {
       </div>
       <div
         style={{
-          display: 'grid',
-          gridGap: '12px 16px',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(245px, 1fr))',
           marginTop: '12px',
         }}
       >
@@ -60,9 +59,6 @@ export const WithBorder = (args) => {
       </div>
       <div
         style={{
-          display: 'grid',
-          gridGap: '12px 16px',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(245px, 1fr))',
           marginTop: '12px',
         }}
       >
@@ -80,4 +76,37 @@ export const WithBorder = (args) => {
 WithBorder.args = {
   border: true,
   heading: 'Applicant information',
+};
+
+export const WithSelectionGroup = (args) => {
+  const fileFormats = [
+    { label: 'Text', value: 'txt' },
+    { label: 'CSV', value: 'csv' },
+    { label: 'HTML', value: 'html' },
+  ];
+
+  const [radioValue, setRadioValue] = useState<string>(fileFormats[0].value);
+
+  return (
+    <Fieldset heading={args.heading} border={args.border}>
+      <TextInput id="file-name" name="file-name" label="File name" />
+      <SelectionGroup label="File format" style={{ marginTop: '12px' }}>
+        {fileFormats.map(({ value, label }) => (
+          <RadioButton
+            key={`radio-${value}`}
+            id={`radio-${value}`}
+            value={value}
+            label={label}
+            checked={radioValue === value}
+            onChange={(event) => setRadioValue((event.target as HTMLInputElement).value)}
+          />
+        ))}
+      </SelectionGroup>
+    </Fieldset>
+  );
+};
+
+WithSelectionGroup.args = {
+  border: true,
+  heading: 'File information',
 };
