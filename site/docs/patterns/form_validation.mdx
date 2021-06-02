@@ -142,18 +142,7 @@ Success message indicates that an inputted value has passed form validation. Suc
 
 <Image src="../../static/patterns/form-validation/form-validation-message-success@2x.png" alt="Form control success state" style="max-width:376px;" viewable />
 
-It is better to avoid using success validation if there is not clear need for it. Using redundant success messages creates unnecessary visual noise to the view.
-
-### Validation of multiple input fields
-In some cases, multiple input fields can be related to each other in a way that a change in one of them may cause errors in the other inputs. In this situation, one specific error may relate to multiple inputs in the same time. 
-
-An example of this could be having two date inputs for setting a start and an end time. If the end time is setting to be earlier than the start time both date inputs become erroneous. Since assistive technologies only see one input at a time, all related inputs should be set to the error state and given an appropriate error message. The error message can be the same for all inputs or more input specific if the situation allows so. This method has been illustrated in the image below.
-
-<Image src="../../static/patterns/form-validation/multiple-fields-validation@2x.png" alt="Showing error messages of multiple input fields" style="max-width:482px;" viewable />
-
-In some cases, it may be possible that having the same error message in multiple inputs can be confusing to the user. This is especially probable in cases where the error clearly relates to one specific input but it still makes values of the other inputs invalid. In these cases, you may consider **visually hiding** the error message from all but the related input. However, even though hidden, for accessibility reasons the error message should still exist in all related inputs. This is illustrated in the following image where both inputs are in the error state but the error message is visually hidden from the second "End date" input.
-
-<Image src="../../static/patterns/form-validation/multiple-fields-validation-hidden-error@2x.png" alt="Showing error messages of multiple input fields with one hidden" style="max-width:482px;" viewable />
+It is better to avoid using success validation if there is not a clear need for it. Using redundant success messages creates unnecessary visual noise to the view.
 
 ### Validation summary pattern
 
@@ -173,6 +162,17 @@ The usage of the error summary component is triggered when the form is submitted
 <Image src="../../static/patterns/form-validation/validation-pattern-example@2x.png" alt="Validation summary example" style="max-width:432px;" viewable />
 
 You can see the validation summary pattern in action in HDS Storybook [static validation example](/storybook/react/iframe.html?id=patterns-form-validation--static&viewMode=story) and [hybrid validation example](/storybook/react/iframe.html?id=patterns-form-validation--hybrid&viewMode=story).
+
+### Validation of multiple input fields
+In some cases, multiple input fields can be related to each other in a way that a change in one of them may cause errors in the other inputs. In this situation, one specific error may relate to multiple inputs in the same time. 
+
+An example of this could be having two date inputs for setting a start and an end time. If the end time is set to be earlier than the start time, both date inputs become erroneous. Since assistive technologies only see one input at a time, all related inputs should be set to an error state and given an appropriate error message. The error message can be the same for all inputs or more input specific if the situation allows so. All error messages are also added to the error summary list. This method has been illustrated in the image below.
+
+<Image src="../../static/patterns/form-validation/multiple-fields-validation@2x.png" alt="Showing error messages of multiple input fields" style="max-width:482px;" viewable />
+
+When there are multiple related fields, a later field in the form can make an earlier field erroneous. In this case, it is important to note that the state change of the earlier field can go unnoticed for assistive technologies. It is recommended to notify assistive technologies of other inputs' state change by using the [HDS invisible notification](/components/notification#invisible).
+
+[See interactive example of validating multiple related input fields in HDS Storybook](/)
 
 ### Validation in multi-page forms
 <p><StatusLabel type="error" style={{marginRight: 'var(--spacing-3-xs)'}}>Coming soon</StatusLabel> <strong>The navigation component for multi-page forms has not yet been designed or implemented in HDS.</strong></p>
