@@ -20,8 +20,8 @@ export type FieldsetProps = {
   className?: string;
 } & React.HTMLProps<HTMLFieldSetElement>;
 
-export const Fieldset = ({ heading, border, className, children }: FieldsetProps) => (
-  <fieldset className={classNames(styles.fieldset, border && styles.border, className)}>
+export const Fieldset = ({ heading, border, className, children, ...fieldSetProps }: FieldsetProps) => (
+  <fieldset className={classNames(styles.fieldset, border && styles.border, className)} {...fieldSetProps}>
     <legend className={styles.legend}>{heading}</legend>
     {children}
   </fieldset>
