@@ -1,0 +1,89 @@
+---
+name: Making HDS icons
+menu: Contributing
+route: contributing/making-icons
+---
+
+import Image from "../../src/components/Image";
+
+<!---
+With the above settings, page name will be "Example page", its path will be hds.hel.fi/page and it will be a subitem of the "Example category" in the site navigation.
+-->
+
+<!---
+Import all the needed components from HDS libraries.
+
+For example:
+import { <COMPONENT_NAME> } from "hds-react";
+-->
+
+<!---
+Import documentation specific components. You can view what is available in /site/src/components/ folder.
+-->
+import LargeParagraph from "../../src/components/LargeParagraph";
+
+# Making HDS icons
+
+<LargeParagraph>
+HDS iconography uses images and symbols to represent an object visually. Icons communicate a message and should be distinct and informative. Icons should be used sparingly in services to provide clarity and reduce cognitive load on users.
+</LargeParagraph>
+
+<Image src="../../static/assets/image/icontypes@2x.jpg" alt="A selection of icons for different uses in HDS" style="max-width:600px;" viewable />
+
+Icons are an important part of the city of Helsinki visual aesthetic. Together with the rest of the brand assets, they make up an entity that is part of a functioning city.
+
+## Anatomy
+<Image src="../../static/assets/image/basicshapes.jpg" alt="Basic shapes are the best starting point for icon creation" style="max-width:600px;" viewable />
+
+The basic geometric shapes of the circle, square, and triangle provide a visually strong foundation for icon creation. Icons should always be simple and easy to understand. The necessary parts of an icon grid are determined by context—where the icons will be displayed, how they will be masked, and what shapes will be useful as templates. The ingredients may include a pixel grid, keyshapes, orthogonals, mask, and a safe area (and a trim area), each providing reference points to draw against. As with any recipe, you as the HDS creator, will choose what to use and what to omit.
+
+## Dimensions
+<Image src="../../static/assets/image/sizes@2x.jpg" alt="The icon size variants used by HDS" style="max-width:600px;" viewable />
+
+HDS icons are drawn on a pixel grid of 24px × 24px and scaled up or down linearly to different sizes. Use the grid as your basic guideline to snap the vector in place. HDS recommends fine-tuning adjustments for the shape you are trying to achieve during creation.
+
+## Keyshapes and orthogonals
+<Image src="../../static/assets/image/keyshapes_orthogonals@2x.jpg" alt="Left: Keyshapes. Right: Orthogonals. The building blocks of an effective icon grid." style="max-width:600px;" viewable />
+
+Orthogonals refer to keylines that intersect the center point of the icon and create additional vertices to use. These lines commonly slice the canvas at 90° and 45°. When further angles are needed increments of 15° and 5° are the next steps.
+
+## Mask
+A mask customizes the container of an icon from the default square canvas. Masks may be embedded in the asset itself or applied afterwards. 
+
+## About grids
+Grids are meant to be used as guides, not hard rules. Drop them when they stop working for you. Always check for optical balance. If something doesn’t feel quite right, trust your eyes more than the grid.
+
+## Pixel grid
+> **Example: Pixel grid used for making HDS icons**
+<Image src="../../static/assets/image/pixelgrid.jpg" alt="A simple pixel grid for making icons" style="max-width:600px;" viewable />
+A pixel grid helps you draw in specific increments when snapping to a grid. A 1px increment has long held the standard in digital and an increment of 2px–8px has been adopted more recently. Icons sit snugly on their 24 x 24px system icon grid, using 1px–2px strokes. Pixel-snapping helps you render sharper icons on lower resolution screens but has become much less of a requirement as hardware rendering has improved.
+
+## Icon grid
+> **Example: A certain type of icon grid used for making icons**
+<Image src="../../static/assets/image/icongrid.jpg" alt="A simple icon grid for making icons" style="max-width:600px;" viewable />
+An icon grid is a tool for speed and consistency. When a drawing HDS icons, know the rules intimately and know when and how to bend them. The icon grid provides the same starting point for multiple contributors.
+
+## Safe area & trim area
+The safe area or live area shows where the important content of the icon should live, while the inverse— the trim area—shows the area to avoid. In some cases the safe area is a soft guidance, but when the content gets cropped, the safe area becomes more crucial.
+
+## Step-by-step instrutions
+> **Animation: How to make the Alert Circle icon using basic shapes**
+<Image src="../../static/assets/image/AlertCircle_Fill_cropped.gif" alt="How to make the Alert Circle icon using basic shapes" style="max-width:600px;" viewable />
+
+- Turn on snapping to pixel in your preferred graphics program.
+
+- Establish a 24px × 24px pixel rectangle. 
+
+- Draw each of the horizontal and vertical lines 1 or 2px apart.
+
+- Carefully draw the 45° orthogonal lines and keyshapes so they correspond to the lines in step 3.
+
+- Plot the basic shape of the desired icon.
+
+- Thinking in terms of basic shapes, begin to add or eliminate parts of the shape using new shapes and/or masks.
+
+- When you are satisfied with the result, flatten the icon to a vector shape.
+
+- Apply a layer that acts as a colour mask (sketch and figma) 
+
+Note that the key canvas size for the HDS icon grid is 24 × 24px, which means that icons are created at this size. Put into use, however, HDS icons may be scaled to a range of sizes: 16 × 16px, 48 × 48px, 64 × 64px etc. 
