@@ -1,0 +1,120 @@
+---
+name: Multi-page forms
+menu: Patterns
+route: /patterns/form-multi-page
+---
+
+import { StatusLabel, Notification } from "hds-react";
+
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
+import Text from "../../src/components/Text";
+import Image from "../../src/components/Image";
+
+# Multi-page forms
+
+<StatusLabel type="alert">Draft</StatusLabel>
+
+<LargeParagraph>
+Filling a long form can be a daunting task for the user. One way to make a long form seem less like a chore is by dividing the form into separate steps that are shown one page at a time. 
+</LargeParagraph>
+
+## Principles
+The goal of dividing a form into multiple pages (or steps) is to show less information per on one page. Potentially, this has multiple benefits:
+- Form steps will be shorter and require less cognitive effort to fill.
+- Individual steps will be less overwhelming - encouraging the user to fill out the whole form.
+- Each step will contain less form elements. This makes it easier to design forms that work well on different screen sizes.
+- Users make less errors and errors will be easier to correct.
+
+It is also important to note that multi-page forms do not come without their downsides. The main downside is that they increase the interaction cost of filling out the form. This means the user is required to do more clicking and scrolling to fill the whole form. Therefore, it is always important to carefully consider when the multi-page approach is beneficial and when it is not. The following gives you some rules of thumb to decide whether the multi-page forms are needed in your project.
+
+### When should you use multi-page forms?
+- When the form can be divided into distinct themes. For example, "_Contact information_" -> "_Application_" -> "_Payment_" -> "_Review and send_".
+- When the form is very long.
+  - What is considered a high amount of form elements depends on the context. Usually the amount can be considered high if the user is required to scroll the view to see all form elements on a desktop sized screen.
+- When your users tend to do a lot of errors when filling out the form.
+
+### When should you not use multi-page forms?
+- When the amount of form elements is low. Dividing a small amount of inputs to multiple steps increases interaction cost of completing the form.
+  - What is considered a low amount of form elements depends on the context. Usually the amount of considered low if you can fit all fields on a single view without a need to scroll on a desktop sized screen.
+- When the user needs to compare or move information between multiple form steps.
+- When the form steps have a lot of relations. For example, a choice in a later form step must not make an earlier step erroneous.
+- When you do not know in which order the user wants to fill out the form. Multi-step forms are generally designed to be filled out in a specific order.
+  - Note! HDS multi-page forms support filling out the steps in a random order. However, this takes away many benefits that multi-page forms are designed to achieve.
+
+## Elements of a multi-page form
+HDS multi-page forms consist of three (3) elements:
+1. Form headings
+2. Form navigation
+3. Form area
+
+### 1. Form headings
+<Image src="../../static/patterns/form-multi-page/multi-page-form-headings@2x.png" alt="" style="max-width:768px;" viewable />
+
+### 2. Form navigation
+<Image src="../../static/patterns/form-multi-page/multi-page-form-navigation@2x.png" alt="" style="max-width:768px;" viewable />
+
+#### Form step states
+
+| Image     | Name        | Usage         |
+| --------- | ----------- | ------------- |
+| <Image src="../../static/patterns/form-multi-page/state-available@2x.png" alt="Available form step" style="max-width:32px;" viewable />           | Available         | The step is available and the user can navigate to it. The step has not been filled yet. |
+| <Image src="../../static/patterns/form-multi-page/state-selected@2x.png" alt="Selected form step" style="max-width:36px;" viewable />             | Selected          | The step is currently active but has not been submitted yet.                             |
+| <Image src="../../static/patterns/form-multi-page/state-filled@2x.png" alt="Filled form step" style="max-width:32px;" viewable />                 | Filled            | The step has been filled successfully.                                                   |
+| <Image src="../../static/patterns/form-multi-page/state-disabled@2x.png" alt="Disabled form step" style="max-width:32px;" viewable />             | Disabled          | The step is not available yet due to previous step not filled yet.                       |
+| <Image src="../../static/patterns/form-multi-page/state-attention@2x.png" alt="Form step demanding attention" style="max-width:32px;" viewable /> | Needs attention   | The step demands user's attention. E.g. it has been changed by another user.             |
+| <Image src="../../static/patterns/form-multi-page/state-paused@2x.png" alt="Paused form step" style="max-width:32px;" viewable />                 | Paused            | The step progress has been paused. E.g. waiting for a review from officials.             |
+
+### 3. Form area
+TODO
+    
+
+## Dividing long forms into separate steps
+
+This approach also makes fixing validation errors easier, when the inputted data can be validated and fixed step by step, and thus fever errors are shown at a same time.
+
+<p><StatusLabel type="error" style={{marginRight: 'var(--spacing-3-xs)'}}>Coming soon</StatusLabel> <strong>The navigation component for multi-page forms has not yet been designed or implemented in HDS.</strong></p>
+
+<Image src="../../static/patterns/form/form-steps@2x.png" alt="Dividing long forms into separate steps" style="max-width:500px;" viewable />
+
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
+    <ul style="margin-bottom:0;">
+        <li><strong>A set of radio buttons or checkboxes <em>must</em> be grouped together with a fieldset.</strong></li>
+        <li><strong>Divide the form in approximately even sized steps</strong>
+            <ul>
+                <li>Show one theme per page. For example Contact information – payment information – selected options etc.</li>
+                <li>Give each step a short, descriptive heading with a h1 element.</li>
+            </ul>
+        </li>
+        <li>
+            <strong>List all the steps needed to complete the form in a separate form navigation </strong>
+            <ul>
+                <li>Show the heading of each step in the navigation</li>
+                <li>Show the form navigation through the filling process.</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Show the user their progress page by page as they fill the form</strong>
+            <ul>
+                <li>Let the user navigate back to previous steps</li>
+                <li>Disable next steps before all previous steps have been filled (and validated)</li>
+            </ul>
+        </li>
+        <li><strong>Validate the data after each step and let the user fix errors before proceeding to the next step</strong>
+            <ul>
+                <li>The user <em>should</em> only be allowed to proceed to next steps by clicking the "Next step" action button, to ensure the data is validated.</li>
+                <li>If the user navigates back to a previously filled step and changes any input value, the following steps <em>should</em> be disabled in the form navigation.</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+## 
+
+## Handling errors
+- Use one of the form validation patterns listed in [HDS Form validation documentation](/patterns/form-validation)
+- Do validation separately for each page
+- Do not let the user leave pages that have erroneous fields
+- Steps should be completely independent and not cause errors in other steps
+  - If this is necessary, make sure the user is well informed that attention is needed in earlier steps. Use HDS Inline Notification for this.
