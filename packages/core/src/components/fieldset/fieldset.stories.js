@@ -56,7 +56,7 @@ export const Default = () => `
     </fieldset>
 `;
 
-export const WithBorders = () => `
+export const WithBorder = () => `
     <fieldset class='hds-fieldset hds-fieldset--border'>
       <legend class='hds-fieldset-legend'>Applicant information</legend>
       <div style='display: grid; grid-gap: 12px 16px; grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));'>
