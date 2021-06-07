@@ -1,0 +1,99 @@
+.toggleButtonContainer {
+  --toggle-button-checked-color: var(--color-bus);
+  --toggle-button-checked-hover-color: var(--color-bus-dark);
+}
+
+.toggleButton {
+  $toggle-button-height: 32px;
+  $toggle-button-width: 56px;
+  $toggle-button-border-radius: 20px;
+  $toggle-button-icon-width: 24px;
+  $toggle-button-outline-radius: -6px;
+  $toggle-button-checked-icon-margin: $toggle-button-width - ($toggle-button-icon-width + 8px);
+
+  background: #fff;
+  border: 2px solid var(--color-black-90);
+  border-radius: $toggle-button-border-radius;
+  cursor: pointer;
+  display: inline-block;
+  height: $toggle-button-height;
+  width: $toggle-button-width;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: all 200ms;
+
+  &:focus {
+    outline: none;
+
+    &:after {
+      border: 2px solid var(--color-coat-of-arms);
+      border-radius: $toggle-button-border-radius + 6px;
+      content: '';
+      display: block;
+      position: absolute;
+      top: $toggle-button-outline-radius;
+      bottom: $toggle-button-outline-radius;
+      left: $toggle-button-outline-radius;
+      right: $toggle-button-outline-radius;
+    }
+  }
+
+  &[disabled],
+  &[disabled]:hover {
+    border-color: var(--color-black-20);
+
+    & .offIcon {
+      color: var(--color-black-10)
+    }
+  }
+
+  &[aria-checked="true"] {
+    background-color: var(--toggle-button-checked-color);
+    border-color: var(--toggle-button-checked-color);
+
+    &:hover {
+      background-color: var(--toggle-button-checked-hover-color);
+      border-color: var(--toggle-button-checked-hover-color);
+    }
+
+    &[disabled],
+    &[disabled]:hover {
+      border-color: var(--color-black-10);
+      background-color: var(--color-black-10);
+    }
+
+    & .onIcon {
+      margin-left: $toggle-button-checked-icon-margin !important;
+      opacity: 1;
+    }
+
+    & .offIcon {
+      margin-left: $toggle-button-checked-icon-margin !important;
+      opacity: 0;
+    }
+  }
+}
+
+.toggleButtonIcon {
+  cursor: pointer;
+  top: -2px;
+  left: -2px;
+  transition: all 200ms;
+  position: absolute;
+}
+
+.onIcon {
+  color:  white;
+  opacity: 0;
+}
+
+.offIcon {
+  color:  black;
+  opacity: 1;
+}
+
+
+
