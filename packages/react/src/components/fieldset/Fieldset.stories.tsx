@@ -75,7 +75,6 @@ export const WithBorder = (args) => {
 
 WithBorder.args = {
   border: true,
-  heading: 'Applicant information',
 };
 
 export const WithSelectionGroup = (args) => {
