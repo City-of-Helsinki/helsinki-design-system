@@ -17,7 +17,6 @@
   --border-style: 2px inset var(--color-black-90);
   --padding-top: 2px;
   --padding-sides: 12px;
-  --padding-bottom: var(--spacing-s);
 }
 
 .hds-fieldset--border > .hds-fieldset-legend {
