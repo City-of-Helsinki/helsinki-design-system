@@ -1,0 +1,58 @@
+---
+name: Form progress 
+menu: Components
+route: /components/form-progress
+---
+
+import { Playground } from "docz";
+import { StatusLabel, Notification } from "hds-react";
+
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
+
+# Form progress
+
+<StatusLabel type="alert">Draft</StatusLabel>
+<StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
+
+<LargeParagraph>
+    If a form is divided into multiple pages or steps, the Form progress component helps the user to understand the progression and to navigate between form steps.
+</LargeParagraph>
+
+<Notification label="Note about multi-page forms!" className="siteNotification">
+  This documentation page is about HDS multi-page progress component. If you are looking for documentation about building multi-page forms, please refer to <a href="/patterns/form-multi-page">HDS multi-page form pattern documentation page</a>.
+</Notification>
+
+## Principles
+- Each form step must be given a clear and descriptive label.
+  - The label is required even if it is visually hidden on smaller screen sizes.
+- It is recommended that the form steps must be filled in order.
+
+## Accessibility
+- TODO
+
+## Usage & variations
+
+### Form progress
+TODO
+
+<Playground>
+
+</Playground>
+
+#### React code example:
+```tsx
+
+```
+
+## Demos & API
+
+### Core
+
+_Not included in hds-core!_
+
+### React
+
+[Form progress in hds-react](/storybook/react/?path=/story/components-accordion--default)
+
+[Form progress API](/storybook/react/?path=/docs/components-accordion--default)
