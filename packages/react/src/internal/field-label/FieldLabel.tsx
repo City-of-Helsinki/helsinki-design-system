@@ -12,6 +12,7 @@ type FieldLabelProps = {
   tooltipLabel?: string;
   tooltipButtonLabel?: string;
   tooltipText?: string;
+  id?: string;
 };
 
 export const FieldLabel = ({
@@ -22,10 +23,11 @@ export const FieldLabel = ({
   tooltipLabel,
   tooltipButtonLabel,
   tooltipText,
+  id,
   ...rest
 }: FieldLabelProps) => (
   <>
-    <label htmlFor={inputId} className={`${styles.label} ${hidden ? styles.hidden : ''}`} {...rest}>
+    <label htmlFor={inputId} className={`${styles.label} ${hidden ? styles.hidden : ''}`} id={id} {...rest}>
       {label}
       {required && <RequiredIndicator />}
     </label>
