@@ -17,3 +17,16 @@ export default {
 };
 
 export const Default = (args) => <ToggleButton {...args}>ToggleButton</ToggleButton>;
+
+export const Disabled = (args) => <ToggleButton {...args}>ToggleButton</ToggleButton>;
+
+Disabled.args = {
+  disabled: true,
+};
+
+export const DisabledSelected = (args) => <ToggleButton {...args}>ToggleButton</ToggleButton>;
+
+DisabledSelected.args = {
+  value: true,
+  disabled: true,
+};
