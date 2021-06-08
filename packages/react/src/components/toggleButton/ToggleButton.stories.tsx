@@ -107,13 +107,24 @@ export const InlineWithTooltip = () => {
   );
 };
 
-InlineWithTooltip.args = {
-  variant: 'inline',
-  label: 'Allow notifications',
-  tooltipLabel: 'What are the notifications?',
-  tooltipButtonLabel: 'Open info tooltip',
-  tooltipText:
-    'When notifications are allowed, the application can use desktop notifications. But this is not mandatory for application to function.',
+InlineWithTooltip.storyName = 'Inline with tooltip';
+
+export const CustomTheme = () => {
+  const customThemes = [
+    { '--toggle-button-color': '#f10000', '--toggle-button-hover-color': '#690000' },
+    { '--toggle-button-color': '#0ba900', '--toggle-button-hover-color': '#076500' },
+    { '--toggle-button-color': '#0062b9', '--toggle-button-hover-color': '#004f94' },
+  ];
+
+  return (
+    <>
+      {customThemes.map((theme, index) => (
+        <div style={{ marginBottom: '1.5rem' }}>
+          <ToggleButton id={`toggle-button-${index}`} label="label" variant="inline" value theme={theme} />
+        </div>
+      ))}
+    </>
+  );
 };
 
-InlineWithTooltip.storyName = 'Inline with tooltip';
+CustomTheme.storyName = 'Custom theme';
