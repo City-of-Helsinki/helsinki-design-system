@@ -76,11 +76,11 @@
     border-color: var(--color-black-20);
 
     & .offIcon {
-      color: var(--color-black-10)
+      color: var(--color-black-10);
     }
   }
 
-  &[aria-checked="true"] {
+  &[aria-checked='true'] {
     background-color: var(--toggle-button-checked-color);
     border-color: var(--toggle-button-checked-color);
 
@@ -116,14 +116,11 @@
 }
 
 .onIcon {
-  color:  white;
+  color: white;
   opacity: 0;
 }
 
 .offIcon {
-  color:  black;
+  color: black;
   opacity: 1;
 }
-
-
-
