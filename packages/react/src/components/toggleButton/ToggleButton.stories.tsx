@@ -45,14 +45,67 @@ WithTooltip.args = {
 
 WithTooltip.storyName = 'With tooltip';
 
-export const Inline = (args) => <ToggleButton {...args}>ToggleButton</ToggleButton>;
+export const Inline = () => {
+  const fields = [
+    { label: 'Allow strictly necessary cookies', id: 'allow-necessary' },
+    { label: 'Allow functional cookies', id: 'allow-functional' },
+    { label: 'Allow marketing cookies', id: 'marketing' },
+  ];
 
-Inline.args = {
-  variant: 'inline',
-  label: 'Inline',
+  return (
+    <>
+      {fields.map((field, index) => (
+        <div style={{ marginBottom: '1.5rem' }}>
+          <ToggleButton id={field.id} label={field.label} variant="inline" value={index === 0} />
+        </div>
+      ))}
+    </>
+  );
 };
 
-export const InlineWithTooltip = (args) => <ToggleButton {...args}>ToggleButton</ToggleButton>;
+export const InlineWithTooltip = () => {
+  const fields = [
+    {
+      label: 'Allow strictly necessary cookies',
+      id: 'allow-necessary',
+      tooltipLabel: 'What are the necessary cookies?',
+      tooltipButtonLabel: 'Open necessary cookies info tooltip',
+      tooltipText: 'Necessary cookies are not mandatory but they ensure that the application will function correctly',
+    },
+    {
+      label: 'Allow functional cookies',
+      id: 'allow-functional',
+      tooltipLabel: 'What are the functional cookies?',
+      tooltipButtonLabel: 'Open functional cookies info tooltip',
+      tooltipText: 'Functional cookies are not mandatory but they improve the user experience',
+    },
+    {
+      label: 'Allow marketing cookies',
+      id: 'marketing',
+      tooltipLabel: 'What are the marketing cookies?',
+      tooltipButtonLabel: 'Open marketing cookies info tooltip',
+      tooltipText: 'Functional cookies are not mandatory and they are used to target advertisement',
+    },
+  ];
+
+  return (
+    <>
+      {fields.map((field, index) => (
+        <div style={{ marginBottom: '1.5rem' }}>
+          <ToggleButton
+            id={field.id}
+            label={field.label}
+            variant="inline"
+            value={index === 0}
+            tooltipLabel={field.tooltipLabel}
+            tooltipButtonLabel={field.tooltipButtonLabel}
+            tooltipText={field.tooltipText}
+          />
+        </div>
+      ))}
+    </>
+  );
+};
 
 InlineWithTooltip.args = {
   variant: 'inline',
