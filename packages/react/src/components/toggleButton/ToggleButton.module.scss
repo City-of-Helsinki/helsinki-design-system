@@ -1,6 +1,22 @@
+@import "../../styles/common";
+
 .toggleButtonContainer {
   --toggle-button-checked-color: var(--color-bus);
   --toggle-button-checked-hover-color: var(--color-bus-dark);
+}
+
+.labelContainer {
+  align-items: flex-start;
+  display: flex;
+}
+
+.label {
+  @extend %inputLabel;
+}
+
+.tooltipButton {
+  display: block; // Remove the impact of the label's line-height on the tooltip button height. Usually, the tooltip is an element with an absolute position.
+  margin-left: var(--spacing-2-xs);
 }
 
 .toggleButton {

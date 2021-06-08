@@ -3,9 +3,9 @@ import React from 'react';
 // import core base styles
 import 'hds-core';
 import styles from './ToggleButton.module.scss';
-import { FieldLabel } from '../../internal/field-label/FieldLabel';
 import classNames from '../../utils/classNames';
 import { IconCrossCircleFill, IconCheckCircleFill } from '../../icons';
+import { Tooltip } from '../tooltip/Tooltip';
 
 export type ToggleButtonProps = {
   /**
@@ -66,15 +66,20 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
 
     return (
       <div className={styles.toggleButtonContainer}>
-        <FieldLabel
-          id={labelId}
-          inputId={id}
-          hidden={hideLabel}
-          label={label}
-          tooltipLabel={tooltipLabel}
-          tooltipButtonLabel={tooltipButtonLabel}
-          tooltipText={tooltipText}
-        />
+        <div className={styles.labelContainer}>
+          <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hidden : ''}`}>
+            {label}
+          </label>
+          {tooltipText && (
+            <Tooltip
+              buttonClassName={styles.tooltipButton}
+              tooltipLabel={tooltipLabel}
+              buttonLabel={tooltipButtonLabel}
+            >
+              {tooltipText}
+            </Tooltip>
+          )}
+        </div>
         <button
           id={id}
           ref={ref}

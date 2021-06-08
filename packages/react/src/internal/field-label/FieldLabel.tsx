@@ -23,11 +23,10 @@ export const FieldLabel = ({
   tooltipLabel,
   tooltipButtonLabel,
   tooltipText,
-  id,
   ...rest
 }: FieldLabelProps) => (
   <>
-    <label htmlFor={inputId} className={`${styles.label} ${hidden ? styles.hidden : ''}`} id={id} {...rest}>
+    <label htmlFor={inputId} className={`${styles.label} ${hidden ? styles.hidden : ''}`} {...rest}>
       {label}
       {required && <RequiredIndicator />}
     </label>

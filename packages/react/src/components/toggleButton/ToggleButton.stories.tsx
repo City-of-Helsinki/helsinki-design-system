@@ -30,3 +30,15 @@ DisabledSelected.args = {
   value: true,
   disabled: true,
 };
+
+export const WithTooltip = (args) => <ToggleButton {...args}>ToggleButton</ToggleButton>;
+
+WithTooltip.args = {
+  label: 'Allow notifications',
+  tooltipLabel: 'What are the notifications?',
+  tooltipButtonLabel: 'Open info tooltip',
+  tooltipText:
+    'When notifications are allowed, the application can use desktop notifications. But this is not mandatory for application to function.',
+};
+
+WithTooltip.storyName = 'With tooltip';
