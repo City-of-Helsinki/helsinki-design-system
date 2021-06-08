@@ -6,8 +6,14 @@ import styles from './ToggleButton.module.scss';
 import classNames from '../../utils/classNames';
 import { IconCrossCircleFill, IconCheckCircleFill } from '../../icons';
 import { Tooltip } from '../tooltip/Tooltip';
+import { useTheme } from '../../hooks/useTheme';
 
 export type ToggleButtonVariant = 'default' | 'inline';
+
+export interface ToggleButtonCustomTheme {
+  '--toggle-button-color'?: string;
+  '--toggle-button-hover-color'?: string;
+}
 
 export type ToggleButtonProps = {
   /**
@@ -50,6 +56,10 @@ export type ToggleButtonProps = {
    * Defines the toggle button variant
    */
   variant?: ToggleButtonVariant;
+  /**
+   * Custom theme styles
+   */
+  theme?: ToggleButtonCustomTheme;
 };
 
 export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProps>(
@@ -65,10 +75,12 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
       tooltipButtonLabel,
       tooltipText,
       variant = 'default',
+      theme,
     }: ToggleButtonProps,
     ref: React.Ref<HTMLButtonElement>,
   ) => {
     const labelId = `${id}-label`;
+    const customThemeClass = useTheme<ToggleButtonCustomTheme>(styles.toggleButtonContainer, theme);
     const [checked, setChecked] = React.useState<boolean>(value);
 
     return (
@@ -76,6 +88,7 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
         className={classNames(
           styles.toggleButtonContainer,
           variant === 'inline' && styles.toggleButtonContainerInlineVariant,
+          customThemeClass,
         )}
       >
         <div className={styles.labelContainer}>

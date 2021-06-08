@@ -1,8 +1,9 @@
 @import '../../styles/common';
 
 .toggleButtonContainer {
-  --toggle-button-checked-color: var(--color-bus);
-  --toggle-button-checked-hover-color: var(--color-bus-dark);
+  --toggle-button-color: var(--color-bus);
+  --toggle-button-hover-color: var(--color-bus-dark);
+  --toggle-button-unselected-color: var(--color-black-90);
 }
 
 .toggleButtonContainerInlineVariant {
@@ -42,7 +43,7 @@
   $toggle-button-checked-icon-margin: $toggle-button-width - ($toggle-button-icon-width + 8px);
 
   background: #fff;
-  border: 2px solid var(--color-black-90);
+  border: 2px solid var(--toggle-button-unselected-color);
   border-radius: $toggle-button-border-radius;
   cursor: pointer;
   display: inline-block;
@@ -81,12 +82,12 @@
   }
 
   &[aria-checked='true'] {
-    background-color: var(--toggle-button-checked-color);
-    border-color: var(--toggle-button-checked-color);
+    background-color: var(--toggle-button-color);
+    border-color: var(--toggle-button-color);
 
     &:hover {
-      background-color: var(--toggle-button-checked-hover-color);
-      border-color: var(--toggle-button-checked-hover-color);
+      background-color: var(--toggle-button-hover-color);
+      border-color: var(--toggle-button-hover-color);
     }
 
     &[disabled],
@@ -121,6 +122,6 @@
 }
 
 .offIcon {
-  color: black;
+  color: var(--toggle-button-unselected-color);
   opacity: 1;
 }
