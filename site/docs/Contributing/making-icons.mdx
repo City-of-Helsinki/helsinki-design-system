@@ -71,7 +71,7 @@ eg. The human eye (or the brain) is more tuned to seeing contrast in horizontal 
 A pixel grid helps you draw in specific increments when snapping to a grid. A 1px increment has long held the standard in digital and an increment of 2px–8px has been adopted more recently. Icons sit snugly on their 24 x 24px system icon grid, using 1px–2px strokes. Pixel-snapping helps you render sharper icons on lower resolution screens but has become much less of a requirement as hardware rendering has improved.
 
 ## Icon grid
-> **Example: A typical icon grid used for making icons.**
+> **Example: Variations of common icon grids.**
 <Image src="../../static/assets/image/icongrid@2x.jpg" alt="A simple icon grid for making icons." style="max-width:600px;" viewable />
 An icon grid is a tool for speed and consistency. When a drawing HDS icons, know the rules intimately and know when and how to bend them. The icon grid provides the same starting point for multiple contributors.
 
@@ -79,6 +79,18 @@ An icon grid is a tool for speed and consistency. When a drawing HDS icons, know
 > **Example: The difference between safe area and trim area explained.**
 <Image src="../../static/assets/image/safearea_trimarea@2x.jpg" alt="The difference between safe area and trim area explained." style="max-width:600px;" viewable />
 The safe area or live area shows where the important content of the icon should live, while the inverse— the trim area—shows the area to avoid. In some cases the safe area is a soft guidance, but when the content gets cropped, the safe area becomes more crucial.
+
+## Pixel-Perfect design
+Pixel-perfect alignment is important when designing for small sizes. Anti-aliasing on the edges of an icon at small sizes can make the icon appear choppy or fuzzy. Space between lines that do not align to the pixel grid will be anti-aliased and appear blurry. 
+
+Aligning the icon to the pixel grid will make the edges crisp on straight lines and more crisp on precise angles and curves.
+As mentioned, 45-degree angles are best (after straight lines) because the pixels used to define the angle are stacked, or stepped diagonally. 
+
+This is similarly true for corners and curves: The more mathematically precise they are, the crisper the anti-aliasing will be. 
+Note that pixel-perfection is less relevant on higher-resolution screens, such as “Retina” displays.
+
+## Line Weight
+A line weight of two pixels is ideal, but three is sometimes necessary. The goal is to provide visual hierarchy and optical accuracy, without introducing too much variety and thus destroying consistency. In most cases, avoid very thin lines, especially in glyph icons.
 
 ## Step-by-step instrutions
 > **Animation: How to make the Alert Circle icon using basic shapes.**
