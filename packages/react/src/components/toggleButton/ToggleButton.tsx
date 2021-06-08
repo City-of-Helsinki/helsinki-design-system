@@ -7,6 +7,8 @@ import classNames from '../../utils/classNames';
 import { IconCrossCircleFill, IconCheckCircleFill } from '../../icons';
 import { Tooltip } from '../tooltip/Tooltip';
 
+export type ToggleButtonVariant = 'default' | 'inline';
+
 export type ToggleButtonProps = {
   /**
    * The id of the button element
@@ -44,6 +46,10 @@ export type ToggleButtonProps = {
    * The text content of the tooltip
    */
   tooltipText?: string;
+  /**
+   * Defines the toggle button variant
+   */
+  variant?: ToggleButtonVariant;
 };
 
 export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProps>(
@@ -58,6 +64,7 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
       tooltipLabel,
       tooltipButtonLabel,
       tooltipText,
+      variant = 'default',
     }: ToggleButtonProps,
     ref: React.Ref<HTMLButtonElement>,
   ) => {
@@ -65,7 +72,12 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
     const [checked, setChecked] = React.useState<boolean>(value);
 
     return (
-      <div className={styles.toggleButtonContainer}>
+      <div
+        className={classNames(
+          styles.toggleButtonContainer,
+          variant === 'inline' && styles.toggleButtonContainerInlineVariant,
+        )}
+      >
         <div className={styles.labelContainer}>
           <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hidden : ''}`}>
             {label}
