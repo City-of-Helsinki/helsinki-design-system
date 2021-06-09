@@ -1,5 +1,5 @@
 import React from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
+import { boolean, radios, text, withKnobs } from '@storybook/addon-knobs';
 
 import { ToggleButton } from './ToggleButton';
 
@@ -128,3 +128,45 @@ export const CustomTheme = () => {
 };
 
 CustomTheme.storyName = 'Custom theme';
+
+export const Playground = () => {
+  const id = text('Id', 'Id');
+  const label = text('Label', 'Toggle button');
+  const tooltipLabel = text('TooltipLabel', 'Tooltip label');
+  const tooltipButtonLabel = text('TooltipButtonLabel', 'Tooltip button label');
+  const tooltipText = text('TooltipText', 'Tooltip text');
+  const variant = radios(
+    'Variant',
+    {
+      default: 'default',
+      inline: 'inline',
+    },
+    'default',
+  );
+
+  const value = boolean('Value', true);
+  const disabled = boolean('Disabled', false);
+
+  return (
+    <ToggleButton
+      id={id}
+      label={label}
+      variant={variant}
+      value={value}
+      disabled={disabled}
+      tooltipLabel={tooltipLabel}
+      tooltipButtonLabel={tooltipButtonLabel}
+      tooltipText={tooltipText}
+    />
+  );
+};
+Playground.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
+    },
+  },
+  docs: {
+    disable: true,
+  },
+};
