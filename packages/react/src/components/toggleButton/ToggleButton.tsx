@@ -37,10 +37,6 @@ export type ToggleButtonProps = {
    */
   onChange?: (boolean) => void;
   /**
-   * Hides the label above the input
-   */
-  hideLabel?: boolean;
-  /**
    * Aria-label text for the tooltip
    */
   tooltipLabel?: string;
@@ -70,7 +66,6 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
       value,
       disabled,
       onChange,
-      hideLabel,
       tooltipLabel,
       tooltipButtonLabel,
       tooltipText,
@@ -92,7 +87,7 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
         )}
       >
         <div className={styles.labelContainer}>
-          <label htmlFor={id} className={`${styles.label} ${hideLabel ? styles.hidden : ''}`}>
+          <label htmlFor={id} className={styles.label}>
             {label}
           </label>
           {tooltipText && (
