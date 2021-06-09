@@ -87,7 +87,7 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
         )}
       >
         <div className={styles.labelContainer}>
-          <label htmlFor={id} className={styles.label}>
+          <label id={labelId} htmlFor={id} className={styles.label}>
             {label}
           </label>
           {tooltipText && (
