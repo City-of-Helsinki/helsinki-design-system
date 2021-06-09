@@ -169,7 +169,5 @@ Playground.parameters = {
   docs: {
     disable: true,
   },
-  parameters: {
-    loki: { skip: true },
-  },
+  loki: { skip: true },
 };
