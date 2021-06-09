@@ -12,7 +12,6 @@ type FieldLabelProps = {
   tooltipLabel?: string;
   tooltipButtonLabel?: string;
   tooltipText?: string;
-  id?: string;
 };
 
 export const FieldLabel = ({
