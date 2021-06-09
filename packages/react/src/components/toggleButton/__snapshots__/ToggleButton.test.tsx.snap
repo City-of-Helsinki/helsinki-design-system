@@ -5,13 +5,17 @@ exports[`<ToggleButton /> spec renders the component 1`] = `
   <div
     class="toggleButtonContainer"
   >
-    <label
-      class="label "
-      for="toggle-button"
-      id="toggle-button-label"
+    <div
+      class="labelContainer"
     >
-      Test label
-    </label>
+      <label
+        class="label"
+        for="toggle-button"
+        id="toggle-button-label"
+      >
+        Test label
+      </label>
+    </div>
     <button
       aria-checked="false"
       aria-labelledby="toggle-button-label"
