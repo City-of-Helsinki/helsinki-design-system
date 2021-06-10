@@ -81,7 +81,7 @@
     }
   }
 
-  &[aria-checked='true'] {
+  &[aria-pressed='true'] {
     background-color: var(--toggle-button-color);
     border-color: var(--toggle-button-color);
 

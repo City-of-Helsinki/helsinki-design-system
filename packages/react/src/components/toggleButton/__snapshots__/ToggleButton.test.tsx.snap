@@ -17,11 +17,10 @@ exports[`<ToggleButton /> spec renders the component 1`] = `
       </label>
     </div>
     <button
-      aria-checked="false"
       aria-labelledby="toggle-button-label"
+      aria-pressed="false"
       class="toggleButton"
       id="toggle-button"
-      role="switch"
       type="button"
     >
       <div
