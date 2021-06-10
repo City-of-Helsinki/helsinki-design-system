@@ -37,13 +37,15 @@
 .toggleButton {
   $toggle-button-height: 32px;
   $toggle-button-width: 56px;
+  $toggle-button-border-width: 2px;
   $toggle-button-border-radius: 20px;
   $toggle-button-icon-width: 24px;
-  $toggle-button-outline-radius: -6px;
+  $toggle-button-outline-width: 3px;
+  $toggle-button-outline-offset: 2px;
   $toggle-button-checked-icon-margin: $toggle-button-width - ($toggle-button-icon-width + 8px);
 
   background: #fff;
-  border: 2px solid var(--toggle-button-unselected-color);
+  border: $toggle-button-border-width solid var(--toggle-button-unselected-color);
   border-radius: $toggle-button-border-radius;
   cursor: pointer;
   display: inline-block;
@@ -56,19 +58,26 @@
   bottom: 0;
   transition: all 200ms;
 
+
+  &:after {
+    $calculated-offset: ($toggle-button-border-width + $toggle-button-outline-width + $toggle-button-outline-offset) * -1;
+
+    border-radius: $toggle-button-border-radius + 5px;
+    display: block;
+    content: '';
+    position: absolute;
+    top: $calculated-offset;
+    left: $calculated-offset;
+    right: $calculated-offset;
+    bottom: $calculated-offset;
+  }
+
   &:focus {
     outline: none;
 
     &:after {
-      border: 2px solid var(--color-coat-of-arms);
-      border-radius: $toggle-button-border-radius + 6px;
-      content: '';
-      display: block;
-      position: absolute;
-      top: $toggle-button-outline-radius;
-      bottom: $toggle-button-outline-radius;
-      left: $toggle-button-outline-radius;
-      right: $toggle-button-outline-radius;
+      box-sizing: content-box;
+      border: $toggle-button-outline-width solid var(--color-coat-of-arms);
     }
   }
 
