@@ -76,7 +76,7 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
   ) => {
     const labelId = `${id}-label`;
     const customThemeClass = useTheme<ToggleButtonCustomTheme>(styles.toggleButtonContainer, theme);
-    const [checked, setChecked] = React.useState<boolean>(value);
+    const [isPressed, setIsPressed] = React.useState<boolean>(value);
 
     return (
       <div
@@ -105,13 +105,12 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
           ref={ref}
           disabled={disabled}
           type="button"
-          role="switch"
-          aria-checked={checked}
+          aria-pressed={isPressed}
           aria-labelledby={labelId}
           className={styles.toggleButton}
           onClick={() => {
-            const newValue = !checked;
-            setChecked(newValue);
+            const newValue = !isPressed;
+            setIsPressed(newValue);
             if (onChange) {
               onChange(newValue);
             }
