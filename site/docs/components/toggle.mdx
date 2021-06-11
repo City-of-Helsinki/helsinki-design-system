@@ -4,16 +4,17 @@ menu: Components
 route: /components/toggle
 ---
 
-import { Playground } from "docz";
-import { StatusLabel } from "hds-react";
+import { Playground } from 'docz';
+import { StatusLabel, ToggleButton } from 'hds-react';
 
-import LargeParagraph from "../../src/components/LargeParagraph";
-import Link from "../../src/components/Link";
+import LargeParagraph from '../../src/components/LargeParagraph';
 
 # Toggle button
 
 <StatusLabel type="alert">Draft</StatusLabel>
-<StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  Accessible
+</StatusLabel>
 
 <LargeParagraph>
   Toggle button allows the user to switch between two distinct states such as "On" and "Off".
@@ -21,7 +22,7 @@ import Link from "../../src/components/Link";
 
 ## Principles
 
-- **A label should always be provided with a toggle button.** 
+- **A label should always be provided with a toggle button.**
   - Make sure that the label is clear and concise. A good toggle button label describes the effect that will happen when the toggle button is set to "On" position.
   - For example, use a label "_Allow notifications_" instead of "_Do you want to receive notifications?_".
 - The toggle button should have immediate effect when activated.
@@ -33,51 +34,42 @@ import Link from "../../src/components/Link";
 
 ## Accessibility
 
-- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colors, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
+- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colors, refer to [colour guidelines](/design-tokens/colour 'Colour') to ensure accessibility.
 - If the toggle button makes other elements appear on the view, those elements should be located next to the toggle button - preferably right after or below it.
   - While not recommended, if a toggle button makes elements appear in other parts of the user interface, you need to make sure to notify assistive technologies about the change. You can use [HDS Notification component](/components/notification) for this purpose.
 - HDS Toggle button includes a small animation when the toggle state is changed. However, the animation is considered non-decorative and therefore it does not have to be able to be disabled. See <Link href="https://www.w3.org/WAI/WCAG21/Understanding/animation-from-interactions.html" external>WCAG 2.3.3 Animation from Interactions guideline</Link> for more information.
 
 ## Usage & variations
+
 ### Toggle button
-The default HDS toggle button variant includes a label above the toggle button familiar from other HDS form components. 
+
+The default HDS toggle button variant includes a label above the toggle button familiar from other HDS form components.
 
 <Playground>
-
+  <ToggleButton id="toggle-button" value={false} label="Label" />
 </Playground>
 
-#### Core code example:
-```html
-
-```
-
 #### React code example:
-```tsx
 
+```tsx
+ <ToggleButton id="toggle-button" value={false} label="Label" />
 ```
 
 ### Toggle button with a horizontal label
+
 The toggle button label can also be positioned horizontally. This alignment is often used on smaller screens (e.g. mobile phones) and tighter user interface spaces.
 
 <Playground>
-
+  <ToggleButton id="toggle-button" value={false} label="Label" variant="inline" />
 </Playground>
 
-#### Core code example:
-```html
-
-```
-
 #### React code example:
-```tsx
 
+```tsx
+ <ToggleButton id="toggle-button" value={false} label="Label" variant="inline" />
 ```
 
 ## Demos & API
-
-### Core
-
-[Toggle buttons in hds-core](/storybook/core/?path=/story/components-toggle-button--default)
 
 ### React
 
