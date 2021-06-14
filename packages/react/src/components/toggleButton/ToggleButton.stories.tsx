@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { boolean, radios, text, withKnobs } from '@storybook/addon-knobs';
 
 import { ToggleButton } from './ToggleButton';
@@ -13,27 +13,56 @@ export default {
   args: {
     id: 'toggle-button',
     label: 'Label',
-    value: false,
     disabled: false,
+    checked: false,
   },
 };
 
-export const Default = (args) => <ToggleButton {...args}>ToggleButton</ToggleButton>;
+export const Default = (args) => {
+  const [checked, setChecked] = useState<boolean>(args.checked);
+  const [oppositeChecked, setOppositeChecked] = useState<boolean>(!args.checked);
+  return (
+    <>
+      <ToggleButton {...args} label="Label" checked={checked} onChange={() => setChecked(!checked)} />
+      <br />
+      <ToggleButton
+        {...args}
+        id={`${args.id}-opposite`}
+        label="Label"
+        checked={oppositeChecked}
+        onChange={() => setOppositeChecked(!oppositeChecked)}
+      />
+    </>
+  );
+};
 
-export const Disabled = (args) => <ToggleButton {...args}>ToggleButton</ToggleButton>;
+export const Disabled = (args) => {
+  const [checked, setChecked] = useState(false);
+  const [oppositeChecked, setOppositeChecked] = useState<boolean>(!args.checked);
+
+  return (
+    <>
+      <ToggleButton {...args} label="Label" checked={checked} onChange={() => setChecked(!checked)} />
+      <br />
+      <ToggleButton
+        {...args}
+        id={`${args.id}-opposite`}
+        label="Label"
+        checked={oppositeChecked}
+        onChange={() => setOppositeChecked(!oppositeChecked)}
+      />
+    </>
+  );
+};
 
 Disabled.args = {
   disabled: true,
 };
 
-export const DisabledSelected = (args) => <ToggleButton {...args}>ToggleButton</ToggleButton>;
-
-DisabledSelected.args = {
-  value: true,
-  disabled: true,
+export const WithTooltip = (args) => {
+  const [checked, setChecked] = useState<boolean>(args.checked);
+  return <ToggleButton {...args} checked={checked} onChange={() => setChecked(!checked)} />;
 };
-
-export const WithTooltip = (args) => <ToggleButton {...args}>ToggleButton</ToggleButton>;
 
 WithTooltip.args = {
   label: 'Allow notifications',
@@ -45,92 +74,94 @@ WithTooltip.args = {
 
 WithTooltip.storyName = 'With tooltip';
 
-export const Inline = () => {
-  const fields = [
-    { label: 'Allow strictly necessary cookies', id: 'allow-necessary' },
-    { label: 'Allow functional cookies', id: 'allow-functional' },
-    { label: 'Allow marketing cookies', id: 'marketing' },
-  ];
+export const Inline = (args) => {
+  const [checked, setChecked] = useState<boolean>(args.checked);
+  const [checkedWithTooltip, setCheckedWithTooltip] = useState<boolean>(args.checked);
 
   return (
     <>
-      {fields.map((field, index) => (
-        <div style={{ marginBottom: '1.5rem' }}>
-          <ToggleButton id={field.id} label={field.label} variant="inline" value={index === 0} />
-        </div>
-      ))}
+      <ToggleButton
+        id={args.id}
+        label={args.label}
+        variant={args.variant}
+        checked={checked}
+        onChange={() => setChecked(!checked)}
+      />
+      <br />
+      <ToggleButton
+        id={`${args.id}-without-tooltip`}
+        label={args.label}
+        variant={args.variant}
+        checked={checkedWithTooltip}
+        onChange={() => setCheckedWithTooltip(!checkedWithTooltip)}
+        tooltipText={args.tooltipText}
+        tooltipButtonLabel={args.tooltipButtonLabel}
+        tooltipLabel={args.tooltipLabel}
+      />
     </>
   );
 };
 
-export const InlineWithTooltip = () => {
-  const fields = [
-    {
-      label: 'Allow strictly necessary cookies',
-      id: 'allow-necessary',
-      tooltipLabel: 'What are the necessary cookies?',
-      tooltipButtonLabel: 'Open necessary cookies info tooltip',
-      tooltipText: 'Necessary cookies are not mandatory but they ensure that the application will function correctly',
-    },
-    {
-      label: 'Allow functional cookies',
-      id: 'allow-functional',
-      tooltipLabel: 'What are the functional cookies?',
-      tooltipButtonLabel: 'Open functional cookies info tooltip',
-      tooltipText: 'Functional cookies are not mandatory but they improve the user experience',
-    },
-    {
-      label: 'Allow marketing cookies',
-      id: 'marketing',
-      tooltipLabel: 'What are the marketing cookies?',
-      tooltipButtonLabel: 'Open marketing cookies info tooltip',
-      tooltipText: 'Functional cookies are not mandatory and they are used to target advertisement',
-    },
-  ];
-
-  return (
-    <>
-      {fields.map((field, index) => (
-        <div style={{ marginBottom: '1.5rem' }}>
-          <ToggleButton
-            id={field.id}
-            label={field.label}
-            variant="inline"
-            value={index === 0}
-            tooltipLabel={field.tooltipLabel}
-            tooltipButtonLabel={field.tooltipButtonLabel}
-            tooltipText={field.tooltipText}
-          />
-        </div>
-      ))}
-    </>
-  );
+Inline.args = {
+  variant: 'inline',
+  label: 'Allow notifications',
+  tooltipLabel: 'What are the notifications?',
+  tooltipButtonLabel: 'Open info tooltip',
+  tooltipText:
+    'When notifications are allowed, the application can use desktop notifications. But this is not mandatory for application to function.',
 };
 
-InlineWithTooltip.storyName = 'Inline with tooltip';
+WithTooltip.storyName = 'With tooltip';
 
-export const CustomTheme = () => {
+export const CustomTheme = (args) => {
   const customThemes = [
-    { '--toggle-button-color': '#f10000', '--toggle-button-hover-color': '#690000' },
-    { '--toggle-button-color': '#0ba900', '--toggle-button-hover-color': '#076500' },
-    { '--toggle-button-color': '#0062b9', '--toggle-button-hover-color': '#004f94' },
+    {
+      '--toggle-button-color': '#f10000',
+      '--toggle-button-hover-color': '#690000',
+      state: useState<boolean>(args.checked),
+    },
+    {
+      '--toggle-button-color': '#0ba900',
+      '--toggle-button-hover-color': '#076500',
+      state: useState<boolean>(args.checked),
+    },
+    {
+      '--toggle-button-color': '#0062b9',
+      '--toggle-button-hover-color': '#004f94',
+      state: useState<boolean>(args.checked),
+    },
   ];
 
   return (
     <>
-      {customThemes.map((theme, index) => (
-        <div style={{ marginBottom: '1.5rem' }}>
-          <ToggleButton id={`toggle-button-${index}`} label="label" variant="inline" value theme={theme} />
-        </div>
-      ))}
+      {customThemes.map(({ state, ...theme }, index) => {
+        const [checked, setIsChecked] = state;
+
+        return (
+          <div style={{ marginBottom: '1.5rem' }}>
+            <ToggleButton
+              id={`toggle-button-${index}`}
+              label="label"
+              checked={checked}
+              onChange={() => setIsChecked(!checked)}
+              variant={args.variant}
+              theme={theme}
+            />
+          </div>
+        );
+      })}
     </>
   );
+};
+CustomTheme.args = {
+  checked: true,
+  variant: 'default',
 };
 
 CustomTheme.storyName = 'Custom theme';
 
 export const Playground = () => {
-  const id = text('Id', 'Id');
+  const id = text('Id', 'toggle-button');
   const label = text('Label', 'Toggle button');
   const tooltipLabel = text('TooltipLabel', 'Tooltip label');
   const tooltipButtonLabel = text('TooltipButtonLabel', 'Tooltip button label');
@@ -145,6 +176,7 @@ export const Playground = () => {
   );
 
   const value = boolean('Value', true);
+  const [checked, setChecked] = useState(value);
   const disabled = boolean('Disabled', false);
 
   return (
@@ -152,7 +184,8 @@ export const Playground = () => {
       id={id}
       label={label}
       variant={variant}
-      value={value}
+      checked={checked}
+      onChange={() => setChecked(!checked)}
       disabled={disabled}
       tooltipLabel={tooltipLabel}
       tooltipButtonLabel={tooltipButtonLabel}
