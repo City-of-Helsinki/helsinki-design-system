@@ -46,13 +46,21 @@ import LargeParagraph from '../../src/components/LargeParagraph';
 The default HDS toggle button variant includes a label above the toggle button familiar from other HDS form components.
 
 <Playground>
-  <ToggleButton id="toggle-button" value={false} label="Label" />
+  {() => {
+    const [checked, setChecked] = React.useState(false);
+    return <ToggleButton id="toggle-button" label="Label" checked={checked} onChange={() => setChecked(!checked)} />;
+  }}
 </Playground>
 
 #### React code example:
 
 ```tsx
- <ToggleButton id="toggle-button" value={false} label="Label" />
+{
+  () => {
+    const [checked, setChecked] = React.useState(false);
+    return <ToggleButton id="toggle-button" label="Label" checked={checked} onChange={() => setChecked(!checked)} />;
+  };
+}
 ```
 
 ### Toggle button with a horizontal label
@@ -60,13 +68,37 @@ The default HDS toggle button variant includes a label above the toggle button f
 The toggle button label can also be positioned horizontally. This alignment is often used on smaller screens (e.g. mobile phones) and tighter user interface spaces.
 
 <Playground>
-  <ToggleButton id="toggle-button" value={false} label="Label" variant="inline" />
+  {() => {
+    const [checked, setChecked] = React.useState(false);
+    return (
+      <ToggleButton
+        id="toggle-button"
+        label="Label"
+        checked={checked}
+        onChange={() => setChecked(!checked)}
+        variant="inline"
+      />
+    );
+  }}
 </Playground>
 
 #### React code example:
 
 ```tsx
- <ToggleButton id="toggle-button" value={false} label="Label" variant="inline" />
+{
+  () => {
+    const [checked, setChecked] = React.useState(false);
+    return (
+      <ToggleButton
+        id="toggle-button"
+        label="Label"
+        checked={checked}
+        onChange={() => setChecked(!checked)}
+        variant="inline"
+      />
+    );
+  };
+}
 ```
 
 ## Demos & API
