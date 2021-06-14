@@ -12,7 +12,6 @@ export default {
   },
   args: {
     id: 'toggle-button',
-    label: 'Label',
     disabled: false,
     checked: false,
   },
@@ -23,12 +22,12 @@ export const Default = (args) => {
   const [oppositeChecked, setOppositeChecked] = useState<boolean>(!args.checked);
   return (
     <>
-      <ToggleButton {...args} label="Label" checked={checked} onChange={() => setChecked(!checked)} />
+      <ToggleButton {...args} label="Allow notifications" checked={checked} onChange={() => setChecked(!checked)} />
       <br />
       <ToggleButton
         {...args}
         id={`${args.id}-opposite`}
-        label="Label"
+        label="Allow desktop notifications"
         checked={oppositeChecked}
         onChange={() => setOppositeChecked(!oppositeChecked)}
       />
@@ -42,12 +41,12 @@ export const Disabled = (args) => {
 
   return (
     <>
-      <ToggleButton {...args} label="Label" checked={checked} onChange={() => setChecked(!checked)} />
+      <ToggleButton {...args} label="Allow notifications" checked={checked} onChange={() => setChecked(!checked)} />
       <br />
       <ToggleButton
         {...args}
         id={`${args.id}-opposite`}
-        label="Label"
+        label="Allow desktop notifications"
         checked={oppositeChecked}
         onChange={() => setOppositeChecked(!oppositeChecked)}
       />
@@ -61,11 +60,10 @@ Disabled.args = {
 
 export const WithTooltip = (args) => {
   const [checked, setChecked] = useState<boolean>(args.checked);
-  return <ToggleButton {...args} checked={checked} onChange={() => setChecked(!checked)} />;
+  return <ToggleButton {...args} label="Allow notifications" checked={checked} onChange={() => setChecked(!checked)} />;
 };
 
 WithTooltip.args = {
-  label: 'Allow notifications',
   tooltipLabel: 'What are the notifications?',
   tooltipButtonLabel: 'Open info tooltip',
   tooltipText:
@@ -82,18 +80,18 @@ export const Inline = (args) => {
     <>
       <ToggleButton
         id={args.id}
-        label={args.label}
-        variant={args.variant}
+        label="Allow notifications"
         checked={checked}
         onChange={() => setChecked(!checked)}
+        variant={args.variant}
       />
       <br />
       <ToggleButton
         id={`${args.id}-without-tooltip`}
-        label={args.label}
-        variant={args.variant}
+        label="Allow desktop notifications"
         checked={checkedWithTooltip}
         onChange={() => setCheckedWithTooltip(!checkedWithTooltip)}
+        variant={args.variant}
         tooltipText={args.tooltipText}
         tooltipButtonLabel={args.tooltipButtonLabel}
         tooltipLabel={args.tooltipLabel}
@@ -104,7 +102,6 @@ export const Inline = (args) => {
 
 Inline.args = {
   variant: 'inline',
-  label: 'Allow notifications',
   tooltipLabel: 'What are the notifications?',
   tooltipButtonLabel: 'Open info tooltip',
   tooltipText:
@@ -116,16 +113,19 @@ WithTooltip.storyName = 'With tooltip';
 export const CustomTheme = (args) => {
   const customThemes = [
     {
+      id: 'error',
       '--toggle-button-color': '#f10000',
       '--toggle-button-hover-color': '#690000',
       state: useState<boolean>(args.checked),
     },
     {
+      id: 'success',
       '--toggle-button-color': '#0ba900',
       '--toggle-button-hover-color': '#076500',
       state: useState<boolean>(args.checked),
     },
     {
+      id: 'primary',
       '--toggle-button-color': '#0062b9',
       '--toggle-button-hover-color': '#004f94',
       state: useState<boolean>(args.checked),
@@ -134,13 +134,13 @@ export const CustomTheme = (args) => {
 
   return (
     <>
-      {customThemes.map(({ state, ...theme }, index) => {
+      {customThemes.map(({ id, state, ...theme }) => {
         const [checked, setIsChecked] = state;
 
         return (
-          <div style={{ marginBottom: '1.5rem' }}>
+          <div key={`toggle-button-${id}-container`} style={{ marginBottom: '1.5rem' }}>
             <ToggleButton
-              id={`toggle-button-${index}`}
+              id={`toggle-button-${id}`}
               label="label"
               checked={checked}
               onChange={() => setIsChecked(!checked)}
@@ -183,13 +183,13 @@ export const Playground = () => {
     <ToggleButton
       id={id}
       label={label}
-      variant={variant}
       checked={checked}
       onChange={() => setChecked(!checked)}
       disabled={disabled}
       tooltipLabel={tooltipLabel}
       tooltipButtonLabel={tooltipButtonLabel}
       tooltipText={tooltipText}
+      variant={variant}
     />
   );
 };
