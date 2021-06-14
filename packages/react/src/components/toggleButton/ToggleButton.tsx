@@ -25,17 +25,17 @@ export type ToggleButtonProps = {
    */
   label: string | React.ReactNode;
   /**
-   * The value of the toggle button
+   * The state of the toggle button
    */
-  value: boolean;
+  checked: boolean;
   /**
    * If `true`, the button will be disabled
    */
   disabled?: boolean;
   /**
-   * Callback fired when the value is changed
+   * Callback fired when the toggle button is clicked. Should switch the value.
    */
-  onChange?: (boolean) => void;
+  onChange: (boolean) => void;
   /**
    * Aria-label text for the tooltip
    */
@@ -63,7 +63,7 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
     {
       id,
       label,
-      value,
+      checked,
       disabled,
       onChange,
       tooltipLabel,
@@ -76,7 +76,6 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
   ) => {
     const labelId = `${id}-label`;
     const customThemeClass = useTheme<ToggleButtonCustomTheme>(styles.toggleButtonContainer, theme);
-    const [isPressed, setIsPressed] = React.useState<boolean>(value);
 
     return (
       <div
@@ -105,15 +104,11 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
           ref={ref}
           disabled={disabled}
           type="button"
-          aria-pressed={isPressed}
+          aria-pressed={checked}
           aria-labelledby={labelId}
           className={styles.toggleButton}
           onClick={() => {
-            const newValue = !isPressed;
-            setIsPressed(newValue);
-            if (onChange) {
-              onChange(newValue);
-            }
+            onChange(checked);
           }}
         >
           <div className={classNames(styles.toggleButtonIcon, styles.offIcon)}>
