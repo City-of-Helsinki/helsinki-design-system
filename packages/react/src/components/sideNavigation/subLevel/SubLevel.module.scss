@@ -1,0 +1,9 @@
+.subLevel {
+  composes: level from '../SideNavigation.module.scss';
+
+  font-size: var(--fontsize-body-s);
+}
+
+.active {
+  composes: activeLevel from '../SideNavigation.module.scss';
+}
