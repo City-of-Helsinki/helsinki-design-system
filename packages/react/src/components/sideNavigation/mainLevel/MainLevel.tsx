@@ -1,0 +1,143 @@
+import uniqueId from 'lodash.uniqueid';
+import xor from 'lodash.xor';
+import React, { cloneElement, isValidElement, useContext, useState } from 'react';
+
+import classNames from '../../../utils/classNames';
+import styles from './MainLevel.module.scss';
+import SideNavigationContext from '../SideNavigationContext';
+import { FCWithName } from '../../../common/types';
+import { IconAngleDown } from '../../../icons';
+
+export type MainLevelProps = React.ComponentPropsWithoutRef<'a'> & {
+  /**
+   * If `true`, the item will be marked as active
+   */
+  active?: boolean;
+  /**
+   * Additional class names to apply to the side navigation main level
+   */
+  className?: string;
+  /**
+   * href attribute of the side navigation main level
+   */
+  href: string;
+  /**
+   * Icon of the side navigation main level.
+   */
+  icon: React.ReactNode;
+  /**
+   * The id of the side navigation main level.
+   */
+  id?: string;
+  /**
+   * Index of the side navigation main level.
+   */
+  index?: number;
+  /**
+   * Label of the side navigation main level.
+   */
+  label: string;
+  /**
+   * Override or extend the styles applied to the component
+   */
+  style?: React.CSSProperties;
+};
+
+export const MainLevel = ({
+  active,
+  children,
+  className,
+  href,
+  icon,
+  id: _id,
+  index,
+  label,
+  onClick,
+  style,
+  ...rest
+}: MainLevelProps) => {
+  const [id] = useState(_id || uniqueId('main-level-'));
+  const buttonId = `${id}-button`;
+  const menuId = `${id}-menu`;
+  const { allowMultipleOpened, openMainLevels, setMobileMenuOpen, setOpenMainLevels } = useContext(
+    SideNavigationContext,
+  );
+
+  const open = openMainLevels.includes(index as number);
+
+  const subLevels = React.Children.map(children, (child, subLevelIndex) => {
+    if (isValidElement(child) && (child.type as FCWithName).componentName === 'SubLevel') {
+      return cloneElement(child, {
+        id: `${id}-${subLevelIndex}`,
+        mainLevelIndex: index,
+      });
+    }
+    return null;
+  });
+
+  const hasSublevels = Boolean(subLevels?.length);
+
+  const openMainLevel = () => {
+    if (allowMultipleOpened) {
+      setOpenMainLevels([...openMainLevels, index]);
+    } else {
+      // Only one level can be open at same time
+      setOpenMainLevels([index as number]);
+    }
+  };
+
+  const handleMainLevelClick = (ev: React.MouseEvent<HTMLAnchorElement>) => {
+    if (allowMultipleOpened) {
+      // Toggle main level
+      setOpenMainLevels(xor(openMainLevels, [index]));
+    } else {
+      // Only one level can be open at same time
+      setOpenMainLevels([index as number]);
+    }
+
+    if (!hasSublevels) {
+      setMobileMenuOpen(false);
+    }
+
+    if (onClick) {
+      onClick(ev);
+    }
+  };
+
+  React.useEffect(() => {
+    if (active && !openMainLevels.includes(index as number)) {
+      openMainLevel();
+    }
+  }, [active]);
+
+  return (
+    <li className={classNames(styles.mainLevel, active && styles.active, open && styles.open, className)} style={style}>
+      <a
+        {...rest}
+        aria-current={active ? 'page' : 'false'}
+        aria-label={label}
+        id={buttonId}
+        onClick={handleMainLevelClick}
+        href={href}
+      >
+        <span className={styles.iconWrapper} aria-hidden>
+          {icon}
+        </span>
+        <span>{label}</span>
+        {hasSublevels && (
+          <span className={styles.arrowIcon} aria-hidden>
+            <IconAngleDown aria-hidden />
+          </span>
+        )}
+      </a>
+
+      {hasSublevels && (
+        <ul className={styles.mainLevelListMenu} id={menuId} aria-hidden={!open} aria-labelledby={buttonId}>
+          {subLevels}
+        </ul>
+      )}
+    </li>
+  );
+};
+
+MainLevel.componentName = 'MainLevel';
