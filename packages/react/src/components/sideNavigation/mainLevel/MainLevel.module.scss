@@ -1,0 +1,30 @@
+.mainLevel {
+  composes: level from '../SideNavigation.module.scss';
+
+  font-size: var(--fontsize-body-m);
+
+  & > a {
+    font-weight: 600;
+    grid-template-columns: var(--side-navigation-icon-size) 1fr var(--side-navigation-icon-size);
+  }
+}
+
+.active {
+  composes: activeLevel from '../SideNavigation.module.scss';
+}
+
+.mainLevelListMenu {
+  display: none;
+}
+
+.mainLevel.open {
+  .arrowIcon {
+    transform: rotate(180deg);
+  }
+
+  .mainLevelListMenu {
+    padding: 0;
+    display: block;
+    list-style: none;
+  }
+}
