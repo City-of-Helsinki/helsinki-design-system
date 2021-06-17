@@ -112,7 +112,7 @@ inlineLink.storyName = 'Inline link';
 export const standaloneLink = (args) => {
   return (
     <>
-      <Link {...args} size="L" style={{ display: 'block', marginBottom: '20px' }}>
+      <Link {...args} size="L" style={{ display: 'block', marginBottom: '20px', width: 'fit-content' }}>
         Standalone link
       </Link>
       <p style={{ display: 'inline', fontSize: '14px' }}>
