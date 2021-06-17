@@ -9,6 +9,10 @@
   border: 3px solid var(--color-coat-of-arms);
 }
 
+.hds-link:focus-visible {
+  outline: none;
+}
+
 .hds-link .icon {
   margin-left: var(--spacing-3-xs);
 }
