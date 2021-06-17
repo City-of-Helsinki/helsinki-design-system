@@ -8,6 +8,7 @@ import { Playground } from 'docz';
 import { StatusLabel, ToggleButton } from 'hds-react';
 
 import LargeParagraph from '../../src/components/LargeParagraph';
+import Link from '../../src/components/Link';
 
 # Toggle button
 
@@ -47,8 +48,23 @@ The default HDS toggle button variant includes a label above the toggle button f
 
 <Playground>
   {() => {
-    const [checked, setChecked] = React.useState(false);
-    return <ToggleButton id="toggle-button" label="Label" checked={checked} onChange={() => setChecked(!checked)} />;
+    const [checked1, setChecked1] = React.useState(false);
+    const [checked2, setChecked2] = React.useState(false);
+    return (
+      <>
+        <ToggleButton 
+          id="toggle-button-1" 
+          label="Label" checked={checked1} 
+          onChange={() => setChecked1(!checked1)} />
+        <br />
+        <ToggleButton 
+          id="toggle-button-2" 
+          disabled 
+          label="Label" 
+          checked={checked2} 
+          onChange={() => setChecked2(!checked2)} />
+      </>
+    )
   }}
 </Playground>
 
@@ -57,8 +73,23 @@ The default HDS toggle button variant includes a label above the toggle button f
 ```tsx
 {
   () => {
-    const [checked, setChecked] = React.useState(false);
-    return <ToggleButton id="toggle-button" label="Label" checked={checked} onChange={() => setChecked(!checked)} />;
+    const [checked1, setChecked1] = React.useState(false);
+    const [checked2, setChecked2] = React.useState(false);
+    return (
+      <>
+        <ToggleButton 
+          id="toggle-button-1" 
+          label="Label" checked={checked1} 
+          onChange={() => setChecked1(!checked1)} />
+        <br />
+        <ToggleButton 
+          id="toggle-button-2" 
+          disabled 
+          label="Label" 
+          checked={checked2} 
+          onChange={() => setChecked2(!checked2)} />
+      </>
+    )
   };
 }
 ```
@@ -69,15 +100,29 @@ The toggle button label can also be positioned horizontally. This alignment is o
 
 <Playground>
   {() => {
-    const [checked, setChecked] = React.useState(false);
+    const [checked1, setChecked1] = React.useState(false);
+    const [checked2, setChecked2] = React.useState(false);
     return (
-      <ToggleButton
-        id="toggle-button"
-        label="Label"
-        checked={checked}
-        onChange={() => setChecked(!checked)}
-        variant="inline"
-      />
+      <>
+        <div style={{maxWidth: '320px'}}>
+          <ToggleButton
+            id="toggle-button"
+            label="Label"
+            checked={checked1}
+            onChange={() => setChecked1(!checked1)}
+            variant="inline"
+          />
+          <br />
+          <ToggleButton
+            id="toggle-button"
+            disabled
+            label="Label"
+            checked={checked2}
+            onChange={() => setChecked2(!checked2)}
+            variant="inline"
+          />
+        </div>
+      </>
     );
   }}
 </Playground>
@@ -87,15 +132,29 @@ The toggle button label can also be positioned horizontally. This alignment is o
 ```tsx
 {
   () => {
-    const [checked, setChecked] = React.useState(false);
+    const [checked1, setChecked1] = React.useState(false);
+    const [checked2, setChecked2] = React.useState(false);
     return (
-      <ToggleButton
-        id="toggle-button"
-        label="Label"
-        checked={checked}
-        onChange={() => setChecked(!checked)}
-        variant="inline"
-      />
+      <>
+        <div style={{maxWidth: '320px'}}>
+          <ToggleButton
+            id="toggle-button"
+            label="Label"
+            checked={checked1}
+            onChange={() => setChecked1(!checked1)}
+            variant="inline"
+          />
+          <br />
+          <ToggleButton
+            id="toggle-button"
+            disabled
+            label="Label"
+            checked={checked2}
+            onChange={() => setChecked2(!checked2)}
+            variant="inline"
+          />
+        </div>
+      </>
     );
   };
 }
