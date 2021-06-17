@@ -84,6 +84,7 @@
   &[disabled],
   &[disabled]:hover {
     border-color: var(--color-black-20);
+    cursor: not-allowed;
 
     & .offIcon {
       color: var(--color-black-10);
