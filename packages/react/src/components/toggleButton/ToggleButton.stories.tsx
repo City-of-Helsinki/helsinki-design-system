@@ -114,20 +114,20 @@ export const CustomTheme = (args) => {
   const customThemes = [
     {
       id: 'error',
-      '--toggle-button-color': '#f10000',
-      '--toggle-button-hover-color': '#690000',
+      '--toggle-button-color': 'var(--color-brick)',
+      '--toggle-button-hover-color': 'var(--color-brick-dark)',
       state: useState<boolean>(args.checked),
     },
     {
       id: 'success',
-      '--toggle-button-color': '#0ba900',
-      '--toggle-button-hover-color': '#076500',
+      '--toggle-button-color': 'var(--color-tram)',
+      '--toggle-button-hover-color': 'var(--color-tram-dark)',
       state: useState<boolean>(args.checked),
     },
     {
       id: 'primary',
-      '--toggle-button-color': '#0062b9',
-      '--toggle-button-hover-color': '#004f94',
+      '--toggle-button-color': 'var(--color-coat-of-arms)',
+      '--toggle-button-hover-color': 'var(--color-coat-of-arms-dark)',
       state: useState<boolean>(args.checked),
     },
   ];
