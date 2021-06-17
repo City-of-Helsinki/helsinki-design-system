@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Link /> spec renders the component 1`] = `
+<DocumentFragment>
+  <a
+    class="link linkS visitedLink"
+    href="/test"
+  >
+    Test link
+  </a>
+</DocumentFragment>
+`;

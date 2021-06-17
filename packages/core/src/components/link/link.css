@@ -1,0 +1,47 @@
+.hds-link {
+  text-decoration: underline;
+  color: var(--color-bus);
+  box-sizing:border-box;
+  border: 3px solid transparent;
+}
+
+.hds-link:focus {
+  border: 3px solid var(--color-coat-of-arms);
+}
+
+.hds-link .icon {
+  margin-left: var(--spacing-3-xs);
+}
+
+.hds-link .icon-s,
+.hds-link .icon-m {
+  width: 18px;
+  height: 18px;
+  vertical-align: text-top;
+}
+
+.hds-link .icon-l {
+  width: 36px;
+  height: 36px;
+  vertical-align: middle;
+}
+
+.hds-link--visited {
+  --link-visited-color: #551a8b;
+}
+
+.hds-link--visited:visited {
+  color: var(--link-visited-color);
+}
+
+.hds-link--small {
+  font-size: 14px;
+}
+
+.hds-link--medium {
+  font-size: 16px;
+}
+
+.hds-link--large {
+  font-size: 18px;
+}

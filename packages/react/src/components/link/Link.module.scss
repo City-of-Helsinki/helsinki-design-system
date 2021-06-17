@@ -1,0 +1,35 @@
+.link {
+  composes: hds-link from 'hds-core/lib/components/link/link.css';
+}
+
+.icon {
+  composes: icon from 'hds-core/lib/components/link/link.css';
+}
+
+.iconS {
+  composes: icon-s from 'hds-core/lib/components/link/link.css';
+}
+
+.iconM {
+  composes: icon-m from 'hds-core/lib/components/link/link.css';
+}
+
+.iconL {
+  composes: icon-l from 'hds-core/lib/components/link/link.css';
+}
+
+.visitedLink {
+  composes: hds-link--visited from 'hds-core/lib/components/link/link.css';
+}
+
+.linkS {
+  composes: hds-link--small from 'hds-core/lib/components/link/link.css';
+}
+
+.linkM {
+  composes: hds-link--medium from 'hds-core/lib/components/link/link.css';
+}
+
+.linkL {
+  composes: hds-link--large from 'hds-core/lib/components/link/link.css';
+}
