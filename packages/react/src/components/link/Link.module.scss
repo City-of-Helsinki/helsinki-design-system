@@ -6,20 +6,16 @@
   composes: icon from 'hds-core/lib/components/link/link.css';
 }
 
-.iconS {
-  composes: icon-s from 'hds-core/lib/components/link/link.css';
+.verticalAlignSmallIcon {
+  composes: vertical-align-small-icon from 'hds-core/lib/components/link/link.css';
 }
 
-.iconM {
-  composes: icon-m from 'hds-core/lib/components/link/link.css';
+.verticalAlignBigIcon {
+  composes: vertical-align-big-icon from 'hds-core/lib/components/link/link.css';
 }
 
-.iconL {
-  composes: icon-l from 'hds-core/lib/components/link/link.css';
-}
-
-.visitedLink {
-  composes: hds-link--visited from 'hds-core/lib/components/link/link.css';
+.disableVisitedStyles {
+  composes: hds-link--disable-visited-styles from 'hds-core/lib/components/link/link.css';
 }
 
 .linkS {
