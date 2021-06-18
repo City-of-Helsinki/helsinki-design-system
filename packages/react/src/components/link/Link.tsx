@@ -17,7 +17,7 @@ export type LinkProps = Omit<
   /**
    * Boolean indicating whether visited styles of the link are applied
    */
-  enableVisitedStyles?: boolean;
+  disableVisitedStyles?: boolean;
   /**
    * Boolean indicating whether the link will lead user to external domain.
    */
@@ -51,7 +51,7 @@ export type LinkProps = Omit<
 export const Link = ({
   children,
   className,
-  enableVisitedStyles = true,
+  disableVisitedStyles = false,
   external = false,
   href,
   openInNewTab = false,
@@ -66,7 +66,7 @@ export const Link = ({
       className={classNames(
         styles.link,
         styles[`link${size}`],
-        enableVisitedStyles ? styles.visitedLink : '',
+        disableVisitedStyles ? styles.disableVisitedStyles : '',
         className,
       )}
       href={href}
@@ -77,7 +77,8 @@ export const Link = ({
       {children}
       {external && (
         <IconLinkExternal
-          className={classNames(styles.icon, styles[`icon${size}`])}
+          size={size === 'L' ? 'l' : 's'}
+          className={classNames(styles.icon, styles[size === 'L' ? 'verticalAlignBigIcon' : 'verticalAlignSmallIcon'])}
           aria-label={openInExternalDomainAriaLabel || 'Avautuu uuteen domainiin.'}
         />
       )}

@@ -1,8 +1,14 @@
 .hds-link {
+  --link-visited-color: #551a8b;
+  --link-color: var(--color-bus);
   text-decoration: underline;
-  color: var(--color-bus);
-  box-sizing:border-box;
+  color: var(--link-color);
+  box-sizing: border-box;
   border: 3px solid transparent;
+}
+
+.hds-link:visited {
+  color: var(--link-visited-color);
 }
 
 .hds-link:focus {
@@ -18,25 +24,16 @@
   margin-left: var(--spacing-3-xs);
 }
 
-.hds-link .icon-s,
-.hds-link .icon-m {
-  width: 18px;
-  height: 18px;
-  vertical-align: text-top;
+.hds-link .vertical-align-small-icon {
+  vertical-align: text-bottom;
 }
 
-.hds-link .icon-l {
-  width: 36px;
-  height: 36px;
+.hds-link .vertical-align-big-icon {
   vertical-align: middle;
 }
 
-.hds-link--visited {
-  --link-visited-color: #551a8b;
-}
-
-.hds-link--visited:visited {
-  color: var(--link-visited-color);
+.hds-link--disable-visited-styles:visited {
+  color: var(--color-bus);
 }
 
 .hds-link--small {

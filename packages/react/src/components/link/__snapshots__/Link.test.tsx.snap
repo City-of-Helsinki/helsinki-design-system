@@ -3,8 +3,8 @@
 exports[`<Link /> spec renders the component 1`] = `
 <DocumentFragment>
   <a
-    class="link linkS visitedLink"
-    href="/test"
+    class="link linkS"
+    href="https://hds.hel.fi"
   >
     Test link
   </a>

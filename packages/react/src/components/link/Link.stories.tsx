@@ -86,21 +86,23 @@ OpenInNewTabLink.args = {
 };
 
 export const visitedStylesDisabled = (args) => (
-  <Link {...args} href={args.href} enableVisitedStyles={args.enableVisitedStyles}>
+  <Link {...args} href={args.href} disableVisitedStyles={args.disableVisitedStyles}>
     Link without visited styles
   </Link>
 );
 visitedStylesDisabled.storyName = 'Link without visited styles';
 visitedStylesDisabled.args = {
-  enableVisitedStyles: false,
+  disableVisitedStyles: true,
 };
 
 export const inlineLink = (args) => {
   return (
-    <p style={{ fontSize: '14px' }}>
+    <p style={{ fontSize: '14px', lineHeight: '30px' }}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
       magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      <Link {...args}>Inline link</Link>
+      <Link {...args} external>
+        Inline link
+      </Link>
       consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
       Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
