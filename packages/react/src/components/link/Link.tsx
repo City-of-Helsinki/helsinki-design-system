@@ -48,6 +48,12 @@ export type LinkProps = Omit<
   style?: React.CSSProperties;
 };
 
+type LinkToIconSizeMappingType = {
+  L: 'l';
+  M: 's';
+  S: 'xs';
+};
+
 export const Link = ({
   children,
   className,
@@ -61,6 +67,12 @@ export const Link = ({
   size = 'S',
   ...rest
 }: LinkProps) => {
+  const mapLinkSizeToExternalIconSize: LinkToIconSizeMappingType = {
+    L: 'l',
+    M: 's',
+    S: 'xs',
+  };
+
   return (
     <a
       className={classNames(
@@ -77,9 +89,11 @@ export const Link = ({
       {children}
       {external && (
         <IconLinkExternal
-          size={size === 'L' ? 'l' : 's'}
-          className={classNames(styles.icon, styles[size === 'L' ? 'verticalAlignBigIcon' : 'verticalAlignSmallIcon'])}
-          aria-label={openInExternalDomainAriaLabel || 'Avautuu uuteen domainiin.'}
+          size={mapLinkSizeToExternalIconSize[size]}
+          className={classNames(
+            styles.icon,
+            styles[size === 'L' ? 'verticalAlignBigIcon' : 'verticalAlignSmallOrMediumIcon'],
+          )}
         />
       )}
     </a>
