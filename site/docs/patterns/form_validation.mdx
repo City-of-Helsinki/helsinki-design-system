@@ -164,7 +164,7 @@ The usage of the error summary component is triggered when the form is submitted
 You can see the validation summary pattern in action in HDS Storybook [static validation example](/storybook/react/iframe.html?id=patterns-form-validation--static&viewMode=story) and [hybrid validation example](/storybook/react/iframe.html?id=patterns-form-validation--hybrid&viewMode=story).
 
 ### Validation of multiple input fields
-In some cases, multiple input fields can be related to each other in a way that a change in one of them may cause errors in the other inputs. In this situation, one specific error may relate to multiple inputs in the same time. 
+In some cases, multiple input fields can be related to each other in a way that a change in one of them may cause errors in the other inputs. In this situation, one specific error may relate to multiple inputs at the same time.
 
 An example of this could be having two date inputs for setting a start and an end time. If the end time is set to be earlier than the start time, both date inputs become erroneous. Since assistive technologies only see one input at a time, all related inputs should be set to an error state and given an appropriate error message. The error message can be the same for all inputs or more input specific if the situation allows so. All error messages are also added to the error summary list. This method has been illustrated in the image below.
 
