@@ -6,6 +6,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - June, 21, 2021
+
+### React Components
+
+#### Added
+- Fieldset
+- Toggle Button
+
+#### Fixed
+- [TextInput] Fixed error and success text alignments
+
+### Design kit
+
+#### Added
+- [Buttons] Toggle button with two variants
+  - Default toggle button
+  - Toggle button with a horizontal label
+- [Form Components] Fieldset with two variants
+  - Default fieldset
+  - Fieldset with borders
+
+#### Changed
+- [Form Components] Renamed all “Fixed” components to “Read-only” to match naming used in the implementation
+
+#### Fixed
+- [Color] Corrected a typo (Spåra → Metro) in the Colour Accessibility artboard
+- [Grids & Breakpoints] Changed the XS template layout grid width from 296px to 288px (this now matches the HDS documentation)
+
+### Documentation
+
+#### Added
+- Toggle button documentation and examples
+- Fieldset documentation and examples
+- Documentation and guidelines for creating new HDS icons
+- Documentation for error messages related to multiple input fields to Form validation pattern
+
+#### Changed
+- Added a note to Checkbox documentation page about the choice between a Checkbox and a Toggle button
+
+#### Fixed
+- Corrected typos “from” to “form” in Storybook validation examples
+
 ## [1.1.0] - May, 25, 2021
 
 ### React Components
