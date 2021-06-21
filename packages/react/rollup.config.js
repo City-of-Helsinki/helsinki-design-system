@@ -108,6 +108,7 @@ export default [
       'components/TextInput/index': 'src/components/textInput/index.ts',
       'components/Textarea/index': 'src/components/textarea/index.ts',
       'components/TimeInput/index': 'src/components/timeInput/index.ts',
+      'components/ToggleButton/index': 'src/components/toggleButton/index.ts',
       'components/Tooltip/index': 'src/components/tooltip/index.ts',
     },
     output: [
