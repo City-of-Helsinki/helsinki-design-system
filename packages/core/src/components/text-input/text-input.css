@@ -120,6 +120,7 @@
 .hds-text-input__helper-text {
   color: var(--helper-color-default);
   display: block;
+  line-height: var(--lineheight-l);
   font-size: var(--fontsize-body-m);
   margin-top: var(--spacing-3-xs);
 }
@@ -130,6 +131,7 @@
   color: var(--helper-color-invalid);
   display: block;
   font-size: var(--fontsize-body-m);
+  line-height: var(--lineheight-l);
   margin-top: var(--spacing-3-xs);
   padding-left: calc(var(--icon-size) + var(--spacing-2-xs));
 }
@@ -170,6 +172,7 @@
   color: var(--helper-color-success);
   display: block;
   font-size: var(--fontsize-body-m);
+  line-height: var(--lineheight-l);
   margin-top: var(--spacing-3-xs);
   padding-left: calc(var(--icon-size) + var(--spacing-2-xs));
 }
