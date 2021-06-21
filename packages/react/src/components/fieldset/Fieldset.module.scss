@@ -1,0 +1,11 @@
+.fieldset {
+  composes: hds-fieldset from 'hds-core/lib/components/fieldset/fieldset.css';
+}
+
+.border {
+  composes: hds-fieldset--border from 'hds-core/lib/components/fieldset/fieldset.css';
+}
+
+.legend {
+  composes: hds-fieldset-legend from 'hds-core/lib/components/fieldset/fieldset.css';
+}

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Fieldset /> spec renders the component 1`] = `
+<DocumentFragment>
+  <fieldset
+    class="fieldset"
+  >
+    <legend
+      class="legend"
+    >
+      Test fieldset
+    </legend>
+  </fieldset>
+</DocumentFragment>
+`;
