@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.2.0] - June, 21, 2021
 
+### Core
+
+#### Added
+- Fieldset
+
 ### React Components
 
 #### Added
