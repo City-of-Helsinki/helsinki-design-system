@@ -1,4 +1,5 @@
 import React from 'react';
+import Children from 'react-children-utilities';
 
 // import core base styles
 import 'hds-core';
@@ -67,6 +68,14 @@ export const Link = ({
   size = 'S',
   ...rest
 }: LinkProps) => {
+  const comboseAriaLabel = () => {
+    const childrenText = Children.onlyText(children);
+    const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
+    const externalText = external ? openInExternalDomainAriaLabel || 'Avautuu uuteen domainiin.' : '';
+
+    return `${childrenText}. ${newTabText} ${externalText}`;
+  };
+
   const mapLinkSizeToExternalIconSize: LinkToIconSizeMappingType = {
     L: 'l',
     M: 's',
@@ -83,7 +92,8 @@ export const Link = ({
       )}
       href={href}
       style={style}
-      {...(openInNewTab && { target: '_blank', 'aria-label': openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä' })}
+      {...(openInNewTab && { target: '_blank' })}
+      aria-label={comboseAriaLabel()}
       {...rest}
     >
       {children}

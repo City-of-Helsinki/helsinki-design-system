@@ -109,6 +109,7 @@
     "lodash.isequal": "4.5.0",
     "lodash.isfunction": "3.0.9",
     "lodash.uniqueid": "4.0.1",
+    "react-children-utilities": "2.5.3",
     "react-merge-refs": "1.1.0",
     "react-popper": "2.2.3",
     "react-spring": "9.0.0-rc.3",
