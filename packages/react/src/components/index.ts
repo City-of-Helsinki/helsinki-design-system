@@ -26,6 +26,8 @@ export * from './tag';
 export * from './textarea';
 export * from './textInput';
 export * from './timeInput';
+export * from './toggleButton';
 export * from './tooltip';
 export * from './tabs';
 export * from './passwordInput';
+export * from './fieldset';

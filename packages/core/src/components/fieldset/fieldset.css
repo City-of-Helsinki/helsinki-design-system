@@ -1,0 +1,25 @@
+.hds-fieldset {
+  --border-style: 0 none;
+  --padding-top: 4px;
+  --padding-sides: 0;
+  --padding-bottom: var(--spacing-s);
+
+  border: var(--border-style);
+  box-sizing: border-box;
+  padding: var(--padding-top) var(--padding-sides) var(--padding-bottom)
+}
+
+.hds-fieldset-legend {
+  font-weight: bold;
+}
+
+.hds-fieldset--border {
+  --border-style: 2px inset var(--color-black-90);
+  --padding-top: 2px;
+  --padding-sides: 12px;
+}
+
+.hds-fieldset--border > .hds-fieldset-legend {
+  margin-left: calc(var(--padding-sides) / -2);
+  padding: 0 6px 0 6px;
+}
