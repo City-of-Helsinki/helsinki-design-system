@@ -76,7 +76,7 @@ ExternalLinks.argTypes = {
 
 export const OpenInNewTabLink = (args) => (
   <Link {...args} href="https://hds.hel.fi" external={args.external} openInNewTab={args.openInNewTab}>
-    Link that opens in new tab
+    Link that opens in a new tab
   </Link>
 );
 OpenInNewTabLink.storyName = 'Link that opens in a new tab';
