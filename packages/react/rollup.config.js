@@ -86,6 +86,7 @@ export default [
       'components/DateInput/index': 'src/components/dateInput/index.ts',
       'components/Dialog/index': 'src/components/dialog/index.ts',
       'components/ErrorSummary/index': 'src/components/errorSummary/index.ts',
+      'components/Fieldset/index': 'src/components/fieldset/index.ts',
       'components/Footer/index': 'src/components/footer/index.ts',
       'components/ImageWithCard/index': 'src/components/imageWithCard/index.ts',
       'components/Koros/index': 'src/components/koros/index.ts',
