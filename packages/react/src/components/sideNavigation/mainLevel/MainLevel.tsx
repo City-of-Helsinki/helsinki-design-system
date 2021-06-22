@@ -75,7 +75,7 @@ export const MainLevel = ({
     return null;
   });
 
-  const hasSublevels = Boolean(subLevels?.length);
+  const hasSubLevels = Boolean(subLevels?.length);
 
   const openMainLevel = () => {
     if (allowMultipleOpened) {
@@ -95,7 +95,7 @@ export const MainLevel = ({
       setOpenMainLevels([index as number]);
     }
 
-    if (!hasSublevels) {
+    if (!hasSubLevels) {
       setMobileMenuOpen(false);
     }
 
@@ -124,14 +124,14 @@ export const MainLevel = ({
           {icon}
         </span>
         <span>{label}</span>
-        {hasSublevels && (
+        {hasSubLevels && (
           <span className={styles.arrowIcon} aria-hidden>
             <IconAngleDown aria-hidden />
           </span>
         )}
       </a>
 
-      {hasSublevels && (
+      {hasSubLevels && (
         <ul className={styles.mainLevelListMenu} id={menuId} aria-hidden={!open} aria-labelledby={buttonId}>
           {subLevels}
         </ul>
