@@ -95,21 +95,39 @@ visitedStylesDisabled.args = {
   disableVisitedStyles: true,
 };
 
-export const inlineLink = (args) => {
+export const inlineLinks = (args) => {
   return (
-    <p style={{ fontSize: '14px' }}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      <Link {...args} external>
-        Inline link
-      </Link>
-      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
+    <>
+      <p style={{ fontSize: '14px' }}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        <Link {...args} external>
+          Inline link
+        </Link>
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.
+      </p>
+      <p style={{ fontSize: '16px' }}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        <Link {...args} size="M" external>
+          Inline link
+        </Link>
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.
+      </p>
+    </>
   );
 };
 
-inlineLink.storyName = 'Inline link';
+inlineLinks.storyName = 'Inline links';
+inlineLinks.argTypes = {
+  size: {
+    control: false,
+  },
+};
 
 export const standaloneLink = (args) => {
   return (

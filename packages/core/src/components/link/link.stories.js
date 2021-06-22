@@ -25,7 +25,7 @@ InternalLinks.storyName = 'Internal links';
 
 export const ExternalLinks = () => `
   <a href="https://hds.hel.fi" class="hds-link hds-link--small">
-    External link size small<i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon" aria-label="Avautuu uuteen domainiin"></i>
+    External link size small<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-label="Avautuu uuteen domainiin"></i>
   </a>
   <br/>
   <br/>
@@ -43,7 +43,7 @@ ExternalLinks.storyName = 'External links';
 
 export const openInNewTabLink = () => `
   <a href="https://hds.hel.fi" class="hds-link hds-link--small" target="_blank" aria-label="Avautuu uudessa välilehdessä">
-    Link that opens in a new tab<i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon" aria-label="Avautuu uuteen domainiin"></i>
+    Link that opens in a new tab<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-label="Avautuu uuteen domainiin"></i>
   </a>
 `
 
@@ -55,21 +55,32 @@ export const visitedStylesDisabled = () => `
 
 visitedStylesDisabled.storyName = 'Link without visited styles';
 
-const link = `
+const smallLink = `
   <a href="https://hds.hel.fi" class="hds-link hds-link--small">
+    Inline link<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-label="Avautuu uuteen domainiin"></i></a>
+`
+
+const mediumLink = `
+  <a href="https://hds.hel.fi" class="hds-link hds-link--medium">
     Inline link<i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon" aria-label="Avautuu uuteen domainiin"></i></a>
 `
 
-export const inlineLink = () => `
-  <p style={{ fontSize: '14px', lineHeight: '30px' }}>
+export const inlineLinks = () => `
+  <p style={{ fontSize: '14px', lineHeight: '1.5' }}>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco ${link} laboris nisi ut aliquip ex ea commodo
+    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco ${smallLink} laboris nisi ut aliquip ex ea commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </p>
+  <p style={{ fontSize: '16px', lineHeight: '1.5' }}>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco ${mediumLink} laboris nisi ut aliquip ex ea commodo
     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
     Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   </p>
 `
 
-inlineLink.storyName = 'Inline link';
+inlineLinks.storyName = 'Inline links';
 
 export const standaloneLink = () => `
   <a href="/?path=/story/components-link--all" class="hds-link hds-link--large">Standalone link</a>
