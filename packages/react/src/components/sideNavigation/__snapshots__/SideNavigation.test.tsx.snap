@@ -4,10 +4,10 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
 <DocumentFragment>
   <nav
     class="sideNavigation"
-    id="side-navigation-1"
+    id="sideNavigation"
   >
     <button
-      aria-controls="side-navigation-1-menu"
+      aria-controls="sideNavigation-menu"
       aria-expanded="false"
       aria-haspopup="true"
       class="button secondary theme-default size-default fullWidth toggleButton"
@@ -48,16 +48,16 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
       aria-hidden="false"
       aria-label="Navigate to page"
       class="mainLevelList"
-      id="side-navigation-1-menu"
+      id="sideNavigation-menu"
     >
       <li
         class="mainLevel open"
       >
-        <a
+        <button
           aria-current="false"
           aria-label="Main level 1"
-          href="#"
-          id="side-navigation-1-0-button"
+          id="mainLevel1"
+          type="button"
         >
           <span
             aria-hidden="true"
@@ -111,20 +111,20 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
               </g>
             </svg>
           </span>
-        </a>
+        </button>
         <ul
           aria-hidden="false"
-          aria-labelledby="side-navigation-1-0-button"
+          aria-labelledby="mainLevel1"
           class="mainLevelListMenu"
-          id="side-navigation-1-0-menu"
+          id="mainLevel1-menu"
         >
           <li
             class="subLevel active"
-            id="side-navigation-1-0-0"
           >
             <a
               aria-current="page"
               href="#"
+              id="subLevel1"
             >
               Sub level 1
             </a>
@@ -138,7 +138,7 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
           aria-current="false"
           aria-label="Main level 2"
           href="#"
-          id="side-navigation-1-1-button"
+          id="mainLevel2"
         >
           <span
             aria-hidden="true"
