@@ -48,20 +48,21 @@ export const SubLevel = ({
 }: SubLevelProps) => {
   const [id] = React.useState(() => _id || uniqueId('sub-level-'));
 
-  const { allowMultipleOpened, openMainLevels, setMobileMenuOpen, setOpenMainLevels } = useContext(
+  const { autoCollapseOthers, openMainLevels, setMobileMenuOpen, setOpenMainLevels } = useContext(
     SideNavigationContext,
   );
 
   const openMainLevel = () => {
-    if (allowMultipleOpened) {
-      setOpenMainLevels([...openMainLevels, mainLevelIndex]);
-    } else {
-      // Only one level can be open at same time
+    if (autoCollapseOthers) {
+      // With autoCollapseOther prop only one level can be open at same time
       setOpenMainLevels([mainLevelIndex as number]);
+    } else {
+      setOpenMainLevels([...openMainLevels, mainLevelIndex]);
     }
   };
 
   useEffect(() => {
+    // Ensure that active subLevel's main level is initially open
     if (active && !openMainLevels.includes(mainLevelIndex as number)) {
       openMainLevel();
     }
