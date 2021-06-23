@@ -1,6 +1,5 @@
-import uniqueId from 'lodash.uniqueid';
 import xor from 'lodash.xor';
-import React, { cloneElement, isValidElement, useContext, useState } from 'react';
+import React, { cloneElement, isValidElement, ReactNode, useContext } from 'react';
 
 import classNames from '../../../utils/classNames';
 import styles from './MainLevel.module.scss';
@@ -8,7 +7,7 @@ import SideNavigationContext from '../SideNavigationContext';
 import { FCWithName } from '../../../common/types';
 import { IconAngleDown } from '../../../icons';
 
-export type MainLevelProps = React.ComponentPropsWithoutRef<'a'> & {
+export type MainLevelProps = {
   /**
    * If `true`, the item will be marked as active
    */
@@ -18,17 +17,17 @@ export type MainLevelProps = React.ComponentPropsWithoutRef<'a'> & {
    */
   className?: string;
   /**
+   * The id of the side navigation main level.
+   */
+  id: string;
+  /**
    * href attribute of the side navigation main level
    */
-  href: string;
+  href?: string;
   /**
    * Icon of the side navigation main level.
    */
   icon: React.ReactNode;
-  /**
-   * The id of the side navigation main level.
-   */
-  id?: string;
   /**
    * Index of the side navigation main level.
    */
@@ -49,15 +48,13 @@ export const MainLevel = ({
   className,
   href,
   icon,
-  id: _id,
+  id,
   index,
   label,
   onClick,
   style,
   ...rest
 }: MainLevelProps) => {
-  const [id] = useState(_id || uniqueId('main-level-'));
-  const buttonId = `${id}-button`;
   const menuId = `${id}-menu`;
   const { autoCollapseOthers, openMainLevels, setMobileMenuOpen, setOpenMainLevels } = useContext(
     SideNavigationContext,
@@ -65,10 +62,9 @@ export const MainLevel = ({
 
   const open = openMainLevels.includes(index as number);
 
-  const subLevels = React.Children.map(children, (child, subLevelIndex) => {
+  const subLevels = React.Children.map(children, (child) => {
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'SubLevel') {
       return cloneElement(child, {
-        id: `${id}-${subLevelIndex}`,
         mainLevelIndex: index,
       });
     }
