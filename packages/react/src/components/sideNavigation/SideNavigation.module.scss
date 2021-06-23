@@ -39,16 +39,14 @@
   list-style: none;
 
   @media small-down {
-    display: none;
+    overflow: hidden;
+    max-height: 0;
 
     &.open {
-      display: block;
-      position: absolute;
-      left: 0;
-      right: 0;
+      max-height: none;
+      will-change: max-height;
       background-color: var(--side-navigation-background-color);
       border: var(--side-navigation-mobile-menu-border-width) solid var(--side-navigation-mobile-menu-border-color);
-      z-index: var(--side-navigation-mobile-menu-z-index);
     }
   }
 
