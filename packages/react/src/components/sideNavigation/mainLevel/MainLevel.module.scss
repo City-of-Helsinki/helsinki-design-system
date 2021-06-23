@@ -3,7 +3,8 @@
 
   font-size: var(--fontsize-body-m);
 
-  & > a {
+  & > a,
+  & > button {
     font-weight: 600;
     grid-template-columns: var(--side-navigation-icon-size) 1fr var(--side-navigation-icon-size);
   }
