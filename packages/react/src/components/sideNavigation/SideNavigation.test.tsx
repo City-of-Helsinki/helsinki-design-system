@@ -28,33 +28,7 @@ const renderSideNavigation = () =>
     </SideNavigation>,
   );
 
-const getElement = (key: 'mainLevel1' | 'mainLevel2' | 'mainLevel3' | 'subLevel1' | 'subLevel2') => {
-  switch (key) {
-    case 'mainLevel1':
-      return screen.getByRole('link', { name: labels.mainLevel1 });
-    case 'mainLevel2':
-      return screen.getByRole('link', { name: labels.mainLevel2 });
-    case 'mainLevel3':
-      return screen.getByRole('link', { name: labels.mainLevel3 });
-    case 'subLevel1':
-      return screen.getByRole('link', { name: labels.subLevel1 });
-    case 'subLevel2':
-      return screen.getByRole('link', { name: labels.subLevel2 });
-    default:
-      return null;
-  }
-};
-
-const queryElement = (key: 'subLevel1' | 'subLevel2') => {
-  switch (key) {
-    case 'subLevel1':
-      return screen.queryByRole('link', { name: labels.subLevel1 });
-    case 'subLevel2':
-      return screen.queryByRole('link', { name: labels.subLevel2 });
-    default:
-      return null;
-  }
-};
+const queryElement = (key: string) => screen.queryByRole('link', { name: labels[key] });
 
 describe('<SideNavigation /> spec', () => {
   it('renders the component', () => {
@@ -80,11 +54,8 @@ describe('<SideNavigation /> spec', () => {
       </SideNavigation>,
     );
 
-    getElement('mainLevel1');
-    getElement('mainLevel2');
-    getElement('subLevel2');
-
     expect(queryElement('subLevel1')).not.toBeInTheDocument();
+    expect(queryElement('subLevel2')).toBeInTheDocument();
   });
 
   test('should show sub levels if main level is active', () => {
@@ -100,12 +71,8 @@ describe('<SideNavigation /> spec', () => {
       </SideNavigation>,
     );
 
-    getElement('mainLevel1');
-    getElement('mainLevel2');
-    getElement('mainLevel3');
-    getElement('subLevel2');
-
     expect(queryElement('subLevel1')).not.toBeInTheDocument();
+    expect(queryElement('subLevel2')).toBeInTheDocument();
   });
 
   test('should open default main levels', () => {
@@ -120,48 +87,11 @@ describe('<SideNavigation /> spec', () => {
       </SideNavigation>,
     );
 
-    getElement('mainLevel1');
-    getElement('mainLevel2');
-    getElement('subLevel2');
-
     expect(queryElement('subLevel1')).not.toBeInTheDocument();
+    expect(queryElement('subLevel2')).toBeInTheDocument();
   });
 
-  test('should open and close multiple main levels', () => {
-    render(
-      <SideNavigation allowMultipleOpened toggleButtonLabel={labels.toggleButton}>
-        <MainLevel icon={<IconFaceNeutral />} label={labels.mainLevel1} href={url}>
-          <SubLevel label={labels.subLevel1} href={url} />
-        </MainLevel>
-        <MainLevel icon={<IconFaceNeutral />} label={labels.mainLevel2} href={url}>
-          <SubLevel label={labels.subLevel2} href={url} />
-        </MainLevel>
-      </SideNavigation>,
-    );
-
-    const mainLevel1 = getElement('mainLevel1');
-    const mainLevel2 = getElement('mainLevel2');
-    expect(queryElement('subLevel1')).not.toBeInTheDocument();
-    expect(queryElement('subLevel2')).not.toBeInTheDocument();
-
-    userEvent.click(mainLevel1);
-    getElement('subLevel1');
-    expect(queryElement('subLevel2')).not.toBeInTheDocument();
-
-    userEvent.click(mainLevel2);
-    getElement('subLevel1');
-    getElement('subLevel2');
-
-    userEvent.click(mainLevel2);
-    getElement('subLevel1');
-    expect(queryElement('subLevel2')).not.toBeInTheDocument();
-
-    userEvent.click(mainLevel1);
-    expect(queryElement('subLevel1')).not.toBeInTheDocument();
-    expect(queryElement('subLevel2')).not.toBeInTheDocument();
-  });
-
-  test('should show/hide sub levels', () => {
+  test('should open and close main levels', () => {
     render(
       <SideNavigation toggleButtonLabel={labels.toggleButton}>
         <MainLevel icon={<IconFaceNeutral />} label={labels.mainLevel1} href={url}>
@@ -173,14 +103,23 @@ describe('<SideNavigation /> spec', () => {
       </SideNavigation>,
     );
 
-    const mainLevel1 = getElement('mainLevel1');
-    getElement('mainLevel2');
-
     expect(queryElement('subLevel1')).not.toBeInTheDocument();
     expect(queryElement('subLevel2')).not.toBeInTheDocument();
 
-    userEvent.click(mainLevel1);
+    userEvent.click(queryElement('mainLevel1'));
+    expect(queryElement('subLevel1')).toBeInTheDocument();
+    expect(queryElement('subLevel2')).not.toBeInTheDocument();
 
-    getElement('subLevel1');
+    userEvent.click(queryElement('mainLevel2'));
+    expect(queryElement('subLevel1')).toBeInTheDocument();
+    expect(queryElement('subLevel2')).toBeInTheDocument();
+
+    userEvent.click(queryElement('mainLevel2'));
+    expect(queryElement('subLevel1')).toBeInTheDocument();
+    expect(queryElement('subLevel2')).not.toBeInTheDocument();
+
+    userEvent.click(queryElement('mainLevel1'));
+    expect(queryElement('subLevel1')).not.toBeInTheDocument();
+    expect(queryElement('subLevel2')).not.toBeInTheDocument();
   });
 });
