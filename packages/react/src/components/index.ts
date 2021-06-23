@@ -31,3 +31,4 @@ export * from './tooltip';
 export * from './tabs';
 export * from './passwordInput';
 export * from './fieldset';
+export * from './sideNavigation';
