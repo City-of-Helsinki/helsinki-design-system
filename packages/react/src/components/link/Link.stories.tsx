@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { Link } from './Link';
+import { IconDocument, IconEnvelope, IconPhone, IconPhoto } from '../../icons';
 
 export default {
   component: Link,
   title: 'Components/Link',
-  decorators: [(storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
+  decorators: [(storyFn) => <div style={{ maxWidth: '600px' }}>{storyFn()}</div>],
   parameters: {
     controls: { expanded: true },
   },
@@ -147,3 +148,92 @@ export const standaloneLink = (args) => {
 };
 
 standaloneLink.storyName = 'Standalone link';
+
+export const withCustomIcon = (args) => {
+  return (
+    <div style={{ display: 'grid', columnGap: '10px', gridTemplateColumns: '1fr 1fr 1fr' }}>
+      <div>
+        <p>Small</p>
+        <Link {...args} size="S" href="/#">
+          <IconDocument style={{ marginRight: '4px', verticalAlign: 'text-top' }} size="xs" />
+          Document link
+        </Link>
+        <br />
+        <br />
+        <Link {...args} size="S" href="/#">
+          <IconPhone style={{ marginRight: '4px', verticalAlign: 'text-top' }} size="xs" />
+          Phone link
+        </Link>
+        <br />
+        <br />
+        <Link {...args} size="S" href="/#">
+          <IconEnvelope style={{ marginRight: '4px', verticalAlign: 'text-top' }} size="xs" />
+          Envelope link
+        </Link>
+        <br />
+        <br />
+        <Link {...args} size="S" href="/#">
+          <IconPhoto style={{ marginRight: '4px', verticalAlign: 'text-top' }} size="xs" />
+          Photo link
+        </Link>
+      </div>
+      <div>
+        <p>Medium</p>
+        <Link {...args} size="M" href="/#">
+          <IconDocument style={{ marginRight: '8px', verticalAlign: 'sub' }} size="s" />
+          Document link
+        </Link>
+        <br />
+        <br />
+        <Link {...args} size="M" href="/#">
+          <IconPhone style={{ marginRight: '8px', verticalAlign: 'sub' }} size="s" />
+          Phone link
+        </Link>
+        <br />
+        <br />
+        <Link {...args} size="M" href="/#">
+          <IconEnvelope style={{ marginRight: '8px', verticalAlign: 'sub' }} size="s" />
+          Envelope link
+        </Link>
+        <br />
+        <br />
+        <Link {...args} size="M" href="/#">
+          <IconPhoto style={{ marginRight: '8px', verticalAlign: 'sub' }} size="s" />
+          Photo link
+        </Link>
+      </div>
+      <div>
+        <p>Large</p>
+        <Link {...args} size="L" href="/#">
+          <IconDocument style={{ marginRight: '16px', verticalAlign: 'middle' }} size="l" />
+          Document link
+        </Link>
+        <br />
+        <br />
+        <Link {...args} size="L" href="/#">
+          <IconPhone style={{ marginRight: '16px', verticalAlign: 'middle' }} size="l" />
+          Phone Link
+        </Link>
+        <br />
+        <br />
+        <Link {...args} size="L" href="/#">
+          <IconEnvelope style={{ marginRight: '16px', verticalAlign: 'middle' }} size="l" />
+          Envelope Link
+        </Link>
+        <br />
+        <br />
+        <Link {...args} size="L" href="/#">
+          <IconPhoto style={{ marginRight: '16px', verticalAlign: 'middle' }} size="l" />
+          Photo Link
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+withCustomIcon.storyName = 'With a custom icon';
+withCustomIcon.argTypes = {
+  size: {
+    control: false,
+  },
+};
