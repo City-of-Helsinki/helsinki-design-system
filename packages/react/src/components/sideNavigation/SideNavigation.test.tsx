@@ -4,8 +4,6 @@ import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
 import { SideNavigation } from './SideNavigation';
-import { MainLevel } from './mainLevel/MainLevel';
-import { SubLevel } from './subLevel/SubLevel';
 import { IconFaceNeutral } from '../../icons';
 
 const labels = {
