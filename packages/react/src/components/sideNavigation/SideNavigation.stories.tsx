@@ -22,7 +22,7 @@ export default {
   parameters: {
     controls: { expanded: true },
   },
-  args: { defaultOpenMainLevels: [0], toggleButtonLabel: 'Navigate to page' },
+  args: { defaultOpenMainLevels: [], toggleButtonLabel: 'Navigate to page' },
 };
 
 enum HREF {
@@ -46,7 +46,7 @@ const labels = {
 };
 
 export const Default = (args) => {
-  const [active, setActive] = React.useState(HREF.SUB_LEVEL_1);
+  const [active, setActive] = React.useState(HREF.MAIN_LEVEL_2);
 
   const getIsActive = (href: HREF) => active === href;
 
@@ -107,7 +107,7 @@ export const Default = (args) => {
     </SideNavigation>
   );
 };
-export const AllowMultipleOpenLevels = (args) => {
+export const AutoCollapseOtherOpened = (args) => {
   const [active, setActive] = React.useState(HREF.SUB_LEVEL_1);
 
   const getIsActive = (href: HREF) => active === href;
@@ -171,7 +171,7 @@ export const AllowMultipleOpenLevels = (args) => {
     </SideNavigation>
   );
 };
-AllowMultipleOpenLevels.args = { allowMultipleOpened: true };
+AutoCollapseOtherOpened.args = { autoCollapseOthers: true };
 
 export const CustomTheme = (args) => Default(args);
 CustomTheme.args = {
