@@ -1,11 +1,11 @@
 import React from 'react';
-import Children from 'react-children-utilities';
 
 // import core base styles
 import 'hds-core';
 import styles from './Link.module.scss';
 import { IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';
+import { getTextFromReactChildren } from '../../utils/getTextFromReactChildren';
 
 export type LinkProps = Omit<
   React.ComponentPropsWithoutRef<'a'>,
@@ -69,7 +69,7 @@ export const Link = ({
   ...rest
 }: LinkProps) => {
   const comboseAriaLabel = () => {
-    const childrenText = Children.onlyText(children);
+    const childrenText = getTextFromReactChildren(children);
     const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
     const externalText = external ? openInExternalDomainAriaLabel || 'Avautuu uuteen domainiin.' : '';
 
