@@ -25,17 +25,17 @@ InternalLinks.storyName = 'Internal links';
 
 export const ExternalLinks = () => `
   <a href="https://hds.hel.fi" class="hds-link hds-link--small" aria-label="External link size small. Avautuu uuteen domainiin">
-    External link size small<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon"></i>
+    External link size small<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-hidden="true"></i>
   </a>
   <br/>
   <br/>
   <a href="https://hds.hel.fi" class="hds-link hds-link--medium" aria-label="External link size medium. Avautuu uuteen domainiin">
-    External link size medium<i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon"></i>
+    External link size medium<i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon" aria-hidden="true"></i>
   </a>
   <br/>
   <br/>
   <a href="https://hds.hel.fi" class="hds-link hds-link--large" aria-label="External link size large. Avautuu uuteen domainiin">
-    External link size large<i class="hds-icon icon hds-icon--link-external hds-icon--size-l vertical-align-big-icon"></i>
+    External link size large<i class="hds-icon icon hds-icon--link-external hds-icon--size-l vertical-align-big-icon" aria-hidden="true"></i>
   </a>
 `;
 
@@ -43,7 +43,7 @@ ExternalLinks.storyName = 'External links';
 
 export const openInNewTabLink = () => `
   <a href="https://hds.hel.fi" class="hds-link hds-link--small" target="_blank" aria-label="Link that opens in a new tab. Avautuu uudessa välilehdessä. Avautuu uuteen domainiin">
-    Link that opens in a new tab<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon"></i>
+    Link that opens in a new tab<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-hidden="true"></i>
   </a>
 `
 
@@ -56,13 +56,13 @@ export const visitedStylesDisabled = () => `
 visitedStylesDisabled.storyName = 'Link without visited styles';
 
 const smallLink = `
-  <a href="https://hds.hel.fi" class="hds-link hds-link--small">
-    Inline link<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-label="Avautuu uuteen domainiin"></i></a>
+  <a href="https://hds.hel.fi" class="hds-link hds-link--small" aria-label="Inline link. Avautuu uuteen domainiin">
+    Inline link<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-hidden="true"></i></a>
 `
 
 const mediumLink = `
-  <a href="https://hds.hel.fi" class="hds-link hds-link--medium">
-    Inline link<i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon" aria-label="Avautuu uuteen domainiin"></i></a>
+  <a href="https://hds.hel.fi" class="hds-link hds-link--medium" aria-label="Inline link. Avautuu uuteen domainiin">
+    Inline link<i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon" aria-hidden="true"></i></a>
 `
 
 export const inlineLinks = () => `

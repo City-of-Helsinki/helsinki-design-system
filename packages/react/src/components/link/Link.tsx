@@ -104,6 +104,7 @@ export const Link = ({
             styles.icon,
             styles[size === 'L' ? 'verticalAlignBigIcon' : 'verticalAlignSmallOrMediumIcon'],
           )}
+          aria-hidden
         />
       )}
     </a>
