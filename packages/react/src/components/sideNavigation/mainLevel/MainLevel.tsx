@@ -40,6 +40,20 @@ export type MainLevelProps = {
    * Override or extend the styles applied to the component
    */
   style?: React.CSSProperties;
+  /**
+   * Override or extend the styles applied to the component
+   */
+  children?: ReactNode;
+  /**
+   * Callback function fired when the tag is clicked. If set, the tag will be clickable.
+   */
+  onClick?: (
+    event:
+      | React.MouseEvent<HTMLAnchorElement, MouseEvent>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.KeyboardEvent<HTMLAnchorElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
+  ) => void;
 };
 
 export const MainLevel = ({
@@ -73,7 +87,7 @@ export const MainLevel = ({
 
   const hasSubLevels = Boolean(subLevels?.length);
 
-  const handleMainLevelClick = (ev: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleMainLevelClick = (ev: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>) => {
     if (autoCollapseOthers) {
       // With autoCollapseOther prop only one level can be open at same time
       setOpenMainLevels([index as number]);
@@ -104,30 +118,48 @@ export const MainLevel = ({
   }, []);
 
   return (
-    <li className={classNames(styles.mainLevel, active && styles.active, open && styles.open, className)} style={style}>
-      <a
-        {...rest}
-        aria-current={active ? 'page' : 'false'}
-        aria-label={label}
-        id={buttonId}
-        onClick={handleMainLevelClick}
-        href={href}
-      >
-        <span className={styles.iconWrapper} aria-hidden>
-          {icon}
-        </span>
-        <span>{label}</span>
-        {hasSubLevels && (
-          <span className={styles.arrowIcon} aria-hidden>
-            <IconAngleDown aria-hidden />
+    <li
+      key={id}
+      className={classNames(styles.mainLevel, active && styles.active, open && styles.open, className)}
+      style={style}
+    >
+      {hasSubLevels ? (
+        <>
+          <button
+            type="button"
+            aria-current={active ? 'page' : 'false'}
+            aria-label={label}
+            id={id}
+            onClick={handleMainLevelClick}
+          >
+            <span className={styles.iconWrapper} aria-hidden>
+              {icon}
+            </span>
+            <span>{label}</span>
+            {hasSubLevels && (
+              <span className={styles.arrowIcon} aria-hidden>
+                <IconAngleDown aria-hidden />
+              </span>
+            )}
+          </button>
+          <ul className={styles.mainLevelListMenu} id={menuId} aria-hidden={!open} aria-labelledby={id}>
+            {subLevels}
+          </ul>
+        </>
+      ) : (
+        <a
+          {...rest}
+          aria-current={active ? 'page' : 'false'}
+          aria-label={label}
+          id={id}
+          onClick={handleMainLevelClick}
+          href={href}
+        >
+          <span className={styles.iconWrapper} aria-hidden>
+            {icon}
           </span>
-        )}
-      </a>
-
-      {hasSubLevels && (
-        <ul className={styles.mainLevelListMenu} id={menuId} aria-hidden={!open} aria-labelledby={buttonId}>
-          {subLevels}
-        </ul>
+          <span>{label}</span>
+        </a>
       )}
     </li>
   );
