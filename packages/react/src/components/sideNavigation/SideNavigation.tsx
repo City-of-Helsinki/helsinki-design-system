@@ -34,11 +34,6 @@ export interface SideNavigationCustomTheme {
 
 export type SideNavigationProps = React.PropsWithChildren<{
   /**
-   * Don't autocollapse main levels when opening other main levels.
-   * @default false
-   */
-  allowMultipleOpened?: boolean;
-  /**
    * Additional class names to apply to the side navigation
    */
   className?: string;
@@ -62,10 +57,14 @@ export type SideNavigationProps = React.PropsWithChildren<{
    * label for the mobile menu toggle button
    */
   toggleButtonLabel: string;
+  /**
+   * Autocollapse main levels when opening other main levels.
+   * @default false
+   */
+  autoCollapseOthers?: boolean;
 }>;
 
 export const SideNavigation = ({
-  allowMultipleOpened,
   children,
   className,
   defaultOpenMainLevels,
@@ -73,6 +72,7 @@ export const SideNavigation = ({
   style,
   theme,
   toggleButtonLabel,
+  autoCollapseOthers,
 }: SideNavigationProps) => {
   const container = React.useRef<HTMLDivElement>(null);
   // Create a unique id if not provided via prop
@@ -126,11 +126,11 @@ export const SideNavigation = ({
   return (
     <SideNavigationContext.Provider
       value={{
-        allowMultipleOpened,
         mobileMenuOpen,
         openMainLevels,
         setMobileMenuOpen,
         setOpenMainLevels,
+        autoCollapseOthers,
       }}
     >
       <nav

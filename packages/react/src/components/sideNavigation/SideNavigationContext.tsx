@@ -2,11 +2,6 @@ import React from 'react';
 
 export type SideNavigationContextType = {
   /**
-   * Don't autocollapse main levels when opening other main levels.
-   * @default false
-   */
-  allowMultipleOpened?: boolean;
-  /**
    * Sets whether the mobile menu is open.
    * @default false
    */
@@ -23,14 +18,19 @@ export type SideNavigationContextType = {
    * Updates open menu levels for the SideNavigation component
    */
   setOpenMainLevels: (mainLevelIndeces: number[]) => void;
+  /**
+   * Autocollapse main levels when opening other main levels.
+   * @default false
+   */
+  autoCollapseOthers?: boolean;
 };
 
 const SideNavigationContext = React.createContext<SideNavigationContextType>({
-  allowMultipleOpened: false,
   mobileMenuOpen: false,
   openMainLevels: [],
   setMobileMenuOpen: () => undefined,
   setOpenMainLevels: () => undefined,
+  autoCollapseOthers: false,
 });
 
 export default SideNavigationContext;
