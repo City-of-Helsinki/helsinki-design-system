@@ -93,7 +93,7 @@ export const Link = ({
       href={href}
       style={style}
       {...(openInNewTab && { target: '_blank' })}
-      aria-label={comboseAriaLabel()}
+      {...((openInNewTab || external) && { 'aria-label': comboseAriaLabel() })}
       {...rest}
     >
       {children}
