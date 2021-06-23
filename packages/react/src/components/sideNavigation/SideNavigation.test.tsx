@@ -20,15 +20,16 @@ const url = '#';
 
 const renderSideNavigation = () =>
   render(
-    <SideNavigation toggleButtonLabel={labels.toggleButton}>
-      <MainLevel href={url} icon={<IconFaceNeutral />} label={labels.mainLevel1}>
-        <SubLevel active href={url} label={labels.subLevel1} />
+    <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
+      <MainLevel id="mainLevel1" icon={<IconFaceNeutral />} label={labels.mainLevel1}>
+        <SubLevel id="subLevel1" active href={url} label={labels.subLevel1} />
       </MainLevel>
-      <MainLevel href={url} icon={<IconFaceNeutral />} label={labels.mainLevel2} />
+      <MainLevel id="mainLevel2" href={url} icon={<IconFaceNeutral />} label={labels.mainLevel2} />
     </SideNavigation>,
   );
 
-const queryElement = (key: string) => screen.queryByRole('link', { name: labels[key] });
+const queryButton = (key: string) => screen.queryByRole('button', { name: labels[key] });
+const queryLink = (key: string) => screen.queryByRole('link', { name: labels[key] });
 
 describe('<SideNavigation /> spec', () => {
   it('renders the component', () => {
@@ -44,82 +45,82 @@ describe('<SideNavigation /> spec', () => {
 
   test('should open main level if sub level is active', () => {
     render(
-      <SideNavigation toggleButtonLabel={labels.toggleButton}>
-        <MainLevel icon={<IconFaceNeutral />} label={labels.mainLevel1} href={url}>
-          <SubLevel label={labels.subLevel1} href={url} />
+      <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
+        <MainLevel id="mainLevel1" icon={<IconFaceNeutral />} label={labels.mainLevel1}>
+          <SubLevel id="subLevel1" label={labels.subLevel1} href={url} />
         </MainLevel>
-        <MainLevel icon={<IconFaceNeutral />} label={labels.mainLevel2} href={url}>
-          <SubLevel active label={labels.subLevel2} href={url} />
+        <MainLevel id="mainLevel2" icon={<IconFaceNeutral />} label={labels.mainLevel2}>
+          <SubLevel active id="subLevel2" label={labels.subLevel2} href={url} />
         </MainLevel>
       </SideNavigation>,
     );
 
-    expect(queryElement('subLevel1')).not.toBeInTheDocument();
-    expect(queryElement('subLevel2')).toBeInTheDocument();
+    expect(queryLink('subLevel1')).not.toBeInTheDocument();
+    expect(queryLink('subLevel2')).toBeInTheDocument();
   });
 
   test('should show sub levels if main level is active', () => {
     render(
-      <SideNavigation toggleButtonLabel={labels.toggleButton}>
-        <MainLevel icon={<IconFaceNeutral />} label={labels.mainLevel1} href={url}>
-          <SubLevel label={labels.subLevel1} href={url} />
+      <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
+        <MainLevel id="mainLevel1" icon={<IconFaceNeutral />} label={labels.mainLevel1}>
+          <SubLevel id="subLevel1" label={labels.subLevel1} href={url} />
         </MainLevel>
-        <MainLevel active icon={<IconFaceNeutral />} label={labels.mainLevel2} href={url}>
-          <SubLevel label={labels.subLevel2} href={url} />
+        <MainLevel active id="mainLevel2" icon={<IconFaceNeutral />} label={labels.mainLevel2}>
+          <SubLevel id="subLevel2" label={labels.subLevel2} href={url} />
         </MainLevel>
-        <MainLevel icon={<IconFaceNeutral />} label={labels.mainLevel3} href={url} />
+        <MainLevel id="mainLevel3" icon={<IconFaceNeutral />} label={labels.mainLevel3} href={url} />
       </SideNavigation>,
     );
 
-    expect(queryElement('subLevel1')).not.toBeInTheDocument();
-    expect(queryElement('subLevel2')).toBeInTheDocument();
+    expect(queryLink('subLevel1')).not.toBeInTheDocument();
+    expect(queryLink('subLevel2')).toBeInTheDocument();
   });
 
   test('should open default main levels', () => {
     render(
-      <SideNavigation defaultOpenMainLevels={[1]} toggleButtonLabel={labels.toggleButton}>
-        <MainLevel icon={<IconFaceNeutral />} label={labels.mainLevel1} href={url}>
-          <SubLevel label={labels.subLevel1} href={url} />
+      <SideNavigation id="sideNavigation" defaultOpenMainLevels={[1]} toggleButtonLabel={labels.toggleButton}>
+        <MainLevel id="mainLevel1" icon={<IconFaceNeutral />} label={labels.mainLevel1}>
+          <SubLevel id="subLevel1" label={labels.subLevel1} href={url} />
         </MainLevel>
-        <MainLevel icon={<IconFaceNeutral />} label={labels.mainLevel2} href={url}>
-          <SubLevel label={labels.subLevel2} href={url} />
+        <MainLevel id="mainLevel2" icon={<IconFaceNeutral />} label={labels.mainLevel2}>
+          <SubLevel id="subLevel2" label={labels.subLevel2} href={url} />
         </MainLevel>
       </SideNavigation>,
     );
 
-    expect(queryElement('subLevel1')).not.toBeInTheDocument();
-    expect(queryElement('subLevel2')).toBeInTheDocument();
+    expect(queryLink('subLevel1')).not.toBeInTheDocument();
+    expect(queryLink('subLevel2')).toBeInTheDocument();
   });
 
   test('should open and close main levels', () => {
     render(
-      <SideNavigation toggleButtonLabel={labels.toggleButton}>
-        <MainLevel icon={<IconFaceNeutral />} label={labels.mainLevel1} href={url}>
-          <SubLevel label={labels.subLevel1} href={url} />
+      <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
+        <MainLevel id="mainLevel1" icon={<IconFaceNeutral />} label={labels.mainLevel1}>
+          <SubLevel id="subLevel1" label={labels.subLevel1} href={url} />
         </MainLevel>
-        <MainLevel icon={<IconFaceNeutral />} label={labels.mainLevel2} href={url}>
-          <SubLevel label={labels.subLevel2} href={url} />
+        <MainLevel id="mainLevel2" icon={<IconFaceNeutral />} label={labels.mainLevel2}>
+          <SubLevel id="subLevel2" label={labels.subLevel2} href={url} />
         </MainLevel>
       </SideNavigation>,
     );
 
-    expect(queryElement('subLevel1')).not.toBeInTheDocument();
-    expect(queryElement('subLevel2')).not.toBeInTheDocument();
+    expect(queryLink('subLevel1')).not.toBeInTheDocument();
+    expect(queryLink('subLevel2')).not.toBeInTheDocument();
 
-    userEvent.click(queryElement('mainLevel1'));
-    expect(queryElement('subLevel1')).toBeInTheDocument();
-    expect(queryElement('subLevel2')).not.toBeInTheDocument();
+    userEvent.click(queryButton('mainLevel1'));
+    expect(queryLink('subLevel1')).toBeInTheDocument();
+    expect(queryLink('subLevel2')).not.toBeInTheDocument();
 
-    userEvent.click(queryElement('mainLevel2'));
-    expect(queryElement('subLevel1')).toBeInTheDocument();
-    expect(queryElement('subLevel2')).toBeInTheDocument();
+    userEvent.click(queryButton('mainLevel2'));
+    expect(queryLink('subLevel1')).toBeInTheDocument();
+    expect(queryLink('subLevel2')).toBeInTheDocument();
 
-    userEvent.click(queryElement('mainLevel2'));
-    expect(queryElement('subLevel1')).toBeInTheDocument();
-    expect(queryElement('subLevel2')).not.toBeInTheDocument();
+    userEvent.click(queryButton('mainLevel2'));
+    expect(queryLink('subLevel1')).toBeInTheDocument();
+    expect(queryLink('subLevel2')).not.toBeInTheDocument();
 
-    userEvent.click(queryElement('mainLevel1'));
-    expect(queryElement('subLevel1')).not.toBeInTheDocument();
-    expect(queryElement('subLevel2')).not.toBeInTheDocument();
+    userEvent.click(queryButton('mainLevel1'));
+    expect(queryLink('subLevel1')).not.toBeInTheDocument();
+    expect(queryLink('subLevel2')).not.toBeInTheDocument();
   });
 });
