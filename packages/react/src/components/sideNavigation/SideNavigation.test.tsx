@@ -21,10 +21,10 @@ const url = '#';
 const renderSideNavigation = () =>
   render(
     <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
-      <MainLevel id="mainLevel1" icon={<IconFaceNeutral />} label={labels.mainLevel1}>
-        <SubLevel id="subLevel1" active href={url} label={labels.subLevel1} />
-      </MainLevel>
-      <MainLevel id="mainLevel2" href={url} icon={<IconFaceNeutral />} label={labels.mainLevel2} />
+      <SideNavigation.MainLevel id="mainLevel1" icon={<IconFaceNeutral />} label={labels.mainLevel1}>
+        <SideNavigation.SubLevel id="subLevel1" active href={url} label={labels.subLevel1} />
+      </SideNavigation.MainLevel>
+      <SideNavigation.MainLevel id="mainLevel2" href={url} icon={<IconFaceNeutral />} label={labels.mainLevel2} />
     </SideNavigation>,
   );
 
@@ -46,12 +46,12 @@ describe('<SideNavigation /> spec', () => {
   test('should open main level if sub level is active', () => {
     render(
       <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
-        <MainLevel id="mainLevel1" icon={<IconFaceNeutral />} label={labels.mainLevel1}>
-          <SubLevel id="subLevel1" label={labels.subLevel1} href={url} />
-        </MainLevel>
-        <MainLevel id="mainLevel2" icon={<IconFaceNeutral />} label={labels.mainLevel2}>
-          <SubLevel active id="subLevel2" label={labels.subLevel2} href={url} />
-        </MainLevel>
+        <SideNavigation.MainLevel id="mainLevel1" icon={<IconFaceNeutral />} label={labels.mainLevel1}>
+          <SideNavigation.SubLevel id="subLevel1" label={labels.subLevel1} href={url} />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel id="mainLevel2" icon={<IconFaceNeutral />} label={labels.mainLevel2}>
+          <SideNavigation.SubLevel active id="subLevel2" label={labels.subLevel2} href={url} />
+        </SideNavigation.MainLevel>
       </SideNavigation>,
     );
 
@@ -62,13 +62,13 @@ describe('<SideNavigation /> spec', () => {
   test('should show sub levels if main level is active', () => {
     render(
       <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
-        <MainLevel id="mainLevel1" icon={<IconFaceNeutral />} label={labels.mainLevel1}>
-          <SubLevel id="subLevel1" label={labels.subLevel1} href={url} />
-        </MainLevel>
-        <MainLevel active id="mainLevel2" icon={<IconFaceNeutral />} label={labels.mainLevel2}>
-          <SubLevel id="subLevel2" label={labels.subLevel2} href={url} />
-        </MainLevel>
-        <MainLevel id="mainLevel3" icon={<IconFaceNeutral />} label={labels.mainLevel3} href={url} />
+        <SideNavigation.MainLevel id="mainLevel1" icon={<IconFaceNeutral />} label={labels.mainLevel1}>
+          <SideNavigation.SubLevel id="subLevel1" label={labels.subLevel1} href={url} />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel active id="mainLevel2" icon={<IconFaceNeutral />} label={labels.mainLevel2}>
+          <SideNavigation.SubLevel id="subLevel2" label={labels.subLevel2} href={url} />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel id="mainLevel3" icon={<IconFaceNeutral />} label={labels.mainLevel3} href={url} />
       </SideNavigation>,
     );
 
@@ -79,12 +79,12 @@ describe('<SideNavigation /> spec', () => {
   test('should open default main levels', () => {
     render(
       <SideNavigation id="sideNavigation" defaultOpenMainLevels={[1]} toggleButtonLabel={labels.toggleButton}>
-        <MainLevel id="mainLevel1" icon={<IconFaceNeutral />} label={labels.mainLevel1}>
-          <SubLevel id="subLevel1" label={labels.subLevel1} href={url} />
-        </MainLevel>
-        <MainLevel id="mainLevel2" icon={<IconFaceNeutral />} label={labels.mainLevel2}>
-          <SubLevel id="subLevel2" label={labels.subLevel2} href={url} />
-        </MainLevel>
+        <SideNavigation.MainLevel id="mainLevel1" icon={<IconFaceNeutral />} label={labels.mainLevel1}>
+          <SideNavigation.SubLevel id="subLevel1" label={labels.subLevel1} href={url} />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel id="mainLevel2" icon={<IconFaceNeutral />} label={labels.mainLevel2}>
+          <SideNavigation.SubLevel id="subLevel2" label={labels.subLevel2} href={url} />
+        </SideNavigation.MainLevel>
       </SideNavigation>,
     );
 
@@ -95,12 +95,12 @@ describe('<SideNavigation /> spec', () => {
   test('should open and close main levels', () => {
     render(
       <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
-        <MainLevel id="mainLevel1" icon={<IconFaceNeutral />} label={labels.mainLevel1}>
-          <SubLevel id="subLevel1" label={labels.subLevel1} href={url} />
-        </MainLevel>
-        <MainLevel id="mainLevel2" icon={<IconFaceNeutral />} label={labels.mainLevel2}>
-          <SubLevel id="subLevel2" label={labels.subLevel2} href={url} />
-        </MainLevel>
+        <SideNavigation.MainLevel id="mainLevel1" icon={<IconFaceNeutral />} label={labels.mainLevel1}>
+          <SideNavigation.SubLevel id="subLevel1" label={labels.subLevel1} href={url} />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel id="mainLevel2" icon={<IconFaceNeutral />} label={labels.mainLevel2}>
+          <SideNavigation.SubLevel id="subLevel2" label={labels.subLevel2} href={url} />
+        </SideNavigation.MainLevel>
       </SideNavigation>,
     );
 

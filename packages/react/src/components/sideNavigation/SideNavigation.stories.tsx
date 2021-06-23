@@ -1,8 +1,6 @@
 import React from 'react';
 
 import { SideNavigation } from './SideNavigation';
-import { MainLevel } from './mainLevel/MainLevel';
-import { SubLevel } from './subLevel/SubLevel';
 import { IconFaceNeutral, IconFaceSad, IconFaceSmile } from '../../icons';
 
 export default {
@@ -14,10 +12,6 @@ export default {
       </div>
     ),
   ],
-  subcomponents: {
-    MainLevel,
-    SubLevel,
-  },
   title: 'Components/SideNavigation',
   parameters: {
     controls: { expanded: true },
@@ -57,51 +51,51 @@ export const Default = (args) => {
 
   return (
     <SideNavigation {...args}>
-      <MainLevel
+      <SideNavigation.MainLevel
         active={getIsActive(ID.MAIN_LEVEL_1)}
         id={ID.MAIN_LEVEL_1}
         icon={<IconFaceSmile aria-hidden />}
         label={labels.mainLevel1}
         onClick={handleClick}
       >
-        <SubLevel
+        <SideNavigation.SubLevel
           active={getIsActive(ID.SUB_LEVEL_1)}
           id={ID.SUB_LEVEL_1}
           href={ID.SUB_LEVEL_1}
           label={labels.subLevel1}
           onClick={handleClick}
         />
-        <SubLevel
+        <SideNavigation.SubLevel
           active={getIsActive(ID.SUB_LEVEL_2)}
           id={ID.SUB_LEVEL_2}
           href={ID.SUB_LEVEL_2}
           label={labels.subLevel2}
           onClick={handleClick}
         />
-      </MainLevel>
-      <MainLevel
+      </SideNavigation.MainLevel>
+      <SideNavigation.MainLevel
         active={getIsActive(ID.MAIN_LEVEL_2)}
         id={ID.MAIN_LEVEL_2}
         icon={<IconFaceNeutral aria-hidden />}
         label={labels.mainLevel2}
         onClick={handleClick}
       >
-        <SubLevel
+        <SideNavigation.SubLevel
           active={getIsActive(ID.SUB_LEVEL_3)}
           id={ID.SUB_LEVEL_3}
           href={ID.SUB_LEVEL_3}
           label={labels.subLevel3}
           onClick={handleClick}
         />
-        <SubLevel
+        <SideNavigation.SubLevel
           active={getIsActive(ID.SUB_LEVEL_4)}
           id={ID.SUB_LEVEL_4}
           href={ID.SUB_LEVEL_4}
           label={labels.subLevel4}
           onClick={handleClick}
         />
-      </MainLevel>
-      <MainLevel
+      </SideNavigation.MainLevel>
+      <SideNavigation.MainLevel
         active={getIsActive(ID.MAIN_LEVEL_3)}
         id={ID.MAIN_LEVEL_3}
         href={ID.MAIN_LEVEL_3}
@@ -128,49 +122,49 @@ export const AutoCollapseOtherOpened = (args) => {
 
   return (
     <SideNavigation {...args}>
-      <MainLevel
+      <SideNavigation.MainLevel
         id={ID.MAIN_LEVEL_1}
         icon={<IconFaceSmile aria-hidden />}
         label={labels.mainLevel1}
         onClick={handleMainLevelClick}
       >
-        <SubLevel
+        <SideNavigation.SubLevel
           active={getIsActive(ID.SUB_LEVEL_1)}
           id={ID.SUB_LEVEL_1}
           href={ID.SUB_LEVEL_1}
           label={labels.subLevel1}
           onClick={handleSubLevelClick}
         />
-        <SubLevel
+        <SideNavigation.SubLevel
           active={getIsActive(ID.SUB_LEVEL_2)}
           id={ID.SUB_LEVEL_2}
           href={ID.SUB_LEVEL_2}
           label={labels.subLevel2}
           onClick={handleSubLevelClick}
         />
-      </MainLevel>
-      <MainLevel
+      </SideNavigation.MainLevel>
+      <SideNavigation.MainLevel
         id={ID.MAIN_LEVEL_2}
         icon={<IconFaceNeutral aria-hidden />}
         label={labels.mainLevel2}
         onClick={handleMainLevelClick}
       >
-        <SubLevel
+        <SideNavigation.SubLevel
           active={getIsActive(ID.SUB_LEVEL_3)}
           id={ID.SUB_LEVEL_3}
           href={ID.SUB_LEVEL_3}
           label={labels.subLevel3}
           onClick={handleSubLevelClick}
         />
-        <SubLevel
+        <SideNavigation.SubLevel
           active={getIsActive(ID.SUB_LEVEL_4)}
           id={ID.SUB_LEVEL_4}
           href={ID.SUB_LEVEL_4}
           label={labels.subLevel4}
           onClick={handleSubLevelClick}
         />
-      </MainLevel>
-      <MainLevel
+      </SideNavigation.MainLevel>
+      <SideNavigation.MainLevel
         active={getIsActive(ID.MAIN_LEVEL_3)}
         id={ID.MAIN_LEVEL_3}
         href={ID.MAIN_LEVEL_3}
