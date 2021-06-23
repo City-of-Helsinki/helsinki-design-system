@@ -1,4 +1,3 @@
-import uniqueId from 'lodash.uniqueid';
 import React, { useContext, useEffect } from 'react';
 
 import styles from './SubLevel.module.scss';
@@ -15,13 +14,13 @@ export type SubLevelProps = React.ComponentPropsWithoutRef<'a'> & {
    */
   className?: string;
   /**
-   * href attribute of the side navigation main level
+   * The id of the side navigation sub level.
+   */
+  id: string;
+  /**
+   * href attribute of the side navigation sub level
    */
   href: string;
-  /**
-   * The id of the side navigation main level.
-   */
-  id?: string;
   /**
    * Label of the side navigation sub level.
    */
@@ -36,18 +35,7 @@ export type SubLevelProps = React.ComponentPropsWithoutRef<'a'> & {
   style?: React.CSSProperties;
 };
 
-export const SubLevel = ({
-  active,
-  className,
-  href,
-  id: _id,
-  label,
-  mainLevelIndex,
-  onClick,
-  style,
-}: SubLevelProps) => {
-  const [id] = React.useState(() => _id || uniqueId('sub-level-'));
-
+export const SubLevel = ({ active, className, href, id, label, mainLevelIndex, onClick, style }: SubLevelProps) => {
   const { autoCollapseOthers, openMainLevels, setMobileMenuOpen, setOpenMainLevels } = useContext(
     SideNavigationContext,
   );
@@ -69,8 +57,9 @@ export const SubLevel = ({
   }, [active]);
 
   return (
-    <li id={id} className={classNames(styles.subLevel, active && styles.active, className)} style={style}>
+    <li className={classNames(styles.subLevel, active && styles.active, className)} style={style}>
       <a
+        id={id}
         aria-current={active ? 'page' : 'false'}
         onClick={(ev: React.MouseEvent<HTMLAnchorElement>) => {
           setMobileMenuOpen(false);

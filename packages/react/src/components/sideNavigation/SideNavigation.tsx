@@ -1,5 +1,4 @@
-import React, { cloneElement, isValidElement, useEffect, useState } from 'react';
-import uniqueId from 'lodash.uniqueid';
+import React, { cloneElement, isValidElement, useEffect } from 'react';
 
 // import core base styles
 import 'hds-core';
@@ -44,7 +43,7 @@ export type SideNavigationProps = React.PropsWithChildren<{
   /**
    * The id of the side navigation.
    */
-  id?: string;
+  id: string;
   /**
    * Override or extend the styles applied to the component
    */
@@ -68,16 +67,13 @@ export const SideNavigation = ({
   children,
   className,
   defaultOpenMainLevels,
-  id: _id,
+  id,
   style,
   theme,
   toggleButtonLabel,
   autoCollapseOthers,
 }: SideNavigationProps) => {
   const container = React.useRef<HTMLDivElement>(null);
-  // Create a unique id if not provided via prop
-  const [id] = useState(_id || uniqueId('side-navigation-'));
-  // Custom theme
   const customThemeClass = useTheme<SideNavigationCustomTheme>(styles.sideNavigation, theme);
   const menuId = `${id}-menu`;
   const [openMainLevels, setOpenMainLevels] = React.useState<number[]>(defaultOpenMainLevels ?? []);
@@ -86,7 +82,7 @@ export const SideNavigation = ({
 
   const mainLevels = React.Children.map(children, (child, index) => {
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'MainLevel') {
-      return cloneElement(child, { id: `${id}-${index}`, index });
+      return cloneElement(child, { index });
     }
     return null;
   });
