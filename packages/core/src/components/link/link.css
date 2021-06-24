@@ -10,6 +10,9 @@
 .hds-link:visited {
   color: var(--link-visited-color);
 }
+.hds-link:visited svg g path {
+  fill: var(--link-visited-color);
+}
 
 .hds-link:focus {
   border: 3px solid var(--color-coat-of-arms);
