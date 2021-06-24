@@ -20,12 +20,8 @@
   outline: none;
 }
 
-.hds-link .icon {
-  margin-left: var(--spacing-3-xs);
-}
-
 .hds-link .vertical-align-small-or-medium-icon {
-  vertical-align: text-bottom;
+  vertical-align: sub;
 }
 
 .hds-link .vertical-align-big-icon {
@@ -46,4 +42,16 @@
 
 .hds-link--large {
   font-size: 18px;
+}
+
+.hds-link--small .icon {
+  margin-left: 7px;
+}
+
+.hds-link--medium .icon {
+  margin-left: var(--spacing-2-xs);
+}
+
+.hds-link--large .icon {
+  margin-left: var(--spacing-s);
 }
