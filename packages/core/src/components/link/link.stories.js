@@ -25,13 +25,11 @@ InternalLinks.storyName = 'Internal links';
 
 export const ExternalLinks = () => `
   <a href="https://hds.hel.fi" class="hds-link hds-link--small" aria-label="External link size small. Avautuu uuteen domainiin">
-    External link size small<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-hidden="true"></i>
-  </a>
+    External link size small<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-hidden="true"></i></a>
   <br/>
   <br/>
   <a href="https://hds.hel.fi" class="hds-link hds-link--medium" aria-label="External link size medium. Avautuu uuteen domainiin">
-    External link size medium<i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon" aria-hidden="true"></i>
-  </a>
+    External link size medium<i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon" aria-hidden="true"></i></a>
   <br/>
   <br/>
   <a href="https://hds.hel.fi" class="hds-link hds-link--large" aria-label="External link size large. Avautuu uuteen domainiin">
