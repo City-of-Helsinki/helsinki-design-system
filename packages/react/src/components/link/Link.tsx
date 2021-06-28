@@ -69,11 +69,15 @@ export const Link = ({
   ...rest
 }: LinkProps) => {
   const comboseAriaLabel = () => {
-    const childrenText = getTextFromReactChildren(children);
+    let childrenText = getTextFromReactChildren(children);
     const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
     const externalText = external ? openInExternalDomainAriaLabel || 'Avautuu uuteen domainiin.' : '';
 
-    return `${childrenText}. ${newTabText} ${externalText}`;
+    if (childrenText && childrenText.slice(-1) !== '.') {
+      childrenText = `${childrenText}.`;
+    }
+
+    return [childrenText, newTabText, externalText].filter((text) => text).join(' ');
   };
 
   const mapLinkSizeToExternalIconSize: LinkToIconSizeMappingType = {
