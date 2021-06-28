@@ -7,9 +7,10 @@
   --notification-focus-outline-color: var(--color-coat-of-arms);
   --notification-max-width-inline: none;
   --notification-max-width-toast: 21rem;
+  --notification-z-index-inline: auto;
+  --notification-z-index-toast: 99;
   --notification-offset: var(--spacing-layout-s);
   --notification-padding: var(--spacing-s);
-  --notification-z-index: 99;
 
   background-color: var(--notification-background-color);
   border: solid var(--notification-border-color);
@@ -20,7 +21,7 @@
   padding: var(--notification-padding);
   position: relative;
   width: 100%;
-  z-index: var(--notification-z-index);
+  z-index: var(--notification-z-index-inline);
 }
 
 /* CONTENT */
@@ -124,6 +125,7 @@
   max-width: var(--notification-max-width-toast);
   position: fixed;
   width: calc(100% - var(--spacing-l));
+  z-index: var(--notification-z-index-toast);
 }
 
 .hds-notification--top-left {
