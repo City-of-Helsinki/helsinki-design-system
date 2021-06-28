@@ -116,7 +116,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
     const updateTimeInput = (newHours: string, newMinutes: string) => {
       setHours(newHours);
       setMinutes(newMinutes);
-      const newTimeValue = `${newHours}:${newMinutes}`;
+      const newTimeValue = newHours.length === 0 && newMinutes.length === 0 ? '' : `${newHours}:${newMinutes}`;
       setTime(newTimeValue);
       const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
       nativeInputValueSetter.call(inputRef.current, newTimeValue);

@@ -43,4 +43,13 @@ describe('<TimeInput /> spec', () => {
     userEvent.type(minutesInput, 'test');
     expect(minutesInput).toHaveValue('');
   });
+
+  it('should remove colon from time value when both minutes and hours are missing', async () => {
+    const { container } = render(
+      <TimeInput id="time" label="timer" hoursLabel="Hours" minutesLabel="Minutes" defaultValue="00:00" />,
+    );
+    userEvent.type(screen.getByLabelText('Hours', { selector: 'input' }), '{backspace}');
+    userEvent.type(screen.getByLabelText('Minutes', { selector: 'input' }), '{backspace}');
+    expect(container.querySelector('#time')).toHaveValue('');
+  });
 });
