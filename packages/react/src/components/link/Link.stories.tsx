@@ -49,22 +49,41 @@ InternalLinks.argTypes = {
 export const ExternalLinks = (args) => {
   return (
     <>
-      <Link {...args} external size="S" href="https://hds.hel.fi">
+      <Link
+        {...args}
+        external
+        openInExternalDomainAriaLabel="Opens a different website"
+        size="S"
+        href="https://hds.hel.fi"
+      >
         External link size S
       </Link>
       <br />
       <br />
-      <Link {...args} external size="M" href="https://hds.hel.fi">
+      <Link
+        {...args}
+        external
+        openInExternalDomainAriaLabel="Opens a different website"
+        size="M"
+        href="https://hds.hel.fi"
+      >
         External link size M
       </Link>
       <br />
       <br />
-      <Link {...args} external size="L" href="https://hds.hel.fi">
+      <Link
+        {...args}
+        external
+        openInExternalDomainAriaLabel="Opens a different website"
+        size="L"
+        href="https://hds.hel.fi"
+      >
         External link size L
       </Link>
     </>
   );
 };
+
 ExternalLinks.storyName = 'External links';
 ExternalLinks.argTypes = {
   size: {
@@ -76,12 +95,21 @@ ExternalLinks.argTypes = {
 };
 
 export const OpenInNewTabLink = (args) => (
-  <Link {...args} href="https://hds.hel.fi" external={args.external} openInNewTab={args.openInNewTab}>
+  <Link
+    {...args}
+    href="https://hds.hel.fi"
+    external={args.external}
+    openInExternalDomainAriaLabel={args.openInExternalDomainAriaLabel}
+    openInNewTabAriaLabel={args.openInNewTabAriaLabel}
+    openInNewTab={args.openInNewTab}
+  >
     Link that opens in a new tab
   </Link>
 );
 OpenInNewTabLink.storyName = 'Link that opens in a new tab';
 OpenInNewTabLink.args = {
+  openInNewTabAriaLabel: 'Opens in a new tab.',
+  openInExternalDomainAriaLabel: 'Opens a different website',
   openInNewTab: true,
   external: true,
 };
@@ -102,7 +130,7 @@ export const inlineLinks = (args) => {
       <p style={{ fontSize: '14px' }}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        <Link {...args} external>
+        <Link {...args} external openInExternalDomainAriaLabel="Opens a different website">
           Inline link
         </Link>
         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
@@ -112,7 +140,7 @@ export const inlineLinks = (args) => {
       <p style={{ fontSize: '16px' }}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        <Link {...args} size="M" external>
+        <Link {...args} size="M" external openInExternalDomainAriaLabel="Opens a different website">
           Inline link
         </Link>
         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla

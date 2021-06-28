@@ -71,7 +71,7 @@ export const Link = ({
   const comboseAriaLabel = () => {
     let childrenText = getTextFromReactChildren(children);
     const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
-    const externalText = external ? openInExternalDomainAriaLabel || 'Avautuu uuteen domainiin.' : '';
+    const externalText = external ? openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.' : '';
 
     if (childrenText && childrenText.slice(-1) !== '.') {
       childrenText = `${childrenText}.`;
