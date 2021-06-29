@@ -35,7 +35,7 @@
   transition: border-color 85ms ease-out;
 }
 
-.hds-text-input:focus-within .hds-text-input__input:not([readonly]) {
+.hds-text-input__input-wrapper:focus-within .hds-text-input__input:not([readonly]) {
   transition: 85ms ease-out;
   transition-property: box-shadow, transform;
 }
@@ -98,7 +98,7 @@
   border-color: var(--input-border-color-hover);
 }
 
-.hds-text-input:focus-within .hds-text-input__input {
+.hds-text-input__input-wrapper:focus-within .hds-text-input__input {
   border-color: var(--input-border-color-focus);
   outline: none;
 }
@@ -110,7 +110,7 @@
 
 /* FOCUS OUTLINE */
 
-.hds-text-input:focus-within .hds-text-input__input:not([readonly]) {
+.hds-text-input__input-wrapper:focus-within .hds-text-input__input:not([readonly]) {
   box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
   transform: translate3d(0, 0, 0);
 }
