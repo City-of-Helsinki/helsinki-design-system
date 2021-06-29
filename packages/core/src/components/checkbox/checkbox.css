@@ -1,5 +1,5 @@
 @svg-load icon url(../../svg/ui/check.svg);
-@svg-load errorIcon url(../../svg/ui/alert-circle.svg);
+@svg-load errorIcon url(../../svg/ui/alert-circle-fill.svg);
 
 .hds-checkbox {
   --size: 24px;
