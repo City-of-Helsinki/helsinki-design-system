@@ -175,7 +175,7 @@ Note! This feature is experimental and we are looking to improve it after projec
 
 <Playground>
   {() => {
-    const educations = ['Daycare eduation', 'Preschool education', 'Basic education', 'Upper secondary education', 'Vocational education', 'Polytechnic education', 'University education', 'Adult education centre'].map((education) => ({ value: education }));
+    const educations = ['Daycare education', 'Preschool education', 'Basic education', 'Upper secondary education', 'Vocational education', 'Polytechnic education', 'University education', 'Adult education centre'].map((education) => ({ value: education }));
     
     const getSuggestions = (inputValue) => new Promise((resolve, reject) => {
       const filteredItems = educations.filter((education) => {
@@ -205,7 +205,7 @@ Note! This feature is experimental and we are looking to improve it after projec
 #### React code example:
 ```tsx
 {() => {
-  const educations = ['Daycare eduation', 'Preschool education', 'Basic education', 'Upper secondary education', 'Vocational education', 'Polytechnic education', 'University education', 'Adult education centre'].map((education) => ({ value: education }));
+  const educations = ['Daycare education', 'Preschool education', 'Basic education', 'Upper secondary education', 'Vocational education', 'Polytechnic education', 'University education', 'Adult education centre'].map((education) => ({ value: education }));
   
   const getSuggestions = (inputValue) => new Promise((resolve, reject) => {
     const filteredItems = educations.filter((education) => {
