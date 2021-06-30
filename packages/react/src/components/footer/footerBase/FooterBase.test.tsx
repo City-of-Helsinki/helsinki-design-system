@@ -9,12 +9,12 @@ describe('<Footer.Base /> spec', () => {
   const mockDate = new Date(2020, 1, 1);
   const RealDate = Date;
   beforeAll(() => {
-    (global as any).Date = class extends RealDate {
+    global.Date = class extends RealDate {
       constructor() {
         super();
         return mockDate;
       }
-    };
+    } as DateConstructor;
   });
   afterAll(() => {
     global.Date = RealDate;
