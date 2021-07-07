@@ -1,0 +1,136 @@
+---
+name: Link
+menu: Components
+route: /components/link>
+---
+
+<!---
+Import all the needed components from HDS libraries.
+
+For example:
+import { link } from "hds-react";
+-->
+
+
+<!---
+Import documentation specific components. You can view what is available in /site/src/components/ folder.
+-->
+import LargeParagraph from "../../src/components/LargeParagraph";
+
+# Link
+
+<LargeParagraph>
+    Links are used as navigational elements and can be used on their own or inline with text. They provide a lightweight option for navigation.
+</LargeParagraph>
+
+<!---
+If you want to add more introductory content, you can do that below LargeParagraph section. Keep this relatively short and simple.
+-->
+
+## Principles
+- Too many links will clutter a page and make it difficult for users to identify their next steps. This is especially true for inline links, which should be used sparingly.
+- Use links when you want users to:
+    - Navigate to a different page
+    - Navigate to an entirely different site
+    - Jump to an element on the same page
+    - Link to emails or phone numbers
+
+## Accessibility
+The HDS link component is primarily a native HTML hyperlink navigational element. The Enter key activates the link and causes the user agent to move focus to the link destination. When you use the disabled link component the ARIA state is set to aria-disabled="true", which changes the appearance and the tabindex="-1" which removes the link for the tab order. When the link becomes active the ARIA state changes to aria-disabled="false" and the link is present in the tab order.
+
+Some assistive technologies provide a list of all links on the page to its user. If the text of the links do not clearly give the purpose, or if multiple links with the same name point to different targets (e.g., “read more”), users are forced to locate the link on the page and search surrounding information for context.
+
+Make sure that:
+
+- Link text is the visible label for the native HTML link and is used to provide the purpose of the link which is clear and easy to understand for all users.
+- The alt attribute for the img element is used to describe the purpose of a graphical link with an image inside the link.
+- The title attribute can be used to supplement the link text with any additional useful description.
+- The purpose of each link can be determined from the link text alone or from the link text together with its programmatically determined link context.
+- Icons should always be the same colour as the link text
+
+## Usage and variations
+<!---
+In the following subchapters, list all notable variants of the component. For example, a button component includes variants such as Primary, Secondary, Supplementary, Icon, Small and Utility.
+-->
+### Standalone
+These links are the default link variant. They are used on their own or directly following content and they are underlined. They can be paired with an icon.
+
+Standalone links should not be used within sentences or paragraphs. Standalone links are the default link style for HDS and only have an underline in both active and hover states. The standalone link component can be paired with an icon. Use the default 24px icons and place them to the right hand side of the link. Icons should always be the same colour as the link text.
+
+### Inline
+Inline links are used within a sentence or paragraph and are underlined. Links that open new tabs, windows or otherwise lead to other sites should be followed by the external link icon. Inline links leading to a page within the service should not be paired with an icon.
+
+The HDS inline link behaves the same as the standalone link. The underlining helps differentiate them from the text they are placed next to and makes it clear users can interact with them. Inline links should not be used on their own and links leading away from the site should always be paired with an external link icon.
+
+### <COMPONENT_VARIANT>
+<!---
+Add a short description about the variant. What it is and when it should be used over other variants? Keep this relatively short, maximum of 5 sentences.
+-->
+
+<!---
+Add React code here to provide interactive examples of the component variant.
+-->
+<Playground>
+
+</Playground>
+
+#### Core:
+<!---
+Add HTML (HDS Core package) code example here. This code should try to match the Playground code above. You may add comments in the code to make it more understandable.
+
+Note! This section should be left out if this component is not included in the Core package.
+-->
+```html
+
+```
+
+#### React:
+<!---
+Add React (HDS React package) code example here. This code should try to match the Playground code above. You may add comments in the code to make it more understandable.
+-->
+```tsx
+
+```
+
+### <COMPONENT_VARIANT2>
+<!---
+Add a short description about the variant. What it is and when it should be used over other variants? Keep this relatively short, maximum of 5 sentences.
+-->
+
+<!---
+Add React code here to provide interactive examples of the component variant.
+-->
+<Playground>
+
+</Playground>
+
+#### Core:
+<!---
+Add HTML (HDS Core package) code example here. This code should try to match the Playground code above. You may add comments in the code to make it more understandable.
+
+Note! This section should be left out if this component is not included in the Core package.
+-->
+```html
+
+```
+
+#### React:
+<!---
+Add React (HDS React package) code example here. This code should try to match the Playground code above. You may add comments in the code to make it more understandable.
+-->
+```tsx
+
+```
+
+## Demos & API
+
+### Core
+
+[<COMPONENT_NAME> in hds-core](/storybook/core/?path=/story/<COMPONENT_PATH>)
+
+### React
+
+[<COMPONENT_NAME> in hds-react](/storybook/react/?path=/story/<COMPONENT_PATH>)
+
+[<COMPONENT_NAME> API](/storybook/react/?path=/docs/<COMPONENT_PATH>)
+
