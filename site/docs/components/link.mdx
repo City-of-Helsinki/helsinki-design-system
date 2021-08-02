@@ -40,9 +40,51 @@ Make sure that:
 - Icons should always be the same colour as the link text
 
 ## Usage and variations
-<!---
-In the following subchapters, list all notable variants of the component. For example, a button component includes variants such as Primary, Secondary, Supplementary, Icon, Small and Utility.
--->
+
+### Inline
+These links are the default link variant. Inline links are used within a sentence or paragraph and are underlined. Links that open new tabs, windows or otherwise lead to other sites should be followed by the external link icon. Inline links leading to a page within the service should not be paired with an icon.
+
+The HDS inline link behaves the same as the standalone link. The underlining helps differentiate them from the text they are placed next to and makes it clear users can interact with them. Inline links should not be used on their own and links leading away from the site should always be paired with an external link icon.
+
+<Playground>
+  <p style={{ fontSize: '14px' }}>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    <Link href="https://github.com/City-of-Helsinki/helsinki-design-system" external openInExternalDomainAriaLabel="Opens a different website">
+      HDS Github
+    </Link>
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+    laborum.
+  </p>
+</Playground>
+
+#### Core:
+```html
+<p style={{ fontSize: '14px', lineHeight: '1.5' }}>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+  <a href="https://github.com/City-of-Helsinki/helsinki-design-system" class="hds-link hds-link--small" aria-label="HDS Github. Opens in external domain">
+  HDS Github<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-hidden="true"></i></a>
+  laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+```
+
+#### React:
+```tsx
+<p style={{ fontSize: '14px' }}>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  <Link href="https://github.com/City-of-Helsinki/helsinki-design-system" external openInExternalDomainAriaLabel="Opens a different website">
+    HDS Github
+  </Link>
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+  laborum.
+</p>
+```
+
 ### Standalone
 Standalone links are used on their own or directly following content and they are underlined. They can be paired with an icon.
 
@@ -66,58 +108,6 @@ Standalone links should not be used within sentences or paragraphs. Standalone l
 <Link href="https://hds.hel.fi/" size="L" style={{ display: 'block', width: 'fit-content' }}>
   Link to HDS
 </Link>
-```
-
-### Inline
-These links are the default link variant. Inline links are used within a sentence or paragraph and are underlined. Links that open new tabs, windows or otherwise lead to other sites should be followed by the external link icon. Inline links leading to a page within the service should not be paired with an icon.
-
-The HDS inline link behaves the same as the standalone link. The underlining helps differentiate them from the text they are placed next to and makes it clear users can interact with them. Inline links should not be used on their own and links leading away from the site should always be paired with an external link icon.
-
-<Playground>
-      <p style={{ fontSize: '14px' }}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        <Link href="https://github.com/City-of-Helsinki/helsinki-design-system" external openInExternalDomainAriaLabel="Opens a different website">
-          HDS Github
-        </Link>
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum.
-      </p>
-</Playground>
-
-#### Core:
-<!---
-Add HTML (HDS Core package) code example here. This code should try to match the Playground code above. You may add comments in the code to make it more understandable.
-
-Note! This section should be left out if this component is not included in the Core package.
--->
-```html
-<p style={{ fontSize: '14px', lineHeight: '1.5' }}>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-  <a href="https://github.com/City-of-Helsinki/helsinki-design-system" class="hds-link hds-link--small" aria-label="HDS Github. Opens in external domain">
-  HDS Github<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-hidden="true"></i></a>
-  laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-</p>
-```
-
-#### React:
-<!---
-Add React (HDS React package) code example here. This code should try to match the Playground code above. You may add comments in the code to make it more understandable.
--->
-```tsx
-<p style={{ fontSize: '14px' }}>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  <Link href="https://github.com/City-of-Helsinki/helsinki-design-system" external openInExternalDomainAriaLabel="Opens a different website">
-    HDS Github
-  </Link>
-  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-  laborum.
-</p>
 ```
 
 ## Demos & API
