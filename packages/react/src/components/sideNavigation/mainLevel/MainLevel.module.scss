@@ -18,6 +18,10 @@
   display: none;
 }
 
+.mainLevelWithDivider {
+  composes: mainLevelWithDivider from '../SideNavigation.module.scss';
+}
+
 .mainLevel.open {
   .arrowIcon {
     transform: rotate(180deg);
