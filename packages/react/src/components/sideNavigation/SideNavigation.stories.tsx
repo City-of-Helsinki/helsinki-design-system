@@ -23,6 +23,7 @@ enum ID {
   MAIN_LEVEL_1 = '#main-level-1',
   MAIN_LEVEL_2 = '#main-level-2',
   MAIN_LEVEL_3 = '#main-level-3',
+  MAIN_LEVEL_4 = '#main-level-4',
   SUB_LEVEL_1 = '#sub-level-1',
   SUB_LEVEL_2 = '#sub-level-2',
   SUB_LEVEL_3 = '#sub-level-3',
@@ -33,6 +34,7 @@ const labels = {
   mainLevel1: 'Main level 1',
   mainLevel2: 'Main level 2',
   mainLevel3: 'Main level 3',
+  mainLevel4: 'Main level 4',
   subLevel1: 'Sub level 1',
   subLevel2: 'Sub level 2',
   subLevel3: 'Sub level 3',
@@ -103,9 +105,19 @@ export const Default = (args) => {
         label={labels.mainLevel3}
         onClick={handleClick}
       />
+      <SideNavigation.MainLevel
+        active={getIsActive(ID.MAIN_LEVEL_4)}
+        id={ID.MAIN_LEVEL_4}
+        href={ID.MAIN_LEVEL_4}
+        icon={<IconFaceSad aria-hidden />}
+        label={labels.mainLevel4}
+        onClick={handleClick}
+        withDivider
+      />
     </SideNavigation>
   );
 };
+
 export const AutoCollapseOtherOpened = (args) => {
   const [active, setActive] = React.useState(ID.SUB_LEVEL_1);
 
