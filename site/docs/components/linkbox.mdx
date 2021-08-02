@@ -1,0 +1,105 @@
+---
+name: Linkbox
+menu: Components
+route: /components/linkbox
+---
+
+import { Playground } from "docz";
+import { StatusLabel } from "hds-react";
+
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
+
+# Linkbox
+
+<StatusLabel type="alert">Draft</StatusLabel>
+<StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
+
+<LargeParagraph>
+    Linkboxes are used to combine multiple elements into a single interactable element. While they are visually similar to HDS Cards, Linkboxes are always a single clickable link and they cannot contain other interactable elements.
+</LargeParagraph>
+
+## Principles
+- **Linkbox must always be interactable in its entirety.** This means that Linkboxes must not include multiple interactable elements (e.g. buttons or multiple links). The Linkbox element only gets focused once.
+- To emphasize its interactability, the Linkbox includes a mandatory icon. Depending on the link type the icon is either an arrow or external link icon. Do not remove or modify these icons.
+      - To read more about HDS recommendations about links, see [HDS Link documentation]().
+- **Linkboxes work very well for listing heterogenous content** such as news items, blog posts, or upcoming events.
+- **Use Linkboxes sparingly.** While they can drastically improve service's understandability and readability, overusing them may result in confusing and complex user interfaces.
+
+### Should I use a Linkbox or a Card?
+- **Use the Linkbox component when**
+  - the whole element needs to be interactable
+  - the element does not include multiple interactable elements
+- **Use the [Card component](/components/card) when**
+  - the whole Card does not need to be interactable
+  - the Card contains multiple interactable elements (e.g. buttons or links)
+
+## Accessibility
+- Linkbox must have either a visual heading or `aria-label` as a title. This describes the Linkbox's content for assistive technologies.
+- Linkbox must have the link as its last element (in the DOM tree). This way assistive technologies will eventually find the Linkbox link.
+- The colour contrast between the Linkbox and its background must comply with <Link href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>WCAG AA Level contrast ratios</Link>. If needed, you may use a Linkbox border to increase the contrast to its background.
+
+## Usage & variations
+
+### Empty
+The default empty Linkbox variant can be used to build Linkboxes with custom content. Use the property `external` to alter the icon depending on the link type.
+
+<Playground>
+
+</Playground>
+
+#### Core code example:
+```html
+
+```
+
+#### React code example:
+```tsx
+
+```
+
+### With heading and body text
+Additionally, HDS offers styling for basic heading and body text inside the Linkbox component. These can be used instead of custom elements.
+
+<Playground>
+
+</Playground>
+
+#### Core code example:
+```html
+
+```
+
+#### React code example:
+```tsx
+
+```
+
+### With image
+HDS offers styling for a Linkbox with an image as its content.
+
+<Playground>
+
+</Playground>
+
+#### Core code example:
+```html
+
+```
+
+#### React code example:
+```tsx
+
+```
+
+## Demos & API
+
+### Core
+
+[Linkboxes in hds-core](/storybook/core/?path=/story/components-linkbox--empty)
+
+### React
+
+[Linkboxes in hds-react](/storybook/react/?path=/story/components-linkbox--empty)
+
+[Linkboxes API](/storybook/react/?path=/docs/components-linkbox--empty)
