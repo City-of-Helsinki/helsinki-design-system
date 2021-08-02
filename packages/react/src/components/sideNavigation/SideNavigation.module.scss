@@ -15,6 +15,7 @@
   --side-navigation-level-color: var(--color-black);
   --side-navigation-level-color-active: var(--color-black);
   --side-navigation-level-color-hover: var(--color-black);
+  --side-navigation-level-inset: var(--spacing-s);
   --side-navigation-mobile-menu-border-color: var(--color-black);
   --side-navigation-mobile-menu-border-width: 2px;
   --side-navigation-mobile-menu-z-index: 100;
@@ -67,7 +68,7 @@
     display: grid;
     width: 100%;
     margin: 0;
-    padding: var(--spacing-2-xs) var(--spacing-s);
+    padding: var(--spacing-2-xs) var(--side-navigation-level-inset);
     min-height: var(--spacing-2-xl);
     grid-gap: var(--spacing-xs);
     align-items: center;
@@ -114,5 +115,15 @@
     background-color: var(--side-navigation-level-background-color-active);
     border-color: var(--side-navigation-level-background-color-active);
     color: var(--side-navigation-level-color-active);
+  }
+}
+
+.mainLevelWithDivider {
+  &:before {
+    border-top: 1px solid var(--color-black-20);
+    content: "";
+    display: block;
+    height: 1px;
+    margin: var(--spacing-xs) var(--side-navigation-level-inset);
   }
 }

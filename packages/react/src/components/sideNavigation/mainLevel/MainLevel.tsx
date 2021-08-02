@@ -37,6 +37,10 @@ export type MainLevelProps = {
    */
   label: string;
   /**
+   * A border to distinct main level item from previous item.
+   */
+  withDivider?: boolean;
+  /**
    * Override or extend the styles applied to the component
    */
   style?: React.CSSProperties;
@@ -65,6 +69,7 @@ export const MainLevel = ({
   id,
   index,
   label,
+  withDivider,
   onClick,
   style,
   ...rest
@@ -120,7 +125,13 @@ export const MainLevel = ({
   return (
     <li
       key={id}
-      className={classNames(styles.mainLevel, active && styles.active, open && styles.open, className)}
+      className={classNames(
+        styles.mainLevel,
+        withDivider && styles.mainLevelWithDivider,
+        active && styles.active,
+        open && styles.open,
+        className,
+      )}
       style={style}
     >
       {hasSubLevels ? (
