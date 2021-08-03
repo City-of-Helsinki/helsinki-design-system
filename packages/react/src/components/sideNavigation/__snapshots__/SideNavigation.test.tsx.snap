@@ -61,7 +61,7 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
         >
           <span
             aria-hidden="true"
-            class="iconWrapper"
+            class="leftIcon"
           >
             <svg
               class="icon s"
@@ -77,18 +77,20 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
                   d="M0 0h24v24H0z"
                 />
                 <path
-                  d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 2a8 8 0 100 16 8 8 0 000-16zm4 10v2H8v-2h8zM8.5 8a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm7 0a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"
+                  d="M1 13L12 2l11 11-1.5 1.5L20 13v8H4v-8l-1.5 1.5L1 13zm11-8l-6 6v8l2.999-.001L9 12h6l-.001 6.999L18 19v-8l-6-6zm1 9h-2l-.001 4.999h2L13 14z"
                   fill="currentColor"
                 />
               </g>
             </svg>
           </span>
-          <span>
+          <span
+            class="label"
+          >
             Main level 1
           </span>
           <span
             aria-hidden="true"
-            class="arrowIcon"
+            class="rightIcon arrowIcon"
           >
             <svg
               aria-hidden="true"
@@ -136,13 +138,13 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
       >
         <a
           aria-current="false"
-          aria-label="Main level 2"
+          aria-label="Main level 2 Url points to external website"
           href="#"
           id="mainLevel2"
         >
           <span
             aria-hidden="true"
-            class="iconWrapper"
+            class="leftIcon"
           >
             <svg
               class="icon s"
@@ -158,14 +160,41 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
                   d="M0 0h24v24H0z"
                 />
                 <path
-                  d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 2a8 8 0 100 16 8 8 0 000-16zm4 10v2H8v-2h8zM8.5 8a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm7 0a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"
+                  d="M1 13L12 2l11 11-1.5 1.5L20 13v8H4v-8l-1.5 1.5L1 13zm11-8l-6 6v8l2.999-.001L9 12h6l-.001 6.999L18 19v-8l-6-6zm1 9h-2l-.001 4.999h2L13 14z"
                   fill="currentColor"
                 />
               </g>
             </svg>
           </span>
-          <span>
+          <span
+            class="label"
+          >
             Main level 2
+          </span>
+          <span
+            aria-hidden="true"
+            class="rightIcon"
+          >
+            <svg
+              aria-hidden="true"
+              class="icon s"
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M10 3v2H5v14h14v-5h2v7H3V3h7zm11 0v8h-2V6.413l-7 7.001L10.586 12l6.999-7H13V3h8z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
           </span>
         </a>
       </li>
