@@ -21,11 +21,20 @@ import LargeParagraph from "../../src/components/LargeParagraph";
     - Navigate to an entirely different site
     - Jump to an element on the same page
     - Link to emails or phone numbers
+- HDS Link supports a link with an external icon. Use the `external` prop when you wish to navigate to an entirely different site.
+- HDS Link supports a link that opens in a new tab. Use the `openInNewTab` prop when you wish to open the link in a new tab.
+
 
 ## Accessibility
 The HDS link component is primarily a native HTML hyperlink navigational element. The Enter key activates the link and causes the user agent to move focus to the link destination.
 
-Some assistive technologies provide a list of all links on the page to its user. If the text of the links do not clearly give the purpose, or if multiple links with the same name point to different targets (e.g., “read more”), users are forced to locate the link on the page and search surrounding information for context.
+- Remember to tell users if the link is going to open an entirely new site. In HDS React Link this feature is provided through external links (prop `external`). There is a default aria-label for screen readers. This can be overwritten by using the `openInExternalDomainAriaLabel` prop.
+In HDS Core, set a proper `aria-label` to the anchor tag as shown in the examples below.
+
+- Remember to tell users if the link is going to open in a new tab. In HDS React Link this feature is provided through prop `openInNewTab`. There is a default aria-label for screen readers. This can be overwritten by using the `openInNewTabAriaLabel` prop.
+In HDS Core, set a proper `aria-label` to the anchor tag as shown in the examples below.
+
+- Some assistive technologies provide a list of all links on the page to its user. If the text of the links do not clearly give the purpose, or if multiple links with the same name point to different targets (e.g., “read more”), users are forced to locate the link on the page and search surrounding information for context.
 
 Make sure that:
 
@@ -38,9 +47,9 @@ Make sure that:
 ## Usage and variations
 
 ### Inline
-These links are the default link variant. Inline links are used within a sentence or paragraph and are underlined. Links that open new tabs, windows or otherwise lead to other sites should be followed by the external link icon. Inline links leading to a page within the service should not be paired with an icon.
+These links are the default link variant. Inline links are used within a sentence or paragraph and are underlined.
 
-The HDS inline link behaves the same as the standalone link. The underlining helps differentiate them from the text they are placed next to and makes it clear users can interact with them. Inline links should not be used on their own and links leading away from the site should always be paired with an external link icon.
+The underlining helps differentiate them from the text they are placed next to and makes it clear users can interact with them. Inline links should not be used on their own.
 
 <Playground>
   <p style={{ fontSize: '14px' }}>
@@ -82,9 +91,9 @@ The HDS inline link behaves the same as the standalone link. The underlining hel
 ```
 
 ### Standalone
-Standalone links are used on their own or directly following content and they are underlined. They can be paired with an icon.
+Standalone links are used on their own or directly following content and they are underlined.
 
-Standalone links should not be used within sentences or paragraphs. Standalone links are the default link style for HDS and only have an underline in both active and hover states. The standalone link component can be paired with an icon. Use the default 24px icons and place them to the right hand side of the link. Icons should always be the same colour as the link text.
+Standalone links should not be used within sentences or paragraphs.
 
 <Playground>
     <Link href="https://hds.hel.fi/" size="L" style={{ display: 'block', width: 'fit-content' }}>
