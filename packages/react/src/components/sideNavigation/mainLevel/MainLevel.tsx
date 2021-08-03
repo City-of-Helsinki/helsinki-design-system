@@ -5,7 +5,8 @@ import classNames from '../../../utils/classNames';
 import styles from './MainLevel.module.scss';
 import SideNavigationContext from '../SideNavigationContext';
 import { FCWithName } from '../../../common/types';
-import { IconAngleDown } from '../../../icons';
+import { IconAngleDown, IconLinkExternal } from '../../../icons';
+
 
 export type MainLevelProps = {
   /**
@@ -41,6 +42,14 @@ export type MainLevelProps = {
    */
   withDivider?: boolean;
   /**
+   * Boolean indicating whether the main level link will lead user to external domain.
+   */
+  external?: boolean;
+  /**
+   * Aria label for opening main level link in an external domain
+   */
+  openInExternalDomainAriaLabel?: string;
+  /**
    * Override or extend the styles applied to the component
    */
   style?: React.CSSProperties;
@@ -60,15 +69,19 @@ export type MainLevelProps = {
   ) => void;
 };
 
-const LeftIcon = ({ icon }: { icon?: React.ReactNode }) => (
+const LeftIcon = ({ icon }: { icon: React.ReactNode }) => (
   <span className={styles.leftIcon} aria-hidden>
     {icon}
   </span>
 );
 
-const Label = ({ label }: { label: string }) => (
-  <span className={styles.label}>{label}</span>
+const RightIcon = ({ icon, className = '' }: { icon: React.ReactNode; className?: string }) => (
+  <span className={classNames(styles.rightIcon, className)} aria-hidden>
+    {icon}
+  </span>
 );
+
+const Label = ({ label }: { label: string }) => <span className={styles.label}>{label}</span>;
 
 export const MainLevel = ({
   active,
@@ -80,6 +93,8 @@ export const MainLevel = ({
   index,
   label,
   withDivider,
+  external,
+  openInExternalDomainAriaLabel,
   onClick,
   style,
   ...rest
@@ -156,11 +171,7 @@ export const MainLevel = ({
           >
             {icon && <LeftIcon icon={icon} />}
             <Label label={label} />
-            {hasSubLevels && (
-              <span className={classNames(styles.rightIcon, styles.arrowIcon)} aria-hidden>
-                <IconAngleDown aria-hidden />
-              </span>
-            )}
+            {hasSubLevels && <RightIcon icon={<IconAngleDown aria-hidden />} className={styles.arrowIcon} />}
           </button>
           <ul className={styles.mainLevelListMenu} id={menuId} aria-hidden={!open} aria-labelledby={id}>
             {subLevels}
@@ -170,13 +181,14 @@ export const MainLevel = ({
         <a
           {...rest}
           aria-current={active ? 'page' : 'false'}
-          aria-label={label}
+          aria-label={external ? `${label} ${openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon'}` : label}
           id={id}
           onClick={handleMainLevelClick}
           href={href}
         >
           {icon && <LeftIcon icon={icon} />}
           <Label label={label} />
+          {external && <RightIcon icon={<IconLinkExternal aria-hidden />} />}
         </a>
       )}
     </li>
