@@ -6,6 +6,7 @@
   & > a,
   & > button {
     padding-bottom: var(--spacing-3-xs);
+    padding-left: calc(var(--side-navigation-level-inset) + var(--spacing-2-xs));
     padding-top: var(--spacing-3-xs);
     min-height: var(--spacing-xl);
   }
