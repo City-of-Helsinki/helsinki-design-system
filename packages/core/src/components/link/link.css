@@ -45,6 +45,8 @@
 
 .hds-link--large {
   font-size: 18px;
+  display: block;
+  width: fit-content;
 }
 
 .hds-link--small .icon {
