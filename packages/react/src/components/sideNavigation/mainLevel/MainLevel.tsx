@@ -78,7 +78,7 @@ export const MainLevel = ({
   const { autoCollapseOthers, openMainLevels, setMobileMenuOpen, setOpenMainLevels } = useContext(
     SideNavigationContext,
   );
-
+  const activeRef = React.useRef<boolean>(active);
   const open = openMainLevels.includes(index as number);
 
   const subLevels = React.Children.map(children, (child) => {
@@ -112,15 +112,16 @@ export const MainLevel = ({
 
   React.useEffect(() => {
     // Ensure that active main level is initially open
-    if (active && !openMainLevels.includes(index as number)) {
+    if (activeRef.current && !open) {
       if (autoCollapseOthers) {
         // With autoCollapseOther prop only one level can be open at same time
         setOpenMainLevels([index as number]);
       } else {
         setOpenMainLevels([...openMainLevels, index]);
       }
+      activeRef.current = false;
     }
-  }, []);
+  }, [activeRef, open, autoCollapseOthers, setOpenMainLevels, openMainLevels, index]);
 
   return (
     <li
