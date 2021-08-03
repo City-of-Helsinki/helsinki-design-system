@@ -25,9 +25,9 @@ export type MainLevelProps = {
    */
   href?: string;
   /**
-   * Icon of the side navigation main level.
+   * Optional icon of the side navigation main level.
    */
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   /**
    * Index of the side navigation main level.
    */
@@ -59,6 +59,16 @@ export type MainLevelProps = {
       | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
 };
+
+const LeftIcon = ({ icon }: { icon?: React.ReactNode }) => (
+  <span className={styles.leftIcon} aria-hidden>
+    {icon}
+  </span>
+);
+
+const Label = ({ label }: { label: string }) => (
+  <span className={styles.label}>{label}</span>
+);
 
 export const MainLevel = ({
   active,
@@ -144,12 +154,10 @@ export const MainLevel = ({
             id={id}
             onClick={handleMainLevelClick}
           >
-            <span className={styles.iconWrapper} aria-hidden>
-              {icon}
-            </span>
-            <span>{label}</span>
+            {icon && <LeftIcon icon={icon} />}
+            <Label label={label} />
             {hasSubLevels && (
-              <span className={styles.arrowIcon} aria-hidden>
+              <span className={classNames(styles.rightIcon, styles.arrowIcon)} aria-hidden>
                 <IconAngleDown aria-hidden />
               </span>
             )}
@@ -167,10 +175,8 @@ export const MainLevel = ({
           onClick={handleMainLevelClick}
           href={href}
         >
-          <span className={styles.iconWrapper} aria-hidden>
-            {icon}
-          </span>
-          <span>{label}</span>
+          {icon && <LeftIcon icon={icon} />}
+          <Label label={label} />
         </a>
       )}
     </li>
