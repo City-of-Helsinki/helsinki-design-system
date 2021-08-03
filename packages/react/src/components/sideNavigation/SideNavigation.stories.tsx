@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SideNavigation } from './SideNavigation';
-import { IconFaceNeutral, IconFaceSad, IconFaceSmile } from '../../icons';
+import { IconHome } from '../../icons';
 
 export default {
   component: SideNavigation,
@@ -31,87 +31,152 @@ enum ID {
 }
 
 const labels = {
-  mainLevel1: 'Main level 1',
-  mainLevel2: 'Main level 2',
-  mainLevel3: 'Main level 3',
-  mainLevel4: 'Main level 4',
-  subLevel1: 'Sub level 1',
-  subLevel2: 'Sub level 2',
-  subLevel3: 'Sub level 3',
-  subLevel4: 'Sub level 4',
+  mainLevel1: 'Main level accordion',
+  mainLevel2: 'Main level accordion',
+  mainLevel3: 'Main level link',
+  mainLevel4: 'Main level external link',
+  subLevel1: 'Sub level link',
+  subLevel2: 'Sub level link',
+  subLevel3: 'Sub level link',
+  subLevel4: 'Sub level link',
+};
+
+const handleClick = (setActive) => (ev) => {
+  ev.preventDefault();
+  setActive(ev.currentTarget.getAttribute('id') as ID);
 };
 
 export const Default = (args) => {
-  const [active, setActive] = React.useState(ID.MAIN_LEVEL_2);
-
-  const getIsActive = (id: ID) => active === id;
-
-  const handleClick = (ev) => {
-    ev.preventDefault();
-    setActive(ev.currentTarget.getAttribute('id') as ID);
-  };
+  const [active, setActive] = React.useState(ID.SUB_LEVEL_1);
 
   return (
     <SideNavigation {...args}>
       <SideNavigation.MainLevel
-        active={getIsActive(ID.MAIN_LEVEL_1)}
+        active={ID.MAIN_LEVEL_1 === active}
         id={ID.MAIN_LEVEL_1}
-        icon={<IconFaceSmile aria-hidden />}
         label={labels.mainLevel1}
-        onClick={handleClick}
+        onClick={handleClick(setActive)}
       >
         <SideNavigation.SubLevel
-          active={getIsActive(ID.SUB_LEVEL_1)}
+          active={ID.SUB_LEVEL_1 === active}
           id={ID.SUB_LEVEL_1}
           href={ID.SUB_LEVEL_1}
           label={labels.subLevel1}
-          onClick={handleClick}
+          onClick={handleClick(setActive)}
         />
         <SideNavigation.SubLevel
-          active={getIsActive(ID.SUB_LEVEL_2)}
+          active={ID.SUB_LEVEL_2 === active}
           id={ID.SUB_LEVEL_2}
           href={ID.SUB_LEVEL_2}
           label={labels.subLevel2}
-          onClick={handleClick}
+          onClick={handleClick(setActive)}
         />
       </SideNavigation.MainLevel>
       <SideNavigation.MainLevel
-        active={getIsActive(ID.MAIN_LEVEL_2)}
+        active={ID.MAIN_LEVEL_2 === active}
         id={ID.MAIN_LEVEL_2}
-        icon={<IconFaceNeutral aria-hidden />}
         label={labels.mainLevel2}
-        onClick={handleClick}
+        onClick={handleClick(setActive)}
       >
         <SideNavigation.SubLevel
-          active={getIsActive(ID.SUB_LEVEL_3)}
+          active={ID.SUB_LEVEL_3 === active}
           id={ID.SUB_LEVEL_3}
           href={ID.SUB_LEVEL_3}
           label={labels.subLevel3}
-          onClick={handleClick}
+          onClick={handleClick(setActive)}
         />
         <SideNavigation.SubLevel
-          active={getIsActive(ID.SUB_LEVEL_4)}
+          active={ID.SUB_LEVEL_4 === active}
           id={ID.SUB_LEVEL_4}
           href={ID.SUB_LEVEL_4}
           label={labels.subLevel4}
-          onClick={handleClick}
+          onClick={handleClick(setActive)}
         />
       </SideNavigation.MainLevel>
       <SideNavigation.MainLevel
-        active={getIsActive(ID.MAIN_LEVEL_3)}
+        active={ID.MAIN_LEVEL_3 === active}
         id={ID.MAIN_LEVEL_3}
         href={ID.MAIN_LEVEL_3}
-        icon={<IconFaceSad aria-hidden />}
         label={labels.mainLevel3}
-        onClick={handleClick}
+        onClick={handleClick(setActive)}
       />
       <SideNavigation.MainLevel
-        active={getIsActive(ID.MAIN_LEVEL_4)}
+        active={ID.MAIN_LEVEL_4 === active}
         id={ID.MAIN_LEVEL_4}
         href={ID.MAIN_LEVEL_4}
-        icon={<IconFaceSad aria-hidden />}
         label={labels.mainLevel4}
-        onClick={handleClick}
+        external
+        onClick={handleClick(setActive)}
+        withDivider
+      />
+    </SideNavigation>
+  );
+};
+
+export const WithIcons = (args) => {
+  const [active, setActive] = React.useState(ID.MAIN_LEVEL_2);
+
+  return (
+    <SideNavigation {...args}>
+      <SideNavigation.MainLevel
+        active={ID.MAIN_LEVEL_1 === active}
+        id={ID.MAIN_LEVEL_1}
+        label={labels.mainLevel1}
+        onClick={handleClick(setActive)}
+        icon={<IconHome aria-hidden />}
+      >
+        <SideNavigation.SubLevel
+          active={ID.SUB_LEVEL_1 === active}
+          id={ID.SUB_LEVEL_1}
+          href={ID.SUB_LEVEL_1}
+          label={labels.subLevel1}
+          onClick={handleClick(setActive)}
+        />
+        <SideNavigation.SubLevel
+          active={ID.SUB_LEVEL_2 === active}
+          id={ID.SUB_LEVEL_2}
+          href={ID.SUB_LEVEL_2}
+          label={labels.subLevel2}
+          onClick={handleClick(setActive)}
+        />
+      </SideNavigation.MainLevel>
+      <SideNavigation.MainLevel
+        active={ID.MAIN_LEVEL_2 === active}
+        id={ID.MAIN_LEVEL_2}
+        label={labels.mainLevel2}
+        onClick={handleClick(setActive)}
+        icon={<IconHome aria-hidden />}
+      >
+        <SideNavigation.SubLevel
+          active={ID.SUB_LEVEL_3 === active}
+          id={ID.SUB_LEVEL_3}
+          href={ID.SUB_LEVEL_3}
+          label={labels.subLevel3}
+          onClick={handleClick(setActive)}
+        />
+        <SideNavigation.SubLevel
+          active={ID.SUB_LEVEL_4 === active}
+          id={ID.SUB_LEVEL_4}
+          href={ID.SUB_LEVEL_4}
+          label={labels.subLevel4}
+          onClick={handleClick(setActive)}
+        />
+      </SideNavigation.MainLevel>
+      <SideNavigation.MainLevel
+        active={ID.MAIN_LEVEL_3 === active}
+        id={ID.MAIN_LEVEL_3}
+        href={ID.MAIN_LEVEL_3}
+        label={labels.mainLevel3}
+        onClick={handleClick(setActive)}
+        icon={<IconHome aria-hidden />}
+      />
+      <SideNavigation.MainLevel
+        active={ID.MAIN_LEVEL_4 === active}
+        id={ID.MAIN_LEVEL_4}
+        href={ID.MAIN_LEVEL_4}
+        label={labels.mainLevel4}
+        external
+        onClick={handleClick(setActive)}
         withDivider
       />
     </SideNavigation>
@@ -120,8 +185,6 @@ export const Default = (args) => {
 
 export const AutoCollapseOtherOpened = (args) => {
   const [active, setActive] = React.useState(ID.SUB_LEVEL_1);
-
-  const getIsActive = (id: ID) => active === id;
 
   const handleMainLevelClick = (ev: React.MouseEvent<HTMLAnchorElement>) => {
     ev.preventDefault();
@@ -135,20 +198,20 @@ export const AutoCollapseOtherOpened = (args) => {
   return (
     <SideNavigation {...args}>
       <SideNavigation.MainLevel
+        active={ID.MAIN_LEVEL_1 === active}
         id={ID.MAIN_LEVEL_1}
-        icon={<IconFaceSmile aria-hidden />}
         label={labels.mainLevel1}
         onClick={handleMainLevelClick}
       >
         <SideNavigation.SubLevel
-          active={getIsActive(ID.SUB_LEVEL_1)}
+          active={ID.SUB_LEVEL_1 === active}
           id={ID.SUB_LEVEL_1}
           href={ID.SUB_LEVEL_1}
           label={labels.subLevel1}
           onClick={handleSubLevelClick}
         />
         <SideNavigation.SubLevel
-          active={getIsActive(ID.SUB_LEVEL_2)}
+          active={ID.SUB_LEVEL_2 === active}
           id={ID.SUB_LEVEL_2}
           href={ID.SUB_LEVEL_2}
           label={labels.subLevel2}
@@ -156,20 +219,20 @@ export const AutoCollapseOtherOpened = (args) => {
         />
       </SideNavigation.MainLevel>
       <SideNavigation.MainLevel
+        active={ID.MAIN_LEVEL_2 === active}
         id={ID.MAIN_LEVEL_2}
-        icon={<IconFaceNeutral aria-hidden />}
         label={labels.mainLevel2}
         onClick={handleMainLevelClick}
       >
         <SideNavigation.SubLevel
-          active={getIsActive(ID.SUB_LEVEL_3)}
+          active={ID.SUB_LEVEL_3 === active}
           id={ID.SUB_LEVEL_3}
           href={ID.SUB_LEVEL_3}
           label={labels.subLevel3}
           onClick={handleSubLevelClick}
         />
         <SideNavigation.SubLevel
-          active={getIsActive(ID.SUB_LEVEL_4)}
+          active={ID.SUB_LEVEL_4 === active}
           id={ID.SUB_LEVEL_4}
           href={ID.SUB_LEVEL_4}
           label={labels.subLevel4}
@@ -177,10 +240,9 @@ export const AutoCollapseOtherOpened = (args) => {
         />
       </SideNavigation.MainLevel>
       <SideNavigation.MainLevel
-        active={getIsActive(ID.MAIN_LEVEL_3)}
+        active={ID.MAIN_LEVEL_3 === active}
         id={ID.MAIN_LEVEL_3}
         href={ID.MAIN_LEVEL_3}
-        icon={<IconFaceSad aria-hidden />}
         label={labels.mainLevel3}
         onClick={handleSubLevelClick}
       />
