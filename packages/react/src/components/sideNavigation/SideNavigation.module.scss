@@ -65,12 +65,11 @@
   & > a,
   & > button {
     box-sizing: border-box;
-    display: grid;
+    display: flex;
     width: 100%;
     margin: 0;
     padding: var(--spacing-2-xs) var(--side-navigation-level-inset);
     min-height: var(--spacing-2-xl);
-    grid-gap: var(--spacing-xs);
     align-items: center;
     text-align: left;
     text-decoration: none;
