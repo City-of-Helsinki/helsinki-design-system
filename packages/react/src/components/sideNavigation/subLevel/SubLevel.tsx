@@ -39,22 +39,20 @@ export const SubLevel = ({ active, className, href, id, label, mainLevelIndex, o
   const { autoCollapseOthers, openMainLevels, setMobileMenuOpen, setOpenMainLevels } = useContext(
     SideNavigationContext,
   );
-
-  const openMainLevel = () => {
-    if (autoCollapseOthers) {
-      // With autoCollapseOther prop only one level can be open at same time
-      setOpenMainLevels([mainLevelIndex as number]);
-    } else {
-      setOpenMainLevels([...openMainLevels, mainLevelIndex]);
-    }
-  };
+  const activeRef = React.useRef<boolean>(active);
 
   useEffect(() => {
     // Ensure that active subLevel's main level is initially open
-    if (active && !openMainLevels.includes(mainLevelIndex as number)) {
-      openMainLevel();
+    if (activeRef.current && !openMainLevels.includes(mainLevelIndex as number)) {
+      if (autoCollapseOthers) {
+        // With autoCollapseOther prop only one level can be open at same time
+        setOpenMainLevels([mainLevelIndex as number]);
+      } else {
+        setOpenMainLevels([...openMainLevels, mainLevelIndex]);
+      }
+      activeRef.current = false;
     }
-  }, [active]);
+  }, [activeRef, autoCollapseOthers, setOpenMainLevels, openMainLevels, mainLevelIndex]);
 
   return (
     <li className={classNames(styles.subLevel, active && styles.active, className)} style={style}>
