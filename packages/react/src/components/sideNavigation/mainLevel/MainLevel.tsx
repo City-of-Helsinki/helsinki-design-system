@@ -7,7 +7,6 @@ import SideNavigationContext from '../SideNavigationContext';
 import { FCWithName } from '../../../common/types';
 import { IconAngleDown, IconLinkExternal } from '../../../icons';
 
-
 export type MainLevelProps = {
   /**
    * If `true`, the item will be marked as active
