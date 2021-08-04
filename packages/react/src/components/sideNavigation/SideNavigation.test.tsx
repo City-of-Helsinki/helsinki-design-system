@@ -109,22 +109,30 @@ describe('<SideNavigation /> spec', () => {
       </SideNavigation>,
     );
 
+    const mainLevelButton1 = queryButton('mainLevel1');
+    const mainLevelButton2 = queryButton('mainLevel2');
+
+    expect(mainLevelButton1).toHaveAttribute('aria-expanded', 'false');
     expect(queryLink('subLevel1')).not.toBeInTheDocument();
     expect(queryLink('subLevel2')).not.toBeInTheDocument();
 
-    userEvent.click(queryButton('mainLevel1'));
+    userEvent.click(mainLevelButton1);
+    expect(mainLevelButton1).toHaveAttribute('aria-expanded', 'true');
     expect(queryLink('subLevel1')).toBeInTheDocument();
     expect(queryLink('subLevel2')).not.toBeInTheDocument();
 
-    userEvent.click(queryButton('mainLevel2'));
+    userEvent.click(mainLevelButton2);
+    expect(mainLevelButton2).toHaveAttribute('aria-expanded', 'true');
     expect(queryLink('subLevel1')).toBeInTheDocument();
     expect(queryLink('subLevel2')).toBeInTheDocument();
 
-    userEvent.click(queryButton('mainLevel2'));
+    userEvent.click(mainLevelButton2);
+    expect(mainLevelButton2).toHaveAttribute('aria-expanded', 'false');
     expect(queryLink('subLevel1')).toBeInTheDocument();
     expect(queryLink('subLevel2')).not.toBeInTheDocument();
 
-    userEvent.click(queryButton('mainLevel1'));
+    userEvent.click(mainLevelButton1);
+    expect(mainLevelButton1).toHaveAttribute('aria-expanded', 'false');
     expect(queryLink('subLevel1')).not.toBeInTheDocument();
     expect(queryLink('subLevel2')).not.toBeInTheDocument();
   });

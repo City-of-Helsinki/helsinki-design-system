@@ -165,6 +165,7 @@ export const MainLevel = ({
             type="button"
             aria-current={active ? 'page' : 'false'}
             aria-label={label}
+            aria-expanded={open}
             id={id}
             onClick={handleMainLevelClick}
           >
