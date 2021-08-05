@@ -101,7 +101,7 @@ export const Link = ({
       )}
       href={href}
       style={style}
-      {...(openInNewTab && { target: '_blank' })}
+      {...(openInNewTab && { target: '_blank', rel: 'noopener' })}
       {...((openInNewTab || external) && { 'aria-label': comboseAriaLabel() })}
       {...rest}
     >
