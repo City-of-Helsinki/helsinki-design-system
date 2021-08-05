@@ -174,75 +174,75 @@ export const withCustomIcon = (args) => {
       <div>
         <p>Small</p>
         <Link {...args} size="S" href="/#">
-          <IconDocument style={{ marginRight: '4px', verticalAlign: 'text-top' }} size="xs" />
+          <IconDocument style={{ marginRight: '4px', verticalAlign: 'text-top' }} size="xs" aria-hidden />
           Document link
         </Link>
         <br />
         <br />
         <Link {...args} size="S" href="/#">
-          <IconPhone style={{ marginRight: '4px', verticalAlign: 'text-top' }} size="xs" />
+          <IconPhone style={{ marginRight: '4px', verticalAlign: 'text-top' }} size="xs" aria-hidden />
           Phone link
         </Link>
         <br />
         <br />
         <Link {...args} size="S" href="/#">
-          <IconEnvelope style={{ marginRight: '4px', verticalAlign: 'text-top' }} size="xs" />
+          <IconEnvelope style={{ marginRight: '4px', verticalAlign: 'text-top' }} size="xs" aria-hidden />
           Envelope link
         </Link>
         <br />
         <br />
         <Link {...args} size="S" href="/#">
-          <IconPhoto style={{ marginRight: '4px', verticalAlign: 'text-top' }} size="xs" />
+          <IconPhoto style={{ marginRight: '4px', verticalAlign: 'text-top' }} size="xs" aria-hidden />
           Photo link
         </Link>
       </div>
       <div>
         <p>Medium</p>
         <Link {...args} size="M" href="/#">
-          <IconDocument style={{ marginRight: '8px', verticalAlign: 'sub' }} size="s" />
+          <IconDocument style={{ marginRight: '8px', verticalAlign: 'sub' }} size="s" aria-hidden />
           Document link
         </Link>
         <br />
         <br />
         <Link {...args} size="M" href="/#">
-          <IconPhone style={{ marginRight: '8px', verticalAlign: 'sub' }} size="s" />
+          <IconPhone style={{ marginRight: '8px', verticalAlign: 'sub' }} size="s" aria-hidden />
           Phone link
         </Link>
         <br />
         <br />
         <Link {...args} size="M" href="/#">
-          <IconEnvelope style={{ marginRight: '8px', verticalAlign: 'sub' }} size="s" />
+          <IconEnvelope style={{ marginRight: '8px', verticalAlign: 'sub' }} size="s" aria-hidden />
           Envelope link
         </Link>
         <br />
         <br />
         <Link {...args} size="M" href="/#">
-          <IconPhoto style={{ marginRight: '8px', verticalAlign: 'sub' }} size="s" />
+          <IconPhoto style={{ marginRight: '8px', verticalAlign: 'sub' }} size="s" aria-hidden />
           Photo link
         </Link>
       </div>
       <div>
         <p>Large</p>
         <Link {...args} size="L" href="/#">
-          <IconDocument style={{ marginRight: '16px', verticalAlign: 'middle' }} size="l" />
+          <IconDocument style={{ marginRight: '16px', verticalAlign: 'middle' }} size="l" aria-hidden />
           Document link
         </Link>
         <br />
         <br />
         <Link {...args} size="L" href="/#">
-          <IconPhone style={{ marginRight: '16px', verticalAlign: 'middle' }} size="l" />
+          <IconPhone style={{ marginRight: '16px', verticalAlign: 'middle' }} size="l" aria-hidden />
           Phone Link
         </Link>
         <br />
         <br />
         <Link {...args} size="L" href="/#">
-          <IconEnvelope style={{ marginRight: '16px', verticalAlign: 'middle' }} size="l" />
+          <IconEnvelope style={{ marginRight: '16px', verticalAlign: 'middle' }} size="l" aria-hidden />
           Envelope Link
         </Link>
         <br />
         <br />
         <Link {...args} size="L" href="/#">
-          <IconPhoto style={{ marginRight: '16px', verticalAlign: 'middle' }} size="l" />
+          <IconPhoto style={{ marginRight: '16px', verticalAlign: 'middle' }} size="l" aria-hidden />
           Photo Link
         </Link>
       </div>
