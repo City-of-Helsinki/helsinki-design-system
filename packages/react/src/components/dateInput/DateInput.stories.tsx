@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { DateInput } from '.';
+import { Button } from '../button';
+import { IconCrossCircle } from '../../icons';
 
 export default {
   component: DateInput,
@@ -59,3 +61,16 @@ WithoutDatePicker.storyName = 'Without date picker';
 WithoutDatePicker.args = {
   disableDatePicker: true,
 };
+
+export const WithExternalClearValueButton = (args) => {
+  const [value, setValue] = useState<string>('10.2.2022');
+  return (
+    <div className="date-input--external-clear-value-button">
+      <DateInput {...args} value={value} onChange={setValue} />
+      <Button variant="supplementary" onClick={() => setValue('')} iconLeft={<IconCrossCircle aria-hidden />}>
+        Clear value
+      </Button>
+    </div>
+  );
+};
+WithExternalClearValueButton.storyName = 'With external clear value button';
