@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'HelsinkiGrotesk';
   src: url('https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/565d73a693abe0776c801607ac28f0bf.woff') format('woff');
-  font-display: swap;  
+  font-display: swap;
   font-weight: 400;
   font-style: normal;
   text-rendering: optimizeLegibility;
@@ -46,7 +46,7 @@
 @font-face {
   font-family: 'HelsinkiGrotesk';
   src: url('https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/20d494430c87e15e194932b729d48270.woff') format('woff');
-  font-display: swap;  
+  font-display: swap;
   font-weight: 700;
   font-style: italic;
   text-rendering: optimizeLegibility;
@@ -77,14 +77,17 @@ body {
   line-height: var(--lineheight-l);
 }
 
-.password-input--external-show-password-button {
+.password-input--external-show-password-button,
+.date-input--external-clear-value-button {
   display: grid;
   grid-template-columns: 400px 200px;
   gap: 20px;
+  align-items: center;
 }
 
 @media only screen and (max-width: 768px) {
-  .password-input--external-show-password-button {
+  .password-input--external-show-password-button,
+  .date-input--external-clear-value-button {
     grid-template-columns: 300px;
   }
 }
