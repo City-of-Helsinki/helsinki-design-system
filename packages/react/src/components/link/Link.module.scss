@@ -6,6 +6,10 @@
   composes: icon from 'hds-core/lib/components/link/link.css';
 }
 
+.iconLeft {
+  composes: hds-icon-left from 'hds-core/lib/components/link/link.css';
+}
+
 .verticalAlignSmallOrMediumIcon {
   composes: vertical-align-small-or-medium-icon from 'hds-core/lib/components/link/link.css';
 }

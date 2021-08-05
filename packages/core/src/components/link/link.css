@@ -49,6 +49,8 @@
   width: fit-content;
 }
 
+/* ICONS */
+
 .hds-link--small .icon {
   margin-left: 7px;
 }
@@ -59,4 +61,19 @@
 
 .hds-link--large .icon {
   margin-left: var(--spacing-s);
+}
+
+.hds-link--small .hds-icon-left {
+  margin-right: 4px;
+  vertical-align: text-top;
+}
+
+.hds-link--medium .hds-icon-left {
+  margin-right: 8px;
+  vertical-align: sub;
+}
+
+.hds-link--large .hds-icon-left {
+  margin-right: 16px;
+  vertical-align: middle;
 }
