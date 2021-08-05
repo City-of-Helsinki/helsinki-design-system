@@ -10,7 +10,7 @@
 .hds-link:visited {
   color: var(--link-visited-color);
 }
-.hds-link:visited svg g path {
+.hds-link:visited svg g path { /* Fixes external link icon visited color for Safari */
   fill: var(--link-visited-color);
 }
 
