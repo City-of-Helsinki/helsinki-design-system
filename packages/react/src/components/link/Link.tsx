@@ -28,6 +28,10 @@ export type LinkProps = Omit<
    */
   href: string;
   /**
+   * Element placed on the left side of the link text
+   */
+  iconLeft?: React.ReactNode;
+  /**
    * Boolean indicating whether the link will open in new tab or not.
    */
   openInNewTab?: boolean;
@@ -61,6 +65,7 @@ export const Link = ({
   disableVisitedStyles = false,
   external = false,
   href,
+  iconLeft,
   openInNewTab = false,
   openInExternalDomainAriaLabel,
   openInNewTabAriaLabel,
@@ -100,6 +105,11 @@ export const Link = ({
       {...((openInNewTab || external) && { 'aria-label': comboseAriaLabel() })}
       {...rest}
     >
+      {iconLeft && (
+        <span className={styles.iconLeft} aria-hidden="true">
+          {iconLeft}
+        </span>
+      )}
       {children}
       {external && (
         <IconLinkExternal
