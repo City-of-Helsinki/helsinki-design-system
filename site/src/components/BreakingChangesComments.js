@@ -16,7 +16,7 @@ const BreakingChangesComments = () => {
       .then((response) => response.json())
       .then((resultData) => {
         setComments(resultData);
-      }); // set data for the number of stars
+      });
   }, []);
 
   return (
