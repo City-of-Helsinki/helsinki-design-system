@@ -10,7 +10,6 @@ export const Default = () => `
   <a href="/?path=/story/components-link--all" class="hds-link hds-link--small">Default link</a>
 `;
 
-
 export const InternalLinks = () => `
   <a href="/?path=/story/components-link--all" class="hds-link hds-link--small">Internal link size small</a>
   <br/>
