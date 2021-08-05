@@ -14,4 +14,14 @@ describe('<Link /> spec', () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+  it('external link that is opened in to a new tab should not have any basic accessibility issues', async () => {
+    const { container, asFragment } = render(
+      <Link external openInNewTab href="https://hds.hel.fi">
+        Test link
+      </Link>,
+    );
+    expect(asFragment()).toMatchSnapshot();
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
 });
