@@ -39,7 +39,7 @@ export const ExternalLinks = () => `
 ExternalLinks.storyName = 'External links';
 
 export const openInNewTabLink = () => `
-  <a href="https://hds.hel.fi" class="hds-link hds-link--small" target="_blank" aria-label="Link that opens in a new tab. Opens in a new tab. Opens in external domain">
+  <a href="https://hds.hel.fi" class="hds-link hds-link--small" rel="noopener" target="_blank" aria-label="Link that opens in a new tab. Opens in a new tab. Opens in external domain">
     Link that opens in a new tab<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-hidden="true"></i>
   </a>
 `
