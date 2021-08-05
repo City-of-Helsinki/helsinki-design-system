@@ -116,7 +116,7 @@ export const Link = ({
           size={mapLinkSizeToExternalIconSize[size]}
           className={classNames(
             styles.icon,
-            styles[size === 'L' ? 'verticalAlignBigIcon' : 'verticalAlignSmallOrMediumIcon'],
+            size === 'L' ? styles.verticalAlignBigIcon : styles.verticalAlignSmallOrMediumIcon,
           )}
           aria-hidden
         />
