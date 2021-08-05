@@ -81,6 +81,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
     const pickerWrapperRef = useRef<HTMLDivElement>();
     const inputRef = useRef<HTMLInputElement>();
+    const didMount = !!inputRef.current;
     const [inputValue, setInputValue] = useState<string>(providedValue || defaultValue);
     const [showPicker, setShowPicker] = useState(false);
     const getToggleButton = (): HTMLButtonElement | null => inputRef.current?.parentNode.querySelector('button');
@@ -89,7 +90,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
      * Set the input value if value prop changes
      */
     useEffect(() => {
-      if (providedValue) {
+      if (didMount) {
         setInputValue(providedValue);
       }
     }, [providedValue]);
