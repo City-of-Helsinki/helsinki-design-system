@@ -301,6 +301,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           onChange={(event) => {
             handleInputChange(event.target.value);
           }}
+          defaultValue={defaultValue}
           value={inputValue}
           ref={inputRef}
           inputMode="numeric"
