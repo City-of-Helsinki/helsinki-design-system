@@ -81,9 +81,9 @@ export const DatePicker = (providedProps: DayPickerProps) => {
       setCurrentMonth(startOfMonth(selected));
     } else {
       setSelectedDate(null);
-      setCurrentMonth(initialMonth);
+      setCurrentMonth(startOfMonth(initialMonth));
     }
-  }, [selected, maxDate, minDate]);
+  }, [selected, maxDate, minDate, initialMonth]);
 
   /**
    * Focus the selected date button
