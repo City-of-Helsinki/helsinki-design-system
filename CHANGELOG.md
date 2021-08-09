@@ -6,6 +6,57 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - Aug, 9, 2021
+
+### Core
+
+#### Added
+- Link
+
+### React Components
+
+#### Added
+- Link
+
+#### Fixed
+- [Form Components] Tooltip focus style
+- [Form Components] Incorrect error icon
+- [Notification] Inline notification z-index
+- [TimeInput] Time input value on clear
+
+### Design kit
+
+#### Breaking
+- Updated all HDS libraries to the Sketch version 74 (74.1)
+
+#### Added
+- [Links] New Link symbols
+- Two main link variants
+  - Inline links are positioned within a text element
+  - Standalone links are used without an accompanying text element (similarly to buttons)
+- Variants for different link types
+  - Internal/External
+  - File
+  - Phone number
+  - Email address
+- [Color] Shared style for a visited link
+- [Typography] Shared styles for a visited link
+
+### Documentation
+
+#### Added
+- Link component documentation
+- Upcoming breaking changes page which lists near future changes that may be considered breaking
+- Guideline page for contributing for implementation
+- Tutorial page for getting started with Abstract
+- Links to Abstract collections to the Designers Getting started page
+
+#### Changed
+- Updated Roadmap
+- Added a small note about Sketch Assistant link requiring Sketch to be installed
+- Typo fixes
+- Fixes to broken links
+
 ## [1.2.0] - June, 21, 2021
 
 ### Core

@@ -1,0 +1,80 @@
+.hds-link {
+  --link-visited-color: #551a8b;
+  --link-color: var(--color-bus);
+  text-decoration: underline;
+  color: var(--link-color);
+  box-sizing: border-box;
+  border: 3px solid transparent;
+}
+
+.hds-link:visited {
+  color: var(--link-visited-color);
+}
+.hds-link:visited svg g path { /* Fixes external link icon visited color for Safari */
+  fill: var(--link-visited-color);
+}
+
+.hds-link:focus {
+  border: 3px solid var(--color-coat-of-arms);
+  outline: none;
+}
+
+.hds-link:focus-visible {
+  outline: none;
+}
+
+.hds-link .vertical-align-small-or-medium-icon {
+  vertical-align: sub;
+}
+
+.hds-link .vertical-align-big-icon {
+  vertical-align: middle;
+}
+
+.hds-link--disable-visited-styles:visited {
+  color: var(--color-bus);
+}
+
+.hds-link--small {
+  font-size: 14px;
+}
+
+.hds-link--medium {
+  font-size: 16px;
+}
+
+.hds-link--large {
+  font-size: 18px;
+  display: block;
+  width: fit-content;
+}
+
+/* ICONS */
+
+.hds-link--small .icon {
+  margin-left: 7px;
+}
+
+.hds-link--medium .icon {
+  margin-left: var(--spacing-2-xs);
+  margin-top: -3px; /* Fixes lineheight problem for external inline link */
+}
+
+.hds-link--large .icon {
+  margin-left: var(--spacing-s);
+}
+
+.hds-link--small .hds-icon-left {
+  margin-right: 4px;
+  vertical-align: text-top;
+}
+
+.hds-link--medium .hds-icon-left {
+  margin-right: 8px;
+  vertical-align: sub;
+}
+
+.hds-link--large .hds-icon-left {
+  margin-right: 16px;
+  vertical-align: middle;
+}
