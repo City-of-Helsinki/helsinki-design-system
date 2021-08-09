@@ -11,7 +11,7 @@ import 'hds-core';
 import styles from './Combobox.module.scss';
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 import classNames from '../../../utils/classNames';
-import { IconAlertCircle, IconAngleDown } from '../../../icons';
+import { IconAlertCircleFill, IconAngleDown } from '../../../icons';
 import { SelectedItems } from '../../../internal/selectedItems/SelectedItems';
 import { multiSelectReducer, onMultiSelectStateChange, SelectCustomTheme, SelectProps } from '../select';
 import { DROPDOWN_MENU_ITEM_HEIGHT, getIsInSelectedOptions } from '../dropdownUtils';
@@ -543,7 +543,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
       {/* INVALID TEXT */}
       {invalid && error && (
         <div id={`${id}-error`} className={styles.errorText} aria-hidden>
-          <IconAlertCircle className={styles.invalidIcon} />
+          <IconAlertCircleFill className={styles.invalidIcon} />
           {error}
         </div>
       )}

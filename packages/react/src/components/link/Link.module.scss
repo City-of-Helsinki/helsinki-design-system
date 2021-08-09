@@ -1,0 +1,35 @@
+.link {
+  composes: hds-link from 'hds-core/lib/components/link/link.css';
+}
+
+.icon {
+  composes: icon from 'hds-core/lib/components/link/link.css';
+}
+
+.iconLeft {
+  composes: hds-icon-left from 'hds-core/lib/components/link/link.css';
+}
+
+.verticalAlignSmallOrMediumIcon {
+  composes: vertical-align-small-or-medium-icon from 'hds-core/lib/components/link/link.css';
+}
+
+.verticalAlignBigIcon {
+  composes: vertical-align-big-icon from 'hds-core/lib/components/link/link.css';
+}
+
+.disableVisitedStyles {
+  composes: hds-link--disable-visited-styles from 'hds-core/lib/components/link/link.css';
+}
+
+.linkS {
+  composes: hds-link--small from 'hds-core/lib/components/link/link.css';
+}
+
+.linkM {
+  composes: hds-link--medium from 'hds-core/lib/components/link/link.css';
+}
+
+.linkL {
+  composes: hds-link--large from 'hds-core/lib/components/link/link.css';
+}
