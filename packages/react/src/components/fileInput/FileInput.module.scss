@@ -1,0 +1,10 @@
+@import "../../styles/common";
+
+.fileInputWrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.fileInput {
+  @extend %hiddenFromScreen;
+}
