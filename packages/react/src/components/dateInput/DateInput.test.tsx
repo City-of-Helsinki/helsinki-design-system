@@ -303,11 +303,18 @@ describe('<DateInput /> spec', () => {
     // The initial value should be there
     expect(screen.getByRole('textbox')).toHaveValue('10.02.2022');
 
+    expect(screen.getByLabelText('Month')).toHaveValue('1');
+    expect(screen.getByLabelText('Year')).toHaveValue('2022');
+
+    // Set an empty string as the input value
     await act(async () => {
       rerender(<DateInput id="date" value="" />);
     });
 
     // The initial value should be cleared
     expect(screen.getByRole('textbox')).toHaveValue('');
+
+    expect(screen.getByLabelText('Month')).toHaveValue('0');
+    expect(screen.getByLabelText('Year')).toHaveValue('2021');
   });
 });
