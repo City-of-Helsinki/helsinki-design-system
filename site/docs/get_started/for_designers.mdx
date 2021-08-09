@@ -37,7 +37,7 @@ Always keep these core principles in mind when making design decisions:
 ### Install the tools
 The HDS design workflow is based on **Sketch** and **Abstract** (if you have access to Helsinki organisation):
 - <Link href="https://www.sketch.com/" external>Sketch</Link> is a <strong>vector graphics editor</strong> and is widely adopted by designers to create user interface designs for web and mobile services.
-- <Link href="https://www.abstract.com/" external>Abstract</Link> is a <strong>design collaboration and version and managegement tool</strong> that enables designers to share Sketch files and libraries easily. By leveraging and extends the technology of Git, Abstract provides design teams with a lightweight workflow and stable tools so designers can work together with confidence.
+- <Link href="https://www.abstract.com/" external>Abstract</Link> is a <strong>design collaboration and version and management tool</strong> that enables designers to share Sketch files and libraries easily. By leveraging and extends the technology of Git, Abstract provides design teams with a lightweight workflow and stable tools so designers can work together with confidence.
 
 
 If you are a newcomer to Sketch or Abstract, they both offer some great tutorials and help 
@@ -52,83 +52,31 @@ If you are a newcomer to Sketch or Abstract, they both offer some great tutorial
 
 <p>Helsinki Grotesk font can be purchased from <Link href="https://camelot-typefaces.com/helsinki-grotesk" external>Camelot Typefaces website</Link></p>
 
-### Import HDS libraries
+### Set up your Abstract project
+To set up a project in Abstract, you will need to:
 
-You can start using the HDS design libraries to your project in two ways:
+1. Create a new Abstract project
+2. Add at least one design (Sketch) file to the project
+3. Link HDS libraries to your project
+4. Create a branch and start making design changes
 
-#### 1. Downloading HDS Design kit and linking libraries in Sketch
-**This option gives you a stable version controlled package of all components released in the design system. ** You can choose what libraries you want to import, but we recommend importing all of them for best experience.
+**If you are new to Abstract**, please read [HDS Getting started with Abstract tutorial](/tutorials/abstract-getting-started) for more information on how to set up and use Abstract.
 
-1. Head over to <Link href="https://github.com/City-of-Helsinki/helsinki-design-system/releases" external>HDS GitHub repository releases</Link>.
-2. Download `design-kit` (preferably the newest stable version) to your computer and unzip the package.
-3. Open Sketch and from the top bar choose _Sketch > Preferences_.
-4. Choose tab _Libraries_ and press the button _Add library_.
-5. Browse to the unzipped folder you just downloaded and select libraries you want to import. Note, you can select multiple libraries by holding the shift key. 
-
-<Image src="../../static/fordesigners-hds-designkit.png" alt="Linking libraries in Sketch preferences" style="width: 100%; max-width:500px" viewable/>
-
-#### 2. Linking libraries from Abstract
-**This option keeps the components used in your designs in sync with the Master library.** When changes are made to the Master Library, you’ll have the option to update your symbols from Master via an alert in the top right corner in Sketch.
-
-You will need permissions to access the City of Helsinki Abstract organisation for using libraries from Abstract.
-
-<p><strong>Note! Library versions in Abstract are considered development versions. They can change and things may be unstable.</strong> Using libraries from Abstract allows you to get your hands also on the newest components that are not released yet. If you need more reliable libraries, follow the instructions of option 1. above to download latest stable <Link href="https://github.com/City-of-Helsinki/helsinki-design-system/releases" external>HDS design kit release</Link>.</p>
-
-1. In Abstract, open up a branch within the project you are working on. You'll either need an invite to a existing project in the City of Helsinki organisation, or permissions to create a new project. See <Link href="https://help.abstract.com/hc/en-us/articles/360050374371-Start-working-in-Abstract" external>Abstract documentation</Link> for more information on joining organizations and starting projects.
-2. From the top of the branch view, select the _Files_ tab
-3. From the top of the file list, select _Add File > Link Library…_  
-4. Select the _Helsinki Design System project_  
-5. Select one or multiple HDS Libraries and click _Link Libraries_
-6. Merge branch to the project master.
-
-<Image src="../../static/fordesigners-abstract-link-libraries.png " alt="Linking HDS master libraries" style="width: 100%; max-width:850px" viewable/>
-
-<Image src="../../static/fordesigners-abstract-link-libraries-2.png " alt="Selecting Helsinki Design System libraries from the list" style="width: 100%; max-width:850px" viewable/>
-
-## Using libraries
-
-HDS components and icons live in the HDS libraries as Sketch symbols. 
-
-There are two kinds of symbols in Sketch — **_library symbols_** and **_document symbols_**. _Library symbols_ are available in any Sketch document, while _document symbols_ are specific to the document in which they are found. 
-
-The HDS component symbols are _library symbols_. **Do not detach symbols from the library.** Once a symbol is detached, you will no longer receive updates as they are released.
-
-<Image src="../../static/fordesigners-abstract-link-libraries-3.png" alt="Using HDS master library files" style="width: 100%; max-width:850px" viewable/>
-
-
-### Adding component symbols to layouts
-Symbols are mainly organised into library files by component, except form components (checkboxes, radio buttons, dropdowns and text fields), that are grouped into one library HDS Form Components file for convenience. 
-
-**You can add symbols to your layout in two ways:**
-1. From the _Insert_ menu, by selecting _Symbols > HDS [component name]_. After selecting a HDS component, you’ll see the variations and states of that component. Select the desired variant and place it on your artboard.
-
-<Image src="../../static/fordesigners-component-textfield-insert.png" alt="Inserting TextInput component from Sketch Insert menu" style="width: 100%; max-width:850px" viewable/>
-
-
-2. From the _Components_ tab in the sidebar on the left, by selecting _HDS [component name]_. After selecting a HDS component, you’ll see the variations and states of that component. Select the desired variant from the sidebar, and drag it to your artboard. 
-
-You can also select _All_ and filter the components list by component or variant name.
-
-<Image src="../../static/fordesigners-component-insert.png" alt="Inserting component from Components tab" style="width: 100%; max-width:850px" />
-
+## Customising HDS components
+HDS components are made to be customisable to allow expression of the vibrant Helsinki brand.
 
 ### Customising component symbols
 The component symbols use _smart layout_ for easy resizing. You can also configure the content and styling of symbol parts from the _Overrides_ section of symbol properties.
 
 _When changing the colour or other styles of component symbols, be sure your custom design adheres to the design guidelines._ Styles within components are carefully considered. We do not recommend detaching the symbol to change default styles.
 
-<Image src="../../static/fordesigners-component-overrides.png" alt="Customising symbol overrides" style="width: 100%; max-width:850px" viewable/>
-
-
+<Image src="../../static/fordesigners-component-overrides.png" alt="Customising symbol overrides" style="width: 100%; max-width:850px; margin-bottom:24px;" viewable/>
 
 ### Styling text elements
 Linking the HDS Typography library to your project adds the possibility to give HDS text styles to your text elements. You can add text styles to your layout in two ways:
 
 1. You can add a new text element with appropriate text style from the Insert menu: Select the HDS Typography from the Text styles section, choose the desired text style, and click anywhere on your artboard. This creates a new text element with the chosen style.
-
-<Image src="../../static/fordesigners-typography-header-insert.png" alt="Inserting header styles" style="width: 100%; max-width:850px" viewable/>
-
+<Image src="../../static/fordesigners-typography-header-insert.png" alt="Inserting header styles" style="width: 100%; max-width:850px; margin-bottom:24px;" viewable/>
 
 2. You can give text styles to existing text elements by selecting the text element and changing its style from the _Appearance_ sidebar.
-
-<Image src="../../static/fordesigners-typography-textstyle-appearance.png" alt="Changing text elements style" style="width: 100%; width: 100%; max-width:850px" viewable/>
+<Image src="../../static/fordesigners-typography-textstyle-appearance.png" alt="Changing text elements style" style="width: 100%; width: 100%; max-width:850px; margin-bottom:24px;" viewable/>
