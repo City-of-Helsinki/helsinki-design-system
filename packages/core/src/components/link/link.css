@@ -57,7 +57,7 @@
 
 .hds-link--medium .icon {
   margin-left: var(--spacing-2-xs);
-  margin-top: -5px; /* Fixes lineheight problem for external inline link */
+  margin-top: -3px; /* Fixes lineheight problem for external inline link */
 }
 
 .hds-link--large .icon {
