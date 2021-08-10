@@ -136,9 +136,9 @@ const HeaderWrapper = ({ children, logoLanguage, onTitleClick, title, titleAriaL
         href={titleUrl}
         aria-label={titleAriaLabel}
         onKeyPress={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') onTitleClick();
+          if (e.key === 'Enter' || e.key === ' ') onTitleClick(e);
         }}
-        onClick={onTitleClick}
+        onClick={(event) => onTitleClick(event)}
         {...(!titleUrl && onTitleClick && { tabIndex: 0 })}
       >
         <Logo className={styles.logo} language={logoLanguage} aria-hidden />
