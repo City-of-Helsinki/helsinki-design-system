@@ -8,6 +8,7 @@ import LargeParagraph from "../../src/components/LargeParagraph";
 import Colors from "../../src/components/Colors";
 import ColorBox from "../../src/components/ColorBox";
 import ColorContrast from "../../src/components/ColorContrast";
+import Image from "../../src/components/Image";
 import Example from "../../src/components/Example";
 import Link from "../../src/components/Link";
 import { IconError } from 'hds-react';
@@ -159,7 +160,11 @@ HDS focus style colour can be customised to better fit the theme of the service.
 - While not officially part of WCAG yet, HDS also follows <Link href="https://www.w3.org/WAI/WCAG21/Understanding/focus-visible-enhanced" external>WCAG 2.4.11 Focus Visible (Enchanced)</Link>. Due to their draft status, these requirements may still change. But we still recommend following them for future-proofing.
 
 ## Brand colour palettes
-HDS offers palettes with handpicked colours to make the colour selection easier for projects. It is recommended to use one of these palettes in your project.
+HDS offers palettes with handpicked colours to make the colour selection easier for projects. It is recommended to use one of these palettes in your project. 
+
+Palettes consist of three (3) colours; a Primary, a Secondary and an Accent colour. Three brand colours is considered to be a maximum amount for all Helsinki user interfaces. Alongside with the brand colours it is allowed to use UI helper colours (black, white and grayscale) and status colours (error, alert, success, info). To determine a rough balance between the colours, please refer to the colour balance illustration below.
+
+<Image src="../../static/colour-balance@2x.png" alt="Illustration of how HDS colours should be balanced" style="max-width:565px" viewable/>
 
 You are also allowed to create a custom palette for your project if needed. However, it is a good practise to stick with three (3) colours in your custom palettes.
 
@@ -177,10 +182,11 @@ You are also allowed to create a custom palette for your project if needed. Howe
 | <ColorBox color="var(--color-copper)"/> <br /> **Kupari** | <ColorBox color="var(--color-fog-light)"/> <br /> Sumu light | <ColorBox color="var(--color-suomenlinna)"/> <br /> Suomenlinna |
 
 ### How to use palettes?
-Palettes consist of three (3) colours; a Primary, a Secondary and an Accent colour. 
-HDS components are designed in a way that it is easy to switch their colour palette. 
+HDS components are designed in a way that it is easy to switch their colour palette. HDS uses the `palette-bus` by default. This palette can be easily changed by following [HDS palette customisation tutorial](/).
 
-Not sure whether you should use a Primary, a Secondary or an Accent colour? It may be a good idea to take a look at palette examples in HDS Abstract.
+In components that use multiple colours, refer to their respective documentation page. For example, HDS primary Buttons use a Primary colour while secondary Buttons use a Secondary colour.
+
+Creating a custom component and not sure whether you should use a Primary, a Secondary or an Accent colour? It may be a good idea to take a look at [palette examples in HDS Abstract](/).
 
 ## Tokens
 <p>The colour tokens are provided as CSS and SASS variables in <Link href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/design-tokens" external>hds-design-tokens repository in GitHub</Link>.</p>
