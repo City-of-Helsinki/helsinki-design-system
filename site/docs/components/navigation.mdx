@@ -26,7 +26,7 @@ import LargeParagraph from "../../src/components/LargeParagraph";
 - Always position navigation to the top of the page. Keep the navigation in place so the user can always easily locate it. It is recommended to include navigation on every page of the service.
 - Navigation component is built to follow HDS [breakpoint tokens](/design-tokens/breakpoints). While it is recommended to follow HDS breakpoint tokens, you may alter navigation width to fit your service's needs.
 - **Try to keep the order of actions (search, user, language select) consistent in navigation.** Do not change the default order without a good reason.
-  - If there are less than three available languages and the services navigation is simple, available languages can be listed as links in the action row instead of a language select dropdown for better usability.
+  - If there are less than three available languages and the services navigation is simple, available languages can be listed as links in the action row instead of a language select dropdown for better usability. **Remember to provide a lang-attribute for each language option to help assistive technology to read the language correctly**.
 - Keep navigation menu link labels clear and concise. Prefer max 1-2 word long labels. Avoid starting multiple menu link labels with the same word.
 
 
@@ -233,9 +233,9 @@ HDS Navigation component supports many commonly used features out of the box. Th
     <Navigation.Search searchLabel="Search" searchPlaceholder="Search page" />
     <Navigation.User label="Sign in" />
     <Navigation.LanguageSelector label="FI">
-      <Navigation.Item label="Suomeksi" />
-      <Navigation.Item label="På svenska" />
-      <Navigation.Item label="In English" />
+      <Navigation.Item lang="fi" label="Suomeksi" />
+      <Navigation.Item lang="sv" label="På svenska" />
+      <Navigation.Item lang="en" label="In English" />
     </Navigation.LanguageSelector>
   </Navigation.Actions>
 </Navigation>
@@ -253,9 +253,9 @@ HDS Navigation component supports many commonly used features out of the box. Th
     <Navigation.Search searchLabel="Search" searchPlaceholder="Search page" />
     <Navigation.User label="Sign in" />
     <Navigation.LanguageSelector label="FI">
-      <Navigation.Item label="Suomeksi" />
-      <Navigation.Item label="På svenska" />
-      <Navigation.Item label="In English" />
+      <Navigation.Item lang="fi" label="Suomeksi" />
+      <Navigation.Item lang="sv" label="På svenska" />
+      <Navigation.Item lang="en" label="In English" />
     </Navigation.LanguageSelector>
   </Navigation.Actions>
 </Navigation>
