@@ -113,7 +113,7 @@
   // focus outline
   .rowItem:focus::before,
   .dropdownItem:focus-within::before {
-    border-radius: 2px;
+    border-radius: 0;
     box-shadow: 0 0 0 var(--header-focus-outline-width) var(--item-focus-outline-color);
     content: '';
     height: calc(100% - var(--header-focus-outline-width) * 2);
