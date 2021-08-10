@@ -2,7 +2,7 @@
 name: Enhancement
 about: Request a change to an existing component, pattern, token or documentation.
 title: ''
-labels: 'i: enhancement'
+labels: [enhancement]
 assignees: ''
 
 ---
