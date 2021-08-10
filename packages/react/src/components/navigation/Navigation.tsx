@@ -54,7 +54,7 @@ export type NavigationProps = React.PropsWithChildren<{
   /**
    * Callback fired when the title or logo is clicked
    */
-  onTitleClick?: () => void;
+  onTitleClick?: (e?: Event) => void;
   /**
    * ID of the element to jump to when the "skip to content" accessibility shortcut is clicked
    */
