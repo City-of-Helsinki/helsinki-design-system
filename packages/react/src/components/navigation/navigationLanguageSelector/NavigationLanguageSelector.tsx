@@ -5,7 +5,7 @@ import { MenuButton, MenuButtonProps } from '../../../internal/menuButton/MenuBu
 
 export const NavigationLanguageSelector = ({ children, id = 'languageSelector', label, ...rest }: MenuButtonProps) => {
   React.useEffect(() => {
-    React.Children.forEach(children, (child:React.ReactElement) => {
+    React.Children.forEach(children, (child: React.ReactElement) => {
       if (!child.props.lang) {
         // eslint-disable-next-line no-console
         console.warn(`NavigationLanguageSelector item "${child.props.label}" is missing a lang property.`);
