@@ -10,7 +10,7 @@
 .searchToggleButton {
   @extend %buttonReset;
   align-items: center;
-  border-radius: 2px;
+  border-radius: 0;
   display: flex;
   outline: none;
   padding: var(--spacing-3-xs);
@@ -23,7 +23,7 @@
 .searchContainer {
   align-items: center;
   border: var(--spacing-4-xs) solid var(--color-black-50);
-  border-radius: var(--header-focus-outline-border-radius);
+  border-radius: 0;
   display: flex;
   height: var(--spacing-xl);
   position: relative;
