@@ -11,7 +11,7 @@ export const NavigationLanguageSelector = ({ children, id = 'languageSelector', 
         console.warn(`NavigationLanguageSelector item "${child.props.label}" is missing a lang property.`);
       }
     });
-  });
+  }, [children]);
 
   return (
     <MenuButton className={styles.languageDropdown} id={id} label={label} menuOffset={10} {...rest} closeOnItemClick>
