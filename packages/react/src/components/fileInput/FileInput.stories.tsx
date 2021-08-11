@@ -11,4 +11,4 @@ export default {
   args: {},
 };
 
-export const Example = (args) => <FileInput {...args} />;
+export const Example = (args) => <FileInput {...args} accept="png,jpg" acceptLabel="Only .png and .jpg files." />;
