@@ -47,3 +47,23 @@ exports[`<Notification /> spec renders the component 1`] = `
   </section>
 </DocumentFragment>
 `;
+
+exports[`<Notification /> spec renders the component without optional label 1`] = `
+<DocumentFragment>
+  <section
+    aria-atomic="true"
+    aria-label="Notification"
+    class="inline notification default info"
+  >
+    <div
+      class="content"
+    >
+      <div
+        class="body"
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
