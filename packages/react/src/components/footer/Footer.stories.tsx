@@ -18,28 +18,33 @@ const Utilities = () => (
       <Footer.Item
         title="Link to Facebook"
         aria-label="Link to Facebook"
-        icon={<IconFacebook />}
+        icon={<IconFacebook aria-hidden />}
         href="https://facebook.com"
       />
       <Footer.Item
         title="Link to Twitter"
         aria-label="Link to Twitter"
-        icon={<IconTwitter />}
+        icon={<IconTwitter aria-hidden />}
         href="https://twitter.com"
       />
       <Footer.Item
         title="Link to Instagram"
         aria-label="Link to Instagram"
-        icon={<IconInstagram />}
+        icon={<IconInstagram aria-hidden />}
         href="https://instagram.com"
       />
       <Footer.Item
         title="Link to Youtube"
         aria-label="Link to Youtube"
-        icon={<IconYoutube />}
+        icon={<IconYoutube aria-hidden />}
         href="https://youtube.com"
       />
-      <Footer.Item title="Link to Tiktok" aria-label="Link to Tiktok" icon={<IconTiktok />} href="https://tiktok.com" />
+      <Footer.Item
+        title="Link to Tiktok"
+        aria-label="Link to Tiktok"
+        icon={<IconTiktok aria-hidden />}
+        href="https://tiktok.com"
+      />
     </Footer.SoMe>
     <Footer.Item href="https://google.com" onClick={(e) => e.preventDefault()} label="Contact us" />
     <Footer.Item href="https://google.com" onClick={(e) => e.preventDefault()} label="Give feedback" />
