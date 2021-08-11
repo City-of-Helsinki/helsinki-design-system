@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Design tokens
 
 #### Changed
-- Update color-tram token value from #009246 to #008741
+- Update color-tram token value from `#009246` to `#008741`
 
 ### React Components
 
@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-- [Color] Spåra from #009246 to #008741 for better accessibility
+- [Color] Spåra from `#009246` to `#008741` for better accessibility
   - This ensures that the Spåra is now easier to use both as a background color and as a text color
 - [Form Components] Removed rounded corners from search input fields
 
