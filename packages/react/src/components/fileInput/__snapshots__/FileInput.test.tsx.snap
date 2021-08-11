@@ -3,43 +3,57 @@
 exports[`<FileInput /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
-    class="fileInputWrapper"
+    class="root"
   >
     <label
-      class="label button secondary"
-      for="undefined-input"
+      class="label hidden"
+      for="test-file-input"
     >
-      <svg
-        aria-hidden="true"
-        class="icon s icon icon"
-        role="img"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g
-          fill="none"
-          fill-rule="evenodd"
-        >
-          <path
-            d="M0 0h24v24H0z"
-          />
-          <path
-            d="M13 6v5h5v2h-5v5h-2v-5H6v-2h5V6z"
-            fill="currentColor"
-          />
-        </g>
-      </svg>
-      <span
-        class="label"
-      >
-        Add files
-      </span>
-      <input
-        class="fileInput"
-        id="undefined-input"
-        type="file"
-      />
+      Add files
     </label>
+    <div
+      class="inputWrapper"
+    >
+      <div
+        class="fileInputWrapper"
+      >
+        <label
+          class="label button secondary"
+          for="test-file-input"
+        >
+          <svg
+            aria-hidden="true"
+            class="icon s icon icon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <path
+                d="M0 0h24v24H0z"
+              />
+              <path
+                d="M13 6v5h5v2h-5v5h-2v-5H6v-2h5V6z"
+                fill="currentColor"
+              />
+            </g>
+          </svg>
+          <span
+            class="label"
+          >
+            Add files
+          </span>
+          <input
+            class="fileInput"
+            id="test-file-input"
+            type="file"
+          />
+        </label>
+      </div>
+    </div>
   </div>
 </DocumentFragment>
 `;
