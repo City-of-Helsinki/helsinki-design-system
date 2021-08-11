@@ -8,3 +8,24 @@
 .fileInput {
   @extend %hiddenFromScreen;
 }
+
+.fileList {
+  list-style: none;
+  max-width: 500px;
+  padding: 0;
+}
+
+.fileListItem {
+  background-color: var(--color-info-light);
+  display: flex;
+  padding: var(--spacing-s) var(--spacing-2-xs);
+
+  & + & {
+    margin-top: var(--spacing-s);
+  }
+}
+
+.fileListItemLabel {
+  margin-left: var(--spacing-xs);
+
+}

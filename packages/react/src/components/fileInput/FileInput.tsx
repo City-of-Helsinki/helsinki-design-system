@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 // import core base styles
 import 'hds-core';
 import classNames from '../../utils/classNames';
-import { IconPlus } from './../../icons';
+import { IconPlus, IconPhoto } from '../../icons';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import styles from './FileInput.module.scss';
 import buttonStyles from '../button/Button.module.scss';
@@ -13,6 +13,10 @@ type FileInputProps = {
    * A comma separated list of unique file type specifiers describing file types to allow
    */
   accept?: string;
+  /**
+   * A Boolean that indicates that more than one file can be chosen
+   */
+  multiple?: boolean;
   /**
    * Additional class names to apply to the file input
    */
@@ -71,6 +75,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
       style,
       successText,
       accept,
+      multiple,
     }: FileInputProps,
     ref?: React.Ref<HTMLInputElement>,
   ) => {
@@ -86,16 +91,42 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
       successText,
     };
 
+    const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+      setSelectedFiles(Array.from(event.target.files));
+    };
+
     return (
-      <InputWrapper {...wrapperProps}>
-        <div className={styles.fileInputWrapper}>
-          <label className={classNames(styles.label, buttonStyles.button, buttonStyles.secondary)} htmlFor={id}>
-            <IconPlus aria-hidden className={classNames(styles.icon, buttonStyles.icon)} />
-            <span className={buttonStyles.label}>{label}</span>
-            <input ref={ref} type="file" id={id} className={styles.fileInput} {...(accept ? { accept } : {})} />
-          </label>
-        </div>
-      </InputWrapper>
+      <>
+        <InputWrapper {...wrapperProps}>
+          <div className={styles.fileInputWrapper}>
+            <label className={classNames(styles.label, buttonStyles.button, buttonStyles.secondary)} htmlFor={id}>
+              <IconPlus aria-hidden className={classNames(styles.icon, buttonStyles.icon)} />
+              <span className={buttonStyles.label}>{label}</span>
+              <input
+                type="file"
+                id={id}
+                onChange={handleChange}
+                ref={ref}
+                className={styles.fileInput}
+                {...(accept ? { accept } : {})}
+                {...(multiple ? { multiple } : {})}
+              />
+            </label>
+          </div>
+        </InputWrapper>
+        {selectedFiles.length > 0 && (
+          <ul className={styles.fileList}>
+            {selectedFiles.map((file: File) => (
+              <li key={file.name} className={styles.fileListItem}>
+                <IconPhoto aria-hidden />
+                <span className={styles.fileListItemLabel}>{file.name}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </>
     );
   },
 );
