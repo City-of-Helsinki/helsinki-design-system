@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Design tokens
 
 #### Changed
-- Update color-tram Spåra value from `#009246` to `#008741`
+- Update color Spåra (color-tram) token value from `#009246` to `#008741`
 
 ### React Components
 
