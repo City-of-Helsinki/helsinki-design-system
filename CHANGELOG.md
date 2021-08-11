@@ -25,9 +25,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Navigation] Fix Navigation component render when optional label property is missing
 - [Footer] Fix footer icon a11y problems
 
+### Design kit
+
+#### Changed
+
+- [Color] Spåra from #009246 to #008741 for better accessibility
+  - This ensures that the Spåra is now easier use both as a background color and as a text color
+- [Form Components] Removed rounded corners from search input fields
+
 ### Documentation
 
 #### Changed
+- [Color] Updated documentation for the new Tram (color-tram) color
 - Add note about Navigation.LanguageSelector option's lang attribute
 
 ## [1.3.0] - Aug, 9, 2021
