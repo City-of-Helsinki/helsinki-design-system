@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [DateInput] Support clearing DateInput value programmatically
 
 #### Fixed
-- [Navigation] Remove border radius from navigation focus style
+- [Navigation] Remove border-radius from navigation focus style
 - [Navigation] Add warning if lang-attribute is missing from Navigation.LanguageSelector option
 - [Navigation] Fix Navigation component render when optional label property is missing
 - [Footer] Fix footer icon a11y problems
@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 - [Color] Spåra from #009246 to #008741 for better accessibility
-  - This ensures that the Spåra is now easier use both as a background color and as a text color
+  - This ensures that the Spåra is now easier to use both as a background color and as a text color
 - [Form Components] Removed rounded corners from search input fields
 
 ### Documentation
