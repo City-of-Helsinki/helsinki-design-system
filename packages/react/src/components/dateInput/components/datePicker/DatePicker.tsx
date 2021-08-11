@@ -31,7 +31,7 @@ const keyCode = {
 
 export const DatePicker = (providedProps: DayPickerProps) => {
   const {
-    initialMonth,
+    initialMonth = new Date(),
     onMonthChange,
     onDaySelect,
     language,
@@ -55,7 +55,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
   /**
    * Current month
    */
-  const [currentMonth, setCurrentMonth] = useState(startOfMonth(selected || initialMonth || new Date()));
+  const [currentMonth, setCurrentMonth] = useState(startOfMonth(selected || initialMonth));
 
   /**
    * Currently focused date
@@ -81,8 +81,9 @@ export const DatePicker = (providedProps: DayPickerProps) => {
       setCurrentMonth(startOfMonth(selected));
     } else {
       setSelectedDate(null);
+      setCurrentMonth(startOfMonth(initialMonth));
     }
-  }, [selected, maxDate, minDate]);
+  }, [selected, maxDate, minDate, initialMonth]);
 
   /**
    * Focus the selected date button

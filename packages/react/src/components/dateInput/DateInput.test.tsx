@@ -296,4 +296,25 @@ describe('<DateInput /> spec', () => {
     // No date should be selected in the calendar
     expect(container.querySelector('[aria-pressed="true"]')).toBeNull();
   });
+
+  it('should be able to clear the value', async () => {
+    const { rerender } = render(<DateInput id="date" label="Foo" value="10.02.2022" />);
+
+    // The initial value should be there
+    expect(screen.getByRole('textbox')).toHaveValue('10.02.2022');
+
+    expect(screen.getByLabelText('Month')).toHaveValue('1');
+    expect(screen.getByLabelText('Year')).toHaveValue('2022');
+
+    // Set an empty string as the input value
+    await act(async () => {
+      rerender(<DateInput id="date" value="" />);
+    });
+
+    // The initial value should be cleared
+    expect(screen.getByRole('textbox')).toHaveValue('');
+
+    expect(screen.getByLabelText('Month')).toHaveValue('0');
+    expect(screen.getByLabelText('Year')).toHaveValue('2021');
+  });
 });

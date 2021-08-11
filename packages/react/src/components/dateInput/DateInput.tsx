@@ -69,8 +69,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       language = 'en',
       openButtonAriaLabel,
       selectButtonLabel,
-      defaultValue = '',
-      value: providedValue = '',
+      defaultValue,
+      value: providedValue,
       minDate,
       maxDate,
       ...textInputProps
@@ -81,7 +81,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
     const pickerWrapperRef = useRef<HTMLDivElement>();
     const inputRef = useRef<HTMLInputElement>();
-    const [inputValue, setInputValue] = useState<string>(providedValue || defaultValue);
+    const didMount = useRef(false);
+    const [inputValue, setInputValue] = useState<string>(providedValue || defaultValue || '');
     const [showPicker, setShowPicker] = useState(false);
     const getToggleButton = (): HTMLButtonElement | null => inputRef.current?.parentNode.querySelector('button');
 
@@ -89,8 +90,10 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
      * Set the input value if value prop changes
      */
     useEffect(() => {
-      if (providedValue) {
-        setInputValue(providedValue);
+      if (didMount.current) {
+        setInputValue(providedValue || '');
+      } else {
+        didMount.current = true;
       }
     }, [providedValue]);
 
