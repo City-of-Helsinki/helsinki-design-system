@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Design tokens
 
 #### Changed
-- Update color-tram token value from `#009246` to `#008741`
+- Update color-tram Spåra value from `#009246` to `#008741`
 
 ### React Components
 
@@ -36,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Documentation
 
 #### Changed
-- [Color] Updated documentation for the new Tram (color-tram) color
+- [Color] Updated documentation for the new Spåra (color-tram) color
 - Add note about Navigation.LanguageSelector option's lang attribute
 
 ## [1.3.0] - Aug, 9, 2021
