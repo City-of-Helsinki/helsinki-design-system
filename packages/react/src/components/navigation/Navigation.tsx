@@ -54,7 +54,7 @@ export type NavigationProps = React.PropsWithChildren<{
   /**
    * Callback fired when the title or logo is clicked
    */
-  onTitleClick?: () => void;
+  onTitleClick?: (e?: Event) => void;
   /**
    * ID of the element to jump to when the "skip to content" accessibility shortcut is clicked
    */
@@ -136,9 +136,9 @@ const HeaderWrapper = ({ children, logoLanguage, onTitleClick, title, titleAriaL
         href={titleUrl}
         aria-label={titleAriaLabel}
         onKeyPress={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') onTitleClick();
+          if ((e.key === 'Enter' || e.key === ' ') && onTitleClick) onTitleClick(e);
         }}
-        onClick={onTitleClick}
+        onClick={(event) => onTitleClick && onTitleClick(event)}
         {...(!titleUrl && onTitleClick && { tabIndex: 0 })}
       >
         <Logo className={styles.logo} language={logoLanguage} aria-hidden />
