@@ -84,12 +84,12 @@ export const Default = ({ searchLabel, searchPlaceholder, authenticated, userNam
 
       {/* LANGUAGE SELECTOR */}
       <Navigation.LanguageSelector label="FI">
-        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="Suomeksi" />
-        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="På svenska" />
-        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="In English" />
-        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="En français" />
-        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="Auf deutsch" />
-        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="По-русски" />
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="fi" label="Suomeksi" />
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="sv" label="På svenska" />
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="en" label="In English" />
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="fr" label="En français" />
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="de" label="Auf deutsch" />
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="ru" label="По-русски" />
       </Navigation.LanguageSelector>
     </Navigation.Actions>
   </Navigation>
@@ -130,12 +130,12 @@ export const Inline = ({ searchLabel, searchPlaceholder, authenticated, userName
 
         {/* LANGUAGE SELECTOR */}
         <Navigation.LanguageSelector label="FI">
-          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="Suomeksi" />
-          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="På svenska" />
-          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="In English" />
-          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="En français" />
-          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="Auf deutsch" />
-          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="По-русски" />
+          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="fi" label="Suomeksi" />
+          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="sv" label="På svenska" />
+          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="en" label="In English" />
+          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="fr" label="En français" />
+          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="de" label="Auf deutsch" />
+          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="ru" label="По-русски" />
         </Navigation.LanguageSelector>
       </Navigation.Actions>
     </Navigation>
@@ -179,12 +179,12 @@ export const CustomTheme = ({ searchLabel, searchPlaceholder, authenticated, use
 
         {/* LANGUAGE SELECTOR */}
         <Navigation.LanguageSelector label="FI">
-          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="Suomeksi" />
-          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="På svenska" />
-          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="In English" />
-          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="En français" />
-          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="Auf deutsch" />
-          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} label="По-русски" />
+          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="fi" label="Suomeksi" />
+          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="sv" label="På svenska" />
+          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="en" label="In English" />
+          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="fr" label="En français" />
+          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="de" label="Auf deutsch" />
+          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="ru" label="По-русски" />
         </Navigation.LanguageSelector>
       </Navigation.Actions>
     </Navigation>
@@ -408,6 +408,7 @@ export const Example = ({ userName, ...args }) => {
                     e.preventDefault();
                     setLanguage(lang.value);
                   }}
+                  lang={lang.value}
                   label={lang.label}
                 />
               );
