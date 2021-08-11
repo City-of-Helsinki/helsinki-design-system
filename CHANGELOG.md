@@ -6,6 +6,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - Aug, 11, 2021
+
+### Design tokens
+
+#### Changed
+- Update color Spåra (color-tram) token value from `#009246` to `#008741`
+
+### React Components
+
+#### Changed
+- [Navigation] Pass native event to onTitleClick
+- [DateInput] Support clearing DateInput value programmatically
+
+#### Fixed
+- [Navigation] Remove border-radius from navigation focus style
+- [Navigation] Add warning if lang-attribute is missing from Navigation.LanguageSelector option
+- [Navigation] Fix Navigation component render when optional label property is missing
+- [Footer] Fix footer icon a11y problems
+
+### Design kit
+
+#### Changed
+
+- [Color] Spåra from `#009246` to `#008741` for better accessibility
+  - This ensures that the Spåra is now easier to use both as a background color and as a text color
+- [Form Components] Removed rounded corners from search input fields
+
+### Documentation
+
+#### Changed
+- [Color] Updated documentation for the new Spåra (color-tram) color
+- Add note about Navigation.LanguageSelector option's lang attribute
+
 ## [1.3.0] - Aug, 9, 2021
 
 ### Core
