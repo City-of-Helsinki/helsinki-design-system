@@ -11,8 +11,25 @@ export default {
   args: {},
 };
 
-export const Example = (args) => <FileInput {...args} id="file-input" accept=".png,.jpg" helperText="Only .png and .jpg files." />;
+export const Example = (args) => {
+  const [file, setFile] = React.useState<FileList>();
+  console.log('selected file', file);
+  return (
+    <FileInput {...args} id="file-input" onChange={setFile} accept=".png,.jpg" helperText="Only .png and .jpg files." />
+  );
+};
 
-export const Multiple = (args) => (
-  <FileInput {...args} id="file-input" multiple accept=".png,.jpg" helperText="Only .png and .jpg files." />
-);
+export const Multiple = (args) => {
+  const [files, setFiles] = React.useState<FileList>();
+  console.log('selected files', files);
+  return (
+    <FileInput
+      {...args}
+      id="file-input"
+      onChange={setFiles}
+      accept=".png,.jpg"
+      helperText="Only .png and .jpg files."
+      multiple
+    />
+  );
+};
