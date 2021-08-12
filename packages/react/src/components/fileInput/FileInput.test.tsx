@@ -1,5 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
 import { FileInput } from './FileInput';
@@ -14,5 +16,20 @@ describe('<FileInput /> spec', () => {
     const { container } = render(<FileInput id="test-file-input" label="Add files" />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  test('should list added files', async () => {
+    const inputLabel = 'Add files';
+    const fileNameA = 'test-file-a.png';
+    const fileNameB = 'test-file-b.png';
+    const files: File[] = [
+      new File(['test-file-a'], fileNameA, { type: 'image/png' }),
+      new File(['test-file-b'], fileNameB, { type: 'image/png' }),
+    ];
+    render(<FileInput id="test-file-input" label={inputLabel} multiple />);
+    const fileUpload = screen.getByLabelText('Add files');
+    userEvent.upload(fileUpload, files);
+    expect(screen.getByText(fileNameA)).toBeInTheDocument();
+    expect(screen.getByText(fileNameB)).toBeInTheDocument();
   });
 });
