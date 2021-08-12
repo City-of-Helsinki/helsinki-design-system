@@ -106,6 +106,8 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
           onChange(selectedFiles);
         }
         setSuccessText(successMessage);
+      } else {
+        setSuccessText(undefined)
       }
     }, [selectedFiles, onChange, successMessage, setSuccessText]);
 
