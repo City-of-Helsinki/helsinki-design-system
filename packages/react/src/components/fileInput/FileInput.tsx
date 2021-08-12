@@ -84,14 +84,14 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
       errorText,
       helperText,
       id,
-      label,
       hideLabel: true,
       required,
       style,
       successText,
     };
-
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+    const hasFilesSelected = selectedFiles.length > 0;
+    const fileListId = `${id}-list`;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       setSelectedFiles(Array.from(event.target.files));
@@ -112,12 +112,13 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
                 className={styles.fileInput}
                 {...(accept ? { accept } : {})}
                 {...(multiple ? { multiple } : {})}
+                {...(hasFilesSelected ? { 'aria-describedby': fileListId } : {})}
               />
             </label>
           </div>
         </InputWrapper>
-        {selectedFiles.length > 0 && (
-          <ul className={styles.fileList}>
+        {hasFilesSelected && (
+          <ul id={fileListId} className={styles.fileList}>
             {selectedFiles.map((file: File) => (
               <li key={file.name} className={styles.fileListItem}>
                 <IconPhoto aria-hidden />
