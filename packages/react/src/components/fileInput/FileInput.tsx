@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 
 // import core base styles
 import 'hds-core';
@@ -38,6 +38,10 @@ type FileInputProps = {
    */
   label?: string | React.ReactNode;
   /**
+   * Callback fired when the fileList changes
+   */
+  onChange?: (FileList) => void;
+  /**
    * If `true`, prevents the user from changing the value of the field (not from interacting with the field)
    */
   readOnly?: boolean;
@@ -71,6 +75,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
       helperText,
       id,
       label = 'Add files',
+      onChange,
       required,
       style,
       successText,
@@ -89,13 +94,17 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
       style,
       successText,
     };
-    const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-    const hasFilesSelected = selectedFiles.length > 0;
+    const [selectedFiles, setSelectedFiles] = useState<FileList | undefined>();
+    const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
     const fileListId = `${id}-list`;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-      setSelectedFiles(Array.from(event.target.files));
+      setSelectedFiles(event.target.files);
     };
+
+    useEffect(() => {
+      onChange && onChange(selectedFiles)
+    }, [onChange, selectedFiles])
 
     return (
       <>
@@ -119,7 +128,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
         </InputWrapper>
         {hasFilesSelected && (
           <ul id={fileListId} className={styles.fileList}>
-            {selectedFiles.map((file: File) => (
+            {Array.from(selectedFiles).map((file: File) => (
               <li key={file.name} className={styles.fileListItem}>
                 <IconPhoto aria-hidden />
                 <span className={styles.fileListItemLabel}>{file.name}</span>

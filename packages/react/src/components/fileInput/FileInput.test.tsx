@@ -32,4 +32,17 @@ describe('<FileInput /> spec', () => {
     expect(screen.getByText(fileNameA)).toBeInTheDocument();
     expect(screen.getByText(fileNameB)).toBeInTheDocument();
   });
+
+  test('should call onChange with FileList', async () => {
+    let testFileHolder;
+    const onChangeCallback = (files:FileList) => {
+      testFileHolder = files
+    }
+    const inputLabel = 'Add files';
+    const file = new File(['test-file'], 'test-file', { type: 'image/png' });
+    render(<FileInput id="test-file-input" label={inputLabel} multiple onChange={onChangeCallback} />);
+    const fileUpload = screen.getByLabelText('Add files');
+    userEvent.upload(fileUpload, [file]);
+    expect(testFileHolder).toEqual(fileUpload.files);
+  });
 });
