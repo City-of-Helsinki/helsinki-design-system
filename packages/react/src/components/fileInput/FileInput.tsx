@@ -101,7 +101,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
     };
 
     useEffect(() => {
-      if (hasFilesSelected) {
+      if (selectedFiles && selectedFiles.length > 0) {
         if (onChange) {
           onChange(selectedFiles);
         }
