@@ -10,6 +10,14 @@ import buttonStyles from '../button/Button.module.scss';
 
 type FileInputProps = {
   /**
+   * The id of the input element
+   */
+  id: string;
+  /**
+   * A text which is shown after successful file add
+   */
+  successMessage: string;
+  /**
    * A comma separated list of unique file type specifiers describing file types to allow
    */
   accept?: string;
@@ -29,10 +37,6 @@ type FileInputProps = {
    * The helper text content that will be shown below the input
    */
   helperText?: string;
-  /**
-   * The id of the input element
-   */
-  id: string;
   /**
    * The label for the input
    */
@@ -54,14 +58,6 @@ type FileInputProps = {
    */
   style?: React.CSSProperties;
   /**
-   * The success text content that will be shown below the input
-   */
-  successText?: string;
-  /**
-   * The value of the input element, required for a controlled component
-   */
-  value?: string;
-  /**
    * The `ref` is forwarded to the native input element.
    */
   ref?: React.Ref<HTMLInputElement>;
@@ -70,41 +66,48 @@ type FileInputProps = {
 export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
   (
     {
+      id,
+      successMessage,
       className = '',
       errorText,
       helperText,
-      id,
       label = 'Add files',
       onChange,
       required,
       style,
-      successText,
       accept,
       multiple,
     }: FileInputProps,
     ref?: React.Ref<HTMLInputElement>,
   ) => {
+    const [selectedFiles, setSelectedFiles] = useState<FileList | undefined>();
+    const [successText, setSuccessText] = useState<string | undefined>();
+    const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
+    const fileListId = `${id}-list`;
+
     const wrapperProps = {
       className,
       errorText,
+      successText,
       helperText,
       id,
       hideLabel: true,
       required,
       style,
-      successText,
     };
-    const [selectedFiles, setSelectedFiles] = useState<FileList | undefined>();
-    const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
-    const fileListId = `${id}-list`;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       setSelectedFiles(event.target.files);
     };
 
     useEffect(() => {
-      onChange && onChange(selectedFiles)
-    }, [onChange, selectedFiles])
+      if (hasFilesSelected) {
+        if (onChange) {
+          onChange(selectedFiles);
+        }
+        setSuccessText(successMessage);
+      }
+    }, [selectedFiles, onChange, successMessage, setSuccessText]);
 
     return (
       <>
