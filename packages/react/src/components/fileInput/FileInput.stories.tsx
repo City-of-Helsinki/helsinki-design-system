@@ -11,8 +11,8 @@ export default {
   args: {},
 };
 
-export const Example = (args) => <FileInput {...args} accept=".png,.jpg" helperText="Only .png and .jpg files." />;
+export const Example = (args) => <FileInput {...args} id="file-input" accept=".png,.jpg" helperText="Only .png and .jpg files." />;
 
 export const Multiple = (args) => (
-  <FileInput {...args} multiple accept=".png,.jpg" helperText="Only .png and .jpg files." />
+  <FileInput {...args} id="file-input" multiple accept=".png,.jpg" helperText="Only .png and .jpg files." />
 );
