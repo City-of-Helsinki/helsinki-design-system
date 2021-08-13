@@ -18,6 +18,14 @@ type FileInputProps = {
    */
   successMessage: string;
   /**
+   * The label for the input
+   */
+  label: string;
+  /**
+   * The label for the file button
+   */
+  buttonLabel: string;
+  /**
    * A comma separated list of unique file type specifiers describing file types to allow
    */
   accept?: string;
@@ -38,10 +46,6 @@ type FileInputProps = {
    */
   helperText?: string;
   /**
-   * The label for the input
-   */
-  label?: string | React.ReactNode;
-  /**
    * Callback fired when the fileList changes
    */
   onChange?: (FileList) => void;
@@ -57,21 +61,18 @@ type FileInputProps = {
    * Override or extend the styles applied to the component
    */
   style?: React.CSSProperties;
-  /**
-   * The `ref` is forwarded to the native input element.
-   */
-  ref?: React.Ref<HTMLInputElement>;
 };
 
 export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
   (
     {
       id,
+      label,
+      buttonLabel,
       successMessage,
       className = '',
       errorText,
       helperText,
-      label = 'Add files',
       onChange,
       required,
       style,
@@ -87,11 +88,11 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
 
     const wrapperProps = {
       className,
-      errorText,
-      successText,
       helperText,
+      successText,
+      errorText,
       id,
-      hideLabel: true,
+      label,
       required,
       style,
     };
@@ -107,7 +108,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
         }
         setSuccessText(successMessage);
       } else {
-        setSuccessText(undefined)
+        setSuccessText(undefined);
       }
     }, [selectedFiles, onChange, successMessage, setSuccessText]);
 
@@ -117,7 +118,7 @@ export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
           <div className={styles.fileInputWrapper}>
             <label className={classNames(styles.label, buttonStyles.button, buttonStyles.secondary)} htmlFor={id}>
               <IconPlus aria-hidden className={classNames(styles.icon, buttonStyles.icon)} />
-              <span className={buttonStyles.label}>{label}</span>
+              <span className={buttonStyles.label}>{buttonLabel}</span>
               <input
                 type="file"
                 id={id}
