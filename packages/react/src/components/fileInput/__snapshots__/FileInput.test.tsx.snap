@@ -5,6 +5,12 @@ exports[`<FileInput /> spec renders the component 1`] = `
   <div
     class="root"
   >
+    <label
+      class="label "
+      for="test-file-input"
+    >
+      Choose a file
+    </label>
     <div
       class="inputWrapper"
     >
@@ -38,7 +44,7 @@ exports[`<FileInput /> spec renders the component 1`] = `
           <span
             class="label"
           >
-            Add files
+            Add file
           </span>
           <input
             class="fileInput"

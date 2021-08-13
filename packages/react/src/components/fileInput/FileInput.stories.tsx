@@ -21,7 +21,8 @@ export const Example = (args) => {
       {...args}
       id="file-input"
       successMessage="File added successfully."
-      label="Add file"
+      label="Choose a file"
+      buttonLabel="Add file"
       onChange={setFile}
       accept=".png,.jpg"
       helperText="Only .png and .jpg files."
@@ -39,7 +40,8 @@ export const Multiple = (args) => {
       {...args}
       id="file-input"
       successMessage="Files added successfully."
-      label="Add files"
+      label="Choose files"
+      buttonLabel="Add files"
       onChange={setFiles}
       accept=".png,.jpg"
       helperText="Only .png and .jpg files."

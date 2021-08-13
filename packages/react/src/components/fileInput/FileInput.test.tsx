@@ -8,14 +8,24 @@ import { FileInput } from './FileInput';
 describe('<FileInput /> spec', () => {
   it('renders the component', () => {
     const { asFragment } = render(
-      <FileInput id="test-file-input" successMessage="File added successfully." label="Add file" />,
+      <FileInput
+        id="test-file-input"
+        successMessage="File added successfully."
+        label="Choose a file"
+        buttonLabel="Add file"
+      />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should not have basic accessibility issues', async () => {
     const { container } = render(
-      <FileInput id="test-file-input" successMessage="File added successfully." label="Add file" />,
+      <FileInput
+        id="test-file-input"
+        successMessage="File added successfully."
+        label="Choose a file"
+        buttonLabel="Add file"
+      />,
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
@@ -29,7 +39,15 @@ describe('<FileInput /> spec', () => {
       new File(['test-file-a'], fileNameA, { type: 'image/png' }),
       new File(['test-file-b'], fileNameB, { type: 'image/png' }),
     ];
-    render(<FileInput id="test-file-input" successMessage="Files added successfully." label={inputLabel} multiple />);
+    render(
+      <FileInput
+        id="test-file-input"
+        successMessage="Files added successfully."
+        label="Choose files"
+        buttonLabel={inputLabel}
+        multiple
+      />,
+    );
     const fileUpload = screen.getByLabelText('Add files');
     userEvent.upload(fileUpload, files);
     expect(screen.getByText(fileNameA)).toBeInTheDocument();
@@ -47,7 +65,8 @@ describe('<FileInput /> spec', () => {
       <FileInput
         id="test-file-input"
         successMessage="Files added successfully."
-        label={inputLabel}
+        label="Choose files"
+        buttonLabel={inputLabel}
         multiple
         onChange={onChangeCallback}
       />,

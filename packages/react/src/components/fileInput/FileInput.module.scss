@@ -2,11 +2,16 @@
 
 .fileInputWrapper {
   display: inline-block;
+  margin-top: var(--spacing-xs);
   position: relative;
 }
 
 .fileInput {
   @extend %hiddenFromScreen;
+}
+
+.fileInputNotification {
+  margin-left: var(--spacing-s);
 }
 
 .fileList {
@@ -27,5 +32,4 @@
 
 .fileListItemLabel {
   margin-left: var(--spacing-xs);
-
 }
