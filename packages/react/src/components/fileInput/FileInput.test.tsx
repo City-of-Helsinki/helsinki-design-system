@@ -45,7 +45,7 @@ describe('<FileInput /> spec', () => {
     const fileNameB = 'doc.json';
     const files: File[] = [
       new File(['test-file-a'], fileNameA, { type: 'image/png' }),
-      new File(['test-file-b'], fileNameB, { type: 'application/.json' }),
+      new File(['test-file-b'], fileNameB, { type: 'application/json' }),
     ];
     render(
       <FileInput
