@@ -18,7 +18,7 @@ exports[`<FileInput /> spec renders the component 1`] = `
         class="fileInputWrapper"
       >
         <label
-          class="label button secondary"
+          class="fileInputButton button secondary"
           for="test-file-input"
         >
           <svg
