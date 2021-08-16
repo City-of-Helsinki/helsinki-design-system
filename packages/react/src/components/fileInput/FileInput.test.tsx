@@ -90,4 +90,31 @@ describe('<FileInput /> spec', () => {
     userEvent.upload(fileUpload, [file]);
     expect(testFileHolder).toEqual([file]);
   });
+
+  test('should append files to list with multiple props onChange with a list of files', async () => {
+    const inputLabel = 'Add files';
+    const firstFileName = 'test-file-a';
+    const firstFile = new File(['test-file'], firstFileName, { type: 'image/png' });
+    const secondFileName = 'test-file-b';
+    const secondFile = new File(['test-file'], secondFileName, { type: 'image/png' });
+    render(
+      <FileInput
+        id="test-file-input"
+        label="Choose files"
+        buttonLabel={inputLabel}
+        successMessage="Files added successfully."
+        removeButtonLabel="remove"
+        removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
+        removeSuccessMessage="File removed."
+        onChange={() => {}}
+        multiple
+      />,
+    );
+    const fileUpload = screen.getByLabelText('Add files');
+    userEvent.upload(fileUpload, [firstFile]);
+    userEvent.upload(fileUpload, [secondFile]);
+    expect(screen.getByText(firstFileName)).toBeInTheDocument();
+    expect(screen.getByText(secondFileName)).toBeInTheDocument();
+    expect(screen.getAllByRole('listitem').length).toEqual(2);
+  });
 });

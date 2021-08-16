@@ -116,7 +116,11 @@ export const FileInput = ({
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files);
     if (files.length > 0) {
-      setSelectedFiles(Array.from(event.target.files));
+      if (multiple) {
+        setSelectedFiles([...selectedFiles, ...files]);
+      } else {
+        setSelectedFiles(files);
+      }
       setSuccessText(successMessage);
     } else {
       setSuccessText(undefined);
