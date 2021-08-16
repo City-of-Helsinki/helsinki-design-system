@@ -5,6 +5,9 @@ import { axe } from 'jest-axe';
 
 import { FileInput } from './FileInput';
 
+// eslint-disable-next-line
+const onChangeTest = () => {};
+
 describe('<FileInput /> spec', () => {
   it('renders the component', () => {
     const { asFragment } = render(
@@ -16,7 +19,7 @@ describe('<FileInput /> spec', () => {
         removeButtonLabel="remove"
         removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
         removeSuccessMessage="File removed."
-        onChange={() => {}}
+        onChange={onChangeTest}
       />,
     );
     expect(asFragment()).toMatchSnapshot();
@@ -32,7 +35,7 @@ describe('<FileInput /> spec', () => {
         removeButtonLabel="remove"
         removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
         removeSuccessMessage="File removed."
-        onChange={() => {}}
+        onChange={onChangeTest}
       />,
     );
     const results = await axe(container);
@@ -56,7 +59,7 @@ describe('<FileInput /> spec', () => {
         removeButtonLabel="remove"
         removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
         removeSuccessMessage="File removed."
-        onChange={() => {}}
+        onChange={onChangeTest}
         multiple
       />,
     );
@@ -106,7 +109,7 @@ describe('<FileInput /> spec', () => {
         removeButtonLabel="remove"
         removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
         removeSuccessMessage="File removed."
-        onChange={() => {}}
+        onChange={onChangeTest}
         multiple
       />,
     );
