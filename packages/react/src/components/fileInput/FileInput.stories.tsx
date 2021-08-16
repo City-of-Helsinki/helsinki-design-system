@@ -53,3 +53,25 @@ export const Multiple = (args) => {
     />
   );
 };
+
+export const Disabled = (args) => {
+  const [file, setFile] = React.useState<FileList>();
+  // eslint-disable-next-line no-console
+  console.log('selected file', file);
+
+  return (
+    <FileInput
+      {...args}
+      disabled
+      id="file-input"
+      label="Choose a file"
+      buttonLabel="Add file"
+      removeButtonLabel="Remove"
+      removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
+      successMessage="File added successfully."
+      onChange={setFile}
+      accept=".png,.jpg"
+      helperText="Only .png and .jpg files."
+    />
+  );
+};

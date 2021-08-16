@@ -50,6 +50,10 @@ type FileInputProps = {
    */
   className?: string;
   /**
+   * If `true`, the file input will be disabled
+   */
+  disabled?: boolean;
+  /**
    * The error text content that will be shown below the input
    */
   errorText?: string;
@@ -78,6 +82,7 @@ export const FileInput = ({
   removeButtonLabel,
   removeButtonAriaLabel,
   successMessage,
+  disabled,
   className = '',
   errorText,
   helperText,
@@ -128,14 +133,18 @@ export const FileInput = ({
   return (
     <>
       <InputWrapper {...wrapperProps}>
-        <div className={styles.fileInputWrapper}>
-          <label className={classNames(styles.label, buttonStyles.button, buttonStyles.secondary)} htmlFor={id}>
+        <div className={classNames(styles.fileInputWrapper, disabled && styles.disabled)}>
+          <label
+            className={classNames(styles.fileInputButton, buttonStyles.button, buttonStyles.secondary)}
+            htmlFor={id}
+          >
             <IconPlus aria-hidden className={classNames(styles.icon, buttonStyles.icon)} />
             <span className={buttonStyles.label}>{buttonLabel}</span>
             <input
               type="file"
               id={id}
               onChange={handleChange}
+              disabled={disabled}
               className={styles.fileInput}
               {...(accept ? { accept } : {})}
               {...(multiple ? { multiple } : {})}
