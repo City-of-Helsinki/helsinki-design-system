@@ -8,6 +8,16 @@ import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import styles from './FileInput.module.scss';
 import buttonStyles from '../button/Button.module.scss';
 
+type FileProperty = keyof File;
+
+const isEqualFileBy = (givenProperties: FileProperty[], a: File, b: File): boolean => {
+  const sameProps: FileProperty[] = givenProperties.filter((property: FileProperty) => a[property] === b[property]);
+  return sameProps.length === givenProperties.length;
+};
+
+const findDuplicateByNameAndType = (files: File[], fileToCompare: File): File | undefined =>
+  files.find((file: File) => isEqualFileBy(['name', 'type'], file, fileToCompare));
+
 type FileInputProps = {
   /**
    * The id of the input element
@@ -113,14 +123,38 @@ export const FileInput = ({
     style,
   };
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleSingleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files);
     if (files.length > 0) {
-      if (multiple) {
-        setSelectedFiles([...selectedFiles, ...files]);
-      } else {
-        setSelectedFiles(files);
-      }
+      setSelectedFiles(files);
+      setSuccessText(successMessage);
+    } else {
+      setSuccessText(undefined);
+    }
+  };
+
+  const handleMultipleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const input = event.target;
+    const files = Array.from(event.target.files);
+
+    // Clear input value on every change to ensure it triggers a onChange event when files are added
+    input.value = '';
+
+    if (files.length > 0) {
+      const [replacedFiles, newFiles] = files.reduce(
+        (acc: [File[], File[]], file: File) => {
+          if (findDuplicateByNameAndType(selectedFiles, file)) {
+            return [[...acc[0], file], acc[1]];
+          }
+          return [acc[0], [...acc[1], file]];
+        },
+        [[], []],
+      );
+
+      const selectedWithoutReplacedFiles = selectedFiles.filter(
+        (selectedFile: File) => !findDuplicateByNameAndType(replacedFiles, selectedFile),
+      );
+      setSelectedFiles([...selectedWithoutReplacedFiles, ...replacedFiles, ...newFiles]);
       setSuccessText(successMessage);
     } else {
       setSuccessText(undefined);
@@ -128,8 +162,10 @@ export const FileInput = ({
   };
 
   const removeFileFromList = (fileToRemove: File) => {
-    const withoutRemoved = selectedFiles.filter((file: File) => file.name !== fileToRemove.name);
-    setSelectedFiles(withoutRemoved);
+    const selectedFilesWithoutRemoved = selectedFiles.filter(
+      (file: File) => !isEqualFileBy(['name', 'type', 'size', 'lastModified'], file, fileToRemove),
+    );
+    setSelectedFiles(selectedFilesWithoutRemoved);
     setSuccessText(removeSuccessMessage);
   };
 
@@ -152,9 +188,9 @@ export const FileInput = ({
             <input
               type="file"
               id={id}
-              onChange={handleChange}
               disabled={disabled}
               className={styles.fileInput}
+              {...{ onChange: multiple ? handleMultipleChange : handleSingleFileChange }}
               {...(accept ? { accept } : {})}
               {...(multiple ? { multiple } : {})}
               {...(hasFilesSelected ? { 'aria-describedby': fileListId } : {})}
