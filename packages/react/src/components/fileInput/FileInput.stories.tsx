@@ -22,9 +22,10 @@ export const Example = (args) => {
       id="file-input"
       label="Choose a file"
       buttonLabel="Add file"
+      successMessage="File added successfully."
       removeButtonLabel="Remove"
       removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
-      successMessage="File added successfully."
+      removeSuccessMessage="File removed."
       onChange={setFile}
       accept=".png,.jpg"
       helperText="Only .png and .jpg files."
@@ -43,9 +44,10 @@ export const Multiple = (args) => {
       id="file-input"
       label="Choose files"
       buttonLabel="Add files"
+      successMessage="Files added successfully."
       removeButtonLabel="Remove"
       removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
-      successMessage="Files added successfully."
+      removeSuccessMessage="File removed."
       onChange={setFiles}
       accept=".png,.jpg"
       helperText="Only .png and .jpg files."
@@ -66,9 +68,10 @@ export const Disabled = (args) => {
       id="file-input"
       label="Choose a file"
       buttonLabel="Add file"
+      successMessage="File added successfully."
       removeButtonLabel="Remove"
       removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
-      successMessage="File added successfully."
+      removeSuccessMessage="File removed."
       onChange={setFile}
       accept=".png,.jpg"
       helperText="Only .png and .jpg files."
