@@ -10,6 +10,18 @@
   @extend %hiddenFromScreen;
 }
 
+.disabled {
+  .fileInputButton {
+    --border-color: var(--color-black-50);
+    color: var(--color-disabled);
+    cursor: not-allowed;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+}
+
 .fileList {
   list-style: none;
   max-width: 500px;
