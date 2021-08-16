@@ -46,9 +46,9 @@ type FileInputProps = {
    */
   helperText?: string;
   /**
-   * Callback fired when the fileList changes
+   * Callback fired when the list of files changes
    */
-  onChange?: (FileList) => void;
+  onChange?: (files: File[]) => void;
   /**
    * If `true`, prevents the user from changing the value of the field (not from interacting with the field)
    */
@@ -63,86 +63,80 @@ type FileInputProps = {
   style?: React.CSSProperties;
 };
 
-export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
-  (
-    {
-      id,
-      label,
-      buttonLabel,
-      successMessage,
-      className = '',
-      errorText,
-      helperText,
-      onChange,
-      required,
-      style,
-      accept,
-      multiple,
-    }: FileInputProps,
-    ref?: React.Ref<HTMLInputElement>,
-  ) => {
-    const [selectedFiles, setSelectedFiles] = useState<FileList | undefined>();
-    const [successText, setSuccessText] = useState<string | undefined>();
-    const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
-    const fileListId = `${id}-list`;
+export const FileInput = ({
+  id,
+  label,
+  buttonLabel,
+  successMessage,
+  className = '',
+  errorText,
+  helperText,
+  onChange,
+  required,
+  style,
+  accept,
+  multiple,
+}: FileInputProps) => {
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [successText, setSuccessText] = useState<string | undefined>();
+  const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
+  const fileListId = `${id}-list`;
 
-    const wrapperProps = {
-      className,
-      helperText,
-      successText,
-      errorText,
-      id,
-      label,
-      required,
-      style,
-    };
+  const wrapperProps = {
+    className,
+    helperText,
+    successText,
+    errorText,
+    id,
+    label,
+    required,
+    style,
+  };
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-      setSelectedFiles(event.target.files);
-    };
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSelectedFiles(Array.from(event.target.files));
+  };
 
-    useEffect(() => {
-      if (selectedFiles && selectedFiles.length > 0) {
-        if (onChange) {
-          onChange(selectedFiles);
-        }
-        setSuccessText(successMessage);
-      } else {
-        setSuccessText(undefined);
+  useEffect(() => {
+    if (selectedFiles && selectedFiles.length > 0) {
+      if (onChange) {
+        onChange(selectedFiles);
       }
-    }, [selectedFiles, onChange, successMessage, setSuccessText]);
+      setSuccessText(successMessage);
+    } else {
+      setSuccessText(undefined);
+    }
+  }, [selectedFiles, onChange, successMessage, setSuccessText]);
 
-    return (
-      <>
-        <InputWrapper {...wrapperProps}>
-          <div className={styles.fileInputWrapper}>
-            <label className={classNames(styles.label, buttonStyles.button, buttonStyles.secondary)} htmlFor={id}>
-              <IconPlus aria-hidden className={classNames(styles.icon, buttonStyles.icon)} />
-              <span className={buttonStyles.label}>{buttonLabel}</span>
-              <input
-                type="file"
-                id={id}
-                onChange={handleChange}
-                ref={ref}
-                className={styles.fileInput}
-                {...(accept ? { accept } : {})}
-                {...(multiple ? { multiple } : {})}
-                {...(hasFilesSelected ? { 'aria-describedby': fileListId } : {})}
-              />
-            </label>
-          </div>
-        </InputWrapper>
-        {hasFilesSelected && (
-          <ul id={fileListId} className={styles.fileList}>
-            {Array.from(selectedFiles).map((file: File) => (
-              <li key={file.name} className={styles.fileListItem}>
-                <IconPhoto aria-hidden />
-                <span className={styles.fileListItemLabel}>{file.name}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </>
-    );
-  },
-);
+  return (
+    <>
+      <InputWrapper {...wrapperProps}>
+        <div className={styles.fileInputWrapper}>
+          <label className={classNames(styles.label, buttonStyles.button, buttonStyles.secondary)} htmlFor={id}>
+            <IconPlus aria-hidden className={classNames(styles.icon, buttonStyles.icon)} />
+            <span className={buttonStyles.label}>{buttonLabel}</span>
+            <input
+              type="file"
+              id={id}
+              onChange={handleChange}
+              className={styles.fileInput}
+              {...(accept ? { accept } : {})}
+              {...(multiple ? { multiple } : {})}
+              {...(hasFilesSelected ? { 'aria-describedby': fileListId } : {})}
+            />
+          </label>
+        </div>
+      </InputWrapper>
+      {hasFilesSelected && (
+        <ul id={fileListId} className={styles.fileList}>
+          {selectedFiles.map((file: File) => (
+            <li key={file.name} className={styles.fileListItem}>
+              <IconPhoto aria-hidden />
+              <span className={styles.fileListItemLabel}>{file.name}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+};

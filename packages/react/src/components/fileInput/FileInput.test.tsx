@@ -54,9 +54,9 @@ describe('<FileInput /> spec', () => {
     expect(screen.getByText(fileNameB)).toBeInTheDocument();
   });
 
-  test('should call onChange with FileList', async () => {
+  test('should call onChange with a list of files', async () => {
     let testFileHolder;
-    const onChangeCallback = (files: FileList) => {
+    const onChangeCallback = (files: File[]) => {
       testFileHolder = files;
     };
     const inputLabel = 'Add files';
@@ -73,6 +73,6 @@ describe('<FileInput /> spec', () => {
     );
     const fileUpload = screen.getByLabelText('Add files');
     userEvent.upload(fileUpload, [file]);
-    expect(testFileHolder).toEqual(fileUpload.files);
+    expect(testFileHolder).toEqual([file]);
   });
 });
