@@ -75,11 +75,7 @@ type FileInputProps = {
    * The helper text content that will be shown below the input
    */
   helperText?: string;
-  /**
-   * If `true`, prevents the user from changing the value of the field (not from interacting with the field)
-   */
-  readOnly?: boolean;
-  /**
+    /**
    * If `true`, the label is displayed as required and the `input` element will be required
    */
   required?: boolean;
@@ -189,6 +185,7 @@ export const FileInput = ({
               type="file"
               id={id}
               disabled={disabled}
+              required={required}
               className={styles.fileInput}
               {...{ onChange: multiple ? handleMultipleChange : handleSingleFileChange }}
               {...(accept ? { accept } : {})}
