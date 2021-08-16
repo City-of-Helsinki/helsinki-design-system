@@ -130,7 +130,7 @@ export const FileInput = ({
   const removeFileFromList = (fileToRemove: File) => {
     const withoutRemoved = selectedFiles.filter((file: File) => file.name !== fileToRemove.name);
     setSelectedFiles(withoutRemoved);
-    setSuccessText(removeSuccessMessage)
+    setSuccessText(removeSuccessMessage);
   };
 
   useEffect(() => {
