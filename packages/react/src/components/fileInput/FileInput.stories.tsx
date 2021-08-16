@@ -20,9 +20,11 @@ export const Example = (args) => {
     <FileInput
       {...args}
       id="file-input"
-      successMessage="File added successfully."
       label="Choose a file"
       buttonLabel="Add file"
+      removeButtonLabel="Remove"
+      removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
+      successMessage="File added successfully."
       onChange={setFile}
       accept=".png,.jpg"
       helperText="Only .png and .jpg files."
@@ -39,9 +41,11 @@ export const Multiple = (args) => {
     <FileInput
       {...args}
       id="file-input"
-      successMessage="Files added successfully."
       label="Choose files"
       buttonLabel="Add files"
+      removeButtonLabel="Remove"
+      removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
+      successMessage="Files added successfully."
       onChange={setFiles}
       accept=".png,.jpg"
       helperText="Only .png and .jpg files."

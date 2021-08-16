@@ -33,3 +33,13 @@
 .fileListItemLabel {
   margin-left: var(--spacing-xs);
 }
+
+.fileListItemButton {
+  @extend %buttonReset;
+  display: flex;
+  margin-left: auto;
+}
+
+.fileListItemButtonLabel {
+  margin-left: var(--spacing-3-xs);
+}

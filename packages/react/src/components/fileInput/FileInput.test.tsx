@@ -10,9 +10,12 @@ describe('<FileInput /> spec', () => {
     const { asFragment } = render(
       <FileInput
         id="test-file-input"
-        successMessage="File added successfully."
         label="Choose a file"
         buttonLabel="Add file"
+        removeButtonLabel="remove"
+        removeButtonAriaLabel={name => `Remove ${name} from the list`}
+        successMessage="File added successfully."
+        onChange={() => {}}
       />,
     );
     expect(asFragment()).toMatchSnapshot();
@@ -22,9 +25,12 @@ describe('<FileInput /> spec', () => {
     const { container } = render(
       <FileInput
         id="test-file-input"
-        successMessage="File added successfully."
         label="Choose a file"
         buttonLabel="Add file"
+        removeButtonLabel="remove"
+        removeButtonAriaLabel={name => `Remove ${name} from the list`}
+        successMessage="File added successfully."
+        onChange={() => {}}
       />,
     );
     const results = await axe(container);
@@ -42,9 +48,12 @@ describe('<FileInput /> spec', () => {
     render(
       <FileInput
         id="test-file-input"
-        successMessage="Files added successfully."
         label="Choose files"
         buttonLabel={inputLabel}
+        removeButtonLabel="remove"
+        removeButtonAriaLabel={name => `Remove ${name} from the list`}
+        successMessage="Files added successfully."
+        onChange={() => {}}
         multiple
       />,
     );
@@ -64,11 +73,13 @@ describe('<FileInput /> spec', () => {
     render(
       <FileInput
         id="test-file-input"
-        successMessage="Files added successfully."
         label="Choose files"
         buttonLabel={inputLabel}
-        multiple
+        removeButtonLabel="remove"
+        removeButtonAriaLabel={name => `Remove ${name} from the list`}
+        successMessage="Files added successfully."
         onChange={onChangeCallback}
+        multiple
       />,
     );
     const fileUpload = screen.getByLabelText('Add files');
