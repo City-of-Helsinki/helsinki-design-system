@@ -10,10 +10,6 @@
   @extend %hiddenFromScreen;
 }
 
-.fileInputNotification {
-  margin-left: var(--spacing-s);
-}
-
 .fileList {
   list-style: none;
   max-width: 500px;
@@ -23,7 +19,7 @@
 .fileListItem {
   background-color: var(--color-info-light);
   display: flex;
-  padding: var(--spacing-s) var(--spacing-2-xs);
+  padding: var(--spacing-s) var(--spacing-m) var(--spacing-s) var(--spacing-3-xs);
 
   & + & {
     margin-top: var(--spacing-s);
