@@ -3,7 +3,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 // import core base styles
 import 'hds-core';
 import classNames from '../../utils/classNames';
-import { IconPlus, IconPhoto } from '../../icons';
+import { IconPlus, IconPhoto, IconCross } from '../../icons';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import styles from './FileInput.module.scss';
 import buttonStyles from '../button/Button.module.scss';
@@ -26,6 +26,18 @@ type FileInputProps = {
    */
   buttonLabel: string;
   /**
+   * The label for the file remove button in the files list
+   */
+  removeButtonLabel: string;
+  /**
+   * The aria-label for the file remove button in the file list. A function that has the name string as argument.
+   */
+  removeButtonAriaLabel: (name: string) => string;
+  /**
+   * Callback fired when the list of files changes
+   */
+  onChange: (files: File[]) => void;
+  /**
    * A comma separated list of unique file type specifiers describing file types to allow
    */
   accept?: string;
@@ -46,10 +58,6 @@ type FileInputProps = {
    */
   helperText?: string;
   /**
-   * Callback fired when the list of files changes
-   */
-  onChange?: (files: File[]) => void;
-  /**
    * If `true`, prevents the user from changing the value of the field (not from interacting with the field)
    */
   readOnly?: boolean;
@@ -67,6 +75,8 @@ export const FileInput = ({
   id,
   label,
   buttonLabel,
+  removeButtonLabel,
+  removeButtonAriaLabel,
   successMessage,
   className = '',
   errorText,
@@ -94,19 +104,26 @@ export const FileInput = ({
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSelectedFiles(Array.from(event.target.files));
-  };
-
-  useEffect(() => {
-    if (selectedFiles && selectedFiles.length > 0) {
-      if (onChange) {
-        onChange(selectedFiles);
-      }
+    const files = Array.from(event.target.files);
+    if (files.length > 0) {
+      setSelectedFiles(Array.from(event.target.files));
       setSuccessText(successMessage);
     } else {
       setSuccessText(undefined);
     }
-  }, [selectedFiles, onChange, successMessage, setSuccessText]);
+  };
+
+  const removeFileFromList = (fileToRemove: File) => {
+    const withoutRemoved = selectedFiles.filter((file: File) => file.name !== fileToRemove.name);
+    setSelectedFiles(withoutRemoved);
+    setSuccessText(undefined);
+  };
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(selectedFiles);
+    }
+  }, [selectedFiles, onChange]);
 
   return (
     <>
@@ -133,6 +150,15 @@ export const FileInput = ({
             <li key={file.name} className={styles.fileListItem}>
               <IconPhoto aria-hidden />
               <span className={styles.fileListItemLabel}>{file.name}</span>
+              <button
+                type="button"
+                onClick={() => removeFileFromList(file)}
+                className={styles.fileListItemButton}
+                aria-label={removeButtonAriaLabel(file.name)}
+              >
+                <IconCross aria-hidden />
+                <span className={styles.fileListItemButtonLabel}>{removeButtonLabel}</span>
+              </button>
             </li>
           ))}
         </ul>
