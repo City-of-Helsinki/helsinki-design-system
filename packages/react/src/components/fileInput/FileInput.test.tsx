@@ -42,10 +42,10 @@ describe('<FileInput /> spec', () => {
   test('should list added files', async () => {
     const inputLabel = 'Add files';
     const fileNameA = 'test-file-a.png';
-    const fileNameB = 'test-file-b.png';
+    const fileNameB = 'doc.json';
     const files: File[] = [
       new File(['test-file-a'], fileNameA, { type: 'image/png' }),
-      new File(['test-file-b'], fileNameB, { type: 'image/png' }),
+      new File(['test-file-b'], fileNameB, { type: 'application/.json' }),
     ];
     render(
       <FileInput
