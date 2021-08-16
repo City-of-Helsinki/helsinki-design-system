@@ -49,8 +49,8 @@ export const Multiple = (args) => {
       removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
       removeSuccessMessage="File removed."
       onChange={setFiles}
-      accept=".png,.jpg"
-      helperText="Only .png and .jpg files."
+      accept=".png,.jpg,.pdf,.json"
+      helperText="Only .png, .jpg, .pdf or .json files."
       multiple
     />
   );

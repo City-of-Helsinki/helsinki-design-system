@@ -3,7 +3,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 // import core base styles
 import 'hds-core';
 import classNames from '../../utils/classNames';
-import { IconPlus, IconPhoto, IconCross } from '../../icons';
+import { IconPlus, IconPhoto, IconCross, IconDocument } from '../../icons';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import styles from './FileInput.module.scss';
 import buttonStyles from '../button/Button.module.scss';
@@ -166,7 +166,7 @@ export const FileInput = ({
         <ul id={fileListId} className={styles.fileList}>
           {selectedFiles.map((file: File) => (
             <li key={file.name} className={styles.fileListItem}>
-              <IconPhoto aria-hidden />
+              {file.type.startsWith('image') ? <IconPhoto aria-hidden /> : <IconDocument aria-hidden />}
               <span className={styles.fileListItemLabel}>{file.name}</span>
               <button
                 type="button"
