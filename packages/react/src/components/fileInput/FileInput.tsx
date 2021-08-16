@@ -34,6 +34,10 @@ type FileInputProps = {
    */
   removeButtonAriaLabel: (name: string) => string;
   /**
+   * A text which is shown after successful file remove from the files list.
+   */
+  removeSuccessMessage: string;
+  /**
    * Callback fired when the list of files changes
    */
   onChange: (files: File[]) => void;
@@ -81,6 +85,7 @@ export const FileInput = ({
   buttonLabel,
   removeButtonLabel,
   removeButtonAriaLabel,
+  removeSuccessMessage,
   successMessage,
   disabled,
   className = '',
@@ -121,7 +126,7 @@ export const FileInput = ({
   const removeFileFromList = (fileToRemove: File) => {
     const withoutRemoved = selectedFiles.filter((file: File) => file.name !== fileToRemove.name);
     setSelectedFiles(withoutRemoved);
-    setSuccessText(undefined);
+    setSuccessText(removeSuccessMessage)
   };
 
   useEffect(() => {

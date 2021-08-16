@@ -12,9 +12,10 @@ describe('<FileInput /> spec', () => {
         id="test-file-input"
         label="Choose a file"
         buttonLabel="Add file"
+        successMessage="File added successfully."
         removeButtonLabel="remove"
         removeButtonAriaLabel={name => `Remove ${name} from the list`}
-        successMessage="File added successfully."
+        removeSuccessMessage="File removed."
         onChange={() => {}}
       />,
     );
@@ -27,9 +28,10 @@ describe('<FileInput /> spec', () => {
         id="test-file-input"
         label="Choose a file"
         buttonLabel="Add file"
+        successMessage="File added successfully."
         removeButtonLabel="remove"
         removeButtonAriaLabel={name => `Remove ${name} from the list`}
-        successMessage="File added successfully."
+        removeSuccessMessage="File removed."
         onChange={() => {}}
       />,
     );
@@ -50,9 +52,10 @@ describe('<FileInput /> spec', () => {
         id="test-file-input"
         label="Choose files"
         buttonLabel={inputLabel}
+        successMessage="Files added successfully."
         removeButtonLabel="remove"
         removeButtonAriaLabel={name => `Remove ${name} from the list`}
-        successMessage="Files added successfully."
+        removeSuccessMessage="File removed."
         onChange={() => {}}
         multiple
       />,
@@ -75,9 +78,10 @@ describe('<FileInput /> spec', () => {
         id="test-file-input"
         label="Choose files"
         buttonLabel={inputLabel}
+        successMessage="Files added successfully."
         removeButtonLabel="remove"
         removeButtonAriaLabel={name => `Remove ${name} from the list`}
-        successMessage="Files added successfully."
+        removeSuccessMessage="File removed."
         onChange={onChangeCallback}
         multiple
       />,
