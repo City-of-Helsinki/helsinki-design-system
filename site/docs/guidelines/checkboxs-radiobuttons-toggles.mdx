@@ -12,20 +12,20 @@ import { Playground } from 'docz';
 # Checkboxes, radio buttons or toggles?
 
 <LargeParagraph>
-    Helsinki Design System has checkboxes, radiobuttons and toggles that might seem similar to each other, but it is important to consider the use cases to decide which one to use.
+    Helsinki Design System has checkboxes, radio buttons and toggles that might seem similar to each other, but it is important to consider the use cases to decide which one to use.
 </LargeParagraph>
 
 <Notification label="TLDR (Too long, didn't read)" className="siteNotification">
 <b>Use checkboxes</b> to select multiple parallel items. Use checkbox to single selections to confirm on/off selection.
 <br /><br />
-<b>Use radiobuttons</b> to mutually exclusive options.
+<b>Use radio buttons</b> to mutually exclusive options.
 <br /><br />
 <b>Use toggle</b> to selections affecting system settings or changing status.
 </Notification>
 
 
 ## When to use radio buttons?
-<Link href="../components/radio-button" >HDS radiobutton component</Link>
+<Link href="../components/radio-button" >HDS radio button component</Link>
 <br /><br />
 An application can use radio buttons when there is a list of two or more mutually exclusive choices and the user needs to select one of them. After clicking the non-selected radio button, whatever was previously selected is deselected. In traditional application design, the first radio button in the list was always selected by default. But modern website design challenged this practice, making it fairly common to have none selected by default. Websites today, forms, and applications inconsistently select one or leave all radio buttons blank by default. If none of the buttons is selected by default, users have no way to revert to this original state after they’ve made a selection. The lack of a standard can be confusing to users.
 <br /><br />
@@ -33,7 +33,7 @@ An application can use radio buttons when there is a list of two or more mutuall
 <br /><br />
 Radio buttons have lower cognitive load than drop-down menu’s because they make all options permanently visible so that users can easily compare them. Radio buttons are also easier to operate for users who have difficulty making precise mouse movements. (Limited space might sometimes force you to violate this guideline, but do try to keep choices visible whenever possible.)
 <br /><br />
-<b>Example use:</b> Binary choices like YES/NO, agegroup (0-7, 8-16, over 65 etc) or other similar choices that exclude other options.
+<b>Example use:</b> Binary choices like YES/NO, agegroup or other similar choices that exclude other options.
 
 <Playground>
   {() => {
@@ -88,7 +88,7 @@ A stand-alone checkbox is used for a single option that the user can turn on or 
 </Playground>
 
 <br />
-<b>HDS recommends using checkboxes when the user can select multiple options that are not excluding other options </b>
+<b>HDS recommends using checkboxes when the user can select multiple options that are not excluding other options. </b>
 
 ## When to use toggles or switches?
 <Link href="../components/toggle">HDS toggle component</Link>
