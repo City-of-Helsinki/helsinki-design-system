@@ -16,7 +16,9 @@
     color: var(--color-disabled);
     cursor: not-allowed;
 
+    &:focus-within,
     &:hover {
+      --border-color-hover: var(--color-black-50) !important;
       background: transparent;
     }
   }
