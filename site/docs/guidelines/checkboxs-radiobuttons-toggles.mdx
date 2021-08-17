@@ -5,7 +5,7 @@ menu: Guidelines
 ---
 
 import LargeParagraph from "../../src/components/LargeParagraph";
-import { Notification, Checkbox, RadioButton, Toggle, SelectionGroup } from "hds-react";
+import { Notification, Checkbox, RadioButton, ToggleButton, SelectionGroup } from "hds-react";
 import Link from "../../src/components/Link";
 import { Playground } from 'docz';
 
@@ -32,10 +32,11 @@ An application can use radio buttons when there is a list of two or more mutuall
 <b>HDS strongly recommends that radio buttons are never presented unticked.</b>
 <br /><br />
 Radio buttons have lower cognitive load than drop-down menu’s because they make all options permanently visible so that users can easily compare them. Radio buttons are also easier to operate for users who have difficulty making precise mouse movements. (Limited space might sometimes force you to violate this guideline, but do try to keep choices visible whenever possible.)
-< br/><br />
+<br /><br />
 <b>Example use:</b> Binary choices like YES/NO, agegroup (0-7, 8-16, over 65 etc) or other similar choices that exclude other options.
+
 <Playground>
-    {() => {
+  {() => {
     const [selectedItem, setSelectedItem] = React.useState("1");
     const onChange = (event) => {
       setSelectedItem(event.target.value);
@@ -56,17 +57,19 @@ Radio buttons have lower cognitive load than drop-down menu’s because they mak
 <br /><br />
 Checkboxes allow the user to select zero, one, or multiple selections from a list of options. In other words, each checkbox is independent of the other checkboxes, i.e. checking one does not uncheck the others.
 
-A stand-alone checkbox is used for a single option that the user can turn on or off. 
+A stand-alone checkbox is used for a single option that the user can turn on or off.
 
 <b>Example use: </b>Single selection confirming on/off selection
+
 <Playground>
   <Checkbox label="I have a loyalty card" />
 </Playground>
-<br />
 
+<br />
 <b>HDS recommends using checkboxes when the user is required to make more than two choices or confirm a single choice. </b>
 <br /><br />
 <b>Example use:</b> Selecting interests < br />
+
 <Playground>
   {() => {
     const [checkedItems, setCheckedItems] = React.useState({ "v-checkbox1": true, "v-checkbox2": true });
@@ -84,18 +87,19 @@ A stand-alone checkbox is used for a single option that the user can turn on or 
   }}
 </Playground>
 
+<br />
 <b>HDS recommends using checkboxes when the user can select multiple options that are not excluding other options </b>
 
 ## When to use toggles or switches?
-<Link href="../components/toggle" >HDS toggle component</Link>
+<Link href="../components/toggle">HDS toggle component</Link>
 <br /><br />
 Toggle switches are digital on/off switches. They prompt users to choose between two mutually exclusive options and always have a default value. Toggles should provide immediate results, giving users the freedom to control their preferences as needed. Toggle buttons should do three things — change states, show the current state, and reveal unselected options. If your toggle button doesn’t do all these things, it has poor usability. Toggles are best used for switching between two opposing states of system functionality and preferences. They are similar to radio buttons or checkboxes in that they allow users to select from only two options.
 <br /><br />
 <b>Example use:</b> Selecting between light and dark mode, including past events to event listing.
+
 <Playground>
   {() => {
     const [checked1, setChecked1] = React.useState(false);
-    const [checked2, setChecked2] = React.useState(false);
     return (
       <>
         <ToggleButton id="toggle-button-1" label="Include past events in the list" checked={checked1} onChange={() => setChecked1(!checked1)} />
