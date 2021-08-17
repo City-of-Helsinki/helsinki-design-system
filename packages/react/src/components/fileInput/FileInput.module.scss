@@ -10,31 +10,6 @@
   @extend %hiddenFromScreen;
 }
 
-.disabled {
-  .fileInputButton {
-    --border-color: var(--color-black-50);
-    color: var(--color-disabled);
-    cursor: not-allowed;
-
-    &:focus-within,
-    &:hover {
-      --border-color-hover: var(--color-black-50) !important;
-      background: transparent;
-    }
-  }
-}
-
-.fileInputButton {
-  &:focus-within {
-    background-color: var(--background-color-hover-focus, transparent);
-
-    &::after {
-      --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
-      border-color: var(--focus-outline-color);
-    }
-  }
-}
-
 .fileList {
   list-style: none;
   max-width: 500px;

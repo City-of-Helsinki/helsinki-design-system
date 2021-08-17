@@ -17,41 +17,48 @@ exports[`<FileInput /> spec renders the component 1`] = `
       <div
         class="fileInputWrapper"
       >
-        <label
-          class="fileInputButton button secondary"
-          for="test-file-input"
+        <button
+          class="button secondary theme-default size-default"
+          id="test-file-input-button"
+          type="button"
         >
-          <svg
+          <div
             aria-hidden="true"
-            class="icon s icon icon"
-            role="img"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+            class="icon"
           >
-            <g
-              fill="none"
-              fill-rule="evenodd"
+            <svg
+              aria-hidden="true"
+              class="icon s"
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                d="M0 0h24v24H0z"
-              />
-              <path
-                d="M13 6v5h5v2h-5v5h-2v-5H6v-2h5V6z"
-                fill="currentColor"
-              />
-            </g>
-          </svg>
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M13 6v5h5v2h-5v5h-2v-5H6v-2h5V6z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </div>
           <span
             class="label"
           >
             Add file
           </span>
-          <input
-            class="fileInput"
-            id="test-file-input"
-            type="file"
-          />
-        </label>
+        </button>
+        <input
+          aria-labelledby="test-file-input-button"
+          class="fileInput"
+          id="test-file-input"
+          type="file"
+        />
       </div>
     </div>
   </div>
