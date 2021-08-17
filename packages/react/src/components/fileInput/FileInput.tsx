@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 
 // import core base styles
 import 'hds-core';
@@ -75,7 +75,7 @@ type FileInputProps = {
    * The helper text content that will be shown below the input
    */
   helperText?: string;
-    /**
+  /**
    * If `true`, the label is displayed as required and the `input` element will be required
    */
   required?: boolean;
@@ -103,6 +103,7 @@ export const FileInput = ({
   accept,
   multiple,
 }: FileInputProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [successText, setSuccessText] = useState<string | undefined>();
   const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
@@ -119,6 +120,12 @@ export const FileInput = ({
     style,
   };
 
+  const resetFileInputValue = () => {
+    if (inputRef.current) {
+      inputRef.current.value = '';
+    }
+  };
+
   const handleSingleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files);
     if (files.length > 0) {
@@ -127,15 +134,12 @@ export const FileInput = ({
     } else {
       setSuccessText(undefined);
     }
+    // Clear input value on every change to ensure it triggers a onChange event when files are added
+    resetFileInputValue();
   };
 
   const handleMultipleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const input = event.target;
     const files = Array.from(event.target.files);
-
-    // Clear input value on every change to ensure it triggers a onChange event when files are added
-    input.value = '';
-
     if (files.length > 0) {
       const [replacedFiles, newFiles] = files.reduce(
         (acc: [File[], File[]], file: File) => {
@@ -155,6 +159,8 @@ export const FileInput = ({
     } else {
       setSuccessText(undefined);
     }
+    // Clear input value on every change to ensure it triggers a onChange event when files are added
+    resetFileInputValue();
   };
 
   const removeFileFromList = (fileToRemove: File) => {
@@ -163,6 +169,8 @@ export const FileInput = ({
     );
     setSelectedFiles(selectedFilesWithoutRemoved);
     setSuccessText(removeSuccessMessage);
+    // Clear input value on every change to ensure it triggers a onChange event when files are added
+    resetFileInputValue();
   };
 
   useEffect(() => {
@@ -183,6 +191,7 @@ export const FileInput = ({
             <span className={buttonStyles.label}>{buttonLabel}</span>
             <input
               type="file"
+              ref={inputRef}
               id={id}
               disabled={disabled}
               required={required}
