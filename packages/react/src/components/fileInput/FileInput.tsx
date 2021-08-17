@@ -2,7 +2,6 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 
 // import core base styles
 import 'hds-core';
-import classNames from '../../utils/classNames';
 import { Button } from '../button';
 import { IconPlus, IconPhoto, IconCross, IconDocument } from '../../icons';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
@@ -189,12 +188,13 @@ export const FileInput = ({
   return (
     <>
       <InputWrapper {...wrapperProps}>
-        <div className={classNames(styles.fileInputWrapper, disabled && styles.disabled)}>
+        <div className={styles.fileInputWrapper}>
           <Button
             id={buttonId}
             variant="secondary"
             iconLeft={<IconPlus aria-hidden />}
-            onClick={passButtonClickToInput}
+            onClick={() => passButtonClickToInput()}
+            disabled={disabled}
           >
             {buttonLabel}
           </Button>
