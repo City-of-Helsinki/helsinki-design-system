@@ -101,3 +101,30 @@ export const Required = (args) => {
     />
   );
 };
+
+export const WithDragAndDrop = (args) => {
+  const [file, setFile] = React.useState<FileList>();
+  // eslint-disable-next-line no-console
+  console.log('selected files', file);
+
+  return (
+    <FileInput
+      {...args}
+      multiple
+      id="file-input"
+      label="Drag and drop file here"
+      dragAndDrop={{
+        label: 'Drag a file here',
+        helperText: 'or browse from your computer',
+      }}
+      buttonLabel="Add file"
+      successMessage="File added successfully."
+      removeButtonLabel="Remove"
+      removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
+      removeSuccessMessage="File removed."
+      onChange={setFile}
+      accept=".png,.jpg"
+      helperText="Only .png and .jpg files."
+    />
+  );
+};

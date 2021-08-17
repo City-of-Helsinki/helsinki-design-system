@@ -2,8 +2,9 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 
 // import core base styles
 import 'hds-core';
+import classNames from '../../utils/classNames';
 import { Button } from '../button';
-import { IconPlus, IconPhoto, IconCross, IconDocument } from '../../icons';
+import { IconPlus, IconPhoto, IconCross, IconDocument, IconUpload } from '../../icons';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import styles from './FileInput.module.scss';
 
@@ -16,6 +17,11 @@ const isEqualFileBy = (givenProperties: FileProperty[], a: File, b: File): boole
 
 const findDuplicateByNameAndType = (files: File[], fileToCompare: File): File | undefined =>
   files.find((file: File) => isEqualFileBy(['name', 'type'], file, fileToCompare));
+
+type DragAndDropProps = {
+  label: string;
+  helperText: string;
+};
 
 type FileInputProps = {
   /**
@@ -59,6 +65,10 @@ type FileInputProps = {
    */
   multiple?: boolean;
   /**
+   * Drag and Drop area properties. If present, a drag and drop area with helper labels will render with file input.
+   */
+  dragAndDrop?: DragAndDropProps;
+  /**
    * Additional class names to apply to the file input
    */
   className?: string;
@@ -93,6 +103,7 @@ export const FileInput = ({
   removeSuccessMessage,
   successMessage,
   disabled,
+  dragAndDrop,
   className = '',
   errorText,
   helperText,
@@ -108,6 +119,9 @@ export const FileInput = ({
   const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
   const buttonId = `${id}-button`;
   const fileListId = `${id}-list`;
+  const hasDragAndDrop = !!dragAndDrop;
+  const dropAreaRef = useRef<HTMLDivElement>(null);
+  const [isDragOverDrop, setIsDragOverDrop] = useState<boolean>(false);
 
   const wrapperProps = {
     className,
@@ -132,20 +146,16 @@ export const FileInput = ({
     }
   };
 
-  const handleSingleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(event.target.files);
+  const handleSingleFileChange = (files: File[]) => {
     if (files.length > 0) {
       setSelectedFiles(files);
       setSuccessText(successMessage);
     } else {
       setSuccessText(undefined);
     }
-    // Clear input value on every change to ensure it triggers a onChange event when files are added
-    resetFileInputValue();
   };
 
-  const handleMultipleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(event.target.files);
+  const handleMultipleChange = (files: File[]) => {
     if (files.length > 0) {
       const [replacedFiles, newFiles] = files.reduce(
         (acc: [File[], File[]], file: File) => {
@@ -165,8 +175,14 @@ export const FileInput = ({
     } else {
       setSuccessText(undefined);
     }
-    // Clear input value on every change to ensure it triggers a onChange event when files are added
-    resetFileInputValue();
+  };
+
+  const onFilesChange = (files: File[]) => {
+    if (multiple) {
+      handleMultipleChange(files);
+    } else {
+      handleSingleFileChange(files);
+    }
   };
 
   const removeFileFromList = (fileToRemove: File) => {
@@ -175,42 +191,80 @@ export const FileInput = ({
     );
     setSelectedFiles(selectedFilesWithoutRemoved);
     setSuccessText(removeSuccessMessage);
-    // Clear input value on every change to ensure it triggers a onChange event when files are added
-    resetFileInputValue();
+  };
+
+  const onDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIsDragOverDrop(true);
+  };
+
+  const onDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIsDragOverDrop(false);
   };
 
   useEffect(() => {
     if (onChange) {
       onChange(selectedFiles);
     }
+    // Clear input value on every change to ensure it triggers a onChange event when files are added
+    resetFileInputValue();
   }, [selectedFiles, onChange]);
 
   return (
     <>
       <InputWrapper {...wrapperProps}>
-        <div className={styles.fileInputWrapper}>
-          <Button
-            id={buttonId}
-            variant="secondary"
-            iconLeft={<IconPlus aria-hidden />}
-            onClick={() => passButtonClickToInput()}
-            disabled={disabled}
-          >
-            {buttonLabel}
-          </Button>
-          <input
-            type="file"
-            ref={inputRef}
-            id={id}
-            aria-labelledby={buttonId}
-            disabled={disabled}
-            required={required}
-            className={styles.fileInput}
-            {...{ onChange: multiple ? handleMultipleChange : handleSingleFileChange }}
-            {...(accept ? { accept } : {})}
-            {...(multiple ? { multiple } : {})}
-            {...(hasFilesSelected ? { 'aria-describedby': fileListId } : {})}
-          />
+        <div className={styles.fileInputContainer}>
+          {hasDragAndDrop && (
+            <>
+              <div
+                onDragEnter={onDragEnter}
+                onDragOver={onDragEnter}
+                onDragLeave={onDragLeave}
+                onDrop={(event: React.DragEvent<HTMLDivElement>) => {
+                  const { dataTransfer }: { dataTransfer: DataTransfer } = event;
+                  onDragLeave(event);
+                  onFilesChange(Array.from(dataTransfer.files));
+                }}
+                className={classNames(styles.dragAndDrop, isDragOverDrop && styles.dragAndDropActive)}
+                ref={dropAreaRef}
+              >
+                <div className={styles.dragAndDropLabel}>
+                  <IconUpload aria-hidden />
+                  <span className={styles.dragAndDropLabelText}>{dragAndDrop.label}</span>
+                </div>
+              </div>
+              <div className={styles.dragAndDropHelperText}>{dragAndDrop.helperText}</div>
+            </>
+          )}
+          <div className={styles.fileInputWrapper}>
+            <Button
+              id={buttonId}
+              variant="secondary"
+              iconLeft={<IconPlus aria-hidden />}
+              onClick={() => passButtonClickToInput()}
+              disabled={disabled}
+            >
+              {buttonLabel}
+            </Button>
+            <input
+              type="file"
+              ref={inputRef}
+              id={id}
+              aria-labelledby={buttonId}
+              disabled={disabled}
+              required={required}
+              className={styles.fileInput}
+              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                onFilesChange(Array.from(event.target.files));
+              }}
+              {...(accept ? { accept } : {})}
+              {...(multiple ? { multiple } : {})}
+              {...(hasFilesSelected ? { 'aria-describedby': fileListId } : {})}
+            />
+          </div>
         </div>
       </InputWrapper>
       {hasFilesSelected && (
