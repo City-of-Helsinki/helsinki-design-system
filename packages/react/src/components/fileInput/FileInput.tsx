@@ -3,10 +3,10 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 // import core base styles
 import 'hds-core';
 import classNames from '../../utils/classNames';
+import { Button } from '../button';
 import { IconPlus, IconPhoto, IconCross, IconDocument } from '../../icons';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import styles from './FileInput.module.scss';
-import buttonStyles from '../button/Button.module.scss';
 
 type FileProperty = keyof File;
 
@@ -107,6 +107,7 @@ export const FileInput = ({
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [successText, setSuccessText] = useState<string | undefined>();
   const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
+  const buttonId = `${id}-button`;
   const fileListId = `${id}-list`;
 
   const wrapperProps = {
@@ -118,6 +119,12 @@ export const FileInput = ({
     label,
     required,
     style,
+  };
+
+  const passButtonClickToInput = () => {
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
   };
 
   const resetFileInputValue = () => {
@@ -183,25 +190,27 @@ export const FileInput = ({
     <>
       <InputWrapper {...wrapperProps}>
         <div className={classNames(styles.fileInputWrapper, disabled && styles.disabled)}>
-          <label
-            className={classNames(styles.fileInputButton, buttonStyles.button, buttonStyles.secondary)}
-            htmlFor={id}
+          <Button
+            id={buttonId}
+            variant="secondary"
+            iconLeft={<IconPlus aria-hidden />}
+            onClick={passButtonClickToInput}
           >
-            <IconPlus aria-hidden className={classNames(styles.icon, buttonStyles.icon)} />
-            <span className={buttonStyles.label}>{buttonLabel}</span>
-            <input
-              type="file"
-              ref={inputRef}
-              id={id}
-              disabled={disabled}
-              required={required}
-              className={styles.fileInput}
-              {...{ onChange: multiple ? handleMultipleChange : handleSingleFileChange }}
-              {...(accept ? { accept } : {})}
-              {...(multiple ? { multiple } : {})}
-              {...(hasFilesSelected ? { 'aria-describedby': fileListId } : {})}
-            />
-          </label>
+            {buttonLabel}
+          </Button>
+          <input
+            type="file"
+            ref={inputRef}
+            id={id}
+            aria-labelledby={buttonId}
+            disabled={disabled}
+            required={required}
+            className={styles.fileInput}
+            {...{ onChange: multiple ? handleMultipleChange : handleSingleFileChange }}
+            {...(accept ? { accept } : {})}
+            {...(multiple ? { multiple } : {})}
+            {...(hasFilesSelected ? { 'aria-describedby': fileListId } : {})}
+          />
         </div>
       </InputWrapper>
       {hasFilesSelected && (
