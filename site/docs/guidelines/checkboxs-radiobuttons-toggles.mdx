@@ -7,6 +7,7 @@ menu: Guidelines
 import LargeParagraph from "../../src/components/LargeParagraph";
 import { Notification, Checkbox, RadioButton, Toggle, SelectionGroup } from "hds-react";
 import Link from "../../src/components/Link";
+import { Playground } from 'docz';
 
 # Checkboxes, radio buttons or toggles?
 
@@ -34,15 +35,17 @@ Radio buttons have lower cognitive load than drop-down menu’s because they mak
 < br/><br />
 <b>Example use:</b> Binary choices like YES/NO, agegroup (0-7, 8-16, over 65 etc) or other similar choices that exclude other options.
 <Playground>
-  {() => {
+    {() => {
     const [selectedItem, setSelectedItem] = React.useState("1");
     const onChange = (event) => {
       setSelectedItem(event.target.value);
     };
     return (
-      <SelectionGroup label="Radio button group">
-        <RadioButton id="v-radio1" name="v-radio" value="1" label="Option" checked={selectedItem === "1"} onChange={onChange} />
-        <RadioButton id="v-radio2" name="v-radio" value="2" label="Option" checked={selectedItem === "2"} onChange={onChange} />
+      <SelectionGroup label="Choose your agegroup">
+        <RadioButton id="v-radio1" name="v-radio" value="1" label="Under 16" checked={selectedItem === "1"} onChange={onChange} />
+        <RadioButton id="v-radio2" name="v-radio" value="2" label="17-35" checked={selectedItem === "2"} onChange={onChange} />
+        <RadioButton id="v-radio3" name="v-radio" value="3" label="35-64" checked={selectedItem === "3"} onChange={onChange} />
+        <RadioButton id="v-radio4" name="v-radio" value="4" label="Over 65" checked={selectedItem === "4"} onChange={onChange} />
       </SelectionGroup>
     );
   }}
@@ -59,7 +62,6 @@ A stand-alone checkbox is used for a single option that the user can turn on or 
 <Playground>
   <Checkbox label="I have a loyalty card" />
 </Playground>
-
 <br />
 
 <b>HDS recommends using checkboxes when the user is required to make more than two choices or confirm a single choice. </b>
@@ -72,15 +74,16 @@ A stand-alone checkbox is used for a single option that the user can turn on or 
       setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
     };
     return (
-      <SelectionGroup label="Checkbox group">
-        <Checkbox id="v-checkbox1" name="v-checkbox1" label="Option" checked={checkedItems["v-checkbox1"]} onChange={onChange} />
-        <Checkbox id="v-checkbox2" name="v-checkbox2" label="Option" checked={checkedItems["v-checkbox2"]} onChange={onChange} />
-        <Checkbox id="v-checkbox3" name="v-checkbox3" label="Option" checked={checkedItems["v-checkbox3"]} onChange={onChange} />
-        <Checkbox id="v-checkbox4" name="v-checkbox4" label="Option" checked={checkedItems["v-checkbox4"]} onChange={onChange} />
+      <SelectionGroup label="Select your interests">
+        <Checkbox id="v-checkbox1" name="v-checkbox1" label="Music" checked={checkedItems["v-checkbox1"]} onChange={onChange} />
+        <Checkbox id="v-checkbox2" name="v-checkbox2" label="Arts and museums" checked={checkedItems["v-checkbox2"]} onChange={onChange} />
+        <Checkbox id="v-checkbox3" name="v-checkbox3" label="Sports and outdoor activities" checked={checkedItems["v-checkbox3"]} onChange={onChange} />
+        <Checkbox id="v-checkbox4" name="v-checkbox4" label="Cooking" checked={checkedItems["v-checkbox4"]} onChange={onChange} />
       </SelectionGroup>
     );
   }}
 </Playground>
+
 <b>HDS recommends using checkboxes when the user can select multiple options that are not excluding other options </b>
 
 ## When to use toggles or switches?
@@ -95,7 +98,8 @@ Toggle switches are digital on/off switches. They prompt users to choose between
     const [checked2, setChecked2] = React.useState(false);
     return (
       <>
-        <ToggleButton id="toggle-button-1" label="Include past events in the event list" checked={checked1} onChange={() => setChecked1(!checked1)} />
+        <ToggleButton id="toggle-button-1" label="Include past events in the list" checked={checked1} onChange={() => setChecked1(!checked1)} />
+        <br />
       </>
     );
   }}
