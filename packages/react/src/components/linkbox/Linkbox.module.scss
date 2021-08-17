@@ -1,0 +1,96 @@
+.linkbox {
+  cursor: pointer;
+
+  &:focus {
+    outline: #0072c6 3px solid;
+  }
+}
+
+.withBackground {
+  background-color: white;
+}
+
+.withoutBackground {
+  background: transparent;
+}
+
+.paddingWithoutImageAndWithBackground {
+  padding: 22px 14px;
+}
+
+.paddingWithoutImageAndWithoutBackground {
+  padding: 0;
+}
+
+// With image there's no difference in vertical padding between background and no-background variants
+.withSmallImage {
+  padding: 16px 14px 20px;
+}
+
+.withMediumImage {
+  padding: 16px 14px 22px;
+}
+
+.withLargeImage {
+  padding: 24px 22px 30px;
+}
+
+.horizontalPaddingWithImageAndNoBackground {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.withBorder {
+  border: 2px solid var(--color-black-90);
+}
+
+.withoutBorder {
+  border: solid 2px transparent;
+}
+
+.headingCommon {
+  font-family: var(--font-default);
+  font-weight: bold;
+  color: var(--color-black-90);
+  line-height: var(--lineheight-m);
+}
+
+.headingWithoutImage {
+  font-size: var(--fontsize-heading-m);
+}
+
+.headingWhenSmallImage {
+  font-size: var(--fontsize-heading-s);
+}
+
+.headingWhenMediumImage {
+  font-size: var(--fontsize-heading-m);
+}
+
+.headingWhenLargeImage {
+  padding-bottom: 3px;
+  font-size: var(--fontsize-heading-l);
+}
+
+.text {
+  font-family: var(--font-default);
+  font-size: var(--fontsize-body-m);
+  margin-top: 9px;
+  line-height: var(--lineheight-l);
+  color: var(--color-black-90);
+}
+
+.link {
+  display: inline-block;
+  line-height: var(--lineheight-l);
+  color: var(--color-black-90);
+}
+
+.icon {
+  vertical-align: bottom;
+}
+
+.image {
+  max-width: 100%;
+  display: block;
+}
