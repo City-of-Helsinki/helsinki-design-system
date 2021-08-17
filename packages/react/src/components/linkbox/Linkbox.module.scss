@@ -84,6 +84,11 @@
   display: inline-block;
   line-height: var(--lineheight-l);
   color: var(--color-black-90);
+  
+  &:focus {
+    outline: none;
+    border: none;
+  }
 }
 
 .icon {
