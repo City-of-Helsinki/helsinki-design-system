@@ -22,6 +22,17 @@
   }
 }
 
+.fileInputButton {
+  &:focus-within {
+    background-color: var(--background-color-hover-focus, transparent);
+
+    &::after {
+      --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
+      border-color: var(--focus-outline-color);
+    }
+  }
+}
+
 .fileList {
   list-style: none;
   max-width: 500px;
@@ -31,7 +42,9 @@
 .fileListItem {
   background-color: var(--color-info-light);
   display: flex;
-  padding: var(--spacing-s) var(--spacing-m) var(--spacing-s) var(--spacing-3-xs);
+  align-items: center;
+  padding: var(--spacing-2-xs);
+  padding-right: var(--spacing-s);
 
   & + & {
     margin-top: var(--spacing-s);
@@ -46,6 +59,7 @@
   @extend %buttonReset;
   display: flex;
   margin-left: auto;
+  padding: var(--spacing-2-xs) var(--spacing-s);
 }
 
 .fileListItemButtonLabel {
