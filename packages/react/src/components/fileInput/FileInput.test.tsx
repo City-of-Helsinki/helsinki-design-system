@@ -141,4 +141,40 @@ describe('<FileInput /> spec', () => {
     expect(screen.getByText(secondFileName)).toBeInTheDocument();
     expect(screen.getAllByRole('listitem').length).toEqual(2);
   });
+
+  test('should remove file from the files list', async () => {
+    let testFileHolder;
+    const onChangeCallback = (files: File[]) => {
+      testFileHolder = files;
+    };
+    const inputLabel = 'Add files';
+    const fileNameA = 'test-file-a';
+    const fileA = new File(['test-file'], fileNameA, { type: 'image/png' });
+    const fileNameB = 'test-file-b';
+    const fileB = new File(['test-file'], fileNameB, { type: 'image/png' });
+    render(
+      <FileInput
+        id="test-file-input"
+        label="Choose files"
+        buttonLabel={inputLabel}
+        successMessage="Files added successfully."
+        removeButtonLabel="remove"
+        removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
+        removeSuccessMessage="File removed."
+        onChange={onChangeCallback}
+        multiple
+      />,
+    );
+    const fileUpload = screen.getByLabelText('Add files');
+    userEvent.upload(fileUpload, [fileA, fileB]);
+    expect(screen.queryByText(fileNameA)).toBeInTheDocument();
+    expect(screen.queryByText(fileNameB)).toBeInTheDocument();
+    expect(testFileHolder).toEqual([fileA, fileB]);
+    await act(async () => {
+      userEvent.click(screen.getByLabelText(`Remove ${fileNameB} from the list`));
+    });
+    expect(screen.queryByText(fileNameA)).toBeInTheDocument();
+    expect(screen.queryByText(fileNameB)).toBeNull();
+    expect(testFileHolder).toEqual([fileA]);
+  });
 });
