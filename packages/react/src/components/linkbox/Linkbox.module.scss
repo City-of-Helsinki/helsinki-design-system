@@ -2,7 +2,7 @@
   cursor: pointer;
 
   &:focus {
-    outline: #0072c6 3px solid;
+    outline: var(--color-coat-of-arms) 3px solid;
   }
 }
 
