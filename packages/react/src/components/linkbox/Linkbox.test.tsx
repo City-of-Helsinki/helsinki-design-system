@@ -19,4 +19,19 @@ describe('<Linkbox /> spec', () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+  it('external linkbox that is opened in to a new tab should not have any basic accessibility issues', async () => {
+    const { container, asFragment } = render(
+      <Linkbox
+        ariaLabel="HDS"
+        href="https://hds.hel.fi"
+        heading="Linkbox title"
+        text="Linkbox text"
+        external
+        openInNewTab
+      />,
+    );
+    expect(asFragment()).toMatchSnapshot();
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
 });
