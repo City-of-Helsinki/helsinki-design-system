@@ -37,45 +37,96 @@ import Text from "../../src/components/Text";
 ### Radio button with label
 
 <Playground>
-  <RadioButton id="radio" label="Label" />
-  <RadioButton id="radio2" label="Label" checked />
-  <RadioButton id="radio3" label="Label" disabled />
-  <RadioButton id="radio4" label="Label" checked disabled />
+  {() => {
+    const [selectedItem, setSelectedItem] = React.useState("2");
+    const onChange = (event) => {
+      setSelectedItem(event.target.value);
+    };
+    return (
+      <>
+      <RadioButton id="radio1" name="example" label="Label" value="1" checked={selectedItem === "1"} onChange={onChange}/>
+      <RadioButton id="radio2" name="example" label="Label" value="2" checked={selectedItem === "2"} onChange={onChange} />
+    </>
+    )
+  }}
 </Playground>
 
 #### Core code example:
 ```html
 <!-- Enabled-->
 <div class="hds-checkbox">
-  <input type="radio" id="radio" class="hds-radio-button__input" />
+  <input type="radio" id="radio1" name="example" class="hds-radio-button__input" />
   <label for="radio"  class="hds-radio-button__label">Label</label>
 </div>
 
 <!-- Enabled & selected -->
 <div class="hds-checkbox">
-  <input type="radio" id="radio" class="hds-radio-button__input" checked />
-  <label for="radio"  class="hds-radio-button__label">Label</label>
-</div>
-
-<!-- Disabled -->
-<div class="hds-checkbox">
-  <input type="radio" id="radio" class="hds-radio-button__input" disabled />
-  <label for="radio"  class="hds-radio-button__label">Label</label>
-</div>
-
-<!-- Disabled & selected -->
-<div class="hds-checkbox">
-  <input type="radio" id="radio" class="hds-radio-button__input" checked disabled />
-  <label for="radio"  class="hds-radio-button__label">Label</label>
+  <input type="radio" id="radio2" name="example" class="hds-radio-button__input" checked />
+  <label for="radio2"  class="hds-radio-button__label">Label</label>
 </div>
 ```
 
 #### React code example:
 ```tsx
-<RadioButton id="radio" label="Label" />
-<RadioButton id="radio" label="Label" checked />
-<RadioButton id="radio3" label="Label" disabled />
-<RadioButton id="radio4" label="Label" checked disabled />
+  {() => {
+    const [selectedItem, setSelectedItem] = React.useState("2");
+    const onChange = (event) => {
+      setSelectedItem(event.target.value);
+    };
+    return (
+      <>
+      <RadioButton id="radio1" name="example" label="Label" value="1" checked={selectedItem === "1"} onChange={onChange}/>
+      <RadioButton id="radio2" name="example" label="Label" value="2" checked={selectedItem === "2"} onChange={onChange} />
+    </>
+    )
+  }}
+```
+
+### Radio button with label (disabled)
+<Playground>
+  {() => {
+    const [selectedItem, setSelectedItem] = React.useState("2");
+    const onChange = (event) => {
+      setSelectedItem(event.target.value);
+    };
+    return (
+      <>
+        <RadioButton disabled id="radio1" name="example-disabled" label="Label" value="1" checked={selectedItem === "1"} onChange={onChange}/>
+        <RadioButton disabled id="radio2" name="example-disabled" label="Label" value="2" checked={selectedItem === "2"} onChange={onChange} />
+      </>
+    )
+  }}
+</Playground>
+
+#### Core code example:
+```html
+<!-- Disabled -->
+<div class="hds-checkbox">
+  <input type="radio" id="radio1" name="example-disabled" class="hds-radio-button__input" disabled />
+  <label for="radio1"  class="hds-radio-button__label">Label</label>
+</div>
+
+<!-- Disabled & selected -->
+<div class="hds-checkbox">
+  <input type="radio" id="radio2" name="example-disabled" class="hds-radio-button__input" checked disabled />
+  <label for="radio2"  class="hds-radio-button__label">Label</label>
+</div>
+```
+
+#### React code example:
+```tsx
+  {() => {
+    const [selectedItem, setSelectedItem] = React.useState("2");
+    const onChange = (event) => {
+      setSelectedItem(event.target.value);
+    };
+    return (
+      <>
+        <RadioButton disabled id="radio1" name="example-disabled" label="Label" value="1" checked={selectedItem === "1"} onChange={onChange}/>
+        <RadioButton disabled id="radio2" name="example-disabled" label="Label" value="2" checked={selectedItem === "2"} onChange={onChange} />
+      </>
+    )
+  }}
 ```
 
 ### Radio button group
