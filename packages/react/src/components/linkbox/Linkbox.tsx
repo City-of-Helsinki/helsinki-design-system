@@ -24,7 +24,7 @@ export type LinkboxProps = Omit<React.ComponentPropsWithoutRef<'a'>, 'tabIndex'>
    */
   headingAriaLevel?: number;
   /**
-   * The image props passed to the hero image. Image variant requires prop withImg set to true.
+   * The image props passed to the linkbox image. Image variant requires prop withImg set to true.
    */
   imgProps?: React.ComponentPropsWithoutRef<'img'>;
   /**
