@@ -7,6 +7,9 @@ import { IconArrowRight, IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';
 
 export type LinkboxProps = React.ComponentPropsWithoutRef<'a'> & {
+  /**
+   * Aria-label of the linkbox component.
+   */
   ariaLabel: string;
   /**
    * Boolean indicating for external link that takes user to an entirely new web site. Defaults to false.
@@ -29,6 +32,18 @@ export type LinkboxProps = React.ComponentPropsWithoutRef<'a'> & {
    */
   noBackground?: boolean;
   /**
+   * Aria label for opening link in an external domain. Active when external prop is true.
+   */
+  openInExternalDomainAriaLabel?: string;
+  /**
+   * Boolean indicating whether the link will open in new tab or not. Defaults to false.
+   */
+  openInNewTab?: boolean;
+  /**
+   * Aria label for opening link in a new tab
+   */
+  openInNewTabAriaLabel?: string;
+  /**
    * Optional text of the linkbox.
    */
   text?: string;
@@ -49,19 +64,35 @@ export type LinkboxProps = React.ComponentPropsWithoutRef<'a'> & {
 export const Linkbox = ({
   ariaLabel,
   children,
+  className,
   external = false,
   heading,
   headingAriaLevel = 2,
   href,
   imgProps,
   noBackground = false,
-  target,
+  openInExternalDomainAriaLabel,
+  openInNewTab = false,
+  openInNewTabAriaLabel,
   text,
   withBorder = false,
   withImg = false,
   withImgSize = 'small',
+  ...rest
 }: LinkboxProps) => {
   const linkRef = useRef(null);
+
+  const comboseAriaLabel = () => {
+    const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
+    const externalText = external ? openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.' : '';
+    let extendedAriaLabel = '';
+
+    if (ariaLabel && ariaLabel.slice(-1) !== '.') {
+      extendedAriaLabel = `${ariaLabel}.`;
+    }
+
+    return [extendedAriaLabel, newTabText, externalText].filter((txt) => txt).join(' ');
+  };
 
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
@@ -77,7 +108,7 @@ export const Linkbox = ({
         linkRef.current.click();
       }}
       className={classNames(styles.linkbox, withBorder && styles.withBorder, !withBorder && styles.withoutBorder)}
-      aria-label={ariaLabel}
+      aria-label={comboseAriaLabel()}
     >
       {withImg && <img {...imgProps} className={styles.image} alt="" />}
       <div
@@ -109,7 +140,15 @@ export const Linkbox = ({
         )}
         {text && <p className={styles.text}>{text}</p>}
         {children}
-        <a className={styles.link} aria-label={ariaLabel} ref={linkRef} tabIndex={-1} href={href} target={target}>
+        <a
+          className={classNames(styles.link, className)}
+          aria-label={comboseAriaLabel()}
+          ref={linkRef}
+          tabIndex={-1}
+          href={href}
+          {...(openInNewTab && { target: '_blank', rel: 'noopener' })}
+          {...rest}
+        >
           {external && <IconLinkExternal className={styles.icon} size="l" aria-hidden />}
           {!external && <IconArrowRight className={styles.icon} size="l" aria-hidden />}
         </a>
