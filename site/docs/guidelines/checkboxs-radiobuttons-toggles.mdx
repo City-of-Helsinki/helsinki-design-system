@@ -62,7 +62,10 @@ A stand-alone checkbox is used for a single option that the user can turn on or 
 <b>Example use: </b>Single selection confirming on/off selection
 
 <Playground>
-  <Checkbox label="I have a loyalty card" />
+  {() => {
+    const [checked, setChecked] = React.useState(false);
+    return <Checkbox id="checkbox" label="I have a loyalty card" checked={checked} onChange={() => setChecked(!checked)} />;
+  }}
 </Playground>
 
 <br />
