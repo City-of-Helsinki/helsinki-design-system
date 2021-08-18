@@ -51,13 +51,12 @@ $componentMaxWidth: 500px;
 }
 
 .fileListItem {
+  align-items: flex-start;
   background-color: var(--color-info-light);
   border-bottom: 2px dotted var(--color-coat-of-arms);
   box-sizing: border-box;
   display: flex;
-  align-items: center;
-  padding: var(--spacing-2-xs);
-  padding-right: var(--spacing-s);
+  padding: var(--spacing-s) var(--spacing-s) var(--spacing-2-xs) var(--spacing-2-xs);
   max-width: 100%;
   width: $componentMaxWidth;
 
@@ -66,14 +65,32 @@ $componentMaxWidth: 500px;
   }
 }
 
-.fileListItemLabel {
+.fileListItemTitle {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: nowrap;
   margin-left: var(--spacing-xs);
+  width: 100%;
+}
+
+.fileListItemName {
+  hyphens: auto;
+  word-break: break-word;
+}
+
+.fileListItemSize {
+  flex: 1;
+  margin-left: var(--spacing-s);
+  min-width: 6ch;
+  text-align: right;
+  white-space: nowrap;
 }
 
 .fileListItemButton {
   @extend %buttonReset;
   display: flex;
   margin-left: auto;
+  margin-top: calc(-1 * var(--spacing-2-xs));
   padding: var(--spacing-2-xs) var(--spacing-s);
 }
 

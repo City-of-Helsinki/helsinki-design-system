@@ -94,6 +94,17 @@ type FileInputProps = {
   style?: React.CSSProperties;
 };
 
+const formatBytes = (bytes: number): string => {
+  if (bytes === 0) {
+    return '0 bytes';
+  }
+
+  const sizeUnits: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
+  const sizeUnitIndex = Math.floor(Math.log(bytes) / Math.log(1024));
+  const sizeInUnit = bytes / Math.pow(1024, sizeUnitIndex);
+  return `${sizeUnitIndex < 2 ? Math.round(sizeInUnit) : sizeInUnit.toFixed(1)} ${sizeUnits[sizeUnitIndex]}`;
+};
+
 export const FileInput = ({
   id,
   label,
@@ -272,7 +283,10 @@ export const FileInput = ({
           {selectedFiles.map((file: File) => (
             <li key={file.name} className={styles.fileListItem}>
               {file.type.startsWith('image') ? <IconPhoto aria-hidden /> : <IconDocument aria-hidden />}
-              <span className={styles.fileListItemLabel}>{file.name}</span>
+              <div className={styles.fileListItemTitle}>
+                <span className={styles.fileListItemName}>{file.name}</span>
+                <span className={styles.fileListItemSize}>({formatBytes(file.size)})</span>
+              </div>
               <button
                 type="button"
                 onClick={() => removeFileFromList(file)}
