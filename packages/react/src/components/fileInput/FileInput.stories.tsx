@@ -112,13 +112,13 @@ export const WithDragAndDrop = (args) => {
       {...args}
       multiple
       id="file-input"
-      label="Drag and drop file here"
+      label="Drag and drop files here"
       dragAndDrop={{
-        label: 'Drag a file here',
+        label: 'Drag files here',
         helperText: 'or browse from your computer',
       }}
-      buttonLabel="Add file"
-      successMessage="File added successfully."
+      buttonLabel="Add files"
+      successMessage="Files added successfully."
       removeButtonLabel="Remove"
       removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
       removeSuccessMessage="File removed."
