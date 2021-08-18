@@ -101,7 +101,7 @@ const formatBytes = (bytes: number): string => {
 
   const sizeUnits: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
   const sizeUnitIndex = Math.floor(Math.log(bytes) / Math.log(1024));
-  const sizeInUnit = bytes / Math.pow(1024, sizeUnitIndex);
+  const sizeInUnit = bytes / 1024 ** sizeUnitIndex;
   return `${sizeUnitIndex < 2 ? Math.round(sizeInUnit) : sizeInUnit.toFixed(1)} ${sizeUnits[sizeUnitIndex]}`;
 };
 
