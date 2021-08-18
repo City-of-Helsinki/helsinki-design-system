@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
@@ -44,13 +45,18 @@ describe('<FileInput /> spec', () => {
 
   test('should list added files', async () => {
     const inputLabel = 'Add files';
-    const fileNameA = 'test-file-a.png';
-    const fileNameB = 'doc.json';
-    const files: File[] = [
-      new File(['test-file-a'], fileNameA, { type: 'image/png' }),
-      new File(['test-file-b'], fileNameB, { type: 'application/json' }),
-    ];
-    render(
+
+    const fileNameA = 'test-image-a.png';
+    const fileA = new File([''], fileNameA, { type: 'image/png' });
+    Object.defineProperty(fileA, 'size', { value: 12.5 * 1024 * 1024 });
+    const fileNameB = 'test-doc-b.json';
+    const fileB = new File([''], fileNameB, { type: 'application/json' });
+    Object.defineProperty(fileB, 'size', { value: 110 * 1024 });
+    const fileNameC = 'test-image-c.png';
+    const fileC = new File([''], fileNameC, { type: 'image/png' });
+    Object.defineProperty(fileC, 'size', { value: 3.3 * 1024 * 1024 * 1024 });
+    const files: File[] = [fileA, fileB, fileC];
+    const { getAllByRole } = render(
       <FileInput
         id="test-file-input"
         label="Choose files"
@@ -65,8 +71,23 @@ describe('<FileInput /> spec', () => {
     );
     const fileUpload = screen.getByLabelText('Add files');
     userEvent.upload(fileUpload, files);
-    expect(screen.getByText(fileNameA)).toBeInTheDocument();
-    expect(screen.getByText(fileNameB)).toBeInTheDocument();
+    const fileListItems = getAllByRole('listitem');
+    expect(fileListItems.length).toBe(3);
+
+    const fileItemA = fileListItems.find((i) => i.innerHTML.includes(fileNameA));
+    const { getByText: getByTextInA, getByLabelText: getByLabelInA } = within(fileItemA);
+    expect(getByTextInA('(12.5 MB)')).toBeInTheDocument();
+    expect(getByLabelInA(`Remove ${fileNameA} from the list`)).toBeInTheDocument();
+
+    const fileItemB = fileListItems.find((i) => i.innerHTML.includes(fileNameB));
+    const { getByText: getByTextInB, getByLabelText: getByLabelInB } = within(fileItemB);
+    expect(getByTextInB('(110 kB)')).toBeInTheDocument();
+    expect(getByLabelInB(`Remove ${fileNameB} from the list`)).toBeInTheDocument();
+
+    const fileItemC = fileListItems.find((i) => i.innerHTML.includes(fileNameC));
+    const { getByText: getByTextInC, getByLabelText: getByLabelInC } = within(fileItemC);
+    expect(getByTextInC('(3.3 GB)')).toBeInTheDocument();
+    expect(getByLabelInC(`Remove ${fileNameC} from the list`)).toBeInTheDocument();
   });
 
   test('should call onChange with a list of files', async () => {
