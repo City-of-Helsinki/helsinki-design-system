@@ -21,15 +21,12 @@ export default {
     },
     controls: { expanded: true },
   },
-  args: {
-    ariaLabel: 'HDS',
-  },
 };
 
-export const Default = (args) => (
+export const Default = () => (
   <div style={{ width: '284px' }}>
     <Linkbox
-      {...args}
+      ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
@@ -39,10 +36,10 @@ export const Default = (args) => (
   </div>
 );
 
-export const WithBorder = (args) => (
+export const WithBorder = () => (
   <div style={{ width: '284px' }}>
     <Linkbox
-      {...args}
+      ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
@@ -53,10 +50,10 @@ export const WithBorder = (args) => (
   </div>
 );
 
-export const WithoutBackground = (args) => (
+export const WithoutBackground = () => (
   <div style={{ width: '284px' }}>
     <Linkbox
-      {...args}
+      ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
@@ -67,24 +64,25 @@ export const WithoutBackground = (args) => (
   </div>
 );
 
-export const External = (args) => (
+export const External = () => (
   <div style={{ width: '284px' }}>
     <Linkbox
-      {...args}
+      ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
       external
+      openInNewTab
       withImg
       imgProps={{ src: exampleImage, width: 284, height: 181 }}
     />
   </div>
 );
 
-export const MediumSize = (args) => (
+export const MediumSize = () => (
   <div style={{ width: '384px' }}>
     <Linkbox
-      {...args}
+      ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
@@ -95,10 +93,10 @@ export const MediumSize = (args) => (
   </div>
 );
 
-export const LargeSize = (args) => (
+export const LargeSize = () => (
   <div style={{ width: '567px' }}>
     <Linkbox
-      {...args}
+      ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"

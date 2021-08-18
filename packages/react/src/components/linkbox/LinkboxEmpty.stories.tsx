@@ -13,31 +13,28 @@ export default {
     },
     controls: { expanded: true },
   },
-  args: {
-    ariaLabel: 'HDS',
-  },
 };
 
-export const Default = (args) => (
-  <Linkbox {...args} href="https://hds.hel.fi">
+export const Default = () => (
+  <Linkbox ariaLabel="Linkkiruutu: HDS" href="https://hds.hel.fi">
     <div style={{ height: '106px' }} />
   </Linkbox>
 );
 
-export const WithBorder = (args) => (
-  <Linkbox {...args} href="https://hds.hel.fi" withBorder>
+export const WithBorder = () => (
+  <Linkbox ariaLabel="Linkkiruutu: HDS" href="https://hds.hel.fi" withBorder>
     <div style={{ height: '106px' }} />
   </Linkbox>
 );
 
-export const WithoutBackground = (args) => (
-  <Linkbox {...args} href="https://hds.hel.fi" noBackground>
+export const WithoutBackground = () => (
+  <Linkbox ariaLabel="Linkkiruutu: HDS" href="https://hds.hel.fi" noBackground>
     <div style={{ height: '106px' }} />
   </Linkbox>
 );
 
-export const External = (args) => (
-  <Linkbox {...args} href="https://hds.hel.fi" external>
+export const External = () => (
+  <Linkbox ariaLabel="Linkkiruutu: HDS" href="https://hds.hel.fi" external openInNewTab>
     <div style={{ height: '106px' }} />
   </Linkbox>
 );
