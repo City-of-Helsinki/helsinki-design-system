@@ -6,7 +6,7 @@ import styles from './Linkbox.module.scss';
 import { IconArrowRight, IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';
 
-export type LinkboxProps = React.ComponentPropsWithoutRef<'a'> & {
+export type LinkboxProps = Omit<React.ComponentPropsWithoutRef<'a'>, 'tabIndex'> & {
   /**
    * Aria-label of the linkbox component.
    */
