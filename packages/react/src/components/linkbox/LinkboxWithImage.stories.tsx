@@ -24,7 +24,7 @@ export default {
 };
 
 export const Default = () => (
-  <div style={{ width: '284px' }}>
+  <div style={{ maxWidth: '284px' }}>
     <Linkbox
       ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
@@ -37,7 +37,7 @@ export const Default = () => (
 );
 
 export const WithBorder = () => (
-  <div style={{ width: '284px' }}>
+  <div style={{ maxWidth: '284px' }}>
     <Linkbox
       ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
@@ -51,7 +51,7 @@ export const WithBorder = () => (
 );
 
 export const WithoutBackground = () => (
-  <div style={{ width: '284px' }}>
+  <div style={{ maxWidth: '284px' }}>
     <Linkbox
       ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
@@ -65,7 +65,7 @@ export const WithoutBackground = () => (
 );
 
 export const External = () => (
-  <div style={{ width: '284px' }}>
+  <div style={{ maxWidth: '284px' }}>
     <Linkbox
       ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
@@ -80,7 +80,7 @@ export const External = () => (
 );
 
 export const MediumSize = () => (
-  <div style={{ width: '384px' }}>
+  <div style={{ maxWidth: '384px' }}>
     <Linkbox
       ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
@@ -94,7 +94,7 @@ export const MediumSize = () => (
 );
 
 export const LargeSize = () => (
-  <div style={{ width: '567px' }}>
+  <div style={{ maxWidth: '567px' }}>
     <Linkbox
       ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
