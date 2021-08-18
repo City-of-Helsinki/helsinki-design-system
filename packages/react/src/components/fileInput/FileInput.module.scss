@@ -56,7 +56,8 @@ $componentMaxWidth: 500px;
   border-bottom: 2px dotted var(--color-coat-of-arms);
   box-sizing: border-box;
   display: flex;
-  padding: var(--spacing-s) var(--spacing-s) var(--spacing-2-xs) var(--spacing-2-xs);
+  padding: var(--spacing-s);
+  padding-right: var(--spacing-2-xs);
   max-width: 100%;
   width: $componentMaxWidth;
 
@@ -91,6 +92,7 @@ $componentMaxWidth: 500px;
   display: flex;
   margin-left: auto;
   margin-top: calc(-1 * var(--spacing-2-xs));
+  margin-bottom: calc(-1 * var(--spacing-2-xs));
   padding: var(--spacing-2-xs) var(--spacing-s);
 }
 
