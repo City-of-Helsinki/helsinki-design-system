@@ -23,7 +23,7 @@ export * from './radioButton';
 export * from './searchInput';
 export * from './section';
 export * from './selectionGroup';
-export * from './sideNavigation'
+export * from './sideNavigation';
 export * from './statusLabel';
 export * from './tag';
 export * from './textarea';
