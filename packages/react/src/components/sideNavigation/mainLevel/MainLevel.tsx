@@ -163,7 +163,7 @@ export const MainLevel = ({
         <>
           <button
             type="button"
-            aria-current={active ? 'page' : 'false'}
+            aria-current={!!active}
             aria-label={label}
             aria-expanded={open}
             id={id}
