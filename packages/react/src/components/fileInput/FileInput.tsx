@@ -231,6 +231,7 @@ export const FileInput = ({
           {hasDragAndDrop && (
             <>
               <div
+                aria-hidden
                 onDragEnter={onDragEnter}
                 onDragOver={onDragEnter}
                 onDragLeave={onDragLeave}
