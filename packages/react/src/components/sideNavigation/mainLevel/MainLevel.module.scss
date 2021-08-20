@@ -18,7 +18,13 @@
 }
 
 .mainLevelWithDivider {
-  composes: mainLevelWithDivider from '../SideNavigation.module.scss';
+  &:before {
+    border-top: 1px solid var(--color-black-20);
+    content: "";
+    display: block;
+    height: 1px;
+    margin: var(--spacing-xs) var(--side-navigation-level-inset);
+  }
 }
 
 .leftIcon,
