@@ -5,7 +5,7 @@ import classNames from '../../../utils/classNames';
 import styles from './MainLevel.module.scss';
 import SideNavigationContext from '../SideNavigationContext';
 import { FCWithName } from '../../../common/types';
-import { IconAngleDown, IconLinkExternal } from '../../../icons';
+import { IconAngleDown, IconAngleUp, IconLinkExternal } from '../../../icons';
 
 export type MainLevelProps = {
   /**
@@ -171,7 +171,7 @@ export const MainLevel = ({
           >
             {icon && <LeftIcon icon={icon} />}
             <Label label={label} />
-            {hasSubLevels && <RightIcon icon={<IconAngleDown aria-hidden />} className={styles.arrowIcon} />}
+            {hasSubLevels && <RightIcon icon={open ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />} />}
           </button>
           <ul className={styles.mainLevelListMenu} id={menuId} aria-hidden={!open} aria-labelledby={id}>
             {subLevels}
