@@ -116,13 +116,3 @@
     color: var(--side-navigation-level-color-active);
   }
 }
-
-.mainLevelWithDivider {
-  &:before {
-    border-top: 1px solid var(--color-black-20);
-    content: "";
-    display: block;
-    height: 1px;
-    margin: var(--spacing-xs) var(--side-navigation-level-inset);
-  }
-}
