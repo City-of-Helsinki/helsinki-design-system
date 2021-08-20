@@ -99,9 +99,7 @@ export const MainLevel = ({
   ...rest
 }: MainLevelProps) => {
   const menuId = `${id}-menu`;
-  const { autoCollapseOthers, openMainLevels, setMobileMenuOpen, setOpenMainLevels } = useContext(
-    SideNavigationContext,
-  );
+  const { openMainLevels, setMobileMenuOpen, setOpenMainLevels } = useContext(SideNavigationContext);
   const activeRef = React.useRef<boolean>(active);
   const open = openMainLevels.includes(index as number);
 
@@ -117,13 +115,8 @@ export const MainLevel = ({
   const hasSubLevels = Boolean(subLevels?.length);
 
   const handleMainLevelClick = (ev: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>) => {
-    if (autoCollapseOthers) {
-      // With autoCollapseOther prop only one level can be open at same time
-      setOpenMainLevels([index as number]);
-    } else {
-      // Handle toggle: either remove index if exists or add if it doesn't
-      setOpenMainLevels(xor(openMainLevels, [index]));
-    }
+    // Handle toggle: either remove index if exists or add if it doesn't
+    setOpenMainLevels(xor(openMainLevels, [index]));
 
     if (!hasSubLevels) {
       setMobileMenuOpen(false);
@@ -137,15 +130,10 @@ export const MainLevel = ({
   React.useEffect(() => {
     // Ensure that active main level is initially open
     if (activeRef.current && !open) {
-      if (autoCollapseOthers) {
-        // With autoCollapseOther prop only one level can be open at same time
-        setOpenMainLevels([index as number]);
-      } else {
-        setOpenMainLevels([...openMainLevels, index]);
-      }
+      setOpenMainLevels([...openMainLevels, index]);
       activeRef.current = false;
     }
-  }, [activeRef, open, autoCollapseOthers, setOpenMainLevels, openMainLevels, index]);
+  }, [activeRef, open, setOpenMainLevels, openMainLevels, index]);
 
   return (
     <li
