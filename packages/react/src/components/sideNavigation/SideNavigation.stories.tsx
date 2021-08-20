@@ -106,6 +106,7 @@ export const Default = (args) => {
         href={ID.MAIN_LEVEL_4}
         label={labels.mainLevel4}
         external
+        openInExternalDomainAriaLabel="Opens a different website"
         onClick={handleClick(setActive)}
         withDivider
       />
@@ -176,6 +177,7 @@ export const WithIcons = (args) => {
         href={ID.MAIN_LEVEL_4}
         label={labels.mainLevel4}
         external
+        openInExternalDomainAriaLabel="Opens a different website"
         onClick={handleClick(setActive)}
         withDivider
       />
