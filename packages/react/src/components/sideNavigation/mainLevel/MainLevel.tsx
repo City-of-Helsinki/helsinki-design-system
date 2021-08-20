@@ -29,7 +29,7 @@ export type MainLevelProps = {
    */
   icon?: React.ReactNode;
   /**
-   * Index of the side navigation main level.
+   * Index of the side navigation main level. The parent SideNavigation component uses this property to index main levels.
    */
   index?: number;
   /**

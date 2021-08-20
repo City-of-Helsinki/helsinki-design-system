@@ -26,7 +26,7 @@ export type SubLevelProps = React.ComponentPropsWithoutRef<'a'> & {
    */
   label: string;
   /**
-   * Index of the containing main level
+   * Index of the containing main level. The parent MainLevel component uses this property to index sub levels.
    */
   mainLevelIndex?: number;
   /**
