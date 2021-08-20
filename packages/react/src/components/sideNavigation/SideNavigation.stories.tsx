@@ -254,15 +254,15 @@ AutoCollapseOtherOpened.args = { autoCollapseOthers: true };
 export const CustomTheme = (args) => Default(args);
 CustomTheme.args = {
   theme: {
-    '--side-navigation-background-color': 'var(--color-fog-light)',
-    '--side-navigation-active-indicator-background-color': 'var(--color-fog-dark)',
+    '--side-navigation-background-color': 'var(--color-white)',
+    '--side-navigation-active-indicator-background-color': 'var(--color-gold)',
     '--side-navigation-icon-size': 'var(--spacing-m)',
-    '--side-navigation-level-border-color': 'var(--color-fog-light)',
+    '--side-navigation-level-border-color': 'var(--color-white)',
     '--side-navigation-level-border-color-focus': 'var(--color-coat-of-arms)',
-    '--side-navigation-level-border-color-hover': 'var(--color-fog)',
-    '--side-navigation-level-background-color': 'var(--color-fog-light)',
-    '--side-navigation-level-background-color-active': 'var(--color-fog)',
-    '--side-navigation-level-background-color-hover': 'var(--color-fog)',
+    '--side-navigation-level-border-color-hover': 'var(--color-fog-light)',
+    '--side-navigation-level-background-color': 'var(--color-white)',
+    '--side-navigation-level-background-color-active': 'var(--color-fog-light)',
+    '--side-navigation-level-background-color-hover': 'var(--color-fog-light)',
     '--side-navigation-level-color': 'var(--color-black)',
     '--side-navigation-level-color-active': 'var(--color-black)',
     '--side-navigation-level-color-hover': 'var(--color-black)',
