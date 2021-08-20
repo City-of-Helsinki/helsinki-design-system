@@ -56,11 +56,6 @@ export type SideNavigationProps = React.PropsWithChildren<{
    * label for the mobile menu toggle button
    */
   toggleButtonLabel: string;
-  /**
-   * Autocollapse main levels when opening other main levels.
-   * @default false
-   */
-  autoCollapseOthers?: boolean;
 }>;
 
 export const SideNavigation = ({
@@ -71,7 +66,6 @@ export const SideNavigation = ({
   style,
   theme,
   toggleButtonLabel,
-  autoCollapseOthers,
 }: SideNavigationProps) => {
   const container = React.useRef<HTMLDivElement>(null);
   const customThemeClass = useTheme<SideNavigationCustomTheme>(styles.sideNavigation, theme);
@@ -126,7 +120,6 @@ export const SideNavigation = ({
         openMainLevels,
         setMobileMenuOpen,
         setOpenMainLevels,
-        autoCollapseOthers,
       }}
     >
       <nav
