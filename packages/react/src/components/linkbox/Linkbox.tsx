@@ -82,7 +82,7 @@ export const Linkbox = ({
 }: LinkboxProps) => {
   const linkRef = useRef(null);
 
-  const comboseAriaLabel = () => {
+  const composeAriaLabel = () => {
     const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
     const externalText = external ? openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.' : '';
     let extendedAriaLabel = '';
@@ -108,7 +108,7 @@ export const Linkbox = ({
         linkRef.current.click();
       }}
       className={classNames(styles.linkbox, withBorder && styles.withBorder, !withBorder && styles.withoutBorder)}
-      aria-label={comboseAriaLabel()}
+      aria-label={composeAriaLabel()}
     >
       {withImg && <img {...imgProps} className={styles.image} alt="" />}
       <div
@@ -142,7 +142,7 @@ export const Linkbox = ({
         {children}
         <a
           className={classNames(styles.link, className)}
-          aria-label={comboseAriaLabel()}
+          aria-label={composeAriaLabel()}
           ref={linkRef}
           tabIndex={-1}
           href={href}
