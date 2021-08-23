@@ -93,7 +93,9 @@ export const Default = (args) => {
               href="external-address"
               label="Main level external link"
               external
-              openInExternalDomainAriaLabel="Opens a different website"
+              openInNewTab
+              openInNewTabAriaLabel="Opens in a new tab."
+              openInExternalDomainAriaLabel="Opens a different website."
               onClick={handleClick(setActive)}
               withDivider
             />
@@ -183,7 +185,9 @@ export const WithIcons = (args) => {
               href="external-address"
               label="Main level external link"
               external
-              openInExternalDomainAriaLabel="Opens a different website"
+              openInNewTab
+              openInNewTabAriaLabel="Opens in a new tab."
+              openInExternalDomainAriaLabel="Opens a different website."
               onClick={handleClick(setActive)}
               withDivider
             />

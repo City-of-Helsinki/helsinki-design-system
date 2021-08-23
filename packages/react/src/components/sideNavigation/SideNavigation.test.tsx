@@ -28,7 +28,9 @@ const renderSideNavigation = () =>
         icon={<IconHome />}
         label={labels.mainLevel2}
         external
-        openInExternalDomainAriaLabel="Url points to external website"
+        openInNewTab
+        openInNewTabAriaLabel="Opens in a new tab."
+        openInExternalDomainAriaLabel="Url points to external website."
       />
     </SideNavigation>,
   );

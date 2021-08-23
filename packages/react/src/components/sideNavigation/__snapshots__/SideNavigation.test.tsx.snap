@@ -139,9 +139,11 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
       >
         <a
           aria-current="false"
-          aria-label="Main level 2 Url points to external website"
+          aria-label="Main level 2. Opens in a new tab. Url points to external website."
           href="#"
           id="mainLevel2"
+          rel="noopener"
+          target="_blank"
         >
           <span
             aria-hidden="true"
