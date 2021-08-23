@@ -41,13 +41,13 @@ const labels = {
   subLevel4: 'Sub level link',
 };
 
-const handleClick = (setActive) => (ev) => {
-  ev.preventDefault();
-  setActive(ev.currentTarget.getAttribute('id') as ID);
-};
-
 export const Default = (args) => {
   const [active, setActive] = React.useState(ID.SUB_LEVEL_1);
+
+  const handleClick = (setActive) => (ev) => {
+    ev.preventDefault();
+    setActive(ev.currentTarget.getAttribute('id') as ID);
+  };
 
   return (
     <SideNavigation {...args}>
@@ -105,6 +105,11 @@ export const Default = (args) => {
 
 export const WithIcons = (args) => {
   const [active, setActive] = React.useState(ID.SUB_LEVEL_2);
+
+  const handleClick = (setActive) => (ev) => {
+    ev.preventDefault();
+    setActive(ev.currentTarget.getAttribute('id') as ID);
+  };
 
   return (
     <SideNavigation {...args}>
