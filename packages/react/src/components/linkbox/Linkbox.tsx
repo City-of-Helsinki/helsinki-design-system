@@ -52,13 +52,9 @@ export type LinkboxProps = Omit<React.ComponentPropsWithoutRef<'a'>, 'tabIndex'>
    */
   withBorder?: boolean;
   /**
-   * Boolean indicating whether the Linkbox contains a hero image or not. Defaults to false.
+   * Size variant for the linkbox. Affects texts and paddings.
    */
-  withImg?: boolean;
-  /**
-   * Size variant for the linkbox when accompanied with an img. Defaults to 'small'
-   */
-  withImgSize?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large';
 };
 
 export const Linkbox = ({
@@ -76,8 +72,7 @@ export const Linkbox = ({
   openInNewTabAriaLabel,
   text,
   withBorder = false,
-  withImg = false,
-  withImgSize = 'small',
+  size = 'medium',
   ...rest
 }: LinkboxProps) => {
   const linkRef = useRef(null);
@@ -110,17 +105,19 @@ export const Linkbox = ({
       className={classNames(styles.linkbox, withBorder && styles.withBorder, !withBorder && styles.withoutBorder)}
       aria-label={composeAriaLabel()}
     >
-      {withImg && <img {...imgProps} className={styles.image} alt="" />}
+      {imgProps && <img {...imgProps} className={styles.image} alt="" />}
       <div
         className={classNames(
           noBackground && styles.withoutBackground,
           !noBackground && styles.withBackground,
-          noBackground && !withImg && styles.paddingWithoutImageAndWithoutBackground,
-          !noBackground && !withImg && styles.paddingWithoutImageAndWithBackground,
-          withImg && withImgSize === 'small' && styles.withSmallImage,
-          withImg && withImgSize === 'medium' && styles.withMediumImage,
-          withImg && withImgSize === 'large' && styles.withLargeImage,
-          withImg && noBackground && styles.horizontalPaddingWithImageAndNoBackground,
+          noBackground && !imgProps && styles.paddingWithoutImageAndWithoutBackground,
+          !noBackground && !imgProps && styles.paddingWithoutImageAndWithBackground,
+          imgProps && size === 'small' && styles.withSmallImage,
+          imgProps && size === 'medium' && styles.withMediumImage,
+          imgProps && size === 'large' && styles.withLargeImage,
+          size === 'small' && styles.contentSmall,
+          size === 'medium' && styles.contentMedium,
+          size === 'large' && styles.contentLarge,
         )}
       >
         {heading && (
@@ -129,10 +126,9 @@ export const Linkbox = ({
             aria-level={headingAriaLevel}
             className={classNames(
               styles.headingCommon,
-              !withImg && styles.headingWithoutImage,
-              withImg && withImgSize === 'small' && styles.headingWhenSmallImage,
-              withImg && withImgSize === 'medium' && styles.headingWhenMediumImage,
-              withImg && withImgSize === 'large' && styles.headingWhenLargeImage,
+              size === 'small' && styles.headingSmall,
+              size === 'medium' && styles.headingMedium,
+              size === 'large' && styles.headingLarge,
             )}
           >
             {heading}

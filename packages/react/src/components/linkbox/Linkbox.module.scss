@@ -12,32 +12,47 @@
 
 .withoutBackground {
   background: transparent;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 .paddingWithoutImageAndWithBackground {
-  padding: 22px 14px;
+  padding-top: 22px;
 }
 
 .paddingWithoutImageAndWithoutBackground {
   padding: 0;
 }
 
-// With image there's no difference in vertical padding between background and no-background variants
 .withSmallImage {
-  padding: 16px 14px 20px;
+  padding-top: 16px;
 }
 
 .withMediumImage {
-  padding: 16px 14px 22px;
+  padding-top: 16px;
 }
 
 .withLargeImage {
-  padding: 24px 22px 30px;
+  padding-top: 24px;
 }
 
-.horizontalPaddingWithImageAndNoBackground {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+.contentSmall {
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-bottom: 22px;
+}
+
+.contentMedium {
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-bottom: 22px;
+}
+
+.contentLarge {
+  padding-left: 22px;
+  padding-right: 22px;
+  padding-bottom: 30px;
 }
 
 .withBorder {
@@ -55,27 +70,26 @@
   line-height: var(--lineheight-m);
 }
 
-.headingWithoutImage {
-  font-size: var(--fontsize-heading-m);
-}
-
-.headingWhenSmallImage {
+.headingSmall {
+  padding-bottom: 0;
   font-size: var(--fontsize-heading-s);
 }
 
-.headingWhenMediumImage {
+.headingMedium {
+  padding-bottom: 3px;
   font-size: var(--fontsize-heading-m);
 }
 
-.headingWhenLargeImage {
-  padding-bottom: 3px;
+.headingLarge {
+  padding-bottom: 4px;
   font-size: var(--fontsize-heading-l);
 }
 
 .text {
   font-family: var(--font-default);
   font-size: var(--fontsize-body-m);
-  margin-top: 9px;
+  margin-top: 8px;
+  margin-bottom: 16px;
   line-height: var(--lineheight-l);
   color: var(--color-black-90);
 }

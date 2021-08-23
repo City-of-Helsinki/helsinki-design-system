@@ -38,3 +38,15 @@ export const External = () => (
     <div style={{ height: '106px' }} />
   </Linkbox>
 );
+
+export const Small = () => (
+  <Linkbox ariaLabel="Linkkiruutu: HDS" href="https://hds.hel.fi" size="small">
+    <div style={{ height: '106px' }} />
+  </Linkbox>
+);
+
+export const Large = () => (
+  <Linkbox ariaLabel="Linkkiruutu: HDS" href="https://hds.hel.fi" size="large">
+    <div style={{ height: '106px' }} />
+  </Linkbox>
+);
