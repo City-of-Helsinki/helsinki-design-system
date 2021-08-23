@@ -55,160 +55,198 @@ import Link from "../../src/components/Link";
 The default side navigation has support for two (2) levels of navigation, icons, external links, and a divider to create logical groups for the navigation items.
 
 <Playground>
-<div
-  style={{
-    backgroundColor: '#f5f5f5',
-    display: 'grid',
-  }}
->
-  <div
+{() => {
+  const [active, setActive] = React.useState('/archive');
+  const setActivePage = (e) => {
+    e.preventDefault();
+    setActive(e.target.getAttribute('href'));
+  }
+  return (<div
     style={{
-      height: '100%',
-      maxWidth: '400px'
+      backgroundColor: '#f5f5f5',
+      display: 'grid',
     }}
   >
-    <SideNavigation
-      defaultOpenMainLevels={[]}
-      id="side-navigation"
-      toggleButtonLabel="Navigate to page"
+    <div
+      style={{
+        height: '100%',
+        maxWidth: '400px'
+      }}
     >
-      <SideNavigation.MainLevel
-        id="#main-level-1"
-        label="Events"
+      <SideNavigation
+        defaultOpenMainLevels={[]}
+        id="side-navigation"
+        toggleButtonLabel="Navigate to page"
       >
-        <SideNavigation.SubLevel
-          href="#sub-level-1"
-          id="#sub-level-1"
-          label="All events"
-          onClick={function noRefCheck(){}}
+        <SideNavigation.MainLevel
+          id="#main-level-1"
+          label="Events"
+        >
+          <SideNavigation.SubLevel
+            href="/events"
+            active={active === '/events'}
+            id="sub-level-1"
+            label="All events"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/archive"
+            active={active === '/archive'}
+            id="sub-level-2"
+            label="Archive"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/new-event"
+            active={active === '/new-event'}
+            id="sub-level-3"
+            label="Create a new event"
+            onClick={setActivePage}
+          />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel
+          id="main-level-2"
+          label="Events on map"
+        >
+          <SideNavigation.SubLevel
+            href="/map"
+            active={active === '/map'}
+            id="sub-level-4"
+            label="Map"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/edit-event-locations"
+            active={active === '/edit-event-locations'}
+            id="sub-level-5"
+            label="Edit event locations"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/new-location"
+            active={active === '/new-location'}
+            id="sub-level-6"
+            label="Create a new location"
+            onClick={setActivePage}
+          />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel
+          href="/settings"
+          active={active === '/settings'}
+          id="main-level-3"
+          label="Settings"
+          onClick={setActivePage}
         />
-        <SideNavigation.SubLevel
-          active
-          href="#sub-level-2"
-          id="#sub-level-2"
-          label="Archive"
-          onClick={function noRefCheck(){}}
+        <SideNavigation.MainLevel
+          external
+          href="https://tapahtumat.hel.fi/"
+          id="main-level-4"
+          label="Tapahtumat.hel.fi"
+          openInExternalDomainAriaLabel="Opens a different website"
+          withDivider
         />
-        <SideNavigation.SubLevel
-          href="#sub-level-3"
-          id="#sub-level-3"
-          label="Create a new event"
-          onClick={function noRefCheck(){}}
-        />
-      </SideNavigation.MainLevel>
-      <SideNavigation.MainLevel
-        id="#main-level-2"
-        label="Events on map"
-      >
-        <SideNavigation.SubLevel
-          href="#sub-level-4"
-          id="#sub-level-4"
-          label="Map"
-          onClick={function noRefCheck(){}}
-        />
-        <SideNavigation.SubLevel
-          href="#sub-level-5"
-          id="#sub-level-5"
-          label="Edit event locations"
-          onClick={function noRefCheck(){}}
-        />
-        <SideNavigation.SubLevel
-          href="#sub-level-6"
-          id="#sub-level-6"
-          label="Create a new location"
-          onClick={function noRefCheck(){}}
-        />
-      </SideNavigation.MainLevel>
-      <SideNavigation.MainLevel
-        href="#main-level-3"
-        id="#main-level-3"
-        label="Settings"
-        onClick={function noRefCheck(){}}
-      />
-      <SideNavigation.MainLevel
-        external
-        href="#main-level-4"
-        id="#main-level-4"
-        label="Tapahtumat.hel.fi"
-        onClick={function noRefCheck(){}}
-        openInExternalDomainAriaLabel="Opens a different website"
-        withDivider
-      />
-    </SideNavigation>
-  </div>
-</div>
+      </SideNavigation>
+    </div>
+  </div>)
+}}
 </Playground>
 
 #### React code example:
 ```tsx
-<SideNavigation
-  defaultOpenMainLevels={[]}
-  id="side-navigation"
-  toggleButtonLabel="Navigate to page"
->
-  <SideNavigation.MainLevel
-    id="#main-level-1"
-    label="Events"
+{() => {
+  const [active, setActive] = React.useState('/archive');
+  const setActivePage = (e) => {
+    e.preventDefault();
+    setActive(e.target.getAttribute('href'));
+  }
+  return (<div
+    style={{
+      backgroundColor: '#f5f5f5',
+      display: 'grid',
+    }}
   >
-    <SideNavigation.SubLevel
-      href="#sub-level-1"
-      id="#sub-level-1"
-      label="All events"
-      onClick={function noRefCheck(){}}
-    />
-    <SideNavigation.SubLevel
-      active
-      href="#sub-level-2"
-      id="#sub-level-2"
-      label="Archive"
-      onClick={function noRefCheck(){}}
-    />
-    <SideNavigation.SubLevel
-      href="#sub-level-3"
-      id="#sub-level-3"
-      label="Create a new event"
-      onClick={function noRefCheck(){}}
-    />
-  </SideNavigation.MainLevel>
-  <SideNavigation.MainLevel
-    id="#main-level-2"
-    label="Events on map"
-  >
-    <SideNavigation.SubLevel
-      href="#sub-level-4"
-      id="#sub-level-4"
-      label="Map"
-      onClick={function noRefCheck(){}}
-    />
-    <SideNavigation.SubLevel
-      href="#sub-level-5"
-      id="#sub-level-5"
-      label="Edit event locations"
-      onClick={function noRefCheck(){}}
-    />
-    <SideNavigation.SubLevel
-      href="#sub-level-6"
-      id="#sub-level-6"
-      label="Create a new location"
-      onClick={function noRefCheck(){}}
-    />
-  </SideNavigation.MainLevel>
-  <SideNavigation.MainLevel
-    href="#main-level-3"
-    id="#main-level-3"
-    label="Settings"
-    onClick={function noRefCheck(){}}
-  />
-  <SideNavigation.MainLevel
-    external
-    href="#main-level-4"
-    id="#main-level-4"
-    label="Tapahtumat.hel.fi"
-    onClick={function noRefCheck(){}}
-    openInExternalDomainAriaLabel="Opens a different website"
-    withDivider
-  />
-</SideNavigation>
+    <div
+      style={{
+        height: '100%',
+        maxWidth: '400px'
+      }}
+    >
+      <SideNavigation
+        defaultOpenMainLevels={[]}
+        id="side-navigation"
+        toggleButtonLabel="Navigate to page"
+      >
+        <SideNavigation.MainLevel
+          id="#main-level-1"
+          label="Events"
+        >
+          <SideNavigation.SubLevel
+            href="/events"
+            active={active === '/events'}
+            id="sub-level-1"
+            label="All events"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/archive"
+            active={active === '/archive'}
+            id="sub-level-2"
+            label="Archive"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/new-event"
+            active={active === '/new-event'}
+            id="sub-level-3"
+            label="Create a new event"
+            onClick={setActivePage}
+          />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel
+          id="main-level-2"
+          label="Events on map"
+        >
+          <SideNavigation.SubLevel
+            href="/map"
+            active={active === '/map'}
+            id="sub-level-4"
+            label="Map"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/edit-event-locations"
+            active={active === '/edit-event-locations'}
+            id="sub-level-5"
+            label="Edit event locations"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/new-location"
+            active={active === '/new-location'}
+            id="sub-level-6"
+            label="Create a new location"
+            onClick={setActivePage}
+          />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel
+          href="/settings"
+          active={active === '/settings'}
+          id="main-level-3"
+          label="Settings"
+          onClick={setActivePage}
+        />
+        <SideNavigation.MainLevel
+          external
+          href="https://tapahtumat.hel.fi/"
+          id="main-level-4"
+          label="Tapahtumat.hel.fi"
+          openInExternalDomainAriaLabel="Opens a different website"
+          withDivider
+        />
+      </SideNavigation>
+    </div>
+  </div>)
+}}
 ```
 
 ### With icons
@@ -216,166 +254,204 @@ The default side navigation has support for two (2) levels of navigation, icons,
 Icons are allowed to be used with the main level navigation items and accordions. The second-level navigation items do not have icon support. Also, icons are not visible in the mobile side navigation variant.
 
 <Playground>
-<div
-  style={{
-    backgroundColor: '#f5f5f5',
-    display: 'grid',
-  }}
->
-  <div
+{() =>  {
+  const [active, setActive] = React.useState('/archive');
+  const setActivePage = (e) => {
+    e.preventDefault();
+    setActive(e.target.getAttribute('href'));
+  }
+  return (<div
     style={{
-      height: '100%',
-      maxWidth: '400px'
+      backgroundColor: '#f5f5f5',
+      display: 'grid',
     }}
   >
-    <SideNavigation
-      defaultOpenMainLevels={[]}
-      id="side-navigation"
-      toggleButtonLabel="Navigate to page"
+    <div
+      style={{
+        height: '100%',
+        maxWidth: '400px'
+      }}
     >
-      <SideNavigation.MainLevel
-        icon={<IconHome aria-hidden />}
-        id="#main-level-1"
-        label="Events"
+      <SideNavigation
+        defaultOpenMainLevels={[]}
+        id="side-navigation-icons"
+        toggleButtonLabel="Navigate to page"
       >
-        <SideNavigation.SubLevel
-          href="#sub-level-1"
-          id="#sub-level-1"
-          label="All events"
-          onClick={function noRefCheck(){}}
+        <SideNavigation.MainLevel
+          icon={<IconHome aria-hidden />}
+          id="main-level-icons-1"
+          label="Events"
+        >
+          <SideNavigation.SubLevel
+            href="/events"
+            id="sub-level-icons-1"
+            active={active === '/all-events'}
+            label="All events"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/archive"
+            id="sub-level-icons-2"
+            active={active === '/archive'}
+            label="Archive"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/new-event"
+            id="sub-level-icons-3"
+            active={active === '/new-event'}
+            label="Create a new event"
+            onClick={setActivePage}
+          />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel
+          icon={<IconMap aria-hidden />}
+          id="main-level-icons-2"
+          label="Events on map"
+        >
+          <SideNavigation.SubLevel
+            href="/map"
+            id="sub-level-icons-4"
+            active={active === '/map'}
+            label="Map"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/edit-event-locations"
+            id="sub-level-icons-5"
+            active={active === '/edit-event-locations'}
+            label="Edit event locations"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/new-location"
+            id="sub-level-6"
+            active={active === '/new-location'}
+            label="Create a new location"
+            onClick={setActivePage}
+          />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel
+          href="/settings"
+          icon={<IconCogwheel aria-hidden />}
+          id="main-level-icons-3"
+          active={active === '/settings'}
+          label="Settings"
+          onClick={setActivePage}
         />
-        <SideNavigation.SubLevel
-          active
-          href="#sub-level-2"
-          id="#sub-level-2"
-          label="Archive"
-          onClick={function noRefCheck(){}}
+        <SideNavigation.MainLevel
+          external
+          href="https://tapahtumat.hel.fi/"
+          id="main-level-icons-4"
+          label="Tapahtumat.hel.fi"
+          openInExternalDomainAriaLabel="Opens a different website"
+          withDivider
         />
-        <SideNavigation.SubLevel
-          href="#sub-level-3"
-          id="#sub-level-3"
-          label="Create a new event"
-          onClick={function noRefCheck(){}}
-        />
-      </SideNavigation.MainLevel>
-      <SideNavigation.MainLevel
-        icon={<IconMap aria-hidden />}
-        id="#main-level-2"
-        label="Events on map"
-      >
-        <SideNavigation.SubLevel
-          href="#sub-level-4"
-          id="#sub-level-4"
-          label="Map"
-          onClick={function noRefCheck(){}}
-        />
-        <SideNavigation.SubLevel
-          href="#sub-level-5"
-          id="#sub-level-5"
-          label="Edit event locations"
-          onClick={function noRefCheck(){}}
-        />
-        <SideNavigation.SubLevel
-          href="#sub-level-6"
-          id="#sub-level-6"
-          label="Create a new location"
-          onClick={function noRefCheck(){}}
-        />
-      </SideNavigation.MainLevel>
-      <SideNavigation.MainLevel
-        href="#main-level-3"
-        icon={<IconCogwheel aria-hidden />}
-        id="#main-level-3"
-        label="Settings"
-        onClick={function noRefCheck(){}}
-      />
-      <SideNavigation.MainLevel
-        external
-        href="#main-level-4"
-        id="#main-level-4"
-        label="Tapahtumat.hel.fi"
-        onClick={function noRefCheck(){}}
-        openInExternalDomainAriaLabel="Opens a different website"
-        withDivider
-      />
-    </SideNavigation>
-  </div>
-</div>
+      </SideNavigation>
+    </div>
+  </div>)
+}}
 </Playground>
 
 #### React code example:
 ```tsx
-<SideNavigation
-  defaultOpenMainLevels={[]}
-  id="side-navigation"
-  toggleButtonLabel="Navigate to page"
->
-  <SideNavigation.MainLevel
-    icon={<IconHome aria-hidden />}
-    id="#main-level-1"
-    label="Events"
+{() =>  {
+  const [active, setActive] = React.useState('/archive');
+  const setActivePage = (e) => {
+    e.preventDefault();
+    setActive(e.target.getAttribute('href'));
+  }
+  return (<div
+    style={{
+      backgroundColor: '#f5f5f5',
+      display: 'grid',
+    }}
   >
-    <SideNavigation.SubLevel
-      href="#sub-level-1"
-      id="#sub-level-1"
-      label="All events"
-      onClick={function noRefCheck(){}}
-    />
-    <SideNavigation.SubLevel
-      active
-      href="#sub-level-2"
-      id="#sub-level-2"
-      label="Archive"
-      onClick={function noRefCheck(){}}
-    />
-    <SideNavigation.SubLevel
-      href="#sub-level-3"
-      id="#sub-level-3"
-      label="Create a new event"
-      onClick={function noRefCheck(){}}
-    />
-  </SideNavigation.MainLevel>
-  <SideNavigation.MainLevel
-    icon={<IconMap aria-hidden />}
-    id="#main-level-2"
-    label="Events on map"
-  >
-    <SideNavigation.SubLevel
-      href="#sub-level-4"
-      id="#sub-level-4"
-      label="Map"
-      onClick={function noRefCheck(){}}
-    />
-    <SideNavigation.SubLevel
-      href="#sub-level-5"
-      id="#sub-level-5"
-      label="Edit event locations"
-      onClick={function noRefCheck(){}}
-    />
-    <SideNavigation.SubLevel
-      href="#sub-level-6"
-      id="#sub-level-6"
-      label="Create a new location"
-      onClick={function noRefCheck(){}}
-    />
-  </SideNavigation.MainLevel>
-  <SideNavigation.MainLevel
-    href="#main-level-3"
-    icon={<IconCogwheel aria-hidden />}
-    id="#main-level-3"
-    label="Settings"
-    onClick={function noRefCheck(){}}
-  />
-  <SideNavigation.MainLevel
-    external
-    href="#main-level-4"
-    id="#main-level-4"
-    label="Tapahtumat.hel.fi"
-    onClick={function noRefCheck(){}}
-    openInExternalDomainAriaLabel="Opens a different website"
-    withDivider
-  />
-</SideNavigation>
+    <div
+      style={{
+        height: '100%',
+        maxWidth: '400px'
+      }}
+    >
+      <SideNavigation
+        defaultOpenMainLevels={[]}
+        id="side-navigation-icons"
+        toggleButtonLabel="Navigate to page"
+      >
+        <SideNavigation.MainLevel
+          icon={<IconHome aria-hidden />}
+          id="main-level-icons-1"
+          label="Events"
+        >
+          <SideNavigation.SubLevel
+            href="/all-events"
+            id="sub-level-icons-1"
+            active={active === '/all-events'}
+            label="All events"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/archive"
+            id="sub-level-icons-2"
+            active={active === '/archive'}
+            label="Archive"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/new-event"
+            id="sub-level-icons-3"
+            active={active === '/new-event'}
+            label="Create a new event"
+            onClick={setActivePage}
+          />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel
+          icon={<IconMap aria-hidden />}
+          id="main-level-icons-2"
+          label="Events on map"
+        >
+          <SideNavigation.SubLevel
+            href="/map"
+            id="sub-level-icons-4"
+            active={active === '/map'}
+            label="Map"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/edit-event-locations"
+            id="sub-level-icons-5"
+            active={active === '/edit-event-locations'}
+            label="Edit event locations"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/new-location"
+            id="sub-level-6"
+            active={active === '/new-location'}
+            label="Create a new location"
+            onClick={setActivePage}
+          />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel
+          href="/settings"
+          icon={<IconCogwheel aria-hidden />}
+          id="main-level-icons-3"
+          active={active === '/settings'}
+          label="Settings"
+          onClick={setActivePage}
+        />
+        <SideNavigation.MainLevel
+          external
+          href="https://tapahtumat.hel.fi/"
+          id="main-level-icons-4"
+          label="Tapahtumat.hel.fi"
+          openInExternalDomainAriaLabel="Opens a different website"
+          withDivider
+        />
+      </SideNavigation>
+    </div>
+  </div>)
+}}
 ```
 
 ## Demos & API
