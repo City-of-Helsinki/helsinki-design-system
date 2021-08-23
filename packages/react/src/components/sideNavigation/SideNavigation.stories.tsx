@@ -19,35 +19,13 @@ export default {
   args: { defaultOpenMainLevels: [], toggleButtonLabel: 'Navigate to page', id: 'side-navigation' },
 };
 
-enum ID {
-  MAIN_LEVEL_1 = '#main-level-1',
-  MAIN_LEVEL_2 = '#main-level-2',
-  MAIN_LEVEL_3 = '#main-level-3',
-  MAIN_LEVEL_4 = '#main-level-4',
-  SUB_LEVEL_1 = '#sub-level-1',
-  SUB_LEVEL_2 = '#sub-level-2',
-  SUB_LEVEL_3 = '#sub-level-3',
-  SUB_LEVEL_4 = '#sub-level-4',
-}
-
-const labels = {
-  mainLevel1: 'Main level accordion',
-  mainLevel2: 'Main level accordion',
-  mainLevel3: 'Main level link',
-  mainLevel4: 'Main level external link',
-  subLevel1: 'Sub level link',
-  subLevel2: 'Sub level link',
-  subLevel3: 'Sub level link',
-  subLevel4: 'Sub level link',
-};
-
 const handleClick = (setActive) => (ev) => {
   ev.preventDefault();
-  setActive(ev.currentTarget.getAttribute('id') as ID);
+  setActive(ev.currentTarget.getAttribute('href'));
 };
 
 export const Default = (args) => {
-  const [active, setActive] = React.useState(ID.SUB_LEVEL_1);
+  const [active, setActive] = React.useState('/sub-level-1');
 
   return (
     <>
@@ -71,49 +49,49 @@ export const Default = (args) => {
       <div className="example-page">
         <div className="example-page-side-navigation">
           <SideNavigation {...args}>
-            <SideNavigation.MainLevel id={ID.MAIN_LEVEL_1} label={labels.mainLevel1}>
+            <SideNavigation.MainLevel id="main-level-link-1" label="Main level accordion">
               <SideNavigation.SubLevel
-                active={ID.SUB_LEVEL_1 === active}
-                id={ID.SUB_LEVEL_1}
-                href={ID.SUB_LEVEL_1}
-                label={labels.subLevel1}
+                active={active === '/sub-level-1'}
+                id="sub-level-link-1"
+                href="/sub-level-1"
+                label="Sub level link"
                 onClick={handleClick(setActive)}
               />
               <SideNavigation.SubLevel
-                active={ID.SUB_LEVEL_2 === active}
-                id={ID.SUB_LEVEL_2}
-                href={ID.SUB_LEVEL_2}
-                label={labels.subLevel2}
+                active={active === '/sub-level-2'}
+                id="sub-level-link-2"
+                href="/sub-level-2"
+                label="Sub level link"
                 onClick={handleClick(setActive)}
               />
             </SideNavigation.MainLevel>
-            <SideNavigation.MainLevel id={ID.MAIN_LEVEL_2} label={labels.mainLevel2}>
+            <SideNavigation.MainLevel id="main-level-link-2" label="Main level accordion">
               <SideNavigation.SubLevel
-                active={ID.SUB_LEVEL_3 === active}
-                id={ID.SUB_LEVEL_3}
-                href={ID.SUB_LEVEL_3}
-                label={labels.subLevel3}
+                active={active === '/sub-level-3'}
+                id="sub-level-link-3"
+                href="/sub-level-3"
+                label="Sub level link"
                 onClick={handleClick(setActive)}
               />
               <SideNavigation.SubLevel
-                active={ID.SUB_LEVEL_4 === active}
-                id={ID.SUB_LEVEL_4}
-                href={ID.SUB_LEVEL_4}
-                label={labels.subLevel4}
+                active={active === '/sub-level-4'}
+                id="sub-level-link-4"
+                href="/sub-level-4"
+                label="Sub level link"
                 onClick={handleClick(setActive)}
               />
             </SideNavigation.MainLevel>
             <SideNavigation.MainLevel
-              active={ID.MAIN_LEVEL_3 === active}
-              id={ID.MAIN_LEVEL_3}
-              href={ID.MAIN_LEVEL_3}
-              label={labels.mainLevel3}
+              active={active === '/main-level-3'}
+              id="main-level-link-3"
+              href="/main-level-3"
+              label="Main level link"
               onClick={handleClick(setActive)}
             />
             <SideNavigation.MainLevel
-              id={ID.MAIN_LEVEL_4}
-              href={ID.MAIN_LEVEL_4}
-              label={labels.mainLevel4}
+              id="main-level-link-4"
+              href="external-address"
+              label="Main level external link"
               external
               openInExternalDomainAriaLabel="Opens a different website"
               onClick={handleClick(setActive)}
@@ -128,7 +106,7 @@ export const Default = (args) => {
 };
 
 export const WithIcons = (args) => {
-  const [active, setActive] = React.useState(ID.SUB_LEVEL_2);
+  const [active, setActive] = React.useState('/sub-level-2');
 
   return (
     <>
@@ -152,50 +130,58 @@ export const WithIcons = (args) => {
       <div className="example-page">
         <div className="example-page-side-navigation">
           <SideNavigation {...args}>
-            <SideNavigation.MainLevel id={ID.MAIN_LEVEL_1} label={labels.mainLevel1} icon={<IconHome aria-hidden />}>
+            <SideNavigation.MainLevel
+              id="main-level-link-1"
+              label="Main level accordion"
+              icon={<IconHome aria-hidden />}
+            >
               <SideNavigation.SubLevel
-                active={ID.SUB_LEVEL_1 === active}
-                id={ID.SUB_LEVEL_1}
-                href={ID.SUB_LEVEL_1}
-                label={labels.subLevel1}
+                active={active === '/sub-level-1'}
+                id="sub-level-link-1"
+                href="/sub-level-1"
+                label="Sub level link"
                 onClick={handleClick(setActive)}
               />
               <SideNavigation.SubLevel
-                active={ID.SUB_LEVEL_2 === active}
-                id={ID.SUB_LEVEL_2}
-                href={ID.SUB_LEVEL_2}
-                label={labels.subLevel2}
-                onClick={handleClick(setActive)}
-              />
-            </SideNavigation.MainLevel>
-            <SideNavigation.MainLevel id={ID.MAIN_LEVEL_2} label={labels.mainLevel2} icon={<IconHome aria-hidden />}>
-              <SideNavigation.SubLevel
-                active={ID.SUB_LEVEL_3 === active}
-                id={ID.SUB_LEVEL_3}
-                href={ID.SUB_LEVEL_3}
-                label={labels.subLevel3}
-                onClick={handleClick(setActive)}
-              />
-              <SideNavigation.SubLevel
-                active={ID.SUB_LEVEL_4 === active}
-                id={ID.SUB_LEVEL_4}
-                href={ID.SUB_LEVEL_4}
-                label={labels.subLevel4}
+                active={active === '/sub-level-2'}
+                id="sub-level-link-2"
+                href="/sub-level-2"
+                label="Sub level link"
                 onClick={handleClick(setActive)}
               />
             </SideNavigation.MainLevel>
             <SideNavigation.MainLevel
-              active={ID.MAIN_LEVEL_3 === active}
-              id={ID.MAIN_LEVEL_3}
-              href={ID.MAIN_LEVEL_3}
-              label={labels.mainLevel3}
+              id="main-level-link-2"
+              label="Main level accordion"
+              icon={<IconHome aria-hidden />}
+            >
+              <SideNavigation.SubLevel
+                active={active === '/sub-level-3'}
+                id="sub-level-link-3"
+                href="/sub-level-3"
+                label="Sub level link"
+                onClick={handleClick(setActive)}
+              />
+              <SideNavigation.SubLevel
+                active={active === '/sub-level-4'}
+                id="sub-level-link-4"
+                href="/sub-level-4"
+                label="Sub level link"
+                onClick={handleClick(setActive)}
+              />
+            </SideNavigation.MainLevel>
+            <SideNavigation.MainLevel
+              active={active === '/main-level-3'}
+              id="main-level-link-3"
+              href="/main-level-3"
+              label="Main level link"
               onClick={handleClick(setActive)}
               icon={<IconHome aria-hidden />}
             />
             <SideNavigation.MainLevel
-              id={ID.MAIN_LEVEL_4}
-              href={ID.MAIN_LEVEL_4}
-              label={labels.mainLevel4}
+              id="main-level-link-4"
+              href="external-address"
+              label="Main level external link"
               external
               openInExternalDomainAriaLabel="Opens a different website"
               onClick={handleClick(setActive)}
@@ -203,7 +189,7 @@ export const WithIcons = (args) => {
             />
           </SideNavigation>
         </div>
-        <main>PageContent</main>
+        <main>Page Content</main>
       </div>
     </>
   );
