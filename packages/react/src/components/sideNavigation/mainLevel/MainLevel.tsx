@@ -7,11 +7,7 @@ import SideNavigationContext from '../SideNavigationContext';
 import { FCWithName } from '../../../common/types';
 import { IconAngleDown, IconAngleUp, IconLinkExternal } from '../../../icons';
 
-export type MainLevelProps = {
-  /**
-   * If `true`, the item will be marked as active
-   */
-  active?: boolean;
+type MainLevelCommonProps = {
   /**
    * Additional class names to apply to the side navigation main level
    */
@@ -41,19 +37,11 @@ export type MainLevelProps = {
    */
   withDivider?: boolean;
   /**
-   * Boolean indicating whether the main level link will lead user to external domain.
-   */
-  external?: boolean;
-  /**
-   * Aria label for opening main level link in an external domain
-   */
-  openInExternalDomainAriaLabel?: string;
-  /**
    * Override or extend the styles applied to the component
    */
   style?: React.CSSProperties;
   /**
-   * Override or extend the styles applied to the component
+   * Children components for MainLevel item. Usually subLevels.
    */
   children?: ReactNode;
   /**
@@ -67,6 +55,42 @@ export type MainLevelProps = {
       | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
 };
+
+type MainLevelLinkProps = {
+  /**
+   * href attribute of the side navigation main level
+   */
+  href?: string;
+  active?: boolean;
+  external?: undefined;
+  openInExternalDomainAriaLabel?: undefined;
+};
+
+type MainLevelExternalLinkProps = {
+  /**
+   * href attribute of the side navigation main level
+   */
+  href?: string;
+  /**
+   * Boolean indicating whether the main level link will lead user to external domain.
+   */
+  external?: boolean;
+  /**
+   * Aria label for opening main level link in an external domain
+   */
+  openInExternalDomainAriaLabel?: string;
+  active?: undefined;
+};
+
+type MainLevelAccordionProps = {
+  href?: undefined;
+  active?: undefined;
+  external?: undefined;
+  openInExternalDomainAriaLabel?: undefined;
+};
+
+export type MainLevelProps = MainLevelCommonProps &
+  (MainLevelLinkProps | MainLevelExternalLinkProps | MainLevelAccordionProps);
 
 const LeftIcon = ({ icon }: { icon: React.ReactNode }) => (
   <span className={styles.leftIcon} aria-hidden>
