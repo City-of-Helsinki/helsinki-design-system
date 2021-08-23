@@ -91,7 +91,6 @@ export const Default = (args) => {
         onClick={handleClick(setActive)}
       />
       <SideNavigation.MainLevel
-        active={ID.MAIN_LEVEL_4 === active}
         id={ID.MAIN_LEVEL_4}
         href={ID.MAIN_LEVEL_4}
         label={labels.mainLevel4}
@@ -150,7 +149,6 @@ export const WithIcons = (args) => {
         icon={<IconHome aria-hidden />}
       />
       <SideNavigation.MainLevel
-        active={ID.MAIN_LEVEL_4 === active}
         id={ID.MAIN_LEVEL_4}
         href={ID.MAIN_LEVEL_4}
         label={labels.mainLevel4}
