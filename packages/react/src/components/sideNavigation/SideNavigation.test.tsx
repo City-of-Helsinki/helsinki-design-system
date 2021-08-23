@@ -48,7 +48,7 @@ describe('<SideNavigation /> spec', () => {
     expect(results).toHaveNoViolations();
   });
 
-  test('should open main level if sub level is active', () => {
+  it('should open main level if sub level is active', () => {
     render(
       <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
         <SideNavigation.MainLevel id="mainLevel1" icon={<IconHome />} label={labels.mainLevel1}>
@@ -64,7 +64,7 @@ describe('<SideNavigation /> spec', () => {
     expect(queryLink('subLevel2')).toBeInTheDocument();
   });
 
-  test('should show sub levels if main level is active', () => {
+  it('should show sub levels if main level is active', () => {
     render(
       <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
         <SideNavigation.MainLevel id="mainLevel1" icon={<IconHome />} label={labels.mainLevel1}>
@@ -81,7 +81,7 @@ describe('<SideNavigation /> spec', () => {
     expect(queryLink('subLevel2')).toBeInTheDocument();
   });
 
-  test('should open default main levels', () => {
+  it('should open default main levels', () => {
     render(
       <SideNavigation id="sideNavigation" defaultOpenMainLevels={[1]} toggleButtonLabel={labels.toggleButton}>
         <SideNavigation.MainLevel id="mainLevel1" icon={<IconHome />} label={labels.mainLevel1}>
@@ -97,7 +97,7 @@ describe('<SideNavigation /> spec', () => {
     expect(queryLink('subLevel2')).toBeInTheDocument();
   });
 
-  test('should open and close main levels', () => {
+  it('should open and close main levels', () => {
     render(
       <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
         <SideNavigation.MainLevel id="mainLevel1" icon={<IconHome />} label={labels.mainLevel1}>
