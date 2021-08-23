@@ -39,13 +39,13 @@ export const External = () => (
   </Linkbox>
 );
 
-export const Small = () => (
+export const SmallSize = () => (
   <Linkbox ariaLabel="Linkkiruutu: HDS" href="https://hds.hel.fi" size="small">
     <div style={{ height: '106px' }} />
   </Linkbox>
 );
 
-export const Large = () => (
+export const LargeSize = () => (
   <Linkbox ariaLabel="Linkkiruutu: HDS" href="https://hds.hel.fi" size="large">
     <div style={{ height: '106px' }} />
   </Linkbox>
