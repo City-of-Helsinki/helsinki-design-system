@@ -24,48 +24,45 @@ export default {
 };
 
 export const Default = () => (
-  <div style={{ maxWidth: '284px' }}>
+  <div style={{ maxWidth: '384px' }}>
     <Linkbox
       ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      withImg
-      imgProps={{ src: exampleImage, width: 284, height: 181 }}
+      imgProps={{ src: exampleImage, width: 384, height: 245 }}
     />
   </div>
 );
 
 export const WithBorder = () => (
-  <div style={{ maxWidth: '284px' }}>
+  <div style={{ maxWidth: '384px' }}>
     <Linkbox
       ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
       withBorder
-      withImg
-      imgProps={{ src: exampleImage, width: 284, height: 181 }}
+      imgProps={{ src: exampleImage, width: 384, height: 245 }}
     />
   </div>
 );
 
 export const WithoutBackground = () => (
-  <div style={{ maxWidth: '284px' }}>
+  <div style={{ maxWidth: '384px' }}>
     <Linkbox
       ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
       noBackground
-      withImg
-      imgProps={{ src: exampleImage, width: 284, height: 181 }}
+      imgProps={{ src: exampleImage, width: 384, height: 245 }}
     />
   </div>
 );
 
 export const External = () => (
-  <div style={{ maxWidth: '284px' }}>
+  <div style={{ maxWidth: '384px' }}>
     <Linkbox
       ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
@@ -73,22 +70,20 @@ export const External = () => (
       text="Linkbox text"
       external
       openInNewTab
-      withImg
-      imgProps={{ src: exampleImage, width: 284, height: 181 }}
+      imgProps={{ src: exampleImage, width: 384, height: 245 }}
     />
   </div>
 );
 
-export const MediumSize = () => (
-  <div style={{ maxWidth: '384px' }}>
+export const SmallSize = () => (
+  <div style={{ maxWidth: '284px' }}>
     <Linkbox
       ariaLabel="Linkkiruutu: HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      withImg
-      imgProps={{ src: exampleMediumImage, width: 384, height: 245 }}
-      withImgSize="medium"
+      imgProps={{ src: exampleMediumImage, width: 284, height: 181 }}
+      size="small"
     />
   </div>
 );
@@ -100,9 +95,8 @@ export const LargeSize = () => (
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      withImg
       imgProps={{ src: exampleLargeImage, width: 567, height: 363 }}
-      withImgSize="large"
+      size="large"
     />
   </div>
 );
