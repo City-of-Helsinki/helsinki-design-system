@@ -9,11 +9,11 @@ exports[`<Linkbox /> spec external linkbox that is opened in to a new tab should
     tabindex="0"
   >
     <div
-      class="withBackground paddingWithoutImageAndWithBackground"
+      class="withBackground paddingWithoutImageAndWithBackground contentMedium"
     >
       <div
         aria-level="2"
-        class="headingCommon headingWithoutImage"
+        class="headingCommon headingMedium"
         role="heading"
       >
         Linkbox title
@@ -66,11 +66,11 @@ exports[`<Linkbox /> spec renders the component 1`] = `
     tabindex="0"
   >
     <div
-      class="withBackground paddingWithoutImageAndWithBackground"
+      class="withBackground paddingWithoutImageAndWithBackground contentMedium"
     >
       <div
         aria-level="2"
-        class="headingCommon headingWithoutImage"
+        class="headingCommon headingMedium"
         role="heading"
       >
         Linkbox title
