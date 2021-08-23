@@ -51,8 +51,11 @@ export const Default = (args) => {
 
   return (
     <>
-      <style>{`
-        @media only screen and (min-width: ${getComputedStyle(document.documentElement).getPropertyValue('--breakpoint-m')}) {
+      <style>
+        {`
+        @media only screen and (min-width: ${getComputedStyle(document.documentElement).getPropertyValue(
+          '--breakpoint-m',
+        )}) {
           .example-page {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
@@ -65,8 +68,8 @@ export const Default = (args) => {
         }
       `}
       </style>
-      <div className='example-page'>
-        <div className='example-page-side-navigation'>
+      <div className="example-page">
+        <div className="example-page-side-navigation">
           <SideNavigation {...args}>
             <SideNavigation.MainLevel id={ID.MAIN_LEVEL_1} label={labels.mainLevel1}>
               <SideNavigation.SubLevel
@@ -112,7 +115,7 @@ export const Default = (args) => {
               href={ID.MAIN_LEVEL_4}
               label={labels.mainLevel4}
               external
-              openInExternalDomainAriaLabel='Opens a different website'
+              openInExternalDomainAriaLabel="Opens a different website"
               onClick={handleClick(setActive)}
               withDivider
             />
@@ -129,8 +132,11 @@ export const WithIcons = (args) => {
 
   return (
     <>
-      <style>{`
-        @media only screen and (min-width: ${getComputedStyle(document.documentElement).getPropertyValue('--breakpoint-m')}) {
+      <style>
+        {`
+        @media only screen and (min-width: ${getComputedStyle(document.documentElement).getPropertyValue(
+          '--breakpoint-m',
+        )}) {
           .example-page {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
@@ -143,8 +149,8 @@ export const WithIcons = (args) => {
         }
       `}
       </style>
-      <div className='example-page'>
-        <div className='example-page-side-navigation'>
+      <div className="example-page">
+        <div className="example-page-side-navigation">
           <SideNavigation {...args}>
             <SideNavigation.MainLevel id={ID.MAIN_LEVEL_1} label={labels.mainLevel1} icon={<IconHome aria-hidden />}>
               <SideNavigation.SubLevel
@@ -191,7 +197,7 @@ export const WithIcons = (args) => {
               href={ID.MAIN_LEVEL_4}
               label={labels.mainLevel4}
               external
-              openInExternalDomainAriaLabel='Opens a different website'
+              openInExternalDomainAriaLabel="Opens a different website"
               onClick={handleClick(setActive)}
               withDivider
             />
