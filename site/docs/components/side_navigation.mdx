@@ -6,7 +6,8 @@ route: /components/side-navigation
 
 import { Playground } from "docz";
 
-import { StatusLabel } from "hds-react";
+import { StatusLabel, SideNavigation } from "hds-react";
+import { IconHome, IconCogwheel, IconMap } from "hds-react";
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Link from "../../src/components/Link";
 
@@ -54,25 +55,160 @@ import Link from "../../src/components/Link";
 The default side navigation has a support for two (2) levels of navigation, icons, external links and a divider to create logical groups for the navigation items.
 
 <Playground>
-
+<div
+  style={{
+    backgroundColor: '#f5f5f5',
+    display: 'grid',
+  }}
+>
+  <div
+    style={{
+      height: '100%',
+      maxWidth: '400px'
+    }}
+  >
+    <SideNavigation
+      defaultOpenMainLevels={[]}
+      id="side-navigation"
+      toggleButtonLabel="Navigate to page"
+    >
+      <SideNavigation.MainLevel
+        id="#main-level-1"
+        label="Events"
+      >
+        <SideNavigation.SubLevel
+          href="#sub-level-1"
+          id="#sub-level-1"
+          label="All events"
+          onClick={function noRefCheck(){}}
+        />
+        <SideNavigation.SubLevel
+          active
+          href="#sub-level-2"
+          id="#sub-level-2"
+          label="Archive"
+          onClick={function noRefCheck(){}}
+        />
+        <SideNavigation.SubLevel
+          href="#sub-level-3"
+          id="#sub-level-3"
+          label="Create a new event"
+          onClick={function noRefCheck(){}}
+        />
+      </SideNavigation.MainLevel>
+      <SideNavigation.MainLevel
+        id="#main-level-2"
+        label="Events on map"
+      >
+        <SideNavigation.SubLevel
+          href="#sub-level-4"
+          id="#sub-level-4"
+          label="Map"
+          onClick={function noRefCheck(){}}
+        />
+        <SideNavigation.SubLevel
+          href="#sub-level-5"
+          id="#sub-level-5"
+          label="Edit event locations"
+          onClick={function noRefCheck(){}}
+        />
+        <SideNavigation.SubLevel
+          href="#sub-level-6"
+          id="#sub-level-6"
+          label="Create a new location"
+          onClick={function noRefCheck(){}}
+        />
+      </SideNavigation.MainLevel>
+      <SideNavigation.MainLevel
+        href="#main-level-3"
+        id="#main-level-3"
+        label="Settings"
+        onClick={function noRefCheck(){}}
+      />
+      <SideNavigation.MainLevel
+        external
+        href="#main-level-4"
+        id="#main-level-4"
+        label="Tapahtumat.hel.fi"
+        onClick={function noRefCheck(){}}
+        openInExternalDomainAriaLabel="Opens a different website"
+        withDivider
+      />
+    </SideNavigation>
+  </div>
+</div>
 </Playground>
 
 #### React code example:
 ```tsx
-
-```
-
-### Mobile
-
-In mobile screen sizes the side navigation turns into an expandable menu button.
-
-<Playground>
-
-</Playground>
-
-#### React code example:
-```tsx
-
+<SideNavigation
+  defaultOpenMainLevels={[]}
+  id="side-navigation"
+  toggleButtonLabel="Navigate to page"
+>
+  <SideNavigation.MainLevel
+    id="#main-level-1"
+    label="Events"
+  >
+    <SideNavigation.SubLevel
+      href="#sub-level-1"
+      id="#sub-level-1"
+      label="All events"
+      onClick={function noRefCheck(){}}
+    />
+    <SideNavigation.SubLevel
+      active
+      href="#sub-level-2"
+      id="#sub-level-2"
+      label="Archive"
+      onClick={function noRefCheck(){}}
+    />
+    <SideNavigation.SubLevel
+      href="#sub-level-3"
+      id="#sub-level-3"
+      label="Create a new event"
+      onClick={function noRefCheck(){}}
+    />
+  </SideNavigation.MainLevel>
+  <SideNavigation.MainLevel
+    id="#main-level-2"
+    label="Events on map"
+  >
+    <SideNavigation.SubLevel
+      href="#sub-level-4"
+      id="#sub-level-4"
+      label="Map"
+      onClick={function noRefCheck(){}}
+    />
+    <SideNavigation.SubLevel
+      href="#sub-level-5"
+      id="#sub-level-5"
+      label="Edit event locations"
+      onClick={function noRefCheck(){}}
+    />
+    <SideNavigation.SubLevel
+      href="#sub-level-6"
+      id="#sub-level-6"
+      label="Create a new location"
+      onClick={function noRefCheck(){}}
+    />
+  </SideNavigation.MainLevel>
+  <SideNavigation.MainLevel
+    href="#main-level-3"
+    id="#main-level-3"
+    label="Settings"
+    onClick={function noRefCheck(){}}
+  />
+  <SideNavigation.MainLevel
+    external
+    href="#main-level-4"
+    id="#main-level-4"
+    label="Tapahtumat.hel.fi"
+    onClick={function noRefCheck(){}}
+    openInExternalDomainAriaLabel="Opens a different website"
+    withDivider
+  />
+</SideNavigation>
 ```
 
 ### With icons
@@ -80,12 +216,166 @@ In mobile screen sizes the side navigation turns into an expandable menu button.
 Icons are allowed to be used with the main level navigation items and accordions. The second level navigation items do not have icon support. Also, icons are not visible in the mobile side navigation variant.
 
 <Playground>
-
+<div
+  style={{
+    backgroundColor: '#f5f5f5',
+    display: 'grid',
+  }}
+>
+  <div
+    style={{
+      height: '100%',
+      maxWidth: '400px'
+    }}
+  >
+    <SideNavigation
+      defaultOpenMainLevels={[]}
+      id="side-navigation"
+      toggleButtonLabel="Navigate to page"
+    >
+      <SideNavigation.MainLevel
+        icon={<IconHome aria-hidden />}
+        id="#main-level-1"
+        label="Events"
+      >
+        <SideNavigation.SubLevel
+          href="#sub-level-1"
+          id="#sub-level-1"
+          label="All events"
+          onClick={function noRefCheck(){}}
+        />
+        <SideNavigation.SubLevel
+          active
+          href="#sub-level-2"
+          id="#sub-level-2"
+          label="Archive"
+          onClick={function noRefCheck(){}}
+        />
+        <SideNavigation.SubLevel
+          href="#sub-level-3"
+          id="#sub-level-3"
+          label="Create a new event"
+          onClick={function noRefCheck(){}}
+        />
+      </SideNavigation.MainLevel>
+      <SideNavigation.MainLevel
+        icon={<IconMap aria-hidden />}
+        id="#main-level-2"
+        label="Events on map"
+      >
+        <SideNavigation.SubLevel
+          href="#sub-level-4"
+          id="#sub-level-4"
+          label="Map"
+          onClick={function noRefCheck(){}}
+        />
+        <SideNavigation.SubLevel
+          href="#sub-level-5"
+          id="#sub-level-5"
+          label="Edit event locations"
+          onClick={function noRefCheck(){}}
+        />
+        <SideNavigation.SubLevel
+          href="#sub-level-6"
+          id="#sub-level-6"
+          label="Create a new location"
+          onClick={function noRefCheck(){}}
+        />
+      </SideNavigation.MainLevel>
+      <SideNavigation.MainLevel
+        href="#main-level-3"
+        icon={<IconCogwheel aria-hidden />}
+        id="#main-level-3"
+        label="Settings"
+        onClick={function noRefCheck(){}}
+      />
+      <SideNavigation.MainLevel
+        external
+        href="#main-level-4"
+        id="#main-level-4"
+        label="Tapahtumat.hel.fi"
+        onClick={function noRefCheck(){}}
+        openInExternalDomainAriaLabel="Opens a different website"
+        withDivider
+      />
+    </SideNavigation>
+  </div>
+</div>
 </Playground>
 
 #### React code example:
 ```tsx
-
+<SideNavigation
+  defaultOpenMainLevels={[]}
+  id="side-navigation"
+  toggleButtonLabel="Navigate to page"
+>
+  <SideNavigation.MainLevel
+    icon={<IconHome aria-hidden />}
+    id="#main-level-1"
+    label="Events"
+  >
+    <SideNavigation.SubLevel
+      href="#sub-level-1"
+      id="#sub-level-1"
+      label="All events"
+      onClick={function noRefCheck(){}}
+    />
+    <SideNavigation.SubLevel
+      active
+      href="#sub-level-2"
+      id="#sub-level-2"
+      label="Archive"
+      onClick={function noRefCheck(){}}
+    />
+    <SideNavigation.SubLevel
+      href="#sub-level-3"
+      id="#sub-level-3"
+      label="Create a new event"
+      onClick={function noRefCheck(){}}
+    />
+  </SideNavigation.MainLevel>
+  <SideNavigation.MainLevel
+    icon={<IconMap aria-hidden />}
+    id="#main-level-2"
+    label="Events on map"
+  >
+    <SideNavigation.SubLevel
+      href="#sub-level-4"
+      id="#sub-level-4"
+      label="Map"
+      onClick={function noRefCheck(){}}
+    />
+    <SideNavigation.SubLevel
+      href="#sub-level-5"
+      id="#sub-level-5"
+      label="Edit event locations"
+      onClick={function noRefCheck(){}}
+    />
+    <SideNavigation.SubLevel
+      href="#sub-level-6"
+      id="#sub-level-6"
+      label="Create a new location"
+      onClick={function noRefCheck(){}}
+    />
+  </SideNavigation.MainLevel>
+  <SideNavigation.MainLevel
+    href="#main-level-3"
+    icon={<IconCogwheel aria-hidden />}
+    id="#main-level-3"
+    label="Settings"
+    onClick={function noRefCheck(){}}
+  />
+  <SideNavigation.MainLevel
+    external
+    href="#main-level-4"
+    id="#main-level-4"
+    label="Tapahtumat.hel.fi"
+    onClick={function noRefCheck(){}}
+    openInExternalDomainAriaLabel="Opens a different website"
+    withDivider
+  />
+</SideNavigation>
 ```
 
 ## Demos & API
