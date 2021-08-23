@@ -63,6 +63,8 @@ type MainLevelLinkProps = {
   href?: string;
   active?: boolean;
   external?: undefined;
+  openInNewTab?: undefined;
+  openInNewTabAriaLabel?: undefined;
   openInExternalDomainAriaLabel?: undefined;
 };
 
@@ -76,6 +78,14 @@ type MainLevelExternalLinkProps = {
    */
   external?: boolean;
   /**
+   * Boolean indicating whether the main level link will open in new tab or not.
+   */
+  openInNewTab?: boolean;
+  /**
+   * Aria label for opening main level link in a new tab
+   */
+  openInNewTabAriaLabel?: string;
+  /**
    * Aria label for opening main level link in an external domain
    */
   openInExternalDomainAriaLabel?: string;
@@ -86,11 +96,30 @@ type MainLevelAccordionProps = {
   href?: undefined;
   active?: undefined;
   external?: undefined;
+  openInNewTab?: undefined;
+  openInNewTabAriaLabel?: undefined;
   openInExternalDomainAriaLabel?: undefined;
 };
 
 export type MainLevelProps = MainLevelCommonProps &
   (MainLevelLinkProps | MainLevelExternalLinkProps | MainLevelAccordionProps);
+
+const composeAriaLabel = ({
+  openInNewTab,
+  openInNewTabAriaLabel,
+  openInExternalDomainAriaLabel,
+  label,
+}: {
+  openInNewTab?: boolean;
+  openInNewTabAriaLabel?: string;
+  openInExternalDomainAriaLabel?: string;
+  label;
+}) => {
+  const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
+  const externalText = openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.';
+
+  return [label.slice(-1) !== '.' ? `${label}.` : label, newTabText, externalText].filter((text) => text).join(' ');
+};
 
 const LeftIcon = ({ icon }: { icon: React.ReactNode }) => (
   <span className={styles.leftIcon} aria-hidden>
@@ -117,6 +146,8 @@ export const MainLevel = ({
   label,
   withDivider,
   external,
+  openInNewTab,
+  openInNewTabAriaLabel,
   openInExternalDomainAriaLabel,
   onClick,
   style,
@@ -197,6 +228,17 @@ export const MainLevel = ({
           id={id}
           onClick={handleMainLevelClick}
           href={href}
+          {...(external &&
+            openInNewTab && {
+              target: '_blank',
+              rel: 'noopener',
+              'aria-label': composeAriaLabel({
+                label,
+                openInNewTab,
+                openInNewTabAriaLabel,
+                openInExternalDomainAriaLabel,
+              }),
+            })}
         >
           {icon && <LeftIcon icon={icon} />}
           <Label label={label} />
