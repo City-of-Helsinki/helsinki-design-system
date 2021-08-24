@@ -2,6 +2,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 
 // import core base styles
 import 'hds-core';
+import comboseAriaDescribedBy from '../../utils/comboseAriaDescribedBy';
 import classNames from '../../utils/classNames';
 import { Button } from '../button';
 import { IconPlus, IconPhoto, IconCross, IconDocument, IconUpload } from '../../icons';
@@ -223,6 +224,14 @@ export const FileInput = ({
     resetFileInputValue();
   }, [selectedFiles, onChange]);
 
+  // Compose aria-describedby attribute
+  const ariaDescribedBy: string = [
+    comboseAriaDescribedBy(id, helperText, errorText, successText),
+    hasFilesSelected && fileListId,
+  ]
+    .filter((text) => !!text)
+    .join(' ');
+
   return (
     <>
       <InputWrapper {...wrapperProps}>
@@ -266,13 +275,13 @@ export const FileInput = ({
               id={id}
               disabled={disabled}
               required={required}
+              aria-describedby={ariaDescribedBy}
               className={styles.fileInput}
               onChange={(event: ChangeEvent<HTMLInputElement>) => {
                 onFilesChange(Array.from(event.target.files));
               }}
               {...(accept ? { accept } : {})}
               {...(multiple ? { multiple } : {})}
-              {...(hasFilesSelected ? { 'aria-describedby': fileListId } : {})}
             />
           </div>
         </div>
