@@ -50,6 +50,20 @@ describe('<SideNavigation /> spec', () => {
     expect(results).toHaveNoViolations();
   });
 
+  it('should show sub level when main level is clicked', () => {
+    render(
+      <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
+        <SideNavigation.MainLevel id="mainLevel1" icon={<IconHome />} label={labels.mainLevel1}>
+          <SideNavigation.SubLevel id="subLevel1" label={labels.subLevel1} href={url} />
+        </SideNavigation.MainLevel>
+      </SideNavigation>,
+    );
+
+    expect(queryLink('subLevel1')).not.toBeInTheDocument();
+    userEvent.click(queryButton('mainLevel1'));
+    expect(queryLink('subLevel1')).toBeInTheDocument();
+  });
+
   it('should open main level if sub level is active', () => {
     render(
       <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
@@ -59,23 +73,6 @@ describe('<SideNavigation /> spec', () => {
         <SideNavigation.MainLevel id="mainLevel2" icon={<IconHome />} label={labels.mainLevel2}>
           <SideNavigation.SubLevel active id="subLevel2" label={labels.subLevel2} href={url} />
         </SideNavigation.MainLevel>
-      </SideNavigation>,
-    );
-
-    expect(queryLink('subLevel1')).not.toBeInTheDocument();
-    expect(queryLink('subLevel2')).toBeInTheDocument();
-  });
-
-  it('should show sub levels if main level is active', () => {
-    render(
-      <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
-        <SideNavigation.MainLevel id="mainLevel1" icon={<IconHome />} label={labels.mainLevel1}>
-          <SideNavigation.SubLevel id="subLevel1" label={labels.subLevel1} href={url} />
-        </SideNavigation.MainLevel>
-        <SideNavigation.MainLevel active id="mainLevel2" icon={<IconHome />} label={labels.mainLevel2}>
-          <SideNavigation.SubLevel id="subLevel2" label={labels.subLevel2} href={url} />
-        </SideNavigation.MainLevel>
-        <SideNavigation.MainLevel id="mainLevel3" icon={<IconHome />} label={labels.mainLevel3} href={url} />
       </SideNavigation>,
     );
 
