@@ -12,7 +12,7 @@ export default {
   args: {},
 };
 
-export const Example = (args) => {
+export const Single = (args) => {
   const [file, setFile] = React.useState<FileList>();
   // eslint-disable-next-line no-console
   console.log('selected file', file);
