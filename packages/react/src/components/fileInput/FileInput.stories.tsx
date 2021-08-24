@@ -5,6 +5,7 @@ import { FileInput } from './FileInput';
 export default {
   component: FileInput,
   title: 'Components/FileInput',
+  decorators: [(storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
   parameters: {
     controls: { expanded: true },
   },
