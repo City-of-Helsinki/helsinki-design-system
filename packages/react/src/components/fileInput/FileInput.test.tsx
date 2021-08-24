@@ -20,6 +20,8 @@ describe('<FileInput /> spec', () => {
         removeButtonLabel="remove"
         removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
         removeSuccessMessage="File removed."
+        accept=".png,.jpg"
+        helperText="Only .png and .jpg files."
         onChange={onChangeTest}
       />,
     );
@@ -36,6 +38,8 @@ describe('<FileInput /> spec', () => {
         removeButtonLabel="remove"
         removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
         removeSuccessMessage="File removed."
+        accept=".png,.jpg"
+        helperText="Only .png and .jpg files."
         onChange={onChangeTest}
       />,
     );
