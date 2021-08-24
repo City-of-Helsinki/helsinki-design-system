@@ -20,6 +20,7 @@ describe('<FileInput /> spec', () => {
         removeButtonLabel="remove"
         removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
         removeSuccessMessage="File removed."
+        fileListAriaLabel="Added files"
         accept=".png,.jpg"
         helperText="Only .png and .jpg files."
         onChange={onChangeTest}
@@ -38,6 +39,7 @@ describe('<FileInput /> spec', () => {
         removeButtonLabel="remove"
         removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
         removeSuccessMessage="File removed."
+        fileListAriaLabel="Added files"
         accept=".png,.jpg"
         helperText="Only .png and .jpg files."
         onChange={onChangeTest}
@@ -49,6 +51,7 @@ describe('<FileInput /> spec', () => {
 
   test('should list added files', async () => {
     const inputLabel = 'Choose files';
+    const listAriaLabel = 'Added files';
     const fileNameA = 'test-image-a.png';
     const fileA = new File([''], fileNameA, { type: 'image/png' });
     Object.defineProperty(fileA, 'size', { value: 12.5 * 1024 * 1024 });
@@ -59,7 +62,7 @@ describe('<FileInput /> spec', () => {
     const fileC = new File([''], fileNameC, { type: 'image/png' });
     Object.defineProperty(fileC, 'size', { value: 3.3 * 1024 * 1024 * 1024 });
     const files: File[] = [fileA, fileB, fileC];
-    const { getAllByRole } = render(
+    render(
       <FileInput
         id="test-file-input"
         label={inputLabel}
@@ -68,12 +71,15 @@ describe('<FileInput /> spec', () => {
         removeButtonLabel="remove"
         removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
         removeSuccessMessage="File removed."
+        fileListAriaLabel={listAriaLabel}
         onChange={onChangeTest}
         multiple
       />,
     );
     const fileUpload = screen.getByLabelText(inputLabel);
     userEvent.upload(fileUpload, files);
+    const list = screen.getByLabelText(listAriaLabel);
+    const { getAllByRole } = within(list);
     const fileListItems = getAllByRole('listitem');
     expect(fileListItems.length).toBe(3);
 
