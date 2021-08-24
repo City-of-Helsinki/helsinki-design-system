@@ -124,7 +124,7 @@ describe('<FileInput /> spec', () => {
     expect(testFileHolder).toEqual([file]);
   });
 
-  test('should append files to list with multiple props onChange with a list of files', async () => {
+  test('should append files to list', async () => {
     const inputLabel = 'Choose files';
     const firstFileName = 'test-file-a';
     const firstFile = new File(['test-file'], firstFileName, { type: 'image/png' });
