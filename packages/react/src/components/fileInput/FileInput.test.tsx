@@ -185,5 +185,6 @@ describe('<FileInput /> spec', () => {
     expect(screen.queryByText(fileNameA)).toBeInTheDocument();
     expect(screen.queryByText(fileNameB)).toBeNull();
     expect(testFileHolder).toEqual([fileA]);
+    expect(fileUpload).toHaveFocus();
   });
 });
