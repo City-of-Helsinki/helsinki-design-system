@@ -9,11 +9,7 @@ import { IconAngleDown, IconAngleUp, IconLinkExternal } from '../../../icons';
 
 type MainLevelCommonProps = {
   /**
-   * Additional class names to apply to the side navigation main level
-   */
-  className?: string;
-  /**
-   * The id of the side navigation main level.
+   * The id of the side navigation main level
    */
   id: string;
   /**
@@ -21,31 +17,35 @@ type MainLevelCommonProps = {
    */
   href?: string;
   /**
-   * Optional icon of the side navigation main level.
+   * Optional icon of the side navigation main level
    */
   icon?: React.ReactNode;
   /**
-   * Index of the side navigation main level. The parent SideNavigation component uses this property to index main levels.
+   * Index of the side navigation main level. The parent SideNavigation component uses this property to index main levels
    */
   index?: number;
   /**
-   * Label of the side navigation main level.
+   * Label of the side navigation main level
    */
   label: string;
   /**
-   * A border to distinct main level item from previous item.
+   * A border that distinguishes the main level from the previous item
    */
   withDivider?: boolean;
+  /**
+   * Additional class names to apply to the side navigation main level
+   */
+  className?: string;
   /**
    * Override or extend the styles applied to the component
    */
   style?: React.CSSProperties;
   /**
-   * Children components for MainLevel item. Usually subLevels.
+   * Children components for the main level. Usually subLevels
    */
   children?: ReactNode;
   /**
-   * Callback function fired when the tag is clicked. If set, the tag will be clickable.
+   * Callback function fired when the main level is clicked
    */
   onClick?: (
     event:

@@ -10,11 +10,7 @@ export type SubLevelProps = React.ComponentPropsWithoutRef<'a'> & {
    */
   active?: boolean;
   /**
-   * Additional class names to apply to the side navigation sub level
-   */
-  className?: string;
-  /**
-   * The id of the side navigation sub level.
+   * The id of the side navigation sub level
    */
   id: string;
   /**
@@ -22,13 +18,17 @@ export type SubLevelProps = React.ComponentPropsWithoutRef<'a'> & {
    */
   href: string;
   /**
-   * Label of the side navigation sub level.
+   * Label of the side navigation sub level
    */
   label: string;
   /**
-   * Index of the containing main level. The parent MainLevel component uses this property to index sub levels.
+   * Index of the containing main level. The parent MainLevel component uses this property to index sub levels
    */
   mainLevelIndex?: number;
+  /**
+   * Additional class names to apply to the side navigation sub level
+   */
+  className?: string;
   /**
    * Override or extend the styles applied to the component
    */
