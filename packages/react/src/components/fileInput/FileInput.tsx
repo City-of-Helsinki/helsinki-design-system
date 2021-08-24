@@ -207,6 +207,9 @@ export const FileInput = ({
     );
     setSelectedFiles(selectedFilesWithoutRemoved);
     setSuccessText(removeSuccessMessage);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   };
 
   const onDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
