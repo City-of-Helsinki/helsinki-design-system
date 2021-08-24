@@ -9,9 +9,9 @@ $componentMaxWidth: 500px;
   display: flex;
   justify-content: center;
   margin-top: var(--spacing-xs);
-  max-width: 100%;
+  max-width: $componentMaxWidth;
   padding: var(--spacing-s);
-  width: $componentMaxWidth;
+  width: 100%;
 }
 
 .dragAndDropActive {
@@ -32,6 +32,10 @@ $componentMaxWidth: 500px;
 .dragAndDropHelperText {
   @extend %inputLabel;
   margin: var(--spacing-s) 0 var(--spacing-2-xs);
+}
+
+.fileInputContainer {
+  flex: 1;
 }
 
 .fileInputWrapper {
