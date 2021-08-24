@@ -49,7 +49,7 @@ describe('<FileInput /> spec', () => {
     expect(results).toHaveNoViolations();
   });
 
-  test('should list added files', async () => {
+  it('should list added files', async () => {
     const inputLabel = 'Choose files';
     const listAriaLabel = 'Added files';
     const fileNameA = 'test-image-a.png';
@@ -99,7 +99,7 @@ describe('<FileInput /> spec', () => {
     expect(getByLabelInC(`Remove ${fileNameC} from the list`)).toBeInTheDocument();
   });
 
-  test('should call onChange with a list of files', async () => {
+  it('should call onChange with a list of files', async () => {
     let testFileHolder;
     const onChangeCallback = (files: File[]) => {
       testFileHolder = files;
@@ -124,7 +124,7 @@ describe('<FileInput /> spec', () => {
     expect(testFileHolder).toEqual([file]);
   });
 
-  test('should append files to list', async () => {
+  it('should append files to list', async () => {
     const inputLabel = 'Choose files';
     const firstFileName = 'test-file-a';
     const firstFile = new File(['test-file'], firstFileName, { type: 'image/png' });
@@ -151,7 +151,7 @@ describe('<FileInput /> spec', () => {
     expect(screen.getAllByRole('listitem').length).toEqual(2);
   });
 
-  test('should remove file from the files list', async () => {
+  it('should remove file from the files list', async () => {
     let testFileHolder;
     const onChangeCallback = (files: File[]) => {
       testFileHolder = files;
