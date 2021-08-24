@@ -37,7 +37,7 @@ type FileInputProps = {
    */
   label: string;
   /**
-   * The label for the file button
+   * The label for the file button. The button is not visible for assistive technology
    */
   buttonLabel: string;
   /**
@@ -65,7 +65,7 @@ type FileInputProps = {
    */
   multiple?: boolean;
   /**
-   * Drag and Drop area properties. If present, a drag and drop area with helper labels will render with file input.
+   * Drag and Drop area properties. If present, a drag and drop area with helper labels will render with file input. The area is not visible for assistive technology
    */
   dragAndDrop?: DragAndDropProps;
   /**
@@ -128,7 +128,6 @@ export const FileInput = ({
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [successText, setSuccessText] = useState<string | undefined>();
   const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
-  const buttonId = `${id}-button`;
   const fileListId = `${id}-list`;
   const hasDragAndDrop = !!dragAndDrop;
   const dropAreaRef = useRef<HTMLDivElement>(null);
@@ -253,7 +252,7 @@ export const FileInput = ({
           )}
           <div className={styles.fileInputWrapper}>
             <Button
-              id={buttonId}
+              aria-hidden
               variant="secondary"
               iconLeft={<IconPlus aria-hidden />}
               onClick={() => passButtonClickToInput()}
@@ -265,7 +264,6 @@ export const FileInput = ({
               type="file"
               ref={inputRef}
               id={id}
-              aria-labelledby={buttonId}
               disabled={disabled}
               required={required}
               className={styles.fileInput}

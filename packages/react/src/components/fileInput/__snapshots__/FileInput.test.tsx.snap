@@ -21,8 +21,8 @@ exports[`<FileInput /> spec renders the component 1`] = `
           class="fileInputWrapper"
         >
           <button
+            aria-hidden="true"
             class="button secondary theme-default size-default"
-            id="test-file-input-button"
             type="button"
           >
             <div
@@ -57,7 +57,6 @@ exports[`<FileInput /> spec renders the component 1`] = `
             </span>
           </button>
           <input
-            aria-labelledby="test-file-input-button"
             class="fileInput"
             id="test-file-input"
             type="file"
