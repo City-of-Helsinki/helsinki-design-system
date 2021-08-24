@@ -5,7 +5,7 @@ route: /components/linkbox
 ---
 
 import { Playground } from "docz";
-import { StatusLabel } from "hds-react";
+import { StatusLabel, Linkbox } from "hds-react";
 
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Link from "../../src/components/Link";
@@ -22,7 +22,7 @@ import Link from "../../src/components/Link";
 ## Principles
 - **Linkbox must always be interactable in its entirety.** This means that Linkboxes must not include multiple interactable elements (e.g. buttons or multiple links). The Linkbox element only gets focused once.
 - To emphasize its interactability, the Linkbox includes a mandatory icon. Depending on the link type the icon is either an arrow or external link icon. Do not remove or modify these icons.
-      - To read more about HDS recommendations about links, see [HDS Link documentation]().
+  - To read more about HDS recommendations about links, see [HDS Link documentation](/components/link).
 - **Linkboxes work very well for listing heterogenous content** such as news items, blog posts, or upcoming events.
 - **Use Linkboxes sparingly.** While they can drastically improve service's understandability and readability, overusing them may result in confusing and complex user interfaces.
 
@@ -42,64 +42,263 @@ import Link from "../../src/components/Link";
 ## Usage & variations
 
 ### Empty
-The default empty Linkbox variant can be used to build Linkboxes with custom content. Use the property `external` to alter the icon depending on the link type.
+The default empty Linkbox variant can be used to build Linkboxes with custom content.
 
 <Playground>
+  <div style={{ width: '320px' }}>
+    <Linkbox ariaLabel="Linkbox: HDS" href="https://hds.hel.fi">
+      <div style={{ height: '106px' }} />
+    </Linkbox>
 
+    <Linkbox ariaLabel="Linkbox: HDS" href="https://hds.hel.fi" withBorder>
+      <div style={{ height: '106px' }} />
+    </Linkbox>
+
+    <Linkbox ariaLabel="Linkbox: HDS" href="https://hds.hel.fi" noBackground>
+      <div style={{ height: '106px' }} />
+    </Linkbox>
+  </div>
 </Playground>
-
-#### Core code example:
-```html
-
-```
 
 #### React code example:
 ```tsx
+<Linkbox ariaLabel="Linkbox: HDS" href="https://hds.hel.fi">
+  <div style={{ height: '106px' }} />
+</Linkbox>
 
+<Linkbox ariaLabel="Linkbox: HDS" href="https://hds.hel.fi" withBorder>
+  <div style={{ height: '106px' }} />
+</Linkbox>
+
+<Linkbox ariaLabel="Linkbox: HDS" href="https://hds.hel.fi" noBackground>
+  <div style={{ height: '106px' }} />
+</Linkbox>
 ```
 
 ### With heading and body text
 Additionally, HDS offers styling for basic heading and body text inside the Linkbox component. These can be used instead of custom elements.
 
 <Playground>
-
+  <div style={{ width: '320px' }}>
+    <Linkbox 
+      ariaLabel="Linkbox: HDS" 
+      href="https://hds.hel.fi" 
+      heading="Linkbox title" 
+      text="Linkbox text"
+    />
+  </div>
+  <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
+    <Linkbox
+      ariaLabel="Linkbox: HDS"
+      href="https://hds.hel.fi"
+      heading="Linkbox title"
+      text="Linkbox text"
+      withBorder
+    />
+  </div>
+  <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
+    <Linkbox
+      ariaLabel="Linkbox: HDS"
+      href="https://hds.hel.fi"
+      heading="Linkbox title"
+      text="Linkbox text"
+      noBackground
+    />
+  </div>
 </Playground>
-
-#### Core code example:
-```html
-
-```
 
 #### React code example:
 ```tsx
+<Linkbox 
+  ariaLabel="Linkbox: HDS" 
+  href="https://hds.hel.fi" 
+  heading="Linkbox title" 
+  text="Linkbox text"
+/>
 
+<Linkbox
+  ariaLabel="Linkbox: HDS"
+  href="https://hds.hel.fi"
+  heading="Linkbox title"
+  text="Linkbox text"
+  withBorder
+/>
+
+<Linkbox
+  ariaLabel="Linkbox: HDS"
+  href="https://hds.hel.fi"
+  heading="Linkbox title"
+  text="Linkbox text"
+  noBackground
+/>
+```
+
+### Internal and external Linkboxes
+Depending on the link type the icon is either an arrow or external link icon. Use the property `external` to alter the icon depending on the link type. You can also add `openInNewTab` property to make the link open in a new browser tab.
+
+<Playground>
+  <div style={{ width: '320px' }}>
+    <Linkbox 
+      ariaLabel="Linkbox: HDS" 
+      href="https://hds.hel.fi" 
+      heading="Internal link" 
+      text="This link points to a page belonging to the same website as the current page."
+      withBorder
+    />
+  </div>
+  <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
+    <Linkbox
+      ariaLabel="Linkbox: HDS"
+      href="https://hds.hel.fi"
+      heading="External link" 
+      text="This link points to another page."
+      external
+      withBorder
+    />
+  </div>
+  <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
+    <Linkbox
+      ariaLabel="Linkbox: HDS"
+      external
+      href="https://hds.hel.fi"
+      heading="External link" 
+      openInNewTab
+      text="This link points to another page and opens in a new tab."
+      external
+      withBorder
+    />
+  </div>
+</Playground>
+
+#### React code example:
+```tsx
+<Linkbox 
+  ariaLabel="Linkbox: HDS" 
+  href="https://hds.hel.fi" 
+  heading="Internal link" 
+  text="This link points to a page belonging to the same website as the current page."
+  withBorder
+/>
+
+<Linkbox
+  ariaLabel="Linkbox: HDS"
+  href="https://hds.hel.fi"
+  heading="External link" 
+  text="This link points to another page."
+  external
+  withBorder
+/>
+
+<Linkbox
+  ariaLabel="Linkbox: HDS"
+  external
+  href="https://hds.hel.fi"
+  heading="External link" 
+  openInNewTab
+  text="This link points to another page and opens in a new tab."
+  external
+  withBorder
+/>
 ```
 
 ### With image
 HDS offers styling for a Linkbox with an image as its content.
 
 <Playground>
-
+  <div style={{ maxWidth: '384px' }}>
+    <Linkbox
+      ariaLabel="Linkkiruutu: HDS"
+      href="https://hds.hel.fi"
+      heading="Linkbox title"
+      text="Linkbox text"
+      imgProps={{ src: "../../static/assets/placeholders/image/image-m@3x.png", width: 384, height: 245 }}
+    />
+  </div>
 </Playground>
-
-#### Core code example:
-```html
-
-```
 
 #### React code example:
 ```tsx
+<Linkbox
+  ariaLabel="Linkbox: HDS"
+  href="https://hds.hel.fi"
+  heading="Linkbox title"
+  text="Linkbox text"
+  imgProps={{ src: [img path], width: 384, height: 245 }}
+/>
+```
 
+### Linkbox size variants
+HDS Linkbox includes three (3) size variants; small, default and large. You can use different sizes depending on the screensize or use case. Size variants differ in (default) heading size and inner spacing. Use the `size` property to alter the size.
+
+<Playground>
+  <div style={{ maxWidth: '284px' }}>
+    <Linkbox
+      ariaLabel="Linkkiruutu: HDS"
+      href="https://hds.hel.fi"
+      heading="Small Linkbox"
+      imgProps={{ src: "../../static/assets/placeholders/image/image-s@3x.png", width: 284, height: 181 }}
+      size="small"
+      withBorder
+    />
+  </div>
+  <div style={{ maxWidth: '384px', marginTop: 'var(--spacing-s)' }}>
+    <Linkbox
+      ariaLabel="Linkkiruutu: HDS"
+      href="https://hds.hel.fi"
+      heading="Default Linkbox"
+      imgProps={{ src: "../../static/assets/placeholders/image/image-s@3x.png", width: 384, height: 245 }}
+      withBorder
+    />
+  </div>
+  <div style={{ maxWidth: '567px', marginTop: 'var(--spacing-s)' }}>
+    <Linkbox
+      ariaLabel="Linkkiruutu: HDS"
+      href="https://hds.hel.fi"
+      heading="Large Linkbox"
+      imgProps={{ src: "../../static/assets/placeholders/image/image-l@3x.png", width: 567, height: 363 }}
+      withBorder
+      size="large"
+    />
+  </div>
+</Playground>
+
+#### React code example:
+```tsx
+<Linkbox
+  ariaLabel="Linkbox: HDS"
+  href="https://hds.hel.fi"
+  heading="Small Linkbox"
+  imgProps={{ src: [img path], width: 284, height: 181 }}
+  size="small"
+  withBorder
+/>
+
+<Linkbox
+  ariaLabel="Linkbox: HDS"
+  href="https://hds.hel.fi"
+  heading="Default Linkbox"
+  imgProps={{ src: [img path], width: 384, height: 245 }}
+  withBorder
+/>
+
+<Linkbox
+  ariaLabel="Linkbox: HDS"
+  href="https://hds.hel.fi"
+  heading="Large Linkbox"
+  imgProps={{ src: [img path], width: 567, height: 363 }}
+  withBorder
+  size="large"
+/>
 ```
 
 ## Demos & API
 
 ### Core
 
-[Linkboxes in hds-core](/storybook/core/?path=/story/components-linkbox--empty)
+_Not included in hds-core!_
 
 ### React
 
-[Linkboxes in hds-react](/storybook/react/?path=/story/components-linkbox--empty)
+[Linkboxes in hds-react](/storybook/react/?path=/story/components-linkbox-empty-for-custom-content--default)
 
-[Linkboxes API](/storybook/react/?path=/docs/components-linkbox--empty)
+[Linkboxes API](/storybook/react/?path=/docs/components-linkbox-empty-for-custom-content--default)
