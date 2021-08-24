@@ -103,6 +103,7 @@ export default [
       'components/Section/index': 'src/components/section/index.ts',
       'components/Select/index': 'src/components/dropdown/select/index.ts',
       'components/SelectionGroup/index': 'src/components/selectionGroup/index.ts',
+      'components/SideNavigation/index': 'src/components/sideNavigation/index.ts',
       'components/StatusLabel/index': 'src/components/statusLabel/index.ts',
       'components/Tabs/index': 'src/components/tabs/index.ts',
       'components/Tag/index': 'src/components/tag/index.ts',
