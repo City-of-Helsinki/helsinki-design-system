@@ -44,8 +44,7 @@ describe('<FileInput /> spec', () => {
   });
 
   test('should list added files', async () => {
-    const inputLabel = 'Add files';
-
+    const inputLabel = 'Choose files';
     const fileNameA = 'test-image-a.png';
     const fileA = new File([''], fileNameA, { type: 'image/png' });
     Object.defineProperty(fileA, 'size', { value: 12.5 * 1024 * 1024 });
@@ -59,8 +58,8 @@ describe('<FileInput /> spec', () => {
     const { getAllByRole } = render(
       <FileInput
         id="test-file-input"
-        label="Choose files"
-        buttonLabel={inputLabel}
+        label={inputLabel}
+        buttonLabel="Add files"
         successMessage="Files added successfully."
         removeButtonLabel="remove"
         removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
@@ -69,7 +68,7 @@ describe('<FileInput /> spec', () => {
         multiple
       />,
     );
-    const fileUpload = screen.getByLabelText('Add files');
+    const fileUpload = screen.getByLabelText(inputLabel);
     userEvent.upload(fileUpload, files);
     const fileListItems = getAllByRole('listitem');
     expect(fileListItems.length).toBe(3);
@@ -95,13 +94,13 @@ describe('<FileInput /> spec', () => {
     const onChangeCallback = (files: File[]) => {
       testFileHolder = files;
     };
-    const inputLabel = 'Add files';
+    const inputLabel = 'Choose files';
     const file = new File(['test-file'], 'test-file', { type: 'image/png' });
     render(
       <FileInput
         id="test-file-input"
-        label="Choose files"
-        buttonLabel={inputLabel}
+        label={inputLabel}
+        buttonLabel="Add files"
         successMessage="Files added successfully."
         removeButtonLabel="remove"
         removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
@@ -110,13 +109,13 @@ describe('<FileInput /> spec', () => {
         multiple
       />,
     );
-    const fileUpload = screen.getByLabelText('Add files');
+    const fileUpload = screen.getByLabelText(inputLabel);
     userEvent.upload(fileUpload, [file]);
     expect(testFileHolder).toEqual([file]);
   });
 
   test('should append files to list with multiple props onChange with a list of files', async () => {
-    const inputLabel = 'Add files';
+    const inputLabel = 'Choose files';
     const firstFileName = 'test-file-a';
     const firstFile = new File(['test-file'], firstFileName, { type: 'image/png' });
     const secondFileName = 'test-file-b';
@@ -124,8 +123,8 @@ describe('<FileInput /> spec', () => {
     render(
       <FileInput
         id="test-file-input"
-        label="Choose files"
-        buttonLabel={inputLabel}
+        label={inputLabel}
+        buttonLabel="Add files"
         successMessage="Files added successfully."
         removeButtonLabel="remove"
         removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
@@ -134,7 +133,7 @@ describe('<FileInput /> spec', () => {
         multiple
       />,
     );
-    const fileUpload = screen.getByLabelText('Add files');
+    const fileUpload = screen.getByLabelText(inputLabel);
     userEvent.upload(fileUpload, [firstFile]);
     userEvent.upload(fileUpload, [secondFile]);
     expect(screen.getByText(firstFileName)).toBeInTheDocument();
@@ -147,7 +146,7 @@ describe('<FileInput /> spec', () => {
     const onChangeCallback = (files: File[]) => {
       testFileHolder = files;
     };
-    const inputLabel = 'Add files';
+    const inputLabel = 'Choose files';
     const fileNameA = 'test-file-a';
     const fileA = new File(['test-file'], fileNameA, { type: 'image/png' });
     const fileNameB = 'test-file-b';
@@ -155,8 +154,8 @@ describe('<FileInput /> spec', () => {
     render(
       <FileInput
         id="test-file-input"
-        label="Choose files"
-        buttonLabel={inputLabel}
+        label={inputLabel}
+        buttonLabel="Add files"
         successMessage="Files added successfully."
         removeButtonLabel="remove"
         removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
@@ -165,7 +164,7 @@ describe('<FileInput /> spec', () => {
         multiple
       />,
     );
-    const fileUpload = screen.getByLabelText('Add files');
+    const fileUpload = screen.getByLabelText(inputLabel);
     userEvent.upload(fileUpload, [fileA, fileB]);
     expect(screen.queryByText(fileNameA)).toBeInTheDocument();
     expect(screen.queryByText(fileNameB)).toBeInTheDocument();
