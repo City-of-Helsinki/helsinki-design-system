@@ -54,6 +54,10 @@ type FileInputProps = {
    */
   removeSuccessMessage: string;
   /**
+   * The aria-label for the file list.
+   */
+  fileListAriaLabel?: string;
+  /**
    * Callback fired when the list of files changes
    */
   onChange: (files: File[]) => void;
@@ -113,6 +117,7 @@ export const FileInput = ({
   removeButtonLabel,
   removeButtonAriaLabel,
   removeSuccessMessage,
+  fileListAriaLabel,
   successMessage,
   disabled,
   dragAndDrop,
@@ -287,7 +292,11 @@ export const FileInput = ({
         </div>
       </InputWrapper>
       {hasFilesSelected && (
-        <ul id={fileListId} className={styles.fileList}>
+        <ul
+          id={fileListId}
+          className={styles.fileList}
+          {...(fileListAriaLabel ? { 'aria-label': fileListAriaLabel } : {})}
+        >
           {selectedFiles.map((file: File) => (
             <li key={file.name} className={styles.fileListItem}>
               {file.type.startsWith('image') ? <IconPhoto aria-hidden /> : <IconDocument aria-hidden />}

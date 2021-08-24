@@ -26,6 +26,7 @@ export const Example = (args) => {
       removeButtonLabel="Remove"
       removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
       removeSuccessMessage="File removed."
+      fileListAriaLabel="Added file"
       onChange={setFile}
       accept=".png,.jpg"
       helperText="Only .png and .jpg files."
@@ -48,6 +49,7 @@ export const Multiple = (args) => {
       removeButtonLabel="Remove"
       removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
       removeSuccessMessage="File removed."
+      fileListAriaLabel="Added files"
       onChange={setFiles}
       accept=".png,.jpg,.pdf,.json"
       helperText="Only .png, .jpg, .pdf or .json files."
@@ -72,6 +74,7 @@ export const Disabled = (args) => {
       removeButtonLabel="Remove"
       removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
       removeSuccessMessage="File removed."
+      fileListAriaLabel="Added files"
       onChange={setFile}
       accept=".png,.jpg"
       helperText="Only .png and .jpg files."
@@ -95,6 +98,7 @@ export const Required = (args) => {
       removeButtonLabel="Remove"
       removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
       removeSuccessMessage="File removed."
+      fileListAriaLabel="Added files"
       onChange={setFile}
       accept=".png,.jpg"
       helperText="Only .png and .jpg files."
@@ -122,6 +126,7 @@ export const WithDragAndDrop = (args) => {
       removeButtonLabel="Remove"
       removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
       removeSuccessMessage="File removed."
+      fileListAriaLabel="Added files"
       onChange={setFile}
       accept=".png,.jpg"
       helperText="Only .png and .jpg files."
