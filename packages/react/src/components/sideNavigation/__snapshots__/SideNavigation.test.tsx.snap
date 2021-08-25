@@ -54,7 +54,7 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
         class="mainLevel open"
       >
         <button
-          aria-current="false"
+          aria-current="true"
           aria-expanded="true"
           aria-label="Main level 1"
           id="mainLevel1"

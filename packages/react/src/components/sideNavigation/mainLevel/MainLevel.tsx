@@ -155,7 +155,6 @@ export const MainLevel = ({
 }: MainLevelProps) => {
   const menuId = `${id}-menu`;
   const { openMainLevels, setMobileMenuOpen, setOpenMainLevels } = useContext(SideNavigationContext);
-  const activeRef = React.useRef<boolean>(active);
   const open = openMainLevels.includes(index as number);
 
   const subLevels = React.Children.map(children, (child) => {
@@ -168,6 +167,7 @@ export const MainLevel = ({
   });
 
   const hasSubLevels = Boolean(subLevels?.length);
+  const hasActiveSubLevel: boolean = hasSubLevels && !!subLevels.find((subLevel) => subLevel.props.active);
 
   const handleMainLevelClick = (ev: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>) => {
     // Handle toggle: either remove index if exists or add if it doesn't
@@ -181,14 +181,6 @@ export const MainLevel = ({
       onClick(ev);
     }
   };
-
-  React.useEffect(() => {
-    // Ensure that active main level is initially open
-    if (activeRef.current && !open) {
-      setOpenMainLevels([...openMainLevels, index]);
-      activeRef.current = false;
-    }
-  }, [activeRef, open, setOpenMainLevels, openMainLevels, index]);
 
   return (
     <li
@@ -206,8 +198,8 @@ export const MainLevel = ({
         <>
           <button
             type="button"
-            aria-current={!!active}
             aria-label={label}
+            aria-current={hasActiveSubLevel}
             aria-expanded={open}
             id={id}
             onClick={handleMainLevelClick}
