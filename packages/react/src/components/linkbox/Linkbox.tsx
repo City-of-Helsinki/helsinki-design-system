@@ -8,10 +8,6 @@ import classNames from '../../utils/classNames';
 
 export type LinkboxProps = Omit<React.ComponentPropsWithoutRef<'a'>, 'tabIndex'> & {
   /**
-   * Aria-label of the linkbox component.
-   */
-  ariaLabel: string;
-  /**
    * Boolean indicating for external link that takes user to an entirely new web site. Defaults to false.
    */
   external?: boolean;
@@ -27,6 +23,15 @@ export type LinkboxProps = Omit<React.ComponentPropsWithoutRef<'a'>, 'tabIndex'>
    * The image props passed to the linkbox image. Image variant requires prop withImg set to true.
    */
   imgProps?: React.ComponentPropsWithoutRef<'img'>;
+  /**
+   * Aria label for the link (arrow or external icon) that is located at the bottom of the linkbox.
+   */
+  linkAriaLabel: string;
+  /**
+   * Aria label for the whole linkbox region. Remember to tell users of assistive technology that they are inside
+   * a linkbox. Check storybook examples on how it can be done.
+   */
+  linkboxAriaLabel: string;
   /**
    * Boolean for the variant with no background color. Changes paddings also. Defaults to false.
    */
@@ -58,7 +63,6 @@ export type LinkboxProps = Omit<React.ComponentPropsWithoutRef<'a'>, 'tabIndex'>
 };
 
 export const Linkbox = ({
-  ariaLabel,
   children,
   className,
   external = false,
@@ -66,6 +70,8 @@ export const Linkbox = ({
   headingAriaLevel = 2,
   href,
   imgProps,
+  linkAriaLabel,
+  linkboxAriaLabel,
   noBackground = false,
   openInExternalDomainAriaLabel,
   openInNewTab = false,
@@ -77,7 +83,7 @@ export const Linkbox = ({
 }: LinkboxProps) => {
   const linkRef = useRef(null);
 
-  const composeAriaLabel = () => {
+  const composeAriaLabel = (ariaLabel) => {
     const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
     const externalText = external ? openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.' : '';
     let extendedAriaLabel = '';
@@ -103,7 +109,7 @@ export const Linkbox = ({
         linkRef.current.click();
       }}
       className={classNames(styles.linkbox, withBorder && styles.withBorder, !withBorder && styles.withoutBorder)}
-      aria-label={composeAriaLabel()}
+      aria-label={composeAriaLabel(linkboxAriaLabel)}
     >
       {imgProps && <img {...imgProps} className={styles.image} alt="" />}
       <div
@@ -138,7 +144,7 @@ export const Linkbox = ({
         {children}
         <a
           className={classNames(styles.link, className)}
-          aria-label={composeAriaLabel()}
+          aria-label={composeAriaLabel(linkAriaLabel)}
           ref={linkRef}
           tabIndex={-1}
           href={href}
