@@ -70,6 +70,18 @@ export const SmallSize = () => (
   </div>
 );
 
+export const MediumSize = () => (
+  <div style={{ width: '320px' }}>
+    <Linkbox
+      ariaLabel="Linkkiruutu: HDS"
+      href="https://hds.hel.fi"
+      heading="Linkbox title"
+      text="Linkbox text"
+      size="medium"
+    />
+  </div>
+);
+
 export const LargeSize = () => (
   <Linkbox
     ariaLabel="Linkkiruutu: HDS"
