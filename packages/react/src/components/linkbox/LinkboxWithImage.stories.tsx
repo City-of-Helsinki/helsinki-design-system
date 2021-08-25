@@ -88,6 +88,19 @@ export const SmallSize = () => (
   </div>
 );
 
+export const MediumSize = () => (
+  <div style={{ maxWidth: '384px' }}>
+    <Linkbox
+      ariaLabel="Linkkiruutu: HDS"
+      href="https://hds.hel.fi"
+      heading="Linkbox title"
+      text="Linkbox text"
+      imgProps={{ src: exampleMediumImage, width: 384, height: 245 }}
+      size="medium"
+    />
+  </div>
+);
+
 export const LargeSize = () => (
   <div style={{ maxWidth: '567px' }}>
     <Linkbox
