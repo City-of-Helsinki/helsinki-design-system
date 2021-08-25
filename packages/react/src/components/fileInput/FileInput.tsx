@@ -307,15 +307,17 @@ export const FileInput = ({
                 <span className={styles.fileListItemName}>{file.name}</span>
                 <span className={styles.fileListItemSize}>({formatBytes(file.size)})</span>
               </div>
-              <button
-                type="button"
+              <Button
                 onClick={() => removeFileFromList(file)}
-                className={styles.fileListItemButton}
+                variant="supplementary"
+                size="small"
+                theme="black"
+                iconLeft={<IconCross />}
                 aria-label={removeButtonAriaLabel(file.name)}
+                className={styles.fileListItemButton}
               >
-                <IconCross aria-hidden />
-                <span className={styles.fileListItemButtonLabel}>{removeButtonLabel}</span>
-              </button>
+                {removeButtonLabel}
+              </Button>
             </li>
           ))}
         </ul>

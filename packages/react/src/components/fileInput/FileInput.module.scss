@@ -73,9 +73,9 @@ $componentMaxWidth: 500px;
 .fileListItemTitle {
   align-items: flex-start;
   display: flex;
+  flex: 1;
   flex-wrap: nowrap;
   margin-left: var(--spacing-xs);
-  width: 100%;
 }
 
 .fileListItemName {
@@ -92,12 +92,9 @@ $componentMaxWidth: 500px;
 }
 
 .fileListItemButton {
-  @extend %buttonReset;
+  --file-list-item-button-y-offset: calc(-1 * var(--spacing-2-xs) - 1px);
   display: flex;
-  margin-left: auto;
-  margin-top: calc(-1 * var(--spacing-2-xs));
-  margin-bottom: calc(-1 * var(--spacing-2-xs));
-  padding: var(--spacing-2-xs) var(--spacing-s);
+  margin: var(--file-list-item-button-y-offset) auto var(--file-list-item-button-y-offset) 0;
 }
 
 .fileListItemButtonLabel {
