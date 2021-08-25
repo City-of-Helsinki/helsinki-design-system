@@ -36,16 +36,13 @@ export type SubLevelProps = React.ComponentPropsWithoutRef<'a'> & {
 };
 
 export const SubLevel = ({ active, className, href, id, label, mainLevelIndex, onClick, style }: SubLevelProps) => {
-  const { openMainLevels, setMobileMenuOpen, setOpenMainLevels } = useContext(SideNavigationContext);
-  const activeRef = React.useRef<boolean>(active);
+  const { setActiveParentLevel, setMobileMenuOpen } = useContext(SideNavigationContext);
 
   useEffect(() => {
-    // Ensure that active subLevel's main level is initially open
-    if (activeRef.current && !openMainLevels.includes(mainLevelIndex as number)) {
-      setOpenMainLevels([...openMainLevels, mainLevelIndex]);
-      activeRef.current = false;
+    if (active) {
+      setActiveParentLevel(mainLevelIndex);
     }
-  }, [activeRef, setOpenMainLevels, openMainLevels, mainLevelIndex]);
+  }, [active, mainLevelIndex, setActiveParentLevel]);
 
   return (
     <li className={classNames(styles.subLevel, active && styles.active, className)} style={style}>

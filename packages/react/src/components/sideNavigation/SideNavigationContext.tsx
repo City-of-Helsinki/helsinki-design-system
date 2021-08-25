@@ -7,24 +7,29 @@ export type SideNavigationContextType = {
    */
   mobileMenuOpen: boolean;
   /**
-   * Open main levels for the SideNavigation component.
+   * Initially open main levels for the SideNavigation component
    */
-  openMainLevels: number[];
+  defaultOpenMainLevels: number[];
+  /**
+   * Index of main level with active sublevel.
+   */
+  activeParentLevel: number;
   /**
    * Updates mobileMenuOpen flag for the SideNavigation component
    */
   setMobileMenuOpen: (isOpen: boolean) => void;
   /**
-   * Updates open menu levels for the SideNavigation component
+   * Updates main level index with active sublevel
    */
-  setOpenMainLevels: (mainLevelIndeces: number[]) => void;
+  setActiveParentLevel: (mainLevelIndex?: number) => void;
 };
 
 const SideNavigationContext = React.createContext<SideNavigationContextType>({
   mobileMenuOpen: false,
-  openMainLevels: [],
+  defaultOpenMainLevels: undefined,
+  activeParentLevel: undefined,
   setMobileMenuOpen: () => undefined,
-  setOpenMainLevels: () => undefined,
+  setActiveParentLevel: () => undefined,
 });
 
 export default SideNavigationContext;
