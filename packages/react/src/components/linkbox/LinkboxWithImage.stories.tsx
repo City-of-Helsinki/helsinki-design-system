@@ -3,11 +3,11 @@ import React from 'react';
 import { Linkbox } from './Linkbox';
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 // @ts-ignore
-import exampleImage from './static/example-img-small.png';
+import smallImage from './static/placeholder-small.png';
 // @ts-ignore
-import exampleMediumImage from './static/example-img-medium.png';
+import mediumImage from './static/placeholder-medium.png';
 // @ts-ignore
-import exampleLargeImage from './static/example-img.png';
+import largeImage from './static/placeholder-large.png';
 /* eslint-enable @typescript-eslint/ban-ts-ignore */
 
 export default {
@@ -30,7 +30,7 @@ export const Default = () => (
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      imgProps={{ src: exampleImage, width: 384, height: 245 }}
+      imgProps={{ src: mediumImage, width: 384, height: 245 }}
     />
   </div>
 );
@@ -43,7 +43,7 @@ export const WithBorder = () => (
       heading="Linkbox title"
       text="Linkbox text"
       withBorder
-      imgProps={{ src: exampleImage, width: 384, height: 245 }}
+      imgProps={{ src: mediumImage, width: 384, height: 245 }}
     />
   </div>
 );
@@ -56,7 +56,7 @@ export const WithoutBackground = () => (
       heading="Linkbox title"
       text="Linkbox text"
       noBackground
-      imgProps={{ src: exampleImage, width: 384, height: 245 }}
+      imgProps={{ src: mediumImage, width: 384, height: 245 }}
     />
   </div>
 );
@@ -70,7 +70,7 @@ export const External = () => (
       text="Linkbox text"
       external
       openInNewTab
-      imgProps={{ src: exampleImage, width: 384, height: 245 }}
+      imgProps={{ src: mediumImage, width: 384, height: 245 }}
     />
   </div>
 );
@@ -82,7 +82,7 @@ export const SmallSize = () => (
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      imgProps={{ src: exampleMediumImage, width: 284, height: 181 }}
+      imgProps={{ src: smallImage, width: 284, height: 181 }}
       size="small"
     />
   </div>
@@ -95,7 +95,7 @@ export const MediumSize = () => (
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      imgProps={{ src: exampleMediumImage, width: 384, height: 245 }}
+      imgProps={{ src: mediumImage, width: 384, height: 245 }}
       size="medium"
     />
   </div>
@@ -108,7 +108,7 @@ export const LargeSize = () => (
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      imgProps={{ src: exampleLargeImage, width: 567, height: 363 }}
+      imgProps={{ src: largeImage, width: 567, height: 363 }}
       size="large"
     />
   </div>
