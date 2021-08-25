@@ -1,5 +1,4 @@
-import xor from 'lodash.xor';
-import React, { cloneElement, isValidElement, ReactNode, useContext } from 'react';
+import React, { cloneElement, isValidElement, ReactNode, useContext, useEffect, useState } from 'react';
 
 import classNames from '../../../utils/classNames';
 import styles from './MainLevel.module.scss';
@@ -154,8 +153,11 @@ export const MainLevel = ({
   ...rest
 }: MainLevelProps) => {
   const menuId = `${id}-menu`;
-  const { openMainLevels, setMobileMenuOpen, setOpenMainLevels } = useContext(SideNavigationContext);
-  const open = openMainLevels.includes(index as number);
+  const { defaultOpenMainLevels, activeParentLevel, setActiveParentLevel, setMobileMenuOpen } = useContext(
+    SideNavigationContext,
+  );
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpenMainLevels.includes(index as number));
+  const [isActiveParent, setIsActiveParent] = useState<boolean>(false);
 
   const subLevels = React.Children.map(children, (child) => {
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'SubLevel') {
@@ -167,20 +169,27 @@ export const MainLevel = ({
   });
 
   const hasSubLevels = Boolean(subLevels?.length);
-  const hasActiveSubLevel: boolean = hasSubLevels && !!subLevels.find((subLevel) => subLevel.props.active);
 
   const handleMainLevelClick = (ev: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>) => {
-    // Handle toggle: either remove index if exists or add if it doesn't
-    setOpenMainLevels(xor(openMainLevels, [index]));
-
     if (!hasSubLevels) {
+      setActiveParentLevel(undefined);
       setMobileMenuOpen(false);
+    } else {
+      setIsOpen(!isOpen);
     }
 
     if (onClick) {
       onClick(ev);
     }
   };
+
+  useEffect(() => {
+    const isActive = activeParentLevel === index;
+    if (isActive) {
+      setIsOpen(true);
+    }
+    setIsActiveParent(isActive);
+  }, [activeParentLevel, index, setIsOpen, setIsActiveParent]);
 
   return (
     <li
@@ -189,7 +198,7 @@ export const MainLevel = ({
         styles.mainLevel,
         withDivider && styles.mainLevelWithDivider,
         active && styles.active,
-        open && styles.open,
+        isOpen && styles.open,
         className,
       )}
       style={style}
@@ -199,16 +208,16 @@ export const MainLevel = ({
           <button
             type="button"
             aria-label={label}
-            aria-current={hasActiveSubLevel}
-            aria-expanded={open}
+            aria-current={isActiveParent}
+            aria-expanded={isOpen}
             id={id}
             onClick={handleMainLevelClick}
           >
             {icon && <LeftIcon icon={icon} />}
             <Label label={label} />
-            {hasSubLevels && <RightIcon icon={open ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />} />}
+            {hasSubLevels && <RightIcon icon={isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />} />}
           </button>
-          <ul className={styles.mainLevelListMenu} id={menuId} aria-hidden={!open} aria-labelledby={id}>
+          <ul className={styles.mainLevelListMenu} id={menuId} aria-hidden={!isOpen} aria-labelledby={id}>
             {subLevels}
           </ul>
         </>

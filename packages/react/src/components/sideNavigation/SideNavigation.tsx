@@ -61,7 +61,7 @@ export type SideNavigationProps = React.PropsWithChildren<{
 export const SideNavigation = ({
   children,
   className,
-  defaultOpenMainLevels,
+  defaultOpenMainLevels = [],
   id,
   style,
   theme,
@@ -70,7 +70,7 @@ export const SideNavigation = ({
   const container = React.useRef<HTMLDivElement>(null);
   const customThemeClass = useTheme<SideNavigationCustomTheme>(styles.sideNavigation, theme);
   const menuId = `${id}-menu`;
-  const [openMainLevels, setOpenMainLevels] = React.useState<number[]>(defaultOpenMainLevels ?? []);
+  const [activeParentLevel, setActiveParentLevel] = React.useState<number>();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const isMobile = useMobile();
 
@@ -117,9 +117,10 @@ export const SideNavigation = ({
     <SideNavigationContext.Provider
       value={{
         mobileMenuOpen,
-        openMainLevels,
+        defaultOpenMainLevels,
+        activeParentLevel,
         setMobileMenuOpen,
-        setOpenMainLevels,
+        setActiveParentLevel,
       }}
     >
       <nav
