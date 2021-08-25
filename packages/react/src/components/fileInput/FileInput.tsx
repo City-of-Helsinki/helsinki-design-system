@@ -135,6 +135,8 @@ export const FileInput = ({
   const [successText, setSuccessText] = useState<string | undefined>();
   const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
   const fileListId = `${id}-list`;
+  const fileListRef = useRef<HTMLUListElement>(null);
+  const fileListFocusIndexRef = useRef<number>();
   const hasDragAndDrop = !!dragAndDrop;
   const dropAreaRef = useRef<HTMLDivElement>(null);
   const [isDragOverDrop, setIsDragOverDrop] = useState<boolean>(false);
@@ -201,14 +203,17 @@ export const FileInput = ({
     }
   };
 
-  const removeFileFromList = (fileToRemove: File) => {
+  const onRemoveFileFromList = (fileToRemove: File, index: number) => {
     const selectedFilesWithoutRemoved = selectedFiles.filter(
       (file: File) => !isEqualFileBy(['name', 'type', 'size', 'lastModified'], file, fileToRemove),
     );
     setSelectedFiles(selectedFilesWithoutRemoved);
     setSuccessText(removeSuccessMessage);
-    if (inputRef.current) {
-      inputRef.current.focus();
+
+    if (selectedFilesWithoutRemoved.length > 0) {
+      fileListFocusIndexRef.current = index > 0 ? index - 1 : 0;
+    } else if (fileListRef.current) {
+      fileListRef.current.focus();
     }
   };
 
@@ -294,34 +299,43 @@ export const FileInput = ({
           </div>
         </div>
       </InputWrapper>
-      {hasFilesSelected && (
-        <ul
-          id={fileListId}
-          className={styles.fileList}
-          {...(fileListAriaLabel ? { 'aria-label': fileListAriaLabel } : {})}
-        >
-          {selectedFiles.map((file: File) => (
-            <li key={file.name} className={styles.fileListItem}>
-              {file.type.startsWith('image') ? <IconPhoto aria-hidden /> : <IconDocument aria-hidden />}
-              <div className={styles.fileListItemTitle}>
-                <span className={styles.fileListItemName}>{file.name}</span>
-                <span className={styles.fileListItemSize}>({formatBytes(file.size)})</span>
-              </div>
-              <Button
-                onClick={() => removeFileFromList(file)}
-                variant="supplementary"
-                size="small"
-                theme="black"
-                iconLeft={<IconCross />}
-                aria-label={removeButtonAriaLabel(file.name)}
-                className={styles.fileListItemButton}
-              >
-                {removeButtonLabel}
-              </Button>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul
+        id={fileListId}
+        ref={fileListRef}
+        tabIndex={-1}
+        className={styles.fileList}
+        {...(fileListAriaLabel ? { 'aria-label': fileListAriaLabel } : {})}
+      >
+        {selectedFiles.map((file: File, index: number) => (
+          <li
+            key={file.name}
+            className={styles.fileListItem}
+            tabIndex={-1}
+            ref={(el) => {
+              if (el && fileListRef.current && fileListFocusIndexRef.current === index) {
+                el.focus();
+              }
+            }}
+          >
+            {file.type.startsWith('image') ? <IconPhoto aria-hidden /> : <IconDocument aria-hidden />}
+            <div className={styles.fileListItemTitle}>
+              <span className={styles.fileListItemName}>{file.name}</span>
+              <span className={styles.fileListItemSize}>({formatBytes(file.size)})</span>
+            </div>
+            <Button
+              onClick={() => onRemoveFileFromList(file, index)}
+              variant="supplementary"
+              size="small"
+              theme="black"
+              iconLeft={<IconCross />}
+              aria-label={removeButtonAriaLabel(file.name)}
+              className={styles.fileListItemButton}
+            >
+              {removeButtonLabel}
+            </Button>
+          </li>
+        ))}
+      </ul>
     </>
   );
 };

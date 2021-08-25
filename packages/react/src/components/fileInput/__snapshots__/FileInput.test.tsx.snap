@@ -73,5 +73,11 @@ exports[`<FileInput /> spec renders the component 1`] = `
       Only .png and .jpg files.
     </div>
   </div>
+  <ul
+    aria-label="Added files"
+    class="fileList"
+    id="test-file-input-list"
+    tabindex="-1"
+  />
 </DocumentFragment>
 `;
