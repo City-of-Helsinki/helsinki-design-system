@@ -55,13 +55,7 @@ describe('<FileInput /> spec', () => {
     Object.defineProperty(fileC, 'size', { value: 3.3 * 1024 * 1024 * 1024 });
     const files: File[] = [fileA, fileB, fileC];
     render(
-      <FileInput
-        id="test-file-input"
-        label={inputLabel}
-        buttonLabel="Add files"
-        onChange={onChangeTest}
-        multiple
-      />,
+      <FileInput id="test-file-input" label={inputLabel} buttonLabel="Add files" onChange={onChangeTest} multiple />,
     );
     const fileUpload = screen.getByLabelText(inputLabel);
     userEvent.upload(fileUpload, files);
@@ -114,13 +108,7 @@ describe('<FileInput /> spec', () => {
     const secondFileName = 'test-file-b';
     const secondFile = new File(['test-file'], secondFileName, { type: 'image/png' });
     render(
-      <FileInput
-        id="test-file-input"
-        label={inputLabel}
-        buttonLabel="Add files"
-        onChange={onChangeTest}
-        multiple
-      />,
+      <FileInput id="test-file-input" label={inputLabel} buttonLabel="Add files" onChange={onChangeTest} multiple />,
     );
     const fileUpload = screen.getByLabelText(inputLabel);
     userEvent.upload(fileUpload, [firstFile]);
