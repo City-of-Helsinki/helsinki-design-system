@@ -17,6 +17,7 @@ type InputWrapperProps = {
   required?: boolean;
   style?: React.CSSProperties;
   successText?: string;
+  infoText?: string;
   tooltipLabel?: string;
   tooltipText?: string;
   tooltipButtonLabel?: string;
@@ -35,6 +36,7 @@ export const InputWrapper = ({
   required = false,
   style,
   successText,
+  infoText,
   tooltipLabel,
   tooltipText,
   tooltipButtonLabel,
@@ -64,6 +66,11 @@ export const InputWrapper = ({
     {successText && (
       <div className={styles.successText} id={`${id}-success`}>
         {successText}
+      </div>
+    )}
+    {infoText && (
+      <div className={styles.infoText} id={`${id}-info`}>
+        {infoText}
       </div>
     )}
     {helperText && (
