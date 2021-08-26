@@ -75,7 +75,7 @@ $componentMaxWidth: 500px;
   display: flex;
   flex: 1;
   flex-wrap: nowrap;
-  margin-left: var(--spacing-xs);
+  margin: 0 var(--spacing-xs);
 }
 
 .fileListItemName {
