@@ -16,11 +16,7 @@ describe('<FileInput /> spec', () => {
         id="test-file-input"
         label="Choose a file"
         buttonLabel="Add file"
-        successMessage="File added successfully."
-        removeButtonLabel="remove"
-        removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
-        removeSuccessMessage="File removed."
-        fileListAriaLabel="Added files"
+        language="en"
         accept=".png,.jpg"
         helperText="Only .png and .jpg files."
         onChange={onChangeTest}
@@ -35,11 +31,7 @@ describe('<FileInput /> spec', () => {
         id="test-file-input"
         label="Choose a file"
         buttonLabel="Add file"
-        successMessage="File added successfully."
-        removeButtonLabel="remove"
-        removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
-        removeSuccessMessage="File removed."
-        fileListAriaLabel="Added files"
+        language="en"
         accept=".png,.jpg"
         helperText="Only .png and .jpg files."
         onChange={onChangeTest}
@@ -67,11 +59,6 @@ describe('<FileInput /> spec', () => {
         id="test-file-input"
         label={inputLabel}
         buttonLabel="Add files"
-        successMessage="Files added successfully."
-        removeButtonLabel="remove"
-        removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
-        removeSuccessMessage="File removed."
-        fileListAriaLabel={listAriaLabel}
         onChange={onChangeTest}
         multiple
       />,
@@ -86,17 +73,17 @@ describe('<FileInput /> spec', () => {
     const fileItemA = fileListItems.find((i) => i.innerHTML.includes(fileNameA));
     const { getByText: getByTextInA, getByLabelText: getByLabelInA } = within(fileItemA);
     expect(getByTextInA('(12.5 MB)')).toBeInTheDocument();
-    expect(getByLabelInA(`Remove ${fileNameA} from the list`)).toBeInTheDocument();
+    expect(getByLabelInA(`Remove ${fileNameA} from the added files list.`)).toBeInTheDocument();
 
     const fileItemB = fileListItems.find((i) => i.innerHTML.includes(fileNameB));
     const { getByText: getByTextInB, getByLabelText: getByLabelInB } = within(fileItemB);
     expect(getByTextInB('(110 kB)')).toBeInTheDocument();
-    expect(getByLabelInB(`Remove ${fileNameB} from the list`)).toBeInTheDocument();
+    expect(getByLabelInB(`Remove ${fileNameB} from the added files list.`)).toBeInTheDocument();
 
     const fileItemC = fileListItems.find((i) => i.innerHTML.includes(fileNameC));
     const { getByText: getByTextInC, getByLabelText: getByLabelInC } = within(fileItemC);
     expect(getByTextInC('(3.3 GB)')).toBeInTheDocument();
-    expect(getByLabelInC(`Remove ${fileNameC} from the list`)).toBeInTheDocument();
+    expect(getByLabelInC(`Remove ${fileNameC} from the added files list.`)).toBeInTheDocument();
   });
 
   it('should call onChange with a list of files', async () => {
@@ -111,10 +98,6 @@ describe('<FileInput /> spec', () => {
         id="test-file-input"
         label={inputLabel}
         buttonLabel="Add files"
-        successMessage="Files added successfully."
-        removeButtonLabel="remove"
-        removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
-        removeSuccessMessage="File removed."
         onChange={onChangeCallback}
         multiple
       />,
@@ -135,10 +118,6 @@ describe('<FileInput /> spec', () => {
         id="test-file-input"
         label={inputLabel}
         buttonLabel="Add files"
-        successMessage="Files added successfully."
-        removeButtonLabel="remove"
-        removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
-        removeSuccessMessage="File removed."
         onChange={onChangeTest}
         multiple
       />,
@@ -167,11 +146,6 @@ describe('<FileInput /> spec', () => {
         id="test-file-input"
         label={inputLabel}
         buttonLabel="Add files"
-        successMessage="Files added successfully."
-        removeButtonLabel="remove"
-        removeButtonAriaLabel={(name) => `Remove ${name} from the list`}
-        removeSuccessMessage="File removed."
-        fileListAriaLabel={listAriaLabel}
         onChange={onChangeCallback}
         multiple
       />,
@@ -184,7 +158,7 @@ describe('<FileInput /> spec', () => {
     expect(fileListItems.length).toBe(2);
     expect(testFileHolder).toEqual([fileA, fileB]);
     await act(async () => {
-      userEvent.click(screen.getByLabelText(`Remove ${fileNameB} from the list`));
+      userEvent.click(screen.getByLabelText(`Remove ${fileNameB} from the added files list.`));
     });
     const updatedListItems = getAllByRole('listitem');
     expect(updatedListItems.length).toBe(1);

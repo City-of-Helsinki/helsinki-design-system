@@ -23,11 +23,7 @@ export const Single = (args) => {
       id="file-input"
       label="Choose a file"
       buttonLabel="Add file"
-      successMessage="File added successfully."
-      removeButtonLabel="Remove"
-      removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
-      removeSuccessMessage="File removed."
-      fileListAriaLabel="Added file"
+      language="en"
       onChange={setFile}
       accept=".png,.jpg"
       helperText="Only .png and .jpg files."
@@ -50,7 +46,6 @@ export const Multiple = (args) => {
       removeButtonLabel="Remove"
       removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
       removeSuccessMessage="File removed."
-      fileListAriaLabel="Added files"
       onChange={setFiles}
       accept=".png,.jpg,.pdf,.json"
       helperText="Only .png, .jpg, .pdf or .json files."
@@ -71,11 +66,7 @@ export const Disabled = (args) => {
       id="file-input"
       label="Choose a file"
       buttonLabel="Add file"
-      successMessage="File added successfully."
-      removeButtonLabel="Remove"
-      removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
-      removeSuccessMessage="File removed."
-      fileListAriaLabel="Added files"
+      language="en"
       onChange={setFile}
       accept=".png,.jpg"
       helperText="Only .png and .jpg files."
@@ -95,11 +86,7 @@ export const Required = (args) => {
       id="file-input"
       label="Choose a file"
       buttonLabel="Add file"
-      successMessage="File added successfully."
-      removeButtonLabel="Remove"
-      removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
-      removeSuccessMessage="File removed."
-      fileListAriaLabel="Added files"
+      language="en"
       onChange={setFile}
       accept=".png,.jpg"
       helperText="Only .png and .jpg files."
@@ -123,11 +110,6 @@ export const WithDragAndDrop = (args) => {
         helperText: 'or browse from your computer',
       }}
       buttonLabel="Add files"
-      successMessage="Files added successfully."
-      removeButtonLabel="Remove"
-      removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
-      removeSuccessMessage="File removed."
-      fileListAriaLabel="Added files"
       onChange={setFile}
       accept=".png,.jpg"
       helperText="Only .png and .jpg files."

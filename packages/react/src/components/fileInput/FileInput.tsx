@@ -24,15 +24,13 @@ type DragAndDropProps = {
   helperText: string;
 };
 
+type Language = 'en' | 'fi' | 'sv';
+
 type FileInputProps = {
   /**
    * The id of the input element
    */
   id: string;
-  /**
-   * A text which is shown after successful file add
-   */
-  successMessage: string;
   /**
    * The label for the input
    */
@@ -42,21 +40,11 @@ type FileInputProps = {
    */
   buttonLabel: string;
   /**
-   * The label for the file remove button in the files list
+   * The language of the component. It affects which language is used to present component-specific messages, labels, and aria-labels
+   *
+   * @default "en"
    */
-  removeButtonLabel: string;
-  /**
-   * The aria-label for the file remove button in the file list. A function that has the name string as argument.
-   */
-  removeButtonAriaLabel: (name: string) => string;
-  /**
-   * A text which is shown after successful file remove from the files list.
-   */
-  removeSuccessMessage: string;
-  /**
-   * The aria-label for the file list.
-   */
-  fileListAriaLabel?: string;
+  language?: Language;
   /**
    * Callback fired when the list of files changes
    */
@@ -110,15 +98,59 @@ const formatBytes = (bytes: number): string => {
   return `${sizeUnitIndex < 2 ? Math.round(sizeInUnit) : sizeInUnit.toFixed(1)} ${sizeUnits[sizeUnitIndex]}`;
 };
 
+const getRemoveButtonLabel = (language: Language): string => {
+  return {
+    en: 'Remove',
+    fi: 'Poista',
+    sv: 'Ta bort',
+  }[language];
+};
+
+const getRemoveButtonAriaLabel = (language: Language, fileName: string): string => {
+  return {
+    en: `Remove ${fileName} from the added files list.`,
+    fi: `Poista tiedosto ${fileName} lisättyjen tiedostojen listasta.`,
+    sv: `Ta bort ${fileName} tillagda filen från fillistan.`,
+  }[language];
+};
+
+const getFileListAriaLabel = (language: Language): string => {
+  return {
+    en: 'Added files',
+    fi: 'Lisätyt tiedostot',
+    sv: 'Tillagda filerna',
+  }[language];
+};
+
+const getRemoveSuccessMessage = (language: Language): string => {
+  return {
+    en: 'File removed.',
+    fi: 'Tiedosto poistettu.',
+    sv: 'Filen borttagen.',
+  }[language];
+};
+
+const getAddSuccessMessage = (language: Language): string => {
+  return {
+    en: 'File added.',
+    fi: 'Tiedosto lisätty.',
+    sv: 'Filen har blivit tillagd.',
+  }[language];
+};
+
+const getNoFilesSelectedMessage = (language: Language): string => {
+  return {
+    en: 'No files added.',
+    fi: 'Tiedostoja ei ole lisätty.',
+    sv: 'Ingen fil har lagts till.',
+  }[language];
+};
+
 export const FileInput = ({
   id,
   label,
   buttonLabel,
-  removeButtonLabel,
-  removeButtonAriaLabel,
-  removeSuccessMessage,
-  fileListAriaLabel,
-  successMessage,
+  language = 'en',
   disabled,
   dragAndDrop,
   className = '',
@@ -167,7 +199,7 @@ export const FileInput = ({
   const handleSingleFileChange = (files: File[]) => {
     if (files.length > 0) {
       setSelectedFiles(files);
-      setSuccessText(successMessage);
+      setSuccessText(getAddSuccessMessage(language));
     } else {
       setSuccessText(undefined);
     }
@@ -189,7 +221,7 @@ export const FileInput = ({
         (selectedFile: File) => !findDuplicateByNameAndType(replacedFiles, selectedFile),
       );
       setSelectedFiles([...selectedWithoutReplacedFiles, ...replacedFiles, ...newFiles]);
-      setSuccessText(successMessage);
+      setSuccessText(getAddSuccessMessage(language));
     } else {
       setSuccessText(undefined);
     }
@@ -208,7 +240,7 @@ export const FileInput = ({
       (file: File) => !isEqualFileBy(['name', 'type', 'size', 'lastModified'], file, fileToRemove),
     );
     setSelectedFiles(selectedFilesWithoutRemoved);
-    setSuccessText(removeSuccessMessage);
+    setSuccessText(getRemoveSuccessMessage(language));
 
     if (selectedFilesWithoutRemoved.length > 0) {
       fileListFocusIndexRef.current = index > 0 ? index - 1 : 0;
@@ -304,7 +336,7 @@ export const FileInput = ({
         ref={fileListRef}
         tabIndex={-1}
         className={styles.fileList}
-        {...(fileListAriaLabel ? { 'aria-label': fileListAriaLabel } : {})}
+        aria-label={getFileListAriaLabel(language)}
       >
         {selectedFiles.map((file: File, index: number) => (
           <li
@@ -328,10 +360,10 @@ export const FileInput = ({
               size="small"
               theme="black"
               iconLeft={<IconCross />}
-              aria-label={removeButtonAriaLabel(file.name)}
+              aria-label={getRemoveButtonAriaLabel(language, file.name)}
               className={styles.fileListItemButton}
             >
-              {removeButtonLabel}
+              {getRemoveButtonLabel(language)}
             </Button>
           </li>
         ))}
