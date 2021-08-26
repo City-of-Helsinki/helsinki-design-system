@@ -45,32 +45,36 @@ import Link from "../../src/components/Link";
 The default empty Linkbox variant can be used to build Linkboxes with custom content.
 
 <Playground>
-  <div style={{ width: '320px' }}>
-    <Linkbox ariaLabel="Linkbox: HDS" href="https://hds.hel.fi">
-      <div style={{ height: '106px' }} />
-    </Linkbox>
-
-    <Linkbox ariaLabel="Linkbox: HDS" href="https://hds.hel.fi" withBorder>
-      <div style={{ height: '106px' }} />
-    </Linkbox>
-
-    <Linkbox ariaLabel="Linkbox: HDS" href="https://hds.hel.fi" noBackground>
-      <div style={{ height: '106px' }} />
-    </Linkbox>
+  <div style={{ backgroundColor: "#efefef", margin: '-20px', padding: '20px' }}>
+    <div style={{ width: '320px' }}>
+      <Linkbox linkboxAriaLabel="Linkkiruutu: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi">
+        <div style={{ height: '106px' }} />
+      </Linkbox>
+    </div>
+    <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
+      <Linkbox linkboxAriaLabel="Linkkiruutu: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" withBorder>
+        <div style={{ height: '106px' }} />
+      </Linkbox>
+    </div>
+    <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
+      <Linkbox linkboxAriaLabel="Linkkiruutu: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" noBackground>
+        <div style={{ height: '106px' }} />
+      </Linkbox>
+    </div>
   </div>
 </Playground>
 
 #### React code example:
 ```tsx
-<Linkbox ariaLabel="Linkbox: HDS" href="https://hds.hel.fi">
+<Linkbox linkboxAriaLabel="Linkkiruutu: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi">
   <div style={{ height: '106px' }} />
 </Linkbox>
 
-<Linkbox ariaLabel="Linkbox: HDS" href="https://hds.hel.fi" withBorder>
+<Linkbox linkboxAriaLabel="Linkkiruutu: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" withBorder>
   <div style={{ height: '106px' }} />
 </Linkbox>
 
-<Linkbox ariaLabel="Linkbox: HDS" href="https://hds.hel.fi" noBackground>
+<Linkbox linkboxAriaLabel="Linkkiruutu: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" noBackground>
   <div style={{ height: '106px' }} />
 </Linkbox>
 ```
@@ -79,45 +83,52 @@ The default empty Linkbox variant can be used to build Linkboxes with custom con
 Additionally, HDS offers styling for basic heading and body text inside the Linkbox component. These can be used instead of custom elements.
 
 <Playground>
-  <div style={{ width: '320px' }}>
-    <Linkbox 
-      ariaLabel="Linkbox: HDS" 
-      href="https://hds.hel.fi" 
-      heading="Linkbox title" 
-      text="Linkbox text"
-    />
-  </div>
-  <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
-    <Linkbox
-      ariaLabel="Linkbox: HDS"
-      href="https://hds.hel.fi"
-      heading="Linkbox title"
-      text="Linkbox text"
-      withBorder
-    />
-  </div>
-  <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
-    <Linkbox
-      ariaLabel="Linkbox: HDS"
-      href="https://hds.hel.fi"
-      heading="Linkbox title"
-      text="Linkbox text"
-      noBackground
-    />
+  <div style={{ backgroundColor: "#efefef", margin: '-20px', padding: '20px' }}>
+    <div style={{ width: '320px' }}>
+      <Linkbox
+        linkboxAriaLabel="Linkkiruutu: HDS"
+        linkAriaLabel="HDS"
+        href="https://hds.hel.fi"
+        heading="Linkbox title"
+        text="Linkbox text"
+      />
+    </div>
+    <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
+      <Linkbox
+        linkboxAriaLabel="Linkkiruutu: HDS"
+        linkAriaLabel="HDS"
+        href="https://hds.hel.fi"
+        heading="Linkbox title"
+        text="Linkbox text"
+        withBorder
+      />
+    </div>
+    <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
+      <Linkbox
+        linkboxAriaLabel="Linkkiruutu: HDS"
+        linkAriaLabel="HDS"
+        href="https://hds.hel.fi"
+        heading="Linkbox title"
+        text="Linkbox text"
+        noBackground
+      />
+    </div>
   </div>
 </Playground>
 
 #### React code example:
 ```tsx
 <Linkbox 
-  ariaLabel="Linkbox: HDS" 
+  linkboxAriaLabel="Linkkiruutu: HDS"
+  linkAriaLabel="HDS"
   href="https://hds.hel.fi" 
   heading="Linkbox title" 
   text="Linkbox text"
 />
 
 <Linkbox
-  ariaLabel="Linkbox: HDS"
+  linkboxAriaLabel="Linkkiruutu: HDS"
+  linkAriaLabel="HDS"
   href="https://hds.hel.fi"
   heading="Linkbox title"
   text="Linkbox text"
@@ -125,7 +136,8 @@ Additionally, HDS offers styling for basic heading and body text inside the Link
 />
 
 <Linkbox
-  ariaLabel="Linkbox: HDS"
+  linkboxAriaLabel="Linkkiruutu: HDS"
+  linkAriaLabel="HDS"
   href="https://hds.hel.fi"
   heading="Linkbox title"
   text="Linkbox text"
@@ -137,9 +149,11 @@ Additionally, HDS offers styling for basic heading and body text inside the Link
 Depending on the link type the icon is either an arrow or external link icon. Use the property `external` to alter the icon depending on the link type. You can also add `openInNewTab` property to make the link open in a new browser tab.
 
 <Playground>
+  <div style={{ backgroundColor: "#efefef", margin: '-20px', padding: '20px' }}>
   <div style={{ width: '320px' }}>
-    <Linkbox 
-      ariaLabel="Linkbox: HDS" 
+    <Linkbox
+      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkAriaLabel="HDS"
       href="https://hds.hel.fi" 
       heading="Internal link" 
       text="This link points to a page belonging to the same website as the current page."
@@ -148,7 +162,8 @@ Depending on the link type the icon is either an arrow or external link icon. Us
   </div>
   <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
     <Linkbox
-      ariaLabel="Linkbox: HDS"
+      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="External link" 
       text="This link points to another page."
@@ -158,7 +173,8 @@ Depending on the link type the icon is either an arrow or external link icon. Us
   </div>
   <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
     <Linkbox
-      ariaLabel="Linkbox: HDS"
+      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkAriaLabel="HDS"
       external
       href="https://hds.hel.fi"
       heading="External link" 
@@ -168,12 +184,14 @@ Depending on the link type the icon is either an arrow or external link icon. Us
       withBorder
     />
   </div>
+  </div>
 </Playground>
 
 #### React code example:
 ```tsx
 <Linkbox 
-  ariaLabel="Linkbox: HDS" 
+  linkboxAriaLabel="Linkkiruutu: HDS"
+  linkAriaLabel="HDS"
   href="https://hds.hel.fi" 
   heading="Internal link" 
   text="This link points to a page belonging to the same website as the current page."
@@ -181,7 +199,8 @@ Depending on the link type the icon is either an arrow or external link icon. Us
 />
 
 <Linkbox
-  ariaLabel="Linkbox: HDS"
+  linkboxAriaLabel="Linkkiruutu: HDS"
+  linkAriaLabel="HDS"
   href="https://hds.hel.fi"
   heading="External link" 
   text="This link points to another page."
@@ -190,13 +209,13 @@ Depending on the link type the icon is either an arrow or external link icon. Us
 />
 
 <Linkbox
-  ariaLabel="Linkbox: HDS"
+  linkboxAriaLabel="Linkkiruutu: HDS"
+  linkAriaLabel="HDS"
   external
   href="https://hds.hel.fi"
   heading="External link" 
   openInNewTab
   text="This link points to another page and opens in a new tab."
-  external
   withBorder
 />
 ```
@@ -205,21 +224,25 @@ Depending on the link type the icon is either an arrow or external link icon. Us
 HDS offers styling for a Linkbox with an image as its content.
 
 <Playground>
+  <div style={{ backgroundColor: "#efefef", margin: '-20px', padding: '20px' }}>
   <div style={{ maxWidth: '384px' }}>
     <Linkbox
-      ariaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
       imgProps={{ src: "../../static/assets/placeholders/image/image-m@3x.png", width: 384, height: 245 }}
     />
   </div>
+  </div>
 </Playground>
 
 #### React code example:
 ```tsx
 <Linkbox
-  ariaLabel="Linkbox: HDS"
+  linkboxAriaLabel="Linkkiruutu: HDS"
+  linkAriaLabel="HDS"
   href="https://hds.hel.fi"
   heading="Linkbox title"
   text="Linkbox text"
@@ -231,11 +254,14 @@ HDS offers styling for a Linkbox with an image as its content.
 HDS Linkbox includes three (3) size variants; small, default and large. You can use different sizes depending on the screensize or use case. Size variants differ in (default) heading size and inner spacing. Use the `size` property to alter the size.
 
 <Playground>
+  <div style={{ backgroundColor: "#efefef", margin: '-20px', padding: '20px' }}>
   <div style={{ maxWidth: '284px' }}>
     <Linkbox
-      ariaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Small Linkbox"
+      text="Linkbox text"
       imgProps={{ src: "../../static/assets/placeholders/image/image-s@3x.png", width: 284, height: 181 }}
       size="small"
       withBorder
@@ -243,48 +269,59 @@ HDS Linkbox includes three (3) size variants; small, default and large. You can 
   </div>
   <div style={{ maxWidth: '384px', marginTop: 'var(--spacing-s)' }}>
     <Linkbox
-      ariaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Default Linkbox"
+      text="Linkbox text"
       imgProps={{ src: "../../static/assets/placeholders/image/image-s@3x.png", width: 384, height: 245 }}
       withBorder
     />
   </div>
   <div style={{ maxWidth: '567px', marginTop: 'var(--spacing-s)' }}>
     <Linkbox
-      ariaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Large Linkbox"
+      text="Linkbox text"
       imgProps={{ src: "../../static/assets/placeholders/image/image-l@3x.png", width: 567, height: 363 }}
       withBorder
       size="large"
     />
+  </div>
   </div>
 </Playground>
 
 #### React code example:
 ```tsx
 <Linkbox
-  ariaLabel="Linkbox: HDS"
+  linkboxAriaLabel="Linkkiruutu: HDS"
+  linkAriaLabel="HDS"
   href="https://hds.hel.fi"
   heading="Small Linkbox"
+  text="Linkbox text"
   imgProps={{ src: [img path], width: 284, height: 181 }}
   size="small"
   withBorder
 />
 
 <Linkbox
-  ariaLabel="Linkbox: HDS"
+  linkboxAriaLabel="Linkkiruutu: HDS"
+  linkAriaLabel="HDS"
   href="https://hds.hel.fi"
   heading="Default Linkbox"
+  text="Linkbox text"
   imgProps={{ src: [img path], width: 384, height: 245 }}
   withBorder
 />
 
 <Linkbox
-  ariaLabel="Linkbox: HDS"
+  linkboxAriaLabel="Linkkiruutu: HDS"
+  linkAriaLabel="HDS"
   href="https://hds.hel.fi"
   heading="Large Linkbox"
+  text="Linkbox text"
   imgProps={{ src: [img path], width: 567, height: 363 }}
   withBorder
   size="large"
