@@ -38,6 +38,8 @@ export const Invalid = () => <TextArea {...textAreaProps} invalid errorText="Err
 
 export const Success = () => <TextArea {...textAreaProps} successText="Success text" defaultValue={value} />;
 
+export const Info = () => <TextArea {...textAreaProps} infoText="Info text" defaultValue={value} />;
+
 export const WithLabelHidden = () => <TextArea {...textAreaProps} hideLabel defaultValue={value} />;
 WithLabelHidden.storyName = 'With label hidden';
 
