@@ -108,7 +108,7 @@ export const Linkbox = ({
       onClick={() => {
         linkRef.current.click();
       }}
-      className={classNames(styles.linkbox, withBorder && styles.withBorder, !withBorder && styles.withoutBorder)}
+      className={classNames(styles.linkbox, withBorder && styles.withBorder)}
       aria-label={composeAriaLabel(linkboxAriaLabel)}
     >
       {imgProps && <img {...imgProps} className={styles.image} alt="" />}

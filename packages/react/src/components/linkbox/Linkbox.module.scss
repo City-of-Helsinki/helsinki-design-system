@@ -1,5 +1,6 @@
 .linkbox {
   cursor: pointer;
+  border: solid 2px transparent;
 
   &:focus {
     outline: var(--color-coat-of-arms) 3px solid;
@@ -56,11 +57,7 @@
 }
 
 .withBorder {
-  border: 2px solid var(--color-black-90);
-}
-
-.withoutBorder {
-  border: solid 2px transparent;
+  border-color: var(--color-black-90);
 }
 
 .headingCommon {
