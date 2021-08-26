@@ -73,6 +73,10 @@ export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
    */
   successText?: string;
   /**
+   * The info text content that will be shown below the input
+   */
+  infoText?: string;
+  /**
    * Aria-label text for the tooltip
    */
   tooltipLabel?: string;
@@ -127,6 +131,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       required,
       style,
       successText,
+      infoText,
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
@@ -149,6 +154,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       required,
       style,
       successText,
+      infoText,
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
