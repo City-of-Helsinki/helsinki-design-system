@@ -138,14 +138,6 @@ const getAddSuccessMessage = (language: Language): string => {
   }[language];
 };
 
-const getNoFilesSelectedMessage = (language: Language): string => {
-  return {
-    en: 'No files added.',
-    fi: 'Tiedostoja ei ole lisätty.',
-    sv: 'Ingen fil har lagts till.',
-  }[language];
-};
-
 export const FileInput = ({
   id,
   label,
