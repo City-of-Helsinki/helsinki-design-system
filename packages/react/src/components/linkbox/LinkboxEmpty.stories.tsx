@@ -17,7 +17,7 @@ export default {
 
 export const Default = () => (
   <div style={{ width: '320px' }}>
-    <Linkbox linkboxAriaLabel="Linkkiruutu: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi">
+    <Linkbox linkboxAriaLabel="Linkbox: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi">
       <div style={{ height: '224px' }} />
     </Linkbox>
   </div>
@@ -25,7 +25,7 @@ export const Default = () => (
 
 export const WithBorder = () => (
   <div style={{ width: '320px' }}>
-    <Linkbox linkboxAriaLabel="Linkkiruutu: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" withBorder>
+    <Linkbox linkboxAriaLabel="Linkbox: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" withBorder>
       <div style={{ height: '224px' }} />
     </Linkbox>
   </div>
@@ -33,7 +33,7 @@ export const WithBorder = () => (
 
 export const WithoutBackground = () => (
   <div style={{ width: '320px' }}>
-    <Linkbox linkboxAriaLabel="Linkkiruutu: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" noBackground>
+    <Linkbox linkboxAriaLabel="Linkbox: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" noBackground>
       <div style={{ height: '224px' }} />
     </Linkbox>
   </div>
@@ -41,7 +41,7 @@ export const WithoutBackground = () => (
 
 export const External = () => (
   <div style={{ width: '320px' }}>
-    <Linkbox linkboxAriaLabel="Linkkiruutu: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" external openInNewTab>
+    <Linkbox linkboxAriaLabel="Linkbox: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" external openInNewTab>
       <div style={{ height: '224px' }} />
     </Linkbox>
   </div>
@@ -49,7 +49,7 @@ export const External = () => (
 
 export const SmallSize = () => (
   <div style={{ width: '288px' }}>
-    <Linkbox linkboxAriaLabel="Linkkiruutu: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" size="small">
+    <Linkbox linkboxAriaLabel="Linkbox: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" size="small">
       <div style={{ height: '192px' }} />
     </Linkbox>
   </div>
@@ -57,7 +57,7 @@ export const SmallSize = () => (
 
 export const MediumSize = () => (
   <div style={{ width: '320px' }}>
-    <Linkbox linkboxAriaLabel="Linkkiruutu: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" size="medium">
+    <Linkbox linkboxAriaLabel="Linkbox: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" size="medium">
       <div style={{ height: '224px' }} />
     </Linkbox>
   </div>
@@ -65,7 +65,7 @@ export const MediumSize = () => (
 
 export const LargeSize = () => (
   <div style={{ width: '400px' }}>
-    <Linkbox linkboxAriaLabel="Linkkiruutu: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" size="large">
+    <Linkbox linkboxAriaLabel="Linkbox: HDS" linkAriaLabel="HDS" href="https://hds.hel.fi" size="large">
       <div style={{ height: '296px' }} />
     </Linkbox>
   </div>
