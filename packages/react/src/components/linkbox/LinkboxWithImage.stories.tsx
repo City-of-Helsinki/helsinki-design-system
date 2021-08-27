@@ -3,11 +3,11 @@ import React from 'react';
 import { Linkbox } from './Linkbox';
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 // @ts-ignore
-import smallImage from './static/placeholder-small.png';
+import smallImage from '../../assets/img/linkbox/placeholder-small.png';
 // @ts-ignore
-import mediumImage from './static/placeholder-medium.png';
+import mediumImage from '../../assets/img/linkbox/placeholder-medium.png';
 // @ts-ignore
-import largeImage from './static/placeholder-large.png';
+import largeImage from '../../assets/img/linkbox/placeholder-large.png';
 /* eslint-enable @typescript-eslint/ban-ts-ignore */
 
 export default {
