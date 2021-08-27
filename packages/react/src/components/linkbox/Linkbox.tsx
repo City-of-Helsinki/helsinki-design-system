@@ -151,8 +151,11 @@ export const Linkbox = ({
           {...(openInNewTab && { target: '_blank', rel: 'noopener' })}
           {...rest}
         >
-          {external && <IconLinkExternal className={styles.icon} size="l" aria-hidden />}
-          {!external && <IconArrowRight className={styles.icon} size="l" aria-hidden />}
+          {external ? (
+            <IconLinkExternal className={styles.icon} size="l" aria-hidden />
+          ) : (
+            <IconArrowRight className={styles.icon} size="l" aria-hidden />
+          )}
         </a>
       </div>
     </div>
