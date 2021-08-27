@@ -18,7 +18,7 @@ export default {
 export const Default = () => (
   <div style={{ width: '320px' }}>
     <Linkbox
-      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkbox: HDS"
       linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
@@ -30,7 +30,7 @@ export const Default = () => (
 export const WithBorder = () => (
   <div style={{ width: '320px' }}>
     <Linkbox
-      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkbox: HDS"
       linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
@@ -43,7 +43,7 @@ export const WithBorder = () => (
 export const WithoutBackground = () => (
   <div style={{ width: '320px' }}>
     <Linkbox
-      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkbox: HDS"
       linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
@@ -56,7 +56,7 @@ export const WithoutBackground = () => (
 export const External = () => (
   <div style={{ width: '320px' }}>
     <Linkbox
-      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkbox: HDS"
       linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
@@ -70,7 +70,7 @@ export const External = () => (
 export const SmallSize = () => (
   <div style={{ width: '288px' }}>
     <Linkbox
-      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkbox: HDS"
       linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
@@ -83,7 +83,7 @@ export const SmallSize = () => (
 export const MediumSize = () => (
   <div style={{ width: '320px' }}>
     <Linkbox
-      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkbox: HDS"
       linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
@@ -95,7 +95,7 @@ export const MediumSize = () => (
 
 export const LargeSize = () => (
   <Linkbox
-    linkboxAriaLabel="Linkkiruutu: HDS"
+    linkboxAriaLabel="Linkbox: HDS"
     linkAriaLabel="HDS"
     href="https://hds.hel.fi"
     heading="Linkbox title"

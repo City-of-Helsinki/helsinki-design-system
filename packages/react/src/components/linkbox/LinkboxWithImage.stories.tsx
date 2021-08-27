@@ -26,7 +26,7 @@ export default {
 export const Default = () => (
   <div style={{ maxWidth: '384px' }}>
     <Linkbox
-      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkbox: HDS"
       linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
@@ -39,7 +39,7 @@ export const Default = () => (
 export const WithBorder = () => (
   <div style={{ maxWidth: '384px' }}>
     <Linkbox
-      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkbox: HDS"
       linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
@@ -53,7 +53,7 @@ export const WithBorder = () => (
 export const WithoutBackground = () => (
   <div style={{ maxWidth: '384px' }}>
     <Linkbox
-      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkbox: HDS"
       linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
@@ -67,7 +67,7 @@ export const WithoutBackground = () => (
 export const External = () => (
   <div style={{ maxWidth: '384px' }}>
     <Linkbox
-      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkbox: HDS"
       linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
@@ -82,7 +82,7 @@ export const External = () => (
 export const SmallSize = () => (
   <div style={{ maxWidth: '284px' }}>
     <Linkbox
-      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkbox: HDS"
       linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
@@ -96,7 +96,7 @@ export const SmallSize = () => (
 export const MediumSize = () => (
   <div style={{ maxWidth: '384px' }}>
     <Linkbox
-      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkbox: HDS"
       linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"
@@ -110,7 +110,7 @@ export const MediumSize = () => (
 export const LargeSize = () => (
   <div style={{ maxWidth: '567px' }}>
     <Linkbox
-      linkboxAriaLabel="Linkkiruutu: HDS"
+      linkboxAriaLabel="Linkbox: HDS"
       linkAriaLabel="HDS"
       href="https://hds.hel.fi"
       heading="Linkbox title"

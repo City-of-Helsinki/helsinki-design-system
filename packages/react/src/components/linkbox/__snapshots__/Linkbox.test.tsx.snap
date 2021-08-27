@@ -3,7 +3,7 @@
 exports[`<Linkbox /> spec external linkbox that is opened in to a new tab should not have any basic accessibility issues 1`] = `
 <DocumentFragment>
   <div
-    aria-label="Linkkiruutu: HDS. Avautuu uudessa välilehdessä. Siirtyy toiseen sivustoon."
+    aria-label="Linkbox: HDS. Avautuu uudessa välilehdessä. Siirtyy toiseen sivustoon."
     class="linkbox"
     role="region"
     tabindex="0"
@@ -60,7 +60,7 @@ exports[`<Linkbox /> spec external linkbox that is opened in to a new tab should
 exports[`<Linkbox /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
-    aria-label="Linkkiruutu: HDS."
+    aria-label="Linkbox: HDS."
     class="linkbox"
     role="region"
     tabindex="0"
