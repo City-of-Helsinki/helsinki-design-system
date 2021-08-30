@@ -44,7 +44,7 @@ export const Multiple = (args) => {
       label="Choose files"
       buttonLabel="Add files"
       maxSize={300 * 1024}
-      successMessage="Files added successfully."
+      language="en"
       onChange={setFiles}
       accept=".png,.jpg,.pdf,.json"
       helperText="Only .png, .jpg, .pdf or .json files."

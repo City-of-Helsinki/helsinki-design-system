@@ -199,7 +199,7 @@ export const FileInput = ({
   id,
   label,
   buttonLabel,
-  language = 'en',
+  language = 'fi',
   disabled,
   dragAndDrop,
   maxSize,

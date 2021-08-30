@@ -55,7 +55,14 @@ describe('<FileInput /> spec', () => {
     Object.defineProperty(fileC, 'size', { value: 3.3 * 1024 * 1024 * 1024 });
     const files: File[] = [fileA, fileB, fileC];
     render(
-      <FileInput id="test-file-input" label={inputLabel} buttonLabel="Add files" onChange={onChangeTest} multiple />,
+      <FileInput
+        id="test-file-input"
+        label={inputLabel}
+        buttonLabel="Add files"
+        language="en"
+        onChange={onChangeTest}
+        multiple
+      />,
     );
     const fileUpload = screen.getByLabelText(inputLabel);
     userEvent.upload(fileUpload, files);
@@ -92,6 +99,7 @@ describe('<FileInput /> spec', () => {
         id="test-file-input"
         label={inputLabel}
         buttonLabel="Add files"
+        language="en"
         onChange={onChangeCallback}
         multiple
       />,
@@ -131,6 +139,7 @@ describe('<FileInput /> spec', () => {
         maxSize={maxSize}
         label={inputLabel}
         buttonLabel="Add files"
+        language="en"
         onChange={onChangeTest}
         multiple
       />,
@@ -161,6 +170,7 @@ describe('<FileInput /> spec', () => {
         id="test-file-input"
         label={inputLabel}
         buttonLabel="Add files"
+        language="en"
         onChange={onChangeCallback}
         multiple
       />,
