@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
+import { act } from 'react-dom/test-utils';
 
 import { NumberInput } from './NumberInput';
 
@@ -37,5 +38,23 @@ describe('<NumberInput /> spec', () => {
     userEvent.click(screen.getByRole('button', { name: 'Decrease 10 euros' }));
     const numberInput = screen.getByLabelText('Test label number input', { selector: 'input' });
     expect(numberInput).toHaveValue(0);
+  });
+  it('should call onChange when input value is changed directly from input field', async () => {
+    const onChange = jest.fn();
+    render(<NumberInput onChange={onChange} step={10} {...numberInputProps} />);
+    const numberInput = screen.getByLabelText('Test label number input', { selector: 'input' });
+    await act(async () => {
+      userEvent.type(numberInput, '20');
+    });
+    expect(numberInput).toHaveValue(20);
+    expect(onChange.mock.calls.length).toBe(2);
+  });
+  it('should call onChange when user clicks step up button', async () => {
+    const onChange = jest.fn();
+    render(<NumberInput onChange={onChange} defaultValue={10} step={10} {...numberInputProps} />);
+    await act(async () => {
+      userEvent.click(screen.getByRole('button', { name: 'Add 10 euros' }));
+    });
+    expect(onChange.mock.calls.length).toBe(1);
   });
 });
