@@ -62,6 +62,10 @@ type FileInputProps = {
    */
   dragAndDrop?: DragAndDropProps;
   /**
+   * Maximum file size in bytes. If present, the file size is compared to this property. If one of the files is too big, will fail all and shows an error message with names of the too big file.
+   */
+  maxSize?: number;
+  /**
    * Additional class names to apply to the file input
    */
   className?: string;
@@ -130,12 +134,63 @@ const getRemoveSuccessMessage = (language: Language): string => {
   }[language];
 };
 
-const getAddSuccessMessage = (language: Language): string => {
+const getAddSuccessMessage = (language: Language, numberOfAdded: number, numberOfTotal: number): string => {
+  const partOfTotalStr = `${numberOfAdded}/${numberOfTotal}`;
+
   return {
-    en: 'File added.',
-    fi: 'Tiedosto lisätty.',
-    sv: 'Filen har blivit tillagd.',
+    en: `${partOfTotalStr} file(s) added.`,
+    fi: `${partOfTotalStr} tiedosto(a) lisätty.`,
+    sv: `${partOfTotalStr} file(s) added.`,
   }[language];
+};
+
+const getMaxSizeMessage = (language: Language, maxSize: number): string => {
+  const formattedMaxSize = formatBytes(maxSize);
+
+  return {
+    en: `Max file size is ${formattedMaxSize}.`,
+    fi: `Suurin sallittu tiedostokoko on ${formattedMaxSize}.`,
+    sv: `Max file size is ${formattedMaxSize}.`,
+  }[language];
+};
+
+const getFailedValidationTitle = (language: Language, numberOfFailed: number, numberOfTotal: number): string => {
+  const partOfTotalStr = `${numberOfFailed}/${numberOfTotal}`;
+
+  return {
+    en: `File processing failed for ${partOfTotalStr} files:\n`,
+    fi: `Tiedostonlisäys epäonnistui ${partOfTotalStr} tiedoston kohdalla:\n`,
+    sv: `File processing failed for ${partOfTotalStr} files:\n`,
+  }[language];
+};
+
+const getMaxSizeErrorMessage = (language: Language, file: File, maxSize: number): string => {
+  const fileSize = formatBytes(file.size);
+  const maxSizeString = formatBytes(maxSize);
+
+  return {
+    en: `File, ${file.name}, is too large (${fileSize}). Max size is ${maxSizeString}.`,
+    fi: `Tiedosto, ${file.name} on liian suuri (${fileSize}). Suurin sallittu koko on ${maxSizeString}.`,
+    sv: `File, ${file.name}, is too large (${fileSize}). Max size is ${maxSizeString}.`,
+  }[language];
+};
+
+enum ValidationErrorType {
+  maxSize = 'maxSize',
+}
+
+type ValidationError = {
+  type: ValidationErrorType;
+  text: string;
+};
+
+const validateMaxSize = (language: Language, maxSize: number) => (file: File): true | ValidationError => {
+  return (
+    file.size < maxSize || {
+      type: ValidationErrorType.maxSize,
+      text: getMaxSizeErrorMessage(language, file, maxSize),
+    }
+  );
 };
 
 export const FileInput = ({
@@ -145,6 +200,7 @@ export const FileInput = ({
   language = 'en',
   disabled,
   dragAndDrop,
+  maxSize,
   className = '',
   errorText,
   helperText,
@@ -157,6 +213,7 @@ export const FileInput = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [successText, setSuccessText] = useState<string | undefined>();
+  const [invalidText, setInvalidText] = useState<string | undefined>();
   const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
   const fileListId = `${id}-list`;
   const fileListRef = useRef<HTMLUListElement>(null);
@@ -167,9 +224,9 @@ export const FileInput = ({
 
   const wrapperProps = {
     className,
-    helperText,
+    helperText: [helperText, maxSize && getMaxSizeMessage(language, maxSize)].filter((t) => !!t).join(' '),
     successText,
-    errorText,
+    errorText: invalidText || errorText,
     id,
     label,
     required,
@@ -188,18 +245,53 @@ export const FileInput = ({
     }
   };
 
+  const resetNotificationTexts = () => {
+    setSuccessText(undefined);
+    setInvalidText(undefined);
+  };
+
+  const validationFns: ((file: File) => true | ValidationError)[] = [
+    maxSize ? validateMaxSize(language, maxSize) : undefined,
+  ].filter((fn) => !!fn);
+
+  const runValidations = (files: File[]): { validFiles: File[]; validationErrors: ValidationError[][] } => {
+    if (validationFns.length === 0) {
+      return { validFiles: files, validationErrors: [] };
+    }
+    return files.reduce(
+      (acc: { validFiles: File[]; validationErrors: ValidationError[][] }, file) => {
+        const errors = validationFns.map((fn) => fn(file)).filter((r) => r !== true) as ValidationError[];
+        if (errors.length > 0) {
+          return { ...acc, validationErrors: [...acc.validationErrors, errors] };
+        }
+        return { ...acc, validFiles: [...acc.validFiles, file] };
+      },
+      { validFiles: [], validationErrors: [] },
+    );
+  };
+
+  const getValidationErrorsMessage = (errors: (ValidationError | ValidationError[])[], totalNumberOfFiles: number) =>
+    `${getFailedValidationTitle(language, errors.length, totalNumberOfFiles)}${errors
+      .map((errorSet) => `- ${errorSet[0].text}`)
+      .join('\n')}`;
+
   const handleSingleFileChange = (files: File[]) => {
     if (files.length > 0) {
-      setSelectedFiles(files);
-      setSuccessText(getAddSuccessMessage(language));
-    } else {
-      setSuccessText(undefined);
+      const { validFiles, validationErrors } = runValidations(files);
+      if (validationErrors.length > 0) {
+        setInvalidText(getValidationErrorsMessage(validationErrors, 1));
+      } else {
+        setSelectedFiles(validFiles);
+        setSuccessText(getAddSuccessMessage(language, 1, 1));
+      }
     }
   };
 
   const handleMultipleChange = (files: File[]) => {
     if (files.length > 0) {
-      const [replacedFiles, newFiles] = files.reduce(
+      const { validFiles, validationErrors } = runValidations(files);
+
+      const [replacedFiles, newFiles] = validFiles.reduce(
         (acc: [File[], File[]], file: File) => {
           if (findDuplicateByNameAndType(selectedFiles, file)) {
             return [[...acc[0], file], acc[1]];
@@ -209,17 +301,23 @@ export const FileInput = ({
         [[], []],
       );
 
-      const selectedWithoutReplacedFiles = selectedFiles.filter(
-        (selectedFile: File) => !findDuplicateByNameAndType(replacedFiles, selectedFile),
-      );
-      setSelectedFiles([...selectedWithoutReplacedFiles, ...replacedFiles, ...newFiles]);
-      setSuccessText(getAddSuccessMessage(language));
-    } else {
-      setSuccessText(undefined);
+      if (validationErrors.length > 0) {
+        setInvalidText(getValidationErrorsMessage(validationErrors, files.length));
+      }
+
+      if (validFiles.length > 0) {
+        const selectedWithoutReplacedFiles = selectedFiles.filter(
+          (selectedFile: File) => !findDuplicateByNameAndType(replacedFiles, selectedFile),
+        );
+        setSelectedFiles([...selectedWithoutReplacedFiles, ...replacedFiles, ...newFiles]);
+        setSuccessText(getAddSuccessMessage(language, validFiles.length, files.length));
+      }
     }
   };
 
   const onFilesChange = (files: File[]) => {
+    resetNotificationTexts();
+
     if (multiple) {
       handleMultipleChange(files);
     } else {
@@ -228,6 +326,8 @@ export const FileInput = ({
   };
 
   const onRemoveFileFromList = (fileToRemove: File, index: number) => {
+    resetNotificationTexts();
+
     const selectedFilesWithoutRemoved = selectedFiles.filter(
       (file: File) => !isEqualFileBy(['name', 'type', 'size', 'lastModified'], file, fileToRemove),
     );

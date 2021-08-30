@@ -25,6 +25,7 @@ export const Single = (args) => {
       buttonLabel="Add file"
       language="en"
       onChange={setFile}
+      maxSize={1.5 * 1024 * 1024}
       accept=".png,.jpg"
       helperText="Only .png and .jpg files."
     />
@@ -42,10 +43,8 @@ export const Multiple = (args) => {
       id="file-input"
       label="Choose files"
       buttonLabel="Add files"
+      maxSize={300 * 1024}
       successMessage="Files added successfully."
-      removeButtonLabel="Remove"
-      removeButtonAriaLabel={(name) => `Remove ${name} from the files list`}
-      removeSuccessMessage="File removed."
       onChange={setFiles}
       accept=".png,.jpg,.pdf,.json"
       helperText="Only .png, .jpg, .pdf or .json files."
