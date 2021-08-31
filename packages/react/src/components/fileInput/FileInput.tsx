@@ -262,7 +262,7 @@ export const FileInput = ({
 }: FileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [successText, setSuccessText] = useState<string | undefined>();
+  const [infoText, setInfoText] = useState<string | undefined>();
   const [invalidText, setInvalidText] = useState<string | undefined>();
   const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
   const fileListId = `${id}-list`;
@@ -283,7 +283,7 @@ export const FileInput = ({
   const wrapperProps = {
     className,
     helperText: inputHelperText,
-    successText,
+    infoText,
     errorText: invalidText || errorText,
     id,
     label,
@@ -304,7 +304,7 @@ export const FileInput = ({
   };
 
   const resetNotificationTexts = () => {
-    setSuccessText(undefined);
+    setInfoText(undefined);
     setInvalidText(undefined);
   };
 
@@ -341,7 +341,7 @@ export const FileInput = ({
         setInvalidText(getValidationErrorsMessage(validationErrors, 1));
       } else {
         setSelectedFiles(validFiles);
-        setSuccessText(getAddSuccessMessage(language, 1, 1));
+        setInfoText(getAddSuccessMessage(language, 1, 1));
       }
     }
   };
@@ -369,7 +369,7 @@ export const FileInput = ({
           (selectedFile: File) => !findDuplicateByNameAndType(replacedFiles, selectedFile),
         );
         setSelectedFiles([...selectedWithoutReplacedFiles, ...replacedFiles, ...newFiles]);
-        setSuccessText(getAddSuccessMessage(language, validFiles.length, files.length));
+        setInfoText(getAddSuccessMessage(language, validFiles.length, files.length));
       }
     }
   };
@@ -391,7 +391,7 @@ export const FileInput = ({
       (file: File) => !isEqualFileBy(['name', 'type', 'size', 'lastModified'], file, fileToRemove),
     );
     setSelectedFiles(selectedFilesWithoutRemoved);
-    setSuccessText(getRemoveSuccessMessage(language));
+    setInfoText(getRemoveSuccessMessage(language));
 
     if (selectedFilesWithoutRemoved.length > 0) {
       fileListFocusIndexRef.current = index > 0 ? index - 1 : 0;
@@ -422,7 +422,7 @@ export const FileInput = ({
 
   // Compose aria-describedby attribute
   const ariaDescribedBy: string = [
-    comboseAriaDescribedBy(id, inputHelperText, errorText, successText),
+    comboseAriaDescribedBy(id, inputHelperText, errorText, infoText),
     hasFilesSelected && fileListId,
   ]
     .filter((text) => !!text)
