@@ -1,4 +1,5 @@
 import React from 'react';
+import { boolean, number, object, radios, text } from '@storybook/addon-knobs';
 
 import { FileInput } from './FileInput';
 
@@ -110,4 +111,63 @@ export const WithDragAndDrop = (args) => {
       accept=".png,.jpg"
     />
   );
+};
+
+export const Playground = () => {
+  const [files, setFiles] = React.useState<File[]>();
+  // eslint-disable-next-line no-console
+  console.log('selected files', files);
+
+  const id = text('id', 'file-input');
+  const label = text('Label', 'Choose files');
+  const buttonLabel = text('ButtonLabel', 'Add files');
+  const language = radios(
+    'language',
+    {
+      fi: 'fi',
+      en: 'en',
+      sv: 'sv',
+    },
+    'en',
+  );
+
+  const multiple = boolean('Multiple', false);
+  const maxSize = number('MaxSize', 300 * 1024);
+  const accept = text('Accept', '.png,.jpg,.pdf,.json');
+  const disabled = boolean('Disabled', false);
+  const required = boolean('Required', false);
+  const helperText = text('HelperText', '');
+  const errorText = text('ErrorText', '');
+  const dragAndDrop = object('DragAndDrop', {
+    label: '',
+    helperText: '',
+  });
+
+  return (
+    <FileInput
+      id={id}
+      label={label}
+      buttonLabel={buttonLabel}
+      maxSize={maxSize}
+      language={language}
+      onChange={setFiles}
+      accept={accept}
+      disabled={disabled}
+      required={required}
+      multiple={multiple}
+      dragAndDrop={dragAndDrop}
+      helperText={helperText}
+      errorText={errorText}
+    />
+  );
+};
+Playground.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
+    },
+  },
+  docs: {
+    disable: true,
+  },
 };
