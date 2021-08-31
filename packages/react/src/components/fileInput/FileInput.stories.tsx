@@ -27,7 +27,6 @@ export const Single = (args) => {
       onChange={setFile}
       maxSize={1.5 * 1024 * 1024}
       accept=".png,.jpg"
-      helperText="Only .png and .jpg files."
     />
   );
 };
@@ -47,7 +46,6 @@ export const Multiple = (args) => {
       language="en"
       onChange={setFiles}
       accept=".png,.jpg,.pdf,.json"
-      helperText="Only .png, .jpg, .pdf or .json files."
       multiple
     />
   );
@@ -67,8 +65,7 @@ export const Disabled = (args) => {
       buttonLabel="Add file"
       language="en"
       onChange={setFile}
-      accept=".png,.jpg"
-      helperText="Only .png and .jpg files."
+      accept="image/*"
     />
   );
 };
@@ -87,8 +84,7 @@ export const Required = (args) => {
       buttonLabel="Add file"
       language="en"
       onChange={setFile}
-      accept=".png,.jpg"
-      helperText="Only .png and .jpg files."
+      accept="image/*"
     />
   );
 };
@@ -108,10 +104,10 @@ export const WithDragAndDrop = (args) => {
         label: 'Drag files here',
         helperText: 'or browse from your computer',
       }}
+      language="en"
       buttonLabel="Add files"
       onChange={setFile}
       accept=".png,.jpg"
-      helperText="Only .png and .jpg files."
     />
   );
 };
