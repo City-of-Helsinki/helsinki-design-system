@@ -130,7 +130,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
     };
 
     // Compose aria-describedby attribute
-    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText);
+    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText, infoText);
 
     return (
       <InputWrapper {...wrapperProps}>

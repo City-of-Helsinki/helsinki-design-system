@@ -131,7 +131,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
     };
 
     // Compose aria-describedby attribute
-    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText);
+    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText, infoText);
 
     return (
       <InputWrapper {...wrapperProps}>

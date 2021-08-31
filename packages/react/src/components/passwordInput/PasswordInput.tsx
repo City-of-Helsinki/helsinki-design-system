@@ -135,7 +135,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
     };
 
     // Compose aria-describedby attribute
-    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText);
+    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText, infoText);
 
     return (
       <InputWrapper onBlur={handleOnBlur} {...wrapperProps}>
