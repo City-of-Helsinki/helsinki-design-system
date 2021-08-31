@@ -52,7 +52,7 @@ type FileInputProps = {
    */
   onChange: (files: File[]) => void;
   /**
-   * A comma-separated list of unique file type specifiers describing file types to allow. If present, the filename extension or filetype is validated against the list. If the file or files do not match the acceptance criteria, the component will not add the file, and it will show an error message with the file name.
+   * A comma-separated list of unique file type specifiers describing file types to allow. If present, the filename extension or filetype property is validated against the list. If the file(s) do not match the acceptance criteria, the component will not add the file(s), and it will show an error message with the file name.
    */
   accept?: string;
   /**
@@ -64,7 +64,7 @@ type FileInputProps = {
    */
   dragAndDrop?: DragAndDropProps;
   /**
-   * Maximum file size in bytes. If present, the file size is compared to this property. If one of the files is too big, will fail all and shows an error message with names of the too big file.
+   * Maximum file size in bytes. If present, the file size is compared to this property. Maximum file size in bytes. If present, the file size is compared to this property. If the file(s) size property is larger than the max size, the component will not add the file(s), and it will show an error message with the file name.
    */
   maxSize?: number;
   /**
