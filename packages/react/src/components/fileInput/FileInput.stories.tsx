@@ -14,7 +14,7 @@ export default {
 };
 
 export const Single = (args) => {
-  const [file, setFile] = React.useState<FileList>();
+  const [file, setFile] = React.useState<File[]>();
   // eslint-disable-next-line no-console
   console.log('selected file', file);
 
@@ -33,7 +33,7 @@ export const Single = (args) => {
 };
 
 export const Multiple = (args) => {
-  const [files, setFiles] = React.useState<FileList>();
+  const [files, setFiles] = React.useState<File[]>();
   // eslint-disable-next-line no-console
   console.log('selected files', files);
 
@@ -53,7 +53,7 @@ export const Multiple = (args) => {
 };
 
 export const Disabled = (args) => {
-  const [file, setFile] = React.useState<FileList>();
+  const [file, setFile] = React.useState<File[]>();
   // eslint-disable-next-line no-console
   console.log('selected file', file);
 
@@ -72,7 +72,7 @@ export const Disabled = (args) => {
 };
 
 export const Required = (args) => {
-  const [file, setFile] = React.useState<FileList>();
+  const [file, setFile] = React.useState<File[]>();
   // eslint-disable-next-line no-console
   console.log('selected file', file);
 
@@ -91,7 +91,7 @@ export const Required = (args) => {
 };
 
 export const WithDragAndDrop = (args) => {
-  const [file, setFile] = React.useState<FileList>();
+  const [file, setFile] = React.useState<File[]>();
   // eslint-disable-next-line no-console
   console.log('selected files', file);
 
