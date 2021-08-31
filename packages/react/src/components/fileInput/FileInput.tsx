@@ -1,3 +1,5 @@
+import path from 'path';
+
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 
 // import core base styles
@@ -50,7 +52,7 @@ type FileInputProps = {
    */
   onChange: (files: File[]) => void;
   /**
-   * A comma separated list of unique file type specifiers describing file types to allow
+   * A comma-separated list of unique file type specifiers describing file types to allow. If present, the filename extension or filetype is validated against the list. If the file or files do not match the acceptance criteria, the component will not add the file, and it will show an error message with the file name.
    */
   accept?: string;
   /**
@@ -156,6 +158,24 @@ const getMaxSizeMessage = (language: Language, maxSize: number): string => {
   }[language];
 };
 
+const getAcceptString = (accept: string, conjunction: string): string => {
+  const acceptList = accept.split(',');
+
+  if (acceptList.length === 1) {
+    return acceptList.toString();
+  }
+  const last = acceptList.pop();
+  return `${acceptList.join(', ')} ${conjunction} ${last}`;
+};
+
+const getAcceptMessage = (language: Language, accept: string): string => {
+  return {
+    en: `Only ${getAcceptString(accept, 'and')} files.`,
+    fi: `Vain ${getAcceptString(accept, 'ja')} tiedostoja.`,
+    sv: `Only ${getAcceptString(accept, 'and')} files.`,
+  }[language];
+};
+
 const getFailedValidationTitle = (language: Language, numberOfFailed: number, numberOfTotal: number): string => {
   const partOfTotalStr = `${numberOfFailed}/${numberOfTotal}`;
 
@@ -163,6 +183,16 @@ const getFailedValidationTitle = (language: Language, numberOfFailed: number, nu
     en: `File processing failed for ${partOfTotalStr} files:\n`,
     fi: `Tiedostonlisäys epäonnistui ${partOfTotalStr} tiedoston kohdalla:\n`,
     sv: `File processing failed for ${partOfTotalStr} files:\n`,
+  }[language];
+};
+
+const getAcceptErrorMessage = (language: Language, file: File, accept: string): string => {
+  const acceptMessage = getAcceptMessage(language, accept);
+
+  return {
+    en: `File, ${file.name}, did not match the accepted file types. ${acceptMessage}`,
+    fi: `Tiedoston, ${file.name}, tyyppi ei vastaa hyväksyttyjä tiedostotyppejä. ${acceptMessage}`,
+    sv: `File, ${file.name}, did not match the accepted file types. ${acceptMessage}`,
   }[language];
 };
 
@@ -184,6 +214,24 @@ enum ValidationErrorType {
 type ValidationError = {
   type: ValidationErrorType;
   text: string;
+};
+
+const validateAccept = (language: Language, accept: string) => (file: File): true | ValidationError => {
+  const extension = path.extname(file.name);
+  const acceptedExtensions = accept.split(',').map((str) => str.trim());
+  const isMatchingType = !!acceptedExtensions.find(
+    (acceptExtension) =>
+      acceptExtension.includes(file.type) || acceptExtension.includes(`${file.type.split('/')[0]}/*`),
+  );
+  const hasMatchingFileExtension = !!acceptedExtensions.find((acceptExtension) => acceptExtension === extension);
+
+  return (
+    isMatchingType ||
+    hasMatchingFileExtension || {
+      type: ValidationErrorType.maxSize,
+      text: getAcceptErrorMessage(language, file, accept),
+    }
+  );
 };
 
 const validateMaxSize = (language: Language, maxSize: number) => (file: File): true | ValidationError => {
@@ -224,9 +272,17 @@ export const FileInput = ({
   const dropAreaRef = useRef<HTMLDivElement>(null);
   const [isDragOverDrop, setIsDragOverDrop] = useState<boolean>(false);
 
+  const inputHelperText = [
+    helperText,
+    accept && getAcceptMessage(language, accept),
+    maxSize && getMaxSizeMessage(language, maxSize),
+  ]
+    .filter((t) => !!t)
+    .join(' ');
+
   const wrapperProps = {
     className,
-    helperText: [helperText, maxSize && getMaxSizeMessage(language, maxSize)].filter((t) => !!t).join(' '),
+    helperText: inputHelperText,
     successText,
     errorText: invalidText || errorText,
     id,
@@ -253,6 +309,7 @@ export const FileInput = ({
   };
 
   const validationFns: ((file: File) => true | ValidationError)[] = [
+    accept ? validateAccept(language, accept) : undefined,
     maxSize ? validateMaxSize(language, maxSize) : undefined,
   ].filter((fn) => !!fn);
 
@@ -365,7 +422,7 @@ export const FileInput = ({
 
   // Compose aria-describedby attribute
   const ariaDescribedBy: string = [
-    comboseAriaDescribedBy(id, helperText, errorText, successText),
+    comboseAriaDescribedBy(id, inputHelperText, errorText, successText),
     hasFilesSelected && fileListId,
   ]
     .filter((text) => !!text)

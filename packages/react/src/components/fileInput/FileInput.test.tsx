@@ -18,7 +18,6 @@ describe('<FileInput /> spec', () => {
         buttonLabel="Add file"
         language="en"
         accept=".png,.jpg"
-        helperText="Only .png and .jpg files."
         onChange={onChangeTest}
       />,
     );
@@ -33,7 +32,6 @@ describe('<FileInput /> spec', () => {
         buttonLabel="Add file"
         language="en"
         accept=".png,.jpg"
-        helperText="Only .png and .jpg files."
         onChange={onChangeTest}
       />,
     );
@@ -151,6 +149,70 @@ describe('<FileInput /> spec', () => {
     expect(screen.getByText('File processing failed for 1/2 files:', { exact: false })).toBeInTheDocument();
     expect(
       screen.getByText(`File, ${secondFileName}, is too large (31 B). Max size is 10 B.`, { exact: false }),
+    ).toBeInTheDocument();
+  });
+
+  it('should validate files based on accept file extension', async () => {
+    const inputLabel = 'Choose files';
+    const maxSize = 10;
+    const firstFileName = 'test-file-a.jpg';
+    const firstFile = new File(['test-jpg'], firstFileName, { type: 'image/jpeg' });
+    const secondFileName = 'test-file-b.json';
+    const secondFile = new File(['test-json'], secondFileName, { type: 'application/json' });
+    render(
+      <FileInput
+        id="test-file-input"
+        maxSize={maxSize}
+        label={inputLabel}
+        buttonLabel="Add files"
+        language="en"
+        onChange={onChangeTest}
+        accept=".jpg,.png"
+        multiple
+      />,
+    );
+    const fileUpload = screen.getByLabelText(inputLabel);
+    userEvent.upload(fileUpload, [firstFile, secondFile]);
+    expect(screen.getByText(firstFileName)).toBeInTheDocument();
+    expect(screen.getByText('1/2 file(s) added', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('File processing failed for 1/2 files:', { exact: false })).toBeInTheDocument();
+    expect(
+      screen.getByText(`File, ${secondFileName}, did not match the accepted file types. Only .jpg and .png files`, {
+        exact: false,
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it('should validate files based on accept file type', async () => {
+    const inputLabel = 'Choose files';
+    const maxSize = 10;
+    const firstFileName = 'test-file-a.jpg';
+    const firstFile = new File(['test-jpg'], firstFileName, { type: 'image/jpeg' });
+    const secondFileName = 'test-file-b.json';
+    const secondFile = new File(['test-json'], secondFileName, { type: 'application/json' });
+    const thirdFileName = 'test-file-c.png';
+    const thirdFile = new File(['test-png'], thirdFileName, { type: 'image/png' });
+    render(
+      <FileInput
+        id="test-file-input"
+        maxSize={maxSize}
+        label={inputLabel}
+        buttonLabel="Add files"
+        language="en"
+        onChange={onChangeTest}
+        accept="image/*"
+        multiple
+      />,
+    );
+    const fileUpload = screen.getByLabelText(inputLabel);
+    userEvent.upload(fileUpload, [firstFile, secondFile, thirdFile]);
+    expect(screen.getByText(firstFileName)).toBeInTheDocument();
+    expect(screen.getByText('2/3 file(s) added', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('File processing failed for 1/3 files:', { exact: false })).toBeInTheDocument();
+    expect(
+      screen.getByText(`File, test-file-b.json, did not match the accepted file types. Only image/* files.`, {
+        exact: false,
+      }),
     ).toBeInTheDocument();
   });
 
