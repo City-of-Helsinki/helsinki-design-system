@@ -268,7 +268,7 @@ export const FileInput = ({
   const fileListId = `${id}-list`;
   const fileListRef = useRef<HTMLUListElement>(null);
   const fileListFocusIndexRef = useRef<number>();
-  const hasDragAndDrop = !!dragAndDrop;
+  const hasDragAndDrop = !!dragAndDrop && !!dragAndDrop.label && !!dragAndDrop.helperText;
   const dropAreaRef = useRef<HTMLDivElement>(null);
   const [isDragOverDrop, setIsDragOverDrop] = useState<boolean>(false);
 
