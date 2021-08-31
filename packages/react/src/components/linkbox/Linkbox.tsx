@@ -142,22 +142,40 @@ export const Linkbox = ({
         )}
         {text && <p className={styles.text}>{text}</p>}
         {children}
-        <a
-          className={classNames(styles.link, className)}
-          aria-label={composeAriaLabel(linkAriaLabel)}
-          ref={linkRef}
-          tabIndex={-1}
-          href={href}
-          {...(openInNewTab && { target: '_blank', rel: 'noopener' })}
-          {...rest}
-        >
-          {external ? (
-            <IconLinkExternal className={styles.icon} size="l" aria-hidden />
-          ) : (
-            <IconArrowRight className={styles.icon} size="l" aria-hidden />
-          )}
-        </a>
       </div>
+      <a
+        className={classNames(styles.link, className)}
+        aria-label={composeAriaLabel(linkAriaLabel)}
+        ref={linkRef}
+        tabIndex={-1}
+        href={href}
+        {...(openInNewTab && { target: '_blank', rel: 'noopener' })}
+        {...rest}
+      >
+        {external ? (
+          <IconLinkExternal
+            className={classNames(
+              styles.icon,
+              noBackground
+                ? styles.iconWhenNoBackground
+                : size === 'large' && styles.iconPositionForLinkboxLargeVariant,
+            )}
+            size="l"
+            aria-hidden
+          />
+        ) : (
+          <IconArrowRight
+            className={classNames(
+              styles.icon,
+              noBackground
+                ? styles.iconWhenNoBackground
+                : size === 'large' && styles.iconPositionForLinkboxLargeVariant,
+            )}
+            size="l"
+            aria-hidden
+          />
+        )}
+      </a>
     </div>
   );
 };
