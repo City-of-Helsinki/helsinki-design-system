@@ -106,6 +106,14 @@ const formatBytes = (bytes: number): string => {
   }`;
 };
 
+const getNoFilesAddedMessage = (language: Language): string => {
+  return {
+    en: 'No file(s) selected.',
+    fi: 'Yhtään tiedostoa ei ole valittu.',
+    sv: 'No file(s) selected.',
+  }[language];
+};
+
 const getRemoveButtonLabel = (language: Language): string => {
   return {
     en: 'Remove',
@@ -139,7 +147,7 @@ const getRemoveSuccessMessage = (language: Language): string => {
 };
 
 const getAddSuccessMessage = (language: Language, numberOfAdded: number, numberOfTotal: number): string => {
-  const partOfTotalStr = `${numberOfAdded}/${numberOfTotal}`;
+  const partOfTotalStr = numberOfAdded === numberOfTotal ? numberOfAdded : `${numberOfAdded}/${numberOfTotal}`;
 
   return {
     en: `${partOfTotalStr} file(s) added.`,
@@ -262,7 +270,7 @@ export const FileInput = ({
 }: FileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [infoText, setInfoText] = useState<string | undefined>();
+  const [infoText, setInfoText] = useState<string | undefined>(getNoFilesAddedMessage(language));
   const [invalidText, setInvalidText] = useState<string | undefined>();
   const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
   const fileListId = `${id}-list`;
