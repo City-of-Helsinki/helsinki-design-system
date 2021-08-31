@@ -33,6 +33,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
       required,
       style,
       successText,
+      infoText,
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
@@ -58,7 +59,10 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
     };
 
     // Compose aria-describedby attribute
-    const ariaDescribedBy = [customAriaDescribedBy, comboseAriaDescribedBy(id, helperText, errorText, successText)]
+    const ariaDescribedBy = [
+      customAriaDescribedBy,
+      comboseAriaDescribedBy(id, helperText, errorText, successText, infoText),
+    ]
       .filter((item) => item)
       .join(' ');
 

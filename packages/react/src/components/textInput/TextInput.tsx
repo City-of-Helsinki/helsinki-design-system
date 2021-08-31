@@ -161,7 +161,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     };
 
     // Compose aria-describedby attribute
-    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText);
+    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText, infoText);
 
     const hasButton = Boolean(buttonIcon && onButtonClick);
 

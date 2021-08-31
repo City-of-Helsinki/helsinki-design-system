@@ -245,7 +245,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
     };
 
     // Compose aria-describedby attribute
-    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText);
+    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText, infoText);
 
     // Compose props for the input frame
     const frameProps = {
