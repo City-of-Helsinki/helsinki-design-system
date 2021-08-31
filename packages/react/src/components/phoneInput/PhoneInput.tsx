@@ -4,7 +4,7 @@ import 'hds-core';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import { TextInputProps } from '../textInput';
 import textInputStyles from '../textInput/TextInput.module.css';
-import comboseAriaDescribedBy from '../../utils/comboseAriaDescribedBy';
+import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 
 export type PhoneInputProps = Omit<
   TextInputProps,
@@ -61,7 +61,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
     // Compose aria-describedby attribute
     const ariaDescribedBy = [
       customAriaDescribedBy,
-      comboseAriaDescribedBy(id, helperText, errorText, successText, infoText),
+      composeAriaDescribedBy(id, helperText, errorText, successText, infoText),
     ]
       .filter((item) => item)
       .join(' ');

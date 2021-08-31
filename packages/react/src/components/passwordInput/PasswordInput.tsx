@@ -8,7 +8,7 @@ import { IconEye, IconEyeCrossed } from '../../icons';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import classNames from '../../utils/classNames';
 import textInputStyles from '../textInput/TextInput.module.css';
-import comboseAriaDescribedBy from '../../utils/comboseAriaDescribedBy';
+import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 
 export type PasswordInputProps = Omit<
   TextInputProps,
@@ -135,7 +135,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
     };
 
     // Compose aria-describedby attribute
-    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText, infoText);
+    const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
 
     return (
       <InputWrapper onBlur={handleOnBlur} {...wrapperProps}>
