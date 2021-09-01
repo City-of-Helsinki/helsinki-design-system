@@ -138,6 +138,7 @@ export const Playground = () => {
   const required = boolean('Required', false);
   const helperText = text('HelperText', '');
   const errorText = text('ErrorText', '');
+  const infoText = text('infoText', '');
   const dragAndDrop = object('DragAndDrop', {
     label: '',
     helperText: '',
@@ -158,6 +159,7 @@ export const Playground = () => {
       dragAndDrop={dragAndDrop}
       helperText={helperText}
       errorText={errorText}
+      infoText={infoText}
     />
   );
 };
