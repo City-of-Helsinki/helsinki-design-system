@@ -420,8 +420,10 @@ export const FileInput = ({
 
     if (selectedFilesWithoutRemoved.length > 0) {
       fileListFocusIndexRef.current = index > 0 ? index - 1 : 0;
+      setInputStateText(getRemoveSuccessMessage(language));
     } else if (fileListRef.current) {
       fileListRef.current.focus();
+      setInputStateText(getNoFilesAddedMessage(language));
     }
   };
 
