@@ -88,6 +88,10 @@ type FileInputProps = {
    */
   helperText?: string;
   /**
+   * The info text content that will be shown below the input
+   */
+  infoText?: string;
+  /**
    * If `true`, the label is displayed as required and the `input` element will be required
    */
   required?: boolean;
@@ -267,6 +271,7 @@ export const FileInput = ({
   successText,
   errorText,
   helperText,
+  infoText,
   onChange,
   required,
   style,
@@ -275,7 +280,9 @@ export const FileInput = ({
 }: FileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [infoText, setInfoText] = useState<string | undefined>(disabled ? undefined : getNoFilesAddedMessage(language));
+  const [inputStateText, setInputStateText] = useState<string | undefined>(
+    disabled ? undefined : getNoFilesAddedMessage(language),
+  );
   const [invalidText, setInvalidText] = useState<string | undefined>();
   const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
   const fileListId = `${id}-list`;
@@ -284,21 +291,22 @@ export const FileInput = ({
   const hasDragAndDrop = !!dragAndDrop && !!dragAndDrop.label && !!dragAndDrop.helperText;
   const dropAreaRef = useRef<HTMLDivElement>(null);
   const [isDragOverDrop, setIsDragOverDrop] = useState<boolean>(false);
-
-  const inputHelperText = [
-    helperText,
+  const instructionsText = [
     accept && getAcceptMessage(language, accept),
     maxSize && getMaxSizeMessage(language, maxSize),
   ]
     .filter((t) => !!t)
     .join(' ');
+  const helperTextToUse = helperText || instructionsText;
+  const errorTextToUse = errorText || invalidText;
+  const infoTextToUse = infoText || inputStateText;
 
   const wrapperProps = {
     className,
-    helperText: inputHelperText,
+    helperText: helperTextToUse,
     successText,
-    infoText,
-    errorText: invalidText || errorText,
+    errorText: errorTextToUse,
+    infoText: infoTextToUse,
     id,
     label,
     required,
@@ -318,7 +326,7 @@ export const FileInput = ({
   };
 
   const resetNotificationTexts = () => {
-    setInfoText(undefined);
+    setInputStateText(undefined);
     setInvalidText(undefined);
   };
 
@@ -355,7 +363,7 @@ export const FileInput = ({
         setInvalidText(getValidationErrorsMessage(validationErrors, 1));
       } else {
         setSelectedFiles(validFiles);
-        setInfoText(getAddSuccessMessage(language, 1, 1));
+        setInputStateText(getAddSuccessMessage(language, 1, 1));
       }
     }
   };
@@ -383,7 +391,7 @@ export const FileInput = ({
           (selectedFile: File) => !findDuplicateByNameAndType(replacedFiles, selectedFile),
         );
         setSelectedFiles([...selectedWithoutReplacedFiles, ...replacedFiles, ...newFiles]);
-        setInfoText(getAddSuccessMessage(language, validFiles.length, files.length));
+        setInputStateText(getAddSuccessMessage(language, validFiles.length, files.length));
       }
     }
   };
@@ -405,7 +413,7 @@ export const FileInput = ({
       (file: File) => !isEqualFileBy(['name', 'type', 'size', 'lastModified'], file, fileToRemove),
     );
     setSelectedFiles(selectedFilesWithoutRemoved);
-    setInfoText(getRemoveSuccessMessage(language));
+    setInputStateText(getRemoveSuccessMessage(language));
 
     if (selectedFilesWithoutRemoved.length > 0) {
       fileListFocusIndexRef.current = index > 0 ? index - 1 : 0;
@@ -436,7 +444,7 @@ export const FileInput = ({
 
   // Compose aria-describedby attribute
   const ariaDescribedBy: string = [
-    composeAriaDescribedBy(id, inputHelperText, errorText, successText, infoText),
+    composeAriaDescribedBy(id, helperTextToUse, errorTextToUse, successText, infoTextToUse),
     hasFilesSelected && fileListId,
   ]
     .filter((text) => !!text)
