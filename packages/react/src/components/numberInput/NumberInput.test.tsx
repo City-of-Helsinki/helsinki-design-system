@@ -57,4 +57,12 @@ describe('<NumberInput /> spec', () => {
     });
     expect(onChange.mock.calls.length).toBe(1);
   });
+  it('should call onChange when user clicks step down button', async () => {
+    const onChange = jest.fn();
+    render(<NumberInput onChange={onChange} defaultValue={10} step={10} {...numberInputProps} />);
+    await act(async () => {
+      userEvent.click(screen.getByRole('button', { name: 'Decrease 10 euros' }));
+    });
+    expect(onChange.mock.calls.length).toBe(1);
+  });
 });
