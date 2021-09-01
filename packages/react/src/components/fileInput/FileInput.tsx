@@ -138,11 +138,11 @@ const getRemoveButtonAriaLabel = (language: Language, fileName: string): string 
   }[language];
 };
 
-const getFileListAriaLabel = (language: Language): string => {
+const getFileListAriaLabel = (language: Language, totalAddedFiles: number): string => {
   return {
-    en: 'Added files',
-    fi: 'Lisätyt tiedostot',
-    sv: 'Tillagda filerna',
+    en: `${totalAddedFiles === 0 ? '1 file' : `${totalAddedFiles} files`} added.`,
+    fi: `${totalAddedFiles === 0 ? '1 tiedosto' : `${totalAddedFiles} tiedostoa`} added.`,
+    sv: `${totalAddedFiles === 0 ? '1 file' : `${totalAddedFiles} files`} added.`,
   }[language];
 };
 
@@ -514,7 +514,9 @@ export const FileInput = ({
         ref={fileListRef}
         tabIndex={-1}
         className={styles.fileList}
-        aria-label={getFileListAriaLabel(language)}
+        aria-label={
+          hasFilesSelected ? getFileListAriaLabel(language, selectedFiles.length) : getNoFilesAddedMessage(language)
+        }
       >
         {selectedFiles.map((file: File, index: number) => (
           <li
