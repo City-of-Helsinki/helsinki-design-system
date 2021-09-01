@@ -80,7 +80,7 @@ exports[`<FileInput /> spec renders the component 1`] = `
     </div>
   </div>
   <ul
-    aria-label="Added files"
+    aria-label="No file(s) selected."
     class="fileList"
     id="test-file-input-list"
     tabindex="-1"

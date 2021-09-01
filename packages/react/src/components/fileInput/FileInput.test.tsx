@@ -41,7 +41,6 @@ describe('<FileInput /> spec', () => {
 
   it('should list added files', async () => {
     const inputLabel = 'Choose files';
-    const listAriaLabel = 'Added files';
     const fileNameA = 'test-image-a.png';
     const fileA = new File([''], fileNameA, { type: 'image/png' });
     Object.defineProperty(fileA, 'size', { value: 12.5 * 1024 * 1024 });
@@ -64,7 +63,7 @@ describe('<FileInput /> spec', () => {
     );
     const fileUpload = screen.getByLabelText(inputLabel);
     userEvent.upload(fileUpload, files);
-    const list = screen.getByLabelText(listAriaLabel);
+    const list = screen.getByLabelText('3 files added.');
     const { getAllByRole } = within(list);
     const fileListItems = getAllByRole('listitem');
     expect(fileListItems.length).toBe(3);
@@ -222,7 +221,6 @@ describe('<FileInput /> spec', () => {
       testFileHolder = files;
     };
     const inputLabel = 'Choose files';
-    const listAriaLabel = 'Added files';
     const fileNameA = 'test-file-a';
     const fileA = new File(['test-file'], fileNameA, { type: 'image/png' });
     const fileNameB = 'test-file-b';
@@ -239,7 +237,7 @@ describe('<FileInput /> spec', () => {
     );
     const fileUpload = screen.getByLabelText(inputLabel);
     userEvent.upload(fileUpload, [fileA, fileB]);
-    const list = screen.getByLabelText(listAriaLabel);
+    const list = screen.getByLabelText('2 files added.');
     const { getAllByRole } = within(list);
     const fileListItems = getAllByRole('listitem');
     expect(fileListItems.length).toBe(2);
