@@ -120,6 +120,13 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       }
     }, [inputRef, ref]);
 
+    const dispatchNativeOnChangeEvent = (): void => {
+      const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+      nativeInputValueSetter.call(inputRef.current, inputRef.current.value);
+      const onChangeEvent = new Event('input', { bubbles: true });
+      inputRef.current.dispatchEvent(onChangeEvent);
+    };
+
     // Compose aria-describedby attribute
     const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText);
 
@@ -152,6 +159,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                     // Prevent default to not submit form if we happen to be inside form
                     event.preventDefault();
                     inputRef.current.stepDown();
+                    dispatchNativeOnChangeEvent();
                   }}
                   aria-label={minusStepButtonAriaLabel || 'Decrease by one'}
                 >
@@ -167,6 +175,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                     // Prevent default to not submit form if we happen to be inside form
                     event.preventDefault();
                     inputRef.current.stepUp();
+                    dispatchNativeOnChangeEvent();
                   }}
                   aria-label={plusStepButtonAriaLabel || 'Increase by one'}
                 >
