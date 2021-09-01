@@ -284,6 +284,7 @@ export const FileInput = ({
     disabled ? undefined : getNoFilesAddedMessage(language),
   );
   const [invalidText, setInvalidText] = useState<string | undefined>();
+  const [processSuccessText, setProcessSuccessText] = useState<string | undefined>();
   const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
   const fileListId = `${id}-list`;
   const fileListRef = useRef<HTMLUListElement>(null);
@@ -298,13 +299,14 @@ export const FileInput = ({
     .filter((t) => !!t)
     .join(' ');
   const helperTextToUse = helperText || instructionsText;
+  const successTextToUse = successText || processSuccessText;
   const errorTextToUse = errorText || invalidText;
   const infoTextToUse = infoText || inputStateText;
 
   const wrapperProps = {
     className,
     helperText: helperTextToUse,
-    successText,
+    successText: successTextToUse,
     errorText: errorTextToUse,
     infoText: infoTextToUse,
     id,
@@ -325,7 +327,8 @@ export const FileInput = ({
     }
   };
 
-  const resetNotificationTexts = () => {
+  const clearNotificationTexts = () => {
+    setProcessSuccessText(undefined);
     setInputStateText(undefined);
     setInvalidText(undefined);
   };
@@ -363,7 +366,7 @@ export const FileInput = ({
         setInvalidText(getValidationErrorsMessage(validationErrors, 1));
       } else {
         setSelectedFiles(validFiles);
-        setInputStateText(getAddSuccessMessage(language, 1, 1));
+        setProcessSuccessText(getAddSuccessMessage(language, 1, 1));
       }
     }
   };
@@ -391,13 +394,13 @@ export const FileInput = ({
           (selectedFile: File) => !findDuplicateByNameAndType(replacedFiles, selectedFile),
         );
         setSelectedFiles([...selectedWithoutReplacedFiles, ...replacedFiles, ...newFiles]);
-        setInputStateText(getAddSuccessMessage(language, validFiles.length, files.length));
+        setProcessSuccessText(getAddSuccessMessage(language, validFiles.length, files.length));
       }
     }
   };
 
   const onFilesChange = (files: File[]) => {
-    resetNotificationTexts();
+    clearNotificationTexts();
 
     if (multiple) {
       handleMultipleChange(files);
@@ -407,7 +410,7 @@ export const FileInput = ({
   };
 
   const onRemoveFileFromList = (fileToRemove: File, index: number) => {
-    resetNotificationTexts();
+    clearNotificationTexts();
 
     const selectedFilesWithoutRemoved = selectedFiles.filter(
       (file: File) => !isEqualFileBy(['name', 'type', 'size', 'lastModified'], file, fileToRemove),
