@@ -4,7 +4,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 
 // import core base styles
 import 'hds-core';
-import comboseAriaDescribedBy from '../../utils/comboseAriaDescribedBy';
+import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 import classNames from '../../utils/classNames';
 import { Button } from '../button';
 import { IconPlus, IconPhoto, IconCross, IconDocument, IconUpload } from '../../icons';
@@ -75,6 +75,10 @@ type FileInputProps = {
    * If `true`, the file input will be disabled
    */
   disabled?: boolean;
+  /**
+   * The success text content that will be shown below the input
+   */
+  successText?: string;
   /**
    * The error text content that will be shown below the input
    */
@@ -260,6 +264,7 @@ export const FileInput = ({
   dragAndDrop,
   maxSize,
   className = '',
+  successText,
   errorText,
   helperText,
   onChange,
@@ -270,7 +275,7 @@ export const FileInput = ({
 }: FileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [infoText, setInfoText] = useState<string | undefined>(getNoFilesAddedMessage(language));
+  const [infoText, setInfoText] = useState<string | undefined>(disabled ? undefined : getNoFilesAddedMessage(language));
   const [invalidText, setInvalidText] = useState<string | undefined>();
   const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
   const fileListId = `${id}-list`;
@@ -291,6 +296,7 @@ export const FileInput = ({
   const wrapperProps = {
     className,
     helperText: inputHelperText,
+    successText,
     infoText,
     errorText: invalidText || errorText,
     id,
@@ -430,7 +436,7 @@ export const FileInput = ({
 
   // Compose aria-describedby attribute
   const ariaDescribedBy: string = [
-    comboseAriaDescribedBy(id, inputHelperText, errorText, infoText),
+    composeAriaDescribedBy(id, inputHelperText, errorText, successText, infoText),
     hasFilesSelected && fileListId,
   ]
     .filter((text) => !!text)
