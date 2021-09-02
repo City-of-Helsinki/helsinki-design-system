@@ -39,7 +39,11 @@ describe('<FileInput /> spec', () => {
     expect(results).toHaveNoViolations();
   });
 
-  it('should list added files', async () => {
+  it('should add files when user adds multiple files', async () => {
+    let filesValue;
+    const onChangeCallback = (files: File[]) => {
+      filesValue = files;
+    };
     const inputLabel = 'Choose files';
     const fileNameA = 'test-image-a.png';
     const fileA = new File([''], fileNameA, { type: 'image/png' });
@@ -57,7 +61,7 @@ describe('<FileInput /> spec', () => {
         label={inputLabel}
         buttonLabel="Add files"
         language="en"
-        onChange={onChangeTest}
+        onChange={onChangeCallback}
         multiple
       />,
     );
@@ -82,38 +86,27 @@ describe('<FileInput /> spec', () => {
     const { getByText: getByTextInC, getByLabelText: getByLabelInC } = within(fileItemC);
     expect(getByTextInC('(3.3 GB)')).toBeInTheDocument();
     expect(getByLabelInC(`Remove ${fileNameC} from the added files list.`)).toBeInTheDocument();
+    expect(filesValue).toEqual([fileA, fileB, fileC]);
   });
 
-  it('should call onChange with a list of files', async () => {
-    let testFileHolder;
+  it('should append files when user selects one at the time', async () => {
+    let filesValue;
     const onChangeCallback = (files: File[]) => {
-      testFileHolder = files;
+      filesValue = files;
     };
-    const inputLabel = 'Choose files';
-    const file = new File(['test-file'], 'test-file', { type: 'image/png' });
-    render(
-      <FileInput
-        id="test-file-input"
-        label={inputLabel}
-        buttonLabel="Add files"
-        language="en"
-        onChange={onChangeCallback}
-        multiple
-      />,
-    );
-    const fileUpload = screen.getByLabelText(inputLabel);
-    userEvent.upload(fileUpload, [file]);
-    expect(testFileHolder).toEqual([file]);
-  });
-
-  it('should append files to list', async () => {
     const inputLabel = 'Choose files';
     const firstFileName = 'test-file-a';
     const firstFile = new File(['test-file'], firstFileName, { type: 'image/png' });
     const secondFileName = 'test-file-b';
     const secondFile = new File(['test-file'], secondFileName, { type: 'image/png' });
     render(
-      <FileInput id="test-file-input" label={inputLabel} buttonLabel="Add files" onChange={onChangeTest} multiple />,
+      <FileInput
+        id="test-file-input"
+        label={inputLabel}
+        buttonLabel="Add files"
+        onChange={onChangeCallback}
+        multiple
+      />,
     );
     const fileUpload = screen.getByLabelText(inputLabel);
     userEvent.upload(fileUpload, [firstFile]);
@@ -121,6 +114,7 @@ describe('<FileInput /> spec', () => {
     expect(screen.getByText(firstFileName)).toBeInTheDocument();
     expect(screen.getByText(secondFileName)).toBeInTheDocument();
     expect(screen.getAllByRole('listitem').length).toEqual(2);
+    expect(filesValue).toEqual([firstFile, secondFile]);
   });
 
   it('should validate files based on maxSize property', async () => {
