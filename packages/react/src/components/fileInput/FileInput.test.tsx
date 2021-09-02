@@ -215,10 +215,10 @@ describe('<FileInput /> spec', () => {
     ).toBeInTheDocument();
   });
 
-  it('should remove files from the files list', async () => {
-    let testFileHolder;
+  it('should remove files when user clicks remove-buttons', async () => {
+    let filesValue;
     const onChangeCallback = (files: File[]) => {
-      testFileHolder = files;
+      filesValue = files;
     };
     const inputLabel = 'Choose files';
     const fileNameA = 'test-file-a';
@@ -241,13 +241,23 @@ describe('<FileInput /> spec', () => {
     const { getAllByRole } = within(list);
     const fileListItems = getAllByRole('listitem');
     expect(fileListItems.length).toBe(2);
-    expect(testFileHolder).toEqual([fileA, fileB]);
+    expect(filesValue).toEqual([fileA, fileB]);
+    // Remove the second file
     await act(async () => {
       userEvent.click(screen.getByLabelText(`Remove ${fileNameB} from the added files list.`));
     });
-    const updatedListItems = getAllByRole('listitem');
-    expect(updatedListItems.length).toBe(1);
-    expect(testFileHolder).toEqual([fileA]);
-    expect(updatedListItems[0]).toHaveFocus();
+    const listItemsAfterFirstRemove = getAllByRole('listitem');
+    expect(listItemsAfterFirstRemove.length).toBe(1);
+    expect(listItemsAfterFirstRemove[0]).toHaveFocus();
+    expect(filesValue).toEqual([fileA]);
+    expect(screen.getByText('File removed.', { exact: false })).toBeInTheDocument();
+    // Remove the last file
+    await act(async () => {
+      userEvent.click(screen.getByLabelText(`Remove ${fileNameA} from the added files list.`));
+    });
+    expect(list).toBeEmptyDOMElement();
+    expect(screen.getByText('No file(s) selected.', { exact: false })).toBeInTheDocument();
+    expect(fileUpload).toHaveFocus();
+    expect(filesValue).toEqual([]);
   });
 });
