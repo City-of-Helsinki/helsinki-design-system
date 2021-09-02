@@ -13,6 +13,7 @@ import {
   TextArea,
   ErrorSummary,
   Combobox,
+  DateInput,
 } from '../../components';
 
 import './validation.scss';
@@ -334,12 +335,14 @@ export const Hybrid = () => {
             </div>
             {formik.values.parkingPeriod === 'temporary' && (
               <div className="hds-example-form__item">
-                <TextInput
+                <DateInput
                   id="permitEndDate"
                   name="permitEndDate"
                   label="Permit end date"
                   helperText="Use format DD.MM.YYYY"
-                  onChange={formik.handleChange}
+                  onChange={(value) => {
+                    formik.setFieldValue('permitEndDate', value || '');
+                  }}
                   onBlur={formik.handleBlur}
                   value={formik.values.permitEndDate}
                   invalid={!!getErrorMessage('permitEndDate')}
