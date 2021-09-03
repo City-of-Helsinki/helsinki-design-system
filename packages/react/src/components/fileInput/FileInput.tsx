@@ -234,16 +234,14 @@ type ValidationError = {
 
 const validateAccept = (language: Language, accept: string) => (file: File): true | ValidationError => {
   const extension = path.extname(file.name);
+  const fileType = file.type;
   const acceptedExtensions = accept.split(',').map((str) => str.trim());
   const isMatchingType = !!acceptedExtensions.find(
-    (acceptExtension) =>
-      acceptExtension.includes(file.type) || acceptExtension.includes(`${file.type.split('/')[0]}/*`),
+    (acceptExtension) => acceptExtension.includes(fileType) || acceptExtension.includes(`${fileType.split('/')[0]}/*`),
   );
   const hasMatchingFileExtension = !!acceptedExtensions.find((acceptExtension) => acceptExtension === extension);
-
   return (
-    isMatchingType ||
-    hasMatchingFileExtension || {
+    (!!fileType && (isMatchingType || hasMatchingFileExtension)) || {
       type: ValidationErrorType.maxSize,
       text: getAcceptErrorMessage(language, file, accept),
     }
