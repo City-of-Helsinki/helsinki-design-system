@@ -277,6 +277,7 @@ export const FileInput = ({
   multiple,
 }: FileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const didMountRef = useRef<boolean>(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [inputStateText, setInputStateText] = useState<string | undefined>(
     disabled ? undefined : getNoFilesAddedMessage(language),
@@ -438,8 +439,10 @@ export const FileInput = ({
   };
 
   useEffect(() => {
-    if (onChange) {
+    if (didMountRef.current && onChange) {
       onChange(selectedFiles);
+    } else {
+      didMountRef.current = true;
     }
     // Clear input value on every change to ensure it triggers a onChange event when files are added
     resetFileInputValue();
