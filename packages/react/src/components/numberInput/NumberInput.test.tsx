@@ -18,27 +18,32 @@ describe('<NumberInput /> spec', () => {
     const { asFragment } = render(<NumberInput {...numberInputProps} />);
     expect(asFragment()).toMatchSnapshot();
   });
+
   it('renders the component with steppers', () => {
     const { asFragment } = render(<NumberInput step={10} {...numberInputProps} />);
     expect(asFragment()).toMatchSnapshot();
   });
+
   it('should not have basic accessibility issues', async () => {
     const { container } = render(<NumberInput step={10} {...numberInputProps} />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
   it('should increase value correct amount when user clicks step up button', async () => {
     render(<NumberInput defaultValue={10} step={10} {...numberInputProps} />);
     userEvent.click(screen.getByRole('button', { name: 'Add 10 euros' }));
     const numberInput = screen.getByLabelText('Test label number input', { selector: 'input' });
     expect(numberInput).toHaveValue(20);
   });
+
   it('should decrease value correct amount when user clicks step down button', async () => {
     render(<NumberInput defaultValue={10} step={10} {...numberInputProps} />);
     userEvent.click(screen.getByRole('button', { name: 'Decrease 10 euros' }));
     const numberInput = screen.getByLabelText('Test label number input', { selector: 'input' });
     expect(numberInput).toHaveValue(0);
   });
+
   it('should call onChange when input value is changed directly from input field', async () => {
     const onChange = jest.fn();
     render(<NumberInput onChange={onChange} step={10} {...numberInputProps} />);
@@ -49,6 +54,7 @@ describe('<NumberInput /> spec', () => {
     expect(numberInput).toHaveValue(20);
     expect(onChange.mock.calls.length).toBe(2);
   });
+
   it('should call onChange when user clicks step up button', async () => {
     const onChange = jest.fn();
     render(<NumberInput onChange={onChange} defaultValue={10} step={10} {...numberInputProps} />);
@@ -57,6 +63,7 @@ describe('<NumberInput /> spec', () => {
     });
     expect(onChange.mock.calls.length).toBe(1);
   });
+
   it('should call onChange when user clicks step down button', async () => {
     const onChange = jest.fn();
     render(<NumberInput onChange={onChange} defaultValue={10} step={10} {...numberInputProps} />);
