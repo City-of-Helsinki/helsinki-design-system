@@ -3,14 +3,12 @@
   max-width: 792px;
 
   &__main-title {
-    color: var(--color-black-90);
     font-size: var(--fontsize-heading-xl);
     line-height: var(--lineheight-m);
     margin: 0 0 var(--spacing-m) 0;
   }
 
   &__title {
-    color: var(--color-black-90);
     font-size: var(--fontsize-heading-l);
     line-height: var(--lineheight-m);
     margin: 0 0 var(--spacing-m) 0;
@@ -30,7 +28,6 @@
     margin-bottom: var(--spacing-xl);
 
     &-title {
-      color: var(--color-black-90);
       font-size: var(--fontsize-heading-s);
       line-height: var(--lineheight-m);
       margin: 0 0 var(--spacing-m);
