@@ -6,6 +6,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - Sep, 7, 2021
+
+### Core
+
+#### Added
+- [Icons] New icons:
+  - Whatsapp
+
+### React Components
+
+#### Added
+- Linkbox
+- SideNavigation
+- [Icons] New icons:
+  - Whatsapp
+
+#### Fixed
+- [Number Input] Using stepper button will call onChange callback
+
+## Design kit
+### Added
+- [Icons] Added new icons
+  - Whatsapp
+
+### Documentation
+
+### Added
+- A guideline on how to choose between checkboxes, radiobuttons, and toggles.
+
+#### Changed
+- Update form examples to use DateInput and PhoneNumber components
+- Remove brand colors from form examples headings
+
+#### Fixed
+- [Checkbox, Radiobutton] Component page examples are interactive
+
 ## [1.3.1] - Aug, 11, 2021
 
 ### Design tokens
