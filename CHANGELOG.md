@@ -6,6 +6,62 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - Sep, 7, 2021
+
+### Core
+
+#### Added
+- [Icons] New icons:
+  - Whatsapp
+
+### React Components
+
+#### Added
+- Linkbox
+- SideNavigation
+- [Icons] New icons:
+  - Whatsapp
+
+#### Fixed
+- [Number Input] Using stepper button will call onChange callback
+
+### Design kit
+
+#### Added
+- [Cards] Linkbox symbols, including
+  - Empty Linkboxes
+  - Linkboxes with heading and text
+  - Linkboxes with image, heading and text
+- [Cards] Added custom Linkbox examples
+- [Icons] WhatsApp icon
+- [Navigation] Symbols for side navigation
+  - Example navigation symbols both for Desktop and Mobile screen sizes
+  - Side navigation item symbols for building custom content side navigations
+
+#### Changed
+- Updated all HDS libraries to the Sketch version 76 (76.1)
+- [Cards] Updated symbol structure so it is easier to differentiate regular Card and Linkbox custom examples
+- [Navigation] Renamed “Navigation” symbols to “Main navigation” to make them more easily distinguishable from the new side navigation symbols
+
+#### Fixed
+- [Cards] Text + heading with border symbol smart layout scaling
+
+### Documentation
+
+#### Added
+- Side navigation documentation
+- Linkbox documentation
+- A guideline page about choosing between Checkbox, Radio button and Toggle button.
+
+#### Changed
+- Remove brand colors from form examples headings
+- [Checkbox] Playground examples are now fully interactable
+- [Radio button] Playground examples are now fully interactable
+- Updated Roadmap
+
+#### Fixed
+- Fixed typo in the link to aremycolorsaccesible.com
+
 ## [1.3.1] - Aug, 11, 2021
 
 ### Design tokens
