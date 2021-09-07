@@ -91,6 +91,7 @@ export default [
       'components/ImageWithCard/index': 'src/components/imageWithCard/index.ts',
       'components/Koros/index': 'src/components/koros/index.ts',
       'components/Link/index': 'src/components/link/index.ts',
+      'components/Linkbbox/index': 'src/components/linkbox/index.ts',
       'components/LoadingSpinner/index': 'src/components/loadingSpinner/index.ts',
       'components/Logo/index': 'src/components/logo/index.ts',
       'components/Navigation/index': 'src/components/navigation/index.ts',

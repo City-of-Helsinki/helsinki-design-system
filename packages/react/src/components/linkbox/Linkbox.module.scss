@@ -1,0 +1,139 @@
+.linkbox {
+  cursor: pointer;
+  border: solid 2px transparent;
+  position: relative;
+
+  &:focus-within {
+    outline: var(--color-coat-of-arms) 1px solid;
+    border: var(--color-coat-of-arms) 2px solid;
+  }
+}
+
+.withBackground {
+  background-color: var(--color-white);
+}
+
+.withoutBackground {
+  background: transparent;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 48px !important;
+}
+
+.paddingWithoutImageAndWithBackground {
+  padding-top: 22px;
+}
+
+.paddingWithoutImageAndWithoutBackground {
+  padding: 0;
+}
+
+.withSmallImage {
+  padding-top: 16px;
+}
+
+.withMediumImage {
+  padding-top: 16px;
+}
+
+.withLargeImage {
+  padding-top: 24px;
+}
+
+.contentSmall {
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-bottom: 62px;
+}
+
+.contentMedium {
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-bottom: 62px;
+}
+
+.contentLarge {
+  padding-left: 22px;
+  padding-right: 22px;
+  padding-bottom: 70px;
+}
+
+.withBorder {
+  border-color: var(--color-black-90);
+
+  &:focus-within {
+    outline: var(--color-coat-of-arms) 3px solid;
+    border: var(--color-black-90) 2px solid !important;
+  }
+}
+
+.headingCommon {
+  font-family: var(--font-default);
+  font-weight: bold;
+  color: var(--color-black-90);
+  line-height: var(--lineheight-m);
+}
+
+.headingSmall {
+  padding-bottom: 0;
+  font-size: var(--fontsize-heading-s);
+}
+
+.headingMedium {
+  padding-bottom: 3px;
+  font-size: var(--fontsize-heading-m);
+}
+
+.headingLarge {
+  padding-bottom: 4px;
+  font-size: var(--fontsize-heading-l);
+}
+
+.text {
+  font-family: var(--font-default);
+  font-size: var(--fontsize-body-m);
+  margin-top: 8px;
+  margin-bottom: 16px;
+  line-height: var(--lineheight-l);
+  color: var(--color-black-90);
+}
+
+.link {
+  width: 100%;
+  height:100%;
+  display: inline-block;
+  position: absolute;
+  line-height: var(--lineheight-l);
+  color: var(--color-black-90);
+  top: 0;
+  left: 0;
+  
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}
+
+.icon {
+  vertical-align: bottom;
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+}
+
+.iconWhenNoBackground {
+  bottom: 0;
+  left: 0;
+}
+
+.iconPositionForLinkboxLargeVariant {
+  bottom: 22px;
+  left: 22px;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
