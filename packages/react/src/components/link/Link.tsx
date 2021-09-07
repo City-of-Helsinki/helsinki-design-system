@@ -73,7 +73,7 @@ export const Link = ({
   size = 'S',
   ...rest
 }: LinkProps) => {
-  const comboseAriaLabel = () => {
+  const composeAriaLabel = () => {
     let childrenText = getTextFromReactChildren(children);
     const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
     const externalText = external ? openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.' : '';
@@ -102,7 +102,7 @@ export const Link = ({
       href={href}
       style={style}
       {...(openInNewTab && { target: '_blank', rel: 'noopener' })}
-      {...((openInNewTab || external) && { 'aria-label': comboseAriaLabel() })}
+      {...((openInNewTab || external) && { 'aria-label': composeAriaLabel() })}
       {...rest}
     >
       {iconLeft && (

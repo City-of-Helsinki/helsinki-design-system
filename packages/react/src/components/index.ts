@@ -13,6 +13,7 @@ export * from './footer';
 export * from './imageWithCard';
 export * from './koros';
 export * from './link';
+export * from './linkbox';
 export * from './loadingSpinner';
 export * from './logo';
 export * from './navigation';
