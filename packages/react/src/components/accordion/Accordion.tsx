@@ -113,24 +113,30 @@ export const Accordion = ({
       style={style}
       id={accordionId}
     >
-      <div className={styles.accordionHeader}>
-        <div role="heading" aria-level={headingLevel} id={`${accordionId}-heading`}>
-          {heading}
-        </div>
-        <button
-          type="button"
-          {...buttonProps}
-          className={styles.accordionButton}
+      <div className={classNames(styles.accordionHeader)}>
+        <div
+          role="button"
+          tabIndex={0}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              buttonProps.onClick();
+            }
+          }}
+          className={styles.headingContainer}
           aria-labelledby={`${accordionId}-heading`}
+          {...buttonProps}
         >
+          <div role="heading" aria-level={headingLevel} id={`${accordionId}-heading`}>
+            {heading}
+          </div>
           {icon}
-        </button>
+        </div>
       </div>
       <div
         {...contentProps}
         id={`${accordionId}-content`}
         role="region"
-        className={styles.accordionContent}
+        className={classNames(styles.accordionContent, card && styles.card)}
         aria-labelledby={`${accordionId}-heading`}
       >
         {children}
