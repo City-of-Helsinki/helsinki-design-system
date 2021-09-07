@@ -63,7 +63,7 @@ export const Disabled = (args) => {
       disabled
       id="file-input"
       label="Choose a file"
-      buttonLabel="Add file"
+      buttonLabel="Add a file"
       language="en"
       onChange={setFile}
       accept="image/*"
@@ -82,7 +82,7 @@ export const Required = (args) => {
       required
       id="file-input"
       label="Choose a file"
-      buttonLabel="Add file"
+      buttonLabel="Add a file"
       language="en"
       onChange={setFile}
       accept="image/*"
