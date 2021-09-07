@@ -76,6 +76,7 @@ $componentMaxWidth: 500px;
   display: flex;
   flex: 1;
   flex-wrap: nowrap;
+  font-size: var(--fontsize-body-s);
   margin: 0 var(--spacing-xs);
 }
 
