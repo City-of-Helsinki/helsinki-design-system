@@ -53,7 +53,7 @@ exports[`<FileInput /> spec renders the component 1`] = `
             <span
               class="label"
             >
-              Add file
+              Add a file
             </span>
           </button>
           <input
