@@ -39,7 +39,29 @@ describe('<FileInput /> spec', () => {
     expect(results).toHaveNoViolations();
   });
 
-  it('should add files when user adds multiple files', async () => {
+  it('should not have accessibility issues when there are files added', async () => {
+    const inputLabel = 'Choose a file';
+    const { container } = render(
+      <FileInput
+        id="test-file-input"
+        label={inputLabel}
+        buttonLabel="Add file"
+        language="en"
+        accept=".png,.jpg"
+        onChange={onChangeTest}
+        multiple
+      />,
+    );
+    const fileUpload = screen.getByLabelText(inputLabel);
+    userEvent.upload(fileUpload, [
+      new File(['test-a'], 'test-file-a.png', { type: 'image/png' }),
+      new File(['test-b'], 'test-file-b.png', { type: 'image/png' }),
+    ]);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
+  it('should list files when user adds multiple files', async () => {
     let filesValue;
     const onChangeCallback = (files: File[]) => {
       filesValue = files;
