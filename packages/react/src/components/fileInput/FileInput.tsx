@@ -314,7 +314,7 @@ export const FileInput = ({
     style,
   };
 
-  const passButtonClickToInput = () => {
+  const passClickToInput = () => {
     if (inputRef.current) {
       inputRef.current.click();
     }
@@ -464,6 +464,7 @@ export const FileInput = ({
             <>
               <div
                 aria-hidden
+                onClick={() => passClickToInput()}
                 onDragEnter={onDragEnter}
                 onDragOver={onDragEnter}
                 onDragLeave={onDragLeave}
@@ -488,7 +489,7 @@ export const FileInput = ({
               aria-hidden
               variant="secondary"
               iconLeft={<IconPlus aria-hidden />}
-              onClick={() => passButtonClickToInput()}
+              onClick={() => passClickToInput()}
               disabled={disabled}
             >
               {buttonLabel}

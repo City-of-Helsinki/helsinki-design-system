@@ -6,6 +6,7 @@ $componentMaxWidth: 500px;
   box-sizing: border-box;
   border: 2px dotted var(--color-coat-of-arms);
   color: var(--color-coat-of-arms);
+  cursor: pointer;
   display: flex;
   justify-content: center;
   margin-top: var(--spacing-xs);
