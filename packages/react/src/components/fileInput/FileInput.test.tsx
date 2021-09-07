@@ -1,6 +1,6 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
-import { render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
@@ -115,6 +115,37 @@ describe('<FileInput /> spec', () => {
     expect(screen.getByText(secondFileName)).toBeInTheDocument();
     expect(screen.getAllByRole('listitem').length).toEqual(2);
     expect(filesValue).toEqual([firstFile, secondFile]);
+  });
+
+  it('should add file when user drops it into drag-and-drop area', async () => {
+    let filesValue;
+    const onChangeCallback = (files: File[]) => {
+      filesValue = files;
+    };
+    const inputLabel = 'Choose files';
+    const dragAndDropAreaLabels = {
+      label: 'Drag files here',
+      helperText: 'or browse from your computer',
+    };
+    const fileName = 'test-file-a';
+    const file = new File(['test-file'], fileName, { type: 'image/png' });
+    render(
+      <FileInput
+        id="test-file-input"
+        label={inputLabel}
+        buttonLabel="Add files"
+        onChange={onChangeCallback}
+        dragAndDrop={dragAndDropAreaLabels}
+      />,
+    );
+    fireEvent.drop(screen.getByText(dragAndDropAreaLabels.label, { exact: false }), {
+      dataTransfer: {
+        files: [file],
+      },
+    });
+    expect(screen.getByText(fileName)).toBeInTheDocument();
+    expect(screen.getAllByRole('listitem').length).toEqual(1);
+    expect(filesValue).toEqual([file]);
   });
 
   it('should validate files based on maxSize property', async () => {
