@@ -30,43 +30,13 @@ type Language = 'en' | 'fi' | 'sv';
 
 type FileInputProps = {
   /**
-   * The id of the input element
-   */
-  id: string;
-  /**
-   * The label for the input
-   */
-  label: string;
-  /**
-   * The label for the file button. The button is not visible for assistive technology
-   */
-  buttonLabel: string;
-  /**
-   * The language of the component. It affects which language is used to present component-specific messages, labels, and aria-labels
-   *
-   * @default "fi"
-   */
-  language?: Language;
-  /**
-   * Callback fired when the list of files changes
-   */
-  onChange: (files: File[]) => void;
-  /**
    * A comma-separated list of unique file type specifiers describing file types to allow. If present, the filename extension or filetype property is validated against the list. If the file(s) do not match the acceptance criteria, the component will not add the file(s), and it will show an error message with the file name.
    */
   accept?: string;
   /**
-   * A Boolean that indicates that more than one file can be chosen
+   * The label for the file button. The button is not visible for assistive technology
    */
-  multiple?: boolean;
-  /**
-   * Drag and Drop area properties. If present, a drag and drop area with helper labels will render with file input. The area is not visible for assistive technology
-   */
-  dragAndDrop?: DragAndDropProps;
-  /**
-   * Maximum file size in bytes. If present, the file size is compared to this property. Maximum file size in bytes. If present, the file size is compared to this property. If the file(s) size property is larger than the max size, the component will not add the file(s), and it will show an error message with the file name.
-   */
-  maxSize?: number;
+  buttonLabel: string;
   /**
    * Additional class names to apply to the file input
    */
@@ -76,9 +46,9 @@ type FileInputProps = {
    */
   disabled?: boolean;
   /**
-   * The success text content that will be shown below the input
+   * Drag and Drop area properties. If present, a drag and drop area with helper labels will render with file input. The area is not visible for assistive technology
    */
-  successText?: string;
+  dragAndDrop?: DragAndDropProps;
   /**
    * The error text content that will be shown below the input
    */
@@ -88,9 +58,35 @@ type FileInputProps = {
    */
   helperText?: string;
   /**
+   * The id of the input element
+   */
+  id: string;
+  /**
    * The info text content that will be shown below the input
    */
   infoText?: string;
+  /**
+   * The label for the input
+   */
+  label: string;
+  /**
+   * The language of the component. It affects which language is used to present component-specific messages, labels, and aria-labels
+   *
+   * @default "fi"
+   */
+  language?: Language;
+  /**
+   * Maximum file size in bytes. If present, the file size is compared to this property. Maximum file size in bytes. If present, the file size is compared to this property. If the file(s) size property is larger than the max size, the component will not add the file(s), and it will show an error message with the file name.
+   */
+  maxSize?: number;
+  /**
+   * A Boolean that indicates that more than one file can be chosen
+   */
+  multiple?: boolean;
+  /**
+   * Callback fired when the list of files changes
+   */
+  onChange: (files: File[]) => void;
   /**
    * If `true`, the label is displayed as required and the `input` element will be required
    */
@@ -99,6 +95,10 @@ type FileInputProps = {
    * Override or extend the styles applied to the component
    */
   style?: React.CSSProperties;
+  /**
+   * The success text content that will be shown below the input
+   */
+  successText?: string;
 };
 
 const formatBytes = (bytes: number): string => {
