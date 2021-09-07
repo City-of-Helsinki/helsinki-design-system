@@ -15,7 +15,7 @@ describe('<FileInput /> spec', () => {
       <FileInput
         id="test-file-input"
         label="Choose a file"
-        buttonLabel="Add file"
+        buttonLabel="Add a file"
         language="en"
         accept=".png,.jpg"
         onChange={onChangeTest}
