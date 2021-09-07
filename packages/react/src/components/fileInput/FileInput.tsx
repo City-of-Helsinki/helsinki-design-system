@@ -44,7 +44,7 @@ type FileInputProps = {
   /**
    * The language of the component. It affects which language is used to present component-specific messages, labels, and aria-labels
    *
-   * @default "en"
+   * @default "fi"
    */
   language?: Language;
   /**
