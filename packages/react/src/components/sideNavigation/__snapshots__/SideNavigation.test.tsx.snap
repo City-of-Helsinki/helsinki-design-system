@@ -1,0 +1,207 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SideNavigation /> spec renders the component 1`] = `
+<DocumentFragment>
+  <nav
+    class="sideNavigation"
+    id="sideNavigation"
+  >
+    <button
+      aria-controls="sideNavigation-menu"
+      aria-expanded="false"
+      aria-haspopup="true"
+      class="button secondary theme-default size-default fullWidth toggleButton"
+      type="button"
+    >
+      <span
+        class="label"
+      >
+        Navigate to page
+      </span>
+      <div
+        aria-hidden="true"
+        class="icon"
+      >
+        <svg
+          aria-hidden="true"
+          class="icon s"
+          role="img"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <path
+              d="M0 0h24v24H0z"
+            />
+            <path
+              d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
+              fill="currentColor"
+            />
+          </g>
+        </svg>
+      </div>
+    </button>
+    <ul
+      aria-hidden="false"
+      aria-label="Navigate to page"
+      class="mainLevelList"
+      id="sideNavigation-menu"
+    >
+      <li
+        class="mainLevel open"
+      >
+        <button
+          aria-current="true"
+          aria-expanded="true"
+          aria-label="Main level 1"
+          id="mainLevel1"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="leftIcon"
+          >
+            <svg
+              class="icon s"
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M1 13L12 2l11 11-1.5 1.5L20 13v8H4v-8l-1.5 1.5L1 13zm11-8l-6 6v8l2.999-.001L9 12h6l-.001 6.999L18 19v-8l-6-6zm1 9h-2l-.001 4.999h2L13 14z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </span>
+          <span
+            class="label"
+          >
+            Main level 1
+          </span>
+          <span
+            aria-hidden="true"
+            class="rightIcon"
+          >
+            <svg
+              aria-hidden="true"
+              class="icon s"
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 24h24V0H0z"
+                />
+                <path
+                  d="M12 11.5l5 5 1.5-1.5L12 8.5 5.5 15 7 16.5z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </span>
+        </button>
+        <ul
+          aria-hidden="false"
+          aria-labelledby="mainLevel1"
+          class="mainLevelListMenu"
+          id="mainLevel1-menu"
+        >
+          <li
+            class="subLevel active"
+          >
+            <a
+              aria-current="page"
+              href="#"
+              id="subLevel1"
+            >
+              Sub level 1
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li
+        class="mainLevel"
+      >
+        <a
+          aria-current="false"
+          aria-label="Main level 2. Opens in a new tab. Url points to external website."
+          href="#"
+          id="mainLevel2"
+          rel="noopener"
+          target="_blank"
+        >
+          <span
+            aria-hidden="true"
+            class="leftIcon"
+          >
+            <svg
+              class="icon s"
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M1 13L12 2l11 11-1.5 1.5L20 13v8H4v-8l-1.5 1.5L1 13zm11-8l-6 6v8l2.999-.001L9 12h6l-.001 6.999L18 19v-8l-6-6zm1 9h-2l-.001 4.999h2L13 14z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </span>
+          <span
+            class="label"
+          >
+            Main level 2
+          </span>
+          <span
+            aria-hidden="true"
+            class="rightIcon"
+          >
+            <svg
+              aria-hidden="true"
+              class="icon s"
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M10 3v2H5v14h14v-5h2v7H3V3h7zm11 0v8h-2V6.413l-7 7.001L10.586 12l6.999-7H13V3h8z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</DocumentFragment>
+`;

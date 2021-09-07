@@ -1,0 +1,118 @@
+@value small-down, medium-up from "../../styles/breakpoints.css";
+@import '../../styles/common';
+
+.sideNavigation {
+  --side-navigation-background-color: var(--color-white);
+  --side-navigation-active-indicator-background-color: var(--color-bus);
+  --side-navigation-icon-size: var(--spacing-m);
+  --side-navigation-level-border-color: var(--color-white);
+  --side-navigation-level-border-color-focus: var(--color-coat-of-arms);
+  --side-navigation-level-border-color-hover: var(--color-black-5);
+  --side-navigation-level-border-width: 2px;
+  --side-navigation-level-background-color: var(--color-white);
+  --side-navigation-level-background-color-active: var(--color-black-5);
+  --side-navigation-level-background-color-hover: var(--color-black-5);
+  --side-navigation-level-color: var(--color-black);
+  --side-navigation-level-color-active: var(--color-black);
+  --side-navigation-level-color-hover: var(--color-black);
+  --side-navigation-level-inset: var(--spacing-s);
+  --side-navigation-mobile-menu-border-color: var(--color-black);
+  --side-navigation-mobile-menu-border-width: 2px;
+  --side-navigation-mobile-menu-z-index: 100;
+
+  background-color: var(--side-navigation-background-color);
+  position: relative;
+  box-sizing: border-box;
+
+  @media medium-up {
+    height: 100%;
+  }
+}
+
+.toggleButton {
+  @media medium-up {
+    display: none;
+  }
+}
+
+.mainLevelList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @media small-down {
+    overflow: hidden;
+    max-height: 0;
+
+    &.open {
+      max-height: none;
+      will-change: max-height;
+      background-color: var(--side-navigation-background-color);
+      border: var(--side-navigation-mobile-menu-border-width) solid var(--side-navigation-mobile-menu-border-color);
+    }
+  }
+
+  @media medium-up {
+    display: block;
+  }
+}
+
+.level {
+  & > button {
+    @extend %buttonReset;
+  }
+
+  & > a,
+  & > button {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: var(--spacing-2-xs) var(--side-navigation-level-inset);
+    min-height: var(--spacing-2-xl);
+    align-items: center;
+    text-align: left;
+    text-decoration: none;
+    border: var(--side-navigation-level-border-width) solid var(--side-navigation-level-border-color);
+    background-color: var(--side-navigation-level-background-color);
+    color: var(--side-navigation-level-color);
+    outline: none;
+
+    &:hover {
+      background-color: var(--side-navigation-level-background-color-hover);
+      border-color: var(--side-navigation-level-border-color-hover);
+      color: var(--side-navigation-level-color-hover);
+    }
+
+    &:focus {
+      border-color: var(--side-navigation-level-border-color-focus) !important;
+    }
+
+    span {
+      display: flex;
+    }
+  }
+}
+
+.activeLevel {
+  & > a,
+  & > button {
+    position: relative;
+
+    &::before {
+      position: absolute;
+      display: block;
+      content: '';
+      width: var(--spacing-3-xs);
+      background: var(--side-navigation-active-indicator-background-color);
+      top: calc(0px - var(--side-navigation-level-border-width));
+      bottom: calc(0px - var(--side-navigation-level-border-width));
+      left: calc(0px - var(--side-navigation-level-border-width));
+    }
+
+    font-weight: 600;
+    background-color: var(--side-navigation-level-background-color-active);
+    border-color: var(--side-navigation-level-background-color-active);
+    color: var(--side-navigation-level-color-active);
+  }
+}

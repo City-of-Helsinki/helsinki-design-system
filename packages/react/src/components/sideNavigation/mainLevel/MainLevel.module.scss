@@ -1,0 +1,50 @@
+.mainLevel {
+  composes: level from '../SideNavigation.module.scss';
+
+  font-size: var(--fontsize-body-m);
+
+  & > a,
+  & > button {
+    font-weight: 500;
+  }
+}
+
+.active {
+  composes: activeLevel from '../SideNavigation.module.scss';
+}
+
+.mainLevelListMenu {
+  display: none;
+}
+
+.mainLevelWithDivider {
+  &:before {
+    border-top: 1px solid var(--color-black-20);
+    content: "";
+    display: block;
+    height: 1px;
+    margin: var(--spacing-xs) var(--side-navigation-level-inset);
+  }
+}
+
+.leftIcon,
+.label {
+  margin-right: var(--spacing-xs);
+}
+
+.leftIcon,
+.rightIcon {
+  width: var(--side-navigation-icon-size);
+}
+
+.rightIcon {
+  margin-left: auto;
+}
+
+.mainLevel.open {
+  .mainLevelListMenu {
+    padding: 0;
+    display: block;
+    list-style: none;
+  }
+}

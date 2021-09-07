@@ -1,0 +1,17 @@
+.subLevel {
+  composes: level from '../SideNavigation.module.scss';
+
+  font-size: var(--fontsize-body-s);
+
+  & > a,
+  & > button {
+    padding-bottom: var(--spacing-3-xs);
+    padding-left: calc(var(--side-navigation-level-inset) + var(--spacing-2-xs));
+    padding-top: var(--spacing-3-xs);
+    min-height: var(--spacing-xl);
+  }
+}
+
+.active {
+  composes: activeLevel from '../SideNavigation.module.scss';
+}
