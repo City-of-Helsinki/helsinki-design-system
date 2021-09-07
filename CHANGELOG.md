@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 - [Number Input] Using stepper button will call onChange callback
 
-## Design kit
+### Design kit
 
 #### Added
 - [Cards] Linkbox symbols, including
@@ -38,17 +38,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Example navigation symbols both for Desktop and Mobile screen sizes
   - Side navigation item symbols for building custom content side navigations
 
-### Changed
+#### Changed
 - Updated all HDS libraries to the Sketch version 76 (76.1)
 - [Cards] Updated symbol structure so it is easier to differentiate regular Card and Linkbox custom examples
 - [Navigation] Renamed “Navigation” symbols to “Main navigation” to make them more easily distinguishable from the new side navigation symbols
 
-### Fixed
+#### Fixed
 - [Cards] Text + heading with border symbol smart layout scaling
 
-## Documentation
+### Documentation
 
-### Added
+#### Added
 - Side navigation documentation
 - Linkbox documentation
 - A guideline page about choosing between Checkbox, Radio button and Toggle button.
