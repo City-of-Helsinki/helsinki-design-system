@@ -25,13 +25,13 @@ import { Playground } from 'docz';
 
 
 ## When to use radio buttons?
-<Link href="../components/radio-button" >HDS radio button component</Link>
+<Link href="../components/radio-button" >HDS radio button component documentation</Link>
 <br /><br />
 An application can use radio buttons when there is a list of two or more mutually exclusive choices and the user needs to select one of them. After clicking the non-selected radio button, whatever was previously selected is deselected. In traditional application design, the first radio button in the list was always selected by default. But not all modern websites follow this convention and rather use empty radio buttons by default. Websites today, forms, and applications inconsistently select one or leave all radio buttons blank by default. If none of the buttons is selected by default, users have no way to revert to this original state after they’ve made a selection. The lack of a standard can be confusing to users.
 <br /><br />
 <b>HDS strongly recommends that radio buttons are never presented unticked.</b>
 <br /><br />
-Radio buttons have a lower cognitive load than drop-down menu’s because they make all options permanently visible so that users can easily compare them. Radio buttons are also easier to operate for users who have difficulty making precise mouse movements. (Limited space might sometimes force you to violate this guideline, but do try to keep choices visible whenever possible.)
+Radio buttons have a lower cognitive load than dropdown menus because they make all options permanently visible so that users can easily compare them. Radio buttons are also easier to operate for users who have difficulty making precise mouse movements. (Limited space might sometimes force you to violate this guideline, but do try to keep choices visible whenever possible.)
 <br /><br />
 <b>Example use:</b> Binary choices like YES/NO, agegroup or other similar choices that exclude other options.
 
@@ -42,7 +42,7 @@ Radio buttons have a lower cognitive load than drop-down menu’s because they m
       setSelectedItem(event.target.value);
     };
     return (
-      <SelectionGroup label="Choose your agegroup">
+      <SelectionGroup label="Choose your age group">
         <RadioButton id="v-radio1" name="v-radio" value="1" label="Under 16" checked={selectedItem === "1"} onChange={onChange} />
         <RadioButton id="v-radio2" name="v-radio" value="2" label="17-35" checked={selectedItem === "2"} onChange={onChange} />
         <RadioButton id="v-radio3" name="v-radio" value="3" label="35-64" checked={selectedItem === "3"} onChange={onChange} />
@@ -53,7 +53,7 @@ Radio buttons have a lower cognitive load than drop-down menu’s because they m
 </Playground>
 
 ## When to use checkboxes?
-<Link href="../components/checkbox" >HDS checkbox component</Link>
+<Link href="../components/checkbox" >HDS checkbox component documentation</Link>
 <br /><br />
 Checkboxes allow the user to select zero, one, or multiple selections from a list of options. In other words, each checkbox is independent of the other checkboxes, i.e. checking one does not uncheck the others.
 
@@ -139,14 +139,13 @@ Toggle switches are digital on/off switches. They prompt users to choose between
 Note that these articles might include guides that are not in line with HDS guidelines.
 
 
-<Link href="https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/" external>Checkboxes vs. Radio Buttons, N&N Group</Link>
-<br />
+<ul><li><Link href="https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/" external>Checkboxes vs. Radio Buttons, N&N Group</Link>
+    </li>
 
-<Link href="https://www.nngroup.com/articles/toggle-switch-guidelines/" external>Toggle-Switch Guidelines, N&N Group</Link>
-<br />
+<li><Link href="https://www.nngroup.com/articles/toggle-switch-guidelines/" external>Toggle-Switch Guidelines, N&N Group</Link>
+</li>
 
-<Link href="https://www.nngroup.com/articles/radio-buttons-default-selection/" external>Radio Buttons: Always Select One? , N&N Group</Link>
-<br />
-
-<Link href="https://uxmovement.com/buttons/the-challenges-with-single-toggle-buttons/" external>The Challenges with Single Toggle Buttons, UXMovement</Link>
+<li><Link href="https://www.nngroup.com/articles/radio-buttons-default-selection/" external>Radio Buttons: Always Select One? , N&N Group</Link>
+    </li>
+<li><Link href="https://uxmovement.com/buttons/the-challenges-with-single-toggle-buttons/" external>The Challenges with Single Toggle Buttons, UXMovement</Link></li></ul>
 
