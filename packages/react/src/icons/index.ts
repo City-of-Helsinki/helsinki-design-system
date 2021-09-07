@@ -12,6 +12,7 @@ export { IconTiktok } from './some/IconTiktok';
 export { IconTwitch } from './some/IconTwitch';
 export { IconTwitter } from './some/IconTwitter';
 export { IconVimeo } from './some/IconVimeo';
+export { IconWhatsApp } from './some/IconWhatsApp';
 export { IconYle } from './some/IconYle';
 export { IconYoutube } from './some/IconYoutube';
 
