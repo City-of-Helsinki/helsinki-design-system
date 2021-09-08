@@ -51,6 +51,11 @@ export type CommonAccordionProps = React.PropsWithChildren<{
    */
   id?: string;
   /**
+   * Boolean indicating whether the accordion is initially opened.
+   * @default false
+   */
+  initiallyOpen?: boolean;
+  /**
    * Additional styles
    */
   style?: React.CSSProperties;
@@ -81,6 +86,7 @@ export const Accordion = ({
   heading,
   headingLevel = 2,
   id,
+  initiallyOpen = false,
   style,
   theme,
 }: AccordionProps) => {
@@ -91,7 +97,7 @@ export const Accordion = ({
   const customThemeClass = useTheme<AccordionCustomTheme>(styles.accordion, theme);
 
   // Accordion logic
-  const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen: false });
+  const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen });
 
   // Switch icon based on isOpen state
   const icon = isOpen ? (

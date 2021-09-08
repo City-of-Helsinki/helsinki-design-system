@@ -23,6 +23,8 @@ export default {
 
 export const Default = (args) => <Accordion {...args} />;
 
+export const InitiallyOpen = (args) => <Accordion {...args} initiallyOpen />;
+
 export const CardAccordion = (args) => (
   <>
     <Accordion {...args} card />
