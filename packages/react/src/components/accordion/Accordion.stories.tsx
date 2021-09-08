@@ -24,6 +24,7 @@ export default {
 export const Default = (args) => <Accordion {...args} />;
 
 export const InitiallyOpen = (args) => <Accordion {...args} initiallyOpen />;
+InitiallyOpen.storyName = 'Initially open';
 
 export const CardAccordion = (args) => (
   <>
