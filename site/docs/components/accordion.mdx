@@ -18,17 +18,20 @@ import Text from "../../src/components/Text";
 <StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
 
 <LargeParagraph>
-    Accordions can be used to hide and reveal information. When used correctly, they are a good way to make higher amount of information easier to digest for the user.
+    Accordions can be used to hide and reveal information. When used correctly, they are a good way to make a higher amount of information easier to digest for the user.
 </LargeParagraph>
 
 ## Principles
-- Use accordions to allow the user to quickly glance the information and then choose to open sections that are interesting to them.
+- Use accordions to allow the user to quickly glance at the information and then choose to open sections that are interesting to them.
 - **Accordions must be given a header that describes the accordion content.** This header also acts as the label for the expand button. The header level can be chosen depending on the structure of the page.
 - **Do not put essential or must-read information inside accordions.** If the user is expected to open all of the accordions while using the service, then it is likely that the information should not be inside accordions.
-    - Accordions work well when the user usually needs only part of the information. You may also consider placing parts of lower importance inside accordions while the most important parts are always visible.
+  - Accordions work well when the user usually needs only part of the information. You may also consider placing parts of lower importance inside accordions while the most important parts are always visible.
 - Do not use accordions to create step-by-step forms. You must not expect that the user opens all accordions in a specific order.
-- Accordions should initially be closed when the page is loaded.
-- Expanding or closing the accordion should only affect to the related accordion area. You also should not auto-close or auto-open accordions.
+- It is recommended to have accordions closed when the page is loaded.
+  - If you need to have the accordion initially open, you can use the `initiallyOpen` property to achieve this.
+  - Having an accordion initially open could be needed e.g. when the user returns to a page and you want to retain accordions' states.
+Accordions should initially be closed when the page is loaded.
+- Expanding or closing the accordion should only affect the related accordion area. You also should not auto-close or auto-open accordions.
 
 ## Accessibility
 - Use HDS provided accordion elements when creating custom accordions. These elements pass accessibility testing.
@@ -48,7 +51,7 @@ This style is visually less distracting and it works well when there are multipl
         heading="How to publish data?"
         style={{ maxWidth: '360px' }}
     >
-        To publish your data, open your profile settings and click button 'Publish'.
+        To publish your data, open your profile settings and click the button 'Publish'.
     </Accordion>
 </Playground>
 
@@ -58,7 +61,7 @@ This style is visually less distracting and it works well when there are multipl
     heading="How to publish data?"
     style={{ maxWidth: '360px' }}
 >
-    To publish your data, open your profile settings and click button 'Publish'.
+    To publish your data, open your profile settings and click the button 'Publish'.
 </Accordion>
 ```
 
@@ -74,7 +77,7 @@ If you have multiple accordions one below another or many accordions in the same
         heading="How to publish data?"
         style={{ maxWidth: '360px'}}
     >
-        To publish your data, open your profile settings and click button 'Publish'.
+        To publish your data, open your profile settings and click the button 'Publish'.
     </Accordion>
 </Playground>
 
@@ -86,7 +89,7 @@ If you have multiple accordions one below another or many accordions in the same
     heading="How to publish data?"
     style={{ maxWidth: '360px'}}
 >
-    To publish your data, open your profile settings and click button 'Publish'.
+    To publish your data, open your profile settings and click the button 'Publish'.
 </Accordion>
 ```
 
@@ -114,7 +117,7 @@ You can easily customize HDS Accordions by giving them a `theme` prop.
             '--content-line-height': 'var(--lineheight-l)',
         }}
     >
-        To publish your data, open your profile settings and click button 'Publish'.
+        To publish your data, open your profile settings and click the button 'Publish'.
     </Accordion>
 
     <Accordion 
@@ -135,7 +138,7 @@ You can easily customize HDS Accordions by giving them a `theme` prop.
             '--content-line-height': 'var(--lineheight-l)',
         }}
     >
-        To publish your data, open your profile settings and click button 'Publish'.
+        To publish your data, open your profile settings and click the button 'Publish'.
     </Accordion>
 </Playground>
 
@@ -161,7 +164,7 @@ You can easily customize HDS Accordions by giving them a `theme` prop.
         '--content-line-height': 'var(--lineheight-l)',
     }}
 >
-    To publish your data, open your profile settings and click button 'Publish'.
+    To publish your data, open your profile settings and click the button 'Publish'.
 </Accordion>
 
 <Accordion 
@@ -182,12 +185,12 @@ You can easily customize HDS Accordions by giving them a `theme` prop.
         '--content-line-height': 'var(--lineheight-l)',
     }}
 >
-    To publish your data, open your profile settings and click button 'Publish'.
+    To publish your data, open your profile settings and click the button 'Publish'.
 </Accordion>
 ```
 
 ### Custom accordion
-If the basic accordion components do not fit for your needs, you can build a custom accordion by using HDS provided accordion elements.
+If the basic accordion components do not fit your needs, you can build a custom accordion by using HDS provided accordion elements.
 
 <Playground>
 {() => {
