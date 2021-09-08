@@ -10,18 +10,19 @@ exports[`<Accordion /> spec renders the component 1`] = `
       class="accordionHeader"
     >
       <div
-        aria-level="2"
-        id="accordion-1-heading"
-        role="heading"
-      >
-        Foo
-      </div>
-      <button
         aria-expanded="false"
         aria-labelledby="accordion-1-heading"
-        class="accordionButton"
-        type="button"
+        class="headingContainer"
+        role="button"
+        tabindex="0"
       >
+        <div
+          aria-level="2"
+          id="accordion-1-heading"
+          role="heading"
+        >
+          Foo
+        </div>
         <svg
           aria-hidden="true"
           class="icon s accordionButtonIcon"
@@ -42,7 +43,7 @@ exports[`<Accordion /> spec renders the component 1`] = `
             />
           </g>
         </svg>
-      </button>
+      </div>
     </div>
     <div
       aria-labelledby="accordion-1-heading"
