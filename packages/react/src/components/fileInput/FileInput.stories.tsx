@@ -23,7 +23,7 @@ export const Single = (args) => {
       {...args}
       id="file-input"
       label="Choose a file"
-      buttonLabel="Add file"
+      buttonLabel="Add a file"
       language="en"
       onChange={setFile}
       maxSize={1.5 * 1024 * 1024}
