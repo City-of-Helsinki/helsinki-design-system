@@ -326,10 +326,11 @@ export const FileInput = ({
     }
   };
 
-  const clearNotificationTexts = () => {
+  const clearState = () => {
     setProcessSuccessText(undefined);
     setInputStateText(undefined);
     setInvalidText(undefined);
+    fileListFocusIndexRef.current = null;
   };
 
   const validationFns: ((file: File) => true | ValidationError)[] = [
@@ -399,7 +400,7 @@ export const FileInput = ({
   };
 
   const onFilesChange = (files: File[]) => {
-    clearNotificationTexts();
+    clearState();
 
     if (multiple) {
       handleMultipleChange(files);
@@ -409,7 +410,7 @@ export const FileInput = ({
   };
 
   const onRemoveFileFromList = (fileToRemove: File, index: number) => {
-    clearNotificationTexts();
+    clearState();
 
     const selectedFilesWithoutRemoved = selectedFiles.filter(
       (file: File) => !isEqualFileBy(['name', 'type', 'size', 'lastModified'], file, fileToRemove),
