@@ -7,7 +7,7 @@
   --header-font-size: var(--fontsize-heading-m);
   --header-line-height: var(--lineheight-m);
   --button-size: 28px;
-  --button-border-color-hover: var(--color-coat-of-arms);
+  --header-focus-outline-color: var(--color-coat-of-arms);
   --content-font-color: var(--color-black-90);
   --content-font-size: var(--fontsize-body-m);
   --content-line-height: var(--lineheight-l);
@@ -56,6 +56,6 @@
   box-sizing: border-box;
 
   &:focus {
-    outline: 2px solid var(--button-border-color-hover, transparent);
+    outline: 2px solid var(--header-focus-outline-color, transparent);
   }
 }
