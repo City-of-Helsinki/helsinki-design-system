@@ -65,7 +65,7 @@ export const CustomTheme = (args) => (
       theme={{
         '--background-color': 'var(--color-bus)',
         '--padding-horizontal': 'var(--spacing-m)',
-        '--padding-vertical': 'var(--spacing-m)',
+        '--padding-vertical': '20px',
         '--header-font-color': 'var(--color-white)',
         '--header-font-size': 'var(--fontsize-heading-s)',
         '--header-line-height': 'var(--lineheight-s)',

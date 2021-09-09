@@ -59,3 +59,10 @@
     outline: 2px solid var(--header-focus-outline-color, transparent);
   }
 }
+
+.accordionButtonIcon {
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  width: var(--button-size);
+  height: var(--button-size);
+}
