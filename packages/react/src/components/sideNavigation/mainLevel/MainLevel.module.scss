@@ -1,5 +1,8 @@
+@import "../sideNavigation.common";
+
+
 .mainLevel {
-  composes: level from '../SideNavigation.module.scss';
+  @extend %level;
 
   font-size: var(--fontsize-body-m);
 
@@ -10,7 +13,7 @@
 }
 
 .active {
-  composes: activeLevel from '../SideNavigation.module.scss';
+  @extend %activeLevel;
 }
 
 .mainLevelListMenu {
