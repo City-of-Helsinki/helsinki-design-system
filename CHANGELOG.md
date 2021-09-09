@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.1] - Sep, 9, 2021
+
+### React Components
+
+#### Fixed
+- [SideNavigation] Invalid CSS generating problems with testing libraries
+
 ## [1.4.0] - Sep, 7, 2021
 
 ### Core
