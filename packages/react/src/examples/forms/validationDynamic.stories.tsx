@@ -2,6 +2,7 @@
 import React, { FormEvent, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { parse, isBefore } from 'date-fns';
 
 import { CityOptionType, getCitites, isValidDate } from './validationUtils';
 import {
@@ -63,9 +64,24 @@ export const Dynamic = () => {
       parkingPeriod: Yup.string().oneOf(['continuous', 'temporary'], 'Please select a parking pediod'),
       permitEndDate: Yup.string().when('parkingPeriod', {
         is: 'temporary',
-        then: Yup.string()
-          .required('Please enter a permit end date')
-          .test('is-date', 'Please enter a permit end date in DD.MM.YYYY format.', isValidDate),
+        then: Yup.string().test('is-date', (value, { createError, path }) => {
+          if (!isValidDate(value)) {
+            return createError({
+              path,
+              message: 'Please enter a permit end date in DD.MM.YYYY format',
+            });
+          }
+
+          const selectedDate = parse(value, 'd.M.yyyy', new Date());
+
+          if (isBefore(selectedDate, new Date())) {
+            return createError({
+              path,
+              message: 'Selected permit date is in the past. Please select a date that is in the future',
+            });
+          }
+          return true;
+        }),
         otherwise: Yup.string(),
       }),
       acceptTerms: Yup.boolean().oneOf([true], 'Please accept the terms and conditions'),
@@ -333,6 +349,7 @@ export const Dynamic = () => {
                   name="permitEndDate"
                   label="Permit end date"
                   helperText="Use format DD.MM.YYYY"
+                  minDate={new Date()}
                   onChange={(value) => {
                     formik.setFieldValue('permitEndDate', value || '');
                   }}
