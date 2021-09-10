@@ -64,24 +64,26 @@ export const Dynamic = () => {
       parkingPeriod: Yup.string().oneOf(['continuous', 'temporary'], 'Please select a parking pediod'),
       permitEndDate: Yup.string().when('parkingPeriod', {
         is: 'temporary',
-        then: Yup.string().test('is-date', (value, { createError, path }) => {
-          if (!isValidDate(value)) {
-            return createError({
-              path,
-              message: 'Please enter a permit end date in DD.MM.YYYY format',
-            });
-          }
+        then: Yup.string()
+          .required('Please enter a permit end date')
+          .test('is-date', (value, { createError, path }) => {
+            if (!isValidDate(value)) {
+              return createError({
+                path,
+                message: 'Please enter a permit end date in DD.MM.YYYY format',
+              });
+            }
 
-          const selectedDate = parse(value, 'd.M.yyyy', new Date());
+            const selectedDate = parse(value, 'd.M.yyyy', new Date());
 
-          if (isBefore(selectedDate, new Date())) {
-            return createError({
-              path,
-              message: 'Selected permit date is in the past. Please select a date that is in the future',
-            });
-          }
-          return true;
-        }),
+            if (isBefore(selectedDate, new Date())) {
+              return createError({
+                path,
+                message: 'Selected permit date is in the past. Please select a date that is in the future',
+              });
+            }
+            return true;
+          }),
         otherwise: Yup.string(),
       }),
       acceptTerms: Yup.boolean().oneOf([true], 'Please accept the terms and conditions'),
