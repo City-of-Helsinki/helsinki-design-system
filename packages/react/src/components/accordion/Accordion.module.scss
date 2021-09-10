@@ -51,7 +51,7 @@
   cursor: pointer;
   width: 100%;
   display: grid;
-  grid-template-columns: auto calc(var(--button-size) + 4px);
+  grid-template-columns: auto calc(var(--button-size));
   box-sizing: border-box;
   align-items: center;
 
