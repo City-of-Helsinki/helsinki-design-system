@@ -50,10 +50,10 @@
 .headingContainer {
   cursor: pointer;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: auto calc(var(--button-size) + 4px);
   box-sizing: border-box;
+  align-items: center;
 
   &:focus {
     outline: 2px solid var(--header-focus-outline-color, transparent);
@@ -65,4 +65,5 @@
   border: 2px solid transparent;
   width: var(--button-size) !important;
   height: var(--button-size) !important;
+  margin: auto;
 }
