@@ -281,7 +281,7 @@ export const Hybrid = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 pattern="[+][0-9]"
-                helperText="Use international mobile number format. Example: +358401234567"
+                helperText="Use international mobile number format, e.g. +358401234567"
                 value={formik.values.phoneNumber}
                 invalid={!!getErrorMessage('phoneNumber')}
                 aria-invalid={!!getErrorMessage('phoneNumber')}
