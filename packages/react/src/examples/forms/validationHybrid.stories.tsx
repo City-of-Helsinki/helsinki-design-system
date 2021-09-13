@@ -93,8 +93,8 @@ export const Hybrid = () => {
       }),
       acceptTerms: Yup.boolean().oneOf([true], 'Please accept the terms and conditions'),
       phoneNumber: Yup.string().matches(
-        /^[0-9]{3} [0-9]{3} [0-9]{4}$/,
-        'Please enter the phone number in format 045 123 4567',
+        /^[+][0-9]*$/,
+        'Please enter the phone number in international mobile phone number format.',
       ),
     }),
     // Enable validation on field change
@@ -280,8 +280,8 @@ export const Hybrid = () => {
                 label="Phone number"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                pattern="[0-9]{3} [0-9]{3} [0-9]{4}"
-                helperText="Use format 045 123 4567"
+                pattern="[+][0-9]"
+                helperText="Use international mobile number format. Example: +358401234567"
                 value={formik.values.phoneNumber}
                 invalid={!!getErrorMessage('phoneNumber')}
                 aria-invalid={!!getErrorMessage('phoneNumber')}
