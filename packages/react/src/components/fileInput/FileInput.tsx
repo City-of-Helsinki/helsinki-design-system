@@ -533,7 +533,11 @@ export const FileInput = ({
               <span className={styles.fileListItemSize}>({formatBytes(file.size)})</span>
             </div>
             <Button
-              onClick={() => onRemoveFileFromList(file, index)}
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                onRemoveFileFromList(file, index);
+              }}
               variant="supplementary"
               size="small"
               theme="black"
