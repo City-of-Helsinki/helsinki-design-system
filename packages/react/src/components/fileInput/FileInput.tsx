@@ -477,6 +477,7 @@ export const FileInput = ({
           <div className={styles.fileInputWrapper}>
             <Button
               aria-hidden
+              tabIndex={-1}
               variant="secondary"
               iconLeft={<IconPlus aria-hidden />}
               onClick={(event) => {
