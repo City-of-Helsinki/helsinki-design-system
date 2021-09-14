@@ -311,22 +311,22 @@ describe('<FileInput /> spec', () => {
 
 describe('formatBytes spec', () => {
   it('should return string for zero bytes', async () => {
-    expect(formatBytes(0)).toBe('0 B')
+    expect(formatBytes(0)).toBe('0 B');
   });
 
   it('should return rounded string for bytes', async () => {
-    expect(formatBytes(12.5)).toBe('13 B')
+    expect(formatBytes(12.5)).toBe('13 B');
   });
 
   it('should return rounded string for kilobytes', async () => {
-    expect(formatBytes(12.5 * 1024)).toBe('13 kB')
+    expect(formatBytes(12.5 * 1024)).toBe('13 kB');
   });
 
   it('should return string for megabytes', async () => {
-    expect(formatBytes(12.5 * 1024 * 1024)).toBe('12.5 MB')
+    expect(formatBytes(12.5 * 1024 * 1024)).toBe('12.5 MB');
   });
 
   it('should return string for gigabytes', async () => {
-    expect(formatBytes(12.5 * 1024 * 1024 * 1024)).toBe('12.5 GB')
-  })
-})
+    expect(formatBytes(12.5 * 1024 * 1024 * 1024)).toBe('12.5 GB');
+  });
+});
