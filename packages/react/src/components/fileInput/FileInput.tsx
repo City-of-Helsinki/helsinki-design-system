@@ -11,16 +11,6 @@ import { IconPlus, IconPhoto, IconCross, IconDocument, IconUpload } from '../../
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import styles from './FileInput.module.scss';
 
-type FileProperty = keyof File;
-
-const isEqualFileBy = (givenProperties: FileProperty[], a: File, b: File): boolean => {
-  const sameProps: FileProperty[] = givenProperties.filter((property: FileProperty) => a[property] === b[property]);
-  return sameProps.length === givenProperties.length;
-};
-
-const findDuplicateByNameAndType = (files: File[], fileToCompare: File): File | undefined =>
-  files.find((file: File) => isEqualFileBy(['name', 'type'], file, fileToCompare));
-
 type DragAndDropProps = {
   label: string;
   helperText: string;
@@ -257,6 +247,11 @@ const validateMaxSize = (language: Language, maxSize: number) => (file: File): t
   );
 };
 
+const getFileUId = (file: File): string => {
+  const now = new Date();
+  return `${file.name}-${now.getTime()}`;
+};
+
 export const FileInput = ({
   id,
   label,
@@ -362,6 +357,7 @@ export const FileInput = ({
   const handleSingleFileChange = (files: File[]) => {
     if (files.length > 0) {
       const { validFiles, validationErrors } = runValidations(files);
+
       if (validationErrors.length > 0) {
         setInvalidText(getValidationErrorsMessage(validationErrors, 1));
       } else {
@@ -375,25 +371,12 @@ export const FileInput = ({
     if (files.length > 0) {
       const { validFiles, validationErrors } = runValidations(files);
 
-      const [replacedFiles, newFiles] = validFiles.reduce(
-        (acc: [File[], File[]], file: File) => {
-          if (findDuplicateByNameAndType(selectedFiles, file)) {
-            return [[...acc[0], file], acc[1]];
-          }
-          return [acc[0], [...acc[1], file]];
-        },
-        [[], []],
-      );
-
       if (validationErrors.length > 0) {
         setInvalidText(getValidationErrorsMessage(validationErrors, files.length));
       }
 
       if (validFiles.length > 0) {
-        const selectedWithoutReplacedFiles = selectedFiles.filter(
-          (selectedFile: File) => !findDuplicateByNameAndType(replacedFiles, selectedFile),
-        );
-        setSelectedFiles([...selectedWithoutReplacedFiles, ...replacedFiles, ...newFiles]);
+        setSelectedFiles([...selectedFiles, ...files]);
         setProcessSuccessText(getAddSuccessMessage(language, validFiles.length, files.length));
       }
     }
@@ -409,17 +392,17 @@ export const FileInput = ({
     }
   };
 
-  const onRemoveFileFromList = (fileToRemove: File, index: number) => {
+  const onRemoveFileFromList = (fileToRemove: File, indexToRemove: number) => {
     clearState();
 
     const selectedFilesWithoutRemoved = selectedFiles.filter(
-      (file: File) => !isEqualFileBy(['name', 'type', 'size', 'lastModified'], file, fileToRemove),
+      (file: File, index) => index !== indexToRemove && file.name !== fileToRemove.name,
     );
     setSelectedFiles(selectedFilesWithoutRemoved);
     setInputStateText(getRemoveSuccessMessage(language));
 
     if (selectedFilesWithoutRemoved.length > 0) {
-      fileListFocusIndexRef.current = index > 0 ? index - 1 : 0;
+      fileListFocusIndexRef.current = indexToRemove > 0 ? indexToRemove - 1 : 0;
       setInputStateText(getRemoveSuccessMessage(language));
     } else if (inputRef.current) {
       inputRef.current.focus();
@@ -523,7 +506,7 @@ export const FileInput = ({
       >
         {selectedFiles.map((file: File, index: number) => (
           <li
-            key={file.name}
+            key={getFileUId(file)}
             className={styles.fileListItem}
             tabIndex={-1}
             ref={(el) => {
