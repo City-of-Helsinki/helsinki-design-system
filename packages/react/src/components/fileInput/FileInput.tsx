@@ -315,6 +315,12 @@ export const FileInput = ({
     }
   };
 
+  const passFocusToInput = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
   const resetFileInputValue = () => {
     if (inputRef.current) {
       inputRef.current.value = '';
@@ -404,8 +410,8 @@ export const FileInput = ({
     if (selectedFilesWithoutRemoved.length > 0) {
       fileListFocusIndexRef.current = indexToRemove > 0 ? indexToRemove - 1 : 0;
       setInputStateText(getRemoveSuccessMessage(language));
-    } else if (inputRef.current) {
-      inputRef.current.focus();
+    } else {
+      passFocusToInput();
       setInputStateText(getNoFilesAddedMessage(language));
     }
   };
@@ -473,7 +479,12 @@ export const FileInput = ({
               aria-hidden
               variant="secondary"
               iconLeft={<IconPlus aria-hidden />}
-              onClick={() => passClickToInput()}
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                passFocusToInput();
+                passClickToInput();
+              }}
               disabled={disabled}
             >
               {buttonLabel}
