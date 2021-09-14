@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid, no-console */
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { isBefore, parse } from 'date-fns';
@@ -27,6 +27,10 @@ export const Hybrid = () => {
    * Form submitted state
    */
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  /**
+   * Ref to set dateInput field dirty to help with validation.
+   */
+  const dateInputIsDirty = useRef(false);
   /**
    * Backend errors state
    */
@@ -384,9 +388,14 @@ export const Hybrid = () => {
                   helperText="Use format DD.MM.YYYY"
                   minDate={new Date()}
                   onChange={(value) => {
+                    dateInputIsDirty.current = true;
                     formik.setFieldValue('permitEndDate', value || '');
                   }}
-                  onBlur={formik.handleBlur}
+                  onBlur={() => {
+                    if (dateInputIsDirty.current) {
+                      formik.handleBlur({ target: { name: 'permitEndDate' } });
+                    }
+                  }}
                   value={formik.values.permitEndDate}
                   invalid={!!getErrorMessage('permitEndDate')}
                   aria-invalid={!!getErrorMessage('permitEndDate')}
