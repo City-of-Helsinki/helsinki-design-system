@@ -4,7 +4,7 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
-import { FileInput } from './FileInput';
+import { FileInput, formatBytes } from './FileInput';
 
 // eslint-disable-next-line
 const onChangeTest = () => {};
@@ -306,5 +306,27 @@ describe('<FileInput /> spec', () => {
     expect(screen.getByText('No file(s) selected.', { exact: false })).toBeInTheDocument();
     expect(fileUpload).toHaveFocus();
     expect(filesValue).toEqual([]);
+  });
+});
+
+describe('formatBytes spec', () => {
+  it('should return string for zero bytes', async () => {
+    expect(formatBytes(0)).toBe('0 B');
+  });
+
+  it('should return rounded string for bytes', async () => {
+    expect(formatBytes(12.5)).toBe('13 B');
+  });
+
+  it('should return rounded string for kilobytes', async () => {
+    expect(formatBytes(12.5 * 1024)).toBe('13 kB');
+  });
+
+  it('should return string for megabytes', async () => {
+    expect(formatBytes(12.5 * 1024 * 1024)).toBe('12.5 MB');
+  });
+
+  it('should return string for gigabytes', async () => {
+    expect(formatBytes(12.5 * 1024 * 1024 * 1024)).toBe('12.5 GB');
   });
 });
