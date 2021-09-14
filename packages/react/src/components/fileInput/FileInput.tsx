@@ -91,9 +91,9 @@ type FileInputProps = {
   successText?: string;
 };
 
-const formatBytes = (bytes: number): string => {
+export const formatBytes = (bytes: number): string => {
   if (bytes === 0) {
-    return '0 bytes';
+    return '0 B';
   }
 
   const sizeUnits: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
