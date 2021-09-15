@@ -2,7 +2,7 @@
 import React, { FormEvent, useRef, useState } from 'react';
 import { FormikValues, useFormik } from 'formik';
 import * as Yup from 'yup';
-import { parse, isBefore } from 'date-fns';
+import { parse, isBefore, startOfDay } from 'date-fns';
 
 import { CityOptionType, getCitites, isValidDate } from './validationUtils';
 import {
@@ -80,7 +80,7 @@ export const Dynamic = () => {
 
             const selectedDate = parse(value, 'd.M.yyyy', new Date());
 
-            if (isBefore(selectedDate, new Date())) {
+            if (isBefore(selectedDate, startOfDay(new Date()))) {
               return createError({
                 path,
                 message: 'Selected permit date is in the past. Please select a date that is in the future',
