@@ -326,7 +326,7 @@ export const FileInput = ({
     }
   };
 
-  const resetFileInputValue = () => {
+  const resetInputValue = () => {
     if (inputRef.current) {
       inputRef.current.value = '';
     }
@@ -442,7 +442,7 @@ export const FileInput = ({
       didMountRef.current = true;
     }
     // Clear input value on every change to ensure it triggers a onChange event when files are added
-    resetFileInputValue();
+    resetInputValue();
   }, [selectedFileItems, onChange]);
 
   // Compose aria-describedby attribute
