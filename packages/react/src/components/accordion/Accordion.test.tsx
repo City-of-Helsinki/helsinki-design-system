@@ -10,11 +10,13 @@ describe('<Accordion /> spec', () => {
     const { asFragment } = render(<Accordion heading="Foo">Bar</Accordion>);
     expect(asFragment()).toMatchSnapshot();
   });
+
   it('should not have basic accessibility issues', async () => {
     const { container } = render(<Accordion heading="Foo">Bar</Accordion>);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
   it('should open the accordion when accordion header is clicked', async () => {
     const { container } = render(
       <Accordion heading="Foo" id="accordion">
