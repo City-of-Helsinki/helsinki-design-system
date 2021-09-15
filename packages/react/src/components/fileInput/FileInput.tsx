@@ -214,6 +214,7 @@ const getMaxSizeErrorMessage = (language: Language, file: File, maxSize: number)
 };
 
 enum ValidationErrorType {
+  accept = 'accept',
   maxSize = 'maxSize',
 }
 
@@ -232,7 +233,7 @@ const validateAccept = (language: Language, accept: string) => (file: File): tru
   const hasMatchingFileExtension = !!acceptedExtensions.find((acceptExtension) => acceptExtension === extension);
   return (
     (!!fileType && (isMatchingType || hasMatchingFileExtension)) || {
-      type: ValidationErrorType.maxSize,
+      type: ValidationErrorType.accept,
       text: getAcceptErrorMessage(language, file, accept),
     }
   );
