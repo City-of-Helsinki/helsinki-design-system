@@ -1,6 +1,7 @@
 import path from 'path';
 
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import uniqueId from 'lodash.uniqueid';
 
 // import core base styles
 import 'hds-core';
@@ -90,6 +91,14 @@ type FileInputProps = {
    */
   successText?: string;
 };
+
+type FileItem = {
+  uiId: string;
+  file: File;
+};
+
+const convertFileToFileItem = (file: File): FileItem => ({ file, uiId: uniqueId(file.name) });
+const convertFileItemToFile = (fileItem: FileItem): File => fileItem.file;
 
 export const formatBytes = (bytes: number): string => {
   if (bytes === 0) {
@@ -248,11 +257,6 @@ const validateMaxSize = (language: Language, maxSize: number) => (file: File): t
   );
 };
 
-const getFileUId = (file: File): string => {
-  const now = new Date();
-  return `${file.name}-${now.getTime()}`;
-};
-
 export const FileInput = ({
   id,
   label,
@@ -274,13 +278,13 @@ export const FileInput = ({
 }: FileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const didMountRef = useRef<boolean>(false);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [selectedFileItems, setSelectedFileItems] = useState<FileItem[]>([]);
   const [inputStateText, setInputStateText] = useState<string | undefined>(
     disabled ? undefined : getNoFilesAddedMessage(language),
   );
   const [invalidText, setInvalidText] = useState<string | undefined>();
   const [processSuccessText, setProcessSuccessText] = useState<string | undefined>();
-  const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
+  const hasFileItems = selectedFileItems && selectedFileItems.length > 0;
   const fileListId = `${id}-list`;
   const fileListRef = useRef<HTMLUListElement>(null);
   const fileListFocusIndexRef = useRef<number>();
@@ -368,7 +372,7 @@ export const FileInput = ({
       if (validationErrors.length > 0) {
         setInvalidText(getValidationErrorsMessage(validationErrors, 1));
       } else {
-        setSelectedFiles(validFiles);
+        setSelectedFileItems([convertFileToFileItem(validFiles[0])]);
         setProcessSuccessText(getAddSuccessMessage(language, 1, 1));
       }
     }
@@ -383,7 +387,8 @@ export const FileInput = ({
       }
 
       if (validFiles.length > 0) {
-        setSelectedFiles([...selectedFiles, ...files]);
+        const newFileItems: FileItem[] = validFiles.map(convertFileToFileItem);
+        setSelectedFileItems([...selectedFileItems, ...newFileItems]);
         setProcessSuccessText(getAddSuccessMessage(language, validFiles.length, files.length));
       }
     }
@@ -399,13 +404,13 @@ export const FileInput = ({
     }
   };
 
-  const onRemoveFileFromList = (fileToRemove: File, indexToRemove: number) => {
+  const onRemoveFileFromList = (fileItemToRemove: FileItem, indexToRemove: number) => {
     clearState();
 
-    const selectedFilesWithoutRemoved = selectedFiles.filter(
-      (file: File, index) => index !== indexToRemove && file.name !== fileToRemove.name,
+    const selectedFilesWithoutRemoved = selectedFileItems.filter(
+      (fileItem: FileItem) => fileItem.uiId !== fileItemToRemove.uiId,
     );
-    setSelectedFiles(selectedFilesWithoutRemoved);
+    setSelectedFileItems(selectedFilesWithoutRemoved);
     setInputStateText(getRemoveSuccessMessage(language));
 
     if (selectedFilesWithoutRemoved.length > 0) {
@@ -431,18 +436,19 @@ export const FileInput = ({
 
   useEffect(() => {
     if (didMountRef.current && onChange) {
+      const selectedFiles: File[] = selectedFileItems.map(convertFileItemToFile);
       onChange(selectedFiles);
     } else {
       didMountRef.current = true;
     }
     // Clear input value on every change to ensure it triggers a onChange event when files are added
     resetFileInputValue();
-  }, [selectedFiles, onChange]);
+  }, [selectedFileItems, onChange]);
 
   // Compose aria-describedby attribute
   const ariaDescribedBy: string = [
     composeAriaDescribedBy(id, helperTextToUse, errorTextToUse, successText, infoTextToUse),
-    hasFilesSelected && fileListId,
+    hasFileItems && fileListId,
   ]
     .filter((text) => !!text)
     .join(' ');
@@ -514,12 +520,12 @@ export const FileInput = ({
         tabIndex={-1}
         className={styles.fileList}
         aria-label={
-          hasFilesSelected ? getFileListAriaLabel(language, selectedFiles.length) : getNoFilesAddedMessage(language)
+          hasFileItems ? getFileListAriaLabel(language, selectedFileItems.length) : getNoFilesAddedMessage(language)
         }
       >
-        {selectedFiles.map((file: File, index: number) => (
+        {selectedFileItems.map((item: FileItem, index: number) => (
           <li
-            key={getFileUId(file)}
+            key={item.uiId}
             className={styles.fileListItem}
             tabIndex={-1}
             ref={(el) => {
@@ -528,22 +534,22 @@ export const FileInput = ({
               }
             }}
           >
-            {file.type.startsWith('image') ? <IconPhoto aria-hidden /> : <IconDocument aria-hidden />}
+            {item.file.type.startsWith('image') ? <IconPhoto aria-hidden /> : <IconDocument aria-hidden />}
             <div className={styles.fileListItemTitle}>
-              <span className={styles.fileListItemName}>{file.name}</span>
-              <span className={styles.fileListItemSize}>({formatBytes(file.size)})</span>
+              <span className={styles.fileListItemName}>{item.file.name}</span>
+              <span className={styles.fileListItemSize}>({formatBytes(item.file.size)})</span>
             </div>
             <Button
               onClick={(event) => {
                 event.preventDefault();
                 event.stopPropagation();
-                onRemoveFileFromList(file, index);
+                onRemoveFileFromList(item, index);
               }}
               variant="supplementary"
               size="small"
               theme="black"
               iconLeft={<IconCross />}
-              aria-label={getRemoveButtonAriaLabel(language, file.name)}
+              aria-label={getRemoveButtonAriaLabel(language, item.file.name)}
               className={styles.fileListItemButton}
             >
               {getRemoveButtonLabel(language)}
