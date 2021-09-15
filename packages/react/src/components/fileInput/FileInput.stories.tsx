@@ -43,7 +43,7 @@ export const Multiple = (args) => {
       id="file-input"
       label="Choose files"
       buttonLabel="Add files"
-      maxSize={300 * 1024}
+      maxSize={1.5 * 1024 * 1024}
       language="en"
       onChange={setFiles}
       accept=".png,.jpg,.pdf,.json"
