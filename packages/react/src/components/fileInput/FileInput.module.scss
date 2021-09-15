@@ -44,7 +44,7 @@ $componentMaxWidth: 500px;
   margin: var(--spacing-2-xs) 0;
   position: relative;
 
-  // We need to manually add focus styles to the button when the input has focus styles.
+  // We need to manually add focus styles to the button when the input has focus.
   &:focus-within > button:after {
     --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
     border-color: var(--focus-outline-color);
