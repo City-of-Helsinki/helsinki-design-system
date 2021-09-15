@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid, no-console */
 import React, { FormEvent, useRef, useState } from 'react';
-import { useFormik } from 'formik';
+import { FormikValues, useFormik } from 'formik';
 import * as Yup from 'yup';
 import { isBefore, parse } from 'date-fns';
 
@@ -364,7 +364,10 @@ export const Hybrid = () => {
                   name="parkingPeriod"
                   value="continuous"
                   label="Continuous"
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    formik.resetForm({ ...formik.values, permitEndDate: '' } as FormikValues);
+                  }}
                   onBlur={formik.handleBlur}
                   checked={formik.values.parkingPeriod === 'continuous'}
                 />
