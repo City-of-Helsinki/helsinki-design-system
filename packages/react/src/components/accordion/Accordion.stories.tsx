@@ -16,7 +16,7 @@ export default {
   },
   args: {
     heading: 'How to publish data?',
-    children: 'To publish your data, open your profile settings and click buttton "Publish".',
+    children: 'To publish your data, open your profile settings and click button "Publish".',
     style: { maxWidth: '360px' },
   },
 };
