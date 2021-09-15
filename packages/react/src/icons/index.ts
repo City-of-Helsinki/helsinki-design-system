@@ -120,6 +120,7 @@ export { IconSaveDiskette } from './ui/IconSaveDiskette';
 export { IconSaveDisketteFill } from './ui/IconSaveDisketteFill';
 export { IconSearch } from './ui/IconSearch';
 export { IconShare } from './ui/IconShare';
+export { IconShoppingCart } from './ui/IconShoppingCart';
 export { IconSignin } from './ui/IconSignin';
 export { IconSignout } from './ui/IconSignout';
 export { IconSliders } from './ui/IconSliders';
