@@ -12,11 +12,6 @@ import { IconPlus, IconPhoto, IconCross, IconDocument, IconUpload } from '../../
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import styles from './FileInput.module.scss';
 
-type DragAndDropProps = {
-  label: string;
-  helperText: string;
-};
-
 type Language = 'en' | 'fi' | 'sv';
 
 type FileInputProps = {
