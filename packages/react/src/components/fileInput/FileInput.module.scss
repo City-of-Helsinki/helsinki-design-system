@@ -21,6 +21,12 @@ $componentMaxWidth: 500px;
   color: var(--color-coat-of-arms-dark);
 }
 
+.dragAndDropDisabled {
+  border-color: var(--color-black-50);
+  color: var(--color-black-50);
+  cursor: not-allowed;
+}
+
 .dragAndDropLabel {
   align-items: center;
   display: flex;
