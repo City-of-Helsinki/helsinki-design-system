@@ -37,9 +37,17 @@ type FileInputProps = {
    */
   disabled?: boolean;
   /**
-   * Drag and Drop area properties. If present, a drag and drop area with helper labels will render with file input. The area is not visible for assistive technology
+   * If `true`, the file input will have a drag and drop area
    */
-  dragAndDrop?: DragAndDropProps;
+  dragAndDrop?: boolean;
+  /**
+   * Overrides default drag and drop area text
+   */
+  dragAndDropLabel?: string;
+  /**
+   * Overrides default label text between the drag and drop area and the input
+   */
+  dragAndDropInputLabel?: string;
   /**
    * The error text content that will be shown below the input
    */
@@ -111,6 +119,22 @@ export const formatBytes = (bytes: number): string => {
   return `${sizeUnitIndex < 2 || sizeInUnit % 1 === 0 ? Math.round(sizeInUnit) : sizeInUnit.toFixed(1)} ${
     sizeUnits[sizeUnitIndex]
   }`;
+};
+
+const getDragAndDropLabel = (language: Language): string => {
+  return {
+    en: 'Drag files here.',
+    fi: 'Raahaa tiedostot tähän',
+    sv: '---',
+  }[language];
+};
+
+const getDragAndDropInputLabel = (language: Language): string => {
+  return {
+    en: 'or browse from your computer',
+    fi: 'tai valitse tiedostot koneelta',
+    sv: '---',
+  }[language];
 };
 
 const getNoFilesAddedMessage = (language: Language): string => {
@@ -264,6 +288,8 @@ export const FileInput = ({
   language = 'fi',
   disabled,
   dragAndDrop,
+  dragAndDropLabel,
+  dragAndDropInputLabel,
   maxSize,
   className = '',
   successText,
@@ -288,7 +314,6 @@ export const FileInput = ({
   const fileListId = `${id}-list`;
   const fileListRef = useRef<HTMLUListElement>(null);
   const fileListFocusIndexRef = useRef<number>();
-  const hasDragAndDrop = !!dragAndDrop && !!dragAndDrop.label && !!dragAndDrop.helperText;
   const dropAreaRef = useRef<HTMLDivElement>(null);
   const [isDragOverDrop, setIsDragOverDrop] = useState<boolean>(false);
   const instructionsText = [
@@ -457,7 +482,7 @@ export const FileInput = ({
     <>
       <InputWrapper {...wrapperProps}>
         <div className={styles.fileInputContainer}>
-          {hasDragAndDrop && (
+          {dragAndDrop && (
             <>
               <div
                 aria-hidden
@@ -475,10 +500,14 @@ export const FileInput = ({
               >
                 <div className={styles.dragAndDropLabel}>
                   <IconUpload aria-hidden />
-                  <span className={styles.dragAndDropLabelText}>{dragAndDrop.label}</span>
+                  <span className={styles.dragAndDropLabelText}>
+                    {dragAndDropLabel || getDragAndDropLabel(language)}
+                  </span>
                 </div>
               </div>
-              <div className={styles.dragAndDropHelperText}>{dragAndDrop.helperText}</div>
+              <div className={styles.dragAndDropHelperText}>
+                {dragAndDropInputLabel || getDragAndDropInputLabel(language)}
+              </div>
             </>
           )}
           <div className={styles.fileInputWrapper}>
