@@ -40,7 +40,7 @@ Below are some good practices you need to consider. For more detailed checklist,
 
 - Do not trust the front-end solution to validate the files for you. Validate files on the backend.
   - Verify file type, file size, and name length.
-  - HDS FileInput verified the file type only from the file extension name. This validation is not sufficient in the backend since it can be bypassed by renaming the file.
+  - HDS FileInput verifies the file size and the file type based on the DOM File object properties. It does not examine the file contents. This validation is not sufficient in the backend since it can be bypassed for example by renaming the file.
 - Always restrict and only allow file types related to the use case.
 - Pay attention to error messages returned from the backend. Do not include information the user does not need, e.g. file paths.
 - If files are uploaded from untrusted sources, make sure files are stored outside of the web root, with limited permissions, preferably with strong validation.
