@@ -1,5 +1,5 @@
 import React from 'react';
-import { boolean, number, object, radios, text } from '@storybook/addon-knobs';
+import { boolean, number, radios, text } from '@storybook/addon-knobs';
 
 import { FileInput } from './FileInput';
 
@@ -155,10 +155,10 @@ export const Playground = () => {
   const required = boolean('Required', false);
   const helperText = text('HelperText', '');
   const errorText = text('ErrorText', '');
-  const infoText = text('infoText', '');
+  const infoText = text('InfoText', '');
   const dragAndDrop = boolean('DragAndDrop', false);
-  const dragAndDropLabel = text('dragAndDropLabel', '');
-  const dragAndDropInputLabel = text('dragAndDropInputLabel', '');
+  const dragAndDropLabel = text('DragAndDropLabel', '');
+  const dragAndDropInputLabel = text('DragAndDropInputLabel', '');
 
   return (
     <FileInput
