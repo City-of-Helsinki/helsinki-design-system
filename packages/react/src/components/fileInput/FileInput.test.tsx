@@ -145,10 +145,7 @@ describe('<FileInput /> spec', () => {
       filesValue = files;
     };
     const inputLabel = 'Choose files';
-    const dragAndDropAreaLabels = {
-      label: 'Drag files here',
-      helperText: 'or browse from your computer',
-    };
+    const dragAndDropLabel = 'Drag files here';
     const fileName = 'test-file-a';
     const file = new File(['test-file'], fileName, { type: 'image/png' });
     render(
@@ -157,10 +154,11 @@ describe('<FileInput /> spec', () => {
         label={inputLabel}
         buttonLabel="Add files"
         onChange={onChangeCallback}
-        dragAndDrop={dragAndDropAreaLabels}
+        dragAndDrop
+        dragAndDropLabel={dragAndDropLabel}
       />,
     );
-    fireEvent.drop(screen.getByText(dragAndDropAreaLabels.label, { exact: false }), {
+    fireEvent.drop(screen.getByText(dragAndDropLabel, { exact: false }), {
       dataTransfer: {
         files: [file],
       },

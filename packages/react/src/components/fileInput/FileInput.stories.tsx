@@ -99,12 +99,9 @@ export const WithDragAndDrop = (args) => {
     <FileInput
       {...args}
       multiple
+      dragAndDrop
       id="file-input"
       label="Drag and drop files here"
-      dragAndDrop={{
-        label: 'Drag files here',
-        helperText: 'or browse from your computer',
-      }}
       language="en"
       buttonLabel="Add files"
       onChange={setFile}
@@ -139,10 +136,9 @@ export const Playground = () => {
   const helperText = text('HelperText', '');
   const errorText = text('ErrorText', '');
   const infoText = text('infoText', '');
-  const dragAndDrop = object('DragAndDrop', {
-    label: '',
-    helperText: '',
-  });
+  const dragAndDrop = boolean('DragAndDrop', false);
+  const dragAndDropLabel = text('dragAndDropLabel', '');
+  const dragAndDropInputLabel = text('dragAndDropInputLabel', '');
 
   return (
     <FileInput
@@ -157,6 +153,8 @@ export const Playground = () => {
       required={required}
       multiple={multiple}
       dragAndDrop={dragAndDrop}
+      dragAndDropLabel={dragAndDropLabel}
+      dragAndDropInputLabel={dragAndDropInputLabel}
       helperText={helperText}
       errorText={errorText}
       infoText={infoText}
