@@ -590,6 +590,7 @@ export const FileInput = ({
               iconLeft={<IconCross />}
               aria-label={getRemoveButtonAriaLabel(language, item.file.name)}
               className={styles.fileListItemButton}
+              disabled={disabled}
             >
               {getRemoveButtonLabel(language)}
             </Button>
