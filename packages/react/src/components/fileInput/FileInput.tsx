@@ -459,6 +459,12 @@ export const FileInput = ({
     setIsDragOverDrop(false);
   };
 
+  const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    const { dataTransfer }: { dataTransfer: DataTransfer } = event;
+    onDragLeave(event);
+    onFilesChange(Array.from(dataTransfer.files));
+  };
+
   useEffect(() => {
     if (didMountRef.current && onChange) {
       const selectedFiles: File[] = selectedFileItems.map(convertFileItemToFile);
@@ -486,17 +492,21 @@ export const FileInput = ({
             <>
               <div
                 aria-hidden
-                onClick={() => passClickToInput()}
-                onDragEnter={onDragEnter}
-                onDragOver={onDragEnter}
-                onDragLeave={onDragLeave}
-                onDrop={(event: React.DragEvent<HTMLDivElement>) => {
-                  const { dataTransfer }: { dataTransfer: DataTransfer } = event;
-                  onDragLeave(event);
-                  onFilesChange(Array.from(dataTransfer.files));
-                }}
-                className={classNames(styles.dragAndDrop, isDragOverDrop && styles.dragAndDropActive)}
+                className={classNames(
+                  styles.dragAndDrop,
+                  isDragOverDrop && styles.dragAndDropActive,
+                  disabled && styles.dragAndDropDisabled,
+                )}
                 ref={dropAreaRef}
+                {...(disabled
+                  ? {}
+                  : {
+                      onClick: () => passClickToInput(),
+                      onDragEnter,
+                      onDragOver: onDragEnter,
+                      onDragLeave,
+                      onDrop,
+                    })}
               >
                 <div className={styles.dragAndDropLabel}>
                   <IconUpload aria-hidden />

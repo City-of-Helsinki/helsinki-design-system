@@ -52,6 +52,26 @@ export const Multiple = (args) => {
   );
 };
 
+export const WithDragAndDrop = (args) => {
+  const [file, setFile] = React.useState<File[]>();
+  // eslint-disable-next-line no-console
+  console.log('selected files', file);
+
+  return (
+    <FileInput
+      {...args}
+      multiple
+      dragAndDrop
+      id="file-input"
+      label="Drag and drop files here"
+      language="en"
+      buttonLabel="Add files"
+      onChange={setFile}
+      accept=".png,.jpg"
+    />
+  );
+};
+
 export const Disabled = (args) => {
   const [file, setFile] = React.useState<File[]>();
   // eslint-disable-next-line no-console
@@ -61,6 +81,26 @@ export const Disabled = (args) => {
     <FileInput
       {...args}
       disabled
+      id="file-input"
+      label="Choose a file"
+      buttonLabel="Add a file"
+      language="en"
+      onChange={setFile}
+      accept="image/*"
+    />
+  );
+};
+
+export const DisabledDragAndDrop = (args) => {
+  const [file, setFile] = React.useState<File[]>();
+  // eslint-disable-next-line no-console
+  console.log('selected file', file);
+
+  return (
+    <FileInput
+      {...args}
+      disabled
+      dragAndDrop
       id="file-input"
       label="Choose a file"
       buttonLabel="Add a file"
@@ -86,26 +126,6 @@ export const Required = (args) => {
       language="en"
       onChange={setFile}
       accept="image/*"
-    />
-  );
-};
-
-export const WithDragAndDrop = (args) => {
-  const [file, setFile] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected files', file);
-
-  return (
-    <FileInput
-      {...args}
-      multiple
-      dragAndDrop
-      id="file-input"
-      label="Drag and drop files here"
-      language="en"
-      buttonLabel="Add files"
-      onChange={setFile}
-      accept=".png,.jpg"
     />
   );
 };
