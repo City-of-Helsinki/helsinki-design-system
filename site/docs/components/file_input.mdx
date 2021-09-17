@@ -80,12 +80,9 @@ If in some cases having the ability to drag and drop files onto the page could h
 <Playground>
   <FileInput
       multiple
+      dragAndDrop
       id="file-input"
       label="Drag and drop files here"
-      dragAndDrop={{
-        label: 'Drag files here',
-        helperText: 'or browse from your computer',
-      }}
       language="en"
       buttonLabel="Add files"
       accept=".png,.jpg"
@@ -96,12 +93,9 @@ If in some cases having the ability to drag and drop files onto the page could h
 ```tsx
 <FileInput
   multiple
+  dragAndDrop
   id="file-input"
   label="Drag and drop files here"
-  dragAndDrop={{
-    label: 'Drag files here',
-    helperText: 'or browse from your computer',
-  }}
   language="en"
   buttonLabel="Add files"
   accept=".png,.jpg"
