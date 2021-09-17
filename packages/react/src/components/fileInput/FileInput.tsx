@@ -332,7 +332,7 @@ export const FileInput = ({
     helperText: helperTextToUse,
     successText: successTextToUse,
     errorText: errorTextToUse,
-    infoText: infoTextToUse,
+    infoText: disabled ? undefined : infoTextToUse,
     id,
     label,
     required,
