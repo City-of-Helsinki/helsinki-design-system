@@ -15,7 +15,6 @@ describe('<FileInput /> spec', () => {
       <FileInput
         id="test-file-input"
         label="Choose a file"
-        buttonLabel="Add a file"
         language="en"
         accept=".png,.jpg"
         onChange={onChangeTest}
@@ -29,7 +28,6 @@ describe('<FileInput /> spec', () => {
       <FileInput
         id="test-file-input"
         label="Choose a file"
-        buttonLabel="Add file"
         language="en"
         accept=".png,.jpg"
         onChange={onChangeTest}
@@ -45,7 +43,6 @@ describe('<FileInput /> spec', () => {
       <FileInput
         id="test-file-input"
         label={inputLabel}
-        buttonLabel="Add file"
         language="en"
         accept=".png,.jpg"
         onChange={onChangeTest}
@@ -81,7 +78,6 @@ describe('<FileInput /> spec', () => {
       <FileInput
         id="test-file-input"
         label={inputLabel}
-        buttonLabel="Add files"
         language="en"
         onChange={onChangeCallback}
         multiple
@@ -125,7 +121,6 @@ describe('<FileInput /> spec', () => {
       <FileInput
         id="test-file-input"
         label={inputLabel}
-        buttonLabel="Add files"
         onChange={onChangeCallback}
         multiple
       />,
@@ -152,7 +147,6 @@ describe('<FileInput /> spec', () => {
       <FileInput
         id="test-file-input"
         label={inputLabel}
-        buttonLabel="Add files"
         onChange={onChangeCallback}
         dragAndDrop
         dragAndDropLabel={dragAndDropLabel}
@@ -180,7 +174,6 @@ describe('<FileInput /> spec', () => {
         id="test-file-input"
         maxSize={maxSize}
         label={inputLabel}
-        buttonLabel="Add files"
         language="en"
         onChange={onChangeTest}
         multiple
@@ -210,7 +203,6 @@ describe('<FileInput /> spec', () => {
         id="test-file-input"
         maxSize={maxSize}
         label={inputLabel}
-        buttonLabel="Add files"
         language="en"
         onChange={onChangeTest}
         accept=".jpg,.png"
@@ -243,7 +235,6 @@ describe('<FileInput /> spec', () => {
         id="test-file-input"
         maxSize={maxSize}
         label={inputLabel}
-        buttonLabel="Add files"
         language="en"
         onChange={onChangeTest}
         accept="image/*"
@@ -276,7 +267,6 @@ describe('<FileInput /> spec', () => {
       <FileInput
         id="test-file-input"
         label={inputLabel}
-        buttonLabel="Add files"
         language="en"
         onChange={onChangeCallback}
         multiple

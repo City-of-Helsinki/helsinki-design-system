@@ -13,7 +13,7 @@ export default {
   args: {
     id: 'file-input',
     label: 'Choose files',
-    buttonLabel: 'Add files',
+    buttonLabel: '',
     language: 'en',
     maxSize: 1.5 * 1024 * 1024,
     accept: '.png,.jpg',
@@ -40,7 +40,6 @@ export const Single = (args) => {
 
 Single.args = {
   label: 'Choose a file',
-  buttonLabel: 'Add a file',
 };
 
 export const Multiple = (args) => {
@@ -117,7 +116,6 @@ export const Disabled = (args) => {
 Disabled.args = {
   disabled: true,
   label: 'Choose a file',
-  buttonLabel: 'Add a file',
   accept: '.png,.jpg,.pdf,.json',
 };
 
@@ -171,7 +169,6 @@ export const Required = (args) => {
 
 Required.args = {
   label: 'Choose a file',
-  buttonLabel: 'Add a file',
   accept: 'image/*',
 };
 
@@ -182,7 +179,7 @@ export const Playground = () => {
 
   const id = text('id', 'file-input');
   const label = text('Label', 'Choose files');
-  const buttonLabel = text('ButtonLabel', 'Add files');
+  const buttonLabel = text('ButtonLabel', '');
   const language = radios(
     'language',
     {
