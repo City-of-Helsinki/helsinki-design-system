@@ -12,26 +12,14 @@ const onChangeTest = () => {};
 describe('<FileInput /> spec', () => {
   it('renders the component', () => {
     const { asFragment } = render(
-      <FileInput
-        id="test-file-input"
-        label="Choose a file"
-        language="en"
-        accept=".png,.jpg"
-        onChange={onChangeTest}
-      />,
+      <FileInput id="test-file-input" label="Choose a file" language="en" accept=".png,.jpg" onChange={onChangeTest} />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should not have basic accessibility issues', async () => {
     const { container } = render(
-      <FileInput
-        id="test-file-input"
-        label="Choose a file"
-        language="en"
-        accept=".png,.jpg"
-        onChange={onChangeTest}
-      />,
+      <FileInput id="test-file-input" label="Choose a file" language="en" accept=".png,.jpg" onChange={onChangeTest} />,
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
@@ -74,15 +62,7 @@ describe('<FileInput /> spec', () => {
     const fileC = new File([''], fileNameC, { type: 'image/png' });
     Object.defineProperty(fileC, 'size', { value: 3.3 * 1024 * 1024 * 1024 });
     const files: File[] = [fileA, fileB, fileC];
-    render(
-      <FileInput
-        id="test-file-input"
-        label={inputLabel}
-        language="en"
-        onChange={onChangeCallback}
-        multiple
-      />,
-    );
+    render(<FileInput id="test-file-input" label={inputLabel} language="en" onChange={onChangeCallback} multiple />);
     const fileUpload = screen.getByLabelText(inputLabel);
     userEvent.upload(fileUpload, files);
     const list = screen.getByLabelText('3 files added.');
@@ -117,14 +97,7 @@ describe('<FileInput /> spec', () => {
     const firstFile = new File(['test-file'], firstFileName, { type: 'image/png' });
     const secondFileName = 'test-file-b';
     const secondFile = new File(['test-file'], secondFileName, { type: 'image/png' });
-    render(
-      <FileInput
-        id="test-file-input"
-        label={inputLabel}
-        onChange={onChangeCallback}
-        multiple
-      />,
-    );
+    render(<FileInput id="test-file-input" label={inputLabel} onChange={onChangeCallback} multiple />);
     const fileUpload = screen.getByLabelText(inputLabel);
     userEvent.upload(fileUpload, [firstFile]);
     userEvent.upload(fileUpload, [secondFile]);
@@ -263,15 +236,7 @@ describe('<FileInput /> spec', () => {
     const fileA = new File(['test-file'], fileNameA, { type: 'image/png' });
     const fileNameB = 'test-file-b';
     const fileB = new File(['test-file'], fileNameB, { type: 'image/png' });
-    render(
-      <FileInput
-        id="test-file-input"
-        label={inputLabel}
-        language="en"
-        onChange={onChangeCallback}
-        multiple
-      />,
-    );
+    render(<FileInput id="test-file-input" label={inputLabel} language="en" onChange={onChangeCallback} multiple />);
     const fileUpload = screen.getByLabelText(inputLabel);
     userEvent.upload(fileUpload, [fileA, fileB]);
     const list = screen.getByLabelText('2 files added.');
