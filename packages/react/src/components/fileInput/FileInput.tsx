@@ -1,6 +1,7 @@
 import path from 'path';
 
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import uniqueId from 'lodash.uniqueid';
 
 // import core base styles
 import 'hds-core';
@@ -10,11 +11,6 @@ import { Button } from '../button';
 import { IconPlus, IconPhoto, IconCross, IconDocument, IconUpload } from '../../icons';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import styles from './FileInput.module.scss';
-
-type DragAndDropProps = {
-  label: string;
-  helperText: string;
-};
 
 type Language = 'en' | 'fi' | 'sv';
 
@@ -36,9 +32,17 @@ type FileInputProps = {
    */
   disabled?: boolean;
   /**
-   * Drag and Drop area properties. If present, a drag and drop area with helper labels will render with file input. The area is not visible for assistive technology
+   * If `true`, the file input will have a drag and drop area
    */
-  dragAndDrop?: DragAndDropProps;
+  dragAndDrop?: boolean;
+  /**
+   * Overrides default drag and drop area text
+   */
+  dragAndDropLabel?: string;
+  /**
+   * Overrides default label text between the drag and drop area and the input
+   */
+  dragAndDropInputLabel?: string;
   /**
    * The error text content that will be shown below the input
    */
@@ -91,6 +95,14 @@ type FileInputProps = {
   successText?: string;
 };
 
+type FileItem = {
+  uiId: string;
+  file: File;
+};
+
+const convertFileToFileItem = (file: File): FileItem => ({ file, uiId: uniqueId(file.name) });
+const convertFileItemToFile = (fileItem: FileItem): File => fileItem.file;
+
 export const formatBytes = (bytes: number): string => {
   if (bytes === 0) {
     return '0 B';
@@ -104,11 +116,27 @@ export const formatBytes = (bytes: number): string => {
   }`;
 };
 
+const getDragAndDropLabel = (language: Language): string => {
+  return {
+    en: 'Drag files here',
+    fi: 'Raahaa tiedostot tähän',
+    sv: 'Dra filerna hit',
+  }[language];
+};
+
+const getDragAndDropInputLabel = (language: Language): string => {
+  return {
+    en: 'or browse from your device',
+    fi: 'tai valitse tiedostot laitteeltasi',
+    sv: 'eller välj filerna från din enhet',
+  }[language];
+};
+
 const getNoFilesAddedMessage = (language: Language): string => {
   return {
-    en: 'No file(s) selected.',
+    en: 'No file has been selected.',
     fi: 'Yhtään tiedostoa ei ole valittu.',
-    sv: 'No file(s) selected.',
+    sv: 'Ingen fil har valts.',
   }[language];
 };
 
@@ -122,9 +150,9 @@ const getRemoveButtonLabel = (language: Language): string => {
 
 const getRemoveButtonAriaLabel = (language: Language, fileName: string): string => {
   return {
-    en: `Remove ${fileName} from the added files list.`,
-    fi: `Poista tiedosto ${fileName} lisättyjen tiedostojen listasta.`,
-    sv: `Ta bort ${fileName} tillagda filen från fillistan.`,
+    en: `Remove ${fileName} from the added files.`,
+    fi: `Poista tiedosto ${fileName} lisätyistä tiedostoista.`,
+    sv: `Ta bort ${fileName} från filerna som lagts till.`,
   }[language];
 };
 
@@ -132,15 +160,15 @@ const getFileListAriaLabel = (language: Language, totalAddedFiles: number): stri
   return {
     en: `${totalAddedFiles === 0 ? '1 file' : `${totalAddedFiles} files`} added.`,
     fi: `${totalAddedFiles === 0 ? '1 tiedosto' : `${totalAddedFiles} tiedostoa`} added.`,
-    sv: `${totalAddedFiles === 0 ? '1 file' : `${totalAddedFiles} files`} added.`,
+    sv: `${totalAddedFiles === 0 ? '1 fil' : `${totalAddedFiles} filer`} har lagts till.`,
   }[language];
 };
 
 const getRemoveSuccessMessage = (language: Language): string => {
   return {
-    en: 'File removed.',
+    en: 'The file has been deleted.',
     fi: 'Tiedosto poistettu.',
-    sv: 'Filen borttagen.',
+    sv: 'Filen har tagits bort.',
   }[language];
 };
 
@@ -150,7 +178,7 @@ const getAddSuccessMessage = (language: Language, numberOfAdded: number, numberO
   return {
     en: `${partOfTotalStr} file(s) added.`,
     fi: `${partOfTotalStr} tiedosto(a) lisätty.`,
-    sv: `${partOfTotalStr} file(s) added.`,
+    sv: `${partOfTotalStr} fil(er) har lagts till.`,
   }[language];
 };
 
@@ -158,9 +186,9 @@ const getMaxSizeMessage = (language: Language, maxSize: number): string => {
   const formattedMaxSize = formatBytes(maxSize);
 
   return {
-    en: `Max file size is ${formattedMaxSize}.`,
+    en: `The maximum file size is ${formattedMaxSize}.`,
     fi: `Suurin sallittu tiedostokoko on ${formattedMaxSize}.`,
-    sv: `Max file size is ${formattedMaxSize}.`,
+    sv: `Den maximala filstorleken är ${formattedMaxSize}.`,
   }[language];
 };
 
@@ -178,7 +206,7 @@ const getAcceptMessage = (language: Language, accept: string): string => {
   return {
     en: `Only ${getAcceptString(accept, 'and')} files.`,
     fi: `Vain ${getAcceptString(accept, 'ja')} tiedostoja.`,
-    sv: `Only ${getAcceptString(accept, 'and')} files.`,
+    sv: `Endast ${getAcceptString(accept, 'och')} filer.`,
   }[language];
 };
 
@@ -188,7 +216,7 @@ const getFailedValidationTitle = (language: Language, numberOfFailed: number, nu
   return {
     en: `File processing failed for ${partOfTotalStr} files:\n`,
     fi: `Tiedostonlisäys epäonnistui ${partOfTotalStr} tiedoston kohdalla:\n`,
-    sv: `File processing failed for ${partOfTotalStr} files:\n`,
+    sv: `Filprocesseringen av filerna ${partOfTotalStr} misslyckades:\n`,
   }[language];
 };
 
@@ -196,24 +224,24 @@ const getAcceptErrorMessage = (language: Language, file: File, accept: string): 
   const acceptMessage = getAcceptMessage(language, accept);
 
   return {
-    en: `File, ${file.name}, did not match the accepted file types. ${acceptMessage}`,
+    en: `The file type, ${file.name}, is not supported. ${acceptMessage}`,
     fi: `Tiedoston, ${file.name}, tyyppi ei vastaa hyväksyttyjä tiedostotyppejä. ${acceptMessage}`,
-    sv: `File, ${file.name}, did not match the accepted file types. ${acceptMessage}`,
+    sv: `Filformatet, ${file.name}, stöds inte. ${acceptMessage}`,
   }[language];
 };
 
 const getMaxSizeErrorMessage = (language: Language, file: File, maxSize: number): string => {
   const fileSize = formatBytes(file.size);
-  const maxSizeString = formatBytes(maxSize);
 
   return {
-    en: `File, ${file.name}, is too large (${fileSize}). Max size is ${maxSizeString}.`,
-    fi: `Tiedosto, ${file.name} on liian suuri (${fileSize}). Suurin sallittu koko on ${maxSizeString}.`,
-    sv: `File, ${file.name}, is too large (${fileSize}). Max size is ${maxSizeString}.`,
+    en: `File, ${file.name}, is too large (${fileSize}). ${getMaxSizeMessage(language, maxSize)}`,
+    fi: `Tiedosto, ${file.name} on liian suuri (${fileSize}). ${getMaxSizeMessage(language, maxSize)}`,
+    sv: `Filen, ${file.name}, är för stor (${fileSize}). ${getMaxSizeMessage(language, maxSize)}`,
   }[language];
 };
 
 enum ValidationErrorType {
+  accept = 'accept',
   maxSize = 'maxSize',
 }
 
@@ -232,7 +260,7 @@ const validateAccept = (language: Language, accept: string) => (file: File): tru
   const hasMatchingFileExtension = !!acceptedExtensions.find((acceptExtension) => acceptExtension === extension);
   return (
     (!!fileType && (isMatchingType || hasMatchingFileExtension)) || {
-      type: ValidationErrorType.maxSize,
+      type: ValidationErrorType.accept,
       text: getAcceptErrorMessage(language, file, accept),
     }
   );
@@ -247,11 +275,6 @@ const validateMaxSize = (language: Language, maxSize: number) => (file: File): t
   );
 };
 
-const getFileUId = (file: File): string => {
-  const now = new Date();
-  return `${file.name}-${now.getTime()}`;
-};
-
 export const FileInput = ({
   id,
   label,
@@ -259,6 +282,8 @@ export const FileInput = ({
   language = 'fi',
   disabled,
   dragAndDrop,
+  dragAndDropLabel,
+  dragAndDropInputLabel,
   maxSize,
   className = '',
   successText,
@@ -273,17 +298,16 @@ export const FileInput = ({
 }: FileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const didMountRef = useRef<boolean>(false);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [selectedFileItems, setSelectedFileItems] = useState<FileItem[]>([]);
   const [inputStateText, setInputStateText] = useState<string | undefined>(
     disabled ? undefined : getNoFilesAddedMessage(language),
   );
   const [invalidText, setInvalidText] = useState<string | undefined>();
   const [processSuccessText, setProcessSuccessText] = useState<string | undefined>();
-  const hasFilesSelected = selectedFiles && selectedFiles.length > 0;
+  const hasFileItems = selectedFileItems && selectedFileItems.length > 0;
   const fileListId = `${id}-list`;
   const fileListRef = useRef<HTMLUListElement>(null);
   const fileListFocusIndexRef = useRef<number>();
-  const hasDragAndDrop = !!dragAndDrop && !!dragAndDrop.label && !!dragAndDrop.helperText;
   const dropAreaRef = useRef<HTMLDivElement>(null);
   const [isDragOverDrop, setIsDragOverDrop] = useState<boolean>(false);
   const instructionsText = [
@@ -315,7 +339,13 @@ export const FileInput = ({
     }
   };
 
-  const resetFileInputValue = () => {
+  const passFocusToInput = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
+  const resetInputValue = () => {
     if (inputRef.current) {
       inputRef.current.value = '';
     }
@@ -361,7 +391,7 @@ export const FileInput = ({
       if (validationErrors.length > 0) {
         setInvalidText(getValidationErrorsMessage(validationErrors, 1));
       } else {
-        setSelectedFiles(validFiles);
+        setSelectedFileItems([convertFileToFileItem(validFiles[0])]);
         setProcessSuccessText(getAddSuccessMessage(language, 1, 1));
       }
     }
@@ -376,7 +406,8 @@ export const FileInput = ({
       }
 
       if (validFiles.length > 0) {
-        setSelectedFiles([...selectedFiles, ...files]);
+        const newFileItems: FileItem[] = validFiles.map(convertFileToFileItem);
+        setSelectedFileItems([...selectedFileItems, ...newFileItems]);
         setProcessSuccessText(getAddSuccessMessage(language, validFiles.length, files.length));
       }
     }
@@ -392,20 +423,20 @@ export const FileInput = ({
     }
   };
 
-  const onRemoveFileFromList = (fileToRemove: File, indexToRemove: number) => {
+  const onRemoveFileFromList = (fileItemToRemove: FileItem, indexToRemove: number) => {
     clearState();
 
-    const selectedFilesWithoutRemoved = selectedFiles.filter(
-      (file: File, index) => index !== indexToRemove && file.name !== fileToRemove.name,
+    const selectedFilesWithoutRemoved = selectedFileItems.filter(
+      (fileItem: FileItem) => fileItem.uiId !== fileItemToRemove.uiId,
     );
-    setSelectedFiles(selectedFilesWithoutRemoved);
+    setSelectedFileItems(selectedFilesWithoutRemoved);
     setInputStateText(getRemoveSuccessMessage(language));
 
     if (selectedFilesWithoutRemoved.length > 0) {
       fileListFocusIndexRef.current = indexToRemove > 0 ? indexToRemove - 1 : 0;
       setInputStateText(getRemoveSuccessMessage(language));
-    } else if (inputRef.current) {
-      inputRef.current.focus();
+    } else {
+      passFocusToInput();
       setInputStateText(getNoFilesAddedMessage(language));
     }
   };
@@ -422,20 +453,27 @@ export const FileInput = ({
     setIsDragOverDrop(false);
   };
 
+  const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    const { dataTransfer }: { dataTransfer: DataTransfer } = event;
+    onDragLeave(event);
+    onFilesChange(Array.from(dataTransfer.files));
+  };
+
   useEffect(() => {
     if (didMountRef.current && onChange) {
+      const selectedFiles: File[] = selectedFileItems.map(convertFileItemToFile);
       onChange(selectedFiles);
     } else {
       didMountRef.current = true;
     }
     // Clear input value on every change to ensure it triggers a onChange event when files are added
-    resetFileInputValue();
-  }, [selectedFiles, onChange]);
+    resetInputValue();
+  }, [selectedFileItems, onChange]);
 
   // Compose aria-describedby attribute
   const ariaDescribedBy: string = [
     composeAriaDescribedBy(id, helperTextToUse, errorTextToUse, successText, infoTextToUse),
-    hasFilesSelected && fileListId,
+    hasFileItems && fileListId,
   ]
     .filter((text) => !!text)
     .join(' ');
@@ -444,36 +482,50 @@ export const FileInput = ({
     <>
       <InputWrapper {...wrapperProps}>
         <div className={styles.fileInputContainer}>
-          {hasDragAndDrop && (
+          {dragAndDrop && (
             <>
               <div
                 aria-hidden
-                onClick={() => passClickToInput()}
-                onDragEnter={onDragEnter}
-                onDragOver={onDragEnter}
-                onDragLeave={onDragLeave}
-                onDrop={(event: React.DragEvent<HTMLDivElement>) => {
-                  const { dataTransfer }: { dataTransfer: DataTransfer } = event;
-                  onDragLeave(event);
-                  onFilesChange(Array.from(dataTransfer.files));
-                }}
-                className={classNames(styles.dragAndDrop, isDragOverDrop && styles.dragAndDropActive)}
+                className={classNames(
+                  styles.dragAndDrop,
+                  isDragOverDrop && styles.dragAndDropActive,
+                  disabled && styles.dragAndDropDisabled,
+                )}
                 ref={dropAreaRef}
+                {...(disabled
+                  ? {}
+                  : {
+                      onClick: () => passClickToInput(),
+                      onDragEnter,
+                      onDragOver: onDragEnter,
+                      onDragLeave,
+                      onDrop,
+                    })}
               >
                 <div className={styles.dragAndDropLabel}>
                   <IconUpload aria-hidden />
-                  <span className={styles.dragAndDropLabelText}>{dragAndDrop.label}</span>
+                  <span className={styles.dragAndDropLabelText}>
+                    {dragAndDropLabel || getDragAndDropLabel(language)}
+                  </span>
                 </div>
               </div>
-              <div className={styles.dragAndDropHelperText}>{dragAndDrop.helperText}</div>
+              <div className={styles.dragAndDropHelperText}>
+                {dragAndDropInputLabel || getDragAndDropInputLabel(language)}
+              </div>
             </>
           )}
           <div className={styles.fileInputWrapper}>
             <Button
               aria-hidden
+              tabIndex={-1}
               variant="secondary"
               iconLeft={<IconPlus aria-hidden />}
-              onClick={() => passClickToInput()}
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                passFocusToInput();
+                passClickToInput();
+              }}
               disabled={disabled}
             >
               {buttonLabel}
@@ -501,12 +553,12 @@ export const FileInput = ({
         tabIndex={-1}
         className={styles.fileList}
         aria-label={
-          hasFilesSelected ? getFileListAriaLabel(language, selectedFiles.length) : getNoFilesAddedMessage(language)
+          hasFileItems ? getFileListAriaLabel(language, selectedFileItems.length) : getNoFilesAddedMessage(language)
         }
       >
-        {selectedFiles.map((file: File, index: number) => (
+        {selectedFileItems.map((item: FileItem, index: number) => (
           <li
-            key={getFileUId(file)}
+            key={item.uiId}
             className={styles.fileListItem}
             tabIndex={-1}
             ref={(el) => {
@@ -515,19 +567,24 @@ export const FileInput = ({
               }
             }}
           >
-            {file.type.startsWith('image') ? <IconPhoto aria-hidden /> : <IconDocument aria-hidden />}
+            {item.file.type.startsWith('image') ? <IconPhoto aria-hidden /> : <IconDocument aria-hidden />}
             <div className={styles.fileListItemTitle}>
-              <span className={styles.fileListItemName}>{file.name}</span>
-              <span className={styles.fileListItemSize}>({formatBytes(file.size)})</span>
+              <span className={styles.fileListItemName}>{item.file.name}</span>
+              <span className={styles.fileListItemSize}>({formatBytes(item.file.size)})</span>
             </div>
             <Button
-              onClick={() => onRemoveFileFromList(file, index)}
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                onRemoveFileFromList(item, index);
+              }}
               variant="supplementary"
               size="small"
               theme="black"
               iconLeft={<IconCross />}
-              aria-label={getRemoveButtonAriaLabel(language, file.name)}
+              aria-label={getRemoveButtonAriaLabel(language, item.file.name)}
               className={styles.fileListItemButton}
+              disabled={disabled}
             >
               {getRemoveButtonLabel(language)}
             </Button>

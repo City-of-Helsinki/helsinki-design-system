@@ -21,6 +21,12 @@ $componentMaxWidth: 500px;
   color: var(--color-coat-of-arms-dark);
 }
 
+.dragAndDropDisabled {
+  border-color: var(--color-black-50);
+  color: var(--color-black-50);
+  cursor: not-allowed;
+}
+
 .dragAndDropLabel {
   align-items: center;
   display: flex;
@@ -43,6 +49,12 @@ $componentMaxWidth: 500px;
   display: inline-block;
   margin: var(--spacing-2-xs) 0;
   position: relative;
+
+  // We need to manually add focus styles to the button when the input has focus.
+  &:focus-within > button:after {
+    --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
+    border-color: var(--focus-outline-color);
+  }
 }
 
 .fileInput {
@@ -61,8 +73,7 @@ $componentMaxWidth: 500px;
   border-bottom: 2px dotted var(--color-coat-of-arms);
   box-sizing: border-box;
   display: flex;
-  padding: var(--spacing-s);
-  padding-right: var(--spacing-2-xs);
+  padding: var(--spacing-s) var(--spacing-2-xs);
   max-width: 100%;
   width: $componentMaxWidth;
 
@@ -77,7 +88,7 @@ $componentMaxWidth: 500px;
   flex: 1;
   flex-wrap: nowrap;
   font-size: var(--fontsize-body-s);
-  margin: 0 var(--spacing-xs);
+  margin: 2px var(--spacing-xs) 0 var(--spacing-2-xs);
 }
 
 .fileListItemName {
@@ -86,15 +97,13 @@ $componentMaxWidth: 500px;
 }
 
 .fileListItemSize {
-  flex: 1;
-  margin-left: var(--spacing-s);
-  min-width: 6ch;
+  margin-left:var(--spacing-2-xs);
   text-align: right;
   white-space: nowrap;
 }
 
 .fileListItemButton {
-  --file-list-item-button-y-offset: calc(-1 * var(--spacing-2-xs) - 1px);
+  --file-list-item-button-y-offset: calc(-1 * var(--spacing-2-xs) - 2px);
   display: flex;
   margin: var(--file-list-item-button-y-offset) auto var(--file-list-item-button-y-offset) 0;
 }
