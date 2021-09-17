@@ -144,6 +144,19 @@ Success message indicates that an inputted value has passed form validation. Suc
 
 It is better to avoid using success validation if there is not a clear need for it. Using redundant success messages creates unnecessary visual noise to the view.
 
+#### 3. Info message
+Info message can be used to convey information to the user which otherwise could be left unnoticed. The info message is optional and it should not be used to give instructions or display errors. It is meant to inform the user if something has caused changes to the input. Examples of situations requiring an info text could be:
+- The value of the input has changed after the user edited it. For example, it was fixed automatically.
+- Some other user or an official has made changes to the value.
+- The value has been filled automatically for the user.
+- The component status has changed. For example, a file was removed from the file input.
+
+<Image src="../../static/patterns/form-validation/form-validation-message-info-1@2x.png" alt="Info message example; the input value was edited" style="max-width:376px;" viewable /><br />
+In the above example, the info text is used to inform the user that the time input value has changed after the user inputted it.
+
+<Image src="../../static/patterns/form-validation/form-validation-message-info-2@2x.png" alt="Info message example; the input was filled automatically" style="max-width:376px;" viewable /><br />
+In the above example, the info text is used to inform the user that the input was filled automatically. It is also described to the user from where the information is coming from.
+
 ### Validation summary pattern
 
 **When using static or hybrid validation methods, HDS recommends using a validation summary to clearly list errors found during the form submit**. Validation summary pattern uses an error summary component which is provided by HDS. The error summary is notification-like element which lists all errors (and their descriptions) found in the form and provides anchor links to each erroneous input for easy access. 
