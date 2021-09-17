@@ -97,17 +97,17 @@ describe('<FileInput /> spec', () => {
     const fileItemA = fileListItems.find((i) => i.innerHTML.includes(fileNameA));
     const { getByText: getByTextInA, getByLabelText: getByLabelInA } = within(fileItemA);
     expect(getByTextInA('(12.5 MB)')).toBeInTheDocument();
-    expect(getByLabelInA(`Remove ${fileNameA} from the added files list.`)).toBeInTheDocument();
+    expect(getByLabelInA(`Remove ${fileNameA} from the added files.`)).toBeInTheDocument();
 
     const fileItemB = fileListItems.find((i) => i.innerHTML.includes(fileNameB));
     const { getByText: getByTextInB, getByLabelText: getByLabelInB } = within(fileItemB);
     expect(getByTextInB('(110 kB)')).toBeInTheDocument();
-    expect(getByLabelInB(`Remove ${fileNameB} from the added files list.`)).toBeInTheDocument();
+    expect(getByLabelInB(`Remove ${fileNameB} from the added files.`)).toBeInTheDocument();
 
     const fileItemC = fileListItems.find((i) => i.innerHTML.includes(fileNameC));
     const { getByText: getByTextInC, getByLabelText: getByLabelInC } = within(fileItemC);
     expect(getByTextInC('(3.3 GB)')).toBeInTheDocument();
-    expect(getByLabelInC(`Remove ${fileNameC} from the added files list.`)).toBeInTheDocument();
+    expect(getByLabelInC(`Remove ${fileNameC} from the added files.`)).toBeInTheDocument();
     expect(filesValue).toEqual([fileA, fileB, fileC]);
   });
 
@@ -145,10 +145,7 @@ describe('<FileInput /> spec', () => {
       filesValue = files;
     };
     const inputLabel = 'Choose files';
-    const dragAndDropAreaLabels = {
-      label: 'Drag files here',
-      helperText: 'or browse from your computer',
-    };
+    const dragAndDropLabel = 'Drag files here';
     const fileName = 'test-file-a';
     const file = new File(['test-file'], fileName, { type: 'image/png' });
     render(
@@ -157,10 +154,11 @@ describe('<FileInput /> spec', () => {
         label={inputLabel}
         buttonLabel="Add files"
         onChange={onChangeCallback}
-        dragAndDrop={dragAndDropAreaLabels}
+        dragAndDrop
+        dragAndDropLabel={dragAndDropLabel}
       />,
     );
-    fireEvent.drop(screen.getByText(dragAndDropAreaLabels.label, { exact: false }), {
+    fireEvent.drop(screen.getByText(dragAndDropLabel, { exact: false }), {
       dataTransfer: {
         files: [file],
       },
@@ -194,7 +192,9 @@ describe('<FileInput /> spec', () => {
     expect(screen.getByText('1/2 file(s) added', { exact: false })).toBeInTheDocument();
     expect(screen.getByText('File processing failed for 1/2 files:', { exact: false })).toBeInTheDocument();
     expect(
-      screen.getByText(`File, ${secondFileName}, is too large (31 B). Max size is 10 B.`, { exact: false }),
+      screen.getByText(`File, ${secondFileName}, is too large (31 B). The maximum file size is 10 B.`, {
+        exact: false,
+      }),
     ).toBeInTheDocument();
   });
 
@@ -223,7 +223,7 @@ describe('<FileInput /> spec', () => {
     expect(screen.getByText('1/2 file(s) added', { exact: false })).toBeInTheDocument();
     expect(screen.getByText('File processing failed for 1/2 files:', { exact: false })).toBeInTheDocument();
     expect(
-      screen.getByText(`File, ${secondFileName}, did not match the accepted file types. Only .jpg and .png files`, {
+      screen.getByText(`The file type, ${secondFileName}, is not supported. Only .jpg and .png files.`, {
         exact: false,
       }),
     ).toBeInTheDocument();
@@ -256,7 +256,7 @@ describe('<FileInput /> spec', () => {
     expect(screen.getByText('2/3 file(s) added', { exact: false })).toBeInTheDocument();
     expect(screen.getByText('File processing failed for 1/3 files:', { exact: false })).toBeInTheDocument();
     expect(
-      screen.getByText(`File, test-file-b.json, did not match the accepted file types. Only image/* files.`, {
+      screen.getByText(`The file type, ${secondFileName}, is not supported. Only image/* files.`, {
         exact: false,
       }),
     ).toBeInTheDocument();
@@ -291,19 +291,19 @@ describe('<FileInput /> spec', () => {
     expect(filesValue).toEqual([fileA, fileB]);
     // Remove the second file
     await act(async () => {
-      userEvent.click(screen.getByLabelText(`Remove ${fileNameB} from the added files list.`));
+      userEvent.click(screen.getByLabelText(`Remove ${fileNameB} from the added files.`));
     });
     const listItemsAfterFirstRemove = getAllByRole('listitem');
     expect(listItemsAfterFirstRemove.length).toBe(1);
     expect(listItemsAfterFirstRemove[0]).toHaveFocus();
     expect(filesValue).toEqual([fileA]);
-    expect(screen.getByText('File removed.', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('The file has been deleted.', { exact: false })).toBeInTheDocument();
     // Remove the last file
     await act(async () => {
-      userEvent.click(screen.getByLabelText(`Remove ${fileNameA} from the added files list.`));
+      userEvent.click(screen.getByLabelText(`Remove ${fileNameA} from the added files.`));
     });
     expect(list).toBeEmptyDOMElement();
-    expect(screen.getByText('No file(s) selected.', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('No file has been selected.', { exact: false })).toBeInTheDocument();
     expect(fileUpload).toHaveFocus();
     expect(filesValue).toEqual([]);
   });
