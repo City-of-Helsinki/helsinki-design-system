@@ -307,9 +307,7 @@ export const FileInput = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const didMountRef = useRef<boolean>(false);
   const [selectedFileItems, setSelectedFileItems] = useState<FileItem[]>([]);
-  const [inputStateText, setInputStateText] = useState<string | undefined>(
-    disabled ? undefined : getNoFilesAddedMessage(language),
-  );
+  const [inputStateText, setInputStateText] = useState<string | undefined>();
   const [invalidText, setInvalidText] = useState<string | undefined>();
   const [processSuccessText, setProcessSuccessText] = useState<string | undefined>();
   const hasFileItems = selectedFileItems && selectedFileItems.length > 0;
@@ -327,7 +325,7 @@ export const FileInput = ({
   const helperTextToUse = helperText || instructionsText;
   const successTextToUse = successText || processSuccessText;
   const errorTextToUse = errorText || invalidText;
-  const infoTextToUse = infoText || inputStateText;
+  const infoTextToUse = infoText || inputStateText || getNoFilesAddedMessage(language);
 
   const wrapperProps = {
     className,
