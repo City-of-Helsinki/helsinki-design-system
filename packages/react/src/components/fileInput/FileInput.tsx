@@ -20,9 +20,9 @@ type FileInputProps = {
    */
   accept?: string;
   /**
-   * The label for the file button. The button is not visible for assistive technology
+   * The label for the file button. Overrides default text. The button is not visible for assistive technology
    */
-  buttonLabel: string;
+  buttonLabel?: string;
   /**
    * Additional class names to apply to the file input
    */
@@ -114,6 +114,14 @@ export const formatBytes = (bytes: number): string => {
   return `${sizeUnitIndex < 2 || sizeInUnit % 1 === 0 ? Math.round(sizeInUnit) : sizeInUnit.toFixed(1)} ${
     sizeUnits[sizeUnitIndex]
   }`;
+};
+
+const getButtonLabel = (language: Language, multiple: boolean): string => {
+  return {
+    en: `Add ${multiple ? 'files' : 'a file'}`,
+    fi: `Lisää ${multiple ? 'tiedostoja' : 'tiedosto'}`,
+    sv: `Välj ${multiple ? 'filer' : 'en fil'}`,
+  }[language];
 };
 
 const getDragAndDropLabel = (language: Language): string => {
@@ -528,7 +536,7 @@ export const FileInput = ({
               }}
               disabled={disabled}
             >
-              {buttonLabel}
+              {buttonLabel || getButtonLabel(language, multiple)}
             </Button>
             <input
               type="file"
