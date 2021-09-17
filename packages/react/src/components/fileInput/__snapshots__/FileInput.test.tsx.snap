@@ -71,7 +71,7 @@ exports[`<FileInput /> spec renders the component 1`] = `
       class="infoText"
       id="test-file-input-info"
     >
-      No file(s) selected.
+      No file has been selected.
     </div>
     <div
       class="helperText"
@@ -81,7 +81,7 @@ exports[`<FileInput /> spec renders the component 1`] = `
     </div>
   </div>
   <ul
-    aria-label="No file(s) selected."
+    aria-label="No file has been selected."
     class="fileList"
     id="test-file-input-list"
     tabindex="-1"

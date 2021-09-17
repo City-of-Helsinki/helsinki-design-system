@@ -118,25 +118,25 @@ export const formatBytes = (bytes: number): string => {
 
 const getDragAndDropLabel = (language: Language): string => {
   return {
-    en: 'Drag files here.',
+    en: 'Drag files here',
     fi: 'Raahaa tiedostot tähän',
-    sv: '---',
+    sv: 'Dra filerna hit',
   }[language];
 };
 
 const getDragAndDropInputLabel = (language: Language): string => {
   return {
-    en: 'or browse from your computer',
-    fi: 'tai valitse tiedostot koneelta',
-    sv: '---',
+    en: 'or browse from your device',
+    fi: 'tai valitse tiedostot laitteeltasi',
+    sv: 'eller välj filerna från din enhet',
   }[language];
 };
 
 const getNoFilesAddedMessage = (language: Language): string => {
   return {
-    en: 'No file(s) selected.',
+    en: 'No file has been selected.',
     fi: 'Yhtään tiedostoa ei ole valittu.',
-    sv: 'No file(s) selected.',
+    sv: 'Ingen fil har valts.',
   }[language];
 };
 
@@ -150,9 +150,9 @@ const getRemoveButtonLabel = (language: Language): string => {
 
 const getRemoveButtonAriaLabel = (language: Language, fileName: string): string => {
   return {
-    en: `Remove ${fileName} from the added files list.`,
-    fi: `Poista tiedosto ${fileName} lisättyjen tiedostojen listasta.`,
-    sv: `Ta bort ${fileName} tillagda filen från fillistan.`,
+    en: `Remove ${fileName} from the added files.`,
+    fi: `Poista tiedosto ${fileName} lisätyistä tiedostoista.`,
+    sv: `Ta bort ${fileName} från filerna som lagts till.`,
   }[language];
 };
 
@@ -160,15 +160,15 @@ const getFileListAriaLabel = (language: Language, totalAddedFiles: number): stri
   return {
     en: `${totalAddedFiles === 0 ? '1 file' : `${totalAddedFiles} files`} added.`,
     fi: `${totalAddedFiles === 0 ? '1 tiedosto' : `${totalAddedFiles} tiedostoa`} added.`,
-    sv: `${totalAddedFiles === 0 ? '1 file' : `${totalAddedFiles} files`} added.`,
+    sv: `${totalAddedFiles === 0 ? '1 fil' : `${totalAddedFiles} filer`} har lagts till.`,
   }[language];
 };
 
 const getRemoveSuccessMessage = (language: Language): string => {
   return {
-    en: 'File removed.',
+    en: 'The file has been deleted.',
     fi: 'Tiedosto poistettu.',
-    sv: 'Filen borttagen.',
+    sv: 'Filen har tagits bort.',
   }[language];
 };
 
@@ -178,7 +178,7 @@ const getAddSuccessMessage = (language: Language, numberOfAdded: number, numberO
   return {
     en: `${partOfTotalStr} file(s) added.`,
     fi: `${partOfTotalStr} tiedosto(a) lisätty.`,
-    sv: `${partOfTotalStr} file(s) added.`,
+    sv: `${partOfTotalStr} fil(er) har lagts till.`,
   }[language];
 };
 
@@ -186,9 +186,9 @@ const getMaxSizeMessage = (language: Language, maxSize: number): string => {
   const formattedMaxSize = formatBytes(maxSize);
 
   return {
-    en: `Max file size is ${formattedMaxSize}.`,
+    en: `The maximum file size is ${formattedMaxSize}.`,
     fi: `Suurin sallittu tiedostokoko on ${formattedMaxSize}.`,
-    sv: `Max file size is ${formattedMaxSize}.`,
+    sv: `Den maximala filstorleken är ${formattedMaxSize}.`,
   }[language];
 };
 
@@ -206,7 +206,7 @@ const getAcceptMessage = (language: Language, accept: string): string => {
   return {
     en: `Only ${getAcceptString(accept, 'and')} files.`,
     fi: `Vain ${getAcceptString(accept, 'ja')} tiedostoja.`,
-    sv: `Only ${getAcceptString(accept, 'and')} files.`,
+    sv: `Endast ${getAcceptString(accept, 'och')} filer.`,
   }[language];
 };
 
@@ -216,7 +216,7 @@ const getFailedValidationTitle = (language: Language, numberOfFailed: number, nu
   return {
     en: `File processing failed for ${partOfTotalStr} files:\n`,
     fi: `Tiedostonlisäys epäonnistui ${partOfTotalStr} tiedoston kohdalla:\n`,
-    sv: `File processing failed for ${partOfTotalStr} files:\n`,
+    sv: `Filprocesseringen av filerna ${partOfTotalStr} misslyckades:\n`,
   }[language];
 };
 
@@ -224,20 +224,19 @@ const getAcceptErrorMessage = (language: Language, file: File, accept: string): 
   const acceptMessage = getAcceptMessage(language, accept);
 
   return {
-    en: `File, ${file.name}, did not match the accepted file types. ${acceptMessage}`,
+    en: `The file type, ${file.name}, is not supported. ${acceptMessage}`,
     fi: `Tiedoston, ${file.name}, tyyppi ei vastaa hyväksyttyjä tiedostotyppejä. ${acceptMessage}`,
-    sv: `File, ${file.name}, did not match the accepted file types. ${acceptMessage}`,
+    sv: `Filformatet, ${file.name}, stöds inte. ${acceptMessage}`,
   }[language];
 };
 
 const getMaxSizeErrorMessage = (language: Language, file: File, maxSize: number): string => {
   const fileSize = formatBytes(file.size);
-  const maxSizeString = formatBytes(maxSize);
 
   return {
-    en: `File, ${file.name}, is too large (${fileSize}). Max size is ${maxSizeString}.`,
-    fi: `Tiedosto, ${file.name} on liian suuri (${fileSize}). Suurin sallittu koko on ${maxSizeString}.`,
-    sv: `File, ${file.name}, is too large (${fileSize}). Max size is ${maxSizeString}.`,
+    en: `File, ${file.name}, is too large (${fileSize}). ${getMaxSizeMessage(language, maxSize)}`,
+    fi: `Tiedosto, ${file.name} on liian suuri (${fileSize}). ${getMaxSizeMessage(language, maxSize)}`,
+    sv: `Filen, ${file.name}, är för stor (${fileSize}). ${getMaxSizeMessage(language, maxSize)}`,
   }[language];
 };
 
