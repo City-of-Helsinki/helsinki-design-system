@@ -30,6 +30,7 @@ import Link from "../../src/components/Link";
   - If the user has to upload multiple files that are not related to each other, prefer using multiple file uploads - one for each file. 
 - Dragging and dropping files can be allowed by using the `dragAndDrop` property.
 - The FileInput uses an info text element to inform the user about the status of the component. You can read more about the usage of the info text element in the [HDS Form validation pattern documentation page](/patterns/form-validation#3-info-message).
+- The FileInput component resolves human-readable file size abbreviations based on a binary system. The file size texts are shown after the selected file name and in maxSize messages if maxSize validation is used.
 
 ## Accessibility
 - While dragging and dropping files is not considered to be accessible, HDS will always include the default input below the drag and drop area. Clicking the drag and drop area also opens the device-specific file browser.
