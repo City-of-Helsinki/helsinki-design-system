@@ -468,7 +468,7 @@ export const FileInput = ({
     if (!didMountRef.current) {
       setInputStateText(getNoFilesAddedMessage(language));
     }
-  }, [onChange, setInputStateText, language]);
+  }, [setInputStateText, language]);
 
   useEffect(() => {
     if (didMountRef.current && onChange) {
