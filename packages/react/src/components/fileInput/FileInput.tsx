@@ -325,7 +325,7 @@ export const FileInput = ({
   const helperTextToUse = helperText || instructionsText;
   const successTextToUse = successText || processSuccessText;
   const errorTextToUse = errorText || invalidText;
-  const infoTextToUse = infoText || inputStateText || getNoFilesAddedMessage(language);
+  const infoTextToUse = infoText || inputStateText;
 
   const wrapperProps = {
     className,
@@ -436,7 +436,6 @@ export const FileInput = ({
       (fileItem: FileItem) => fileItem.uiId !== fileItemToRemove.uiId,
     );
     setSelectedFileItems(selectedFilesWithoutRemoved);
-    setInputStateText(getRemoveSuccessMessage(language));
 
     if (selectedFilesWithoutRemoved.length > 0) {
       fileListFocusIndexRef.current = indexToRemove > 0 ? indexToRemove - 1 : 0;
@@ -464,6 +463,12 @@ export const FileInput = ({
     onDragLeave(event);
     onFilesChange(Array.from(dataTransfer.files));
   };
+
+  useEffect(() => {
+    if (!didMountRef.current) {
+      setInputStateText(getNoFilesAddedMessage(language));
+    }
+  }, [onChange, setInputStateText, language]);
 
   useEffect(() => {
     if (didMountRef.current && onChange) {
