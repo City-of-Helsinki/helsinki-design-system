@@ -70,7 +70,7 @@ type FileInputProps = {
    */
   language?: Language;
   /**
-   * Maximum file size in bytes. If present, the file size is compared to this property. Maximum file size in bytes. If present, the file size is compared to this property. If the file(s) size property is larger than the max size, the component will not add the file(s), and it will show an error message with the file name.
+   * Maximum file size in bytes. If present, the file size is compared to this property. If the file(s) size property is larger than the max size, the component will not add the file(s), and it will show an error message with the file name.
    */
   maxSize?: number;
   /**
@@ -108,7 +108,7 @@ export const formatBytes = (bytes: number): string => {
     return '0 B';
   }
 
-  const sizeUnits: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
+  const sizeUnits: string[] = ['B', 'KB', 'MB', 'GB', 'TB'];
   const sizeUnitIndex = Math.floor(Math.log(bytes) / Math.log(1024));
   const sizeInUnit = bytes / 1024 ** sizeUnitIndex;
   return `${sizeUnitIndex < 2 || sizeInUnit % 1 === 0 ? Math.round(sizeInUnit) : sizeInUnit.toFixed(1)} ${

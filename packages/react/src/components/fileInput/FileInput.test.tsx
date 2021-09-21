@@ -77,7 +77,7 @@ describe('<FileInput /> spec', () => {
 
     const fileItemB = fileListItems.find((i) => i.innerHTML.includes(fileNameB));
     const { getByText: getByTextInB, getByLabelText: getByLabelInB } = within(fileItemB);
-    expect(getByTextInB('(110 kB)')).toBeInTheDocument();
+    expect(getByTextInB('(110 KB)')).toBeInTheDocument();
     expect(getByLabelInB(`Remove ${fileNameB} from the added files.`)).toBeInTheDocument();
 
     const fileItemC = fileListItems.find((i) => i.innerHTML.includes(fileNameC));
@@ -274,7 +274,7 @@ describe('formatBytes spec', () => {
   });
 
   it('should return rounded string for kilobytes', async () => {
-    expect(formatBytes(12.5 * 1024)).toBe('13 kB');
+    expect(formatBytes(12.5 * 1024)).toBe('13 KB');
   });
 
   it('should return string for megabytes', async () => {
