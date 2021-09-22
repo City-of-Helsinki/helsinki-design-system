@@ -6,6 +6,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - Sep, 22, 2021
+
+### Core
+- [TextInput] Added Info message to inform user of dynamic input value changes
+- [Icons] New icons:
+  - Shopping cart
+
+### React Components
+
+#### Added
+- File Input
+- [Text Input, TextArea, Password Input, Number Input, Time Input, File Input] Added Info message to inform user of dynamic input value changes
+- [Icons] New icons:
+  - Shopping cart
+
+#### Change
+- [Accordion] Changed Accordion to open via header click
+- [Accordion] Added support for accordion being open by default
+
+### Design kit
+
+#### Added
+- [Form Components] File Input symbols
+- [Form Components] New InfoMessage element that can be used with all form components
+- Info message can be used to convey information to the user which otherwise could be left unnoticed. It is meant to inform the user if something has caused changes to the input.
+- [Icons] Shopping cart icon
+
+### Documentation
+
+#### Added
+- File Input documentation
+- [Form validation pattern] Info message usage guidelines
+- Missing components to form pattern documentation
+
+#### Changed
+- [Form pattern] Added missing form components to the form pattern documentation
+- [Form pattern] Updated some of the images in the form pattern to use the current focus style
+- Changed heading colour in all documentation site and Storybook examples from --color-bussi to --color-black-90
+- Use DateInput and Phone Input in the form examples
+
 ## [1.4.1] - Sep, 9, 2021
 
 ### React Components
