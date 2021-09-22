@@ -125,6 +125,7 @@
   line-height: var(--lineheight-l);
   font-size: var(--fontsize-body-m);
   margin-top: var(--spacing-3-xs);
+  white-space: pre-line;
 }
 
 /* ERROR TEXT */
@@ -136,6 +137,7 @@
   line-height: var(--lineheight-l);
   margin-top: var(--spacing-3-xs);
   padding-left: calc(var(--icon-size) + var(--spacing-2-xs));
+  white-space: pre-line;
 }
 .hds-text-input__error-text:not(:last-child) {
   margin-bottom: var(--spacing-2-xs);
@@ -177,6 +179,7 @@
   line-height: var(--lineheight-l);
   margin-top: var(--spacing-3-xs);
   padding-left: calc(var(--icon-size) + var(--spacing-2-xs));
+  white-space: pre-wrap;
 }
 .hds-text-input__success-text:not(:last-child) {
   margin-bottom: var(--spacing-2-xs);
