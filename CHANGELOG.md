@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 - File Input
-- [Text Input, TextArea, Password Input, Number Input, Time Input, File Input] Added Info message to inform user of dynamic input value changes
+- [Text Input, TextArea, Password Input, Number Input, Time Input, Date Input, File Input] Added Info message to inform user of dynamic input value changes
 - [Icons] New icons:
   - Shopping cart
 
