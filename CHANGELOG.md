@@ -24,6 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Change
 - [Accordion] Changed Accordion to open via header click
 - [Accordion] Added support for accordion being open by default
+- Use DateInput and Phone Input in the form examples
+- Add date validation in the form examples
 
 ### Design kit
 
@@ -44,7 +46,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Form pattern] Added missing form components to the form pattern documentation
 - [Form pattern] Updated some of the images in the form pattern to use the current focus style
 - Changed heading colour in all documentation site and Storybook examples from --color-bussi to --color-black-90
-- Use DateInput and Phone Input in the form examples
 
 ## [1.4.1] - Sep, 9, 2021
 
