@@ -13,6 +13,8 @@ import {
   TextArea,
   ErrorSummary,
   Combobox,
+  DateInput,
+  PhoneInput,
 } from '../../components';
 
 import './validation.scss';
@@ -46,6 +48,7 @@ export const Hybrid = () => {
       permitEndDate: '',
       additionalRequests: '',
       acceptTerms: false,
+      phoneNumber: '',
     },
     // Define Yup validation schema
     validationSchema: Yup.object().shape({
@@ -71,6 +74,10 @@ export const Hybrid = () => {
         otherwise: Yup.string(),
       }),
       acceptTerms: Yup.boolean().oneOf([true], 'Please accept the terms and conditions'),
+      phoneNumber: Yup.string().matches(
+        /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/,
+        'Please enter the phone number in format 123-456-7890',
+      ),
     }),
     // Enable validation on field change
     validateOnChange: true,
@@ -247,6 +254,24 @@ export const Hybrid = () => {
               tooltipText="We will send a confirmation to this email address. You may also receive important updates about your parking permit via email."
             />
           </div>
+          <div className="hds-example-form__grid-6-6">
+            <div className="hds-example-form__item">
+              <PhoneInput
+                id="phoneNumber"
+                name="phoneNumber"
+                label="Phone number"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                helperText="Use format 123-456-7890"
+                value={formik.values.phoneNumber}
+                invalid={!!getErrorMessage('phoneNumber')}
+                aria-invalid={!!getErrorMessage('phoneNumber')}
+                errorText={getErrorMessage('phoneNumber')}
+                successText={getSuccessMessage ? getSuccessMessage('phoneNumber') : undefined}
+              />
+            </div>
+          </div>
         </div>
         <div className="hds-example-form__section">
           <h3 className="hds-example-form__section-title">Vehicle information</h3>
@@ -334,12 +359,14 @@ export const Hybrid = () => {
             </div>
             {formik.values.parkingPeriod === 'temporary' && (
               <div className="hds-example-form__item">
-                <TextInput
+                <DateInput
                   id="permitEndDate"
                   name="permitEndDate"
                   label="Permit end date"
                   helperText="Use format DD.MM.YYYY"
-                  onChange={formik.handleChange}
+                  onChange={(value) => {
+                    formik.setFieldValue('permitEndDate', value || '');
+                  }}
                   onBlur={formik.handleBlur}
                   value={formik.values.permitEndDate}
                   invalid={!!getErrorMessage('permitEndDate')}
