@@ -1,0 +1,113 @@
+@import "../../styles/common";
+$componentMaxWidth: 500px;
+
+.dragAndDrop {
+  align-items: center;
+  box-sizing: border-box;
+  border: 2px dotted var(--color-coat-of-arms);
+  color: var(--color-coat-of-arms);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-xs);
+  max-width: $componentMaxWidth;
+  padding: var(--spacing-s);
+  width: 100%;
+}
+
+.dragAndDropActive {
+  background-color: var(--color-silver-light);
+  border-color: var(--color-coat-of-arms-dark);
+  color: var(--color-coat-of-arms-dark);
+}
+
+.dragAndDropDisabled {
+  border-color: var(--color-black-50);
+  color: var(--color-black-50);
+  cursor: not-allowed;
+}
+
+.dragAndDropLabel {
+  align-items: center;
+  display: flex;
+}
+
+.dragAndDropLabelText {
+  margin-left: var(--spacing-s);
+}
+
+.dragAndDropHelperText {
+  @extend %inputLabel;
+  margin: var(--spacing-s) 0 var(--spacing-2-xs);
+}
+
+.fileInputContainer {
+  flex: 1;
+}
+
+.fileInputWrapper {
+  display: inline-block;
+  margin: var(--spacing-2-xs) 0;
+  position: relative;
+
+  // We need to manually add focus styles to the button when the input has focus.
+  &:focus-within > button:after {
+    --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
+    border-color: var(--focus-outline-color);
+  }
+}
+
+.fileInput {
+  @extend %hiddenFromScreen;
+}
+
+.fileList {
+  list-style: none;
+  margin: var(--spacing-s) 0 0;
+  padding: 0;
+}
+
+.fileListItem {
+  align-items: flex-start;
+  background-color: var(--color-info-light);
+  border-bottom: 2px dotted var(--color-coat-of-arms);
+  box-sizing: border-box;
+  display: flex;
+  padding: var(--spacing-s) var(--spacing-2-xs);
+  max-width: 100%;
+  width: $componentMaxWidth;
+
+  & + & {
+    margin-top: var(--spacing-s);
+  }
+}
+
+.fileListItemTitle {
+  align-items: flex-start;
+  display: flex;
+  flex: 1;
+  flex-wrap: nowrap;
+  font-size: var(--fontsize-body-s);
+  margin: 2px var(--spacing-xs) 0 var(--spacing-2-xs);
+}
+
+.fileListItemName {
+  hyphens: auto;
+  word-break: break-word;
+}
+
+.fileListItemSize {
+  margin-left:var(--spacing-2-xs);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.fileListItemButton {
+  --file-list-item-button-y-offset: calc(-1 * var(--spacing-2-xs) - 2px);
+  display: flex;
+  margin: var(--file-list-item-button-y-offset) auto var(--file-list-item-button-y-offset) 0;
+}
+
+.fileListItemButtonLabel {
+  margin-left: var(--spacing-3-xs);
+}

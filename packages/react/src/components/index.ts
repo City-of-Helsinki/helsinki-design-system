@@ -9,6 +9,7 @@ export * from './dialog';
 export * from './dropdown';
 export * from './errorSummary';
 export * from './fieldset';
+export * from './fileInput';
 export * from './footer';
 export * from './imageWithCard';
 export * from './koros';
