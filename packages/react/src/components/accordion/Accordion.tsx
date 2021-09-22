@@ -19,7 +19,8 @@ export interface AccordionCustomTheme {
   '--header-font-size'?: string;
   '--header-line-height'?: string;
   '--button-size'?: string;
-  '--button-border-color-hover'?: string;
+  '--button-border-color-hover'?: string; // Deprecated, use --header-focus-outline-color instead.
+  '--header-focus-outline-color'?: string;
   '--content-font-size'?: string;
   '--content-line-height'?: string;
 }
@@ -51,6 +52,11 @@ export type CommonAccordionProps = React.PropsWithChildren<{
    */
   id?: string;
   /**
+   * Boolean indicating whether the accordion is initially opened.
+   * @default false
+   */
+  initiallyOpen?: boolean;
+  /**
    * Additional styles
    */
   style?: React.CSSProperties;
@@ -81,9 +87,22 @@ export const Accordion = ({
   heading,
   headingLevel = 2,
   id,
+  initiallyOpen = false,
   style,
   theme,
 }: AccordionProps) => {
+  if (theme && theme['--button-border-color-hover']) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      '--button-border-color-hover is deprecated, and will be removed in a future release. Please use --header-focus-outline-color instead',
+    );
+
+    /* eslint-disable no-param-reassign */
+    theme['--header-focus-outline-color'] = theme['--button-border-color-hover'];
+    delete theme['--button-border-color-hover'];
+    /* eslint-enable no-param-reassign */
+  }
+
   // Create a unique id if not provided via prop
   const [accordionId] = useState(id || uniqueId('accordion-'));
 
@@ -91,7 +110,7 @@ export const Accordion = ({
   const customThemeClass = useTheme<AccordionCustomTheme>(styles.accordion, theme);
 
   // Accordion logic
-  const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen: false });
+  const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen });
 
   // Switch icon based on isOpen state
   const icon = isOpen ? (
@@ -113,24 +132,30 @@ export const Accordion = ({
       style={style}
       id={accordionId}
     >
-      <div className={styles.accordionHeader}>
-        <div role="heading" aria-level={headingLevel} id={`${accordionId}-heading`}>
-          {heading}
-        </div>
-        <button
-          type="button"
-          {...buttonProps}
-          className={styles.accordionButton}
+      <div className={classNames(styles.accordionHeader)}>
+        <div
+          role="button"
+          tabIndex={0}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              buttonProps.onClick();
+            }
+          }}
+          className={styles.headingContainer}
           aria-labelledby={`${accordionId}-heading`}
+          {...buttonProps}
         >
+          <div role="heading" aria-level={headingLevel} id={`${accordionId}-heading`}>
+            {heading}
+          </div>
           {icon}
-        </button>
+        </div>
       </div>
       <div
         {...contentProps}
         id={`${accordionId}-content`}
         role="region"
-        className={styles.accordionContent}
+        className={classNames(styles.accordionContent, card && styles.card)}
         aria-labelledby={`${accordionId}-heading`}
       >
         {children}
