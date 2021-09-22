@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid, no-console */
-import React, { FormEvent, useState } from 'react';
-import { useFormik } from 'formik';
+import React, { FormEvent, useRef, useState } from 'react';
+import { FormikValues, useFormik } from 'formik';
 import * as Yup from 'yup';
+import { parse, isBefore, startOfDay } from 'date-fns';
 
 import { CityOptionType, getCitites, isValidDate } from './validationUtils';
 import {
@@ -25,6 +26,10 @@ export const Dynamic = () => {
    * Form submitted state
    */
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  /**
+   * Ref to set dateInput field dirty to help with validation.
+   */
+  const dateInputIsDirty = useRef(false);
   /**
    * Initialize formik
    */
@@ -65,13 +70,30 @@ export const Dynamic = () => {
         is: 'temporary',
         then: Yup.string()
           .required('Please enter a permit end date')
-          .test('is-date', 'Please enter a permit end date in DD.MM.YYYY format.', isValidDate),
+          .test('is-date', (value, { createError, path }) => {
+            if (!isValidDate(value)) {
+              return createError({
+                path,
+                message: 'Please enter a permit end date in DD.MM.YYYY format',
+              });
+            }
+
+            const selectedDate = parse(value, 'd.M.yyyy', new Date());
+
+            if (isBefore(selectedDate, startOfDay(new Date()))) {
+              return createError({
+                path,
+                message: 'Selected permit date is in the past. Please select a date that is in the future',
+              });
+            }
+            return true;
+          }),
         otherwise: Yup.string(),
       }),
       acceptTerms: Yup.boolean().oneOf([true], 'Please accept the terms and conditions'),
       phoneNumber: Yup.string().matches(
-        /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/,
-        'Please enter the phone number in format 123-456-7890',
+        /^[+][0-9]*$/,
+        'Please enter the phone number in international mobile phone number format.',
       ),
     }),
     // Enable validation on field change
@@ -231,8 +253,8 @@ export const Dynamic = () => {
                 label="Phone number"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                helperText="Use format 123-456-7890"
+                pattern="[+][0-9]"
+                helperText="Use international mobile number format, e.g. +358401234567"
                 value={formik.values.phoneNumber}
                 invalid={!!getErrorMessage('phoneNumber')}
                 aria-invalid={!!getErrorMessage('phoneNumber')}
@@ -311,7 +333,10 @@ export const Dynamic = () => {
                   name="parkingPeriod"
                   value="continuous"
                   label="Continuous"
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    formik.resetForm({ ...formik.values, permitEndDate: '' } as FormikValues);
+                  }}
                   onBlur={formik.handleBlur}
                   checked={formik.values.parkingPeriod === 'continuous'}
                 />
@@ -333,10 +358,16 @@ export const Dynamic = () => {
                   name="permitEndDate"
                   label="Permit end date"
                   helperText="Use format DD.MM.YYYY"
+                  minDate={new Date()}
                   onChange={(value) => {
+                    dateInputIsDirty.current = true;
                     formik.setFieldValue('permitEndDate', value || '');
                   }}
-                  onBlur={formik.handleBlur}
+                  onBlur={() => {
+                    if (dateInputIsDirty.current) {
+                      formik.handleBlur({ target: { name: 'permitEndDate' } });
+                    }
+                  }}
                   value={formik.values.permitEndDate}
                   invalid={!!getErrorMessage('permitEndDate')}
                   aria-invalid={!!getErrorMessage('permitEndDate')}
