@@ -24,8 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Change
 - [Accordion] Changed Accordion to open via header click
 - [Accordion] Added support for accordion being open by default
-- Use DateInput and Phone Input in the form examples
-- Add date validation in the form examples
+- Use Date Input and Phone Input in the form examples
+- Add Date Input and Phone Input validation in the form examples
 
 ### Design kit
 
