@@ -7,7 +7,7 @@ import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import { TextInputProps } from '../textInput';
 import textInputStyles from '../textInput/TextInput.module.css';
 import classNames from '../../utils/classNames';
-import comboseAriaDescribedBy from '../../utils/comboseAriaDescribedBy';
+import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
 
 export type NumberInputProps = Omit<
@@ -83,6 +83,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       step,
       style,
       successText,
+      infoText,
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
@@ -103,6 +104,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       required,
       style,
       successText,
+      infoText,
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
@@ -128,7 +130,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
     };
 
     // Compose aria-describedby attribute
-    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText);
+    const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
 
     return (
       <InputWrapper {...wrapperProps}>

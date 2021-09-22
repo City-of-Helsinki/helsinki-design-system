@@ -4,7 +4,7 @@ import React from 'react';
 import 'hds-core';
 import styles from '../textInput/TextInput.module.css';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
-import comboseAriaDescribedBy from '../../utils/comboseAriaDescribedBy';
+import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 
 export type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
   /**
@@ -64,6 +64,10 @@ export type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
    */
   successText?: string;
   /**
+   * The info text content that will be shown below the text area
+   */
+  infoText?: string;
+  /**
    * Aria-label text for the tooltip
    */
   tooltipLabel?: string;
@@ -101,6 +105,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       required,
       style,
       successText,
+      infoText,
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
@@ -119,13 +124,14 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       required,
       style,
       successText,
+      infoText,
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
     };
 
     // Compose aria-describedby attribute
-    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText);
+    const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
 
     return (
       <InputWrapper {...wrapperProps}>

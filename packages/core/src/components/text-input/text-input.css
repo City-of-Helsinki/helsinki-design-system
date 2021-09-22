@@ -13,6 +13,8 @@
   --helper-color-default: var(--color-black-60);
   --helper-color-invalid: var(--color-error);
   --helper-color-success: var(--color-success);
+  --helper-color-info: var(--color-black-90);
+  --helper-color-info-icon: var(--color-coat-of-arms);
   --icon-color-invalid: var(--color-error);
   --input-background-default: var(--color-white);
   --input-background-disabled: var(--color-black-10);
@@ -186,6 +188,34 @@
   height: var(--icon-size);
   mask-image: svg-inline(successIcon);
   -webkit-mask-image: svg-inline(successIcon);
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--icon-size);
+}
+
+/* INFO TEXT */
+.hds-text-input__info-text {
+  position: relative;
+  color: var(--helper-color-info);
+  display: block;
+  font-size: var(--fontsize-body-m);
+  line-height: var(--lineheight-l);
+  margin-top: var(--spacing-3-xs);
+  padding-left: calc(var(--icon-size) + var(--spacing-2-xs));
+}
+.hds-text-input__info-text:not(:last-child) {
+  margin-bottom: var(--spacing-2-xs);
+}
+
+.hds-text-input__info-text::before {
+  animation: fadeIn 85ms ease-out;
+  background: var(--helper-color-info-icon);
+  content: '';
+  height: var(--icon-size);
+  mask-image: svg-inline(icon);
+  -webkit-mask-image: svg-inline(icon);
   pointer-events: none;
   position: absolute;
   left: 0;

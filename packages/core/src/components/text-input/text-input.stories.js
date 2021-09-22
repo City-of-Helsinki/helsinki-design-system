@@ -8,6 +8,7 @@ const getLabel = (id = 'input', required = false, label = 'Label text') =>
 const getHelperText = (text = 'Assistive text') => `<span class="hds-text-input__helper-text">${text}</span>`;
 const getErrorText = (text = 'Error text') => `<span class="hds-text-input__error-text">${text}</span>`;
 const getSuccessText = (text = 'Success text') => `<span class="hds-text-input__success-text">${text}</span>`;
+const getInfoText = (text = 'Info text') => `<span class="hds-text-input__info-text">${text}</span>`;
 
 export default {
   title: 'Components/Text input',
@@ -90,6 +91,22 @@ export const Success = () => `
        />
      </div>
      ${getSuccessText()}
+     ${getHelperText()}
+    </div>
+`;
+
+export const Info = () => `
+   <div class="hds-text-input hds-text-input--info">
+     ${getLabel('input4')}
+     <div class="hds-text-input__input-wrapper">
+       <input
+         id="input4"
+         class="hds-text-input__input"
+         type="text"
+         placeholder="Placeholder"
+       />
+     </div>
+     ${getInfoText()}
      ${getHelperText()}
     </div>
 `;
