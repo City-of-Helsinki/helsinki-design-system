@@ -1,0 +1,80 @@
+.hds-table {
+  border-collapse: collapse;
+  font-family: var(--font-default); /* Tartteeko laittaa? */
+  width: 100%;
+  line-height: 1.5;
+}
+
+.hds-table--zebra tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.hds-table--with-vertical-lines td {
+  border-right: 1px solid var(--color-black-50);
+}
+
+.hds-table--with-vertical-lines td:last-child {
+  border-right: none;
+}
+
+.hds-table--with-vertical-lines .hds-table__content {
+  border-right: 1px solid var(--color-black-50);
+  border-left: 1px solid var(--color-black-50);
+}
+
+.hds-table--with-vertical-lines .hds-table__header-row--dark {
+  border-right: 1px solid var(--color-bus);
+  border-left: 1px solid var(--color-bus);
+}
+
+.hds-table--with-vertical-lines .hds-table__header-row--light {
+  border-right: 1px solid var(--color-black-10);
+  border-left: 1px solid var(--color-black-10);
+}
+
+.hds-table__header-row {
+  border-bottom: 1px solid var(--color-black-20);
+  white-space: nowrap;
+}
+
+.hds-table__header-row--dark {
+  background-color: var(--color-bus);
+  color: var(--color-white);
+}
+
+.hds-table__header-row--light {
+  background-color: var(--color-black-10);
+  color: var(--color-black-90);
+}
+
+.hds-table__header-row th {
+  text-align: left;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 12px 24px;
+}
+
+.hds-table__data-row td {
+  font-weight: 400;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--color-black-50);
+  font-size: 16px;
+  color: var(--color-black-90);
+}
+
+@media (max-width: 767px) {
+  .hds-table__header-row th {
+    text-align: left;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+
+  .hds-table__data-row td {
+    font-weight: 400;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+
