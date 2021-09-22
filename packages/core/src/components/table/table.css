@@ -5,7 +5,7 @@
   line-height: 1.5;
 }
 
-.hds-table--zebra tbody tr:nth-child(even) {
+.hds-table--zebra .hds-table__content tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
@@ -54,7 +54,7 @@
   padding: 12px 24px;
 }
 
-.hds-table__data-row td {
+.hds-table__content tr td {
   font-weight: 400;
   padding: 12px 24px;
   border-bottom: 1px solid var(--color-black-50);
@@ -70,7 +70,7 @@
     padding: 10px 16px;
   }
 
-  .hds-table__data-row td {
+  .hds-table__content tr td {
     font-weight: 400;
     padding: 10px 16px;
     font-size: 14px;
