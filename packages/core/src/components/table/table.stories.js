@@ -17,10 +17,10 @@ const tableRow = (firstName, surname, age, profession) =>
 export const Default = () => `
   <table class="hds-table">
     <tr class="hds-table__header-row hds-table__header-row--dark">
-      <th>First name</th>
-      <th>Surname</th>
-      <th>Age</th>
-      <th>Profession</th>
+      <th scope="col">First name</th>
+      <th scope="col">Surname</th>
+      <th scope="col">Age</th>
+      <th scope="col">Profession</th>
     </tr>
     <tbody class="hds-table__content">
       ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
@@ -34,10 +34,10 @@ export const Default = () => `
 export const Dark = () => `
   <table class="hds-table">
     <tr class="hds-table__header-row hds-table__header-row--dark">
-      <th>First name</th>
-      <th>Surname</th>
-      <th>Age</th>
-      <th>Profession</th>
+      <th scope="col">First name</th>
+      <th scope="col">Surname</th>
+      <th scope="col">Age</th>
+      <th scope="col">Profession</th>
     </tr>
     <tbody class="hds-table__content">
       ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
@@ -51,10 +51,10 @@ export const Dark = () => `
 export const Light = () => `
   <table class="hds-table">
     <tr class="hds-table__header-row hds-table__header-row--light">
-      <th>First name</th>
-      <th>Surname</th>
-      <th>Age</th>
-      <th>Profession</th>
+      <th scope="col">First name</th>
+      <th scope="col">Surname</th>
+      <th scope="col">Age</th>
+      <th scope="col">Profession</th>
     </tr>
     <tbody class="hds-table__content">
       ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
@@ -68,10 +68,10 @@ export const Light = () => `
 export const Zebra = () => `
   <table class="hds-table hds-table--zebra">
     <tr class="hds-table__header-row hds-table__header-row--dark">
-      <th>First name</th>
-      <th>Surname</th>
-      <th>Age</th>
-      <th>Profession</th>
+      <th scope="col">First name</th>
+      <th scope="col">Surname</th>
+      <th scope="col">Age</th>
+      <th scope="col">Profession</th>
     </tr>
     <tbody class="hds-table__content">
       ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
@@ -85,10 +85,10 @@ export const Zebra = () => `
 export const WithVerticalLines = () => `
   <table class="hds-table hds-table--with-vertical-lines">
     <tr class="hds-table__header-row hds-table__header-row--dark">
-      <th>First name</th>
-      <th>Surname</th>
-      <th>Age</th>
-      <th>Profession</th>
+      <th scope="col">First name</th>
+      <th scope="col">Surname</th>
+      <th scope="col">Age</th>
+      <th scope="col">Profession</th>
     </tr>
     <tbody class="hds-table__content">
       ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
