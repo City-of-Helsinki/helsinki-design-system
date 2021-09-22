@@ -5,7 +5,7 @@ import 'hds-core';
 import styles from './TextInput.module.css';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import classNames from '../../utils/classNames';
-import comboseAriaDescribedBy from '../../utils/comboseAriaDescribedBy';
+import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 
 export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
   /**
@@ -73,6 +73,10 @@ export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
    */
   successText?: string;
   /**
+   * The info text content that will be shown below the input
+   */
+  infoText?: string;
+  /**
    * Aria-label text for the tooltip
    */
   tooltipLabel?: string;
@@ -127,6 +131,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       required,
       style,
       successText,
+      infoText,
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
@@ -149,13 +154,14 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       required,
       style,
       successText,
+      infoText,
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
     };
 
     // Compose aria-describedby attribute
-    const ariaDescribedBy = comboseAriaDescribedBy(id, helperText, errorText, successText);
+    const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
 
     const hasButton = Boolean(buttonIcon && onButtonClick);
 
