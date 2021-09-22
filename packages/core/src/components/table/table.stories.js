@@ -7,7 +7,7 @@ export default {
 };
 
 const tableRow = (firstName, surname, age, profession) =>
-  `<tr class="hds-table__data-row">
+  `<tr>
     <td>${firstName}</td>
     <td>${surname}</td>
     <td>${age}</td>
