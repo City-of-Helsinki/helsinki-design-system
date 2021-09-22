@@ -16,12 +16,15 @@ export default {
   },
   args: {
     heading: 'How to publish data?',
-    children: 'To publish your data, open your profile settings and click buttton "Publish".',
+    children: 'To publish your data, open your profile settings and click button "Publish".',
     style: { maxWidth: '360px' },
   },
 };
 
 export const Default = (args) => <Accordion {...args} />;
+
+export const InitiallyOpen = (args) => <Accordion {...args} initiallyOpen />;
+InitiallyOpen.storyName = 'Initially open';
 
 export const CardAccordion = (args) => (
   <>
@@ -62,7 +65,7 @@ export const CustomTheme = (args) => (
       theme={{
         '--background-color': 'var(--color-bus)',
         '--padding-horizontal': 'var(--spacing-m)',
-        '--padding-vertical': 'var(--spacing-m)',
+        '--padding-vertical': '20px',
         '--header-font-color': 'var(--color-white)',
         '--header-font-size': 'var(--fontsize-heading-s)',
         '--header-line-height': 'var(--lineheight-s)',
