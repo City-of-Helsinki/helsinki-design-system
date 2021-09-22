@@ -62,6 +62,10 @@
   color: var(--color-black-90);
 }
 
+.hds-table--text-align-right {
+  text-align: right;
+}
+
 @media (max-width: 767px) {
   .hds-table__header-row th {
     text-align: left;

@@ -10,7 +10,7 @@ const tableRow = (firstName, surname, age, profession) =>
   `<tr>
     <td>${firstName}</td>
     <td>${surname}</td>
-    <td>${age}</td>
+    <td class="hds-table--text-align-right">${age}</td>
     <td>${profession}</td>
   </tr>`
 
