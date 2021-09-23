@@ -138,7 +138,7 @@ describe('<Combobox />', () => {
       expect(newVisibleOptions[0]).toHaveTextContent('Helsinki northeast');
     });
 
-    it('user should be able to search with specific term', () => {
+    it('user should be able to search with a more specific term', () => {
       const onChange = jest.fn();
       const { getAllByLabelText, getAllByRole } = getWrapper({
         onChange,
