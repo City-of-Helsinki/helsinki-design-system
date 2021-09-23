@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
 
 import { Combobox, ComboboxProps } from './Combobox';
@@ -39,11 +40,8 @@ describe('<Combobox />', () => {
     const onChange = jest.fn();
     const { getAllByLabelText, getAllByRole, queryByDisplayValue } = getWrapper({ onChange });
     const input = getAllByLabelText(label)[0];
-
     userEvent.type(input, 'Fi');
-
     const visibleOptions = getAllByRole('option');
-
     // Ensure that options are filtered correctly
     expect(visibleOptions.length).toBe(1);
 
