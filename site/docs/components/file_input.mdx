@@ -54,50 +54,70 @@ Below are some good practices you need to consider. For more detailed checklist,
 In its default form, the HDS FileInput offers a button-like element that opens a file browser native to the user's current device. Selected files are presented in a list below the input and files can be removed from the listing separately.
 
 <Playground>
-  <FileInput
-    id="file-input"
-    label="Choose a file"
-    language="en"
-    maxSize={1.5 * 1024 * 1024}
-    accept=".png,.jpg"
-  />
+  {() => {
+    const [file, setFile] = React.useState([]);
+    console.log('selected file', file);
+    return <FileInput
+      id="file-input"
+      label="Choose a file"
+      language="en"
+      maxSize={1.5 * 1024 * 1024}
+      accept=".png,.jpg"
+      onChange={setFile}
+    />
+  }}
 </Playground>
 
 #### React code example:
 ```tsx
-<FileInput
-  id="file-input"
-  label="Choose a file"
-  language="en"
-  maxSize={1.5 * 1024 * 1024}
-  accept=".png,.jpg"
-/>
+  {() => {
+    const [file, setFile] = React.useState([]);
+    console.log('selected file', file);
+    return <FileInput
+      id="file-input"
+      label="Choose a file"
+      language="en"
+      maxSize={1.5 * 1024 * 1024}
+      accept=".png,.jpg"
+      onChange={setFile}
+    />
+  }}
 ```
 
 ### File input with drag and drop
 If in some cases having the ability to drag and drop files onto the page could help the user, this can be enabled with the `dragAndDrop` property. Note that the traditional file input is still included below the drag and drop area. Therefore this property does not weaken the accessibility of the component.
 
 <Playground>
-  <FileInput
+  {() => {
+    const [files, setFiles] = React.useState([]);
+    console.log('selected files', files);
+    return <FileInput
       multiple
       dragAndDrop
       id="file-input"
       label="Drag and drop files here"
       language="en"
       accept=".png,.jpg"
-  />
+      onChange={setFiles}
+    />
+  }}
 </Playground>
 
 #### React code example:
 ```tsx
-<FileInput
-  multiple
-  dragAndDrop
-  id="file-input"
-  label="Drag and drop files here"
-  language="en"
-  accept=".png,.jpg"
-/>  
+  {() => {
+    const [files, setFiles] = React.useState([]);
+    console.log('selected files', files);
+    return <FileInput
+      multiple
+      dragAndDrop
+      id="file-input"
+      label="Drag and drop files here"
+      language="en"
+      accept=".png,.jpg"
+      onChange={setFiles}
+    />
+  }}
 ```
 
 ## Demos & API
