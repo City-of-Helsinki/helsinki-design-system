@@ -70,7 +70,7 @@ function getDefaultFilter<OptionType>(labelField: string): FilterFunction<Option
         return false;
       }
 
-      return label.toLowerCase().startsWith(search.toLowerCase());
+      return label.toLowerCase().indexOf(search.toLowerCase()) > -1;
     });
   };
 }
