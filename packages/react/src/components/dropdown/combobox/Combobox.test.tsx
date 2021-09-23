@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { Combobox, ComboboxProps } from './Combobox';
 
 const label = 'Combobox';
+
 const options = [
   { label: 'Finland', value: 'FI' },
   { label: 'Sweden', value: 'SV' },
@@ -12,6 +13,16 @@ const options = [
   { label: 'Botswana', value: 'BW' },
   { label: 'Bolivia', value: 'BO' },
 ];
+
+const multiWordOptions = [
+  { label: 'Helsinki', value: 'helsinki' },
+  { label: 'Helsinki east region', value: 'helsinki-east' },
+  { label: 'Helsinki north region', value: 'helsinki-north' },
+  { label: 'Helsinki northeast region', value: 'helsinki-northeast' },
+  { label: 'Helsinki northwest region', value: 'helsinki-northwest' },
+  { label: 'Helsinki west region', value: 'helsinki-west' },
+];
+
 const defaultProps: ComboboxProps<{ label: string; value: string }> = {
   label,
   options,
@@ -105,6 +116,42 @@ describe('<Combobox />', () => {
       const visibleOptionsAfterClose = queryAllByRole('option');
       expect(visibleOptionsAfterClose.length).toBe(0);
       expect(queryAllByText(options[0].label).length).toEqual(0);
+    });
+
+    it('user should be able to search with multiple word term', () => {
+      const onChange = jest.fn();
+      const { getAllByLabelText, getAllByRole } = getWrapper({
+        onChange,
+        multiselect: true,
+        options: multiWordOptions,
+      });
+
+      const input = getAllByLabelText(label)[0];
+
+      // First result
+      userEvent.type(input, 'Helsinki');
+      const visibleOptions = getAllByRole('option');
+      expect(visibleOptions.length).toBe(6);
+
+      // The result after more specific search
+      userEvent.type(input, '{space}northeast');
+      const newVisibleOptions = getAllByRole('option');
+      expect(newVisibleOptions.length).toBe(1);
+      expect(newVisibleOptions[0]).toHaveTextContent('Helsinki northeast');
+    });
+
+    it('user should be able to search with specific term', () => {
+      const onChange = jest.fn();
+      const { getAllByLabelText, getAllByRole } = getWrapper({
+        onChange,
+        multiselect: true,
+        options: multiWordOptions,
+      });
+
+      const input = getAllByLabelText(label)[0];
+      userEvent.type(input, 'northeast');
+      const visibleOptions = getAllByRole('option');
+      expect(visibleOptions.length).toBe(1);
     });
   });
 });
