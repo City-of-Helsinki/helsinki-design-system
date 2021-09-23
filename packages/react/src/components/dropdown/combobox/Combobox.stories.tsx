@@ -65,7 +65,7 @@ export const Multiselect = (args) => <Combobox {...args} />;
 Multiselect.storyName = 'Multi-select';
 Multiselect.args = {
   multiselect: true,
-  options: getPointOptions()
+  options: getPointOptions(),
 };
 
 export const Invalid = (args) => <Combobox {...args} />;
