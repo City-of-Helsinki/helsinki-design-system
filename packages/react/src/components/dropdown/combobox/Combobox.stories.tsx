@@ -29,13 +29,14 @@ function getOptions() {
 
 const options = getOptions();
 
-function getPointOptions() {
+function getRegionOptions() {
   return [
-    { label: 'Helsinki' },
-    { label: 'Helsinki east' },
-    { label: 'Helsinki west' },
-    { label: 'Helsinki north' },
-    { label: 'Helsinki south' },
+    { label: 'Helsinki', value: 'helsinki' },
+    { label: 'Helsinki east region', value: 'helsinki-east' },
+    { label: 'Helsinki north region', value: 'helsinki-north' },
+    { label: 'Helsinki northeast region', value: 'helsinki-northeast' },
+    { label: 'Helsinki northwest region', value: 'helsinki-northwest' },
+    { label: 'Helsinki west region', value: 'helsinki-west' },
   ];
 }
 
@@ -65,7 +66,7 @@ export const Multiselect = (args) => <Combobox {...args} />;
 Multiselect.storyName = 'Multi-select';
 Multiselect.args = {
   multiselect: true,
-  options: getPointOptions(),
+  options: getRegionOptions(),
 };
 
 export const Invalid = (args) => <Combobox {...args} />;
