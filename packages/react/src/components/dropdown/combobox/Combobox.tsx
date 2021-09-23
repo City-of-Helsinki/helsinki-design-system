@@ -478,6 +478,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
             disabled,
             className: classNames(styles.button, !showToggleButton && styles.hidden),
             'aria-label': `${label}: ${toggleButtonAriaLabel}`,
+            'aria-expanded': isOpen,
             ...(invalid && { 'aria-invalid': true }),
           })}
         >
