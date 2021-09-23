@@ -29,6 +29,16 @@ function getOptions() {
 
 const options = getOptions();
 
+function getPointOptions() {
+  return [
+    { label: 'Helsinki' },
+    { label: 'Helsinki east' },
+    { label: 'Helsinki west' },
+    { label: 'Helsinki north' },
+    { label: 'Helsinki south' },
+  ];
+}
+
 export default {
   component: Combobox,
   title: 'Components/Dropdowns/Combobox',
@@ -55,6 +65,7 @@ export const Multiselect = (args) => <Combobox {...args} />;
 Multiselect.storyName = 'Multi-select';
 Multiselect.args = {
   multiselect: true,
+  options: getPointOptions()
 };
 
 export const Invalid = (args) => <Combobox {...args} />;

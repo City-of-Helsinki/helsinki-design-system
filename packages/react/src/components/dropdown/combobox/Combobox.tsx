@@ -295,15 +295,12 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
       e.stopPropagation();
     }
 
-    if (e.key === ' ') {
+    // Only select an item with 'Space' if an index is highlighted. Otherwise, it should have the default behavior, add a space into the input value.
+    if (e.key === ' ' && highlightedIndex > -1) {
       // Prevent 'Space' from typing a space into the input.
       e.preventDefault();
-
-      // Only select an item if an index is highlighted
-      if (highlightedIndex > -1) {
-        const highlightedItem = getFilteredItems[highlightedIndex];
-        setSelectedItems(highlightedItem);
-      }
+      const highlightedItem = getFilteredItems[highlightedIndex];
+      setSelectedItems(highlightedItem);
     }
 
     // If the menu is open, prevent the events for dropdown from firing.
