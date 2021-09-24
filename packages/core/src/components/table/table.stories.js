@@ -15,143 +15,159 @@ const tableRow = (firstName, surname, age, profession) =>
   </tr>`
 
 export const Default = () => `
-  <table class="hds-table">
-    <tr class="hds-table__header-row">
-      <th scope="col">First name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Age</th>
-      <th scope="col">Profession</th>
-    </tr>
-    <tbody class="hds-table__content">
-      ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
-      ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
-      ${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
-      ${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
-    </tbody>
-  </table>
+	<div class="hds-table-container">
+		<table class="hds-table">
+			<tr class="hds-table__header-row">
+				<th scope="col">First name</th>
+				<th scope="col">Surname</th>
+				<th scope="col">Age</th>
+				<th scope="col">Profession</th>
+			</tr>
+			<tbody class="hds-table__content">
+				${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
+				${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
+				${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
+				${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
+			</tbody>
+		</table>
+	 </div>
 `;
 
 export const Light = () => `
-  <table class="hds-table hds-table--light">
-    <tr class="hds-table__header-row">
-      <th scope="col">First name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Age</th>
-      <th scope="col">Profession</th>
-    </tr>
-    <tbody class="hds-table__content">
-      ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
-      ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
-      ${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
-      ${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
-    </tbody>
-  </table>
+	<div class="hds-table-container">
+		<table class="hds-table hds-table--light">
+			<tr class="hds-table__header-row">
+				<th scope="col">First name</th>
+				<th scope="col">Surname</th>
+				<th scope="col">Age</th>
+				<th scope="col">Profession</th>
+			</tr>
+			<tbody class="hds-table__content">
+				${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
+				${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
+				${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
+				${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
+			</tbody>
+		</table>
+	</div>
 `;
 
 export const Zebra = () => `
-  <table class="hds-table hds-table--zebra">
-    <tr class="hds-table__header-row">
-      <th scope="col">First name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Age</th>
-      <th scope="col">Profession</th>
-    </tr>
-    <tbody class="hds-table__content">
-      ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
-      ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
-      ${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
-      ${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
-    </tbody>
-  </table>
+	<div class="hds-table-container">
+		<table class="hds-table hds-table--zebra">
+			<tr class="hds-table__header-row">
+				<th scope="col">First name</th>
+				<th scope="col">Surname</th>
+				<th scope="col">Age</th>
+				<th scope="col">Profession</th>
+			</tr>
+			<tbody class="hds-table__content">
+				${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
+				${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
+				${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
+				${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
+			</tbody>
+		</table>
+	</div>
 `;
 
 export const ZebraLight = () => `
-  <table class="hds-table hds-table--light hds-table--zebra">
-    <tr class="hds-table__header-row">
-      <th scope="col">First name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Age</th>
-      <th scope="col">Profession</th>
-    </tr>
-    <tbody class="hds-table__content">
-      ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
-      ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
-      ${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
-      ${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
-    </tbody>
-  </table>
+	<div class="hds-table-container">
+		<table class="hds-table hds-table--light hds-table--zebra">
+			<tr class="hds-table__header-row">
+				<th scope="col">First name</th>
+				<th scope="col">Surname</th>
+				<th scope="col">Age</th>
+				<th scope="col">Profession</th>
+			</tr>
+			<tbody class="hds-table__content">
+				${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
+				${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
+				${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
+				${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
+			</tbody>
+		</table>
+	</div>
 `;
 
 export const VerticalLines = () => `
-  <table class="hds-table hds-table--with-vertical-lines">
-    <tr class="hds-table__header-row">
-      <th scope="col">First name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Age</th>
-      <th scope="col">Profession</th>
-    </tr>
-    <tbody class="hds-table__content">
-      ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
-      ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
-      ${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
-      ${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
-    </tbody>
-  </table>
+	<div class="hds-table-container">
+		<table class="hds-table hds-table--with-vertical-lines">
+			<tr class="hds-table__header-row">
+				<th scope="col">First name</th>
+				<th scope="col">Surname</th>
+				<th scope="col">Age</th>
+				<th scope="col">Profession</th>
+			</tr>
+			<tbody class="hds-table__content">
+				${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
+				${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
+				${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
+				${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
+			</tbody>
+		</table>
+	</div>
 `;
 
 export const VerticalLinesLight = () => `
-  <table class="hds-table hds-table--light hds-table--with-vertical-lines">
-    <tr class="hds-table__header-row">
-      <th scope="col">First name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Age</th>
-      <th scope="col">Profession</th>
-    </tr>
-    <tbody class="hds-table__content">
-      ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
-      ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
-      ${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
-      ${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
-    </tbody>
-  </table>
+	<div class="hds-table-container">
+		<table class="hds-table hds-table--light hds-table--with-vertical-lines">
+			<tr class="hds-table__header-row">
+				<th scope="col">First name</th>
+				<th scope="col">Surname</th>
+				<th scope="col">Age</th>
+				<th scope="col">Profession</th>
+			</tr>
+			<tbody class="hds-table__content">
+				${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
+				${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
+				${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
+				${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
+			</tbody>
+		</table>
+	</div>
 `;
 
 export const VerticalLinesZebra = () => `
-  <table class="hds-table hds-table--zebra hds-table--with-vertical-lines">
-    <tr class="hds-table__header-row">
-      <th scope="col">First name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Age</th>
-      <th scope="col">Profession</th>
-    </tr>
-    <tbody class="hds-table__content">
-      ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
-      ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
-      ${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
-      ${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
-    </tbody>
-  </table>
+	<div class="hds-table-container">
+	  <table class="hds-table hds-table--zebra hds-table--with-vertical-lines">
+			<tr class="hds-table__header-row">
+				<th scope="col">First name</th>
+				<th scope="col">Surname</th>
+				<th scope="col">Age</th>
+				<th scope="col">Profession</th>
+			</tr>
+			<tbody class="hds-table__content">
+				${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
+				${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
+				${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
+				${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
+			</tbody>
+  	</table>
+	</div>
 `;
 
 export const VerticalLinesZebraLight = () => `
-  <table class="hds-table hds-table--light hds-table--zebra hds-table--with-vertical-lines">
-    <tr class="hds-table__header-row">
-      <th scope="col">First name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Age</th>
-      <th scope="col">Profession</th>
-    </tr>
-    <tbody class="hds-table__content">
-      ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
-      ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
-      ${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
-      ${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
-    </tbody>
-  </table>
+  <div class="hds-table-container">
+    <table class="hds-table hds-table--light hds-table--zebra hds-table--with-vertical-lines">
+			<tr class="hds-table__header-row">
+				<th scope="col">First name</th>
+				<th scope="col">Surname</th>
+				<th scope="col">Age</th>
+				<th scope="col">Profession</th>
+			</tr>
+			<tbody class="hds-table__content">
+				${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
+				${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
+				${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
+				${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
+			</tbody>
+  	</table>
+  </div>
 `;
 
 export const VerticalHeader = () => `
-  <div style="max-width: 486px">
+  <div class="hds-table-container" style="max-width: 486px">
     <table class="hds-table hds-table--with-vertical-header">
 			<colgroup>
 				<col span="1" class="hds-table__vertical-header-column">
@@ -205,7 +221,7 @@ export const VerticalHeader = () => `
 `;
 
 export const VerticalHeaderLight = () => `
-  <div style="max-width: 486px">
+  <div class="hds-table-container" style="max-width: 486px">
     <table class="hds-table hds-table--light hds-table--with-vertical-header">
 			<colgroup>
 				<col span="1" class="hds-table__vertical-header-column">
@@ -259,7 +275,7 @@ export const VerticalHeaderLight = () => `
 `;
 
 export const VerticalHeaderZebra = () => `
-  <div style="max-width: 486px">
+  <div class="hds-table-container" style="max-width: 486px">
     <table class="hds-table hds-table--zebra hds-table--with-vertical-header">
 			<colgroup>
 				<col span="1" class="hds-table__vertical-header-column">
@@ -313,7 +329,7 @@ export const VerticalHeaderZebra = () => `
 `;
 
 export const VerticalHeaderAndLines = () => `
-  <div style="max-width: 486px">
+  <div class="hds-table-container" style="max-width: 486px">
     <table class="hds-table hds-table--with-vertical-header hds-table--with-vertical-lines">
 			<colgroup>
 				<col span="1" class="hds-table__vertical-header-column">
@@ -367,7 +383,7 @@ export const VerticalHeaderAndLines = () => `
 `;
 
 export const VerticalHeaderAndLinesLight = () => `
-  <div style="max-width: 486px">
+  <div class="hds-table-container" style="max-width: 486px">
     <table class="hds-table hds-table--light hds-table--with-vertical-lines hds-table--with-vertical-header">
 			<colgroup>
 				<col span="1" class="hds-table__vertical-header-column">
@@ -421,7 +437,7 @@ export const VerticalHeaderAndLinesLight = () => `
 `;
 
 export const VerticalHeaderAndLinesZebra = () => `
-  <div style="max-width: 486px">
+  <div class="hds-table-container" style="max-width: 486px">
     <table class="hds-table hds-table--zebra hds-table--with-vertical-lines hds-table--with-vertical-header">
 			<colgroup>
 				<col span="1" class="hds-table__vertical-header-column">
@@ -475,7 +491,7 @@ export const VerticalHeaderAndLinesZebra = () => `
 `;
 
 export const VerticalHeaderAndLinesZebraLight = () => `
-  <div style="max-width: 486px">
+  <div class="hds-table-container" style="max-width: 486px;">
     <table class="hds-table hds-table--light hds-table--zebra hds-table--with-vertical-lines hds-table--with-vertical-header">
 			<colgroup>
 				<col span="1" class="hds-table__vertical-header-column">

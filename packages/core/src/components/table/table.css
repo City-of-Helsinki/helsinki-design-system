@@ -1,3 +1,7 @@
+.hds-table-container {
+  overflow-x: auto;
+}
+
 .hds-table {
   border-collapse: collapse;
   font-family: var(--font-default); /* Tartteeko laittaa? */
