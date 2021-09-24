@@ -15,24 +15,7 @@ const tableRow = (firstName, surname, age, profession) =>
   </tr>`
 
 export const Default = () => `
-  <table class="hds-table hds-table--dark">
-    <tr class="hds-table__header-row">
-      <th scope="col">First name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Age</th>
-      <th scope="col">Profession</th>
-    </tr>
-    <tbody class="hds-table__content">
-      ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
-      ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
-      ${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
-      ${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
-    </tbody>
-  </table>
-`;
-
-export const Dark = () => `
-  <table class="hds-table hds-table--dark">
+  <table class="hds-table">
     <tr class="hds-table__header-row">
       <th scope="col">First name</th>
       <th scope="col">Surname</th>
@@ -66,7 +49,7 @@ export const Light = () => `
 `;
 
 export const Zebra = () => `
-  <table class="hds-table hds-table--dark hds-table--zebra">
+  <table class="hds-table hds-table--zebra">
     <tr class="hds-table__header-row">
       <th scope="col">First name</th>
       <th scope="col">Surname</th>
@@ -100,7 +83,7 @@ export const ZebraLight = () => `
 `;
 
 export const VerticalLines = () => `
-  <table class="hds-table hds-table--dark hds-table--with-vertical-lines">
+  <table class="hds-table hds-table--with-vertical-lines">
     <tr class="hds-table__header-row">
       <th scope="col">First name</th>
       <th scope="col">Surname</th>
@@ -134,7 +117,7 @@ export const VerticalLinesLight = () => `
 `;
 
 export const VerticalLinesZebra = () => `
-  <table class="hds-table hds-table--dark hds-table--zebra hds-table--with-vertical-lines">
+  <table class="hds-table hds-table--zebra hds-table--with-vertical-lines">
     <tr class="hds-table__header-row">
       <th scope="col">First name</th>
       <th scope="col">Surname</th>
@@ -169,7 +152,7 @@ export const VerticalLinesZebraLight = () => `
 
 export const VerticalHeader = () => `
   <div style="max-width: 486px">
-    <table class="hds-table hds-table--dark hds-table--with-vertical-header">
+    <table class="hds-table hds-table--with-vertical-header">
 			<colgroup>
 				<col span="1" class="hds-table__vertical-header-column">
 			</colgroup>
@@ -277,7 +260,7 @@ export const VerticalHeaderLight = () => `
 
 export const VerticalHeaderZebra = () => `
   <div style="max-width: 486px">
-    <table class="hds-table hds-table--dark hds-table--zebra hds-table--with-vertical-header">
+    <table class="hds-table hds-table--zebra hds-table--with-vertical-header">
 			<colgroup>
 				<col span="1" class="hds-table__vertical-header-column">
 			</colgroup>
@@ -331,7 +314,7 @@ export const VerticalHeaderZebra = () => `
 
 export const VerticalHeaderAndLines = () => `
   <div style="max-width: 486px">
-    <table class="hds-table hds-table--dark hds-table--with-vertical-header hds-table--with-vertical-lines">
+    <table class="hds-table hds-table--with-vertical-header hds-table--with-vertical-lines">
 			<colgroup>
 				<col span="1" class="hds-table__vertical-header-column">
 			</colgroup>
@@ -439,7 +422,7 @@ export const VerticalHeaderAndLinesLight = () => `
 
 export const VerticalHeaderAndLinesZebra = () => `
   <div style="max-width: 486px">
-    <table class="hds-table hds-table--dark hds-table--zebra hds-table--with-vertical-lines hds-table--with-vertical-header">
+    <table class="hds-table hds-table--zebra hds-table--with-vertical-lines hds-table--with-vertical-header">
 			<colgroup>
 				<col span="1" class="hds-table__vertical-header-column">
 			</colgroup>
