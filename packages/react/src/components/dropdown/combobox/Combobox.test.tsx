@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 
 import { Combobox, ComboboxProps } from './Combobox';
 
@@ -36,6 +36,17 @@ const defaultProps: ComboboxProps<{ label: string; value: string }> = {
 const getWrapper = (props?: unknown) => render(<Combobox {...defaultProps} {...props} />);
 
 describe('<Combobox />', () => {
+  it('renders the component', () => {
+    const { asFragment } = getWrapper();
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('should not have basic accessibility issues', async () => {
+    const { container } = getWrapper();
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it('user should be able to search and choose an option ', async () => {
     const onChange = jest.fn();
     const { getAllByLabelText, getAllByRole, queryByDisplayValue } = getWrapper({ onChange });
