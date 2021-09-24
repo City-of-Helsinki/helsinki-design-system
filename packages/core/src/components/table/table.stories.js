@@ -1,5 +1,4 @@
 import './table.css';
-import '../checkbox/checkbox.css';
 
 export default {
   title: 'Components/Table',
