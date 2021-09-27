@@ -15,7 +15,7 @@ const tableRow = (firstName, surname, age, profession) =>
 
 export const Default = () => `
   <div class="hds-table-container">
-    <table class="hds-table">
+    <table class="hds-table" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
@@ -34,7 +34,7 @@ export const Default = () => `
 
 export const Light = () => `
   <div class="hds-table-container">
-    <table class="hds-table hds-table--light">
+    <table class="hds-table hds-table--light" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
@@ -53,7 +53,7 @@ export const Light = () => `
 
 export const Zebra = () => `
   <div class="hds-table-container">
-    <table class="hds-table hds-table--zebra">
+    <table class="hds-table hds-table--zebra" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
@@ -72,7 +72,7 @@ export const Zebra = () => `
 
 export const ZebraLight = () => `
   <div class="hds-table-container">
-    <table class="hds-table hds-table--light hds-table--zebra">
+    <table class="hds-table hds-table--light hds-table--zebra" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
@@ -90,7 +90,7 @@ export const ZebraLight = () => `
 `;
 
 export const VerticalLines = () => `
-  <div class="hds-table-container">
+  <div class="hds-table-container" aria-label="People">
     <table class="hds-table hds-table--with-vertical-lines">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
@@ -110,7 +110,7 @@ export const VerticalLines = () => `
 
 export const VerticalLinesLight = () => `
   <div class="hds-table-container">
-    <table class="hds-table hds-table--light hds-table--with-vertical-lines">
+    <table class="hds-table hds-table--light hds-table--with-vertical-lines" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
@@ -129,7 +129,7 @@ export const VerticalLinesLight = () => `
 
 export const VerticalLinesZebra = () => `
   <div class="hds-table-container">
-    <table class="hds-table hds-table--zebra hds-table--with-vertical-lines">
+    <table class="hds-table hds-table--zebra hds-table--with-vertical-lines" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
@@ -148,7 +148,10 @@ export const VerticalLinesZebra = () => `
 
 export const VerticalLinesZebraLight = () => `
   <div class="hds-table-container">
-    <table class="hds-table hds-table--light hds-table--zebra hds-table--with-vertical-lines">
+    <table
+      class="hds-table hds-table--light hds-table--zebra hds-table--with-vertical-lines"
+      aria-label="People"
+    >
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
@@ -167,7 +170,10 @@ export const VerticalLinesZebraLight = () => `
 
 export const VerticalHeader = () => `
   <div class="hds-table-container" style="max-width: 486px">
-    <table class="hds-table hds-table--with-vertical-header">
+    <table
+      class="hds-table hds-table--with-vertical-header"
+      aria-label="Units sold by weekday"
+    >
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
@@ -221,7 +227,10 @@ export const VerticalHeader = () => `
 
 export const VerticalHeaderLight = () => `
   <div class="hds-table-container" style="max-width: 486px">
-    <table class="hds-table hds-table--light hds-table--with-vertical-header">
+    <table
+      class="hds-table hds-table--light hds-table--with-vertical-header"
+      aria-label="Units sold by weekday"
+    >
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
@@ -275,7 +284,10 @@ export const VerticalHeaderLight = () => `
 
 export const VerticalHeaderZebra = () => `
   <div class="hds-table-container" style="max-width: 486px">
-    <table class="hds-table hds-table--zebra hds-table--with-vertical-header">
+    <table
+      class="hds-table hds-table--zebra hds-table--with-vertical-header"
+      aria-label="Units sold by weekday"
+    >
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
@@ -329,7 +341,10 @@ export const VerticalHeaderZebra = () => `
 
 export const VerticalHeaderZebraLight = () => `
   <div class="hds-table-container" style="max-width: 486px">
-    <table class="hds-table hds-table--zebra hds-table--light hds-table--with-vertical-header">
+    <table
+      class="hds-table hds-table--zebra hds-table--light hds-table--with-vertical-header"
+      aria-label="Units sold by weekday"
+    >
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
@@ -383,7 +398,10 @@ export const VerticalHeaderZebraLight = () => `
 
 export const VerticalHeaderAndLines = () => `
   <div class="hds-table-container" style="max-width: 486px">
-    <table class="hds-table hds-table--with-vertical-header hds-table--with-vertical-lines">
+    <table
+      class="hds-table hds-table--with-vertical-header hds-table--with-vertical-lines"
+      aria-label="Units sold by weekday"
+    >
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
@@ -437,7 +455,10 @@ export const VerticalHeaderAndLines = () => `
 
 export const VerticalHeaderAndLinesLight = () => `
   <div class="hds-table-container" style="max-width: 486px">
-    <table class="hds-table hds-table--light hds-table--with-vertical-lines hds-table--with-vertical-header">
+    <table
+      class="hds-table hds-table--light hds-table--with-vertical-lines hds-table--with-vertical-header"
+      aria-label="Units sold by weekday"
+    >
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
@@ -491,7 +512,10 @@ export const VerticalHeaderAndLinesLight = () => `
 
 export const VerticalHeaderAndLinesZebra = () => `
   <div class="hds-table-container" style="max-width: 486px">
-    <table class="hds-table hds-table--zebra hds-table--with-vertical-lines hds-table--with-vertical-header">
+    <table
+      class="hds-table hds-table--zebra hds-table--with-vertical-lines hds-table--with-vertical-header"
+      aria-label="Units sold by weekday"
+    >
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
@@ -545,7 +569,10 @@ export const VerticalHeaderAndLinesZebra = () => `
 
 export const VerticalHeaderAndLinesZebraLight = () => `
   <div class="hds-table-container" style="max-width: 486px;">
-    <table class="hds-table hds-table--light hds-table--zebra hds-table--with-vertical-lines hds-table--with-vertical-header">
+    <table
+      class="hds-table hds-table--light hds-table--zebra hds-table--with-vertical-lines hds-table--with-vertical-header"
+      aria-label="Units sold by weekday"
+    >
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
