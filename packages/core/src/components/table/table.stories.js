@@ -259,3 +259,51 @@ export const VerticalHeaderAndLinesZebra = () => `
     </table>
   </div>
 `;
+
+export const CustomHeaderBackgroundColorForDarkVariant = () => `
+  <style type="text/css">
+    .custom-background-color {
+      --background-color: var(--color-tram);
+    }
+  </style>
+  <div class="hds-table-container">
+    <table class="hds-table hds-table--dark custom-background-color" aria-label="People">
+      <tr class="hds-table__header-row">
+        <th scope="col">First name</th>
+        <th scope="col">Surname</th>
+        <th scope="col">Age</th>
+        <th scope="col">Profession</th>
+      </tr>
+      <tbody class="hds-table__content">
+        ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
+        ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
+        ${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
+        ${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
+      </tbody>
+    </table>
+   </div>
+`;
+
+export const CustomHeaderBackgroundColorForLightVariant = () => `
+  <style type="text/css">
+    .custom-background-color {
+      --background-color: var(--color-suomenlinna);
+    }
+  </style>
+  <div class="hds-table-container">
+    <table class="hds-table hds-table--light custom-background-color" aria-label="People">
+      <tr class="hds-table__header-row">
+        <th scope="col">First name</th>
+        <th scope="col">Surname</th>
+        <th scope="col">Age</th>
+        <th scope="col">Profession</th>
+      </tr>
+      <tbody class="hds-table__content">
+        ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
+        ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
+        ${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
+        ${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
+      </tbody>
+    </table>
+   </div>
+`;
