@@ -12,7 +12,6 @@ import { Container } from 'hds-react';
 
 import Header from './header';
 import Footer from './footer';
-import '../styles/font.css'
 import './layout.css';
 
 const Layout = ({ children }) => {
