@@ -262,12 +262,12 @@ export const VerticalHeaderAndLinesZebra = () => `
 
 export const CustomHeaderBackgroundColorForDarkVariant = () => `
   <style type="text/css">
-    .custom-background-color {
+    .custom-background-color-1 {
       --background-color: var(--color-tram);
     }
   </style>
   <div class="hds-table-container">
-    <table class="hds-table hds-table--dark custom-background-color" aria-label="People">
+    <table class="hds-table hds-table--dark custom-background-color-1" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
@@ -286,12 +286,12 @@ export const CustomHeaderBackgroundColorForDarkVariant = () => `
 
 export const CustomHeaderBackgroundColorForLightVariant = () => `
   <style type="text/css">
-    .custom-background-color {
+    .custom-background-color-2 {
       --background-color: var(--color-suomenlinna);
     }
   </style>
   <div class="hds-table-container">
-    <table class="hds-table hds-table--light custom-background-color" aria-label="People">
+    <table class="hds-table hds-table--light custom-background-color-2" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
