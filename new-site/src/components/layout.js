@@ -33,20 +33,22 @@ const Layout = ({ children }) => {
 
   const siteDate = data.site.siteMetadata;
   const title = siteDate?.title || 'Title';
+  const contentId = 'content';
 
   return (
-    <>
-      <Header siteTitle={title} />
-      <Container id="content" style={{ margin: '0 auto' }}>
+    <div className="page">
+      <Header contentId={contentId} className="pageHeader" siteTitle={title} />
+      <Container id={contentId} className="pageContent" style={{ margin: '0 auto' }}>
         <main>{children}</main>
       </Container>
       <Footer
+        className="pageFooter"
         title={title}
         footerTitle={siteDate?.footerTitle}
         footerAriaLabel={siteDate?.footerAriaLabel}
         footerCopyrightLinks={siteDate?.footerCopyrightLinks}
       />
-    </>
+    </div>
   );
 };
 

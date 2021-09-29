@@ -18,3 +18,18 @@ body {
   -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
   font-feature-settings: "kern", "liga", "clig", "calt";
 }
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.pageContent {
+  width: 100%;
+}
+
+.pageFooter {
+  /* ensure footer stays on bottom of the page */
+  margin-top: auto;
+}
