@@ -3,7 +3,7 @@ import * as workTrial from './work-trial.json';
 
 export default {
   title: 'Components/Table',
-  decorators: [(storyFn) => `<div style="max-width: 100%;">${storyFn()}</div>`],
+  decorators: [(storyFn) => `<div style="max-width: 1200px;">${storyFn()}</div>`],
 };
 
 const tableRow = (firstName, surname, age, profession) =>
@@ -329,9 +329,9 @@ const wideTableContent = () => {
   return content;
 }
 
-export const WideExample = () => `
-  <div class="hds-table-container">
-    <table class="hds-table hds-table--dark" aria-label="People">
+export const WideAndLongExample = () => `
+  <div class="hds-table-container" style="height: 600px;">
+    <table class="hds-table hds-table--dark hds-table--zebra" aria-label="Job trials">
       <tr class="hds-table__header-row">
         <th scope="col">Job id</th>
         <th scope="col">Type</th>
