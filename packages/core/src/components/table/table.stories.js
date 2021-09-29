@@ -1,8 +1,9 @@
 import './table.css';
+import * as workTrial from './work-trial.json';
 
 export default {
   title: 'Components/Table',
-  decorators: [(storyFn) => `<div style="max-width: 785px">${storyFn()}</div>`],
+  decorators: [(storyFn) => `<div style="max-width: 100%;">${storyFn()}</div>`],
 };
 
 const tableRow = (firstName, surname, age, profession) =>
@@ -14,7 +15,7 @@ const tableRow = (firstName, surname, age, profession) =>
   </tr>`
 
 export const Dark = () => `
-  <div class="hds-table-container">
+  <div class="hds-table-container" style="max-width: 785px;">
     <table class="hds-table hds-table--dark" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
@@ -33,7 +34,7 @@ export const Dark = () => `
 `;
 
 export const Light = () => `
-  <div class="hds-table-container">
+  <div class="hds-table-container" style="max-width: 785px;">
     <table class="hds-table hds-table--light" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
@@ -52,7 +53,7 @@ export const Light = () => `
 `;
 
 export const Zebra = () => `
-  <div class="hds-table-container">
+  <div class="hds-table-container" style="max-width: 785px;">
     <table class="hds-table hds-table--dark hds-table--zebra" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
@@ -71,7 +72,7 @@ export const Zebra = () => `
 `;
 
 export const VerticalLines = () => `
-  <div class="hds-table-container" aria-label="People">
+  <div class="hds-table-container" style="max-width: 785px;" aria-label="People">
     <table class="hds-table hds-table--dark hds-table--with-vertical-lines">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
@@ -90,7 +91,7 @@ export const VerticalLines = () => `
 `;
 
 export const VerticalLinesZebra = () => `
-  <div class="hds-table-container">
+  <div class="hds-table-container" style="max-width: 785px;">
     <table class="hds-table hds-table--dark hds-table--zebra hds-table--with-vertical-lines" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
@@ -303,6 +304,47 @@ export const CustomHeaderBackgroundColorForLightVariant = () => `
         ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
         ${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
         ${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
+      </tbody>
+    </table>
+   </div>
+`;
+
+const wideTableContent = () => {
+  let content = "";
+
+  workTrial.default.forEach(work => {
+    content = content + `
+        <tr>
+          <td class="hds-table--text-align-right">${work['Paikka-ID']}</td>
+          <td>${work['Paikan tyyppi']}</td>
+          <td>${work['Tehtävänimike']}</td>
+          <td>${work['Ilmoitus vanhenee']}</td>
+          <td>${work['Toimiala/liikelaitos']}</td>
+          <td>${work['Työpaikka']}</td>
+          <td class="hds-table--text-align-right">${work['Postinumero']}</td>
+          <td class="hds-table--text-align-right">${work['Paikkoja']}</td>
+          <td class="hds-table--text-align-right">${work['Haastatteluun halutaan']}</td>
+        </tr>`
+  })
+  return content;
+}
+
+export const WideExample = () => `
+  <div class="hds-table-container">
+    <table class="hds-table hds-table--dark" aria-label="People">
+      <tr class="hds-table__header-row">
+        <th scope="col">Job id</th>
+        <th scope="col">Type</th>
+        <th scope="col">Title</th>
+        <th scope="col">Expires</th>
+        <th scope="col">Department</th>
+        <th scope="col">Job name</th>
+        <th scope="col">Postal code</th>
+        <th scope="col">Available places</th>
+        <th scope="col">To be interviewed</th>
+      </tr>
+      <tbody class="hds-table__content">
+        ${wideTableContent()}
       </tbody>
     </table>
    </div>
