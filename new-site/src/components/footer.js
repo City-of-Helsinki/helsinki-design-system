@@ -5,7 +5,8 @@ import { Footer } from 'hds-react';
 const PageFooter = ({ className, title, footerTitle, footerAriaLabel, footerCopyrightLinks }) => (
   <Footer className={className} title={footerTitle || title} footerAriaLabel={footerAriaLabel}>
     <Footer.Base copyrightHolder="Copyright">
-      {footerCopyrightLinks && footerCopyrightLinks.map(({ label, href }) => <Footer.Item label={label} href={href} />)}
+      {footerCopyrightLinks &&
+        footerCopyrightLinks.map(({ label, href }) => <Footer.Item key={href} label={label} href={href} />)}
     </Footer.Base>
   </Footer>
 );
