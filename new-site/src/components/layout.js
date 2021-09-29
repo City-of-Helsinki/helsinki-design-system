@@ -11,6 +11,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import { Container } from 'hds-react';
 
 import Header from "./header"
+import Footer from "./footer"
 import "./layout.css"
 
 const Layout = ({ children }) => {
@@ -19,17 +20,32 @@ const Layout = ({ children }) => {
       site {
         siteMetadata {
           title
+          footerTitle
+          footerAriaLabel
+          footerCopyrightLinks {
+            label
+            href
+          }
         }
       }
     }
   `)
 
+  const siteDate = data.site.siteMetadata;
+  const title = siteDate?.title || 'Title';
+
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-      <Container id="content" style={{ margin: '0 auto'}}>
+      <Header siteTitle={title} />
+      <Container id="content" style={{ margin: "0 auto" }}>
         <main>{children}</main>
       </Container>
+      <Footer
+        title={title}
+        footerTitle={siteDate?.footerTitle}
+        footerAriaLabel={siteDate?.footerAriaLabel}
+        footerCopyrightLinks={siteDate?.footerCopyrightLinks}
+      />
     </>
   )
 }

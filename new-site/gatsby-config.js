@@ -3,6 +3,14 @@ module.exports = {
     title: `Helsinki Design system`,
     description: `Documentation for Helsinki Design System`,
     siteUrl: `https://hds.hel.fi/`,
+    footerTitle: "Design system",
+    footerAriaLabel: "HDS footer",
+    footerCopyrightLinks: [
+      {
+        label: "Github",
+        href: "https://github.com/City-of-Helsinki/helsinki-design-system",
+      },
+    ],
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
