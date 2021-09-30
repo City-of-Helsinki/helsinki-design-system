@@ -45,6 +45,6 @@ yarn
 yarn start
 ```
 
-7. Open the browser of your choice (Chrome recommended) and navigate to http://localhost:8000/. You should now see the documentation site.
+6. Open the browser of your choice (Chrome recommended) and navigate to http://localhost:8000/. You should now see the documentation site.
 
 **Note!** You may need to rerun `yarn build` if you make changes to config files or if other HDS packages are updated.
