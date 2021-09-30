@@ -330,7 +330,7 @@ const wideTableContent = () => {
 }
 
 export const WideAndLongExample = () => `
-  <div class="hds-table-container" style="height: 600px;">
+  <div class="hds-table-container" style="height: 600px;" tabindex="0">
     <table class="hds-table hds-table--dark hds-table--zebra" aria-label="Job trials">
       <tr class="hds-table__header-row">
         <th scope="col">Job id</th>
