@@ -40,6 +40,18 @@ cd new-site
 yarn start
 ```
 
-5. Open the browser of your choice (Chrome recommended) and navigate to http://localhost:8000/. You should now see the documentation site.
+5. Install local dependencies.
+```
+yarn
+```
+
+
+6. Start the development server. It will watch for file changes automatically.
+```
+cd new-site
+yarn start
+```
+
+7. Open the browser of your choice (Chrome recommended) and navigate to http://localhost:8000/. You should now see the documentation site.
 
 **Note!** You may need to rerun `yarn build` if you make changes to config files or if other HDS packages are updated.
