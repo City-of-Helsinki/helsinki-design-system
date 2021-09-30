@@ -8,10 +8,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
-import { Container } from 'hds-react';
+import { Container, Footer, Navigation } from 'hds-react';
 
-import Header from './header';
-import Footer from './footer';
 import './layout.css';
 
 const Layout = ({ children }) => {
@@ -37,17 +35,24 @@ const Layout = ({ children }) => {
 
   return (
     <div className="page">
-      <Header contentId={contentId} className="pageHeader" siteTitle={title} />
+      <Navigation
+        className="page-header"
+        title={title}
+        menuToggleAriaLabel="menu"
+        skipTo={`#${contentId}`}
+        skipToContentLabel="Skip to content"
+      />
       <Container id={contentId} className="pageContent" style={{ margin: '0 auto' }}>
         <main>{children}</main>
       </Container>
-      <Footer
-        className="pageFooter"
-        title={title}
-        footerTitle={siteDate?.footerTitle}
-        footerAriaLabel={siteDate?.footerAriaLabel}
-        footerCopyrightLinks={siteDate?.footerCopyrightLinks}
-      />
+      <Footer className="pageFooter" title={siteDate?.footerTitle || title} footerAriaLabel={siteDate?.footerAriaLabel}>
+        <Footer.Base copyrightHolder="Copyright">
+          {siteDate?.footerCopyrightLinks &&
+            siteDate?.footerCopyrightLinks.map(({ label, href }) => (
+              <Footer.Item key={href} label={label} href={href} />
+            ))}
+        </Footer.Base>
+      </Footer>
     </div>
   );
 };
