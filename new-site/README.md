@@ -34,21 +34,14 @@ yarn
 yarn build
 ```
 
-4. Start the development server. It will watch for file changes automatically.
+4. Install local dependencies.
 ```
 cd new-site
-yarn start
-```
-
-5. Install local dependencies.
-```
 yarn
 ```
 
-
-6. Start the development server. It will watch for file changes automatically.
+5. Start the development server. It will watch for file changes automatically.
 ```
-cd new-site
 yarn start
 ```
 
