@@ -4,7 +4,6 @@
 
 .hds-table {
   border-collapse: collapse;
-  font-family: var(--font-default); /* Tartteeko laittaa? */
   width: 100%;
   line-height: 1.5;
 }
