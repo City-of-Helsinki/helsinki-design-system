@@ -1,5 +1,5 @@
 import './table.css';
-import * as workTrial from './work-trial.json';
+import * as workTrial from './story-example-work-trial.json';
 
 export default {
   title: 'Components/Table',
