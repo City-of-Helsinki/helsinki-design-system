@@ -21,8 +21,8 @@
   white-space: nowrap;
   text-align: left;
   font-weight: 500;
-  font-size: 16px;
-  padding: 12px 24px;
+  font-size: var(--fontsize-heading-xxs);
+  padding: var(--spacing-xs) var(--spacing-m);
 }
 
 .hds-table.hds-table--dark th {
@@ -69,9 +69,9 @@
 
 .hds-table__content tr td {
   font-weight: 400;
-  padding: 12px 24px;
+  padding: var(--spacing-xs) var(--spacing-m);
   border-bottom: 1px solid var(--color-black-50);
-  font-size: 16px;
+  font-size: var(--fontsize-body-m);
   color: var(--color-black-90);
 }
 
@@ -87,13 +87,13 @@
   .hds-table th {
     text-align: left;
     font-weight: bold;
-    font-size: 14px;
-    padding: 9px 16px;
+    font-size: var(--fontsize-body-s);
+    padding: 9px var(--spacing-s);
   }
 
   .hds-table__content tr td {
-    padding: 9px 16px;
-    font-size: 14px;
+    padding: 9px var(--spacing-s);
+    font-size: var(--fontsize-body-s);
   }
 }
 
