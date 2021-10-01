@@ -45,7 +45,7 @@
   border-left: 1px solid var(--color-black-50);
 }
 
-.hds-table--with-vertical-lines.hds-table--with-vertical-header .hds-table__content {
+.hds-table--with-vertical-header.hds-table--with-vertical-lines .hds-table__content {
   border-left: none;
 }
 
@@ -58,12 +58,12 @@
   border-left: none;
 }
 
-.hds-table--with-vertical-lines.hds-table--light .hds-table__header-row {
+.hds-table--light.hds-table--with-vertical-lines .hds-table__header-row {
   border-right: 1px solid var(--color-black-10);
   border-left: 1px solid var(--color-black-10);
 }
 
-.hds-table--with-vertical-lines.hds-table--with-vertical-header.hds-table--light .hds-table__header-row {
+.hds-table--with-vertical-header.hds-table--light.hds-table--with-vertical-lines .hds-table__header-row {
   border-left: none;
 }
 
