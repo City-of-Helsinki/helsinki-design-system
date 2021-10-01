@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
   return (
     <div className="page">
       <Navigation
-        className="page-header"
+        className="pageHeader"
         title={title}
         menuToggleAriaLabel="menu"
         skipTo={`#${contentId}`}
