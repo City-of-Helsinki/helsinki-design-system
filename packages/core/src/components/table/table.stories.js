@@ -348,9 +348,30 @@ const wideTableContent = () => {
   return content;
 }
 
-export const WideAndLongExample = () => `
+export const WideAndLong = () => `
   <div class="hds-table-container" style="height: 600px;" tabindex="0">
     <table class="hds-table hds-table--dark hds-table--zebra" aria-label="Job trials">
+      <tr class="hds-table__header-row">
+        <th scope="col">Job id</th>
+        <th scope="col">Type</th>
+        <th scope="col">Title</th>
+        <th scope="col">Expires</th>
+        <th scope="col">Department</th>
+        <th scope="col">Job name</th>
+        <th scope="col">Postal code</th>
+        <th scope="col">Available places</th>
+        <th scope="col">To be interviewed</th>
+      </tr>
+      <tbody class="hds-table__content">
+        ${wideTableContent()}
+      </tbody>
+    </table>
+   </div>
+`;
+
+export const WideAndLongDense = () => `
+  <div class="hds-table-container" style="height: 600px;" tabindex="0">
+    <table class="hds-table hds-table--dense hds-table--dark hds-table--zebra" aria-label="Job trials">
       <tr class="hds-table__header-row">
         <th scope="col">Job id</th>
         <th scope="col">Type</th>
