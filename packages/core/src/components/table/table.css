@@ -2,6 +2,10 @@
   overflow-x: auto;
 }
 
+.hds-table-container:focus {
+  outline: var(--color-coat-of-arms) 3px solid;
+}
+
 .hds-table {
   border-collapse: collapse;
   width: 100%;
