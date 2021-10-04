@@ -286,7 +286,7 @@ export const CustomHeaderBackgroundColorForDarkVariant = () => `
       --background-color: var(--color-tram);
     }
   </style>
-  <div class="hds-table-container" tabindex="0">
+  <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
     <table class="hds-table hds-table--dark custom-background-color-1" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
@@ -310,7 +310,7 @@ export const CustomHeaderBackgroundColorForLightVariant = () => `
       --background-color: var(--color-suomenlinna);
     }
   </style>
-  <div class="hds-table-container" tabindex="0">
+  <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
     <table class="hds-table hds-table--light custom-background-color-2" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
