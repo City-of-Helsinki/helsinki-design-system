@@ -17,6 +17,24 @@ describe('<TimeInput /> spec', () => {
     expect(results).toHaveNoViolations();
   });
 
+  it('should use defaultValue property as input value', async () => {
+    const { container } = render(
+      <TimeInput id="time" label="timer" hoursLabel="Hours" minutesLabel="Minutes" value="12:30" />,
+    );
+    expect(screen.getByLabelText('Hours', { selector: 'input' })).toHaveValue('12');
+    expect(screen.getByLabelText('Minutes', { selector: 'input' })).toHaveValue('30');
+    expect(container.querySelector('#time')).toHaveValue('12:30');
+  });
+
+  it('should use value property as input value', async () => {
+    const { container } = render(
+      <TimeInput id="time" label="timer" hoursLabel="Hours" minutesLabel="Minutes" defaultValue="12:30" />,
+    );
+    expect(screen.getByLabelText('Hours', { selector: 'input' })).toHaveValue('12');
+    expect(screen.getByLabelText('Minutes', { selector: 'input' })).toHaveValue('30');
+    expect(container.querySelector('#time')).toHaveValue('12:30');
+  });
+
   it('should update time value when numeric hours and minutes are typed', async () => {
     const { container } = render(<TimeInput id="time" label="timer" hoursLabel="Hours" minutesLabel="Minutes" />);
     userEvent.type(screen.getByLabelText('Hours', { selector: 'input' }), '12');
