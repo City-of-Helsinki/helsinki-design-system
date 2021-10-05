@@ -73,7 +73,7 @@ describe('<NumberInput /> spec', () => {
     expect(onChange.mock.calls.length).toBe(1);
   });
 
-  it'should be able to reset a controlled NumberInput to an empty value', async () => {
+  it('should be able to reset a controlled NumberInput to an empty value', async () => {
     const TestComponent = () => {
       const [value, setValue] = useState<'' | number>(10);
       return (
