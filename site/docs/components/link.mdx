@@ -5,7 +5,7 @@ route: /components/link
 ---
 
 import { Playground } from "docz";
-import { Link } from "hds-react";
+import { Link, IconDocument, IconPhone, IconEnvelope, IconPhoto } from "hds-react";
 import LargeParagraph from "../../src/components/LargeParagraph";
 
 # Link
@@ -23,6 +23,7 @@ import LargeParagraph from "../../src/components/LargeParagraph";
     - Link to emails or phone numbers
 - HDS Link supports a link with an external icon. Use the `external` prop when you wish to navigate to an entirely different site.
 - HDS Link supports a link that opens in a new tab. Use the `openInNewTab` prop when you wish to open the link in a new tab.
+    - Generally, links should not open in a new tab. However, this can be desirable if the user is in a middle of a process, e.g. filling a form.
 
 
 ## Accessibility
@@ -96,7 +97,7 @@ Standalone links are used on their own or directly after the content, and they a
 Standalone links should not be used within sentences or paragraphs.
 
 <Playground>
-    <Link href="https://hds.hel.fi/" size="L" style={{ display: 'block', width: 'fit-content' }}>
+    <Link href="https://hds.hel.fi/" size="M" style={{ display: 'block', width: 'fit-content' }}>
       Link to HDS
     </Link>
 </Playground>
@@ -104,14 +105,155 @@ Standalone links should not be used within sentences or paragraphs.
 #### Core:
 
 ```html
-<a href="https://hds.hel.fi/" class="hds-link hds-link--large" style="display:block;">Standalone link</a>
+<a href="https://hds.hel.fi/" class="hds-link hds-link--medium" style="display:block;">Standalone link</a>
 ```
 
 #### React:
 
 ```tsx
-<Link href="https://hds.hel.fi/" size="L" style={{ display: 'block', width: 'fit-content' }}>
+<Link href="https://hds.hel.fi/" size="M" style={{ display: 'block', width: 'fit-content' }}>
   Link to HDS
+</Link>
+```
+
+### Internal and external links
+All HDS links can either be internal or external. Internal links point to the currently active website. External links navigate to an entirely different site. You can also make the link open in a new tab.
+
+<Playground>
+    <Link 
+      href="https://hds.hel.fi/" 
+      size="M" 
+      style={{ display: 'block', width: 'fit-content' }}
+    >
+      Internal link
+    </Link>
+
+    <Link 
+      href="https://github.com/City-of-Helsinki/helsinki-design-system" 
+      size="M" 
+      external
+      openInExternalDomainAriaLabel="Opens a different website."
+      style={{ display: 'block', width: 'fit-content' }}
+    >
+      External link
+    </Link>
+
+    <Link 
+      href="https://github.com/City-of-Helsinki/helsinki-design-system" 
+      size="M" 
+      external 
+      openInNewTab
+      openInExternalDomainAriaLabel="Opens a different website."
+      openInNewTabAriaLabel="Opens in a new tab."
+      style={{ display: 'block', width: 'fit-content' }}>
+      Link that opens in a new tab
+    </Link>
+</Playground>
+
+#### Core:
+
+```html
+<a href="https://hds.hel.fi/" class="hds-link hds-link--medium" style="display:block;">Internal link</a>
+
+<a href="https://github.com/City-of-Helsinki/helsinki-design-system" class="hds-link hds-link--medium" aria-label="Opens a different website.">
+  External link <i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon" aria-hidden="true"></i>
+</a>
+
+<a href="https://github.com/City-of-Helsinki/helsinki-design-system" class="hds-link hds-link--medium" rel="noopener" target="_blank" aria-label="Opens a different website. Opens in a new tab.">
+  Link that opens in a new tab <i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-hidden="true"></i>
+</a>
+```
+
+#### React:
+
+```tsx
+<Link 
+  href="https://hds.hel.fi/" 
+  size="M" 
+  style={{ display: 'block', width: 'fit-content' }}
+>
+  Internal link
+</Link>
+
+<Link 
+  href="https://github.com/City-of-Helsinki/helsinki-design-system" 
+  size="M" 
+  external
+  openInExternalDomainAriaLabel="Opens a different website."
+  style={{ display: 'block', width: 'fit-content' }}
+>
+  External link
+</Link>
+
+<Link 
+  href="https://github.com/City-of-Helsinki/helsinki-design-system" 
+  size="M" 
+  external 
+  openInNewTab
+  openInExternalDomainAriaLabel="Opens a different website."
+  openInNewTabAriaLabel="Opens in a new tab."
+  style={{ display: 'block', width: 'fit-content' }}>
+  Link that opens in a new tab
+</Link>
+```
+
+### Links with icons
+HDS Links can be paired with an icon. This can be useful if the link has unusual target such as a phone number, an email address (mailto link), a PDF document or a photo.
+
+Note! These icons are meant to describe the link target. If you need a directional icon for the link (e.g. an arrow), you should instead use [a supplementary button](/components/button#supplementary-button) with `role="link"`.
+
+<Playground>
+    <Link iconLeft={<IconDocument size="s" aria-hidden />} size="M" href="/#" style={{ display: 'block', width: 'fit-content' }}>
+      Document link
+    </Link>
+    <Link iconLeft={<IconPhone size="s" aria-hidden />} size="M" href="/#" style={{ display: 'block', width: 'fit-content' }}>
+      Phone link
+    </Link>
+    <Link iconLeft={<IconEnvelope size="s" aria-hidden />} size="M" href="/#" style={{ display: 'block', width: 'fit-content' }}>
+      Email link
+    </Link>
+    <Link iconLeft={<IconPhoto size="s" aria-hidden />} size="M" href="/#" style={{ display: 'block', width: 'fit-content' }}>
+      Photo link
+    </Link>
+</Playground>
+
+#### Core:
+
+```html
+<a href="/#" class="hds-link hds-link--medium">
+  <i class="hds-icon icon hds-icon--document hds-icon--size-s vertical-align-small-or-medium-icon" aria-hidden="true"></i> Document link
+</a>
+
+<a href="/#" class="hds-link hds-link--medium">
+  <i class="hds-icon icon hds-icon--phone hds-icon--size-s vertical-align-small-or-medium-icon" aria-hidden="true"></i> Phone link
+</a>
+
+<a href="/#" class="hds-link hds-link--medium">
+  <i class="hds-icon icon hds-icon--envelope hds-icon--size-s vertical-align-small-or-medium-icon" aria-hidden="true"></i> Email link
+</a>
+
+<a href="/#" class="hds-link hds-link--medium">
+  <i class="hds-icon icon hds-icon--photo hds-icon--size-s vertical-align-small-or-medium-icon" aria-hidden="true"></i> Photo link
+</a>
+```
+
+#### React:
+
+```tsx
+<Link iconLeft={<IconDocument size="s" aria-hidden />} size="M" href="/#" style={{ display: 'block', width: 'fit-content' }}>
+  Document link
+</Link>
+
+<Link iconLeft={<IconPhone size="s" aria-hidden />} size="M" href="/#" style={{ display: 'block', width: 'fit-content' }}>
+  Phone link
+</Link>
+
+<Link iconLeft={<IconEnvelope size="s" aria-hidden />} size="M" href="/#" style={{ display: 'block', width: 'fit-content' }}>
+  Email link
+</Link>
+
+<Link iconLeft={<IconPhoto size="s" aria-hidden />} size="M" href="/#" style={{ display: 'block', width: 'fit-content' }}>
+  Photo link
 </Link>
 ```
 
