@@ -148,15 +148,15 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
      * Handle hours input change
      */
     const onHoursChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-      const value = event.target.value.slice(-2);
+      const hoursValue = event.target.value.slice(-2);
 
       // Allow number string only
-      if (!isShortNumericString(value)) {
+      if (!isShortNumericString(hoursValue)) {
         event.preventDefault();
         return false;
       }
 
-      updateTimeInput(value, minutes);
+      updateTimeInput(hoursValue, minutes);
       return true;
     };
 
@@ -164,15 +164,15 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
      * Handle minutes input change
      */
     const onMinutesChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-      const value = event.target.value.slice(-2);
+      const minutesValue = event.target.value.slice(-2);
 
       // Allow numbers string only
-      if (!isShortNumericString(value)) {
+      if (!isShortNumericString(minutesValue)) {
         event.preventDefault();
         return false;
       }
 
-      updateTimeInput(hours, value);
+      updateTimeInput(hours, minutesValue);
       return true;
     };
 
