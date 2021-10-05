@@ -173,9 +173,10 @@ Required.args = {
 };
 
 export const Playground = () => {
-  const [files, setFiles] = React.useState<File[]>();
-  // eslint-disable-next-line no-console
-  console.log('selected files', files);
+  const onChange = (files) => {
+    // eslint-disable-next-line no-console
+    console.log('onChange callback files:', files);
+  };
 
   const id = text('id', 'file-input');
   const label = text('Label', 'Choose files');
@@ -209,7 +210,7 @@ export const Playground = () => {
       buttonLabel={buttonLabel}
       maxSize={maxSize}
       language={language}
-      onChange={setFiles}
+      onChange={onChange}
       accept={accept}
       disabled={disabled}
       required={required}
