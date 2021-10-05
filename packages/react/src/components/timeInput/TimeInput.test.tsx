@@ -17,7 +17,7 @@ describe('<TimeInput /> spec', () => {
     expect(results).toHaveNoViolations();
   });
 
-  it('should use defaultValue property as input value', async () => {
+  it('should use value property as input value', async () => {
     const { container } = render(
       <TimeInput id="time" label="timer" hoursLabel="Hours" minutesLabel="Minutes" value="12:30" />,
     );
@@ -26,7 +26,7 @@ describe('<TimeInput /> spec', () => {
     expect(container.querySelector('#time')).toHaveValue('12:30');
   });
 
-  it('should use value property as input value', async () => {
+  it('should use defaultValue property as input value', async () => {
     const { container } = render(
       <TimeInput id="time" label="timer" hoursLabel="Hours" minutesLabel="Minutes" defaultValue="12:30" />,
     );
