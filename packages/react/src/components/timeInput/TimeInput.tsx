@@ -88,7 +88,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
     }: TimeInputProps,
     ref?: React.Ref<HTMLInputElement>,
   ) => {
-    const hoursAndMinutes = getHourAndMinuteValues(defaultValue || value);
+    const hoursAndMinutes: string[] | null = getHourAndMinuteValues(defaultValue || value);
     const inputRef = useRef<HTMLInputElement>(null);
     const hoursInputRef = useRef<HTMLInputElement>(null);
     const minutesInputRef = useRef<HTMLInputElement>(null);
