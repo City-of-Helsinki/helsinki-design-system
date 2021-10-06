@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { Combobox, ComboboxProps } from './Combobox';
 
@@ -77,6 +78,26 @@ describe('<Combobox />', () => {
       // onChange
       expect(onChange).toHaveBeenCalledTimes(2);
       expect(onChange).toHaveBeenCalledWith([options[0], options[4]]);
+    });
+
+    it('user should be able to close the menu with a tab keypress', () => {
+      const onChange = jest.fn();
+      const { getAllByLabelText, queryAllByRole, queryAllByText } = getWrapper({ onChange });
+      const input = getAllByLabelText(label)[0];
+
+      // Search and focus on first option
+      userEvent.type(input, 'Fi');
+      userEvent.type(input, '{arrowdown}');
+      const visibleOptions = queryAllByRole('option');
+      expect(visibleOptions.length).toBe(1);
+      expect(visibleOptions[0].innerHTML).toEqual(options[0].label);
+      expect(visibleOptions[0]).toHaveClass('highlighted'); // Prone to break if className changes
+
+      // A tab keypress should close the menu without selecting an item
+      userEvent.type(input, '{tab}');
+      const visibleOptionsAfterClose = queryAllByRole('option');
+      expect(visibleOptionsAfterClose.length).toBe(0);
+      expect(queryAllByText(options[0].label).length).toEqual(0);
     });
   });
 });

@@ -183,6 +183,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     isOpen,
     selectedItem,
     selectItem,
+    closeMenu,
     setInputValue,
     getInputProps,
     getComboboxProps,
@@ -309,6 +310,12 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     if (isOpen && (e.key === 'Backspace' || e.key === 'ArrowLeft')) {
       // @ts-ignore
       e.nativeEvent.preventDownshiftDefault = true;
+    }
+
+    // Tab keypress should close the menu without selecting an item.
+    if (e.key === 'Tab' && highlightedIndex > -1 && isOpen) {
+      // @ts-ignore
+      closeMenu();
     }
   };
 
