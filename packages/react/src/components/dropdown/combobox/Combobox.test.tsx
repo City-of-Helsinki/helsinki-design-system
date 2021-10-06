@@ -1,6 +1,5 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Combobox, ComboboxProps } from './Combobox';
@@ -25,7 +24,7 @@ const defaultProps: ComboboxProps<{ label: string; value: string }> = {
 const getWrapper = (props?: unknown) => render(<Combobox {...defaultProps} {...props} />);
 
 describe('<Combobox />', () => {
-  it('user should be able to search and choose an option ', () => {
+  it('user should be able to search and choose an option ', async () => {
     const onChange = jest.fn();
     const { getAllByLabelText, getAllByRole, queryByDisplayValue } = getWrapper({ onChange });
     const input = getAllByLabelText(label)[0];
@@ -37,19 +36,18 @@ describe('<Combobox />', () => {
     // Ensure that options are filtered correctly
     expect(visibleOptions.length).toBe(1);
 
-    act(() => {
-      // Choose one option
-      userEvent.click(visibleOptions[0]);
+    // Choose one option
+    userEvent.click(visibleOptions[0]);
+    await waitFor(() => {
+      // Ensure that chosen option is shown as value of input
+      expect(queryByDisplayValue(options[0].label)).toBeDefined();
+      // Ensure that chosen option has been sent with the onChange event
+      expect(onChange).toHaveBeenCalledWith(options[0]);
     });
-
-    // Ensure that chosen option is shown as value of input
-    expect(queryByDisplayValue(options[0].label)).toBeDefined();
-    // Ensure that chosen option has been sent with the onChange event
-    expect(onChange).toHaveBeenCalledWith(options[0]);
   });
 
   describe('in multi select mode', () => {
-    it('user should be able to search and choose multiple options', () => {
+    it('user should be able to search and choose multiple options', async () => {
       const onChange = jest.fn();
       const { getAllByLabelText, getAllByRole, queryAllByText } = getWrapper({
         onChange,
@@ -61,33 +59,32 @@ describe('<Combobox />', () => {
       // Search an option
       userEvent.type(input, 'Fi');
       const visibleOptions = getAllByRole('option');
-
       // Ensure that options are filtered correctly
       expect(visibleOptions.length).toBe(1);
-      act(() => {
-        // Choose one option
-        userEvent.click(visibleOptions[0]);
+      // Choose one option
+      userEvent.click(visibleOptions[0]);
+      await waitFor(() => {
+        // Ensure that it's visible in selected items
+        expect(queryAllByText(options[0].label).length).toEqual(2);
+        // Ensure that it has been passed upwards with onChange
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith([options[0]]);
       });
-      // Ensure that it's visible in selected items
-      expect(queryAllByText(options[0].label).length).toEqual(2);
-      // Ensure that it has been passed upwards with onChange
-      expect(onChange).toHaveBeenCalledTimes(1);
-      expect(onChange).toHaveBeenCalledWith([options[0]]);
 
       // Search another option
       userEvent.type(input, 'bo');
       expect(getAllByRole('option').length).toBe(2);
-      act(() => {
-        userEvent.click(getAllByRole('option')[1]);
+      userEvent.click(getAllByRole('option')[1]);
+      await waitFor(() => {
+        // Ensure that previous and current selection are visible in
+        // selected items
+        expect(queryAllByText(options[0].label).length).toEqual(2);
+        expect(queryAllByText(options[4].label).length).toEqual(2);
+        // Ensure that the current selection is passed correctly with
+        // onChange
+        expect(onChange).toHaveBeenCalledTimes(2);
+        expect(onChange).toHaveBeenCalledWith([options[0], options[4]]);
       });
-      // Ensure that previous and current selection are visible in
-      // selected items
-      expect(queryAllByText(options[0].label).length).toEqual(2);
-      expect(queryAllByText(options[4].label).length).toEqual(2);
-      // Ensure that the current selection is passed correctly with
-      // onChange
-      expect(onChange).toHaveBeenCalledTimes(2);
-      expect(onChange).toHaveBeenCalledWith([options[0], options[4]]);
     });
 
     it('user should be able to close the menu with a tab keypress', () => {
