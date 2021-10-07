@@ -88,6 +88,13 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
     }: TimeInputProps,
     ref?: React.Ref<HTMLInputElement>,
   ) => {
+    if (defaultValue && value) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        'Use either defaultValue (for uncontrolled components) or value (for controlled components) in HDS TimeInput component.',
+      );
+    }
+
     const hoursAndMinutes: string[] | null = getHourAndMinuteValues(defaultValue || value);
     const inputRef = useRef<HTMLInputElement>(null);
     const hoursInputRef = useRef<HTMLInputElement>(null);
