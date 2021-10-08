@@ -3,6 +3,24 @@ module.exports = {
     title: `Helsinki Design system`,
     description: `Documentation for Helsinki Design System`,
     siteUrl: `https://hds.hel.fi/`,
+    menuLinks: [
+      {
+        name: 'Home',
+        link: '/'
+      },
+      {
+        name: 'Guidelines',
+        link: '/guidelines/'
+      },
+      {
+        name: 'Elements',
+        link: '/elements/'
+      },
+      {
+        name: 'About',
+        link: '/about/'
+      }
+    ],
     footerTitle: 'Design system',
     footerAriaLabel: 'HDS footer',
     footerCopyrightLinks: [
