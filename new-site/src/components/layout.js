@@ -8,6 +8,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
+import { MDXProvider } from '@mdx-js/react';
 import { Container, Footer, Navigation } from 'hds-react';
 
 import './layout.css';
@@ -43,7 +44,7 @@ const Layout = ({ children }) => {
         skipToContentLabel="Skip to content"
       />
       <Container id={contentId} className="pageContent" style={{ margin: '0 auto' }}>
-        <main>{children}</main>
+        <MDXProvider>{children}</MDXProvider>
       </Container>
       <Footer className="pageFooter" title={siteDate?.footerTitle || title} footerAriaLabel={siteDate?.footerAriaLabel}>
         <Footer.Base copyrightHolder="Copyright">
