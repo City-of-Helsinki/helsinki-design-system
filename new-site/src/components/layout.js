@@ -41,6 +41,7 @@ const Layout = ({ children, location }) => {
   return (
     <div className="page">
       <Navigation
+        id="page-header"
         className="pageHeader"
         title={title}
         menuToggleAriaLabel="menu"
@@ -62,7 +63,12 @@ const Layout = ({ children, location }) => {
       <Container id={contentId} className="pageContent" style={{ margin: '0 auto' }}>
         <MDXProvider>{children}</MDXProvider>
       </Container>
-      <Footer className="pageFooter" title={siteDate?.footerTitle || title} footerAriaLabel={siteDate?.footerAriaLabel}>
+      <Footer
+        id="page-footer"
+        className="pageFooter"
+        title={siteDate?.footerTitle || title}
+        footerAriaLabel={siteDate?.footerAriaLabel}
+      >
         <Footer.Base copyrightHolder="Copyright">
           {siteDate?.footerCopyrightLinks &&
             siteDate?.footerCopyrightLinks.map(({ name, link }) => <Footer.Item key={name} label={name} href={link} />)}
