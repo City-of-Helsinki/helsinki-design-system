@@ -26,8 +26,8 @@ const Layout = ({ children, location }) => {
           footerTitle
           footerAriaLabel
           footerCopyrightLinks {
-            label
-            href
+            name
+            link
           }
         }
       }
@@ -65,9 +65,7 @@ const Layout = ({ children, location }) => {
       <Footer className="pageFooter" title={siteDate?.footerTitle || title} footerAriaLabel={siteDate?.footerAriaLabel}>
         <Footer.Base copyrightHolder="Copyright">
           {siteDate?.footerCopyrightLinks &&
-            siteDate?.footerCopyrightLinks.map(({ label, href }) => (
-              <Footer.Item key={href} label={label} href={href} />
-            ))}
+            siteDate?.footerCopyrightLinks.map(({ name, link }) => <Footer.Item key={name} label={name} href={link} />)}
         </Footer.Base>
       </Footer>
     </div>
