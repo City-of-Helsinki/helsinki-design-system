@@ -25,8 +25,8 @@ module.exports = {
     footerAriaLabel: 'HDS footer',
     footerCopyrightLinks: [
       {
-        label: 'Github',
-        href: 'https://github.com/City-of-Helsinki/helsinki-design-system',
+        name: 'Github',
+        link: 'https://github.com/City-of-Helsinki/helsinki-design-system',
       },
     ],
   },
