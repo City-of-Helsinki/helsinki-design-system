@@ -29,6 +29,17 @@ function getOptions() {
 
 const options = getOptions();
 
+function getRegionOptions() {
+  return [
+    { label: 'Helsinki', value: 'helsinki' },
+    { label: 'Helsinki east region', value: 'helsinki-east' },
+    { label: 'Helsinki north region', value: 'helsinki-north' },
+    { label: 'Helsinki northeast region', value: 'helsinki-northeast' },
+    { label: 'Helsinki northwest region', value: 'helsinki-northwest' },
+    { label: 'Helsinki west region', value: 'helsinki-west' },
+  ];
+}
+
 export default {
   component: Combobox,
   title: 'Components/Dropdowns/Combobox',
@@ -55,6 +66,7 @@ export const Multiselect = (args) => <Combobox {...args} />;
 Multiselect.storyName = 'Multi-select';
 Multiselect.args = {
   multiselect: true,
+  options: getRegionOptions(),
 };
 
 export const Invalid = (args) => <Combobox {...args} />;
