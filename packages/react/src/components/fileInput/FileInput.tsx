@@ -390,6 +390,15 @@ export const FileInput = ({
       .map((errorSet) => `- ${errorSet[0].text}`)
       .join('\n')}`;
 
+  const afterFileItemsChange = (fileItems: FileItem[]) => {
+    if (onChange) {
+      const selectedFiles: File[] = fileItems.map(convertFileItemToFile);
+      onChange(selectedFiles);
+    }
+    // Clear input value on every change to ensure it triggers a onChange event when files are added
+    resetInputValue();
+  };
+
   const handleSingleFileChange = (files: File[]) => {
     if (files.length > 0) {
       const { validFiles, validationErrors } = runValidations(files);
@@ -397,8 +406,11 @@ export const FileInput = ({
       if (validationErrors.length > 0) {
         setInvalidText(getValidationErrorsMessage(validationErrors, 1));
       } else {
-        setSelectedFileItems([convertFileToFileItem(validFiles[0])]);
+        const newFileItems: FileItem[] = [convertFileToFileItem(validFiles[0])];
+        setSelectedFileItems(newFileItems);
         setProcessSuccessText(getAddSuccessMessage(language, 1, 1));
+
+        afterFileItemsChange(newFileItems);
       }
     }
   };
@@ -413,8 +425,11 @@ export const FileInput = ({
 
       if (validFiles.length > 0) {
         const newFileItems: FileItem[] = validFiles.map(convertFileToFileItem);
-        setSelectedFileItems([...selectedFileItems, ...newFileItems]);
+        const allFileItems: FileItem[] = [...selectedFileItems, ...newFileItems];
+        setSelectedFileItems(allFileItems);
         setProcessSuccessText(getAddSuccessMessage(language, validFiles.length, files.length));
+
+        afterFileItemsChange(allFileItems);
       }
     }
   };
@@ -432,18 +447,20 @@ export const FileInput = ({
   const onRemoveFileFromList = (fileItemToRemove: FileItem, indexToRemove: number) => {
     clearState();
 
-    const selectedFilesWithoutRemoved = selectedFileItems.filter(
+    const selectedFileItemsWithoutRemoved: FileItem[] = selectedFileItems.filter(
       (fileItem: FileItem) => fileItem.uiId !== fileItemToRemove.uiId,
     );
-    setSelectedFileItems(selectedFilesWithoutRemoved);
+    setSelectedFileItems(selectedFileItemsWithoutRemoved);
 
-    if (selectedFilesWithoutRemoved.length > 0) {
+    if (selectedFileItemsWithoutRemoved.length > 0) {
       fileListFocusIndexRef.current = indexToRemove > 0 ? indexToRemove - 1 : 0;
       setInputStateText(getRemoveSuccessMessage(language));
     } else {
       passFocusToInput();
       setInputStateText(getNoFilesAddedMessage(language));
     }
+
+    afterFileItemsChange(selectedFileItemsWithoutRemoved);
   };
 
   const onDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
@@ -467,19 +484,9 @@ export const FileInput = ({
   useEffect(() => {
     if (!didMountRef.current) {
       setInputStateText(getNoFilesAddedMessage(language));
-    }
-  }, [setInputStateText, language]);
-
-  useEffect(() => {
-    if (didMountRef.current && onChange) {
-      const selectedFiles: File[] = selectedFileItems.map(convertFileItemToFile);
-      onChange(selectedFiles);
-    } else {
       didMountRef.current = true;
     }
-    // Clear input value on every change to ensure it triggers a onChange event when files are added
-    resetInputValue();
-  }, [selectedFileItems, onChange]);
+  }, [setInputStateText, language]);
 
   // Compose aria-describedby attribute
   const ariaDescribedBy: string = [
