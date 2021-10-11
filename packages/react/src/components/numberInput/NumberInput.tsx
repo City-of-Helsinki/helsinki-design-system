@@ -49,7 +49,7 @@ export type NumberInputProps = Omit<
   /**
    * The value of the input element, required for a controlled component
    */
-  value?: number;
+  value?: number | '';
 };
 
 function combineLabelAndUnit(label: string, unit: string | undefined): string | undefined {
