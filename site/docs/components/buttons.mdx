@@ -30,6 +30,7 @@ import Link from "../../src/components/Link";
 
 - **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
 - In most cases, prefer using normal size buttons over small buttons. Default sized buttons are easier for users to notice and press.
+- Pay attention to the button role. If you use the button as a link instead of an action (i.e. the button press causes a page load), you must specify a `role="link"` attribute to the button.
 - HDS Buttons (even the Small variant) comply with <Link href="https://www.w3.org/TR/WCAG21/#target-size" external>WCAG 2.5.5 Target Size (AAA) guideline</Link>. Customizing button sizes is not recommended.
 
 ## Usage & variations

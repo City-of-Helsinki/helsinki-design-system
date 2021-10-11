@@ -9,7 +9,7 @@ const body = `<div class="hds-card__body">
     <div class="hds-card__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
   </div>`;
 
-const button = `<button type="button" class="hds-button hds-button--secondary hds-button--theme-black">
+const button = `<button type="button" class="hds-button hds-button--secondary hds-button--theme-black" role="link">
       <span class="hds-button__label">Button</span>
     </button>`;
 
