@@ -44,13 +44,13 @@ const incrementNumber = (min: number, max: number, current: number, modifier: nu
 };
 
 /**
- * Returns the default hour/minute values from a defaultValue string
+ * Returns hour and minute values from a provided value string. The provided value can be either value or defaultValue property.
  */
-const getDefaultValues = (defaultValue?: string): string[] | null => {
-  const defaultValueString = `${defaultValue}`;
-  if (defaultValue && defaultValueString.length > 0) {
-    if (defaultValueString.match(/^\d{2}:\d{2}$/)) {
-      return defaultValueString.split(':');
+const getHourAndMinuteValues = (value?: string): string[] | null => {
+  const valueString = `${value}`;
+  if (value && valueString.length > 0) {
+    if (valueString.match(/^\d{2}:\d{2}$/)) {
+      return valueString.split(':');
     }
     // eslint-disable-next-line no-console
     console.warn('Invalid default value for TimeInput. The default value must be in hh:mm format');
@@ -66,6 +66,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
       className = '',
       disabled = false,
       defaultValue,
+      value,
       errorText,
       helperText,
       hideLabel,
@@ -87,13 +88,20 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
     }: TimeInputProps,
     ref?: React.Ref<HTMLInputElement>,
   ) => {
-    const defaultValues = getDefaultValues(defaultValue);
+    if (defaultValue && value) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        'Use either defaultValue (for uncontrolled components) or value (for controlled components) in HDS TimeInput component.',
+      );
+    }
+
+    const hoursAndMinutes: string[] | null = getHourAndMinuteValues(defaultValue || value);
     const inputRef = useRef<HTMLInputElement>(null);
     const hoursInputRef = useRef<HTMLInputElement>(null);
     const minutesInputRef = useRef<HTMLInputElement>(null);
-    const [hours, setHours] = useState<string>(defaultValues ? defaultValues[0] : '');
-    const [minutes, setMinutes] = useState<string>(defaultValues ? defaultValues[1] : '');
-    const [time, setTime] = useState<string>(defaultValues ? defaultValues.join(':') : '');
+    const [hours, setHours] = useState<string>(hoursAndMinutes ? hoursAndMinutes[0] : '');
+    const [minutes, setMinutes] = useState<string>(hoursAndMinutes ? hoursAndMinutes[1] : '');
+    const [time, setTime] = useState<string>(hoursAndMinutes ? hoursAndMinutes.join(':') : '');
 
     const wrapperProps = {
       className,
@@ -147,15 +155,15 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
      * Handle hours input change
      */
     const onHoursChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-      const value = event.target.value.slice(-2);
+      const hoursValue = event.target.value.slice(-2);
 
       // Allow number string only
-      if (!isShortNumericString(value)) {
+      if (!isShortNumericString(hoursValue)) {
         event.preventDefault();
         return false;
       }
 
-      updateTimeInput(value, minutes);
+      updateTimeInput(hoursValue, minutes);
       return true;
     };
 
@@ -163,15 +171,15 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
      * Handle minutes input change
      */
     const onMinutesChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-      const value = event.target.value.slice(-2);
+      const minutesValue = event.target.value.slice(-2);
 
       // Allow numbers string only
-      if (!isShortNumericString(value)) {
+      if (!isShortNumericString(minutesValue)) {
         event.preventDefault();
         return false;
       }
 
-      updateTimeInput(hours, value);
+      updateTimeInput(hours, minutesValue);
       return true;
     };
 
