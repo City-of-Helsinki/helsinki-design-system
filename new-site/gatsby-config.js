@@ -47,7 +47,7 @@ module.exports = {
         path: `${__dirname}/src/docs/`,
       },
     },
-    // This config is need if pages are are somewhere else than in pages folder.
+    // This config is needed when pages are somewhere else than in the pages folder.
     {
       resolve: "gatsby-plugin-page-creator",
       options: {
