@@ -6,6 +6,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.1] - Oct, 11, 2021
+
+### React Components
+
+#### Fixed
+- [Combobox] Prevented resetting selected values on tab keypress
+- [Combobox] Fixed space keypress in the search, adds now a space into search term
+- [Combobox] Added missing aria-expanded attribute for the dropdown button
+- [File Input] Prevented unnecessary onChange calls on re-render
+- [Number Input] Fixed resetting input value as an empty value
+- [Time Input] Fixed value property
+
+### Design kit
+
+#### Changed
+- Updated HDS Sketch libraries to Sketch 77 (77.1)
+- [Form Components] Moved Date input symbols to the “Date & Time” category
+
+#### Fixed
+- [Form Components] Removed duplicate TextInput Active state symbols that were accidentally introduced last update
+- [Icons] Removed duplicate example artboard entry for fast-forward icon
+
+#### Removed
+- [Form Components] “Date Input” category (symbols moved to “Date & Time”)
+
+### Documentation
+
+#### Added
+- Link to the design kit to the designers’ Getting started page
+- Link to the icon kit to the Icon documentation page
+- Link to the favicon kit to the Logo documentation page
+- Notes about Button role attribute usage when the Button is used as a link
+- More Link component variation examples
+  - Internal/external links, links that open in a new tab, links with icons
+
+#### Changed
+- Updated Card examples to use role="link" in their Buttons
+
 ## [1.5.0] - Sep, 22, 2021
 
 ### Core
