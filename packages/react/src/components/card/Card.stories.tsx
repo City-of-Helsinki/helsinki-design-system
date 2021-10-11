@@ -31,7 +31,7 @@ TextHeading.args = {
 
 export const WithOtherComponents = (args) => (
   <Card {...args}>
-    <Button variant="secondary" theme="black">
+    <Button variant="secondary" theme="black" role="link">
       Button
     </Button>
   </Card>
