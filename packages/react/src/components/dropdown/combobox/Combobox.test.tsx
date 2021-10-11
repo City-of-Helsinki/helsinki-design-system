@@ -1,10 +1,12 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 
 import { Combobox, ComboboxProps } from './Combobox';
 
 const label = 'Combobox';
+
 const options = [
   { label: 'Finland', value: 'FI' },
   { label: 'Sweden', value: 'SV' },
@@ -12,6 +14,16 @@ const options = [
   { label: 'Botswana', value: 'BW' },
   { label: 'Bolivia', value: 'BO' },
 ];
+
+const multiWordOptions = [
+  { label: 'Helsinki', value: 'helsinki' },
+  { label: 'Helsinki east region', value: 'helsinki-east' },
+  { label: 'Helsinki north region', value: 'helsinki-north' },
+  { label: 'Helsinki northeast region', value: 'helsinki-northeast' },
+  { label: 'Helsinki northwest region', value: 'helsinki-northwest' },
+  { label: 'Helsinki west region', value: 'helsinki-west' },
+];
+
 const defaultProps: ComboboxProps<{ label: string; value: string }> = {
   label,
   options,
@@ -24,15 +36,23 @@ const defaultProps: ComboboxProps<{ label: string; value: string }> = {
 const getWrapper = (props?: unknown) => render(<Combobox {...defaultProps} {...props} />);
 
 describe('<Combobox />', () => {
+  it('renders the component', () => {
+    const { asFragment } = getWrapper();
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('should not have basic accessibility issues', async () => {
+    const { container } = getWrapper();
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it('user should be able to search and choose an option ', async () => {
     const onChange = jest.fn();
     const { getAllByLabelText, getAllByRole, queryByDisplayValue } = getWrapper({ onChange });
     const input = getAllByLabelText(label)[0];
-
     userEvent.type(input, 'Fi');
-
     const visibleOptions = getAllByRole('option');
-
     // Ensure that options are filtered correctly
     expect(visibleOptions.length).toBe(1);
 
@@ -105,6 +125,42 @@ describe('<Combobox />', () => {
       const visibleOptionsAfterClose = queryAllByRole('option');
       expect(visibleOptionsAfterClose.length).toBe(0);
       expect(queryAllByText(options[0].label).length).toEqual(0);
+    });
+
+    it('user should be able to search with multiple word term', () => {
+      const onChange = jest.fn();
+      const { getAllByLabelText, getAllByRole } = getWrapper({
+        onChange,
+        multiselect: true,
+        options: multiWordOptions,
+      });
+
+      const input = getAllByLabelText(label)[0];
+
+      // First result
+      userEvent.type(input, 'Helsinki');
+      const visibleOptions = getAllByRole('option');
+      expect(visibleOptions.length).toBe(6);
+
+      // The result after more specific search
+      userEvent.type(input, '{space}northeast');
+      const newVisibleOptions = getAllByRole('option');
+      expect(newVisibleOptions.length).toBe(1);
+      expect(newVisibleOptions[0]).toHaveTextContent('Helsinki northeast');
+    });
+
+    it('user should be able to search with a more specific term', () => {
+      const onChange = jest.fn();
+      const { getAllByLabelText, getAllByRole } = getWrapper({
+        onChange,
+        multiselect: true,
+        options: multiWordOptions,
+      });
+
+      const input = getAllByLabelText(label)[0];
+      userEvent.type(input, 'northeast');
+      const visibleOptions = getAllByRole('option');
+      expect(visibleOptions.length).toBe(1);
     });
   });
 });
