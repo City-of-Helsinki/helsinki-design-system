@@ -7,7 +7,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { useStaticQuery, graphql, withPrefix, Link } from 'gatsby';
+import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
 import { Container, Footer, Navigation } from 'hds-react';
 
@@ -55,7 +55,13 @@ const Layout = ({ children, location }) => {
               const isHomepage = !pathname && isHomeLink;
               const isActivePage = !isHomeLink && pathname && pathname.startsWith(withPrefix(link));
               return (
-                <Navigation.Item active={isHomepage || isActivePage} key={name} label={name} to={link} as={Link} />
+                <Navigation.Item
+                  active={isHomepage || isActivePage}
+                  key={name}
+                  label={name}
+                  to={link}
+                  as={GatsbyLink}
+                />
               );
             })}
         </Navigation.Row>
