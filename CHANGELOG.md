@@ -37,6 +37,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Link to the design kit to the designers’ Getting started page
 - Link to the icon kit to the Icon documentation page
 - Link to the favicon kit to the Logo documentation page
+- Notes about Button role attribute usage when the Button is used as a link
+- More Link component variation examples
+  - Internal/external links, links that open in a new tab, links with icons
+
+#### Changed
+- Updated Card examples to use role="link" in their Buttons
 
 ## [1.5.0] - Sep, 22, 2021
 
@@ -73,9 +79,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - File Input documentation
 - [Form validation pattern] Info message usage guidelines
 - Missing components to form pattern documentation
-- Notes about Button role attribute usage when the Button is used as a link
-- More Link component variation examples
-  - Internal/external links, links that open in a new tab, links with icons
 
 #### Changed
 - [Form pattern] Added missing form components to the form pattern documentation
