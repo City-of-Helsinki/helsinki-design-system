@@ -7,7 +7,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { useStaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql, withPrefix, Link } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
 import { Container, Footer, Navigation } from 'hds-react';
 
