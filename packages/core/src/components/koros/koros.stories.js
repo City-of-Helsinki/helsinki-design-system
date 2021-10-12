@@ -84,6 +84,19 @@ export const Storm = () => `
   </div>
 `;
 
+export const Calm = () => `
+  <div class="hds-koros">
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+      <defs>
+        <pattern id="korosCalm" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+        <path d="M788 0.279785H0V109.739H788V0.279785Z" />
+        </pattern>
+      </defs>
+      <rect fill="url(#korosCalm)" width="100%" height="85" />
+    </svg>
+  </div>
+`;
+
 export const Flipped = () => `
   <div class="hds-koros hds-koros--flip-horizontal">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
