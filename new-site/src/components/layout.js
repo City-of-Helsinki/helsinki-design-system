@@ -34,8 +34,8 @@ const Layout = ({ children, location }) => {
     }
   `);
 
-  const siteDate = data.site.siteMetadata;
-  const title = siteDate?.title || 'Title';
+  const siteData = data.site.siteMetadata;
+  const title = siteData?.title || 'Title';
   const contentId = 'content';
   const pathname = location?.pathname;
   return (
@@ -49,8 +49,8 @@ const Layout = ({ children, location }) => {
         skipToContentLabel="Skip to content"
       >
         <Navigation.Row>
-          {siteDate?.menuLinks &&
-            siteDate?.menuLinks.map(({ name, link }) => {
+          {siteData?.menuLinks &&
+            siteData?.menuLinks.map(({ name, link }) => {
               const isHomeLink = link === '/';
               const isHomepage = !pathname && isHomeLink;
               const isActivePage = !isHomeLink && pathname && pathname.startsWith(withPrefix(link));
@@ -72,12 +72,12 @@ const Layout = ({ children, location }) => {
       <Footer
         id="page-footer"
         className="pageFooter"
-        title={siteDate?.footerTitle || title}
-        footerAriaLabel={siteDate?.footerAriaLabel}
+        title={siteData?.footerTitle || title}
+        footerAriaLabel={siteData?.footerAriaLabel}
       >
         <Footer.Base copyrightHolder="Copyright">
-          {siteDate?.footerCopyrightLinks &&
-            siteDate?.footerCopyrightLinks.map(({ name, link }) => <Footer.Item key={name} label={name} href={link} />)}
+          {siteData?.footerCopyrightLinks &&
+            siteData?.footerCopyrightLinks.map(({ name, link }) => <Footer.Item key={name} label={name} href={link} />)}
         </Footer.Base>
       </Footer>
     </div>
