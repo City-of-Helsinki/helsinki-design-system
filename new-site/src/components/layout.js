@@ -13,41 +13,22 @@ import { Container, Footer, Navigation } from 'hds-react';
 
 import './layout.css';
 
-const layoutData = {
-  menuLinks: [
-    {
-      name: 'Home',
-      link: '/',
-    },
-    {
-      name: 'Guidelines',
-      link: '/guidelines/',
-    },
-    {
-      name: 'Elements',
-      link: '/elements/',
-    },
-    {
-      name: 'About',
-      link: '/about/',
-    },
-  ],
-  footerTitle: 'Design system',
-  footerAriaLabel: 'HDS footer',
-  footerCopyrightLinks: [
-    {
-      name: 'Github',
-      link: 'https://github.com/City-of-Helsinki/helsinki-design-system',
-    },
-  ],
-};
-
 const Layout = ({ children, location }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
         siteMetadata {
           title
+          menuLinks {
+            name
+            link
+          }
+          footerTitle
+          footerAriaLabel
+          footerCopyrightLinks {
+            name
+            link
+          }
         }
       }
     }
@@ -55,6 +36,10 @@ const Layout = ({ children, location }) => {
 
   const siteData = data.site.siteMetadata;
   const title = siteData?.title || 'Title';
+  const footerTitle = siteData?.footerTitle || title;
+  const footerAriaLabel = siteData?.footerAriaLabel;
+  const menuLinks = siteData?.menuLinks || [];
+  const footerCopyRightLinks = siteData?.footerCopyrightLinks || [];
   const contentId = 'content';
   const pathname = location?.pathname;
 
@@ -69,7 +54,7 @@ const Layout = ({ children, location }) => {
         skipToContentLabel="Skip to content"
       >
         <Navigation.Row>
-          {layoutData.menuLinks.map(({ name, link }) => {
+          {menuLinks.map(({ name, link }) => {
             const isHomeLink = link === '/';
             const isHomepage = !pathname && isHomeLink;
             const isActivePage = !isHomeLink && pathname && pathname.startsWith(withPrefix(link));
@@ -82,14 +67,9 @@ const Layout = ({ children, location }) => {
       <Container id={contentId} className="pageContent" style={{ margin: '0 auto' }}>
         <MDXProvider>{children}</MDXProvider>
       </Container>
-      <Footer
-        id="page-footer"
-        className="pageFooter"
-        title={layoutData.footerTitle}
-        footerAriaLabel={layoutData.footerAriaLabel}
-      >
+      <Footer id="page-footer" className="pageFooter" title={footerTitle} footerAriaLabel={footerAriaLabel}>
         <Footer.Base copyrightHolder="Copyright">
-          {layoutData.footerCopyrightLinks.map(({ name, link }) => (
+          {footerCopyRightLinks.map(({ name, link }) => (
             <Footer.Item key={name} label={name} href={link} />
           ))}
         </Footer.Base>
