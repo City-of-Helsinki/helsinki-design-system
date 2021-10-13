@@ -3,12 +3,30 @@ module.exports = {
     title: `Helsinki Design system`,
     description: `Documentation for Helsinki Design System`,
     siteUrl: `https://hds.hel.fi/`,
+    menuLinks: [
+      {
+        name: 'Home',
+        link: '/'
+      },
+      {
+        name: 'Guidelines',
+        link: '/guidelines/'
+      },
+      {
+        name: 'Elements',
+        link: '/elements/'
+      },
+      {
+        name: 'About',
+        link: '/about/'
+      }
+    ],
     footerTitle: 'Design system',
     footerAriaLabel: 'HDS footer',
     footerCopyrightLinks: [
       {
-        label: 'Github',
-        href: 'https://github.com/City-of-Helsinki/helsinki-design-system',
+        name: 'Github',
+        link: 'https://github.com/City-of-Helsinki/helsinki-design-system',
       },
     ],
   },
@@ -20,6 +38,28 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `docs`,
+        path: `${__dirname}/src/docs/`,
+      },
+    },
+    // This config is needed when pages are somewhere else than in the pages folder.
+    {
+      resolve: "gatsby-plugin-page-creator",
+      options: {
+        path: `${__dirname}/src/docs`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        defaultLayouts: {
+          default: require.resolve("./src/components/layout.js"),
+        }
       },
     },
     `gatsby-transformer-sharp`,
