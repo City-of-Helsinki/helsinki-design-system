@@ -13,22 +13,41 @@ import { Container, Footer, Navigation } from 'hds-react';
 
 import './layout.css';
 
+const layoutData = {
+  menuLinks: [
+    {
+      name: 'Home',
+      link: '/',
+    },
+    {
+      name: 'Guidelines',
+      link: '/guidelines/',
+    },
+    {
+      name: 'Elements',
+      link: '/elements/',
+    },
+    {
+      name: 'About',
+      link: '/about/',
+    },
+  ],
+  footerTitle: 'Design system',
+  footerAriaLabel: 'HDS footer',
+  footerCopyrightLinks: [
+    {
+      name: 'Github',
+      link: 'https://github.com/City-of-Helsinki/helsinki-design-system',
+    },
+  ],
+};
+
 const Layout = ({ children, location }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
         siteMetadata {
           title
-          menuLinks {
-            name
-            link
-          }
-          footerTitle
-          footerAriaLabel
-          footerCopyrightLinks {
-            name
-            link
-          }
         }
       }
     }
@@ -38,6 +57,7 @@ const Layout = ({ children, location }) => {
   const title = siteData?.title || 'Title';
   const contentId = 'content';
   const pathname = location?.pathname;
+
   return (
     <div className="page">
       <Navigation
@@ -49,21 +69,14 @@ const Layout = ({ children, location }) => {
         skipToContentLabel="Skip to content"
       >
         <Navigation.Row>
-          {siteData?.menuLinks &&
-            siteData?.menuLinks.map(({ name, link }) => {
-              const isHomeLink = link === '/';
-              const isHomepage = !pathname && isHomeLink;
-              const isActivePage = !isHomeLink && pathname && pathname.startsWith(withPrefix(link));
-              return (
-                <Navigation.Item
-                  active={isHomepage || isActivePage}
-                  key={name}
-                  label={name}
-                  to={link}
-                  as={GatsbyLink}
-                />
-              );
-            })}
+          {layoutData.menuLinks.map(({ name, link }) => {
+            const isHomeLink = link === '/';
+            const isHomepage = !pathname && isHomeLink;
+            const isActivePage = !isHomeLink && pathname && pathname.startsWith(withPrefix(link));
+            return (
+              <Navigation.Item active={isHomepage || isActivePage} key={name} label={name} to={link} as={GatsbyLink} />
+            );
+          })}
         </Navigation.Row>
       </Navigation>
       <Container id={contentId} className="pageContent" style={{ margin: '0 auto' }}>
@@ -72,12 +85,13 @@ const Layout = ({ children, location }) => {
       <Footer
         id="page-footer"
         className="pageFooter"
-        title={siteData?.footerTitle || title}
-        footerAriaLabel={siteData?.footerAriaLabel}
+        title={layoutData.footerTitle}
+        footerAriaLabel={layoutData.footerAriaLabel}
       >
         <Footer.Base copyrightHolder="Copyright">
-          {siteData?.footerCopyrightLinks &&
-            siteData?.footerCopyrightLinks.map(({ name, link }) => <Footer.Item key={name} label={name} href={link} />)}
+          {layoutData.footerCopyrightLinks.map(({ name, link }) => (
+            <Footer.Item key={name} label={name} href={link} />
+          ))}
         </Footer.Base>
       </Footer>
     </div>
