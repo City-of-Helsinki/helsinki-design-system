@@ -194,7 +194,7 @@ export const VerticalHeader = () => `
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
       <tr class="hds-table__header-row">
-        <th></th>
+        <td role="presentation"></td>
         <th scope="col">8-12</th>
         <th scope="col">12-14</th>
         <th scope="col">14-16</th>
@@ -217,7 +217,7 @@ export const VerticalHeaderLight = () => `
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
       <tr class="hds-table__header-row">
-        <th></th>
+        <td role="presentation"></td>
         <th scope="col">8-12</th>
         <th scope="col">12-14</th>
         <th scope="col">14-16</th>
@@ -240,7 +240,7 @@ export const VerticalHeaderZebra = () => `
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
       <tr class="hds-table__header-row">
-        <th></th>
+        <td role="presentation"></td>
         <th scope="col">8-12</th>
         <th scope="col">12-14</th>
         <th scope="col">14-16</th>
@@ -263,7 +263,7 @@ export const VerticalHeaderAndLines = () => `
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
       <tr class="hds-table__header-row">
-        <th></th>
+        <td role="presentation"></td>
         <th scope="col">8-12</th>
         <th scope="col">12-14</th>
         <th scope="col">14-16</th>
@@ -286,7 +286,7 @@ export const VerticalHeaderAndLinesZebra = () => `
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
       <tr class="hds-table__header-row">
-        <th></th>
+        <td role="presentation"></td>
         <th scope="col">8-12</th>
         <th scope="col">12-14</th>
         <th scope="col">14-16</th>
