@@ -71,7 +71,7 @@ module.exports = {
     },
     // This config is needed when pages are somewhere else than in the pages folder.
     {
-      resolve: "gatsby-plugin-page-creator",
+      resolve: 'gatsby-plugin-page-creator',
       options: {
         path: `${__dirname}/src/docs`,
       },
@@ -80,8 +80,8 @@ module.exports = {
       resolve: `gatsby-plugin-mdx`,
       options: {
         defaultLayouts: {
-          default: require.resolve("./src/components/layout.js"),
-        }
+          default: require.resolve('./src/components/layout.js'),
+        },
       },
     },
     `gatsby-transformer-sharp`,
