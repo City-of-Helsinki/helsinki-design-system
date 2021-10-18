@@ -82,7 +82,7 @@ Then leave the storybook on the background and switch to another terminal window
 ```
 yarn update-reference-images --storiesFilter "<name or part of the name of the story>"
 ```
-You should pass the component name with --storiesFilter flag to update the reference images only for that single component.
+You should pass the component's story name with --storiesFilter flag to update the reference images only for that single component story.
 For example, to update Button story reference images, you can run:
 ```
 yarn update-reference-images --storiesFilter "Button"
