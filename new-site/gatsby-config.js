@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: process.env.PATH_PREFIX,
   siteMetadata: {
     title: `Helsinki Design system`,
     description: `Documentation for Helsinki Design System`,
