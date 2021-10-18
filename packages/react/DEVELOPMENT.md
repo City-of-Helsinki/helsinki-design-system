@@ -8,6 +8,7 @@
 - [Node](https://nodejs.org/en/) 
 - [Yarn](https://yarnpkg.com/) 
 - [Docker](https://www.docker.com/) (for visual regression tests)
+- [Git lfs](https://git-lfs.github.com/) (installation instructions below)
 
 ### Setting up local development environment
 
