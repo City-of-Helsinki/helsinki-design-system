@@ -11,6 +11,7 @@ import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink } from 'gatsby'
 import { MDXProvider } from '@mdx-js/react';
 import { Container, Footer, Navigation, SideNavigation } from 'hds-react';
 
+import Seo from './seo';
 import './layout.css';
 
 const resolveCurrentMenuItem = (menuItems, slugWithPrefix) => {
@@ -84,76 +85,79 @@ const Layout = ({ children, pageContext }) => {
   const contentId = 'content';
 
   return (
-    <div className="page text-body">
-      <Navigation
-        id="page-header"
-        className="pageHeader"
-        title={siteTitle}
-        menuToggleAriaLabel="menu"
-        skipTo={`#${contentId}`}
-        skipToContentLabel="Skip to content"
-      >
-        <Navigation.Row>
-          {menuLinks.map(({ name, link }) => (
-            <Navigation.Item
-              active={withPrefix(currentMenuItem?.link || '') === withPrefix(link)}
-              key={name}
-              label={name}
-              to={link}
-              as={GatsbyLink}
-            />
-          ))}
-        </Navigation.Row>
-      </Navigation>
-      <Container className="pageContent">
-        {sideNavigation.length > 0 && (
-          <aside className="sideContent" key="side-navigation">
-            <SideNavigation
-              defaultOpenMainLevels={[...Array(sideNavigation.length).keys()]}
-              id="side-navigation"
-              toggleButtonLabel="Navigate to page"
-            >
-              {sideNavigation.map(({ name, link, withDivider, subLevels }) => {
-                const sideNavLinkWithPrefix = withPrefix(link);
-                return (
-                  <SideNavigation.MainLevel
-                    key={`side-navigation-${link}`}
-                    id={name}
-                    href={sideNavLinkWithPrefix}
-                    label={name}
-                    active={pageSlugWithPrefix === sideNavLinkWithPrefix}
-                    withDivider={withDivider}
-                  >
-                    {subLevels.map(({ slug, title }) => {
-                      const subLevelSlugWithPrefix = withPrefix(slug);
+    <>
+      <Seo title={pageTitle} />
+      <div className="page text-body">
+        <Navigation
+          id="page-header"
+          className="pageHeader"
+          title={siteTitle}
+          menuToggleAriaLabel="menu"
+          skipTo={`#${contentId}`}
+          skipToContentLabel="Skip to content"
+        >
+          <Navigation.Row>
+            {menuLinks.map(({ name, link }) => (
+              <Navigation.Item
+                active={withPrefix(currentMenuItem?.link || '') === withPrefix(link)}
+                key={name}
+                label={name}
+                to={link}
+                as={GatsbyLink}
+              />
+            ))}
+          </Navigation.Row>
+        </Navigation>
+        <Container className="pageContent">
+          {sideNavigation.length > 0 && (
+            <aside className="sideContent" key="side-navigation">
+              <SideNavigation
+                defaultOpenMainLevels={[...Array(sideNavigation.length).keys()]}
+                id="side-navigation"
+                toggleButtonLabel="Navigate to page"
+              >
+                {sideNavigation.map(({ name, link, withDivider, subLevels }) => {
+                  const sideNavLinkWithPrefix = withPrefix(link);
+                  return (
+                    <SideNavigation.MainLevel
+                      key={`side-navigation-${link}`}
+                      id={name}
+                      href={sideNavLinkWithPrefix}
+                      label={name}
+                      active={pageSlugWithPrefix === sideNavLinkWithPrefix}
+                      withDivider={withDivider}
+                    >
+                      {subLevels.map(({ slug, title }) => {
+                        const subLevelSlugWithPrefix = withPrefix(slug);
 
-                      return (
-                        <SideNavigation.SubLevel
-                          key={`${slug}`}
-                          href={subLevelSlugWithPrefix}
-                          label={title}
-                          active={pageSlugWithPrefix === subLevelSlugWithPrefix}
-                        />
-                      );
-                    })}
-                  </SideNavigation.MainLevel>
-                );
-              })}
-            </SideNavigation>
-          </aside>
-        )}
-        <main id={contentId} className="mainContent">
-          <MDXProvider>{children}</MDXProvider>
-        </main>
-      </Container>
-      <Footer id="page-footer" className="pageFooter" title={footerTitle} footerAriaLabel={footerAriaLabel}>
-        <Footer.Base copyrightHolder="Copyright">
-          {footerCopyRightLinks.map(({ name, link }) => (
-            <Footer.Item key={name} label={name} href={link} />
-          ))}
-        </Footer.Base>
-      </Footer>
-    </div>
+                        return (
+                          <SideNavigation.SubLevel
+                            key={`${slug}`}
+                            href={subLevelSlugWithPrefix}
+                            label={title}
+                            active={pageSlugWithPrefix === subLevelSlugWithPrefix}
+                          />
+                        );
+                      })}
+                    </SideNavigation.MainLevel>
+                  );
+                })}
+              </SideNavigation>
+            </aside>
+          )}
+          <main id={contentId} className="mainContent">
+            <MDXProvider>{children}</MDXProvider>
+          </main>
+        </Container>
+        <Footer id="page-footer" className="pageFooter" title={footerTitle} footerAriaLabel={footerAriaLabel}>
+          <Footer.Base copyrightHolder="Copyright">
+            {footerCopyRightLinks.map(({ name, link }) => (
+              <Footer.Item key={name} label={name} href={link} />
+            ))}
+          </Footer.Base>
+        </Footer>
+      </div>
+    </>
   );
 };
 
