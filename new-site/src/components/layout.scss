@@ -105,8 +105,12 @@ body {
   }
 
   .mainContent {
-    border-left: 1px solid var(--color-black-20);
     flex: 1;
+    padding: 0 0 var(--spacing-m);
+  }
+
+  .sideContent + .mainContent {
+    border-left: 1px solid var(--color-black-20);
     padding: 0 var(--spacing-m) var(--spacing-m);
   }
 }
