@@ -12,7 +12,7 @@ import { MDXProvider } from '@mdx-js/react';
 import { Container, Footer, Navigation, SideNavigation } from 'hds-react';
 
 import Seo from './seo';
-import './layout.css';
+import './layout.scss';
 
 const resolveCurrentMenuItem = (menuItems, slugWithPrefix) => {
   const rootPath = withPrefix('/');
