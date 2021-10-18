@@ -80,10 +80,14 @@ yarn start:react
 ```
 Then leave the storybook on the background and switch to another terminal window. Go to packages/react and issue this command:
 ```
-yarn update-reference-images --storiesFilter "<name of the component or name of the story>"
+yarn update-reference-images --storiesFilter "<name or part of the name of the story>"
 ```
-
-You should pass the component name with `--storiesFilter` flag in order to update the reference images only for that single component.
+You should pass the component name with --storiesFilter flag to update the reference images only for that single component.
+For example, to update Button story reference images, you can run:
+```
+yarn update-reference-images --storiesFilter "Button"
+```
+[Here](https://github.com/oblador/loki/blob/master/docs/command-line-arguments.md) is more info about Loki-tests' command-line arguments
 
 ## Workflow
 
