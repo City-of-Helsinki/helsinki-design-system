@@ -4,6 +4,11 @@
 
 > Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scripts across the repo as well as versioning and creating releases of the packages. [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) is used to manage dependencies. This allows the separate packages to reference each other via symlinks during local development.
 
+### Prerequisites
+- [Node](https://nodejs.org/en/) 
+- [Yarn](https://yarnpkg.com/) 
+- [Docker](https://www.docker.com/) (for visual regression tests)
+
 ### Setting up local development environment
 
 0. Download and Install [git lfs](https://git-lfs.github.com/) which is used to store images outside repository.
