@@ -84,7 +84,27 @@ body {
 }
 
 .pageContent {
+  flex: 1;
+  display: flex;
+  margin: 0 auto;
+  padding: var(--spacing-m) 0;
+  height: 100%;
   width: 100%;
+}
+
+.sideContent {
+  margin-bottom: auto;
+  min-width: 230px;
+  padding: var(--spacing-s) 0;
+}
+
+.sideContent + .mainContent {
+  border-left: 1px solid var(--color-black-20);
+}
+
+.mainContent {
+  flex: 1;
+  padding: 0 var(--spacing-m) var(--spacing-m);
 }
 
 .pageFooter {

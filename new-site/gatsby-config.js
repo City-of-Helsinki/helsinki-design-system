@@ -6,20 +6,42 @@ module.exports = {
     menuLinks: [
       {
         name: 'Home',
-        link: '/'
+        link: '/',
+        subMenuLinks: [],
       },
       {
         name: 'Guidelines',
-        link: '/guidelines/'
+        link: '/guidelines',
+        subMenuLinks: [],
       },
       {
         name: 'Elements',
-        link: '/elements/'
+        link: '/elements',
+        subMenuLinks: [
+          {
+            name: 'Overview',
+            link: '/elements',
+          },
+          {
+            name: 'Visual assets',
+            link: '/elements/visual-assets',
+            withDivider: true,
+          },
+          {
+            name: 'Design tokens',
+            link: '/elements/design-tokens',
+          },
+          {
+            name: 'Components',
+            link: '/elements/components',
+          },
+        ],
       },
       {
         name: 'About',
-        link: '/about/'
-      }
+        link: '/about',
+        subMenuLinks: [],
+      },
     ],
     footerTitle: 'Design system',
     footerAriaLabel: 'HDS footer',
