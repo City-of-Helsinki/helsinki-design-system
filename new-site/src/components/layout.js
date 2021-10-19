@@ -79,10 +79,13 @@ const Layout = ({ children, pageContext }) => {
   const pageSubMenuLinks = currentMenuItem?.subMenuLinks || [];
   const sideNavigation = pageSubMenuLinks.map((subMenuLink) => ({
     ...subMenuLink,
+    uiId: `side-nav-link-${subMenuLink.name.split(' ').join('-')}`,
     subLevels: allPages.filter(({ subDir }) => subMenuLink.link.includes(subDir)),
   }));
   const footerCopyRightLinks = siteData?.footerCopyrightLinks || [];
+  const hasSideNavigation = sideNavigation.length > 0;
   const contentId = 'content';
+  const skipToLinkId = hasSideNavigation ? sideNavigation[0].uiId : contentId;
 
   return (
     <>
@@ -93,7 +96,7 @@ const Layout = ({ children, pageContext }) => {
           className="pageHeader"
           title={siteTitle}
           menuToggleAriaLabel="menu"
-          skipTo={`#${contentId}`}
+          skipTo={`#${skipToLinkId}`}
           skipToContentLabel="Skip to content"
         >
           <Navigation.Row>
@@ -109,19 +112,19 @@ const Layout = ({ children, pageContext }) => {
           </Navigation.Row>
         </Navigation>
         <Container className="pageContent">
-          {sideNavigation.length > 0 && (
+          {hasSideNavigation && (
             <aside className="sideContent" key="side-navigation">
               <SideNavigation
                 defaultOpenMainLevels={[...Array(sideNavigation.length).keys()]}
                 id="side-navigation"
                 toggleButtonLabel="Navigate to page"
               >
-                {sideNavigation.map(({ name, link, withDivider, subLevels }) => {
+                {sideNavigation.map(({ name, link, uiId, withDivider, subLevels }) => {
                   const sideNavLinkWithPrefix = withPrefix(link);
                   return (
                     <SideNavigation.MainLevel
-                      key={`side-navigation-${link}`}
-                      id={name}
+                      key={uiId}
+                      id={uiId}
                       href={sideNavLinkWithPrefix}
                       label={name}
                       active={pageSlugWithPrefix === sideNavLinkWithPrefix}
