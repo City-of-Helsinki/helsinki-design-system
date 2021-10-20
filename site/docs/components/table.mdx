@@ -22,15 +22,22 @@ import Link from "../../src/components/Link";
 </LargeParagraph>
 
 ## Principles
-- TODO
+- Use tables to organise and present data.
+- You should consider other presentation formats when the data is very simple
+  - Also note that HDS Tables are not a spreadsheet application. If you expect the user to need complex data operations it may be wise to share the data as a spreadsheet file.
+- Utilise zebra lines when your table has long rows. Zebra lines help the user to follow a specific row.
+- Utilise vertical lines when your table has a lot of content and narrow cells. Number-heavy tables are a good example of a situation where vertical lines may help the user.
+- HDS Table offers smaller font sizes and spacing on mobile screens.
+  - If your table has a large amount of data, you can use the `dense` property to force mobile spacing on all screen sizes.
 
 ## Accessibility
-- TODO
+- No matter how well tables are implemented, they are always very demanding for assistive technology users. Always consider whether the table is necessary to present the information.
+- Make sure your table has a heading that describes the table's purpose. This heading can either be a heading (e.g. H2) or a caption element. The heading should be connected to the table by using `aria-describedby` property.
 
 ## Usage & variations
 
 ### Default
-TODO
+The default HDS table variant includes horizontal lines. The header row can be either dark or light depending on the brand colour used as a background. Whether you need a black or white text colour can be checked from [HDS Colour documentation page](/design-tokens/colour#brand-colour-combinations).
 
 <Playground>
 <div class="hds-table-container" style={{maxWidth: '785px'}} tabindex="0">
@@ -158,7 +165,7 @@ TODO
 _Coming soon to hds-react!_
 
 ### Zebra rows
-TODO
+Zebra rows (alternating row colours) should be used on tables that have very long rows.
 
 <Playground>
 <div class="hds-table-container" style={{maxWidth: '785px'}} tabindex="0">
@@ -212,7 +219,7 @@ TODO
 _Coming soon to hds-react!_
 
 ### Vertical lines
-TODO
+Vertical lines can be used on tables that have a lot of columns or a lot of similar data (e.g. numbers).
 
 <Playground>
 <div class="hds-table-container" style={{maxWidth: '785px'}} tabindex="0">
@@ -266,7 +273,7 @@ TODO
 _Coming soon to hds-react!_
 
 ### Dense tables
-TODO
+If your table has a large amount of data, you can use the `dense` property to force mobile spacing on all screen sizes. This allows more data to fit into the view at the same time.
 
 <Playground>
 
