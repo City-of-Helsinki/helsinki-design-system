@@ -85,14 +85,14 @@ const Layout = ({ children, pageContext }) => {
   const siteTitle = siteData?.title || 'Title';
   const footerTitle = siteData?.footerTitle || siteTitle;
   const footerAriaLabel = siteData?.footerAriaLabel;
-  const menuLinks =
-    siteData?.menuLinks.map((menuLink) => ({
-      ...menuLink,
-      uiId: generateUiIdFromPath(menuLink.link, 'nav'),
-    })) || [];
-  const currentMenuItem = resolveCurrentMenuItem(menuLinks, pageSlugWithPrefix);
-  const pageSubMenuLinks = currentMenuItem?.subMenuLinks || [];
-  const sideNavigation = pageSubMenuLinks.map((subMenuLink) => ({
+  const menuLinks = siteData?.menuLinks || [];
+  const uiMenuLinks = menuLinks.map((menuLink) => ({
+    ...menuLink,
+    uiId: generateUiIdFromPath(menuLink.link, 'nav'),
+  }));
+  const currentMenuItem = resolveCurrentMenuItem(uiMenuLinks, pageSlugWithPrefix);
+  const subMenuLinks = currentMenuItem?.subMenuLinks || [];
+  const uiSubMenuLinks = subMenuLinks.map((subMenuLink) => ({
     ...subMenuLink,
     prefixedLink: withPrefix(subMenuLink.link),
     uiId: generateUiIdFromPath(subMenuLink.link, 'side-nav'),
@@ -120,7 +120,7 @@ const Layout = ({ children, pageContext }) => {
           skipToContentLabel="Skip to content"
         >
           <Navigation.Row>
-            {menuLinks.map(({ name, link, uiId }) => (
+            {uiMenuLinks.map(({ name, link, uiId }) => (
               <Navigation.Item
                 active={withPrefix(currentMenuItem?.link || '') === withPrefix(link)}
                 key={uiId}
@@ -132,14 +132,14 @@ const Layout = ({ children, pageContext }) => {
           </Navigation.Row>
         </Navigation>
         <Container className="pageContent">
-          {sideNavigation.length > 0 && (
+          {uiSubMenuLinks.length > 0 && (
             <aside className="sideContent" key="side-navigation">
               <SideNavigation
-                defaultOpenMainLevels={[...Array(sideNavigation.length).keys()]}
+                defaultOpenMainLevels={[...Array(uiSubMenuLinks.length).keys()]}
                 id="side-navigation"
                 toggleButtonLabel="Navigate to page"
               >
-                {sideNavigation.map(({ name, prefixedLink, uiId, withDivider, subLevels }) => (
+                {uiSubMenuLinks.map(({ name, prefixedLink, uiId, withDivider, subLevels }) => (
                   <SideNavigation.MainLevel
                     key={uiId}
                     id={uiId}
