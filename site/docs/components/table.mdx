@@ -41,7 +41,7 @@ HDS Tables are currently only available for HDS Core and they include base style
 - No matter how well tables are implemented, they are always very demanding for assistive technology users. Always consider whether the table is necessary to present the information.
 - Make sure your table has a heading that describes the table's purpose. This heading can either be a heading (e.g. H2) or a caption element. The heading should be connected to the table by using `aria-describedby` property.
 - Table header is read to assistive technologies on every cell. Keep table header labels short and consise and make sure they describe the data contained in table cells.
-- If your table includes empty cells in the header row, make sure they have appropriate `aria-label` to describe their purpose.
+- If your table includes empty cells in the header row, make sure they have `role="presentation"` attribute.
 
 ## Usage & variations
 
@@ -167,6 +167,100 @@ The default HDS table variant includes horizontal lines. The header row can be e
 <table class="hds-table hds-table--light" aria-label="People">
   <!-- ... (Refer above for the full example) -->
 </table>
+</div>
+```
+
+#### React code example:
+_Coming soon to hds-react!_
+
+### Vertical headers
+Vertical headers can be used to create tables that have both a header row and a header column. Note that the empty header cell on the top left corner has `role="presentation"` attribute.
+
+<Playground>
+<div class="hds-table-container" style={{maxWidth: '486px'}} tabindex="0">
+  <table
+    class="hds-table hds-table--dark hds-table--with-vertical-header"
+    aria-label="Units sold by weekday"
+  >
+    <colgroup>
+      <col span="1" class="hds-table__vertical-header-column"></col>
+    </colgroup>
+    <tr class="hds-table__header-row">
+      <td role="presentation"></td>
+      <th scope="col">8-12</th>
+      <th scope="col">12-14</th>
+      <th scope="col">14-16</th>
+      <th scope="col">16-18</th>
+    </tr>
+    <tbody class="hds-table__content hds-table__content--text-align-td-right">
+      <tr>
+        <th scope="row">Monday</th>
+        <td>324</td>
+        <td>562</td>
+        <td>280</td>
+        <td>94</td>
+      </tr>
+      <tr>
+        <th scope="row">Tuesday</th>
+        <td>341</td>
+        <td>688</td>
+        <td>425</td>
+        <td>113</td>
+      </tr>
+      <tr>
+        <th scope="row">Wednesday</th>
+        <td>294</td>
+        <td>492</td>
+        <td>280</td>
+        <td>67</td>
+      </tr>
+      <tr>
+        <th scope="row">Thursday</th>
+        <td>312</td>
+        <td>501</td>
+        <td>455</td>
+        <td>112</td>
+      </tr>
+      <tr>
+        <th scope="row">Friday</th>
+        <td>150</td>
+        <td>142</td>
+        <td>362</td>
+        <td>455</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</Playground>
+
+##### Core:
+```html
+<div class="hds-table-container" style="max-width: 496px;"tabindex="0">
+  <table
+    class="hds-table hds-table--dark hds-table--with-vertical-header"
+    aria-label="Units sold by weekday"
+  >
+    <colgroup>
+      <col span="1" class="hds-table__vertical-header-column"></col>
+    </colgroup>
+    <tr class="hds-table__header-row">
+      <td role="presentation"></td>
+      <th scope="col">8-12</th>
+      <th scope="col">12-14</th>
+      <th scope="col">14-16</th>
+      <th scope="col">16-18</th>
+    </tr>
+    <tbody class="hds-table__content hds-table__content--text-align-td-right">
+      <tr>
+        <th scope="row">Monday</th>
+        <td>324</td>
+        <td>562</td>
+        <td>280</td>
+        <td>94</td>
+      </tr>
+      <!-- ... (Refer above for the full example) -->
+      </tbody>
+  </table>
 </div>
 ```
 
