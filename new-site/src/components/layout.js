@@ -26,6 +26,17 @@ const resolveCurrentMenuItem = (menuItems, slugWithPrefix) => {
   }
 };
 
+const generateUiIdFromPath = (path, prefix) => {
+  const pathStr =
+    !path && path === '/'
+      ? 'home'
+      : path
+          .split('/')
+          .filter((str) => !!str)
+          .join('-');
+  return `${prefix}-${pathStr}`;
+};
+
 const Layout = ({ children, pageContext }) => {
   const { title: pageTitle, slug: pageSlug } = pageContext.frontmatter;
   const pageSlugWithPrefix = withPrefix(pageSlug);
@@ -74,12 +85,24 @@ const Layout = ({ children, pageContext }) => {
   const siteTitle = siteData?.title || 'Title';
   const footerTitle = siteData?.footerTitle || siteTitle;
   const footerAriaLabel = siteData?.footerAriaLabel;
-  const menuLinks = siteData?.menuLinks || [];
+  const menuLinks =
+    siteData?.menuLinks.map((menuLink) => ({
+      ...menuLink,
+      uiId: generateUiIdFromPath(menuLink.link, 'nav'),
+    })) || [];
   const currentMenuItem = resolveCurrentMenuItem(menuLinks, pageSlugWithPrefix);
   const pageSubMenuLinks = currentMenuItem?.subMenuLinks || [];
   const sideNavigation = pageSubMenuLinks.map((subMenuLink) => ({
     ...subMenuLink,
-    subLevels: allPages.filter(({ subDir }) => subMenuLink.link.includes(subDir)),
+    prefixedLink: withPrefix(subMenuLink.link),
+    uiId: generateUiIdFromPath(subMenuLink.link, 'side-nav'),
+    subLevels: allPages
+      .filter(({ subDir }) => subMenuLink.link.includes(subDir))
+      .map((subLevelLink) => ({
+        ...subLevelLink,
+        uiId: generateUiIdFromPath(subLevelLink.slug, 'side-nav-sub'),
+        prefixedLink: withPrefix(subLevelLink.slug),
+      })),
   }));
   const footerCopyRightLinks = siteData?.footerCopyrightLinks || [];
   const contentId = 'content';
@@ -97,10 +120,10 @@ const Layout = ({ children, pageContext }) => {
           skipToContentLabel="Skip to content"
         >
           <Navigation.Row>
-            {menuLinks.map(({ name, link }) => (
+            {menuLinks.map(({ name, link, uiId }) => (
               <Navigation.Item
                 active={withPrefix(currentMenuItem?.link || '') === withPrefix(link)}
-                key={name}
+                key={uiId}
                 label={name}
                 to={link}
                 as={GatsbyLink}
@@ -116,32 +139,25 @@ const Layout = ({ children, pageContext }) => {
                 id="side-navigation"
                 toggleButtonLabel="Navigate to page"
               >
-                {sideNavigation.map(({ name, link, withDivider, subLevels }) => {
-                  const sideNavLinkWithPrefix = withPrefix(link);
-                  return (
-                    <SideNavigation.MainLevel
-                      key={`side-navigation-${link}`}
-                      id={name}
-                      href={sideNavLinkWithPrefix}
-                      label={name}
-                      active={pageSlugWithPrefix === sideNavLinkWithPrefix}
-                      withDivider={withDivider}
-                    >
-                      {subLevels.map(({ slug, title }) => {
-                        const subLevelSlugWithPrefix = withPrefix(slug);
-
-                        return (
-                          <SideNavigation.SubLevel
-                            key={`${slug}`}
-                            href={subLevelSlugWithPrefix}
-                            label={title}
-                            active={pageSlugWithPrefix === subLevelSlugWithPrefix}
-                          />
-                        );
-                      })}
-                    </SideNavigation.MainLevel>
-                  );
-                })}
+                {sideNavigation.map(({ name, prefixedLink, uiId, withDivider, subLevels }) => (
+                  <SideNavigation.MainLevel
+                    key={uiId}
+                    id={uiId}
+                    href={prefixedLink}
+                    label={name}
+                    active={pageSlugWithPrefix === prefixedLink}
+                    withDivider={withDivider}
+                  >
+                    {subLevels.map(({ title, prefixedLink, uiId }) => (
+                      <SideNavigation.SubLevel
+                        key={uiId}
+                        href={prefixedLink}
+                        label={title}
+                        active={pageSlugWithPrefix === prefixedLink}
+                      />
+                    ))}
+                  </SideNavigation.MainLevel>
+                ))}
               </SideNavigation>
             </aside>
           )}
