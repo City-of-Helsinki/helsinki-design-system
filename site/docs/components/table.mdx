@@ -174,7 +174,7 @@ The default HDS table variant includes horizontal lines. The header row can be e
 _Coming soon to hds-react!_
 
 ### Zebra rows
-Zebra rows (alternating row colours) should be used on tables that have very long rows.
+Zebra rows (alternating row colours) should be used on tables that have very long rows. It makes easier to visually scan the table and follow rows.
 
 <Playground>
 <div class="hds-table-container" style={{maxWidth: '785px'}} tabindex="0">
@@ -183,32 +183,42 @@ Zebra rows (alternating row colours) should be used on tables that have very lon
       <th scope="col">First name</th>
       <th scope="col">Surname</th>
       <th scope="col">Age</th>
+      <th scope="col">City</th>
       <th scope="col">Profession</th>
+      <th scope="col">Experience (years)</th>
     </tr>
     <tbody class="hds-table__content">
       <tr>
   <td>Lauri</td>
   <td>Kekkonen</td>
   <td class="hds-table--text-align-right">39</td>
+  <td>Helsinki</td>
   <td>Engineer</td>
+  <td class="hds-table--text-align-right">10</td>
 </tr>
       <tr>
   <td>Maria</td>
   <td>Sarasoja</td>
   <td class="hds-table--text-align-right">62</td>
+  <td>Tampere</td>
   <td>Designer</td>
+  <td class="hds-table--text-align-right">39</td>
 </tr>
       <tr>
   <td>Anneli</td>
   <td>Routa</td>
   <td class="hds-table--text-align-right">50</td>
+  <td>Turku</td>
   <td>Meteorologist</td>
+  <td class="hds-table--text-align-right">25</td>
 </tr>
       <tr>
   <td>Osku</td>
   <td>Rausku</td>
   <td class="hds-table--text-align-right">18</td>
+  <td>Oulu</td>
   <td>Mail carrier</td>
+  <td class="hds-table--text-align-right">1</td>
 </tr>
     </tbody>
   </table>
@@ -231,38 +241,44 @@ _Coming soon to hds-react!_
 Vertical lines can be used on tables that have a lot of columns or a lot of similar data (e.g. numbers).
 
 <Playground>
-<div class="hds-table-container" style={{maxWidth: '785px'}} tabindex="0">
+<div class="hds-table-container" style={{maxWidth: '496px'}} tabindex="0">
   <table class="hds-table hds-table--dark hds-table--with-vertical-lines" aria-label="People">
     <tr class="hds-table__header-row">
-      <th scope="col">First name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Age</th>
-      <th scope="col">Profession</th>
+      <th scope="col">Day</th>
+      <th scope="col">Product 1</th>
+      <th scope="col">Product 2</th>
+      <th scope="col">Product 3</th>
     </tr>
     <tbody class="hds-table__content">
       <tr>
-  <td>Lauri</td>
-  <td>Kekkonen</td>
-  <td class="hds-table--text-align-right">39</td>
-  <td>Engineer</td>
+  <td>Monday</td>
+  <td class="hds-table--text-align-right">12</td>
+  <td class="hds-table--text-align-right">24</td>
+  <td class="hds-table--text-align-right">5</td>
 </tr>
       <tr>
-  <td>Maria</td>
-  <td>Sarasoja</td>
-  <td class="hds-table--text-align-right">62</td>
-  <td>Designer</td>
+  <td>Tuesday</td>
+  <td class="hds-table--text-align-right">10</td>
+  <td class="hds-table--text-align-right">32</td>
+  <td class="hds-table--text-align-right">6</td>
 </tr>
       <tr>
-  <td>Anneli</td>
-  <td>Routa</td>
-  <td class="hds-table--text-align-right">50</td>
-  <td>Meteorologist</td>
+  <td>Wednesday</td>
+  <td class="hds-table--text-align-right">14</td>
+  <td class="hds-table--text-align-right">35</td>
+  <td class="hds-table--text-align-right">6</td>
 </tr>
       <tr>
-  <td>Osku</td>
-  <td>Rausku</td>
+  <td>Thursday</td>
+  <td class="hds-table--text-align-right">11</td>
   <td class="hds-table--text-align-right">18</td>
-  <td>Mail carrier</td>
+  <td class="hds-table--text-align-right">2</td>
+</tr>
+<tr>
+  <td>Friday</td>
+  <td class="hds-table--text-align-right">16</td>
+  <td class="hds-table--text-align-right">45</td>
+  <td class="hds-table--text-align-right">12</td>
 </tr>
     </tbody>
   </table>
@@ -271,7 +287,7 @@ Vertical lines can be used on tables that have a lot of columns or a lot of simi
 
 ##### Core:
 ```html
-<div class="hds-table-container" style="max-width: 785px;" tabindex="0">
+<div class="hds-table-container" style="max-width: 496px;" tabindex="0">
   <table class="hds-table hds-table--dark hds-table--with-vertical-lines" aria-label="People">
       <!-- ... (Refer the default variant for the full example) -->
   </table>
