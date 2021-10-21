@@ -15,7 +15,7 @@ const tableRow = (firstName, surname, age, profession) =>
   </tr>`
 
 export const Dark = () => `
-  <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
+  <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
     <table class="hds-table hds-table--dark" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
@@ -34,7 +34,7 @@ export const Dark = () => `
 `;
 
 export const Light = () => `
-  <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
+  <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
     <table class="hds-table hds-table--light" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
@@ -53,7 +53,7 @@ export const Light = () => `
 `;
 
 export const Dense = () => `
-  <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
+  <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
     <table class="hds-table hds-table--dark hds-table--dense" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
@@ -71,58 +71,122 @@ export const Dense = () => `
    </div>
 `;
 
+const extendedTableRow = (firstName, surname, age, city, profession, exp) =>
+  `<tr>
+    <td>${firstName}</td>
+    <td>${surname}</td>
+    <td class="hds-table--text-align-right">${age}</td>
+    <td>${city}</td>
+    <td>${profession}</td>
+    <td class="hds-table--text-align-right">${exp}</td>
+  </tr>`
+
 export const Zebra = () => `
-  <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
+  <div class="hds-table-container" style="max-width: 800px;" tabindex="0">
     <table class="hds-table hds-table--dark hds-table--zebra" aria-label="People">
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
         <th scope="col">Age</th>
+        <th scope="col">City</th>
         <th scope="col">Profession</th>
+        <th scope="col">Experience (years)</th>
       </tr>
       <tbody class="hds-table__content">
-        ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
-        ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
-        ${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
-        ${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
+        ${extendedTableRow('Lauri', 'Kekkonen', '39', 'Helsinki', 'Engineer', '10')}
+        ${extendedTableRow('Maria', 'Sarasoja', '62', 'Tampere', 'Designer', '39')}
+        ${extendedTableRow('Anneli', 'Routa', '50', 'Turku', 'Meteorologist', '25')}
+        ${extendedTableRow('Osku', 'Rausku', '18', 'Oulu', 'Mail carrier', '1')}
       </tbody>
     </table>
   </div>
 `;
 
 export const VerticalLines = () => `
-  <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
-    <table class="hds-table hds-table--dark hds-table--with-vertical-lines" aria-label="People">
+  <div class="hds-table-container" style="max-width: 496px;" tabindex="0">
+    <table class="hds-table hds-table--dark hds-table--with-vertical-lines" aria-label="Units sold by weekday">
       <tr class="hds-table__header-row">
-        <th scope="col">First name</th>
-        <th scope="col">Surname</th>
-        <th scope="col">Age</th>
-        <th scope="col">Profession</th>
+        <th scope="col">Day</th>
+        <th scope="col">Product 1</th>
+        <th scope="col">Product 2</th>
+        <th scope="col">Product 3</th>
       </tr>
       <tbody class="hds-table__content">
-        ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
-        ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
-        ${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
-        ${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
+        <tr>
+          <td>Monday</td>
+          <td class="hds-table--text-align-right">12</td>
+          <td class="hds-table--text-align-right">24</td>
+          <td class="hds-table--text-align-right">5</td>
+        </tr>
+        <tr>
+          <td>Tuesday</td>
+          <td class="hds-table--text-align-right">10</td>
+          <td class="hds-table--text-align-right">32</td>
+          <td class="hds-table--text-align-right">6</td>
+        </tr>
+        <tr>
+          <td>Wednesday</td>
+          <td class="hds-table--text-align-right">14</td>
+          <td class="hds-table--text-align-right">35</td>
+          <td class="hds-table--text-align-right">6</td>
+        </tr>
+        <tr>
+          <td>Thursday</td>
+          <td class="hds-table--text-align-right">11</td>
+          <td class="hds-table--text-align-right">18</td>
+          <td class="hds-table--text-align-right">2</td>
+        </tr>
+        <tr>
+          <td>Friday</td>
+          <td class="hds-table--text-align-right">16</td>
+          <td class="hds-table--text-align-right">45</td>
+          <td class="hds-table--text-align-right">12</td>
+        </tr>
       </tbody>
     </table>
   </div>
 `;
 
 export const VerticalLinesLight = () => `
-  <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
-    <table class="hds-table hds-table--light hds-table--with-vertical-lines" aria-label="People">
+  <div class="hds-table-container" style="max-width: 496px;" tabindex="0">
+    <table class="hds-table hds-table--light hds-table--with-vertical-lines" aria-label="Units sold by weekday">
       <tr class="hds-table__header-row">
-        <th scope="col">First name</th>
-        <th scope="col">Surname</th>
-        <th scope="col">Age</th>
-        <th scope="col">Profession</th>
+        <th scope="col">Day</th>
+        <th scope="col">Product 1</th>
+        <th scope="col">Product 2</th>
+        <th scope="col">Product 3</th>
       </tr>
       <tbody class="hds-table__content">
-        ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
-        ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
-        ${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
-        ${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
+        <tr>
+          <td>Monday</td>
+          <td class="hds-table--text-align-right">12</td>
+          <td class="hds-table--text-align-right">24</td>
+          <td class="hds-table--text-align-right">5</td>
+        </tr>
+        <tr>
+          <td>Tuesday</td>
+          <td class="hds-table--text-align-right">10</td>
+          <td class="hds-table--text-align-right">32</td>
+          <td class="hds-table--text-align-right">6</td>
+        </tr>
+        <tr>
+          <td>Wednesday</td>
+          <td class="hds-table--text-align-right">14</td>
+          <td class="hds-table--text-align-right">35</td>
+          <td class="hds-table--text-align-right">6</td>
+        </tr>
+        <tr>
+          <td>Thursday</td>
+          <td class="hds-table--text-align-right">11</td>
+          <td class="hds-table--text-align-right">18</td>
+          <td class="hds-table--text-align-right">2</td>
+        </tr>
+        <tr>
+          <td>Friday</td>
+          <td class="hds-table--text-align-right">16</td>
+          <td class="hds-table--text-align-right">45</td>
+          <td class="hds-table--text-align-right">12</td>
+        </tr>
       </tbody>
     </table>
   </div>
