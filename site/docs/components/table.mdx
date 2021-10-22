@@ -259,7 +259,7 @@ Vertical headers can be used to create tables that have both a header row and a 
         <td>280</td>
         <td>94</td>
       </tr>
-      <!-- ... (Refer above for the full example) -->
+      <!-- ... -->
       </tbody>
   </table>
 </div>
@@ -399,7 +399,26 @@ Vertical lines can be used on tables that have a lot of columns or a lot of simi
     class="hds-table hds-table--dark hds-table--with-vertical-header hds-table--with-vertical-lines"
     aria-label="Units sold by weekday"
   >
-  <!-- ... (Refer the default variant for the full example) -->
+  <colgroup>
+      <col span="1" class="hds-table__vertical-header-column"></col>
+    </colgroup>
+    <tr class="hds-table__header-row">
+      <td role="presentation"></td>
+      <th scope="col">8-12</th>
+      <th scope="col">12-14</th>
+      <th scope="col">14-16</th>
+      <th scope="col">16-18</th>
+    </tr>
+    <tbody class="hds-table__content hds-table__content--text-align-td-right">
+      <tr>
+        <th scope="row">Monday</th>
+        <td>324</td>
+        <td>562</td>
+        <td>280</td>
+        <td>94</td>
+      </tr>
+      <!-- ... -->
+    </tbody>
   </table>
 </div>
 ```
