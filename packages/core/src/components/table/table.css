@@ -33,6 +33,13 @@
   background-color: var(--background-color);
 }
 
+.hds-table__caption {
+  text-align: left;
+  margin-bottom: var(--spacing-s);
+  font-size: var(--fontsize-heading-xs);
+  line-height: var(--lineheight-l);
+}
+
 /* DARK VARIANT */
 
 .hds-table--dark {
@@ -64,6 +71,11 @@
 .hds-table--dense .hds-table__content tr td {
   padding: 9px var(--spacing-s);
   font-size: var(--fontsize-body-s);
+}
+
+.hds-table--dense .hds-table__caption {
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--fontsize-heading-xxs);
 }
 
 /* ZEBRA VARIANT */
@@ -113,6 +125,11 @@
   .hds-table__content tr td {
     padding: 9px var(--spacing-s);
     font-size: var(--fontsize-body-s);
+  }
+
+  .hds-table__caption {
+    margin-bottom: var(--spacing-xs);
+    font-size: var(--fontsize-heading-xxs);
   }
 }
 

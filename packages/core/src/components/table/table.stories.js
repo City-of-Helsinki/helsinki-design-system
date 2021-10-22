@@ -17,6 +17,7 @@ const tableRow = (firstName, surname, age, profession) =>
 export const Dark = () => `
   <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
     <table class="hds-table hds-table--dark" aria-label="People">
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
@@ -36,6 +37,7 @@ export const Dark = () => `
 export const Light = () => `
   <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
     <table class="hds-table hds-table--light" aria-label="People">
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
@@ -55,6 +57,7 @@ export const Light = () => `
 export const Dense = () => `
   <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
     <table class="hds-table hds-table--dark hds-table--dense" aria-label="People">
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
@@ -84,6 +87,7 @@ const extendedTableRow = (firstName, surname, age, city, profession, exp) =>
 export const Zebra = () => `
   <div class="hds-table-container" style="max-width: 800px;" tabindex="0">
     <table class="hds-table hds-table--dark hds-table--zebra" aria-label="People">
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
@@ -105,6 +109,7 @@ export const Zebra = () => `
 export const VerticalLines = () => `
   <div class="hds-table-container" style="max-width: 496px;" tabindex="0">
     <table class="hds-table hds-table--dark hds-table--with-vertical-lines" aria-label="Units sold by weekday">
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <tr class="hds-table__header-row">
         <th scope="col">Day</th>
         <th scope="col">Product 1</th>
@@ -150,6 +155,7 @@ export const VerticalLines = () => `
 export const VerticalLinesLight = () => `
   <div class="hds-table-container" style="max-width: 496px;" tabindex="0">
     <table class="hds-table hds-table--light hds-table--with-vertical-lines" aria-label="Units sold by weekday">
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <tr class="hds-table__header-row">
         <th scope="col">Day</th>
         <th scope="col">Product 1</th>
@@ -195,6 +201,7 @@ export const VerticalLinesLight = () => `
 export const VerticalLinesZebra = () => `
   <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
     <table class="hds-table hds-table--dark hds-table--zebra hds-table--with-vertical-lines" aria-label="People">
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
@@ -254,6 +261,7 @@ export const VerticalHeader = () => `
       class="hds-table hds-table--dark hds-table--with-vertical-header"
       aria-label="Units sold by weekday"
     >
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
@@ -277,6 +285,7 @@ export const VerticalHeaderLight = () => `
       class="hds-table hds-table--light hds-table--with-vertical-header"
       aria-label="Units sold by weekday"
     >
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
@@ -300,6 +309,7 @@ export const VerticalHeaderZebra = () => `
       class="hds-table hds-table--dark hds-table--zebra hds-table--with-vertical-header"
       aria-label="Units sold by weekday"
     >
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
@@ -323,6 +333,7 @@ export const VerticalHeaderAndLines = () => `
       class="hds-table hds-table--dark hds-table--with-vertical-header hds-table--with-vertical-lines"
       aria-label="Units sold by weekday"
     >
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
@@ -346,6 +357,7 @@ export const VerticalHeaderAndLinesZebra = () => `
       class="hds-table hds-table--dark hds-table--zebra hds-table--with-vertical-lines hds-table--with-vertical-header"
       aria-label="Units sold by weekday"
     >
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
@@ -371,6 +383,7 @@ export const CustomHeaderBackgroundColorForDarkVariant = () => `
   </style>
   <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
     <table class="hds-table hds-table--dark custom-background-color-1" aria-label="People">
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
@@ -395,6 +408,7 @@ export const CustomHeaderBackgroundColorForLightVariant = () => `
   </style>
   <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
     <table class="hds-table hds-table--light custom-background-color-2" aria-label="People">
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
         <th scope="col">Surname</th>
@@ -434,6 +448,7 @@ const wideTableContent = () => {
 export const WideAndLong = () => `
   <div class="hds-table-container" style="height: 600px;" tabindex="0">
     <table class="hds-table hds-table--dark hds-table--zebra" aria-label="Job trials">
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <tr class="hds-table__header-row">
         <th scope="col">Job id</th>
         <th scope="col">Type</th>
@@ -455,6 +470,7 @@ export const WideAndLong = () => `
 export const WideAndLongDense = () => `
   <div class="hds-table-container" style="height: 600px;" tabindex="0">
     <table class="hds-table hds-table--dense hds-table--dark hds-table--zebra" aria-label="Job trials">
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <tr class="hds-table__header-row">
         <th scope="col">Job id</th>
         <th scope="col">Type</th>
