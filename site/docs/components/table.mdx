@@ -29,9 +29,10 @@ HDS Tables are currently only available for HDS Core and they include base style
 - Use tables to organise and present data.
 - You should consider other presentation formats when the data is very simple, e.g. when the table would only have less than 4 rows or less than 3 columns.
   - Also note that HDS Tables are not a spreadsheet application. If you expect the user to need complex data operations it may be wise to share the data as a spreadsheet file.
+- Do not use tables to create layouts. Tables are meant to present data.
 - Align text to the left and numerical data to the right. Header cells are always aligned to the left. HDS provides CSS classes to make this easier.
 - Utilise zebra lines when your table has long rows. Zebra lines help the user to follow a specific row.
-- Utilise vertical lines when your table has a lot of content and narrow cells. Number-heavy tables are a good example of a situation where vertical lines may help the user.
+- Utilise vertical lines when your table has a lot of content and narrow cells. Number-heavy tables are an example of a situation where vertical lines may help the user.
 - HDS Table offers smaller font sizes and spacing on mobile screens.
   - If your table has a large amount of data, you can use the `dense` property to force mobile spacing on all screen sizes.
 - Table container is allowed to be scrollable. This is common on smaller screens where it can be impossible to fit the full table on the device screen.
