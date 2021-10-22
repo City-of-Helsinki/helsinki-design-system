@@ -1,6 +1,6 @@
 ---
 name: Favicon
-route: /visual-assets/favicon
+route: /visual-assets/favicon/
 menu: Visual assets
 ---
 
@@ -12,42 +12,126 @@ import Link from "../../src/components/Link";
 
 <LargeParagraph>The City of Helsinki favicon is used in digital services for identifying the site window or tab.</LargeParagraph>
 
-<p>The City of Helsinki favicon consists of the text <em>Helsinki</em> framed by the shape derived from the city crest. The favicon must be used in accordance with the <Link href="https://brand.hel.fi/en/logo" external>Visual Identity Guidelines - Logo</Link>.</p>
+<p>The City of Helsinki favicon consists of the text <em>Helsinki</em> framed by the shape derived from the city crest. The favicon must be used in accordance with the <Link href="#" external>Visual Identity Guidelines - Favicon</Link>.</p>
 
-**Please do not attempt to recreate the logo!** Always use the appropriate original file. The City of Helsinki logo is a registered trademark.
+**Do not attempt to recreate the favicon!** 
+Always use the appropriate original file. 
+
+**Note:** The City of Helsinki logo is a registered trademark.
 
 ## Principles 
-Official City of Helsinki services must always show the City of Helsinki favicon, that is used: 
-- at the top left corner of the page, in the header component
-- at the bottom of the page, in the footer component
-- at the browser website title, as favicon
-
-In other parts of the page, the logo should be used sparingly.
+Official City of Helsinki services must always show the City of Helsinki favicon: 
+- sitewide, in the browser website title
+- use the same favicon variant consistently
 
 ## Usage
 
+### Contrast
+The Helsinki framed favicon is primarily used in black, white, or with a transparent background depending on the circumstance.
+- Check that the colour contrast of the favicon and its background is compliant with <Link href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>AA Level contrast ratios</Link>.
+- For more information, see the <Link href="https://brand.hel.fi/en/colours/" external>Visual Identity Guidelines - Colours</Link>.
+
 ### Download
 
-<p>You can <Link href="https://brand.hel.fi/wp-content/uploads/2018/11/helsinki_tunnus_paketti.zip" external>download the logo package</Link> provided by Helsinki Visual Guidelines.</p>
+<p>The favicon of City of Helsinki digital services is a minimised version of the Helsinki logo. Different favicons are available as a downloadable ZIP package.</p>
+<p>You can <Link href="https://github.com/City-of-Helsinki/helsinki-design-system/releases/latest/download/hds-favicon-kit.zip" external>Download the latest HDS Favicon kit from the HDS GitHub repository</Link>.</p>
 
-### Language versions
-There are two language versions available in HDS (you may download the logo files by clicking their images below):
+### Installation
+First, use the download link to download the files listed below. Place these files in the root directory of your website:
 
-Language version                                                                                                             | File name         | Usage                                         |
----------------------------------------------------------------------------------------------------------------------------- |-------------------|-----------------------------------------------|
-[![Helsinki logo fi](../../static/assets/logo/helsinki-fi.svg)](../../static/assets/logo/helsinki-fi.svg "Helsinki logo fi") | helsinki-fi.svg   | pages in Finnish, English and other languages |
-[![Helsinki logo sv](../../static/assets/logo/helsinki-sv.svg)](../../static/assets/logo/helsinki-sv.svg "Helsinki logo sv") | helsinki-sv.svg   | pages in Swedish and Norwegian                |
+```android-chrome-192x192.png```
 
-### Favicon
-<p>The favicon of City of Helsinki digital services is a minimised version of the Helsinki logo. Different favicons are available as a downloadable ZIP package. <Link href="https://github.com/City-of-Helsinki/helsinki-design-system/releases/latest/download/hds-favicon-kit.zip" external>Download the latest HDS Favicon kit from the HDS GitHub repository</Link>.</p>
+```android-chrome-512x512.png```
 
+```apple-touch-icon.png```
 
-Favicon                                                                                                                          | File name           |
--------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
-[<Image src="../../static/assets/logo/favicon.ico" alt="Helsinki favicon" width="16px" />](../../static/assets/logo/favicon.ico) | favicon.ico         | 
+```favicon-16x16.png```
 
+```favicon-32x32.png```
 
-### Colour
-The Helsinki framed logo is primarily used in black or white, depending on the background, but using it in other brand colours is also allowed.
-- Check that the colour contrast of the logo and its background is compliant with <Link href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>AA Level contrast ratios</Link>.
-- For more information, see the <Link href="https://brand.hel.fi/en/colours/" external>Visual Identity Guidelines - Colours</Link>.
+```favicon.ico```
+
+```site.webmanifest```
+
+Next, copy the following link tags and paste them into the `head` of your HTML.
+
+```<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">```
+
+```<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">```
+
+```<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">```
+
+```<link rel="icon" type="image/ico" sizes="16x16" href="/favicon.ico">```
+
+```<link rel="manifest" href="/site.webmanifest">``` 
+
+### Variants
+There are many variants available in HDS. They all serve a very specific purpose. 
+
+(No need to download one-by-one. You can download the favicon package above.)
+
+**Light favicon package**
+
+Favicon variant                                                                                                                               | File name     | Format                        |
+--------------------------------------------------------------------------------------------------------------------------------------------- |---------------|-------------------------------|
+[![Light 16×16px favicon](../../static/favicon/light_favicon_package/favicon-16x16.png)](../../static/favicon/light_favicon_package/favicon-16x16.png "16×16 px favicon")| favicon-16x16.png | .png          |
+[![Light 32×32px favicon](../../static/favicon/light_favicon_package/favicon-32x32.png)](../../static/favicon/light_favicon_package/favicon-32x32.png "32×32 px favicon")| favicon-32x32.png | .png          |
+[![Light basic favicon](../../static/favicon/light_favicon_package/favicon.ico)](../../static/favicon/light_favicon_package/favicon.ico "Helsinki basic favicon")| favicon.ico | .ico          |
+[![Light MS-tile icon](../../static/favicon/light_favicon_package/mstile-150x150.png)](../../static/favicon/light_favicon_package/mstile-150x150.png "MS-tile icon 150×150 px")| mstile-150x150.png | .png          |
+[![Light Apple touch icon](../../static/favicon/light_favicon_package/apple-touch-icon.png)](../../static/favicon/light_favicon_package/apple-touch-icon.png "Apple touch icon 180×180 px")| apple-touch-icon.png | .png          |
+[![Light Android/Chrome icon](../../static/favicon/light_favicon_package/android-chrome-192x192.png)](../../static/favicon/light_favicon_package/android-chrome-192x192.png "Android / Chrome icon 192×192 px")| android-chrome-192x192.png | .png          |
+[![Light Android/Chrome icon](../../static/favicon/light_favicon_package/android-chrome-256x256.png)](../../static/favicon/light_favicon_package/android-chrome-256x256.png "Android / Chrome icon 256×256 px")| android-chrome-256x256.png | .png          |
+[![Light Safari pinned tab icon](../../static/favicon/light_favicon_package/safari-pinned-tab.svg)](../../static/favicon/light_favicon_package/safari-pinned-tab.svg "Safari pinned tab icon")| safari-pinned-tab.svg | .svg          |
+
+**Dark favicon package**
+
+Favicon variant                                                                                                                               | File name     | Format                        |
+--------------------------------------------------------------------------------------------------------------------------------------------- |---------------|-------------------------------|
+[![Dark 16×16px favicon](../../static/favicon/dark_favicon_package/favicon-16x16.png)](../../static/favicon/dark_favicon_package/favicon-16x16.png "16×16 px favicon")| favicon-16x16.png | .png          |
+[![Dark 32×32px favicon](../../static/favicon/dark_favicon_package/favicon-32x32.png)](../../static/favicon/dark_favicon_package/favicon-32x32.png "32×32 px favicon")| favicon-32x32.png | .png          |
+[![Dark basic favicon](../../static/favicon/dark_favicon_package/favicon.ico)](../../static/favicon/dark_favicon_package/favicon.ico "Helsinki basic favicon")| favicon.ico | .ico          |
+[![Dark MS-tile icon](../../static/favicon/dark_favicon_package/mstile-150x150.png)](../../static/favicon/dark_favicon_package/mstile-150x150.png "MS-tile icon 150×150 px")| mstile-150x150.png | .png          |
+[![Dark Apple touch icon](../../static/favicon/dark_favicon_package/apple-touch-icon.png)](../../static/favicon/dark_favicon_package/apple-touch-icon.png "Apple touch icon 180×180 px")| apple-touch-icon.png | .png          |
+[![Dark Android/Chrome icon](../../static/favicon/dark_favicon_package/android-chrome-192x192.png)](../../static/favicon/dark_favicon_package/android-chrome-192x192.png "Android / Chrome icon 192×192 px")| android-chrome-192x192.png | .png          |
+[![Dark Android/Chrome icon](../../static/favicon/dark_favicon_package/android-chrome-256x256.png)](../../static/favicon/dark_favicon_package/android-chrome-256x256.png "Android / Chrome icon 256×256 px")| android-chrome-256x256.png | .png          |
+[![Dark Safari pinned tab icon](../../static/favicon/dark_favicon_package/safari-pinned-tab.svg)](../../static/favicon/dark_favicon_package/safari-pinned-tab.svg "Safari pinned tab icon")| safari-pinned-tab.svg | .svg          |
+
+**Transparent light favicon package**
+
+Favicon variant                                                                                                                               | File name     | Format                        |
+--------------------------------------------------------------------------------------------------------------------------------------------- |---------------|-------------------------------|
+[![Transp Light 16×16px favicon](../../static/favicon/transparent_light_favicon_package/favicon-16x16.png)](../../static/favicon/transparent_light_favicon_package/favicon-16x16.png "16×16 px favicon")| favicon-16x16.png | .png          |
+[![Transp Light 32×32px favicon](../../static/favicon/transparent_light_favicon_package/favicon-32x32.png)](../../static/favicon/transparent_light_favicon_package/favicon-32x32.png "32×32 px favicon")| favicon-32x32.png | .png          |
+[![Transp Light basic favicon](../../static/favicon/transparent_light_favicon_package/favicon.ico)](../../static/favicon/transparent_light_favicon_package/favicon.ico "Helsinki basic favicon")| favicon.ico | .ico          |
+[![Transp Light MS-tile icon](../../static/favicon/transparent_light_favicon_package/mstile-150x150.png)](../../static/favicon/transparent_light_favicon_package/mstile-150x150.png "MS-tile icon 150×150 px")| mstile-150x150.png | .png          |
+[![Transp Light Apple touch icon](../../static/favicon/transparent_light_favicon_package/apple-touch-icon.png)](../../static/favicon/transparent_light_favicon_package/apple-touch-icon.png "Apple touch icon 180×180 px")| apple-touch-icon.png | .png          |
+[![Transp Light Android/Chrome icon](../../static/favicon/transparent_light_favicon_package/android-chrome-192x192.png)](../../static/favicon/transparent_light_favicon_package/android-chrome-192x192.png "Android / Chrome icon 192×192 px")| android-chrome-192x192.png | .png          |
+[![Transp Light Android/Chrome icon](../../static/favicon/transparent_light_favicon_package/android-chrome-256x256.png)](../../static/favicon/transparent_light_favicon_package/android-chrome-256x256.png "Android / Chrome icon 256×256 px")| android-chrome-256x256.png | .png          |
+
+**Transparent dark favicon package**
+
+Favicon variant                                                                                                                               | File name     | Format                        |
+--------------------------------------------------------------------------------------------------------------------------------------------- |---------------|-------------------------------|
+[![Transp Dark 16×16px favicon](../../static/favicon/transparent_dark_favicon_package/favicon-16x16.png)](../../static/favicon/transparent_dark_favicon_package/favicon-16x16.png "16×16 px favicon")| favicon-16x16.png | .png          |
+[![Transp Dark 32×32px favicon](../../static/favicon/transparent_dark_favicon_package/favicon-32x32.png)](../../static/favicon/transparent_dark_favicon_package/favicon-32x32.png "32×32 px favicon")| favicon-32x32.png | .png          |
+[![Transp Dark basic favicon](../../static/favicon/transparent_dark_favicon_package/favicon.ico)](../../static/favicon/transparent_dark_favicon_package/favicon.ico "Helsinki basic favicon")| favicon.ico | .ico          |
+[![Transp Dark MS-tile icon](../../static/favicon/transparent_dark_favicon_package/mstile-150x150.png)](../../static/favicon/transparent_dark_favicon_package/mstile-150x150.png "MS-tile icon 150×150 px")| mstile-150x150.png | .png          |
+[![Transp Dark Apple touch icon](../../static/favicon/transparent_dark_favicon_package/apple-touch-icon.png)](../../static/favicon/transparent_dark_favicon_package/apple-touch-icon.png "Apple touch icon 180×180 px")| apple-touch-icon.png | .png          |
+[![Transp Dark Android/Chrome icon](../../static/favicon/transparent_dark_favicon_package/android-chrome-192x192.png)](../../static/favicon/transparent_dark_favicon_package/android-chrome-192x192.png "Android / Chrome icon 192×192 px")| android-chrome-192x192.png | .png          |
+[![Transp Dark Android/Chrome icon](../../static/favicon/transparent_dark_favicon_package/android-chrome-256x256.png)](../../static/favicon/transparent_dark_favicon_package/android-chrome-256x256.png "Android / Chrome icon 256×256 px")| android-chrome-256x256.png | .png          |
+
+## Creating Pinned Tab Icons
+
+Pinned Sites allow your users to keep their favorite websites open, running, and easily accessible. You can set the icon that the user sees when they pin your site by providing a vector image.
+
+### Vector Image
+Use 100% black for all vectors with a transparent background in SVG format and add the following markup to all webpages that the icon should represent (replacing `website_icon` with your own file's name).
+
+```<link rel="mask-icon" href="website_icon.svg" color="red">```
+
+In the example, the `color` attribute sets the display color of the image. That attribute can specify a single color with a hexadecimal value `#990000`, an RGB value `rgb(153, 0, 0)`, or a recognized color-keyword, such as: `red`, `lime`, or `navy`.
+
+**Note:** Adjust your artwork as needed for the best presentation in the color you’ve specified. The pinned tab icon will not accept additional colors. You can improve the visibility of your icon by avoiding a light color, such as white, bright yellow, or light gray.
+
+**Important:** The SVG file must be a single layer and the `viewBox` attribute must be set to `"0 0 16 16"`.
+
