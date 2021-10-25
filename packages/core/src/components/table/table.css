@@ -81,7 +81,11 @@
 /* ZEBRA VARIANT */
 
 .hds-table--zebra .hds-table__content tr:nth-child(even) td {
-  background-color: #f2f2f2;
+  background-color: var(--color-black-10);
+}
+
+.hds-table--zebra .hds-table__content tr td {
+  border-bottom: none;
 }
 
 /* VERTICAL LINES VARIANT */
