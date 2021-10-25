@@ -303,6 +303,7 @@ Marking that indicates a form control for which **the user *must* enter a value*
     <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
     <ul style="margin-bottom:0;">
         <li><strong>aria-required="true" attribute <em>must</em> be always provided for required fields</strong>, even if they are not marked visually.</li>
+        <li>If your form has at least one required field, explain the asterisk before the form. E.g. "All fields marked with * are required".</li>
         <li>If all fields in the form are required
             <ul>
                 <li>This <em>should</em> be stated in the form wide instructions at the beginning of the form.</li>
@@ -467,14 +468,16 @@ The form heading **summarises the purpose of the form** and indicates the user w
 ### 2. Form wide instructions
 To help the user better understand the functionality of the form, instructions and other **information about filling the form and required information** should be provided in the beginning of the form. 
 
-<Image src="../../static/patterns/form/form-guiding-instructions@2x.png" alt="Form wide instructions" style="max-width:432px;" viewable /> 
+<Image src="../../static/patterns/form/form-guiding-instructions@2x.png" alt="Form wide instructions" style="max-width:432px; display:block;" viewable /> 
 
+<Image src="../../static/patterns/form/form-guiding-instructions-required@2x.png" alt="Form wide instructions with required fields" style="max-width:432px;" viewable /> 
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
     <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
     <ul style="margin-bottom:0;">
         <li>The instructions should be placed after the heading and sub-heading, before the first form control or fieldeset.</li>
-        <li>The inline notification component should be used for form wide instructions.</li>
+        <li>The inline notification component can be used for form wide instructions if they contain something out of the ordinary.</li>
+        <li>If your form has at least one required field, explain the asterisk before the form. E.g. "All fields marked with * are required".</li>
     </ul>
 </div> 
 
