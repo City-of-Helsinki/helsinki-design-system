@@ -198,26 +198,6 @@ export const VerticalLinesLight = () => `
   </div>
 `;
 
-export const VerticalLinesZebra = () => `
-  <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
-    <table class="hds-table hds-table--dark hds-table--zebra hds-table--with-vertical-lines" aria-label="People">
-      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
-      <tr class="hds-table__header-row">
-        <th scope="col">First name</th>
-        <th scope="col">Surname</th>
-        <th scope="col">Age</th>
-        <th scope="col">Profession</th>
-      </tr>
-      <tbody class="hds-table__content">
-        ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
-        ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
-        ${tableRow('Anneli', 'Routa', '50', 'Meteorologist')}
-        ${tableRow('Osku', 'Rausku', '18', 'Mail carrier')}
-      </tbody>
-    </table>
-  </div>
-`;
-
 const unitsContent = () =>
         `<tr>
           <th scope="row">Monday</th>
@@ -331,30 +311,6 @@ export const VerticalHeaderAndLines = () => `
   <div class="hds-table-container" style="max-width: 486px" tabindex="0">
     <table
       class="hds-table hds-table--dark hds-table--with-vertical-header hds-table--with-vertical-lines"
-      aria-label="Units sold by weekday"
-    >
-      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
-      <colgroup>
-        <col span="1" class="hds-table__vertical-header-column">
-      </colgroup>
-      <tr class="hds-table__header-row">
-        <td role="presentation"></td>
-        <th scope="col">8-12</th>
-        <th scope="col">12-14</th>
-        <th scope="col">14-16</th>
-        <th scope="col">16-18</th>
-      </tr>
-      <tbody class="hds-table__content hds-table__content--text-align-td-right">
-        ${unitsContent()}
-      </tbody>
-    </table>
-  </div>
-`;
-
-export const VerticalHeaderAndLinesZebra = () => `
-  <div class="hds-table-container" style="max-width: 486px" tabindex="0">
-    <table
-      class="hds-table hds-table--dark hds-table--zebra hds-table--with-vertical-lines hds-table--with-vertical-header"
       aria-label="Units sold by weekday"
     >
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
