@@ -32,6 +32,8 @@ export const Wave = () => <Koros type="wave" />;
 
 export const Storm = () => <Koros type="storm" />;
 
+export const Calm = () => <Koros type="calm" />;
+
 export const Flipped = () => (
   <>
     <Koros flipHorizontal />
