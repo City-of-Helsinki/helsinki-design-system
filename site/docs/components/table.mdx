@@ -18,7 +18,7 @@ import Link from "../../src/components/Link";
 <StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
 
 <LargeParagraph>
-    Tables are used to present data to the user in an organised manner. HDS Tables offer multiple variants to allow clear presentation of vastly different data sets.
+    Tables are used to present tabulated data to the user in a consistent manner. HDS Tables offer multiple variants to allow clear presentation of vastly different data sets.
 </LargeParagraph>
 
 <Notification label="Tables are coming soon to HDS React" className="siteNotification">
@@ -40,9 +40,9 @@ HDS Tables are currently only available for HDS Core and they include base style
 
 ## Accessibility
 - No matter how well tables are implemented, they are always very demanding for assistive technology users. Always consider whether the table is necessary to present the information.
-- Make sure your table has a heading that describes the table's purpose. This heading can either be a heading (e.g. H2) or a caption element. The heading should be connected to the table by using `aria-describedby` property.
+- Make sure your table has a heading that describes the table’s purpose. This heading can either be a heading tag (e.g. H2) or a caption element. If it is a heading tag, reference it with an `aria-labelledby` attribute in the `<table>` tag.
 - Table header is read to assistive technologies on every cell. Keep table header labels short and consise and make sure they describe the data contained in table cells.
-- If your table includes empty cells in the header row, make sure they have `role="presentation"` attribute.
+- If your table includes empty column header cells, make sure they have a `role=“presentation”` attribute.
 
 ## Usage & variations
 
