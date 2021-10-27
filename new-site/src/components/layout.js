@@ -70,9 +70,6 @@ const Layout = ({ children, pageContext }) => {
               title
               slug
             }
-            fields {
-              subDir
-            }
           }
         }
       }
@@ -97,7 +94,10 @@ const Layout = ({ children, pageContext }) => {
     prefixedLink: withPrefix(subMenuLink.link),
     uiId: generateUiIdFromPath(subMenuLink.link, 'side-nav'),
     subLevels: allPages
-      .filter(({ subDir }) => subMenuLink.link.includes(subDir))
+      .filter((page) => {
+        const levels = page.slug.split('/').filter((l) => !!l);
+        return levels.length === 3 && subMenuLink.link.includes(levels[1]);
+      })
       .map((subLevelLink) => ({
         ...subLevelLink,
         uiId: generateUiIdFromPath(subLevelLink.slug, 'side-nav-sub'),
