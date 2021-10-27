@@ -46,6 +46,7 @@ const Layout = ({ children, pageContext }) => {
       site {
         siteMetadata {
           title
+          description
           menuLinks {
             name
             link
@@ -80,6 +81,7 @@ const Layout = ({ children, pageContext }) => {
   const mdxPageData = queryData.allMdx?.edges || [];
   const allPages = mdxPageData.map(({ node }) => ({ ...node.frontmatter, ...node.fields }));
   const siteTitle = siteData?.title || 'Title';
+  const description = siteData?.description;
   const footerTitle = siteData?.footerTitle || siteTitle;
   const footerAriaLabel = siteData?.footerAriaLabel;
   const menuLinks = siteData?.menuLinks || [];
@@ -109,7 +111,7 @@ const Layout = ({ children, pageContext }) => {
 
   return (
     <>
-      <Seo title={pageTitle} />
+      <Seo title={siteTitle} pageTitle={pageTitle} description={description} />
       <div className="page text-body">
         <Navigation
           id="page-header"
