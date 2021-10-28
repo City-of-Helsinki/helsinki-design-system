@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.6.1] - Oct, 28, 2021
+## [1.6.0] - Oct, 28, 2021
 
 ### React Components
 
@@ -20,11 +20,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 - [Table] Table component
+- [Koros] Calm variant of Koros
+
+### Design kit
+
+#### Added
+- [Tables] New Table symbols (new library file)
+- Column symbols
+- Cell symbols for custom tables
+- Example table symbols
+- [Koros] M-sized Tyyni (Calm) variant
+- [Typography] Text styles for right aligned body text
+
+#### Changed
+- Updated HDS Sketch libraries to the Sketch version 78 (78.1)
+- [Koros] Clarified symbol layer naming in the override panel
+
+#### Removed
+- [Table] Marked old Table symbols as Deprecated. These will be removed in a future update.
 
 ### Documentation
 
 #### Added
-- [Table] Table documentation
+- [Table] Documentation for the Table component
+
+### Changed
+- [Form pattern] Added a note about explaining the required form field indicator before the form
 
 ## [1.5.1] - Oct, 11, 2021
 
