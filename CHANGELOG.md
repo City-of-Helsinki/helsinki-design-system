@@ -26,9 +26,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 - [Tables] New Table symbols (new library file)
-- Column symbols
-- Cell symbols for custom tables
-- Example table symbols
+  - Column symbols
+  - Cell symbols for custom tables
+  - Example table symbols
 - [Koros] M-sized Tyyni (Calm) variant
 - [Typography] Text styles for right aligned body text
 
