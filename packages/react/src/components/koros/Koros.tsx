@@ -6,7 +6,7 @@ import 'hds-core';
 import classNames from '../../utils/classNames';
 import styles from './Koros.module.css';
 
-export type KorosType = 'basic' | 'beat' | 'pulse' | 'storm' | 'wave';
+export type KorosType = 'basic' | 'beat' | 'pulse' | 'storm' | 'wave' | 'calm';
 
 export type KorosProps = {
   /**
@@ -40,6 +40,7 @@ const getSVG = (type: string, patternName: string): React.SVGProps<SVGElement> =
     pulse: <path transform={transform} d="M0,800h20V0c-5.1,0-5.1,6.4-10,6.4S4.9,0,0,0V800z" />,
     storm: <path transform={transform} d="M20,800V0c-2.3,5.5-8.7,8.1-14.3,5.7C3.1,4.7,1.2,2.6,0,0v800H20z" />,
     wave: <polygon transform={transform} points="0,800 20,800 20,0 9.8,10.1 0,0 " />,
+    calm: <path transform={transform} d="M788 0.279785H0V109.739H788V0.279785Z" />,
   };
 
   return (
