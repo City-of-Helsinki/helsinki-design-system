@@ -7,7 +7,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink } from 'gatsby';
+import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
 import { Container, Footer, Navigation, SideNavigation } from 'hds-react';
 
@@ -141,25 +141,41 @@ const Layout = ({ children, pageContext }) => {
                 id="side-navigation"
                 toggleButtonLabel="Navigate to page"
               >
-                {uiSubMenuLinks.map(({ name, prefixedLink, uiId, withDivider, subLevels }) => (
-                  <SideNavigation.MainLevel
-                    key={uiId}
-                    id={uiId}
-                    href={prefixedLink}
-                    label={name}
-                    active={pageSlugWithPrefix === prefixedLink}
-                    withDivider={withDivider}
-                  >
-                    {subLevels.map(({ title, prefixedLink, uiId }) => (
-                      <SideNavigation.SubLevel
-                        key={uiId}
-                        href={prefixedLink}
-                        label={title}
-                        active={pageSlugWithPrefix === prefixedLink}
-                      />
-                    ))}
-                  </SideNavigation.MainLevel>
-                ))}
+                {uiSubMenuLinks.map(({ name, link, prefixedLink, uiId, withDivider, subLevels }) => {
+                  const hasSubLevels = subLevels.length > 0;
+
+                  return (
+                    <SideNavigation.MainLevel
+                      key={uiId}
+                      id={uiId}
+                      label={name}
+                      active={pageSlugWithPrefix === prefixedLink}
+                      withDivider={withDivider}
+                      {...(hasSubLevels
+                        ? {}
+                        : {
+                            href: prefixedLink,
+                            onClick: (e) => {
+                              e.preventDefault();
+                              navigate(link);
+                            },
+                          })}
+                    >
+                      {subLevels.map(({ title, slug, prefixedLink, uiId }) => (
+                        <SideNavigation.SubLevel
+                          key={uiId}
+                          href={prefixedLink}
+                          label={title}
+                          active={pageSlugWithPrefix === prefixedLink}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigate(slug);
+                          }}
+                        />
+                      ))}
+                    </SideNavigation.MainLevel>
+                  );
+                })}
               </SideNavigation>
             </aside>
           )}
