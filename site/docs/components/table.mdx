@@ -36,12 +36,12 @@ HDS Tables are currently only available for HDS Core and they include base style
 - HDS Table offers smaller font sizes and spacing on mobile screens.
   - If your table has a large amount of data, you can use the `dense` property to force mobile spacing on all screen sizes.
 - Table container is allowed to be scrollable. This is common on smaller screens where it can be impossible to fit the full table on the device screen.
-  - On smaller screens it may be beneficial to consider other presentaton formats for table data. For example, a table can be broken into cards.
+  - On smaller screens, it may be beneficial to consider other presentaton formats for table data. For example, a table can be broken into cards.
 
 ## Accessibility
 - No matter how well tables are implemented, they are always very demanding for assistive technology users. Always consider whether the table is necessary to present the information.
 - Make sure your table has a heading that describes the table’s purpose. This heading can either be a heading tag (e.g. H2) or a caption element. If it is a heading tag, reference it with an `aria-labelledby` attribute in the `<table>` tag.
-- Table header is read to assistive technologies on every cell. Keep table header labels short and consise and make sure they describe the data contained in table cells.
+- Table header is read to assistive technologies on every cell. Keep table header labels short and concise and make sure they describe the data contained in table cells.
 - If your table includes empty column header cells, make sure they have a `role=“presentation”` attribute.
 
 ## Usage & variations
@@ -275,7 +275,7 @@ Vertical headers can be used to create tables that have both a header row and a 
 _Coming soon to hds-react!_
 
 ### Zebra rows
-Zebra rows (alternating row colours) should be used on tables that have very long rows. It makes easier to visually scan the table and follow rows.
+Zebra rows (alternating row colours) should be used on tables that have very long rows. It makes it easier to visually scan the table and follow rows.
 
 <Playground>
 <div class="hds-table-container" style={{maxWidth: '800px'}} tabindex="0">
