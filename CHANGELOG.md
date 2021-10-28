@@ -37,7 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Koros] Clarified symbol layer naming in the override panel
 
 #### Removed
-- [Table] Marked old Table symbols as Deprecated. These will be removed in a future update.
+- [Table] Marked old Table symbols as Deprecated. These will be removed in a future update
 
 ### Documentation
 
@@ -45,7 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Table] Documentation for the Table component
 
 ### Changed
-- [Form pattern] Added a note about explaining the required form field indicator before the form
+- [Form pattern] Updated form examples to explain required fields better
 
 ## [1.5.1] - Oct, 11, 2021
 
