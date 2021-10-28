@@ -50,81 +50,86 @@ HDS Tables are currently only available for HDS Core and they include base style
 The default HDS table variant includes horizontal lines. The header row can be either dark or light depending on the brand colour used as a background. Whether you need a black or white text colour can be checked from [HDS Colour documentation page](/design-tokens/colour#brand-colour-combinations).
 
 <Playground>
-<div class="hds-table-container" style={{maxWidth: '640px'}} tabindex="0">
-<table class="hds-table hds-table--dark" aria-label="Service users (light variant)">
-    <caption class="hds-table__caption"><b>Table 1</b>: Service users (dark variant)</caption>
-    <tr class="hds-table__header-row">
-      <th scope="col">First name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Age</th>
-      <th scope="col">Profession</th>
-</tr>
-      <tbody class="hds-table__content">
-      <tr>
-  <td>Lauri</td>
-  <td>Kekkonen</td>
-  <td class="hds-table--text-align-right">39</td>
-  <td>Engineer</td>
-</tr>
-      <tr>
-  <td>Maria</td>
-  <td>Sarasoja</td>
-  <td class="hds-table--text-align-right">62</td>
-  <td>Designer</td>
-</tr>
-      <tr>
-  <td>Anneli</td>
-  <td>Routa</td>
-  <td class="hds-table--text-align-right">50</td>
-  <td>Meteorologist</td>
-</tr>
-      <tr>
-  <td>Osku</td>
-  <td>Rausku</td>
-  <td class="hds-table--text-align-right">18</td>
-  <td>Mail carrier</td>
-</tr>
-    </tbody>
-  </table>
- </div>
-
- <div class="hds-table-container" style={{maxWidth: '640px', marginTop: 'var(--spacing-l)'}} tabindex="0">
-  <table class="hds-table hds-table--light" aria-label="Service users (light variant)">
-    <caption class="hds-table__caption"><b>Table 2</b>: Service users (light variant)</caption>
-    <tr class="hds-table__header-row">
-      <th scope="col">First name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Age</th>
-      <th scope="col">Profession</th>
-    </tr>
-    <tbody class="hds-table__content">
-      <tr>
-  <td>Lauri</td>
-  <td>Kekkonen</td>
-  <td class="hds-table--text-align-right">39</td>
-  <td>Engineer</td>
-</tr>
-      <tr>
-  <td>Maria</td>
-  <td>Sarasoja</td>
-  <td class="hds-table--text-align-right">62</td>
-  <td>Designer</td>
-</tr>
-      <tr>
-  <td>Anneli</td>
-  <td>Routa</td>
-  <td class="hds-table--text-align-right">50</td>
-  <td>Meteorologist</td>
-</tr>
-      <tr>
-  <td>Osku</td>
-  <td>Rausku</td>
-  <td class="hds-table--text-align-right">18</td>
-  <td>Mail carrier</td>
-</tr>
-    </tbody>
-  </table>
-</div>
+  {() => {
+    return (
+      <div>
+        <div class="hds-table-container" style={{maxWidth: '640px'}} tabindex="0">
+          <table class="hds-table hds-table--dark" aria-label="Service users (light variant)">
+            <caption class="hds-table__caption"><b>Table 1</b>: Service users (dark variant)</caption>
+            <tr class="hds-table__header-row">
+              <th scope="col">First name</th>
+              <th scope="col">Surname</th>
+              <th scope="col">Age</th>
+              <th scope="col">Profession</th>
+            </tr>
+            <tbody class="hds-table__content">
+            <tr>
+              <td>Lauri</td>
+              <td>Kekkonen</td>
+              <td class="hds-table--text-align-right">39</td>
+              <td>Engineer</td>
+            </tr>
+            <tr>
+              <td>Maria</td>
+              <td>Sarasoja</td>
+              <td class="hds-table--text-align-right">62</td>
+              <td>Designer</td>
+            </tr>
+            <tr>
+              <td>Anneli</td>
+              <td>Routa</td>
+              <td class="hds-table--text-align-right">50</td>
+              <td>Meteorologist</td>
+            </tr>
+            <tr>
+              <td>Osku</td>
+              <td>Rausku</td>
+              <td class="hds-table--text-align-right">18</td>
+              <td>Mail carrier</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="hds-table-container" style={{maxWidth: '640px', marginTop: 'var(--spacing-l)'}} tabindex="0">
+          <table class="hds-table hds-table--light" aria-label="Service users (light variant)">
+            <caption class="hds-table__caption"><b>Table 2</b>: Service users (light variant)</caption>
+            <tr class="hds-table__header-row">
+              <th scope="col">First name</th>
+              <th scope="col">Surname</th>
+              <th scope="col">Age</th>
+              <th scope="col">Profession</th>
+            </tr>
+            <tbody class="hds-table__content">
+            <tr>
+              <td>Lauri</td>
+              <td>Kekkonen</td>
+              <td class="hds-table--text-align-right">39</td>
+              <td>Engineer</td>
+            </tr>
+            <tr>
+              <td>Maria</td>
+              <td>Sarasoja</td>
+              <td class="hds-table--text-align-right">62</td>
+              <td>Designer</td>
+            </tr>
+            <tr>
+              <td>Anneli</td>
+              <td>Routa</td>
+              <td class="hds-table--text-align-right">50</td>
+              <td>Meteorologist</td>
+            </tr>
+            <tr>
+              <td>Osku</td>
+              <td>Rausku</td>
+              <td class="hds-table--text-align-right">18</td>
+              <td>Mail carrier</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    )
+  }}
 </Playground>
 
 ##### Core:
@@ -182,61 +187,65 @@ _Coming soon to hds-react!_
 Vertical headers can be used to create tables that have both a header row and a header column. Note that the empty header cell on the top left corner has `role="presentation"` attribute.
 
 <Playground>
-<div class="hds-table-container" style={{maxWidth: '486px'}} tabindex="0">
-  <table
-    class="hds-table hds-table--dark hds-table--with-vertical-header"
-    aria-label="Units sold by weekday"
-  >
-    <caption class="hds-table__caption"><b>Table 3</b>: Units sold by weekday</caption>
-    <colgroup>
-      <col span="1" class="hds-table__vertical-header-column"></col>
-    </colgroup>
-    <tr class="hds-table__header-row">
-      <td role="presentation"></td>
-      <th scope="col">8-12</th>
-      <th scope="col">12-14</th>
-      <th scope="col">14-16</th>
-      <th scope="col">16-18</th>
-    </tr>
-    <tbody class="hds-table__content hds-table__content--text-align-td-right">
-      <tr>
-        <th scope="row">Monday</th>
-        <td>324</td>
-        <td>562</td>
-        <td>280</td>
-        <td>94</td>
-      </tr>
-      <tr>
-        <th scope="row">Tuesday</th>
-        <td>341</td>
-        <td>688</td>
-        <td>425</td>
-        <td>113</td>
-      </tr>
-      <tr>
-        <th scope="row">Wednesday</th>
-        <td>294</td>
-        <td>492</td>
-        <td>280</td>
-        <td>67</td>
-      </tr>
-      <tr>
-        <th scope="row">Thursday</th>
-        <td>312</td>
-        <td>501</td>
-        <td>455</td>
-        <td>112</td>
-      </tr>
-      <tr>
-        <th scope="row">Friday</th>
-        <td>150</td>
-        <td>142</td>
-        <td>362</td>
-        <td>455</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  {() => {
+    return (
+      <div class="hds-table-container" style={{maxWidth: '486px'}} tabindex="0">
+        <table
+          class="hds-table hds-table--dark hds-table--with-vertical-header"
+          aria-label="Units sold by weekday"
+        >
+          <caption class="hds-table__caption"><b>Table 3</b>: Units sold by weekday</caption>
+          <colgroup>
+            <col span="1" class="hds-table__vertical-header-column"></col>
+          </colgroup>
+          <tr class="hds-table__header-row">
+            <td role="presentation"></td>
+            <th scope="col">8-12</th>
+            <th scope="col">12-14</th>
+            <th scope="col">14-16</th>
+            <th scope="col">16-18</th>
+          </tr>
+          <tbody class="hds-table__content hds-table__content--text-align-td-right">
+          <tr>
+            <th scope="row">Monday</th>
+            <td>324</td>
+            <td>562</td>
+            <td>280</td>
+            <td>94</td>
+          </tr>
+          <tr>
+            <th scope="row">Tuesday</th>
+            <td>341</td>
+            <td>688</td>
+            <td>425</td>
+            <td>113</td>
+          </tr>
+          <tr>
+            <th scope="row">Wednesday</th>
+            <td>294</td>
+            <td>492</td>
+            <td>280</td>
+            <td>67</td>
+          </tr>
+          <tr>
+            <th scope="row">Thursday</th>
+            <td>312</td>
+            <td>501</td>
+            <td>455</td>
+            <td>112</td>
+          </tr>
+          <tr>
+            <th scope="row">Friday</th>
+            <td>150</td>
+            <td>142</td>
+            <td>362</td>
+            <td>455</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    )
+  }}
 </Playground>
 
 ##### Core:
@@ -278,53 +287,57 @@ _Coming soon to hds-react!_
 Zebra rows (alternating row colours) should be used on tables that have very long rows. It makes it easier to visually scan the table and follow rows.
 
 <Playground>
-<div class="hds-table-container" style={{maxWidth: '800px'}} tabindex="0">
-  <table class="hds-table hds-table--dark hds-table--zebra" aria-label="Service users (zebra variant)">
-    <caption class="hds-table__caption"><b>Table 4</b>: Service users (zebra variant)</caption>
-    <tr class="hds-table__header-row">
-      <th scope="col">First name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Age</th>
-      <th scope="col">City</th>
-      <th scope="col">Profession</th>
-      <th scope="col">Experience (years)</th>
-    </tr>
-    <tbody class="hds-table__content">
-      <tr>
-  <td>Lauri</td>
-  <td>Kekkonen</td>
-  <td class="hds-table--text-align-right">39</td>
-  <td>Helsinki</td>
-  <td>Engineer</td>
-  <td class="hds-table--text-align-right">10</td>
-</tr>
-      <tr>
-  <td>Maria</td>
-  <td>Sarasoja</td>
-  <td class="hds-table--text-align-right">62</td>
-  <td>Tampere</td>
-  <td>Designer</td>
-  <td class="hds-table--text-align-right">39</td>
-</tr>
-      <tr>
-  <td>Anneli</td>
-  <td>Routa</td>
-  <td class="hds-table--text-align-right">50</td>
-  <td>Turku</td>
-  <td>Meteorologist</td>
-  <td class="hds-table--text-align-right">25</td>
-</tr>
-      <tr>
-  <td>Osku</td>
-  <td>Rausku</td>
-  <td class="hds-table--text-align-right">18</td>
-  <td>Oulu</td>
-  <td>Mail carrier</td>
-  <td class="hds-table--text-align-right">1</td>
-</tr>
-    </tbody>
-  </table>
-</div>
+  {() => {
+    return (
+      <div class="hds-table-container" style={{maxWidth: '800px'}} tabindex="0">
+        <table class="hds-table hds-table--dark hds-table--zebra" aria-label="Service users (zebra variant)">
+          <caption class="hds-table__caption"><b>Table 4</b>: Service users (zebra variant)</caption>
+          <tr class="hds-table__header-row">
+            <th scope="col">First name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Age</th>
+            <th scope="col">City</th>
+            <th scope="col">Profession</th>
+            <th scope="col">Experience (years)</th>
+          </tr>
+          <tbody class="hds-table__content">
+          <tr>
+            <td>Lauri</td>
+            <td>Kekkonen</td>
+            <td class="hds-table--text-align-right">39</td>
+            <td>Helsinki</td>
+            <td>Engineer</td>
+            <td class="hds-table--text-align-right">10</td>
+          </tr>
+          <tr>
+            <td>Maria</td>
+            <td>Sarasoja</td>
+            <td class="hds-table--text-align-right">62</td>
+            <td>Tampere</td>
+            <td>Designer</td>
+            <td class="hds-table--text-align-right">39</td>
+          </tr>
+          <tr>
+            <td>Anneli</td>
+            <td>Routa</td>
+            <td class="hds-table--text-align-right">50</td>
+            <td>Turku</td>
+            <td>Meteorologist</td>
+            <td class="hds-table--text-align-right">25</td>
+          </tr>
+          <tr>
+            <td>Osku</td>
+            <td>Rausku</td>
+            <td class="hds-table--text-align-right">18</td>
+            <td>Oulu</td>
+            <td>Mail carrier</td>
+            <td class="hds-table--text-align-right">1</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    )
+  }}
 </Playground>
 
 ##### Core:
@@ -344,61 +357,65 @@ _Coming soon to hds-react!_
 Vertical lines can be used on tables that have a lot of columns or a lot of similar data (e.g. numbers).
 
 <Playground>
-<div class="hds-table-container" style={{maxWidth: '486px'}} tabindex="0">
-  <table
-    class="hds-table hds-table--dark hds-table--with-vertical-header hds-table--with-vertical-lines"
-    aria-label="Units sold by weekday (vertical lines variant)"
-  >
-    <caption class="hds-table__caption"><b>Table 5</b>: Units sold by weekday (vertical lines variant)</caption>
-    <colgroup>
-      <col span="1" class="hds-table__vertical-header-column"></col>
-    </colgroup>
-    <tr class="hds-table__header-row">
-      <td role="presentation"></td>
-      <th scope="col">8-12</th>
-      <th scope="col">12-14</th>
-      <th scope="col">14-16</th>
-      <th scope="col">16-18</th>
-    </tr>
-    <tbody class="hds-table__content hds-table__content--text-align-td-right">
-      <tr>
-        <th scope="row">Monday</th>
-        <td>324</td>
-        <td>562</td>
-        <td>280</td>
-        <td>94</td>
-      </tr>
-      <tr>
-        <th scope="row">Tuesday</th>
-        <td>341</td>
-        <td>688</td>
-        <td>425</td>
-        <td>113</td>
-      </tr>
-      <tr>
-        <th scope="row">Wednesday</th>
-        <td>294</td>
-        <td>492</td>
-        <td>280</td>
-        <td>67</td>
-      </tr>
-      <tr>
-        <th scope="row">Thursday</th>
-        <td>312</td>
-        <td>501</td>
-        <td>455</td>
-        <td>112</td>
-      </tr>
-      <tr>
-        <th scope="row">Friday</th>
-        <td>150</td>
-        <td>142</td>
-        <td>362</td>
-        <td>455</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  {() => {
+    return (
+      <div class="hds-table-container" style={{maxWidth: '486px'}} tabindex="0">
+        <table
+          class="hds-table hds-table--dark hds-table--with-vertical-header hds-table--with-vertical-lines"
+          aria-label="Units sold by weekday (vertical lines variant)"
+        >
+          <caption class="hds-table__caption"><b>Table 5</b>: Units sold by weekday (vertical lines variant)</caption>
+          <colgroup>
+            <col span="1" class="hds-table__vertical-header-column"></col>
+          </colgroup>
+          <tr class="hds-table__header-row">
+            <td role="presentation"></td>
+            <th scope="col">8-12</th>
+            <th scope="col">12-14</th>
+            <th scope="col">14-16</th>
+            <th scope="col">16-18</th>
+          </tr>
+          <tbody class="hds-table__content hds-table__content--text-align-td-right">
+          <tr>
+            <th scope="row">Monday</th>
+            <td>324</td>
+            <td>562</td>
+            <td>280</td>
+            <td>94</td>
+          </tr>
+          <tr>
+            <th scope="row">Tuesday</th>
+            <td>341</td>
+            <td>688</td>
+            <td>425</td>
+            <td>113</td>
+          </tr>
+          <tr>
+            <th scope="row">Wednesday</th>
+            <td>294</td>
+            <td>492</td>
+            <td>280</td>
+            <td>67</td>
+          </tr>
+          <tr>
+            <th scope="row">Thursday</th>
+            <td>312</td>
+            <td>501</td>
+            <td>455</td>
+            <td>112</td>
+          </tr>
+          <tr>
+            <th scope="row">Friday</th>
+            <td>150</td>
+            <td>142</td>
+            <td>362</td>
+            <td>455</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    )
+  }}
 </Playground>
 
 ##### Core:
@@ -440,641 +457,644 @@ _Coming soon to hds-react!_
 If your table has a large amount of data, you can use the `dense` property to force mobile spacing on all screen sizes. This allows more data to fit into the view at the same time.
 
 <Playground>
-
-<div class="hds-table-container" style={{maxHeight: '600px'}} tabindex="0">
-  <table class="hds-table hds-table--dense hds-table--dark hds-table--zebra" aria-label="Job trials (source: Helsinki Employment Services)">
-    <caption class="hds-table__caption"><b>Table 6</b>: Job trials (source: Helsinki Employment Services)</caption>
-    <tr class="hds-table__header-row">
-      <th scope="col">Job id</th>
-      <th scope="col">Type</th>
-      <th scope="col">Title</th>
-      <th scope="col">Expires</th>
-      <th scope="col">Department</th>
-      <th scope="col">Job name</th>
-      <th scope="col">Postal code</th>
-      <th scope="col">Available places</th>
-      <th scope="col">To be interviewed</th>
-    </tr>
-    <tbody class="hds-table__content">
-      <tr>
-        <td class="hds-table--text-align-right">33740</td>
-        <td>Työkokeilupaikka</td>
-        <td>Harjoittelija</td>
-        <td>31.12.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>TYÖKOKEILU Snellu Cafe´ lounaskahvila</td>
-        <td class="hds-table--text-align-right">00900</td>
-        <td class="hds-table--text-align-right">36</td>
-        <td class="hds-table--text-align-right">40</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">33741</td>
-        <td>Työkokeilupaikka</td>
-        <td>Harjoittelija</td>
-        <td>31.12.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Maunulatalon kahvila (Månsas Deli)</td>
-        <td class="hds-table--text-align-right">00630</td>
-        <td class="hds-table--text-align-right">39</td>
-        <td class="hds-table--text-align-right">50</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">33823</td>
-        <td>Työkokeilupaikka</td>
-        <td>Viestintäalan harjoittelija</td>
-        <td>31.12.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Tarinapaja</td>
-        <td class="hds-table--text-align-right">00610</td>
-        <td class="hds-table--text-align-right">12</td>
-        <td class="hds-table--text-align-right">30</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">33739</td>
-        <td>Työkokeilupaikka</td>
-        <td>Kahvila-apulainen</td>
-        <td>31.12.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Kahvilapalvelut</td>
-        <td class="hds-table--text-align-right">00610</td>
-        <td class="hds-table--text-align-right">12</td>
-        <td class="hds-table--text-align-right">20</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">33918</td>
-        <td>Työkokeilupaikka</td>
-        <td>Teknisen alan harjoittelija</td>
-        <td>31.12.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>WooDoo-verstas</td>
-        <td class="hds-table--text-align-right">00880</td>
-        <td class="hds-table--text-align-right">45</td>
-        <td class="hds-table--text-align-right">50</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34825</td>
-        <td>Työkokeilupaikka</td>
-        <td>Hoitoapulainen</td>
-        <td>31.12.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Sinikello</td>
-        <td class="hds-table--text-align-right">00420</td>
-        <td class="hds-table--text-align-right">3</td>
-        <td class="hds-table--text-align-right">5</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35212</td>
-        <td>Työkokeilupaikka</td>
-        <td>Teknisen alan harjoittelija</td>
-        <td>31.12.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Metalliverstas</td>
-        <td class="hds-table--text-align-right">00880</td>
-        <td class="hds-table--text-align-right">37</td>
-        <td class="hds-table--text-align-right">40</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35213</td>
-        <td>Työkokeilupaikka</td>
-        <td>Teknisen alan harjoittelija</td>
-        <td>30.06.2022</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Moottoripaja Pitäjänmäki</td>
-        <td class="hds-table--text-align-right">00370</td>
-        <td class="hds-table--text-align-right">18</td>
-        <td class="hds-table--text-align-right">21</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35294</td>
-        <td>Työkokeilupaikka</td>
-        <td>Erityisavustaja</td>
-        <td>29.11.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Pk Savela</td>
-        <td class="hds-table--text-align-right">00720</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">10</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35295</td>
-        <td>Työkokeilupaikka</td>
-        <td>Erityisavustaja</td>
-        <td>29.11.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Pk Sinivuori</td>
-        <td class="hds-table--text-align-right">00720</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">10</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35296</td>
-        <td>Työkokeilupaikka</td>
-        <td>Päiväkodin harjoittelija</td>
-        <td>29.11.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Varhaiskasvatusyksikkö Siilitie</td>
-        <td class="hds-table--text-align-right">00800</td>
-        <td class="hds-table--text-align-right">2</td>
-        <td class="hds-table--text-align-right">2</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35283</td>
-        <td>Työkokeilupaikka</td>
-        <td>Liikunnanohjaaja</td>
-        <td>27.11.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Palvelukeskus</td>
-        <td class="hds-table--text-align-right">00420</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">2</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34165</td>
-        <td>Työkokeilupaikka</td>
-        <td>ICT-alan harjoittelija</td>
-        <td>27.02.2022</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Digitalents Helsinki</td>
-        <td class="hds-table--text-align-right">00270</td>
-        <td class="hds-table--text-align-right">51</td>
-        <td class="hds-table--text-align-right">70</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35096</td>
-        <td>Työkokeilupaikka</td>
-        <td>Erityisavustaja</td>
-        <td>25.10.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Varhaiskasvatusyksikkö Herttoniemi</td>
-        <td class="hds-table--text-align-right">00800</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">1</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35088</td>
-        <td>Työkokeilupaikka</td>
-        <td>Päiväkodin harjoittelija</td>
-        <td>24.10.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Päiväkoti Lapinmäki</td>
-        <td class="hds-table--text-align-right">00350</td>
-        <td class="hds-table--text-align-right">3</td>
-        <td class="hds-table--text-align-right">4</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34549</td>
-        <td>Työkokeilupaikka</td>
-        <td>Teknisen alan harjoittelija</td>
-        <td>19.07.2023</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>WooDoo-verstas</td>
-        <td class="hds-table--text-align-right">00880</td>
-        <td class="hds-table--text-align-right">29</td>
-        <td class="hds-table--text-align-right">50</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35050</td>
-        <td>Työkokeilupaikka</td>
-        <td>Erityisavustaja</td>
-        <td>18.10.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Päiväkoti Neulanen</td>
-        <td class="hds-table--text-align-right">00920</td>
-        <td class="hds-table--text-align-right">7</td>
-        <td class="hds-table--text-align-right">20</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35237</td>
-        <td>Työkokeilupaikka</td>
-        <td>Ohjaaja</td>
-        <td>17.11.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Stadin asukastalo Pihlajamäki</td>
-        <td class="hds-table--text-align-right">00710</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">4</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35230</td>
-        <td>Työkokeilupaikka</td>
-        <td>Erityisavustaja</td>
-        <td>16.11.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Kuninkaantammi</td>
-        <td class="hds-table--text-align-right">00430</td>
-        <td class="hds-table--text-align-right">2</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35224</td>
-        <td>Työkokeilupaikka</td>
-        <td>Erityisavustaja</td>
-        <td>15.11.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Päiväkoti Loimi</td>
-        <td class="hds-table--text-align-right">00940</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">2</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35223</td>
-        <td>Työkokeilupaikka</td>
-        <td>Päiväkodin harjoittelija</td>
-        <td>15.11.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Pk Pihapirtti</td>
-        <td class="hds-table--text-align-right">00940</td>
-        <td class="hds-table--text-align-right">2</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35221</td>
-        <td>Työkokeilupaikka</td>
-        <td>Hoiva-avustaja</td>
-        <td>14.11.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Usva-tiimi</td>
-        <td class="hds-table--text-align-right">00770</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">2</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35222</td>
-        <td>Työkokeilupaikka</td>
-        <td>Hoiva-avustaja</td>
-        <td>14.11.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Ruska-tiimi</td>
-        <td class="hds-table--text-align-right">00770</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35218</td>
-        <td>Työkokeilupaikka</td>
-        <td>Hoitoapulainen</td>
-        <td>14.11.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Tuulensuu</td>
-        <td class="hds-table--text-align-right">00500</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35018</td>
-        <td>Työkokeilupaikka</td>
-        <td>Avustaja</td>
-        <td>12.10.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Päiväkoti Tapanila</td>
-        <td class="hds-table--text-align-right">00730</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">1</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35003</td>
-        <td>Työkokeilupaikka</td>
-        <td>Päiväkotiapulainen</td>
-        <td>12.10.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Päiväkoti Neulanen</td>
-        <td class="hds-table--text-align-right">00920</td>
-        <td class="hds-table--text-align-right">2</td>
-        <td class="hds-table--text-align-right">5</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35002</td>
-        <td>Työkokeilupaikka</td>
-        <td>Päiväkodin harjoittelija</td>
-        <td>11.10.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Päiväkoti Terhi</td>
-        <td class="hds-table--text-align-right">00530</td>
-        <td class="hds-table--text-align-right">2</td>
-        <td class="hds-table--text-align-right">2</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34998</td>
-        <td>Työkokeilupaikka</td>
-        <td>Erityisavustaja</td>
-        <td>11.10.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Päiväkoti Ruuti</td>
-        <td class="hds-table--text-align-right">00940</td>
-        <td class="hds-table--text-align-right">2</td>
-        <td class="hds-table--text-align-right">2</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34999</td>
-        <td>Työkokeilupaikka</td>
-        <td>Erityisavustaja</td>
-        <td>11.10.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Päiväkoti Haikara</td>
-        <td class="hds-table--text-align-right">00940</td>
-        <td class="hds-table--text-align-right">2</td>
-        <td class="hds-table--text-align-right">2</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34986</td>
-        <td>Työkokeilupaikka</td>
-        <td>Hoitoavustaja</td>
-        <td>10.10.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Kannelmäen palvelutalo</td>
-        <td class="hds-table--text-align-right">00420</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">2</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34987</td>
-        <td>Työkokeilupaikka</td>
-        <td>Hoitoavustaja</td>
-        <td>10.10.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Kannelmäen palvelutalo</td>
-        <td class="hds-table--text-align-right">00420</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">2</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34988</td>
-        <td>Työkokeilupaikka</td>
-        <td>Hoitoavustaja</td>
-        <td>10.10.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Kannelmäen palvelutalo</td>
-        <td class="hds-table--text-align-right">00420</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35202</td>
-        <td>Työkokeilupaikka</td>
-        <td>Erityisavustaja</td>
-        <td>08.11.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Pk Lassi ja Pk Niitty</td>
-        <td class="hds-table--text-align-right">00440</td>
-        <td class="hds-table--text-align-right">2</td>
-        <td class="hds-table--text-align-right">5</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35176</td>
-        <td>Työkokeilupaikka</td>
-        <td>Päiväkotiapulainen</td>
-        <td>07.11.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Päiväkoti Suomenlinna</td>
-        <td class="hds-table--text-align-right">00190</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35193</td>
-        <td>Työkokeilupaikka</td>
-        <td>Hoitoavustaja</td>
-        <td>07.11.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Ryhmäkoti Kantola tai Pohjantähti</td>
-        <td class="hds-table--text-align-right">00940</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35194</td>
-        <td>Työkokeilupaikka</td>
-        <td>Hoitoavustaja</td>
-        <td>07.11.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Ryhmäkoti Apila, Orvokki tai Vanamo</td>
-        <td class="hds-table--text-align-right">00940</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35195</td>
-        <td>Työkokeilupaikka</td>
-        <td>Hoitoavustaja</td>
-        <td>07.11.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Ryhmäkoti Puolukka, Karpalo tai Mansikka</td>
-        <td class="hds-table--text-align-right">00940</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35179</td>
-        <td>Työkokeilupaikka</td>
-        <td>Leikkipuistoavustaja</td>
-        <td>07.11.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Leikkipuisto Intia</td>
-        <td class="hds-table--text-align-right">00560</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35189</td>
-        <td>Työkokeilupaikka</td>
-        <td>Leikkipuistoavustaja</td>
-        <td>07.11.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Leikkipuisto Lehdokki</td>
-        <td class="hds-table--text-align-right">00520</td>
-        <td class="hds-table--text-align-right">2</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35190</td>
-        <td>Työkokeilupaikka</td>
-        <td>Leikkipuistoavustaja</td>
-        <td>07.11.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Leikkipuisto Linja</td>
-        <td class="hds-table--text-align-right">00530</td>
-        <td class="hds-table--text-align-right">3</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35191</td>
-        <td>Työkokeilupaikka</td>
-        <td>Leikkipuistoavustaja</td>
-        <td>07.11.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Leikkipuisto Sanna</td>
-        <td class="hds-table--text-align-right">00240</td>
-        <td class="hds-table--text-align-right">3</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35192</td>
-        <td>Työkokeilupaikka</td>
-        <td>Leikkipuistoavustaja</td>
-        <td>07.11.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Leikkipuisto Vallila</td>
-        <td class="hds-table--text-align-right">00550</td>
-        <td class="hds-table--text-align-right">3</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35196</td>
-        <td>Työkokeilupaikka</td>
-        <td>Hoitoavustaja</td>
-        <td>07.11.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Ryhmäkoti Vadelma tai Mustikka</td>
-        <td class="hds-table--text-align-right">00940</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35197</td>
-        <td>Työkokeilupaikka</td>
-        <td>Kuntoutusavustaja</td>
-        <td>07.11.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Ryhmäkoti Kantola</td>
-        <td class="hds-table--text-align-right">00940</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">5</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35201</td>
-        <td>Työkokeilupaikka</td>
-        <td>Erityisavustaja</td>
-        <td>07.11.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Pk Jousi</td>
-        <td class="hds-table--text-align-right">00940</td>
-        <td class="hds-table--text-align-right">2</td>
-        <td class="hds-table--text-align-right">4</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34969</td>
-        <td>Työkokeilupaikka</td>
-        <td>Erityisavustaja</td>
-        <td>06.10.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Pk Haaga</td>
-        <td class="hds-table--text-align-right">00320</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34970</td>
-        <td>Työkokeilupaikka</td>
-        <td>Erityisavustaja</td>
-        <td>06.10.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Pk Kylätie</td>
-        <td class="hds-table--text-align-right">00320</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34957</td>
-        <td>Työkokeilupaikka</td>
-        <td>Apuohjaaja</td>
-        <td>05.10.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Sisustusompelimo</td>
-        <td class="hds-table--text-align-right">00500</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">6</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34960</td>
-        <td>Työkokeilupaikka</td>
-        <td>Apuohjaaja</td>
-        <td>05.10.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Muusix-ruokala</td>
-        <td class="hds-table--text-align-right">00500</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">4</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34961</td>
-        <td>Työkokeilupaikka</td>
-        <td>Päiväkodin harjoittelija</td>
-        <td>05.10.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Varhaiskasvatusyksikkö Siilitie</td>
-        <td class="hds-table--text-align-right">00800</td>
-        <td class="hds-table--text-align-right">3</td>
-        <td class="hds-table--text-align-right">3</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34952</td>
-        <td>Työkokeilupaikka</td>
-        <td>Päiväkodin harjoittelija</td>
-        <td>04.10.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Myrskyluoto</td>
-        <td class="hds-table--text-align-right">00980</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">2</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34953</td>
-        <td>Työkokeilupaikka</td>
-        <td>Päiväkodin harjoittelija</td>
-        <td>04.10.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Hippaheikki</td>
-        <td class="hds-table--text-align-right">0980</td>
-        <td class="hds-table--text-align-right">2</td>
-        <td class="hds-table--text-align-right">2</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34954</td>
-        <td>Työkokeilupaikka</td>
-        <td>Päiväkodin harjoittelija</td>
-        <td>04.10.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Kajuutta</td>
-        <td class="hds-table--text-align-right">00980</td>
-        <td class="hds-table--text-align-right">2</td>
-        <td class="hds-table--text-align-right">2</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34948</td>
-        <td>Työkokeilupaikka</td>
-        <td>Erityisavustaja</td>
-        <td>03.10.2021</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Päiväkoti Vanhainen</td>
-        <td class="hds-table--text-align-right">00420</td>
-        <td class="hds-table--text-align-right">2</td>
-        <td class="hds-table--text-align-right">2</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">35138</td>
-        <td>Työkokeilupaikka</td>
-        <td>Apuohjaaja</td>
-        <td>02.11.2021</td>
-        <td>Sosiaali- ja terveystoimiala</td>
-        <td>Keramiikka</td>
-        <td class="hds-table--text-align-right">00580</td>
-        <td class="hds-table--text-align-right">1</td>
-        <td class="hds-table--text-align-right">5</td>
-      </tr>
-      <tr>
-        <td class="hds-table--text-align-right">34550</td>
-        <td>Työkokeilupaikka</td>
-        <td>Kahvila-apulainen</td>
-        <td>01.07.2023</td>
-        <td>Kasvatus ja koulutus</td>
-        <td>Kahvila Villa Ullas</td>
-        <td class="hds-table--text-align-right">00980</td>
-        <td class="hds-table--text-align-right">78</td>
-        <td class="hds-table--text-align-right">99</td>
-      </tr>
-    </tbody>
-  </table>
- </div>
+  {() => {
+    return (
+      <div class="hds-table-container" style={{maxHeight: '600px'}} tabindex="0">
+        <table class="hds-table hds-table--dense hds-table--dark hds-table--zebra" aria-label="Job trials (source: Helsinki Employment Services)">
+          <caption class="hds-table__caption"><b>Table 6</b>: Job trials (source: Helsinki Employment Services)</caption>
+          <tr class="hds-table__header-row">
+            <th scope="col">Job id</th>
+            <th scope="col">Type</th>
+            <th scope="col">Title</th>
+            <th scope="col">Expires</th>
+            <th scope="col">Department</th>
+            <th scope="col">Job name</th>
+            <th scope="col">Postal code</th>
+            <th scope="col">Available places</th>
+            <th scope="col">To be interviewed</th>
+          </tr>
+          <tbody class="hds-table__content">
+          <tr>
+            <td class="hds-table--text-align-right">33740</td>
+            <td>Työkokeilupaikka</td>
+            <td>Harjoittelija</td>
+            <td>31.12.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>TYÖKOKEILU Snellu Cafe´ lounaskahvila</td>
+            <td class="hds-table--text-align-right">00900</td>
+            <td class="hds-table--text-align-right">36</td>
+            <td class="hds-table--text-align-right">40</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">33741</td>
+            <td>Työkokeilupaikka</td>
+            <td>Harjoittelija</td>
+            <td>31.12.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Maunulatalon kahvila (Månsas Deli)</td>
+            <td class="hds-table--text-align-right">00630</td>
+            <td class="hds-table--text-align-right">39</td>
+            <td class="hds-table--text-align-right">50</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">33823</td>
+            <td>Työkokeilupaikka</td>
+            <td>Viestintäalan harjoittelija</td>
+            <td>31.12.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Tarinapaja</td>
+            <td class="hds-table--text-align-right">00610</td>
+            <td class="hds-table--text-align-right">12</td>
+            <td class="hds-table--text-align-right">30</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">33739</td>
+            <td>Työkokeilupaikka</td>
+            <td>Kahvila-apulainen</td>
+            <td>31.12.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Kahvilapalvelut</td>
+            <td class="hds-table--text-align-right">00610</td>
+            <td class="hds-table--text-align-right">12</td>
+            <td class="hds-table--text-align-right">20</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">33918</td>
+            <td>Työkokeilupaikka</td>
+            <td>Teknisen alan harjoittelija</td>
+            <td>31.12.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>WooDoo-verstas</td>
+            <td class="hds-table--text-align-right">00880</td>
+            <td class="hds-table--text-align-right">45</td>
+            <td class="hds-table--text-align-right">50</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34825</td>
+            <td>Työkokeilupaikka</td>
+            <td>Hoitoapulainen</td>
+            <td>31.12.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Sinikello</td>
+            <td class="hds-table--text-align-right">00420</td>
+            <td class="hds-table--text-align-right">3</td>
+            <td class="hds-table--text-align-right">5</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35212</td>
+            <td>Työkokeilupaikka</td>
+            <td>Teknisen alan harjoittelija</td>
+            <td>31.12.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Metalliverstas</td>
+            <td class="hds-table--text-align-right">00880</td>
+            <td class="hds-table--text-align-right">37</td>
+            <td class="hds-table--text-align-right">40</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35213</td>
+            <td>Työkokeilupaikka</td>
+            <td>Teknisen alan harjoittelija</td>
+            <td>30.06.2022</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Moottoripaja Pitäjänmäki</td>
+            <td class="hds-table--text-align-right">00370</td>
+            <td class="hds-table--text-align-right">18</td>
+            <td class="hds-table--text-align-right">21</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35294</td>
+            <td>Työkokeilupaikka</td>
+            <td>Erityisavustaja</td>
+            <td>29.11.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Pk Savela</td>
+            <td class="hds-table--text-align-right">00720</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">10</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35295</td>
+            <td>Työkokeilupaikka</td>
+            <td>Erityisavustaja</td>
+            <td>29.11.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Pk Sinivuori</td>
+            <td class="hds-table--text-align-right">00720</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">10</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35296</td>
+            <td>Työkokeilupaikka</td>
+            <td>Päiväkodin harjoittelija</td>
+            <td>29.11.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Varhaiskasvatusyksikkö Siilitie</td>
+            <td class="hds-table--text-align-right">00800</td>
+            <td class="hds-table--text-align-right">2</td>
+            <td class="hds-table--text-align-right">2</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35283</td>
+            <td>Työkokeilupaikka</td>
+            <td>Liikunnanohjaaja</td>
+            <td>27.11.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Palvelukeskus</td>
+            <td class="hds-table--text-align-right">00420</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">2</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34165</td>
+            <td>Työkokeilupaikka</td>
+            <td>ICT-alan harjoittelija</td>
+            <td>27.02.2022</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Digitalents Helsinki</td>
+            <td class="hds-table--text-align-right">00270</td>
+            <td class="hds-table--text-align-right">51</td>
+            <td class="hds-table--text-align-right">70</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35096</td>
+            <td>Työkokeilupaikka</td>
+            <td>Erityisavustaja</td>
+            <td>25.10.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Varhaiskasvatusyksikkö Herttoniemi</td>
+            <td class="hds-table--text-align-right">00800</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">1</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35088</td>
+            <td>Työkokeilupaikka</td>
+            <td>Päiväkodin harjoittelija</td>
+            <td>24.10.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Päiväkoti Lapinmäki</td>
+            <td class="hds-table--text-align-right">00350</td>
+            <td class="hds-table--text-align-right">3</td>
+            <td class="hds-table--text-align-right">4</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34549</td>
+            <td>Työkokeilupaikka</td>
+            <td>Teknisen alan harjoittelija</td>
+            <td>19.07.2023</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>WooDoo-verstas</td>
+            <td class="hds-table--text-align-right">00880</td>
+            <td class="hds-table--text-align-right">29</td>
+            <td class="hds-table--text-align-right">50</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35050</td>
+            <td>Työkokeilupaikka</td>
+            <td>Erityisavustaja</td>
+            <td>18.10.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Päiväkoti Neulanen</td>
+            <td class="hds-table--text-align-right">00920</td>
+            <td class="hds-table--text-align-right">7</td>
+            <td class="hds-table--text-align-right">20</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35237</td>
+            <td>Työkokeilupaikka</td>
+            <td>Ohjaaja</td>
+            <td>17.11.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Stadin asukastalo Pihlajamäki</td>
+            <td class="hds-table--text-align-right">00710</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">4</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35230</td>
+            <td>Työkokeilupaikka</td>
+            <td>Erityisavustaja</td>
+            <td>16.11.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Kuninkaantammi</td>
+            <td class="hds-table--text-align-right">00430</td>
+            <td class="hds-table--text-align-right">2</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35224</td>
+            <td>Työkokeilupaikka</td>
+            <td>Erityisavustaja</td>
+            <td>15.11.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Päiväkoti Loimi</td>
+            <td class="hds-table--text-align-right">00940</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">2</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35223</td>
+            <td>Työkokeilupaikka</td>
+            <td>Päiväkodin harjoittelija</td>
+            <td>15.11.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Pk Pihapirtti</td>
+            <td class="hds-table--text-align-right">00940</td>
+            <td class="hds-table--text-align-right">2</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35221</td>
+            <td>Työkokeilupaikka</td>
+            <td>Hoiva-avustaja</td>
+            <td>14.11.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Usva-tiimi</td>
+            <td class="hds-table--text-align-right">00770</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">2</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35222</td>
+            <td>Työkokeilupaikka</td>
+            <td>Hoiva-avustaja</td>
+            <td>14.11.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Ruska-tiimi</td>
+            <td class="hds-table--text-align-right">00770</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35218</td>
+            <td>Työkokeilupaikka</td>
+            <td>Hoitoapulainen</td>
+            <td>14.11.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Tuulensuu</td>
+            <td class="hds-table--text-align-right">00500</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35018</td>
+            <td>Työkokeilupaikka</td>
+            <td>Avustaja</td>
+            <td>12.10.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Päiväkoti Tapanila</td>
+            <td class="hds-table--text-align-right">00730</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">1</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35003</td>
+            <td>Työkokeilupaikka</td>
+            <td>Päiväkotiapulainen</td>
+            <td>12.10.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Päiväkoti Neulanen</td>
+            <td class="hds-table--text-align-right">00920</td>
+            <td class="hds-table--text-align-right">2</td>
+            <td class="hds-table--text-align-right">5</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35002</td>
+            <td>Työkokeilupaikka</td>
+            <td>Päiväkodin harjoittelija</td>
+            <td>11.10.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Päiväkoti Terhi</td>
+            <td class="hds-table--text-align-right">00530</td>
+            <td class="hds-table--text-align-right">2</td>
+            <td class="hds-table--text-align-right">2</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34998</td>
+            <td>Työkokeilupaikka</td>
+            <td>Erityisavustaja</td>
+            <td>11.10.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Päiväkoti Ruuti</td>
+            <td class="hds-table--text-align-right">00940</td>
+            <td class="hds-table--text-align-right">2</td>
+            <td class="hds-table--text-align-right">2</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34999</td>
+            <td>Työkokeilupaikka</td>
+            <td>Erityisavustaja</td>
+            <td>11.10.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Päiväkoti Haikara</td>
+            <td class="hds-table--text-align-right">00940</td>
+            <td class="hds-table--text-align-right">2</td>
+            <td class="hds-table--text-align-right">2</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34986</td>
+            <td>Työkokeilupaikka</td>
+            <td>Hoitoavustaja</td>
+            <td>10.10.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Kannelmäen palvelutalo</td>
+            <td class="hds-table--text-align-right">00420</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">2</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34987</td>
+            <td>Työkokeilupaikka</td>
+            <td>Hoitoavustaja</td>
+            <td>10.10.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Kannelmäen palvelutalo</td>
+            <td class="hds-table--text-align-right">00420</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">2</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34988</td>
+            <td>Työkokeilupaikka</td>
+            <td>Hoitoavustaja</td>
+            <td>10.10.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Kannelmäen palvelutalo</td>
+            <td class="hds-table--text-align-right">00420</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35202</td>
+            <td>Työkokeilupaikka</td>
+            <td>Erityisavustaja</td>
+            <td>08.11.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Pk Lassi ja Pk Niitty</td>
+            <td class="hds-table--text-align-right">00440</td>
+            <td class="hds-table--text-align-right">2</td>
+            <td class="hds-table--text-align-right">5</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35176</td>
+            <td>Työkokeilupaikka</td>
+            <td>Päiväkotiapulainen</td>
+            <td>07.11.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Päiväkoti Suomenlinna</td>
+            <td class="hds-table--text-align-right">00190</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35193</td>
+            <td>Työkokeilupaikka</td>
+            <td>Hoitoavustaja</td>
+            <td>07.11.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Ryhmäkoti Kantola tai Pohjantähti</td>
+            <td class="hds-table--text-align-right">00940</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35194</td>
+            <td>Työkokeilupaikka</td>
+            <td>Hoitoavustaja</td>
+            <td>07.11.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Ryhmäkoti Apila, Orvokki tai Vanamo</td>
+            <td class="hds-table--text-align-right">00940</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35195</td>
+            <td>Työkokeilupaikka</td>
+            <td>Hoitoavustaja</td>
+            <td>07.11.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Ryhmäkoti Puolukka, Karpalo tai Mansikka</td>
+            <td class="hds-table--text-align-right">00940</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35179</td>
+            <td>Työkokeilupaikka</td>
+            <td>Leikkipuistoavustaja</td>
+            <td>07.11.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Leikkipuisto Intia</td>
+            <td class="hds-table--text-align-right">00560</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35189</td>
+            <td>Työkokeilupaikka</td>
+            <td>Leikkipuistoavustaja</td>
+            <td>07.11.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Leikkipuisto Lehdokki</td>
+            <td class="hds-table--text-align-right">00520</td>
+            <td class="hds-table--text-align-right">2</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35190</td>
+            <td>Työkokeilupaikka</td>
+            <td>Leikkipuistoavustaja</td>
+            <td>07.11.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Leikkipuisto Linja</td>
+            <td class="hds-table--text-align-right">00530</td>
+            <td class="hds-table--text-align-right">3</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35191</td>
+            <td>Työkokeilupaikka</td>
+            <td>Leikkipuistoavustaja</td>
+            <td>07.11.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Leikkipuisto Sanna</td>
+            <td class="hds-table--text-align-right">00240</td>
+            <td class="hds-table--text-align-right">3</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35192</td>
+            <td>Työkokeilupaikka</td>
+            <td>Leikkipuistoavustaja</td>
+            <td>07.11.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Leikkipuisto Vallila</td>
+            <td class="hds-table--text-align-right">00550</td>
+            <td class="hds-table--text-align-right">3</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35196</td>
+            <td>Työkokeilupaikka</td>
+            <td>Hoitoavustaja</td>
+            <td>07.11.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Ryhmäkoti Vadelma tai Mustikka</td>
+            <td class="hds-table--text-align-right">00940</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35197</td>
+            <td>Työkokeilupaikka</td>
+            <td>Kuntoutusavustaja</td>
+            <td>07.11.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Ryhmäkoti Kantola</td>
+            <td class="hds-table--text-align-right">00940</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">5</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35201</td>
+            <td>Työkokeilupaikka</td>
+            <td>Erityisavustaja</td>
+            <td>07.11.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Pk Jousi</td>
+            <td class="hds-table--text-align-right">00940</td>
+            <td class="hds-table--text-align-right">2</td>
+            <td class="hds-table--text-align-right">4</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34969</td>
+            <td>Työkokeilupaikka</td>
+            <td>Erityisavustaja</td>
+            <td>06.10.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Pk Haaga</td>
+            <td class="hds-table--text-align-right">00320</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34970</td>
+            <td>Työkokeilupaikka</td>
+            <td>Erityisavustaja</td>
+            <td>06.10.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Pk Kylätie</td>
+            <td class="hds-table--text-align-right">00320</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34957</td>
+            <td>Työkokeilupaikka</td>
+            <td>Apuohjaaja</td>
+            <td>05.10.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Sisustusompelimo</td>
+            <td class="hds-table--text-align-right">00500</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">6</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34960</td>
+            <td>Työkokeilupaikka</td>
+            <td>Apuohjaaja</td>
+            <td>05.10.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Muusix-ruokala</td>
+            <td class="hds-table--text-align-right">00500</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">4</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34961</td>
+            <td>Työkokeilupaikka</td>
+            <td>Päiväkodin harjoittelija</td>
+            <td>05.10.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Varhaiskasvatusyksikkö Siilitie</td>
+            <td class="hds-table--text-align-right">00800</td>
+            <td class="hds-table--text-align-right">3</td>
+            <td class="hds-table--text-align-right">3</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34952</td>
+            <td>Työkokeilupaikka</td>
+            <td>Päiväkodin harjoittelija</td>
+            <td>04.10.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Myrskyluoto</td>
+            <td class="hds-table--text-align-right">00980</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">2</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34953</td>
+            <td>Työkokeilupaikka</td>
+            <td>Päiväkodin harjoittelija</td>
+            <td>04.10.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Hippaheikki</td>
+            <td class="hds-table--text-align-right">0980</td>
+            <td class="hds-table--text-align-right">2</td>
+            <td class="hds-table--text-align-right">2</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34954</td>
+            <td>Työkokeilupaikka</td>
+            <td>Päiväkodin harjoittelija</td>
+            <td>04.10.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Kajuutta</td>
+            <td class="hds-table--text-align-right">00980</td>
+            <td class="hds-table--text-align-right">2</td>
+            <td class="hds-table--text-align-right">2</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34948</td>
+            <td>Työkokeilupaikka</td>
+            <td>Erityisavustaja</td>
+            <td>03.10.2021</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Päiväkoti Vanhainen</td>
+            <td class="hds-table--text-align-right">00420</td>
+            <td class="hds-table--text-align-right">2</td>
+            <td class="hds-table--text-align-right">2</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">35138</td>
+            <td>Työkokeilupaikka</td>
+            <td>Apuohjaaja</td>
+            <td>02.11.2021</td>
+            <td>Sosiaali- ja terveystoimiala</td>
+            <td>Keramiikka</td>
+            <td class="hds-table--text-align-right">00580</td>
+            <td class="hds-table--text-align-right">1</td>
+            <td class="hds-table--text-align-right">5</td>
+          </tr>
+          <tr>
+            <td class="hds-table--text-align-right">34550</td>
+            <td>Työkokeilupaikka</td>
+            <td>Kahvila-apulainen</td>
+            <td>01.07.2023</td>
+            <td>Kasvatus ja koulutus</td>
+            <td>Kahvila Villa Ullas</td>
+            <td class="hds-table--text-align-right">00980</td>
+            <td class="hds-table--text-align-right">78</td>
+            <td class="hds-table--text-align-right">99</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    )
+  }}
 </Playground>
 
 ##### Core:
