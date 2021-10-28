@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### React Components
+
+#### Fixed
+- [Notification] Animations not firing with some build configurations, often in production builds
+
 ## [1.5.1] - Oct, 11, 2021
 
 ### React Components
