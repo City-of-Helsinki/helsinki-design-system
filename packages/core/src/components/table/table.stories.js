@@ -18,12 +18,14 @@ export const Dark = () => `
   <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
     <table class="hds-table hds-table--dark" aria-label="People">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
-      <tr class="hds-table__header-row">
-        <th scope="col">First name</th>
-        <th scope="col">Surname</th>
-        <th scope="col">Age</th>
-        <th scope="col">Profession</th>
-      </tr>
+      <thead>
+        <tr class="hds-table__header-row">
+          <th scope="col">First name</th>
+          <th scope="col">Surname</th>
+          <th scope="col">Age</th>
+          <th scope="col">Profession</th>
+        </tr>
+      </thead>
       <tbody class="hds-table__content">
         ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
         ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
@@ -38,12 +40,14 @@ export const Light = () => `
   <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
     <table class="hds-table hds-table--light" aria-label="People">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
-      <tr class="hds-table__header-row">
-        <th scope="col">First name</th>
-        <th scope="col">Surname</th>
-        <th scope="col">Age</th>
-        <th scope="col">Profession</th>
-      </tr>
+      <thead>
+        <tr class="hds-table__header-row">
+          <th scope="col">First name</th>
+          <th scope="col">Surname</th>
+          <th scope="col">Age</th>
+          <th scope="col">Profession</th>
+        </tr>
+      </thead>
       <tbody class="hds-table__content">
         ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
         ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
@@ -58,12 +62,14 @@ export const Dense = () => `
   <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
     <table class="hds-table hds-table--dark hds-table--dense" aria-label="People">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
-      <tr class="hds-table__header-row">
-        <th scope="col">First name</th>
-        <th scope="col">Surname</th>
-        <th scope="col">Age</th>
-        <th scope="col">Profession</th>
-      </tr>
+      <thead>
+        <tr class="hds-table__header-row">
+          <th scope="col">First name</th>
+          <th scope="col">Surname</th>
+          <th scope="col">Age</th>
+          <th scope="col">Profession</th>
+        </tr>
+      </thead>
       <tbody class="hds-table__content">
         ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
         ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
@@ -88,14 +94,16 @@ export const Zebra = () => `
   <div class="hds-table-container" style="max-width: 800px;" tabindex="0">
     <table class="hds-table hds-table--dark hds-table--zebra" aria-label="People">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
-      <tr class="hds-table__header-row">
-        <th scope="col">First name</th>
-        <th scope="col">Surname</th>
-        <th scope="col">Age</th>
-        <th scope="col">City</th>
-        <th scope="col">Profession</th>
-        <th scope="col">Experience (years)</th>
-      </tr>
+      <thead>
+        <tr class="hds-table__header-row">
+          <th scope="col">First name</th>
+          <th scope="col">Surname</th>
+          <th scope="col">Age</th>
+          <th scope="col">City</th>
+          <th scope="col">Profession</th>
+          <th scope="col">Experience (years)</th>
+        </tr>
+      </thead>
       <tbody class="hds-table__content">
         ${extendedTableRow('Lauri', 'Kekkonen', '39', 'Helsinki', 'Engineer', '10')}
         ${extendedTableRow('Maria', 'Sarasoja', '62', 'Tampere', 'Designer', '39')}
@@ -110,12 +118,14 @@ export const VerticalLines = () => `
   <div class="hds-table-container" style="max-width: 496px;" tabindex="0">
     <table class="hds-table hds-table--dark hds-table--with-vertical-lines" aria-label="Units sold by weekday">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
-      <tr class="hds-table__header-row">
-        <th scope="col">Day</th>
-        <th scope="col">Product 1</th>
-        <th scope="col">Product 2</th>
-        <th scope="col">Product 3</th>
-      </tr>
+      <thead>
+        <tr class="hds-table__header-row">
+          <th scope="col">Day</th>
+          <th scope="col">Product 1</th>
+          <th scope="col">Product 2</th>
+          <th scope="col">Product 3</th>
+        </tr>
+      </thead>
       <tbody class="hds-table__content">
         <tr>
           <td>Monday</td>
@@ -156,12 +166,14 @@ export const VerticalLinesLight = () => `
   <div class="hds-table-container" style="max-width: 496px;" tabindex="0">
     <table class="hds-table hds-table--light hds-table--with-vertical-lines" aria-label="Units sold by weekday">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
-      <tr class="hds-table__header-row">
-        <th scope="col">Day</th>
-        <th scope="col">Product 1</th>
-        <th scope="col">Product 2</th>
-        <th scope="col">Product 3</th>
-      </tr>
+      <thead>
+        <tr class="hds-table__header-row">
+          <th scope="col">Day</th>
+          <th scope="col">Product 1</th>
+          <th scope="col">Product 2</th>
+          <th scope="col">Product 3</th>
+        </tr>
+      </thead>
       <tbody class="hds-table__content">
         <tr>
           <td>Monday</td>
@@ -245,13 +257,15 @@ export const VerticalHeader = () => `
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
-      <tr class="hds-table__header-row">
-        <td role="presentation"></td>
-        <th scope="col">8-12</th>
-        <th scope="col">12-14</th>
-        <th scope="col">14-16</th>
-        <th scope="col">16-18</th>
-      </tr>
+      <thead>
+        <tr class="hds-table__header-row">
+          <td role="presentation"></td>
+          <th scope="col">8-12</th>
+          <th scope="col">12-14</th>
+          <th scope="col">14-16</th>
+          <th scope="col">16-18</th>
+        </tr>
+      </thead>
       <tbody class="hds-table__content hds-table__content--text-align-td-right">
         ${unitsContent()}
       </tbody>
@@ -269,13 +283,15 @@ export const VerticalHeaderLight = () => `
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
-      <tr class="hds-table__header-row">
-        <td role="presentation"></td>
-        <th scope="col">8-12</th>
-        <th scope="col">12-14</th>
-        <th scope="col">14-16</th>
-        <th scope="col">16-18</th>
-      </tr>
+      <thead>
+        <tr class="hds-table__header-row">
+          <td role="presentation"></td>
+          <th scope="col">8-12</th>
+          <th scope="col">12-14</th>
+          <th scope="col">14-16</th>
+          <th scope="col">16-18</th>
+        </tr>
+      </thead>
       <tbody class="hds-table__content hds-table__content--text-align-td-right">
         ${unitsContent()}
       </tbody>
@@ -293,13 +309,15 @@ export const VerticalHeaderZebra = () => `
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
-      <tr class="hds-table__header-row">
-        <td role="presentation"></td>
-        <th scope="col">8-12</th>
-        <th scope="col">12-14</th>
-        <th scope="col">14-16</th>
-        <th scope="col">16-18</th>
-      </tr>
+      <thead>
+        <tr class="hds-table__header-row">
+          <td role="presentation"></td>
+          <th scope="col">8-12</th>
+          <th scope="col">12-14</th>
+          <th scope="col">14-16</th>
+          <th scope="col">16-18</th>
+        </tr>
+      </thead>
       <tbody class="hds-table__content hds-table__content--text-align-td-right">
         ${unitsContent()}
       </tbody>
@@ -317,13 +335,15 @@ export const VerticalHeaderAndLines = () => `
       <colgroup>
         <col span="1" class="hds-table__vertical-header-column">
       </colgroup>
-      <tr class="hds-table__header-row">
-        <td role="presentation"></td>
-        <th scope="col">8-12</th>
-        <th scope="col">12-14</th>
-        <th scope="col">14-16</th>
-        <th scope="col">16-18</th>
-      </tr>
+      <thead>
+        <tr class="hds-table__header-row">
+          <td role="presentation"></td>
+          <th scope="col">8-12</th>
+          <th scope="col">12-14</th>
+          <th scope="col">14-16</th>
+          <th scope="col">16-18</th>
+        </tr>
+      </thead>
       <tbody class="hds-table__content hds-table__content--text-align-td-right">
         ${unitsContent()}
       </tbody>
@@ -340,12 +360,14 @@ export const CustomHeaderBackgroundColorForDarkVariant = () => `
   <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
     <table class="hds-table hds-table--dark custom-background-color-1" aria-label="People">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
-      <tr class="hds-table__header-row">
-        <th scope="col">First name</th>
-        <th scope="col">Surname</th>
-        <th scope="col">Age</th>
-        <th scope="col">Profession</th>
-      </tr>
+      <thead>
+        <tr class="hds-table__header-row">
+          <th scope="col">First name</th>
+          <th scope="col">Surname</th>
+          <th scope="col">Age</th>
+          <th scope="col">Profession</th>
+        </tr>
+      </thead>
       <tbody class="hds-table__content">
         ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
         ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
@@ -365,12 +387,14 @@ export const CustomHeaderBackgroundColorForLightVariant = () => `
   <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
     <table class="hds-table hds-table--light custom-background-color-2" aria-label="People">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
-      <tr class="hds-table__header-row">
-        <th scope="col">First name</th>
-        <th scope="col">Surname</th>
-        <th scope="col">Age</th>
-        <th scope="col">Profession</th>
-      </tr>
+      <thead>
+        <tr class="hds-table__header-row">
+          <th scope="col">First name</th>
+          <th scope="col">Surname</th>
+          <th scope="col">Age</th>
+          <th scope="col">Profession</th>
+        </tr>
+      </thead>
       <tbody class="hds-table__content">
         ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
         ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
@@ -405,17 +429,19 @@ export const WideAndLong = () => `
   <div class="hds-table-container" style="height: 600px;" tabindex="0">
     <table class="hds-table hds-table--dark hds-table--zebra" aria-label="Job trials">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
-      <tr class="hds-table__header-row">
-        <th scope="col">Job id</th>
-        <th scope="col">Type</th>
-        <th scope="col">Title</th>
-        <th scope="col">Expires</th>
-        <th scope="col">Department</th>
-        <th scope="col">Job name</th>
-        <th scope="col">Postal code</th>
-        <th scope="col">Available places</th>
-        <th scope="col">To be interviewed</th>
-      </tr>
+      <thead>
+        <tr class="hds-table__header-row">
+          <th scope="col">Job id</th>
+          <th scope="col">Type</th>
+          <th scope="col">Title</th>
+          <th scope="col">Expires</th>
+          <th scope="col">Department</th>
+          <th scope="col">Job name</th>
+          <th scope="col">Postal code</th>
+          <th scope="col">Available places</th>
+          <th scope="col">To be interviewed</th>
+        </tr>
+      </thead>
       <tbody class="hds-table__content">
         ${wideTableContent()}
       </tbody>
@@ -427,17 +453,19 @@ export const WideAndLongDense = () => `
   <div class="hds-table-container" style="height: 600px;" tabindex="0">
     <table class="hds-table hds-table--dense hds-table--dark hds-table--zebra" aria-label="Job trials">
       <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
-      <tr class="hds-table__header-row">
-        <th scope="col">Job id</th>
-        <th scope="col">Type</th>
-        <th scope="col">Title</th>
-        <th scope="col">Expires</th>
-        <th scope="col">Department</th>
-        <th scope="col">Job name</th>
-        <th scope="col">Postal code</th>
-        <th scope="col">Available places</th>
-        <th scope="col">To be interviewed</th>
-      </tr>
+      <thead>
+        <tr class="hds-table__header-row">
+          <th scope="col">Job id</th>
+          <th scope="col">Type</th>
+          <th scope="col">Title</th>
+          <th scope="col">Expires</th>
+          <th scope="col">Department</th>
+          <th scope="col">Job name</th>
+          <th scope="col">Postal code</th>
+          <th scope="col">Available places</th>
+          <th scope="col">To be interviewed</th>
+        </tr>
+      </thead>
       <tbody class="hds-table__content">
         ${wideTableContent()}
       </tbody>
