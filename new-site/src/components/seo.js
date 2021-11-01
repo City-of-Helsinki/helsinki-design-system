@@ -9,13 +9,14 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 
 function Seo({ lang, meta, title, description, pageTitle }) {
+  const composedTitle = `${title} | ${pageTitle}`;
+
   return (
     <Helmet
       htmlAttributes={{
         lang,
       }}
-      title={title}
-      titleTemplate={title ? `${title} | ${pageTitle}  ` : null}
+      title={composedTitle}
       meta={[
         {
           name: `description`,
@@ -23,7 +24,7 @@ function Seo({ lang, meta, title, description, pageTitle }) {
         },
         {
           property: `og:title`,
-          content: title,
+          content: composedTitle,
         },
         {
           property: `og:description`,
