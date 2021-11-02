@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: process.env.PATH_PREFIX,
   siteMetadata: {
     title: `Helsinki Design system`,
     description: `Documentation for Helsinki Design System`,
@@ -6,20 +7,42 @@ module.exports = {
     menuLinks: [
       {
         name: 'Home',
-        link: '/'
+        link: '/',
+        subMenuLinks: [],
       },
       {
         name: 'Guidelines',
-        link: '/guidelines/'
+        link: '/guidelines',
+        subMenuLinks: [],
       },
       {
         name: 'Elements',
-        link: '/elements/'
+        link: '/elements',
+        subMenuLinks: [
+          {
+            name: 'Overview',
+            link: '/elements',
+          },
+          {
+            name: 'Visual assets',
+            link: '/elements/visual-assets',
+            withDivider: true,
+          },
+          {
+            name: 'Design tokens',
+            link: '/elements/design-tokens',
+          },
+          {
+            name: 'Components',
+            link: '/elements/components',
+          },
+        ],
       },
       {
         name: 'About',
-        link: '/about/'
-      }
+        link: '/about',
+        subMenuLinks: [],
+      },
     ],
     footerTitle: 'Design system',
     footerAriaLabel: 'HDS footer',
@@ -49,7 +72,7 @@ module.exports = {
     },
     // This config is needed when pages are somewhere else than in the pages folder.
     {
-      resolve: "gatsby-plugin-page-creator",
+      resolve: 'gatsby-plugin-page-creator',
       options: {
         path: `${__dirname}/src/docs`,
       },
@@ -58,8 +81,8 @@ module.exports = {
       resolve: `gatsby-plugin-mdx`,
       options: {
         defaultLayouts: {
-          default: require.resolve("./src/components/layout.js"),
-        }
+          default: require.resolve('./src/components/layout.js'),
+        },
       },
     },
     `gatsby-transformer-sharp`,
@@ -78,6 +101,7 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    `gatsby-plugin-sass`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
