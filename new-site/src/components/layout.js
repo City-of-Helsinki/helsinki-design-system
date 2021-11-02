@@ -12,6 +12,7 @@ import { MDXProvider } from '@mdx-js/react';
 import { Container, Footer, Navigation, SideNavigation } from 'hds-react';
 import Seo from './seo';
 import { PlaygroundBlock } from './Playground';
+import SyntaxHighlighter from './SyntaxHighlighter';
 import './layout.scss';
 
 const PreComponent = (props) => {
@@ -26,9 +27,8 @@ const PreComponent = (props) => {
     );
   }
 
-  return null;
-};
-
+  return <SyntaxHighlighter {...props} />;
+}
 PreComponent.propTypes = {
   children: PropTypes.node.isRequired,
 };
