@@ -1,11 +1,12 @@
 @charset "utf-8";
 
+@import '~hds-design-tokens/lib/all.scss';
+
 @font-face {
   font-family: HelsinkiGrotesk;
   src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/565d73a693abe0776c801607ac28f0bf.woff) format("woff");
   font-weight: 400;
   font-style: normal;
-  text-rendering: optimizeLegibility
 }
 
 @font-face {
@@ -13,7 +14,6 @@
   src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/5bb29e3b7b1d3ef30121229bbe67c3e1.woff) format("woff");
   font-weight: 400;
   font-style: italic;
-  text-rendering: optimizeLegibility
 }
 
 @font-face {
@@ -21,7 +21,6 @@
   src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/7c46f288e8133b87e6b12b45dac71865.woff) format("woff");
   font-weight: 500;
   font-style: normal;
-  text-rendering: optimizeLegibility
 }
 
 @font-face {
@@ -29,7 +28,6 @@
   src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/e62dc97e83a385e4d8cdc939cf1e4213.woff) format("woff");
   font-weight: 500;
   font-style: italic;
-  text-rendering: optimizeLegibility
 }
 
 @font-face {
@@ -37,7 +35,6 @@
   src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/533af26cf28d7660f24c2884d3c27eac.woff) format("woff");
   font-weight: 700;
   font-style: normal;
-  text-rendering: optimizeLegibility
 }
 
 @font-face {
@@ -45,7 +42,6 @@
   src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/20d494430c87e15e194932b729d48270.woff) format("woff");
   font-weight: 700;
   font-style: italic;
-  text-rendering: optimizeLegibility
 }
 
 @font-face {
@@ -53,12 +49,13 @@
   src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/a50a1bd245ce63abcc0d1da80ff790d2.woff) format("woff");
   font-weight: 900;
   font-style: normal;
-  text-rendering: optimizeLegibility
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
   src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/62a1781d8b396fbb025b0552cf6304d2.woff) format("woff");
+  font-weight: 900;
+  font-style: italic;
 }
 
 html {
@@ -69,11 +66,11 @@ html {
 }
 
 body {
-  font-family: HelsinkiGrotesk-Regular, Arial, sans-serif;
+  font-family: var(--font-default);
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-weight: normal;
+  text-rendering: optimizeLegibility;
   word-wrap: break-word;
 }
 
@@ -84,7 +81,38 @@ body {
 }
 
 .pageContent {
+  flex: 1;
+  margin: 0 auto;
+  padding: var(--spacing-m) 0;
+  height: 100%;
   width: 100%;
+}
+
+.sideContent {
+  margin-bottom: auto;
+  min-width: 230px;
+}
+
+@media screen and (min-width: $breakpoint-m) {
+  .pageContent {
+    display: flex;
+  }
+
+  .sideContent {
+    margin-bottom: auto;
+    min-width: 230px;
+    padding: var(--spacing-s) 0;
+  }
+
+  .mainContent {
+    flex: 1;
+    padding: 0 0 var(--spacing-m);
+  }
+
+  .sideContent + .mainContent {
+    border-left: 1px solid var(--color-black-20);
+    padding: 0 var(--spacing-m) var(--spacing-m);
+  }
 }
 
 .pageFooter {
