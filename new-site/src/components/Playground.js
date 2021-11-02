@@ -162,5 +162,10 @@ export const PlaygroundBlock = ({ codeBlocks }) => {
 };
 
 PlaygroundBlock.propTypes = {
-  codeBlocks: PropTypes.array,
+  codeBlocks: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string.isRequired,
+      languageClass: PropTypes.string.isRequired,
+    }),
+  ),
 };
