@@ -16,10 +16,12 @@
     "gatsby-plugin-sharp": "^3.13.0",
     "gatsby-source-filesystem": "^3.13.0",
     "gatsby-transformer-sharp": "^3.13.0",
+    "prism-react-renderer": "^1.2.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
+    "react-live": "^2.3.0",
     "sass": "^1.43.2"
   },
   "devDependencies": {
