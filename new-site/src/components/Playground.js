@@ -162,26 +162,17 @@ Editor.propTypes = {
 
 const EditorWithLive = withLive(Editor);
 
-const CodeBlock = ({ codeBlock }) => {
-  const initialCode = codeBlock.code;
-  const [code, setCode] = useState(initialCode);
-
-  return (
-    <LiveProvider code={code} scope={{ ...Hds }}>
-      <div className="playground-block-content">
-        <LivePreview className="playground-block-preview" />
-        <EditorWithLive
-          onChange={setCode}
-          initialCode={initialCode}
-          code={code}
-          languageClass={codeBlock.languageClass}
-        />
-      </div>
-    </LiveProvider>
-  );
-};
-
 export const PlaygroundBlock = ({ codeBlocks }) => {
+  const codeByLanguage = codeBlocks.reduce((acc, block) => {
+    acc[block.languageClass] = block.code;
+    return acc;
+  }, {});
+
+  const [codeByLanguageState, setCodeByLanguageState] = useState(codeByLanguage);
+  const setCodeByLanguage = (languageClass) => (code) => {
+    setCodeByLanguageState({ ...codeByLanguageState, [languageClass]: code });
+  };
+
   return (
     <div className="playground-block">
       <Hds.Tabs>
@@ -192,9 +183,19 @@ export const PlaygroundBlock = ({ codeBlocks }) => {
             </Hds.Tab>
           ))}
         </Hds.TabList>
-        {codeBlocks.map((codeBlock) => (
-          <Hds.TabPanel key={codeBlock.languageClass}>
-            <CodeBlock codeBlock={codeBlock} />
+        {codeBlocks.map(({ code, languageClass }) => (
+          <Hds.TabPanel key={languageClass}>
+            <LiveProvider code={codeByLanguageState[languageClass]} scope={{ ...Hds }}>
+              <div className="playground-block-content">
+                <LivePreview className="playground-block-preview" />
+                <EditorWithLive
+                  initialCode={code}
+                  languageClass={languageClass}
+                  onChange={setCodeByLanguage(languageClass)}
+                  code={codeByLanguageState[languageClass]}
+                />
+              </div>
+            </LiveProvider>
           </Hds.TabPanel>
         ))}
       </Hds.Tabs>
