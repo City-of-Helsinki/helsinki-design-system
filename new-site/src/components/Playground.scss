@@ -30,6 +30,7 @@
   textarea,
   pre {
     padding-left: calc(var(--spacing-s) - var(--focus-border-width)) !important;
+    padding-right: var(--spacing-s);
   }
 
   textarea {
@@ -41,16 +42,7 @@
 }
 
 .playground-block-editor-viewport {
-  overflow-x: auto;
-  width: 100%;
-}
-
-.playground-block-editor-code {
-  --focus-border-width: 2px;
-
-  overflow-x: auto;
   position: relative;
-  width: max(100%, 660px);
 
   textarea,
   pre {
@@ -63,6 +55,10 @@
       border: 3px solid var(--color-coat-of-arms) !important;
     }
   }
+}
+
+.playground-block-editor-scrollbox {
+  overflow-x: auto;
 }
 
 .playground-block-editor-texts {

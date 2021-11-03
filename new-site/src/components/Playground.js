@@ -93,7 +93,6 @@ const Editor = ({ onChange, initialCode, code, languageClass }) => {
           className="playground-block-editor-viewport"
           tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
           onKeyDown={onFocusKeyDown}
-          onClick={onFocus}
           ref={viewPortRef}
         >
           <div className="playground-block-editor-code">
@@ -105,13 +104,22 @@ const Editor = ({ onChange, initialCode, code, languageClass }) => {
                 Press Enter to start editing. Press Esc to stop editing.
               </span>
             </div>
-            <LiveEditor
-              key={resetCount}
-              onChange={onChange}
-              style={{ background: 'none', padding: '0', overflow: 'visible', whiteSpace: 'nowrap' }}
-              textareaId={textAreaId}
-              theme={theme}
-            />
+            <div className="playground-block-editor-scrollbox" tabIndex={-1}>
+              <LiveEditor
+                key={resetCount}
+                onChange={onChange}
+                style={{
+                  background: 'none',
+                  padding: '0',
+                  overflow: 'visible',
+                  whiteSpace: 'nowrap',
+                  width: 'max-content',
+                  minWidth: '100%',
+                }}
+                textareaId={textAreaId}
+                theme={theme}
+              />
+            </div>
           </div>
         </div>
       </div>
