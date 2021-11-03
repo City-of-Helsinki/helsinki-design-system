@@ -35,56 +35,66 @@ const clearSelection = () => {
   }
 };
 
-const copy = (textarea) => {
-  textarea.focus();
-  textarea.select();
-
-  try {
-    document.execCommand('copy');
-  } catch (err) {
-    console.warn('Oops, unable to copy');
-  }
-  clearSelection();
-};
-
 const Editor = ({ onChange, initialCode, code, languageClass }) => {
   const viewPortRef = useRef();
+  const copyButtonRef = useRef();
   const [resetCount, setResetCount] = useState(0);
   const textAreaId = `code-block-textarea-${languageClass}-${resetCount}`;
   const helperTextId = `code-block-helper-${languageClass}-${resetCount}`;
   const getTextArea = useCallback((el) => el.querySelector(`#${textAreaId}`), [textAreaId]);
 
-  const onFocus = useCallback(() => {
-    if (viewPortRef.current) {
-      const textArea = getTextArea(viewPortRef.current);
-      textArea.focus();
-    }
-  }, [getTextArea]);
+  const onFocusKeyDown = useCallback(
+    (event) => {
+      if (event.key === 'Enter' && viewPortRef.current) {
+        event.preventDefault();
+        const textArea = getTextArea(viewPortRef.current);
+        textArea.focus();
+      }
+    },
+    [getTextArea],
+  );
 
-  const onBlur = useCallback(() => {
-    if (viewPortRef.current) {
+  const onTextAreaBlur = useCallback((e) => {
+    // Set viewport focus on textarea Esc keypress (no related target)
+    if (viewPortRef.current && !e.relatedTarget) {
       viewPortRef.current.focus();
     }
   }, []);
 
-  const onFocusKeyDown = useCallback(
-    (event) => {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        onFocus();
+  const copy = () => {
+    if (viewPortRef.current && copyButtonRef.current) {
+      const textArea = getTextArea(viewPortRef.current);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        document.execCommand('copy');
+        if (copyButtonRef.current) {
+          copyButtonRef.current.focus();
+        }
+      } catch (err) {
+        console.warn('Oops, unable to copy');
       }
-    },
-    [onFocus],
-  );
+      clearSelection();
+    }
+  };
+
+  const reset = () => {
+    onChange(initialCode);
+    setResetCount(resetCount + 1);
+    if (viewPortRef.current) {
+      viewPortRef.current.focus();
+    }
+  };
 
   useEffect(() => {
     if (viewPortRef.current) {
       const textArea = getTextArea(viewPortRef.current);
       textArea.setAttribute('aria-describedby', helperTextId);
       textArea.setAttribute('tabIndex', '-1');
-      textArea.addEventListener('blur', onBlur);
+      textArea.addEventListener('blur', onTextAreaBlur);
     }
-  }, [getTextArea, helperTextId, onBlur]);
+  }, [getTextArea, helperTextId, onTextAreaBlur]);
 
   return (
     <>
@@ -124,18 +134,7 @@ const Editor = ({ onChange, initialCode, code, languageClass }) => {
         </div>
       </div>
       <div className="playground-block-buttons">
-        <Hds.Button
-          variant="secondary"
-          size="small"
-          tabIndex={0}
-          onClick={() => {
-            if (viewPortRef.current) {
-              const textArea = getTextArea(viewPortRef.current);
-              copy(textArea);
-              viewPortRef.current.focus();
-            }
-          }}
-        >
+        <Hds.Button ref={copyButtonRef} variant="secondary" size="small" tabIndex={0} onClick={copy}>
           Copy code
         </Hds.Button>
         <Hds.Button
@@ -144,13 +143,7 @@ const Editor = ({ onChange, initialCode, code, languageClass }) => {
           size="small"
           tabIndex={0}
           disabled={initialCode === code}
-          onClick={() => {
-            onChange(initialCode);
-            setResetCount(resetCount + 1);
-            if (viewPortRef.current) {
-              viewPortRef.current.focus();
-            }
-          }}
+          onClick={reset}
         >
           Reset example
         </Hds.Button>
