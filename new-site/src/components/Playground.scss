@@ -3,6 +3,7 @@
 @import '~hds-design-tokens/lib/all.scss';
 
 .playground-block {
+  --focus-border-width: 2px;
   margin: var(--spacing-l) 0;
 }
 
@@ -21,8 +22,6 @@
 }
 
 .playground-block-editor {
-  --focus-border-width: 2px;
-
   background-color: var(--color-black-5);
   border: 2px solid var(--color-black-50);
   border-top: 0 none;
@@ -44,15 +43,22 @@
 .playground-block-editor-viewport {
   position: relative;
 
-  textarea,
-  pre {
-    padding-left: calc(var(--spacing-s) - var(--focus-border-width)) !important;
+  &:after {
+    border: var(--focus-border-width) solid transparent;
+    box-sizing: border-box;
+    content: '';
+    height: 100%;
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    top: 0;
   }
 
-  textarea {
-    &:focus {
-      outline: 0 none;
-      border: 3px solid var(--color-coat-of-arms) !important;
+  &:focus {
+    outline: 0 none;
+
+    &:after {
+      border-color: var(--color-coat-of-arms);
     }
   }
 }
