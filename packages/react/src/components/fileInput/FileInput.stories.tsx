@@ -2,6 +2,7 @@ import React from 'react';
 import { boolean, number, radios, text } from '@storybook/addon-knobs';
 
 import { FileInput } from './FileInput';
+import { TextInput } from 'src/components/textInput';
 
 export default {
   component: FileInput,
@@ -93,6 +94,33 @@ export const WithDragAndDrop = (args) => {
 WithDragAndDrop.args = {
   multiple: true,
   dragAndDrop: true,
+};
+
+export const WithTooltip = (args) => {
+  const [file, setFile] = React.useState<File[]>();
+  // eslint-disable-next-line no-console
+  console.log('selected file', file);
+
+  return (
+    <FileInput
+      id={args.id}
+      label={args.label}
+      buttonLabel={args.buttonLabel}
+      language={args.language}
+      onChange={setFile}
+      accept={args.accept}
+      maxSize={args.maxSize}
+      tooltipLabel={args.tooltipLabel}
+      tooltipButtonLabel={args.tooltipButtonLabel}
+      tooltipText={args.tooltipText}
+    />
+  );
+};
+WithTooltip.args = {
+  accept: 'image/*',
+  tooltipLabel: 'More info',
+  tooltipButtonLabel: 'Click to view more info',
+  tooltipText: 'The file input will accept most of the known image formats. Please notice the size limit.',
 };
 
 export const Disabled = (args) => {
