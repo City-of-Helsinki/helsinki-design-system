@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { LiveProvider, LiveEditor, LiveError, LivePreview, withLive } from 'react-live';
 import * as Hds from 'hds-react';
@@ -47,24 +47,56 @@ const copy = (textarea) => {
   clearSelection();
 };
 
-const Editor = ({ onChange, hasChanged, languageClass, reset }) => {
-  const editorRef = React.useRef();
-  const textAreaId = `code-block-textarea-${languageClass}`;
-  const helperTextId = `code-block-helper-${languageClass}`;
+const Editor = ({ onChange, initialCode, code, languageClass }) => {
+  const viewPortRef = useRef();
+  const [resetCount, setResetCount] = useState(0);
+  const textAreaId = `code-block-textarea-${languageClass}-${resetCount}`;
+  const helperTextId = `code-block-helper-${languageClass}-${resetCount}`;
   const getTextArea = useCallback((el) => el.querySelector(`#${textAreaId}`), [textAreaId]);
 
-  useEffect(() => {
-    if (editorRef.current) {
-      const textArea = getTextArea(editorRef.current);
-      textArea.setAttribute('aria-describedby', helperTextId);
+  const onFocus = useCallback(() => {
+    if (viewPortRef.current) {
+      const textArea = getTextArea(viewPortRef.current);
+      textArea.focus();
     }
-  }, [getTextArea, helperTextId]);
+  }, [getTextArea]);
+
+  const onBlur = useCallback(() => {
+    if (viewPortRef.current) {
+      viewPortRef.current.focus();
+    }
+  }, []);
+
+  const onFocusKeyDown = useCallback(
+    (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        onFocus();
+      }
+    },
+    [onFocus],
+  );
+
+  useEffect(() => {
+    if (viewPortRef.current) {
+      const textArea = getTextArea(viewPortRef.current);
+      textArea.setAttribute('aria-describedby', helperTextId);
+      textArea.setAttribute('tabIndex', '-1');
+      textArea.addEventListener('blur', onBlur);
+    }
+  }, [getTextArea, helperTextId, onBlur]);
 
   return (
     <>
       <div className="playground-block-editor">
-        <div className="playground-block-editor-viewport">
-          <div ref={editorRef} className="playground-block-editor-code">
+        <div // eslint-disable-line jsx-a11y/no-static-element-interactions
+          className="playground-block-editor-viewport"
+          tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
+          onKeyDown={onFocusKeyDown}
+          onClick={onFocus}
+          ref={viewPortRef}
+        >
+          <div className="playground-block-editor-code">
             <div className="playground-block-editor-texts">
               <label className="playground-block-editor-label" htmlFor={textAreaId}>
                 Editable code example
@@ -74,6 +106,7 @@ const Editor = ({ onChange, hasChanged, languageClass, reset }) => {
               </span>
             </div>
             <LiveEditor
+              key={resetCount}
               onChange={onChange}
               style={{ background: 'none', padding: '0', overflow: 'visible', whiteSpace: 'nowrap' }}
               textareaId={textAreaId}
@@ -86,10 +119,12 @@ const Editor = ({ onChange, hasChanged, languageClass, reset }) => {
         <Hds.Button
           variant="secondary"
           size="small"
+          tabIndex={0}
           onClick={() => {
-            if (editorRef.current) {
-              const textArea = getTextArea(editorRef.current);
+            if (viewPortRef.current) {
+              const textArea = getTextArea(viewPortRef.current);
               copy(textArea);
+              viewPortRef.current.focus();
             }
           }}
         >
@@ -99,9 +134,14 @@ const Editor = ({ onChange, hasChanged, languageClass, reset }) => {
           variant="secondary"
           iconLeft={<Hds.IconArrowUndo aria-hidden />}
           size="small"
-          disabled={!hasChanged}
+          tabIndex={0}
+          disabled={initialCode === code}
           onClick={() => {
-            reset();
+            onChange(initialCode);
+            setResetCount(resetCount + 1);
+            if (viewPortRef.current) {
+              viewPortRef.current.focus();
+            }
           }}
         >
           Reset example
@@ -114,8 +154,8 @@ const Editor = ({ onChange, hasChanged, languageClass, reset }) => {
 
 Editor.propTypes = {
   onChange: PropTypes.func.isRequired,
-  reset: PropTypes.func.isRequired,
-  hasChanged: PropTypes.bool.isRequired,
+  initialCode: PropTypes.string.isRequired,
+  code: PropTypes.string.isRequired,
   languageClass: PropTypes.string.isRequired,
 };
 
@@ -131,8 +171,8 @@ const CodeBlock = ({ codeBlock }) => {
         <LivePreview className="playground-block-preview" />
         <EditorWithLive
           onChange={setCode}
-          reset={() => setCode(initialCode)}
-          hasChanged={code !== initialCode}
+          initialCode={initialCode}
+          code={code}
           languageClass={codeBlock.languageClass}
         />
       </div>
