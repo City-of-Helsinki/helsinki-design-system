@@ -162,6 +162,16 @@ Editor.propTypes = {
 
 const EditorWithLive = withLive(Editor);
 
+const sanitize = (code) => {
+  const trimmedCode = code.trim();
+  const cleanedCode =
+    trimmedCode.startsWith('{') && trimmedCode.endsWith('}')
+      ? trimmedCode.substr(1, trimmedCode.length - 2).trim()
+      : trimmedCode;
+
+  return cleanedCode;
+};
+
 export const PlaygroundBlock = ({ codeBlocks }) => {
   const codeByLanguage = codeBlocks.reduce((acc, block) => {
     acc[block.languageClass] = block.code;
@@ -185,7 +195,7 @@ export const PlaygroundBlock = ({ codeBlocks }) => {
         </Hds.TabList>
         {codeBlocks.map(({ code, languageClass }) => (
           <Hds.TabPanel key={languageClass}>
-            <LiveProvider code={codeByLanguageState[languageClass]} scope={{ ...Hds }}>
+            <LiveProvider code={sanitize(codeByLanguageState[languageClass])} scope={{ ...Hds }}>
               <div className="playground-block-content">
                 <LivePreview className="playground-block-preview" />
                 <EditorWithLive
