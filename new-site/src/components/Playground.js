@@ -35,6 +35,16 @@ const clearSelection = () => {
   }
 };
 
+const sanitize = (code) => {
+  const trimmedCode = code.trim();
+  const cleanedCode =
+    trimmedCode.startsWith('{') && trimmedCode.endsWith('}')
+      ? trimmedCode.substr(1, trimmedCode.length - 2).trim()
+      : trimmedCode;
+
+  return cleanedCode;
+};
+
 const Editor = ({ onChange, initialCode, code, languageClass }) => {
   const viewPortRef = useRef();
   const copyButtonRef = useRef();
@@ -162,16 +172,6 @@ Editor.propTypes = {
 
 const EditorWithLive = withLive(Editor);
 
-const sanitize = (code) => {
-  const trimmedCode = code.trim();
-  const cleanedCode =
-    trimmedCode.startsWith('{') && trimmedCode.endsWith('}')
-      ? trimmedCode.substr(1, trimmedCode.length - 2).trim()
-      : trimmedCode;
-
-  return cleanedCode;
-};
-
 export const PlaygroundBlock = ({ codeBlocks }) => {
   const codeByLanguage = codeBlocks.reduce((acc, block) => {
     acc[block.languageClass] = block.code;
@@ -199,7 +199,7 @@ export const PlaygroundBlock = ({ codeBlocks }) => {
               <div className="playground-block-content">
                 <LivePreview className="playground-block-preview" />
                 <EditorWithLive
-                  initialCode={code}
+                  initialCode={sanitize(code)}
                   languageClass={languageClass}
                   onChange={setCodeByLanguage(languageClass)}
                   code={codeByLanguageState[languageClass]}
