@@ -317,4 +317,36 @@ describe('<DateInput /> spec', () => {
     expect(screen.getByLabelText('Month')).toHaveValue('0');
     expect(screen.getByLabelText('Year')).toHaveValue('2021');
   });
+
+  it('should be able to navigate dates with keyboard when minDate is set', async () => {
+    const minDate = new Date();
+
+    const { container } = render(
+      <DateInput
+        disableConfirmation
+        helperText="Assistive text"
+        id="date"
+        minDate={minDate}
+        initialMonth={new Date()}
+        label="Choose a date"
+        language="en"
+      />,
+    );
+
+    // Click the calendar button
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Choose date'));
+    });
+
+    await act(async () => {
+      userEvent.tab();
+      userEvent.tab();
+      userEvent.tab();
+      userEvent.tab();
+    });
+
+    const currentDateButton = container.querySelector('button[data-date="2021-01-17"]');
+
+    expect(currentDateButton).toHaveFocus();
+  });
 });
