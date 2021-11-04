@@ -45,7 +45,7 @@ const Editor = ({ onChange, initialCode, code, languageClass }) => {
 
   const onFocusKeyDown = useCallback(
     (event) => {
-      if (event.key === 'Enter' && viewPortRef.current) {
+      if (event.key === 'Enter' && viewPortRef.current && event.target === viewPortRef.current) {
         event.preventDefault();
         const textArea = getTextArea(viewPortRef.current);
         textArea.focus();
