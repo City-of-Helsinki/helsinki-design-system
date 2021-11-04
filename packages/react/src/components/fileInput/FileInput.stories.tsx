@@ -2,7 +2,6 @@ import React from 'react';
 import { boolean, number, radios, text } from '@storybook/addon-knobs';
 
 import { FileInput } from './FileInput';
-import { TextInput } from 'src/components/textInput';
 
 export default {
   component: FileInput,
