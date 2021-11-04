@@ -354,7 +354,7 @@ export const FileInput = ({
     style,
     tooltipLabel,
     tooltipButtonLabel,
-    tooltipText
+    tooltipText,
   };
 
   const passClickToInput = () => {
