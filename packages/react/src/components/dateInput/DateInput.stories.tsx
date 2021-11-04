@@ -32,19 +32,7 @@ export const Default = (args) => {
 export const WithMinDate = (args) => {
   const minDate = new Date();
   minDate.setDate(4);
-
-  return (
-    <DateInput
-      disableConfirmation
-      helperText="Assistive text"
-      id="date"
-      minDate={minDate}
-      initialMonth={new Date()}
-      label="Choose a date"
-      language="en"
-      onChange={(e) => console.log(e)}
-    />
-  );
+  return <DateInput {...args} minDate={minDate} />;
 };
 
 export const WithoutConfirmation = (args) => {
