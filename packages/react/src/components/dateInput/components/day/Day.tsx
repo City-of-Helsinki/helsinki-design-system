@@ -55,7 +55,10 @@ export const Day = ({ day }: DayProps) => {
     focusedDate &&
     !isBefore(focusedDate, startOfMonth(currentMonth)) &&
     !isAfter(focusedDate, endOfMonth(currentMonth));
-  if ((!hasFocusedDate && day.getDate() === 1) || (hasFocusedDate && isSameDay(day, focusedDate))) {
+  if (
+    (!hasFocusedDate && (day.getDate() === 1 || day.getDate() === minDate.getDate())) ||
+    (hasFocusedDate && isSameDay(day, focusedDate))
+  ) {
     tabIndex = 0;
   }
 
