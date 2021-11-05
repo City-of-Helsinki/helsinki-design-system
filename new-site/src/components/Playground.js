@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import { mdx as createMdxReactElement } from '@mdx-js/react';
 import { useMDXScope } from 'gatsby-plugin-mdx/context';
 import { LiveProvider, LiveEditor, LiveError, LivePreview, withLive } from 'react-live';
 import { Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
@@ -9,11 +10,10 @@ import './Playground.scss';
 
 const Playground = ({ children }) => {
   const childrenAsArray = React.Children.toArray(children);
-  if (children) {
-    const child = React.Children.only(childrenAsArray[0]);
 
-    // We need to use the first element as a base element to get the right kind of mdx-element for MDXProvider lookup in Layout.
-    return React.cloneElement(child, {
+  if (children) {
+    // Create a wrapper mxd pre-element around code blocks
+    return createMdxReactElement('pre', {
       playground: true,
       children: childrenAsArray,
     });
