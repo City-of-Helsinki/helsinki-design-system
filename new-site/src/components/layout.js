@@ -17,18 +17,11 @@ import './layout.scss';
 
 const PreComponent = (props) => {
   if (props.playground) {
-    return (
-      <PlaygroundBlock
-        codeBlocks={props.children.map((child) => ({
-          languageClass: child.props.children.props.className,
-          code: child.props.children.props.children,
-        }))}
-      />
-    );
+    return <PlaygroundBlock {...props} />;
   }
 
   return <SyntaxHighlighter {...props} />;
-}
+};
 PreComponent.propTypes = {
   children: PropTypes.node.isRequired,
 };
