@@ -38,12 +38,9 @@ const clearSelection = () => {
 
 const sanitize = (code) => {
   const trimmedCode = code.trim();
-  const cleanedCode =
-    trimmedCode.startsWith('{') && trimmedCode.endsWith('}')
-      ? trimmedCode.substr(1, trimmedCode.length - 2).trim()
-      : trimmedCode;
-
-  return cleanedCode;
+  return trimmedCode.startsWith('{') && trimmedCode.endsWith('}')
+    ? trimmedCode.substr(1, trimmedCode.length - 2).trim()
+    : trimmedCode;
 };
 
 const Editor = ({ onChange, initialCode, code, languageClass }) => {
