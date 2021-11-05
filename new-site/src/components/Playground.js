@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useMDXScope } from 'gatsby-plugin-mdx/context';
 import { LiveProvider, LiveEditor, LiveError, LivePreview, withLive } from 'react-live';
-import * as Hds from 'hds-react';
+import { Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
 import theme from 'prism-react-renderer/themes/github';
 
 import './Playground.scss';
@@ -144,19 +145,19 @@ const Editor = ({ onChange, initialCode, code, languageClass }) => {
         </div>
       </div>
       <div className="playground-block-buttons">
-        <Hds.Button ref={copyButtonRef} variant="secondary" size="small" tabIndex={0} onClick={copy}>
+        <Button ref={copyButtonRef} variant="secondary" size="small" tabIndex={0} onClick={copy}>
           Copy code
-        </Hds.Button>
-        <Hds.Button
+        </Button>
+        <Button
           variant="secondary"
-          iconLeft={<Hds.IconArrowUndo aria-hidden />}
+          iconLeft={<IconArrowUndo aria-hidden />}
           size="small"
           tabIndex={0}
           disabled={initialCode === code}
           onClick={reset}
         >
           Reset example
-        </Hds.Button>
+        </Button>
       </div>
       <LiveError />
     </>
@@ -173,6 +174,7 @@ Editor.propTypes = {
 const EditorWithLive = withLive(Editor);
 
 export const PlaygroundBlock = ({ codeBlocks }) => {
+  const scopeComponents = useMDXScope();
   const codeByLanguage = codeBlocks.reduce((acc, block) => {
     acc[block.languageClass] = block.code;
     return acc;
@@ -185,17 +187,15 @@ export const PlaygroundBlock = ({ codeBlocks }) => {
 
   return (
     <div className="playground-block">
-      <Hds.Tabs>
-        <Hds.TabList className="playground-block-tabs">
+      <Tabs>
+        <TabList className="playground-block-tabs">
           {codeBlocks.map((codeBlock) => (
-            <Hds.Tab key={codeBlock.languageClass}>
-              {codeBlock.languageClass === 'language-jsx' ? 'React' : 'Core'}
-            </Hds.Tab>
+            <Tab key={codeBlock.languageClass}>{codeBlock.languageClass === 'language-jsx' ? 'React' : 'Core'}</Tab>
           ))}
-        </Hds.TabList>
+        </TabList>
         {codeBlocks.map(({ code, languageClass }) => (
-          <Hds.TabPanel key={languageClass}>
-            <LiveProvider code={sanitize(codeByLanguageState[languageClass])} scope={{ ...Hds }}>
+          <TabPanel key={languageClass}>
+            <LiveProvider code={sanitize(codeByLanguageState[languageClass])} scope={scopeComponents}>
               <div className="playground-block-content">
                 <LivePreview className="playground-block-preview" />
                 <EditorWithLive
@@ -206,9 +206,9 @@ export const PlaygroundBlock = ({ codeBlocks }) => {
                 />
               </div>
             </LiveProvider>
-          </Hds.TabPanel>
+          </TabPanel>
         ))}
-      </Hds.Tabs>
+      </Tabs>
     </div>
   );
 };
