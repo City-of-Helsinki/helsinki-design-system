@@ -128,7 +128,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
                 onChange={onChange}
                 style={{
                   background: 'none',
-                  padding: '0',
+                  padding: '0 0 var(--spacing-s)',
                   overflow: 'visible',
                   whiteSpace: 'nowrap',
                   width: 'max-content',
