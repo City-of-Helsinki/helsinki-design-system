@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { mdx as createMdxReactElement } from '@mdx-js/react';
 import { useMDXScope } from 'gatsby-plugin-mdx/context';
 import { LiveProvider, LiveEditor, LiveError, LivePreview, withLive } from 'react-live';
 import { Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
@@ -9,14 +8,8 @@ import theme from 'prism-react-renderer/themes/github';
 import './Playground.scss';
 
 const Playground = ({ children }) => {
-  const childrenAsArray = React.Children.toArray(children);
-
   if (children) {
-    // Create a wrapper mxd pre-element around code blocks
-    return createMdxReactElement('pre', {
-      playground: true,
-      children: childrenAsArray,
-    });
+    return <pre>{children}</pre>
   }
 
   return null;

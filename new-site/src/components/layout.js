@@ -15,19 +15,9 @@ import { PlaygroundBlock } from './Playground';
 import SyntaxHighlighter from './SyntaxHighlighter';
 import './layout.scss';
 
-const PreComponent = (props) => {
-  if (props.playground) {
-    return <PlaygroundBlock {...props} />;
-  }
-
-  return <SyntaxHighlighter {...props} />;
-};
-PreComponent.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
 const components = {
-  pre: PreComponent,
+  Playground: PlaygroundBlock,
+  pre: SyntaxHighlighter
 };
 
 const resolveCurrentMenuItem = (menuItems, slugWithPrefix) => {
