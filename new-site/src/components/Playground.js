@@ -133,6 +133,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
                   whiteSpace: 'nowrap',
                   width: 'max-content',
                   minWidth: '100%',
+                  fontSize: '16px'
                 }}
                 textareaId={textAreaId}
                 theme={theme}
