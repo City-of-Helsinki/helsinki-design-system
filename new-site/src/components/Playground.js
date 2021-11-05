@@ -43,12 +43,12 @@ const sanitize = (code) => {
     : trimmedCode;
 };
 
-const Editor = ({ onChange, initialCode, code, languageClass }) => {
+const Editor = ({ onChange, initialCode, code, language }) => {
   const viewPortRef = useRef();
   const copyButtonRef = useRef();
   const [resetCount, setResetCount] = useState(0);
-  const textAreaId = `code-block-textarea-${languageClass}-${resetCount}`;
-  const helperTextId = `code-block-helper-${languageClass}-${resetCount}`;
+  const textAreaId = `code-block-textarea-${language}-${resetCount}`;
+  const helperTextId = `code-block-helper-${language}-${resetCount}`;
   const getTextArea = useCallback((el) => el.querySelector(`#${textAreaId}`), [textAreaId]);
 
   const onFocusKeyDown = useCallback(
@@ -165,41 +165,47 @@ Editor.propTypes = {
   onChange: PropTypes.func.isRequired,
   initialCode: PropTypes.string.isRequired,
   code: PropTypes.string.isRequired,
-  languageClass: PropTypes.string.isRequired,
+  language: PropTypes.string.isRequired,
 };
 
 const EditorWithLive = withLive(Editor);
 
-export const PlaygroundBlock = ({ codeBlocks }) => {
+export const PlaygroundBlock = ({ children }) => {
   const scopeComponents = useMDXScope();
+  const codeBlocks = children.map(({ props }) => {
+    const childrenProps = props.children.props;
+    return {
+      code: childrenProps.children,
+      language: childrenProps.className && childrenProps.className.split('-')[1],
+    };
+  });
   const codeByLanguage = codeBlocks.reduce((acc, block) => {
-    acc[block.languageClass] = block.code;
+    acc[block.language] = block.code;
     return acc;
   }, {});
-
   const [codeByLanguageState, setCodeByLanguageState] = useState(codeByLanguage);
-  const setCodeByLanguage = (languageClass) => (code) => {
-    setCodeByLanguageState({ ...codeByLanguageState, [languageClass]: code });
+  const setCodeByLanguage = (language) => (code) => {
+    setCodeByLanguageState({ ...codeByLanguageState, [language]: code });
   };
 
   return (
     <div className="playground-block">
       <Tabs>
         <TabList className="playground-block-tabs">
-          {codeBlocks.map((codeBlock) => (
-            <Tab key={codeBlock.languageClass}>{codeBlock.languageClass === 'language-jsx' ? 'React' : 'Core'}</Tab>
+          {codeBlocks.map(({ language }) => (
+            <Tab key={language}>{language === 'jsx' ? 'React' : 'Core'}</Tab>
           ))}
         </TabList>
-        {codeBlocks.map(({ code, languageClass }) => (
-          <TabPanel key={languageClass}>
-            <LiveProvider code={sanitize(codeByLanguageState[languageClass])} scope={scopeComponents}>
+        {codeBlocks.map(({ code, language }) => (
+          <TabPanel key={language}>
+            <LiveProvider code={sanitize(codeByLanguageState[language])} scope={scopeComponents}>
               <div className="playground-block-content">
                 <LivePreview className="playground-block-preview" />
                 <EditorWithLive
                   initialCode={sanitize(code)}
-                  languageClass={languageClass}
-                  onChange={setCodeByLanguage(languageClass)}
-                  code={codeByLanguageState[languageClass]}
+                  language={language}
+                  onChange={setCodeByLanguage(language)}
+                  code={codeByLanguageState[language]}
                 />
               </div>
             </LiveProvider>
@@ -211,10 +217,16 @@ export const PlaygroundBlock = ({ codeBlocks }) => {
 };
 
 PlaygroundBlock.propTypes = {
-  codeBlocks: PropTypes.arrayOf(
+  children: PropTypes.arrayOf(
     PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      languageClass: PropTypes.string.isRequired,
+      props: PropTypes.shape({
+        children: PropTypes.shape({
+          props: PropTypes.shape({
+            children: PropTypes.string.isRequired,
+            className: PropTypes.string.isRequired,
+          }),
+        }),
+      }),
     }),
   ),
 };
