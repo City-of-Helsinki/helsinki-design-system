@@ -55,13 +55,6 @@ const Editor = ({ onChange, initialCode, code, language }) => {
     [getTextArea],
   );
 
-  const onTextAreaBlur = useCallback((e) => {
-    // Set viewport focus on textarea Esc keypress (no related target)
-    if (viewPortRef.current && !e.relatedTarget) {
-      viewPortRef.current.focus();
-    }
-  }, []);
-
   const copy = () => {
     if (viewPortRef.current && copyButtonRef.current) {
       const textArea = getTextArea(viewPortRef.current);
@@ -93,9 +86,14 @@ const Editor = ({ onChange, initialCode, code, language }) => {
       const textArea = getTextArea(viewPortRef.current);
       textArea.setAttribute('aria-describedby', helperTextId);
       textArea.setAttribute('tabIndex', '-1');
-      textArea.addEventListener('blur', onTextAreaBlur);
+      textArea.addEventListener('blur', (e) => {
+        // Set viewport focus on textarea Esc keypress (no related target)
+        if (viewPortRef.current && !e.relatedTarget) {
+          viewPortRef.current.focus();
+        }
+      });
     }
-  }, [getTextArea, helperTextId, onTextAreaBlur]);
+  }, [getTextArea, helperTextId]);
 
   return (
     <>
