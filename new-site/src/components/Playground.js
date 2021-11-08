@@ -128,14 +128,13 @@ const Editor = ({ onChange, initialCode, code, language }) => {
         </div>
       </div>
       <div className="playground-block-buttons">
-        <Button ref={copyButtonRef} variant="secondary" size="small" tabIndex={0} onClick={copy}>
+        <Button ref={copyButtonRef} variant="secondary" size="small" onClick={copy}>
           Copy code
         </Button>
         <Button
           variant="secondary"
           iconLeft={<IconArrowUndo aria-hidden />}
           size="small"
-          tabIndex={0}
           disabled={initialCode === code}
           onClick={reset}
         >
