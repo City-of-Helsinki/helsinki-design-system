@@ -9,7 +9,7 @@ import './Playground.scss';
 
 const Playground = ({ children }) => {
   if (children) {
-    return <pre>{children}</pre>
+    return <pre>{children}</pre>;
   }
 
   return null;
