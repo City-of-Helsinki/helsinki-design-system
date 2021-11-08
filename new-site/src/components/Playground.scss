@@ -25,17 +25,28 @@
   background-color: var(--color-black-5);
   border: 2px solid var(--color-black-50);
   border-top: 0 none;
+}
+
+.playground-block-editor-code-input {
+  background: none !important;
+  font-size: 16px !important;
+  min-width: 100% !important;
+  overflow: visible !important;
+  white-space: nowrap !important;
+  width: max-content !important;
 
   textarea,
   pre {
-    padding-left: calc(var(--spacing-s) - var(--focus-border-width)) !important;
-    padding-right: var(--spacing-s);
+    border: 3px solid transparent !important;
+    line-height: 24px !important;
+    padding: 0 var(--spacing-s) var(--spacing-s) !important;
+    vertical-align: middle !important;
   }
 
   textarea {
     &:focus {
       outline: 0 none;
-      border: 3px solid var(--color-coat-of-arms) !important;
+      border-color: var(--color-coat-of-arms) !important;
     }
   }
 }

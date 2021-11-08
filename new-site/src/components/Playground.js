@@ -119,15 +119,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
               <LiveEditor
                 key={resetCount}
                 onChange={onChange}
-                style={{
-                  background: 'none',
-                  padding: '0 0 var(--spacing-s)',
-                  overflow: 'visible',
-                  whiteSpace: 'nowrap',
-                  width: 'max-content',
-                  minWidth: '100%',
-                  fontSize: '16px'
-                }}
+                className="playground-block-editor-code-input"
                 textareaId={textAreaId}
                 theme={theme}
               />
