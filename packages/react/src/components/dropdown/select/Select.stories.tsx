@@ -96,7 +96,7 @@ export const Controlled = (args) => {
         style={{ marginTop: 'var(--spacing-s)' }}
       />
 
-      <Button onClick={() => setSelectedItems(null)} style={{ marginTop: 'var(--spacing-l)' }}>
+      <Button onClick={() => setSelectedItems([])} style={{ marginTop: 'var(--spacing-l)' }}>
         Reset
       </Button>
       <Button
