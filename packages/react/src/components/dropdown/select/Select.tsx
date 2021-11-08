@@ -177,7 +177,7 @@ export type SingleSelectProps<OptionType> = CommonSelectProps<OptionType> & {
   /**
    * Value that should be selected when the dropdown is initialized
    */
-  defaultValue?: OptionType;
+  defaultValue?: OptionType | null;
   /**
    * Icon to be shown in the dropdown
    */
@@ -189,7 +189,7 @@ export type SingleSelectProps<OptionType> = CommonSelectProps<OptionType> & {
   /**
    * The selected value
    */
-  value?: OptionType;
+  value?: OptionType | null;
 };
 
 export type MultiSelectProps<OptionType> = CommonSelectProps<OptionType> & {
