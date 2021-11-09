@@ -93,6 +93,11 @@ body {
   min-width: 230px;
 }
 
+.mainContent {
+  overflow: hidden;
+  width: 100%;
+}
+
 @media screen and (min-width: $breakpoint-m) {
   .pageContent {
     display: flex;
