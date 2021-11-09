@@ -10,9 +10,15 @@ import PropTypes from 'prop-types';
 import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
 import { Container, Footer, Navigation, SideNavigation } from 'hds-react';
-
 import Seo from './seo';
+import { PlaygroundBlock } from './Playground';
+import SyntaxHighlighter from './SyntaxHighlighter';
 import './layout.scss';
+
+const components = {
+  Playground: PlaygroundBlock,
+  pre: SyntaxHighlighter
+};
 
 const resolveCurrentMenuItem = (menuItems, slugWithPrefix) => {
   const rootPath = withPrefix('/');
@@ -180,7 +186,7 @@ const Layout = ({ children, pageContext }) => {
             </aside>
           )}
           <main id={contentId} className="mainContent">
-            <MDXProvider>{children}</MDXProvider>
+            <MDXProvider components={components}>{children}</MDXProvider>
           </main>
         </Container>
         <Footer id="page-footer" className="pageFooter" title={footerTitle} footerAriaLabel={footerAriaLabel}>
