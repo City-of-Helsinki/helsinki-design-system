@@ -116,6 +116,9 @@
     "react-use-measure": "2.0.1",
     "react-virtual": "2.2.7"
   },
+  "resolutions": {
+    "@types/react": "16.9.50"
+  },
   "peerDependencies": {
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
