@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Table /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+    tabindex="0"
+  >
+    <table
+      class="table dark"
+    >
+      <caption
+        class="caption"
+      >
+        <span>
+          <b>
+            Table 1
+          </b>
+          : Table description
+        </span>
+      </caption>
+      <thead>
+        <tr
+          class="headerRow"
+        >
+          <th
+            scope="col"
+          >
+            First name
+          </th>
+          <th
+            scope="col"
+          >
+            Surname
+          </th>
+          <th
+            scope="col"
+          >
+            Age
+          </th>
+          <th
+            scope="col"
+          >
+            Profession
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="content"
+      >
+        <tr>
+          <td>
+            Lauri
+          </td>
+          <td>
+            Kekkonen
+          </td>
+          <td>
+            <div
+              style="text-align: right;"
+            >
+              39
+            </div>
+          </td>
+          <td>
+            Engineer
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Maria
+          </td>
+          <td>
+            Sarasoja
+          </td>
+          <td>
+            <div
+              style="text-align: right;"
+            >
+              62
+            </div>
+          </td>
+          <td>
+            Designer
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Anneli
+          </td>
+          <td>
+            Routa
+          </td>
+          <td>
+            <div
+              style="text-align: right;"
+            >
+              50
+            </div>
+          </td>
+          <td>
+            Meteorologist
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Osku
+          </td>
+          <td>
+            Rausku
+          </td>
+          <td>
+            <div
+              style="text-align: right;"
+            >
+              18
+            </div>
+          </td>
+          <td>
+            Mail Carrier
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</DocumentFragment>
+`;
