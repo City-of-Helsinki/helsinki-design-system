@@ -562,6 +562,47 @@ export const CheckboxSelection = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
+export const CheckboxSelectionDense = (args) => {
+  const cellConfig = {
+    cols: [
+      { key: 'id', headerName: 'Not rendered' },
+      { key: 'firstName', headerName: 'First name' },
+      { key: 'surname', headerName: 'Surname' },
+      {
+        key: 'age',
+        headerName: 'Age',
+        transform: ({ age }) => {
+          return <div style={{ textAlign: 'right' }}>{age}</div>;
+        },
+      },
+      { key: 'profession', headerName: 'Profession' },
+    ],
+    indexKey: 'id',
+    renderIndexCol: false,
+  };
+
+  const rows: Array<object> = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
+
+  return (
+    <div style={{ maxWidth: '500px' }}>
+      <DataTable checkboxSelection dense caption={caption} cellConfig={cellConfig} rows={rows} />
+    </div>
+  );
+};
+
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars
 export const InitiallySelectedRows = (args) => {
   const cellConfig = {
     cols: [
@@ -704,6 +745,53 @@ export const SelectAllRows = (args) => {
         cellConfig={cellConfig}
         rows={tableRows}
       />
+    </div>
+  );
+};
+
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars
+export const CheckboxSelectionWithSorting = (args) => {
+  const cellConfig = {
+    cols: [
+      { key: 'id', headerName: 'Not rendered' },
+      { key: 'firstName', headerName: 'First name' },
+      { key: 'surname', headerName: 'Surname' },
+      {
+        key: 'age',
+        headerName: 'Age',
+        sortIconType: 'other' as 'other',
+        transform: ({ age }) => {
+          return <div style={{ textAlign: 'right' }}>{age}</div>;
+        },
+      },
+      { key: 'profession', headerName: 'Profession' },
+    ],
+    sortingEnabled: true,
+    ariaLabelSortButtonNeutral: 'Not sorted',
+    ariaLabelSortButtonAscending: 'Sorted in ascending order',
+    ariaLabelSortButtonDescending: 'Sorted in descending order',
+    indexKey: 'id',
+    renderIndexCol: false,
+  };
+
+  const rows: Array<object> = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
+  ];
+
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
+
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <DataTable checkboxSelection caption={caption} cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
