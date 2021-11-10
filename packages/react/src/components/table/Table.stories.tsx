@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { parse, isBefore, isSameDay } from 'date-fns';
 
 import { Table } from './Table';
 import { DataTable } from './DataTable';
 import workTrial from './story-example-work-trial.json';
+import { Button } from '../button';
+import { IconTrash } from '../../icons';
 
 export default {
   component: Table,
@@ -19,6 +21,7 @@ export default {
 export const Default = (args) => {
   const cellConfig = {
     cols: [
+      { key: 'id', headerName: 'Not rendered' },
       { key: 'firstName', headerName: 'First name' },
       { key: 'surname', headerName: 'Surname' },
       {
@@ -30,18 +33,26 @@ export const Default = (args) => {
       },
       { key: 'profession', headerName: 'Profession' },
     ],
+    indexKey: 'id',
+    renderIndexCol: false,
   };
 
   const rows: Array<object> = [
-    { firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-    { firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-    { firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-    { firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
+
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable cellConfig={cellConfig} rows={rows} />
+      <DataTable caption={caption} cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -51,6 +62,7 @@ export const Default = (args) => {
 export const Dark = (args) => {
   const cellConfig = {
     cols: [
+      { key: 'id', headerName: 'Not rendered' },
       { key: 'firstName', headerName: 'First name' },
       { key: 'surname', headerName: 'Surname' },
       {
@@ -62,18 +74,26 @@ export const Dark = (args) => {
       },
       { key: 'profession', headerName: 'Profession' },
     ],
+    indexKey: 'id',
+    renderIndexCol: false,
   };
 
   const rows: Array<object> = [
-    { firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-    { firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-    { firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-    { firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
+
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable variant="dark" cellConfig={cellConfig} rows={rows} />
+      <DataTable caption={caption} variant="dark" cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -83,6 +103,7 @@ export const Dark = (args) => {
 export const Light = (args) => {
   const cellConfig = {
     cols: [
+      { key: 'id', headerName: 'Not rendered' },
       { key: 'firstName', headerName: 'First name' },
       { key: 'surname', headerName: 'Surname' },
       {
@@ -94,18 +115,26 @@ export const Light = (args) => {
       },
       { key: 'profession', headerName: 'Profession' },
     ],
+    indexKey: 'id',
+    renderIndexCol: false,
   };
 
   const rows: Array<object> = [
-    { firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-    { firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-    { firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-    { firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
+
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable variant="light" cellConfig={cellConfig} rows={rows} />
+      <DataTable caption={caption} variant="light" cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -115,6 +144,7 @@ export const Light = (args) => {
 export const Dense = (args) => {
   const cellConfig = {
     cols: [
+      { key: 'id', headerName: 'Not rendered' },
       { key: 'firstName', headerName: 'First name' },
       { key: 'surname', headerName: 'Surname' },
       {
@@ -126,18 +156,26 @@ export const Dense = (args) => {
       },
       { key: 'profession', headerName: 'Profession' },
     ],
+    indexKey: 'id',
+    renderIndexCol: false,
   };
 
   const rows: Array<object> = [
-    { firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-    { firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-    { firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-    { firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
+
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
 
   return (
     <div style={{ maxWidth: '500px' }}>
-      <DataTable dense cellConfig={cellConfig} rows={rows} />
+      <DataTable dense caption={caption} cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -147,6 +185,7 @@ export const Dense = (args) => {
 export const Zebra = (args) => {
   const cellConfig = {
     cols: [
+      { key: 'id', headerName: 'Not rendered' },
       { key: 'firstName', headerName: 'First name' },
       { key: 'surname', headerName: 'Surname' },
       {
@@ -166,18 +205,58 @@ export const Zebra = (args) => {
         },
       },
     ],
+    indexKey: 'id',
+    renderIndexCol: false,
   };
 
   const rows: Array<object> = [
-    { firstName: 'Lauri', surname: 'Kekkonen', age: 39, city: 'Helsinki', profession: 'Engineer', experience: 10 },
-    { firstName: 'Maria', surname: 'Sarasoja', age: 62, city: 'Tampere', profession: 'Designer', experience: 39 },
-    { firstName: 'Anneli', surname: 'Routa', age: 50, city: 'Turku', profession: 'Meteorologist', experience: 25 },
-    { firstName: 'Osku', surname: 'Rausku', age: 18, city: 'Oulu', profession: 'Mail Carrier', experience: 1 },
+    {
+      id: 1000,
+      firstName: 'Lauri',
+      surname: 'Kekkonen',
+      age: 39,
+      city: 'Helsinki',
+      profession: 'Engineer',
+      experience: 10,
+    },
+    {
+      id: 1001,
+      firstName: 'Maria',
+      surname: 'Sarasoja',
+      age: 62,
+      city: 'Tampere',
+      profession: 'Designer',
+      experience: 39,
+    },
+    {
+      id: 1002,
+      firstName: 'Anneli',
+      surname: 'Routa',
+      age: 50,
+      city: 'Turku',
+      profession: 'Meteorologist',
+      experience: 25,
+    },
+    {
+      id: 1002,
+      firstName: 'Osku',
+      surname: 'Rausku',
+      age: 18,
+      city: 'Oulu',
+      profession: 'Mail Carrier',
+      experience: 1,
+    },
   ];
+
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
 
   return (
     <div style={{ maxWidth: '800px' }}>
-      <DataTable zebra cellConfig={cellConfig} rows={rows} />
+      <DataTable caption={caption} zebra cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -187,6 +266,7 @@ export const Zebra = (args) => {
 export const VerticalLines = (args) => {
   const cellConfig = {
     cols: [
+      { key: 'id', headerName: 'Not rendered' },
       { key: 'firstName', headerName: 'First name' },
       { key: 'surname', headerName: 'Surname' },
       {
@@ -198,18 +278,26 @@ export const VerticalLines = (args) => {
       },
       { key: 'profession', headerName: 'Profession' },
     ],
+    indexKey: 'id',
+    renderIndexCol: false,
   };
 
   const rows: Array<object> = [
-    { firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-    { firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-    { firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-    { firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
+
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable verticalLines cellConfig={cellConfig} rows={rows} />
+      <DataTable caption={caption} verticalLines cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -219,19 +307,22 @@ export const VerticalLines = (args) => {
 export const VerticalHeaders = (args) => {
   const cellConfig = {
     cols: [
+      { key: 'id', headerName: 'Not rendered' },
       { key: '8-12', headerName: '8-12' },
       { key: '12-14', headerName: '12-14' },
       { key: '14-16', headerName: '14-16' },
       { key: '16-18', headerName: '16-18' },
     ],
+    indexKey: 'id',
+    renderIndexCol: false,
   };
 
   const unitRows: Array<object> = [
-    { '8-12': 324, '12-14': 562, '14-16': 280, '16-18': 94 },
-    { '8-12': 341, '12-14': 688, '14-16': 425, '16-18': 113 },
-    { '8-12': 294, '12-14': 492, '14-16': 280, '16-18': 67 },
-    { '8-12': 312, '12-14': 501, '14-16': 455, '16-18': 112 },
-    { '8-12': 150, '12-14': 142, '14-16': 362, '16-18': 455 },
+    { id: 'monday', '8-12': 324, '12-14': 562, '14-16': 280, '16-18': 94 },
+    { id: 'tuesday', '8-12': 341, '12-14': 688, '14-16': 425, '16-18': 113 },
+    { id: 'wednesday', '8-12': 294, '12-14': 492, '14-16': 280, '16-18': 67 },
+    { id: 'thursday', '8-12': 312, '12-14': 501, '14-16': 455, '16-18': 112 },
+    { id: 'friday', '8-12': 150, '12-14': 142, '14-16': 362, '16-18': 455 },
   ];
 
   const verticalHeaders = [
@@ -242,9 +333,21 @@ export const VerticalHeaders = (args) => {
     { key: 'friday', headerName: 'Friday' },
   ];
 
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
+
   return (
     <div style={{ maxWidth: '486px' }}>
-      <DataTable textAlignContentRight verticalHeaders={verticalHeaders} cellConfig={cellConfig} rows={unitRows} />
+      <DataTable
+        caption={caption}
+        textAlignContentRight
+        verticalHeaders={verticalHeaders}
+        cellConfig={cellConfig}
+        rows={unitRows}
+      />
     </div>
   );
 };
@@ -254,12 +357,13 @@ export const VerticalHeaders = (args) => {
 export const Sorting = (args) => {
   const cellConfig = {
     cols: [
+      { key: 'id', headerName: 'Not rendered' },
       { key: 'firstName', headerName: 'First name' },
       { key: 'surname', headerName: 'Surname' },
       {
         key: 'age',
         headerName: 'Age',
-        sortIconType: 'other' as 'string' | 'other',
+        sortIconType: 'other' as 'other',
         transform: ({ age }) => {
           return <div style={{ textAlign: 'right' }}>{age}</div>;
         },
@@ -270,19 +374,27 @@ export const Sorting = (args) => {
     ariaLabelSortButtonNeutral: 'Not sorted',
     ariaLabelSortButtonAscending: 'Sorted in ascending order',
     ariaLabelSortButtonDescending: 'Sorted in descending order',
+    indexKey: 'id',
+    renderIndexCol: false,
   };
 
   const rows: Array<object> = [
-    { firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-    { firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-    { firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-    { firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
-    { firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
   ];
+
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable variant="dark" cellConfig={cellConfig} rows={rows} />
+      <DataTable caption={caption} cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -292,6 +404,7 @@ export const Sorting = (args) => {
 export const InitiallySortedBy = (args) => {
   const cellConfig = {
     cols: [
+      { key: 'id', headerName: 'Not rendered' },
       { key: 'firstName', headerName: 'First name' },
       { key: 'surname', headerName: 'Surname' },
       {
@@ -310,19 +423,27 @@ export const InitiallySortedBy = (args) => {
     ariaLabelSortButtonNeutral: 'Not sorted',
     ariaLabelSortButtonAscending: 'Sorted in ascending order',
     ariaLabelSortButtonDescending: 'Sorted in descending order',
+    indexKey: 'id',
+    renderIndexCol: false,
   };
 
   const rows: Array<object> = [
-    { firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-    { firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-    { firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-    { firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
-    { firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
   ];
+
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable variant="dark" cellConfig={cellConfig} rows={rows} />
+      <DataTable caption={caption} cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -380,13 +501,209 @@ export const CustomSortFunction = (args) => {
     ariaLabelSortButtonNeutral: 'Not sorted',
     ariaLabelSortButtonAscending: 'Sorted in ascending order',
     ariaLabelSortButtonDescending: 'Sorted in descending order',
+    indexKey: 'Paikka-ID',
   };
 
   const rows: Array<object> = workTrial;
 
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
+
   return (
     <div style={{ maxWidth: '1200px', height: '600px' }}>
-      <DataTable variant="dark" dense cellConfig={cellConfig} rows={rows} />
+      <DataTable caption={caption} dense cellConfig={cellConfig} rows={rows} />
+    </div>
+  );
+};
+
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars
+export const CheckboxSelection = (args) => {
+  const cellConfig = {
+    cols: [
+      { key: 'id', headerName: 'Not rendered' },
+      { key: 'firstName', headerName: 'First name' },
+      { key: 'surname', headerName: 'Surname' },
+      {
+        key: 'age',
+        headerName: 'Age',
+        transform: ({ age }) => {
+          return <div style={{ textAlign: 'right' }}>{age}</div>;
+        },
+      },
+      { key: 'profession', headerName: 'Profession' },
+    ],
+    indexKey: 'id',
+    renderIndexCol: false,
+  };
+
+  const rows: Array<object> = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
+
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <DataTable caption={caption} checkboxSelection cellConfig={cellConfig} rows={rows} />
+    </div>
+  );
+};
+
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars
+export const InitiallySelectedRows = (args) => {
+  const cellConfig = {
+    cols: [
+      { key: 'id', headerName: 'Not rendered' },
+      { key: 'firstName', headerName: 'First name' },
+      { key: 'surname', headerName: 'Surname' },
+      {
+        key: 'age',
+        headerName: 'Age',
+        transform: ({ age }) => {
+          return <div style={{ textAlign: 'right' }}>{age}</div>;
+        },
+      },
+      { key: 'profession', headerName: 'Profession' },
+    ],
+    indexKey: 'id',
+    renderIndexCol: false,
+  };
+
+  const rows: Array<object> = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+
+  const initiallySelectedRows = [1002, 1003];
+
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
+
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <DataTable
+        caption={caption}
+        initiallySelectedRows={initiallySelectedRows}
+        checkboxSelection
+        variant="dark"
+        cellConfig={cellConfig}
+        rows={rows}
+      />
+    </div>
+  );
+};
+
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars
+export const SelectAllRows = (args) => {
+  const cellConfig = {
+    cols: [
+      { key: 'id', headerName: 'Not rendered' },
+      { key: 'firstName', headerName: 'First name' },
+      { key: 'surname', headerName: 'Surname' },
+      {
+        key: 'age',
+        headerName: 'Age',
+        transform: ({ age }) => {
+          return <div style={{ textAlign: 'right' }}>{age}</div>;
+        },
+      },
+      { key: 'profession', headerName: 'Profession' },
+    ],
+    indexKey: 'id',
+    renderIndexCol: false,
+  };
+
+  const rows: Array<object> = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+
+  const [tableRows, setTableRows] = useState(rows);
+  const [selectedRows, setSelectedRows] = useState([]);
+
+  const myRef = useRef();
+
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <div style={{ marginBottom: '16px', display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+        <Button
+          onClick={() => {
+            const node = myRef.current as any;
+            return node?.selectAllRows();
+          }}
+          style={{ width: 'fit-content', marginRight: '16px' }}
+          variant="secondary"
+          size="small"
+        >
+          Select all rows
+        </Button>
+        <Button
+          onClick={() => {
+            const node = myRef.current as any;
+            return node?.deSelectAllRows();
+          }}
+          style={{ width: 'fit-content', marginRight: '16px' }}
+          variant="secondary"
+          size="small"
+        >
+          Deselect all rows
+        </Button>
+        <Button
+          onClick={() => {
+            setTableRows(
+              tableRows.filter((row) => {
+                const rowId = row[cellConfig.indexKey];
+
+                return (
+                  selectedRows.some((selectedRow) => {
+                    return selectedRow === rowId;
+                  }) === false
+                );
+              }),
+            );
+          }}
+          style={{
+            borderColor: selectedRows.length !== 0 ? '#b01038' : undefined,
+            backgroundColor: selectedRows.length !== 0 ? '#b01038' : undefined,
+            width: 'fit-content',
+          }}
+          variant="primary"
+          size="small"
+          iconLeft={<IconTrash />}
+          disabled={selectedRows.length === 0}
+        >
+          Delete selected
+        </Button>
+      </div>
+      <DataTable
+        ref={myRef}
+        aria-label="People"
+        setSelections={setSelectedRows}
+        checkboxSelection
+        variant="dark"
+        cellConfig={cellConfig}
+        rows={tableRows}
+      />
     </div>
   );
 };

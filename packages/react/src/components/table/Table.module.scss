@@ -2,6 +2,10 @@
   composes: hds-table from 'hds-core/lib/components/table/table.css';
 }
 
+.caption {
+  composes: hds-table__caption from 'hds-core/lib/components/table/table.css';
+}
+
 .container {
   composes: hds-table-container from 'hds-core/lib/components/table/table.css';
   height: inherit;
@@ -78,4 +82,12 @@
 .sortColumnCell {
   display: flex;
   align-items: center;
+}
+
+.checkboxHeader {
+  border-bottom: 1px solid var(--color-black-20);
+}
+
+.checkboxData {
+  width: 24px;
 }

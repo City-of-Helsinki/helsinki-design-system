@@ -1,8 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useImperativeHandle, useMemo, useState } from 'react';
 
 // import core base styles
 import 'hds-core';
+import styles from './Table.module.scss';
 import { Table } from './Table';
+import { Checkbox } from '../checkbox';
 
 type Header = {
   key: string;
@@ -15,20 +17,26 @@ export type DataTableProps = React.ComponentPropsWithoutRef<'table'> & {
   cellConfig: {
     cols: Array<Header>;
     sortingEnabled?: boolean;
-    initialSortingColumnKey?: string;
+    initialSortingColumnKey?: string; // undefined -> neutral order for all columns
     initialSortingOrder?: 'asc' | 'desc';
     ariaLabelSortButtonNeutral?: string;
     ariaLabelSortButtonAscending?: string;
     ariaLabelSortButtonDescending?: string;
+    indexKey: string; // column key used as unique identifier for row
+    renderIndexCol?: boolean; // whether index colum is rendered in table. Defaults to true.
   };
   rows: Array<object>;
   verticalHeaders?: Array<Header>;
-  verticalHeaderColumnAriaLabel?: string;
   variant?: 'dark' | 'light';
   dense?: boolean;
   zebra?: boolean;
+  caption?: string | React.ReactNode;
   verticalLines?: boolean;
   textAlignContentRight?: boolean; // defaults to false -> text is aligned left
+  checkboxSelection?: boolean;
+  ariaLabelCheckboxSelection?: string;
+  setSelections?: Function; // Callback that gets called with all selected row id values
+  initiallySelectedRows?: any[]; // Initially selected rows. Apply corresponding indexKey values here.
 };
 
 function processRows(rows, order, sorting, cellConfig) {
@@ -73,84 +81,168 @@ function processRows(rows, order, sorting, cellConfig) {
   });
 }
 
-export const DataTable = ({
-  cellConfig,
-  rows,
-  variant = 'dark',
-  dense = false,
-  zebra = false,
-  verticalLines = false,
-  verticalHeaders,
-  textAlignContentRight = false,
-  ...rest
-}: DataTableProps) => {
-  const [sorting, setSorting] = useState<string>(cellConfig.initialSortingColumnKey);
-  const [order, setOrder] = useState<'asc' | 'desc' | undefined>(cellConfig.initialSortingOrder);
-
-  const setSortingAndOrder = (colKey: string): void => {
-    if (sorting === colKey) {
-      setOrder(order === 'desc' ? 'asc' : 'desc');
-    } else {
-      setOrder('asc');
+export const DataTable = React.forwardRef(
+  (
+    {
+      cellConfig,
+      checkboxSelection,
+      ariaLabelCheckboxSelection,
+      initiallySelectedRows,
+      rows,
+      variant = 'dark',
+      dense = false,
+      zebra = false,
+      verticalLines = false,
+      verticalHeaders,
+      textAlignContentRight = false,
+      setSelections,
+      caption,
+      ...rest
+    }: DataTableProps,
+    ref?: any,
+  ) => {
+    if (cellConfig.renderIndexCol === undefined) {
+      // eslint-disable-next-line no-param-reassign
+      cellConfig.renderIndexCol = true;
     }
-    setSorting(colKey);
-  };
+    if (verticalHeaders && verticalHeaders.length && checkboxSelection) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        'Incompatible props verticalHeaders and checkboxSelection provided. Cannot use checkboxSelection when verticalHeaders is applied',
+      );
+      // eslint-disable-next-line no-param-reassign
+      checkboxSelection = false;
+    }
 
-  const processedRows = useMemo(() => processRows(rows, order, sorting, cellConfig), [
-    rows,
-    sorting,
-    order,
-    cellConfig,
-  ]);
+    const [sorting, setSorting] = useState<string>(cellConfig.initialSortingColumnKey);
+    const [order, setOrder] = useState<'asc' | 'desc' | undefined>(cellConfig.initialSortingOrder);
+    const [selectedRows, setSelectedRows] = useState<any[]>(initiallySelectedRows || []);
 
-  return (
-    <Table variant={variant} dense={dense} zebra={zebra} verticalLines={verticalLines} {...rest}>
-      {verticalHeaders && verticalHeaders.length && <Table.VerticalHeaderColGroup />}
-      <thead>
-        <Table.HeaderRow>
-          {verticalHeaders && verticalHeaders.length && <td role="presentation" />}
-          {cellConfig.cols.map((column) => {
-            if (cellConfig.sortingEnabled) {
+    function selectAllRows() {
+      const allRows = rows.map((row) => {
+        return row[cellConfig.indexKey];
+      });
+      setSelectedRows(allRows);
+    }
+
+    function deSelectAllRows() {
+      setSelectedRows([]);
+    }
+
+    useImperativeHandle(ref, () => ({
+      selectAllRows() {
+        selectAllRows();
+      },
+      deSelectAllRows() {
+        deSelectAllRows();
+      },
+    }));
+
+    useEffect(() => {
+      if (setSelections) {
+        setSelections(selectedRows);
+      }
+    }, [setSelections, selectedRows]);
+
+    const setSortingAndOrder = (colKey: string): void => {
+      if (sorting === colKey) {
+        setOrder(order === 'desc' ? 'asc' : 'desc');
+      } else {
+        setOrder('asc');
+      }
+      setSorting(colKey);
+    };
+
+    const processedRows = useMemo(() => processRows(rows, order, sorting, cellConfig), [
+      rows,
+      sorting,
+      order,
+      cellConfig,
+    ]);
+
+    const firstRenderedColumnKey = cellConfig.cols.find((column) => {
+      if (!cellConfig.renderIndexCol) {
+        return column.key !== cellConfig.indexKey;
+      }
+      return true;
+    }).key;
+
+    return (
+      <Table variant={variant} dense={dense} zebra={zebra} verticalLines={verticalLines} {...rest}>
+        {caption && <caption className={styles.caption}>{caption}</caption>}
+        {verticalHeaders && verticalHeaders.length && <Table.VerticalHeaderColGroup />}
+        <thead>
+          <Table.HeaderRow>
+            {verticalHeaders && verticalHeaders.length && <td role="presentation" />}
+            {checkboxSelection && <td className={styles.checkboxHeader} />}
+            {cellConfig.cols.map((column) => {
+              if (column.key === cellConfig.indexKey && !cellConfig.renderIndexCol) {
+                return null;
+              }
+              if (cellConfig.sortingEnabled) {
+                return (
+                  <Table.SortingHeaderCell
+                    key={column.key}
+                    colKey={column.key}
+                    title={column.headerName}
+                    ariaLabelSortButtonNeutral={cellConfig.ariaLabelSortButtonNeutral}
+                    ariaLabelSortButtonAscending={cellConfig.ariaLabelSortButtonAscending}
+                    ariaLabelSortButtonDescending={cellConfig.ariaLabelSortButtonDescending}
+                    setSortingAndOrder={setSortingAndOrder}
+                    order={sorting === column.key ? order : 'neutral'}
+                    sortIconType={column.sortIconType}
+                  />
+                );
+              }
               return (
-                <Table.SortingHeaderCell
-                  key={column.key}
-                  colKey={column.key}
-                  title={column.headerName}
-                  ariaLabelSortButtonNeutral={cellConfig.ariaLabelSortButtonNeutral}
-                  ariaLabelSortButtonAscending={cellConfig.ariaLabelSortButtonAscending}
-                  ariaLabelSortButtonDescending={cellConfig.ariaLabelSortButtonDescending}
-                  setSortingAndOrder={setSortingAndOrder}
-                  order={sorting === column.key ? order : 'neutral'}
-                  sortIconType={column.sortIconType}
-                />
-              );
-            }
-            return (
-              <th key={column.key} scope="col">
-                {column.headerName}
-              </th>
-            );
-          })}
-        </Table.HeaderRow>
-      </thead>
-      <Table.TableBody textAlignContentRight={textAlignContentRight}>
-        {processedRows.map((row, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <tr key={index}>
-            {verticalHeaders && verticalHeaders.length && <th scope="row">{verticalHeaders[index].headerName}</th>}
-            {cellConfig.cols.map((column, cellIndex) => {
-              return (
-                <td
-                  key={cellIndex} // eslint-disable-line react/no-array-index-key
-                >
-                  {column.transform && column.transform(row)}
-                  {!column.transform && row[column.key]}
-                </td>
+                <th key={column.key} scope="col">
+                  {column.headerName}
+                </th>
               );
             })}
-          </tr>
-        ))}
-      </Table.TableBody>
-    </Table>
-  );
-};
+          </Table.HeaderRow>
+        </thead>
+        <Table.TableBody textAlignContentRight={textAlignContentRight}>
+          {processedRows.map((row, index) => (
+            <tr key={row[cellConfig.indexKey]}>
+              {verticalHeaders && verticalHeaders.length && <th scope="row">{verticalHeaders[index].headerName}</th>}
+              {checkboxSelection && (
+                <td className={styles.checkboxData}>
+                  <Checkbox
+                    checked={selectedRows.includes(row[cellConfig.indexKey])}
+                    id={row[cellConfig.indexKey]}
+                    label=""
+                    aria-label={`${ariaLabelCheckboxSelection || 'Row selection'} ${row[firstRenderedColumnKey]}`}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedRows([...selectedRows, row[cellConfig.indexKey]]);
+                      } else {
+                        const result = [
+                          ...selectedRows.filter((selectedRow) => selectedRow !== row[cellConfig.indexKey]),
+                        ];
+                        setSelectedRows(result);
+                      }
+                    }}
+                  />
+                </td>
+              )}
+              {cellConfig.cols.map((column, cellIndex) => {
+                if (column.key === cellConfig.indexKey && !cellConfig.renderIndexCol) {
+                  return null;
+                }
+                return (
+                  <td
+                    key={cellIndex} // eslint-disable-line react/no-array-index-key
+                  >
+                    {column.transform && column.transform(row)}
+                    {!column.transform && row[column.key]}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </Table.TableBody>
+      </Table>
+    );
+  },
+);
