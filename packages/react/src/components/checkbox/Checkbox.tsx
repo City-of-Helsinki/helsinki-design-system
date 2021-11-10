@@ -81,7 +81,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           aria-describedby={errorText ? `${id}-error` : null}
           {...rest}
         />
-        <label htmlFor={id} className={classNames(styles.label)}>
+        <label aria-hidden={!label} htmlFor={id} className={classNames(styles.label)}>
           {label}
         </label>
         {errorText && (
