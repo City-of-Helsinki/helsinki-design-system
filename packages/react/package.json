@@ -79,6 +79,7 @@
     "formik": "^2.2.5",
     "identity-obj-proxy": "3.0.0",
     "inquirer": "7.1.0",
+    "jest": "^26.0.1",
     "jest-axe": "^5.0.1",
     "jest-environment-jsdom-sixteen": "^2.0.0",
     "loki": "0.26.0",
