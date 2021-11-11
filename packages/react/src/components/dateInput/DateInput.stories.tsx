@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import isSameDay from 'date-fns/isSameDay';
+import parse from 'date-fns/parse';
 
 import { DateInput } from '.';
 import { Button } from '../button';
@@ -80,3 +82,49 @@ export const WithExternalClearValueButton = (args) => {
   );
 };
 WithExternalClearValueButton.storyName = 'With external clear value button';
+
+export const WithExcludedDates = (args) => {
+  const excludedDates = [
+    new Date(2021, 10, 1),
+    new Date(2021, 10, 10),
+    new Date(2021, 10, 11),
+    new Date(2021, 10, 12),
+    new Date(2021, 10, 13),
+    new Date(2021, 10, 14),
+    new Date(2021, 10, 15),
+    new Date(2021, 10, 16),
+    new Date(2021, 10, 17),
+    new Date(2021, 10, 18),
+    new Date(2021, 10, 19),
+    new Date(2021, 10, 20),
+  ];
+  const [value, setValue] = useState<string>('');
+  const [errorText, setErrorText] = useState<string | undefined>(undefined);
+
+  React.useEffect(() => {
+    if (!value) {
+      setErrorText(undefined);
+    } else {
+      const selectedDate = parse(value, 'dd.M.yyyy', new Date());
+      const isNotExcludedDate = excludedDates.every((excludedDate) => !isSameDay(excludedDate, selectedDate));
+      if (isNotExcludedDate) {
+        setErrorText(undefined);
+      } else {
+        setErrorText('Selected date is not available');
+      }
+    }
+  }, [value]);
+
+  return (
+    <DateInput
+      {...args}
+      value={value}
+      onChange={setValue}
+      excludedDates={excludedDates}
+      errorText={errorText}
+      invalid={!!errorText}
+    />
+  );
+};
+WithExcludedDates.storyName = 'With excluded dates';
+WithExcludedDates.parameters = { loki: { skip: true } };
