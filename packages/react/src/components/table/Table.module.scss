@@ -56,6 +56,7 @@
 
   .sortButton {
     font-size: var(--fontsize-body-s);
+    font-weight: bold;
   }
 }
 
@@ -90,7 +91,6 @@
   border: 0;
   height: 100%;
   overflow: hidden;
-  font-size: 1rem;
   font-weight: 500;
 
   .sortIcon {
@@ -99,6 +99,15 @@
 
   &:focus {
     outline: 3px solid var(--color-white);
+  }
+}
+
+/* MOBILE STYLES */
+
+@media (max-width: 767px) {
+  .sortButton {
+    font-size: var(--fontsize-body-s);
+    font-weight: bold;
   }
 }
 
