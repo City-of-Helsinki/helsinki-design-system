@@ -46,6 +46,7 @@ describe('<Table /> spec', () => {
     const { asFragment } = render(<DataTable caption={caption} cellConfig={cellConfig} rows={rows} />);
     expect(asFragment()).toMatchSnapshot();
   });
+
   it('should not have basic accessibility issues', async () => {
     expect(true).toBe(true);
     const { container } = render(<DataTable caption={caption} cellConfig={cellConfig} rows={rows} />);
