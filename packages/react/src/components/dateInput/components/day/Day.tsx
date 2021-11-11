@@ -62,7 +62,7 @@ export const Day = ({ day }: DayProps) => {
     focusedDate &&
     !isBefore(focusedDate, startOfMonth(currentMonth)) &&
     !isAfter(focusedDate, endOfMonth(currentMonth)) &&
-    isExcluded;
+    !isExcluded;
 
   if (
     (!hasFocusedDate &&
