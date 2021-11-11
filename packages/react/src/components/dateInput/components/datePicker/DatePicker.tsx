@@ -6,6 +6,7 @@ import isAfter from 'date-fns/isAfter';
 import isBefore from 'date-fns/isBefore';
 import startOfMonth from 'date-fns/startOfMonth';
 import format from 'date-fns/format';
+import isSameDay from 'date-fns/isSameDay';
 import english from 'date-fns/locale/en-GB';
 import finnish from 'date-fns/locale/fi';
 import swedish from 'date-fns/locale/sv';
@@ -29,6 +30,10 @@ const keyCode = {
   DOWN: 40,
 };
 
+const isExcludedDate = (excludedDates: Date[], date: Date): boolean => {
+  return !!excludedDates.find((excludedDate) => isSameDay(date, excludedDate));
+};
+
 export const DatePicker = (providedProps: DayPickerProps) => {
   const {
     initialMonth = new Date(),
@@ -42,6 +47,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     disableConfirmation,
     selectButtonLabel,
     closeButtonLabel,
+    excludedDates = [],
   } = {
     ...defaultProps,
     ...providedProps,
@@ -109,6 +115,15 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     }
   };
 
+  const findNextNotExcludedDate = (days: number, nextDate: Date) => {
+    const nextDateToTry = addDays(nextDate, days);
+    if (isExcludedDate(excludedDates, nextDateToTry)) {
+      return findNextNotExcludedDate(days, nextDateToTry);
+    } else {
+      return nextDateToTry;
+    }
+  };
+
   /**
    * Add/subtract from focused date
    * @param days
@@ -116,12 +131,15 @@ export const DatePicker = (providedProps: DayPickerProps) => {
   const addToFocusedDate = (days: number) => {
     if (focusedDate !== null) {
       const nextDate = addDays(focusedDate, days);
-      const isAfterMinDate = isAfter(endOfDay(nextDate), startOfDay(minDate));
-      const isBeforeMaxDate = isBefore(startOfDay(nextDate), endOfDay(maxDate));
+      const nextAvailableDay = isExcludedDate(excludedDates, nextDate)
+        ? findNextNotExcludedDate(days, nextDate)
+        : nextDate;
+      const isAfterMinDate = isAfter(endOfDay(nextAvailableDay), startOfDay(minDate));
+      const isBeforeMaxDate = isBefore(startOfDay(nextAvailableDay), endOfDay(maxDate));
 
       if (isAfterMinDate && isBeforeMaxDate) {
-        setCurrentMonth(startOfMonth(nextDate));
-        setFocusedDate(nextDate);
+        setCurrentMonth(startOfMonth(nextAvailableDay));
+        setFocusedDate(nextAvailableDay);
       }
     }
   };
@@ -188,6 +206,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
         datepickerRef,
         minDate,
         maxDate,
+        excludedDates,
         currentMonth,
         focusedDate,
         selectedDate,

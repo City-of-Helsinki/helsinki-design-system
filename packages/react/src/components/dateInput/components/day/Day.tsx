@@ -13,6 +13,10 @@ import { DatePickerContext } from '../../context/DatePickerContext';
 import cn from '../../../../utils/classNames';
 import styles from '../datePicker/DatePicker.module.scss';
 
+const isExcludedDate = (excludedDates: Date[], date: Date): boolean => {
+  return !!excludedDates.find((excludedDate) => isSameDay(date, excludedDate));
+};
+
 export type DayProps = {
   /**
    * The day to display in the calendar.
@@ -35,6 +39,7 @@ export const Day = ({ day }: DayProps) => {
     handleKeyboardNavigation,
     minDate,
     maxDate,
+    excludedDates,
   } = React.useContext(DatePickerContext);
   const dayRef = React.useRef<HTMLButtonElement>();
   const isPreviousMonth = isBefore(day, startOfMonth(currentMonth));
@@ -43,7 +48,8 @@ export const Day = ({ day }: DayProps) => {
   const isBeforeMinDate = isBefore(day, startOfDay(minDate));
   const isAfterMaxDate = isAfter(day, endOfDay(maxDate));
   const isHidden = isOutsideCurrentMonth;
-  const isDisabled = isOutsideCurrentMonth || isBeforeMinDate || isAfterMaxDate;
+  const isExcluded = isExcludedDate(excludedDates, day);
+  const isDisabled = isOutsideCurrentMonth || isBeforeMinDate || isAfterMaxDate || isExcluded;
   const isInteractive = onDayClick && !isDisabled;
 
   // Select the HTML element based on interactivity
@@ -54,9 +60,11 @@ export const Day = ({ day }: DayProps) => {
   const hasFocusedDate =
     focusedDate &&
     !isBefore(focusedDate, startOfMonth(currentMonth)) &&
-    !isAfter(focusedDate, endOfMonth(currentMonth));
+    !isAfter(focusedDate, endOfMonth(currentMonth)) &&
+    isExcluded;
+
   if (
-    (!hasFocusedDate && (day.getDate() === 1 || day.getDate() === minDate.getDate())) ||
+    (!hasFocusedDate && !isExcluded && (day.getDate() === 1 || day.getDate() === minDate.getDate())) ||
     (hasFocusedDate && isSameDay(day, focusedDate))
   ) {
     tabIndex = 0;

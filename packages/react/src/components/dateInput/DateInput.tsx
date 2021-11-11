@@ -57,6 +57,10 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
    * The `ref` is forwarded to the native input element.
    */
   ref?: React.Ref<HTMLInputElement>;
+  /**
+   * Disables dates in datepicker calendar
+   */
+  excludedDates?: Date[];
 };
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -73,12 +77,12 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       value: providedValue,
       minDate,
       maxDate,
+      excludedDates = [],
       ...textInputProps
     }: DateInputProps,
     ref?: React.Ref<HTMLInputElement>,
   ) => {
     const dateFormat = 'd.M.yyyy';
-
     const pickerWrapperRef = useRef<HTMLDivElement>();
     const inputRef = useRef<HTMLInputElement>();
     const didMount = useRef(false);
@@ -331,6 +335,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
                 closeButtonLabel={getCloseButtonLabel()}
                 minDate={minDate && isValid(minDate) ? minDate : startOfMonth(subYears(new Date(), 10))}
                 maxDate={maxDate && isValid(maxDate) ? maxDate : endOfMonth(addYears(new Date(), 10))}
+                excludedDates={excludedDates}
               />
             </div>
           )}
