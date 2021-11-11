@@ -1,5 +1,13 @@
 .table {
   composes: hds-table from 'hds-core/lib/components/table/table.css';
+
+  &.dark th {
+    color: var(--color-white);
+  }
+
+  &.light th {
+    color: var(--color-black-90);
+  }
 }
 
 .caption {
@@ -20,11 +28,27 @@
 }
 
 .dark {
-  composes: hds-table--dark from 'hds-core/lib/components/table/table.css';
+  --background-color: var(--color-bus);
+
+  .sortButton {
+    color: var(--color-white);
+
+    &:focus {
+      outline: 3px solid var(--color-white);
+    }
+  }
 }
 
 .light {
-  composes: hds-table--light from 'hds-core/lib/components/table/table.css';
+  --background-color: var(--color-silver);
+
+  .sortButton {
+    color: var(--color-black-90);
+
+    &:focus {
+      outline: 3px solid var(--color-coat-of-arms);
+    }
+  }
 }
 
 .dense {

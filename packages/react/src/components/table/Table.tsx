@@ -15,6 +15,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   dense?: boolean;
   zebra?: boolean;
   verticalLines?: boolean;
+  customThemeClass?: string;
 };
 
 export const Table = ({
@@ -23,6 +24,7 @@ export const Table = ({
   dense = false,
   zebra = false,
   verticalLines = false,
+  customThemeClass,
   ...rest
 }: TableProps) => {
   return (
@@ -35,6 +37,7 @@ export const Table = ({
           dense && styles.dense,
           zebra && styles.zebra,
           verticalLines && styles.verticalLines,
+          customThemeClass,
         )}
         {...rest}
       >
