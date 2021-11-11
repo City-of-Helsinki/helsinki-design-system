@@ -5,6 +5,7 @@ import 'hds-core';
 import styles from './Table.module.scss';
 import { Table } from './Table';
 import { Checkbox } from '../checkbox';
+import { useTheme } from '../../hooks/useTheme';
 
 type Header = {
   key: string;
@@ -12,6 +13,10 @@ type Header = {
   sortIconType?: 'string' | 'other';
   transform?: ({ args }: any) => string | JSX.Element; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
+
+export interface TableCustomTheme {
+  '--background-color'?: string;
+}
 
 export type DataTableProps = React.ComponentPropsWithoutRef<'table'> & {
   cellConfig: {
@@ -37,6 +42,10 @@ export type DataTableProps = React.ComponentPropsWithoutRef<'table'> & {
   ariaLabelCheckboxSelection?: string;
   setSelections?: Function; // Callback that gets called with all selected row id values
   initiallySelectedRows?: any[]; // Initially selected rows. Apply corresponding indexKey values here.
+  /**
+   * Custom theme styles
+   */
+  theme?: TableCustomTheme;
 };
 
 function processRows(rows, order, sorting, cellConfig) {
@@ -97,6 +106,7 @@ export const DataTable = React.forwardRef(
       textAlignContentRight = false,
       setSelections,
       caption,
+      theme,
       ...rest
     }: DataTableProps,
     ref?: any,
@@ -117,6 +127,7 @@ export const DataTable = React.forwardRef(
     const [sorting, setSorting] = useState<string>(cellConfig.initialSortingColumnKey);
     const [order, setOrder] = useState<'asc' | 'desc' | undefined>(cellConfig.initialSortingOrder);
     const [selectedRows, setSelectedRows] = useState<any[]>(initiallySelectedRows || []);
+    const customThemeClass = useTheme<TableCustomTheme>(variant === 'dark' ? styles.dark : styles.light, theme);
 
     function selectAllRows() {
       const allRows = rows.map((row) => {
@@ -168,7 +179,14 @@ export const DataTable = React.forwardRef(
     }).key;
 
     return (
-      <Table variant={variant} dense={dense} zebra={zebra} verticalLines={verticalLines} {...rest}>
+      <Table
+        variant={variant}
+        dense={dense}
+        zebra={zebra}
+        verticalLines={verticalLines}
+        customThemeClass={customThemeClass}
+        {...rest}
+      >
         {caption && <caption className={styles.caption}>{caption}</caption>}
         {verticalHeaders && verticalHeaders.length && <Table.VerticalHeaderColGroup />}
         <thead>
