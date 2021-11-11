@@ -1,4 +1,5 @@
 import React from 'react';
+import addDays from 'date-fns/addDays';
 import endOfMonth from 'date-fns/endOfMonth';
 import format from 'date-fns/format';
 import isAfter from 'date-fns/isAfter';
@@ -7,8 +8,9 @@ import isSameDay from 'date-fns/isSameDay';
 import isToday from 'date-fns/isToday';
 import startOfMonth from 'date-fns/startOfMonth';
 import endOfDay from 'date-fns/endOfDay';
-import startOfDay from 'date-fns/startOfDay';
+import getDaysInMonth from 'date-fns/getDaysInMonth';
 
+import startOfDay from 'date-fns/startOfDay';
 import { DatePickerContext } from '../../context/DatePickerContext';
 import cn from '../../../../utils/classNames';
 import styles from '../datePicker/DatePicker.module.scss';
@@ -32,6 +34,7 @@ export const Day = ({ day }: DayProps) => {
   const {
     focusedDate,
     currentMonth,
+    currentMonthAvailableDates,
     selectedDate,
     setFocusedDate,
     locale,
@@ -64,7 +67,10 @@ export const Day = ({ day }: DayProps) => {
     isExcluded;
 
   if (
-    (!hasFocusedDate && !isExcluded && (day.getDate() === 1 || day.getDate() === minDate.getDate())) ||
+    (!hasFocusedDate &&
+      (day.getDate() === 1 ||
+        day.getDate() === minDate.getDate() ||
+        day.getDate() === (currentMonthAvailableDates[0] && currentMonthAvailableDates[0].getDate()))) ||
     (hasFocusedDate && isSameDay(day, focusedDate))
   ) {
     tabIndex = 0;

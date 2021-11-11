@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import addDays from 'date-fns/addDays';
 import endOfDay from 'date-fns/endOfDay';
+import getDaysInMonth from 'date-fns/getDaysInMonth';
 import startOfDay from 'date-fns/startOfDay';
 import isAfter from 'date-fns/isAfter';
 import isBefore from 'date-fns/isBefore';
@@ -10,8 +11,8 @@ import isSameDay from 'date-fns/isSameDay';
 import english from 'date-fns/locale/en-GB';
 import finnish from 'date-fns/locale/fi';
 import swedish from 'date-fns/locale/sv';
-import isValid from 'date-fns/isValid';
 
+import isValid from 'date-fns/isValid';
 import styles from './DatePicker.module.scss';
 import { defaultProps } from './defaults/defaultProps';
 import { DatePickerContext } from '../../context/DatePickerContext';
@@ -200,6 +201,10 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     return { en: english, fi: finnish, sv: swedish }[lang];
   };
 
+  const currentMonthAvailableDates = [...Array(getDaysInMonth(currentMonth)).keys()]
+    .map((_, index) => addDays(currentMonth, index))
+    .filter((date: Date) => !isExcludedDate(excludedDates, date));
+
   return (
     <DatePickerContext.Provider
       value={{
@@ -208,6 +213,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
         maxDate,
         excludedDates,
         currentMonth,
+        currentMonthAvailableDates,
         focusedDate,
         selectedDate,
         locale: getLocaleByLanguage(language),

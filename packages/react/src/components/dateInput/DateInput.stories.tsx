@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import isSameDay from 'date-fns/isSameDay';
+import addDays from 'date-fns/addDays';
 import parse from 'date-fns/parse';
+import startOfMonth from 'date-fns/startOfMonth';
 
 import { DateInput } from '.';
 import { Button } from '../button';
@@ -84,19 +86,24 @@ export const WithExternalClearValueButton = (args) => {
 WithExternalClearValueButton.storyName = 'With external clear value button';
 
 export const WithExcludedDates = (args) => {
+  const currentMonthStart = startOfMonth(new Date());
+
   const excludedDates = [
-    new Date(2021, 10, 1),
-    new Date(2021, 10, 10),
-    new Date(2021, 10, 11),
-    new Date(2021, 10, 12),
-    new Date(2021, 10, 13),
-    new Date(2021, 10, 14),
-    new Date(2021, 10, 15),
-    new Date(2021, 10, 16),
-    new Date(2021, 10, 17),
-    new Date(2021, 10, 18),
-    new Date(2021, 10, 19),
-    new Date(2021, 10, 20),
+    currentMonthStart,
+    addDays(currentMonthStart, 1),
+    addDays(currentMonthStart, 2),
+    addDays(currentMonthStart, 10),
+    addDays(currentMonthStart, 11),
+    addDays(currentMonthStart, 12),
+    addDays(currentMonthStart, 20),
+    addDays(currentMonthStart, 21),
+    addDays(currentMonthStart, 22),
+    addDays(currentMonthStart, 23),
+    addDays(currentMonthStart, 24),
+    addDays(currentMonthStart, 25),
+    addDays(currentMonthStart, 26),
+    addDays(currentMonthStart, 27),
+    addDays(currentMonthStart, 28),
   ];
   const [value, setValue] = useState<string>('');
   const [errorText, setErrorText] = useState<string | undefined>(undefined);
