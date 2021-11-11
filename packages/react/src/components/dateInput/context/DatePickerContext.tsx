@@ -6,6 +6,7 @@ export type DatePickerContextType = {
   currentMonth: Date;
   minDate: Date;
   maxDate: Date;
+  excludedDates: Date[];
   focusedDate: Date | null;
   selectedDate: Date | null;
   locale: Locale;
