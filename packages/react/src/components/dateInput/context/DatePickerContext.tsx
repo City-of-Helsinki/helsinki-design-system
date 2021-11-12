@@ -7,12 +7,12 @@ export type DatePickerContextType = {
   currentMonthAvailableDates: Date[];
   minDate: Date;
   maxDate: Date;
-  excludedDates: Date[];
   focusedDate: Date | null;
   selectedDate: Date | null;
   locale: Locale;
   language: 'en' | 'fi' | 'sv';
 
+  isDateDisabledBy: (Date) => boolean;
   setCurrentMonth: (Date) => void;
   setFocusedDate: (date: Date | null) => void;
   setSelectedDate: (date: Date | null) => void;
