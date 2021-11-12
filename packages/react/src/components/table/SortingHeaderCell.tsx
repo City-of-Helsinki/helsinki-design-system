@@ -66,7 +66,7 @@ export const SortingHeaderCell = ({
   ...rest
 }: SortingHeaderCellProps) => {
   return (
-    <th scope="col" {...rest}>
+    <th className={styles.sortingHeader} scope="col" {...rest}>
       <div className={styles.sortColumnCell}>
         <button
           className={styles.sortButton}
