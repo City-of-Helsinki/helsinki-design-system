@@ -81,7 +81,7 @@ export interface DayPickerProps {
    */
   onCloseButtonClick: React.MouseEventHandler;
   /**
-   * Disables dates in datepicker calendar
+   * Disables date(s) in datepicker calendar based on conditional function
    */
-  excludedDates: Date[];
+  isDateDisabledBy: (Date) => boolean;
 }

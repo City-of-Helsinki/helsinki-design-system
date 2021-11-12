@@ -7,7 +7,6 @@ import isAfter from 'date-fns/isAfter';
 import isBefore from 'date-fns/isBefore';
 import startOfMonth from 'date-fns/startOfMonth';
 import format from 'date-fns/format';
-import isSameDay from 'date-fns/isSameDay';
 import english from 'date-fns/locale/en-GB';
 import finnish from 'date-fns/locale/fi';
 import swedish from 'date-fns/locale/sv';
@@ -31,10 +30,6 @@ const keyCode = {
   DOWN: 40,
 };
 
-const isExcludedDate = (excludedDates: Date[], date: Date): boolean => {
-  return !!excludedDates.find((excludedDate) => isSameDay(date, excludedDate));
-};
-
 export const DatePicker = (providedProps: DayPickerProps) => {
   const {
     initialMonth = new Date(),
@@ -48,7 +43,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     disableConfirmation,
     selectButtonLabel,
     closeButtonLabel,
-    excludedDates = [],
+    isDateDisabledBy,
   } = {
     ...defaultProps,
     ...providedProps,
@@ -118,7 +113,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
 
   const findNextNotExcludedDate = (days: number, nextDate: Date) => {
     const nextDateToTry = addDays(nextDate, days);
-    if (isExcludedDate(excludedDates, nextDateToTry)) {
+    if (isDateDisabledBy(nextDateToTry)) {
       return findNextNotExcludedDate(days, nextDateToTry);
     } else {
       return nextDateToTry;
@@ -132,7 +127,9 @@ export const DatePicker = (providedProps: DayPickerProps) => {
   const addToFocusedDate = (days: number) => {
     if (focusedDate !== null) {
       const nextDate = addDays(focusedDate, days);
-      const nextAvailableDay = isExcludedDate(excludedDates, nextDate)
+      const nextAvailableDay = !isDateDisabledBy
+        ? nextDate
+        : isDateDisabledBy(nextDate)
         ? findNextNotExcludedDate(days, nextDate)
         : nextDate;
       const isAfterMinDate = isAfter(endOfDay(nextAvailableDay), startOfDay(minDate));
@@ -201,9 +198,11 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     return { en: english, fi: finnish, sv: swedish }[lang];
   };
 
-  const currentMonthAvailableDates = [...Array(getDaysInMonth(currentMonth)).keys()]
-    .map((_, index) => addDays(currentMonth, index))
-    .filter((date: Date) => !isExcludedDate(excludedDates, date));
+  const currentMonthDates = [...Array(getDaysInMonth(currentMonth)).keys()].map((_, index) =>
+    addDays(currentMonth, index),
+  );
+
+  const currentMonthAvailableDates = isDateDisabledBy ? currentMonthDates.filter(isDateDisabledBy) : currentMonthDates;
 
   return (
     <DatePickerContext.Provider
@@ -211,13 +210,13 @@ export const DatePicker = (providedProps: DayPickerProps) => {
         datepickerRef,
         minDate,
         maxDate,
-        excludedDates,
         currentMonth,
         currentMonthAvailableDates,
         focusedDate,
         selectedDate,
         locale: getLocaleByLanguage(language),
         language,
+        isDateDisabledBy,
         setCurrentMonth,
         setFocusedDate,
         setSelectedDate,

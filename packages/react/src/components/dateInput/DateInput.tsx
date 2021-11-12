@@ -58,9 +58,9 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
    */
   ref?: React.Ref<HTMLInputElement>;
   /**
-   * Disables dates in datepicker calendar
+   * Disables date(s) based on conditional function
    */
-  excludedDates?: Date[];
+  isDateDisabledBy?: (date) => boolean;
 };
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -77,7 +77,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       value: providedValue,
       minDate,
       maxDate,
-      excludedDates = [],
+      isDateDisabledBy,
       ...textInputProps
     }: DateInputProps,
     ref?: React.Ref<HTMLInputElement>,
@@ -335,7 +335,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
                 closeButtonLabel={getCloseButtonLabel()}
                 minDate={minDate && isValid(minDate) ? minDate : startOfMonth(subYears(new Date(), 10))}
                 maxDate={maxDate && isValid(maxDate) ? maxDate : endOfMonth(addYears(new Date(), 10))}
-                excludedDates={excludedDates}
+                isDateDisabledBy={isDateDisabledBy}
               />
             </div>
           )}
