@@ -7,18 +7,18 @@ import isAfter from 'date-fns/isAfter';
 import isBefore from 'date-fns/isBefore';
 import startOfMonth from 'date-fns/startOfMonth';
 import format from 'date-fns/format';
+import isValid from 'date-fns/isValid';
 import english from 'date-fns/locale/en-GB';
 import finnish from 'date-fns/locale/fi';
 import swedish from 'date-fns/locale/sv';
 
-import isValid from 'date-fns/isValid';
-import styles from './DatePicker.module.scss';
 import { defaultProps } from './defaults/defaultProps';
 import { DatePickerContext } from '../../context/DatePickerContext';
 import { DayPickerProps } from './types';
 import { MonthTable } from '../monthTable';
 import { Button } from '../../../button';
 import { IconCheck, IconCross } from '../../../../icons';
+import styles from './DatePicker.module.scss';
 
 const keyCode = {
   TAB: 9,
@@ -111,13 +111,12 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     }
   };
 
-  const findNextNotExcludedDate = (days: number, nextDate: Date) => {
+  const findNextAvailableDate = (days: number, nextDate: Date) => {
     const nextDateToTry = addDays(nextDate, days);
     if (isDateDisabledBy(nextDateToTry)) {
-      return findNextNotExcludedDate(days, nextDateToTry);
-    } else {
-      return nextDateToTry;
+      return findNextAvailableDate(days, nextDateToTry);
     }
+    return nextDateToTry;
   };
 
   /**
@@ -127,11 +126,8 @@ export const DatePicker = (providedProps: DayPickerProps) => {
   const addToFocusedDate = (days: number) => {
     if (focusedDate !== null) {
       const nextDate = addDays(focusedDate, days);
-      const nextAvailableDay = !isDateDisabledBy
-        ? nextDate
-        : isDateDisabledBy(nextDate)
-        ? findNextNotExcludedDate(days, nextDate)
-        : nextDate;
+      const isNextDayDisabled = isDateDisabledBy && isDateDisabledBy(nextDate);
+      const nextAvailableDay = isNextDayDisabled ? findNextAvailableDate(days, nextDate) : nextDate;
       const isAfterMinDate = isAfter(endOfDay(nextAvailableDay), startOfDay(minDate));
       const isBeforeMaxDate = isBefore(startOfDay(nextAvailableDay), endOfDay(maxDate));
 
