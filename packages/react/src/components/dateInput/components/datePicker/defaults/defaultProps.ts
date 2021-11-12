@@ -14,5 +14,4 @@ export const defaultProps: DayPickerProps = {
   closeButtonLabel: 'Close',
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onCloseButtonClick: () => {},
-  excludedDates: [],
 };
