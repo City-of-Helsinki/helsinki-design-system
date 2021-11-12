@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
-import isSameDay from 'date-fns/isSameDay';
-import addDays from 'date-fns/addDays';
 import parse from 'date-fns/parse';
-import startOfMonth from 'date-fns/startOfMonth';
 import isWeekend from 'date-fns/isWeekend';
 
 import { DateInput } from '.';
 import { Button } from '../button';
 import { IconCrossCircle } from '../../icons';
-import getDaysInMonth from 'date-fns/getDaysInMonth';
 
 export default {
   component: DateInput,
