@@ -7,8 +7,8 @@ import isSameDay from 'date-fns/isSameDay';
 import isToday from 'date-fns/isToday';
 import startOfMonth from 'date-fns/startOfMonth';
 import endOfDay from 'date-fns/endOfDay';
-
 import startOfDay from 'date-fns/startOfDay';
+
 import { DatePickerContext } from '../../context/DatePickerContext';
 import cn from '../../../../utils/classNames';
 import styles from '../datePicker/DatePicker.module.scss';
