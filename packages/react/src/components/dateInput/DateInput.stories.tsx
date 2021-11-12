@@ -3,10 +3,12 @@ import isSameDay from 'date-fns/isSameDay';
 import addDays from 'date-fns/addDays';
 import parse from 'date-fns/parse';
 import startOfMonth from 'date-fns/startOfMonth';
+import isWeekend from 'date-fns/isWeekend';
 
 import { DateInput } from '.';
 import { Button } from '../button';
 import { IconCrossCircle } from '../../icons';
+import getDaysInMonth from 'date-fns/getDaysInMonth';
 
 export default {
   component: DateInput,
@@ -87,24 +89,9 @@ WithExternalClearValueButton.storyName = 'With external clear value button';
 
 export const WithExcludedDates = (args) => {
   const currentMonthStart = startOfMonth(new Date());
-
-  const excludedDates = [
-    currentMonthStart,
-    addDays(currentMonthStart, 1),
-    addDays(currentMonthStart, 2),
-    addDays(currentMonthStart, 10),
-    addDays(currentMonthStart, 11),
-    addDays(currentMonthStart, 12),
-    addDays(currentMonthStart, 20),
-    addDays(currentMonthStart, 21),
-    addDays(currentMonthStart, 22),
-    addDays(currentMonthStart, 23),
-    addDays(currentMonthStart, 24),
-    addDays(currentMonthStart, 25),
-    addDays(currentMonthStart, 26),
-    addDays(currentMonthStart, 27),
-    addDays(currentMonthStart, 28),
-  ];
+  const weekendDays = [...Array(getDaysInMonth(currentMonthStart)).keys()]
+    .map((_, index) => addDays(currentMonthStart, index))
+    .filter(isWeekend);
   const [value, setValue] = useState<string>('');
   const [errorText, setErrorText] = useState<string | undefined>(undefined);
 
@@ -113,7 +100,7 @@ export const WithExcludedDates = (args) => {
       setErrorText(undefined);
     } else {
       const selectedDate = parse(value, 'dd.M.yyyy', new Date());
-      const isNotExcludedDate = excludedDates.every((excludedDate) => !isSameDay(excludedDate, selectedDate));
+      const isNotExcludedDate = weekendDays.every((excludedDate) => !isSameDay(excludedDate, selectedDate));
       if (isNotExcludedDate) {
         setErrorText(undefined);
       } else {
@@ -127,7 +114,7 @@ export const WithExcludedDates = (args) => {
       {...args}
       value={value}
       onChange={setValue}
-      excludedDates={excludedDates}
+      excludedDates={weekendDays}
       errorText={errorText}
       invalid={!!errorText}
     />
