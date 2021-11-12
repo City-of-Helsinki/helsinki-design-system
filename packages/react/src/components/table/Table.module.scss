@@ -8,6 +8,12 @@
   &.light th {
     color: var(--color-black-90);
   }
+
+  .checkbox {
+    label {
+      padding-left: 0;
+    }
+  }
 }
 
 .caption {
@@ -138,4 +144,25 @@
 
 .checkboxData {
   width: 24px;
+}
+
+.actionContainer {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.actionButtonContainer {
+  display: flex;
+  gap: 16px;
+}
+
+.heading {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 29px;
 }

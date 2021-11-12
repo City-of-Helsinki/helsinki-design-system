@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 // import core base styles
 import 'hds-core';
@@ -6,6 +6,9 @@ import styles from './Table.module.scss';
 import { Table } from './Table';
 import { Checkbox } from '../checkbox';
 import { useTheme } from '../../hooks/useTheme';
+import { Button } from '../button';
+import { IconTrash } from '../../icons';
+import classNames from '../../utils/classNames';
 
 type Header = {
   key: string;
@@ -46,6 +49,9 @@ export type DataTableProps = React.ComponentPropsWithoutRef<'table'> & {
    * Custom theme styles
    */
   theme?: TableCustomTheme;
+  heading?: string;
+  headingAriaLevel?: number;
+  customActionButtons?: React.ReactNode[];
 };
 
 function processRows(rows, order, sorting, cellConfig) {
@@ -99,6 +105,8 @@ export const DataTable = React.forwardRef(
       initiallySelectedRows,
       rows,
       variant = 'dark',
+      heading,
+      headingAriaLevel = 2,
       dense = false,
       zebra = false,
       verticalLines = false,
@@ -107,6 +115,7 @@ export const DataTable = React.forwardRef(
       setSelections,
       caption,
       theme,
+      customActionButtons,
       ...rest
     }: DataTableProps,
     ref?: any,
@@ -124,6 +133,13 @@ export const DataTable = React.forwardRef(
       checkboxSelection = false;
     }
 
+    if (checkboxSelection && caption) {
+      // eslint-disable-next-line no-console
+      console.warn('Cannot use caption prop when checkboxSelection is set to true. Use heading prop instead');
+      // eslint-disable-next-line no-param-reassign
+      caption = undefined;
+    }
+
     const [sorting, setSorting] = useState<string>(cellConfig.initialSortingColumnKey);
     const [order, setOrder] = useState<'asc' | 'desc' | undefined>(cellConfig.initialSortingOrder);
     const [selectedRows, setSelectedRows] = useState<any[]>(initiallySelectedRows || []);
@@ -139,15 +155,6 @@ export const DataTable = React.forwardRef(
     function deSelectAllRows() {
       setSelectedRows([]);
     }
-
-    useImperativeHandle(ref, () => ({
-      selectAllRows() {
-        selectAllRows();
-      },
-      deSelectAllRows() {
-        deSelectAllRows();
-      },
-    }));
 
     useEffect(() => {
       if (setSelections) {
@@ -179,88 +186,133 @@ export const DataTable = React.forwardRef(
     }).key;
 
     return (
-      <Table
-        variant={variant}
-        dense={dense}
-        zebra={zebra}
-        verticalLines={verticalLines}
-        customThemeClass={customThemeClass}
-        {...rest}
-      >
-        {caption && <caption className={styles.caption}>{caption}</caption>}
-        {verticalHeaders && verticalHeaders.length && <Table.VerticalHeaderColGroup />}
-        <thead>
-          <Table.HeaderRow>
-            {verticalHeaders && verticalHeaders.length && <td role="presentation" />}
-            {checkboxSelection && <td className={styles.checkboxHeader} />}
-            {cellConfig.cols.map((column) => {
-              if (column.key === cellConfig.indexKey && !cellConfig.renderIndexCol) {
-                return null;
-              }
-              if (cellConfig.sortingEnabled) {
-                return (
-                  <Table.SortingHeaderCell
-                    key={column.key}
-                    colKey={column.key}
-                    title={column.headerName}
-                    ariaLabelSortButtonNeutral={cellConfig.ariaLabelSortButtonNeutral}
-                    ariaLabelSortButtonAscending={cellConfig.ariaLabelSortButtonAscending}
-                    ariaLabelSortButtonDescending={cellConfig.ariaLabelSortButtonDescending}
-                    setSortingAndOrder={setSortingAndOrder}
-                    order={sorting === column.key ? order : 'neutral'}
-                    sortIconType={column.sortIconType}
-                  />
-                );
-              }
-              return (
-                <th key={column.key} scope="col">
-                  {column.headerName}
-                </th>
-              );
-            })}
-          </Table.HeaderRow>
-        </thead>
-        <Table.TableBody textAlignContentRight={textAlignContentRight}>
-          {processedRows.map((row, index) => (
-            <tr key={row[cellConfig.indexKey]}>
-              {verticalHeaders && verticalHeaders.length && <th scope="row">{verticalHeaders[index].headerName}</th>}
-              {checkboxSelection && (
-                <td className={styles.checkboxData}>
-                  <Checkbox
-                    checked={selectedRows.includes(row[cellConfig.indexKey])}
-                    id={row[cellConfig.indexKey]}
-                    label=""
-                    aria-label={`${ariaLabelCheckboxSelection || 'Row selection'} ${row[firstRenderedColumnKey]}`}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setSelectedRows([...selectedRows, row[cellConfig.indexKey]]);
-                      } else {
-                        const result = [
-                          ...selectedRows.filter((selectedRow) => selectedRow !== row[cellConfig.indexKey]),
-                        ];
-                        setSelectedRows(result);
-                      }
-                    }}
-                  />
-                </td>
-              )}
-              {cellConfig.cols.map((column, cellIndex) => {
+      <>
+        {(checkboxSelection || heading) && (
+          <div className={styles.actionContainer}>
+            {heading && (
+              <div role="heading" aria-level={headingAriaLevel} className={styles.heading}>
+                {heading}
+              </div>
+            )}
+            {(checkboxSelection || (customActionButtons && customActionButtons.length > 0)) && (
+              <div className={styles.actionButtonContainer}>
+                {checkboxSelection && (
+                  <>
+                    <Button
+                      onClick={() => {
+                        selectAllRows();
+                      }}
+                      variant="secondary"
+                      size="small"
+                      disabled={selectedRows.length === rows.length}
+                    >
+                      Select all rows
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        deSelectAllRows();
+                      }}
+                      variant="secondary"
+                      size="small"
+                      disabled={selectedRows.length === 0}
+                    >
+                      Clear selections
+                    </Button>
+                  </>
+                )}
+                {customActionButtons &&
+                  customActionButtons.length > 0 &&
+                  customActionButtons.map((actionButton) => {
+                    return actionButton;
+                  })}
+              </div>
+            )}
+          </div>
+        )}
+        <Table
+          variant={variant}
+          dense={dense}
+          zebra={zebra}
+          verticalLines={verticalLines}
+          customThemeClass={customThemeClass}
+          {...rest}
+        >
+          {caption && <caption className={styles.caption}>{caption}</caption>}
+          {verticalHeaders && verticalHeaders.length && <Table.VerticalHeaderColGroup />}
+          <thead>
+            <Table.HeaderRow>
+              {verticalHeaders && verticalHeaders.length && <td role="presentation" />}
+              {checkboxSelection && <td className={styles.checkboxHeader} />}
+              {cellConfig.cols.map((column) => {
                 if (column.key === cellConfig.indexKey && !cellConfig.renderIndexCol) {
                   return null;
                 }
+                if (cellConfig.sortingEnabled) {
+                  return (
+                    <Table.SortingHeaderCell
+                      key={column.key}
+                      colKey={column.key}
+                      title={column.headerName}
+                      ariaLabelSortButtonNeutral={cellConfig.ariaLabelSortButtonNeutral}
+                      ariaLabelSortButtonAscending={cellConfig.ariaLabelSortButtonAscending}
+                      ariaLabelSortButtonDescending={cellConfig.ariaLabelSortButtonDescending}
+                      setSortingAndOrder={setSortingAndOrder}
+                      order={sorting === column.key ? order : 'neutral'}
+                      sortIconType={column.sortIconType}
+                    />
+                  );
+                }
                 return (
-                  <td
-                    key={cellIndex} // eslint-disable-line react/no-array-index-key
-                  >
-                    {column.transform && column.transform(row)}
-                    {!column.transform && row[column.key]}
-                  </td>
+                  <th key={column.key} scope="col">
+                    {column.headerName}
+                  </th>
                 );
               })}
-            </tr>
-          ))}
-        </Table.TableBody>
-      </Table>
+            </Table.HeaderRow>
+          </thead>
+          <Table.TableBody textAlignContentRight={textAlignContentRight}>
+            {processedRows.map((row, index) => (
+              <tr key={row[cellConfig.indexKey]}>
+                {verticalHeaders && verticalHeaders.length && <th scope="row">{verticalHeaders[index].headerName}</th>}
+                {checkboxSelection && (
+                  <td className={styles.checkboxData}>
+                    <Checkbox
+                      checked={selectedRows.includes(row[cellConfig.indexKey])}
+                      id={row[cellConfig.indexKey]}
+                      label=""
+                      aria-label={`${ariaLabelCheckboxSelection || 'Row selection'} ${row[firstRenderedColumnKey]}`}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedRows([...selectedRows, row[cellConfig.indexKey]]);
+                        } else {
+                          const result = [
+                            ...selectedRows.filter((selectedRow) => selectedRow !== row[cellConfig.indexKey]),
+                          ];
+                          setSelectedRows(result);
+                        }
+                      }}
+                      className={styles.checkbox}
+                    />
+                  </td>
+                )}
+                {cellConfig.cols.map((column, cellIndex) => {
+                  if (column.key === cellConfig.indexKey && !cellConfig.renderIndexCol) {
+                    return null;
+                  }
+                  return (
+                    <td
+                      key={cellIndex} // eslint-disable-line react/no-array-index-key
+                    >
+                      {column.transform && column.transform(row)}
+                      {!column.transform && row[column.key]}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </Table.TableBody>
+        </Table>
+      </>
     );
   },
 );

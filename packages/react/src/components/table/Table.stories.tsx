@@ -594,15 +594,9 @@ export const CheckboxSelection = (args) => {
     { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
 
-  const caption = (
-    <span>
-      <b>Table 1</b>: Table description
-    </span>
-  );
-
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable caption={caption} checkboxSelection cellConfig={cellConfig} rows={rows} />
+      <DataTable heading="Employees" checkboxSelection cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -635,15 +629,9 @@ export const CheckboxSelectionDense = (args) => {
     { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
 
-  const caption = (
-    <span>
-      <b>Table 1</b>: Table description
-    </span>
-  );
-
   return (
     <div style={{ maxWidth: '500px' }}>
-      <DataTable checkboxSelection dense caption={caption} cellConfig={cellConfig} rows={rows} />
+      <DataTable heading="Employees" checkboxSelection dense cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -678,16 +666,10 @@ export const InitiallySelectedRows = (args) => {
 
   const initiallySelectedRows = [1002, 1003];
 
-  const caption = (
-    <span>
-      <b>Table 1</b>: Table description
-    </span>
-  );
-
   return (
     <div style={{ maxWidth: '640px' }}>
       <DataTable
-        caption={caption}
+        heading="Employees"
         initiallySelectedRows={initiallySelectedRows}
         checkboxSelection
         variant="dark"
@@ -700,7 +682,7 @@ export const InitiallySelectedRows = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
-export const SelectAllRows = (args) => {
+export const WithCustomActions = (args) => {
   const cellConfig = {
     cols: [
       { key: 'id', headerName: 'Not rendered' },
@@ -729,68 +711,46 @@ export const SelectAllRows = (args) => {
   const [tableRows, setTableRows] = useState(rows);
   const [selectedRows, setSelectedRows] = useState([]);
 
-  const myRef = useRef();
+  const deleteSelectedButton = (
+    <Button
+      onClick={() => {
+        setTableRows(
+          tableRows.filter((row) => {
+            const rowId = row[cellConfig.indexKey];
+
+            return (
+              selectedRows.some((selectedRow) => {
+                return selectedRow === rowId;
+              }) === false
+            );
+          }),
+        );
+      }}
+      style={{
+        borderColor: selectedRows.length !== 0 ? '#b01038' : undefined,
+        backgroundColor: selectedRows.length !== 0 ? '#b01038' : undefined,
+        width: 'fit-content',
+      }}
+      variant="primary"
+      size="small"
+      iconLeft={<IconTrash />}
+      disabled={selectedRows.length === 0}
+    >
+      Delete selected
+    </Button>
+  );
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <div style={{ marginBottom: '16px', display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
-        <Button
-          onClick={() => {
-            const node = myRef.current as any;
-            return node?.selectAllRows();
-          }}
-          style={{ width: 'fit-content', marginRight: '16px' }}
-          variant="secondary"
-          size="small"
-        >
-          Select all rows
-        </Button>
-        <Button
-          onClick={() => {
-            const node = myRef.current as any;
-            return node?.deSelectAllRows();
-          }}
-          style={{ width: 'fit-content', marginRight: '16px' }}
-          variant="secondary"
-          size="small"
-        >
-          Deselect all rows
-        </Button>
-        <Button
-          onClick={() => {
-            setTableRows(
-              tableRows.filter((row) => {
-                const rowId = row[cellConfig.indexKey];
-
-                return (
-                  selectedRows.some((selectedRow) => {
-                    return selectedRow === rowId;
-                  }) === false
-                );
-              }),
-            );
-          }}
-          style={{
-            borderColor: selectedRows.length !== 0 ? '#b01038' : undefined,
-            backgroundColor: selectedRows.length !== 0 ? '#b01038' : undefined,
-            width: 'fit-content',
-          }}
-          variant="primary"
-          size="small"
-          iconLeft={<IconTrash />}
-          disabled={selectedRows.length === 0}
-        >
-          Delete selected
-        </Button>
-      </div>
       <DataTable
-        ref={myRef}
         aria-label="People"
         setSelections={setSelectedRows}
         checkboxSelection
+        heading="Employees"
         variant="dark"
         cellConfig={cellConfig}
         rows={tableRows}
+        customActionButtons={[deleteSelectedButton]}
       />
     </div>
   );
@@ -830,15 +790,9 @@ export const CheckboxSelectionWithSorting = (args) => {
     { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
   ];
 
-  const caption = (
-    <span>
-      <b>Table 1</b>: Table description
-    </span>
-  );
-
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable checkboxSelection caption={caption} cellConfig={cellConfig} rows={rows} />
+      <DataTable checkboxSelection heading="Employees" cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
