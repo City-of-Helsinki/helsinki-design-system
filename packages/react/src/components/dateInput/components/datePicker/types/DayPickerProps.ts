@@ -83,5 +83,5 @@ export interface DayPickerProps {
   /**
    * Disables date(s) in datepicker calendar based on conditional function
    */
-  isDateDisabledBy: (Date) => boolean;
+  isDateDisabledBy?: (Date) => boolean;
 }
