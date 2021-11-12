@@ -88,23 +88,19 @@ export const WithExternalClearValueButton = (args) => {
 WithExternalClearValueButton.storyName = 'With external clear value button';
 
 export const WithExcludedDates = (args) => {
-  const currentMonthStart = startOfMonth(new Date());
-  const weekendDays = [...Array(getDaysInMonth(currentMonthStart)).keys()]
-    .map((_, index) => addDays(currentMonthStart, index))
-    .filter(isWeekend);
   const [value, setValue] = useState<string>('');
   const [errorText, setErrorText] = useState<string | undefined>(undefined);
+  const helperText = 'Only weekdays are available.';
 
   React.useEffect(() => {
     if (!value) {
       setErrorText(undefined);
     } else {
       const selectedDate = parse(value, 'dd.M.yyyy', new Date());
-      const isNotExcludedDate = weekendDays.every((excludedDate) => !isSameDay(excludedDate, selectedDate));
-      if (isNotExcludedDate) {
-        setErrorText(undefined);
+      if (isWeekend(selectedDate)) {
+        setErrorText(`The date is a weekend day. ${helperText}`);
       } else {
-        setErrorText('Selected date is not available');
+        setErrorText(undefined);
       }
     }
   }, [value]);
@@ -114,7 +110,8 @@ export const WithExcludedDates = (args) => {
       {...args}
       value={value}
       onChange={setValue}
-      excludedDates={weekendDays}
+      isDateDisabledBy={isWeekend}
+      helperText={helperText}
       errorText={errorText}
       invalid={!!errorText}
     />
