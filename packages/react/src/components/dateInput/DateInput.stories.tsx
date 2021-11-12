@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import parse from 'date-fns/parse';
+import addDays from 'date-fns/addDays';
+import format from 'date-fns/format';
 import isWeekend from 'date-fns/isWeekend';
+import isSameDay from 'date-fns/isSameDay';
 
 import { DateInput } from '.';
 import { Button } from '../button';
@@ -115,3 +118,42 @@ export const WithDisabledDates = (args) => {
 };
 WithDisabledDates.storyName = 'With disabled dates';
 WithDisabledDates.parameters = { loki: { skip: true } };
+
+export const WithSelectedDisabledDates = (args) => {
+  const dateFormat = 'dd.M.yyyy';
+  const dateValue = new Date(2021, 10, 12);
+  const [value, setValue] = useState<string>(format(dateValue, dateFormat));
+  const [errorText, setErrorText] = useState<string | undefined>(undefined);
+  const disabledDates = [addDays(dateValue, 12), addDays(dateValue, 14)];
+  const helperText = `Dates ${disabledDates
+    .map((d) => format(d, dateFormat))
+    .join(' and ')} are disabled. Use other dates instead.`;
+  const isDisabledDate = (date) => !!disabledDates.find((disabledDate) => isSameDay(disabledDate, date));
+
+  React.useEffect(() => {
+    if (!value) {
+      setErrorText(undefined);
+    } else {
+      const selectedDate = parse(value, dateFormat, new Date());
+      if (isDisabledDate(selectedDate)) {
+        setErrorText(`This date is disabled. Please use another date instead.`);
+      } else {
+        setErrorText(undefined);
+      }
+    }
+  }, [value]);
+
+  return (
+    <DateInput
+      {...args}
+      value={value}
+      onChange={setValue}
+      isDateDisabledBy={isDisabledDate}
+      helperText={helperText}
+      errorText={errorText}
+      invalid={!!errorText}
+    />
+  );
+};
+WithSelectedDisabledDates.storyName = 'With selected disabled dates';
+WithSelectedDisabledDates.parameters = { loki: { skip: true } };
