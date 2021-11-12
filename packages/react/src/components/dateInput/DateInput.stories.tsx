@@ -87,7 +87,7 @@ export const WithExternalClearValueButton = (args) => {
 };
 WithExternalClearValueButton.storyName = 'With external clear value button';
 
-export const WithExcludedDates = (args) => {
+export const WithDisabledDates = (args) => {
   const [value, setValue] = useState<string>('');
   const [errorText, setErrorText] = useState<string | undefined>(undefined);
   const helperText = 'Only weekdays are available.';
@@ -117,5 +117,5 @@ export const WithExcludedDates = (args) => {
     />
   );
 };
-WithExcludedDates.storyName = 'With excluded dates';
-WithExcludedDates.parameters = { loki: { skip: true } };
+WithDisabledDates.storyName = 'With disabled dates';
+WithDisabledDates.parameters = { loki: { skip: true } };
