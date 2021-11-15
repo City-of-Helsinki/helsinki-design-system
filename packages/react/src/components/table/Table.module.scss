@@ -160,11 +160,11 @@
   .actionButtonContainer {
     display: flex;
     gap: 16px;
-    flex-wrap: wrap;
+    flex-wrap: wrap-reverse;
   }
 
   .actionButton {
-    flex-grow: 1;
+    flex-grow: 0;
   }
 }
 
@@ -172,4 +172,12 @@
   font-size: 24px;
   font-weight: bold;
   line-height: 29px;
+}
+
+@media x-small-down {
+  .actionContainer {
+    .actionButton {
+      width: 100%;
+    }
+  }
 }
