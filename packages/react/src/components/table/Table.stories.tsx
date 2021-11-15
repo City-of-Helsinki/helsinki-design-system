@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { parse, isBefore, isSameDay } from 'date-fns';
 
 import { Table } from './Table';
