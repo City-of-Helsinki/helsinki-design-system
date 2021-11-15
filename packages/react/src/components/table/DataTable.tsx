@@ -7,8 +7,6 @@ import { Table } from './Table';
 import { Checkbox } from '../checkbox';
 import { useTheme } from '../../hooks/useTheme';
 import { Button } from '../button';
-import { IconTrash } from '../../icons';
-import classNames from '../../utils/classNames';
 
 type Header = {
   key: string;
@@ -97,29 +95,26 @@ function processRows(rows, order, sorting, cellConfig) {
 }
 
 export const DataTable = React.forwardRef(
-  (
-    {
-      cellConfig,
-      checkboxSelection,
-      ariaLabelCheckboxSelection,
-      initiallySelectedRows,
-      rows,
-      variant = 'dark',
-      heading,
-      headingAriaLevel = 2,
-      dense = false,
-      zebra = false,
-      verticalLines = false,
-      verticalHeaders,
-      textAlignContentRight = false,
-      setSelections,
-      caption,
-      theme,
-      customActionButtons,
-      ...rest
-    }: DataTableProps,
-    ref?: any,
-  ) => {
+  ({
+    cellConfig,
+    checkboxSelection,
+    ariaLabelCheckboxSelection,
+    initiallySelectedRows,
+    rows,
+    variant = 'dark',
+    heading,
+    headingAriaLevel = 2,
+    dense = false,
+    zebra = false,
+    verticalLines = false,
+    verticalHeaders,
+    textAlignContentRight = false,
+    setSelections,
+    caption,
+    theme,
+    customActionButtons,
+    ...rest
+  }: DataTableProps) => {
     if (cellConfig.renderIndexCol === undefined) {
       // eslint-disable-next-line no-param-reassign
       cellConfig.renderIndexCol = true;
