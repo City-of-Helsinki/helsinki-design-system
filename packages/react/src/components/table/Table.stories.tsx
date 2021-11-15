@@ -725,6 +725,7 @@ export const WithCustomActions = (args) => {
             );
           }),
         );
+        setSelectedRows([]);
       }}
       style={{
         borderColor: selectedRows.length !== 0 ? '#b01038' : undefined,
