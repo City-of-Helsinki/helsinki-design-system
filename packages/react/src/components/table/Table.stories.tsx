@@ -713,6 +713,7 @@ export const WithCustomActions = (args) => {
 
   const deleteSelectedButton = (
     <Button
+      key={1}
       onClick={() => {
         setTableRows(
           tableRows.filter((row) => {
@@ -730,7 +731,7 @@ export const WithCustomActions = (args) => {
       style={{
         borderColor: selectedRows.length !== 0 ? '#b01038' : undefined,
         backgroundColor: selectedRows.length !== 0 ? '#b01038' : undefined,
-        width: 'fit-content',
+        flexGrow: 1,
       }}
       variant="primary"
       size="small"

@@ -199,6 +199,7 @@ export const DataTable = ({
                     variant="secondary"
                     size="small"
                     disabled={selectedRows.length === rows.length}
+                    className={styles.actionButton}
                   >
                     Select all rows
                   </Button>
@@ -209,6 +210,7 @@ export const DataTable = ({
                     variant="secondary"
                     size="small"
                     disabled={selectedRows.length === 0}
+                    className={styles.actionButton}
                   >
                     Clear selections
                   </Button>

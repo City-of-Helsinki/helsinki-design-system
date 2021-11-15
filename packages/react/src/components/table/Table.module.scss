@@ -1,3 +1,5 @@
+@value x-small-down from "../../styles/breakpoints.css";
+
 .table {
   composes: hds-table from 'hds-core/lib/components/table/table.css';
 
@@ -154,11 +156,16 @@
   align-items: flex-end;
   flex-wrap: wrap;
   gap: 12px;
-}
 
-.actionButtonContainer {
-  display: flex;
-  gap: 16px;
+  .actionButtonContainer {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .actionButton {
+    flex-grow: 1;
+  }
 }
 
 .heading {
