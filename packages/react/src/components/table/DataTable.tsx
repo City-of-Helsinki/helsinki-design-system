@@ -181,7 +181,7 @@ export const DataTable = ({
 
   return (
     <>
-      {(checkboxSelection || heading) && (
+      {(checkboxSelection || heading || (customActionButtons && customActionButtons.length > 0)) && (
         <div className={styles.actionContainer}>
           {heading && (
             <div role="heading" aria-level={headingAriaLevel} className={styles.heading}>
