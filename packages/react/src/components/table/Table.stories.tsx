@@ -731,14 +731,36 @@ export const WithCustomActions = (args) => {
       style={{
         borderColor: selectedRows.length !== 0 ? '#b01038' : undefined,
         backgroundColor: selectedRows.length !== 0 ? '#b01038' : undefined,
-        flexGrow: 1,
+        flexGrow: 0,
       }}
+      className="table-custom-action"
       variant="primary"
       size="small"
       iconLeft={<IconTrash />}
       disabled={selectedRows.length === 0}
     >
       Delete selected
+    </Button>
+  );
+
+  const CopySelected = (
+    <Button
+      key={2}
+      onClick={() => {
+        // eslint-disable-next-line no-console
+        console.log('Copy clicked!');
+      }}
+      style={{
+        borderColor: selectedRows.length !== 0 ? '#c2a251' : undefined,
+        backgroundColor: selectedRows.length !== 0 ? '#c2a251' : undefined,
+        flexGrow: 0,
+      }}
+      className="table-custom-action"
+      variant="primary"
+      size="small"
+      disabled={selectedRows.length === 0}
+    >
+      Copy selected
     </Button>
   );
 
@@ -752,7 +774,7 @@ export const WithCustomActions = (args) => {
         variant="dark"
         cellConfig={cellConfig}
         rows={tableRows}
-        customActionButtons={[deleteSelectedButton]}
+        customActionButtons={[deleteSelectedButton, CopySelected]}
       />
     </div>
   );
