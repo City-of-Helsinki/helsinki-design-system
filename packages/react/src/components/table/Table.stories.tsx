@@ -729,12 +729,10 @@ export const WithCustomActions = (args) => {
         setSelectedRows([]);
       }}
       style={{
-        borderColor: selectedRows.length !== 0 ? '#b01038' : undefined,
-        backgroundColor: selectedRows.length !== 0 ? '#b01038' : undefined,
         flexGrow: 0,
       }}
       className="table-custom-action"
-      variant="primary"
+      variant="secondary"
       size="small"
       iconLeft={<IconTrash />}
       disabled={selectedRows.length === 0}
@@ -751,12 +749,10 @@ export const WithCustomActions = (args) => {
         console.log('Copy clicked!');
       }}
       style={{
-        borderColor: selectedRows.length !== 0 ? '#c2a251' : undefined,
-        backgroundColor: selectedRows.length !== 0 ? '#c2a251' : undefined,
         flexGrow: 0,
       }}
       className="table-custom-action"
-      variant="primary"
+      variant="secondary"
       size="small"
       disabled={selectedRows.length === 0}
     >
