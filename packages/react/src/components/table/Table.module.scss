@@ -149,13 +149,13 @@
 }
 
 .actionContainer {
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing-xs);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: var(--spacing-xs);
 
   .heading {
     font-size: 24px;
@@ -165,7 +165,7 @@
 
   .actionButtonContainer {
     display: flex;
-    gap: 16px;
+    gap: var(--spacing-2-xs);
     flex-wrap: wrap;
   }
 
