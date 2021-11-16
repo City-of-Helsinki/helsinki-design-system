@@ -50,6 +50,8 @@ export type DataTableProps = React.ComponentPropsWithoutRef<'table'> & {
   heading?: string;
   headingAriaLevel?: number;
   customActionButtons?: React.ReactNode[];
+  selectAllRowsText?: string;
+  clearSelectionsText?: string;
 };
 
 function processRows(rows, order, sorting, cellConfig) {
@@ -112,6 +114,8 @@ export const DataTable = ({
   caption,
   theme,
   customActionButtons,
+  selectAllRowsText,
+  clearSelectionsText,
   ...rest
 }: DataTableProps) => {
   if (cellConfig.renderIndexCol === undefined) {
@@ -201,7 +205,7 @@ export const DataTable = ({
                     disabled={selectedRows.length === rows.length}
                     className={styles.actionButton}
                   >
-                    Select all rows
+                    {selectAllRowsText || 'Valitse kaikki rivit'}
                   </Button>
                   <Button
                     onClick={() => {
@@ -212,7 +216,7 @@ export const DataTable = ({
                     disabled={selectedRows.length === 0}
                     className={styles.actionButton}
                   >
-                    Clear selections
+                    {clearSelectionsText || 'Tyhjennä valinnat'}
                   </Button>
                 </>
               )}

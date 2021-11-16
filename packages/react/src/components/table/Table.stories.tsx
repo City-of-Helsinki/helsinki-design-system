@@ -596,7 +596,14 @@ export const CheckboxSelection = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable heading="Employees" checkboxSelection cellConfig={cellConfig} rows={rows} />
+      <DataTable
+        heading="Employees"
+        checkboxSelection
+        cellConfig={cellConfig}
+        rows={rows}
+        selectAllRowsText="Select all rows"
+        clearSelectionsText="Clear selections"
+      />
     </div>
   );
 };
@@ -631,7 +638,15 @@ export const CheckboxSelectionDense = (args) => {
 
   return (
     <div style={{ maxWidth: '500px' }}>
-      <DataTable heading="Employees" checkboxSelection dense cellConfig={cellConfig} rows={rows} />
+      <DataTable
+        heading="Employees"
+        checkboxSelection
+        dense
+        cellConfig={cellConfig}
+        rows={rows}
+        selectAllRowsText="Select all rows"
+        clearSelectionsText="Clear selections"
+      />
     </div>
   );
 };
@@ -675,6 +690,8 @@ export const InitiallySelectedRows = (args) => {
         variant="dark"
         cellConfig={cellConfig}
         rows={rows}
+        selectAllRowsText="Select all rows"
+        clearSelectionsText="Clear selections"
       />
     </div>
   );
@@ -771,6 +788,8 @@ export const WithCustomActions = (args) => {
         cellConfig={cellConfig}
         rows={tableRows}
         customActionButtons={[deleteSelectedButton, CopySelected]}
+        selectAllRowsText="Select all rows"
+        clearSelectionsText="Clear selections"
       />
     </div>
   );
@@ -812,7 +831,14 @@ export const CheckboxSelectionWithSorting = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable checkboxSelection heading="Employees" cellConfig={cellConfig} rows={rows} />
+      <DataTable
+        selectAllRowsText="Select all rows"
+        clearSelectionsText="Clear selections"
+        checkboxSelection
+        heading="Employees"
+        cellConfig={cellConfig}
+        rows={rows}
+      />
     </div>
   );
 };
