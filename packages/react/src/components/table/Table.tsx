@@ -16,6 +16,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   zebra?: boolean;
   verticalLines?: boolean;
   customThemeClass?: string;
+  headingId?: string;
 };
 
 export const Table = ({
@@ -25,6 +26,7 @@ export const Table = ({
   zebra = false,
   verticalLines = false,
   customThemeClass,
+  headingId,
   ...rest
 }: TableProps) => {
   return (
@@ -39,6 +41,7 @@ export const Table = ({
           verticalLines && styles.verticalLines,
           customThemeClass,
         )}
+        aria-labelledby={headingId}
         {...rest}
       >
         {children}
