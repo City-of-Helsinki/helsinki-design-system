@@ -157,6 +157,12 @@
   flex-wrap: wrap;
   gap: 12px;
 
+  .heading {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 29px;
+  }
+
   .actionButtonContainer {
     display: flex;
     gap: 16px;
@@ -168,14 +174,16 @@
   }
 }
 
-.heading {
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 29px;
-}
-
 @media x-small-down {
   .actionContainer {
+    .heading {
+      width: 100%;
+    }
+
+    .actionButtonContainer {
+      width: 100%;
+    }
+
     .actionButton {
       width: 100%;
     }
