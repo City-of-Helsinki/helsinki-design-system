@@ -52,6 +52,7 @@ export type DataTableProps = React.ComponentPropsWithoutRef<'table'> & {
   customActionButtons?: React.ReactNode[];
   selectAllRowsText?: string;
   clearSelectionsText?: string;
+  headingId?: string; // id that is passed to heading. Only applicable when heading prop is used.
 };
 
 function processRows(rows, order, sorting, cellConfig) {
@@ -105,6 +106,7 @@ export const DataTable = ({
   variant = 'dark',
   heading,
   headingAriaLevel = 2,
+  headingId = 'hds-table',
   dense = false,
   zebra = false,
   verticalLines = false,
@@ -188,7 +190,7 @@ export const DataTable = ({
       {(checkboxSelection || heading || (customActionButtons && customActionButtons.length > 0)) && (
         <div className={styles.actionContainer}>
           {heading && (
-            <div role="heading" aria-level={headingAriaLevel} className={styles.heading}>
+            <div id={headingId} role="heading" aria-level={headingAriaLevel} className={styles.heading}>
               {heading}
             </div>
           )}
@@ -235,6 +237,7 @@ export const DataTable = ({
         zebra={zebra}
         verticalLines={verticalLines}
         customThemeClass={customThemeClass}
+        headingId={heading ? headingId : undefined}
         {...rest}
       >
         {caption && <caption className={styles.caption}>{caption}</caption>}
