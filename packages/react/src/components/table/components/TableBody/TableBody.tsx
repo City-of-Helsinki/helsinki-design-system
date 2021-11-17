@@ -1,7 +1,7 @@
 import React from 'react';
 
-import styles from './Table.module.scss';
-import classNames from '../../utils/classNames';
+import styles from '../../Table.module.scss';
+import classNames from '../../../../utils/classNames';
 
 export type TableBodyProps = {
   children: React.ReactNode;

@@ -2,14 +2,14 @@ import React from 'react';
 
 // import core base styles
 import 'hds-core';
-import styles from './Table.module.scss';
+import styles from '../../Table.module.scss';
 import {
   IconSort,
   IconSortAlphabeticalAscending,
   IconSortAlphabeticalDescending,
   IconSortAscending,
   IconSortDescending,
-} from '../../icons';
+} from '../../../../icons';
 
 export type SortingHeaderCellProps = React.ComponentPropsWithoutRef<'th'> & {
   ariaLabelSortButtonNeutral: string;

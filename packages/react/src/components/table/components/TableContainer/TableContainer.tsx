@@ -2,14 +2,10 @@ import React from 'react';
 
 // import core base styles
 import 'hds-core';
-import classNames from '../../utils/classNames';
-import styles from './Table.module.scss';
-import { TableBody } from './TableBody';
-import { HeaderRow } from './HeaderRow';
-import { VerticalHeaderColGroup } from './VerticalHeaderColGroup';
-import { SortingHeaderCell } from './SortingHeaderCell';
+import classNames from '../../../../utils/classNames';
+import styles from '../../Table.module.scss';
 
-export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
+export type TableContainerProps = React.ComponentPropsWithoutRef<'table'> & {
   children: React.ReactNode;
   variant?: 'dark' | 'light';
   dense?: boolean;
@@ -19,7 +15,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   headingId?: string;
 };
 
-export const Table = ({
+export const TableContainer = ({
   children,
   variant = 'dark',
   dense = false,
@@ -28,7 +24,7 @@ export const Table = ({
   customThemeClass,
   headingId,
   ...rest
-}: TableProps) => {
+}: TableContainerProps) => {
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
     <div tabIndex={0} className={styles.container}>
@@ -49,8 +45,3 @@ export const Table = ({
     </div>
   );
 };
-
-Table.TableBody = TableBody;
-Table.HeaderRow = HeaderRow;
-Table.VerticalHeaderColGroup = VerticalHeaderColGroup;
-Table.SortingHeaderCell = SortingHeaderCell;
