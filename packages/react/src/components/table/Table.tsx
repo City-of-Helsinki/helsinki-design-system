@@ -23,7 +23,7 @@ export interface TableCustomTheme {
   '--background-color'?: string;
 }
 
-export type DataTableProps = React.ComponentPropsWithoutRef<'table'> & {
+export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   cellConfig: {
     cols: Array<Header>;
     sortingEnabled?: boolean;
@@ -101,7 +101,7 @@ function processRows(rows, order, sorting, cellConfig) {
   });
 }
 
-export const DataTable = ({
+export const Table = ({
   cellConfig,
   checkboxSelection,
   ariaLabelCheckboxSelection,
@@ -123,7 +123,7 @@ export const DataTable = ({
   selectAllRowsText,
   clearSelectionsText,
   ...rest
-}: DataTableProps) => {
+}: TableProps) => {
   if (cellConfig.renderIndexCol === undefined) {
     // eslint-disable-next-line no-param-reassign
     cellConfig.renderIndexCol = true;
@@ -161,10 +161,21 @@ export const DataTable = ({
   }
 
   useEffect(() => {
+    // With this we will update the selections outside the component
     if (setSelections) {
       setSelections(selectedRows);
     }
   }, [setSelections, selectedRows]);
+
+  useEffect(() => {
+    // This tackles the case where rows have been deleted; deleted row cannot be among selected
+    const newSelectedRows = selectedRows.filter((selectedRowId) => {
+      const selectedRowExistsInRows = rows.find((row) => row[cellConfig.indexKey] === selectedRowId);
+      return !!selectedRowExistsInRows;
+    });
+
+    setSelectedRows(newSelectedRows);
+  }, [rows]);
 
   const setSortingAndOrder = (colKey: string): void => {
     if (sorting === colKey) {

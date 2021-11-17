@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { parse, isBefore, isSameDay } from 'date-fns';
 
 import { Table } from './Table';
-import { DataTable } from './DataTable';
 import workTrial from './story-example-work-trial.json';
 import { Button } from '../button';
 import { IconTrash } from '../../icons';
@@ -52,7 +51,7 @@ export const Default = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable caption={caption} cellConfig={cellConfig} rows={rows} />
+      <Table caption={caption} cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -93,7 +92,7 @@ export const Dark = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable caption={caption} variant="dark" cellConfig={cellConfig} rows={rows} />
+      <Table caption={caption} variant="dark" cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -134,7 +133,7 @@ export const Light = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable caption={caption} variant="light" cellConfig={cellConfig} rows={rows} />
+      <Table caption={caption} variant="light" cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -175,7 +174,7 @@ export const Dense = (args) => {
 
   return (
     <div style={{ maxWidth: '500px' }}>
-      <DataTable dense caption={caption} cellConfig={cellConfig} rows={rows} />
+      <Table dense caption={caption} cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -256,7 +255,7 @@ export const Zebra = (args) => {
 
   return (
     <div style={{ maxWidth: '800px' }}>
-      <DataTable caption={caption} zebra cellConfig={cellConfig} rows={rows} />
+      <Table caption={caption} zebra cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -297,7 +296,7 @@ export const VerticalLines = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable caption={caption} verticalLines cellConfig={cellConfig} rows={rows} />
+      <Table caption={caption} verticalLines cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -341,7 +340,7 @@ export const VerticalHeaders = (args) => {
 
   return (
     <div style={{ maxWidth: '486px' }}>
-      <DataTable
+      <Table
         caption={caption}
         textAlignContentRight
         verticalHeaders={verticalHeaders}
@@ -394,7 +393,7 @@ export const Sorting = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable caption={caption} cellConfig={cellConfig} rows={rows} />
+      <Table caption={caption} cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -441,7 +440,7 @@ export const SortingLightVariant = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable caption={caption} cellConfig={cellConfig} rows={rows} variant="light" />
+      <Table caption={caption} cellConfig={cellConfig} rows={rows} variant="light" />
     </div>
   );
 };
@@ -490,7 +489,7 @@ export const InitiallySortedBy = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable caption={caption} cellConfig={cellConfig} rows={rows} />
+      <Table caption={caption} cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -561,7 +560,7 @@ export const CustomSortFunction = (args) => {
 
   return (
     <div style={{ maxWidth: '1200px', height: '600px' }}>
-      <DataTable caption={caption} dense cellConfig={cellConfig} rows={rows} />
+      <Table caption={caption} dense cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -596,7 +595,7 @@ export const CheckboxSelection = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable
+      <Table
         heading="Employees"
         checkboxSelection
         cellConfig={cellConfig}
@@ -638,7 +637,7 @@ export const CheckboxSelectionDense = (args) => {
 
   return (
     <div style={{ maxWidth: '500px' }}>
-      <DataTable
+      <Table
         heading="Employees"
         checkboxSelection
         dense
@@ -683,7 +682,7 @@ export const InitiallySelectedRows = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable
+      <Table
         heading="Employees"
         initiallySelectedRows={initiallySelectedRows}
         checkboxSelection
@@ -779,7 +778,7 @@ export const WithCustomActions = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable
+      <Table
         aria-label="People"
         setSelections={setSelectedRows}
         checkboxSelection
@@ -831,7 +830,7 @@ export const CheckboxSelectionWithSorting = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable
+      <Table
         selectAllRowsText="Select all rows"
         clearSelectionsText="Clear selections"
         checkboxSelection
@@ -883,7 +882,7 @@ export const CustomHeaderBackgroundColorForDarkVariant = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable theme={theme} caption={caption} variant="dark" cellConfig={cellConfig} rows={rows} />
+      <Table theme={theme} caption={caption} variant="dark" cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };
@@ -928,7 +927,7 @@ export const CustomHeaderBackgroundColorForLightVariant = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <DataTable theme={theme} caption={caption} variant="light" cellConfig={cellConfig} rows={rows} />
+      <Table theme={theme} caption={caption} variant="light" cellConfig={cellConfig} rows={rows} />
     </div>
   );
 };

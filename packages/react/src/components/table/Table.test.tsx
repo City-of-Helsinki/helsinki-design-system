@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import { axe } from 'jest-axe';
 
-import { DataTable } from './DataTable';
+import { Table } from './Table';
 
 describe('<Table /> spec', () => {
   let cellConfig;
@@ -43,13 +43,13 @@ describe('<Table /> spec', () => {
   });
 
   it('renders the component', () => {
-    const { asFragment } = render(<DataTable caption={caption} cellConfig={cellConfig} rows={rows} />);
+    const { asFragment } = render(<Table caption={caption} cellConfig={cellConfig} rows={rows} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should not have basic accessibility issues', async () => {
     expect(true).toBe(true);
-    const { container } = render(<DataTable caption={caption} cellConfig={cellConfig} rows={rows} />);
+    const { container } = render(<Table caption={caption} cellConfig={cellConfig} rows={rows} />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
