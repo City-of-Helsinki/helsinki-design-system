@@ -37,3 +37,4 @@ export * from './table';
 export * from './tabs';
 export * from './stepper';
 export * from './passwordInput';
+export * from './cookieConsent';

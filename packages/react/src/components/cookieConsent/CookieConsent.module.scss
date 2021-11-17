@@ -1,0 +1,41 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgb(0, 0, 0);
+  pointer-events: none;
+}
+
+.aligner {
+  position: absolute;
+  bottom: 0;
+  z-index: 2;
+  width: 100%;
+  overflow-y: scroll;
+  max-height: 100%;
+}
+
+.container .aligner {
+  transform: translateY(100%);
+  transition: transform 1s;
+}
+.container .overlay {
+  opacity: 0.01;
+  transition: opacity 1s;
+}
+
+.container.animate-in .aligner {
+  transform: translateY(0%);
+}
+.container.animate-in .overlay {
+  opacity: 0.7;
+}
