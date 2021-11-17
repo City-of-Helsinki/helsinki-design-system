@@ -5,28 +5,28 @@ import { axe } from 'jest-axe';
 import { Table } from './Table';
 
 describe('<Table /> spec', () => {
-  let cellConfig;
+  let cols;
   let rows;
   let caption;
+  let indexKey;
+  let renderIndexCol;
 
   beforeEach(() => {
-    cellConfig = {
-      cols: [
-        { key: 'id', headerName: 'Not rendered' },
-        { key: 'firstName', headerName: 'First name' },
-        { key: 'surname', headerName: 'Surname' },
-        {
-          key: 'age',
-          headerName: 'Age',
-          transform: ({ age }) => {
-            return <div style={{ textAlign: 'right' }}>{age}</div>;
-          },
+    cols = [
+      { key: 'id', headerName: 'Not rendered' },
+      { key: 'firstName', headerName: 'First name' },
+      { key: 'surname', headerName: 'Surname' },
+      {
+        key: 'age',
+        headerName: 'Age',
+        transform: ({ age }) => {
+          return <div style={{ textAlign: 'right' }}>{age}</div>;
         },
-        { key: 'profession', headerName: 'Profession' },
-      ],
-      indexKey: 'id',
-      renderIndexCol: false,
-    };
+      },
+      { key: 'profession', headerName: 'Profession' },
+    ];
+    indexKey = 'id';
+    renderIndexCol = false;
 
     rows = [
       { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -43,13 +43,17 @@ describe('<Table /> spec', () => {
   });
 
   it('renders the component', () => {
-    const { asFragment } = render(<Table caption={caption} cellConfig={cellConfig} rows={rows} />);
+    const { asFragment } = render(
+      <Table caption={caption} cols={cols} rows={rows} indexKey={indexKey} renderIndexCol={renderIndexCol} />,
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should not have basic accessibility issues', async () => {
     expect(true).toBe(true);
-    const { container } = render(<Table caption={caption} cellConfig={cellConfig} rows={rows} />);
+    const { container } = render(
+      <Table caption={caption} cols={cols} rows={rows} indexKey={indexKey} renderIndexCol={renderIndexCol} />,
+    );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
