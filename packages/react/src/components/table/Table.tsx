@@ -24,47 +24,42 @@ export interface TableCustomTheme {
 }
 
 export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
-  cellConfig: {
-    cols: Array<Header>;
-    sortingEnabled?: boolean;
-    initialSortingColumnKey?: string; // undefined -> neutral order for all columns
-    initialSortingOrder?: 'asc' | 'desc';
-    ariaLabelSortButtonNeutral?: string;
-    ariaLabelSortButtonAscending?: string;
-    ariaLabelSortButtonDescending?: string;
-    indexKey: string; // column key used as unique identifier for row
-    renderIndexCol?: boolean; // whether index colum is rendered in table. Defaults to true.
-  };
-  rows: Array<object>;
-  verticalHeaders?: Array<Header>;
-  variant?: 'dark' | 'light';
-  dense?: boolean;
-  zebra?: boolean;
-  caption?: string | React.ReactNode;
-  verticalLines?: boolean;
-  textAlignContentRight?: boolean; // defaults to false -> text is aligned left
-  checkboxSelection?: boolean;
   ariaLabelCheckboxSelection?: string;
-  setSelections?: Function; // Callback that gets called with all selected row id values
-  initiallySelectedRows?: any[]; // Initially selected rows. Apply corresponding indexKey values here.
-  /**
-   * Custom theme styles
-   */
-  theme?: TableCustomTheme;
+  ariaLabelSortButtonAscending?: string;
+  ariaLabelSortButtonDescending?: string;
+  ariaLabelSortButtonNeutral?: string;
+  caption?: string | React.ReactNode;
+  checkboxSelection?: boolean;
+  clearSelectionsText?: string;
+  cols: Array<Header>;
+  customActionButtons?: React.ReactNode[];
+  dense?: boolean;
   heading?: string;
   headingAriaLevel?: number;
-  customActionButtons?: React.ReactNode[];
-  selectAllRowsText?: string;
-  clearSelectionsText?: string;
   headingId?: string; // id that is passed to heading. Only applicable when heading prop is used.
+  indexKey: string; // column key used as unique identifier for row
+  initiallySelectedRows?: any[]; // Initially selected rows. Apply corresponding indexKey values here
+  initialSortingColumnKey?: string; // undefined -> neutral order for all columns
+  initialSortingOrder?: 'asc' | 'desc';
+  renderIndexCol?: boolean; // whether index colum is rendered in table. Defaults to true.
+  rows: Array<object>;
+  selectAllRowsText?: string;
+  setSelections?: Function; // Callback that gets called with all selected row id values
+  sortingEnabled?: boolean;
+  textAlignContentRight?: boolean; // defaults to false -> text is aligned left
+  theme?: TableCustomTheme; // Custom theme styles
+  variant?: 'dark' | 'light';
+  verticalHeaders?: Array<Header>;
+  verticalLines?: boolean;
+  zebra?: boolean;
 };
 
-function processRows(rows, order, sorting, cellConfig) {
-  if (!cellConfig.sortingEnabled || !order || !sorting) {
+function processRows(rows, order, sorting, sortingEnabled, cols) {
+  if (!sortingEnabled || !order || !sorting) {
     return [...rows];
   }
 
-  const sortColumn = cellConfig.cols.find((column) => {
+  const sortColumn = cols.find((column) => {
     return column.key === sorting;
   });
 
@@ -102,32 +97,36 @@ function processRows(rows, order, sorting, cellConfig) {
 }
 
 export const Table = ({
-  cellConfig,
-  checkboxSelection,
   ariaLabelCheckboxSelection,
-  initiallySelectedRows,
-  rows,
-  variant = 'dark',
+  ariaLabelSortButtonAscending,
+  ariaLabelSortButtonDescending,
+  ariaLabelSortButtonNeutral,
+  caption,
+  checkboxSelection,
+  clearSelectionsText,
+  cols,
+  customActionButtons,
+  dense = false,
   heading,
   headingAriaLevel = 2,
   headingId = 'hds-table',
-  dense = false,
-  zebra = false,
-  verticalLines = false,
-  verticalHeaders,
-  textAlignContentRight = false,
-  setSelections,
-  caption,
-  theme,
-  customActionButtons,
+  indexKey,
+  initiallySelectedRows,
+  initialSortingColumnKey,
+  initialSortingOrder,
+  renderIndexCol = true,
+  rows,
   selectAllRowsText,
-  clearSelectionsText,
+  setSelections,
+  sortingEnabled = false,
+  textAlignContentRight = false,
+  theme,
+  variant = 'dark',
+  verticalHeaders,
+  verticalLines = false,
+  zebra = false,
   ...rest
 }: TableProps) => {
-  if (cellConfig.renderIndexCol === undefined) {
-    // eslint-disable-next-line no-param-reassign
-    cellConfig.renderIndexCol = true;
-  }
   if (verticalHeaders && verticalHeaders.length && checkboxSelection) {
     // eslint-disable-next-line no-console
     console.warn(
@@ -144,14 +143,14 @@ export const Table = ({
     caption = undefined;
   }
 
-  const [sorting, setSorting] = useState<string>(cellConfig.initialSortingColumnKey);
-  const [order, setOrder] = useState<'asc' | 'desc' | undefined>(cellConfig.initialSortingOrder);
+  const [sorting, setSorting] = useState<string>(initialSortingColumnKey);
+  const [order, setOrder] = useState<'asc' | 'desc' | undefined>(initialSortingOrder);
   const [selectedRows, setSelectedRows] = useState<any[]>(initiallySelectedRows || []);
   const customThemeClass = useTheme<TableCustomTheme>(variant === 'dark' ? styles.dark : styles.light, theme);
 
   function selectAllRows() {
     const allRows = rows.map((row) => {
-      return row[cellConfig.indexKey];
+      return row[indexKey];
     });
     setSelectedRows(allRows);
   }
@@ -170,7 +169,7 @@ export const Table = ({
   useEffect(() => {
     // This tackles the case where rows have been deleted; deleted row cannot be among selected
     const newSelectedRows = selectedRows.filter((selectedRowId) => {
-      const selectedRowExistsInRows = rows.find((row) => row[cellConfig.indexKey] === selectedRowId);
+      const selectedRowExistsInRows = rows.find((row) => row[indexKey] === selectedRowId);
       return !!selectedRowExistsInRows;
     });
 
@@ -186,16 +185,17 @@ export const Table = ({
     setSorting(colKey);
   };
 
-  const processedRows = useMemo(() => processRows(rows, order, sorting, cellConfig), [
+  const processedRows = useMemo(() => processRows(rows, order, sorting, sortingEnabled, cols), [
     rows,
     sorting,
     order,
-    cellConfig,
+    sortingEnabled,
+    cols,
   ]);
 
-  const firstRenderedColumnKey = cellConfig.cols.find((column) => {
-    if (!cellConfig.renderIndexCol) {
-      return column.key !== cellConfig.indexKey;
+  const firstRenderedColumnKey = cols.find((column) => {
+    if (!renderIndexCol) {
+      return column.key !== indexKey;
     }
     return true;
   }).key;
@@ -261,19 +261,19 @@ export const Table = ({
           <HeaderRow>
             {verticalHeaders && verticalHeaders.length && <td role="presentation" />}
             {checkboxSelection && <td className={styles.checkboxHeader} />}
-            {cellConfig.cols.map((column) => {
-              if (column.key === cellConfig.indexKey && !cellConfig.renderIndexCol) {
+            {cols.map((column) => {
+              if (column.key === indexKey && !renderIndexCol) {
                 return null;
               }
-              if (cellConfig.sortingEnabled) {
+              if (sortingEnabled) {
                 return (
                   <SortingHeaderCell
                     key={column.key}
                     colKey={column.key}
                     title={column.headerName}
-                    ariaLabelSortButtonNeutral={cellConfig.ariaLabelSortButtonNeutral}
-                    ariaLabelSortButtonAscending={cellConfig.ariaLabelSortButtonAscending}
-                    ariaLabelSortButtonDescending={cellConfig.ariaLabelSortButtonDescending}
+                    ariaLabelSortButtonNeutral={ariaLabelSortButtonNeutral}
+                    ariaLabelSortButtonAscending={ariaLabelSortButtonAscending}
+                    ariaLabelSortButtonDescending={ariaLabelSortButtonDescending}
                     setSortingAndOrder={setSortingAndOrder}
                     order={sorting === column.key ? order : 'neutral'}
                     sortIconType={column.sortIconType}
@@ -290,22 +290,20 @@ export const Table = ({
         </thead>
         <TableBody textAlignContentRight={textAlignContentRight}>
           {processedRows.map((row, index) => (
-            <tr key={row[cellConfig.indexKey]}>
+            <tr key={row[indexKey]}>
               {verticalHeaders && verticalHeaders.length && <th scope="row">{verticalHeaders[index].headerName}</th>}
               {checkboxSelection && (
                 <td className={styles.checkboxData}>
                   <Checkbox
-                    checked={selectedRows.includes(row[cellConfig.indexKey])}
-                    id={row[cellConfig.indexKey]}
+                    checked={selectedRows.includes(row[indexKey])}
+                    id={row[indexKey]}
                     label=""
                     aria-label={`${ariaLabelCheckboxSelection || 'Row selection'} ${row[firstRenderedColumnKey]}`}
                     onChange={(e) => {
                       if (e.target.checked) {
-                        setSelectedRows([...selectedRows, row[cellConfig.indexKey]]);
+                        setSelectedRows([...selectedRows, row[indexKey]]);
                       } else {
-                        const result = [
-                          ...selectedRows.filter((selectedRow) => selectedRow !== row[cellConfig.indexKey]),
-                        ];
+                        const result = [...selectedRows.filter((selectedRow) => selectedRow !== row[indexKey])];
                         setSelectedRows(result);
                       }
                     }}
@@ -313,8 +311,8 @@ export const Table = ({
                   />
                 </td>
               )}
-              {cellConfig.cols.map((column, cellIndex) => {
-                if (column.key === cellConfig.indexKey && !cellConfig.renderIndexCol) {
+              {cols.map((column, cellIndex) => {
+                if (column.key === indexKey && !renderIndexCol) {
                   return null;
                 }
                 return (
