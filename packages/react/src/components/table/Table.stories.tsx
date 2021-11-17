@@ -18,23 +18,19 @@ export default {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const Default = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ],
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
   const rows: Array<object> = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -51,7 +47,7 @@ export const Default = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <Table caption={caption} cellConfig={cellConfig} rows={rows} />
+      <Table cols={cols} rows={rows} caption={caption} indexKey="id" renderIndexCol={false} />
     </div>
   );
 };
@@ -59,23 +55,19 @@ export const Default = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const Dark = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ],
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
   const rows: Array<object> = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -92,7 +84,7 @@ export const Dark = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <Table caption={caption} variant="dark" cellConfig={cellConfig} rows={rows} />
+      <Table cols={cols} rows={rows} caption={caption} variant="dark" indexKey="id" renderIndexCol={false} />
     </div>
   );
 };
@@ -100,23 +92,19 @@ export const Dark = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const Light = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ],
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
   const rows: Array<object> = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -133,7 +121,7 @@ export const Light = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <Table caption={caption} variant="light" cellConfig={cellConfig} rows={rows} />
+      <Table caption={caption} cols={cols} variant="light" indexKey="id" renderIndexCol={false} rows={rows} />
     </div>
   );
 };
@@ -141,23 +129,19 @@ export const Light = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const Dense = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ],
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
   const rows: Array<object> = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -174,7 +158,7 @@ export const Dense = (args) => {
 
   return (
     <div style={{ maxWidth: '500px' }}>
-      <Table dense caption={caption} cellConfig={cellConfig} rows={rows} />
+      <Table cols={cols} rows={rows} dense caption={caption} indexKey="id" renderIndexCol={false} />
     </div>
   );
 };
@@ -182,31 +166,27 @@ export const Dense = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const Zebra = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'city', headerName: 'City' },
-      { key: 'profession', headerName: 'Profession' },
-      {
-        key: 'experience',
-        headerName: 'Experience (years)',
-        transform: ({ experience }) => {
-          return <div style={{ textAlign: 'right' }}>{experience}</div>;
-        },
+    },
+    { key: 'city', headerName: 'City' },
+    { key: 'profession', headerName: 'Profession' },
+    {
+      key: 'experience',
+      headerName: 'Experience (years)',
+      transform: ({ experience }) => {
+        return <div style={{ textAlign: 'right' }}>{experience}</div>;
       },
-    ],
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+    },
+  ];
 
   const rows: Array<object> = [
     {
@@ -255,7 +235,7 @@ export const Zebra = (args) => {
 
   return (
     <div style={{ maxWidth: '800px' }}>
-      <Table caption={caption} zebra cellConfig={cellConfig} rows={rows} />
+      <Table rows={rows} cols={cols} caption={caption} zebra indexKey="id" renderIndexCol={false} />
     </div>
   );
 };
@@ -263,23 +243,19 @@ export const Zebra = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const VerticalLines = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ],
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
   const rows: Array<object> = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -296,7 +272,7 @@ export const VerticalLines = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <Table caption={caption} verticalLines cellConfig={cellConfig} rows={rows} />
+      <Table verticalLines cols={cols} rows={rows} caption={caption} indexKey="id" renderIndexCol={false} />
     </div>
   );
 };
@@ -304,17 +280,13 @@ export const VerticalLines = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const VerticalHeaders = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: '8-12', headerName: '8-12' },
-      { key: '12-14', headerName: '12-14' },
-      { key: '14-16', headerName: '14-16' },
-      { key: '16-18', headerName: '16-18' },
-    ],
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: '8-12', headerName: '8-12' },
+    { key: '12-14', headerName: '12-14' },
+    { key: '14-16', headerName: '14-16' },
+    { key: '16-18', headerName: '16-18' },
+  ];
 
   const unitRows: Array<object> = [
     { id: 'monday', '8-12': 324, '12-14': 562, '14-16': 280, '16-18': 94 },
@@ -341,11 +313,13 @@ export const VerticalHeaders = (args) => {
   return (
     <div style={{ maxWidth: '486px' }}>
       <Table
+        verticalHeaders={verticalHeaders}
+        cols={cols}
+        rows={unitRows}
         caption={caption}
         textAlignContentRight
-        verticalHeaders={verticalHeaders}
-        cellConfig={cellConfig}
-        rows={unitRows}
+        indexKey="id"
+        renderIndexCol={false}
       />
     </div>
   );
@@ -354,28 +328,20 @@ export const VerticalHeaders = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const Sorting = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        sortIconType: 'other' as 'other',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      sortIconType: 'other' as 'other',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ],
-    sortingEnabled: true,
-    ariaLabelSortButtonNeutral: 'Not sorted',
-    ariaLabelSortButtonAscending: 'Sorted in ascending order',
-    ariaLabelSortButtonDescending: 'Sorted in descending order',
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
   const rows: Array<object> = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -393,7 +359,17 @@ export const Sorting = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <Table caption={caption} cellConfig={cellConfig} rows={rows} />
+      <Table
+        sortingEnabled
+        ariaLabelSortButtonNeutral="Not sorted"
+        ariaLabelSortButtonAscending="Sorted in ascending order"
+        ariaLabelSortButtonDescending="Sorted in descending order"
+        indexKey="id"
+        renderIndexCol={false}
+        cols={cols}
+        rows={rows}
+        caption={caption}
+      />
     </div>
   );
 };
@@ -401,28 +377,20 @@ export const Sorting = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const SortingLightVariant = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        sortIconType: 'other' as 'other',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      sortIconType: 'other' as 'other',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ],
-    sortingEnabled: true,
-    ariaLabelSortButtonNeutral: 'Not sorted',
-    ariaLabelSortButtonAscending: 'Sorted in ascending order',
-    ariaLabelSortButtonDescending: 'Sorted in descending order',
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
   const rows: Array<object> = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -440,7 +408,18 @@ export const SortingLightVariant = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <Table caption={caption} cellConfig={cellConfig} rows={rows} variant="light" />
+      <Table
+        variant="light"
+        sortingEnabled
+        ariaLabelSortButtonNeutral="Not sorted"
+        ariaLabelSortButtonAscending="Sorted in ascending order"
+        ariaLabelSortButtonDescending="Sorted in descending order"
+        indexKey="id"
+        renderIndexCol={false}
+        cols={cols}
+        rows={rows}
+        caption={caption}
+      />
     </div>
   );
 };
@@ -448,30 +427,20 @@ export const SortingLightVariant = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const InitiallySortedBy = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        sortIconType: 'other' as 'string' | 'other',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      sortIconType: 'other' as 'string' | 'other',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ],
-    sortingEnabled: true,
-    initialSortingColumnKey: 'age',
-    initialSortingOrder: 'desc' as 'desc',
-    ariaLabelSortButtonNeutral: 'Not sorted',
-    ariaLabelSortButtonAscending: 'Sorted in ascending order',
-    ariaLabelSortButtonDescending: 'Sorted in descending order',
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
   const rows: Array<object> = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -489,7 +458,19 @@ export const InitiallySortedBy = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <Table caption={caption} cellConfig={cellConfig} rows={rows} />
+      <Table
+        initialSortingColumnKey="age"
+        initialSortingOrder={'desc' as 'desc'}
+        sortingEnabled
+        ariaLabelSortButtonNeutral="Not sorted"
+        ariaLabelSortButtonAscending="Sorted in ascending order"
+        ariaLabelSortButtonDescending="Sorted in descending order"
+        rows={rows}
+        cols={cols}
+        indexKey="id"
+        renderIndexCol={false}
+        caption={caption}
+      />
     </div>
   );
 };
@@ -497,58 +478,49 @@ export const InitiallySortedBy = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const CustomSortFunction = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'Paikka-ID', headerName: 'Paikka-ID' },
-      { key: 'Paikan tyyppi', headerName: 'Paikan tyyppi' },
-      { key: 'Tehtävänimike', headerName: 'Tehtävänimike' },
-      {
-        key: 'Ilmoitus vanhenee',
-        headerName: 'Ilmoitus vanhenee',
-        sortIconType: 'other' as 'other',
-        customSortCompareFunction: (a, b) => {
-          const aDate = parse(a, 'dd.MM.yyyy', new Date());
-          const bDate = parse(b, 'dd.MM.yyyy', new Date());
+  const cols = [
+    { key: 'Paikka-ID', headerName: 'Paikka-ID' },
+    { key: 'Paikan tyyppi', headerName: 'Paikan tyyppi' },
+    { key: 'Tehtävänimike', headerName: 'Tehtävänimike' },
+    {
+      key: 'Ilmoitus vanhenee',
+      headerName: 'Ilmoitus vanhenee',
+      sortIconType: 'other' as 'other',
+      customSortCompareFunction: (a, b) => {
+        const aDate = parse(a, 'dd.MM.yyyy', new Date());
+        const bDate = parse(b, 'dd.MM.yyyy', new Date());
 
-          if (isSameDay(aDate, bDate)) {
-            return 0;
-          }
+        if (isSameDay(aDate, bDate)) {
+          return 0;
+        }
 
-          if (isBefore(aDate, bDate)) {
-            return -1;
-          }
+        if (isBefore(aDate, bDate)) {
+          return -1;
+        }
 
-          return 1;
-        },
+        return 1;
       },
-      { key: 'Toimiala/liikelaitos', headerName: 'Toimiala/liikelaitos' },
-      { key: 'Työpaikka', headerName: 'Työpaikka' },
-      { key: 'Postinumero', headerName: 'Postinumero' },
-      {
-        key: 'Paikkoja',
-        headerName: 'Paikkoja',
-        sortIconType: 'other' as 'other',
-        transform: ({ Paikkoja }) => {
-          return <div style={{ textAlign: 'right' }}>{Paikkoja}</div>;
-        },
+    },
+    { key: 'Toimiala/liikelaitos', headerName: 'Toimiala/liikelaitos' },
+    { key: 'Työpaikka', headerName: 'Työpaikka' },
+    { key: 'Postinumero', headerName: 'Postinumero' },
+    {
+      key: 'Paikkoja',
+      headerName: 'Paikkoja',
+      sortIconType: 'other' as 'other',
+      transform: ({ Paikkoja }) => {
+        return <div style={{ textAlign: 'right' }}>{Paikkoja}</div>;
       },
-      {
-        key: 'Haastatteluun halutaan',
-        headerName: 'Haastatteluun halutaan',
-        sortIconType: 'other' as 'other',
-        transform: (row) => {
-          return <div style={{ textAlign: 'right' }}>{row['Haastatteluun halutaan']}</div>;
-        },
+    },
+    {
+      key: 'Haastatteluun halutaan',
+      headerName: 'Haastatteluun halutaan',
+      sortIconType: 'other' as 'other',
+      transform: (row) => {
+        return <div style={{ textAlign: 'right' }}>{row['Haastatteluun halutaan']}</div>;
       },
-    ],
-    sortingEnabled: true,
-    initialSortingColumnKey: 'Ilmoitus vanhenee',
-    initialSortingOrder: 'asc' as 'asc',
-    ariaLabelSortButtonNeutral: 'Not sorted',
-    ariaLabelSortButtonAscending: 'Sorted in ascending order',
-    ariaLabelSortButtonDescending: 'Sorted in descending order',
-    indexKey: 'Paikka-ID',
-  };
+    },
+  ];
 
   const rows: Array<object> = workTrial;
 
@@ -560,7 +532,19 @@ export const CustomSortFunction = (args) => {
 
   return (
     <div style={{ maxWidth: '1200px', height: '600px' }}>
-      <Table caption={caption} dense cellConfig={cellConfig} rows={rows} />
+      <Table
+        sortingEnabled
+        initialSortingColumnKey="Ilmoitus vanhenee"
+        initialSortingOrder={'asc' as 'asc'}
+        ariaLabelSortButtonNeutral="Not sorted"
+        ariaLabelSortButtonAscending="Sorted in ascending order"
+        ariaLabelSortButtonDescending="Sorted in descending order"
+        cols={cols}
+        rows={rows}
+        indexKey="Paikka-ID"
+        caption={caption}
+        dense
+      />
     </div>
   );
 };
@@ -568,23 +552,19 @@ export const CustomSortFunction = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const CheckboxSelection = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ],
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
   const rows: Array<object> = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -596,9 +576,11 @@ export const CheckboxSelection = (args) => {
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table
-        heading="Employees"
         checkboxSelection
-        cellConfig={cellConfig}
+        heading="Employees"
+        indexKey="id"
+        renderIndexCol={false}
+        cols={cols}
         rows={rows}
         selectAllRowsText="Select all rows"
         clearSelectionsText="Clear selections"
@@ -610,23 +592,19 @@ export const CheckboxSelection = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const CheckboxSelectionDense = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ],
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
   const rows: Array<object> = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -636,13 +614,15 @@ export const CheckboxSelectionDense = (args) => {
   ];
 
   return (
-    <div style={{ maxWidth: '500px' }}>
+    <div style={{ maxWidth: '640px' }}>
       <Table
-        heading="Employees"
-        checkboxSelection
         dense
-        cellConfig={cellConfig}
+        checkboxSelection
+        heading="Employees"
+        cols={cols}
         rows={rows}
+        indexKey="id"
+        renderIndexCol={false}
         selectAllRowsText="Select all rows"
         clearSelectionsText="Clear selections"
       />
@@ -653,23 +633,19 @@ export const CheckboxSelectionDense = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const InitiallySelectedRows = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ],
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
   const rows: Array<object> = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -678,17 +654,17 @@ export const InitiallySelectedRows = (args) => {
     { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
 
-  const initiallySelectedRows = [1002, 1003];
-
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table
         heading="Employees"
-        initiallySelectedRows={initiallySelectedRows}
+        initiallySelectedRows={[1002, 1003]}
         checkboxSelection
         variant="dark"
-        cellConfig={cellConfig}
+        cols={cols}
         rows={rows}
+        indexKey="id"
+        renderIndexCol={false}
         selectAllRowsText="Select all rows"
         clearSelectionsText="Clear selections"
       />
@@ -699,23 +675,21 @@ export const InitiallySelectedRows = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const WithCustomActions = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ],
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+
+  const indexKey = 'id';
 
   const rows: Array<object> = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -733,7 +707,7 @@ export const WithCustomActions = (args) => {
       onClick={() => {
         setTableRows(
           tableRows.filter((row) => {
-            const rowId = row[cellConfig.indexKey];
+            const rowId = row[indexKey];
 
             return (
               selectedRows.some((selectedRow) => {
@@ -779,14 +753,15 @@ export const WithCustomActions = (args) => {
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table
-        aria-label="People"
+        customActionButtons={[deleteSelectedButton, CopySelected]}
         setSelections={setSelectedRows}
         checkboxSelection
-        heading="Employees"
-        variant="dark"
-        cellConfig={cellConfig}
+        cols={cols}
         rows={tableRows}
-        customActionButtons={[deleteSelectedButton, CopySelected]}
+        heading="Employees"
+        indexKey={indexKey}
+        renderIndexCol={false}
+        variant="dark"
         selectAllRowsText="Select all rows"
         clearSelectionsText="Clear selections"
       />
@@ -797,28 +772,20 @@ export const WithCustomActions = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const CheckboxSelectionWithSorting = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        sortIconType: 'other' as 'other',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      sortIconType: 'other' as 'other',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ],
-    sortingEnabled: true,
-    ariaLabelSortButtonNeutral: 'Not sorted',
-    ariaLabelSortButtonAscending: 'Sorted in ascending order',
-    ariaLabelSortButtonDescending: 'Sorted in descending order',
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
   const rows: Array<object> = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -831,12 +798,18 @@ export const CheckboxSelectionWithSorting = (args) => {
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table
+        sortingEnabled
+        ariaLabelSortButtonNeutral="Not sorted"
+        ariaLabelSortButtonAscending="Sorted in ascending order"
+        ariaLabelSortButtonDescending="Sorted in descending order"
         selectAllRowsText="Select all rows"
         clearSelectionsText="Clear selections"
         checkboxSelection
-        heading="Employees"
-        cellConfig={cellConfig}
+        cols={cols}
         rows={rows}
+        indexKey="id"
+        renderIndexCol={false}
+        heading="Employees"
       />
     </div>
   );
@@ -845,23 +818,19 @@ export const CheckboxSelectionWithSorting = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const CustomHeaderBackgroundColorForDarkVariant = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ],
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
   const rows: Array<object> = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -882,7 +851,15 @@ export const CustomHeaderBackgroundColorForDarkVariant = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <Table theme={theme} caption={caption} variant="dark" cellConfig={cellConfig} rows={rows} />
+      <Table
+        theme={theme}
+        caption={caption}
+        variant="dark"
+        indexKey="id"
+        renderIndexCol={false}
+        rows={rows}
+        cols={cols}
+      />
     </div>
   );
 };
@@ -890,23 +867,19 @@ export const CustomHeaderBackgroundColorForDarkVariant = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars
 export const CustomHeaderBackgroundColorForLightVariant = (args) => {
-  const cellConfig = {
-    cols: [
-      { key: 'id', headerName: 'Not rendered' },
-      { key: 'firstName', headerName: 'First name' },
-      { key: 'surname', headerName: 'Surname' },
-      {
-        key: 'age',
-        headerName: 'Age',
-        transform: ({ age }) => {
-          return <div style={{ textAlign: 'right' }}>{age}</div>;
-        },
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
-      { key: 'profession', headerName: 'Profession' },
-    ],
-    indexKey: 'id',
-    renderIndexCol: false,
-  };
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
   const rows: Array<object> = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -927,7 +900,15 @@ export const CustomHeaderBackgroundColorForLightVariant = (args) => {
 
   return (
     <div style={{ maxWidth: '640px' }}>
-      <Table theme={theme} caption={caption} variant="light" cellConfig={cellConfig} rows={rows} />
+      <Table
+        theme={theme}
+        caption={caption}
+        variant="light"
+        indexKey="id"
+        renderIndexCol={false}
+        rows={rows}
+        cols={cols}
+      />
     </div>
   );
 };
