@@ -3,7 +3,11 @@ import React, { useEffect, useMemo, useState } from 'react';
 // import core base styles
 import 'hds-core';
 import styles from './Table.module.scss';
-import { Table } from './Table';
+import { TableContainer } from './components/TableContainer';
+import { HeaderRow } from './components/HeaderRow';
+import { VerticalHeaderColGroup } from './components/VerticalHeaderColGroup';
+import { SortingHeaderCell } from './components/SortingHeaderCell';
+import { TableBody } from './components/TableBody';
 import { Checkbox } from '../checkbox';
 import { useTheme } from '../../hooks/useTheme';
 import { Button } from '../button';
@@ -231,7 +235,7 @@ export const DataTable = ({
           )}
         </div>
       )}
-      <Table
+      <TableContainer
         variant={variant}
         dense={dense}
         zebra={zebra}
@@ -241,9 +245,9 @@ export const DataTable = ({
         {...rest}
       >
         {caption && <caption className={styles.caption}>{caption}</caption>}
-        {verticalHeaders && verticalHeaders.length && <Table.VerticalHeaderColGroup />}
+        {verticalHeaders && verticalHeaders.length && <VerticalHeaderColGroup />}
         <thead>
-          <Table.HeaderRow>
+          <HeaderRow>
             {verticalHeaders && verticalHeaders.length && <td role="presentation" />}
             {checkboxSelection && <td className={styles.checkboxHeader} />}
             {cellConfig.cols.map((column) => {
@@ -252,7 +256,7 @@ export const DataTable = ({
               }
               if (cellConfig.sortingEnabled) {
                 return (
-                  <Table.SortingHeaderCell
+                  <SortingHeaderCell
                     key={column.key}
                     colKey={column.key}
                     title={column.headerName}
@@ -271,9 +275,9 @@ export const DataTable = ({
                 </th>
               );
             })}
-          </Table.HeaderRow>
+          </HeaderRow>
         </thead>
-        <Table.TableBody textAlignContentRight={textAlignContentRight}>
+        <TableBody textAlignContentRight={textAlignContentRight}>
           {processedRows.map((row, index) => (
             <tr key={row[cellConfig.indexKey]}>
               {verticalHeaders && verticalHeaders.length && <th scope="row">{verticalHeaders[index].headerName}</th>}
@@ -313,8 +317,8 @@ export const DataTable = ({
               })}
             </tr>
           ))}
-        </Table.TableBody>
-      </Table>
+        </TableBody>
+      </TableContainer>
     </>
   );
 };
