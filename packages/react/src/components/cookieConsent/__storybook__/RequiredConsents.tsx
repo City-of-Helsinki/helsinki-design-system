@@ -1,0 +1,46 @@
+import React, { useContext } from 'react';
+
+import { getText, getTitle } from './texts';
+import { CookieConsentContext } from '../CookieConsentContext';
+import styles from './styles.module.scss';
+
+type ConsentData = {
+  id: string;
+  text: string;
+  title: string;
+};
+type ConsentList = ConsentData[];
+
+function RequiredConsents(): React.ReactElement {
+  const cookieConsentContext = useContext(CookieConsentContext);
+  const consents = cookieConsentContext.getRequired();
+  const consentEntries = Object.entries(consents);
+  const consentList: ConsentList = consentEntries.map<ConsentData>(([key]) => ({
+    id: `required-cookie-consent-${key}`,
+    title: getTitle(key),
+    text: getText(key),
+  }));
+  return (
+    <>
+      <span className={styles['emulated-h2']} role="heading" aria-level={2}>
+        Välttämättömät evästeet
+      </span>
+      <p>
+        Välttämättömien evästeiden käyttöä ei voi kieltää. Ne mahdollistavat sivuston toiminnan ja vaikuttavat sivuston
+        käyttäjäystävällisyyteen.
+      </p>
+
+      <ul className={styles.list}>
+        {consentList.map((data) => (
+          <li key={data.id} data-testid={data.id}>
+            <span>
+              <strong>{data.title}:</strong> {data.text}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+export default RequiredConsents;
