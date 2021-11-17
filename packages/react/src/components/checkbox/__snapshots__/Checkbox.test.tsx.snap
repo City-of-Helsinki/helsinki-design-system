@@ -12,7 +12,6 @@ exports[`<Checkbox /> spec renders the component 1`] = `
       value=""
     />
     <label
-      aria-hidden="false"
       class="label"
       for="test"
     >
