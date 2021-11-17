@@ -1,0 +1,98 @@
+.content-spacing-and-border {
+  border-top: 8px solid var(--color-bus);
+  margin-top: 40px;
+  box-sizing: border-box;
+}
+
+.content {
+  position: relative;
+  padding: 20px 20px 0 20px;
+  background: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.text-content {
+  padding: 0;
+}
+
+.buttons {
+  padding: 20px 0;
+}
+
+.buttons > * {
+  margin: 0 20px 20px 0;
+}
+
+.language-switcher {
+  position: absolute;
+  z-index: 3;
+  right: -57px;
+  top: 20px;
+  max-width: 200px;
+  box-sizing: border-box;
+}
+
+.list {
+  list-style: none;
+  margin-top: 0;
+  padding-left: 0;
+}
+
+.list li {
+  padding-bottom: 10px;
+}
+
+.list li label {
+  padding-left: 10px;
+}
+
+.plain-text-button {
+  border: none;
+  background: transparent;
+  display: inline-block;
+  text-decoration: underline;
+  color: var(--color-bus);
+  padding: 0;
+  cursor: pointer;
+}
+
+.emulated-h1 {
+  font-size: var(--fontsize-heading-m);
+  font-weight: bold;
+  display: block;
+  padding: 0;
+}
+
+.emulated-h2 {
+  font-size: var(--fontsize-heading-s);
+  font-weight: bold;
+  display: block;
+  padding: 1.2em 0 0.5em;
+}
+
+.emulated-h2 + p {
+  margin-top: 0;
+}
+
+.screen-reader-save-notification + p {
+  margin-top: 0;
+}
+
+.content .emulated-h1 {
+  margin-right: 50px;
+}
+
+.no-scroll {
+  overflow: hidden;
+  max-height: 100vh;
+}
+
+@media (min-width: 768px) {
+  .language-switcher {
+    right: 20px;
+  }
+  .buttons > * {
+    margin-bottom: 0;
+  }
+}
