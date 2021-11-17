@@ -614,7 +614,7 @@ export const CheckboxSelectionDense = (args) => {
   ];
 
   return (
-    <div style={{ maxWidth: '640px' }}>
+    <div style={{ maxWidth: '500px' }}>
       <Table
         dense
         checkboxSelection
