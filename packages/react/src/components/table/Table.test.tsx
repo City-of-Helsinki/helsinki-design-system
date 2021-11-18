@@ -9,6 +9,7 @@ describe('<Table /> spec', () => {
   let cols;
   let rows;
   let caption;
+  let heading;
   let indexKey;
   let renderIndexCol;
 
@@ -42,6 +43,8 @@ describe('<Table /> spec', () => {
         <b>Table 1</b>: Table description
       </span>
     );
+
+    heading = 'Employees';
   });
 
   it('renders the component', () => {
@@ -59,7 +62,7 @@ describe('<Table /> spec', () => {
     expect(results).toHaveNoViolations();
   });
 
-  it('Should successfully sort the table', async () => {
+  it('Should successfully sort the table', () => {
     const { container } = render(
       <Table
         sortingEnabled
@@ -78,5 +81,34 @@ describe('<Table /> spec', () => {
     userEvent.click(container.querySelector('[data-testid="table-sorting-header-age"]'));
     const ageOfSortedTableFirstRow = container.querySelector('[data-testid="age-0"] > div');
     expect(ageOfSortedTableFirstRow).toHaveTextContent('8');
+  });
+
+  it('Should successfully select all and deselect all checkboxes', () => {
+    const { container } = render(
+      <Table
+        checkboxSelection
+        ariaLabelCheckboxSelection="Row selection"
+        heading={heading}
+        cols={cols}
+        rows={rows}
+        indexKey={indexKey}
+        renderIndexCol={renderIndexCol}
+      />,
+    );
+
+    rows.forEach((row) => {
+      expect(container.querySelector(`[id="hds-table-checkbox-${row.id}"]`)).not.toBeChecked();
+    });
+    userEvent.click(container.querySelector('[data-testid="hds-table-select-all-button"]'));
+
+    rows.forEach((row) => {
+      expect(container.querySelector(`[id="hds-table-checkbox-${row.id}"]`)).toBeChecked();
+    });
+
+    userEvent.click(container.querySelector('[data-testid="hds-table-deselect-all-button"]'));
+
+    rows.forEach((row) => {
+      expect(container.querySelector(`[id="hds-table-checkbox-${row.id}"]`)).not.toBeChecked();
+    });
   });
 });

@@ -33,6 +33,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   clearSelectionsText?: string;
   cols: Array<Header>;
   customActionButtons?: React.ReactNode[];
+  dataTestId?: string;
   dense?: boolean;
   heading?: string;
   headingAriaLevel?: number;
@@ -106,6 +107,7 @@ export const Table = ({
   clearSelectionsText,
   cols,
   customActionButtons,
+  dataTestId,
   dense = false,
   heading,
   headingAriaLevel = 2,
@@ -221,6 +223,9 @@ export const Table = ({
                     size="small"
                     disabled={selectedRows.length === rows.length}
                     className={styles.actionButton}
+                    data-testid={
+                      dataTestId ? `hds-table-select-all-button-${dataTestId}` : 'hds-table-select-all-button'
+                    }
                   >
                     {selectAllRowsText || 'Valitse kaikki rivit'}
                   </Button>
@@ -232,6 +237,9 @@ export const Table = ({
                     size="small"
                     disabled={selectedRows.length === 0}
                     className={styles.actionButton}
+                    data-testid={
+                      dataTestId ? `hds-table-deselect-all-button-${dataTestId}` : 'hds-table-deselect-all-button'
+                    }
                   >
                     {clearSelectionsText || 'Tyhjennä valinnat'}
                   </Button>
@@ -248,6 +256,7 @@ export const Table = ({
       )}
       <TableContainer
         variant={variant}
+        dataTestId={dataTestId}
         dense={dense}
         zebra={zebra}
         verticalLines={verticalLines}
@@ -296,7 +305,7 @@ export const Table = ({
                 <td className={styles.checkboxData}>
                   <Checkbox
                     checked={selectedRows.includes(row[indexKey])}
-                    id={row[indexKey]}
+                    id={`hds-table-checkbox-${row[indexKey]}`}
                     label=""
                     aria-label={`${ariaLabelCheckboxSelection || 'Row selection'} ${row[firstRenderedColumnKey]}`}
                     onChange={(e) => {
