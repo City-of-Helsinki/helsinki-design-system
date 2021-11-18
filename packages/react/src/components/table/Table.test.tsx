@@ -50,7 +50,6 @@ describe('<Table /> spec', () => {
   });
 
   it('should not have basic accessibility issues', async () => {
-    expect(true).toBe(true);
     const { container } = render(
       <Table caption={caption} cols={cols} rows={rows} indexKey={indexKey} renderIndexCol={renderIndexCol} />,
     );
