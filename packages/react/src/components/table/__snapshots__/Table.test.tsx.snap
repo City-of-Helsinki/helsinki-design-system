@@ -49,75 +49,133 @@ exports[`<Table /> spec renders the component 1`] = `
         class="content"
       >
         <tr>
-          <td>
+          <td
+            data-testid="firstName-0"
+          >
             Lauri
           </td>
-          <td>
+          <td
+            data-testid="surname-0"
+          >
             Kekkonen
           </td>
-          <td>
+          <td
+            data-testid="age-0"
+          >
             <div
               style="text-align: right;"
             >
               39
             </div>
           </td>
-          <td>
+          <td
+            data-testid="profession-0"
+          >
             Engineer
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            data-testid="firstName-1"
+          >
             Maria
           </td>
-          <td>
+          <td
+            data-testid="surname-1"
+          >
             Sarasoja
           </td>
-          <td>
+          <td
+            data-testid="age-1"
+          >
             <div
               style="text-align: right;"
             >
               62
             </div>
           </td>
-          <td>
+          <td
+            data-testid="profession-1"
+          >
             Designer
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            data-testid="firstName-2"
+          >
             Anneli
           </td>
-          <td>
+          <td
+            data-testid="surname-2"
+          >
             Routa
           </td>
-          <td>
+          <td
+            data-testid="age-2"
+          >
             <div
               style="text-align: right;"
             >
               50
             </div>
           </td>
-          <td>
+          <td
+            data-testid="profession-2"
+          >
             Meteorologist
           </td>
         </tr>
         <tr>
-          <td>
+          <td
+            data-testid="firstName-3"
+          >
             Osku
           </td>
-          <td>
+          <td
+            data-testid="surname-3"
+          >
             Rausku
           </td>
-          <td>
+          <td
+            data-testid="age-3"
+          >
             <div
               style="text-align: right;"
             >
               18
             </div>
           </td>
-          <td>
+          <td
+            data-testid="profession-3"
+          >
             Mail Carrier
+          </td>
+        </tr>
+        <tr>
+          <td
+            data-testid="firstName-4"
+          >
+            Linda
+          </td>
+          <td
+            data-testid="surname-4"
+          >
+            Koululainen
+          </td>
+          <td
+            data-testid="age-4"
+          >
+            <div
+              style="text-align: right;"
+            >
+              8
+            </div>
+          </td>
+          <td
+            data-testid="profession-4"
+          >
+            School student
           </td>
         </tr>
       </tbody>
