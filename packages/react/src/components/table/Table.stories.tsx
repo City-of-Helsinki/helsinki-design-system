@@ -584,6 +584,7 @@ export const CheckboxSelection = (args) => {
         rows={rows}
         selectAllRowsText="Select all rows"
         clearSelectionsText="Clear selections"
+        ariaLabelCheckboxSelection="Row selection"
       />
     </div>
   );
@@ -625,6 +626,7 @@ export const CheckboxSelectionDense = (args) => {
         renderIndexCol={false}
         selectAllRowsText="Select all rows"
         clearSelectionsText="Clear selections"
+        ariaLabelCheckboxSelection="Row selection"
       />
     </div>
   );
@@ -667,6 +669,7 @@ export const InitiallySelectedRows = (args) => {
         renderIndexCol={false}
         selectAllRowsText="Select all rows"
         clearSelectionsText="Clear selections"
+        ariaLabelCheckboxSelection="Row selection"
       />
     </div>
   );
@@ -764,6 +767,7 @@ export const WithCustomActions = (args) => {
         variant="dark"
         selectAllRowsText="Select all rows"
         clearSelectionsText="Clear selections"
+        ariaLabelCheckboxSelection="Row selection"
       />
     </div>
   );
@@ -804,6 +808,7 @@ export const CheckboxSelectionWithSorting = (args) => {
         ariaLabelSortButtonDescending="Sorted in descending order"
         selectAllRowsText="Select all rows"
         clearSelectionsText="Clear selections"
+        ariaLabelCheckboxSelection="Row selection"
         checkboxSelection
         cols={cols}
         rows={rows}
