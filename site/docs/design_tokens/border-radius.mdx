@@ -1,0 +1,51 @@
+---
+name: Border Radius
+menu: Design tokens
+route: /design-tokens/border-radius
+---
+
+import LargeParagraph from "../../src/components/LargeParagraph";
+
+
+# Border Radius
+
+<LargeParagraph>The border-radius tokens are used to give elements rounded corners.</LargeParagraph>
+
+The border-radius CSS property rounds the corners of an element's outer edge. The radius applies to the background element, even if the element has no border.
+
+## Principles
+
+When creating components or editing existing ones, keep in mind, that rounded corners, whether small or big, **should not be applied to any part of the Helsinki brand assets**. 
+
+## Usage
+
+### When to use
+
+- **Visual distinction from the surrounding elements.** As humans, we are conditioned to favor rounded corners, while sharp corners invoke a feeling of danger.
+- **When designing for a very young demographic.** As children, we quickly learn that sharp corners hurt and that rounded corners are safer.
+- **Reproducing natural or some cultural connotations.** Rounded corners can be found everywhere in nature and humans have – throughout history – tried to replicate shapes found in nature.
+
+
+### When not to use
+
+Oversaturating your design with rounded corners isn’t a good idea, unless you’re designing for a very young demographic. When to use rounded corners depends on the emotions that you want your users to experience.
+
+## Sizing
+
+**By length**
+Denotes the size of the circle radius, or the semi-major and semi-minor axes of the ellipse, using length values. Negative values are invalid.
+
+**By percentage**
+Denotes the size of the circle radius, or the semi-major and semi-minor axes of the ellipse, using percentage values. Percentages for the horizontal axis refer to the width of the box; percentages for the vertical axis refer to the height of the box. Negative values are invalid.
+
+## Tokens
+The HDS border radius tokens are divided in three for different uses:
+- **Fully round** is used to allow circular objects. 
+- **Rounded** is used for rectangular objects that require slight rounding.
+
+CSS                     | SASS                  | percent value | px value  | rem value |
+----------------------- | --------------------- | ------------- | --------- | --------- |
+--border-radius-sharp   | $radius-sharp         | 0             | 0         | 0         |
+--border-radius-default | $radius-default       | -             | 8px       | 0.5       |
+--border-radius-circle  | $radius-circle        | 50%           | -         | -         |
+
