@@ -16,7 +16,7 @@ export default {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const Default = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -53,7 +53,7 @@ export const Default = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const Dark = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -90,7 +90,7 @@ export const Dark = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const Light = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -127,7 +127,7 @@ export const Light = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const Dense = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -164,7 +164,7 @@ export const Dense = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const Zebra = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -241,7 +241,7 @@ export const Zebra = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const VerticalLines = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -278,7 +278,7 @@ export const VerticalLines = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const VerticalHeaders = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -326,7 +326,7 @@ export const VerticalHeaders = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const Sorting = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -375,7 +375,7 @@ export const Sorting = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const SortingLightVariant = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -425,7 +425,7 @@ export const SortingLightVariant = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const InitiallySortedBy = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -476,7 +476,7 @@ export const InitiallySortedBy = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const CustomSortFunction = (args) => {
   const cols = [
     { key: 'Paikka-ID', headerName: 'Paikka-ID' },
@@ -550,7 +550,7 @@ export const CustomSortFunction = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const CheckboxSelection = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -591,7 +591,7 @@ export const CheckboxSelection = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const CheckboxSelectionDense = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -633,7 +633,7 @@ export const CheckboxSelectionDense = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const InitiallySelectedRows = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -676,7 +676,7 @@ export const InitiallySelectedRows = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const WithCustomActions = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -774,7 +774,7 @@ export const WithCustomActions = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const CheckboxSelectionWithSorting = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -821,7 +821,7 @@ export const CheckboxSelectionWithSorting = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const CustomHeaderBackgroundColorForDarkVariant = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -870,7 +870,7 @@ export const CustomHeaderBackgroundColorForDarkVariant = (args) => {
 };
 
 // args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const CustomHeaderBackgroundColorForLightVariant = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
