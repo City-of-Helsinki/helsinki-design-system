@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import React from 'react';
 import { axe } from 'jest-axe';
+import userEvent from '@testing-library/user-event';
 
 import { Table } from './Table';
 
@@ -33,6 +34,7 @@ describe('<Table /> spec', () => {
       { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
       { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
       { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+      { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
     ];
 
     caption = (
@@ -55,5 +57,26 @@ describe('<Table /> spec', () => {
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it('Should successfully sort the table', async () => {
+    const { container } = render(
+      <Table
+        sortingEnabled
+        ariaLabelSortButtonNeutral="Not sorted"
+        ariaLabelSortButtonAscending="Sorted in ascending order"
+        ariaLabelSortButtonDescending="Sorted in descending order"
+        caption={caption}
+        cols={cols}
+        rows={rows}
+        indexKey={indexKey}
+        renderIndexCol={renderIndexCol}
+      />,
+    );
+    const ageOfFirstRow = container.querySelector('[data-testid="age-0"] > div');
+    expect(ageOfFirstRow).toHaveTextContent('39');
+    userEvent.click(container.querySelector('[data-testid="table-sorting-header-age"]'));
+    const ageOfSortedTableFirstRow = container.querySelector('[data-testid="age-0"] > div');
+    expect(ageOfSortedTableFirstRow).toHaveTextContent('8');
   });
 });

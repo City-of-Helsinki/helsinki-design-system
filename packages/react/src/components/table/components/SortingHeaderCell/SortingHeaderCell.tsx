@@ -69,6 +69,7 @@ export const SortingHeaderCell = ({
     <th className={styles.sortingHeader} scope="col" {...rest}>
       <div className={styles.sortColumnCell}>
         <button
+          data-testid={`table-sorting-header-${colKey}`}
           className={styles.sortButton}
           type="button"
           onClick={(event) => {
