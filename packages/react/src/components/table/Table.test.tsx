@@ -83,7 +83,29 @@ describe('<Table /> spec', () => {
     expect(ageOfSortedTableFirstRow).toHaveTextContent('8');
   });
 
-  it('Should successfully select all and deselect all checkboxes', () => {
+  it('Should successfully select and deselect a single row', () => {
+    const { container } = render(
+      <Table
+        checkboxSelection
+        ariaLabelCheckboxSelection="Row selection"
+        heading={heading}
+        cols={cols}
+        rows={rows}
+        indexKey={indexKey}
+        renderIndexCol={renderIndexCol}
+      />,
+    );
+
+    expect(container.querySelector('[id="hds-table-checkbox-1000"]')).not.toBeChecked();
+
+    userEvent.click(container.querySelector('[id="hds-table-checkbox-1000"]'));
+    expect(container.querySelector('[id="hds-table-checkbox-1000"]')).toBeChecked();
+
+    userEvent.click(container.querySelector('[id="hds-table-checkbox-1000"]'));
+    expect(container.querySelector('[id="hds-table-checkbox-1000"]')).not.toBeChecked();
+  });
+
+  it('Should successfully select all and deselect all rows', () => {
     const { container } = render(
       <Table
         checkboxSelection
@@ -99,14 +121,13 @@ describe('<Table /> spec', () => {
     rows.forEach((row) => {
       expect(container.querySelector(`[id="hds-table-checkbox-${row.id}"]`)).not.toBeChecked();
     });
-    userEvent.click(container.querySelector('[data-testid="hds-table-select-all-button"]'));
 
+    userEvent.click(container.querySelector('[data-testid="hds-table-select-all-button"]'));
     rows.forEach((row) => {
       expect(container.querySelector(`[id="hds-table-checkbox-${row.id}"]`)).toBeChecked();
     });
 
     userEvent.click(container.querySelector('[data-testid="hds-table-deselect-all-button"]'));
-
     rows.forEach((row) => {
       expect(container.querySelector(`[id="hds-table-checkbox-${row.id}"]`)).not.toBeChecked();
     });
