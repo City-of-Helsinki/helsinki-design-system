@@ -7,6 +7,7 @@ import styles from '../../Table.module.scss';
 
 export type TableContainerProps = React.ComponentPropsWithoutRef<'table'> & {
   children: React.ReactNode;
+  dataTestId?: string;
   variant?: 'dark' | 'light';
   dense?: boolean;
   zebra?: boolean;
@@ -17,6 +18,7 @@ export type TableContainerProps = React.ComponentPropsWithoutRef<'table'> & {
 
 export const TableContainer = ({
   children,
+  dataTestId,
   variant = 'dark',
   dense = false,
   zebra = false,
@@ -38,6 +40,7 @@ export const TableContainer = ({
           customThemeClass,
         )}
         aria-labelledby={headingId}
+        data-testid={dataTestId}
         {...rest}
       >
         {children}
