@@ -23,6 +23,8 @@ export interface TableCustomTheme {
   '--background-color'?: string;
 }
 
+type SelectedRow = string | number;
+
 export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   ariaLabelCheckboxSelection?: string;
   ariaLabelSortButtonAscending?: string;
@@ -39,7 +41,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   headingAriaLevel?: number;
   headingId?: string; // id that is passed to heading. Only applicable when heading prop is used.
   indexKey: string; // column key used as unique identifier for row
-  initiallySelectedRows?: any[]; // Initially selected rows. Apply corresponding indexKey values here
+  initiallySelectedRows?: SelectedRow[]; // Initially selected rows. Apply corresponding indexKey values here
   initialSortingColumnKey?: string; // undefined -> neutral order for all columns
   initialSortingOrder?: 'asc' | 'desc';
   renderIndexCol?: boolean; // whether index colum is rendered in table. Defaults to true.
@@ -147,7 +149,7 @@ export const Table = ({
 
   const [sorting, setSorting] = useState<string>(initialSortingColumnKey);
   const [order, setOrder] = useState<'asc' | 'desc' | undefined>(initialSortingOrder);
-  const [selectedRows, setSelectedRows] = useState<any[]>(initiallySelectedRows || []);
+  const [selectedRows, setSelectedRows] = useState<SelectedRow[]>(initiallySelectedRows || []);
   const customThemeClass = useTheme<TableCustomTheme>(variant === 'dark' ? styles.dark : styles.light, theme);
 
   function selectAllRows() {
