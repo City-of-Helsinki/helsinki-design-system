@@ -81,6 +81,7 @@ export default [
       'components/Card/index': 'src/components/card/index.ts',
       'components/Checkbox/index': 'src/components/checkbox/index.ts',
       'components/Columns/index': 'src/components/columns/index.ts',
+      'components/CookieConsent/index': 'src/components/cookieConsent/index.ts',
       'components/Combobox/index': 'src/components/dropdown/combobox/index.ts',
       'components/Container/index': 'src/components/container/index.ts',
       'components/DateInput/index': 'src/components/dateInput/index.ts',
