@@ -39,3 +39,90 @@
 .container.animate-in .overlay {
   opacity: 0.7;
 }
+
+.buttons {
+  padding: 20px 0;
+}
+
+.buttons > * {
+  margin: 0 20px 20px 0;
+}
+
+@media (min-width: 768px) {
+  .buttons > * {
+    margin-bottom: 0;
+  }
+}
+
+.content {
+  position: relative;
+  padding: 20px 20px 0 20px;
+  background: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.content .emulated-h1 {
+  margin-right: 50px;
+}
+
+.language-switcher {
+  position: absolute;
+  z-index: 3;
+  right: -57px;
+  top: 20px;
+  max-width: 200px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .language-switcher {
+    right: 20px;
+  }
+}
+
+.text-content {
+  padding: 0;
+}
+
+.emulated-h1 {
+  font-size: var(--fontsize-heading-m);
+  font-weight: bold;
+  display: block;
+  padding: 0;
+}
+
+.plain-text-button {
+  border: none;
+  background: transparent;
+  display: inline-block;
+  text-decoration: underline;
+  color: var(--color-bus);
+  padding: 0;
+  cursor: pointer;
+}
+
+.emulated-h2 {
+  font-size: var(--fontsize-heading-s);
+  font-weight: bold;
+  display: block;
+  padding: 1.2em 0 0.5em;
+}
+
+.emulated-h2 + p {
+  margin-top: 0;
+}
+
+.list {
+  list-style: none;
+  margin-top: 0;
+  padding-left: 0;
+}
+
+.list li {
+  padding-bottom: 10px;
+}
+
+.list li label {
+  padding-left: 10px;
+}

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 
-import { getAriaLabel, getText } from './texts';
+import { getAriaLabel, getText } from '../texts';
 import { ViewProps } from '../types';
-import { Checkbox } from '../../checkbox/Checkbox';
+import { Checkbox } from '../../checkbox';
 import { CookieConsentContext } from '../CookieConsentContext';
-import styles from './styles.module.scss';
+import styles from '../CookieConsent.module.scss';
 
 type ConsentData = {
   id: string;

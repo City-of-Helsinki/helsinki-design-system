@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 import { CookieConsentActionListener, ViewProps } from '../types';
-import Buttons from './Buttons';
-import Details from './Details';
-import Main from './Main';
-import styles from './styles.module.scss';
+import Buttons from '../buttons/Buttons';
+import Details from '../details/Details';
+import Main from '../main/Main';
+import styles from '../CookieConsent.module.scss';
 
 function Content({ onClick }: ViewProps): React.ReactElement {
   const [showMore, setShowMore] = useState<boolean>(false);
