@@ -2,7 +2,7 @@ import React from 'react';
 
 import { CookieConsentActionListener } from '../types';
 import { Button } from '../../button/Button';
-import styles from './styles.module.scss';
+import styles from '../CookieConsent.module.scss';
 
 export type Props = {
   onClick: CookieConsentActionListener;

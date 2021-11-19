@@ -5,7 +5,7 @@ import classNames from '../../utils/classNames';
 import styles from './CookieConsent.module.scss';
 import { ConsentController } from './cookieConsentController';
 import { CookieConsentContext } from './CookieConsentContext';
-import Content from './__storybook__/Content';
+import Content from './content/Content';
 import { CookieConsentActionListener } from './types';
 
 export function CookieConsent(): React.ReactElement | null {

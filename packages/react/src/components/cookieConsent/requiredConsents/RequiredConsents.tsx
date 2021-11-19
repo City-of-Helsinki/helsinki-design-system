@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 
-import { getText, getTitle } from './texts';
+import { getText, getTitle } from '../texts';
 import { CookieConsentContext } from '../CookieConsentContext';
-import styles from './styles.module.scss';
+import styles from '../CookieConsent.module.scss';
 
 type ConsentData = {
   id: string;

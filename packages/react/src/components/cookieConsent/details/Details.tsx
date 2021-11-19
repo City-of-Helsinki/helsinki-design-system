@@ -1,10 +1,10 @@
 import React from 'react';
 
-import styles from './styles.module.scss';
+import styles from '../CookieConsent.module.scss';
 import { ViewProps } from '../types';
-import RequiredConsents from './RequiredConsents';
-import OptionalConsents from './OptionalConsents';
-import { Button } from '../../button/Button';
+import RequiredConsents from '../requiredConsents/RequiredConsents';
+import OptionalConsents from '../optionalConsents/OptionalConsents';
+import { Button } from '../../button';
 
 function Details({ onClick }: ViewProps): React.ReactElement {
   return (
