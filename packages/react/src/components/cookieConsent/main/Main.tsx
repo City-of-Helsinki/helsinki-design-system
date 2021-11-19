@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ViewProps } from '../types';
-import styles from './styles.module.scss';
+import styles from '../CookieConsent.module.scss';
 
 function Main({ onClick }: ViewProps): React.ReactElement {
   return (
