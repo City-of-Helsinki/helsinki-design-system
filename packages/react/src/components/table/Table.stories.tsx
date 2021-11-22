@@ -217,7 +217,7 @@ export const Zebra = (args) => {
       experience: 25,
     },
     {
-      id: 1002,
+      id: 1003,
       firstName: 'Osku',
       surname: 'Rausku',
       age: 18,
