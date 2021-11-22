@@ -29,7 +29,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   ariaLabelCheckboxSelection?: string;
   ariaLabelSortButtonAscending?: string;
   ariaLabelSortButtonDescending?: string;
-  ariaLabelSortButtonNeutral?: string;
+  ariaLabelSortButtonUnset?: string;
   caption?: string | React.ReactNode;
   checkboxSelection?: boolean;
   clearSelectionsText?: string;
@@ -42,7 +42,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   headingId?: string; // id that is passed to heading. Only applicable when heading prop is used.
   indexKey: string; // column key used as unique identifier for row
   initiallySelectedRows?: SelectedRow[]; // Initially selected rows. Apply corresponding indexKey values here
-  initialSortingColumnKey?: string; // undefined -> neutral order for all columns
+  initialSortingColumnKey?: string; // undefined -> unset order for all columns
   initialSortingOrder?: 'asc' | 'desc';
   renderIndexCol?: boolean; // whether index colum is rendered in table. Defaults to true.
   rows: Array<object>;
@@ -103,7 +103,7 @@ export const Table = ({
   ariaLabelCheckboxSelection,
   ariaLabelSortButtonAscending,
   ariaLabelSortButtonDescending,
-  ariaLabelSortButtonNeutral,
+  ariaLabelSortButtonUnset,
   caption,
   checkboxSelection,
   clearSelectionsText,
@@ -204,16 +204,18 @@ export const Table = ({
     return true;
   }).key;
 
+  const hasCustomActionButtons = customActionButtons && customActionButtons.length > 0;
+
   return (
     <>
-      {(checkboxSelection || heading || (customActionButtons && customActionButtons.length > 0)) && (
+      {(checkboxSelection || heading || hasCustomActionButtons) && (
         <div className={styles.actionContainer}>
           {heading && (
             <div id={headingId} role="heading" aria-level={headingAriaLevel} className={styles.heading}>
               {heading}
             </div>
           )}
-          {(checkboxSelection || (customActionButtons && customActionButtons.length > 0)) && (
+          {(checkboxSelection || hasCustomActionButtons) && (
             <div className={styles.actionButtonContainer}>
               {checkboxSelection && (
                 <>
@@ -247,8 +249,7 @@ export const Table = ({
                   </Button>
                 </>
               )}
-              {customActionButtons &&
-                customActionButtons.length > 0 &&
+              {hasCustomActionButtons &&
                 customActionButtons.map((actionButton) => {
                   return actionButton;
                 })}
@@ -282,11 +283,11 @@ export const Table = ({
                     key={column.key}
                     colKey={column.key}
                     title={column.headerName}
-                    ariaLabelSortButtonNeutral={ariaLabelSortButtonNeutral}
+                    ariaLabelSortButtonUnset={ariaLabelSortButtonUnset}
                     ariaLabelSortButtonAscending={ariaLabelSortButtonAscending}
                     ariaLabelSortButtonDescending={ariaLabelSortButtonDescending}
                     setSortingAndOrder={setSortingAndOrder}
-                    order={sorting === column.key ? order : 'neutral'}
+                    order={sorting === column.key ? order : 'unset'}
                     sortIconType={column.sortIconType}
                   />
                 );
@@ -308,7 +309,6 @@ export const Table = ({
                   <Checkbox
                     checked={selectedRows.includes(row[indexKey])}
                     id={`hds-table-checkbox-${row[indexKey]}`}
-                    label=""
                     aria-label={`${ariaLabelCheckboxSelection || 'Rivin valinta'} ${row[firstRenderedColumnKey]}`}
                     onChange={(e) => {
                       if (e.target.checked) {
