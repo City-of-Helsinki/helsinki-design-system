@@ -4,6 +4,7 @@ menu: Components
 route: /components/table
 ---
 
+import { useState } from 'react';
 import { Playground } from "docz";
 import { StatusLabel, Notification, Table, Button, IconTrash } from "hds-react";
 
@@ -140,7 +141,7 @@ The default HDS table variant includes horizontal lines. The header row can be e
   </div>
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
 <table class="hds-table hds-table--dark" aria-label="Service users (dark variant)">
@@ -256,7 +257,7 @@ Vertical headers can be used to create tables that have both a header row and a 
   </div>
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <div class="hds-table-container" style="max-width: 496px;"tabindex="0">
   <table
@@ -348,7 +349,7 @@ Zebra rows (alternating row colours) should be used on tables that have very lon
   </div>
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <div class="hds-table-container" style="max-width: 800px;" tabindex="0">
   <table class="hds-table hds-table--dark hds-table--zebra" aria-label="Service users (zebra variant)">
@@ -424,7 +425,7 @@ Vertical lines can be used on tables that have a lot of columns or a lot of simi
   </div>
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <div class="hds-table-container" style="max-width: 486px;" tabindex="0">
   <table
@@ -1103,7 +1104,7 @@ If your table has a large amount of data, you can use the `dense` property to fo
   </div>
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <div class="hds-table-container" style="max-height: 600px;" tabindex="0">
   <table class="hds-table hds-table--dense hds-table--dark hds-table--zebra" aria-label="Job trials (source: Helsinki Employment Services)">
@@ -1190,60 +1191,342 @@ Currently, only one column can be sorted at a time.
 }}
 </Playground>
 
-#### React code example:
-_Coming soon to hds-react!_
-
-### Selecting rows
-Zebra rows (alternating row colours) should be used on tables that have very long rows. It makes it easier to visually scan the table and follow rows.
-
-<Playground>
-
-</Playground>
-
-##### Core:
+#### Core code example:
 _Not supported in hds-core!_
 
 #### React code example:
 ```tsx
+{() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      sortIconType: 'other',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
-```
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
+  ];
 
-##### Core:
-_Not supported in hds-core!_
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
 
-#### React code example:
-```tsx
-
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table
+        sortingEnabled
+        ariaLabelSortButtonNeutral="Not sorted"
+        ariaLabelSortButtonAscending="Sorted in ascending order"
+        ariaLabelSortButtonDescending="Sorted in descending order"
+        indexKey="id"
+        renderIndexCol={false}
+        cols={cols}
+        rows={rows}
+        caption={caption}
+      />
+    </div>
+  );
+}}
 ```
 
 ### Selecting rows
 HDS Table rows can be set to be selectable. This makes the first column to be a selection column. This also adds two (2) action buttons above the table; one button for selecting all rows and one button to clear selection.
 
 <Playground>
-
+{() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table
+        checkboxSelection
+        heading="Employees"
+        indexKey="id"
+        renderIndexCol={false}
+        cols={cols}
+        rows={rows}
+        selectAllRowsText="Select all rows"
+        clearSelectionsText="Clear selections"
+        ariaLabelCheckboxSelection="Row selection"
+      />
+    </div>
+  );
+}}
 </Playground>
 
-##### Core:
+#### Core code example:
 _Not supported in hds-core!_
 
 #### React code example:
 ```tsx
+{() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table
+        checkboxSelection
+        heading="Employees"
+        indexKey="id"
+        renderIndexCol={false}
+        cols={cols}
+        rows={rows}
+        selectAllRowsText="Select all rows"
+        clearSelectionsText="Clear selections"
+        ariaLabelCheckboxSelection="Row selection"
+      />
+    </div>
+  );
+}}
 ```
 
 ### Custom table actions
 If the action you need is not directly supported by the HDS Table, you can also add custom actions. Like other actions, they are placed above the table as HDS Buttons.
 
 <Playground>
+{() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
+  const indexKey = 'id';
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+
+  const [tableRows, setTableRows] = useState(rows);
+  const [selectedRows, setSelectedRows] = useState([]);
+  const deleteSelectedButton = (
+    <Button
+      key={1}
+      onClick={() => {
+        setTableRows(
+          tableRows.filter((row) => {
+            const rowId = row[indexKey];
+            return (
+              selectedRows.some((selectedRow) => {
+                return selectedRow === rowId;
+              }) === false
+            );
+          }),
+        );
+        setSelectedRows([]);
+      }}
+      style={{
+        flexGrow: 0,
+      }}
+      className="table-custom-action"
+      variant="secondary"
+      size="small"
+      iconLeft={<IconTrash />}
+      disabled={selectedRows.length === 0}
+    >
+      Delete selected
+    </Button>
+  );
+
+  const CopySelected = (
+    <Button
+      key={2}
+      onClick={() => {
+        console.log('Copy clicked!');
+      }}
+      style={{
+        flexGrow: 0,
+      }}
+      className="table-custom-action"
+      variant="secondary"
+      size="small"
+      disabled={selectedRows.length === 0}
+    >
+      Copy selected
+    </Button>
+  );
+
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table
+        customActionButtons={[deleteSelectedButton, CopySelected]}
+        setSelections={setSelectedRows}
+        checkboxSelection
+        cols={cols}
+        rows={tableRows}
+        heading="Employees"
+        indexKey={indexKey}
+        renderIndexCol={false}
+        variant="dark"
+        selectAllRowsText="Select all rows"
+        clearSelectionsText="Clear selections"
+        ariaLabelCheckboxSelection="Row selection"
+      />
+    </div>
+  );
+}}
 </Playground>
 
-##### Core:
+#### Core code example:
 _Not supported in hds-core!_
 
 #### React code example:
 ```tsx
+{() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
 
+  const indexKey = 'id';
+
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+
+  const [tableRows, setTableRows] = useState(rows);
+
+  const [selectedRows, setSelectedRows] = useState([]);
+
+  const deleteSelectedButton = (
+    <Button
+      key={1}
+      onClick={() => {
+        setTableRows(
+          tableRows.filter((row) => {
+            const rowId = row[indexKey];
+            return (
+              selectedRows.some((selectedRow) => {
+                return selectedRow === rowId;
+              }) === false
+            );
+          }),
+        );
+        setSelectedRows([]);
+      }}
+      style={{
+        flexGrow: 0,
+      }}
+      className="table-custom-action"
+      variant="secondary"
+      size="small"
+      iconLeft={<IconTrash />}
+      disabled={selectedRows.length === 0}
+    >
+      Delete selected
+    </Button>
+  );
+
+  const CopySelected = (
+    <Button
+      key={2}
+      onClick={() => {
+        console.log('Copy clicked!');
+      }}
+      style={{
+        flexGrow: 0,
+      }}
+      className="table-custom-action"
+      variant="secondary"
+      size="small"
+      disabled={selectedRows.length === 0}
+    >
+      Copy selected
+    </Button>
+  );
+
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table
+        customActionButtons={[deleteSelectedButton, CopySelected]}
+        setSelections={setSelectedRows}
+        checkboxSelection
+        cols={cols}
+        rows={tableRows}
+        heading="Employees"
+        indexKey={indexKey}
+        renderIndexCol={false}
+        variant="dark"
+        selectAllRowsText="Select all rows"
+        clearSelectionsText="Clear selections"
+        ariaLabelCheckboxSelection="Row selection"
+      />
+    </div>
+  );
+}}
 ```
 
 ## Demos & API
