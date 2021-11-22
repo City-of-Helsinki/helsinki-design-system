@@ -5,7 +5,7 @@ route: /components/table
 ---
 
 import { Playground } from "docz";
-import { StatusLabel, Notification } from "hds-react";
+import { StatusLabel, Notification, Table, Button, IconTrash } from "hds-react";
 
 import 'hds-core/lib/components/table/table.css';
 
@@ -21,11 +21,13 @@ import Link from "../../src/components/Link";
     Tables are used to present tabulated data to the user in a consistent manner. HDS Tables offer multiple variants to allow clear presentation of vastly different data sets.
 </LargeParagraph>
 
-<Notification label="Tables are coming soon to HDS React" className="siteNotification">
-HDS Tables are currently only available for HDS Core and they include base styles. React tables with more complex features such as sorting and row selection are coming soon.
+<Notification label="More table features are coming!" className="siteNotification">
+  HDS Tables are work in progress. The current feature set will serve most projects but later we are also looking into adding more features such as single row actions (edit, delete), expandable rows and supporting more HDS components inside tables.
 </Notification>
 
 ## Principles
+
+### Basic tables (Core and React)
 - Use tables to organise and present data.
 - You should consider other presentation formats when the data is very simple, e.g. when the table would only have less than 4 rows or less than 3 columns.
   - Also note that HDS Tables are not a spreadsheet application. If you expect the user to need complex data operations it may be wise to share the data as a spreadsheet file.
@@ -38,10 +40,18 @@ HDS Tables are currently only available for HDS Core and they include base style
 - Table container is allowed to be scrollable. This is common on smaller screens where it can be impossible to fit the full table on the device screen.
   - On smaller screens, it may be beneficial to consider other presentation formats for table data. For example, a table can be broken into cards.
 
+### Interactable tables (React)
+- HDS Tables support sorting. When a column is set to be sortable, a sorting button appears after its header.
+  - The sorting icon type can be changed depending on the type of data in the column.
+- Only use sorting when it is necessary or otherwise beneficial to the user. 
+- HDS Table's rows can be made selectable. In this case, HDS automatically provides actions for selecting and deselecting all rows.
+- If your table includes actions that can affect multiple rows (e.g. deleting selected rows or exporting an CSV file), these actions must be placed above the table. For more information, see [Selecting rows]() and [Custom actions]() variant examples below.
+
 ## Accessibility
 - No matter how well tables are implemented, they are always very demanding for assistive technology users. Always consider whether the table is necessary to present the information.
 - Make sure your table has a heading that describes the table’s purpose. This heading can either be a heading tag (e.g. H2) or a caption element. If it is a heading tag, reference it with an `aria-labelledby` attribute in the `<table>` tag.
 - Table header is read to assistive technologies on every cell. Keep table header labels short and concise and make sure they describe the data contained in table cells.
+  - This is especially important if the column allows sorting. The sorting label (e.g. "First name, sorted") will be read to assistive technologies on every cell. Only allow sorting if it is really necessary and beneficial to the user.
 - If your table includes empty column header cells, make sure they have a `role=“presentation”` attribute.
 
 ## Usage & variations
@@ -1132,6 +1142,68 @@ If your table has a large amount of data, you can use the `dense` property to fo
 #### React code example:
 _Coming soon to hds-react!_
 
+### Selecting rows
+Zebra rows (alternating row colours) should be used on tables that have very long rows. It makes it easier to visually scan the table and follow rows.
+
+<Playground>
+
+</Playground>
+
+##### Core:
+_Not supported in hds-core!_
+
+#### React code example:
+```tsx
+
+```
+
+### Sorting
+Columns can be configured to be sortable which makes the sorting button appear after the column header. The sorting icon is different depending on the data type of the column (alphabetical or numeric/other).
+
+Currently, only one column can be sorted at a time.
+
+<Playground>
+
+</Playground>
+
+##### Core:
+_Not supported in hds-core!_
+
+#### React code example:
+```tsx
+
+```
+
+### Selecting rows
+HDS Table rows can be set to be selectable. This makes the first column to be a selection column. This also adds two (2) action buttons above the table; one button for selecting all rows and one button to clear selection.
+
+<Playground>
+
+</Playground>
+
+##### Core:
+_Not supported in hds-core!_
+
+#### React code example:
+```tsx
+
+```
+
+### Custom table actions
+If the action you need is not directly supported by the HDS Table, you can also add custom actions. Like other actions, they are placed above the table as HDS Buttons.
+
+<Playground>
+
+</Playground>
+
+##### Core:
+_Not supported in hds-core!_
+
+#### React code example:
+```tsx
+
+```
+
 ## Demos & API
 
 ### Core
@@ -1140,4 +1212,6 @@ _Coming soon to hds-react!_
 
 ### React
 
-_Coming soon to hds-react!_
+[Tables in hds-react](/storybook/react/?path=/story/components-table--default)
+
+[Table API](/storybook/react/?path=/docs/components-table--default)
