@@ -308,7 +308,6 @@ export const Table = ({
                   <Checkbox
                     checked={selectedRows.includes(row[indexKey])}
                     id={`hds-table-checkbox-${row[indexKey]}`}
-                    label=""
                     aria-label={`${ariaLabelCheckboxSelection || 'Rivin valinta'} ${row[firstRenderedColumnKey]}`}
                     onChange={(e) => {
                       if (e.target.checked) {
