@@ -45,7 +45,7 @@ import Link from "../../src/components/Link";
   - The sorting icon type can be changed depending on the type of data in the column.
 - Only use sorting when it is necessary or otherwise beneficial to the user. 
 - HDS Table's rows can be made selectable. In this case, HDS automatically provides actions for selecting and deselecting all rows.
-- If your table includes actions that can affect multiple rows (e.g. deleting selected rows or exporting an CSV file), these actions must be placed above the table. For more information, see [Selecting rows]() and [Custom actions]() variant examples below.
+- If your table includes actions that can affect multiple rows (e.g. deleting selected rows or exporting an CSV file), these actions must be placed above the table. For more information, see [Selecting rows](#selecting-rows) and [Custom actions](#custom-table-actions) variant examples below.
 
 ## Accessibility
 - No matter how well tables are implemented, they are always very demanding for assistive technology users. Always consider whether the table is necessary to present the information.
@@ -1139,6 +1139,60 @@ If your table has a large amount of data, you can use the `dense` property to fo
  </div>
 ```
 
+### Sorting
+Columns can be configured to be sortable which makes the sorting button appear after the column header. The sorting icon is different depending on the data type of the column (alphabetical or numeric/other).
+
+Currently, only one column can be sorted at a time.
+
+<Playground>
+{() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      sortIconType: 'other',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+
+  const rows: Array<object> = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
+  ];
+
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
+
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table
+        sortingEnabled
+        ariaLabelSortButtonNeutral="Not sorted"
+        ariaLabelSortButtonAscending="Sorted in ascending order"
+        ariaLabelSortButtonDescending="Sorted in descending order"
+        indexKey="id"
+        renderIndexCol={false}
+        cols={cols}
+        rows={rows}
+        caption={caption}
+      />
+    </div>
+  );
+}}
+</Playground>
+
 #### React code example:
 _Coming soon to hds-react!_
 
@@ -1156,15 +1210,6 @@ _Not supported in hds-core!_
 ```tsx
 
 ```
-
-### Sorting
-Columns can be configured to be sortable which makes the sorting button appear after the column header. The sorting icon is different depending on the data type of the column (alphabetical or numeric/other).
-
-Currently, only one column can be sorted at a time.
-
-<Playground>
-
-</Playground>
 
 ##### Core:
 _Not supported in hds-core!_
