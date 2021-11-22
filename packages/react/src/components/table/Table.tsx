@@ -206,6 +206,8 @@ export const Table = ({
 
   const hasCustomActionButtons = customActionButtons && customActionButtons.length > 0;
 
+  const visibleColumns = renderIndexCol ? cols : cols.filter((column) => column.key !== indexKey);
+
   return (
     <>
       {(checkboxSelection || heading || hasCustomActionButtons) && (
@@ -273,10 +275,7 @@ export const Table = ({
           <HeaderRow>
             {verticalHeaders && verticalHeaders.length && <td role="presentation" />}
             {checkboxSelection && <td className={styles.checkboxHeader} />}
-            {cols.map((column) => {
-              if (column.key === indexKey && !renderIndexCol) {
-                return null;
-              }
+            {visibleColumns.map((column) => {
               if (sortingEnabled) {
                 return (
                   <SortingHeaderCell
@@ -322,10 +321,7 @@ export const Table = ({
                   />
                 </td>
               )}
-              {cols.map((column, cellIndex) => {
-                if (column.key === indexKey && !renderIndexCol) {
-                  return null;
-                }
+              {visibleColumns.map((column, cellIndex) => {
                 return (
                   <td
                     data-testid={`${column.key}-${index}`}
