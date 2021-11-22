@@ -66,7 +66,7 @@ describe('<Table /> spec', () => {
     const { container } = render(
       <Table
         sortingEnabled
-        ariaLabelSortButtonNeutral="Not sorted"
+        ariaLabelSortButtonUnset="Not sorted"
         ariaLabelSortButtonAscending="Sorted in ascending order"
         ariaLabelSortButtonDescending="Sorted in descending order"
         caption={caption}
