@@ -204,16 +204,18 @@ export const Table = ({
     return true;
   }).key;
 
+  const hasCustomActionButtons = customActionButtons && customActionButtons.length > 0;
+
   return (
     <>
-      {(checkboxSelection || heading || (customActionButtons && customActionButtons.length > 0)) && (
+      {(checkboxSelection || heading || hasCustomActionButtons) && (
         <div className={styles.actionContainer}>
           {heading && (
             <div id={headingId} role="heading" aria-level={headingAriaLevel} className={styles.heading}>
               {heading}
             </div>
           )}
-          {(checkboxSelection || (customActionButtons && customActionButtons.length > 0)) && (
+          {(checkboxSelection || hasCustomActionButtons) && (
             <div className={styles.actionButtonContainer}>
               {checkboxSelection && (
                 <>
@@ -247,8 +249,7 @@ export const Table = ({
                   </Button>
                 </>
               )}
-              {customActionButtons &&
-                customActionButtons.length > 0 &&
+              {hasCustomActionButtons &&
                 customActionButtons.map((actionButton) => {
                   return actionButton;
                 })}
