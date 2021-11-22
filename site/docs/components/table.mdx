@@ -1160,21 +1160,18 @@ Currently, only one column can be sorted at a time.
     },
     { key: 'profession', headerName: 'Profession' },
   ];
-
-  const rows: Array<object> = [
+  const rows = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
     { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
     { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
     { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
     { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
   ];
-
   const caption = (
     <span>
       <b>Table 1</b>: Table description
     </span>
   );
-
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table
