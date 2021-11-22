@@ -12,33 +12,33 @@ import {
 } from '../../../../icons';
 
 export type SortingHeaderCellProps = React.ComponentPropsWithoutRef<'th'> & {
-  ariaLabelSortButtonNeutral: string;
+  ariaLabelSortButtonUnset: string;
   ariaLabelSortButtonAscending: string;
   ariaLabelSortButtonDescending: string;
   colKey: string;
   setSortingAndOrder: Function;
-  order: 'neutral' | 'asc' | 'desc';
+  order: 'unset' | 'asc' | 'desc';
   title: string;
   sortIconType: 'string' | 'other';
 };
 
 type SortingIconProps = {
-  ariaLabelSortButtonNeutral: string;
+  ariaLabelSortButtonUnset: string;
   ariaLabelSortButtonAscending: string;
   ariaLabelSortButtonDescending: string;
-  order: 'neutral' | 'asc' | 'desc';
+  order: 'unset' | 'asc' | 'desc';
   sortIconType: 'string' | 'other';
 };
 
 const renderSortIcon = ({
-  ariaLabelSortButtonNeutral,
+  ariaLabelSortButtonUnset,
   ariaLabelSortButtonAscending,
   ariaLabelSortButtonDescending,
   order,
   sortIconType,
 }: SortingIconProps) => {
-  if (order === 'neutral') {
-    return <IconSort className={styles.sortIcon} aria-label={ariaLabelSortButtonNeutral} />;
+  if (order === 'unset') {
+    return <IconSort className={styles.sortIcon} aria-label={ariaLabelSortButtonUnset} />;
   }
   if (order === 'asc') {
     if (sortIconType === 'string') {
@@ -55,13 +55,13 @@ const renderSortIcon = ({
 };
 
 export const SortingHeaderCell = ({
-  ariaLabelSortButtonNeutral,
+  ariaLabelSortButtonUnset,
   ariaLabelSortButtonAscending,
   ariaLabelSortButtonDescending,
   colKey,
   title,
   setSortingAndOrder,
-  order = 'neutral',
+  order = 'unset',
   sortIconType = 'string',
   ...rest
 }: SortingHeaderCellProps) => {
@@ -80,7 +80,7 @@ export const SortingHeaderCell = ({
         >
           <span>{title}</span>
           {renderSortIcon({
-            ariaLabelSortButtonNeutral,
+            ariaLabelSortButtonUnset,
             ariaLabelSortButtonAscending,
             ariaLabelSortButtonDescending,
             order,

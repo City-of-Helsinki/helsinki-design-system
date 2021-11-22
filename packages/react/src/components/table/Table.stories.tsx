@@ -217,7 +217,7 @@ export const Zebra = (args) => {
       experience: 25,
     },
     {
-      id: 1002,
+      id: 1003,
       firstName: 'Osku',
       surname: 'Rausku',
       age: 18,
@@ -361,7 +361,7 @@ export const Sorting = (args) => {
     <div style={{ maxWidth: '640px' }}>
       <Table
         sortingEnabled
-        ariaLabelSortButtonNeutral="Not sorted"
+        ariaLabelSortButtonUnset="Not sorted"
         ariaLabelSortButtonAscending="Sorted in ascending order"
         ariaLabelSortButtonDescending="Sorted in descending order"
         indexKey="id"
@@ -411,7 +411,7 @@ export const SortingLightVariant = (args) => {
       <Table
         variant="light"
         sortingEnabled
-        ariaLabelSortButtonNeutral="Not sorted"
+        ariaLabelSortButtonUnset="Not sorted"
         ariaLabelSortButtonAscending="Sorted in ascending order"
         ariaLabelSortButtonDescending="Sorted in descending order"
         indexKey="id"
@@ -462,7 +462,7 @@ export const InitiallySortedBy = (args) => {
         initialSortingColumnKey="age"
         initialSortingOrder={'desc' as 'desc'}
         sortingEnabled
-        ariaLabelSortButtonNeutral="Not sorted"
+        ariaLabelSortButtonUnset="Not sorted"
         ariaLabelSortButtonAscending="Sorted in ascending order"
         ariaLabelSortButtonDescending="Sorted in descending order"
         rows={rows}
@@ -536,7 +536,7 @@ export const CustomSortFunction = (args) => {
         sortingEnabled
         initialSortingColumnKey="Ilmoitus vanhenee"
         initialSortingOrder={'asc' as 'asc'}
-        ariaLabelSortButtonNeutral="Not sorted"
+        ariaLabelSortButtonUnset="Not sorted"
         ariaLabelSortButtonAscending="Sorted in ascending order"
         ariaLabelSortButtonDescending="Sorted in descending order"
         cols={cols}
@@ -803,7 +803,7 @@ export const CheckboxSelectionWithSorting = (args) => {
     <div style={{ maxWidth: '640px' }}>
       <Table
         sortingEnabled
-        ariaLabelSortButtonNeutral="Not sorted"
+        ariaLabelSortButtonUnset="Not sorted"
         ariaLabelSortButtonAscending="Sorted in ascending order"
         ariaLabelSortButtonDescending="Sorted in descending order"
         selectAllRowsText="Select all rows"
