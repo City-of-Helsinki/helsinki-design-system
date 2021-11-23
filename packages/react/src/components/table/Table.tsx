@@ -147,6 +147,7 @@ export const Table = ({
     caption = undefined;
   }
 
+  const roleRef = React.useRef();
   const [sorting, setSorting] = useState<string>(initialSortingColumnKey);
   const [order, setOrder] = useState<'asc' | 'desc' | undefined>(initialSortingOrder);
   const [selectedRows, setSelectedRows] = useState<SelectedRow[]>(initiallySelectedRows || []);
@@ -163,6 +164,19 @@ export const Table = ({
     setSelectedRows([]);
   }
 
+  const updateSelected = (newRows) => {
+    const newSelectedRows = selectedRows.filter((selectedRowId) => {
+      const selectedRowExistsInRows = newRows.find((row) => row[indexKey] === selectedRowId);
+      return !!selectedRowExistsInRows;
+    });
+
+    setSelectedRows(newSelectedRows);
+  };
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // @ts-ignore
+  roleRef.current = updateSelected;
+
   useEffect(() => {
     // With this we will update the selections outside the component
     if (setSelections) {
@@ -172,12 +186,9 @@ export const Table = ({
 
   useEffect(() => {
     // This tackles the case where rows have been deleted; deleted row cannot be among selected
-    const newSelectedRows = selectedRows.filter((selectedRowId) => {
-      const selectedRowExistsInRows = rows.find((row) => row[indexKey] === selectedRowId);
-      return !!selectedRowExistsInRows;
-    });
-
-    setSelectedRows(newSelectedRows);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    roleRef.current(rows);
   }, [rows]);
 
   const setSortingAndOrder = (colKey: string): void => {
@@ -205,6 +216,8 @@ export const Table = ({
   }).key;
 
   const hasCustomActionButtons = customActionButtons && customActionButtons.length > 0;
+
+  const visibleColumns = renderIndexCol ? cols : cols.filter((column) => column.key !== indexKey);
 
   return (
     <>
@@ -273,10 +286,7 @@ export const Table = ({
           <HeaderRow>
             {verticalHeaders && verticalHeaders.length && <td role="presentation" />}
             {checkboxSelection && <td className={styles.checkboxHeader} />}
-            {cols.map((column) => {
-              if (column.key === indexKey && !renderIndexCol) {
-                return null;
-              }
+            {visibleColumns.map((column) => {
               if (sortingEnabled) {
                 return (
                   <SortingHeaderCell
@@ -322,10 +332,7 @@ export const Table = ({
                   />
                 </td>
               )}
-              {cols.map((column, cellIndex) => {
-                if (column.key === indexKey && !renderIndexCol) {
-                  return null;
-                }
+              {visibleColumns.map((column, cellIndex) => {
                 return (
                   <td
                     data-testid={`${column.key}-${index}`}
