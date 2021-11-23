@@ -41,13 +41,13 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   headingAriaLevel?: number;
   headingId?: string; // id that is passed to heading. Only applicable when heading prop is used.
   indexKey: string; // column key used as unique identifier for row
-  initiallySelectedRows?: SelectedRow[]; // Initially selected rows. Apply corresponding indexKey values here
   initialSortingColumnKey?: string; // undefined -> unset order for all columns
   initialSortingOrder?: 'asc' | 'desc';
   renderIndexCol?: boolean; // whether index colum is rendered in table. Defaults to true.
   rows: Array<object>;
   selectAllRowsText?: string;
-  setSelections?: Function; // Callback that gets called with all selected row id values
+  selectedRows?: SelectedRow[];
+  setSelectedRows?: Function; // Callback that gets called with all selected row id values
   sortingEnabled?: boolean;
   textAlignContentRight?: boolean; // defaults to false -> text is aligned left
   theme?: TableCustomTheme; // Custom theme styles
@@ -115,13 +115,13 @@ export const Table = ({
   headingAriaLevel = 2,
   headingId = 'hds-table',
   indexKey,
-  initiallySelectedRows,
   initialSortingColumnKey,
   initialSortingOrder,
   renderIndexCol = true,
   rows,
   selectAllRowsText,
-  setSelections,
+  selectedRows,
+  setSelectedRows,
   sortingEnabled = false,
   textAlignContentRight = false,
   theme,
@@ -149,7 +149,6 @@ export const Table = ({
 
   const [sorting, setSorting] = useState<string>(initialSortingColumnKey);
   const [order, setOrder] = useState<'asc' | 'desc' | undefined>(initialSortingOrder);
-  const [selectedRows, setSelectedRows] = useState<SelectedRow[]>(initiallySelectedRows || []);
   const customThemeClass = useTheme<TableCustomTheme>(variant === 'dark' ? styles.dark : styles.light, theme);
 
   const selectAllRows = () => {
@@ -162,34 +161,6 @@ export const Table = ({
   const deSelectAllRows = () => {
     setSelectedRows([]);
   };
-
-  useEffect(() => {
-    // With this we will update the selections outside the component
-    if (setSelections) {
-      setSelections(selectedRows);
-    }
-  }, [setSelections, selectedRows]);
-
-  const updateSelected = (newRows) => {
-    const newSelectedRows = selectedRows.filter((selectedRowId) => {
-      const selectedRowExistsInRows = newRows.find((row) => row[indexKey] === selectedRowId);
-      return !!selectedRowExistsInRows;
-    });
-
-    setSelectedRows(newSelectedRows);
-  };
-
-  const roleRef = React.useRef();
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
-  roleRef.current = updateSelected;
-
-  useEffect(() => {
-    // This tackles the case where rows have been deleted; deleted row cannot be among selected
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    roleRef.current(rows);
-  }, [rows]);
 
   const setSortingAndOrder = (colKey: string): void => {
     if (sorting === colKey) {

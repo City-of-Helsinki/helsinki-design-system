@@ -573,10 +573,14 @@ export const CheckboxSelection = (args) => {
     { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
 
+  const [selectedRows, setSelectedRows] = useState([]);
+
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table
         checkboxSelection
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
         heading="Employees"
         indexKey="id"
         renderIndexCol={false}
@@ -614,11 +618,15 @@ export const CheckboxSelectionDense = (args) => {
     { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
 
+  const [selectedRows, setSelectedRows] = useState([]);
+
   return (
     <div style={{ maxWidth: '500px' }}>
       <Table
         dense
         checkboxSelection
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
         heading="Employees"
         cols={cols}
         rows={rows}
@@ -656,12 +664,15 @@ export const InitiallySelectedRows = (args) => {
     { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
 
+  const [selectedRows, setSelectedRows] = useState([1002, 1003]);
+
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table
         heading="Employees"
-        initiallySelectedRows={[1002, 1003]}
         checkboxSelection
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
         variant="dark"
         cols={cols}
         rows={rows}
@@ -757,7 +768,8 @@ export const WithCustomActions = (args) => {
     <div style={{ maxWidth: '640px' }}>
       <Table
         customActionButtons={[deleteSelectedButton, CopySelected]}
-        setSelections={setSelectedRows}
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
         checkboxSelection
         cols={cols}
         rows={tableRows}
@@ -799,6 +811,8 @@ export const CheckboxSelectionWithSorting = (args) => {
     { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
   ];
 
+  const [selectedRows, setSelectedRows] = useState([]);
+
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table
@@ -810,6 +824,8 @@ export const CheckboxSelectionWithSorting = (args) => {
         clearSelectionsText="Clear selections"
         ariaLabelCheckboxSelection="Row selection"
         checkboxSelection
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
         cols={cols}
         rows={rows}
         indexKey="id"
