@@ -61,7 +61,6 @@ import Link from "../../src/components/Link";
 The default HDS table variant includes horizontal lines. The header row can be either dark or light depending on the brand colour used as a background. Whether you need a black or white text colour can be checked from [HDS Colour documentation page](/design-tokens/colour#brand-colour-combinations).
 
 <Playground>
-<>
 {() => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
@@ -82,49 +81,25 @@ The default HDS table variant includes horizontal lines. The header row can be e
     { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
     { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
-  const caption = (
+  const captionDark = (
     <span>
       <b>Table 1</b>: Service users (dark variant)
     </span>
   );
-  return (
-    <div style={{ maxWidth: '640px' }}>
-      <Table cols={cols} rows={rows} caption={caption} indexKey="id" renderIndexCol={false} />
-    </div>
-  );
-}}
-{() => {
-  const cols = [
-    { key: 'id', headerName: 'Not rendered' },
-    { key: 'firstName', headerName: 'First name' },
-    { key: 'surname', headerName: 'Surname' },
-    {
-      key: 'age',
-      headerName: 'Age',
-      transform: ({ age }) => {
-        return <div style={{ textAlign: 'right' }}>{age}</div>;
-      },
-    },
-    { key: 'profession', headerName: 'Profession' },
-  ];
-  const rows = [
-    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
-  ];
-  const caption = (
+  const captionLight = (
     <span>
-      <b>Table 1</b>: Table description
+      <b>Table 1</b>: Service users (light variant)
     </span>
-  );
+  )
   return (
     <div style={{ maxWidth: '640px' }}>
-      <Table caption={caption} cols={cols} variant="light" indexKey="id" renderIndexCol={false} rows={rows} />
+      <Table cols={cols} rows={rows} caption={captionDark} indexKey="id" renderIndexCol={false} />
+      <div style={{ marginTop: 'var(--spacing-l)' }}>
+        <Table cols={cols} rows={rows} caption={captionLight} variant="light" indexKey="id" renderIndexCol={false} />
+      </div>
     </div>
   );
 }}
-</>
 </Playground>
 
 #### Core code example:
