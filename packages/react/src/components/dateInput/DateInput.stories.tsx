@@ -130,7 +130,6 @@ export const WithDisabledDates = (args) => {
       value={value}
       onChange={setValue}
       isDateDisabledBy={isWeekend}
-      minDate={new Date()}
       helperText={helperText}
       errorText={errorText}
       invalid={!!errorText}
