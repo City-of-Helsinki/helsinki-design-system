@@ -57,7 +57,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   zebra?: boolean;
 };
 
-function processRows(rows, order, sorting, sortingEnabled, cols) {
+const processRows = (rows, order, sorting, sortingEnabled, cols) => {
   if (!sortingEnabled || !order || !sorting) {
     return [...rows];
   }
@@ -97,7 +97,7 @@ function processRows(rows, order, sorting, sortingEnabled, cols) {
 
     return 0;
   });
-}
+};
 
 export const Table = ({
   ariaLabelCheckboxSelection,
@@ -152,16 +152,16 @@ export const Table = ({
   const [selectedRows, setSelectedRows] = useState<SelectedRow[]>(initiallySelectedRows || []);
   const customThemeClass = useTheme<TableCustomTheme>(variant === 'dark' ? styles.dark : styles.light, theme);
 
-  function selectAllRows() {
+  const selectAllRows = () => {
     const allRows = rows.map((row) => {
       return row[indexKey];
     });
     setSelectedRows(allRows);
-  }
+  };
 
-  function deSelectAllRows() {
+  const deSelectAllRows = () => {
     setSelectedRows([]);
-  }
+  };
 
   useEffect(() => {
     // With this we will update the selections outside the component
