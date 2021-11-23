@@ -126,8 +126,8 @@ export const DatePicker = (providedProps: DayPickerProps) => {
   const addToFocusedDate = (days: number) => {
     if (focusedDate !== null) {
       const nextDate = addDays(focusedDate, days);
-      const isNextDayDisabled = isDateDisabledBy && isDateDisabledBy(nextDate);
-      const nextAvailableDay = isNextDayDisabled ? findNextAvailableDate(days, nextDate) : nextDate;
+      const nextAvailableDay =
+        isDateDisabledBy && isDateDisabledBy(nextDate) ? findNextAvailableDate(days, nextDate) : nextDate;
       const isAfterMinDate = isAfter(endOfDay(nextAvailableDay), startOfDay(minDate));
       const isBeforeMaxDate = isBefore(startOfDay(nextAvailableDay), endOfDay(maxDate));
 
