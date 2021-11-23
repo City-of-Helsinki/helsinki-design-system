@@ -48,7 +48,10 @@ export const Day = ({ day }: DayProps) => {
 
   let tabIndex = -1;
 
-  const hasFocusedDate = focusedDate && isAvailable;
+  const hasFocusedDate =
+    focusedDate &&
+    !isBefore(focusedDate, startOfMonth(currentMonth)) &&
+    !isAfter(focusedDate, endOfMonth(currentMonth));
 
   if (
     (!hasFocusedDate && (dayNumber === 1 || dayNumber === currentMonthAvailableDays[0])) ||
