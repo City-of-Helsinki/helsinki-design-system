@@ -13,47 +13,163 @@ import { useTheme } from '../../hooks/useTheme';
 import { Button } from '../button';
 
 type Header = {
+  /**
+   * Key of header. Maps with the corresponding row data keys.
+   */
   key: string;
+  /**
+   * Visible header name that is rendered.
+   */
   headerName: string;
+  /**
+   * Sort icon type to be used in sorting. Use type string if content is string, otherwise use type other.
+   * @default 'string'
+   */
   sortIconType?: 'string' | 'other';
+  /**
+   * Transform function for the corresponding row data. Use this to render custom content inside table cell.
+   */
   transform?: ({ args }: any) => string | JSX.Element; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
 export interface TableCustomTheme {
+  /**
+   * Custom background color for table headers.
+   */
   '--background-color'?: string;
 }
 
 type SelectedRow = string | number;
 
 export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
+  /**
+   * Aria-label for checkbox selection.
+   * @default 'Rivin valinta'
+   */
   ariaLabelCheckboxSelection?: string;
+  /**
+   * Aria-label for sort button in ascending state.
+   * @default 'Järjestetty nousevaan järjestykseen'
+   */
   ariaLabelSortButtonAscending?: string;
+  /**
+   * Aria-label for sort button in descending state.
+   * @default 'Järjestetty laskevaan järjestykseen'
+   */
   ariaLabelSortButtonDescending?: string;
+  /**
+   * Aria-label for sort button in not ordered state.
+   * @default ''
+   */
   ariaLabelSortButtonUnset?: string;
+  /**
+   * Caption of the table.
+   */
   caption?: string | React.ReactNode;
+  /**
+   * Boolean indicating whether the table has checkbox selection column to select rows.
+   * @default false
+   */
   checkboxSelection?: boolean;
+  /**
+   * Text for clear selected rows button.
+   * @default 'Tyhjennä valinnat'
+   */
   clearSelectionsText?: string;
+  /**
+   * Colums of the table header row. Defines header name, optional sort icon type and optional cell row transform function.
+   */
   cols: Array<Header>;
+  /**
+   *  Custom action buttons to place on top of the table.
+   */
   customActionButtons?: React.ReactNode[];
+  /**
+   * Test id attribute that is passed to the html table element.
+   */
   dataTestId?: string;
+  /**
+   * Boolean indicating whether to use the dense variant of the table.
+   * @default false
+   */
   dense?: boolean;
+  /**
+   * Table heading.
+   */
   heading?: string;
+  /**
+   * Table heading aria level.
+   */
   headingAriaLevel?: number;
-  headingId?: string; // id that is passed to heading. Only applicable when heading prop is used.
-  indexKey: string; // column key used as unique identifier for row
-  initialSortingColumnKey?: string; // undefined -> unset order for all columns
+  /**
+   * Table heading id. Used to name table to assistive technologies. Only applicable when heading prop is used.
+   * @default 'hds-table'
+   */
+  headingId?: string;
+  /**
+   * Column key used as unique identifier for row
+   */
+  indexKey: string;
+  /**
+   * Key indicating a column that you wish to be initially sorted. Use undefined to have no column initially sorted.
+   */
+  initialSortingColumnKey?: string;
+  /**
+   * Sorting order applied for initial sorting.
+   */
   initialSortingOrder?: 'asc' | 'desc';
-  renderIndexCol?: boolean; // whether index colum is rendered in table. Defaults to true.
+  /**
+   * Boolean indicating whether index column is rendered in the table.
+   * @default true
+   */
+  renderIndexCol?: boolean;
+  /**
+   * Table rows. Array of objects where keys map with the keys of col.
+   */
   rows: Array<object>;
+  /**
+   * Text for the select all rows button.
+   * @default 'Valitse kaikki rivit'
+   */
   selectAllRowsText?: string;
+  /**
+   * Selected table rows.
+   */
   selectedRows?: SelectedRow[];
-  setSelectedRows?: Function; // Callback that gets called with all selected row id values
+  /**
+   * Callback that updates selected rows.
+   */
+  setSelectedRows?: Function;
+  /**
+   * Boolean indicating whether table sorting feature is enabled.
+   * @default false
+   */
   sortingEnabled?: boolean;
-  textAlignContentRight?: boolean; // defaults to false -> text is aligned left
+  /**
+   * Boolean indicating whether table data cell text content is aligned right. Default is false -> text is aligned left.
+   * @default false
+   */
+  textAlignContentRight?: boolean;
+  /**
+   * Custom theme to change table header background color.
+   */
   theme?: TableCustomTheme; // Custom theme styles
+  /**
+   * Table variant. Use dark for dark brand background colors, and light for light brand background colors.
+   * @default 'dark'
+   */
   variant?: 'dark' | 'light';
+  /**
+   * Vertical headers of the table.
+   */
   verticalHeaders?: Array<Header>;
+  /**
+   * Boolean indicating whether the table has vertical lines on columns
+   */
   verticalLines?: boolean;
+  /**
+   * Boolean indicating whether the table has alternating row colors zebra style.
+   */
   zebra?: boolean;
 };
 
@@ -100,13 +216,13 @@ const processRows = (rows, order, sorting, sortingEnabled, cols) => {
 };
 
 export const Table = ({
-  ariaLabelCheckboxSelection,
-  ariaLabelSortButtonAscending,
-  ariaLabelSortButtonDescending,
-  ariaLabelSortButtonUnset,
+  ariaLabelCheckboxSelection = 'Rivin valinta',
+  ariaLabelSortButtonAscending = 'Järjestetty nousevaan järjestykseen',
+  ariaLabelSortButtonDescending = 'Järjestetty laskevaan järjestykseen',
+  ariaLabelSortButtonUnset = '',
   caption,
-  checkboxSelection,
-  clearSelectionsText,
+  checkboxSelection = false,
+  clearSelectionsText = 'Tyhjennä valinnat',
   cols,
   customActionButtons,
   dataTestId,
@@ -119,7 +235,7 @@ export const Table = ({
   initialSortingOrder,
   renderIndexCol = true,
   rows,
-  selectAllRowsText,
+  selectAllRowsText = 'Valitse kaikki rivit',
   selectedRows,
   setSelectedRows,
   sortingEnabled = false,
@@ -215,7 +331,7 @@ export const Table = ({
                       dataTestId ? `hds-table-select-all-button-${dataTestId}` : 'hds-table-select-all-button'
                     }
                   >
-                    {selectAllRowsText || 'Valitse kaikki rivit'}
+                    {selectAllRowsText}
                   </Button>
                   <Button
                     onClick={() => {
@@ -229,7 +345,7 @@ export const Table = ({
                       dataTestId ? `hds-table-deselect-all-button-${dataTestId}` : 'hds-table-deselect-all-button'
                     }
                   >
-                    {clearSelectionsText || 'Tyhjennä valinnat'}
+                    {clearSelectionsText}
                   </Button>
                 </>
               )}
@@ -290,7 +406,7 @@ export const Table = ({
                   <Checkbox
                     checked={selectedRows.includes(row[indexKey])}
                     id={`hds-table-checkbox-${row[indexKey]}`}
-                    aria-label={`${ariaLabelCheckboxSelection || 'Rivin valinta'} ${row[firstRenderedColumnKey]}`}
+                    aria-label={`${ariaLabelCheckboxSelection} ${row[firstRenderedColumnKey]}`}
                     onChange={(e) => {
                       if (e.target.checked) {
                         setSelectedRows([...selectedRows, row[indexKey]]);
