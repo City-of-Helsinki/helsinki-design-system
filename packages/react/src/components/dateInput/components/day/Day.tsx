@@ -6,8 +6,6 @@ import isBefore from 'date-fns/isBefore';
 import isSameDay from 'date-fns/isSameDay';
 import isToday from 'date-fns/isToday';
 import startOfMonth from 'date-fns/startOfMonth';
-import endOfDay from 'date-fns/endOfDay';
-import startOfDay from 'date-fns/startOfDay';
 
 import { DatePickerContext } from '../../context/DatePickerContext';
 import cn from '../../../../utils/classNames';
@@ -28,25 +26,21 @@ export const Day = ({ day }: DayProps) => {
   const {
     focusedDate,
     currentMonth,
-    currentMonthAvailableDates,
+    currentMonthAvailableDays,
     selectedDate,
     setFocusedDate,
     locale,
     onDayClick,
     handleKeyboardNavigation,
-    minDate,
-    maxDate,
-    isDateDisabledBy,
   } = React.useContext(DatePickerContext);
   const dayRef = React.useRef<HTMLButtonElement>();
   const isPreviousMonth = isBefore(day, startOfMonth(currentMonth));
   const isNextMonth = isAfter(day, endOfMonth(currentMonth));
   const isOutsideCurrentMonth = isPreviousMonth || isNextMonth;
-  const isBeforeMinDate = isBefore(day, startOfDay(minDate));
-  const isAfterMaxDate = isAfter(day, endOfDay(maxDate));
   const isHidden = isOutsideCurrentMonth;
-  const isBlocked = isDateDisabledBy ? isDateDisabledBy(day) : false;
-  const isDisabled = isOutsideCurrentMonth || isBeforeMinDate || isAfterMaxDate || isBlocked;
+  const dayNumber = day.getDate();
+  const isAvailable = currentMonthAvailableDays.includes(dayNumber);
+  const isDisabled = isOutsideCurrentMonth || !isAvailable;
   const isInteractive = onDayClick && !isDisabled;
 
   // Select the HTML element based on interactivity
@@ -54,17 +48,10 @@ export const Day = ({ day }: DayProps) => {
 
   let tabIndex = -1;
 
-  const hasFocusedDate =
-    focusedDate &&
-    !isBefore(focusedDate, startOfMonth(currentMonth)) &&
-    !isAfter(focusedDate, endOfMonth(currentMonth)) &&
-    !isBlocked;
+  const hasFocusedDate = focusedDate && isAvailable;
 
   if (
-    (!hasFocusedDate &&
-      (day.getDate() === 1 ||
-        day.getDate() === minDate.getDate() ||
-        day.getDate() === (currentMonthAvailableDates[0] && currentMonthAvailableDates[0].getDate()))) ||
+    (!hasFocusedDate && (dayNumber === 1 || dayNumber === currentMonthAvailableDays[0])) ||
     (hasFocusedDate && isSameDay(day, focusedDate))
   ) {
     tabIndex = 0;

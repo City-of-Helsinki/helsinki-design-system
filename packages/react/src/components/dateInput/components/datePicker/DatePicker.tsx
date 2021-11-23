@@ -194,11 +194,17 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     return { en: english, fi: finnish, sv: swedish }[lang];
   };
 
-  const currentMonthDates = [...Array(getDaysInMonth(currentMonth)).keys()].map((_, index) =>
+  const currentMonthDates: Date[] = [...Array(getDaysInMonth(currentMonth)).keys()].map((_, index) =>
     addDays(currentMonth, index),
   );
 
-  const currentMonthAvailableDates = isDateDisabledBy ? currentMonthDates.filter(isDateDisabledBy) : currentMonthDates;
+  const currentMonthAvailableDates: Date[] = isDateDisabledBy
+    ? currentMonthDates.filter((date) => !isDateDisabledBy(date))
+    : currentMonthDates;
+
+  const currentMonthAvailableDays: number[] = currentMonthAvailableDates
+    .filter((date) => isAfter(endOfDay(date), startOfDay(minDate)) && isBefore(startOfDay(date), endOfDay(maxDate)))
+    .map((date) => date.getDate());
 
   return (
     <DatePickerContext.Provider
@@ -207,7 +213,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
         minDate,
         maxDate,
         currentMonth,
-        currentMonthAvailableDates,
+        currentMonthAvailableDays,
         focusedDate,
         selectedDate,
         locale: getLocaleByLanguage(language),
