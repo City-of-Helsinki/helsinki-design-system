@@ -198,13 +198,15 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     addDays(currentMonth, index),
   );
 
-  const currentMonthAvailableDates: Date[] = isDateDisabledBy
+  const currentMonthDatesWithoutDisabled: Date[] = isDateDisabledBy
     ? currentMonthDates.filter((date) => !isDateDisabledBy(date))
     : currentMonthDates;
 
-  const currentMonthAvailableDays: number[] = currentMonthAvailableDates
-    .filter((date) => isAfter(endOfDay(date), startOfDay(minDate)) && isBefore(startOfDay(date), endOfDay(maxDate)))
-    .map((date) => date.getDate());
+  const currentMonthAvailableDates: Date[] = currentMonthDatesWithoutDisabled.filter(
+    (date) => isAfter(endOfDay(date), startOfDay(minDate)) && isBefore(startOfDay(date), endOfDay(maxDate)),
+  );
+
+  const currentMonthAvailableDays: number[] = currentMonthAvailableDates.map((date) => date.getDate());
 
   return (
     <DatePickerContext.Provider
