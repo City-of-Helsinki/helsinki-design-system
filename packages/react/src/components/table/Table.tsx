@@ -57,7 +57,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   zebra?: boolean;
 };
 
-function processRows(rows, order, sorting, sortingEnabled, cols) {
+const processRows = (rows, order, sorting, sortingEnabled, cols) => {
   if (!sortingEnabled || !order || !sorting) {
     return [...rows];
   }
@@ -97,7 +97,7 @@ function processRows(rows, order, sorting, sortingEnabled, cols) {
 
     return 0;
   });
-}
+};
 
 export const Table = ({
   ariaLabelCheckboxSelection,
@@ -147,22 +147,28 @@ export const Table = ({
     caption = undefined;
   }
 
-  const roleRef = React.useRef();
   const [sorting, setSorting] = useState<string>(initialSortingColumnKey);
   const [order, setOrder] = useState<'asc' | 'desc' | undefined>(initialSortingOrder);
   const [selectedRows, setSelectedRows] = useState<SelectedRow[]>(initiallySelectedRows || []);
   const customThemeClass = useTheme<TableCustomTheme>(variant === 'dark' ? styles.dark : styles.light, theme);
 
-  function selectAllRows() {
+  const selectAllRows = () => {
     const allRows = rows.map((row) => {
       return row[indexKey];
     });
     setSelectedRows(allRows);
-  }
+  };
 
-  function deSelectAllRows() {
+  const deSelectAllRows = () => {
     setSelectedRows([]);
-  }
+  };
+
+  useEffect(() => {
+    // With this we will update the selections outside the component
+    if (setSelections) {
+      setSelections(selectedRows);
+    }
+  }, [setSelections, selectedRows]);
 
   const updateSelected = (newRows) => {
     const newSelectedRows = selectedRows.filter((selectedRowId) => {
@@ -173,16 +179,10 @@ export const Table = ({
     setSelectedRows(newSelectedRows);
   };
 
+  const roleRef = React.useRef();
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   roleRef.current = updateSelected;
-
-  useEffect(() => {
-    // With this we will update the selections outside the component
-    if (setSelections) {
-      setSelections(selectedRows);
-    }
-  }, [setSelections, selectedRows]);
 
   useEffect(() => {
     // This tackles the case where rows have been deleted; deleted row cannot be among selected
