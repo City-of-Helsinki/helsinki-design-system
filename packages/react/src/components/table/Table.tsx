@@ -147,7 +147,6 @@ export const Table = ({
     caption = undefined;
   }
 
-  const roleRef = React.useRef();
   const [sorting, setSorting] = useState<string>(initialSortingColumnKey);
   const [order, setOrder] = useState<'asc' | 'desc' | undefined>(initialSortingOrder);
   const [selectedRows, setSelectedRows] = useState<SelectedRow[]>(initiallySelectedRows || []);
@@ -164,6 +163,13 @@ export const Table = ({
     setSelectedRows([]);
   }
 
+  useEffect(() => {
+    // With this we will update the selections outside the component
+    if (setSelections) {
+      setSelections(selectedRows);
+    }
+  }, [setSelections, selectedRows]);
+
   const updateSelected = (newRows) => {
     const newSelectedRows = selectedRows.filter((selectedRowId) => {
       const selectedRowExistsInRows = newRows.find((row) => row[indexKey] === selectedRowId);
@@ -173,16 +179,10 @@ export const Table = ({
     setSelectedRows(newSelectedRows);
   };
 
+  const roleRef = React.useRef();
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   roleRef.current = updateSelected;
-
-  useEffect(() => {
-    // With this we will update the selections outside the component
-    if (setSelections) {
-      setSelections(selectedRows);
-    }
-  }, [setSelections, selectedRows]);
 
   useEffect(() => {
     // This tackles the case where rows have been deleted; deleted row cannot be among selected
