@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
 
@@ -84,17 +84,24 @@ describe('<Table /> spec', () => {
   });
 
   it('Should successfully select and deselect a single row', () => {
-    const { container } = render(
-      <Table
-        checkboxSelection
-        ariaLabelCheckboxSelection="Row selection"
-        heading={heading}
-        cols={cols}
-        rows={rows}
-        indexKey={indexKey}
-        renderIndexCol={renderIndexCol}
-      />,
-    );
+    const TableWithSelection = () => {
+      const [selectedRows, setSelectedRows] = useState([]);
+      return (
+        <Table
+          checkboxSelection
+          selectedRows={selectedRows}
+          setSelectedRows={setSelectedRows}
+          ariaLabelCheckboxSelection="Row selection"
+          heading={heading}
+          cols={cols}
+          rows={rows}
+          indexKey={indexKey}
+          renderIndexCol={renderIndexCol}
+        />
+      );
+    };
+
+    const { container } = render(<TableWithSelection />);
 
     expect(container.querySelector('[id="hds-table-checkbox-1000"]')).not.toBeChecked();
 
@@ -106,17 +113,24 @@ describe('<Table /> spec', () => {
   });
 
   it('Should successfully select all and deselect all rows', () => {
-    const { container } = render(
-      <Table
-        checkboxSelection
-        ariaLabelCheckboxSelection="Row selection"
-        heading={heading}
-        cols={cols}
-        rows={rows}
-        indexKey={indexKey}
-        renderIndexCol={renderIndexCol}
-      />,
-    );
+    const TableWithSelection = () => {
+      const [selectedRows, setSelectedRows] = useState([]);
+      return (
+        <Table
+          checkboxSelection
+          selectedRows={selectedRows}
+          setSelectedRows={setSelectedRows}
+          ariaLabelCheckboxSelection="Row selection"
+          heading={heading}
+          cols={cols}
+          rows={rows}
+          indexKey={indexKey}
+          renderIndexCol={renderIndexCol}
+        />
+      );
+    };
+
+    const { container } = render(<TableWithSelection />);
 
     rows.forEach((row) => {
       expect(container.querySelector(`[id="hds-table-checkbox-${row.id}"]`)).not.toBeChecked();
