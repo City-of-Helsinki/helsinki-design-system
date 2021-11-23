@@ -1196,52 +1196,50 @@ _Not supported in hds-core!_
 
 #### React code example:
 ```tsx
-{() => {
-  const cols = [
-    { key: 'id', headerName: 'Not rendered' },
-    { key: 'firstName', headerName: 'First name' },
-    { key: 'surname', headerName: 'Surname' },
-    {
-      key: 'age',
-      headerName: 'Age',
-      sortIconType: 'other',
-      transform: ({ age }) => {
-        return <div style={{ textAlign: 'right' }}>{age}</div>;
-      },
+const cols = [
+  { key: 'id', headerName: 'Not rendered' },
+  { key: 'firstName', headerName: 'First name' },
+  { key: 'surname', headerName: 'Surname' },
+  {
+    key: 'age',
+    headerName: 'Age',
+    sortIconType: 'other',
+    transform: ({ age }) => {
+      return <div style={{ textAlign: 'right' }}>{age}</div>;
     },
-    { key: 'profession', headerName: 'Profession' },
-  ];
+  },
+  { key: 'profession', headerName: 'Profession' },
+];
 
-  const rows = [
-    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
-    { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
-  ];
+const rows = [
+  { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+  { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+  { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+  { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
+];
 
-  const caption = (
-    <span>
-      <b>Table 1</b>: Table description
-    </span>
-  );
+const caption = (
+  <span>
+    <b>Table 1</b>: Table description
+  </span>
+);
 
-  return (
-    <div style={{ maxWidth: '640px' }}>
-      <Table
-        sortingEnabled
-        ariaLabelSortButtonUnset="Not sorted"
-        ariaLabelSortButtonAscending="Sorted in ascending order"
-        ariaLabelSortButtonDescending="Sorted in descending order"
-        indexKey="id"
-        renderIndexCol={false}
-        cols={cols}
-        rows={rows}
-        caption={caption}
-      />
-    </div>
-  );
-}}
+return (
+  <div style={{ maxWidth: '640px' }}>
+    <Table
+      sortingEnabled
+      ariaLabelSortButtonUnset="Not sorted"
+      ariaLabelSortButtonAscending="Sorted in ascending order"
+      ariaLabelSortButtonDescending="Sorted in descending order"
+      indexKey="id"
+      renderIndexCol={false}
+      cols={cols}
+      rows={rows}
+      caption={caption}
+    />
+  </div>
+);
 ```
 
 ### Selecting rows
@@ -1291,44 +1289,42 @@ _Not supported in hds-core!_
 
 #### React code example:
 ```tsx
-{() => {
-  const cols = [
-    { key: 'id', headerName: 'Not rendered' },
-    { key: 'firstName', headerName: 'First name' },
-    { key: 'surname', headerName: 'Surname' },
-    {
-      key: 'age',
-      headerName: 'Age',
-      transform: ({ age }) => {
-        return <div style={{ textAlign: 'right' }}>{age}</div>;
-      },
+const cols = [
+  { key: 'id', headerName: 'Not rendered' },
+  { key: 'firstName', headerName: 'First name' },
+  { key: 'surname', headerName: 'Surname' },
+  {
+    key: 'age',
+    headerName: 'Age',
+    transform: ({ age }) => {
+      return <div style={{ textAlign: 'right' }}>{age}</div>;
     },
-    { key: 'profession', headerName: 'Profession' },
-  ];
+  },
+  { key: 'profession', headerName: 'Profession' },
+];
 
-  const rows = [
-    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
-  ];
+const rows = [
+  { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+  { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+  { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+  { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+];
 
-  return (
-    <div style={{ maxWidth: '640px' }}>
-      <Table
-        checkboxSelection
-        heading="Employees"
-        indexKey="id"
-        renderIndexCol={false}
-        cols={cols}
-        rows={rows}
-        selectAllRowsText="Select all rows"
-        clearSelectionsText="Clear selections"
-        ariaLabelCheckboxSelection="Row selection"
-      />
-    </div>
-  );
-}}
+return (
+  <div style={{ maxWidth: '640px' }}>
+    <Table
+      checkboxSelection
+      heading="Employees"
+      indexKey="id"
+      renderIndexCol={false}
+      cols={cols}
+      rows={rows}
+      selectAllRowsText="Select all rows"
+      clearSelectionsText="Clear selections"
+      ariaLabelCheckboxSelection="Row selection"
+    />
+  </div>
+);
 ```
 
 ### Custom table actions
@@ -1349,7 +1345,6 @@ If the action you need is not directly supported by the HDS Table, you can also 
     },
     { key: 'profession', headerName: 'Profession' },
   ];
-
   const indexKey = 'id';
   const rows = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -1357,7 +1352,6 @@ If the action you need is not directly supported by the HDS Table, you can also 
     { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
     { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
-
   const [tableRows, setTableRows] = useState(rows);
   const [selectedRows, setSelectedRows] = useState([]);
   const deleteSelectedButton = (
@@ -1388,7 +1382,6 @@ If the action you need is not directly supported by the HDS Table, you can also 
       Delete selected
     </Button>
   );
-
   const CopySelected = (
     <Button
       key={2}
@@ -1406,7 +1399,6 @@ If the action you need is not directly supported by the HDS Table, you can also 
       Copy selected
     </Button>
   );
-
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table
@@ -1433,100 +1425,98 @@ _Not supported in hds-core!_
 
 #### React code example:
 ```tsx
-{() => {
-  const cols = [
-    { key: 'id', headerName: 'Not rendered' },
-    { key: 'firstName', headerName: 'First name' },
-    { key: 'surname', headerName: 'Surname' },
-    {
-      key: 'age',
-      headerName: 'Age',
-      transform: ({ age }) => {
-        return <div style={{ textAlign: 'right' }}>{age}</div>;
-      },
+const cols = [
+  { key: 'id', headerName: 'Not rendered' },
+  { key: 'firstName', headerName: 'First name' },
+  { key: 'surname', headerName: 'Surname' },
+  {
+    key: 'age',
+    headerName: 'Age',
+    transform: ({ age }) => {
+      return <div style={{ textAlign: 'right' }}>{age}</div>;
     },
-    { key: 'profession', headerName: 'Profession' },
-  ];
+  },
+  { key: 'profession', headerName: 'Profession' },
+];
 
-  const indexKey = 'id';
+const indexKey = 'id';
 
-  const rows = [
-    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
-  ];
+const rows = [
+  { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+  { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+  { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+  { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+];
 
-  const [tableRows, setTableRows] = useState(rows);
+const [tableRows, setTableRows] = useState(rows);
 
-  const [selectedRows, setSelectedRows] = useState([]);
+const [selectedRows, setSelectedRows] = useState([]);
 
-  const deleteSelectedButton = (
-    <Button
-      key={1}
-      onClick={() => {
-        setTableRows(
-          tableRows.filter((row) => {
-            const rowId = row[indexKey];
-            return (
-              selectedRows.some((selectedRow) => {
-                return selectedRow === rowId;
-              }) === false
-            );
-          }),
-        );
-        setSelectedRows([]);
-      }}
-      style={{
-        flexGrow: 0,
-      }}
-      className="table-custom-action"
-      variant="secondary"
-      size="small"
-      iconLeft={<IconTrash />}
-      disabled={selectedRows.length === 0}
-    >
-      Delete selected
-    </Button>
-  );
+const deleteSelectedButton = (
+  <Button
+    key={1}
+    onClick={() => {
+      setTableRows(
+        tableRows.filter((row) => {
+          const rowId = row[indexKey];
+          return (
+            selectedRows.some((selectedRow) => {
+              return selectedRow === rowId;
+            }) === false
+          );
+        }),
+      );
+      setSelectedRows([]);
+    }}
+    style={{
+      flexGrow: 0,
+    }}
+    className="table-custom-action"
+    variant="secondary"
+    size="small"
+    iconLeft={<IconTrash />}
+    disabled={selectedRows.length === 0}
+  >
+    Delete selected
+  </Button>
+);
 
-  const CopySelected = (
-    <Button
-      key={2}
-      onClick={() => {
-        console.log('Copy clicked!');
-      }}
-      style={{
-        flexGrow: 0,
-      }}
-      className="table-custom-action"
-      variant="secondary"
-      size="small"
-      disabled={selectedRows.length === 0}
-    >
-      Copy selected
-    </Button>
-  );
+const CopySelected = (
+  <Button
+    key={2}
+    onClick={() => {
+      console.log('Copy clicked!');
+    }}
+    style={{
+      flexGrow: 0,
+    }}
+    className="table-custom-action"
+    variant="secondary"
+    size="small"
+    disabled={selectedRows.length === 0}
+  >
+    Copy selected
+  </Button>
+);
 
-  return (
-    <div style={{ maxWidth: '640px' }}>
-      <Table
-        customActionButtons={[deleteSelectedButton, CopySelected]}
-        setSelections={setSelectedRows}
-        checkboxSelection
-        cols={cols}
-        rows={tableRows}
-        heading="Employees"
-        indexKey={indexKey}
-        renderIndexCol={false}
-        variant="dark"
-        selectAllRowsText="Select all rows"
-        clearSelectionsText="Clear selections"
-        ariaLabelCheckboxSelection="Row selection"
-      />
-    </div>
-  );
-}}
+return (
+  <div style={{ maxWidth: '640px' }}>
+    <Table
+      customActionButtons={[deleteSelectedButton, CopySelected]}
+      setSelections={setSelectedRows}
+      checkboxSelection
+      cols={cols}
+      rows={tableRows}
+      heading="Employees"
+      indexKey={indexKey}
+      renderIndexCol={false}
+      variant="dark"
+      selectAllRowsText="Select all rows"
+      clearSelectionsText="Clear selections"
+      ariaLabelCheckboxSelection="Row selection"
+    />
+  </div>
+);
 ```
 
 ## Demos & API
