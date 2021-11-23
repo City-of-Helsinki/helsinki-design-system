@@ -9,6 +9,8 @@ import { DateInput } from '.';
 import { Button } from '../button';
 import { IconCrossCircle } from '../../icons';
 
+const formatHelperTextEnglish = 'Use format D.M.YYYY';
+
 export default {
   component: DateInput,
   title: 'Components/DateInput',
@@ -19,7 +21,7 @@ export default {
   args: {
     id: 'date',
     label: 'Choose a date',
-    helperText: 'Assistive text',
+    helperText: formatHelperTextEnglish,
     language: 'en',
     disableConfirmation: false,
     disableDatePicker: false,
@@ -53,13 +55,31 @@ export const Localisation = (args) => {
   return (
     <div>
       <div style={bottomMargin}>
-        <DateInput {...args} id={`${args.id}-fi`} language="fi" label="Valitse päivämäärä" />
+        <DateInput
+          {...args}
+          id={`${args.id}-fi`}
+          language="fi"
+          label="Valitse päivämäärä"
+          helperText={formatHelperTextEnglish}
+        />
       </div>
       <div style={bottomMargin}>
-        <DateInput {...args} id={`${args.id}-sv`} language="sv" label="Välj ett datum" />
+        <DateInput
+          {...args}
+          id={`${args.id}-sv`}
+          language="sv"
+          label="Välj ett datum"
+          helperText="Använd ett format D.M.ÅÅÅÅ"
+        />
       </div>
       <div style={bottomMargin}>
-        <DateInput {...args} id={`${args.id}-en`} language="en" label="Choose a date" />
+        <DateInput
+          {...args}
+          id={`${args.id}-en`}
+          language="en"
+          label="Choose a date"
+          helperText="Käytä muotoa P.K.VVVV"
+        />
       </div>
     </div>
   );
@@ -89,7 +109,7 @@ WithExternalClearValueButton.storyName = 'With external clear value button';
 export const WithDisabledDates = (args) => {
   const [value, setValue] = useState<string>('');
   const [errorText, setErrorText] = useState<string | undefined>(undefined);
-  const helperText = 'Only weekdays are available.';
+  const helperText = `Only weekdays are available. ${formatHelperTextEnglish}`;
 
   React.useEffect(() => {
     if (!value) {
@@ -110,6 +130,7 @@ export const WithDisabledDates = (args) => {
       value={value}
       onChange={setValue}
       isDateDisabledBy={isWeekend}
+      minDate={new Date()}
       helperText={helperText}
       errorText={errorText}
       invalid={!!errorText}
@@ -127,7 +148,7 @@ export const WithSelectedDisabledDates = (args) => {
   const disabledDates = [addDays(dateValue, 12), addDays(dateValue, 14)];
   const helperText = `Dates ${disabledDates
     .map((d) => format(d, dateFormat))
-    .join(' and ')} are disabled. Use other dates instead.`;
+    .join(' and ')} are disabled. Use other dates instead. ${formatHelperTextEnglish}`;
   const isDisabledDate = (date) => !!disabledDates.find((disabledDate) => isSameDay(disabledDate, date));
 
   React.useEffect(() => {
