@@ -460,23 +460,32 @@ Vertical lines can be used on tables that have a lot of columns or a lot of simi
 <Playground>
 {() => {
   const cols = [
-    { key: 'id', headerName: 'Not rendered' },
-    { key: 'firstName', headerName: 'First name' },
-    { key: 'surname', headerName: 'Surname' },
-    {
-      key: 'age',
-      headerName: 'Age',
-      transform: ({ age }) => {
-        return <div style={{ textAlign: 'right' }}>{age}</div>;
+    { key: 'day', headerName: 'Day' },
+    { key: 'product1',
+      headerName: 'Product 1',
+      transform: ({ product1 }) => {
+        return <div style={{ textAlign: 'right' }}>{product1}</div>;
       },
     },
-    { key: 'profession', headerName: 'Profession' },
+    { key: 'product2',
+      headerName: 'Product 2',
+      transform: ({ product2 }) => {
+        return <div style={{ textAlign: 'right' }}>{product2}</div>;
+      },
+    },
+    { key: 'product3',
+      headerName: 'Product 3',
+      transform: ({ product3 }) => {
+        return <div style={{ textAlign: 'right' }}>{product3}</div>;
+      },
+    },
   ];
   const rows = [
-    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    { day: 'Monday', product1: 12, product2: 24, product3: 5, },
+    { day: 'Tuesday', product1: 10, product2: 32, product3: 6, },
+    { day: 'Wednesday', product1: 14, product2: 35, product3: 6, },
+    { day: 'Thursday', product1: 11, product2: 18, product3: 2, },
+    { day: 'Friday', product1: 16, product2: 45, product3: 12, },
   ];
   const caption = (
     <span>
@@ -484,8 +493,8 @@ Vertical lines can be used on tables that have a lot of columns or a lot of simi
     </span>
   );
   return (
-    <div style={{ maxWidth: '640px' }}>
-      <Table verticalLines cols={cols} rows={rows} caption={caption} indexKey="id" renderIndexCol={false} />
+    <div style={{ maxWidth: '496px' }}>
+      <Table verticalLines cols={cols} rows={rows} caption={caption} indexKey="day" renderIndexCol={true} />
     </div>
   );
 }}
@@ -493,70 +502,67 @@ Vertical lines can be used on tables that have a lot of columns or a lot of simi
 
 #### Core code example:
 ```html
-<div class="hds-table-container" style="max-width: 486px;" tabindex="0">
-  <table
-    class="hds-table hds-table--dark hds-table--with-vertical-header hds-table--with-vertical-lines"
-    aria-label="Units sold by weekday (vertical lines variant)"
-  >
-    <caption class="hds-table__caption"><b>Table 5</b>: Units sold by weekday (vertical lines variant)</caption>
-    <colgroup>
-      <col span="1" class="hds-table__vertical-header-column"></col>
-    </colgroup>
-    <thead>
-      <tr class="hds-table__header-row">
-        <td role="presentation"></td>
-        <th scope="col">8-12</th>
-        <th scope="col">12-14</th>
-        <th scope="col">14-16</th>
-        <th scope="col">16-18</th>
-      </tr>
-    </thead>
-    <tbody class="hds-table__content hds-table__content--text-align-td-right">
-      <tr>
-        <th scope="row">Monday</th>
-        <td>324</td>
-        <td>562</td>
-        <td>280</td>
-        <td>94</td>
-      </tr>
-      <!-- ... -->
-    </tbody>
-  </table>
-</div>
+  <div class="hds-table-container" style="max-width: 496px;" tabindex="0">
+    <table class="hds-table hds-table--dark hds-table--with-vertical-lines" aria-label="Units sold by weekday">
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
+      <thead>
+        <tr class="hds-table__header-row">
+          <th scope="col">Day</th>
+          <th scope="col">Product 1</th>
+          <th scope="col">Product 2</th>
+          <th scope="col">Product 3</th>
+        </tr>
+      </thead>
+      <tbody class="hds-table__content">
+        <tr>
+          <td>Monday</td>
+          <td class="hds-table--text-align-right">12</td>
+          <td class="hds-table--text-align-right">24</td>
+          <td class="hds-table--text-align-right">5</td>
+        </tr>
+        <!-- ... -->
+      </tbody>
+    </table>
+  </div>
 ```
 
 #### React code example:
 ```tsx
-const cols = [
-  { key: 'id', headerName: 'Not rendered' },
-  { key: 'firstName', headerName: 'First name' },
-  { key: 'surname', headerName: 'Surname' },
-  {
-    key: 'age',
-    headerName: 'Age',
-    transform: ({ age }) => {
-      return <div style={{ textAlign: 'right' }}>{age}</div>;
+  const cols = [
+    { key: 'day', headerName: 'Day' },
+    { key: 'product1',
+      headerName: 'Product 1',
+      transform: ({ product1 }) => {
+        return <div style={{ textAlign: 'right' }}>{product1}</div>;
+      },
     },
-  },
-  { key: 'profession', headerName: 'Profession' },
-];
-
-const rows = [
-  { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-  // ...
-];
-
-const caption = (
-  <span>
-    <b>Table 5</b>: Units sold by weekday (vertical lines variant)
-  </span>
-);
-
-return (
-  <div style={{ maxWidth: '640px' }}>
-    <Table verticalLines cols={cols} rows={rows} caption={caption} indexKey="id" renderIndexCol={false} />
-  </div>
-);
+    { key: 'product2',
+      headerName: 'Product 2',
+      transform: ({ product2 }) => {
+        return <div style={{ textAlign: 'right' }}>{product2}</div>;
+      },
+    },
+    { key: 'product3',
+      headerName: 'Product 3',
+      transform: ({ product3 }) => {
+        return <div style={{ textAlign: 'right' }}>{product3}</div>;
+      },
+    },
+  ];
+  const rows = [
+    { day: 'Monday', product1: 12, product2: 24, product3: 5, },
+    // ...
+  ];
+  const caption = (
+    <span>
+      <b>Table 5</b>: Units sold by weekday (vertical lines variant)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '496px' }}>
+      <Table verticalLines cols={cols} rows={rows} caption={caption} indexKey="day" renderIndexCol={true} />
+    </div>
+  );
 ```
 
 ### Dense tables
