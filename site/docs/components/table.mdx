@@ -1436,10 +1436,13 @@ HDS Table rows can be set to be selectable. This makes the first column to be a 
     { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
     { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
   ];
+  const [selectedRows, setSelectedRows] = useState([]);
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table
         checkboxSelection
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
         heading="Employees"
         indexKey="id"
         renderIndexCol={false}
@@ -1480,10 +1483,14 @@ const rows = [
   { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
 ];
 
+const [selectedRows, setSelectedRows] = useState([]);
+
 return (
   <div style={{ maxWidth: '640px' }}>
     <Table
       checkboxSelection
+      selectedRows={selectedRows}
+      setSelectedRows={setSelectedRows}
       heading="Employees"
       indexKey="id"
       renderIndexCol={false}
@@ -1573,7 +1580,8 @@ If the action you need is not directly supported by the HDS Table, you can also 
     <div style={{ maxWidth: '640px' }}>
       <Table
         customActionButtons={[deleteSelectedButton, CopySelected]}
-        setSelections={setSelectedRows}
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
         checkboxSelection
         cols={cols}
         rows={tableRows}
@@ -1673,7 +1681,8 @@ return (
   <div style={{ maxWidth: '640px' }}>
     <Table
       customActionButtons={[deleteSelectedButton, CopySelected]}
-      setSelections={setSelectedRows}
+      selectedRows={selectedRows}
+      setSelectedRows={setSelectedRows}
       checkboxSelection
       cols={cols}
       rows={tableRows}
