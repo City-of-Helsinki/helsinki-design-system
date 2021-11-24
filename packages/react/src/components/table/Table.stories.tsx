@@ -745,7 +745,7 @@ export const WithCustomActions = (args) => {
     </Button>
   );
 
-  const CopySelected = (
+  const copySelected = (
     <Button
       key={2}
       onClick={() => {
@@ -767,7 +767,7 @@ export const WithCustomActions = (args) => {
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table
-        customActionButtons={[deleteSelectedButton, CopySelected]}
+        customActionButtons={[deleteSelectedButton, copySelected]}
         selectedRows={selectedRows}
         setSelectedRows={setSelectedRows}
         checkboxSelection
