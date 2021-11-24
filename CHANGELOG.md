@@ -6,6 +6,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.0] - Nov, 25, 2021
+
+### React Components
+
+#### Added
+- Table
+- [Date Input] Support disabling dates with custom logic
+- [File Input] Support for tooltip
+
+#### Fixed
+- [Select] Accept null as component value
+- [Date Input] Fix Datepicker dates keyboard navigation when min or max date is set
+- [Linkbox] Pass custom className property to container element for easier styling
+
+### Design kit
+
+#### Added
+
+#### Changed
+
+#### Removed
+
+### Documentation
+
+#### Added
+- Favicon documentation
+
+### Changed
+- Update logo documentation
+
 ## [1.6.0] - Oct, 28, 2021
 
 ### React Components
