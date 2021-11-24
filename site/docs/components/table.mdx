@@ -1247,7 +1247,6 @@ const cols = [
   {
     key: 'Ilmoitus vanhenee',
     headerName: 'Ilmoitus vanhenee',
-    sortIconType: 'other' as 'other',
     customSortCompareFunction: (a, b) => {
       const aDate = parse(a, 'dd.MM.yyyy', new Date());
       const bDate = parse(b, 'dd.MM.yyyy', new Date());
@@ -1269,7 +1268,6 @@ const cols = [
   {
     key: 'Paikkoja',
     headerName: 'Paikkoja',
-    sortIconType: 'other' as 'other',
     transform: ({ Paikkoja }) => {
       return <div style={{ textAlign: 'right' }}>{Paikkoja}</div>;
     },
@@ -1277,14 +1275,13 @@ const cols = [
   {
     key: 'Haastatteluun halutaan',
     headerName: 'Haastatteluun halutaan',
-    sortIconType: 'other' as 'other',
     transform: (row) => {
       return <div style={{ textAlign: 'right' }}>{row['Haastatteluun halutaan']}</div>;
     },
   },
 ];
 
-const rows: Array<object> = workTrial;
+const rows = workTrial;
 
 const caption = (
   <span>
@@ -1295,8 +1292,6 @@ const caption = (
 return (
   <div style={{ maxWidth: '1200px', height: '600px' }}>
     <Table
-      initialSortingColumnKey="Ilmoitus vanhenee"
-      initialSortingOrder={'asc' as 'asc'}
       ariaLabelSortButtonUnset="Not sorted"
       ariaLabelSortButtonAscending="Sorted in ascending order"
       ariaLabelSortButtonDescending="Sorted in descending order"
