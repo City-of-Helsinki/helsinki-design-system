@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 import React, { useState } from 'react';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
@@ -52,6 +52,11 @@ describe('<Table /> spec', () => {
       <Table caption={caption} cols={cols} rows={rows} indexKey={indexKey} renderIndexCol={renderIndexCol} />,
     );
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('Should render index column', () => {
+    render(<Table caption={caption} cols={cols} rows={rows} indexKey={indexKey} renderIndexCol />);
+    expect(screen.getByText('Not rendered')).toBeInTheDocument();
   });
 
   it('should not have basic accessibility issues', async () => {
