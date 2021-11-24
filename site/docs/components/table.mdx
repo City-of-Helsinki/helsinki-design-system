@@ -1559,7 +1559,7 @@ If the action you need is not directly supported by the HDS Table, you can also 
       Delete selected
     </Button>
   );
-  const CopySelected = (
+  const copySelected = (
     <Button
       key={2}
       onClick={() => {
@@ -1579,7 +1579,7 @@ If the action you need is not directly supported by the HDS Table, you can also 
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table
-        customActionButtons={[deleteSelectedButton, CopySelected]}
+        customActionButtons={[deleteSelectedButton, copySelected]}
         selectedRows={selectedRows}
         setSelectedRows={setSelectedRows}
         checkboxSelection
@@ -1659,7 +1659,7 @@ const deleteSelectedButton = (
   </Button>
 );
 
-const CopySelected = (
+const copySelected = (
   <Button
     key={2}
     onClick={() => {
@@ -1680,7 +1680,7 @@ const CopySelected = (
 return (
   <div style={{ maxWidth: '640px' }}>
     <Table
-      customActionButtons={[deleteSelectedButton, CopySelected]}
+      customActionButtons={[deleteSelectedButton, copySelected]}
       selectedRows={selectedRows}
       setSelectedRows={setSelectedRows}
       checkboxSelection
