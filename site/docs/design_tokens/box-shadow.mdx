@@ -13,7 +13,7 @@ import LargeParagraph from "../../src/components/LargeParagraph";
 Shadows under elements can be used to create visual distinction for content that otherwise would be hard to distinguish for the visually impaired or otherwise remain unnoticed.
 
 ## Principles
-- **Shadows are not used to signify elevation in HDS.** Elements that require distinction can have shadows applied.
+- **Shadows are not used to signify elevation in HDS.** Elements that require distinction, can however have shadows applied.
 - **Do not use shadows to highlight elements.** Elements with shadow around them should only have it for visual clarity.
 - **Never use shadows on typography (heading nor body).** Primary typographic contrast should always rely on colour contrast. 
 - **Never use shadows for effect.** For the City of Helsinki brand to remain intact, do not rely on style based effects of any kind.
@@ -22,16 +22,8 @@ Shadows under elements can be used to create visual distinction for content that
 
 Shadows should be used very sparingly if at all and always only to allow greater visual contrast between elements. Do not use shadows as effects or as any other means of visual trickery.
 
-## Tokens
+## Shadow tokens
 
-### Shadow by usecase
-CSS              | SASS              | RGBa                         | Example                              |
----------------- | ----------------- | ---------------------------- | ------------------------------------ |
---shadow-tooltip | $shadow-tooltip   | 0 2px 10px rgba(0,0,0,.07);  | <Shadow="var(--shadow-tooltip)" />   |
---shadow-modal   | $shadow-modal     | 0 2px 10px rgba(0,0,0,.10);  | <Shadow="var(--shadow-modal)" />     |
---shadow-nav     | $shadow-nav       | 0 2px 10px rgba(0,0,0,.07);  | <Shadow="var(--shadow-nav)" />       |
-
-### Shadow by size
 CSS              | SASS              | RGBa                         | Example                              |
 ---------------- | ----------------- | ---------------------------- | ------------------------------------ |
 --shadow-s       | $shadow-s         | 0 0 10px rgba(0,0,0,.07);    | <Shadow="var(--shadow-s)" />         |
