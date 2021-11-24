@@ -1247,20 +1247,6 @@ const cols = [
   {
     key: 'Ilmoitus vanhenee',
     headerName: 'Ilmoitus vanhenee',
-    customSortCompareFunction: (a, b) => {
-      const aDate = parse(a, 'dd.MM.yyyy', new Date());
-      const bDate = parse(b, 'dd.MM.yyyy', new Date());
-
-      if (isSameDay(aDate, bDate)) {
-        return 0;
-      }
-
-      if (isBefore(aDate, bDate)) {
-        return -1;
-      }
-
-      return 1;
-    },
   },
   { key: 'Toimiala/liikelaitos', headerName: 'Toimiala/liikelaitos' },
   { key: 'Työpaikka', headerName: 'Työpaikka' },
