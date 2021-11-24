@@ -49,12 +49,13 @@ Denotes the size of the circle radius, or the semi-major and semi-minor axes of 
 
 ## Tokens
 The HDS border radius tokens are divided in three for different uses:
+
 - **Sharp** is used as default in most elements. 
 - **Slight** is used for rectangular objects that require slight rounding.
 - **Circle** is used to allow circular objects. 
 
-CSS                     | SASS                  | percent value | px value  | rem value |
------------------------ | --------------------- | ------------- | --------- | --------- |
---border-radius-sharp   | $radius-sharp         | 0             | 0         | 0         |
---border-radius-slight | $radius-slight         | -             | 8px       | 0.5       |
---border-radius-circle  | $radius-circle        | 50%           | -         | -         |
+CSS                    | SASS              | Example                                                                                                                                  | 
+---------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+--border-radius-sharp  | $radius-sharp     | <span style="margin: 20px 0; border-radius: 0px; background-color: var(--color-fog); display: block; height: 60px; width: 60px;"></span> |
+--border-radius-slight | $radius-slight    | <span style="margin: 20px 0; border-radius: 8px; background-color: var(--color-fog); display: block; height: 60px; width: 60px;"></span> |
+--border-radius-circle | $radius-circle    | <span style="margin: 20px 0; border-radius: 50%; background-color: var(--color-fog); display: block; height: 60px; width: 60px;"></span> |
