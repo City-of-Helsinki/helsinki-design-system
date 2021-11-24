@@ -14,6 +14,12 @@ import { Button } from '../button';
 
 type Header = {
   /**
+   * Boolean indicating whether sorting for this column is disabled.
+   * With this you can disable sorting of individual column when needed. Only applicable when prop sortingEnabled is provided.
+   * @default false
+   */
+  disableSorting?: boolean;
+  /**
    * Key of header. Maps with the corresponding row data keys.
    */
   key: string;
@@ -374,7 +380,7 @@ export const Table = ({
             {verticalHeaders && verticalHeaders.length && <td role="presentation" />}
             {checkboxSelection && <td className={styles.checkboxHeader} />}
             {visibleColumns.map((column) => {
-              if (sortingEnabled) {
+              if (sortingEnabled && !column.disableSorting) {
                 return (
                   <SortingHeaderCell
                     key={column.key}
