@@ -21,8 +21,8 @@ Always use the appropriate original file.
 
 ## Principles 
 Official City of Helsinki services must always show the City of Helsinki favicon: 
-- sitewide, in the browser website title
-- use the same favicon variant consistently
+- Sitewide, in the browser website title
+- Use the same favicon variant consistently
 
 ## Usage
 
@@ -35,24 +35,30 @@ The Helsinki framed favicon is primarily used in black, white, or with a transpa
 ## Variants
 There are many variants available in HDS. They all serve a very specific purpose.
 
+- **Dark favicon package** White favicon assets used on dark backgrounds.
+- **Light favicon package** Black favicon assets used on light backgrounds.
+- **Dark transparent favicon package** White favicon assets used on transparent or multicoloured backgrounds.
+- **Light transparent favicon package** Black favicon assets used on transparent or multicoloured backgrounds.
+
 ## Installation
 
 1. Use the download link provided to download the HDS Favicon package. 
 2. Unzip the archive to the root directory of your website.
-3. Extract the contents and copy the following link tags and paste them into the `HEAD` of your HTML.
-```html
+3. Extract the contents and copy the following link tags and paste them into the `HEAD` of your HTML as needed.
 
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+**For example:**
 
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-
-<link rel="icon" type="image/ico" sizes="16x16" href="/favicon.ico">
-
-<link rel="manifest" href="/site.webmanifest">
 ```
-… etc.
+<html>
+    <head>
+        <link rel="icon" type="image/png" href="http://example.com/myicon.png">
+    </head>
+</html>
+   
+```
+
+**Note** All favicons and app icons have a specific purpose, but you are by no means required to use all of them.
+
 
 ### Download
 
