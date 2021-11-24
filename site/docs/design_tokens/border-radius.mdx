@@ -7,9 +7,9 @@ route: /design-tokens/border-radius
 import LargeParagraph from "../../src/components/LargeParagraph";
 
 
-# Border Radius
+# Border radius
 
-<LargeParagraph>The border-radius tokens are used to give elements rounded corners.</LargeParagraph>
+<LargeParagraph>The border-radius tokens are used to control element's corners.</LargeParagraph>
 
 The border-radius CSS property rounds the corners of an element's outer edge. The radius applies to the background element, even if the element has no border.
 
@@ -33,26 +33,29 @@ Border redius is only reserved for specific user interface needs. **Rounding sho
 ### When not to use
 
 - **Oversaturating your design with rounded corners isn’t a good idea**, unless you’re designing for a very young demographic. When to use rounded corners depends on the emotions that you want your users to experience.
-- **In buttons or form fields.**
-- **In any brand assets!!!**
-- **When you can not justify a need for the rounded corners.**
+- **In buttons or form fields.** 
+- **In any brand provided assets.** 
+- **When you can not justify a real need for rounded corners.**
 
 ## Sizing
 
 **By length**
+
 Denotes the size of the circle radius, or the semi-major and semi-minor axes of the ellipse, using length values. Negative values are invalid.
 
 **By percentage**
+
 Denotes the size of the circle radius, or the semi-major and semi-minor axes of the ellipse, using percentage values. Percentages for the horizontal axis refer to the width of the box; percentages for the vertical axis refer to the height of the box. Negative values are invalid.
 
 ## Tokens
 The HDS border radius tokens are divided in three for different uses:
-- **Fully round** is used to allow circular objects. 
-- **Rounded** is used for rectangular objects that require slight rounding.
+- **Sharp** is used as default in most elements. 
+- **Slight** is used for rectangular objects that require slight rounding.
+- **Circle** is used to allow circular objects. 
 
 CSS                     | SASS                  | percent value | px value  | rem value |
 ----------------------- | --------------------- | ------------- | --------- | --------- |
 --border-radius-sharp   | $radius-sharp         | 0             | 0         | 0         |
---border-radius-default | $radius-default       | -             | 8px       | 0.5       |
+--border-radius-slight | $radius-slight       | -             | 8px       | 0.5       |
 --border-radius-circle  | $radius-circle        | 50%           | -         | -         |
 
