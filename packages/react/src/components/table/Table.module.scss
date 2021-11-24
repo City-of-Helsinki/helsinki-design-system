@@ -119,7 +119,7 @@
 
 /* MOBILE STYLES */
 
-@media (max-width: 767px) {
+@media small-down {
   .sortButton {
     font-size: var(--fontsize-body-s);
     font-weight: bold;
