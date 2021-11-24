@@ -42,8 +42,7 @@ import Link from "../../src/components/Link";
   - On smaller screens, it may be beneficial to consider other presentation formats for table data. For example, a table can be broken into cards.
 
 ### Interactable tables (React)
-- HDS Tables support sorting. When a table is set to be sortable via the `sortingEnabled` property, all columns of the table will get a sorting icon next to their header.
-  - Sorting can be disabled for each column via the `disableSorting` column attribute. This is useful when the column data is not suitable for sorting.
+- HDS Tables support sorting. When a column is set to be sortable, a sorting button appears aftet its header.
   - The sorting icon type can be changed depending on the type of data in the column.
 - Only use sorting when it is necessary or otherwise beneficial to the user. 
 - HDS Table's rows can be made selectable. In this case, HDS automatically provides actions for selecting and deselecting all rows.
@@ -1274,31 +1273,22 @@ const caption = (
 
 return (
   <div style={{ maxWidth: '1200px', height: '600px' }}>
-    <Table
-      ariaLabelSortButtonUnset="Not sorted"
-      ariaLabelSortButtonAscending="Sorted in ascending order"
-      ariaLabelSortButtonDescending="Sorted in descending order"
-      cols={cols}
-      rows={rows}
-      indexKey="Paikka-ID"
-      caption={caption}
-      dense
-    />
+    <Table cols={cols} rows={rows} indexKey="Paikka-ID" caption={caption} dense />
   </div>
 );
 ```
 
 ### Sorting
-The table can be configured to be sortable which makes the sorting button appear after each column header. The sorting icon is different depending on the data type of the column (alphabetical or numeric/other).
+Columns can be configured to be sortable which makes the sorting button appear after the column header. The sorting icon is different depending on the data type of the column (alphabetical or numeric/other).
 
-Currently, only one column can be sorted at a time. Sorting can be disabled for a column by using the `disableSorting` column attribute.
+Currently, only one column can be sorted at a time.
 
 <Playground>
 {() => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
-    { key: 'firstName', headerName: 'First name' },
-    { key: 'surname', headerName: 'Surname' },
+    { key: 'firstName', headerName: 'First name', isSortable: true },
+    { key: 'surname', headerName: 'Surname', isSortable: true },
     {
       key: 'age',
       headerName: 'Age',
@@ -1306,8 +1296,9 @@ Currently, only one column can be sorted at a time. Sorting can be disabled for 
       transform: ({ age }) => {
         return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
+      isSortable: true,
     },
-    { key: 'profession', headerName: 'Profession' },
+    { key: 'profession', headerName: 'Profession', isSortable: true },
   ];
   const rows = [
     { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
@@ -1324,7 +1315,6 @@ Currently, only one column can be sorted at a time. Sorting can be disabled for 
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table
-        sortingEnabled
         ariaLabelSortButtonUnset="Not sorted"
         ariaLabelSortButtonAscending="Sorted in ascending order"
         ariaLabelSortButtonDescending="Sorted in descending order"
@@ -1346,8 +1336,8 @@ _Not supported in hds-core!_
 ```tsx
 const cols = [
   { key: 'id', headerName: 'Not rendered' },
-  { key: 'firstName', headerName: 'First name' },
-  { key: 'surname', headerName: 'Surname' },
+  { key: 'firstName', headerName: 'First name', isSortable: true },
+  { key: 'surname', headerName: 'Surname', isSortable: true },
   {
     key: 'age',
     headerName: 'Age',
@@ -1355,8 +1345,9 @@ const cols = [
     transform: ({ age }) => {
       return <div style={{ textAlign: 'right' }}>{age}</div>;
     },
+    isSortable: true,
   },
-  { key: 'profession', headerName: 'Profession' },
+  { key: 'profession', headerName: 'Profession', isSortable: true },
 ];
 
 const rows = [
@@ -1376,7 +1367,6 @@ const caption = (
 return (
   <div style={{ maxWidth: '640px' }}>
     <Table
-      sortingEnabled
       ariaLabelSortButtonUnset="Not sorted"
       ariaLabelSortButtonAscending="Sorted in ascending order"
       ariaLabelSortButtonDescending="Sorted in descending order"

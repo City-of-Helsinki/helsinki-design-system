@@ -68,14 +68,28 @@ describe('<Table /> spec', () => {
   });
 
   it('Should successfully sort the table', () => {
+    const colsWithSorting = [
+      { key: 'id', headerName: 'Not rendered' },
+      { key: 'firstName', headerName: 'First name', isSortable: true },
+      { key: 'surname', headerName: 'Surname', isSortable: true },
+      {
+        key: 'age',
+        headerName: 'Age',
+        transform: ({ age }) => {
+          return <div style={{ textAlign: 'right' }}>{age}</div>;
+        },
+        isSortable: true,
+      },
+      { key: 'profession', headerName: 'Profession', isSortable: true },
+    ];
+
     const { container } = render(
       <Table
-        sortingEnabled
         ariaLabelSortButtonUnset="Not sorted"
         ariaLabelSortButtonAscending="Sorted in ascending order"
         ariaLabelSortButtonDescending="Sorted in descending order"
         caption={caption}
-        cols={cols}
+        cols={colsWithSorting}
         rows={rows}
         indexKey={indexKey}
         renderIndexCol={renderIndexCol}

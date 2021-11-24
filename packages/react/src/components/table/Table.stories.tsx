@@ -293,8 +293,8 @@ export const VerticalHeaders = (args) => {
 export const Sorting = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
-    { key: 'firstName', headerName: 'First name' },
-    { key: 'surname', headerName: 'Surname' },
+    { key: 'firstName', headerName: 'First name', isSortable: true },
+    { key: 'surname', headerName: 'Surname', isSortable: true },
     {
       key: 'age',
       headerName: 'Age',
@@ -302,8 +302,9 @@ export const Sorting = (args) => {
       transform: ({ age }) => {
         return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
+      isSortable: true,
     },
-    { key: 'profession', headerName: 'Profession' },
+    { key: 'profession', headerName: 'Profession', isSortable: true },
   ];
 
   const rows: Array<object> = [
@@ -323,7 +324,6 @@ export const Sorting = (args) => {
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table
-        sortingEnabled
         ariaLabelSortButtonUnset="Not sorted"
         ariaLabelSortButtonAscending="Sorted in ascending order"
         ariaLabelSortButtonDescending="Sorted in descending order"
@@ -342,8 +342,8 @@ export const Sorting = (args) => {
 export const SortingLightVariant = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
-    { key: 'firstName', headerName: 'First name' },
-    { key: 'surname', headerName: 'Surname' },
+    { key: 'firstName', headerName: 'First name', isSortable: true },
+    { key: 'surname', headerName: 'Surname', isSortable: true },
     {
       key: 'age',
       headerName: 'Age',
@@ -351,8 +351,9 @@ export const SortingLightVariant = (args) => {
       transform: ({ age }) => {
         return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
+      isSortable: true,
     },
-    { key: 'profession', headerName: 'Profession' },
+    { key: 'profession', headerName: 'Profession', isSortable: true },
   ];
 
   const rows: Array<object> = [
@@ -373,7 +374,6 @@ export const SortingLightVariant = (args) => {
     <div style={{ maxWidth: '640px' }}>
       <Table
         variant="light"
-        sortingEnabled
         ariaLabelSortButtonUnset="Not sorted"
         ariaLabelSortButtonAscending="Sorted in ascending order"
         ariaLabelSortButtonDescending="Sorted in descending order"
@@ -392,17 +392,18 @@ export const SortingLightVariant = (args) => {
 export const InitiallySortedBy = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
-    { key: 'firstName', headerName: 'First name' },
-    { key: 'surname', headerName: 'Surname' },
+    { key: 'firstName', headerName: 'First name', isSortable: true },
+    { key: 'surname', headerName: 'Surname', isSortable: true },
     {
       key: 'age',
       headerName: 'Age',
-      sortIconType: 'other' as 'string' | 'other',
+      sortIconType: 'other' as 'other',
       transform: ({ age }) => {
         return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
+      isSortable: true,
     },
-    { key: 'profession', headerName: 'Profession' },
+    { key: 'profession', headerName: 'Profession', isSortable: true },
   ];
 
   const rows: Array<object> = [
@@ -424,7 +425,6 @@ export const InitiallySortedBy = (args) => {
       <Table
         initialSortingColumnKey="age"
         initialSortingOrder={'desc' as 'desc'}
-        sortingEnabled
         ariaLabelSortButtonUnset="Not sorted"
         ariaLabelSortButtonAscending="Sorted in ascending order"
         ariaLabelSortButtonDescending="Sorted in descending order"
@@ -442,9 +442,9 @@ export const InitiallySortedBy = (args) => {
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const CustomSortFunction = (args) => {
   const cols = [
-    { key: 'Paikka-ID', headerName: 'Paikka-ID' },
-    { key: 'Paikan tyyppi', headerName: 'Paikan tyyppi' },
-    { key: 'Tehtävänimike', headerName: 'Tehtävänimike' },
+    { key: 'Paikka-ID', headerName: 'Paikka-ID', isSortable: true },
+    { key: 'Paikan tyyppi', headerName: 'Paikan tyyppi', isSortable: false },
+    { key: 'Tehtävänimike', headerName: 'Tehtävänimike', isSortable: true },
     {
       key: 'Ilmoitus vanhenee',
       headerName: 'Ilmoitus vanhenee',
@@ -463,10 +463,11 @@ export const CustomSortFunction = (args) => {
 
         return 1;
       },
+      isSortable: true,
     },
-    { key: 'Toimiala/liikelaitos', headerName: 'Toimiala/liikelaitos' },
-    { key: 'Työpaikka', headerName: 'Työpaikka' },
-    { key: 'Postinumero', headerName: 'Postinumero' },
+    { key: 'Toimiala/liikelaitos', headerName: 'Toimiala/liikelaitos', isSortable: true },
+    { key: 'Työpaikka', headerName: 'Työpaikka', isSortable: true },
+    { key: 'Postinumero', headerName: 'Postinumero', isSortable: true },
     {
       key: 'Paikkoja',
       headerName: 'Paikkoja',
@@ -474,6 +475,7 @@ export const CustomSortFunction = (args) => {
       transform: ({ Paikkoja }) => {
         return <div style={{ textAlign: 'right' }}>{Paikkoja}</div>;
       },
+      isSortable: true,
     },
     {
       key: 'Haastatteluun halutaan',
@@ -482,6 +484,7 @@ export const CustomSortFunction = (args) => {
       transform: (row) => {
         return <div style={{ textAlign: 'right' }}>{row['Haastatteluun halutaan']}</div>;
       },
+      isSortable: true,
     },
   ];
 
@@ -496,7 +499,6 @@ export const CustomSortFunction = (args) => {
   return (
     <div style={{ maxWidth: '1200px', height: '600px' }}>
       <Table
-        sortingEnabled
         initialSortingColumnKey="Ilmoitus vanhenee"
         initialSortingOrder={'asc' as 'asc'}
         ariaLabelSortButtonUnset="Not sorted"
@@ -753,8 +755,8 @@ export const WithCustomActions = (args) => {
 export const CheckboxSelectionWithSorting = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
-    { key: 'firstName', headerName: 'First name' },
-    { key: 'surname', headerName: 'Surname' },
+    { key: 'firstName', headerName: 'First name', isSortable: true },
+    { key: 'surname', headerName: 'Surname', isSortable: true },
     {
       key: 'age',
       headerName: 'Age',
@@ -762,8 +764,9 @@ export const CheckboxSelectionWithSorting = (args) => {
       transform: ({ age }) => {
         return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
+      isSortable: true,
     },
-    { key: 'profession', headerName: 'Profession' },
+    { key: 'profession', headerName: 'Profession', isSortable: true },
   ];
 
   const rows: Array<object> = [
@@ -779,7 +782,6 @@ export const CheckboxSelectionWithSorting = (args) => {
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table
-        sortingEnabled
         ariaLabelSortButtonUnset="Not sorted"
         ariaLabelSortButtonAscending="Sorted in ascending order"
         ariaLabelSortButtonDescending="Sorted in descending order"

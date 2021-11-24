@@ -14,11 +14,9 @@ import { Button } from '../button';
 
 type Header = {
   /**
-   * Boolean indicating whether sorting for this column is disabled.
-   * With this you can disable sorting of individual column when needed. Only applicable when prop sortingEnabled is provided.
-   * @default false
+   * Boolean indicating whether column is sortable
    */
-  disableSorting?: boolean;
+  isSortable?: boolean;
   /**
    * Key of header. Maps with the corresponding row data keys.
    */
@@ -147,11 +145,6 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
    */
   setSelectedRows?: Function;
   /**
-   * Boolean indicating whether table sorting feature is enabled.
-   * @default false
-   */
-  sortingEnabled?: boolean;
-  /**
    * Boolean indicating whether table data cell text content is aligned right. Default is false -> text is aligned left.
    * @default false
    */
@@ -179,7 +172,11 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   zebra?: boolean;
 };
 
-const processRows = (rows, order, sorting, sortingEnabled, cols) => {
+const processRows = (rows, order, sorting, cols) => {
+  const sortingEnabled = cols.some((column) => {
+    return column.isSortable === true;
+  });
+
   if (!sortingEnabled || !order || !sorting) {
     return [...rows];
   }
@@ -244,7 +241,6 @@ export const Table = ({
   selectAllRowsText = 'Valitse kaikki rivit',
   selectedRows,
   setSelectedRows,
-  sortingEnabled = false,
   textAlignContentRight = false,
   theme,
   variant = 'dark',
@@ -293,13 +289,7 @@ export const Table = ({
     setSorting(colKey);
   };
 
-  const processedRows = useMemo(() => processRows(rows, order, sorting, sortingEnabled, cols), [
-    rows,
-    sorting,
-    order,
-    sortingEnabled,
-    cols,
-  ]);
+  const processedRows = useMemo(() => processRows(rows, order, sorting, cols), [rows, sorting, order, cols]);
 
   const firstRenderedColumnKey = cols.find((column) => {
     if (!renderIndexCol) {
@@ -380,7 +370,7 @@ export const Table = ({
             {verticalHeaders && verticalHeaders.length && <td role="presentation" />}
             {checkboxSelection && <td className={styles.checkboxHeader} />}
             {visibleColumns.map((column) => {
-              if (sortingEnabled && !column.disableSorting) {
+              if (column.isSortable) {
                 return (
                   <SortingHeaderCell
                     key={column.key}
