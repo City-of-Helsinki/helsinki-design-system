@@ -31,13 +31,18 @@ The Helsinki framed favicon is primarily used in black, white, or with a transpa
 - Check that the colour contrast of the favicon and its background is compliant with <Link href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>AA Level contrast ratios</Link>.
 - For more information, see the <Link href="https://brand.hel.fi/en/colours/" external>Visual Identity Guidelines - Colours</Link>.
 
-### Download
 
-<p id="github">The favicon of City of Helsinki digital services is a minimised version of the Helsinki logo. Different favicons are available as a downloadable ZIP package.</p>
-<p>You can <Link href="https://github.com/City-of-Helsinki/helsinki-design-system/releases/latest/download/hds-favicon-kit.zip" external>download the latest HDS Favicon kit from the HDS GitHub repository</Link>.</p>
+## Variants
+There are many variants available in HDS. They all serve a very specific purpose.
 
 ## Installation
-First, use the download link to download the files listed below. Unzip the archive to the root directory of your website.
+
+### Download
+
+<p id="github">The favicon for City of Helsinki digital services is a minimised version of the Helsinki logo. Various favicons are available as a downloadable ZIP package.</p>
+<p>You can <Link href="https://github.com/City-of-Helsinki/helsinki-design-system/releases/latest/download/hds-favicon-kit.zip" external>download the latest HDS Favicon kit from the HDS GitHub repository</Link>.</p>
+
+1. Use the download link to download the files listed below. Unzip the archive to the root directory of your website.
 
 ```android-chrome-192x192.png```
 
@@ -53,7 +58,7 @@ First, use the download link to download the files listed below. Unzip the archi
 
 ```site.webmanifest```
 
-Next, copy the following link tags and paste them into the `head` of your HTML.
+2. Extract the zip contents and copy the following link tags and paste them into the `HEAD` of your HTML.
 ```html
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -67,95 +72,3 @@ Next, copy the following link tags and paste them into the `head` of your HTML.
 <link rel="manifest" href="/site.webmanifest">
 
 ```
-
-## Variants
-There are many variants available in HDS. They all serve a very specific purpose. 
-
-<p> <span style="font-weight: bold;">There is no need to download the icons one-by-one. You can download the whole favicon package from the</span> <Link href="#github"internal>Link above ↑</Link>.</p>
-
-
-### Light favicons
-
-Favicon variant                                                                                                                               | Filename          | Format                        |
---------------------------------------------------------------------------------------------------------------------------------------------- |-------------------|-------------------------------|
-![Light 16×16px favicon](../../static/favicon/thumb/light_favicon_16x16.png)                                                                  | favicon-16x16.png | .png                          |
-|| favicon-32x32.png|.png         |
-|| favicon.ico| .ico         |
-
-### Light app icons
-
-App icon variant                                                                                                                               | Filename     | Format                        |
---------------------------------------------------------------------------------------------------------------------------------------------- |---------------|-------------------------------|
-![Light Apple touch icon](../../static/favicon/thumb/light_apple_touch_icon.png)| apple-touch-icon.png | .png          |
-|| android-chrome-192x192.png | .png          |
-|| android-chrome-256x256.png | .png          |
-|| mstile-150x150.png | .png          |
-|| safari-pinned-tab.svg | .svg          |
-
-### Dark favicons
-
-Favicon variant                                                                                                                               | Filename     | Format                        |
---------------------------------------------------------------------------------------------------------------------------------------------- |---------------|-------------------------------|
-![Dark 16×16px favicon](../../static/favicon/thumb/dark_favicon_16x16.png)| favicon-16x16.png | .png          |
-|| favicon-32x32.png | .png          |
-|| favicon.ico | .ico          |
-
-### Dark app icons
-
-App icon variant                                                                                                                               | Filename     | Format                        |
---------------------------------------------------------------------------------------------------------------------------------------------- |---------------|-------------------------------|
-![Dark Apple touch icon](../../static/favicon/thumb/dark_apple_touch_icon.png)| apple-touch-icon.png | .png          |
-|| android-chrome-256x256.png | .png          |
-|| mstile-150x150.png | .png          |
-|| safari-pinned-tab.svg | .svg          |
-
-### Transparent light favicons
-
-Favicon variant                                                                                                                               | Filename     | Format                        |
---------------------------------------------------------------------------------------------------------------------------------------------- |---------------|-------------------------------|
-![Transp Light 16×16px favicon](../../static/favicon/thumb/light_transparent_favicon_16x16.png)| favicon-16x16.png | .png          |
-|| favicon-32x32.png | .png          |
-|| favicon.ico | .ico          |
-
-### Transparent light app icons
-
-App icon variant                                                                                                                               | Filename     | Format                        |
---------------------------------------------------------------------------------------------------------------------------------------------- |---------------|-------------------------------|
-![Transp Light Apple touch icon](../../static/favicon/thumb/light_transparent_apple_touch_icon.png)| apple-touch-icon.png | .png          |
-|| android-chrome-192x192.png | .png          |
-|| mstile-150x150.png | .png          |
-|| android-chrome-256x256.png | .png          |
-
-### Transparent dark favicons
-
-Favicon variant                                                                                                                               | Filename     | Format                        |
---------------------------------------------------------------------------------------------------------------------------------------------- |---------------|-------------------------------|
-![Transp Dark 16×16px favicon](../../static/favicon/thumb/dark_transparent_favicon_16x16.png)| favicon-16x16.png | .png          |
-|| favicon-32x32.png | .png          |
-|| favicon.ico | .ico          |
-
-### Transparent dark app icons
-
-App icon variant                                                                                                                               | Filename     | Format                        |
---------------------------------------------------------------------------------------------------------------------------------------------- |---------------|-------------------------------|
-![Transp Dark Apple touch icon](../../static/favicon/thumb/dark_transparent_apple_touch_icon.png)| apple-touch-icon.png | .png          |
-|| android-chrome-192x192.png | .png          |
-|| mstile-150x150.png | .png          |
-|| android-chrome-256x256.png | .png          |
-
-
-## Creating Pinned Tab Icons
-
-Pinned Sites allow your users to keep their favorite websites open, running, and easily accessible. You can set the icon that the user sees when they pin your site by providing a vector image.
-
-### Vector Image
-Use 100% black for all vectors with a transparent background in SVG format and add the following markup to all webpages that the icon should represent (replacing `website_icon` with your own file's name).
-
-```<link rel="mask-icon" href="website_icon.svg" color="red">```
-
-In the example, the `color` attribute sets the display color of the image. That attribute can specify a single color with a hexadecimal value `#990000`, an RGB value `rgb(153, 0, 0)`, or a recognized color-keyword, such as: `red`, `lime`, or `navy`.
-
-**Note:** Adjust your artwork as needed for the best presentation in the color you’ve specified. The pinned tab icon will not accept additional colors. You can improve the visibility of your icon by avoiding a light color, such as white, bright yellow, or light gray.
-
-**Important:** The SVG file must be a single layer and the `viewBox` attribute must be set to `"0 0 16 16"`.
-
