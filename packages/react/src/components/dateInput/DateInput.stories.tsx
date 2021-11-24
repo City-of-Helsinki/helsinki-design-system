@@ -109,7 +109,8 @@ WithExternalClearValueButton.storyName = 'With external clear value button';
 export const WithDisabledDates = (args) => {
   const [value, setValue] = useState<string>('');
   const [errorText, setErrorText] = useState<string | undefined>(undefined);
-  const helperText = `Only weekdays are available. ${formatHelperTextEnglish}`;
+  const dateHelperText = 'Only weekdays are available.';
+  const helperText = `${dateHelperText} ${formatHelperTextEnglish}`;
 
   React.useEffect(() => {
     if (!value) {
@@ -117,7 +118,7 @@ export const WithDisabledDates = (args) => {
     } else {
       const selectedDate = parse(value, 'dd.M.yyyy', new Date());
       if (isWeekend(selectedDate)) {
-        setErrorText(`The date is a weekend day. ${helperText}`);
+        setErrorText(`The date is a weekend day. ${dateHelperText}`);
       } else {
         setErrorText(undefined);
       }
