@@ -42,7 +42,8 @@ import Link from "../../src/components/Link";
   - On smaller screens, it may be beneficial to consider other presentation formats for table data. For example, a table can be broken into cards.
 
 ### Interactable tables (React)
-- HDS Tables support sorting. When a column is set to be sortable, a sorting button appears after its header.
+- HDS Tables support sorting. When a table is set to be sortable via the `sortingEnabled` property, all columns of the table will get a sorting icon next to their header.
+  - Sorting can be disabled for each column via the `disableSorting` column attribute. This is useful when the column data is not suitable for sorting.
   - The sorting icon type can be changed depending on the type of data in the column.
 - Only use sorting when it is necessary or otherwise beneficial to the user. 
 - HDS Table's rows can be made selectable. In this case, HDS automatically provides actions for selecting and deselecting all rows.
@@ -1310,9 +1311,9 @@ return (
 ```
 
 ### Sorting
-Columns can be configured to be sortable which makes the sorting button appear after the column header. The sorting icon is different depending on the data type of the column (alphabetical or numeric/other).
+The table can be configured to be sortable which makes the sorting button appear after each column header. The sorting icon is different depending on the data type of the column (alphabetical or numeric/other).
 
-Currently, only one column can be sorted at a time.
+Currently, only one column can be sorted at a time. Sorting can be disabled for a column by using the `disableSorting` column attribute.
 
 <Playground>
 {() => {
