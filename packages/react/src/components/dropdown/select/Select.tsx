@@ -177,7 +177,7 @@ export type SingleSelectProps<OptionType> = CommonSelectProps<OptionType> & {
   /**
    * Value that should be selected when the dropdown is initialized
    */
-  defaultValue?: OptionType;
+  defaultValue?: OptionType | null;
   /**
    * Icon to be shown in the dropdown
    */
@@ -189,7 +189,7 @@ export type SingleSelectProps<OptionType> = CommonSelectProps<OptionType> & {
   /**
    * The selected value
    */
-  value?: OptionType;
+  value?: OptionType | null;
 };
 
 export type MultiSelectProps<OptionType> = CommonSelectProps<OptionType> & {
@@ -204,7 +204,7 @@ export type MultiSelectProps<OptionType> = CommonSelectProps<OptionType> & {
   /**
    * Value(s) that should be selected when the dropdown is initialized
    */
-  defaultValue?: OptionType[];
+  defaultValue?: OptionType[] | null;
   /**
    * Function used to generate an ARIA a11y message when an item is removed. See [here](https://github.com/downshift-js/downshift/tree/master/src/hooks/useMultipleSelection#geta11yremovalmessage) for more information.
    */
@@ -228,7 +228,7 @@ export type MultiSelectProps<OptionType> = CommonSelectProps<OptionType> & {
   /**
    * The selected value(s)
    */
-  value?: OptionType[];
+  value?: OptionType[] | null;
 };
 
 export type SelectProps<OptionType> = SingleSelectProps<OptionType> | MultiSelectProps<OptionType>;
