@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 - [Logo] Added logo language versions and size variants (40px and 60px) for Swedish and Russian
+- [Tables] Symbols for table column sorting
 - [Tables] Symbols for row selection (checkbox) cells
 - [Tables] Symbols for empty header cells
 - [Tables] Symbols for row selection column (default and zebra)
