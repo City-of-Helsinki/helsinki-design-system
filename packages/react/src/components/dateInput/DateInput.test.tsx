@@ -6,6 +6,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
 import { axe } from 'jest-axe';
+import isWeekend from 'date-fns/isWeekend';
 
 import { DateInput } from './DateInput';
 
@@ -348,5 +349,38 @@ describe('<DateInput /> spec', () => {
     const currentDateButton = container.querySelector('button[data-date="2021-01-17"]');
 
     expect(currentDateButton).toHaveFocus();
+  });
+
+  it('should skip weekend dates with keyboard navigation when weekend dates are disabled', async () => {
+    const { container } = render(
+      <DateInput
+        id="date"
+        initialMonth={new Date()}
+        label="Choose a date"
+        language="en"
+        isDateDisabledBy={isWeekend}
+      />,
+    );
+
+    // Click the calendar button
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Choose date'));
+    });
+
+    // Move focus into first calendar date button
+    await act(async () => {
+      userEvent.tab();
+      userEvent.tab();
+      userEvent.tab();
+      userEvent.tab();
+    });
+
+    const fridayButton = container.querySelector('button[data-date="2021-01-01"]');
+    expect(fridayButton).toHaveFocus();
+    await act(async () => {
+      userEvent.type(fridayButton, '{arrowright}');
+    });
+    const nextMondayButton = container.querySelector('button[data-date="2021-01-04"]');
+    expect(nextMondayButton).toHaveFocus();
   });
 });
