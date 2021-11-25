@@ -93,6 +93,18 @@ type FileInputProps = {
    * The success text content that will be shown below the input
    */
   successText?: string;
+  /**
+   * Aria-label text for the tooltip
+   */
+  tooltipLabel?: string;
+  /**
+   * Aria-label text for the tooltip trigger button
+   */
+  tooltipButtonLabel?: string;
+  /**
+   * The text content of the tooltip
+   */
+  tooltipText?: string;
 };
 
 type FileItem = {
@@ -303,6 +315,9 @@ export const FileInput = ({
   style,
   accept,
   multiple,
+  tooltipLabel,
+  tooltipButtonLabel,
+  tooltipText,
 }: FileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const didMountRef = useRef<boolean>(false);
@@ -337,6 +352,9 @@ export const FileInput = ({
     label,
     required,
     style,
+    tooltipLabel,
+    tooltipButtonLabel,
+    tooltipText,
   };
 
   const passClickToInput = () => {

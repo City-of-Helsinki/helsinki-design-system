@@ -12,7 +12,7 @@ export default {
 };
 
 export const Playground = () => {
-  const language = radios('Language', { fi: 'fi', sv: 'sv' }, 'fi');
+  const language = radios('Language', { fi: 'fi', sv: 'sv', ru: 'ru' }, 'fi');
   const size = radios('Size', { full: 'full', small: 'small', medium: 'medium', large: 'large' }, 'full');
 
   return <Logo language={language} size={size} />;
