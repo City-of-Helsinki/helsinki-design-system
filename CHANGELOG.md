@@ -23,18 +23,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Design kit
 
 #### Added
+- [Logo] Added logo language versions and size variants (40px and 60px) for Swedish and Russian
+- [Tables] Symbols for row selection (checkbox) cells
+- [Tables] Symbols for empty header cells
+- [Tables] Symbols for row selection column (default and zebra)
+- [Tables] Detachable example tables for row selection
 
 #### Changed
+- Updated HDS Sketch libraries to Sketch version 80 (80.0)
+- [Logo] Changed the component name to have a 2 letter prefix for all logo language variants. Simplified the symbol structure: logo symbols now have only three (3) colour variants; Black, White and Brand colour. The colour cannot be overridden for Black and White logos. If you need a brand colour Logo, use the “Logo/Brand colour” symbol and override with the desired brand colour.
+- [Tables] Updated Table examples to show zebra colouring and selectable rows
 
 #### Removed
+- [Logo] Individual brand colour logo symbols. Use the new “Logo/Brand colour” symbol instead.
 
 ### Documentation
 
 #### Added
-- Favicon documentation
+- Favicon documentation to the Visual assets section
+- [Tables] Documentation and examples of interactive (React) tables
 
-### Changed
-- Update logo documentation
+#### Changed
+- Updated Logo documentation to include the Russian language variant
+- Updated Roadmap
+- [Tables] Updated Table Playground examples to use React instead of HDS Core
+- [DateInput] Added a small note to the documentation about disabling DateInput dates
 
 ## [1.6.0] - Oct, 28, 2021
 
