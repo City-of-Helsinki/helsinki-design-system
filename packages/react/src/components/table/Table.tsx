@@ -14,7 +14,7 @@ import { Button } from '../button';
 
 type Header = {
   /**
-   * Boolean indicating whether column is sortable
+   * Boolean indicating whether a column is sortable
    */
   isSortable?: boolean;
   /**
@@ -26,12 +26,12 @@ type Header = {
    */
   headerName: string;
   /**
-   * Sort icon type to be used in sorting. Use type string if content is string, otherwise use type other.
+   * Sort icon type to be used in sorting. Use type string if the content is a string, otherwise use type other.
    * @default 'string'
    */
   sortIconType?: 'string' | 'other';
   /**
-   * Transform function for the corresponding row data. Use this to render custom content inside table cell.
+   * Transform function for the corresponding row data. Use this to render custom content inside the table cell.
    */
   transform?: ({ args }: any) => string | JSX.Element; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
@@ -62,7 +62,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
    */
   ariaLabelSortButtonDescending?: string;
   /**
-   * Aria-label for sort button in not ordered state.
+   * Aria-label for sort button in the unordered state.
    * @default ''
    */
   ariaLabelSortButtonUnset?: string;
@@ -71,7 +71,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
    */
   caption?: string | React.ReactNode;
   /**
-   * Boolean indicating whether the table has checkbox selection column to select rows.
+   * Boolean indicating whether the table has the checkbox selection column to select rows.
    * @default false
    */
   checkboxSelection?: boolean;
@@ -81,7 +81,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
    */
   clearSelectionsText?: string;
   /**
-   * Colums of the table header row. Defines header name, optional sort icon type and optional cell row transform function.
+   * Columns of the table header row. Defines header name, optional sort icon type and optional cell row transform function.
    */
   cols: Array<Header>;
   /**
@@ -111,7 +111,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
    */
   headingId?: string;
   /**
-   * Column key used as unique identifier for row
+   * Column key used as a unique identifier for a row
    */
   indexKey: string;
   /**
@@ -128,7 +128,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
    */
   renderIndexCol?: boolean;
   /**
-   * Table rows. Array of objects where keys map with the keys of col.
+   * Table rows. An array of objects where keys map with the keys of col.
    */
   rows: Array<object>;
   /**
