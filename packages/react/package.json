@@ -121,7 +121,8 @@
   "resolutions": {
     "@types/react": "16.9.50",
     "babel-jest": "^26.0.1",
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "ts-jest": "^26.0.1"
   },
   "peerDependencies": {
     "react": "^16.8.0",
