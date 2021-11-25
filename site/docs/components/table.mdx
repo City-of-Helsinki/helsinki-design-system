@@ -4,8 +4,9 @@ menu: Components
 route: /components/table
 ---
 
+import { useState } from 'react';
 import { Playground } from "docz";
-import { StatusLabel, Notification } from "hds-react";
+import { StatusLabel, Notification, Table, Button, IconTrash } from "hds-react";
 
 import 'hds-core/lib/components/table/table.css';
 
@@ -21,11 +22,13 @@ import Link from "../../src/components/Link";
     Tables are used to present tabulated data to the user in a consistent manner. HDS Tables offer multiple variants to allow clear presentation of vastly different data sets.
 </LargeParagraph>
 
-<Notification label="Tables are coming soon to HDS React" className="siteNotification">
-HDS Tables are currently only available for HDS Core and they include base styles. React tables with more complex features such as sorting and row selection are coming soon.
+<Notification label="More table features are coming!" className="siteNotification">
+  HDS Tables are work in progress. The current feature set will serve most projects but later we are also looking into adding more features such as single row actions (edit, delete), expandable rows and supporting more HDS components inside tables.
 </Notification>
 
 ## Principles
+
+### Basic tables (Core and React)
 - Use tables to organise and present data.
 - You should consider other presentation formats when the data is very simple, e.g. when the table would only have less than 4 rows or less than 3 columns.
   - Also note that HDS Tables are not a spreadsheet application. If you expect the user to need complex data operations it may be wise to share the data as a spreadsheet file.
@@ -38,10 +41,18 @@ HDS Tables are currently only available for HDS Core and they include base style
 - Table container is allowed to be scrollable. This is common on smaller screens where it can be impossible to fit the full table on the device screen.
   - On smaller screens, it may be beneficial to consider other presentation formats for table data. For example, a table can be broken into cards.
 
+### Interactable tables (React)
+- HDS Tables support sorting. When a column is set to be sortable, a sorting button appears after its header.
+  - The sorting icon type can be changed depending on the type of data in the column.
+- Only use sorting when it is necessary or otherwise beneficial to the user. 
+- HDS Table's rows can be made selectable. In this case, HDS automatically provides actions for selecting and deselecting all rows.
+- If your table includes actions that can affect multiple rows (e.g. deleting selected rows or exporting a CSV file), these actions must be placed above the table. For more information, see [Selecting rows](#selecting-rows) and [Custom actions](#custom-table-actions) variant examples below.
+
 ## Accessibility
 - No matter how well tables are implemented, they are always very demanding for assistive technology users. Always consider whether the table is necessary to present the information.
 - Make sure your table has a heading that describes the table’s purpose. This heading can either be a heading tag (e.g. H2) or a caption element. If it is a heading tag, reference it with an `aria-labelledby` attribute in the `<table>` tag.
 - Table header is read to assistive technologies on every cell. Keep table header labels short and concise and make sure they describe the data contained in table cells.
+  - This is especially important if the column allows sorting. The sorting label (e.g. "First name, sorted") will be read to assistive technologies on every cell. Only allow sorting if it is really necessary and beneficial to the user.
 - If your table includes empty column header cells, make sure they have a `role=“presentation”` attribute.
 
 ## Usage & variations
@@ -50,87 +61,48 @@ HDS Tables are currently only available for HDS Core and they include base style
 The default HDS table variant includes horizontal lines. The header row can be either dark or light depending on the brand colour used as a background. Whether you need a black or white text colour can be checked from [HDS Colour documentation page](/design-tokens/colour#brand-colour-combinations).
 
 <Playground>
-  <div class="hds-table-container" style={{maxWidth: '640px'}} tabindex="0">
-    <table class="hds-table hds-table--dark" aria-label="Service users (light variant)">
-      <caption class="hds-table__caption"><b>Table 1</b>: Service users (dark variant)</caption>
-      <thead>
-        <tr class="hds-table__header-row">
-          <th scope="col">First name</th>
-          <th scope="col">Surname</th>
-          <th scope="col">Age</th>
-          <th scope="col">Profession</th>
-        </tr>
-      </thead>
-      <tbody class="hds-table__content">
-      <tr>
-        <td>Lauri</td>
-        <td>Kekkonen</td>
-        <td class="hds-table--text-align-right">39</td>
-        <td>Engineer</td>
-      </tr>
-      <tr>
-        <td>Maria</td>
-        <td>Sarasoja</td>
-        <td class="hds-table--text-align-right">62</td>
-        <td>Designer</td>
-      </tr>
-      <tr>
-        <td>Anneli</td>
-        <td>Routa</td>
-        <td class="hds-table--text-align-right">50</td>
-        <td>Meteorologist</td>
-      </tr>
-      <tr>
-        <td>Osku</td>
-        <td>Rausku</td>
-        <td class="hds-table--text-align-right">18</td>
-        <td>Mail carrier</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="hds-table-container" style={{maxWidth: '640px', marginTop: 'var(--spacing-l)'}} tabindex="0">
-    <table class="hds-table hds-table--light" aria-label="Service users (light variant)">
-      <caption class="hds-table__caption"><b>Table 2</b>: Service users (light variant)</caption>
-      <thead>
-        <tr class="hds-table__header-row">
-          <th scope="col">First name</th>
-          <th scope="col">Surname</th>
-          <th scope="col">Age</th>
-          <th scope="col">Profession</th>
-        </tr>
-      </thead>
-      <tbody class="hds-table__content">
-      <tr>
-        <td>Lauri</td>
-        <td>Kekkonen</td>
-        <td class="hds-table--text-align-right">39</td>
-        <td>Engineer</td>
-      </tr>
-      <tr>
-        <td>Maria</td>
-        <td>Sarasoja</td>
-        <td class="hds-table--text-align-right">62</td>
-        <td>Designer</td>
-      </tr>
-      <tr>
-        <td>Anneli</td>
-        <td>Routa</td>
-        <td class="hds-table--text-align-right">50</td>
-        <td>Meteorologist</td>
-      </tr>
-      <tr>
-        <td>Osku</td>
-        <td>Rausku</td>
-        <td class="hds-table--text-align-right">18</td>
-        <td>Mail carrier</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+{() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+  const captionDark = (
+    <span>
+      <b>Table 1</b>: Service users (dark variant)
+    </span>
+  );
+  const captionLight = (
+    <span>
+      <b>Table 1</b>: Service users (light variant)
+    </span>
+  )
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table cols={cols} rows={rows} caption={captionDark} indexKey="id" renderIndexCol={false} />
+      <div style={{ marginTop: 'var(--spacing-l)' }}>
+        <Table cols={cols} rows={rows} caption={captionLight} variant="light" indexKey="id" renderIndexCol={false} />
+      </div>
+    </div>
+  );
+}}
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
 <table class="hds-table hds-table--dark" aria-label="Service users (dark variant)">
@@ -174,79 +146,101 @@ The default HDS table variant includes horizontal lines. The header row can be e
 
 <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
 <table class="hds-table hds-table--light" aria-label="Service users (light variant)">
-  <caption class="hds-table__caption"><b>Table 1</b>: Service users (light variant)</caption>
+  <caption class="hds-table__caption"><b>Table 2</b>: Service users (light variant)</caption>
   <!-- ... (Refer above for the full example) -->
 </table>
 </div>
 ```
 
 #### React code example:
-_Coming soon to hds-react!_
+```tsx
+const cols = [
+  { key: 'id', headerName: 'Not rendered' },
+  { key: 'firstName', headerName: 'First name' },
+  { key: 'surname', headerName: 'Surname' },
+  {
+    key: 'age',
+    headerName: 'Age',
+    transform: ({ age }) => {
+      return <div style={{ textAlign: 'right' }}>{age}</div>;
+    },
+  },
+  { key: 'profession', headerName: 'Profession' },
+];
+const rows = [
+  { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+  { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+  { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+  { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+];
+const captionDark = (
+  <span>
+    <b>Table 1</b>: Service users (dark variant)
+  </span>
+);
+const captionLight = (
+  <span>
+    <b>Table 1</b>: Service users (light variant)
+  </span>
+)
+return (
+  <div style={{ maxWidth: '640px' }}>
+    <Table cols={cols} rows={rows} caption={captionDark} indexKey="id" renderIndexCol={false} />
+    <div style={{ marginTop: 'var(--spacing-l)' }}>
+      <Table cols={cols} rows={rows} caption={captionLight} variant="light" indexKey="id" renderIndexCol={false} />
+    </div>
+  </div>
+);
+```
 
 ### Vertical headers
 Vertical headers can be used to create tables that have both a header row and a header column. Note that the empty header cell on the top left corner has `role="presentation"` attribute.
 
 <Playground>
-  <div class="hds-table-container" style={{maxWidth: '486px'}} tabindex="0">
-    <table
-      class="hds-table hds-table--dark hds-table--with-vertical-header"
-      aria-label="Units sold by weekday"
-    >
-      <caption class="hds-table__caption"><b>Table 3</b>: Units sold by weekday</caption>
-      <colgroup>
-        <col span="1" class="hds-table__vertical-header-column"></col>
-      </colgroup>
-      <thead>
-        <tr class="hds-table__header-row">
-          <td role="presentation"></td>
-          <th scope="col">8-12</th>
-          <th scope="col">12-14</th>
-          <th scope="col">14-16</th>
-          <th scope="col">16-18</th>
-        </tr>
-      </thead>
-      <tbody class="hds-table__content hds-table__content--text-align-td-right">
-      <tr>
-        <th scope="row">Monday</th>
-        <td>324</td>
-        <td>562</td>
-        <td>280</td>
-        <td>94</td>
-      </tr>
-      <tr>
-        <th scope="row">Tuesday</th>
-        <td>341</td>
-        <td>688</td>
-        <td>425</td>
-        <td>113</td>
-      </tr>
-      <tr>
-        <th scope="row">Wednesday</th>
-        <td>294</td>
-        <td>492</td>
-        <td>280</td>
-        <td>67</td>
-      </tr>
-      <tr>
-        <th scope="row">Thursday</th>
-        <td>312</td>
-        <td>501</td>
-        <td>455</td>
-        <td>112</td>
-      </tr>
-      <tr>
-        <th scope="row">Friday</th>
-        <td>150</td>
-        <td>142</td>
-        <td>362</td>
-        <td>455</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+{() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: '8-12', headerName: '8-12' },
+    { key: '12-14', headerName: '12-14' },
+    { key: '14-16', headerName: '14-16' },
+    { key: '16-18', headerName: '16-18' },
+  ];
+  const unitRows = [
+    { id: 'monday', '8-12': 324, '12-14': 562, '14-16': 280, '16-18': 94 },
+    { id: 'tuesday', '8-12': 341, '12-14': 688, '14-16': 425, '16-18': 113 },
+    { id: 'wednesday', '8-12': 294, '12-14': 492, '14-16': 280, '16-18': 67 },
+    { id: 'thursday', '8-12': 312, '12-14': 501, '14-16': 455, '16-18': 112 },
+    { id: 'friday', '8-12': 150, '12-14': 142, '14-16': 362, '16-18': 455 },
+  ];
+  const verticalHeaders = [
+    { key: 'monday', headerName: 'Monday' },
+    { key: 'tuesday', headerName: 'Tuesday' },
+    { key: 'wednesday', headerName: 'Wednesday' },
+    { key: 'thursday', headerName: 'Thursday' },
+    { key: 'friday', headerName: 'Friday' },
+  ];
+  const caption = (
+    <span>
+      <b>Table 3</b>: Units sold by weekday
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '486px' }}>
+      <Table
+        verticalHeaders={verticalHeaders}
+        cols={cols}
+        rows={unitRows}
+        caption={caption}
+        textAlignContentRight
+        indexKey="id"
+        renderIndexCol={false}
+      />
+    </div>
+  );
+}}
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <div class="hds-table-container" style="max-width: 496px;"tabindex="0">
   <table
@@ -281,64 +275,126 @@ Vertical headers can be used to create tables that have both a header row and a 
 ```
 
 #### React code example:
-_Coming soon to hds-react!_
+```tsx
+const cols = [
+  { key: 'id', headerName: 'Not rendered' },
+  { key: '8-12', headerName: '8-12' },
+  { key: '12-14', headerName: '12-14' },
+  { key: '14-16', headerName: '14-16' },
+  { key: '16-18', headerName: '16-18' },
+];
+const unitRows = [
+  { id: 'monday', '8-12': 324, '12-14': 562, '14-16': 280, '16-18': 94 },
+  { id: 'tuesday', '8-12': 341, '12-14': 688, '14-16': 425, '16-18': 113 },
+  { id: 'wednesday', '8-12': 294, '12-14': 492, '14-16': 280, '16-18': 67 },
+  { id: 'thursday', '8-12': 312, '12-14': 501, '14-16': 455, '16-18': 112 },
+  { id: 'friday', '8-12': 150, '12-14': 142, '14-16': 362, '16-18': 455 },
+];
+const verticalHeaders = [
+  { key: 'monday', headerName: 'Monday' },
+  { key: 'tuesday', headerName: 'Tuesday' },
+  { key: 'wednesday', headerName: 'Wednesday' },
+  { key: 'thursday', headerName: 'Thursday' },
+  { key: 'friday', headerName: 'Friday' },
+];
+const caption = (
+  <span>
+    <b>Table 3</b>: Units sold by weekday
+  </span>
+);
+return (
+  <div style={{ maxWidth: '486px' }}>
+    <Table
+      verticalHeaders={verticalHeaders}
+      cols={cols}
+      rows={unitRows}
+      caption={caption}
+      textAlignContentRight
+      indexKey="id"
+      renderIndexCol={false}
+    />
+  </div>
+);
+```
 
 ### Zebra rows
 Zebra rows (alternating row colours) should be used on tables that have very long rows. It makes it easier to visually scan the table and follow rows.
 
 <Playground>
-  <div class="hds-table-container" style={{maxWidth: '800px'}} tabindex="0">
-    <table class="hds-table hds-table--dark hds-table--zebra" aria-label="Service users (zebra variant)">
-      <caption class="hds-table__caption"><b>Table 4</b>: Service users (zebra variant)</caption>
-      <thead>
-        <tr class="hds-table__header-row">
-          <th scope="col">First name</th>
-          <th scope="col">Surname</th>
-          <th scope="col">Age</th>
-          <th scope="col">City</th>
-          <th scope="col">Profession</th>
-          <th scope="col">Experience (years)</th>
-        </tr>
-      </thead>
-      <tbody class="hds-table__content">
-      <tr>
-        <td>Lauri</td>
-        <td>Kekkonen</td>
-        <td class="hds-table--text-align-right">39</td>
-        <td>Helsinki</td>
-        <td>Engineer</td>
-        <td class="hds-table--text-align-right">10</td>
-      </tr>
-      <tr>
-        <td>Maria</td>
-        <td>Sarasoja</td>
-        <td class="hds-table--text-align-right">62</td>
-        <td>Tampere</td>
-        <td>Designer</td>
-        <td class="hds-table--text-align-right">39</td>
-      </tr>
-      <tr>
-        <td>Anneli</td>
-        <td>Routa</td>
-        <td class="hds-table--text-align-right">50</td>
-        <td>Turku</td>
-        <td>Meteorologist</td>
-        <td class="hds-table--text-align-right">25</td>
-      </tr>
-      <tr>
-        <td>Osku</td>
-        <td>Rausku</td>
-        <td class="hds-table--text-align-right">18</td>
-        <td>Oulu</td>
-        <td>Mail carrier</td>
-        <td class="hds-table--text-align-right">1</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+{() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'city', headerName: 'City' },
+    { key: 'profession', headerName: 'Profession' },
+    {
+      key: 'experience',
+      headerName: 'Experience (years)',
+      transform: ({ experience }) => {
+        return <div style={{ textAlign: 'right' }}>{experience}</div>;
+      },
+    },
+  ];
+  const rows = [
+    {
+      id: 1000,
+      firstName: 'Lauri',
+      surname: 'Kekkonen',
+      age: 39,
+      city: 'Helsinki',
+      profession: 'Engineer',
+      experience: 10,
+    },
+    {
+      id: 1001,
+      firstName: 'Maria',
+      surname: 'Sarasoja',
+      age: 62,
+      city: 'Tampere',
+      profession: 'Designer',
+      experience: 39,
+    },
+    {
+      id: 1002,
+      firstName: 'Anneli',
+      surname: 'Routa',
+      age: 50,
+      city: 'Turku',
+      profession: 'Meteorologist',
+      experience: 25,
+    },
+    {
+      id: 1003,
+      firstName: 'Osku',
+      surname: 'Rausku',
+      age: 18,
+      city: 'Oulu',
+      profession: 'Mail Carrier',
+      experience: 1,
+    },
+  ];
+  const caption = (
+    <span>
+      <b>Table 4</b>: Service users (zebra variant)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '800px' }}>
+      <Table rows={rows} cols={cols} caption={caption} zebra indexKey="id" renderIndexCol={false} />
+    </div>
+  );
+}}
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <div class="hds-table-container" style="max-width: 800px;" tabindex="0">
   <table class="hds-table hds-table--dark hds-table--zebra" aria-label="Service users (zebra variant)">
@@ -349,107 +405,165 @@ Zebra rows (alternating row colours) should be used on tables that have very lon
 ```
 
 #### React code example:
-_Coming soon to hds-react!_
+```tsx
+const cols = [
+  { key: 'id', headerName: 'Not rendered' },
+  { key: 'firstName', headerName: 'First name' },
+  { key: 'surname', headerName: 'Surname' },
+  {
+    key: 'age',
+    headerName: 'Age',
+    transform: ({ age }) => {
+      return <div style={{ textAlign: 'right' }}>{age}</div>;
+    },
+  },
+  { key: 'city', headerName: 'City' },
+  { key: 'profession', headerName: 'Profession' },
+  {
+    key: 'experience',
+    headerName: 'Experience (years)',
+    transform: ({ experience }) => {
+      return <div style={{ textAlign: 'right' }}>{experience}</div>;
+    },
+  },
+];
+
+const rows = [
+  {
+    id: 1000,
+    firstName: 'Lauri',
+    surname: 'Kekkonen',
+    age: 39,
+    city: 'Helsinki',
+    profession: 'Engineer',
+    experience: 10,
+  },
+  // ...
+];
+
+const caption = (
+  <span>
+    <b>Table 4</b>: Service users (zebra variant)
+  </span>
+);
+
+return (
+  <div style={{ maxWidth: '800px' }}>
+    <Table rows={rows} cols={cols} caption={caption} zebra indexKey="id" renderIndexCol={false} />
+  </div>
+);
+```
 
 ### Vertical lines
 Vertical lines can be used on tables that have a lot of columns or a lot of similar data (e.g. numbers).
 
 <Playground>
-  <div class="hds-table-container" style={{maxWidth: '486px'}} tabindex="0">
-    <table
-      class="hds-table hds-table--dark hds-table--with-vertical-header hds-table--with-vertical-lines"
-      aria-label="Units sold by weekday (vertical lines variant)"
-    >
-      <caption class="hds-table__caption"><b>Table 5</b>: Units sold by weekday (vertical lines variant)</caption>
-      <colgroup>
-        <col span="1" class="hds-table__vertical-header-column"></col>
-      </colgroup>
+{() => {
+  const cols = [
+    { key: 'day', headerName: 'Day' },
+    { key: 'product1',
+      headerName: 'Product 1',
+      transform: ({ product1 }) => {
+        return <div style={{ textAlign: 'right' }}>{product1}</div>;
+      },
+    },
+    { key: 'product2',
+      headerName: 'Product 2',
+      transform: ({ product2 }) => {
+        return <div style={{ textAlign: 'right' }}>{product2}</div>;
+      },
+    },
+    { key: 'product3',
+      headerName: 'Product 3',
+      transform: ({ product3 }) => {
+        return <div style={{ textAlign: 'right' }}>{product3}</div>;
+      },
+    },
+  ];
+  const rows = [
+    { day: 'Monday', product1: 12, product2: 24, product3: 5, },
+    { day: 'Tuesday', product1: 10, product2: 32, product3: 6, },
+    { day: 'Wednesday', product1: 14, product2: 35, product3: 6, },
+    { day: 'Thursday', product1: 11, product2: 18, product3: 2, },
+    { day: 'Friday', product1: 16, product2: 45, product3: 12, },
+  ];
+  const caption = (
+    <span>
+      <b>Table 5</b>: Units sold by weekday (vertical lines variant)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '496px' }}>
+      <Table verticalLines cols={cols} rows={rows} caption={caption} indexKey="day" renderIndexCol={true} />
+    </div>
+  );
+}}
+</Playground>
+
+#### Core code example:
+```html
+  <div class="hds-table-container" style="max-width: 496px;" tabindex="0">
+    <table class="hds-table hds-table--dark hds-table--with-vertical-lines" aria-label="Units sold by weekday">
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
       <thead>
         <tr class="hds-table__header-row">
-          <td role="presentation"></td>
-          <th scope="col">8-12</th>
-          <th scope="col">12-14</th>
-          <th scope="col">14-16</th>
-          <th scope="col">16-18</th>
+          <th scope="col">Day</th>
+          <th scope="col">Product 1</th>
+          <th scope="col">Product 2</th>
+          <th scope="col">Product 3</th>
         </tr>
       </thead>
-      <tbody class="hds-table__content hds-table__content--text-align-td-right">
-      <tr>
-        <th scope="row">Monday</th>
-        <td>324</td>
-        <td>562</td>
-        <td>280</td>
-        <td>94</td>
-      </tr>
-      <tr>
-        <th scope="row">Tuesday</th>
-        <td>341</td>
-        <td>688</td>
-        <td>425</td>
-        <td>113</td>
-      </tr>
-      <tr>
-        <th scope="row">Wednesday</th>
-        <td>294</td>
-        <td>492</td>
-        <td>280</td>
-        <td>67</td>
-      </tr>
-      <tr>
-        <th scope="row">Thursday</th>
-        <td>312</td>
-        <td>501</td>
-        <td>455</td>
-        <td>112</td>
-      </tr>
-      <tr>
-        <th scope="row">Friday</th>
-        <td>150</td>
-        <td>142</td>
-        <td>362</td>
-        <td>455</td>
-      </tr>
+      <tbody class="hds-table__content">
+        <tr>
+          <td>Monday</td>
+          <td class="hds-table--text-align-right">12</td>
+          <td class="hds-table--text-align-right">24</td>
+          <td class="hds-table--text-align-right">5</td>
+        </tr>
+        <!-- ... -->
       </tbody>
     </table>
   </div>
-</Playground>
-
-##### Core:
-```html
-<div class="hds-table-container" style="max-width: 486px;" tabindex="0">
-  <table
-    class="hds-table hds-table--dark hds-table--with-vertical-header hds-table--with-vertical-lines"
-    aria-label="Units sold by weekday (vertical lines variant)"
-  >
-    <caption class="hds-table__caption"><b>Table 5</b>: Units sold by weekday (vertical lines variant)</caption>
-    <colgroup>
-      <col span="1" class="hds-table__vertical-header-column"></col>
-    </colgroup>
-    <thead>
-      <tr class="hds-table__header-row">
-        <td role="presentation"></td>
-        <th scope="col">8-12</th>
-        <th scope="col">12-14</th>
-        <th scope="col">14-16</th>
-        <th scope="col">16-18</th>
-      </tr>
-    </thead>
-    <tbody class="hds-table__content hds-table__content--text-align-td-right">
-      <tr>
-        <th scope="row">Monday</th>
-        <td>324</td>
-        <td>562</td>
-        <td>280</td>
-        <td>94</td>
-      </tr>
-      <!-- ... -->
-    </tbody>
-  </table>
-</div>
 ```
 
 #### React code example:
-_Coming soon to hds-react!_
+```tsx
+  const cols = [
+    { key: 'day', headerName: 'Day' },
+    { key: 'product1',
+      headerName: 'Product 1',
+      transform: ({ product1 }) => {
+        return <div style={{ textAlign: 'right' }}>{product1}</div>;
+      },
+    },
+    { key: 'product2',
+      headerName: 'Product 2',
+      transform: ({ product2 }) => {
+        return <div style={{ textAlign: 'right' }}>{product2}</div>;
+      },
+    },
+    { key: 'product3',
+      headerName: 'Product 3',
+      transform: ({ product3 }) => {
+        return <div style={{ textAlign: 'right' }}>{product3}</div>;
+      },
+    },
+  ];
+  const rows = [
+    { day: 'Monday', product1: 12, product2: 24, product3: 5, },
+    // ...
+  ];
+  const caption = (
+    <span>
+      <b>Table 5</b>: Units sold by weekday (vertical lines variant)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '496px' }}>
+      <Table verticalLines cols={cols} rows={rows} caption={caption} indexKey="day" renderIndexCol={true} />
+    </div>
+  );
+```
 
 ### Dense tables
 If your table has a large amount of data, you can use the `dense` property to force mobile spacing on all screen sizes. This allows more data to fit into the view at the same time.
@@ -1093,7 +1207,7 @@ If your table has a large amount of data, you can use the `dense` property to fo
   </div>
 </Playground>
 
-##### Core:
+#### Core code example:
 ```html
 <div class="hds-table-container" style="max-height: 600px;" tabindex="0">
   <table class="hds-table hds-table--dense hds-table--dark hds-table--zebra" aria-label="Job trials (source: Helsinki Employment Services)">
@@ -1130,7 +1244,433 @@ If your table has a large amount of data, you can use the `dense` property to fo
 ```
 
 #### React code example:
-_Coming soon to hds-react!_
+```tsx
+const cols = [
+  { key: 'Paikka-ID', headerName: 'Paikka-ID' },
+  { key: 'Paikan tyyppi', headerName: 'Paikan tyyppi' },
+  { key: 'Tehtävänimike', headerName: 'Tehtävänimike' },
+  { key: 'Ilmoitus vanhenee', headerName: 'Ilmoitus vanhenee' },
+  { key: 'Toimiala/liikelaitos', headerName: 'Toimiala/liikelaitos' },
+  { key: 'Työpaikka', headerName: 'Työpaikka' },
+  { key: 'Postinumero', headerName: 'Postinumero' },
+  {
+    key: 'Paikkoja',
+    headerName: 'Paikkoja',
+    transform: ({ Paikkoja }) => {
+      return <div style={{ textAlign: 'right' }}>{Paikkoja}</div>;
+    },
+  },
+  {
+    key: 'Haastatteluun halutaan',
+    headerName: 'Haastatteluun halutaan',
+    transform: (row) => {
+      return <div style={{ textAlign: 'right' }}>{row['Haastatteluun halutaan']}</div>;
+    },
+  },
+];
+
+const rows = workTrial;
+
+const caption = (
+  <span>
+    <b>Table 6</b>: Job trials (source: Helsinki Employment Services)
+  </span>
+);
+
+return (
+  <div style={{ maxWidth: '1200px', height: '600px' }}>
+    <Table cols={cols} rows={rows} indexKey="Paikka-ID" caption={caption} dense />
+  </div>
+);
+```
+
+### Sorting
+Columns can be configured to be sortable which makes the sorting button appear after the column header. The sorting icon is different depending on the data type of the column (alphabetical or numeric/other).
+
+Currently, only one column can be sorted at a time.
+
+<Playground>
+{() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name', isSortable: true },
+    { key: 'surname', headerName: 'Surname', isSortable: true },
+    {
+      key: 'age',
+      headerName: 'Age',
+      sortIconType: 'other',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+      isSortable: true,
+    },
+    { key: 'profession', headerName: 'Profession', isSortable: true },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
+  ];
+  const caption = (
+    <span>
+      <b>Table 7</b>: Service users (sorting, dark variant)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table
+        ariaLabelSortButtonUnset="Not sorted"
+        ariaLabelSortButtonAscending="Sorted in ascending order"
+        ariaLabelSortButtonDescending="Sorted in descending order"
+        indexKey="id"
+        renderIndexCol={false}
+        cols={cols}
+        rows={rows}
+        caption={caption}
+      />
+    </div>
+  );
+}}
+</Playground>
+
+#### Core code example:
+_Not supported in hds-core!_
+
+#### React code example:
+```tsx
+const cols = [
+  { key: 'id', headerName: 'Not rendered' },
+  { key: 'firstName', headerName: 'First name', isSortable: true },
+  { key: 'surname', headerName: 'Surname', isSortable: true },
+  {
+    key: 'age',
+    headerName: 'Age',
+    sortIconType: 'other',
+    transform: ({ age }) => {
+      return <div style={{ textAlign: 'right' }}>{age}</div>;
+    },
+    isSortable: true,
+  },
+  { key: 'profession', headerName: 'Profession', isSortable: true },
+];
+
+const rows = [
+  { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+  { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+  { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+  { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
+];
+
+const caption = (
+  <span>
+    <b>Table 7</b>: Service users (sorting, dark variant)
+  </span>
+);
+
+return (
+  <div style={{ maxWidth: '640px' }}>
+    <Table
+      ariaLabelSortButtonUnset="Not sorted"
+      ariaLabelSortButtonAscending="Sorted in ascending order"
+      ariaLabelSortButtonDescending="Sorted in descending order"
+      indexKey="id"
+      renderIndexCol={false}
+      cols={cols}
+      rows={rows}
+      caption={caption}
+    />
+  </div>
+);
+```
+
+### Selecting rows
+HDS Table rows can be set to be selectable. This makes the first column to be a selection column. This also adds two (2) action buttons above the table; one button for selecting all rows and one button to clear selection.
+
+<Playground>
+{() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+  const [selectedRows, setSelectedRows] = useState([]);
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table
+        checkboxSelection
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
+        heading="Employees"
+        indexKey="id"
+        renderIndexCol={false}
+        cols={cols}
+        rows={rows}
+        selectAllRowsText="Select all rows"
+        clearSelectionsText="Clear selections"
+        ariaLabelCheckboxSelection="Row selection"
+      />
+    </div>
+  );
+}}
+</Playground>
+
+#### Core code example:
+_Not supported in hds-core!_
+
+#### React code example:
+```tsx
+const cols = [
+  { key: 'id', headerName: 'Not rendered' },
+  { key: 'firstName', headerName: 'First name' },
+  { key: 'surname', headerName: 'Surname' },
+  {
+    key: 'age',
+    headerName: 'Age',
+    transform: ({ age }) => {
+      return <div style={{ textAlign: 'right' }}>{age}</div>;
+    },
+  },
+  { key: 'profession', headerName: 'Profession' },
+];
+
+const rows = [
+  { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+  { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+  { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+  { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+];
+
+const [selectedRows, setSelectedRows] = useState([]);
+
+return (
+  <div style={{ maxWidth: '640px' }}>
+    <Table
+      checkboxSelection
+      selectedRows={selectedRows}
+      setSelectedRows={setSelectedRows}
+      heading="Employees"
+      indexKey="id"
+      renderIndexCol={false}
+      cols={cols}
+      rows={rows}
+      selectAllRowsText="Select all rows"
+      clearSelectionsText="Clear selections"
+      ariaLabelCheckboxSelection="Row selection"
+    />
+  </div>
+);
+```
+
+### Custom table actions
+If the action you need is not directly supported by the HDS Table, you can also add custom actions. Like other actions, they are placed above the table as HDS Buttons.
+
+<Playground>
+{() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+  const indexKey = 'id';
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+  const [tableRows, setTableRows] = useState(rows);
+  const [selectedRows, setSelectedRows] = useState([]);
+  const deleteSelectedButton = (
+    <Button
+      key={1}
+      onClick={() => {
+        setTableRows(
+          tableRows.filter((row) => {
+            const rowId = row[indexKey];
+            return (
+              selectedRows.some((selectedRow) => {
+                return selectedRow === rowId;
+              }) === false
+            );
+          }),
+        );
+        setSelectedRows([]);
+      }}
+      style={{
+        flexGrow: 0,
+      }}
+      className="table-custom-action"
+      variant="secondary"
+      size="small"
+      iconLeft={<IconTrash />}
+      disabled={selectedRows.length === 0}
+    >
+      Delete selected
+    </Button>
+  );
+  const copySelected = (
+    <Button
+      key={2}
+      onClick={() => {
+        console.log('Copy clicked!');
+      }}
+      style={{
+        flexGrow: 0,
+      }}
+      className="table-custom-action"
+      variant="secondary"
+      size="small"
+      disabled={selectedRows.length === 0}
+    >
+      Copy selected
+    </Button>
+  );
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table
+        customActionButtons={[deleteSelectedButton, copySelected]}
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
+        checkboxSelection
+        cols={cols}
+        rows={tableRows}
+        heading="Employees"
+        indexKey={indexKey}
+        renderIndexCol={false}
+        variant="dark"
+        selectAllRowsText="Select all rows"
+        clearSelectionsText="Clear selections"
+        ariaLabelCheckboxSelection="Row selection"
+      />
+    </div>
+  );
+}}
+</Playground>
+
+#### Core code example:
+_Not supported in hds-core!_
+
+#### React code example:
+```tsx
+const cols = [
+  { key: 'id', headerName: 'Not rendered' },
+  { key: 'firstName', headerName: 'First name' },
+  { key: 'surname', headerName: 'Surname' },
+  {
+    key: 'age',
+    headerName: 'Age',
+    transform: ({ age }) => {
+      return <div style={{ textAlign: 'right' }}>{age}</div>;
+    },
+  },
+  { key: 'profession', headerName: 'Profession' },
+];
+
+const indexKey = 'id';
+
+const rows = [
+  { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+  { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+  { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+  { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+];
+
+const [tableRows, setTableRows] = useState(rows);
+
+const [selectedRows, setSelectedRows] = useState([]);
+
+const deleteSelectedButton = (
+  <Button
+    key={1}
+    onClick={() => {
+      setTableRows(
+        tableRows.filter((row) => {
+          const rowId = row[indexKey];
+          return (
+            selectedRows.some((selectedRow) => {
+              return selectedRow === rowId;
+            }) === false
+          );
+        }),
+      );
+      setSelectedRows([]);
+    }}
+    style={{
+      flexGrow: 0,
+    }}
+    className="table-custom-action"
+    variant="secondary"
+    size="small"
+    iconLeft={<IconTrash />}
+    disabled={selectedRows.length === 0}
+  >
+    Delete selected
+  </Button>
+);
+
+const copySelected = (
+  <Button
+    key={2}
+    onClick={() => {
+      console.log('Copy clicked!');
+    }}
+    style={{
+      flexGrow: 0,
+    }}
+    className="table-custom-action"
+    variant="secondary"
+    size="small"
+    disabled={selectedRows.length === 0}
+  >
+    Copy selected
+  </Button>
+);
+
+return (
+  <div style={{ maxWidth: '640px' }}>
+    <Table
+      customActionButtons={[deleteSelectedButton, copySelected]}
+      selectedRows={selectedRows}
+      setSelectedRows={setSelectedRows}
+      checkboxSelection
+      cols={cols}
+      rows={tableRows}
+      heading="Employees"
+      indexKey={indexKey}
+      renderIndexCol={false}
+      variant="dark"
+      selectAllRowsText="Select all rows"
+      clearSelectionsText="Clear selections"
+      ariaLabelCheckboxSelection="Row selection"
+    />
+  </div>
+);
+```
 
 ## Demos & API
 
@@ -1140,4 +1680,6 @@ _Coming soon to hds-react!_
 
 ### React
 
-_Coming soon to hds-react!_
+[Tables in hds-react](/storybook/react/?path=/story/components-table--default)
+
+[Table API](/storybook/react/?path=/docs/components-table--default)
