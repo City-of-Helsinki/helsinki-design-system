@@ -155,12 +155,12 @@ describe('<Table /> spec', () => {
       expect(container.querySelector(`[id="hds-table-id-checkbox-${row.id}"]`)).not.toBeChecked();
     });
 
-    userEvent.click(container.querySelector('[data-testid="hds-table-select-all-button"]'));
+    userEvent.click(container.querySelector('[data-testid="hds-table-select-all-button-hds-table-data-testid"]'));
     rows.forEach((row) => {
       expect(container.querySelector(`[id="hds-table-id-checkbox-${row.id}"]`)).toBeChecked();
     });
 
-    userEvent.click(container.querySelector('[data-testid="hds-table-deselect-all-button"]'));
+    userEvent.click(container.querySelector('[data-testid="hds-table-deselect-all-button-hds-table-data-testid"]'));
     rows.forEach((row) => {
       expect(container.querySelector(`[id="hds-table-id-checkbox-${row.id}"]`)).not.toBeChecked();
     });
