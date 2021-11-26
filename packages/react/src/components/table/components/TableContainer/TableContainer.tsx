@@ -9,6 +9,7 @@ export type TableContainerProps = React.ComponentPropsWithoutRef<'table'> & {
   children: React.ReactNode;
   dataTestId?: string;
   variant?: 'dark' | 'light';
+  id: string;
   dense?: boolean;
   zebra?: boolean;
   verticalLines?: boolean;
@@ -20,6 +21,7 @@ export const TableContainer = ({
   children,
   dataTestId,
   variant = 'dark',
+  id,
   dense = false,
   zebra = false,
   verticalLines = false,
@@ -41,6 +43,7 @@ export const TableContainer = ({
         )}
         aria-labelledby={headingId}
         data-testid={dataTestId}
+        id={id}
         {...rest}
       >
         {children}

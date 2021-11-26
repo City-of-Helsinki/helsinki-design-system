@@ -547,6 +547,7 @@ export const CheckboxSelection = (args) => {
         selectedRows={selectedRows}
         setSelectedRows={setSelectedRows}
         heading="Employees"
+        id="checkbox-selection"
         indexKey="id"
         renderIndexCol={false}
         cols={cols}
@@ -593,6 +594,7 @@ export const CheckboxSelectionDense = (args) => {
         selectedRows={selectedRows}
         setSelectedRows={setSelectedRows}
         heading="Employees"
+        id="checkbox-selection-dense"
         cols={cols}
         rows={rows}
         indexKey="id"
@@ -635,6 +637,7 @@ export const InitiallySelectedRows = (args) => {
     <div style={{ maxWidth: '640px' }}>
       <Table
         heading="Employees"
+        id="initially-selected"
         checkboxSelection
         selectedRows={selectedRows}
         setSelectedRows={setSelectedRows}
@@ -739,6 +742,7 @@ export const WithCustomActions = (args) => {
         cols={cols}
         rows={tableRows}
         heading="Employees"
+        id="custom-actions"
         indexKey={indexKey}
         renderIndexCol={false}
         variant="dark"
@@ -796,6 +800,7 @@ export const CheckboxSelectionWithSorting = (args) => {
         indexKey="id"
         renderIndexCol={false}
         heading="Employees"
+        id="selection-with-sorting"
       />
     </div>
   );
