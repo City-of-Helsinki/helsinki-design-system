@@ -107,9 +107,14 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   headingAriaLevel?: number;
   /**
    * Table heading id. Used to name table to assistive technologies. Only applicable when heading prop is used.
-   * @default 'hds-table'
+   * @default 'hds-table-heading-id'
    */
   headingId?: string;
+  /**
+   * Id that is passed to the native html table element.
+   * @default 'hds-table-id'
+   */
+  id?: string;
   /**
    * Column key used as a unique identifier for a row
    */
@@ -232,7 +237,8 @@ export const Table = ({
   dense = false,
   heading,
   headingAriaLevel = 2,
-  headingId = 'hds-table',
+  headingId = 'hds-table-heading-id',
+  id = 'hds-table-id',
   indexKey,
   initialSortingColumnKey,
   initialSortingOrder,
@@ -357,6 +363,7 @@ export const Table = ({
         variant={variant}
         dataTestId={dataTestId}
         dense={dense}
+        id={id}
         zebra={zebra}
         verticalLines={verticalLines}
         customThemeClass={customThemeClass}
@@ -401,7 +408,7 @@ export const Table = ({
                 <td className={styles.checkboxData}>
                   <Checkbox
                     checked={selectedRows.includes(row[indexKey])}
-                    id={`hds-table-checkbox-${row[indexKey]}`}
+                    id={`${id}-checkbox-${row[indexKey]}`}
                     aria-label={`${ariaLabelCheckboxSelection} ${row[firstRenderedColumnKey]}`}
                     onChange={(e) => {
                       if (e.target.checked) {

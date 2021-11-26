@@ -8,6 +8,7 @@ exports[`<Table /> spec renders the component 1`] = `
   >
     <table
       class="table dark"
+      id="hds-table-id"
     >
       <caption
         class="caption"
