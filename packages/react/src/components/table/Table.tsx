@@ -90,6 +90,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   customActionButtons?: React.ReactNode[];
   /**
    * Test id attribute that is passed to the html table element.
+   * @default 'hds-table-data-testid'
    */
   dataTestId?: string;
   /**
@@ -107,9 +108,14 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   headingAriaLevel?: number;
   /**
    * Table heading id. Used to name table to assistive technologies. Only applicable when heading prop is used.
-   * @default 'hds-table'
+   * @default 'hds-table-heading-id'
    */
   headingId?: string;
+  /**
+   * Id that is passed to the native html table element.
+   * @default 'hds-table-id'
+   */
+  id?: string;
   /**
    * Column key used as a unique identifier for a row
    */
@@ -228,11 +234,12 @@ export const Table = ({
   clearSelectionsText = 'Tyhjennä valinnat',
   cols,
   customActionButtons,
-  dataTestId,
+  dataTestId = 'hds-table-data-testid',
   dense = false,
   heading,
   headingAriaLevel = 2,
-  headingId = 'hds-table',
+  headingId = 'hds-table-heading-id',
+  id = 'hds-table-id',
   indexKey,
   initialSortingColumnKey,
   initialSortingOrder,
@@ -323,9 +330,7 @@ export const Table = ({
                     size="small"
                     disabled={selectedRows.length === rows.length}
                     className={styles.actionButton}
-                    data-testid={
-                      dataTestId ? `hds-table-select-all-button-${dataTestId}` : 'hds-table-select-all-button'
-                    }
+                    data-testid={`hds-table-select-all-button-${dataTestId}`}
                   >
                     {selectAllRowsText}
                   </Button>
@@ -337,9 +342,7 @@ export const Table = ({
                     size="small"
                     disabled={selectedRows.length === 0}
                     className={styles.actionButton}
-                    data-testid={
-                      dataTestId ? `hds-table-deselect-all-button-${dataTestId}` : 'hds-table-deselect-all-button'
-                    }
+                    data-testid={`hds-table-deselect-all-button-${dataTestId}`}
                   >
                     {clearSelectionsText}
                   </Button>
@@ -357,6 +360,7 @@ export const Table = ({
         variant={variant}
         dataTestId={dataTestId}
         dense={dense}
+        id={id}
         zebra={zebra}
         verticalLines={verticalLines}
         customThemeClass={customThemeClass}
@@ -401,7 +405,7 @@ export const Table = ({
                 <td className={styles.checkboxData}>
                   <Checkbox
                     checked={selectedRows.includes(row[indexKey])}
-                    id={`hds-table-checkbox-${row[indexKey]}`}
+                    id={`${id}-checkbox-${row[indexKey]}`}
                     aria-label={`${ariaLabelCheckboxSelection} ${row[firstRenderedColumnKey]}`}
                     onChange={(e) => {
                       if (e.target.checked) {

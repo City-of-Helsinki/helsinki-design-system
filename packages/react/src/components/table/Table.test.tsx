@@ -97,7 +97,7 @@ describe('<Table /> spec', () => {
     );
     const ageOfFirstRow = container.querySelector('[data-testid="age-0"] > div');
     expect(ageOfFirstRow).toHaveTextContent('39');
-    userEvent.click(container.querySelector('[data-testid="table-sorting-header-age"]'));
+    userEvent.click(container.querySelector('[data-testid="hds-table-sorting-header-age"]'));
     const ageOfSortedTableFirstRow = container.querySelector('[data-testid="age-0"] > div');
     expect(ageOfSortedTableFirstRow).toHaveTextContent('8');
   });
@@ -122,13 +122,13 @@ describe('<Table /> spec', () => {
 
     const { container } = render(<TableWithSelection />);
 
-    expect(container.querySelector('[id="hds-table-checkbox-1000"]')).not.toBeChecked();
+    expect(container.querySelector('[id="hds-table-id-checkbox-1000"]')).not.toBeChecked();
 
-    userEvent.click(container.querySelector('[id="hds-table-checkbox-1000"]'));
-    expect(container.querySelector('[id="hds-table-checkbox-1000"]')).toBeChecked();
+    userEvent.click(container.querySelector('[id="hds-table-id-checkbox-1000"]'));
+    expect(container.querySelector('[id="hds-table-id-checkbox-1000"]')).toBeChecked();
 
-    userEvent.click(container.querySelector('[id="hds-table-checkbox-1000"]'));
-    expect(container.querySelector('[id="hds-table-checkbox-1000"]')).not.toBeChecked();
+    userEvent.click(container.querySelector('[id="hds-table-id-checkbox-1000"]'));
+    expect(container.querySelector('[id="hds-table-id-checkbox-1000"]')).not.toBeChecked();
   });
 
   it('Should successfully select all and deselect all rows', () => {
@@ -152,17 +152,17 @@ describe('<Table /> spec', () => {
     const { container } = render(<TableWithSelection />);
 
     rows.forEach((row) => {
-      expect(container.querySelector(`[id="hds-table-checkbox-${row.id}"]`)).not.toBeChecked();
+      expect(container.querySelector(`[id="hds-table-id-checkbox-${row.id}"]`)).not.toBeChecked();
     });
 
-    userEvent.click(container.querySelector('[data-testid="hds-table-select-all-button"]'));
+    userEvent.click(container.querySelector('[data-testid="hds-table-select-all-button-hds-table-data-testid"]'));
     rows.forEach((row) => {
-      expect(container.querySelector(`[id="hds-table-checkbox-${row.id}"]`)).toBeChecked();
+      expect(container.querySelector(`[id="hds-table-id-checkbox-${row.id}"]`)).toBeChecked();
     });
 
-    userEvent.click(container.querySelector('[data-testid="hds-table-deselect-all-button"]'));
+    userEvent.click(container.querySelector('[data-testid="hds-table-deselect-all-button-hds-table-data-testid"]'));
     rows.forEach((row) => {
-      expect(container.querySelector(`[id="hds-table-checkbox-${row.id}"]`)).not.toBeChecked();
+      expect(container.querySelector(`[id="hds-table-id-checkbox-${row.id}"]`)).not.toBeChecked();
     });
   });
 });
