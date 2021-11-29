@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.1] - Nov, 29, 2021
+
+### React Components
+
+#### Fixed
+- [Table] Fixed duplicate id bug regarding table checkboxes
+
+### Documentation
+
+#### Fixed
+- Typo fixes
+- Fixed password input react storybook link
+
 ## [1.7.0] - Nov, 25, 2021
 
 ### React Components
