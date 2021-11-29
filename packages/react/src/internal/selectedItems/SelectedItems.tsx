@@ -239,6 +239,10 @@ export const SelectedItems = <OptionType,>({
                 onKeyDown: (event) => {
                   // some browsers navigate back when Backspace is pressed
                   if (event.key === 'Backspace') event.preventDefault();
+                  else if (event.key === 'Enter') {
+                    event.preventDefault();
+                    onRemove(_selectedItem);
+                  }
                 },
                 onFocus: () => setActiveIndex(index),
               })}
