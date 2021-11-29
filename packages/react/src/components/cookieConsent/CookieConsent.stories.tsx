@@ -3,8 +3,6 @@ import React, { useContext } from 'react';
 import { commonConsents } from './cookieConsentController';
 import { CookieConsentContext, Provider as CookieContextProvider } from './CookieConsentContext';
 import { CookieConsent } from './CookieConsent';
-import classNames from '../../utils/classNames';
-import styles from './__storybook__/styles.module.scss';
 
 export default {
   component: CookieConsent,
@@ -20,7 +18,7 @@ export const Example = () => {
     const { willRenderCookieConsentDialog } = useContext(CookieConsentContext);
     return (
       <div
-        className={classNames(styles.application, willRenderCookieConsentDialog ? styles['no-scroll'] : '')}
+        style={willRenderCookieConsentDialog ? { overflow: 'hidden', maxHeight: '100vh' } : {}}
         aria-hidden={willRenderCookieConsentDialog ? 'true' : 'false'}
       >
         <h1>This is a dummy application</h1>
