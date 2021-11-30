@@ -16,6 +16,7 @@ export type CookieConsentContextType = {
 type CookieConsentContextProps = {
   optionalConsents?: ConsentList;
   requiredConsents?: ConsentList;
+  cookieDomain?: string;
   children: React.ReactNode | React.ReactNode[] | null;
   onAllConsentsGiven?: (consents: ConsentObject) => void;
   onConsentsParsed?: (consents: ConsentObject, hasUserHandledAllConsents: boolean) => void;
@@ -35,13 +36,15 @@ export const CookieConsentContext = createContext<CookieConsentContextType>({
 export const Provider = ({
   optionalConsents,
   requiredConsents,
+  cookieDomain,
   onAllConsentsGiven = () => undefined,
   onConsentsParsed = () => undefined,
   children,
 }: CookieConsentContextProps): React.ReactElement => {
-  const consentController = useMemo(() => create({ requiredConsents, optionalConsents }), [
+  const consentController = useMemo(() => create({ requiredConsents, optionalConsents, cookieDomain }), [
     requiredConsents,
     optionalConsents,
+    cookieDomain,
   ]);
 
   const hasUserHandledAllConsents = () =>

@@ -6,11 +6,13 @@ import { render, RenderResult } from '@testing-library/react';
 import { ConsentList, ConsentObject } from './cookieConsentController';
 import { createUniversalCookieMockHelpers } from './__mocks__/mockUniversalCookie';
 import { CookieConsentContext, Provider as CookieContextProvider } from './CookieConsentContext';
+import mockWindowLocation, { MockedWindowLocationActions } from './__mocks__/mockWindowLocation';
 
 type ConsentData = {
   requiredConsents?: ConsentList;
   optionalConsents?: ConsentList;
   cookie?: ConsentObject;
+  cookieDomain?: string;
 };
 
 const mockCookieHelpers = createUniversalCookieMockHelpers();
@@ -69,11 +71,19 @@ describe('CookieConsentContext ', () => {
 
   const onAllConsentsGiven = jest.fn();
   const onConsentsParsed = jest.fn();
+  let mockedWindowControls: MockedWindowLocationActions;
 
   afterEach(() => {
     onAllConsentsGiven.mockReset();
     onConsentsParsed.mockReset();
     mockCookieHelpers.reset();
+  });
+
+  beforeAll(() => {
+    mockedWindowControls = mockWindowLocation();
+  });
+  afterAll(() => {
+    mockedWindowControls.restore();
   });
 
   const verifyElementExistsByTestId = (result: RenderResult, testId: string) => {
@@ -106,6 +116,7 @@ describe('CookieConsentContext ', () => {
   const renderCookieConsent = ({
     requiredConsents = [],
     optionalConsents = [],
+    cookieDomain,
     cookie = {},
   }: ConsentData): RenderResult => {
     // inject unknown consents to verify those are
@@ -119,6 +130,7 @@ describe('CookieConsentContext ', () => {
       <CookieContextProvider
         requiredConsents={requiredConsents}
         optionalConsents={optionalConsents}
+        cookieDomain={cookieDomain}
         onAllConsentsGiven={onAllConsentsGiven}
         onConsentsParsed={onConsentsParsed}
       >
@@ -169,12 +181,24 @@ describe('CookieConsentContext ', () => {
   });
   describe('Saving ', () => {
     it('by clicking "Approve all" sends also unknown consents', () => {
+      mockedWindowControls.setUrl('https://subdomain.hel.fi');
       const result = renderCookieConsent(allNotApprovedConsentData);
       clickElement(result, consumer1ApproveAllButtonSelector);
       expect(JSON.parse(mockCookieHelpers.getSetCookieArguments().data)).toEqual({
         ...allApprovedConsentData.cookie,
         ...unknownConsents,
       });
+      expect(mockCookieHelpers.getSetCookieArguments().options.domain).toEqual('hel.fi');
+    });
+    it('sets the domain of the cookie to given cookieDomain', () => {
+      mockedWindowControls.setUrl('https://notmyhost.com');
+      const cookieDomain = 'myhost.com';
+      const result = renderCookieConsent({
+        ...allNotApprovedConsentData,
+        cookieDomain,
+      });
+      clickElement(result, consumer1ApproveAllButtonSelector);
+      expect(mockCookieHelpers.getSetCookieArguments().options.domain).toEqual(cookieDomain);
     });
   });
 });

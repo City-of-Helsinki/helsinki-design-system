@@ -6,6 +6,8 @@ import createConsentController, {
   ConsentList,
   ConsentObject,
   createStorage,
+  COOKIE_EXPIRATION_TIME,
+  COOKIE_NAME,
 } from './cookieConsentController';
 
 const mockCookieHelpers = createUniversalCookieMockHelpers();
@@ -38,16 +40,19 @@ describe(`cookieConsentController.ts`, () => {
   const createControllerAndInitCookie = ({
     requiredConsents,
     optionalConsents,
+    cookieDomain,
     cookie = {},
   }: {
     requiredConsents?: ConsentList;
     optionalConsents?: ConsentList;
     cookie?: ConsentObject;
+    cookieDomain?: string;
   }) => {
     mockCookieHelpers.setStoredCookie(cookie);
     controller = createConsentController({
       requiredConsents,
       optionalConsents,
+      cookieDomain,
     });
   };
   describe('createConsentController', () => {
@@ -311,6 +316,26 @@ describe(`cookieConsentController.ts`, () => {
         mockedWindowControls.setUrl('http://profiili.hel.ninja:3000?foo=bar');
         controller.save();
         expect(mockCookieHelpers.getSetCookieArguments().options.domain).toEqual('hel.ninja');
+      });
+      it('if "cookieDomain" property is passed in the props, it is set as the domain of the cookie', () => {
+        const cookieDomain = 'myhost.com';
+        createControllerAndInitCookie({
+          ...defaultControllerTestData,
+          cookieDomain,
+        });
+        mockedWindowControls.setUrl('https://notmyhost.com');
+        controller.save();
+        expect(mockCookieHelpers.getSetCookieArguments().options.domain).toEqual(cookieDomain);
+      });
+      it('Cookie maxAge should match COOKIE_EXPIRATION_TIME', () => {
+        createControllerAndInitCookie(defaultControllerTestData);
+        controller.save();
+        expect(mockCookieHelpers.getSetCookieArguments().options.maxAge).toEqual(COOKIE_EXPIRATION_TIME);
+      });
+      it('Cookie name should match COOKIE_NAME', () => {
+        createControllerAndInitCookie(defaultControllerTestData);
+        controller.save();
+        expect(mockCookieHelpers.getSetCookieArguments().cookieName).toEqual(COOKIE_NAME);
       });
     });
   });
