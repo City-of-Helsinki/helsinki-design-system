@@ -67,6 +67,22 @@ describe('<Combobox />', () => {
   });
 
   describe('in multi select mode', () => {
+    it('user should be able to remove selected item with enter keypress', async () => {
+      const onChange = jest.fn();
+      const firstSelectedOptionName = `Selected item ${options[0].label}`;
+      const { getAllByLabelText, getAllByRole, queryAllByRole } = getWrapper({ onChange, multiselect: true });
+      const input = getAllByLabelText(label)[0];
+      userEvent.type(input, 'Fi');
+      const visibleOptions = getAllByRole('option');
+      userEvent.click(visibleOptions[0]);
+
+      await waitFor(() => {
+        expect(queryAllByRole('link', { name: firstSelectedOptionName }).length).toBe(1);
+        userEvent.type(queryAllByRole('link', { name: firstSelectedOptionName })[0], '{enter}');
+        expect(queryAllByRole('link', { name: firstSelectedOptionName }).length).toBe(0);
+      });
+    });
+
     it('user should be able to search and choose multiple options', async () => {
       const onChange = jest.fn();
       const { getAllByLabelText, getAllByRole, queryAllByText } = getWrapper({
