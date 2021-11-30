@@ -16,6 +16,7 @@ export type ConsentStorage = {
 export type ConsentControllerProps = {
   requiredConsents?: ConsentList;
   optionalConsents?: ConsentList;
+  cookieDomain?: string;
 };
 
 export type ConsentController = {
@@ -30,7 +31,8 @@ export type ConsentController = {
   save: () => ConsentObject;
 };
 
-const COOKIE_NAME = 'city-of-helsinki-cookie-consents';
+export const COOKIE_NAME = 'city-of-helsinki-cookie-consents';
+export const COOKIE_EXPIRATION_TIME = 60 * 60 * 24 * 365;
 
 export const commonConsents = {
   matomo: 'matomo',
@@ -70,24 +72,25 @@ function createConsentsString(consents: ConsentObject): string {
   return JSON.stringify(consents);
 }
 
-function createCookieController(): {
+function createCookieController(
+  cookieDomain?: string,
+): {
   get: () => string;
   set: (data: string) => void;
 } {
   const cookieController = new CookieController();
-  const oneYearInSeconds = 60 * 60 * 24 * 365;
   const defaultCookieSetOptions: CookieSetOptions = {
     path: '/',
     secure: false,
     sameSite: 'strict',
-    maxAge: oneYearInSeconds,
+    maxAge: COOKIE_EXPIRATION_TIME,
   };
 
   const getCookieDomainFromUrl = (): string => window.location.hostname.split('.').slice(-2).join('.');
 
   const createCookieOptions = (): CookieSetOptions => ({
     ...defaultCookieSetOptions,
-    domain: getCookieDomainFromUrl(),
+    domain: cookieDomain || getCookieDomainFromUrl(),
   });
 
   const get = (): string => cookieController.get(COOKIE_NAME, { doNotParse: true }) || '';
@@ -185,7 +188,7 @@ export default function createConsentController(props: ConsentControllerProps): 
   verifyConsentProps(props);
   const { optionalConsents = [], requiredConsents = [] } = props;
   const allConsents = [...optionalConsents, ...requiredConsents];
-  const cookieController = createCookieController();
+  const cookieController = createCookieController(props.cookieDomain);
   const currentConsentsInCookie = parseConsents(cookieController.get());
 
   const required = mergeConsents(
