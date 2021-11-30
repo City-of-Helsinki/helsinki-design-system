@@ -27,8 +27,7 @@ function Content({ onClick }: ViewProps): React.ReactElement {
       id="cookie-consent-content"
       aria-live="assertive"
     >
-      {!showMore && <Main onClick={onAction} />}
-      {showMore && <Details onClick={onAction} />}
+      {showMore ? <Details onClick={onAction} /> : <Main onClick={onAction} />}
       <Buttons onClick={onAction} />
       <div className={styles['language-switcher']} data-testid="cookie-consent-language-switcher">
         <a href="/" title="This is a dummy language switcher" onClick={(e) => e.preventDefault()}>
