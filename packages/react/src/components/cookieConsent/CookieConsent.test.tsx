@@ -30,6 +30,7 @@ describe('<CookieConsent /> spec', () => {
     const { asFragment } = render(<CookieConsent />);
     expect(asFragment()).toMatchSnapshot();
   });
+
   it('should not have basic accessibility issues', async () => {
     const { container } = render(<CookieConsent />);
     const results = await axe(container);
@@ -109,6 +110,7 @@ describe('<CookieConsent /> ', () => {
       verifyElementExistsByTestId(result, dataTestIds.approveRequiredButton);
       verifyElementExistsByTestId(result, dataTestIds.readMoreTextButton);
     });
+
     it('is rendered if a required consent has not been approved. It could have been optional before', () => {
       const result = renderCookieConsent({
         ...defaultConsentData,
@@ -121,6 +123,7 @@ describe('<CookieConsent /> ', () => {
       });
       verifyElementExistsByTestId(result, dataTestIds.container);
     });
+
     it('is not shown when all consents have been handled and are true/false', () => {
       const result = renderCookieConsent({
         ...defaultConsentData,
@@ -135,6 +138,7 @@ describe('<CookieConsent /> ', () => {
       verifyElementDoesNotExistsByTestId(result, dataTestIds.screenReaderNotification);
     });
   });
+
   describe(`Approve buttons will 
             - hide the cookie consent
             - show a prompt for screen readers
@@ -154,6 +158,7 @@ describe('<CookieConsent /> ', () => {
       verifyElementExistsByTestId(result, dataTestIds.screenReaderNotification);
       expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(1);
     });
+
     it('Approve required -button, approves only required consents', () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
@@ -170,6 +175,7 @@ describe('<CookieConsent /> ', () => {
       expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(1);
     });
   });
+
   describe('In details view ', () => {
     const initDetailsView = (data: ConsentData): RenderResult => {
       const result = renderCookieConsent(data);
@@ -186,6 +192,7 @@ describe('<CookieConsent /> ', () => {
         verifyElementExistsByTestId(result, dataTestIds.getOptionalConsentId(consent));
       });
     });
+
     it(`clicking an optional consent sets the consent true/false. 
         Cookie consent is not hidden until an approve -button is clicked`, () => {
       const result = initDetailsView(defaultConsentData);
