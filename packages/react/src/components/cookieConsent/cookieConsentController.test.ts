@@ -68,6 +68,7 @@ describe(`cookieConsentController.ts`, () => {
           optionalConsent2: false,
         });
       });
+
       it('parses and stores unknown consents', () => {
         const cookieDataWithUnknownConsents = {
           unknownConsent1: true,
@@ -89,11 +90,13 @@ describe(`cookieConsentController.ts`, () => {
           ...otherConsents,
         });
       });
+
       it('parses props correctly without consents', () => {
         createControllerAndInitCookie({});
         expect(controller.getRequired()).toEqual({});
         expect(controller.getOptional()).toEqual({});
       });
+
       it('throws when same consent is both optional and required', () => {
         expect(() =>
           createConsentController({
@@ -102,6 +105,7 @@ describe(`cookieConsentController.ts`, () => {
           }),
         ).toThrow();
       });
+
       it('restores saved consents correctly', () => {
         const storedCookieData = {
           requiredConsent1: true,
@@ -127,12 +131,14 @@ describe(`cookieConsentController.ts`, () => {
         });
         expect(controller.save()).toEqual(allConsents);
       });
+
       it('cookie is only read on init', () => {
         createControllerAndInitCookie({});
         expect(mockCookieHelpers.mockGet).toHaveBeenCalledTimes(1);
         expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(0);
       });
     });
+
     describe('unknown consents', () => {
       it('are parsed, stored and never changed', () => {
         const cookieDataWithUnknownConsents = {
@@ -159,6 +165,7 @@ describe(`cookieConsentController.ts`, () => {
         });
       });
     });
+
     describe('approveAll', () => {
       it('sets all consents to true. Setting consents does not store a new cookie', () => {
         createControllerAndInitCookie(defaultControllerTestData);
@@ -174,6 +181,7 @@ describe(`cookieConsentController.ts`, () => {
         expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(0);
       });
     });
+
     describe('approveRequired', () => {
       it(`approves all required consents. 
           Optional are not affected. 
@@ -191,6 +199,7 @@ describe(`cookieConsentController.ts`, () => {
         expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(0);
       });
     });
+
     describe('rejectAll', () => {
       it('rejects all consents. Setting consents does not store a new cookie', () => {
         createControllerAndInitCookie({
@@ -228,6 +237,7 @@ describe(`cookieConsentController.ts`, () => {
         expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(0);
       });
     });
+
     describe('getUnhandledConsents', () => {
       it('returns consents that are not defined in previously saved cookie.', () => {
         createControllerAndInitCookie({
@@ -244,6 +254,7 @@ describe(`cookieConsentController.ts`, () => {
         expect(unhandled.includes('unknownCookie1')).toBeFalsy();
       });
     });
+
     describe('getRequiredWithoutConsent', () => {
       it('returns required consents that are not currently approved', () => {
         createControllerAndInitCookie({
@@ -258,6 +269,7 @@ describe(`cookieConsentController.ts`, () => {
         expect(unhandled.includes('optionalConsent1')).toBeTruthy();
       });
     });
+
     describe('update', () => {
       const allConsents = [
         ...defaultControllerTestData.requiredConsents,
@@ -283,10 +295,12 @@ describe(`cookieConsentController.ts`, () => {
           });
         });
       });
+
       it('Throws when setting an unknown consent', () => {
         createControllerAndInitCookie(defaultControllerTestData);
         expect(() => controller.update('consentX', false)).toThrow();
       });
+
       it('Does not auto save the cookie', () => {
         allConsents.forEach((consent) => {
           controller.update(consent, true);
@@ -294,6 +308,7 @@ describe(`cookieConsentController.ts`, () => {
         expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(0);
       });
     });
+
     describe('save', () => {
       it('stores the data into a cookie', () => {
         createControllerAndInitCookie(defaultControllerTestData);
@@ -308,6 +323,7 @@ describe(`cookieConsentController.ts`, () => {
           optionalConsent2: false,
         });
       });
+
       it('the domain of the cookie is set to <domain>.<suffix> so it is readable from *.hel.fi and *.hel.ninja', () => {
         createControllerAndInitCookie(defaultControllerTestData);
         mockedWindowControls.setUrl('https://subdomain.hel.fi');
@@ -317,6 +333,7 @@ describe(`cookieConsentController.ts`, () => {
         controller.save();
         expect(mockCookieHelpers.getSetCookieArguments().options.domain).toEqual('hel.ninja');
       });
+
       it('if "cookieDomain" property is passed in the props, it is set as the domain of the cookie', () => {
         const cookieDomain = 'myhost.com';
         createControllerAndInitCookie({
@@ -327,11 +344,13 @@ describe(`cookieConsentController.ts`, () => {
         controller.save();
         expect(mockCookieHelpers.getSetCookieArguments().options.domain).toEqual(cookieDomain);
       });
+
       it('Cookie maxAge should match COOKIE_EXPIRATION_TIME', () => {
         createControllerAndInitCookie(defaultControllerTestData);
         controller.save();
         expect(mockCookieHelpers.getSetCookieArguments().options.maxAge).toEqual(COOKIE_EXPIRATION_TIME);
       });
+
       it('Cookie name should match COOKIE_NAME', () => {
         createControllerAndInitCookie(defaultControllerTestData);
         controller.save();
@@ -339,6 +358,7 @@ describe(`cookieConsentController.ts`, () => {
       });
     });
   });
+
   describe('createStorage', () => {
     const createTestStorage = () =>
       createStorage({
@@ -400,6 +420,7 @@ describe(`cookieConsentController.ts`, () => {
       expect(unknownConsents.unknownConsent1).toBeFalsy();
       expect(unknownConsents.unknownConsent2).toBeTruthy();
     });
+
     it('Throws when setting an unknown consent', () => {
       const storage = createTestStorage();
       expect(() => storage.approve(['consentX'])).toThrow();
@@ -407,6 +428,7 @@ describe(`cookieConsentController.ts`, () => {
       expect(() => storage.approve(['unknownConsent1'])).toThrow();
       expect(() => storage.reject(['unknownConsent2'])).toThrow();
     });
+
     it('getConsentByName returns true/false even for unknown consents. Unknown consents are false', () => {
       const storage = createTestStorage();
       expect(storage.getConsentByName('requiredConsent1')).toBeFalsy();

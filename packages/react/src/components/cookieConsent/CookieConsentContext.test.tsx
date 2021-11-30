@@ -144,9 +144,11 @@ describe('CookieConsentContext ', () => {
     it('is false all consents are true/false', () => {
       verifyConsumersShowConsentsNotHandled(renderCookieConsent(allNotApprovedConsentData));
     });
+
     it('is true if user has unhandled consents', () => {
       verifyConsumersShowConsentsHandled(renderCookieConsent(allApprovedConsentData));
     });
+
     it('reflects the value of hasUserHandledAllConsents and both change with approval', () => {
       const result = renderCookieConsent(allNotApprovedConsentData);
       verifyConsumersShowConsentsNotHandled(result);
@@ -154,18 +156,21 @@ describe('CookieConsentContext ', () => {
       verifyConsumersShowConsentsHandled(result);
     });
   });
+
   describe('onConsentsParsed is called when context is created and controller has read the cookie. ', () => {
     it('Arguments are ({consents}, false) when user has not handled all consents', () => {
       renderCookieConsent(allNotApprovedConsentData);
       expect(onConsentsParsed).toHaveBeenCalledTimes(1);
       expect(onConsentsParsed).toHaveBeenLastCalledWith(allNotApprovedConsentData.cookie, false);
     });
+
     it('Arguments are ({consents}, true) when user has given all consents', () => {
       renderCookieConsent(allNotApprovedConsentData);
       expect(onConsentsParsed).toHaveBeenCalledTimes(1);
       expect(onConsentsParsed).toHaveBeenLastCalledWith(allNotApprovedConsentData.cookie, false);
     });
   });
+
   describe('onAllConsentsGiven ', () => {
     it('is called only when user has given all consents.', () => {
       const result = renderCookieConsent(allNotApprovedConsentData);
@@ -174,11 +179,13 @@ describe('CookieConsentContext ', () => {
       expect(onAllConsentsGiven).toHaveBeenCalledTimes(1);
       expect(onAllConsentsGiven).toHaveBeenLastCalledWith(allApprovedConsentData.cookie);
     });
+
     it('is not called even if consents are initially given', () => {
       renderCookieConsent(allApprovedConsentData);
       expect(onAllConsentsGiven).toHaveBeenCalledTimes(0);
     });
   });
+
   describe('Saving ', () => {
     it('by clicking "Approve all" sends also unknown consents', () => {
       mockedWindowControls.setUrl('https://subdomain.hel.fi');
@@ -190,6 +197,7 @@ describe('CookieConsentContext ', () => {
       });
       expect(mockCookieHelpers.getSetCookieArguments().options.domain).toEqual('hel.fi');
     });
+
     it('sets the domain of the cookie to given cookieDomain', () => {
       mockedWindowControls.setUrl('https://notmyhost.com');
       const cookieDomain = 'myhost.com';
