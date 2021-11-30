@@ -22,7 +22,7 @@ export const Example = () => {
         aria-hidden={willRenderCookieConsentDialog ? 'true' : 'false'}
       >
         <h1>This is a dummy application</h1>
-        {willRenderCookieConsentDialog && (
+        {willRenderCookieConsentDialog ? (
           <>
             <p>
               Cookie consent dialog is visible. &nbsp;
@@ -31,8 +31,7 @@ export const Example = () => {
               </a>
             </p>
           </>
-        )}
-        {!willRenderCookieConsentDialog && (
+        ) : (
           <>
             <p>Cookie consents have been given. Remove the cookie to see the dialog again.</p>
           </>
