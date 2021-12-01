@@ -20,10 +20,14 @@
 @import "ui/icon-angle-left.css";
 @import "ui/icon-angle-right.css";
 @import "ui/icon-angle-up.css";
+@import "ui/icon-arrow-bottom-left.css";
+@import "ui/icon-arrow-bottom-right.css";
 @import "ui/icon-arrow-down.css";
 @import "ui/icon-arrow-left.css";
 @import "ui/icon-arrow-redo.css";
 @import "ui/icon-arrow-right.css";
+@import "ui/icon-arrow-top-left.css";
+@import "ui/icon-arrow-top-right.css";
 @import "ui/icon-arrow-undo.css";
 @import "ui/icon-arrow-up.css";
 @import "ui/icon-bell-crossed.css";
@@ -37,7 +41,9 @@
 @import "ui/icon-clock-cross.css";
 @import "ui/icon-clock-plus.css";
 @import "ui/icon-clock.css";
+@import "ui/icon-coffee-cup-saucer.css";
 @import "ui/icon-cogwheel.css";
+@import "ui/icon-copy.css";
 @import "ui/icon-cross-circle.css";
 @import "ui/icon-cross.css";
 @import "ui/icon-customer-bot-negative.css";
@@ -49,6 +55,7 @@
 @import "ui/icon-download.css";
 @import "ui/icon-envelope.css";
 @import "ui/icon-error.css";
+@import "ui/icon-event.css";
 @import "ui/icon-eye-crossed.css";
 @import "ui/icon-eye.css";
 @import "ui/icon-face-neutral.css";
@@ -89,12 +96,14 @@
 @import "ui/icon-plus.css";
 @import "ui/icon-question-circle.css";
 @import "ui/icon-refresh.css";
+@import "ui/icon-restaurant.css";
 @import "ui/icon-save-diskette-fill.css";
 @import "ui/icon-save-diskette.css";
 @import "ui/icon-search.css";
 @import "ui/icon-share.css";
 @import "ui/icon-signin.css";
 @import "ui/icon-signout.css";
+@import "ui/icon-sitemap.css";
 @import "ui/icon-speechbubble-text.css";
 @import "ui/icon-speechbubble.css";
 @import "ui/icon-star-fill.css";
