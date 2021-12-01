@@ -153,6 +153,15 @@ DisabledOptions.storyName = 'With disabled options';
 export const Icon = (args) => <Combobox {...args} icon={<IconFaceSmile />} />;
 Icon.storyName = 'With icon';
 
+export const MultiselectWithIcon = (args) => <Combobox {...args} icon={<IconFaceSmile />} />;
+MultiselectWithIcon.storyName = 'Multi-select with icon';
+MultiselectWithIcon.args = {
+  multiselect: true,
+  options: getRegionOptions(),
+};
+
+MultiselectWithIcon.parameters = { loki: { skip: true } };
+
 export const Tooltip = (args) => <Combobox {...args} />;
 Tooltip.storyName = 'With tooltip';
 Tooltip.args = {

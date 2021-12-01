@@ -15,6 +15,10 @@
   display: flex;
 }
 
+.wrapper.wrapperWithMultiSelectAndIcon {
+  align-items: flex-start;
+}
+
 /**
  * TOGGLE BUTTON
  */
@@ -144,6 +148,24 @@
     &.adjustSpacing {
       margin-top: calc(var(--spacing-2-xs) * -1);
       padding: 0 var(--spacing-s);
+    }
+  }
+
+  .inputWithIcon.inputWithIcon {
+    padding-left: 0;
+  }
+
+  .multiselectIconAndInputWrapper {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+
+    &:not(:focus-within).hidden {
+      @extend %hiddenFromScreen;
+    }
+
+    .icon.adjustSpacingForIcon {
+      margin-top: calc(var(--spacing-2-xs) * -1);
     }
   }
 }

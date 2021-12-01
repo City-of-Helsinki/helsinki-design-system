@@ -98,6 +98,10 @@ export type CommonSelectProps<OptionType> = {
    */
   error?: React.ReactNode;
   /**
+   * Icon to be shown in the dropdown
+   */
+  icon?: React.ReactNode;
+  /**
    * Used to generate the first part of the id on the elements
    */
   id?: string;
@@ -178,10 +182,6 @@ export type SingleSelectProps<OptionType> = CommonSelectProps<OptionType> & {
    * Value that should be selected when the dropdown is initialized
    */
   defaultValue?: OptionType | null;
-  /**
-   * Icon to be shown in the dropdown
-   */
-  icon?: React.ReactNode;
   /**
    * Callback function fired when the state is changed
    */
@@ -458,6 +458,9 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
   // show placeholder if no value is selected
   const showPlaceholder = (props.multiselect && selectedItems.length === 0) || (!props.multiselect && !selectedItem);
 
+  const showIcon =
+    (props.icon && props.multiselect === false) || (props.icon && props.multiselect && selectedItems.length === 0);
+
   return (
     <div
       className={classNames(
@@ -515,8 +518,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
             className: classNames(styles.button, showPlaceholder && styles.placeholder),
           })}
         >
-          {/* icons are only supported by single selects */}
-          {props.multiselect === false && props.icon && (
+          {showIcon && (
             <span className={styles.icon} aria-hidden>
               {props.icon}
             </span>
