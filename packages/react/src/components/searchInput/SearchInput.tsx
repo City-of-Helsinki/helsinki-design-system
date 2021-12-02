@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useState, useRef } from 'react';
+import React, { KeyboardEvent, useState, useRef, useEffect } from 'react';
 import { useCombobox } from 'downshift';
 
 // import core base styles
@@ -56,6 +56,10 @@ export type SearchInputProps<SuggestionItem> = {
    */
   onSubmit: (value: string) => void;
   /**
+   * Callback function fired after input value has changed.
+   */
+  onChange?: (value: string) => void;
+  /**
    * The aria-label for the search button.
    * @default Search
    */
@@ -96,7 +100,9 @@ export const SearchInput = <SuggestionItem,>({
   style,
   suggestionLabelField,
   visibleSuggestions = 8,
+  onChange,
 }: SearchInputProps<SuggestionItem>) => {
+  const didMount = useRef(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
@@ -137,6 +143,17 @@ export const SearchInput = <SuggestionItem,>({
     reset();
     inputRef.current.focus();
   };
+
+  /**
+   * Set the input value if value prop changes
+   */
+  useEffect(() => {
+    if (didMount.current && onChange) {
+      onChange(inputValue);
+    } else {
+      didMount.current = true;
+    }
+  }, [onChange, inputValue]);
 
   return (
     <div className={classNames(styles.root, isOpen && styles.open, className)} style={style}>
