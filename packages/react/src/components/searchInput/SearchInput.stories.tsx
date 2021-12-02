@@ -83,9 +83,7 @@ export const WithCustomSearchButton = (args) => {
   };
 
   const doSearch = () => {
-    if (inputRef.current && inputRef.current.value !== '') {
-      onSubmit(inputRef.current.value);
-    }
+    console.log('Search');
   };
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -110,7 +108,7 @@ export const WithCustomSearchButton = (args) => {
         }
       `}
       </style>
-      <SearchInput className="search-input" {...args} hideSearchButton ref={inputRef} onSubmit={onSubmit} />
+      <SearchInput className="search-input" {...args} hideSearchButton onSubmit={onSubmit} />
       <Button className="search-button" onClick={doSearch}>
         Search
       </Button>
