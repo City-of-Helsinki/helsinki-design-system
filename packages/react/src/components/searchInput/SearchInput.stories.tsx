@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { SearchInput } from './SearchInput';
+import { Button } from '../button';
 
 export default {
   component: SearchInput,
@@ -74,11 +75,47 @@ Default.args = {
   helperText: 'Assistive text',
 };
 
-export const WithoutSearchButton = (args) => {
+export const WithoutCustomSearchButton = (args) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const onSubmit = (value: string) => {
     console.log('Search for:', value);
   };
-  return <SearchInput {...args} hideSearchButton onSubmit={onSubmit} />;
+
+  const doSearch = () => {
+    if (inputRef.current && inputRef.current.value !== '') {
+      onSubmit(inputRef.current.value);
+    }
+  };
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <style>
+        {`
+        .search-button {
+          margin-left: 10px;
+        }
+
+        @media only screen and (max-width: ${getComputedStyle(document.documentElement).getPropertyValue(
+          '--breakpoint-m',
+        )}) {
+          .search-input,
+          .search-button {
+            width: 100%;
+          }
+
+          .search-button {
+            margin-left: 0;
+            margin-top: 10px;
+          }
+        }
+      `}
+      </style>
+      <SearchInput className="search-input" {...args} hideSearchButton ref={inputRef} onSubmit={onSubmit} />
+      <Button className="search-button" onClick={doSearch}>
+        Search
+      </Button>
+    </div>
+  );
 };
 
 export const WithSuggestions = (args) => {
