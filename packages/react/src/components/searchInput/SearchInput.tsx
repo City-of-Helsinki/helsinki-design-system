@@ -106,8 +106,10 @@ export const SearchInput = <SuggestionItem,>({
   const inputRef = useRef<HTMLInputElement>(null);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
+  const [isItemClicked, setIsItemClicked] = useState<boolean>(false);
   const { suggestions, isLoading } = useSuggestions<SuggestionItem>(inputValue, getSuggestions, isSubmitted);
   const showLoadingSpinner = useShowLoadingSpinner(isLoading, 1500 - SUGGESTIONS_DEBOUNCE_VALUE);
+
   const {
     isOpen,
     getLabelProps,
@@ -121,6 +123,12 @@ export const SearchInput = <SuggestionItem,>({
     items: suggestions,
     onInputValueChange: (e) => {
       setInputValue(e.inputValue);
+    },
+    onStateChange(props) {
+      const { ItemClick } = useCombobox.stateChangeTypes;
+      if (props.type === ItemClick) {
+        setIsItemClicked(true);
+      }
     },
     itemToString: (item) => (item ? `${item[suggestionLabelField]}` : ''),
   });
@@ -138,6 +146,13 @@ export const SearchInput = <SuggestionItem,>({
       setIsSubmitted(false);
     }
   };
+
+  useEffect(() => {
+    if (isItemClicked) {
+      submit();
+      setIsItemClicked(false);
+    }
+  }, [isItemClicked, submit, setIsItemClicked]);
 
   const clear = () => {
     reset();
