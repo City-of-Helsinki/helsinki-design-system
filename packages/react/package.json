@@ -104,6 +104,8 @@
     "@juggle/resize-observer": "3.2.0",
     "@popperjs/core": "2.5.3",
     "@react-aria/visually-hidden": "3.2.0",
+    "@types/cookie": "^0.4.1",
+    "cookie": "^0.4.1",
     "date-fns": "2.16.1",
     "downshift": "6.0.6",
     "hds-core": "2.1.1",
