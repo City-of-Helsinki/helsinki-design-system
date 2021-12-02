@@ -61,6 +61,11 @@ export type SearchInputProps<SuggestionItem> = {
    */
   searchButtonAriaLabel?: string;
   /**
+   * Hides the search button
+   * @default false
+   */
+  hideSearchButton?: boolean;
+  /**
    * Override or extend the styles applied to the component
    */
   style?: React.CSSProperties;
@@ -87,6 +92,7 @@ export const SearchInput = <SuggestionItem,>({
   loadingSpinnerText = 'Loading suggestions',
   onSubmit,
   searchButtonAriaLabel = 'Search',
+  hideSearchButton = false,
   style,
   suggestionLabelField,
   visibleSuggestions = 8,
@@ -148,24 +154,30 @@ export const SearchInput = <SuggestionItem,>({
           className={classNames(styles.input)}
         />
         <div className={styles.buttons}>
-          {inputValue.length > 0 && (
-            <button
-              type="button"
-              aria-label={clearButtonAriaLabel}
-              className={classNames(styles.button)}
-              onClick={clear}
-            >
-              <IconCrossCircle className={styles.searchIcon} aria-hidden />
-            </button>
-          )}
-          <button
-            type="button"
-            aria-label={searchButtonAriaLabel}
-            className={classNames(styles.button)}
-            onClick={submit}
-          >
-            <IconSearch className={styles.searchIcon} aria-hidden />
-          </button>
+          <>
+            {inputValue.length > 0 && (
+              <button
+                type="button"
+                aria-label={clearButtonAriaLabel}
+                className={classNames(styles.button)}
+                onClick={clear}
+              >
+                <IconCrossCircle className={styles.searchIcon} aria-hidden />
+              </button>
+            )}
+          </>
+          <>
+            {!hideSearchButton && (
+              <button
+                type="button"
+                aria-label={searchButtonAriaLabel}
+                className={classNames(styles.button)}
+                onClick={submit}
+              >
+                <IconSearch className={styles.searchIcon} aria-hidden />
+              </button>
+            )}
+          </>
         </div>
         {showLoadingSpinner && (
           <div className={styles.loadingSpinnerContainer} aria-hidden>

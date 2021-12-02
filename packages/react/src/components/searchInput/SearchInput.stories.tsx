@@ -74,6 +74,13 @@ Default.args = {
   helperText: 'Assistive text',
 };
 
+export const WithoutSearchButton = (args) => {
+  const onSubmit = (value: string) => {
+    console.log('Search for:', value);
+  };
+  return <SearchInput {...args} hideSearchButton onSubmit={onSubmit} />;
+};
+
 export const WithSuggestions = (args) => {
   type SuggestionItemType = {
     value: string;
