@@ -75,7 +75,7 @@ Default.args = {
   helperText: 'Assistive text',
 };
 
-export const WithoutCustomSearchButton = (args) => {
+export const WithCustomSearchButton = (args) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onSubmit = (value: string) => {
