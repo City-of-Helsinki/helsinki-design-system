@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { SearchInput } from './SearchInput';
 import { Button } from '../button';
@@ -76,8 +76,6 @@ Default.args = {
 };
 
 export const WithCustomSearchButton = (args) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-
   const onSubmit = (value: string) => {
     console.log('Search for:', value);
   };
