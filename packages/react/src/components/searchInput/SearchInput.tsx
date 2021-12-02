@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useState, useRef, Ref } from 'react';
+import React, { KeyboardEvent, useState, useRef } from 'react';
 import { useCombobox } from 'downshift';
 
 // import core base styles
