@@ -187,6 +187,11 @@
     justify-content: flex-end;
     transform: translateY(-3px);
 
+    [aria-disabled="true"] {
+      color: rgba(16, 16, 16, 0.3);
+      cursor: not-allowed;
+    }
+
     button {
       cursor: pointer;
       padding: 0.15rem;
