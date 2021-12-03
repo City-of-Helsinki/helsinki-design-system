@@ -3,10 +3,11 @@
 import React, { useContext } from 'react';
 import { render, RenderResult } from '@testing-library/react';
 
-import { ConsentList, ConsentObject } from './cookieConsentController';
-import { createUniversalCookieMockHelpers } from './__mocks__/mockUniversalCookie';
+import { ConsentList, ConsentObject, COOKIE_NAME } from './cookieConsentController';
 import { CookieConsentContext, Provider as CookieContextProvider } from './CookieConsentContext';
-import mockWindowLocation, { MockedWindowLocationActions } from './__mocks__/mockWindowLocation';
+import mockWindowLocation from './__mocks__/mockWindowLocation';
+import mockDocumentCookie from './__mocks__/mockDocumentCookie';
+import extractSetCookieArguments from './test.util';
 
 type ConsentData = {
   requiredConsents?: ConsentList;
@@ -15,17 +16,12 @@ type ConsentData = {
   cookieDomain?: string;
 };
 
-const mockCookieHelpers = createUniversalCookieMockHelpers();
-
-jest.mock(
-  'universal-cookie',
-  () =>
-    function universalCookieMockClass() {
-      return mockCookieHelpers.createMockedModule();
-    },
-);
-
 describe('CookieConsentContext ', () => {
+  const mockedCookieControls = mockDocumentCookie();
+  const mockedWindowControls = mockWindowLocation();
+
+  const getSetCookieArguments = (index = -1) => extractSetCookieArguments(mockedCookieControls, index);
+
   const allApprovedConsentData = {
     requiredConsents: ['requiredConsent1'],
     optionalConsents: ['optionalConsent1'],
@@ -71,19 +67,16 @@ describe('CookieConsentContext ', () => {
 
   const onAllConsentsGiven = jest.fn();
   const onConsentsParsed = jest.fn();
-  let mockedWindowControls: MockedWindowLocationActions;
 
   afterEach(() => {
     onAllConsentsGiven.mockReset();
     onConsentsParsed.mockReset();
-    mockCookieHelpers.reset();
+    mockedCookieControls.clear();
   });
 
-  beforeAll(() => {
-    mockedWindowControls = mockWindowLocation();
-  });
   afterAll(() => {
     mockedWindowControls.restore();
+    mockedCookieControls.restore();
   });
 
   const verifyElementExistsByTestId = (result: RenderResult, testId: string) => {
@@ -125,7 +118,7 @@ describe('CookieConsentContext ', () => {
       ...cookie,
       ...unknownConsents,
     };
-    mockCookieHelpers.setStoredCookie(cookieWithInjectedUnknowns);
+    mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
     return render(
       <CookieContextProvider
         requiredConsents={requiredConsents}
@@ -191,11 +184,11 @@ describe('CookieConsentContext ', () => {
       mockedWindowControls.setUrl('https://subdomain.hel.fi');
       const result = renderCookieConsent(allNotApprovedConsentData);
       clickElement(result, consumer1ApproveAllButtonSelector);
-      expect(JSON.parse(mockCookieHelpers.getSetCookieArguments().data)).toEqual({
+      expect(JSON.parse(getSetCookieArguments().data)).toEqual({
         ...allApprovedConsentData.cookie,
         ...unknownConsents,
       });
-      expect(mockCookieHelpers.getSetCookieArguments().options.domain).toEqual('hel.fi');
+      expect(getSetCookieArguments().options.domain).toEqual('hel.fi');
     });
 
     it('sets the domain of the cookie to given cookieDomain', () => {
@@ -206,7 +199,7 @@ describe('CookieConsentContext ', () => {
         cookieDomain,
       });
       clickElement(result, consumer1ApproveAllButtonSelector);
-      expect(mockCookieHelpers.getSetCookieArguments().options.domain).toEqual(cookieDomain);
+      expect(getSetCookieArguments().options.domain).toEqual(cookieDomain);
     });
   });
 });
