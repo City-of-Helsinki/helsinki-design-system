@@ -1,7 +1,8 @@
 import _pick from 'lodash.pick';
 import _isObject from 'lodash.isobject';
 import _isUndefined from 'lodash.isundefined';
-import CookieController, { CookieSetOptions } from 'universal-cookie';
+
+import cookieControllerModule, { CookieSetOptions } from './cookieController';
 
 export type ConsentList = string[];
 
@@ -78,7 +79,6 @@ function createCookieController(
   get: () => string;
   set: (data: string) => void;
 } {
-  const cookieController = new CookieController();
   const defaultCookieSetOptions: CookieSetOptions = {
     path: '/',
     secure: false,
@@ -93,10 +93,10 @@ function createCookieController(
     domain: cookieDomain || getCookieDomainFromUrl(),
   });
 
-  const get = (): string => cookieController.get(COOKIE_NAME, { doNotParse: true }) || '';
+  const get = (): string => cookieControllerModule.get(COOKIE_NAME) || '';
 
   const set = (data: string): void => {
-    cookieController.set(COOKIE_NAME, data, createCookieOptions());
+    cookieControllerModule.set(COOKIE_NAME, data, createCookieOptions());
   };
   return {
     get,
