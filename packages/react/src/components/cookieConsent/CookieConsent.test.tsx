@@ -5,25 +5,16 @@ import { render, RenderResult } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { CookieConsent } from './CookieConsent';
-import { ConsentList, ConsentObject } from './cookieConsentController';
-import { createUniversalCookieMockHelpers } from './__mocks__/mockUniversalCookie';
+import { ConsentList, ConsentObject, COOKIE_NAME } from './cookieConsentController';
 import { Provider as CookieContextProvider } from './CookieConsentContext';
+import mockDocumentCookie from './__mocks__/mockDocumentCookie';
+import extractSetCookieArguments from './test.util';
 
 type ConsentData = {
   requiredConsents?: ConsentList;
   optionalConsents?: ConsentList;
   cookie?: ConsentObject;
 };
-
-const mockCookieHelpers = createUniversalCookieMockHelpers();
-
-jest.mock(
-  'universal-cookie',
-  () =>
-    function universalCookieMockClass() {
-      return mockCookieHelpers.createMockedModule();
-    },
-);
 
 describe('<CookieConsent /> spec', () => {
   it('renders the component', () => {
@@ -39,6 +30,17 @@ describe('<CookieConsent /> spec', () => {
 });
 
 describe('<CookieConsent /> ', () => {
+  const mockedCookieControls = mockDocumentCookie();
+  afterEach(() => {
+    mockedCookieControls.clear();
+  });
+
+  afterAll(() => {
+    mockedCookieControls.restore();
+  });
+
+  const getSetCookieArguments = (index = -1) => extractSetCookieArguments(mockedCookieControls, index);
+
   const dataTestIds = {
     container: 'cookie-consent',
     languageSwitcher: 'cookie-consent-language-switcher',
@@ -88,17 +90,13 @@ describe('<CookieConsent /> ', () => {
       ...cookie,
       ...unknownConsents,
     };
-    mockCookieHelpers.setStoredCookie(cookieWithInjectedUnknowns);
+    mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
     return render(
       <CookieContextProvider requiredConsents={requiredConsents} optionalConsents={optionalConsents}>
         <CookieConsent />
       </CookieContextProvider>,
     );
   };
-
-  afterEach(() => {
-    mockCookieHelpers.reset();
-  });
 
   describe('Cookie consent ', () => {
     it('and child components are rendered when consents have not been handled', () => {
@@ -153,10 +151,10 @@ describe('<CookieConsent /> ', () => {
         ...unknownConsents,
       };
       clickElement(result, dataTestIds.approveAllButton);
-      expect(JSON.parse(mockCookieHelpers.getSetCookieArguments().data)).toEqual(consentResult);
+      expect(JSON.parse(getSetCookieArguments().data)).toEqual(consentResult);
       verifyElementDoesNotExistsByTestId(result, dataTestIds.container);
       verifyElementExistsByTestId(result, dataTestIds.screenReaderNotification);
-      expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(1);
+      expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(1);
     });
 
     it('Approve required -button, approves only required consents', () => {
@@ -169,10 +167,10 @@ describe('<CookieConsent /> ', () => {
         ...unknownConsents,
       };
       clickElement(result, dataTestIds.approveRequiredButton);
-      expect(JSON.parse(mockCookieHelpers.getSetCookieArguments().data)).toEqual(consentResult);
+      expect(JSON.parse(getSetCookieArguments().data)).toEqual(consentResult);
       verifyElementDoesNotExistsByTestId(result, dataTestIds.container);
       verifyElementExistsByTestId(result, dataTestIds.screenReaderNotification);
-      expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(1);
+      expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -201,7 +199,7 @@ describe('<CookieConsent /> ', () => {
       });
       clickElement(result, dataTestIds.getOptionalConsentId('optionalConsent2'));
       clickElement(result, dataTestIds.approveSelectionsButton);
-      expect(JSON.parse(mockCookieHelpers.getSetCookieArguments().data)).toEqual({
+      expect(JSON.parse(getSetCookieArguments().data)).toEqual({
         requiredConsent1: true,
         requiredConsent2: true,
         optionalConsent1: true,
@@ -210,7 +208,7 @@ describe('<CookieConsent /> ', () => {
       });
       verifyElementDoesNotExistsByTestId(result, dataTestIds.container);
       verifyElementExistsByTestId(result, dataTestIds.screenReaderNotification);
-      expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(1);
+      expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(1);
     });
   });
 });

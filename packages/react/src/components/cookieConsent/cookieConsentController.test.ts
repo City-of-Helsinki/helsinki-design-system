@@ -1,6 +1,5 @@
 /* eslint-disable jest/no-mocks-import */
-import { createUniversalCookieMockHelpers } from './__mocks__/mockUniversalCookie';
-import mockWindowLocation, { MockedWindowLocationActions } from './__mocks__/mockWindowLocation';
+import mockWindowLocation from './__mocks__/mockWindowLocation';
 import createConsentController, {
   ConsentController,
   ConsentList,
@@ -9,29 +8,24 @@ import createConsentController, {
   COOKIE_EXPIRATION_TIME,
   COOKIE_NAME,
 } from './cookieConsentController';
-
-const mockCookieHelpers = createUniversalCookieMockHelpers();
-
-jest.mock(
-  'universal-cookie',
-  () =>
-    function universalCookieMockClass() {
-      return mockCookieHelpers.createMockedModule();
-    },
-);
+import mockDocumentCookie from './__mocks__/mockDocumentCookie';
+import extractSetCookieArguments from './test.util';
 
 describe(`cookieConsentController.ts`, () => {
   let controller: ConsentController;
-  let mockedWindowControls: MockedWindowLocationActions;
+  const mockedWindowControls = mockWindowLocation();
+  const mockedCookieControls = mockDocumentCookie();
   afterEach(() => {
-    mockCookieHelpers.reset();
+    mockedCookieControls.clear();
   });
-  beforeAll(() => {
-    mockedWindowControls = mockWindowLocation();
-  });
+
   afterAll(() => {
+    mockedCookieControls.restore();
     mockedWindowControls.restore();
   });
+
+  const getSetCookieArguments = (index = -1) => extractSetCookieArguments(mockedCookieControls, index);
+
   const defaultControllerTestData = {
     requiredConsents: ['requiredConsent1', 'requiredConsent2'],
     optionalConsents: ['optionalConsent1', 'optionalConsent2'],
@@ -48,7 +42,7 @@ describe(`cookieConsentController.ts`, () => {
     cookie?: ConsentObject;
     cookieDomain?: string;
   }) => {
-    mockCookieHelpers.setStoredCookie(cookie);
+    mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookie) });
     controller = createConsentController({
       requiredConsents,
       optionalConsents,
@@ -134,8 +128,8 @@ describe(`cookieConsentController.ts`, () => {
 
       it('cookie is only read on init', () => {
         createControllerAndInitCookie({});
-        expect(mockCookieHelpers.mockGet).toHaveBeenCalledTimes(1);
-        expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(0);
+        expect(mockedCookieControls.mockGet).toHaveBeenCalledTimes(1);
+        expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(0);
       });
     });
 
@@ -178,7 +172,7 @@ describe(`cookieConsentController.ts`, () => {
           optionalConsent1: true,
           optionalConsent2: true,
         });
-        expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(0);
+        expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(0);
       });
     });
 
@@ -196,7 +190,7 @@ describe(`cookieConsentController.ts`, () => {
           optionalConsent1: false,
           optionalConsent2: false,
         });
-        expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(0);
+        expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(0);
       });
     });
 
@@ -234,7 +228,7 @@ describe(`cookieConsentController.ts`, () => {
           optionalConsent2: false,
         });
 
-        expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(0);
+        expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(0);
       });
     });
 
@@ -305,18 +299,18 @@ describe(`cookieConsentController.ts`, () => {
         allConsents.forEach((consent) => {
           controller.update(consent, true);
         });
-        expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(0);
+        expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(0);
       });
     });
 
     describe('save', () => {
       it('stores the data into a cookie', () => {
         createControllerAndInitCookie(defaultControllerTestData);
-        expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(0);
+        expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(0);
         controller.approveRequired();
         controller.save();
-        expect(mockCookieHelpers.mockSet).toHaveBeenCalledTimes(1);
-        expect(JSON.parse(mockCookieHelpers.getSetCookieArguments().data)).toEqual({
+        expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(1);
+        expect(JSON.parse(getSetCookieArguments().data)).toEqual({
           requiredConsent1: true,
           requiredConsent2: true,
           optionalConsent1: false,
@@ -328,10 +322,10 @@ describe(`cookieConsentController.ts`, () => {
         createControllerAndInitCookie(defaultControllerTestData);
         mockedWindowControls.setUrl('https://subdomain.hel.fi');
         controller.save();
-        expect(mockCookieHelpers.getSetCookieArguments().options.domain).toEqual('hel.fi');
+        expect(getSetCookieArguments().options.domain).toEqual('hel.fi');
         mockedWindowControls.setUrl('http://profiili.hel.ninja:3000?foo=bar');
         controller.save();
-        expect(mockCookieHelpers.getSetCookieArguments().options.domain).toEqual('hel.ninja');
+        expect(getSetCookieArguments().options.domain).toEqual('hel.ninja');
       });
 
       it('if "cookieDomain" property is passed in the props, it is set as the domain of the cookie', () => {
@@ -342,19 +336,19 @@ describe(`cookieConsentController.ts`, () => {
         });
         mockedWindowControls.setUrl('https://notmyhost.com');
         controller.save();
-        expect(mockCookieHelpers.getSetCookieArguments().options.domain).toEqual(cookieDomain);
+        expect(getSetCookieArguments().options.domain).toEqual(cookieDomain);
       });
 
       it('Cookie maxAge should match COOKIE_EXPIRATION_TIME', () => {
         createControllerAndInitCookie(defaultControllerTestData);
         controller.save();
-        expect(mockCookieHelpers.getSetCookieArguments().options.maxAge).toEqual(COOKIE_EXPIRATION_TIME);
+        expect(getSetCookieArguments().options.maxAge).toEqual(COOKIE_EXPIRATION_TIME);
       });
 
       it('Cookie name should match COOKIE_NAME', () => {
         createControllerAndInitCookie(defaultControllerTestData);
         controller.save();
-        expect(mockCookieHelpers.getSetCookieArguments().cookieName).toEqual(COOKIE_NAME);
+        expect(getSetCookieArguments().cookieName).toEqual(COOKIE_NAME);
       });
     });
   });
