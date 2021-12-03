@@ -145,7 +145,7 @@ export const SearchInput = <SuggestionItem,>({
   };
 
   /**
-   * Set the input value if value prop changes
+   * Call optional onChange if input value changes
    */
   useEffect(() => {
     if (didMount.current) {
