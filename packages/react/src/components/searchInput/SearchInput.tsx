@@ -148,8 +148,10 @@ export const SearchInput = <SuggestionItem,>({
    * Set the input value if value prop changes
    */
   useEffect(() => {
-    if (didMount.current && onChange) {
-      onChange(inputValue);
+    if (didMount.current) {
+      if (onChange) {
+        onChange(inputValue);
+      }
     } else {
       didMount.current = true;
     }
