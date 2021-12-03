@@ -65,13 +65,10 @@ const asynchronousSearchOperation = (inputValue: string, timeout = 0) => {
 const longLastingAsynchronousSearchOperation = (inputValue: string) => asynchronousSearchOperation(inputValue, 5000);
 
 export const Default = (args) => {
-  const onChange = (value: string) => {
-    console.log('input value changed:', value);
-  };
   const onSubmit = (value: string) => {
     console.log('Search for:', value);
   };
-  return <SearchInput {...args} onSubmit={onSubmit} onChange={onChange} />;
+  return <SearchInput {...args} onSubmit={onSubmit} />;
 };
 Default.args = {
   label: 'Search',
@@ -82,6 +79,7 @@ export const WithCustomSearchButton = (args) => {
   const currentValue = useRef<string>('');
 
   const onChange = (value: string) => {
+    console.log('Input value changed:', value);
     currentValue.current = value;
   };
 
@@ -134,10 +132,6 @@ export const WithSuggestions = (args) => {
     return suggestions;
   };
 
-  const onChange = (value: string) => {
-    console.log('input value changed:', value);
-  };
-
   const onSubmit = (value: string) => {
     console.log('Submitted value:', value);
   };
@@ -148,7 +142,6 @@ export const WithSuggestions = (args) => {
       suggestionLabelField="value"
       getSuggestions={getSuggestions}
       onSubmit={onSubmit}
-      onChange={onChange}
     />
   );
 };
@@ -168,10 +161,6 @@ export const WithSuggestionsAndHighlighting = (args) => {
     return suggestions;
   };
 
-  const onChange = (value: string) => {
-    console.log('input value changed:', value);
-  };
-
   const onSubmit = (value: string) => {
     console.log('Submitted value:', value);
   };
@@ -182,7 +171,6 @@ export const WithSuggestionsAndHighlighting = (args) => {
       suggestionLabelField="value"
       getSuggestions={getSuggestions}
       onSubmit={onSubmit}
-      onChange={onChange}
     />
   );
 };
