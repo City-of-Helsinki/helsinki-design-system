@@ -4,6 +4,7 @@ import addDays from 'date-fns/addDays';
 import format from 'date-fns/format';
 import isWeekend from 'date-fns/isWeekend';
 import isSameDay from 'date-fns/isSameDay';
+import { addMonths } from 'date-fns';
 
 import { DateInput } from '.';
 import { Button } from '../button';
@@ -36,11 +37,14 @@ export const Default = (args) => {
   return <DateInput {...args} />;
 };
 
-export const WithMinDate = (args) => {
+export const WithMinAndMaxDate = (args) => {
   const minDate = new Date();
   minDate.setDate(4);
-  return <DateInput {...args} minDate={minDate} />;
+  const maxDate = addMonths(new Date(), 4);
+  return <DateInput {...args} minDate={minDate} maxDate={maxDate} />;
 };
+
+WithMinAndMaxDate.parameters = { loki: { skip: true } };
 
 export const WithoutConfirmation = (args) => {
   return <DateInput {...args} />;
