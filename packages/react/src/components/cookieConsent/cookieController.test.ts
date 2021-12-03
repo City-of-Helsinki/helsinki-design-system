@@ -1,10 +1,9 @@
-import { CookieSerializeOptions } from 'cookie';
-
+/* eslint-disable jest/no-mocks-import */
 import mockDocumentCookie from './__mocks__/mockDocumentCookie';
-import cookie from './cookieController';
+import cookie, { CookieSetOptions } from './cookieController';
 
 describe(`cookieController.ts`, () => {
-  let mockedCookieControls = mockDocumentCookie();
+  const mockedCookieControls = mockDocumentCookie();
 
   afterEach(() => {
     mockedCookieControls.clear();
@@ -60,7 +59,7 @@ describe(`cookieController.ts`, () => {
 
       const cookiesAsString = mockedCookieControls.getCookie();
       Object.entries(allCookies).forEach(([key, value]) => {
-        expect(cookiesAsString.includes(`${key} = ${value};`));
+        expect(cookiesAsString.includes(`${key} = ${value};`)).toBeTruthy();
       });
     });
 
@@ -83,7 +82,7 @@ describe(`cookieController.ts`, () => {
     });
 
     it('passes also options to document.cookie', () => {
-      const options: CookieSerializeOptions = {
+      const options: CookieSetOptions = {
         domain: 'domain.com',
         expires: new Date('Sun, 24 Dec 2050 12:12:12 GMT'),
         path: '/path',
@@ -98,7 +97,7 @@ describe(`cookieController.ts`, () => {
     });
 
     it('passes also partial options to document.cookie', () => {
-      const options: CookieSerializeOptions = {
+      const options: CookieSetOptions = {
         domain: 'domain.com',
         sameSite: 'none',
       };
@@ -107,7 +106,7 @@ describe(`cookieController.ts`, () => {
       expect(optionsFromCookie).toEqual(options);
     });
     it('throws when setting invalid options', () => {
-      const options: CookieSerializeOptions = {
+      const options: CookieSetOptions = {
         expires: (1111 as unknown) as Date,
       };
       expect(() => cookie.set(dummyKey, dummyValue, options)).toThrow();

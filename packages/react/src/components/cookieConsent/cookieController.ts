@@ -1,5 +1,7 @@
 import cookie, { CookieSerializeOptions } from 'cookie';
 
+export type CookieSetOptions = CookieSerializeOptions;
+
 function getAll() {
   return cookie.parse(document.cookie);
 }
