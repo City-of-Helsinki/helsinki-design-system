@@ -5,7 +5,7 @@ import uniqueId from 'lodash.uniqueid';
 
 import { Button } from '../../button';
 import { Select } from './Select';
-import { IconFaceSmile } from '../../../icons';
+import { IconFaceSmile, IconLocation } from '../../../icons';
 
 type Option = { label: string };
 
@@ -140,7 +140,7 @@ DisabledOptions.storyName = 'With disabled options';
 export const Icon = (args) => <Select {...args} icon={<IconFaceSmile />} />;
 Icon.storyName = 'With icon';
 
-export const MultiselectWithIcon = (args) => <Select {...args} icon={<IconFaceSmile />} />;
+export const MultiselectWithIcon = (args) => <Select {...args} icon={<IconLocation />} />;
 MultiselectWithIcon.storyName = 'Multi-select with icon';
 MultiselectWithIcon.args = {
   multiselect: true,
