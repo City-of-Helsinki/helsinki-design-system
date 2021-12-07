@@ -77,9 +77,9 @@ describe('<Combobox />', () => {
       userEvent.click(visibleOptions[0]);
 
       await waitFor(() => {
-        expect(queryAllByRole('link', { name: firstSelectedOptionName }).length).toBe(1);
-        userEvent.type(queryAllByRole('link', { name: firstSelectedOptionName })[0], '{enter}');
-        expect(queryAllByRole('link', { name: firstSelectedOptionName }).length).toBe(0);
+        expect(queryAllByRole('button', { name: firstSelectedOptionName }).length).toBe(1);
+        userEvent.type(queryAllByRole('button', { name: firstSelectedOptionName })[0], '{enter}');
+        expect(queryAllByRole('button', { name: firstSelectedOptionName }).length).toBe(0);
       });
     });
 
@@ -93,9 +93,9 @@ describe('<Combobox />', () => {
       userEvent.click(visibleOptions[0]);
 
       await waitFor(() => {
-        expect(queryAllByRole('link', { name: firstSelectedOptionName }).length).toBe(1);
-        userEvent.type(queryAllByRole('link', { name: firstSelectedOptionName })[0], '{space}');
-        expect(queryAllByRole('link', { name: firstSelectedOptionName }).length).toBe(0);
+        expect(queryAllByRole('button', { name: firstSelectedOptionName }).length).toBe(1);
+        userEvent.type(queryAllByRole('button', { name: firstSelectedOptionName })[0], '{space}');
+        expect(queryAllByRole('button', { name: firstSelectedOptionName }).length).toBe(0);
       });
     });
 
