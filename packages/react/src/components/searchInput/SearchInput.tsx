@@ -154,30 +154,26 @@ export const SearchInput = <SuggestionItem,>({
           className={classNames(styles.input)}
         />
         <div className={styles.buttons}>
-          <>
-            {inputValue.length > 0 && (
-              <button
-                type="button"
-                aria-label={clearButtonAriaLabel}
-                className={classNames(styles.button)}
-                onClick={clear}
-              >
-                <IconCrossCircle className={styles.searchIcon} aria-hidden />
-              </button>
-            )}
-          </>
-          <>
-            {!hideSearchButton && (
-              <button
-                type="button"
-                aria-label={searchButtonAriaLabel}
-                className={classNames(styles.button)}
-                onClick={submit}
-              >
-                <IconSearch className={styles.searchIcon} aria-hidden />
-              </button>
-            )}
-          </>
+          {inputValue.length > 0 && (
+            <button
+              type="button"
+              aria-label={clearButtonAriaLabel}
+              className={classNames(styles.button)}
+              onClick={clear}
+            >
+              <IconCrossCircle className={styles.searchIcon} aria-hidden />
+            </button>
+          )}
+          {!hideSearchButton && (
+            <button
+              type="button"
+              aria-label={searchButtonAriaLabel}
+              className={classNames(styles.button)}
+              onClick={submit}
+            >
+              <IconSearch className={styles.searchIcon} aria-hidden />
+            </button>
+          )}
         </div>
         {showLoadingSpinner && (
           <div className={styles.loadingSpinnerContainer} aria-hidden>
