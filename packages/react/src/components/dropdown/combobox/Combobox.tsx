@@ -335,7 +335,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
   const inputAriaLabel =
     `${getLabelProps().id}${error ? ` ${id}-error` : ''}${helper ? ` ${id}-helper` : ''} ${getInputProps().id}`;
 
-  const renderInput = () => (
+  const ComboboxInput = () => (
     <input
       {...getInputProps({
         ...(invalid && { 'aria-invalid': true }),
@@ -482,10 +482,10 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
             >
               {props.icon}
             </span>
-            {renderInput()}
+            <ComboboxInput />
           </div>
         ) : (
-          renderInput()
+          <ComboboxInput />
         )}
         {/* TOGGLE BUTTON */}
         <button
