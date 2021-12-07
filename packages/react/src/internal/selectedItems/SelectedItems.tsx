@@ -239,7 +239,8 @@ export const SelectedItems = <OptionType,>({
                 onKeyDown: (event) => {
                   // some browsers navigate back when Backspace is pressed
                   if (event.key === 'Backspace') event.preventDefault();
-                  else if (event.key === 'Enter') {
+                  // Add support to remove an item with an enter or a space keypress
+                  else if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault();
                     onRemove(_selectedItem);
                   }
