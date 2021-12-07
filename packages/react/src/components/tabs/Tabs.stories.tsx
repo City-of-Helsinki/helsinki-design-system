@@ -77,8 +77,8 @@ export const Small = () => (
 
 export const WithCustomTheme = () => {
   const theme = {
-    '--tab-color': 'var(--color-brick)',
-    '--tab-active-border-color': 'var(--color-brick)',
+    '--tab-color': 'var(--color-black-90)',
+    '--tab-active-border-color': 'var(--color-metro)',
   };
 
   return (
