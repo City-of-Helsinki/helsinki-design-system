@@ -188,7 +188,7 @@
     transform: translateY(-3px);
 
     [aria-disabled="true"] {
-      color: rgba(16, 16, 16, 0.3);
+      color: var(--color-black-30);
       cursor: not-allowed;
     }
 
