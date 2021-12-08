@@ -6,6 +6,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0] - Dec, 9, 2021
+
+### Core
+
+#### Added
+- [Icons] New Icons: Icon set 12/2021
+
+### React Components
+
+#### Added
+- [Icons] New Icons: Icon set 12/2021
+- [Search Input] Support for onChange property to listen to input value changes
+- [Search Input] Support hiding search button
+- [Tabs] Enable customisation through theme prop
+- [Dropdown] Add icon support for multi-select variants of Select and Combobox components
+
+#### Fixed
+- [Date Input] Fix previous and next month focus disappearing
+- [Search Input] Clicking suggestion triggers onSubmit
+- [Search Input] Removing selectedItem with an enter and a space keypress
+
+### Documentation
+
+#### Added
+- New Icons: Icon set 12/2021
+- Example of custom themed Tabs
+- Guidelines for using icons in Dropdown components
+
 ## [1.7.1] - Nov, 29, 2021
 
 ### React Components
