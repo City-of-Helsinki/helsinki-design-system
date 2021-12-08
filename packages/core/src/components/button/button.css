@@ -50,7 +50,17 @@
   outline: none;
 }
 
+.hds-button:active {
+  background-color: var(--background-color-focus, transparent);
+  color: var(--color-focus);
+  outline: none;
+}
+
 .hds-button:focus:hover {
+  background-color: var(--background-color-hover-focus, transparent);
+}
+
+.hds-button:active:hover {
   background-color: var(--background-color-hover-focus, transparent);
 }
 
@@ -73,7 +83,16 @@
   border-color: var(--border-color-focus, transparent);
 }
 
+.hds-button:not(:disabled):active {
+  border-color: var(--border-color-focus, transparent);
+}
+
 .hds-button:not(:disabled):focus:hover {
+  border-color: var(--border-color-hover-focus, transparent);
+  color: var(--color-hover-focus);
+}
+
+.hds-button:not(:disabled):active:hover {
   border-color: var(--border-color-hover-focus, transparent);
   color: var(--color-hover-focus);
 }
@@ -91,6 +110,11 @@
 }
 
 .hds-button:focus::after {
+  --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
+  border-color: var(--focus-outline-color);
+}
+
+.hds-button:active::after {
   --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
   border-color: var(--focus-outline-color);
 }
