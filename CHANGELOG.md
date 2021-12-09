@@ -48,14 +48,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **Changed**
 - Updated HDS Sketch libraries to Sketch 80.1
 - [Modals and Notifications] Slightly altered the symbol structure of the internal Tooltip symbols
-- [Modals and Notifications] Renamed Above and Below Tooltips to Top and Bottom to better match terms used in implementation
-- [Modals and Notifications] Swapped names of Left and Right Tooltips to better match terms used in implementation
+- [Modals and Notifications] Renamed Above and Below Tooltips to Top and Bottom to better match terms used in the implementation
+- [Modals and Notifications] Swapped names of Left and Right Tooltips to better match terms used in the implementation
 
 ### Documentation
 
 #### Added
 - New Icons: Icon set 12/2021
-- Example of custom themed Tabs
+- Example of custom-themed Tabs
 - Guidelines for using icons in Dropdown components
 
 ## [1.7.1] - Nov, 29, 2021
