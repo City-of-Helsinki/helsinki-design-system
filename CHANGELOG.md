@@ -11,7 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Core
 
 #### Added
-- [Icons] New Icons: Icon set 12/2021
+- [Icons] New icons
+  - 4 45 deg angled arrows
+  - Event
+  - Coffee
+  - Copy
+  - Restaurant
+  - Sitemap
 
 #### Fixed
 - [Buttons] Add active state to HDS buttons to add focus outline to Safari on click
@@ -19,7 +25,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### React Components
 
 #### Added
-- [Icons] New Icons: Icon set 12/2021
+- [Icons] New icons
+  - 4 45 deg angled arrows
+  - Event
+  - Coffee
+  - Copy
+  - Restaurant
+  - Sitemap
 - [Search Input] Support for onChange property to listen to input value changes
 - [Search Input] Support hiding search button
 - [Tabs] Enable customisation through theme prop
