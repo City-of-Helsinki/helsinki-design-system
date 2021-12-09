@@ -335,6 +335,53 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
   const inputAriaLabel =
     `${getLabelProps().id}${error ? ` ${id}-error` : ''}${helper ? ` ${id}-helper` : ''} ${getInputProps().id}`;
 
+  const renderInput = () => (
+    <input
+      {...getInputProps({
+        ...(invalid && { 'aria-invalid': true }),
+        ...(props.multiselect && {
+          ...getDropdownProps({
+            // Change Downshift's default behavior with space.
+            // Instead of typing a space character into the
+            // search input, it now selects an item without
+            // closing the dropdown menu.
+
+            // Our custom keyDown handler also blocks other
+            // dropdown key events when the menu is open. This
+            // would normally be done with the
+            // 'preventKeyAction' setting, but it would also
+            // block our custom handler from executing, which
+            // would break the special behavior we have
+            // implemented for space. We want to block other key
+            // actions in order to ensure that dropdown and
+            // input props don't conflict.
+            onKeyDown: handleMultiSelectInputKeyDown,
+            ref: inputRef,
+          }),
+        }),
+        type: 'text',
+        disabled,
+        required,
+        role: getComboboxProps().role,
+        'aria-expanded': getComboboxProps()['aria-expanded'],
+        'aria-haspopup': getComboboxProps()['aria-haspopup'],
+        'aria-owns': getComboboxProps()['aria-owns'],
+        'aria-labelledby': inputAriaLabel,
+        'aria-describedby': customAriaDescribedBy,
+      })}
+      placeholder={placeholder}
+      className={classNames(
+        styles.input,
+        !isInputVisible && styles.hidden,
+        !showToggleButton && styles.noToggle,
+        hasFocus && selectedItems.length > 0 && styles.adjustSpacing,
+        props.icon && props.multiselect && styles.inputWithIcon,
+      )}
+      autoCorrect="off"
+      autoComplete="off"
+    />
+  );
+
   return (
     <div
       className={classNames(
@@ -394,7 +441,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
         onFocus={ignoreFocusHandlerWhenClickingItem(handleWrapperFocus)}
         onBlur={ignoreFocusHandlerWhenClickingItem(handleWrapperBlur)}
         onClick={handleWrapperClick}
-        className={classNames(styles.wrapper)}
+        className={classNames(styles.wrapper, props.multiselect && props.icon && styles.wrapperWithMultiSelectAndIcon)}
         ref={getComboboxProps().ref}
       >
         {/* SELECTED ITEMS */}
@@ -421,56 +468,25 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
             toggleButtonHidden={!showToggleButton}
           />
         )}
-        {/* icons are only supported by the single select combobox */}
         {props.multiselect === false && props.icon && (
           <span className={styles.icon} aria-hidden>
             {props.icon}
           </span>
         )}
         {/* FILTER INPUT */}
-        <input
-          {...getInputProps({
-            ...(invalid && { 'aria-invalid': true }),
-            ...(props.multiselect && {
-              ...getDropdownProps({
-                // Change Downshift's default behavior with space.
-                // Instead of typing a space character into the
-                // search input, it now selects an item without
-                // closing the dropdown menu.
-
-                // Our custom keyDown handler also blocks other
-                // dropdown key events when the menu is open. This
-                // would normally be done with the
-                // 'preventKeyAction' setting, but it would also
-                // block our custom handler from executing, which
-                // would break the special behavior we have
-                // implemented for space. We want to block other key
-                // actions in order to ensure that dropdown and
-                // input props don't conflict.
-                onKeyDown: handleMultiSelectInputKeyDown,
-                ref: inputRef,
-              }),
-            }),
-            type: 'text',
-            disabled,
-            required,
-            role: getComboboxProps().role,
-            'aria-expanded': getComboboxProps()['aria-expanded'],
-            'aria-haspopup': getComboboxProps()['aria-haspopup'],
-            'aria-owns': getComboboxProps()['aria-owns'],
-            'aria-labelledby': inputAriaLabel,
-            'aria-describedby': customAriaDescribedBy,
-          })}
-          placeholder={placeholder}
-          className={classNames(
-            styles.input,
-            !isInputVisible && styles.hidden,
-            !showToggleButton && styles.noToggle,
-            hasFocus && selectedItems.length > 0 && styles.adjustSpacing,
-          )}
-          autoCorrect="off"
-          autoComplete="off"
-        />
+        {props.multiselect && props.icon ? (
+          <div className={classNames(styles.multiselectIconAndInputWrapper, !isInputVisible && styles.hidden)}>
+            <span
+              className={classNames(styles.icon, hasFocus && selectedItems.length > 0 && styles.adjustSpacingForIcon)}
+              aria-hidden
+            >
+              {props.icon}
+            </span>
+            {renderInput()}
+          </div>
+        ) : (
+          renderInput()
+        )}
         {/* TOGGLE BUTTON */}
         <button
           type="button"
