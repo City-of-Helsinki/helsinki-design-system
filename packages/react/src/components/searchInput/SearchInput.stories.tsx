@@ -214,3 +214,15 @@ WithSuggestionsSpinner.args = {
   label: 'Search for a fruit',
   helperText: 'Assistive text',
 };
+
+export const WithPlaceholder = (args) => {
+  const onSubmit = (value: string) => {
+    console.log('Search for:', value);
+  };
+  return <SearchInput {...args} onSubmit={onSubmit} />;
+};
+WithPlaceholder.args = {
+  label: 'Search',
+  helperText: 'Assistive text',
+  placeholder: 'Placeholder text',
+};
