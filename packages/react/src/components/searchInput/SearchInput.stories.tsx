@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { SearchInput } from './SearchInput';
+import { Button } from '../button';
 
 export default {
   component: SearchInput,
@@ -72,6 +73,45 @@ export const Default = (args) => {
 Default.args = {
   label: 'Search',
   helperText: 'Assistive text',
+};
+
+export const WithCustomSearchButton = (args) => {
+  const onSubmit = (value: string) => {
+    console.log('Search for:', value);
+  };
+
+  const doSearch = () => {
+    console.log('Search');
+  };
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <style>
+        {`
+        .search-button {
+          margin-left: 10px;
+        }
+
+        @media only screen and (max-width: ${getComputedStyle(document.documentElement).getPropertyValue(
+          '--breakpoint-m',
+        )}) {
+          .search-input,
+          .search-button {
+            width: 100%;
+          }
+
+          .search-button {
+            margin-left: 0;
+            margin-top: 10px;
+          }
+        }
+      `}
+      </style>
+      <SearchInput className="search-input" {...args} hideSearchButton onSubmit={onSubmit} />
+      <Button className="search-button" onClick={doSearch}>
+        Search
+      </Button>
+    </div>
+  );
 };
 
 export const WithSuggestions = (args) => {
