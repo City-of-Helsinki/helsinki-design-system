@@ -6,6 +6,70 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0] - Dec, 9, 2021
+
+### Core
+
+#### Added
+- [Icons] New icons
+  - 4 45 deg angled arrows
+  - Event
+  - Coffee
+  - Copy
+  - Restaurant
+  - Sitemap
+
+#### Fixed
+- [Buttons] Add active state to HDS buttons to add focus outline to Safari on click
+
+### React Components
+
+#### Added
+- [Icons] New icons
+  - 4 45 deg angled arrows
+  - Event
+  - Coffee
+  - Copy
+  - Restaurant
+  - Sitemap
+- [Search Input] Support for onChange property to listen to input value changes
+- [Search Input] Support hiding search button
+- [Tabs] Enable customisation through theme prop
+- [Dropdown] Add icon support for multi-select variants of Select and Combobox components
+
+#### Fixed
+- [Buttons] Add active state to HDS buttons to add focus outline to Safari on click
+- [Date Input] Fix previous and next month focus disappearing
+- [Search Input] Clicking suggestion triggers onSubmit
+- [Search Input] Removing selectedItem with an enter and a space keypress
+
+### Design kit
+
+**Added**
+- [Form Components] Multiselect (Select and Combobox) with icon variants
+- [Icons] New icons
+  - 4 45 deg angled arrows
+  - Event
+  - Coffee
+  - Copy
+  - Restaurant
+  - Sitemap
+- [Modals and Notifications] Added new arrow positions for Tooltip to better match the implementation. New arrow symbols allow setting the arrow closer to the edge of the Tooltip.
+- [Modals and Notifications] Examples of all possible arrow positions
+
+**Changed**
+- Updated HDS Sketch libraries to Sketch 80.1
+- [Modals and Notifications] Slightly altered the symbol structure of the internal Tooltip symbols
+- [Modals and Notifications] Renamed Above and Below Tooltips to Top and Bottom to better match terms used in the implementation
+- [Modals and Notifications] Swapped names of Left and Right Tooltips to better match terms used in the implementation
+
+### Documentation
+
+#### Added
+- New Icons: Icon set 12/2021
+- Example of custom-themed Tabs
+- Guidelines for using icons in Dropdown components
+
 ## [1.7.1] - Nov, 29, 2021
 
 ### React Components
