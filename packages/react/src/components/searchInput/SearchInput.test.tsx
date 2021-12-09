@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { SearchInput } from './SearchInput';
@@ -49,5 +49,25 @@ describe('<SearchInput /> spec', () => {
     expect(onChange.mock.calls[2][0]).toBe('tes');
     userEvent.type(input, 't');
     expect(onChange.mock.calls[3][0]).toBe('test');
+  });
+
+  it('submits the selected item on mouse click', async () => {
+    const onSubmit = jest.fn();
+    const { getAllByLabelText, getAllByRole } = render(
+      <SearchInput<SuggestionItemType>
+        label="search"
+        suggestionLabelField="value"
+        getSuggestions={getSuggestions}
+        onSubmit={onSubmit}
+      />,
+    );
+
+    const input = getAllByLabelText('search')[0];
+    userEvent.type(input, 'a');
+    await waitFor(() => {
+      const options = getAllByRole('option');
+      userEvent.click(options[0]);
+    });
+    expect(onSubmit.mock.calls[0][0]).toBe('Apple');
   });
 });
