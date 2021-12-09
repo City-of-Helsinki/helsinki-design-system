@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useState, useRef, useEffect } from 'react';
+import React, { KeyboardEvent, useState, useRef, useEffect, useCallback } from 'react';
 import { useCombobox } from 'downshift';
 
 // import core base styles
@@ -104,10 +104,12 @@ export const SearchInput = <SuggestionItem,>({
 }: SearchInputProps<SuggestionItem>) => {
   const didMount = useRef(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const isItemClicked = useRef<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
   const { suggestions, isLoading } = useSuggestions<SuggestionItem>(inputValue, getSuggestions, isSubmitted);
   const showLoadingSpinner = useShowLoadingSpinner(isLoading, 1500 - SUGGESTIONS_DEBOUNCE_VALUE);
+
   const {
     isOpen,
     getLabelProps,
@@ -122,13 +124,19 @@ export const SearchInput = <SuggestionItem,>({
     onInputValueChange: (e) => {
       setInputValue(e.inputValue);
     },
+    onStateChange(props) {
+      const { ItemClick } = useCombobox.stateChangeTypes;
+      if (props.type === ItemClick) {
+        isItemClicked.current = true;
+      }
+    },
     itemToString: (item) => (item ? `${item[suggestionLabelField]}` : ''),
   });
 
-  const submit = () => {
+  const submit = useCallback(() => {
     setIsSubmitted(true);
     onSubmit(inputValue);
-  };
+  }, [setIsSubmitted, onSubmit, inputValue]);
 
   const onInputKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
     const key = event.key || event.keyCode;
@@ -138,6 +146,13 @@ export const SearchInput = <SuggestionItem,>({
       setIsSubmitted(false);
     }
   };
+
+  useEffect(() => {
+    if (isItemClicked.current) {
+      isItemClicked.current = false;
+      submit();
+    }
+  }, [isItemClicked, submit]);
 
   const clear = () => {
     reset();
