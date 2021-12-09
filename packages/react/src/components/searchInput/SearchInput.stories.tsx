@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { SearchInput } from './SearchInput';
 import { Button } from '../button';
@@ -76,13 +76,21 @@ Default.args = {
 };
 
 export const WithCustomSearchButton = (args) => {
-  const onSubmit = (value: string) => {
-    console.log('Search for:', value);
+  const currentValue = useRef<string>('');
+
+  const onChange = (value: string) => {
+    console.log('Input value changed:', value);
+    currentValue.current = value;
+  };
+
+  const onSubmit = (string) => {
+    console.log('Search for:', string);
   };
 
   const doSearch = () => {
-    console.log('Search');
+    if (currentValue.current) console.log('Search:', currentValue.current);
   };
+
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <style>
@@ -106,7 +114,7 @@ export const WithCustomSearchButton = (args) => {
         }
       `}
       </style>
-      <SearchInput className="search-input" {...args} hideSearchButton onSubmit={onSubmit} />
+      <SearchInput className="search-input" {...args} hideSearchButton onSubmit={onSubmit} onChange={onChange} />
       <Button className="search-button" onClick={doSearch}>
         Search
       </Button>
@@ -183,6 +191,10 @@ export const WithSuggestionsSpinner = (args) => {
     return suggestions;
   };
 
+  const onChange = (value: string) => {
+    console.log('input value changed:', value);
+  };
+
   const onSubmit = (value: string) => {
     console.log('Submitted value:', value);
   };
@@ -193,6 +205,7 @@ export const WithSuggestionsSpinner = (args) => {
       suggestionLabelField="value"
       getSuggestions={getSuggestions}
       onSubmit={onSubmit}
+      onChange={onChange}
     />
   );
 };
