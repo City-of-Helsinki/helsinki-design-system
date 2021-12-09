@@ -223,6 +223,7 @@ export const SelectedItems = <OptionType,>({
               className={styles.tag}
               id={tagId}
               labelProps={{ 'aria-labelledby': `${dropdownId}-label ${tagId}-label` }}
+              role="button"
               deleteButtonAriaLabel={replaceTokenWithValue(removeButtonAriaLabel, selectedItemLabel)}
               // remove delete button from focus order
               deleteButtonProps={{
@@ -239,6 +240,11 @@ export const SelectedItems = <OptionType,>({
                 onKeyDown: (event) => {
                   // some browsers navigate back when Backspace is pressed
                   if (event.key === 'Backspace') event.preventDefault();
+                  // Add support to remove an item with an enter or a space keypress
+                  else if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    onRemove(_selectedItem);
+                  }
                 },
                 onFocus: () => setActiveIndex(index),
               })}
