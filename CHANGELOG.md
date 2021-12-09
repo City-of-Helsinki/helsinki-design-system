@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 - [Icons] New Icons: Icon set 12/2021
 
+#### Fixed
+- [Buttons] Add active state to HDS buttons to add focus outline to Safari on click
+
 ### React Components
 
 #### Added
