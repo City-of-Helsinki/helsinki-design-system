@@ -175,7 +175,7 @@ export const Flipped = () => `
 `;
 
 export const RotatedBasic45deg = () => `
-  <div class="hds-koros hds-koros--45deg" style="color:red">
+  <div class="hds-koros hds-koros--45deg" style="transform-origin: 43px">
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
         <pattern id="korosBasic45deg" x="0" width="106" height="85" patternUnits="userSpaceOnUse">
@@ -188,7 +188,7 @@ export const RotatedBasic45deg = () => `
 `;
 
 export const RotatedBasic90deg = () => `
-  <div class="hds-koros hds-koros--90deg">
+  <div class="hds-koros hds-koros--90deg" style="transform-origin: 43px">
    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
      <defs>
        <pattern id="korosBasic90deg" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
@@ -201,7 +201,7 @@ export const RotatedBasic90deg = () => `
 `;
 
 export const RotatedBasic135deg = () => `
-  <div class="hds-koros hds-koros--135deg">
+  <div class="hds-koros hds-koros--135deg" style="transform-origin: left; position: absolute; left: calc((100% / 1.4) + 43px);">
    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
      <defs>
        <pattern id="korosBasic135deg" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
@@ -214,7 +214,7 @@ export const RotatedBasic135deg = () => `
 `;
 
 export const RotatedBasic225deg = () => `
-  <div class="hds-koros hds-koros--225deg">
+  <div class="hds-koros hds-koros--225deg" style="transform-origin: left; position: absolute; bottom: 0; left: calc((100% / 1.4) + 43px);">
    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
      <defs>
        <pattern id="korosBasic225deg" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
@@ -227,7 +227,7 @@ export const RotatedBasic225deg = () => `
 `;
 
 export const RotatedBasic270deg = () => `
-  <div class="hds-koros hds-koros--270deg">
+  <div class="hds-koros hds-koros--270deg" style="transform-origin: calc(100% - 85px) 100%">
    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
      <defs>
        <pattern id="korosBasic270deg" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
@@ -240,7 +240,7 @@ export const RotatedBasic270deg = () => `
 `;
 
 export const RotatedBasic315deg = () => `
-  <div class="hds-koros hds-koros--315deg">
+  <div class="hds-koros hds-koros--315deg" style="transform-origin: bottom right;">
    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
      <defs>
        <pattern id="korosBasic315deg" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
