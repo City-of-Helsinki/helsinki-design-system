@@ -59,12 +59,12 @@ export const RotatedKorosExample = () => {
     <div
       style={{
         ...rootStyle,
+        backgroundColor: 'var(--color-silver-light)',
         height: 'var(--hero-height)',
         maxWidth: '100%',
-        width: 'var(--hero-width)',
-        backgroundColor: 'var(--color-silver-light)',
         overflow: 'hidden',
         position: 'relative',
+        width: 'var(--hero-width)',
       }}
     >
       <div
@@ -77,12 +77,12 @@ export const RotatedKorosExample = () => {
       <Koros
         style={{
           fill: 'var(--color-coat-of-arms)',
-          position: 'absolute',
-          transformOrigin: 'center',
           left: 'calc(-1 * var(--koros-height))',
+          position: 'absolute',
           top: 'var(--koros-height)',
+          transform: 'rotate(135deg)',
+          transformOrigin: 'center',
           width: 'calc(2 * var(--hero-height))',
-          transform: ' rotate(135deg)',
         }}
         rotate="135deg"
       />
