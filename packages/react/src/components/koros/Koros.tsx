@@ -8,11 +8,17 @@ import styles from './Koros.module.css';
 
 export type KorosType = 'basic' | 'beat' | 'pulse' | 'storm' | 'wave' | 'calm';
 
+type RotateDegrees = '45deg' | '90deg' | '135deg' | '180deg' | '225deg' | '270deg' | '315deg';
+
 export type KorosProps = {
   /**
    * Whether the component should be flipped horizontally
    */
   flipHorizontal?: boolean;
+  /**
+   * A property to rotate Koros
+   */
+  rotate?: RotateDegrees;
   /**
    * Koros type
    */
@@ -55,14 +61,17 @@ const getSVG = (type: string, patternName: string): React.SVGProps<SVGElement> =
   );
 };
 
-export const Koros = ({ flipHorizontal = false, type = 'basic', className = '', style }: KorosProps) => {
+export const Koros = ({ flipHorizontal = false, type = 'basic', rotate, className = '', style }: KorosProps) => {
   const patternName = `koros_${type}`;
   const [id] = useState(uniqueId(`${patternName}-`));
+  const cssTransforms: string[] = [flipHorizontal && 'scaleY(-1)', rotate && `rotate(${rotate}) translateZ(0)`].filter(
+    (t) => !!t,
+  );
 
   return (
     <div
-      className={classNames(styles.koros, styles[type], className, flipHorizontal && styles.flipHorizontal)}
-      style={style}
+      className={classNames(styles.koros, styles[type], className)}
+      style={{ ...style, ...(cssTransforms.length > 0 ? { transform: cssTransforms.join(' ') } : {}) }}
     >
       {getSVG(type, id)}
     </div>

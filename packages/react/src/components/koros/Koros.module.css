@@ -2,7 +2,3 @@
   width: 100%;
   line-height: 0;
 }
-
-.koros.flipHorizontal {
-  transform: scaleY(-1);
-}
