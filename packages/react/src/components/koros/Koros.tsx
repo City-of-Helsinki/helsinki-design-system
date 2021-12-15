@@ -70,7 +70,7 @@ export const Koros = ({ flipHorizontal = false, type = 'basic', rotate, classNam
 
   return (
     <div
-      className={classNames(styles.koros, styles[type], className)}
+      className={classNames(styles.koros, styles[type], rotate && styles.rotate, className)}
       style={{ ...style, ...(cssTransforms.length > 0 ? { transform: cssTransforms.join(' ') } : {}) }}
     >
       {getSVG(type, id)}
