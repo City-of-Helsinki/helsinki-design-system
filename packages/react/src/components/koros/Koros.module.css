@@ -2,3 +2,7 @@
   width: 100%;
   line-height: 0;
 }
+
+.rotate {
+  will-change: transform;
+}
