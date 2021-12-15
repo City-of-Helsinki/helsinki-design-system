@@ -51,6 +51,25 @@ import Link from "../../src/components/Link";
   <Koros type="calm" />
 </Playground>
 
+#### Core code example:
+```html
+<div class="hds-koros">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+    <defs>
+      <pattern id="korosBasic" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+        <path
+          transform="scale(5.3)"
+          d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
+        />
+      </pattern>
+    </defs>
+    <rect fill="url(#korosBasic)" width="100%" height="85" />
+  </svg>
+</div>
+
+<!–– To see examples of other Koro shapes, please refer to the Core Storybook ––>
+```
+
 #### React code example:
 ```tsx
 <Koros type="basic" />
@@ -102,6 +121,26 @@ Koro shapes can be angled in 45 degree increments. The allowed angle properties 
   );
 }}
 </Playground>
+
+#### Core code example:
+```html
+<style type="text/css">
+  .hds-custom-koros {
+    fill: var(--color-coat-of-arms);
+  }
+</style>
+
+<div class="hds-koros hds-koros--135deg hds-custom-koros" style="transform-origin: left; position: absolute; left: calc((100% / 1.4) + 43px);">
+ <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+   <defs>
+     <pattern id="korosBasic135deg" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+       <path transform="scale(5.3)" d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z" />
+     </pattern>
+   </defs>
+   <rect fill="url(#korosBasic135deg)" width="100%" height="85" />
+ </svg>
+</div>
+```
 
 #### React code example:
 ```tsx
