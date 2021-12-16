@@ -20,7 +20,7 @@ Filling a long form can be a daunting task for the user. One way to make a long 
 </LargeParagraph>
 
 ## Principles
-The goal of dividing a form into multiple pages (or steps) is to show less information per on one page. Potentially, this has multiple benefits:
+The goal of dividing a form into multiple pages (or steps) is to show less information on one page. Potentially, this has multiple benefits:
 - Form steps will be shorter and require less cognitive effort to fill.
 - Individual steps will be less overwhelming - encouraging the user to fill out the whole form.
 - Each step will contain fewer form elements. This makes it easier to design forms that work well on different screen sizes.
@@ -92,9 +92,16 @@ To learn more about how to construct form in the City of Helsinki services, plea
 
 <Image src="../../static/patterns/form-multi-page/multi-page-form-form-area@2x.png" alt="Form area example" style="max-width:768px;" viewable />
 
+<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
+    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
+    <ul style="margin-bottom:0;">
+        <li>If your form description includes important instructions, you <strong>must</strong> include them on the every step of the form. Do not expect the user to remember instructions from earlier pages.</li>
+    </ul>
+</div>
+
 ## Handling errors
 
-One of the main benefits of dividing the form into multiple steps is that the users will make fewer errors in general and the errors will be easier to correct. To read more about form validation in general, please refer to [HDS Form validation pattern documentation](/patterns/form-validation). 
+One of the main benefits of dividing the form into multiple steps is that the users will make fewer errors in general and the errors will be easier to correct. To read more about form validation please refer to [HDS Form validation pattern documentation](/patterns/form-validation). 
 
 To make the error handling as easy as possible for the user, please follow these guidelines:
 
@@ -105,19 +112,27 @@ To make the error handling as easy as possible for the user, please follow these
         <li><strong>Do validation separately for each step/page.</strong>
             <ul style="margin-top:0;">
                 <li>Always validate all inputs of the page when the user tries to leave the page.</li>
+                <li>The main benefit of this is that the user only needs to worry about errors on the current page.</li>
             </ul>
         </li>
+    
     </ul>
 </div>
 
 <div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
     <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></div>
     <ul style="margin-bottom:0;">
-        <li><strong>Do not let the user leave pages that have erroneous fields.</strong> Always validate input and guide the user to fix the errors before navigating to other steps.</li>
+        <li><strong>Do not let the user leave pages that have erroneous fields.</strong> Always validate input and guide the user to fix the errors before navigating to other steps.
+        </li>
         <li>Avoid situations where choices in steps could cause errors in other steps. Steps should be completely independent.
-              <ul style="margin-top:0;">
+            <ul style="margin-top:0;">
                 <li>If this is necessary, make sure the user is well informed that attention is needed in earlier steps. Use HDS <a href="/components/notification">Inline Notification</a> for this.</li>
+                <li>If it is possible that there are errors in previous steps when the user reaches the end of the form, offer a clear summary page of all errors are provide links to relevant pages to fix the errors.</li>
             </ul>
         </li>
     </ul>
 </div>
+
+## End of the form
+
+When the user reaches the end of the form, it is recommended to offer a review page as the last step of the form. This allows the user to review the information they are about to submit and potentially fix errors in the data. The review step is especially important for longer forms.
