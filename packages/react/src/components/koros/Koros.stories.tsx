@@ -34,23 +34,35 @@ export const Storm = () => <Koros type="storm" />;
 
 export const Calm = () => <Koros type="calm" />;
 
-export const Flipped = () => (
+export const Flipped = (args) => (
   <>
-    <Koros flipHorizontal />
+    <Koros flipHorizontal={args.flipHorizontal} />
     <br />
     <br />
-    <Koros type="beat" flipHorizontal />
+    <Koros type="beat" flipHorizontal={args.flipHorizontal} />
     <br />
     <br />
-    <Koros type="pulse" flipHorizontal />
+    <Koros type="pulse" flipHorizontal={args.flipHorizontal} />
     <br />
     <br />
-    <Koros type="wave" flipHorizontal />
+    <Koros type="wave" flipHorizontal={args.flipHorizontal} />
     <br />
     <br />
-    <Koros type="storm" flipHorizontal />
+    <Koros type="storm" flipHorizontal={args.flipHorizontal} />
   </>
 );
+
+Flipped.args = {
+  flipHorizontal: true,
+};
+
+export const Rotated = (args) => <Koros type={args.type} flipHorizontal={args.flipHorizontal} rotate={args.rotate} />;
+
+Rotated.args = {
+  type: 'basic',
+  flipHorizontal: false,
+  rotate: '45deg',
+};
 
 export const RotatedKorosExample = () => {
   const rootStyle = { '--koros-height': '85px', '--hero-height': '300px', '--hero-width': '500px' };
