@@ -92,7 +92,6 @@ export const RotatedKorosExample = () => {
           left: 'calc(-1 * var(--koros-height))',
           position: 'absolute',
           top: 'var(--koros-height)',
-          transform: 'rotate(135deg)',
           transformOrigin: 'center',
           width: 'calc(2 * var(--hero-height))',
         }}
