@@ -41,6 +41,7 @@ The basic version of the search input is a plain text field with search and clea
 <Playground>
   <SearchInput 
     label="Search" 
+    placeholder="Placeholder text"
     helperText="Assistive text" 
     searchButtonAriaLabel="Search" 
     clearButtonAriaLabel="Clear search field"
@@ -58,6 +59,7 @@ The basic version of the search input is a plain text field with search and clea
       id="example"
       class="hds-search-input__input"
       type="text"
+      placeholder="Placeholder text"
     />
     <div class="hds-search-input__buttons">
       <button
@@ -75,7 +77,8 @@ The basic version of the search input is a plain text field with search and clea
 #### React code example:
 ```tsx
 <SearchInput 
-  label="Search" 
+  label="Search"
+  placeholder="Placeholder text"
   helperText="Assistive text" 
   searchButtonAriaLabel="Search" 
   clearButtonAriaLabel="Clear search field"
@@ -100,6 +103,7 @@ If available, suggestions can also be included with the HDS search input. Sugges
     return (
       <SearchInput 
         label="Search for a fruit" 
+        placeholder="E.g. Apple"
         helperText="Assistive text" 
         searchButtonAriaLabel="Search" 
         clearButtonAriaLabel="Clear search field"
@@ -128,7 +132,8 @@ When fetching suggestions is taking longer than 1.5 seconds, a loading spinner w
     
     return (
       <SearchInput 
-        label="Search for a fruit" 
+        label="Search for a fruit"
+        placeholder="E.g. Apple"
         helperText="Assistive text" 
         searchButtonAriaLabel="Search" 
         clearButtonAriaLabel="Clear search field"
@@ -154,7 +159,8 @@ When fetching suggestions is taking longer than 1.5 seconds, a loading spinner w
 
   return (
     <SearchInput 
-      label="Search for a fruit" 
+      label="Search for a fruit"
+      placeholder="E.g. Apple"
       helperText="Assistive text" 
       searchButtonAriaLabel="Search" 
       clearButtonAriaLabel="Clear search field"
