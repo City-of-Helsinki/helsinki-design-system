@@ -64,7 +64,7 @@ Rotated.args = {
   rotate: '45deg',
 };
 
-export const RotatedKorosExample = () => {
+export const RotatedInContainer = () => {
   const rootStyle = { '--koros-height': '85px', '--hero-height': '300px', '--hero-width': '500px' };
 
   return (
