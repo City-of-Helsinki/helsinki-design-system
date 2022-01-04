@@ -6,6 +6,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9.0] - Jan, 5, 2022
+
+### Core
+
+#### Added
+
+- [Koros] Added possibility to rotate Koros
+- [Search Input] Support for placeholder
+
+### React
+
+#### Added
+
+- [Koros] Added possibility to rotate Koros
+- [Search Input] Support for placeholder
+
+#### Changed
+
+- For local development of HDS React, restricted node version to supported versions 12-14
+
+### Design kit
+
+#### Changed
+
+- Updated HDS Sketch libraries to Sketch 81 (81.1)
+
+### Documentation
+
+#### Added
+
+- WP and Drupal notes to the developers’ Getting Started documentation
+- An example of asking the user’s gender in a form to the Form pattern documentation
+
+#### Changed
+
+[Koros] Added an example of a rotated wave motif shape
+[SearchInput] Added an placeholder text to all Playground and code examples
+
+#### Fixed
+
+- Resolved some critical dependency security threats for new documentation site
+
 ## [1.8.0] - Dec, 9, 2021
 
 ### Core
