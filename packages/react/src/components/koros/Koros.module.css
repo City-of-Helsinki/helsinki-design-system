@@ -3,6 +3,6 @@
   line-height: 0;
 }
 
-.koros.flipHorizontal {
-  transform: scaleY(-1);
+.rotate {
+  will-change: transform;
 }

@@ -6,3 +6,38 @@
 .hds-koros--flip-horizontal {
   transform: scaleY(-1);
 }
+
+.hds-koros--45deg {
+  will-change: transform; /* The browser should use a new compositing layer when rotating. Otherwise, it will draw an annoying hairline on top of the Koros. */
+  transform: rotate(45deg);
+}
+
+.hds-koros--90deg {
+  will-change: transform;
+  transform: rotate(90deg);
+}
+
+.hds-koros--135deg {
+  will-change: transform;
+  transform: rotate(135deg);
+}
+
+.hds-koros--180deg {
+  will-change: transform;
+  transform: rotate(180deg);
+}
+
+.hds-koros--225deg {
+  will-change: transform;
+  transform: rotate(225deg);
+}
+
+.hds-koros--270deg {
+  will-change: transform;
+  transform: rotate(270deg);
+}
+
+.hds-koros--315deg {
+  will-change: transform;
+  transform: rotate(315deg);
+}
