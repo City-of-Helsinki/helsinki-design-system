@@ -60,6 +60,10 @@ export type SearchInputProps<SuggestionItem> = {
    */
   onChange?: (value: string) => void;
   /**
+   * Placeholder text for the search input
+   */
+  placeholder?: string;
+  /**
    * The aria-label for the search button.
    * @default Search
    */
@@ -95,6 +99,7 @@ export const SearchInput = <SuggestionItem,>({
   loadingSpinnerFinishedText = 'Finished loading suggestions',
   loadingSpinnerText = 'Loading suggestions',
   onSubmit,
+  placeholder,
   searchButtonAriaLabel = 'Search',
   hideSearchButton = false,
   style,
@@ -186,6 +191,7 @@ export const SearchInput = <SuggestionItem,>({
             'aria-owns': getComboboxProps()['aria-owns'],
           })}
           className={classNames(styles.input)}
+          placeholder={placeholder}
         />
         <div className={styles.buttons}>
           {inputValue.length > 0 && (

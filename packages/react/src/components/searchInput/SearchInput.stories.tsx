@@ -73,6 +73,7 @@ export const Default = (args) => {
 Default.args = {
   label: 'Search',
   helperText: 'Assistive text',
+  placeholder: 'Placeholder',
 };
 
 export const WithCustomSearchButton = (args) => {
@@ -114,7 +115,14 @@ export const WithCustomSearchButton = (args) => {
         }
       `}
       </style>
-      <SearchInput className="search-input" {...args} hideSearchButton onSubmit={onSubmit} onChange={onChange} />
+      <SearchInput
+        className="search-input"
+        {...args}
+        hideSearchButton
+        onSubmit={onSubmit}
+        onChange={onChange}
+        placeholder="Placeholder"
+      />
       <Button className="search-button" onClick={doSearch}>
         Search
       </Button>
@@ -149,6 +157,7 @@ WithSuggestions.storyName = 'With suggestions';
 WithSuggestions.args = {
   label: 'Search for a fruit',
   helperText: 'Assistive text',
+  placeholder: 'Placeholder',
 };
 
 export const WithSuggestionsAndHighlighting = (args) => {
@@ -179,6 +188,7 @@ WithSuggestionsAndHighlighting.args = {
   label: 'Search for a fruit',
   helperText: 'Assistive text',
   highlightSuggestions: true,
+  placeholder: 'Placeholder',
 };
 
 export const WithSuggestionsSpinner = (args) => {
@@ -213,4 +223,5 @@ WithSuggestionsSpinner.storyName = 'With suggestions & spinner';
 WithSuggestionsSpinner.args = {
   label: 'Search for a fruit',
   helperText: 'Assistive text',
+  placeholder: 'Placeholder',
 };
