@@ -1,0 +1,88 @@
+---
+name: Cookie compliance
+menu: Components
+route: /components/cookie-compliance
+---
+
+import { Playground } from "docz";
+import { StatusLabel, FileInput } from "hds-react";
+
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
+
+# Cookie compliance
+<StatusLabel type="alert">Draft</StatusLabel>
+
+<LargeParagraph>
+  The cookie compliance component informs users about cookie usage. This banner is shown when they visit a website or an application for the first time.
+</LargeParagraph>
+
+
+## Principles
+
+### Language selection
+The default UI componentes and cookie descriptions are delivered in Finnish, Swedish and English.
+
+### Cookie selection
+The cookies are divided to mandatory and optional cookies. The mandatory cookies are displayed "grayed-out" to visually support the fact that they cannot be unselected.
+
+#### Default mandatory cookies
+** - Login cookies:** A mandatory cookie that allows the visitor to visit the site.
+
+** - Language cookies:** We store the interface language you have selected.
+
+#### Default optional cookies
+** - Statistic cookies:** The information collected by statistical cookies is used to develop the website further.
+
+** - Preference cookiess:** Preference cookies customize E.g. the look and feel of a site based on a user's choices.
+
+** - Marketing cookies:** Marketing cookies can be applied to target specific content to users.
+
+
+## Usage
+
+### When to use
+ - When you need to inform users about cookie usage. 
+
+### When not to use
+ - For any other usage except informing about cookie usage.
+
+### Checklist
+ - Make sure that cookie consent is the first item in the page tab order.
+ - If your page has a chat button in lower right corner, keep the chat button hidden until cookie consent has been accepted and removed from the DOM.
+
+## Variations
+
+### Cookie compliance banner closed
+
+React code example:
+
+### Cookie compliance banner open
+
+React code example:
+
+## Accessibility
+
+This component has been validated to meet the WCAG 2.1 AA accessibility guidelines.
+
+
+- Always make sure that cookie consent is either the first item in the page tab order or a link is placed leading to it.
+- Always provide `accessibleLabel` property for assistive technology to replace the visible “OK” text in the action button.
+- When providing a “read more” link, it’s required to give some additional information to users of assistive technologies by using visually hidden components.
+- Cookie Consent uses `tabindex="0"` to make it possible to access it using the tab key or programmatically move focus to it.
+
+## Security
+
+TBA
+
+## Demos & API
+
+TBA
+
+### Core
+
+TBA
+
+### React
+
+TBA
