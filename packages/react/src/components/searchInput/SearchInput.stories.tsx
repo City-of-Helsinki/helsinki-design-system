@@ -73,7 +73,7 @@ export const Default = (args) => {
 Default.args = {
   label: 'Search',
   helperText: 'Assistive text',
-  placeholder: 'Placeholder text',
+  placeholder: 'Placeholder',
 };
 
 export const WithCustomSearchButton = (args) => {
@@ -121,7 +121,7 @@ export const WithCustomSearchButton = (args) => {
         hideSearchButton
         onSubmit={onSubmit}
         onChange={onChange}
-        placeholder="Placeholder text"
+        placeholder="Placeholder"
       />
       <Button className="search-button" onClick={doSearch}>
         Search
@@ -157,7 +157,7 @@ WithSuggestions.storyName = 'With suggestions';
 WithSuggestions.args = {
   label: 'Search for a fruit',
   helperText: 'Assistive text',
-  placeholder: 'Placeholder text',
+  placeholder: 'Placeholder',
 };
 
 export const WithSuggestionsAndHighlighting = (args) => {
@@ -188,7 +188,7 @@ WithSuggestionsAndHighlighting.args = {
   label: 'Search for a fruit',
   helperText: 'Assistive text',
   highlightSuggestions: true,
-  placeholder: 'Placeholder text',
+  placeholder: 'Placeholder',
 };
 
 export const WithSuggestionsSpinner = (args) => {
@@ -223,5 +223,5 @@ WithSuggestionsSpinner.storyName = 'With suggestions & spinner';
 WithSuggestionsSpinner.args = {
   label: 'Search for a fruit',
   helperText: 'Assistive text',
-  placeholder: 'Placeholder text',
+  placeholder: 'Placeholder',
 };
