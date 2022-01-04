@@ -26,13 +26,15 @@ import Link from "../../src/components/Link";
 - Koros should only be used as filled. Do not use empty fill koros with borders.
 - Use koros as part of a background. Do not create new visual elements using koros.
 - It is allowed to animate Koros shapes (not included in the HDS yet).
+- A koro shape can be rotated in 45 degree increments. For more information see the [Angled koro variant documentation](#angled) below.
 
 ## Accessibility
 
 - It is allowed to use Koros in all brand colours. When choosing colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
 
-## Usage
+## Usage and variations
 
+### Default
 <p>There are six Koro styles. An added visual interest is brought to the identity by means of the Koros. Using Koros adds high visual impact and makes the user interface recognisable as part of Helsinki city services. You can read more about using Koros in <Link href="https://brand.hel.fi/en/wave-motifs/" external>Helsinki Visual Identity Guidelines - Wave motifs</Link>.</p>
 
 <Playground>
@@ -49,6 +51,25 @@ import Link from "../../src/components/Link";
   <Koros type="calm" />
 </Playground>
 
+#### Core code example:
+```html
+<div class="hds-koros">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+    <defs>
+      <pattern id="korosBasic" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+        <path
+          transform="scale(5.3)"
+          d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
+        />
+      </pattern>
+    </defs>
+    <rect fill="url(#korosBasic)" width="100%" height="85" />
+  </svg>
+</div>
+
+<!–– To see examples of other Koro shapes, please refer to the Core Storybook ––>
+```
+
 #### React code example:
 ```tsx
 <Koros type="basic" />
@@ -57,6 +78,106 @@ import Link from "../../src/components/Link";
 <Koros type="wave" />
 <Koros type="storm" />
 <Koros type="calm" />
+```
+
+### Angled
+Koro shapes can be angled in 45 degree increments. The allowed angle properties are `45deg`, `90deg`, `135deg`, `180deg`, `225deg`, `270deg` and `315deg`. Angles outside of these options should be avoided.
+
+<Playground>
+{() => {
+  const rootStyle = { '--koros-height': '85px', '--hero-height': '300px', '--hero-width': '500px' };
+  return (
+    <div
+      style={{
+        ...rootStyle,
+        backgroundColor: 'var(--color-silver-light)',
+        height: 'var(--hero-height)',
+        maxWidth: '100%',
+        overflow: 'hidden',
+        position: 'relative',
+        width: 'var(--hero-width)',
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: 'var(--color-coat-of-arms)',
+          clipPath: 'polygon(0 0, var(--hero-height) 0, 0 100%, 0% 100%)',
+          height: '100%',
+        }}
+      />
+      <Koros
+        style={{
+          fill: 'var(--color-coat-of-arms)',
+          left: 'calc(-1 * var(--koros-height))',
+          position: 'absolute',
+          top: 'var(--koros-height)',
+          transformOrigin: 'center',
+          width: 'calc(2 * var(--hero-height))',
+        }}
+        rotate="135deg"
+      />
+    </div>
+  );
+}}
+</Playground>
+
+#### Core code example:
+```html
+<style type="text/css">
+  .hds-custom-koros {
+    fill: var(--color-coat-of-arms);
+  }
+</style>
+
+<div class="hds-koros hds-koros--135deg hds-custom-koros" style="transform-origin: left; position: absolute; left: calc((100% / 1.4) + 43px);">
+ <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+   <defs>
+     <pattern id="korosBasic135deg" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+       <path transform="scale(5.3)" d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z" />
+     </pattern>
+   </defs>
+   <rect fill="url(#korosBasic135deg)" width="100%" height="85" />
+ </svg>
+</div>
+```
+
+#### React code example:
+```tsx
+const rootStyle = { '--koros-height': '85px', '--hero-height': '300px', '--hero-width': '500px' };
+
+return (
+  <div
+    style={{
+      ...rootStyle,
+      backgroundColor: 'var(--color-silver-light)',
+      height: 'var(--hero-height)',
+      maxWidth: '100%',
+      overflow: 'hidden',
+      position: 'relative',
+      width: 'var(--hero-width)',
+    }}
+  >
+    <div
+      style={{
+        backgroundColor: 'var(--color-coat-of-arms)',
+        clipPath: 'polygon(0 0, var(--hero-height) 0, 0 100%, 0% 100%)',
+        height: '100%',
+      }}
+    />
+    <Koros
+      style={{
+        fill: 'var(--color-coat-of-arms)',
+        left: 'calc(-1 * var(--koros-height))',
+        position: 'absolute',
+        top: 'var(--koros-height)',
+        transform: 'rotate(135deg)',
+        transformOrigin: 'center',
+        width: 'calc(2 * var(--hero-height))',
+      }}
+      rotate="135deg"
+    />
+  </div>
+);
 ```
 
 ## Demos & API
