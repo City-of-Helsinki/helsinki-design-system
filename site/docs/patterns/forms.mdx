@@ -47,6 +47,16 @@ Forms *should* be designed to be as clear and straightforward as possible, to al
                 <li>The user <em>should not</em> be made to input the same information twice.</li>
             </ul>
         </li>
+        <li><strong>Pre-populate known values</strong> if possible to make filling the form easier.
+            <ul style="margin-top:0;">
+                <li>The user <em>should not</em> be made to input the same information twice.</li>
+            </ul>
+        </li>
+        <li><strong>Use gender-neutral language.</strong>
+            <ul style="margin-top:0;">
+                <li>When asking for gender, refer to the <Link href="#asking-for-gender">example in the gender-neutrality chapter</Link>.</li>
+            </ul>
+        </li>
     </ul>
 </div>
 
@@ -837,3 +847,12 @@ For this reason it is essential to ensure that individual controls receive focus
         </li>
     </ul>
 </div>
+
+--- 
+
+## Gender-neutrality in forms
+
+### Asking for gender
+When asking for the user's gender, `Other` and `Do not want to answer` options must be provided. If these options are ordered, use order `Woman → Man → Other → Do not want to answer` since it is statistically the most probable. Using the [Selection group component](/components/selection-group) with radio buttons is recommended for this purpose.
+
+<Image src="../../static/patterns/form/form-asking-for-gender-example@2x.png" alt="An example of asking the user's gender" style="max-width:432px;" viewable />
