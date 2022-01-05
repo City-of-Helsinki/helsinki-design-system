@@ -41,8 +41,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-[Koros] Added an example of a rotated wave motif shape
-[SearchInput] Added an placeholder text to all Playground and code examples
+- [Koros] Added an example of a rotated wave motif shape
+- [SearchInput] Added an placeholder text to all Playground and code examples
 
 #### Fixed
 
