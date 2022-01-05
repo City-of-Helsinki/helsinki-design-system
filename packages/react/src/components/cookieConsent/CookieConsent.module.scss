@@ -126,3 +126,22 @@
 .list li label {
   padding-left: 10px;
 }
+
+.accordion-button {
+  border: none;
+  background: transparent;
+  text-decoration: underline;
+  color: var(--color-bus);
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.accordion-button svg {
+  margin-left: -5px;
+}
+
+.accordion-button span {
+  padding-left: var(--spacing-3-xs);
+}

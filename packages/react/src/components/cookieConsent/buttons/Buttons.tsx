@@ -30,15 +30,6 @@ function Buttons({ onClick }: Props): React.ReactElement {
       >
         Pakolliset evästeet
       </Button>
-      <Button
-        variant="secondary"
-        onClick={() => {
-          onClick('showDetails');
-        }}
-        data-testid="cookie-consent-read-more-button"
-      >
-        Asetukset
-      </Button>
     </div>
   );
 }

@@ -34,11 +34,6 @@ function Details({ onClick }: ViewProps): React.ReactElement {
       >
         Hyväksy valinnat ja välttämättömät evästeet
       </Button>
-      <p>
-        <button type="button" className={styles['plain-text-button']} onClick={() => onClick('hideDetails')}>
-          Takaisin alkuun
-        </button>
-      </p>
     </div>
   );
 }

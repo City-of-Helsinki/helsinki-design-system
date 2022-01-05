@@ -1,22 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { CookieConsentActionListener, ViewProps } from '../types';
+import { ViewProps } from '../types';
 import Buttons from '../buttons/Buttons';
+import { IconAngleDown, IconAngleUp } from '../../../icons';
+import { useAccordion } from '../../accordion';
 import Details from '../details/Details';
 import Main from '../main/Main';
 import styles from '../CookieConsent.module.scss';
+import { Card } from '../../card/Card';
 
 function Content({ onClick }: ViewProps): React.ReactElement {
-  const [showMore, setShowMore] = useState<boolean>(false);
-  const onAction: CookieConsentActionListener = (action, value) => {
-    if (action === 'showDetails') {
-      setShowMore(true);
-    } else if (action === 'hideDetails') {
-      setShowMore(false);
-    } else {
-      onClick(action, value);
-    }
-  };
+  const { isOpen, buttonProps, contentProps } = useAccordion({
+    initiallyOpen: false,
+  });
+  const Icon = isOpen ? IconAngleUp : IconAngleDown;
+  const settingsButtonText = isOpen ? 'Piilota asetukset' : 'Näytä asetukset';
 
   return (
     <div
@@ -27,8 +25,21 @@ function Content({ onClick }: ViewProps): React.ReactElement {
       id="cookie-consent-content"
       aria-live="assertive"
     >
-      {showMore ? <Details onClick={onAction} /> : <Main onClick={onAction} />}
-      <Buttons onClick={onAction} />
+      <Main />
+      <button type="button" className={styles['accordion-button']} {...buttonProps}>
+        <Icon aria-hidden />
+        <span>{settingsButtonText}</span>
+      </button>
+      <Card
+        {...contentProps}
+        theme={{
+          '--padding-horizontal': '0',
+          '--padding-vertical': 'var(--spacing-layout-2-xs)',
+        }}
+      >
+        <Details onClick={onClick} />
+      </Card>
+      <Buttons onClick={onClick} />
       <div className={styles['language-switcher']} data-testid="cookie-consent-language-switcher">
         <a href="/" title="This is a dummy language switcher" onClick={(e) => e.preventDefault()}>
           FI
