@@ -26,14 +26,23 @@ export function CookieConsent(): React.ReactElement | null {
     }
   };
 
-  const approveRequired: ConsentController['approveRequired'] = () => {
+  const approveRequired = () => {
+    Object.keys(cookieConsentContext.getOptional()).forEach((optionalConsent) => {
+      cookieConsentContext.update(optionalConsent, false);
+    });
     cookieConsentContext.approveRequired();
     save();
     reRender();
   };
 
-  const approveAll: ConsentController['approveAll'] = () => {
+  const approveAll = () => {
     cookieConsentContext.approveAll();
+    save();
+    reRender();
+  };
+
+  const approveSelectedAndRequired = () => {
+    cookieConsentContext.approveRequired();
     save();
     reRender();
   };
@@ -48,6 +57,8 @@ export function CookieConsent(): React.ReactElement | null {
       approveAll();
     } else if (action === 'approveRequired') {
       approveRequired();
+    } else if (action === 'approveSelectedAndRequired') {
+      approveSelectedAndRequired();
     } else if (action === 'changeConsent') {
       const { key, value } = consent;
       onChange(key, value);

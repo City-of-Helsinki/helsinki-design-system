@@ -39,7 +39,7 @@ function Content({ onClick }: ViewProps): React.ReactElement {
       >
         <Details onClick={onClick} />
       </Card>
-      <Buttons onClick={onClick} />
+      <Buttons onClick={onClick} hasOptionalConsents={isOpen} />
       <div className={styles['language-switcher']} data-testid="cookie-consent-language-switcher">
         <a href="/" title="This is a dummy language switcher" onClick={(e) => e.preventDefault()}>
           FI
