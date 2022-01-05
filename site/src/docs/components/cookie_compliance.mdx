@@ -20,6 +20,32 @@ import Link from "../../src/components/Link";
 
 ## Principles
 
+### Cookie clauses in English (EN)
+
+#### Banner text (accordion closed)
+**Headline:** [Service name] uses cookies
+
+**Bodycopy:** This website uses essential cookies to ensure site performance and for basic analytics. In addition, we use uses targeting cookies to improve the user experience, for analytics and showing targeted content. By continuing to use the site, you agree to the use of essential cookies.
+
+#### Banner text (accordion open)
+**Headline:** [Service name] uses cookies
+
+**Bodycopy:** This website uses essential cookies to ensure site performance and for basic analytics. In addition, we use uses targeting cookies to improve the user experience, for analytics and showing targeted content. By continuing to use the site, you agree to the use of essential cookies.
+
+**Subhead:** Information about the cookies used on the website
+
+**Bodycopy:** The cookies used on this website are classified according to their purpose. You can find information about each category below and allow or deny the use of cookies.
+
+**H:** Mandatory cookies
+
+**B:** The use of mandatory cookies cannot be denied. They enable the operation of the site and affect E.g. the usability of the site.
+(Checkbox + duration + information about the cookie)
+
+**H:** Optional cookies
+
+**B:** You can accept or decline optional cookies.
+(Checkbox + duration + information about the cookie)
+
 ### UI components
 
 #### 1. Language selection
@@ -46,6 +72,7 @@ The cookies are divided to mandatory and optional cookies. The mandatory cookies
 - Only mandatory
 - Continue with selected (TBD)
 - Opt out (TBD)
+- Close (cross icon) -button
 
 ## Usage
 
@@ -67,6 +94,7 @@ The cookies are divided to mandatory and optional cookies. The mandatory cookies
 ### Checklist
  - Make sure that cookie consent is the first item in the page tab order.
  - If your page has a chat button in lower right corner, keep the chat button hidden until cookie consent has been accepted and removed from the DOM.
+ - Never use an overlay behind the banner or otherwise restrict use of the site.
 
 ## Variations
 
