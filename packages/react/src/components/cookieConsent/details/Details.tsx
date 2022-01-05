@@ -4,7 +4,6 @@ import styles from '../CookieConsent.module.scss';
 import { ViewProps } from '../types';
 import RequiredConsents from '../requiredConsents/RequiredConsents';
 import OptionalConsents from '../optionalConsents/OptionalConsents';
-import { Button } from '../../button';
 
 function Details({ onClick }: ViewProps): React.ReactElement {
   return (
@@ -25,15 +24,6 @@ function Details({ onClick }: ViewProps): React.ReactElement {
       </p>
       <RequiredConsents />
       <OptionalConsents onClick={onClick} />
-      <Button
-        variant="secondary"
-        onClick={() => {
-          onClick('approveRequired');
-        }}
-        data-testid="cookie-consent-approve-selections-button"
-      >
-        Hyväksy valinnat ja välttämättömät evästeet
-      </Button>
     </div>
   );
 }
