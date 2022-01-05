@@ -37,16 +37,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - WP and Drupal notes to the developers’ Getting Started documentation
-- An example of asking the user’s gender in a form to the Form pattern documentation
+- An example of asking the user’s gender in a form in the Form pattern documentation
 
 #### Changed
 
 - [Koros] Added an example of a rotated wave motif shape
-- [SearchInput] Added an placeholder text to all Playground and code examples
+- [SearchInput] Added a placeholder text to all Playground and code examples
 
 #### Fixed
 
-- Resolved some critical dependency security threats for new documentation site
+- Resolved some critical dependency security threats for the new documentation site
 
 ## [1.8.0] - Dec, 9, 2021
 
