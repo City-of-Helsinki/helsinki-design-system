@@ -48,12 +48,6 @@
   margin: 0 20px 20px 0;
 }
 
-@media (min-width: 768px) {
-  .buttons > * {
-    margin-bottom: 0;
-  }
-}
-
 .content {
   position: relative;
   padding: 20px 20px 0 20px;
@@ -66,19 +60,12 @@
   margin-right: 50px;
 }
 
-.language-switcher {
-  position: absolute;
-  z-index: 3;
-  right: -57px;
-  top: 20px;
-  max-width: 200px;
+.language-switcher-and-close {
   box-sizing: border-box;
-}
-
-@media (min-width: 768px) {
-  .language-switcher {
-    right: 20px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-s);
 }
 
 .text-content {
@@ -127,15 +114,19 @@
   padding-left: 10px;
 }
 
-.accordion-button {
+.accordion-button,
+.close-button {
   border: none;
   background: transparent;
-  text-decoration: underline;
-  color: var(--color-bus);
   padding: 0;
   cursor: pointer;
+}
+
+.accordion-button {
   display: flex;
   align-items: center;
+  color: var(--color-bus);
+  text-decoration: underline;
 }
 
 .accordion-button svg {
@@ -144,4 +135,27 @@
 
 .accordion-button span {
   padding-left: var(--spacing-3-xs);
+}
+
+.close-button {
+  padding-left: var(--spacing-s);
+  height: 24px;
+  margin-right: -6px;
+}
+
+@media (min-width: 768px) {
+  .language-switcher-and-close {
+    position: absolute;
+    z-index: 3;
+    top: var(--spacing-m);
+    right: var(--spacing-s);
+    justify-content: end;
+    margin-bottom: 0;
+  }
+  .buttons > * {
+    margin-bottom: 0;
+  }
+  .close-button {
+    margin-right: 0;
+  }
 }
