@@ -24,12 +24,7 @@ export const Example = () => {
         <h1>This is a dummy application</h1>
         {willRenderCookieConsentDialog ? (
           <>
-            <p>
-              Cookie consent dialog is visible. &nbsp;
-              <a href="/" title="This is a dummy link">
-                Can&apos;t touch this!
-              </a>
-            </p>
+            <p>Cookie consent dialog will be shown.</p>
           </>
         ) : (
           <>
