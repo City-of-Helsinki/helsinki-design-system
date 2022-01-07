@@ -4,6 +4,7 @@
   width: 100vw;
   z-index: 999;
   bottom: 0;
+  --common-spacing: var(--spacing-s);
 }
 
 .aligner {
@@ -25,36 +26,44 @@
 }
 
 .buttons {
-  padding: 20px 0;
+  padding: var(--common-spacing) 0;
 }
 
 .buttons > * {
-  margin: 0 20px 20px 0;
+  margin: 0 var(--common-spacing) var(--common-spacing) 0;
 }
 
 .content {
   position: relative;
-  padding: 20px 20px 0 20px;
+  padding: var(--common-spacing) var(--common-spacing) 0 var(--common-spacing);
   background: #ffffff;
   width: 100%;
   box-sizing: border-box;
   border-top: 8px solid var(--color-bus);
+  --close-button-size: 24px;
+  --close-button-padding: calc(var(--spacing-s) / 2);
+  --close-button-left-side: calc(var(--close-button-size) + var(--common-spacing));
+  --lang-pos-x: calc(var(--close-button-left-side) + var(--close-button-padding) + var(--common-spacing));
 }
 
 .content .emulated-h1 {
-  margin-right: 50px;
+  margin-right: 70px;
 }
 
-.language-switcher-and-close {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: var(--spacing-s);
+.language-switcher {
+  position: absolute;
+  z-index: 3;
+  top: var(--common-spacing);
+  left: var(--common-spacing);
 }
 
+.main-content,
 .text-content {
   padding: 0;
+}
+
+.main-content {
+  padding-top: calc(var(--common-spacing) * 2);
 }
 
 .emulated-h1 {
@@ -92,7 +101,7 @@
 }
 
 .list li {
-  padding-bottom: var(--spacing-s);
+  padding-bottom: var(--common-spacing);
 }
 
 .list li span {
@@ -124,24 +133,29 @@
 }
 
 .close-button {
-  padding-left: var(--spacing-s);
-  height: 24px;
-  margin-right: -6px;
+  position: absolute;
+  z-index: 3;
+  top: var(--close-button-padding);
+  right: var(--close-button-padding);
+  padding: var(--close-button-padding);
+  height: var(--close-button-size);
+  box-sizing: content-box;
 }
 
 @media (min-width: 768px) {
-  .language-switcher-and-close {
-    position: absolute;
-    z-index: 3;
-    top: var(--spacing-m);
-    right: var(--spacing-s);
-    justify-content: end;
-    margin-bottom: 0;
+  .language-switcher {
+    top: var(--close-button-padding);
+    right: var(--lang-pos-x);
+    padding-top: var(--close-button-padding);
+    left: unset;
   }
   .buttons > * {
     margin-bottom: 0;
   }
   .close-button {
-    margin-right: 0;
+    right: var(--common-spacing);
+  }
+  .main-content {
+    padding-top: 0;
   }
 }
