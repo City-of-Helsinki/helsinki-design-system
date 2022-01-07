@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ViewProps } from '../types';
 import Buttons from '../buttons/Buttons';
-import { IconAngleDown, IconAngleUp } from '../../../icons';
+import { IconAngleDown, IconAngleUp, IconCross } from '../../../icons';
 import { useAccordion } from '../../accordion';
 import Details from '../details/Details';
 import Main from '../main/Main';
@@ -25,6 +25,22 @@ function Content({ onClick }: ViewProps): React.ReactElement {
       id="cookie-consent-content"
       aria-live="assertive"
     >
+      <div className={styles['language-switcher-and-close']}>
+        <div className={styles['language-switcher']} data-testid="cookie-consent-language-switcher">
+          <a href="/" title="This is a dummy language switcher" onClick={(e) => e.preventDefault()}>
+            FI
+          </a>
+        </div>
+        <button
+          type="button"
+          title="Hyväksy valitut ja pakolliset evästeet"
+          className={styles['close-button']}
+          data-testid="cookie-consent-close-button"
+          onClick={() => onClick('approveSelectedAndRequired')}
+        >
+          <IconCross aria-hidden />
+        </button>
+      </div>
       <Main />
       <button type="button" className={styles['accordion-button']} {...buttonProps}>
         <Icon aria-hidden />
@@ -40,11 +56,6 @@ function Content({ onClick }: ViewProps): React.ReactElement {
         <Details onClick={onClick} />
       </Card>
       <Buttons onClick={onClick} hasOptionalConsents={isOpen} />
-      <div className={styles['language-switcher']} data-testid="cookie-consent-language-switcher">
-        <a href="/" title="This is a dummy language switcher" onClick={(e) => e.preventDefault()}>
-          FI
-        </a>
-      </div>
     </div>
   );
 }
