@@ -107,11 +107,12 @@
 }
 
 .list li {
-  padding-bottom: 10px;
+  padding-bottom: var(--spacing-s);
 }
 
-.list li label {
-  padding-left: 10px;
+.list li span {
+  display: inline-block;
+  padding: var(--spacing-xs) 0 0 32px;
 }
 
 .accordion-button,
