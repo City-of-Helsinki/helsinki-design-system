@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { getText, getTitle } from '../texts';
 import { CookieConsentContext } from '../CookieConsentContext';
 import styles from '../CookieConsent.module.scss';
+import { Checkbox } from '../../checkbox/Checkbox';
 
 type ConsentData = {
   id: string;
@@ -33,9 +34,16 @@ function RequiredConsents(): React.ReactElement {
       <ul className={styles.list}>
         {consentList.map((data) => (
           <li key={data.id} data-testid={data.id}>
-            <span>
-              <strong>{data.title}:</strong> {data.text}
-            </span>
+            <Checkbox
+              onChange={() => undefined}
+              id={data.id}
+              name={data.id}
+              checked
+              disabled
+              data-testid={data.id}
+              label={data.title}
+            />
+            <span>- {data.text}</span>
           </li>
         ))}
       </ul>
