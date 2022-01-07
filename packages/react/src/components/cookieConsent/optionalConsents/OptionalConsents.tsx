@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { getAriaLabel, getText } from '../texts';
+import { getAriaLabel, getText, getTitle } from '../texts';
 import { ViewProps } from '../types';
 import { Checkbox } from '../../checkbox';
 import { CookieConsentContext } from '../CookieConsentContext';
@@ -10,6 +10,7 @@ type ConsentData = {
   id: string;
   checked: boolean;
   text: string;
+  title: string;
   ariaLabel: string;
   onToggle: () => void;
 };
@@ -23,6 +24,7 @@ function OptionalConsents({ onClick }: ViewProps): React.ReactElement {
     id: `optional-cookie-consent-${key}`,
     checked: Boolean(value),
     text: getText(key),
+    title: getTitle(key),
     ariaLabel: getAriaLabel(key),
     onToggle: () => {
       onClick('changeConsent', { key, value: !value });
@@ -44,8 +46,9 @@ function OptionalConsents({ onClick }: ViewProps): React.ReactElement {
               checked={data.checked}
               data-testid={data.id}
               aria-label={data.ariaLabel}
-              label={data.text}
+              label={data.title}
             />
+            <span>- {data.text}</span>
           </li>
         ))}
       </ul>
