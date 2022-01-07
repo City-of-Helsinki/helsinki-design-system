@@ -91,7 +91,6 @@ export function CookieConsent(): React.ReactElement | null {
       <div className={styles.aligner}>
         <Content onClick={onAction} />
       </div>
-      <div aria-hidden className={styles.overlay} />
     </div>
   );
 }
