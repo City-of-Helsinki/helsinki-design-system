@@ -1,7 +1,7 @@
 /* eslint-disable jest/expect-expect */
 /* eslint-disable jest/no-mocks-import */
 import React from 'react';
-import { render, RenderResult } from '@testing-library/react';
+import { render, RenderResult, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { CookieConsent } from './CookieConsent';
@@ -44,14 +44,12 @@ describe('<CookieConsent /> ', () => {
   const dataTestIds = {
     container: 'cookie-consent',
     languageSwitcher: 'cookie-consent-language-switcher',
-    approveAllButton: 'cookie-consent-approve-all-button',
+    approveButton: 'cookie-consent-approve-button',
     approveRequiredButton: 'cookie-consent-approve-required-button',
-    readMoreButton: 'cookie-consent-read-more-button',
-    readMoreTextButton: 'cookie-consent-read-more-text-button',
+    settingsToggler: 'cookie-consent-settings-toggler',
     detailsComponent: 'cookie-consent-details',
-    informationComponent: 'cookie-consent-information',
-    approveSelectionsButton: 'cookie-consent-approve-selections-button',
     screenReaderNotification: 'cookie-consent-screen-reader-notification',
+    closeButton: 'cookie-consent-close-button',
     getOptionalConsentId: (key: string) => `optional-cookie-consent-${key}`,
     getRequiredConsentId: (key: string) => `required-cookie-consent-${key}`,
   };
@@ -66,6 +64,18 @@ describe('<CookieConsent /> ', () => {
 
   const clickElement = (result: RenderResult, testId: string) => {
     result.getByTestId(testId).click();
+  };
+
+  const isAccordionOpen = (result: RenderResult): boolean => {
+    const toggler = result.getByTestId(dataTestIds.settingsToggler) as HTMLElement;
+    return toggler.getAttribute('aria-expanded') === 'true';
+  };
+
+  const openAccordion = async (result: RenderResult): Promise<void> => {
+    clickElement(result, dataTestIds.settingsToggler);
+    await waitFor(() => {
+      expect(isAccordionOpen(result)).toBeTruthy();
+    });
   };
 
   const defaultConsentData = {
@@ -103,10 +113,9 @@ describe('<CookieConsent /> ', () => {
       const result = renderCookieConsent(defaultConsentData);
       verifyElementExistsByTestId(result, dataTestIds.container);
       verifyElementExistsByTestId(result, dataTestIds.languageSwitcher);
-      verifyElementExistsByTestId(result, dataTestIds.informationComponent);
-      verifyElementExistsByTestId(result, dataTestIds.approveAllButton);
+      verifyElementExistsByTestId(result, dataTestIds.approveButton);
       verifyElementExistsByTestId(result, dataTestIds.approveRequiredButton);
-      verifyElementExistsByTestId(result, dataTestIds.readMoreTextButton);
+      verifyElementExistsByTestId(result, dataTestIds.closeButton);
     });
 
     it('is rendered if a required consent has not been approved. It could have been optional before', () => {
@@ -137,11 +146,17 @@ describe('<CookieConsent /> ', () => {
     });
   });
 
-  describe(`Approve buttons will 
+  describe(`Approve and close buttons will 
             - hide the cookie consent
             - show a prompt for screen readers
             - save cookie`, () => {
-    it('Approve all -button approves all consents', () => {
+    const checkCookiesAreSetAndConsentModalHidden = (result: RenderResult, assumedConsents: unknown) => {
+      expect(JSON.parse(getSetCookieArguments().data)).toEqual(assumedConsents);
+      verifyElementDoesNotExistsByTestId(result, dataTestIds.container);
+      verifyElementExistsByTestId(result, dataTestIds.screenReaderNotification);
+      expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(1);
+    };
+    it('Approve -button approves all consents when details are not shown', () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
         requiredConsent1: true,
@@ -150,14 +165,10 @@ describe('<CookieConsent /> ', () => {
         optionalConsent2: true,
         ...unknownConsents,
       };
-      clickElement(result, dataTestIds.approveAllButton);
-      expect(JSON.parse(getSetCookieArguments().data)).toEqual(consentResult);
-      verifyElementDoesNotExistsByTestId(result, dataTestIds.container);
-      verifyElementExistsByTestId(result, dataTestIds.screenReaderNotification);
-      expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(1);
+      clickElement(result, dataTestIds.approveButton);
+      checkCookiesAreSetAndConsentModalHidden(result, consentResult);
     });
-
-    it('Approve required -button, approves only required consents', () => {
+    it('Approve required -button approves only required consents and clears selected consents', async () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
         requiredConsent1: true,
@@ -166,23 +177,62 @@ describe('<CookieConsent /> ', () => {
         optionalConsent2: false,
         ...unknownConsents,
       };
+      await openAccordion(result);
+      clickElement(result, dataTestIds.getOptionalConsentId('optionalConsent2'));
+      clickElement(result, dataTestIds.getOptionalConsentId('optionalConsent1'));
       clickElement(result, dataTestIds.approveRequiredButton);
-      expect(JSON.parse(getSetCookieArguments().data)).toEqual(consentResult);
-      verifyElementDoesNotExistsByTestId(result, dataTestIds.container);
-      verifyElementExistsByTestId(result, dataTestIds.screenReaderNotification);
-      expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(1);
+      checkCookiesAreSetAndConsentModalHidden(result, consentResult);
+    });
+    it('Close -button will approve only required consents when details are not shown', () => {
+      const result = renderCookieConsent(defaultConsentData);
+      const consentResult = {
+        requiredConsent1: true,
+        requiredConsent2: true,
+        optionalConsent1: false,
+        optionalConsent2: false,
+        ...unknownConsents,
+      };
+      clickElement(result, dataTestIds.closeButton);
+      checkCookiesAreSetAndConsentModalHidden(result, consentResult);
+    });
+    it('Close -button will approve required and selected consents when details are shown', async () => {
+      const result = renderCookieConsent(defaultConsentData);
+      const consentResult = {
+        requiredConsent1: true,
+        requiredConsent2: true,
+        optionalConsent1: false,
+        optionalConsent2: true,
+        ...unknownConsents,
+      };
+      await openAccordion(result);
+      clickElement(result, dataTestIds.getOptionalConsentId('optionalConsent2'));
+      clickElement(result, dataTestIds.closeButton);
+      checkCookiesAreSetAndConsentModalHidden(result, consentResult);
+    });
+    it('Approve -button will approve required and selected consents when details are shown', async () => {
+      const result = renderCookieConsent(defaultConsentData);
+      const consentResult = {
+        requiredConsent1: true,
+        requiredConsent2: true,
+        optionalConsent1: true,
+        optionalConsent2: false,
+        ...unknownConsents,
+      };
+      await openAccordion(result);
+      clickElement(result, dataTestIds.getOptionalConsentId('optionalConsent1'));
+      clickElement(result, dataTestIds.approveButton);
+      checkCookiesAreSetAndConsentModalHidden(result, consentResult);
     });
   });
 
-  describe('In details view ', () => {
-    const initDetailsView = (data: ConsentData): RenderResult => {
+  describe('Accordion can be opened and in details view ', () => {
+    const initDetailsView = async (data: ConsentData): Promise<RenderResult> => {
       const result = renderCookieConsent(data);
-      clickElement(result, dataTestIds.readMoreButton);
+      await openAccordion(result);
       return result;
     };
-    it('required and optional consents are rendered', () => {
-      expect.assertions(4);
-      const result = initDetailsView(defaultConsentData);
+    it('required and optional consents are rendered', async () => {
+      const result = await initDetailsView(defaultConsentData);
       defaultConsentData.requiredConsents.forEach((consent) => {
         verifyElementExistsByTestId(result, dataTestIds.getRequiredConsentId(consent));
       });
@@ -190,15 +240,32 @@ describe('<CookieConsent /> ', () => {
         verifyElementExistsByTestId(result, dataTestIds.getOptionalConsentId(consent));
       });
     });
+    it('Approve and close button texts change when accordion is open vs closed', async () => {
+      const result = await initDetailsView(defaultConsentData);
+      const approveButtonTextWhileOpen = (result.getByTestId(dataTestIds.approveButton) as HTMLElement).innerHTML;
+      const closeButtonTitleWhileOpen = (result.getByTestId(dataTestIds.closeButton) as HTMLElement).getAttribute(
+        'title',
+      );
+      clickElement(result, dataTestIds.settingsToggler);
+      await waitFor(() => {
+        expect(isAccordionOpen(result)).toBeFalsy();
+      });
+      const approveButtonTextWhileClosed = (result.getByTestId(dataTestIds.approveButton) as HTMLElement).innerHTML;
+      const closeButtonTitleWhileClosed = (result.getByTestId(dataTestIds.closeButton) as HTMLElement).getAttribute(
+        'title',
+      );
+      expect(approveButtonTextWhileOpen).not.toBe(approveButtonTextWhileClosed);
+      expect(closeButtonTitleWhileOpen).not.toBe(closeButtonTitleWhileClosed);
+    });
 
     it(`clicking an optional consent sets the consent true/false. 
-        Cookie consent is not hidden until an approve -button is clicked`, () => {
-      const result = initDetailsView(defaultConsentData);
+        Cookie consent is not hidden until an approve -button is clicked`, async () => {
+      const result = await initDetailsView(defaultConsentData);
       defaultConsentData.optionalConsents.forEach((consent) => {
         clickElement(result, dataTestIds.getOptionalConsentId(consent));
       });
       clickElement(result, dataTestIds.getOptionalConsentId('optionalConsent2'));
-      clickElement(result, dataTestIds.approveSelectionsButton);
+      clickElement(result, dataTestIds.approveButton);
       expect(JSON.parse(getSetCookieArguments().data)).toEqual({
         requiredConsent1: true,
         requiredConsent2: true,

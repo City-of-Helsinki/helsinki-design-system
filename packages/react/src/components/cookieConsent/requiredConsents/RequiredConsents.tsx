@@ -33,7 +33,7 @@ function RequiredConsents(): React.ReactElement {
 
       <ul className={styles.list}>
         {consentList.map((data) => (
-          <li key={data.id} data-testid={data.id}>
+          <li key={data.id}>
             <Checkbox
               onChange={() => undefined}
               id={data.id}
