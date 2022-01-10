@@ -32,7 +32,7 @@ function OptionalConsents({ onClick }: ViewProps): React.ReactElement {
   }));
   return (
     <>
-      <span className={styles['emulated-h2']} role="heading" aria-level={2}>
+      <span className={styles['emulated-h3']} role="heading" aria-level={3}>
         Muut evästeet
       </span>
       <p>Voit hyväksyä tai jättää hyväksymättä muut evästeet.</p>

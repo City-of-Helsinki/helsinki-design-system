@@ -46,10 +46,6 @@
   --lang-pos-x: calc(var(--close-button-left-side) + var(--close-button-padding) + var(--common-spacing));
 }
 
-.content .emulated-h1 {
-  margin-right: 70px;
-}
-
 .language-switcher {
   position: absolute;
   z-index: 3;
@@ -67,7 +63,7 @@
 }
 
 .emulated-h1 {
-  font-size: var(--fontsize-heading-m);
+  font-size: var(--fontsize-heading-l);
   font-weight: bold;
   display: block;
   padding: 0;
@@ -84,14 +80,22 @@
 }
 
 .emulated-h2 {
-  font-size: var(--fontsize-heading-s);
+  font-size: var(--fontsize-heading-m);
   font-weight: bold;
   display: block;
   padding: 1.2em 0 0.5em;
 }
 
-.emulated-h2 + p {
+.emulated-h2 + p,
+.emulated-h3 + p {
   margin-top: 0;
+}
+
+.emulated-h3 {
+  font-size: var(--fontsize-heading-s);
+  font-weight: bold;
+  display: block;
+  padding: 1.2em 0 0.5em;
 }
 
 .list {
@@ -157,5 +161,8 @@
   }
   .main-content {
     padding-top: 0;
+  }
+  .content .emulated-h1 {
+    margin-right: 70px;
   }
 }
