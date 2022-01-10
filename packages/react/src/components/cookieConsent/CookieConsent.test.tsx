@@ -3,6 +3,7 @@
 import React from 'react';
 import { render, RenderResult, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
+import { act } from 'react-dom/test-utils';
 
 import { CookieConsent } from './CookieConsent';
 import { ConsentList, ConsentObject, COOKIE_NAME } from './cookieConsentController';
@@ -17,13 +18,24 @@ type ConsentData = {
 };
 
 describe('<CookieConsent /> spec', () => {
+  const renderComponentWithTimers = (): RenderResult => {
+    jest.useFakeTimers();
+    const result = render(<CookieConsent />);
+    act(() => {
+      jest.runAllTimers();
+    });
+    // axe uses timers so must use real ones
+    jest.useRealTimers();
+    return result;
+  };
+
   it('renders the component', () => {
-    const { asFragment } = render(<CookieConsent />);
+    const { asFragment } = renderComponentWithTimers();
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should not have basic accessibility issues', async () => {
-    const { container } = render(<CookieConsent />);
+    const { container } = renderComponentWithTimers();
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
@@ -100,12 +112,17 @@ describe('<CookieConsent /> ', () => {
       ...cookie,
       ...unknownConsents,
     };
+    jest.useFakeTimers();
     mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
-    return render(
+    const result = render(
       <CookieContextProvider requiredConsents={requiredConsents} optionalConsents={optionalConsents}>
         <CookieConsent />
       </CookieContextProvider>,
     );
+    act(() => {
+      jest.runAllTimers();
+    });
+    return result;
   };
 
   describe('Cookie consent ', () => {
