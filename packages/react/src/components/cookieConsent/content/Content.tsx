@@ -47,7 +47,12 @@ function Content({ onClick }: ViewProps): React.ReactElement {
           käytön.
         </p>
       </div>
-      <button type="button" className={styles['accordion-button']} {...buttonProps}>
+      <button
+        type="button"
+        className={styles['accordion-button']}
+        data-testid="cookie-consent-settings-toggler"
+        {...buttonProps}
+      >
         <Icon aria-hidden />
         <span>{settingsButtonText}</span>
       </button>

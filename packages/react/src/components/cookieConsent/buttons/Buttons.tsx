@@ -19,7 +19,7 @@ function Buttons({ onClick, hasOptionalConsents }: Props): React.ReactElement {
         onClick={() => {
           onClick(primaryButtonAction);
         }}
-        data-testid="cookie-consent-approve-all-button"
+        data-testid="cookie-consent-approve-button"
       >
         {primaryButtonText}
       </Button>
