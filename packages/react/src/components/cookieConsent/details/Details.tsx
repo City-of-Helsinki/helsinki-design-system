@@ -8,7 +8,7 @@ import OptionalConsents from '../optionalConsents/OptionalConsents';
 function Details({ onClick }: ViewProps): React.ReactElement {
   return (
     <div className={styles['text-content']} data-testid="cookie-consent-details">
-      <span className={styles['emulated-h1']} role="heading" aria-level={1} id="cookie-consent-active-heading">
+      <span className={styles['emulated-h2']} role="heading" aria-level={2}>
         Tietoa sivustolla käytetyistä evästeistä
       </span>
       <p>

@@ -23,7 +23,7 @@ function RequiredConsents(): React.ReactElement {
   }));
   return (
     <>
-      <span className={styles['emulated-h2']} role="heading" aria-level={2}>
+      <span className={styles['emulated-h3']} role="heading" aria-level={3}>
         Välttämättömät evästeet
       </span>
       <p>
