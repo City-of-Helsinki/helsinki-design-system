@@ -15,6 +15,7 @@ function Content({ onClick }: ViewProps): React.ReactElement {
   const titleRef = useRef<HTMLHeadingElement>();
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
   const settingsButtonText = isOpen ? 'Piilota asetukset' : 'Näytä asetukset';
+  const closeButtonTitle = isOpen ? 'Hyväksy valitut ja pakolliset evästeet' : 'Hyväksy pakolliset evästeet';
 
   useEffect(() => {
     if (titleRef.current) {
@@ -62,7 +63,7 @@ function Content({ onClick }: ViewProps): React.ReactElement {
       <Buttons onClick={onClick} hasOptionalConsents={isOpen} />
       <button
         type="button"
-        title="Hyväksy valitut ja pakolliset evästeet"
+        title={closeButtonTitle}
         className={styles['close-button']}
         data-testid="cookie-consent-close-button"
         onClick={() => onClick('approveSelectedAndRequired')}
