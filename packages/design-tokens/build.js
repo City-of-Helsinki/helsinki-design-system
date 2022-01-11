@@ -119,4 +119,12 @@ Object.values({
     source: ['tokens/typography/line-height.json'],
     platforms: getPlatformConfig('line-height', 'typography'),
   }),
+
+  /* Z-INDEXES */
+  
+  zIndex: dictionary.extend({
+    source: ['tokens/z-index/z-index.json'],
+    platforms: getPlatformConfig('z-index', 'z-index'),
+  }),
+
 }).forEach((item) => item.buildAllPlatforms());

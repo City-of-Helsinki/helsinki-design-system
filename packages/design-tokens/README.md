@@ -33,6 +33,8 @@ hds-design-tokens/
     │   ├── font (.scss|.css)               # font variables
     │   ├── font-size (.scss|.css)          # font-size variables
     │   └── line-height (.scss|.css)        # line-height variables
+    ├── z-index/ 
+    │   ├── z-index (.scss|.css)            # z-index variables
     └── all (.scss|.css)                    # all variables
 ```
 
