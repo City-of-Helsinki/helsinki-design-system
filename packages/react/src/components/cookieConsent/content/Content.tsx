@@ -15,7 +15,7 @@ function Content({ onClick }: ViewProps): React.ReactElement {
   const titleRef = useRef<HTMLHeadingElement>();
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
   const settingsButtonText = isOpen ? 'Piilota asetukset' : 'Näytä asetukset';
-  const closeButtonTitle = isOpen ? 'Hyväksy valitut ja pakolliset evästeet' : 'Hyväksy pakolliset evästeet';
+  const closeButtonTitle = isOpen ? 'Hyväksy valitut ja pakolliset evästeet' : 'Hyväksy vain pakolliset evästeet';
 
   useEffect(() => {
     if (titleRef.current) {
@@ -37,7 +37,7 @@ function Content({ onClick }: ViewProps): React.ReactElement {
         </span>
         <div className={styles['language-switcher']} data-testid="cookie-consent-language-switcher">
           <a href="/" tabIndex={0} title="This is a dummy language switcher" onClick={(e) => e.preventDefault()}>
-            FI
+            <span>Suomeksi (FI)</span> <IconAngleDown />
           </a>
         </div>
         <p>
@@ -60,7 +60,7 @@ function Content({ onClick }: ViewProps): React.ReactElement {
         {...contentProps}
         theme={{
           '--padding-horizontal': '0',
-          '--padding-vertical': 'var(--spacing-layout-2-xs)',
+          '--padding-vertical': '0',
         }}
       >
         <Details onClick={onClick} />
