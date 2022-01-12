@@ -7,6 +7,9 @@ import classNames from '../../utils/classNames';
 import { TabsContext } from './TabsContext';
 import { FCWithName } from '../../common/types';
 import { useTheme } from '../../hooks/useTheme';
+import { TabList } from './TabList';
+import { TabPanel } from './TabPanel';
+import { Tab } from './Tab';
 
 export interface TabsCustomTheme {
   '--tablist-border-color'?: string;
@@ -71,3 +74,7 @@ export const Tabs = ({ children, small = false, theme }: TabsProps) => {
     </TabsContext.Provider>
   );
 };
+
+Tabs.TabList = TabList;
+Tabs.TabPanel = TabPanel;
+Tabs.Tab = Tab;
