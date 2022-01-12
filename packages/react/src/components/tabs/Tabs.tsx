@@ -75,6 +75,8 @@ export const Tabs = ({ children, small = false, theme }: TabsProps) => {
   );
 };
 
+// Using the Tabs component and its child components in the same namespace ensures that the group is considered as a single component.
+// Tabs components do some child tab component processing and this might break in some preprocessed environments if the components were separate components, for example in mdx environment.
 Tabs.TabList = TabList;
 Tabs.TabPanel = TabPanel;
 Tabs.Tab = Tab;
