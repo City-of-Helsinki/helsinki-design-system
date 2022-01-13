@@ -4,7 +4,6 @@ import { axe } from 'jest-axe';
 
 import { FooterUtilities } from './FooterUtilities';
 import { FooterWrapper } from '../../../utils/test-utils';
-import getKeyboardFocusableElements from '../../../utils/getKeyboardFocusableElements';
 
 describe('<Footer.Utilities /> spec', () => {
   it('renders the component', () => {
@@ -30,9 +29,17 @@ describe('<Footer.Utilities /> spec', () => {
       value: 1,
     });
 
-    const { container } = render(<FooterUtilities backToTopLabel="Test label" />, { wrapper: FooterWrapper });
-
-    const firstFocusable = getKeyboardFocusableElements(container)[0];
+    const { container } = render(
+      <>
+        <p>Test paragraph</p>
+        <a id="top-link" href="/#">
+          Top link
+        </a>
+        <FooterWrapper>
+          <FooterUtilities backToTopLabel="Test label" />
+        </FooterWrapper>
+      </>,
+    );
 
     fireEvent.scroll(window, { target: { scrollY: 100 } });
 
@@ -41,6 +48,7 @@ describe('<Footer.Utilities /> spec', () => {
     fireEvent.click(backToTopButton);
 
     expect(spyScrollTo).toHaveBeenCalledWith({ top: 0 });
-    expect(firstFocusable).toHaveFocus();
+
+    expect(container.querySelector('#top-link')).toHaveFocus();
   });
 });
