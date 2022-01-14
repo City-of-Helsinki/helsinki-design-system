@@ -2,6 +2,10 @@
 
 @import '~hds-design-tokens/lib/all.scss';
 
+:root {
+  --page-border-color: var(--color-black-20);
+}
+
 @font-face {
   font-family: HelsinkiGrotesk;
   src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/565d73a693abe0776c801607ac28f0bf.woff) format("woff");
@@ -115,7 +119,7 @@ body {
   }
 
   .sideContent + .mainContent {
-    border-left: 1px solid var(--color-black-20);
+    border-left: 1px solid var(--page-border-color);
     padding: 0 var(--spacing-m) var(--spacing-m);
   }
 }
@@ -123,4 +127,25 @@ body {
 .pageFooter {
   /* ensure footer stays on bottom of the page */
   margin-top: auto;
+}
+
+.pageTabs {
+  margin: var(--spacing-m) 0;
+}
+
+.pageTabsList {
+  margin: 0 calc(-1 * var(--spacing-m)) var(--spacing-m);
+  padding: 0 var(--spacing-m);
+  position: relative;
+
+  &:before {
+    bottom: 1px;
+    border-bottom: 1px solid var(--page-border-color);
+    content: "";
+    height: 1px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    width: 100%;
+  }
 }

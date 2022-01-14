@@ -3,10 +3,12 @@ slug: '/elements/components/buttons'
 title: 'Buttons'
 ---
 
-import { Button, StatusLabel } from 'hds-react';
-import Playground from '../../../components/Playground';
+import { Button, StatusLabel, Tabs } from 'hds-react';
 
 import 'hds-core/lib/components/button/button.css';
+
+import Accessibility from './accessibility.mdx'
+import Code from './code.mdx'
 
 # Buttons
 
@@ -23,18 +25,15 @@ A Primary button is reserved for the most important action on the screen. Primar
 
 Buttons are meant to make actions easily visible and understandable to the user. HDS offers different kinds of button variations which each suit for different needs.
 
-### Code examples
-
-<Playground>
-
-```jsx
-<Button>Primary</Button>
-```
-
-```html
-<button type="button" class="hds-button hds-button--primary">
-  <span class="hds-button__label">Primary</span>
-</button>
-```
-
-</Playground>
+<Tabs className="pageTabs">
+  <Tabs.TabList className="pageTabsList" style={{ marginBottom: 'var(--spacing-m)' }}>
+    <Tabs.Tab className="pageTab">Code</Tabs.Tab>
+    <Tabs.Tab className="pageTab">Accessibility</Tabs.Tab>
+  </Tabs.TabList>
+  <Tabs.TabPanel>
+    <Code />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Accessibility />
+  </Tabs.TabPanel>
+</Tabs>
