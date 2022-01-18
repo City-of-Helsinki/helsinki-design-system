@@ -1,0 +1,30 @@
+---
+slug: '/elements/components/buttons/code'
+title: 'Buttons Code'
+---
+
+import { Button } from 'hds-react';
+import Playground from '../../../../components/Playground';
+
+## Example
+
+<Button>Button</Button>
+
+<br/>
+<br/>
+
+## Variations
+
+### Primary button
+
+A Primary button is reserved for the most important action on the screen. Primary action is usually either mandatory or essential for the user. Primary buttons are designed to clearly highlight the most important action, and therefore you should avoid having multiple primary buttons on one screen. For less important actions, consider using secondary or supplementary buttons instead.
+
+<Button>Primary</Button>
+
+### Secondary button
+
+Secondary buttons are used for actions which are not mandatory or essential for the user. Often screens will include multiple secondary buttons alongside one primary button.
+
+<Button variant="secondary">Primary</Button>
+
+export default ({ children }) => <>{children}</>;
