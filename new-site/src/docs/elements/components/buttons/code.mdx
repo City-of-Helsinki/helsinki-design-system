@@ -6,24 +6,21 @@ title: 'Buttons Code'
 import { Button } from 'hds-react';
 import Playground from '../../../../components/Playground';
 
-## Button code examples
+## Code examples
 
 <Playground>
 
-  ```jsx
-  <Button>Primary</Button>
-  ```
 
-  ```html
-  <button type="button" class="hds-button hds-button--primary">
-    <span class="hds-button__label">Primary</span>
-  </button>
-  ```
+```jsx
+<Button>Primary</Button>
+```
+
+```html
+<button type="button" class="hds-button hds-button--primary">
+  <span class="hds-button__label">Primary</span>
+</button>
+```
 
 </Playground>
 
-export default ({ children }) => (
-  <>
-    {children}
-  </>
-)
+export default ({ children }) => <>{children}</>;
