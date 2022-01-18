@@ -129,12 +129,8 @@ body {
   margin-top: auto;
 }
 
-.pageTabs {
-  margin: var(--spacing-m) 0;
-}
-
 .pageTabsList {
-  margin: 0 calc(-1 * var(--spacing-m)) var(--spacing-m);
+  margin: var(--spacing-2-xl) calc(-1 * var(--spacing-m)) var(--spacing-l);
   padding: 0 var(--spacing-m);
   position: relative;
 
