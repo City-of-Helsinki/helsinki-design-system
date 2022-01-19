@@ -13,7 +13,17 @@ module.exports = {
       {
         name: 'Guidelines',
         link: '/guidelines',
-        subMenuLinks: [],
+        subMenuLinks: [
+          {
+            name: 'Overview',
+            link: '/guidelines',
+          },
+          {
+            name: 'FAQ',
+            link: '/guidelines/faq',
+            withDivider: true,
+          }
+        ],
       },
       {
         name: 'Elements',
