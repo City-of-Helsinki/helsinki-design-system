@@ -1,0 +1,164 @@
+.stepper {
+  --hds-stepper-color: var(--color-bus);
+  --hds-stepper-background-color: var(--color-white);
+  --hds-stepper-disabled-color: var(--color-black-20);
+  --hds-step-width: 120px;
+  --circle-container-size: 36px;
+  --progress-line-height: 2px;
+
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: flex-start;
+  overflow: scroll;
+  width: 100%;
+}
+
+.stepper.small {
+  --hds-step-width: 44px;
+}
+
+.stepContainer {
+  display: flex;
+  justify-content: center;
+  width: var(--hds-step-width);
+  flex-shrink: 0;
+  padding: 3px;
+  box-sizing: border-box;
+  background-color: var(--hds-stepper-background-color);
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  border: 0;
+  height: 100%;
+  overflow: visible;
+  color: var(--hds-stepper-color);
+  position: relative;
+  outline: none;
+
+  &:focus {
+    .circle {
+      outline: 2px solid var(--color-coat-of-arms);
+    }
+    .label {
+      outline: 2px solid var(--color-coat-of-arms);
+    }
+    .filledContainer {
+      outline: 2px solid var(--color-coat-of-arms);
+    }
+  }
+}
+
+.step.disabled {
+  color: var(--hds-stepper-disabled-color);
+  cursor: not-allowed;
+}
+
+.step.selected {
+  cursor: default;
+}
+
+.disabled .label {
+  text-decoration: none;
+}
+
+.circle {
+  border-radius: 16px;
+  border: 2px solid var(--hds-stepper-color);
+  text-align: center;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--hds-stepper-background-color);
+  outline: 2px solid var(--hds-stepper-background-color);
+}
+
+.disabled .circle {
+  border: 2px solid var(--hds-stepper-disabled-color);
+}
+
+.selected .circle {
+  border: 4px solid var(--hds-stepper-color);
+  outline: none;
+  border-radius: 18px;
+}
+
+.number {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 16px;
+  text-decoration: underline;
+  line-height: 1.5;
+  margin-top: 6px;
+  margin-bottom: 0;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.selected .label {
+  color: var(--color-black-90);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.filledContainer {
+  background-color: var(--hds-stepper-color);
+  padding: 4px;
+  border-radius: 16px;
+  outline: 2px solid var(--hds-stepper-background-color);
+
+  .filledIcon {
+    color: var(--hds-stepper-background-color);
+    vertical-align: middle;
+  }
+}
+
+.circleContainer {
+  z-index: 2;
+  width: var(--circle-container-size);
+  height: var(--circle-container-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.line {
+  display: inline;
+  position: absolute;
+  line-height: var(--lineheight-l);
+  left: calc(var(--hds-step-width) / 2.0);
+  height: var(--progress-line-height);
+  z-index: 1;
+  transform: translateY(calc((var(--circle-container-size) / 2) + (var(--progress-line-height) / 2)));
+
+  .disabledLine {
+    position: relative;
+    top: -15px;
+    display: inline-block;
+    height: 100%;
+    background-color: var(--hds-stepper-disabled-color);
+  }
+
+  .enabledLine {
+    position: relative;
+    top: -15px;
+    display: inline-block;
+    height: 100%;
+    background-color: var(--hds-stepper-color);
+  }
+}
+
