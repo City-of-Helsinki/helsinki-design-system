@@ -221,6 +221,41 @@ export const Small = (args) => {
   );
 };
 
+export const WithStepHeading = (args) => {
+  const reducer = commonReducer(5);
+
+  const initialState = {
+    activeStep: 1,
+    states: ['available', 'disabled', 'disabled', 'disabled', 'disabled'],
+  };
+  const labels = ['Step 1 - longer text', 'Step 2', 'Step 3', 'Step 4', 'Step 5'];
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <div>
+      <Stepper
+        labels={labels}
+        language="en"
+        stepHeading
+        states={state.states}
+        selectedStep={state.activeStep}
+        stepsTotal={5}
+        onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
+      />
+
+      <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Button
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+        >
+          Complete step {state.activeStep}
+        </Button>
+      </div>
+    </div>
+  );
+};
+
 export const States = (args) => {
   return (
     <div
