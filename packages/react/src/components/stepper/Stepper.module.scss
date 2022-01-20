@@ -162,3 +162,17 @@
   }
 }
 
+.heading {
+  margin-top: 26px;
+  font-size: 36px;
+  line-height: 43px;
+  font-weight: bold;
+  width: fit-content;
+
+  &:focus {
+    outline: 3px solid var(--color-coat-of-arms);
+    border: none;
+  }
+  // margin-left: calc((var(--hds-step-width) / 2) - (var(--circle-container-size) / 2));
+}
+
