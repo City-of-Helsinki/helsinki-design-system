@@ -1,11 +1,12 @@
 /* eslint-disable jest/no-mocks-import */
 import cookie from 'cookie';
 
+import { Content } from './CookieConsentContext';
 import { COOKIE_NAME } from './cookieConsentController';
 import { CookieSetOptions } from './cookieController';
 import { MockedDocumentCookieActions } from './__mocks__/mockDocumentCookie';
 
-export default function extractSetCookieArguments(
+export function extractSetCookieArguments(
   mockedCookieControls: MockedDocumentCookieActions,
   index = -1,
 ): {
@@ -26,3 +27,16 @@ export default function extractSetCookieArguments(
     options: mockedCookieControls.extractCookieOptions(dataStr, COOKIE_NAME),
   };
 }
+
+export const getContent = (): Content => {
+  return {
+    consents: {},
+    approveAllConsents: 'approveAllConsents',
+    approveRequiredAndSelectedConsents: 'approveRequiredAndSelectedConsents',
+    approveOnlyRequiredConsents: 'approveOnlyRequiredConsents',
+    showSettings: 'showSettings',
+    hideSettings: 'hideSettings',
+    language: 'af',
+    languageOptions: [{ code: 'af', label: 'AF' }],
+  } as Content;
+};

@@ -7,7 +7,7 @@ import { ConsentList, ConsentObject, COOKIE_NAME } from './cookieConsentControll
 import { CookieConsentContext, Provider as CookieContextProvider } from './CookieConsentContext';
 import mockWindowLocation from './__mocks__/mockWindowLocation';
 import mockDocumentCookie from './__mocks__/mockDocumentCookie';
-import extractSetCookieArguments from './test.util';
+import { extractSetCookieArguments, getContent } from './test.util';
 
 type ConsentData = {
   requiredConsents?: ConsentList;
@@ -126,6 +126,7 @@ describe('CookieConsentContext ', () => {
         cookieDomain={cookieDomain}
         onAllConsentsGiven={onAllConsentsGiven}
         onConsentsParsed={onConsentsParsed}
+        content={getContent()}
       >
         <ContextConsumer consumerId="consumer-1" />
         <ContextConsumer consumerId="consumer-2" />
