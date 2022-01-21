@@ -176,6 +176,7 @@ describe('<CookieConsent /> ', () => {
       verifyElementExistsByTestId(result, dataTestIds.screenReaderNotification);
       expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(1);
     };
+
     it('Approve -button approves all consents when details are not shown', () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
@@ -188,6 +189,7 @@ describe('<CookieConsent /> ', () => {
       clickElement(result, dataTestIds.approveButton);
       checkCookiesAreSetAndConsentModalHidden(result, consentResult);
     });
+
     it('Approve required -button approves only required consents and clears selected consents', async () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
@@ -203,6 +205,7 @@ describe('<CookieConsent /> ', () => {
       clickElement(result, dataTestIds.approveRequiredButton);
       checkCookiesAreSetAndConsentModalHidden(result, consentResult);
     });
+
     it('Close -button will approve only required consents when details are not shown', () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
@@ -215,6 +218,7 @@ describe('<CookieConsent /> ', () => {
       clickElement(result, dataTestIds.closeButton);
       checkCookiesAreSetAndConsentModalHidden(result, consentResult);
     });
+
     it('Close -button will approve required and selected consents when details are shown', async () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
@@ -229,6 +233,7 @@ describe('<CookieConsent /> ', () => {
       clickElement(result, dataTestIds.closeButton);
       checkCookiesAreSetAndConsentModalHidden(result, consentResult);
     });
+
     it('Approve -button will approve required and selected consents when details are shown', async () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
@@ -251,6 +256,7 @@ describe('<CookieConsent /> ', () => {
       await openAccordion(result);
       return result;
     };
+
     it('required and optional consents are rendered', async () => {
       const result = await initDetailsView(defaultConsentData);
       defaultConsentData.requiredConsents.forEach((consent) => {
@@ -260,6 +266,7 @@ describe('<CookieConsent /> ', () => {
         verifyElementExistsByTestId(result, dataTestIds.getOptionalConsentId(consent));
       });
     });
+
     it('Approve and close button texts change when accordion is open vs closed', async () => {
       const result = await initDetailsView(defaultConsentData);
       const approveButtonTextWhileOpen = (result.getByTestId(dataTestIds.approveButton) as HTMLElement).innerHTML;
