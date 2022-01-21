@@ -9,7 +9,7 @@ import { CookieConsent } from './CookieConsent';
 import { ConsentList, ConsentObject, COOKIE_NAME } from './cookieConsentController';
 import { Provider as CookieContextProvider } from './CookieConsentContext';
 import mockDocumentCookie from './__mocks__/mockDocumentCookie';
-import extractSetCookieArguments from './test.util';
+import { extractSetCookieArguments, getContent } from './test.util';
 
 type ConsentData = {
   requiredConsents?: ConsentList;
@@ -115,7 +115,11 @@ describe('<CookieConsent /> ', () => {
     jest.useFakeTimers();
     mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
     const result = render(
-      <CookieContextProvider requiredConsents={requiredConsents} optionalConsents={optionalConsents}>
+      <CookieContextProvider
+        requiredConsents={requiredConsents}
+        optionalConsents={optionalConsents}
+        content={getContent()}
+      >
         <CookieConsent />
       </CookieContextProvider>,
     );

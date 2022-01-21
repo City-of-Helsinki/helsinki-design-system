@@ -9,7 +9,7 @@ import createConsentController, {
   COOKIE_NAME,
 } from './cookieConsentController';
 import mockDocumentCookie from './__mocks__/mockDocumentCookie';
-import extractSetCookieArguments from './test.util';
+import { extractSetCookieArguments } from './test.util';
 
 describe(`cookieConsentController.ts`, () => {
   let controller: ConsentController;
