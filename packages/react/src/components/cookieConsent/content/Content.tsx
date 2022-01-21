@@ -7,16 +7,24 @@ import { useAccordion } from '../../accordion';
 import Details from '../details/Details';
 import styles from '../CookieConsent.module.scss';
 import { Card } from '../../card/Card';
+import { useCookieConsentContent } from '../CookieConsentContext';
 
 function Content({ onClick }: ViewProps): React.ReactElement {
   const { isOpen, buttonProps, contentProps } = useAccordion({
     initiallyOpen: false,
   });
+  const {
+    mainTitle,
+    mainText,
+    hideSettings,
+    showSettings,
+    approveRequiredAndSelectedConsents,
+    approveOnlyRequiredConsents,
+  } = useCookieConsentContent();
   const titleRef = useRef<HTMLHeadingElement>();
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
-  const settingsButtonText = isOpen ? 'Piilota asetukset' : 'Näytä asetukset';
-  const closeButtonTitle = isOpen ? 'Hyväksy valitut ja pakolliset evästeet' : 'Hyväksy vain pakolliset evästeet';
-
+  const settingsButtonText = isOpen ? hideSettings : showSettings;
+  const closeButtonTitle = isOpen ? approveRequiredAndSelectedConsents : approveOnlyRequiredConsents;
   useEffect(() => {
     if (titleRef.current) {
       titleRef.current.focus();
@@ -33,19 +41,14 @@ function Content({ onClick }: ViewProps): React.ReactElement {
           tabIndex={0}
           ref={titleRef}
         >
-          Evästesuostumukset
+          {mainTitle}
         </span>
         <div className={styles['language-switcher']} data-testid="cookie-consent-language-switcher">
           <a href="/" tabIndex={0} title="This is a dummy language switcher" onClick={(e) => e.preventDefault()}>
             <span>Suomeksi (FI)</span> <IconAngleDown />
           </a>
         </div>
-        <p>
-          Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan.
-          Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön
-          näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden
-          käytön.
-        </p>
+        <p>{mainText}</p>
       </div>
       <button
         type="button"
