@@ -1,4 +1,4 @@
-import React, { createContext, useMemo, useState } from 'react';
+import React, { createContext, useContext, useMemo, useState } from 'react';
 
 import create, { ConsentController, ConsentList, ConsentObject } from './cookieConsentController';
 
@@ -11,6 +11,31 @@ export type CookieConsentContextType = {
   save: ConsentController['save'];
   willRenderCookieConsentDialog: boolean;
   hasUserHandledAllConsents: () => boolean;
+  content: Content;
+};
+
+export type Content = {
+  mainTitle: string;
+  mainText: string;
+  detailsTitle: string;
+  detailsText: string;
+  requiredConsentsTitle: string;
+  requiredConsentsText: string;
+  optionalConsentsTitle: string;
+  optionalConsentsText: string;
+  showSettings: string;
+  hideSettings: string;
+  approveAllConsents: string;
+  approveRequiredAndSelectedConsents: string;
+  approveOnlyRequiredConsents: string;
+  settingsSaved: string;
+  languageOptions: { code: string; label: string }[];
+  language: string;
+  languageSelectorAriaLabel: string;
+  onLanguageChange: (newLanguage: string) => void;
+  consents: {
+    [x: string]: string;
+  };
 };
 
 type CookieConsentContextProps = {
@@ -18,6 +43,7 @@ type CookieConsentContextProps = {
   requiredConsents?: ConsentList;
   cookieDomain?: string;
   children: React.ReactNode | React.ReactNode[] | null;
+  content: Content;
   onAllConsentsGiven?: (consents: ConsentObject) => void;
   onConsentsParsed?: (consents: ConsentObject, hasUserHandledAllConsents: boolean) => void;
 };
@@ -31,6 +57,7 @@ export const CookieConsentContext = createContext<CookieConsentContextType>({
   save: () => ({}),
   hasUserHandledAllConsents: () => false,
   willRenderCookieConsentDialog: false,
+  content: {} as Content,
 });
 
 export const Provider = ({
@@ -40,6 +67,7 @@ export const Provider = ({
   onAllConsentsGiven = () => undefined,
   onConsentsParsed = () => undefined,
   children,
+  content,
 }: CookieConsentContextProps): React.ReactElement => {
   const consentController = useMemo(() => create({ requiredConsents, optionalConsents, cookieDomain }), [
     requiredConsents,
@@ -75,7 +103,25 @@ export const Provider = ({
     },
     willRenderCookieConsentDialog,
     hasUserHandledAllConsents,
+    content,
   };
   onConsentsParsed(mergeConsents(), hasUserHandledAllConsents());
   return <CookieConsentContext.Provider value={contextData}>{children}</CookieConsentContext.Provider>;
+};
+
+export const getCookieConsentContent = (context: CookieConsentContextType): Content => {
+  return context.content;
+};
+
+export const useCookieConsentContent = (): Content => {
+  const cookieConsentContext = useContext(CookieConsentContext);
+  return getCookieConsentContent(cookieConsentContext);
+};
+
+export const useCookieConsentData = (): ((key: string, prop: 'title' | 'text') => string) => {
+  const content = useCookieConsentContent();
+  return (key, prop) => {
+    const textKey = prop === 'title' ? `${key}Title` : `${key}Text`;
+    return content.consents[textKey] || textKey;
+  };
 };
