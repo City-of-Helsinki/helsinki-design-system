@@ -3,6 +3,7 @@ import React from 'react';
 import { CookieConsentActionListener } from '../types';
 import { Button } from '../../button/Button';
 import styles from '../CookieConsent.module.scss';
+import { useCookieConsentContent } from '../CookieConsentContext';
 
 export type Props = {
   onClick: CookieConsentActionListener;
@@ -10,7 +11,12 @@ export type Props = {
 };
 
 function Buttons({ onClick, hasOptionalConsents }: Props): React.ReactElement {
-  const primaryButtonText = hasOptionalConsents ? ' Hyväksy valitut evästeet' : 'Hyväksy kaikki evästeet';
+  const {
+    approveRequiredAndSelectedConsents,
+    approveOnlyRequiredConsents,
+    approveAllConsents,
+  } = useCookieConsentContent();
+  const primaryButtonText = hasOptionalConsents ? approveRequiredAndSelectedConsents : approveAllConsents;
   const primaryButtonAction = hasOptionalConsents ? 'approveSelectedAndRequired' : 'approveAll';
   return (
     <div className={styles.buttons}>
@@ -29,9 +35,8 @@ function Buttons({ onClick, hasOptionalConsents }: Props): React.ReactElement {
           onClick('approveRequired');
         }}
         data-testid="cookie-consent-approve-required-button"
-        aria-label="Hyväksy pakolliset evästeet"
       >
-        Hyväksy vain pakolliset evästeet
+        {approveOnlyRequiredConsents}
       </Button>
     </div>
   );
