@@ -1,3 +1,333 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CookieConsent /> spec renders the component 1`] = `<DocumentFragment />`;
+exports[`<CookieConsent /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="container animate-in"
+    data-testid="cookie-consent"
+  >
+    <div
+      class="aligner"
+    >
+      <div
+        class="content"
+        id="cookie-consent-content"
+      >
+        <div
+          class="main-content"
+          data-testid="cookie-consent-information"
+        >
+          <span
+            aria-level="1"
+            class="emulated-h1"
+            role="heading"
+            tabindex="0"
+          >
+            Evästesuostumukset
+          </span>
+          <div
+            class="language-switcher"
+            data-testid="cookie-consent-language-switcher"
+          >
+            <div
+              class="menuButton language-selector-override"
+            >
+              <button
+                aria-controls="cookie-consent-language-selector-menu"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="Kieli: Suomi. Vaihda kieli. Change language. Ändra språk."
+                class="toggleButton"
+                id="cookie-consent-language-selector-button"
+                type="button"
+              >
+                <span
+                  class="toggleButtonLabel"
+                >
+                  Suomeksi (FI)
+                </span>
+                <svg
+                  aria-hidden="true"
+                  class="icon s"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    fill="none"
+                    fill-rule="evenodd"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                    />
+                    <path
+                      d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
+                      fill="currentColor"
+                    />
+                  </g>
+                </svg>
+              </button>
+              <div
+                aria-labelledby="cookie-consent-language-selector-button"
+                class="menu"
+                id="cookie-consent-language-selector-menu"
+                role="region"
+                style="top: 10px; min-width: 190px;"
+              >
+                <a
+                  aria-current="page"
+                  class="item "
+                  href="#"
+                  lang="fi"
+                >
+                  <span
+                    class="label"
+                  >
+                    Suomeksi (FI)
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <p>
+            Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan.
+      Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön
+      näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden
+      käytön.
+          </p>
+        </div>
+        <button
+          aria-expanded="false"
+          class="accordion-button"
+          data-testid="cookie-consent-settings-toggler"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <path
+                d="M0 0h24v24H0z"
+              />
+              <path
+                d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
+                fill="currentColor"
+              />
+            </g>
+          </svg>
+          <span>
+            Näytä asetukset
+          </span>
+        </button>
+        <div
+          class="card custom-theme-1"
+          role="region"
+          style="display: none;"
+        >
+          <div
+            class="text-content"
+            data-testid="cookie-consent-details"
+          >
+            <span
+              aria-level="2"
+              class="emulated-h2"
+              role="heading"
+            >
+              Tietoa sivustolla käytetyistä evästeistä
+            </span>
+            <p>
+              Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea tietoa jokaisesta
+      kategoriasta ja sallia tai kieltää evästeiden käytön.
+            </p>
+            <span
+              aria-level="3"
+              class="emulated-h3"
+              role="heading"
+            >
+              Välttämättömät evästeet
+            </span>
+            <p>
+              Välttämättömien evästeiden käyttöä ei voi kieltää. Ne mahdollistavat sivuston toiminnan ja vaikuttavat sivuston käyttäjäystävällisyyteen.
+            </p>
+            <ul
+              class="list"
+            >
+              <li>
+                <div
+                  class="checkbox"
+                >
+                  <input
+                    checked=""
+                    class="input"
+                    data-testid="required-cookie-consent-requiredConsent1"
+                    disabled=""
+                    id="required-cookie-consent-requiredConsent1"
+                    name="required-cookie-consent-requiredConsent1"
+                    type="checkbox"
+                    value=""
+                  />
+                  <label
+                    class="label"
+                    for="required-cookie-consent-requiredConsent1"
+                  >
+                    requiredConsent1Title
+                  </label>
+                </div>
+                <span>
+                  - requiredConsent1Text
+                </span>
+              </li>
+              <li>
+                <div
+                  class="checkbox"
+                >
+                  <input
+                    checked=""
+                    class="input"
+                    data-testid="required-cookie-consent-requiredConsent2"
+                    disabled=""
+                    id="required-cookie-consent-requiredConsent2"
+                    name="required-cookie-consent-requiredConsent2"
+                    type="checkbox"
+                    value=""
+                  />
+                  <label
+                    class="label"
+                    for="required-cookie-consent-requiredConsent2"
+                  >
+                    requiredConsent2Title
+                  </label>
+                </div>
+                <span>
+                  - requiredConsent2Text
+                </span>
+              </li>
+            </ul>
+            <span
+              aria-level="3"
+              class="emulated-h3"
+              role="heading"
+            >
+              Muut evästeet
+            </span>
+            <p>
+              Voit hyväksyä tai jättää hyväksymättä muut evästeet.
+            </p>
+            <ul
+              class="list"
+            >
+              <li>
+                <div
+                  class="checkbox"
+                >
+                  <input
+                    class="input"
+                    data-testid="optional-cookie-consent-optionalConsent1"
+                    id="optional-cookie-consent-optionalConsent1"
+                    name="optional-cookie-consent-optionalConsent1"
+                    type="checkbox"
+                    value=""
+                  />
+                  <label
+                    class="label"
+                    for="optional-cookie-consent-optionalConsent1"
+                  >
+                    optionalConsent1Title
+                  </label>
+                </div>
+                <span>
+                  - optionalConsent1Text
+                </span>
+              </li>
+              <li>
+                <div
+                  class="checkbox"
+                >
+                  <input
+                    class="input"
+                    data-testid="optional-cookie-consent-optionalConsent2"
+                    id="optional-cookie-consent-optionalConsent2"
+                    name="optional-cookie-consent-optionalConsent2"
+                    type="checkbox"
+                    value=""
+                  />
+                  <label
+                    class="label"
+                    for="optional-cookie-consent-optionalConsent2"
+                  >
+                    optionalConsent2Title
+                  </label>
+                </div>
+                <span>
+                  - optionalConsent2Text
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="buttons"
+        >
+          <button
+            class="button primary theme-default size-default"
+            data-testid="cookie-consent-approve-button"
+            type="button"
+          >
+            <span
+              class="label"
+            >
+              Hyväksy kaikki evästeet
+            </span>
+          </button>
+          <button
+            class="button secondary theme-default size-default"
+            data-testid="cookie-consent-approve-required-button"
+            type="button"
+          >
+            <span
+              class="label"
+            >
+              Hyväksy vain pakolliset evästeet
+            </span>
+          </button>
+        </div>
+        <button
+          class="close-button"
+          data-testid="cookie-consent-close-button"
+          title="Hyväksy vain pakolliset evästeet"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <rect
+                height="24"
+                width="24"
+              />
+              <polygon
+                fill="currentColor"
+                points="18 7.5 13.5 12 18 16.5 16.5 18 12 13.5 7.5 18 6 16.5 10.5 12 6 7.5 7.5 6 12 10.5 16.5 6"
+              />
+            </g>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

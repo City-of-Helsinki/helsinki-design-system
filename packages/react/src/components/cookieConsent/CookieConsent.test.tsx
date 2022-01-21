@@ -17,32 +17,70 @@ type ConsentData = {
   cookie?: ConsentObject;
 };
 
-describe('<CookieConsent /> spec', () => {
-  const renderComponentWithTimers = (): RenderResult => {
-    jest.useFakeTimers();
-    const result = render(<CookieConsent />);
-    act(() => {
-      jest.runAllTimers();
-    });
-    // axe uses timers so must use real ones
-    jest.useRealTimers();
-    return result;
+const defaultConsentData = {
+  requiredConsents: ['requiredConsent1', 'requiredConsent2'],
+  optionalConsents: ['optionalConsent1', 'optionalConsent2'],
+  cookie: {},
+};
+
+const unknownConsents = {
+  unknownConsent1: true,
+  unknownConsent2: false,
+};
+
+const mockedCookieControls = mockDocumentCookie();
+
+const renderCookieConsent = (
+  { requiredConsents = [], optionalConsents = [], cookie = {} }: ConsentData,
+  withRealTimers = false,
+): RenderResult => {
+  // inject unknown consents to verify those are
+  // stored and handled, but not required or optional
+  const cookieWithInjectedUnknowns = {
+    ...cookie,
+    ...unknownConsents,
   };
+  jest.useFakeTimers();
+  mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
+  const result = render(
+    <CookieContextProvider content={getContent()} requiredConsents={requiredConsents} optionalConsents={optionalConsents}>
+      <CookieConsent />
+    </CookieContextProvider>,
+  );
+  act(() => {
+    jest.runAllTimers();
+  });
+
+  // For example, axe uses timers so sometimes the test must use real ones
+  if (withRealTimers) {
+    jest.useRealTimers();
+  }
+
+  return result;
+};
+
+describe('<CookieConsent /> spec', () => {
+  afterEach(() => {
+    mockedCookieControls.clear();
+  });
+
+  afterAll(() => {
+    mockedCookieControls.restore();
+  });
 
   it('renders the component', () => {
-    const { asFragment } = renderComponentWithTimers();
+    const { asFragment } = renderCookieConsent(defaultConsentData);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should not have basic accessibility issues', async () => {
-    const { container } = renderComponentWithTimers();
+    const { container } = renderCookieConsent(defaultConsentData, true);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 });
 
 describe('<CookieConsent /> ', () => {
-  const mockedCookieControls = mockDocumentCookie();
   afterEach(() => {
     mockedCookieControls.clear();
   });
@@ -88,45 +126,6 @@ describe('<CookieConsent /> ', () => {
     await waitFor(() => {
       expect(isAccordionOpen(result)).toBeTruthy();
     });
-  };
-
-  const defaultConsentData = {
-    requiredConsents: ['requiredConsent1', 'requiredConsent2'],
-    optionalConsents: ['optionalConsent1', 'optionalConsent2'],
-    cookie: {},
-  };
-
-  const unknownConsents = {
-    unknownConsent1: true,
-    unknownConsent2: false,
-  };
-
-  const renderCookieConsent = ({
-    requiredConsents = [],
-    optionalConsents = [],
-    cookie = {},
-  }: ConsentData): RenderResult => {
-    // inject unknown consents to verify those are
-    // stored and handled, but not required or optional
-    const cookieWithInjectedUnknowns = {
-      ...cookie,
-      ...unknownConsents,
-    };
-    jest.useFakeTimers();
-    mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
-    const result = render(
-      <CookieContextProvider
-        requiredConsents={requiredConsents}
-        optionalConsents={optionalConsents}
-        content={getContent()}
-      >
-        <CookieConsent />
-      </CookieContextProvider>,
-    );
-    act(() => {
-      jest.runAllTimers();
-    });
-    return result;
   };
 
   describe('Cookie consent ', () => {
