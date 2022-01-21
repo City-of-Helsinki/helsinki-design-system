@@ -56,15 +56,18 @@
   left: var(--common-spacing);
 }
 
-.language-switcher a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: var(--color-black);
+.language-selector-override {
+  position: relative;
+  right: unset;
 }
 
-.language-switcher span {
-  padding-right: var(--spacing-3-xs);
+.language-selector-override > button {
+  padding-top: 0;
+}
+
+.language-selector-override > button + div {
+  right: unset;
+  left: 0;
 }
 
 .main-content,
@@ -174,9 +177,9 @@
   }
 
   .language-switcher {
-    line-height: calc(var(--fontsize-heading-l) * var(--lineheight-l));
     right: var(--lang-pos-x);
     left: unset;
+    padding-top: 15px;
   }
 
   .close-button {

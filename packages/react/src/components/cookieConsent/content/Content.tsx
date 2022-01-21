@@ -8,6 +8,7 @@ import Details from '../details/Details';
 import styles from '../CookieConsent.module.scss';
 import { Card } from '../../card/Card';
 import { useCookieConsentContent } from '../CookieConsentContext';
+import LanguageSwitcher from '../languageSwitcher/LanguageSwitcher';
 
 function Content({ onClick }: ViewProps): React.ReactElement {
   const { isOpen, buttonProps, contentProps } = useAccordion({
@@ -44,9 +45,7 @@ function Content({ onClick }: ViewProps): React.ReactElement {
           {mainTitle}
         </span>
         <div className={styles['language-switcher']} data-testid="cookie-consent-language-switcher">
-          <a href="/" tabIndex={0} title="This is a dummy language switcher" onClick={(e) => e.preventDefault()}>
-            <span>Suomeksi (FI)</span> <IconAngleDown />
-          </a>
+          <LanguageSwitcher />
         </div>
         <p>{mainText}</p>
       </div>
