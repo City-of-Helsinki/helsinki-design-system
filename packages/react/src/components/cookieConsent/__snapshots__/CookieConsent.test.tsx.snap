@@ -175,6 +175,7 @@ exports[`<CookieConsent /> spec renders the component 1`] = `
                   class="checkbox"
                 >
                   <input
+                    aria-describedby="required-cookie-consent-requiredConsent1-description"
                     checked=""
                     class="input"
                     data-testid="required-cookie-consent-requiredConsent1"
@@ -191,7 +192,10 @@ exports[`<CookieConsent /> spec renders the component 1`] = `
                     requiredConsent1Title
                   </label>
                 </div>
-                <span>
+                <span
+                  aria-hidden="true"
+                  id="required-cookie-consent-requiredConsent1-description"
+                >
                   - requiredConsent1Text
                 </span>
               </li>
@@ -200,6 +204,7 @@ exports[`<CookieConsent /> spec renders the component 1`] = `
                   class="checkbox"
                 >
                   <input
+                    aria-describedby="required-cookie-consent-requiredConsent2-description"
                     checked=""
                     class="input"
                     data-testid="required-cookie-consent-requiredConsent2"
@@ -216,7 +221,10 @@ exports[`<CookieConsent /> spec renders the component 1`] = `
                     requiredConsent2Title
                   </label>
                 </div>
-                <span>
+                <span
+                  aria-hidden="true"
+                  id="required-cookie-consent-requiredConsent2-description"
+                >
                   - requiredConsent2Text
                 </span>
               </li>
@@ -239,6 +247,7 @@ exports[`<CookieConsent /> spec renders the component 1`] = `
                   class="checkbox"
                 >
                   <input
+                    aria-describedby="optional-cookie-consent-optionalConsent1-description"
                     class="input"
                     data-testid="optional-cookie-consent-optionalConsent1"
                     id="optional-cookie-consent-optionalConsent1"
@@ -253,7 +262,10 @@ exports[`<CookieConsent /> spec renders the component 1`] = `
                     optionalConsent1Title
                   </label>
                 </div>
-                <span>
+                <span
+                  aria-hidden="true"
+                  id="optional-cookie-consent-optionalConsent1-description"
+                >
                   - optionalConsent1Text
                 </span>
               </li>
@@ -262,6 +274,7 @@ exports[`<CookieConsent /> spec renders the component 1`] = `
                   class="checkbox"
                 >
                   <input
+                    aria-describedby="optional-cookie-consent-optionalConsent2-description"
                     class="input"
                     data-testid="optional-cookie-consent-optionalConsent2"
                     id="optional-cookie-consent-optionalConsent2"
@@ -276,7 +289,10 @@ exports[`<CookieConsent /> spec renders the component 1`] = `
                     optionalConsent2Title
                   </label>
                 </div>
-                <span>
+                <span
+                  aria-hidden="true"
+                  id="optional-cookie-consent-optionalConsent2-description"
+                >
                   - optionalConsent2Text
                 </span>
               </li>
