@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Stepper /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="stepperContainer"
+  >
+    <div
+      class="stepper"
+    >
+      <div
+        aria-hidden="true"
+        class="line"
+      >
+        <div
+          class="disabledLine"
+          style="width: calc( 100% / 4);"
+        />
+        <div
+          class="disabledLine"
+          style="width: calc( 100% / 4);"
+        />
+        <div
+          class="disabledLine"
+          style="width: calc( 100% / 4);"
+        />
+        <div
+          class="disabledLine"
+          style="width: calc( 100% / 4);"
+        />
+      </div>
+      <div
+        class="stepContainer"
+      >
+        <button
+          aria-current="step"
+          aria-label="Step 1. Step 1/5. Selected."
+          class="step selected"
+          tabindex="-1"
+          type="button"
+        >
+          <div
+            class="circleContainer"
+          >
+            <div
+              class="circle"
+            >
+              <span
+                class="number"
+              >
+                1
+              </span>
+            </div>
+          </div>
+          <p
+            class="label"
+          >
+            Step 1
+          </p>
+        </button>
+      </div>
+      <div
+        class="stepContainer"
+      >
+        <button
+          aria-current="false"
+          aria-label="Step 2. Step 2/5. Disabled."
+          class="step disabled"
+          disabled=""
+          tabindex="0"
+          type="button"
+        >
+          <div
+            class="circleContainer"
+          >
+            <div
+              class="circle"
+            >
+              <span
+                class="number"
+              >
+                2
+              </span>
+            </div>
+          </div>
+          <p
+            class="label"
+          >
+            Step 2
+          </p>
+        </button>
+      </div>
+      <div
+        class="stepContainer"
+      >
+        <button
+          aria-current="false"
+          aria-label="Step 3. Step 3/5. Disabled."
+          class="step disabled"
+          disabled=""
+          tabindex="0"
+          type="button"
+        >
+          <div
+            class="circleContainer"
+          >
+            <div
+              class="circle"
+            >
+              <span
+                class="number"
+              >
+                3
+              </span>
+            </div>
+          </div>
+          <p
+            class="label"
+          >
+            Step 3
+          </p>
+        </button>
+      </div>
+      <div
+        class="stepContainer"
+      >
+        <button
+          aria-current="false"
+          aria-label="Step 4 - longer text. Step 4/5. Disabled."
+          class="step disabled"
+          disabled=""
+          tabindex="0"
+          type="button"
+        >
+          <div
+            class="circleContainer"
+          >
+            <div
+              class="circle"
+            >
+              <span
+                class="number"
+              >
+                4
+              </span>
+            </div>
+          </div>
+          <p
+            class="label"
+          >
+            Step 4 - longer text
+          </p>
+        </button>
+      </div>
+      <div
+        class="stepContainer"
+      >
+        <button
+          aria-current="false"
+          aria-label="Step 5. Step 5/5. Disabled."
+          class="step disabled"
+          disabled=""
+          tabindex="0"
+          type="button"
+        >
+          <div
+            class="circleContainer"
+          >
+            <div
+              class="circle"
+            >
+              <span
+                class="number"
+              >
+                5
+              </span>
+            </div>
+          </div>
+          <p
+            class="label"
+          >
+            Step 5
+          </p>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
