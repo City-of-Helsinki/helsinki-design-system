@@ -138,7 +138,7 @@ export const Small = (args) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <div>
+    <div style={{ maxWidth: '300px' }}>
       <Stepper
         labels={labels}
         language="en"
