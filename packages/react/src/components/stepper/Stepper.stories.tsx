@@ -15,15 +15,6 @@ export default {
   args: {},
 };
 
-const ShowWhenActive = ({ children, active }) => {
-  if (active) {
-    return (
-      <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>{children}</div>
-    );
-  }
-  return null;
-};
-
 const commonReducer = (stepsTotal) => (state, action) => {
   switch (action.type) {
     case 'completeStep': {
@@ -82,46 +73,14 @@ export const Default = (args) => {
         onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
       />
 
-      <ShowWhenActive active={state.activeStep === 1}>
+      <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Button
-          onClick={() => dispatch({ type: 'completeStep', payload: 1 })}
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
           style={{ height: 'fit-content', width: 'fit-content' }}
         >
-          Complete step 1
+          Complete step {state.activeStep}
         </Button>
-      </ShowWhenActive>
-      <ShowWhenActive active={state.activeStep === 2}>
-        <Button
-          onClick={() => dispatch({ type: 'completeStep', payload: 2 })}
-          style={{ height: 'fit-content', width: 'fit-content' }}
-        >
-          Complete step 2
-        </Button>
-      </ShowWhenActive>
-      <ShowWhenActive active={state.activeStep === 3}>
-        <Button
-          onClick={() => dispatch({ type: 'completeStep', payload: 3 })}
-          style={{ height: 'fit-content', width: 'fit-content' }}
-        >
-          Complete step 3
-        </Button>
-      </ShowWhenActive>
-      <ShowWhenActive active={state.activeStep === 4}>
-        <Button
-          onClick={() => dispatch({ type: 'completeStep', payload: 4 })}
-          style={{ height: 'fit-content', width: 'fit-content' }}
-        >
-          Complete step 4
-        </Button>
-      </ShowWhenActive>
-      <ShowWhenActive active={state.activeStep === 5}>
-        <Button
-          onClick={() => dispatch({ type: 'completeStep', payload: 5 })}
-          style={{ height: 'fit-content', width: 'fit-content' }}
-        >
-          Complete step 5
-        </Button>
-      </ShowWhenActive>
+      </div>
     </div>
   );
 };
