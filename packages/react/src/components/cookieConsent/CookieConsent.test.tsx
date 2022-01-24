@@ -7,7 +7,7 @@ import { act } from 'react-dom/test-utils';
 
 import { CookieConsent } from './CookieConsent';
 import { ConsentList, ConsentObject, COOKIE_NAME } from './cookieConsentController';
-import { Provider as CookieContextProvider } from './CookieConsentContext';
+import { Content, Provider as CookieContextProvider } from './CookieConsentContext';
 import mockDocumentCookie from './__mocks__/mockDocumentCookie';
 import { extractSetCookieArguments, getContent } from './test.util';
 
@@ -15,6 +15,7 @@ type ConsentData = {
   requiredConsents?: ConsentList;
   optionalConsents?: ConsentList;
   cookie?: ConsentObject;
+  contentOverrides?: Partial<Content>;
 };
 
 const defaultConsentData = {
@@ -31,7 +32,7 @@ const unknownConsents = {
 const mockedCookieControls = mockDocumentCookie();
 
 const renderCookieConsent = (
-  { requiredConsents = [], optionalConsents = [], cookie = {} }: ConsentData,
+  { requiredConsents = [], optionalConsents = [], cookie = {}, contentOverrides = {} }: ConsentData,
   withRealTimers = false,
 ): RenderResult => {
   // inject unknown consents to verify those are
@@ -40,14 +41,14 @@ const renderCookieConsent = (
     ...cookie,
     ...unknownConsents,
   };
+  const content = {
+    ...getContent(),
+    ...contentOverrides,
+  };
   jest.useFakeTimers();
   mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
   const result = render(
-    <CookieContextProvider
-      content={getContent()}
-      requiredConsents={requiredConsents}
-      optionalConsents={optionalConsents}
-    >
+    <CookieContextProvider content={content} requiredConsents={requiredConsents} optionalConsents={optionalConsents}>
       <CookieConsent />
     </CookieContextProvider>,
   );
@@ -167,6 +168,13 @@ describe('<CookieConsent /> ', () => {
       });
       verifyElementDoesNotExistsByTestId(result, dataTestIds.container);
       verifyElementDoesNotExistsByTestId(result, dataTestIds.screenReaderNotification);
+    });
+    it('changing language calls content.onLanguageChange', () => {
+      const onLanguageChange = jest.fn();
+      const result = renderCookieConsent({ ...defaultConsentData, contentOverrides: { onLanguageChange } });
+      result.container.querySelector('#cookie-consent-language-selector-button').click();
+      result.container.querySelector('a[lang="sv"]').click();
+      expect(onLanguageChange).toHaveBeenLastCalledWith('sv');
     });
   });
 

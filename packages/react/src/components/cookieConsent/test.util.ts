@@ -50,7 +50,10 @@ export const getContent = (): Content => {
     showSettings: 'Näytä asetukset',
     hideSettings: 'Piilota asetukset',
     language: 'fi',
-    languageOptions: [{ code: 'fi', label: 'Suomeksi (FI)' }],
+    languageOptions: [
+      { code: 'fi', label: 'Suomeksi (FI)' },
+      { code: 'sv', label: 'På svenska (SV)' },
+    ],
     languageSelectorAriaLabel: 'Kieli: Suomi. Vaihda kieli. Change language. Ändra språk.',
   } as Content;
 };
