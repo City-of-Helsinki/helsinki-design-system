@@ -9,6 +9,8 @@ describe('<Stepper /> spec', () => {
   let labels;
 
   beforeEach(() => {
+    // Need to mock scrollIntoView for jest
+    window.HTMLElement.prototype.scrollIntoView = function () {}; // eslint-disable-line
     state = {
       activeStep: 1,
       states: ['available', 'disabled', 'disabled', 'disabled', 'disabled'] as StepperProps['states'],
