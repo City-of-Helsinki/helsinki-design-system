@@ -86,6 +86,17 @@ exports[`<CookieConsent /> spec renders the component 1`] = `
                     Suomeksi (FI)
                   </span>
                 </a>
+                <a
+                  class="item "
+                  href="#"
+                  lang="sv"
+                >
+                  <span
+                    class="label"
+                  >
+                    På svenska (SV)
+                  </span>
+                </a>
               </div>
             </div>
           </div>
