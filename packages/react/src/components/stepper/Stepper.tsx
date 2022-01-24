@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 // import core base styles
 import 'hds-core';
 import styles from './Stepper.module.scss';
 import { Step, StepProps } from './Step';
 import classNames from '../../utils/classNames';
+import { IconAngleLeft, IconAngleRight } from '../../icons';
 
 type Language = 'en' | 'fi' | 'sv' | string;
 
@@ -53,16 +54,78 @@ export const Stepper = ({
   headingClassName,
 }: StepperProps) => {
   const stepHeadingRef = useRef(null);
+  const stepperRef = useRef(null);
+  const [showPreviousButton, setShowPreviousButton] = useState(false);
+  const [showNextButton, setShowNextButton] = useState(false);
 
   useEffect(() => {
     if (stepHeadingRef.current) {
       stepHeadingRef.current.focus();
     }
+
+    if (stepperRef.current.scrollLeft > 5) {
+      setShowPreviousButton(true);
+    } else {
+      setShowPreviousButton(false);
+    }
+
+    if (
+      stepperRef.current.scrollWidth - (stepperRef.current.parentNode.clientWidth + stepperRef.current.scrollLeft) >
+      5
+    ) {
+      setShowNextButton(true);
+    } else {
+      setShowNextButton(false);
+    }
   }, [selectedStep]);
 
   return (
-    <>
-      <div className={classNames(styles.stepper, small && styles.small)}>
+    <div className={styles.stepperContainer}>
+      {showPreviousButton && (
+        <div className={classNames(styles.scrollButton, styles.scrollButtonPrevious)} aria-hidden="true">
+          <button
+            type="button"
+            onClick={() => {
+              const amountToScroll = stepperRef.current.scrollWidth / stepsTotal;
+              stepperRef.current.scrollLeft -= amountToScroll;
+            }}
+            tabIndex={-1}
+          >
+            <IconAngleLeft />
+          </button>
+        </div>
+      )}
+      {showNextButton && (
+        <div className={classNames(styles.scrollButton, styles.scrollButtonNext)} aria-hidden="true">
+          <button
+            type="button"
+            onClick={() => {
+              const amountToScroll = stepperRef.current.scrollWidth / stepsTotal;
+              stepperRef.current.scrollLeft += amountToScroll;
+            }}
+            tabIndex={-1}
+          >
+            <IconAngleRight />
+          </button>
+        </div>
+      )}
+      <div
+        onScroll={(e) => {
+          if (e.target.scrollLeft > 5) {
+            setShowPreviousButton(true);
+          } else {
+            setShowPreviousButton(false);
+          }
+
+          if (e.target.scrollWidth - (e.target.parentNode.clientWidth + e.target.scrollLeft) > 5) {
+            setShowNextButton(true);
+          } else {
+            setShowNextButton(false);
+          }
+        }}
+        ref={stepperRef}
+        className={classNames(styles.stepper, small && styles.small)}
+      >
         <div
           className={styles.line}
           aria-hidden
@@ -115,6 +178,6 @@ export const Stepper = ({
           {getStepHeading(language, selectedStep, stepsTotal, labels[selectedStep - 1])}
         </div>
       )}
-    </>
+    </div>
   );
 };
