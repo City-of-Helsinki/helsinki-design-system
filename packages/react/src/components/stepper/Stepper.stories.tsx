@@ -147,10 +147,10 @@ export const Overflow = (args) => {
     ],
   };
   const labels = [
-    'Step 1',
+    'Step 1 - longer text',
     'Step 2',
     'Step 3',
-    'Step 4 - longer text',
+    'Step 4',
     'Step 5',
     'Step 6',
     'Step 7',
@@ -164,7 +164,7 @@ export const Overflow = (args) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <div style={{ width: '400px' }}>
+    <div style={{ maxWidth: '400px' }}>
       <Stepper
         labels={labels}
         language="en"
@@ -258,35 +258,37 @@ export const WithStepHeading = (args) => {
 
 export const States = (args) => {
   return (
-    <div
-      className={styles.stepper}
-      style={{
-        display: 'grid',
-        columnGap: '10px !important',
-        gap: '32px',
-        justifyItems: 'center',
-        gridTemplateColumns: '1fr 1fr 1fr 1fr',
-      }}
-    >
-      <Step label="Available" language="en" number={1} stepsTotal={9} state="available" />
-      <Step label="Selected" language="en" number={2} stepsTotal={9} selected state="available" />
-      <Step label="Filled" language="en" number={3} stepsTotal={9} state="filled" />
-      <Step label="Disabled" language="en" number={4} stepsTotal={9} state="disabled" />
-      <Step label="Needs attention" language="en" number={5} stepsTotal={9} state="attention" />
-      <Step label="Attention + selected" language="en" selected number={6} stepsTotal={9} state="attention" />
-      <Step label="Paused" language="en" number={7} stepsTotal={9} state="paused" />
-      <Step label="Paused + selected" language="en" selected number={8} stepsTotal={9} state="paused" />
-      <div className={styles.step}>
-        <p>Small variant:</p>
-        <Step
-          label="Available"
-          language="en"
-          number={9}
-          stepsTotal={9}
-          small
-          state="available"
-          style={{ justifySelf: 'center' }}
-        />
+    <div className={styles.stepperContainer}>
+      <div
+        className={styles.stepper}
+        style={{
+          display: 'grid',
+          columnGap: '10px !important',
+          gap: '32px',
+          justifyItems: 'center',
+          gridTemplateColumns: '1fr 1fr 1fr 1fr',
+        }}
+      >
+        <Step label="Available" language="en" number={1} stepsTotal={9} state="available" />
+        <Step label="Selected" language="en" number={2} stepsTotal={9} selected state="available" />
+        <Step label="Filled" language="en" number={3} stepsTotal={9} state="filled" />
+        <Step label="Disabled" language="en" number={4} stepsTotal={9} state="disabled" />
+        <Step label="Needs attention" language="en" number={5} stepsTotal={9} state="attention" />
+        <Step label="Attention + selected" language="en" selected number={6} stepsTotal={9} state="attention" />
+        <Step label="Paused" language="en" number={7} stepsTotal={9} state="paused" />
+        <Step label="Paused + selected" language="en" selected number={8} stepsTotal={9} state="paused" />
+        <div className={styles.step}>
+          <p>Small variant:</p>
+          <Step
+            label="Available"
+            language="en"
+            number={9}
+            stepsTotal={9}
+            small
+            state="available"
+            style={{ justifySelf: 'center' }}
+          />
+        </div>
       </div>
     </div>
   );
