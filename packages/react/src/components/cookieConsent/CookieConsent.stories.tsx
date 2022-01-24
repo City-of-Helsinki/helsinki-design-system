@@ -21,7 +21,10 @@ export const Example = () => {
         style={willRenderCookieConsentDialog ? { overflow: 'hidden', maxHeight: '100vh' } : {}}
         aria-hidden={willRenderCookieConsentDialog ? 'true' : 'false'}
       >
-        <h1>This is a dummy application</h1>
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+        <h1 id="focused-element-after-cookie-consent-closed" tabIndex={0}>
+          This is a dummy application
+        </h1>
         {willRenderCookieConsentDialog ? (
           <>
             <p>Cookie consent dialog will be shown.</p>
@@ -95,11 +98,22 @@ export const Example = () => {
       onAllConsentsGiven={(consents) => {
         if (consents.matomo) {
           //  start tracking
+          // window._paq.push(['setConsentGiven']);
+          // window._paq.push(['setCookieConsentGiven']);
         }
+        document.getElementById('focused-element-after-cookie-consent-closed').focus();
       }}
-      onConsentsParsed={(consents) => {
-        if (consents.matomo) {
-          //  start tracking
+      onConsentsParsed={(consents, hasUserHandledAllConsents) => {
+        if (consents.matomo === undefined) {
+          // tell matomo to wait for consent:
+          // window._paq.push(['requireConsent']);
+          // window._paq.push(['requireCookieConsent']);
+        } else if (consents.matomo === false) {
+          // tell matomo to forget conset
+          // window._paq.push(['forgetConsentGiven']);
+        }
+        if (hasUserHandledAllConsents) {
+          // cookie consent dialog will not be shown
         }
       }}
       content={content}
