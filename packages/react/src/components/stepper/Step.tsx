@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { IconCheck, IconError, IconPlaybackPause } from '../../icons';
 // import core base styles
@@ -77,6 +77,15 @@ export const Step = ({
   customSelectedAriaLabel,
   onStepClick,
 }: StepProps) => {
+  const buttonRef = useRef(null);
+
+  useEffect(() => {
+    if (selected) {
+      // scroll button into view
+      buttonRef.current.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+    }
+  }, [selected]);
+
   const composeAriaLabel = () => {
     const stepCountLabel = renderCustomStepCountLabel
       ? renderCustomStepCountLabel(number, stepsTotal)
@@ -110,6 +119,7 @@ export const Step = ({
   return (
     <div className={styles.stepContainer}>
       <button
+        ref={buttonRef}
         tabIndex={selected ? -1 : 0}
         type="button"
         disabled={state === 'disabled'}
