@@ -126,66 +126,6 @@ export const Default = (args) => {
   );
 };
 
-export const Overflow = (args) => {
-  const reducer = commonReducer(12);
-
-  const initialState = {
-    activeStep: 1,
-    states: [
-      'available',
-      'disabled',
-      'disabled',
-      'disabled',
-      'disabled',
-      'disabled',
-      'disabled',
-      'disabled',
-      'disabled',
-      'disabled',
-      'disabled',
-      'disabled',
-    ],
-  };
-  const labels = [
-    'Step 1 - longer text',
-    'Step 2',
-    'Step 3',
-    'Step 4',
-    'Step 5',
-    'Step 6',
-    'Step 7',
-    'Step 8',
-    'Step 9',
-    'Step 10',
-    'Step 11',
-    'Step 12',
-  ];
-
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  return (
-    <div style={{ maxWidth: '400px' }}>
-      <Stepper
-        labels={labels}
-        language="en"
-        states={state.states}
-        selectedStep={state.activeStep}
-        stepsTotal={12}
-        onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
-      />
-
-      <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Button
-          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
-          style={{ height: 'fit-content', width: 'fit-content' }}
-        >
-          Complete step {state.activeStep}
-        </Button>
-      </div>
-    </div>
-  );
-};
-
 export const Small = (args) => {
   const reducer = commonReducer(5);
 
@@ -241,6 +181,66 @@ export const WithStepHeading = (args) => {
         states={state.states}
         selectedStep={state.activeStep}
         stepsTotal={5}
+        onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
+      />
+
+      <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Button
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+        >
+          Complete step {state.activeStep}
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export const Overflow = (args) => {
+  const reducer = commonReducer(12);
+
+  const initialState = {
+    activeStep: 1,
+    states: [
+      'available',
+      'disabled',
+      'disabled',
+      'disabled',
+      'disabled',
+      'disabled',
+      'disabled',
+      'disabled',
+      'disabled',
+      'disabled',
+      'disabled',
+      'disabled',
+    ],
+  };
+  const labels = [
+    'Step 1 - longer text',
+    'Step 2',
+    'Step 3',
+    'Step 4',
+    'Step 5',
+    'Step 6',
+    'Step 7',
+    'Step 8',
+    'Step 9',
+    'Step 10',
+    'Step 11',
+    'Step 12',
+  ];
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <div style={{ maxWidth: '400px' }}>
+      <Stepper
+        labels={labels}
+        language="en"
+        states={state.states}
+        selectedStep={state.activeStep}
+        stepsTotal={12}
         onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
       />
 
