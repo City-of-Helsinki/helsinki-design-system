@@ -43,7 +43,11 @@ const renderCookieConsent = (
   jest.useFakeTimers();
   mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
   const result = render(
-    <CookieContextProvider content={getContent()} requiredConsents={requiredConsents} optionalConsents={optionalConsents}>
+    <CookieContextProvider
+      content={getContent()}
+      requiredConsents={requiredConsents}
+      optionalConsents={optionalConsents}
+    >
       <CookieConsent />
     </CookieContextProvider>,
   );
