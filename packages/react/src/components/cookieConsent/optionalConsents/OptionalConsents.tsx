@@ -11,6 +11,7 @@ type ConsentData = {
   text: string;
   title: string;
   onToggle: () => void;
+  descriptionId: string;
 };
 type ConsentList = ConsentData[];
 
@@ -22,6 +23,7 @@ function OptionalConsents({ onClick }: ViewProps): React.ReactElement {
   const consentEntries = Object.entries(consents);
   const consentList: ConsentList = consentEntries.map<ConsentData>(([key, value]) => ({
     id: `optional-cookie-consent-${key}`,
+    descriptionId: `optional-cookie-consent-${key}-description`,
     checked: Boolean(value),
     title: getConsetTexts(key, 'title'),
     text: getConsetTexts(key, 'text'),
@@ -45,8 +47,11 @@ function OptionalConsents({ onClick }: ViewProps): React.ReactElement {
               checked={data.checked}
               data-testid={data.id}
               label={data.title}
+              aria-describedby={data.descriptionId}
             />
-            <span>- {data.text}</span>
+            <span id={data.descriptionId} aria-hidden>
+              - {data.text}
+            </span>
           </li>
         ))}
       </ul>
