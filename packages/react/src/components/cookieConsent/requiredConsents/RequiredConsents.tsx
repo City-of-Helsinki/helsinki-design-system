@@ -6,6 +6,7 @@ import { Checkbox } from '../../checkbox/Checkbox';
 
 type ConsentData = {
   id: string;
+  descriptionId: string;
   text: string;
   title: string;
 };
@@ -19,6 +20,7 @@ function RequiredConsents(): React.ReactElement {
   const consentEntries = Object.entries(consents);
   const consentList: ConsentList = consentEntries.map<ConsentData>(([key]) => ({
     id: `required-cookie-consent-${key}`,
+    descriptionId: `required-cookie-consent-${key}-description`,
     title: getConsentTexts(key, 'title'),
     text: getConsentTexts(key, 'text'),
   }));
@@ -40,8 +42,11 @@ function RequiredConsents(): React.ReactElement {
               disabled
               data-testid={data.id}
               label={data.title}
+              aria-describedby={data.descriptionId}
             />
-            <span>- {data.text}</span>
+            <span id={data.descriptionId} aria-hidden>
+              - {data.text}
+            </span>
           </li>
         ))}
       </ul>
