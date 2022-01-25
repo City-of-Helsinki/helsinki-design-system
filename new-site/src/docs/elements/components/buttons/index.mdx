@@ -1,6 +1,6 @@
 ---
 slug: '/elements/components/buttons'
-title: 'Buttons'
+title: 'Button'
 ---
 
 import { Button, StatusLabel, Tabs } from 'hds-react';
@@ -9,22 +9,24 @@ import 'hds-core/lib/components/button/button.css';
 
 import Accessibility from './accessibility.mdx';
 import Code from './code.mdx';
+import Customisation from './customisation.mdx';
 import Usage from './usage.mdx';
 
 # Button
-
-Buttons are meant to make actions easily visible and understandable to the user. HDS offers different kinds of button variations which each suit for different needs.
 
 <StatusLabel type="info">Stable</StatusLabel>
 <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
   Accessible
 </StatusLabel>
 
+Buttons are meant to make actions easily visible and understandable to the user. HDS offers different kinds of button variations which each suit for different needs.
+
 <Tabs>
   <Tabs.TabList className="pageTabsList">
     <Tabs.Tab>Usage</Tabs.Tab>
     <Tabs.Tab>Code</Tabs.Tab>
     <Tabs.Tab>Accessibility</Tabs.Tab>
+    <Tabs.Tab>Customisation</Tabs.Tab>
   </Tabs.TabList>
   <Tabs.TabPanel>
     <Usage />
@@ -34,5 +36,8 @@ Buttons are meant to make actions easily visible and understandable to the user.
   </Tabs.TabPanel>
   <Tabs.TabPanel>
     <Accessibility />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Customisation />
   </Tabs.TabPanel>
 </Tabs>

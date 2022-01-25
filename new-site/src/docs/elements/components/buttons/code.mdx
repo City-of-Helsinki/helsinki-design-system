@@ -1,13 +1,23 @@
 ---
 slug: '/elements/components/buttons/code'
-title: 'Buttons Code'
+title: 'Button - Code'
 ---
 
-import { Button } from 'hds-react';
+import { Button, Table } from 'hds-react';
+import { IconTrash } from 'hds-react';
+import PropertyTable from './components/properties';
+import PackageTable from './components/packages';
 import Playground from '../../../../components/Playground';
 
-## Code examples
+## Code
 
+### Packages
+<PackageTable />
+
+
+### Code examples 
+
+#### Primary
 <Playground>
 
 
@@ -22,5 +32,42 @@ import Playground from '../../../../components/Playground';
 ```
 
 </Playground>
+
+#### Secondary
+<Playground>
+
+
+```jsx
+<Button variant="secondary">Secondary</Button>
+```
+
+```html
+<button type="button" class="hds-button hds-button--secondary">
+  <span class="hds-button__label">Secondary</span>
+</button>
+```
+
+</Playground>
+
+#### Supplementary
+<Playground>
+
+
+```jsx
+<Button variant="supplementary" iconLeft={<IconTrash />}>Supplementary</Button>
+```
+
+```html
+<button type="button" class="hds-button hds-button--supplementary">
+  <span aria-hidden="true" class="hds-icon hds-icon--trash"></span>
+  <span class="hds-button__label">Supplementary</span>
+</button>
+```
+
+</Playground>
+
+### Component properties
+
+<PropertyTable />
 
 export default ({ children }) => <>{children}</>;
