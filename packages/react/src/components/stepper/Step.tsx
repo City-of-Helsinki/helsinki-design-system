@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { IconCheck, IconError, IconPlaybackPause } from '../../icons';
 // import core base styles
