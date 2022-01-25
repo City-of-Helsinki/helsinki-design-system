@@ -10,23 +10,66 @@ import { IconAngleLeft, IconAngleRight } from '../../icons';
 type Language = 'en' | 'fi' | 'sv' | string;
 
 export type StepperProps = React.ComponentPropsWithoutRef<'button'> & {
-  labels: string[];
-  states: StepProps['state'][];
-  language?: Language;
-  selectedStep: number;
-  small?: boolean;
-  stepsTotal: number;
-  attentionIcon?: React.ReactNode;
-  pauseIcon?: React.ReactNode;
-  renderCustomStepCountLabel?: (step, totalNumberOfSteps) => string;
-  renderCustomStateAriaLabel?: (state) => string;
+  /**
+   * A custom aria label for selected state of step
+   */
   customSelectedAriaLabel?: string;
-  onStepClick?: (event, number: number) => void;
-  stepHeading?: boolean;
-  headingClassName?: string;
-  stepHeadingAriaLevel?: number;
-  renderCustomStepHeading?: (step, totalNumberOfSteps, label) => string;
+  /**
+   * Data test id of stepper
+   */
   dataTestId?: string;
+  /**
+   * A custom class name for step heading
+   */
+  headingClassName?: string;
+  /**
+   * The labels of the steps
+   */
+  labels: string[];
+  /**
+   * The language of the stepper
+   */
+  language?: Language;
+  /**
+   * A callback function for custom action on step click
+   */
+  onStepClick?: (event, number: number) => void;
+  /**
+   * A function for rendering a custom aria label for step's state
+   */
+  renderCustomStateAriaLabel?: (state) => string;
+  /**
+   * A function for rendering a custom step count label
+   */
+  renderCustomStepCountLabel?: (step, totalNumberOfSteps) => string;
+  /**
+   * A function for rendering a custom step heading
+   */
+  renderCustomStepHeading?: (step, totalNumberOfSteps, label) => string;
+  /**
+   * The selected step number. Counting starts from 1
+   */
+  selectedStep: number;
+  /**
+   * Boolean indicating small variant usage
+   */
+  small?: boolean;
+  /**
+   * The states of the steps
+   */
+  states: StepProps['state'][];
+  /**
+   * A boolean indicating step heading variant usage
+   */
+  stepHeading?: boolean;
+  /**
+   * Step heading aria level
+   */
+  stepHeadingAriaLevel?: number;
+  /**
+   * The total number of steps
+   */
+  stepsTotal: number;
 };
 
 const getStepHeading = (language: Language, step: number, totalNumberOfSteps: number, label: string) => {
@@ -44,8 +87,6 @@ export const Stepper = ({
   selectedStep,
   small = false,
   stepsTotal,
-  attentionIcon,
-  pauseIcon,
   renderCustomStepCountLabel,
   renderCustomStateAriaLabel,
   customSelectedAriaLabel,
@@ -176,8 +217,6 @@ export const Stepper = ({
               selected={selectedStep === index + 1}
               state={states[index]}
               onStepClick={(event, number) => onStepClick(event, number)}
-              attentionIcon={attentionIcon}
-              pauseIcon={pauseIcon}
               renderCustomStepCountLabel={renderCustomStepCountLabel}
               renderCustomStateAriaLabel={renderCustomStateAriaLabel}
               customSelectedAriaLabel={customSelectedAriaLabel}
