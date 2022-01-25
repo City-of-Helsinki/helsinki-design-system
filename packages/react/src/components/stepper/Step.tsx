@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 
 import { IconCheck, IconError, IconPlaybackPause } from '../../icons';
 // import core base styles
@@ -20,6 +20,7 @@ export type StepProps = React.ComponentPropsWithoutRef<'button'> & {
   renderCustomStateAriaLabel?: (state) => string;
   customSelectedAriaLabel?: string;
   onStepClick?: (event, number: number) => void;
+  dataTestId?: string;
 };
 
 type Language = 'en' | 'fi' | 'sv' | string;
@@ -64,85 +65,94 @@ const getStepState = (language: Language, state: StepProps['state']) => {
   return states[state][language];
 };
 
-export const Step = ({
-  label,
-  language = 'fi',
-  number,
-  renderCustomStepCountLabel,
-  small = false,
-  state,
-  selected,
-  stepsTotal,
-  renderCustomStateAriaLabel,
-  customSelectedAriaLabel,
-  onStepClick,
-}: StepProps) => {
-  const buttonRef = useRef(null);
+export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
+  (
+    {
+      label,
+      language = 'fi',
+      number,
+      renderCustomStepCountLabel,
+      small = false,
+      state,
+      selected,
+      stepsTotal,
+      renderCustomStateAriaLabel,
+      customSelectedAriaLabel,
+      onStepClick,
+      dataTestId,
+      ...rest
+    }: StepProps,
+    ref?: React.RefObject<HTMLButtonElement>,
+  ) => {
+    useEffect(() => {
+      if (selected) {
+        // scroll button into view
+        ref.current.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+      }
+    }, [selected]);
 
-  useEffect(() => {
-    if (selected) {
-      // scroll button into view
-      buttonRef.current.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-    }
-  }, [selected]);
+    const composeAriaLabel = () => {
+      const stepCountLabel = renderCustomStepCountLabel
+        ? renderCustomStepCountLabel(number, stepsTotal)
+        : getStepCountLabel(language, number, stepsTotal);
 
-  const composeAriaLabel = () => {
-    const stepCountLabel = renderCustomStepCountLabel
-      ? renderCustomStepCountLabel(number, stepsTotal)
-      : getStepCountLabel(language, number, stepsTotal);
+      const selectedAriaLabel =
+        customSelectedAriaLabel ||
+        {
+          fi: 'Valittu.',
+          en: 'Selected.',
+          sv: 'Valt.',
+        }[language];
 
-    const selectedAriaLabel =
-      customSelectedAriaLabel ||
-      {
-        fi: 'Valittu.',
-        en: 'Selected.',
-        sv: 'Valt.',
-      }[language];
+      let stateAriaLabel = renderCustomStateAriaLabel
+        ? renderCustomStateAriaLabel(state)
+        : getStepState(language, state);
 
-    let stateAriaLabel = renderCustomStateAriaLabel ? renderCustomStateAriaLabel(state) : getStepState(language, state);
+      if (selected && state === 'available') {
+        stateAriaLabel = '';
+      }
 
-    if (selected && state === 'available') {
-      stateAriaLabel = '';
-    }
+      let labelWithPeriod = label;
 
-    let labelWithPeriod = label;
+      if (labelWithPeriod.slice(-1) !== '.') {
+        labelWithPeriod += '.';
+      }
 
-    if (labelWithPeriod.slice(-1) !== '.') {
-      labelWithPeriod += '.';
-    }
+      return [labelWithPeriod, stepCountLabel, selected && selectedAriaLabel, stateAriaLabel]
+        .filter((lbl) => lbl)
+        .join(' ');
+    };
 
-    return [labelWithPeriod, stepCountLabel, selected && selectedAriaLabel, stateAriaLabel]
-      .filter((lbl) => lbl)
-      .join(' ');
-  };
-
-  return (
-    <div className={styles.stepContainer}>
-      <button
-        ref={buttonRef}
-        tabIndex={selected ? -1 : 0}
-        type="button"
-        disabled={state === 'disabled'}
-        className={classNames(styles.step, selected && styles.selected, state === 'disabled' && styles.disabled)}
-        aria-current={selected ? 'step' : false}
-        aria-label={composeAriaLabel()}
-        onClick={(e) => onStepClick(e, number)}
-      >
-        <div className={styles.circleContainer}>
-          {state === 'filled' ? (
-            <div className={styles.filledContainer}>
-              <IconCheck className={styles.filledIcon} />
-            </div>
-          ) : (
-            <div className={classNames(styles.circle)}>
-              {state === 'attention' && <IconError size="xs" />}
-              {state === 'paused' && <IconPlaybackPause size="xs" />}
-              {(state === 'available' || state === 'disabled') && <span className={styles.number}>{number}</span>}
-            </div>
-          )}
-        </div>
-        {!small && <p className={styles.label}>{label}</p>}
-      </button>
-    </div>
-  );
-};
+    return (
+      <div className={styles.stepContainer}>
+        <button
+          ref={ref}
+          tabIndex={selected ? -1 : 0}
+          type="button"
+          disabled={state === 'disabled'}
+          className={classNames(styles.step, selected && styles.selected, state === 'disabled' && styles.disabled)}
+          aria-current={selected ? 'step' : false}
+          aria-label={composeAriaLabel()}
+          onClick={(e) => onStepClick(e, number)}
+          data-testid={dataTestId}
+          {...rest}
+        >
+          <div className={styles.circleContainer}>
+            {state === 'filled' ? (
+              <div className={styles.filledContainer}>
+                <IconCheck className={styles.filledIcon} />
+              </div>
+            ) : (
+              <div className={classNames(styles.circle)}>
+                {state === 'attention' && <IconError size="xs" />}
+                {state === 'paused' && <IconPlaybackPause size="xs" />}
+                {(state === 'available' || state === 'disabled') && <span className={styles.number}>{number}</span>}
+              </div>
+            )}
+          </div>
+          {!small && <p className={styles.label}>{label}</p>}
+        </button>
+      </div>
+    );
+  },
+);
