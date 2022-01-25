@@ -84,13 +84,6 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
     }: StepProps,
     ref?: React.RefObject<HTMLButtonElement>,
   ) => {
-    useEffect(() => {
-      if (selected) {
-        // scroll button into view
-        ref.current.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-      }
-    }, [selected]);
-
     const composeAriaLabel = () => {
       const stepCountLabel = renderCustomStepCountLabel
         ? renderCustomStepCountLabel(number, stepsTotal)
