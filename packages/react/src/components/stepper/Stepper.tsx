@@ -54,6 +54,7 @@ export const Stepper = ({
   stepHeadingAriaLevel = 2,
   headingClassName,
   dataTestId = 'hds-stepper',
+  renderCustomStepHeading,
 }: StepperProps) => {
   const stepHeadingRef = useRef(null);
   const stepperRef = useRef(null);
@@ -193,7 +194,9 @@ export const Stepper = ({
           aria-level={stepHeadingAriaLevel}
           className={classNames(styles.heading, headingClassName)}
         >
-          {getStepHeading(language, selectedStep, stepsTotal, labels[selectedStep - 1])}
+          {renderCustomStepHeading
+            ? renderCustomStepHeading(selectedStep, stepsTotal, labels[selectedStep - 1])
+            : getStepHeading(language, selectedStep, stepsTotal, labels[selectedStep - 1])}
         </div>
       )}
     </div>
