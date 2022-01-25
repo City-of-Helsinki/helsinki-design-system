@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { createRef, useEffect, useRef, useState } from 'react';
 
 // import core base styles
 import 'hds-core';
@@ -26,6 +26,7 @@ export type StepperProps = React.ComponentPropsWithoutRef<'button'> & {
   headingClassName?: string;
   stepHeadingAriaLevel?: number;
   renderCustomStepHeading?: (step, totalNumberOfSteps, label) => string;
+  dataTestId?: string;
 };
 
 const getStepHeading = (language: Language, step: number, totalNumberOfSteps: number, label: string) => {
@@ -52,16 +53,28 @@ export const Stepper = ({
   stepHeading,
   stepHeadingAriaLevel = 2,
   headingClassName,
+  dataTestId = 'hds-stepper',
 }: StepperProps) => {
   const stepHeadingRef = useRef(null);
   const stepperRef = useRef(null);
+  const stepRefs = useRef([]);
+  const arrLength = labels.length;
   const [showPreviousButton, setShowPreviousButton] = useState(false);
   const [showNextButton, setShowNextButton] = useState(false);
+
+  if (stepRefs.current.length !== arrLength) {
+    // add or remove refs
+    stepRefs.current = Array(arrLength)
+      .fill(0)
+      .map((_, index) => stepRefs.current[index] || createRef());
+  }
 
   useEffect(() => {
     if (stepHeadingRef.current) {
       stepHeadingRef.current.focus();
     }
+
+    stepRefs.current[selectedStep - 1].current.scrollIntoView({ behavior: 'smooth', inline: 'center' });
 
     if (stepperRef.current.scrollLeft > 5) {
       setShowPreviousButton(true);
@@ -80,7 +93,7 @@ export const Stepper = ({
   }, [selectedStep]);
 
   return (
-    <div className={styles.stepperContainer}>
+    <div className={styles.stepperContainer} data-testid={dataTestId}>
       {showPreviousButton && (
         <div className={classNames(styles.scrollButton, styles.scrollButtonPrevious)} aria-hidden="true">
           <button
@@ -152,6 +165,7 @@ export const Stepper = ({
         {labels.map((label, index) => {
           return (
             <Step
+              ref={stepRefs.current[index]}
               key={`${index}-${label}`} // eslint-disable-line react/no-array-index-key
               label={label}
               language={language}
@@ -166,6 +180,7 @@ export const Stepper = ({
               renderCustomStepCountLabel={renderCustomStepCountLabel}
               renderCustomStateAriaLabel={renderCustomStateAriaLabel}
               customSelectedAriaLabel={customSelectedAriaLabel}
+              dataTestId={`${dataTestId}-step-${index}`}
             />
           );
         })}
