@@ -7,20 +7,54 @@ import styles from './Stepper.module.scss';
 import classNames from '../../utils/classNames';
 
 export type StepProps = React.ComponentPropsWithoutRef<'button'> & {
-  label: string;
-  language?: Language;
-  number: number;
-  selected?: boolean;
-  small?: boolean;
-  state: 'available' | 'filled' | 'disabled' | 'attention' | 'paused';
-  stepsTotal: number;
-  attentionIcon?: React.ReactNode;
-  pauseIcon?: React.ReactNode;
-  renderCustomStepCountLabel?: (step, totalNumberOfSteps) => string;
-  renderCustomStateAriaLabel?: (state) => string;
+  /**
+   * A custom aria label for selected state of step
+   */
   customSelectedAriaLabel?: string;
-  onStepClick?: (event, number: number) => void;
+  /**
+   * Data test id of step
+   */
   dataTestId?: string;
+  /**
+   * The label of the step
+   */
+  label: string;
+  /**
+   * The language of the step
+   */
+  language?: Language;
+  /**
+   * The number of the step
+   */
+  number: number;
+  /**
+   * A callback function for custom action on step click
+   */
+  onStepClick?: (event, number: number) => void;
+  /**
+   * A function for rendering a custom aria label for step's state
+   */
+  renderCustomStateAriaLabel?: (state) => string;
+  /**
+   * A function for rendering a custom step count label
+   */
+  renderCustomStepCountLabel?: (step, totalNumberOfSteps) => string;
+  /**
+   * A boolean indicating whether step is in selected state
+   */
+  selected?: boolean;
+  /**
+   * A boolean indicating whether small variant is used
+   */
+  small?: boolean;
+  /**
+   * The state of the step
+   */
+  state: 'available' | 'filled' | 'disabled' | 'attention' | 'paused';
+  /**
+   * The total number of steps
+   */
+  stepsTotal: number;
 };
 
 type Language = 'en' | 'fi' | 'sv' | string;
