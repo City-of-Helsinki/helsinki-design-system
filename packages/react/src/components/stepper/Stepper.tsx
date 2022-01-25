@@ -93,7 +93,7 @@ export const Stepper = ({
   }, [selectedStep]);
 
   return (
-    <div className={styles.stepperContainer} data-testid={dataTestId}>
+    <div lang={language} className={styles.stepperContainer} data-testid={dataTestId}>
       {showPreviousButton && (
         <div className={classNames(styles.scrollButton, styles.scrollButtonPrevious)} aria-hidden="true">
           <button
