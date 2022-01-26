@@ -50,6 +50,8 @@ const commonReducer = (stepsTotal) => (state, action) => {
   }
 };
 
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const Default = (args) => {
   const reducer = commonReducer(5);
 
@@ -85,6 +87,8 @@ export const Default = (args) => {
   );
 };
 
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const Small = (args) => {
   const reducer = commonReducer(5);
 
@@ -120,6 +124,8 @@ export const Small = (args) => {
   );
 };
 
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const WithStepHeading = (args) => {
   const reducer = commonReducer(5);
 
@@ -155,6 +161,8 @@ export const WithStepHeading = (args) => {
   );
 };
 
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const Overflow = (args) => {
   const reducer = commonReducer(12);
 
@@ -215,6 +223,8 @@ export const Overflow = (args) => {
   );
 };
 
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const WithCustomTheme = (args) => {
   const reducer = commonReducer(5);
 
@@ -255,6 +265,8 @@ export const WithCustomTheme = (args) => {
   );
 };
 
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const States = (args) => {
   return (
     <div className={styles.stepperContainer}>
