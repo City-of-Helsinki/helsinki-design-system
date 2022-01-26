@@ -21,6 +21,10 @@
   // Hide horizontal scrollbar on overflow
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+
+  &:focus {
+    outline: var(--color-coat-of-arms) 3px solid;
+  }
 }
 
 .stepper::-webkit-scrollbar {
