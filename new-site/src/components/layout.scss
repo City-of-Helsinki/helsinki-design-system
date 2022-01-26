@@ -78,6 +78,10 @@ body {
   word-wrap: break-word;
 }
 
+.mainContent div[role="heading"] {
+  font-size: var(--fontsize-heading-xs);
+}
+
 .page {
   display: flex;
   flex-direction: column;

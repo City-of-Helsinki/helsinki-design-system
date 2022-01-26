@@ -19,14 +19,8 @@ const rows = [
   { property: <code>loadingText</code>, description: 'Visible loading text to be shown next to the loading spinner', values: '-', defaultValue: '-' },
 ];
 
-const caption = (
-  <span>
-    <b>Table 1</b>: Button component properties
-  </span>
-)
-
 export default function PropertyTable() {
   return (
-    <Table cols={cols} rows={rows} caption={caption} indexKey="id" renderIndexCol={false} />
+    <Table cols={cols} rows={rows} heading="Component properties" indexKey="id" renderIndexCol={false} />
   );
 }
