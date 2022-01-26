@@ -9,6 +9,7 @@ exports[`<Stepper /> spec renders the component 1`] = `
   >
     <div
       class="stepper"
+      tabindex="0"
     >
       <div
         aria-hidden="true"
