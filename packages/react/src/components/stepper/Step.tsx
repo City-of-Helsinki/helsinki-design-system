@@ -167,12 +167,12 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
           <div className={styles.circleContainer}>
             {state === 'filled' ? (
               <div className={styles.filledContainer}>
-                <IconCheck className={styles.filledIcon} />
+                <IconCheck className={styles.filledIcon} aria-hidden />
               </div>
             ) : (
               <div className={classNames(styles.circle)}>
-                {state === 'attention' && <IconError size="xs" />}
-                {state === 'paused' && <IconPlaybackPause size="xs" />}
+                {state === 'attention' && <IconError size="xs" aria-hidden />}
+                {state === 'paused' && <IconPlaybackPause size="xs" aria-hidden />}
                 {(state === 'available' || state === 'disabled') && <span className={styles.number}>{number}</span>}
               </div>
             )}
