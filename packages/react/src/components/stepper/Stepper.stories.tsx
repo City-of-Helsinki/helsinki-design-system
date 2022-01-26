@@ -215,6 +215,46 @@ export const Overflow = (args) => {
   );
 };
 
+export const WithCustomTheme = (args) => {
+  const reducer = commonReducer(5);
+
+  const initialState = {
+    activeStep: 1,
+    states: ['available', 'disabled', 'disabled', 'disabled', 'disabled'],
+  };
+
+  const labels = ['Step 1', 'Step 2', 'Step 3', 'Step 4 - longer text', 'Step 5'];
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const theme = {
+    '--hds-stepper-color': 'var(--color-tram)',
+  };
+
+  return (
+    <div>
+      <Stepper
+        theme={theme}
+        labels={labels}
+        language="en"
+        states={state.states}
+        selectedStep={state.activeStep}
+        stepsTotal={5}
+        onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
+      />
+
+      <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Button
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+        >
+          Complete step {state.activeStep}
+        </Button>
+      </div>
+    </div>
+  );
+};
+
 export const States = (args) => {
   return (
     <div className={styles.stepperContainer}>
