@@ -4,6 +4,8 @@ exports[`<Stepper /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
     class="stepperContainer"
+    data-testid="hds-stepper"
+    lang="en"
   >
     <div
       class="stepper"
@@ -36,6 +38,7 @@ exports[`<Stepper /> spec renders the component 1`] = `
           aria-current="step"
           aria-label="Step 1. Step 1/5. Selected."
           class="step selected"
+          data-testid="hds-stepper-step-0"
           tabindex="-1"
           type="button"
         >
@@ -66,6 +69,7 @@ exports[`<Stepper /> spec renders the component 1`] = `
           aria-current="false"
           aria-label="Step 2. Step 2/5. Disabled."
           class="step disabled"
+          data-testid="hds-stepper-step-1"
           disabled=""
           tabindex="0"
           type="button"
@@ -97,6 +101,7 @@ exports[`<Stepper /> spec renders the component 1`] = `
           aria-current="false"
           aria-label="Step 3. Step 3/5. Disabled."
           class="step disabled"
+          data-testid="hds-stepper-step-2"
           disabled=""
           tabindex="0"
           type="button"
@@ -128,6 +133,7 @@ exports[`<Stepper /> spec renders the component 1`] = `
           aria-current="false"
           aria-label="Step 4 - longer text. Step 4/5. Disabled."
           class="step disabled"
+          data-testid="hds-stepper-step-3"
           disabled=""
           tabindex="0"
           type="button"
@@ -159,6 +165,7 @@ exports[`<Stepper /> spec renders the component 1`] = `
           aria-current="false"
           aria-label="Step 5. Step 5/5. Disabled."
           class="step disabled"
+          data-testid="hds-stepper-step-4"
           disabled=""
           tabindex="0"
           type="button"
