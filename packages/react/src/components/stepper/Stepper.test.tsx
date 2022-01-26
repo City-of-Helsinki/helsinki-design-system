@@ -17,12 +17,14 @@ describe('<Stepper /> spec', () => {
     };
     labels = ['Step 1', 'Step 2', 'Step 3', 'Step 4 - longer text', 'Step 5'];
   });
+
   it('renders the component', () => {
     const { asFragment } = render(
       <Stepper labels={labels} language="en" states={state.states} selectedStep={state.activeStep} stepsTotal={5} />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
+
   it('should be able to select available step', () => {
     const { container, rerender } = render(
       <Stepper
@@ -47,6 +49,7 @@ describe('<Stepper /> spec', () => {
     );
     expect(availableButton).toHaveAttribute('aria-current', 'step');
   });
+
   it('should not have basic accessibility issues', async () => {
     const { container } = render(
       <Stepper labels={labels} language="en" states={state.states} selectedStep={state.activeStep} stepsTotal={5} />,
