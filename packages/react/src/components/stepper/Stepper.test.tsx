@@ -23,6 +23,30 @@ describe('<Stepper /> spec', () => {
     );
     expect(asFragment()).toMatchSnapshot();
   });
+  it('should be able to select available step', () => {
+    const { container, rerender } = render(
+      <Stepper
+        labels={labels}
+        language="en"
+        states={['available', 'available', 'disabled', 'disabled', 'disabled']}
+        selectedStep={state.activeStep}
+        stepsTotal={5}
+      />,
+    );
+    const availableButton = container.querySelector('[data-testid="hds-stepper-step-1"]');
+    expect(availableButton).toHaveAttribute('aria-current', 'false');
+
+    rerender(
+      <Stepper
+        labels={labels}
+        language="en"
+        states={['available', 'available', 'disabled', 'disabled', 'disabled']}
+        selectedStep={2}
+        stepsTotal={5}
+      />,
+    );
+    expect(availableButton).toHaveAttribute('aria-current', 'step');
+  });
   it('should not have basic accessibility issues', async () => {
     const { container } = render(
       <Stepper labels={labels} language="en" states={state.states} selectedStep={state.activeStep} stepsTotal={5} />,
