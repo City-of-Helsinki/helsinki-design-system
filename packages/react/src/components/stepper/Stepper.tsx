@@ -6,8 +6,28 @@ import styles from './Stepper.module.scss';
 import { Step, StepProps } from './Step';
 import classNames from '../../utils/classNames';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
+import { useTheme } from '../../hooks/useTheme';
 
 type Language = 'en' | 'fi' | 'sv' | string;
+
+export interface StepperCustomTheme {
+  /**
+   * A custom background color for stepper
+   */
+  '--hds-stepper-background-color'?: string;
+  /**
+   * A custom disabled color for stepper
+   */
+  '--hds-stepper-disabled-color'?: string;
+  /**
+   * A custom color for stepper
+   */
+  '--hds-stepper-color'?: string;
+  /**
+   * A custom width for step
+   */
+  '--hds-step-width'?: string;
+}
 
 export type StepperProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
@@ -70,6 +90,10 @@ export type StepperProps = React.ComponentPropsWithoutRef<'button'> & {
    * The total number of steps
    */
   stepsTotal: number;
+  /**
+   * Custom theme
+   */
+  theme?: StepperCustomTheme; // Custom theme styles
 };
 
 const getStepHeading = (language: Language, step: number, totalNumberOfSteps: number, label: string) => {
@@ -96,6 +120,7 @@ export const Stepper = ({
   headingClassName,
   dataTestId = 'hds-stepper',
   renderCustomStepHeading,
+  theme,
 }: StepperProps) => {
   const stepHeadingRef = useRef(null);
   const stepperRef = useRef(null);
@@ -103,6 +128,7 @@ export const Stepper = ({
   const arrLength = labels.length;
   const [showPreviousButton, setShowPreviousButton] = useState(false);
   const [showNextButton, setShowNextButton] = useState(false);
+  const customThemeClass = useTheme<StepperCustomTheme>(styles.stepperContainer, theme);
 
   if (stepRefs.current.length !== arrLength) {
     // add or remove refs
@@ -135,7 +161,7 @@ export const Stepper = ({
   }, [selectedStep]);
 
   return (
-    <div lang={language} className={styles.stepperContainer} data-testid={dataTestId}>
+    <div lang={language} className={classNames(styles.stepperContainer, customThemeClass)} data-testid={dataTestId}>
       {showPreviousButton && (
         <div className={classNames(styles.scrollButton, styles.scrollButtonPrevious)} aria-hidden="true">
           <button
