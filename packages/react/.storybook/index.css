@@ -97,3 +97,8 @@ body {
     width: 100%;
   }
 }
+
+.stepper-custom-button-color {
+  background-color: var(--color-tram) !important;
+  border-color: var(--color-tram) !important;
+}
