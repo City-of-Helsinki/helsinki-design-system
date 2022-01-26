@@ -257,6 +257,7 @@ export const WithCustomTheme = (args) => {
         <Button
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
           style={{ height: 'fit-content', width: 'fit-content' }}
+          className="stepper-custom-button-color"
         >
           Complete step {state.activeStep}
         </Button>
