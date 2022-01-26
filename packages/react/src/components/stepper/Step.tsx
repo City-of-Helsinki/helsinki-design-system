@@ -160,7 +160,7 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
           className={classNames(styles.step, selected && styles.selected, state === 'disabled' && styles.disabled)}
           aria-current={selected ? 'step' : false}
           aria-label={composeAriaLabel()}
-          onClick={(e) => onStepClick(e, number)}
+          onClick={(e) => onStepClick && onStepClick(e, number)}
           data-testid={dataTestId}
           {...rest}
         >
