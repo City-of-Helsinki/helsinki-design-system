@@ -4,6 +4,7 @@ import { Stepper } from './Stepper';
 import styles from './Stepper.module.scss';
 import { Step } from './Step';
 import { Button } from '../button';
+import { IconArrowLeft, IconArrowRight } from '../../icons';
 
 export default {
   component: Stepper,
@@ -67,6 +68,7 @@ export const Default = (args) => {
   return (
     <div>
       <Stepper
+        className="stepper-margin"
         labels={labels}
         language="en"
         states={state.states}
@@ -75,12 +77,30 @@ export const Default = (args) => {
         onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
       />
 
-      <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div
+        style={{
+          height: '300px',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-end',
+          gap: '24px',
+        }}
+      >
+        <Button
+          disabled={state.activeStep === 1}
+          variant="secondary"
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStep - 1 })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconLeft={<IconArrowLeft />}
+        >
+          Previous
+        </Button>
         <Button
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
           style={{ height: 'fit-content', width: 'fit-content' }}
+          iconRight={<IconArrowRight />}
         >
-          Complete step {state.activeStep}
+          {state.activeStep === 5 ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -112,12 +132,30 @@ export const Small = (args) => {
         onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
       />
 
-      <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div
+        style={{
+          height: '300px',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-end',
+          gap: '24px',
+        }}
+      >
+        <Button
+          disabled={state.activeStep === 1}
+          variant="secondary"
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStep - 1 })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconLeft={<IconArrowLeft />}
+        >
+          Previous
+        </Button>
         <Button
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
           style={{ height: 'fit-content', width: 'fit-content' }}
+          iconRight={<IconArrowRight />}
         >
-          Complete step {state.activeStep}
+          {state.activeStep === 5 ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -140,6 +178,7 @@ export const WithStepHeading = (args) => {
   return (
     <div>
       <Stepper
+        headingClassName="stepper-heading"
         labels={labels}
         language="en"
         stepHeading
@@ -149,12 +188,31 @@ export const WithStepHeading = (args) => {
         onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
       />
 
-      <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div
+        style={{
+          height: '300px',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-end',
+          gap: '24px',
+          marginLeft: '10px',
+        }}
+      >
+        <Button
+          disabled={state.activeStep === 1}
+          variant="secondary"
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStep - 1 })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconLeft={<IconArrowLeft />}
+        >
+          Previous
+        </Button>
         <Button
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
           style={{ height: 'fit-content', width: 'fit-content' }}
+          iconRight={<IconArrowRight />}
         >
-          Complete step {state.activeStep}
+          {state.activeStep === 5 ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -210,13 +268,31 @@ export const Overflow = (args) => {
         stepsTotal={12}
         onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
       />
-
-      <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div
+        style={{
+          height: '300px',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-end',
+          gap: '24px',
+          marginLeft: '10px',
+        }}
+      >
+        <Button
+          disabled={state.activeStep === 1}
+          variant="secondary"
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStep - 1 })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconLeft={<IconArrowLeft />}
+        >
+          Previous
+        </Button>
         <Button
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
           style={{ height: 'fit-content', width: 'fit-content' }}
+          iconRight={<IconArrowRight />}
         >
-          Complete step {state.activeStep}
+          {state.activeStep === 12 ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -233,7 +309,7 @@ export const WithCustomTheme = (args) => {
     states: ['available', 'disabled', 'disabled', 'disabled', 'disabled'],
   };
 
-  const labels = ['Step 1', 'Step 2', 'Step 3', 'Step 4 - longer text', 'Step 5'];
+  const labels = ['Step 1 - longer text', 'Step 2', 'Step 3', 'Step 4', 'Step 5'];
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -253,14 +329,33 @@ export const WithCustomTheme = (args) => {
         stepsTotal={5}
         onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
       />
-
-      <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div
+        style={{
+          height: '300px',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-end',
+          gap: '24px',
+          marginLeft: '10px',
+        }}
+      >
         <Button
+          className="stepper-custom-secondary-button"
+          disabled={state.activeStep === 1}
+          variant="secondary"
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStep - 1 })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconLeft={<IconArrowLeft />}
+        >
+          Previous
+        </Button>
+        <Button
+          className="stepper-custom-primary-button"
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          className="stepper-custom-button-color"
+          iconRight={<IconArrowRight />}
         >
-          Complete step {state.activeStep}
+          {state.activeStep === 5 ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
