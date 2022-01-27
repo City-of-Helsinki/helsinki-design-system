@@ -6,6 +6,11 @@
   --hds-stepper-color: var(--color-bus);
   --hds-stepper-background-color: var(--color-white);
   --hds-stepper-disabled-color: var(--color-black-20);
+  --hds-selected-step-label-color: var(--color-black-90);
+  --hds-not-selected-step-label-color: var(--color-bus);
+  --hds-step-background-color: var(--color-white);
+  --hds-step-content-color: var(--color-bus);
+  --hds-stepper-focus-border-color: var(--color-coat-of-arms);
   --hds-step-width: 120px;
   --circle-container-size: 36px;
   --progress-line-height: 2px;
@@ -23,7 +28,7 @@
   scrollbar-width: none;  /* Firefox */
 
   &:focus {
-    outline: var(--color-coat-of-arms) 3px solid;
+    outline: var(--hds-stepper-focus-border-color) 3px solid;
   }
 }
 
@@ -63,13 +68,13 @@
 
   &:focus {
     .circle {
-      outline: 2px solid var(--color-coat-of-arms);
+      outline: 2px solid var(--hds-stepper-focus-border-color);
     }
     .label {
-      outline: 2px solid var(--color-coat-of-arms);
+      outline: 2px solid var(--hds-stepper-focus-border-color);
     }
     .filledContainer {
-      outline: 2px solid var(--color-coat-of-arms);
+      outline: 2px solid var(--hds-stepper-focus-border-color);
     }
   }
 }
@@ -96,12 +101,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--hds-stepper-background-color);
+  background-color: var(--hds-step-background-color);
   outline: 2px solid var(--hds-stepper-background-color);
+  color: var(--hds-step-content-color);
 }
 
 .disabled .circle {
   border: 2px solid var(--hds-stepper-disabled-color);
+  color: var(--hds-stepper-disabled-color);
 }
 
 .selected .circle {
@@ -124,12 +131,17 @@
   margin-bottom: 0;
   padding-left: 2px;
   padding-right: 2px;
+  color: var(--hds-not-selected-step-label-color);
 }
 
 .selected .label {
-  color: var(--color-black-90);
+  color: var(--hds-selected-step-label-color);
   text-decoration: none;
   font-weight: bold;
+}
+
+.disabled .label {
+  color: var(--hds-stepper-disabled-color);
 }
 
 .filledContainer {
@@ -139,7 +151,7 @@
   outline: 2px solid var(--hds-stepper-background-color);
 
   .filledIcon {
-    color: var(--hds-stepper-background-color);
+    color: var(--hds-step-background-color);
     vertical-align: middle;
   }
 }
@@ -187,7 +199,7 @@
   width: fit-content;
 
   &:focus {
-    outline: 3px solid var(--color-coat-of-arms);
+    outline: 3px solid var(--hds-stepper-focus-border-color);
     border: none;
   }
   // margin-left: calc((var(--hds-step-width) / 2) - (var(--circle-container-size) / 2));
@@ -215,7 +227,7 @@
 
     &:focus {
       outline: none;
-      border: 2px solid var(--color-coat-of-arms);
+      border: 2px solid var(--hds-stepper-focus-border-color);
     }
   }
 }

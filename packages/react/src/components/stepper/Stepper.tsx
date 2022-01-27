@@ -16,10 +16,6 @@ export interface StepperCustomTheme {
    */
   '--hds-stepper-background-color'?: string;
   /**
-   * A custom disabled color for stepper
-   */
-  '--hds-stepper-disabled-color'?: string;
-  /**
    * A custom color for stepper
    */
   '--hds-stepper-color'?: string;
@@ -27,6 +23,26 @@ export interface StepperCustomTheme {
    * A custom width for step
    */
   '--hds-step-width'?: string;
+  /**
+   * A custom color for selected step label
+   */
+  '--hds-selected-step-label-color'?: string;
+  /**
+   * A custom color for not selected step label
+   */
+  '--hds-not-selected-step-label-color'?: string;
+  /**
+   * A custom color for step circle background
+   */
+  '--hds-step-background-color'?: string;
+  /**
+   * A custom color for step circle content
+   */
+  '--hds-step-content-color'?: string;
+  /**
+   * A custom color for stepper focus borders
+   */
+  '--hds-stepper-focus-border-color'?: string;
 }
 
 export type StepperProps = React.ComponentPropsWithoutRef<'button'> & {
