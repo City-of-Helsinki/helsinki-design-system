@@ -239,6 +239,7 @@ export const WithCustomTheme = (args) => {
 
   const theme = {
     '--hds-stepper-color': 'var(--color-tram)',
+    '--hds-step-content-color': 'var(--color-tram)',
   };
 
   return (
