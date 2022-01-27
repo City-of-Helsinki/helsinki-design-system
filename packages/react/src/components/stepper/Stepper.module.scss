@@ -26,6 +26,7 @@
   // Hide horizontal scrollbar on overflow
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+  scroll-behavior: smooth;
 
   &:focus {
     outline: var(--hds-stepper-focus-border-color) 3px solid;
