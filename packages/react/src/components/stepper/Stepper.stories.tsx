@@ -101,7 +101,7 @@ export const Small = (args) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <div style={{ maxWidth: '300px' }}>
+    <div className="stepper-small">
       <Stepper
         labels={labels}
         language="en"

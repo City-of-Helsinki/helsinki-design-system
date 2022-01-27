@@ -102,3 +102,14 @@ body {
   background-color: var(--color-tram) !important;
   border-color: var(--color-tram) !important;
 }
+
+.stepper-small {
+  max-width: 300px;
+}
+
+
+@media only screen and (max-width: 575.98px) {
+  .stepper-small {
+    max-width: 100%;
+  }
+}
