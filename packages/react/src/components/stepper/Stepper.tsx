@@ -47,6 +47,10 @@ export interface StepperCustomTheme {
 
 export type StepperProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
+   * A custom className passed to stepper
+   */
+  className?: string;
+  /**
    * A custom aria label for selected state of step
    */
   customSelectedAriaLabel?: string;
@@ -121,6 +125,7 @@ const getStepHeading = (language: Language, step: number, totalNumberOfSteps: nu
 };
 
 export const Stepper = ({
+  className,
   labels,
   states,
   language = 'fi',
@@ -224,7 +229,7 @@ export const Stepper = ({
           }
         }}
         ref={stepperRef}
-        className={classNames(styles.stepper, small && styles.small)}
+        className={classNames(className, styles.stepper, small && styles.small)}
         tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
       >
         <div
