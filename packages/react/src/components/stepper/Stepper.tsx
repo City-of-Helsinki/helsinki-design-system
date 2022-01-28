@@ -230,7 +230,6 @@ export const Stepper = ({
         }}
         ref={stepperRef}
         className={classNames(className, styles.stepper, small && styles.small)}
-        tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
       >
         <div
           className={styles.line}
