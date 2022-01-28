@@ -73,7 +73,7 @@ export type StepperProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
    * A function for rendering a custom aria label for step's state
    */
-  renderCustomStateAriaLabel?: (state) => string;
+  renderCustomStateAriaLabel?: (step, state) => string;
   /**
    * A function for rendering a custom step count label
    */

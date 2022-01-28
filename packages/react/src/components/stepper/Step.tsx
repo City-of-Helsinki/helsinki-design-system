@@ -30,7 +30,7 @@ export type StepProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
    * A function for rendering a custom aria label for step's state
    */
-  renderCustomStateAriaLabel?: (state) => string;
+  renderCustomStateAriaLabel?: (step, state) => string;
   /**
    * A function for rendering a custom step count label
    */
@@ -118,7 +118,7 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
         : getStepCountLabel(language, number, stepsTotal);
 
       let stateAriaLabel = renderCustomStateAriaLabel
-        ? renderCustomStateAriaLabel(state)
+        ? renderCustomStateAriaLabel(number, state)
         : getStepState(language, state);
 
       if (selected && state === 'available') {
