@@ -67,12 +67,12 @@ const states = {
   available: {
     fi: 'Valittavissa.',
     en: 'Available.',
-    sv: 'Valbara.',
+    sv: 'Valbar.',
   },
   filled: {
-    fi: 'Täytetty.',
-    en: 'Filled.',
-    sv: 'Fylld.',
+    fi: 'Valmis.',
+    en: 'Complete.',
+    sv: 'Komplett.',
   },
   attention: {
     fi: 'Vaatii huomiota.',
