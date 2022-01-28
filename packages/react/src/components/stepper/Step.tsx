@@ -154,7 +154,6 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
       <div className={styles.stepContainer}>
         <button
           ref={ref}
-          tabIndex={selected ? -1 : 0}
           type="button"
           disabled={state === 'disabled'}
           className={classNames(styles.step, selected && styles.selected, state === 'disabled' && styles.disabled)}
