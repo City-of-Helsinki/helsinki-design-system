@@ -9,7 +9,6 @@ exports[`<Stepper /> spec renders the component 1`] = `
   >
     <div
       class="stepper"
-      tabindex="0"
     >
       <div
         aria-hidden="true"
@@ -37,10 +36,9 @@ exports[`<Stepper /> spec renders the component 1`] = `
       >
         <button
           aria-current="step"
-          aria-label="Step 1. Step 1/5. Selected."
+          aria-label="Step 1. Step 1/5."
           class="step selected"
           data-testid="hds-stepper-step-0"
-          tabindex="-1"
           type="button"
         >
           <div
@@ -68,11 +66,10 @@ exports[`<Stepper /> spec renders the component 1`] = `
       >
         <button
           aria-current="false"
-          aria-label="Step 2. Step 2/5. Disabled."
+          aria-label="Step 2. Step 2/5."
           class="step disabled"
           data-testid="hds-stepper-step-1"
           disabled=""
-          tabindex="0"
           type="button"
         >
           <div
@@ -100,11 +97,10 @@ exports[`<Stepper /> spec renders the component 1`] = `
       >
         <button
           aria-current="false"
-          aria-label="Step 3. Step 3/5. Disabled."
+          aria-label="Step 3. Step 3/5."
           class="step disabled"
           data-testid="hds-stepper-step-2"
           disabled=""
-          tabindex="0"
           type="button"
         >
           <div
@@ -132,11 +128,10 @@ exports[`<Stepper /> spec renders the component 1`] = `
       >
         <button
           aria-current="false"
-          aria-label="Step 4 - longer text. Step 4/5. Disabled."
+          aria-label="Step 4 - longer text. Step 4/5."
           class="step disabled"
           data-testid="hds-stepper-step-3"
           disabled=""
-          tabindex="0"
           type="button"
         >
           <div
@@ -164,11 +159,10 @@ exports[`<Stepper /> spec renders the component 1`] = `
       >
         <button
           aria-current="false"
-          aria-label="Step 5. Step 5/5. Disabled."
+          aria-label="Step 5. Step 5/5."
           class="step disabled"
           data-testid="hds-stepper-step-4"
           disabled=""
-          tabindex="0"
           type="button"
         >
           <div
