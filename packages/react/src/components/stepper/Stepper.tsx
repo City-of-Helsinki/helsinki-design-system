@@ -51,10 +51,6 @@ export type StepperProps = React.ComponentPropsWithoutRef<'button'> & {
    */
   className?: string;
   /**
-   * A custom aria label for selected state of step
-   */
-  customSelectedAriaLabel?: string;
-  /**
    * Data test id of stepper
    */
   dataTestId?: string;
@@ -134,7 +130,6 @@ export const Stepper = ({
   stepsTotal,
   renderCustomStepCountLabel,
   renderCustomStateAriaLabel,
-  customSelectedAriaLabel,
   onStepClick,
   stepHeading,
   stepHeadingAriaLevel = 2,
@@ -266,7 +261,6 @@ export const Stepper = ({
               onStepClick={(event, number) => onStepClick(event, number)}
               renderCustomStepCountLabel={renderCustomStepCountLabel}
               renderCustomStateAriaLabel={renderCustomStateAriaLabel}
-              customSelectedAriaLabel={customSelectedAriaLabel}
               dataTestId={`${dataTestId}-step-${index}`}
             />
           );
