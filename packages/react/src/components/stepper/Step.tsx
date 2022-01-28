@@ -8,10 +8,6 @@ import classNames from '../../utils/classNames';
 
 export type StepProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
-   * A custom aria label for selected state of step
-   */
-  customSelectedAriaLabel?: string;
-  /**
    * Data test id of step
    */
   dataTestId?: string;
@@ -111,7 +107,6 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
       selected,
       stepsTotal,
       renderCustomStateAriaLabel,
-      customSelectedAriaLabel,
       onStepClick,
       dataTestId,
       ...rest
@@ -122,14 +117,6 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
       const stepCountLabel = renderCustomStepCountLabel
         ? renderCustomStepCountLabel(number, stepsTotal)
         : getStepCountLabel(language, number, stepsTotal);
-
-      const selectedAriaLabel =
-        customSelectedAriaLabel ||
-        {
-          fi: 'Valittu.',
-          en: 'Selected.',
-          sv: 'Valt.',
-        }[language];
 
       let stateAriaLabel = renderCustomStateAriaLabel
         ? renderCustomStateAriaLabel(state)
@@ -145,9 +132,7 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
         labelWithPeriod += '.';
       }
 
-      return [labelWithPeriod, stepCountLabel, selected && selectedAriaLabel, stateAriaLabel]
-        .filter((lbl) => lbl)
-        .join(' ');
+      return [labelWithPeriod, stepCountLabel, stateAriaLabel].filter((lbl) => lbl).join(' ');
     };
 
     return (
