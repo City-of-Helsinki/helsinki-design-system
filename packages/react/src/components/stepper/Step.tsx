@@ -74,11 +74,6 @@ const states = {
     en: 'Filled.',
     sv: 'Fylld.',
   },
-  disabled: {
-    fi: 'Ei käytettävissä.',
-    en: 'Disabled.',
-    sv: 'Inaktiverad.',
-  },
   attention: {
     fi: 'Vaatii huomiota.',
     en: 'Needs attention.',
@@ -92,6 +87,10 @@ const states = {
 };
 
 const getStepState = (language: Language, state: StepProps['state']) => {
+  if (state === 'disabled') {
+    // Button has disabled attribute, which is enough for a11y
+    return '';
+  }
   return states[state][language];
 };
 
