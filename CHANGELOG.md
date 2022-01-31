@@ -6,6 +6,62 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.0] - Jan, 31, 2022
+
+### Core
+
+#### Added
+
+- [Icons] Thumb icons
+
+#### Fixed
+
+- [TextInput, TextArea] Prevent rounded corners in iOS browsers
+
+### React
+
+#### Added
+
+- [Icons] Thumb icons
+
+#### Changed
+
+- [Tabs] Add support to use Tabs child components in Tabs namespace, for example, Tabs.TabList
+
+#### Fixed
+
+- [TextInput, TextArea] Prevent rounded corners in iOS browsers
+- [Footer] Back-to-top will focus on the first focusable element
+
+### Design kit
+
+#### Added
+
+- [Icons] Thumb icons
+  - Thumbs up
+  - Thumbs up filled
+  - Thumbs down
+  - Thumbs down filled
+
+#### Changed
+
+- Updated HDS Sketch libraries to Sketch 82 (82.1)
+
+### Documentation
+
+#### Added
+- [Icons] Thumb icons to the Visual assets documentation
+- [Koros] Guideline page on how to use Koro shapes
+
+#### Changed
+
+- [Tabs] Tabs child components use the Tabs namespace, for example, Tabs.TabList
+- Updated Roadmap section
+
+#### Fixed
+
+- [Koros] Remove confusing inline style rotate from example
+
 ## [1.9.0] - Jan, 5, 2022
 
 ### Core
