@@ -127,3 +127,7 @@ body {
 .stepper-heading {
   margin-left: 10px;
 }
+
+.stepper-form-validation {
+  margin-left: -18px;
+}
