@@ -56,6 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 - [Tabs] Tabs child components use the Tabs namespace, for example, Tabs.TabList
+- Updated Roadmap section
 
 #### Fixed
 
