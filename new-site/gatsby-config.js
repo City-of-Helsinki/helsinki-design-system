@@ -1,8 +1,8 @@
 module.exports = {
   pathPrefix: process.env.PATH_PREFIX,
   siteMetadata: {
-    title: `Helsinki Design system`,
-    description: `Documentation for Helsinki Design System`,
+    title: `Helsinki Design System`,
+    description: `Documentation for the Helsinki Design System`,
     siteUrl: `https://hds.hel.fi/`,
     menuLinks: [
       {
@@ -13,7 +13,17 @@ module.exports = {
       {
         name: 'Guidelines',
         link: '/guidelines',
-        subMenuLinks: [],
+        subMenuLinks: [
+          {
+            name: 'Overview',
+            link: '/guidelines',
+          },
+          {
+            name: 'FAQ',
+            link: '/guidelines/faq',
+            withDivider: true,
+          }
+        ],
       },
       {
         name: 'Elements',
@@ -44,7 +54,7 @@ module.exports = {
         subMenuLinks: [],
       },
     ],
-    footerTitle: 'Design system',
+    footerTitle: 'Helsinki Design System',
     footerAriaLabel: 'HDS footer',
     footerCopyrightLinks: [
       {
