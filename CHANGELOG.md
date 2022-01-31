@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
-- [Text Input, TextArea] Prevent rounded corners in iOS browsers
+- [TextInput, TextArea] Prevent rounded corners in iOS browsers
 - [Footer] Back-to-top will focus on the first focusable element
 
 ### Design kit
