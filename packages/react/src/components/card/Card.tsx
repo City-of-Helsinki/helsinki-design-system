@@ -25,6 +25,10 @@ export type CardProps = {
    */
   heading?: string;
   /**
+   * Heading aria-level.
+   */
+  headingAriaLevel?: number;
+  /**
    * Body text.
    */
   text?: string;
@@ -42,7 +46,16 @@ export type CardProps = {
   children?: React.ReactNode;
 } & React.HTMLProps<HTMLDivElement>;
 
-export const Card = ({ border, heading, text, className, theme, children, ...divProps }: CardProps) => {
+export const Card = ({
+  border,
+  heading,
+  headingAriaLevel = 2,
+  text,
+  className,
+  theme,
+  children,
+  ...divProps
+}: CardProps) => {
   // custom theme
   const customThemeClass = useTheme<CardCustomTheme>(styles.card, theme);
 
@@ -56,7 +69,7 @@ export const Card = ({ border, heading, text, className, theme, children, ...div
       {hasBody && (
         <div className={styles.body}>
           {heading && (
-            <div className={styles.heading} role="heading" aria-level={2}>
+            <div className={styles.heading} role="heading" aria-level={headingAriaLevel}>
               {heading}
             </div>
           )}
