@@ -11,6 +11,7 @@ import { TableBody } from './components/TableBody';
 import { Checkbox } from '../checkbox';
 import { useTheme } from '../../hooks/useTheme';
 import { Button } from '../button';
+import classNames from '../../utils/classNames';
 
 type Header = {
   /**
@@ -106,6 +107,10 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
    * Table heading aria level.
    */
   headingAriaLevel?: number;
+  /**
+   * A custom class name passed to table heading.
+   */
+  headingClassName?: string;
   /**
    * Table heading id. Used to name table to assistive technologies. Only applicable when heading prop is used.
    * @default 'hds-table-heading-id'
@@ -238,6 +243,7 @@ export const Table = ({
   dense = false,
   heading,
   headingAriaLevel = 2,
+  headingClassName,
   headingId = 'hds-table-heading-id',
   id = 'hds-table-id',
   indexKey,
@@ -314,7 +320,12 @@ export const Table = ({
       {(checkboxSelection || heading || hasCustomActionButtons) && (
         <div className={styles.actionContainer}>
           {heading && (
-            <div id={headingId} role="heading" aria-level={headingAriaLevel} className={styles.heading}>
+            <div
+              id={headingId}
+              role="heading"
+              aria-level={headingAriaLevel}
+              className={classNames(styles.heading, headingClassName)}
+            >
               {heading}
             </div>
           )}
