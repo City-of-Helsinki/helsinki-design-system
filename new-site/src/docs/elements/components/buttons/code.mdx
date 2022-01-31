@@ -1,0 +1,219 @@
+---
+slug: '/elements/components/buttons/code'
+title: 'Button - Code'
+---
+
+import { Button, Link, Notification, Table } from 'hds-react';
+import { IconTrash, IconAngleRight, IconShare } from 'hds-react';
+import PropertyTable from './components/properties';
+import PackageTable from './components/packages';
+import Playground from '../../../../components/Playground';
+
+## Code
+
+### Packages
+<PackageTable />
+
+
+### Code examples 
+
+#### Primary
+<Playground>
+
+
+```jsx
+<Button>Primary</Button>
+```
+
+```html
+<button type="button" class="hds-button hds-button--primary">
+  <span class="hds-button__label">Primary</span>
+</button>
+```
+
+</Playground>
+
+#### Secondary
+<Playground>
+
+
+```jsx
+<Button variant="secondary">Secondary</Button>
+```
+
+```html
+<button type="button" class="hds-button hds-button--secondary">
+  <span class="hds-button__label">Secondary</span>
+</button>
+```
+
+</Playground>
+
+#### Supplementary
+<Playground>
+
+
+```jsx
+<Button variant="supplementary" iconLeft={<IconTrash />}>Supplementary</Button>
+```
+
+```html
+<button type="button" class="hds-button hds-button--supplementary">
+  <span aria-hidden="true" class="hds-icon hds-icon--trash"></span>
+  <span class="hds-button__label">Supplementary</span>
+</button>
+```
+
+</Playground>
+
+#### Icon button
+<Playground>
+
+
+```jsx
+<div>
+  <Button iconLeft={<IconShare />}>Button</Button>
+  <Button iconRight={<IconAngleRight />}>Button</Button>
+  <Button iconLeft={<IconShare />} iconRight={<IconAngleRight />}>Button</Button>
+</div>
+```
+
+```html
+<div>
+  <button type="button" class="hds-button hds-button--primary">
+    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
+    <span class="hds-button__label">Button</span>
+  </button>
+
+  <button type="button" class="hds-button hds-button--primary">
+    <span class="hds-button__label">Button</span>
+    <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+  </button>
+
+  <button type="button" class="hds-button hds-button--primary">
+    <span aria-hidden="true" class="hds-icon hds-icon--share"></span>
+    <span class="hds-button__label">Button</span>
+    <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+  </button>
+</div>
+```
+
+
+</Playground>
+
+#### Small button
+<Playground>
+
+
+```jsx
+<div>
+  <Button size="small">Primary</Button>
+  <Button variant="secondary" size="small">Secondary</Button>
+  <Button variant="supplementary" size="small">Supplementary</Button>
+</div>
+```
+
+```html
+<div>
+  <button type="button" class="hds-button hds-button--primary hds-button--small">
+    <span class="hds-button__label">Button</span>
+  </button>
+
+  <button type="button" class="hds-button hds-button--secondary hds-button--small">
+    <span class="hds-button__label">Button</span>
+  </button>
+
+  <button type="button" class="hds-button hds-button--supplementary hds-button--small">
+    <span class="hds-button__label">Button</span>
+  </button>
+</div>
+```
+
+</Playground>
+
+#### Utility button
+<Playground>
+
+
+```jsx
+<div>
+  <Button variant="success">Success</Button>
+  <Button variant="danger">Danger</Button>
+</div>
+```
+
+```html
+<div>
+  <button type="button" class="hds-button hds-button--success">
+    <span class="hds-button__label">Success</span>
+  </button>
+
+  <button type="button" class="hds-button hds-button--danger">
+    <span class="hds-button__label">Danger</span>
+  </button>
+</div>
+```
+
+</Playground>
+
+#### Loading button
+<Playground>
+
+
+```jsx
+{() => {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [showNotification, setShowNotification] = React.useState(false);
+  React.useEffect(() => {
+    let timeout;
+    if (isLoading) {
+      timeout = setTimeout(() => {
+        setShowNotification(true);
+        setIsLoading(false);
+      }, 2000);
+    }
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [isLoading]);
+  return (
+    <>
+      <Button
+        isLoading={isLoading}
+        loadingText="Saving form changes"
+        onClick={() => {
+          setShowNotification(false);
+          setIsLoading(true);
+        }}>
+        Save form
+      </Button>
+      {showNotification
+      && <Notification
+            key={new Date().toString()}
+            position="top-right"
+            displayAutoCloseProgress={false}
+            autoClose
+            dismissible
+            label="Form saved!"
+            type="success"
+            onClose={() => {
+              setShowNotification(false)
+            }}>
+            Saving your form was successful.
+        </Notification>}
+    </>
+  )
+}}
+```
+
+```html
+
+```
+
+</Playground>
+
+<PropertyTable />
+
+Note! You can find the full list of properties in the <Link size="M" href="https://hds.hel.fi/storybook/react/?path=/docs/components-button--primary" external>React Storybook.</Link>
+
+export default ({ children }) => <>{children}</>;
