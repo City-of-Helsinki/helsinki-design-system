@@ -28,7 +28,7 @@ const commonReducer = (stepsTotal) => (state, action) => {
         states: state.states.map((stateName, index) => {
           if (index === action.payload - 1 && index !== stepsTotal - 1) {
             // current one but not last one
-            return 'filled';
+            return 'completed';
           }
           if (index === action.payload) {
             // next one
@@ -423,7 +423,7 @@ export const SimpleFormExample = (args) => {
           activeStep: state.activeStep,
           states: state.states.map((stateName, index) => {
             if (index === state.activeStep - 1) {
-              return 'filled';
+              return 'completed';
             }
             return stateName;
           }),
@@ -443,7 +443,7 @@ export const SimpleFormExample = (args) => {
           states: state.states.map((stateName, index) => {
             if (index === action.payload - 1 && index !== 4 - 1) {
               // current one but not last one
-              return 'filled';
+              return 'completed';
             }
             if (index === action.payload) {
               // next one
@@ -479,7 +479,7 @@ export const SimpleFormExample = (args) => {
               return 'available';
             }
             if (index === state.activeStep - 1 && activeStepIsValid(state)) {
-              return 'filled';
+              return 'completed';
             }
             return stateName;
           }),
@@ -639,7 +639,7 @@ export const States = (args) => {
       >
         <Step label="Available" language="en" number={1} stepsTotal={9} state="available" />
         <Step label="Selected" language="en" number={2} stepsTotal={9} selected state="available" />
-        <Step label="Filled" language="en" number={3} stepsTotal={9} state="filled" />
+        <Step label="Completed" language="en" number={3} stepsTotal={9} state="completed" />
         <Step label="Disabled" language="en" number={4} stepsTotal={9} state="disabled" />
         <Step label="Needs attention" language="en" number={5} stepsTotal={9} state="attention" />
         <Step label="Attention + selected" language="en" selected number={6} stepsTotal={9} state="attention" />
