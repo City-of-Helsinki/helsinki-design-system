@@ -71,7 +71,7 @@ const states = {
   },
   filled: {
     fi: 'Valmis.',
-    en: 'Complete.',
+    en: 'Completed.',
     sv: 'Komplett.',
   },
   attention: {
@@ -80,7 +80,7 @@ const states = {
     sv: 'Behöver uppmärksamhet.',
   },
   paused: {
-    fi: 'Pysäytetty.',
+    fi: 'Keskeytetty.',
     en: 'Paused.',
     sv: 'Pausad.',
   },
