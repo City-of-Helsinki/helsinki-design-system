@@ -74,7 +74,7 @@
     .label {
       outline: 2px solid var(--hds-stepper-focus-border-color);
     }
-    .filledContainer {
+    .completedContainer {
       outline: 2px solid var(--hds-stepper-focus-border-color);
     }
   }
@@ -141,13 +141,13 @@
   color: var(--hds-stepper-disabled-color);
 }
 
-.filledContainer {
+.completedContainer {
   background-color: var(--hds-stepper-color);
   padding: 4px;
   border-radius: 16px;
   outline: 2px solid var(--hds-stepper-background-color);
 
-  .filledIcon {
+  .completedIcon {
     color: var(--hds-step-background-color);
     vertical-align: middle;
   }

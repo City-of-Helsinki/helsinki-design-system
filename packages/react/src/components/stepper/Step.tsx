@@ -46,7 +46,7 @@ export type StepProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
    * The state of the step
    */
-  state: 'available' | 'filled' | 'disabled' | 'attention' | 'paused';
+  state: 'available' | 'completed' | 'disabled' | 'attention' | 'paused';
   /**
    * The total number of steps
    */
@@ -69,7 +69,7 @@ const states = {
     en: 'Available.',
     sv: 'Valbar.',
   },
-  filled: {
+  completed: {
     fi: 'Valmis.',
     en: 'Completed.',
     sv: 'Komplett.',
@@ -148,15 +148,15 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
           {...rest}
         >
           <div className={styles.circleContainer}>
-            {state === 'filled' && !selected ? (
-              <div className={styles.filledContainer}>
-                <IconCheck className={styles.filledIcon} aria-hidden />
+            {state === 'completed' && !selected ? (
+              <div className={styles.completedContainer}>
+                <IconCheck className={styles.completedIcon} aria-hidden />
               </div>
             ) : (
               <div className={classNames(styles.circle)}>
                 {state === 'attention' && <IconError size="xs" aria-hidden />}
                 {state === 'paused' && <IconPlaybackPause size="xs" aria-hidden />}
-                {(state === 'available' || state === 'disabled' || (state === 'filled' && selected)) && (
+                {(state === 'available' || state === 'disabled' || (state === 'completed' && selected)) && (
                   <span className={styles.number}>{number}</span>
                 )}
               </div>
