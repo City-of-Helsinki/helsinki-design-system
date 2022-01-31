@@ -5,6 +5,9 @@ import styles from './Stepper.module.scss';
 import { Step } from './Step';
 import { Button } from '../button';
 import { IconArrowLeft, IconArrowRight } from '../../icons';
+import { TextInput } from '../textInput';
+import { NumberInput } from '../numberInput';
+import { Card } from '../card';
 
 export default {
   component: Stepper,
@@ -359,6 +362,263 @@ export const WithCustomTheme = (args) => {
         </Button>
       </div>
     </div>
+  );
+};
+
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+export const SimpleFormExample = (args) => {
+  const activeStepIsValid = (state) => {
+    if (state.activeStep === 1) {
+      // first name
+      return state.fields.firstName.value && state.fields.firstName.value.length > 0;
+    }
+    if (state.activeStep === 2) {
+      // last name
+      return state.fields.lastName.value && state.fields.lastName.value.length > 0;
+    }
+
+    if (state.activeStep === 3) {
+      // age
+      return state.fields.age.value && state.fields.age.value.length > 0;
+    }
+
+    return state.activeStep === 4;
+  };
+
+  const weAreInLastAvailableStep = (state) => {
+    let indexOfLastNonDisabledStep = 0;
+    state.states.forEach((st, index) => {
+      if (st !== 'disabled' && index > indexOfLastNonDisabledStep) {
+        indexOfLastNonDisabledStep = index;
+      }
+    });
+
+    return state.activeStep - 1 === indexOfLastNonDisabledStep;
+  };
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'changeField': {
+        if (action.newValue.length === 0) {
+          return {
+            activeStep: state.activeStep,
+            states: state.states.map((stateName, index) => {
+              if (index === state.activeStep - 1) {
+                return 'attention';
+              }
+              return stateName;
+            }),
+            fields: {
+              ...state.fields,
+              [action.fieldName]: {
+                value: action.newValue,
+                visited: true,
+              },
+            },
+          };
+        }
+
+        return {
+          activeStep: state.activeStep,
+          states: state.states.map((stateName, index) => {
+            if (index === state.activeStep - 1) {
+              return 'filled';
+            }
+            return stateName;
+          }),
+          fields: {
+            ...state.fields,
+            [action.fieldName]: {
+              value: action.newValue,
+              visited: true,
+            },
+          },
+        };
+      }
+      case 'completeStep': {
+        const activeStep = action.payload === 4 ? 4 : action.payload + 1;
+        return {
+          activeStep,
+          states: state.states.map((stateName, index) => {
+            if (index === action.payload - 1 && index !== 4 - 1) {
+              // current one but not last one
+              return 'filled';
+            }
+            if (index === action.payload) {
+              // next one
+              return 'available';
+            }
+            return stateName;
+          }),
+          fields: {
+            ...state.fields,
+          },
+        };
+      }
+      case 'setActive': {
+        if (!activeStepIsValid(state) && !weAreInLastAvailableStep(state)) {
+          return {
+            activeStep: state.activeStep,
+            states: state.states.map((stateName, index) => {
+              if (index === state.activeStep - 1) {
+                return 'attention';
+              }
+              return stateName;
+            }),
+            fields: {
+              ...state.fields,
+            },
+          };
+        }
+
+        return {
+          activeStep: action.payload,
+          states: state.states.map((stateName, index) => {
+            if (index === action.payload - 1 && stateName !== 'attention' && stateName !== 'paused') {
+              return 'available';
+            }
+            if (index === state.activeStep - 1 && activeStepIsValid(state)) {
+              return 'filled';
+            }
+            return stateName;
+          }),
+          fields: {
+            ...state.fields,
+          },
+        };
+      }
+      default:
+        throw new Error();
+    }
+  };
+
+  const initialState = {
+    activeStep: 1,
+    states: ['available', 'disabled', 'disabled', 'disabled'],
+    fields: {
+      firstName: {
+        value: '',
+        visited: false,
+      },
+      lastName: {
+        value: '',
+        visited: false,
+      },
+      age: {
+        value: undefined,
+        visited: false,
+      },
+    },
+  };
+  const labels = ['First name', 'Last name', 'Age', 'Verify and send'];
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <form>
+      <h1 style={{ marginTop: '0', fontSize: '52px', lineHeight: '62px' }}>Simple form example</h1>
+      <Stepper
+        className="stepper-form-validation"
+        labels={labels}
+        language="en"
+        stepHeading
+        states={state.states}
+        selectedStep={state.activeStep}
+        stepsTotal={4}
+        onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
+      />
+
+      <div style={{ height: '250px' }}>
+        {state.activeStep === 1 && (
+          <TextInput
+            style={{ width: '300px', paddingTop: '60px' }}
+            id="firstName"
+            label="First name *"
+            invalid={state.fields.firstName.value.length === 0 && state.fields.firstName.visited === true}
+            errorText={
+              state.fields.firstName.value.length === 0 &&
+              state.fields.firstName.visited === true &&
+              'First name is compulsory'
+            }
+            value={state.fields.firstName.value}
+            onChange={(event) =>
+              dispatch({ type: 'changeField', fieldName: 'firstName', newValue: event.target.value })
+            }
+          />
+        )}
+        {state.activeStep === 2 && (
+          <TextInput
+            style={{ width: '300px', paddingTop: '60px' }}
+            id="lastName"
+            label="Last name *"
+            invalid={state.fields.lastName.value.length === 0 && state.fields.lastName.visited === true}
+            errorText={
+              state.fields.lastName.value.length === 0 &&
+              state.fields.lastName.visited === true &&
+              'Last name is compulsory'
+            }
+            value={state.fields.lastName.value}
+            onChange={(event) => dispatch({ type: 'changeField', fieldName: 'lastName', newValue: event.target.value })}
+          />
+        )}
+        {state.activeStep === 3 && (
+          <NumberInput
+            style={{ width: '300px', paddingTop: '60px' }}
+            id="age"
+            label="Age *"
+            invalid={
+              (!state.fields.age.value || state.fields.age.value.length === 0) && state.fields.age.visited === true
+            }
+            errorText={
+              (!state.fields.age.value || state.fields.age.value.length === 0) &&
+              state.fields.age.visited === true &&
+              'Age is compulsory'
+            }
+            value={state.fields.age.value}
+            onChange={(event) => dispatch({ type: 'changeField', fieldName: 'age', newValue: event.target.value })}
+          />
+        )}
+
+        {state.activeStep === 4 && (
+          <div style={{ marginTop: '20px' }}>
+            <Card border heading="Basic info" headingAriaLevel={3}>
+              <p style={{ margin: 0 }}>First name: {state.fields.firstName.value}</p>
+              <p style={{ margin: 0 }}>Last name: {state.fields.lastName.value}</p>
+              <p style={{ margin: 0 }}>Age: {state.fields.age.value}</p>
+            </Card>
+          </div>
+        )}
+      </div>
+
+      <div
+        style={{
+          height: '100px',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          gap: '24px',
+        }}
+      >
+        <Button
+          disabled={state.activeStep === 1}
+          variant="secondary"
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStep - 1 })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconLeft={<IconArrowLeft />}
+        >
+          Previous
+        </Button>
+        <Button
+          disabled={!activeStepIsValid(state)}
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconRight={<IconArrowRight />}
+        >
+          {state.activeStep === 4 ? 'Send' : 'Next'}
+        </Button>
+      </div>
+    </form>
   );
 };
 
