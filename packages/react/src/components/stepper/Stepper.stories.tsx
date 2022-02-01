@@ -403,12 +403,7 @@ export const SimpleFormExample = (args) => {
         if (action.newValue.length === 0) {
           return {
             activeStep: state.activeStep,
-            states: state.states.map((stateName, index) => {
-              if (index === state.activeStep - 1) {
-                return 'attention';
-              }
-              return stateName;
-            }),
+            states: state.states,
             fields: {
               ...state.fields,
               [action.fieldName]: {
@@ -460,12 +455,7 @@ export const SimpleFormExample = (args) => {
         if (!activeStepIsValid(state) && !weAreInLastAvailableStep(state)) {
           return {
             activeStep: state.activeStep,
-            states: state.states.map((stateName, index) => {
-              if (index === state.activeStep - 1) {
-                return 'attention';
-              }
-              return stateName;
-            }),
+            states: state.states,
             fields: {
               ...state.fields,
             },
@@ -475,7 +465,7 @@ export const SimpleFormExample = (args) => {
         return {
           activeStep: action.payload,
           states: state.states.map((stateName, index) => {
-            if (index === action.payload - 1 && stateName !== 'attention' && stateName !== 'paused') {
+            if (index === action.payload - 1) {
               return 'available';
             }
             if (index === state.activeStep - 1 && activeStepIsValid(state)) {
