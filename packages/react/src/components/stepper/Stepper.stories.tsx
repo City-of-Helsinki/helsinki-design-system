@@ -532,7 +532,7 @@ export const SimpleFormExample = (args) => {
       <div style={{ height: '250px' }}>
         {state.activeStep === 1 && (
           <TextInput
-            style={{ width: '300px', paddingTop: '60px' }}
+            style={{ width: '300px', paddingTop: 'var(--spacing-l)' }}
             required
             id="firstName"
             label="First name"
@@ -550,7 +550,7 @@ export const SimpleFormExample = (args) => {
         )}
         {state.activeStep === 2 && (
           <TextInput
-            style={{ width: '300px', paddingTop: '60px' }}
+            style={{ width: '300px', paddingTop: 'var(--spacing-l)' }}
             required
             id="lastName"
             label="Last name"
@@ -566,7 +566,7 @@ export const SimpleFormExample = (args) => {
         )}
         {state.activeStep === 3 && (
           <NumberInput
-            style={{ width: '300px', paddingTop: '60px' }}
+            style={{ width: '300px', paddingTop: 'var(--spacing-l)' }}
             required
             id="age"
             label="Age"
@@ -584,7 +584,7 @@ export const SimpleFormExample = (args) => {
         )}
 
         {state.activeStep === 4 && (
-          <div style={{ marginTop: '20px' }}>
+          <div style={{ marginTop: 'var(--spacing-l)' }}>
             <Card className="stepper-card" border heading="Review your basic information" headingAriaLevel={3}>
               <p style={{ margin: 0 }}>First name: {state.fields.firstName.value}</p>
               <p style={{ margin: 0 }}>Last name: {state.fields.lastName.value}</p>
