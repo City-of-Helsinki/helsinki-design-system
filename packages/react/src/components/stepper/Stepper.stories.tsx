@@ -576,7 +576,7 @@ export const SimpleFormExample = (args) => {
             errorText={
               (!state.fields.age.value || state.fields.age.value.length === 0) &&
               state.fields.age.visited === true &&
-              'Age is compulsory'
+              'Please enter your age'
             }
             value={state.fields.age.value}
             onChange={(event) => dispatch({ type: 'changeField', fieldName: 'age', newValue: event.target.value })}
