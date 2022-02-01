@@ -540,7 +540,7 @@ export const SimpleFormExample = (args) => {
             errorText={
               state.fields.firstName.value.length === 0 &&
               state.fields.firstName.visited === true &&
-              'First name is compulsory'
+              'Please enter your first name'
             }
             value={state.fields.firstName.value}
             onChange={(event) =>
