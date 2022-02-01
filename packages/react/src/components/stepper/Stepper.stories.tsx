@@ -519,7 +519,7 @@ export const SimpleFormExample = (args) => {
         onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
       />
 
-      <div style={{ height: '250px' }}>
+      <div style={{ height: '164px' }}>
         {state.activeStep === 1 && (
           <TextInput
             style={{ width: '300px', paddingTop: 'var(--spacing-l)' }}
