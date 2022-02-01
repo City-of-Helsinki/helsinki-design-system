@@ -585,7 +585,7 @@ export const SimpleFormExample = (args) => {
 
         {state.activeStep === 4 && (
           <div style={{ marginTop: '20px' }}>
-            <Card border heading="Review your basic information" headingAriaLevel={3}>
+            <Card className="stepper-card" border heading="Review your basic information" headingAriaLevel={3}>
               <p style={{ margin: 0 }}>First name: {state.fields.firstName.value}</p>
               <p style={{ margin: 0 }}>Last name: {state.fields.lastName.value}</p>
               <p style={{ margin: 0 }}>Age: {state.fields.age.value}</p>
