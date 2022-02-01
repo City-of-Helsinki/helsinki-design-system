@@ -511,7 +511,7 @@ export const SimpleFormExample = (args) => {
       },
     },
   };
-  const labels = ['First name', 'Last name', 'Age', 'Verify and send'];
+  const labels = ['First name', 'Last name', 'Age', 'Review and send'];
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
