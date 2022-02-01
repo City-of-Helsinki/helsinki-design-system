@@ -533,8 +533,9 @@ export const SimpleFormExample = (args) => {
         {state.activeStep === 1 && (
           <TextInput
             style={{ width: '300px', paddingTop: '60px' }}
+            required
             id="firstName"
-            label="First name *"
+            label="First name"
             invalid={state.fields.firstName.value.length === 0 && state.fields.firstName.visited === true}
             errorText={
               state.fields.firstName.value.length === 0 &&
@@ -550,8 +551,9 @@ export const SimpleFormExample = (args) => {
         {state.activeStep === 2 && (
           <TextInput
             style={{ width: '300px', paddingTop: '60px' }}
+            required
             id="lastName"
-            label="Last name *"
+            label="Last name"
             invalid={state.fields.lastName.value.length === 0 && state.fields.lastName.visited === true}
             errorText={
               state.fields.lastName.value.length === 0 &&
@@ -565,8 +567,9 @@ export const SimpleFormExample = (args) => {
         {state.activeStep === 3 && (
           <NumberInput
             style={{ width: '300px', paddingTop: '60px' }}
+            required
             id="age"
-            label="Age *"
+            label="Age"
             invalid={
               (!state.fields.age.value || state.fields.age.value.length === 0) && state.fields.age.visited === true
             }
