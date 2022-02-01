@@ -8,6 +8,7 @@ import { IconArrowLeft, IconArrowRight } from '../../icons';
 import { TextInput } from '../textInput';
 import { NumberInput } from '../numberInput';
 import { Card } from '../card';
+import { ErrorSummary } from '../errorSummary';
 
 export default {
   component: Stepper,
@@ -386,6 +387,24 @@ export const SimpleFormExample = (args) => {
     return state.activeStep === 4;
   };
 
+  const activeStepIsVisited = (state) => {
+    if (state.activeStep === 1) {
+      // first name
+      return state.fields.firstName.visited;
+    }
+    if (state.activeStep === 2) {
+      // last name
+      return state.fields.lastName.visited;
+    }
+
+    if (state.activeStep === 3) {
+      // age
+      return state.fields.age.visited;
+    }
+
+    return state.activeStep === 4;
+  };
+
   const weAreInLastAvailableStep = (state) => {
     let indexOfLastNonDisabledStep = 0;
     state.states.forEach((st, index) => {
@@ -402,6 +421,7 @@ export const SimpleFormExample = (args) => {
       case 'changeField': {
         if (action.newValue.length === 0) {
           return {
+            showErrorSummary: state.showErrorSummary,
             activeStep: state.activeStep,
             states: state.states,
             fields: {
@@ -415,6 +435,7 @@ export const SimpleFormExample = (args) => {
         }
 
         return {
+          showErrorSummary: false,
           activeStep: state.activeStep,
           states: state.states.map((stateName, index) => {
             if (index === state.activeStep - 1) {
@@ -434,6 +455,7 @@ export const SimpleFormExample = (args) => {
       case 'completeStep': {
         const activeStep = action.payload === 4 ? 4 : action.payload + 1;
         return {
+          showErrorSummary: state.showErrorSummary,
           activeStep,
           states: state.states.map((stateName, index) => {
             if (index === action.payload - 1 && index !== 4 - 1) {
@@ -454,6 +476,7 @@ export const SimpleFormExample = (args) => {
       case 'setActive': {
         if (!activeStepIsValid(state) && !weAreInLastAvailableStep(state)) {
           return {
+            showErrorSummary: true,
             activeStep: state.activeStep,
             states: state.states,
             fields: {
@@ -463,6 +486,7 @@ export const SimpleFormExample = (args) => {
         }
 
         return {
+          showErrorSummary: state.showErrorSummary,
           activeStep: action.payload,
           states: state.states.map((stateName, index) => {
             if (index === action.payload - 1) {
@@ -484,6 +508,7 @@ export const SimpleFormExample = (args) => {
   };
 
   const initialState = {
+    showErrorSummary: false,
     activeStep: 1,
     states: ['available', 'disabled', 'disabled', 'disabled'],
     fields: {
@@ -508,6 +533,29 @@ export const SimpleFormExample = (args) => {
   return (
     <form>
       <h1 style={{ marginTop: '0', fontSize: '52px', lineHeight: '62px' }}>Simple form example</h1>
+      {state.showErrorSummary && (
+        <div style={{ marginBottom: 'var(--spacing-l)' }}>
+          <ErrorSummary autofocus label="Form contains following errors">
+            <ul>
+              {state.activeStep === 1 && (
+                <li>
+                  Error 1: <a href="#firstName">Please enter your first name</a>
+                </li>
+              )}
+              {state.activeStep === 2 && (
+                <li>
+                  Error 1: <a href="#lastName">Please enter your last name</a>
+                </li>
+              )}
+              {state.activeStep === 3 && (
+                <li>
+                  Error 1: <a href="#age">Please enter your age</a>
+                </li>
+              )}
+            </ul>
+          </ErrorSummary>
+        </div>
+      )}
       <Stepper
         className="stepper-form-validation"
         labels={labels}
@@ -518,71 +566,73 @@ export const SimpleFormExample = (args) => {
         stepsTotal={4}
         onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
       />
-
-      <div style={{ height: '164px' }}>
-        {state.activeStep === 1 && (
-          <TextInput
-            style={{ width: '300px', paddingTop: 'var(--spacing-l)' }}
-            required
-            id="firstName"
-            label="First name"
-            invalid={state.fields.firstName.value.length === 0 && state.fields.firstName.visited === true}
-            errorText={
-              state.fields.firstName.value.length === 0 &&
-              state.fields.firstName.visited === true &&
-              'Please enter your first name'
-            }
-            value={state.fields.firstName.value}
-            onChange={(event) =>
-              dispatch({ type: 'changeField', fieldName: 'firstName', newValue: event.target.value })
-            }
-          />
-        )}
-        {state.activeStep === 2 && (
-          <TextInput
-            style={{ width: '300px', paddingTop: 'var(--spacing-l)' }}
-            required
-            id="lastName"
-            label="Last name"
-            invalid={state.fields.lastName.value.length === 0 && state.fields.lastName.visited === true}
-            errorText={
-              state.fields.lastName.value.length === 0 &&
-              state.fields.lastName.visited === true &&
-              'Please enter your last name'
-            }
-            value={state.fields.lastName.value}
-            onChange={(event) => dispatch({ type: 'changeField', fieldName: 'lastName', newValue: event.target.value })}
-          />
-        )}
-        {state.activeStep === 3 && (
-          <NumberInput
-            style={{ width: '300px', paddingTop: 'var(--spacing-l)' }}
-            required
-            id="age"
-            label="Age"
-            invalid={
-              (!state.fields.age.value || state.fields.age.value.length === 0) && state.fields.age.visited === true
-            }
-            errorText={
-              (!state.fields.age.value || state.fields.age.value.length === 0) &&
-              state.fields.age.visited === true &&
-              'Please enter your age'
-            }
-            value={state.fields.age.value}
-            onChange={(event) => dispatch({ type: 'changeField', fieldName: 'age', newValue: event.target.value })}
-          />
-        )}
-
-        {state.activeStep === 4 && (
-          <div style={{ marginTop: 'var(--spacing-l)' }}>
-            <Card className="stepper-card" border heading="Review your basic information" headingAriaLevel={3}>
-              <p style={{ margin: 0 }}>First name: {state.fields.firstName.value}</p>
-              <p style={{ margin: 0 }}>Last name: {state.fields.lastName.value}</p>
-              <p style={{ margin: 0 }}>Age: {state.fields.age.value}</p>
-            </Card>
-          </div>
-        )}
-      </div>
+      {[1, 2, 3].includes(state.activeStep) && (
+        <div style={{ height: '164px' }}>
+          {state.activeStep === 1 && (
+            <TextInput
+              style={{ width: '300px', paddingTop: 'var(--spacing-l)' }}
+              required
+              id="firstName"
+              label="First name"
+              invalid={state.fields.firstName.value.length === 0 && state.fields.firstName.visited === true}
+              errorText={
+                state.fields.firstName.value.length === 0 &&
+                state.fields.firstName.visited === true &&
+                'Please enter your first name'
+              }
+              value={state.fields.firstName.value}
+              onChange={(event) =>
+                dispatch({ type: 'changeField', fieldName: 'firstName', newValue: event.target.value })
+              }
+            />
+          )}
+          {state.activeStep === 2 && (
+            <TextInput
+              style={{ width: '300px', paddingTop: 'var(--spacing-l)' }}
+              required
+              id="lastName"
+              label="Last name"
+              invalid={state.fields.lastName.value.length === 0 && state.fields.lastName.visited === true}
+              errorText={
+                state.fields.lastName.value.length === 0 &&
+                state.fields.lastName.visited === true &&
+                'Please enter your last name'
+              }
+              value={state.fields.lastName.value}
+              onChange={(event) =>
+                dispatch({ type: 'changeField', fieldName: 'lastName', newValue: event.target.value })
+              }
+            />
+          )}
+          {state.activeStep === 3 && (
+            <NumberInput
+              style={{ width: '300px', paddingTop: 'var(--spacing-l)' }}
+              required
+              id="age"
+              label="Age"
+              invalid={
+                (!state.fields.age.value || state.fields.age.value.length === 0) && state.fields.age.visited === true
+              }
+              errorText={
+                (!state.fields.age.value || state.fields.age.value.length === 0) &&
+                state.fields.age.visited === true &&
+                'Please enter your age'
+              }
+              value={state.fields.age.value}
+              onChange={(event) => dispatch({ type: 'changeField', fieldName: 'age', newValue: event.target.value })}
+            />
+          )}
+        </div>
+      )}
+      {state.activeStep === 4 && (
+        <div style={{ marginTop: 'var(--spacing-l)', marginBottom: 'var(--spacing-2-xl)' }}>
+          <Card className="stepper-card" border heading="Review your basic information" headingAriaLevel={3}>
+            <p style={{ margin: 0 }}>First name: {state.fields.firstName.value}</p>
+            <p style={{ margin: 0 }}>Last name: {state.fields.lastName.value}</p>
+            <p style={{ margin: 0 }}>Age: {state.fields.age.value}</p>
+          </Card>
+        </div>
+      )}
 
       <div
         style={{
