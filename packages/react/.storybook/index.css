@@ -131,3 +131,7 @@ body {
 .stepper-form-validation {
   margin-left: -18px;
 }
+
+.stepper-card > div:first-child {
+  margin-bottom: var(--spacing-m) !important;
+}
