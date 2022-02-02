@@ -23,15 +23,15 @@ export default {
 const commonReducer = (stepsTotal) => (state, action) => {
   switch (action.type) {
     case 'completeStep': {
-      const activeStep = action.payload === stepsTotal ? stepsTotal : action.payload + 1;
+      const activeStepIndex = action.payload === stepsTotal - 1 ? stepsTotal - 1 : action.payload + 1;
       return {
-        activeStep,
+        activeStepIndex,
         states: state.states.map((stateName, index) => {
-          if (index === action.payload - 1 && index !== stepsTotal - 1) {
+          if (index === action.payload && index !== stepsTotal - 1) {
             // current one but not last one
             return StepState.completed;
           }
-          if (index === action.payload) {
+          if (index === action.payload + 1) {
             // next one
             return StepState.available;
           }
@@ -41,9 +41,9 @@ const commonReducer = (stepsTotal) => (state, action) => {
     }
     case 'setActive': {
       return {
-        activeStep: action.payload,
+        activeStepIndex: action.payload,
         states: state.states.map((stateName, index) => {
-          if (index === action.payload - 1) {
+          if (index === action.payload) {
             return StepState.available;
           }
           return stateName;
@@ -61,7 +61,7 @@ export const Default = (args) => {
   const reducer = commonReducer(5);
 
   const initialState = {
-    activeStep: 1,
+    activeStepIndex: 0,
     states: [StepState.available, StepState.disabled, StepState.disabled, StepState.disabled, StepState.disabled],
   };
 
@@ -76,9 +76,9 @@ export const Default = (args) => {
         labels={labels}
         language="en"
         states={state.states}
-        selectedStep={state.activeStep}
+        selectedStep={state.activeStepIndex}
         stepsTotal={5}
-        onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
+        onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
       />
 
       <div
@@ -91,20 +91,20 @@ export const Default = (args) => {
         }}
       >
         <Button
-          disabled={state.activeStep === 1}
+          disabled={state.activeStepIndex === 0}
           variant="secondary"
-          onClick={() => dispatch({ type: 'setActive', payload: state.activeStep - 1 })}
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconLeft={<IconArrowLeft />}
         >
           Previous
         </Button>
         <Button
-          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconRight={<IconArrowRight />}
         >
-          {state.activeStep === 5 ? 'Send' : 'Next'}
+          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -117,7 +117,7 @@ export const Small = (args) => {
   const reducer = commonReducer(5);
 
   const initialState = {
-    activeStep: 1,
+    activeStepIndex: 0,
     states: [StepState.available, StepState.disabled, StepState.disabled, StepState.disabled, StepState.disabled],
   };
   const labels = ['Step 1', 'Step 2', 'Step 3', 'Step 4 - longer text', 'Step 5'];
@@ -131,9 +131,9 @@ export const Small = (args) => {
         language="en"
         small
         states={state.states}
-        selectedStep={state.activeStep}
+        selectedStep={state.activeStepIndex}
         stepsTotal={5}
-        onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
+        onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
       />
 
       <div
@@ -146,20 +146,20 @@ export const Small = (args) => {
         }}
       >
         <Button
-          disabled={state.activeStep === 1}
+          disabled={state.activeStepIndex === 0}
           variant="secondary"
-          onClick={() => dispatch({ type: 'setActive', payload: state.activeStep - 1 })}
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconLeft={<IconArrowLeft />}
         >
           Previous
         </Button>
         <Button
-          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconRight={<IconArrowRight />}
         >
-          {state.activeStep === 5 ? 'Send' : 'Next'}
+          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -172,7 +172,7 @@ export const WithStepHeading = (args) => {
   const reducer = commonReducer(5);
 
   const initialState = {
-    activeStep: 1,
+    activeStepIndex: 0,
     states: [StepState.available, StepState.disabled, StepState.disabled, StepState.disabled, StepState.disabled],
   };
   const labels = ['Step 1 - longer text', 'Step 2', 'Step 3', 'Step 4', 'Step 5'];
@@ -187,9 +187,9 @@ export const WithStepHeading = (args) => {
         language="en"
         stepHeading
         states={state.states}
-        selectedStep={state.activeStep}
+        selectedStep={state.activeStepIndex}
         stepsTotal={5}
-        onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
+        onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
       />
 
       <div
@@ -203,20 +203,20 @@ export const WithStepHeading = (args) => {
         }}
       >
         <Button
-          disabled={state.activeStep === 1}
+          disabled={state.activeStepIndex === 0}
           variant="secondary"
-          onClick={() => dispatch({ type: 'setActive', payload: state.activeStep - 1 })}
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconLeft={<IconArrowLeft />}
         >
           Previous
         </Button>
         <Button
-          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconRight={<IconArrowRight />}
         >
-          {state.activeStep === 5 ? 'Send' : 'Next'}
+          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -229,7 +229,7 @@ export const Overflow = (args) => {
   const reducer = commonReducer(12);
 
   const initialState = {
-    activeStep: 1,
+    activeStepIndex: 0,
     states: [
       StepState.available,
       StepState.disabled,
@@ -268,9 +268,9 @@ export const Overflow = (args) => {
         labels={labels}
         language="en"
         states={state.states}
-        selectedStep={state.activeStep}
+        selectedStep={state.activeStepIndex}
         stepsTotal={12}
-        onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
+        onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
       />
       <div
         style={{
@@ -283,20 +283,20 @@ export const Overflow = (args) => {
         }}
       >
         <Button
-          disabled={state.activeStep === 1}
+          disabled={state.activeStepIndex === 0}
           variant="secondary"
-          onClick={() => dispatch({ type: 'setActive', payload: state.activeStep - 1 })}
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconLeft={<IconArrowLeft />}
         >
           Previous
         </Button>
         <Button
-          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconRight={<IconArrowRight />}
         >
-          {state.activeStep === 12 ? 'Send' : 'Next'}
+          {state.activeStepIndex === 11 ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -306,10 +306,10 @@ export const Overflow = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const WithCustomTheme = (args) => {
-  const reducer = commonReducer(5);
+  const reducer = commonReducer(4);
 
   const initialState = {
-    activeStep: 1,
+    activeStepIndex: 0,
     states: [StepState.available, StepState.disabled, StepState.disabled, StepState.disabled, StepState.disabled],
   };
 
@@ -329,9 +329,9 @@ export const WithCustomTheme = (args) => {
         labels={labels}
         language="en"
         states={state.states}
-        selectedStep={state.activeStep}
+        selectedStep={state.activeStepIndex}
         stepsTotal={5}
-        onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
+        onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
       />
       <div
         style={{
@@ -345,9 +345,9 @@ export const WithCustomTheme = (args) => {
       >
         <Button
           className="stepper-custom-secondary-button"
-          disabled={state.activeStep === 1}
+          disabled={state.activeStepIndex === 0}
           variant="secondary"
-          onClick={() => dispatch({ type: 'setActive', payload: state.activeStep - 1 })}
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconLeft={<IconArrowLeft />}
         >
@@ -355,11 +355,11 @@ export const WithCustomTheme = (args) => {
         </Button>
         <Button
           className="stepper-custom-primary-button"
-          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconRight={<IconArrowRight />}
         >
-          {state.activeStep === 5 ? 'Send' : 'Next'}
+          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -370,21 +370,21 @@ export const WithCustomTheme = (args) => {
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const SimpleFormExample = (args) => {
   const activeStepIsValid = (state) => {
-    if (state.activeStep === 1) {
+    if (state.activeStepIndex === 0) {
       // first name
       return state.fields.firstName.value && state.fields.firstName.value.length > 0;
     }
-    if (state.activeStep === 2) {
+    if (state.activeStepIndex === 1) {
       // last name
       return state.fields.lastName.value && state.fields.lastName.value.length > 0;
     }
 
-    if (state.activeStep === 3) {
+    if (state.activeStepIndex === 2) {
       // age
       return state.fields.age.value && state.fields.age.value.length > 0;
     }
 
-    return state.activeStep === 4;
+    return state.activeStepIndex === 3;
   };
 
   const weAreInLastAvailableStep = (state) => {
@@ -395,7 +395,7 @@ export const SimpleFormExample = (args) => {
       }
     });
 
-    return state.activeStep - 1 === indexOfLastNonDisabledStep;
+    return state.activeStepIndex === indexOfLastNonDisabledStep;
   };
 
   const reducer = (state, action) => {
@@ -404,7 +404,7 @@ export const SimpleFormExample = (args) => {
         if (action.newValue.length === 0) {
           return {
             showErrorSummary: state.showErrorSummary,
-            activeStep: state.activeStep,
+            activeStepIndex: state.activeStepIndex,
             states: state.states,
             fields: {
               ...state.fields,
@@ -418,9 +418,9 @@ export const SimpleFormExample = (args) => {
 
         return {
           showErrorSummary: false,
-          activeStep: state.activeStep,
+          activeStepIndex: state.activeStepIndex,
           states: state.states.map((stateName, index) => {
-            if (index === state.activeStep - 1) {
+            if (index === state.activeStepIndex) {
               return StepState.completed;
             }
             return stateName;
@@ -438,23 +438,23 @@ export const SimpleFormExample = (args) => {
         if (!activeStepIsValid(state)) {
           return {
             showErrorSummary: true,
-            activeStep: state.activeStep,
+            activeStepIndex: state.activeStepIndex,
             states: state.states,
             fields: {
               ...state.fields,
             },
           };
         }
-        const activeStep = action.payload === 4 ? 4 : action.payload + 1;
+        const activeStepIndex = action.payload === 3 ? 3 : action.payload + 1;
         return {
           showErrorSummary: state.showErrorSummary,
-          activeStep,
+          activeStepIndex,
           states: state.states.map((stateName, index) => {
-            if (index === action.payload - 1 && index !== 4 - 1) {
+            if (index === action.payload && index !== 3) {
               // current one but not last one
               return StepState.completed;
             }
-            if (index === action.payload) {
+            if (index === action.payload + 1) {
               // next one
               return StepState.available;
             }
@@ -469,7 +469,7 @@ export const SimpleFormExample = (args) => {
         if (!activeStepIsValid(state) && !weAreInLastAvailableStep(state)) {
           return {
             showErrorSummary: true,
-            activeStep: state.activeStep,
+            activeStepIndex: state.activeStepIndex,
             states: state.states,
             fields: {
               ...state.fields,
@@ -479,12 +479,12 @@ export const SimpleFormExample = (args) => {
 
         return {
           showErrorSummary: state.showErrorSummary,
-          activeStep: action.payload,
+          activeStepIndex: action.payload,
           states: state.states.map((stateName, index) => {
-            if (index === action.payload - 1) {
+            if (index === action.payload) {
               return StepState.available;
             }
-            if (index === state.activeStep - 1 && activeStepIsValid(state)) {
+            if (index === state.activeStepIndex && activeStepIsValid(state)) {
               return StepState.completed;
             }
             return stateName;
@@ -501,7 +501,7 @@ export const SimpleFormExample = (args) => {
 
   const initialState = {
     showErrorSummary: false,
-    activeStep: 1,
+    activeStepIndex: 0,
     states: [StepState.available, StepState.disabled, StepState.disabled, StepState.disabled],
     fields: {
       firstName: {
@@ -531,25 +531,25 @@ export const SimpleFormExample = (args) => {
         language="en"
         stepHeading
         states={state.states}
-        selectedStep={state.activeStep}
+        selectedStep={state.activeStepIndex}
         stepsTotal={4}
-        onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
+        onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
       />
       {state.showErrorSummary && (
         <div style={{ marginTop: 'var(--spacing-l)' }}>
           <ErrorSummary autofocus label="Form contains following errors">
             <ul>
-              {state.activeStep === 1 && (
+              {state.activeStepIndex === 0 && (
                 <li>
                   Error 1: <a href="#firstName">Please enter your first name</a>
                 </li>
               )}
-              {state.activeStep === 2 && (
+              {state.activeStepIndex === 1 && (
                 <li>
                   Error 1: <a href="#lastName">Please enter your last name</a>
                 </li>
               )}
-              {state.activeStep === 3 && (
+              {state.activeStepIndex === 2 && (
                 <li>
                   Error 1: <a href="#age">Please enter your age</a>
                 </li>
@@ -558,9 +558,9 @@ export const SimpleFormExample = (args) => {
           </ErrorSummary>
         </div>
       )}
-      {[1, 2, 3].includes(state.activeStep) && (
+      {[0, 1, 2].includes(state.activeStepIndex) && (
         <div style={{ height: '164px' }}>
-          {state.activeStep === 1 && (
+          {state.activeStepIndex === 0 && (
             <TextInput
               style={{ width: '300px', paddingTop: 'var(--spacing-l)' }}
               required
@@ -578,7 +578,7 @@ export const SimpleFormExample = (args) => {
               }
             />
           )}
-          {state.activeStep === 2 && (
+          {state.activeStepIndex === 1 && (
             <TextInput
               style={{ width: '300px', paddingTop: 'var(--spacing-l)' }}
               required
@@ -596,7 +596,7 @@ export const SimpleFormExample = (args) => {
               }
             />
           )}
-          {state.activeStep === 3 && (
+          {state.activeStepIndex === 2 && (
             <NumberInput
               style={{ width: '300px', paddingTop: 'var(--spacing-l)' }}
               required
@@ -616,7 +616,7 @@ export const SimpleFormExample = (args) => {
           )}
         </div>
       )}
-      {state.activeStep === 4 && (
+      {state.activeStepIndex === 3 && (
         <div style={{ marginTop: 'var(--spacing-l)', marginBottom: 'var(--spacing-2-xl)' }}>
           <Card className="stepper-card" border heading="Review your basic information" headingAriaLevel={3}>
             <p style={{ margin: 0 }}>First name: {state.fields.firstName.value}</p>
@@ -636,20 +636,20 @@ export const SimpleFormExample = (args) => {
         }}
       >
         <Button
-          disabled={state.activeStep === 1}
+          disabled={state.activeStepIndex === 0}
           variant="secondary"
-          onClick={() => dispatch({ type: 'setActive', payload: state.activeStep - 1 })}
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconLeft={<IconArrowLeft />}
         >
           Previous
         </Button>
         <Button
-          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconRight={<IconArrowRight />}
         >
-          {state.activeStep === 4 ? 'Send' : 'Next'}
+          {state.activeStepIndex === 3 ? 'Send' : 'Next'}
         </Button>
       </div>
     </form>
@@ -671,27 +671,27 @@ export const States = (args) => {
           gridTemplateColumns: '1fr 1fr 1fr 1fr',
         }}
       >
-        <Step label="Available" language="en" number={1} stepsTotal={9} state={StepState.available} />
-        <Step label="Selected" language="en" number={2} stepsTotal={9} selected state={StepState.available} />
-        <Step label="Completed" language="en" number={3} stepsTotal={9} state={StepState.completed} />
-        <Step label="Disabled" language="en" number={4} stepsTotal={9} state={StepState.disabled} />
-        <Step label="Needs attention" language="en" number={5} stepsTotal={9} state={StepState.attention} />
+        <Step label="Available" language="en" index={0} stepsTotal={9} state={StepState.available} />
+        <Step label="Selected" language="en" index={1} stepsTotal={9} selected state={StepState.available} />
+        <Step label="Completed" language="en" index={2} stepsTotal={9} state={StepState.completed} />
+        <Step label="Disabled" language="en" index={3} stepsTotal={9} state={StepState.disabled} />
+        <Step label="Needs attention" language="en" index={4} stepsTotal={9} state={StepState.attention} />
         <Step
           label="Attention + selected"
           language="en"
           selected
-          number={6}
+          index={5}
           stepsTotal={9}
           state={StepState.attention}
         />
-        <Step label="Paused" language="en" number={7} stepsTotal={9} state={StepState.paused} />
-        <Step label="Paused + selected" language="en" selected number={8} stepsTotal={9} state={StepState.paused} />
+        <Step label="Paused" language="en" index={6} stepsTotal={9} state={StepState.paused} />
+        <Step label="Paused + selected" language="en" selected index={7} stepsTotal={9} state={StepState.paused} />
         <div className={styles.step}>
           <p>Small variant:</p>
           <Step
             label="Available"
             language="en"
-            number={9}
+            index={8}
             stepsTotal={9}
             small
             state={StepState.available}

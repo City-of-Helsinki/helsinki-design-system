@@ -69,23 +69,23 @@ export type StepperProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
    * A callback function for custom action on step click
    */
-  onStepClick?: (event: MouseEvent, number: number) => void;
+  onStepClick?: (event: React.MouseEvent<HTMLButtonElement>, stepIndex: number) => void;
   /**
    * A function for rendering a custom aria label for step's state
    */
-  renderCustomStateAriaLabel?: (step: number, state: State) => string;
+  renderCustomStateAriaLabel?: (stepIndex: number, state: State) => string;
   /**
    * A function for rendering a custom step count label
    */
-  renderCustomStepCountLabel?: (step: number, totalNumberOfSteps: number) => string;
+  renderCustomStepCountLabel?: (stepIndex: number, totalNumberOfSteps: number) => string;
   /**
    * A function for rendering a custom step heading
    */
-  renderCustomStepHeading?: (step: number, totalNumberOfSteps: number, label: string) => string;
+  renderCustomStepHeading?: (stepIndex: number, totalNumberOfSteps: number, label: string) => string;
   /**
-   * The selected step number. Counting starts from 1
+   * The index of the selected step
    */
-  selectedStep: number;
+  selectedStep?: number;
   /**
    * Boolean indicating small variant usage
    */
@@ -112,11 +112,11 @@ export type StepperProps = React.ComponentPropsWithoutRef<'button'> & {
   theme?: StepperCustomTheme; // Custom theme styles
 };
 
-const getStepHeading = (language: Language, step: number, totalNumberOfSteps: number, label: string) => {
+const getStepHeading = (language: Language, stepIndex: number, totalNumberOfSteps: number, label: string) => {
   return {
-    en: `Step ${step}/${totalNumberOfSteps}: ${label}`,
-    fi: `Vaihe ${step}/${totalNumberOfSteps}: ${label}`,
-    sv: `Steg ${step}/${totalNumberOfSteps}: ${label}`,
+    en: `Step ${stepIndex + 1}/${totalNumberOfSteps}: ${label}`,
+    fi: `Vaihe ${stepIndex + 1}/${totalNumberOfSteps}: ${label}`,
+    sv: `Steg ${stepIndex + 1}/${totalNumberOfSteps}: ${label}`,
   }[language];
 };
 
@@ -158,7 +158,7 @@ export const Stepper = ({
       stepHeadingRef.current.focus();
     }
 
-    stepRefs.current[selectedStep - 1].current.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+    stepRefs.current[selectedStep].current.scrollIntoView({ behavior: 'smooth', inline: 'center' });
 
     if (stepperRef.current.scrollLeft > 5) {
       setShowPreviousButton(true);
@@ -253,12 +253,12 @@ export const Stepper = ({
               key={`${index}-${label}`} // eslint-disable-line react/no-array-index-key
               label={label}
               language={language}
-              number={index + 1}
+              index={index}
               small={small}
               stepsTotal={stepsTotal}
-              selected={selectedStep === index + 1}
+              selected={selectedStep === index}
               state={states[index]}
-              onStepClick={(event, number) => onStepClick(event, number)}
+              onStepClick={(event, stepIndex) => onStepClick(event, stepIndex)}
               renderCustomStepCountLabel={renderCustomStepCountLabel}
               renderCustomStateAriaLabel={renderCustomStateAriaLabel}
               dataTestId={`${dataTestId}-step-${index}`}
@@ -275,8 +275,8 @@ export const Stepper = ({
           className={classNames(styles.heading, headingClassName)}
         >
           {renderCustomStepHeading
-            ? renderCustomStepHeading(selectedStep, stepsTotal, labels[selectedStep - 1])
-            : getStepHeading(language, selectedStep, stepsTotal, labels[selectedStep - 1])}
+            ? renderCustomStepHeading(selectedStep, stepsTotal, labels[selectedStep])
+            : getStepHeading(language, selectedStep, stepsTotal, labels[selectedStep])}
         </div>
       )}
     </div>

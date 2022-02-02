@@ -28,21 +28,21 @@ export type StepProps = React.ComponentPropsWithoutRef<'button'> & {
    */
   language?: Language;
   /**
-   * The number of the step
+   * The index of the step
    */
-  number: number;
+  index: number;
   /**
    * A callback function for custom action on step click
    */
-  onStepClick?: (event: MouseEvent, number: number) => void;
+  onStepClick?: (event: React.MouseEvent<HTMLButtonElement>, stepIndex: number) => void;
   /**
    * A function for rendering a custom aria label for step's state
    */
-  renderCustomStateAriaLabel?: (step: number, state: State) => string;
+  renderCustomStateAriaLabel?: (stepIndex: number, state: State) => string;
   /**
    * A function for rendering a custom step count label
    */
-  renderCustomStepCountLabel?: (step: number, totalNumberOfSteps: number) => string;
+  renderCustomStepCountLabel?: (stepIndex: number, totalNumberOfSteps: number) => string;
   /**
    * A boolean indicating whether step is in selected state
    */
@@ -63,11 +63,11 @@ export type StepProps = React.ComponentPropsWithoutRef<'button'> & {
 
 type Language = 'en' | 'fi' | 'sv' | string;
 
-const getStepCountLabel = (language: Language, step: number, totalNumberOfSteps: number) => {
+const getStepCountLabel = (language: Language, stepIndex: number, totalNumberOfSteps: number) => {
   return {
-    en: `Step ${step}/${totalNumberOfSteps}.`,
-    fi: `Vaihe ${step}/${totalNumberOfSteps}.`,
-    sv: `Steg ${step}/${totalNumberOfSteps}.`,
+    en: `Step ${stepIndex + 1}/${totalNumberOfSteps}.`,
+    fi: `Vaihe ${stepIndex + 1}/${totalNumberOfSteps}.`,
+    sv: `Steg ${stepIndex + 1}/${totalNumberOfSteps}.`,
   }[language];
 };
 
@@ -107,7 +107,7 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
     {
       label,
       language = 'fi',
-      number,
+      index,
       renderCustomStepCountLabel,
       small = false,
       state,
@@ -122,11 +122,11 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
   ) => {
     const composeAriaLabel = () => {
       const stepCountLabel = renderCustomStepCountLabel
-        ? renderCustomStepCountLabel(number, stepsTotal)
-        : getStepCountLabel(language, number, stepsTotal);
+        ? renderCustomStepCountLabel(index, stepsTotal)
+        : getStepCountLabel(language, index, stepsTotal);
 
       let stateAriaLabel = renderCustomStateAriaLabel
-        ? renderCustomStateAriaLabel(number, state)
+        ? renderCustomStateAriaLabel(index, state)
         : getStepState(language, state);
 
       if (selected && state === State.available) {
@@ -151,7 +151,7 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
           className={classNames(styles.step, selected && styles.selected, state === State.disabled && styles.disabled)}
           aria-current={selected ? 'step' : false}
           aria-label={composeAriaLabel()}
-          onClick={(e) => onStepClick && onStepClick(e, number)}
+          onClick={(e) => onStepClick && onStepClick(e, index)}
           data-testid={dataTestId}
           {...rest}
         >
@@ -165,7 +165,7 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
                 {state === State.attention && <IconError size="xs" aria-hidden />}
                 {state === State.paused && <IconPlaybackPause size="xs" aria-hidden />}
                 {(state === State.available || state === State.disabled || (state === State.completed && selected)) && (
-                  <span className={styles.number}>{number}</span>
+                  <span className={styles.number}>{index + 1}</span>
                 )}
               </div>
             )}
