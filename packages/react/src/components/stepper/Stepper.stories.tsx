@@ -453,6 +453,16 @@ export const SimpleFormExample = (args) => {
         };
       }
       case 'completeStep': {
+        if (!activeStepIsValid(state)) {
+          return {
+            showErrorSummary: true,
+            activeStep: state.activeStep,
+            states: state.states,
+            fields: {
+              ...state.fields,
+            },
+          };
+        }
         const activeStep = action.payload === 4 ? 4 : action.payload + 1;
         return {
           showErrorSummary: state.showErrorSummary,
@@ -653,7 +663,6 @@ export const SimpleFormExample = (args) => {
           Previous
         </Button>
         <Button
-          disabled={!activeStepIsValid(state)}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStep })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconRight={<IconArrowRight />}
