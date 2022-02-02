@@ -533,8 +533,18 @@ export const SimpleFormExample = (args) => {
   return (
     <form>
       <h1 style={{ marginTop: '0', fontSize: '52px', lineHeight: '62px' }}>Simple form example</h1>
+      <Stepper
+        className="stepper-form-validation"
+        labels={labels}
+        language="en"
+        stepHeading
+        states={state.states}
+        selectedStep={state.activeStep}
+        stepsTotal={4}
+        onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
+      />
       {state.showErrorSummary && (
-        <div style={{ marginBottom: 'var(--spacing-l)' }}>
+        <div style={{ marginTop: 'var(--spacing-l)' }}>
           <ErrorSummary autofocus label="Form contains following errors">
             <ul>
               {state.activeStep === 1 && (
@@ -556,16 +566,6 @@ export const SimpleFormExample = (args) => {
           </ErrorSummary>
         </div>
       )}
-      <Stepper
-        className="stepper-form-validation"
-        labels={labels}
-        language="en"
-        stepHeading
-        states={state.states}
-        selectedStep={state.activeStep}
-        stepsTotal={4}
-        onStepClick={(event, number) => dispatch({ type: 'setActive', payload: number })}
-      />
       {[1, 2, 3].includes(state.activeStep) && (
         <div style={{ height: '164px' }}>
           {state.activeStep === 1 && (
