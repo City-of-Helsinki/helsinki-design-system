@@ -171,19 +171,21 @@
   z-index: 1;
   transform: translateY(calc((var(--circle-container-size) / 2) + (var(--progress-line-height) / 2)));
 
-  .disabledLine {
+
+  @mixin lineStep {
     position: relative;
     top: -15px;
     display: inline-block;
     height: 100%;
+  }
+
+  .disabledLine {
+    @include lineStep;
     background-color: var(--hds-stepper-disabled-color);
   }
 
   .enabledLine {
-    position: relative;
-    top: -15px;
-    display: inline-block;
-    height: 100%;
+    @include lineStep;
     background-color: var(--hds-stepper-color);
   }
 }
