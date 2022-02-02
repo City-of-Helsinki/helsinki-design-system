@@ -387,24 +387,6 @@ export const SimpleFormExample = (args) => {
     return state.activeStep === 4;
   };
 
-  const activeStepIsVisited = (state) => {
-    if (state.activeStep === 1) {
-      // first name
-      return state.fields.firstName.visited;
-    }
-    if (state.activeStep === 2) {
-      // last name
-      return state.fields.lastName.visited;
-    }
-
-    if (state.activeStep === 3) {
-      // age
-      return state.fields.age.visited;
-    }
-
-    return state.activeStep === 4;
-  };
-
   const weAreInLastAvailableStep = (state) => {
     let indexOfLastNonDisabledStep = 0;
     state.states.forEach((st, index) => {
