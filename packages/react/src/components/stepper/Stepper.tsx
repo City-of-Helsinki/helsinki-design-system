@@ -188,7 +188,7 @@ export const Stepper = ({
             }}
             tabIndex={-1}
           >
-            <IconAngleLeft />
+            <IconAngleLeft size="m" />
           </button>
         </div>
       )}
@@ -202,7 +202,7 @@ export const Stepper = ({
             }}
             tabIndex={-1}
           >
-            <IconAngleRight />
+            <IconAngleRight size="m" />
           </button>
         </div>
       )}
