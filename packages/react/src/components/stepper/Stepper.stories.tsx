@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 
 import { Stepper } from './Stepper';
 import styles from './Stepper.module.scss';
-import { Step } from './Step';
+import { Step, State as StepState } from './Step';
 import { Button } from '../button';
 import { IconArrowLeft, IconArrowRight } from '../../icons';
 import { TextInput } from '../textInput';
@@ -29,11 +29,11 @@ const commonReducer = (stepsTotal) => (state, action) => {
         states: state.states.map((stateName, index) => {
           if (index === action.payload - 1 && index !== stepsTotal - 1) {
             // current one but not last one
-            return 'completed';
+            return StepState.completed;
           }
           if (index === action.payload) {
             // next one
-            return 'available';
+            return StepState.available;
           }
           return stateName;
         }),
@@ -44,7 +44,7 @@ const commonReducer = (stepsTotal) => (state, action) => {
         activeStep: action.payload,
         states: state.states.map((stateName, index) => {
           if (index === action.payload - 1) {
-            return 'available';
+            return StepState.available;
           }
           return stateName;
         }),
@@ -62,7 +62,7 @@ export const Default = (args) => {
 
   const initialState = {
     activeStep: 1,
-    states: ['available', 'disabled', 'disabled', 'disabled', 'disabled'],
+    states: [StepState.available, StepState.disabled, StepState.disabled, StepState.disabled, StepState.disabled],
   };
 
   const labels = ['Step 1', 'Step 2', 'Step 3', 'Step 4 - longer text', 'Step 5'];
@@ -118,7 +118,7 @@ export const Small = (args) => {
 
   const initialState = {
     activeStep: 1,
-    states: ['available', 'disabled', 'disabled', 'disabled', 'disabled'],
+    states: [StepState.available, StepState.disabled, StepState.disabled, StepState.disabled, StepState.disabled],
   };
   const labels = ['Step 1', 'Step 2', 'Step 3', 'Step 4 - longer text', 'Step 5'];
 
@@ -173,7 +173,7 @@ export const WithStepHeading = (args) => {
 
   const initialState = {
     activeStep: 1,
-    states: ['available', 'disabled', 'disabled', 'disabled', 'disabled'],
+    states: [StepState.available, StepState.disabled, StepState.disabled, StepState.disabled, StepState.disabled],
   };
   const labels = ['Step 1 - longer text', 'Step 2', 'Step 3', 'Step 4', 'Step 5'];
 
@@ -231,18 +231,18 @@ export const Overflow = (args) => {
   const initialState = {
     activeStep: 1,
     states: [
-      'available',
-      'disabled',
-      'disabled',
-      'disabled',
-      'disabled',
-      'disabled',
-      'disabled',
-      'disabled',
-      'disabled',
-      'disabled',
-      'disabled',
-      'disabled',
+      StepState.available,
+      StepState.disabled,
+      StepState.disabled,
+      StepState.disabled,
+      StepState.disabled,
+      StepState.disabled,
+      StepState.disabled,
+      StepState.disabled,
+      StepState.disabled,
+      StepState.disabled,
+      StepState.disabled,
+      StepState.disabled,
     ],
   };
   const labels = [
@@ -310,7 +310,7 @@ export const WithCustomTheme = (args) => {
 
   const initialState = {
     activeStep: 1,
-    states: ['available', 'disabled', 'disabled', 'disabled', 'disabled'],
+    states: [StepState.available, StepState.disabled, StepState.disabled, StepState.disabled, StepState.disabled],
   };
 
   const labels = ['Step 1 - longer text', 'Step 2', 'Step 3', 'Step 4', 'Step 5'];
@@ -408,7 +408,7 @@ export const SimpleFormExample = (args) => {
   const weAreInLastAvailableStep = (state) => {
     let indexOfLastNonDisabledStep = 0;
     state.states.forEach((st, index) => {
-      if (st !== 'disabled' && index > indexOfLastNonDisabledStep) {
+      if (st !== StepState.disabled && index > indexOfLastNonDisabledStep) {
         indexOfLastNonDisabledStep = index;
       }
     });
@@ -439,7 +439,7 @@ export const SimpleFormExample = (args) => {
           activeStep: state.activeStep,
           states: state.states.map((stateName, index) => {
             if (index === state.activeStep - 1) {
-              return 'completed';
+              return StepState.completed;
             }
             return stateName;
           }),
@@ -470,11 +470,11 @@ export const SimpleFormExample = (args) => {
           states: state.states.map((stateName, index) => {
             if (index === action.payload - 1 && index !== 4 - 1) {
               // current one but not last one
-              return 'completed';
+              return StepState.completed;
             }
             if (index === action.payload) {
               // next one
-              return 'available';
+              return StepState.available;
             }
             return stateName;
           }),
@@ -500,10 +500,10 @@ export const SimpleFormExample = (args) => {
           activeStep: action.payload,
           states: state.states.map((stateName, index) => {
             if (index === action.payload - 1) {
-              return 'available';
+              return StepState.available;
             }
             if (index === state.activeStep - 1 && activeStepIsValid(state)) {
-              return 'completed';
+              return StepState.completed;
             }
             return stateName;
           }),
@@ -520,7 +520,7 @@ export const SimpleFormExample = (args) => {
   const initialState = {
     showErrorSummary: false,
     activeStep: 1,
-    states: ['available', 'disabled', 'disabled', 'disabled'],
+    states: [StepState.available, StepState.disabled, StepState.disabled, StepState.disabled],
     fields: {
       firstName: {
         value: '',
@@ -689,14 +689,21 @@ export const States = (args) => {
           gridTemplateColumns: '1fr 1fr 1fr 1fr',
         }}
       >
-        <Step label="Available" language="en" number={1} stepsTotal={9} state="available" />
-        <Step label="Selected" language="en" number={2} stepsTotal={9} selected state="available" />
-        <Step label="Completed" language="en" number={3} stepsTotal={9} state="completed" />
-        <Step label="Disabled" language="en" number={4} stepsTotal={9} state="disabled" />
-        <Step label="Needs attention" language="en" number={5} stepsTotal={9} state="attention" />
-        <Step label="Attention + selected" language="en" selected number={6} stepsTotal={9} state="attention" />
-        <Step label="Paused" language="en" number={7} stepsTotal={9} state="paused" />
-        <Step label="Paused + selected" language="en" selected number={8} stepsTotal={9} state="paused" />
+        <Step label="Available" language="en" number={1} stepsTotal={9} state={StepState.available} />
+        <Step label="Selected" language="en" number={2} stepsTotal={9} selected state={StepState.available} />
+        <Step label="Completed" language="en" number={3} stepsTotal={9} state={StepState.completed} />
+        <Step label="Disabled" language="en" number={4} stepsTotal={9} state={StepState.disabled} />
+        <Step label="Needs attention" language="en" number={5} stepsTotal={9} state={StepState.attention} />
+        <Step
+          label="Attention + selected"
+          language="en"
+          selected
+          number={6}
+          stepsTotal={9}
+          state={StepState.attention}
+        />
+        <Step label="Paused" language="en" number={7} stepsTotal={9} state={StepState.paused} />
+        <Step label="Paused + selected" language="en" selected number={8} stepsTotal={9} state={StepState.paused} />
         <div className={styles.step}>
           <p>Small variant:</p>
           <Step
@@ -705,7 +712,7 @@ export const States = (args) => {
             number={9}
             stepsTotal={9}
             small
-            state="available"
+            state={StepState.available}
             style={{ justifySelf: 'center' }}
           />
         </div>
