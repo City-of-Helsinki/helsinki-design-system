@@ -34,15 +34,15 @@ export type StepProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
    * A callback function for custom action on step click
    */
-  onStepClick?: (event, number: number) => void;
+  onStepClick?: (event: MouseEvent, number: number) => void;
   /**
    * A function for rendering a custom aria label for step's state
    */
-  renderCustomStateAriaLabel?: (step, state) => string;
+  renderCustomStateAriaLabel?: (step: number, state: State) => string;
   /**
    * A function for rendering a custom step count label
    */
-  renderCustomStepCountLabel?: (step, totalNumberOfSteps) => string;
+  renderCustomStepCountLabel?: (step: number, totalNumberOfSteps: number) => string;
   /**
    * A boolean indicating whether step is in selected state
    */
