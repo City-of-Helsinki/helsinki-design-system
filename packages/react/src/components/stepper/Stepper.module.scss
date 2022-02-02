@@ -116,18 +116,18 @@
 
 .number {
   font-weight: 500;
-  font-size: 16px;
+  font-size: var(--fontsize-body-m);
 }
 
 .label {
   font-weight: 500;
-  font-size: 16px;
+  font-size: var(--fontsize-body-m);
   text-decoration: underline;
-  line-height: 1.5;
+  line-height: var(--lineheight-l);
   margin-top: 6px;
   margin-bottom: 0;
-  padding-left: 2px;
-  padding-right: 2px;
+  padding-left: var(--spacing-4-xs);
+  padding-right: var(--spacing-4-xs);
   color: var(--hds-not-selected-step-label-color);
 }
 
