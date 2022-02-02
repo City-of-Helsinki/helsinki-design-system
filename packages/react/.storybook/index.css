@@ -105,7 +105,7 @@ body {
   border-color: var(--color-tram) !important;
 }
 
-.stepper-custom-secondary-button {
+.stepper-custom-secondary-button:not([disabled]) {
   border-color: var(--color-tram) !important;
   color: var(--color-tram) !important;
 }
