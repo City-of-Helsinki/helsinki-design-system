@@ -3,7 +3,7 @@ import React, { createRef, useEffect, useRef, useState } from 'react';
 // import core base styles
 import 'hds-core';
 import styles from './Stepper.module.scss';
-import { Step, StepProps } from './Step';
+import { State, Step, StepProps } from './Step';
 import classNames from '../../utils/classNames';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
 import { useTheme } from '../../hooks/useTheme';
@@ -241,7 +241,7 @@ export const Stepper = ({
               <div
                 key={`${label}-${index}`} // eslint-disable-line react/no-array-index-key
                 style={{ width: `calc( 100% / ${stepsTotal - 1})` }}
-                className={states[index + 1] === 'disabled' ? styles.disabledLine : styles.enabledLine}
+                className={states[index + 1] === State.disabled ? styles.disabledLine : styles.enabledLine}
               />
             );
           })}

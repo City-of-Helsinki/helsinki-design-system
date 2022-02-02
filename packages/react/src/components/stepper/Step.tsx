@@ -6,6 +6,14 @@ import 'hds-core';
 import styles from './Stepper.module.scss';
 import classNames from '../../utils/classNames';
 
+export enum State {
+  available,
+  completed,
+  disabled,
+  attention,
+  paused,
+}
+
 export type StepProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
    * Data test id of step
@@ -46,7 +54,7 @@ export type StepProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
    * The state of the step
    */
-  state: 'available' | 'completed' | 'disabled' | 'attention' | 'paused';
+  state: State;
   /**
    * The total number of steps
    */
@@ -87,11 +95,11 @@ const states = {
 };
 
 const getStepState = (language: Language, state: StepProps['state']) => {
-  if (state === 'disabled') {
+  if (state === State.disabled) {
     // Button has disabled attribute, which is enough for a11y
     return '';
   }
-  return states[state][language];
+  return states[State[state]][language];
 };
 
 export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
@@ -121,7 +129,7 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
         ? renderCustomStateAriaLabel(number, state)
         : getStepState(language, state);
 
-      if (selected && state === 'available') {
+      if (selected && state === State.available) {
         stateAriaLabel = '';
       }
 
@@ -139,8 +147,8 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
         <button
           ref={ref}
           type="button"
-          disabled={state === 'disabled'}
-          className={classNames(styles.step, selected && styles.selected, state === 'disabled' && styles.disabled)}
+          disabled={state === State.disabled}
+          className={classNames(styles.step, selected && styles.selected, state === State.disabled && styles.disabled)}
           aria-current={selected ? 'step' : false}
           aria-label={composeAriaLabel()}
           onClick={(e) => onStepClick && onStepClick(e, number)}
@@ -148,15 +156,15 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
           {...rest}
         >
           <div className={styles.circleContainer}>
-            {state === 'completed' && !selected ? (
+            {state === State.completed && !selected ? (
               <div className={styles.completedContainer}>
                 <IconCheck className={styles.completedIcon} aria-hidden />
               </div>
             ) : (
               <div className={classNames(styles.circle)}>
-                {state === 'attention' && <IconError size="xs" aria-hidden />}
-                {state === 'paused' && <IconPlaybackPause size="xs" aria-hidden />}
-                {(state === 'available' || state === 'disabled' || (state === 'completed' && selected)) && (
+                {state === State.attention && <IconError size="xs" aria-hidden />}
+                {state === State.paused && <IconPlaybackPause size="xs" aria-hidden />}
+                {(state === State.available || state === State.disabled || (state === State.completed && selected)) && (
                   <span className={styles.number}>{number}</span>
                 )}
               </div>
