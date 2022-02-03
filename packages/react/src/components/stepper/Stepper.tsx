@@ -3,7 +3,7 @@ import React, { createRef, useEffect, useRef, useState } from 'react';
 // import core base styles
 import 'hds-core';
 import styles from './Stepper.module.scss';
-import { State, Step, StepProps } from './Step';
+import { State, Step } from './Step';
 import classNames from '../../utils/classNames';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
 import { useTheme } from '../../hooks/useTheme';
@@ -45,6 +45,17 @@ export interface StepperCustomTheme {
   '--hds-stepper-focus-border-color'?: string;
 }
 
+type Steps = {
+  /**
+   * The state of the step
+   */
+  state: State;
+  /**
+   * The label of the step
+   */
+  label: string;
+}[];
+
 export type StepperProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
    * A custom className passed to stepper
@@ -58,10 +69,6 @@ export type StepperProps = React.ComponentPropsWithoutRef<'button'> & {
    * A custom class name for step heading
    */
   headingClassName?: string;
-  /**
-   * The labels of the steps
-   */
-  labels: string[];
   /**
    * The language of the stepper
    */
@@ -91,10 +98,6 @@ export type StepperProps = React.ComponentPropsWithoutRef<'button'> & {
    */
   small?: boolean;
   /**
-   * The states of the steps
-   */
-  states: StepProps['state'][];
-  /**
    * A boolean indicating step heading variant usage
    */
   stepHeading?: boolean;
@@ -102,6 +105,10 @@ export type StepperProps = React.ComponentPropsWithoutRef<'button'> & {
    * Step heading aria level
    */
   stepHeadingAriaLevel?: number;
+  /**
+   * The steps of the stepper
+   */
+  steps: Steps;
   /**
    * The total number of steps
    */
@@ -122,8 +129,6 @@ const getStepHeading = (language: Language, stepIndex: number, totalNumberOfStep
 
 export const Stepper = ({
   className,
-  labels,
-  states,
   language = 'fi',
   selectedStep,
   small = false,
@@ -136,12 +141,13 @@ export const Stepper = ({
   headingClassName,
   dataTestId = 'hds-stepper',
   renderCustomStepHeading,
+  steps,
   theme,
 }: StepperProps) => {
   const stepHeadingRef = useRef(null);
   const stepperRef = useRef(null);
   const stepRefs = useRef([]);
-  const arrLength = labels.length;
+  const arrLength = steps.length;
   const [showPreviousButton, setShowPreviousButton] = useState(false);
   const [showNextButton, setShowNextButton] = useState(false);
   const customThemeClass = useTheme<StepperCustomTheme>(styles.stepperContainer, theme);
@@ -233,31 +239,31 @@ export const Stepper = ({
             width: `max( calc(100% - var(--hds-step-width)), calc(${stepsTotal} * var(--hds-step-width) - var(--hds-step-width) ))`,
           }}
         >
-          {labels.map((label, index) => {
-            if (index === labels.length - 1) {
+          {steps.map((step, index) => {
+            if (index === steps.length - 1) {
               return null;
             }
             return (
               <div
-                key={`${label}-${index}`} // eslint-disable-line react/no-array-index-key
+                key={`${step.label}-${index}`} // eslint-disable-line react/no-array-index-key
                 style={{ width: `calc( 100% / ${stepsTotal - 1})` }}
-                className={states[index + 1] === State.disabled ? styles.disabledLine : styles.enabledLine}
+                className={steps[index + 1].state === State.disabled ? styles.disabledLine : styles.enabledLine}
               />
             );
           })}
         </div>
-        {labels.map((label, index) => {
+        {steps.map((step, index) => {
           return (
             <Step
               ref={stepRefs.current[index]}
-              key={`${index}-${label}`} // eslint-disable-line react/no-array-index-key
-              label={label}
+              key={`${index}-${step.label}`} // eslint-disable-line react/no-array-index-key
+              label={step.label}
               language={language}
               index={index}
               small={small}
               stepsTotal={stepsTotal}
               selected={selectedStep === index}
-              state={states[index]}
+              state={step.state}
               onStepClick={(event, stepIndex) => onStepClick(event, stepIndex)}
               renderCustomStepCountLabel={renderCustomStepCountLabel}
               renderCustomStateAriaLabel={renderCustomStateAriaLabel}
@@ -275,8 +281,8 @@ export const Stepper = ({
           className={classNames(styles.heading, headingClassName)}
         >
           {renderCustomStepHeading
-            ? renderCustomStepHeading(selectedStep, stepsTotal, labels[selectedStep])
-            : getStepHeading(language, selectedStep, stepsTotal, labels[selectedStep])}
+            ? renderCustomStepHeading(selectedStep, stepsTotal, steps[selectedStep].label)
+            : getStepHeading(language, selectedStep, stepsTotal, steps[selectedStep].label)}
         </div>
       )}
     </div>

@@ -26,27 +26,36 @@ const commonReducer = (stepsTotal) => (state, action) => {
       const activeStepIndex = action.payload === stepsTotal - 1 ? stepsTotal - 1 : action.payload + 1;
       return {
         activeStepIndex,
-        states: state.states.map((stateName, index) => {
+        steps: state.steps.map((step, index) => {
           if (index === action.payload && index !== stepsTotal - 1) {
             // current one but not last one
-            return StepState.completed;
+            return {
+              state: StepState.completed,
+              label: step.label,
+            };
           }
           if (index === action.payload + 1) {
             // next one
-            return StepState.available;
+            return {
+              state: StepState.available,
+              label: step.label,
+            };
           }
-          return stateName;
+          return step;
         }),
       };
     }
     case 'setActive': {
       return {
         activeStepIndex: action.payload,
-        states: state.states.map((stateName, index) => {
+        steps: state.steps.map((step, index) => {
           if (index === action.payload) {
-            return StepState.available;
+            return {
+              state: StepState.available,
+              label: step.label,
+            };
           }
-          return stateName;
+          return step;
         }),
       };
     }
@@ -62,10 +71,29 @@ export const Default = (args) => {
 
   const initialState = {
     activeStepIndex: 0,
-    states: [StepState.available, StepState.disabled, StepState.disabled, StepState.disabled, StepState.disabled],
+    steps: [
+      {
+        label: 'Step 1',
+        state: StepState.available,
+      },
+      {
+        label: 'Step 2',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 3',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 4 - longer text',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 5',
+        state: StepState.disabled,
+      },
+    ],
   };
-
-  const labels = ['Step 1', 'Step 2', 'Step 3', 'Step 4 - longer text', 'Step 5'];
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -73,9 +101,8 @@ export const Default = (args) => {
     <div>
       <Stepper
         className="stepper-margin"
-        labels={labels}
+        steps={state.steps}
         language="en"
-        states={state.states}
         selectedStep={state.activeStepIndex}
         stepsTotal={5}
         onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
@@ -118,19 +145,38 @@ export const Small = (args) => {
 
   const initialState = {
     activeStepIndex: 0,
-    states: [StepState.available, StepState.disabled, StepState.disabled, StepState.disabled, StepState.disabled],
+    steps: [
+      {
+        label: 'Step 1',
+        state: StepState.available,
+      },
+      {
+        label: 'Step 2',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 3',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 4 - longer text',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 5',
+        state: StepState.disabled,
+      },
+    ],
   };
-  const labels = ['Step 1', 'Step 2', 'Step 3', 'Step 4 - longer text', 'Step 5'];
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <div className="stepper-small">
       <Stepper
-        labels={labels}
+        steps={state.steps}
         language="en"
         small
-        states={state.states}
         selectedStep={state.activeStepIndex}
         stepsTotal={5}
         onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
@@ -173,9 +219,29 @@ export const WithStepHeading = (args) => {
 
   const initialState = {
     activeStepIndex: 0,
-    states: [StepState.available, StepState.disabled, StepState.disabled, StepState.disabled, StepState.disabled],
+    steps: [
+      {
+        label: 'Step 1 - longer text',
+        state: StepState.available,
+      },
+      {
+        label: 'Step 2',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 3',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 4',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 5',
+        state: StepState.disabled,
+      },
+    ],
   };
-  const labels = ['Step 1 - longer text', 'Step 2', 'Step 3', 'Step 4', 'Step 5'];
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -183,10 +249,9 @@ export const WithStepHeading = (args) => {
     <div>
       <Stepper
         headingClassName="stepper-heading"
-        labels={labels}
+        steps={state.steps}
         language="en"
         stepHeading
-        states={state.states}
         selectedStep={state.activeStepIndex}
         stepsTotal={5}
         onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
@@ -230,44 +295,65 @@ export const Overflow = (args) => {
 
   const initialState = {
     activeStepIndex: 0,
-    states: [
-      StepState.available,
-      StepState.disabled,
-      StepState.disabled,
-      StepState.disabled,
-      StepState.disabled,
-      StepState.disabled,
-      StepState.disabled,
-      StepState.disabled,
-      StepState.disabled,
-      StepState.disabled,
-      StepState.disabled,
-      StepState.disabled,
+    steps: [
+      {
+        state: StepState.available,
+        label: 'Step 1 - longer text',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Step 2',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Step 3',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Step 4',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Step 5',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Step 6',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Step 7',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Step 8',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Step 9',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Step 10',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Step 11',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Step 12',
+      },
     ],
   };
-  const labels = [
-    'Step 1 - longer text',
-    'Step 2',
-    'Step 3',
-    'Step 4',
-    'Step 5',
-    'Step 6',
-    'Step 7',
-    'Step 8',
-    'Step 9',
-    'Step 10',
-    'Step 11',
-    'Step 12',
-  ];
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <div style={{ maxWidth: '400px' }}>
       <Stepper
-        labels={labels}
+        steps={state.steps}
         language="en"
-        states={state.states}
         selectedStep={state.activeStepIndex}
         stepsTotal={12}
         onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
@@ -306,14 +392,33 @@ export const Overflow = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const WithCustomTheme = (args) => {
-  const reducer = commonReducer(4);
+  const reducer = commonReducer(5);
 
   const initialState = {
     activeStepIndex: 0,
-    states: [StepState.available, StepState.disabled, StepState.disabled, StepState.disabled, StepState.disabled],
+    steps: [
+      {
+        label: 'Step 1 - longer text',
+        state: StepState.available,
+      },
+      {
+        label: 'Step 2',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 3',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 4',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 5',
+        state: StepState.disabled,
+      },
+    ],
   };
-
-  const labels = ['Step 1 - longer text', 'Step 2', 'Step 3', 'Step 4', 'Step 5'];
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -326,9 +431,8 @@ export const WithCustomTheme = (args) => {
     <div>
       <Stepper
         theme={theme}
-        labels={labels}
+        steps={state.steps}
         language="en"
-        states={state.states}
         selectedStep={state.activeStepIndex}
         stepsTotal={5}
         onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
@@ -405,7 +509,7 @@ export const SimpleFormExample = (args) => {
           return {
             showErrorSummary: state.showErrorSummary,
             activeStepIndex: state.activeStepIndex,
-            states: state.states,
+            steps: state.steps,
             fields: {
               ...state.fields,
               [action.fieldName]: {
@@ -419,11 +523,14 @@ export const SimpleFormExample = (args) => {
         return {
           showErrorSummary: false,
           activeStepIndex: state.activeStepIndex,
-          states: state.states.map((stateName, index) => {
+          steps: state.steps.map((step, index) => {
             if (index === state.activeStepIndex) {
-              return StepState.completed;
+              return {
+                state: StepState.completed,
+                label: step.label,
+              };
             }
-            return stateName;
+            return step;
           }),
           fields: {
             ...state.fields,
@@ -439,7 +546,7 @@ export const SimpleFormExample = (args) => {
           return {
             showErrorSummary: true,
             activeStepIndex: state.activeStepIndex,
-            states: state.states,
+            steps: state.steps,
             fields: {
               ...state.fields,
             },
@@ -449,16 +556,22 @@ export const SimpleFormExample = (args) => {
         return {
           showErrorSummary: state.showErrorSummary,
           activeStepIndex,
-          states: state.states.map((stateName, index) => {
+          steps: state.steps.map((step, index) => {
             if (index === action.payload && index !== 3) {
               // current one but not last one
-              return StepState.completed;
+              return {
+                state: StepState.completed,
+                label: step.label,
+              };
             }
             if (index === action.payload + 1) {
               // next one
-              return StepState.available;
+              return {
+                state: StepState.available,
+                label: step.label,
+              };
             }
-            return stateName;
+            return step;
           }),
           fields: {
             ...state.fields,
@@ -470,7 +583,7 @@ export const SimpleFormExample = (args) => {
           return {
             showErrorSummary: true,
             activeStepIndex: state.activeStepIndex,
-            states: state.states,
+            steps: state.steps,
             fields: {
               ...state.fields,
             },
@@ -480,14 +593,20 @@ export const SimpleFormExample = (args) => {
         return {
           showErrorSummary: state.showErrorSummary,
           activeStepIndex: action.payload,
-          states: state.states.map((stateName, index) => {
+          steps: state.steps.map((step, index) => {
             if (index === action.payload) {
-              return StepState.available;
+              return {
+                state: StepState.available,
+                label: step.label,
+              };
             }
             if (index === state.activeStepIndex && activeStepIsValid(state)) {
-              return StepState.completed;
+              return {
+                state: StepState.completed,
+                label: step.label,
+              };
             }
-            return stateName;
+            return step;
           }),
           fields: {
             ...state.fields,
@@ -502,7 +621,24 @@ export const SimpleFormExample = (args) => {
   const initialState = {
     showErrorSummary: false,
     activeStepIndex: 0,
-    states: [StepState.available, StepState.disabled, StepState.disabled, StepState.disabled],
+    steps: [
+      {
+        state: StepState.available,
+        label: 'First name',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Last name',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Age',
+      },
+      {
+        state: StepState.disabled,
+        label: 'Review and send',
+      },
+    ],
     fields: {
       firstName: {
         value: '',
@@ -518,7 +654,6 @@ export const SimpleFormExample = (args) => {
       },
     },
   };
-  const labels = ['First name', 'Last name', 'Age', 'Review and send'];
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -527,10 +662,9 @@ export const SimpleFormExample = (args) => {
       <h1 style={{ marginTop: '0', fontSize: '52px', lineHeight: '62px' }}>Simple form example</h1>
       <Stepper
         className="stepper-form-validation"
-        labels={labels}
+        steps={state.steps}
         language="en"
         stepHeading
-        states={state.states}
         selectedStep={state.activeStepIndex}
         stepsTotal={4}
         onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
