@@ -110,10 +110,6 @@ export type StepperProps = React.ComponentPropsWithoutRef<'button'> & {
    */
   steps: Steps;
   /**
-   * The total number of steps
-   */
-  stepsTotal: number;
-  /**
    * Custom theme
    */
   theme?: StepperCustomTheme; // Custom theme styles
@@ -132,7 +128,6 @@ export const Stepper = ({
   language = 'fi',
   selectedStep,
   small = false,
-  stepsTotal,
   renderCustomStepCountLabel,
   renderCustomStateAriaLabel,
   onStepClick,
@@ -144,6 +139,7 @@ export const Stepper = ({
   steps,
   theme,
 }: StepperProps) => {
+  const stepsTotal = steps.length;
   const stepHeadingRef = useRef(null);
   const stepperRef = useRef(null);
   const stepRefs = useRef([]);

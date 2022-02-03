@@ -117,7 +117,6 @@ export const Default = (args) => {
         steps={state.steps}
         language="en"
         selectedStep={state.activeStepIndex}
-        stepsTotal={5}
         onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
       />
 
@@ -191,7 +190,6 @@ export const Small = (args) => {
         language="en"
         small
         selectedStep={state.activeStepIndex}
-        stepsTotal={5}
         onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
       />
 
@@ -266,7 +264,6 @@ export const WithStepHeading = (args) => {
         language="en"
         stepHeading
         selectedStep={state.activeStepIndex}
-        stepsTotal={5}
         onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
       />
 
@@ -368,7 +365,6 @@ export const Overflow = (args) => {
         steps={state.steps}
         language="en"
         selectedStep={state.activeStepIndex}
-        stepsTotal={12}
         onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
       />
       <div
@@ -452,7 +448,6 @@ export const WithCustomTheme = (args) => {
         steps={state.steps}
         language="en"
         selectedStep={state.activeStepIndex}
-        stepsTotal={5}
         onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
       />
       <div
@@ -688,7 +683,6 @@ export const SimpleFormExample = (args) => {
         language="en"
         stepHeading
         selectedStep={state.activeStepIndex}
-        stepsTotal={4}
         onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
       />
       {state.showErrorSummary && (
