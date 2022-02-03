@@ -14,6 +14,8 @@
   --hds-step-width: 120px;
   --circle-container-size: 36px;
   --progress-line-height: 2px;
+
+  background-color: var(--hds-stepper-background-color);
 }
 
 .stepper {
