@@ -16,6 +16,19 @@ export default {
   decorators: [(storyFn) => <div style={{ maxWidth: '700px' }}>{storyFn()}</div>],
   parameters: {
     controls: { expanded: true },
+    backgrounds: {
+      default: 'white',
+      values: [
+        {
+          name: 'white',
+          value: 'white',
+        },
+        {
+          name: 'gray',
+          value: '#e5e5e5',
+        },
+      ],
+    },
   },
   args: {},
 };
@@ -423,12 +436,17 @@ export const WithCustomTheme = (args) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const theme = {
-    '--hds-stepper-color': 'var(--color-tram)',
-    '--hds-step-content-color': 'var(--color-tram)',
+    '--hds-stepper-color': 'var(--color-black-90)',
+    '--hds-step-content-color': 'var(--color-black-90)',
+    '--hds-stepper-background-color': 'var(--color-black-10)',
+    '--hds-step-background-color': 'var(--color-black-5)',
+    '--hds-stepper-focus-border-color': 'var(--color-black-90)',
+    '--hds-stepper-disabled-color': 'var(--color-black-30)',
+    '--hds-not-selected-step-label-color': 'var(--color-black-90)',
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: 'var(--color-black-10)' }}>
       <Stepper
         theme={theme}
         steps={state.steps}
@@ -468,6 +486,10 @@ export const WithCustomTheme = (args) => {
       </div>
     </div>
   );
+};
+
+WithCustomTheme.parameters = {
+  backgrounds: { default: 'gray' },
 };
 
 // args is required for docs tab to show source code

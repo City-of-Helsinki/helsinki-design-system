@@ -101,13 +101,13 @@ body {
 /* STEPPER */
 
 .stepper-custom-primary-button {
-  background-color: var(--color-tram) !important;
-  border-color: var(--color-tram) !important;
+  background-color: var(--color-black-90) !important;
+  border-color: var(--color-black-90) !important;
 }
 
 .stepper-custom-secondary-button:not([disabled]) {
-  border-color: var(--color-tram) !important;
-  color: var(--color-tram) !important;
+  border-color: var(--color-black-90) !important;
+  color: var(--color-black-90) !important;
 }
 
 .stepper-small {
