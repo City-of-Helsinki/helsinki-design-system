@@ -108,6 +108,7 @@
 .disabled .circle {
   border: 2px solid var(--hds-stepper-disabled-color);
   color: var(--hds-stepper-disabled-color);
+  background-color: var(--hds-stepper-background-color);
 }
 
 .selected .circle {
