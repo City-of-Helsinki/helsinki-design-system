@@ -56,7 +56,7 @@ type Steps = {
   label: string;
 }[];
 
-export type StepperProps = React.ComponentPropsWithoutRef<'button'> & {
+export type StepperProps = {
   /**
    * A custom className passed to stepper
    */
