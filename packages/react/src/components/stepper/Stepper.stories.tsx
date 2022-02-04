@@ -608,7 +608,7 @@ export const SimpleFormExample = (args) => {
         }
 
         return {
-          showErrorSummary: state.showErrorSummary,
+          showErrorSummary: false,
           activeStepIndex: action.payload,
           steps: state.steps.map((step, index) => {
             if (index === action.payload) {
