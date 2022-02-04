@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useRef } from 'react';
 
 import { Stepper } from './Stepper';
 import styles from './Stepper.module.scss';
@@ -674,6 +674,8 @@ export const SimpleFormExample = (args) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const errorRef = useRef(null);
+
   return (
     <form>
       <h1 style={{ marginTop: '0', fontSize: '52px', lineHeight: '62px' }}>Simple form example</h1>
@@ -683,11 +685,17 @@ export const SimpleFormExample = (args) => {
         language="en"
         stepHeading
         selectedStep={state.activeStepIndex}
-        onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
+        onStepClick={(event, stepIndex) => {
+          if (state.showErrorSummary && stepIndex !== state.activeStepIndex) {
+            // focus to error summary label
+            errorRef.current.children[0].children[0].focus();
+          }
+          dispatch({ type: 'setActive', payload: stepIndex });
+        }}
       />
       {state.showErrorSummary && (
         <div style={{ marginTop: 'var(--spacing-l)' }}>
-          <ErrorSummary autofocus label="Form contains following errors">
+          <ErrorSummary ref={errorRef} autofocus label="Form contains following errors">
             <ul>
               {state.activeStepIndex === 0 && (
                 <li>
@@ -788,14 +796,26 @@ export const SimpleFormExample = (args) => {
         <Button
           disabled={state.activeStepIndex === 0}
           variant="secondary"
-          onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
+          onClick={() => {
+            if (state.showErrorSummary) {
+              // focus to error summary label
+              errorRef.current.children[0].children[0].focus();
+            }
+            dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 });
+          }}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconLeft={<IconArrowLeft />}
         >
           Previous
         </Button>
         <Button
-          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
+          onClick={() => {
+            if (state.showErrorSummary) {
+              // focus to error summary label
+              errorRef.current.children[0].children[0].focus();
+            }
+            dispatch({ type: 'completeStep', payload: state.activeStepIndex });
+          }}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconRight={<IconArrowRight />}
         >
