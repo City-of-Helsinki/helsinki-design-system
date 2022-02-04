@@ -260,7 +260,12 @@ export const Stepper = ({
               stepsTotal={stepsTotal}
               selected={selectedStep === index}
               state={step.state}
-              onStepClick={(event, stepIndex) => onStepClick(event, stepIndex)}
+              onStepClick={(event, stepIndex) => {
+                if (stepIndex === selectedStep && stepHeading) {
+                  stepHeadingRef.current.focus();
+                }
+                onStepClick(event, stepIndex);
+              }}
               renderCustomStepCountLabel={renderCustomStepCountLabel}
               renderCustomStateAriaLabel={renderCustomStateAriaLabel}
               dataTestId={`${dataTestId}-step-${index}`}
