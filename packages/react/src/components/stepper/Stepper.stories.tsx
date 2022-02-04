@@ -510,8 +510,8 @@ export const SimpleFormExample = (args) => {
 
   const weAreInLastAvailableStep = (state) => {
     let indexOfLastNonDisabledStep = 0;
-    state.states.forEach((st, index) => {
-      if (st !== StepState.disabled && index > indexOfLastNonDisabledStep) {
+    state.steps.forEach((step, index) => {
+      if (step.state !== StepState.disabled && index > indexOfLastNonDisabledStep) {
         indexOfLastNonDisabledStep = index;
       }
     });
