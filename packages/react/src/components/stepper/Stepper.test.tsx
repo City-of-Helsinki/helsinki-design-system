@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { Stepper } from './Stepper';
-import { State } from './Step';
+import { StepState } from './Step';
 
 describe('<Stepper /> spec', () => {
   let state;
@@ -15,23 +15,23 @@ describe('<Stepper /> spec', () => {
       activeStepIndex: 0,
       steps: [
         {
-          state: State.available,
+          state: StepState.available,
           label: 'Step 1',
         },
         {
-          state: State.disabled,
+          state: StepState.disabled,
           label: 'Step 2',
         },
         {
-          state: State.disabled,
+          state: StepState.disabled,
           label: 'Step 3',
         },
         {
-          state: State.disabled,
+          state: StepState.disabled,
           label: 'Step 4 - longer text',
         },
         {
-          state: State.disabled,
+          state: StepState.disabled,
           label: 'Step 5',
         },
       ],
@@ -54,23 +54,23 @@ describe('<Stepper /> spec', () => {
       <Stepper
         steps={[
           {
-            state: State.available,
+            state: StepState.available,
             label: 'Step 1',
           },
           {
-            state: State.available,
+            state: StepState.available,
             label: 'Step 2',
           },
           {
-            state: State.disabled,
+            state: StepState.disabled,
             label: 'Step 3',
           },
           {
-            state: State.disabled,
+            state: StepState.disabled,
             label: 'Step 4 - longer text',
           },
           {
-            state: State.disabled,
+            state: StepState.disabled,
             label: 'Step 5',
           },
         ]}
