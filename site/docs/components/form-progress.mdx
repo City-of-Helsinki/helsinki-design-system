@@ -1,16 +1,16 @@
 ---
-name: Form progress 
+name: Form stepper 
 menu: Components
-route: /components/form-progress
+route: /components/form-stepper
 ---
 
 import { Playground } from "docz";
-import { StatusLabel, Notification } from "hds-react";
-
+import { StatusLabel, Notification, Stepper, Button } from "hds-react";
+import { IconArrowLeft, IconArrowRight } from "hds-react";
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Link from "../../src/components/Link";
 
-# Form progress
+# Form stepper
 
 <StatusLabel type="alert">Draft</StatusLabel>
 <StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
@@ -20,20 +20,123 @@ import Link from "../../src/components/Link";
 </LargeParagraph>
 
 <Notification label="Note about multi-page forms!" className="siteNotification">
-  This documentation page is about HDS multi-page progress component. If you are looking for documentation about building multi-page forms, please refer to <a href="/patterns/form-multi-page">HDS multi-page form pattern documentation page</a>.
+  This documentation page is about HDS multi-page stepper component. If you are looking for documentation about building multi-page forms, please refer to <a href="/patterns/form-multi-page">HDS multi-page form pattern documentation page</a>.
 </Notification>
 
 ## Principles
 - Each form step must be given a clear and descriptive label.
   - The label is required even if it is visually hidden on smaller screen sizes.
 - It is recommended that the form steps must be filled in order.
+  - This means that steps are disabled until their previous step is completed successfully.
+- Avoid using a stepper in short forms. One step should have at least three (3) form components inside it.
+- Use [small variant](#small) on small screens or spaces.
+  - You can use the default variant on small screens if the amount of steps is small (2-4 steps).
+- Do not span the stepper into multiple rows. If you are running out of space, consider using [the small variant](#small) or alter the spacing between steps.
+  - HDS stepper also supports scrolling when it overflows outside the container. Generally, this should be the last resort option if it is not possible to fit the stepper on screen with other methods.
+- You can find an example of creating a complete form with the stepper in <Link href="https://city-of-helsinki.github.io/hds-demo/stepper/?path=/docs/components-stepper--simple-form-example#simple-form-example">the HDS React Storybook</Link>.
 
 ## Accessibility
-- TODO
+- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
+- Note that the step label is a mandatory property. This label will be set as the `aria-label` of the step.
+  - This label will also be in the step heading element below the stepper.
+- Each form step should have a heading element of the correct level. It is recommended to use `stepHeading` property to render the heading automatically.
+  - If you render the step heading separately, make sure the focus is moved to that heading when the user is moving between steps. This has been taken care for you if you use the `stepHeading` variant.
+  - You can control the aria level of the heading with the `stepHeadingAriaLevel` property.
 
 ## Usage & variations
 
-### Form progress
+### Default
+TODO
+
+<Playground>
+<div
+  style={{
+    maxWidth: '700px'
+  }}
+>
+  <div>
+    <Stepper
+      className="stepper-margin"
+      language="en"
+      onStepClick={function noRefCheck(){}}
+      selectedStep={0}
+      steps={[
+        {
+          label: 'Step 1',
+          state: 0
+        },
+        {
+          label: 'Step 2',
+          state: 2
+        },
+        {
+          label: 'Step 3',
+          state: 2
+        },
+        {
+          label: 'Step 4 - longer text',
+          state: 2
+        },
+        {
+          label: 'Step 5',
+          state: 2
+        }
+      ]}
+    />
+    <div
+      style={{
+        alignItems: 'flex-end',
+        display: 'flex',
+        gap: '24px',
+        height: '300px',
+        justifyContent: 'flex-start'
+      }}
+    >
+      <Button
+        disabled
+        iconLeft={<IconArrowLeft />}
+        onClick={function noRefCheck(){}}
+        style={{
+          height: 'fit-content',
+          width: 'fit-content'
+        }}
+        variant="secondary"
+      >
+        Previous
+      </Button>
+      <Button
+        iconRight={<IconArrowRight />}
+        onClick={function noRefCheck(){}}
+        style={{
+          height: 'fit-content',
+          width: 'fit-content'
+        }}
+      >
+        Next
+      </Button>
+    </div>
+  </div>
+</div>
+</Playground>
+
+#### React code example:
+```tsx
+
+```
+
+### Small
+TODO
+
+<Playground>
+
+</Playground>
+
+#### React code example:
+```tsx
+
+```
+
+### Overflow
 TODO
 
 <Playground>
