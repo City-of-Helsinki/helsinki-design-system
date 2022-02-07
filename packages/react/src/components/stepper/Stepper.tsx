@@ -140,6 +140,7 @@ export const Stepper = ({
   theme,
 }: StepperProps) => {
   const stepsTotal = steps.length;
+  const initialRender = useRef(true);
   const stepHeadingRef = useRef(null);
   const stepperRef = useRef(null);
   const stepRefs = useRef([]);
@@ -156,11 +157,15 @@ export const Stepper = ({
   }
 
   useEffect(() => {
-    if (stepHeadingRef.current) {
-      stepHeadingRef.current.focus();
+    if (!initialRender.current) {
+      if (stepHeadingRef.current) {
+        stepHeadingRef.current.focus();
+      }
+
+      stepRefs.current[selectedStep].current.scrollIntoView({ behavior: 'smooth', inline: 'center' });
     }
 
-    stepRefs.current[selectedStep].current.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+    initialRender.current = false;
 
     if (stepperRef.current.scrollLeft > 5) {
       setShowPreviousButton(true);
