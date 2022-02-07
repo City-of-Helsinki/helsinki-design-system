@@ -3,7 +3,7 @@ import React, { createRef, useEffect, useRef, useState } from 'react';
 // import core base styles
 import 'hds-core';
 import styles from './Stepper.module.scss';
-import { State, Step } from './Step';
+import { StepState, Step } from './Step';
 import classNames from '../../utils/classNames';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
 import { useTheme } from '../../hooks/useTheme';
@@ -49,7 +49,7 @@ type Steps = {
   /**
    * The state of the step
    */
-  state: State;
+  state: StepState;
   /**
    * The label of the step
    */
@@ -80,7 +80,7 @@ export type StepperProps = {
   /**
    * A function for rendering a custom aria label for step's state
    */
-  renderCustomStateAriaLabel?: (stepIndex: number, state: State) => string;
+  renderCustomStateAriaLabel?: (stepIndex: number, state: StepState) => string;
   /**
    * A function for rendering a custom step count label
    */
@@ -243,7 +243,7 @@ export const Stepper = ({
               <div
                 key={`${step.label}-${index}`} // eslint-disable-line react/no-array-index-key
                 style={{ width: `calc( 100% / ${stepsTotal - 1})` }}
-                className={steps[index + 1].state === State.disabled ? styles.disabledLine : styles.enabledLine}
+                className={steps[index + 1].state === StepState.disabled ? styles.disabledLine : styles.enabledLine}
               />
             );
           })}
