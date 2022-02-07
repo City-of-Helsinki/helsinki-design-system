@@ -2,7 +2,7 @@ import React, { useReducer, useRef } from 'react';
 
 import { Stepper } from './Stepper';
 import styles from './Stepper.module.scss';
-import { Step, State as StepState } from './Step';
+import { Step, StepState } from './Step';
 import { Button } from '../button';
 import { IconArrowLeft, IconArrowRight } from '../../icons';
 import { TextInput } from '../textInput';
@@ -148,6 +148,12 @@ export const Default = (args) => {
       </div>
     </div>
   );
+};
+
+Default.parameters = {
+  docs: {
+    source: { type: 'dynamic' },
+  },
 };
 
 // args is required for docs tab to show source code

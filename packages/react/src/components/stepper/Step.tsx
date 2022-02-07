@@ -6,7 +6,7 @@ import 'hds-core';
 import styles from './Stepper.module.scss';
 import classNames from '../../utils/classNames';
 
-export enum State {
+export enum StepState {
   available,
   completed,
   disabled,
@@ -38,7 +38,7 @@ export type StepProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
    * A function for rendering a custom aria label for step's state
    */
-  renderCustomStateAriaLabel?: (stepIndex: number, state: State) => string;
+  renderCustomStateAriaLabel?: (stepIndex: number, state: StepState) => string;
   /**
    * A function for rendering a custom step count label
    */
@@ -54,7 +54,7 @@ export type StepProps = React.ComponentPropsWithoutRef<'button'> & {
   /**
    * The state of the step
    */
-  state: State;
+  state: StepState;
   /**
    * The total number of steps
    */
@@ -95,11 +95,11 @@ const states = {
 };
 
 const getStepState = (language: Language, state: StepProps['state']) => {
-  if (state === State.disabled) {
+  if (state === StepState.disabled) {
     // Button has disabled attribute, which is enough for a11y
     return '';
   }
-  return states[State[state]][language];
+  return states[StepState[state]][language];
 };
 
 export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
@@ -129,7 +129,7 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
         ? renderCustomStateAriaLabel(index, state)
         : getStepState(language, state);
 
-      if (selected && state === State.available) {
+      if (selected && state === StepState.available) {
         stateAriaLabel = '';
       }
 
@@ -147,8 +147,12 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
         <button
           ref={ref}
           type="button"
-          disabled={state === State.disabled}
-          className={classNames(styles.step, selected && styles.selected, state === State.disabled && styles.disabled)}
+          disabled={state === StepState.disabled}
+          className={classNames(
+            styles.step,
+            selected && styles.selected,
+            state === StepState.disabled && styles.disabled,
+          )}
           aria-current={selected ? 'step' : false}
           aria-label={composeAriaLabel()}
           onClick={(e) => onStepClick && onStepClick(e, index)}
@@ -156,17 +160,17 @@ export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
           {...rest}
         >
           <div className={styles.circleContainer}>
-            {state === State.completed && !selected ? (
+            {state === StepState.completed && !selected ? (
               <div className={styles.completedContainer}>
                 <IconCheck className={styles.completedIcon} aria-hidden />
               </div>
             ) : (
               <div className={classNames(styles.circle)}>
-                {state === State.attention && <IconError size="xs" aria-hidden />}
-                {state === State.paused && <IconPlaybackPause size="xs" aria-hidden />}
-                {(state === State.available || state === State.disabled || (state === State.completed && selected)) && (
-                  <span className={styles.number}>{index + 1}</span>
-                )}
+                {state === StepState.attention && <IconError size="xs" aria-hidden />}
+                {state === StepState.paused && <IconPlaybackPause size="xs" aria-hidden />}
+                {(state === StepState.available ||
+                  state === StepState.disabled ||
+                  (state === StepState.completed && selected)) && <span className={styles.number}>{index + 1}</span>}
               </div>
             )}
           </div>
