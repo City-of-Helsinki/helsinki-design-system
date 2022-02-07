@@ -4,8 +4,10 @@ menu: Components
 route: /components/form-stepper
 ---
 
+import { useReducer } from 'react';
 import { Playground } from "docz";
 import { StatusLabel, Notification, Stepper, Button } from "hds-react";
+import { StepState } from "hds-react";
 import { IconArrowLeft, IconArrowRight } from "hds-react";
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Link from "../../src/components/Link";
@@ -49,74 +51,114 @@ import Link from "../../src/components/Link";
 TODO
 
 <Playground>
-<div
-  style={{
-    maxWidth: '700px'
-  }}
->
-  <div>
-    <Stepper
-      className="stepper-margin"
-      language="en"
-      onStepClick={function noRefCheck(){}}
-      selectedStep={0}
-      steps={[
-        {
-          label: 'Step 1',
-          state: 0
-        },
-        {
-          label: 'Step 2',
-          state: 2
-        },
-        {
-          label: 'Step 3',
-          state: 2
-        },
-        {
-          label: 'Step 4 - longer text',
-          state: 2
-        },
-        {
-          label: 'Step 5',
-          state: 2
-        }
-      ]}
-    />
-    <div
-      style={{
-        alignItems: 'flex-end',
-        display: 'flex',
-        gap: '24px',
-        height: '300px',
-        justifyContent: 'flex-start'
-      }}
-    >
-      <Button
-        disabled
-        iconLeft={<IconArrowLeft />}
-        onClick={function noRefCheck(){}}
+{() => {
+  const commonReducer = (stepsTotal) => (state, action) => {
+    switch (action.type) {
+      case 'completeStep': {
+        const activeStepIndex = action.payload === stepsTotal - 1 ? stepsTotal - 1 : action.payload + 1;
+        return {
+          activeStepIndex,
+          steps: state.steps.map((step, index) => {
+            if (index === action.payload && index !== stepsTotal - 1) {
+              // current one but not last one
+              return {
+                state: StepState.completed,
+                label: step.label,
+              };
+            }
+            if (index === action.payload + 1) {
+              // next one
+              return {
+                state: StepState.available,
+                label: step.label,
+              };
+            }
+            return step;
+          }),
+        };
+      }
+      case 'setActive': {
+        return {
+          activeStepIndex: action.payload,
+          steps: state.steps.map((step, index) => {
+            if (index === action.payload) {
+              return {
+                state: StepState.available,
+                label: step.label,
+              };
+            }
+            return step;
+          }),
+        };
+      }
+      default:
+        throw new Error();
+    }
+  };
+  const reducer = commonReducer(5);
+  const initialState = {
+    activeStepIndex: 0,
+    steps: [
+      {
+        label: 'Step 1',
+        state: StepState.available,
+      },
+      {
+        label: 'Step 2',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 3',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 4 - longer text',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 5',
+        state: StepState.disabled,
+      },
+    ],
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <div>
+      <Stepper
+        className="stepper-margin"
+        steps={state.steps}
+        language="en"
+        selectedStep={state.activeStepIndex}
+        onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
+      />
+      <div
         style={{
-          height: 'fit-content',
-          width: 'fit-content'
-        }}
-        variant="secondary"
-      >
-        Previous
-      </Button>
-      <Button
-        iconRight={<IconArrowRight />}
-        onClick={function noRefCheck(){}}
-        style={{
-          height: 'fit-content',
-          width: 'fit-content'
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-end',
+          gap: '24px',
         }}
       >
-        Next
-      </Button>
+        <Button
+          disabled={state.activeStepIndex === 0}
+          variant="secondary"
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconLeft={<IconArrowLeft />}
+        >
+          Previous
+        </Button>
+        <Button
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconRight={<IconArrowRight />}
+        >
+          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+        </Button>
+      </div>
     </div>
-  </div>
-</div>
+  );
+}}
 </Playground>
 
 #### React code example:
@@ -128,7 +170,120 @@ TODO
 TODO
 
 <Playground>
-
+{() => {
+  const commonReducer = (stepsTotal) => (state, action) => {
+    switch (action.type) {
+      case 'completeStep': {
+        const activeStepIndex = action.payload === stepsTotal - 1 ? stepsTotal - 1 : action.payload + 1;
+        return {
+          activeStepIndex,
+          steps: state.steps.map((step, index) => {
+            if (index === action.payload && index !== stepsTotal - 1) {
+              // current one but not last one
+              return {
+                state: StepState.completed,
+                label: step.label,
+              };
+            }
+            if (index === action.payload + 1) {
+              // next one
+              return {
+                state: StepState.available,
+                label: step.label,
+              };
+            }
+            return step;
+          }),
+        };
+      }
+      case 'setActive': {
+        return {
+          activeStepIndex: action.payload,
+          steps: state.steps.map((step, index) => {
+            if (index === action.payload) {
+              return {
+                state: StepState.available,
+                label: step.label,
+              };
+            }
+            return step;
+          }),
+        };
+      }
+      default:
+        throw new Error();
+    }
+  };
+  const reducer = commonReducer(5);
+  const initialState = {
+    activeStepIndex: 0,
+    steps: [
+      {
+        label: 'Step 1',
+        state: StepState.available,
+      },
+      {
+        label: 'Step 2',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 3',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 4 - longer text',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 5',
+        state: StepState.disabled,
+      },
+    ],
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <div 
+      style={{
+        maxWidth: '480px'
+      }}
+    >
+      <Stepper
+        className="stepper-margin"
+        steps={state.steps}
+        language="en"
+        small
+        selectedStep={state.activeStepIndex}
+        onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
+      />
+      <div
+        style={{
+          height: '80px',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-end',
+          gap: '24px',
+        }}
+      >
+        <Button
+          disabled={state.activeStepIndex === 0}
+          variant="secondary"
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconLeft={<IconArrowLeft />}
+        >
+          Previous
+        </Button>
+        <Button
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconRight={<IconArrowRight />}
+        >
+          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+        </Button>
+      </div>
+    </div>
+  );
+}}
 </Playground>
 
 #### React code example:
@@ -140,7 +295,165 @@ TODO
 TODO
 
 <Playground>
+{() => {
+  const commonReducer = (stepsTotal) => (state, action) => {
+    switch (action.type) {
+      case 'completeStep': {
+        const activeStepIndex = action.payload === stepsTotal - 1 ? stepsTotal - 1 : action.payload + 1;
+        return {
+          activeStepIndex,
+          steps: state.steps.map((step, index) => {
+            if (index === action.payload && index !== stepsTotal - 1) {
+              // current one but not last one
+              return {
+                state: StepState.completed,
+                label: step.label,
+              };
+            }
+            if (index === action.payload + 1) {
+              // next one
+              return {
+                state: StepState.available,
+                label: step.label,
+              };
+            }
+            return step;
+          }),
+        };
+      }
+      case 'setActive': {
+        return {
+          activeStepIndex: action.payload,
+          steps: state.steps.map((step, index) => {
+            if (index === action.payload) {
+              return {
+                state: StepState.available,
+                label: step.label,
+              };
+            }
+            return step;
+          }),
+        };
+      }
+      default:
+        throw new Error();
+    }
+  };
+  const reducer = commonReducer(5);
+  const initialState = {
+    activeStepIndex: 0,
+    steps: [
+      {
+        label: 'Step 1',
+        state: StepState.available,
+      },
+      {
+        label: 'Step 2',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 3',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 4 - longer text',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 5',
+        state: StepState.disabled,
+      },
+    ],
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <div 
+      style={{
+        maxWidth: '400px'
+      }}
+    >
+      <Stepper
+        className="stepper-margin"
+        steps={state.steps}
+        language="en"
+        selectedStep={state.activeStepIndex}
+        onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
+      />
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-end',
+          gap: '24px',
+        }}
+      >
+        <Button
+          disabled={state.activeStepIndex === 0}
+          variant="secondary"
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconLeft={<IconArrowLeft />}
+        >
+          Previous
+        </Button>
+        <Button
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconRight={<IconArrowRight />}
+        >
+          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+        </Button>
+      </div>
+    </div>
+  );
+}}
+</Playground>
 
+#### React code example:
+```tsx
+
+```
+
+### Step states
+TODO
+
+<Playground>
+<div>
+  <div>
+    <Stepper
+      className="stepper-margin"
+      language="en"
+      onStepClick={function noRefCheck(){}}
+      selectedStep={1}
+      steps={[
+        {
+          label: 'Completed',
+          state: StepState.completed
+        },
+        {
+          label: 'Current',
+          state: StepState.available
+        },
+        {
+          label: 'Available',
+          state: StepState.available
+        },
+        {
+          label: 'Needs attention',
+          state: StepState.attention
+        },
+        {
+          label: 'Paused',
+          state: StepState.paused
+        },
+        {
+          label: 'Disabled',
+          state: StepState.disabled
+        }
+      ]}
+    />
+  </div>
+</div>
 </Playground>
 
 #### React code example:
