@@ -1,0 +1,13 @@
+{
+  "box-shadow": {
+    "s": {
+      "value": "0px 2px 10px 0px rgba(0, 0, 0, 0.07)"
+    },
+    "m": {
+      "value": "0px 2px 10px 0px rgba(0, 0, 0, 0.1)"
+    },
+    "l": {
+      "value": "0px 2px 20px 0px rgba(0, 0, 0, 0.2)"
+    }
+  }
+}
