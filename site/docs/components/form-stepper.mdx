@@ -42,7 +42,7 @@ import Link from "../../src/components/Link";
 - Note that the step label is a mandatory property. This label will be set as the `aria-label` of the step.
   - This label will also be in the step heading element below the stepper.
 - Each form step should have a heading element of the correct level. It is recommended to use `stepHeading` property to render the heading automatically.
-  - If you render the step heading separately, make sure the focus is moved to that heading when the user is moving between steps. This has been taken care for you if you use the `stepHeading` variant.
+  - If you render the step heading separately, make sure the focus is moved to that heading when the user is moving between steps. This has been taken care of for you if you use the `stepHeading` variant.
   - You can control the aria level of the heading with the `stepHeadingAriaLevel` property.
 
 ## Usage & variations
@@ -396,50 +396,7 @@ The small stepper variant omits the visible step labels. This variant of the ste
 #### React code example:
 ```tsx
 {() => {
-  const commonReducer = (stepsTotal) => (state, action) => {
-    switch (action.type) {
-      case 'completeStep': {
-        const activeStepIndex = action.payload === stepsTotal - 1 ? stepsTotal - 1 : action.payload + 1;
-        return {
-          activeStepIndex,
-          steps: state.steps.map((step, index) => {
-            if (index === action.payload && index !== stepsTotal - 1) {
-              // current one but not last one
-              return {
-                state: StepState.completed,
-                label: step.label,
-              };
-            }
-            if (index === action.payload + 1) {
-              // next one
-              return {
-                state: StepState.available,
-                label: step.label,
-              };
-            }
-            return step;
-          }),
-        };
-      }
-      case 'setActive': {
-        return {
-          activeStepIndex: action.payload,
-          steps: state.steps.map((step, index) => {
-            if (index === action.payload) {
-              return {
-                state: StepState.available,
-                label: step.label,
-              };
-            }
-            return step;
-          }),
-        };
-      }
-      default:
-        throw new Error();
-    }
-  };
-  const reducer = commonReducer(5);
+  // Check the commonReducer implementation in the Default variant example
   const initialState = {
     activeStepIndex: 0,
     steps: [
@@ -512,7 +469,9 @@ The small stepper variant omits the visible step labels. This variant of the ste
 ```
 
 ### With step heading
-The default stepper variant includes visible step labels. The stepper can be navigated by pressing the steps themselves or controlled via external button elements.
+The stepper can automatically render the step heading if the property `stepHeading` is enabled. The step heading will include the current step number, the total amount of steps, and the step label. 
+
+You can control the heading level of the generated step heading via the `stepHeadingAriaLevel` property. The heading is automatically localised if you change the component language with the `language` property.
 
 <Playground>
 {() => {
@@ -631,49 +590,7 @@ The default stepper variant includes visible step labels. The stepper can be nav
 #### React code example:
 ```tsx
 {() => {
-  const commonReducer = (stepsTotal) => (state, action) => {
-    switch (action.type) {
-      case 'completeStep': {
-        const activeStepIndex = action.payload === stepsTotal - 1 ? stepsTotal - 1 : action.payload + 1;
-        return {
-          activeStepIndex,
-          steps: state.steps.map((step, index) => {
-            if (index === action.payload && index !== stepsTotal - 1) {
-              // current one but not last one
-              return {
-                state: StepState.completed,
-                label: step.label,
-              };
-            }
-            if (index === action.payload + 1) {
-              // next one
-              return {
-                state: StepState.available,
-                label: step.label,
-              };
-            }
-            return step;
-          }),
-        };
-      }
-      case 'setActive': {
-        return {
-          activeStepIndex: action.payload,
-          steps: state.steps.map((step, index) => {
-            if (index === action.payload) {
-              return {
-                state: StepState.available,
-                label: step.label,
-              };
-            }
-            return step;
-          }),
-        };
-      }
-      default:
-        throw new Error();
-    }
-  };
+  // Check the commonReducer implementation in the Default variant example
   const reducer = commonReducer(5);
   const initialState = {
     activeStepIndex: 0,
@@ -865,49 +782,7 @@ This variant should only be the last resort option if it is not possible to fit 
 #### React code example:
 ```tsx
 {() => {
-  const commonReducer = (stepsTotal) => (state, action) => {
-    switch (action.type) {
-      case 'completeStep': {
-        const activeStepIndex = action.payload === stepsTotal - 1 ? stepsTotal - 1 : action.payload + 1;
-        return {
-          activeStepIndex,
-          steps: state.steps.map((step, index) => {
-            if (index === action.payload && index !== stepsTotal - 1) {
-              // current one but not last one
-              return {
-                state: StepState.completed,
-                label: step.label,
-              };
-            }
-            if (index === action.payload + 1) {
-              // next one
-              return {
-                state: StepState.available,
-                label: step.label,
-              };
-            }
-            return step;
-          }),
-        };
-      }
-      case 'setActive': {
-        return {
-          activeStepIndex: action.payload,
-          steps: state.steps.map((step, index) => {
-            if (index === action.payload) {
-              return {
-                state: StepState.available,
-                label: step.label,
-              };
-            }
-            return step;
-          }),
-        };
-      }
-      default:
-        throw new Error();
-    }
-  };
+  // Check the commonReducer implementation in the Default variant example
   const reducer = commonReducer(5);
   const initialState = {
     activeStepIndex: 0,
@@ -1073,6 +948,6 @@ _Not included in hds-core!_
 
 ### React
 
-[Form progress in hds-react](/storybook/react/?path=/story/components-accordion--default)
+[Form stepper in hds-react](/storybook/react/?path=/story/components-stepper--default)
 
-[Form progress API](/storybook/react/?path=/docs/components-accordion--default)
+[Form stepper API](/storybook/react/?path=/docs/components-stepper--default)
