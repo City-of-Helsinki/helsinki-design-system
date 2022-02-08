@@ -125,7 +125,7 @@ The default stepper variant includes visible step labels. The stepper can be nav
   return (
     <div>
       <Stepper
-        className="stepper-margin"
+        className="stepper-default"
         steps={state.steps}
         language="en"
         selectedStep={state.activeStepIndex}
@@ -237,7 +237,7 @@ The default stepper variant includes visible step labels. The stepper can be nav
   return (
     <div>
       <Stepper
-        className="stepper-margin"
+        className="stepper-default"
         steps={state.steps}
         language="en"
         selectedStep={state.activeStepIndex}
@@ -355,7 +355,7 @@ The small stepper variant omits the visible step labels. This variant of the ste
       }}
     >
       <Stepper
-        className="stepper-margin"
+        className="stepper-small"
         steps={state.steps}
         language="en"
         small
@@ -473,10 +473,241 @@ The small stepper variant omits the visible step labels. This variant of the ste
       }}
     >
       <Stepper
-        className="stepper-margin"
+        className="stepper-small"
         steps={state.steps}
         language="en"
         small
+        selectedStep={state.activeStepIndex}
+        onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
+      />
+      <div
+        style={{
+          height: '80px',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-end',
+          gap: '24px',
+        }}
+      >
+        <Button
+          disabled={state.activeStepIndex === 0}
+          variant="secondary"
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconLeft={<IconArrowLeft />}
+        >
+          Previous
+        </Button>
+        <Button
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconRight={<IconArrowRight />}
+        >
+          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+        </Button>
+      </div>
+    </div>
+  );
+}}
+```
+
+### With step heading
+The default stepper variant includes visible step labels. The stepper can be navigated by pressing the steps themselves or controlled via external button elements.
+
+<Playground>
+{() => {
+  const commonReducer = (stepsTotal) => (state, action) => {
+    switch (action.type) {
+      case 'completeStep': {
+        const activeStepIndex = action.payload === stepsTotal - 1 ? stepsTotal - 1 : action.payload + 1;
+        return {
+          activeStepIndex,
+          steps: state.steps.map((step, index) => {
+            if (index === action.payload && index !== stepsTotal - 1) {
+              // current one but not last one
+              return {
+                state: StepState.completed,
+                label: step.label,
+              };
+            }
+            if (index === action.payload + 1) {
+              // next one
+              return {
+                state: StepState.available,
+                label: step.label,
+              };
+            }
+            return step;
+          }),
+        };
+      }
+      case 'setActive': {
+        return {
+          activeStepIndex: action.payload,
+          steps: state.steps.map((step, index) => {
+            if (index === action.payload) {
+              return {
+                state: StepState.available,
+                label: step.label,
+              };
+            }
+            return step;
+          }),
+        };
+      }
+      default:
+        throw new Error();
+    }
+  };
+  const reducer = commonReducer(5);
+  const initialState = {
+    activeStepIndex: 0,
+    steps: [
+      {
+        label: 'Step 1',
+        state: StepState.available,
+      },
+      {
+        label: 'Step 2',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 3',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 4 - longer text',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 5',
+        state: StepState.disabled,
+      },
+    ],
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <div>
+      <Stepper
+        className="stepper-with-heading"
+        headingClassName="stepper-heading"
+        steps={state.steps}
+        language="en"
+        stepHeading
+        selectedStep={state.activeStepIndex}
+        onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
+      />
+      <div
+        style={{
+          height: '80px',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-end',
+          gap: '24px',
+        }}
+      >
+        <Button
+          disabled={state.activeStepIndex === 0}
+          variant="secondary"
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconLeft={<IconArrowLeft />}
+        >
+          Previous
+        </Button>
+        <Button
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconRight={<IconArrowRight />}
+        >
+          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+        </Button>
+      </div>
+    </div>
+  );
+}}
+</Playground>
+
+#### React code example:
+```tsx
+{() => {
+  const commonReducer = (stepsTotal) => (state, action) => {
+    switch (action.type) {
+      case 'completeStep': {
+        const activeStepIndex = action.payload === stepsTotal - 1 ? stepsTotal - 1 : action.payload + 1;
+        return {
+          activeStepIndex,
+          steps: state.steps.map((step, index) => {
+            if (index === action.payload && index !== stepsTotal - 1) {
+              // current one but not last one
+              return {
+                state: StepState.completed,
+                label: step.label,
+              };
+            }
+            if (index === action.payload + 1) {
+              // next one
+              return {
+                state: StepState.available,
+                label: step.label,
+              };
+            }
+            return step;
+          }),
+        };
+      }
+      case 'setActive': {
+        return {
+          activeStepIndex: action.payload,
+          steps: state.steps.map((step, index) => {
+            if (index === action.payload) {
+              return {
+                state: StepState.available,
+                label: step.label,
+              };
+            }
+            return step;
+          }),
+        };
+      }
+      default:
+        throw new Error();
+    }
+  };
+  const reducer = commonReducer(5);
+  const initialState = {
+    activeStepIndex: 0,
+    steps: [
+      {
+        label: 'Step 1',
+        state: StepState.available,
+      },
+      {
+        label: 'Step 2',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 3',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 4 - longer text',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 5',
+        state: StepState.disabled,
+      },
+    ],
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <div>
+      <Stepper
+        className="stepper-with-heading"
+        headingClassName="stepper-heading"
+        steps={state.steps}
+        language="en"
         selectedStep={state.activeStepIndex}
         onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
       />
@@ -595,7 +826,7 @@ This variant should only be the last resort option if it is not possible to fit 
       }}
     >
       <Stepper
-        className="stepper-margin"
+        className="stepper-overflow"
         steps={state.steps}
         language="en"
         selectedStep={state.activeStepIndex}
@@ -711,7 +942,7 @@ This variant should only be the last resort option if it is not possible to fit 
       }}
     >
       <Stepper
-        className="stepper-margin"
+        className="stepper-overflow"
         steps={state.steps}
         language="en"
         selectedStep={state.activeStepIndex}
@@ -759,7 +990,7 @@ The HDS stepper offers multiple predefined states for steps to be used.
 <div>
   <div>
     <Stepper
-      className="stepper-margin"
+      className="stepper-states-example"
       language="en"
       onStepClick={function noRefCheck(){}}
       selectedStep={1}
@@ -799,7 +1030,7 @@ The HDS stepper offers multiple predefined states for steps to be used.
 <div>
   <div>
     <Stepper
-      className="stepper-margin"
+      className="stepper-states-example"
       language="en"
       onStepClick={function noRefCheck(){}}
       selectedStep={1}
