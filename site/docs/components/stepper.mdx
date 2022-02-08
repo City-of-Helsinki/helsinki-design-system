@@ -1,7 +1,7 @@
 ---
-name: Form stepper 
+name: Stepper 
 menu: Components
-route: /components/form-stepper
+route: /components/stepper
 ---
 
 import { useReducer } from 'react';
@@ -12,7 +12,7 @@ import { IconArrowLeft, IconArrowRight } from "hds-react";
 import LargeParagraph from "../../src/components/LargeParagraph";
 import Link from "../../src/components/Link";
 
-# Form stepper
+# Stepper
 
 <StatusLabel type="alert">Draft</StatusLabel>
 <StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
@@ -35,7 +35,7 @@ import Link from "../../src/components/Link";
   - You can use the default variant on small screens if the amount of steps is small (2-4 steps).
 - Do not span the stepper into multiple rows. If you are running out of space, consider using [the small variant](#small) or alter the spacing between steps.
   - HDS stepper also supports scrolling when it overflows outside the container. Generally, this should be the last resort option if it is not possible to fit the stepper on screen with other methods.
-- You can find an example of creating a complete form with the stepper in <Link href="https://city-of-helsinki.github.io/hds-demo/stepper/?path=/docs/components-stepper--simple-form-example#simple-form-example">the HDS React Storybook</Link>.
+- You can find an example of creating a complete form with the stepper in <Link href="/storybook/react/?path=/docs/components-stepper--simple-form-example#simple-form-example">the HDS React Storybook</Link>.
 
 ## Accessibility
 - **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
@@ -948,6 +948,6 @@ _Not included in hds-core!_
 
 ### React
 
-[Form stepper in hds-react](/storybook/react/?path=/story/components-stepper--default)
+[Stepper in hds-react](/storybook/react/?path=/story/components-stepper--default)
 
-[Form stepper API](/storybook/react/?path=/docs/components-stepper--default)
+[Stepper API](/storybook/react/?path=/docs/components-stepper--default)
