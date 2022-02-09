@@ -351,9 +351,10 @@ export const VerticalHeaderAndLines = () => `
   </div>
 `;
 
-export const CustomHeaderBackgroundColorForDarkVariant = () => `
+export const CustomBackgroundColorsForDarkVariant = () => `
   <style type="text/css">
     .custom-background-color-1 {
+      --table-background-color: var(--color-black-5);
       --background-color: var(--color-tram);
     }
   </style>
@@ -378,9 +379,10 @@ export const CustomHeaderBackgroundColorForDarkVariant = () => `
    </div>
 `;
 
-export const CustomHeaderBackgroundColorForLightVariant = () => `
+export const CustomBackgroundColorsForLightVariant = () => `
   <style type="text/css">
     .custom-background-color-2 {
+      --table-background-color: var(--color-black-5);
       --background-color: var(--color-suomenlinna);
     }
   </style>
