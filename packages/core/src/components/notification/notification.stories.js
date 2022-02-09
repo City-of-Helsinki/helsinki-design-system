@@ -125,6 +125,17 @@ export const Large = () =>
     )
     .join('');
 
+export const WithBoxShadow = () => `
+    <section aria-label="Notification" class="hds-notification hds-notification--box-shadow">
+      <div class="hds-notification__content">
+        ${getLabel()}
+        ${text}
+      </div>
+    </section>
+`;
+
+WithBoxShadow.storyName = 'With box shadow';
+
 export const Invisible = () => `
     <div class="hiddenFromScreen" aria-atomic="true" aria-live="assertive" role="status">
       <section aria-label="Notification" class="hds-notification">
