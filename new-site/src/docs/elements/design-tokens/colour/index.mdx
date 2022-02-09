@@ -1,0 +1,37 @@
+---
+slug: '/elements/design-tokens/colour'
+title: 'Colour'
+---
+
+import { StatusLabel, Tabs } from 'hds-react';
+
+import LeadParagraph from '../../../../components/LeadParagraph';
+
+import Usage from './usage.mdx';
+import Accessibility from './accessibility.mdx';
+import Tokens from './tokens.mdx';
+
+# Colour
+
+<StatusLabel type="info">Stable</StatusLabel>
+
+<LeadParagraph>
+  Colour tokens store the colour variables for styling elements.
+</LeadParagraph>
+
+<Tabs>
+  <Tabs.TabList className="pageTabsList">
+    <Tabs.Tab>Usage</Tabs.Tab>
+    <Tabs.Tab>Accessibility</Tabs.Tab>
+    <Tabs.Tab>Tokens</Tabs.Tab>
+  </Tabs.TabList>
+  <Tabs.TabPanel>
+    <Usage />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Accessibility />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Tokens />
+  </Tabs.TabPanel>
+</Tabs>

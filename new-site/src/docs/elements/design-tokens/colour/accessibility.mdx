@@ -1,0 +1,78 @@
+---
+slug: '/elements/design-tokens/colour/usage'
+title: 'Colour tokens - Accessibility'
+---
+
+import { Link } from 'hds-react';
+import Playground from '../../../../components/Playground';
+
+## Accessibility
+
+### Things to note
+- When choosing and using colours, always check that sufficient colour contrast between the element and its background is maintained. All colour choices should comply with <Link size="M" href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>WCAG 2.1 Standard at AA Level contrast ratios</Link>. 
+- Do not rely solely on colour when communicating information to the user – especially crucial system information like error state, success state, or warnings. Also, convey the same information with another modality, e.g. with a text label or icon that clearly indicates its meaning.
+
+### Accessible colour combinations
+<p>Here you can find some recommended colour combinations for text and other informative elements. The examples are sorted in order of their contrast ratio. For more examples of accessible colour combinations, see the <Link size="M" href="https://share.goabstract.com/28352b8b-9c51-4346-b249-ff062c5da561" external>Colour accessibility examples - Abstract collection</Link>.</p>
+
+- **AA** (contrast ratio at least `4,5 : 1`) and **AAA** (contrast ratio at least `7 : 1`) means you can safely use the color combination on all text sizes
+- **AA for large text** (contrast ratio at least `3 : 1`) means the text size should be at least 18 pt for regular weight or 14 pt for bold weight
+- **Black 90** is the default text colour in HDS
+
+#### Brand colour combinations
+
+| Brand Colour      | Text Colour   | Colour contrast       | Example           |
+| ----------------- | ------------- | --------------------- | ----------------- |
+| **Engel**         | black 90      | **AAA** `14,3 : 1`    | <ColorContrast color="var(--color-black-90)" background="var(--color-engel)">AAA</ColorContrast> |
+| **Hopea**         | black 90      | **AAA** `13,1 : 1`    | <ColorContrast color="var(--color-black-90)" background="var(--color-silver)">AAA</ColorContrast> |
+| **Bussi**         | white         | **AAA** `12 : 1`      | <ColorContrast color="var(--color-white)" background="var(--color-bus)">AAA</ColorContrast> |
+| **Kesä**          | black 90      | **AAA** `11,1 : 1`    | <ColorContrast color="var(--color-black-90)" background="var(--color-summer)">AAA</ColorContrast> |
+| **Sumu**          | black 90      | **AAA** `10 : 1`      | <ColorContrast color="var(--color-black-90)" background="var(--color-fog)">AAA</ColorContrast> |
+| **Kupari**        | black 90      | **AAA** `9,4 : 1`     | <ColorContrast color="var(--color-black-90)" background="var(--color-copper)">AAA</ColorContrast> |
+| **Suomenlinna**   | black 90      | **AAA** `9,1 : 1`     | <ColorContrast color="var(--color-black-90)" background="var(--color-suomenlinna)">AAA</ColorContrast> |
+| **Kulta**         | black 90      | **AAA** `7,1 : 1`     | <ColorContrast color="var(--color-black-90)" background="var(--color-gold)">AAA</ColorContrast> |
+| **Tiili**         | white         | **AA** (AAA for large text) `6,1 : 1` | <ColorContrast color="var(--color-white)" background="var(--color-brick)">AA</ColorContrast> |
+| **Metro**         | black 90      | **AA** (AAA for large text) `5,2 : 1` | <ColorContrast color="var(--color-black-90)" background="var(--color-metro)">AA</ColorContrast> |
+| **Vaakuna**       | white         | **AA** (AAA for large text) `5 : 1`   | <ColorContrast color="var(--color-white)" background="var(--color-coat-of-arms)">AA</ColorContrast> | 
+| **Spåra**         | white         | **AA** (AAA for large text) `4,6 : 1` | <ColorContrast color="var(--color-white)" background="var(--color-tram)">AA</ColorContrast> | 
+
+**For text and other informative elements on white background** it is recommended to only use following brand colours:
+
+| Brand Colour  | Colour contrast   | Example           |
+| --------------| ----------------- | ----------------- |
+| **Bussi**     | **AAA** `12 : 1`| <p style="font-size: var(--fontsize-body-l); color:var(--color-bus); margin: var(--spacing-3-xs);">AAA</p> |
+| **Tiili**     | **AA** (AAA for large text) `6,1 : 1` | <p style="font-size: var(--fontsize-body-l); color: var(--color-brick); margin: var(--spacing-3-xs);">AA</p> |
+| **Vaakuna**   | **AA** (AAA for large text) `5 : 1`   | <p style="font-size: var(--fontsize-body-l); color: var(--color-coat-of-arms); margin: var(--spacing-3-xs);">AA</p> | 
+| **Spåra**     | **AA** (AAA for large text) `4,6 : 1`      | <p style="font-size: var(--fontsize-body-l); color: var(--color-tram); margin: var(--spacing-3-xs);">AA</p> | 
+| **Metro**     | <p style="margin:0; color: var(--color-black-60);">AA for large text `3,3 : 1`</p>  | <p style="font-size: var(--fontsize-body-l); color: var(--color-metro); margin: var(--spacing-3-xs);"><IconError/></p> |
+
+#### Grayscale combinations 
+
+| Brand Colour  | Text Colour   | Colour contrast   | As background     | As text on white  |
+| --------------| ------------- | ----------------- | ----------------- | ----------------- |
+| **Black**     | white         | **AAA** `21 : 1`      | <ColorContrast color="var(--color-white)" background="var(--color-black)">AAA</ColorContrast> | <p style="font-size: var(--fontsize-body-l); color:var(--color-black); margin: var(--spacing-3-xs);">AAA</p> |
+| **Black 90**  | white         | **AAA** `17,4 : 1`    | <ColorContrast color="var(--color-white)" background="var(--color-black-90)">AAA</ColorContrast> | <p style="font-size: var(--fontsize-body-l); color:var(--color-black-90); margin: var(--spacing-3-xs);">AAA</p> |
+| **Black 80**  | white         | **AAA** `12,6 : 1`    | <ColorContrast color="var(--color-white)" background="var(--color-black-80)">AAA</ColorContrast> | <p style="font-size: var(--fontsize-body-l); color:var(--color-black-80); margin: var(--spacing-3-xs);">AAA</p> |
+| **Black 70**  | white         | **AAA** `8,6 : 1`     | <ColorContrast color="var(--color-white)" background="var(--color-black-70)">AAA</ColorContrast> | <p style="font-size: var(--fontsize-body-l); color:var(--color-black-70); margin: var(--spacing-3-xs);">AAA</p> |
+| **Black 60**  | white         | **AA** (AAA for large text) `5,7 : 1`     | <ColorContrast color="var(--color-white)" background="var(--color-black-60)">AA</ColorContrast> | <p style="font-size: var(--fontsize-body-l); color:var(--color-black-60); margin: var(--spacing-3-xs);">AA</p> |
+| **Black 50**  | black 90      | <p style="margin:0; color: var(--color-black-60);">AA for large text `4,3 : 1`/`4 : 1`</p>    | <ColorContrast color="var(--color-black-90)" background="var(--color-black-50)"><IconError/></ColorContrast> | <p style="font-size: var(--fontsize-body-l); color:var(--color-black-50); margin: var(--spacing-3-xs);"><IconError/></p> |
+| **Black 40**  | black 90      | **AA** (AAA for large text) `6,1 : 1`     | <ColorContrast color="var(--color-black-90)" background="var(--color-black-40)">AA</ColorContrast> | |
+| **Black 30**  | black 90      | **AAA** `10,9 : 1`    | <ColorContrast color="var(--color-black-90)" background="var(--color-black-30)">AAA</ColorContrast> | |
+| **Black 20**  | black 90      | **AAA** `13,8 : 1`    | <ColorContrast color="var(--color-black-90)" background="var(--color-black-20)">AAA</ColorContrast> | |
+| **Black 10**  | black 90      | **AAA** `15,6 : 1`    | <ColorContrast color="var(--color-black-90)" background="var(--color-black-10)">AAA</ColorContrast> | |
+
+#### Focus colour
+HDS components use a custom focus colour styling instead of the default browser provided style. The default HDS focus style is accessible on light backgrounds. Since HDS does not offer dark mode, the focus style colour may require customising when using HDS components on darker backgrounds. The WCAG requirement for user interface element contrast is `3 : 1`.
+
+| Focus Colour           | Background Colour   | Focus style contrast | Example                                                                                                  |
+| ---------------------- | ------------------- | -------------------- | -------------------------------------------------------------------------------------------------------- |
+| **Vaakuna** (default)  | white               | **AA** `5 : 1`       | <ColorContrast color="var(--color-coat-of-arms)" background="var(--color-white)">AA</ColorContrast> |
+| **Vaakuna** (default)  | black               | **AA** `4,2 : 1`     | <ColorContrast color="var(--color-coat-of-arms)" background="var(--color-black)">AA</ColorContrast> |
+
+HDS focus style colour can be customised to better fit the theme of the service. However, the implementor must always ensure that the following WCAG requirements are met:
+- <Link size="M" href="https://www.w3.org/TR/WCAG21/#use-of-color" external>WCAG 1.4.1 Use of Color (Level A)</Link>
+- <Link size="M" href="https://www.w3.org/TR/WCAG21/#focus-order" external>WCAG 2.4.3 Focus Order (Level A)</Link> (while designing components with multiple focusable elements)
+- <Link size="M" href="https://www.w3.org/TR/WCAG21/#focus-visible" external>WCAG 2.4.7 Focus Visible (Level A)</Link>
+- While not officially part of WCAG yet, HDS also follows <Link size="M" href="https://www.w3.org/WAI/WCAG21/Understanding/focus-visible-enhanced" external>WCAG 2.4.11 Focus Visible (Enhanced)</Link>. Due to their draft status, these requirements may still change. But we still recommend following them for future-proofing.
+
+export default ({ children }) => <>{children}</>;
