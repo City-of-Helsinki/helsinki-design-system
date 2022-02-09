@@ -5,8 +5,20 @@ import { Table } from 'hds-react';
 const cols = [
   { key: 'cssVariable', headerName: 'CSS variable' },
   { key: 'sassVariable', headerName: 'SASS variable' },
-  { key: 'pxValue', headerName: 'PX value' },
-  { key: 'remValue', headerName: 'REM value' },
+  { 
+    key: 'pxValue', 
+    headerName: 'PX value',
+    transform: ({ pxValue }) => {
+      return <div style={{ textAlign: 'right' }}>{pxValue}</div>;
+    }, 
+  },
+  { 
+    key: 'remValue',
+    headerName: 'REM value',
+    transform: ({ remValue }) => {
+      return <div style={{ textAlign: 'right' }}>{remValue}</div>;
+    },
+  },
   { key: 'example', headerName: 'Example' },
 ];
 
