@@ -36,6 +36,7 @@
 }
 
 .dark {
+  --table-background-color: var(--color-white);
   --background-color: var(--color-bus);
 
   .sortButton {
@@ -48,6 +49,7 @@
 }
 
 .light {
+  --table-background-color: var(--color-white);
   --background-color: var(--color-silver);
 
   .sortButton {

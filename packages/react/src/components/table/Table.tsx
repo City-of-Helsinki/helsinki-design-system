@@ -38,6 +38,11 @@ type Header = {
 
 export interface TableCustomTheme {
   /**
+   * Custom background color for the table.
+   * @default 'var(--color-white)'
+   */
+  '--table-background-color'?: string;
+  /**
    * Custom background color for table headers.
    */
   '--background-color'?: string;
