@@ -20,6 +20,10 @@ export const Empty = () => `
   <div class="hds-card hds-card--border" role="region"></div>
 `;
 
+export const WithBoxShadow = () => `
+  <div class="hds-card hds-card--box-shadow" role="region"></div>
+`;
+
 export const TextHeading = () => `
   <div class="hds-card" role="region">
     ${body}
