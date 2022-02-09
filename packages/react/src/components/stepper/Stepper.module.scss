@@ -80,6 +80,10 @@
       outline: 2px solid var(--hds-stepper-focus-border-color);
     }
   }
+
+  &:focus-visible {
+    outline: none; // Revert firefox user agent focus styles
+  }
 }
 
 .step.disabled {
