@@ -7,6 +7,7 @@
 }
 
 .hds-table {
+  background-color: var(--table-background-color);
   border-collapse: collapse;
   width: 100%;
   line-height: 1.5;
@@ -43,6 +44,7 @@
 /* DARK VARIANT */
 
 .hds-table--dark {
+  --table-background-color: var(--color-white);
   --background-color: var(--color-bus);
 }
 
@@ -53,6 +55,7 @@
 /* LIGHT VARIANT */
 
 .hds-table--light {
+  --table-background-color: var(--color-white);
   --background-color: var(--color-silver);
 }
 
