@@ -15,7 +15,7 @@ const ColorExample = ({ color, name }) => (
 
 ColorExample.propTypes = {
   color: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
 };
 
 export default ColorExample;

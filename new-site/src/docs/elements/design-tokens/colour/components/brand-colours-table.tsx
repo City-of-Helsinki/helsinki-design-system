@@ -1,7 +1,7 @@
 import React from "react"
 
 import { Table } from 'hds-react';
-import ColorExample from '../../../../../components/ColorExample';
+import ColorExample from '../../../../../components/examples/ColorExample';
 
 const cols = [
   { key: 'colourNameEn', headerName: 'Colour name (en)' },

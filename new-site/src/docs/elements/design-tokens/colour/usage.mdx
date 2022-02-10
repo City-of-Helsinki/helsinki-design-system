@@ -8,6 +8,7 @@ import Playground from '../../../../components/Playground';
 
 import BrandColoursTable from './components/brand-colours-table.tsx';
 import StatusColoursTable from './components/status-colours-table.tsx';
+import GrayscaleColoursTable from './components/grayscale-colours-table.tsx';
 
 ## Usage
 
@@ -55,8 +56,7 @@ Status colours are reserved exclusively for indicating valid, invalid or informa
 <StatusColoursTable />
 
 #### Grayscale
-| black                                  |  90                                       | 80                                        | 70                                        | 60                                        | 50                                        | 40                                        | 30                                        | 20                                        | 10                                        | 5                                        | white                                   |
-| -------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ---------------------------------------- | --------------------------------------- |
-| <ColorBox color="var(--color-black)"/> | <ColorBox color="var(--color-black-90)"/> | <ColorBox color="var(--color-black-80)"/> | <ColorBox color="var(--color-black-70)"/> | <ColorBox color="var(--color-black-60)"/> | <ColorBox color="var(--color-black-50)"/> | <ColorBox color="var(--color-black-40)"/> | <ColorBox color="var(--color-black-30)"/> | <ColorBox color="var(--color-black-20)"/> | <ColorBox color="var(--color-black-10)"/> | <ColorBox color="var(--color-black-5)"/> | <ColorBox color="var(--color-white)" /> |
+
+<GrayscaleColoursTable />
 
 export default ({ children }) => <>{children}</>;
