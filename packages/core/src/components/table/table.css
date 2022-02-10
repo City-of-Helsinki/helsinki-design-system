@@ -7,7 +7,7 @@
 }
 
 .hds-table {
-  background-color: var(--table-background-color);
+  --content-background-color: var(--color-white);
   border-collapse: collapse;
   width: 100%;
   line-height: 1.5;
@@ -20,6 +20,10 @@
   font-weight: 500;
   font-size: var(--fontsize-heading-xxs);
   padding: var(--spacing-xs) var(--spacing-m);
+}
+
+.hds-table__content {
+  background-color: var(--content-background-color);
 }
 
 .hds-table__content tr td {
@@ -44,7 +48,6 @@
 /* DARK VARIANT */
 
 .hds-table--dark {
-  --table-background-color: var(--color-white);
   --background-color: var(--color-bus);
 }
 
@@ -55,7 +58,6 @@
 /* LIGHT VARIANT */
 
 .hds-table--light {
-  --table-background-color: var(--color-white);
   --background-color: var(--color-silver);
 }
 
