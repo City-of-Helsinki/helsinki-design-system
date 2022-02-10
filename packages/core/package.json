@@ -17,12 +17,12 @@
     "build-storybook": "build-storybook --loglevel error"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "6.0.19",
-    "@storybook/addon-backgrounds": "6.0.19",
-    "@storybook/addon-notes": "5.3.18",
-    "@storybook/addon-viewport": "6.0.19",
-    "@storybook/addons": "6.0.19",
-    "@storybook/html": "6.0.19",
+    "@storybook/addon-a11y": "6.4.18",
+    "@storybook/addon-backgrounds": "6.4.18",
+    "@storybook/addon-notes": "5.3.21",
+    "@storybook/addon-viewport": "6.4.18",
+    "@storybook/addons": "6.4.18",
+    "@storybook/html": "6.4.18",
     "copyfiles": "2.2.0",
     "cssnano": "4.1.10",
     "hds-design-tokens": "1.10.0",

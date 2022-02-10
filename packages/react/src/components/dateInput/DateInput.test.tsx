@@ -14,9 +14,13 @@ describe('<DateInput /> spec', () => {
   const RealDate = Date;
   const mockDate = (isoDate: string) => {
     (global as any).Date = class extends RealDate {
-      constructor(...theArgs: [number, number, number, number, number, number]) {
+      constructor(...theArgs: number[]) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
         super(...theArgs);
         if (theArgs.length) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+          // @ts-ignore
           return new RealDate(...theArgs);
         }
         return new RealDate(isoDate);
