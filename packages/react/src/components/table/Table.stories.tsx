@@ -837,8 +837,8 @@ export const CustomBackgroundColorsForDarkVariant = (args) => {
   );
 
   const theme = {
-    '--table-background-color': 'var(--color-black-5)',
     '--background-color': 'var(--color-tram)',
+    '--content-background-color': 'var(--color-black-5)',
   };
 
   return (
@@ -887,8 +887,8 @@ export const CustomBackgroundColorsForLightVariant = (args) => {
   );
 
   const theme = {
-    '--table-background-color': 'var(--color-black-5)',
     '--background-color': 'var(--color-suomenlinna)',
+    '--content-background-color': 'var(--color-black-5)',
   };
 
   return (

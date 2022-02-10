@@ -1,6 +1,7 @@
 @value x-small-down, small-down from "../../styles/breakpoints.css";
 
 .table {
+  --content-background-color: var(--color-white);
   composes: hds-table from 'hds-core/lib/components/table/table.css';
 
   &.dark th {
@@ -36,7 +37,6 @@
 }
 
 .dark {
-  --table-background-color: var(--color-white);
   --background-color: var(--color-bus);
 
   .sortButton {
@@ -49,7 +49,6 @@
 }
 
 .light {
-  --table-background-color: var(--color-white);
   --background-color: var(--color-silver);
 
   .sortButton {

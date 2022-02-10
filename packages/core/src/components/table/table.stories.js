@@ -354,8 +354,8 @@ export const VerticalHeaderAndLines = () => `
 export const CustomBackgroundColorsForDarkVariant = () => `
   <style type="text/css">
     .custom-background-color-1 {
-      --table-background-color: var(--color-black-5);
       --background-color: var(--color-tram);
+      --content-background-color: var(--color-black-5);
     }
   </style>
   <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
@@ -382,8 +382,8 @@ export const CustomBackgroundColorsForDarkVariant = () => `
 export const CustomBackgroundColorsForLightVariant = () => `
   <style type="text/css">
     .custom-background-color-2 {
-      --table-background-color: var(--color-black-5);
       --background-color: var(--color-suomenlinna);
+      --content-background-color: var(--color-black-5);
     }
   </style>
   <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
