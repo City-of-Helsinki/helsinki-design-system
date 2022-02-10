@@ -354,7 +354,7 @@ export const VerticalHeaderAndLines = () => `
 export const CustomBackgroundColorsForDarkVariant = () => `
   <style type="text/css">
     .custom-background-color-1 {
-      --background-color: var(--color-tram);
+      --header-background-color: var(--color-tram);
       --content-background-color: var(--color-black-5);
     }
   </style>
@@ -382,7 +382,7 @@ export const CustomBackgroundColorsForDarkVariant = () => `
 export const CustomBackgroundColorsForLightVariant = () => `
   <style type="text/css">
     .custom-background-color-2 {
-      --background-color: var(--color-suomenlinna);
+      --header-background-color: var(--color-suomenlinna);
       --content-background-color: var(--color-black-5);
     }
   </style>
