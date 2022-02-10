@@ -1,0 +1,14 @@
+diff --git a/node_modules/@types/reach__router/index.d.ts b/node_modules/@types/reach__router/index.d.ts
+index 80faa6e..97213dc 100644
+--- a/node_modules/@types/reach__router/index.d.ts
++++ b/node_modules/@types/reach__router/index.d.ts
+@@ -10,7 +10,9 @@
+ // TypeScript Version: 2.8
+ 
+ import * as React from 'react';
++// @ts-ignore
+ import { Location as HLocation, LocationState } from 'history';
++// @ts-ignore
+ export type WindowLocation<S = LocationState> = Window['location'] & HLocation<S>;
+ 
+ export type HistoryActionType = 'PUSH' | 'POP';
