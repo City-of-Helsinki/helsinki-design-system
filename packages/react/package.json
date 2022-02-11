@@ -86,7 +86,7 @@
     "jest-axe": "^5.0.1",
     "jest-environment-jsdom-sixteen": "^2.0.0",
     "loki": "0.26.0",
-    "node-sass": "4.14.1",
+    "node-sass": "7.0.0",
     "path": "0.12.7",
     "prettier": "2.0.5",
     "react": "16.13.1",
