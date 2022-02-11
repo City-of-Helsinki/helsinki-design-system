@@ -164,9 +164,8 @@ export const Stepper = ({
 
       const hdsStepWidth = stepperRef.current.scrollWidth / stepsTotal;
 
-      const whereToScroll =
+      stepperRef.current.scrollLeft =
         hdsStepWidth * (selectedStep + 1) - hdsStepWidth / 2.0 - stepperRef.current.parentNode.clientWidth / 2.0;
-      stepperRef.current.scrollLeft = whereToScroll;
     }
 
     initialRender.current = false;
