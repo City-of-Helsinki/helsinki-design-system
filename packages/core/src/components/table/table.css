@@ -22,11 +22,8 @@
   padding: var(--spacing-xs) var(--spacing-m);
 }
 
-.hds-table__content {
-  background-color: var(--content-background-color);
-}
-
 .hds-table__content tr td {
+  background-color: var(--content-background-color);
   font-weight: 400;
   padding: var(--spacing-xs) var(--spacing-m);
   border-bottom: 1px solid var(--color-black-50);
