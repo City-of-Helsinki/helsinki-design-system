@@ -3,7 +3,7 @@ import React, { createRef, useEffect, useRef, useState } from 'react';
 // import core base styles
 import 'hds-core';
 import styles from './Stepper.module.scss';
-import { StepState, Step } from './Step';
+import { Step, StepState } from './Step';
 import classNames from '../../utils/classNames';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
 import { useTheme } from '../../hooks/useTheme';
