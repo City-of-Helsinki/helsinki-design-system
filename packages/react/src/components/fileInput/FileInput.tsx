@@ -260,6 +260,7 @@ const getMaxSizeErrorMessage = (language: Language, file: File, maxSize: number)
   }[language];
 };
 
+// eslint-disable-next-line no-shadow
 enum ValidationErrorType {
   accept = 'accept',
   maxSize = 'maxSize',

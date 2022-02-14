@@ -149,7 +149,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   /**
    * Callback that updates selected rows.
    */
-  setSelectedRows?: Function;
+  setSelectedRows?: React.Dispatch<React.SetStateAction<SelectedRow[]>>;
   /**
    * Boolean indicating whether table data cell text content is aligned right. Default is false -> text is aligned left.
    * @default false
