@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { Linkbox } from './Linkbox';
-/* eslint-disable @typescript-eslint/ban-ts-ignore */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-ignore
 import smallImage from '../../assets/img/linkbox/placeholder-small.png';
 // @ts-ignore
 import mediumImage from '../../assets/img/linkbox/placeholder-medium.png';
 // @ts-ignore
 import largeImage from '../../assets/img/linkbox/placeholder-large.png';
-/* eslint-enable @typescript-eslint/ban-ts-ignore */
+/* eslint-enable @typescript-eslint/ban-ts-comment */
 
 export default {
   component: Linkbox,

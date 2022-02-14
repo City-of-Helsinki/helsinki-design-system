@@ -298,7 +298,7 @@ export const Sorting = (args) => {
     {
       key: 'age',
       headerName: 'Age',
-      sortIconType: 'other' as 'other',
+      sortIconType: 'other' as const,
       transform: ({ age }) => {
         return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
@@ -347,7 +347,7 @@ export const SortingLightVariant = (args) => {
     {
       key: 'age',
       headerName: 'Age',
-      sortIconType: 'other' as 'other',
+      sortIconType: 'other' as const,
       transform: ({ age }) => {
         return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
@@ -397,7 +397,7 @@ export const InitiallySortedBy = (args) => {
     {
       key: 'age',
       headerName: 'Age',
-      sortIconType: 'other' as 'other',
+      sortIconType: 'other' as const,
       transform: ({ age }) => {
         return <div style={{ textAlign: 'right' }}>{age}</div>;
       },
@@ -424,7 +424,7 @@ export const InitiallySortedBy = (args) => {
     <div style={{ maxWidth: '640px' }}>
       <Table
         initialSortingColumnKey="age"
-        initialSortingOrder={'desc' as 'desc'}
+        initialSortingOrder={'desc' as const}
         ariaLabelSortButtonUnset="Not sorted"
         ariaLabelSortButtonAscending="Sorted in ascending order"
         ariaLabelSortButtonDescending="Sorted in descending order"
@@ -448,7 +448,7 @@ export const CustomSortFunction = (args) => {
     {
       key: 'Ilmoitus vanhenee',
       headerName: 'Ilmoitus vanhenee',
-      sortIconType: 'other' as 'other',
+      sortIconType: 'other' as const,
       customSortCompareFunction: (a, b) => {
         const aDate = parse(a, 'dd.MM.yyyy', new Date());
         const bDate = parse(b, 'dd.MM.yyyy', new Date());
@@ -471,7 +471,7 @@ export const CustomSortFunction = (args) => {
     {
       key: 'Paikkoja',
       headerName: 'Paikkoja',
-      sortIconType: 'other' as 'other',
+      sortIconType: 'other' as const,
       transform: ({ Paikkoja }) => {
         return <div style={{ textAlign: 'right' }}>{Paikkoja}</div>;
       },
@@ -480,7 +480,7 @@ export const CustomSortFunction = (args) => {
     {
       key: 'Haastatteluun halutaan',
       headerName: 'Haastatteluun halutaan',
-      sortIconType: 'other' as 'other',
+      sortIconType: 'other' as const,
       transform: (row) => {
         return <div style={{ textAlign: 'right' }}>{row['Haastatteluun halutaan']}</div>;
       },
@@ -500,7 +500,7 @@ export const CustomSortFunction = (args) => {
     <div style={{ maxWidth: '1200px', height: '600px' }}>
       <Table
         initialSortingColumnKey="Ilmoitus vanhenee"
-        initialSortingOrder={'asc' as 'asc'}
+        initialSortingOrder={'asc' as const}
         ariaLabelSortButtonUnset="Not sorted"
         ariaLabelSortButtonAscending="Sorted in ascending order"
         ariaLabelSortButtonDescending="Sorted in descending order"
@@ -764,7 +764,7 @@ export const CheckboxSelectionWithSorting = (args) => {
     {
       key: 'age',
       headerName: 'Age',
-      sortIconType: 'other' as 'other',
+      sortIconType: 'other' as const,
       transform: ({ age }) => {
         return <div style={{ textAlign: 'right' }}>{age}</div>;
       },

@@ -5,7 +5,7 @@ import 'hds-core';
 import styles from './FooterItemGroup.module.scss';
 import { getChildrenAsArray } from '../../../utils/getChildren';
 
-export const FooterItemGroup = ({ children }: React.PropsWithChildren<{}>) => {
+export const FooterItemGroup = ({ children }: React.PropsWithChildren<Record<string, unknown>>) => {
   const childrenAsArray = getChildrenAsArray(children);
   return (
     <div className={styles.itemGroup}>

@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * Merges native element props and given type
  */
-export type MergeElementProps<T extends React.ElementType, P extends object = {}> = Omit<
+export type MergeElementProps<T extends React.ElementType, P extends object = Record<string, unknown>> = Omit<
   React.ComponentPropsWithoutRef<T>,
   keyof P
 > &
