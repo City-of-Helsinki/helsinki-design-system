@@ -1,0 +1,388 @@
+---
+slug: '/elements/components/dialog/code'
+title: 'Dialog - Code'
+---
+
+## Code
+
+### Code examples 
+
+#### Info dialog
+<Playground>
+
+
+```jsx
+{() => {
+  const dialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
+  const openInfoDialogButtonRef = React.useRef(null);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const close = () => setIsOpen(false);
+  const titleId = "info-dialog-title";
+  const descriptionId = "info-dialog-content";
+  return (
+    <>
+      <div ref={dialogTargetRef}/>
+      <Button ref={openInfoDialogButtonRef} onClick={() => setIsOpen(true)}>
+        Open Info dialog
+      </Button>
+      <Dialog
+        id="info-dialog"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        isOpen={isOpen}
+        close={close}
+        closeButtonLabelText="Close info dialog"
+        focusAfterCloseRef={openInfoDialogButtonRef}
+        targetElement={dialogTargetRef.current}
+      >
+        <Dialog.Header
+          id={titleId}
+          title="Terms of service have changed"
+          iconLeft={<IconInfoCircle aria-hidden="true" />}
+        />
+        <Dialog.Content>
+          <p id={descriptionId} className="text-body">
+            Please note that the terms of this service have changed. You can review the changes in the user settings.</p>
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button onClick={close}>
+            Close
+          </Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  )
+}}
+```
+
+```html
+
+```
+
+</Playground>
+
+### Confirm dialog
+<Playground>
+
+
+```jsx
+{() => {
+  const confirmationDialogTarget = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
+  const openConfirmationDialogButtonRef = React.useRef(null);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const close = () => setIsOpen(false);
+  const titleId = "confirmation-dialog-title";
+  const descriptionId = "confirmation-dialog-info";
+  return (
+    <>
+      <div ref={confirmationDialogTarget}/>
+      <Button ref={openConfirmationDialogButtonRef} onClick={() => setIsOpen(true)}>
+        Open Confirmation dialog
+      </Button>
+      <Dialog
+        id="confirmation-dialog"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        isOpen={isOpen}
+        focusAfterCloseRef={openConfirmationDialogButtonRef}
+        targetElement={confirmationDialogTarget.current}
+      >
+        <Dialog.Header
+          id={titleId}
+          title="Are you sure you want to continue?"
+          iconLeft={<IconQuestionCircle aria-hidden="true" />}
+        />
+        <Dialog.Content>
+          <p id={descriptionId} className="text-body">
+            You have not filled all form fields. Do you still want to continue? You can later return to edit this form. Saved forms can be accessed in your personal profile.
+          </p>
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button onClick={close}>
+            Continue
+          </Button>
+          <Button onClick={close} variant="secondary">
+            Cancel
+          </Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  )
+}}
+```
+
+```html
+
+```
+
+</Playground>
+
+### Danger dialog
+<Playground>
+
+
+```jsx
+{() => {
+  const dangerDialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
+  const openDeleteDialogButtonRef = React.useRef(null);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const close = () => setIsOpen(false);
+  const titleId = "delete-dialog-title";
+  const descriptionId = "delete-dialog-info";
+  return (
+    <>
+      <div ref={dangerDialogTargetRef}/>
+      <Button ref={openDeleteDialogButtonRef} onClick={() => setIsOpen(true)}>
+        Open Delete dialog
+      </Button>
+      <Dialog
+        variant="danger"
+        id="delete-dialog"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        isOpen={isOpen}
+        focusAfterCloseRef={openDeleteDialogButtonRef}
+        targetElement={dangerDialogTargetRef.current}
+      >
+        <Dialog.Header
+          id={titleId}
+          title="Are you sure you want to delete this blog post?"
+          iconLeft={<IconAlertCircle aria-hidden="true" />}
+        />
+        <Dialog.Content>
+          <p id={descriptionId} className="text-body">
+            The blog post will be deleted immediately. Deletion is permanent and it cannot be reverted.
+          </p>
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button onClick={close} theme="black" variant="secondary">
+            Cancel
+          </Button>
+          <Button
+            variant="danger"
+            iconLeft={<IconTrash aria-hidden="true" />}
+            onClick={() => {
+              // Add confirm operations here
+              close();
+            }}
+          >
+            Delete the blog post
+          </Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  )
+}}
+```
+
+```html
+
+```
+
+</Playground>
+
+### Scrollable dialog
+<Playground>
+
+
+```jsx
+{() => {
+  const termsDialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
+  const openTermsDialogButtonRef = React.useRef(null);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const close = () => setIsOpen(false);
+  const titleId = "terms-dialog-title";
+  const descriptionId = "terms-dialog-info";
+  return (
+    <>
+      <div ref={termsDialogTargetRef}/>
+      <Button ref={openTermsDialogButtonRef} onClick={() => setIsOpen(true)}>
+        Open Terms dialog
+      </Button>
+      <Dialog
+        id="terms-dialog"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        isOpen={isOpen}
+        focusAfterCloseRef={openTermsDialogButtonRef}
+        targetElement={termsDialogTargetRef.current}
+        scrollable
+      >
+        <Dialog.Header
+          id={titleId}
+          title="Do you accept the terms of service?"
+          iconLeft={<IconAlertCircle aria-hidden="true" />}
+        />
+        <Dialog.Content>
+          <h3 id={descriptionId}>Terms of service</h3>
+          <p className="text-body">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+            dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+            sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+            ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+            nulla pariatur?
+          </p>
+          <p className="text-body">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+            dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+            sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+            ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+            nulla pariatur?
+          </p>
+          <p className="text-body">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+            dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+            sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+            ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+            nulla pariatur?
+          </p>
+          <p className="text-body">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+            dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+            sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+            ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+            nulla pariatur?
+          </p>
+          <p className="text-body">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+            dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+            sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+            ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+            nulla pariatur?
+          </p>
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button onClick={close}>
+            Accept terms
+          </Button>
+          <Button onClick={close} variant="secondary">
+            Cancel
+          </Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  )
+}}
+```
+
+```html
+
+```
+
+</Playground>
+
+#### Dialog with custom content
+<Playground>
+
+
+```jsx
+{() => {
+  const customDialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
+  const openCustomDialogButtonRef = React.useRef(null);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const close = () => setIsOpen(false);
+  const titleId = "custom-dialog-title";
+  const descriptionId = "custom-dialog-info";
+  return (
+    <>
+      <div ref={customDialogTargetRef}/>
+      <Button ref={openCustomDialogButtonRef} onClick={() => setIsOpen(true)}>
+        Open Dialog with custom content
+      </Button>
+      <Dialog
+        id="custom-dialog"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        isOpen={isOpen}
+        focusAfterCloseRef={openCustomDialogButtonRef}
+        targetElement={customDialogTargetRef.current}
+      >
+      <Dialog.Header
+        id={titleId}
+        title="Add new item"
+      />
+      <Dialog.Content>
+        <p id={descriptionId} className="text-body">
+          Add a new item by filling the information below. All fields are mandatory.
+        </p>
+        <TextInput
+          id="item-name"
+          label="Item name"
+          placeholder="E.g. Item 1"
+          helperText="Item's name must be unique."
+          required
+        />
+        <br />
+        <TextArea
+          id="item-description"
+          label="Item description"
+          placeholder="E.g. Item 1 is the first item of the system."
+          required
+        />
+      </Dialog.Content>
+      <Dialog.ActionButtons>
+        <Button
+          onClick={() => {
+            // Add operations here
+            close();
+          }}
+        >
+          Add item
+        </Button>
+        <Button onClick={close} variant="secondary">
+          Cancel
+        </Button>
+      </Dialog.ActionButtons>
+    </Dialog>
+    </>
+  )
+}}
+```
+
+```html
+
+```
+
+</Playground>
+
+
+### Packages
+| Package           | Included                      | Storybook link                                                                                                                      | Source link   |
+| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-dialog--default">View in Storybook</Link>  | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/dialog/Dialog.tsx">View source</Link> |
+| **HDS Core**      | <IconCrossCircle /> No        | - | - |
+
+### Properties
+Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/story/components-dialog--default" external>React Storybook.</Link>
+
+| Property                 | Description                                                                                           | Values          | Default value |
+| ------------------------ | ----------------------------------------------------------------------------------------------------- | --------------- | ------------- |
+| `isOpen`                 | If set to true, the dialog is visible.                                                                | `boolean`       | false         |
+| `focusAfterCloseRef`     | The element ref which will get focus after the dialog is closed.                                      | `RefObject`     | -             |
+| `focusAfterCloseElement` | The element which will get focus after the dialog is closed.                                          | `Object`        | -             |
+| `scrollable`             | If set to true, the dialog content is scrollable if needed. Use only for long text contents.          | `boolean`       | false         |
+| `variant`                | Defines the dialog variant.                                                                           | primary, danger | primary       |
+| `close`                  | A function called when a dialog close button is pressed. The button if shown if this property exists. | `function`      | -             |
+| `closeButtonLabelText`   | The aria-label for the close button. Required with `close` property.                                  | `string`        | -             |
+
+export default ({ children }) => <>{children}</>;
