@@ -1,0 +1,16 @@
+---
+slug: '/elements/components/accordion/accessibility'
+title: 'Accordion - Accessibility'
+---
+
+import { Link } from 'hds-react';
+
+## Accessibility
+
+### Pay attention to
+- Use HDS provided accordion elements when creating custom accordions. These elements pass accessibility testing.
+- When creating custom accordions, make sure that the expanded accordion area directly follows the accordion button in the DOM tree.
+    - If you must place the accordion area somewhere else, use `aria-owns` attribute to indicate the relationship. However, be aware that this attribute does not necessarily work with all screen readers.
+- Make sure that the keyboard user can navigate out of the accordion area without closing the accordion. See <Link size="M" href="https://www.w3.org/TR/WCAG21/#no-keyboard-trap" external>WCAG 2.1.2 No Keyboard Trap guideline</Link> for more information.
+
+export default ({ children }) => <>{children}</>;
