@@ -1,0 +1,14 @@
+---
+slug: '/elements/components/dialog/accessibility'
+title: 'Dialog - Accessibility'
+---
+
+## Accessibility
+
+### Pay attention to
+- When the dialog is closed, the focus should return to the element that triggered the original dialog context. This allows keyboard and screen reader users to continue the context where they originally opened the dialog.
+    - If the dialog was opened on a page load, the focus should be returned to the start of the `body` element.
+- When the dialog is active, everything outside of the dialog should be inaccessible to the user.
+- Pay attention to the roles of buttons of your dialog. If you use the button as a link instead of an action (i.e. the button press opens a new page), you must specify a `role="link"` attribute to the button.
+
+export default ({ children }) => <>{children}</>;

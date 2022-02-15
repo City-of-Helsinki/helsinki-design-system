@@ -1,0 +1,47 @@
+---
+slug: '/elements/components/dialog'
+title: 'Dialog'
+---
+
+import { Dialog, StatusLabel, Tabs, TextInput, TextArea } from 'hds-react';
+import { IconInfoCircle, IconQuestionCircle, IconAlertCircle } from 'hds-react';
+
+import LeadParagraph from '../../../../components/LeadParagraph';
+import Playground from '../../../../components/Playground';
+
+import Accessibility from './accessibility.mdx';
+import Code from './code.mdx';
+import Customisation from './customisation.mdx';
+import Usage from './usage.mdx';
+
+# Dialog
+
+<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  Accessible
+</StatusLabel>
+
+<LeadParagraph>
+  Dialogs initiate a conversation between the service and the user. They are used when an input or a confirmation is needed from the user or when important information needs to be conveyed.
+</LeadParagraph>
+
+<Tabs>
+  <Tabs.TabList className="pageTabsList">
+    <Tabs.Tab>Usage</Tabs.Tab>
+    <Tabs.Tab>Code</Tabs.Tab>
+    <Tabs.Tab>Accessibility</Tabs.Tab>
+    <Tabs.Tab>Customisation</Tabs.Tab>
+  </Tabs.TabList>
+  <Tabs.TabPanel>
+    <Usage />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Code />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Accessibility />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Customisation />
+  </Tabs.TabPanel>
+</Tabs>
