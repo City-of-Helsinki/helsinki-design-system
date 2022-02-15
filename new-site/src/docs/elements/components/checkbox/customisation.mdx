@@ -1,0 +1,67 @@
+---
+slug: '/elements/components/checkbox/customisation'
+title: 'Checkbox - Customisation'
+---
+
+import { Card, Link, Notification } from 'hds-react';
+import { IconArrowRight } from 'hds-react';
+
+## Customisation
+
+<Notification type="alert" label="Checkbox customisation works differently!" className="siteNotification">
+  Checkbox is an older HDS component and therefore its customisation works slightly differently. Instead of the <code>theme</code> property, you need to use the <code>style</code> property. This will be fixed in a future update.
+</Notification>
+
+### Customisation properties
+You can use the `style` property to customise the Accordion component. See all available theme variables in the table below.
+
+| Theme variable                           | Description                                             |
+| ---------------------------------------- | ------------------------------------------------------- |
+| `--size`                                 | Size of the checkbox                                    |
+| `--icon-scale`                           | Scale of the checkbox check icon                        |
+| `--border-width`                         | Width of the checkbox border                            |
+| `--outline-width`                        | Width of the checkbox focus border                      |
+| `--background-selected`                  | Colour of the checkbox background when selected         |
+| `--background-hover`                     | Colour of the checkbox background when hovered          |
+| `--border-color-selected`                | Colour of the checkbox border when selected             |
+| `--border-color-selected-hover`          | Colour of the checkbox border when selected and hovered |
+| `--border-color-selected-focus`          | Colour of the checkbox border when selected and focused |
+| `--focus-outline-color`                  | Colour of the checkbox focus border                     |
+
+
+### Customisation example
+<Playground>
+
+
+```jsx
+const [checked, setChecked] = useState(false);
+const customStyles = {
+  '--size': '40px',
+  '--icon-scale': 0.6,
+  '--border-width': '3px',
+  '--outline-width': '4px',
+  '--background-selected': 'var(--color-success)',
+  '--background-hover': 'var(--color-success-dark)',
+  '--border-color-selected': 'var(--color-success)',
+  '--border-color-selected-hover': 'var(--color-success-dark)',
+  '--border-color-selected-focus': 'var(--color-success)',
+  '--focus-outline-color': 'var(--color-black-20)',
+} as React.CSSProperties;
+return (
+  <Checkbox
+    id="checkbox5"
+    label="Label"
+    style={customStyles}
+    checked={checked}
+    onChange={() => setChecked(!checked)}
+  />
+);
+```
+
+```html
+
+```
+
+</Playground>
+
+export default ({ children }) => <>{children}</>;
