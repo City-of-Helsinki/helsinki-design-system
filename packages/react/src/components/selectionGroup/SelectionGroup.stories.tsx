@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useState } from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
 
 import { SelectionGroup } from './SelectionGroup';
 import { Checkbox } from '../checkbox';
@@ -8,7 +7,7 @@ import { RadioButton } from '../radioButton';
 export default {
   component: SelectionGroup,
   title: 'Components/SelectionGroup',
-  decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
+  decorators: [(storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
   parameters: {
     controls: { expanded: true },
   },
