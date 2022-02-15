@@ -13,11 +13,16 @@ import { Container, Footer, Navigation, SideNavigation } from 'hds-react';
 import Seo from './seo';
 import { PlaygroundBlock } from './Playground';
 import SyntaxHighlighter from './SyntaxHighlighter';
+import Table from './Table';
 import './layout.scss';
 
 const components = {
   Playground: PlaygroundBlock,
-  pre: SyntaxHighlighter
+  pre: SyntaxHighlighter,
+  table: Table,
+  thead: Table.Thead,
+  tbody: Table.Tbody,
+  th: Table.Th,
 };
 
 const resolveCurrentMenuItem = (menuItems, slugWithPrefix) => {
