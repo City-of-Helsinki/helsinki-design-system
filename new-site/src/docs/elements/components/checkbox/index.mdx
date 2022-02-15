@@ -1,0 +1,45 @@
+---
+slug: '/elements/components/checkbox'
+title: 'Checkbox'
+---
+
+import { Card, StatusLabel, Tabs } from 'hds-react';
+
+import LeadParagraph from '../../../../components/LeadParagraph';
+
+import Accessibility from './accessibility.mdx';
+import Code from './code.mdx';
+import Customisation from './customisation.mdx';
+import Usage from './usage.mdx';
+
+# Checkbox
+
+<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  Accessible
+</StatusLabel>
+
+<LeadParagraph>
+  Checkboxes are used to pick an option when one or more options can be chosen.
+</LeadParagraph>
+
+<Tabs>
+  <Tabs.TabList className="pageTabsList">
+    <Tabs.Tab>Usage</Tabs.Tab>
+    <Tabs.Tab>Code</Tabs.Tab>
+    <Tabs.Tab>Accessibility</Tabs.Tab>
+    <Tabs.Tab>Customisation</Tabs.Tab>
+  </Tabs.TabList>
+  <Tabs.TabPanel>
+    <Usage />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Code />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Accessibility />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Customisation />
+  </Tabs.TabPanel>
+</Tabs>
