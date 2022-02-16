@@ -1,6 +1,5 @@
 import React from 'react';
 import { ArgsTable, Title } from '@storybook/addon-docs/blocks';
-import { radios, text } from '@storybook/addon-knobs';
 
 import { Section } from './Section';
 import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
@@ -103,27 +102,13 @@ export const Multiple = () => (
 );
 Multiple.storyName = 'Multiple sections';
 
-export const Playground = () => {
-  const sectionTitle = text('Title', placeholderTitle);
-  const sectionText = text('Text', placeholderText);
-  const color = radios(
-    'Color',
-    { plain: 'plain', primary: 'primary', secondary: 'secondary', tertiary: 'tertiary' },
-    'plain',
-  );
-  const korosType = radios(
-    'Koros',
-    { none: null, basic: 'basic', beat: 'beat', pulse: 'pulse', wave: 'wave', storm: 'storm' },
-    null,
-  );
+export const Playground = (args) => (
+  <Section color={args.color} korosType={args.korosType}>
+    <h1 style={{ fontSize: 'var(--fontsize-heading-xl)' }}>{args.sectionTitle}</h1>
+    {args.sectionText}
+  </Section>
+);
 
-  return (
-    <Section color={color} korosType={korosType}>
-      <h1 style={{ fontSize: 'var(--fontsize-heading-xl)' }}>{sectionTitle}</h1>
-      {sectionText}
-    </Section>
-  );
-};
 Playground.parameters = {
   previewTabs: {
     'storybook/docs/panel': {
@@ -132,5 +117,22 @@ Playground.parameters = {
   },
   docs: {
     disable: true,
+  },
+};
+
+Playground.args = {
+  sectionTitle: 'Title',
+  sectionText: 'Text',
+  korosType: null,
+  color: 'plain',
+};
+
+Playground.argTypes = {
+  korosType: {
+    options: [null, 'basic', 'beat', 'pulse', 'wave', 'storm'],
+    control: { type: 'radio' },
+  },
+  color: {
+    options: ['plain', 'primary', 'secondary', 'tertiary'],
   },
 };
