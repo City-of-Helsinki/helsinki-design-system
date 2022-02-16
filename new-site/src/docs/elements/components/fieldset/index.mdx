@@ -1,0 +1,47 @@
+---
+slug: '/elements/components/fieldset'
+title: 'Fieldset'
+---
+
+import { Select, Combobox, StatusLabel, Tabs } from 'hds-react';
+import { IconInfoCircle, IconUser } from 'hds-react';
+
+import LeadParagraph from '../../../../components/LeadParagraph';
+import Playground from '../../../../components/Playground';
+
+import Accessibility from './accessibility.mdx';
+import Code from './code.mdx';
+import Customisation from './customisation.mdx';
+import Usage from './usage.mdx';
+
+# Fieldset
+
+<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  Accessible
+</StatusLabel>
+
+<LeadParagraph>
+  Fieldset groups multiple related form input fields together by giving them a common legend heading.
+</LeadParagraph>
+
+<Tabs>
+  <Tabs.TabList className="pageTabsList">
+    <Tabs.Tab>Usage</Tabs.Tab>
+    <Tabs.Tab>Code</Tabs.Tab>
+    <Tabs.Tab>Accessibility</Tabs.Tab>
+    <Tabs.Tab>Customisation</Tabs.Tab>
+  </Tabs.TabList>
+  <Tabs.TabPanel>
+    <Usage />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Code />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Accessibility />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Customisation />
+  </Tabs.TabPanel>
+</Tabs>
