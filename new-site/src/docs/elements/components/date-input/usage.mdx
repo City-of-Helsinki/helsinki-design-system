@@ -3,22 +3,22 @@ slug: '/elements/components/date-input/code'
 title: 'DateInput - Usage'
 ---
 
-import { DatePicker, Link } from 'hds-react';
-import { IconAngleRight, IconShare, IconTrash } from 'hds-react';
-import Playground from '../../../../components/Playground';
+import { DateInput } from 'hds-react';
 
 ## Usage
 
 ### Example
-<DateInput 
-  helperText="Use format D.M.YYYY"
-  id="date"
-  initialMonth={new Date()}
-  label="Choose a date"
-  language="en"
-  onChange={function noRefCheck(){}}
-  required
-/>
+<div style={{maxWidth: '400px'}}>
+  <DateInput 
+    helperText="Use format D.M.YYYY"
+    id="date"
+    initialMonth={new Date()}
+    label="Choose a date"
+    language="en"
+    onChange={function noRefCheck(){}}
+    required
+  />
+</div>
 
 ### Principles
 - Only use a date input when you can expect the user to input a specific date. If it can be difficult for the user to determine which date they should choose or if the selected date can be vague, let the user choose, for example, a week, month or a date range. 
@@ -38,15 +38,17 @@ import Playground from '../../../../components/Playground';
 ### Date input with a picker
 Out of the box, HDS date input will include an openable date picker which allows the user to select the date via a calendar view. The date can be also inputted manually, which is the recommended setup for most use cases.
 
-<DateInput 
-  helperText="Use format D.M.YYYY"
-  id="date"
-  initialMonth={new Date()}
-  label="Choose a date"
-  language="en"
-  onChange={function noRefCheck(){}}
-  required
-/>
+<div style={{maxWidth: '400px'}}>
+  <DateInput 
+    helperText="Use format D.M.YYYY"
+    id="date"
+    initialMonth={new Date()}
+    label="Choose a date"
+    language="en"
+    onChange={function noRefCheck(){}}
+    required
+  />
+</div>
 
 ---
 
