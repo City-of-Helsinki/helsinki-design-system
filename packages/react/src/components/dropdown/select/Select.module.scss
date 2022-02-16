@@ -50,6 +50,10 @@
   padding-right: var(--spacing-layout-xs);
 }
 
+.buttonLabel.buttonLabelWithClearButton {
+  padding-right: var(--spacing-3-xl);
+}
+
 /**
  * ICON
  */
@@ -124,5 +128,24 @@
     &:focus:not(:active) .angleIcon {
       @extend %dropdownFocusOutline;
     }
+  }
+}
+
+.clearButton {
+  @extend %buttonReset;
+  display: flex;
+  outline: none;
+  position: absolute;
+  right: calc(var(--border-width) * -1);
+  top: 0;
+  transform: translate(calc(var(--spacing-2-xl) * -1), calc(var(--menu-item-height) / 2 - 50%));
+  z-index: 1;
+
+  &:focus {
+    box-shadow: 0 0 0 var(--focus-outline-width) var(--focus-outline-color);
+  }
+
+  &.noToggle {
+    transform: translate(calc(var(--spacing-s) * -1), calc(var(--menu-item-height) / 2 - 50%));
   }
 }

@@ -18,7 +18,7 @@ import 'hds-core';
 import styles from './Select.module.scss';
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 import classNames from '../../../utils/classNames';
-import { IconAlertCircle, IconAngleDown } from '../../../icons';
+import { IconAlertCircle, IconAngleDown, IconCrossCircle } from '../../../icons';
 import { SelectedItems } from '../../../internal/selectedItems/SelectedItems';
 import { DROPDOWN_MENU_ITEM_HEIGHT, getIsInSelectedOptions } from '../dropdownUtils';
 import { DropdownMenu } from '../../../internal/dropdownMenu/DropdownMenu';
@@ -77,6 +77,10 @@ export type CommonSelectProps<OptionType> = {
    * Flag for whether the clear selections button should be displayed
    */
   clearable?: boolean;
+  /**
+   * The aria-label for the clear button
+   */
+  clearButtonAriaLabel: string;
   /**
    * If `true`, the dropdown will be disabled
    */
@@ -197,10 +201,6 @@ export type MultiSelectProps<OptionType> = CommonSelectProps<OptionType> & {
    * When `true`, enables selecting multiple values
    */
   multiselect: true;
-  /**
-   * The aria-label for the clear button
-   */
-  clearButtonAriaLabel: string;
   /**
    * Value(s) that should be selected when the dropdown is initialized
    */
@@ -376,6 +376,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
     isOpen,
     selectedItem,
     selectItem,
+    reset: resetSelect,
   } = useSelect<OptionType>({
     circularNavigation,
     id,
@@ -441,11 +442,24 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
     getDropdownProps({}, { suppressRefError: true });
   }
 
+  const showClearButtonForSingleSelect = clearable && !props.multiselect && selectedItem;
+
   // returns the toggle button label based on the dropdown mode
   const getButtonLabel = (): React.ReactNode => {
     let buttonLabel = selectedItem?.[optionLabelField] || placeholder;
     if (props.multiselect) buttonLabel = selectedItems.length > 0 ? null : placeholder;
-    return buttonLabel && <span className={styles.buttonLabel}>{buttonLabel}</span>;
+    return (
+      buttonLabel && (
+        <span
+          className={classNames(
+            styles.buttonLabel,
+            showClearButtonForSingleSelect && styles.buttonLabelWithClearButton,
+          )}
+        >
+          {buttonLabel}
+        </span>
+      )
+    );
   };
 
   // screen readers should read the labels in the following order:
@@ -526,6 +540,16 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
           {getButtonLabel()}
           <IconAngleDown className={styles.angleIcon} aria-hidden />
         </button>
+        {showClearButtonForSingleSelect && (
+          <button
+            type="button"
+            className={styles.clearButton}
+            onClick={() => resetSelect()}
+            aria-label={props.clearButtonAriaLabel}
+          >
+            <IconCrossCircle />
+          </button>
+        )}
         {/* MENU */}
         <DropdownMenu<OptionType>
           getItemProps={(item, index, selected, optionDisabled, virtualRow) =>
