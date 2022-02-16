@@ -1,0 +1,65 @@
+---
+slug: '/elements/components/dropdown/code'
+title: 'Dropdown - Usage'
+---
+
+## Usage
+
+### Example
+<DateInput 
+  helperText="Use format D.M.YYYY"
+  id="date"
+  initialMonth={new Date()}
+  label="Choose a date"
+  language="en"
+  onChange={function noRefCheck(){}}
+  required
+/>
+
+### Principles
+- **A label should always be provided with dropdowns.** Aim for labels that are short, concise and easy to understand.
+- Dropdowns usually have four (4) or more options. When having only 2-3 options, it is usually better to use [radio buttons](/components/radio-button "Radio button documentation") or [checkboxes](/components/checkbox "Checkbox documentation"). Also, if options need to be easily comparable (for example, product pricing), prefer radio buttons over dropdown.
+- It is recommended to set a default option for a single selection dropdown. If the default option is also the recommended option, you can mark the option with a text "_(recommended)_".
+- If your dropdown has 8 or more options, consider using the [Combobox](#combobox-single-selection) variant which offers filtering options by typing.
+- Try to avoid dropdown options that span over one line. Aim for short texts for all options.
+- If possible, do input validation client-side in real-time and provide the user with immediate feedback after selection.
+
+#### Should I use Select or Combobox?
+- **Use Select variant when**
+  - there are less than 8 options
+  - the user does not need to be able to filter options by typing
+- **Use Combobox variant when**
+  - there are 8 or more options
+  - the user needs to be able to filter options by typing
+
+#### Icon or no icon?
+- **Use an icon when**
+  - there is a clear added value to using an icon
+  - when the icon is not just for illustrative purposes
+  - when you can add an icon to all select and combobox elements in the formgroup to maintain consistency
+
+### Variations
+
+### Select (single selection)
+Select dropdown serves in most use cases when the user needs to select one of 4 to 7 options. If there are 8 or more options available, consider using [Combobox](#combobox-single-selection) to allow filtering.
+
+---
+
+### Select (multi-selection)
+Select multi-selection variant allows the user to select one or more options simultaneously. Note! Select dropdown does not feature filtering options by typing. When this feature is needed or there are a large number of options available, consider using consider using [Combobox](#combobox-multi-selection).
+
+Multi-select also supports icon if needed.
+
+---
+
+### Combobox (single selection)
+Combobox dropdown serves in most use cases when the user needs to select one from 8 or more options (up to hundreds of options). Combobox variant features filtering options by typing.
+
+---
+
+### Combobox (multi-selection)
+Combobox multi-select variant allows the user to select one or more options simultaneously. Combobox variant features filtering options by typing.
+
+Multi-select also supports icon if needed.
+
+export default ({ children }) => <>{children}</>;
