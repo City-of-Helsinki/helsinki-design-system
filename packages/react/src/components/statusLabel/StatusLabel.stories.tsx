@@ -1,5 +1,4 @@
 import React from 'react';
-import { radios, text, withKnobs } from '@storybook/addon-knobs';
 
 import { StatusLabel } from './StatusLabel';
 import { IconCheckCircle, IconInfoCircle, IconAlertCircle, IconError } from '../../icons';
@@ -10,7 +9,6 @@ export default {
   parameters: {
     controls: { hideNoControlsWarning: true },
   },
-  decorators: [withKnobs],
 };
 
 export const Neutral = () => <StatusLabel>Neutral</StatusLabel>;
@@ -49,22 +47,7 @@ export const Icons = () => (
   </>
 );
 
-export const Playground = () => {
-  const label = text('Label', 'Status');
-  const type = radios(
-    'Type',
-    {
-      neutral: 'neutral',
-      info: 'info',
-      success: 'success',
-      alert: 'alert',
-      error: 'error',
-    },
-    'neutral',
-  );
-
-  return <StatusLabel type={type}>{label}</StatusLabel>;
-};
+export const Playground = (args) => <StatusLabel type={args.type}>{args.label}</StatusLabel>;
 
 Playground.parameters = {
   previewTabs: {
@@ -74,5 +57,17 @@ Playground.parameters = {
   },
   docs: {
     disable: true,
+  },
+};
+
+Playground.args = {
+  label: 'Status',
+  type: 'neutral',
+};
+
+Playground.argTypes = {
+  type: {
+    options: ['neutral', 'info', 'success', 'alert', 'error'],
+    control: { type: 'radio' },
   },
 };
