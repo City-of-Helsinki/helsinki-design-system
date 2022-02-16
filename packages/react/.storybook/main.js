@@ -11,7 +11,6 @@ module.exports = {
     '@storybook/addon-controls',
     '@storybook/addon-viewport',
     '@storybook/addon-backgrounds',
-    '@storybook/addon-knobs',
     '@storybook/addon-a11y',
     '@storybook/addon-actions',
     '@storybook/addon-storysource',
