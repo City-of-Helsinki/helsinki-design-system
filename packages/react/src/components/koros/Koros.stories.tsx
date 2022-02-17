@@ -101,7 +101,9 @@ export const RotatedInContainer = () => {
 
 export const CustomColor = () => <Koros style={{ fill: 'var(--color-coat-of-arms)' }} />;
 
-export const Playground = (args) => <Koros type={args.type} flipHorizontal={args.flipHorizontal} rotate={args.rotate}/>;
+export const Playground = (args) => (
+  <Koros type={args.type} flipHorizontal={args.flipHorizontal} rotate={args.rotate} />
+);
 
 Playground.parameters = {
   previewTabs: {
