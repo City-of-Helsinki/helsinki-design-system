@@ -1,0 +1,59 @@
+---
+slug: '/elements/components/footer/customisation'
+title: 'Footer - Customisation'
+---
+
+import { Footer } from 'hds-react';
+import { IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, IconCheckCircleFill } from 'hds-react';
+
+## Customisation
+
+### Customisation properties
+You can use the `theme` property to customise the component. See all available theme variables in the table below.
+
+| Theme variable                           | Description                                             |
+| ---------------------------------------- | ------------------------------------------------------- |
+| `--footer-background`                    | Colour of the Footer background                         |
+| `--footer-color`                         | Colour of the Footer elements (such as text and icons)  |
+| `--footer-divider-color`                 | Colour of the divider line between Footer sections      |
+| `--footer-focus-outline-color'`          | Colour of the Footer element focus border               |
+
+
+### Customisation example
+<Playground>
+
+
+```jsx
+<Footer
+    title="Helsinki Design System"
+    footerAriaLabel="HDS Footer"
+    theme={{
+        '--footer-background': 'var(--color-engel)',
+        '--footer-color': 'var(--color-black-90)',
+        '--footer-divider-color': 'var(--color-black-90)',
+        '--footer-focus-outline-color': 'var(--color-black-90)',
+    }}
+  >
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+    </Footer.Navigation>
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+    </Footer.Base>
+  </Footer>
+```
+
+```html
+
+```
+
+</Playground>
+
+export default ({ children }) => <>{children}</>;
