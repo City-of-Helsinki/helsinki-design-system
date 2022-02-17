@@ -84,7 +84,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     catchEscapeKey,
     circularNavigation = false,
     className,
-    clearable = true,
+    clearable = props.multiselect,
     disabled = false,
     error,
     getA11ySelectionMessage = () => '',
