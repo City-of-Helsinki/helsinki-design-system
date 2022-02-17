@@ -78,10 +78,6 @@ export type CommonSelectProps<OptionType> = {
    */
   clearable?: boolean;
   /**
-   * The aria-label for the clear button
-   */
-  clearButtonAriaLabel: string;
-  /**
    * If `true`, the dropdown will be disabled
    */
   disabled?: boolean;
@@ -179,6 +175,10 @@ export type CommonSelectProps<OptionType> = {
 
 export type SingleSelectProps<OptionType> = CommonSelectProps<OptionType> & {
   /**
+   * The aria-label for the clear button
+   */
+  clearButtonAriaLabel?: string;
+  /**
    * When `true`, enables selecting multiple values
    */
   multiselect?: false;
@@ -197,6 +197,10 @@ export type SingleSelectProps<OptionType> = CommonSelectProps<OptionType> & {
 };
 
 export type MultiSelectProps<OptionType> = CommonSelectProps<OptionType> & {
+  /**
+   * The aria-label for the clear button
+   */
+  clearButtonAriaLabel: string;
   /**
    * When `true`, enables selecting multiple values
    */
@@ -297,7 +301,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
   const {
     circularNavigation = false,
     className,
-    clearable = true,
+    clearable = props.multiselect,
     disabled = false,
     error,
     getA11ySelectionMessage = () => '',
