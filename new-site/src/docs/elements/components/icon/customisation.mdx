@@ -1,0 +1,40 @@
+---
+slug: '/elements/components/icon/customisation'
+title: 'Icon - Customisation'
+---
+
+import { Footer } from 'hds-react';
+import { IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, IconCheckCircleFill } from 'hds-react';
+
+## Customisation
+
+### Customisation properties
+Customising icons is rather simple. Use the `size` property to control size and the `color` property to control colour.
+
+### Customisation example
+<Playground>
+
+
+```jsx
+<>
+<IconFaceSmile size="xs" color="var(--color-bus)" aria-hidden="true" />
+<IconFaceSmile size="s" color="var(--color-brick)" aria-hidden="true" />
+<IconFaceSmile size="m" color="var(--color-coat-of-arms)" aria-hidden="true" />
+<IconFaceSmile size="l" color="var(--color-tram)" aria-hidden="true" />
+<IconFaceSmile size="xl" color="var(--color-metro)" aria-hidden="true" />
+</>
+```
+
+```html
+<div>
+<i class="hds-icon hds-icon--face-smile hds-icon--size-xs" style={{color: 'var(--color-bus)'}} aria-hidden="true"></i>
+<i class="hds-icon hds-icon--face-smile hds-icon--size-s" style={{color: 'var(--color-brick)'}} aria-hidden="true"></i>
+<i class="hds-icon hds-icon--face-smile hds-icon--size-m" style={{color: 'var(--color-coat-of-arms)'}} aria-hidden="true"></i>
+<i class="hds-icon hds-icon--face-smile hds-icon--size-l" style={{color: 'var(--color-tram)'}} aria-hidden="true"></i>
+<i class="hds-icon hds-icon--face-smile hds-icon--size-xl" style={{color: 'var(--color-metro)'}} aria-hidden="true"></i>
+</div>
+```
+
+</Playground>
+
+export default ({ children }) => <>{children}</>;
