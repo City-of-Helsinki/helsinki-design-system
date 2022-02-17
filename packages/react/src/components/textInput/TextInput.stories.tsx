@@ -108,7 +108,7 @@ Playground.args = {
   required: false,
   readOnly: false,
   invalid: false,
-  errorText: 'Error text',
+  errorText: undefined,
   hideLabel: false,
   tooltipAriaLabel: 'Tooltip',
   tooltipText:
