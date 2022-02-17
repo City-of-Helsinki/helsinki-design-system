@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import { TextInput } from './TextInput';
@@ -15,7 +14,7 @@ const textInputProps = {
 export default {
   component: TextInput,
   title: 'Components/TextInput',
-  decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
+  decorators: [(storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
   parameters: {
     controls: { hideNoControlsWarning: true },
     docs: {
@@ -72,48 +71,25 @@ export const UsingRef = () => {
 };
 UsingRef.storyName = 'Using ref';
 
-export const Playground = () => {
-  const groupGeneral = 'General';
-  const groupTooltip = 'Tooltip';
+export const Playground = (args) => (
+  <TextInput
+    id={args.id}
+    label={args.label}
+    helperText={args.helperText}
+    placeholder={args.placeholder}
+    readOnly={args.readOnly}
+    type={args.type}
+    disabled={args.disabled}
+    invalid={args.invalid}
+    errorText={args.errorText}
+    hideLabel={args.hideLabel}
+    required={args.required}
+    tooltipLabel={args.tooltipLabel}
+    tooltipText={args.tooltipText}
+    tooltipButtonLabel={args.tooltipButtonAriaLabelText}
+  />
+);
 
-  const label = text('Label', textInputProps.label, groupGeneral);
-  const placeholder = text('Placeholder', textInputProps.placeholder, groupGeneral);
-  const helperText = text('Helper text', textInputProps.helperText, groupGeneral);
-  const type = text('Type', 'text', groupGeneral);
-  const disabled = boolean('Disabled', false, groupGeneral);
-  const required = boolean('Required', false, groupGeneral);
-  const readOnly = boolean('Read-only', false, groupGeneral);
-  const invalid = boolean('Invalid', false, groupGeneral);
-  const errorText = text('Error text', undefined, groupGeneral);
-  const hideLabel = boolean('Hide label', false, groupGeneral);
-
-  const tooltipLabel = text('Tooltip aria-label', 'Tooltip', groupTooltip);
-  const tooltipText = text(
-    'Tooltip text',
-    'Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.',
-    groupTooltip,
-  );
-  const tooltipButtonLabelText = text('Tooltip trigger button aria-label', 'Tooltip', groupTooltip);
-
-  return (
-    <TextInput
-      {...textInputProps}
-      type={type}
-      label={label}
-      helperText={helperText}
-      placeholder={placeholder}
-      readOnly={readOnly}
-      disabled={disabled}
-      invalid={invalid}
-      errorText={errorText}
-      hideLabel={hideLabel}
-      required={required}
-      tooltipLabel={tooltipLabel}
-      tooltipText={tooltipText}
-      tooltipButtonLabel={tooltipButtonLabelText}
-    />
-  );
-};
 Playground.parameters = {
   previewTabs: {
     'storybook/docs/panel': {
@@ -123,4 +99,19 @@ Playground.parameters = {
   docs: {
     disable: true,
   },
+};
+
+Playground.args = {
+  ...textInputProps,
+  type: 'text',
+  disabled: false,
+  required: false,
+  readOnly: false,
+  invalid: false,
+  errorText: undefined,
+  hideLabel: false,
+  tooltipAriaLabel: 'Tooltip',
+  tooltipText:
+    'Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.',
+  tooltipButtonAriaLabelText: 'Tooltip',
 };
