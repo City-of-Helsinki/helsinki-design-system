@@ -85,8 +85,8 @@ Playground.parameters = {
 };
 
 Playground.args = {
-  title: 'Title',
-  text: 'Text',
+  title: contentTitle,
+  text: contentText,
   color: 'plain',
   fullWidth: false,
   cardAlignment: 'left',
