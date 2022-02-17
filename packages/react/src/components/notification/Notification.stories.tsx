@@ -168,7 +168,7 @@ Playground.parameters = {
 
 Playground.args = {
   label: 'Label',
-  body: 'Content',
+  body: content,
   closeButtonLabelText: 'Close notification',
   type: 'info',
   size: 'default',

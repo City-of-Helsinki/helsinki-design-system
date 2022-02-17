@@ -121,8 +121,8 @@ Playground.parameters = {
 };
 
 Playground.args = {
-  sectionTitle: 'Title',
-  sectionText: 'Text',
+  sectionTitle: placeholderTitle,
+  sectionText: placeholderText,
   korosType: null,
   color: 'plain',
 };
