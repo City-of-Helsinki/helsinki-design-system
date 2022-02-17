@@ -8,17 +8,36 @@ import { Footer } from 'hds-react';
 ## Usage
 
 ### Example
-<Fieldset heading="Applicant information" style={{ maxWidth: '400px' }}>
-  <TextInput id="first-name" name="first-name" label="First name" />
-  <TextInput id="last-name" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
-  <TextInput
-    id="social-security-number"
-    name="social-security-number"
-    label="Social security number"
-    placeholder="Eg. 111299-1234"
-    style={{ marginTop: '12px' }}
-  />
-</Fieldset>
+<Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
+  <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+    <Footer.Item label="Item" />
+    <Footer.Item label="Item" />
+    <Footer.Item label="Item" />
+    <Footer.Item label="Item" />
+    <Footer.Item label="Item" />
+    <Footer.Item label="Item" />
+    <Footer.Item label="Item" />
+    <Footer.Item label="Item" />
+  </Footer.Navigation>
+  <Footer.Utilities backToTopLabel="Back to top">
+    <Footer.SoMe>
+      <Footer.Item icon={<IconFacebook />} />
+      <Footer.Item icon={<IconTwitter />} />
+      <Footer.Item icon={<IconInstagram />} />
+      <Footer.Item icon={<IconYoutube />} />
+      <Footer.Item icon={<IconTiktok />} />
+    </Footer.SoMe>
+    <Footer.Item label="Contact us" />
+    <Footer.Item label="Give feedback" />
+  </Footer.Utilities>
+  <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+    <Footer.Item label="Link" />
+    <Footer.Item label="Link" />
+    <Footer.Item label="Link" />
+    <Footer.Item label="Link" />
+    <Footer.Item label="Link" />
+  </Footer.Base>
+</Footer>
 
 Footer stays consistent throughout the site and is often the place where users scroll to if they feel lost or don't find what they are looking for. It's a good place provide the user an additional way to navigate the service and to information that is hard to find through primary navigation, for example contact info, copyright and legal statements. The footer can also be used to engage the user with actions and links to social media.
 
