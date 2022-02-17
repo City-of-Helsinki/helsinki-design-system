@@ -52,6 +52,7 @@ export default {
     label: 'Element',
     helper: 'Choose an element',
     placeholder: 'Placeholder',
+    clearButtonAriaLabel: 'Clear selection',
     options,
     onBlur: action('onBlur'),
     onChange: (change) => action('onChange')(change),
@@ -61,6 +62,13 @@ export default {
 };
 
 export const Default = (args) => <Combobox {...args} />;
+
+export const WithClearButton = (args) => <Combobox {...args} />;
+WithClearButton.storyName = 'With clear button';
+WithClearButton.args = {
+  clearable: true,
+};
+WithClearButton.parameters = { loki: { skip: true } };
 
 export const Multiselect = (args) => <Combobox {...args} />;
 Multiselect.storyName = 'Multi-select';

@@ -41,6 +41,7 @@ export default {
     label: 'Element',
     helper: 'Choose an element',
     placeholder: 'Placeholder',
+    clearButtonAriaLabel: 'Clear selection',
     options,
     onBlur: action('onBlur'),
     onChange: (change) => action('onChange')(change),
@@ -49,6 +50,13 @@ export default {
 };
 
 export const Default = (args) => <Select {...args} />;
+
+export const WithClearButton = (args) => <Select {...args} />;
+WithClearButton.storyName = 'With clear button';
+WithClearButton.args = {
+  clearable: true,
+};
+WithClearButton.parameters = { loki: { skip: true } };
 
 export const Multiselect = (args) => <Select {...args} />;
 Multiselect.storyName = 'Multi-select';
