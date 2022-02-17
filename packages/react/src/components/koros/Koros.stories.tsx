@@ -1,5 +1,4 @@
 import React from 'react';
-import { boolean, radios, withKnobs } from '@storybook/addon-knobs';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import { Koros } from './Koros';
@@ -7,7 +6,6 @@ import { Koros } from './Koros';
 export default {
   component: Koros,
   title: 'Components/Koros',
-  decorators: [withKnobs],
   parameters: {
     controls: { hideNoControlsWarning: true },
     docs: {
@@ -103,12 +101,10 @@ export const RotatedInContainer = () => {
 
 export const CustomColor = () => <Koros style={{ fill: 'var(--color-coat-of-arms)' }} />;
 
-export const Playground = () => {
-  const type = radios('Type', { basic: 'basic', beat: 'beat', pulse: 'pulse', wave: 'wave', storm: 'storm' }, 'basic');
-  const flipped = boolean('Flip horizontal', false);
+export const Playground = (args) => (
+  <Koros type={args.type} flipHorizontal={args.flipHorizontal} rotate={args.rotate} />
+);
 
-  return <Koros type={type} flipHorizontal={flipped} />;
-};
 Playground.parameters = {
   previewTabs: {
     'storybook/docs/panel': {
@@ -117,5 +113,18 @@ Playground.parameters = {
   },
   docs: {
     disable: true,
+  },
+};
+
+Playground.args = {
+  type: 'basic',
+  flipHorizontal: false,
+  rotate: '',
+};
+
+Playground.argTypes = {
+  type: {
+    options: ['basic', 'beat', 'pulse', 'wave', 'storm'],
+    control: { type: 'radio' },
   },
 };

@@ -1,5 +1,4 @@
 import React from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
 
 import { Card } from './Card';
 import { Button } from '../button';
@@ -7,7 +6,6 @@ import { Button } from '../button';
 export default {
   component: Card,
   title: 'Components/Card',
-  decorators: [withKnobs],
   parameters: {
     controls: { expanded: true },
   },

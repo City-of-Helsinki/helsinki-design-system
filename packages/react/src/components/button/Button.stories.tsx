@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { action } from '@storybook/addon-actions';
-import { boolean, radios, text, withKnobs } from '@storybook/addon-knobs';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import { IconShare, IconAngleRight, IconFaceSmile, IconTrash } from '../../icons';
@@ -11,7 +10,6 @@ const onClick = action('button-click');
 export default {
   component: Button,
   title: 'Components/Button',
-  decorators: [withKnobs],
   parameters: {
     controls: { hideNoControlsWarning: true },
     docs: {
@@ -114,36 +112,19 @@ LoadingOnClick.args = {
   variant: 'primary',
 };
 
-export const Playground = () => {
-  const label = text('Label', 'Button');
-  const variant = radios(
-    'Variant',
-    {
-      primary: 'primary',
-      secondary: 'secondary',
-      supplementary: 'supplementary',
-      success: 'success',
-      danger: 'danger',
-    },
-    'primary',
-  );
-  const theme = radios(
-    'Theme',
-    {
-      default: 'default',
-      coat: 'coat',
-      black: 'black',
-    },
-    'default',
-  );
-  const size = radios('Size', { default: 'default', small: 'small' }, 'default');
-  const disabled = boolean('Disabled', false);
-  const fullWidth = boolean('Full width', false);
-  const iconLeft = boolean('Icon left', false);
-  const iconRight = boolean('Icon right', false);
-  const isLoading = boolean('Is loading', false);
-  const loadingText = text('Loading text', 'Saving your changes');
-
+export const Playground = ({
+  label,
+  variant,
+  theme,
+  size,
+  disabled,
+  fullWidth,
+  iconLeft,
+  iconRight,
+  isLoading,
+  loadingText,
+  ...args
+}) => {
   return (
     <Button
       variant={variant}
@@ -155,6 +136,7 @@ export const Playground = () => {
       iconRight={iconRight ? <IconFaceSmile /> : null}
       isLoading={isLoading}
       loadingText={loadingText}
+      {...args}
     >
       {label}
     </Button>
@@ -168,5 +150,33 @@ Playground.parameters = {
   },
   docs: {
     disable: true,
+  },
+};
+
+Playground.args = {
+  label: 'Button',
+  variant: 'primary',
+  theme: 'default',
+  size: 'default',
+  disabled: false,
+  fullWidth: false,
+  iconLeft: false,
+  iconRight: false,
+  isLoading: false,
+  loadingText: 'Saving your changes',
+};
+
+Playground.argTypes = {
+  variant: {
+    options: ['primary', 'secondary', 'supplementary', 'success', 'danger'],
+    control: { type: 'radio' },
+  },
+  theme: {
+    options: ['default', 'coat', 'black'],
+    control: { type: 'radio' },
+  },
+  size: {
+    options: ['default', 'small'],
+    control: { type: 'radio' },
   },
 };

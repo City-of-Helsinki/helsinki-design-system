@@ -1,5 +1,4 @@
 import React from 'react';
-import { boolean, radios, text, withKnobs } from '@storybook/addon-knobs';
 import { ArgsTable, Title } from '@storybook/addon-docs/blocks';
 
 import { ImageWithCard } from './ImageWithCard';
@@ -19,7 +18,6 @@ const content = (
 export default {
   component: ImageWithCard,
   title: 'Components/ImageWithCard',
-  decorators: [withKnobs],
   parameters: {
     controls: { hideNoControlsWarning: true },
     layout: 'fullscreen',
@@ -62,31 +60,19 @@ export const SplitFullWidth = () => (
 );
 SplitFullWidth.storyName = 'Split full width';
 
-export const Playground = () => {
-  const cardTitle = text('Title', contentTitle);
-  const cardText = text('Text', contentText);
-  const color = radios(
-    'Color',
-    { plain: 'plain', primary: 'primary', secondary: 'secondary', tertiary: 'tertiary' },
-    'plain',
-  );
-  const fullWidth = boolean('Full width', false);
-  const cardAlignment = radios('Card alignment', { left: 'left', right: 'right' }, 'left');
-  const cardLayout = radios('Card layout', { hover: 'hover', split: 'split' }, null);
+export const Playground = (args) => (
+  <ImageWithCard
+    color={args.color}
+    cardAlignment={args.cardAlignment}
+    fullWidth={args.fullWidth}
+    cardLayout={args.cardLayout}
+    src={imageFile}
+  >
+    <h2 style={{ fontSize: 'var(--fontsize-heading-l)' }}>{args.title}</h2>
+    <p style={{ margin: 'var(--spacing-l) 0' }}>{args.text}</p>
+  </ImageWithCard>
+);
 
-  return (
-    <ImageWithCard
-      color={color}
-      cardAlignment={cardAlignment}
-      fullWidth={fullWidth}
-      cardLayout={cardLayout}
-      src={imageFile}
-    >
-      <h2 style={{ fontSize: 'var(--fontsize-heading-l)' }}>{cardTitle}</h2>
-      <p style={{ margin: 'var(--spacing-l) 0' }}>{cardText}</p>
-    </ImageWithCard>
-  );
-};
 Playground.parameters = {
   previewTabs: {
     'storybook/docs/panel': {
@@ -95,5 +81,29 @@ Playground.parameters = {
   },
   docs: {
     disable: true,
+  },
+};
+
+Playground.args = {
+  title: contentTitle,
+  text: contentText,
+  color: 'plain',
+  fullWidth: false,
+  cardAlignment: 'left',
+  cardLayout: null,
+};
+
+Playground.argTypes = {
+  color: {
+    options: ['plain', 'primary', 'secondary', 'tertiary'],
+    control: { type: 'radio' },
+  },
+  cardAlignment: {
+    options: ['left', 'right'],
+    control: { type: 'radio' },
+  },
+  cardLayout: {
+    options: ['hover', 'split', null],
+    control: { type: 'radio' },
   },
 };

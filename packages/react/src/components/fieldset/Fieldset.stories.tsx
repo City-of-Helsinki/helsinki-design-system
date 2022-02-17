@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
 
 import { Fieldset } from './Fieldset';
 import { TextInput } from '../textInput/TextInput';
@@ -9,7 +8,7 @@ import { SelectionGroup } from '../selectionGroup/SelectionGroup';
 export default {
   component: Fieldset,
   title: 'Components/Fieldset',
-  decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '600px' }}>{storyFn()}</div>],
+  decorators: [(storyFn) => <div style={{ maxWidth: '600px' }}>{storyFn()}</div>],
   parameters: {
     controls: { expanded: true },
   },
