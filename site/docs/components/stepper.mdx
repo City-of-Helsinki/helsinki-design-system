@@ -122,6 +122,7 @@ The default stepper variant includes visible step labels. The stepper can be nav
     ],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  const lastStep = state.activeStepIndex === state.steps.length - 1;
   return (
     <div>
       <Stepper
@@ -149,11 +150,12 @@ The default stepper variant includes visible step labels. The stepper can be nav
           Previous
         </Button>
         <Button
+          variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={<IconArrowRight />}
+          iconRight={lastStep ? undefined : <IconArrowRight />}
         >
-          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+          {lastStep ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -234,6 +236,7 @@ The default stepper variant includes visible step labels. The stepper can be nav
     ],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  const lastStep = state.activeStepIndex === state.steps.length - 1;
   return (
     <div>
       <Stepper
@@ -261,11 +264,12 @@ The default stepper variant includes visible step labels. The stepper can be nav
           Previous
         </Button>
         <Button
+          variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={<IconArrowRight />}
+          iconRight={lastStep ? undefined : <IconArrowRight />}
         >
-          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+          {lastStep ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -348,6 +352,7 @@ The small stepper variant omits the visible step labels. This variant of the ste
     ],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  const lastStep = state.activeStepIndex === state.steps.length - 1;
   return (
     <div 
       style={{
@@ -381,11 +386,12 @@ The small stepper variant omits the visible step labels. This variant of the ste
           Previous
         </Button>
         <Button
+          variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={<IconArrowRight />}
+          iconRight={lastStep ? undefined : <IconArrowRight />}
         >
-          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+          {lastStep ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -423,6 +429,7 @@ The small stepper variant omits the visible step labels. This variant of the ste
     ],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  const lastStep = state.activeStepIndex === state.steps.length - 1;
   return (
     <div 
       style={{
@@ -456,11 +463,12 @@ The small stepper variant omits the visible step labels. This variant of the ste
           Previous
         </Button>
         <Button
+          variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={<IconArrowRight />}
+          iconRight={lastStep ? undefined : <IconArrowRight />}
         >
-          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+          {lastStep ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -545,6 +553,7 @@ You can control the heading level of the generated step heading via the `stepHea
     ],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  const lastStep = state.activeStepIndex === state.steps.length - 1;
   return (
     <div>
       <Stepper
@@ -575,11 +584,12 @@ You can control the heading level of the generated step heading via the `stepHea
           Previous
         </Button>
         <Button
+          variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={<IconArrowRight />}
+          iconRight={lastStep ? undefined : <IconArrowRight />}
         >
-          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+          {lastStep ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -618,6 +628,7 @@ You can control the heading level of the generated step heading via the `stepHea
     ],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  const lastStep = state.activeStepIndex === state.steps.length - 1;
   return (
     <div>
       <Stepper
@@ -647,11 +658,12 @@ You can control the heading level of the generated step heading via the `stepHea
           Previous
         </Button>
         <Button
+          variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={<IconArrowRight />}
+          iconRight={lastStep ? undefined : <IconArrowRight />}
         >
-          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+          {lastStep ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -736,6 +748,7 @@ This variant should only be the last resort option if it is not possible to fit 
     ],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  const lastStep = state.activeStepIndex === state.steps.length - 1;
   return (
     <div 
       style={{
@@ -767,11 +780,12 @@ This variant should only be the last resort option if it is not possible to fit 
           Previous
         </Button>
         <Button
+          variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={<IconArrowRight />}
+          iconRight={lastStep ? undefined : <IconArrowRight />}
         >
-          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+          {lastStep ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -810,6 +824,7 @@ This variant should only be the last resort option if it is not possible to fit 
     ],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  const lastStep = state.activeStepIndex === state.steps.length - 1;
   return (
     <div 
       style={{
@@ -841,11 +856,12 @@ This variant should only be the last resort option if it is not possible to fit 
           Previous
         </Button>
         <Button
+          variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={<IconArrowRight />}
+          iconRight={lastStep ? undefined : <IconArrowRight />}
         >
-          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+          {lastStep ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
