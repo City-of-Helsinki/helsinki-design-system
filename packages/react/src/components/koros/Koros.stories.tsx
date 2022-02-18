@@ -24,6 +24,8 @@ export default {
 
 export const Basic = () => <Koros />;
 
+export const Dense = () => <Koros dense />;
+
 export const Beat = () => <Koros type="beat" />;
 
 export const Pulse = () => <Koros type="pulse" />;
