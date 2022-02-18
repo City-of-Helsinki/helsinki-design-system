@@ -110,6 +110,8 @@ export const Default = (args) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const lastStep = state.activeStepIndex === state.steps.length - 1;
+
   return (
     <div>
       <Stepper
@@ -139,11 +141,12 @@ export const Default = (args) => {
           Previous
         </Button>
         <Button
+          variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={<IconArrowRight />}
+          iconRight={lastStep ? undefined : <IconArrowRight />}
         >
-          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+          {lastStep ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -189,6 +192,8 @@ export const Small = (args) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const lastStep = state.activeStepIndex === state.steps.length - 1;
+
   return (
     <div className="stepper-small">
       <Stepper
@@ -218,11 +223,12 @@ export const Small = (args) => {
           Previous
         </Button>
         <Button
+          variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={<IconArrowRight />}
+          iconRight={lastStep ? undefined : <IconArrowRight />}
         >
-          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+          {lastStep ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -262,6 +268,8 @@ export const WithStepHeading = (args) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const lastStep = state.activeStepIndex === state.steps.length - 1;
+
   return (
     <div>
       <Stepper
@@ -293,11 +301,12 @@ export const WithStepHeading = (args) => {
           Previous
         </Button>
         <Button
+          variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={<IconArrowRight />}
+          iconRight={lastStep ? undefined : <IconArrowRight />}
         >
-          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+          {lastStep ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -365,6 +374,8 @@ export const Overflow = (args) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const lastStep = state.activeStepIndex === state.steps.length - 1;
+
   return (
     <div style={{ maxWidth: '400px' }}>
       <Stepper
@@ -393,11 +404,12 @@ export const Overflow = (args) => {
           Previous
         </Button>
         <Button
+          variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={<IconArrowRight />}
+          iconRight={lastStep ? undefined : <IconArrowRight />}
         >
-          {state.activeStepIndex === 11 ? 'Send' : 'Next'}
+          {lastStep ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -436,6 +448,8 @@ export const WithCustomTheme = (args) => {
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const lastStep = state.activeStepIndex === state.steps.length - 1;
 
   const theme = {
     '--hds-stepper-color': 'var(--color-black-90)',
@@ -477,12 +491,13 @@ export const WithCustomTheme = (args) => {
           Previous
         </Button>
         <Button
-          className="stepper-custom-primary-button"
+          variant={lastStep ? 'primary' : 'secondary'}
+          className={lastStep ? 'stepper-custom-primary-button' : 'stepper-custom-secondary-button'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={<IconArrowRight />}
+          iconRight={lastStep ? undefined : <IconArrowRight />}
         >
-          {state.activeStepIndex === 4 ? 'Send' : 'Next'}
+          {lastStep ? 'Send' : 'Next'}
         </Button>
       </div>
     </div>
@@ -680,6 +695,8 @@ export const SimpleFormExample = (args) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const lastStep = state.activeStepIndex === state.steps.length - 1;
+
   const errorRef = useRef(null);
 
   return (
@@ -815,6 +832,7 @@ export const SimpleFormExample = (args) => {
           Previous
         </Button>
         <Button
+          variant={lastStep ? 'primary' : 'secondary'}
           onClick={() => {
             if (state.showErrorSummary) {
               // focus to error summary label
@@ -823,9 +841,9 @@ export const SimpleFormExample = (args) => {
             dispatch({ type: 'completeStep', payload: state.activeStepIndex });
           }}
           style={{ height: 'fit-content', width: 'fit-content' }}
-          iconRight={<IconArrowRight />}
+          iconRight={lastStep ? undefined : <IconArrowRight />}
         >
-          {state.activeStepIndex === 3 ? 'Send' : 'Next'}
+          {lastStep ? 'Send' : 'Next'}
         </Button>
       </div>
     </form>
