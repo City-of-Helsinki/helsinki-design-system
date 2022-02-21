@@ -122,6 +122,8 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
   const inputRef = useRef<HTMLInputElement>();
   // menu ref
   const menuRef = React.useRef<HTMLUListElement>();
+  // toggle button ref
+  const toggleButtonRef = React.useRef<HTMLButtonElement>(null);
   // whether active focus is within the dropdown
   const [hasFocus, setFocus] = useState<boolean>(false);
   // Tracks whether any combobox item is being clicked
@@ -462,6 +464,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
             onClear={() => {
               reset();
               setInputValue('');
+              toggleButtonRef.current.focus();
             }}
             onRemove={removeSelectedItem}
             optionLabelField={optionLabelField}
@@ -501,6 +504,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
             'aria-label': `${label}: ${toggleButtonAriaLabel}`,
             'aria-expanded': isOpen,
             ...(invalid && { 'aria-invalid': true }),
+            ref: toggleButtonRef,
           })}
         >
           <IconAngleDown className={styles.angleIcon} aria-hidden />
@@ -509,7 +513,10 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
           <button
             type="button"
             className={classNames(selectStyles.clearButton, !showToggleButton && selectStyles.noToggle)}
-            onClick={() => resetCombobox()}
+            onClick={() => {
+              resetCombobox();
+              toggleButtonRef.current.focus();
+            }}
             aria-label={props.clearButtonAriaLabel}
           >
             <IconCrossCircle />
