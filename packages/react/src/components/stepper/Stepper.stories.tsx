@@ -481,7 +481,7 @@ export const WithCustomTheme = (args) => {
         }}
       >
         <Button
-          className="stepper-custom-secondary-button"
+          theme="black"
           disabled={state.activeStepIndex === 0}
           variant="secondary"
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
@@ -491,8 +491,8 @@ export const WithCustomTheme = (args) => {
           Previous
         </Button>
         <Button
+          theme="black"
           variant={lastStep ? 'primary' : 'secondary'}
-          className={lastStep ? 'stepper-custom-primary-button' : 'stepper-custom-secondary-button'}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconRight={lastStep ? undefined : <IconArrowRight />}
