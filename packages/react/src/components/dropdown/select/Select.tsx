@@ -334,7 +334,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
   // menu ref
   const menuRef = React.useRef<HTMLUListElement>();
   // toggle button ref
-  const toggleButtonRef = React.useRef(null);
+  const toggleButtonRef = React.useRef<HTMLButtonElement>(null);
   // whether active focus is within the dropdown
   const [hasFocus, setFocus] = useState<boolean>(false);
   // virtualize menu items to increase performance
