@@ -333,6 +333,8 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
   const selectedItemsContainerRef = useRef<HTMLDivElement>();
   // menu ref
   const menuRef = React.useRef<HTMLUListElement>();
+  // toggle button ref
+  const toggleButtonRef = React.useRef(null);
   // whether active focus is within the dropdown
   const [hasFocus, setFocus] = useState<boolean>(false);
   // virtualize menu items to increase performance
@@ -513,7 +515,10 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
             dropdownId={id}
             getSelectedItemProps={getSelectedItemProps}
             hideItems={!hasFocus}
-            onClear={() => reset()}
+            onClear={() => {
+              reset();
+              toggleButtonRef.current.focus();
+            }}
             onRemove={removeSelectedItem}
             optionLabelField={optionLabelField}
             removeButtonAriaLabel={props.selectedItemRemoveButtonAriaLabel}
@@ -530,10 +535,11 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
             'aria-owns': getMenuProps().id,
             'aria-labelledby': buttonAriaLabel,
             // add downshift dropdown props when multiselect is enabled
-            ...(props.multiselect && { ...getDropdownProps({ preventKeyAction: isOpen }) }),
+            ...(props.multiselect && { ...getDropdownProps({ preventKeyAction: isOpen, ref: toggleButtonRef }) }),
             ...(invalid && { 'aria-invalid': true }),
             disabled,
             className: classNames(styles.button, showPlaceholder && styles.placeholder),
+            ...(!props.multiselect && { ref: toggleButtonRef }),
           })}
         >
           {showIcon && (
@@ -548,7 +554,10 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
           <button
             type="button"
             className={styles.clearButton}
-            onClick={() => resetSelect()}
+            onClick={() => {
+              toggleButtonRef.current.focus();
+              resetSelect();
+            }}
             aria-label={props.clearButtonAriaLabel}
           >
             <IconCrossCircle />
