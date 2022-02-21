@@ -24,8 +24,6 @@ export default {
 
 export const Basic = () => <Koros />;
 
-export const Dense = () => <Koros dense />;
-
 export const Beat = () => <Koros type="beat" />;
 
 export const Pulse = () => <Koros type="pulse" />;
@@ -35,6 +33,20 @@ export const Wave = () => <Koros type="wave" />;
 export const Storm = () => <Koros type="storm" />;
 
 export const Calm = () => <Koros type="calm" />;
+
+export const Dense = () => (
+  <>
+    <Koros dense />
+    <br />
+    <Koros dense type="beat" />
+    <br />
+    <Koros dense type="pulse" />
+    <br />
+    <Koros dense type="wave" />
+    <br />
+    <Koros dense type="storm" />
+  </>
+);
 
 export const Flipped = (args) => (
   <>
