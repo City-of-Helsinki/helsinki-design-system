@@ -18,8 +18,8 @@ import 'hds-core';
 import styles from './Select.module.scss';
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 import classNames from '../../../utils/classNames';
-import { IconAlertCircle, IconAngleDown, IconCrossCircle } from '../../../icons';
-import { SelectedItems } from '../../../internal/selectedItems/SelectedItems';
+import { IconAlertCircle, IconAngleDown } from '../../../icons';
+import { ClearButton, SelectedItems } from '../../../internal/selectedItems/SelectedItems';
 import { DROPDOWN_MENU_ITEM_HEIGHT, getIsInSelectedOptions } from '../dropdownUtils';
 import { DropdownMenu } from '../../../internal/dropdownMenu/DropdownMenu';
 import getIsElementFocused from '../../../utils/getIsElementFocused';
@@ -551,17 +551,13 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
           <IconAngleDown className={styles.angleIcon} aria-hidden />
         </button>
         {showClearButtonForSingleSelect && (
-          <button
-            type="button"
-            className={styles.clearButton}
-            onClick={() => {
-              toggleButtonRef.current.focus();
+          <ClearButton
+            onClear={() => {
               resetSelect();
+              toggleButtonRef.current.focus();
             }}
-            aria-label={props.clearButtonAriaLabel}
-          >
-            <IconCrossCircle />
-          </button>
+            clearButtonAriaLabel={props.clearButtonAriaLabel}
+          />
         )}
         {/* MENU */}
         <DropdownMenu<OptionType>

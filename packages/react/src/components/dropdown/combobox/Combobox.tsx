@@ -9,11 +9,10 @@ import { useVirtual } from 'react-virtual';
 import 'hds-core';
 
 import styles from './Combobox.module.scss';
-import selectStyles from '../select/Select.module.scss';
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 import classNames from '../../../utils/classNames';
-import { IconAlertCircleFill, IconAngleDown, IconCrossCircle } from '../../../icons';
-import { SelectedItems } from '../../../internal/selectedItems/SelectedItems';
+import { IconAlertCircleFill, IconAngleDown } from '../../../icons';
+import { ClearButton, SelectedItems } from '../../../internal/selectedItems/SelectedItems';
 import { multiSelectReducer, onMultiSelectStateChange, SelectCustomTheme, SelectProps } from '../select';
 import { DROPDOWN_MENU_ITEM_HEIGHT, getIsInSelectedOptions } from '../dropdownUtils';
 import { DropdownMenu } from '../../../internal/dropdownMenu/DropdownMenu';
@@ -510,17 +509,14 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
           <IconAngleDown className={styles.angleIcon} aria-hidden />
         </button>
         {showClearButtonForSingleSelect && (
-          <button
-            type="button"
-            className={classNames(selectStyles.clearButton, !showToggleButton && selectStyles.noToggle)}
-            onClick={() => {
+          <ClearButton
+            toggleButtonHidden={!showToggleButton}
+            onClear={() => {
               resetCombobox();
               toggleButtonRef.current.focus();
             }}
-            aria-label={props.clearButtonAriaLabel}
-          >
-            <IconCrossCircle />
-          </button>
+            clearButtonAriaLabel={props.clearButtonAriaLabel}
+          />
         )}
         {/* MENU */}
         <DropdownMenu<OptionType>
