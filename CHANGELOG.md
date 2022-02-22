@@ -8,7 +8,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.10.0] - Feb, 23, 2022
 
-
 ### Design Tokens
 
 #### Added
@@ -43,9 +42,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [ErrorSummary] Adds missing focus styles
 
-### Design kit
-
-
 ### Documentation
 
 #### Added
@@ -55,10 +51,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Box shadow design tokens documentation
 - [Koros] Dense property documentation
 
-
 #### Changed
 
-- Set Fieldset, Number Input, Password Input, Phone Input, Time Input , and Toggle Button as stable components
+- Set Fieldset, Number Input, Password Input, Phone Input, Time Input, and Toggle Button as stable components
 - Replace Playground stories knobs tab with controls
 
 #### Removed
