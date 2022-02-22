@@ -896,3 +896,117 @@ export const States = (args) => {
     </div>
   );
 };
+
+export const Playground = (args) => {
+  const reducer = commonReducer(5);
+
+  const [state, dispatch] = useReducer(reducer, {
+    activeStepIndex: args.activeStepIndex,
+    steps: [
+      {
+        label: 'Step 1',
+        state: StepState.available,
+      },
+      {
+        label: 'Step 2',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 3',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 4',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 5',
+        state: StepState.disabled,
+      },
+    ],
+  });
+
+  const lastStep = state.activeStepIndex === state.steps.length - 1;
+
+  const theme = {
+    '--hds-stepper-color': args.stepperColor,
+    '--hds-step-content-color': args.stepperContentColor,
+    '--hds-stepper-background-color': args.stepperBackgroundColor,
+    '--hds-stepper-focus-border-color': args.stepperFocusBorderColor,
+    '--hds-stepper-disabled-color': args.stepperDisabledColor,
+    '--hds-step-background-color': args.stepBackgroundColor,
+    '--hds-not-selected-step-label-color': args.notSelectedStepLabelColor,
+  };
+
+  return (
+    <div>
+      <Stepper
+        theme={theme}
+        small={args.small}
+        stepHeading={args.stepHeading}
+        steps={state.steps}
+        language="en"
+        selectedStep={args.activeStepIndex}
+        onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
+      />
+      <div
+        style={{
+          height: '300px',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-end',
+          gap: '24px',
+          marginLeft: '10px',
+        }}
+      >
+        <Button
+          theme="black"
+          disabled={state.activeStepIndex === 0}
+          variant="secondary"
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconLeft={<IconArrowLeft />}
+        >
+          Previous
+        </Button>
+        <Button
+          theme="black"
+          variant={lastStep ? 'primary' : 'secondary'}
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconRight={lastStep ? undefined : <IconArrowRight />}
+        >
+          {lastStep ? 'Send' : 'Next'}
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+Playground.parameters = {
+  loki: { skip: true },
+};
+
+Playground.args = {
+  stepperColor: '#0000bf',
+  stepperContentColor: '#0000bf',
+  stepperBackgroundColor: '#ffffff',
+  stepperFocusBorderColor: '#0072c6',
+  stepperDisabledColor: '#cccccc',
+  stepBackgroundColor: '#ffffff',
+  notSelectedStepLabelColor: '#0000bf',
+  small: false,
+  stepHeading: false,
+  activeStepIndex: 0,
+};
+
+Playground.argTypes = {
+  stepperColor: { control: { type: 'color' } },
+  stepperContentColor: { control: { type: 'color' } },
+  stepperBackgroundColor: { control: { type: 'color' } },
+  stepperFocusBorderColor: { control: { type: 'color' } },
+  stepperDisabledColor: { control: { type: 'color' } },
+  stepBackgroundColor: { control: { type: 'color' } },
+  notSelectedStepLabelColor: { control: { type: 'color' } },
+  activeStepIndex: { control: { type: 'number', min: 0, max: 4, step: 1 } },
+};
