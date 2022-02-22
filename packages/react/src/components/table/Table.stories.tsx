@@ -808,7 +808,7 @@ export const CheckboxSelectionWithSorting = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const CustomHeaderBackgroundColorForDarkVariant = (args) => {
+export const CustomBackgroundColorsForDarkVariant = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name' },
@@ -837,7 +837,8 @@ export const CustomHeaderBackgroundColorForDarkVariant = (args) => {
   );
 
   const theme = {
-    '--background-color': 'var(--color-tram)',
+    '--header-background-color': 'var(--color-tram)',
+    '--content-background-color': 'var(--color-black-5)',
   };
 
   return (
@@ -857,7 +858,7 @@ export const CustomHeaderBackgroundColorForDarkVariant = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const CustomHeaderBackgroundColorForLightVariant = (args) => {
+export const CustomBackgroundColorsForLightVariant = (args) => {
   const cols = [
     { key: 'id', headerName: 'Not rendered' },
     { key: 'firstName', headerName: 'First name' },
@@ -886,7 +887,8 @@ export const CustomHeaderBackgroundColorForLightVariant = (args) => {
   );
 
   const theme = {
-    '--background-color': 'var(--color-suomenlinna)',
+    '--header-background-color': 'var(--color-suomenlinna)',
+    '--content-background-color': 'var(--color-black-5)',
   };
 
   return (

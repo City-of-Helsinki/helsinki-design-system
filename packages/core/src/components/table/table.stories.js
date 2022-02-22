@@ -12,7 +12,7 @@ const tableRow = (firstName, surname, age, profession) =>
     <td>${surname}</td>
     <td class="hds-table--text-align-right">${age}</td>
     <td>${profession}</td>
-  </tr>`
+  </tr>`;
 
 export const Dark = () => `
   <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
@@ -88,7 +88,7 @@ const extendedTableRow = (firstName, surname, age, city, profession, exp) =>
     <td>${city}</td>
     <td>${profession}</td>
     <td class="hds-table--text-align-right">${exp}</td>
-  </tr>`
+  </tr>`;
 
 export const Zebra = () => `
   <div class="hds-table-container" style="max-width: 800px;" tabindex="0">
@@ -211,7 +211,7 @@ export const VerticalLinesLight = () => `
 `;
 
 const unitsContent = () =>
-        `<tr>
+  `<tr>
           <th scope="row">Monday</th>
           <td>324</td>
           <td>562</td>
@@ -245,7 +245,7 @@ const unitsContent = () =>
           <td>142</td>
           <td>362</td>
           <td>455</td>
-        </tr>`
+        </tr>`;
 
 export const VerticalHeader = () => `
   <div class="hds-table-container" style="max-width: 486px" tabindex="0">
@@ -351,10 +351,11 @@ export const VerticalHeaderAndLines = () => `
   </div>
 `;
 
-export const CustomHeaderBackgroundColorForDarkVariant = () => `
+export const CustomBackgroundColorsForDarkVariant = () => `
   <style type="text/css">
     .custom-background-color-1 {
-      --background-color: var(--color-tram);
+      --header-background-color: var(--color-tram);
+      --content-background-color: var(--color-black-5);
     }
   </style>
   <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
@@ -378,10 +379,11 @@ export const CustomHeaderBackgroundColorForDarkVariant = () => `
    </div>
 `;
 
-export const CustomHeaderBackgroundColorForLightVariant = () => `
+export const CustomBackgroundColorsForLightVariant = () => `
   <style type="text/css">
     .custom-background-color-2 {
-      --background-color: var(--color-suomenlinna);
+      --header-background-color: var(--color-suomenlinna);
+      --content-background-color: var(--color-black-5);
     }
   </style>
   <div class="hds-table-container" style="max-width: 785px;" tabindex="0">
@@ -406,10 +408,12 @@ export const CustomHeaderBackgroundColorForLightVariant = () => `
 `;
 
 const wideTableContent = () => {
-  let content = "";
+  let content = '';
 
-  workTrial.default.forEach(work => {
-    content = content + `
+  workTrial.default.forEach((work) => {
+    content =
+      content +
+      `
         <tr>
           <td class="hds-table--text-align-right">${work['Paikka-ID']}</td>
           <td>${work['Paikan tyyppi']}</td>
@@ -420,10 +424,10 @@ const wideTableContent = () => {
           <td class="hds-table--text-align-right">${work['Postinumero']}</td>
           <td class="hds-table--text-align-right">${work['Paikkoja']}</td>
           <td class="hds-table--text-align-right">${work['Haastatteluun halutaan']}</td>
-        </tr>`
-  })
+        </tr>`;
+  });
   return content;
-}
+};
 
 export const WideAndLong = () => `
   <div class="hds-table-container" style="height: 600px;" tabindex="0">
