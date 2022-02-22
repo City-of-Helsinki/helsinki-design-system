@@ -1,0 +1,43 @@
+---
+slug: '/elements/components/koros/code'
+title: 'Koros - Usage'
+---
+
+import { Koros } from 'hds-react';
+
+## Usage
+
+### Example
+<Koros type="basic" />
+
+### Principles
+- Koros width should always match the screen width.
+- Koros is a very powerful visual element. Use them sparingly in one view.
+- Koros should only be used as filled. Do not use empty fill koros with borders.
+- Use koros as part of a background. Do not create new visual elements using koros.
+- It is allowed to animate Koros shapes (not included in the HDS yet).
+- A koro shape can be rotated in 45 degree increments. For more information see the [Angled koro variant documentation](#angled) below.
+
+### Variations
+
+#### Default
+There are six Koro styles. An added visual interest is brought to the identity by means of the Koros. Using Koros adds high visual impact and makes the user interface recognisable as part of Helsinki city services. You can read more about using Koros in <Link href="https://brand.hel.fi/en/wave-motifs/" external>Helsinki Visual Identity Guidelines - Wave motifs</Link>.
+
+<Koros type="basic" />
+<br />
+<Koros type="beat" />
+<br />
+<Koros type="pulse" />
+<br />
+<Koros type="wave" />
+<br />
+<Koros type="storm" />
+<br />
+<Koros type="calm" />
+
+---
+
+#### Angled
+Koro shapes can be angled in 45 degree increments. The allowed angle properties are `45deg`, `90deg`, `135deg`, `180deg`, `225deg`, `270deg` and `315deg`. Angles outside of these options should be avoided.
+
+export default ({ children }) => <>{children}</>;

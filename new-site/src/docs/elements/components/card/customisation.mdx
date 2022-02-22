@@ -1,0 +1,50 @@
+---
+slug: '/elements/components/card/customisation'
+title: 'Card - Customisation'
+---
+
+import { Card, Link } from 'hds-react';
+import { IconArrowRight } from 'hds-react';
+
+## Customisation
+
+### Customisation properties
+You can use the `theme` property to customise the component. See all available theme variables in the table below.
+
+| Theme variable                           | Description                                     |
+| ---------------------------------------- | ----------------------------------------------- |
+| `--background-color`                     | Background colour of the card.                  |
+| `--border-color`                         | Colour of the card's border                     |
+| `--border-width`                         | Width of the card's border                      |
+| `--color`                                | Colour of the built-in heading and text.        |
+| `--padding-horizontal`                   | Left and right padding of the card.             |
+| `--padding-vertical`                     | Top and bottom padding of the card.             |
+
+
+### Customisation example
+<Playground>
+
+
+```jsx
+<Card
+  border
+  heading="Customised card"
+  text="In order to customise the card component, use the theme property."
+  theme={{
+    '--background-color': 'var(--color-white)',
+    '--border-color': 'var(--color-black-90)',
+    '--border-width': '2px',
+    '--color': 'var(--color-black-90)',
+    '--padding-horizontal': 'var(--spacing-l)',
+    '--padding-vertical': 'var(--spacing-m)'
+  }}
+/>
+```
+
+```html
+
+```
+
+</Playground>
+
+export default ({ children }) => <>{children}</>;

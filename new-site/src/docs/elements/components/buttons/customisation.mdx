@@ -3,26 +3,28 @@ slug: '/elements/components/buttons/customisation'
 title: 'Button - Customisation'
 ---
 
-import { Button, Link } from 'hds-react';
+import { Button, Link, Notification } from 'hds-react';
 import { IconArrowRight } from 'hds-react';
 
 ## Customisation
 
-### What can you customise?
-Use brand and grayscale colours to customise:
-- Background colour
-- Border colour
-- Label text colour
-- Icon colour
+<Notification type="alert" label="Button customisation works differently!" className="siteNotification">
+  TODO.
+</Notification>
+
+You can use the `theme` property to customise the component. See all available theme variables in the table below.
 
 ### Customisation properties
 
 ### Customisation example
+
 <Playground>
 
 
 ```jsx
-<Button theme="coat" iconRight=<IconArrowRight />>Customised button</Button>
+<Button theme="coat" iconRight={<IconArrowRight />}>
+  Customised button
+</Button>
 ```
 
 ```html
@@ -33,5 +35,6 @@ Use brand and grayscale colours to customise:
 ```
 
 </Playground>
+
 
 export default ({ children }) => <>{children}</>;
