@@ -17,11 +17,14 @@ You can use the `theme` property to customise the component. See all available t
 ### Customisation properties
 
 ### Customisation example
+
 <Playground>
 
 
 ```jsx
-<Button theme="coat" iconRight=<IconArrowRight />>Customised button</Button>
+<Button theme="coat" iconRight={<IconArrowRight />}>
+  Customised button
+</Button>
 ```
 
 ```html
@@ -32,5 +35,6 @@ You can use the `theme` property to customise the component. See all available t
 ```
 
 </Playground>
+
 
 export default ({ children }) => <>{children}</>;
