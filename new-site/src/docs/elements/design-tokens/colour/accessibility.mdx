@@ -1,0 +1,52 @@
+---
+slug: '/elements/design-tokens/colour/usage'
+title: 'Colour tokens - Accessibility'
+---
+
+import { Link } from 'hds-react';
+import Playground from '../../../../components/Playground';
+
+import BrandColourCombinationsTable from './components/brand-colour-combinations-table.tsx';
+import BrandColourOnWhiteTable from './components/brand-colour-on-white-table.tsx';
+import GrayscaleColourCombinationsTable from './components/grayscale-colour-combinations-table.tsx';
+import FocusColourCombinationsTable from './components/focus-colour-combinations-table.tsx';
+
+## Accessibility
+
+### Things to note
+- When choosing and using colours, always check that sufficient colour contrast between the element and its background is maintained. All colour choices should comply with <Link size="M" href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>WCAG 2.1 Standard at AA Level contrast ratios</Link>. 
+- Do not rely solely on colour when communicating information to the user – especially crucial system information like error state, success state, or warnings. Also, convey the same information with another modality, e.g. with a text label or icon that clearly indicates its meaning.
+
+### Accessible colour combinations
+<p>Here you can find some recommended colour combinations for text and other informative elements. The examples are sorted in order of their contrast ratio. For more examples of accessible colour combinations, see the <Link size="M" href="https://share.goabstract.com/28352b8b-9c51-4346-b249-ff062c5da561" external>Colour accessibility examples - Abstract collection</Link>.</p>
+
+- **AA** (contrast ratio at least `4,5 : 1`) and **AAA** (contrast ratio at least `7 : 1`) means you can safely use the color combination on all text sizes
+- **AA for large text** (contrast ratio at least `3 : 1`) means the text size should be at least 18 pt for regular weight or 14 pt for bold weight
+- **Black 90** is the default text colour in HDS
+
+#### Brand colour combinations
+
+Combining a brand colour background with the correct text colour is important to maintain a high contrast.
+
+<BrandColourCombinationsTable />
+
+**For text and other informative elements on white background** it is recommended to only use following brand colours:
+
+<BrandColourOnWhiteTable />
+
+#### Grayscale combinations 
+
+<GrayscaleColourCombinationsTable />
+
+#### Focus colour
+HDS components use a custom focus colour styling instead of the default browser provided style. The default HDS focus style is accessible on light backgrounds. Since HDS does not offer dark mode, the focus style colour may require customising when using HDS components on darker backgrounds. The white focus colour is recommended if the default colour does not meet the contrast requirement. The WCAG requirement for user interface element contrast is `3 : 1`.
+
+<FocusColourCombinationsTable />
+
+HDS focus style colour can be customised to better fit the theme of the service. However, the implementor must always ensure that the following WCAG requirements are met:
+- <Link size="M" href="https://www.w3.org/TR/WCAG21/#use-of-color" external>WCAG 1.4.1 Use of Color (Level A)</Link>
+- <Link size="M" href="https://www.w3.org/TR/WCAG21/#focus-order" external>WCAG 2.4.3 Focus Order (Level A)</Link> (while designing components with multiple focusable elements)
+- <Link size="M" href="https://www.w3.org/TR/WCAG21/#focus-visible" external>WCAG 2.4.7 Focus Visible (Level A)</Link>
+- While not officially part of WCAG yet, HDS also follows <Link size="M" href="https://www.w3.org/WAI/WCAG21/Understanding/focus-visible-enhanced" external>WCAG 2.4.11 Focus Visible (Enhanced)</Link>. Due to their draft status, these requirements may still change. But we still recommend following them for future-proofing.
+
+export default ({ children }) => <>{children}</>;

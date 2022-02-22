@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 @import '~hds-design-tokens/lib/all.scss';
+@import '~hds-core/lib/components/table/table.css';
 
 :root {
   --page-border-color: var(--color-black-20);
@@ -168,4 +169,8 @@ body {
     right: 0;
     width: 100%;
   }
+}
+
+.docTable {
+  margin: var(--spacing-l) 0;
 }
