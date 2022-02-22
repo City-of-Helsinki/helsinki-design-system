@@ -97,3 +97,31 @@ body {
     width: 100%;
   }
 }
+
+/* STEPPER */
+
+.stepper-small {
+  max-width: 300px;
+}
+
+@media only screen and (max-width: 575.98px) {
+  .stepper-small {
+    max-width: 100%;
+  }
+}
+
+.stepper-margin {
+  margin-left: -35px;
+}
+
+.stepper-heading {
+  margin-left: 10px;
+}
+
+.stepper-form-validation {
+  margin-left: -18px;
+}
+
+.stepper-card > div:first-child {
+  margin-bottom: var(--spacing-m) !important;
+}

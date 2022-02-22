@@ -29,6 +29,10 @@ export type CardProps = {
    */
   heading?: string;
   /**
+   * Heading aria-level.
+   */
+  headingAriaLevel?: number;
+  /**
    * Body text.
    */
   text?: string;
@@ -48,8 +52,9 @@ export type CardProps = {
 
 export const Card = ({
   border,
-  boxShadow = false,
   heading,
+  headingAriaLevel = 2,
+  boxShadow = false,
   text,
   className,
   theme,
@@ -75,7 +80,7 @@ export const Card = ({
       {hasBody && (
         <div className={styles.body}>
           {heading && (
-            <div className={styles.heading} role="heading" aria-level={2}>
+            <div className={styles.heading} role="heading" aria-level={headingAriaLevel}>
               {heading}
             </div>
           )}

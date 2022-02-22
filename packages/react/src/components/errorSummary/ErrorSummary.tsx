@@ -56,7 +56,13 @@ export const ErrorSummary = React.forwardRef<HTMLDivElement, ErrorSummaryProps>(
         aria-atomic="true"
       >
         <div className={notificationStyles.content}>
-          <div className={notificationStyles.label} role="heading" aria-level={2} tabIndex={-1} ref={labelRef}>
+          <div
+            className={classNames(notificationStyles.label, errorSummaryStyles.label)}
+            role="heading"
+            aria-level={2}
+            tabIndex={-1}
+            ref={labelRef}
+          >
             <IconAlertCircleFill className={notificationStyles.icon} aria-hidden />
             {label}
           </div>

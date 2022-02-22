@@ -12,3 +12,9 @@
     color: var(--color-bus);
   }
 }
+
+.label {
+  &:focus {
+    outline: 3px solid var(--color-coat-of-arms);
+  }
+}
