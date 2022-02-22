@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - [Koros] Dense property for rendering denser patterns
-- [Table] Add theme variable and a default value for table content cells
+- [Table] Add theme variable and a default value for table content cells' background-color
 - [Card, Notification] Add possibility to add a box-shadow to elevate component
 
 ### React Components
@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Table] ClassName property for table heading
 - [Select, Combobox] Add clear button to Select and Combobox in single select mode
 - [Card] Add possibility to customise heading aria-level
-- [Table] Add theme variable and a default value for table content cells
+- [Table] Add theme variable and a default value for table content cells' background-color
 - [Card, Dialog, Notification, Tooltip] Add possibility to add a box-shadow to elevate component
 
 #### Changed
