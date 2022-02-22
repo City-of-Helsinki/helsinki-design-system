@@ -84,3 +84,7 @@
 .error {
   composes: hds-notification--error from 'hds-core/lib/components/notification/notification.css';
 }
+
+.boxShadow {
+  composes: hds-notification--box-shadow from 'hds-core/lib/components/notification/notification.css';
+}

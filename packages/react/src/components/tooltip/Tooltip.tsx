@@ -10,6 +10,10 @@ import classNames from '../../utils/classNames';
 
 type TooltipProps = React.PropsWithChildren<{
   /**
+   * Boolean indicating whether tooltip has box shadow or not.
+   */
+  boxShadow?: boolean;
+  /**
    * The placement of the tooltip.
    */
   placement?: Placement;
@@ -40,6 +44,7 @@ type TooltipProps = React.PropsWithChildren<{
 }>;
 
 export const Tooltip = ({
+  boxShadow = false,
   children,
   placement = 'auto',
   small = false,
@@ -132,7 +137,7 @@ export const Tooltip = ({
         <section
           aria-label={tooltipLabel}
           ref={tooltipRef}
-          className={classNames(styles.tooltip, small && styles.small, tooltipClassName)}
+          className={classNames(styles.tooltip, small && styles.small, boxShadow && styles.boxShadow, tooltipClassName)}
           style={popperStyles.popper}
           {...popperAttributes.popper}
         >

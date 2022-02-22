@@ -185,3 +185,9 @@
   --notification-border-color: var(--color-error);
   --notification-icon-color: var(--color-error);
 }
+
+/* BOX SHADOW */
+
+.hds-notification--box-shadow {
+  box-shadow: var(--box-shadow-l);
+}

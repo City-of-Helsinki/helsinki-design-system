@@ -132,6 +132,10 @@ export type DialogProps = React.PropsWithChildren<
      */
     'aria-describedby'?: string;
     /**
+     * Boolean indicating whether dialog has box shadow or not.
+     */
+    boxShadow?: boolean;
+    /**
      * When `true`, dialog is visible,
      */
     isOpen: boolean;
@@ -171,6 +175,7 @@ export type DialogProps = React.PropsWithChildren<
 >;
 
 export const Dialog = ({
+  boxShadow = false,
   id,
   isOpen,
   children,
@@ -254,6 +259,7 @@ export const Dialog = ({
             isReadyToShowDialog && styles.dialogVisible,
             scrollable && styles.dialogScrollable,
             styles[variant],
+            boxShadow && styles.boxShadow,
             className,
           )}
           style={style}

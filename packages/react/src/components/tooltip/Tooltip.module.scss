@@ -20,6 +20,10 @@
   font-weight: normal;
 }
 
+.boxShadow {
+  box-shadow: var(--box-shadow-s);
+}
+
 /* SMALL VARIATION */
 .small {
   padding: var(--tooltip-spacing-small);
