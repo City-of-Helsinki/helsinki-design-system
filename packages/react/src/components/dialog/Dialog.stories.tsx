@@ -78,6 +78,81 @@ export const Default = (args) => {
 };
 
 // This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
+export const WithBoxShadow = (args) => {
+  const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
+  const openButtonRef = useRef(null);
+  const [open, setOpen] = useState<boolean>(true);
+  const close = () => setOpen(false);
+  const titleId = 'custom-dialog-title';
+  const descriptionId = 'custom-dialog-content';
+
+  return (
+    <>
+      <Button ref={openButtonRef} onClick={() => setOpen(true)}>
+        Open Dialog
+      </Button>
+      <Dialog
+        id={args.id}
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        boxShadow
+        isOpen={open}
+        focusAfterCloseRef={openButtonRef}
+        close={close}
+        closeButtonLabelText="Close"
+        targetElement={dialogTargetElement}
+      >
+        <Dialog.Header id={titleId} title="Add new item" iconLeft={<IconPlusCircle aria-hidden="true" />} />
+        <Dialog.Content>
+          <p id={descriptionId} className="text-body">
+            Add a new item by filling the information below. All fields are mandatory.
+          </p>
+          <TextInput
+            id="item-name"
+            label="Item name"
+            placeholder="E.g. Item 1"
+            helperText="Item's name must be unique."
+            required
+          />
+          <br />
+          <TextArea
+            id="item-description"
+            label="Item description"
+            placeholder="E.g. Item 1 is the first item of the system."
+            required
+          />
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button
+            onClick={() => {
+              // Add operations here
+              close();
+            }}
+          >
+            Add item
+          </Button>
+          <Button onClick={close} variant="secondary">
+            Cancel
+          </Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  );
+};
+
+WithBoxShadow.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
+    },
+  },
+  docs: {
+    disable: true,
+  },
+  loki: { skip: false },
+};
+
+// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
 export const Confirmation = (args) => {
   const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
   const openConfirmationButtonRef = useRef(null);
@@ -138,6 +213,7 @@ Confirmation.parameters = {
   docs: {
     disable: true,
   },
+  loki: { skip: false },
 };
 
 // This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
@@ -204,6 +280,7 @@ Danger.parameters = {
   docs: {
     disable: true,
   },
+  loki: { skip: false },
 };
 
 // This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
@@ -338,6 +415,7 @@ ScrollableConfirmation.parameters = {
   docs: {
     disable: true,
   },
+  loki: { skip: false },
 };
 
 // This dialog story is not part of the Storybooks' docs section.
