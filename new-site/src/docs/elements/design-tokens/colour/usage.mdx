@@ -1,0 +1,62 @@
+---
+slug: '/elements/design-tokens/colour/usage'
+title: 'Colour tokens - Usage'
+---
+
+import { Link } from 'hds-react';
+import Playground from '../../../../components/Playground';
+
+import BrandColoursTable from './components/brand-colours-table.tsx';
+import StatusColoursTable from './components/status-colours-table.tsx';
+import GrayscaleColoursTable from './components/grayscale-colours-table.tsx';
+
+## Usage
+
+Colour can be used for branding, providing visual hierarchy and giving visual cues for action.
+
+The Helsinki Design system colour tokens are based on the City of Helsinki brand colour palette. More information on using and combining the brand colours in the <Link size="M" href="https://brand.hel.fi/en/colours/" external>City of Helsinki Visual Identity Guidelines - Colours</Link>.
+
+Also see visual "Do and Don't" example images in the <Link size="M" href="https://share.goabstract.com/30c40134-681b-4f96-9dfc-ee6d32c2f1eb" external>Colour usage examples - Abstract collection</Link>. These images will help you understand where brand colours and their variants can be used.
+
+### Principles
+- **Use bold colours to attract users attention** to most important content and primary actions.
+- **Use lighter hues and shades to fade less important information to the background** but be sure to maintain an accessible colour contrast.
+- Colour can also be used to differentiate sections or content types.
+
+### Usage
+The design system uses a colour theme that includes:
+- **Primary colour:** the colour displayed most frequently across your service and its components. If you are not using a secondary colour, your primary colour can also be used to accent elements.
+- **Secondary and Tertiary colours:** these provide more ways for accenting select UI elements and distinguishing your service. The secondary and tertiary colours should be applied sparingly and with intent.
+- **UI colours:** the common colours for feedback (error, warning, success, info).
+- **Grayscale:** neutral colour shades.
+
+The colour palette also provides lighter and darker variants for the base colours.
+- **Do not use light and dark variants as the main colour of a page.**
+- Light and dark variants should only be used in addition to base colours for theming UI component states and differentiating information types.
+
+#### Customising colours
+Colours are defined as <Link size="M" href="https://developer.mozilla.org/en-US/docs/Web/CSS/var" external>CSS variables</Link> and the theme is therefore customisable.
+
+**When customising colours always check that:**
+1. the colour combination follows the <Link size="M" href="https://brand.hel.fi/en/colours/#safe-color-combinations" external>City of Helsinki Visual Identity Guidelines - Safe color combinations</Link>
+2. the colour contrast is compliant with <Link size="M" href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>WCAG 2.1 Standard at AA Level contrast ratios</Link>. Note that font size affects the contrast criteria of text elements. You can find tools for checking contrast accessibility in the <Link size="M" href="/resources"> Resources page</Link>
+
+### HDS colours
+
+#### Brand colours
+Brand colours are used for primary, secondary and tertiary colours. They should not be used for indicating system status. 
+
+Before using Dark and Light brand colour variants, please see example images in the <Link size="M" href="https://share.goabstract.com/30c40134-681b-4f96-9dfc-ee6d32c2f1eb" external>Colour usage examples - Abstract collection</Link>.
+
+<BrandColoursTable />
+
+#### UI colours
+Status colours are reserved exclusively for indicating valid, invalid or informational states on the service.
+
+<StatusColoursTable />
+
+#### Grayscale
+
+<GrayscaleColoursTable />
+
+export default ({ children }) => <>{children}</>;
