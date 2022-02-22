@@ -33,6 +33,10 @@ type CommonProps = React.PropsWithChildren<{
    */
   autoCloseDuration?: number;
   /**
+   * Boolean indication whether notification has box shadow or not.
+   */
+  boxShadow?: boolean;
+  /**
    * Additional class names to apply to the notification
    */
   className?: string;
@@ -172,6 +176,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
     {
       autoClose = false,
       autoCloseDuration = 6000,
+      boxShadow = false,
       children,
       className = '',
       closeAnimationDuration = 85,
@@ -247,6 +252,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
             styles[size],
             styles[type],
             autoClose && styles.noBorder,
+            boxShadow && styles.boxShadow,
             className,
           )}
           aria-label="Notification"

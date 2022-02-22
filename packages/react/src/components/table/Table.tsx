@@ -11,6 +11,7 @@ import { TableBody } from './components/TableBody';
 import { Checkbox } from '../checkbox';
 import { useTheme } from '../../hooks/useTheme';
 import { Button } from '../button';
+import classNames from '../../utils/classNames';
 
 type Header = {
   /**
@@ -38,9 +39,18 @@ type Header = {
 
 export interface TableCustomTheme {
   /**
-   * Custom background color for table headers.
+   * Deprecated. Use --header-background-color instead.
    */
   '--background-color'?: string;
+  /**
+   * Custom background color for table headers.
+   */
+  '--header-background-color'?: string;
+  /**
+   * Custom background color for the table content.
+   * @default 'var(--color-white)'
+   */
+  '--content-background-color'?: string;
 }
 
 type SelectedRow = string | number;
@@ -106,6 +116,10 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
    * Table heading aria level.
    */
   headingAriaLevel?: number;
+  /**
+   * A custom class name passed to table heading.
+   */
+  headingClassName?: string;
   /**
    * Table heading id. Used to name table to assistive technologies. Only applicable when heading prop is used.
    * @default 'hds-table-heading-id'
@@ -238,6 +252,7 @@ export const Table = ({
   dense = false,
   heading,
   headingAriaLevel = 2,
+  headingClassName,
   headingId = 'hds-table-heading-id',
   id = 'hds-table-id',
   indexKey,
@@ -270,6 +285,18 @@ export const Table = ({
     console.warn('Cannot use caption prop when checkboxSelection is set to true. Use heading prop instead');
     // eslint-disable-next-line no-param-reassign
     caption = undefined;
+  }
+
+  if (theme && theme['--background-color']) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      '--background-color is deprecated, and will be removed in a future release. Please use --header-background-color instead',
+    );
+
+    /* eslint-disable no-param-reassign */
+    theme['--header-background-color'] = theme['--background-color'];
+    delete theme['--background-color'];
+    /* eslint-enable no-param-reassign */
   }
 
   const [sorting, setSorting] = useState<string>(initialSortingColumnKey);
@@ -314,7 +341,12 @@ export const Table = ({
       {(checkboxSelection || heading || hasCustomActionButtons) && (
         <div className={styles.actionContainer}>
           {heading && (
-            <div id={headingId} role="heading" aria-level={headingAriaLevel} className={styles.heading}>
+            <div
+              id={headingId}
+              role="heading"
+              aria-level={headingAriaLevel}
+              className={classNames(styles.heading, headingClassName)}
+            >
               {heading}
             </div>
           )}

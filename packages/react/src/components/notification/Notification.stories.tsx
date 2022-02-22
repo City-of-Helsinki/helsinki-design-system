@@ -51,6 +51,14 @@ export const Large = () => (
   </Notification>
 );
 
+export const WithBoxShadow = () => (
+  <Notification {...props} boxShadow>
+    {content}
+  </Notification>
+);
+
+WithBoxShadow.storyName = 'With box shadow';
+
 export const Invisible = () => {
   const [open, setOpen] = useState(false);
   return (

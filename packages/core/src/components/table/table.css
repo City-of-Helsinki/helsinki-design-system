@@ -7,6 +7,7 @@
 }
 
 .hds-table {
+  --content-background-color: var(--color-white);
   border-collapse: collapse;
   width: 100%;
   line-height: 1.5;
@@ -22,6 +23,7 @@
 }
 
 .hds-table__content tr td {
+  background-color: var(--content-background-color);
   font-weight: 400;
   padding: var(--spacing-xs) var(--spacing-m);
   border-bottom: 1px solid var(--color-black-50);
@@ -30,7 +32,7 @@
 }
 
 .hds-table__header-row {
-  background-color: var(--background-color);
+  background-color: var(--header-background-color);
 }
 
 .hds-table__caption {
@@ -43,7 +45,8 @@
 /* DARK VARIANT */
 
 .hds-table--dark {
-  --background-color: var(--color-bus);
+  /* TODO: --background-color is deprecated. Remove when possible. */
+  --header-background-color: var(--background-color, --color-bus);
 }
 
 .hds-table.hds-table--dark th {
@@ -53,7 +56,8 @@
 /* LIGHT VARIANT */
 
 .hds-table--light {
-  --background-color: var(--color-silver);
+  /* TODO: --background-color is deprecated. Remove when possible. */
+  --header-background-color: var(--background-color, --color-silver);
 }
 
 .hds-table.hds-table--light th {
@@ -99,14 +103,14 @@
 }
 
 .hds-table--with-vertical-lines .hds-table__header-row {
-  border-right: 1px solid var(--background-color);
-  border-left: 1px solid var(--background-color);
+  border-right: 1px solid var(--header-background-color);
+  border-left: 1px solid var(--header-background-color);
 }
 
 /* VERTICAL HEADER VARIANT */
 
 .hds-table__vertical-header-column {
-  background-color: var(--background-color);
+  background-color: var(--header-background-color);
 }
 
 .hds-table--with-vertical-header.hds-table--with-vertical-lines .hds-table__content {

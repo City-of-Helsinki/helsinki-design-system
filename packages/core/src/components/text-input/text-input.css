@@ -79,6 +79,8 @@
   -webkit-appearance: none;
   background-color: var(--input-background-default);
   border: var(--border-width) solid var(--input-border-color-default);
+  /* removes the border radius on iOS */
+  border-radius: 0;
   box-sizing: border-box;
   color: var(--input-color-default);
   font-size: 1.125em;

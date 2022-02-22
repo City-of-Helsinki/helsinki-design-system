@@ -34,6 +34,20 @@ export const Storm = () => <Koros type="storm" />;
 
 export const Calm = () => <Koros type="calm" />;
 
+export const Dense = () => (
+  <>
+    <Koros dense />
+    <br />
+    <Koros dense type="beat" />
+    <br />
+    <Koros dense type="pulse" />
+    <br />
+    <Koros dense type="wave" />
+    <br />
+    <Koros dense type="storm" />
+  </>
+);
+
 export const Flipped = (args) => (
   <>
     <Koros flipHorizontal={args.flipHorizontal} />
