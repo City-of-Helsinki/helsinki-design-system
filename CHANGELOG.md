@@ -63,7 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Removed
 
-- Removed deprecated addon/knobs library
+- Removed deprecated Storybook addon/knobs library. Removes knobs-tab from stories.
 
 ## [1.10.0] - Jan, 31, 2022
 
