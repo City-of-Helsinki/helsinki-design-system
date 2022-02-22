@@ -218,14 +218,14 @@ export const Stepper = ({
       )}
       <div
         onScroll={(e) => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           if (e.target.scrollLeft && e.target.scrollLeft > 5) {
             setShowPreviousButton(true);
           } else {
             setShowPreviousButton(false);
           }
-          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           if (e.target.scrollWidth - (e.target.parentNode.clientWidth + e.target.scrollLeft) > 5) {
             setShowNextButton(true);
