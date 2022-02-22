@@ -12,6 +12,11 @@ type RotateDegrees = '45deg' | '90deg' | '135deg' | '180deg' | '225deg' | '270de
 
 export type KorosProps = {
   /**
+   * Whether to use dense variant
+   * @default false
+   */
+  dense?: boolean;
+  /**
    * Whether the component should be flipped horizontally
    */
   flipHorizontal?: boolean;
@@ -33,8 +38,8 @@ export type KorosProps = {
   style?: React.CSSProperties;
 };
 
-const getSVG = (type: string, patternName: string): React.SVGProps<SVGElement> => {
-  const transform = 'scale(5.3)';
+const getSVG = (dense: boolean, type: string, patternName: string): React.SVGProps<SVGElement> => {
+  const transform = `scale(${dense ? 1.8 : 5.3})`;
   const patterns = {
     basic: <path transform={transform} d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z" />,
     beat: (
@@ -52,7 +57,14 @@ const getSVG = (type: string, patternName: string): React.SVGProps<SVGElement> =
   return (
     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
       <defs>
-        <pattern id={`${patternName}`} x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+        <pattern
+          id={`${patternName}`}
+          x="0"
+          y="0"
+          width={`${dense ? 35 : 106}`}
+          height="85"
+          patternUnits="userSpaceOnUse"
+        >
           {patterns[type]}
         </pattern>
       </defs>
@@ -61,7 +73,14 @@ const getSVG = (type: string, patternName: string): React.SVGProps<SVGElement> =
   );
 };
 
-export const Koros = ({ flipHorizontal = false, type = 'basic', rotate, className = '', style }: KorosProps) => {
+export const Koros = ({
+  dense = false,
+  flipHorizontal = false,
+  type = 'basic',
+  rotate,
+  className = '',
+  style,
+}: KorosProps) => {
   const patternName = `koros_${type}`;
   const [id] = useState(uniqueId(`${patternName}-`));
   const cssTransforms: string[] = [flipHorizontal && 'scaleY(-1)', rotate && `rotate(${rotate}) translateZ(0)`].filter(
@@ -73,7 +92,7 @@ export const Koros = ({ flipHorizontal = false, type = 'basic', rotate, classNam
       className={classNames(styles.koros, styles[type], rotate && styles.rotate, className)}
       style={{ ...style, ...(cssTransforms.length > 0 ? { transform: cssTransforms.join(' ') } : {}) }}
     >
-      {getSVG(type, id)}
+      {getSVG(dense, type, id)}
     </div>
   );
 };

@@ -12,7 +12,7 @@ import styles from './Combobox.module.scss';
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 import classNames from '../../../utils/classNames';
 import { IconAlertCircleFill, IconAngleDown } from '../../../icons';
-import { SelectedItems } from '../../../internal/selectedItems/SelectedItems';
+import { ClearButton, SelectedItems } from '../../../internal/selectedItems/SelectedItems';
 import { multiSelectReducer, onMultiSelectStateChange, SelectCustomTheme, SelectProps } from '../select';
 import { DROPDOWN_MENU_ITEM_HEIGHT, getIsInSelectedOptions } from '../dropdownUtils';
 import { DropdownMenu } from '../../../internal/dropdownMenu/DropdownMenu';
@@ -83,7 +83,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     catchEscapeKey,
     circularNavigation = false,
     className,
-    clearable = true,
+    clearable = props.multiselect,
     disabled = false,
     error,
     getA11ySelectionMessage = () => '',
@@ -121,6 +121,8 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
   const inputRef = useRef<HTMLInputElement>();
   // menu ref
   const menuRef = React.useRef<HTMLUListElement>();
+  // toggle button ref
+  const toggleButtonRef = React.useRef<HTMLButtonElement>(null);
   // whether active focus is within the dropdown
   const [hasFocus, setFocus] = useState<boolean>(false);
   // Tracks whether any combobox item is being clicked
@@ -181,6 +183,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     getToggleButtonProps,
     highlightedIndex,
     isOpen,
+    reset: resetCombobox,
     selectedItem,
     selectItem,
     closeMenu,
@@ -251,6 +254,8 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
       return changes;
     },
   });
+
+  const showClearButtonForSingleSelect = clearable && !props.multiselect && selectedItem;
 
   const setSelectedItems = (itemToBeSelected: OptionType) => {
     getIsInSelectedOptions(selectedItems, itemToBeSelected)
@@ -376,6 +381,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
         !showToggleButton && styles.noToggle,
         hasFocus && selectedItems.length > 0 && styles.adjustSpacing,
         props.icon && props.multiselect && styles.inputWithIcon,
+        showClearButtonForSingleSelect && styles.withClearButton,
       )}
       autoCorrect="off"
       autoComplete="off"
@@ -457,6 +463,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
             onClear={() => {
               reset();
               setInputValue('');
+              toggleButtonRef.current.focus();
             }}
             onRemove={removeSelectedItem}
             optionLabelField={optionLabelField}
@@ -496,10 +503,21 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
             'aria-label': `${label}: ${toggleButtonAriaLabel}`,
             'aria-expanded': isOpen,
             ...(invalid && { 'aria-invalid': true }),
+            ref: toggleButtonRef,
           })}
         >
           <IconAngleDown className={styles.angleIcon} aria-hidden />
         </button>
+        {showClearButtonForSingleSelect && (
+          <ClearButton
+            toggleButtonHidden={!showToggleButton}
+            onClear={() => {
+              resetCombobox();
+              toggleButtonRef.current.focus();
+            }}
+            clearButtonAriaLabel={props.clearButtonAriaLabel}
+          />
+        )}
         {/* MENU */}
         <DropdownMenu<OptionType>
           getItemProps={(item, index, selected, optionDisabled, virtualRow) =>

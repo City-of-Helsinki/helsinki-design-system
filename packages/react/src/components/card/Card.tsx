@@ -17,6 +17,10 @@ export interface CardCustomTheme {
 
 export type CardProps = {
   /**
+   * Boolean indicating whether Card will have box shadow or not.
+   */
+  boxShadow?: boolean;
+  /**
    * If `true` border will be drawn around the card.
    */
   border?: boolean;
@@ -50,6 +54,7 @@ export const Card = ({
   border,
   heading,
   headingAriaLevel = 2,
+  boxShadow = false,
   text,
   className,
   theme,
@@ -62,7 +67,13 @@ export const Card = ({
   const hasBody = !!heading || !!text;
   return (
     <div
-      className={classNames(styles.card, border && styles.border, customThemeClass, className)}
+      className={classNames(
+        styles.card,
+        border && styles.border,
+        boxShadow && styles.boxShadow,
+        customThemeClass,
+        className,
+      )}
       role="region"
       {...divProps}
     >

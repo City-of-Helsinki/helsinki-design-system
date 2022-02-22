@@ -19,7 +19,7 @@ import styles from './Select.module.scss';
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 import classNames from '../../../utils/classNames';
 import { IconAlertCircle, IconAngleDown } from '../../../icons';
-import { SelectedItems } from '../../../internal/selectedItems/SelectedItems';
+import { ClearButton, SelectedItems } from '../../../internal/selectedItems/SelectedItems';
 import { DROPDOWN_MENU_ITEM_HEIGHT, getIsInSelectedOptions } from '../dropdownUtils';
 import { DropdownMenu } from '../../../internal/dropdownMenu/DropdownMenu';
 import getIsElementFocused from '../../../utils/getIsElementFocused';
@@ -175,6 +175,10 @@ export type CommonSelectProps<OptionType> = {
 
 export type SingleSelectProps<OptionType> = CommonSelectProps<OptionType> & {
   /**
+   * The aria-label for the clear button
+   */
+  clearButtonAriaLabel?: string;
+  /**
    * When `true`, enables selecting multiple values
    */
   multiselect?: false;
@@ -194,13 +198,13 @@ export type SingleSelectProps<OptionType> = CommonSelectProps<OptionType> & {
 
 export type MultiSelectProps<OptionType> = CommonSelectProps<OptionType> & {
   /**
-   * When `true`, enables selecting multiple values
-   */
-  multiselect: true;
-  /**
    * The aria-label for the clear button
    */
   clearButtonAriaLabel: string;
+  /**
+   * When `true`, enables selecting multiple values
+   */
+  multiselect: true;
   /**
    * Value(s) that should be selected when the dropdown is initialized
    */
@@ -297,7 +301,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
   const {
     circularNavigation = false,
     className,
-    clearable = true,
+    clearable = props.multiselect,
     disabled = false,
     error,
     getA11ySelectionMessage = () => '',
@@ -329,6 +333,8 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
   const selectedItemsContainerRef = useRef<HTMLDivElement>();
   // menu ref
   const menuRef = React.useRef<HTMLUListElement>();
+  // toggle button ref
+  const toggleButtonRef = React.useRef<HTMLButtonElement>(null);
   // whether active focus is within the dropdown
   const [hasFocus, setFocus] = useState<boolean>(false);
   // virtualize menu items to increase performance
@@ -376,6 +382,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
     isOpen,
     selectedItem,
     selectItem,
+    reset: resetSelect,
   } = useSelect<OptionType>({
     circularNavigation,
     id,
@@ -441,11 +448,24 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
     getDropdownProps({}, { suppressRefError: true });
   }
 
+  const showClearButtonForSingleSelect = clearable && !props.multiselect && selectedItem;
+
   // returns the toggle button label based on the dropdown mode
   const getButtonLabel = (): React.ReactNode => {
     let buttonLabel = selectedItem?.[optionLabelField] || placeholder;
     if (props.multiselect) buttonLabel = selectedItems.length > 0 ? null : placeholder;
-    return buttonLabel && <span className={styles.buttonLabel}>{buttonLabel}</span>;
+    return (
+      buttonLabel && (
+        <span
+          className={classNames(
+            styles.buttonLabel,
+            showClearButtonForSingleSelect && styles.buttonLabelWithClearButton,
+          )}
+        >
+          {buttonLabel}
+        </span>
+      )
+    );
   };
 
   // screen readers should read the labels in the following order:
@@ -495,7 +515,10 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
             dropdownId={id}
             getSelectedItemProps={getSelectedItemProps}
             hideItems={!hasFocus}
-            onClear={() => reset()}
+            onClear={() => {
+              reset();
+              toggleButtonRef.current.focus();
+            }}
             onRemove={removeSelectedItem}
             optionLabelField={optionLabelField}
             removeButtonAriaLabel={props.selectedItemRemoveButtonAriaLabel}
@@ -512,10 +535,11 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
             'aria-owns': getMenuProps().id,
             'aria-labelledby': buttonAriaLabel,
             // add downshift dropdown props when multiselect is enabled
-            ...(props.multiselect && { ...getDropdownProps({ preventKeyAction: isOpen }) }),
+            ...(props.multiselect && { ...getDropdownProps({ preventKeyAction: isOpen, ref: toggleButtonRef }) }),
             ...(invalid && { 'aria-invalid': true }),
             disabled,
             className: classNames(styles.button, showPlaceholder && styles.placeholder),
+            ...(!props.multiselect && { ref: toggleButtonRef }),
           })}
         >
           {showIcon && (
@@ -526,6 +550,15 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
           {getButtonLabel()}
           <IconAngleDown className={styles.angleIcon} aria-hidden />
         </button>
+        {showClearButtonForSingleSelect && (
+          <ClearButton
+            onClear={() => {
+              resetSelect();
+              toggleButtonRef.current.focus();
+            }}
+            clearButtonAriaLabel={props.clearButtonAriaLabel}
+          />
+        )}
         {/* MENU */}
         <DropdownMenu<OptionType>
           getItemProps={(item, index, selected, optionDisabled, virtualRow) =>

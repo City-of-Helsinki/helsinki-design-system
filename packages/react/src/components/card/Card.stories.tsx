@@ -21,6 +21,12 @@ WithBorder.args = {
   border: true,
 };
 
+export const WithBoxShadow = (args) => <Card {...args} />;
+WithBoxShadow.storyName = 'With box shadow';
+WithBoxShadow.args = {
+  boxShadow: true,
+};
+
 export const TextHeading = (args) => <Card {...args} />;
 TextHeading.storyName = 'With text & heading';
 TextHeading.args = {

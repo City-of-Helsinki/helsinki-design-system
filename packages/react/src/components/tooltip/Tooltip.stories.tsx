@@ -21,3 +21,10 @@ export const Small = (args) => <Tooltip {...args}>Less than five words long</Too
 Small.args = {
   small: true,
 };
+
+export const WithBoxShadow = (args) => (
+  <Tooltip {...args} boxShadow>
+    Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to
+    three sentences. For longer descriptions, provide a link to a separate page.
+  </Tooltip>
+);

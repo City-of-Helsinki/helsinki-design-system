@@ -68,6 +68,14 @@
   // don't add additional right padding if toggle button is hidden
   &.noToggle {
     padding-right: var(--spacing-s);
+
+    &.withClearButton {
+      padding-right: calc(var(--spacing-l) + var(--icon-size));
+    }
+  }
+
+  &.withClearButton {
+    padding-right: calc(var(--spacing-2-xl) + var(--icon-size));
   }
 
   &::placeholder {

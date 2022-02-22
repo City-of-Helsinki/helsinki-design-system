@@ -7,6 +7,9 @@ import classNames from '../../utils/classNames';
 import { TabsContext } from './TabsContext';
 import { FCWithName } from '../../common/types';
 import { useTheme } from '../../hooks/useTheme';
+import { TabList } from './TabList';
+import { TabPanel } from './TabPanel';
+import { Tab } from './Tab';
 
 export interface TabsCustomTheme {
   '--tablist-border-color'?: string;
@@ -71,3 +74,9 @@ export const Tabs = ({ children, small = false, theme }: TabsProps) => {
     </TabsContext.Provider>
   );
 };
+
+// Using the Tabs component and its child components in the same namespace ensures that the group is considered as a single component.
+// Tabs components do some child tab component processing and this might break in some preprocessed environments if the components were separate components, for example in mdx environment.
+Tabs.TabList = TabList;
+Tabs.TabPanel = TabPanel;
+Tabs.Tab = Tab;
