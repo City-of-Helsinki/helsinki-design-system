@@ -16,6 +16,11 @@
   border: var(--border-width) solid var(--border-color);
 }
 
+/* WITH BOX-SHADOW */
+.hds-card--box-shadow {
+  box-shadow: var(--box-shadow-m);
+}
+
 /* BODY */
 .hds-card__body {
   display: grid;
