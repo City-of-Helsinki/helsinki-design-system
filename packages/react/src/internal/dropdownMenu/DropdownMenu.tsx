@@ -6,6 +6,74 @@ import { getIsInSelectedOptions } from '../../components/dropdown/dropdownUtils'
 import { IconCheck } from '../../icons';
 import classNames from '../../utils/classNames';
 
+type DropdownMenuItemProps = {
+  /**
+   * Whether the item is disabled
+   */
+  disabled: boolean;
+  /**
+   * String to highlight
+   */
+  highlightValue?: string;
+  /**
+   * Downshift item props
+   */
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  itemProps: any;
+  /**
+   * Item label
+   */
+  label: string;
+  /**
+   * Menu styles
+   */
+  menuStyles: { [className: string]: string };
+  /**
+   * Whether multi-select is enabled
+   */
+  multiselect: boolean;
+  /**
+   * Whether the item is selected
+   */
+  selected: boolean;
+};
+
+export const DropdownMenuItem = ({
+  disabled,
+  highlightValue,
+  itemProps,
+  label,
+  menuStyles,
+  multiselect,
+  selected,
+}: DropdownMenuItemProps) => {
+  const getHighligtedValue = (labelValue: string) => {
+    return labelValue.replace(new RegExp(highlightValue, 'gi'), (match) => `<mark>${match}</mark>`);
+  };
+  const highlightLabel = (value: string) => {
+    // eslint-disable-next-line react/no-danger
+    return <span className={menuStyles.highlighted} dangerouslySetInnerHTML={{ __html: getHighligtedValue(value) }} />;
+  };
+
+  return (
+    <li {...itemProps} {...{ 'aria-selected': selected }} {...(disabled && { 'aria-disabled': true })}>
+      {multiselect ? (
+        <>
+          <span className={menuStyles.checkbox} aria-hidden>
+            <IconCheck />
+          </span>
+          {highlightValue ? highlightLabel(label) : label}
+        </>
+      ) : (
+        <>
+          {highlightValue ? highlightLabel(label) : label}
+          {selected && <IconCheck className={menuStyles.selectedIcon} />}
+        </>
+      )}
+    </li>
+  );
+};
+
 type DropdownMenuProps<T> = {
   /**
    * Getter function for item props
@@ -122,73 +190,5 @@ export const DropdownMenu = <T,>({
         </>
       )}
     </ul>
-  );
-};
-
-type DropdownMenuItemProps = {
-  /**
-   * Whether the item is disabled
-   */
-  disabled: boolean;
-  /**
-   * String to highlight
-   */
-  highlightValue?: string;
-  /**
-   * Downshift item props
-   */
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  itemProps: any;
-  /**
-   * Item label
-   */
-  label: string;
-  /**
-   * Menu styles
-   */
-  menuStyles: { [className: string]: string };
-  /**
-   * Whether multi-select is enabled
-   */
-  multiselect: boolean;
-  /**
-   * Whether the item is selected
-   */
-  selected: boolean;
-};
-
-export const DropdownMenuItem = ({
-  disabled,
-  highlightValue,
-  itemProps,
-  label,
-  menuStyles,
-  multiselect,
-  selected,
-}: DropdownMenuItemProps) => {
-  const getHighligtedValue = (labelValue: string) => {
-    return labelValue.replace(new RegExp(highlightValue, 'gi'), (match) => `<mark>${match}</mark>`);
-  };
-  const highlightLabel = (value: string) => {
-    // eslint-disable-next-line react/no-danger
-    return <span className={menuStyles.highlighted} dangerouslySetInnerHTML={{ __html: getHighligtedValue(value) }} />;
-  };
-
-  return (
-    <li {...itemProps} {...{ 'aria-selected': selected }} {...(disabled && { 'aria-disabled': true })}>
-      {multiselect ? (
-        <>
-          <span className={menuStyles.checkbox} aria-hidden>
-            <IconCheck />
-          </span>
-          {highlightValue ? highlightLabel(label) : label}
-        </>
-      ) : (
-        <>
-          {highlightValue ? highlightLabel(label) : label}
-          {selected && <IconCheck className={menuStyles.selectedIcon} />}
-        </>
-      )}
-    </li>
   );
 };

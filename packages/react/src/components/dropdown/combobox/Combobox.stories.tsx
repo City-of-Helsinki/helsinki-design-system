@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import uniqueId from 'lodash.uniqueid';
 
@@ -43,7 +42,7 @@ function getRegionOptions() {
 export default {
   component: Combobox,
   title: 'Components/Dropdowns/Combobox',
-  decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '420px' }}>{storyFn()}</div>],
+  decorators: [(storyFn) => <div style={{ maxWidth: '420px' }}>{storyFn()}</div>],
   parameters: {
     controls: { expanded: true },
   },

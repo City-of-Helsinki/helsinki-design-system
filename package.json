@@ -19,5 +19,9 @@
   },
   "devDependencies": {
     "lerna": "^3.16.4"
+  },
+  "dependencies": {},
+  "resolutions": {
+    "@types/reach__router": "1.3.7"
   }
 }

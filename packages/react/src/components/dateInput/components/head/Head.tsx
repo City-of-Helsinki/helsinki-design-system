@@ -1,4 +1,5 @@
 import React from 'react';
+import Locale from 'date-fns/locale';
 
 import styles from '../datePicker/DatePicker.module.scss';
 import { getWeekdaysNames } from './getWeekdaysNames';

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { color, number } from '@storybook/addon-knobs';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import { RadioButton } from './RadioButton';
@@ -65,122 +64,35 @@ export const Custom = () => {
 };
 Custom.storyName = 'With custom styles';
 
-export const Playground = () => {
+export const Playground = (args) => {
   const [radioValue, setRadioValue] = useState(null);
   const options = ['foo', 'bar', 'baz'];
 
-  const groupSize = 'Size';
-  const groupColor = 'Color';
-  const size = number(
-    'Size',
-    24,
-    {
-      range: true,
-      min: 10,
-      max: 100,
-      step: 1,
-    },
-    groupSize,
-  );
-  const iconScale = number(
-    'Icon scale',
-    0.5,
-    {
-      range: true,
-      min: 0.1,
-      max: 0.9,
-      step: 0.05,
-    },
-    groupSize,
-  );
-  const borderWidth = number(
-    'Border width',
-    2,
-    {
-      range: true,
-      min: 1,
-      max: 10,
-      step: 1,
-    },
-    groupSize,
-  );
-  const outlineWidth = number(
-    'Outline width',
-    3,
-    {
-      range: true,
-      min: 1,
-      max: 10,
-      step: 1,
-    },
-    groupSize,
-  );
-  const fontSize = number(
-    'Font-size',
-    16,
-    {
-      range: true,
-      min: 12,
-      max: 32,
-      step: 1,
-    },
-    groupSize,
-  );
-  const labelPadding = number(
-    'Label padding',
-    8,
-    {
-      range: true,
-      min: 4,
-      max: 32,
-      step: 2,
-    },
-    groupSize,
-  );
-  const background = color('Background - unselected', '#ffffff', groupColor);
-  const backgroundHover = color('Background - hover', '#ffffff', groupColor);
-  const backgroundFocus = color('Background - focus', '#ffffff', groupColor);
-  const backgroundUnselectedDisabled = color('Background - unselected - disabled', '#e5e5e5', groupColor);
-  const backgroundSelectedDisabled = color('Background - selected - disabled', '#ffffff', groupColor);
-  const borderFocus = color('Border - focus', '#1a1a1a', groupColor);
-  const borderSelected = color('Border - selected', '#0000bf', groupColor);
-  const borderSelectedHover = color('Border - selected - hover', '#000098', groupColor);
-  const borderSelectedDisabled = color('Border - selected - disabled', '#cccccc', groupColor);
-  const borderUnselected = color('Border - unselected', '#808080', groupColor);
-  const borderUnselectedHover = color('Border - unselected - hover', '#1a1a1a', groupColor);
-  const borderUnselectedDisabled = color('Border - unselected - disabled', '#e5e5e5', groupColor);
-  const focusOutline = color('Focus outline', '#0072c6', groupColor);
-  const iconUnselected = color('Icon - unselected', 'rgba(0, 0, 0, 0)', groupColor);
-  const iconSelected = color('Icon - selected', '#0000bf', groupColor);
-  const iconDisabled = color('Icon - disabled', '#e5e5e5', groupColor);
-  const labelDefault = color('Label', '#1a1a1a', groupColor);
-  const labelDisabled = color('Label - disabled', '#999898', groupColor);
-
   const styles = {
-    '--size': `${size}px`,
-    '--icon-scale': iconScale,
-    '--border-width': `${borderWidth}px`,
-    '--outline-width': `${outlineWidth}px`,
-    '--label-font-size': `${fontSize}px`,
-    '--label-padding': `${labelPadding}px`,
-    '--background': background,
-    '--background-hover': backgroundHover,
-    '--background-focus': backgroundFocus,
-    '--background-unselected-disabled': backgroundUnselectedDisabled,
-    '--background-selected-disabled': backgroundSelectedDisabled,
-    '--border-color-focus': borderFocus,
-    '--border-color-selected': borderSelected,
-    '--border-color-selected-hover': borderSelectedHover,
-    '--border-color-selected-disabled': borderSelectedDisabled,
-    '--border-color-unselected': borderUnselected,
-    '--border-color-unselected-hover': borderUnselectedHover,
-    '--border-color-unselected-disabled': borderUnselectedDisabled,
-    '--focus-outline-color': focusOutline,
-    '--icon-color-unselected': iconUnselected,
-    '--icon-color-selected': iconSelected,
-    '--icon-color-disabled': iconDisabled,
-    '--label-color': labelDefault,
-    '--label-color-disabled': labelDisabled,
+    '--size': `${args.size}px`,
+    '--icon-scale': args.iconScale,
+    '--border-width': `${args.borderWidth}px`,
+    '--outline-width': `${args.outlineWidth}px`,
+    '--label-font-size': `${args.labelFontSize}px`,
+    '--label-padding': `${args.labelPadding}px`,
+    '--background': args.background,
+    '--background-hover': args.backgroundHover,
+    '--background-focus': args.backgroundFocus,
+    '--background-unselected-disabled': args.backgroundUnselectedDisabled,
+    '--background-selected-disabled': args.backgroundSelectedDisabled,
+    '--border-color-focus': args.borderColorFocus,
+    '--border-color-selected': args.borderColorSelected,
+    '--border-color-selected-hover': args.borderColorSelectedHover,
+    '--border-color-selected-disabled': args.borderColorSelectedDisabled,
+    '--border-color-unselected': args.borderColorUnselected,
+    '--border-color-unselected-hover': args.borderColorUnselectedHover,
+    '--border-color-unselected-disabled': args.borderColorUnselectedDisabled,
+    '--focus-outline-color': args.focusOutlineColor,
+    '--icon-color-unselected': args.iconColorUnselected,
+    '--icon-color-selected': args.iconColorSelected,
+    '--icon-color-disabled': args.iconColorDisabled,
+    '--label-color': args.labelColorDefault,
+    '--label-color-disabled': args.labelColorDisabled,
   } as React.CSSProperties;
 
   return (
@@ -210,4 +122,100 @@ Playground.parameters = {
   docs: {
     disable: true,
   },
+};
+
+Playground.args = {
+  size: 24,
+  iconScale: 0.5,
+  borderWidth: 2,
+  outlineWidth: 3,
+  labelFontSize: 16,
+  labelPadding: 8,
+  background: '#ffffff',
+  backgroundHover: '#ffffff',
+  backgroundFocus: '#ffffff',
+  backgroundUnselectedDisabled: '#e5e5e5',
+  backgroundSelectedDisabled: '#ffffff',
+  borderColorFocus: '#1a1a1a',
+  borderColorSelected: '#0000bf',
+  borderColorSelectedHover: '#000098',
+  borderColorSelectedDisabled: '#cccccc',
+  borderColorUnselected: '#808080',
+  borderColorUnselectedHover: '#1a1a1a',
+  borderColorUnselectedDisabled: '#e5e5e5',
+  focusOutlineColor: '#0072c6',
+  iconColorUnselected: 'rgba(0, 0, 0, 0)',
+  iconColorSelected: '#0000bf',
+  iconColorDisabled: '#e5e5e5',
+  labelColorDefault: '#1a1a1a',
+  labelColorDisabled: '#999898',
+};
+
+Playground.argTypes = {
+  size: {
+    control: {
+      type: 'range',
+      min: 10,
+      max: 100,
+      step: 1,
+    },
+  },
+  iconScale: {
+    control: {
+      type: 'range',
+      min: 0.1,
+      max: 0.9,
+      step: 0.05,
+    },
+  },
+  borderWidth: {
+    control: {
+      type: 'range',
+      min: 1,
+      max: 10,
+      step: 1,
+    },
+  },
+  outlineWidth: {
+    control: {
+      type: 'range',
+      min: 1,
+      max: 10,
+      step: 1,
+    },
+  },
+  labelFontSize: {
+    control: {
+      type: 'range',
+      min: 12,
+      max: 32,
+      step: 1,
+    },
+  },
+  labelPadding: {
+    control: {
+      type: 'range',
+      min: 4,
+      max: 32,
+      step: 2,
+    },
+  },
+  background: { control: { type: 'color' } },
+  backgroundHover: { control: { type: 'color' } },
+  backgroundFocus: { control: { type: 'color' } },
+  backgroundUnselectedDisabled: { control: { type: 'color' } },
+  backgroundSelectedDisabled: { control: { type: 'color' } },
+  borderColorFocus: { control: { type: 'color' } },
+  borderColorSelected: { control: { type: 'color' } },
+  borderColorSelectedHover: { control: { type: 'color' } },
+  borderColorSelectedDisabled: { control: { type: 'color' } },
+  borderColorUnselected: { control: { type: 'color' } },
+  borderColorUnselectedHover: { control: { type: 'color' } },
+  borderColorUnselectedDisabled: { control: { type: 'color' } },
+  focusOutlineColor: { control: { type: 'color' } },
+  iconColorUnselected: { control: { type: 'color' } },
+  iconColorSelected: { control: { type: 'color' } },
+  iconColorDisabled: { control: { type: 'color' } },
+  labelColorDefault: { control: { type: 'color' } },
+  labelColorDisabled: { control: { type: 'color' } },
 };

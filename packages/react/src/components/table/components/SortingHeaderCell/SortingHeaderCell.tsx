@@ -16,7 +16,7 @@ export type SortingHeaderCellProps = React.ComponentPropsWithoutRef<'th'> & {
   ariaLabelSortButtonAscending: string;
   ariaLabelSortButtonDescending: string;
   colKey: string;
-  setSortingAndOrder: Function;
+  setSortingAndOrder: (colKey: string) => void;
   order: 'unset' | 'asc' | 'desc';
   title: string;
   sortIconType: 'string' | 'other';
