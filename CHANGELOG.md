@@ -50,7 +50,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Koros] Dense property for rendering denser patterns
+- Inclusive design guideline
+- Multi-page forms patterns
+- Box shadow design tokens documentation
+- [Koros] Dense property documentation
 
 
 #### Changed
