@@ -35,4 +35,5 @@ export * from './toggleButton';
 export * from './tooltip';
 export * from './table';
 export * from './tabs';
+export * from './stepper';
 export * from './passwordInput';
