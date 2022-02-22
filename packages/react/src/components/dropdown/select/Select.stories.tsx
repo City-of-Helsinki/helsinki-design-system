@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import uniqueId from 'lodash.uniqueid';
 
@@ -32,7 +31,7 @@ const options = getOptions();
 export default {
   component: Select,
   title: 'Components/Dropdowns/Select',
-  decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '420px' }}>{storyFn()}</div>],
+  decorators: [(storyFn) => <div style={{ maxWidth: '420px' }}>{storyFn()}</div>],
   parameters: {
     controls: { expanded: true },
   },

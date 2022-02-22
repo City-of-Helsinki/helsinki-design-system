@@ -17,7 +17,7 @@ export const useSuggestions = <SuggestionItemType>(
   // Loading state
   const [isLoading, setIsLoading] = useState(false);
   // Reference to the cancel function
-  const cancelSuggestionsFunction = useRef<Function>(() => null);
+  const cancelSuggestionsFunction = useRef<() => void>(() => null);
   // Currently visible suggestion items
   const [suggestions, setSuggestions] = useState<SuggestionItemType[]>([]);
 

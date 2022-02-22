@@ -22,6 +22,8 @@
   },
   "ignorePatterns": ["*.module.css"],
   "rules": {
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -57,7 +59,9 @@
     "react/state-in-constructor": [2, "never"],
     "no-unused-expressions": [2, {
       "allowTernary": true
-    }]
+    }],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"]
   },
   "settings": {
     "react": {
@@ -73,5 +77,8 @@
   "env": {
     "browser": true,
     "jest": true
+  },
+  "globals": {
+    "JSX": true
   }
 }
