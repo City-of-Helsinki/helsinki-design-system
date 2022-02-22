@@ -6,6 +6,62 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.0] - Feb, 23, 2022
+
+
+### Design Tokens
+
+#### Added
+
+- Box shadow design tokens
+
+### Core
+
+#### Added
+
+- [Koros] Dense property for rendering denser patterns
+- [Table] Add theme variable and a default value for table content cells
+- [Card, Notification] Add possibility to add a box-shadow to elevate component
+
+### React Components
+
+#### Added
+
+- Stepper
+- [Koros] Dense property for rendering denser patterns
+- [Table] ClassName property for table heading
+- [Select, Combobox] Add clear button to Select and Combobox in single select mode
+- [Card] Add possibility to customise heading aria-level
+- [Table] Add theme variable and a default value for table content cells
+- [Card, Dialog, Notification, Tooltip] Add possibility to add a box-shadow to elevate component
+
+#### Changed
+
+- [Select, Combobox] Set focus to input after the clear button is pressed
+
+#### Fixed
+
+- [ErrorSummary] Adds missing focus styles
+
+### Design kit
+
+
+### Documentation
+
+#### Added
+
+- [Koros] Dense property for rendering denser patterns
+
+
+#### Changed
+
+- Set Fieldset, Number Input, Password Input, Phone Input, Time Input , and Toggle Button as stable components
+- Replace Playground stories knobs tab with controls
+
+#### Removed
+
+- Removed deprecated addon/knobs library
+
 ## [1.10.0] - Jan, 31, 2022
 
 ### Core
