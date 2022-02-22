@@ -1,0 +1,46 @@
+---
+slug: '/elements/components/koros'
+title: 'Koros'
+---
+
+import { StatusLabel, Tabs } from 'hds-react';
+
+import LeadParagraph from '../../../../components/LeadParagraph';
+import Playground from '../../../../components/Playground';
+
+import Accessibility from './accessibility.mdx';
+import Code from './code.mdx';
+import Customisation from './customisation.mdx';
+import Usage from './usage.mdx';
+
+# Koros
+
+<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  Accessible
+</StatusLabel>
+
+<LeadParagraph>
+  Koros, also known as Wave motifs, are part of the visual identity of City of Helsinki. The Koros can be used as visual elements, for example as part of the hero image or the footer and as a divider of content in the user interface.
+</LeadParagraph>
+
+<Tabs>
+  <Tabs.TabList className="pageTabsList">
+    <Tabs.Tab>Usage</Tabs.Tab>
+    <Tabs.Tab>Code</Tabs.Tab>
+    <Tabs.Tab>Accessibility</Tabs.Tab>
+    <Tabs.Tab>Customisation</Tabs.Tab>
+  </Tabs.TabList>
+  <Tabs.TabPanel>
+    <Usage />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Code />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Accessibility />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Customisation />
+  </Tabs.TabPanel>
+</Tabs>

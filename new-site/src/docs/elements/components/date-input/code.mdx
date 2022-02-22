@@ -1,0 +1,165 @@
+---
+slug: '/elements/components/date-input/code'
+title: 'DateInput - Code'
+---
+
+import { DateInput, Link, Card, SelectionGroup } from 'hds-react';
+import { IconCheckCircleFill, IconCrossCircle } from 'hds-react';
+
+import Playground from '../../../../components/Playground';
+
+## Code
+
+### Code examples 
+
+#### Date input with a picker
+<Playground>
+
+
+```jsx
+<div style={{maxWidth: '400px'}}>
+  <DateInput 
+    helperText="Use format D.M.YYYY"
+    id="date"
+    initialMonth={new Date()}
+    label="Choose a date"
+    language="en"
+    onChange={function noRefCheck(){}}
+    required
+  />
+</div>
+```
+
+```html
+
+```
+
+</Playground>
+
+### Date input without a confirmation
+<Playground>
+
+
+```jsx
+<div style={{maxWidth: '400px'}}>
+  <DateInput
+    disableConfirmation
+    helperText="Use format D.M.YYYY"
+    id="date"
+    initialMonth={new Date()}
+    label="Choose a date"
+    language="en"
+    onChange={function noRefCheck(){}}
+    required
+/>
+</div>
+```
+
+```html
+
+```
+
+</Playground>
+
+### Date input without a picker
+<Playground>
+
+
+```jsx
+<div style={{maxWidth: '400px'}}>
+  <DateInput
+    confirmDate
+    disableDatePicker
+    helperText="Use format D.M.YYYY"
+    id="date"
+    initialMonth={new Date()}
+    label="Choose a date"
+    language="en"
+    onChange={function noRefCheck(){}}
+    required
+  />
+</div>
+```
+
+```html
+
+```
+
+</Playground>
+
+### Localised date inputs
+<Playground>
+
+
+```jsx
+<div style={{maxWidth: '400px'}}>
+  <DateInput 
+    helperText="Use format D.M.YYYY"
+    id="date"
+    initialMonth={new Date()}
+    label="Choose a date"
+    language="en"
+    onChange={function noRefCheck(){}}
+    required
+    style={{marginBottom: 'var(--spacing-s)'}}
+  />
+
+  <DateInput 
+    helperText="Käytä muotoa P.K.VVVV"
+    id="date"
+    initialMonth={new Date()}
+    label="Valitse päivämäärä"
+    language="fi"
+    onChange={function noRefCheck(){}}
+    required
+    style={{marginBottom: 'var(--spacing-s)'}}
+  />
+
+  <DateInput 
+    helperText="Använd ett format D.M.ÅÅÅÅ"
+    id="date"
+    initialMonth={new Date()}
+    label="Välj ett datum"
+    language="sv"
+    onChange={function noRefCheck(){}}
+    required
+  />
+</div>
+```
+
+```html
+
+```
+
+</Playground>
+
+
+### Packages
+| Package           | Included                      | Storybook link                                                                                                                      | Source link   |
+| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-dateinput--default">View in Storybook</Link>  | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/dateInput/DateInput.tsx">View source</Link> |
+| **HDS Core**      | <IconCrossCircle /> No        | - | - |
+
+### Properties
+Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/story/components-dateinput--default" external>React Storybook.</Link>
+
+
+| Property                                         | Description                                                    | Values                                       | Default value                                   |
+| ------------------------------------------------ | -------------------------------------------------------------- | -------------------------------------------- | ----------------------------------------------- |
+| `helperText`                                     | Helper text to be displayed below the input.                   | `string`                                     | -                                               |
+| `errorText`                                      | Error text to be displayed below the input.                    | `string`                                     | -                                               |
+| `successText`                                    | Success text to be displayed below the input.                  | `string`                                     | -                                               |
+| `infoText`                                       | Info text to be displayed below the input.                     | `string`                                     | -                                               |
+| `initialMonth`                                   | The initial month open in calendar.                            | `Date`                                       | -                                               |
+| `label`                                          | A text label for the input.                                    | `string`                                     | -                                               |
+| `onChange`                                       | Callback fired when the state is changed.                      | `event`                                      | -                                               |
+| `language`                                       | Language of the date input.                                    | `string` (fi, en, sv)                        | en                                              |
+| `minDate`                                        | Minimum date to show in the datepicker calendar.               | `Date`                                       | Start of the month one year before current date |
+| `maxDate`                                        | Maximum date to show in the datepicker calendar.               | `Date`                                       | End of the month one year from current date.    |                                                 |
+| `isDateDisabledBy`                               | Disables date(s) based on conditional function.                | `function`                                   | -                                               |
+| `initialMonth`                                   | The initial month open in calendar.                            | `Date`                                       | -                                               |
+| `disableDatePicker`                              | If set to true, the date picker button is hidden.              | `boolean`                                    | false                                           |
+| `disableConfirmation`                            | If set to true, the date picker does not require confirmation. | `boolean`                                    | false                                           |
+
+
+export default ({ children }) => <>{children}</>;

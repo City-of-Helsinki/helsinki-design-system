@@ -155,7 +155,7 @@ const EditorWithLive = withLive(Editor);
 
 export const PlaygroundBlock = ({ children }) => {
   const scopeComponents = useMDXScope();
-  const codeBlocks = children.map(({ props }) => {
+  const codeBlocks = React.Children.map(children, ({ props }) => {
     const childrenProps = props.children.props;
     return {
       code: childrenProps.children,

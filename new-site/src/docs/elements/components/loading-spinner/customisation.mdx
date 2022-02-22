@@ -1,0 +1,71 @@
+---
+slug: '/elements/components/loading-spinner/customisation'
+title: 'LoadingSpinner - Customisation'
+---
+
+## Customisation
+
+### Customisation properties
+You can use the `theme` property to customise the component. See all available theme variables in the table below.
+
+| Theme variable                           | Description                                                     |
+| ---------------------------------------- | --------------------------------------------------------------- |
+| `--spinner-color`                        | Spinner colour                                                  |
+| `--spinner-color-stage1`                 | The first spinner colour (when the `multicolor` is set to true) |
+| `--spinner-color-stage2`                 | The first spinner colour (when the `multicolor` is set to true) |
+| `--spinner-color-stage3`                 | The first spinner colour (when the `multicolor` is set to true) |
+
+### Customisation example
+<Playground>
+
+
+```jsx
+<>
+<LoadingSpinner
+  theme={{
+    '--spinner-color': 'var(--color-tram)',
+  }}
+/>
+<br />
+<LoadingSpinner
+  multicolor
+  theme={{
+    '--spinner-color-stage1': 'var(--color-coat-of-arms)',
+    '--spinner-color-stage2': 'var(--color-tram)',
+    '--spinner-color-stage3': 'var(--color-metro)'
+  }}
+/>
+</>
+```
+
+```html
+<div>
+  <style>
+    .hds-loading-spinner.custom-single-color {
+      --spinner-color: var(--color-tram);
+    }
+  </style>
+  <div class="hds-loading-spinner custom-single-color">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <style>
+    .hds-loading-spinner.custom-multi-color {
+      --spinner-color-stage1: var(--color-coat-of-arms);
+      --spinner-color-stage2: var(--color-tram);
+      --spinner-color-stage3: var(--color-metro);
+    }
+  </style>
+  <div class="hds-loading-spinner hds-loading-spinner--multicolor custom-multi-color">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+```
+
+</Playground>
+
+export default ({ children }) => <>{children}</>;
