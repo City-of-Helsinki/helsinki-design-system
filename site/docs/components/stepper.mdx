@@ -126,7 +126,6 @@ The default stepper variant includes visible step labels. The stepper can be nav
   return (
     <div>
       <Stepper
-        className="stepper-default"
         steps={state.steps}
         language="en"
         selectedStep={state.activeStepIndex}
@@ -240,7 +239,6 @@ The default stepper variant includes visible step labels. The stepper can be nav
   return (
     <div>
       <Stepper
-        className="stepper-default"
         steps={state.steps}
         language="en"
         selectedStep={state.activeStepIndex}
@@ -360,7 +358,6 @@ The small stepper variant omits the visible step labels. This variant of the ste
       }}
     >
       <Stepper
-        className="stepper-small"
         steps={state.steps}
         language="en"
         small
@@ -437,7 +434,6 @@ The small stepper variant omits the visible step labels. This variant of the ste
       }}
     >
       <Stepper
-        className="stepper-small"
         steps={state.steps}
         language="en"
         small
@@ -557,8 +553,6 @@ You can control the heading level of the generated step heading via the `stepHea
   return (
     <div>
       <Stepper
-        className="stepper-with-heading"
-        headingClassName="stepper-heading"
         steps={state.steps}
         language="en"
         stepHeading
@@ -632,8 +626,6 @@ You can control the heading level of the generated step heading via the `stepHea
   return (
     <div>
       <Stepper
-        className="stepper-with-heading"
-        headingClassName="stepper-heading"
         steps={state.steps}
         language="en"
         selectedStep={state.activeStepIndex}
@@ -756,7 +748,6 @@ This variant should only be the last resort option if it is not possible to fit 
       }}
     >
       <Stepper
-        className="stepper-overflow"
         steps={state.steps}
         language="en"
         selectedStep={state.activeStepIndex}
@@ -832,7 +823,6 @@ This variant should only be the last resort option if it is not possible to fit 
       }}
     >
       <Stepper
-        className="stepper-overflow"
         steps={state.steps}
         language="en"
         selectedStep={state.activeStepIndex}
@@ -878,82 +868,72 @@ The HDS stepper offers multiple predefined states for steps to be used.
 - `disabled` state for steps that are not available yet (e.g. require a previous step to be completed first)
 
 <Playground>
-<div>
-  <div>
-    <Stepper
-      className="stepper-states-example"
-      language="en"
-      onStepClick={function noRefCheck(){}}
-      selectedStep={1}
-      steps={[
-        {
-          label: 'Completed',
-          state: StepState.completed
-        },
-        {
-          label: 'Current',
-          state: StepState.available
-        },
-        {
-          label: 'Available',
-          state: StepState.available
-        },
-        {
-          label: 'Needs attention',
-          state: StepState.attention
-        },
-        {
-          label: 'Paused',
-          state: StepState.paused
-        },
-        {
-          label: 'Disabled',
-          state: StepState.disabled
-        }
-      ]}
-    />
-  </div>
-</div>
+  <Stepper
+    language="en"
+    onStepClick={function noRefCheck(){}}
+    selectedStep={1}
+    steps={[
+      {
+        label: 'Completed',
+        state: StepState.completed
+      },
+      {
+        label: 'Current',
+        state: StepState.available
+      },
+      {
+        label: 'Available',
+        state: StepState.available
+      },
+      {
+        label: 'Needs attention',
+        state: StepState.attention
+      },
+      {
+        label: 'Paused',
+        state: StepState.paused
+      },
+      {
+        label: 'Disabled',
+        state: StepState.disabled
+      }
+    ]}
+  />
 </Playground>
 
 #### React code example:
 ```tsx
-<div>
-  <div>
-    <Stepper
-      className="stepper-states-example"
-      language="en"
-      onStepClick={function noRefCheck(){}}
-      selectedStep={1}
-      steps={[
-        {
-          label: 'Completed',
-          state: StepState.completed
-        },
-        {
-          label: 'Current',
-          state: StepState.available
-        },
-        {
-          label: 'Available',
-          state: StepState.available
-        },
-        {
-          label: 'Needs attention',
-          state: StepState.attention
-        },
-        {
-          label: 'Paused',
-          state: StepState.paused
-        },
-        {
-          label: 'Disabled',
-          state: StepState.disabled
-        }
-      ]}
-    />
-  </div>
-</div>
+<Stepper
+  language="en"
+  onStepClick={function noRefCheck(){}}
+  selectedStep={1}
+  steps={[
+    {
+      label: 'Completed',
+      state: StepState.completed
+    },
+    {
+      label: 'Current',
+      state: StepState.available
+    },
+    {
+      label: 'Available',
+      state: StepState.available
+    },
+    {
+      label: 'Needs attention',
+      state: StepState.attention
+    },
+    {
+      label: 'Paused',
+      state: StepState.paused
+    },
+    {
+      label: 'Disabled',
+      state: StepState.disabled
+    }
+  ]}
+/>
 ```
 
 ## Demos & API
