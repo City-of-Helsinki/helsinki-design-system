@@ -61,7 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Modals and Notifications] An optional shadow to Dialog symbols
 - [Modals and Notifications] An optional shadow to Notification (Toast) symbols
 - [Modals and Notifications] An optional shadow to Tooltip symbols
-- [Modals & Notifications] Changed Small Tooltip symbol smart layout alignment from Left to Center. This changes makes it easier to use inside other components when the tooltip text is edited.
+- [Modals & Notifications] Changed Small Tooltip symbol smart layout alignment from Left to Center. This change makes it easier to use inside other components when the tooltip text is edited.
 
 **Fixed**
 
