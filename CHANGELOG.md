@@ -6,6 +6,86 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.0] - Feb, 23, 2022
+
+### Design Tokens
+
+#### Added
+
+- Box shadow design tokens
+
+### Core
+
+#### Added
+
+- [Koros] Dense property for rendering denser patterns
+- [Table] Add theme variable and a default value for table content cells' background-color
+- [Card, Notification] Add possibility to add a box-shadow to elevate component
+
+### React Components
+
+#### Added
+
+- Stepper
+- [Koros] Dense property for rendering denser patterns
+- [Table] ClassName property for table heading
+- [Select, Combobox] Add clear button to Select and Combobox in single select mode
+- [Card] Add possibility to customise heading aria-level
+- [Table] Add theme variable and a default value for table content cells' background-color
+- [Card, Dialog, Notification, Tooltip] Add possibility to add a box-shadow to elevate component
+
+#### Changed
+
+- [Select, Combobox] Set focus to input after the clear button is pressed
+
+#### Fixed
+
+- [ErrorSummary] Adds missing focus styles
+
+### Design kit
+**Added**
+
+- [Form Components] Multi-page form Stepper component
+- [Form Components] Multi-page form Stepper + heading templates
+- New library: HDS Shadow
+    - Includes three levels of shadow tokens; S, M and L
+    - **Please refer to the HDS token documentation before using shadows!**
+- [Koros] Dense koro variant
+- [Koros] Angled koro variant
+
+**Changed**
+
+- Updated HDS Sketch libraries to Sketch version 83.2
+- [Cards] An optional shadow to Card symbols
+- [Footer] Added a possibility to use the new dense koro variant
+- [Modals and Notifications] An optional shadow to Dialog symbols
+- [Modals and Notifications] An optional shadow to Notification (Toast) symbols
+- [Modals and Notifications] An optional shadow to Tooltip symbols
+- [Modals & Notifications] Changed Small Tooltip symbol smart layout alignment from Left to Center. This change makes it easier to use inside other components when the tooltip text is edited.
+
+**Fixed**
+
+- [Typography] Incorrect link colour of the Medium Regular Centered body text
+
+### Documentation
+
+#### Added
+
+- Multi-page form Stepper component documentation
+- Multi-page forms Pattern documentation
+- Box shadow token documentation
+- [Koros] Code and usage examples for the new dense koro variant
+- First draft of the inclusivity guidelines and best practices
+
+#### Changed
+
+- Set Fieldset, Number Input, Password Input, Phone Input, Time Input, and Toggle Button as stable components
+- Replace Playground stories knobs tab with controls
+
+#### Removed
+
+- Removed deprecated Storybook addon/knobs library. Removes knobs-tab from stories.
+
 ## [1.10.0] - Jan, 31, 2022
 
 ### Core
