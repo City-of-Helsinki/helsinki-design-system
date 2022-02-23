@@ -42,14 +42,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [ErrorSummary] Adds missing focus styles
 
+### Design kit
+**Added**
+
+- [Form Components] Multi-page form Stepper component
+- [Form Components] Multi-page form Stepper + heading templates
+- New library: HDS Shadow
+    - Includes three levels of shadow tokens; S, M and L
+    - **Please refer to the HDS token documentation before using shadows!**
+- [Koros] Dense koro variant
+- [Koros] Angled koro variant
+
+**Changed**
+
+- Updated HDS Sketch libraries to Sketch version 83.2
+- [Cards] An optional shadow to Card symbols
+- [Footer] Added a possibility to use the new dense koro variant
+- [Modals and Notifications] An optional shadow to Dialog symbols
+- [Modals and Notifications] An optional shadow to Notification (Toast) symbols
+- [Modals and Notifications] An optional shadow to Tooltip symbols
+- [Modals & Notifications] Changed Small Tooltip symbol smart layout alignment from Left to Center. This changes makes it easier to use inside other components when the tooltip text is edited.
+
+**Fixed**
+
+- [Typography] Incorrect link colour of the Medium Regular Centered body text
+
 ### Documentation
 
 #### Added
 
-- Inclusive design guideline
-- Multi-page forms patterns
-- Box shadow design tokens documentation
-- [Koros] Dense property documentation
+- Multi-page form Stepper component documentation
+- Multi-page forms Pattern documentation
+- Box shadow token documentation
+- [Koros] Code and usage examples for the new dense koro variant
+- First draft of the inclusivity guidelines and best practices
 
 #### Changed
 
