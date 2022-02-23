@@ -50,8 +50,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New library: HDS Shadow
     - Includes three levels of shadow tokens; S, M and L
     - **Please refer to the HDS token documentation before using shadows!**
-- [Koros] Dense koro variant
-- [Koros] Angled koro variant
+- [Koros] Dense koro variant
+- [Koros] Angled koro variant
 
 **Changed**
 
