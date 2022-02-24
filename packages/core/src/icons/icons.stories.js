@@ -16,7 +16,7 @@ req.keys().forEach((fileName) => {
       return acc;
     }, '');
 
-    return `<span><style>.hds-icon {margin-right: var(--spacing-m);}</style>${all}</span>`
+    return `<style>.hds-icon {margin-right: var(--spacing-m);}</style>${all}`
   }
 
   story.add(iconCapitalized, allSizes);
