@@ -174,3 +174,25 @@ body {
 .docTable {
   margin: var(--spacing-l) 0;
 }
+
+.headerAnchor {
+  color: var(--color-black-90);
+  margin-left: 3px;
+}
+
+.hdsAnchorIcon {
+  visibility: hidden;
+}
+
+h1, h2, h3, h4, h5 {
+  &:hover {
+    .hdsAnchorIcon {
+      visibility: visible;
+    }
+  }
+  &:focus {
+    .hdsAnchorIcon {
+      visibility: visible;
+    }
+  }
+}
