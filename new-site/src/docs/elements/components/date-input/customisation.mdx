@@ -3,8 +3,8 @@ slug: '/elements/components/date-input/customisation'
 title: 'DateInput - Customisation'
 ---
 
-import { Card, Link, Notification } from 'hds-react';
-import { IconArrowRight } from 'hds-react';
+import { DateInput } from 'hds-react';
+import Playground from '../../../../components/Playground';
 
 ## Customisation
 
@@ -19,13 +19,18 @@ You can use the `style` property to customise the component. See all available t
 ### Customisation example
 <Playground>
 
-
 ```jsx
-
-```
-
-```html
-
+<div style={{maxWidth: '400px'}}>
+  <DateInput
+    helperText="Use format D.M.YYYY"
+    id="date"
+    initialMonth={new Date()}
+    label="Choose a date"
+    language="en"
+    onChange={function noRefCheck(){}}
+    required
+  />
+</div>
 ```
 
 </Playground>
