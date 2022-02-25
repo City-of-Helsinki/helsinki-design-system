@@ -9,9 +9,10 @@ import { Link } from 'hds-react';
 ## Usage
 
 ### Example
-<Link href="https://hds.hel.fi/" size="M" style={{ display: 'block', width: 'fit-content' }}>
-      Link to HDS
-</Link>
+
+<Linkbox linkboxAriaLabel="Linkbox: Helsinki Design System" linkAriaLabel="HDS" href="https://hds.hel.fi" withBorder>
+  <div style={{ height: '106px' }} />
+</Linkbox>
 
 ### Principles
 - **Linkbox must always be interactable in its entirety.** This means that Linkboxes must not include multiple interactable elements (e.g. buttons or multiple links). The Linkbox element only gets focused once.
