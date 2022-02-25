@@ -153,9 +153,9 @@ Editor.propTypes = {
 
 const EditorWithLive = withLive(Editor);
 
-export const PlaygroundBlock = ({ children }) => {
+export const PlaygroundBlock = (props) => {
   const scopeComponents = useMDXScope();
-  const codeBlocks = React.Children.map(children, ({ props }) => {
+  const codeBlocks = React.Children.toArray(props.children).map(({ props }) => {
     const childrenProps = props.children.props;
     return {
       code: childrenProps.children,
@@ -199,17 +199,21 @@ export const PlaygroundBlock = ({ children }) => {
   );
 };
 
-PlaygroundBlock.propTypes = {
-  children: PropTypes.arrayOf(
-    PropTypes.shape({
+const CodeBlockShape = PropTypes.shape({
+  props: PropTypes.shape({
+    children: PropTypes.shape({
       props: PropTypes.shape({
-        children: PropTypes.shape({
-          props: PropTypes.shape({
-            children: PropTypes.string.isRequired,
-            className: PropTypes.string.isRequired,
-          }),
-        }),
+        children: PropTypes.string.isRequired,
+        className: PropTypes.string.isRequired,
       }),
     }),
-  ),
+  }),
+});
+
+PlaygroundBlock.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(CodeBlockShape),
+    PropTypes.objectOf(CodeBlockShape),
+    PropTypes.node,
+  ]),
 };
