@@ -90,6 +90,16 @@ module.exports = {
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-autolink-headers`,
+            options: {
+              icon: `<i class="hdsAnchorIcon hds-icon hds-icon--link hds-icon--size-xs" aria-hidden="true" style="vertical-align: middle"></i>`,
+              isIconAfterHeader: true,
+              className: `headerAnchor`
+            }
+          }
+        ],
         defaultLayouts: {
           default: require.resolve('./src/components/layout.js'),
         },
