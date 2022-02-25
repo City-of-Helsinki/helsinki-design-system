@@ -15,7 +15,7 @@ const Table = (props) => {
   const thead = (props.children || []).find(({ props }) => props.originalType === 'thead');
   const tbody = (props.children || []).find(({ props }) => props.originalType === 'tbody');
   const tbodyRows = tbody.props?.children || [];
-  const [rows, captionString] = tbodyRows.reduce(
+  const [rows, captionString] = React.Children.toArray(tbodyRows).reduce(
     (acc, row, i, arr) => {
       if (
         i >= arr.length - 1 &&
