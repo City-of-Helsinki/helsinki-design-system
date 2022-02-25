@@ -3,26 +3,64 @@ slug: '/elements/components/dialog/customisation'
 title: 'Dialog - Customisation'
 ---
 
+import { Button, IconInfoCircle } from 'hds-react';
+import Playground from '../../../../components/Playground';
+
 ## Customisation
 
 ### Customisation properties
+
 You can use the `theme` property to customise the component. See all available theme variables in the table below.
 
-| Theme variable                           | Description                                             |
-| ---------------------------------------- | ------------------------------------------------------- |
-| `--size`                                 | Size of the checkbox                                    |
-
+| Theme variable | Description          |
+| -------------- | -------------------- |
+| `--size`       | Size of the checkbox |
 
 ### Customisation example
+
 <Playground>
 
-
 ```jsx
-
-```
-
-```html
-
+{() => {
+  const dialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
+  const openInfoDialogButtonRef = React.useRef(null);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const close = () => setIsOpen(false);
+  const titleId = 'info-dialog-title';
+  const descriptionId = 'info-dialog-content';
+  return (
+    <>
+      <div ref={dialogTargetRef} />
+      <Button ref={openInfoDialogButtonRef} onClick={() => setIsOpen(true)}>
+        Open Info dialog
+      </Button>
+      <Dialog
+        id="info-dialog"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        isOpen={isOpen}
+        close={close}
+        closeButtonLabelText="Close info dialog"
+        focusAfterCloseRef={openInfoDialogButtonRef}
+        targetElement={dialogTargetRef.current}
+      >
+        <Dialog.Header
+          id={titleId}
+          title="Terms of service have changed"
+          iconLeft={<IconInfoCircle aria-hidden="true" />}
+        />
+        <Dialog.Content>
+          <p id={descriptionId} className="text-body">
+            Please note that the terms of this service have changed. You can review the changes in the user settings.
+          </p>
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button onClick={close}>Close</Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  );
+}}
 ```
 
 </Playground>

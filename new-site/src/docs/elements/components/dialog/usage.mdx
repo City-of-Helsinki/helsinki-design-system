@@ -3,18 +3,56 @@ slug: '/elements/components/dialog/code'
 title: 'Dialog - Usage'
 ---
 
+import { Dialog, Button, IconInfoCircle } from 'hds-react';
+
 ## Usage
 
 ### Example
-<DateInput 
-  helperText="Use format D.M.YYYY"
-  id="date"
-  initialMonth={new Date()}
-  label="Choose a date"
-  language="en"
-  onChange={function noRefCheck(){}}
-  required
-/>
+
+export const DialogExample = () => {
+  const dialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
+  const openInfoDialogButtonRef = React.useRef(null);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const close = () => setIsOpen(false);
+  const titleId = "info-dialog-title";
+  const descriptionId = "info-dialog-content";
+  return (
+    <>
+      <div ref={dialogTargetRef}/>
+      <Button ref={openInfoDialogButtonRef} onClick={() => setIsOpen(true)}>
+        Open Info dialog
+      </Button>
+      <Dialog
+        id="info-dialog"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        isOpen={isOpen}
+        close={close}
+        closeButtonLabelText="Close info dialog"
+        focusAfterCloseRef={openInfoDialogButtonRef}
+        targetElement={dialogTargetRef.current}
+      >
+        <Dialog.Header
+          id={titleId}
+          title="Terms of service have changed"
+          iconLeft={<IconInfoCircle aria-hidden="true"/>}
+        />
+        <Dialog.Content>
+          <p id={descriptionId} className="text-body">
+            Please note that the terms of this service have changed. You can review the changes in the user
+            settings.</p>
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button onClick={close}>
+            Close
+          </Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  )
+};
+
+<DialogExample/>
 
 ## Principles
 - Dialogs capture the browser focus and the user is forced to react to the dialog.
