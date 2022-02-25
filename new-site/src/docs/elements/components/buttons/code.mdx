@@ -3,8 +3,7 @@ slug: '/elements/components/buttons/code'
 title: 'Button - Code'
 ---
 
-import { Button, Link, Notification, Table } from 'hds-react';
-import { IconTrash, IconAngleRight, IconShare } from 'hds-react';
+import { Button, IconTrash, IconAngleRight, Link, Notification, IconShare } from 'hds-react';
 import PropertyTable from './components/properties';
 import PackageTable from './components/packages';
 import Playground from '../../../../components/Playground';
@@ -12,14 +11,14 @@ import Playground from '../../../../components/Playground';
 ## Code
 
 ### Packages
+
 <PackageTable />
 
-
-### Code examples 
+### Code examples
 
 #### Primary
-<Playground>
 
+<Playground>
 
 ```jsx
 <Button>Primary</Button>
@@ -33,9 +32,10 @@ import Playground from '../../../../components/Playground';
 
 </Playground>
 
-#### Secondary
-<Playground>
 
+#### Secondary
+
+<Playground>
 
 ```jsx
 <Button variant="secondary">Secondary</Button>
@@ -49,12 +49,15 @@ import Playground from '../../../../components/Playground';
 
 </Playground>
 
+
 #### Supplementary
+
 <Playground>
 
-
 ```jsx
-<Button variant="supplementary" iconLeft={<IconTrash />}>Supplementary</Button>
+<Button variant="supplementary" iconLeft={<IconTrash />}>
+  Supplementary
+</Button>
 ```
 
 ```html
@@ -66,15 +69,18 @@ import Playground from '../../../../components/Playground';
 
 </Playground>
 
-#### Icon button
-<Playground>
 
+#### Icon button
+
+<Playground>
 
 ```jsx
 <div>
   <Button iconLeft={<IconShare />}>Button</Button>
   <Button iconRight={<IconAngleRight />}>Button</Button>
-  <Button iconLeft={<IconShare />} iconRight={<IconAngleRight />}>Button</Button>
+  <Button iconLeft={<IconShare />} iconRight={<IconAngleRight />}>
+    Button
+  </Button>
 </div>
 ```
 
@@ -98,18 +104,23 @@ import Playground from '../../../../components/Playground';
 </div>
 ```
 
-
 </Playground>
 
+
 #### Small button
+
 <Playground>
 
 
 ```jsx
 <div>
   <Button size="small">Primary</Button>
-  <Button variant="secondary" size="small">Secondary</Button>
-  <Button variant="supplementary" size="small">Supplementary</Button>
+  <Button variant="secondary" size="small">
+    Secondary
+  </Button>
+  <Button variant="supplementary" size="small">
+    Supplementary
+  </Button>
 </div>
 ```
 
@@ -131,7 +142,9 @@ import Playground from '../../../../components/Playground';
 
 </Playground>
 
+
 #### Utility button
+
 <Playground>
 
 
@@ -156,39 +169,43 @@ import Playground from '../../../../components/Playground';
 
 </Playground>
 
+
 #### Loading button
+
 <Playground>
 
 
 ```jsx
-{() => {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [showNotification, setShowNotification] = React.useState(false);
-  React.useEffect(() => {
-    let timeout;
-    if (isLoading) {
-      timeout = setTimeout(() => {
-        setShowNotification(true);
-        setIsLoading(false);
-      }, 2000);
-    }
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [isLoading]);
-  return (
-    <>
-      <Button
-        isLoading={isLoading}
-        loadingText="Saving form changes"
-        onClick={() => {
-          setShowNotification(false);
-          setIsLoading(true);
-        }}>
-        Save form
-      </Button>
-      {showNotification
-      && <Notification
+{
+  () => {
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [showNotification, setShowNotification] = React.useState(false);
+    React.useEffect(() => {
+      let timeout;
+      if (isLoading) {
+        timeout = setTimeout(() => {
+          setShowNotification(true);
+          setIsLoading(false);
+        }, 2000);
+      }
+      return () => {
+        clearTimeout(timeout);
+      };
+    }, [isLoading]);
+    return (
+      <>
+        <Button
+          isLoading={isLoading}
+          loadingText="Saving form changes"
+          onClick={() => {
+            setShowNotification(false);
+            setIsLoading(true);
+          }}
+        >
+          Save form
+        </Button>
+        {showNotification && (
+          <Notification
             key={new Date().toString()}
             position="top-right"
             displayAutoCloseProgress={false}
@@ -197,20 +214,20 @@ import Playground from '../../../../components/Playground';
             label="Form saved!"
             type="success"
             onClose={() => {
-              setShowNotification(false)
-            }}>
+              setShowNotification(false);
+            }}
+          >
             Saving your form was successful.
-        </Notification>}
-    </>
-  )
-}}
-```
-
-```html
-
+          </Notification>
+        )}
+      </>
+    );
+  }
+}
 ```
 
 </Playground>
+
 
 <PropertyTable />
 
