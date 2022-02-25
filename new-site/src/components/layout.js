@@ -115,7 +115,7 @@ const Layout = ({ children, pageContext }) => {
         ...subLevelLink,
         uiId: generateUiIdFromPath(subLevelLink.slug, 'side-nav-sub'),
         prefixedLink: withPrefix(subLevelLink.slug),
-      })),
+      })).sort((subLevelLinkA, subLevelLinkB) => subLevelLinkA.title.localeCompare(subLevelLinkB.title)),
   }));
   const footerCopyRightLinks = siteData?.footerCopyrightLinks || [];
   const contentId = 'content';
