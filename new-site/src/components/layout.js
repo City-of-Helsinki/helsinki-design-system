@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
 import { Container, Footer, Navigation, SideNavigation } from 'hds-react';
+import "hds-core";
 import Seo from './seo';
 import { PlaygroundBlock } from './Playground';
 import SyntaxHighlighter from './SyntaxHighlighter';
