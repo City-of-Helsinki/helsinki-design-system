@@ -3,26 +3,31 @@ slug: '/elements/components/link/code'
 title: 'Link - Code'
 ---
 
-import { Link } from 'hds-react';
+import { Link, IconCheckCircleFill, IconDocument, IconEnvelope, IconPhone, IconPhoto } from 'hds-react';
+import Playground from '../../../../components/Playground';
 
 ## Code
 
-### Code examples 
+### Code examples
 
 #### Inline
+
 <Playground>
 
 
 ```jsx
 <p style={{ fontSize: '14px' }}>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  <Link href="https://github.com/City-of-Helsinki/helsinki-design-system" external openInExternalDomainAriaLabel="Opens a different website">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  <Link
+    href="https://github.com/City-of-Helsinki/helsinki-design-system"
+    external
+    openInExternalDomainAriaLabel="Opens a different website"
+  >
     HDS Github
   </Link>
-  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-  laborum.
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 </p>
 ```
 
@@ -39,14 +44,16 @@ import { Link } from 'hds-react';
 
 </Playground>
 
+
 ### Standalone
+
 <Playground>
 
 
 ```jsx
 <Link href="https://hds.hel.fi/" size="M" style={{ display: 'block', width: 'fit-content' }}>
   Link to HDS
-</Link> 
+</Link>
 ```
 
 ```html
@@ -55,40 +62,39 @@ import { Link } from 'hds-react';
 
 </Playground>
 
+
 ### Internal and external links
+
 <Playground>
 
 
 ```jsx
 <>
-<Link 
-  href="https://hds.hel.fi/" 
-  size="M" 
-  style={{ display: 'block', width: 'fit-content' }}
->
-  Internal link
-</Link>
+  <Link href="https://hds.hel.fi/" size="M" style={{ display: 'block', width: 'fit-content' }}>
+    Internal link
+  </Link>
 
-<Link 
-  href="https://github.com/City-of-Helsinki/helsinki-design-system" 
-  size="M" 
-  external
-  openInExternalDomainAriaLabel="Opens a different website."
-  style={{ display: 'block', width: 'fit-content' }}
->
-  External link
-</Link>
+  <Link
+    href="https://github.com/City-of-Helsinki/helsinki-design-system"
+    size="M"
+    external
+    openInExternalDomainAriaLabel="Opens a different website."
+    style={{ display: 'block', width: 'fit-content' }}
+  >
+    External link
+  </Link>
 
-<Link 
-  href="https://github.com/City-of-Helsinki/helsinki-design-system" 
-  size="M" 
-  external 
-  openInNewTab
-  openInExternalDomainAriaLabel="Opens a different website."
-  openInNewTabAriaLabel="Opens in a new tab."
-  style={{ display: 'block', width: 'fit-content' }}>
-  Link that opens in a new tab
-</Link>
+  <Link
+    href="https://github.com/City-of-Helsinki/helsinki-design-system"
+    size="M"
+    external
+    openInNewTab
+    openInExternalDomainAriaLabel="Opens a different website."
+    openInNewTabAriaLabel="Opens in a new tab."
+    style={{ display: 'block', width: 'fit-content' }}
+  >
+    Link that opens in a new tab
+  </Link>
 </>
 ```
 
@@ -96,68 +102,115 @@ import { Link } from 'hds-react';
 <p>
   <a href="https://hds.hel.fi/" class="hds-link hds-link--medium" style="display:block;">Internal link</a>
 
-  <a href="https://github.com/City-of-Helsinki/helsinki-design-system" class="hds-link hds-link--medium" aria-label="Opens a different website.">
-    External link <i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon" aria-hidden="true"></i>
+  <a
+    href="https://github.com/City-of-Helsinki/helsinki-design-system"
+    class="hds-link hds-link--medium"
+    aria-label="Opens a different website."
+  >
+    External link
+    <i
+      class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon"
+      aria-hidden="true"
+    ></i>
   </a>
 
-  <a href="https://github.com/City-of-Helsinki/helsinki-design-system" class="hds-link hds-link--medium" rel="noopener" target="_blank" aria-label="Opens a different website. Opens in a new tab.">
-    Link that opens in a new tab <i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-hidden="true"></i>
+  <a
+    href="https://github.com/City-of-Helsinki/helsinki-design-system"
+    class="hds-link hds-link--medium"
+    rel="noopener"
+    target="_blank"
+    aria-label="Opens a different website. Opens in a new tab."
+  >
+    Link that opens in a new tab
+    <i
+      class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon"
+      aria-hidden="true"
+    ></i>
   </a>
 </p>
 ```
 
 </Playground>
 
+
 ### Links with icons
+
 <Playground>
 
 
 ```jsx
 <>
-<Link iconLeft={<IconDocument size="s" aria-hidden />} size="M" href="/#" style={{ display: 'block', width: 'fit-content' }}>
-  Document link
-</Link>
-<Link iconLeft={<IconPhone size="s" aria-hidden />} size="M" href="/#" style={{ display: 'block', width: 'fit-content' }}>
-  Phone link
-</Link>
-<Link iconLeft={<IconEnvelope size="s" aria-hidden />} size="M" href="/#" style={{ display: 'block', width: 'fit-content' }}>
-  Email link
-</Link>
-<Link iconLeft={<IconPhoto size="s" aria-hidden />} size="M" href="/#" style={{ display: 'block', width: 'fit-content' }}>
-  Photo link
-</Link>
+  <Link
+    iconLeft={<IconDocument size="s" aria-hidden />}
+    size="M"
+    href="/#"
+    style={{ display: 'block', width: 'fit-content' }}
+  >
+    Document link
+  </Link>
+  <Link
+    iconLeft={<IconPhone size="s" aria-hidden />}
+    size="M"
+    href="/#"
+    style={{ display: 'block', width: 'fit-content' }}
+  >
+    Phone link
+  </Link>
+  <Link
+    iconLeft={<IconEnvelope size="s" aria-hidden />}
+    size="M"
+    href="/#"
+    style={{ display: 'block', width: 'fit-content' }}
+  >
+    Email link
+  </Link>
+  <Link
+    iconLeft={<IconPhoto size="s" aria-hidden />}
+    size="M"
+    href="/#"
+    style={{ display: 'block', width: 'fit-content' }}
+  >
+    Photo link
+  </Link>
 </>
 ```
 
 ```html
 <p>
   <a href="/#" class="hds-link hds-link--medium">
-    <span class="hds-icon-left"><i class="hds-icon hds-icon--document hds-icon--size-s" aria-hidden="true"></i></span>Document link
+    <span class="hds-icon-left"><i class="hds-icon hds-icon--document hds-icon--size-s" aria-hidden="true"></i></span>
+    Document link
   </a>
 
   <a href="/#" class="hds-link hds-link--medium">
-    <span class="hds-icon-left"><i class="hds-icon hds-icon--phone hds-icon--size-s" aria-hidden="true"></i></span>Phone link
+    <span class="hds-icon-left"><i class="hds-icon hds-icon--phone hds-icon--size-s" aria-hidden="true"></i></span>
+    Phone link
   </a>
 
   <a href="/#" class="hds-link hds-link--medium">
-    <span class="hds-icon-left"><i class="hds-icon hds-icon--envelope hds-icon--size-s" aria-hidden="true"></i></span>Envelope link
+    <span class="hds-icon-left"><i class="hds-icon hds-icon--envelope hds-icon--size-s" aria-hidden="true"></i></span>
+    Envelope link
   </a>
 
   <a href="/#" class="hds-link hds-link--medium">
-    <span class="hds-icon-left"><i class="hds-icon hds-icon--photo hds-icon--size-s" aria-hidden="true"></i></span>Photo link
+    <span class="hds-icon-left"><i class="hds-icon hds-icon--photo hds-icon--size-s" aria-hidden="true"></i></span>
+    Photo link
   </a>
 </p>
 ```
 
 </Playground>
 
+
 ### Packages
-| Package           | Included                      | Storybook link                                                                                                                      | Source link   |
-| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-link--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/link">View source</Link> |
-| **HDS Core**      | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/core/?path=/story/components-link--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/link">View source</Link> |
+
+| Package       | Included                    | Storybook link                                                                                                 | Source link                                                                                                                                                 |
+| ------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **HDS React** | <IconCheckCircleFill /> Yes | <Link size="M" external href="/storybook/react/?path=/story/components-link--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/link">View source</Link> |
+| **HDS Core**  | <IconCheckCircleFill /> Yes | <Link size="M" external href="/storybook/core/?path=/story/components-link--default">View in Storybook</Link>  | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/link">View source</Link>  |
 
 ### Properties
+
 Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/story/components-link--default" external>React Storybook.</Link>
 
 | Property                        | Description                                                                    | Values              | Default value |
