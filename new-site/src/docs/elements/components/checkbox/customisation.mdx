@@ -3,8 +3,8 @@ slug: '/elements/components/checkbox/customisation'
 title: 'Checkbox - Customisation'
 ---
 
-import { Card, Link, Notification } from 'hds-react';
-import { IconArrowRight } from 'hds-react';
+import { Checkbox, Link, Notification } from 'hds-react';
+import Playground from '../../../../components/Playground';
 
 ## Customisation
 
@@ -35,7 +35,7 @@ You can use the `style` property to customise the component. See all available t
 
 ```jsx
 {() => {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = React.useState(false);
   const customStyles = {
     '--size': '40px',
     '--icon-scale': 0.6,
@@ -47,9 +47,7 @@ You can use the `style` property to customise the component. See all available t
     '--border-color-selected-hover': 'var(--color-success-dark)',
     '--border-color-selected-focus': 'var(--color-success)',
     '--focus-outline-color': 'var(--color-black-20)',
-  }
-  as
-  React.CSSProperties;
+  };
   return (
     <Checkbox
       id="checkbox5"

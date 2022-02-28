@@ -3,35 +3,66 @@ slug: '/elements/components/checkbox/code'
 title: 'Checkbox - Usage'
 ---
 
-import { Checkbox, Card, Button, Accordion } from 'hds-react';
-import { IconAngleRight, IconShare, IconTrash } from 'hds-react';
-import Playground from '../../../../components/Playground';
+import { Checkbox } from 'hds-react';
 
 ## Usage
 
 ### Example
-<Checkbox label="Checkbox" id="checkbox" />
+
+export const CheckBoxExample = () => {
+  const [checkedItems, setCheckedItems] = React.useState({
+    'checkbox-checked': true,
+    'checkbox-checked-disabled': true,
+  });
+  const onChange = (event) => {
+    setCheckedItems({ ...checkedItems, [event.target.id]: event.target.checked });
+  };
+  return (
+    <>
+      <Checkbox label="Label" id="checkbox" checked={checkedItems['checkbox']} onChange={onChange} />
+      <Checkbox label="Label" id="checkbox-checked" checked={checkedItems['checkbox-checked']} onChange={onChange} />
+      <Checkbox
+        label="Label"
+        id="checkbox-disabled"
+        checked={checkedItems['checkbox-disabled']}
+        onChange={onChange}
+        disabled
+      />
+      <Checkbox
+        label="Label"
+        id="checkbox-checked-disabled"
+        checked={checkedItems['checkbox-checked-disabled']}
+        onChange={onChange}
+        disabled
+      />
+    </>
+  );
+};
+
+<CheckBoxExample />
 
 ## Principles
+
 - If the user can only select one option from a list, use [radio buttons](/components/radio-button) instead.
 - Checkbox label should always clearly describe what will happen if the specific option is chosen. A good practice is to keep labels a maximum of three words long.
 - Checkboxes work independently from each other. This means that checking one option should never affect other checkboxes.
-- If Checkboxes are related to each other, use [HDS Selection group](/components/selection-group) to achieve that. 
+- If Checkboxes are related to each other, use [HDS Selection group](/components/selection-group) to achieve that.
 - Checkboxes should not have any immediate effects. The checkbox selection takes effect when the user presses a submit button (e.g. in a form). If you need the selection to have an immediate effect, use [HDS Toggle button component](/components/toggle) instead. Also see [guidelines for choosing between radio buttons, checkboxes, and toggles.](/guidelines/checkboxes-radiobuttons-toggles)
 
 ### Variations
 
 ### Checkbox with label
 
-
 ---
 
 ### Checkbox group
+
 Related checkboxes can be grouped together with the Selection group component. See [HDS Selection group page](/components/selection-group) for full documentation.
 
 ---
 
 ### Using with other HDS components
+
 Custom Cards can be easily built by using other HDS components and typography inside the Card.
 
 export default ({ children }) => <>{children}</>;

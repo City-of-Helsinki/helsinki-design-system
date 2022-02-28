@@ -3,6 +3,9 @@ slug: '/elements/components/file-input/customisation'
 title: 'FileInput - Customisation'
 ---
 
+import { FileInput } from 'hds-react';
+import Playground from '../../../../components/Playground';
+
 ## Customisation
 
 ### Customisation properties
@@ -16,14 +19,20 @@ You can use the `theme` property to customise the component. See all available t
 ### Customisation example
 <Playground>
 
-
-```jsx
-
-```
-
-```html
-
-```
+  ```jsx
+  {() => {
+    const [file, setFile] = React.useState([]);
+    console.log('selected file', file);
+    return <FileInput
+      id="file-input"
+      label="Choose a file"
+      language="en"
+      maxSize={1.5 * 1024 * 1024}
+      accept=".png,.jpg"
+      onChange={setFile}
+    />
+  }}
+  ```
 
 </Playground>
 
