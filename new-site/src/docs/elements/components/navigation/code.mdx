@@ -127,24 +127,24 @@ import { Link } from 'hds-react';
 ### Properties
 Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/story/components-logo" external>React Storybook.</Link>
 
-| Property              | Description                                                                                | Values                                     | Default value |
-| --------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------ | ------------- |
-| `language`            | Language of the logo.                                                                      | `"fi"`, `"sv"`, `"en"`                     | `"fi"`        |
-| `size`                | Size of the logo.                                                                          | `"small"`, `"medium"`, `"large"`, `"full"` | `"full"`      |
-| `menuToggleAriaLabel` | The aria-label for the mobile menu toggle button.                                          | `string`                                   | `"full"`      |
-| `onTitleClick`        | Callback fired when the title or logo is clicked.                                          | `Event`                                    | -             |
-| `skipTo`              | ID of the element to jump to when the "Skip to content" accessibility shortcut is clicked. | `string`                                   | -             |
-| `title`               | The title of the service shown next to the logo.                                           | `string`                                   | -             |
-| `titleAriaLabel`      | The aria-label for the title describing the logo and service to screen reader users.       | `string`                                   | -             |
-| `titleUrl`            | URL to navigate to when the logo or title is clicked                                       | `string`                                   | -             |
+
+| Property                 | Description                                                                                | Values                 | Default value |
+| ------------------------ | ------------------------------------------------------------------------------------------ | ---------------------- | ------------- |
+| `logoLanguage`           | Language of the logo.                                                                      | `"fi"`, `"sv"`, `"en"` | `"fi"`        |
+| `menuToggleAriaLabel`    | The aria-label for the mobile menu toggle button.                                          | `string`               | -             |
+| `onTitleClick`           | Callback fired when the title or logo is clicked.                                          | `function`             | -             |
+| `skipTo`                 | ID of the element to jump to when the "Skip to content" accessibility shortcut is clicked. | `string`               | -             |
+| `skipToContentAriaLabel` | Aria-label for the "skip to content" accessibility shortcut.                               | `string`               | -             |
+| `skipToContentLabel`     | Text for the "skip to content" accessibility shortcut.                                     | `ReactNode`            | -             |
+| `title`                  | The title of the service shown next to the logo.                                           | `ReactNode`            | -             |
+| `titleAriaLabel`         | The aria-label for the title describing the logo and service to screen reader users.       | `ReactNode`            | -             |
+| `titleUrl`               | URL to navigate to when the logo or title is clicked.                                      | `string`               | -             |
 [Table 1:Navigation properties]|
 
 | Property              | Description                                                                                | Values                                     | Default value |
 | --------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------ | ------------- |
 | `variant`             | Defines where the navigation row will be displayed.                                        | `"default"`, `"inline"`,                   | `"default"`   |
-| `variant`             | Defines where the navigation row will be displayed.                                        | `"default"`, `"inline"`,                   | `"default"`   |
 [Table 2:NavigationRow properties]|
-
 
 | Property  | Description                                                                                          | Values                                        | Default value |
 | --------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------- | ------------- |
@@ -154,40 +154,41 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `variant` | Defines the button variant in mobile view. Intended to be used within the `NavigationUser` component | `"primary"`, `"secondary"`, `"supplementary"` | -             | 
 [Table 3:NavigationItem properties]|
 
-| Property  | Description                                                                                          | Values                                        | Default value |
-| --------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------- | ------------- |
-| `active` | Defines the button variant in mobile view. Intended to be used within the `NavigationUser` component | `"primary"`, `"secondary"`, `"supplementary"` | -             | 
-| `buttonAriaLabel`  | If set to true, the item will be marked active.                                                      | `boolean`                                     | false         |
-| `icon`   | The label for the item. Optionally, children can be passed.                                          | `ReactNode`                                   | -             |
-| `label` | Defines the button variant in mobile view. Intended to be used within the `NavigationUser` component | `"primary"`, `"secondary"`, `"supplementary"` | -             | 
+| Property          | Description                                     | Values      | Default value |
+| ----------------- | ----------------------------------------------- | ----------- | ------------- |
+| `active`          | If set to true, the item will be marked active. | `boolean`   | false         |
+| `buttonAriaLabel` | Aria-label for the dropdown toggle button       | `string`    | -             |
+| `icon`            | Icon to be displayed in the dropdown.           | `ReactNode` | -             |
+| `label`           | Label for the dropdown.                         | `string`    | -             |
 [Table 4:NavigationDropdown properties]|
 
-| Property  | Description                                                                                          | Values                                        | Default value |
-| --------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------- | ------------- |
-| `onBlur` | Defines the button variant in mobile view. Intended to be used within the `NavigationUser` component | `"primary"`, `"secondary"`, `"supplementary"` | -             | 
-| `onFocus`  | If set to true, the item will be marked active.                                                      | `boolean`                                     | false         |
-| `onSearch`    | Icon placed on the left side of the item label                                                       | `ReactNode`                                   | -             |
-| `onSearchChange`   | The label for the item. Optionally, children can be passed.                                          | `ReactNode`                                   | -             |
-| `searchButtonAriaLabel` | Defines the button variant in mobile view. Intended to be used within the `NavigationUser` component | `"primary"`, `"secondary"`, `"supplementary"` | -             | 
-| `searchLabel` | Defines the button variant in mobile view. Intended to be used within the `NavigationUser` component | `"primary"`, `"secondary"`, `"supplementary"` | -             | 
-| `searchPlaceholder` | Defines the button variant in mobile view. Intended to be used within the `NavigationUser` component | `"primary"`, `"secondary"`, `"supplementary"` | -             | 
+
+| Property                | Description                                                                                | Values     | Default value |
+| ----------------------- | ------------------------------------------------------------------------------------------ | ---------- | ------------- |
+| `onBlur`                | Callback fired when the search field is blurred.                                           | `function` | -             |
+| `onFocus`               | Callback fired when the search field is focused.                                           | `function` | -             |
+| `onSearch`              | Callback fired when the search button or Enter key is pressed.                             | `function` | -             |
+| `onSearchChange`        | Callback fired when the search input value is changed.                                     | `function` | -             |
+| `searchLabel`           | Label shown when search field isn't active                                                 | `string`   | -             |
+| `searchButtonAriaLabel` | The aria-label for the search button. Uses `searchLabel` by default.                       | `string`   | -             |
+| `searchPlaceholder`     | Placeholder text shown in the search input field. Uses the `searchLabel` value by default. | `string`   | -             |
 [Table 5:NavigationSearch properties]|
 
-| Property  | Description                                                                                          | Values                                        | Default value |
-| --------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------- | ------------- |
-| `buttonAriaLabel` | Defines the button variant in mobile view. Intended to be used within the `NavigationUser` component | `"primary"`, `"secondary"`, `"supplementary"` | -             | 
-| `icon`  | If set to true, the item will be marked active.                                                      | `boolean`                                     | false         |
-| `label`    | Icon placed on the left side of the item label                                                       | `ReactNode`                                   | -             |
-| `authenticated`   | The label for the item. Optionally, children can be passed.                                          | `ReactNode`                                   | -             |
-| `onSignIn` | Defines the button variant in mobile view. Intended to be used within the `NavigationUser` component | `"primary"`, `"secondary"`, `"supplementary"` | -             | 
-| `userName` | Defines the button variant in mobile view. Intended to be used within the `NavigationUser` component | `"primary"`, `"secondary"`, `"supplementary"` | -             | 
+| Property          | Description                                            | Values      | Default value |
+| ----------------- | ------------------------------------------------------ | ----------- | ------------- |
+| `buttonAriaLabel` | Aria-label for the dropdown toggle button.             | `string`    | -             |
+| `icon`            | Icon to be displayed in the dropdown.                  | `ReactNode` | -             |
+| `label`           | Label for the dropdown Label for the "Sign in" button. | `string`    | -             |
+| `authenticated`   | If set to true, the user is marked as authenticated    | `boolean`   | false         |
+| `onSignIn`        | Callback fired when the "Sign in" button is clicked.   | `function`  | -             |
+| `userName`        | Name of the user displayed in the dropdown.            | `string`    | -             |
 [Table 6:NavigationUser properties]|
 
-| Property  | Description                                                                                          | Values                                        | Default value |
-| --------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------- | ------------- |
-| `buttonAriaLabel` | Defines the button variant in mobile view. Intended to be used within the `NavigationUser` component | `"primary"`, `"secondary"`, `"supplementary"` | -             | 
-| `icon`  | If set to true, the item will be marked active.                                                      | `boolean`                                     | false         |
-| `label`    | Icon placed on the left side of the item label                                                       | `ReactNode`                                   | -             |
+| Property          | Description                                | Values      | Default value |
+| ----------------- | ------------------------------------------ | ----------- | ------------- |
+| `buttonAriaLabel` | Aria-label for the dropdown toggle button. | `string`    | -             |
+| `icon`            | Icon to be displayed in the dropdown.      | `ReactNode` | -             |
+| `label`           | Label for the dropdown.                    | `ReactNode` | -             |
 [Table 7:NavigationLanguageSelector properties]|
 
 export default ({ children }) => <>{children}</>;
