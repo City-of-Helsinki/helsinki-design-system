@@ -1,0 +1,46 @@
+---
+slug: '/elements/components/navigation/customisation'
+title: 'Navigation - Customisation'
+---
+
+import { Navigation } from 'hds-react';
+import { Notification } from 'hds-react';
+
+## Customisation
+
+### Customisation properties
+You can use the `theme` property to customise the component. See all available theme variables in the table below.
+
+| Theme variable                           | Description                                             |
+| ---------------------------------------- | ------------------------------------------------------- |
+| `--header-background-color`              | Colour of the Footer background                         |
+
+### Customisation example
+<Playground>
+
+
+```jsx
+<Navigation
+    theme={{
+      '--header-background-color': 'var(--color-engel)',
+    }}
+    title="Helsinki Design System"
+    menuToggleAriaLabel="menu"
+    skipTo="#content"
+    skipToContentLabel="Skip to content"
+  >
+    <Navigation.Row variant="inline">
+      <Navigation.Item label="Item" active />
+      <Navigation.Item label="Item" />
+      <Navigation.Item label="Item" />
+    </Navigation.Row>
+  </Navigation>
+```
+
+```html
+
+```
+
+</Playground>
+
+export default ({ children }) => <>{children}</>;
