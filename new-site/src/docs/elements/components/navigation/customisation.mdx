@@ -11,9 +11,18 @@ import { Notification } from 'hds-react';
 ### Customisation properties
 You can use the `theme` property to customise the component. See all available theme variables in the table below.
 
-| Theme variable                           | Description                                             |
-| ---------------------------------------- | ------------------------------------------------------- |
-| `--header-background-color`              | Colour of the Footer background                         |
+| Theme variable                           | Description                                                 |
+| ---------------------------------------- | ----------------------------------------------------------- |
+| `--header-background-color`              | Colour of the Navigation background.                        |
+| `--header-color`                         | Colour of elements inside the header row.                   |
+| `--header-divider-color`                 | Colour of the divider between navigation rows.              |
+| `--header-focus-outline-color`           | Colour of the focus outline of the header row elements.     |
+| `--mobile-menu-background-color`         | Colour of the background of an opened mobile menu           |
+| `--mobile-menu-color`                    | Colour of elements inside an opened mobile navigation.      |
+| `--navigation-row-background-color`      | Colour of the navigation (links) row background.            |
+| `--navigation-row-color`                 | Colour of elements inside the navigation row.               |
+| `--navigation-row-focus-outline-color`   | Colour of the focus outline of the navigation row elements. |
+
 
 ### Customisation example
 <Playground>
@@ -22,23 +31,27 @@ You can use the `theme` property to customise the component. See all available t
 ```jsx
 <Navigation
     theme={{
-      '--header-background-color': 'var(--color-engel)',
+      '--header-background-color': 'var(--color-bus)',
+      '--header-color': 'var(--color-white)',
+      '--header-divider-color': 'var(--color-white)',
+      '--header-focus-outline-color': 'var(--color-white)',
+      '--mobile-menu-background-color': 'var(--color-white)',
+      '--mobile-menu-color': 'var(--color-white)',
+      '--navigation-row-background-color': 'var(--color-white)',
+      '--navigation-row-color': 'var(--color-black)',
+      '--navigation-row-focus-outline-color': 'var(--color-coat-of-arms)',
     }}
     title="Helsinki Design System"
     menuToggleAriaLabel="menu"
     skipTo="#content"
     skipToContentLabel="Skip to content"
   >
-    <Navigation.Row variant="inline">
+    <Navigation.Row>
       <Navigation.Item label="Item" active />
       <Navigation.Item label="Item" />
       <Navigation.Item label="Item" />
     </Navigation.Row>
   </Navigation>
-```
-
-```html
-
 ```
 
 </Playground>
