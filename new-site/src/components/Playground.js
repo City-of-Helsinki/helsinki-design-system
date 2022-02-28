@@ -131,6 +131,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
                 className="playground-block-editor-code-input"
                 textareaId={textAreaId}
                 theme={theme}
+                language={language}
               />
             </div>
           </div>
