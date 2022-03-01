@@ -1,0 +1,47 @@
+---
+slug: '/elements/components/phone-input/code'
+title: 'PhoneInput - Usage'
+---
+
+import { PhoneInput } from 'hds-react';
+import { Link } from 'hds-react';
+
+## Usage
+
+### Example
+<PhoneInput
+   defaultValue="0451234567"
+   helperText="Assistive text"
+   label="Phone number"
+   style={{ maxWidth: '320px' }}
+/>
+
+### Principles
+- **A label should always be provided with a phone number input.**
+    - Make sure that the label is clear and concise. The user should immediately understand what phone number they are supposed to input.
+- If a specific phone number format is required, describe the format in the assistive text. 
+    - Generally it is recommended to allow all common formats and fix the format automatically for the user if needed.
+- Unless you can fill the input for the user automatically, a default value should not be set.
+    - A placeholder text is often not used either. If a placeholder is used, it is a good practice to make them easily distinguishable from the actual input. A recommended way to do this is to format the placeholder text like this: "_E.g. 0401234567_".
+- If a country code must be inputted, a separate [HDS Combobox input](/components/dropdown#combobox-single-selection) should be used alongside the phone number input.
+
+### Variations
+
+#### Default
+A default variant of the phone number input.
+
+Note! A default value is used here for demonstration purposes. It should not be used unless the input can be automatically filled for the user.
+
+<PhoneInput
+   defaultValue="0451234567"
+   helperText="Assistive text"
+   label="Phone number"
+   style={{ maxWidth: '320px' }}
+/>
+
+#### With a country code selection
+If a country code is a required input (or otherwise critical), it should be asked in a separate input using [HDS Combobox](/components/dropdown#combobox-single-selection). 
+
+These two input are linked together using a fieldset title and `aria-desribedby` attribute. This way is is clear for screen readers which phone number these two inputs relate to.
+
+export default ({ children }) => <>{children}</>;

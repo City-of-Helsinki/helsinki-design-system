@@ -1,0 +1,99 @@
+---
+slug: '/elements/components/phone-input/code'
+title: 'PhoneInput - Code'
+---
+
+import { PasswordInput, IconEye, IconEyeCrossed } from 'hds-react';
+import { Link } from 'hds-react';
+
+## Code
+
+### Code examples 
+
+#### Default
+<Playground>
+
+
+```jsx
+<PhoneInput
+  defaultValue="0451234567"
+  helperText="Assistive text"
+  id="input1"
+  label="Phone number"
+  style={{ maxWidth: '320px' }}
+/>
+```
+
+```html
+<div class="hds-text-input" style={{ maxWidth: '320px' }}>
+  <label for="input" class="hds-text-input__label">
+    Phone number
+  </label>
+  <div class="hds-text-input__input-wrapper">
+    <input
+      id="input1"
+      class="hds-text-input__input"
+      type="tel"
+      autocomplete="tel"
+      value="0451234567"
+    />
+  </div>
+  <span class="hds-text-input__helper-text">Assistive text</span>
+</div>
+```
+
+</Playground>
+
+####  With a country code selection
+<Playground>
+
+
+```jsx
+{() => {
+  const options = [{ label: 'Finland (+358)' }, { label: 'UK (+46)' }];
+  return (
+    <>
+      <p id="work-phone" style={{ fontSize: '18px', fontWeight: 'bold' }}>
+        Work phone
+      </p>
+      <div style={{ display: 'grid', gridTemplateColumns: '200px 300px', columnGap: '16px' }}>
+        <Combobox
+          id="combobox1"
+          label="Country code"
+          helper="Assistive text"
+          aria-describedby="work-phone"
+          options={options}
+          defaultValue={{ label: 'Finland (+358)' }}
+          required
+          toggleButtonAriaLabel="Choose country code"
+        />
+        <PhoneInput
+          id="input2"
+          defaultValue="0451234567"
+          aria-describedby="work-phone"
+          label="Phone number"
+          required={true}
+        />
+      </div>
+    </>
+  )
+}}
+```
+
+</Playground>
+
+### Packages
+| Package           | Included                      | Storybook link                                                                                                                      | Source link   |
+| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-phoneinput--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/phoneInput">View source</Link> |
+| **HDS Core**      | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/core/?path=/story/components-phone-input--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/phone-input">View source</Link> |
+
+### Properties
+Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/story/components-phoneinput--default" external>React Storybook.</Link>
+
+| Property                         | Description                                                                                                                                                                                    | Values    | Default value |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------- |
+| `label`                          | The label for the input.                                                                                                                                                                       | `string`  | -             |
+[Table 1:PhoneInput properties]|
+
+export default ({ children }) => <>{children}</>;
