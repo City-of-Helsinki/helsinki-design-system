@@ -1,0 +1,16 @@
+---
+slug: '/elements/components/notification/accessibility'
+title: 'Notification - Accessibility'
+---
+
+import { Link } from 'hds-react';
+
+## Accessibility
+
+### Pay attention to
+- Avoid using automatically disappearing toast notifications for critical information or very long messages. It is possible that the notification disappears before the user or screen reader can react to the message. Refer to <Link size="M" href="https://www.w3.org/WAI/WCAG21/Understanding/no-timing.html" external>WCAG 2.1 No timing requirement</Link> for more information.
+- Remember that colour should never be the only way of conveying information. Make sure the meaning of the notification is clearly described by the title and body. Refer to <Link size="M" href="https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html" external>WCAG 2.1 Use of Colour guideline</Link> for more information.
+- It is recommended (but not required) to offer a way to turn off less important notifications. Refer to <Link size="M" href="https://www.w3.org/WAI/WCAG21/Understanding/interruptions.html" external>WCAG 2.1 Interruptions guideline</Link> for more information.
+- HDS Toast notifications use `role="alert"` which means they are immediately announced to the screen reader as the node is inserted to the DOM. Inline notifications do not need this role since they are created during page load.
+
+export default ({ children }) => <>{children}</>;
