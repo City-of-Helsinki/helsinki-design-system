@@ -1,0 +1,49 @@
+---
+slug: '/elements/components/password-input/code'
+title: 'PasswordInput - Usage'
+---
+
+import { PasswordInput } from 'hds-react';
+import { Link } from 'hds-react';
+
+## Usage
+
+### Example
+<PasswordInput
+  concealPasswordButtonAriaLabel="Hide password"
+  helperText="Assistive text"
+  id="Default"
+  includeShowPasswordButton
+  label="Password"
+  revealPasswordButtonAriaLabel="Show password"
+  required
+  style={{ maxWidth: '320px' }}
+/>
+
+### Principles
+- A label should always be provided with password fields.
+- If possible, validate input in client-side real-time and provide the user with immediate feedback. See [HDS Form validation pattern page](/patterns/form-validation) for more information and best practices with password fields.
+- Password fields should always be mandatory. It is recommended to mark it as a required field.
+- Verify that "paste" functionality, browser password helpers, and external password managers are allowed for the input.
+- HDS password input provides a way to mask/unmask the password. Do not disabled this functionality without a good reason.
+
+### Variations
+
+#### Default
+A default HDS password input includes an icon to mask and unmask the password.
+
+<PasswordInput
+  concealPasswordButtonAriaLabel="Hide password"
+  helperText="Assistive text"
+  id="Default"
+  includeShowPasswordButton
+  label="Password"
+  revealPasswordButtonAriaLabel="Show password"
+  required
+  style={{ maxWidth: '320px' }}
+/>
+
+#### With an external button
+If necessary, the mask/unmask icon can be removed and the feature controlled with an external button element.
+
+export default ({ children }) => <>{children}</>;
