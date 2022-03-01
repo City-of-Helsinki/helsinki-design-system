@@ -1,0 +1,59 @@
+---
+slug: '/elements/components/notification/code'
+title: 'Notification - Usage'
+---
+
+import { Notification } from 'hds-react';
+import { Link } from 'hds-react';
+
+## Usage
+
+### Example
+<Notification label="New messages">You have received new messages.</Notification>
+
+### Principles
+- Notifications are designed to capture users' attention. **Therefore, they should be used sparingly only for important information or updates.**
+- **Notification title should include the most important information about the notification.** Aim for a title that is short, concise and easy to understand. Avoid titles that span over multiple lines.
+- HDS offers multiple options for notification screen locations. Choose locations that fit best for your service and stay consistent.
+- **If you use automatically disappearing notifications, make sure the information is accessible elsewhere in case the user misses the notification.**
+
+#### When to use each notification type?
+- **Use inline notifications when information is related to the content or if you want to keep information visible at all times.** Inline notifications are part of the content and should therefore be placed as close as possible to the related part of the content. Inline notifications should not be added to the page dynamically.
+- **Use toast notifications to inform the user about a specific event or change in the system status.** Toast notifications do not relate to any specific object on the page and are therefore placed on top of the content (usually top right or bottom center).
+- **Use invisible notifications to make system state changes more apparent for screen reader users.** Some features (such as moving a product to the shopping cart) are apparent for regular users, but screen readers may need extra assist.
+
+#### When to use each status colour (info, success, alert, error)?
+- You can find guidelines on when to use each status colour in the [colour guidelines](/design-tokens/colour#ui-colours "UI colours"). Aim to use notification levels and colours consistently across your service.
+
+### Variations
+
+#### Inline
+Inline notifications are used as part of the content. They closely relate to the part of the content and work best when placed as close to the related content as possible. Inline notifications are often used to provide or emphasise key information related to the content of the page. It is recommended not to make them closable - unless their information is not important or can be accessed somewhere else. Inline notifications greatly emphasise the information so they should be used sparingly in order not to dilute their effect. A good rule of thumb is to limit the number of simultaneous inline notifications to one.
+
+Note! Inline notifications should not be added to the page dynamically. For this use case, use [Toast notifications](#toast).
+
+<>
+<Notification label="New messages">You have received new messages.</Notification>
+<Notification label="Form done" type="success" style={{marginTop: 'var(--spacing-s)'}}>Form submit was successful!</Notification>
+<Notification label="Slow loading" type="alert" style={{marginTop: 'var(--spacing-s)'}}>Loading is taking longer than expected.</Notification>
+<Notification label="Missing information" type="error" style={{marginTop: 'var(--spacing-s)'}}>Form is missing critical information.</Notification>
+</>
+
+#### Toast
+Toasts notifications provide lightweight feedback for changes in system status such as successful saving or Internet disconnection. Toasts appear on top of the content (usually top right or bottom center). Be wary using automatically disappearing toasts for critical information such as errors. It is also a good practise to make notifications accessible elsewhere in case the user misses them before they disappear.
+
+#### Notification sizes
+HDS Navigation component supports many commonly used features out of the box. The main navigation bar can be configured to include search, language selection and user profile actions. You may also easily customize the action row with your own actions.
+
+<>
+<Notification size="large" label="New messages">You have received new messages.</Notification>
+<Notification size="default" label="New messages" style={{marginTop: 'var(--spacing-s)'}}>You have received new messages.</Notification>
+<Notification size="small" label="New messages" style={{marginTop: 'var(--spacing-s)'}}>You have received new messages.</Notification>
+</>
+
+#### Invisible
+Invisible notifications do not show up on screen and they are meant to aid screen reader users. Some updates to system status may be apparent to regular users through animations etc. However, screen readers can easily ignore this type of feedback. Invisible notifications are not visible to regular users but screen readers detect them. Use them to improve user experience for screen reader users.
+
+<Notification label="New messages" invisible>You have received new messages. This notification is invisible.</Notification>
+
+export default ({ children }) => <>{children}</>;
