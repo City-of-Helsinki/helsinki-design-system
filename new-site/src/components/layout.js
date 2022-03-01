@@ -17,6 +17,8 @@ import SyntaxHighlighter from './SyntaxHighlighter';
 import Table from './Table';
 import './layout.scss';
 
+const classNames = (...args) => args.filter((e) => e).join(' ');
+
 const components = {
   Playground: PlaygroundBlock,
   pre: SyntaxHighlighter,
@@ -24,6 +26,31 @@ const components = {
   thead: Table.Thead,
   tbody: Table.Tbody,
   th: Table.Th,
+  h1: (props) => (
+    <h1 {...props} className={classNames('page-heading-1')}>
+      {props.children}
+    </h1>
+  ),
+  h2: (props) => (
+    <h2 {...props} className={classNames('page-heading-2')}>
+      {props.children}
+    </h2>
+  ),
+  h3: (props) => (
+    <h3 {...props} className={classNames('page-heading-3')}>
+      {props.children}
+    </h3>
+  ),
+  h4: (props) => (
+    <h4 {...props} className={classNames('page-heading-4')}>
+      {props.children}
+    </h4>
+  ),
+  h5: (props) => (
+    <h4 {...props} className={classNames('page-heading-5')}>
+      {props.children}
+    </h4>
+  ),
 };
 
 const resolveCurrentMenuItem = (menuItems, slugWithPrefix) => {
