@@ -1,0 +1,46 @@
+---
+slug: '/elements/components/password-input'
+title: 'PasswordInput'
+---
+
+import { StatusLabel, Tabs } from 'hds-react';
+
+import LeadParagraph from '../../../../components/LeadParagraph';
+import Playground from '../../../../components/Playground';
+
+import Accessibility from './accessibility.mdx';
+import Code from './code.mdx';
+import Security from './security.mdx';
+import Usage from './usage.mdx';
+
+# PasswordInput
+
+<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  Accessible
+</StatusLabel>
+
+<LeadParagraph>
+  A password field is a foundational input field component that the user can interact with and specifically input password data.
+</LeadParagraph>
+
+<Tabs>
+  <Tabs.TabList className="pageTabsList">
+    <Tabs.Tab>Usage</Tabs.Tab>
+    <Tabs.Tab>Code</Tabs.Tab>
+    <Tabs.Tab>Accessibility</Tabs.Tab>
+    <Tabs.Tab>Security</Tabs.Tab>
+  </Tabs.TabList>
+  <Tabs.TabPanel>
+    <Usage />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Code />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Accessibility />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Security />
+  </Tabs.TabPanel>
+</Tabs>
