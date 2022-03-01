@@ -1,0 +1,123 @@
+---
+slug: '/elements/components/radio-button/code'
+title: 'RadioButton - Code'
+---
+
+import { RadioButton } from 'hds-react';
+import Playground from '../../../../components/Playground';
+
+## Code
+
+### Code examples 
+
+#### Default
+<Playground>
+
+```jsx
+{() => {
+  const [selectedItem, setSelectedItem] = React.useState("2");
+  const onChange = (event) => {
+    setSelectedItem(event.target.value);
+  };
+  return (
+    <>
+    <RadioButton id="radio1" name="example" label="Label" value="1" checked={selectedItem === "1"} onChange={onChange}/>
+    <RadioButton id="radio2" name="example" label="Label" value="2" checked={selectedItem === "2"} onChange={onChange} />
+    <RadioButton disabled id="radio3" name="example-disabled" label="Label" value="3" checked={selectedItem === "3"} onChange={onChange}/>
+  </>
+  )
+}}
+```
+
+```html
+<div>
+  <div class="hds-checkbox">
+    <input type="radio" id="radio1" name="example" class="hds-radio-button__input" />
+    <label for="radio"  class="hds-radio-button__label">Label</label>
+  </div>
+
+  <div class="hds-checkbox">
+    <input type="radio" id="radio2" name="example" class="hds-radio-button__input" checked />
+    <label for="radio2"  class="hds-radio-button__label">Label</label>
+  </div>
+
+  <div class="hds-checkbox">
+    <input type="radio" id="radio3" name="example" class="hds-radio-button__input" disabled />
+    <label for="radio3"  class="hds-radio-button__label">Label</label>
+  </div>
+</div>
+```
+
+</Playground>
+
+#### Group
+<Playground>
+
+
+```jsx
+{() => {
+  const [selectedItem, setSelectedItem] = React.useState("1");
+  const onChange = (event) => {
+    setSelectedItem(event.target.value);
+  };
+  return (
+    <SelectionGroup label="Radio button group">
+      <RadioButton id="v-radio1" name="v-radio" value="1" label="Option" checked={selectedItem === "1"} onChange={onChange} />
+      <RadioButton id="v-radio2" name="v-radio" value="2" label="Option" checked={selectedItem === "2"} onChange={onChange} />
+      <RadioButton id="v-radio3" name="v-radio" value="3" label="Option" checked={selectedItem === "3"} onChange={onChange} />
+      <RadioButton id="v-radio4" name="v-radio" value="4" label="Option" checked={selectedItem === "4"} onChange={onChange} />
+    </SelectionGroup>
+  );
+}}
+```
+
+```html
+<fieldset class="hds-selection-group">
+  <legend class="hds-selection-group__legend">Radio button group</legend>
+  <div class="hds-selection-group__items">
+    <div class="hds-selection-group__item">
+      <div class="hds-radio-button">
+        <input type="radio" id="v-radio1" name="v-radio" class="hds-radio-button__input" name="example" value="foo" checked />
+        <label for="v-radio1" class="hds-radio-button__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-radio-button">
+        <input type="radio" id="v-radio2" name="v-radio" class="hds-radio-button__input" name="example" value="bar" />
+        <label for="v-radio2" class="hds-radio-button__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-radio-button">
+        <input type="radio" id="v-radio3" name="v-radio" class="hds-radio-button__input" name="example" value="baz" />
+        <label for="v-radio3" class="hds-radio-button__label">Option</label>
+      </div>
+    </div>
+    <div class="hds-selection-group__item">
+      <div class="hds-radio-button">
+        <input type="radio" id="v-radio4" name="v-radio" class="hds-radio-button__input" name="example" value="qux" />
+        <label for="v-radio4" class="hds-radio-button__label">Option</label>
+      </div>
+    </div>
+  </div>
+</fieldset>
+```
+
+</Playground>
+
+
+### Packages
+| Package           | Included                      | Storybook link                                                                                                                      | Source link   |
+| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-radiobutton--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/radioButton">View source</Link> |
+| **HDS Core**      | <IconCheckCircleFill /> Yes        | <Link size="M" external href="/storybook/core/?path=/story/components-radio-button--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/radio-button">View source</Link>  |
+
+### Properties
+Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/story/components-radiobutton--default" external>React Storybook.</Link>
+
+| Property              | Description                     | Values                                     | Default value  |
+| --------------------- | --------------------------------| ------------------------------------------ | -------------- |
+| `label`               | The label for the input.        | `string`                                   | -              |
+[Table 1:RadioButton properties]|
+
+export default ({ children }) => <>{children}</>;
