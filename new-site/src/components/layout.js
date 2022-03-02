@@ -137,6 +137,9 @@ const Layout = ({ children, pageContext }) => {
     uiId: generateUiIdFromPath(subMenuLink.link, 'side-nav'),
     subLevels: allPages
       .filter((page) => {
+        if (!page.slug) {
+          return false;
+        }
         const levels = page.slug.split('/').filter((l) => !!l);
         return levels.length === 3 && subMenuLink.link.includes(levels[1]);
       })
@@ -210,7 +213,11 @@ const Layout = ({ children, pageContext }) => {
                           active={pageSlugWithPrefix === prefixedLink}
                           onClick={(e) => {
                             e.preventDefault();
-                            navigate(slug);
+                            if (slug.includes('components')) {
+                              navigate(`${slug}/usage`)
+                            } else {
+                              navigate(slug);
+                            }
                           }}
                         />
                       ))}

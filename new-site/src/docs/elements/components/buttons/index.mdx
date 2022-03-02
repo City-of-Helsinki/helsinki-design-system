@@ -4,13 +4,13 @@ title: 'Button'
 ---
 
 import { StatusLabel, Tabs } from 'hds-react';
+import { navigate } from 'gatsby';
 
+import Usage from './usage/usage.mdx';
+import Code from './code/code.mdx';
+import Accessibility from './accessibility/accessibility.mdx';
+import Customisation from './customisation/customisation.mdx';
 import LeadParagraph from '../../../../components/LeadParagraph';
-
-import Accessibility from './accessibility.mdx';
-import Code from './code.mdx';
-import Customisation from './customisation.mdx';
-import Usage from './usage.mdx';
 
 # Button
 
@@ -20,15 +20,16 @@ import Usage from './usage.mdx';
 </StatusLabel>
 
 <LeadParagraph>
-Buttons are meant to make actions easily visible and understandable to the user. HDS offers different kinds of button variations which each suit for different needs.
+  Buttons are meant to make actions easily visible and understandable to the user. HDS offers different kinds of button variations which each suit for different needs.
 </LeadParagraph>
 
-<Tabs>
+
+<Tabs initiallyActiveTab={() => props.initiallyActiveTab}>
   <Tabs.TabList className="pageTabsList">
-    <Tabs.Tab>Usage</Tabs.Tab>
-    <Tabs.Tab>Code</Tabs.Tab>
-    <Tabs.Tab>Accessibility</Tabs.Tab>
-    <Tabs.Tab>Customisation</Tabs.Tab>
+    <Tabs.Tab onClick={() => navigate(`/elements/components/buttons/usage`)}>Usage</Tabs.Tab>
+    <Tabs.Tab onClick={() => navigate(`/elements/components/buttons/code`)}>Code</Tabs.Tab>
+    <Tabs.Tab onClick={() => navigate(`/elements/components/buttons/accessibility`)}>Accessibility</Tabs.Tab>
+    <Tabs.Tab onClick={() => navigate(`/elements/components/buttons/customisation`)}>Customisation</Tabs.Tab>
   </Tabs.TabList>
   <Tabs.TabPanel>
     <Usage />
@@ -43,3 +44,5 @@ Buttons are meant to make actions easily visible and understandable to the user.
     <Customisation />
   </Tabs.TabPanel>
 </Tabs>
+
+export default ({ children }) => <>{children}</>;
