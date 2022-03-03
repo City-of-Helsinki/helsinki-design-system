@@ -1,0 +1,34 @@
+---
+slug: '/elements/components/selection-group/code'
+title: 'SelectionGroup - Usage'
+---
+
+import { Link, RadioButton } from 'hds-react';
+
+## Usage
+
+### Example
+TODO
+
+### Principles
+- Currently, Selection group can contain either Checkboxes or Radio buttons.
+  - If the user can select more than one option from a list, use [checkboxes](/components/checkbox).
+  - If the user can only select one option from a list, use [radio buttons](/components/radio-button).
+- **Default option must be set for Radio button groups.** For Checkbox groups, this is recommended.
+- Visible label must be given to the Selection group. The label should be clear and describe the choice the user is about to make.
+- Selection group can be aligned both vertically and horizontally. **Vertical alignment is recommended.** Horizontal alignment can be used when there are less than 4 options.
+  -  Note that horizontal Selection groups must not span to multiple lines.
+
+### Variations
+
+#### Vertical group
+Vertical selection group is the recommended way to present grouped form controls. Vertical checkbox groups are generally easier to perceive and read.
+
+TODO
+
+#### Horizontal group
+Horizontal selection group can be used in situations where there are only a few (less than 4) options. Otherwise, a vertical alignment is recommended.
+
+TODO
+
+export default ({ children }) => <>{children}</>;
