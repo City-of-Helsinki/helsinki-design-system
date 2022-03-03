@@ -1,0 +1,49 @@
+---
+slug: '/elements/components/stepper'
+title: 'Stepper'
+---
+
+import { StatusLabel, Tabs, Notification } from 'hds-react';
+
+import LeadParagraph from '../../../../components/LeadParagraph';
+
+import Accessibility from './accessibility.mdx';
+import Code from './code.mdx';
+import Customisation from './customisation.mdx';
+import Usage from './usage.mdx';
+
+# Stepper
+
+<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  Accessible
+</StatusLabel>
+
+<LeadParagraph>
+  If a form is divided into multiple pages or steps, the Form progress component helps the user to understand the progression and to navigate between form steps.
+</LeadParagraph>
+
+<Notification label="Note about multi-page forms!" className="siteNotification">
+  This documentation page is about HDS multi-page stepper component. If you are looking for documentation about building multi-page forms, please refer to <a href="/patterns/form-multi-page">HDS multi-page form pattern documentation page</a>.
+</Notification>
+
+<Tabs>
+  <Tabs.TabList className="pageTabsList">
+    <Tabs.Tab>Usage</Tabs.Tab>
+    <Tabs.Tab>Code</Tabs.Tab>
+    <Tabs.Tab>Accessibility</Tabs.Tab>
+    <Tabs.Tab>Customisation</Tabs.Tab>
+  </Tabs.TabList>
+  <Tabs.TabPanel>
+    <Usage />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Code />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Accessibility />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Customisation />
+  </Tabs.TabPanel>
+</Tabs>
