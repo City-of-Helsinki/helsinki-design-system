@@ -1,0 +1,117 @@
+---
+slug: '/elements/components/stepper/customisation'
+title: 'Stepper - Customisation'
+---
+
+import { Stepper } from 'hds-react';
+
+## Customisation
+
+### Customisation properties
+You can use the `style` property to customise the component. See all available theme variables in the table below.
+
+| Theme variable                        | Description                                 |
+| ------------------------------------- | ------------------------------------------- |
+| `--hds-not-selected-step-label-color` | Colour of a non-selected step label.        |
+| `--hds-step-background-color`         | Background colour of a step circle.         |
+| `--hds-step-content-color`            | Colour of elements inside a step.           |
+| `--hds-stepper-background-color`      | Background colour of the stepper container. |
+| `--hds-stepper-color`                 | Highlight colour of the stepper.            |
+| `--hds-stepper-disabled-color`        | Colour of a disabled step.                  |
+| `--hds-stepper-focus-border-color`    | Colour of a step focus border.              |
+
+### Customisation example
+<Playground>
+
+
+```jsx
+<div
+  style={{
+    maxWidth: '700px'
+  }}
+>
+  <div
+    style={{
+      backgroundColor: 'var(--color-black-10)'
+    }}
+  >
+    <Stepper
+      language="en"
+      onStepClick={function noRefCheck(){}}
+      selectedStep={0}
+      steps={[
+        {
+          label: 'Step 1 - longer text',
+          state: 0
+        },
+        {
+          label: 'Step 2',
+          state: 2
+        },
+        {
+          label: 'Step 3',
+          state: 2
+        },
+        {
+          label: 'Step 4',
+          state: 2
+        },
+        {
+          label: 'Step 5',
+          state: 2
+        }
+      ]}
+      theme={{
+        '--hds-not-selected-step-label-color': 'var(--color-black-90)',
+        '--hds-step-background-color': 'var(--color-black-5)',
+        '--hds-step-content-color': 'var(--color-black-90)',
+        '--hds-stepper-background-color': 'var(--color-black-10)',
+        '--hds-stepper-color': 'var(--color-black-90)',
+        '--hds-stepper-disabled-color': 'var(--color-black-30)',
+        '--hds-stepper-focus-border-color': 'var(--color-black-90)'
+      }}
+    />
+    <div
+      style={{
+        alignItems: 'flex-end',
+        display: 'flex',
+        gap: '24px',
+        height: '300px',
+        justifyContent: 'flex-start',
+        marginLeft: '10px'
+      }}
+    >
+      <Button
+        disabled
+        iconLeft={<IconArrowLeft />}
+        onClick={function noRefCheck(){}}
+        style={{
+          height: 'fit-content',
+          width: 'fit-content'
+        }}
+        theme="black"
+        variant="secondary"
+      >
+        Previous
+      </Button>
+      <Button
+        iconRight={<IconArrowRight />}
+        onClick={function noRefCheck(){}}
+        style={{
+          height: 'fit-content',
+          width: 'fit-content'
+        }}
+        theme="black"
+        variant="secondary"
+      >
+        Next
+      </Button>
+    </div>
+  </div>
+</div>
+```
+
+
+</Playground>
+
+export default ({ children }) => <>{children}</>;
