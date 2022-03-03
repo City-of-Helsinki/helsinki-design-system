@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useMDXScope } from 'gatsby-plugin-mdx/context';
 import { LiveProvider, LiveEditor, LiveError, LivePreview, withLive } from 'react-live';
+import DOMPurify from 'dompurify';
 import { Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
 import theme from 'prism-react-renderer/themes/github';
 
@@ -29,11 +30,21 @@ const clearSelection = () => {
   }
 };
 
+const isJsx = (language) => language === 'jsx';
+
 const sanitize = (code) => {
   const trimmedCode = code.trim();
   return trimmedCode.startsWith('{') && trimmedCode.endsWith('}')
     ? trimmedCode.substr(1, trimmedCode.length - 2).trim()
     : trimmedCode;
+};
+
+const HtmlLivePreview = ({ className, code }) => {
+  const sanitizedHtml = () => ({
+    __html: DOMPurify.sanitize(code),
+  });
+
+  return <div className={className} dangerouslySetInnerHTML={sanitizedHtml()} />;
 };
 
 const Editor = ({ onChange, initialCode, code, language }) => {
@@ -120,6 +131,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
                 className="playground-block-editor-code-input"
                 textareaId={textAreaId}
                 theme={theme}
+                language={language}
               />
             </div>
           </div>
@@ -176,24 +188,33 @@ export const PlaygroundBlock = (props) => {
       <Tabs>
         <TabList className="playground-block-tabs">
           {codeBlocks.map(({ language }) => (
-            <Tab key={language}>{language === 'jsx' ? 'React' : 'Core'}</Tab>
+            <Tab key={language}>{isJsx(language) ? 'React' : 'Core'}</Tab>
           ))}
         </TabList>
-        {codeBlocks.map(({ code, language }) => (
-          <TabPanel key={language}>
-            <LiveProvider code={sanitize(codeByLanguageState[language])} scope={scopeComponents}>
-              <div className="playground-block-content">
-                <LivePreview className="playground-block-preview" />
-                <EditorWithLive
-                  initialCode={sanitize(code)}
-                  language={language}
-                  onChange={setCodeByLanguage(language)}
-                  code={codeByLanguageState[language]}
-                />
-              </div>
-            </LiveProvider>
-          </TabPanel>
-        ))}
+        {codeBlocks.map(({ code, language }) => {
+          const sanitizedCode = sanitize(codeByLanguageState[language]);
+          const PreviewComponent = () => isJsx(language) ? (
+            <LivePreview className="playground-block-preview" />
+          ) : (
+            <HtmlLivePreview className="playground-block-preview" code={sanitizedCode} />
+          );
+
+          return (
+            <TabPanel key={language}>
+              <LiveProvider code={sanitizedCode} scope={scopeComponents} language={language}>
+                <div className="playground-block-content">
+                  <PreviewComponent />
+                  <EditorWithLive
+                    initialCode={sanitize(code)}
+                    language={language}
+                    onChange={setCodeByLanguage(language)}
+                    code={codeByLanguageState[language]}
+                  />
+                </div>
+              </LiveProvider>
+            </TabPanel>
+          );
+        })}
       </Tabs>
     </div>
   );
