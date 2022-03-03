@@ -1,0 +1,40 @@
+---
+slug: '/elements/components/selection-group'
+title: 'SelectionGroup'
+---
+
+import { StatusLabel, Tabs } from 'hds-react';
+
+import LeadParagraph from '../../../../components/LeadParagraph';
+
+import Accessibility from './accessibility.mdx';
+import Code from './code.mdx';
+import Usage from './usage.mdx';
+
+# SelectionGroup
+
+<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  Accessible
+</StatusLabel>
+
+<LeadParagraph>
+  Selection group allows grouping related form selection elements (such as Checkboxes) to each other.
+</LeadParagraph>
+
+<Tabs>
+  <Tabs.TabList className="pageTabsList">
+    <Tabs.Tab>Usage</Tabs.Tab>
+    <Tabs.Tab>Code</Tabs.Tab>
+    <Tabs.Tab>Accessibility</Tabs.Tab>
+  </Tabs.TabList>
+  <Tabs.TabPanel>
+    <Usage />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Code />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Accessibility />
+  </Tabs.TabPanel>
+</Tabs>
