@@ -1,0 +1,71 @@
+---
+slug: '/elements/components/stepper/code'
+title: 'Stepper - Usage'
+---
+
+import { Link, Notification, Stepper } from 'hds-react';
+
+## Usage
+
+### Example
+TODO
+
+### Principles
+- Each form step must be given a clear and descriptive label.
+  - The label is required even if it is visually hidden on smaller screen sizes.
+- It is recommended that the form steps must be filled in order.
+  - This means that steps are disabled until their previous step is completed successfully.
+- Avoid using a stepper in short forms. One step should have at least three (3) form components inside it.
+- Use [small variant](#small) on small screens or spaces.
+  - You can use the default variant on small screens if the amount of steps is small (2-4 steps).
+- Do not span the stepper into multiple rows. If you are running out of space, consider using [the small variant](#small) or alter the spacing between steps.
+  - HDS stepper also supports scrolling when it overflows outside the container. Generally, this should be the last resort option if it is not possible to fit the stepper on screen with other methods.
+- You can find an example of creating a complete form with the stepper in <Link size="M" href="/storybook/react/?path=/docs/components-stepper--simple-form-example#simple-form-example">the HDS React Storybook</Link>.
+
+### Variations
+
+#### Default
+The default stepper variant includes visible step labels. The stepper can be navigated by pressing the steps themselves or controlled via external button elements.
+
+TODO
+
+---
+
+#### Small
+The small stepper variant omits the visible step labels. This variant of the stepper suits better for smaller screens or tight spaces. Steps are still interactable even though the labels are visually hidden.
+
+TODO
+
+---
+
+#### With step heading
+The stepper can automatically render the step heading if the property `stepHeading` is enabled. The step heading will include the current step number, the total amount of steps, and the step label. 
+
+You can control the heading level of the generated step heading via the `stepHeadingAriaLevel` property. The heading is automatically localised if you change the component language with the `language` property.
+
+TODO
+
+---
+
+#### Overflow
+The stepper reacts accordingly when it overflows outside of the container. The user can scroll the stepper view or use left and right angle icons to browse the stepper.
+
+This variant should only be the last resort option if it is not possible to fit the stepper on screen with other methods. Prefer the `small` variant or shorter labels as a solution before resorting to overflow.
+
+TODO
+
+---
+
+#### Step states
+The HDS stepper offers multiple predefined states for steps to be used. 
+- `completed` state for completed steps
+- `available` state for steps that are available but not completed yet
+- `attention` state for steps that require the user's attention (e.g. the step has been edited by another user)
+- `paused` state for steps that require the user's attention (e.g. waiting for a review from officials)
+- `disabled` state for steps that are not available yet (e.g. require a previous step to be completed first)
+
+TODO
+
+---
+
+export default ({ children }) => <>{children}</>;
