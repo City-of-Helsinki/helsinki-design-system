@@ -1,0 +1,51 @@
+---
+slug: '/elements/components/status-label/code'
+title: 'StatusLabel - Usage'
+---
+
+import { Link, StatusLabel, IconInfoCircle, IconCheckCircle, IconAlertCircle, IconError } from 'hds-react';
+
+## Usage
+
+### Example
+<div id="label-example">
+  <StatusLabel type="success">Completed</StatusLabel>
+  <StatusLabel type="alert" style={{marginLeft: 'var(--spacing-s)'}} iconLeft={<IconAlertCircle />}>Needs attention</StatusLabel>
+  <StatusLabel type="error" style={{marginLeft: 'var(--spacing-s)'}} iconLeft={<IconError />}>Rejected</StatusLabel>
+</div>
+
+### Principles
+- **A label text should always be provided with a status label.** Do not use status labels without text or with icons only.
+  - Icons inside status labels are allowed if they are accompanied with a text label.
+    - Make sure the icon matches the visual label. Do not add an icon only for visual purposes.
+- Keep labels short and concise. Use 1-2 words at maximum and do not use labels expanding to two rows.
+- Use status colours consistently. You can find guidelines on when to use each status colour in the [colour guidelines](/design-tokens/colour#ui-colours "UI colours").
+- Status labels are often related to some other element on the page (e.g. table row). Aim to keep the status label and its related elements close to each other so the user can easily interpret the relation.
+
+### Variations
+
+#### Default
+StatusLabel comes in five (5) different types. One neutral and four (4) with different status colours.
+
+<div id="labels-no-icon">
+  <StatusLabel>Neutral</StatusLabel>
+  <StatusLabel type="info" style={{marginLeft: 'var(--spacing-s)'}}>Info</StatusLabel>
+  <StatusLabel type="success" style={{marginLeft: 'var(--spacing-s)'}}>Success</StatusLabel>
+  <StatusLabel type="alert" style={{marginLeft: 'var(--spacing-s)'}}>Alert</StatusLabel>
+  <StatusLabel type="error" style={{marginLeft: 'var(--spacing-s)'}}>Error</StatusLabel>
+</div>
+
+---
+
+#### With an icon
+An icon can be used on the left side of the StatusLabel's text label. The icon should match with the text label and not be used only for visual purposes.
+
+ <div id="labels-with-icon" style={{marginTop: 'var(--spacing-s)'}}>
+  <StatusLabel iconLeft={<IconInfoCircle />}>Neutral</StatusLabel>
+  <StatusLabel type="info" style={{marginLeft: 'var(--spacing-s)'}} iconLeft={<IconInfoCircle />}>Info</StatusLabel>
+  <StatusLabel type="success" style={{marginLeft: 'var(--spacing-s)'}} iconLeft={<IconCheckCircle />}>Success</StatusLabel>
+  <StatusLabel type="alert" style={{marginLeft: 'var(--spacing-s)'}} iconLeft={<IconAlertCircle />}>Alert</StatusLabel>
+  <StatusLabel type="error" style={{marginLeft: 'var(--spacing-s)'}} iconLeft={<IconError />}>Error</StatusLabel>
+</div>
+
+export default ({ children }) => <>{children}</>;
