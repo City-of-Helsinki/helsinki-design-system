@@ -3,8 +3,14 @@ slug: '/elements/components/fieldset/code'
 title: 'Fieldset - Code'
 ---
 
-import { Link } from 'hds-react';
-import { IconCheckCircleFill } from 'hds-react';
+import { IconCheckCircleFill, Link } from 'hds-react';
+import Playground from '../../../../components/Playground'
+
+
+<!---
+TODO: A temporary to fix missing fieldset from core components/all.css
+-->
+import 'hds-core/lib/components/fieldset/fieldset.css';
 
 ## Code
 
@@ -65,7 +71,6 @@ import { IconCheckCircleFill } from 'hds-react';
       </div>
     </div>
   </fieldset>
-
   <fieldset class="hds-fieldset" style="max-width: 400px">
     <legend class="hds-fieldset-legend">Guardian information</legend>
     <div class="hds-text-input">
