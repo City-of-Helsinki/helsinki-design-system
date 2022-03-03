@@ -1,0 +1,154 @@
+---
+slug: '/elements/components/side-navigation/customisation'
+title: 'SideNavigation - Customisation'
+---
+
+import { SideNavigation } from 'hds-react';
+
+## Customisation
+
+### Customisation properties
+You can use the `theme` property to customise the component. See all available theme variables in the table below. 
+
+
+| Theme variable                                        | Description                                                            |
+| ----------------------------------------------------- | ---------------------------------------------------------------------- |
+| `--side-navigation-active-indicator-background-color` | Colour of the active indicator                                         |
+| `--side-navigation-background-color`                  | Background colour of the side navigation container                     |
+| `--side-navigation-icon-size`                         | Navigation item icon size (if icons are used)                          |
+| `--side-navigation-level-background-color`            | Background colour of a navigation item (not active)                    |
+| `--side-navigation-level-background-color-active`     | Background colour of an active navigation item                         |
+| `--side-navigation-level-background-color-hover`      | Background colour of a hovered navigation item                         |
+| `--side-navigation-level-border-color`                | Colour of a border around a navigation item                            |
+| `--side-navigation-level-border-color-focus`          | Colour of a focus border around a navigation item                      |
+| `--side-navigation-level-border-color-hover`          | Colour of a border around a hovered navigation item                    |
+| `--side-navigation-level-color`                       | Colour of text and icon elements inside a navigation item (not active) |
+| `--side-navigation-level-color-active`                | Colour of text and icon elements inside an active navigatio item       |
+| `--side-navigation-level-color-hover`                 | Colour of text and icon elements inside a hovered navigatio item       |
+| `--side-navigation-mobile-menu-border-color`          | Colour of a border around an opened mobile side navigation menu        |
+| `--side-navigation-mobile-menu-z-index`               | Z-index value of an opened mobile side navigation menu                 |
+
+### Customisation example
+<Playground>
+
+
+```jsx
+{() => {
+  const [active, setActive] = React.useState('/archive');
+  const setActivePage = (e) => {
+    e.preventDefault();
+    setActive(e.target.getAttribute('href'));
+  }
+  return (<div
+    style={{
+      backgroundColor: '#f5f5f5',
+      display: 'grid',
+    }}
+  >
+    <div
+      style={{
+        height: '100%',
+        maxWidth: '400px'
+      }}
+    >
+      <SideNavigation
+        defaultOpenMainLevels={[]}
+        id="side-navigation"
+        toggleButtonLabel="Navigate to page"
+        theme={{
+          '--side-navigation-active-indicator-background-color': 'var(--color-gold)',
+          '--side-navigation-background-color': 'var(--color-white)',
+          '--side-navigation-icon-size': 'var(--spacing-m)',
+          '--side-navigation-level-background-color': 'var(--color-white)',
+          '--side-navigation-level-background-color-active': 'var(--color-fog-light)',
+          '--side-navigation-level-background-color-hover': 'var(--color-fog-light)',
+          '--side-navigation-level-border-color': 'var(--color-white)',
+          '--side-navigation-level-border-color-focus': 'var(--color-coat-of-arms)',
+          '--side-navigation-level-border-color-hover': 'var(--color-fog-light)',
+          '--side-navigation-level-color': 'var(--color-black)',
+          '--side-navigation-level-color-active': 'var(--color-black)',
+          '--side-navigation-level-color-hover': 'var(--color-black)',
+          '--side-navigation-mobile-menu-border-color': 'var(--color-black)',
+          '--side-navigation-mobile-menu-z-index': 100
+        }}  
+      >
+        <SideNavigation.MainLevel
+          id="#main-level-1"
+          label="Events"
+        >
+          <SideNavigation.SubLevel
+            href="/events"
+            active={active === '/events'}
+            id="sub-level-1"
+            label="All events"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/archive"
+            active={active === '/archive'}
+            id="sub-level-2"
+            label="Archive"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/new-event"
+            active={active === '/new-event'}
+            id="sub-level-3"
+            label="Create a new event"
+            onClick={setActivePage}
+          />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel
+          id="main-level-2"
+          label="Events on map"
+        >
+          <SideNavigation.SubLevel
+            href="/map"
+            active={active === '/map'}
+            id="sub-level-4"
+            label="Map"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/edit-event-locations"
+            active={active === '/edit-event-locations'}
+            id="sub-level-5"
+            label="Edit event locations"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/new-location"
+            active={active === '/new-location'}
+            id="sub-level-6"
+            label="Create a new location"
+            onClick={setActivePage}
+          />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel
+          href="/settings"
+          active={active === '/settings'}
+          id="main-level-3"
+          label="Settings"
+          onClick={setActivePage}
+        />
+        <SideNavigation.MainLevel
+          external
+          href="https://tapahtumat.hel.fi/"
+          openInNewTab
+          openInNewTabAriaLabel="Opens in a new tab."
+          openInExternalDomainAriaLabel="Opens a different website."
+          id="main-level-4"
+          label="Tapahtumat.hel.fi"
+          openInExternalDomainAriaLabel="Opens a different website"
+          withDivider
+        />
+      </SideNavigation>
+    </div>
+  </div>)
+}}
+```
+
+
+</Playground>
+
+export default ({ children }) => <>{children}</>;
