@@ -12,9 +12,10 @@ import Playground from '../../../../components/Playground';
 
 You can use the `theme` property to customise the component. See all available theme variables in the table below.
 
-| Theme variable | Description          |
-| -------------- | -------------------- |
-| `--size`       | Size of the checkbox |
+| Theme variable        | Description                     |
+| --------------------- | ------------------------------- |
+| `--accent-line-color` | Color of the dialog accent line |
+| `--overlay-color`     | Color of the dialog overlay     |
 
 ### Customisation example
 
@@ -43,6 +44,10 @@ You can use the `theme` property to customise the component. See all available t
         closeButtonLabelText="Close info dialog"
         focusAfterCloseRef={openInfoDialogButtonRef}
         targetElement={dialogTargetRef.current}
+        theme={{
+          '--accent-line-color': 'var(--color-tram)',
+          '--overlay-color': 'rgba(0, 0, 0, 0.7)'
+        }}
       >
         <Dialog.Header
           id={titleId}
