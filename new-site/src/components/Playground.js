@@ -22,6 +22,14 @@ Playground.propTypes = {
 
 export default Playground;
 
+const playgroundPreviewClassName = 'playground-block-preview';
+
+export const PlaygroundPreview = ({ children, ...props }) => (
+  <div {...props} className={playgroundPreviewClassName}>
+    {children}
+  </div>
+);
+
 const clearSelection = () => {
   if (window.getSelection) {
     window.getSelection().removeAllRanges();
@@ -39,12 +47,12 @@ const sanitize = (code) => {
     : trimmedCode;
 };
 
-const HtmlLivePreview = ({ className, code }) => {
+const HtmlLivePreview = ({ code }) => {
   const sanitizedHtml = () => ({
     __html: DOMPurify.sanitize(code),
   });
 
-  return <div className={className} dangerouslySetInnerHTML={sanitizedHtml()} />;
+  return <PlaygroundPreview dangerouslySetInnerHTML={sanitizedHtml()} />;
 };
 
 const Editor = ({ onChange, initialCode, code, language }) => {
@@ -193,11 +201,12 @@ export const PlaygroundBlock = (props) => {
         </TabList>
         {codeBlocks.map(({ code, language }) => {
           const sanitizedCode = sanitize(codeByLanguageState[language]);
-          const PreviewComponent = () => isJsx(language) ? (
-            <LivePreview className="playground-block-preview" />
-          ) : (
-            <HtmlLivePreview className="playground-block-preview" code={sanitizedCode} />
-          );
+          const PreviewComponent = () =>
+            isJsx(language) ? (
+              <LivePreview className={playgroundPreviewClassName} />
+            ) : (
+              <HtmlLivePreview code={sanitizedCode} />
+            );
 
           return (
             <TabPanel key={language}>
