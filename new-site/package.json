@@ -46,7 +46,8 @@
     "start": "gatsby develop -o",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "link-react": "rm -rf node_modules/hds-react/* && cp -r ../packages/react/lib/* node_modules/hds-react/"
   },
   "repository": {
     "type": "git",
