@@ -54,6 +54,6 @@ yarn start
 There might be a need to prefix asset and pages paths when the site is hosted in Github pages. This can be done by giving the pathPrefix as a command-line argument or by replacing the pathPrefix configuration in gatsby-config.js
 Running build with path prefixes example:
 ```
-PATH_PREFIX='/hds-demo/docsite-sidenav' gatsby build --prefix-paths
+PATH_PREFIX='/hds-demo/docsite-fixes' yarn build -- --prefix-paths
 ```
 [Here](https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/how-gatsby-works-with-github-pages/) is more info about hosting Gatsby site in Github pages.
