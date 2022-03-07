@@ -1,9 +1,9 @@
 ---
-slug: '/elements/components/text-input/code'
-title: 'TextInput - Code'
+slug: '/elements/components/text-area/code'
+title: 'TextArea - Code'
 ---
 
-import { TextInput, Link, IconCheckCircleFill } from 'hds-react';
+import { TextArea, Link, IconCheckCircleFill } from 'hds-react';
 import Playground from '../../../../components/Playground';
 
 ## Code
@@ -15,24 +15,24 @@ import Playground from '../../../../components/Playground';
 
 ```jsx
 <div style={{ maxWidth: '320px' }}>
-<TextInput
-  id="input"
+<TextArea
+  id="textarea"
   label="Label"
   placeholder="Placeholder"
   helperText="Assistive text"
   required
 />
-<TextInput
+<TextArea
   label="Label"
-  defaultValue="Text input value"
+  defaultValue="Text area value"
   helperText="Assistive text"
   style={{marginTop: 'var(--spacing-s)'}}
   disabled
 />
-<TextInput
-  id="input-invalid"
+<TextArea
+  id="textarea-invalid"
   label="Label"
-  defaultValue="Text input value"
+  defaultValue="Text area value"
   errorText="Error text"
   helperText="Assistive text"
   style={{marginTop: 'var(--spacing-s)'}}
@@ -44,32 +44,36 @@ import Playground from '../../../../components/Playground';
 ```html
 <div style={{ maxWidth: '320px' }}>
 <div class="hds-text-input">
-  <label for="input" class="hds-text-input__label">
+  <label for="textarea" class="hds-text-input__label">
     Label
     <span class="hds-text-input__required">*</span>
   </label>
   <div class="hds-text-input__input-wrapper">
-    <input id="input" class="hds-text-input__input" type="text" placeholder="Placeholder" required />
+    <textarea id="textarea" class="hds-text-input__input" placeholder="Placeholder" required></textarea>
   </div>
   <span class="hds-text-input__helper-text">Assistive text</span>
 </div>
 
 <div class="hds-text-input" style={{marginTop: 'var(--spacing-s)'}}>
-  <label for="input" class="hds-text-input__label">
+  <label for="textarea" class="hds-text-input__label">
     Label
   </label>
   <div class="hds-text-input__input-wrapper">
-    <input id="input" class="hds-text-input__input" type="text" value="Text input value" disabled />
+    <textarea id="textarea" class="hds-text-input__input" disabled>
+      Text area value
+    </textarea>
   </div>
   <span class="hds-text-input__helper-text">Assistive text</span>
 </div>
 
 <div class="hds-text-input hds-text-input--invalid" style={{marginTop: 'var(--spacing-s)'}}>
-  <label for="input" class="hds-text-input__label">
+  <label for="textarea" class="hds-text-input__label">
     Label
   </label>
   <div class="hds-text-input__input-wrapper">
-    <input id="input" class="hds-text-input__input" type="text" value="Text input value" />
+    <textarea id="textarea" class="hds-text-input__input">
+      Text area value
+    </textarea>
   </div>
   <span class="hds-text-input__error-text">Error text</span>
   <span class="hds-text-input__helper-text">Assistive text</span>
@@ -79,43 +83,18 @@ import Playground from '../../../../components/Playground';
 
 </Playground>
 
-#### Read-only
-<Playground>
-
-```jsx
-<TextInput
-  label="Label"
-  defaultValue="Read-only value"
-  helperText="Assistive text"
-  readOnly
-/>
-```
-
-```html
-<div class="hds-text-input">
-  <label for="input" class="hds-text-input__label">
-    Label
-  </label>
-  <div class="hds-text-input__input-wrapper">
-    <input id="input" class="hds-text-input__input" type="text" value="Text input value" readonly />
-  </div>
-  <span class="hds-text-input__helper-text">Assistive text</span>
-</div>
-```
-
-</Playground>
-
 #### With tooltip
 <Playground>
 
 ```jsx
-<TextInput
-  id="input-tooltip"
+<TextArea
+  id="textarea-tooltip"
   label="Label"
   placeholder="Placeholder"
   tooltipLabel="Tooltip label"
   tooltipButtonLabel="Tooltip button label"
   tooltipText="Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
+  style={{ maxWidth: '320px' }}
 />
 ```
 
@@ -124,11 +103,11 @@ import Playground from '../../../../components/Playground';
 ### Packages
 | Package           | Included                      | Storybook link                                                                                                                      | Source link   |
 | ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-textinput--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/textInput">View source</Link> |
-| **HDS Core**      | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/core/?path=/story/components-text-input--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/text-input">View source</Link> |
+| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-textarea--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/textInput">View source</Link> |
+| **HDS Core**      | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/core/?path=/story/components-textarea--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/text-input">View source</Link> |
 
 ### Properties
-Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/docs/components-textinput--default" external>React Storybook.</Link>
+Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/docs/components-textarea--default" external>React Storybook.</Link>
 
 | Property             | Description                                                      | Values      | Default value |
 | -------------------- | ---------------------------------------------------------------- | ----------- | ------------- |
@@ -142,9 +121,6 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `tooltipLabel`       | The aria-label text for the tooltip.                             | `string`    | -             |
 | `tooltipButtonLabel` | The aria-label text for the tooltip trigger button.              | `string`    | -             |
 | `tooltipText`        | The text content of the tooltip.                                 | `string`    | -             |
-| `buttonIcon`         | Button icon.                                                     | `ReactNode` | -             |
-| `buttonAriaLabel`    | The aria-label for the button.                                   | `string`    | -             |
-| `onButtonClick`      | Callback called when the button is pressed.                      | `function`  | -             |
-[Table 1:TextInput properties]|
+[Table 1:TextArea properties]|
 
 export default ({ children }) => <>{children}</>;
