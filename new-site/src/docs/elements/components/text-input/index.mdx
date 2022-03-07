@@ -1,0 +1,40 @@
+---
+slug: '/elements/components/text-input'
+title: 'TextInput'
+---
+
+import { StatusLabel, Tabs } from 'hds-react';
+
+import LeadParagraph from '../../../../components/LeadParagraph';
+
+import Accessibility from './accessibility.mdx';
+import Code from './code.mdx';
+import Usage from './usage.mdx';
+
+# TextInput
+
+<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  Accessible
+</StatusLabel>
+
+<LeadParagraph>
+  A text field is an input field that the user can interact with and input content and data. The user can also be provided with helper text if needed. Text inputs are used for shorter information while Text areas can be used for multiline answers.
+</LeadParagraph>
+
+<Tabs>
+  <Tabs.TabList className="pageTabsList">
+    <Tabs.Tab>Usage</Tabs.Tab>
+    <Tabs.Tab>Code</Tabs.Tab>
+    <Tabs.Tab>Accessibility</Tabs.Tab>
+  </Tabs.TabList>
+  <Tabs.TabPanel>
+    <Usage />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Code />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Accessibility />
+  </Tabs.TabPanel>
+</Tabs>
