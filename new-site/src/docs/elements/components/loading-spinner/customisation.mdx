@@ -43,25 +43,20 @@ You can use the `theme` property to customise the component. See all available t
 
 ```html
 <div>
-  <style>
-    .hds-loading-spinner.custom-single-color {
-      --spinner-color: var(--color-tram);
-    }
-  </style>
-  <div class="hds-loading-spinner custom-single-color">
+  <div
+    class="hds-loading-spinner"
+    style="--spinner-color: var(--color-tram);"
+  >
     <div></div>
     <div></div>
     <div></div>
   </div>
-
-  <style>
-    .hds-loading-spinner.custom-multi-color {
-      --spinner-color-stage1: var(--color-coat-of-arms);
-      --spinner-color-stage2: var(--color-tram);
-      --spinner-color-stage3: var(--color-metro);
-    }
-  </style>
-  <div class="hds-loading-spinner hds-loading-spinner--multicolor custom-multi-color">
+  <br />
+  <div
+    class="hds-loading-spinner hds-loading-spinner--multicolor"
+    style="--spinner-color-stage1: var(--color-coat-of-arms); --spinner-color-stage2: var(--color-tram);
+    --spinner-color-stage3: var(--color-metro);"
+  >
     <div></div>
     <div></div>
     <div></div>
