@@ -1,0 +1,38 @@
+---
+slug: '/elements/components/toggle-button/code'
+title: 'ToggleButton - Usage'
+---
+
+import { Link, Tag } from 'hds-react';
+
+## Usage
+
+### Example
+TODO
+
+### Principles
+- **A label should always be provided with a toggle button.**
+  - Make sure that the label is clear and concise. A good toggle button label describes the effect that will happen when the toggle button is set to "On" position.
+  - For example, use the label "_Allow notifications_" instead of "_Do you want to receive notifications?_".
+- The toggle button should have an immediate effect when activated.
+  - Toggle buttons have been inspired by real-world physical switches (e.g. a light switch). Therefore users expect something to happen immediately when the toggle button is activated.
+    - Also, avoid using toggle buttons if the effect requires an asynchronous call.
+  - Toggle buttons must not be used in forms that require pressing a submit button in order to the selection come into effect - unless they have an immediate effect inside the form.
+  - If your toggle button does not have an immediate effect, use a single [Checkbox component](elements/components/checkbox) instead. Also see [guidelines for choosing between radiobuttons, checkboxes and toggles.](/guidelines/checkboxes-radiobuttons-toggles)
+- Toggle button will always have a default option. Toggle buttons that do not have a state at all (neither "On" or "Off") must not be used.
+
+### Variations
+
+#### Default
+The default HDS toggle button variant includes a label above the toggle button familiar from other HDS form components.
+
+TODO
+
+---
+
+#### With a horizontal label
+The toggle button label can also be positioned horizontally. This alignment is often used on smaller screens (e.g. mobile phones) and tighter user interface spaces.
+
+TODO
+
+export default ({ children }) => <>{children}</>;
