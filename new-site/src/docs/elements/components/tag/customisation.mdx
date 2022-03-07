@@ -1,0 +1,39 @@
+---
+slug: '/elements/components/tag/customisation'
+title: 'Tag - Customisation'
+---
+
+import { Tag } from 'hds-react';
+
+## Customisation
+
+### Customisation properties
+You can use the `theme` property to customise the component. See all available theme variables in the table below.
+
+| Theme variable                        | Description                                 |
+| ------------------------------------- | ------------------------------------------- |
+| `--tag-background`                    | Colour of the tag background.               |
+| `--tag-color`                         | Colour of elements inside the tag.          |
+| `--tag-focus-outline-color`           | Colour of the tag focus border.             |
+
+### Customisation example
+<Playground>
+
+
+```jsx
+<Tag
+  onClick={function noRefCheck(){}}
+  theme={{
+    '--tag-background': 'var(--color-engel)',
+    '--tag-color': 'var(--color-black-90)',
+    '--tag-focus-outline-color': 'var(--color-black-90)'
+  }}
+>
+  Americum
+</Tag>
+```
+
+
+</Playground>
+
+export default ({ children }) => <>{children}</>;
