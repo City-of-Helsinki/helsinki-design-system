@@ -1,0 +1,88 @@
+---
+slug: '/elements/components/toggle-button/code'
+title: 'ToggleButton - Code'
+---
+
+import { ToggleButton, Link, IconCheckCircleFill, IconCrossCircle } from 'hds-react';
+import Playground from '../../../../components/Playground';
+
+## Code
+
+### Code examples 
+
+#### Default
+<Playground>
+
+```jsx
+{() => {
+  const [checked1, setChecked1] = React.useState(false);
+  const [checked2, setChecked2] = React.useState(false);
+  return (
+    <>
+      <ToggleButton id="toggle-button-1" label="Label" checked={checked1} onChange={() => setChecked1(!checked1)} />
+      <br />
+      <ToggleButton
+        id="toggle-button-2"
+        disabled
+        label="Label"
+        checked={checked2}
+        onChange={() => setChecked2(!checked2)}
+      />
+    </>
+  );
+}}
+```
+
+</Playground>
+
+#### With a horizontal label
+<Playground>
+
+```jsx
+{() => {
+  const [checked1, setChecked1] = React.useState(false);
+  const [checked2, setChecked2] = React.useState(false);
+  return (
+    <>
+      <div style={{ maxWidth: '320px' }}>
+        <ToggleButton
+          id="toggle-button-1"
+          label="Label"
+          checked={checked1}
+          onChange={() => setChecked1(!checked1)}
+          variant="inline"
+        />
+        <br />
+        <ToggleButton
+          id="toggle-button-2"
+          disabled
+          label="Label"
+          checked={checked2}
+          onChange={() => setChecked2(!checked2)}
+          variant="inline"
+        />
+      </div>
+    </>
+  );
+}}
+```
+
+</Playground>
+
+### Packages
+| Package           | Included                      | Storybook link                                                                                                                      | Source link   |
+| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-togglebutton--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/toggleButton">View source</Link> |
+| **HDS Core**      | <IconCrossCircle /> No    | - | - |
+
+### Properties
+Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/docs/components-togglebutton--default" external>React Storybook.</Link>
+
+| Property  | Description                                           | Values                 | Default value |
+| --------- | ----------------------------------------------------- | ---------------------- | ------------- |
+| `label`   | The label for the input.                              | `string`               | -             |
+| `checked` | If set to true, the toggle button state will be "On". | `boolean`              | false         |
+| `variant` | Defines the toggle button variant.                    | `"default"` `"inline"` | `"default"`   |
+[Table 1:ToggleButton properties]|
+
+export default ({ children }) => <>{children}</>;

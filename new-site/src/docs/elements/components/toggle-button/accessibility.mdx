@@ -1,0 +1,16 @@
+---
+slug: '/elements/components/toggle-button/accessibility'
+title: 'ToggleButton - Accessibility'
+---
+
+import { Link } from 'hds-react';
+
+## Accessibility
+
+### Pay attention to
+- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour 'Colour') to ensure accessibility.
+- If the toggle button makes other elements appear on the view, those elements should be located next to the toggle button - preferably right after or below it.
+  - While not recommended, if a toggle button makes elements appear in other parts of the user interface, you need to make sure to notify assistive technologies about the change. You can use [HDS Notification component](/components/notification) for this purpose.
+- HDS Toggle button includes a small animation when the toggle state is changed. However, the animation is considered non-decorative and therefore it does not have to be able to be disabled. See <Link size="M" href="https://www.w3.org/WAI/WCAG21/Understanding/animation-from-interactions.html" external>WCAG 2.3.3 Animation from Interactions guideline</Link> for more information.
+
+export default ({ children }) => <>{children}</>;
