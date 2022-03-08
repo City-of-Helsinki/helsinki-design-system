@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.1] - Mar, 8, 2022
+
+### Core
+
+#### Fixed
+
+- [Table] The default background color
+
 ## [1.11.0] - Feb, 23, 2022
 
 ### Design Tokens
