@@ -177,7 +177,8 @@ body {
 
 .headerAnchor {
   color: var(--color-black-90);
-  margin-left: 3px;
+  padding-left: 0 !important;
+  margin-left: 7px;
   font-size: 0;
   vertical-align: middle;
 
