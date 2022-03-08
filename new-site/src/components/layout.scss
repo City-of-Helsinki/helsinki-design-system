@@ -178,6 +178,15 @@ body {
 .headerAnchor {
   color: var(--color-black-90);
   margin-left: 3px;
+  font-size: 0;
+  vertical-align: middle;
+
+  &:focus {
+    outline: 3px solid var(--color-coat-of-arms);
+    .hdsAnchorIcon {
+      visibility: visible;
+    }
+  }
 }
 
 .hdsAnchorIcon {
