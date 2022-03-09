@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 @import '~hds-design-tokens/lib/all.scss';
+@import './utils';
 
 .playground-block {
   --focus-border-width: 2px;
@@ -18,7 +19,18 @@
 
 .playground-block-preview {
   border: 2px solid var(--color-black-50);
-  padding: var(--spacing-l);
+
+  @include small-screen {
+    padding: var(--spacing-s);
+  }
+
+  @include medium-screen {
+    padding: var(--spacing-m);
+  }
+
+  @include medium-and-above-screen {
+    padding: var(--spacing-l)
+  }
 }
 
 .playground-block-editor {
