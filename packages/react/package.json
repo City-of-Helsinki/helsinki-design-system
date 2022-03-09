@@ -1,6 +1,6 @@
 {
   "name": "hds-react",
-  "version": "1.11.0",
+  "version": "1.11.1",
   "description": "React components for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
@@ -109,7 +109,7 @@
     "@react-aria/visually-hidden": "3.2.0",
     "date-fns": "2.16.1",
     "downshift": "6.0.6",
-    "hds-core": "1.11.0",
+    "hds-core": "1.11.1",
     "lodash.isequal": "4.5.0",
     "lodash.isfunction": "3.0.9",
     "lodash.uniqueid": "4.0.1",
