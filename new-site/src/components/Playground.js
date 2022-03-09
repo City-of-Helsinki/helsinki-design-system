@@ -24,10 +24,14 @@ export default Playground;
 
 const playgroundPreviewClassName = 'playground-block-preview';
 
-export const PlaygroundPreview = ({ children, ...props }) => (
-  <div {...props} className={playgroundPreviewClassName}>
+const PlaygroundPreviewComponent = ({ children, className, ...props }) => (
+  <div {...props} className={`${playgroundPreviewClassName} ${className ?? ''}`}>
     {children}
   </div>
+);
+
+export const PlaygroundPreview = ({ ...props }) => (
+  <PlaygroundPreviewComponent className="playground-block-preview-light" {...props} />
 );
 
 const clearSelection = () => {
@@ -52,7 +56,7 @@ const HtmlLivePreview = ({ code }) => {
     __html: DOMPurify.sanitize(code),
   });
 
-  return <PlaygroundPreview dangerouslySetInnerHTML={sanitizedHtml()} />;
+  return <PlaygroundPreviewComponent dangerouslySetInnerHTML={sanitizedHtml()} />;
 };
 
 const Editor = ({ onChange, initialCode, code, language }) => {
