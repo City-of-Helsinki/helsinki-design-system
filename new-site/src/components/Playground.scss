@@ -5,6 +5,7 @@
 
 .playground-block {
   --focus-border-width: 2px;
+  --playground-component-border-color: var(--color-black-50);
   margin: var(--spacing-l) 0;
 }
 
@@ -18,7 +19,7 @@
 }
 
 .playground-block-preview {
-  border: 2px solid var(--color-black-50);
+  border: 2px solid var(--playground-component-border-color);
 
   @include small-screen {
     padding: var(--spacing-s);
@@ -29,13 +30,17 @@
   }
 
   @include medium-and-above-screen {
-    padding: var(--spacing-l)
+    padding: var(--spacing-l);
   }
+}
+
+.playground-block-preview-light {
+  --playground-component-border-color: var(--color-black-30);
 }
 
 .playground-block-editor {
   background-color: var(--color-black-5);
-  border: 2px solid var(--color-black-50);
+  border: 2px solid var(--playground-component-border-color);
   border-top: 0 none;
 }
 
