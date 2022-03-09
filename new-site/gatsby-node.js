@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const path = require('path');
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
@@ -8,5 +9,10 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         process: 'process/browser',
       }),
     ],
+    resolve: {
+      alias: {
+        fs$: path.resolve(__dirname, 'src/fs.js'),
+      }
+    }
   });
 };
