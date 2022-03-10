@@ -6,10 +6,6 @@ title: 'Button'
 import { StatusLabel, Tabs } from 'hds-react';
 import { navigate } from 'gatsby';
 
-import Usage from './usage/usage.mdx';
-import Code from './code/code.mdx';
-import Accessibility from './accessibility/accessibility.mdx';
-import Customisation from './customisation/customisation.mdx';
 import LeadParagraph from '../../../../components/LeadParagraph';
 
 # Button
@@ -24,25 +20,13 @@ import LeadParagraph from '../../../../components/LeadParagraph';
 </LeadParagraph>
 
 
-<Tabs initiallyActiveTab={() => props.initiallyActiveTab}>
+<Tabs initiallyActiveTab={() => ['usage', 'code', 'accessibility', 'customisation'].indexOf(props.initiallyActiveTab)}>
   <Tabs.TabList className="pageTabsList">
     <Tabs.Tab onClick={() => navigate(`/elements/components/buttons/usage`)}>Usage</Tabs.Tab>
     <Tabs.Tab onClick={() => navigate(`/elements/components/buttons/code`)}>Code</Tabs.Tab>
     <Tabs.Tab onClick={() => navigate(`/elements/components/buttons/accessibility`)}>Accessibility</Tabs.Tab>
     <Tabs.Tab onClick={() => navigate(`/elements/components/buttons/customisation`)}>Customisation</Tabs.Tab>
   </Tabs.TabList>
-  <Tabs.TabPanel>
-    <Usage />
-  </Tabs.TabPanel>
-  <Tabs.TabPanel>
-    <Code />
-  </Tabs.TabPanel>
-  <Tabs.TabPanel>
-    <Accessibility />
-  </Tabs.TabPanel>
-  <Tabs.TabPanel>
-    <Customisation />
-  </Tabs.TabPanel>
 </Tabs>
 
 export default ({ children }) => <>{children}</>;
