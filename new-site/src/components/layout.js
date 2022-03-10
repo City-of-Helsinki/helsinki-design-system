@@ -11,7 +11,7 @@ import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } fro
 import { MDXProvider } from '@mdx-js/react';
 import { Container, Footer, Navigation, SideNavigation } from 'hds-react';
 import Seo from './seo';
-import { PlaygroundBlock } from './Playground';
+import { PlaygroundBlock, PlaygroundPreview } from './Playground';
 import SyntaxHighlighter from './SyntaxHighlighter';
 import Table from './Table';
 import './layout.scss';
@@ -20,6 +20,7 @@ const classNames = (...args) => args.filter((e) => e).join(' ');
 
 const components = {
   Playground: PlaygroundBlock,
+  PlaygroundPreview: PlaygroundPreview,
   pre: SyntaxHighlighter,
   table: Table,
   thead: Table.Thead,
