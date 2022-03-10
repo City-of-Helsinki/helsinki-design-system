@@ -4,7 +4,6 @@ title: 'Typography tokens - Usage'
 ---
 
 import { Link } from 'hds-react';
-import Playground from '../../../../components/Playground';
 
 ## Usage
 
@@ -35,7 +34,7 @@ The heading font size tokens are heading level agnostic. This allows you to fit 
 | **Heading S**     | 20px     | 1.25rem   | <h4 style={{fontSize: 'var(--fontsize-heading-s)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h4</h4>   | <h3 style={{fontSize: 'var(--fontsize-heading-s)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h3</h3>   |
 | **Heading XS**    | 18px     | 1.125rem  | <h5 style={{fontSize: 'var(--fontsize-heading-xs)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h5</h5>  | <h4 style={{fontSize: 'var(--fontsize-heading-xs)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h4</h4>  |
 | **Heading XXS**   | 16px     | 1rem      |                                                                                                                                            | <h5 style={{fontSize: 'var(--fontsize-heading-xxs)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h5</h5> |
-[Table1:Heading sizes]|
+[Table 1:Heading sizes]|
 
 ### Body text sizes
 Body font size tokens allow more subtle variations of body text sizes for improved content hierarchy and legibility.
@@ -47,7 +46,7 @@ Body font size tokens allow more subtle variations of body text sizes for improv
 | **Body L**   |    18 px |     1.125 | Improving legibility of essential components, e.g. Text input and other form fields. Can also be used as the default body text size if the layout is not text-heavy. |
 | **Body M**   |    16 px |         1 | **Body text default.**                                                                                                                                               |
 | **Body S**   |    14 px |     0.875 | Conserving space in data-heavy layouts and small components, e.g. Status label.                                                                                      |
-[Table2:Body text sizes]|
+[Table 2:Body text sizes]|
 
 When choosing the body text size, start with the default `Body M (16 px)` token. It is a good starting point for most text heavy user interfaces. This is also the minimum for the body text size in Helsinki services. This body text size can be used on all screen sizes.
 
@@ -64,7 +63,7 @@ Line height tokens can be used to control spacing between lines of text. The tok
 | **Line height M**  | 1.2   | Headings, lead texts and short paragraphs (no longer than 2-3 sentences).        |
 | **Line height L**  | 1.5   | Body text default. Optimal for longer text content and extended reading.         |
 | **Line height XL** | 1.75  | Smaller text sizes or if you need to emphasise text (i.e. quotes).               |
-[Table3:Line height sizes]|
+[Table 3:Line height sizes]|
 
 ### Font weights
 HDS typography uses three font weights.
@@ -74,6 +73,6 @@ HDS typography uses three font weights.
 | **Regular** | 400             | Body text default.                                             |
 | **Medium**  | 500             | Used for labels in components e.g. Button and form components. |
 | **Bold**    | 700             | Heading default. Used to emphasise body text.                  |
-[Table4:Font weight sizes]|
+[Table 4:Font weight sizes]|
 
 export default ({ children }) => <>{children}</>;
