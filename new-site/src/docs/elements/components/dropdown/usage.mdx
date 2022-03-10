@@ -105,23 +105,162 @@ export const SelectExample = () => {
 
 Select dropdown serves in most use cases when the user needs to select one of 4 to 7 options. If there are 8 or more options available, consider using [Combobox](#combobox-single-selection) to allow filtering.
 
----
+export const SingleSelectVariation = () => {
+  const options = [{ label: 'Plutonium' }, { label: 'Americium' }, { label: 'Copernicium' }, { label: 'Berkelium' }];
+  return (
+    <>
+      <Select required label="Label" helper="Assistive text" placeholder="Placeholder" options={options} />
+      <Select
+        disabled
+        label="Label"
+        helper="Assistive text"
+        placeholder="Placeholder"
+        options={options}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+      <Select
+        invalid
+        required
+        label="Label"
+        error="Error description"
+        placeholder="Placeholder"
+        options={options}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+      <Select
+        required
+        label="Label"
+        helper="Assistive text"
+        placeholder="Placeholder"
+        icon={<IconUser />}
+        options={[{ label: 'Adam' }, { label: 'Caitlyn' }, { label: 'Jack' }, { label: 'Sally' }]}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+    </>
+  );
+};
+
+<PlaygroundPreview>
+  <SingleSelectVariation />
+</PlaygroundPreview>
 
 ### Select (multi-selection)
+
 Select multi-selection variant allows the user to select one or more options simultaneously. Note! Select dropdown does not feature filtering options by typing. When this feature is needed or there are a large number of options available, consider using consider using [Combobox](#combobox-multi-selection).
 
 Multi-select also supports icon if needed.
 
----
+<PlaygroundPreview>
+  <Select
+    multiselect
+    required
+    label="Label"
+    placeholder="Placeholder"
+    helper="Assistive text"
+    options={[{ label: 'Plutonium' }, { label: 'Americium' }, { label: 'Copernicium' }, { label: 'Berkelium' }]}
+    clearButtonAriaLabel="Clear all selections"
+    selectedItemRemoveButtonAriaLabel="Remove ${value}"
+  />
+</PlaygroundPreview>
 
 ### Combobox (single selection)
+
 Combobox dropdown serves in most use cases when the user needs to select one from 8 or more options (up to hundreds of options). Combobox variant features filtering options by typing.
 
----
+export const SingleComboboxVariation = () => {
+  const options = [
+    { label: 'Americium' },
+    { label: 'Berkelium' },
+    { label: 'Californium' },
+    { label: 'Copernicium' },
+    { label: 'Einsteinium' },
+    { label: 'Fermium' },
+    { label: 'Mendelevium' },
+    { label: 'Plutonium' },
+  ];
+  return (
+    <>
+      <Combobox
+        required
+        label="Label"
+        helper="Assistive text"
+        placeholder="Placeholder"
+        toggleButtonAriaLabel="Toggle menu"
+        options={options}
+      />
+      <Combobox
+        disabled
+        label="Label"
+        helper="Assistive text"
+        placeholder="Placeholder"
+        toggleButtonAriaLabel="Toggle menu"
+        options={options}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+      <Combobox
+        invalid
+        required
+        label="Label"
+        error="Error description"
+        placeholder="Placeholder"
+        toggleButtonAriaLabel="Toggle menu"
+        options={options}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+      <Combobox
+        required
+        label="Label"
+        helper="Assistive text"
+        placeholder="Placeholder"
+        toggleButtonAriaLabel="Toggle menu"
+        icon={<IconUser />}
+        options={[
+          { label: 'Adam' },
+          { label: 'Allie' },
+          { label: 'Bob' },
+          { label: 'Caitlyn' },
+          { label: 'Jack' },
+          { label: 'Olivia' },
+          { label: 'Sally' },
+          { label: 'Sam' },
+        ]}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+      />
+    </>
+  );
+};
+
+<PlaygroundPreview>
+  <SingleComboboxVariation />
+</PlaygroundPreview>
 
 ### Combobox (multi-selection)
+
 Combobox multi-select variant allows the user to select one or more options simultaneously. Combobox variant features filtering options by typing.
 
 Multi-select also supports icon if needed.
+
+<PlaygroundPreview>
+  <Combobox
+    multiselect
+    required
+    label="Label"
+    helper="Assistive text"
+    placeholder="Placeholder"
+    options={[
+      { label: 'Americium' },
+      { label: 'Berkelium' },
+      { label: 'Californium' },
+      { label: 'Copernicium' },
+      { label: 'Einsteinium' },
+      { label: 'Fermium' },
+      { label: 'Mendelevium' },
+      { label: 'Plutonium' },
+    ]}
+    clearButtonAriaLabel="Clear all selections"
+    selectedItemRemoveButtonAriaLabel="Remove ${value}"
+    toggleButtonAriaLabel="Toggle menu"
+  />
+</PlaygroundPreview>
 
 export default ({ children }) => <>{children}</>;
