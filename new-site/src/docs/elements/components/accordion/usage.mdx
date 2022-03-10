@@ -4,16 +4,19 @@ title: 'Accordion - Usage'
 ---
 
 import { Accordion } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground'
 
 ## Usage
 
 ### Example
-<Accordion
-  heading="How to publish data?"
-  style={{ maxWidth: '360px' }}
->
-  To publish your data, open your profile settings and click the button 'Publish'.
-</Accordion>
+<PlaygroundPreview>
+  <Accordion
+    heading="How to publish data?"
+    style={{ maxWidth: '360px' }}
+  >
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+</PlaygroundPreview>
 
 ## Principles
 - Use accordions to allow the user to quickly glance at the information and then choose to open sections that are interesting to them.
@@ -33,12 +36,14 @@ Accordions should initially be closed when the page is loaded.
 Basic HDS Accordions provide two different visuals to choose from. These implementations are easy to take into use if you do not need any special functionality or styling.
 
 This style is visually less distracting and it works well when there are multiple accordions one below another or nearby.
-<Accordion
-  heading="How to publish data?"
-  style={{ maxWidth: '360px' }}
->
-  To publish your data, open your profile settings and click the button 'Publish'.
-</Accordion>
+<PlaygroundPreview>
+  <Accordion
+    heading="How to publish data?"
+    style={{ maxWidth: '360px' }}
+  >
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+</PlaygroundPreview>
 
 ---
 
@@ -46,14 +51,16 @@ This style is visually less distracting and it works well when there are multipl
 You can also use HDS Cards as a container for your Accordions. Cards offer the same customizability options as default HDS Cards. To learn more about Cards and their customization, refer to [HDS Card documentation](/components/card).
 
 If you have multiple accordions one below another or many accordions in the same view, consider using the visually more light [default styling variant](#default-accordion) instead of this one.
-<Accordion 
-  card 
-  border
-  heading="How to publish data?"
-  style={{ maxWidth: '360px'}}
->
-  To publish your data, open your profile settings and click the button 'Publish'.
-</Accordion>
+<PlaygroundPreview>
+  <Accordion
+    card
+    border
+    heading="How to publish data?"
+    style={{ maxWidth: '360px'}}
+  >
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+</PlaygroundPreview>
 
 ---
 
