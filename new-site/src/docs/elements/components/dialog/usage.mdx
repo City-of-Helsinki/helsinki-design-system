@@ -3,7 +3,8 @@ slug: '/elements/components/dialog/code'
 title: 'Dialog - Usage'
 ---
 
-import { Dialog, Button, IconInfoCircle } from 'hds-react';
+import { Dialog, Button, IconInfoCircle, IconTrash } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
 
 ## Usage
 
@@ -14,11 +15,11 @@ export const DialogExample = () => {
   const openInfoDialogButtonRef = React.useRef(null);
   const [isOpen, setIsOpen] = React.useState(false);
   const close = () => setIsOpen(false);
-  const titleId = "info-dialog-title";
-  const descriptionId = "info-dialog-content";
+  const titleId = 'info-dialog-title';
+  const descriptionId = 'info-dialog-content';
   return (
     <>
-      <div ref={dialogTargetRef}/>
+      <div ref={dialogTargetRef} />
       <Button ref={openInfoDialogButtonRef} onClick={() => setIsOpen(true)}>
         Open Info dialog
       </Button>
@@ -35,49 +36,52 @@ export const DialogExample = () => {
         <Dialog.Header
           id={titleId}
           title="Terms of service have changed"
-          iconLeft={<IconInfoCircle aria-hidden="true"/>}
+          iconLeft={<IconInfoCircle aria-hidden="true" />}
         />
         <Dialog.Content>
           <p id={descriptionId} className="text-body">
-            Please note that the terms of this service have changed. You can review the changes in the user
-            settings.</p>
+            Please note that the terms of this service have changed. You can review the changes in the user settings.
+          </p>
         </Dialog.Content>
         <Dialog.ActionButtons>
-          <Button onClick={close}>
-            Close
-          </Button>
+          <Button onClick={close}>Close</Button>
         </Dialog.ActionButtons>
       </Dialog>
     </>
-  )
+  );
 };
 
-<DialogExample/>
+<PlaygroundPreview>
+  <DialogExample />
+</PlaygroundPreview>
 
 ## Principles
+
 - Dialogs capture the browser focus and the user is forced to react to the dialog.
-    - To emphasize this, a dark screen overlay must be used to cover the view content behind the dialog element.
+  - To emphasize this, a dark screen overlay must be used to cover the view content behind the dialog element.
 - **Dialogs are a very intrusive pattern and they should only be used when the immediate actions or focus from the user are needed.**
 - Be careful when including a separate close ("x") icon in the dialog. If there are more than one action available in the dialog, it can be ambiguous for the user which action is triggered when the close icon is pressed.
-    - Generally, it is a good practise to omit the close icon if the dialog has more than one action available.
+  - Generally, it is a good practise to omit the close icon if the dialog has more than one action available.
 - If your dialog contains form elements, follow [HDS form](/patterns/forms) and [form validation patterns](/patterns/form-validation) similarly as you would in a regular forms.
 - As dialogs always contain buttons, pay close attention that the button labels describe the action it is going to trigger. You can read more information about this in the [HDS Button documentation page](/components/button).
-    - Following the same guidelines as the HDS Form pattern, dialog action buttons are placed at the left side of the dialog and the primary action will be the first one from the left.
-    - If some of the actions are destructive or irreversible, the button order should be reversed so so that the destructive actions are last in the button list. See [Danger dialog example](#danger-dialog) for more information.
+  - Following the same guidelines as the HDS Form pattern, dialog action buttons are placed at the left side of the dialog and the primary action will be the first one from the left.
+  - If some of the actions are destructive or irreversible, the button order should be reversed so so that the destructive actions are last in the button list. See [Danger dialog example](#danger-dialog) for more information.
 - Opening a dialog should be always triggered by the user. Do not open dialogs without user action.
-    - Also make sure that the dialog is related to the current context.
+  - Also make sure that the dialog is related to the current context.
   - It is not recommended to open dialogs on top of other dialogs. However, this is supported by HDS Dialogs if it is needed.
 
 ### When to use each dialog type?
-| Type                           | When to use it?                                                                                                     | Example
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| [Info](#info-dialog)           | Important information needs to be conveyed to the user. Only requires acknowledgment and no choices from the user. | Informing the user about changed terms of use.
-| [Confirm](#confirm-dialog)     | An action is required from the user.                                                                                | Confirming that the user wants to continue even though all form fields are not filled.
-| [Danger](#danger-dialog)       | An action is required from the user while **the action results are destructive**.                                   | Confirming that the user wants to delete a blog post.
+
+| Type                       | When to use it?                                                                                                    | Example                                                                                |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
+| [Info](#info-dialog)       | Important information needs to be conveyed to the user. Only requires acknowledgment and no choices from the user. | Informing the user about changed terms of use.                                         |
+| [Confirm](#confirm-dialog) | An action is required from the user.                                                                               | Confirming that the user wants to continue even though all form fields are not filled. |
+| [Danger](#danger-dialog)   | An action is required from the user while **the action results are destructive**.                                  | Confirming that the user wants to delete a blog post.                                  |
 
 ### Variations
 
 ### Info dialog
+
 Info dialogs are used to convey important information to the user. Info dialogs only include one button which the user can use to acknowledge the information.
 
 ---
