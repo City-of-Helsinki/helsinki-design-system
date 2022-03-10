@@ -45,6 +45,47 @@ You can read more about using Koros in <Link href="https://brand.hel.fi/en/wave-
 </PlaygroundPreview>
 
 #### Angled
+
 Koro shapes can be angled in 45 degree increments. The allowed angle properties are `45deg`, `90deg`, `135deg`, `180deg`, `225deg`, `270deg` and `315deg`. Angles outside of these options should be avoided.
+
+export const AngledVariation = () => {
+  const rootStyle = { '--koros-height': '85px', '--hero-height': '300px', '--hero-width': '100%' };
+  return (
+    <div
+      style={{
+        ...rootStyle,
+        backgroundColor: 'var(--color-silver-light)',
+        height: 'var(--hero-height)',
+        maxWidth: '100%',
+        overflow: 'hidden',
+        position: 'relative',
+        width: 'var(--hero-width)',
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: 'var(--color-coat-of-arms)',
+          clipPath: 'polygon(0 0, var(--hero-height) 0, 0 100%, 0% 100%)',
+          height: '100%',
+        }}
+      />
+      <Koros
+        style={{
+          fill: 'var(--color-coat-of-arms)',
+          left: 'calc(-1 * var(--koros-height))',
+          position: 'absolute',
+          top: 'var(--koros-height)',
+          transformOrigin: 'center',
+          width: 'calc(2 * var(--hero-height))',
+        }}
+        rotate="135deg"
+      />
+    </div>
+  );
+};
+
+<PlaygroundPreview>
+  <AngledVariation />
+</PlaygroundPreview>
 
 export default ({ children }) => <>{children}</>;
