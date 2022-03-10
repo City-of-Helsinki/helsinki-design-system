@@ -11,9 +11,43 @@ import Playground from '../../../../components/Playground';
 ### Customisation properties
 You can use the `theme` property to customise the component. See all available theme variables in the table below.
 
-| Theme variable                           | Description                                             |
-| ---------------------------------------- | ------------------------------------------------------- |
-| `--size`                                 | Size of the checkbox                                    |
+| Theme variable                                   | Description                                         |
+| ------------------------------------------------ | --------------------------------------------------- |
+| `--dropdown-background-default`                  | Background color of dropdown                        |
+| `--dropdown-background-disabled`                 | Background color of disabled dropdown               |
+| `--dropdown-border-color-default`                | Border color of dropdown                            |
+| `--dropdown-border-color-hover`                  | Border color of hovered dropdown                    |
+| `--dropdown-border-color-hover-invalid`          | Border color of hovered and invalid dropdown        |
+| `--dropdown-border-color-focus`                  | Border color of focused dropdown                    |
+| `--dropdown-border-color-invalid`                | Border color of invalid dropdown                    |
+| `--dropdown-border-color-disabled`               | Border color of disabled dropdown                   |
+| `--dropdown-color-default`                       | Dropdown color                                      |
+| `--dropdown-color-disabled`                      | Disabled dropdown color                             |
+| `--focus-outline-color`                          | Focus outline color                                 |
+| `--helper-color-default`                         | Helper text color                                   |
+| `--helper-color-invalid`                         | Helper text color when dropdown state is invalid    |
+| `--menu-divider-color`                           | Menu divider color                                  |
+| `--menu-item-background-default`                 | Background color of menu item                       |
+| `--menu-item-background-hover`                   | Background color of hovered menu item               |
+| `--menu-item-background-selected`                | Background color of selected menu item              |
+| `--menu-item-background-selected-hover`          | Background color of selected and hovered menu item  |
+| `--menu-item-background-disabled`                | Background color of disabled menu item              |
+| `--menu-item-color-default`                      | Color of menu item                                  |
+| `--menu-item-color-hover`                        | Color of hovered menu item                          |
+| `--menu-item-color-selected`                     | Color of selected menu item                         |
+| `--menu-item-color-selected-hover`               | Color of selected and hovered menu item             |
+| `--menu-item-color-disabled`                     | Color of disabled menu item                         |
+| `--menu-item-icon-color-selected`                | Color of selected menu item icon                    |
+| `--menu-item-icon-color-disabled`                | Color of disabled menu item icon                    |
+| `--multiselect-checkbox-background-selected`     | Background color of selected multiselect checkbox   |
+| `--multiselect-checkbox-background-disabled`     | Background color of disabled multiselect checkbox   |
+| `--multiselect-checkbox-border-default`          | Color of multiselect checkbox border                |
+| `--multiselect-checkbox-border-hover`            | Color of hovered multiselect checkbox border        |
+| `--multiselect-checkbox-border-disabled`         | Color of disabled multiselect checkbox border       |
+| `--multiselect-checkbox-color-default`           | Color of multiselect checkbox                       |
+| `--multiselect-checkbox-color-selected`          | Color of selected multiselect checkbox              |
+| `--multiselect-checkbox-color-selected-disabled` | Color of selected and disabled multiselect checkbox |
+| `--placeholder-color`                            | Placeholder color                                   |
 
 
 ### Customisation example
@@ -30,8 +64,45 @@ You can use the `theme` property to customise the component. See all available t
         helper="Assistive text"
         placeholder="Placeholder"
         icon={<IconUser />}
-        options={[{ label: 'Adam' }, { label: 'Caitlyn' }, { label: 'Jack' }, { label: 'Sally' }]}
+        options={options}
         style={{ marginTop: 'var(--spacing-xs)' }}
+        theme={{
+          '--dropdown-background-default': 'var(--color-black-5)',
+          '--dropdown-background-disabled': 'var(--color-black-10)',
+          '--dropdown-border-color-default': 'var(--color-black-50)',
+          '--dropdown-border-color-hover': 'var(--color-black-90)',
+          '--dropdown-border-color-hover-invalid': 'var(--color-error-dark)',
+          '--dropdown-border-color-focus': 'var(--color-black-90)',
+          '--dropdown-border-color-invalid': 'var(--color-error)',
+          '--dropdown-border-color-disabled': 'var(--color-black-10)',
+          '--dropdown-color-default': 'var(--color-black-90)',
+          '--dropdown-color-disabled': 'var(--color-black-40)',
+          '--focus-outline-color': 'var(--color-coat-of-arms)',
+          '--helper-color-default': 'var(--color-black-60)',
+          '--helper-color-invalid': 'var(--color-error)',
+          '--menu-divider-color': 'var(--color-black-20)',
+          '--menu-item-background-default': 'var(--color-white)',
+          '--menu-item-background-hover': 'var(--color-bus)',
+          '--menu-item-background-selected': 'var(--color-white)',
+          '--menu-item-background-selected-hover': 'var(--color-bus)',
+          '--menu-item-background-disabled': 'var(--color-white)',
+          '--menu-item-color-default': 'var(--color-black-90)',
+          '--menu-item-color-hover': 'var(--color-white)',
+          '--menu-item-color-selected': 'var(--color-black-90)',
+          '--menu-item-color-selected-hover': 'var(--color-white)',
+          '--menu-item-color-disabled': 'var(--color-black-40)',
+          '--menu-item-icon-color-selected': 'var(--color-white)',
+          '--menu-item-icon-color-disabled': 'var(--color-black-40)',
+          '--multiselect-checkbox-background-selected': 'var(--color-bus)',
+          '--multiselect-checkbox-background-disabled': 'var(--color-black-10)',
+          '--multiselect-checkbox-border-default': 'var(--color-black-50)',
+          '--multiselect-checkbox-border-hover': 'var(--color-black-90)',
+          '--multiselect-checkbox-border-disabled': 'var(--color-black-10)',
+          '--multiselect-checkbox-color-default': 'transparent',
+          '--multiselect-checkbox-color-selected': 'var(--color-white)',
+          '--multiselect-checkbox-color-selected-disabled': 'var(--color-white)',
+          '--placeholder-color': 'var(--color-black-60)',
+        }}
       />
     </>
   )
