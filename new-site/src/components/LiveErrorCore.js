@@ -15,10 +15,10 @@ const LiveErrorCore = ({code}) => {
 
   useEffect(() => {
     const report = htmlvalidate.validateString(code);
-    if (!report.valid) {
-      setError(report.results[0].messages[0]);
-    } else {
+    if (report.valid) {
       setError(null);
+    } else {
+      setError(report.results[0].messages[0]);
     }
   }, [code])
 
