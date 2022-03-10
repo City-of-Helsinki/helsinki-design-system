@@ -4,6 +4,7 @@ title: 'Checkbox - Usage'
 ---
 
 import { Checkbox } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
 
 ## Usage
 
@@ -19,7 +20,7 @@ export const CheckBoxExample = () => {
   };
   return (
     <>
-      <Checkbox label="Label" id="checkbox" checked={checkedItems['checkbox']} onChange={onChange} />
+      <Checkbox label="Label" id="checkbox-unchecked" checked={checkedItems['checkbox-unchecked']} onChange={onChange} />
       <Checkbox label="Label" id="checkbox-checked" checked={checkedItems['checkbox-checked']} onChange={onChange} />
       <Checkbox
         label="Label"
@@ -39,7 +40,9 @@ export const CheckBoxExample = () => {
   );
 };
 
-<CheckBoxExample />
+<PlaygroundPreview>
+  <CheckBoxExample />
+</PlaygroundPreview>
 
 ## Principles
 
@@ -50,10 +53,6 @@ export const CheckBoxExample = () => {
 - Checkboxes should not have any immediate effects. The checkbox selection takes effect when the user presses a submit button (e.g. in a form). If you need the selection to have an immediate effect, use [HDS Toggle button component](/components/toggle) instead. Also see [guidelines for choosing between radio buttons, checkboxes, and toggles.](/guidelines/checkboxes-radiobuttons-toggles)
 
 ### Variations
-
-### Checkbox with label
-
----
 
 ### Checkbox group
 
