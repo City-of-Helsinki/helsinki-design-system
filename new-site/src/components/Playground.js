@@ -7,6 +7,7 @@ import { Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
 import theme from 'prism-react-renderer/themes/github';
 
 import './Playground.scss';
+import LiveErrorCore from './LiveErrorCore';
 
 const Playground = ({ children }) => {
   if (children) {
@@ -163,7 +164,13 @@ const Editor = ({ onChange, initialCode, code, language }) => {
           Reset example
         </Button>
       </div>
-      <LiveError />
+      {language === 'jsx' &&
+        <LiveError />
+      }
+      {language !== 'jsx' &&
+        <LiveErrorCore code={code} />
+      }
+
     </>
   );
 };
