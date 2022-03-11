@@ -4,9 +4,6 @@
   "description": "React components for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
-  "engines": {
-    "node": ">=12 <15"
-  },
   "main": "./cjs/index.js",
   "module": "./index.js",
   "esnext": "./index.js",
