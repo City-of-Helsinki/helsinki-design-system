@@ -177,7 +177,17 @@ body {
 
 .headerAnchor {
   color: var(--color-black-90);
-  margin-left: 3px;
+  padding-left: 0 !important;
+  margin-left: var(--spacing-2-xs);
+  font-size: 0;
+  vertical-align: middle;
+
+  &:focus {
+    outline: 3px solid var(--color-coat-of-arms);
+    .hdsAnchorIcon {
+      visibility: visible;
+    }
+  }
 }
 
 .hdsAnchorIcon {
