@@ -16,17 +16,44 @@ import LeadParagraph from '../../../../components/LeadParagraph';
 </StatusLabel>
 
 <LeadParagraph>
-  Buttons are meant to make actions easily visible and understandable to the user. HDS offers different kinds of button variations which each suit for different needs.
+  Buttons are meant to make actions easily visible and understandable to the user. HDS offers different kinds of button
+  variations which each suit for different needs.
 </LeadParagraph>
 
+export const TabsElement = ({ initiallyActiveTab, children }) => {
+  const config = [
+    {
+      path: 'usage',
+      label: 'Usage',
+    },
+    {
+      path: 'code',
+      label: 'Code',
+    },
+    {
+      path: 'accessibility',
+      label: 'Accessibility',
+    },
+    {
+      path: 'customisation',
+      label: 'Customisation',
+    },
+  ];
+  const activeIndex = config.findIndex(({ path }) => path === initiallyActiveTab);
+  return (
+    <Tabs initiallyActiveTab={activeIndex}>
+      <Tabs.TabList className="pageTabsList">
+        {config.map(({ path, label }) => (
+          <Tabs.Tab onClick={() => navigate(`/elements/components/buttons/${path}`)}>{label}</Tabs.Tab>
+        ))}
+      </Tabs.TabList>
+      {config.map(({ path, label }, index) => (
+        <Tabs.TabPanel>{index === activeIndex ? children : label}</Tabs.TabPanel>
+      ))}
+    </Tabs>
+  );
+};
 
-<Tabs initiallyActiveTab={() => ['usage', 'code', 'accessibility', 'customisation'].indexOf(props.initiallyActiveTab)}>
-  <Tabs.TabList className="pageTabsList">
-    <Tabs.Tab onClick={() => navigate(`/elements/components/buttons/usage`)}>Usage</Tabs.Tab>
-    <Tabs.Tab onClick={() => navigate(`/elements/components/buttons/code`)}>Code</Tabs.Tab>
-    <Tabs.Tab onClick={() => navigate(`/elements/components/buttons/accessibility`)}>Accessibility</Tabs.Tab>
-    <Tabs.Tab onClick={() => navigate(`/elements/components/buttons/customisation`)}>Customisation</Tabs.Tab>
-  </Tabs.TabList>
-</Tabs>
+<TabsElement initiallyActiveTab={props.initiallyActiveTab}>{props.children}</TabsElement>
 
 export default ({ children }) => <>{children}</>;

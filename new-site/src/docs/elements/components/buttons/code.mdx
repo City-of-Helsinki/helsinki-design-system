@@ -4,10 +4,15 @@ title: 'Button code'
 ---
 
 import { Button, IconTrash, IconAngleRight, Link, Notification, IconShare } from 'hds-react';
+import Layout from '../../../../components/layout';
 import Playground from '../../../../components/Playground';
 import TabsLayout from './index.mdx';
 
-<TabsLayout initiallyActiveTab="code" />
+export default ({ children, pageContext }) => (
+  <Layout pageContext={pageContext}>
+    <TabsLayout initiallyActiveTab="accessibility">{children}</TabsLayout>
+  </Layout>
+);
 
 ## Code
 
