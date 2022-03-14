@@ -4,18 +4,12 @@ title: 'Button code'
 ---
 
 import { Button, IconTrash, IconAngleRight, Link, Notification, IconShare } from 'hds-react';
-import PropertyTable from './components/properties';
-import PackageTable from './components/packages';
-import Playground from '../../../../../components/Playground';
-import TabsLayout from '../index.mdx';
+import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
 
 <TabsLayout initiallyActiveTab="code" />
 
 ## Code
-
-### Packages
-
-<PackageTable />
 
 ### Code examples
 
@@ -231,7 +225,21 @@ import TabsLayout from '../index.mdx';
 
 </Playground>
 
+### Packages
+| Package           | Included                      | Storybook link                                                                                                                      | Source link   |
+| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-button--primary">View in Storybook</Link>  | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/button">View source</Link> |
+| **HDS Core**      | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/core/?path=/story/components-button--primary">View in Storybook</Link>  | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/button">View source</Link> |
 
-<PropertyTable />
+### Properties
+Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/docs/components-button--primary" external>React Storybook.</Link>
 
-Note! You can find the full list of properties in the <Link size="M" href="https://hds.hel.fi/storybook/react/?path=/docs/components-button--primary" external>React Storybook.</Link>
+| Property      | Description                                                       | Values                                                             | Default value |
+| ------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------ | ------------- |
+| `variant`     | Variant of the button.                                            | `"primary"` `"secondary"` `"supplementary"` `"success"` `"danger"` | `"primary"`   |
+| `size`        | Size of the button.                                               | `"default"` `"small"`                                              | `"default"`   |
+| `iconLeft`    | Icon placed on the left side of the button label.                 | `ReactNode`                                                        | -             |
+| `iconRight`   | Icon placed on the right side of the button label.                | `ReactNode`                                                        | -             |
+| `fullWidth`   | If set to true, the button will take full width of its container. | `boolean`                                                          | false         |
+| `isLoading`   | If set to true, a loading spinner is displayed inside the button. | `boolean`                                                          | false         |
+| `loadingText` | Visible loading text to be shown next to the loading spinner.     | `string`                                                           | -             |
