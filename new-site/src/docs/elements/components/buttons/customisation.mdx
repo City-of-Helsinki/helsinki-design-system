@@ -5,10 +5,16 @@ title: 'Button customisation'
 
 import { Button, IconArrowRight } from 'hds-react';
 
+import Layout from '../../../../components/layout';
 import Playground from '../../../../components/Playground';
 import TabsLayout from './index.mdx';
 
-<TabsLayout initiallyActiveTab="customisation" />
+export default ({ children, pageContext }) => (
+  <Layout pageContext={pageContext}>
+    <TabsLayout initiallyActiveTab="customisation">{children}</TabsLayout>
+  </Layout>
+);
+
 
 ## Customisation
 

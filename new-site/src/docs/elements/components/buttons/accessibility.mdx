@@ -5,9 +5,14 @@ title: 'Button accessibility'
 
 import { Link } from 'hds-react';
 
+import Layout from '../../../../components/layout';
 import TabsLayout from './index.mdx';
 
-<TabsLayout initiallyActiveTab="accessibility" />
+export default ({ children, pageContext }) => (
+  <Layout pageContext={pageContext}>
+    <TabsLayout initiallyActiveTab="accessibility">{children}</TabsLayout>
+  </Layout>
+);
 
 ## Accessibility
 
