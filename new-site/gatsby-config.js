@@ -51,7 +51,21 @@ module.exports = {
       {
         name: 'About',
         link: '/about',
-        subMenuLinks: [],
+        subMenuLinks: [
+          {
+            name: 'Overview',
+            link: '/about',
+          },
+          {
+            name: 'Support',
+            link: '/about/support',
+            withDivider: true,
+          },
+          {
+            name: 'Contributing',
+            link: '/about/contributing',
+          },
+        ],
       },
     ],
     footerTitle: 'Helsinki Design System',
