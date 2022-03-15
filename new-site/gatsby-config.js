@@ -65,6 +65,15 @@ module.exports = {
             name: 'Contributing',
             link: '/about/contributing',
           },
+          {
+            name: 'What is new',
+            link: '/about/what-is-new',
+            withDivider: true,
+          },
+          {
+            name: 'Roadmap',
+            link: '/about/roadmap',
+          },
         ],
       },
     ],
