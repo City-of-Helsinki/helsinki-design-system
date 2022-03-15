@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { navigate } from 'gatsby';
 import { Tabs } from 'hds-react';
 
+import './PageTabs.scss';
+
 const resolvePathFromSlug = (slug) => {
   const parts = slug
     .trim()
