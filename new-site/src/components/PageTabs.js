@@ -45,11 +45,7 @@ PageTabs.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const TabList = ({ children }) => {
-  console.log(children);
-
-  return <Tabs.TabList className="pageTabsList">{children}</Tabs.TabList>;
-};
+const TabList = ({ children }) => <Tabs.TabList className="pageTabsList">{children}</Tabs.TabList>;
 
 TabList.componentName = 'PageTabList';
 
