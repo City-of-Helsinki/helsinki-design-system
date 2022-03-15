@@ -3,10 +3,11 @@ slug: '/elements/components/buttons'
 title: 'Button'
 ---
 
-import { StatusLabel, Tabs } from 'hds-react';
-import { navigate } from 'gatsby';
+import { StatusLabel } from 'hds-react';
 
 import LeadParagraph from '../../../../components/LeadParagraph';
+import Layout from '../../../../components/layout'
+import PageTabs from '../../../../components/PageTabs';
 
 # Button
 
@@ -20,40 +21,14 @@ import LeadParagraph from '../../../../components/LeadParagraph';
   variations which each suit for different needs.
 </LeadParagraph>
 
-export const TabsElement = ({ initiallyActiveTab, children }) => {
-  const config = [
-    {
-      path: 'usage',
-      label: 'Usage',
-    },
-    {
-      path: 'code',
-      label: 'Code',
-    },
-    {
-      path: 'accessibility',
-      label: 'Accessibility',
-    },
-    {
-      path: 'customisation',
-      label: 'Customisation',
-    },
-  ];
-  const activeIndex = config.findIndex(({ path }) => path === initiallyActiveTab);
-  return (
-    <Tabs initiallyActiveTab={activeIndex}>
-      <Tabs.TabList className="pageTabsList">
-        {config.map(({ path, label }) => (
-          <Tabs.Tab onClick={() => navigate(`/elements/components/buttons/${path}`)}>{label}</Tabs.Tab>
-        ))}
-      </Tabs.TabList>
-      {config.map(({ path, label }, index) => (
-        <Tabs.TabPanel>{index === activeIndex ? children : label}</Tabs.TabPanel>
-      ))}
-    </Tabs>
-  );
-};
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/usage">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+    <PageTabs.Tab href="/customisation">Customisation</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>
 
-<TabsElement initiallyActiveTab={props.initiallyActiveTab}>{props.children}</TabsElement>
-
-export default ({ children }) => <>{children}</>;
+export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;
