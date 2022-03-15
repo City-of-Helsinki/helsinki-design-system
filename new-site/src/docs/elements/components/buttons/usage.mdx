@@ -5,15 +5,10 @@ title: 'Button usage'
 
 import { Accordion, Button, IconAngleRight, IconShare, IconTrash } from 'hds-react';
 
-import Layout from '../../../../components/layout';
 import PlaygroundPreview from '../../../../components/Playground';
 import TabsLayout from './index.mdx';
 
-export default ({ children, pageContext }) => (
-  <Layout pageContext={pageContext}>
-    <TabsLayout initiallyActiveTab="usage">{children}</TabsLayout>
-  </Layout>
-);
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
