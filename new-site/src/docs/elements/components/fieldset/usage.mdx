@@ -4,23 +4,28 @@ title: 'Fieldset - Usage'
 ---
 
 import { Fieldset, TextInput } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
 
 ## Usage
 
 ### Example
-<Fieldset heading="Applicant information" style={{ maxWidth: '400px' }}>
-  <TextInput id="first-name" name="first-name" label="First name" />
-  <TextInput id="last-name" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
-  <TextInput
-    id="social-security-number"
-    name="social-security-number"
-    label="Social security number"
-    placeholder="Eg. 111299-1234"
-    style={{ marginTop: '12px' }}
-  />
-</Fieldset>
+
+<PlaygroundPreview>
+  <Fieldset heading="Applicant information" style={{ maxWidth: '400px' }}>
+    <TextInput id="first-name" name="first-name" label="First name" />
+    <TextInput id="last-name" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
+    <TextInput
+      id="social-security-number"
+      name="social-security-number"
+      label="Social security number"
+      placeholder="Eg. 111299-1234"
+      style={{ marginTop: '12px' }}
+    />
+  </Fieldset>
+</PlaygroundPreview>
 
 ### Principles
+
 - The Fieldset component should only contain form elements such as input fields and form controls. See [HDS Form pattern documentation](/patterns/forms) for more information about available form elements.
   - It is recommended that Fieldsets always contain at least two (2) form elements.
 - As a rule of thumb, if a group of form elements require a heading, the usage of a Fieldset is recommended.
@@ -34,37 +39,41 @@ import { Fieldset, TextInput } from 'hds-react';
 ### Variations
 
 ### Default
+
 The default HDS Fieldset is a visually light since it omits the borders that are present in the default HTML fieldset. It is well suited for forms with a relatively low amount of fields where input groups are easily perceivable even without Fieldset borders.
 
-<Fieldset heading="Applicant information" style={{ maxWidth: '400px' }}>
-  <TextInput id="first-name" name="first-name" label="First name" />
-  <TextInput id="last-name" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
-  <TextInput
-    id="social-security-number"
-    name="social-security-number"
-    label="Social security number"
-    placeholder="Eg. 111299-1234"
-    style={{ marginTop: '12px' }}
-  />
-</Fieldset>
-
----
+<PlaygroundPreview>
+  <Fieldset heading="Applicant information" style={{ maxWidth: '400px' }}>
+    <TextInput id="first-name" name="first-name" label="First name" />
+    <TextInput id="last-name" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
+    <TextInput
+      id="social-security-number"
+      name="social-security-number"
+      label="Social security number"
+      placeholder="Eg. 111299-1234"
+      style={{ marginTop: '12px' }}
+    />
+  </Fieldset>
+</PlaygroundPreview>
 
 ### With border
+
 This Fieldset variant includes visual borders that are often present in the default HTML fieldsets. The borders help to distinguish groups from each other and they are useful when the form contains a large amount of form elements.
 
 Border variant is also useful when the form contains multiple form elements with a same label. For example, when the same contact information is asked for multiple different people in the same form.
 
-<Fieldset heading="Applicant information" border style={{ maxWidth: '400px' }}>
-  <TextInput id="first-name" name="first-name" label="First name" />
-  <TextInput id="last-name" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
-  <TextInput
-    id="social-security-number"
-    name="social-security-number"
-    label="Social security number"
-    placeholder="Eg. 111299-1234"
-    style={{ marginTop: '12px' }}
-  />
-</Fieldset>
+<PlaygroundPreview>
+  <Fieldset heading="Applicant information" border style={{ maxWidth: '400px' }}>
+    <TextInput id="first-name" name="first-name" label="First name" />
+    <TextInput id="last-name" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
+    <TextInput
+      id="social-security-number"
+      name="social-security-number"
+      label="Social security number"
+      placeholder="Eg. 111299-1234"
+      style={{ marginTop: '12px' }}
+    />
+  </Fieldset>
+</PlaygroundPreview>
 
 export default ({ children }) => <>{children}</>;

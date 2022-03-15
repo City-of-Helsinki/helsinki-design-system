@@ -3,17 +3,21 @@ slug: '/elements/components/icon/code'
 title: 'Icon - Usage'
 ---
 
-import { Link } from 'hds-react';
-import { IconFaceSmile } from 'hds-react';
+import { IconFaceSmile, Link } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
 
 ## Usage
 
 ### Example
-<IconFaceSmile aria-hidden="true" />
+
+<PlaygroundPreview>
+  <IconFaceSmile aria-hidden="true" />
+</PlaygroundPreview>
 
 See the <Link size="M" href="visual-assets/icons">the icon library</Link> to browse a full list of HDS icons.
 
 ## Principles
+
 - **An icon should always serve a distinct, easily understandable purpose.** Icons should not be used solely for decoration.
 - **An icon should preferably be accompanied with a text label to give context for interpretation.** The meaning of icons by them self can be ambiguous and change depending on the context. Label can be omitted only if the meaning of the icon is commonly established, or can be easily interpreted from the context, e.g. volume buttons in video playback.
 - **An icon and its related content or label should have the same meaning.** Conflicting and ambivalent interpretations can have a negative effect on usability and accessibility.
@@ -22,17 +26,18 @@ See the <Link size="M" href="visual-assets/icons">the icon library</Link> to bro
 
 ### Default
 
-<IconFaceSmile aria-hidden="true" />
-
----
+<PlaygroundPreview>
+  <IconFaceSmile aria-hidden="true" />
+</PlaygroundPreview>
 
 ### Icon sizes
-<>
-<IconFaceSmile size="xs" aria-hidden="true" />
-<IconFaceSmile size="s" aria-hidden="true" />
-<IconFaceSmile size="m" aria-hidden="true" />
-<IconFaceSmile size="l" aria-hidden="true" />
-<IconFaceSmile size="xl" aria-hidden="true" />
-</>
+
+<PlaygroundPreview>
+  <IconFaceSmile size="xs" aria-hidden="true" />
+  <IconFaceSmile size="s" aria-hidden="true" />
+  <IconFaceSmile size="m" aria-hidden="true" />
+  <IconFaceSmile size="l" aria-hidden="true" />
+  <IconFaceSmile size="xl" aria-hidden="true" />
+</PlaygroundPreview>
 
 export default ({ children }) => <>{children}</>;

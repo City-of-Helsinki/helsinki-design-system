@@ -4,6 +4,7 @@ title: 'FileInput - Usage'
 ---
 
 import { FileInput } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
 
 ## Usage
 
@@ -24,8 +25,9 @@ export const FileInputExample = () => {
   );
 };
 
-<FileInputExample />
-
+<PlaygroundPreview>
+  <FileInputExample />
+</PlaygroundPreview>
 
 ### Principles
 
@@ -47,10 +49,47 @@ export const FileInputExample = () => {
 
 In its default form, the HDS FileInput offers a button-like element that opens a file browser native to the user's current device. Selected files are presented in a list below the input and files can be removed from the listing separately.
 
----
+export const FileInputDefault = () => {
+  const [file, setFile] = React.useState([]);
+  console.log('selected file', file);
+  return (
+    <FileInput
+      id="file-input-default"
+      label="Choose a file"
+      language="en"
+      maxSize={1.5 * 1024 * 1024}
+      accept=".png,.jpg"
+      onChange={setFile}
+    />
+  );
+};
+
+<PlaygroundPreview>
+  <FileInputDefault />
+</PlaygroundPreview>
 
 ### With drag and drop
 
 If in some cases having the ability to drag and drop files onto the page could help the user, this can be enabled with the `dragAndDrop` property. Note that the traditional file input is still included below the drag and drop area. Therefore this property does not weaken the accessibility of the component.
+
+export const FileInputDragAndDrop = () => {
+  const [files, setFiles] = React.useState([]);
+  console.log('selected files', files);
+  return (
+    <FileInput
+      multiple
+      dragAndDrop
+      id="file-input-drag-and-drop"
+      label="Drag and drop files here"
+      language="en"
+      accept=".png,.jpg"
+      onChange={setFiles}
+    />
+  );
+};
+
+<PlaygroundPreview>
+  <FileInputDragAndDrop />
+</PlaygroundPreview>
 
 export default ({ children }) => <>{children}</>;
