@@ -91,7 +91,7 @@ module.exports = {
     footerCopyrightLinks: [
       {
         name: 'Accessibility',
-        link: '/',
+        link: '/about/accessibility',
       },
       {
         name: 'GitHub',
