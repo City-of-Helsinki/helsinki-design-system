@@ -22,7 +22,7 @@ const PageTabs = ({ pageContext, children }) => {
 
   return (
     <Tabs initiallyActiveTab={activeIndex}>
-      <Tabs.TabList>
+      <Tabs.TabList className="pageTabsList">
         {tabs.map((tab) => (
           <Tabs.Tab key={tab.props.href} onClick={() => navigate(`/${basePath}${tab.props.href}`)}>
             {tab.props.children}
