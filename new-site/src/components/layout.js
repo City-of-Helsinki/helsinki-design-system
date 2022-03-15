@@ -210,7 +210,7 @@ const Layout = ({ children, pageContext }) => {
                           key={uiId}
                           href={prefixedLink}
                           label={title}
-                          active={pageSlugWithPrefix === prefixedLink}
+                          active={pageSlugWithPrefix.startsWith(prefixedLink)}
                           onClick={(e) => {
                             e.preventDefault();
                             if (slug.includes('components')) {
