@@ -66,6 +66,10 @@ module.exports = {
             link: '/about/contributing',
           },
           {
+            name: 'Accessibility',
+            link: '/about/accessibility',
+          },
+          {
             name: 'What is new',
             link: '/about/what-is-new',
             withDivider: true,
