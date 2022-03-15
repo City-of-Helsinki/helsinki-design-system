@@ -74,6 +74,11 @@ module.exports = {
             name: 'Roadmap',
             link: '/about/roadmap',
           },
+          {
+            name: 'Resources',
+            link: '/about/resources',
+            withDivider: true,
+          },
         ],
       },
     ],
@@ -81,7 +86,11 @@ module.exports = {
     footerAriaLabel: 'HDS footer',
     footerCopyrightLinks: [
       {
-        name: 'Github',
+        name: 'Accessibility',
+        link: '/',
+      },
+      {
+        name: 'GitHub',
         link: 'https://github.com/City-of-Helsinki/helsinki-design-system',
       },
     ],
