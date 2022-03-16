@@ -13,12 +13,16 @@ const resolvePathFromSlug = (slug) => {
   return parts.slice(0, -1).join('/');
 };
 
+const pageTabListComponentName = 'PageTabList';
+const pageTabPanelComponentName = 'PageTabPanel';
+const pageTabComponentName = 'PageTab';
+
 const PageTabs = ({ pageContext, children }) => {
   const slug = pageContext.frontmatter.slug;
   const mdxChildren = React.Children.toArray(children);
-  const tabList = mdxChildren.find((reactChild) => reactChild.type.componentName === 'PageTabList');
-  const tabPanel = mdxChildren.find((reactChild) => reactChild.type.componentName === 'PageTabPanel');
-  const tabs = tabList.props?.children.filter((reactChild) => reactChild.type.componentName === 'PageTab');
+  const tabList = mdxChildren.find((reactChild) => reactChild.type.componentName === pageTabListComponentName);
+  const tabPanel = mdxChildren.find((reactChild) => reactChild.type.componentName === pageTabPanelComponentName);
+  const tabs = tabList.props?.children.filter((reactChild) => reactChild.type.componentName === pageTabComponentName);
   const activeIndex = tabs.findIndex((tab) => slug.endsWith(tab.props.href));
   const basePath = resolvePathFromSlug(slug);
 
@@ -49,19 +53,19 @@ PageTabs.propTypes = {
 
 // TabList, Tab, and TabPanel are placeholder elements to be replaced with HDS Tab components after resolving suitable properties, etc.
 const TabList = ({ children }) => <Tabs.TabList>{children}</Tabs.TabList>;
-TabList.componentName = 'PageTabList';
+TabList.componentName = pageTabListComponentName;
 TabList.propTypes = {
   children: PropTypes.node.isRequired,
 };
 const Tab = ({ href, slug, children }) => <Tabs.Tab>{children}</Tabs.Tab>;
-Tab.componentName = 'PageTab';
+Tab.componentName = pageTabComponentName;
 Tab.propTypes = {
   slug: PropTypes.string,
   href: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 const TabPanel = ({ children }) => <Tabs.TabPanel>{children}</Tabs.TabPanel>;
-TabPanel.componentName = 'PageTabPanel';
+TabPanel.componentName = pageTabPanelComponentName;
 TabPanel.propTypes = {
   children: PropTypes.node.isRequired,
 };
