@@ -3,13 +3,15 @@ slug: '/elements/components/notification/code'
 title: 'Notification - Usage'
 ---
 
-import { Notification } from 'hds-react';
-import { Link } from 'hds-react';
+import { Notification, Button, Link } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
 
 ## Usage
 
 ### Example
-<Notification label="New messages">You have received new messages.</Notification>
+<PlaygroundPreview>
+  <Notification label="New messages">You have received new messages.</Notification>
+</PlaygroundPreview>
 
 ### Principles
 - Notifications are designed to capture users' attention. **Therefore, they should be used sparingly only for important information or updates.**
@@ -32,28 +34,55 @@ Inline notifications are used as part of the content. They closely relate to the
 
 Note! Inline notifications should not be added to the page dynamically. For this use case, use [Toast notifications](#toast).
 
-<>
-<Notification label="New messages">You have received new messages.</Notification>
-<Notification label="Form done" type="success" style={{marginTop: 'var(--spacing-s)'}}>Form submit was successful!</Notification>
-<Notification label="Slow loading" type="alert" style={{marginTop: 'var(--spacing-s)'}}>Loading is taking longer than expected.</Notification>
-<Notification label="Missing information" type="error" style={{marginTop: 'var(--spacing-s)'}}>Form is missing critical information.</Notification>
-</>
+<PlaygroundPreview>
+  <Notification label="New messages">You have received new messages.</Notification>
+  <Notification label="Form done" type="success" style={{marginTop: 'var(--spacing-s)'}}>Form submit was successful!</Notification>
+  <Notification label="Slow loading" type="alert" style={{marginTop: 'var(--spacing-s)'}}>Loading is taking longer than expected.</Notification>
+  <Notification label="Missing information" type="error" style={{marginTop: 'var(--spacing-s)'}}>Form is missing critical information.</Notification>
+</PlaygroundPreview>
 
 #### Toast
 Toasts notifications provide lightweight feedback for changes in system status such as successful saving or Internet disconnection. Toasts appear on top of the content (usually top right or bottom center). Be wary using automatically disappearing toasts for critical information such as errors. It is also a good practise to make notifications accessible elsewhere in case the user misses them before they disappear.
 
+export const ToastExample = () => {
+  const [open, setOpen] = React.useState(false)
+  const [autoCloseOpen, setAutoCloseOpen] = React.useState(false)
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Show toast</Button>
+      <Button onClick={() => setAutoCloseOpen(true)} style={{ display: "flex", marginTop: "var(--spacing-s)" }}>Show automatically disappearing toast</Button>
+      {open && (
+        <Notification label="New messages" position="top-right" dismissible closeButtonLabelText="Close toast" onClose={() => setOpen(false)} style={{ zIndex: 100 }}>
+          You have received new messages.
+        </Notification>
+      )}
+      {autoCloseOpen && (
+        <Notification label="New messages" position="top-right" dismissible autoClose closeButtonLabelText="Close toast" onClose={() => setAutoCloseOpen(false)} style={{ zIndex: 100 }}>
+          You have received new messages.
+        </Notification>
+      )}
+    </>
+  );
+};
+
+<PlaygroundPreview>
+  <ToastExample />
+</PlaygroundPreview>
+
 #### Notification sizes
 HDS Navigation component supports many commonly used features out of the box. The main navigation bar can be configured to include search, language selection and user profile actions. You may also easily customize the action row with your own actions.
 
-<>
-<Notification size="large" label="New messages">You have received new messages.</Notification>
-<Notification size="default" label="New messages" style={{marginTop: 'var(--spacing-s)'}}>You have received new messages.</Notification>
-<Notification size="small" label="New messages" style={{marginTop: 'var(--spacing-s)'}}>You have received new messages.</Notification>
-</>
+<PlaygroundPreview>
+  <Notification size="large" label="New messages">You have received new messages.</Notification>
+  <Notification size="default" label="New messages" style={{marginTop: 'var(--spacing-s)'}}>You have received new messages.</Notification>
+  <Notification size="small" label="New messages" style={{marginTop: 'var(--spacing-s)'}}>You have received new messages.</Notification>
+</PlaygroundPreview>
 
 #### Invisible
 Invisible notifications do not show up on screen and they are meant to aid screen reader users. Some updates to system status may be apparent to regular users through animations etc. However, screen readers can easily ignore this type of feedback. Invisible notifications are not visible to regular users but screen readers detect them. Use them to improve user experience for screen reader users.
 
-<Notification label="New messages" invisible>You have received new messages. This notification is invisible.</Notification>
+<PlaygroundPreview>
+  <Notification label="New messages" invisible>You have received new messages. This notification is invisible.</Notification>
+</PlaygroundPreview>
 
 export default ({ children }) => <>{children}</>;
