@@ -47,28 +47,21 @@ PageTabs.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const TabList = ({ children }) => <Tabs.TabList className="pageTabsList">{children}</Tabs.TabList>;
-
+// TabList, Tab, and TabPanel are placeholder elements to be replaced with HDS Tab components after resolving suitable properties, etc.
+const TabList = ({ children }) => <Tabs.TabList>{children}</Tabs.TabList>;
 TabList.componentName = 'PageTabList';
-
 TabList.propTypes = {
   children: PropTypes.node.isRequired,
 };
-
 const Tab = ({ href, slug, children }) => <Tabs.Tab>{children}</Tabs.Tab>;
-
 Tab.componentName = 'PageTab';
-
 Tab.propTypes = {
   slug: PropTypes.string,
   href: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
-
 const TabPanel = ({ children }) => <Tabs.TabPanel>{children}</Tabs.TabPanel>;
-
 TabPanel.componentName = 'PageTabPanel';
-
 TabPanel.propTypes = {
   children: PropTypes.node.isRequired,
 };
