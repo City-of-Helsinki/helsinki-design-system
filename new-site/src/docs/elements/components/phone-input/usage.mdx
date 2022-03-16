@@ -3,18 +3,20 @@ slug: '/elements/components/phone-input/code'
 title: 'PhoneInput - Usage'
 ---
 
-import { PhoneInput } from 'hds-react';
-import { Link } from 'hds-react';
+import { PhoneInput, Combobox, Link } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
 
 ## Usage
 
 ### Example
-<PhoneInput
-   defaultValue="0451234567"
-   helperText="Assistive text"
-   label="Phone number"
-   style={{ maxWidth: '320px' }}
-/>
+<PlaygroundPreview>
+  <PhoneInput
+    defaultValue="0451234567"
+    helperText="Assistive text"
+    label="Phone number"
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
 
 ### Principles
 - **A label should always be provided with a phone number input.**
@@ -32,16 +34,52 @@ A default variant of the phone number input.
 
 Note! A default value is used here for demonstration purposes. It should not be used unless the input can be automatically filled for the user.
 
-<PhoneInput
-   defaultValue="0451234567"
-   helperText="Assistive text"
-   label="Phone number"
-   style={{ maxWidth: '320px' }}
-/>
+<PlaygroundPreview>
+  <PhoneInput
+    defaultValue="0451234567"
+    helperText="Assistive text"
+    label="Phone number"
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
 
 #### With a country code selection
 If a country code is a required input (or otherwise critical), it should be asked in a separate input using [HDS Combobox](/components/dropdown#combobox-single-selection). 
 
 These two input are linked together using a fieldset title and `aria-desribedby` attribute. This way is is clear for screen readers which phone number these two inputs relate to.
+
+export const CountryCodeExample = () => {
+  const options = [{ label: 'Finland (+358)' }, { label: 'UK (+46)' }];
+  return (
+    <>
+      <p id="work-phone" style={{ fontSize: '18px', fontWeight: 'bold' }}>
+        Work phone
+      </p>
+      <div style={{ display: 'grid', gridTemplateColumns: '200px 300px', columnGap: '16px' }}>
+        <Combobox
+          id="combobox1"
+          label="Country code"
+          helper="Assistive text"
+          aria-describedby="work-phone"
+          options={options}
+          defaultValue={{ label: 'Finland (+358)' }}
+          required
+          toggleButtonAriaLabel="Choose country code"
+        />
+        <PhoneInput
+          id="input2"
+          defaultValue="0451234567"
+          aria-describedby="work-phone"
+          label="Phone number"
+          required={true}
+        />
+      </div>
+    </>
+  );
+};
+
+<PlaygroundPreview>
+  <CountryCodeExample />
+</PlaygroundPreview>
 
 export default ({ children }) => <>{children}</>;
