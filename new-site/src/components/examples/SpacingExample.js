@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 const SpacingExample = ({ size, style = {} }) => (
   <span
+    aria-label="Visualized example"
+    role="img"
     style={{
       backgroundColor: 'var(--color-black-50)',
       display: 'block',
