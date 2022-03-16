@@ -28,16 +28,16 @@ import Playground from '../../../../components/Playground';
   <span class="hds-status-label">
     Neutral
   </span>
-  <span class="hds-status-label hds-status-label--info" style={{marginLeft: 'var(--spacing-s)'}}>
+  <span class="hds-status-label hds-status-label--info">
     Info
   </span>
-  <span class="hds-status-label hds-status-label--success" style={{marginLeft: 'var(--spacing-s)'}}>
+  <span class="hds-status-label hds-status-label--success">
     Success
   </span>
-  <span class="hds-status-label hds-status-label--alert" style={{marginLeft: 'var(--spacing-s)'}}>
+  <span class="hds-status-label hds-status-label--alert">
     Alert
   </span>
-  <span class="hds-status-label hds-status-label--error" style={{marginLeft: 'var(--spacing-s)'}}>
+  <span class="hds-status-label hds-status-label--error">
     Error
   </span>
 </div>
@@ -50,7 +50,7 @@ import Playground from '../../../../components/Playground';
 
 
 ```jsx
-<div id="labels-with-icon" style={{marginTop: 'var(--spacing-s)'}}>
+<div id="labels-with-icon">
   <StatusLabel iconLeft={<IconInfoCircle />}>Neutral</StatusLabel>
   <StatusLabel type="info" iconLeft={<IconInfoCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Info</StatusLabel>
   <StatusLabel type="success" iconLeft={<IconCheckCircle />} style={{marginLeft: 'var(--spacing-s)'}}>Success</StatusLabel>
@@ -63,21 +63,21 @@ import Playground from '../../../../components/Playground';
 <div id="labels-with-icon">
   <span class='hds-status-label hds-status-label--with-icon'>
     <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--info-circle'></span>
-    Default
+    Neutral
   </span>
-  <span class="hds-status-label hds-status-label--with-icon hds-status-label--info" style={{marginLeft: 'var(--spacing-s)'}}>
+  <span class='hds-status-label hds-status-label--with-icon hds-status-label--info'>
   <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--info-circle'></span>
     Info
   </span>
-  <span class='hds-status-label hds-status-label--with-icon hds-status-label--success' style={{marginLeft: 'var(--spacing-s)'}}>
+  <span class='hds-status-label hds-status-label--with-icon hds-status-label--success'>
     <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--check-circle'></span>
     Success
   </span>
-  <span class='hds-status-label hds-status-label--with-icon hds-status-label--alert' style={{marginLeft: 'var(--spacing-s)'}}>
+  <span class='hds-status-label hds-status-label--with-icon hds-status-label--alert'>
     <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--alert-circle'></span>
     Alert
   </span>
-  <span class='hds-status-label hds-status-label--with-icon hds-status-label--error' style={{marginLeft: 'var(--spacing-s)'}}>
+  <span class='hds-status-label hds-status-label--with-icon hds-status-label--error'>
     <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--error'></span>
     Error
   </span>
