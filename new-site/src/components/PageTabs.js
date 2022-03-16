@@ -20,7 +20,7 @@ const PageTabs = ({ pageContext, children }) => {
   const tabPanel = mdxChildren.find((reactChild) => reactChild.type.componentName === 'PageTabPanel');
   const tabs = tabList.props?.children.filter((reactChild) => reactChild.type.componentName === 'PageTab');
   const activeIndex = tabs.findIndex((tab) => slug.endsWith(tab.props.href));
-  const basePath = resolvePathFromSlug(slug, activeIndex === 0);
+  const basePath = resolvePathFromSlug(slug);
 
   return (
     <Tabs initiallyActiveTab={activeIndex}>
@@ -55,7 +55,7 @@ TabList.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const Tab = ({ href, slug, children }) => <Tabs.Tab onClick={() => navigate(slug)}>{children}</Tabs.Tab>;
+const Tab = ({ href, slug, children }) => <Tabs.Tab>{children}</Tabs.Tab>;
 
 Tab.componentName = 'PageTab';
 
