@@ -4,18 +4,21 @@ title: 'TextInput - Usage'
 ---
 
 import { Link, TextInput } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
 
 ## Usage
 
 ### Example
-<TextInput
-  id="input"
-  label="Label"
-  placeholder="Placeholder"
-  helperText="Assistive text"
-  required
-  style={{ maxWidth: '320px' }}
-/>
+<PlaygroundPreview>
+  <TextInput
+    id="input"
+    label="Label"
+    placeholder="Placeholder"
+    helperText="Assistive text"
+    required
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
 
 ### Principles
 - **A label should always be provided with a text field.**
@@ -31,41 +34,43 @@ import { Link, TextInput } from 'hds-react';
 #### Default
 A text input serves in most use cases when the user needs to enter information. Text input works well for short inputs that fit in one line and are not longer than one sentence.
 
-<TextInput
-  id="input"
-  label="Label"
-  placeholder="Placeholder"
-  helperText="Assistive text"
-  required
-  style={{ maxWidth: '320px' }}
-/>
-
----
+<PlaygroundPreview>
+  <TextInput
+    id="input"
+    label="Label"
+    placeholder="Placeholder"
+    helperText="Assistive text"
+    required
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
 
 #### Read-only
 Read-only text input is used to indicate an input among other inputs that cannot be edited. This is needed in situations where, for example, the information has been gathered from other source and filled automatically. Read-only fields should not be confused with disabled text fields. Disabled text fields are used when there is an action the user can make to activate the field. Read-only text fields will stay uneditable in the same view.
 
-<TextInput
-  label="Label"
-  defaultValue="Read-only value"  
-  helperText="Assistive text"
-  readOnly
-  style={{ maxWidth: '320px' }}
-/>
+<PlaygroundPreview>
+  <TextInput
+    label="Label"
+    defaultValue="Read-only value"  
+    helperText="Assistive text"
+    readOnly
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
 
----
- 
 #### With tooltip
 A text input can be provided with additional tooltip. Tooltip information should be considered as extra information, for example, why this information is gathered or how is it used. The user should have sufficient information on how to fill the input field in label and assistive text. You can find more information about Tooltips how they are used from the [Tooltip documentation page](/elements/components/tooltip).
 
-<TextInput
-  id="input-tooltip"
-  label="Label"
-  placeholder="Placeholder"
-  tooltipLabel="Tooltip label"
-  tooltipButtonLabel="Tooltip button label"
-  tooltipText="Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
-  style={{ maxWidth: '320px' }}
-/>
+<PlaygroundPreview>
+  <TextInput
+    id="input-tooltip"
+    label="Label"
+    placeholder="Placeholder"
+    tooltipLabel="Tooltip label"
+    tooltipButtonLabel="Tooltip button label"
+    tooltipText="Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
 
 export default ({ children }) => <>{children}</>;

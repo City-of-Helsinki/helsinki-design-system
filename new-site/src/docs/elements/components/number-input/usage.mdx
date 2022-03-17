@@ -3,19 +3,21 @@ slug: '/elements/components/number-input/code'
 title: 'NumberInput - Usage'
 ---
 
-import { NumberInput } from 'hds-react';
-import { Link } from 'hds-react';
+import { NumberInput, Link } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
 
 ## Usage
 
 ### Example
-<NumberInput
-  helperText="Assistive text"
-  label="Total compensation"
-  unit="€"
-  defaultValue={1000}
-  style={{ maxWidth: '320px' }}
-/>
+<PlaygroundPreview>
+  <NumberInput
+    helperText="Assistive text"
+    label="Total compensation"
+    unit="€"
+    defaultValue={1000}
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
 
 ### Principles
 - **A label should always be provided with a number input.**
@@ -35,42 +37,48 @@ Default HDS Number input comes without stepper. The number is always inputted ma
 
 When applicable, a unit can be set for the input by using the `unit` prop.
 
-<NumberInput
-  helperText="Assistive text"
-  label="Total compensation"
-  unit="€"
-  defaultValue={1000}
-  style={{ maxWidth: '320px' }}
-/>
+<PlaygroundPreview>
+  <NumberInput
+    helperText="Assistive text"
+    label="Total compensation"
+    unit="€"
+    defaultValue={1000}
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
 
 #### With steppers
 Steppers can be enabled via providing a `step` property. Use this variant when value changes are small and you can determine logical amounts for an increase and a decrease step.
 
-<NumberInput
-  helperText="Assistive text"
-  label="Number of attendees"
-  minusStepButtonAriaLabel="Decrease by one"
-  plusStepButtonAriaLabel="Increase by one"
-  step={1}
-  defaultValue={5}
-  style={{ maxWidth: '320px' }}
-/>
+<PlaygroundPreview>
+  <NumberInput
+    helperText="Assistive text"
+    label="Number of attendees"
+    minusStepButtonAriaLabel="Decrease by one"
+    plusStepButtonAriaLabel="Increase by one"
+    step={1}
+    defaultValue={5}
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
 
 #### With min and max values
 Steppers can be enabled by providing a `step` property. Use this variant when value changes are small and you can determine logical amounts for an increase and a decrease step.
 
 If your input has special requirements, it is a good practice to describe them in the assistive text.
 
-<NumberInput
-  helperText="At least 3 attendees are required"
-  label="Number of attendees"
-  min={3}
-  max={99}
-  minusStepButtonAriaLabel="Decrease by one"
-  plusStepButtonAriaLabel="Increase by one"
-  step={1}
-  defaultValue={3}
-  style={{ maxWidth: '320px' }}
-/>
+<PlaygroundPreview>
+  <NumberInput
+    helperText="At least 3 attendees are required"
+    label="Number of attendees"
+    min={3}
+    max={99}
+    minusStepButtonAriaLabel="Decrease by one"
+    plusStepButtonAriaLabel="Increase by one"
+    step={1}
+    defaultValue={3}
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
 
 export default ({ children }) => <>{children}</>;

@@ -3,12 +3,29 @@ slug: '/elements/components/radio-button/code'
 title: 'RadioButton - Usage'
 ---
 
-import { Link, RadioButton } from 'hds-react';
+import { Link, RadioButton, SelectionGroup } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
 
 ## Usage
 
 ### Example
-TODO
+
+export const RadioButtonExample = () => {
+  const [selectedItem, setSelectedItem] = React.useState("1");
+  const onChange = (event) => {
+    setSelectedItem(event.target.value);
+  };
+  return (
+    <>
+      <RadioButton id="radio1" name="example" label="Label" value="1" checked={selectedItem === "1"} onChange={onChange}/>
+      <RadioButton id="radio2" name="example" label="Label" value="2" checked={selectedItem === "2"} onChange={onChange} />
+    </>
+  );
+};
+
+<PlaygroundPreview>
+  <RadioButtonExample />
+</PlaygroundPreview>
 
 ### Principles
 - If the user can select more than one option from a list, use [checkboxes](/components/checkbox) instead.
@@ -21,11 +38,44 @@ TODO
 ### Variations
 
 #### Default
-TODO
+
+export const DefaultRadioButtonExample = () => {
+  const [selectedItem2, setSelectedItem2] = React.useState("1");
+  const onChange2 = (event) => {
+    setSelectedItem2(event.target.value);
+  };
+  return (
+    <>
+      <RadioButton id="radio3" name="example" label="Label" value="1" checked={selectedItem2 === "1"} onChange={onChange2}/>
+      <RadioButton id="radio4" name="example" label="Label" value="2" checked={selectedItem2 === "2"} onChange={onChange2} />
+    </>
+  );
+};
+
+<PlaygroundPreview>
+ <DefaultRadioButtonExample />
+</PlaygroundPreview>
 
 #### Group
 Related radio buttons can be grouped together with the Selection group component. See [HDS Selection group page](/components/selection-group) for full documentation.
 
-TODO
+export const GroupExample = () => {
+  const [selectedItem, setSelectedItem] = React.useState("1");
+  const onChange = (event) => {
+    setSelectedItem(event.target.value);
+  };
+  return (
+    <SelectionGroup label="Radio button group">
+      <RadioButton id="v-radio1" name="v-radio" value="1" label="Option" checked={selectedItem === "1"} onChange={onChange} />
+      <RadioButton id="v-radio2" name="v-radio" value="2" label="Option" checked={selectedItem === "2"} onChange={onChange} />
+      <RadioButton id="v-radio3" name="v-radio" value="3" label="Option" checked={selectedItem === "3"} onChange={onChange} />
+      <RadioButton id="v-radio4" name="v-radio" value="4" label="Option" checked={selectedItem === "4"} onChange={onChange} />
+    </SelectionGroup>
+  );
+};
+
+<PlaygroundPreview>
+  <GroupExample />
+</PlaygroundPreview>
 
 export default ({ children }) => <>{children}</>;

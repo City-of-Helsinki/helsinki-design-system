@@ -3,12 +3,23 @@ slug: '/elements/components/toggle-button/code'
 title: 'ToggleButton - Usage'
 ---
 
-import { Link, Tag } from 'hds-react';
+import { ToggleButton, Link, Tag } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
 
 ## Usage
 
 ### Example
-TODO
+
+export const ToggleExample = () => {
+  const [checked1, setChecked1] = React.useState(true);
+  return (
+    <ToggleButton id="toggle-button-1" label="Label" checked={checked1} onChange={() => setChecked1(!checked1)} />
+  );
+};
+
+<PlaygroundPreview>
+  <ToggleExample />
+</PlaygroundPreview>
 
 ### Principles
 - **A label should always be provided with a toggle button.**
@@ -26,13 +37,31 @@ TODO
 #### Default
 The default HDS toggle button variant includes a label above the toggle button familiar from other HDS form components.
 
-TODO
+export const DefaultToggleExample = () => {
+  const [checked2, setChecked2] = React.useState(true);
+  return (
+    <ToggleButton id="toggle-button-2" label="Label" checked={checked2} onChange={() => setChecked2(!checked2)} />
+  );
+};
 
----
+<PlaygroundPreview>
+  <DefaultToggleExample />
+</PlaygroundPreview>
 
 #### With a horizontal label
 The toggle button label can also be positioned horizontally. This alignment is often used on smaller screens (e.g. mobile phones) and tighter user interface spaces.
 
-TODO
+export const HorizontalToggleExample = () => {
+  const [checked2, setChecked2] = React.useState(true);
+  return (
+    <div style={{ maxWidth: '160px' }}>
+      <ToggleButton id="toggle-button-2" label="Label" variant="inline" checked={checked2} onChange={() => setChecked2(!checked2)} />
+    </div>
+  );
+};
+
+<PlaygroundPreview>
+  <HorizontalToggleExample />
+</PlaygroundPreview>
 
 export default ({ children }) => <>{children}</>;
