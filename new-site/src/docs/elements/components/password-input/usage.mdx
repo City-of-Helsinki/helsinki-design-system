@@ -3,22 +3,24 @@ slug: '/elements/components/password-input/code'
 title: 'PasswordInput - Usage'
 ---
 
-import { PasswordInput } from 'hds-react';
-import { Link } from 'hds-react';
+import { PasswordInput, Button, Link, IconEye, IconEyeCrossed } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
 
 ## Usage
 
 ### Example
-<PasswordInput
-  concealPasswordButtonAriaLabel="Hide password"
-  helperText="Assistive text"
-  id="input1"
-  includeShowPasswordButton
-  label="Password"
-  revealPasswordButtonAriaLabel="Show password"
-  required
-  style={{ maxWidth: '320px' }}
-/>
+<PlaygroundPreview>
+  <PasswordInput
+    concealPasswordButtonAriaLabel="Hide password"
+    helperText="Assistive text"
+    id="input1"
+    includeShowPasswordButton
+    label="Password"
+    revealPasswordButtonAriaLabel="Show password"
+    required
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
 
 ### Principles
 - A label should always be provided with password fields.
@@ -32,18 +34,50 @@ import { Link } from 'hds-react';
 #### Default
 A default HDS password input includes an icon to mask and unmask the password.
 
-<PasswordInput
-  concealPasswordButtonAriaLabel="Hide password"
-  helperText="Assistive text"
-  id="input2"
-  includeShowPasswordButton
-  label="Password"
-  revealPasswordButtonAriaLabel="Show password"
-  required
-  style={{ maxWidth: '320px' }}
-/>
+<PlaygroundPreview>
+  <PasswordInput
+    concealPasswordButtonAriaLabel="Hide password"
+    helperText="Assistive text"
+    id="input2"
+    includeShowPasswordButton
+    label="Password"
+    revealPasswordButtonAriaLabel="Show password"
+    required
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
 
 #### With an external button
 If necessary, the mask/unmask icon can be removed and the feature controlled with an external button element.
+
+export const ExternalButtonExample = () => {
+  const [revealPassword, setRevealPassword] = React.useState(false);
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "320px 240px", gap: "var(--spacing-s)" }}>
+      <PasswordInput
+        label="Password"
+        id="input2"
+        includeShowPasswordButton={false}
+        helperText="Assistive text"
+        type={revealPassword ? 'text' : 'password'}
+        required
+        style={{maxWidth: '320px'}}
+      />
+      <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+        <Button
+          variant="supplementary"
+          onClick={() => setRevealPassword(!revealPassword)}
+          iconLeft={revealPassword ? <IconEyeCrossed aria-hidden /> : <IconEye aria-hidden />}
+        >
+          {revealPassword ? 'Hide password' : 'Show password'}
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+<PlaygroundPreview>
+  <ExternalButtonExample />
+</PlaygroundPreview>
 
 export default ({ children }) => <>{children}</>;

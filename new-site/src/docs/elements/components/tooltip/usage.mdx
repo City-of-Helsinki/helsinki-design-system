@@ -4,11 +4,14 @@ title: 'Tooltip - Usage'
 ---
 
 import { Link, Tooltip } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
 
 ## Usage
 
 ### Example
-<Tooltip>Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.</Tooltip>
+<PlaygroundPreview>
+  <Tooltip>Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.</Tooltip>
+</PlaygroundPreview>
 
 ### Principles
 - **Tooltip must not be the sole way to provide essential information that the user must know to perform a task (such as inputting a value).** This means Tooltip should display "nice to have" but not essential information.
@@ -21,25 +24,25 @@ import { Link, Tooltip } from 'hds-react';
 #### Default
 The default size Tooltip variant works in most situations where the Tooltip description is longer than a few words.
 
-<Tooltip>Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.</Tooltip>
-
----
+<PlaygroundPreview>
+  <Tooltip>Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.</Tooltip>
+</PlaygroundPreview>
 
 #### Small
 A small size Tooltip variant can be used instead of the default one if the description is only a few words long (less than 5 words). Also, note that the small Tooltip should never replace labels (e.g. for icons). WCAG requires that labels are always visible and not hidden behind a Tooltip.
 
-<Tooltip small>Less than five words long</Tooltip>
-
----
+<PlaygroundPreview>
+  <Tooltip small>Less than five words long</Tooltip>
+</PlaygroundPreview>
 
 #### Positioning
 HDS Tooltip implementation has automatic placement feature. It will automatically try to keep the Tooltip in the view and dynamically updates the positioning if the screen size changes. Tooltip positioning can also be overridden manually.
 
 There are 15 available position settings. Please refer to the Code tab for all examples.
 
-<>
-<Tooltip placement="top">Tooltip with top placement setting</Tooltip>
-<Tooltip placement="bottom">Tooltip with bottom placement setting</Tooltip>
-</>
+<PlaygroundPreview>
+  <Tooltip placement="top">Tooltip with top placement setting</Tooltip>
+  <Tooltip placement="bottom">Tooltip with bottom placement setting</Tooltip>
+</PlaygroundPreview>
 
 export default ({ children }) => <>{children}</>;

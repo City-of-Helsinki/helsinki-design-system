@@ -145,24 +145,32 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 
-  ```jsx
-  <div>
-    <Button variant="success">Success</Button>
-    <Button variant="danger">Danger</Button>
-  </div>
-  ```
+```jsx
+<div>
+  <Button variant="success" iconLeft={<IconSaveDisketteFill />}>Save</Button>
+  <Button 
+    variant="danger" 
+    iconLeft={<IconTrash />} 
+    style={{ marginLeft: 'var(--spacing-s)' }}
+  >
+    Delete
+  </Button>
+</div>
+```
 
-  ```html
-  <div>
-    <button type="button" class="hds-button hds-button--success">
-      <span class="hds-button__label">Success</span>
-    </button>
+```html
+<div>
+  <button type="button" class="hds-button hds-button--success">
+    <span aria-hidden="true" class="hds-icon hds-icon--save-diskette-fill"></span>
+    <span class="hds-button__label">Save</span>
+  </button>
 
-    <button type="button" class="hds-button hds-button--danger">
-      <span class="hds-button__label">Danger</span>
-    </button>
-  </div>
-  ```
+  <button type="button" class="hds-button hds-button--danger">
+    <span aria-hidden="true" class="hds-icon hds-icon--trash"></span>
+    <span class="hds-button__label">Delete</span>
+  </button>
+</div>
+```
 
 </Playground>
 

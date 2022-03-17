@@ -30,7 +30,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Principles
 
 - Only use a date input when you can expect the user to input a specific date. If it can be difficult for the user to determine which date they should choose or if the selected date can be vague, let the user choose, for example, a week, month or a date range.
-  - When selecting weeks or months, it is usually better to use <Link size="M" href="/components/dropdown#select">the dropdown select component</Link>.
+  - When selecting weeks or months, it is usually better to use <Link size="M" href="/elements/components/dropdown#select-single-selection">the dropdown select component</Link>.
 - Pay close attention to the date input label. It should clearly describe the date the user is expected to input. A good label describes the input, such as "Arrival date".
 - The date input should be provided with an assistive text which tells the user the expected date format. Avoid relying on a placeholder text alone because it will disappear when the user starts typing. The recommended way to show the expected format is to use the assistive text below the input.
   - As specified in <Link size="M" href="/guidelines/data-formats">the data format guidelines</Link>, Helsinki services will always use D.M.YYYY format. Do not use the English date format even if the user is using English locale.
