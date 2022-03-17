@@ -25,90 +25,126 @@ You can use the `style` property to customise the component. See all available t
 
 
 ```jsx
-<div
-  style={{
-    maxWidth: '700px'
-  }}
->
-  <div
-    style={{
-      backgroundColor: 'var(--color-black-10)'
-    }}
-  >
-    <Stepper
-      language="en"
-      onStepClick={function noRefCheck(){}}
-      selectedStep={0}
-      steps={[
-        {
-          label: 'Step 1 - longer text',
-          state: 0
-        },
-        {
-          label: 'Step 2',
-          state: 2
-        },
-        {
-          label: 'Step 3',
-          state: 2
-        },
-        {
-          label: 'Step 4',
-          state: 2
-        },
-        {
-          label: 'Step 5',
-          state: 2
-        }
-      ]}
-      theme={{
-        '--hds-not-selected-step-label-color': 'var(--color-black-90)',
-        '--hds-step-background-color': 'var(--color-black-5)',
-        '--hds-step-content-color': 'var(--color-black-90)',
-        '--hds-stepper-background-color': 'var(--color-black-10)',
-        '--hds-stepper-color': 'var(--color-black-90)',
-        '--hds-stepper-disabled-color': 'var(--color-black-30)',
-        '--hds-stepper-focus-border-color': 'var(--color-black-90)'
-      }}
-    />
-    <div
-      style={{
-        alignItems: 'flex-end',
-        display: 'flex',
-        gap: '24px',
-        height: '300px',
-        justifyContent: 'flex-start',
-        marginLeft: '10px'
-      }}
-    >
-      <Button
-        disabled
-        iconLeft={<IconArrowLeft />}
-        onClick={function noRefCheck(){}}
-        style={{
-          height: 'fit-content',
-          width: 'fit-content'
+{() => {
+  const commonReducer = (stepsTotal) => (state, action) => {
+    switch (action.type) {
+      case 'completeStep': {
+        const activeStepIndex = action.payload === stepsTotal - 1 ? stepsTotal - 1 : action.payload + 1;
+        return {
+          activeStepIndex,
+          steps: state.steps.map((step, index) => {
+            if (index === action.payload && index !== stepsTotal - 1) {
+              // current one but not last one
+              return {
+                state: StepState.completed,
+                label: step.label,
+              };
+            }
+            if (index === action.payload + 1) {
+              // next one
+              return {
+                state: StepState.available,
+                label: step.label,
+              };
+            }
+            return step;
+          }),
+        };
+      }
+      case 'setActive': {
+        return {
+          activeStepIndex: action.payload,
+          steps: state.steps.map((step, index) => {
+            if (index === action.payload) {
+              return {
+                state: StepState.available,
+                label: step.label,
+              };
+            }
+            return step;
+          }),
+        };
+      }
+      default:
+        throw new Error();
+    }
+  };
+  const reducer = commonReducer(5);
+  const initialState = {
+    activeStepIndex: 0,
+    steps: [
+      {
+        label: 'Step 1',
+        state: StepState.available,
+      },
+      {
+        label: 'Step 2',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 3',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 4 - longer text',
+        state: StepState.disabled,
+      },
+      {
+        label: 'Step 5',
+        state: StepState.disabled,
+      },
+    ],
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const lastStep = state.activeStepIndex === state.steps.length - 1;
+  return (
+    <div>
+      <Stepper
+        steps={state.steps}
+        language="en"
+        selectedStep={state.activeStepIndex}
+        onStepClick={(event, stepIndex) => dispatch({ type: 'setActive', payload: stepIndex })}
+        theme={{
+          '--hds-not-selected-step-label-color': 'var(--color-black-90)',
+          '--hds-step-background-color': 'var(--color-black-5)',
+          '--hds-step-content-color': 'var(--color-black-90)',
+          '--hds-stepper-background-color': 'var(--color-white)',
+          '--hds-stepper-color': 'var(--color-black-90)',
+          '--hds-stepper-disabled-color': 'var(--color-black-30)',
+          '--hds-stepper-focus-border-color': 'var(--color-black-90)'
         }}
-        theme="black"
-        variant="secondary"
-      >
-        Previous
-      </Button>
-      <Button
-        iconRight={<IconArrowRight />}
-        onClick={function noRefCheck(){}}
+      />
+      <div
         style={{
-          height: 'fit-content',
-          width: 'fit-content'
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-end',
+          gap: '24px',
         }}
-        theme="black"
-        variant="secondary"
       >
-        Next
-      </Button>
+        <Button
+          disabled={state.activeStepIndex === 0}
+          variant="secondary"
+          onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconLeft={<IconArrowLeft />}
+          theme="black"
+        >
+          Previous
+        </Button>
+        <Button
+          variant={lastStep ? 'primary' : 'secondary'}
+          onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
+          style={{ height: 'fit-content', width: 'fit-content' }}
+          iconRight={lastStep ? undefined : <IconArrowRight />}
+          theme="black"
+        >
+          {lastStep ? 'Send' : 'Next'}
+        </Button>
+      </div>
     </div>
-  </div>
-</div>
+  );
+}}
 ```
 
 
