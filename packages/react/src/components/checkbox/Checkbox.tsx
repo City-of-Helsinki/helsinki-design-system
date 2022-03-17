@@ -30,7 +30,7 @@ export type CheckboxProps = React.ComponentPropsWithoutRef<'input'> & {
   /**
    * Boolean indicating indeterminate status of the checkbox
    */
-  indeterminate: boolean;
+  indeterminate?: boolean;
   /**
    * The label for the checkbox
    */
