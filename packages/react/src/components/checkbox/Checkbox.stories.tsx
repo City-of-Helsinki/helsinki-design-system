@@ -73,7 +73,7 @@ export const Playground = (args) => {
 
   const [indeterminateState, setIndeterminateState] = useState('indeterminate');
 
-  const handleIndeterminateChange = (e) => {
+  const handleIndeterminateChange = () => {
     if (indeterminateState === 'indeterminate') {
       setIndeterminateState('checked');
     } else if (indeterminateState === 'checked') {
