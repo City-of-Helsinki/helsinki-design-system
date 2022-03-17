@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 // import core base styles
 import 'hds-core';
 import styles from './Checkbox.module.css';
 import classNames from '../../utils/classNames';
+import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
 
 export type CheckboxProps = React.ComponentPropsWithoutRef<'input'> & {
   /**
@@ -26,6 +27,10 @@ export type CheckboxProps = React.ComponentPropsWithoutRef<'input'> & {
    * The id of the input element
    */
   id: string;
+  /**
+   * Boolean indicating indeterminate status of the checkbox
+   */
+  indeterminate: boolean;
   /**
    * The label for the checkbox
    */
@@ -52,6 +57,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       disabled = false,
       errorText,
       id,
+      indeterminate,
       label,
       onChange = () => null,
       style,
@@ -60,6 +66,19 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     }: CheckboxProps,
     ref: React.Ref<HTMLInputElement>,
   ) => {
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+      if (ref) {
+        /**
+         * Merge props.ref to the internal ref. This is needed because we need the ref ourself and cannot rely on
+         * component user to provide it.
+         */
+        mergeRefWithInternalRef(ref, inputRef);
+      }
+      inputRef.current.indeterminate = indeterminate;
+    }, [inputRef, ref, indeterminate]);
+
     if (label && typeof label !== 'string' && typeof label !== 'number') {
       // eslint-disable-next-line no-console
       console.warn(
@@ -70,7 +89,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     return (
       <div className={classNames(styles.checkbox, className)} style={style}>
         <input
-          ref={ref}
+          ref={inputRef}
           id={id}
           className={classNames(styles.input)}
           onChange={onChange}

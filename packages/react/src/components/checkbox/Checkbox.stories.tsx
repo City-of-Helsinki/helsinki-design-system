@@ -20,15 +20,19 @@ export default {
   },
 };
 
-export const Default = () => <Checkbox id="checkbox" label="Label" />;
+export const Default = () => <Checkbox id="default" label="Label" />;
 
-export const Selected = () => <Checkbox id="checkbox2" label="Label" checked />;
+export const Selected = () => <Checkbox id="selected" label="Label" checked />;
 
-export const Disabled = () => <Checkbox id="checkbox3" label="Label" disabled />;
+export const Indeterminated = () => (
+  <Checkbox id="indeterminated" label="Label" indeterminate onChange={(event) => event.preventDefault()} />
+);
 
-export const Invalid = () => <Checkbox id="checkbox" label="Label" errorText="Error text" />;
+export const Disabled = () => <Checkbox id="disabled" label="Label" disabled />;
 
-export const SelectedDisabled = () => <Checkbox id="checkbox4" label="Label" checked disabled />;
+export const Invalid = () => <Checkbox id="invalid" label="Label" errorText="Error text" />;
+
+export const SelectedDisabled = () => <Checkbox id="selected-disabled" label="Label" checked disabled />;
 SelectedDisabled.storyName = 'Selected & disabled';
 
 export const Custom = () => {
@@ -65,6 +69,18 @@ export const Playground = (args) => {
     const item = e.target.name;
     const isChecked = e.target.checked;
     setCheckedItems({ ...checkedItems, [item]: isChecked });
+  };
+
+  const [indeterminateState, setIndeterminateState] = useState('indeterminate');
+
+  const handleIndeterminateChange = (e) => {
+    if (indeterminateState === 'indeterminate') {
+      setIndeterminateState('checked');
+    } else if (indeterminateState === 'checked') {
+      setIndeterminateState('unchecked');
+    } else {
+      setIndeterminateState('indeterminate');
+    }
   };
 
   const styles = {
@@ -106,8 +122,16 @@ export const Playground = (args) => {
           style={styles}
         />
       ))}
-      <Checkbox id="checkbox7" label="Option 4" style={styles} disabled />
-      <Checkbox id="checkbox8" label="Option 5" style={styles} checked disabled />
+      <Checkbox
+        id="indeterminate-playground"
+        label="Option 4"
+        style={styles}
+        checked={indeterminateState === 'checked'}
+        indeterminate={indeterminateState === 'indeterminate'}
+        onChange={handleIndeterminateChange}
+      />
+      <Checkbox id="checkbox7" label="Option 5" style={styles} disabled />
+      <Checkbox id="checkbox8" label="Option 6" style={styles} checked disabled />
     </>
   );
 };
