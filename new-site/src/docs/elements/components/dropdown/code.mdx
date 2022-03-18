@@ -5,6 +5,9 @@ title: 'Dropdown - Code'
 
 import { Combobox, IconCheckCircleFill, IconCrossCircle, IconUser, Link, Select } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -191,5 +194,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `placeholder` | Short hint displayed in the input before the user enters a value. | `string`       | -             |
 | `required`    | If set to true, the input is marked as required.                  | `boolean`      | false         |
 | `multiselect` | If set to true, the user can select multiple values.              | `boolean`      | false         |
-
-export default ({ children }) => <>{children}</>;

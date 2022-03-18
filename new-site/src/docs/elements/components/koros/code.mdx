@@ -5,6 +5,9 @@ title: 'Koros - Code'
 
 import { Koros, Link, IconCheckCircleFill } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -189,5 +192,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `flipHorizontal` | If set to true, the koro shape will be flipped horizontally. | `boolean`                                                                        | false         |
 | `rotate`         | Controls the rotation of the koro shape.                     | `"45deg"`, `"90deg"`, `"135deg"`, `"180deg"`, `"225deg"`, `"270deg"`, `"315deg"` | -             |
 | `type`           | Controls the type (shape) of the koro.                       | `"basic"`, `"beat"`, `"pulse"`, `"storm"`, `"wave"`, `"calm"`                    | `"basic"`     |
-
-export default ({ children }) => <>{children}</>;

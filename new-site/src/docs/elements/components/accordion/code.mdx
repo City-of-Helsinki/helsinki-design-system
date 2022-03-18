@@ -17,6 +17,9 @@ import {
 } from 'hds-react';
 
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -131,5 +134,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `border`                   | If set to true, a border will be drawn around the accordion card.          | true, false | false         |
 | `card`                     | If set to true, the accordion will use HDS Card as its background element. | true, false | false         |
 | `initiallyOpen`            | If set to true, the accordion will be initially opened.                    | true, false | false         |
-
-export default ({ children }) => <>{children}</>;

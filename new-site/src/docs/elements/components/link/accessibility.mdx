@@ -3,6 +3,10 @@ slug: '/elements/components/link/accessibility'
 title: 'Link - Accessibility'
 ---
 
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
 ## Accessibility
 
 ### Pay attention to
@@ -23,5 +27,3 @@ Make sure that:
 - The title attribute can be used to supplement the link text with any additional useful description.
 - The purpose of each link can be determined from the link text alone or from the link text together with its programmatically determined link context.
 - Icons should always be the same colour as the link text
-
-export default ({ children }) => <>{children}</>;

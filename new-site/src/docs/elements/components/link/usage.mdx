@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/link/code'
+slug: '/elements/components/link/usage'
 title: 'Link - Usage'
 ---
 
 import { IconDocument, IconPhone, IconEnvelope, IconPhoto, Link } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -141,5 +144,3 @@ Note! These icons are meant to describe the link target. If you need a direction
     Photo link
   </Link>
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

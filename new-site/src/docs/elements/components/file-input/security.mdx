@@ -4,6 +4,9 @@ title: 'FileInput - Security'
 ---
 
 import { Link } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Security
 
@@ -17,5 +20,3 @@ Below are some good practices you need to consider. For more detailed checklist,
 - Pay attention to error messages returned from the backend. Do not include information the user does not need, e.g. file paths.
 - If files are uploaded from untrusted sources, make sure files are stored outside of the web root, with limited permissions, preferably with strong validation.
   - Files from untrusted sources should also be scanned by antivirus scanners to prevent the upload of known malicious content.
-
-export default ({ children }) => <>{children}</>;

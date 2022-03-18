@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/dropdown/code'
+slug: '/elements/components/fieldset/usage'
 title: 'Fieldset - Usage'
 ---
 
 import { Fieldset, TextInput } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -75,5 +78,3 @@ Border variant is also useful when the form contains multiple form elements with
     />
   </Fieldset>
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;
