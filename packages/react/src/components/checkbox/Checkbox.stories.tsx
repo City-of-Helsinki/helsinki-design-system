@@ -2,7 +2,7 @@ import React, { useReducer, useState } from 'react';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import { Checkbox } from './Checkbox';
-import { Fieldset } from '../fieldset';
+import { SelectionGroup } from '../selectionGroup';
 
 export default {
   component: Checkbox,
@@ -150,13 +150,12 @@ export const CheckboxGroup = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <Fieldset heading="Group label *">
+    <SelectionGroup label="Group label" required>
       <Checkbox
         id="controllerCheckbox"
         label="Label"
         indeterminate={state.controllerCheckbox === CheckboxState.indeterminate}
         checked={state.controllerCheckbox === CheckboxState.checked}
-        style={{ marginTop: 'var(--spacing-xs)' }}
         onChange={() => {
           if (
             state.controllerCheckbox === CheckboxState.unchecked ||
@@ -168,17 +167,15 @@ export const CheckboxGroup = () => {
           }
         }}
       />
-      <div style={{ marginLeft: 'var(--spacing-s)' }}>
-        {Object.entries(state).map((entry) => {
-          if (entry[0] === 'controllerCheckbox') {
-            return null;
-          }
+      {Object.entries(state)
+        .filter((entry) => entry[0] !== 'controllerCheckbox')
+        .map((entry) => {
           return (
             <Checkbox
               id={entry[0]}
               key={entry[0]}
               label="Label"
-              style={{ marginTop: 'var(--spacing-s)' }}
+              style={{ marginLeft: 'var(--spacing-s)' }}
               checked={entry[1] === CheckboxState.checked}
               onChange={() => {
                 if (entry[1] === CheckboxState.unchecked) {
@@ -190,8 +187,7 @@ export const CheckboxGroup = () => {
             />
           );
         })}
-      </div>
-    </Fieldset>
+    </SelectionGroup>
   );
 };
 
