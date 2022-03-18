@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ContrastExample = ({ color, background, style = {}, children }) => (
+const FocusExample = ({ color, background, style = {}, children }) => (
   <div
     aria-label="Visualized example"
     role="img"
@@ -13,18 +13,24 @@ const ContrastExample = ({ color, background, style = {}, children }) => (
       justifyContent: 'center',
       display: 'flex',
       background: `${background}`,
-      color: `${color}`,
       ...style,
     }}
   >
-    {children}
+    <div
+      style={{
+        width: '60%',
+        height: '60%',
+        border: '3px solid',
+        borderColor: `${color}`,
+      }}>
+    </div>
   </div>
 );
 
-ContrastExample.propTypes = {
+FocusExample.propTypes = {
   color: PropTypes.string.isRequired,
   background: PropTypes.string.isRequired,
   style: PropTypes.object,
 };
 
-export default ContrastExample;
+export default FocusExample;

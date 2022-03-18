@@ -5,10 +5,7 @@ title: 'Colour tokens - Usage'
 
 import { Link } from 'hds-react';
 import Playground from '../../../../components/Playground';
-
-import BrandColoursTable from './components/brand-colours-table.tsx';
-import StatusColoursTable from './components/status-colours-table.tsx';
-import GrayscaleColoursTable from './components/grayscale-colours-table.tsx';
+import ColorExample from '../../../../components/examples/ColorExample';
 
 ## Usage
 
@@ -46,17 +43,41 @@ Colours are defined as <Link size="M" href="https://developer.mozilla.org/en-US/
 #### Brand colours
 Brand colours are used for primary, secondary and tertiary colours. They should not be used for indicating system status. 
 
-Before using Dark and Light brand colour variants, please see example images in the <Link size="M" href="https://share.goabstract.com/30c40134-681b-4f96-9dfc-ee6d32c2f1eb" external>Colour usage examples - Abstract collection</Link>.
+Brand colours also have dark, medium light and light variants. You can find these tokens on the Tokens tab. Before using Dark and Light brand colour variants, please see example images in the <Link size="M" href="https://share.goabstract.com/30c40134-681b-4f96-9dfc-ee6d32c2f1eb" external>Colour usage examples - Abstract collection</Link>.
 
-<BrandColoursTable />
+| Colour name (en) | Colour name (fi) | Example                                                                                     |
+| ---------------- | ---------------- | ------------------------------------------------------------------------------------------- |
+| Bus              | Bussi            | <ColorExample color="var(--color-bus)" name="Bus brand colour example" />                   |
+| Coat of Arms     | Vaakuna          | <ColorExample color="var(--color-coat-of-arms)" name="Coat of Arms brand colour example" /> |
+| Gold             | Kulta            | <ColorExample color="var(--color-gold)" name="Gold brand colour example" />                 |
+| Silver           | Hopea            | <ColorExample color="var(--color-silver)" name="Silver brand colour example" />             |
+| Brick            | Tiili            | <ColorExample color="var(--color-brick)" name="Brick brand colour example" />               |
+| Copper           | Kupari           | <ColorExample color="var(--color-copper)" name="Copper brand colour example" />             |
+| Engel            | Engel            | <ColorExample color="var(--color-engel)" name="Engel brand colour example" />               |
+| Fog              | Sumu             | <ColorExample color="var(--color-fog)" name="Fog brand colour example" />                   |
+| Metro            | Metro            | <ColorExample color="var(--color-metro)" name="Metro brand colour example" />               |
+| Summer           | Kesä             | <ColorExample color="var(--color-summer)" name="Kesä brand colour example" />               |
+| Suomenlinna      | Suomenlinna      | <ColorExample color="var(--color-suomenlinna)" name="Suomenlinna brand colour example" />   |
+| Tram             | Spåra            | <ColorExample color="var(--color-tram)" name="Tram brand colour example" />                 |
+[Table 1:Brand colours]|
 
 #### UI colours
-Status colours are reserved exclusively for indicating valid, invalid or informational states on the service.
+Status colours are reserved exclusively for indicating valid, invalid, or informational states on the service.
 
-<StatusColoursTable />
+| Status name | Usage                                                                                                   | Example message                             | Example                                                                            |
+| ----------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Info        | State which does not indicate clear success or failure but can be useful extra information to the user. | *"You have received new messages."*         | <ColorExample color="var(--color-info)" name="Info status colour example" />       |
+| Success     | Positive state to inform user about success.                                                            | *"Form submit was successful!"*             | <ColorExample color="var(--color-success)" name="Success status colour example" /> |
+| Alert       | Warning state to catch users attention but does not require immediate actions.                          | *"Loading is taking longer than expected."* | <ColorExample color="var(--color-alert)" name="Alert status colour example" />     |
+| Error       | Error state which requires users immediate action.                                                      | *"Form is missing critical information."*   | <ColorExample color="var(--color-error)" name="Error status colour example" />     |
+[Table 2:Status colours]|
 
 #### Grayscale
+Grayscale colours are neutral shades that can be used for all user interface purposes. Be mindful of the colour contrast especially on lighter shades of gray. Check the Accessibility tab for more information about grayscale contrast.
 
-<GrayscaleColoursTable />
+| Black | 90% | 80% | 70% | 60% | 50% | 40% | 30% | 20% | 10% | 5% | White | 
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- | --- | -- | ----- | 
+| <ColorExample color="var(--color-black)" name="Black colour example" /> | <ColorExample color="var(--color-black-90)" name="Black-90 colour example" /> | <ColorExample color="var(--color-black-80)" name="Black-80 colour example" /> | <ColorExample color="var(--color-black-70)" name="Black-70 colour example" /> | <ColorExample color="var(--color-black-60)" name="Black-60 colour example" /> | <ColorExample color="var(--color-black-50)" name="Blac-50 colour example" /> | <ColorExample color="var(--color-black-40)" name="Black-40 colour example" /> | <ColorExample color="var(--color-black-30)" name="Black-30 colour example" /> | <ColorExample color="var(--color-black-20)" name="Black-20 colour example" /> | <ColorExample color="var(--color-black-10)" name="Black-10 colour example" /> | <ColorExample color="var(--color-black-5)" name="Black-5 colour example" /> | <ColorExample color="var(--color-white)" name="White colour example" /> |
+[Table 3:Grayscale]|
 
 export default ({ children }) => <>{children}</>;
