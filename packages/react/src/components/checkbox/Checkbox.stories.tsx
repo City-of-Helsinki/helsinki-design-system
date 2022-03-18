@@ -25,8 +25,8 @@ export const Default = () => <Checkbox id="default" label="Label" />;
 
 export const Selected = () => <Checkbox id="selected" label="Label" checked />;
 
-export const Indeterminated = () => (
-  <Checkbox id="indeterminated" label="Label" indeterminate onChange={(event) => event.preventDefault()} />
+export const Indeterminate = () => (
+  <Checkbox id="indeterminate" label="Label" indeterminate onChange={(event) => event.preventDefault()} />
 );
 
 export const Disabled = () => <Checkbox id="disabled" label="Label" disabled />;
