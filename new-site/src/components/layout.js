@@ -9,7 +9,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
-import { Container, Footer, Navigation, SideNavigation } from 'hds-react';
+import { Container, Footer, Navigation, SideNavigation, IconCheckCircleFill } from 'hds-react';
 import Seo from './seo';
 import { PlaygroundBlock, PlaygroundPreview } from './Playground';
 import SyntaxHighlighter from './SyntaxHighlighter';
@@ -19,6 +19,7 @@ import './layout.scss';
 const classNames = (...args) => args.filter((e) => e).join(' ');
 
 const components = {
+  IconCheckCircleFill: IconCheckCircleFill,
   Playground: PlaygroundBlock,
   PlaygroundPreview: PlaygroundPreview,
   pre: SyntaxHighlighter,

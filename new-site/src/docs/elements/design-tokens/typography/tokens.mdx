@@ -9,13 +9,10 @@ import TextExample from '../../../../components/examples/TextExample';
 
 ## Tokens
 
-### Font tokens
-
 CSS                          | SASS                        | Value            |
 ---------------------------- | --------------------------- | ---------------- |
 <code>--font-default</code>  | <code>$font-default</code>  | HelsinkiGrotesk  |
-
-### Font size tokens
+[Table 1:Font tokens]|
 
 CSS variable                        | SASS variable                       | REM value       | Example                                            |
 ----------------------------------- | ----------------------------------- | --------------- | -------------------------------------------------- |
@@ -29,13 +26,14 @@ CSS variable                        | SASS variable                       | REM 
 <code>--fontsize-body-l</code>      | <code>$fontsize-body-l</code>       | 1.125rem        | <TextExample size="var(--fontsize-body-l)" />      |
 <code>--fontsize-body-m</code>      | <code>$fontsize-body-m</code>       | 1rem            | <TextExample size="var(--fontsize-body-m)" />      |
 <code>--fontsize-body-s</code>      | <code>$fontsize-body-s</code>       | 0.875rem        | <TextExample size="var(--fontsize-body-s)" />      |
+[Table 2:Font size tokens]|
 
-### Line height tokens
 CSS variable                  | SASS variable               | Value (ratio)    |
 ----------------------------- | --------------------------- | ---------------- |
 <code>--lineheight-s</code>   | <code>$lineheight-s</code>  | 1                |
 <code>--lineheight-m</code>   | <code>$lineheight-m</code>  | 1.2              |
 <code>--lineheight-l</code>   | <code>$lineheight-l</code>  | 1.5              |
 <code>--lineheight-xl</code>  | <code>$lineheight-xl</code> | 1.75             |
+[Table 3:Line height tokens]|
 
 export default ({ children }) => <>{children}</>;

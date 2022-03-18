@@ -36,7 +36,7 @@ const Table = (props) => {
 
   return (
     <div className="hds-table-container docTable">
-      <table className="hds-table hds-table--dark" aria-label={caption}>
+      <table className="hds-table hds-table--dark" aria-label={caption} tabIndex="0">
         {tableName && caption && (
           <caption className="hds-table__caption">
             <b>{tableName}</b>: {caption}
