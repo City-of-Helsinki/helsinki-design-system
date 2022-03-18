@@ -21,7 +21,7 @@ export const Selected = () => `
     </div>
 `;
 
-export const Indeterminated = () => {
+export const Indeterminate = () => {
   useEffect(() => {
     const checkbox = document.querySelector('#checkbox3');
     checkbox.indeterminate = true;
