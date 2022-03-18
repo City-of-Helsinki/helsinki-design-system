@@ -62,7 +62,7 @@ export const Custom = () => {
 };
 Custom.storyName = 'With custom styles';
 
-export const CheckboxGroup = () => {
+export const GroupWithParent = () => {
   enum CheckboxState {
     checked,
     unchecked,
@@ -190,6 +190,8 @@ export const CheckboxGroup = () => {
     </SelectionGroup>
   );
 };
+
+GroupWithParent.storyName = 'Group with a parent';
 
 export const Playground = (args) => {
   const [checkedItems, setCheckedItems] = useState({});

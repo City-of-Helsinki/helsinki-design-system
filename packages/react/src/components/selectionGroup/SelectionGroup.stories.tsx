@@ -1,15 +1,16 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useReducer, useState } from 'react';
 
 import { SelectionGroup } from './SelectionGroup';
 import { Checkbox } from '../checkbox';
 import { RadioButton } from '../radioButton';
+import { Playground } from '../stepper/Stepper.stories';
 
 export default {
   component: SelectionGroup,
   title: 'Components/SelectionGroup',
   decorators: [(storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
   parameters: {
-    controls: { expanded: true },
+    controls: { expanded: true, hideNoControlsWarning: true },
   },
   args: {
     numberOfItems: 3,
@@ -182,3 +183,137 @@ WithTooltip.args = {
     'Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.',
 };
 WithTooltip.storyName = 'With tooltip';
+
+export const WithParent = () => {
+  enum CheckboxState {
+    checked,
+    unchecked,
+    indeterminate,
+  }
+
+  const areAllChecked = (state) => {
+    let checkedCount = 0;
+    Object.keys(state).forEach((key) => {
+      if (key === 'controllerCheckbox') {
+        return;
+      }
+      if (state[key] === CheckboxState.checked) {
+        checkedCount += 1;
+      }
+    });
+
+    return checkedCount === 4;
+  };
+
+  const areAllUnchecked = (state) => {
+    let checkedCount = 0;
+    Object.keys(state).forEach((key) => {
+      if (key === 'controllerCheckbox') {
+        return;
+      }
+      if (state[key] === CheckboxState.checked) {
+        checkedCount += 1;
+      }
+    });
+
+    return checkedCount === 1;
+  };
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'check': {
+        if (action.payload === 'controllerCheckbox') {
+          return {
+            controllerCheckbox: CheckboxState.checked,
+            checkbox1: CheckboxState.checked,
+            checkbox2: CheckboxState.checked,
+            checkbox3: CheckboxState.checked,
+            checkbox4: CheckboxState.checked,
+            checkbox5: CheckboxState.checked,
+          };
+        }
+        return {
+          ...state,
+          [action.payload]: CheckboxState.checked,
+          controllerCheckbox: areAllChecked(state) ? CheckboxState.checked : CheckboxState.indeterminate,
+        };
+      }
+      case 'uncheck': {
+        if (action.payload === 'controllerCheckbox') {
+          return {
+            controllerCheckbox: CheckboxState.unchecked,
+            checkbox1: CheckboxState.unchecked,
+            checkbox2: CheckboxState.unchecked,
+            checkbox3: CheckboxState.unchecked,
+            checkbox4: CheckboxState.unchecked,
+            checkbox5: CheckboxState.unchecked,
+          };
+        }
+        return {
+          ...state,
+          [action.payload]: CheckboxState.unchecked,
+          controllerCheckbox: areAllUnchecked(state) ? CheckboxState.unchecked : CheckboxState.indeterminate,
+        };
+      }
+      default:
+        throw new Error();
+    }
+  };
+
+  const initialState = {
+    controllerCheckbox: CheckboxState.unchecked,
+    checkbox1: CheckboxState.unchecked,
+    checkbox2: CheckboxState.unchecked,
+    checkbox3: CheckboxState.unchecked,
+    checkbox4: CheckboxState.unchecked,
+    checkbox5: CheckboxState.unchecked,
+  };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <SelectionGroup label="Group label" required>
+      <Checkbox
+        id="controllerCheckbox"
+        label="Label"
+        indeterminate={state.controllerCheckbox === CheckboxState.indeterminate}
+        checked={state.controllerCheckbox === CheckboxState.checked}
+        onChange={() => {
+          if (
+            state.controllerCheckbox === CheckboxState.unchecked ||
+            state.controllerCheckbox === CheckboxState.indeterminate
+          ) {
+            dispatch({ type: 'check', payload: 'controllerCheckbox' });
+          } else {
+            dispatch({ type: 'uncheck', payload: 'controllerCheckbox' });
+          }
+        }}
+      />
+      {Object.entries(state)
+        .filter((entry) => entry[0] !== 'controllerCheckbox')
+        .map((entry) => {
+          return (
+            <Checkbox
+              id={entry[0]}
+              key={entry[0]}
+              label="Label"
+              style={{ marginLeft: 'var(--spacing-s)' }}
+              checked={entry[1] === CheckboxState.checked}
+              onChange={() => {
+                if (entry[1] === CheckboxState.unchecked) {
+                  dispatch({ type: 'check', payload: entry[0] });
+                } else {
+                  dispatch({ type: 'uncheck', payload: entry[0] });
+                }
+              }}
+            />
+          );
+        })}
+    </SelectionGroup>
+  );
+};
+
+WithParent.storyName = 'With a parent';
+WithParent.parameters = {
+  loki: { skip: true }, // There is an identical story in checkbox
+};
