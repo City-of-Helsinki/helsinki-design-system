@@ -3,7 +3,6 @@ import React, { ChangeEvent, useReducer, useState } from 'react';
 import { SelectionGroup } from './SelectionGroup';
 import { Checkbox } from '../checkbox';
 import { RadioButton } from '../radioButton';
-import { Playground } from '../stepper/Stepper.stories';
 
 export default {
   component: SelectionGroup,
