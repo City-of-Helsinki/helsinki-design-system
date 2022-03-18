@@ -51,14 +51,50 @@ module.exports = {
       {
         name: 'About',
         link: '/about',
-        subMenuLinks: [],
+        subMenuLinks: [
+          {
+            name: 'Overview',
+            link: '/about',
+          },
+          {
+            name: 'Support',
+            link: '/about/support',
+            withDivider: true,
+          },
+          {
+            name: 'Contributing',
+            link: '/about/contributing',
+          },
+          {
+            name: 'Accessibility',
+            link: '/about/accessibility',
+          },
+          {
+            name: 'What is new',
+            link: '/about/what-is-new',
+            withDivider: true,
+          },
+          {
+            name: 'Roadmap',
+            link: '/about/roadmap',
+          },
+          {
+            name: 'Resources',
+            link: '/about/resources',
+            withDivider: true,
+          },
+        ],
       },
     ],
     footerTitle: 'Helsinki Design System',
     footerAriaLabel: 'HDS footer',
     footerCopyrightLinks: [
       {
-        name: 'Github',
+        name: 'Accessibility',
+        link: '/about/accessibility',
+      },
+      {
+        name: 'GitHub',
         link: 'https://github.com/City-of-Helsinki/helsinki-design-system',
       },
     ],
