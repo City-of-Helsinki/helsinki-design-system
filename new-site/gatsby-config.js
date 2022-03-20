@@ -182,9 +182,9 @@ module.exports = {
             options: {
               icon: `<i class="hdsAnchorIcon hds-icon hds-icon--link hds-icon--size-xs" aria-hidden="true" style="vertical-align: middle"></i>`,
               isIconAfterHeader: true,
-              className: `headerAnchor`
-            }
-          }
+              className: `headerAnchor`,
+            },
+          },
         ],
         defaultLayouts: {
           default: require.resolve('./src/components/layout.js'),
