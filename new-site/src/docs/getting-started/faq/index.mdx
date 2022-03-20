@@ -1,0 +1,39 @@
+---
+slug: "/getting-started/faq"
+title: "Frequently asked questions"
+---
+
+import { Tabs } from 'hds-react';
+import LeadParagraph from '../../../components/LeadParagraph';
+
+import General from './general.mdx';
+import Design from './design.mdx';
+import Code from './code.mdx';
+import Accessibility from './accessibility.mdx';
+
+# Frequently asked questions
+
+<LeadParagraph>
+  Here you will find frequently asked questions about HDS and answers to those questions. If you do not find an answer to your question on this page, you can always contact the HDS team for more information.
+</LeadParagraph>
+
+<Tabs>
+  <Tabs.TabList className="pageTabsList">
+    <Tabs.Tab>General</Tabs.Tab>
+    <Tabs.Tab>Design</Tabs.Tab>
+    <Tabs.Tab>Code</Tabs.Tab>
+    <Tabs.Tab>Accessibility</Tabs.Tab>
+  </Tabs.TabList>
+  <Tabs.TabPanel>
+    <General />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Design />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Code />
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    <Accessibility />
+  </Tabs.TabPanel>
+</Tabs>
