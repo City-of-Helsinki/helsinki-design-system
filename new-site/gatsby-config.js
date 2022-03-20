@@ -13,7 +13,17 @@ module.exports = {
       {
         name: 'Getting started',
         link: '/getting-started',
-        subMenuLinks: [],
+        subMenuLinks: [
+          {
+            name: 'Getting started',
+            link: '/getting-started',
+          },
+          {
+            name: 'FAQ',
+            link: '/getting-started/faq',
+            withDivider: true,
+          },
+        ],
       },
       {
         name: 'Guidelines',
@@ -22,11 +32,6 @@ module.exports = {
           {
             name: 'Overview',
             link: '/guidelines',
-          },
-          {
-            name: 'FAQ',
-            link: '/guidelines/faq',
-            withDivider: true,
           },
           {
             name: 'Data formats',
