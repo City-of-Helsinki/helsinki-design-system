@@ -1,0 +1,41 @@
+---
+slug: '/getting-started/faq/general'
+title: 'Frequently asked questions - General'
+---
+
+import { Accordion, Link } from 'hds-react';
+
+## General
+
+<Accordion 
+  heading="What browser and browser versions are supported?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  <p>
+  HDS follows the guideline of the City of Helsinki related to browser support. This means that the following browsers are officially supported
+  <ul>
+    <li>Chrome</li>
+    <li>Firefox</li>
+    <li>Safari</li>
+  </ul>
+  Versions 6 months old and newer are supported.
+
+  Note: While these three (3) browsers are officially supported by the HDS, you can still report bugs and request support related to other browsers as well. HDS team will do their best to fix issues to other browsers and versions too.
+  </p>
+</Accordion>
+
+<Accordion 
+  heading="How is mobile first taken into account in HDS?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  HDS components and patterns are designed to be used on mobile devices right from the start. All HDS components are fully featured both on mobile and desktop screens, meaning that features are not degraded for mobile devices. 
+
+  HDS uses two (2) methods to provide components for different screen sizes. The first method is to provide responsive components that react to the changing screen size (e.g. Navigation). The second method is to provide a separate `small` variant that can be used both on mobile screens as well as on more information-heavy user interfaces.
+</Accordion>
+
