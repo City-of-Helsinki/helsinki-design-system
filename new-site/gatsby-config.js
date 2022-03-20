@@ -22,7 +22,33 @@ module.exports = {
             name: 'FAQ',
             link: '/guidelines/faq',
             withDivider: true,
-          }
+          },
+          {
+            name: 'Data formats',
+            link: '/guidelines/data-formats',
+            withDivider: true,
+          },
+          {
+            name: 'Grid',
+            link: '/guidelines/grid',
+          },
+          {
+            name: 'Inclusivity',
+            link: '/guidelines/inclusivity',
+          },
+          {
+            name: 'Localisation',
+            link: '/guidelines/localisation',
+          },
+          {
+            name: 'Photography',
+            link: '/guidelines/photography',
+          },
+          {
+            name: 'Checkboxes, radio buttons, or toggles?',
+            link: '/guidelines/checkbox-radiobutton-toggle',
+            withDivider: true,
+          },
         ],
       },
       {
