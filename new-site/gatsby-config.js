@@ -19,9 +19,22 @@ module.exports = {
             link: '/getting-started',
           },
           {
+            name: 'Designer',
+            link: '/getting-started/designer',
+            withDivider: true,
+          },
+          {
+            name: 'Developer',
+            link: '/getting-started/developer',
+          },
+          {
             name: 'FAQ',
             link: '/getting-started/faq',
             withDivider: true,
+          },
+          {
+            name: 'Tutorials',
+            link: '/getting-started/tutorials',
           },
         ],
       },
