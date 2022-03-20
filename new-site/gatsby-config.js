@@ -11,6 +11,11 @@ module.exports = {
         subMenuLinks: [],
       },
       {
+        name: 'Getting started',
+        link: '/getting-started',
+        subMenuLinks: [],
+      },
+      {
         name: 'Guidelines',
         link: '/guidelines',
         subMenuLinks: [
