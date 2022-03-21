@@ -6,6 +6,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.12.0] - Mar, 21, 2022
+
+### Core
+
+#### Added
+
+- [Checkbox] Indeterminate state
+
+### React Components
+
+#### Added
+
+- [Checkbox] Indeterminate state
+- [Tabs] initiallyActiveTab property for setting initially active tab (default is the first tab)
+- [Tabs] Tab onClick property for adding custom callback for tab click
+
+#### Removed
+
+- Node engine restriction by replacing node-sass lib with sass
+
+### Design kit
+
+#### Added
+
+- [Checkbox] Indeterminate state
+
+### Documentation
+
+#### Added
+
+- [Checkbox] Indeterminate state usage
+
 ## [1.11.1] - Mar, 8, 2022
 
 ### Core
