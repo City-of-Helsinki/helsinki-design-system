@@ -30,13 +30,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Checkbox] Indeterminate state
+- [Form Components] Indeterminate state for the Checkbox component
 
 ### Documentation
 
 #### Added
 
-- [Checkbox] Indeterminate state usage
+- [Checkbox] Documentation for the indeterminate checkbox state
 
 ## [1.11.1] - Mar, 8, 2022
 
