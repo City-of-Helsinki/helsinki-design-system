@@ -3,6 +3,7 @@ import React, { ChangeEvent, useReducer, useState } from 'react';
 import { SelectionGroup } from './SelectionGroup';
 import { Checkbox } from '../checkbox';
 import { RadioButton } from '../radioButton';
+import { Fieldset } from '../fieldset';
 
 export default {
   component: SelectionGroup,
@@ -271,12 +272,14 @@ export const WithParent = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <SelectionGroup label="Group label" required>
+    <Fieldset heading="Group label *">
       <Checkbox
+        aria-controls="checkbox1 checkbox2 checkbox3 checkbox4 checkbox5"
         id="controllerCheckbox"
         label="Label"
         indeterminate={state.controllerCheckbox === CheckboxState.indeterminate}
         checked={state.controllerCheckbox === CheckboxState.checked}
+        style={{ marginTop: 'var(--spacing-xs)' }}
         onChange={() => {
           if (
             state.controllerCheckbox === CheckboxState.unchecked ||
@@ -288,27 +291,31 @@ export const WithParent = () => {
           }
         }}
       />
-      {Object.entries(state)
-        .filter((entry) => entry[0] !== 'controllerCheckbox')
-        .map((entry) => {
+      <ul style={{ marginLeft: 'var(--spacing-s)', paddingInlineStart: '0' }}>
+        {Object.entries(state).map((entry) => {
+          if (entry[0] === 'controllerCheckbox') {
+            return null;
+          }
           return (
-            <Checkbox
-              id={entry[0]}
-              key={entry[0]}
-              label="Label"
-              style={{ marginLeft: 'var(--spacing-s)' }}
-              checked={entry[1] === CheckboxState.checked}
-              onChange={() => {
-                if (entry[1] === CheckboxState.unchecked) {
-                  dispatch({ type: 'check', payload: entry[0] });
-                } else {
-                  dispatch({ type: 'uncheck', payload: entry[0] });
-                }
-              }}
-            />
+            <li key={entry[0]} style={{ marginTop: 'var(--spacing-s)', listStyle: 'none' }}>
+              <Checkbox
+                id={entry[0]}
+                key={entry[0]}
+                label="Label"
+                checked={entry[1] === CheckboxState.checked}
+                onChange={() => {
+                  if (entry[1] === CheckboxState.unchecked) {
+                    dispatch({ type: 'check', payload: entry[0] });
+                  } else {
+                    dispatch({ type: 'uncheck', payload: entry[0] });
+                  }
+                }}
+              />
+            </li>
           );
         })}
-    </SelectionGroup>
+      </ul>
+    </Fieldset>
   );
 };
 
