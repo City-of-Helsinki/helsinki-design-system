@@ -83,7 +83,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ErrorSummary] Adds missing focus styles
 
 ### Design kit
-**Added**
+
+#### Added
 
 - [Form Components] Multi-page form Stepper component
 - [Form Components] Multi-page form Stepper + heading templates
@@ -93,7 +94,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Koros] Dense koro variant
 - [Koros] Angled koro variant
 
-**Changed**
+#### Changed
 
 - Updated HDS Sketch libraries to Sketch version 83.2
 - [Cards] An optional shadow to Card symbols
@@ -103,7 +104,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Modals and Notifications] An optional shadow to Tooltip symbols
 - [Modals & Notifications] Changed Small Tooltip symbol smart layout alignment from Left to Center. This change makes it easier to use inside other components when the tooltip text is edited.
 
-**Fixed**
+#### Fixed
 
 - [Typography] Incorrect link colour of the Medium Regular Centered body text
 
