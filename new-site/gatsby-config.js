@@ -28,6 +28,11 @@ module.exports = {
             link: '/getting-started/developer',
           },
           {
+            name: 'Contributing',
+            link: '/getting-started/contributing',
+            withDivider: true,
+          },
+          {
             name: 'FAQ',
             link: '/getting-started/faq',
             withDivider: true,
@@ -109,10 +114,6 @@ module.exports = {
             name: 'Support',
             link: '/about/support',
             withDivider: true,
-          },
-          {
-            name: 'Contributing',
-            link: '/about/contributing',
           },
           {
             name: 'Accessibility',
