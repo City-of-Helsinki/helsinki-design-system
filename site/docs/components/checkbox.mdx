@@ -5,7 +5,8 @@ route: /components/checkbox
 ---
 
 import { Playground } from "docz";
-import { Checkbox, StatusLabel, SelectionGroup } from "hds-react";
+import { useReducer } from 'react';
+import { Checkbox, SelectionGroup, StatusLabel, Fieldset } from "hds-react";
 
 import ColorBox from "../../src/components/ColorBox";
 import LargeParagraph from "../../src/components/LargeParagraph";
@@ -165,12 +166,11 @@ Note! You will always have to use JavaScript to set a checkbox to the indetermin
 
 <Playground>
 {() => {
-  enum CheckboxState {
-    checked,
-    unchecked,
-    indeterminate,
-  }
-
+  const CheckboxState = {
+    checked: 0,
+    unchecked: 1,
+    indeterminate: 2,
+  };
   const areAllChecked = (state) => {
     let checkedCount = 0;
     Object.keys(state).forEach((key) => {
@@ -181,10 +181,8 @@ Note! You will always have to use JavaScript to set a checkbox to the indetermin
         checkedCount += 1;
       }
     });
-
     return checkedCount === 4;
   };
-
   const areAllUnchecked = (state) => {
     let checkedCount = 0;
     Object.keys(state).forEach((key) => {
@@ -195,10 +193,8 @@ Note! You will always have to use JavaScript to set a checkbox to the indetermin
         checkedCount += 1;
       }
     });
-
     return checkedCount === 1;
   };
-
   const reducer = (state, action) => {
     switch (action.type) {
       case 'check': {
@@ -239,7 +235,6 @@ Note! You will always have to use JavaScript to set a checkbox to the indetermin
         throw new Error();
     }
   };
-
   const initialState = {
     controllerCheckbox: CheckboxState.unchecked,
     checkbox1: CheckboxState.unchecked,
@@ -248,16 +243,16 @@ Note! You will always have to use JavaScript to set a checkbox to the indetermin
     checkbox4: CheckboxState.unchecked,
     checkbox5: CheckboxState.unchecked,
   };
-
   const [state, dispatch] = useReducer(reducer, initialState);
-
   return (
-    <SelectionGroup label="Group label" required>
+    <Fieldset heading="Group label *">
       <Checkbox
+        aria-controls="checkbox1 checkbox2 checkbox3 checkbox4 checkbox5"
         id="controllerCheckbox"
         label="Label"
         indeterminate={state.controllerCheckbox === CheckboxState.indeterminate}
         checked={state.controllerCheckbox === CheckboxState.checked}
+        style={{ marginTop: 'var(--spacing-xs)' }}
         onChange={() => {
           if (
             state.controllerCheckbox === CheckboxState.unchecked ||
@@ -269,39 +264,185 @@ Note! You will always have to use JavaScript to set a checkbox to the indetermin
           }
         }}
       />
-      {Object.entries(state)
-        .filter((entry) => entry[0] !== 'controllerCheckbox')
-        .map((entry) => {
+      <ul style={{ marginLeft: 'var(--spacing-s)', paddingInlineStart: '0' }}>
+        {Object.entries(state).map((entry) => {
+          if (entry[0] === 'controllerCheckbox') {
+            return null;
+          }
           return (
-            <Checkbox
-              id={entry[0]}
-              key={entry[0]}
-              label="Label"
-              style={{ marginLeft: 'var(--spacing-s)' }}
-              checked={entry[1] === CheckboxState.checked}
-              onChange={() => {
-                if (entry[1] === CheckboxState.unchecked) {
-                  dispatch({ type: 'check', payload: entry[0] });
-                } else {
-                  dispatch({ type: 'uncheck', payload: entry[0] });
-                }
-              }}
-            />
+            <li key={entry[0]} style={{ marginTop: 'var(--spacing-s)', listStyle: 'none' }}>
+              <Checkbox
+                id={entry[0]}
+                key={entry[0]}
+                label="Label"
+                checked={entry[1] === CheckboxState.checked}
+                onChange={() => {
+                  if (entry[1] === CheckboxState.unchecked) {
+                    dispatch({ type: 'check', payload: entry[0] });
+                  } else {
+                    dispatch({ type: 'uncheck', payload: entry[0] });
+                  }
+                }}
+              />
+            </li>
           );
         })}
-    </SelectionGroup>
+      </ul>
+    </Fieldset>
   );
-}};
+}}
 </Playground>
 
 #### Core code example:
 ```html
-
+<script>
+  function setIndeterminate() {
+    var checkbox = document.querySelector('#checkboxparent');
+    checkbox.indeterminate = true;
+  }
+  function preventDefault(event) {
+    event.preventDefault();
+  }
+</script>
+<div onload="setIndeterminate()" class="hds-checkbox" onclick="preventDefault(event)">
+  <input
+    type="checkbox"
+    id="checkboxparent"
+    name="checkboxparent"
+    class="hds-checkbox__input"
+  />
+  <label for="checkboxparent"  class="hds-checkbox__label">Label</label>
+</div>
 ```
 
 #### React code example:
 ```tsx
-
+{() => {
+  const CheckboxState = {
+    checked: 0,
+    unchecked: 1,
+    indeterminate: 2,
+  };
+  const areAllChecked = (state) => {
+    let checkedCount = 0;
+    Object.keys(state).forEach((key) => {
+      if (key === 'controllerCheckbox') {
+        return;
+      }
+      if (state[key] === CheckboxState.checked) {
+        checkedCount += 1;
+      }
+    });
+    return checkedCount === 4;
+  };
+  const areAllUnchecked = (state) => {
+    let checkedCount = 0;
+    Object.keys(state).forEach((key) => {
+      if (key === 'controllerCheckbox') {
+        return;
+      }
+      if (state[key] === CheckboxState.checked) {
+        checkedCount += 1;
+      }
+    });
+    return checkedCount === 1;
+  };
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'check': {
+        if (action.payload === 'controllerCheckbox') {
+          return {
+            controllerCheckbox: CheckboxState.checked,
+            checkbox1: CheckboxState.checked,
+            checkbox2: CheckboxState.checked,
+            checkbox3: CheckboxState.checked,
+            checkbox4: CheckboxState.checked,
+            checkbox5: CheckboxState.checked,
+          };
+        }
+        return {
+          ...state,
+          [action.payload]: CheckboxState.checked,
+          controllerCheckbox: areAllChecked(state) ? CheckboxState.checked : CheckboxState.indeterminate,
+        };
+      }
+      case 'uncheck': {
+        if (action.payload === 'controllerCheckbox') {
+          return {
+            controllerCheckbox: CheckboxState.unchecked,
+            checkbox1: CheckboxState.unchecked,
+            checkbox2: CheckboxState.unchecked,
+            checkbox3: CheckboxState.unchecked,
+            checkbox4: CheckboxState.unchecked,
+            checkbox5: CheckboxState.unchecked,
+          };
+        }
+        return {
+          ...state,
+          [action.payload]: CheckboxState.unchecked,
+          controllerCheckbox: areAllUnchecked(state) ? CheckboxState.unchecked : CheckboxState.indeterminate,
+        };
+      }
+      default:
+        throw new Error();
+    }
+  };
+  const initialState = {
+    controllerCheckbox: CheckboxState.unchecked,
+    checkbox1: CheckboxState.unchecked,
+    checkbox2: CheckboxState.unchecked,
+    checkbox3: CheckboxState.unchecked,
+    checkbox4: CheckboxState.unchecked,
+    checkbox5: CheckboxState.unchecked,
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <Fieldset heading="Group label *">
+      <Checkbox
+        aria-controls="checkbox1 checkbox2 checkbox3 checkbox4 checkbox5"
+        id="controllerCheckbox"
+        label="Label"
+        indeterminate={state.controllerCheckbox === CheckboxState.indeterminate}
+        checked={state.controllerCheckbox === CheckboxState.checked}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+        onChange={() => {
+          if (
+            state.controllerCheckbox === CheckboxState.unchecked ||
+            state.controllerCheckbox === CheckboxState.indeterminate
+          ) {
+            dispatch({ type: 'check', payload: 'controllerCheckbox' });
+          } else {
+            dispatch({ type: 'uncheck', payload: 'controllerCheckbox' });
+          }
+        }}
+      />
+      <ul style={{ marginLeft: 'var(--spacing-s)', paddingInlineStart: '0' }}>
+        {Object.entries(state).map((entry) => {
+          if (entry[0] === 'controllerCheckbox') {
+            return null;
+          }
+          return (
+            <li key={entry[0]} style={{ marginTop: 'var(--spacing-s)', listStyle: 'none' }}>
+              <Checkbox
+                id={entry[0]}
+                key={entry[0]}
+                label="Label"
+                checked={entry[1] === CheckboxState.checked}
+                onChange={() => {
+                  if (entry[1] === CheckboxState.unchecked) {
+                    dispatch({ type: 'check', payload: entry[0] });
+                  } else {
+                    dispatch({ type: 'uncheck', payload: entry[0] });
+                  }
+                }}
+              />
+            </li>
+          );
+        })}
+      </ul>
+    </Fieldset>
+  );
+}}
 ```
 
 ## Demos & API
