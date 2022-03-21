@@ -153,49 +153,50 @@ export const WithParent = () => {
         event.preventDefault();
       }
     </script>
-    <fieldset class="hds-selection-group">
-      <legend class="hds-selection-group__legend">
-        Group label
-        <span class="hds-selection-group__required">*</span>
-      </legend>
-      <div class="hds-selection-group__items" onclick="preventDefault(event)">
-        <div class="hds-selection-group__item">
-          <div class="hds-checkbox">
-            <input type="checkbox" id="checkboxparent" name="checkboxparent" class="hds-checkbox__input" />
-            <label for="checkboxparent"  class="hds-checkbox__label">Label</label>
-          </div>
-        </div>
-        <div class="hds-selection-group__item" style="margin-left: var(--spacing-s);">
+    <fieldset class="hds-fieldset">
+      <legend style="margin-bottom: var(--spacing-xs);" class="hds-fieldset-legend">Group label *</legend>
+      <div class="hds-checkbox" onclick="preventDefault(event)">
+        <input
+          aria-controls="checkboxchild1 checkboxchild2 checkboxchild3 checkboxchild4 checkboxchild5"
+          type="checkbox"
+          id="checkboxparent"
+          name="checkboxparent"
+          class="hds-checkbox__input"
+        />
+        <label for="checkboxparent"  class="hds-checkbox__label">Label</label>
+      </div>
+      <ul style="margin-left: var(--spacing-s); padding-inline-start: 0;" onclick="preventDefault(event)">
+        <li style="margin-top: var(--spacing-s); list-style: none;">
           <div class="hds-checkbox">
             <input type="checkbox" id="checkboxchild1" name="checkboxchild1" class="hds-checkbox__input" />
             <label for="checkboxchild1"  class="hds-checkbox__label">Label</label>
           </div>
-        </div>
-        <div class="hds-selection-group__item" style="margin-left: var(--spacing-s);">
+        </li>
+        <li style="margin-top: var(--spacing-s); list-style: none;">
           <div class="hds-checkbox">
             <input type="checkbox" id="checkboxchild2" name="checkboxchild2" class="hds-checkbox__input" checked />
             <label for="checkboxchild2"  class="hds-checkbox__label">Label</label>
           </div>
-        </div>
-        <div class="hds-selection-group__item" style="margin-left: var(--spacing-s);">
+        </li>
+        <li style="margin-top: var(--spacing-s); list-style: none;">
           <div class="hds-checkbox">
             <input type="checkbox" id="checkboxchild3" name="checkboxchild3" class="hds-checkbox__input" checked />
             <label for="checkboxchild3"  class="hds-checkbox__label">Label</label>
           </div>
-        </div>
-        <div class="hds-selection-group__item" style="margin-left: var(--spacing-s);">
+        </li>
+        <li style="margin-top: var(--spacing-s); list-style: none;">
           <div class="hds-checkbox">
             <input type="checkbox" id="checkboxchild4" name="checkboxchild4" class="hds-checkbox__input" checked />
             <label for="checkboxchild4"  class="hds-checkbox__label">Label</label>
           </div>
-        </div>
-        <div class="hds-selection-group__item" style="margin-left: var(--spacing-s);">
+        </li>
+        <li style="margin-top: var(--spacing-s); list-style: none;">
           <div class="hds-checkbox">
             <input type="checkbox" id="checkboxchild5" name="checkboxchild5" class="hds-checkbox__input" />
             <label for="checkboxchild5"  class="hds-checkbox__label">Label</label>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </fieldset>
   `
 }
