@@ -5,6 +5,9 @@ title: 'FileInput - Code'
 
 import { FileInput, IconCheckCircleFill, IconCrossCircle, Link } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -70,5 +73,3 @@ Note! This component is an input. Therefore it supports the same features that a
 | `language`    | The language of the component. It affects which language is used to present component-specific messages, labels, and aria-labels.                                            | `string` (fi, en, sv) | fi            |
 | `maxSize`     | Maximum file size in bytes.                                                                                                                                                  | `number`              | -             |
 | `multiple`    | If set to true, the input allows selecting multiple files.                                                                                                                   | `boolean`             | false         |
-
-export default ({ children }) => <>{children}</>;

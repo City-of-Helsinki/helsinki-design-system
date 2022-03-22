@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/footer/code'
+slug: '/elements/components/footer/usage'
 title: 'Footer - Usage'
 ---
 
 import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok, Link } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -153,5 +156,3 @@ Navigation section two different layout options:
   <br />
   <Footer title="Hidden" footerAriaLabel="HDS Footer" />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

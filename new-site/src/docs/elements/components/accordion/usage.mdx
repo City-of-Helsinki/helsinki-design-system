@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/accordion/code'
+slug: '/elements/components/accordion/usage'
 title: 'Accordion - Usage'
 ---
 
 import { Accordion } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -58,5 +61,3 @@ If you have multiple accordions one below another or many accordions in the same
 ### Custom accordion
 
 If the basic accordion components do not fit your needs, you can build a custom accordion by using HDS provided accordion elements.
-
-export default ({ children }) => <>{children}</>;

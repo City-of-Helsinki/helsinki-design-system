@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/card/code'
+slug: '/elements/components/card/usage'
 title: 'Card - Usage'
 ---
 
 import { Button, Card, IconAngleRight, IconShare, IconTrash, Link } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -88,5 +91,3 @@ Custom Cards can be easily built by using other HDS components and typography in
     </Button>
   </Card>
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

@@ -5,6 +5,9 @@ title: 'Link - Code'
 
 import { Link, IconCheckCircleFill, IconDocument, IconEnvelope, IconPhone, IconPhoto } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -222,5 +225,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `openInNewTabAriaLabel`         | Aria-label which is read if the link is opened in a new tab.                   | `string`            | -             |
 | `size`                          | Controls the size of the link.                                                 | `"S"`, `"M"`, `"L"` | `"S"`         |
 | `href`                          | Hypertext reference of the link.                                               | `string`            | -             |
-
-export default ({ children }) => <>{children}</>;

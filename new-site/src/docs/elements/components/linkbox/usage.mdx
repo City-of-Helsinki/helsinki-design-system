@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/linkbox/code'
+slug: '/elements/components/linkbox/usage'
 title: 'Linkbox - Usage'
 ---
 
 import { Link, Linkbox } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -160,5 +163,3 @@ HDS offers styling for a Linkbox with an image as its content.
     />
   </div>
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;
