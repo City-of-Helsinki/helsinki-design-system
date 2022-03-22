@@ -162,7 +162,7 @@ Related checkboxes can be grouped together with the Selection group component. S
 ### Indeterminate
 Checkboxes also have a "mixed" state that is called an indeterminate state. This state is meant to be between the checked and unchecked states. While not very common, the usual use case for the indeterminate state is nested checkboxes. The parent checkbox can be in the indeterminate state when only part of the children checkboxes are checked.
 
-Note! You will always have to use JavaScript to set a checkbox to the indeterminate state. Currently, it cannot be done through HTML.
+Note! You will always have to use JavaScript to set a checkbox to the indeterminate state. Currently, it cannot be done through HTML. The HDS React component will do this part automatically when the `indeterminate` property is given.
 
 <Playground>
 {() => {
