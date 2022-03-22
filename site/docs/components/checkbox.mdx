@@ -236,11 +236,11 @@ Note! You will always have to use JavaScript to set a checkbox to the indetermin
     }
   };
   const initialState = {
-    controllerCheckbox: CheckboxState.unchecked,
-    checkbox1: CheckboxState.unchecked,
-    checkbox2: CheckboxState.unchecked,
+    controllerCheckbox: CheckboxState.indeterminate,
+    checkbox1: CheckboxState.checked,
+    checkbox2: CheckboxState.checked,
     checkbox3: CheckboxState.unchecked,
-    checkbox4: CheckboxState.unchecked,
+    checkbox4: CheckboxState.checked,
     checkbox5: CheckboxState.unchecked,
   };
   const [state, dispatch] = useReducer(reducer, initialState);
