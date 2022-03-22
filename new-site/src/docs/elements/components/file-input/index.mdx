@@ -6,11 +6,8 @@ title: 'FileInput'
 import { StatusLabel, Tabs } from 'hds-react';
 
 import LeadParagraph from '../../../../components/LeadParagraph';
-
-import Accessibility from './accessibility.mdx';
-import Code from './code.mdx';
-import Security from './security.mdx';
-import Usage from './usage.mdx';
+import Layout from '../../../../components/layout';
+import PageTabs from '../../../../components/PageTabs';
 
 # FileInput
 
@@ -23,23 +20,14 @@ import Usage from './usage.mdx';
   A file input helps the user to browse and select one or multiple files to be uploaded to the service.
 </LeadParagraph>
 
-<Tabs>
-  <Tabs.TabList className="pageTabsList">
-    <Tabs.Tab>Usage</Tabs.Tab>
-    <Tabs.Tab>Code</Tabs.Tab>
-    <Tabs.Tab>Accessibility</Tabs.Tab>
-    <Tabs.Tab>Security</Tabs.Tab>
-  </Tabs.TabList>
-  <Tabs.TabPanel>
-    <Usage />
-  </Tabs.TabPanel>
-  <Tabs.TabPanel>
-    <Code />
-  </Tabs.TabPanel>
-  <Tabs.TabPanel>
-    <Accessibility />
-  </Tabs.TabPanel>
-  <Tabs.TabPanel>
-    <Security />
-  </Tabs.TabPanel>
-</Tabs>
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/usage">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+    <PageTabs.Tab href="/security">Security</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>
+
+export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

@@ -5,12 +5,9 @@ title: 'Fieldset - Code'
 
 import { IconCheckCircleFill, Link } from 'hds-react';
 import Playground from '../../../../components/Playground'
+import TabsLayout from './index.mdx';
 
-
-<!---
-TODO: A temporary to fix missing fieldset from core components/all.css
--->
-import 'hds-core/lib/components/fieldset/fieldset.css';
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -192,5 +189,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | --------- | ------------------------------------------------------ | --------- | ------------- |
 | `heading` | Heading of the fieldset element.                       | `string`  | -             |
 | `border`  | If set to true, a border is drawn around the fieldset. | `boolean` | false         |
-
-export default ({ children }) => <>{children}</>;

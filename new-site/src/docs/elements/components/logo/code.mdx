@@ -5,6 +5,9 @@ title: 'Logo - Code'
 
 import { IconCheckCircleFill, IconCrossCircle, Link, Logo } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -55,5 +58,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | --------------------- | --------------------------------| ------------------------------------------ | -------------- |
 | `language`            | Language of the logo.           | `"fi"`, `"sv"`, `"en"`                     | `"fi"`         |
 | `size`                | Size of the logo.               | `"small"`, `"medium"`, `"large"`, `"full"` | `"full"`       |
-
-export default ({ children }) => <>{children}</>;

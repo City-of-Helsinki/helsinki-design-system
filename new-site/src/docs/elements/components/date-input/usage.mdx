@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/date-input/code'
+slug: '/elements/components/date-input/usage'
 title: 'DateInput - Usage'
 ---
 
 import { DateInput, Link } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -100,5 +103,3 @@ It is possible to disable the date picker functionality by supplying a `disableD
     />
   </div>
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

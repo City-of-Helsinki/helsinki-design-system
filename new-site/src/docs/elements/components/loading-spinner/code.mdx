@@ -5,6 +5,9 @@ title: 'LoadingSpinner - Code'
 
 import { IconCheckCircleFill, Link, LoadingSpinner } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -56,5 +59,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `small`               | If set to true, the small variant is used.               | `boolean` | false                       |
 | `loadingText`         | Text to show for screen readers when spinner is visible. | `string`  | "Page is loading"          |
 | `loadingFinishedText` | Text to show for screen readers when spinner is removed. | `string`  | "Page has finished loading" |
-
-export default ({ children }) => <>{children}</>;
