@@ -140,8 +140,12 @@ module.exports = {
     footerAriaLabel: 'HDS footer',
     footerCopyrightLinks: [
       {
+        name: 'Contribution',
+        link: '/getting-started/contributing/before-contributing',
+      },
+      {
         name: 'Accessibility',
-        link: '/about/accessibility',
+        link: '/about/accessibility/statement',
       },
       {
         name: 'GitHub',
