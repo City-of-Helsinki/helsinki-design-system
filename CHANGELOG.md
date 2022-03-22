@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Checkbox] Indeterminate state
 - [Tabs] initiallyActiveTab property for setting initially active tab (default is the first tab)
-- [Tabs] Tab onClick property for adding custom callback for tab click
+- [Tabs] Tab onClick property for adding callback for tab click
 
 #### Removed
 
