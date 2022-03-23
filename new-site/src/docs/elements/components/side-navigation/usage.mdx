@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/side-navigation/code'
+slug: '/elements/components/side-navigation/usage'
 title: 'SideNavigation - Usage'
 ---
 
-import { Link, SideNavigation, IconHome, IconMap, IconCogwheel } from 'hds-react';
+import { SideNavigation, IconHome, IconMap, IconCogwheel } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -250,5 +253,3 @@ export const SideNavIconsExample = () =>  {
 <PlaygroundPreview>
   <SideNavIconsExample />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

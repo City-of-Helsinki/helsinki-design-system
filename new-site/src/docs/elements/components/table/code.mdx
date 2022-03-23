@@ -4,8 +4,11 @@ title: 'Table - Code'
 ---
 
 import { useState } from 'react';
-import { Table, Link, IconCheckCircleFill } from 'hds-react';
+import { Table } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -629,5 +632,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `verticalLines`                 | If set to true, the table displays vertical lines on columns.                                                              | `boolean`          | false                                 |
 | `zebra`                         | If set to true, the table uses alternating row colors zebra style.                                                         | `boolean`          | false                                 |
 [Table 1:Table properties]|
-
-export default ({ children }) => <>{children}</>;

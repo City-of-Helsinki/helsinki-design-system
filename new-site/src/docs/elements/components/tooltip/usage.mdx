@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/tooltip/code'
+slug: '/elements/components/tooltip/usage'
 title: 'Tooltip - Usage'
 ---
 
-import { Link, Tooltip } from 'hds-react';
+import { Tooltip } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -44,5 +47,3 @@ There are 15 available position settings. Please refer to the Code tab for all e
   <Tooltip placement="top">Tooltip with top placement setting</Tooltip>
   <Tooltip placement="bottom">Tooltip with bottom placement setting</Tooltip>
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

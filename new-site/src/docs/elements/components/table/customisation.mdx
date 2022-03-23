@@ -4,6 +4,9 @@ title: 'Table - Customisation'
 ---
 
 import { Table } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Customisation
 
@@ -93,5 +96,3 @@ TODO
 
 
 </Playground>
-
-export default ({ children }) => <>{children}</>;

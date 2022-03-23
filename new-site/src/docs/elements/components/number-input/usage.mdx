@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/number-input/code'
+slug: '/elements/components/number-input/usage'
 title: 'NumberInput - Usage'
 ---
 
-import { NumberInput, Link } from 'hds-react';
+import { NumberInput } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -80,5 +83,3 @@ If your input has special requirements, it is a good practice to describe them i
     style={{ maxWidth: '320px' }}
   />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

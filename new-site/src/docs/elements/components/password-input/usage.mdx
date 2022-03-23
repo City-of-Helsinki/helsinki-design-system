@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/password-input/code'
+slug: '/elements/components/password-input/usage'
 title: 'PasswordInput - Usage'
 ---
 
-import { PasswordInput, Button, Link, IconEye, IconEyeCrossed } from 'hds-react';
+import { PasswordInput, Button, IconEye, IconEyeCrossed } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -79,5 +82,3 @@ export const ExternalButtonExample = () => {
 <PlaygroundPreview>
   <ExternalButtonExample />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

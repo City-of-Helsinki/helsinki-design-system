@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/search-input/code'
+slug: '/elements/components/search-input/usage'
 title: 'SearchInput - Usage'
 ---
 
-import { Link, SearchInput } from 'hds-react';
+import { SearchInput } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -119,5 +122,3 @@ export const HighlightExample = () => {
 <PlaygroundPreview>
   <HighlightExample />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

@@ -3,7 +3,9 @@ slug: '/elements/components/phone-input/accessibility'
 title: 'PhoneInput - Accessibility'
 ---
 
-import { Link } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Accessibility
 
@@ -11,6 +13,4 @@ import { Link } from 'hds-react';
 - HDS Phone number input supports HTML input `pattern` attribute. It can be used to specify an exact format for the phone number.
     - **Note that pattern is not visible to regular users in any way.** Some of the screen readers informs the user if the input does not match the pattern. This attribute mostly increases user experience for screen reader users. 
 - If multiple phone numbers are asked in the same view, make sure they are labelled descriptively or have an extra fieldset label linked to the input with `aria-desribedby`.
-    - You can view an example of this below in [phone input with a country code selection variant](#with-a-country-code-selection)
-
-export default ({ children }) => <>{children}</>;
+    - You can view an example of this on usage page [phone input with a country code selection variant](/elements/components/phone-input/usage#with-a-country-code-selection)

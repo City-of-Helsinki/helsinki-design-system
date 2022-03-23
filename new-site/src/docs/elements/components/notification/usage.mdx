@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/notification/code'
+slug: '/elements/components/notification/usage'
 title: 'Notification - Usage'
 ---
 
-import { Notification, Button, Link } from 'hds-react';
+import { Notification, Button } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -84,5 +87,3 @@ Invisible notifications do not show up on screen and they are meant to aid scree
 <PlaygroundPreview>
   <Notification label="New messages" invisible>You have received new messages. This notification is invisible.</Notification>
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

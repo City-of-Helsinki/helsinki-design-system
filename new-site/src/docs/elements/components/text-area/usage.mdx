@@ -1,9 +1,12 @@
 ---
-slug: '/elements/components/text-area/code'
+slug: '/elements/components/text-area/usage'
 title: 'TextArea - Usage'
 ---
 
-import { Link, TextArea } from 'hds-react';
+import { TextArea } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -60,5 +63,3 @@ A text area can be provided with additional tooltip. Tooltip information should 
     style={{ maxWidth: '320px' }}
   />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

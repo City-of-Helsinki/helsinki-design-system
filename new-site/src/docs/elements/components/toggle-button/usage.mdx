@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/toggle-button/code'
+slug: '/elements/components/toggle-button/usage'
 title: 'ToggleButton - Usage'
 ---
 
-import { ToggleButton, Link, Tag } from 'hds-react';
+import { ToggleButton } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -63,5 +66,3 @@ export const HorizontalToggleExample = () => {
 <PlaygroundPreview>
   <HorizontalToggleExample />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

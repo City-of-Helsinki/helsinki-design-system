@@ -1,11 +1,14 @@
 ---
-slug: '/elements/components/stepper/code'
+slug: '/elements/components/stepper/usage'
 title: 'Stepper - Usage'
 ---
 
 import { useReducer } from 'react';
-import { Link, Notification, Stepper, StepState, Button, IconArrowLeft, IconArrowRight } from 'hds-react';
+import { Stepper, StepState, Button, IconArrowLeft, IconArrowRight } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -554,5 +557,3 @@ The HDS stepper offers multiple predefined states for steps to be used.
     ]}
   />  
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

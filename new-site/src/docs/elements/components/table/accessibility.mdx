@@ -3,7 +3,9 @@ slug: '/elements/components/table/accessibility'
 title: 'Table - Accessibility'
 ---
 
-import { Link } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Accessibility
 
@@ -13,5 +15,3 @@ import { Link } from 'hds-react';
 - Table header is read to assistive technologies on every cell. Keep table header labels short and concise and make sure they describe the data contained in table cells.
   - This is especially important if the column allows sorting. The sorting label (e.g. "First name, sorted") will be read to assistive technologies on every cell. Only allow sorting if it is really necessary and beneficial to the user.
 - If your table includes empty column header cells, make sure they have a `role=“presentation”` attribute.
-
-export default ({ children }) => <>{children}</>;

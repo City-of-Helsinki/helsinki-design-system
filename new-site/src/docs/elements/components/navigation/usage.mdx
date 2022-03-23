@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/navigation/code'
+slug: '/elements/components/navigation/usage'
 title: 'Navigation - Usage'
 ---
 
-import { Navigation, Link } from 'hds-react';
+import { Navigation } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -129,5 +132,3 @@ HDS Navigation offers two variations with different background colours - one wit
     </Navigation.Row>
   </Navigation>
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

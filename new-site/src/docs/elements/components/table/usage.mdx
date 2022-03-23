@@ -1,11 +1,14 @@
 ---
-slug: '/elements/components/table/code'
+slug: '/elements/components/table/usage'
 title: 'Table - Usage'
 ---
 
 import { useState } from 'react';
-import { Table, Link, Notification, Stepper } from 'hds-react';
+import { Table } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -406,5 +409,3 @@ export const SelectionExample = () => {
 <PlaygroundPreview>
   <SelectionExample />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

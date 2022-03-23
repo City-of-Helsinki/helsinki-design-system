@@ -3,8 +3,11 @@ slug: '/elements/components/tag/code'
 title: 'Tag - Code'
 ---
 
-import { Tag, Link, IconCheckCircleFill } from 'hds-react';
+import { Tag } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -147,5 +150,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `role`                  | Sets the role of the tag when it's clickable. Uses 'link' by default.                                                          | `"button"` `"link"` | `"link"`      |
 | `srOnlyLabel`           | Label that is only visible to screen readers. Can be used to to give screen reader users additional information about the tag. | `string`            | -             |
 [Table 1:Tag properties]|
-
-export default ({ children }) => <>{children}</>;

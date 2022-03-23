@@ -5,6 +5,9 @@ title: 'SelectionGroup - Code'
 
 import { SelectionGroup, Checkbox, RadioButton } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -230,5 +233,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `label`     | The label for the selection group.                             | `string`                    | -             |
 | `direction` | The direction in which child components should be rendered in. | `"vertical"` `"horizontal"` | `"vertical"`  |
 [Table 1:SelectionGroup properties]|
-
-export default ({ children }) => <>{children}</>;

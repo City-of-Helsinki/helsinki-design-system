@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/phone-input/code'
+slug: '/elements/components/phone-input/usage'
 title: 'PhoneInput - Usage'
 ---
 
-import { PhoneInput, Combobox, Link } from 'hds-react';
+import { PhoneInput, Combobox } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -81,5 +84,3 @@ export const CountryCodeExample = () => {
 <PlaygroundPreview>
   <CountryCodeExample />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

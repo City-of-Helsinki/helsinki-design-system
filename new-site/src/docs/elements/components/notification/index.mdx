@@ -3,14 +3,11 @@ slug: '/elements/components/notification'
 title: 'Notification'
 ---
 
-import { StatusLabel, Tabs } from 'hds-react';
+import { StatusLabel } from 'hds-react';
 
 import LeadParagraph from '../../../../components/LeadParagraph';
-import Playground from '../../../../components/Playground';
-
-import Accessibility from './accessibility.mdx';
-import Code from './code.mdx';
-import Usage from './usage.mdx';
+import Layout from '../../../../components/layout';
+import PageTabs from '../../../../components/PageTabs';
 
 # Notification
 
@@ -23,19 +20,13 @@ import Usage from './usage.mdx';
   Notifications are used to present timely information to the user. HDS offers two types of notifications for different use cases.
 </LeadParagraph>
 
-<Tabs>
-  <Tabs.TabList className="pageTabsList">
-    <Tabs.Tab>Usage</Tabs.Tab>
-    <Tabs.Tab>Code</Tabs.Tab>
-    <Tabs.Tab>Accessibility</Tabs.Tab>
-  </Tabs.TabList>
-  <Tabs.TabPanel>
-    <Usage />
-  </Tabs.TabPanel>
-  <Tabs.TabPanel>
-    <Code />
-  </Tabs.TabPanel>
-  <Tabs.TabPanel>
-    <Accessibility />
-  </Tabs.TabPanel>
-</Tabs>
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/usage">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>
+
+export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

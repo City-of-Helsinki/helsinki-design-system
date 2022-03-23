@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/tag/code'
+slug: '/elements/components/tag/usage'
 title: 'Tag - Usage'
 ---
 
-import { Link, Tag } from 'hds-react';
+import { Tag } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -50,5 +53,3 @@ Remember to add descriptive `aria-label` to the delete button to clearly indicat
 <Tag onDelete={() => {}} deleteButtonAriaLabel="Delete filter: News">News</Tag>
 <Tag onDelete={() => {}} deleteButtonAriaLabel="Delete filter: Announcements" style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</Tag>
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

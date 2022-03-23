@@ -3,8 +3,11 @@ slug: '/elements/components/status-label/code'
 title: 'StatusLabel - Code'
 ---
 
-import { StatusLabel, Link, IconCheckCircleFill } from 'hds-react';
+import { StatusLabel } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -102,5 +105,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `type`     | The type of the status label.                        | `"neutral"` `"success"` `"info"` `"alert"` `"error"` | `"neutral"`   |
 | `iconLeft` | Element placed on the left side of the status label. | `ReactNode`                                          | -             |
 [Table 1:StatusLabel properties]|
-
-export default ({ children }) => <>{children}</>;

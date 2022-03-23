@@ -3,7 +3,9 @@ slug: '/elements/components/number-input/accessibility'
 title: 'NumberInput - Accessibility'
 ---
 
-import { Link } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Accessibility
 
@@ -12,5 +14,3 @@ import { Link } from 'hds-react';
 - If steppers are used, provide descriptive aria labels for both increase and decrease actions by using `minusStepButtonAriaLabel` and `plusStepButtonAriaLabel` props.
 - If the number needs to follow a specific format, remember to specify it in the assistive text.
 - Placeholders in number inputs should be avoided. Different screen readers announce placeholders in different ways. It can be very difficult for a screen reader user to differentiate the placeholder from the actual value.
-
-export default ({ children }) => <>{children}</>;
