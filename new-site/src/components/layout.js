@@ -216,7 +216,7 @@ const Layout = ({ children, pageContext }) => {
                           onClick={(e) => {
                             e.preventDefault();
                             if (slug.includes('components')) {
-                              navigate(`${slug}/usage`)
+                              navigate(`${slug}/usage`);
                             } else {
                               navigate(slug);
                             }
