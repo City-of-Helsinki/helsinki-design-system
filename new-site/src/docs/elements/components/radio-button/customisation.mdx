@@ -3,8 +3,10 @@ slug: '/elements/components/radio-button/customisation'
 title: 'RadioButton - Customisation'
 ---
 
-import { Logo } from 'hds-react';
-import { Notification } from 'hds-react';
+import { Notification, RadioButton } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Customisation
 
@@ -75,7 +77,4 @@ You can use the `style` property to customise the component. See all available t
 }}
 ```
 
-
 </Playground>
-
-export default ({ children }) => <>{children}</>;

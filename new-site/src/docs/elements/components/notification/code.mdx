@@ -4,7 +4,9 @@ title: 'Notification - Code'
 ---
 
 import { Notification } from 'hds-react';
-import { Link } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -211,5 +213,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `dismissible`              | If set to true, the notification can be closed.                                                                             | `boolean`                                                                                                     | false         |
 | `closeButtonLabelText`     | The aria-label and title for the close button.                                                                              | `string`                                                                                                      | -             |
 [Table 1:Notification properties]|
-
-export default ({ children }) => <>{children}</>;

@@ -3,14 +3,11 @@ slug: '/elements/components/side-navigation'
 title: 'SideNavigation'
 ---
 
-import { StatusLabel, Tabs } from 'hds-react';
+import { StatusLabel } from 'hds-react';
 
 import LeadParagraph from '../../../../components/LeadParagraph';
-
-import Accessibility from './accessibility.mdx';
-import Code from './code.mdx';
-import Customisation from './customisation.mdx';
-import Usage from './usage.mdx';
+import Layout from '../../../../components/layout';
+import PageTabs from '../../../../components/PageTabs';
 
 # SideNavigation
 
@@ -23,23 +20,14 @@ import Usage from './usage.mdx';
   A side navigation is an additional navigation element that is located at the left-hand side of the viewport. It provides an extra level of navigation and also can be helpful in situations where the traditional top navigation feels too clumsy. 
 </LeadParagraph>
 
-<Tabs>
-  <Tabs.TabList className="pageTabsList">
-    <Tabs.Tab>Usage</Tabs.Tab>
-    <Tabs.Tab>Code</Tabs.Tab>
-    <Tabs.Tab>Accessibility</Tabs.Tab>
-    <Tabs.Tab>Customisation</Tabs.Tab>
-  </Tabs.TabList>
-  <Tabs.TabPanel>
-    <Usage />
-  </Tabs.TabPanel>
-  <Tabs.TabPanel>
-    <Code />
-  </Tabs.TabPanel>
-  <Tabs.TabPanel>
-    <Accessibility />
-  </Tabs.TabPanel>
-  <Tabs.TabPanel>
-    <Customisation />
-  </Tabs.TabPanel>
-</Tabs>
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/usage">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+    <PageTabs.Tab href="/customisation">Customisation</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>
+
+export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

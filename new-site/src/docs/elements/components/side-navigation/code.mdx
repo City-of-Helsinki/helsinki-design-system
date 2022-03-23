@@ -3,8 +3,11 @@ slug: '/elements/components/side-navigation/code'
 title: 'SideNavigation - Code'
 ---
 
-import { SideNavigation, Link, IconHome, IconMap, IconCogwheel, IconCheckCircleFill, IconCrossCircle } from 'hds-react';
+import { SideNavigation, IconHome, IconMap, IconCogwheel } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -240,5 +243,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `defaultOpenMainLevels` | Default value for open main levels.         | `number[]` | \[]           |
 | `toggleButtonLabel`     | The label for the mobile menu toggle button | `string`   | -             |
 [Table 1:SideNavigation properties]|
-
-export default ({ children }) => <>{children}</>;

@@ -3,8 +3,11 @@ slug: '/elements/components/text-area/code'
 title: 'TextArea - Code'
 ---
 
-import { TextArea, Link, IconCheckCircleFill } from 'hds-react';
+import { TextArea } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -122,5 +125,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `tooltipButtonLabel` | The aria-label text for the tooltip trigger button.              | `string`    | -             |
 | `tooltipText`        | The text content of the tooltip.                                 | `string`    | -             |
 [Table 1:TextArea properties]|
-
-export default ({ children }) => <>{children}</>;

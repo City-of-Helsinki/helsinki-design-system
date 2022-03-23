@@ -3,8 +3,11 @@ slug: '/elements/components/radio-button/code'
 title: 'RadioButton - Code'
 ---
 
-import { RadioButton } from 'hds-react';
+import { RadioButton, SelectionGroup } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -119,5 +122,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | --------------------- | --------------------------------| ------------------------------------------ | -------------- |
 | `label`               | The label for the input.        | `string`                                   | -              |
 [Table 1:RadioButton properties]|
-
-export default ({ children }) => <>{children}</>;

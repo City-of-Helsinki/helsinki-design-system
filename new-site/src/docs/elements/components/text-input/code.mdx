@@ -3,8 +3,11 @@ slug: '/elements/components/text-input/code'
 title: 'TextInput - Code'
 ---
 
-import { TextInput, Link, IconCheckCircleFill } from 'hds-react';
+import { TextInput } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -146,5 +149,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `buttonAriaLabel`    | The aria-label for the button.                                   | `string`    | -             |
 | `onButtonClick`      | Callback called when the button is pressed.                      | `function`  | -             |
 [Table 1:TextInput properties]|
-
-export default ({ children }) => <>{children}</>;

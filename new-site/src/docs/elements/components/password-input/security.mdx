@@ -3,7 +3,9 @@ slug: '/elements/components/password-input/security'
 title: 'PasswordInput - Security'
 ---
 
-import { Link } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Security
 As HDS password input provides only the front-end solution, remember that you need to take care of the security in your project.
@@ -28,5 +30,3 @@ Here are some good practices you need to consider.
 
 ### Using password to log in
 - In an error message, you should not declare whether the username or the password is wrong but give general instructions to fix the problem.
-
-export default ({ children }) => <>{children}</>;

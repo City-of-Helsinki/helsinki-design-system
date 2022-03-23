@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/status-label/code'
+slug: '/elements/components/status-label/usage'
 title: 'StatusLabel - Usage'
 ---
 
-import { Link, StatusLabel, IconInfoCircle, IconCheckCircle, IconAlertCircle, IconError } from 'hds-react';
+import { StatusLabel, IconInfoCircle, IconCheckCircle, IconAlertCircle, IconError } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -46,5 +49,3 @@ An icon can be used on the left side of the StatusLabel's text label. The icon s
   <StatusLabel type="alert" style={{marginLeft: 'var(--spacing-s)'}} iconLeft={<IconAlertCircle />}>Alert</StatusLabel>
   <StatusLabel type="error" style={{marginLeft: 'var(--spacing-s)'}} iconLeft={<IconError />}>Error</StatusLabel>
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

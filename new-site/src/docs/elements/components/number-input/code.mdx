@@ -4,7 +4,9 @@ title: 'NumberInput - Code'
 ---
 
 import { NumberInput } from 'hds-react';
-import { Link } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -145,4 +147,3 @@ Also, note that this component is an input. All features supported by the HDS Te
 | `unit`                     | Unit characters of the input. Example: €                                   | `string` | -             |
 [Table 1:NumberInput properties]|
 
-export default ({ children }) => <>{children}</>;

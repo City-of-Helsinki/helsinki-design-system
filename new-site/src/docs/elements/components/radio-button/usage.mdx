@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/radio-button/code'
+slug: '/elements/components/radio-button/usage'
 title: 'RadioButton - Usage'
 ---
 
-import { Link, RadioButton, SelectionGroup } from 'hds-react';
+import { RadioButton, SelectionGroup } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -77,5 +80,3 @@ export const GroupExample = () => {
 <PlaygroundPreview>
   <GroupExample />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

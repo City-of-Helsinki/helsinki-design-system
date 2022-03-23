@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/text-input/code'
+slug: '/elements/components/text-input/usage'
 title: 'TextInput - Usage'
 ---
 
-import { Link, TextInput } from 'hds-react';
+import { TextInput } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -72,5 +75,3 @@ A text input can be provided with additional tooltip. Tooltip information should
     style={{ maxWidth: '320px' }}
   />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

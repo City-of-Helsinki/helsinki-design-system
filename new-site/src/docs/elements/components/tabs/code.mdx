@@ -3,9 +3,11 @@ slug: '/elements/components/tabs/code'
 title: 'Tabs - Code'
 ---
 
-import { useReducer } from 'react';
-import { Tabs, Link, IconCheckCircleFill, IconCrossCircle } from 'hds-react';
+import { Tabs } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -129,5 +131,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | ---------------------- | ---------------------------------------------------------- | -------------------- | ------------- |
 | `small`                | If set to true, the small tabs variant is used.            | `boolean`            | false         |
 [Table 1:Tabs properties]|
-
-export default ({ children }) => <>{children}</>;

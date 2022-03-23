@@ -4,7 +4,9 @@ title: 'Navigation - Code'
 ---
 
 import { Navigation } from 'hds-react';
-import { Link } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -190,5 +192,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `icon`            | Icon to be displayed in the dropdown.      | `ReactNode` | -             |
 | `label`           | Label for the dropdown.                    | `ReactNode` | -             |
 [Table 7:NavigationLanguageSelector properties]|
-
-export default ({ children }) => <>{children}</>;

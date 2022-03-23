@@ -3,7 +3,10 @@ slug: '/elements/components/toggle-button/customisation'
 title: 'ToggleButton - Customisation'
 ---
 
-import { Toggle } from 'hds-react';
+import { ToggleButton } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Customisation
 
@@ -45,5 +48,3 @@ You can use the `theme` property to customise the component. See all available t
 
 
 </Playground>
-
-export default ({ children }) => <>{children}</>;

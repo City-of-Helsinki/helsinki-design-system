@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/time-input/code'
+slug: '/elements/components/time-input/usage'
 title: 'TimeInput - Usage'
 ---
 
-import { Link, TimeInput, Select } from 'hds-react';
+import { TimeInput, Select } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -75,5 +78,3 @@ It is better to use [HDS Select](/elements/components/dropdown#select-single-sel
     style={{ maxWidth: '320px' }}
   />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

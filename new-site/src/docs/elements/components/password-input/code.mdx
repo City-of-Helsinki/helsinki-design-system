@@ -4,7 +4,9 @@ title: 'PasswordInput - Code'
 ---
 
 import { PasswordInput, IconEye, IconEyeCrossed } from 'hds-react';
-import { Link } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -116,4 +118,3 @@ Also, note that this component is an input. All features supported by the HDS Te
 | `revealPasswordButtonAriaLabel`  | The aria-label for the reveal password button.                                                                                                                                                 | `string`  | -             |
 [Table 1:PasswordInput properties]|
 
-export default ({ children }) => <>{children}</>;

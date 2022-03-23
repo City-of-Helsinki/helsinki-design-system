@@ -3,7 +3,9 @@ slug: '/elements/components/stepper/accessibility'
 title: 'Stepper - Accessibility'
 ---
 
-import { Link } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Accessibility
 
@@ -14,5 +16,3 @@ import { Link } from 'hds-react';
 - Each form step should have a heading element of the correct level. It is recommended to use `stepHeading` property to render the heading automatically.
   - If you render the step heading separately, make sure the focus is moved to that heading when the user is moving between steps. This has been taken care of for you if you use the `stepHeading` variant.
   - You can control the aria level of the heading with the `stepHeadingAriaLevel` property.
-
-export default ({ children }) => <>{children}</>;

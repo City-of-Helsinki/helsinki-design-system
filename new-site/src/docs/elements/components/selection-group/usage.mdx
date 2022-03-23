@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/selection-group/code'
+slug: '/elements/components/selection-group/usage'
 title: 'SelectionGroup - Usage'
 ---
 
-import { SelectionGroup, Link, Checkbox, RadioButton } from 'hds-react';
+import { SelectionGroup, Checkbox, RadioButton } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -82,5 +85,3 @@ export const HorizontalGroupExample = () => {
 <PlaygroundPreview>
   <HorizontalGroupExample />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;
