@@ -1,4 +1,5 @@
 @svg-load icon url(../../svg/ui/check.svg);
+@svg-load minusIcon url(../../svg/ui/minus.svg);
 @svg-load errorIcon url(../../svg/ui/alert-circle-fill.svg);
 
 .hds-checkbox {
@@ -148,6 +149,14 @@
   transform: scale(1);
 }
 
+/* checkbox icon - indeterminated */
+.hds-checkbox .hds-checkbox__input:not(:checked):indeterminate::before {
+  mask-image: svg-inline(minusIcon);
+  -webkit-mask-image: svg-inline(minusIcon);
+  background-color: var(--icon-color-selected);
+  transform: scale(1);
+}
+
 /* focus outline */
 .hds-checkbox .hds-checkbox__label::before {
   height: var(--size);
@@ -168,15 +177,18 @@
   width: var(--size);
 }
 
-/* background - selected */
-.hds-checkbox .hds-checkbox__input:checked + .hds-checkbox__label::after {
+/* background - selected or indeterminated */
+.hds-checkbox .hds-checkbox__input:checked + .hds-checkbox__label::after,
+.hds-checkbox .hds-checkbox__input:indeterminate + .hds-checkbox__label::after {
   background-color: var(--background-selected);
   border-color: var(--border-color-selected);
 }
 
 /* background - selected - hover */
 .hds-checkbox .hds-checkbox__input:not(:disabled):checked:hover + .hds-checkbox__label::after,
-.hds-checkbox .hds-checkbox__input:not(:disabled):checked:hover:focus + .hds-checkbox__label::after {
+.hds-checkbox .hds-checkbox__input:not(:disabled):checked:hover:focus + .hds-checkbox__label::after,
+.hds-checkbox .hds-checkbox__input:not(:disabled):indeterminate:hover + .hds-checkbox__label::after,
+.hds-checkbox .hds-checkbox__input:not(:disabled):indeterminate:hover:focus + .hds-checkbox__label::after {
   background-color: var(--background-hover);
   border-color: var(--border-color-selected-hover);
 }
@@ -193,7 +205,8 @@
 }
 
 /* background - selected - focus */
-.hds-checkbox .hds-checkbox__input:not(:disabled):checked:focus + .hds-checkbox__label::after {
+.hds-checkbox .hds-checkbox__input:not(:disabled):checked:focus + .hds-checkbox__label::after,
+.hds-checkbox .hds-checkbox__input:not(:disabled):indeterminate:focus + .hds-checkbox__label::after {
   border-color: var(--border-color-selected-focus);
 }
 

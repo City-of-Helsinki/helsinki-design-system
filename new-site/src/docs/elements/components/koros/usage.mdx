@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/koros/code'
+slug: '/elements/components/koros/usage'
 title: 'Koros - Usage'
 ---
 
 import { Koros, Link } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -87,5 +90,3 @@ export const AngledVariation = () => {
 <PlaygroundPreview>
   <AngledVariation />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

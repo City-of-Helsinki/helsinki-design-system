@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/icon/code'
+slug: '/elements/components/icon/usage'
 title: 'Icon - Usage'
 ---
 
 import { IconFaceSmile, Link } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -39,5 +42,3 @@ See the <Link size="M" href="visual-assets/icons">the icon library</Link> to bro
   <IconFaceSmile size="l" aria-hidden="true" />
   <IconFaceSmile size="xl" aria-hidden="true" />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

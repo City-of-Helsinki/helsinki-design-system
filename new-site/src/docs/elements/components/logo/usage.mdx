@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/logo/code'
+slug: '/elements/components/logo/usage'
 title: 'Logo - Usage'
 ---
 
 import { Link, Logo } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -50,5 +53,3 @@ The component includes three (3) size variants to fit the context.
   <br />
   <Logo language="fi" size="large" />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

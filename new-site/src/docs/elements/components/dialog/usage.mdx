@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/dialog/code'
+slug: '/elements/components/dialog/usage'
 title: 'Dialog - Usage'
 ---
 
 import { Dialog, Button, IconInfoCircle, IconTrash } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -334,5 +337,3 @@ export const ScrollableDialogExample = () => {
 <PlaygroundPreview>
   <ScrollableDialogExample />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

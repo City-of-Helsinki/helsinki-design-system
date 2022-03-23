@@ -6,6 +6,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.12.0] - Mar, 22, 2022
+
+### Core
+
+#### Added
+
+- [Checkbox] Indeterminate state
+
+### React Components
+
+#### Added
+
+- [Checkbox] Indeterminate state
+- [Tabs] initiallyActiveTab property for setting initially active tab (default is the first tab)
+- [Tabs] Tab onClick property for adding callback for tab click
+
+#### Removed
+
+- Node engine restriction by replacing node-sass lib with sass
+
+### Design kit
+
+#### Added
+
+- [Form Components] Indeterminate state for the Checkbox component
+
+### Documentation
+
+#### Added
+
+- [Checkbox] Documentation for the indeterminate checkbox state
+
 ## [1.11.1] - Mar, 8, 2022
 
 ### Core
@@ -51,7 +83,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ErrorSummary] Adds missing focus styles
 
 ### Design kit
-**Added**
+
+#### Added
 
 - [Form Components] Multi-page form Stepper component
 - [Form Components] Multi-page form Stepper + heading templates
@@ -61,7 +94,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Koros] Dense koro variant
 - [Koros] Angled koro variant
 
-**Changed**
+#### Changed
 
 - Updated HDS Sketch libraries to Sketch version 83.2
 - [Cards] An optional shadow to Card symbols
@@ -71,7 +104,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Modals and Notifications] An optional shadow to Tooltip symbols
 - [Modals & Notifications] Changed Small Tooltip symbol smart layout alignment from Left to Center. This change makes it easier to use inside other components when the tooltip text is edited.
 
-**Fixed**
+#### Fixed
 
 - [Typography] Incorrect link colour of the Medium Regular Centered body text
 

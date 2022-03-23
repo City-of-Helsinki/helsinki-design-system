@@ -1,0 +1,18 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.pageTabsList {
+  margin: var(--spacing-2-xl) calc(-1 * var(--spacing-m)) var(--spacing-l);
+  padding: 0 var(--spacing-m);
+  position: relative;
+
+  &:before {
+    bottom: 1px;
+    border-bottom: 1px solid var(--page-border-color);
+    content: "";
+    height: 1px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    width: 100%;
+  }
+}

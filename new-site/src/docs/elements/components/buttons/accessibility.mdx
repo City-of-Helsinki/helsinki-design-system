@@ -5,6 +5,10 @@ title: 'Button - Accessibility'
 
 import { Link } from 'hds-react';
 
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
 ## Accessibility
 
 ### Pay attention to
@@ -16,5 +20,3 @@ import { Link } from 'hds-react';
 ### Related accessibility requirements
 - <Link size="M" href="https://www.w3.org/TR/WCAG21/#focus-visible" external>WCAG 2.4.7 - Focus visible</Link>
 - <Link size="M" href="https://www.w3.org/TR/WCAG21/#on-input" external>WCAG 3.2.2 - On input</Link>
-
-export default ({ children }) => <>{children}</>;

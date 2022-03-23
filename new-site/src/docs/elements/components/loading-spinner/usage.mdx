@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/loading-spinner/code'
+slug: '/elements/components/loading-spinner/usage'
 title: 'LoadingSpinner - Usage'
 ---
 
 import { LoadingSpinner } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -59,5 +62,3 @@ Note! When using multicolour loading spinners, at least half of the colours must
     }}
   />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;
