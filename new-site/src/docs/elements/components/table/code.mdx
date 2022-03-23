@@ -61,7 +61,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```html
 <div>
-<div class="hds-table-container" style={{maxWidth: '640px'}} tabindex="0">
+<div class="hds-table-container" style="max-width:640px" tabindex="0">
 <table class="hds-table hds-table--dark" aria-label="Service users (dark variant)">
   <caption class="hds-table__caption"><b>Table 1</b>: Service users (dark variant)</caption>
   <thead>
@@ -101,7 +101,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 </table>
 </div>
 
-<div class="hds-table-container" style={{maxWidth: '640px'}} tabindex="0">
+<div class="hds-table-container" style="max-width:640px" tabindex="0">
 <table class="hds-table hds-table--light" aria-label="Service users (light variant)">
   <caption class="hds-table__caption"><b>Table 2</b>: Service users (light variant)</caption>
   <thead>
@@ -193,14 +193,14 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ```
 
 ```html
-<div class="hds-table-container" style={{maxWidth: "496px"}} tabindex="0">
+<div class="hds-table-container" style="max-width:496px;" tabindex="0">
   <table
     class="hds-table hds-table--dark hds-table--with-vertical-header"
     aria-label="Units sold by weekday"
   >
     <caption class="hds-table__caption"><b>Table 3</b>: Units sold by weekday</caption>
     <colgroup>
-      <col span="1" class="hds-table__vertical-header-column"></col>
+      <col span="1" class="hds-table__vertical-header-column" />
     </colgroup>
     <thead>
       <tr class="hds-table__header-row">
@@ -332,7 +332,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ```
 
 ```html
-<div class="hds-table-container" style={{maxWidth: "800px"}} tabindex="0">
+<div class="hds-table-container" style="max-width:800px;" tabindex="0">
   <table class="hds-table hds-table--dark hds-table--zebra" aria-label="Service users (zebra variant)">
     <caption class="hds-table__caption"><b>Table 4</b>: Service users (zebra variant)</caption>
     <thead>
