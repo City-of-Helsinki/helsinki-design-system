@@ -6,6 +6,9 @@ title: 'DateInput - Code'
 import { DateInput, IconCheckCircleFill, IconCrossCircle, Link } from 'hds-react';
 
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -142,6 +145,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `initialMonth`                                   | The initial month open in calendar.                            | `Date`                                       | -                                               |
 | `disableDatePicker`                              | If set to true, the date picker button is hidden.              | `boolean`                                    | false                                           |
 | `disableConfirmation`                            | If set to true, the date picker does not require confirmation. | `boolean`                                    | false                                           |
-
-
-export default ({ children }) => <>{children}</>;

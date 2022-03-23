@@ -5,6 +5,9 @@ title: 'Dialog - Code'
 
 import { Dialog, Button, IconCheckCircleFill, IconCrossCircle, IconInfoCircle, Link, TextArea, TextInput } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -362,5 +365,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `variant`                | Defines the dialog variant.                                                                           | primary, danger | primary       |
 | `close`                  | A function called when a dialog close button is pressed. The button if shown if this property exists. | `function`      | -             |
 | `closeButtonLabelText`   | The aria-label for the close button. Required with `close` property.                                  | `string`        | -             |
-
-export default ({ children }) => <>{children}</>;

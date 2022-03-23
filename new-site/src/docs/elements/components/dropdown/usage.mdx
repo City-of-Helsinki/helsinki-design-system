@@ -1,10 +1,13 @@
 ---
-slug: '/elements/components/dropdown/code'
+slug: '/elements/components/dropdown/usage'
 title: 'Dropdown - Usage'
 ---
 
 import { Button, Combobox, IconInfoCircle, IconUser, Select } from 'hds-react';
 import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
@@ -262,5 +265,3 @@ Multi-select also supports icon if needed.
     toggleButtonAriaLabel="Toggle menu"
   />
 </PlaygroundPreview>
-
-export default ({ children }) => <>{children}</>;

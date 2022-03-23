@@ -27,6 +27,10 @@ export interface TabsCustomTheme {
 
 export type TabsProps = React.PropsWithChildren<{
   /**
+   * The initially active tab
+   */
+  initiallyActiveTab?: number;
+  /**
    * Use the small variant
    * @default false
    */
@@ -37,8 +41,8 @@ export type TabsProps = React.PropsWithChildren<{
   theme?: TabsCustomTheme;
 }>;
 
-export const Tabs = ({ children, small = false, theme }: TabsProps) => {
-  const [activeTab, setActiveTab] = useState<number>(0);
+export const Tabs = ({ children, initiallyActiveTab = 0, small = false, theme }: TabsProps) => {
+  const [activeTab, setActiveTab] = useState<number>(initiallyActiveTab);
   const [focusedTab, setFocusedTab] = useState<number>(null);
   // custom theme class that is applied to the root element
   const customThemeClass = useTheme<TabsCustomTheme>(styles.tabs, theme);

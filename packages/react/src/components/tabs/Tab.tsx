@@ -9,6 +9,10 @@ import { TabsContext } from './TabsContext';
 
 export type TabProps = React.PropsWithChildren<{
   /**
+   * Custom function callback for on tab click
+   */
+  onClick?: () => void;
+  /**
    * Additional class names to apply to the Tab
    */
   className?: string;
@@ -19,7 +23,7 @@ export type TabProps = React.PropsWithChildren<{
   index?: number;
 }>;
 
-export const Tab = ({ children, className, index, style }: TabProps) => {
+export const Tab = ({ children, className, index, onClick, style }: TabProps) => {
   const ref = useRef<HTMLLIElement>(null);
   const { activeTab, focusedTab, setFocusedTab, setActiveTab } = useContext(TabsContext);
   const isActive = activeTab === index;
@@ -36,7 +40,10 @@ export const Tab = ({ children, className, index, style }: TabProps) => {
   /**
    * Set the tab as active when clicked
    */
-  const onClick = () => {
+  const onTabClick = () => {
+    if (onClick) {
+      onClick();
+    }
     setActiveTab(index);
     setFocusedTab(index);
   };
@@ -72,7 +79,7 @@ export const Tab = ({ children, className, index, style }: TabProps) => {
       id={`tab-${index}-button`}
       className={classNames(styles.tab, isActive && styles.active, className)}
       style={style}
-      onClick={onClick}
+      onClick={onTabClick}
       onKeyDown={onKeyDown}
       onFocus={onFocus}
       ref={ref}

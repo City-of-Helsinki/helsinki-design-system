@@ -14,6 +14,9 @@ import {
   Link,
 } from 'hds-react';
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Customisation
 
@@ -60,6 +63,3 @@ You can use the `theme` property to customise the component. See all available t
 ```
 
 </Playground>
-
-
-export default ({ children }) => <>{children}</>;

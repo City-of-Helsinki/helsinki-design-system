@@ -4,6 +4,9 @@ title: 'Icon - Accessibility'
 ---
 
 import { Link } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Accessibility
 
@@ -12,5 +15,3 @@ import { Link } from 'hds-react';
 - If the icon has a visual text label associated with it, the icon can be hidden from assistive technologies with `aria-hidden="true"`. It prevents screenreaders repeating the same information twice (visual text followed by the icon description).
 - If the icon is only decorative, it should always be hidden from assistive technologies with `aria-hidden="true"`.
 - The colour contrast between the icon and its background must comply with <Link size="M" href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>AA Level contrast ratios</Link>.
-
-export default ({ children }) => <>{children}</>;

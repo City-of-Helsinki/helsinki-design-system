@@ -3,8 +3,12 @@ slug: '/elements/components/buttons/customisation'
 title: 'Button - Customisation'
 ---
 
-import { Button, IconArrowRight, Notification } from 'hds-react';
+import { Button, IconArrowRight } from 'hds-react';
+
 import Playground from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Customisation
 
@@ -23,20 +27,17 @@ You can use the `theme` property to customise the component. See all available t
 <Playground>
 
 
-```jsx
-<Button theme="coat" iconRight={<IconArrowRight />}>
-  Customised button
-</Button>
-```
+  ```jsx
+  <Button theme="coat" iconRight={<IconArrowRight />}>
+    Customised button
+  </Button>
+  ```
 
-```html
-<button type="button" class="hds-button hds-button--primary hds-button--theme-coat">
-  <span class="hds-button__label">Customised button</span>
-  <span aria-hidden="true" class="hds-icon hds-icon--arrow-right"></span>
-</button>
-```
+  ```html
+  <button type="button" class="hds-button hds-button--primary hds-button--theme-coat">
+    <span class="hds-button__label">Customised button</span>
+    <span aria-hidden="true" class="hds-icon hds-icon--arrow-right"></span>
+  </button>
+  ```
 
 </Playground>
-
-
-export default ({ children }) => <>{children}</>;

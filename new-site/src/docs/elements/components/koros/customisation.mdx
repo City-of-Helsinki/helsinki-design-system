@@ -4,6 +4,9 @@ title: 'Koros - Customisation'
 ---
 
 import { Notification } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Customisation
 
@@ -36,5 +39,3 @@ Koros is an older HDS component and therefore its customisation works slightly d
 ```
 
 </Playground>
-
-export default ({ children }) => <>{children}</>;

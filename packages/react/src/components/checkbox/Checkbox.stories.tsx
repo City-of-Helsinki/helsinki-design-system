@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import { Checkbox } from './Checkbox';
+import { Fieldset } from '../fieldset';
 
 export default {
   component: Checkbox,
@@ -20,15 +21,19 @@ export default {
   },
 };
 
-export const Default = () => <Checkbox id="checkbox" label="Label" />;
+export const Default = () => <Checkbox id="default" label="Label" />;
 
-export const Selected = () => <Checkbox id="checkbox2" label="Label" checked />;
+export const Selected = () => <Checkbox id="selected" label="Label" checked />;
 
-export const Disabled = () => <Checkbox id="checkbox3" label="Label" disabled />;
+export const Indeterminate = () => (
+  <Checkbox id="indeterminate" label="Label" indeterminate onChange={(event) => event.preventDefault()} />
+);
 
-export const Invalid = () => <Checkbox id="checkbox" label="Label" errorText="Error text" />;
+export const Disabled = () => <Checkbox id="disabled" label="Label" disabled />;
 
-export const SelectedDisabled = () => <Checkbox id="checkbox4" label="Label" checked disabled />;
+export const Invalid = () => <Checkbox id="invalid" label="Label" errorText="Error text" />;
+
+export const SelectedDisabled = () => <Checkbox id="selected-disabled" label="Label" checked disabled />;
 SelectedDisabled.storyName = 'Selected & disabled';
 
 export const Custom = () => {
@@ -57,6 +62,142 @@ export const Custom = () => {
 };
 Custom.storyName = 'With custom styles';
 
+export const GroupWithParent = () => {
+  enum CheckboxState {
+    checked,
+    unchecked,
+    indeterminate,
+  }
+
+  const areAllChecked = (state) => {
+    let checkedCount = 0;
+    Object.keys(state).forEach((key) => {
+      if (key === 'controllerCheckbox') {
+        return;
+      }
+      if (state[key] === CheckboxState.checked) {
+        checkedCount += 1;
+      }
+    });
+
+    return checkedCount === 4;
+  };
+
+  const areAllUnchecked = (state) => {
+    let checkedCount = 0;
+    Object.keys(state).forEach((key) => {
+      if (key === 'controllerCheckbox') {
+        return;
+      }
+      if (state[key] === CheckboxState.checked) {
+        checkedCount += 1;
+      }
+    });
+
+    return checkedCount === 1;
+  };
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'check': {
+        if (action.payload === 'controllerCheckbox') {
+          return {
+            controllerCheckbox: CheckboxState.checked,
+            checkbox1: CheckboxState.checked,
+            checkbox2: CheckboxState.checked,
+            checkbox3: CheckboxState.checked,
+            checkbox4: CheckboxState.checked,
+            checkbox5: CheckboxState.checked,
+          };
+        }
+        return {
+          ...state,
+          [action.payload]: CheckboxState.checked,
+          controllerCheckbox: areAllChecked(state) ? CheckboxState.checked : CheckboxState.indeterminate,
+        };
+      }
+      case 'uncheck': {
+        if (action.payload === 'controllerCheckbox') {
+          return {
+            controllerCheckbox: CheckboxState.unchecked,
+            checkbox1: CheckboxState.unchecked,
+            checkbox2: CheckboxState.unchecked,
+            checkbox3: CheckboxState.unchecked,
+            checkbox4: CheckboxState.unchecked,
+            checkbox5: CheckboxState.unchecked,
+          };
+        }
+        return {
+          ...state,
+          [action.payload]: CheckboxState.unchecked,
+          controllerCheckbox: areAllUnchecked(state) ? CheckboxState.unchecked : CheckboxState.indeterminate,
+        };
+      }
+      default:
+        throw new Error();
+    }
+  };
+
+  const initialState = {
+    controllerCheckbox: CheckboxState.unchecked,
+    checkbox1: CheckboxState.unchecked,
+    checkbox2: CheckboxState.unchecked,
+    checkbox3: CheckboxState.unchecked,
+    checkbox4: CheckboxState.unchecked,
+    checkbox5: CheckboxState.unchecked,
+  };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <Fieldset heading="Group label *">
+      <Checkbox
+        aria-controls="checkbox1 checkbox2 checkbox3 checkbox4 checkbox5"
+        id="controllerCheckbox"
+        label="Label"
+        indeterminate={state.controllerCheckbox === CheckboxState.indeterminate}
+        checked={state.controllerCheckbox === CheckboxState.checked}
+        style={{ marginTop: 'var(--spacing-xs)' }}
+        onChange={() => {
+          if (
+            state.controllerCheckbox === CheckboxState.unchecked ||
+            state.controllerCheckbox === CheckboxState.indeterminate
+          ) {
+            dispatch({ type: 'check', payload: 'controllerCheckbox' });
+          } else {
+            dispatch({ type: 'uncheck', payload: 'controllerCheckbox' });
+          }
+        }}
+      />
+      <ul style={{ marginLeft: 'var(--spacing-s)', paddingInlineStart: '0' }}>
+        {Object.entries(state).map((entry) => {
+          if (entry[0] === 'controllerCheckbox') {
+            return null;
+          }
+          return (
+            <li key={entry[0]} style={{ marginTop: 'var(--spacing-s)', listStyle: 'none' }}>
+              <Checkbox
+                id={entry[0]}
+                label="Label"
+                checked={entry[1] === CheckboxState.checked}
+                onChange={() => {
+                  if (entry[1] === CheckboxState.unchecked) {
+                    dispatch({ type: 'check', payload: entry[0] });
+                  } else {
+                    dispatch({ type: 'uncheck', payload: entry[0] });
+                  }
+                }}
+              />
+            </li>
+          );
+        })}
+      </ul>
+    </Fieldset>
+  );
+};
+
+GroupWithParent.storyName = 'Group with a parent';
+
 export const Playground = (args) => {
   const [checkedItems, setCheckedItems] = useState({});
   const options = ['Option 1', 'Option 2', 'Option 3'];
@@ -65,6 +206,18 @@ export const Playground = (args) => {
     const item = e.target.name;
     const isChecked = e.target.checked;
     setCheckedItems({ ...checkedItems, [item]: isChecked });
+  };
+
+  const [indeterminateState, setIndeterminateState] = useState('indeterminate');
+
+  const handleIndeterminateChange = () => {
+    if (indeterminateState === 'indeterminate') {
+      setIndeterminateState('checked');
+    } else if (indeterminateState === 'checked') {
+      setIndeterminateState('unchecked');
+    } else {
+      setIndeterminateState('indeterminate');
+    }
   };
 
   const styles = {
@@ -106,8 +259,16 @@ export const Playground = (args) => {
           style={styles}
         />
       ))}
-      <Checkbox id="checkbox7" label="Option 4" style={styles} disabled />
-      <Checkbox id="checkbox8" label="Option 5" style={styles} checked disabled />
+      <Checkbox
+        id="indeterminate-playground"
+        label="Option 4"
+        style={styles}
+        checked={indeterminateState === 'checked'}
+        indeterminate={indeterminateState === 'indeterminate'}
+        onChange={handleIndeterminateChange}
+      />
+      <Checkbox id="checkbox7" label="Option 5" style={styles} disabled />
+      <Checkbox id="checkbox8" label="Option 6" style={styles} checked disabled />
     </>
   );
 };
