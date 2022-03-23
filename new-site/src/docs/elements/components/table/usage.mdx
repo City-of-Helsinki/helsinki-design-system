@@ -305,8 +305,40 @@ export const VerticalExample = () => {
 #### Dense tables
 If your table has a large amount of data, you can use the `dense` property to force mobile spacing on all screen sizes. This allows more data to fit into the view at the same time.
 
-<PlaygroundPreview>
+export const DenseExample = () => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+  const caption = (
+    <span>
+      <b>Table 7</b>: Service users (dense variant)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '500px' }}>
+      <Table cols={cols} rows={rows} dense caption={caption} indexKey="id" renderIndexCol={false} />
+    </div>
+  );
+};
 
+<PlaygroundPreview>
+ <DenseExample />
 </PlaygroundPreview>
 
 #### Sorting
@@ -339,7 +371,7 @@ export const SortingExample = () => {
   ];
   const caption = (
     <span>
-      <b>Table 7</b>: Service users (sorting, dark variant)
+      <b>Table 8</b>: Service users (sorting, dark variant)
     </span>
   );
   return (

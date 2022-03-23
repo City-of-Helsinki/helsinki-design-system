@@ -485,11 +485,79 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <Playground>
 
 ```jsx
-
+{() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+  const caption = (
+    <span>
+      <b>Table 6</b>: Service users (dense variant)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '500px' }}>
+      <Table cols={cols} rows={rows} dense caption={caption} indexKey="id" renderIndexCol={false} />
+    </div>
+  );
+}}
 ```
 
 ```html
-
+<div class="hds-table-container" style="max-width: 640px;" tabindex="0">
+  <table class="hds-table hds-table--dark hds-table--dense" aria-label="People">
+    <caption class="hds-table__caption"><b>Table 6</b>: Service users (dense variant)</caption>
+    <thead>
+    <tr class="hds-table__header-row">
+      <th scope="col">First name</th>
+      <th scope="col">Surname</th>
+      <th scope="col">Age</th>
+      <th scope="col">Profession</th>
+    </tr>
+    </thead>
+    <tbody class="hds-table__content">
+      <tr>
+        <td>Lauri</td>
+        <td>Kekkonen</td>
+        <td class="hds-table--text-align-right">39</td>
+        <td>Engineer</td>
+      </tr>
+      <tr>
+        <td>Maria</td>
+        <td>Sarasoja</td>
+        <td class="hds-table--text-align-right">62</td>
+        <td>Designer</td>
+      </tr>
+      <tr>
+        <td>Anneli</td>
+        <td>Routa</td>
+        <td class="hds-table--text-align-right">50</td>
+        <td>Meteorologist</td>
+      </tr>
+      <tr>
+        <td>Osku</td>
+        <td>Rausku</td>
+        <td class="hds-table--text-align-right">18</td>
+        <td>Mail carrier</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 ```
 
 </Playground>
