@@ -45,42 +45,38 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ```
 
 ```html
-<div style={{ maxWidth: '320px' }}>
-<div class="hds-text-input">
-  <label for="textarea" class="hds-text-input__label">
-    Label
-    <span class="hds-text-input__required">*</span>
-  </label>
-  <div class="hds-text-input__input-wrapper">
-    <textarea id="textarea" class="hds-text-input__input" placeholder="Placeholder" required></textarea>
+<div style="max-width:320px;">
+  <div class="hds-text-input">
+    <label for="textarea" class="hds-text-input__label">
+      Label
+      <span class="hds-text-input__required">*</span>
+    </label>
+    <div class="hds-text-input__input-wrapper">
+      <textarea id="textarea" class="hds-text-input__input" placeholder="Placeholder" required></textarea>
+    </div>
+    <span class="hds-text-input__helper-text">Assistive text</span>
   </div>
-  <span class="hds-text-input__helper-text">Assistive text</span>
-</div>
 
-<div class="hds-text-input" style={{marginTop: 'var(--spacing-s)'}}>
-  <label for="textarea" class="hds-text-input__label">
-    Label
-  </label>
-  <div class="hds-text-input__input-wrapper">
-    <textarea id="textarea" class="hds-text-input__input" disabled>
-      Text area value
-    </textarea>
+  <div class="hds-text-input" style="margin-top:var(--spacing-s);">
+    <label for="textarea-disabled" class="hds-text-input__label">
+      Label
+    </label>
+    <div class="hds-text-input__input-wrapper">
+      <textarea id="textarea-disabled" class="hds-text-input__input" disabled>Text area value</textarea>
+    </div>
+    <span class="hds-text-input__helper-text">Assistive text</span>
   </div>
-  <span class="hds-text-input__helper-text">Assistive text</span>
-</div>
 
-<div class="hds-text-input hds-text-input--invalid" style={{marginTop: 'var(--spacing-s)'}}>
-  <label for="textarea" class="hds-text-input__label">
-    Label
-  </label>
-  <div class="hds-text-input__input-wrapper">
-    <textarea id="textarea" class="hds-text-input__input">
-      Text area value
-    </textarea>
+  <div class="hds-text-input hds-text-input--invalid" style="margin-top:var(--spacing-s);">
+    <label for="textarea-invalid" class="hds-text-input__label">
+      Label
+    </label>
+    <div class="hds-text-input__input-wrapper">
+      <textarea id="textarea-invalid" class="hds-text-input__input">Text area value</textarea>
+    </div>
+    <span class="hds-text-input__error-text">Error text</span>
+    <span class="hds-text-input__helper-text">Assistive text</span>
   </div>
-  <span class="hds-text-input__error-text">Error text</span>
-  <span class="hds-text-input__helper-text">Assistive text</span>
-</div>
 </div>
 ```
 
