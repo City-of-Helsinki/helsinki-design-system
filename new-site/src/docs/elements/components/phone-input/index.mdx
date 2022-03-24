@@ -1,0 +1,32 @@
+---
+slug: '/elements/components/phone-input'
+title: 'PhoneInput'
+---
+
+import { StatusLabel } from 'hds-react';
+
+import LeadParagraph from '../../../../components/LeadParagraph';
+import Layout from '../../../../components/layout';
+import PageTabs from '../../../../components/PageTabs';
+
+# PhoneInput
+
+<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  Accessible
+</StatusLabel>
+
+<LeadParagraph>
+  A phone input allows the user to enter phone number values. 
+</LeadParagraph>
+
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/usage">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>
+
+export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

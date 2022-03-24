@@ -1,0 +1,50 @@
+---
+slug: '/elements/components/toggle-button/customisation'
+title: 'ToggleButton - Customisation'
+---
+
+import { ToggleButton } from 'hds-react';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Customisation
+
+### Customisation properties
+You can use the `theme` property to customise the component. See all available theme variables in the table below.
+
+| Theme variable                     | Description                                                      |
+| ---------------------------------- | ---------------------------------------------------------------- |
+| `--toggle-button-color`            | Colour of the toggle button (when selected).                     |
+| `--toggle-button-hover-color`      | Colour of the toggle button on hover (when selected).            |
+| `--toggle-button-unselected-color` | Colour of the toggle button (when not selected).                 |
+
+[Table 1:ToggleButton theme variables]|
+
+### Customisation example
+<Playground>
+
+
+```jsx
+{() => {
+  const [checked, setChecked] = React.useState(true);
+  return (
+    <>
+      <ToggleButton
+        id="toggle-button-custom-color"
+        label="Label"
+        checked={checked}
+        onChange={() => setChecked(!checked)}
+        theme={{
+          '--toggle-button-color': 'var(--color-tram)',
+          '--toggle-button-hover-color': 'var(--color-tram-dark)',
+          '--toggle-button-unselected-color': 'var(--color-black-90)'
+        }}
+      />
+    </>
+  );
+}}
+```
+
+
+</Playground>

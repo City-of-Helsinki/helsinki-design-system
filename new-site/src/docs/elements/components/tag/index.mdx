@@ -1,0 +1,33 @@
+---
+slug: '/elements/components/tag'
+title: 'Tag'
+---
+
+import { StatusLabel } from 'hds-react';
+
+import LeadParagraph from '../../../../components/LeadParagraph';
+import Layout from '../../../../components/layout';
+import PageTabs from '../../../../components/PageTabs';
+
+# Tag
+
+<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  Accessible
+</StatusLabel>
+
+<LeadParagraph>
+  Tags are used to show attributes of an object or element such as categories. HDS also uses Tags to present filters selected for searches.
+</LeadParagraph>
+
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/usage">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+    <PageTabs.Tab href="/customisation">Customisation</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>
+
+export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

@@ -1,0 +1,32 @@
+---
+slug: '/elements/components/password-input/security'
+title: 'PasswordInput - Security'
+---
+
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Security
+As HDS password input provides only the front-end solution, remember that you need to take care of the security in your project.
+Here are some good practices you need to consider.
+
+### General Security
+- Do not prevent the user from copying and pasting the password into the field.
+- Prefer using ready authentication libraries and services, and familiarize yourself properly with their implementation.
+- In City of Helsinki Services, always use Helsinki Profiili authentication if possible.
+- Never store the password in a readable form. Always use proper hash algorithms.
+- Always protect the communication with secure connections (TLS 1.2 or newer).
+- Encourage usage of multi-factor authentication and password managers.
+
+### Creating a new password
+- Inform user properly what the requirements for their password are.
+- Do not accept password matching user identifier, e.g. a username or an email.
+- Do not truncate, sanitize, or format in any way the password user has given.
+- Set minimum length for password 12 to 16 characters.
+- Avoid setting a maximum password length smaller than 128 characters.
+- If possible, allow the password input to reflect the strength of the password entered when the password component is used for creating anew password.
+- If possible, add other programmatic assistance. Detect and suggest changes to provide the user with assistance in generating strong passwords.
+
+### Using password to log in
+- In an error message, you should not declare whether the username or the password is wrong but give general instructions to fix the problem.

@@ -1,0 +1,55 @@
+---
+slug: '/elements/components/tag/usage'
+title: 'Tag - Usage'
+---
+
+import { Tag } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+<PlaygroundPreview>
+  <Tag>News</Tag>
+  <Tag style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</Tag>
+</PlaygroundPreview>
+
+### Principles
+- **Tags are meant for presenting object attributes and filters.** If you are presenting status information, use [Status label component](/components/status-label) instead.
+- Keep labels short and concise. Use 1-2 words at maximum and do not use labels expanding to two rows.
+- Do not use icons inside Tag labels.
+- Tags are often related to some other element on the page (e.g. table row or search field as filters). Aim to keep tags and their related elements close to each other so the user can easily interpret the relation.
+- Unlike status labels, **tags can be configured to be clickable and deletable**. You can use this feature to create removable filters/selections or links to category filtered pages.
+
+### Variations
+
+#### Default
+By default, Tags are non-interactable elements. They only include a label and do not have any specific styling.
+
+<PlaygroundPreview>
+<Tag>News</Tag>
+<Tag style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</Tag>
+</PlaygroundPreview>
+
+#### Clickable
+Tags can be configured to be interactable by giving them an `onClick` function prop. This way Tags can act as links or actions. Since these Tags are fully interactable they can be also focused and receive default HDS focus indicator styling.
+
+Remember to add descriptive `aria-label` to clearly indicate the link target or action to assistive technologies.
+
+<PlaygroundPreview>
+<Tag role="link" onClick={() => {}} aria-label="Move to category: News">News</Tag>
+<Tag role="link" onClick={() => {}} aria-label="Move to category: Announcements" style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</Tag>
+</PlaygroundPreview>
+
+#### Deletable
+Tags can be configured to be deletable by giving them an `onDelete` function prop. This enables a delete icon inside the Tag. Deleting can be useful in situations where Tags are used as filters (e.g. for search).
+
+Remember to add descriptive `aria-label` to the delete button to clearly indicate what the user is deleting when triggering the action.
+
+<PlaygroundPreview>
+<Tag onDelete={() => {}} deleteButtonAriaLabel="Delete filter: News">News</Tag>
+<Tag onDelete={() => {}} deleteButtonAriaLabel="Delete filter: Announcements" style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</Tag>
+</PlaygroundPreview>
