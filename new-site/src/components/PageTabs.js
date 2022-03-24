@@ -5,12 +5,12 @@ import { Tabs } from 'hds-react';
 
 import './PageTabs.scss';
 
-const resolvePathFromSlug = (slug) => {
+const resolvePathFromSubSlug = (slug) => {
   const parts = slug
     .trim()
     .split('/')
     .filter((p) => !!p);
-  return parts.slice(0, -1).join('/');
+  return `/${parts.slice(0, -1).join('/')}`;
 };
 
 const pageTabListComponentName = 'PageTabList';
@@ -23,14 +23,18 @@ const PageTabs = ({ pageContext, children }) => {
   const tabList = mdxChildren.find((reactChild) => reactChild.type.componentName === pageTabListComponentName);
   const tabPanel = mdxChildren.find((reactChild) => reactChild.type.componentName === pageTabPanelComponentName);
   const tabs = tabList.props?.children.filter((reactChild) => reactChild.type.componentName === pageTabComponentName);
-  const activeIndex = tabs.findIndex((tab) => slug.endsWith(tab.props.href));
-  const basePath = resolvePathFromSlug(slug);
+  const tabActiveIndex = tabs.findIndex((tab) => slug.endsWith(tab.props.href));
+  const activeIndex = tabActiveIndex === -1 ? 0 : tabActiveIndex;
+  const rootPath = activeIndex === 0 ? slug : resolvePathFromSubSlug(slug);
 
   return (
     <Tabs initiallyActiveTab={activeIndex}>
       <Tabs.TabList className="pageTabsList">
         {tabs.map((tab) => (
-          <Tabs.Tab key={tab.props.href} onClick={() => navigate(`/${basePath}${tab.props.href}`)}>
+          <Tabs.Tab
+            key={tab.props.href}
+            onClick={() => navigate(`${tab.props.href === '/' ? rootPath : rootPath + tab.props.href}`)}
+          >
             {tab.props.children}
           </Tabs.Tab>
         ))}
