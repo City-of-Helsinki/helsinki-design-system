@@ -9,7 +9,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
-import { Container, Footer, Navigation, SideNavigation, IconCheckCircleFill } from 'hds-react';
+import { Container, Footer, Link, Navigation, SideNavigation, IconCheckCircleFill, IconCrossCircle } from 'hds-react';
 import Seo from './seo';
 import { PlaygroundBlock, PlaygroundPreview } from './Playground';
 import SyntaxHighlighter from './SyntaxHighlighter';
@@ -19,9 +19,11 @@ import './layout.scss';
 const classNames = (...args) => args.filter((e) => e).join(' ');
 
 const components = {
-  IconCheckCircleFill: IconCheckCircleFill,
+  IconCheckCircleFill,
+  IconCrossCircle,
+  Link,
   Playground: PlaygroundBlock,
-  PlaygroundPreview: PlaygroundPreview,
+  PlaygroundPreview,
   pre: SyntaxHighlighter,
   table: Table,
   thead: Table.Thead,
@@ -214,7 +216,7 @@ const Layout = ({ children, pageContext }) => {
                           onClick={(e) => {
                             e.preventDefault();
                             if (slug.includes('components')) {
-                              navigate(`${slug}/usage`)
+                              navigate(`${slug}/usage`);
                             } else {
                               navigate(slug);
                             }

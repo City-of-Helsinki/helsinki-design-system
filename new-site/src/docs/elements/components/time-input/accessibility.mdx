@@ -1,0 +1,15 @@
+---
+slug: '/elements/components/time-input/accessibility'
+title: 'TimeInput - Accessibility'
+---
+
+import TabsLayout from './index.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+### Pay attention to
+- **Note! `hoursLabel` and `minutesLabel` are required properties.** They improve component navigation for screen reader users.
+- HDS time input allows the user to input the date manually. Whenever you require the user to input times, you should also allow the manual input.
+- Be wary of automatically correcting input for the user. If this is done, the user (especially with screen readers) needs to be clearly notified about the change.
