@@ -199,15 +199,6 @@ export const Dialog = ({
 
   const { 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby } = props;
 
-  const onKeyDown = useCallback(
-    (event: KeyboardEvent): void => {
-      if (close && event.key === 'Escape') {
-        close();
-      }
-    },
-    [close],
-  );
-
   const getElementToFocusAfterClose = useCallback((): HTMLElement | undefined => {
     return focusAfterCloseElement || (focusAfterCloseRef && focusAfterCloseRef.current);
   }, [focusAfterCloseElement, focusAfterCloseRef]);
@@ -224,14 +215,12 @@ export const Dialog = ({
         }
         document.body.classList.add(styles.dialogVisibleBodyWithHiddenScrollbars);
       }
-      document.addEventListener('keydown', onKeyDown, false);
       setIsReadyToShowDialog(true);
     }
     return (): void => {
-      setIsReadyToShowDialog(false);
-      document.removeEventListener('keydown', onKeyDown, false);
-      document.body.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
       if (isOpen) {
+        setIsReadyToShowDialog(false);
+        document.body.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
         // Reset body elements right padding.
         document.body.style.paddingRight = bodyRightPaddingStyleRef.current || '';
         const elementToFocus: HTMLElement | undefined = getElementToFocusAfterClose();
@@ -240,13 +229,21 @@ export const Dialog = ({
         }
       }
     };
-  }, [isOpen, onKeyDown, getElementToFocusAfterClose]);
+  }, [isOpen, getElementToFocusAfterClose]);
 
   useDocumentTabBarriers(dialogRef);
 
   const DialogComponent = (): JSX.Element => (
     <DialogContext.Provider value={dialogContextProps}>
-      <div className={classNames(styles.dialogContainer, customThemeClass)}>
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+      <div
+        onKeyDown={(event): void => {
+          if (close && event.key === 'Escape') {
+            close();
+          }
+        }}
+        className={classNames(styles.dialogContainer, customThemeClass)}
+      >
         <ContentTabBarrier onFocus={() => focusLastDialogElement(dialogRef.current)} />
         <div tabIndex={-1} className={styles.dialogBackdrop} />
         <div
