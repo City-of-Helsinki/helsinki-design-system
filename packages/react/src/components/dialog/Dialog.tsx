@@ -191,8 +191,8 @@ export const Dialog = ({
   targetElement,
   ...props
 }: DialogProps) => {
-  const dialogContextProps: DialogContextProps = { scrollable, close, closeButtonLabelText };
   const [isReadyToShowDialog, setIsReadyToShowDialog] = useState<boolean>(false);
+  const dialogContextProps: DialogContextProps = { isReadyToShowDialog, scrollable, close, closeButtonLabelText };
   const customThemeClass = useTheme<DialogCustomTheme>(styles.dialogContainer, theme);
   const dialogRef: RefObject<HTMLInputElement> = React.createRef();
   const bodyRightPaddingStyleRef = React.useRef<string>(null);
@@ -233,7 +233,7 @@ export const Dialog = ({
 
   useDocumentTabBarriers(dialogRef);
 
-  const DialogComponent = (): JSX.Element => (
+  const renderDialogComponent = (): JSX.Element => (
     <DialogContext.Provider value={dialogContextProps}>
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
       <div
@@ -270,7 +270,7 @@ export const Dialog = ({
     </DialogContext.Provider>
   );
 
-  return isOpen ? ReactDOM.createPortal(<DialogComponent />, targetElement || document.body) : null;
+  return isOpen ? ReactDOM.createPortal(renderDialogComponent(), targetElement || document.body) : null;
 };
 
 Dialog.Header = DialogHeader;
