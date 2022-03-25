@@ -3,30 +3,163 @@ slug: '/elements/components/linkbox'
 title: 'Linkbox'
 ---
 
-import { StatusLabel } from 'hds-react';
+import { Linkbox } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './tabs.mdx';
 
-import LeadParagraph from '../../../../components/LeadParagraph';
-import Layout from '../../../../components/layout';
-import PageTabs from '../../../../components/PageTabs';
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
-# Linkbox
+## Usage
 
-<StatusLabel type="info">Stable</StatusLabel>
-<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-  Accessible
-</StatusLabel>
+### Example
 
-<LeadParagraph>
-  Linkboxes are used to combine multiple elements into a single interactable element. While they are visually similar to HDS Cards, Linkboxes are always a single clickable link and they cannot contain other interactable elements.
-</LeadParagraph>
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <Linkbox linkboxAriaLabel="Linkbox: Helsinki Design System" linkAriaLabel="HDS" href="https://hds.hel.fi" withBorder>
+    <div style={{ height: '106px' }} />
+  </Linkbox>
+</PlaygroundPreview>
 
-<PageTabs pageContext={props.pageContext}>
-  <PageTabs.TabList>
-    <PageTabs.Tab href="/usage">Usage</PageTabs.Tab>
-    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
-    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
-  </PageTabs.TabList>
-  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
-</PageTabs>
+### Principles
 
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;
+- **Linkbox must always be interactable in its entirety.** This means that Linkboxes must not include multiple interactable elements (e.g. buttons or multiple links). The Linkbox element only gets focused once.
+- To emphasize its interactability, the Linkbox includes a mandatory icon. Depending on the link type the icon is either an arrow or an external link icon. Do not remove or modify these icons.
+  - To read more about HDS recommendations about links, see [HDS Link documentation](/elements/components/link).
+- **Linkboxes work very well for listing heterogenous content** such as news items, blog posts, or upcoming events.
+- **Use Linkboxes sparingly.** While they can drastically improve service's understandability and readability, overusing them may result in confusing and complex user interfaces.
+
+#### Should I use a Linkbox or a Card?
+
+- **Use the Linkbox component when**
+  - the whole element needs to be interactable
+  - the element does not include multiple interactable elements
+- **Use the [Card component](/elements/components/card) when**
+  - the whole Card does not need to be interactable
+  - the Card contains multiple interactable elements (e.g. buttons or links)
+
+### Variations
+
+#### Empty
+
+The default empty Linkbox variant can be used to build Linkboxes with custom content.
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <div style={{ width: '320px' }}>
+    <Linkbox linkboxAriaLabel="Linkbox: Helsinki Design System" linkAriaLabel="HDS" href="https://hds.hel.fi">
+      <div style={{ height: '106px' }} />
+    </Linkbox>
+  </div>
+  <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
+    <Linkbox
+      linkboxAriaLabel="Linkbox: Helsinki Design System"
+      linkAriaLabel="HDS"
+      href="https://hds.hel.fi"
+      withBorder
+    >
+      <div style={{ height: '106px' }} />
+    </Linkbox>
+  </div>
+  <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
+    <Linkbox
+      linkboxAriaLabel="Linkbox: Helsinki Design System"
+      linkAriaLabel="HDS"
+      href="https://hds.hel.fi"
+      noBackground
+    >
+      <div style={{ height: '106px' }} />
+    </Linkbox>
+  </div>
+</PlaygroundPreview>
+
+#### With heading and body text
+
+Additionally, HDS offers styling for basic heading and body text inside the Linkbox component. These can be used instead of custom elements.
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <div style={{ width: '320px' }}>
+    <Linkbox
+      linkboxAriaLabel="Linkbox: Helsinki Design System"
+      linkAriaLabel="HDS"
+      href="https://hds.hel.fi"
+      heading="Linkbox title"
+      text="Linkbox text"
+    />
+  </div>
+  <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
+    <Linkbox
+      linkboxAriaLabel="Linkbox: Helsinki Design System"
+      linkAriaLabel="HDS"
+      href="https://hds.hel.fi"
+      heading="Linkbox title"
+      text="Linkbox text"
+      withBorder
+    />
+  </div>
+  <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
+    <Linkbox
+      linkboxAriaLabel="Linkbox: Helsinki Design System"
+      linkAriaLabel="HDS"
+      href="https://hds.hel.fi"
+      heading="Linkbox title"
+      text="Linkbox text"
+      noBackground
+    />
+  </div>
+</PlaygroundPreview>
+
+#### Internal and external Linkboxes
+
+Depending on the link type the icon is either an arrow or an external link icon. Use the property `external` to alter the icon depending on the link type. You can also add `openInNewTab` property to make the link open in a new browser tab.
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <div style={{ width: '320px' }}>
+    <Linkbox
+      linkboxAriaLabel="Linkbox: Helsinki Design System"
+      linkAriaLabel="HDS"
+      href="https://hds.hel.fi"
+      heading="Internal link"
+      text="This link points to a page belonging to the same website as the current page."
+      withBorder
+    />
+  </div>
+  <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
+    <Linkbox
+      linkboxAriaLabel="Linkbox: Helsinki Design System"
+      linkAriaLabel="HDS"
+      href="https://hds.hel.fi"
+      heading="External link"
+      text="This link points to another page."
+      external
+      withBorder
+    />
+  </div>
+  <div style={{ width: '320px', marginTop: 'var(--spacing-s)' }}>
+    <Linkbox
+      linkboxAriaLabel="Linkbox: Helsinki Design System"
+      linkAriaLabel="HDS"
+      external
+      href="https://hds.hel.fi"
+      heading="External link"
+      openInNewTab
+      text="This link points to another page and opens in a new tab."
+      external
+      withBorder
+    />
+  </div>
+</PlaygroundPreview>
+
+#### With image
+
+HDS offers styling for a Linkbox with an image as its content.
+
+<PlaygroundPreview style={{ backgroundColor: 'var(--color-black-5)' }}>
+  <div style={{ maxWidth: '384px' }}>
+    <Linkbox
+      linkboxAriaLabel="Linkbox: Helsinki Design System"
+      linkAriaLabel="HDS"
+      href="https://hds.hel.fi"
+      heading="Linkbox title"
+      text="Linkbox text"
+      imgProps={{ src: '../../static/assets/placeholders/image/image-m@3x.png', width: 384, height: 245 }}
+    />
+  </div>
+</PlaygroundPreview>

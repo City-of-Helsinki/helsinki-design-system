@@ -215,11 +215,7 @@ const Layout = ({ children, pageContext }) => {
                           active={pageSlugWithPrefix.startsWith(prefixedLink)}
                           onClick={(e) => {
                             e.preventDefault();
-                            if (slug.includes('components')) {
-                              navigate(`${slug}/usage`);
-                            } else {
-                              navigate(slug);
-                            }
+                            navigate(slug);
                           }}
                         />
                       ))}

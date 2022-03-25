@@ -3,30 +3,83 @@ slug: '/elements/components/number-input'
 title: 'NumberInput'
 ---
 
-import { StatusLabel } from 'hds-react';
+import { NumberInput } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './tabs.mdx';
 
-import LeadParagraph from '../../../../components/LeadParagraph';
-import Layout from '../../../../components/layout';
-import PageTabs from '../../../../components/PageTabs';
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
-# NumberInput
+## Usage
 
-<StatusLabel type="info">Stable</StatusLabel>
-<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-  Accessible
-</StatusLabel>
+### Example
+<PlaygroundPreview>
+  <NumberInput
+    helperText="Assistive text"
+    label="Total compensation"
+    unit="€"
+    defaultValue={1000}
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
 
-<LeadParagraph>
-    A number input allows the user to enter numeric values. It also features optional steppers for increasing or decreasing the value by a set amount.
-</LeadParagraph>
+### Principles
+- **A label should always be provided with a number input.**
+  - Make sure that the label is clear and concise. The user should immediately understand what number they are supposed to input.
+- HDS Number input also supports displaying an unit for the number. Displaying the unit is not mandatory. Only use it when you think it will help the user.
+    - Display the unit for <Link size="M" external href="https://en.wikipedia.org/wiki/International_System_of_Units">SI units</Link> (such as meters) and currencies.
+    - The unit does not need to be displayed when it is self-evident for the user, such as in "Number of people"
+- It is recommended to give the number input a default value. Placeholders should be avoided in number inputs.
+- HDS Number input supports visual steppers that can be set to increase and decrease the number value by a set amount.
+    - Steppers can be used when changes to the value are small or when they are intuitive to the user (e.g. from 0 to 100 with steps of 10).
+    - You should not use steppers when large value changes are expected.
 
-<PageTabs pageContext={props.pageContext}>
-  <PageTabs.TabList>
-    <PageTabs.Tab href="/usage">Usage</PageTabs.Tab>
-    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
-    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
-  </PageTabs.TabList>
-  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
-</PageTabs>
+### Variations
 
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;
+#### Default
+Default HDS Number input comes without stepper. The number is always inputted manually. Using this over a text input is still helpful since it has a `type=number` to aid screen readers and mobile keyboards.
+
+When applicable, a unit can be set for the input by using the `unit` prop.
+
+<PlaygroundPreview>
+  <NumberInput
+    helperText="Assistive text"
+    label="Total compensation"
+    unit="€"
+    defaultValue={1000}
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
+
+#### With steppers
+Steppers can be enabled via providing a `step` property. Use this variant when value changes are small and you can determine logical amounts for an increase and a decrease step.
+
+<PlaygroundPreview>
+  <NumberInput
+    helperText="Assistive text"
+    label="Number of attendees"
+    minusStepButtonAriaLabel="Decrease by one"
+    plusStepButtonAriaLabel="Increase by one"
+    step={1}
+    defaultValue={5}
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
+
+#### With min and max values
+Steppers can be enabled by providing a `step` property. Use this variant when value changes are small and you can determine logical amounts for an increase and a decrease step.
+
+If your input has special requirements, it is a good practice to describe them in the assistive text.
+
+<PlaygroundPreview>
+  <NumberInput
+    helperText="At least 3 attendees are required"
+    label="Number of attendees"
+    min={3}
+    max={99}
+    minusStepButtonAriaLabel="Decrease by one"
+    plusStepButtonAriaLabel="Increase by one"
+    step={1}
+    defaultValue={3}
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
