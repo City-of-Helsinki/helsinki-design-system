@@ -3,30 +3,63 @@ slug: '/elements/components/text-area'
 title: 'TextArea'
 ---
 
-import { StatusLabel } from 'hds-react';
+import { TextArea } from 'hds-react';
+import TabsLayout from './tabs.mdx';
 
-import LeadParagraph from '../../../../components/LeadParagraph';
-import Layout from '../../../../components/layout';
-import PageTabs from '../../../../components/PageTabs';
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
-# TextArea
+## Usage
 
-<StatusLabel type="info">Stable</StatusLabel>
-<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-  Accessible
-</StatusLabel>
+### Example
 
-<LeadParagraph>
-  A text area is a specialised version of the text input component. Text areas can be used for multiline answers.
-</LeadParagraph>
+<PlaygroundPreview>
+<TextArea
+  id="textarea"
+  label="Label"
+  placeholder="Placeholder"
+  helperText="Assistive text"
+  required
+  style={{ maxWidth: '320px' }}
+/>
+</PlaygroundPreview>
 
-<PageTabs pageContext={props.pageContext}>
-  <PageTabs.TabList>
-    <PageTabs.Tab href="/usage">Usage</PageTabs.Tab>
-    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
-    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
-  </PageTabs.TabList>
-  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
-</PageTabs>
+### Principles
+- **A label should always be provided with a text area.**
+- Use a text area when multiples lines of text is expected. For single line inputs, use a [TextInput component](/elements/components/text-input).
+- Allow the text area to reflect the length of the content you expect the user to enter.
+- If possible, add programmatic assistance. Detect and pre-fill inputs to reduce errors and save time. Use sentence-case for default values, detected values, and auto-completion text.
+- If possible, do input validation in client-side real-time and provide the user with immediate feedback. See [HDS Form validation pattern page](/patterns/form-validation) for more information.
+- If possible, be forgiving of different input formats and small mistakes. It can greatly increase user experience of your product if you can fix common mistakes for the user.
+- To decrease a cognitive load of the user, it is recommended to mark all required fields. Remember to provide explanation of the required field indicator at the top of your form.
+- While not required, you can show the current and the expected amount of characters below the text area in the assistive text.
 
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;
+### Variations
+
+#### Default
+A text area is meant for situations where inputted text is multiline or contains more than one sentence.
+
+<PlaygroundPreview>
+  <TextArea
+    id="textarea"
+    label="Label"
+    placeholder="Placeholder"
+    helperText="Assistive text"
+    required
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
+
+#### With a tooltip
+A text area can be provided with additional tooltip. Tooltip information should be considered as extra information, for example, why is this information gathered or how is it used. The user should have sufficient information on how to fill the input field in label and assistive text. You can find more information about Tooltips how they are used from the [Tooltip documentation page](/elements/components/tooltip).
+
+<PlaygroundPreview>
+  <TextArea
+    id="textarea-tooltip"
+    label="Label"
+    placeholder="Placeholder"
+    tooltipLabel="Tooltip label"
+    tooltipButtonLabel="Tooltip button label"
+    tooltipText="Tooltips contain nice to have information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>

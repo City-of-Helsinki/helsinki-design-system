@@ -3,31 +3,82 @@ slug: '/elements/components/password-input'
 title: 'PasswordInput'
 ---
 
-import { StatusLabel } from 'hds-react';
+import { PasswordInput, Button, IconEye, IconEyeCrossed } from 'hds-react';
+import PlaygroundPreview from '../../../../components/Playground';
+import TabsLayout from './tabs.mdx';
 
-import LeadParagraph from '../../../../components/LeadParagraph';
-import Layout from '../../../../components/layout';
-import PageTabs from '../../../../components/PageTabs';
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
-# PasswordInput
+## Usage
 
-<StatusLabel type="info">Stable</StatusLabel>
-<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
-  Accessible
-</StatusLabel>
+### Example
+<PlaygroundPreview>
+  <PasswordInput
+    concealPasswordButtonAriaLabel="Hide password"
+    helperText="Assistive text"
+    id="input1"
+    includeShowPasswordButton
+    label="Password"
+    revealPasswordButtonAriaLabel="Show password"
+    required
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
 
-<LeadParagraph>
-  A password field is a foundational input field component that the user can interact with and specifically input password data.
-</LeadParagraph>
+### Principles
+- A label should always be provided with password fields.
+- If possible, validate input in client-side real-time and provide the user with immediate feedback. See [HDS Form validation pattern page](/patterns/form-validation) for more information and best practices with password fields.
+- Password fields should always be mandatory. It is recommended to mark it as a required field.
+- Verify that "paste" functionality, browser password helpers, and external password managers are allowed for the input.
+- HDS password input provides a way to mask/unmask the password. Do not disabled this functionality without a good reason.
 
-<PageTabs pageContext={props.pageContext}>
-  <PageTabs.TabList>
-    <PageTabs.Tab href="/usage">Usage</PageTabs.Tab>
-    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
-    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
-    <PageTabs.Tab href="/security">Security</PageTabs.Tab>
-  </PageTabs.TabList>
-  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
-</PageTabs>
+### Variations
 
-export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;
+#### Default
+A default HDS password input includes an icon to mask and unmask the password.
+
+<PlaygroundPreview>
+  <PasswordInput
+    concealPasswordButtonAriaLabel="Hide password"
+    helperText="Assistive text"
+    id="input2"
+    includeShowPasswordButton
+    label="Password"
+    revealPasswordButtonAriaLabel="Show password"
+    required
+    style={{ maxWidth: '320px' }}
+  />
+</PlaygroundPreview>
+
+#### With an external button
+If necessary, the mask/unmask icon can be removed and the feature controlled with an external button element.
+
+export const ExternalButtonExample = () => {
+  const [revealPassword, setRevealPassword] = React.useState(false);
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "320px 240px", gap: "var(--spacing-s)" }}>
+      <PasswordInput
+        label="Password"
+        id="input3"
+        includeShowPasswordButton={false}
+        helperText="Assistive text"
+        type={revealPassword ? 'text' : 'password'}
+        required
+        style={{maxWidth: '320px'}}
+      />
+      <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+        <Button
+          variant="supplementary"
+          onClick={() => setRevealPassword(!revealPassword)}
+          iconLeft={revealPassword ? <IconEyeCrossed aria-hidden /> : <IconEye aria-hidden />}
+        >
+          {revealPassword ? 'Hide password' : 'Show password'}
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+<PlaygroundPreview>
+  <ExternalButtonExample />
+</PlaygroundPreview>
