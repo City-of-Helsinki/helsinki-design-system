@@ -112,6 +112,7 @@ const Layout = ({ children, pageContext }) => {
             frontmatter {
               title
               slug
+              nav_title
             }
           }
         }
@@ -139,11 +140,11 @@ const Layout = ({ children, pageContext }) => {
     uiId: generateUiIdFromPath(subMenuLink.link, 'side-nav'),
     subLevels: allPages
       .filter((page) => {
-        if (!page.slug) {
+        if (!page.slug || !page.nav_title) {
           return false;
         }
-        const levels = page.slug.split('/').filter((l) => !!l);
-        return levels.length === 3 && subMenuLink.link.includes(levels[1]);
+        const pathParts = page.slug.split('/').filter((l) => !!l);
+        return pathParts.slice(0, -1).every((pathPart) => subMenuLink.link.includes(pathPart));
       })
       .map((subLevelLink) => ({
         ...subLevelLink,
@@ -207,11 +208,11 @@ const Layout = ({ children, pageContext }) => {
                             },
                           })}
                     >
-                      {subLevels.map(({ title, slug, prefixedLink, uiId }) => (
+                      {subLevels.map(({ nav_title, slug, prefixedLink, uiId }) => (
                         <SideNavigation.SubLevel
                           key={uiId}
                           href={prefixedLink}
-                          label={title}
+                          label={nav_title}
                           active={pageSlugWithPrefix.startsWith(prefixedLink)}
                           onClick={(e) => {
                             e.preventDefault();
