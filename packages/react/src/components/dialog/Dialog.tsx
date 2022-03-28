@@ -199,6 +199,15 @@ export const Dialog = ({
 
   const { 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby } = props;
 
+  const onKeyDown = useCallback(
+    (event: KeyboardEvent): void => {
+      if (close && event.key === 'Escape') {
+        close();
+      }
+    },
+    [close],
+  );
+
   const getElementToFocusAfterClose = useCallback((): HTMLElement | undefined => {
     return focusAfterCloseElement || (focusAfterCloseRef && focusAfterCloseRef.current);
   }, [focusAfterCloseElement, focusAfterCloseRef]);
@@ -215,11 +224,13 @@ export const Dialog = ({
         }
         document.body.classList.add(styles.dialogVisibleBodyWithHiddenScrollbars);
       }
+      document.addEventListener('keydown', onKeyDown, false);
       setIsReadyToShowDialog(true);
     }
     return (): void => {
       if (isOpen) {
         setIsReadyToShowDialog(false);
+        document.removeEventListener('keydown', onKeyDown, false);
         document.body.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
         // Reset body elements right padding.
         document.body.style.paddingRight = bodyRightPaddingStyleRef.current || '';
@@ -229,6 +240,7 @@ export const Dialog = ({
         }
       }
     };
+    // Omitting onKeyDown on purpose; adding it will break the Dialog with controlled child components
   }, [isOpen, getElementToFocusAfterClose]);
 
   useDocumentTabBarriers(dialogRef);
