@@ -247,15 +247,7 @@ export const Dialog = ({
 
   const renderDialogComponent = (): JSX.Element => (
     <DialogContext.Provider value={dialogContextProps}>
-      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-      <div
-        onKeyDown={(event): void => {
-          if (close && event.key === 'Escape') {
-            close();
-          }
-        }}
-        className={classNames(styles.dialogContainer, customThemeClass)}
-      >
+      <div className={classNames(styles.dialogContainer, customThemeClass)}>
         <ContentTabBarrier onFocus={() => focusLastDialogElement(dialogRef.current)} />
         <div tabIndex={-1} className={styles.dialogBackdrop} />
         <div
