@@ -7,6 +7,10 @@ import Playground from '../../../../components/Playground';
 
 import TextExample from '../../../../components/examples/TextExample';
 
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
 ## Tokens
 
 CSS                          | SASS                        | Value            |
@@ -35,5 +39,3 @@ CSS variable                  | SASS variable               | Value (ratio)    |
 <code>--lineheight-l</code>   | <code>$lineheight-l</code>  | 1.5              |
 <code>--lineheight-xl</code>  | <code>$lineheight-xl</code> | 1.75             |
 [Table 3:Line height tokens]|
-
-export default ({ children }) => <>{children}</>;

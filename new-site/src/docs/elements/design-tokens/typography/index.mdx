@@ -1,33 +1,81 @@
 ---
 slug: '/elements/design-tokens/typography'
-title: 'Typography'
+title: 'Typography tokens - Usage'
 nav_title: 'Typography'
 ---
 
-import { StatusLabel, Tabs } from 'hds-react';
+import { Link } from 'hds-react';
 
-import LeadParagraph from '../../../../components/LeadParagraph';
+import TabsLayout from './tabs.mdx';
 
-import Usage from './usage.mdx';
-import Tokens from './tokens.mdx';
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
-# Typography
+## Usage
 
-<StatusLabel type="info">Stable</StatusLabel>
+Typography can be used to organise information and help users find their way around our services. For example using heading levels in a clear and consistent way helps users to understand the hierarchy and structure of the page.
 
-<LeadParagraph>
-    Typography tokens are used to define typographic style of headings, body text, and HDS components.
-</LeadParagraph>
+Typography is also an essential part of the City of Helsinki brand identity. Helsinki Design system typography is based on the proprietary <strong>Helsinki Grotesk</strong> typeface. Preferably, no other typefaces should be used. The font licenses can be purchased from the <Link size="M" href="https://camelot-typefaces.com/helsinki-grotesk" external>Camelot Typefaces website</Link>.
 
-<Tabs>
-  <Tabs.TabList className="pageTabsList">
-    <Tabs.Tab>Usage</Tabs.Tab>
-    <Tabs.Tab>Tokens</Tabs.Tab>
-  </Tabs.TabList>
-  <Tabs.TabPanel>
-    <Usage />
-  </Tabs.TabPanel>
-  <Tabs.TabPanel>
-    <Tokens />
-  </Tabs.TabPanel>
-</Tabs>
+## Principles
+- **Use black or white text colour** depending on the background. Other text colours should be used intentionally, if at all.
+- **Use typography consistently** throughout your service, to ensure that the content hierarchy and structure is clear and easily understandable.
+- **Use heading levels semantically.** For example after **h1**, next heading on the same page should be **h2**, not **h3**. If needed, the appearance and visual hierarchy of headings can be altered separately from semantic structure with the font size tokens.
+
+## Accessibility
+- Always check that sufficient colour contrast between text and its background is maintained. All colour choices should comply with <Link size="M" href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>WCAG 2.1 Standard at AA Level contrast ratios</Link>.
+- Avoid placing text over images, especially in small sizes.
+
+## Usage
+The HDS offers two different sets of font size tokens for heading and body text. The tokens define font size in rem values.
+
+### Heading sizes
+The heading font size tokens are heading level agnostic. This allows you to fit the **heading scale** to the specific needs of the service. In addition to predefined _default_ and _small_ heading scale, custom scales can be also used.
+
+| Heading size      | PX value | REM value | Example (default heading scale)                                                                                                            | Example (small heading scale()                                                                                                             |
+| ----------------- | -------: | --------: | ------------------------------------------------------------------------------------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Heading XL**    | 52px     | 3.25rem   | <h1 style={{fontSize: 'var(--fontsize-heading-xl)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h1</h1>  |                                                                                                                                            |
+| **Heading L**     | 36px     | 2.25rem   | <h2 style={{fontSize: 'var(--fontsize-heading-l)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h2</h2>   | <h1 style={{fontSize: 'var(--fontsize-heading-l)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h1</h1>   |
+| **Heading M**     | 24px     | 1.5rem    | <h3 style={{fontSize: 'var(--fontsize-heading-m)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h3</h3>   | <h2 style={{fontSize: 'var(--fontsize-heading-m)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h2</h2>   |
+| **Heading S**     | 20px     | 1.25rem   | <h4 style={{fontSize: 'var(--fontsize-heading-s)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h4</h4>   | <h3 style={{fontSize: 'var(--fontsize-heading-s)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h3</h3>   |
+| **Heading XS**    | 18px     | 1.125rem  | <h5 style={{fontSize: 'var(--fontsize-heading-xs)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h5</h5>  | <h4 style={{fontSize: 'var(--fontsize-heading-xs)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h4</h4>  |
+| **Heading XXS**   | 16px     | 1rem      |                                                                                                                                            | <h5 style={{fontSize: 'var(--fontsize-heading-xxs)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h5</h5> |
+[Table 1:Heading sizes]|
+
+### Body text sizes
+Body font size tokens allow more subtle variations of body text sizes for improved content hierarchy and legibility.
+
+
+| Heading size | PX value | REM value | Usage                                                                                                                                                                |
+| ------------ | -------: | --------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Body XL**  |    20 px |      1.25 | Emphasising short introductory texts and other subtitles.                                                                                                            |
+| **Body L**   |    18 px |     1.125 | Improving legibility of essential components, e.g. Text input and other form fields. Can also be used as the default body text size if the layout is not text-heavy. |
+| **Body M**   |    16 px |         1 | **Body text default.**                                                                                                                                               |
+| **Body S**   |    14 px |     0.875 | Conserving space in data-heavy layouts and small components, e.g. Status label.                                                                                      |
+[Table 2:Body text sizes]|
+
+When choosing the body text size, start with the default `Body M (16 px)` token. It is a good starting point for most text heavy user interfaces. This is also the minimum for the body text size in Helsinki services. This body text size can be used on all screen sizes.
+
+The smaller `Body S (14px)` token should only be used in secondary text content and inside components. 
+
+If your service is not text-heavy, you can experiment with using the `Body L, 18px` token as the default body text size. In this case, it is recommended to use smaller `Body M (16 px)` token for mobile breakpoints `breakpoint-s` and `breakpoint-xs`.
+
+### Line height
+Line height tokens can be used to control the spacing between lines of text. The tokens define the ratio between line height and element font size.
+
+| Line height size   | Ratio | Usage                                                                            |
+| ------------------ | ----: |--------------------------------------------------------------------------------- |
+| **Line height S**  | 1     | Buttons, navigation and other UI components.                                     |
+| **Line height M**  | 1.2   | Headings, lead texts and short paragraphs (no longer than 2-3 sentences).        |
+| **Line height L**  | 1.5   | Body text default. Optimal for longer text content and extended reading.         |
+| **Line height XL** | 1.75  | Smaller text sizes or if you need to emphasise text (i.e. quotes).               |
+[Table 3:Line height sizes]|
+
+### Font weights
+HDS typography uses three font weights.
+
+| Weight name | CSS font-weight | Usage                                                          |
+| ----------- | --------------: |--------------------------------------------------------------- |
+| **Regular** | 400             | Body text default.                                             |
+| **Medium**  | 500             | Used for labels in components e.g. Button and form components. |
+| **Bold**    | 700             | Heading default. Used to emphasise body text.                  |
+[Table 4:Font weight sizes]|
