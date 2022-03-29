@@ -11,6 +11,39 @@ module.exports = {
         subMenuLinks: [],
       },
       {
+        name: 'Getting started',
+        link: '/getting-started',
+        subMenuLinks: [
+          {
+            name: 'Getting started',
+            link: '/getting-started',
+          },
+          {
+            name: 'Designer',
+            link: '/getting-started/designer',
+            withDivider: true,
+          },
+          {
+            name: 'Developer',
+            link: '/getting-started/developer',
+          },
+          {
+            name: 'Contributing',
+            link: '/getting-started/contributing',
+            withDivider: true,
+          },
+          {
+            name: 'FAQ',
+            link: '/getting-started/faq',
+            withDivider: true,
+          },
+          {
+            name: 'Tutorials',
+            link: '/getting-started/tutorials',
+          },
+        ],
+      },
+      {
         name: 'Guidelines',
         link: '/guidelines',
         subMenuLinks: [
@@ -19,10 +52,31 @@ module.exports = {
             link: '/guidelines',
           },
           {
-            name: 'FAQ',
-            link: '/guidelines/faq',
+            name: 'Data formats',
+            link: '/guidelines/data-formats',
             withDivider: true,
-          }
+          },
+          {
+            name: 'Grid',
+            link: '/guidelines/grid',
+          },
+          {
+            name: 'Inclusivity',
+            link: '/guidelines/inclusivity',
+          },
+          {
+            name: 'Localisation',
+            link: '/guidelines/localisation',
+          },
+          {
+            name: 'Photography',
+            link: '/guidelines/photography',
+          },
+          {
+            name: 'Checkboxes, radio buttons, or toggles?',
+            link: '/guidelines/checkbox-radiobutton-toggle',
+            withDivider: true,
+          },
         ],
       },
       {
@@ -62,10 +116,6 @@ module.exports = {
             withDivider: true,
           },
           {
-            name: 'Contributing',
-            link: '/about/contributing',
-          },
-          {
             name: 'Accessibility',
             link: '/about/accessibility',
           },
@@ -90,8 +140,12 @@ module.exports = {
     footerAriaLabel: 'HDS footer',
     footerCopyrightLinks: [
       {
+        name: 'Contribution',
+        link: '/getting-started/contributing/before-contributing',
+      },
+      {
         name: 'Accessibility',
-        link: '/about/accessibility',
+        link: '/about/accessibility/statement',
       },
       {
         name: 'GitHub',
@@ -132,9 +186,9 @@ module.exports = {
             options: {
               icon: `<i class="hdsAnchorIcon hds-icon hds-icon--link hds-icon--size-xs" aria-hidden="true" style="vertical-align: middle"></i>`,
               isIconAfterHeader: true,
-              className: `headerAnchor`
-            }
-          }
+              className: `headerAnchor`,
+            },
+          },
         ],
         defaultLayouts: {
           default: require.resolve('./src/components/layout.js'),

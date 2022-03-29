@@ -1,0 +1,76 @@
+<<<<<<< HEAD
+---
+slug: '/getting-started/faq/design'
+title: 'Frequently asked questions - Design'
+---
+
+=======
+>>>>>>> 0c26b0d0ab5e78d592ec73aa3d223be1159b97e1
+import { Accordion, Link } from 'hds-react';
+
+## Design
+
+<Accordion 
+  heading="My Abstract projects take a long time to open or save. What should I do?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  <p>
+  Most often this is caused by large Sketch file sizes. Abstract recommends Sketch files to be below 50MB in size. If you files are larger than this, here are a couple of tips to reduce files' sizes:
+  <ol>
+    <li><b>Reorganise your files.</b> This means creating multiple smaller files from one larger file. If many of your files use the same components, create one file to hold those components and use that file as a library. Read more about creating library files in the <Link
+      href="https://www.abstract.com/blog/the-designers-guide-to-sketch-libraries-in-abstract"
+      size="M"
+      external
+      openInExternalDomainAriaLabel="Opens a different website"
+    >Abstract’s documentation.</Link></li>
+    <li>In Sketch, use <b>File → Reduce File Size</b> feature. This uses multiple methods to reduce the file size.</li>
+    <li><b>Check your images and compress them if needed.</b> Prefer .png and .jpeg file formats. Images are often the largest source of file sizes in Sketch projects.</li>
+  </ol>
+  </p>
+</Accordion>
+
+<Accordion 
+  heading="How to customize Sketch typography styles (for example, wants to use a font with a color that is not part of the default library)" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  <p>
+  Generally, only black and white typography is recommended in the City of Helsinki services. If your project needs to use other colours (e.g. brand colours) in typography, you will quickly find out that these colour variations are not available in the shared Sketch styles and Sketch does not allow you to change the text colour without breaking the link to the original style or symbol.
+
+  In this case, you need to create your text style and replace the default one with that:
+  <ol>
+    <li>Create a text element and give it a style of the same size you need. E.g. if you need a heading M size text, use heading M black style.</li>
+    <li>Change the colour of the inserted text.</li>
+    <li>Create a new text style of this modified text. You can do this by pressing the “Create” button in the “Appearance” side menu. Give it a descriptive name, e.g. “Heading M - 03 Bussi”</li>
+    <li>Now you have a custom text style that you can use in HDS components. Just override the text style with your style in the “Overrides” side menu.</li>
+  </ol>
+  </p>
+</Accordion>
+
+<Accordion 
+  heading="Where can the icons be found in vector/PNG/etc. format?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  You can <Link
+    href="https://github.com/City-of-Helsinki/helsinki-design-system/releases/latest/download/hds-icon-kit.zip"
+    size="M"
+    external
+    openInNewTab
+    openInExternalDomainAriaLabel="Opens a different website."
+    openInNewTabAriaLabel="Opens in a new tab.">
+  download the newest HDS icon kit from GitHub.</Link>The kit contains all HDS icons in SVG, PNG, EPS and PDF formats.
+<<<<<<< HEAD
+</Accordion>
+=======
+</Accordion>
+
+export default ({ children }) => <>{children}</>;
+>>>>>>> 0c26b0d0ab5e78d592ec73aa3d223be1159b97e1
