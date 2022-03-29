@@ -5,6 +5,10 @@ title: 'Spacing tokens - Tokens'
 
 import SpacingExample from '../../../../components/examples/SpacingExample';
 
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
 ## Tokens
 
 | CSS variable     | SASS variable   | PX value | REM value | Example                                              |
@@ -33,5 +37,3 @@ import SpacingExample from '../../../../components/examples/SpacingExample';
 | `--spacing-layout-xl`   | `$spacing-layout-xl`   |     96px |      6rem | <SpacingExample size="var(--spacing-layout-xl)" />   |
 | `--spacing-layout-2-xl` | `$spacing-layout-2-xl` |    128px |      8rem | <SpacingExample size="var(--spacing-layout-2-xl)" /> |
 [Table 2:Layout tokens]|
-
-export default ({ children }) => <>{children}</>;
