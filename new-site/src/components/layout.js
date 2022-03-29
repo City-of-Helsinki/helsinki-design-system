@@ -142,11 +142,14 @@ const Layout = ({ children, pageContext }) => {
   }));
   const currentMenuItem = resolveCurrentMenuItem(uiMenuLinks, pageSlugWithPrefix);
   const subMenuLinks = currentMenuItem?.subMenuLinks || [];
-  const subMenuLinksFromPages = allPages
-    .filter(isNavPage)
-    .filter(resolveNavigationLinkByPathAndLevel(currentMenuItem.link, 2))
-    .map((page) => ({ name: page.title, title: page.title, link: page.slug }))
-    .sort(sortByPageTitle);
+  const subMenuLinksFromPages =
+    currentMenuItem && currentMenuItem.link
+      ? allPages
+          .filter(isNavPage)
+          .filter(resolveNavigationLinkByPathAndLevel(currentMenuItem.link, 2))
+          .map((page) => ({ name: page.title, title: page.title, link: page.slug }))
+          .sort(sortByPageTitle)
+      : [];
 
   const uiSubMenuLinks = [...subMenuLinks, ...subMenuLinksFromPages].map((subMenuLink) => ({
     ...subMenuLink,
