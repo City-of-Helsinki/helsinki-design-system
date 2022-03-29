@@ -1,4 +1,13 @@
+---
+slug: "/getting-started/faq/design"
+title: "Frequently asked questions"
+---
+
 import { Accordion, Link } from 'hds-react';
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Design
 
@@ -60,5 +69,3 @@ import { Accordion, Link } from 'hds-react';
     openInNewTabAriaLabel="Opens in a new tab.">
   download the newest HDS icon kit from GitHub.</Link>The kit contains all HDS icons in SVG, PNG, EPS and PDF formats.
 </Accordion>
-
-export default ({ children }) => <>{children}</>;

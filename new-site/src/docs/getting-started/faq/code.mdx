@@ -1,4 +1,13 @@
+---
+slug: "/getting-started/faq/code"
+title: "Frequently asked questions"
+---
+
 import { Accordion, Link } from 'hds-react';
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -13,5 +22,3 @@ import { Accordion, Link } from 'hds-react';
 
   If your project is using either WordPress or Drupal, please contact ketu@hel.fi to learn about available implementations that follow HDS.
 </Accordion>
-
-export default ({ children }) => <>{children}</>;
