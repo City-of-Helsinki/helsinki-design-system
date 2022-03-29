@@ -79,6 +79,14 @@ const generateUiIdFromPath = (path, prefix) => {
   return `${prefix}-${pathStr}`;
 };
 
+const isNavPage = (page) => page.slug && page.nav_title;
+const resolvePathPartsFrom = (slug) => slug.split('/').filter((l) => !!l);
+const resolveNavigationLinkByPathAndLevel = (parentPath, level) => (page) => {
+  const pathParts = resolvePathPartsFrom(page.slug);
+  return pathParts.length === level && pathParts.slice(0, -1).every((pathPart) => parentPath.includes(pathPart));
+};
+const sortByPageTitle = (pageA, pageB) => pageA.title.localeCompare(pageB.title);
+
 const Layout = ({ children, pageContext }) => {
   const { title: pageTitle, slug: pageSlug } = pageContext.frontmatter;
   const pageSlugWithPrefix = withPrefix(pageSlug);
@@ -134,24 +142,25 @@ const Layout = ({ children, pageContext }) => {
   }));
   const currentMenuItem = resolveCurrentMenuItem(uiMenuLinks, pageSlugWithPrefix);
   const subMenuLinks = currentMenuItem?.subMenuLinks || [];
-  const uiSubMenuLinks = subMenuLinks.map((subMenuLink) => ({
+  const subMenuLinksFromPages = allPages
+    .filter(isNavPage)
+    .filter(resolveNavigationLinkByPathAndLevel(currentMenuItem.link, 2))
+    .map((page) => ({ name: page.title, title: page.title, link: page.slug }))
+    .sort(sortByPageTitle);
+
+  const uiSubMenuLinks = [...subMenuLinks, ...subMenuLinksFromPages].map((subMenuLink) => ({
     ...subMenuLink,
     prefixedLink: withPrefix(subMenuLink.link),
     uiId: generateUiIdFromPath(subMenuLink.link, 'side-nav'),
     subLevels: allPages
-      .filter((page) => {
-        if (!page.slug || !page.nav_title) {
-          return false;
-        }
-        const pathParts = page.slug.split('/').filter((l) => !!l);
-        return pathParts.slice(0, -1).every((pathPart) => subMenuLink.link.includes(pathPart));
-      })
+      .filter(isNavPage)
+      .filter(resolveNavigationLinkByPathAndLevel(subMenuLink.link, 3))
       .map((subLevelLink) => ({
         ...subLevelLink,
         uiId: generateUiIdFromPath(subLevelLink.slug, 'side-nav-sub'),
         prefixedLink: withPrefix(subLevelLink.slug),
       }))
-      .sort((subLevelLinkA, subLevelLinkB) => subLevelLinkA.title.localeCompare(subLevelLinkB.title)),
+      .sort(sortByPageTitle),
   }));
   const footerCopyRightLinks = siteData?.footerCopyrightLinks || [];
   const contentId = 'content';
