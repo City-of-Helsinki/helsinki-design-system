@@ -1,33 +1,26 @@
 ---
 slug: '/elements/design-tokens/spacing'
-title: 'Spacing'
+title: 'Spacing tokens - Usage'
 nav_title: 'Spacing'
 ---
 
-import { StatusLabel, Tabs } from 'hds-react';
+import TabsLayout from './tabs.mdx';
 
-import LeadParagraph from '../../../../components/LeadParagraph';
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
-import Usage from './usage.mdx';
-import Tokens from './tokens.mdx';
+## Usage
 
-# Spacing
+Spacing of elements can be used to create visual hierarchy for content and guide focus to certain elements. Too dense information can be hard to digest for a user, so make sure to leave enough space in the user interfaces.
 
-<StatusLabel type="info">Stable</StatusLabel>
+### Principles
+- Use small spacing to group elements together and larger spacing separate them. Elements that are close together appear to be more related than things that are spaced further apart.
+- Use spacing to highlight important elements. Elements with more spacing around them tend to perceive higher importance than elements that have less space around them.
+- Use spacing in a way that fits the function and content of the service. Ample spacing is more fitting for providing mood in branding and communication, denser spacing for performing information heavy tasks efficiently.
 
-<LeadParagraph>
-  Spacing tokens are used for positioning elements on the page layout and in components.
-</LeadParagraph>
+### Using spacing tokens
+The spacing tokens are based on the HDS typographic scale. They are divided in two scales for different uses:
 
-<Tabs>
-  <Tabs.TabList className="pageTabsList">
-    <Tabs.Tab>Usage</Tabs.Tab>
-    <Tabs.Tab>Tokens</Tabs.Tab>
-  </Tabs.TabList>
-  <Tabs.TabPanel>
-    <Usage />
-  </Tabs.TabPanel>
-  <Tabs.TabPanel>
-    <Tokens />
-  </Tabs.TabPanel>
-</Tabs>
+- **Spacing tokens** are used for component-level spacing, and allow a more detailed fine tuning.
+- **Layout spacing tokens** are used for page layouts. They help keeping pages consistent and ensure that you are not making layouts too dense.
+
+Token values can be multiplied and divided using even numbers.
