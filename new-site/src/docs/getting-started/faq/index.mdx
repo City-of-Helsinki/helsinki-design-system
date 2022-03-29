@@ -1,39 +1,45 @@
 ---
 slug: "/getting-started/faq"
 title: "Frequently asked questions"
+nav_title: "Frequently asked questions"
 ---
 
-import { Tabs } from 'hds-react';
-import LeadParagraph from '../../../components/LeadParagraph';
+import { Accordion, Link } from 'hds-react';
 
-import General from './general.mdx';
-import Design from './design.mdx';
-import Code from './code.mdx';
-import Accessibility from './accessibility.mdx';
+import TabsLayout from './tabs.mdx';
 
-# Frequently asked questions
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
-<LeadParagraph>
-  Here you will find frequently asked questions about HDS and answers to those questions. If you do not find an answer to your question on this page, you can always contact the HDS team for more information.
-</LeadParagraph>
+## General
 
-<Tabs>
-  <Tabs.TabList className="pageTabsList">
-    <Tabs.Tab>General</Tabs.Tab>
-    <Tabs.Tab>Design</Tabs.Tab>
-    <Tabs.Tab>Code</Tabs.Tab>
-    <Tabs.Tab>Accessibility</Tabs.Tab>
-  </Tabs.TabList>
-  <Tabs.TabPanel>
-    <General />
-  </Tabs.TabPanel>
-  <Tabs.TabPanel>
-    <Design />
-  </Tabs.TabPanel>
-  <Tabs.TabPanel>
-    <Code />
-  </Tabs.TabPanel>
-  <Tabs.TabPanel>
-    <Accessibility />
-  </Tabs.TabPanel>
-</Tabs>
+<Accordion 
+  heading="What browser and browser versions are supported?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  <p>
+  HDS follows the guideline of the City of Helsinki related to browser support. This means that the following browsers are officially supported
+  <ul>
+    <li>Chrome</li>
+    <li>Firefox</li>
+    <li>Safari</li>
+  </ul>
+  Versions 6 months old and newer are supported.
+
+  Note: While these three (3) browsers are officially supported by the HDS, you can still report bugs and request support related to other browsers as well. HDS team will do their best to fix issues with other browsers and versions too.
+  </p>
+</Accordion>
+
+<Accordion 
+  heading="How is mobile first taken into account in HDS?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  HDS components and patterns are designed to be used on mobile devices right from the start. All HDS components are fully featured both on mobile and desktop screens, meaning that features are not degraded for mobile devices. 
+
+  HDS uses two (2) methods to provide components for different screen sizes. The first method is to provide responsive components that react to the changing screen size (e.g. Navigation). The second method is to provide a separate `small` variant that can be used both on mobile screens as well as on more information-heavy user interfaces.
+</Accordion>

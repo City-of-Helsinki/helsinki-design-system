@@ -1,4 +1,13 @@
+---
+slug: "/getting-started/faq/accessibility"
+title: "Frequently asked questions"
+---
+
 import { Accordion, Link } from 'hds-react';
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Accessibility
 
@@ -54,5 +63,3 @@ import { Accordion, Link } from 'hds-react';
   </ul>
   </p>
 </Accordion>
-
-export default ({ children }) => <>{children}</>;
