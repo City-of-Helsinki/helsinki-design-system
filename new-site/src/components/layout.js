@@ -80,15 +80,15 @@ const generateUiIdFromPath = (path, prefix) => {
 };
 
 const isNavPage = (page) => page.slug && page.nav_title;
-const splitPathInParts = (path) => path.split('/').filter((l) => !!l);
+const splitPathIntoParts = (path) => path.split('/').filter((l) => !!l);
 const resolveNavigationLinkByPathAndLevel = (parentPath, level) => (page) => {
-  const pathParts = splitPathInParts(page.slug);
+  const pathParts = splitPathIntoParts(page.slug);
   return pathParts.length === level && pathParts.slice(0, -1).every((pathPart) => parentPath.includes(pathPart));
 };
 const sortByPageTitle = (pageA, pageB) => pageA.title.localeCompare(pageB.title);
 const isMatchingParentLink = (link, slug) => {
-  const linkParts = splitPathInParts(link);
-  const slugParts = splitPathInParts(slug);
+  const linkParts = splitPathIntoParts(link);
+  const slugParts = splitPathIntoParts(slug);
   const slugPartsWithoutLast = slugParts.slice(0, -1);
 
   return (
