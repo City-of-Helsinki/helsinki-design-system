@@ -221,8 +221,7 @@ const Layout = ({ children, pageContext }) => {
                       id={uiId}
                       label={name}
                       active={
-                        pageSlugWithPrefix === prefixedLink ||
-                        (!hasSubLevels && isMatchingParentLink(prefixedLink, pageSlugWithPrefix))
+                        pageSlugWithPrefix === prefixedLink || (!hasSubLevels && isMatchingParentLink(link, pageSlug))
                       }
                       withDivider={withDivider}
                       {...(hasSubLevels
@@ -240,10 +239,7 @@ const Layout = ({ children, pageContext }) => {
                           key={uiId}
                           href={prefixedSubLevelLink}
                           label={nav_title}
-                          active={
-                            pageSlugWithPrefix === prefixedSubLevelLink ||
-                            isMatchingParentLink(prefixedSubLevelLink, pageSlugWithPrefix)
-                          }
+                          active={pageSlugWithPrefix === prefixedSubLevelLink || isMatchingParentLink(slug, pageSlug)}
                           onClick={(e) => {
                             e.preventDefault();
                             navigate(slug);
