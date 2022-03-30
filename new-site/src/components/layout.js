@@ -81,7 +81,7 @@ const generateUiIdFromPath = (path, prefix) => {
 
 const isNavPage = (page) => page.slug && page.nav_title;
 const splitPathIntoParts = (path) => path.split('/').filter((l) => !!l);
-const resolveNavigationLinkByPathAndLevel = (parentPath, level) => (page) => {
+const isLinkParentForPage = (parentPath, level) => (page) => {
   const pathParts = splitPathIntoParts(page.slug);
   return pathParts.length === level && pathParts.slice(0, -1).every((pathPart) => parentPath.includes(pathPart));
 };
@@ -157,7 +157,7 @@ const Layout = ({ children, pageContext }) => {
     currentMenuItem && currentMenuItem.link
       ? allPages
           .filter(isNavPage)
-          .filter(resolveNavigationLinkByPathAndLevel(currentMenuItem.link, 2))
+          .filter(isLinkParentForPage(currentMenuItem.link, 2))
           .map((page) => ({ name: page.title, title: page.title, link: page.slug }))
           .sort(sortByPageTitle)
       : [];
@@ -168,7 +168,7 @@ const Layout = ({ children, pageContext }) => {
     uiId: generateUiIdFromPath(subMenuLink.link, 'side-nav'),
     subLevels: allPages
       .filter(isNavPage)
-      .filter(resolveNavigationLinkByPathAndLevel(subMenuLink.link, 3))
+      .filter(isLinkParentForPage(subMenuLink.link, 3))
       .map((subLevelLink) => ({
         ...subLevelLink,
         uiId: generateUiIdFromPath(subLevelLink.slug, 'side-nav-sub'),
