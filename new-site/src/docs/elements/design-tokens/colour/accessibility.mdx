@@ -1,5 +1,5 @@
 ---
-slug: '/elements/design-tokens/colour/usage'
+slug: '/elements/design-tokens/colour/accessibility'
 title: 'Colour tokens - Accessibility'
 ---
 
@@ -7,6 +7,10 @@ import { Link } from 'hds-react';
 import Playground from '../../../../components/Playground';
 import ContrastExample from '../../../../components/examples/ContrastExample';
 import FocusExample from '../../../../components/examples/FocusExample';
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Accessibility
 
@@ -85,5 +89,3 @@ HDS focus style colour can be customised to better fit the theme of the service.
 - <Link size="M" href="https://www.w3.org/TR/WCAG21/#focus-order" external>WCAG 2.4.3 Focus Order (Level A)</Link> (while designing components with multiple focusable elements)
 - <Link size="M" href="https://www.w3.org/TR/WCAG21/#focus-visible" external>WCAG 2.4.7 Focus Visible (Level A)</Link>
 - While not officially part of WCAG yet, HDS also follows <Link size="M" href="https://www.w3.org/WAI/WCAG21/Understanding/focus-visible-enhanced" external>WCAG 2.4.11 Focus Visible (Enhanced)</Link>. Due to their draft status, these requirements may still change. But we still recommend following them for future-proofing.
-
-export default ({ children }) => <>{children}</>;

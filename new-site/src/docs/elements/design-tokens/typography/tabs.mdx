@@ -1,0 +1,28 @@
+---
+slug: '/elements/design-tokens/tabs'
+title: 'Typography tokens'
+---
+
+import { StatusLabel } from 'hds-react';
+
+import LeadParagraph from '../../../../components/LeadParagraph';
+import Layout from '../../../../components/layout'
+import PageTabs from '../../../../components/PageTabs';
+
+# Typography
+
+<StatusLabel type="info">Stable</StatusLabel>
+
+<LeadParagraph>
+    Typography tokens are used to define typographic style of headings, body text, and HDS components.
+</LeadParagraph>
+
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/tokens">Tokens</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>
+
+export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

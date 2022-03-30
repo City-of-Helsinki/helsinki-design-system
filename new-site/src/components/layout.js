@@ -80,12 +80,23 @@ const generateUiIdFromPath = (path, prefix) => {
 };
 
 const isNavPage = (page) => page.slug && page.nav_title;
-const resolvePathPartsFrom = (slug) => slug.split('/').filter((l) => !!l);
-const resolveNavigationLinkByPathAndLevel = (parentPath, level) => (page) => {
-  const pathParts = resolvePathPartsFrom(page.slug);
+const splitPathIntoParts = (path) => path.split('/').filter((l) => !!l);
+const isLinkParentForPage = (parentPath, level) => (page) => {
+  const pathParts = splitPathIntoParts(page.slug);
   return pathParts.length === level && pathParts.slice(0, -1).every((pathPart) => parentPath.includes(pathPart));
 };
 const sortByPageTitle = (pageA, pageB) => pageA.title.localeCompare(pageB.title);
+const isMatchingParentLink = (link, slug) => {
+  const linkParts = splitPathIntoParts(link);
+  const slugParts = splitPathIntoParts(slug);
+  const slugPartsWithoutLast = slugParts.slice(0, -1);
+
+  return (
+    linkParts.length === slugPartsWithoutLast.length &&
+    linkParts.length >= 2 &&
+    linkParts.every((linkPart, index) => linkPart === slugPartsWithoutLast[index])
+  );
+};
 
 const Layout = ({ children, pageContext }) => {
   const { title: pageTitle, slug: pageSlug } = pageContext.frontmatter;
@@ -142,11 +153,14 @@ const Layout = ({ children, pageContext }) => {
   }));
   const currentMenuItem = resolveCurrentMenuItem(uiMenuLinks, pageSlugWithPrefix);
   const subMenuLinks = currentMenuItem?.subMenuLinks || [];
-  const subMenuLinksFromPages = allPages
-    .filter(isNavPage)
-    .filter(resolveNavigationLinkByPathAndLevel(currentMenuItem.link, 2))
-    .map((page) => ({ name: page.title, title: page.title, link: page.slug }))
-    .sort(sortByPageTitle);
+  const subMenuLinksFromPages =
+    currentMenuItem && currentMenuItem.link
+      ? allPages
+          .filter(isNavPage)
+          .filter(isLinkParentForPage(currentMenuItem.link, 2))
+          .map((page) => ({ name: page.title, title: page.title, link: page.slug }))
+          .sort(sortByPageTitle)
+      : [];
 
   const uiSubMenuLinks = [...subMenuLinks, ...subMenuLinksFromPages].map((subMenuLink) => ({
     ...subMenuLink,
@@ -154,7 +168,7 @@ const Layout = ({ children, pageContext }) => {
     uiId: generateUiIdFromPath(subMenuLink.link, 'side-nav'),
     subLevels: allPages
       .filter(isNavPage)
-      .filter(resolveNavigationLinkByPathAndLevel(subMenuLink.link, 3))
+      .filter(isLinkParentForPage(subMenuLink.link, 3))
       .map((subLevelLink) => ({
         ...subLevelLink,
         uiId: generateUiIdFromPath(subLevelLink.slug, 'side-nav-sub'),
@@ -205,7 +219,9 @@ const Layout = ({ children, pageContext }) => {
                       key={uiId}
                       id={uiId}
                       label={name}
-                      active={pageSlugWithPrefix === prefixedLink}
+                      active={
+                        pageSlugWithPrefix === prefixedLink || (!hasSubLevels && isMatchingParentLink(link, pageSlug))
+                      }
                       withDivider={withDivider}
                       {...(hasSubLevels
                         ? {}
@@ -217,12 +233,12 @@ const Layout = ({ children, pageContext }) => {
                             },
                           })}
                     >
-                      {subLevels.map(({ nav_title, slug, prefixedLink, uiId }) => (
+                      {subLevels.map(({ nav_title, slug, prefixedLink: prefixedSubLevelLink, uiId }) => (
                         <SideNavigation.SubLevel
                           key={uiId}
-                          href={prefixedLink}
+                          href={prefixedSubLevelLink}
                           label={nav_title}
-                          active={pageSlugWithPrefix.startsWith(prefixedLink)}
+                          active={pageSlugWithPrefix === prefixedSubLevelLink || isMatchingParentLink(slug, pageSlug)}
                           onClick={(e) => {
                             e.preventDefault();
                             navigate(slug);
