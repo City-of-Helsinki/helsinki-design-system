@@ -86,6 +86,18 @@ const resolveNavigationLinkByPathAndLevel = (parentPath, level) => (page) => {
   return pathParts.length === level && pathParts.slice(0, -1).every((pathPart) => parentPath.includes(pathPart));
 };
 const sortByPageTitle = (pageA, pageB) => pageA.title.localeCompare(pageB.title);
+const isMatchingParentLink = (link, slug) => {
+  const slugParts = resolvePathPartsFrom(slug);
+  const linkParts = resolvePathPartsFrom(link);
+  const slugPartsWithoutLast = slugParts.slice(0, -1);
+
+  return (
+    slugPartsWithoutLast.length >= 2 &&
+    linkParts.length >= 2 &&
+    slugPartsWithoutLast.length === linkParts.length &&
+    slugPartsWithoutLast.every((linkPart, index) => linkPart === linkParts[index])
+  );
+};
 
 const Layout = ({ children, pageContext }) => {
   const { title: pageTitle, slug: pageSlug } = pageContext.frontmatter;
@@ -208,7 +220,10 @@ const Layout = ({ children, pageContext }) => {
                       key={uiId}
                       id={uiId}
                       label={name}
-                      active={pageSlugWithPrefix === prefixedLink}
+                      active={
+                        pageSlugWithPrefix === prefixedLink ||
+                        (!hasSubLevels && isMatchingParentLink(prefixedLink, pageSlugWithPrefix))
+                      }
                       withDivider={withDivider}
                       {...(hasSubLevels
                         ? {}
@@ -220,12 +235,15 @@ const Layout = ({ children, pageContext }) => {
                             },
                           })}
                     >
-                      {subLevels.map(({ nav_title, slug, prefixedLink, uiId }) => (
+                      {subLevels.map(({ nav_title, slug, prefixedLink: prefixedSubLevelLink, uiId }) => (
                         <SideNavigation.SubLevel
                           key={uiId}
-                          href={prefixedLink}
+                          href={prefixedSubLevelLink}
                           label={nav_title}
-                          active={pageSlugWithPrefix.startsWith(prefixedLink)}
+                          active={
+                            pageSlugWithPrefix === prefixedSubLevelLink ||
+                            isMatchingParentLink(prefixedSubLevelLink, pageSlugWithPrefix)
+                          }
                           onClick={(e) => {
                             e.preventDefault();
                             navigate(slug);
