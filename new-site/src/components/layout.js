@@ -80,7 +80,7 @@ const generateUiIdFromPath = (path, prefix) => {
 };
 
 const isNavPage = (page) => page.slug && page.nav_title;
-const splitPathInParts = (slug) => slug.split('/').filter((l) => !!l);
+const splitPathInParts = (path) => path.split('/').filter((l) => !!l);
 const resolveNavigationLinkByPathAndLevel = (parentPath, level) => (page) => {
   const pathParts = splitPathInParts(page.slug);
   return pathParts.length === level && pathParts.slice(0, -1).every((pathPart) => parentPath.includes(pathPart));
