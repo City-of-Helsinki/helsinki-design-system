@@ -87,15 +87,14 @@ const resolveNavigationLinkByPathAndLevel = (parentPath, level) => (page) => {
 };
 const sortByPageTitle = (pageA, pageB) => pageA.title.localeCompare(pageB.title);
 const isMatchingParentLink = (link, slug) => {
-  const slugParts = resolvePathPartsFrom(slug);
   const linkParts = resolvePathPartsFrom(link);
+  const slugParts = resolvePathPartsFrom(slug);
   const slugPartsWithoutLast = slugParts.slice(0, -1);
 
   return (
-    slugPartsWithoutLast.length >= 2 &&
+    linkParts.length === slugPartsWithoutLast.length &&
     linkParts.length >= 2 &&
-    slugPartsWithoutLast.length === linkParts.length &&
-    slugPartsWithoutLast.every((linkPart, index) => linkPart === linkParts[index])
+    linkParts.every((linkPart, index) => linkPart === slugPartsWithoutLast[index])
   );
 };
 
