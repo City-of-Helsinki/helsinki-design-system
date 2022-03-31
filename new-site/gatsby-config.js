@@ -47,34 +47,17 @@ module.exports = {
             link: '/foundation',
           },
           {
-            name: 'Data formats',
-            link: '/foundation/data-formats',
-            withDivider: true,
-          },
-          {
-            name: 'Grid',
-            link: '/foundation/grid',
-          },
-          {
-            name: 'Inclusivity',
-            link: '/foundation/inclusivity',
-          },
-          {
-            name: 'Localisation',
-            link: '/foundation/localisation',
-          },
-          {
-            name: 'Photography',
-            link: '/foundation/photography',
-          },
-          {
-            name: 'Checkboxes, radio buttons, or toggles?',
-            link: '/foundation/checkbox-radiobutton-toggle',
-            withDivider: true,
-          },
-          {
             name: 'Design tokens',
             link: '/foundation/design-tokens',
+            withDivider: true,
+          },
+          {
+            name: 'Visual assets',
+            link: '/foundation/visual-assets',
+          },
+          {
+            name: 'Guidelines',
+            link: '/foundation/guidelines',
           },
         ],
       },
@@ -87,13 +70,9 @@ module.exports = {
             link: '/elements',
           },
           {
-            name: 'Visual assets',
-            link: '/elements/visual-assets',
-            withDivider: true,
-          },
-          {
             name: 'Components',
             link: '/elements/components',
+            withDivider: true,
           },
         ],
       },
