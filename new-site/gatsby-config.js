@@ -4,12 +4,7 @@ module.exports = {
     title: `Helsinki Design System`,
     description: `Documentation for the Helsinki Design System`,
     siteUrl: `https://hds.hel.fi/`,
-    menuLinks: [
-      {
-        name: 'Home',
-        link: '/',
-        subMenuLinks: [],
-      },
+    menuLinks: [  
       {
         name: 'Getting started',
         link: '/getting-started',
@@ -44,43 +39,47 @@ module.exports = {
         ],
       },
       {
-        name: 'Guidelines',
-        link: '/guidelines',
+        name: 'Foundation',
+        link: '/foundation',
         subMenuLinks: [
           {
             name: 'Overview',
-            link: '/guidelines',
+            link: '/foundation',
           },
           {
             name: 'Data formats',
-            link: '/guidelines/data-formats',
+            link: '/foundation/data-formats',
             withDivider: true,
           },
           {
             name: 'Grid',
-            link: '/guidelines/grid',
+            link: '/foundation/grid',
           },
           {
             name: 'Inclusivity',
-            link: '/guidelines/inclusivity',
+            link: '/foundation/inclusivity',
           },
           {
             name: 'Localisation',
-            link: '/guidelines/localisation',
+            link: '/foundation/localisation',
           },
           {
             name: 'Photography',
-            link: '/guidelines/photography',
+            link: '/foundation/photography',
           },
           {
             name: 'Checkboxes, radio buttons, or toggles?',
-            link: '/guidelines/checkbox-radiobutton-toggle',
+            link: '/foundation/checkbox-radiobutton-toggle',
             withDivider: true,
+          },
+          {
+            name: 'Design tokens',
+            link: '/foundation/design-tokens',
           },
         ],
       },
       {
-        name: 'Elements',
+        name: 'Components',
         link: '/elements',
         subMenuLinks: [
           {
@@ -91,10 +90,6 @@ module.exports = {
             name: 'Visual assets',
             link: '/elements/visual-assets',
             withDivider: true,
-          },
-          {
-            name: 'Design tokens',
-            link: '/elements/design-tokens',
           },
           {
             name: 'Components',

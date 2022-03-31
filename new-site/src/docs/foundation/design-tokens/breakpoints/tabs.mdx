@@ -1,6 +1,6 @@
 ---
-slug: '/elements/design-tokens/tabs'
-title: 'Colour tokens'
+slug: '/foundation/design-tokens/breakpoints/tabs'
+title: 'Breakpoint tokens'
 ---
 
 import { StatusLabel } from 'hds-react';
@@ -9,18 +9,17 @@ import LeadParagraph from '../../../../components/LeadParagraph';
 import Layout from '../../../../components/layout'
 import PageTabs from '../../../../components/PageTabs';
 
-# Colour
+# Breakpoints
 
 <StatusLabel type="info">Stable</StatusLabel>
 
 <LeadParagraph>
-  Colour tokens store the colour variables for styling elements.
+  Breakpoint tokens are used to keep services and products using HDS consistent across all screen sizes.
 </LeadParagraph>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
     <PageTabs.Tab href="/">Usage</PageTabs.Tab>
-    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
     <PageTabs.Tab href="/tokens">Tokens</PageTabs.Tab>
   </PageTabs.TabList>
   <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
