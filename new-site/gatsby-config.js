@@ -72,6 +72,16 @@ module.exports = {
         ],
       },
       {
+        name: 'Patterns',
+        link: '/patterns',
+        subMenuLinks: [
+          {
+            name: 'Overview',
+            link: '/patterns',
+          },
+        ],
+      },
+      {
         name: 'About',
         link: '/about',
         subMenuLinks: [
