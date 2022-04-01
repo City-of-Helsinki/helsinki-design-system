@@ -63,16 +63,11 @@ module.exports = {
       },
       {
         name: 'Components',
-        link: '/elements',
+        link: '/components',
         subMenuLinks: [
           {
             name: 'Overview',
-            link: '/elements',
-          },
-          {
-            name: 'Components',
-            link: '/elements/components',
-            withDivider: true,
+            link: '/components',
           },
         ],
       },
