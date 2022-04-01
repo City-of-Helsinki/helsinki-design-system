@@ -1,0 +1,103 @@
+.hds-pager {
+  font-size: var(--fontsize-body-m);
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  line-height: var(--lineheight-l);
+  --active-page-background-color: var(--color-black);
+  --link-height: 40px;
+}
+
+.hds-pager__items {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.hds-pager__item {
+  display: inline-block;
+}
+
+.hds-pager__pages {
+  grid-area: page-list;
+  display: flex;
+  gap: var(--spacing-2-xs);
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.hds-pager__previous-button {
+  grid-area: prev-button;
+}
+
+.hds-pager__next-button {
+  display: flex;
+  justify-content: flex-end;
+  grid-area: next-button;
+}
+
+.hds-pager__item-link {
+  border-radius: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: var(--color-black-90);
+  height: var(--link-height);
+  min-width: 32px;
+  padding-left: var(--spacing-3-xs);
+  padding-right: var(--spacing-3-xs);
+}
+
+.hds-pager__item-link:hover {
+  text-decoration: underline;
+}
+
+.hds-pager__item-link:focus {
+  outline: solid var(--color-coat-of-arms) 3px;
+  outline-offset: 1px;
+}
+
+.hds-pager__item-link.hds-pager__item-link--active {
+  color: var(--color-white);
+  background-color: var(--active-page-background-color);
+}
+
+.hds-pager__item-link.hds-pager__item-link--active:hover {
+  text-decoration: none;
+}
+
+.hds-pager__item-ellipsis {
+  height: var(--link-height);
+  width: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-black-90);
+}
+
+/* MOBILE STYLES */
+
+@media (max-width: 576px) {
+  .hds-pager {
+    display: block;
+  }
+
+  .hds-pager__items {
+    display: grid;
+    justify-content: unset;
+    grid-template-areas:
+        'page-list page-list'
+        'prev-button next-button';
+  }
+}
+

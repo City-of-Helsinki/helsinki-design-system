@@ -8,6 +8,7 @@
 @import "./link/link.css";
 @import "./loading-spinner/loading-spinner.css";
 @import "./notification/notification.css";
+@import "./pager/pager.css";
 @import "./radio-button/radio-button.css";
 @import "./search-input/search-input.css";
 @import "./selection-group/selection-group.css";
