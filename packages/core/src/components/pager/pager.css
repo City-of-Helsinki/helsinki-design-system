@@ -1,48 +1,56 @@
+.hds-pager-container {
+  text-align: center;
+}
+
 .hds-pager {
   font-size: var(--fontsize-body-m);
   font-weight: bold;
-  display: flex;
-  justify-content: center;
+  display: inline-block; /* Allows centering */
+  position: relative; /* Enables position absolute for btn--next */
   line-height: var(--lineheight-l);
+  transform: scaleY(-1); /* Trick for flipping the list float direction from bottom to up */
   --active-page-background-color: var(--color-black);
   --link-height: 40px;
 }
 
-.hds-pager__items {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  margin-bottom: 0;
-  margin-top: 0;
-  padding: 0;
-  align-items: center;
+/* Invisible, floated pseudo-element for reserving space for the hds-pager__button-next,
+we can not use this position for the actual button as it's in incorrect source order for tabbing */
+.hds-pager::before {
+  content: attr(data-next); /* Trick to keep floating element same size as btn--next */
+  content: attr(data-next) / ''; /* Removes this pseudo-element from screen readers where supported */
+  display: block;
+  float: right; /* Floated pseudo-element wraps the inline ul around it */
+  speak: never; /* Removes this pseudo-element from screen readers where supported */
+  visibility: hidden;
+  padding-left: 80px;
+  line-height: 56px;
 }
 
-.hds-pager__item {
-  display: inline-block;
+.hds-pager__button-prev {
+  float: left;
+  transform: scaleY(-1); /* Flip the element back from upside down */
+  white-space: nowrap;
+  margin-right: 8px;
+}
+
+.hds-pager__button-next {
+  position: absolute;
+  right: 0;
+  top: 0; /* Remember that the position is flipped upside down, so this means actually bottom */
+  transform: scaleY(-1); /* Flip the element back from upside down */
+  white-space: nowrap;
 }
 
 .hds-pager__pages {
-  grid-area: page-list;
-  display: flex;
-  gap: var(--spacing-2-xs);
-  align-items: center;
-  justify-content: center;
-  list-style: none;
+  display: inline-flex; /* inline-flex allows floating it based on floated buttons when there is no more space */
+  flex-wrap: wrap; /* Allow wrapping of the li-elements */
+  justify-content: center; /* Center the li-elements */
+  transform: scaleY(-1); /* Flip the element back from upside down */
   margin-bottom: 0;
-  margin-top: 0;
   padding: 0;
-  flex-wrap: wrap;
-}
-
-.hds-pager__previous-button {
-  grid-area: prev-button;
-}
-
-.hds-pager__next-button {
-  display: flex;
-  justify-content: flex-end;
-  grid-area: next-button;
+  list-style: none;
+  margin-top: 8px;
+  gap: var(--spacing-2-xs);
 }
 
 .hds-pager__item-link {
@@ -62,7 +70,7 @@
   text-decoration: underline;
 }
 
-.hds-pager__item-link:focus {
+.hds-pager__item-link:focus, .hds-pager__item-link:active {
   outline: solid var(--color-coat-of-arms) 3px;
   outline-offset: 1px;
 }
@@ -84,20 +92,3 @@
   align-items: center;
   color: var(--color-black-90);
 }
-
-/* MOBILE STYLES */
-
-@media (max-width: 576px) {
-  .hds-pager {
-    display: block;
-  }
-
-  .hds-pager__items {
-    display: grid;
-    justify-content: unset;
-    grid-template-areas:
-        'page-list page-list'
-        'prev-button next-button';
-  }
-}
-
