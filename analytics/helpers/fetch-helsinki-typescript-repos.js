@@ -7,7 +7,7 @@ async function fetchRepos() {
       ({ stdout }) => JSON.parse(stdout),
     );
   } catch (e) {
-    console.error(e); // should contain code (exit code) and signal (that caused the termination).
+    console.error(e);
   }
 }
 
