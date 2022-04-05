@@ -14,14 +14,10 @@ function Content({ onClick }: ViewProps): React.ReactElement {
   const { isOpen, buttonProps, contentProps } = useAccordion({
     initiallyOpen: false,
   });
-  const {
-    mainTitle,
-    mainText,
-    hideSettings,
-    showSettings,
-    approveRequiredAndSelectedConsents,
-    approveOnlyRequiredConsents,
-  } = useCookieConsentContent();
+  const content = useCookieConsentContent();
+  const { sections, ui } = content.texts;
+  const { hideSettings, showSettings, approveRequiredAndSelectedConsents, approveOnlyRequiredConsents } = ui;
+  const { title, text } = sections.main;
   const titleRef = useRef<HTMLHeadingElement>();
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
   const settingsButtonText = isOpen ? hideSettings : showSettings;
@@ -42,12 +38,12 @@ function Content({ onClick }: ViewProps): React.ReactElement {
           tabIndex={0}
           ref={titleRef}
         >
-          {mainTitle}
+          {title}
         </span>
         <div className={styles['language-switcher']} data-testid="cookie-consent-language-switcher">
           <LanguageSwitcher />
         </div>
-        <p>{mainText}</p>
+        <p>{text}</p>
       </div>
       <button
         type="button"
@@ -65,7 +61,7 @@ function Content({ onClick }: ViewProps): React.ReactElement {
           '--padding-vertical': '0',
         }}
       >
-        <Details onClick={onClick} />
+        <Details />
       </Card>
       <Buttons onClick={onClick} hasOptionalConsents={isOpen} />
       <button
