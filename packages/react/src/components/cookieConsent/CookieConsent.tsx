@@ -10,7 +10,7 @@ import { CookieConsentActionListener } from './types';
 
 export function CookieConsent(): React.ReactElement | null {
   const cookieConsentContext = useContext(CookieConsentContext);
-  const { settingsSaved } = useCookieConsentContent();
+  const content = useCookieConsentContent();
   const [, forceUpdate] = useState<number>(0);
   const [showScreenReaderSaveNotification, setShowScreenReaderSaveNotification] = useState<boolean>(false);
   const [popupTimerComplete, setPopupTimerComplete] = useState<boolean>(false);
@@ -74,7 +74,7 @@ export function CookieConsent(): React.ReactElement | null {
     return (
       <VisuallyHidden>
         <div role="alert" data-testid="cookie-consent-screen-reader-notification" tabIndex={-1}>
-          {settingsSaved}
+          {content.texts.ui.settingsSaved}
         </div>
       </VisuallyHidden>
     );
