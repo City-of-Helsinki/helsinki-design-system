@@ -40,61 +40,179 @@ export const Example = () => {
 
   const [language, setLanguage] = useState('fi');
   const onLanguageChange = (newLang) => setLanguage(newLang);
-  const content: Content = useMemo(() => {
+
+  const content: Content = useMemo((): Content => {
     return {
-      mainTitle: 'Evästesuostumukset',
-      mainText: `Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan.
-      Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön
-      näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden
-      käytön. (${language})`,
-      detailsTitle: 'Tietoa sivustolla käytetyistä evästeistä',
-      detailsText: `Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea tietoa jokaisesta
-      kategoriasta ja sallia tai kieltää evästeiden käytön.`,
-      requiredConsentsTitle: 'Välttämättömät evästeet',
-      requiredConsentsText:
-        'Välttämättömien evästeiden käyttöä ei voi kieltää. Ne mahdollistavat sivuston toiminnan ja vaikuttavat sivuston käyttäjäystävällisyyteen.',
-      optionalConsentsTitle: 'Muut evästeet',
-      optionalConsentsText: 'Voit hyväksyä tai jättää hyväksymättä muut evästeet.',
-      showSettings: 'Näytä asetukset',
-      hideSettings: 'Piilota asetukset',
-      approveAllConsents: 'Hyväksy kaikki evästeet',
-      approveRequiredAndSelectedConsents: 'Hyväksy valitut ja pakolliset evästeet',
-      approveOnlyRequiredConsents: 'Hyväksy vain pakolliset evästeet',
-      settingsSaved: 'Asetukset tallennettu!',
-      consents: {
-        matomoTitle: 'Tilastointievästeet',
-        matomoText: 'Tilastointievästeiden keräämää tietoa käytetään verkkosivuston kehittämiseen',
-        tunnistamoTitle: 'Kirjautumiseväste',
-        tunnistamoText: 'Sivuston pakollinen eväste mahdollistaa kävijän vierailun sivustolla.',
-        languageTitle: 'Kielieväste',
-        languageText: 'Tallennamme valitsemasi käyttöliittymäkielen',
-        preferencesTitle: 'Mieltymysevästeet',
-        preferencesText:
-          'Mieltymysevästeet mukauttavat sivuston ulkoasua ja toimintaa käyttäjän aiemman käytön perusteella.',
-        marketingTitle: 'Markkinointievästeet',
-        marketingText: 'Markkinointievästeiden avulla sivuston käyttäjille voidaan kohdentaa sisältöjä.',
-        someOtherConsentTitle: 'Palvelun oma eväste',
-        someOtherConsentText: 'Palvelun omaa eväste on demoa varten',
+      texts: {
+        sections: {
+          main: {
+            title: 'Evästesuostumukset',
+            text: `Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan.
+            Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön
+            näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden
+            käytön.`,
+          },
+          details: {
+            title: 'Tietoa sivustolla käytetyistä evästeistä',
+            text: `Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea tietoa jokaisesta
+            kategoriasta ja sallia tai kieltää evästeiden käytön.`,
+          },
+        },
+        ui: {
+          showSettings: 'Näytä asetukset',
+          hideSettings: 'Piilota asetukset',
+          approveAllConsents: 'Hyväksy kaikki evästeet',
+          approveRequiredAndSelectedConsents: 'Hyväksy valitut ja pakolliset evästeet',
+          approveOnlyRequiredConsents: 'Hyväksy vain pakolliset evästeet',
+          settingsSaved: 'Asetukset tallennettu!',
+        },
+        tableHeadings: {
+          name: 'Name',
+          hostName: 'Osoite',
+          path: 'Polku',
+          description: 'Kuvaus',
+          expiration: 'Voimassaoloaika',
+        },
       },
-      languageOptions: [
-        { code: 'fi', label: 'Suomeksi (FI)' },
-        { code: 'en', label: 'English (EN)' },
-      ],
-      language,
-      languageSelectorAriaLabel: 'Kieli: Suomi. Vaihda kieli. Change language. Ändra språk.',
-      onLanguageChange,
+      requiredConsents: {
+        title: 'Välttämättömät evästeet',
+        text:
+          'Välttämättömien evästeiden käyttöä ei voi kieltää. Ne mahdollistavat sivuston toiminnan ja vaikuttavat sivuston käyttäjäystävällisyyteen.',
+        checkboxAriaLabel: 'checkboxAriaLabel',
+        groups: [
+          {
+            title: 'Evästeet sivuston perustoimintoja varten',
+            text: 'Näitä eväisteitä käytetään sivuston perustoiminnoissa',
+            expandAriaLabel: 'toggleAriaLabel',
+            checkboxAriaLabel: 'checkboxAriaLabel',
+            consents: [
+              {
+                id: commonConsents.tunnistamo,
+                name: 'Kuormanjako',
+                hostName: 'Osoite',
+                path: 'Polku',
+                description:
+                  'Kuvaus lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+                expiration: 'Voimassaoloaika',
+              },
+              {
+                id: commonConsents.language,
+                name: 'Kielivalinta',
+                hostName: 'Osoite',
+                path: 'Polku',
+                description: 'Quisque vest molestie convallis. Don el dui vel.',
+                expiration: 'Voimassaoloaika',
+              },
+            ],
+          },
+          {
+            title: 'Evästeet kirjautumista varten',
+            text: 'Näitä eväisteitä käytetään kirjautumisessa',
+            expandAriaLabel: 'toggleAriaLabel',
+            checkboxAriaLabel: 'checkboxAriaLabel',
+            consents: [
+              {
+                id: commonConsents.tunnistamo,
+                name: 'Tunnistamo',
+                hostName: 'Osoite',
+                path: 'Polku',
+                description:
+                  'Kuvaus lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+                expiration: 'Voimassaoloaika',
+              },
+              {
+                id: 'keycloak',
+                name: 'Tunnistus',
+                hostName: 'Osoite',
+                path: 'Polku',
+                description: 'Quisque vest molestie convallis. Don el dui vel.',
+                expiration: 'Voimassaoloaika',
+              },
+            ],
+          },
+        ],
+      },
+      optionalConsents: {
+        title: 'Muut evästeet',
+        text:
+          'Voit hyväksyä tai jättää hyväksymättä muut evästeet. Praesent vel vestibulum nunc, at eleifend sapien. Integer cursus ut orci eu pretium. Ut a orci felis. In eu eros turpis. Sed ullamcorper lacinia lorem, id ullamcorper dui accumsan in. Integer dictum fermentum mi, sit amet accumsan lacus facilisis id. Quisque blandit lacus ac sem porta.',
+        checkboxAriaLabel: 'checkboxAriaLabel',
+        groups: [
+          {
+            title: 'Markkinointievästeet',
+            text:
+              'Markkinointievästeillä kohdennetaan markkinointia. Nulla facilisi. Nullam mattis sapien sem, nec venenatis lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus.',
+            expandAriaLabel: 'toggleAriaLabel',
+            checkboxAriaLabel: 'checkboxAriaLabel',
+            consents: [
+              {
+                id: commonConsents.marketing,
+                name: 'Marketing',
+                hostName: 'Osoite',
+                path: 'Polku',
+                description: 'Quisque vel dui vel est molestie convallis.',
+                expiration: 'Voimassaoloaika',
+              },
+            ],
+          },
+          {
+            title: 'Asetuksiin liittyvät evästeet',
+            text:
+              'Evästeisiin tallennetaan käyttäjän tekemiä Donec lacus ligula, consequat id ligula sed, dapibus blandit nunc. Phasellus efficitur nec tellus et tempus. Sed tempor tristique purus, at auctor lectus. Ut pretium rutrum viverra. Sed felis arcu, sodales fermentum finibus in, pretium id tellus. Morbi eget eros congue, pulvinar leo ut, aliquam lectus. Cras consectetur sit amet tortor nec vulputate. Integer scelerisque dignissim auctor. Fusce pharetra dui nulla, vel elementum leo mattis vitae.',
+            expandAriaLabel: 'toggleAriaLabel',
+            checkboxAriaLabel: 'checkboxAriaLabel',
+            consents: [
+              {
+                id: commonConsents.preferences,
+                name: 'Asetus 1',
+                hostName: 'Osoite',
+                path: 'Polku',
+                description:
+                  'Proin sodales maximus est, pulvinar tempus felis tempus quis. Aenean at vestibulum lectus. Aliquam erat volutpat. Nullam venenatis feugiat sem vitae cursus. ',
+                expiration: 'Voimassaoloaika',
+              },
+            ],
+          },
+          {
+            title: 'Tilastointiin liittyvät evästeet',
+            text: 'Tilastoinnilla parannetaan...',
+            expandAriaLabel: 'toggleAriaLabel',
+            checkboxAriaLabel: 'checkboxAriaLabel',
+            consents: [
+              {
+                id: commonConsents.matomo,
+                name: 'Matomo',
+                hostName: 'Osoite',
+                path: 'Polku',
+                description: 'Quisque vel dui vel est molestie con.',
+                expiration: 'Voimassaoloaika',
+              },
+              {
+                id: 'someOtherConsent',
+                name: 'Joku toinen',
+                hostName: 'Osoite',
+                path: 'Polku',
+                description: 'Vel est molestie Quisque vel dui vel est molestie con con',
+                expiration: 'Voimassaoloaika',
+              },
+            ],
+          },
+        ],
+      },
+      language: {
+        languageOptions: [
+          { code: 'fi', label: 'Suomeksi (FI)' },
+          { code: 'en', label: 'English (EN)' },
+        ],
+        current: language,
+        languageSelectorAriaLabel: 'Kieli: Suomi. Vaihda kieli. Change language. Ändra språk.',
+        onLanguageChange,
+      },
     };
   }, [language]);
 
   return (
     <CookieContextProvider
-      requiredConsents={[commonConsents.tunnistamo, commonConsents.language]}
-      optionalConsents={[
-        commonConsents.matomo,
-        commonConsents.preferences,
-        commonConsents.marketing,
-        'someOtherConsent',
-      ]}
       onAllConsentsGiven={(consents) => {
         if (consents.matomo) {
           //  start tracking
@@ -117,6 +235,7 @@ export const Example = () => {
         }
       }}
       content={content}
+      onLanguageChange={onLanguageChange}
     >
       <CookieConsent />
       <Application />
