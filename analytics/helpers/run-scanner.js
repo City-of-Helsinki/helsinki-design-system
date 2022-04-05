@@ -19,7 +19,7 @@ async function runScanner (offset, limit, resultsDir) {
     console.log(successMessage)
     return stdout;
   } catch (e) {
-    console.error(e); // should contain code (exit code) and signal (that caused the termination).
+    console.error(e);
   }
 }
 
