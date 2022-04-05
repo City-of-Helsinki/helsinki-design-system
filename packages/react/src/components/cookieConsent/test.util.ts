@@ -1,8 +1,8 @@
 /* eslint-disable jest/no-mocks-import */
 import cookie from 'cookie';
 
-import { Content } from './CookieConsentContext';
-import { COOKIE_NAME } from './cookieConsentController';
+import { ConsentGroup, Content } from './CookieConsentContext';
+import { ConsentList, COOKIE_NAME } from './cookieConsentController';
 import { CookieSetOptions } from './cookieController';
 import { MockedDocumentCookieActions } from './__mocks__/mockDocumentCookie';
 
@@ -28,32 +28,94 @@ export function extractSetCookieArguments(
   };
 }
 
-export const getContent = (): Content => {
+const createConsentGroup = (id: string, consents: ConsentList): ConsentGroup => {
   return {
-    mainTitle: 'Evästesuostumukset',
-    mainText: `Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan.
-      Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön
-      näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden
-      käytön.`,
-    detailsTitle: 'Tietoa sivustolla käytetyistä evästeistä',
-    detailsText: `Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea tietoa jokaisesta
-      kategoriasta ja sallia tai kieltää evästeiden käytön.`,
-    requiredConsentsTitle: 'Välttämättömät evästeet',
-    requiredConsentsText:
-      'Välttämättömien evästeiden käyttöä ei voi kieltää. Ne mahdollistavat sivuston toiminnan ja vaikuttavat sivuston käyttäjäystävällisyyteen.',
-    optionalConsentsTitle: 'Muut evästeet',
-    optionalConsentsText: 'Voit hyväksyä tai jättää hyväksymättä muut evästeet.',
-    consents: {},
-    approveAllConsents: 'Hyväksy kaikki evästeet',
-    approveRequiredAndSelectedConsents: 'Hyväksy valitut ja pakolliset evästeet',
-    approveOnlyRequiredConsents: 'Hyväksy vain pakolliset evästeet',
-    showSettings: 'Näytä asetukset',
-    hideSettings: 'Piilota asetukset',
-    language: 'fi',
-    languageOptions: [
-      { code: 'fi', label: 'Suomeksi (FI)' },
-      { code: 'sv', label: 'På svenska (SV)' },
-    ],
-    languageSelectorAriaLabel: 'Kieli: Suomi. Vaihda kieli. Change language. Ändra språk.',
-  } as Content;
+    title: `Consent group title for ${id}`,
+    text: `Consent group description for ${id}`,
+    expandAriaLabel: `expandAriaLabel for ${id}`,
+    checkboxAriaLabel: `checkboxAriaLabel for ${id}`,
+    consents: consents.map((consent) => {
+      return {
+        id: consent,
+        name: `Name of ${consent}`,
+        hostName: `HostName of ${consent}`,
+        path: `Path of ${consent}`,
+        description: `Description of ${consent}`,
+        expiration: `Expiration of ${consent}`,
+      };
+    }),
+  };
+};
+
+export const getContent = (
+  requiredConsentGroups?: ConsentList[],
+  optionalConsentsGroups?: ConsentList[],
+  contentModifier?: (content: Content) => Content,
+): Content => {
+  const content: Content = {
+    texts: {
+      sections: {
+        main: {
+          title: 'Evästesuostumukset',
+          text: `Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan.
+          Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön
+          näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden
+          käytön.`,
+        },
+        details: {
+          title: 'Tietoa sivustolla käytetyistä evästeistä',
+          text: `Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea tietoa jokaisesta
+          kategoriasta ja sallia tai kieltää evästeiden käytön.`,
+        },
+      },
+      ui: {
+        showSettings: 'Näytä asetukset',
+        hideSettings: 'Piilota asetukset',
+        approveAllConsents: 'Hyväksy kaikki evästeet',
+        approveRequiredAndSelectedConsents: 'Hyväksy valitut ja pakolliset evästeet',
+        approveOnlyRequiredConsents: 'Hyväksy vain pakolliset evästeet',
+        settingsSaved: 'Asetukset tallennettu!',
+      },
+      tableHeadings: {
+        name: 'Name',
+        hostName: 'Host name',
+        path: 'Path',
+        description: 'Description',
+        expiration: 'Expiration',
+      },
+    },
+    language: {
+      languageOptions: [
+        { code: 'fi', label: 'Suomeksi (FI)' },
+        { code: 'en', label: 'English (EN)' },
+      ],
+      current: 'fi',
+      languageSelectorAriaLabel: 'Kieli: Suomi. Vaihda kieli. Change language. Ändra språk.',
+      onLanguageChange: () => undefined,
+    },
+  };
+  if (requiredConsentGroups) {
+    content.requiredConsents = {
+      title: 'Title for required consents',
+      text: 'Text for required consents',
+      checkboxAriaLabel: 'checkboxAriaLabel',
+      groups: requiredConsentGroups.map((consents, index) =>
+        createConsentGroup(`requiredConsentGroup${index}`, consents),
+      ),
+    };
+  }
+  if (optionalConsentsGroups) {
+    content.requiredConsents = {
+      title: 'Title for optional consents',
+      text: 'Text for optional consents',
+      checkboxAriaLabel: 'checkboxAriaLabel',
+      groups: optionalConsentsGroups.map((consents, index) =>
+        createConsentGroup(`optionalConsentGroups${index}`, consents),
+      ),
+    };
+  }
+  if (contentModifier) {
+    return contentModifier(content);
+  }
+  return content;
 };
