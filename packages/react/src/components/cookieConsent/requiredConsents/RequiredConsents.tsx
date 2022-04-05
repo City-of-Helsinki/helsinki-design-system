@@ -1,56 +1,50 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { CookieConsentContext, useCookieConsentData, getCookieConsentContent } from '../CookieConsentContext';
+import { RequiredOrOptionalConsents } from '../CookieConsentContext';
 import styles from '../CookieConsent.module.scss';
+import ConsentGroup from '../consentGroup/ConsentGroup';
 import { Checkbox } from '../../checkbox/Checkbox';
 
-type ConsentData = {
-  id: string;
-  descriptionId: string;
-  text: string;
-  title: string;
-};
-type ConsentList = ConsentData[];
+function RequiredConsents(props: {
+  consentGroupParent?: RequiredOrOptionalConsents;
+  isRequired?: boolean;
+}): React.ReactElement {
+  const { consentGroupParent, isRequired } = props;
+  if (!consentGroupParent) {
+    return null;
+  }
+  const { title, text, groups } = consentGroupParent;
+  const checkboxProps = {
+    onChange: isRequired ? () => undefined : () => undefined,
+    disabled: isRequired,
+    checked: isRequired,
+  };
+  const checkboxStyle = {
+    '--label-font-size': 'var(--fontsize-heading-m)',
+  } as React.CSSProperties;
 
-function RequiredConsents(): React.ReactElement {
-  const cookieConsentContext = useContext(CookieConsentContext);
-  const { requiredConsentsTitle, requiredConsentsText } = getCookieConsentContent(cookieConsentContext);
-  const consents = cookieConsentContext.getRequired();
-  const getConsentTexts = useCookieConsentData();
-  const consentEntries = Object.entries(consents);
-  const consentList: ConsentList = consentEntries.map<ConsentData>(([key]) => ({
-    id: `required-cookie-consent-${key}`,
-    descriptionId: `required-cookie-consent-${key}-description`,
-    title: getConsentTexts(key, 'title'),
-    text: getConsentTexts(key, 'text'),
-  }));
   return (
-    <>
-      <span className={styles['emulated-h3']} role="heading" aria-level={3}>
-        {requiredConsentsTitle}
-      </span>
-      <p>{requiredConsentsText}</p>
-
+    <div className={styles['consent-group-parent']}>
+      <div className={styles['title-with-checkbox']}>
+        <Checkbox
+          id={'group'}
+          name={'data.id'}
+          data-testid={'data.id'}
+          label={title}
+          aria-describedby={'data.descriptionId'}
+          style={checkboxStyle}
+          {...checkboxProps}
+        />
+      </div>
+      <p>{text}</p>
       <ul className={styles.list}>
-        {consentList.map((data) => (
-          <li key={data.id}>
-            <Checkbox
-              onChange={() => undefined}
-              id={data.id}
-              name={data.id}
-              checked
-              disabled
-              data-testid={data.id}
-              label={data.title}
-              aria-describedby={data.descriptionId}
-            />
-            <span id={data.descriptionId} aria-hidden>
-              - {data.text}
-            </span>
+        {groups.map((group) => (
+          <li key={group.title}>
+            <ConsentGroup group={group} isRequired={isRequired} />
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
 

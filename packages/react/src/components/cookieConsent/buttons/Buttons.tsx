@@ -11,11 +11,8 @@ export type Props = {
 };
 
 function Buttons({ onClick, hasOptionalConsents }: Props): React.ReactElement {
-  const {
-    approveRequiredAndSelectedConsents,
-    approveOnlyRequiredConsents,
-    approveAllConsents,
-  } = useCookieConsentContent();
+  const content = useCookieConsentContent();
+  const { approveRequiredAndSelectedConsents, approveOnlyRequiredConsents, approveAllConsents } = content.texts.ui;
   const primaryButtonText = hasOptionalConsents ? approveRequiredAndSelectedConsents : approveAllConsents;
   const primaryButtonAction = hasOptionalConsents ? 'approveSelectedAndRequired' : 'approveAll';
   return (
