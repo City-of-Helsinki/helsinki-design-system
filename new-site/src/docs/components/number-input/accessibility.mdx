@@ -1,0 +1,16 @@
+---
+slug: '/components/number-input/accessibility'
+title: 'NumberInput - Accessibility'
+---
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+### Pay attention to
+- HDS number input allows the user to input the date manually without using stepper actions. Whenever you require the user to input numbers, you should also allow manual input.
+- If steppers are used, provide descriptive aria labels for both increase and decrease actions by using `minusStepButtonAriaLabel` and `plusStepButtonAriaLabel` props.
+- If the number needs to follow a specific format, remember to specify it in the assistive text.
+- Placeholders in number inputs should be avoided. Different screen readers announce placeholders in different ways. It can be very difficult for a screen reader user to differentiate the placeholder from the actual value.

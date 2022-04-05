@@ -1,0 +1,69 @@
+---
+slug: '/components/toggle-button'
+title: 'ToggleButton'
+nav_title: 'ToggleButton'
+---
+
+import { ToggleButton } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+export const ToggleExample = () => {
+  const [checked1, setChecked1] = React.useState(true);
+  return (
+    <ToggleButton id="toggle-button-1" label="Label" checked={checked1} onChange={() => setChecked1(!checked1)} />
+  );
+};
+
+<PlaygroundPreview>
+  <ToggleExample />
+</PlaygroundPreview>
+
+### Principles
+- **A label should always be provided with a toggle button.**
+  - Make sure that the label is clear and concise. A good toggle button label describes the effect that will happen when the toggle button is set to "On" position.
+  - For example, use the label "_Allow notifications_" instead of "_Do you want to receive notifications?_".
+- The toggle button should have an immediate effect when activated.
+  - Toggle buttons have been inspired by real-world physical switches (e.g. a light switch). Therefore users expect something to happen immediately when the toggle button is activated.
+    - Also, avoid using toggle buttons if the effect requires an asynchronous call.
+  - Toggle buttons must not be used in forms that require pressing a submit button in order to the selection come into effect - unless they have an immediate effect inside the form.
+  - If your toggle button does not have an immediate effect, use a single [Checkbox component](elements/components/checkbox) instead. Also see [guidelines for choosing between radiobuttons, checkboxes and toggles.](/guidelines/checkboxes-radiobuttons-toggles)
+- Toggle button will always have a default option. Toggle buttons that do not have a state at all (neither "On" or "Off") must not be used.
+
+### Variations
+
+#### Default
+The default HDS toggle button variant includes a label above the toggle button familiar from other HDS form components.
+
+export const DefaultToggleExample = () => {
+  const [checked2, setChecked2] = React.useState(true);
+  return (
+    <ToggleButton id="toggle-button-2" label="Label" checked={checked2} onChange={() => setChecked2(!checked2)} />
+  );
+};
+
+<PlaygroundPreview>
+  <DefaultToggleExample />
+</PlaygroundPreview>
+
+#### With a horizontal label
+The toggle button label can also be positioned horizontally. This alignment is often used on smaller screens (e.g. mobile phones) and tighter user interface spaces.
+
+export const HorizontalToggleExample = () => {
+  const [checked2, setChecked2] = React.useState(true);
+  return (
+    <div style={{ maxWidth: '160px' }}>
+      <ToggleButton id="toggle-button-2" label="Label" variant="inline" checked={checked2} onChange={() => setChecked2(!checked2)} />
+    </div>
+  );
+};
+
+<PlaygroundPreview>
+  <HorizontalToggleExample />
+</PlaygroundPreview>

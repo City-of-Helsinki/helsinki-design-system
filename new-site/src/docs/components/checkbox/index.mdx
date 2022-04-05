@@ -1,0 +1,118 @@
+---
+slug: '/components/checkbox'
+title: 'Checkbox'
+nav_title: 'Checkbox'
+---
+
+import { Checkbox, SelectionGroup } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+export const CheckboxExample = () => {
+  const [checkedItems, setCheckedItems] = React.useState({
+    'checkbox-checked': true,
+    'checkbox-checked-disabled': true,
+  });
+  const onChange = (event) => {
+    setCheckedItems({ ...checkedItems, [event.target.id]: event.target.checked });
+  };
+  return (
+    <>
+      <Checkbox label="Label" id="checkbox-unchecked" checked={checkedItems['checkbox-unchecked']} onChange={onChange} />
+      <Checkbox label="Label" id="checkbox-checked" checked={checkedItems['checkbox-checked']} onChange={onChange} />
+      <Checkbox
+        label="Label"
+        id="checkbox-disabled"
+        checked={checkedItems['checkbox-disabled']}
+        onChange={onChange}
+        disabled
+      />
+      <Checkbox
+        label="Label"
+        id="checkbox-checked-disabled"
+        checked={checkedItems['checkbox-checked-disabled']}
+        onChange={onChange}
+        disabled
+      />
+    </>
+  );
+};
+
+<PlaygroundPreview>
+  <CheckboxExample />
+</PlaygroundPreview>
+
+## Principles
+
+- If the user can only select one option from a list, use [radio buttons](/components/radio-button) instead.
+- Checkbox label should always clearly describe what will happen if the specific option is chosen. A good practice is to keep labels a maximum of three words long.
+- Checkboxes work independently from each other. This means that checking one option should never affect other checkboxes.
+- If Checkboxes are related to each other, use [HDS Selection group](/components/selection-group) to achieve that.
+- Checkboxes should not have any immediate effects. The checkbox selection takes effect when the user presses a submit button (e.g. in a form). If you need the selection to have an immediate effect, use [HDS Toggle button component](/components/toggle-button) instead. Also see [guidelines for choosing between radio buttons, checkboxes, and toggles.](/guidelines/checkboxes-radiobuttons-toggles)
+
+### Variations
+
+#### Default
+
+export const CheckboxDefaultExample = () => {
+  const [checkedItems, setCheckedItems] = React.useState({
+    'checkbox-checked': true,
+    'checkbox-checked-disabled': true,
+  });
+  const onChange = (event) => {
+    setCheckedItems({ ...checkedItems, [event.target.id]: event.target.checked });
+  };
+  return (
+    <>
+      <Checkbox label="Label" id="checkbox-unchecked" checked={checkedItems['checkbox-unchecked']} onChange={onChange} />
+      <Checkbox label="Label" id="checkbox-checked" checked={checkedItems['checkbox-checked']} onChange={onChange} />
+      <Checkbox
+        label="Label"
+        id="checkbox-disabled"
+        checked={checkedItems['checkbox-disabled']}
+        onChange={onChange}
+        disabled
+      />
+      <Checkbox
+        label="Label"
+        id="checkbox-checked-disabled"
+        checked={checkedItems['checkbox-checked-disabled']}
+        onChange={onChange}
+        disabled
+      />
+    </>
+  );
+};
+
+<PlaygroundPreview>
+  <CheckboxDefaultExample />
+</PlaygroundPreview>
+
+#### Checkbox group
+
+Related checkboxes can be grouped together with the Selection group component. See [HDS Selection group page](/components/selection-group) for full documentation.
+
+export const CheckboxGroupExample = () => {
+  const [checkedItems, setCheckedItems] = React.useState({ "v-checkbox1": true, "v-checkbox2": true });
+  const onChange = (event) => {
+    setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
+  };
+  return (
+    <SelectionGroup label="Checkbox group">
+      <Checkbox id="v-checkbox1" name="v-checkbox1" label="Option" checked={checkedItems["v-checkbox1"]} onChange={onChange} />
+      <Checkbox id="v-checkbox2" name="v-checkbox2" label="Option" checked={checkedItems["v-checkbox2"]} onChange={onChange} />
+      <Checkbox id="v-checkbox3" name="v-checkbox3" label="Option" checked={checkedItems["v-checkbox3"]} onChange={onChange} />
+      <Checkbox id="v-checkbox4" name="v-checkbox4" label="Option" checked={checkedItems["v-checkbox4"]} onChange={onChange} />
+    </SelectionGroup>
+  );
+};
+
+<PlaygroundPreview>
+  <CheckboxGroupExample />
+</PlaygroundPreview>

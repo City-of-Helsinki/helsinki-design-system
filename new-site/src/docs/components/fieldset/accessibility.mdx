@@ -1,0 +1,14 @@
+---
+slug: '/components/fieldset/accessibility'
+title: 'Fieldset - Accessibility'
+---
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+### Pay attention to
+- Note that the heading is programmatically attached to each form element it contains. When assistive technologies focus a form element inside a Fieldset, they will announce the Fieldset heading in addition to the focused element information.
+- Fieldset heading does not replace form element labels. Each form element still must have their own label. For more information, refer to <Link href="https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions.html" external>WCAG 3.3.2 Labels and Instructions guideline</Link>.
