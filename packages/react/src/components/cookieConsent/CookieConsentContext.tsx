@@ -2,6 +2,64 @@ import React, { createContext, useContext, useMemo, useState } from 'react';
 
 import create, { ConsentController, ConsentList, ConsentObject } from './cookieConsentController';
 
+export type Description = {
+  title: string;
+  text: string;
+};
+
+export type TableData = {
+  name: string;
+  hostName: string;
+  path: string;
+  description: string;
+  expiration: string;
+};
+
+export type ConsentData = TableData & {
+  id: string;
+};
+
+export type ConsentGroup = Description & {
+  expandAriaLabel: string;
+  checkboxAriaLabel: string;
+  consents: ConsentData[];
+};
+
+export type UiTexts = {
+  showSettings: string;
+  hideSettings: string;
+  approveAllConsents: string;
+  approveRequiredAndSelectedConsents: string;
+  approveOnlyRequiredConsents: string;
+  settingsSaved: string;
+};
+
+export type SectionTexts = {
+  main: Description;
+  details: Description;
+};
+
+export type RequiredOrOptionalConsents = Description & {
+  checkboxAriaLabel: string;
+  groups: ConsentGroup[];
+};
+
+export type Content = {
+  texts: {
+    sections: SectionTexts;
+    ui: UiTexts;
+    tableHeadings: TableData;
+  };
+  requiredConsents?: RequiredOrOptionalConsents;
+  optionalConsents?: RequiredOrOptionalConsents;
+  language: {
+    languageOptions: { code: string; label: string }[];
+    current: string;
+    languageSelectorAriaLabel: string;
+    onLanguageChange: (newLanguage: string) => void;
+  };
+};
+
 export type CookieConsentContextType = {
   getRequired: () => ConsentObject;
   getOptional: () => ConsentObject;
@@ -14,38 +72,13 @@ export type CookieConsentContextType = {
   content: Content;
 };
 
-export type Content = {
-  mainTitle: string;
-  mainText: string;
-  detailsTitle: string;
-  detailsText: string;
-  requiredConsentsTitle: string;
-  requiredConsentsText: string;
-  optionalConsentsTitle: string;
-  optionalConsentsText: string;
-  showSettings: string;
-  hideSettings: string;
-  approveAllConsents: string;
-  approveRequiredAndSelectedConsents: string;
-  approveOnlyRequiredConsents: string;
-  settingsSaved: string;
-  languageOptions: { code: string; label: string }[];
-  language: string;
-  languageSelectorAriaLabel: string;
-  onLanguageChange: (newLanguage: string) => void;
-  consents: {
-    [x: string]: string;
-  };
-};
-
 type CookieConsentContextProps = {
-  optionalConsents?: ConsentList;
-  requiredConsents?: ConsentList;
   cookieDomain?: string;
   children: React.ReactNode | React.ReactNode[] | null;
   content: Content;
   onAllConsentsGiven?: (consents: ConsentObject) => void;
   onConsentsParsed?: (consents: ConsentObject, hasUserHandledAllConsents: boolean) => void;
+  onLanguageChange: (newLanguage: string) => void;
 };
 
 export const CookieConsentContext = createContext<CookieConsentContextType>({
@@ -60,15 +93,24 @@ export const CookieConsentContext = createContext<CookieConsentContextType>({
   content: {} as Content,
 });
 
+const getConsentsFromConsentGroup = (groups: ConsentGroup[]): ConsentList => {
+  return groups.reduce((ids, currentGroup) => {
+    currentGroup.consents.forEach((consentData) => {
+      ids.push(consentData.id);
+    });
+    return ids;
+  }, []);
+};
+
 export const Provider = ({
-  optionalConsents,
-  requiredConsents,
   cookieDomain,
   onAllConsentsGiven = () => undefined,
   onConsentsParsed = () => undefined,
   children,
   content,
 }: CookieConsentContextProps): React.ReactElement => {
+  const requiredConsents = getConsentsFromConsentGroup(content.requiredConsents.groups);
+  const optionalConsents = getConsentsFromConsentGroup(content.optionalConsents.groups);
   const consentController = useMemo(() => create({ requiredConsents, optionalConsents, cookieDomain }), [
     requiredConsents,
     optionalConsents,
@@ -116,12 +158,4 @@ export const getCookieConsentContent = (context: CookieConsentContextType): Cont
 export const useCookieConsentContent = (): Content => {
   const cookieConsentContext = useContext(CookieConsentContext);
   return getCookieConsentContent(cookieConsentContext);
-};
-
-export const useCookieConsentData = (): ((key: string, prop: 'title' | 'text') => string) => {
-  const content = useCookieConsentContent();
-  return (key, prop) => {
-    const textKey = prop === 'title' ? `${key}Title` : `${key}Text`;
-    return content.consents[textKey] || textKey;
-  };
 };

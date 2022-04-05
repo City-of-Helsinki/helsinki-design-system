@@ -15,7 +15,7 @@ type ConsentData = {
   requiredConsents?: ConsentList;
   optionalConsents?: ConsentList;
   cookie?: ConsentObject;
-  contentOverrides?: Partial<Content>;
+  contentModifier?: (content: Content) => Content;
 };
 
 const defaultConsentData = {
@@ -32,7 +32,7 @@ const unknownConsents = {
 const mockedCookieControls = mockDocumentCookie();
 
 const renderCookieConsent = (
-  { requiredConsents = [], optionalConsents = [], cookie = {}, contentOverrides = {} }: ConsentData,
+  { requiredConsents = [], optionalConsents = [], cookie = {}, contentModifier }: ConsentData,
   withRealTimers = false,
 ): RenderResult => {
   // inject unknown consents to verify those are
@@ -41,14 +41,11 @@ const renderCookieConsent = (
     ...cookie,
     ...unknownConsents,
   };
-  const content = {
-    ...getContent(),
-    ...contentOverrides,
-  };
+  const content = getContent([requiredConsents], [optionalConsents], contentModifier);
   jest.useFakeTimers();
   mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
   const result = render(
-    <CookieContextProvider content={content} requiredConsents={requiredConsents} optionalConsents={optionalConsents}>
+    <CookieContextProvider onLanguageChange={() => undefined} content={content}>
       <CookieConsent />
     </CookieContextProvider>,
   );
@@ -171,7 +168,13 @@ describe('<CookieConsent /> ', () => {
     });
     it('changing language calls content.onLanguageChange', () => {
       const onLanguageChange = jest.fn();
-      const result = renderCookieConsent({ ...defaultConsentData, contentOverrides: { onLanguageChange } });
+      const result = renderCookieConsent({
+        ...defaultConsentData,
+        contentModifier: (content) => {
+          content.language.onLanguageChange = onLanguageChange;
+          return content;
+        },
+      });
       result.container.querySelector('#cookie-consent-language-selector-button').click();
       result.container.querySelector('a[lang="sv"]').click();
       expect(onLanguageChange).toHaveBeenLastCalledWith('sv');
