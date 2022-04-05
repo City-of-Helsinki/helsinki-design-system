@@ -121,12 +121,11 @@ describe('CookieConsentContext ', () => {
     mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
     return render(
       <CookieContextProvider
-        requiredConsents={requiredConsents}
-        optionalConsents={optionalConsents}
         cookieDomain={cookieDomain}
         onAllConsentsGiven={onAllConsentsGiven}
         onConsentsParsed={onConsentsParsed}
         content={getContent()}
+        onLanguageChange={() => undefined}
       >
         <ContextConsumer consumerId="consumer-1" />
         <ContextConsumer consumerId="consumer-2" />
