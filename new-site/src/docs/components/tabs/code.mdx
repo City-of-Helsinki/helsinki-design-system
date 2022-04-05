@@ -1,0 +1,133 @@
+---
+slug: '/components/tabs/code'
+title: 'Tabs - Code'
+---
+
+import { Tabs } from 'hds-react';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples 
+
+#### Default
+<Playground>
+
+```jsx
+<Tabs>
+  <Tabs.TabList style={{ marginBottom: 'var(--spacing-m)' }}>
+    <Tabs.Tab>Daycare</Tabs.Tab>
+    <Tabs.Tab>Pre-school</Tabs.Tab>
+    <Tabs.Tab>Basic education</Tabs.Tab>
+    <Tabs.Tab>Upper secondary</Tabs.Tab>
+    <Tabs.Tab>University</Tabs.Tab>
+  </Tabs.TabList>
+  <Tabs.TabPanel>
+    Daytime care for people who cannot be fully independent, such as children or elderly people.
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    A pre-school is an educational establishment offering early childhood education to children before they begin
+    compulsory education at primary school.
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    The objective of basic education in Finland is to support pupils&#39; growth towards humanity and ethically
+    responsible membership of society.
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    Upper secondary school studies last three to four years, preparing the students for the matriculation examination.
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    A high-level educational institution in which students study for degrees and academic research is done.
+  </Tabs.TabPanel>
+</Tabs>
+```
+
+</Playground>
+
+#### Small
+<Playground>
+
+```jsx
+<Tabs small>
+  <Tabs.TabList style={{ marginBottom: 'var(--spacing-m)' }}>
+    <Tabs.Tab>Daycare</Tabs.Tab>
+    <Tabs.Tab>Pre-school</Tabs.Tab>
+    <Tabs.Tab>Basic education</Tabs.Tab>
+    <Tabs.Tab>Upper secondary</Tabs.Tab>
+    <Tabs.Tab>University</Tabs.Tab>
+  </Tabs.TabList>
+  <Tabs.TabPanel>
+    Daytime care for people who cannot be fully independent, such as children or elderly people.
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    A pre-school is an educational establishment offering early childhood education to children before they begin
+    compulsory education at primary school.
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    The objective of basic education in Finland is to support pupils&#39; growth towards humanity and ethically
+    responsible membership of society.
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    Upper secondary school studies last three to four years, preparing the students for the matriculation examination.
+  </Tabs.TabPanel>
+  <Tabs.TabPanel>
+    A high-level educational institution in which students study for degrees and academic research is done.
+  </Tabs.TabPanel>
+</Tabs>
+```
+
+</Playground>
+
+#### Overflow
+<Playground>
+
+```jsx
+<div style={{ maxWidth: '400px' }}>
+  <Tabs>
+    <Tabs.TabList style={{ marginBottom: 'var(--spacing-m)' }}>
+      <Tabs.Tab>Daycare</Tabs.Tab>
+      <Tabs.Tab>Pre-school</Tabs.Tab>
+      <Tabs.Tab>Basic education</Tabs.Tab>
+      <Tabs.Tab>Upper secondary</Tabs.Tab>
+      <Tabs.Tab>University</Tabs.Tab>
+    </Tabs.TabList>
+    <Tabs.TabPanel>
+      Daytime care for people who cannot be fully independent, such as children or elderly people.
+    </Tabs.TabPanel>
+    <Tabs.TabPanel>
+      A pre-school is an educational establishment offering early childhood education to children before they begin
+      compulsory education at primary school.
+    </Tabs.TabPanel>
+    <Tabs.TabPanel>
+      The objective of basic education in Finland is to support pupils&#39; growth towards humanity and ethically
+      responsible membership of society.
+    </Tabs.TabPanel>
+    <Tabs.TabPanel>
+      Upper secondary school studies last three to four years, preparing the students for the matriculation
+      examination.
+    </Tabs.TabPanel>
+    <Tabs.TabPanel>
+      A high-level educational institution in which students study for degrees and academic research is done.
+    </Tabs.TabPanel>
+  </Tabs>
+</div>
+```
+
+</Playground>
+
+### Packages
+| Package           | Included                      | Storybook link                                                                                                                      | Source link   |
+| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-tabs--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/stepper">View source</Link> |
+| **HDS Core**      | <IconCrossCircle /> No        | - | - |
+
+### Properties
+Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/docs/components-tabs--default" external>React Storybook.</Link>
+
+| Property               | Description                                                | Values               | Default value |
+| ---------------------- | ---------------------------------------------------------- | -------------------- | ------------- |
+| `small`                | If set to true, the small tabs variant is used.            | `boolean`            | false         |
+[Table 1:Tabs properties]|

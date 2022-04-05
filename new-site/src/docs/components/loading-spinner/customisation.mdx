@@ -1,0 +1,70 @@
+---
+slug: '/components/loading-spinner/customisation'
+title: 'LoadingSpinner - Customisation'
+---
+
+import { LoadingSpinner } from 'hds-react';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Customisation
+
+### Customisation properties
+You can use the `theme` property to customise the component. See all available theme variables in the table below.
+
+| Theme variable                           | Description                                                      |
+| ---------------------------------------- | ---------------------------------------------------------------- |
+| `--spinner-color`                        | Spinner colour                                                   |
+| `--spinner-color-stage1`                 | The first spinner colour (when the `multicolor` is set to true)  |
+| `--spinner-color-stage2`                 | The second spinner colour (when the `multicolor` is set to true) |
+| `--spinner-color-stage3`                 | The third spinner colour (when the `multicolor` is set to true)  |
+
+### Customisation example
+<Playground>
+
+
+```jsx
+<>
+<LoadingSpinner
+  theme={{
+    '--spinner-color': 'var(--color-tram)',
+  }}
+/>
+<br />
+<LoadingSpinner
+  multicolor
+  theme={{
+    '--spinner-color-stage1': 'var(--color-coat-of-arms)',
+    '--spinner-color-stage2': 'var(--color-tram)',
+    '--spinner-color-stage3': 'var(--color-metro)'
+  }}
+/>
+</>
+```
+
+```html
+<div>
+  <div
+    class="hds-loading-spinner"
+    style="--spinner-color: var(--color-tram);"
+  >
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <br />
+  <div
+    class="hds-loading-spinner hds-loading-spinner--multicolor"
+    style="--spinner-color-stage1: var(--color-coat-of-arms); --spinner-color-stage2: var(--color-tram);
+    --spinner-color-stage3: var(--color-metro);"
+  >
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+```
+
+</Playground>
