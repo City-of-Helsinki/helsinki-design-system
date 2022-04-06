@@ -106,12 +106,7 @@ describe('CookieConsentContext ', () => {
     result.getByTestId(testId).click();
   };
 
-  const renderCookieConsent = ({
-    requiredConsents = [],
-    optionalConsents = [],
-    cookieDomain,
-    cookie = {},
-  }: ConsentData): RenderResult => {
+  const renderCookieConsent = ({ cookieDomain, cookie = {} }: ConsentData): RenderResult => {
     // inject unknown consents to verify those are
     // stored and handled, but not required or optional
     const cookieWithInjectedUnknowns = {

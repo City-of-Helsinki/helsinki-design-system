@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
+
 import { Table } from '../../table/Table';
 import { ConsentGroup, useCookieConsentContent } from '../CookieConsentContext';
 import styles from '../CookieConsent.module.scss';
 
 function ConsentGroupDataTable(props: { consents: ConsentGroup['consents'] }): React.ReactElement {
   const content = useCookieConsentContent();
-
+  const { consents } = props;
   const cols = useMemo(() => {
     return Object.entries(content.texts.tableHeadings).map((entry) => {
       const [key, value] = entry;
@@ -17,10 +18,10 @@ function ConsentGroupDataTable(props: { consents: ConsentGroup['consents'] }): R
   }, [content.texts.tableHeadings]);
 
   const rows = useMemo(() => {
-    return props.consents.map((consent) => {
+    return consents.map((consent) => {
       return consent;
     });
-  }, [props.consents]);
+  }, [consents]);
 
   const theme = {
     '--header-background-color': 'var(--color-black)',
