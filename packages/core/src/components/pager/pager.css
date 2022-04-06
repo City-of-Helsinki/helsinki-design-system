@@ -26,14 +26,14 @@ we can not use this position for the actual button as it's in incorrect source o
   line-height: 56px;
 }
 
-.hds-pager__button-prev {
+.hds-pager .hds-pager__button-prev {
   float: left;
   transform: scaleY(-1); /* Flip the element back from upside down */
   white-space: nowrap;
   margin-right: 8px;
 }
 
-.hds-pager__button-next {
+.hds-pager .hds-pager__button-next {
   position: absolute;
   right: 0;
   top: 0; /* Remember that the position is flipped upside down, so this means actually bottom */
