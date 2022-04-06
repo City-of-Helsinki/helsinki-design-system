@@ -171,6 +171,7 @@ describe('<CookieConsent /> ', () => {
       const result = renderCookieConsent({
         ...defaultConsentData,
         contentModifier: (content) => {
+          // eslint-disable-next-line no-param-reassign
           content.language.onLanguageChange = onLanguageChange;
           return content;
         },
