@@ -1,4 +1,4 @@
-import './pager.css';
+import './pagination.css';
 
 export default {
   title: 'Components/Pager',
