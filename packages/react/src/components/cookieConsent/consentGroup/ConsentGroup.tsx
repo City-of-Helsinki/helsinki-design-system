@@ -34,11 +34,11 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean }): 
       <div className={styles['group-title-row']}>
         <div className={styles['title-with-checkbox']}>
           <Checkbox
-            id={'group.xxx'}
-            name={'group.xxx'}
-            data-testid={'data.id'}
+            id="group.xxx"
+            name="group.xxx"
+            data-testid="data.id"
             label={title}
-            aria-describedby={'data.descriptionId'}
+            aria-describedby="data.descriptionId"
             style={checkboxStyle}
             {...checkboxProps}
           />

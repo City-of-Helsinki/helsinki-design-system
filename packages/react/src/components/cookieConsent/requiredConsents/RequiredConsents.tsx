@@ -27,11 +27,11 @@ function RequiredConsents(props: {
     <div className={styles['consent-group-parent']}>
       <div className={styles['title-with-checkbox']}>
         <Checkbox
-          id={'group'}
-          name={'data.id'}
-          data-testid={'data.id'}
+          id="group"
+          name="data.id"
+          data-testid="data.id"
           label={title}
-          aria-describedby={'data.descriptionId'}
+          aria-describedby="data.descriptionId"
           style={checkboxStyle}
           {...checkboxProps}
         />
