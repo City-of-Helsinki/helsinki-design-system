@@ -1,8 +1,8 @@
-.hds-pager-container {
+.hds-pagination-container {
   text-align: center;
 }
 
-.hds-pager {
+.hds-pagination {
   font-size: var(--fontsize-body-m);
   font-weight: bold;
   display: inline-block; /* Allows centering */
@@ -13,9 +13,9 @@
   --link-height: 40px;
 }
 
-/* Invisible, floated pseudo-element for reserving space for the hds-pager__button-next,
+/* Invisible, floated pseudo-element for reserving space for the hds-pagination__button-next,
 we can not use this position for the actual button as it's in incorrect source order for tabbing */
-.hds-pager::before {
+.hds-pagination::before {
   content: attr(data-next); /* Trick to keep floating element same size as btn--next */
   content: attr(data-next) / ''; /* Removes this pseudo-element from screen readers where supported */
   display: block;
@@ -26,14 +26,14 @@ we can not use this position for the actual button as it's in incorrect source o
   line-height: 56px;
 }
 
-.hds-pager .hds-pager__button-prev {
+.hds-pagination .hds-pagination__button-prev {
   float: left;
   transform: scaleY(-1); /* Flip the element back from upside down */
   white-space: nowrap;
   margin-right: 8px;
 }
 
-.hds-pager .hds-pager__button-next {
+.hds-pagination .hds-pagination__button-next {
   position: absolute;
   right: 0;
   top: 0; /* Remember that the position is flipped upside down, so this means actually bottom */
@@ -41,7 +41,7 @@ we can not use this position for the actual button as it's in incorrect source o
   white-space: nowrap;
 }
 
-.hds-pager__pages {
+.hds-pagination__pages {
   display: inline-flex; /* inline-flex allows floating it based on floated buttons when there is no more space */
   flex-wrap: wrap; /* Allow wrapping of the li-elements */
   justify-content: center; /* Center the li-elements */
@@ -53,7 +53,7 @@ we can not use this position for the actual button as it's in incorrect source o
   gap: var(--spacing-2-xs);
 }
 
-.hds-pager__item-link {
+.hds-pagination__item-link {
   border-radius: 21px;
   display: flex;
   justify-content: center;
@@ -66,25 +66,25 @@ we can not use this position for the actual button as it's in incorrect source o
   padding-right: var(--spacing-3-xs);
 }
 
-.hds-pager__item-link:hover {
+.hds-pagination__item-link:hover {
   text-decoration: underline;
 }
 
-.hds-pager__item-link:focus, .hds-pager__item-link:active {
+.hds-pagination__item-link:focus, .hds-pagination__item-link:active {
   outline: solid var(--color-coat-of-arms) 3px;
   outline-offset: 1px;
 }
 
-.hds-pager__item-link.hds-pager__item-link--active {
+.hds-pagination__item-link.hds-pagination__item-link--active {
   color: var(--color-white);
   background-color: var(--active-page-background-color);
 }
 
-.hds-pager__item-link.hds-pager__item-link--active:hover {
+.hds-pagination__item-link.hds-pagination__item-link--active:hover {
   text-decoration: none;
 }
 
-.hds-pager__item-ellipsis {
+.hds-pagination__item-ellipsis {
   height: var(--link-height);
   width: 24px;
   display: flex;
