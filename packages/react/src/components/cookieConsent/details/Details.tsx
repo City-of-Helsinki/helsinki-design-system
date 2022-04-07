@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from '../CookieConsent.module.scss';
-import RequiredConsents from '../requiredConsents/RequiredConsents';
+import ConsentGroups from '../consentGroups/ConsentGroups';
 import { useCookieConsentContent } from '../CookieConsentContext';
 
 function Details(): React.ReactElement {
@@ -14,8 +14,8 @@ function Details(): React.ReactElement {
         {title}
       </span>
       <p>{text}</p>
-      <RequiredConsents consentGroupParent={requiredConsents} isRequired />
-      <RequiredConsents consentGroupParent={optionalConsents} />
+      <ConsentGroups consentGroups={requiredConsents} isRequired />
+      <ConsentGroups consentGroups={optionalConsents} />
     </div>
   );
 }

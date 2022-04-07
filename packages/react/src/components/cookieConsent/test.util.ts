@@ -96,20 +96,22 @@ export const getContent = (
   };
   if (requiredConsentGroups) {
     content.requiredConsents = {
+      groupId: 'required',
       title: 'Title for required consents',
       text: 'Text for required consents',
       checkboxAriaLabel: 'checkboxAriaLabel',
-      groups: requiredConsentGroups.map((consents, index) =>
+      groupList: requiredConsentGroups.map((consents, index) =>
         createConsentGroup(`requiredConsentGroup${index}`, consents),
       ),
     };
   }
   if (optionalConsentsGroups) {
-    content.requiredConsents = {
+    content.optionalConsents = {
+      groupId: 'optional',
       title: 'Title for optional consents',
       text: 'Text for optional consents',
       checkboxAriaLabel: 'checkboxAriaLabel',
-      groups: optionalConsentsGroups.map((consents, index) =>
+      groupList: optionalConsentsGroups.map((consents, index) =>
         createConsentGroup(`optionalConsentGroups${index}`, consents),
       ),
     };
