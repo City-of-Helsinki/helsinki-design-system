@@ -44,10 +44,6 @@
   width: 100%;
   box-sizing: border-box;
   border-top: 8px solid var(--color-bus);
-  --close-button-size: 24px;
-  --close-button-padding: calc(var(--spacing-s) / 2);
-  --close-button-left-side: calc(var(--close-button-size) + var(--common-spacing));
-  --lang-pos-x: calc(var(--close-button-left-side) + var(--common-spacing));
 }
 
 .language-switcher {
@@ -119,15 +115,11 @@
   padding-left: 0;
 }
 
-.accordion-button,
-.close-button {
+.accordion-button {
   border: none;
   background: transparent;
   padding: 0;
   cursor: pointer;
-}
-
-.accordion-button {
   display: flex;
   align-items: center;
   color: var(--color-bus);
@@ -141,15 +133,6 @@
 
 .accordion-button span {
   padding-left: var(--spacing-3-xs);
-}
-
-.close-button {
-  position: absolute;
-  top: var(--close-button-padding);
-  right: var(--close-button-padding);
-  padding: var(--close-button-padding);
-  height: var(--close-button-size);
-  box-sizing: content-box;
 }
 
 .consent-group-parent {
@@ -230,20 +213,11 @@
     --common-spacing: var(--spacing-l);
   }
 
-  .language-switcher,
-  .close-button {
-    top: calc(var(--common-spacing) + 4px);
-  }
-
   .language-switcher {
-    right: var(--lang-pos-x);
+    top: calc(var(--common-spacing) + 4px);
+    right: var(--common-spacing);
     left: unset;
     padding-top: 15px;
-  }
-
-  .close-button {
-    right: var(--common-spacing);
-    padding: calc(var(--common-spacing) / 2) 0;
   }
 
   .main-content {
