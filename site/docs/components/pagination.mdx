@@ -21,7 +21,7 @@ import 'hds-core/lib/icons/ui/icon-angle-left.css';
 <StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
 
 <LargeParagraph>
-  The pagination component allows the user to navigate between pages when content is splitted into several pages.
+  The pagination component allows the user to navigate between pages when content is split into several pages.
 </LargeParagraph>
 
 <Notification label="Pagination coming soon to the HDS React package" className="siteNotification">
@@ -29,26 +29,28 @@ import 'hds-core/lib/icons/ui/icon-angle-left.css';
 </Notification>
 
 ## Principles
-- The pagination is used when content is divided into multiple pages and the user needs to be able to move between those pages.
+- Pagination is used when content is divided into multiple pages and the user needs to be able to move between those pages.
 - You must at least have three (3) pages in the pagination.
 - The pagination must always include _Previous_ and _Next_ page buttons. Do not hide or omit these buttons.
 - Keep the amount of shown pages between screen size changes consistent. 
-  - Aim to show at least 5 pages at minimum and 9 pages at maximum.
+  - Aim to show at least 5 pages and 9 pages at maximum in one row.
   - You can change the amount of shown pages when the view switches from desktop to mobile.
 - The HDS pagination component supports truncation. This means hiding part of the pages with the "..." (ellipsis) element.
-  - Truncation is recommended if you would have more than 3 rows of pages.
+  - Truncation is recommended if your page numbers start to spread into multiple rows.
   - Truncation can happen either at the start, at the end, or at both ends. See the [truncation example](#with-truncation) below for more information.
+- The pagination component must be aligned to the center of its container.
+  - On mobile, the previous and next buttons are aligned to their respective edges of the container.
 
 ### Should I use pages or dynamically load more content?
 - **Use pages when**
-  - the amount of items in one view exceeds 20 items
+  - the amount of items in one view exceeds 40 items
   - divided into pages, you will have at least 3 pages
   - you are not sure how much content there will be (i.e. there may be 10 pages or 100 pages)
   - the user may need to be able to move to the end of the item list
 - **Use dynamic loading when**
-  - the amount of items in one view is less than 20
+  - the amount of items in one view is less than 40
   - divided into pages, you will have less than 3 pages
-  - you have an estimation how many items there will be
+  - you have an estimation of how many items there will be
   - the user does not need to be able to move to the end of the item list
 
 ## Accessibility
@@ -60,6 +62,7 @@ import 'hds-core/lib/icons/ui/icon-angle-left.css';
 ## Usage and variations
 
 ### Basic
+By default, the HDS pagination shows a list of pages and one page is marked as the active page. The previous and next buttons are always shown and they drop under the page number row on smaller screens.
 
 <Playground>
 <div class="hds-pagination-container">
@@ -190,6 +193,7 @@ import 'hds-core/lib/icons/ui/icon-angle-left.css';
 _Coming soon to hds-react!_
 
 ### With truncation
+In the truncated pagination variant some of the pages are hidden with the "..." (ellipsis) element. Truncation can happen either at the start, at the end, or at both ends - depending on the page the user is currently on. Note that you must keep the amount of shown pages consistent. For example, in the examples below 4 pages are always shown next to the currently active page.
 
 <Playground>
 <div class="hds-pagination-container">
@@ -200,7 +204,57 @@ _Coming soon to hds-react!_
     </button>
     <ul class="hds-pagination__pages">
       <li>
-        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=1" title="Current page" aria-label="Page 1" aria-current="page">
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=1" title="Go to page 1" aria-label="Page 1">
+          1
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=2" title="Go to page 2" aria-label="Page 2">
+          2
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link hds-pagination__item-link--active" href="?path=/story/${context.id}&page=3" title="Current page" aria-label="Page 3" aria-current="page">
+          3
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=4" title="Go to page 4" aria-label="Page 4">
+          4
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=5" title="Go to page 5" aria-label="Page 5">
+          5
+        </a>
+      </li>
+      <li>
+        <span class="hds-pagination__item-ellipsis">
+          ...
+        </span>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=68" aria-label="Page 68" title="Go to page 68">
+          68
+        </a>
+      </li>
+    </ul>
+    <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-next">
+      <span class="hds-button__label">Next</span>
+      <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+    </button>
+  </nav>
+</div>
+
+<div class="hds-pagination-container">
+  <nav class="hds-pagination" role="navigation" aria-label="Pagination" data-next="Next">
+    <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-prev">
+      <span aria-hidden="true" class="hds-icon hds-icon--angle-left"></span>
+      <span class="hds-button__label">Previous</span>
+    </button>
+    <ul class="hds-pagination__pages">
+      <li>
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=1" title="Go to page 1" aria-label="Page 1">
           1
         </a>
       </li>
@@ -210,27 +264,87 @@ _Coming soon to hds-react!_
         </span>
       </li>
       <li>
-        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=99995" aria-label="Page 99995" title="Go to page 99995">
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=30" aria-label="Page 30" title="Go to page 30">
+          30
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=31" aria-label="Page 31" title="Go to page 31">
+          31
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link hds-pagination__item-link--active" href="?path=/story/${context.id}&page=32" aria-label="Page 32" title="Current page" aria-current="page">
+          32
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=33" aria-label="Page 33" title="Go to page 33">
+          33
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=34" aria-label="Page 34" title="Go to page 34">
+          34
+        </a>
+      </li>
+      <li>
+        <span class="hds-pagination__item-ellipsis">
+          ...
+        </span>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=68" aria-label="Page 68" title="Go to page 68">
+          68
+        </a>
+      </li>
+    </ul>
+    <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-next">
+      <span class="hds-button__label">Next</span>
+      <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+    </button>
+  </nav>
+</div>
+
+<div class="hds-pagination-container">
+  <nav class="hds-pagination" role="navigation" aria-label="Pagination" data-next="Next">
+    <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-prev">
+      <span aria-hidden="true" class="hds-icon hds-icon--angle-left"></span>
+      <span class="hds-button__label">Previous</span>
+    </button>
+    <ul class="hds-pagination__pages">
+      <li>
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=1" title="Go to page 1" aria-label="Page 1">
+          1
+        </a>
+      </li>
+      <li>
+        <span class="hds-pagination__item-ellipsis">
+          ...
+        </span>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=64" aria-label="Page 64" title="Go to page 64">
           64
         </a>
       </li>
       <li>
-        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=99996" aria-label="Page 99996" title="Go to page 99996">
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=65" aria-label="Page 65" title="Go to page 65">
           65
         </a>
       </li>
       <li>
-        <a class="hds-pagination__item-link hds-pagination__item-link--active" href="?path=/story/${context.id}&page=99997" aria-label="Page 99997" title="Go to page 99997">
+        <a class="hds-pagination__item-link hds-pagination__item-link--active" href="?path=/story/${context.id}&page=66" aria-label="Page 66" title="Current page" aria-current="page">
           66
         </a>
       </li>
       <li>
-        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=99998" aria-label="Page 99998" title="Go to page 99998">
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=67" aria-label="Page 67" title="Go to page 67">
           67
         </a>
       </li>
       <li>
-        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=99999" aria-label="Page 99999" title="Go to page 99999">
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=68" aria-label="Page 68" title="Go to page 68">
           68
         </a>
       </li>
@@ -253,7 +367,7 @@ _Coming soon to hds-react!_
     </button>
     <ul class="hds-pagination__pages">
       <li>
-        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=1" title="Current page" aria-label="Page 1" aria-current="page">
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=1" title="Go to page 1" aria-label="Page 1">
           1
         </a>
       </li>
@@ -263,27 +377,37 @@ _Coming soon to hds-react!_
         </span>
       </li>
       <li>
-        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=99995" aria-label="Page 99995" title="Go to page 99995">
-          64
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=30" aria-label="Page 30" title="Go to page 30">
+          30
         </a>
       </li>
       <li>
-        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=99996" aria-label="Page 99996" title="Go to page 99996">
-          65
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=31" aria-label="Page 31" title="Go to page 31">
+          31
         </a>
       </li>
       <li>
-        <a class="hds-pagination__item-link hds-pagination__item-link--active" href="?path=/story/${context.id}&page=99997" aria-label="Page 99997" title="Go to page 99997">
-          66
+        <a class="hds-pagination__item-link hds-pagination__item-link--active" href="?path=/story/${context.id}&page=32" aria-label="Page 32" title="Current page" aria-current="page">
+          32
         </a>
       </li>
       <li>
-        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=99998" aria-label="Page 99998" title="Go to page 99998">
-          67
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=33" aria-label="Page 33" title="Go to page 33">
+          33
         </a>
       </li>
       <li>
-        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=99999" aria-label="Page 99999" title="Go to page 99999">
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=34" aria-label="Page 34" title="Go to page 34">
+          34
+        </a>
+      </li>
+      <li>
+        <span class="hds-pagination__item-ellipsis">
+          ...
+        </span>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="?path=/story/${context.id}&page=68" aria-label="Page 68" title="Go to page 68">
           68
         </a>
       </li>
