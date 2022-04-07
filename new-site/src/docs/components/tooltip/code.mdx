@@ -5,6 +5,9 @@ title: 'Tooltip - Code'
 
 import { Tooltip, Link, IconCheckCircleFill, IconCrossCircle } from 'hds-react';
 import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
@@ -70,5 +73,3 @@ Note! You can find the full list of properties in the <Link size="M" href="/stor
 | `buttonLabel`  | Aria-label text for the tooltip trigger button.              | `string`                                                                                                                                                                                       | "Tooltip"     |
 | `tooltipLabel` | Aria-label text for the tooltip.                             | `string`                                                                                                                                                                                       | "Tooltip"     |
 [Table 1:Tooltip properties]|
-
-export default ({ children }) => <>{children}</>;
