@@ -101,7 +101,6 @@ describe('<CookieConsent /> ', () => {
     settingsToggler: 'cookie-consent-settings-toggler',
     detailsComponent: 'cookie-consent-details',
     screenReaderNotification: 'cookie-consent-screen-reader-notification',
-    closeButton: 'cookie-consent-close-button',
     getOptionalConsentId: (key: string) => `optional-cookie-consent-${key}`,
     getRequiredConsentId: (key: string) => `required-cookie-consent-${key}`,
   };
@@ -137,7 +136,6 @@ describe('<CookieConsent /> ', () => {
       verifyElementExistsByTestId(result, dataTestIds.languageSwitcher);
       verifyElementExistsByTestId(result, dataTestIds.approveButton);
       verifyElementExistsByTestId(result, dataTestIds.approveRequiredButton);
-      verifyElementExistsByTestId(result, dataTestIds.closeButton);
     });
 
     it('is rendered if a required consent has not been approved. It could have been optional before', () => {
@@ -182,7 +180,7 @@ describe('<CookieConsent /> ', () => {
     });
   });
 
-  describe(`Approve and close buttons will 
+  describe(`Approve button will 
             - hide the cookie consent
             - show a prompt for screen readers
             - save cookie`, () => {
@@ -222,34 +220,6 @@ describe('<CookieConsent /> ', () => {
       checkCookiesAreSetAndConsentModalHidden(result, consentResult);
     });
 
-    it('Close -button will approve only required consents when details are not shown', () => {
-      const result = renderCookieConsent(defaultConsentData);
-      const consentResult = {
-        requiredConsent1: true,
-        requiredConsent2: true,
-        optionalConsent1: false,
-        optionalConsent2: false,
-        ...unknownConsents,
-      };
-      clickElement(result, dataTestIds.closeButton);
-      checkCookiesAreSetAndConsentModalHidden(result, consentResult);
-    });
-
-    it('Close -button will approve required and selected consents when details are shown', async () => {
-      const result = renderCookieConsent(defaultConsentData);
-      const consentResult = {
-        requiredConsent1: true,
-        requiredConsent2: true,
-        optionalConsent1: false,
-        optionalConsent2: true,
-        ...unknownConsents,
-      };
-      await openAccordion(result);
-      clickElement(result, dataTestIds.getOptionalConsentId('optionalConsent2'));
-      clickElement(result, dataTestIds.closeButton);
-      checkCookiesAreSetAndConsentModalHidden(result, consentResult);
-    });
-
     it('Approve -button will approve required and selected consents when details are shown', async () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
@@ -283,22 +253,16 @@ describe('<CookieConsent /> ', () => {
       });
     });
 
-    it('Approve and close button texts change when accordion is open vs closed', async () => {
+    it('Approve button text changes when accordion is open vs closed', async () => {
       const result = await initDetailsView(defaultConsentData);
       const approveButtonTextWhileOpen = (result.getByTestId(dataTestIds.approveButton) as HTMLElement).innerHTML;
-      const closeButtonTitleWhileOpen = (result.getByTestId(dataTestIds.closeButton) as HTMLElement).getAttribute(
-        'title',
-      );
+
       clickElement(result, dataTestIds.settingsToggler);
       await waitFor(() => {
         expect(isAccordionOpen(result)).toBeFalsy();
       });
       const approveButtonTextWhileClosed = (result.getByTestId(dataTestIds.approveButton) as HTMLElement).innerHTML;
-      const closeButtonTitleWhileClosed = (result.getByTestId(dataTestIds.closeButton) as HTMLElement).getAttribute(
-        'title',
-      );
       expect(approveButtonTextWhileOpen).not.toBe(approveButtonTextWhileClosed);
-      expect(closeButtonTitleWhileOpen).not.toBe(closeButtonTitleWhileClosed);
     });
 
     it(`clicking an optional consent sets the consent true/false. 
