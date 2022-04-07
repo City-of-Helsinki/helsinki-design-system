@@ -79,6 +79,10 @@ module.exports = {
             name: 'Overview',
             link: '/patterns',
           },
+          {
+            name: 'Forms',
+            link: '/patterns/forms',
+          },
         ],
       },
       {
