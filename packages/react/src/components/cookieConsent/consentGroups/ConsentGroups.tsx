@@ -1,19 +1,19 @@
 import React from 'react';
 
-import { RequiredOrOptionalConsents } from '../CookieConsentContext';
+import { RequiredOrOptionalConsentGroups } from '../CookieConsentContext';
 import styles from '../CookieConsent.module.scss';
 import ConsentGroup from '../consentGroup/ConsentGroup';
 import { Checkbox } from '../../checkbox/Checkbox';
 
-function RequiredConsents(props: {
-  consentGroupParent?: RequiredOrOptionalConsents;
+function ConsentGroups(props: {
+  consentGroups?: RequiredOrOptionalConsentGroups;
   isRequired?: boolean;
 }): React.ReactElement {
-  const { consentGroupParent, isRequired } = props;
-  if (!consentGroupParent) {
+  const { consentGroups, isRequired } = props;
+  if (!consentGroups) {
     return null;
   }
-  const { title, text, groups } = consentGroupParent;
+  const { title, text, groupList, groupId } = consentGroups;
   const checkboxProps = {
     onChange: isRequired ? () => undefined : () => undefined,
     disabled: isRequired,
@@ -23,24 +23,25 @@ function RequiredConsents(props: {
     '--label-font-size': 'var(--fontsize-heading-m)',
   } as React.CSSProperties;
 
+  const getConsentGroupIdenfier = (suffix: string) => `consent-group-${groupId}-${suffix}`;
+
   return (
     <div className={styles['consent-group-parent']}>
       <div className={styles['title-with-checkbox']}>
         <Checkbox
-          id="group"
-          name="data.id"
-          data-testid="data.id"
+          id={getConsentGroupIdenfier('checkbox')}
+          name={getConsentGroupIdenfier('checkbox')}
           label={title}
-          aria-describedby="data.descriptionId"
+          aria-describedby={getConsentGroupIdenfier('description')}
           style={checkboxStyle}
           {...checkboxProps}
         />
       </div>
-      <p>{text}</p>
+      <p id={getConsentGroupIdenfier('description')}>{text}</p>
       <ul className={styles.list}>
-        {groups.map((group) => (
+        {groupList.map((group, index) => (
           <li key={group.title}>
-            <ConsentGroup group={group} isRequired={isRequired} />
+            <ConsentGroup group={group} isRequired={isRequired} id={`${groupId}-${index}`} />
           </li>
         ))}
       </ul>
@@ -48,4 +49,4 @@ function RequiredConsents(props: {
   );
 }
 
-export default RequiredConsents;
+export default ConsentGroups;

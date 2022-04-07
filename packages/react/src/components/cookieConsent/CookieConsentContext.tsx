@@ -39,19 +39,20 @@ export type SectionTexts = {
   details: Description;
 };
 
-export type RequiredOrOptionalConsents = Description & {
+export type RequiredOrOptionalConsentGroups = Description & {
+  groupId: 'required' | 'optional';
   checkboxAriaLabel: string;
-  groups: ConsentGroup[];
+  groupList: ConsentGroup[];
 };
 
 export type Content = {
+  requiredConsents?: RequiredOrOptionalConsentGroups;
+  optionalConsents?: RequiredOrOptionalConsentGroups;
   texts: {
     sections: SectionTexts;
     ui: UiTexts;
     tableHeadings: TableData;
   };
-  requiredConsents?: RequiredOrOptionalConsents;
-  optionalConsents?: RequiredOrOptionalConsents;
   language: {
     languageOptions: { code: string; label: string }[];
     current: string;
@@ -109,8 +110,8 @@ export const Provider = ({
   children,
   content,
 }: CookieConsentContextProps): React.ReactElement => {
-  const requiredConsents = getConsentsFromConsentGroup(content.requiredConsents.groups);
-  const optionalConsents = getConsentsFromConsentGroup(content.optionalConsents.groups);
+  const requiredConsents = getConsentsFromConsentGroup(content.requiredConsents.groupList);
+  const optionalConsents = getConsentsFromConsentGroup(content.optionalConsents.groupList);
   const consentController = useMemo(() => create({ requiredConsents, optionalConsents, cookieDomain }), [
     requiredConsents,
     optionalConsents,
