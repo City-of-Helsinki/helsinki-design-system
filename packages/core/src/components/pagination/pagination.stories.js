@@ -301,3 +301,37 @@ export const CustomActivePageColor = () => `
 `;
 
 CustomActivePageColor.storyName = 'Custom active page color';
+
+
+export const States = () => `
+<p>Selected</p>
+<nav class="hds-pagination" aria-label="Pagination 1">
+  <ul class="hds-pagination__pages">
+    <li>
+      <a class="hds-pagination__item-link hds-pagination__item-link--active" href="#" title="Current page" aria-label="Page 1">
+        1
+      </a>
+    </li>
+  </ul>
+</nav>
+<p>Unselected</p>
+<nav class="hds-pagination" aria-label="Pagination 2">
+  <ul class="hds-pagination__pages">
+    <li>
+      <a class="hds-pagination__item-link" href="#" title="Current page" aria-label="Page 2">
+        2
+      </a>
+    </li>
+  </ul>
+</nav>
+<p>Disabled</p>
+<nav class="hds-pagination" aria-label="Pagination 3">
+  <ul class="hds-pagination__pages">
+    <li>
+      <span class="hds-pagination__item-link hds-pagination__item-disabled" aria-label="Page 3">
+        3
+      </span>
+    </li>
+  </ul>
+</nav>
+`
