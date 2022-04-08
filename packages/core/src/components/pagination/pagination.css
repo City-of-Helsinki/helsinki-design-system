@@ -92,15 +92,3 @@ we can not use this position for the actual button as it's in incorrect source o
   align-items: center;
   color: var(--color-black-90);
 }
-
-.hds-pagination__item-link.hds-pagination__item-disabled {
-  color: var(--color-black-40);
-}
-
-.hds-pagination__item-link.hds-pagination__item-disabled:active {
-  outline: none;
-}
-
-.hds-pagination__item-link.hds-pagination__item-disabled:hover {
-  text-decoration: none;
-}

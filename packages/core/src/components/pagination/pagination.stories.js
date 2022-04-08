@@ -324,14 +324,4 @@ export const States = () => `
     </li>
   </ul>
 </nav>
-<p>Disabled</p>
-<nav class="hds-pagination" aria-label="Pagination 3">
-  <ul class="hds-pagination__pages">
-    <li>
-      <span class="hds-pagination__item-link hds-pagination__item-disabled" aria-label="Page 3">
-        3
-      </span>
-    </li>
-  </ul>
-</nav>
 `
