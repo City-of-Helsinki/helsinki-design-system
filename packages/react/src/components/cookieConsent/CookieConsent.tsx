@@ -3,68 +3,16 @@ import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import classNames from '../../utils/classNames';
 import styles from './CookieConsent.module.scss';
-import { ConsentController } from './cookieConsentController';
 import { CookieConsentContext, useCookieConsentContent } from './CookieConsentContext';
 import Content from './content/Content';
-import { CookieConsentActionListener } from './types';
 
 export function CookieConsent(): React.ReactElement | null {
   const cookieConsentContext = useContext(CookieConsentContext);
   const content = useCookieConsentContent();
-  const [, forceUpdate] = useState<number>(0);
-  const [showScreenReaderSaveNotification, setShowScreenReaderSaveNotification] = useState<boolean>(false);
+  // use this in context
+  const [showScreenReaderSaveNotification] = useState<boolean>(false);
   const [popupTimerComplete, setPopupTimerComplete] = useState<boolean>(false);
   const popupDelayInMs = 500;
-
-  const reRender = () => {
-    forceUpdate((p) => p + 1);
-  };
-
-  const save = (): void => {
-    cookieConsentContext.save();
-    if (cookieConsentContext.hasUserHandledAllConsents()) {
-      setShowScreenReaderSaveNotification(true);
-    }
-  };
-
-  const approveRequired = () => {
-    Object.keys(cookieConsentContext.getOptional()).forEach((optionalConsent) => {
-      cookieConsentContext.update(optionalConsent, false);
-    });
-    cookieConsentContext.approveRequired();
-    save();
-    reRender();
-  };
-
-  const approveAll = () => {
-    cookieConsentContext.approveAll();
-    save();
-    reRender();
-  };
-
-  const approveSelectedAndRequired = () => {
-    cookieConsentContext.approveRequired();
-    save();
-    reRender();
-  };
-
-  const onChange: ConsentController['update'] = (key, value) => {
-    cookieConsentContext.update(key, value);
-    reRender();
-  };
-
-  const onAction: CookieConsentActionListener = (action, consent) => {
-    if (action === 'approveAll') {
-      approveAll();
-    } else if (action === 'approveRequired') {
-      approveRequired();
-    } else if (action === 'approveSelectedAndRequired') {
-      approveSelectedAndRequired();
-    } else if (action === 'changeConsent') {
-      const { key, value } = consent;
-      onChange(key, value);
-    }
-  };
 
   useEffect(() => {
     setTimeout(() => setPopupTimerComplete(true), popupDelayInMs);
@@ -90,7 +38,7 @@ export function CookieConsent(): React.ReactElement | null {
       data-testid="cookie-consent"
     >
       <div className={styles.aligner}>
-        <Content onClick={onAction} />
+        <Content />
       </div>
     </div>
   );

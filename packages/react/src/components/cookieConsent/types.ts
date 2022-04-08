@@ -1,8 +1,8 @@
-export type CookieConsentAction = 'approveAll' | 'approveRequired' | 'changeConsent' | 'approveSelectedAndRequired';
-export type CookieConsentActionListener = (
-  action: CookieConsentAction,
-  consent?: { key: string; value: boolean },
-) => void;
-export type ViewProps = {
-  onClick: CookieConsentActionListener;
-};
+export type CookieConsentAction =
+  | 'approveAll'
+  | 'approveRequired'
+  | 'changeConsentGroup'
+  | 'approveOptional'
+  | 'unapproveOptional'
+  | 'approveSelectedAndRequired';
+export type CookieConsentActionListener = (action: CookieConsentAction, consents?: string[], value?: boolean) => void;
