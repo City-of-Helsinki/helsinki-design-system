@@ -102,7 +102,7 @@ export const CookieConsentContext = createContext<CookieConsentContextType>({
   areGroupConsentsApproved: () => false,
 });
 
-const getConsentsFromConsentGroup = (groups: ConsentGroup[]): ConsentList => {
+export const getConsentsFromConsentGroup = (groups: ConsentGroup[]): ConsentList => {
   return groups.reduce((ids, currentGroup) => {
     currentGroup.consents.forEach((consentData) => {
       ids.push(consentData.id);

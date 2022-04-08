@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from 'react';
 
 import { commonConsents } from './cookieConsentController';
-import { Content } from './CookieConsentContext';
+import { Content, getConsentsFromConsentGroup } from './CookieConsentContext';
 import { CookieConsentModal } from './CookieConsentModal';
+import { getConsentStatus, hasHandledAllConsents } from './util';
 
 export default {
   component: CookieConsentModal,
@@ -14,30 +15,6 @@ export default {
 };
 
 export const Example = () => {
-  const Application = () => {
-    const willRenderCookieConsentDialog = false;
-    return (
-      <div
-        style={willRenderCookieConsentDialog ? { overflow: 'hidden', maxHeight: '100vh' } : {}}
-        aria-hidden={willRenderCookieConsentDialog ? 'true' : 'false'}
-      >
-        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-        <h1 id="focused-element-after-cookie-consent-closed" tabIndex={0}>
-          This is a dummy application
-        </h1>
-        {willRenderCookieConsentDialog ? (
-          <>
-            <p>Cookie consent dialog will be shown.</p>
-          </>
-        ) : (
-          <>
-            <p>Cookie consents have been given. Remove the cookie to see the dialog again.</p>
-          </>
-        )}
-      </div>
-    );
-  };
-
   const [language, setLanguage] = useState('fi');
   const onLanguageChange = (newLang) => setLanguage(newLang);
 
@@ -234,6 +211,47 @@ export const Example = () => {
       },
     };
   }, [language]);
+
+  const MatomoCookieTracker = () => {
+    const isMatomoCookieApproved = getConsentStatus(commonConsents.matomo);
+    return (
+      <div>
+        <p>Matomo cookie is {!isMatomoCookieApproved && <strong>NOT</strong>} set.*</p>
+        <small>* This won&apos;t change in real time</small>
+      </div>
+    );
+  };
+
+  const Application = () => {
+    const requiredConsents = content.requiredConsents
+      ? getConsentsFromConsentGroup(content.requiredConsents.groupList)
+      : [];
+    const optionalConsents = content.optionalConsents
+      ? getConsentsFromConsentGroup(content.optionalConsents.groupList)
+      : [];
+    const willRenderCookieConsentDialog = !hasHandledAllConsents(requiredConsents, optionalConsents);
+    return (
+      <div
+        style={willRenderCookieConsentDialog ? { overflow: 'hidden', maxHeight: '100vh' } : {}}
+        aria-hidden={willRenderCookieConsentDialog ? 'true' : 'false'}
+      >
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+        <h1 id="focused-element-after-cookie-consent-closed" tabIndex={0}>
+          This is a dummy application
+        </h1>
+        {willRenderCookieConsentDialog ? (
+          <>
+            <p>Cookie consent dialog will be shown.</p>
+          </>
+        ) : (
+          <>
+            <p>Cookie consents have been given. Remove the cookie to see the dialog again.</p>
+          </>
+        )}
+        <MatomoCookieTracker />
+      </div>
+    );
+  };
 
   return (
     <>

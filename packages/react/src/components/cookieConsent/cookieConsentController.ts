@@ -252,3 +252,8 @@ export default function createConsentController(props: ConsentControllerProps): 
     save,
   };
 }
+
+export function getConsentsFromCookie(cookieDomain?: string): ConsentObject {
+  const cookieController = createCookieController(cookieDomain);
+  return parseConsents(cookieController.get());
+}
