@@ -4,8 +4,9 @@ title: 'Form validation'
 nav_title: 'Form validation'
 ---
 
-import { Link } from 'hds-react';
+import { Link, StatusLabel } from 'hds-react';
 import LeadParagraph from '../../../components/LeadParagraph';
+import Image from '../../../components/Image';
 
 # Form validation
 
@@ -82,7 +83,7 @@ Error message indicates that a required field is left empty or the inputted valu
 
 If the form control has an assistive text, it is displayed below the validation message. **The assistive text should be never hidden when the error description is active.** The user may need the information provided by the assistive text when correcting the error.
 
-<Image src="../../static/patterns/form-validation/form-states-error@2x.png" alt="Form control error state" style="max-width:376px;" viewable />
+<Image src="/images/patterns/form/validation/form-states-error@2x.png" alt="Form control error state" style="max-width:376px;" viewable />
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
     <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
@@ -134,7 +135,7 @@ Success message indicates that an inputted value has passed form validation. Suc
 - When it is critical for the process that the user inputs the information correctly
 - When the user is not easily able to determine if the input is valid or not (e.g. new password inputs, inputs validated dynamically from the backend)
 
-<Image src="../../static/patterns/form-validation/form-validation-message-success@2x.png" alt="Form control success state" style="max-width:376px;" viewable />
+<Image src="/images/patterns/form/validation/form-validation-message-success@2x.png" alt="Form control success state" style="max-width:376px;" viewable />
 
 It is better to avoid using success validation if there is not a clear need for it. Using redundant success messages creates unnecessary visual noise to the view.
 
@@ -145,10 +146,10 @@ Info message can be used to convey information to the user which otherwise could
 - The value has been filled automatically for the user.
 - The component status has changed. For example, a file was removed from the file input.
 
-<Image src="../../static/patterns/form-validation/form-validation-message-info-1@2x.png" alt="Info message example; the input value was edited" style="max-width:376px;" viewable /><br />
+<Image src="/images/patterns/form/validation/form-validation-message-info-1@2x.png" alt="Info message example; the input value was edited" style="max-width:376px;" viewable /><br />
 In the above example, the info text is used to inform the user that the time input value has changed after the user inputted it.
 
-<Image src="../../static/patterns/form-validation/form-validation-message-info-2@2x.png" alt="Info message example; the input was filled automatically" style="max-width:376px;" viewable /><br />
+<Image src="/images/patterns/form/validation/form-validation-message-info-2@2x.png" alt="Info message example; the input was filled automatically" style="max-width:376px;" viewable /><br />
 In the above example, the info text is used to inform the user that the input was filled automatically. It is also described to the user from where the information is coming from.
 
 ### Validation summary pattern
@@ -157,7 +158,7 @@ In the above example, the info text is used to inform the user that the input wa
 
 You can learn more about the error summary component in [HDS React Storybook](/storybook/react/?path=/story/components-errorsummary--default).
 
-<Image src="../../static/patterns/form-validation/error-summary@2x.png" alt="Error summary component" style="max-width:482px;" viewable />
+<Image src="/images/patterns/form/validation/error-summary@2x.png" alt="Error summary component" style="max-width:482px;" viewable />
 
 The usage of the error summary component is triggered when the form is submitted:
 1. If errors are found in the form, the error summary component is created and placed at the beginning of the form, below the initial form heading.
@@ -166,7 +167,7 @@ The usage of the error summary component is triggered when the form is submitted
 4. The user can use the error description anchor link to quickly jump and focus each of the erroneous inputs.
 5. When the user submits the form again and errors are still found, the contents of the error summary are updated and the focus is moved back to the summary heading again.
 
-<Image src="../../static/patterns/form-validation/validation-pattern-example@2x.png" alt="Validation summary example" style="max-width:432px;" viewable />
+<Image src="/images/patterns/form/validation/validation-pattern-example@2x.png" alt="Validation summary example" style="max-width:432px;" viewable />
 
 You can see the validation summary pattern in action in HDS Storybook [static validation example](/storybook/react/iframe.html?id=patterns-form-validation--static&viewMode=story) and [hybrid validation example](/storybook/react/iframe.html?id=patterns-form-validation--hybrid&viewMode=story).
 
@@ -175,7 +176,7 @@ In some cases, multiple input fields can be related to each other in a way that 
 
 An example of this could be having two date inputs for setting a start and an end time. If the end time is set to be earlier than the start time, both date inputs become erroneous. Since assistive technologies only see one input at a time, all related inputs should be set to an error state and given an appropriate error message. The error message can be the same for all inputs or more input specific if the situation allows so. All error messages are also added to the error summary list. This method has been illustrated in the image below.
 
-<Image src="../../static/patterns/form-validation/multiple-fields-validation@2x.png" alt="Showing error messages of multiple input fields" style="max-width:482px;" viewable />
+<Image src="/images/patterns/form/validation/multiple-fields-validation@2x.png" alt="Showing error messages of multiple input fields" style="max-width:482px;" viewable />
 
 When there are multiple related fields, a later field in the form can make an earlier field erroneous. In this case, it is important to note that the state change of the earlier field can go unnoticed for assistive technologies. It is recommended to notify assistive technologies of other inputs' state change by using the [HDS invisible notification](/components/notification#invisible).
 
