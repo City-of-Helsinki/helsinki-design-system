@@ -56,14 +56,13 @@ export const Example = () => {
         title: 'Välttämättömät evästeet',
         text:
           'Välttämättömien evästeiden käyttöä ei voi kieltää. Ne mahdollistavat sivuston toiminnan ja vaikuttavat sivuston käyttäjäystävällisyyteen.',
-        checkboxAriaLabel:
-          'Välttämättömien evästeiden käyttöä ei voi kieltää. Ne mahdollistavat sivuston toiminnan ja vaikuttavat sivuston käyttäjäystävällisyyteen.',
         groupList: [
           {
             title: 'Evästeet sivuston perustoimintoja varten',
             text: 'Näitä eväisteitä käytetään sivuston perustoiminnoissa',
             expandAriaLabel: 'Näytä perustoimintoihin littyvien evästeiden tiedot',
-            checkboxAriaLabel: 'Perustoimintoihin littyvien evästeiden käyttöä ei voi kieltää.',
+            checkboxAriaDescription:
+              'Näitä eväisteitä käytetään sivuston perustoiminnoissa. Perustoimintoihin littyvien evästeiden käyttöä ei voi kieltää.',
             consents: [
               {
                 id: commonConsents.tunnistamo,
@@ -88,7 +87,8 @@ export const Example = () => {
             title: 'Evästeet kirjautumista varten',
             text: 'Näitä eväisteitä käytetään kirjautumisessa',
             expandAriaLabel: 'Näytä kirjautumiseen littyvien evästeiden tiedot',
-            checkboxAriaLabel: 'Kirjautumiseen littyvien evästeiden käyttöä ei voi kieltää.',
+            checkboxAriaDescription:
+              'Näitä eväisteitä käytetään kirjautumisessa. Kirjautumiseen littyvien evästeiden käyttöä ei voi kieltää.',
             consents: [
               {
                 id: commonConsents.tunnistamo,
@@ -116,14 +116,14 @@ export const Example = () => {
         title: 'Muut evästeet',
         text:
           'Voit hyväksyä tai jättää hyväksymättä muut evästeet. Praesent vel vestibulum nunc, at eleifend sapien. Integer cursus ut orci eu pretium. Ut a orci felis. In eu eros turpis. Sed ullamcorper lacinia lorem, id ullamcorper dui accumsan in. Integer dictum fermentum mi, sit amet accumsan lacus facilisis id. Quisque blandit lacus ac sem porta.',
-        checkboxAriaLabel: 'Hyväksy kaikki allaolevat evästeet',
         groupList: [
           {
             title: 'Markkinointievästeet',
             text:
               'Markkinointievästeillä kohdennetaan markkinointia. Nulla facilisi. Nullam mattis sapien sem, nec venenatis lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus.',
             expandAriaLabel: 'Näytä markkinointievästeiden tiedot',
-            checkboxAriaLabel: 'Hyväksy kaikki markkinointievästeet',
+            checkboxAriaDescription:
+              'Markkinointievästeillä kohdennetaan markkinointia. Hyväksy tai jätä hyväksymättä kaikki markkinointiin liittyvät evästeet',
             consents: [
               {
                 id: commonConsents.marketing,
@@ -140,7 +140,8 @@ export const Example = () => {
             text:
               'Evästeisiin tallennetaan käyttäjän tekemiä Donec lacus ligula, consequat id ligula sed, dapibus blandit nunc. Phasellus efficitur nec tellus et tempus. Sed tempor tristique purus, at auctor lectus. Ut pretium rutrum viverra. Sed felis arcu, sodales fermentum finibus in, pretium id tellus. Morbi eget eros congue, pulvinar leo ut, aliquam lectus. Cras consectetur sit amet tortor nec vulputate. Integer scelerisque dignissim auctor. Fusce pharetra dui nulla, vel elementum leo mattis vitae.',
             expandAriaLabel: 'Näytä asetuksiin liittyvien evästeiden tiedot',
-            checkboxAriaLabel: 'Hyväksy kaikki asetuksiin liittyvät evästeet',
+            checkboxAriaDescription:
+              'Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet',
             consents: [
               {
                 id: commonConsents.preferences,
@@ -157,7 +158,8 @@ export const Example = () => {
             title: 'Tilastointiin liittyvät evästeet',
             text: 'Tilastoinnilla parannetaan...',
             expandAriaLabel: 'Näytä tilastointiin liittyvien evästeiden tiedot',
-            checkboxAriaLabel: 'Hyväksy kaikki tilastointiin liittyvät evästeet',
+            checkboxAriaDescription:
+              'Tilastoinnilla parannetaan sivustoa. Hyväksy tai jätä hyväksymättä kaikki tilastointiin liittyvät evästeet',
             consents: [
               {
                 id: commonConsents.matomo,

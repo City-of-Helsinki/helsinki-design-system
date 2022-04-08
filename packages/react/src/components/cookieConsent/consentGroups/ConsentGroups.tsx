@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import {
   CookieConsentContext,
@@ -21,7 +22,7 @@ function ConsentGroups(props: {
   }
   const selectPercentage = cookieConsentContext.countApprovedOptional();
   const allApproved = isRequired || selectPercentage === 1;
-  const { title, text, groupList, groupId } = consentGroups;
+  const { title, text, groupList, groupId, checkboxAriaDescription } = consentGroups;
   const checked = isRequired || allApproved;
   const checkboxProps = {
     onChange: isRequired ? () => undefined : () => onClick(checked ? 'unapproveOptional' : 'approveOptional'),
@@ -47,7 +48,10 @@ function ConsentGroups(props: {
           {...checkboxProps}
         />
       </div>
-      <p id={getConsentGroupIdenfier('description')}>{text}</p>
+      <p aria-hidden>{text}</p>
+      <VisuallyHidden id={getConsentGroupIdenfier('description')} aria-hidden>
+        {checkboxAriaDescription || text}
+      </VisuallyHidden>
       <ul className={styles.list}>
         {groupList.map((group, index) => (
           <li key={group.title}>

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import {
   ConsentGroup as ConsentGroupType,
@@ -22,7 +23,7 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
   const cookieConsentContext = useContext(CookieConsentContext);
   const onClick = useCookieConsentActions();
   const areAllApproved = isRequired || cookieConsentContext.areGroupConsentsApproved(groupConsents);
-  const { title, text, checkboxAriaLabel, expandAriaLabel } = group;
+  const { title, text, checkboxAriaDescription, expandAriaLabel } = group;
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
   const checkboxProps = {
     onChange: isRequired
@@ -48,18 +49,21 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
 
   return (
     <div className={currentStyles}>
-      <div className={styles['group-title-row']}>
-        <div className={styles['title-with-checkbox']}>
-          <Checkbox
-            id={getGroupIdenfier('checkbox')}
-            name={getGroupIdenfier('checkbox')}
-            label={title}
-            aria-label={checkboxAriaLabel}
-            aria-describedby={getGroupIdenfier('description')}
-            style={checkboxStyle}
-            {...checkboxProps}
-          />
-        </div>
+      <div className={styles['title-with-checkbox']}>
+        <Checkbox
+          id={getGroupIdenfier('checkbox')}
+          name={getGroupIdenfier('checkbox')}
+          label={title}
+          aria-describedby={getGroupIdenfier('description')}
+          style={checkboxStyle}
+          {...checkboxProps}
+        />
+      </div>
+      <div className={styles['consent-group-content']}>
+        <p aria-hidden>{text}</p>
+        <VisuallyHidden id={getGroupIdenfier('description')} aria-hidden>
+          {checkboxAriaDescription || text}
+        </VisuallyHidden>
         <button
           type="button"
           className={styles['accordion-button']}
@@ -69,9 +73,6 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
         >
           <Icon aria-hidden />
         </button>
-      </div>
-      <div className={styles['consent-group-content']}>
-        <p id={getGroupIdenfier('description')}>{text}</p>
         <Card
           {...contentProps}
           theme={{
