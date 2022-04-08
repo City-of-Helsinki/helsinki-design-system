@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import { ConsentGroup as ConsentGroupType } from '../CookieConsentContext';
+import {
+  ConsentGroup as ConsentGroupType,
+  CookieConsentContext,
+  useCookieConsentActions,
+} from '../CookieConsentContext';
 import styles from '../CookieConsent.module.scss';
 import { Checkbox } from '../../checkbox/Checkbox';
 import { useAccordion } from '../../accordion';
@@ -10,16 +14,27 @@ import ConsentGroupDataTable from '../consentGroupDataTable/ConsentGroupDataTabl
 import classNames from '../../../utils/classNames';
 
 function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id: string }): React.ReactElement {
+  const { group, isRequired, id } = props;
   const { isOpen, buttonProps, contentProps } = useAccordion({
     initiallyOpen: false,
   });
-  const { group, isRequired, id } = props;
+  const groupConsents = group.consents;
+  const cookieConsentContext = useContext(CookieConsentContext);
+  const onClick = useCookieConsentActions();
+  const areAllApproved = isRequired || cookieConsentContext.areGroupConsentsApproved(groupConsents);
   const { title, text, checkboxAriaLabel, expandAriaLabel } = group;
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
   const checkboxProps = {
-    onChange: isRequired ? () => undefined : () => undefined,
+    onChange: isRequired
+      ? () => undefined
+      : () =>
+          onClick(
+            'changeConsentGroup',
+            groupConsents.map((consent) => consent.id),
+            !areAllApproved,
+          ),
     disabled: isRequired,
-    checked: isRequired,
+    checked: areAllApproved,
   };
   const checkboxStyle = {
     '--label-font-size': 'var(--fontsize-heading-s)',
@@ -64,7 +79,7 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
             '--padding-vertical': '0',
           }}
         >
-          <ConsentGroupDataTable consents={group.consents} />
+          <ConsentGroupDataTable consents={groupConsents} />
         </Card>
       </div>
     </div>

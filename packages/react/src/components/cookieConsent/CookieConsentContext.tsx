@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
 
 import create, { ConsentController, ConsentList, ConsentObject } from './cookieConsentController';
+import { CookieConsentActionListener } from './types';
 
 export type Description = {
   title: string;
@@ -71,6 +72,9 @@ export type CookieConsentContextType = {
   willRenderCookieConsentDialog: boolean;
   hasUserHandledAllConsents: () => boolean;
   content: Content;
+  onAction: CookieConsentActionListener;
+  countApprovedOptional: () => number;
+  areGroupConsentsApproved: (consents: ConsentData[]) => boolean;
 };
 
 type CookieConsentContextProps = {
@@ -92,6 +96,9 @@ export const CookieConsentContext = createContext<CookieConsentContextType>({
   hasUserHandledAllConsents: () => false,
   willRenderCookieConsentDialog: false,
   content: {} as Content,
+  onAction: () => undefined,
+  countApprovedOptional: () => 0,
+  areGroupConsentsApproved: () => false,
 });
 
 const getConsentsFromConsentGroup = (groups: ConsentGroup[]): ConsentList => {
@@ -112,11 +119,7 @@ export const Provider = ({
 }: CookieConsentContextProps): React.ReactElement => {
   const requiredConsents = getConsentsFromConsentGroup(content.requiredConsents.groupList);
   const optionalConsents = getConsentsFromConsentGroup(content.optionalConsents.groupList);
-  const consentController = useMemo(() => create({ requiredConsents, optionalConsents, cookieDomain }), [
-    requiredConsents,
-    optionalConsents,
-    cookieDomain,
-  ]);
+  const consentController = useMemo(() => create({ requiredConsents, optionalConsents, cookieDomain }), []);
 
   const hasUserHandledAllConsents = () =>
     consentController.getRequiredWithoutConsent().length === 0 && consentController.getUnhandledConsents().length === 0;
@@ -130,23 +133,100 @@ export const Provider = ({
     ...consentController.getOptional(),
   });
 
-  const contextData: CookieConsentContextType = {
-    getRequired: () => consentController.getRequired(),
-    getOptional: () => consentController.getOptional(),
-    update: (key, value) => consentController.update(key, value),
-    approveRequired: () => consentController.approveRequired(),
-    approveAll: () => consentController.approveAll(),
-    save: () => {
-      const savedData = consentController.save();
-      if (hasUserHandledAllConsents()) {
-        setWillRenderCookieConsentDialog(false);
-        onAllConsentsGiven(mergeConsents());
+  const [, forceUpdate] = useState<number>(0);
+  const reRender = () => {
+    forceUpdate((p) => p + 1);
+  };
+
+  const save = () => {
+    const savedData = consentController.save();
+    if (hasUserHandledAllConsents()) {
+      setWillRenderCookieConsentDialog(false);
+      onAllConsentsGiven(mergeConsents());
+      // setShowScreenReaderSaveNotification(true);
+    }
+    return savedData;
+  };
+
+  const getRequired: CookieConsentContextType['getRequired'] = () => consentController.getRequired();
+  const getOptional: CookieConsentContextType['getOptional'] = () => consentController.getOptional();
+  const update: CookieConsentContextType['update'] = (key, value) => {
+    consentController.update(key, value);
+  };
+  const approveSelectedAndRequired = () => {
+    consentController.approveRequired();
+    save();
+  };
+  const approveAll: CookieConsentContextType['approveAll'] = () => {
+    consentController.approveAll();
+    save();
+  };
+  const approveRequired: CookieConsentContextType['approveRequired'] = () => {
+    Object.keys(getOptional()).forEach((optionalConsent) => {
+      update(optionalConsent, false);
+    });
+    approveRequired();
+    save();
+  };
+  const setOptional = (approved: boolean) => {
+    Object.keys(getOptional()).forEach((optionalConsent) => {
+      update(optionalConsent, approved);
+    });
+  };
+
+  const onAction: CookieConsentContextType['onAction'] = (action, consents, value) => {
+    console.log('onAction:', action, consents, value);
+    if (action === 'approveAll') {
+      approveAll();
+    } else if (action === 'approveRequired') {
+      approveRequired();
+    } else if (action === 'approveSelectedAndRequired') {
+      approveSelectedAndRequired();
+    } else if (action === 'changeConsentGroup') {
+      consents.forEach((consent) => {
+        update(consent, value);
+      });
+    } else if (action === 'approveOptional') {
+      setOptional(true);
+    } else if (action === 'unapproveOptional') {
+      setOptional(false);
+    }
+    reRender();
+  };
+
+  const countApprovedOptional: CookieConsentContextType['countApprovedOptional'] = () => {
+    let counter = 0;
+    let approved = 0;
+    Object.values(getOptional()).forEach((isApproved) => {
+      counter += 1;
+      if (isApproved) {
+        approved += 1;
       }
-      return savedData;
-    },
+    });
+    return approved / counter;
+  };
+
+  const areGroupConsentsApproved: CookieConsentContextType['areGroupConsentsApproved'] = (consentData) => {
+    // consentData
+    const optionalConsentList = consentController.getOptional();
+    return !consentData.reduce((hasUnApprovedConsent, consent) => {
+      return hasUnApprovedConsent || optionalConsentList[consent.id] !== true;
+    }, false);
+  };
+
+  const contextData: CookieConsentContextType = {
+    getOptional,
+    getRequired,
+    approveAll,
+    approveRequired,
+    update,
+    save,
     willRenderCookieConsentDialog,
     hasUserHandledAllConsents,
     content,
+    onAction,
+    countApprovedOptional,
+    areGroupConsentsApproved,
   };
   onConsentsParsed(mergeConsents(), hasUserHandledAllConsents());
   return <CookieConsentContext.Provider value={contextData}>{children}</CookieConsentContext.Provider>;
@@ -159,4 +239,9 @@ export const getCookieConsentContent = (context: CookieConsentContextType): Cont
 export const useCookieConsentContent = (): Content => {
   const cookieConsentContext = useContext(CookieConsentContext);
   return getCookieConsentContent(cookieConsentContext);
+};
+
+export const useCookieConsentActions = (): CookieConsentContextType['onAction'] => {
+  const cookieConsentContext = useContext(CookieConsentContext);
+  return cookieConsentContext.onAction;
 };

@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import { RequiredOrOptionalConsentGroups } from '../CookieConsentContext';
+import {
+  CookieConsentContext,
+  RequiredOrOptionalConsentGroups,
+  useCookieConsentActions,
+} from '../CookieConsentContext';
 import styles from '../CookieConsent.module.scss';
 import ConsentGroup from '../consentGroup/ConsentGroup';
 import { Checkbox } from '../../checkbox/Checkbox';
@@ -10,14 +14,19 @@ function ConsentGroups(props: {
   isRequired?: boolean;
 }): React.ReactElement {
   const { consentGroups, isRequired } = props;
+  const cookieConsentContext = useContext(CookieConsentContext);
+  const onClick = useCookieConsentActions();
   if (!consentGroups) {
     return null;
   }
+  const selectPercentage = cookieConsentContext.countApprovedOptional();
+  const allApproved = isRequired || selectPercentage === 1;
   const { title, text, groupList, groupId } = consentGroups;
   const checkboxProps = {
-    onChange: isRequired ? () => undefined : () => undefined,
+    onChange: isRequired ? () => undefined : () => onClick('approveOptional'),
     disabled: isRequired,
-    checked: isRequired,
+    checked: isRequired || allApproved,
+    indeterminate: isRequired ? false : !Number.isInteger(selectPercentage),
   };
   const checkboxStyle = {
     '--label-font-size': 'var(--fontsize-heading-m)',
