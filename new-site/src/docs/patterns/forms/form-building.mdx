@@ -105,6 +105,7 @@ Enable the user to **input a freeform string of text that does not have a specif
 | --------- | ----------- | ------------- | ------------- |
 | <Image src="/images/patterns/form/building/form-choosing-textinput@2x.png" alt="Text input" style="max-width:250px;" viewable />  | Text input                | Entering short strings of texts or numbers no more than a few words long.               |  |
 | <Image src="/images/patterns/form/building/form-choosing-textarea@2x.png" alt="Text area" style="max-width:250px;" viewable />    | Text area                 | Entering multiple lines of text. | Messages, descriptions, feedback, support requests  |  |
+[Table 1:Text inputs available in the HDS]|
 
 #### Data inputs for specific types and formats
 Enable user to **input textual data of a specific type**. While this kind of data could be inputted to a text input, it is always recommended to use a data-specific input if it is available.
@@ -116,6 +117,7 @@ Enable user to **input textual data of a specific type**. While this kind of dat
 | <Image src="/images/patterns/form/building/form-choosing-timeinput@2x.png" alt="Time input" style="max-width:250px;" viewable />                | Time input                | Entering a time in a clock format. | Event start time, parking end time  |  |
 | <Image src="/images/patterns/form/building/form-choosing-phonenumberinput@2x.png" alt="Phone number input" style="max-width:250px;" viewable /> | Phone number input        | Entering a phone number. | Phone numbers in different locale formats  |  |
 | <Image src="/images/patterns/form/building/form-choosing-passwordinput@2x.png" alt="Password input" style="max-width:250px;" viewable />        | Password input            | Entering a password or other sensitive data. | Passwords, passphrases, sensitive personal data |  |
+[Table 2:Data inputs available in the HDS]|
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
     <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
@@ -139,13 +141,13 @@ Enable the user to enter an input by **selecting from a set of pre-defined optio
 
 Each selection control has a specific use case. To learn which one to use, see [HDS Guideline Checkboxes, radio buttons, or toggles documentation page](/guidelines/checkboxes-radiobuttons-toggles).
 
-#### Short lists of choices
 | Control   | Name        | Usage         | Examples      |
 | --------- | ----------- | ------------- | ------------- |
 | <Image src="/images/patterns/form/building/form-choosing-select-checkbox@2x.png" alt="Checkbox" style="max-width:250px;" viewable />              | Checkbox              | Selecting a single option.                                    | Agreeing to terms and conditions |
 | <Image src="/images/patterns/form/building/form-choosing-select-checkboxgroup@2x.png" alt="Checkbox group" style="max-width:250px;" viewable />   | Checkbox group        | Selecting one or more options from a short list.              | <ul style="margin-bottom:0"><li>Adding optional items</li><li>Selecting all that apply</li></ul> |
 | <Image src="/images/patterns/form/building/form-choosing-select-radio@2x.png" alt="Radio button group" style="max-width:250px;" viewable />       | Radio button group    | Selecting a single option from mutually exclusive choices.    | Picking a type |
 | <Image src="/images/patterns/form/building/form-choosing-select-togglebutton@2x.png" alt="Toggle button" style="max-width:250px;" viewable />     | Toggle button         | Choosing between binary options.                              | Changing a setting, switching a theme |
+[Table 3:Selection components available in the HDS]|
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
     <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
@@ -163,7 +165,7 @@ Each selection control has a specific use case. To learn which one to use, see [
 | <Image src="/images/patterns/form/building/form-choosing-dropdown-multi@2x.png" alt="Dropdown multi-select" style="max-width:250px;" viewable />   | Dropdown<br/>multi-select | <ul style="margin-bottom:0"><li>Selecting multiple options </li><li>4–7 choices.</li><li>Comparable to a checkbox group.</li></ul> | |
 | <Image src="/images/patterns/form/building/form-choosing-combobox@2x.png" alt="Combobox" style="max-width:250px;" viewable />         | Combobox select       | <ul style="margin-bottom:0"><li>Selecting single option.</li><li>more than 8 choices.</li><li>Allows <strong>filtering options</strong> with text search.</li></ul> | Choosing for example city of residence, place of birth, or language preference |
 | <Image src="/images/patterns/form/building/form-choosing-combobox-multi@2x.png" alt="Combobox multi-select" style="max-width:250px;" viewable />   | Combobox<br/>multi-select | <ul style="margin-bottom:0"><li>Selecting multiple options.</li><li>more than 8 choices.</li><li>Allows <strong>filtering options.</strong> with text search.</li></ul> | | 
-
+[Table 4:Selection components for a large number of items available in the HDS]|
 
 <div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
     <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></div>
@@ -184,6 +186,7 @@ Individual form controls can also have action buttons attached to them, that let
 | <Image src="/images/patterns/form/building/form-choosing-submit@2x.png" alt="Primary action button" style="max-width:250px;" viewable />               | Primary action        | **Submitting inputted data** to the defined form handler on the server. | Submit |
 | <Image src="/images/patterns/form/building/form-choosing-secondary@2x.png" alt="Secondary action button" style="max-width:250px;" viewable />         | Secondary action      | Allowing user to perform **important and form-wide actions** before submitting: <ul style="margin-bottom:0"><li>Navigating multi-page forms</li><li>Making batch changes to the form fields</li><li>Cancelling the process and returning to previous view.</li></ul> | <ul style="margin-bottom:0"><li>Next/previous page</li><li>Batch clear form fields.</li></ul> |
 | <Image src="/images/patterns/form/building/form-choosing-supplementary@2x.png" alt="Supplementary action button" style="max-width:250px;" viewable /> | Supplementary action  | Allows user to perform: <ul style="margin-bottom:0"><li><strong>Auxiliary functionalities</strong> that help the user but are not essential in filling the form</li><li><strong>Inline actions</strong> that affect smaller sections of a form (for example a fieldset)</li></ul> | <ul style="margin-bottom:0"><li>Printing</li><li>Saving a draft</li><li>Adding or removing instances or rows to a data list (for example persons to a participant list)</li><li>Inputting data to a form control from an outside source (for example uploading an image, or fetching a location from Google maps)</li></ul> |
+[Table 5:Buttons for triggering actions available in the HDS]|
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
     <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
