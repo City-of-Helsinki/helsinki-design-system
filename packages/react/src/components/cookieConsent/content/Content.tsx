@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 
-import { ViewProps } from '../types';
 import Buttons from '../buttons/Buttons';
 import { IconAngleDown, IconAngleUp } from '../../../icons';
 import { useAccordion } from '../../accordion';
@@ -10,7 +9,7 @@ import { Card } from '../../card/Card';
 import { useCookieConsentContent } from '../CookieConsentContext';
 import LanguageSwitcher from '../languageSwitcher/LanguageSwitcher';
 
-function Content({ onClick }: ViewProps): React.ReactElement {
+function Content(): React.ReactElement {
   const { isOpen, buttonProps, contentProps } = useAccordion({
     initiallyOpen: false,
   });
@@ -62,7 +61,7 @@ function Content({ onClick }: ViewProps): React.ReactElement {
       >
         <Details />
       </Card>
-      <Buttons onClick={onClick} hasOptionalConsents={isOpen} />
+      <Buttons hasOptionalConsents={isOpen} />
     </div>
   );
 }

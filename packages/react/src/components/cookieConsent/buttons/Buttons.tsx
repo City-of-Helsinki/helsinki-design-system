@@ -1,17 +1,16 @@
 import React from 'react';
 
-import { CookieConsentActionListener } from '../types';
 import { Button } from '../../button/Button';
 import styles from '../CookieConsent.module.scss';
-import { useCookieConsentContent } from '../CookieConsentContext';
+import { useCookieConsentActions, useCookieConsentContent } from '../CookieConsentContext';
 
 export type Props = {
-  onClick: CookieConsentActionListener;
   hasOptionalConsents: boolean;
 };
 
-function Buttons({ onClick, hasOptionalConsents }: Props): React.ReactElement {
+function Buttons({ hasOptionalConsents }: Props): React.ReactElement {
   const content = useCookieConsentContent();
+  const onClick = useCookieConsentActions();
   const { approveRequiredAndSelectedConsents, approveOnlyRequiredConsents, approveAllConsents } = content.texts.ui;
   const primaryButtonText = hasOptionalConsents ? approveRequiredAndSelectedConsents : approveAllConsents;
   const primaryButtonAction = hasOptionalConsents ? 'approveSelectedAndRequired' : 'approveAll';
