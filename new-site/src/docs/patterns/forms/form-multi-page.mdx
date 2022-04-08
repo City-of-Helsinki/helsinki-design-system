@@ -6,6 +6,7 @@ nav_title: 'Multi-page forms'
 
 import { Link } from 'hds-react';
 import LeadParagraph from '../../../components/LeadParagraph';
+import Image from '../../../components/Image';
 
 # Multi-page forms
 
@@ -48,7 +49,7 @@ HDS multi-page forms feature two separate headings; the main heading and the ste
 - The **form main heading** describes the whole form and it is located above the form navigation element. 
 - The **form step heading** describes the currently active step and it is located below the form navigation element.
 
-<Image src="../../static/patterns/form-multi-page/multi-page-form-headings@2x.png" alt="Form headings example" style="max-width:768px;" viewable />
+<Image src="/images/patterns/form/multi-page/multi-page-form-headings@2x.png" alt="Form headings example" style="max-width:768px;" viewable />
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
     <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
@@ -64,7 +65,7 @@ HDS form navigation has two (2) main goals. First, it provides the user a visual
 
 The navigation is offered in Default and Small sizes. The small size omits the step text labels. However, the step circles will remain as interactable buttons.
 
-<Image src="../../static/patterns/form-multi-page/multi-page-form-navigation@2x.png" alt="Form navigation example" style="max-width:768px;" viewable />
+<Image src="/images/patterns/form/multi-page/multi-page-form-navigation@2x.png" alt="Form navigation example" style="max-width:768px;" viewable />
 
 #### Form step states
 
@@ -72,19 +73,19 @@ HDS provides pre-defined states for form steps. The following table lists all al
 
 | Image     | Name        | Usage         |
 | --------- | ----------- | ------------- |
-| <Image src="../../static/patterns/form-multi-page/state-available@2x.png" alt="Available form step" style="max-width:32px;" viewable />           | Available         | The step is available and the user can navigate to it. The step has not been filled yet. |
-| <Image src="../../static/patterns/form-multi-page/state-selected@2x.png" alt="Selected form step" style="max-width:36px;" viewable />             | Selected          | The step is currently active but has not been submitted yet.                             |
-| <Image src="../../static/patterns/form-multi-page/state-filled@2x.png" alt="Filled form step" style="max-width:32px;" viewable />                 | Filled            | The step has been filled successfully.                                                   |
-| <Image src="../../static/patterns/form-multi-page/state-disabled@2x.png" alt="Disabled form step" style="max-width:32px;" viewable />             | Disabled          | The step is not available yet due to previous step not filled yet.                       |
-| <Image src="../../static/patterns/form-multi-page/state-attention@2x.png" alt="Form step demanding attention" style="max-width:32px;" viewable /> | Needs attention   | The step demands user's attention. E.g. it has been changed by another user.             |
-| <Image src="../../static/patterns/form-multi-page/state-paused@2x.png" alt="Paused form step" style="max-width:32px;" viewable />                 | Paused            | The step progress has been paused. E.g. waiting for a review from officials.             |
+| <Image src="/images/patterns/form/multi-page/state-available@2x.png" alt="Available form step" style="max-width:32px;" viewable />           | Available         | The step is available and the user can navigate to it. The step has not been filled yet. |
+| <Image src="/images/patterns/form/multi-page/state-selected@2x.png" alt="Selected form step" style="max-width:36px;" viewable />             | Selected          | The step is currently active but has not been submitted yet.                             |
+| <Image src="/images/patterns/form/multi-page/state-filled@2x.png" alt="Filled form step" style="max-width:32px;" viewable />                 | Filled            | The step has been filled successfully.                                                   |
+| <Image src="/images/patterns/form/multi-page/state-disabled@2x.png" alt="Disabled form step" style="max-width:32px;" viewable />             | Disabled          | The step is not available yet due to previous step not filled yet.                       |
+| <Image src="/images/patterns/form/multi-page/state-attention@2x.png" alt="Form step demanding attention" style="max-width:32px;" viewable /> | Needs attention   | The step demands user's attention. E.g. it has been changed by another user.             |
+| <Image src="/images/patterns/form/multi-page/state-paused@2x.png" alt="Paused form step" style="max-width:32px;" viewable />                 | Paused            | The step progress has been paused. E.g. waiting for a review from officials.             |
 
 ### 3. Form area
 Below form headings and the form navigation is the form area. The form elements of the current step will be placed here. A step description and instructions can also be given below the step heading. Form buttons will be located at the very bottom of the form area. "Next" and "Previous" buttons should at least be offered but buttons can contain other actions too such as saving the form to continue later.
 
 To learn more about how to construct form in the City of Helsinki services, please refer to [HDS Form pattern documentation](/patterns/forms).
 
-<Image src="../../static/patterns/form-multi-page/multi-page-form-form-area@2x.png" alt="Form area example" style="max-width:768px;" viewable />
+<Image src="/images/patterns/form/multi-page/multi-page-form-form-area@2x.png" alt="Form area example" style="max-width:768px;" viewable />
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
     <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
