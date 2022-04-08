@@ -60,6 +60,8 @@ export type Content = {
     languageSelectorAriaLabel: string;
     onLanguageChange: (newLanguage: string) => void;
   };
+  onAllConsentsGiven?: (consents: ConsentObject) => void;
+  onConsentsParsed?: (consents: ConsentObject, hasUserHandledAllConsents: boolean) => void;
 };
 
 export type CookieConsentContextType = {
@@ -83,7 +85,6 @@ type CookieConsentContextProps = {
   content: Content;
   onAllConsentsGiven?: (consents: ConsentObject) => void;
   onConsentsParsed?: (consents: ConsentObject, hasUserHandledAllConsents: boolean) => void;
-  onLanguageChange: (newLanguage: string) => void;
 };
 
 export const CookieConsentContext = createContext<CookieConsentContextType>({
@@ -110,13 +111,7 @@ const getConsentsFromConsentGroup = (groups: ConsentGroup[]): ConsentList => {
   }, []);
 };
 
-export const Provider = ({
-  cookieDomain,
-  onAllConsentsGiven = () => undefined,
-  onConsentsParsed = () => undefined,
-  children,
-  content,
-}: CookieConsentContextProps): React.ReactElement => {
+export const Provider = ({ cookieDomain, children, content }: CookieConsentContextProps): React.ReactElement => {
   const requiredConsents = getConsentsFromConsentGroup(content.requiredConsents.groupList);
   const optionalConsents = getConsentsFromConsentGroup(content.optionalConsents.groupList);
   const consentController = useMemo(() => create({ requiredConsents, optionalConsents, cookieDomain }), []);
@@ -142,7 +137,9 @@ export const Provider = ({
     const savedData = consentController.save();
     if (hasUserHandledAllConsents()) {
       setWillRenderCookieConsentDialog(false);
-      onAllConsentsGiven(mergeConsents());
+      if (content.onAllConsentsGiven) {
+        content.onAllConsentsGiven(mergeConsents());
+      }
       // setShowScreenReaderSaveNotification(true);
     }
     return savedData;
@@ -228,7 +225,9 @@ export const Provider = ({
     countApprovedOptional,
     areGroupConsentsApproved,
   };
-  onConsentsParsed(mergeConsents(), hasUserHandledAllConsents());
+  if (content.onConsentsParsed) {
+    content.onConsentsParsed(mergeConsents(), hasUserHandledAllConsents());
+  }
   return <CookieConsentContext.Provider value={contextData}>{children}</CookieConsentContext.Provider>;
 };
 

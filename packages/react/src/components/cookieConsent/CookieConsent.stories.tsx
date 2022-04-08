@@ -1,11 +1,11 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { commonConsents } from './cookieConsentController';
-import { CookieConsentContext, Provider as CookieContextProvider, Content } from './CookieConsentContext';
-import { CookieConsent } from './CookieConsent';
+import { Content } from './CookieConsentContext';
+import { CookieConsentModal } from './CookieConsentModal';
 
 export default {
-  component: CookieConsent,
+  component: CookieConsentModal,
   title: 'Components/CookieConsent',
   parameters: {
     controls: { expanded: true },
@@ -15,7 +15,7 @@ export default {
 
 export const Example = () => {
   const Application = () => {
-    const { willRenderCookieConsentDialog } = useContext(CookieConsentContext);
+    const willRenderCookieConsentDialog = false;
     return (
       <div
         style={willRenderCookieConsentDialog ? { overflow: 'hidden', maxHeight: '100vh' } : {}}
@@ -211,20 +211,15 @@ export const Example = () => {
         languageSelectorAriaLabel: 'Kieli: Suomi. Vaihda kieli. Change language. Ändra språk.',
         onLanguageChange,
       },
-    };
-  }, [language]);
-
-  return (
-    <CookieContextProvider
-      onAllConsentsGiven={(consents) => {
+      onAllConsentsGiven: (consents) => {
         if (consents.matomo) {
           //  start tracking
           // window._paq.push(['setConsentGiven']);
           // window._paq.push(['setCookieConsentGiven']);
         }
         document.getElementById('focused-element-after-cookie-consent-closed').focus();
-      }}
-      onConsentsParsed={(consents, hasUserHandledAllConsents) => {
+      },
+      onConsentsParsed: (consents, hasUserHandledAllConsents) => {
         if (consents.matomo === undefined) {
           // tell matomo to wait for consent:
           // window._paq.push(['requireConsent']);
@@ -236,12 +231,14 @@ export const Example = () => {
         if (hasUserHandledAllConsents) {
           // cookie consent dialog will not be shown
         }
-      }}
-      content={content}
-      onLanguageChange={onLanguageChange}
-    >
-      <CookieConsent />
+      },
+    };
+  }, [language]);
+
+  return (
+    <>
+      <CookieConsentModal content={content} />
       <Application />
-    </CookieContextProvider>
+    </>
   );
 };
