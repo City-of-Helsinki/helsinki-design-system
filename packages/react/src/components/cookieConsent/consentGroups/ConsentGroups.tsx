@@ -22,10 +22,11 @@ function ConsentGroups(props: {
   const selectPercentage = cookieConsentContext.countApprovedOptional();
   const allApproved = isRequired || selectPercentage === 1;
   const { title, text, groupList, groupId } = consentGroups;
+  const checked = isRequired || allApproved;
   const checkboxProps = {
-    onChange: isRequired ? () => undefined : () => onClick('approveOptional'),
+    onChange: isRequired ? () => undefined : () => onClick(checked ? 'unapproveOptional' : 'approveOptional'),
     disabled: isRequired,
-    checked: isRequired || allApproved,
+    checked,
     indeterminate: isRequired ? false : !Number.isInteger(selectPercentage),
   };
   const checkboxStyle = {
