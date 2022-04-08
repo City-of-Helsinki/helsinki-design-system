@@ -22,7 +22,7 @@ export type ConsentData = TableData & {
 
 export type ConsentGroup = Description & {
   expandAriaLabel: string;
-  checkboxAriaLabel: string;
+  checkboxAriaDescription?: string;
   consents: ConsentData[];
 };
 
@@ -42,7 +42,7 @@ export type SectionTexts = {
 
 export type RequiredOrOptionalConsentGroups = Description & {
   groupId: 'required' | 'optional';
-  checkboxAriaLabel: string;
+  checkboxAriaDescription?: string;
   groupList: ConsentGroup[];
 };
 
@@ -172,7 +172,6 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
   };
 
   const onAction: CookieConsentContextType['onAction'] = (action, consents, value) => {
-    console.log('onAction:', action, consents, value);
     if (action === 'approveAll') {
       approveAll();
     } else if (action === 'approveRequired') {
