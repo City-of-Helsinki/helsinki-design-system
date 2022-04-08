@@ -146,6 +146,7 @@
 
 .consent-group {
   display: flex;
+  position: relative;
   padding: var(--spacing-xl) 0;
   flex-direction: column;
 }
@@ -162,6 +163,12 @@
     padding: var(--spacing-l) 0 0;
     margin: 0;
   }
+  button {
+    position: absolute;
+    right: 0;
+    top: calc(var(--spacing-xl) - 0.5 * var(--spacing-s));
+    padding: var(--spacing-s);
+  }
 }
 
 .title-with-checkbox {
@@ -172,17 +179,6 @@
 .container .content .consent-group-parent .title-with-checkbox label {
   font-weight: bold;
   color: var(--color-black);
-}
-
-.group-title-row {
-  display: flex;
-  position: relative;
-  button {
-    position: absolute;
-    right: 0;
-    top: calc(-0.5 * var(--spacing-s));
-    padding: var(--spacing-s);
-  }
 }
 
 .data-table-container {
