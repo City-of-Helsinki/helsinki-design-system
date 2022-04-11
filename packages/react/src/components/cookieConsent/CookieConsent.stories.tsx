@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 
 import { commonConsents } from './cookieConsentController';
-import { Content, getConsentsFromConsentGroup } from './CookieConsentContext';
+import { Content } from './CookieConsentContext';
 import { CookieConsentModal } from './CookieConsentModal';
 import { getConsentStatus, hasHandledAllConsents } from './util';
 
@@ -225,13 +225,10 @@ export const Example = () => {
   };
 
   const Application = () => {
-    const requiredConsents = content.requiredConsents
-      ? getConsentsFromConsentGroup(content.requiredConsents.groupList)
-      : [];
-    const optionalConsents = content.optionalConsents
-      ? getConsentsFromConsentGroup(content.optionalConsents.groupList)
-      : [];
-    const willRenderCookieConsentDialog = !hasHandledAllConsents(requiredConsents, optionalConsents);
+    const willRenderCookieConsentDialog = !hasHandledAllConsents(
+      content.requiredConsents || [],
+      content.optionalConsents || [],
+    );
     return (
       <div
         style={willRenderCookieConsentDialog ? { overflow: 'hidden', maxHeight: '100vh' } : {}}
