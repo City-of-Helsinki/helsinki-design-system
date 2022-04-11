@@ -30,7 +30,7 @@ function ConsentGroupDataTable(props: { consents: ConsentGroup['consents'] }): R
 
   return (
     <div className={classNames(styles['data-table-container'], styles['visually-hidden-in-mobile'])}>
-      <Table cols={cols} rows={rows} indexKey="id" renderIndexCol={false} theme={theme} />
+      <Table cols={cols} rows={rows} indexKey="id" renderIndexCol={false} theme={theme} dense />
     </div>
   );
 }

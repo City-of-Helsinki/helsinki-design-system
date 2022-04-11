@@ -187,21 +187,12 @@
   margin: var(--spacing-l) 0 var(--spacing-xs);
 }
 
-.data-table-container table tbody tr > *:nth-child(1) {
+.data-table-container table tbody tr > * {
   width: 15%;
   word-break: break-word;
 }
-.data-table-container table tbody tr > *:nth-child(2) {
-  width: 15%;
-}
-.data-table-container table tbody tr > *:nth-child(3) {
-  width: 15%;
-}
 .data-table-container table tbody tr > *:nth-child(4) {
   width: 40%;
-}
-.data-table-container table tbody tr > *:nth-child(5) {
-  width: 15%;
 }
 
 .data-mobile-container {
@@ -225,6 +216,14 @@
   }
 }
 
+@media (max-width: 1000px) {
+  .data-table-container table tbody tr > * {
+    width: 20%;
+  }
+  .data-table-container table tbody tr > *:nth-child(4) {
+    width: 20%;
+  }
+}
 @media (min-width: 768px) {
   .container {
     --common-spacing: var(--spacing-l);
