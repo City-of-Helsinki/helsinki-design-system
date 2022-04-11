@@ -3,9 +3,19 @@ const searchRepos = require('./helpers/search-repos');
 const cloneRepos = require('./helpers/clone-repos');
 const runScanner = require('./helpers/run-scanner');
 const reposDir = './tmp';
-const resultsDir = './lib';
+const resultsDir = './results';
+
+const removeTempReposDir = () => {
+  console.log(`Removing temporary repo-folder ${reposDir} ...`);
+  fs.rmSync(reposDir, { recursive: true, force: true });
+  console.log('Repo-folder removed.');
+};
 
 const runAnalytics = async () => {
+  if (fs.existsSync(reposDir)) {
+    removeTempReposDir()
+  }
+
   console.log('Searching repos...');
   const repos = await searchRepos();
   const validRepos = repos.filter(({ name }) => name !== 'helsinki-design-system');
@@ -24,9 +34,7 @@ const runAnalytics = async () => {
   console.log('Scanning completed.');
 
   if (fs.existsSync(reposDir)) {
-    console.log(`Starting to remove temporary repo-folder ${reposDir} ...`);
-    fs.rmSync(reposDir, { recursive: true, force: true });
-    console.log('Repo-folder removed.');
+    removeTempReposDir()
   }
 
   console.log(`Results are generated into ${resultsDir} folder.`);
