@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import { Table } from '../../table/Table';
 import { ConsentGroup, useCookieConsentContent } from '../CookieConsentContext';
 import styles from '../CookieConsent.module.scss';
+import classNames from '../../../utils/classNames';
 
 function ConsentGroupDataTable(props: { consents: ConsentGroup['consents'] }): React.ReactElement {
   const content = useCookieConsentContent();
@@ -28,7 +29,7 @@ function ConsentGroupDataTable(props: { consents: ConsentGroup['consents'] }): R
   };
 
   return (
-    <div className={styles['data-table-container']}>
+    <div className={classNames(styles['data-table-container'], styles['visually-hidden-in-mobile'])}>
       <Table cols={cols} rows={rows} indexKey="id" renderIndexCol={false} theme={theme} />
     </div>
   );
