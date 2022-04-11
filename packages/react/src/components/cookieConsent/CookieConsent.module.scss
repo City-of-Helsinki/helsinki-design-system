@@ -204,6 +204,27 @@
   width: 15%;
 }
 
+.data-mobile-container {
+  ul {
+    list-style: none;
+    padding: 0;
+    li {
+      background: var(--color-black-5);
+      margin: var(--spacing-m) 0 0;
+      padding: var(--spacing-s) var(--spacing-s) 0;
+      div {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: var(--spacing-m);
+        span[role='heading'] {
+          font-weight: bold;
+          padding-bottom: var(--spacing-2-xs);
+        }
+      }
+    }
+  }
+}
+
 @media (min-width: 768px) {
   .container {
     --common-spacing: var(--spacing-l);
@@ -229,5 +250,30 @@
   }
   .buttons > * {
     width: auto;
+  }
+}
+
+/* @extend does not work inside media queries */
+@mixin visuallyHidden {
+  clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+  border: 0;
+  clip: 'rect(0 0 0 0)';
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  position: absolute;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .visually-hidden-in-desktop {
+    @include visuallyHidden;
+  }
+}
+@media (max-width: 767px) {
+  .visually-hidden-in-mobile {
+    @include visuallyHidden;
   }
 }
