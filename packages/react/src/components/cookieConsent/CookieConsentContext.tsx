@@ -162,7 +162,7 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
     Object.keys(getOptional()).forEach((optionalConsent) => {
       update(optionalConsent, false);
     });
-    approveRequired();
+    consentController.approveRequired();
     save();
   };
   const setOptional = (approved: boolean) => {
