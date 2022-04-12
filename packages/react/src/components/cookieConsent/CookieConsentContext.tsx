@@ -70,7 +70,6 @@ export type CookieConsentContextType = {
   update: ConsentController['update'];
   approveRequired: ConsentController['approveRequired'];
   approveAll: ConsentController['approveAll'];
-  save: ConsentController['save'];
   willRenderCookieConsentDialog: boolean;
   hasUserHandledAllConsents: () => boolean;
   content: Content;
@@ -83,8 +82,6 @@ type CookieConsentContextProps = {
   cookieDomain?: string;
   children: React.ReactNode | React.ReactNode[] | null;
   content: Content;
-  onAllConsentsGiven?: (consents: ConsentObject) => void;
-  onConsentsParsed?: (consents: ConsentObject, hasUserHandledAllConsents: boolean) => void;
 };
 
 export const CookieConsentContext = createContext<CookieConsentContextType>({
@@ -93,7 +90,6 @@ export const CookieConsentContext = createContext<CookieConsentContextType>({
   update: () => undefined,
   approveRequired: () => undefined,
   approveAll: () => undefined,
-  save: () => ({}),
   hasUserHandledAllConsents: () => false,
   willRenderCookieConsentDialog: false,
   content: {} as Content,
@@ -112,10 +108,13 @@ export const getConsentsFromConsentGroup = (groups: ConsentGroup[]): ConsentList
 };
 
 export const Provider = ({ cookieDomain, children, content }: CookieConsentContextProps): React.ReactElement => {
-  const requiredConsents = getConsentsFromConsentGroup(content.requiredConsents.groupList);
-  const optionalConsents = getConsentsFromConsentGroup(content.optionalConsents.groupList);
+  const requiredConsents = content.requiredConsents
+    ? getConsentsFromConsentGroup(content.requiredConsents.groupList)
+    : undefined;
+  const optionalConsents = content.optionalConsents
+    ? getConsentsFromConsentGroup(content.optionalConsents.groupList)
+    : undefined;
   const consentController = useMemo(() => create({ requiredConsents, optionalConsents, cookieDomain }), []);
-
   const hasUserHandledAllConsents = () =>
     consentController.getRequiredWithoutConsent().length === 0 && consentController.getUnhandledConsents().length === 0;
 
@@ -216,7 +215,6 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
     approveAll,
     approveRequired,
     update,
-    save,
     willRenderCookieConsentDialog,
     hasUserHandledAllConsents,
     content,

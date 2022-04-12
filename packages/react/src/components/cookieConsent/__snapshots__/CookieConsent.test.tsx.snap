@@ -94,7 +94,18 @@ exports[`<CookieConsent /> spec renders the component 1`] = `
                   <span
                     class="label"
                   >
-                    På svenska (SV)
+                    Svenska (SV)
+                  </span>
+                </a>
+                <a
+                  class="item "
+                  href="#"
+                  lang="en"
+                >
+                  <span
+                    class="label"
+                  >
+                    English (EN)
                   </span>
                 </a>
               </div>
@@ -102,9 +113,9 @@ exports[`<CookieConsent /> spec renders the component 1`] = `
           </div>
           <p>
             Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan.
-      Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön
-      näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden
-      käytön.
+          Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön
+          näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden
+          käytön.
           </p>
         </div>
         <button
@@ -155,148 +166,1124 @@ exports[`<CookieConsent /> spec renders the component 1`] = `
             </span>
             <p>
               Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea tietoa jokaisesta
-      kategoriasta ja sallia tai kieltää evästeiden käytön.
+          kategoriasta ja sallia tai kieltää evästeiden käytön.
             </p>
-            <span
-              aria-level="3"
-              class="emulated-h3"
-              role="heading"
+            <div
+              class="consent-group-parent"
             >
-              Välttämättömät evästeet
-            </span>
-            <p>
-              Välttämättömien evästeiden käyttöä ei voi kieltää. Ne mahdollistavat sivuston toiminnan ja vaikuttavat sivuston käyttäjäystävällisyyteen.
-            </p>
-            <ul
-              class="list"
-            >
-              <li>
+              <div
+                class="title-with-checkbox"
+              >
                 <div
                   class="checkbox"
+                  style="--label-font-size: var(--fontsize-heading-m);"
                 >
                   <input
-                    aria-describedby="required-cookie-consent-requiredConsent1-description"
+                    aria-describedby="required-consents-description"
                     checked=""
                     class="input"
-                    data-testid="required-cookie-consent-requiredConsent1"
+                    data-testid="required-consents-checkbox"
                     disabled=""
-                    id="required-cookie-consent-requiredConsent1"
-                    name="required-cookie-consent-requiredConsent1"
+                    id="required-consents-checkbox"
+                    name="required-consents-checkbox"
                     type="checkbox"
                     value=""
                   />
                   <label
                     class="label"
-                    for="required-cookie-consent-requiredConsent1"
+                    for="required-consents-checkbox"
                   >
-                    requiredConsent1Title
+                    Title for required consents
                   </label>
                 </div>
-                <span
-                  aria-hidden="true"
-                  id="required-cookie-consent-requiredConsent1-description"
-                >
-                  - requiredConsent1Text
-                </span>
-              </li>
-              <li>
-                <div
-                  class="checkbox"
-                >
-                  <input
-                    aria-describedby="required-cookie-consent-requiredConsent2-description"
-                    checked=""
-                    class="input"
-                    data-testid="required-cookie-consent-requiredConsent2"
-                    disabled=""
-                    id="required-cookie-consent-requiredConsent2"
-                    name="required-cookie-consent-requiredConsent2"
-                    type="checkbox"
-                    value=""
-                  />
-                  <label
-                    class="label"
-                    for="required-cookie-consent-requiredConsent2"
+              </div>
+              <p
+                aria-hidden="true"
+              >
+                Text for required consents
+              </p>
+              <div
+                aria-hidden="true"
+                id="required-consents-description"
+                style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+              >
+                checkboxAriaLabel
+              </div>
+              <ul
+                class="list"
+              >
+                <li>
+                  <div
+                    class="consent-group consent-group-closed"
                   >
-                    requiredConsent2Title
-                  </label>
-                </div>
-                <span
-                  aria-hidden="true"
-                  id="required-cookie-consent-requiredConsent2-description"
-                >
-                  - requiredConsent2Text
-                </span>
-              </li>
-            </ul>
-            <span
-              aria-level="3"
-              class="emulated-h3"
-              role="heading"
+                    <div
+                      class="title-with-checkbox"
+                    >
+                      <div
+                        class="checkbox"
+                        style="--label-font-size: var(--fontsize-heading-s);"
+                      >
+                        <input
+                          aria-describedby="required-consents-group-0-description"
+                          checked=""
+                          class="input"
+                          data-testid="required-consents-group-0-checkbox"
+                          disabled=""
+                          id="required-consents-group-0-checkbox"
+                          name="required-consents-group-0-checkbox"
+                          type="checkbox"
+                          value=""
+                        />
+                        <label
+                          class="label"
+                          for="required-consents-group-0-checkbox"
+                        >
+                          Consent group title for requiredConsentGroup0
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      class="consent-group-content"
+                    >
+                      <p
+                        aria-hidden="true"
+                      >
+                        Consent group description for requiredConsentGroup0
+                      </p>
+                      <div
+                        aria-hidden="true"
+                        id="required-consents-group-0-description"
+                        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                      >
+                        checkboxAriaLabel for requiredConsentGroup0
+                      </div>
+                      <button
+                        aria-expanded="false"
+                        aria-label="expandAriaLabel for requiredConsentGroup0"
+                        class="accordion-button"
+                        data-testid="required-consents-group-0-details-toggler"
+                        type="button"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="icon s"
+                          role="img"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g
+                            fill="none"
+                            fill-rule="evenodd"
+                          >
+                            <path
+                              d="M0 0h24v24H0z"
+                            />
+                            <path
+                              d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
+                              fill="currentColor"
+                            />
+                          </g>
+                        </svg>
+                      </button>
+                      <div
+                        class="card custom-theme-2"
+                        role="region"
+                        style="display: none;"
+                      >
+                        <div
+                          class="data-table-container visually-hidden-in-mobile"
+                        >
+                          <div
+                            class="container"
+                            tabindex="0"
+                          >
+                            <table
+                              class="table dark dense custom-theme-3"
+                              data-testid="required-consents-group-0-table"
+                              id="required-consents-group-0-table"
+                            >
+                              <thead>
+                                <tr
+                                  class="headerRow"
+                                >
+                                  <th
+                                    scope="col"
+                                  >
+                                    Name
+                                  </th>
+                                  <th
+                                    scope="col"
+                                  >
+                                    Host name
+                                  </th>
+                                  <th
+                                    scope="col"
+                                  >
+                                    Path
+                                  </th>
+                                  <th
+                                    scope="col"
+                                  >
+                                    Description
+                                  </th>
+                                  <th
+                                    scope="col"
+                                  >
+                                    Expiration
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody
+                                class="content"
+                              >
+                                <tr>
+                                  <td
+                                    data-testid="name-0"
+                                  >
+                                    Name of requiredConsent1
+                                  </td>
+                                  <td
+                                    data-testid="hostName-0"
+                                  >
+                                    HostName of requiredConsent1
+                                  </td>
+                                  <td
+                                    data-testid="path-0"
+                                  >
+                                    Path of requiredConsent1
+                                  </td>
+                                  <td
+                                    data-testid="description-0"
+                                  >
+                                    Description of requiredConsent1
+                                  </td>
+                                  <td
+                                    data-testid="expiration-0"
+                                  >
+                                    Expiration of requiredConsent1
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td
+                                    data-testid="name-1"
+                                  >
+                                    Name of requiredConsent2
+                                  </td>
+                                  <td
+                                    data-testid="hostName-1"
+                                  >
+                                    HostName of requiredConsent2
+                                  </td>
+                                  <td
+                                    data-testid="path-1"
+                                  >
+                                    Path of requiredConsent2
+                                  </td>
+                                  <td
+                                    data-testid="description-1"
+                                  >
+                                    Description of requiredConsent2
+                                  </td>
+                                  <td
+                                    data-testid="expiration-1"
+                                  >
+                                    Expiration of requiredConsent2
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div
+                          aria-hidden="true"
+                          class="data-mobile-container visually-hidden-in-desktop"
+                        >
+                          <ul>
+                            <li>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Name
+                                </span>
+                                <span>
+                                  Name of requiredConsent1
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Host name
+                                </span>
+                                <span>
+                                  HostName of requiredConsent1
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Path
+                                </span>
+                                <span>
+                                  Path of requiredConsent1
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Description
+                                </span>
+                                <span>
+                                  Description of requiredConsent1
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Expiration
+                                </span>
+                                <span>
+                                  Expiration of requiredConsent1
+                                </span>
+                              </div>
+                            </li>
+                            <li>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Name
+                                </span>
+                                <span>
+                                  Name of requiredConsent2
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Host name
+                                </span>
+                                <span>
+                                  HostName of requiredConsent2
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Path
+                                </span>
+                                <span>
+                                  Path of requiredConsent2
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Description
+                                </span>
+                                <span>
+                                  Description of requiredConsent2
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Expiration
+                                </span>
+                                <span>
+                                  Expiration of requiredConsent2
+                                </span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div
+                    class="consent-group consent-group-closed"
+                  >
+                    <div
+                      class="title-with-checkbox"
+                    >
+                      <div
+                        class="checkbox"
+                        style="--label-font-size: var(--fontsize-heading-s);"
+                      >
+                        <input
+                          aria-describedby="required-consents-group-1-description"
+                          checked=""
+                          class="input"
+                          data-testid="required-consents-group-1-checkbox"
+                          disabled=""
+                          id="required-consents-group-1-checkbox"
+                          name="required-consents-group-1-checkbox"
+                          type="checkbox"
+                          value=""
+                        />
+                        <label
+                          class="label"
+                          for="required-consents-group-1-checkbox"
+                        >
+                          Consent group title for requiredConsentGroup1
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      class="consent-group-content"
+                    >
+                      <p
+                        aria-hidden="true"
+                      >
+                        Consent group description for requiredConsentGroup1
+                      </p>
+                      <div
+                        aria-hidden="true"
+                        id="required-consents-group-1-description"
+                        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                      >
+                        checkboxAriaLabel for requiredConsentGroup1
+                      </div>
+                      <button
+                        aria-expanded="false"
+                        aria-label="expandAriaLabel for requiredConsentGroup1"
+                        class="accordion-button"
+                        data-testid="required-consents-group-1-details-toggler"
+                        type="button"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="icon s"
+                          role="img"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g
+                            fill="none"
+                            fill-rule="evenodd"
+                          >
+                            <path
+                              d="M0 0h24v24H0z"
+                            />
+                            <path
+                              d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
+                              fill="currentColor"
+                            />
+                          </g>
+                        </svg>
+                      </button>
+                      <div
+                        class="card custom-theme-4"
+                        role="region"
+                        style="display: none;"
+                      >
+                        <div
+                          class="data-table-container visually-hidden-in-mobile"
+                        >
+                          <div
+                            class="container"
+                            tabindex="0"
+                          >
+                            <table
+                              class="table dark dense custom-theme-5"
+                              data-testid="required-consents-group-1-table"
+                              id="required-consents-group-1-table"
+                            >
+                              <thead>
+                                <tr
+                                  class="headerRow"
+                                >
+                                  <th
+                                    scope="col"
+                                  >
+                                    Name
+                                  </th>
+                                  <th
+                                    scope="col"
+                                  >
+                                    Host name
+                                  </th>
+                                  <th
+                                    scope="col"
+                                  >
+                                    Path
+                                  </th>
+                                  <th
+                                    scope="col"
+                                  >
+                                    Description
+                                  </th>
+                                  <th
+                                    scope="col"
+                                  >
+                                    Expiration
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody
+                                class="content"
+                              >
+                                <tr>
+                                  <td
+                                    data-testid="name-0"
+                                  >
+                                    Name of requiredConsent3
+                                  </td>
+                                  <td
+                                    data-testid="hostName-0"
+                                  >
+                                    HostName of requiredConsent3
+                                  </td>
+                                  <td
+                                    data-testid="path-0"
+                                  >
+                                    Path of requiredConsent3
+                                  </td>
+                                  <td
+                                    data-testid="description-0"
+                                  >
+                                    Description of requiredConsent3
+                                  </td>
+                                  <td
+                                    data-testid="expiration-0"
+                                  >
+                                    Expiration of requiredConsent3
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div
+                          aria-hidden="true"
+                          class="data-mobile-container visually-hidden-in-desktop"
+                        >
+                          <ul>
+                            <li>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Name
+                                </span>
+                                <span>
+                                  Name of requiredConsent3
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Host name
+                                </span>
+                                <span>
+                                  HostName of requiredConsent3
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Path
+                                </span>
+                                <span>
+                                  Path of requiredConsent3
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Description
+                                </span>
+                                <span>
+                                  Description of requiredConsent3
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Expiration
+                                </span>
+                                <span>
+                                  Expiration of requiredConsent3
+                                </span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div
+              class="consent-group-parent"
             >
-              Muut evästeet
-            </span>
-            <p>
-              Voit hyväksyä tai jättää hyväksymättä muut evästeet.
-            </p>
-            <ul
-              class="list"
-            >
-              <li>
+              <div
+                class="title-with-checkbox"
+              >
                 <div
                   class="checkbox"
+                  style="--label-font-size: var(--fontsize-heading-m);"
                 >
                   <input
-                    aria-describedby="optional-cookie-consent-optionalConsent1-description"
+                    aria-describedby="optional-consents-description"
                     class="input"
-                    data-testid="optional-cookie-consent-optionalConsent1"
-                    id="optional-cookie-consent-optionalConsent1"
-                    name="optional-cookie-consent-optionalConsent1"
+                    data-testid="optional-consents-checkbox"
+                    id="optional-consents-checkbox"
+                    name="optional-consents-checkbox"
                     type="checkbox"
                     value=""
                   />
                   <label
                     class="label"
-                    for="optional-cookie-consent-optionalConsent1"
+                    for="optional-consents-checkbox"
                   >
-                    optionalConsent1Title
+                    Title for optional consents
                   </label>
                 </div>
-                <span
-                  aria-hidden="true"
-                  id="optional-cookie-consent-optionalConsent1-description"
-                >
-                  - optionalConsent1Text
-                </span>
-              </li>
-              <li>
-                <div
-                  class="checkbox"
-                >
-                  <input
-                    aria-describedby="optional-cookie-consent-optionalConsent2-description"
-                    class="input"
-                    data-testid="optional-cookie-consent-optionalConsent2"
-                    id="optional-cookie-consent-optionalConsent2"
-                    name="optional-cookie-consent-optionalConsent2"
-                    type="checkbox"
-                    value=""
-                  />
-                  <label
-                    class="label"
-                    for="optional-cookie-consent-optionalConsent2"
+              </div>
+              <p
+                aria-hidden="true"
+              >
+                Text for optional consents
+              </p>
+              <div
+                aria-hidden="true"
+                id="optional-consents-description"
+                style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+              >
+                checkboxAriaLabel
+              </div>
+              <ul
+                class="list"
+              >
+                <li>
+                  <div
+                    class="consent-group consent-group-closed"
                   >
-                    optionalConsent2Title
-                  </label>
-                </div>
-                <span
-                  aria-hidden="true"
-                  id="optional-cookie-consent-optionalConsent2-description"
-                >
-                  - optionalConsent2Text
-                </span>
-              </li>
-            </ul>
+                    <div
+                      class="title-with-checkbox"
+                    >
+                      <div
+                        class="checkbox"
+                        style="--label-font-size: var(--fontsize-heading-s);"
+                      >
+                        <input
+                          aria-describedby="optional-consents-group-0-description"
+                          class="input"
+                          data-testid="optional-consents-group-0-checkbox"
+                          id="optional-consents-group-0-checkbox"
+                          name="optional-consents-group-0-checkbox"
+                          type="checkbox"
+                          value=""
+                        />
+                        <label
+                          class="label"
+                          for="optional-consents-group-0-checkbox"
+                        >
+                          Consent group title for optionalConsentGroups0
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      class="consent-group-content"
+                    >
+                      <p
+                        aria-hidden="true"
+                      >
+                        Consent group description for optionalConsentGroups0
+                      </p>
+                      <div
+                        aria-hidden="true"
+                        id="optional-consents-group-0-description"
+                        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                      >
+                        checkboxAriaLabel for optionalConsentGroups0
+                      </div>
+                      <button
+                        aria-expanded="false"
+                        aria-label="expandAriaLabel for optionalConsentGroups0"
+                        class="accordion-button"
+                        data-testid="optional-consents-group-0-details-toggler"
+                        type="button"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="icon s"
+                          role="img"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g
+                            fill="none"
+                            fill-rule="evenodd"
+                          >
+                            <path
+                              d="M0 0h24v24H0z"
+                            />
+                            <path
+                              d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
+                              fill="currentColor"
+                            />
+                          </g>
+                        </svg>
+                      </button>
+                      <div
+                        class="card custom-theme-6"
+                        role="region"
+                        style="display: none;"
+                      >
+                        <div
+                          class="data-table-container visually-hidden-in-mobile"
+                        >
+                          <div
+                            class="container"
+                            tabindex="0"
+                          >
+                            <table
+                              class="table dark dense custom-theme-7"
+                              data-testid="optional-consents-group-0-table"
+                              id="optional-consents-group-0-table"
+                            >
+                              <thead>
+                                <tr
+                                  class="headerRow"
+                                >
+                                  <th
+                                    scope="col"
+                                  >
+                                    Name
+                                  </th>
+                                  <th
+                                    scope="col"
+                                  >
+                                    Host name
+                                  </th>
+                                  <th
+                                    scope="col"
+                                  >
+                                    Path
+                                  </th>
+                                  <th
+                                    scope="col"
+                                  >
+                                    Description
+                                  </th>
+                                  <th
+                                    scope="col"
+                                  >
+                                    Expiration
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody
+                                class="content"
+                              >
+                                <tr>
+                                  <td
+                                    data-testid="name-0"
+                                  >
+                                    Name of optionalConsent1
+                                  </td>
+                                  <td
+                                    data-testid="hostName-0"
+                                  >
+                                    HostName of optionalConsent1
+                                  </td>
+                                  <td
+                                    data-testid="path-0"
+                                  >
+                                    Path of optionalConsent1
+                                  </td>
+                                  <td
+                                    data-testid="description-0"
+                                  >
+                                    Description of optionalConsent1
+                                  </td>
+                                  <td
+                                    data-testid="expiration-0"
+                                  >
+                                    Expiration of optionalConsent1
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div
+                          aria-hidden="true"
+                          class="data-mobile-container visually-hidden-in-desktop"
+                        >
+                          <ul>
+                            <li>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Name
+                                </span>
+                                <span>
+                                  Name of optionalConsent1
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Host name
+                                </span>
+                                <span>
+                                  HostName of optionalConsent1
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Path
+                                </span>
+                                <span>
+                                  Path of optionalConsent1
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Description
+                                </span>
+                                <span>
+                                  Description of optionalConsent1
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Expiration
+                                </span>
+                                <span>
+                                  Expiration of optionalConsent1
+                                </span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div
+                    class="consent-group consent-group-closed"
+                  >
+                    <div
+                      class="title-with-checkbox"
+                    >
+                      <div
+                        class="checkbox"
+                        style="--label-font-size: var(--fontsize-heading-s);"
+                      >
+                        <input
+                          aria-describedby="optional-consents-group-1-description"
+                          class="input"
+                          data-testid="optional-consents-group-1-checkbox"
+                          id="optional-consents-group-1-checkbox"
+                          name="optional-consents-group-1-checkbox"
+                          type="checkbox"
+                          value=""
+                        />
+                        <label
+                          class="label"
+                          for="optional-consents-group-1-checkbox"
+                        >
+                          Consent group title for optionalConsentGroups1
+                        </label>
+                      </div>
+                    </div>
+                    <div
+                      class="consent-group-content"
+                    >
+                      <p
+                        aria-hidden="true"
+                      >
+                        Consent group description for optionalConsentGroups1
+                      </p>
+                      <div
+                        aria-hidden="true"
+                        id="optional-consents-group-1-description"
+                        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                      >
+                        checkboxAriaLabel for optionalConsentGroups1
+                      </div>
+                      <button
+                        aria-expanded="false"
+                        aria-label="expandAriaLabel for optionalConsentGroups1"
+                        class="accordion-button"
+                        data-testid="optional-consents-group-1-details-toggler"
+                        type="button"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="icon s"
+                          role="img"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g
+                            fill="none"
+                            fill-rule="evenodd"
+                          >
+                            <path
+                              d="M0 0h24v24H0z"
+                            />
+                            <path
+                              d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
+                              fill="currentColor"
+                            />
+                          </g>
+                        </svg>
+                      </button>
+                      <div
+                        class="card custom-theme-8"
+                        role="region"
+                        style="display: none;"
+                      >
+                        <div
+                          class="data-table-container visually-hidden-in-mobile"
+                        >
+                          <div
+                            class="container"
+                            tabindex="0"
+                          >
+                            <table
+                              class="table dark dense custom-theme-9"
+                              data-testid="optional-consents-group-1-table"
+                              id="optional-consents-group-1-table"
+                            >
+                              <thead>
+                                <tr
+                                  class="headerRow"
+                                >
+                                  <th
+                                    scope="col"
+                                  >
+                                    Name
+                                  </th>
+                                  <th
+                                    scope="col"
+                                  >
+                                    Host name
+                                  </th>
+                                  <th
+                                    scope="col"
+                                  >
+                                    Path
+                                  </th>
+                                  <th
+                                    scope="col"
+                                  >
+                                    Description
+                                  </th>
+                                  <th
+                                    scope="col"
+                                  >
+                                    Expiration
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody
+                                class="content"
+                              >
+                                <tr>
+                                  <td
+                                    data-testid="name-0"
+                                  >
+                                    Name of optionalConsent2
+                                  </td>
+                                  <td
+                                    data-testid="hostName-0"
+                                  >
+                                    HostName of optionalConsent2
+                                  </td>
+                                  <td
+                                    data-testid="path-0"
+                                  >
+                                    Path of optionalConsent2
+                                  </td>
+                                  <td
+                                    data-testid="description-0"
+                                  >
+                                    Description of optionalConsent2
+                                  </td>
+                                  <td
+                                    data-testid="expiration-0"
+                                  >
+                                    Expiration of optionalConsent2
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td
+                                    data-testid="name-1"
+                                  >
+                                    Name of optionalConsent3
+                                  </td>
+                                  <td
+                                    data-testid="hostName-1"
+                                  >
+                                    HostName of optionalConsent3
+                                  </td>
+                                  <td
+                                    data-testid="path-1"
+                                  >
+                                    Path of optionalConsent3
+                                  </td>
+                                  <td
+                                    data-testid="description-1"
+                                  >
+                                    Description of optionalConsent3
+                                  </td>
+                                  <td
+                                    data-testid="expiration-1"
+                                  >
+                                    Expiration of optionalConsent3
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div
+                          aria-hidden="true"
+                          class="data-mobile-container visually-hidden-in-desktop"
+                        >
+                          <ul>
+                            <li>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Name
+                                </span>
+                                <span>
+                                  Name of optionalConsent2
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Host name
+                                </span>
+                                <span>
+                                  HostName of optionalConsent2
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Path
+                                </span>
+                                <span>
+                                  Path of optionalConsent2
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Description
+                                </span>
+                                <span>
+                                  Description of optionalConsent2
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Expiration
+                                </span>
+                                <span>
+                                  Expiration of optionalConsent2
+                                </span>
+                              </div>
+                            </li>
+                            <li>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Name
+                                </span>
+                                <span>
+                                  Name of optionalConsent3
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Host name
+                                </span>
+                                <span>
+                                  HostName of optionalConsent3
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Path
+                                </span>
+                                <span>
+                                  Path of optionalConsent3
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Description
+                                </span>
+                                <span>
+                                  Description of optionalConsent3
+                                </span>
+                              </div>
+                              <div>
+                                <span
+                                  role="heading"
+                                >
+                                  Expiration
+                                </span>
+                                <span>
+                                  Expiration of optionalConsent3
+                                </span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div

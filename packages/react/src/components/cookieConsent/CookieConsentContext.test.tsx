@@ -44,13 +44,10 @@ describe('CookieConsentContext ', () => {
   };
 
   const ContextConsumer = ({ consumerId }: { consumerId: string }) => {
-    const { willRenderCookieConsentDialog, hasUserHandledAllConsents, approveAll, save } = useContext(
-      CookieConsentContext,
-    );
+    const { willRenderCookieConsentDialog, hasUserHandledAllConsents, approveAll } = useContext(CookieConsentContext);
     const allUserConsentsAreHandled = hasUserHandledAllConsents();
     const onButtonClick = () => {
       approveAll();
-      save();
     };
     return (
       <div>
@@ -106,22 +103,27 @@ describe('CookieConsentContext ', () => {
     result.getByTestId(testId).click();
   };
 
-  const renderCookieConsent = ({ cookieDomain, cookie = {} }: ConsentData): RenderResult => {
+  const renderCookieConsent = ({
+    requiredConsents,
+    optionalConsents,
+    cookieDomain,
+    cookie = {},
+  }: ConsentData): RenderResult => {
     // inject unknown consents to verify those are
     // stored and handled, but not required or optional
     const cookieWithInjectedUnknowns = {
       ...cookie,
       ...unknownConsents,
     };
+    const content = getContent(
+      requiredConsents ? [requiredConsents] : undefined,
+      optionalConsents ? [optionalConsents] : undefined,
+    );
+    content.onAllConsentsGiven = onAllConsentsGiven;
+    content.onConsentsParsed = onConsentsParsed;
     mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
     return render(
-      <CookieContextProvider
-        cookieDomain={cookieDomain}
-        onAllConsentsGiven={onAllConsentsGiven}
-        onConsentsParsed={onConsentsParsed}
-        content={getContent()}
-        onLanguageChange={() => undefined}
-      >
+      <CookieContextProvider cookieDomain={cookieDomain} content={content}>
         <ContextConsumer consumerId="consumer-1" />
         <ContextConsumer consumerId="consumer-2" />
       </CookieContextProvider>,
@@ -129,7 +131,7 @@ describe('CookieConsentContext ', () => {
   };
 
   describe('willRenderCookieConsentDialog ', () => {
-    it('is false all consents are true/false', () => {
+    it('is false if all required consents are not true or any optional consent is undefined.', () => {
       verifyConsumersShowConsentsNotHandled(renderCookieConsent(allNotApprovedConsentData));
     });
 
