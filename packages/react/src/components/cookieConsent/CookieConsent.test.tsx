@@ -12,15 +12,15 @@ import mockDocumentCookie from './__mocks__/mockDocumentCookie';
 import { extractSetCookieArguments, getContent } from './test.util';
 
 type ConsentData = {
-  requiredConsents?: ConsentList;
-  optionalConsents?: ConsentList;
+  requiredConsents?: ConsentList[];
+  optionalConsents?: ConsentList[];
   cookie?: ConsentObject;
   contentModifier?: (content: Content) => Content;
 };
 
 const defaultConsentData = {
-  requiredConsents: ['requiredConsent1', 'requiredConsent2'],
-  optionalConsents: ['optionalConsent1', 'optionalConsent2'],
+  requiredConsents: [['requiredConsent1', 'requiredConsent2'], ['requiredConsent3']],
+  optionalConsents: [['optionalConsent1'], ['optionalConsent2', 'optionalConsent3']],
   cookie: {},
 };
 
@@ -41,11 +41,11 @@ const renderCookieConsent = (
     ...cookie,
     ...unknownConsents,
   };
-  const content = getContent([requiredConsents], [optionalConsents], contentModifier);
+  const content = getContent(requiredConsents, optionalConsents, contentModifier);
   jest.useFakeTimers();
   mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
   const result = render(
-    <CookieContextProvider onLanguageChange={() => undefined} content={content}>
+    <CookieContextProvider content={content}>
       <CookieConsent />
     </CookieContextProvider>,
   );
@@ -101,8 +101,12 @@ describe('<CookieConsent /> ', () => {
     settingsToggler: 'cookie-consent-settings-toggler',
     detailsComponent: 'cookie-consent-details',
     screenReaderNotification: 'cookie-consent-screen-reader-notification',
-    getOptionalConsentId: (key: string) => `optional-cookie-consent-${key}`,
-    getRequiredConsentId: (key: string) => `required-cookie-consent-${key}`,
+    getRequiredConsentGroupCheckboxId: (index: number) => `required-consents-group-${index}-checkbox`,
+    getOptionalConsentGroupCheckboxId: (index: number) => `optional-consents-group-${index}-checkbox`,
+    getRequiredConsentGroupDetailsTogglerId: (index: number) => `required-consents-group-${index}-details-toggler`,
+    getOptionalConsentGroupDetailsTogglerId: (index: number) => `optional-consents-group-${index}-details-toggler`,
+    getRequiredConsentsCheckboxId: () => `required-consents-checkbox`,
+    getOptionalConsentsCheckboxId: () => `optional-consents-checkbox`,
   };
 
   const verifyElementExistsByTestId = (result: RenderResult, testId: string) => {
@@ -144,8 +148,10 @@ describe('<CookieConsent /> ', () => {
         cookie: {
           requiredConsent1: true,
           requiredConsent2: false,
+          requiredConsent3: true,
           optionalConsent1: true,
           optionalConsent2: true,
+          optionalConsent3: true,
         },
       });
       verifyElementExistsByTestId(result, dataTestIds.container);
@@ -157,8 +163,10 @@ describe('<CookieConsent /> ', () => {
         cookie: {
           requiredConsent1: true,
           requiredConsent2: true,
+          requiredConsent3: true,
           optionalConsent1: false,
           optionalConsent2: true,
+          optionalConsent3: false,
         },
       });
       verifyElementDoesNotExistsByTestId(result, dataTestIds.container);
@@ -196,8 +204,10 @@ describe('<CookieConsent /> ', () => {
       const consentResult = {
         requiredConsent1: true,
         requiredConsent2: true,
+        requiredConsent3: true,
         optionalConsent1: true,
         optionalConsent2: true,
+        optionalConsent3: true,
         ...unknownConsents,
       };
       clickElement(result, dataTestIds.approveButton);
@@ -209,13 +219,15 @@ describe('<CookieConsent /> ', () => {
       const consentResult = {
         requiredConsent1: true,
         requiredConsent2: true,
+        requiredConsent3: true,
         optionalConsent1: false,
         optionalConsent2: false,
+        optionalConsent3: false,
         ...unknownConsents,
       };
       await openAccordion(result);
-      clickElement(result, dataTestIds.getOptionalConsentId('optionalConsent2'));
-      clickElement(result, dataTestIds.getOptionalConsentId('optionalConsent1'));
+      clickElement(result, dataTestIds.getOptionalConsentGroupCheckboxId(0));
+      clickElement(result, dataTestIds.getOptionalConsentGroupCheckboxId(1));
       clickElement(result, dataTestIds.approveRequiredButton);
       checkCookiesAreSetAndConsentModalHidden(result, consentResult);
     });
@@ -225,12 +237,14 @@ describe('<CookieConsent /> ', () => {
       const consentResult = {
         requiredConsent1: true,
         requiredConsent2: true,
+        requiredConsent3: true,
         optionalConsent1: true,
         optionalConsent2: false,
+        optionalConsent3: false,
         ...unknownConsents,
       };
       await openAccordion(result);
-      clickElement(result, dataTestIds.getOptionalConsentId('optionalConsent1'));
+      clickElement(result, dataTestIds.getOptionalConsentGroupCheckboxId(0));
       clickElement(result, dataTestIds.approveButton);
       checkCookiesAreSetAndConsentModalHidden(result, consentResult);
     });
@@ -243,13 +257,17 @@ describe('<CookieConsent /> ', () => {
       return result;
     };
 
-    it('required and optional consents are rendered', async () => {
+    it('required and optional consent groups are rendered', async () => {
       const result = await initDetailsView(defaultConsentData);
-      defaultConsentData.requiredConsents.forEach((consent) => {
-        verifyElementExistsByTestId(result, dataTestIds.getRequiredConsentId(consent));
+      verifyElementExistsByTestId(result, dataTestIds.getRequiredConsentsCheckboxId());
+      verifyElementExistsByTestId(result, dataTestIds.getOptionalConsentsCheckboxId());
+      defaultConsentData.requiredConsents.forEach((consent, index) => {
+        verifyElementExistsByTestId(result, dataTestIds.getRequiredConsentGroupCheckboxId(index));
+        verifyElementExistsByTestId(result, dataTestIds.getRequiredConsentGroupDetailsTogglerId(index));
       });
-      defaultConsentData.optionalConsents.forEach((consent) => {
-        verifyElementExistsByTestId(result, dataTestIds.getOptionalConsentId(consent));
+      defaultConsentData.optionalConsents.forEach((consent, index) => {
+        verifyElementExistsByTestId(result, dataTestIds.getOptionalConsentGroupCheckboxId(index));
+        verifyElementExistsByTestId(result, dataTestIds.getOptionalConsentGroupDetailsTogglerId(index));
       });
     });
 
@@ -265,19 +283,21 @@ describe('<CookieConsent /> ', () => {
       expect(approveButtonTextWhileOpen).not.toBe(approveButtonTextWhileClosed);
     });
 
-    it(`clicking an optional consent sets the consent true/false. 
+    it(`clicking an optional consent group sets the all consents in that group true/false. 
         Cookie consent is not hidden until an approve -button is clicked`, async () => {
       const result = await initDetailsView(defaultConsentData);
-      defaultConsentData.optionalConsents.forEach((consent) => {
-        clickElement(result, dataTestIds.getOptionalConsentId(consent));
+      defaultConsentData.optionalConsents.forEach((consent, index) => {
+        clickElement(result, dataTestIds.getOptionalConsentGroupCheckboxId(index));
       });
-      clickElement(result, dataTestIds.getOptionalConsentId('optionalConsent2'));
+      clickElement(result, dataTestIds.getOptionalConsentGroupCheckboxId(0));
       clickElement(result, dataTestIds.approveButton);
       expect(JSON.parse(getSetCookieArguments().data)).toEqual({
         requiredConsent1: true,
         requiredConsent2: true,
-        optionalConsent1: true,
-        optionalConsent2: false,
+        requiredConsent3: true,
+        optionalConsent1: false,
+        optionalConsent2: true,
+        optionalConsent3: true,
         ...unknownConsents,
       });
       verifyElementDoesNotExistsByTestId(result, dataTestIds.container);

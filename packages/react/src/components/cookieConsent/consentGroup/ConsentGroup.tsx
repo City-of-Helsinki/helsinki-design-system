@@ -46,14 +46,15 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
     ? styles['consent-group']
     : classNames(styles['consent-group'], styles['consent-group-closed']);
 
-  const getGroupIdenfier = (suffix: string) => `group-item-${id}-${suffix}`;
-
+  const getGroupIdenfier = (suffix: string) => `${id}-${suffix}`;
+  const checkboxId = getGroupIdenfier('checkbox');
   return (
     <div className={currentStyles}>
       <div className={styles['title-with-checkbox']}>
         <Checkbox
-          id={getGroupIdenfier('checkbox')}
-          name={getGroupIdenfier('checkbox')}
+          id={checkboxId}
+          name={checkboxId}
+          data-testid={checkboxId}
           label={title}
           aria-describedby={getGroupIdenfier('description')}
           style={checkboxStyle}
@@ -68,7 +69,7 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
         <button
           type="button"
           className={styles['accordion-button']}
-          data-testid={getGroupIdenfier('toggler')}
+          data-testid={getGroupIdenfier('details-toggler')}
           aria-label={expandAriaLabel}
           {...buttonProps}
         >
@@ -81,7 +82,7 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
             '--padding-vertical': '0',
           }}
         >
-          <ConsentGroupDataTable consents={groupConsents} />
+          <ConsentGroupDataTable consents={groupConsents} id={getGroupIdenfier('table')} />
           <ConsentGroupDataMobile consents={groupConsents} />
         </Card>
       </div>

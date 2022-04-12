@@ -33,7 +33,7 @@ const createConsentGroup = (id: string, consents: ConsentList): ConsentGroup => 
     title: `Consent group title for ${id}`,
     text: `Consent group description for ${id}`,
     expandAriaLabel: `expandAriaLabel for ${id}`,
-    checkboxAriaLabel: `checkboxAriaLabel for ${id}`,
+    checkboxAriaDescription: `checkboxAriaLabel for ${id}`,
     consents: consents.map((consent) => {
       return {
         id: consent,
@@ -87,6 +87,7 @@ export const getContent = (
     language: {
       languageOptions: [
         { code: 'fi', label: 'Suomeksi (FI)' },
+        { code: 'sv', label: 'Svenska (SV)' },
         { code: 'en', label: 'English (EN)' },
       ],
       current: 'fi',
@@ -99,7 +100,7 @@ export const getContent = (
       groupId: 'required',
       title: 'Title for required consents',
       text: 'Text for required consents',
-      checkboxAriaLabel: 'checkboxAriaLabel',
+      checkboxAriaDescription: 'checkboxAriaLabel',
       groupList: requiredConsentGroups.map((consents, index) =>
         createConsentGroup(`requiredConsentGroup${index}`, consents),
       ),
@@ -110,7 +111,7 @@ export const getContent = (
       groupId: 'optional',
       title: 'Title for optional consents',
       text: 'Text for optional consents',
-      checkboxAriaLabel: 'checkboxAriaLabel',
+      checkboxAriaDescription: 'checkboxAriaLabel',
       groupList: optionalConsentsGroups.map((consents, index) =>
         createConsentGroup(`optionalConsentGroups${index}`, consents),
       ),
