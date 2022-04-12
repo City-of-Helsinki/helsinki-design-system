@@ -28,10 +28,10 @@ function ConsentGroupDataMobile(props: { consents: ConsentGroup['consents'] }): 
       <ul>
         {data.map((item) => {
           return (
-            <li>
+            <li key={item.name}>
               {rowOrder.map((key) => {
                 return (
-                  <div>
+                  <div key={key}>
                     <span role="heading">{content.texts.tableHeadings[key]}</span>
                     <span>{item[key]}</span>
                   </div>

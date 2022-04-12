@@ -34,14 +34,15 @@ function ConsentGroups(props: {
     '--label-font-size': 'var(--fontsize-heading-m)',
   } as React.CSSProperties;
 
-  const getConsentGroupIdenfier = (suffix: string) => `consent-group-${groupId}-${suffix}`;
-
+  const getConsentGroupIdenfier = (suffix: string) => `${groupId}-consents-${suffix}`;
+  const checkboxId = getConsentGroupIdenfier('checkbox');
   return (
     <div className={styles['consent-group-parent']}>
       <div className={styles['title-with-checkbox']}>
         <Checkbox
-          id={getConsentGroupIdenfier('checkbox')}
-          name={getConsentGroupIdenfier('checkbox')}
+          id={checkboxId}
+          data-testid={checkboxId}
+          name={checkboxId}
           label={title}
           aria-describedby={getConsentGroupIdenfier('description')}
           style={checkboxStyle}
@@ -55,7 +56,7 @@ function ConsentGroups(props: {
       <ul className={styles.list}>
         {groupList.map((group, index) => (
           <li key={group.title}>
-            <ConsentGroup group={group} isRequired={isRequired} id={`${groupId}-${index}`} />
+            <ConsentGroup group={group} isRequired={isRequired} id={getConsentGroupIdenfier(`group-${index}`)} />
           </li>
         ))}
       </ul>

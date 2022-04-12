@@ -5,9 +5,9 @@ import { ConsentGroup, useCookieConsentContent } from '../CookieConsentContext';
 import styles from '../CookieConsent.module.scss';
 import classNames from '../../../utils/classNames';
 
-function ConsentGroupDataTable(props: { consents: ConsentGroup['consents'] }): React.ReactElement {
+function ConsentGroupDataTable(props: { consents: ConsentGroup['consents']; id: string }): React.ReactElement {
   const content = useCookieConsentContent();
-  const { consents } = props;
+  const { consents, id } = props;
   const cols = useMemo(() => {
     return Object.entries(content.texts.tableHeadings).map((entry) => {
       const [key, value] = entry;
@@ -30,7 +30,16 @@ function ConsentGroupDataTable(props: { consents: ConsentGroup['consents'] }): R
 
   return (
     <div className={classNames(styles['data-table-container'], styles['visually-hidden-in-mobile'])}>
-      <Table cols={cols} rows={rows} indexKey="id" renderIndexCol={false} theme={theme} dense />
+      <Table
+        id={id}
+        data-testid={id}
+        cols={cols}
+        rows={rows}
+        indexKey="id"
+        renderIndexCol={false}
+        theme={theme}
+        dense
+      />
     </div>
   );
 }
