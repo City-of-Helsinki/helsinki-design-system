@@ -166,7 +166,7 @@
   button {
     position: absolute;
     right: 0;
-    top: calc(var(--spacing-xl) - 0.5 * var(--spacing-s));
+    top: calc(var(--spacing-xl) - 1 * var(--spacing-s));
     padding: var(--spacing-s);
   }
 }
