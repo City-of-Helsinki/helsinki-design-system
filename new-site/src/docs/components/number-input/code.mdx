@@ -1,0 +1,149 @@
+---
+slug: '/components/number-input/code'
+title: 'NumberInput - Code'
+---
+
+import { NumberInput } from 'hds-react';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples 
+
+#### Default
+<Playground>
+
+
+```jsx
+<>
+<NumberInput
+  helperText="Assistive text"
+  label="Total compensation"
+  unit="€"
+  defaultValue={1000}
+  style={{ maxWidth: '320px' }}
+/>
+
+<NumberInput
+  disabled
+  helperText="Assistive text"
+  label="Total compensation"
+  unit="€"
+  defaultValue={1000}
+  style={{ maxWidth: '320px', marginTop: 'var(--spacing-s)' }}
+/>
+</>
+```
+
+```html
+<div style="max-width:320px;">
+  <div class="hds-text-input">
+    <label for="input" class="hds-text-input__label">
+      Total compensation (€)
+    </label>
+    <div class="hds-text-input__input-wrapper">
+      <input id="input" value="1000" class="hds-text-input__input" type="number" placeholder="Placeholder" />
+    </div>
+    <span class="hds-text-input__helper-text">Assistive text</span>
+  </div>
+
+  <div class="hds-text-input" style="margin-top:var(--spacing-s);">
+    <label for="input-disabled" class="hds-text-input__label">
+      Total compensation (€)
+    </label>
+    <div class="hds-text-input__input-wrapper">
+      <input id="input-disabled" value="1000" class="hds-text-input__input" type="number" placeholder="Placeholder" disabled />
+    </div>
+    <span class="hds-text-input__helper-text">Assistive text</span>
+  </div>
+</div>
+```
+
+</Playground>
+
+#### With steppers
+<Playground>
+
+
+```jsx
+<NumberInput
+  helperText="Assistive text"
+  label="Number of attendees"
+  minusStepButtonAriaLabel="Decrease by one"
+  plusStepButtonAriaLabel="Increase by one"
+  step={1}
+  defaultValue={5}
+  style={{ maxWidth: '320px' }}
+/>
+```
+
+```html
+<div class="hds-text-input" style="max-width:320px;">
+  <label for="input" class="hds-text-input__label">
+    Number of attendees
+  </label>
+  <div class="hds-text-input__input-wrapper">
+    <input id="input" value="5" class="hds-text-input__input" type="number" step="1" placeholder="Placeholder" />
+  </div>
+  <span class="hds-text-input__helper-text">Assistive text</span>
+</div>
+```
+
+</Playground>
+
+#### With min and max values
+<Playground>
+
+
+```jsx
+<NumberInput
+  helperText="At least 3 attendees are required"
+  label="Number of attendees"
+  min={3}
+  max={99}
+  minusStepButtonAriaLabel="Decrease by one"
+  plusStepButtonAriaLabel="Increase by one"
+  step={1}
+  defaultValue={3}
+  style={{ maxWidth: '320px' }}
+/>
+```
+
+```html
+<div class="hds-text-input" style="max-width:320px;">
+  <label for="input" class="hds-text-input__label">
+    Number of attendees
+  </label>
+  <div class="hds-text-input__input-wrapper">
+    <input id="input" value="3" class="hds-text-input__input" type="number" step="1" min="3" max="99" placeholder="Placeholder" required />
+  </div>
+  <span class="hds-text-input__helper-text">At least 3 attendees are required</span>
+</div>
+```
+
+</Playground>
+
+
+### Packages
+| Package           | Included                      | Storybook link                                                                                                                      | Source link   |
+| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-notification--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/numberInput">View source</Link> |
+| **HDS Core**      | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-numberinput--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/number-input">View source</Link> |
+
+### Properties
+Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/story/components-numberinput--default" external>React Storybook.</Link>
+
+Also, note that this component is an input. All features supported by the HDS TextInput are also supported by this component. See [TextInput documentation page](/components/text-input) for more information.
+
+| Property                   | Description                                                                | Values   | Default value |
+| -------------------------- | -------------------------------------------------------------------------- | -------- | ------------- |
+| `label`                    | The label for the input.                                                   | `string` | -             |
+| `value`                    | The value of the input element, required for a controlled component.       | `number` | -             |
+| `defaultValue`             | The default input element value. Use when the component is not controlled. | `number` | -             |
+| `minusStepButtonAriaLabel` | The aria label for minus step button.                                      | `string` | -             |
+| `plusStepButtonAriaLabel`  | The aria label for plus step button.                                       | `string` | -             |
+| `unit`                     | Unit characters of the input. Example: €                                   | `string` | -             |
+[Table 1:NumberInput properties]|
+
