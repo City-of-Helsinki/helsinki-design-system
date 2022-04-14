@@ -4,12 +4,7 @@ module.exports = {
     title: `Helsinki Design System`,
     description: `Documentation for the Helsinki Design System`,
     siteUrl: `https://hds.hel.fi/`,
-    menuLinks: [
-      {
-        name: 'Home',
-        link: '/',
-        subMenuLinks: [],
-      },
+    menuLinks: [  
       {
         name: 'Getting started',
         link: '/getting-started',
@@ -44,61 +39,49 @@ module.exports = {
         ],
       },
       {
-        name: 'Guidelines',
-        link: '/guidelines',
+        name: 'Foundation',
+        link: '/foundation',
         subMenuLinks: [
           {
             name: 'Overview',
-            link: '/guidelines',
+            link: '/foundation',
           },
           {
-            name: 'Data formats',
-            link: '/guidelines/data-formats',
+            name: 'Design tokens',
+            link: '/foundation/design-tokens',
             withDivider: true,
           },
           {
-            name: 'Grid',
-            link: '/guidelines/grid',
+            name: 'Visual assets',
+            link: '/foundation/visual-assets',
           },
           {
-            name: 'Inclusivity',
-            link: '/guidelines/inclusivity',
-          },
-          {
-            name: 'Localisation',
-            link: '/guidelines/localisation',
-          },
-          {
-            name: 'Photography',
-            link: '/guidelines/photography',
-          },
-          {
-            name: 'Checkboxes, radio buttons, or toggles?',
-            link: '/guidelines/checkbox-radiobutton-toggle',
-            withDivider: true,
+            name: 'Guidelines',
+            link: '/foundation/guidelines',
           },
         ],
       },
       {
-        name: 'Elements',
-        link: '/elements',
+        name: 'Components',
+        link: '/components',
         subMenuLinks: [
           {
             name: 'Overview',
-            link: '/elements',
+            link: '/components',
+          },
+        ],
+      },
+      {
+        name: 'Patterns',
+        link: '/patterns',
+        subMenuLinks: [
+          {
+            name: 'Overview',
+            link: '/patterns',
           },
           {
-            name: 'Visual assets',
-            link: '/elements/visual-assets',
-            withDivider: true,
-          },
-          {
-            name: 'Design tokens',
-            link: '/elements/design-tokens',
-          },
-          {
-            name: 'Components',
-            link: '/elements/components',
+            name: 'Forms',
+            link: '/patterns/forms',
           },
         ],
       },

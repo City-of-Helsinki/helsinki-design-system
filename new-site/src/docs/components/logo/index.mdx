@@ -1,0 +1,56 @@
+---
+slug: '/components/logo'
+title: 'Logo'
+nav_title: 'Logo'
+---
+
+import { Logo } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+<PlaygroundPreview>
+  <Logo language="fi" size="medium" />
+</PlaygroundPreview>
+
+The logo is used to identify the site or application as an official City of Helsinki service.
+See the <Link size="M" href="/foundation/visual-assets/logo">logo visual asset documentation</Link> for more information about principles of using the City of Helsinki logo.
+
+### Principles
+
+- Logo is automatically included in HDS Navigation and HDS Footer (not yet released) components. **Use the Logo component sparingly in other parts of the service.**
+- **You should include the service name next to the logo.** This helps the user more easily identify which city service they are currently using.
+- HDS Logo component includes translations for both Finnish and Swedish. **Use translation depending on the locale the user has chosen.** Swedish and Scandinavian languages use the `sv` variant while other languages use `fi` variant.
+- The Logo component should act as a link to the main page of the service.
+- This component is solely for the City of Helsinki logo. Do not use this component for logos of other parties.
+
+### Variations
+
+#### Default
+
+The Helsinki logo component is offered in three (3) languages.
+
+<PlaygroundPreview>
+  <Logo language="fi" size="medium" />
+  <br />
+  <Logo language="sv" size="medium" />
+  <br />
+  <Logo language="ru" size="medium" />
+</PlaygroundPreview>
+
+#### Sizes
+
+The component includes three (3) size variants to fit the context.
+
+<PlaygroundPreview>
+  <Logo language="fi" size="small" />
+  <br />
+  <Logo language="fi" size="medium" />
+  <br />
+  <Logo language="fi" size="large" />
+</PlaygroundPreview>

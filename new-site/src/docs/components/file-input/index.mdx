@@ -1,0 +1,97 @@
+---
+slug: '/components/file-input'
+title: 'FileInput'
+nav_title: 'FileInput'
+---
+
+import { FileInput } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+export const FileInputExample = () => {
+  const [file, setFile] = React.useState([]);
+  console.log('selected file', file);
+  return (
+    <FileInput
+      id="file-input"
+      label="Choose a file"
+      language="en"
+      maxSize={1.5 * 1024 * 1024}
+      accept=".png,.jpg"
+      onChange={setFile}
+    />
+  );
+};
+
+<PlaygroundPreview>
+  <FileInputExample />
+</PlaygroundPreview>
+
+### Principles
+
+- A label should always be provided with a FileInput. It should clearly describe what the user is expected to select.
+- The helper text below the FileInput describes the file requirements to the user. It lists accepted file formats as well as the maximum size of a single file.
+  - Note that the helper text is generated automatically from the `accept` and `maxSize` properties.
+- The FileInput does not automatically upload files to any server. The user is required to submit the form before the actual upload happens.
+- One FileInput can be configured to accept one or multiple files.
+  - Make sure labels of the input indicate the number of expected files to the user.
+  - A FileInput allowing multiple files fits well for situations where all the files are related to each other (e.g. multiple photos from the same event).
+  - If the user has to upload multiple files that are not related to each other, prefer using multiple file uploads - one for each file.
+- Dragging and dropping files can be allowed by using the `dragAndDrop` property.
+- The FileInput uses an info text element to inform the user about the status of the component. You can read more about the usage of the info text element in the [HDS Form validation pattern documentation page](/patterns/form-validation#3-info-message).
+- The FileInput component resolves human-readable file size abbreviations based on a binary system. The file size texts are shown after the selected file name and in maxSize messages if maxSize validation is used.
+
+### Variations
+
+### Default
+
+In its default form, the HDS FileInput offers a button-like element that opens a file browser native to the user's current device. Selected files are presented in a list below the input and files can be removed from the listing separately.
+
+export const FileInputDefault = () => {
+  const [file, setFile] = React.useState([]);
+  console.log('selected file', file);
+  return (
+    <FileInput
+      id="file-input-default"
+      label="Choose a file"
+      language="en"
+      maxSize={1.5 * 1024 * 1024}
+      accept=".png,.jpg"
+      onChange={setFile}
+    />
+  );
+};
+
+<PlaygroundPreview>
+  <FileInputDefault />
+</PlaygroundPreview>
+
+### With drag and drop
+
+If in some cases having the ability to drag and drop files onto the page could help the user, this can be enabled with the `dragAndDrop` property. Note that the traditional file input is still included below the drag and drop area. Therefore this property does not weaken the accessibility of the component.
+
+export const FileInputDragAndDrop = () => {
+  const [files, setFiles] = React.useState([]);
+  console.log('selected files', files);
+  return (
+    <FileInput
+      multiple
+      dragAndDrop
+      id="file-input-drag-and-drop"
+      label="Drag and drop files here"
+      language="en"
+      accept=".png,.jpg"
+      onChange={setFiles}
+    />
+  );
+};
+
+<PlaygroundPreview>
+  <FileInputDragAndDrop />
+</PlaygroundPreview>

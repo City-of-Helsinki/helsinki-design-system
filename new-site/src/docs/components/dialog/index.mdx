@@ -1,0 +1,340 @@
+---
+slug: '/components/dialog'
+title: 'Dialog'
+nav_title: 'Dialog'
+---
+
+import { Dialog, Button, IconInfoCircle, IconTrash } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+export const DialogExample = () => {
+  const dialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
+  const openInfoDialogButtonRef = React.useRef(null);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const close = () => setIsOpen(false);
+  const titleId = 'info-dialog-title';
+  const descriptionId = 'info-dialog-content';
+  return (
+    <>
+      <div ref={dialogTargetRef} />
+      <Button ref={openInfoDialogButtonRef} onClick={() => setIsOpen(true)}>
+        Open Info dialog
+      </Button>
+      <Dialog
+        id="info-dialog"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        isOpen={isOpen}
+        close={close}
+        closeButtonLabelText="Close info dialog"
+        focusAfterCloseRef={openInfoDialogButtonRef}
+        targetElement={dialogTargetRef.current}
+      >
+        <Dialog.Header
+          id={titleId}
+          title="Terms of service have changed"
+          iconLeft={<IconInfoCircle aria-hidden="true" />}
+        />
+        <Dialog.Content>
+          <p id={descriptionId} className="text-body">
+            Please note that the terms of this service have changed. You can review the changes in the user settings.
+          </p>
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button onClick={close}>Close</Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  );
+};
+
+<PlaygroundPreview>
+  <DialogExample />
+</PlaygroundPreview>
+
+## Principles
+
+- Dialogs capture the browser focus and the user is forced to react to the dialog.
+  - To emphasize this, a dark screen overlay must be used to cover the view content behind the dialog element.
+- **Dialogs are a very intrusive pattern and they should only be used when the immediate actions or focus from the user are needed.**
+- Be careful when including a separate close ("x") icon in the dialog. If there are more than one action available in the dialog, it can be ambiguous for the user which action is triggered when the close icon is pressed.
+  - Generally, it is a good practise to omit the close icon if the dialog has more than one action available.
+- If your dialog contains form elements, follow [HDS form](/patterns/forms) and [form validation patterns](/patterns/form-validation) similarly as you would in a regular forms.
+- As dialogs always contain buttons, pay close attention that the button labels describe the action it is going to trigger. You can read more information about this in the [HDS Button documentation page](/components/button).
+  - Following the same guidelines as the HDS Form pattern, dialog action buttons are placed at the left side of the dialog and the primary action will be the first one from the left.
+  - If some of the actions are destructive or irreversible, the button order should be reversed so so that the destructive actions are last in the button list. See [Danger dialog example](#danger-dialog) for more information.
+- Opening a dialog should be always triggered by the user. Do not open dialogs without user action.
+  - Also make sure that the dialog is related to the current context.
+  - It is not recommended to open dialogs on top of other dialogs. However, this is supported by HDS Dialogs if it is needed.
+
+### When to use each dialog type?
+
+| Type                       | When to use it?                                                                                                    | Example                                                                                |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
+| [Info](#info-dialog)       | Important information needs to be conveyed to the user. Only requires acknowledgment and no choices from the user. | Informing the user about changed terms of use.                                         |
+| [Confirm](#confirm-dialog) | An action is required from the user.                                                                               | Confirming that the user wants to continue even though all form fields are not filled. |
+| [Danger](#danger-dialog)   | An action is required from the user while **the action results are destructive**.                                  | Confirming that the user wants to delete a blog post.                                  |
+
+### Variations
+
+### Info dialog
+
+Info dialogs are used to convey important information to the user. Info dialogs only include one button which the user can use to acknowledge the information.
+
+export const InfoDialogExample = () => {
+  const openInfoDialogButtonRef = React.useRef(null);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const close = () => setIsOpen(false);
+  const titleId = 'info-dialog-title';
+  const descriptionId = 'info-dialog-content';
+  return (
+    <>
+      <Button ref={openInfoDialogButtonRef} onClick={() => setIsOpen(true)}>
+        Open Info dialog
+      </Button>
+      <Dialog
+        id="info-dialog"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        isOpen={isOpen}
+        close={close}
+        closeButtonLabelText="Close info dialog"
+        focusAfterCloseRef={openInfoDialogButtonRef}
+      >
+        <Dialog.Header
+          id={titleId}
+          title="Terms of service have changed"
+          iconLeft={<IconInfoCircle aria-hidden="true" />}
+        />
+        <Dialog.Content>
+          <p id={descriptionId} className="text-body">
+            Please note that the terms of this service have changed. You can review the changes in the user settings.
+          </p>
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button onClick={close}>Close</Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  );
+};
+
+<PlaygroundPreview>
+  <InfoDialogExample />
+</PlaygroundPreview>
+
+### Confirm dialog
+
+Confirm dialogs are used when an action is required from the user. Confirm dialogs always include at least two actions; one primary action (e.g. Confirm) and one secondary action (e.g. Cancel). However, more than two actions are allowed if it is needed.
+
+export const ConfirmDialogExample = () => {
+  const openConfirmationDialogButtonRef = React.useRef(null);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const close = () => setIsOpen(false);
+  const titleId = 'confirmation-dialog-title';
+  const descriptionId = 'confirmation-dialog-info';
+  return (
+    <>
+      <Button ref={openConfirmationDialogButtonRef} onClick={() => setIsOpen(true)}>
+        Open Confirmation dialog
+      </Button>
+      <Dialog
+        id="confirmation-dialog"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        isOpen={isOpen}
+        focusAfterCloseRef={openConfirmationDialogButtonRef}
+      >
+        <Dialog.Header
+          id={titleId}
+          title="Are you sure you want to continue?"
+          iconLeft={<IconQuestionCircle aria-hidden="true" />}
+        />
+        <Dialog.Content>
+          <p id={descriptionId} className="text-body">
+            You have not filled all form fields. Do you still want to continue? You can later return to edit this form.
+            Saved forms can be accessed in your personal profile.
+          </p>
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button onClick={close}>Continue</Button>
+          <Button onClick={close} variant="secondary">
+            Cancel
+          </Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  );
+};
+
+<PlaygroundPreview>
+  <ConfirmDialogExample />
+</PlaygroundPreview>
+
+### Danger dialog
+
+Danger dialog is a variant of a confirm dialog. They are used in similar use cases but Danger dialogs are meant for situations where the action user is going to choose may be destructive or otherwise irreversible or very critical. Danger dialog emphasizes this by using HDS error status colours. Also, it reverses the action button order so that the destructive action is last in the button list.
+
+export const DangerDialogExample = () => {
+  const openDeleteDialogButtonRef = React.useRef(null);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const close = () => setIsOpen(false);
+  const titleId = 'delete-dialog-title';
+  const descriptionId = 'delete-dialog-info';
+  return (
+    <>
+      <Button ref={openDeleteDialogButtonRef} onClick={() => setIsOpen(true)}>
+        Open Delete dialog
+      </Button>
+      <Dialog
+        variant="danger"
+        id="delete-dialog"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        isOpen={isOpen}
+        focusAfterCloseRef={openDeleteDialogButtonRef}
+      >
+        <Dialog.Header
+          id={titleId}
+          title="Are you sure you want to delete this blog post?"
+          iconLeft={<IconAlertCircle aria-hidden="true" />}
+        />
+        <Dialog.Content>
+          <p id={descriptionId} className="text-body">
+            The blog post will be deleted immediately. Deletion is permanent and it cannot be reverted.
+          </p>
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button onClick={close} theme="black" variant="secondary">
+            Cancel
+          </Button>
+          <Button
+            variant="danger"
+            iconLeft={<IconTrash aria-hidden="true" />}
+            onClick={() => {
+              // Add confirm operations here
+              close();
+            }}
+          >
+            Delete the blog post
+          </Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  );
+};
+
+<PlaygroundPreview>
+  <DangerDialogExample />
+</PlaygroundPreview>
+
+### Scrollable dialog
+
+While not recommended, HDS supports scrollable dialogs if there is a large amount of content (e.g. terms of use). **It is recommended to consider other options than a dialog to present the same data since it can be difficult for the user to form a clear understanding of the presented content.**
+
+export const ScrollableDialogExample = () => {
+  const termsDialogTargetRef = React.useRef(null); // We need to render the dialog into a div inside the Playground component to ensure correct dialog styles in the HDS documentation. The dialog will be rendered into the document body by default.
+  const openTermsDialogButtonRef = React.useRef(null);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const close = () => setIsOpen(false);
+  const titleId = 'terms-dialog-title';
+  const descriptionId = 'terms-dialog-info';
+  return (
+    <>
+      <div ref={termsDialogTargetRef} />
+      <Button ref={openTermsDialogButtonRef} onClick={() => setIsOpen(true)}>
+        Open Terms dialog
+      </Button>
+      <Dialog
+        id="terms-dialog"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        isOpen={isOpen}
+        focusAfterCloseRef={openTermsDialogButtonRef}
+        targetElement={termsDialogTargetRef.current}
+        scrollable
+      >
+        <Dialog.Header
+          id={titleId}
+          title="Do you accept the terms of service?"
+          iconLeft={<IconAlertCircle aria-hidden="true" />}
+        />
+        <Dialog.Content>
+          <h3 id={descriptionId}>Terms of service</h3>
+          <p className="text-body">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+            dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+            sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+            ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+            nulla pariatur?
+          </p>
+          <p className="text-body">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+            dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+            sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+            ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+            nulla pariatur?
+          </p>
+          <p className="text-body">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+            dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+            sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+            ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+            nulla pariatur?
+          </p>
+          <p className="text-body">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+            dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+            sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+            ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+            nulla pariatur?
+          </p>
+          <p className="text-body">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+            dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+            sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+            ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+            nulla pariatur?
+          </p>
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button onClick={close}>Accept terms</Button>
+          <Button onClick={close} variant="secondary">
+            Cancel
+          </Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  );
+};
+
+<PlaygroundPreview>
+  <ScrollableDialogExample />
+</PlaygroundPreview>

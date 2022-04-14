@@ -1,0 +1,152 @@
+---
+slug: '/components/tag/code'
+title: 'Tag - Code'
+---
+
+import { Tag } from 'hds-react';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples 
+
+#### Default
+<Playground>
+
+```jsx
+<>
+<Tag
+  role="link" 
+  onClick={() => {}}
+  aria-label="Move to category: News"
+>
+  News
+</Tag>
+
+<Tag
+  role="link" 
+  onClick={() => {}} 
+  aria-label="Move to category: Announcements" 
+  style={{ marginLeft: 'var(--spacing-s)' }}
+>
+  Announcements
+</Tag>
+</>
+```
+
+```html
+<div>
+<div class="hds-tag" role="link" tabindex="0" onclick="" aria-label="Move to category: News">
+  <span class="hds-tag__label">News</span>
+</div>
+
+<div class="hds-tag" role="link" tabindex="0" onclick="" aria-label="Move to category: Announcements" style="margin-left:var(--spacing-s);">
+  <span class="hds-tag__label">Announcements</span>
+</div>
+</div>
+```
+
+</Playground>
+
+#### Clickable
+<Playground>
+
+```jsx
+<>
+<Tag 
+  role="link" 
+  onClick={() => {}} 
+  aria-label="Move to category: News"
+>
+  News
+</Tag>
+
+<Tag 
+  role="link" 
+  onClick={() => {}} 
+  aria-label="Move to category: Announcements"
+  style={{ marginLeft: 'var(--spacing-s)' }}
+>
+  Announcements
+</Tag>
+</>
+```
+
+```html
+<div>
+<div class="hds-tag" role="link" tabindex="0" onclick="" aria-label="Move to category: News">
+  <span class="hds-tag__label">News</span>
+</div>
+
+<div class="hds-tag" role="link" tabindex="0" onclick="" aria-label="Move to category: Announcements" style="margin-left:var(--spacing-s);">
+  <span class="hds-tag__label">Announcements</span>
+</div>
+</div>
+```
+
+</Playground>
+
+#### Deletable
+<Playground>
+
+```jsx
+<>
+<Tag 
+  onDelete={() => {}} 
+  deleteButtonAriaLabel="Delete filter: News"
+>
+  News
+</Tag>
+
+<Tag 
+  onDelete={() => {}} 
+  deleteButtonAriaLabel="Delete filter: Announcements" 
+  style={{ marginLeft: 'var(--spacing-s)' }}
+>
+  Announcements
+</Tag>
+</>
+```
+
+```html
+<div>
+<div class="hds-tag">
+  <span class="hds-tag__label">News</span>
+  <button type="button" aria-label="Delete filter: News" class="hds-tag__delete-button button-reset">
+      <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
+  </button>
+</div>
+
+<div class="hds-tag" style="margin-left:var(--spacing-s);">
+  <span class="hds-tag__label">Announcements</span>
+  <button type="button" aria-label="Delete filter: Announcements" class="hds-tag__delete-button button-reset">
+      <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
+  </button>
+</div>
+</div>
+```
+
+</Playground>
+
+### Packages
+| Package           | Included                      | Storybook link                                                                                                                      | Source link   |
+| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-tag--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/tag">View source</Link> |
+| **HDS Core**      | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/core/?path=/story/components-tag--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/tag">View source</Link> |
+
+### Properties
+Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/docs/components-tag--default" external>React Storybook.</Link>
+
+| Property                | Description                                                                                                                    | Values              | Default value |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------- | ------------- |
+| `deleteButtonAriaLabel` | The aria-label for the delete button                                                                                           | `string`            | -             |
+| `deleteButtonProps`     | Props that will be passed to the delete button `button` element.                                                               | `properties`        | -             |
+| `labelProps`            | Props that will be passed to the label `span` element.                                                                         | `properties`        | -             |
+| `onClick`               | Callback function fired when the tag is clicked. If set, the tag will be clickable.                                            | `function`          | -             |
+| `onDelete`              | Callback function fired when the delete icon is clicked. If set, a delete button will be shown.                                | `function`          | -             |
+| `role`                  | Sets the role of the tag when it's clickable. Uses 'link' by default.                                                          | `"button"` `"link"` | `"link"`      |
+| `srOnlyLabel`           | Label that is only visible to screen readers. Can be used to to give screen reader users additional information about the tag. | `string`            | -             |
+[Table 1:Tag properties]|
