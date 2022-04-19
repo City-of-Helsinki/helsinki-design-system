@@ -24,13 +24,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- Pagination
+- New library: HDS Pagination
+- Includes symbols for a Pagination component
+
+#### Changed
+
+- Updated HDS Sketch libraries to Sketch 85 (85.1)
+- [Table] Removed smart layout from the Table Checkbox cell symbol (this allows hiding the Checkbox without changing the cell height)
 
 ### Documentation
 
 #### Added
 
-- [Pagination] Documentation
+- Documentation for the Pagination component
 
 ## [1.12.0] - Mar, 22, 2022
 
