@@ -6,6 +6,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.13.0] - Apr, 20, 2022
+
+### Core
+
+#### Added
+
+- Pagination
+
+### React Components
+
+#### Fixed
+
+- [Dialog] Prevent unnecessary re-rendering when content state changes
+
+### Design kit
+
+#### Added
+
+- Pagination
+
+### Documentation
+
+#### Added
+
+- [Pagination] Documentation
+
 ## [1.12.0] - Mar, 22, 2022
 
 ### Core
