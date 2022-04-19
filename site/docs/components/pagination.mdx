@@ -31,24 +31,26 @@ import 'hds-core/lib/icons/ui/icon-angle-left.css';
 ## Principles
 - Pagination is used when content is divided into multiple pages and the user needs to be able to move between those pages.
 - You must at least have three (3) pages in the pagination.
-- The pagination must always include _Previous_ and _Next_ page buttons. Do not hide or omit these buttons.
 - Keep the amount of shown pages between screen size changes consistent. 
   - Aim to show at least 5 pages and 9 pages at maximum in one row.
   - You can change the amount of shown pages when the view switches from desktop to mobile.
-- The HDS pagination component supports truncation. This means hiding part of the pages with the "..." (ellipsis) element.
-  - Truncation is recommended if your page numbers start to spread into multiple rows.
+- A good rule of thumb for a maximum amount of items per page is 36. However, this heavily depends on the type of items displayed.
+  - With smaller items, the number can be larger, e.g. 72.
+- The pagination must always include _Previous_ and _Next_ page buttons. Do not hide or omit these buttons.
+- The HDS pagination component supports truncation, which means hiding part of the pages with the "..." (ellipsis) element.
+  - Truncation is recommended if your page numbers start to spread into multiple rows or if you would have more than 9 page numbers in one row.
   - Truncation can happen either at the start, at the end, or at both ends. See the [truncation example](#with-truncation) below for more information.
 - The pagination component must be aligned to the center of its container.
   - On mobile, the previous and next buttons are aligned to their respective edges of the container.
 
 ### Should I use pages or dynamically load more content?
 - **Use pages when**
-  - the amount of items in one view exceeds 40 items
+  - the amount of items in one page/view exceeds 36 items
   - divided into pages, you will have at least 3 pages
   - you are not sure how much content there will be (i.e. there may be 10 pages or 100 pages)
   - the user may need to be able to move to the end of the item list
 - **Use dynamic loading when**
-  - the amount of items in one view is less than 40
+  - the amount of items in one page/view is less than 36
   - divided into pages, you will have less than 3 pages
   - you have an estimation of how many items there will be
   - the user does not need to be able to move to the end of the item list
