@@ -19,7 +19,6 @@ export interface AccordionCustomTheme {
   '--header-font-size'?: string;
   '--header-line-height'?: string;
   '--button-size'?: string;
-  '--button-border-color-hover'?: string; // Deprecated, use --header-focus-outline-color instead.
   '--header-focus-outline-color'?: string;
   '--content-font-size'?: string;
   '--content-line-height'?: string;
@@ -91,18 +90,6 @@ export const Accordion = ({
   style,
   theme,
 }: AccordionProps) => {
-  if (theme && theme['--button-border-color-hover']) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      '--button-border-color-hover is deprecated, and will be removed in a future release. Please use --header-focus-outline-color instead',
-    );
-
-    /* eslint-disable no-param-reassign */
-    theme['--header-focus-outline-color'] = theme['--button-border-color-hover'];
-    delete theme['--button-border-color-hover'];
-    /* eslint-enable no-param-reassign */
-  }
-
   // Create a unique id if not provided via prop
   const [accordionId] = useState(id || uniqueId('accordion-'));
 
