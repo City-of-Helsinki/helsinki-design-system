@@ -1,0 +1,74 @@
+---
+name: Cookie compliance
+menu: Patterns
+route: /patterns/cookie-compliance
+---
+
+import { StatusLabel, Notification } from "hds-react";
+
+import LargeParagraph from "../../src/components/LargeParagraph";
+import Link from "../../src/components/Link";
+import Text from "../../src/components/Text";
+import Image from "../../src/components/Image";
+
+# Cookie compliance
+
+<StatusLabel type="alert">Draft</StatusLabel>
+
+<LargeParagraph>
+  The cookie compliance pattern describes how the user is informed about the use of cookies. The pattern also offers a way to accept or decline non-essential cookies and change the consent later if needed.
+</LargeParagraph>
+
+<p>The city of Helsinki cookie pattern is based on <Link href="https://www.traficom.fi/en/regulations/guidance-use-web-cookies-service-providers" external>Traficom's cookie guidelines for service provider</Link>.</p>
+
+## Cookie basics
+
+### What are cookies?
+
+### Which cookies are essential and which non-essential?
+
+### When the consent for cookies should be asked?
+
+## Cookie information and categorisation
+
+The cookie consent needs to be asked when your service becomes public (even during alpha/beta periods). [Service under Hel.fi? / Service on its own?]
+
+To prepare to use the HDS cookie compliance component, you have to:
+1. List all the cookies related to your service
+2. Gather all needed information for each cookie
+3. Categorise cookies into predefined categories
+
+| Cookie data      | Description        |
+| ---------------- | ------------------ |
+| **Name**         |                    |
+| **Host name**    |                    |
+| **Path**         |                    |
+| **Description**  |                    |
+| **Expiration**   |                    |
+
+| Category                        | Description                                                                                                                | Is essential?                                                                                                                                                               | Examples                                                                                  |
+| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| **Authentication**              | Cookies related to authentication are used when users log into a service or an application.                                | Session-specific cookies are considered essential. Permanent login cookies always need a consent.                                                                           | Session cookies                                                                           |
+| **User preferences**            | These cookies can be used to remember user selected preferences.                                                           | Preferences that improve usability between service uses (e.g. language) can be considered essential.                                                                        | Language choices, appearance settings, accessibility preferences                          |
+| **User input**                  | These cookies are required if the service wants to remember user inputted data.                                            | If using the service would not be possible without input related cookies, they can be considered essential.                                                                 | Search history, last used search filters, shopping cart contents                          |
+| **Advertisement and marketing** | Cookies that store user’s interests or action history data. The information is used to display targeted advertising.       | Never essential.                                                                                                                                                            | User’s interests or service usage history                                                 |
+| **Security**                    | Cookies that ensure safe data transfer between the service and the user.                                                   | Always essential.                                                                                                                                                           | CAPTCHA results                                                                           |
+| **Social media**                | Cookies related to plug-ins, tools and extensions connected to social media platforms.                                     | Never essential.                                                                                                                                                            | Social media feeds, social media share buttons                                            |
+| **Accessibility**               | Cookies that aim to improve the accessibility of the service.                                                              | Always essential.                                                                                                                                                           | Accessibility related preferences such as audio descriptions                              |
+| **Analytics**                   | These cookies are used to collect data on how users use the service. This data is used in research or product development. | Usually not essential. If analytics are considered absolutely necessary for the service, cookies can be considered essential and this must be clearly informed to the user. | Unique visitor IP addresses, page views count, measurements how the user uses the service |
+| **Device information**          | Cookies used to gather extra information about the device that is used to open the website.                                | Usually not essential unless this information is absolutely necessary for the service to operate.                                                                           | Device information, OS and browser information                                            |
+| **Real-time communication**     | Cookies that enable real-time communication between the user and the service.                                              | Can only be considered essential if real-time communication is the main purpose of the service.                                                                             | Chat provider cookies                                                                     |
+| **Third-party services**        | These cookies are often required when content provided by a third-party service is presented in the service.               | Not considered essential unless cookies are used only after opening the third-party service (e.g. a chat window).                                                           | Cookies used by embedded media such as videos or podcasts                                 |
+| **Displaying content**          | Cookies used to present specific content.                                                                                  | Can be considered essential if the cookie is strictly related to presenting the content and not gathering data.                                                             | Monitoring how the user is using specific content                                         |
+| **Location**                    | Cookies used to store an accurate location of the user’s device.                                                           | Never essential.                                                                                                                                                            | Accurate GPS location                                                                     |
+
+
+## Using the cookie compliance component
+
+- Make sure that cookie consent is the first item in the page tab order.
+- If your page has a chat button in lower right corner, keep the chat button hidden until cookie consent has been accepted and removed from the DOM.
+- Never use an overlay behind the banner or otherwise restrict use of the site.
+- Be sure to add a description about the cookie that stores information about accepted cookies.
+
+## Editing and updating cookie consent
+
