@@ -6,6 +6,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.13.0] - Apr, 21, 2022
+
+### Core
+
+#### Added
+
+- Pagination
+
+### React Components
+
+#### Fixed
+
+- [Dialog] Prevent unnecessary re-rendering when content state changes
+
+### Design kit
+
+#### Added
+
+- New library: HDS Pagination
+- Includes symbols for a Pagination component
+
+#### Changed
+
+- Updated HDS Sketch libraries to Sketch 85 (85.1)
+- [Table] Removed smart layout from the Table Checkbox cell symbol (this allows hiding the Checkbox without changing the cell height)
+
+### Documentation
+
+#### Added
+
+- Documentation for the Pagination component
+
 ## [1.12.0] - Mar, 22, 2022
 
 ### Core
