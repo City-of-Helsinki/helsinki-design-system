@@ -472,8 +472,8 @@ input[type="submit"].hds-button--small {
 
   --border-color: transparent;
   --border-color-hover: transparent;
-  --border-color-focus: var(--color-black);
-  --border-color-hover-focus: var(--color-black);
+  --border-color-focus: var(--color-coat-of-arms);
+  --border-color-hover-focus: var(--color-coat-of-arms-dark);
 
   --color: var(--color-black);
   --color-hover: var(--color-black);
