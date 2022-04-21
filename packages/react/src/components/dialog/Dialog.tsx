@@ -191,8 +191,8 @@ export const Dialog = ({
   targetElement,
   ...props
 }: DialogProps) => {
-  const dialogContextProps: DialogContextProps = { scrollable, close, closeButtonLabelText };
   const [isReadyToShowDialog, setIsReadyToShowDialog] = useState<boolean>(false);
+  const dialogContextProps: DialogContextProps = { isReadyToShowDialog, scrollable, close, closeButtonLabelText };
   const customThemeClass = useTheme<DialogCustomTheme>(styles.dialogContainer, theme);
   const dialogRef: RefObject<HTMLInputElement> = React.createRef();
   const bodyRightPaddingStyleRef = React.useRef<string>(null);
@@ -228,10 +228,10 @@ export const Dialog = ({
       setIsReadyToShowDialog(true);
     }
     return (): void => {
-      setIsReadyToShowDialog(false);
-      document.removeEventListener('keydown', onKeyDown, false);
-      document.body.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
       if (isOpen) {
+        setIsReadyToShowDialog(false);
+        document.removeEventListener('keydown', onKeyDown, false);
+        document.body.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
         // Reset body elements right padding.
         document.body.style.paddingRight = bodyRightPaddingStyleRef.current || '';
         const elementToFocus: HTMLElement | undefined = getElementToFocusAfterClose();
@@ -240,11 +240,12 @@ export const Dialog = ({
         }
       }
     };
-  }, [isOpen, onKeyDown, getElementToFocusAfterClose]);
+    // Omitting onKeyDown on purpose; adding it will break the Dialog with controlled child components
+  }, [isOpen, getElementToFocusAfterClose]);
 
   useDocumentTabBarriers(dialogRef);
 
-  const DialogComponent = (): JSX.Element => (
+  const renderDialogComponent = (): JSX.Element => (
     <DialogContext.Provider value={dialogContextProps}>
       <div className={classNames(styles.dialogContainer, customThemeClass)}>
         <ContentTabBarrier onFocus={() => focusLastDialogElement(dialogRef.current)} />
@@ -273,7 +274,7 @@ export const Dialog = ({
     </DialogContext.Provider>
   );
 
-  return isOpen ? ReactDOM.createPortal(<DialogComponent />, targetElement || document.body) : null;
+  return isOpen ? ReactDOM.createPortal(renderDialogComponent(), targetElement || document.body) : null;
 };
 
 Dialog.Header = DialogHeader;
