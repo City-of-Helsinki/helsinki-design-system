@@ -1,14 +1,15 @@
 import React, { useMemo } from 'react';
 
-import { ConsentGroup, TableData, useCookieConsentContent } from '../CookieConsentContext';
+import { ConsentGroup, TableData, useCookieConsentLanguage, useCookieConsentTableData } from '../CookieConsentContext';
 import styles from '../CookieConsent.module.scss';
 import classNames from '../../../utils/classNames';
 
 function ConsentGroupDataMobile(props: { consents: ConsentGroup['consents'] }): React.ReactElement {
-  const content = useCookieConsentContent();
+  const { current } = useCookieConsentLanguage();
+  const tableHeadings = useCookieConsentTableData();
   const { consents } = props;
   const dataKeys = useMemo(() => {
-    return Object.keys(content.texts.tableHeadings);
+    return Object.keys(tableHeadings);
   }, []);
 
   const data: TableData[] = useMemo(() => {
@@ -19,7 +20,7 @@ function ConsentGroupDataMobile(props: { consents: ConsentGroup['consents'] }): 
         return currentData;
       }, {} as TableData);
     });
-  }, [content.language.current]);
+  }, [current]);
 
   const rowOrder: (keyof TableData)[] = ['name', 'hostName', 'path', 'description', 'expiration'];
 
@@ -32,7 +33,7 @@ function ConsentGroupDataMobile(props: { consents: ConsentGroup['consents'] }): 
               {rowOrder.map((key) => {
                 return (
                   <div key={key}>
-                    <span role="heading">{content.texts.tableHeadings[key]}</span>
+                    <span role="heading">{tableHeadings[key]}</span>
                     <span>{item[key]}</span>
                   </div>
                 );
