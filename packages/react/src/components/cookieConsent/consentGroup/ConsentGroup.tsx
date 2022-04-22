@@ -12,7 +12,6 @@ import { useAccordion } from '../../accordion';
 import { IconAngleDown, IconAngleUp } from '../../../icons';
 import { Card } from '../../card/Card';
 import ConsentGroupDataTable from '../consentGroupDataTable/ConsentGroupDataTable';
-import ConsentGroupDataMobile from '../consentGroupDataMobile/ConsentGroupDataMobile';
 import classNames from '../../../utils/classNames';
 
 function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id: string }): React.ReactElement {
@@ -83,7 +82,6 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
           }}
         >
           <ConsentGroupDataTable consents={groupConsents} id={getGroupIdenfier('table')} />
-          <ConsentGroupDataMobile consents={groupConsents} />
         </Card>
       </div>
     </div>
