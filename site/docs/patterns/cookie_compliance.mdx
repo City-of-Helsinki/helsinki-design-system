@@ -25,9 +25,13 @@ import Image from "../../src/components/Image";
 
 ### What are cookies?
 
-### Which cookies are essential and which non-essential?
+Cookies are pieces of data that are stores on the user's device. They are a way to store persistent information about how the user is using the service. The use of cookies is controlled with a law. The law requires that cookies that are not essential for the service must be asked consent from the user.
 
 ### When the consent for cookies should be asked?
+
+The consent needs to be asked for a cookie that is not essential for the use of the service. This means that the service's main functions are available even without these cookies. In the future, we refer to these cookies as **non-essential cookies**.
+
+If the service cannot be used or one of its main functions does not operate without a specific cookie, the cookie can be considered essential. Essential cookies do not need a consent from the user but they still have to be informed.
 
 ## Cookie information and categorisation
 
@@ -35,8 +39,16 @@ The cookie consent needs to be asked when your service becomes public (even duri
 
 To prepare to use the HDS cookie compliance component, you have to:
 1. List all the cookies related to your service
-2. Gather all needed information for each cookie
+2. Decide which cookies are essential
 3. Categorise cookies into predefined categories
+
+We will go over each step in the following chapters.
+
+### 1. List all the cookies related to your service
+
+First, you need to list all the cookies your service is using. It is also a good moment to review the list of cookies. Aim to use as few cookies as possible and only gather information your service **currently** needs. You should easily be able to justify the need for each cookie to the user.
+
+For each cookie, you need to gather and display the following information. This information will be displayed in the cookie consent windows if the user wishes to get more information about a specific cookie.
 
 | Cookie data      | Description        |
 | ---------------- | ------------------ |
@@ -45,6 +57,16 @@ To prepare to use the HDS cookie compliance component, you have to:
 | **Path**         |                    |
 | **Description**  |                    |
 | **Expiration**   |                    |
+
+### 2. Decide which cookies are essential
+
+The next step is to determinate which cookies can be considered essential. Generally, you will need to ask consent for all cookies that are not absolutely vital to your service to operate. If you feel that the user can utilise the main functions of your service without a specific cookie, the cookie cannot be considered essential.
+
+If you have hard time determininig whether a cookie is an essential cookie, refer to the cookie category table in the next chapter for more examples.
+
+### 3. Categorise cookies into predefined categories
+
+<p>To help the user understand the reasoning behind cookies, it is required to group cookies into pre-determined categories. These categories are based on <Link href="https://www.traficom.fi/en/regulations/guidance-use-web-cookies-service-providers" external>Traficom's cookie guidelines for service provider</Link>.</p>
 
 | Category                        | Description                                                                                                                | Is essential?                                                                                                                                                               | Examples                                                                                  |
 | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
@@ -62,8 +84,17 @@ To prepare to use the HDS cookie compliance component, you have to:
 | **Displaying content**          | Cookies used to present specific content.                                                                                  | Can be considered essential if the cookie is strictly related to presenting the content and not gathering data.                                                             | Monitoring how the user is using specific content                                         |
 | **Location**                    | Cookies used to store an accurate location of the user’s device.                                                           | Never essential.                                                                                                                                                            | Accurate GPS location                                                                     |
 
+#### Can I use a custom category?
+
+If your cookies do not fit into any of the pre-defined categories, you are allowed to use custom categories.
+
+#### We only have a handful of cookies. Do we still have to categorize them?
+
+Yes, cookies always have to be put into a category. If you have a small about of cookies you can consider grouping them into a single category. Also, if most of the cookies are related to a single third-party service, you can group them per service (E.g. "Service: YouTube").
 
 ## Using the cookie compliance component
+
+The cookie consent is asked using the HDS provided CookieConsent component. This component is shown when the service loads.
 
 - Make sure that cookie consent is the first item in the page tab order.
 - If your page has a chat button in lower right corner, keep the chat button hidden until cookie consent has been accepted and removed from the DOM.
