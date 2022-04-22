@@ -6,17 +6,15 @@ import { useAccordion } from '../../accordion';
 import Details from '../details/Details';
 import styles from '../CookieConsent.module.scss';
 import { Card } from '../../card/Card';
-import { useCookieConsentContent } from '../CookieConsentContext';
+import { useCookieConsentSectionTexts, useCookieConsentUiTexts } from '../CookieConsentContext';
 import LanguageSwitcher from '../languageSwitcher/LanguageSwitcher';
 
 function Content(): React.ReactElement {
   const { isOpen, buttonProps, contentProps } = useAccordion({
     initiallyOpen: false,
   });
-  const content = useCookieConsentContent();
-  const { sections, ui } = content.texts;
-  const { hideSettings, showSettings } = ui;
-  const { title, text } = sections.main;
+  const { hideSettings, showSettings } = useCookieConsentUiTexts();
+  const { title, text } = useCookieConsentSectionTexts('main');
   const titleRef = useRef<HTMLHeadingElement>();
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
   const settingsButtonText = isOpen ? hideSettings : showSettings;

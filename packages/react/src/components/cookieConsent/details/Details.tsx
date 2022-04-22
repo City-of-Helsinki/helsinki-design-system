@@ -2,11 +2,11 @@ import React from 'react';
 
 import styles from '../CookieConsent.module.scss';
 import ConsentGroups from '../consentGroups/ConsentGroups';
-import { useCookieConsentContent } from '../CookieConsentContext';
+import { useCookieConsentContent, useCookieConsentSectionTexts } from '../CookieConsentContext';
 
 function Details(): React.ReactElement {
   const content = useCookieConsentContent();
-  const { title, text } = content.texts.sections.details;
+  const { title, text } = useCookieConsentSectionTexts('details');
   const { requiredConsents, optionalConsents } = content;
   return (
     <div className={styles['text-content']} data-testid="cookie-consent-details">
