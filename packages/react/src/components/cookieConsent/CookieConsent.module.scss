@@ -190,6 +190,7 @@
 .data-table-container table tbody tr > * {
   width: 15%;
   word-break: break-word;
+  min-width: 120px;
 }
 .data-table-container table tbody tr > *:nth-child(4) {
   width: 40%;
@@ -249,30 +250,5 @@
   }
   .buttons > * {
     width: auto;
-  }
-}
-
-/* @extend does not work inside media queries */
-@mixin visuallyHidden {
-  clip-path: polygon(0 0, 0 0, 0 0, 0 0);
-  border: 0;
-  clip: 'rect(0 0 0 0)';
-  height: 1px;
-  width: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  position: absolute;
-  display: block;
-}
-
-@media (min-width: 768px) {
-  .visually-hidden-in-desktop {
-    @include visuallyHidden;
-  }
-}
-@media (max-width: 767px) {
-  .visually-hidden-in-mobile {
-    @include visuallyHidden;
   }
 }
