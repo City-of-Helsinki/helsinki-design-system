@@ -64,8 +64,6 @@ export type Content = {
 };
 
 export type CookieConsentContextType = {
-  getRequired: () => ConsentObject;
-  getOptional: () => ConsentObject;
   update: ConsentController['update'];
   approveRequired: ConsentController['approveRequired'];
   approveAll: ConsentController['approveAll'];
@@ -84,8 +82,6 @@ type CookieConsentContextProps = {
 };
 
 export const CookieConsentContext = createContext<CookieConsentContextType>({
-  getRequired: () => ({}),
-  getOptional: () => ({}),
   update: () => undefined,
   approveRequired: () => undefined,
   approveAll: () => undefined,
@@ -143,8 +139,6 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
     return savedData;
   };
 
-  const getRequired: CookieConsentContextType['getRequired'] = () => consentController.getRequired();
-  const getOptional: CookieConsentContextType['getOptional'] = () => consentController.getOptional();
   const update: CookieConsentContextType['update'] = (key, value) => {
     consentController.update(key, value);
   };
@@ -157,14 +151,14 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
     save();
   };
   const approveRequired: CookieConsentContextType['approveRequired'] = () => {
-    Object.keys(getOptional()).forEach((optionalConsent) => {
+    Object.keys(consentController.getOptional()).forEach((optionalConsent) => {
       update(optionalConsent, false);
     });
     consentController.approveRequired();
     save();
   };
   const setOptional = (approved: boolean) => {
-    Object.keys(getOptional()).forEach((optionalConsent) => {
+    Object.keys(consentController.getOptional()).forEach((optionalConsent) => {
       update(optionalConsent, approved);
     });
   };
@@ -191,7 +185,7 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
   const countApprovedOptional: CookieConsentContextType['countApprovedOptional'] = () => {
     let counter = 0;
     let approved = 0;
-    Object.values(getOptional()).forEach((isApproved) => {
+    Object.values(consentController.getOptional()).forEach((isApproved) => {
       counter += 1;
       if (isApproved) {
         approved += 1;
@@ -209,8 +203,6 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
   };
 
   const contextData: CookieConsentContextType = {
-    getOptional,
-    getRequired,
     approveAll,
     approveRequired,
     update,
