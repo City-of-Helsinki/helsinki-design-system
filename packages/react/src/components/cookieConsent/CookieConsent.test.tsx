@@ -312,7 +312,7 @@ describe('<CookieConsent /> ', () => {
     });
   });
   describe('Accordions of each consent group can be opened and ', () => {
-    it('all consents in the group are rendered twice: in data table and in mobile view', async () => {
+    it('all consents in the group are rendered', async () => {
       const result = await initDetailsView(defaultConsentData);
       const checkConsentsExist = async (groupParent: GroupParent) => {
         const list =
@@ -327,7 +327,7 @@ describe('<CookieConsent /> ', () => {
           expect(result.getByTestId(dataTestIds.getConsentGroupTableId(groupParent, index))).toBeVisible();
           index += 1;
           groups.consents.forEach((consent) => {
-            expect(result.getAllByText(consent.name)).toHaveLength(2);
+            expect(result.getAllByText(consent.name)).toHaveLength(1);
           });
         }
       };

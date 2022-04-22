@@ -29,7 +29,7 @@ function ConsentGroupDataTable(props: { consents: ConsentGroup['consents']; id: 
   };
 
   return (
-    <div className={classNames(styles['data-table-container'], styles['visually-hidden-in-mobile'])}>
+    <div className={classNames(styles['data-table-container'])}>
       <Table
         id={id}
         data-testid={id}
