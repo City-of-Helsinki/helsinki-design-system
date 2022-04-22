@@ -41,7 +41,6 @@ export type SectionTexts = {
 };
 
 export type RequiredOrOptionalConsentGroups = Description & {
-  groupId: 'required' | 'optional';
   checkboxAriaDescription?: string;
   groupList: ConsentGroup[];
 };

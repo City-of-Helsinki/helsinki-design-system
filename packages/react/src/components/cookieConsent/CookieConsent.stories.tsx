@@ -44,7 +44,7 @@ export const Example = () => {
           settingsSaved: 'Asetukset tallennettu!',
         },
         tableHeadings: {
-          name: 'Name',
+          name: 'Nimi',
           hostName: 'Osoite',
           path: 'Polku',
           description: 'Kuvaus',
@@ -52,7 +52,6 @@ export const Example = () => {
         },
       },
       requiredConsents: {
-        groupId: 'required',
         title: 'Välttämättömät evästeet',
         text:
           'Välttämättömien evästeiden käyttöä ei voi kieltää. Ne mahdollistavat sivuston toiminnan ja vaikuttavat sivuston käyttäjäystävällisyyteen.',
@@ -112,7 +111,6 @@ export const Example = () => {
         ],
       },
       optionalConsents: {
-        groupId: 'optional',
         title: 'Muut evästeet',
         text:
           'Voit hyväksyä tai jättää hyväksymättä muut evästeet. Praesent vel vestibulum nunc, at eleifend sapien. Integer cursus ut orci eu pretium. Ut a orci felis. In eu eros turpis. Sed ullamcorper lacinia lorem, id ullamcorper dui accumsan in. Integer dictum fermentum mi, sit amet accumsan lacus facilisis id. Quisque blandit lacus ac sem porta.',
@@ -184,6 +182,7 @@ export const Example = () => {
       language: {
         languageOptions: [
           { code: 'fi', label: 'Suomeksi (FI)' },
+          { code: 'sv', label: 'På svenska (SV)' },
           { code: 'en', label: 'English (EN)' },
         ],
         current: language,
