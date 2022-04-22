@@ -67,7 +67,6 @@ export type CookieConsentContextType = {
   update: ConsentController['update'];
   approveRequired: ConsentController['approveRequired'];
   approveAll: ConsentController['approveAll'];
-  willRenderCookieConsentDialog: boolean;
   hasUserHandledAllConsents: () => boolean;
   content: Content;
   onAction: CookieConsentActionListener;
@@ -86,7 +85,6 @@ export const CookieConsentContext = createContext<CookieConsentContextType>({
   approveRequired: () => undefined,
   approveAll: () => undefined,
   hasUserHandledAllConsents: () => false,
-  willRenderCookieConsentDialog: false,
   content: {} as Content,
   onAction: () => undefined,
   countApprovedOptional: () => 0,
@@ -113,10 +111,6 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
   const hasUserHandledAllConsents = () =>
     consentController.getRequiredWithoutConsent().length === 0 && consentController.getUnhandledConsents().length === 0;
 
-  const [willRenderCookieConsentDialog, setWillRenderCookieConsentDialog] = useState<boolean>(
-    !hasUserHandledAllConsents(),
-  );
-
   const mergeConsents = () => ({
     ...consentController.getRequired(),
     ...consentController.getOptional(),
@@ -130,7 +124,7 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
   const save = () => {
     const savedData = consentController.save();
     if (hasUserHandledAllConsents()) {
-      setWillRenderCookieConsentDialog(false);
+      reRender();
       if (content.onAllConsentsGiven) {
         content.onAllConsentsGiven(mergeConsents());
       }
@@ -206,7 +200,6 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
     approveAll,
     approveRequired,
     update,
-    willRenderCookieConsentDialog,
     hasUserHandledAllConsents,
     content,
     onAction,

@@ -44,8 +44,9 @@ describe('CookieConsentContext ', () => {
   };
 
   const ContextConsumer = ({ consumerId }: { consumerId: string }) => {
-    const { willRenderCookieConsentDialog, hasUserHandledAllConsents, approveAll } = useContext(CookieConsentContext);
+    const { hasUserHandledAllConsents, approveAll } = useContext(CookieConsentContext);
     const allUserConsentsAreHandled = hasUserHandledAllConsents();
+    const showShowCookieConsents = !allUserConsentsAreHandled;
     const onButtonClick = () => {
       approveAll();
     };
@@ -53,8 +54,8 @@ describe('CookieConsentContext ', () => {
       <div>
         {allUserConsentsAreHandled && <span data-testid={`${consumerId}-all-handled`} />}
         {!allUserConsentsAreHandled && <span data-testid={`${consumerId}-all-not-handled`} />}
-        {willRenderCookieConsentDialog && <span data-testid={`${consumerId}-should-render`} />}
-        {!willRenderCookieConsentDialog && <span data-testid={`${consumerId}-should-not-render`} />}
+        {showShowCookieConsents && <span data-testid={`${consumerId}-should-render`} />}
+        {!showShowCookieConsents && <span data-testid={`${consumerId}-should-not-render`} />}
         <button type="button" data-testid={`${consumerId}-approve-all-button`} onClick={() => onButtonClick()}>
           Approve all
         </button>
@@ -130,16 +131,16 @@ describe('CookieConsentContext ', () => {
     );
   };
 
-  describe('willRenderCookieConsentDialog ', () => {
-    it('is false if all required consents are not true or any optional consent is undefined.', () => {
+  describe('hasUserHandledAllConsents ', () => {
+    it('returns false if all required consents are not true or any optional consent is undefined.', () => {
       verifyConsumersShowConsentsNotHandled(renderCookieConsent(allNotApprovedConsentData));
     });
 
-    it('is true if user has unhandled consents', () => {
+    it('returns true if user has unhandled consents', () => {
       verifyConsumersShowConsentsHandled(renderCookieConsent(allApprovedConsentData));
     });
 
-    it('reflects the value of hasUserHandledAllConsents and both change with approval', () => {
+    it('changes with approval', () => {
       const result = renderCookieConsent(allNotApprovedConsentData);
       verifyConsumersShowConsentsNotHandled(result);
       clickElement(result, consumer1ApproveAllButtonSelector);

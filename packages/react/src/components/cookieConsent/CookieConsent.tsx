@@ -8,13 +8,13 @@ import Content from './content/Content';
 
 export function CookieConsent(): React.ReactElement | null {
   const cookieConsentContext = useContext(CookieConsentContext);
-  const { willRenderCookieConsentDialog } = cookieConsentContext;
+  const showShowCookieConsents = !cookieConsentContext.hasUserHandledAllConsents();
   const content = useCookieConsentContent();
   // use this in context
-  const [cookieConsentDialogIsShown] = useState<boolean>(willRenderCookieConsentDialog);
+  const [cookieConsentDialogIsShown] = useState<boolean>(showShowCookieConsents);
   const [popupTimerComplete, setPopupTimerComplete] = useState<boolean>(false);
   const popupDelayInMs = 500;
-  const showScreenReaderSaveNotification = cookieConsentDialogIsShown && !willRenderCookieConsentDialog;
+  const showScreenReaderSaveNotification = cookieConsentDialogIsShown && !showShowCookieConsents;
   useEffect(() => {
     setTimeout(() => setPopupTimerComplete(true), popupDelayInMs);
   }, []);
@@ -29,7 +29,7 @@ export function CookieConsent(): React.ReactElement | null {
     );
   }
 
-  if (!willRenderCookieConsentDialog) {
+  if (!showShowCookieConsents) {
     return null;
   }
 
