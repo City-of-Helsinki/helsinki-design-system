@@ -97,7 +97,6 @@ export const getContent = (
   };
   if (requiredConsentGroups) {
     content.requiredConsents = {
-      groupId: 'required',
       title: 'Title for required consents',
       text: 'Text for required consents',
       checkboxAriaDescription: 'checkboxAriaLabel',
@@ -108,7 +107,6 @@ export const getContent = (
   }
   if (optionalConsentsGroups) {
     content.optionalConsents = {
-      groupId: 'optional',
       title: 'Title for optional consents',
       text: 'Text for optional consents',
       checkboxAriaDescription: 'checkboxAriaLabel',

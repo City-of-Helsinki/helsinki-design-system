@@ -21,7 +21,7 @@ exports[`<CookieConsent /> spec renders the component 1`] = `
             aria-level="1"
             class="emulated-h1"
             role="heading"
-            tabindex="0"
+            tabindex="-1"
           >
             Evästesuostumukset
           </span>
