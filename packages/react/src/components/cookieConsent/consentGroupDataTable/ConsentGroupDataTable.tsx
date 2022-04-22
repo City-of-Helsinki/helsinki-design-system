@@ -1,22 +1,22 @@
 import React, { useMemo } from 'react';
 
 import { Table } from '../../table/Table';
-import { ConsentGroup, useCookieConsentContent } from '../CookieConsentContext';
+import { ConsentGroup, useCookieConsentTableData } from '../CookieConsentContext';
 import styles from '../CookieConsent.module.scss';
 import classNames from '../../../utils/classNames';
 
 function ConsentGroupDataTable(props: { consents: ConsentGroup['consents']; id: string }): React.ReactElement {
-  const content = useCookieConsentContent();
+  const tableHeadings = useCookieConsentTableData();
   const { consents, id } = props;
   const cols = useMemo(() => {
-    return Object.entries(content.texts.tableHeadings).map((entry) => {
+    return Object.entries(tableHeadings).map((entry) => {
       const [key, value] = entry;
       return {
         key,
         headerName: value,
       };
     });
-  }, [content.texts.tableHeadings]);
+  }, [tableHeadings]);
 
   const rows = useMemo(() => {
     return consents.map((consent) => {

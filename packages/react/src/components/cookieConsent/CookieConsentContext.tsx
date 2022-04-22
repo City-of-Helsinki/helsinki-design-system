@@ -225,3 +225,23 @@ export const useCookieConsentActions = (): CookieConsentContextType['onAction'] 
   const cookieConsentContext = useContext(CookieConsentContext);
   return cookieConsentContext.onAction;
 };
+
+export const useCookieConsentUiTexts = (): UiTexts => {
+  const content = useCookieConsentContent();
+  return content.texts.ui;
+};
+
+export const useCookieConsentSectionTexts = (section: keyof SectionTexts): Description => {
+  const content = useCookieConsentContent();
+  return content.texts.sections[section];
+};
+
+export const useCookieConsentTableData = (): TableData => {
+  const content = useCookieConsentContent();
+  return content.texts.tableHeadings;
+};
+
+export const useCookieConsentLanguage = (): Content['language'] => {
+  const content = useCookieConsentContent();
+  return content.language;
+};
