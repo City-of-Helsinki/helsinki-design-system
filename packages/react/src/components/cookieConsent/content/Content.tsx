@@ -28,14 +28,7 @@ function Content(): React.ReactElement {
   return (
     <div className={styles.content} id="cookie-consent-content">
       <div className={styles['main-content']} data-testid="cookie-consent-information">
-        <span
-          className={styles['emulated-h1']}
-          role="heading"
-          aria-level={1}
-          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-          tabIndex={0}
-          ref={titleRef}
-        >
+        <span className={styles['emulated-h1']} role="heading" aria-level={1} tabIndex={-1} ref={titleRef}>
           {title}
         </span>
         <div className={styles['language-switcher']} data-testid="cookie-consent-language-switcher">
@@ -61,7 +54,7 @@ function Content(): React.ReactElement {
       >
         <Details />
       </Card>
-      <Buttons hasOptionalConsents={isOpen} />
+      <Buttons detailsAreShown={isOpen} />
     </div>
   );
 }

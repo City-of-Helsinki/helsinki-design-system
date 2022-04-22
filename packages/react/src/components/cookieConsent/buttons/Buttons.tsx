@@ -5,15 +5,15 @@ import styles from '../CookieConsent.module.scss';
 import { useCookieConsentActions, useCookieConsentContent } from '../CookieConsentContext';
 
 export type Props = {
-  hasOptionalConsents: boolean;
+  detailsAreShown: boolean;
 };
 
-function Buttons({ hasOptionalConsents }: Props): React.ReactElement {
+function Buttons({ detailsAreShown }: Props): React.ReactElement {
   const content = useCookieConsentContent();
   const onClick = useCookieConsentActions();
   const { approveRequiredAndSelectedConsents, approveOnlyRequiredConsents, approveAllConsents } = content.texts.ui;
-  const primaryButtonText = hasOptionalConsents ? approveRequiredAndSelectedConsents : approveAllConsents;
-  const primaryButtonAction = hasOptionalConsents ? 'approveSelectedAndRequired' : 'approveAll';
+  const primaryButtonText = detailsAreShown ? approveRequiredAndSelectedConsents : approveAllConsents;
+  const primaryButtonAction = detailsAreShown ? 'approveSelectedAndRequired' : 'approveAll';
   return (
     <div className={styles.buttons}>
       <Button
