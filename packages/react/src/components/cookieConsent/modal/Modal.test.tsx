@@ -6,40 +6,30 @@ import { axe } from 'jest-axe';
 import { act } from 'react-dom/test-utils';
 
 import { Modal } from './Modal';
-import { ConsentList, ConsentObject, COOKIE_NAME } from '../cookieConsentController';
+import { COOKIE_NAME } from '../cookieConsentController';
 import { Content, Provider as CookieContextProvider } from '../CookieConsentContext';
 import mockDocumentCookie from '../__mocks__/mockDocumentCookie';
-import { extractSetCookieArguments, getContent } from '../test.util';
+import {
+  clickElement,
+  extractSetCookieArguments,
+  getContent,
+  isAccordionOpen,
+  openAccordion,
+  verifyElementDoesNotExistsByTestId,
+  verifyElementExistsByTestId,
+  commonTestProps,
+  TestConsentData,
+  TestGroupParent,
+} from '../test.util';
 
-type ConsentData = {
-  requiredConsents?: ConsentList[];
-  optionalConsents?: ConsentList[];
-  cookie?: ConsentObject;
-  contentModifier?: (content: Content) => Content;
-};
-
-type GroupParent = typeof requiredGroupParent | typeof optionalGroupParent;
-
-const requiredGroupParent = 'required';
-const optionalGroupParent = 'optional';
-
-const defaultConsentData = {
-  requiredConsents: [['requiredConsent1', 'requiredConsent2'], ['requiredConsent3']],
-  optionalConsents: [['optionalConsent1'], ['optionalConsent2', 'optionalConsent3']],
-  cookie: {},
-};
-
-const unknownConsents = {
-  unknownConsent1: true,
-  unknownConsent2: false,
-};
+const { requiredGroupParent, optionalGroupParent, defaultConsentData, unknownConsents, dataTestIds } = commonTestProps;
 
 const mockedCookieControls = mockDocumentCookie();
 
 let content: Content;
 
 const renderCookieConsent = (
-  { requiredConsents = [], optionalConsents = [], cookie = {}, contentModifier }: ConsentData,
+  { requiredConsents = [], optionalConsents = [], cookie = {}, contentModifier }: TestConsentData,
   withRealTimers = false,
 ): RenderResult => {
   // inject unknown consents to verify those are
@@ -100,46 +90,7 @@ describe('<CookieConsent /> ', () => {
 
   const getSetCookieArguments = (index = -1) => extractSetCookieArguments(mockedCookieControls, index);
 
-  const dataTestIds = {
-    container: 'cookie-consent',
-    languageSwitcher: 'cookie-consent-language-switcher',
-    approveButton: 'cookie-consent-approve-button',
-    approveRequiredButton: 'cookie-consent-approve-required-button',
-    settingsToggler: 'cookie-consent-settings-toggler',
-    detailsComponent: 'cookie-consent-details',
-    screenReaderNotification: 'cookie-consent-screen-reader-notification',
-    getConsentGroupCheckboxId: (parent: GroupParent, index: number) => `${parent}-consents-group-${index}-checkbox`,
-    getConsentGroupDetailsTogglerId: (parent: GroupParent, index: number) =>
-      `${parent}-consents-group-${index}-details-toggler`,
-    getConsentGroupTableId: (parent: GroupParent, index: number) => `${parent}-consents-group-${index}-table`,
-    getConsentsCheckboxId: (parent: GroupParent) => `${parent}-consents-checkbox`,
-  };
-
-  const verifyElementExistsByTestId = (result: RenderResult, testId: string) => {
-    expect(result.getAllByTestId(testId)).toHaveLength(1);
-  };
-
-  const verifyElementDoesNotExistsByTestId = (result: RenderResult, testId: string) => {
-    expect(() => result.getAllByTestId(testId)).toThrow();
-  };
-
-  const clickElement = (result: RenderResult, testId: string) => {
-    result.getByTestId(testId).click();
-  };
-
-  const isAccordionOpen = (result: RenderResult, testId: string): boolean => {
-    const toggler = result.getByTestId(testId) as HTMLElement;
-    return toggler.getAttribute('aria-expanded') === 'true';
-  };
-
-  const openAccordion = async (result: RenderResult, testId: string): Promise<void> => {
-    clickElement(result, testId);
-    await waitFor(() => {
-      expect(isAccordionOpen(result, testId)).toBeTruthy();
-    });
-  };
-
-  const initDetailsView = async (data: ConsentData): Promise<RenderResult> => {
+  const initDetailsView = async (data: TestConsentData): Promise<RenderResult> => {
     const result = renderCookieConsent(data);
     await openAccordion(result, dataTestIds.settingsToggler);
     return result;
@@ -314,7 +265,7 @@ describe('<CookieConsent /> ', () => {
   describe('Accordions of each consent group can be opened and ', () => {
     it('all consents in the group are rendered', async () => {
       const result = await initDetailsView(defaultConsentData);
-      const checkConsentsExist = async (groupParent: GroupParent) => {
+      const checkConsentsExist = async (groupParent: TestGroupParent) => {
         const list =
           groupParent === 'required' ? content.requiredConsents.groupList : content.optionalConsents.groupList;
         let index = 0;

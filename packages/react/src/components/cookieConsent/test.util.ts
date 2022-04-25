@@ -1,10 +1,23 @@
 /* eslint-disable jest/no-mocks-import */
 import cookie from 'cookie';
+import { RenderResult, waitFor } from '@testing-library/react';
 
 import { ConsentGroup, Content } from './CookieConsentContext';
-import { ConsentList, COOKIE_NAME } from './cookieConsentController';
+import { ConsentList, ConsentObject, COOKIE_NAME } from './cookieConsentController';
 import { CookieSetOptions } from './cookieController';
 import { MockedDocumentCookieActions } from './__mocks__/mockDocumentCookie';
+
+export type TestConsentData = {
+  requiredConsents?: ConsentList[];
+  optionalConsents?: ConsentList[];
+  cookie?: ConsentObject;
+  contentModifier?: (content: Content) => Content;
+};
+
+export type TestGroupParent = typeof requiredGroupParent | typeof optionalGroupParent;
+
+const requiredGroupParent = 'required';
+const optionalGroupParent = 'optional';
 
 export function extractSetCookieArguments(
   mockedCookieControls: MockedDocumentCookieActions,
@@ -119,4 +132,56 @@ export const getContent = (
     return contentModifier(content);
   }
   return content;
+};
+
+export function verifyElementExistsByTestId(result: RenderResult, testId: string) {
+  expect(result.getAllByTestId(testId)).toHaveLength(1);
+}
+
+export function verifyElementDoesNotExistsByTestId(result: RenderResult, testId: string) {
+  expect(() => result.getAllByTestId(testId)).toThrow();
+}
+
+export function clickElement(result: RenderResult, testId: string) {
+  result.getByTestId(testId).click();
+}
+
+export function isAccordionOpen(result: RenderResult, testId: string): boolean {
+  const toggler = result.getByTestId(testId) as HTMLElement;
+  return toggler.getAttribute('aria-expanded') === 'true';
+}
+
+export async function openAccordion(result: RenderResult, testId: string): Promise<void> {
+  clickElement(result, testId);
+  await waitFor(() => {
+    expect(isAccordionOpen(result, testId)).toBeTruthy();
+  });
+}
+
+export const commonTestProps = {
+  dataTestIds: {
+    container: 'cookie-consent',
+    languageSwitcher: 'cookie-consent-language-switcher',
+    approveButton: 'cookie-consent-approve-button',
+    approveRequiredButton: 'cookie-consent-approve-required-button',
+    settingsToggler: 'cookie-consent-settings-toggler',
+    detailsComponent: 'cookie-consent-details',
+    screenReaderNotification: 'cookie-consent-screen-reader-notification',
+    getConsentGroupCheckboxId: (parent: TestGroupParent, index: number) => `${parent}-consents-group-${index}-checkbox`,
+    getConsentGroupDetailsTogglerId: (parent: TestGroupParent, index: number) =>
+      `${parent}-consents-group-${index}-details-toggler`,
+    getConsentGroupTableId: (parent: TestGroupParent, index: number) => `${parent}-consents-group-${index}-table`,
+    getConsentsCheckboxId: (parent: TestGroupParent) => `${parent}-consents-checkbox`,
+  },
+  requiredGroupParent: 'required' as TestGroupParent,
+  optionalGroupParent: 'optional' as TestGroupParent,
+  defaultConsentData: {
+    requiredConsents: [['requiredConsent1', 'requiredConsent2'], ['requiredConsent3']],
+    optionalConsents: [['optionalConsent1'], ['optionalConsent2', 'optionalConsent3']],
+    cookie: {},
+  },
+  unknownConsents: {
+    unknownConsent1: true,
+    unknownConsent2: false,
+  },
 };
