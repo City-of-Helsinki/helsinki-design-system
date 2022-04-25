@@ -64,6 +64,8 @@ $koros-heights: (
 
 .title {
   font-size: var(--fontsize-heading-xxs);
+  line-height: var(--lineheight-l);
+  letter-spacing: 0.4px;
   font-weight: bold;
 }
 
