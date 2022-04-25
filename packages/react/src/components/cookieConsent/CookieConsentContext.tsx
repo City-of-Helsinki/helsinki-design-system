@@ -128,7 +128,6 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
       if (content.onAllConsentsGiven) {
         content.onAllConsentsGiven(mergeConsents());
       }
-      // setShowScreenReaderSaveNotification(true);
     }
     return savedData;
   };
@@ -189,7 +188,6 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
   };
 
   const areGroupConsentsApproved: CookieConsentContextType['areGroupConsentsApproved'] = (consentData) => {
-    // consentData
     const optionalConsentList = consentController.getOptional();
     return !consentData.reduce((hasUnApprovedConsent, consent) => {
       return hasUnApprovedConsent || optionalConsentList[consent.id] !== true;
