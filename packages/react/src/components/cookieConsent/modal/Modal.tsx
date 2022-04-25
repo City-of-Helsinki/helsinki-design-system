@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
-import classNames from '../../utils/classNames';
-import styles from './CookieConsent.module.scss';
-import { CookieConsentContext, useCookieConsentUiTexts } from './CookieConsentContext';
-import Content from './content/Content';
+import classNames from '../../../utils/classNames';
+import styles from '../CookieConsent.module.scss';
+import { CookieConsentContext, useCookieConsentUiTexts } from '../CookieConsentContext';
+import Content from '../content/Content';
 
-export function CookieConsent(): React.ReactElement | null {
+export function Modal(): React.ReactElement | null {
   const cookieConsentContext = useContext(CookieConsentContext);
   const shouldShowCookieConsents = !cookieConsentContext.hasUserHandledAllConsents();
   const { settingsSaved } = useCookieConsentUiTexts();
