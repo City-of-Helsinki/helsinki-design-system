@@ -25,6 +25,10 @@
   transform: translateY(0%);
 }
 
+.page {
+  --common-spacing: var(--spacing-s);
+}
+
 .buttons {
   display: flex;
   flex-direction: column;
@@ -44,6 +48,12 @@
   width: 100%;
   box-sizing: border-box;
   border-top: 8px solid var(--color-bus);
+}
+
+.page .content {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-top: 0;
 }
 
 .language-switcher {
@@ -176,6 +186,7 @@
   margin-right: calc(var(--spacing-s) * 3);
 }
 
+.page .content .consent-group-parent .title-with-checkbox label,
 .container .content .consent-group-parent .title-with-checkbox label {
   font-weight: bold;
   color: var(--color-black);
