@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CookieConsent /> spec renders the component 1`] = `
+exports[`<ModalContent /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
     class="container animate-in"
