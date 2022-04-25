@@ -200,9 +200,7 @@
 
 .heading {
   margin-top: 26px;
-  font-size: 36px;
-  line-height: 43px;
-  font-weight: bold;
+  composes: heading-l from 'hds-core/lib/utils/helpers.css';
   width: fit-content;
 
   &:focus {

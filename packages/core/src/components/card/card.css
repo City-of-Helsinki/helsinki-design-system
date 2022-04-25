@@ -24,7 +24,7 @@
 /* BODY */
 .hds-card__body {
   display: grid;
-  gap: var(--spacing-m);
+  gap: var(--spacing-s);
   margin-bottom: var(--spacing-l);
 }
 .hds-card__body:last-child {
@@ -34,8 +34,9 @@
 /* HEADING */
 .hds-card__heading {
   font-size: var(--fontsize-heading-m);
-  font-weight: bold;
-  line-height: var(--lineheight-m);
+  letter-spacing: -0.2px;
+  font-weight: 500;
+  line-height: 1.33;
 }
 
 /* BODY TEXT */

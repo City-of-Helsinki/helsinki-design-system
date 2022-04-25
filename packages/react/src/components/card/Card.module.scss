@@ -23,10 +23,6 @@
   composes: hds-card__body from 'hds-core/lib/components/card/card.css';
 }
 
-.heading {
-  composes: hds-card__heading from 'hds-core/lib/components/card/card.css';
-}
-
 .text {
   composes: hds-card__text from 'hds-core/lib/components/card/card.css';
 }
