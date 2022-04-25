@@ -119,6 +119,8 @@
   cursor: pointer;
   display: flex;
   font-size: var(--fontsize-heading-xxs);
+  line-height: var(--lineheight-l);
+  letter-spacing: 0.4px;
   font-weight: bold;
   height: calc(100% - var(--spacing-s) * 2);
   outline: none;
@@ -303,6 +305,9 @@
 @media x-large-up {
   .title {
     font-size: var(--fontsize-heading-s);
+    letter-spacing: 0.2px;
+    line-height: 1.4;
+    font-weight: 700;
     height: calc(100% - var(--spacing-xs) * 2);
 
     > span {
