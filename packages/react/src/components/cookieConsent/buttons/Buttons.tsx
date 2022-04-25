@@ -6,10 +6,11 @@ import { useCookieConsentActions, useCookieConsentUiTexts } from '../CookieConse
 
 export type Props = {
   detailsAreShown: boolean;
+  onClick?: () => void;
 };
 
-function Buttons({ detailsAreShown }: Props): React.ReactElement {
-  const onClick = useCookieConsentActions();
+function Buttons({ detailsAreShown, onClick = () => undefined }: Props): React.ReactElement {
+  const triggerAction = useCookieConsentActions();
   const {
     approveRequiredAndSelectedConsents,
     approveOnlyRequiredConsents,
@@ -22,7 +23,8 @@ function Buttons({ detailsAreShown }: Props): React.ReactElement {
       <Button
         variant="primary"
         onClick={() => {
-          onClick(primaryButtonAction);
+          triggerAction(primaryButtonAction);
+          onClick();
         }}
         data-testid="cookie-consent-approve-button"
       >
@@ -31,7 +33,8 @@ function Buttons({ detailsAreShown }: Props): React.ReactElement {
       <Button
         variant="secondary"
         onClick={() => {
-          onClick('approveRequired');
+          triggerAction('approveRequired');
+          onClick();
         }}
         data-testid="cookie-consent-approve-required-button"
       >
