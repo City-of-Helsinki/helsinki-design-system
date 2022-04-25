@@ -46,7 +46,7 @@ describe('CookieConsentContext ', () => {
   const ContextConsumer = ({ consumerId }: { consumerId: string }) => {
     const { hasUserHandledAllConsents, approveAll } = useContext(CookieConsentContext);
     const allUserConsentsAreHandled = hasUserHandledAllConsents();
-    const showShowCookieConsents = !allUserConsentsAreHandled;
+    const shouldShowCookieConsents = !allUserConsentsAreHandled;
     const onButtonClick = () => {
       approveAll();
     };
@@ -54,8 +54,8 @@ describe('CookieConsentContext ', () => {
       <div>
         {allUserConsentsAreHandled && <span data-testid={`${consumerId}-all-handled`} />}
         {!allUserConsentsAreHandled && <span data-testid={`${consumerId}-all-not-handled`} />}
-        {showShowCookieConsents && <span data-testid={`${consumerId}-should-render`} />}
-        {!showShowCookieConsents && <span data-testid={`${consumerId}-should-not-render`} />}
+        {shouldShowCookieConsents && <span data-testid={`${consumerId}-should-render`} />}
+        {!shouldShowCookieConsents && <span data-testid={`${consumerId}-should-not-render`} />}
         <button type="button" data-testid={`${consumerId}-approve-all-button`} onClick={() => onButtonClick()}>
           Approve all
         </button>
