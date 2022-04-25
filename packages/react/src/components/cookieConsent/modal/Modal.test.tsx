@@ -20,6 +20,7 @@ import {
   commonTestProps,
   TestConsentData,
   TestGroupParent,
+  createCookieDataWithSelectedRejections,
 } from '../test.util';
 
 const { requiredGroupParent, optionalGroupParent, defaultConsentData, unknownConsents, dataTestIds } = commonTestProps;
@@ -108,14 +109,7 @@ describe('<CookieConsent /> ', () => {
     it('is rendered if a required consent has not been approved. It could have been optional before', () => {
       const result = renderCookieConsent({
         ...defaultConsentData,
-        cookie: {
-          requiredConsent1: true,
-          requiredConsent2: false,
-          requiredConsent3: true,
-          optionalConsent1: true,
-          optionalConsent2: true,
-          optionalConsent3: true,
-        },
+        cookie: createCookieDataWithSelectedRejections(['requiredConsent2']),
       });
       verifyElementExistsByTestId(result, dataTestIds.container);
     });
@@ -123,14 +117,7 @@ describe('<CookieConsent /> ', () => {
     it('is not shown when all consents have been handled and are true/false', () => {
       const result = renderCookieConsent({
         ...defaultConsentData,
-        cookie: {
-          requiredConsent1: true,
-          requiredConsent2: true,
-          requiredConsent3: true,
-          optionalConsent1: false,
-          optionalConsent2: true,
-          optionalConsent3: false,
-        },
+        cookie: createCookieDataWithSelectedRejections(['optionalConsent1', 'optionalConsent3']),
       });
       verifyElementDoesNotExistsByTestId(result, dataTestIds.container);
       verifyElementDoesNotExistsByTestId(result, dataTestIds.screenReaderNotification);
@@ -165,12 +152,7 @@ describe('<CookieConsent /> ', () => {
     it('Approve -button approves all consents when details are not shown', () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
-        requiredConsent1: true,
-        requiredConsent2: true,
-        requiredConsent3: true,
-        optionalConsent1: true,
-        optionalConsent2: true,
-        optionalConsent3: true,
+        ...createCookieDataWithSelectedRejections([]),
         ...unknownConsents,
       };
       clickElement(result, dataTestIds.approveButton);
@@ -180,12 +162,7 @@ describe('<CookieConsent /> ', () => {
     it('Approve required -button approves only required consents and clears selected consents', async () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
-        requiredConsent1: true,
-        requiredConsent2: true,
-        requiredConsent3: true,
-        optionalConsent1: false,
-        optionalConsent2: false,
-        optionalConsent3: false,
+        ...createCookieDataWithSelectedRejections(['optionalConsent1', 'optionalConsent2', 'optionalConsent3']),
         ...unknownConsents,
       };
       await openAccordion(result, dataTestIds.settingsToggler);
@@ -198,12 +175,7 @@ describe('<CookieConsent /> ', () => {
     it('Approve -button will approve required and selected consents when details are shown', async () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
-        requiredConsent1: true,
-        requiredConsent2: true,
-        requiredConsent3: true,
-        optionalConsent1: true,
-        optionalConsent2: false,
-        optionalConsent3: false,
+        ...createCookieDataWithSelectedRejections(['optionalConsent2', 'optionalConsent3']),
         ...unknownConsents,
       };
       await openAccordion(result, dataTestIds.settingsToggler);
@@ -249,12 +221,7 @@ describe('<CookieConsent /> ', () => {
       clickElement(result, dataTestIds.getConsentGroupCheckboxId(optionalGroupParent, 0));
       clickElement(result, dataTestIds.approveButton);
       expect(JSON.parse(getSetCookieArguments().data)).toEqual({
-        requiredConsent1: true,
-        requiredConsent2: true,
-        requiredConsent3: true,
-        optionalConsent1: false,
-        optionalConsent2: true,
-        optionalConsent3: true,
+        ...createCookieDataWithSelectedRejections(['optionalConsent1']),
         ...unknownConsents,
       });
       verifyElementDoesNotExistsByTestId(result, dataTestIds.container);
