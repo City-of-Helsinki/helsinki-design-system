@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 
-import { commonConsents } from './cookieConsentController';
-import { Content } from './CookieConsentContext';
+import { commonConsents, COOKIE_NAME } from './cookieConsentController';
+import { ConsentData, Content } from './CookieConsentContext';
 import { CookieConsentModal } from './CookieConsentModal';
 import { getConsentStatus, hasHandledAllConsents } from './util';
 
@@ -19,6 +19,15 @@ export const Example = () => {
   const onLanguageChange = (newLang) => setLanguage(newLang);
 
   const content: Content = useMemo((): Content => {
+    const consentForStoringCookieConsents: ConsentData = {
+      id: COOKIE_NAME,
+      name: 'Suostumusvalinnat',
+      hostName: 'Osoite',
+      path: 'Polku',
+      description: 'Tallennetaan Helsingin kaupungin yhteiset evästesuostumukset.',
+      expiration: '1 vuosi',
+    };
+
     return {
       texts: {
         sections: {
@@ -80,6 +89,7 @@ export const Example = () => {
                 description: 'Quisque vest molestie convallis. Don el dui vel.',
                 expiration: 'Voimassaoloaika',
               },
+              consentForStoringCookieConsents,
             ],
           },
           {
