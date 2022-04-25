@@ -167,6 +167,7 @@ export const commonTestProps = {
     settingsToggler: 'cookie-consent-settings-toggler',
     detailsComponent: 'cookie-consent-details',
     screenReaderNotification: 'cookie-consent-screen-reader-notification',
+    saveNotification: 'cookie-consent-save-notification',
     getConsentGroupCheckboxId: (parent: TestGroupParent, index: number) => `${parent}-consents-group-${index}-checkbox`,
     getConsentGroupDetailsTogglerId: (parent: TestGroupParent, index: number) =>
       `${parent}-consents-group-${index}-details-toggler`,
@@ -185,3 +186,33 @@ export const commonTestProps = {
     unknownConsent2: false,
   },
 };
+
+function createCookieData(consentList: ConsentList, source: TestConsentData, approved: boolean): ConsentObject {
+  const flattenArrayReducer = (acc: unknown[], val: unknown) => acc.concat(val);
+  const flatRequired = source.requiredConsents.reduce(flattenArrayReducer, []) as ConsentList;
+  const flatOptional = source.optionalConsents.reduce(flattenArrayReducer, []) as ConsentList;
+  const allConsents = [...flatRequired, ...flatOptional];
+  const consents = allConsents.reduce((currentValue, currentConsent) => {
+    // eslint-disable-next-line no-param-reassign
+    currentValue[currentConsent] = !approved;
+    return currentValue;
+  }, {});
+  consentList.forEach((consent) => {
+    consents[consent] = approved;
+  });
+  return consents;
+}
+
+export function createCookieDataWithSelectedApprovals(
+  approvedConsents: ConsentList,
+  source: TestConsentData = commonTestProps.defaultConsentData,
+): ConsentObject {
+  return createCookieData(approvedConsents, source, true);
+}
+
+export function createCookieDataWithSelectedRejections(
+  approvedConsents: ConsentList,
+  source: TestConsentData = commonTestProps.defaultConsentData,
+): ConsentObject {
+  return createCookieData(approvedConsents, source, false);
+}
