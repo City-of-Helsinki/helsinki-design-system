@@ -16,7 +16,7 @@ function ConsentGroups(props: {
 }): React.ReactElement {
   const { consentGroups, isRequired } = props;
   const cookieConsentContext = useContext(CookieConsentContext);
-  const onClick = useCookieConsentActions();
+  const triggerAction = useCookieConsentActions();
   if (!consentGroups) {
     return null;
   }
@@ -26,7 +26,7 @@ function ConsentGroups(props: {
   const groupId = isRequired ? 'required' : 'optional';
   const checked = isRequired || allApproved;
   const checkboxProps = {
-    onChange: isRequired ? () => undefined : () => onClick(checked ? 'unapproveOptional' : 'approveOptional'),
+    onChange: isRequired ? () => undefined : () => triggerAction(checked ? 'unapproveOptional' : 'approveOptional'),
     disabled: isRequired,
     checked,
     indeterminate: isRequired ? false : !Number.isInteger(selectPercentage),

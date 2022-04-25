@@ -21,7 +21,7 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
   });
   const groupConsents = group.consents;
   const cookieConsentContext = useContext(CookieConsentContext);
-  const onClick = useCookieConsentActions();
+  const triggerAction = useCookieConsentActions();
   const areAllApproved = isRequired || cookieConsentContext.areGroupConsentsApproved(groupConsents);
   const { title, text, checkboxAriaDescription, expandAriaLabel } = group;
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
@@ -29,7 +29,7 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
     onChange: isRequired
       ? () => undefined
       : () =>
-          onClick(
+          triggerAction(
             'changeConsentGroup',
             groupConsents.map((consent) => consent.id),
             !areAllApproved,
