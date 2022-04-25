@@ -5,11 +5,11 @@ import { render, RenderResult, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { act } from 'react-dom/test-utils';
 
-import { CookieConsent } from './CookieConsent';
-import { ConsentList, ConsentObject, COOKIE_NAME } from './cookieConsentController';
-import { Content, Provider as CookieContextProvider } from './CookieConsentContext';
-import mockDocumentCookie from './__mocks__/mockDocumentCookie';
-import { extractSetCookieArguments, getContent } from './test.util';
+import { Modal } from './Modal';
+import { ConsentList, ConsentObject, COOKIE_NAME } from '../cookieConsentController';
+import { Content, Provider as CookieContextProvider } from '../CookieConsentContext';
+import mockDocumentCookie from '../__mocks__/mockDocumentCookie';
+import { extractSetCookieArguments, getContent } from '../test.util';
 
 type ConsentData = {
   requiredConsents?: ConsentList[];
@@ -53,7 +53,7 @@ const renderCookieConsent = (
   mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
   const result = render(
     <CookieContextProvider content={content}>
-      <CookieConsent />
+      <Modal />
     </CookieContextProvider>,
   );
   act(() => {
@@ -68,7 +68,7 @@ const renderCookieConsent = (
   return result;
 };
 
-describe('<CookieConsent /> spec', () => {
+describe('<ModalContent /> spec', () => {
   afterEach(() => {
     mockedCookieControls.clear();
   });

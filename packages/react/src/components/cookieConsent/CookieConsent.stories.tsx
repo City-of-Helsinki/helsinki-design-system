@@ -2,11 +2,11 @@ import React, { useMemo, useState } from 'react';
 
 import { commonConsents, COOKIE_NAME } from './cookieConsentController';
 import { ConsentData, Content } from './CookieConsentContext';
-import { CookieConsentModal } from './CookieConsentModal';
+import { ConsentsInModal } from './consentsInModal/ConsentsInModal';
 import { getConsentStatus, hasHandledAllConsents } from './util';
 
 export default {
-  component: CookieConsentModal,
+  component: ConsentsInModal,
   title: 'Components/CookieConsent',
   parameters: {
     controls: { expanded: true },
@@ -263,7 +263,7 @@ export const Example = () => {
 
   return (
     <>
-      <CookieConsentModal content={content} />
+      <ConsentsInModal content={content} />
       <Application />
     </>
   );
