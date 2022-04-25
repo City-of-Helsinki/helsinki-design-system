@@ -131,7 +131,6 @@ export const Linkbox = ({
             role="heading"
             aria-level={headingAriaLevel}
             className={classNames(
-              styles.headingCommon,
               size === 'small' && styles.headingSmall,
               size === 'medium' && styles.headingMedium,
               size === 'large' && styles.headingLarge,
