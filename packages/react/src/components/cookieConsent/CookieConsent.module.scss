@@ -143,6 +143,10 @@
   padding-left: var(--spacing-3-xs);
 }
 
+.accordion-button-settings-closed {
+  padding-bottom: var(--common-spacing);
+}
+
 .consent-group-parent {
   display: flex;
   padding-bottom: var(--spacing-m);

@@ -40,8 +40,8 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
     '--label-font-size': 'var(--fontsize-heading-s)',
   } as React.CSSProperties;
 
-  const getGroupIdenfier = (suffix: string) => `${id}-${suffix}`;
-  const checkboxId = getGroupIdenfier('checkbox');
+  const getGroupIdentifier = (suffix: string) => `${id}-${suffix}`;
+  const checkboxId = getGroupIdentifier('checkbox');
   return (
     <div className={styles['consent-group']}>
       <div className={styles['title-with-checkbox']}>
@@ -50,20 +50,20 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
           name={checkboxId}
           data-testid={checkboxId}
           label={title}
-          aria-describedby={getGroupIdenfier('description')}
+          aria-describedby={getGroupIdentifier('description')}
           style={checkboxStyle}
           {...checkboxProps}
         />
       </div>
       <div className={styles['consent-group-content']}>
         <p aria-hidden>{text}</p>
-        <VisuallyHidden id={getGroupIdenfier('description')} aria-hidden>
+        <VisuallyHidden id={getGroupIdentifier('description')} aria-hidden>
           {checkboxAriaDescription || text}
         </VisuallyHidden>
         <button
           type="button"
           className={styles['accordion-button']}
-          data-testid={getGroupIdenfier('details-toggler')}
+          data-testid={getGroupIdentifier('details-toggler')}
           aria-label={expandAriaLabel}
           {...buttonProps}
         >
@@ -71,12 +71,13 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
         </button>
         <Card
           {...contentProps}
+          aria-label={title}
           theme={{
             '--padding-horizontal': '0',
             '--padding-vertical': '0',
           }}
         >
-          <ConsentGroupDataTable consents={groupConsents} id={getGroupIdenfier('table')} />
+          <ConsentGroupDataTable consents={groupConsents} id={getGroupIdentifier('table')} />
         </Card>
       </div>
     </div>
