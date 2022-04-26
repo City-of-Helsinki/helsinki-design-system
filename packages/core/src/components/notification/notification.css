@@ -37,7 +37,9 @@
   align-items: flex-start;
   display: flex;
   font-weight: bold;
-  font-size: var(--fontsize-body-l);
+  font-size: var(--fontsize-heading-xs);
+  letter-spacing: 0.4px;
+  line-height: 24px;
   margin-right: var(--spacing-l);
 }
 
@@ -83,10 +85,6 @@
 
 .hds-notification__label > .hds-icon {
   flex: none;
-}
-
-.hds-notification:not(.hds-notification--small) .hds-notification__label > .hds-icon {
-  transform: translateY(var(--spacing-4-xs));
 }
 
 /* CLOSE BUTTON */
