@@ -158,9 +158,6 @@
   position: relative;
   padding: var(--spacing-xl) 0;
   flex-direction: column;
-}
-
-.consent-group-closed {
   border-bottom: 1px solid var(--color-black);
 }
 
@@ -236,7 +233,8 @@
   }
 }
 @media (min-width: 768px) {
-  .container {
+  .container,
+  .page {
     --common-spacing: var(--spacing-l);
   }
 

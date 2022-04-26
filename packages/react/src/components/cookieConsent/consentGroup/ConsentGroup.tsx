@@ -12,7 +12,6 @@ import { useAccordion } from '../../accordion';
 import { IconAngleDown, IconAngleUp } from '../../../icons';
 import { Card } from '../../card/Card';
 import ConsentGroupDataTable from '../consentGroupDataTable/ConsentGroupDataTable';
-import classNames from '../../../utils/classNames';
 
 function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id: string }): React.ReactElement {
   const { group, isRequired, id } = props;
@@ -41,14 +40,10 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
     '--label-font-size': 'var(--fontsize-heading-s)',
   } as React.CSSProperties;
 
-  const currentStyles = isOpen
-    ? styles['consent-group']
-    : classNames(styles['consent-group'], styles['consent-group-closed']);
-
   const getGroupIdenfier = (suffix: string) => `${id}-${suffix}`;
   const checkboxId = getGroupIdenfier('checkbox');
   return (
-    <div className={currentStyles}>
+    <div className={styles['consent-group']}>
       <div className={styles['title-with-checkbox']}>
         <Checkbox
           id={checkboxId}
