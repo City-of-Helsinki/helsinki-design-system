@@ -298,7 +298,11 @@ export const PageVersion = () => {
     const content: Content = useMemo((): Content => {
       return createContent({ currentLanguage: language, onLanguageChange });
     }, [language]);
-    return <Page content={content} />;
+    return (
+      <main>
+        <Page content={content} />
+      </main>
+    );
   };
 
   return (
