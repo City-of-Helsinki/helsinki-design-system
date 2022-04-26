@@ -19,9 +19,7 @@ type ConsentData = {
 describe('CookieConsentContext ', () => {
   const mockedCookieControls = mockDocumentCookie();
   const mockedWindowControls = mockWindowLocation();
-
   const getSetCookieArguments = (index = -1) => extractSetCookieArguments(mockedCookieControls, index);
-
   const allApprovedConsentData = {
     requiredConsents: ['requiredConsent1'],
     optionalConsents: ['optionalConsent1'],
@@ -37,10 +35,26 @@ describe('CookieConsentContext ', () => {
       optionalConsent1: false,
     },
   };
-
   const unknownConsents = {
     unknownConsent1: true,
     unknownConsent2: false,
+  };
+
+  const createConsentData = ({
+    requiredConsentCookieValue,
+    optionalConsentCookieValue,
+  }: {
+    requiredConsentCookieValue: boolean | undefined;
+    optionalConsentCookieValue: boolean | undefined;
+  }): ConsentData => {
+    const copyOfApprovedCookie = { ...allApprovedConsentData.cookie };
+    const copyOfApprovedConsentData = { ...allApprovedConsentData };
+    copyOfApprovedCookie.requiredConsent1 = requiredConsentCookieValue;
+    copyOfApprovedCookie.optionalConsent1 = optionalConsentCookieValue;
+    return {
+      ...copyOfApprovedConsentData,
+      cookie: copyOfApprovedCookie,
+    };
   };
 
   const ContextConsumer = ({ consumerId }: { consumerId: string }) => {
@@ -111,7 +125,7 @@ describe('CookieConsentContext ', () => {
     cookie = {},
   }: ConsentData): RenderResult => {
     // inject unknown consents to verify those are
-    // stored and handled, but not required or optional
+    // stored and handled, but not in required or optional consents
     const cookieWithInjectedUnknowns = {
       ...cookie,
       ...unknownConsents,
@@ -131,16 +145,36 @@ describe('CookieConsentContext ', () => {
     );
   };
 
-  describe('hasUserHandledAllConsents ', () => {
-    it('returns false if all required consents are not true or any optional consent is undefined.', () => {
-      verifyConsumersShowConsentsNotHandled(renderCookieConsent(allNotApprovedConsentData));
+  describe('Consumers should not ask for consents when hasUserHandledAllConsents() returns true. It ', () => {
+    it('returns false if all required consents are not true.', () => {
+      const consentsWithUnApprovedRequiredConsent = createConsentData({
+        requiredConsentCookieValue: false,
+        optionalConsentCookieValue: true,
+      });
+      verifyConsumersShowConsentsNotHandled(renderCookieConsent(consentsWithUnApprovedRequiredConsent));
     });
 
-    it('returns true if user has unhandled consents', () => {
+    it('returns false if any optional consents are undefined.', () => {
+      const consentsWithUnhandledOptionalConsent = createConsentData({
+        requiredConsentCookieValue: true,
+        optionalConsentCookieValue: undefined,
+      });
+      verifyConsumersShowConsentsNotHandled(renderCookieConsent(consentsWithUnhandledOptionalConsent));
+    });
+
+    it('returns true if required consents are approved and has no unhandled optional consents', () => {
       verifyConsumersShowConsentsHandled(renderCookieConsent(allApprovedConsentData));
     });
 
-    it('changes with approval', () => {
+    it('returns true if required consents are approved and optional is false', () => {
+      const consentsWithDeclinedOptionalConsent = createConsentData({
+        requiredConsentCookieValue: true,
+        optionalConsentCookieValue: false,
+      });
+      verifyConsumersShowConsentsHandled(renderCookieConsent(consentsWithDeclinedOptionalConsent));
+    });
+
+    it('changes when consents are approved', () => {
       const result = renderCookieConsent(allNotApprovedConsentData);
       verifyConsumersShowConsentsNotHandled(result);
       clickElement(result, consumer1ApproveAllButtonSelector);
@@ -156,14 +190,14 @@ describe('CookieConsentContext ', () => {
     });
 
     it('Arguments are ({consents}, true) when user has given all consents', () => {
-      renderCookieConsent(allNotApprovedConsentData);
+      renderCookieConsent(allApprovedConsentData);
       expect(onConsentsParsed).toHaveBeenCalledTimes(1);
-      expect(onConsentsParsed).toHaveBeenLastCalledWith(allNotApprovedConsentData.cookie, false);
+      expect(onConsentsParsed).toHaveBeenLastCalledWith(allApprovedConsentData.cookie, true);
     });
   });
 
   describe('onAllConsentsGiven ', () => {
-    it('is called only when user has given all consents.', () => {
+    it('is called after user has given all consents.', () => {
       const result = renderCookieConsent(allNotApprovedConsentData);
       expect(onAllConsentsGiven).toHaveBeenCalledTimes(0);
       clickElement(result, consumer1ApproveAllButtonSelector);
@@ -171,8 +205,12 @@ describe('CookieConsentContext ', () => {
       expect(onAllConsentsGiven).toHaveBeenLastCalledWith(allApprovedConsentData.cookie);
     });
 
-    it('is not called even if consents are initially given', () => {
-      renderCookieConsent(allApprovedConsentData);
+    it('is not called when all required consents are initially true and optional are true/false.', () => {
+      const consentsWithDeclinedOptionalConsent = createConsentData({
+        requiredConsentCookieValue: true,
+        optionalConsentCookieValue: false,
+      });
+      renderCookieConsent(consentsWithDeclinedOptionalConsent);
       expect(onAllConsentsGiven).toHaveBeenCalledTimes(0);
     });
   });
