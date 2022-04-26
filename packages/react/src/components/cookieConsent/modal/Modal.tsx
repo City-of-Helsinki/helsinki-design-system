@@ -8,13 +8,13 @@ import Content from '../content/Content';
 
 export function Modal(): React.ReactElement | null {
   const cookieConsentContext = useContext(CookieConsentContext);
-  const shouldShowCookieConsents = !cookieConsentContext.hasUserHandledAllConsents();
-  const { settingsSaved } = useCookieConsentUiTexts();
-  const [cookieConsentDialogIsShown] = useState<boolean>(shouldShowCookieConsents);
+  const shouldShowModal = !cookieConsentContext.hasUserHandledAllConsents();
+  const [isModalInitiallyShown] = useState<boolean>(shouldShowModal);
   const [popupTimerComplete, setPopupTimerComplete] = useState<boolean>(false);
   const popupDelayInMs = 500;
-  // if hasUserHandledAllConsents() was false at first and then later true, user must have saved them.
-  const showScreenReaderSaveNotification = cookieConsentDialogIsShown && !shouldShowCookieConsents;
+  // if hasUserHandledAllConsents() was false at first and then later true, user must have saved consents.
+  const showScreenReaderSaveNotification = isModalInitiallyShown && !shouldShowModal;
+  const { settingsSaved } = useCookieConsentUiTexts();
   useEffect(() => {
     setTimeout(() => setPopupTimerComplete(true), popupDelayInMs);
   }, []);
@@ -29,7 +29,7 @@ export function Modal(): React.ReactElement | null {
     );
   }
 
-  if (!shouldShowCookieConsents) {
+  if (!shouldShowModal) {
     return null;
   }
 
