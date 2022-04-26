@@ -35,7 +35,7 @@ const createContent = (options: ContentOptions): Content => {
     texts: {
       sections: {
         main: {
-          title: 'Evästesuostumukset',
+          title: 'Eväste\u00ADsuostumukset',
           text: `Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan.
             Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön
             näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden
