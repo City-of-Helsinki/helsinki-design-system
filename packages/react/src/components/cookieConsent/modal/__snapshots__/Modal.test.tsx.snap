@@ -214,7 +214,7 @@ exports[`<ModalContent /> spec renders the component 1`] = `
               >
                 <li>
                   <div
-                    class="consent-group consent-group-closed"
+                    class="consent-group"
                   >
                     <div
                       class="title-with-checkbox"
@@ -400,7 +400,7 @@ exports[`<ModalContent /> spec renders the component 1`] = `
                 </li>
                 <li>
                   <div
-                    class="consent-group consent-group-closed"
+                    class="consent-group"
                   >
                     <div
                       class="title-with-checkbox"
@@ -603,7 +603,7 @@ exports[`<ModalContent /> spec renders the component 1`] = `
               >
                 <li>
                   <div
-                    class="consent-group consent-group-closed"
+                    class="consent-group"
                   >
                     <div
                       class="title-with-checkbox"
@@ -760,7 +760,7 @@ exports[`<ModalContent /> spec renders the component 1`] = `
                 </li>
                 <li>
                   <div
-                    class="consent-group consent-group-closed"
+                    class="consent-group"
                   >
                     <div
                       class="title-with-checkbox"
