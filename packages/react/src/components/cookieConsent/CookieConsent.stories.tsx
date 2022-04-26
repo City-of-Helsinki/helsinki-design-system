@@ -247,23 +247,29 @@ export const ModalVersion = () => {
     );
   };
 
+  const ForcePageScrollBarForModalTesting = () => {
+    return (
+      <div>
+        <div style={{ height: '100vh' }}>&nbsp;</div>
+        <p>Bottom page</p>
+      </div>
+    );
+  };
+
   const Application = () => {
     const willRenderCookieConsentDialog = !hasHandledAllConsents(
       content.requiredConsents || [],
       content.optionalConsents || [],
     );
     return (
-      <div
-        style={willRenderCookieConsentDialog ? { overflow: 'hidden', maxHeight: '100vh' } : {}}
-        aria-hidden={willRenderCookieConsentDialog ? 'true' : 'false'}
-      >
+      <div>
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
         <h1 id="focused-element-after-cookie-consent-closed" tabIndex={0}>
           This is a dummy application
         </h1>
         {willRenderCookieConsentDialog ? (
           <>
-            <p>Cookie consent dialog will be shown.</p>
+            <p>Cookie consent modal will be shown.</p>
           </>
         ) : (
           <>
@@ -271,6 +277,7 @@ export const ModalVersion = () => {
           </>
         )}
         <MatomoCookieTracker />
+        <ForcePageScrollBarForModalTesting />
       </div>
     );
   };
