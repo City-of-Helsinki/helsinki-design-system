@@ -216,3 +216,25 @@ export function createCookieDataWithSelectedRejections(
 ): ConsentObject {
   return createCookieData(approvedConsents, source, false);
 }
+
+export async function openAllAccordions(
+  result: RenderResult,
+  content: Content,
+  dataTestIds: typeof commonTestProps['dataTestIds'],
+): Promise<void> {
+  const openAccordions = async (groupParent: TestGroupParent) => {
+    const list = groupParent === 'required' ? content.requiredConsents.groupList : content.optionalConsents.groupList;
+    let index = 0;
+    /* eslint-disable no-restricted-syntax */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    for (const groups of list) {
+      // eslint-disable-next-line no-await-in-loop
+      await openAccordion(result, dataTestIds.getConsentGroupDetailsTogglerId(groupParent, index));
+      expect(result.getByTestId(dataTestIds.getConsentGroupTableId(groupParent, index))).toBeVisible();
+      index += 1;
+    }
+    /* eslint-enable no-restricted-syntax */
+  };
+  await openAccordions('required');
+  await openAccordions('optional');
+}
