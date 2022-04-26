@@ -8,6 +8,7 @@ import styles from '../CookieConsent.module.scss';
 import { Card } from '../../card/Card';
 import { useCookieConsentSectionTexts, useCookieConsentUiTexts } from '../CookieConsentContext';
 import LanguageSwitcher from '../languageSwitcher/LanguageSwitcher';
+import classNames from '../../../utils/classNames';
 
 function Content(): React.ReactElement {
   const { isOpen, buttonProps, contentProps } = useAccordion({
@@ -18,6 +19,9 @@ function Content(): React.ReactElement {
   const titleRef = useRef<HTMLHeadingElement>();
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
   const settingsButtonText = isOpen ? hideSettings : showSettings;
+  const settingsButtonsClassName = isOpen
+    ? styles['accordion-button']
+    : classNames(styles['accordion-button'], styles['accordion-button-settings-closed']);
   useEffect(() => {
     if (titleRef.current) {
       titleRef.current.focus();
@@ -36,7 +40,7 @@ function Content(): React.ReactElement {
       </div>
       <button
         type="button"
-        className={styles['accordion-button']}
+        className={settingsButtonsClassName}
         data-testid="cookie-consent-settings-toggler"
         {...buttonProps}
       >
