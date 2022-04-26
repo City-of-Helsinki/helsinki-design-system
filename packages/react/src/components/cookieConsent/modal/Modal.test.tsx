@@ -15,6 +15,7 @@ import {
   getContent,
   isAccordionOpen,
   openAccordion,
+  openAllAccordions,
   verifyElementDoesNotExistsByTestId,
   verifyElementExistsByTestId,
   commonTestProps,
@@ -74,10 +75,12 @@ describe('<ModalContent /> spec', () => {
   });
 
   it('should not have basic accessibility issues', async () => {
-    const { container } = renderCookieConsent(defaultConsentData, true);
-    const results = await axe(container);
+    const result = renderCookieConsent(defaultConsentData, true);
+    await openAccordion(result, dataTestIds.settingsToggler);
+    await openAllAccordions(result, content, dataTestIds);
+    const results = await axe(result.container);
     expect(results).toHaveNoViolations();
-  });
+  }, 15000);
 });
 
 describe('<CookieConsent /> ', () => {
@@ -114,6 +117,15 @@ describe('<CookieConsent /> ', () => {
       verifyElementExistsByTestId(result, dataTestIds.container);
     });
 
+    it('is rendered if an optional consent has not been handled (is undefined).', () => {
+      const result = renderCookieConsent({
+        ...defaultConsentData,
+        optionalConsents: [['unknown']],
+        cookie: createCookieDataWithSelectedRejections([]),
+      });
+      verifyElementExistsByTestId(result, dataTestIds.container);
+    });
+
     it('is not shown when all consents have been handled and are true/false', () => {
       const result = renderCookieConsent({
         ...defaultConsentData,
@@ -122,6 +134,7 @@ describe('<CookieConsent /> ', () => {
       verifyElementDoesNotExistsByTestId(result, dataTestIds.container);
       verifyElementDoesNotExistsByTestId(result, dataTestIds.screenReaderNotification);
     });
+
     it('changing language calls content.onLanguageChange', () => {
       const onLanguageChange = jest.fn();
       const result = renderCookieConsent({
