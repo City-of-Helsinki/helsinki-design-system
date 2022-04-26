@@ -157,6 +157,7 @@ exports[`<Page /> spec renders the component 1`] = `
                     </svg>
                   </button>
                   <div
+                    aria-label="Consent group title for requiredConsentGroup0"
                     class="card custom-theme-1"
                     role="region"
                     style="display: none;"
@@ -343,6 +344,7 @@ exports[`<Page /> spec renders the component 1`] = `
                     </svg>
                   </button>
                   <div
+                    aria-label="Consent group title for requiredConsentGroup1"
                     class="card custom-theme-3"
                     role="region"
                     style="display: none;"
@@ -544,6 +546,7 @@ exports[`<Page /> spec renders the component 1`] = `
                     </svg>
                   </button>
                   <div
+                    aria-label="Consent group title for optionalConsentGroups0"
                     class="card custom-theme-5"
                     role="region"
                     style="display: none;"
@@ -701,6 +704,7 @@ exports[`<Page /> spec renders the component 1`] = `
                     </svg>
                   </button>
                   <div
+                    aria-label="Consent group title for optionalConsentGroups1"
                     class="card custom-theme-7"
                     role="region"
                     style="display: none;"

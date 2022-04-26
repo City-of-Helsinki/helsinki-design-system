@@ -18,6 +18,7 @@ import {
   TestConsentData,
   TestGroupParent,
   createCookieDataWithSelectedRejections,
+  openAllAccordions,
 } from '../test.util';
 
 const { requiredGroupParent, optionalGroupParent, defaultConsentData, unknownConsents, dataTestIds } = commonTestProps;
@@ -52,10 +53,11 @@ describe('<Page /> spec', () => {
   });
 
   it('should not have basic accessibility issues', async () => {
-    const { container } = renderCookieConsent(defaultConsentData);
-    const results = await axe(container);
+    const result = renderCookieConsent(defaultConsentData);
+    await openAllAccordions(result, content, dataTestIds);
+    const results = await axe(result.container);
     expect(results).toHaveNoViolations();
-  });
+  }, 15000);
 });
 
 describe('<Page /> ', () => {

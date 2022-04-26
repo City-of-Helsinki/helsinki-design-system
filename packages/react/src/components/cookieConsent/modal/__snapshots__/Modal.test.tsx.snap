@@ -120,7 +120,7 @@ exports[`<ModalContent /> spec renders the component 1`] = `
         </div>
         <button
           aria-expanded="false"
-          class="accordion-button"
+          class="accordion-button accordion-button-settings-closed"
           data-testid="cookie-consent-settings-toggler"
           type="button"
         >
@@ -286,6 +286,7 @@ exports[`<ModalContent /> spec renders the component 1`] = `
                         </svg>
                       </button>
                       <div
+                        aria-label="Consent group title for requiredConsentGroup0"
                         class="card custom-theme-2"
                         role="region"
                         style="display: none;"
@@ -472,6 +473,7 @@ exports[`<ModalContent /> spec renders the component 1`] = `
                         </svg>
                       </button>
                       <div
+                        aria-label="Consent group title for requiredConsentGroup1"
                         class="card custom-theme-4"
                         role="region"
                         style="display: none;"
@@ -673,6 +675,7 @@ exports[`<ModalContent /> spec renders the component 1`] = `
                         </svg>
                       </button>
                       <div
+                        aria-label="Consent group title for optionalConsentGroups0"
                         class="card custom-theme-6"
                         role="region"
                         style="display: none;"
@@ -830,6 +833,7 @@ exports[`<ModalContent /> spec renders the component 1`] = `
                         </svg>
                       </button>
                       <div
+                        aria-label="Consent group title for optionalConsentGroups1"
                         class="card custom-theme-8"
                         role="region"
                         style="display: none;"
