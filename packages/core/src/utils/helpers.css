@@ -89,7 +89,7 @@
 .heading-m {
   font-size: var(--fontsize-heading-m);
   font-weight: 500;
-  line-height: 1.33;
+  line-height: 32px;
   letter-spacing: -0.2px;
 }
 
