@@ -31,14 +31,6 @@
   margin-bottom: 0;
 }
 
-/* HEADING */
-.hds-card__heading {
-  font-size: var(--fontsize-heading-m);
-  letter-spacing: -0.2px;
-  font-weight: 500;
-  line-height: 1.33;
-}
-
 /* BODY TEXT */
 .hds-card__text {
   font-size: var(--fontsize-body-m);
