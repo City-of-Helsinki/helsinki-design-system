@@ -229,7 +229,9 @@ const createContent = (options: ContentOptions): Content => {
   };
 };
 
-export const ModalVersion = () => {
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+export const ModalVersion = (args) => {
   const [language, setLanguage] = useState('fi');
   const onLanguageChange = (newLang) => setLanguage(newLang);
 
@@ -290,7 +292,9 @@ export const ModalVersion = () => {
   );
 };
 
-export const PageVersion = () => {
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+export const PageVersion = (args) => {
   const Application = () => {
     const [language, setLanguage] = useState('fi');
     const onLanguageChange = (newLang) => setLanguage(newLang);
