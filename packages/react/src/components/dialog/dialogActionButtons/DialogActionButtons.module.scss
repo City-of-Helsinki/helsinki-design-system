@@ -6,6 +6,7 @@
   @include dialogComponentSidePaddings;
   padding-bottom: var(--spacing-m);
   padding-top: var(--spacing-s);
+  display: block;
 
   > * {
     width: 100%;
@@ -18,6 +19,8 @@
 
 @media medium-up {
   .dialogActionButtons {
+    display: flex;
+
     > * {
       width: auto;
     }
