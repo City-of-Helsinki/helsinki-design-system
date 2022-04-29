@@ -159,7 +159,8 @@
 .consent-group {
   display: flex;
   position: relative;
-  padding: var(--spacing-l) 0;
+  padding: var(--spacing-m) 0;
+  margin-left: var(--spacing-xs);
   flex-direction: column;
   border-bottom: 1px solid var(--color-black);
 }
@@ -262,11 +263,12 @@
   }
 
   .consent-group {
-    padding: var(--spacing-xl) 0;
+    padding: var(--spacing-l) 0;
+    margin-left: var(--spacing-s);
   }
 
   .consent-group-content {
-    padding: 0 var(--spacing-m);
+    padding: 0 var(--spacing-l);
   }
 
   .buttons {
