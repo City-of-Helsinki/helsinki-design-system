@@ -20,13 +20,14 @@
 @media medium-up {
   .dialogActionButtons {
     display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-s);
 
     > * {
       width: auto;
     }
 
     > * + * {
-      margin-left: var(--spacing-s);
       margin-top: 0;
     }
   }
