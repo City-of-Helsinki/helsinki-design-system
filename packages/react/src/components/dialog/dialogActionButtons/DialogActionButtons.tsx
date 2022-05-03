@@ -7,7 +7,7 @@ export type DialogActionButtonProps = React.PropsWithChildren<{
   /**
    * className for custom styling
    */
-  className: string;
+  className?: string;
 }>;
 
 export const DialogActionButtons = ({ children, className }: DialogActionButtonProps) => {
