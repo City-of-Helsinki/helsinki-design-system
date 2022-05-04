@@ -23,41 +23,39 @@ function ConsentGroups(props: {
   const selectPercentage = cookieConsentContext.countApprovedOptional();
   const allApproved = isRequired || selectPercentage === 1;
   const { title, text, groupList, checkboxAriaDescription } = consentGroups;
-  const groupId = isRequired ? 'required' : 'optional';
   const checked = isRequired || allApproved;
+  const checkboxStyle = {
+    '--label-font-size': 'var(--fontsize-heading-m)',
+  } as React.CSSProperties;
+  const groupId = isRequired ? 'required' : 'optional';
+  const getConsentGroupIdentifier = (suffix: string) => `${groupId}-consents-${suffix}`;
+  const checkboxId = getConsentGroupIdentifier('checkbox');
   const checkboxProps = {
     onChange: isRequired ? () => undefined : () => triggerAction(checked ? 'unapproveOptional' : 'approveOptional'),
     disabled: isRequired,
     checked,
     indeterminate: isRequired ? false : !Number.isInteger(selectPercentage),
+    id: checkboxId,
+    'data-testid': checkboxId,
+    name: checkboxId,
+    label: title,
+    'aria-describedby': getConsentGroupIdentifier('description'),
+    style: checkboxStyle,
   };
-  const checkboxStyle = {
-    '--label-font-size': 'var(--fontsize-heading-m)',
-  } as React.CSSProperties;
 
-  const getConsentGroupIdenfier = (suffix: string) => `${groupId}-consents-${suffix}`;
-  const checkboxId = getConsentGroupIdenfier('checkbox');
   return (
     <div className={styles['consent-group-parent']}>
       <div className={styles['title-with-checkbox']}>
-        <Checkbox
-          id={checkboxId}
-          data-testid={checkboxId}
-          name={checkboxId}
-          label={title}
-          aria-describedby={getConsentGroupIdenfier('description')}
-          style={checkboxStyle}
-          {...checkboxProps}
-        />
+        <Checkbox {...checkboxProps} />
       </div>
       <p aria-hidden>{text}</p>
-      <VisuallyHidden id={getConsentGroupIdenfier('description')} aria-hidden>
+      <VisuallyHidden id={getConsentGroupIdentifier('description')} aria-hidden>
         {checkboxAriaDescription || text}
       </VisuallyHidden>
       <ul className={styles.list}>
         {groupList.map((group, index) => (
           <li key={group.title}>
-            <ConsentGroup group={group} isRequired={isRequired} id={getConsentGroupIdenfier(`group-${index}`)} />
+            <ConsentGroup group={group} isRequired={isRequired} id={getConsentGroupIdentifier(`group-${index}`)} />
           </li>
         ))}
       </ul>
