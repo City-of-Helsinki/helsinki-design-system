@@ -233,6 +233,15 @@
   margin-bottom: var(--spacing-xl);
 }
 
+.content {
+  p,
+  .emulated-h1,
+  .emulated-h2,
+  .emulated-h3 {
+    max-width: 860px;
+  }
+}
+
 @media (max-width: 1000px) {
   .data-table-container table tbody tr > * {
     width: 20%;
