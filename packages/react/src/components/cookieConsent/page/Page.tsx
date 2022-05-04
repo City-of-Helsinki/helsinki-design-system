@@ -24,7 +24,13 @@ export function Page(props: { content: Content; cookieDomain?: string }): React.
           </div>
           <Details />
           {showSaveNotification && (
-            <Notification size="small" type="success" label="Saved" dataTestId="cookie-consent-save-notification">
+            <Notification
+              size="small"
+              type="success"
+              label="Saved"
+              dataTestId="cookie-consent-save-notification"
+              className={styles['save-notification']}
+            >
               {settingsSaved}
             </Notification>
           )}
