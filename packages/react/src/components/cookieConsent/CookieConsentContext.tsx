@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
 
-import create, { ConsentController, ConsentList, ConsentObject } from './cookieConsentController';
+import createConsentController, { ConsentController, ConsentList, ConsentObject } from './cookieConsentController';
 import { CookieConsentActionListener } from './types';
 
 export type Description = {
@@ -107,7 +107,10 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
   const optionalConsents = content.optionalConsents
     ? getConsentsFromConsentGroup(content.optionalConsents.groupList)
     : undefined;
-  const consentController = useMemo(() => create({ requiredConsents, optionalConsents, cookieDomain }), []);
+  const consentController = useMemo(
+    () => createConsentController({ requiredConsents, optionalConsents, cookieDomain }),
+    [],
+  );
   const hasUserHandledAllConsents = () =>
     consentController.getRequiredWithoutConsent().length === 0 && consentController.getUnhandledConsents().length === 0;
 
