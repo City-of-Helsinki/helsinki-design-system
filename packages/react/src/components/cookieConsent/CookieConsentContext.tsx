@@ -129,45 +129,49 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
   const update: ConsentController['update'] = (key, value) => {
     consentController.update(key, value);
   };
-  const approveSelectedAndRequired = () => {
-    consentController.approveRequired();
-    save();
-    notifyOnAllConsentsGiven();
-  };
-  const approveAll: ConsentController['approveAll'] = () => {
-    consentController.approveAll();
-    save();
-    notifyOnAllConsentsGiven();
-  };
-  const approveRequired: ConsentController['approveRequired'] = () => {
-    Object.keys(consentController.getOptional()).forEach((optionalConsent) => {
-      update(optionalConsent, false);
-    });
-    consentController.approveRequired();
-    save();
-    notifyOnAllConsentsGiven();
-  };
   const setOptional = (approved: boolean) => {
     Object.keys(consentController.getOptional()).forEach((optionalConsent) => {
       update(optionalConsent, approved);
     });
   };
+  const deselectOptional = () => {
+    setOptional(false);
+  };
+  const selectOptional = () => {
+    setOptional(true);
+  };
+  const approveRequiredAndSaveAllGivenConsents = () => {
+    consentController.approveRequired();
+    save();
+    notifyOnAllConsentsGiven();
+  };
+  const approveAllAndSave: ConsentController['approveAll'] = () => {
+    consentController.approveAll();
+    save();
+    notifyOnAllConsentsGiven();
+  };
+  const approveOnlyRequiredAndSave: ConsentController['approveRequired'] = () => {
+    deselectOptional();
+    consentController.approveRequired();
+    save();
+    notifyOnAllConsentsGiven();
+  };
 
   const onAction: CookieConsentContextType['onAction'] = (action, consents, value) => {
     if (action === 'approveAll') {
-      approveAll();
+      approveAllAndSave();
     } else if (action === 'approveRequired') {
-      approveRequired();
+      approveOnlyRequiredAndSave();
     } else if (action === 'approveSelectedAndRequired') {
-      approveSelectedAndRequired();
+      approveRequiredAndSaveAllGivenConsents();
     } else if (action === 'changeConsentGroup') {
       consents.forEach((consent) => {
         update(consent, value);
       });
     } else if (action === 'approveOptional') {
-      setOptional(true);
+      selectOptional();
     } else if (action === 'unapproveOptional') {
-      setOptional(false);
+      deselectOptional();
     }
     reRender();
   };
