@@ -2,7 +2,7 @@ import _pick from 'lodash.pick';
 import _isObject from 'lodash.isobject';
 import _isUndefined from 'lodash.isundefined';
 
-import cookieControllerModule, { CookieSetOptions } from './cookieController';
+import { createCookieController } from './cookieController';
 
 export type ConsentList = string[];
 
@@ -73,36 +73,7 @@ function createConsentsString(consents: ConsentObject): string {
   return JSON.stringify(consents);
 }
 
-function createCookieController(
-  cookieDomain?: string,
-): {
-  get: () => string;
-  set: (data: string) => void;
-} {
-  const defaultCookieSetOptions: CookieSetOptions = {
-    path: '/',
-    secure: false,
-    sameSite: 'strict',
-    maxAge: COOKIE_EXPIRATION_TIME,
-  };
-
-  const getCookieDomainFromUrl = (): string => window.location.hostname.split('.').slice(-2).join('.');
-
-  const createCookieOptions = (): CookieSetOptions => ({
-    ...defaultCookieSetOptions,
-    domain: cookieDomain || getCookieDomainFromUrl(),
-  });
-
-  const get = (): string => cookieControllerModule.get(COOKIE_NAME) || '';
-
-  const set = (data: string): void => {
-    cookieControllerModule.set(COOKIE_NAME, data, createCookieOptions());
-  };
-  return {
-    get,
-    set,
-  };
-}
+const getCookieDomainFromUrl = (): string => window.location.hostname.split('.').slice(-2).join('.');
 
 export function createStorage(
   initialValues: ConsentStorage,
@@ -188,7 +159,13 @@ export default function createConsentController(props: ConsentControllerProps): 
   verifyConsentProps(props);
   const { optionalConsents = [], requiredConsents = [] } = props;
   const allConsents = [...optionalConsents, ...requiredConsents];
-  const cookieController = createCookieController(props.cookieDomain);
+  const cookieController = createCookieController(
+    {
+      maxAge: COOKIE_EXPIRATION_TIME,
+      domain: props.cookieDomain || getCookieDomainFromUrl(),
+    },
+    COOKIE_NAME,
+  );
   const currentConsentsInCookie = parseConsents(cookieController.get());
 
   const required = mergeConsents(
@@ -254,6 +231,11 @@ export default function createConsentController(props: ConsentControllerProps): 
 }
 
 export function getConsentsFromCookie(cookieDomain?: string): ConsentObject {
-  const cookieController = createCookieController(cookieDomain);
+  const cookieController = createCookieController(
+    {
+      domain: cookieDomain || getCookieDomainFromUrl(),
+    },
+    COOKIE_NAME,
+  );
   return parseConsents(cookieController.get());
 }
