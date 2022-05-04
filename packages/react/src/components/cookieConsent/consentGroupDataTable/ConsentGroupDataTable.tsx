@@ -25,7 +25,7 @@ function ConsentGroupDataTable(props: { consents: ConsentGroup['consents']; id: 
   }, [consents]);
 
   const theme = {
-    '--header-background-color': 'var(--color-black)',
+    '--header-background-color': 'var(--color-black-90)',
   };
 
   return (
