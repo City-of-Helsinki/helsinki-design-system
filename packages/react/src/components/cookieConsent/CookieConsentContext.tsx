@@ -64,9 +64,6 @@ export type Content = {
 };
 
 export type CookieConsentContextType = {
-  update: ConsentController['update'];
-  approveRequired: ConsentController['approveRequired'];
-  approveAll: ConsentController['approveAll'];
   hasUserHandledAllConsents: () => boolean;
   content: Content;
   onAction: CookieConsentActionListener;
@@ -81,9 +78,6 @@ type CookieConsentContextProps = {
 };
 
 export const CookieConsentContext = createContext<CookieConsentContextType>({
-  update: () => undefined,
-  approveRequired: () => undefined,
-  approveAll: () => undefined,
   hasUserHandledAllConsents: () => false,
   content: {} as Content,
   onAction: () => undefined,
@@ -127,14 +121,12 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
   const save = () => {
     consentController.save();
   };
-
   const notifyOnAllConsentsGiven = () => {
     if (content.onAllConsentsGiven && hasUserHandledAllConsents()) {
       content.onAllConsentsGiven(mergeConsents());
     }
   };
-
-  const update: CookieConsentContextType['update'] = (key, value) => {
+  const update: ConsentController['update'] = (key, value) => {
     consentController.update(key, value);
   };
   const approveSelectedAndRequired = () => {
@@ -142,12 +134,12 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
     save();
     notifyOnAllConsentsGiven();
   };
-  const approveAll: CookieConsentContextType['approveAll'] = () => {
+  const approveAll: ConsentController['approveAll'] = () => {
     consentController.approveAll();
     save();
     notifyOnAllConsentsGiven();
   };
-  const approveRequired: CookieConsentContextType['approveRequired'] = () => {
+  const approveRequired: ConsentController['approveRequired'] = () => {
     Object.keys(consentController.getOptional()).forEach((optionalConsent) => {
       update(optionalConsent, false);
     });
@@ -200,9 +192,6 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
   };
 
   const contextData: CookieConsentContextType = {
-    approveAll,
-    approveRequired,
-    update,
     hasUserHandledAllConsents,
     content,
     onAction,
