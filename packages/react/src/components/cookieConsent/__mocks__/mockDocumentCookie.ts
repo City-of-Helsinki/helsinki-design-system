@@ -74,6 +74,8 @@ export default function mockDocumentCookie(): MockedDocumentCookieActions {
         returnObj.expires = new Date(objectValue);
       } else if (objectKey === 'SameSite') {
         returnObj.sameSite = objectValue.toLowerCase();
+      } else if (objectKey === 'Secure') {
+        returnObj.secure = true;
       } else {
         returnObj[objectKey.toLowerCase()] = objectValue;
       }
