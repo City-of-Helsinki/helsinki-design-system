@@ -6,17 +6,44 @@ function getAll() {
   return cookie.parse(document.cookie);
 }
 
-function get(name: string): string | undefined {
+function getNamedCookie(name: string): string | undefined {
   const cookies = getAll();
   return cookies[name];
 }
 
-function set(name: string, value: string, options?: CookieSerializeOptions) {
+function setNamedCookie(name: string, value: string, options?: CookieSerializeOptions) {
   document.cookie = cookie.serialize(name, value, options);
 }
 
-export default {
-  getAll,
-  get,
-  set,
-};
+function createCookieController(
+  options: CookieSetOptions,
+  cookieName: string,
+): {
+  get: () => string;
+  set: (data: string) => void;
+} {
+  const defaultCookieSetOptions: CookieSetOptions = {
+    path: '/',
+    secure: false,
+    sameSite: 'strict',
+    maxAge: undefined,
+  };
+
+  const cookieOptions: CookieSetOptions = {
+    ...defaultCookieSetOptions,
+    ...options,
+  };
+
+  const getCookie = (): string => getNamedCookie(cookieName) || '';
+
+  const setCookie = (data: string): void => {
+    setNamedCookie(cookieName, data, cookieOptions);
+  };
+
+  return {
+    get: getCookie,
+    set: setCookie,
+  };
+}
+
+export { createCookieController, getAll, getNamedCookie, setNamedCookie };
