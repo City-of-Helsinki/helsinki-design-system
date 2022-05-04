@@ -229,6 +229,10 @@
   }
 }
 
+.save-notification {
+  margin-bottom: var(--spacing-xl);
+}
+
 @media (max-width: 1000px) {
   .data-table-container table tbody tr > * {
     width: 20%;
