@@ -48,6 +48,13 @@
   margin-right: var(--spacing-2-xs);
 }
 
+/* BODY */
+
+.hds-notification__body {
+  font-size: var(--fontsize-body-s);
+  line-height: 24px;
+}
+
 /* SMALL */
 
 .hds-notification--small {
