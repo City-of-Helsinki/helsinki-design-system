@@ -176,7 +176,7 @@
   button {
     position: absolute;
     right: 0;
-    top: var(--spacing-m);
+    top: var(--spacing-s);
     padding: var(--spacing-s);
   }
 }
@@ -279,6 +279,9 @@
     padding: 0 var(--spacing-l);
     p {
       padding: var(--spacing-l) 0 0;
+    }
+    button {
+      top: var(--spacing-m);
     }
   }
 
