@@ -24,6 +24,11 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
   const areAllApproved = isRequired || cookieConsentContext.areGroupConsentsApproved(groupConsents);
   const { title, text, checkboxAriaDescription, expandAriaLabel } = group;
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
+  const checkboxStyle = {
+    '--label-font-size': 'var(--fontsize-heading-s)',
+  } as React.CSSProperties;
+  const getGroupIdentifier = (suffix: string) => `${id}-${suffix}`;
+  const checkboxId = getGroupIdentifier('checkbox');
   const checkboxProps = {
     onChange: isRequired
       ? () => undefined
@@ -35,25 +40,18 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
           ),
     disabled: isRequired,
     checked: areAllApproved,
+    id: checkboxId,
+    'data-testid': checkboxId,
+    name: checkboxId,
+    label: title,
+    'aria-describedby': getGroupIdentifier('description'),
+    style: checkboxStyle,
   };
-  const checkboxStyle = {
-    '--label-font-size': 'var(--fontsize-heading-s)',
-  } as React.CSSProperties;
 
-  const getGroupIdentifier = (suffix: string) => `${id}-${suffix}`;
-  const checkboxId = getGroupIdentifier('checkbox');
   return (
     <div className={styles['consent-group']}>
       <div className={styles['title-with-checkbox']}>
-        <Checkbox
-          id={checkboxId}
-          name={checkboxId}
-          data-testid={checkboxId}
-          label={title}
-          aria-describedby={getGroupIdentifier('description')}
-          style={checkboxStyle}
-          {...checkboxProps}
-        />
+        <Checkbox {...checkboxProps} />
       </div>
       <div className={styles['consent-group-content']}>
         <p aria-hidden>{text}</p>
