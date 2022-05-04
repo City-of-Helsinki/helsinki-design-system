@@ -58,11 +58,11 @@ describe('CookieConsentContext ', () => {
   };
 
   const ContextConsumer = ({ consumerId }: { consumerId: string }) => {
-    const { hasUserHandledAllConsents, approveAll } = useContext(CookieConsentContext);
+    const { hasUserHandledAllConsents, onAction } = useContext(CookieConsentContext);
     const allUserConsentsAreHandled = hasUserHandledAllConsents();
     const shouldShowCookieConsents = !allUserConsentsAreHandled;
     const onButtonClick = () => {
-      approveAll();
+      onAction('approveAll');
     };
     return (
       <div>
