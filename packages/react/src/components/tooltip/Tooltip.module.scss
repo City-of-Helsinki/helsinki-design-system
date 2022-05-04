@@ -15,7 +15,7 @@
   background-color: var(--tooltip-background);
   padding: var(--tooltip-spacing-default);
   font-size: var(--fontsize-body-s);
-  line-height: var(--lineheight-xl);
+  line-height: 24px;
   z-index: 1000;
   font-weight: normal;
 }

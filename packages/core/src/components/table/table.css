@@ -29,6 +29,7 @@
   padding: var(--spacing-xs) var(--spacing-m);
   border-bottom: 1px solid var(--color-black-50);
   font-size: var(--fontsize-body-m);
+  line-height: 24px;
   color: var(--color-black-90);
 }
 
