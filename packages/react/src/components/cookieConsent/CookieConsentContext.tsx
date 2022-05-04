@@ -125,14 +125,13 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
   };
 
   const save = () => {
-    const savedData = consentController.save();
-    if (hasUserHandledAllConsents()) {
-      reRender();
-      if (content.onAllConsentsGiven) {
-        content.onAllConsentsGiven(mergeConsents());
-      }
+    consentController.save();
+  };
+
+  const notifyOnAllConsentsGiven = () => {
+    if (content.onAllConsentsGiven && hasUserHandledAllConsents()) {
+      content.onAllConsentsGiven(mergeConsents());
     }
-    return savedData;
   };
 
   const update: CookieConsentContextType['update'] = (key, value) => {
@@ -141,10 +140,12 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
   const approveSelectedAndRequired = () => {
     consentController.approveRequired();
     save();
+    notifyOnAllConsentsGiven();
   };
   const approveAll: CookieConsentContextType['approveAll'] = () => {
     consentController.approveAll();
     save();
+    notifyOnAllConsentsGiven();
   };
   const approveRequired: CookieConsentContextType['approveRequired'] = () => {
     Object.keys(consentController.getOptional()).forEach((optionalConsent) => {
@@ -152,6 +153,7 @@ export const Provider = ({ cookieDomain, children, content }: CookieConsentConte
     });
     consentController.approveRequired();
     save();
+    notifyOnAllConsentsGiven();
   };
   const setOptional = (approved: boolean) => {
     Object.keys(consentController.getOptional()).forEach((optionalConsent) => {
