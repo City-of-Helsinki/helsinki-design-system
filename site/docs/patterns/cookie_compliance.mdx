@@ -31,7 +31,14 @@ Cookies are pieces of data that are stores on the user's device. They are a way 
 
 The consent needs to be asked for a cookie that is not essential for the use of the service. This means that the service's main functions are available even without these cookies. In the future, we refer to these cookies as **non-essential cookies**.
 
-If the service cannot be used or one of its main functions does not operate without a specific cookie, the cookie can be considered essential. Essential cookies do not need a consent from the user but they still have to be informed. Refer to the next chapter to learn how to categorise your cookies and decide which cookies should be essential and which should not.
+If the service cannot be used or one of its main functions does not operate without a specific cookie, the cookie can be considered essential. Essential cookies do not need a consent from the user but they still have to be informed. The user cannot deny the use of essential cookies - these selections are grayed out in the cookie consent component. Refer to the next chapter to learn how to categorise your cookies and decide which cookies should be essential and which should not.
+
+| Site uses cookies              | Cookie type                    | What to do and how to inform the user?                                                                              | Example
+| ------------------------------ | ------------------------------ | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Yes                            | Only mandatory cookies         | Cookie information needs to be conveyed to the user. Only requires acknowledgment and no choices from the user.     | Acknowlege -button.
+|                                | Only optional cookies          | User is given the option to choose individual cookies or accept all cookies.                                        | Cookie description(s) + duration(s) + select cookies or accept all -button.
+|                                | Mandatory and optional cookies | User is given the option to choose individual cookies, accept all cookies or only mandatory cookies.                | Cookie description(s) + duration(s) + select cookies or accept only mandatory -button.
+| No                             | –                              | **No action needed**.                                                                                               | -
 
 ## Cookie information and categorisation
 
@@ -90,16 +97,25 @@ If your cookies do not fit into any of the pre-defined categories, you are allow
 
 #### We only have a handful of cookies. Do we still have to categorize them?
 
-Yes, cookies always have to be put into a category. If you have a small about of cookies you can consider grouping them into a single category. Also, if most of the cookies are related to a single third-party service, you can group them per service (E.g. "Service: YouTube").
+Yes, cookies always have to be put into a category. If you have a small amount of cookies you can consider grouping them into a single category. Also, if most of the cookies are related to a single third-party service, you can group them per service (E.g. "Service: YouTube").
 
 ## Using the cookie compliance component
 
-The cookie consent is asked using the HDS provided CookieConsent component. This component is shown when the service loads.
+The cookie consent is asked using the HDS provided CookieConsent component. If the user has not given consent for cookies yet, this component will be shown when the service loads.
 
+### When are where to show the cookie consent modal?
+- The cookie consent modal must to be shown if the user has not accepted or denied the non-essential cookies of the service.
+  - If cookies have changed since the last time the user accepted or denied them, the consent must be shown again.
+- Include the cookie consent component on every page of the service. The user may arrive on any page of the service (e.g. via a search machine).
 - Make sure that cookie consent is the first item in the page tab order.
-- If your page has a chat button in lower right corner, keep the chat button hidden until cookie consent has been accepted and removed from the DOM.
-- Never use an overlay behind the banner or otherwise restrict use of the site.
-- Be sure to add a description about the cookie that stores information about accepted cookies.
 
-## Editing and updating cookie consent
+### How the cookie consent modal effects other content of the service?
+- The cookie consent modal should not prevent the user from using the web page. Never use an overlay behind the banner or otherwise restrict the use of the site.
+- There may be elements or content on your page that do not work properly until the user gives a consent to cookies. It is recommended to show clear error messages at the position of these elements to clearly indicate why they are not available.
+  - If your page has a chat button in the lower right corner, keep the chat button hidden until cookie consent has been accepted and removed from the DOM.
 
+### What happens after the user has accepted or denied the non-essential cookies?
+- The user must be able to view and edit the cookie consent after they have initially submitted their choices. You must offer a separate cookies page which allows changing viewing the cookies and changing consent.
+  - The link to this page should be placed to the footer element of the page.
+  - Note that the HDS CookieConsent component offers a functionality to render it as a page. This allows you to use the same component and data to construct a separate cookie page.
+- If new cookies are added or current ones changed, the consent should be asked from the user again the next time the service is used.
