@@ -420,6 +420,66 @@ ScrollableConfirmation.parameters = {
   loki: { skip: false },
 };
 
+// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
+export const LongButtonLabels = (args) => {
+  const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
+  const openDialogButtonRef = useRef(null);
+  const [open, setOpen] = useState<boolean>(true);
+  const close = () => setOpen(false);
+  const titleId = 'dialog-with-long-labels-title';
+
+  return (
+    <>
+      <Button ref={openDialogButtonRef} onClick={() => setOpen(true)}>
+        Open dialog
+      </Button>
+      <Dialog
+        id={args.id}
+        aria-labelledby={titleId}
+        isOpen={open}
+        focusAfterCloseRef={openDialogButtonRef}
+        targetElement={dialogTargetElement}
+      >
+        <Dialog.Header id={titleId} title="Confirm dialog" iconLeft={<IconAlertCircle aria-hidden="true" />} />
+        <Dialog.Content>
+          <h3>Are you sure you want to continue?</h3>
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button
+            onClick={() => {
+              // Add confirm operations here
+              close();
+            }}
+          >
+            Confirm this thing now with a long label
+          </Button>
+          <Button onClick={close} variant="secondary">
+            Cancel and go back to the beginning
+          </Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  );
+};
+
+LongButtonLabels.storyName = 'With long button labels';
+
+LongButtonLabels.args = {
+  id: 'dialog-with-long-button-labels',
+};
+
+LongButtonLabels.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
+    },
+  },
+  docs: {
+    disable: true,
+  },
+  loki: { skip: false },
+};
+
 // This dialog story is not part of the Storybooks' docs section.
 export const ConfirmationWithTerms = (args) => {
   const openConfirmationButtonRef = useRef(null);
