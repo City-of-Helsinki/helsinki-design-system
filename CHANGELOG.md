@@ -20,6 +20,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Dialog] Wrapping of dialog action buttons on desktop
 
+### Design kit
+
+#### Changed
+
+- Updated HDS Sketch libraries to Sketch 86
+
 ## [1.13.0] - Apr, 21, 2022
 
 ### Core
