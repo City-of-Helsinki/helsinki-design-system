@@ -6,6 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.14.0] - May, 5, 2022
+
+### React Components
+
+#### Added
+
+- [Dialog] className prop for dialog action button container to enable customisation
+- [Link] ref prop to fix preloading content with Next.js framework
+- Added support for React 17
+
+#### Fixed
+
+- [Dialog] Wrapping of dialog action buttons on desktop
+
+### Design kit
+
+#### Changed
+
+- Updated HDS Sketch libraries to Sketch 86
+
 ## [1.13.0] - Apr, 21, 2022
 
 ### Core
