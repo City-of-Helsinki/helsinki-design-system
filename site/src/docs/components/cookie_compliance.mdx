@@ -18,45 +18,29 @@ import Link from "../../src/components/Link";
 </LargeParagraph>
 
 <Notification label="Note about cookie compliance!" className="siteNotification">
-  This documentation page is about HDS CookieCompliance component. If you are looking for documentation about building multi-page forms, please refer to <a href="/patterns/form-multi-page">HDS multi-page form pattern documentation page</a>.
+  This documentation page is about HDS CookieCompliance component. If you are looking for documentation about cookies in general, please refer to <a href="/patterns/cookie-compliance">HDS cookie compliance pattern documentation page</a>.
 </Notification>
 
 ## Principles
-TODO
+- Include the cookie consent component on every page of the service. The user may arrive on any page of the service (e.g. via a search machine).
+- The cookie consent can be rendered either as a modal or as a page. This allows using the same cookie data for both presentation variations.
+  - Use the modal variant as a banner when the user enters the site.
+  - Use the page variant as a full page that the user can access from the page [Footer](/components/footer) element.
+- You must offer the cookie consent modal and page in all languages that your service supports.
+  - By default, the cookie consent banner should use the same language as the service is using.
+  - The component has its language switcher so the user can easily switch the language of the dialog even if they opened the service with a language they do not understand.
 
 ## Accessibility
-- Always make sure that cookie consent is either the first item in the page tab order or a link is placed leading to it.
-- Always provide `accessibleLabel` property for assistive technology to replace the visible “OK” text in the action button.
-- When providing a “read more” link, it’s required to give some additional information to users of assistive technologies by using visually hidden components.
-- Cookie Consent uses `tabindex="0"` to make it possible to access it using the tab key or programmatically move focus to it.
+- Make sure that cookie consent is the first item in the page tab order.
+- The cookie consent modal should not prevent the user from using the web page. Never use an overlay behind the banner or otherwise restrict the use of the site.
 
 ## Security
 TODO
 
-#### Default checkboxes for cookie consent
-
-**Mandatory cookies** (visually grayed-out / disabled)
-
-- Login cookies: A mandatory cookie that allows the visitor to visit the site.
-- Language cookies: We store the interface language you have selected.
-
-**Optional cookies**
-
-- Statistic cookies: The information collected by statistical cookies is used to develop the website further.
-- Preference cookies: Preference cookies customize E.g. the look and feel of a site based on a user's choices.
-- Marketing cookies: Marketing cookies can be applied to target specific content to users.
-
-#### 3. Consent confirmation buttons
-- Accept all cookies
-- Only mandatory
-- Continue with selected (TBD)
-- Opt out (TBD)
-- Close (cross icon) -button
-
 ## Usage & variations
 
 ### Banner
-TODO
+The default banner variant opens at the bottom of the viewport. It is opened if the consent for cookies has not been given or if the cookies have changed. The banner can be expanded to view and change cookie settings.
 
 <Playground>
 
@@ -68,7 +52,7 @@ TODO
 ```
 
 ### Rendered as a page
-TODO
+The cookie consent expanded settings page can be rendered as a separate page. This is used to create a cookie page that the user can access via a link in the [Footer](/components/footer) element. This allows the user to view or edit cookie settings after the initial consent has been given.
 
 <Playground>
 
