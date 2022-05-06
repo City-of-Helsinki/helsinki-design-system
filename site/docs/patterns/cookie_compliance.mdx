@@ -25,20 +25,22 @@ import Image from "../../src/components/Image";
 
 ### What are cookies?
 
-Cookies are pieces of data that are stores on the user's device. They are a way to store persistent information about how the user is using the service. The use of cookies is controlled with a law. The law requires that cookies that are not essential for the service must be asked consent from the user.
+Cookies are pieces of data that are stored on the user's device. They are a way to store persistent information about how the user is using the service. The use of cookies is controlled by law. The law requires that cookies that are not essential for the service must be asked for consent from the user.
 
 ### When the consent for cookies should be asked?
 
 The consent needs to be asked for a cookie that is not essential for the use of the service. This means that the service's main functions are available even without these cookies. In the future, we refer to these cookies as **non-essential cookies**.
 
-If the service cannot be used or one of its main functions does not operate without a specific cookie, the cookie can be considered essential. Essential cookies do not need a consent from the user but they still have to be informed. The user cannot deny the use of essential cookies - these selections are grayed out in the cookie consent component. Refer to the next chapter to learn how to categorise your cookies and decide which cookies should be essential and which should not.
+If the service cannot be used or one of its main functions does not operate without a specific cookie, the cookie can be considered essential. Essential cookies do not need consent from the user but they still have to be informed. The user cannot deny the use of essential cookies - these selections are grayed out in the cookie consent component. The table below demonstrates when consent is needed and when it is not.
 
-| Site uses cookies              | Cookie type                    | What to do and how to inform the user?                                                                              | Example
-| ------------------------------ | ------------------------------ | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| Yes                            | Only mandatory cookies         | Cookie information needs to be conveyed to the user. Only requires acknowledgment and no choices from the user.     | Acknowlege -button.
-|                                | Only optional cookies          | User is given the option to choose individual cookies or accept all cookies.                                        | Cookie description(s) + duration(s) + select cookies or accept all -button.
-|                                | Mandatory and optional cookies | User is given the option to choose individual cookies, accept all cookies or only mandatory cookies.                | Cookie description(s) + duration(s) + select cookies or accept only mandatory -button.
-| No                             | –                              | **No action needed**.                                                                                               | -
+| Types of cookies                    | Is consent needed?         | What needs to be done?
+| ----------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------ |
+| Only essential cookies              | No                             | The cookie consent banner does not need to be shown. The list of cookies has to be available on a separate cookies page.                          
+| Only optional cookies               | Yes                            | Show the cookie consent banner and ask for consent for each optional cookie category. The list of cookies has to be available on a separate cookies page.                                                              
+| Both essential and optional cookies | Yes, for all optional cookies  | Show the cookie consent banner and ask for consent for each optional cookie category. The list of cookies has to be available on a separate cookies page.                  
+| No cookies at all                   | No                             | No actions needed.                                                                                                  
+
+Refer to the next chapter to learn how to categorise your cookies and decide which cookies should be essential and which should not.
 
 ## Cookie information and categorisation
 
@@ -53,23 +55,22 @@ We will go over each step in the following chapters.
 
 ### 1. List all the cookies related to your service
 
-First, you need to list all the cookies your service is using. It is also a good moment to review the list of cookies. Aim to use as few cookies as possible and only gather information your service **currently** needs. You should easily be able to justify the need for each cookie to the user.
+First, you need to list all the cookies your service is using. It is also a good moment to review the list of cookies. Aim to use as few cookies as possible and only gather the information your service **currently** needs. You should easily be able to justify the need for each cookie to the user.
 
 For each cookie, you need to gather and display the following information. This information will be displayed in the cookie consent window if the user wishes to get more information about a specific cookie.
 
-| Cookie data      | Description        |
-| ---------------- | ------------------ |
-| **Name**         |                    |
-| **Host name**    |                    |
-| **Path**         |                    |
-| **Description**  |                    |
-| **Expiration**   |                    |
+| Cookie data      | Description                                                                                       | Example |
+| ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| **Name**         | What is the name of the cookie file?                                                              | cookie-agreed
+| **Provider**     | What domain is the provider of this cookie?                                                       | hel.fi
+| **Purpose**      | Why the cookie is needed? What purpose does it serve?                                             | Used to store information about whether visitors have given or declined the use of cookie categories used on this service.
+| **Validity**     | How long the cookie will be valid? This means time to expire from the creation of the cookie. | 100 days
 
 ### 2. Decide which cookies are essential
 
-The next step is to determinate which cookies can be considered essential. Generally, you will need to ask consent for all cookies that are not absolutely vital to your service to operate. If you feel that the user can utilise the main functions of your service without a specific cookie, the cookie cannot be considered essential.
+The next step is to determine which cookies can be considered essential. Generally, you will need to ask consent for all cookies that are not vital to your service to operate. If you feel that the user can utilise the main functions of your service without a specific cookie, the cookie cannot be considered essential.
 
-If you have hard time determininig whether a cookie is an essential cookie, refer to the cookie category table in the next chapter for more examples.
+If you have a hard time determining whether a cookie is an essential cookie, refer to the cookie category table in the next chapter for more examples.
 
 ### 3. Categorise cookies into predefined categories
 
@@ -77,19 +78,19 @@ If you have hard time determininig whether a cookie is an essential cookie, refe
 
 | Category                        | Description                                                                                                                | Is essential?                                                                                                                                                               | Examples                                                                                  |
 | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| **Authentication**              | Cookies related to authentication are used when users log into a service or an application.                                | Session-specific cookies are considered essential. Permanent login cookies always need a consent.                                                                           | Session cookies                                                                           |
-| **User preferences**            | These cookies can be used to remember user selected preferences.                                                           | Preferences that improve usability between service uses (e.g. language) can be considered essential.                                                                        | Language choices, appearance settings, accessibility preferences                          |
-| **User input**                  | These cookies are required if the service wants to remember user inputted data.                                            | If using the service would not be possible without input related cookies, they can be considered essential.                                                                 | Search history, last used search filters, shopping cart contents                          |
+| **Authentication**              | Cookies related to authentication are used when users log into a service or an application.                                | Session-specific cookies are considered essential. Permanent login cookies always need consent.                                                                           | Session cookies                                                                           |
+| **User preferences**            | These cookies can be used to remember user-selected preferences.                                                           | Preferences that improve usability between service uses (e.g. language) can be considered essential.                                                                        | Language choices, appearance settings, accessibility preferences                          |
+| **User input**                  | These cookies are required if the service wants to remember user-inputted data.                                            | If using the service would not be possible without input-related cookies, they can be considered essential.                                                                 | Search history, last used search filters, shopping cart contents                          |
 | **Advertisement and marketing** | Cookies that store user’s interests or action history data. The information is used to display targeted advertising.       | Never essential.                                                                                                                                                            | User’s interests or service usage history                                                 |
 | **Security**                    | Cookies that ensure safe data transfer between the service and the user.                                                   | Always essential.                                                                                                                                                           | CAPTCHA results                                                                           |
-| **Social media**                | Cookies related to plug-ins, tools and extensions connected to social media platforms.                                     | Never essential.                                                                                                                                                            | Social media feeds, social media share buttons                                            |
+| **Social media**                | Cookies related to plug-ins, tools, and extensions connected to social media platforms.                                     | Never essential.                                                                                                                                                            | Social media feeds, social media share buttons                                            |
 | **Accessibility**               | Cookies that aim to improve the accessibility of the service.                                                              | Always essential.                                                                                                                                                           | Accessibility related preferences such as audio descriptions                              |
-| **Analytics**                   | These cookies are used to collect data on how users use the service. This data is used in research or product development. | Usually not essential. If analytics are considered absolutely necessary for the service, cookies can be considered essential and this must be clearly informed to the user. | Unique visitor IP addresses, page views count, measurements how the user uses the service |
-| **Device information**          | Cookies used to gather extra information about the device that is used to open the website.                                | Usually not essential unless this information is absolutely necessary for the service to operate.                                                                           | Device information, OS and browser information                                            |
+| **Analytics**                   | These cookies are used to collect data on how users use the service. This data is used in research or product development. | Usually not essential. If analytics are considered necessary for the service, cookies can be considered essential and this must be informed to the user. | Unique visitor IP addresses, page views count, measurements of how the user uses the service |
+| **Device information**          | Cookies are used to gather extra information about the device that is used to open the website.                                | Usually not essential unless this information is necessary for the service to operate.                                                                           | Device information, OS, and browser information                                            |
 | **Real-time communication**     | Cookies that enable real-time communication between the user and the service.                                              | Can only be considered essential if real-time communication is the main purpose of the service.                                                                             | Chat provider cookies                                                                     |
 | **Third-party services**        | These cookies are often required when content provided by a third-party service is presented in the service.               | Not considered essential unless cookies are used only after opening the third-party service (e.g. a chat window).                                                           | Cookies used by embedded media such as videos or podcasts                                 |
-| **Displaying content**          | Cookies used to present specific content.                                                                                  | Can be considered essential if the cookie is strictly related to presenting the content and not gathering data.                                                             | Monitoring how the user is using specific content                                         |
-| **Location**                    | Cookies used to store an accurate location of the user’s device.                                                           | Never essential.                                                                                                                                                            | Accurate GPS location                                                                     |
+| **Displaying content**          | Cookies are used to present specific content.                                                                                  | Can be considered essential if the cookie is strictly related to presenting the content and not gathering data.                                                             | Monitoring how the user is using specific content                                         |
+| **Location**                    | Cookies are used to store an accurate location of the user’s device.                                                           | Never essential.                                                                                                                                                            | Accurate GPS location                                                                     |
 
 #### Can I use a custom category?
 
@@ -97,25 +98,25 @@ If your cookies do not fit into any of the pre-defined categories, you are allow
 
 #### We only have a handful of cookies. Do we still have to categorize them?
 
-Yes, cookies always have to be put into a category. If you have a small amount of cookies you can consider grouping them into a single category. Also, if most of the cookies are related to a single third-party service, you can group them per service (E.g. "Service: YouTube").
+Yes, cookies always have to be put into a category. If you have a small number of cookies you can consider grouping them into a single category. Also, if most of the cookies are related to a single third-party service, you can group them per service (E.g. "Service: YouTube").
 
 ## Using the cookie compliance component
 
 The cookie consent is asked using the HDS provided CookieConsent component. If the user has not given consent for cookies yet, this component will be shown when the service loads.
 
-### When are where to show the cookie consent modal?
-- The cookie consent modal must to be shown if the user has not accepted or denied the non-essential cookies of the service.
+### When and where to show the cookie consent modal?
+- The cookie consent modal must be shown if the user has not accepted or denied the non-essential cookies of the service.
   - If cookies have changed since the last time the user accepted or denied them, the consent must be shown again.
 - Include the cookie consent component on every page of the service. The user may arrive on any page of the service (e.g. via a search machine).
 - Make sure that cookie consent is the first item in the page tab order.
 
-### How the cookie consent modal effects other content of the service?
+### How does the cookie consent modal affect other content of the service?
 - The cookie consent modal should not prevent the user from using the web page. Never use an overlay behind the banner or otherwise restrict the use of the site.
-- There may be elements or content on your page that do not work properly until the user gives a consent to cookies. It is recommended to show clear error messages at the position of these elements to clearly indicate why they are not available.
+- There may be elements or content on your page that do not work properly until the user gives consent to cookies. It is recommended to show clear error messages at the position of these elements to indicate why they are not available.
   - If your page has a chat button in the lower right corner, keep the chat button hidden until cookie consent has been accepted and removed from the DOM.
 
 ### What happens after the user has accepted or denied the non-essential cookies?
-- The user must be able to view and edit the cookie consent after they have initially submitted their choices. You must offer a separate cookies page which allows changing viewing the cookies and changing consent.
-  - The link to this page should be placed to the footer element of the page.
-  - Note that the HDS CookieConsent component offers a functionality to render it as a page. This allows you to use the same component and data to construct a separate cookie page.
-- If new cookies are added or current ones changed, the consent should be asked from the user again the next time the service is used.
+- The user must be able to view and edit the cookie consent after they have initially submitted their choices. You must offer a separate cookies page that allows changing viewing the cookies and changing consent.
+  - The link to this page should be placed on the footer element of the page.
+  - Note that the HDS CookieConsent component offers functionality to render it as a page. This allows you to use the same component and data to construct a separate cookie page.
+- If new cookies are added or current ones changed, consent should be asked from the user again the next time the service is used.
