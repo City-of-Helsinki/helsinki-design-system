@@ -1,0 +1,48 @@
+---
+slug: '/components/cookie-consent'
+title: 'CookieConsent'
+nav_title: 'CookieConsent'
+---
+
+import { Notification } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+<Notification label="Note about cookie compliance!" className="siteNotification">
+  This documentation page is about HDS CookieCompliance component. If you are looking for documentation about cookies in general, please refer to <a href="/patterns/cookies">HDS cookie pattern documentation page</a>.
+</Notification>
+
+### Example
+
+<PlaygroundPreview>
+
+</PlaygroundPreview>
+
+### Principles
+- Include the cookie consent component on every page of the service. The user may arrive on any page of the service (e.g. via a search machine).
+- The cookie consent can be rendered either as a modal or as a page. This allows using the same cookie data for both presentation variations.
+  - Use the modal variant as a banner when the user enters the site.
+  - Use the page variant as a full page that the user can access from the page [Footer](/components/footer) element.
+- You must offer the cookie consent modal and page in all languages that your service supports.
+  - By default, the cookie consent banner should use the same language as the service is using.
+  - The component has its language switcher so the user can easily switch the language of the dialog even if they opened the service with a language they do not understand.
+
+### Variations
+
+### Banner
+The default banner variant opens at the bottom of the viewport. It is opened if the consent for cookies has not been given or if the cookies have changed. The banner can be expanded to view and change cookie settings.
+
+<PlaygroundPreview>
+
+</PlaygroundPreview>
+
+### Rendered as a page
+The cookie consent expanded settings page can be rendered as a separate page. This is used to create a cookie page that the user can access via a link in the [Footer](/components/footer) element. This allows the user to view or edit cookie settings after the initial consent has been given.
+
+<PlaygroundPreview>
+
+</PlaygroundPreview>

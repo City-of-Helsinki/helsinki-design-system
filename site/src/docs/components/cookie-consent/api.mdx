@@ -1,67 +1,11 @@
 ---
-name: Cookie compliance
-menu: Components
-route: /components/cookie-compliance
+slug: '/components/cookie-consent/api'
+title: 'CookieConsent - API'
 ---
 
-import { Playground } from "docz";
-import { StatusLabel, Notification } from "hds-react";
+import TabsLayout from './tabs.mdx';
 
-import LargeParagraph from "../../src/components/LargeParagraph";
-import Link from "../../src/components/Link";
-
-# Cookie compliance
-<StatusLabel type="alert">Draft</StatusLabel>
-
-<LargeParagraph>
-  The cookie compliance component informs users about cookie usage. This banner is shown when they visit a website or an application for the first time.
-</LargeParagraph>
-
-<Notification label="Note about cookie compliance!" className="siteNotification">
-  This documentation page is about HDS CookieCompliance component. If you are looking for documentation about cookies in general, please refer to <a href="/patterns/cookie-compliance">HDS cookie compliance pattern documentation page</a>.
-</Notification>
-
-## Principles
-- Include the cookie consent component on every page of the service. The user may arrive on any page of the service (e.g. via a search machine).
-- The cookie consent can be rendered either as a modal or as a page. This allows using the same cookie data for both presentation variations.
-  - Use the modal variant as a banner when the user enters the site.
-  - Use the page variant as a full page that the user can access from the page [Footer](/components/footer) element.
-- You must offer the cookie consent modal and page in all languages that your service supports.
-  - By default, the cookie consent banner should use the same language as the service is using.
-  - The component has its language switcher so the user can easily switch the language of the dialog even if they opened the service with a language they do not understand.
-
-## Accessibility
-- Make sure that cookie consent is the first item in the page tab order.
-- The cookie consent modal should not prevent the user from using the web page. Never use an overlay behind the banner or otherwise restrict the use of the site.
-
-## Security
-TODO
-
-## Usage & variations
-
-### Banner
-The default banner variant opens at the bottom of the viewport. It is opened if the consent for cookies has not been given or if the cookies have changed. The banner can be expanded to view and change cookie settings.
-
-<Playground>
-
-</Playground>
-
-#### React code example:
-```tsx
-
-```
-
-### Rendered as a page
-The cookie consent expanded settings page can be rendered as a separate page. This is used to create a cookie page that the user can access via a link in the [Footer](/components/footer) element. This allows the user to view or edit cookie settings after the initial consent has been given.
-
-<Playground>
-
-</Playground>
-
-#### React code example:
-```tsx
-
-```
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## API
 
@@ -72,6 +16,7 @@ The component requires a `component` object. The object has the following proper
 | `texts.sections.main.title`    | Modal main heading               | `string` | Evästesuotumukset                                                             |
 | `texts.sections.main.text`     | Description of the cookies       | `string` | Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi … |
 | `texts.sections.details.title` | Heading when settings are opened | `string` | Tietoa sivustolla käytetyistä evästeistä                                      |
+[Table 1:CookieConsent component object properties]|
 
 ### Callbacks
 The `content` object passed to the component can also include callback functions:
@@ -80,6 +25,7 @@ The `content` object passed to the component can also include callback functions
 | -------------------- | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `onAllConsentsGiven` | Called when user has given all consents. Not called if consents are not asked for.                    | Object with cookie.id as the key and true/false as value `{matomo: true, marketing: false}`                                                                                                   |
 | `onConsentsParsed`   | Called when cookie consents are read from the browser. Called always even if consent have been given. | Object with cookie.id as the key and true/false as value `{matomo: true, marketing: false}` and boolean indicating are all consents handled. If true, there is no reason to ask for consents. |
+[Table 2:CookieConsent component object callbacks]|
 
 ### Language
 The `content` object passed to the component must also include the following language related data:
@@ -90,15 +36,4 @@ The `content` object passed to the component must also include the following lan
 | `language.current`                   | Current language                                                                              | `fi`                                                                                                                       |
 | `language.languageSelectorAriaLabel` | Aria-label for the language selector button                                                   | Kieli: Suomi. Vaihda kieli. Change language. Ändra språk.                                                                  |
 | `language.onLanguageChange`          | Callback called when new language is selected. Called with new language.code as the argument. |                                                                                                                            |
-
-## Demos
-
-### Core
-
-_Not included in hds-core!_
-
-### React
-
-[CookieCompliance in hds-react](/storybook/react/?path=/story/components-dateinput--default)
-
-[CookieCompliance API](/storybook/react/?path=/docs/components-dateinput--default)
+[Table 3:CookieConsent component language data]|
