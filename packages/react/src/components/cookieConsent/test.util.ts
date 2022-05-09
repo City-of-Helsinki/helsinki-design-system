@@ -6,6 +6,7 @@ import { ConsentGroup, Content } from './CookieConsentContext';
 import { ConsentList, ConsentObject, COOKIE_NAME } from './cookieConsentController';
 import { CookieSetOptions } from './cookieController';
 import { MockedDocumentCookieActions } from './__mocks__/mockDocumentCookie';
+import { createContent } from './content.builder';
 
 export type TestConsentData = {
   requiredConsents?: ConsentList[];
@@ -65,69 +66,34 @@ export const getContent = (
   optionalConsentsGroups?: ConsentList[],
   contentModifier?: (content: Content) => Content,
 ): Content => {
-  const content: Content = {
-    texts: {
-      sections: {
-        main: {
-          title: 'Evästesuostumukset',
-          text: `Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan.
-          Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön
-          näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden
-          käytön.`,
-        },
-        details: {
-          title: 'Tietoa sivustolla käytetyistä evästeistä',
-          text: `Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea tietoa jokaisesta
-          kategoriasta ja sallia tai kieltää evästeiden käytön.`,
-        },
-      },
-      ui: {
-        showSettings: 'Näytä asetukset',
-        hideSettings: 'Piilota asetukset',
-        approveAllConsents: 'Hyväksy kaikki evästeet',
-        approveRequiredAndSelectedConsents: 'Hyväksy valitut ja pakolliset evästeet',
-        approveOnlyRequiredConsents: 'Hyväksy vain pakolliset evästeet',
-        settingsSaved: 'Asetukset tallennettu!',
-      },
-      tableHeadings: {
-        name: 'Name',
-        hostName: 'Host name',
-        path: 'Path',
-        description: 'Description',
-        expiration: 'Expiration',
-      },
-    },
-    language: {
-      languageOptions: [
-        { code: 'fi', label: 'Suomeksi (FI)' },
-        { code: 'sv', label: 'Svenska (SV)' },
-        { code: 'en', label: 'English (EN)' },
-      ],
-      current: 'fi',
-      languageSelectorAriaLabel: 'Kieli: Suomi. Vaihda kieli. Change language. Ändra språk.',
-      onLanguageChange: () => undefined,
-    },
-  };
+  const contentOverrides: Partial<Content> = {};
+
   if (requiredConsentGroups) {
-    content.requiredConsents = {
+    contentOverrides.requiredConsents = {
       title: 'Title for required consents',
       text: 'Text for required consents',
       checkboxAriaDescription: 'checkboxAriaLabel',
-      groupList: requiredConsentGroups.map((consents, index) =>
+      groups: requiredConsentGroups.map((consents, index) =>
         createConsentGroup(`requiredConsentGroup${index}`, consents),
       ),
     };
   }
   if (optionalConsentsGroups) {
-    content.optionalConsents = {
+    contentOverrides.optionalConsents = {
       title: 'Title for optional consents',
       text: 'Text for optional consents',
       checkboxAriaDescription: 'checkboxAriaLabel',
-      groupList: optionalConsentsGroups.map((consents, index) =>
+      groups: optionalConsentsGroups.map((consents, index) =>
         createConsentGroup(`optionalConsentGroups${index}`, consents),
       ),
     };
   }
+  const content = createContent({
+    siteName: 'Test site',
+    noCommonConsentCookie: true,
+    currentLanguage: 'fi',
+    ...contentOverrides,
+  });
   if (contentModifier) {
     return contentModifier(content);
   }
@@ -223,7 +189,7 @@ export async function openAllAccordions(
   dataTestIds: typeof commonTestProps['dataTestIds'],
 ): Promise<void> {
   const openAccordions = async (groupParent: TestGroupParent) => {
-    const list = groupParent === 'required' ? content.requiredConsents.groupList : content.optionalConsents.groupList;
+    const list = groupParent === 'required' ? content.requiredConsents.groups : content.optionalConsents.groups;
     let index = 0;
     /* eslint-disable no-restricted-syntax */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
