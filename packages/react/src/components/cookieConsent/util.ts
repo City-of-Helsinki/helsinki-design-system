@@ -1,4 +1,4 @@
-import { getConsentsFromConsentGroup, RequiredOrOptionalConsentGroups } from './CookieConsentContext';
+import { getConsentsFromConsentGroup, Category } from './CookieConsentContext';
 import { getConsentsFromCookie } from './cookieConsentController';
 
 export function getConsentStatus(consent: string, cookieDomain?: string): boolean | undefined {
@@ -7,16 +7,16 @@ export function getConsentStatus(consent: string, cookieDomain?: string): boolea
 }
 
 export function hasHandledAllConsents(
-  requiredConsents: string[] | RequiredOrOptionalConsentGroups,
-  optionalConsents: string[] | RequiredOrOptionalConsentGroups,
+  requiredConsents: string[] | Category,
+  optionalConsents: string[] | Category,
   cookieDomain?: string,
 ): boolean | undefined {
   const requiredConsentsAsArray: string[] = Array.isArray(requiredConsents)
     ? requiredConsents
-    : getConsentsFromConsentGroup(requiredConsents.groupList);
+    : getConsentsFromConsentGroup(requiredConsents.groups);
   const optionalConsentsAsArray: string[] = Array.isArray(optionalConsents)
     ? optionalConsents
-    : getConsentsFromConsentGroup(optionalConsents.groupList);
+    : getConsentsFromConsentGroup(optionalConsents.groups);
   const cookies = getConsentsFromCookie(cookieDomain);
   const requiredWithoutConsent = requiredConsentsAsArray.filter((consent) => cookies[consent] !== true);
   const unhandledOptionalConsents = optionalConsentsAsArray.filter((consent) => cookies[consent] === undefined);

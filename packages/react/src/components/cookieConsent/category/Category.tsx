@@ -1,28 +1,21 @@
 import React, { useContext } from 'react';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
-import {
-  CookieConsentContext,
-  RequiredOrOptionalConsentGroups,
-  useCookieConsentActions,
-} from '../CookieConsentContext';
+import { CookieConsentContext, Category as CategoryType, useCookieConsentActions } from '../CookieConsentContext';
 import styles from '../CookieConsent.module.scss';
 import ConsentGroup from '../consentGroup/ConsentGroup';
 import { Checkbox } from '../../checkbox/Checkbox';
 
-function ConsentGroups(props: {
-  consentGroups?: RequiredOrOptionalConsentGroups;
-  isRequired?: boolean;
-}): React.ReactElement {
-  const { consentGroups, isRequired } = props;
+function Category(props: { category?: CategoryType; isRequired?: boolean }): React.ReactElement {
+  const { category, isRequired } = props;
   const cookieConsentContext = useContext(CookieConsentContext);
   const triggerAction = useCookieConsentActions();
-  if (!consentGroups) {
+  if (!category) {
     return null;
   }
   const selectPercentage = cookieConsentContext.countApprovedOptional();
   const allApproved = isRequired || selectPercentage === 1;
-  const { title, text, groupList, checkboxAriaDescription } = consentGroups;
+  const { title, text, groups, checkboxAriaDescription } = category;
   const checked = isRequired || allApproved;
   const checkboxStyle = {
     '--label-font-size': 'var(--fontsize-heading-m)',
@@ -53,7 +46,7 @@ function ConsentGroups(props: {
         {checkboxAriaDescription || text}
       </VisuallyHidden>
       <ul className={styles.list}>
-        {groupList.map((group, index) => (
+        {groups.map((group, index) => (
           <li key={group.title}>
             <ConsentGroup group={group} isRequired={isRequired} id={getConsentGroupIdentifier(`group-${index}`)} />
           </li>
@@ -63,4 +56,4 @@ function ConsentGroups(props: {
   );
 }
 
-export default ConsentGroups;
+export default Category;
