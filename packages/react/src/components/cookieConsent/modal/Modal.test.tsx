@@ -246,8 +246,7 @@ describe('<CookieConsent /> ', () => {
     it('all consents in the group are rendered', async () => {
       const result = await initDetailsView(defaultConsentData);
       const checkConsentsExist = async (groupParent: TestGroupParent) => {
-        const list =
-          groupParent === 'required' ? content.requiredConsents.groupList : content.optionalConsents.groupList;
+        const list = groupParent === 'required' ? content.requiredConsents.groups : content.optionalConsents.groups;
         let index = 0;
         // cannot use async/await with array.forEach
         // eslint-disable-next-line no-restricted-syntax
