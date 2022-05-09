@@ -119,8 +119,30 @@ export const Accordion = ({
   // Create a unique id if not provided via prop
   const [accordionId] = useState(id || uniqueId('accordion-'));
 
-  // Custom theme
-  const customThemeClass = useTheme<AccordionCustomTheme>(styles.accordion, theme);
+  // Custom themes
+  const sovereignThemeVariables = theme && {
+    '--background-color': theme['--background-color'],
+    '--border-color': theme['--border-color'],
+    '--padding-horizontal': theme['--padding-horizontal'],
+    '--header-font-color': theme['--header-font-color'],
+    '--header-focus-outline-color': theme['--header-focus-outline-color'],
+    '--content-font-color': theme['--content-font-color'],
+    '--content-font-size': theme['--content-font-size'],
+    '--content-line-height': theme['--content-line-height'],
+  };
+
+  const sovereignThemeClass = useTheme<Partial<AccordionCustomTheme>>(styles.accordion, sovereignThemeVariables);
+
+  const sizeDependentThemeVariables = theme && {
+    '--header-font-size': theme['--header-font-size'],
+    '--padding-vertical': theme['--padding-vertical'],
+    '--header-font-weight': theme['--header-font-weight'],
+    '--header-letter-spacing': theme['--header-letter-spacing'],
+    '--header-line-height': theme['--header-line-height'],
+    '--button-size': theme['--button-size'],
+  };
+
+  const sizeDependentThemeClass = useTheme<Partial<AccordionCustomTheme>>(styles[size], sizeDependentThemeVariables);
 
   // Accordion logic
   const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen });
@@ -140,7 +162,8 @@ export const Accordion = ({
         card && border && styles.border,
         isOpen && styles.isOpen,
         styles[size],
-        customThemeClass,
+        sovereignThemeClass,
+        sizeDependentThemeClass,
         className,
       )}
       style={style}
