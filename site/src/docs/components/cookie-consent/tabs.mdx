@@ -1,0 +1,33 @@
+---
+slug: '/components/cookie-consent/tabs'
+title: 'CookieConsent'
+---
+
+import { StatusLabel } from 'hds-react';
+
+import LeadParagraph from '../../../components/LeadParagraph';
+import Layout from '../../../components/layout';
+import PageTabs from '../../../components/PageTabs';
+
+# CookieConsent
+
+<StatusLabel type="alert">Draft</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  Accessible
+</StatusLabel>
+
+<LeadParagraph>
+  The cookie compliance component informs users about cookie usage. This banner is shown when they visit a website or an application for the first time.
+</LeadParagraph>
+
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/api">API</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>
+
+export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;
