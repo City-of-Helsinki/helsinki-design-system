@@ -1,0 +1,190 @@
+{
+  "texts": {
+    "sections": {
+      "main": {
+        "fi": {
+          "title": "{{siteName}} eväste\u00ADsuostumukset",
+          "text": "Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden käytön."
+        }
+      },
+      "details": {
+        "fi": {
+          "title": "Tietoa sivustolla käytetyistä evästeistä",
+          "text": "Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea tietoa jokaisesta kategoriasta ja sallia tai kieltää evästeiden käytön."
+        }
+      }
+    },
+    "ui": {
+      "fi": {
+        "showSettings": "Näytä asetukset",
+        "hideSettings": "Piilota asetukset",
+        "approveAllConsents": "Hyväksy kaikki evästeet",
+        "approveRequiredAndSelectedConsents": "Hyväksy valitut ja pakolliset evästeet",
+        "approveOnlyRequiredConsents": "Hyväksy vain pakolliset evästeet",
+        "settingsSaved": "Asetukset tallennettu!"
+      }
+    },
+    "tableHeadings": {
+      "fi": {
+        "name": "Nimi",
+        "hostName": "Osoite",
+        "path": "Polku",
+        "description": "Kuvaus",
+        "expiration": "Voimassaoloaika"
+      }
+    }
+  },
+  "language": {
+    "languageOptions": [
+      { "code": "fi", "label": "Suomeksi (FI)" },
+      { "code": "sv", "label": "Svenska (SV)" },
+      { "code": "en", "label": "English (EN)" }
+    ],
+    "languageSelectorAriaLabel": "Kieli: Suomi. Vaihda kieli. Change language. Ändra språk."
+  },
+  "requiredConsents": {
+    "fi": {
+      "title": "Välttämättömät evästeet",
+      "text": "Välttämättömien evästeiden käyttöä ei voi kieltää. Ne mahdollistavat sivuston toiminnan ja vaikuttavat sivuston käyttäjäystävällisyyteen.",
+      "checkboxAriaDescription": "Näitä eväisteitä käytetään sivuston perustoiminnoissa. Perustoimintoihin littyvien evästeiden käyttöä ei voi kieltää."
+    }
+  },
+  "optionalConsents": {
+    "fi": {
+      "title": "Muut evästeet",
+      "text": "Voit hyväksyä tai jättää hyväksymättä muut evästeet. Praesent vel vestibulum nunc, at eleifend sapien. Integer cursus ut orci eu pretium. Ut a orci felis. In eu eros turpis. Sed ullamcorper lacinia lorem, id ullamcorper dui accumsan in. Integer dictum fermentum mi, sit amet accumsan lacus facilisis id. Quisque blandit lacus ac sem porta.",
+      "checkboxAriaDescription": "Voit hyväksyä tai jättää hyväksymättä muut evästeet."
+    }
+  },
+  "commonGroups": {
+    "login": {
+      "title": "Evästeet kirjautumista varten",
+      "text": "Näitä eväisteitä käytetään kirjautumisessa",
+      "expandAriaLabel": "Näytä kirjautumiseen littyvien evästeiden tiedot",
+      "checkboxAriaDescription": "Näitä eväisteitä käytetään kirjautumisessa. Kirjautumiseen littyvien evästeiden käyttöä ei voi kieltää."
+    },
+    "marketing": {
+      "fi": {
+        "title": "Markkinointievästeet",
+        "text": "Markkinointievästeillä kohdennetaan markkinointia. Nulla facilisi. Nullam mattis sapien sem, nec venenatis lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus.",
+        "expandAriaLabel": "Näytä markkinointievästeiden tiedot",
+        "checkboxAriaDescription": "Markkinointievästeillä kohdennetaan markkinointia. Hyväksy tai jätä hyväksymättä kaikki markkinointiin liittyvät evästeet"
+      }
+    },
+    "preferences": {
+      "fi": {
+        "title": "Asetuksiin liittyvät evästeet",
+        "text": "Evästeisiin tallennetaan käyttäjän tekemiä Donec lacus ligula, consequat id ligula sed, dapibus blandit nunc. Phasellus efficitur nec tellus et tempus. Sed tempor tristique purus, at auctor lectus. Ut pretium rutrum viverra. Sed felis arcu, sodales fermentum finibus in, pretium id tellus. Morbi eget eros congue, pulvinar leo ut, aliquam lectus. Cras consectetur sit amet tortor nec vulputate. Integer scelerisque dignissim auctor. Fusce pharetra dui nulla, vel elementum leo mattis vitae.",
+        "expandAriaLabel": "Näytä asetuksiin liittyvien evästeiden tiedot",
+        "checkboxAriaDescription": "Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+      }
+    },
+    "essential": {
+      "fi": {
+        "title": "Perustoimintoihin liittyvät evästeet",
+        "text": "Sivusto ei toimi ilman näitä",
+        "expandAriaLabel": "essential expandAriaLabel",
+        "checkboxAriaDescription": "essential checkboxAriaDescription"
+      }
+    },
+    "statistics": {
+      "fi": {
+        "title": "Tilastointiin liittyvät evästeet",
+        "text": "Tilastoinnilla parannetaan...",
+        "expandAriaLabel": "Näytä tilastointiin liittyvien evästeiden tiedot",
+        "checkboxAriaDescription": "Tilastoinnilla parannetaan sivustoa. Hyväksy tai jätä hyväksymättä kaikki tilastointiin liittyvät evästeet"
+      }
+    },
+    "sharedConsents": {
+      "fi": {
+        "title": "Yhteiset evästesuostumukset",
+        "text": "Tallennamme nämä suostumukset, jottei sinun tarvitse hyväksyä samoja uudelleen Helsingin kaupungin palveluissa",
+        "expandAriaLabel": "Näytä yhteisiin evästesuostumuksiin liittyvien evästeiden tiedot",
+        "checkboxAriaDescription": "Yhteiset evästesuostumukset helpottavat sivuston käyttöä. Hyväksy tai jätä hyväksymättä kaikki tilastointiin liittyvät evästeet"
+      }
+    }
+  },
+  "commonCookies": {
+    "testCommonCookie": {
+      "id": "testCommonCookie",
+      "hostName": "testCommonCookie.com",
+      "path": "testCommonCookie path",
+      "fi": {
+        "name": "testCommonCookie cookie",
+        "description": "testCommonCookie cookie kuvaus",
+        "expiration": "testCommonCookie Voimassaoloaika"
+      }
+    },
+    "anotherTestCommonCookie": {
+      "id": "anotherTestCommonCookie",
+      "hostName": "anotherTestCommonCookie.com",
+      "path": "anotherTestCommonCookie path",
+      "fi": {
+        "name": "anotherTestCommonCookie cookie",
+        "description": "anotherTestCommonCookie cookie kuvaus",
+        "expiration": "anotherTestCommonCookie Voimassaoloaika"
+      }
+    },
+    "helConsentCookie": {
+      "id": "SET_IN_CODE",
+      "hostName": "*.hel.fi",
+      "path": "",
+      "commonGroup": "SET_IN_CODE",
+      "fi": {
+        "name": "Suostumusvalinnat",
+        "description": "Tallennetaan Helsingin kaupungin yhteiset evästesuostumukset.",
+        "expiration": "1 vuosi"
+      }
+    },
+    "tunnistamo": {
+      "id": "tunnistamo",
+      "hostName": "tunnistamo.com",
+      "path": "tunnistamo path",
+      "fi": {
+        "name": "Tunnistamo cookie",
+        "description": "Kuvaus lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus",
+        "expiration": "Voimassaoloaika"
+      }
+    },
+    "keycloak": {
+      "id": "keycloak",
+      "hostName": "keycloak.com",
+      "path": "keycloak path",
+      "fi": {
+        "name": "keycloak cookie",
+        "description": "Quisque vest molestie convallis. Don el dui vel.",
+        "expiration": "Voimassaoloaika"
+      }
+    },
+    "marketing": {
+      "id": "marketing",
+      "hostName": "marketing.com",
+      "path": "marketing path",
+      "fi": {
+        "name": "marketing cookie",
+        "description": "Quisque vest molestie convallis. Don el dui vel.",
+        "expiration": "Voimassaoloaika"
+      }
+    },
+    "language-i18n": {
+      "id": "language-i18n",
+      "hostName": "hel.fi",
+      "path": "",
+      "fi": {
+        "name": "Kielvalinta",
+        "description": "Quisque vest molestie convallis. Don el dui vel.",
+        "expiration": "Voimassaoloaika"
+      }
+    },
+    "matomo": {
+      "id": "matomo",
+      "hostName": "digia.fi",
+      "path": "",
+      "fi": {
+        "name": "Analytiikan kerääminen Matomooon",
+        "description": "Quisque vest molestie convallis. Don el dui vel.",
+        "expiration": "Voimassaoloaika"
+      }
+    }
+  }
+}
