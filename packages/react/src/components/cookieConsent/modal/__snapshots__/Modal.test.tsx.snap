@@ -23,7 +23,7 @@ exports[`<ModalContent /> spec renders the component 1`] = `
             role="heading"
             tabindex="-1"
           >
-            Evästesuostumukset
+            Test site eväste­suostumukset
           </span>
           <div
             class="language-switcher"
@@ -112,10 +112,7 @@ exports[`<ModalContent /> spec renders the component 1`] = `
             </div>
           </div>
           <p>
-            Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan.
-          Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön
-          näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden
-          käytön.
+            Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden käytön.
           </p>
         </div>
         <button
@@ -165,8 +162,7 @@ exports[`<ModalContent /> spec renders the component 1`] = `
               Tietoa sivustolla käytetyistä evästeistä
             </span>
             <p>
-              Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea tietoa jokaisesta
-          kategoriasta ja sallia tai kieltää evästeiden käytön.
+              Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea tietoa jokaisesta kategoriasta ja sallia tai kieltää evästeiden käytön.
             </p>
             <div
               class="consent-group-parent"
@@ -310,27 +306,27 @@ exports[`<ModalContent /> spec renders the component 1`] = `
                                   <th
                                     scope="col"
                                   >
-                                    Name
+                                    Nimi
                                   </th>
                                   <th
                                     scope="col"
                                   >
-                                    Host name
+                                    Osoite
                                   </th>
                                   <th
                                     scope="col"
                                   >
-                                    Path
+                                    Polku
                                   </th>
                                   <th
                                     scope="col"
                                   >
-                                    Description
+                                    Kuvaus
                                   </th>
                                   <th
                                     scope="col"
                                   >
-                                    Expiration
+                                    Voimassaoloaika
                                   </th>
                                 </tr>
                               </thead>
@@ -497,27 +493,27 @@ exports[`<ModalContent /> spec renders the component 1`] = `
                                   <th
                                     scope="col"
                                   >
-                                    Name
+                                    Nimi
                                   </th>
                                   <th
                                     scope="col"
                                   >
-                                    Host name
+                                    Osoite
                                   </th>
                                   <th
                                     scope="col"
                                   >
-                                    Path
+                                    Polku
                                   </th>
                                   <th
                                     scope="col"
                                   >
-                                    Description
+                                    Kuvaus
                                   </th>
                                   <th
                                     scope="col"
                                   >
-                                    Expiration
+                                    Voimassaoloaika
                                   </th>
                                 </tr>
                               </thead>
@@ -699,27 +695,27 @@ exports[`<ModalContent /> spec renders the component 1`] = `
                                   <th
                                     scope="col"
                                   >
-                                    Name
+                                    Nimi
                                   </th>
                                   <th
                                     scope="col"
                                   >
-                                    Host name
+                                    Osoite
                                   </th>
                                   <th
                                     scope="col"
                                   >
-                                    Path
+                                    Polku
                                   </th>
                                   <th
                                     scope="col"
                                   >
-                                    Description
+                                    Kuvaus
                                   </th>
                                   <th
                                     scope="col"
                                   >
-                                    Expiration
+                                    Voimassaoloaika
                                   </th>
                                 </tr>
                               </thead>
@@ -857,27 +853,27 @@ exports[`<ModalContent /> spec renders the component 1`] = `
                                   <th
                                     scope="col"
                                   >
-                                    Name
+                                    Nimi
                                   </th>
                                   <th
                                     scope="col"
                                   >
-                                    Host name
+                                    Osoite
                                   </th>
                                   <th
                                     scope="col"
                                   >
-                                    Path
+                                    Polku
                                   </th>
                                   <th
                                     scope="col"
                                   >
-                                    Description
+                                    Kuvaus
                                   </th>
                                   <th
                                     scope="col"
                                   >
-                                    Expiration
+                                    Voimassaoloaika
                                   </th>
                                 </tr>
                               </thead>
