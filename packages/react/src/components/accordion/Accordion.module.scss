@@ -2,13 +2,7 @@
   --background-color: var(--color-white);
   --border-color: var(--color-black-60);
   --padding-horizontal: var(--spacing-m);
-  --padding-vertical: var(--spacing-m);
   --header-font-color: var(--color-black-90);
-  --header-font-size: var(--fontsize-heading-m);
-  --header-font-weight: 500;
-  --header-letter-spacing: -0.2px;
-  --header-line-height: 32px;
-  --button-size: 28px;
   --header-focus-outline-color: var(--color-coat-of-arms);
   --content-font-color: var(--color-black-90);
   --content-font-size: var(--fontsize-body-m);
@@ -29,6 +23,33 @@
   }
 }
 
+.s {
+  --header-font-size: var(--fontsize-heading-s);
+  --padding-vertical: var(--spacing-s);
+  --header-font-weight: 700;
+  --header-letter-spacing: 0.2px;
+  --header-line-height: 1.4;
+  --button-size: 28px;
+}
+
+.m {
+  --header-font-size: var(--fontsize-heading-m);
+  --padding-vertical: var(--spacing-m);
+  --header-font-weight: 500;
+  --header-letter-spacing: -0.2px;
+  --header-line-height: 32px;
+  --button-size: 36px;
+}
+
+.l {
+  --header-font-size: var(--fontsize-heading-l);
+  --padding-vertical: var(--spacing-l);
+  --header-font-weight: 400;
+  --header-letter-spacing: -0.4px;
+  --header-line-height: var(--lineheight-s);
+  --button-size: 52px;
+}
+
 .accordionHeader {
   position: relative;
   color: var(--header-font-color);
@@ -36,18 +57,30 @@
   letter-spacing: var(--header-letter-spacing);
   font-weight: var(--header-font-weight);
   line-height: var(--header-line-height);
-  padding-top: 18px;
-  padding-bottom: 22px;
+  padding-top: var(--padding-vertical);
+  padding-bottom: var(--padding-vertical);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .accordionContent {
+  position: relative;
   font-size: var(--content-font-size);
   line-height: var(--content-line-height);
-  padding-bottom: var(--padding-vertical);
+  padding-bottom: var(--spacing-m);
   color: var(--content-font-color);
+}
+
+.contentWithCloseButton {
+  padding-bottom: 44px;
+}
+
+.closeButton {
+  color: var(--color-black-90);
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .headingContainer {

@@ -23,6 +23,15 @@ export default {
 
 export const Default = (args) => <Accordion {...args} />;
 
+export const Small = (args) => <Accordion {...args} size="s" />;
+
+export const Medium = (args) => <Accordion {...args} size="m" />;
+
+export const Large = (args) => <Accordion {...args} size="l" />;
+
+export const WithoutCloseButton = (args) => <Accordion {...args} closeButton={false} />;
+WithoutCloseButton.storyName = 'Without close button';
+
 export const InitiallyOpen = (args) => <Accordion {...args} initiallyOpen />;
 InitiallyOpen.storyName = 'Initially open';
 

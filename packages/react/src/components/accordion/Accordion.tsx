@@ -9,6 +9,7 @@ import classNames from '../../utils/classNames';
 import { IconAngleDown, IconAngleUp } from '../../icons';
 import { useAccordion } from './useAccordion';
 import { useTheme } from '../../hooks/useTheme';
+import { Button } from '../button';
 
 export interface AccordionCustomTheme {
   '--background-color'?: string;
@@ -39,6 +40,11 @@ export type CommonAccordionProps = React.PropsWithChildren<{
    */
   className?: string;
   /**
+   * Boolean indicating whether there is a close button at the bottom of the accordion or not.
+   * @Default true
+   */
+  closeButton?: boolean;
+  /**
    * Heading text.
    */
   heading?: string;
@@ -56,6 +62,11 @@ export type CommonAccordionProps = React.PropsWithChildren<{
    * @default false
    */
   initiallyOpen?: boolean;
+  /**
+   * Size
+   * @default m
+   */
+  size?: 's' | 'm' | 'l';
   /**
    * Additional styles
    */
@@ -84,10 +95,12 @@ export const Accordion = ({
   card = false,
   children,
   className,
+  closeButton = true,
   heading,
   headingLevel = 2,
   id,
   initiallyOpen = false,
+  size = 'm',
   style,
   theme,
 }: AccordionProps) => {
@@ -126,6 +139,7 @@ export const Accordion = ({
         card && styles.card,
         card && border && styles.border,
         isOpen && styles.isOpen,
+        styles[size],
         customThemeClass,
         className,
       )}
@@ -155,10 +169,31 @@ export const Accordion = ({
         {...contentProps}
         id={`${accordionId}-content`}
         role="region"
-        className={classNames(styles.accordionContent, card && styles.card)}
+        className={classNames(
+          styles.accordionContent,
+          card && styles.card,
+          closeButton && styles.contentWithCloseButton,
+        )}
         aria-labelledby={`${accordionId}-heading`}
       >
         {children}
+        {closeButton && (
+          <Button
+            className={styles.closeButton}
+            theme="black"
+            size="small"
+            onClick={() => buttonProps.onClick()}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                buttonProps.onClick();
+              }
+            }}
+            variant="supplementary"
+            iconRight={<IconAngleUp aria-hidden size="xs" className={styles.accordionButtonIcon} />}
+          >
+            Close
+          </Button>
+        )}
       </div>
     </div>
   );
