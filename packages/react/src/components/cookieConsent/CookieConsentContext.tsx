@@ -40,27 +40,41 @@ export type SectionTexts = {
   details: Description;
 };
 
-export type RequiredOrOptionalConsentGroups = Description & {
+export type Category = Description & {
   checkboxAriaDescription?: string;
-  groupList: ConsentGroup[];
+  groups: ConsentGroup[];
 };
 
+export type SupportedLanguage = 'fi' | 'sv' | 'en';
+
 export type Content = {
-  requiredConsents?: RequiredOrOptionalConsentGroups;
-  optionalConsents?: RequiredOrOptionalConsentGroups;
+  requiredConsents?: Category;
+  optionalConsents?: Category;
   texts: {
     sections: SectionTexts;
     ui: UiTexts;
     tableHeadings: TableData;
   };
   language: {
-    languageOptions: { code: string; label: string }[];
-    current: string;
+    languageOptions: { code: SupportedLanguage; label: string }[];
+    current: SupportedLanguage;
     languageSelectorAriaLabel: string;
     onLanguageChange: (newLanguage: string) => void;
   };
   onAllConsentsGiven?: (consents: ConsentObject) => void;
   onConsentsParsed?: (consents: ConsentObject, hasUserHandledAllConsents: boolean) => void;
+};
+
+export type ContentOverrides = Omit<Content, 'texts' | 'language'> & {
+  texts?: {
+    sections?: {
+      main?: Partial<Description>;
+      details?: Partial<Description>;
+    };
+    ui?: Partial<UiTexts>;
+    tableHeadings?: Partial<TableData>;
+  };
+  language?: Partial<Content['language']>;
 };
 
 export type CookieConsentContextType = {
@@ -96,10 +110,10 @@ export const getConsentsFromConsentGroup = (groups: ConsentGroup[]): ConsentList
 
 export const Provider = ({ cookieDomain, children, content }: CookieConsentContextProps): React.ReactElement => {
   const requiredConsents = content.requiredConsents
-    ? getConsentsFromConsentGroup(content.requiredConsents.groupList)
+    ? getConsentsFromConsentGroup(content.requiredConsents.groups)
     : undefined;
   const optionalConsents = content.optionalConsents
-    ? getConsentsFromConsentGroup(content.optionalConsents.groupList)
+    ? getConsentsFromConsentGroup(content.optionalConsents.groups)
     : undefined;
   const consentController = useMemo(
     () => createConsentController({ requiredConsents, optionalConsents, cookieDomain }),
