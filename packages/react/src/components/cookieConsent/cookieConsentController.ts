@@ -35,14 +35,6 @@ export type ConsentController = {
 export const COOKIE_NAME = 'city-of-helsinki-cookie-consents';
 export const COOKIE_EXPIRATION_TIME = 60 * 60 * 24 * 365;
 
-export const commonConsents = {
-  matomo: 'matomo',
-  tunnistamo: 'tunnistamo',
-  language: 'language',
-  marketing: 'marketing',
-  preferences: 'preferences',
-};
-
 function convertStringArrayToKeyConsentObject(array: string[]): ConsentObject {
   return array.reduce((current, key) => {
     // eslint-disable-next-line no-param-reassign
