@@ -9,6 +9,8 @@ import { ContentSource, createContent } from './content.builder';
 type ContentOptions = {
   currentLanguage: SupportedLanguage;
   onLanguageChange: Content['language']['onLanguageChange'];
+  onAllConsentsGiven?: Content['onAllConsentsGiven'];
+  onConsentsParsed?: Content['onConsentsParsed'];
 };
 
 export default {
@@ -21,7 +23,7 @@ export default {
 };
 
 const getContent = (options: ContentOptions): Content => {
-  const { onLanguageChange, currentLanguage } = options;
+  const { onLanguageChange, currentLanguage, onAllConsentsGiven, onConsentsParsed } = options;
 
   const contentSource: ContentSource = {
     siteName: 'Sivuston XXX',
@@ -96,6 +98,8 @@ const getContent = (options: ContentOptions): Content => {
     language: {
       onLanguageChange,
     },
+    onAllConsentsGiven,
+    onConsentsParsed,
   };
 
   return createContent(contentSource);
@@ -106,9 +110,37 @@ const getContent = (options: ContentOptions): Content => {
 export const ModalVersion = (args) => {
   const [language, setLanguage] = useState<SupportedLanguage>('fi');
   const onLanguageChange = (newLang) => setLanguage(newLang);
+  const focusedElementAfterCloseId = 'focused-element-after-cookie-consent-closed';
 
   const content: Content = useMemo((): Content => {
-    return getContent({ currentLanguage: language, onLanguageChange });
+    return getContent({
+      currentLanguage: language,
+      onLanguageChange,
+      onAllConsentsGiven: (consents) => {
+        if (consents.matomo) {
+          //  start tracking
+          // window._paq.push(['setConsentGiven']);
+          // window._paq.push(['setCookieConsentGiven']);
+        }
+        const focusEl = document.getElementById(focusedElementAfterCloseId);
+        if (focusEl) {
+          focusEl.focus();
+        }
+      },
+      onConsentsParsed: (consents, hasUserHandledAllConsents) => {
+        if (consents.matomo === undefined) {
+          // tell matomo to wait for consent:
+          // window._paq.push(['requireConsent']);
+          // window._paq.push(['requireCookieConsent']);
+        } else if (consents.matomo === false) {
+          // tell matomo to forget conset
+          // window._paq.push(['forgetConsentGiven']);
+        }
+        if (hasUserHandledAllConsents) {
+          // cookie consent dialog will not be shown
+        }
+      },
+    });
   }, [language]);
 
   const MatomoCookieTracker = () => {
@@ -138,7 +170,7 @@ export const ModalVersion = (args) => {
     return (
       <div>
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-        <h1 id="focused-element-after-cookie-consent-closed" tabIndex={0}>
+        <h1 id={focusedElementAfterCloseId} tabIndex={0}>
           This is a dummy application
         </h1>
         {willRenderCookieConsentDialog ? (
