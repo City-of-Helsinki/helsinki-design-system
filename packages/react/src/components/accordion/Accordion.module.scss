@@ -70,17 +70,17 @@
   line-height: var(--content-line-height);
   padding-bottom: var(--spacing-m);
   color: var(--content-font-color);
+
+  .closeButton {
+    color: var(--color-black-90);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
 }
 
 .contentWithCloseButton {
   padding-bottom: 44px;
-}
-
-.closeButton {
-  color: var(--color-black-90);
-  position: absolute;
-  bottom: 0;
-  right: 0;
 }
 
 .headingContainer {
