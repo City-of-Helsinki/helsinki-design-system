@@ -31,18 +31,18 @@ describe(`content.builder.ts`, () => {
     consents: [],
   };
 
-  const testCommonCookie: ConsentData = {
-    id: commonContent.commonCookies.testCommonCookie.id,
-    hostName: commonContent.commonCookies.testCommonCookie.hostName,
-    path: commonContent.commonCookies.testCommonCookie.path,
-    ...commonContent.commonCookies.testCommonCookie.fi,
+  const matomo: ConsentData = {
+    id: commonContent.commonCookies.matomo.id,
+    hostName: commonContent.commonCookies.matomo.hostName,
+    path: commonContent.commonCookies.matomo.path,
+    ...commonContent.commonCookies.matomo.fi,
   };
 
-  const anotherTestCommonCookie: ConsentData = {
-    id: commonContent.commonCookies.anotherTestCommonCookie.id,
-    hostName: commonContent.commonCookies.anotherTestCommonCookie.hostName,
-    path: commonContent.commonCookies.anotherTestCommonCookie.path,
-    ...commonContent.commonCookies.anotherTestCommonCookie.fi,
+  const tunnistamo: ConsentData = {
+    id: commonContent.commonCookies.tunnistamo.id,
+    hostName: commonContent.commonCookies.tunnistamo.hostName,
+    path: commonContent.commonCookies.tunnistamo.path,
+    ...commonContent.commonCookies.tunnistamo.fi,
   };
 
   const requiredConsents: Category = {
@@ -236,12 +236,12 @@ describe(`content.builder.ts`, () => {
           {
             commonGroup: 'marketing',
             required: false,
-            commonCookie: 'anotherTestCommonCookie',
+            commonCookie: 'tunnistamo',
           },
           {
             commonGroup: 'essential',
             required: true,
-            commonCookie: 'testCommonCookie',
+            commonCookie: 'matomo',
           },
         ],
       });
@@ -255,7 +255,7 @@ describe(`content.builder.ts`, () => {
               ...essentialGroup,
               consents: [
                 {
-                  ...testCommonCookie,
+                  ...matomo,
                 },
               ],
             },
@@ -268,7 +268,7 @@ describe(`content.builder.ts`, () => {
               ...marketingGroup,
               consents: [
                 {
-                  ...anotherTestCommonCookie,
+                  ...tunnistamo,
                 },
               ],
             },
