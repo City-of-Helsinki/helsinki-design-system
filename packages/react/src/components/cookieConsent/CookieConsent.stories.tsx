@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react';
 
-import { commonConsents } from './cookieConsentController';
 import { Content, SupportedLanguage } from './CookieConsentContext';
 import { ConsentsInModal } from './consentsInModal/ConsentsInModal';
 import { Page } from './page/Page';
@@ -113,7 +112,7 @@ export const ModalVersion = (args) => {
   }, [language]);
 
   const MatomoCookieTracker = () => {
-    const isMatomoCookieApproved = getConsentStatus(commonConsents.matomo);
+    const isMatomoCookieApproved = getConsentStatus('matomo');
     return (
       <div>
         <p>Matomo cookie is {!isMatomoCookieApproved && <strong>NOT</strong>} set.*</p>
