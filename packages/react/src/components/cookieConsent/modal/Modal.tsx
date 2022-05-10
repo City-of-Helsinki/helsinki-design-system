@@ -8,7 +8,9 @@ import Content from '../content/Content';
 
 export function Modal(): React.ReactElement | null {
   const cookieConsentContext = useContext(CookieConsentContext);
-  const shouldShowModal = !cookieConsentContext.hasUserHandledAllConsents();
+  const hasOnlyRequiredConsents =
+    !cookieConsentContext.content.optionalConsents || cookieConsentContext.content.optionalConsents.groups.length === 0;
+  const shouldShowModal = !hasOnlyRequiredConsents && !cookieConsentContext.hasUserHandledAllConsents();
   const [isModalInitiallyShown] = useState<boolean>(shouldShowModal);
   const [popupTimerComplete, setPopupTimerComplete] = useState<boolean>(false);
   const popupDelayInMs = 500;
