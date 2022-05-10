@@ -94,7 +94,7 @@ describe(`content.builder.ts`, () => {
   };
 
   describe('createContent', () => {
-    it('returns content.texts and content.language when only currentLanguage is passed. SiteName is in main.title.', () => {
+    it('returns content.texts and content.language when categories, groups nor cookies are not passed. SiteName is in main.title.', () => {
       const plainContent = createContent(commonContentTestProps);
       expect(plainContent).toBeDefined();
       expect(plainContent.texts).toBeDefined();
@@ -130,7 +130,7 @@ describe(`content.builder.ts`, () => {
     });
   });
   describe('contentSource.texts', () => {
-    it('section texts can be overridden one by one or all at once', () => {
+    it('can override default section texts one by one or all at once', () => {
       const newMainTitle = 'new main title';
       const newDetailsText = 'new details text';
       const contentWithNewMainTitle = createContent({
@@ -148,7 +148,7 @@ describe(`content.builder.ts`, () => {
     });
   });
   describe('contentSource.language', () => {
-    it('is appended to the content', () => {
+    it('is merged to the content.language', () => {
       const onLanguageChangeMock = jest.fn();
       const newLanguage = 'xyz';
       const content = createContent({
@@ -167,7 +167,7 @@ describe(`content.builder.ts`, () => {
     });
   });
   describe('contentSource.cookies[]', () => {
-    it('adding a cookie with common group adds the group too and creates requiredConsents if cookie.required = true', () => {
+    it('define also groups and create requiredConsents if cookie.required = true', () => {
       const contentWithCookie = createContent({
         ...commonContentTestProps,
         cookies: [
@@ -198,7 +198,7 @@ describe(`content.builder.ts`, () => {
 
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
-    it('adding a cookie with common group adds the group too and creates optionalConsents if cookie.required = false', () => {
+    it('define also groups and create optionalConsents if cookie.required = false', () => {
       const contentWithCookie = createContent({
         ...commonContentTestProps,
         cookies: [
@@ -278,7 +278,65 @@ describe(`content.builder.ts`, () => {
 
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
-    it('multiple cookies and groups can be added this way', () => {
+    it('common cookie texts can be overridden', () => {
+      const newCookieTexts: Partial<ConsentData> = {
+        name: 'New cookie name',
+        description: 'New cookie description',
+        expiration: 'New cookie expiration',
+      };
+      const contentWithCookie = createContent({
+        ...commonContentTestProps,
+        cookies: [
+          {
+            commonGroup: 'marketing',
+            required: false,
+            commonCookie: 'tunnistamo',
+            ...newCookieTexts,
+          },
+          {
+            commonGroup: 'essential',
+            required: true,
+            commonCookie: 'matomo',
+            ...newCookieTexts,
+          },
+        ],
+      });
+
+      const expectedResult: Content = {
+        ...defaultTextsAndLanguage,
+        requiredConsents: {
+          ...requiredConsents,
+          groups: [
+            {
+              ...essentialGroup,
+              consents: [
+                {
+                  ...matomo,
+                  ...newCookieTexts,
+                },
+              ],
+            },
+          ],
+        },
+        optionalConsents: {
+          ...optionalConsents,
+          groups: [
+            {
+              ...marketingGroup,
+              consents: [
+                {
+                  ...tunnistamo,
+                  ...newCookieTexts,
+                },
+              ],
+            },
+          ],
+        },
+      };
+
+      expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
+    });
+    it('multiple cookies and groups can be added', () => {
       const contentWithCookie = createContent({
         ...commonContentTestProps,
         cookies: [
@@ -327,9 +385,93 @@ describe(`content.builder.ts`, () => {
 
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
+    it('cookies with groupId are added to the matching group. cookie.required is ignored when its group exists.', () => {
+      const contentWithCookie = createContent({
+        ...commonContentTestProps,
+        groups: [
+          {
+            ...marketingGroup,
+            id: 'group1-for-cookies',
+            required: true,
+            consents: [
+              {
+                ...testCookieData,
+                name: 'group-1-existing-cookie',
+              },
+            ],
+          },
+          {
+            ...essentialGroup,
+            id: 'group2-for-cookies',
+            required: false,
+            consents: [
+              {
+                ...testCookieData,
+                name: 'group-2-existing-cookie',
+              },
+            ],
+          },
+        ],
+        cookies: [
+          {
+            groupId: 'group1-for-cookies',
+            required: false,
+            ...testCookieData,
+            name: 'group1-cookie',
+          },
+          {
+            groupId: 'group2-for-cookies',
+            required: false,
+            ...testCookieData,
+            name: 'group2-cookie',
+          },
+        ],
+      });
+
+      const expectedResult: Content = {
+        ...defaultTextsAndLanguage,
+        requiredConsents: {
+          ...requiredConsents,
+          groups: [
+            {
+              ...marketingGroup,
+              consents: [
+                {
+                  ...testCookieData,
+                  name: 'group-1-existing-cookie',
+                },
+                {
+                  ...testCookieData,
+                  name: 'group1-cookie',
+                },
+              ],
+            },
+          ],
+        },
+        optionalConsents: {
+          ...optionalConsents,
+          groups: [
+            {
+              ...essentialGroup,
+              consents: [
+                {
+                  ...testCookieData,
+                  name: 'group-2-existing-cookie',
+                },
+                {
+                  ...testCookieData,
+                  name: 'group2-cookie',
+                },
+              ],
+            },
+          ],
+        },
+      };
+      expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
+    });
   });
   describe('contentSource.groups[]', () => {
-    it('adding a group with commonGroup prop adds the group and creates requiredConsents if group.required = true', () => {
+    it('adds a group when commonGroup is set and creates requiredConsents if group.required = true', () => {
       const contentWithCookie = createContent({
         ...commonContentTestProps,
         groups: [
@@ -344,6 +486,7 @@ describe(`content.builder.ts`, () => {
           },
           {
             ...userDefinedGroup,
+            id: 'userDefinedGroup',
             required: true,
           },
         ],
@@ -371,7 +514,7 @@ describe(`content.builder.ts`, () => {
 
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
-    it('adding a group with commonGroup prop adds the group and creates optionalConsents if group.required = false', () => {
+    it('adds a group when commonGroup is set and creates optionalConsents if group.required = false', () => {
       const contentWithCookie = createContent({
         ...commonContentTestProps,
         groups: [
@@ -418,6 +561,7 @@ describe(`content.builder.ts`, () => {
         groups: [
           {
             ...userDefinedGroup,
+            id: 'userDefinedGroup1',
           },
           {
             commonGroup: 'marketing',
@@ -439,7 +583,7 @@ describe(`content.builder.ts`, () => {
           },
           {
             ...userDefinedGroup,
-            id: 'new_id_or_cannot_be_added_twice',
+            id: 'userDefinedGroup2',
             required: true,
           },
         ],
@@ -568,6 +712,7 @@ describe(`content.builder.ts`, () => {
             },
             {
               ...userDefinedGroup,
+              id: 'userDefinedGroup1',
               required: true,
             },
           ],
@@ -610,6 +755,7 @@ describe(`content.builder.ts`, () => {
             },
             {
               ...userDefinedGroup,
+              id: 'userDefinedGroup1',
             },
           ],
         },
@@ -636,7 +782,7 @@ describe(`content.builder.ts`, () => {
       };
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
-    it('group.required is ignored when group is assigned to category', () => {
+    it('group.required is ignored when group is already in a category', () => {
       const contentWithCookie = createContent({
         ...commonContentTestProps,
         optionalConsents: {
@@ -652,6 +798,7 @@ describe(`content.builder.ts`, () => {
             },
             {
               ...userDefinedGroup,
+              id: 'userDefinedGroup1',
             },
           ],
         },

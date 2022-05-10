@@ -100,7 +100,7 @@ function getCommonConsentGroup(language: string, id: string): Omit<ConsentGroup,
   return commonGroups[id][language];
 }
 
-function getCommonCookie(language: string, id: string): ConsentData {
+function getCommonCookie(language: string, id: string, overrides?: Partial<ConsentData>): ConsentData {
   const { commonCookies } = commonContent;
   if (!commonCookies[id]) {
     throw new Error(`Unknown common cookie ${id}`);
@@ -111,6 +111,7 @@ function getCommonCookie(language: string, id: string): ConsentData {
     hostName: dataWithTranslations.hostName,
     path: dataWithTranslations.path,
     ...commonCookies[id][language],
+    ...overrides,
   };
   return cookie;
 }
@@ -144,43 +145,41 @@ function buildConsentGroups(
     let consentGroup: ConsentGroup | undefined;
     const isRequiredOverride = !!(isRequired !== undefined ? isRequired : groupSource.required);
     const mapId = groupSource.commonGroup || groupSource.id || groupSource.title;
-    if (groupMap.has(mapId)) {
-      return;
-    }
-    if (groupSource.commonGroup) {
-      const groupTexts = getCommonConsentGroup(currentLanguage, groupSource.commonGroup);
-      consentGroup = {
-        ...groupTexts,
-        consents: [],
-      };
-      mergeObjects(consentGroup, groupSource, ['title', 'text', 'expandAriaLabel', 'checkboxAriaDescription']);
-    } else {
-      consentGroup = {
-        title: groupSource.title,
-        text: groupSource.text,
-        expandAriaLabel: groupSource.expandAriaLabel,
-        checkboxAriaDescription: groupSource.checkboxAriaDescription,
-        consents: [],
-      };
-    }
-    if (consentGroup) {
+    consentGroup = groupMap.get(mapId);
+    if (!consentGroup) {
+      if (groupSource.commonGroup) {
+        const groupTexts = getCommonConsentGroup(currentLanguage, groupSource.commonGroup);
+        consentGroup = {
+          ...groupTexts,
+          consents: [],
+        };
+        mergeObjects(consentGroup, groupSource, ['title', 'text', 'expandAriaLabel', 'checkboxAriaDescription']);
+      } else {
+        consentGroup = {
+          title: groupSource.title,
+          text: groupSource.text,
+          expandAriaLabel: groupSource.expandAriaLabel,
+          checkboxAriaDescription: groupSource.checkboxAriaDescription,
+          consents: [],
+        };
+      }
       groupMap.set(mapId, consentGroup);
       isRequiredOverride ? requiredConsents.push(consentGroup) : optionalConsents.push(consentGroup);
-      if (groupSource.consents) {
-        groupSource.consents.forEach((cookieSource) => {
-          /* eslint-disable @typescript-eslint/no-unused-vars */
-          const {
-            commonGroup,
-            groupId,
-            required,
-            commonCookie,
-            ...cookieProps
-          } = cookieSource as ConsentDataInContentSource;
-          /* eslint-enable @typescript-eslint/no-unused-vars */
-          const cookieData = commonCookie ? getCommonCookie(currentLanguage, commonCookie) : cookieProps;
-          consentGroup.consents.push(cookieData as ConsentData);
-        });
-      }
+    }
+    if (groupSource.consents) {
+      groupSource.consents.forEach((cookieSource) => {
+        /* eslint-disable @typescript-eslint/no-unused-vars */
+        const {
+          commonGroup,
+          groupId,
+          required,
+          commonCookie,
+          ...cookieProps
+        } = cookieSource as ConsentDataInContentSource;
+        /* eslint-enable @typescript-eslint/no-unused-vars */
+        const cookieData = commonCookie ? getCommonCookie(currentLanguage, commonCookie, cookieProps) : cookieProps;
+        consentGroup.consents.push(cookieData as ConsentData);
+      });
     }
   };
 
