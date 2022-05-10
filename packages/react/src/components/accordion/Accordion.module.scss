@@ -30,6 +30,10 @@
   --header-letter-spacing: 0.2px;
   --header-line-height: 1.4;
   --button-size: 28px;
+
+  & .closeButton div {
+    margin-right: 2px;
+  }
 }
 
 .m {
@@ -39,6 +43,10 @@
   --header-letter-spacing: -0.2px;
   --header-line-height: 32px;
   --button-size: 36px;
+
+  & .closeButton div {
+    margin-right: 6px;
+  }
 }
 
 .l {
@@ -48,6 +56,10 @@
   --header-letter-spacing: -0.4px;
   --header-line-height: var(--lineheight-s);
   --button-size: 52px;
+
+  & .closeButton div {
+    margin-right: 12px;
+  }
 }
 
 .accordionHeader {
