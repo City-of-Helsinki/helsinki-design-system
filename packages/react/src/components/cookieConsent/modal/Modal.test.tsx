@@ -135,6 +135,15 @@ describe('<CookieConsent /> ', () => {
       verifyElementDoesNotExistsByTestId(result, dataTestIds.screenReaderNotification);
     });
 
+    it('is not shown if there are only required consents', () => {
+      const result = renderCookieConsent({
+        requiredConsents: [['requiredConsent1', 'requiredConsent2'], ['requiredConsent3']],
+        cookie: {},
+      });
+      verifyElementDoesNotExistsByTestId(result, dataTestIds.container);
+      verifyElementDoesNotExistsByTestId(result, dataTestIds.screenReaderNotification);
+    });
+
     it('changing language calls content.onLanguageChange', () => {
       const onLanguageChange = jest.fn();
       const result = renderCookieConsent({
