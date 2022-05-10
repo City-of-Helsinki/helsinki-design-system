@@ -45,6 +45,10 @@ export type CommonAccordionProps = React.PropsWithChildren<{
    */
   closeButton?: boolean;
   /**
+   * className for close button to enable custom styling
+   */
+  closeButtonClassName?: string;
+  /**
    * Heading text.
    */
   heading?: string;
@@ -95,6 +99,7 @@ export const Accordion = ({
   card = false,
   children,
   className,
+  closeButtonClassName,
   closeButton = true,
   heading,
   headingLevel = 2,
@@ -202,7 +207,7 @@ export const Accordion = ({
         {children}
         {closeButton && (
           <Button
-            className={styles.closeButton}
+            className={classNames(styles.closeButton, closeButtonClassName)}
             theme="black"
             size="small"
             onClick={() => buttonProps.onClick()}
