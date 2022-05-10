@@ -36,6 +36,7 @@ const getContent = (options: ContentOptions): Content => {
             commonCookie: 'tunnistamo',
           },
           {
+            id: 'loadbalancer',
             name: 'Kuormanjako',
             hostName: 'Osoite',
             path: 'Polku',
