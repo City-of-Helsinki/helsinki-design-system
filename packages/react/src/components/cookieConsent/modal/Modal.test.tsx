@@ -1,7 +1,7 @@
 /* eslint-disable jest/expect-expect */
 /* eslint-disable jest/no-mocks-import */
 import React from 'react';
-import { render, RenderResult, waitFor } from '@testing-library/react';
+import { fireEvent, render, RenderResult, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { act } from 'react-dom/test-utils';
 
@@ -83,7 +83,7 @@ describe('<ModalContent /> spec', () => {
   }, 15000);
 });
 
-describe('<CookieConsent /> ', () => {
+describe('<Modal /> ', () => {
   afterEach(() => {
     mockedCookieControls.clear();
   });
@@ -154,8 +154,8 @@ describe('<CookieConsent /> ', () => {
           return currentContent;
         },
       });
-      result.container.querySelector('#cookie-consent-language-selector-button').click();
-      result.container.querySelector('a[lang="sv"]').click();
+      fireEvent.click(result.container.querySelector('#cookie-consent-language-selector-button'));
+      fireEvent.click(result.container.querySelector('a[lang="sv"]'));
       expect(onLanguageChange).toHaveBeenLastCalledWith('sv');
     });
   });
