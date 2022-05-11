@@ -60,7 +60,7 @@ exports[`<Accordion /> spec renders the component 1`] = `
         <span
           class="label"
         >
-          Close
+          Sulje
         </span>
         <div
           aria-hidden="true"
