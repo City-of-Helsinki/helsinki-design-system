@@ -29,9 +29,21 @@ The HDS offers two different sets of font size tokens for heading and body text.
 ### Heading sizes
 The heading font size tokens are heading level agnostic. This allows you to fit the **heading scale** to the specific needs of the service. In addition to predefined _default_ and _small_ heading scale, custom scales can be also used.
 
+| Heading size          | PX value | REM value | Example                                                |                                                                                                           |
+| --------------------- | -------: | --------: | ------------------------------------------------------ |
+| **Heading XXL**       | 64px     | 4rem      | <h1 class="heading-xxl">Heading XXL</h1>               |
+| **Heading XL**        | 48px     | 3rem      | <h1 class="heading-xl">Heading XL</h1>                 |
+| **Heading XL Mobile** | 40px     | 2.5rem    | <h1 class="heading-xl-mobile">Heading XXL Mobile</h1>  |                                                                                 
+| **Heading L**         | 32px     | 2rem      | <h1 class="heading-l">Heading L</h1>                   |
+| **Heading M**         | 24px     | 1.5rem    | <h1 class="heading-m">Heading M</h1>                   |
+| **Heading S**         | 20px     | 1.25rem   | <h1 class="heading-s">Heading S</h1>                   |
+| **Heading XS**        | 18px     | 1.125rem  | <h1 class="heading-xs">Heading XS</h1>                 |
+| **Heading XXS**       | 16px     | 1rem      | <h1 class="heading-xxs">Heading XSS</h1>               |                                                                                                                                           |
+[Table 1:Heading sizes]|
+
 | Heading size      | PX value | REM value | Example (default heading scale)                                                                                                            | Example (small heading scale()                                                                                                             |
 | ----------------- | -------: | --------: | ------------------------------------------------------------------------------------------------------------------------------------------ |------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Heading XL**    | 52px     | 3.25rem   | <h1 style={{fontSize: 'var(--fontsize-heading-xl)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h1</h1>  |                                                                                                                                            |
+| **Heading XL**    | 52px     | 3.25rem   | <h1 class="heading-xxl" style={{fontSize: 'var(--fontsize-heading-xl)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h1</h1>  |                                                                                                                                            |
 | **Heading L**     | 36px     | 2.25rem   | <h2 style={{fontSize: 'var(--fontsize-heading-l)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h2</h2>   | <h1 style={{fontSize: 'var(--fontsize-heading-l)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h1</h1>   |
 | **Heading M**     | 24px     | 1.5rem    | <h3 style={{fontSize: 'var(--fontsize-heading-m)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h3</h3>   | <h2 style={{fontSize: 'var(--fontsize-heading-m)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h2</h2>   |
 | **Heading S**     | 20px     | 1.25rem   | <h4 style={{fontSize: 'var(--fontsize-heading-s)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h4</h4>   | <h3 style={{fontSize: 'var(--fontsize-heading-s)', marginTop:'var(--spacing-2-xs)', marginBottom:'var(--spacing-2-xs)'}}>Heading h3</h3>   |
