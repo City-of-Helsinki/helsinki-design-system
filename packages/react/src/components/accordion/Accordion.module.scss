@@ -32,7 +32,7 @@
   --button-size: 28px;
 
   & .closeButton div {
-    margin-right: 2px;
+    margin-right: var(--spacing-4-xs);
   }
 }
 
@@ -58,7 +58,7 @@
   --button-size: 52px;
 
   & .closeButton div {
-    margin-right: 12px;
+    margin-right: var(--spacing-xs);
   }
 }
 
