@@ -69,7 +69,7 @@ export type CommonAccordionProps = React.PropsWithChildren<{
    */
   initiallyOpen?: boolean;
   /**
-   * The language of the component. It affects which language is used to present component-specific messages, labels, and aria-labels
+   * The language of the component. It affects which language is used for the close button text.
    *
    * @default "fi"
    */
