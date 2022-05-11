@@ -26,6 +26,8 @@ export interface AccordionCustomTheme {
   '--content-line-height'?: string;
 }
 
+type Language = 'en' | 'fi' | 'sv';
+
 export type CommonAccordionProps = React.PropsWithChildren<{
   /**
    * If `true` border will be drawn around the accordion card.
@@ -67,6 +69,12 @@ export type CommonAccordionProps = React.PropsWithChildren<{
    */
   initiallyOpen?: boolean;
   /**
+   * The language of the component. It affects which language is used to present component-specific messages, labels, and aria-labels
+   *
+   * @default "fi"
+   */
+  language?: Language;
+  /**
    * Size
    * @default m
    */
@@ -94,6 +102,14 @@ export type CardAccordionProps = Omit<CommonAccordionProps, 'card' | 'border'> &
 
 export type AccordionProps = CommonAccordionProps | CardAccordionProps;
 
+const getCloseMessage = (language: Language): string => {
+  return {
+    en: `Close`,
+    fi: `Sulje`,
+    sv: `Stäng`,
+  }[language];
+};
+
 export const Accordion = ({
   border = false,
   card = false,
@@ -105,6 +121,7 @@ export const Accordion = ({
   headingLevel = 2,
   id,
   initiallyOpen = false,
+  language = 'fi',
   size = 'm',
   style,
   theme,
@@ -219,7 +236,7 @@ export const Accordion = ({
             variant="supplementary"
             iconRight={<IconAngleUp aria-hidden size="xs" className={styles.accordionButtonIcon} />}
           >
-            Close
+            {getCloseMessage(language)}
           </Button>
         )}
       </div>
