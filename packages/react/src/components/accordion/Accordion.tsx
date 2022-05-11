@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import uniqueId from 'lodash.uniqueid';
 
 // import core base styles
@@ -126,6 +126,8 @@ export const Accordion = ({
   style,
   theme,
 }: AccordionProps) => {
+  const headerRef = useRef<HTMLDivElement>(null);
+
   if (theme && theme['--button-border-color-hover']) {
     // eslint-disable-next-line no-console
     console.warn(
@@ -191,7 +193,7 @@ export const Accordion = ({
       style={style}
       id={accordionId}
     >
-      <div className={classNames(styles.accordionHeader)}>
+      <div ref={headerRef} className={classNames(styles.accordionHeader)}>
         <div
           role="button"
           tabIndex={0}
@@ -227,10 +229,14 @@ export const Accordion = ({
             className={classNames(styles.closeButton, closeButtonClassName)}
             theme="black"
             size="small"
-            onClick={() => buttonProps.onClick()}
+            onClick={() => {
+              buttonProps.onClick();
+              headerRef.current.scrollIntoView({ block: 'nearest' });
+            }}
             onKeyPress={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 buttonProps.onClick();
+                headerRef.current.scrollIntoView({ block: 'nearest' });
               }
             }}
             variant="supplementary"
