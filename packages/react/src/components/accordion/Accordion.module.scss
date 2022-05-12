@@ -1,7 +1,6 @@
 .accordion {
   --background-color: var(--color-white);
   --border-color: var(--color-black-60);
-  --padding-horizontal: var(--spacing-m);
   --header-font-color: var(--color-black-90);
   --header-focus-outline-color: var(--color-coat-of-arms);
   --content-font-color: var(--color-black-90);
@@ -30,6 +29,7 @@
   --header-letter-spacing: 0.2px;
   --header-line-height: 1.4;
   --button-size: 28px;
+  --padding-horizontal: var(--spacing-2-xs);
 
   & .closeButton div {
     margin-right: var(--spacing-4-xs);
@@ -43,6 +43,7 @@
   --header-letter-spacing: -0.2px;
   --header-line-height: 32px;
   --button-size: 36px;
+  --padding-horizontal: var(--spacing-m);
 
   & .closeButton div {
     margin-right: 6px;
@@ -56,6 +57,7 @@
   --header-letter-spacing: -0.4px;
   --header-line-height: var(--lineheight-s);
   --button-size: 52px;
+  --padding-horizontal: var(--spacing-l);
 
   & .closeButton div {
     margin-right: var(--spacing-xs);

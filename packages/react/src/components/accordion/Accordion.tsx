@@ -147,7 +147,6 @@ export const Accordion = ({
   const sovereignThemeVariables = theme && {
     '--background-color': theme['--background-color'],
     '--border-color': theme['--border-color'],
-    '--padding-horizontal': theme['--padding-horizontal'],
     '--header-font-color': theme['--header-font-color'],
     '--header-focus-outline-color': theme['--header-focus-outline-color'],
     '--content-font-color': theme['--content-font-color'],
@@ -160,6 +159,7 @@ export const Accordion = ({
   const sizeDependentThemeVariables = theme && {
     '--header-font-size': theme['--header-font-size'],
     '--padding-vertical': theme['--padding-vertical'],
+    '--padding-horizontal': theme['--padding-horizontal'],
     '--header-font-weight': theme['--header-font-weight'],
     '--header-letter-spacing': theme['--header-letter-spacing'],
     '--header-line-height': theme['--header-line-height'],
