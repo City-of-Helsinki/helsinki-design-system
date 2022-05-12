@@ -59,68 +59,74 @@ type LinkToIconSizeMappingType = {
   S: 'xs';
 };
 
-export const Link = ({
-  children,
-  className,
-  disableVisitedStyles = false,
-  external = false,
-  href,
-  iconLeft,
-  openInNewTab = false,
-  openInExternalDomainAriaLabel,
-  openInNewTabAriaLabel,
-  style = {},
-  size = 'S',
-  ...rest
-}: LinkProps) => {
-  const composeAriaLabel = () => {
-    let childrenText = getTextFromReactChildren(children);
-    const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
-    const externalText = external ? openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.' : '';
+export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
+  (
+    {
+      children,
+      className,
+      disableVisitedStyles = false,
+      external = false,
+      href,
+      iconLeft,
+      openInNewTab = false,
+      openInExternalDomainAriaLabel,
+      openInNewTabAriaLabel,
+      style = {},
+      size = 'S',
+      ...rest
+    }: LinkProps,
+    ref: React.Ref<HTMLAnchorElement>,
+  ) => {
+    const composeAriaLabel = () => {
+      let childrenText = getTextFromReactChildren(children);
+      const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
+      const externalText = external ? openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.' : '';
 
-    if (childrenText && childrenText.slice(-1) !== '.') {
-      childrenText = `${childrenText}.`;
-    }
+      if (childrenText && childrenText.slice(-1) !== '.') {
+        childrenText = `${childrenText}.`;
+      }
 
-    return [childrenText, newTabText, externalText].filter((text) => text).join(' ');
-  };
+      return [childrenText, newTabText, externalText].filter((text) => text).join(' ');
+    };
 
-  const mapLinkSizeToExternalIconSize: LinkToIconSizeMappingType = {
-    L: 'l',
-    M: 's',
-    S: 'xs',
-  };
+    const mapLinkSizeToExternalIconSize: LinkToIconSizeMappingType = {
+      L: 'l',
+      M: 's',
+      S: 'xs',
+    };
 
-  return (
-    <a
-      className={classNames(
-        styles.link,
-        styles[`link${size}`],
-        disableVisitedStyles ? styles.disableVisitedStyles : '',
-        className,
-      )}
-      href={href}
-      style={style}
-      {...(openInNewTab && { target: '_blank', rel: 'noopener' })}
-      {...((openInNewTab || external) && { 'aria-label': composeAriaLabel() })}
-      {...rest}
-    >
-      {iconLeft && (
-        <span className={styles.iconLeft} aria-hidden="true">
-          {iconLeft}
-        </span>
-      )}
-      {children}
-      {external && (
-        <IconLinkExternal
-          size={mapLinkSizeToExternalIconSize[size]}
-          className={classNames(
-            styles.icon,
-            size === 'L' ? styles.verticalAlignBigIcon : styles.verticalAlignSmallOrMediumIcon,
-          )}
-          aria-hidden
-        />
-      )}
-    </a>
-  );
-};
+    return (
+      <a
+        className={classNames(
+          styles.link,
+          styles[`link${size}`],
+          disableVisitedStyles ? styles.disableVisitedStyles : '',
+          className,
+        )}
+        href={href}
+        style={style}
+        {...(openInNewTab && { target: '_blank', rel: 'noopener' })}
+        {...((openInNewTab || external) && { 'aria-label': composeAriaLabel() })}
+        ref={ref}
+        {...rest}
+      >
+        {iconLeft && (
+          <span className={styles.iconLeft} aria-hidden="true">
+            {iconLeft}
+          </span>
+        )}
+        {children}
+        {external && (
+          <IconLinkExternal
+            size={mapLinkSizeToExternalIconSize[size]}
+            className={classNames(
+              styles.icon,
+              size === 'L' ? styles.verticalAlignBigIcon : styles.verticalAlignSmallOrMediumIcon,
+            )}
+            aria-hidden
+          />
+        )}
+      </a>
+    );
+  },
+);
