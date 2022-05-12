@@ -112,3 +112,46 @@ export const WithCustomTheme = () => {
     </Tabs>
   );
 };
+
+export const WithCustomOnClickAction = () => {
+  const [activeTabIndex, setActiveTabIndex] = React.useState(0);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const content = {
+    education: 'Daytime care for people who cannot be fully independent, such as children or elderly people.',
+    university:
+      'The objective of basic education in Finland is to support pupils&#39; growth towards humanity and ethically responsible membership of society.',
+  };
+
+  const mockLoading = () => {
+      setIsLoading(true);
+      setTimeout(() => {
+          setIsLoading(false);
+      }, 200);
+  }
+
+  const onTabClick = (activeIndex) => {
+    setActiveTabIndex(activeIndex);
+    mockLoading();
+  };
+
+  React.useEffect(() => {
+    mockLoading();
+  }, []);
+
+  return (
+    <Tabs initiallyActiveTab={activeTabIndex}>
+      <Tabs.TabList className="example-tablist">
+        <Tabs.Tab active={activeTabIndex === 0} onClick={() => onTabClick(0)}>
+          Basic education
+        </Tabs.Tab>
+        <Tabs.Tab active={activeTabIndex === 1} onClick={() => onTabClick(1)}>
+          University
+        </Tabs.Tab>
+      </Tabs.TabList>
+      <Tabs.TabPanel>{isLoading? 'loading..' : content.education}</Tabs.TabPanel>
+      <Tabs.TabPanel>{isLoading? 'loading..' : content.university}</Tabs.TabPanel>
+    </Tabs>
+  );
+};
+
+WithCustomOnClickAction.parameters = { loki: { skip: true } };
