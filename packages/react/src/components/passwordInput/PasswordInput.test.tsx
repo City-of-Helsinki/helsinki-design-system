@@ -48,18 +48,19 @@ describe('<PasswordInput /> spec', () => {
         concealPasswordButtonAriaLabel="Hide password"
       />,
     );
-    expect(container.querySelector('[data-test="password-input"]').type).toBe('password');
+
+    expect(container.querySelector('[data-test="password-input"]').getAttribute('type')).toBe('password');
 
     await act(async () => {
       userEvent.click(screen.getByLabelText('Show password'));
     });
 
-    expect(container.querySelector('[data-test="password-input"]').type).toBe('text');
+    expect(container.querySelector('[data-test="password-input"]').getAttribute('type')).toBe('text');
 
     await act(async () => {
       userEvent.click(screen.getByLabelText('Hide password'));
     });
 
-    expect(container.querySelector('[data-test="password-input"]').type).toBe('password');
+    expect(container.querySelector('[data-test="password-input"]').getAttribute('type')).toBe('password');
   });
 });

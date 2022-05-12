@@ -70,13 +70,16 @@ describe('<Combobox />', () => {
     it('user should be able to remove selected item with enter keypress', async () => {
       const onChange = jest.fn();
       const firstSelectedOptionName = `Selected item ${options[0].label}`;
-      const { getAllByLabelText, getAllByRole, queryAllByRole } = getWrapper({ onChange, multiselect: true });
+      const { getAllByLabelText, getAllByRole, queryAllByRole } = getWrapper({
+        onChange,
+        multiselect: true,
+      });
       const input = getAllByLabelText(label)[0];
       userEvent.type(input, 'Fi');
-      const visibleOptions = getAllByRole('option');
-      userEvent.click(visibleOptions[0]);
 
       await waitFor(() => {
+        const visibleOptions = getAllByRole('option');
+        userEvent.click(visibleOptions[0]);
         expect(queryAllByRole('button', { name: firstSelectedOptionName }).length).toBe(1);
         userEvent.type(queryAllByRole('button', { name: firstSelectedOptionName })[0], '{enter}');
         expect(queryAllByRole('button', { name: firstSelectedOptionName }).length).toBe(0);
@@ -89,10 +92,10 @@ describe('<Combobox />', () => {
       const { getAllByLabelText, getAllByRole, queryAllByRole } = getWrapper({ onChange, multiselect: true });
       const input = getAllByLabelText(label)[0];
       userEvent.type(input, 'Fi');
-      const visibleOptions = getAllByRole('option');
-      userEvent.click(visibleOptions[0]);
 
       await waitFor(() => {
+        const visibleOptions = getAllByRole('option');
+        userEvent.click(visibleOptions[0]);
         expect(queryAllByRole('button', { name: firstSelectedOptionName }).length).toBe(1);
         userEvent.type(queryAllByRole('button', { name: firstSelectedOptionName })[0], '{space}');
         expect(queryAllByRole('button', { name: firstSelectedOptionName }).length).toBe(0);
