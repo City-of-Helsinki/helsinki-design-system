@@ -123,11 +123,11 @@ export const WithCustomOnClickAction = () => {
   };
 
   const mockLoading = () => {
-      setIsLoading(true);
-      setTimeout(() => {
-          setIsLoading(false);
-      }, 200);
-  }
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 200);
+  };
 
   const onTabClick = (activeIndex) => {
     setActiveTabIndex(activeIndex);
@@ -148,8 +148,8 @@ export const WithCustomOnClickAction = () => {
           University
         </Tabs.Tab>
       </Tabs.TabList>
-      <Tabs.TabPanel>{isLoading? 'loading..' : content.education}</Tabs.TabPanel>
-      <Tabs.TabPanel>{isLoading? 'loading..' : content.university}</Tabs.TabPanel>
+      <Tabs.TabPanel>{isLoading ? 'loading..' : content.education}</Tabs.TabPanel>
+      <Tabs.TabPanel>{isLoading ? 'loading..' : content.university}</Tabs.TabPanel>
     </Tabs>
   );
 };
