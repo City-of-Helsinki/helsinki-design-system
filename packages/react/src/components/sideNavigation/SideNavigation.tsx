@@ -73,7 +73,7 @@ export const SideNavigation = ({
   const [activeParentLevel, setActiveParentLevel] = React.useState<number>();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const isMobile = useMobile();
-  const shouldRenderMenu = !isMobile || !mobileMenuOpen;
+  const shouldRenderMenu = !(isMobile && !mobileMenuOpen);
 
   const mainLevels = React.Children.map(children, (child, index) => {
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'MainLevel') {
