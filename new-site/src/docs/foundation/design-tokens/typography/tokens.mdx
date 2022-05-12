@@ -3,8 +3,9 @@ slug: '/foundation/design-tokens/typography/tokens'
 title: 'Typography tokens - Tokens'
 ---
 
-import Playground from '../../../../components/Playground';
+import { Notification } from "hds-react";
 
+import Playground from '../../../../components/Playground';
 import TextExample from '../../../../components/examples/TextExample';
 
 import TabsLayout from './tabs.mdx';
@@ -13,29 +14,35 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ## Tokens
 
+<Notification label="Consider using helper classes" className="siteNotification">
+  Instead of using tokens directly to style your typography, consider using <Link size="S" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/utils/helpers.css" external>helper classes provided in the Core package</Link>. In these classes, you do not need to worry about matching the correct font weight, line height and letter spacing are matched to the chosen font size.
+</Notification>
+
 CSS                          | SASS                        | Value            |
 ---------------------------- | --------------------------- | ---------------- |
-<code>--font-default</code>  | <code>$font-default</code>  | HelsinkiGrotesk  |
-[Table 1:Font tokens]|
+`--font-default`  | `$font-default`  | HelsinkiGrotesk  |
+[Table 1:Font tokens]|   
 
-CSS variable                        | SASS variable                       | REM value       | Example                                            |
------------------------------------ | ----------------------------------- | --------------- | -------------------------------------------------- |
-<code>--fontsize-heading-xl</code>  | <code>$fontsize-heading-xl</code>   | 3.25rem         | <TextExample size="var(--fontsize-heading-xl)" />  |
-<code>--fontsize-heading-l</code>   | <code>$fontsize-heading-l</code>    | 2.25rem         | <TextExample size="var(--fontsize-heading-l)" />   |
-<code>--fontsize-heading-m</code>   | <code>$fontsize-heading-m</code>    | 1.5rem          | <TextExample size="var(--fontsize-heading-m)" />   |
-<code>--fontsize-heading-s</code>   | <code>$fontsize-heading-s</code>    | 1.25rem         | <TextExample size="var(--fontsize-heading-s)" />   |
-<code>--fontsize-heading-xs</code>  | <code>$fontsize-heading-xs</code>   | 1.125rem        | <TextExample size="var(--fontsize-heading-xs)" />  |
-<code>--fontsize-heading-xxs</code> | <code>$fontsize-heading-xxs</code>  | 1rem            | <TextExample size="var(--fontsize-heading-xxs)" /> |
-<code>--fontsize-body-xl</code>     | <code>$fontsize-body-xl</code>      | 1.25rem         | <TextExample size="var(--fontsize-body-xl)" />     |
-<code>--fontsize-body-l</code>      | <code>$fontsize-body-l</code>       | 1.125rem        | <TextExample size="var(--fontsize-body-l)" />      |
-<code>--fontsize-body-m</code>      | <code>$fontsize-body-m</code>       | 1rem            | <TextExample size="var(--fontsize-body-m)" />      |
-<code>--fontsize-body-s</code>      | <code>$fontsize-body-s</code>       | 0.875rem        | <TextExample size="var(--fontsize-body-s)" />      |
+CSS variable                   | SASS variable                 | REM value       | Example                                                  |
+------------------------------ | ----------------------------- | --------------- | -------------------------------------------------------- |
+`--fontsize-heading-xxl`       | `$fontsize-heading-xxl`       | 4rem            | <TextExample size="var(--fontsize-heading-xxl)" />       |
+`--fontsize-heading-xl`        | `$fontsize-heading-xl`        | 3rem            | <TextExample size="var(--fontsize-heading-xl)" />        |
+`--fontsize-heading-xl-mobile` | `$fontsize-heading-xl-mobile` | 2.5rem          | <TextExample size="var(--fontsize-heading-xl-mobile)" /> |
+`--fontsize-heading-l`         | `$fontsize-heading-l`         | 2rem            | <TextExample size="var(--fontsize-heading-l)" />         |
+`--fontsize-heading-m`         | `$fontsize-heading-m`         | 1.5rem          | <TextExample size="var(--fontsize-heading-m)" />         |
+`--fontsize-heading-s`         | `$fontsize-heading-s`         | 1.25rem         | <TextExample size="var(--fontsize-heading-s)" />         |
+`--fontsize-heading-xs`        | `$fontsize-heading-xs`        | 1.125rem        | <TextExample size="var(--fontsize-heading-xs)" />        |
+`--fontsize-heading-xxs`       | `$fontsize-heading-xxs`       | 1rem            | <TextExample size="var(--fontsize-heading-xxs)" />       |
+`--fontsize-body-xl`           | `$fontsize-body-xl`           | 1.25rem         | <TextExample size="var(--fontsize-body-xl)" />           |
+`--fontsize-body-l`            | `$fontsize-body-l`            | 1.125rem        | <TextExample size="var(--fontsize-body-l)" />            |
+`--fontsize-body-m`            | `$fontsize-body-m`            | 1rem            | <TextExample size="var(--fontsize-body-m)" />            |
+`--fontsize-body-s`            | `$fontsize-body-s`            | 0.875rem        | <TextExample size="var(--fontsize-body-s)" />            |
 [Table 2:Font size tokens]|
 
 CSS variable                  | SASS variable               | Value (ratio)    |
 ----------------------------- | --------------------------- | ---------------- |
-<code>--lineheight-s</code>   | <code>$lineheight-s</code>  | 1                |
-<code>--lineheight-m</code>   | <code>$lineheight-m</code>  | 1.2              |
-<code>--lineheight-l</code>   | <code>$lineheight-l</code>  | 1.5              |
-<code>--lineheight-xl</code>  | <code>$lineheight-xl</code> | 1.75             |
+`--lineheight-s`   | `$lineheight-s`  | 1                |
+`--lineheight-m`   | `$lineheight-m`  | 1.2              |
+`--lineheight-l`   | `$lineheight-l`  | 1.5              |
+`--lineheight-xl`  | `$lineheight-xl` | 1.75             |
 [Table 3:Line height tokens]|
