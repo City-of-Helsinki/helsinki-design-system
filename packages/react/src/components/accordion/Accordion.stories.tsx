@@ -39,7 +39,9 @@ InitiallyOpen.storyName = 'Initially open';
 export const CardAccordion = (args) => (
   <>
     <Accordion {...args} card />
-    <Accordion {...args} card border />
+    <Accordion {...args} card border size="s" />
+    <Accordion {...args} card border size="m" />
+    <Accordion {...args} card border size="l" />
   </>
 );
 CardAccordion.storyName = 'Card';
