@@ -88,7 +88,7 @@
     ],
     "languageSelectorAriaLabel": "Kieli: Suomi. Vaihda kieli. Change language. Ändra språk."
   },
-  "requiredConsents": {
+  "requiredCookies": {
     "fi": {
       "title": "Välttämättömät evästeet",
       "text": "Välttämättömien evästeiden käyttöä ei voi kieltää. Ne mahdollistavat sivuston toiminnan ja vaikuttavat sivuston käyttäjäystävällisyyteen.",
@@ -105,7 +105,7 @@
       "checkboxAriaDescription": "EN: Näitä eväisteitä käytetään sivuston perustoiminnoissa. Perustoimintoihin littyvien evästeiden käyttöä ei voi kieltää."
     }
   },
-  "optionalConsents": {
+  "optionalCookies": {
     "fi": {
       "title": "Muut evästeet",
       "text": "Voit hyväksyä tai jättää hyväksymättä muut evästeet. Praesent vel vestibulum nunc, at eleifend sapien. Integer cursus ut orci eu pretium. Ut a orci felis. In eu eros turpis. Sed ullamcorper lacinia lorem, id ullamcorper dui accumsan in. Integer dictum fermentum mi, sit amet accumsan lacus facilisis id. Quisque blandit lacus ac sem porta.",

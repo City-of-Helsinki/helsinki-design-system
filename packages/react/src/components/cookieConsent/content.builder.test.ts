@@ -45,13 +45,13 @@ describe(`content.builder.ts`, () => {
     ...commonContent.commonCookies.tunnistamo.fi,
   };
 
-  const requiredConsents: Category = {
-    ...commonContent.requiredConsents.fi,
+  const requiredCookies: Category = {
+    ...commonContent.requiredCookies.fi,
     groups: [],
   };
 
-  const optionalConsents: Category = {
-    ...commonContent.optionalConsents.fi,
+  const optionalCookies: Category = {
+    ...commonContent.optionalCookies.fi,
     groups: [],
   };
 
@@ -181,7 +181,7 @@ describe(`content.builder.ts`, () => {
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
         requiredConsents: {
-          ...requiredConsents,
+          ...requiredCookies,
           groups: [
             {
               ...marketingGroup,
@@ -212,7 +212,7 @@ describe(`content.builder.ts`, () => {
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
         optionalConsents: {
-          ...optionalConsents,
+          ...optionalCookies,
           groups: [
             {
               ...marketingGroup,
@@ -249,7 +249,7 @@ describe(`content.builder.ts`, () => {
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
         requiredConsents: {
-          ...requiredConsents,
+          ...requiredCookies,
           groups: [
             {
               ...essentialGroup,
@@ -262,7 +262,7 @@ describe(`content.builder.ts`, () => {
           ],
         },
         optionalConsents: {
-          ...optionalConsents,
+          ...optionalCookies,
           groups: [
             {
               ...marketingGroup,
@@ -305,7 +305,7 @@ describe(`content.builder.ts`, () => {
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
         requiredConsents: {
-          ...requiredConsents,
+          ...requiredCookies,
           groups: [
             {
               ...essentialGroup,
@@ -319,7 +319,7 @@ describe(`content.builder.ts`, () => {
           ],
         },
         optionalConsents: {
-          ...optionalConsents,
+          ...optionalCookies,
           groups: [
             {
               ...marketingGroup,
@@ -356,7 +356,7 @@ describe(`content.builder.ts`, () => {
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
         requiredConsents: {
-          ...requiredConsents,
+          ...requiredCookies,
           groups: [
             {
               ...essentialGroup,
@@ -369,7 +369,7 @@ describe(`content.builder.ts`, () => {
           ],
         },
         optionalConsents: {
-          ...optionalConsents,
+          ...optionalCookies,
           groups: [
             {
               ...marketingGroup,
@@ -431,7 +431,7 @@ describe(`content.builder.ts`, () => {
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
         requiredConsents: {
-          ...requiredConsents,
+          ...requiredCookies,
           groups: [
             {
               ...marketingGroup,
@@ -449,7 +449,7 @@ describe(`content.builder.ts`, () => {
           ],
         },
         optionalConsents: {
-          ...optionalConsents,
+          ...optionalCookies,
           groups: [
             {
               ...essentialGroup,
@@ -494,7 +494,7 @@ describe(`content.builder.ts`, () => {
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
         requiredConsents: {
-          ...requiredConsents,
+          ...requiredCookies,
           groups: [
             {
               ...marketingGroup,
@@ -535,7 +535,7 @@ describe(`content.builder.ts`, () => {
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
         optionalConsents: {
-          ...optionalConsents,
+          ...optionalCookies,
           groups: [
             {
               ...userDefinedGroup,
@@ -592,7 +592,7 @@ describe(`content.builder.ts`, () => {
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
         requiredConsents: {
-          ...requiredConsents,
+          ...requiredCookies,
           groups: [
             {
               ...essentialGroup,
@@ -608,7 +608,7 @@ describe(`content.builder.ts`, () => {
           ],
         },
         optionalConsents: {
-          ...optionalConsents,
+          ...optionalCookies,
           groups: [
             {
               ...userDefinedGroup,
@@ -663,7 +663,7 @@ describe(`content.builder.ts`, () => {
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
         requiredConsents: {
-          ...requiredConsents,
+          ...requiredCookies,
           groups: [
             {
               ...essentialGroup,
@@ -677,7 +677,7 @@ describe(`content.builder.ts`, () => {
           ],
         },
         optionalConsents: {
-          ...optionalConsents,
+          ...optionalCookies,
           groups: [
             {
               ...marketingGroup,
@@ -699,7 +699,7 @@ describe(`content.builder.ts`, () => {
     it('requiredConsents are constructed from its props', () => {
       const contentWithCookie = createContent({
         ...commonContentTestProps,
-        requiredConsents: {
+        requiredCookies: {
           groups: [
             {
               commonGroup: 'marketing',
@@ -721,7 +721,7 @@ describe(`content.builder.ts`, () => {
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
         requiredConsents: {
-          ...requiredConsents,
+          ...requiredCookies,
           groups: [
             {
               ...marketingGroup,
@@ -743,7 +743,7 @@ describe(`content.builder.ts`, () => {
     it('optionalConsents are constructed from its props', () => {
       const contentWithCookie = createContent({
         ...commonContentTestProps,
-        optionalConsents: {
+        optionalCookies: {
           groups: [
             {
               commonGroup: 'marketing',
@@ -763,7 +763,7 @@ describe(`content.builder.ts`, () => {
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
         optionalConsents: {
-          ...optionalConsents,
+          ...optionalCookies,
           groups: [
             {
               ...marketingGroup,
@@ -785,7 +785,7 @@ describe(`content.builder.ts`, () => {
     it('group.required is ignored when group is already in a category', () => {
       const contentWithCookie = createContent({
         ...commonContentTestProps,
-        optionalConsents: {
+        optionalCookies: {
           groups: [
             {
               commonGroup: 'marketing',
@@ -806,7 +806,7 @@ describe(`content.builder.ts`, () => {
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
         optionalConsents: {
-          ...optionalConsents,
+          ...optionalCookies,
           groups: [
             {
               ...marketingGroup,
@@ -826,14 +826,14 @@ describe(`content.builder.ts`, () => {
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
     it('category texts can be overridden', () => {
-      const newCategoryTexts: Partial<ContentSource['requiredConsents']> = {
+      const newCategoryTexts: Partial<ContentSource['requiredCookies']> = {
         title: 'overridden title',
         text: 'overridden text',
         checkboxAriaDescription: 'overridden checkboxAriaDescription',
       };
       const contentWithCookie = createContent({
         ...commonContentTestProps,
-        requiredConsents: {
+        requiredCookies: {
           ...newCategoryTexts,
           groups: [
             {
@@ -842,7 +842,7 @@ describe(`content.builder.ts`, () => {
             },
           ],
         },
-        optionalConsents: {
+        optionalCookies: {
           ...newCategoryTexts,
           groups: [
             {
@@ -855,7 +855,7 @@ describe(`content.builder.ts`, () => {
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
         requiredConsents: {
-          ...requiredConsents,
+          ...requiredCookies,
           ...newCategoryTexts,
           groups: [
             {
@@ -865,7 +865,7 @@ describe(`content.builder.ts`, () => {
           ],
         },
         optionalConsents: {
-          ...optionalConsents,
+          ...optionalCookies,
           ...newCategoryTexts,
           groups: [
             {
