@@ -65,18 +65,6 @@ export type Content = {
   onConsentsParsed?: (consents: ConsentObject, hasUserHandledAllConsents: boolean) => void;
 };
 
-export type ContentOverrides = Omit<Content, 'texts' | 'language'> & {
-  texts?: {
-    sections?: {
-      main?: Partial<Description>;
-      details?: Partial<Description>;
-    };
-    ui?: Partial<UiTexts>;
-    tableHeadings?: Partial<TableData>;
-  };
-  language?: Partial<Content['language']>;
-};
-
 export type CookieConsentContextType = {
   hasUserHandledAllConsents: () => boolean;
   content: Content;
