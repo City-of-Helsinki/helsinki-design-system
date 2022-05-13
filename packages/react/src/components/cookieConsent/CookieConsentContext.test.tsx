@@ -7,7 +7,7 @@ import { ConsentList, ConsentObject, COOKIE_NAME } from './cookieConsentControll
 import { CookieConsentContext, Provider as CookieContextProvider } from './CookieConsentContext';
 import mockWindowLocation from './__mocks__/mockWindowLocation';
 import mockDocumentCookie from './__mocks__/mockDocumentCookie';
-import { extractSetCookieArguments, getContent } from './test.util';
+import { extractSetCookieArguments, getContentSource } from './test.util';
 
 type ConsentData = {
   requiredConsents?: ConsentList;
@@ -130,15 +130,17 @@ describe('CookieConsentContext ', () => {
       ...cookie,
       ...unknownConsents,
     };
-    const content = getContent(
+    const contentSource = getContentSource(
       requiredConsents ? [requiredConsents] : undefined,
       optionalConsents ? [optionalConsents] : undefined,
+      {
+        onAllConsentsGiven,
+        onConsentsParsed,
+      },
     );
-    content.onAllConsentsGiven = onAllConsentsGiven;
-    content.onConsentsParsed = onConsentsParsed;
     mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
     return render(
-      <CookieContextProvider cookieDomain={cookieDomain} content={content}>
+      <CookieContextProvider cookieDomain={cookieDomain} contentSource={contentSource}>
         <ContextConsumer consumerId="consumer-1" />
         <ContextConsumer consumerId="consumer-2" />
       </CookieContextProvider>,

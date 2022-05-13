@@ -6,13 +6,13 @@ import { ConsentGroup, Content } from './CookieConsentContext';
 import { ConsentList, ConsentObject, COOKIE_NAME } from './cookieConsentController';
 import { CookieSetOptions } from './cookieController';
 import { MockedDocumentCookieActions } from './__mocks__/mockDocumentCookie';
-import { createContent } from './content.builder';
+import { ContentSource } from './content.builder';
 
 export type TestConsentData = {
   requiredConsents?: ConsentList[];
   optionalConsents?: ConsentList[];
   cookie?: ConsentObject;
-  contentModifier?: (content: Content) => Content;
+  contentSourceOverrides?: Partial<ContentSource>;
 };
 
 export type TestGroupParent = typeof requiredGroupParent | typeof optionalGroupParent;
@@ -61,12 +61,12 @@ const createConsentGroup = (id: string, consents: ConsentList): ConsentGroup => 
   };
 };
 
-export const getContent = (
+export const getContentSource = (
   requiredConsentGroups?: ConsentList[],
   optionalConsentsGroups?: ConsentList[],
-  contentModifier?: (content: Content) => Content,
-): Content => {
-  const contentOverrides: Partial<Content> = {};
+  contentSourceOverrides?: Partial<ContentSource>,
+): ContentSource => {
+  const contentOverrides: Partial<ContentSource> = {};
 
   if (requiredConsentGroups) {
     contentOverrides.requiredConsents = {
@@ -88,16 +88,13 @@ export const getContent = (
       ),
     };
   }
-  const content = createContent({
+  return {
     siteName: 'Test site',
     noCommonConsentCookie: true,
     currentLanguage: 'fi',
     ...contentOverrides,
-  });
-  if (contentModifier) {
-    return contentModifier(content);
-  }
-  return content;
+    ...contentSourceOverrides,
+  };
 };
 
 export function verifyElementExistsByTestId(result: RenderResult, testId: string) {
