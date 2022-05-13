@@ -11,9 +11,9 @@ import { Checkbox } from '../../checkbox/Checkbox';
 import { useAccordion } from '../../accordion';
 import { IconAngleDown, IconAngleUp } from '../../../icons';
 import { Card } from '../../card/Card';
-import ConsentGroupDataTable from '../consentGroupDataTable/ConsentGroupDataTable';
+import { ConsentGroupDataTable } from '../consentGroupDataTable/ConsentGroupDataTable';
 
-function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id: string }): React.ReactElement {
+export function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id: string }): React.ReactElement {
   const { group, isRequired, id } = props;
   const { isOpen, buttonProps, contentProps } = useAccordion({
     initiallyOpen: false,
@@ -81,5 +81,3 @@ function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id:
     </div>
   );
 }
-
-export default ConsentGroup;

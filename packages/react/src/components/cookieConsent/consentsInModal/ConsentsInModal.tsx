@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Modal } from '../modal/Modal';
 import { ContentSource } from '../content.builder';
-import ComponentWrapper from '../componentWrapper/ComponentWrapper';
+import { ComponentWrapper } from '../componentWrapper/ComponentWrapper';
 
 export function ConsentsInModal(props: {
   contentSource: ContentSource;

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 import { useCookieConsentContent } from '../CookieConsentContext';
-import Details from '../details/Details';
+import { Details } from '../details/Details';
 import styles from '../CookieConsent.module.scss';
-import Buttons from '../buttons/Buttons';
+import { Buttons } from '../buttons/Buttons';
 import { Notification } from '../../notification/index';
 
 export function Page(): React.ReactElement | null {
