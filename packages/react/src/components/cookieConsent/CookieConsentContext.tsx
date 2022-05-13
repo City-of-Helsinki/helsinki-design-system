@@ -17,14 +17,14 @@ export type TableData = {
   expiration: string;
 };
 
-export type ConsentData = TableData & {
+export type CookieData = TableData & {
   id: string;
 };
 
 export type ConsentGroup = Description & {
   expandAriaLabel: string;
   checkboxAriaDescription?: string;
-  consents: ConsentData[];
+  consents: CookieData[];
 };
 
 export type UiTexts = {
@@ -71,7 +71,7 @@ export type CookieConsentContextType = {
   content: Content;
   onAction: CookieConsentActionListener;
   countApprovedOptional: () => number;
-  areGroupConsentsApproved: (consents: ConsentData[]) => boolean;
+  areGroupConsentsApproved: (consents: CookieData[]) => boolean;
 };
 
 type CookieConsentContextProps = {

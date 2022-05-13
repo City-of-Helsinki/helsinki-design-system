@@ -2,7 +2,7 @@ import _get from 'lodash.get';
 import _set from 'lodash.set';
 
 import type {
-  ConsentData,
+  CookieData,
   ConsentGroup,
   Content,
   Description,
@@ -14,7 +14,7 @@ import type {
 import commonContent from './content.json';
 import { COOKIE_NAME } from './cookieConsentController';
 
-type ContentSourceConsentData = Partial<ConsentData> & {
+type ContentSourceConsentData = Partial<CookieData> & {
   commonGroup?: string;
   required?: boolean;
   groupId?: string;
@@ -110,13 +110,13 @@ function getCommonConsentGroup(language: string, id: string): Omit<ConsentGroup,
   return commonGroups[id][language];
 }
 
-function getCommonCookie(language: string, id: string, overrides?: Partial<ConsentData>): ConsentData {
+function getCommonCookie(language: string, id: string, overrides?: Partial<CookieData>): CookieData {
   const { commonCookies } = commonContent;
   if (!commonCookies[id]) {
     throw new Error(`Unknown common cookie ${id}`);
   }
   const dataWithTranslations = commonCookies[id];
-  const cookie: ConsentData = {
+  const cookie: CookieData = {
     id: dataWithTranslations.id,
     hostName: dataWithTranslations.hostName,
     path: dataWithTranslations.path,
@@ -188,7 +188,7 @@ function buildConsentGroups(
         } = cookieSource as ContentSourceConsentData;
         /* eslint-enable @typescript-eslint/no-unused-vars */
         const cookieData = commonCookie ? getCommonCookie(currentLanguage, commonCookie, cookieProps) : cookieProps;
-        consentGroup.consents.push(cookieData as ConsentData);
+        consentGroup.consents.push(cookieData as CookieData);
       });
     }
   };
@@ -224,7 +224,7 @@ function buildConsentGroups(
     });
   }
   if (!noCommonConsentCookie && !helConsentCookieFound) {
-    const consentCookie: Partial<ConsentData> = getCommonCookie(currentLanguage, 'helConsentCookie');
+    const consentCookie: Partial<CookieData> = getCommonCookie(currentLanguage, 'helConsentCookie');
     consentCookie.id = COOKIE_NAME;
     parseGroup({ commonGroup: 'sharedConsents', consents: [consentCookie] }, true);
   }
