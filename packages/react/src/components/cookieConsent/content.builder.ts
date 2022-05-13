@@ -5,51 +5,63 @@ import {
   ConsentData,
   ConsentGroup,
   Content,
-  ContentOverrides,
   Description,
   Category,
   SupportedLanguage,
+  UiTexts,
+  TableData,
 } from './CookieConsentContext';
 import commonContent from './content.json';
 import { COOKIE_NAME } from './cookieConsentController';
 
-interface GenericContentObject {
-  [key: string]: string | GenericContentObject;
-}
-
-export type ConsentDataInContentSource = Partial<ConsentData> & {
+type ContentSourceConsentData = Partial<ConsentData> & {
   commonGroup?: string;
   required?: boolean;
   groupId?: string;
   commonCookie?: string;
 };
 
-export type ConsentGroupInContentSource = Omit<Partial<ConsentGroup>, 'consents'> & {
+type ContentSourceConsentGroup = Omit<Partial<ConsentGroup>, 'consents'> & {
   commonGroup?: string;
   required?: boolean;
   id?: string;
-  consents: ConsentDataInContentSource[];
+  consents: ContentSourceConsentData[];
 };
 
-export type CategoryInContentSource = Omit<Partial<Category>, 'groups'> & {
-  groups: ConsentGroupInContentSource[];
+export type ContentSourceCategory = Omit<Partial<Category>, 'groups'> & {
+  groups: ContentSourceConsentGroup[];
+};
+
+type ContentSourceTexts = {
+  texts?: {
+    sections?: {
+      main?: Partial<Description>;
+      details?: Partial<Description>;
+    };
+    ui?: Partial<UiTexts>;
+    tableHeadings?: Partial<TableData>;
+  };
 };
 
 export type ContentSource = {
   currentLanguage: SupportedLanguage;
   siteName: string;
-  requiredConsents?: CategoryInContentSource;
-  optionalConsents?: CategoryInContentSource;
-  groups?: ConsentGroupInContentSource[];
-  cookies?: ConsentDataInContentSource[];
-  texts?: ContentOverrides['texts'];
-  language?: ContentOverrides['language'];
+  requiredConsents?: ContentSourceCategory;
+  optionalConsents?: ContentSourceCategory;
+  groups?: ContentSourceConsentGroup[];
+  cookies?: ContentSourceConsentData[];
+  texts?: ContentSourceTexts;
+  language?: Partial<Content['language']>;
   noCommonConsentCookie?: boolean;
   onAllConsentsGiven?: Content['onAllConsentsGiven'];
   onConsentsParsed?: Content['onConsentsParsed'];
 };
 
-type MergableContent = Partial<GenericContentObject | ConsentGroupInContentSource | CategoryInContentSource>;
+type GenericContentObject = {
+  [key: string]: string | GenericContentObject;
+};
+
+type MergableContent = Partial<GenericContentObject | ContentSourceConsentGroup | ContentSourceCategory>;
 
 function getTexts(language: SupportedLanguage, siteName: string): Content['texts'] {
   const { texts } = commonContent;
@@ -72,7 +84,7 @@ function getTexts(language: SupportedLanguage, siteName: string): Content['texts
   textContent.sections.main.title = textContent.sections.main.title.replace('{{siteName}}', siteName);
   return textContent;
 }
-function getLanguage(lang: SupportedLanguage, overrides: ContentOverrides['language']): Content['language'] {
+function getLanguage(lang: SupportedLanguage, overrides: ContentSource['language']): Content['language'] {
   const { language } = commonContent;
   return {
     ...language,
@@ -141,7 +153,7 @@ function buildConsentGroups(
   const groupMap = new Map<string, ConsentGroup>();
   const { currentLanguage, groups, cookies, noCommonConsentCookie } = props;
 
-  const parseGroup = (groupSource: ConsentGroupInContentSource, isRequired?: boolean) => {
+  const parseGroup = (groupSource: ContentSourceConsentGroup, isRequired?: boolean) => {
     let consentGroup: ConsentGroup | undefined;
     const isRequiredOverride = !!(isRequired !== undefined ? isRequired : groupSource.required);
     const mapId = groupSource.commonGroup || groupSource.id || groupSource.title;
@@ -175,7 +187,7 @@ function buildConsentGroups(
           required,
           commonCookie,
           ...cookieProps
-        } = cookieSource as ConsentDataInContentSource;
+        } = cookieSource as ContentSourceConsentData;
         /* eslint-enable @typescript-eslint/no-unused-vars */
         const cookieData = commonCookie ? getCommonCookie(currentLanguage, commonCookie, cookieProps) : cookieProps;
         consentGroup.consents.push(cookieData as ConsentData);
@@ -226,7 +238,7 @@ function buildConsentGroups(
 
 function buildConsentCategories(
   description: Description,
-  overrides?: Partial<CategoryInContentSource>,
+  overrides?: Partial<ContentSourceCategory>,
   groups?: ConsentGroup[],
 ): Category {
   if (!overrides && (!groups || !groups.length)) {
