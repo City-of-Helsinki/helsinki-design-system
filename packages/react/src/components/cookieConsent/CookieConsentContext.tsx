@@ -21,10 +21,10 @@ export type CookieData = TableData & {
   id: string;
 };
 
-export type ConsentGroup = Description & {
+export type CookieGroup = Description & {
   expandAriaLabel: string;
   checkboxAriaDescription?: string;
-  consents: CookieData[];
+  cookies: CookieData[];
 };
 
 export type UiTexts = {
@@ -43,7 +43,7 @@ export type SectionTexts = {
 
 export type Category = Description & {
   checkboxAriaDescription?: string;
-  groups: ConsentGroup[];
+  groups: CookieGroup[];
 };
 
 export type SupportedLanguage = 'fi' | 'sv' | 'en';
@@ -88,9 +88,9 @@ export const CookieConsentContext = createContext<CookieConsentContextType>({
   areGroupConsentsApproved: () => false,
 });
 
-export const getConsentsFromConsentGroup = (groups: ConsentGroup[]): ConsentList => {
+export const getConsentsFromConsentGroup = (groups: CookieGroup[]): ConsentList => {
   return groups.reduce((ids, currentGroup) => {
-    currentGroup.consents.forEach((consentData) => {
+    currentGroup.cookies.forEach((consentData) => {
       ids.push(consentData.id);
     });
     return ids;

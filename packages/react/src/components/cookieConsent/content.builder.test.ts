@@ -2,7 +2,7 @@ import _get from 'lodash.get';
 
 import { ContentSource, createContent } from './content.builder';
 import commonContent from './content.json';
-import { CookieData, ConsentGroup, Content, Category } from './CookieConsentContext';
+import { CookieData, CookieGroup, Content, Category } from './CookieConsentContext';
 
 describe(`content.builder.ts`, () => {
   const siteName = 'hel.fi';
@@ -22,13 +22,13 @@ describe(`content.builder.ts`, () => {
     language: defaults.language,
   };
 
-  const marketingGroup: ConsentGroup = {
+  const marketingGroup: CookieGroup = {
     ...commonContent.commonGroups.marketing.fi,
-    consents: [],
+    cookies: [],
   };
-  const essentialGroup: ConsentGroup = {
+  const essentialGroup: CookieGroup = {
     ...commonContent.commonGroups.essential.fi,
-    consents: [],
+    cookies: [],
   };
 
   const matomo: CookieData = {
@@ -73,12 +73,12 @@ describe(`content.builder.ts`, () => {
     expiration: 'testCookieData2 expiration',
   };
 
-  const userDefinedGroup: ConsentGroup = {
+  const userDefinedGroup: CookieGroup = {
     title: 'userDefinedGroup title',
     text: 'userDefinedGroup text',
     expandAriaLabel: 'userDefinedGroup expandAriaLabel',
     checkboxAriaDescription: 'userDefinedGroup checkboxAriaDescription',
-    consents: [
+    cookies: [
       {
         ...testCookieData2,
       },
@@ -185,7 +185,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...marketingGroup,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                 },
@@ -216,7 +216,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...marketingGroup,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                 },
@@ -253,7 +253,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...essentialGroup,
-              consents: [
+              cookies: [
                 {
                   ...matomo,
                 },
@@ -266,7 +266,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...marketingGroup,
-              consents: [
+              cookies: [
                 {
                   ...tunnistamo,
                 },
@@ -309,7 +309,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...essentialGroup,
-              consents: [
+              cookies: [
                 {
                   ...matomo,
                   ...newCookieTexts,
@@ -323,7 +323,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...marketingGroup,
-              consents: [
+              cookies: [
                 {
                   ...tunnistamo,
                   ...newCookieTexts,
@@ -360,7 +360,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...essentialGroup,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                 },
@@ -373,7 +373,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...marketingGroup,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                 },
@@ -393,7 +393,7 @@ describe(`content.builder.ts`, () => {
             ...marketingGroup,
             id: 'group1-for-cookies',
             required: true,
-            consents: [
+            cookies: [
               {
                 ...testCookieData,
                 name: 'group-1-existing-cookie',
@@ -404,7 +404,7 @@ describe(`content.builder.ts`, () => {
             ...essentialGroup,
             id: 'group2-for-cookies',
             required: false,
-            consents: [
+            cookies: [
               {
                 ...testCookieData,
                 name: 'group-2-existing-cookie',
@@ -435,7 +435,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...marketingGroup,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                   name: 'group-1-existing-cookie',
@@ -453,7 +453,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...essentialGroup,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                   name: 'group-2-existing-cookie',
@@ -478,7 +478,7 @@ describe(`content.builder.ts`, () => {
           {
             commonGroup: 'marketing',
             required: true,
-            consents: [
+            cookies: [
               {
                 ...testCookieData,
               },
@@ -498,7 +498,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...marketingGroup,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                 },
@@ -524,7 +524,7 @@ describe(`content.builder.ts`, () => {
           {
             commonGroup: 'marketing',
             required: false,
-            consents: [
+            cookies: [
               {
                 ...testCookieData,
               },
@@ -542,7 +542,7 @@ describe(`content.builder.ts`, () => {
             },
             {
               ...marketingGroup,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                 },
@@ -566,7 +566,7 @@ describe(`content.builder.ts`, () => {
           {
             commonGroup: 'marketing',
             required: false,
-            consents: [
+            cookies: [
               {
                 ...testCookieData,
               },
@@ -575,7 +575,7 @@ describe(`content.builder.ts`, () => {
           {
             commonGroup: 'essential',
             required: true,
-            consents: [
+            cookies: [
               {
                 ...testCookieData,
               },
@@ -596,7 +596,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...essentialGroup,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                 },
@@ -615,7 +615,7 @@ describe(`content.builder.ts`, () => {
             },
             {
               ...marketingGroup,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                 },
@@ -640,7 +640,7 @@ describe(`content.builder.ts`, () => {
           {
             commonGroup: 'marketing',
             required: false,
-            consents: [
+            cookies: [
               {
                 ...testCookieData,
               },
@@ -650,7 +650,7 @@ describe(`content.builder.ts`, () => {
           {
             commonGroup: 'essential',
             required: true,
-            consents: [
+            cookies: [
               {
                 ...testCookieData,
               },
@@ -667,7 +667,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...essentialGroup,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                 },
@@ -681,7 +681,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...marketingGroup,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                 },
@@ -704,7 +704,7 @@ describe(`content.builder.ts`, () => {
             {
               commonGroup: 'marketing',
               required: true,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                 },
@@ -725,7 +725,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...marketingGroup,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                 },
@@ -747,7 +747,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               commonGroup: 'marketing',
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                 },
@@ -767,7 +767,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...marketingGroup,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                 },
@@ -790,7 +790,7 @@ describe(`content.builder.ts`, () => {
             {
               commonGroup: 'marketing',
               required: true,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                 },
@@ -810,7 +810,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...marketingGroup,
-              consents: [
+              cookies: [
                 {
                   ...testCookieData,
                 },
@@ -838,7 +838,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               commonGroup: 'essential',
-              consents: [],
+              cookies: [],
             },
           ],
         },
@@ -847,7 +847,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               commonGroup: 'marketing',
-              consents: [],
+              cookies: [],
             },
           ],
         },
@@ -860,7 +860,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...essentialGroup,
-              consents: [],
+              cookies: [],
             },
           ],
         },
@@ -870,7 +870,7 @@ describe(`content.builder.ts`, () => {
           groups: [
             {
               ...marketingGroup,
-              consents: [],
+              cookies: [],
             },
           ],
         },
@@ -898,7 +898,7 @@ describe(`content.builder.ts`, () => {
       const content = createContent({ siteName, currentLanguage: 'fi' });
       expect(content.requiredConsents).toBeDefined();
       expect(content.requiredConsents.groups[0].title).toBe(commonContent.commonGroups.sharedConsents.fi.title);
-      expect(content.requiredConsents.groups[0].consents[0].name).toBe(
+      expect(content.requiredConsents.groups[0].cookies[0].name).toBe(
         commonContent.commonCookies.helConsentCookie.fi.name,
       );
     });

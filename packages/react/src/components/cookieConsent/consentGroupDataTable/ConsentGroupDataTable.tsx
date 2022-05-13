@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 
 import { Table } from '../../table/Table';
-import { ConsentGroup, useCookieConsentTableData } from '../CookieConsentContext';
+import { CookieGroup, useCookieConsentTableData } from '../CookieConsentContext';
 import styles from '../CookieConsent.module.scss';
 import classNames from '../../../utils/classNames';
 
-export function ConsentGroupDataTable(props: { consents: ConsentGroup['consents']; id: string }): React.ReactElement {
+export function ConsentGroupDataTable(props: { consents: CookieGroup['cookies']; id: string }): React.ReactElement {
   const tableHeadings = useCookieConsentTableData();
   const { consents, id } = props;
   const cols = useMemo(() => {

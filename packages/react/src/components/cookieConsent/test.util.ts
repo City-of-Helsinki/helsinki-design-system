@@ -2,7 +2,7 @@
 import cookie from 'cookie';
 import { RenderResult, waitFor } from '@testing-library/react';
 
-import { ConsentGroup, Content } from './CookieConsentContext';
+import { CookieGroup, Content } from './CookieConsentContext';
 import { ConsentList, ConsentObject, COOKIE_NAME } from './cookieConsentController';
 import { CookieSetOptions } from './cookieController';
 import { MockedDocumentCookieActions } from './__mocks__/mockDocumentCookie';
@@ -42,13 +42,13 @@ export function extractSetCookieArguments(
   };
 }
 
-const createConsentGroup = (id: string, consents: ConsentList): ConsentGroup => {
+const createCookieGroup = (id: string, consents: ConsentList): CookieGroup => {
   return {
-    title: `Consent group title for ${id}`,
-    text: `Consent group description for ${id}`,
+    title: `Cookie group title for ${id}`,
+    text: `Cookie group description for ${id}`,
     expandAriaLabel: `expandAriaLabel for ${id}`,
     checkboxAriaDescription: `checkboxAriaLabel for ${id}`,
-    consents: consents.map((consent) => {
+    cookies: consents.map((consent) => {
       return {
         id: consent,
         name: `Name of ${consent}`,
@@ -62,29 +62,27 @@ const createConsentGroup = (id: string, consents: ConsentList): ConsentGroup => 
 };
 
 export const getContentSource = (
-  requiredConsentGroups?: ConsentList[],
+  requiredCookieGroups?: ConsentList[],
   optionalConsentsGroups?: ConsentList[],
   contentSourceOverrides?: Partial<ContentSource>,
 ): ContentSource => {
   const contentOverrides: Partial<ContentSource> = {};
 
-  if (requiredConsentGroups) {
+  if (requiredCookieGroups) {
     contentOverrides.requiredConsents = {
-      title: 'Title for required consents',
-      text: 'Text for required consents',
+      title: 'Title for required cookies',
+      text: 'Text for required cookies',
       checkboxAriaDescription: 'checkboxAriaLabel',
-      groups: requiredConsentGroups.map((consents, index) =>
-        createConsentGroup(`requiredConsentGroup${index}`, consents),
-      ),
+      groups: requiredCookieGroups.map((consents, index) => createCookieGroup(`requiredCookieGroup${index}`, consents)),
     };
   }
   if (optionalConsentsGroups) {
     contentOverrides.optionalConsents = {
-      title: 'Title for optional consents',
-      text: 'Text for optional consents',
+      title: 'Title for optional cookies',
+      text: 'Text for optional cookies',
       checkboxAriaDescription: 'checkboxAriaLabel',
       groups: optionalConsentsGroups.map((consents, index) =>
-        createConsentGroup(`optionalConsentGroups${index}`, consents),
+        createCookieGroup(`optionalCookieGroups${index}`, consents),
       ),
     };
   }
@@ -131,10 +129,10 @@ export const commonTestProps = {
     detailsComponent: 'cookie-consent-details',
     screenReaderNotification: 'cookie-consent-screen-reader-notification',
     saveNotification: 'cookie-consent-save-notification',
-    getConsentGroupCheckboxId: (parent: TestGroupParent, index: number) => `${parent}-consents-group-${index}-checkbox`,
-    getConsentGroupDetailsTogglerId: (parent: TestGroupParent, index: number) =>
+    getCookieGroupCheckboxId: (parent: TestGroupParent, index: number) => `${parent}-consents-group-${index}-checkbox`,
+    getCookieGroupDetailsTogglerId: (parent: TestGroupParent, index: number) =>
       `${parent}-consents-group-${index}-details-toggler`,
-    getConsentGroupTableId: (parent: TestGroupParent, index: number) => `${parent}-consents-group-${index}-table`,
+    getCookieGroupTableId: (parent: TestGroupParent, index: number) => `${parent}-consents-group-${index}-table`,
     getConsentsCheckboxId: (parent: TestGroupParent) => `${parent}-consents-checkbox`,
   },
   requiredGroupParent: 'required' as TestGroupParent,
@@ -192,8 +190,8 @@ export async function openAllAccordions(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     for (const groups of list) {
       // eslint-disable-next-line no-await-in-loop
-      await openAccordion(result, dataTestIds.getConsentGroupDetailsTogglerId(groupParent, index));
-      expect(result.getByTestId(dataTestIds.getConsentGroupTableId(groupParent, index))).toBeVisible();
+      await openAccordion(result, dataTestIds.getCookieGroupDetailsTogglerId(groupParent, index));
+      expect(result.getByTestId(dataTestIds.getCookieGroupTableId(groupParent, index))).toBeVisible();
       index += 1;
     }
     /* eslint-enable no-restricted-syntax */
