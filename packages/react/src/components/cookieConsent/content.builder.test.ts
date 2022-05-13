@@ -2,7 +2,7 @@ import _get from 'lodash.get';
 
 import { ContentSource, createContent } from './content.builder';
 import commonContent from './content.json';
-import { ConsentData, ConsentGroup, Content, Category } from './CookieConsentContext';
+import { CookieData, ConsentGroup, Content, Category } from './CookieConsentContext';
 
 describe(`content.builder.ts`, () => {
   const siteName = 'hel.fi';
@@ -31,14 +31,14 @@ describe(`content.builder.ts`, () => {
     consents: [],
   };
 
-  const matomo: ConsentData = {
+  const matomo: CookieData = {
     id: commonContent.commonCookies.matomo.id,
     hostName: commonContent.commonCookies.matomo.hostName,
     path: commonContent.commonCookies.matomo.path,
     ...commonContent.commonCookies.matomo.fi,
   };
 
-  const tunnistamo: ConsentData = {
+  const tunnistamo: CookieData = {
     id: commonContent.commonCookies.tunnistamo.id,
     hostName: commonContent.commonCookies.tunnistamo.hostName,
     path: commonContent.commonCookies.tunnistamo.path,
@@ -55,7 +55,7 @@ describe(`content.builder.ts`, () => {
     groups: [],
   };
 
-  const testCookieData: ConsentData = {
+  const testCookieData: CookieData = {
     id: 'testCookieData',
     name: 'testCookieData name',
     hostName: 'testCookieData hostName',
@@ -64,7 +64,7 @@ describe(`content.builder.ts`, () => {
     expiration: 'testCookieData expiration',
   };
 
-  const testCookieData2: ConsentData = {
+  const testCookieData2: CookieData = {
     id: 'testCookieData2',
     name: 'testCookieData2 name',
     hostName: 'testCookieData2 hostName',
@@ -279,7 +279,7 @@ describe(`content.builder.ts`, () => {
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
     it('common cookie texts can be overridden', () => {
-      const newCookieTexts: Partial<ConsentData> = {
+      const newCookieTexts: Partial<CookieData> = {
         name: 'New cookie name',
         description: 'New cookie description',
         expiration: 'New cookie expiration',

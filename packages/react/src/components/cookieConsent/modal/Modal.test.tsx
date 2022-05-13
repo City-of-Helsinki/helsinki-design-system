@@ -21,7 +21,7 @@ import {
   commonTestProps,
   TestConsentData,
   TestGroupParent,
-  createCookieDataWithSelectedRejections,
+  createConsentObjectWithSelectedRejections,
 } from '../test.util';
 import { createContent } from '../content.builder';
 
@@ -32,19 +32,19 @@ const mockedCookieControls = mockDocumentCookie();
 let content: Content;
 
 const renderCookieConsent = (
-  { requiredConsents = [], optionalConsents = [], cookie = {}, contentSourceOverrides }: TestConsentData,
+  { requiredConsents = [], optionalConsents = [], consents = {}, contentSourceOverrides }: TestConsentData,
   withRealTimers = false,
 ): RenderResult => {
   // inject unknown consents to verify those are
   // stored and handled, but not required or optional
-  const cookieWithInjectedUnknowns = {
-    ...cookie,
+  const consentCookieWithInjectedUnknowns = {
+    ...consents,
     ...unknownConsents,
   };
   const contentSource = getContentSource(requiredConsents, optionalConsents, contentSourceOverrides);
   content = createContent(contentSource);
   jest.useFakeTimers();
-  mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
+  mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(consentCookieWithInjectedUnknowns) });
   const result = render(
     <CookieContextProvider contentSource={contentSource}>
       <Modal />
@@ -114,7 +114,7 @@ describe('<Modal /> ', () => {
     it('is rendered if a required consent has not been approved. It could have been optional before', () => {
       const result = renderCookieConsent({
         ...defaultConsentData,
-        cookie: createCookieDataWithSelectedRejections(['requiredConsent2']),
+        consents: createConsentObjectWithSelectedRejections(['requiredConsent2']),
       });
       verifyElementExistsByTestId(result, dataTestIds.container);
     });
@@ -123,7 +123,7 @@ describe('<Modal /> ', () => {
       const result = renderCookieConsent({
         ...defaultConsentData,
         optionalConsents: [['unknown']],
-        cookie: createCookieDataWithSelectedRejections([]),
+        consents: createConsentObjectWithSelectedRejections([]),
       });
       verifyElementExistsByTestId(result, dataTestIds.container);
     });
@@ -131,7 +131,7 @@ describe('<Modal /> ', () => {
     it('is not shown when all consents have been handled and are true/false', () => {
       const result = renderCookieConsent({
         ...defaultConsentData,
-        cookie: createCookieDataWithSelectedRejections(['optionalConsent1', 'optionalConsent3']),
+        consents: createConsentObjectWithSelectedRejections(['optionalConsent1', 'optionalConsent3']),
       });
       verifyElementDoesNotExistsByTestId(result, dataTestIds.container);
       verifyElementDoesNotExistsByTestId(result, dataTestIds.screenReaderNotification);
@@ -140,7 +140,7 @@ describe('<Modal /> ', () => {
     it('is not shown if there are only required consents', () => {
       const result = renderCookieConsent({
         requiredConsents: [['requiredConsent1', 'requiredConsent2'], ['requiredConsent3']],
-        cookie: {},
+        consents: {},
       });
       verifyElementDoesNotExistsByTestId(result, dataTestIds.container);
       verifyElementDoesNotExistsByTestId(result, dataTestIds.screenReaderNotification);
@@ -172,7 +172,7 @@ describe('<Modal /> ', () => {
     it('Approve -button approves all consents when details are not shown', () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
-        ...createCookieDataWithSelectedRejections([]),
+        ...createConsentObjectWithSelectedRejections([]),
         ...unknownConsents,
       };
       clickElement(result, dataTestIds.approveButton);
@@ -182,7 +182,7 @@ describe('<Modal /> ', () => {
     it('Approve required -button approves only required consents and clears selected consents', async () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
-        ...createCookieDataWithSelectedRejections(['optionalConsent1', 'optionalConsent2', 'optionalConsent3']),
+        ...createConsentObjectWithSelectedRejections(['optionalConsent1', 'optionalConsent2', 'optionalConsent3']),
         ...unknownConsents,
       };
       await openAccordion(result, dataTestIds.settingsToggler);
@@ -195,7 +195,7 @@ describe('<Modal /> ', () => {
     it('Approve -button will approve required and selected consents when details are shown', async () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
-        ...createCookieDataWithSelectedRejections(['optionalConsent2', 'optionalConsent3']),
+        ...createConsentObjectWithSelectedRejections(['optionalConsent2', 'optionalConsent3']),
         ...unknownConsents,
       };
       await openAccordion(result, dataTestIds.settingsToggler);
@@ -241,7 +241,7 @@ describe('<Modal /> ', () => {
       clickElement(result, dataTestIds.getConsentGroupCheckboxId(optionalGroupParent, 0));
       clickElement(result, dataTestIds.approveButton);
       expect(JSON.parse(getSetCookieArguments().data)).toEqual({
-        ...createCookieDataWithSelectedRejections(['optionalConsent1']),
+        ...createConsentObjectWithSelectedRejections(['optionalConsent1']),
         ...unknownConsents,
       });
       verifyElementDoesNotExistsByTestId(result, dataTestIds.container);

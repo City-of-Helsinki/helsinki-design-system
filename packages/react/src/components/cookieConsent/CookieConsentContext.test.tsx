@@ -9,10 +9,10 @@ import mockWindowLocation from './__mocks__/mockWindowLocation';
 import mockDocumentCookie from './__mocks__/mockDocumentCookie';
 import { extractSetCookieArguments, getContentSource } from './test.util';
 
-type ConsentData = {
+type TestConsentData = {
   requiredConsents?: ConsentList;
   optionalConsents?: ConsentList;
-  cookie?: ConsentObject;
+  consents?: ConsentObject;
   cookieDomain?: string;
 };
 
@@ -20,17 +20,17 @@ describe('CookieConsentContext ', () => {
   const mockedCookieControls = mockDocumentCookie();
   const mockedWindowControls = mockWindowLocation();
   const getSetCookieArguments = (index = -1) => extractSetCookieArguments(mockedCookieControls, index);
-  const allApprovedConsentData = {
+  const allApprovedConsentData: TestConsentData = {
     requiredConsents: ['requiredConsent1'],
     optionalConsents: ['optionalConsent1'],
-    cookie: {
+    consents: {
       requiredConsent1: true,
       optionalConsent1: true,
     },
   };
-  const allNotApprovedConsentData = {
+  const allNotApprovedConsentData: TestConsentData = {
     ...allApprovedConsentData,
-    cookie: {
+    consents: {
       requiredConsent1: false,
       optionalConsent1: false,
     },
@@ -46,14 +46,14 @@ describe('CookieConsentContext ', () => {
   }: {
     requiredConsentCookieValue: boolean | undefined;
     optionalConsentCookieValue: boolean | undefined;
-  }): ConsentData => {
-    const copyOfApprovedCookie = { ...allApprovedConsentData.cookie };
+  }): TestConsentData => {
+    const copyOfApprovedConsents = { ...allApprovedConsentData.consents };
     const copyOfApprovedConsentData = { ...allApprovedConsentData };
-    copyOfApprovedCookie.requiredConsent1 = requiredConsentCookieValue;
-    copyOfApprovedCookie.optionalConsent1 = optionalConsentCookieValue;
+    copyOfApprovedConsents.requiredConsent1 = requiredConsentCookieValue;
+    copyOfApprovedConsents.optionalConsent1 = optionalConsentCookieValue;
     return {
       ...copyOfApprovedConsentData,
-      cookie: copyOfApprovedCookie,
+      consents: copyOfApprovedConsents,
     };
   };
 
@@ -122,12 +122,12 @@ describe('CookieConsentContext ', () => {
     requiredConsents,
     optionalConsents,
     cookieDomain,
-    cookie = {},
-  }: ConsentData): RenderResult => {
+    consents = {},
+  }: TestConsentData): RenderResult => {
     // inject unknown consents to verify those are
     // stored and handled, but not in required or optional consents
     const cookieWithInjectedUnknowns = {
-      ...cookie,
+      ...consents,
       ...unknownConsents,
     };
     const contentSource = getContentSource(
@@ -188,13 +188,13 @@ describe('CookieConsentContext ', () => {
     it('Arguments are ({consents}, false) when user has not handled all consents', () => {
       renderCookieConsent(allNotApprovedConsentData);
       expect(onConsentsParsed).toHaveBeenCalledTimes(1);
-      expect(onConsentsParsed).toHaveBeenLastCalledWith(allNotApprovedConsentData.cookie, false);
+      expect(onConsentsParsed).toHaveBeenLastCalledWith(allNotApprovedConsentData.consents, false);
     });
 
     it('Arguments are ({consents}, true) when user has given all consents', () => {
       renderCookieConsent(allApprovedConsentData);
       expect(onConsentsParsed).toHaveBeenCalledTimes(1);
-      expect(onConsentsParsed).toHaveBeenLastCalledWith(allApprovedConsentData.cookie, true);
+      expect(onConsentsParsed).toHaveBeenLastCalledWith(allApprovedConsentData.consents, true);
     });
   });
 
@@ -204,7 +204,7 @@ describe('CookieConsentContext ', () => {
       expect(onAllConsentsGiven).toHaveBeenCalledTimes(0);
       clickElement(result, consumer1ApproveAllButtonSelector);
       expect(onAllConsentsGiven).toHaveBeenCalledTimes(1);
-      expect(onAllConsentsGiven).toHaveBeenLastCalledWith(allApprovedConsentData.cookie);
+      expect(onAllConsentsGiven).toHaveBeenLastCalledWith(allApprovedConsentData.consents);
     });
 
     it('is not called when all required consents are initially true and optional are true/false.', () => {
@@ -223,7 +223,7 @@ describe('CookieConsentContext ', () => {
       const result = renderCookieConsent(allNotApprovedConsentData);
       clickElement(result, consumer1ApproveAllButtonSelector);
       expect(JSON.parse(getSetCookieArguments().data)).toEqual({
-        ...allApprovedConsentData.cookie,
+        ...allApprovedConsentData.consents,
         ...unknownConsents,
       });
       expect(getSetCookieArguments().options.domain).toEqual('hel.fi');
