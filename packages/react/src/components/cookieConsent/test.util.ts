@@ -11,7 +11,7 @@ import { ContentSource } from './content.builder';
 export type TestConsentData = {
   requiredConsents?: ConsentList[];
   optionalConsents?: ConsentList[];
-  cookie?: ConsentObject;
+  consents?: ConsentObject;
   contentSourceOverrides?: Partial<ContentSource>;
 };
 
@@ -142,7 +142,7 @@ export const commonTestProps = {
   defaultConsentData: {
     requiredConsents: [['requiredConsent1', 'requiredConsent2'], ['requiredConsent3']],
     optionalConsents: [['optionalConsent1'], ['optionalConsent2', 'optionalConsent3']],
-    cookie: {},
+    consents: {},
   },
   unknownConsents: {
     unknownConsent1: true,
@@ -150,7 +150,7 @@ export const commonTestProps = {
   },
 };
 
-function createCookieData(consentList: ConsentList, source: TestConsentData, approved: boolean): ConsentObject {
+function createConsentObject(consentList: ConsentList, source: TestConsentData, approved: boolean): ConsentObject {
   const flattenArrayReducer = (acc: unknown[], val: unknown) => acc.concat(val);
   const flatRequired = source.requiredConsents.reduce(flattenArrayReducer, []) as ConsentList;
   const flatOptional = source.optionalConsents.reduce(flattenArrayReducer, []) as ConsentList;
@@ -166,18 +166,18 @@ function createCookieData(consentList: ConsentList, source: TestConsentData, app
   return consents;
 }
 
-export function createCookieDataWithSelectedApprovals(
+export function createConsentObjectWithSelectedApprovals(
   approvedConsents: ConsentList,
   source: TestConsentData = commonTestProps.defaultConsentData,
 ): ConsentObject {
-  return createCookieData(approvedConsents, source, true);
+  return createConsentObject(approvedConsents, source, true);
 }
 
-export function createCookieDataWithSelectedRejections(
+export function createConsentObjectWithSelectedRejections(
   approvedConsents: ConsentList,
   source: TestConsentData = commonTestProps.defaultConsentData,
 ): ConsentObject {
-  return createCookieData(approvedConsents, source, false);
+  return createConsentObject(approvedConsents, source, false);
 }
 
 export async function openAllAccordions(

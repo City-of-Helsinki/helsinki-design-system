@@ -16,7 +16,7 @@ import {
   commonTestProps,
   TestConsentData,
   TestGroupParent,
-  createCookieDataWithSelectedRejections,
+  createConsentObjectWithSelectedRejections,
   openAllAccordions,
 } from '../test.util';
 import { createContent } from '../content.builder';
@@ -31,12 +31,12 @@ let content: Content;
 const renderCookieConsent = ({
   requiredConsents = [],
   optionalConsents = [],
-  cookie = {},
+  consents = {},
 }: TestConsentData): RenderResult => {
   // inject unknown consents to verify those are
   // stored and handled, but not required or optional
   const cookieWithInjectedUnknowns = {
-    ...cookie,
+    ...consents,
     ...unknownConsents,
   };
   const contentSource = getContentSource(requiredConsents, optionalConsents);
@@ -76,7 +76,7 @@ describe('<Page /> ', () => {
     it('and child components are rendered even if consents have been handled', () => {
       const result = renderCookieConsent({
         ...defaultConsentData,
-        cookie: createCookieDataWithSelectedRejections([]),
+        consents: createConsentObjectWithSelectedRejections([]),
       });
       verifyElementExistsByTestId(result, dataTestIds.container);
       verifyElementExistsByTestId(result, dataTestIds.approveButton);
@@ -94,7 +94,7 @@ describe('<Page /> ', () => {
     it('Approve required -button approves only required consents and clears selected consents', async () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
-        ...createCookieDataWithSelectedRejections(['optionalConsent1', 'optionalConsent2', 'optionalConsent3']),
+        ...createConsentObjectWithSelectedRejections(['optionalConsent1', 'optionalConsent2', 'optionalConsent3']),
         ...unknownConsents,
       };
       clickElement(result, dataTestIds.getConsentGroupCheckboxId(optionalGroupParent, 0));
@@ -106,7 +106,7 @@ describe('<Page /> ', () => {
     it('Approve selected and required -button will approve required and selected consents', async () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentResult = {
-        ...createCookieDataWithSelectedRejections(['optionalConsent2', 'optionalConsent3']),
+        ...createConsentObjectWithSelectedRejections(['optionalConsent2', 'optionalConsent3']),
         ...unknownConsents,
       };
       clickElement(result, dataTestIds.getConsentGroupCheckboxId(optionalGroupParent, 0));
@@ -133,7 +133,7 @@ describe('<Page /> ', () => {
     it(`clicking an optional consent group sets the all consents in that group true/false.`, async () => {
       const result = renderCookieConsent(defaultConsentData);
       const consentState = {
-        ...createCookieDataWithSelectedRejections(['optionalConsent1', 'optionalConsent2', 'optionalConsent3']),
+        ...createConsentObjectWithSelectedRejections(['optionalConsent1', 'optionalConsent2', 'optionalConsent3']),
         ...unknownConsents,
       };
       defaultConsentData.optionalConsents.forEach((consentGroup, index) => {
