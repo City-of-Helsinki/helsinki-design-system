@@ -152,7 +152,7 @@ describe('<Page /> ', () => {
     it('all consents in the group are rendered', async () => {
       const result = renderCookieConsent(defaultConsentData);
       const checkConsentsExist = async (groupParent: TestGroupParent) => {
-        const list = groupParent === 'required' ? content.requiredConsents.groups : content.optionalConsents.groups;
+        const list = groupParent === 'required' ? content.requiredCookies.groups : content.optionalCookies.groups;
         let index = 0;
         // cannot use async/await with array.forEach
         // eslint-disable-next-line no-restricted-syntax

@@ -49,8 +49,8 @@ export type Category = Description & {
 export type SupportedLanguage = 'fi' | 'sv' | 'en';
 
 export type Content = {
-  requiredConsents?: Category;
-  optionalConsents?: Category;
+  requiredCookies?: Category;
+  optionalCookies?: Category;
   texts: {
     sections: SectionTexts;
     ui: UiTexts;
@@ -88,7 +88,7 @@ export const CookieConsentContext = createContext<CookieConsentContextType>({
   areGroupConsentsApproved: () => false,
 });
 
-export const getConsentsFromConsentGroup = (groups: CookieGroup[]): ConsentList => {
+export const getConsentsFromCookieGroup = (groups: CookieGroup[]): ConsentList => {
   return groups.reduce((ids, currentGroup) => {
     currentGroup.cookies.forEach((consentData) => {
       ids.push(consentData.id);
@@ -102,11 +102,11 @@ export const Provider = ({ cookieDomain, children, contentSource }: CookieConsen
   const content = useMemo(() => {
     return createContent(contentSource);
   }, [language]);
-  const requiredConsents = content.requiredConsents
-    ? getConsentsFromConsentGroup(content.requiredConsents.groups)
+  const requiredConsents = content.requiredCookies
+    ? getConsentsFromCookieGroup(content.requiredCookies.groups)
     : undefined;
-  const optionalConsents = content.optionalConsents
-    ? getConsentsFromConsentGroup(content.optionalConsents.groups)
+  const optionalConsents = content.optionalCookies
+    ? getConsentsFromCookieGroup(content.optionalCookies.groups)
     : undefined;
   const consentController = useMemo(
     () => createConsentController({ requiredConsents, optionalConsents, cookieDomain }),
@@ -171,7 +171,7 @@ export const Provider = ({ cookieDomain, children, contentSource }: CookieConsen
       approveOnlyRequiredAndSave();
     } else if (action === 'approveSelectedAndRequired') {
       approveRequiredAndSaveAllGivenConsents();
-    } else if (action === 'changeConsentGroup') {
+    } else if (action === 'changeCookieGroupConsents') {
       consents.forEach((consent) => {
         update(consent, value);
       });
