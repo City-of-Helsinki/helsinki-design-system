@@ -102,7 +102,7 @@ function getCategoryDescriptions(
   };
 }
 
-function getCommonConsentGroup(language: string, id: string): Omit<CookieGroup, 'cookies'> {
+function getCommonCookieGroup(language: string, id: string): Omit<CookieGroup, 'cookies'> {
   const { commonGroups } = commonContent;
   if (!commonGroups[id]) {
     throw new Error(`Unknown common consent group ${id}`);
@@ -156,7 +156,7 @@ function buildCookieGroups(props: ContentSource): { requiredCookies: CookieGroup
     consentGroup = groupMap.get(mapId);
     if (!consentGroup) {
       if (groupSource.commonGroup) {
-        const groupTexts = getCommonConsentGroup(currentLanguage, groupSource.commonGroup);
+        const groupTexts = getCommonCookieGroup(currentLanguage, groupSource.commonGroup);
         consentGroup = {
           ...groupTexts,
           cookies: [],
@@ -271,12 +271,12 @@ export function createContent(props: ContentSource): Content {
   }
   const consentGroups = buildCookieGroups(props);
   const categoryDescriptions = getCategoryDescriptions(currentLanguage);
-  content.optionalConsents = buildConsentCategories(
+  content.optionalCookies = buildConsentCategories(
     categoryDescriptions.optionalCookies,
     optionalCookies,
     consentGroups.optionalCookies,
   );
-  content.requiredConsents = buildConsentCategories(
+  content.requiredCookies = buildConsentCategories(
     categoryDescriptions.requiredCookies,
     requiredCookies,
     consentGroups.requiredCookies,

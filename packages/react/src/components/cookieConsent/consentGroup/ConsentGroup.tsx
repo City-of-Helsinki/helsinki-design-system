@@ -1,11 +1,7 @@
 import React, { useContext } from 'react';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
-import {
-  CookieGroup as ConsentGroupType,
-  CookieConsentContext,
-  useCookieConsentActions,
-} from '../CookieConsentContext';
+import { CookieGroup, CookieConsentContext, useCookieConsentActions } from '../CookieConsentContext';
 import styles from '../CookieConsent.module.scss';
 import { Checkbox } from '../../checkbox/Checkbox';
 import { useAccordion } from '../../accordion';
@@ -13,7 +9,7 @@ import { IconAngleDown, IconAngleUp } from '../../../icons';
 import { Card } from '../../card/Card';
 import { ConsentGroupDataTable } from '../consentGroupDataTable/ConsentGroupDataTable';
 
-export function ConsentGroup(props: { group: ConsentGroupType; isRequired: boolean; id: string }): React.ReactElement {
+export function ConsentGroup(props: { group: CookieGroup; isRequired: boolean; id: string }): React.ReactElement {
   const { group, isRequired, id } = props;
   const { isOpen, buttonProps, contentProps } = useAccordion({
     initiallyOpen: false,
@@ -34,7 +30,7 @@ export function ConsentGroup(props: { group: ConsentGroupType; isRequired: boole
       ? () => undefined
       : () =>
           triggerAction(
-            'changeConsentGroup',
+            'changeCookieGroupConsents',
             groupConsents.map((consent) => consent.id),
             !areAllApproved,
           ),
