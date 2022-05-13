@@ -123,8 +123,8 @@ describe(`content.builder.ts`, () => {
       expect(language.current).toBe('fi');
       expect(typeof language.onLanguageChange).toBe('function');
 
-      expect(plainContent.requiredConsents).toBeUndefined();
-      expect(plainContent.optionalConsents).toBeUndefined();
+      expect(plainContent.requiredCookies).toBeUndefined();
+      expect(plainContent.optionalCookies).toBeUndefined();
 
       expect(_get(plainContent, mainTitlePath).indexOf(siteName)).toBe(0);
     });
@@ -167,7 +167,7 @@ describe(`content.builder.ts`, () => {
     });
   });
   describe('contentSource.cookies[]', () => {
-    it('define also groups and create requiredConsents if cookie.required = true', () => {
+    it('define also groups and create requiredCookies if cookie.required = true', () => {
       const contentWithCookie = createContent({
         ...commonContentTestProps,
         cookies: [
@@ -180,7 +180,7 @@ describe(`content.builder.ts`, () => {
       });
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
-        requiredConsents: {
+        requiredCookies: {
           ...requiredCookies,
           groups: [
             {
@@ -193,12 +193,12 @@ describe(`content.builder.ts`, () => {
             },
           ],
         },
-        optionalConsents: undefined,
+        optionalCookies: undefined,
       };
 
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
-    it('define also groups and create optionalConsents if cookie.required = false', () => {
+    it('define also groups and create optionalCookies if cookie.required = false', () => {
       const contentWithCookie = createContent({
         ...commonContentTestProps,
         cookies: [
@@ -211,7 +211,7 @@ describe(`content.builder.ts`, () => {
       });
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
-        optionalConsents: {
+        optionalCookies: {
           ...optionalCookies,
           groups: [
             {
@@ -224,7 +224,7 @@ describe(`content.builder.ts`, () => {
             },
           ],
         },
-        requiredConsents: undefined,
+        requiredCookies: undefined,
       };
 
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
@@ -248,7 +248,7 @@ describe(`content.builder.ts`, () => {
 
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
-        requiredConsents: {
+        requiredCookies: {
           ...requiredCookies,
           groups: [
             {
@@ -261,7 +261,7 @@ describe(`content.builder.ts`, () => {
             },
           ],
         },
-        optionalConsents: {
+        optionalCookies: {
           ...optionalCookies,
           groups: [
             {
@@ -304,7 +304,7 @@ describe(`content.builder.ts`, () => {
 
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
-        requiredConsents: {
+        requiredCookies: {
           ...requiredCookies,
           groups: [
             {
@@ -318,7 +318,7 @@ describe(`content.builder.ts`, () => {
             },
           ],
         },
-        optionalConsents: {
+        optionalCookies: {
           ...optionalCookies,
           groups: [
             {
@@ -355,7 +355,7 @@ describe(`content.builder.ts`, () => {
 
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
-        requiredConsents: {
+        requiredCookies: {
           ...requiredCookies,
           groups: [
             {
@@ -368,7 +368,7 @@ describe(`content.builder.ts`, () => {
             },
           ],
         },
-        optionalConsents: {
+        optionalCookies: {
           ...optionalCookies,
           groups: [
             {
@@ -430,7 +430,7 @@ describe(`content.builder.ts`, () => {
 
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
-        requiredConsents: {
+        requiredCookies: {
           ...requiredCookies,
           groups: [
             {
@@ -448,7 +448,7 @@ describe(`content.builder.ts`, () => {
             },
           ],
         },
-        optionalConsents: {
+        optionalCookies: {
           ...optionalCookies,
           groups: [
             {
@@ -471,7 +471,7 @@ describe(`content.builder.ts`, () => {
     });
   });
   describe('contentSource.groups[]', () => {
-    it('adds a group when commonGroup is set and creates requiredConsents if group.required = true', () => {
+    it('adds a group when commonGroup is set and creates requiredCookies if group.required = true', () => {
       const contentWithCookie = createContent({
         ...commonContentTestProps,
         groups: [
@@ -493,7 +493,7 @@ describe(`content.builder.ts`, () => {
       });
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
-        requiredConsents: {
+        requiredCookies: {
           ...requiredCookies,
           groups: [
             {
@@ -509,12 +509,12 @@ describe(`content.builder.ts`, () => {
             },
           ],
         },
-        optionalConsents: undefined,
+        optionalCookies: undefined,
       };
 
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
-    it('adds a group when commonGroup is set and creates optionalConsents if group.required = false', () => {
+    it('adds a group when commonGroup is set and creates optionalCookies if group.required = false', () => {
       const contentWithCookie = createContent({
         ...commonContentTestProps,
         groups: [
@@ -534,7 +534,7 @@ describe(`content.builder.ts`, () => {
       });
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
-        optionalConsents: {
+        optionalCookies: {
           ...optionalCookies,
           groups: [
             {
@@ -550,7 +550,7 @@ describe(`content.builder.ts`, () => {
             },
           ],
         },
-        requiredConsents: undefined,
+        requiredCookies: undefined,
       };
 
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
@@ -591,7 +591,7 @@ describe(`content.builder.ts`, () => {
 
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
-        requiredConsents: {
+        requiredCookies: {
           ...requiredCookies,
           groups: [
             {
@@ -607,7 +607,7 @@ describe(`content.builder.ts`, () => {
             },
           ],
         },
-        optionalConsents: {
+        optionalCookies: {
           ...optionalCookies,
           groups: [
             {
@@ -662,7 +662,7 @@ describe(`content.builder.ts`, () => {
 
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
-        requiredConsents: {
+        requiredCookies: {
           ...requiredCookies,
           groups: [
             {
@@ -676,7 +676,7 @@ describe(`content.builder.ts`, () => {
             },
           ],
         },
-        optionalConsents: {
+        optionalCookies: {
           ...optionalCookies,
           groups: [
             {
@@ -695,8 +695,8 @@ describe(`content.builder.ts`, () => {
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
   });
-  describe('contentSource.requiredConsents and optionalConsents', () => {
-    it('requiredConsents are constructed from its props', () => {
+  describe('contentSource.requiredCookies and optionalCookies', () => {
+    it('requiredCookies are constructed from its props', () => {
       const contentWithCookie = createContent({
         ...commonContentTestProps,
         requiredCookies: {
@@ -720,7 +720,7 @@ describe(`content.builder.ts`, () => {
       });
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
-        requiredConsents: {
+        requiredCookies: {
           ...requiredCookies,
           groups: [
             {
@@ -736,11 +736,11 @@ describe(`content.builder.ts`, () => {
             },
           ],
         },
-        optionalConsents: undefined,
+        optionalCookies: undefined,
       };
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
-    it('optionalConsents are constructed from its props', () => {
+    it('optionalCookies are constructed from its props', () => {
       const contentWithCookie = createContent({
         ...commonContentTestProps,
         optionalCookies: {
@@ -762,7 +762,7 @@ describe(`content.builder.ts`, () => {
       });
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
-        optionalConsents: {
+        optionalCookies: {
           ...optionalCookies,
           groups: [
             {
@@ -778,7 +778,7 @@ describe(`content.builder.ts`, () => {
             },
           ],
         },
-        requiredConsents: undefined,
+        requiredCookies: undefined,
       };
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
@@ -805,7 +805,7 @@ describe(`content.builder.ts`, () => {
       });
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
-        optionalConsents: {
+        optionalCookies: {
           ...optionalCookies,
           groups: [
             {
@@ -821,7 +821,7 @@ describe(`content.builder.ts`, () => {
             },
           ],
         },
-        requiredConsents: undefined,
+        requiredCookies: undefined,
       };
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
@@ -854,7 +854,7 @@ describe(`content.builder.ts`, () => {
       });
       const expectedResult: Content = {
         ...defaultTextsAndLanguage,
-        requiredConsents: {
+        requiredCookies: {
           ...requiredCookies,
           ...newCategoryTexts,
           groups: [
@@ -864,7 +864,7 @@ describe(`content.builder.ts`, () => {
             },
           ],
         },
-        optionalConsents: {
+        optionalCookies: {
           ...optionalCookies,
           ...newCategoryTexts,
           groups: [
@@ -896,9 +896,9 @@ describe(`content.builder.ts`, () => {
   describe('Automatically adds the consent storage cookie to required consents', () => {
     it('when noCommonConsentCookie is not true ', () => {
       const content = createContent({ siteName, currentLanguage: 'fi' });
-      expect(content.requiredConsents).toBeDefined();
-      expect(content.requiredConsents.groups[0].title).toBe(commonContent.commonGroups.sharedConsents.fi.title);
-      expect(content.requiredConsents.groups[0].cookies[0].name).toBe(
+      expect(content.requiredCookies).toBeDefined();
+      expect(content.requiredCookies.groups[0].title).toBe(commonContent.commonGroups.sharedConsents.fi.title);
+      expect(content.requiredCookies.groups[0].cookies[0].name).toBe(
         commonContent.commonCookies.helConsentCookie.fi.name,
       );
     });

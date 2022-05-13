@@ -184,7 +184,7 @@ export async function openAllAccordions(
   dataTestIds: typeof commonTestProps['dataTestIds'],
 ): Promise<void> {
   const openAccordions = async (groupParent: TestGroupParent) => {
-    const list = groupParent === 'required' ? content.requiredConsents.groups : content.optionalConsents.groups;
+    const list = groupParent === 'required' ? content.requiredCookies.groups : content.optionalCookies.groups;
     let index = 0;
     /* eslint-disable no-restricted-syntax */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

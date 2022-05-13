@@ -1,7 +1,7 @@
 export type CookieConsentAction =
   | 'approveAll'
   | 'approveRequired'
-  | 'changeConsentGroup'
+  | 'changeCookieGroupConsents'
   | 'approveOptional'
   | 'unapproveOptional'
   | 'approveSelectedAndRequired';
