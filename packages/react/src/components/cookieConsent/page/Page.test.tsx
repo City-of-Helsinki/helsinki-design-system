@@ -4,14 +4,13 @@ import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { Page } from './Page';
 import { COOKIE_NAME } from '../cookieConsentController';
 import { Content } from '../CookieConsentContext';
 import mockDocumentCookie from '../__mocks__/mockDocumentCookie';
 import {
   clickElement,
   extractSetCookieArguments,
-  getContent,
+  getContentSource,
   openAccordion,
   verifyElementExistsByTestId,
   commonTestProps,
@@ -20,6 +19,8 @@ import {
   createCookieDataWithSelectedRejections,
   openAllAccordions,
 } from '../test.util';
+import { createContent } from '../content.builder';
+import { ConsentsInPage } from '../consentsInPage/ConsentsInPage';
 
 const { requiredGroupParent, optionalGroupParent, defaultConsentData, unknownConsents, dataTestIds } = commonTestProps;
 
@@ -31,7 +32,6 @@ const renderCookieConsent = ({
   requiredConsents = [],
   optionalConsents = [],
   cookie = {},
-  contentModifier,
 }: TestConsentData): RenderResult => {
   // inject unknown consents to verify those are
   // stored and handled, but not required or optional
@@ -39,9 +39,10 @@ const renderCookieConsent = ({
     ...cookie,
     ...unknownConsents,
   };
-  content = getContent(requiredConsents, optionalConsents, contentModifier);
+  const contentSource = getContentSource(requiredConsents, optionalConsents);
+  content = createContent(contentSource);
   mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
-  const result = render(<Page content={content} />);
+  const result = render(<ConsentsInPage contentSource={contentSource} />);
 
   return result;
 };
