@@ -1,7 +1,7 @@
 import _get from 'lodash.get';
 import _set from 'lodash.set';
 
-import {
+import type {
   ConsentData,
   ConsentGroup,
   Content,
@@ -33,14 +33,12 @@ export type ContentSourceCategory = Omit<Partial<Category>, 'groups'> & {
 };
 
 type ContentSourceTexts = {
-  texts?: {
-    sections?: {
-      main?: Partial<Description>;
-      details?: Partial<Description>;
-    };
-    ui?: Partial<UiTexts>;
-    tableHeadings?: Partial<TableData>;
+  sections?: {
+    main?: Partial<Description>;
+    details?: Partial<Description>;
   };
+  ui?: Partial<UiTexts>;
+  tableHeadings?: Partial<TableData>;
 };
 
 export type ContentSource = {

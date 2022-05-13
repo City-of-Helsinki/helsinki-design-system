@@ -1,6 +1,6 @@
 import _get from 'lodash.get';
 
-import { CategoryInContentSource, ContentSource, createContent } from './content.builder';
+import { ContentSource, createContent } from './content.builder';
 import commonContent from './content.json';
 import { ConsentData, ConsentGroup, Content, Category } from './CookieConsentContext';
 
@@ -826,7 +826,7 @@ describe(`content.builder.ts`, () => {
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
     it('category texts can be overridden', () => {
-      const newCategoryTexts: Partial<CategoryInContentSource> = {
+      const newCategoryTexts: Partial<ContentSource['requiredConsents']> = {
         title: 'overridden title',
         text: 'overridden text',
         checkboxAriaDescription: 'overridden checkboxAriaDescription',

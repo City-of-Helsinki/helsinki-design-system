@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
 
 import createConsentController, { ConsentController, ConsentList, ConsentObject } from './cookieConsentController';
+import { ContentSource, createContent } from './content.builder';
 import { CookieConsentActionListener } from './types';
 
 export type Description = {
@@ -76,7 +77,7 @@ export type CookieConsentContextType = {
 type CookieConsentContextProps = {
   cookieDomain?: string;
   children: React.ReactNode | React.ReactNode[] | null;
-  content: Content;
+  contentSource: ContentSource;
 };
 
 export const CookieConsentContext = createContext<CookieConsentContextType>({
@@ -96,7 +97,11 @@ export const getConsentsFromConsentGroup = (groups: ConsentGroup[]): ConsentList
   }, []);
 };
 
-export const Provider = ({ cookieDomain, children, content }: CookieConsentContextProps): React.ReactElement => {
+export const Provider = ({ cookieDomain, children, contentSource }: CookieConsentContextProps): React.ReactElement => {
+  const language = contentSource.currentLanguage;
+  const content = useMemo(() => {
+    return createContent(contentSource);
+  }, [language]);
   const requiredConsents = content.requiredConsents
     ? getConsentsFromConsentGroup(content.requiredConsents.groups)
     : undefined;
