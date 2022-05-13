@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import {
-  ConsentGroup as ConsentGroupType,
+  CookieGroup as ConsentGroupType,
   CookieConsentContext,
   useCookieConsentActions,
 } from '../CookieConsentContext';
@@ -18,7 +18,7 @@ export function ConsentGroup(props: { group: ConsentGroupType; isRequired: boole
   const { isOpen, buttonProps, contentProps } = useAccordion({
     initiallyOpen: false,
   });
-  const groupConsents = group.consents;
+  const groupConsents = group.cookies;
   const cookieConsentContext = useContext(CookieConsentContext);
   const triggerAction = useCookieConsentActions();
   const areAllApproved = isRequired || cookieConsentContext.areGroupConsentsApproved(groupConsents);

@@ -186,8 +186,8 @@ describe('<Modal /> ', () => {
         ...unknownConsents,
       };
       await openAccordion(result, dataTestIds.settingsToggler);
-      clickElement(result, dataTestIds.getConsentGroupCheckboxId(optionalGroupParent, 0));
-      clickElement(result, dataTestIds.getConsentGroupCheckboxId(optionalGroupParent, 1));
+      clickElement(result, dataTestIds.getCookieGroupCheckboxId(optionalGroupParent, 0));
+      clickElement(result, dataTestIds.getCookieGroupCheckboxId(optionalGroupParent, 1));
       clickElement(result, dataTestIds.approveRequiredButton);
       checkCookiesAreSetAndConsentModalHidden(result, consentResult);
     });
@@ -199,7 +199,7 @@ describe('<Modal /> ', () => {
         ...unknownConsents,
       };
       await openAccordion(result, dataTestIds.settingsToggler);
-      clickElement(result, dataTestIds.getConsentGroupCheckboxId(optionalGroupParent, 0));
+      clickElement(result, dataTestIds.getCookieGroupCheckboxId(optionalGroupParent, 0));
       clickElement(result, dataTestIds.approveButton);
       checkCookiesAreSetAndConsentModalHidden(result, consentResult);
     });
@@ -211,12 +211,12 @@ describe('<Modal /> ', () => {
       verifyElementExistsByTestId(result, dataTestIds.getConsentsCheckboxId(requiredGroupParent));
       verifyElementExistsByTestId(result, dataTestIds.getConsentsCheckboxId(optionalGroupParent));
       defaultConsentData.requiredConsents.forEach((consent, index) => {
-        verifyElementExistsByTestId(result, dataTestIds.getConsentGroupCheckboxId(requiredGroupParent, index));
-        verifyElementExistsByTestId(result, dataTestIds.getConsentGroupDetailsTogglerId(requiredGroupParent, index));
+        verifyElementExistsByTestId(result, dataTestIds.getCookieGroupCheckboxId(requiredGroupParent, index));
+        verifyElementExistsByTestId(result, dataTestIds.getCookieGroupDetailsTogglerId(requiredGroupParent, index));
       });
       defaultConsentData.optionalConsents.forEach((consent, index) => {
-        verifyElementExistsByTestId(result, dataTestIds.getConsentGroupCheckboxId(optionalGroupParent, index));
-        verifyElementExistsByTestId(result, dataTestIds.getConsentGroupDetailsTogglerId(optionalGroupParent, index));
+        verifyElementExistsByTestId(result, dataTestIds.getCookieGroupCheckboxId(optionalGroupParent, index));
+        verifyElementExistsByTestId(result, dataTestIds.getCookieGroupDetailsTogglerId(optionalGroupParent, index));
       });
     });
 
@@ -236,9 +236,9 @@ describe('<Modal /> ', () => {
         Cookie consent is not hidden until an approve -button is clicked`, async () => {
       const result = await initDetailsView(defaultConsentData);
       defaultConsentData.optionalConsents.forEach((consent, index) => {
-        clickElement(result, dataTestIds.getConsentGroupCheckboxId(optionalGroupParent, index));
+        clickElement(result, dataTestIds.getCookieGroupCheckboxId(optionalGroupParent, index));
       });
-      clickElement(result, dataTestIds.getConsentGroupCheckboxId(optionalGroupParent, 0));
+      clickElement(result, dataTestIds.getCookieGroupCheckboxId(optionalGroupParent, 0));
       clickElement(result, dataTestIds.approveButton);
       expect(JSON.parse(getSetCookieArguments().data)).toEqual({
         ...createConsentObjectWithSelectedRejections(['optionalConsent1']),
@@ -258,13 +258,13 @@ describe('<Modal /> ', () => {
         // cannot use async/await with array.forEach
         // eslint-disable-next-line no-restricted-syntax
         for (const groups of list) {
-          expect(result.getByTestId(dataTestIds.getConsentGroupTableId(groupParent, index))).not.toBeVisible();
+          expect(result.getByTestId(dataTestIds.getCookieGroupTableId(groupParent, index))).not.toBeVisible();
           // eslint-disable-next-line no-await-in-loop
-          await openAccordion(result, dataTestIds.getConsentGroupDetailsTogglerId(groupParent, index));
-          expect(result.getByTestId(dataTestIds.getConsentGroupTableId(groupParent, index))).toBeVisible();
+          await openAccordion(result, dataTestIds.getCookieGroupDetailsTogglerId(groupParent, index));
+          expect(result.getByTestId(dataTestIds.getCookieGroupTableId(groupParent, index))).toBeVisible();
           index += 1;
-          groups.consents.forEach((consent) => {
-            expect(result.getAllByText(consent.name)).toHaveLength(1);
+          groups.cookies.forEach((cookie) => {
+            expect(result.getAllByText(cookie.name)).toHaveLength(1);
           });
         }
       };

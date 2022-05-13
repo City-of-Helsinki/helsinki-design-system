@@ -3,7 +3,7 @@ import _set from 'lodash.set';
 
 import type {
   CookieData,
-  ConsentGroup,
+  CookieGroup,
   Content,
   Description,
   Category,
@@ -21,11 +21,11 @@ type ContentSourceConsentData = Partial<CookieData> & {
   commonCookie?: string;
 };
 
-type ContentSourceConsentGroup = Omit<Partial<ConsentGroup>, 'consents'> & {
+type ContentSourceConsentGroup = Omit<Partial<CookieGroup>, 'cookies'> & {
   commonGroup?: string;
   required?: boolean;
   id?: string;
-  consents: ContentSourceConsentData[];
+  cookies: ContentSourceConsentData[];
 };
 
 export type ContentSourceCategory = Omit<Partial<Category>, 'groups'> & {
@@ -102,7 +102,7 @@ function getCategoryDescriptions(
   };
 }
 
-function getCommonConsentGroup(language: string, id: string): Omit<ConsentGroup, 'consents'> {
+function getCommonConsentGroup(language: string, id: string): Omit<CookieGroup, 'cookies'> {
   const { commonGroups } = commonContent;
   if (!commonGroups[id]) {
     throw new Error(`Unknown common consent group ${id}`);
@@ -145,14 +145,14 @@ function mergeObjects(target: MergableContent, source: MergableContent, paths: s
 
 function buildConsentGroups(
   props: ContentSource,
-): { requiredConsents: ConsentGroup[]; optionalConsents: ConsentGroup[] } {
+): { requiredConsents: CookieGroup[]; optionalConsents: CookieGroup[] } {
   const requiredConsents = [];
   const optionalConsents = [];
-  const groupMap = new Map<string, ConsentGroup>();
+  const groupMap = new Map<string, CookieGroup>();
   const { currentLanguage, groups, cookies, noCommonConsentCookie } = props;
 
   const parseGroup = (groupSource: ContentSourceConsentGroup, isRequired?: boolean) => {
-    let consentGroup: ConsentGroup | undefined;
+    let consentGroup: CookieGroup | undefined;
     const isRequiredOverride = !!(isRequired !== undefined ? isRequired : groupSource.required);
     const mapId = groupSource.commonGroup || groupSource.id || groupSource.title;
     consentGroup = groupMap.get(mapId);
@@ -161,7 +161,7 @@ function buildConsentGroups(
         const groupTexts = getCommonConsentGroup(currentLanguage, groupSource.commonGroup);
         consentGroup = {
           ...groupTexts,
-          consents: [],
+          cookies: [],
         };
         mergeObjects(consentGroup, groupSource, ['title', 'text', 'expandAriaLabel', 'checkboxAriaDescription']);
       } else {
@@ -170,14 +170,14 @@ function buildConsentGroups(
           text: groupSource.text,
           expandAriaLabel: groupSource.expandAriaLabel,
           checkboxAriaDescription: groupSource.checkboxAriaDescription,
-          consents: [],
+          cookies: [],
         };
       }
       groupMap.set(mapId, consentGroup);
       isRequiredOverride ? requiredConsents.push(consentGroup) : optionalConsents.push(consentGroup);
     }
-    if (groupSource.consents) {
-      groupSource.consents.forEach((cookieSource) => {
+    if (groupSource.cookies) {
+      groupSource.cookies.forEach((cookieSource) => {
         /* eslint-disable @typescript-eslint/no-unused-vars */
         const {
           commonGroup,
@@ -188,7 +188,7 @@ function buildConsentGroups(
         } = cookieSource as ContentSourceConsentData;
         /* eslint-enable @typescript-eslint/no-unused-vars */
         const cookieData = commonCookie ? getCommonCookie(currentLanguage, commonCookie, cookieProps) : cookieProps;
-        consentGroup.consents.push(cookieData as CookieData);
+        consentGroup.cookies.push(cookieData as CookieData);
       });
     }
   };
@@ -214,7 +214,7 @@ function buildConsentGroups(
       const { commonGroup, groupId } = cookie;
       const groupIdentifier = commonGroup || groupId;
       if (groupIdentifier) {
-        parseGroup({ commonGroup, id: groupId, consents: [cookie] }, cookie.required);
+        parseGroup({ commonGroup, id: groupId, cookies: [cookie] }, cookie.required);
       } else {
         throw new Error('Cannot add single cookie without a group');
       }
@@ -226,7 +226,7 @@ function buildConsentGroups(
   if (!noCommonConsentCookie && !helConsentCookieFound) {
     const consentCookie: Partial<CookieData> = getCommonCookie(currentLanguage, 'helConsentCookie');
     consentCookie.id = COOKIE_NAME;
-    parseGroup({ commonGroup: 'sharedConsents', consents: [consentCookie] }, true);
+    parseGroup({ commonGroup: 'sharedConsents', cookies: [consentCookie] }, true);
   }
   return {
     requiredConsents,
@@ -237,7 +237,7 @@ function buildConsentGroups(
 function buildConsentCategories(
   description: Description,
   overrides?: Partial<ContentSourceCategory>,
-  groups?: ConsentGroup[],
+  groups?: CookieGroup[],
 ): Category {
   if (!overrides && (!groups || !groups.length)) {
     return undefined;
@@ -301,13 +301,13 @@ export function pickConsentIdsFromContentSource(
   const consentGroups = buildConsentGroups(contentSource as ContentSource);
 
   consentGroups.requiredConsents.forEach((group) => {
-    if (group.consents) {
-      required = group.consents.map((consent) => consent.id);
+    if (group.cookies) {
+      required = group.cookies.map((consent) => consent.id);
     }
   });
   consentGroups.optionalConsents.forEach((group) => {
-    if (group.consents) {
-      optional = group.consents.map((consent) => consent.id);
+    if (group.cookies) {
+      optional = group.cookies.map((consent) => consent.id);
     }
   });
 
