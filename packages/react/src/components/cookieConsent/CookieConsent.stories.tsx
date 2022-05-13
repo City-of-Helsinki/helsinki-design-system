@@ -24,7 +24,7 @@ const getContentSource = (options: Partial<ContentSource>): ContentSource => {
       {
         commonGroup: 'essential',
         required: true,
-        consents: [
+        cookies: [
           {
             commonCookie: 'tunnistamo',
           },
@@ -47,7 +47,7 @@ const getContentSource = (options: Partial<ContentSource>): ContentSource => {
       {
         commonGroup: 'marketing',
         required: false,
-        consents: [
+        cookies: [
           {
             commonCookie: 'marketing',
           },
@@ -56,7 +56,7 @@ const getContentSource = (options: Partial<ContentSource>): ContentSource => {
       {
         commonGroup: 'preferences',
         required: false,
-        consents: [
+        cookies: [
           {
             id: 'preferences',
             name: 'Asetus 1',
@@ -71,7 +71,7 @@ const getContentSource = (options: Partial<ContentSource>): ContentSource => {
       {
         commonGroup: 'statistics',
         required: false,
-        consents: [
+        cookies: [
           {
             commonCookie: 'matomo',
           },
