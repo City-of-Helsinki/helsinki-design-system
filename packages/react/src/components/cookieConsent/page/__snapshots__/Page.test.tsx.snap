@@ -60,14 +60,14 @@ exports[`<Page /> spec renders the component 1`] = `
                 class="label"
                 for="required-consents-checkbox"
               >
-                Title for required consents
+                Title for required cookies
               </label>
             </div>
           </div>
           <p
             aria-hidden="true"
           >
-            Text for required consents
+            Text for required cookies
           </p>
           <div
             aria-hidden="true"
@@ -105,7 +105,7 @@ exports[`<Page /> spec renders the component 1`] = `
                       class="label"
                       for="required-consents-group-0-checkbox"
                     >
-                      Consent group title for requiredConsentGroup0
+                      Cookie group title for requiredCookieGroup0
                     </label>
                   </div>
                 </div>
@@ -115,18 +115,18 @@ exports[`<Page /> spec renders the component 1`] = `
                   <p
                     aria-hidden="true"
                   >
-                    Consent group description for requiredConsentGroup0
+                    Cookie group description for requiredCookieGroup0
                   </p>
                   <div
                     aria-hidden="true"
                     id="required-consents-group-0-description"
                     style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
                   >
-                    checkboxAriaLabel for requiredConsentGroup0
+                    checkboxAriaLabel for requiredCookieGroup0
                   </div>
                   <button
                     aria-expanded="false"
-                    aria-label="expandAriaLabel for requiredConsentGroup0"
+                    aria-label="expandAriaLabel for requiredCookieGroup0"
                     class="accordion-button"
                     data-testid="required-consents-group-0-details-toggler"
                     type="button"
@@ -153,7 +153,7 @@ exports[`<Page /> spec renders the component 1`] = `
                     </svg>
                   </button>
                   <div
-                    aria-label="Consent group title for requiredConsentGroup0"
+                    aria-label="Cookie group title for requiredCookieGroup0"
                     class="card custom-theme-1"
                     role="region"
                     style="display: none;"
@@ -292,7 +292,7 @@ exports[`<Page /> spec renders the component 1`] = `
                       class="label"
                       for="required-consents-group-1-checkbox"
                     >
-                      Consent group title for requiredConsentGroup1
+                      Cookie group title for requiredCookieGroup1
                     </label>
                   </div>
                 </div>
@@ -302,18 +302,18 @@ exports[`<Page /> spec renders the component 1`] = `
                   <p
                     aria-hidden="true"
                   >
-                    Consent group description for requiredConsentGroup1
+                    Cookie group description for requiredCookieGroup1
                   </p>
                   <div
                     aria-hidden="true"
                     id="required-consents-group-1-description"
                     style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
                   >
-                    checkboxAriaLabel for requiredConsentGroup1
+                    checkboxAriaLabel for requiredCookieGroup1
                   </div>
                   <button
                     aria-expanded="false"
-                    aria-label="expandAriaLabel for requiredConsentGroup1"
+                    aria-label="expandAriaLabel for requiredCookieGroup1"
                     class="accordion-button"
                     data-testid="required-consents-group-1-details-toggler"
                     type="button"
@@ -340,7 +340,7 @@ exports[`<Page /> spec renders the component 1`] = `
                     </svg>
                   </button>
                   <div
-                    aria-label="Consent group title for requiredConsentGroup1"
+                    aria-label="Cookie group title for requiredCookieGroup1"
                     class="card custom-theme-3"
                     role="region"
                     style="display: none;"
@@ -451,14 +451,14 @@ exports[`<Page /> spec renders the component 1`] = `
                 class="label"
                 for="optional-consents-checkbox"
               >
-                Title for optional consents
+                Title for optional cookies
               </label>
             </div>
           </div>
           <p
             aria-hidden="true"
           >
-            Text for optional consents
+            Text for optional cookies
           </p>
           <div
             aria-hidden="true"
@@ -494,7 +494,7 @@ exports[`<Page /> spec renders the component 1`] = `
                       class="label"
                       for="optional-consents-group-0-checkbox"
                     >
-                      Consent group title for optionalConsentGroups0
+                      Cookie group title for optionalCookieGroups0
                     </label>
                   </div>
                 </div>
@@ -504,18 +504,18 @@ exports[`<Page /> spec renders the component 1`] = `
                   <p
                     aria-hidden="true"
                   >
-                    Consent group description for optionalConsentGroups0
+                    Cookie group description for optionalCookieGroups0
                   </p>
                   <div
                     aria-hidden="true"
                     id="optional-consents-group-0-description"
                     style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
                   >
-                    checkboxAriaLabel for optionalConsentGroups0
+                    checkboxAriaLabel for optionalCookieGroups0
                   </div>
                   <button
                     aria-expanded="false"
-                    aria-label="expandAriaLabel for optionalConsentGroups0"
+                    aria-label="expandAriaLabel for optionalCookieGroups0"
                     class="accordion-button"
                     data-testid="optional-consents-group-0-details-toggler"
                     type="button"
@@ -542,7 +542,7 @@ exports[`<Page /> spec renders the component 1`] = `
                     </svg>
                   </button>
                   <div
-                    aria-label="Consent group title for optionalConsentGroups0"
+                    aria-label="Cookie group title for optionalCookieGroups0"
                     class="card custom-theme-5"
                     role="region"
                     style="display: none;"
@@ -652,7 +652,7 @@ exports[`<Page /> spec renders the component 1`] = `
                       class="label"
                       for="optional-consents-group-1-checkbox"
                     >
-                      Consent group title for optionalConsentGroups1
+                      Cookie group title for optionalCookieGroups1
                     </label>
                   </div>
                 </div>
@@ -662,18 +662,18 @@ exports[`<Page /> spec renders the component 1`] = `
                   <p
                     aria-hidden="true"
                   >
-                    Consent group description for optionalConsentGroups1
+                    Cookie group description for optionalCookieGroups1
                   </p>
                   <div
                     aria-hidden="true"
                     id="optional-consents-group-1-description"
                     style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
                   >
-                    checkboxAriaLabel for optionalConsentGroups1
+                    checkboxAriaLabel for optionalCookieGroups1
                   </div>
                   <button
                     aria-expanded="false"
-                    aria-label="expandAriaLabel for optionalConsentGroups1"
+                    aria-label="expandAriaLabel for optionalCookieGroups1"
                     class="accordion-button"
                     data-testid="optional-consents-group-1-details-toggler"
                     type="button"
@@ -700,7 +700,7 @@ exports[`<Page /> spec renders the component 1`] = `
                     </svg>
                   </button>
                   <div
-                    aria-label="Consent group title for optionalConsentGroups1"
+                    aria-label="Cookie group title for optionalCookieGroups1"
                     class="card custom-theme-7"
                     role="region"
                     style="display: none;"
