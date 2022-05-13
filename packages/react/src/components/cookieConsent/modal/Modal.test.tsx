@@ -12,7 +12,7 @@ import mockDocumentCookie from '../__mocks__/mockDocumentCookie';
 import {
   clickElement,
   extractSetCookieArguments,
-  getContent,
+  getContentSource,
   isAccordionOpen,
   openAccordion,
   openAllAccordions,
@@ -23,6 +23,7 @@ import {
   TestGroupParent,
   createCookieDataWithSelectedRejections,
 } from '../test.util';
+import { createContent } from '../content.builder';
 
 const { requiredGroupParent, optionalGroupParent, defaultConsentData, unknownConsents, dataTestIds } = commonTestProps;
 
@@ -31,7 +32,7 @@ const mockedCookieControls = mockDocumentCookie();
 let content: Content;
 
 const renderCookieConsent = (
-  { requiredConsents = [], optionalConsents = [], cookie = {}, contentModifier }: TestConsentData,
+  { requiredConsents = [], optionalConsents = [], cookie = {}, contentSourceOverrides }: TestConsentData,
   withRealTimers = false,
 ): RenderResult => {
   // inject unknown consents to verify those are
@@ -40,11 +41,12 @@ const renderCookieConsent = (
     ...cookie,
     ...unknownConsents,
   };
-  content = getContent(requiredConsents, optionalConsents, contentModifier);
+  const contentSource = getContentSource(requiredConsents, optionalConsents, contentSourceOverrides);
+  content = createContent(contentSource);
   jest.useFakeTimers();
   mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
   const result = render(
-    <CookieContextProvider content={content}>
+    <CookieContextProvider contentSource={contentSource}>
       <Modal />
     </CookieContextProvider>,
   );
@@ -148,11 +150,7 @@ describe('<Modal /> ', () => {
       const onLanguageChange = jest.fn();
       const result = renderCookieConsent({
         ...defaultConsentData,
-        contentModifier: (currentContent) => {
-          // eslint-disable-next-line no-param-reassign
-          currentContent.language.onLanguageChange = onLanguageChange;
-          return currentContent;
-        },
+        contentSourceOverrides: { language: { onLanguageChange } },
       });
       fireEvent.click(result.container.querySelector('#cookie-consent-language-selector-button'));
       fireEvent.click(result.container.querySelector('a[lang="sv"]'));
