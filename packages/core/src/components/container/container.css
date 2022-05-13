@@ -1,13 +1,13 @@
 .hds-container {
   box-sizing: border-box;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: var(--spacing-layout-2-xs);
+  padding-right: var(--spacing-layout-2-xs);
 }
 
 @media(min-width: 768px) {
   .hds-container {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: var(--spacing-layout-xs);
+    padding-right: var(--spacing-layout-xs);
   }
 }
 
