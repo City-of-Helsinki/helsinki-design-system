@@ -1,17 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 
-import { Content, SupportedLanguage } from './CookieConsentContext';
+import { SupportedLanguage } from './CookieConsentContext';
 import { ConsentsInModal } from './consentsInModal/ConsentsInModal';
-import { Page } from './page/Page';
+import { ConsentsInPage } from './consentsInPage/ConsentsInPage';
 import { getConsentStatus, hasHandledAllConsents } from './util';
-import { ContentSource, createContent } from './content.builder';
-
-type ContentOptions = {
-  currentLanguage: SupportedLanguage;
-  onLanguageChange: Content['language']['onLanguageChange'];
-  onAllConsentsGiven?: Content['onAllConsentsGiven'];
-  onConsentsParsed?: Content['onConsentsParsed'];
-};
+import { ContentSource, pickConsentIdsFromContentSource } from './content.builder';
 
 export default {
   component: ConsentsInModal,
@@ -22,10 +15,9 @@ export default {
   args: {},
 };
 
-const getContent = (options: ContentOptions): Content => {
-  const { onLanguageChange, currentLanguage, onAllConsentsGiven, onConsentsParsed } = options;
-
-  const contentSource: ContentSource = {
+const getContentSource = (options: Partial<ContentSource>): ContentSource => {
+  const { language, currentLanguage, onAllConsentsGiven, onConsentsParsed } = options;
+  return {
     siteName: 'Sivuston XXX',
     currentLanguage,
     groups: [
@@ -94,15 +86,10 @@ const getContent = (options: ContentOptions): Content => {
         ],
       },
     ],
-
-    language: {
-      onLanguageChange,
-    },
+    language,
     onAllConsentsGiven,
     onConsentsParsed,
   };
-
-  return createContent(contentSource);
 };
 
 // args is required for docs tab to show source code
@@ -112,36 +99,36 @@ export const ModalVersion = (args) => {
   const onLanguageChange = (newLang) => setLanguage(newLang);
   const focusedElementAfterCloseId = 'focused-element-after-cookie-consent-closed';
 
-  const content: Content = useMemo((): Content => {
-    return getContent({
-      currentLanguage: language,
+  const contentSource = getContentSource({
+    currentLanguage: language,
+    language: {
       onLanguageChange,
-      onAllConsentsGiven: (consents) => {
-        if (consents.matomo) {
-          //  start tracking
-          // window._paq.push(['setConsentGiven']);
-          // window._paq.push(['setCookieConsentGiven']);
-        }
-        const focusEl = document.getElementById(focusedElementAfterCloseId);
-        if (focusEl) {
-          focusEl.focus();
-        }
-      },
-      onConsentsParsed: (consents, hasUserHandledAllConsents) => {
-        if (consents.matomo === undefined) {
-          // tell matomo to wait for consent:
-          // window._paq.push(['requireConsent']);
-          // window._paq.push(['requireCookieConsent']);
-        } else if (consents.matomo === false) {
-          // tell matomo to forget conset
-          // window._paq.push(['forgetConsentGiven']);
-        }
-        if (hasUserHandledAllConsents) {
-          // cookie consent dialog will not be shown
-        }
-      },
-    });
-  }, [language]);
+    },
+    onAllConsentsGiven: (consents) => {
+      if (consents.matomo) {
+        //  start tracking
+        // window._paq.push(['setConsentGiven']);
+        // window._paq.push(['setCookieConsentGiven']);
+      }
+      const focusEl = document.getElementById(focusedElementAfterCloseId);
+      if (focusEl) {
+        focusEl.focus();
+      }
+    },
+    onConsentsParsed: (consents, hasUserHandledAllConsents) => {
+      if (consents.matomo === undefined) {
+        // tell matomo to wait for consent:
+        // window._paq.push(['requireConsent']);
+        // window._paq.push(['requireCookieConsent']);
+      } else if (consents.matomo === false) {
+        // tell matomo to forget conset
+        // window._paq.push(['forgetConsentGiven']);
+      }
+      if (hasUserHandledAllConsents) {
+        // cookie consent dialog will not be shown
+      }
+    },
+  });
 
   const MatomoCookieTracker = () => {
     const isMatomoCookieApproved = getConsentStatus('matomo');
@@ -163,9 +150,10 @@ export const ModalVersion = (args) => {
   };
 
   const Application = () => {
+    const consentsInSource = pickConsentIdsFromContentSource(contentSource);
     const willRenderCookieConsentDialog = !hasHandledAllConsents(
-      content.requiredConsents || [],
-      content.optionalConsents || [],
+      consentsInSource.required || [],
+      consentsInSource.optional || [],
     );
     return (
       <div>
@@ -190,7 +178,7 @@ export const ModalVersion = (args) => {
 
   return (
     <>
-      <ConsentsInModal content={content} />
+      <ConsentsInModal contentSource={contentSource} />
       <Application />
     </>
   );
@@ -203,12 +191,10 @@ export const PageVersion = (args) => {
     const [language, setLanguage] = useState<SupportedLanguage>('fi');
     const onLanguageChange = (newLang) => setLanguage(newLang);
 
-    const content: Content = useMemo((): Content => {
-      return getContent({ currentLanguage: language, onLanguageChange });
-    }, [language]);
+    const contentSource = getContentSource({ currentLanguage: language, language: { onLanguageChange } });
     return (
       <main>
-        <Page content={content} />
+        <ConsentsInPage contentSource={contentSource} />
       </main>
     );
   };

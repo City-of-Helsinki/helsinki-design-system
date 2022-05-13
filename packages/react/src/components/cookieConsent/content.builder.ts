@@ -291,3 +291,28 @@ export function createContent(props: ContentSource): Content {
   }
   return content as Content;
 }
+
+export function pickConsentIdsFromContentSource(
+  contentSource: Partial<ContentSource>,
+): { required: string[]; optional: string[] } {
+  let required: string[] = [];
+  let optional: string[] = [];
+
+  const consentGroups = buildConsentGroups(contentSource as ContentSource);
+
+  consentGroups.requiredConsents.forEach((group) => {
+    if (group.consents) {
+      required = group.consents.map((consent) => consent.id);
+    }
+  });
+  consentGroups.optionalConsents.forEach((group) => {
+    if (group.consents) {
+      optional = group.consents.map((consent) => consent.id);
+    }
+  });
+
+  return {
+    required,
+    optional,
+  };
+}
