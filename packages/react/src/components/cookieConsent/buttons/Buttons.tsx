@@ -9,7 +9,7 @@ export type Props = {
   onClick?: () => void;
 };
 
-function Buttons({ detailsAreShown, onClick = () => undefined }: Props): React.ReactElement {
+export function Buttons({ detailsAreShown, onClick = () => undefined }: Props): React.ReactElement {
   const triggerAction = useCookieConsentActions();
   const {
     approveRequiredAndSelectedConsents,
@@ -43,5 +43,3 @@ function Buttons({ detailsAreShown, onClick = () => undefined }: Props): React.R
     </div>
   );
 }
-
-export default Buttons;

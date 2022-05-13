@@ -1,16 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 
-import Buttons from '../buttons/Buttons';
+import { Buttons } from '../buttons/Buttons';
 import { IconAngleDown, IconAngleUp } from '../../../icons';
 import { useAccordion } from '../../accordion';
-import Details from '../details/Details';
+import { Details } from '../details/Details';
 import styles from '../CookieConsent.module.scss';
 import { Card } from '../../card/Card';
 import { useCookieConsentSectionTexts, useCookieConsentUiTexts } from '../CookieConsentContext';
-import LanguageSwitcher from '../languageSwitcher/LanguageSwitcher';
+import { LanguageSwitcher } from '../languageSwitcher/LanguageSwitcher';
 import classNames from '../../../utils/classNames';
 
-function Content(): React.ReactElement {
+export function Content(): React.ReactElement {
   const { isOpen, buttonProps, contentProps } = useAccordion({
     initiallyOpen: false,
   });
@@ -60,5 +60,3 @@ function Content(): React.ReactElement {
     </div>
   );
 }
-
-export default Content;

@@ -1,10 +1,10 @@
 import React from 'react';
 
 import styles from '../CookieConsent.module.scss';
-import Category from '../category/Category';
+import { Category } from '../category/Category';
 import { useCookieConsentContent, useCookieConsentSectionTexts } from '../CookieConsentContext';
 
-function Details(): React.ReactElement {
+export function Details(): React.ReactElement {
   const content = useCookieConsentContent();
   const { title, text } = useCookieConsentSectionTexts('details');
   const { requiredConsents, optionalConsents } = content;
@@ -19,5 +19,3 @@ function Details(): React.ReactElement {
     </div>
   );
 }
-
-export default Details;
