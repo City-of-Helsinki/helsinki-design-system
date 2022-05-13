@@ -14,22 +14,22 @@ import type {
 import commonContent from './content.json';
 import { COOKIE_NAME } from './cookieConsentController';
 
-type ContentSourceConsentData = Partial<CookieData> & {
+type ContentSourceCookieData = Partial<CookieData> & {
   commonGroup?: string;
   required?: boolean;
   groupId?: string;
   commonCookie?: string;
 };
 
-type ContentSourceConsentGroup = Omit<Partial<CookieGroup>, 'cookies'> & {
+type ContentSourceCookieGroup = Omit<Partial<CookieGroup>, 'cookies'> & {
   commonGroup?: string;
   required?: boolean;
   id?: string;
-  cookies: ContentSourceConsentData[];
+  cookies: ContentSourceCookieData[];
 };
 
 export type ContentSourceCategory = Omit<Partial<Category>, 'groups'> & {
-  groups: ContentSourceConsentGroup[];
+  groups: ContentSourceCookieGroup[];
 };
 
 type ContentSourceTexts = {
@@ -44,10 +44,10 @@ type ContentSourceTexts = {
 export type ContentSource = {
   currentLanguage: SupportedLanguage;
   siteName: string;
-  requiredConsents?: ContentSourceCategory;
-  optionalConsents?: ContentSourceCategory;
-  groups?: ContentSourceConsentGroup[];
-  cookies?: ContentSourceConsentData[];
+  requiredCookies?: ContentSourceCategory;
+  optionalCookies?: ContentSourceCategory;
+  groups?: ContentSourceCookieGroup[];
+  cookies?: ContentSourceCookieData[];
   texts?: ContentSourceTexts;
   language?: Partial<Content['language']>;
   noCommonConsentCookie?: boolean;
@@ -59,7 +59,7 @@ type GenericContentObject = {
   [key: string]: string | GenericContentObject;
 };
 
-type MergableContent = Partial<GenericContentObject | ContentSourceConsentGroup | ContentSourceCategory>;
+type MergableContent = Partial<GenericContentObject | ContentSourceCookieGroup | ContentSourceCategory>;
 
 function getTexts(language: SupportedLanguage, siteName: string): Content['texts'] {
   const { texts } = commonContent;
@@ -94,11 +94,11 @@ function getLanguage(lang: SupportedLanguage, overrides: ContentSource['language
 
 function getCategoryDescriptions(
   language: SupportedLanguage,
-): { requiredConsents: Description; optionalConsents: Description } {
-  const { requiredConsents, optionalConsents } = commonContent;
+): { requiredCookies: Description; optionalCookies: Description } {
+  const { requiredCookies, optionalCookies } = commonContent;
   return {
-    requiredConsents: requiredConsents[language],
-    optionalConsents: optionalConsents[language],
+    requiredCookies: requiredCookies[language],
+    optionalCookies: optionalCookies[language],
   };
 }
 
@@ -143,15 +143,13 @@ function mergeObjects(target: MergableContent, source: MergableContent, paths: s
   });
 }
 
-function buildConsentGroups(
-  props: ContentSource,
-): { requiredConsents: CookieGroup[]; optionalConsents: CookieGroup[] } {
-  const requiredConsents = [];
-  const optionalConsents = [];
+function buildCookieGroups(props: ContentSource): { requiredCookies: CookieGroup[]; optionalCookies: CookieGroup[] } {
+  const requiredCookies = [];
+  const optionalCookies = [];
   const groupMap = new Map<string, CookieGroup>();
   const { currentLanguage, groups, cookies, noCommonConsentCookie } = props;
 
-  const parseGroup = (groupSource: ContentSourceConsentGroup, isRequired?: boolean) => {
+  const parseGroup = (groupSource: ContentSourceCookieGroup, isRequired?: boolean) => {
     let consentGroup: CookieGroup | undefined;
     const isRequiredOverride = !!(isRequired !== undefined ? isRequired : groupSource.required);
     const mapId = groupSource.commonGroup || groupSource.id || groupSource.title;
@@ -174,7 +172,7 @@ function buildConsentGroups(
         };
       }
       groupMap.set(mapId, consentGroup);
-      isRequiredOverride ? requiredConsents.push(consentGroup) : optionalConsents.push(consentGroup);
+      isRequiredOverride ? requiredCookies.push(consentGroup) : optionalCookies.push(consentGroup);
     }
     if (groupSource.cookies) {
       groupSource.cookies.forEach((cookieSource) => {
@@ -185,7 +183,7 @@ function buildConsentGroups(
           required,
           commonCookie,
           ...cookieProps
-        } = cookieSource as ContentSourceConsentData;
+        } = cookieSource as ContentSourceCookieData;
         /* eslint-enable @typescript-eslint/no-unused-vars */
         const cookieData = commonCookie ? getCommonCookie(currentLanguage, commonCookie, cookieProps) : cookieProps;
         consentGroup.cookies.push(cookieData as CookieData);
@@ -193,13 +191,13 @@ function buildConsentGroups(
     }
   };
 
-  if (props.requiredConsents?.groups) {
-    props.requiredConsents.groups.forEach((group) => {
+  if (props.requiredCookies?.groups) {
+    props.requiredCookies.groups.forEach((group) => {
       parseGroup(group, true);
     });
   }
-  if (props.optionalConsents?.groups) {
-    props.optionalConsents.groups.forEach((group) => {
+  if (props.optionalCookies?.groups) {
+    props.optionalCookies.groups.forEach((group) => {
       parseGroup(group, false);
     });
   }
@@ -229,8 +227,8 @@ function buildConsentGroups(
     parseGroup({ commonGroup: 'sharedConsents', cookies: [consentCookie] }, true);
   }
   return {
-    requiredConsents,
-    optionalConsents,
+    requiredCookies,
+    optionalCookies,
   };
 }
 
@@ -259,8 +257,8 @@ export function createContent(props: ContentSource): Content {
     siteName,
     language,
     currentLanguage,
-    optionalConsents,
-    requiredConsents,
+    optionalCookies,
+    requiredCookies,
     onConsentsParsed,
     onAllConsentsGiven,
   } = props;
@@ -271,17 +269,17 @@ export function createContent(props: ContentSource): Content {
   if (props.texts) {
     mergeObjects(content.texts, props.texts, ['sections.main', 'sections.details', 'ui', 'tableHeadings']);
   }
-  const consentGroups = buildConsentGroups(props);
+  const consentGroups = buildCookieGroups(props);
   const categoryDescriptions = getCategoryDescriptions(currentLanguage);
   content.optionalConsents = buildConsentCategories(
-    categoryDescriptions.optionalConsents,
-    optionalConsents,
-    consentGroups.optionalConsents,
+    categoryDescriptions.optionalCookies,
+    optionalCookies,
+    consentGroups.optionalCookies,
   );
   content.requiredConsents = buildConsentCategories(
-    categoryDescriptions.requiredConsents,
-    requiredConsents,
-    consentGroups.requiredConsents,
+    categoryDescriptions.requiredCookies,
+    requiredCookies,
+    consentGroups.requiredCookies,
   );
   if (onAllConsentsGiven) {
     content.onAllConsentsGiven = onAllConsentsGiven;
@@ -298,14 +296,14 @@ export function pickConsentIdsFromContentSource(
   let required: string[] = [];
   let optional: string[] = [];
 
-  const consentGroups = buildConsentGroups(contentSource as ContentSource);
+  const cookieGroups = buildCookieGroups(contentSource as ContentSource);
 
-  consentGroups.requiredConsents.forEach((group) => {
+  cookieGroups.requiredCookies.forEach((group) => {
     if (group.cookies) {
       required = group.cookies.map((consent) => consent.id);
     }
   });
-  consentGroups.optionalConsents.forEach((group) => {
+  cookieGroups.optionalCookies.forEach((group) => {
     if (group.cookies) {
       optional = group.cookies.map((consent) => consent.id);
     }

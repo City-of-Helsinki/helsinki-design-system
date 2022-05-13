@@ -69,7 +69,7 @@ export const getContentSource = (
   const contentOverrides: Partial<ContentSource> = {};
 
   if (requiredCookieGroups) {
-    contentOverrides.requiredConsents = {
+    contentOverrides.requiredCookies = {
       title: 'Title for required cookies',
       text: 'Text for required cookies',
       checkboxAriaDescription: 'checkboxAriaLabel',
@@ -77,7 +77,7 @@ export const getContentSource = (
     };
   }
   if (optionalConsentsGroups) {
-    contentOverrides.optionalConsents = {
+    contentOverrides.optionalCookies = {
       title: 'Title for optional cookies',
       text: 'Text for optional cookies',
       checkboxAriaDescription: 'checkboxAriaLabel',
