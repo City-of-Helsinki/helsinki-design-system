@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
-import { CookieConsentContext, Category as CategoryType, useCookieConsentActions } from '../CookieConsentContext';
 import styles from '../CookieConsent.module.scss';
-import ConsentGroup from '../consentGroup/ConsentGroup';
+import { CookieConsentContext, Category as CategoryType, useCookieConsentActions } from '../CookieConsentContext';
+import { ConsentGroup } from '../consentGroup/ConsentGroup';
 import { Checkbox } from '../../checkbox/Checkbox';
 
-function Category(props: { category?: CategoryType; isRequired?: boolean }): React.ReactElement {
+export function Category(props: { category?: CategoryType; isRequired?: boolean }): React.ReactElement {
   const { category, isRequired } = props;
   const cookieConsentContext = useContext(CookieConsentContext);
   const triggerAction = useCookieConsentActions();
@@ -55,5 +55,3 @@ function Category(props: { category?: CategoryType; isRequired?: boolean }): Rea
     </div>
   );
 }
-
-export default Category;

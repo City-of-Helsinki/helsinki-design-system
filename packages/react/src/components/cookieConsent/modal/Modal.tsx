@@ -4,7 +4,7 @@ import { VisuallyHidden } from '@react-aria/visually-hidden';
 import classNames from '../../../utils/classNames';
 import styles from '../CookieConsent.module.scss';
 import { CookieConsentContext, useCookieConsentUiTexts } from '../CookieConsentContext';
-import Content from '../content/Content';
+import { Content } from '../content/Content';
 
 export function Modal(): React.ReactElement | null {
   const cookieConsentContext = useContext(CookieConsentContext);
