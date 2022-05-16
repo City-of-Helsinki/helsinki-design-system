@@ -60,21 +60,18 @@
       "fi": {
         "name": "Nimi",
         "hostName": "Osoite",
-        "path": "Polku",
         "description": "Kuvaus",
         "expiration": "Voimassaoloaika"
       },
       "sv": {
         "name": "SV: Nimi",
         "hostName": "SV: Osoite",
-        "path": "SV: Polku",
         "description": "SV: Kuvaus",
         "expiration": "SV: Voimassaoloaika"
       },
       "en": {
         "name": "EN: Nimi",
         "hostName": "EN: Osoite",
-        "path": "EN: Polku",
         "description": "EN: Kuvaus",
         "expiration": "EN: Voimassaoloaika"
       }
@@ -248,7 +245,6 @@
     "helConsentCookie": {
       "id": "SET_IN_CODE",
       "hostName": "*.hel.fi",
-      "path": "",
       "commonGroup": "SET_IN_CODE",
       "fi": {
         "name": "Suostumusvalinnat",
@@ -269,7 +265,6 @@
     "tunnistamo": {
       "id": "tunnistamo",
       "hostName": "tunnistamo.com",
-      "path": "tunnistamo path",
       "fi": {
         "name": "Tunnistamo cookie",
         "description": "Kuvaus lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus",
@@ -289,7 +284,6 @@
     "keycloak": {
       "id": "keycloak",
       "hostName": "keycloak.com",
-      "path": "keycloak path",
       "fi": {
         "name": "keycloak cookie",
         "description": "Quisque vest molestie convallis. Don el dui vel.",
@@ -309,7 +303,6 @@
     "marketing": {
       "id": "marketing",
       "hostName": "marketing.com",
-      "path": "marketing path",
       "fi": {
         "name": "marketing cookie",
         "description": "Quisque vest molestie convallis. Don el dui vel.",
@@ -329,7 +322,6 @@
     "language-i18n": {
       "id": "language-i18n",
       "hostName": "hel.fi",
-      "path": "",
       "fi": {
         "name": "Kielvalinta",
         "description": "Quisque vest molestie convallis. Don el dui vel.",
@@ -349,7 +341,6 @@
     "matomo": {
       "id": "matomo",
       "hostName": "digia.fi",
-      "path": "",
       "fi": {
         "name": "Analytiikan kerääminen Matomooon",
         "description": "Quisque vest molestie convallis. Don el dui vel.",

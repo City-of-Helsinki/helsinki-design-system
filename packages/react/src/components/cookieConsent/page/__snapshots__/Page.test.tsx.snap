@@ -187,11 +187,6 @@ exports[`<Page /> spec renders the component 1`] = `
                               <th
                                 scope="col"
                               >
-                                Polku
-                              </th>
-                              <th
-                                scope="col"
-                              >
                                 Kuvaus
                               </th>
                               <th
@@ -216,11 +211,6 @@ exports[`<Page /> spec renders the component 1`] = `
                                 HostName of requiredConsent1
                               </td>
                               <td
-                                data-testid="path-0"
-                              >
-                                Path of requiredConsent1
-                              </td>
-                              <td
                                 data-testid="description-0"
                               >
                                 Description of requiredConsent1
@@ -241,11 +231,6 @@ exports[`<Page /> spec renders the component 1`] = `
                                 data-testid="hostName-1"
                               >
                                 HostName of requiredConsent2
-                              </td>
-                              <td
-                                data-testid="path-1"
-                              >
-                                Path of requiredConsent2
                               </td>
                               <td
                                 data-testid="description-1"
@@ -374,11 +359,6 @@ exports[`<Page /> spec renders the component 1`] = `
                               <th
                                 scope="col"
                               >
-                                Polku
-                              </th>
-                              <th
-                                scope="col"
-                              >
                                 Kuvaus
                               </th>
                               <th
@@ -401,11 +381,6 @@ exports[`<Page /> spec renders the component 1`] = `
                                 data-testid="hostName-0"
                               >
                                 HostName of requiredConsent3
-                              </td>
-                              <td
-                                data-testid="path-0"
-                              >
-                                Path of requiredConsent3
                               </td>
                               <td
                                 data-testid="description-0"
@@ -576,11 +551,6 @@ exports[`<Page /> spec renders the component 1`] = `
                               <th
                                 scope="col"
                               >
-                                Polku
-                              </th>
-                              <th
-                                scope="col"
-                              >
                                 Kuvaus
                               </th>
                               <th
@@ -603,11 +573,6 @@ exports[`<Page /> spec renders the component 1`] = `
                                 data-testid="hostName-0"
                               >
                                 HostName of optionalConsent1
-                              </td>
-                              <td
-                                data-testid="path-0"
-                              >
-                                Path of optionalConsent1
                               </td>
                               <td
                                 data-testid="description-0"
@@ -734,11 +699,6 @@ exports[`<Page /> spec renders the component 1`] = `
                               <th
                                 scope="col"
                               >
-                                Polku
-                              </th>
-                              <th
-                                scope="col"
-                              >
                                 Kuvaus
                               </th>
                               <th
@@ -763,11 +723,6 @@ exports[`<Page /> spec renders the component 1`] = `
                                 HostName of optionalConsent2
                               </td>
                               <td
-                                data-testid="path-0"
-                              >
-                                Path of optionalConsent2
-                              </td>
-                              <td
                                 data-testid="description-0"
                               >
                                 Description of optionalConsent2
@@ -788,11 +743,6 @@ exports[`<Page /> spec renders the component 1`] = `
                                 data-testid="hostName-1"
                               >
                                 HostName of optionalConsent3
-                              </td>
-                              <td
-                                data-testid="path-1"
-                              >
-                                Path of optionalConsent3
                               </td>
                               <td
                                 data-testid="description-1"
