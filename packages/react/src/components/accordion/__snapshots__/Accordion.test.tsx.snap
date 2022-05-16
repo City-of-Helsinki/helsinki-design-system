@@ -54,6 +54,7 @@ exports[`<Accordion /> spec renders the component 1`] = `
     >
       Bar
       <button
+        aria-label="Sulje Foo"
         class="button supplementary theme-black size-small closeButton"
         type="button"
       >
