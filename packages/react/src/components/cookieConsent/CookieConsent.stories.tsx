@@ -36,7 +36,6 @@ export const ModalVersion = (args) => {
             id: 'loadbalancer',
             name: 'Load balancer',
             hostName: 'Host name',
-            path: 'Path',
             description:
               'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
             expiration: '1h',
@@ -63,7 +62,6 @@ export const ModalVersion = (args) => {
             id: 'preferences1',
             name: 'Preference 1',
             hostName: 'Host name',
-            path: 'Path',
             description:
               'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
             expiration: '1h',
@@ -72,7 +70,6 @@ export const ModalVersion = (args) => {
             id: 'preferences2',
             name: 'Preference 2',
             hostName: 'Host name',
-            path: 'Path',
             description:
               'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
             expiration: '1 years',
@@ -81,7 +78,6 @@ export const ModalVersion = (args) => {
             id: 'preferences3',
             name: 'Preference 3',
             hostName: 'Host name',
-            path: 'Path',
             description:
               'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
             expiration: '2h',
@@ -99,7 +95,6 @@ export const ModalVersion = (args) => {
             id: 'someOtherConsent',
             name: 'Other consent',
             hostName: 'Host name',
-            path: 'Path',
             description:
               'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
             expiration: '1h',
@@ -269,7 +264,6 @@ export const PageVersion = (args) => {
             id: 'loadbalancer',
             name: 'Kuormanjako',
             hostName: 'Osoite',
-            path: 'Polku',
             description:
               'Kuvaus lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
             expiration: 'Voimassaoloaika',
@@ -296,7 +290,6 @@ export const PageVersion = (args) => {
             id: 'preferences',
             name: 'Asetus 1',
             hostName: 'Osoite',
-            path: 'Polku',
             description:
               'Proin sodales maximus est, pulvinar tempus felis tempus quis. Aenean at vestibulum lectus. Aliquam erat volutpat. Nullam venenatis feugiat sem vitae cursus. ',
             expiration: 'Voimassaoloaika',
@@ -314,7 +307,6 @@ export const PageVersion = (args) => {
             id: 'someOtherConsent',
             name: 'Joku toinen',
             hostName: 'Osoite',
-            path: 'Polku',
             description: 'Vel est molestie Quisque vel dui vel est molestie con con',
             expiration: 'Voimassaoloaika',
           },
@@ -365,7 +357,6 @@ export const CustomContentVersion = (args) => {
       tableHeadings: {
         name: 'Cookie custom name',
         hostName: 'Host',
-        path: 'Where its saved',
         description: 'Cookie purpose',
         expiration: 'Lifespan',
       },
@@ -391,7 +382,6 @@ export const CustomContentVersion = (args) => {
               id: 'custom-cookie',
               name: 'Custom cookie',
               hostName: 'Host name',
-              path: 'Path',
               description:
                 'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
               expiration: '1000 years',
@@ -426,7 +416,6 @@ export const CustomContentVersion = (args) => {
               id: 'some-cookie',
               name: 'Setting 1',
               hostName: 'Host name',
-              path: 'Path',
               description:
                 'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
               expiration: 'Sessio',
@@ -435,7 +424,6 @@ export const CustomContentVersion = (args) => {
               id: 'some-cookie2',
               name: 'Setting 2',
               hostName: 'Host name',
-              path: 'Path',
               description:
                 'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
               expiration: 'Sessio',
@@ -453,7 +441,6 @@ export const CustomContentVersion = (args) => {
               id: 'someOtherConsent',
               name: 'Other cookie',
               hostName: 'Host name',
-              path: 'Path',
               description:
                 'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
               expiration: 'Sessio',

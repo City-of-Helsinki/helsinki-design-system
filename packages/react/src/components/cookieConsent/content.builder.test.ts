@@ -34,14 +34,12 @@ describe(`content.builder.ts`, () => {
   const matomo: CookieData = {
     id: commonContent.commonCookies.matomo.id,
     hostName: commonContent.commonCookies.matomo.hostName,
-    path: commonContent.commonCookies.matomo.path,
     ...commonContent.commonCookies.matomo.fi,
   };
 
   const tunnistamo: CookieData = {
     id: commonContent.commonCookies.tunnistamo.id,
     hostName: commonContent.commonCookies.tunnistamo.hostName,
-    path: commonContent.commonCookies.tunnistamo.path,
     ...commonContent.commonCookies.tunnistamo.fi,
   };
 
@@ -59,7 +57,6 @@ describe(`content.builder.ts`, () => {
     id: 'testCookieData',
     name: 'testCookieData name',
     hostName: 'testCookieData hostName',
-    path: 'testCookieData path',
     description: 'testCookieData description',
     expiration: 'testCookieData expiration',
   };
@@ -68,7 +65,6 @@ describe(`content.builder.ts`, () => {
     id: 'testCookieData2',
     name: 'testCookieData2 name',
     hostName: 'testCookieData2 hostName',
-    path: 'testCookieData2 path',
     description: 'testCookieData2 description',
     expiration: 'testCookieData2 expiration',
   };
@@ -112,7 +108,7 @@ describe(`content.builder.ts`, () => {
 
       const { tableHeadings } = plainContent.texts;
       const tableHeadingsKeys = Object.keys(tableHeadings);
-      expect(tableHeadingsKeys).toHaveLength(5);
+      expect(tableHeadingsKeys).toHaveLength(4);
       tableHeadingsKeys.forEach((key) => {
         expect(tableHeadings[key].length).toBeTruthy();
       });

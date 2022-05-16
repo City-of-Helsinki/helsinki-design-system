@@ -53,7 +53,6 @@ const createCookieGroup = (id: string, consents: ConsentList): CookieGroup => {
         id: consent,
         name: `Name of ${consent}`,
         hostName: `HostName of ${consent}`,
-        path: `Path of ${consent}`,
         description: `Description of ${consent}`,
         expiration: `Expiration of ${consent}`,
       };

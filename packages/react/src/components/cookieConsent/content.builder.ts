@@ -119,7 +119,6 @@ function getCommonCookie(language: string, id: string, overrides?: Partial<Cooki
   const cookie: CookieData = {
     id: dataWithTranslations.id,
     hostName: dataWithTranslations.hostName,
-    path: dataWithTranslations.path,
     ...commonCookies[id][language],
     ...overrides,
   };
