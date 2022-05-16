@@ -226,6 +226,7 @@ export const Accordion = ({
         {children}
         {closeButton && (
           <Button
+            aria-label={`${getCloseMessage(language)} ${heading}`}
             className={classNames(styles.closeButton, closeButtonClassName)}
             theme="black"
             size="small"
