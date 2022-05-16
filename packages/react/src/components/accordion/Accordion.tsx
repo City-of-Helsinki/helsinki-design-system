@@ -193,8 +193,9 @@ export const Accordion = ({
       style={style}
       id={accordionId}
     >
-      <div ref={headerRef} className={classNames(styles.accordionHeader)}>
+      <div className={classNames(styles.accordionHeader)}>
         <div
+          ref={headerRef}
           role="button"
           tabIndex={0}
           onKeyPress={(e) => {
@@ -230,15 +231,15 @@ export const Accordion = ({
             className={classNames(styles.closeButton, closeButtonClassName)}
             theme="black"
             size="small"
+            onKeyPress={(e) => {
+              if (e.key === ' ') {
+                buttonProps.onClick();
+                headerRef.current.focus();
+              }
+            }}
             onClick={() => {
               buttonProps.onClick();
-              headerRef.current.scrollIntoView({ block: 'nearest' });
-            }}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                buttonProps.onClick();
-                headerRef.current.scrollIntoView({ block: 'nearest' });
-              }
+              headerRef.current.focus();
             }}
             variant="supplementary"
             iconRight={<IconAngleUp aria-hidden size="xs" className={styles.accordionButtonIcon} />}
