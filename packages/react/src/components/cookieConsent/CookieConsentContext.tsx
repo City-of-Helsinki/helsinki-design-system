@@ -12,7 +12,6 @@ export type Description = {
 export type TableData = {
   name: string;
   hostName: string;
-  path: string;
   description: string;
   expiration: string;
 };
