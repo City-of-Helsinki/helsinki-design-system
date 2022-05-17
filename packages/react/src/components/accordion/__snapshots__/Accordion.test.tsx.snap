@@ -56,6 +56,7 @@ exports[`<Accordion /> spec renders the component 1`] = `
       <button
         aria-label="Sulje Foo"
         class="button supplementary theme-black size-small closeButton"
+        data-testid="accordion-1-closeButton"
         type="button"
       >
         <span
