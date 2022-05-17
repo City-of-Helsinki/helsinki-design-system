@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import uniqueId from 'lodash.uniqueid';
 
 // import core base styles
@@ -178,6 +178,10 @@ export const Accordion = ({
     <IconAngleDown aria-hidden className={styles.accordionButtonIcon} />
   );
 
+  useEffect(() => {
+    headerRef.current.focus();
+  }, [isOpen, headerRef]);
+
   return (
     <div
       className={classNames(
@@ -234,12 +238,10 @@ export const Accordion = ({
             onKeyPress={(e) => {
               if (e.key === ' ') {
                 buttonProps.onClick();
-                headerRef.current.focus();
               }
             }}
             onClick={() => {
               buttonProps.onClick();
-              headerRef.current.focus();
             }}
             variant="supplementary"
             iconRight={<IconAngleUp aria-hidden size="xs" className={styles.accordionButtonIcon} />}
