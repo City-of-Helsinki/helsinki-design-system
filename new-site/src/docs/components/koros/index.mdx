@@ -32,20 +32,28 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 #### Default
 
 There are six Koro styles. An added visual interest is brought to the identity by means of the Koros. Using Koros adds high visual impact and makes the user interface recognisable as part of Helsinki city services.
-You can read more about using Koros in <Link href="https://brand.hel.fi/en/wave-motifs/" external>Helsinki Visual Identity Guidelines - Wave motifs</Link>.
+You can read more about using Koros in <Link size="M" href="https://brand.hel.fi/en/wave-motifs/" external>Helsinki Visual Identity Guidelines - Wave motifs</Link>.
 
 <PlaygroundPreview>
-  <Koros type="basic" />
-  <br />
-  <Koros type="beat" />
-  <br />
-  <Koros type="pulse" />
-  <br />
-  <Koros type="wave" />
-  <br />
-  <Koros type="storm" />
-  <br />
+  <Koros type="basic" style={{marginBottom: 'var(--spacing-xs'}}/>
+  <Koros type="beat" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros type="pulse" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros type="wave" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros type="storm" style={{marginBottom: 'var(--spacing-xs'}} />
   <Koros type="calm" />
+</PlaygroundPreview>
+
+#### Dense
+
+The dense Koro variant introduces a smaller wave size with the same shapes. You can choose either the Default or the Dense variant for your project. Read more about Koro usage on the [HDS Foundation - Wave motifs page](/foundation/visual-assets/wave-motifs).
+
+<PlaygroundPreview>
+  <Koros dense type="basic" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros dense type="beat" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros dense type="pulse" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros dense type="wave" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros dense type="storm" style={{marginBottom: 'var(--spacing-xs'}} />
+  <Koros dense type="calm" />
 </PlaygroundPreview>
 
 #### Angled
