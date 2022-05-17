@@ -26,4 +26,15 @@ describe('<Accordion /> spec', () => {
     userEvent.click(container.querySelector('[id="accordion-heading"]'));
     expect(container.querySelector('[id="accordion-content"]')).toBeVisible();
   });
+
+  it('should close the accordion when accordion close button is clicked', async () => {
+    const { container } = render(
+      <Accordion heading="Foo" id="accordion" initiallyOpen>
+        Bar
+      </Accordion>,
+    );
+
+    userEvent.click(container.querySelector('[data-testid="accordion-closeButton"]'));
+    expect(container.querySelector('[id="accordion-content"]')).not.toBeVisible();
+  });
 });
