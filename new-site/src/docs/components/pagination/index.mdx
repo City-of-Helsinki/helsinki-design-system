@@ -18,15 +18,66 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Example
 
-export const ToggleExample = () => {
-  const [checked1, setChecked1] = React.useState(true);
-  return (
-    <ToggleButton id="toggle-button-1" label="Label" checked={checked1} onChange={() => setChecked1(!checked1)} />
-  );
-};
-
 <PlaygroundPreview>
-  <ToggleExample />
+<div class="hds-pagination-container">
+  <nav class="hds-pagination" role="navigation" aria-label="Pagination" data-next="Next">
+    <button type="button" disabled class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-prev">
+      <span aria-hidden="true" class="hds-icon hds-icon--angle-left"></span>
+      <span class="hds-button__label">Previous</span>
+    </button>
+    <ul class="hds-pagination__pages">
+      <li>
+        <a class="hds-pagination__item-link hds-pagination__item-link--active" href="#" title="Current page" aria-label="Page 1" aria-current="page">
+          1
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="#" aria-label="Page 2" title="Go to page 2">
+          2
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="#"  aria-label="Page 3" title="Go to page 3">
+          3
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="#" aria-label="Page 4" title="Go to page 4">
+          4
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="#" aria-label="Page 5" title="Go to page 5">
+          5
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="#" aria-label="Page 6" title="Go to page 6">
+          6
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="#" aria-label="Page 7" title="Go to page 7">
+          7
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="#" aria-label="Page 8" title="Go to page 8">
+          8
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="#" aria-label="Page 9" title="Go to page 9">
+          9
+        </a>
+      </li>
+    </ul>
+    <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-next">
+      <span class="hds-button__label">Next</span>
+      <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
+    </button>
+  </nav>
+</div>
 </PlaygroundPreview>
 
 ### Principles

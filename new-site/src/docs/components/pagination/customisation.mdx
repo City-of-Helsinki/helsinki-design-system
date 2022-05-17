@@ -22,13 +22,14 @@ You can use the `style` variables to customise the component. See all available 
 
 
 ```html
-<style>
-  .custom-active-page-background-color {
-    --active-page-background-color: var(--color-bus);
-  }
+<style scoped>
+    .custom-active-page-background-color {
+      --active-page-background-color: var(--color-bus);
+    }
 </style>
+
 <div class="hds-pagination-container">
-  <nav class="hds-pagination custom-active-page-background-color" role="navigation" aria-label="Pagination" data-next="Next">
+  <nav class="hds-pagination custom-active-page-background-color" role="navigation" aria-label="Pagination" data-next="Next" style="--active-page-background-color: var(--color-bus);">
       <button type="button" disabled class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-prev">
         <span aria-hidden="true" class="hds-icon hds-icon--angle-left"></span>
         <span class="hds-button__label">Previous</span>
