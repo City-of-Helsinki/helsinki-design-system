@@ -178,7 +178,13 @@ export const Accordion = ({
     <IconAngleDown aria-hidden className={styles.accordionButtonIcon} />
   );
 
+  const didMount = useRef(false);
+
   useEffect(() => {
+    if (!didMount.current) {
+      didMount.current = true;
+      return;
+    }
     headerRef.current.focus();
   }, [isOpen, headerRef]);
 
