@@ -205,6 +205,10 @@ export const Accordion = ({
     return () => clearTimeout(timer);
   }, [beforeCloseButtonClick]);
 
+  const onCloseButtonActivate = () => {
+    setBeforeCloseButtonClick(true);
+  };
+
   return (
     <div
       className={classNames(
@@ -262,11 +266,11 @@ export const Accordion = ({
             size="small"
             onKeyPress={(e) => {
               if (e.key === ' ') {
-                setBeforeCloseButtonClick(true);
+                onCloseButtonActivate();
               }
             }}
             onClick={() => {
-              setBeforeCloseButtonClick(true);
+              onCloseButtonActivate();
             }}
             variant="supplementary"
             iconRight={<IconAngleUp aria-hidden size="xs" className={styles.accordionButtonIcon} />}
