@@ -12,8 +12,14 @@
 
 @media small-down {
   .navigation {
+    &:not(.shelf) {
     flex-direction: column;
     padding: var(--spacing-s) var(--spacing-2-xs);
+    }
+    &.shelf {
+      // padding: var(--spacing-s) var(--spacing-2-xs);
+      border-bottom: 1px solid var(--header-divider-color);
+    }
   }
 }
 

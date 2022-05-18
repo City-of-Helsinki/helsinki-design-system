@@ -6,7 +6,7 @@
  *
  * `inline` - items will be displayed in the header
  */
-export type NavigationVariant = 'default' | 'inline';
+export type NavigationVariant = 'default' | 'inline' | 'inlineShelf';
 
 export type NavigationTheme = 'light' | 'dark' | NavigationCustomTheme;
 

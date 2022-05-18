@@ -8,7 +8,8 @@ import { NavigationUser } from './navigationUser/NavigationUser';
 import { NavigationSearch } from './navigationSearch/NavigationSearch';
 import { NavigationLanguageSelector } from './navigationLanguageSelector/NavigationLanguageSelector';
 import { NavigationDropdown } from './navigationDropdown/NavigationDropdown';
-import { IconSignout } from '../../icons';
+import { IconArrowTopRight, IconSignout } from '../../icons';
+import { Button } from '../button';
 
 type LanguageOption = {
   label: string;
@@ -418,4 +419,64 @@ export const Example = ({ userName, ...args }) => {
       </Navigation>
     </>
   );
+};
+
+export const Shelf = ({ ...args }) => {
+  return (
+    // @ts-ignore
+    <Navigation {...args}>
+      {/* NAVIGATION ROW */}
+      <Navigation.Row>
+        <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />
+        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        <Navigation.Dropdown label="Dropdown">
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        </Navigation.Dropdown>
+      </Navigation.Row>
+
+      {/* NAVIGATION ACTIONS */}
+      <Navigation.Actions>
+        <Navigation.Row variant="inlineShelf" key="languages">
+          <Navigation.Item href="#" hrefLang="fi" label="Suomeksi" active />
+          <Navigation.Item href="#" hrefLang="sv" label="På svenska" />
+          <Navigation.Item href="#" hrefLang="en" label="In English" />
+          <Navigation.Dropdown label="🌐" key="theme_dropdown">
+            <Navigation.Item href="#" hrefLang="und" label="Arabic" />
+            <Navigation.Item href="#" hrefLang="und" label="Chinese" />
+          </Navigation.Dropdown>
+        </Navigation.Row>
+        <Button size="small" key="navigation_button" iconRight={<IconArrowTopRight size="l" />}>
+          Button text
+        </Button>
+      </Navigation.Actions>
+    </Navigation>
+  );
+};
+
+Shelf.storyName = 'Shelf';
+Shelf.args = {
+  theme: {
+    // '--header-background-color': 'var(--color-metro)',
+    // '--header-color': 'var(--color-black-90)',
+    '--header-divider-color': 'var(--color-black-20)',
+    // '--header-focus-outline-color': 'var(--color-black)',
+    // '--mobile-menu-background-color': 'var(--color-white)',
+    // '--mobile-menu-color': 'var(--color-black-90)',
+    '--navigation-row-background-color': 'var(--color-white)',
+    // '--navigation-row-color': 'var(--color-black-90)',
+    // '--navigation-row-focus-outline-color': 'var(--color-coat-of-arms)',
+  },
+  shelved: ['languages', 'navigation_button'],
+};
+Shelf.argTypes = {
+  theme: {
+    control: {
+      type: 'object',
+    },
+  },
 };

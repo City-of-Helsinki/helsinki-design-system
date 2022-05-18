@@ -84,15 +84,26 @@ export type NavigationProps = React.PropsWithChildren<{
    * URL to navigate to when the logo or title is clicked
    */
   titleUrl?: string;
+
+  /**
+   * move elements to shelf on mobile
+   */
+  shelved?: string[];
 }>;
 
 /**
  * Rearranges children, so that they are displayed in the correct order in the mobile menu
  * @param {React.ReactElement[]} children
  * @param {boolean} authenticated
+ * @param {string[]} shelved
  */
-const rearrangeChildrenForMobile = (children: React.ReactElement[], authenticated: boolean): React.ReactElement[] => {
+const rearrangeChildrenForMobile = (
+  children: React.ReactElement[],
+  authenticated: boolean,
+  shelved?: string[],
+): React.ReactElement[][] => {
   const rearrangedChildren = [...children];
+  const shelvedChildren = [];
 
   // moves the component to the start of the array
   const moveComponentToTop = (name: string) => {
@@ -103,12 +114,24 @@ const rearrangeChildrenForMobile = (children: React.ReactElement[], authenticate
     }
   };
 
+  // moves the component to the shelf array
+  const moveComponentToShelf = (name: string) => {
+    const index = rearrangedChildren.findIndex((item) => item?.key.toString().indexOf(name) !== -1);
+    if (index > -1) {
+      const component = rearrangedChildren.splice(index, 1)[0];
+      shelvedChildren.push(component);
+    }
+  };
+
   // move search to top
   moveComponentToTop('NavigationSearch');
   // move sign in button to top if user isn't authenticated
   if (!authenticated) moveComponentToTop('NavigationUser');
 
-  return rearrangedChildren;
+  // move elements to shelf
+  shelved.forEach((element) => moveComponentToShelf(element));
+
+  return [rearrangedChildren, shelvedChildren];
 };
 
 const getNavigationVariantFromChild = (children: React.ReactNode): NavigationVariant => {
@@ -166,6 +189,7 @@ export const Navigation = ({
   title,
   titleAriaLabel,
   titleUrl,
+  shelved = [],
 }: NavigationProps) => {
   const isMobile = useMobile();
   // custom theme class that is applied to the root element
@@ -200,7 +224,7 @@ export const Navigation = ({
   const mobileMenuItems = getChildrenAsArray([navigation, mobileActionsWithoutLanguageSelector]);
 
   // rearrange children
-  const mobileMenuChildren = rearrangeChildrenForMobile(mobileMenuItems, authenticated);
+  const [mobileMenuChildren, mobileShelf] = rearrangeChildrenForMobile(mobileMenuItems, authenticated, shelved);
 
   // props for the header wrapper component
   const headerWrapperProps = { logoLanguage, onTitleClick, title, titleAriaLabel, titleUrl };
@@ -237,6 +261,7 @@ export const Navigation = ({
               {mobileMenuOpen ? <IconCross aria-hidden /> : <IconMenuHamburger aria-hidden />}
             </button>
           </HeaderWrapper>
+          {mobileShelf && <div id="hds-mobile-shelf">{mobileShelf}</div>}
           {mobileMenuOpen && (
             <div id="hds-mobile-menu" className={styles.mobileMenu}>
               {mobileMenuChildren}

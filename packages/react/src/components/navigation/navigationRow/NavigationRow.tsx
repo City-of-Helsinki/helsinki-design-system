@@ -43,7 +43,15 @@ export const NavigationRow = ({ variant = 'default', children }: NavigationRowPr
   });
 
   return (
-    <nav className={classNames(styles.navigation, variant === 'default' && styles.subNav)}>{childrenWithClassName}</nav>
+    <nav
+      className={classNames(
+        styles.navigation,
+        variant === 'default' && styles.subNav,
+        variant === 'inlineShelf' && styles.shelf,
+      )}
+    >
+      {childrenWithClassName}
+    </nav>
   );
 };
 NavigationRow.componentName = 'NavigationRow';
