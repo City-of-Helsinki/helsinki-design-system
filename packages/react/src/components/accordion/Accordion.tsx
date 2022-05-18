@@ -127,6 +127,7 @@ export const Accordion = ({
   theme,
 }: AccordionProps) => {
   const headerRef = useRef<HTMLDivElement>(null);
+  const [beforeCloseButtonClick, setBeforeCloseButtonClick] = useState(false);
 
   if (theme && theme['--button-border-color-hover']) {
     // eslint-disable-next-line no-console
@@ -180,13 +181,29 @@ export const Accordion = ({
 
   const didMount = useRef(false);
 
+  /*
+    Close button does not work well with different screen readers. To avoid issues, we had to:
+    1. Add aria-expanded to false before closing the accordion (state beforeCloseButtonClick)
+    2. Wait for the new rendering (useEffect + timeout)
+    3. Focus to the accordion main button to not lose focus when close button disappears
+    4. Finally call the regular button onClick, which updates state and hides the content.
+   */
+
   useEffect(() => {
     if (!didMount.current) {
       didMount.current = true;
       return;
     }
-    headerRef.current.focus();
-  }, [isOpen, headerRef]);
+    const timer = setTimeout(() => {
+      headerRef.current.focus();
+      if (beforeCloseButtonClick === true) {
+        setBeforeCloseButtonClick(false);
+        buttonProps.onClick();
+      }
+    }, 50);
+    // eslint-disable-next-line consistent-return
+    return () => clearTimeout(timer);
+  }, [beforeCloseButtonClick]);
 
   return (
     <div
@@ -216,6 +233,7 @@ export const Accordion = ({
           className={styles.headingContainer}
           aria-labelledby={`${accordionId}-heading`}
           {...buttonProps}
+          {...(beforeCloseButtonClick ? { 'aria-expanded': false } : {})}
         >
           <div role="heading" aria-level={headingLevel} id={`${accordionId}-heading`}>
             {heading}
@@ -244,11 +262,11 @@ export const Accordion = ({
             size="small"
             onKeyPress={(e) => {
               if (e.key === ' ') {
-                buttonProps.onClick();
+                setBeforeCloseButtonClick(true);
               }
             }}
             onClick={() => {
-              buttonProps.onClick();
+              setBeforeCloseButtonClick(true);
             }}
             variant="supplementary"
             iconRight={<IconAngleUp aria-hidden size="xs" className={styles.accordionButtonIcon} />}
