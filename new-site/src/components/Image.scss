@@ -1,0 +1,13 @@
+@import '~hds-design-tokens/lib/all.scss';
+
+.image-container {
+  overflow-x: auto;
+}
+
+.image-container-image {
+  max-width: max(#{$breakpoint-m},100%);
+
+  @media screen and (min-width: $breakpoint-m) {
+    max-width: 100%;
+  }
+}
