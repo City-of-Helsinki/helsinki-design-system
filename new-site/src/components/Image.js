@@ -16,7 +16,7 @@ const Image = ({ src, alt = 'Image', style = {}, viewable, ...rest }) => {
   );
 
   return viewable ? (
-    <a href={src} title={alt}>
+    <a href={withPrefix(src)} title={alt}>
       {image}
     </a>
   ) : (
