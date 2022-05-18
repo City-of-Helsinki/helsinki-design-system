@@ -19,10 +19,10 @@ const LiveErrorCore = ({ code }) => {
   /*
     TODO: Remove lookbehind support test and async import once Safari supports regexp lookbehind.
     Html-validate library uses regexp lookbehind feature which is not supported in Safari at the moment (17.5.2022).
-    We need to disable validation in browsers that do not support lookbehind.
+    We need to disable validation in unsupported browsers to make the site render.
     - https://caniuse.com/js-regexp-lookbehind
     - https://gitlab.com/html-validate/html-validate/-/issues/147
- */
+  */
   useEffect(() => {
     if (supportsRegexpLookBehind()) {
       import('html-validate/dist/cjs/browser').then(({ StaticConfigLoader, HtmlValidate }) => {
