@@ -128,7 +128,7 @@ export const WithCustomOnClickAction = () => {
     }, 200);
   };
 
-  const onTabClick = (activeIndex) => {
+  const onTabClick = () => {
     mockLoading();
   };
 
@@ -139,8 +139,8 @@ export const WithCustomOnClickAction = () => {
   return (
     <Tabs initiallyActiveTab={0}>
       <Tabs.TabList className="example-tablist">
-        <Tabs.Tab onClick={() => onTabClick(0)}>Basic education</Tabs.Tab>
-        <Tabs.Tab onClick={() => onTabClick(1)}>University</Tabs.Tab>
+        <Tabs.Tab onClick={() => onTabClick()}>Basic education</Tabs.Tab>
+        <Tabs.Tab onClick={() => onTabClick()}>University</Tabs.Tab>
       </Tabs.TabList>
       <Tabs.TabPanel>{isLoading ? 'loading..' : content.education}</Tabs.TabPanel>
       <Tabs.TabPanel>{isLoading ? 'loading..' : content.university}</Tabs.TabPanel>
