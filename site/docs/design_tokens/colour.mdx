@@ -8,6 +8,7 @@ import LargeParagraph from "../../src/components/LargeParagraph";
 import Colors from "../../src/components/Colors";
 import ColorBox from "../../src/components/ColorBox";
 import ColorContrast from "../../src/components/ColorContrast";
+import Image from "../../src/components/Image";
 import Example from "../../src/components/Example";
 import Link from "../../src/components/Link";
 import { IconError } from 'hds-react';
@@ -102,7 +103,7 @@ Status colours are reserved exclusively for indicating valid, invalid or informa
 - **AA for large text** (contrast ratio at least `3 : 1`) means the text size should be at least 18 pt for regular weight or 14 pt for bold weight
 - **Black 90** is the default text colour in HDS
 
-### Brand colour combinations
+### Brand colour accessibility
 
 | Brand Colour      | Text Colour   | Colour contrast       | Example           |
 | ----------------- | ------------- | --------------------- | ----------------- |
@@ -129,7 +130,7 @@ Status colours are reserved exclusively for indicating valid, invalid or informa
 | **Spåra**     | **AA** (AAA for large text) `4,6 : 1`      | <p style="font-size: var(--fontsize-body-l); color: var(--color-tram); margin: var(--spacing-3-xs);">AA</p> | 
 | **Metro**     | <p style="margin:0; color: var(--color-black-60);">AA for large text `3,3 : 1`</p>  | <p style="font-size: var(--fontsize-body-l); color: var(--color-metro); margin: var(--spacing-3-xs);"><IconError/></p> |
 
-### Grayscale combinations 
+### Grayscale accessibility 
 
 | Brand Colour  | Text Colour   | Colour contrast   | As background     | As text on white  |
 | --------------| ------------- | ----------------- | ----------------- | ----------------- |
@@ -144,7 +145,7 @@ Status colours are reserved exclusively for indicating valid, invalid or informa
 | **Black 20**  | black 90      | **AAA** `13,8 : 1`    | <ColorContrast color="var(--color-black-90)" background="var(--color-black-20)">AAA</ColorContrast> | |
 | **Black 10**  | black 90      | **AAA** `15,6 : 1`    | <ColorContrast color="var(--color-black-90)" background="var(--color-black-10)">AAA</ColorContrast> | |
 
-### Focus colour
+### Focus colour accessibility
 HDS components use a custom focus colour styling instead of the default browser provided style. The default HDS focus style is accessible on light backgrounds. Since HDS does not offer dark mode, the focus style colour may require customising when using HDS components on darker backgrounds. The WCAG requirement for user interface element contrast is `3 : 1`.
 
 | Focus Colour           | Background Colour   | Focus style contrast | Example                                                                                                  |
@@ -157,6 +158,35 @@ HDS focus style colour can be customised to better fit the theme of the service.
 - <Link href="https://www.w3.org/TR/WCAG21/#focus-order" external>WCAG 2.4.3 Focus Order (Level A)</Link> (while designing components with multiple focusable elements)
 - <Link href="https://www.w3.org/TR/WCAG21/#focus-visible" external>WCAG 2.4.7 Focus Visible (Level A)</Link>
 - While not officially part of WCAG yet, HDS also follows <Link href="https://www.w3.org/WAI/WCAG21/Understanding/focus-visible-enhanced" external>WCAG 2.4.11 Focus Visible (Enhanced)</Link>. Due to their draft status, these requirements may still change. But we still recommend following them for future-proofing.
+
+## Brand colour palettes
+HDS offers palettes with handpicked colours to make the colour selection easier for projects. It is recommended to use one of these palettes in your project. 
+
+Palettes consist of three (3) colours; a Primary, a Secondary and an Accent colour. Three brand colours is considered to be a maximum amount for all Helsinki user interfaces. Alongside with the brand colours it is allowed to use UI helper colours (black, white and grayscale) and status colours (error, alert, success, info). Together these two sets of colours form the full palette of the project. 
+
+<Image src="../../static/colour-balance@2x.png" alt="Illustration of the full Helsinki project colour palette" style="max-width:622px; margin-bottom: var(--spacing-xs)" viewable/>
+
+Refer the below table for all ten (10) premade colour palettes. You are also allowed to create a custom palette for your project if needed. However, it is a good practise to stick with three (3) colours in your custom palettes.
+
+| Primary colour  | Secondary Colour | Accent Colour |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------ |
+| <ColorBox color="var(--color-gold)"/> <br /> **Kulta** | <ColorBox color="var(--color-fog-light)"/> <br /> Sumu light | <ColorBox color="var(--color-metro)"/> <br /> Metro |
+| <ColorBox color="var(--color-bus)"/> <br /> **Bussi** | <ColorBox color="var(--color-suomenlinna-light)"/> <br /> Suomenlinna light | <ColorBox color="var(--color-copper)"/> <br /> Kupari |
+| <ColorBox color="var(--color-summer)"/> <br /> **Kesä** | <ColorBox color="var(--color-engel-light)"/> <br /> Engel light | <ColorBox color="var(--color-tram)"/> <br /> Spåra |
+| <ColorBox color="var(--color-engel)"/> <br /> **Engel** | <ColorBox color="var(--color-bus-light)"/> <br /> Bussi light | <ColorBox color="var(--color-copper)"/> <br /> Kupari |
+| <ColorBox color="var(--color-silver)"/> <br /> **Hopea** | <ColorBox color="var(--color-bus-light)"/> <br /> Bussi light | <ColorBox color="var(--color-gold)"/> <br /> Kulta |
+| <ColorBox color="var(--color-suomenlinna)"/> <br /> **Suomenlinna** | <ColorBox color="var(--color-bus-light)"/> <br /> Bussi light | <ColorBox color="var(--color-bus)"/> <br /> Bussi |
+| <ColorBox color="var(--color-tram)"/> <br /> **Spåra** | <ColorBox color="var(--color-engel-light)"/> <br /> Engel light | <ColorBox color="var(--color-summer)"/> <br /> Kesä |
+| <ColorBox color="var(--color-coat-of-arms)"/> <br /> **Vaakuna** | <ColorBox color="var(--color-fog-light)"/> <br /> Sumu light | <ColorBox color="var(--color-suomenlinna)"/> <br /> Suomenlinna |
+| <ColorBox color="var(--color-metro)"/> <br /> **Metro** | <ColorBox color="var(--color-suomenlinna-light)"/> <br /> Suomenlinna light | <ColorBox color="var(--color-gold)"/> <br /> Gold |
+| <ColorBox color="var(--color-copper)"/> <br /> **Kupari** | <ColorBox color="var(--color-fog-light)"/> <br /> Sumu light | <ColorBox color="var(--color-suomenlinna)"/> <br /> Suomenlinna |
+
+### How to use palettes?
+HDS components are designed in a way that it is easy to switch their colour palette. HDS uses the `palette-bus` by default. This palette can be easily changed by following [HDS palette customisation tutorial](/).
+
+In components that use multiple colours, refer to their respective documentation page. For example, HDS primary Buttons use a Primary colour while secondary Buttons use a Secondary colour.
+
+Creating a custom component and not sure whether you should use a Primary, a Secondary or an Accent colour? It may be a good idea to take a look at [palette examples in HDS Abstract](/).
 
 ## Tokens
 <p>The colour tokens are provided as CSS and SASS variables in <Link href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/design-tokens" external>hds-design-tokens repository in GitHub</Link>.</p>
