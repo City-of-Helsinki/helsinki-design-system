@@ -39,9 +39,8 @@ describe('<Accordion /> spec', () => {
       </Accordion>,
     );
 
-    await act(async () => {
-      userEvent.click(container.querySelector('[data-testid="accordion-closeButton"]'));
-    });
+    userEvent.click(container.querySelector('[data-testid="accordion-closeButton"]'));
+
     await act(async () => {
       jest.runAllTimers();
     });
