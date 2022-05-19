@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { LoadingSpinner } from '../loadingSpinner';
 import { Tabs } from './Tabs';
 
 export default {
@@ -121,11 +122,22 @@ export const WithCustomOnClickAction = () => {
       'The objective of basic education in Finland is to support pupils&#39; growth towards humanity and ethically responsible membership of society.',
   };
 
+  const LoadingIndicator = () => (
+    <div style={{ alignItems: 'center', display: 'flex', gap: '1rem' }}>
+      <LoadingSpinner
+        loadingText="Tab content is loading"
+        loadingFinishedText="The tab content loading was finished"
+        small
+      />
+      <span>Tab content is loading</span>
+    </div>
+  );
+
   const mockLoading = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-    }, 200);
+    }, 1000);
   };
 
   const onTabClick = () => {
@@ -142,8 +154,8 @@ export const WithCustomOnClickAction = () => {
         <Tabs.Tab onClick={() => onTabClick()}>Basic education</Tabs.Tab>
         <Tabs.Tab onClick={() => onTabClick()}>University</Tabs.Tab>
       </Tabs.TabList>
-      <Tabs.TabPanel>{isLoading ? 'loading..' : content.education}</Tabs.TabPanel>
-      <Tabs.TabPanel>{isLoading ? 'loading..' : content.university}</Tabs.TabPanel>
+      <Tabs.TabPanel>{isLoading ? <LoadingIndicator /> : content.education}</Tabs.TabPanel>
+      <Tabs.TabPanel>{isLoading ? <LoadingIndicator /> : content.university}</Tabs.TabPanel>
     </Tabs>
   );
 };
