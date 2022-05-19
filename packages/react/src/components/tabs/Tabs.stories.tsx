@@ -137,7 +137,7 @@ export const WithCustomOnClickAction = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 500);
   };
 
   const onTabClick = () => {
