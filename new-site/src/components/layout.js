@@ -177,7 +177,7 @@ const Layout = ({ children, pageContext }) => {
       .sort(sortByPageTitle),
   }));
   const footerCopyRightLinks = siteData?.footerCopyrightLinks || [];
-  const contentId = 'content';
+  const contentId = 'page-heading-1';
 
   return (
     <>
