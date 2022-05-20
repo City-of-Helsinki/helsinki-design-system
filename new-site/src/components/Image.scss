@@ -5,23 +5,28 @@
 }
 
 .image-container-link {
-  display: block;
+  display: flex;
   position: relative;
+  width: max-content;
+
+  @media screen and (min-width: $breakpoint-m) {
+    width: 100%;
+  }
 
   &:focus:after {
     border: 3px solid var(--color-coat-of-arms);
     box-sizing: border-box;
     content: '';
-    height: 100%;
+    bottom: 0;
     left: 0;
     position: absolute;
     top: 0;
-    width: 100%;
+    right: 0;
   }
 }
 
 .image-container-image {
-  max-width: max(#{$breakpoint-m},100%);
+  max-width: $breakpoint-m;
 
   @media screen and (min-width: $breakpoint-m) {
     max-width: 100%;
