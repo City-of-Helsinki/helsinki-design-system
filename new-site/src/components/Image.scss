@@ -6,6 +6,18 @@
 
 .image-container-link {
   display: block;
+  position: relative;
+
+  &:focus:after {
+    border: 3px solid var(--color-coat-of-arms);
+    box-sizing: border-box;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
 }
 
 .image-container-image {
