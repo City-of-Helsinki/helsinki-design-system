@@ -37,7 +37,7 @@ export function Modal(): React.ReactElement | null {
 
   return (
     <div
-      className={classNames(styles.container, popupTimerComplete && styles['animate-in'])}
+      className={classNames(styles.container, styles.modal, popupTimerComplete && styles['animate-in'])}
       data-testid="cookie-consent"
     >
       <div className={styles.aligner}>{popupTimerComplete && <Content />}</div>

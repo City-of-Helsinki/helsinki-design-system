@@ -68,6 +68,21 @@
   padding-bottom: 0;
 }
 
+.modal .content .hidden-without-focus {
+  position: absolute;
+  opacity: 0;
+}
+
+.modal .content:focus-within .hidden-without-focus {
+  position: relative;
+  opacity: 1;
+}
+
+.modal .content:focus-within .hidden-with-focus {
+  position: absolute;
+  opacity: 0;
+}
+
 .language-switcher {
   position: absolute;
   top: var(--common-spacing);
