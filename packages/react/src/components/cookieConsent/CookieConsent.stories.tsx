@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 
-import { SupportedLanguage } from './CookieConsentContext';
+import {
+  Category,
+  CookieData,
+  Provider as CookieContextProvider,
+  SupportedLanguage,
+  useCookieConsentContext,
+} from './CookieConsentContext';
 import { ConsentsInModal } from './consentsInModal/ConsentsInModal';
 import { ConsentsInPage } from './consentsInPage/ConsentsInPage';
-import { getConsentStatus, hasHandledAllConsents } from './util';
-import { ContentSource, pickConsentIdsFromContentSource } from './content.builder';
+import { getConsentStatus } from './util';
+import { ContentSource } from './content.builder';
+import { Modal } from './modal/Modal';
+import { Accordion } from '../accordion';
 
 export default {
   component: ConsentsInModal,
@@ -152,11 +160,6 @@ export const ModalVersion = (args) => {
   };
 
   const Application = () => {
-    const consentsInSource = pickConsentIdsFromContentSource(contentSource);
-    const willRenderCookieConsentDialog = !hasHandledAllConsents(
-      consentsInSource.required || [],
-      consentsInSource.optional || [],
-    );
     return (
       <div>
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
@@ -164,15 +167,7 @@ export const ModalVersion = (args) => {
           This is an example application with cookie consent modal
         </h1>
         <p>The modal will be shown when required. If user has given consents, it will not be shown.</p>
-        {willRenderCookieConsentDialog ? (
-          <>
-            <p>Consents are not given. Modal is shown.</p>
-          </>
-        ) : (
-          <>
-            <p>Cookie consents have been given. Remove the cookie to see the modal again.</p>
-          </>
-        )}
+        <p>If hidden, remove the cookie to see the modal again.</p>
         <MatomoCookieTracker />
         <ForcePageScrollBarForModalTesting />
       </div>
@@ -209,11 +204,6 @@ export const SimpleModalVersion = (args) => {
   };
 
   const Application = () => {
-    const consentsInSource = pickConsentIdsFromContentSource(contentSource);
-    const willRenderCookieConsentDialog = !hasHandledAllConsents(
-      consentsInSource.required || [],
-      consentsInSource.optional || [],
-    );
     return (
       <div>
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
@@ -221,12 +211,8 @@ export const SimpleModalVersion = (args) => {
           Simplest cookie consent example
         </h1>
         <p>This is an example how the modal is shown with minimal content parameters.</p>
-        <p>Note: it the cookie.required would be true, the modal would not be shown.</p>
-        {!willRenderCookieConsentDialog && (
-          <>
-            <p>Cookie consents have been given. Remove the cookie to see the modal again.</p>
-          </>
-        )}
+        <p>If modal is not shown, remove the cookie to see the modal again.</p>
+        <p>Note: it the cookie.required would be true, the modal would never be shown.</p>
       </div>
     );
   };
@@ -455,5 +441,100 @@ export const CustomContentVersion = (args) => {
     <main>
       <ConsentsInPage contentSource={contentSource} />
     </main>
+  );
+};
+
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+export const DebugVersion = (args) => {
+  const contentSource: ContentSource = {
+    siteName: 'Cookie consent debugging',
+    currentLanguage: 'fi',
+    cookies: [
+      {
+        commonCookie: 'tunnistamo',
+        required: false,
+        commonGroup: 'essential',
+      },
+      {
+        id: `random-cookie-${Math.random()}-without-consent`,
+        required: false,
+        commonGroup: 'marketing',
+      },
+      {
+        commonCookie: 'matomo',
+        required: true,
+        commonGroup: 'statistics',
+      },
+    ],
+  };
+
+  const getCategoryCookies = (category: Category): CookieData[] => {
+    let allCookies: CookieData[] = [];
+    category.groups.forEach((group) => {
+      allCookies = [...allCookies, ...group.cookies];
+    });
+    return allCookies;
+  };
+
+  const Application = () => {
+    const context = useCookieConsentContext();
+    const { hasUserHandledAllConsents, content } = context;
+    const { requiredCookies, optionalCookies } = content;
+    const willRenderCookieConsentDialog = hasUserHandledAllConsents();
+    return (
+      <div>
+        <h1>Debugging example</h1>
+        <p>This is an example how to get all data from the cookie consent context.</p>
+        <p>
+          The same contentSource can be passed to context and context provides access to the content built from the
+          source.
+        </p>
+        <p>There is a random cookie, so modal is always shown.</p>
+        <Accordion heading="View full content">
+          <p>The consents are read from the stored cookie</p>
+          <div>
+            <pre>{JSON.stringify(content, null, 2)}</pre>
+          </div>
+        </Accordion>
+        <Accordion heading="View required cookies and their consets">
+          <ul>
+            {getCategoryCookies(requiredCookies).map((cookie) => {
+              return (
+                <li>
+                  <strong>{cookie.id}</strong> has consent stored in cookie: {String(getConsentStatus(cookie.id))}
+                </li>
+              );
+            })}
+          </ul>
+        </Accordion>
+        <Accordion heading="View optional cookies and their consents">
+          <p>The consents are read from the stored cookie</p>
+          <ul>
+            {getCategoryCookies(optionalCookies).map((cookie) => {
+              return (
+                <li>
+                  <strong>{cookie.id}</strong> has consent: {String(getConsentStatus(cookie.id))}
+                </li>
+              );
+            })}
+          </ul>
+        </Accordion>
+        <p>All consents have been given: {String(!willRenderCookieConsentDialog)}</p>
+        <p>
+          To see all consents in the cookie, open DevTools, goto Application tab and select Storage/Cookies from the
+          side panel
+        </p>
+      </div>
+    );
+  };
+
+  return (
+    <>
+      <CookieContextProvider contentSource={contentSource}>
+        <Application />
+        <Modal />
+      </CookieContextProvider>
+    </>
   );
 };
