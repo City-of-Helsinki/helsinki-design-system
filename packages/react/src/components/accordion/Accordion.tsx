@@ -10,6 +10,7 @@ import { IconAngleDown, IconAngleUp } from '../../icons';
 import { useAccordion } from './useAccordion';
 import { useTheme } from '../../hooks/useTheme';
 import { Button } from '../button';
+import useHasMounted from '../../hooks/useHasMounted';
 
 export interface AccordionCustomTheme {
   '--background-color'?: string;
@@ -179,7 +180,7 @@ export const Accordion = ({
     <IconAngleDown aria-hidden className={styles.accordionButtonIcon} />
   );
 
-  const didMount = useRef(false);
+  const hasMounted = useHasMounted();
 
   /*
     Close button does not work well with different screen readers. To avoid issues, we had to:
@@ -190,8 +191,7 @@ export const Accordion = ({
    */
 
   useEffect(() => {
-    if (!didMount.current) {
-      didMount.current = true;
+    if (!hasMounted) {
       return;
     }
     const timer = setTimeout(() => {
