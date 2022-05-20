@@ -7,15 +7,15 @@ import { useCookieConsentContent, useCookieConsentSectionTexts } from '../Cookie
 export function Details(): React.ReactElement {
   const content = useCookieConsentContent();
   const { title, text } = useCookieConsentSectionTexts('details');
-  const { requiredCookies: requiredConsents, optionalCookies: optionalConsents } = content;
+  const { requiredCookies, optionalCookies } = content;
   return (
     <div className={styles['text-content']} data-testid="cookie-consent-details">
       <span className={styles['emulated-h2']} role="heading" aria-level={2}>
         {title}
       </span>
       <p>{text}</p>
-      <Category category={requiredConsents} isRequired />
-      <Category category={optionalConsents} />
+      <Category category={requiredCookies} isRequired />
+      <Category category={optionalCookies} />
     </div>
   );
 }
