@@ -47,7 +47,7 @@ function mergeConsents(set1: ConsentObject, set2: ConsentObject, set3?: ConsentO
   return { ...set1, ...set2, ...set3 };
 }
 
-function parseConsents(jsonString: string | undefined): ConsentObject {
+export function parseConsents(jsonString: string | undefined): ConsentObject {
   if (!jsonString || jsonString.length < 2 || jsonString.charAt(0) !== '{') {
     return {};
   }
@@ -65,7 +65,7 @@ function createConsentsString(consents: ConsentObject): string {
   return JSON.stringify(consents);
 }
 
-const getCookieDomainFromUrl = (): string => window.location.hostname.split('.').slice(-2).join('.');
+export const getCookieDomainFromUrl = (): string => window.location.hostname.split('.').slice(-2).join('.');
 
 export function createStorage(
   initialValues: ConsentStorage,

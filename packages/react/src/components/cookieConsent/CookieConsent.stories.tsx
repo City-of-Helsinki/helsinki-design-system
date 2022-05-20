@@ -9,10 +9,10 @@ import {
 } from './CookieConsentContext';
 import { ConsentsInModal } from './consentsInModal/ConsentsInModal';
 import { ConsentsInPage } from './consentsInPage/ConsentsInPage';
-import { getConsentStatus } from './util';
 import { ContentSource } from './content.builder';
 import { Modal } from './modal/Modal';
 import { Accordion } from '../accordion';
+import { useCookies } from './useCookies';
 
 export default {
   component: ConsentsInModal,
@@ -140,6 +140,11 @@ export const ModalVersion = (args) => {
   };
 
   const MatomoCookieTracker = () => {
+    const { getAllConsents } = useCookies();
+    const getConsentStatus = (cookieId: string) => {
+      const consents = getAllConsents();
+      return consents[cookieId];
+    };
     const isMatomoCookieApproved = getConsentStatus('matomo');
     return (
       <div>
@@ -482,22 +487,33 @@ export const DebugVersion = (args) => {
     const { hasUserHandledAllConsents, content } = context;
     const { requiredCookies, optionalCookies } = content;
     const willRenderCookieConsentDialog = hasUserHandledAllConsents();
+    const { getAllConsents } = useCookies();
+    const storedConsents = getAllConsents();
+    const getConsentStatus = (cookieId: string) => {
+      return storedConsents[cookieId];
+    };
     return (
       <div>
         <h1>Debugging example</h1>
         <p>This is an example how to get all data from the cookie consent context.</p>
         <p>
-          The same contentSource can be passed to context and context provides access to the content built from the
-          source.
+          The same contentSource can be passed to the context and it provides access to the content built from the
+          source. There are multiple hooks for getting the context, content, texts, etc. You can also trigger actions to
+          store consents.
         </p>
+        <p>All consents have been given: {String(!willRenderCookieConsentDialog)}</p>
         <p>There is a random cookie, so modal is always shown.</p>
+        <p>
+          To see all consents in the cookie, open DevTools, goto Application tab and select Storage/Cookies from the
+          side panel
+        </p>
         <Accordion heading="View full content">
-          <p>The consents are read from the stored cookie</p>
           <div>
             <pre>{JSON.stringify(content, null, 2)}</pre>
           </div>
         </Accordion>
         <Accordion heading="View required cookies and their consets">
+          <p>The consents are read from the stored cookie</p>
           <ul>
             {getCategoryCookies(requiredCookies).map((cookie) => {
               return (
@@ -520,11 +536,18 @@ export const DebugVersion = (args) => {
             })}
           </ul>
         </Accordion>
-        <p>All consents have been given: {String(!willRenderCookieConsentDialog)}</p>
-        <p>
-          To see all consents in the cookie, open DevTools, goto Application tab and select Storage/Cookies from the
-          side panel
-        </p>
+        <Accordion heading="View consents in the stored cookie">
+          <p>The stored cookie has these user given consents:</p>
+          <ul>
+            {Object.keys(storedConsents).map((cookieId) => {
+              return (
+                <li>
+                  <strong>{cookieId}</strong>: {String(getConsentStatus(cookieId))}
+                </li>
+              );
+            })}
+          </ul>
+        </Accordion>
       </div>
     );
   };
