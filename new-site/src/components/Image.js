@@ -5,18 +5,18 @@ import PropTypes from 'prop-types';
 import './Image.scss';
 
 const Image = ({ src, alt = 'Image', style = {}, viewable, ...rest }) => {
-  const image = (
-    <div className="image-container">
-      <img className="image-container-image" alt={alt} src={withPrefix(src)} {...rest} />
-    </div>
-  );
+  const image = <img className="image-container-image" alt={alt} src={withPrefix(src)} {...rest} />;
 
-  return viewable ? (
-    <a href={withPrefix(src)} title={alt}>
-      {image}
-    </a>
-  ) : (
-    image
+  return (
+    <div className="image-container">
+      {viewable ? (
+        <a className="image-container-link" href={withPrefix(src)} title={alt}>
+          {image}
+        </a>
+      ) : (
+        image
+      )}
+    </div>
   );
 };
 
