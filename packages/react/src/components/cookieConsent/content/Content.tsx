@@ -28,15 +28,22 @@ export function Content(): React.ReactElement {
     }
   }, [titleRef]);
   return (
-    <div className={styles.content} id="cookie-consent-content">
+    <div className={styles.content} id="cookie-consent-content" tabIndex={-1}>
       <div className={styles['main-content']} data-testid="cookie-consent-information">
-        <span className={styles['emulated-h1']} role="heading" aria-level={1} tabIndex={-1} ref={titleRef}>
+        <span
+          className={classNames(styles['emulated-h1'], styles['hidden-without-focus'])}
+          role="heading"
+          aria-level={1}
+          tabIndex={-1}
+          ref={titleRef}
+        >
           {title}
         </span>
         <div className={styles['language-switcher']} data-testid="cookie-consent-language-switcher">
           <LanguageSwitcher />
         </div>
-        <p>{text}</p>
+        <p className={styles['hidden-without-focus']}>{text}</p>
+        <p className={styles['hidden-with-focus']}>Tämä teksti näkyy, kun focus on ulkona.</p>
       </div>
       <button
         type="button"
