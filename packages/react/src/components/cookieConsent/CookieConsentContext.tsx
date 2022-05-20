@@ -214,6 +214,10 @@ export const Provider = ({ cookieDomain, children, contentSource }: CookieConsen
   return <CookieConsentContext.Provider value={contextData}>{children}</CookieConsentContext.Provider>;
 };
 
+export const useCookieConsentContext = (): CookieConsentContextType => {
+  return useContext(CookieConsentContext);
+};
+
 export const getCookieConsentContent = (context: CookieConsentContextType): Content => {
   return context.content;
 };
