@@ -4,6 +4,10 @@
   overflow-x: auto;
 }
 
+.image-container-link {
+  display: block;
+}
+
 .image-container-image {
   max-width: max(#{$breakpoint-m},100%);
 
