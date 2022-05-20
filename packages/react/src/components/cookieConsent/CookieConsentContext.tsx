@@ -2,7 +2,6 @@ import React, { createContext, useContext, useMemo, useState } from 'react';
 
 import createConsentController, { ConsentController, ConsentList, ConsentObject } from './cookieConsentController';
 import { ContentSource, createContent } from './content.builder';
-import { CookieConsentActionListener } from './types';
 
 export type Description = {
   title: string;
@@ -78,6 +77,16 @@ type CookieConsentContextProps = {
   children: React.ReactNode | React.ReactNode[] | null;
   contentSource: ContentSource;
 };
+
+type CookieConsentAction =
+  | 'approveAll'
+  | 'approveRequired'
+  | 'changeCookieGroupConsents'
+  | 'approveOptional'
+  | 'unapproveOptional'
+  | 'approveSelectedAndRequired';
+
+type CookieConsentActionListener = (action: CookieConsentAction, consents?: string[], value?: boolean) => void;
 
 export const CookieConsentContext = createContext<CookieConsentContextType>({
   hasUserHandledAllConsents: () => false,
