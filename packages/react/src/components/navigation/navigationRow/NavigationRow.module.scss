@@ -17,8 +17,10 @@
     padding: var(--spacing-s) var(--spacing-2-xs);
     }
     &.shelf {
-      // padding: var(--spacing-s) var(--spacing-2-xs);
-      border-bottom: 1px solid var(--header-divider-color);
+      padding: var(--spacing-3-xs) var(--spacing-2-xs);
+      display: inline-flex;
+      --item-active-color: var(--header-color);
+      --item-focus-outline-height-adjust: var(--header-focus-outline-width);
     }
   }
 }

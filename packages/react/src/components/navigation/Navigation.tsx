@@ -261,7 +261,11 @@ export const Navigation = ({
               {mobileMenuOpen ? <IconCross aria-hidden /> : <IconMenuHamburger aria-hidden />}
             </button>
           </HeaderWrapper>
-          {mobileShelf && <div id="hds-mobile-shelf">{mobileShelf}</div>}
+          {mobileShelf && (
+            <div id="hds-mobile-shelf" className={styles.mobileShelf}>
+              {mobileShelf}
+            </div>
+          )}
           {mobileMenuOpen && (
             <div id="hds-mobile-menu" className={styles.mobileMenu}>
               {mobileMenuChildren}

@@ -442,16 +442,16 @@ export const Shelf = ({ ...args }) => {
       {/* NAVIGATION ACTIONS */}
       <Navigation.Actions>
         <Navigation.Row variant="inlineShelf" key="languages">
-          <Navigation.Item href="#" hrefLang="fi" label="Suomeksi" active />
-          <Navigation.Item href="#" hrefLang="sv" label="På svenska" />
-          <Navigation.Item href="#" hrefLang="en" label="In English" />
+          <Navigation.Item href="#" hrefLang="fi" label="Suomi" active />
+          <Navigation.Item href="#" hrefLang="sv" label="Svenska" />
+          <Navigation.Item href="#" hrefLang="en" label="English" />
           <Navigation.Dropdown label="🌐" key="theme_dropdown">
             <Navigation.Item href="#" hrefLang="und" label="Arabic" />
             <Navigation.Item href="#" hrefLang="und" label="Chinese" />
           </Navigation.Dropdown>
         </Navigation.Row>
         <Button size="small" key="navigation_button" iconRight={<IconArrowTopRight size="l" />}>
-          Button text
+          Oma-asionti
         </Button>
       </Navigation.Actions>
     </Navigation>

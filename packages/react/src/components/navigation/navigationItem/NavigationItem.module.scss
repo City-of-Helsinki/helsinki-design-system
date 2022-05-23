@@ -1,6 +1,7 @@
 @import "../../../styles/common";
 @import "../../button/button.common";
 @import "../navigation.common";
+
 @value x-small-down, small-down, small-only, medium-only, medium-up, large-only, large-up, x-large-only, x-large-up from "../../../styles/breakpoints.css";
 
 %item {
@@ -84,9 +85,28 @@
 
 @media small-down {
   .rowItem {
-    height: var(--spacing-xl);
-    padding: var(--spacing-2-xs);
+    &:not(.shelved) {
+      height: var(--spacing-xl);
+      padding: var(--spacing-2-xs);
+    }
+    &.shelved {
+      padding: var(--spacing-4-xs);
+      position: relative;
 
+      // active + hover styles
+      &:hover:not(:focus)::after,
+      &:active::after,
+      &.active::after {
+        background-color: var(--item-active-color);
+        bottom: 0;
+        content: '';
+        height: var(--spacing-3-xs);
+        left: 0;
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+      }
+    }
     &:focus {
       box-shadow: 0 0 0 var(--header-focus-outline-width) var(--item-focus-outline-color);
     }
@@ -94,7 +114,7 @@
 
   .rowItem,
   .dropdownItem {
-    &:not(:first-child) {
+    &:not(:first-child):not(.shelved) {
       margin-top: var(--spacing-2-xs);
     }
   }
@@ -156,4 +176,3 @@
     width: max-content;
   }
 }
-

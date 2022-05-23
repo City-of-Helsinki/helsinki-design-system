@@ -174,6 +174,15 @@
   }
 }
 
+// mobile shelf
+.mobileShelf {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border-bottom: 1px solid var(--header-divider-color);
+  font-size: var(--fontsize-body-s);
+}
+
 /* MEDIA */
 
 @media x-small-only {

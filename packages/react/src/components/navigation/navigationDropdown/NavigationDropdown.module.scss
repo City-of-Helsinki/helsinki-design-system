@@ -27,7 +27,7 @@
 }
 
 @media small-down {
-  .dropdownItem.dropdownItem {
+  .dropdownItem.dropdownItem:not(.shelved) {
     align-items: flex-start;
     border-radius: 0;
     flex-direction: column;
