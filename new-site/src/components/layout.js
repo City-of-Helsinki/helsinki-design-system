@@ -203,9 +203,9 @@ const Layout = ({ children, pageContext }) => {
             ))}
           </Navigation.Row>
         </Navigation>
-        <Container className="pageContent">
+        <Container className="page-content">
           {uiSubMenuLinks.length > 0 && (
-            <aside className="sideContent" key="side-navigation">
+            <aside className="side-content" key="side-navigation">
               <SideNavigation
                 defaultOpenMainLevels={[...Array(uiSubMenuLinks.length).keys()]}
                 id="side-navigation"
@@ -252,11 +252,11 @@ const Layout = ({ children, pageContext }) => {
               </SideNavigation>
             </aside>
           )}
-          <main id={contentId} className="mainContent">
+          <main id={contentId} className="main-content">
             <MDXProvider components={components}>{children}</MDXProvider>
           </main>
         </Container>
-        <Footer id="page-footer" className="pageFooter" title={footerTitle} footerAriaLabel={footerAriaLabel}>
+        <Footer id="page-footer" className="page-footer" title={footerTitle} footerAriaLabel={footerAriaLabel}>
           <Footer.Base copyrightHolder="Copyright">
             {footerCopyRightLinks.map(({ name, link }) => (
               <Footer.Item key={name} label={name} href={link} />
