@@ -15,6 +15,7 @@
   overflow-y: scroll;
   max-height: 80vh;
   border-top: 8px solid var(--color-bus);
+  background: #ffffff;
 }
 
 .container .aligner {
@@ -46,7 +47,6 @@
 
 .content {
   position: relative;
-  background: #ffffff;
   width: 100%;
   box-sizing: border-box;
   margin: 0 auto;
@@ -265,27 +265,35 @@
 
 .shrink-on-blur:not(:focus-within) {
   --common-spacing: var(--spacing-xs);
-  display: flex;
-  align-items: center;
-  margin-right: 200px;
-  padding-bottom: var(--common-spacing);
-  .main-content {
-    width: 40%;
-    padding-right: var(--common-spacing);
-  }
+  padding-top: var(--spacing-l);
+
   .buttons {
-    width: 60%;
-    button {
-      /* from button.css small variant*/
-      padding: 0;
-      margin-bottom: var(--common-spacing);
-      &:first-child {
-        margin-right: var(--common-spacing);
-      }
-      span {
-        margin: 0 var(--spacing-xs);
-        line-height: var(--lineheight-s);
-        padding: var(--spacing-2-xs) var(--spacing-xs);
+    padding-top: var(--spacing-l);
+  }
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    padding: var(--common-spacing) 200px var(--common-spacing) var(--common-spacing);
+
+    .main-content {
+      width: 40%;
+      padding-right: var(--common-spacing);
+    }
+    .buttons {
+      width: 60%;
+      padding-top: 0;
+      button {
+        /* from button.css small variant*/
+        padding: 0;
+        margin-bottom: var(--common-spacing);
+        &:first-child {
+          margin-right: var(--common-spacing);
+        }
+        span {
+          margin: 0 var(--spacing-xs);
+          line-height: var(--lineheight-s);
+          padding: var(--spacing-2-xs) var(--spacing-xs);
+        }
       }
     }
   }
