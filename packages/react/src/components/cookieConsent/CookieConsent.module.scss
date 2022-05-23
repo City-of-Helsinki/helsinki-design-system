@@ -37,8 +37,11 @@
 }
 
 .buttons > * {
-  margin: 0 var(--common-spacing) var(--common-spacing) 0;
+  margin: 0 0 var(--common-spacing) 0;
   width: 100%;
+  &:first-child {
+    margin-right: var(--common-spacing);
+  }
 }
 
 .content {
@@ -66,21 +69,6 @@
 .page .content {
   padding-top: 0;
   padding-bottom: 0;
-}
-
-.modal .content .hidden-without-focus {
-  position: absolute;
-  opacity: 0;
-}
-
-.modal .content:focus-within .hidden-without-focus {
-  position: relative;
-  opacity: 1;
-}
-
-.modal .content:focus-within .hidden-with-focus {
-  position: absolute;
-  opacity: 0;
 }
 
 .language-switcher {
@@ -268,6 +256,62 @@
   .emulated-h2,
   .emulated-h3 {
     max-width: 860px;
+  }
+}
+
+.shown-without-focus {
+  display: none;
+}
+
+.shrink-on-blur:not(:focus-within) {
+  --common-spacing: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  margin-right: 200px;
+  padding-bottom: var(--common-spacing);
+  .main-content {
+    width: 40%;
+    padding-right: var(--common-spacing);
+  }
+  .buttons {
+    width: 60%;
+    button {
+      /* from button.css small variant*/
+      padding: 0;
+      margin-bottom: var(--common-spacing);
+      &:first-child {
+        margin-right: var(--common-spacing);
+      }
+      span {
+        margin: 0 var(--spacing-xs);
+        line-height: var(--lineheight-s);
+        padding: var(--spacing-2-xs) var(--spacing-xs);
+      }
+    }
+  }
+  .visually-hidden-without-focus {
+    position: absolute;
+    opacity: 0;
+    display: block;
+    width: 1px;
+    height: 1px;
+    left: -100px;
+    line-height: 0;
+  }
+  .hidden-without-focus {
+    display: none;
+  }
+  .shown-without-focus {
+    display: inline-block;
+    pointer-events: none;
+  }
+  .cut-text-without-focus {
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 
