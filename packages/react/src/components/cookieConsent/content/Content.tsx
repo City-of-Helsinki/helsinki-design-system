@@ -20,18 +20,26 @@ export function Content(): React.ReactElement {
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
   const settingsButtonText = isOpen ? hideSettings : showSettings;
   const settingsButtonsClassName = isOpen
-    ? styles['accordion-button']
-    : classNames(styles['accordion-button'], styles['accordion-button-settings-closed']);
+    ? classNames(styles['accordion-button'], styles['hidden-without-focus'])
+    : classNames(
+        styles['accordion-button'],
+        styles['accordion-button-settings-closed'],
+        styles['hidden-without-focus'],
+      );
   useEffect(() => {
     if (titleRef.current) {
       titleRef.current.focus();
     }
   }, [titleRef]);
   return (
-    <div className={styles.content} id="cookie-consent-content" tabIndex={-1}>
+    <div
+      className={classNames(styles.content, isOpen ? '' : styles['shrink-on-blur'])}
+      id="cookie-consent-content"
+      tabIndex={-1}
+    >
       <div className={styles['main-content']} data-testid="cookie-consent-information">
         <span
-          className={classNames(styles['emulated-h1'], styles['hidden-without-focus'])}
+          className={classNames(styles['emulated-h1'], styles['visually-hidden-without-focus'])}
           role="heading"
           aria-level={1}
           tabIndex={-1}
@@ -42,8 +50,10 @@ export function Content(): React.ReactElement {
         <div className={styles['language-switcher']} data-testid="cookie-consent-language-switcher">
           <LanguageSwitcher />
         </div>
-        <p className={styles['hidden-without-focus']}>{text}</p>
-        <p className={styles['hidden-with-focus']}>Tämä teksti näkyy, kun focus on ulkona.</p>
+        <p className={styles['cut-text-without-focus']}>{text}</p>
+        <button type="button" className={classNames(styles['accordion-button'], styles['shown-without-focus'])}>
+          Lue lisää
+        </button>
       </div>
       <button
         type="button"
