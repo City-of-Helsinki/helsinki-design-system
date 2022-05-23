@@ -43,7 +43,7 @@
   ],
   "license": "0BSD",
   "scripts": {
-    "build": "gatsby build",
+    "build": "npm run lint && gatsby build",
     "develop": "gatsby develop -o",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "gatsby develop -o",
@@ -51,7 +51,9 @@
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "link-react": "rm -rf node_modules/hds-react/* && cp -r ../packages/react/lib/* node_modules/hds-react/",
-    "lint:js": "eslint . --ext js"
+    "lint:js": "eslint . --ext js",
+    "lint:scss": "stylelint \"**/*.scss\"",
+    "lint": "npm run lint:js && npm run lint:scss"
   },
   "repository": {
     "type": "git",
