@@ -3,15 +3,16 @@
 exports[`<ModalContent /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
-    class="container animate-in"
+    class="container modal animate-in"
     data-testid="cookie-consent"
   >
     <div
       class="aligner"
     >
       <div
-        class="content"
+        class="content shrink-on-blur"
         id="cookie-consent-content"
+        tabindex="-1"
       >
         <div
           class="main-content"
@@ -19,7 +20,7 @@ exports[`<ModalContent /> spec renders the component 1`] = `
         >
           <span
             aria-level="1"
-            class="emulated-h1"
+            class="emulated-h1 visually-hidden-without-focus"
             role="heading"
             tabindex="-1"
           >
@@ -111,13 +112,21 @@ exports[`<ModalContent /> spec renders the component 1`] = `
               </div>
             </div>
           </div>
-          <p>
+          <p
+            class="cut-text-without-focus"
+          >
             Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden käytön.
           </p>
+          <button
+            class="accordion-button shown-without-focus"
+            type="button"
+          >
+            Lue lisää
+          </button>
         </div>
         <button
           aria-expanded="false"
-          class="accordion-button accordion-button-settings-closed"
+          class="accordion-button accordion-button-settings-closed hidden-without-focus"
           data-testid="cookie-consent-settings-toggler"
           type="button"
         >
