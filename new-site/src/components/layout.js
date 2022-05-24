@@ -191,7 +191,7 @@ const Layout = ({ children, pageContext }) => {
           skipTo={`#${contentId}`}
           skipToContentLabel="Skip to content"
         >
-          <Navigation.Row>
+          <Navigation.Row ariaLabel="Main navigation">
             {uiMenuLinks.map(({ name, link, uiId }) => (
               <Navigation.Item
                 active={withPrefix(currentMenuItem?.link || '') === withPrefix(link)}
@@ -210,6 +210,7 @@ const Layout = ({ children, pageContext }) => {
                 defaultOpenMainLevels={[...Array(uiSubMenuLinks.length).keys()]}
                 id="side-navigation"
                 toggleButtonLabel="Navigate to page"
+                ariaLabel="Side navigation"
               >
                 {uiSubMenuLinks.map(({ name, link, prefixedLink, uiId, withDivider, subLevels }) => {
                   const hasSubLevels = subLevels.length > 0;
