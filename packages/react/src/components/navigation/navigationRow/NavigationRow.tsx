@@ -17,9 +17,13 @@ export type NavigationRowProps = React.PropsWithChildren<{
    * `inline` - items will be displayed in the header
    */
   variant?: NavigationVariant;
+  /**
+   * aria-label for helping screen readers to distinguish navigation row from other navigational components
+   */
+  ariaLabel?: string;
 }>;
 
-export const NavigationRow = ({ variant = 'default', children }: NavigationRowProps) => {
+export const NavigationRow = ({ variant = 'default', ariaLabel, children }: NavigationRowProps) => {
   const { setNavigationVariant } = useContext(NavigationContext);
 
   useEffect(() => setNavigationVariant(variant), [setNavigationVariant, variant]);
@@ -43,7 +47,9 @@ export const NavigationRow = ({ variant = 'default', children }: NavigationRowPr
   });
 
   return (
-    <nav className={classNames(styles.navigation, variant === 'default' && styles.subNav)}>{childrenWithClassName}</nav>
+    <nav className={classNames(styles.navigation, variant === 'default' && styles.subNav)} aria-label={ariaLabel}>
+      {childrenWithClassName}
+    </nav>
   );
 };
 NavigationRow.componentName = 'NavigationRow';
