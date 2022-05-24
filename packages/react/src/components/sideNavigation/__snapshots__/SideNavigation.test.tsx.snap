@@ -3,6 +3,7 @@
 exports[`<SideNavigation /> spec renders the component 1`] = `
 <DocumentFragment>
   <nav
+    aria-label="Side navigation"
     class="sideNavigation"
     id="sideNavigation"
   >
