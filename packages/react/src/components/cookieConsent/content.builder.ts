@@ -16,20 +16,19 @@ import { COOKIE_NAME } from './cookieConsentController';
 
 type ContentSourceCookieData = Partial<CookieData> & {
   commonGroup?: string;
-  required?: boolean;
   groupId?: string;
   commonCookie?: string;
 };
 
-type ContentSourceCookieGroup = Omit<Partial<CookieGroup>, 'cookies'> & {
+export type ContentSourceCookieGroup = Omit<Partial<CookieGroup>, 'cookies'> & {
   commonGroup?: string;
-  required?: boolean;
   id?: string;
   cookies: ContentSourceCookieData[];
 };
 
 export type ContentSourceCategory = Omit<Partial<Category>, 'groups'> & {
-  groups: ContentSourceCookieGroup[];
+  groups?: ContentSourceCookieGroup[];
+  cookies?: ContentSourceCookieData[];
 };
 
 type ContentSourceTexts = {
@@ -46,8 +45,6 @@ export type ContentSource = {
   siteName: string;
   requiredCookies?: ContentSourceCategory;
   optionalCookies?: ContentSourceCategory;
-  groups?: ContentSourceCookieGroup[];
-  cookies?: ContentSourceCookieData[];
   texts?: ContentSourceTexts;
   language?: Partial<Content['language']>;
   noCommonConsentCookie?: boolean;
@@ -146,11 +143,11 @@ function buildCookieGroups(props: ContentSource): { requiredCookies: CookieGroup
   const requiredCookies = [];
   const optionalCookies = [];
   const groupMap = new Map<string, CookieGroup>();
-  const { currentLanguage, groups, cookies, noCommonConsentCookie } = props;
+  const { currentLanguage, noCommonConsentCookie } = props;
+  let helConsentCookieFound = false;
 
-  const parseGroup = (groupSource: ContentSourceCookieGroup, isRequired?: boolean) => {
+  const parseGroup = (groupSource: ContentSourceCookieGroup, isRequired: boolean) => {
     let consentGroup: CookieGroup | undefined;
-    const isRequiredOverride = !!(isRequired !== undefined ? isRequired : groupSource.required);
     const mapId = groupSource.commonGroup || groupSource.id || groupSource.title;
     consentGroup = groupMap.get(mapId);
     if (!consentGroup) {
@@ -171,22 +168,26 @@ function buildCookieGroups(props: ContentSource): { requiredCookies: CookieGroup
         };
       }
       groupMap.set(mapId, consentGroup);
-      isRequiredOverride ? requiredCookies.push(consentGroup) : optionalCookies.push(consentGroup);
+      isRequired ? requiredCookies.push(consentGroup) : optionalCookies.push(consentGroup);
     }
     if (groupSource.cookies) {
       groupSource.cookies.forEach((cookieSource) => {
         /* eslint-disable @typescript-eslint/no-unused-vars */
-        const {
-          commonGroup,
-          groupId,
-          required,
-          commonCookie,
-          ...cookieProps
-        } = cookieSource as ContentSourceCookieData;
+        const { commonGroup, groupId, commonCookie, ...cookieProps } = cookieSource as ContentSourceCookieData;
         /* eslint-enable @typescript-eslint/no-unused-vars */
         const cookieData = commonCookie ? getCommonCookie(currentLanguage, commonCookie, cookieProps) : cookieProps;
         consentGroup.cookies.push(cookieData as CookieData);
       });
+    }
+  };
+
+  const parseCookie = (cookie: ContentSourceCookieData, isRequired: boolean): void => {
+    const { commonGroup, groupId } = cookie;
+    const groupIdentifier = commonGroup || groupId;
+    if (groupIdentifier) {
+      parseGroup({ commonGroup, id: groupId, cookies: [cookie] }, isRequired);
+    } else {
+      throw new Error('Cannot add single cookie without a group');
     }
   };
 
@@ -200,21 +201,17 @@ function buildCookieGroups(props: ContentSource): { requiredCookies: CookieGroup
       parseGroup(group, false);
     });
   }
-  if (groups) {
-    groups.forEach((group) => {
-      parseGroup(group);
+  if (props.requiredCookies?.cookies) {
+    props.requiredCookies.cookies.forEach((cookie) => {
+      parseCookie(cookie, true);
+      if (cookie.id === COOKIE_NAME) {
+        helConsentCookieFound = true;
+      }
     });
   }
-  let helConsentCookieFound = false;
-  if (cookies) {
-    cookies.forEach((cookie) => {
-      const { commonGroup, groupId } = cookie;
-      const groupIdentifier = commonGroup || groupId;
-      if (groupIdentifier) {
-        parseGroup({ commonGroup, id: groupId, cookies: [cookie] }, cookie.required);
-      } else {
-        throw new Error('Cannot add single cookie without a group');
-      }
+  if (props.optionalCookies?.cookies) {
+    props.optionalCookies.cookies.forEach((cookie) => {
+      parseCookie(cookie, false);
       if (cookie.id === COOKIE_NAME) {
         helConsentCookieFound = true;
       }
