@@ -18,7 +18,7 @@ export type NavigationRowProps = React.PropsWithChildren<{
    */
   variant?: NavigationVariant;
   /**
-   * aria-label for helping screen readers to distinguish navigation row from other navigational components
+   * aria-label for helping screen reader users to distinguish navigation row from other navigational components
    */
   ariaLabel?: string;
 }>;

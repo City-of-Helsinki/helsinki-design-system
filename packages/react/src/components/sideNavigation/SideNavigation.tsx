@@ -45,7 +45,7 @@ export type SideNavigationProps = React.PropsWithChildren<{
    */
   id: string;
   /**
-   * aria-label for helping screen readers to distinguish SideNavigation from other navigational components
+   * aria-label for helping screen reader users to distinguish SideNavigation from other navigational components
    */
   ariaLabel?: string;
   /**
