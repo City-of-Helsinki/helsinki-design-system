@@ -12,6 +12,26 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ## Design
 
 <Accordion 
+  heading="What design software should I use?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  The official design software used in the City of Helsinki are Sketch and Abstract. These are also software that the HDS supports - meaning that the design kit is shared for the Sketch software only. It is recommended to use Sketch in your project if it is possible. It ensures that the HDS team can support you in problem situations.
+</Accordion>
+
+<Accordion 
+  heading="Is there a HDS Figma library available?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  The HDS only officially supports Sketch and Abstract. Figma is not officially supported and the team cannot provide any support for Figma issues. It is recommended to use Sketch and Abstract. Figma may be supported in the future but currently, there are no plans for it.
+</Accordion>
+
+<Accordion 
   heading="My Abstract projects take a long time to open or save. What should I do?" 
   headingLevel="3" 
   theme={{
@@ -47,9 +67,31 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   <ol>
     <li>Create a text element and give it a style of the same size you need. E.g. if you need a heading M size text, use heading M black style.</li>
     <li>Change the colour of the inserted text.</li>
-    <li>Create a new text style of this modified text. You can do this by pressing the “Create” button in the “Appearance” side menu. Give it a descriptive name, e.g. “Heading M - 03 Bussi”</li>
+    <li>Create a new text style for this modified text. You can do this by pressing the “Create” button in the “Appearance” side menu. Give it a descriptive name, e.g. “Heading M - 03 Bussi”</li>
     <li>Now you have a custom text style that you can use in HDS components. Just override the text style with your style in the “Overrides” side menu.</li>
   </ol>
+  </p>
+</Accordion>
+
+<Accordion 
+  heading="Which HDS component colors can I customise?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  <p>
+  First, please take a look at <Link size="M" href="/foundation/design-tokens/colour">the Colour token documentation</Link> for general information about using the colours.
+
+  There are a few rules of thumb that you can follow when customising colours:
+
+  <ol>
+    <li>If the colour is editable in the symbol override menu in Sketch, it can be customised.</li>
+    <li>If the default colour is Black or White, you can replace it with a Black, a White or a Grayscale colour.</li>
+    <li>If the default colour is a brand colour, you can replace it with another brand colour.</li>
+  </ol>
+
+  If you are in doubt, you can always ask questions in the #designsystem Slack channel or via other HDS contact methods.
   </p>
 </Accordion>
 
