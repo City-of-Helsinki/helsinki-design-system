@@ -491,67 +491,44 @@ describe(`content.builder.ts`, () => {
 
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
-    it('common cookie texts can be overridden', () => {
+    it('common cookie texts cannoy be overridden', () => {
       const newCookieTexts: Partial<CookieData> = {
         name: 'New cookie name',
         description: 'New cookie description',
         expiration: 'New cookie expiration',
       };
-      const contentWithCookie = createContent({
-        ...commonContentTestProps,
-        optionalCookies: {
-          cookies: [
-            {
-              commonGroup: 'marketing',
-              commonCookie: 'tunnistamo',
-              ...newCookieTexts,
-            },
-          ],
-        },
-        requiredCookies: {
-          cookies: [
-            {
-              commonGroup: 'essential',
-              commonCookie: 'matomo',
-              ...newCookieTexts,
-            },
-          ],
-        },
-      });
-
-      const expectedResult: Content = {
-        ...defaultTextsAndLanguage,
-        requiredCookies: {
-          ...requiredCookies,
-          groups: [
-            {
-              ...essentialGroup,
-              cookies: [
-                {
-                  ...matomo,
-                  ...newCookieTexts,
-                },
-              ],
-            },
-          ],
-        },
-        optionalCookies: {
-          ...optionalCookies,
-          groups: [
-            {
-              ...marketingGroup,
-              cookies: [
-                {
-                  ...tunnistamo,
-                  ...newCookieTexts,
-                },
-              ],
-            },
-          ],
-        },
-      };
-
-      expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
+      expect(() =>
+        createContent({
+          ...commonContentTestProps,
+          requiredCookies: {
+            cookies: [
+              {
+                commonGroup: 'marketing',
+                commonCookie: 'tunnistamo',
+                ...newCookieTexts,
+              },
+            ],
+          },
+        }),
+      ).toThrow();
+      expect(() =>
+        createContent({
+          ...commonContentTestProps,
+          optionalCookies: {
+            groups: [
+              {
+                id: 'testGroup',
+                cookies: [
+                  {
+                    commonCookie: 'tunnistamo',
+                    ...newCookieTexts,
+                  },
+                ],
+              },
+            ],
+          },
+        }),
+      ).toThrow();
     });
   });
   describe('contentSource.<category>.groups[]', () => {
@@ -715,76 +692,32 @@ describe(`content.builder.ts`, () => {
 
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
-    it('common group texts can be overridden', () => {
+    it('common group texts cannot be overridden', () => {
       const newGroupTexts = {
         title: 'overridden title',
         text: 'overridden text',
         expandAriaLabel: 'overridden expandAriaLabel',
         checkboxAriaDescription: 'overridden checkboxAriaDescription',
       };
-      const contentWithCookie = createContent({
-        ...commonContentTestProps,
-        requiredCookies: {
-          groups: [
-            {
-              commonGroup: 'essential',
-              cookies: [
-                {
-                  ...testCookieData,
-                },
-              ],
-              ...newGroupTexts,
-            },
-          ],
-        },
-        optionalCookies: {
-          groups: [
-            {
-              commonGroup: 'marketing',
-              cookies: [
-                {
-                  ...testCookieData,
-                },
-              ],
-              ...newGroupTexts,
-            },
-          ],
-        },
-      });
 
-      const expectedResult: Content = {
-        ...defaultTextsAndLanguage,
-        requiredCookies: {
-          ...requiredCookies,
-          groups: [
-            {
-              ...essentialGroup,
-              cookies: [
-                {
-                  ...testCookieData,
-                },
-              ],
-              ...newGroupTexts,
-            },
-          ],
-        },
-        optionalCookies: {
-          ...optionalCookies,
-          groups: [
-            {
-              ...marketingGroup,
-              cookies: [
-                {
-                  ...testCookieData,
-                },
-              ],
-              ...newGroupTexts,
-            },
-          ],
-        },
-      };
-
-      expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
+      expect(() =>
+        createContent({
+          ...commonContentTestProps,
+          optionalCookies: {
+            groups: [
+              {
+                commonGroup: 'essential',
+                ...newGroupTexts,
+                cookies: [
+                  {
+                    ...testCookieData,
+                  },
+                ],
+              },
+            ],
+          },
+        }),
+      ).toThrow();
     });
   });
   describe('contentSource.requiredCookies and optionalCookies', () => {

@@ -107,7 +107,7 @@ function getCommonCookieGroup(language: string, id: string): Omit<CookieGroup, '
   return commonGroups[id][language];
 }
 
-function getCommonCookie(language: string, id: string, overrides?: Partial<CookieData>): CookieData {
+function getCommonCookie(language: string, id: string): CookieData {
   const { commonCookies } = commonContent;
   if (!commonCookies[id]) {
     throw new Error(`Unknown common cookie ${id}`);
@@ -117,7 +117,6 @@ function getCommonCookie(language: string, id: string, overrides?: Partial<Cooki
     id: dataWithTranslations.id,
     hostName: dataWithTranslations.hostName,
     ...commonCookies[id][language],
-    ...overrides,
   };
   return cookie;
 }
@@ -152,12 +151,16 @@ function buildCookieGroups(props: ContentSource): { requiredCookies: CookieGroup
     consentGroup = groupMap.get(mapId);
     if (!consentGroup) {
       if (groupSource.commonGroup) {
+        ['title', 'text', 'expandAriaLabel', 'checkboxAriaDescription'].forEach((key) => {
+          if (groupSource[key]) {
+            throw new Error('Common group texts cannot be overridden.');
+          }
+        });
         const groupTexts = getCommonCookieGroup(currentLanguage, groupSource.commonGroup);
         consentGroup = {
           ...groupTexts,
           cookies: [],
         };
-        mergeObjects(consentGroup, groupSource, ['title', 'text', 'expandAriaLabel', 'checkboxAriaDescription']);
       } else {
         consentGroup = {
           title: groupSource.title,
@@ -175,7 +178,14 @@ function buildCookieGroups(props: ContentSource): { requiredCookies: CookieGroup
         /* eslint-disable @typescript-eslint/no-unused-vars */
         const { commonGroup, groupId, commonCookie, ...cookieProps } = cookieSource as ContentSourceCookieData;
         /* eslint-enable @typescript-eslint/no-unused-vars */
-        const cookieData = commonCookie ? getCommonCookie(currentLanguage, commonCookie, cookieProps) : cookieProps;
+        if (commonCookie) {
+          ['id', 'name', 'hostName', 'description', 'expiration'].forEach((key) => {
+            if (cookieProps[key]) {
+              throw new Error('Common cookie properties cannot be overridden.');
+            }
+          });
+        }
+        const cookieData = commonCookie ? getCommonCookie(currentLanguage, commonCookie) : cookieProps;
         consentGroup.cookies.push(cookieData as CookieData);
       });
     }
