@@ -32,84 +32,87 @@ export const ModalVersion = (args) => {
   const contentSource: ContentSource = {
     siteName: 'Sivusto XXX',
     currentLanguage: language,
-    groups: [
-      {
-        commonGroup: 'essential',
-        required: true,
-        cookies: [
-          {
-            commonCookie: 'tunnistamo',
-          },
-          {
-            id: 'loadbalancer',
-            name: 'Load balancer',
-            hostName: 'Host name',
-            description:
-              'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
-            expiration: '1h',
-          },
-          {
-            commonCookie: 'language-i18n',
-          },
-        ],
-      },
-      {
-        commonGroup: 'marketing',
-        required: false,
-        cookies: [
-          {
-            commonCookie: 'marketing',
-          },
-        ],
-      },
-      {
-        commonGroup: 'preferences',
-        required: false,
-        cookies: [
-          {
-            id: 'preferences1',
-            name: 'Preference 1',
-            hostName: 'Host name',
-            description:
-              'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
-            expiration: '1h',
-          },
-          {
-            id: 'preferences2',
-            name: 'Preference 2',
-            hostName: 'Host name',
-            description:
-              'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
-            expiration: '1 years',
-          },
-          {
-            id: 'preferences3',
-            name: 'Preference 3',
-            hostName: 'Host name',
-            description:
-              'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
-            expiration: '2h',
-          },
-        ],
-      },
-      {
-        commonGroup: 'statistics',
-        required: false,
-        cookies: [
-          {
-            commonCookie: 'matomo',
-          },
-          {
-            id: 'someOtherConsent',
-            name: 'Other consent',
-            hostName: 'Host name',
-            description:
-              'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
-            expiration: '1h',
-          },
-        ],
-      },
-    ],
+    requiredCookies: {
+      groups: [
+        {
+          commonGroup: 'essential',
+          cookies: [
+            {
+              commonCookie: 'tunnistamo',
+            },
+            {
+              id: 'loadbalancer',
+              name: 'Load balancer',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+            {
+              commonCookie: 'language-i18n',
+            },
+          ],
+        },
+      ],
+    },
+    optionalCookies: {
+      groups: [
+        {
+          commonGroup: 'marketing',
+          cookies: [
+            {
+              commonCookie: 'marketing',
+            },
+          ],
+        },
+        {
+          commonGroup: 'preferences',
+          cookies: [
+            {
+              id: 'preferences1',
+              name: 'Preference 1',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+            {
+              id: 'preferences2',
+              name: 'Preference 2',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1 years',
+            },
+            {
+              id: 'preferences3',
+              name: 'Preference 3',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '2h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'statistics',
+          cookies: [
+            {
+              commonCookie: 'matomo',
+            },
+            {
+              id: 'someOtherConsent',
+              name: 'Other consent',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+      ],
+    },
+
     language: {
       onLanguageChange,
     },
@@ -196,13 +199,14 @@ export const SimpleModalVersion = (args) => {
   const contentSource: ContentSource = {
     siteName: `Site title ${language}`,
     currentLanguage: language,
-    cookies: [
-      {
-        commonCookie: 'tunnistamo',
-        required: false,
-        commonGroup: 'essential',
-      },
-    ],
+    optionalCookies: {
+      cookies: [
+        {
+          commonGroup: 'essential',
+          commonCookie: 'tunnistamo',
+        },
+      ],
+    },
     language: {
       onLanguageChange,
     },
@@ -243,67 +247,70 @@ export const PageVersion = (args) => {
         },
       },
     },
-    groups: [
-      {
-        commonGroup: 'essential',
-        required: true,
-        cookies: [
-          {
-            commonCookie: 'tunnistamo',
-          },
-          {
-            id: 'loadbalancer',
-            name: 'Kuormanjako',
-            hostName: 'Osoite',
-            description:
-              'Kuvaus lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
-            expiration: 'Voimassaoloaika',
-          },
-          {
-            commonCookie: 'language-i18n',
-          },
-        ],
-      },
-      {
-        commonGroup: 'marketing',
-        required: false,
-        cookies: [
-          {
-            commonCookie: 'marketing',
-          },
-        ],
-      },
-      {
-        commonGroup: 'preferences',
-        required: false,
-        cookies: [
-          {
-            id: 'preferences',
-            name: 'Asetus 1',
-            hostName: 'Osoite',
-            description:
-              'Proin sodales maximus est, pulvinar tempus felis tempus quis. Aenean at vestibulum lectus. Aliquam erat volutpat. Nullam venenatis feugiat sem vitae cursus. ',
-            expiration: 'Voimassaoloaika',
-          },
-        ],
-      },
-      {
-        commonGroup: 'statistics',
-        required: false,
-        cookies: [
-          {
-            commonCookie: 'matomo',
-          },
-          {
-            id: 'someOtherConsent',
-            name: 'Joku toinen',
-            hostName: 'Osoite',
-            description: 'Vel est molestie Quisque vel dui vel est molestie con con',
-            expiration: 'Voimassaoloaika',
-          },
-        ],
-      },
-    ],
+    requiredCookies: {
+      groups: [
+        {
+          commonGroup: 'essential',
+          cookies: [
+            {
+              commonCookie: 'tunnistamo',
+            },
+            {
+              id: 'loadbalancer',
+              name: 'Kuormanjako',
+              hostName: 'Osoite',
+              description:
+                'Kuvaus lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: 'Voimassaoloaika',
+            },
+            {
+              commonCookie: 'language-i18n',
+            },
+          ],
+        },
+      ],
+    },
+    optionalCookies: {
+      groups: [
+        {
+          commonGroup: 'marketing',
+          cookies: [
+            {
+              commonCookie: 'marketing',
+            },
+          ],
+        },
+        {
+          commonGroup: 'preferences',
+          cookies: [
+            {
+              id: 'preferences',
+              name: 'Asetus 1',
+              hostName: 'Osoite',
+              description:
+                'Proin sodales maximus est, pulvinar tempus felis tempus quis. Aenean at vestibulum lectus. Aliquam erat volutpat. Nullam venenatis feugiat sem vitae cursus. ',
+              expiration: 'Voimassaoloaika',
+            },
+          ],
+        },
+        {
+          commonGroup: 'statistics',
+          cookies: [
+            {
+              commonCookie: 'matomo',
+            },
+            {
+              id: 'someOtherConsent',
+              name: 'Joku toinen',
+              hostName: 'Osoite',
+              description: 'Vel est molestie Quisque vel dui vel est molestie con con',
+              expiration: 'Voimassaoloaika',
+            },
+          ],
+        },
+      ],
+    },
+
     onAllConsentsGiven: (consents) => {
       // called when consents are saved
       // handle changes like:
@@ -358,17 +365,12 @@ export const CustomContentVersion = (args) => {
       checkboxAriaDescription: 'This is the overridden checkbox aria description of required cookies',
       groups: [
         {
-          commonGroup: 'essential',
-          title: 'Essential cookies custom title',
-          text: 'Essential cookies custom text',
-          checkboxAriaDescription: 'Custom checkbox aria description for essential cookies group',
-          expandAriaLabel: 'Custom expand button aria label for essential cookies group',
+          id: 'my-cookie-group',
+          title: 'My required cookie groupcustom title',
+          text: 'My required cookie groupcustom text',
+          checkboxAriaDescription: 'Custom checkbox aria description for My cookie group',
+          expandAriaLabel: 'Custom expand button aria label for My cookie group',
           cookies: [
-            {
-              commonCookie: 'tunnistamo',
-              title: 'Tunnistamo cookie custom title',
-              text: 'Tunnistamo cookie custom text',
-            },
             {
               id: 'custom-cookie',
               name: 'Custom cookie',
@@ -389,6 +391,12 @@ export const CustomContentVersion = (args) => {
               commonCookie: 'marketing',
             },
           ],
+        },
+      ],
+      cookies: [
+        {
+          commonCookie: 'tunnistamo',
+          groupId: 'my-cookie-group',
         },
       ],
     },
@@ -425,10 +433,6 @@ export const CustomContentVersion = (args) => {
           commonGroup: 'statistics',
           cookies: [
             {
-              commonCookie: 'matomo',
-              text: 'Custom matomo text',
-            },
-            {
               id: 'someOtherConsent',
               name: 'Other cookie',
               hostName: 'Host name',
@@ -437,6 +441,12 @@ export const CustomContentVersion = (args) => {
               expiration: 'Sessio',
             },
           ],
+        },
+      ],
+      cookies: [
+        {
+          commonGroup: 'statistics',
+          commonCookie: 'matomo',
         },
       ],
     },
@@ -455,23 +465,26 @@ export const DebugVersion = (args) => {
   const contentSource: ContentSource = {
     siteName: 'Cookie consent debugging',
     currentLanguage: 'fi',
-    cookies: [
-      {
-        commonCookie: 'tunnistamo',
-        required: false,
-        commonGroup: 'essential',
-      },
-      {
-        id: `random-cookie-${Math.random()}-without-consent`,
-        required: false,
-        commonGroup: 'marketing',
-      },
-      {
-        commonCookie: 'matomo',
-        required: true,
-        commonGroup: 'statistics',
-      },
-    ],
+    requiredCookies: {
+      cookies: [
+        {
+          commonGroup: 'statistics',
+          commonCookie: 'matomo',
+        },
+      ],
+    },
+    optionalCookies: {
+      cookies: [
+        {
+          commonCookie: 'tunnistamo',
+          commonGroup: 'essential',
+        },
+        {
+          id: `random-cookie-${Math.random()}-without-consent`,
+          commonGroup: 'marketing',
+        },
+      ],
+    },
   };
 
   const getCategoryCookies = (category: Category): CookieData[] => {
