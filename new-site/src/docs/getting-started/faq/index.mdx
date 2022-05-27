@@ -32,6 +32,26 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 </Accordion>
 
 <Accordion 
+  heading="Can I contribute to the Helsinki Design System?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  Yes! We appreciate all contributions both from inside and outside of the city organisations. Contributions can relate to design, implementation or documentation. You can find our contribution guidelines in the <Link size="M" href="/getting-started/contributing/before-contributing">Getting started - Contribution section</Link>.
+</Accordion>
+
+<Accordion 
+  heading="How can I contact the HDS team?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  We are always happy to help you and your project if you have issues with HDS. We also appreciate feedback. You can find the recommended contact channels in the <Link size="M" href="/about/support">About - Support section</Link>.
+</Accordion>
+
+<Accordion 
   heading="What browser and browser versions are supported?" 
   headingLevel="3" 
   theme={{
