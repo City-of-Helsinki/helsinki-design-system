@@ -32,6 +32,16 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 </Accordion>
 
 <Accordion 
+  heading="How can I get the Helsinki Grotesk font to my design software?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  In order to use the font in a design software, you need to have the font locally on your computer. Please refer to <Link size="M" href="https://helsinkisolutionoffice.atlassian.net/wiki/spaces/DD/pages/296058881/Using+Helsinki+Grotesk+fonts" external>the internal font documentation in Confluence</Link> and follow the desiger instructions. If you do not have access to Confluence, ask from your project’s city employee contact.
+</Accordion>
+
+<Accordion 
   heading="My Abstract projects take a long time to open or save. What should I do?" 
   headingLevel="3" 
   theme={{
