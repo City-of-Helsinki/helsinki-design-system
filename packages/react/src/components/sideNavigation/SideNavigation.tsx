@@ -45,6 +45,10 @@ export type SideNavigationProps = React.PropsWithChildren<{
    */
   id: string;
   /**
+   * aria-label for helping screen reader users to distinguish SideNavigation from other navigational components
+   */
+  ariaLabel?: string;
+  /**
    * Override or extend the styles applied to the component
    */
   style?: React.CSSProperties;
@@ -63,6 +67,7 @@ export const SideNavigation = ({
   className,
   defaultOpenMainLevels = [],
   id,
+  ariaLabel,
   style,
   theme,
   toggleButtonLabel,
@@ -127,6 +132,7 @@ export const SideNavigation = ({
       <nav
         className={classNames(styles.sideNavigation, customThemeClass, className)}
         id={id}
+        aria-label={ariaLabel}
         ref={container}
         style={style}
       >
