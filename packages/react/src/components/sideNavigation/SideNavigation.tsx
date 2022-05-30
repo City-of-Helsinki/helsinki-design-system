@@ -73,6 +73,7 @@ export const SideNavigation = ({
   const [activeParentLevel, setActiveParentLevel] = React.useState<number>();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const isMobile = useMobile();
+  const shouldRenderMenu = !(isMobile && !mobileMenuOpen);
 
   const mainLevels = React.Children.map(children, (child, index) => {
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'MainLevel') {
@@ -143,16 +144,17 @@ export const SideNavigation = ({
         >
           {toggleButtonLabel}
         </Button>
-        <ul
-          {...{
-            className: classNames(styles.mainLevelList, mobileMenuOpen && styles.open),
-            'aria-label': toggleButtonLabel,
-            'aria-hidden': isMobile && !mobileMenuOpen,
-          }}
-          id={menuId}
-        >
-          {mainLevels}
-        </ul>
+        {shouldRenderMenu && (
+          <ul
+            {...{
+              className: classNames(styles.mainLevelList, mobileMenuOpen && styles.open),
+              'aria-label': toggleButtonLabel,
+            }}
+            id={menuId}
+          >
+            {mainLevels}
+          </ul>
+        )}
       </nav>
     </SideNavigationContext.Provider>
   );
