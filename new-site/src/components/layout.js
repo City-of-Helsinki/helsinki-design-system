@@ -210,7 +210,7 @@ const Layout = ({ children, pageContext }) => {
                 defaultOpenMainLevels={[...Array(uiSubMenuLinks.length).keys()]}
                 id="side-navigation"
                 toggleButtonLabel="Navigate to page"
-                ariaLabel={`${currentMenuItem.name} pages navigation`}
+                ariaLabel={`${currentMenuItem.name}`}
               >
                 {uiSubMenuLinks.map(({ name, link, prefixedLink, uiId, withDivider, subLevels }) => {
                   const hasSubLevels = subLevels.length > 0;
