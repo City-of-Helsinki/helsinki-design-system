@@ -7282,20 +7282,20 @@ hastscript@^6.0.0:
     property-information "^5.0.0"
     space-separated-tokens "^1.0.0"
 
-hds-core@1.14.0, hds-core@^1.14.0:
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-1.14.0.tgz#d11fd1047b2f96d022c02e333b0390a586c5204a"
-  integrity sha512-MSH2BgVHOHW+I6gIjs5xNw32QL/P9Mn7+mcc1TvR8hF5GJDWa2mAh0vqaD1SXFfY34/cGr7wJ05V74GDZ6+8XA==
+hds-core@1.15.0, hds-core@^1.15.0:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-1.15.0.tgz#9ffd51e5b75c6ef16dc9afa1366ac474c9d95a18"
+  integrity sha512-+eroRfvXK5hVMLcOshJcLkag11YnlCQlz4VxiTpiCkIcfoP70V10e3NI5c/NsChz/8VNcfqfeIjgZf2q2UxFWw==
 
-hds-design-tokens@^1.14.0:
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/hds-design-tokens/-/hds-design-tokens-1.14.0.tgz#4f1ef58715f5ec5c3c60e28d75adb94986540d02"
-  integrity sha512-98TrThjUVc/Ot/plsYpABGz9R5moAqGTbGUK63oPdEBQaWtoHlp17NCXsexfujCgOPOuQ4zgTApA/zAVHQOSHw==
+hds-design-tokens@^1.15.0:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/hds-design-tokens/-/hds-design-tokens-1.15.0.tgz#48ba0eab88822e27a642085619b5a7bdef8ec858"
+  integrity sha512-5RaU7mf/HSqtulYMiPJn0XOOuU0SNG2sGjaz1ARHJ4448gRXyOQ3yNk2Ofirae6FIpxEVmNRAW9/cS287m7wog==
 
-hds-react@^1.14.0:
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/hds-react/-/hds-react-1.14.0.tgz#7038dda3ce1c7e27fe5b4a3911878b0efab51b69"
-  integrity sha512-gB73Ayn8Kox3KJH54KbG5idJD2sSdyGxYA8hOcYku8uGY+6O+K1a/fpZb7WJFWG5bB2S+ofncgMm80UvCSFJGg==
+hds-react@^1.15.0:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/hds-react/-/hds-react-1.15.0.tgz#68d1e184052908c97f047ee8d26d452c0af7294f"
+  integrity sha512-Plod/29C4J/quVyCiN7oIZpxPL+jUwwMfOL5eOLQRlo2hbWzSzid0/0b/TYWUmiYP9moV072OcZ9t5FymDAjRw==
   dependencies:
     "@babel/runtime" "7.11.2"
     "@emotion/styled-base" "^11.0.0"
@@ -7304,7 +7304,7 @@ hds-react@^1.14.0:
     "@react-aria/visually-hidden" "3.2.0"
     date-fns "2.16.1"
     downshift "6.0.6"
-    hds-core "1.14.0"
+    hds-core "1.15.0"
     lodash.isequal "4.5.0"
     lodash.isfunction "3.0.9"
     lodash.uniqueid "4.0.1"
