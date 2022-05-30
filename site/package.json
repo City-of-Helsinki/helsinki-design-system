@@ -1,6 +1,6 @@
 {
   "name": "site",
-  "version": "1.14.0",
+  "version": "1.15.0",
   "private": true,
   "description": "Documentation for Helsinki Design System",
   "license": "MIT",
@@ -23,9 +23,9 @@
     "date-fns": "^2.23.0",
     "gatsby-cli": "2.12.29",
     "gatsby-plugin-matomo": "0.8.3",
-    "hds-core": "1.14.0",
-    "hds-design-tokens": "1.14.0",
-    "hds-react": "1.14.0",
+    "hds-core": "1.15.0",
+    "hds-design-tokens": "1.15.0",
+    "hds-react": "1.15.0",
     "react-helmet": "6.0.0",
     "react-markdown": "^6.0.3",
     "rimraf": "3.0.2"
