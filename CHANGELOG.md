@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Navigation] initializing of useMobile hook
 - [SideNavigation] Keyboard navigation on small screens
-- [Tab] OnClick callback is called also when a tab is selected with the keyboard
+- [Tabs] Tab OnClick callback is called also when a tab is selected with the keyboard
 
 ### Design kit
 
