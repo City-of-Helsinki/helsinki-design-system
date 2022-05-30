@@ -29,10 +29,7 @@
     margin-bottom: var(--spacing-xl);
 
     &-title {
-      font-size: var(--fontsize-heading-s);
-      letter-spacing: 0.2px;
-      line-height: 1.4;
-      font-weight: 700;
+      composes: heading-s from 'hds-core/lib/utils/helpers.css';
       margin: 0 0 var(--spacing-m);
     }
   }

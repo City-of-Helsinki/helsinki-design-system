@@ -70,7 +70,7 @@ export const CustomTheme = (args) => (
         '--padding-vertical': '20px',
         '--header-font-color': 'var(--color-white)',
         '--header-font-size': 'var(--fontsize-heading-s)',
-        '--header-font-weight': '700',
+        '--header-font-weight': '500',
         '--header-letter-spacing': '0.2px',
         '--header-line-height': '1.4',
         '--button-size': '28px',
