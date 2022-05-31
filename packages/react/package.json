@@ -105,7 +105,7 @@
     "yup": "^0.32.9"
   },
   "dependencies": {
-    "@babel/runtime": "7.11.2",
+    "@babel/runtime": "7.17.9",
     "@emotion/styled-base": "^11.0.0",
     "@juggle/resize-observer": "3.2.0",
     "@popperjs/core": "2.11.5",
