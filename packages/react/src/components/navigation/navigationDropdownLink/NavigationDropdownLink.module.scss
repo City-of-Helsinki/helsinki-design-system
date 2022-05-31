@@ -1,0 +1,98 @@
+@import "../navigation.common";
+@value x-small-down, small-down, small-only, medium-only, medium-up, large-only, large-up, x-large-only, x-large-up from "../../../styles/breakpoints.css";
+
+.dropdownItem.dropdownItem {
+  &:focus-within {
+    box-shadow: none;
+  }
+
+  // dropdown menu
+  > div {
+    // remove margins from children
+    * {
+      margin: 0;
+    }
+
+    // dropdown menu item
+    > * {
+      font-weight: normal;
+
+      // dropdown menu item icon
+      span:first-of-type:not(:only-of-type) {
+        align-self: flex-start;
+        margin: 0 var(--spacing-2-xs) 0 calc(var(--spacing-3-xs) * -1);
+      }
+    }
+  }
+}
+
+.label {
+  @extend %label;
+  padding: 0;
+}
+
+@media small-down {
+  .dropdownItem.dropdownItem:not(.shelved) {
+    align-items: flex-start;
+    border-radius: 0;
+    flex-direction: column;
+
+    // dropdown toggle button
+    > button {
+      height: var(--spacing-xl);
+      padding: var(--spacing-2-xs);
+      width: 100%;
+
+      // focus outline
+      &:focus {
+        box-shadow: 0 0 0 var(--header-focus-outline-width) var(--header-focus-outline-color);
+      }
+
+      > span {
+        margin: 0;
+      }
+
+      // align angle to the right
+      > *:last-child {
+        margin-left: auto;
+      }
+
+      // dropdown icon
+      svg:first-of-type:not(:only-of-type) {
+        margin: 0 var(--spacing-2-xs) 0 calc(var(--spacing-3-xs) * -1);
+      }
+    }
+
+    // dropdown menu
+    > div {
+      --menu-border-width: 0;
+      --menu-width: calc(100% - (var(--spacing-xl) + var(--header-focus-outline-width)));
+      --menu-item-background-color: transparent;
+      --menu-item-background-color-highlighted: transparent;
+      --menu-item-color: inherit;
+      --menu-item-color-highlighted: var(--menu-item-color);
+      align-self: stretch;
+      margin-left: var(--spacing-l);
+      max-width: unset;
+      position: relative;
+      width: auto;
+      // override inline min-width and top styles applied by the MenuButton component
+      min-width: auto !important;
+      top: 0 !important;
+
+      > * {
+        padding-left: var(--spacing-2-xs);
+
+        &:focus {
+          box-shadow: 0 0 0 var(--header-focus-outline-width) var(--header-focus-outline-color);
+        }
+      }
+    }
+  }
+}
+
+@media medium-up {
+  .dropdownItem.dropdownItem > button {
+      align-self: stretch;
+  }
+}

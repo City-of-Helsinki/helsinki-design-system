@@ -10,6 +10,7 @@ import styles from './MenuButton.module.scss';
 import { Menu } from './menu/Menu';
 import { IconAngleDown, IconAngleUp } from '../../icons';
 import classNames from '../../utils/classNames';
+import { useMobile } from '../../hooks/useMobile';
 
 export type MenuButtonProps = React.PropsWithChildren<{
   /**
@@ -40,6 +41,10 @@ export type MenuButtonProps = React.PropsWithChildren<{
    * Spacing between the toggle button and the menu
    */
   menuOffset?: number;
+  /**
+   * label outside
+   */
+  labelOutside?: boolean;
 }>;
 
 export const MenuButton = ({
@@ -51,6 +56,7 @@ export const MenuButton = ({
   id: _id,
   label,
   menuOffset,
+  labelOutside,
 }: MenuButtonProps) => {
   const [ref, menuContainerSize] = useMeasure({ debounce: 0, scroll: false, polyfill: ResizeObserver });
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -58,6 +64,7 @@ export const MenuButton = ({
   const id = useRef<string>(_id || uniqueId('hds-menu-button-')).current;
   const buttonId = `${id}-button`;
   const menuId = `${id}-menu`;
+  const isMobile = useMobile();
 
   useEffect(() => {
     // closes the menu when a user clicks outside the container element
@@ -73,8 +80,32 @@ export const MenuButton = ({
     return () => document.removeEventListener('click', handleOutsideClick);
   }, [menuOpen]);
 
+  const [useHoverProps, setUseHoverProps] = useState(!isMobile);
+  const hoverProps = {
+    onMouseOver: () => setMenuOpen(true),
+    onFocus: () => setMenuOpen(true),
+    onBlur: () => setMenuOpen(false),
+    onMouseLeave: () => setMenuOpen(false),
+  };
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log({ isMobile });
+
+    if (labelOutside) {
+      setUseHoverProps(!isMobile);
+    }
+  }, [isMobile]);
+
+  // eslint-disable-next-line no-console
+  console.log({ ...(useHoverProps && { hoverProps }) });
+
   return (
-    <div ref={mergeRefs<HTMLDivElement>([ref, containerRef])} className={classNames(styles.menuButton, className)}>
+    <div
+      ref={mergeRefs<HTMLDivElement>([ref, containerRef])}
+      className={classNames(styles.menuButton, className)}
+      {...hoverProps}
+    >
+      {labelOutside && label}
       <button
         type="button"
         id={buttonId}
@@ -86,7 +117,7 @@ export const MenuButton = ({
         onClick={() => setMenuOpen(!menuOpen)}
       >
         {icon}
-        <span className={styles.toggleButtonLabel}>{label}</span>
+        {!labelOutside && <span className={styles.toggleButtonLabel}>{label}</span>}
         {menuOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />}
       </button>
       <Menu
