@@ -4,10 +4,10 @@
   "description": "React components for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
-  "main": "./cjs/index.js",
-  "module": "./index.js",
-  "esnext": "./index.js",
-  "types": "./index.d.ts",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/index.js",
+  "esnext": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "sideEffects": [
     "base.min-*"
   ],

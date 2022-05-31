@@ -11,6 +11,7 @@ import { NavigationUser } from './navigationUser/NavigationUser';
 import { NavigationSearch } from './navigationSearch/NavigationSearch';
 import { NavigationLanguageSelector } from './navigationLanguageSelector/NavigationLanguageSelector';
 import { NavigationDropdown } from './navigationDropdown/NavigationDropdown';
+import { NavigationDropdownLink } from './navigationDropdownLink/NavigationDropdownLink';
 import { useMobile } from '../../hooks/useMobile';
 import { IconCross, IconMenuHamburger } from '../../icons';
 import { NavigationTheme, NavigationVariant } from './Navigation.interface';
@@ -257,6 +258,7 @@ export const Navigation = ({
 
 Navigation.Actions = NavigationActions;
 Navigation.Dropdown = NavigationDropdown;
+Navigation.DropdownLink = NavigationDropdownLink;
 Navigation.Item = NavigationItem;
 Navigation.LanguageSelector = NavigationLanguageSelector;
 Navigation.Row = NavigationRow;
