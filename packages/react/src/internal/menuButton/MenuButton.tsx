@@ -87,23 +87,13 @@ export const MenuButton = ({
     onBlur: () => setMenuOpen(false),
     onMouseLeave: () => setMenuOpen(false),
   };
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log({ isMobile });
-
-    if (labelOutside) {
-      setUseHoverProps(!isMobile);
-    }
-  }, [isMobile]);
-
-  // eslint-disable-next-line no-console
-  console.log({ ...(useHoverProps && { hoverProps }) });
+  useEffect(() => labelOutside && setUseHoverProps(!isMobile), [isMobile]);
 
   return (
     <div
       ref={mergeRefs<HTMLDivElement>([ref, containerRef])}
       className={classNames(styles.menuButton, className)}
-      {...hoverProps}
+      {...(useHoverProps && hoverProps)}
     >
       {labelOutside && label}
       <button
