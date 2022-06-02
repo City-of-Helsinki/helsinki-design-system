@@ -1,0 +1,15 @@
+.components-list {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  max-width: 888px;
+  margin-top: 48px;
+}
+
+.components-list__item {
+  width: 204px;
+}
+
+.components-list__linkbox {
+  height: 100%;
+}
