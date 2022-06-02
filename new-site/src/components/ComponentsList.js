@@ -19,7 +19,7 @@ const ComponentsList = ({ data }) => {
       text: 'Buttons are meant to make actions easily visible and understandable to the user.',
       linkboxAriaLabel: 'Button component',
       linkAriaLabel: 'Go to the Button component page',
-      href: withPrefix('/components/button'),
+      href: withPrefix('/components/buttons'),
     },
     {
       name: 'Card',
