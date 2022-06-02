@@ -1,9 +1,10 @@
 .components-list {
   display: flex;
-  gap: 24px;
+  column-gap: var(--spacing-layout-xs);
+  row-gap: var(--spacing-layout-m);
   flex-wrap: wrap;
   max-width: 888px;
-  margin-top: 48px;
+  margin-top: var(--spacing-layout-m);
 }
 
 .components-list__item {
