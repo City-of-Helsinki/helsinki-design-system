@@ -133,20 +133,15 @@ export const Provider = ({ cookieDomain, children, contentSource }: CookieConsen
     forceUpdate((p) => p + 1);
   };
 
-  const save = () => {
-    consentController.save();
-  };
   const notifyOnAllConsentsGiven = () => {
     if (content.onAllConsentsGiven && hasUserHandledAllConsents()) {
       content.onAllConsentsGiven(mergeConsents());
     }
   };
-  const update: ConsentController['update'] = (key, value) => {
-    consentController.update(key, value);
-  };
+
   const setOptional = (approved: boolean) => {
     Object.keys(consentController.getOptional()).forEach((optionalConsent) => {
-      update(optionalConsent, approved);
+      consentController.update(optionalConsent, approved);
     });
   };
   const deselectOptional = () => {
@@ -157,18 +152,18 @@ export const Provider = ({ cookieDomain, children, contentSource }: CookieConsen
   };
   const approveRequiredAndSaveAllGivenConsents = () => {
     consentController.approveRequired();
-    save();
+    consentController.save();
     notifyOnAllConsentsGiven();
   };
   const approveAllAndSave: ConsentController['approveAll'] = () => {
     consentController.approveAll();
-    save();
+    consentController.save();
     notifyOnAllConsentsGiven();
   };
   const approveOnlyRequiredAndSave: ConsentController['approveRequired'] = () => {
     deselectOptional();
     consentController.approveRequired();
-    save();
+    consentController.save();
     notifyOnAllConsentsGiven();
   };
 
@@ -181,7 +176,7 @@ export const Provider = ({ cookieDomain, children, contentSource }: CookieConsen
       approveRequiredAndSaveAllGivenConsents();
     } else if (action === 'changeCookieGroupConsents') {
       consents.forEach((consent) => {
-        update(consent, value);
+        consentController.update(consent, value);
       });
     } else if (action === 'approveOptional') {
       selectOptional();
