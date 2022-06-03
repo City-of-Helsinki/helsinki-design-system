@@ -15,7 +15,7 @@ export function LanguageSwitcher(): React.ReactElement {
     <Navigation.LanguageSelector
       label={currentOption.label}
       buttonAriaLabel={languageSelectorAriaLabel}
-      className={styles['language-selector-override']}
+      className={styles.languageSelectorOverride}
       id="cookie-consent-language-selector"
     >
       {languageOptions.map((option) => (

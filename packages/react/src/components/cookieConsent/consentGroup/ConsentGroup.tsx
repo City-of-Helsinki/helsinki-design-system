@@ -45,18 +45,18 @@ export function ConsentGroup(props: { group: CookieGroup; isRequired: boolean; i
   };
 
   return (
-    <div className={styles['consent-group']}>
-      <div className={styles['title-with-checkbox']}>
+    <div className={styles.consentGroup}>
+      <div className={styles.titleWithCheckbox}>
         <Checkbox {...checkboxProps} />
       </div>
-      <div className={styles['consent-group-content']}>
+      <div className={styles.consentGroupContent}>
         <p aria-hidden>{text}</p>
         <VisuallyHidden id={getGroupIdentifier('description')} aria-hidden>
           {checkboxAriaDescription || text}
         </VisuallyHidden>
         <button
           type="button"
-          className={styles['accordion-button']}
+          className={styles.accordionButton}
           data-testid={getGroupIdentifier('details-toggler')}
           aria-label={expandAriaLabel}
           {...buttonProps}

@@ -17,7 +17,7 @@ export function Page(): React.ReactElement | null {
   return (
     <div className={styles.page} data-testid="cookie-consent">
       <div className={styles.content} id="cookie-consent-content">
-        <div className={styles['main-content']} data-testid="cookie-consent-information">
+        <div className={styles.mainContent} data-testid="cookie-consent-information">
           <h1>{title}</h1>
           <p>{text}</p>
         </div>
@@ -28,7 +28,7 @@ export function Page(): React.ReactElement | null {
             type="success"
             label="Saved"
             dataTestId="cookie-consent-save-notification"
-            className={styles['save-notification']}
+            className={styles.saveNotification}
           >
             {settingsSaved}
           </Notification>
