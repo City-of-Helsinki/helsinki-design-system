@@ -1,17 +1,16 @@
 @import '~hds-design-tokens/lib/all.scss';
 
 .components-list {
-  display: flex;
+  grid-template-columns: repeat(auto-fit, minmax(204px, 1fr));
+  display: grid;
   column-gap: var(--spacing-layout-xs);
   row-gap: var(--spacing-layout-m);
-  flex-wrap: wrap;
-  max-width: 888px;
+  width: 100%;
   margin-top: var(--spacing-layout-m);
 }
 
 .components-list__item {
-  width: 204px;
-  flex-grow: 1;
+  width: 100%;
 }
 
 .components-list__linkbox {
