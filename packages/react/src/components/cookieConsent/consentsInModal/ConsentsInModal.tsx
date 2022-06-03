@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Modal } from '../modal/Modal';
 import { ContentSource } from '../content.builder';
-import { ComponentWrapper } from '../componentWrapper/ComponentWrapper';
+import { Provider as CookieContextProvider } from '../CookieConsentContext';
 
 export function ConsentsInModal(props: {
   contentSource: ContentSource;
@@ -10,8 +10,8 @@ export function ConsentsInModal(props: {
 }): React.ReactElement | null {
   const { cookieDomain, contentSource } = props;
   return (
-    <ComponentWrapper contentSource={contentSource} cookieDomain={cookieDomain}>
+    <CookieContextProvider contentSource={contentSource} cookieDomain={cookieDomain}>
       <Modal />
-    </ComponentWrapper>
+    </CookieContextProvider>
   );
 }
