@@ -131,25 +131,25 @@
 .accordionButton {
   border: none;
   background: transparent;
-  padding: 0;
   cursor: pointer;
   display: flex;
   align-items: center;
   color: var(--color-bus);
   text-decoration: underline;
-  padding-top: var(--spacing-xs);
 }
 
-.accordionButton svg {
+.detailsAccordionButton {
   margin-left: -5px;
+  padding: var(--spacing-xs);
+  padding-left: 0;
 }
 
-.accordionButton span {
+.detailsAccordionButton span {
   padding-left: var(--spacing-3-xs);
 }
 
 .accordionButtonSettingsClosed {
-  padding-bottom: var(--common-spacing);
+  margin-bottom: var(--common-spacing);
 }
 
 .consentCategory {
@@ -181,7 +181,7 @@
   button {
     position: absolute;
     right: 0;
-    top: var(--spacing-s);
+    top: var(--spacing-2-xs);
     padding: var(--spacing-s);
   }
 }
@@ -326,9 +326,6 @@
   .consentGroupContent {
     p {
       padding: var(--spacing-l) 0 0;
-    }
-    button {
-      top: var(--spacing-m);
     }
   }
 
