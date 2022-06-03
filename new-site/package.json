@@ -29,9 +29,9 @@
     "sass": "^1.49.9"
   },
   "devDependencies": {
-    "hds-core": "^1.14.0",
-    "hds-design-tokens": "^1.14.0",
-    "hds-react": "^1.14.0",
+    "hds-core": "^1.15.0",
+    "hds-design-tokens": "^1.15.0",
+    "hds-react": "^1.15.0",
     "prettier": "2.5.1"
   },
   "keywords": [

@@ -52,7 +52,7 @@ export const Default = ({ searchLabel, searchPlaceholder, authenticated, userNam
   // @ts-ignore
   <Navigation {...args}>
     {/* NAVIGATION ROW */}
-    <Navigation.Row>
+    <Navigation.Row ariaLabel="Main navigation">
       <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />
       <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
       <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />

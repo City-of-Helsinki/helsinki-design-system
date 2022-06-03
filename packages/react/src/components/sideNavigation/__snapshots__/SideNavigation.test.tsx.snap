@@ -3,6 +3,7 @@
 exports[`<SideNavigation /> spec renders the component 1`] = `
 <DocumentFragment>
   <nav
+    aria-label="Side navigation"
     class="sideNavigation"
     id="sideNavigation"
   >
@@ -45,7 +46,6 @@ exports[`<SideNavigation /> spec renders the component 1`] = `
       </div>
     </button>
     <ul
-      aria-hidden="false"
       aria-label="Navigate to page"
       class="mainLevelList"
       id="sideNavigation-menu"
