@@ -37,17 +37,22 @@
 }
 
 @media small-down {
-  .dropdownLinkItem.dropdownLinkItem:not(.shelved) {
+  .dropdownLinkItem.dropdownLinkItem {
     align-items: flex-start;
     border-radius: 0;
     flex-direction: row;
     flex-wrap: wrap;
+    // border-top: 1px solid var(--color-black-10);
     > a {
       flex: 1 0;
+      // border-bottom: 1px solid var(--color-black-10);
+    }
+    > button {
+      border: 1px solid var(--color-black-10);
     }
 
     // dropdown toggle button
-    > button, 
+    > button,
     > a {
       height: var(--spacing-xl);
       padding: var(--spacing-2-xs);

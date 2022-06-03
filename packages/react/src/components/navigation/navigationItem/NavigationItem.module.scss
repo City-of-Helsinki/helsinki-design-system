@@ -131,7 +131,8 @@
   // focus outline - active
   .rowItem:active::before,
   .rowItem.active::before,
-  .dropdownItem.active::before {
+  .dropdownItem.active::before,
+  .dropdownLinkItem.active::before {
     height: calc(100% - var(--item-focus-outline-height-adjust));
   }
 
@@ -140,7 +141,9 @@
   .rowItem:active::after,
   .rowItem.active::after,
   .dropdownItem:hover:not(:focus-within)::after,
-  .dropdownItem.active::after {
+  .dropdownItem.active::after,
+  .dropdownLinkItem:hover:not(:focus-within)::after,
+  .dropdownLinkItem.active::after {
     background-color: var(--item-active-color);
     bottom: 0;
     content: '';
