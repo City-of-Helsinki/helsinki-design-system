@@ -20,7 +20,7 @@ import {
   openAllAccordions,
 } from '../test.util';
 import { createContent } from '../content.builder';
-import { CookiePage } from '../cookiePage/CookiePage';
+import { CookiePage } from './CookiePage';
 
 const { requiredGroupParent, optionalGroupParent, defaultConsentData, unknownConsents, dataTestIds } = commonTestProps;
 
