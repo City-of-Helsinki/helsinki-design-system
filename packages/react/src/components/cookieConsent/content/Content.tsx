@@ -20,12 +20,8 @@ export function Content(): React.ReactElement {
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
   const settingsButtonText = isOpen ? hideSettings : showSettings;
   const settingsButtonsClassName = isOpen
-    ? classNames(styles['accordion-button'], styles['hidden-without-focus'])
-    : classNames(
-        styles['accordion-button'],
-        styles['accordion-button-settings-closed'],
-        styles['hidden-without-focus'],
-      );
+    ? classNames(styles.accordionButton, styles.hiddenWithoutFocus)
+    : classNames(styles.accordionButton, styles.accordionButtonSettingsClosed, styles.hiddenWithoutFocus);
   useEffect(() => {
     if (titleRef.current) {
       titleRef.current.focus();
@@ -33,13 +29,13 @@ export function Content(): React.ReactElement {
   }, [titleRef]);
   return (
     <div
-      className={classNames(styles.content, isOpen ? '' : styles['shrink-on-blur'])}
+      className={classNames(styles.content, isOpen ? '' : styles.shrinkOnBlur)}
       id="cookie-consent-content"
       tabIndex={-1}
     >
-      <div className={styles['main-content']} data-testid="cookie-consent-information">
+      <div className={styles.mainContent} data-testid="cookie-consent-information">
         <span
-          className={classNames(styles['emulated-h1'], styles['visually-hidden-without-focus'])}
+          className={classNames(styles.emulatedH1, styles.visuallyHiddenWithoutFocus)}
           role="heading"
           aria-level={1}
           tabIndex={-1}
@@ -47,11 +43,11 @@ export function Content(): React.ReactElement {
         >
           {title}
         </span>
-        <div className={styles['language-switcher']} data-testid="cookie-consent-language-switcher">
+        <div className={styles.languageSwitcher} data-testid="cookie-consent-language-switcher">
           <LanguageSwitcher />
         </div>
-        <p className={styles['cut-text-without-focus']}>{text}</p>
-        <button type="button" className={classNames(styles['accordion-button'], styles['shown-without-focus'])}>
+        <p className={styles.cutTextWithoutFocus}>{text}</p>
+        <button type="button" className={classNames(styles.accordionButton, styles.shownWithoutFocus)}>
           Lue lisää
         </button>
       </div>
