@@ -36,7 +36,7 @@ exports[`<Page /> spec renders the component 1`] = `
           Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea tietoa jokaisesta kategoriasta ja sallia tai kieltää evästeiden käytön.
         </p>
         <div
-          class="consentGroupParent"
+          class="consentCategory"
         >
           <div
             class="titleWithCheckbox"
@@ -404,7 +404,7 @@ exports[`<Page /> spec renders the component 1`] = `
           </ul>
         </div>
         <div
-          class="consentGroupParent"
+          class="consentCategory"
         >
           <div
             class="titleWithCheckbox"
