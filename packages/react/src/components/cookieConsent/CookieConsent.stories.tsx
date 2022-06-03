@@ -7,15 +7,15 @@ import {
   SupportedLanguage,
   useCookieConsentContext,
 } from './CookieConsentContext';
-import { ConsentsInModal } from './consentsInModal/ConsentsInModal';
-import { ConsentsInPage } from './consentsInPage/ConsentsInPage';
+import { CookieModal } from './cookieModal/CookieModal';
+import { CookiePage } from './cookiePage/CookiePage';
 import { ContentSource } from './content.builder';
 import { Modal } from './modal/Modal';
 import { Accordion } from '../accordion';
 import { useCookies } from './useCookies';
 
 export default {
-  component: ConsentsInModal,
+  component: CookieModal,
   title: 'Components/CookieConsent',
   parameters: {
     controls: { expanded: true },
@@ -184,7 +184,7 @@ export const ModalVersion = (args) => {
 
   return (
     <>
-      <ConsentsInModal contentSource={contentSource} />
+      <CookieModal contentSource={contentSource} />
       <Application />
     </>
   );
@@ -228,7 +228,7 @@ export const SimpleModalVersion = (args) => {
 
   return (
     <>
-      <ConsentsInModal contentSource={contentSource} />
+      <CookieModal contentSource={contentSource} />
       <Application />
     </>
   );
@@ -322,7 +322,7 @@ export const PageVersion = (args) => {
 
   return (
     <main>
-      <ConsentsInPage contentSource={contentSource} />
+      <CookiePage contentSource={contentSource} />
     </main>
   );
 };
@@ -454,7 +454,7 @@ export const CustomContentVersion = (args) => {
 
   return (
     <main>
-      <ConsentsInPage contentSource={contentSource} />
+      <CookiePage contentSource={contentSource} />
     </main>
   );
 };

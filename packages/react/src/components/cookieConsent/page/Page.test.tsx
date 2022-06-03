@@ -20,7 +20,7 @@ import {
   openAllAccordions,
 } from '../test.util';
 import { createContent } from '../content.builder';
-import { ConsentsInPage } from '../consentsInPage/ConsentsInPage';
+import { CookiePage } from '../cookiePage/CookiePage';
 
 const { requiredGroupParent, optionalGroupParent, defaultConsentData, unknownConsents, dataTestIds } = commonTestProps;
 
@@ -42,7 +42,7 @@ const renderCookieConsent = ({
   const contentSource = getContentSource(requiredConsents, optionalConsents);
   content = createContent(contentSource);
   mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
-  const result = render(<ConsentsInPage contentSource={contentSource} />);
+  const result = render(<CookiePage contentSource={contentSource} />);
 
   return result;
 };
