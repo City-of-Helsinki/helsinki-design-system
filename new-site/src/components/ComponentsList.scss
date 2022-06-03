@@ -1,3 +1,5 @@
+@import '~hds-design-tokens/lib/all.scss';
+
 .components-list {
   display: flex;
   column-gap: var(--spacing-layout-xs);
@@ -9,6 +11,7 @@
 
 .components-list__item {
   width: 204px;
+  flex-grow: 1;
 }
 
 .components-list__linkbox {
