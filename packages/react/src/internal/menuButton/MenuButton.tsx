@@ -44,7 +44,7 @@ export type MenuButtonProps = React.PropsWithChildren<{
   /**
    * label outside
    */
-  labelOutside?: boolean;
+  hoverAndClick?: boolean;
 }>;
 
 export const MenuButton = ({
@@ -56,7 +56,7 @@ export const MenuButton = ({
   id: _id,
   label,
   menuOffset,
-  labelOutside,
+  hoverAndClick = false,
 }: MenuButtonProps) => {
   const [ref, menuContainerSize] = useMeasure({ debounce: 0, scroll: false, polyfill: ResizeObserver });
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -80,22 +80,22 @@ export const MenuButton = ({
     return () => document.removeEventListener('click', handleOutsideClick);
   }, [menuOpen]);
 
-  const [useHoverProps, setUseHoverProps] = useState(!isMobile);
+  const [useHoverProps, setUseHoverProps] = useState(!isMobile && hoverAndClick);
   const hoverProps = {
     onMouseOver: () => setMenuOpen(true),
     onFocus: () => setMenuOpen(true),
     onBlur: () => setMenuOpen(false),
     onMouseLeave: () => setMenuOpen(false),
   };
-  useEffect(() => labelOutside && setUseHoverProps(!isMobile), [isMobile]);
+  useEffect(() => setUseHoverProps(!isMobile && hoverAndClick), [isMobile]);
 
   return (
     <div
       ref={mergeRefs<HTMLDivElement>([ref, containerRef])}
       className={classNames(styles.menuButton, className)}
-      {...(useHoverProps && hoverProps)}
+      {...(hoverAndClick && useHoverProps && hoverProps)}
     >
-      {labelOutside && label}
+      {hoverAndClick && label}
       <button
         type="button"
         id={buttonId}
@@ -107,7 +107,7 @@ export const MenuButton = ({
         onClick={() => setMenuOpen(!menuOpen)}
       >
         {icon}
-        {!labelOutside && <span className={styles.toggleButtonLabel}>{label}</span>}
+        {!hoverAndClick && <span className={styles.toggleButtonLabel}>{label}</span>}
         {menuOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />}
       </button>
       <Menu
