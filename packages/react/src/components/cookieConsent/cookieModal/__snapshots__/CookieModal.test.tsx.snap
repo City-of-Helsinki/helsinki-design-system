@@ -10,7 +10,7 @@ exports[`<ModalContent /> spec renders the component 1`] = `
       class="aligner"
     >
       <div
-        class="content xxxshrinkOnBlur"
+        class="content shrinkOnBlur"
         id="cookie-consent-content"
         tabindex="-1"
       >
@@ -20,14 +20,14 @@ exports[`<ModalContent /> spec renders the component 1`] = `
         >
           <span
             aria-level="1"
-            class="emulatedH1 visuallyHiddenWithoutFocus"
+            class="emulatedH1"
             role="heading"
             tabindex="-1"
           >
-            Test site eväste­suostumukset
+            Test site käyttää evästeitä
           </span>
           <div
-            class="languageSwitcher"
+            class="languageSwitcher visuallyHiddenWithoutFocus"
             data-testid="cookie-consent-language-switcher"
           >
             <div
@@ -113,15 +113,37 @@ exports[`<ModalContent /> spec renders the component 1`] = `
             </div>
           </div>
           <p
-            class="cutTextWithoutFocus"
+            class="visuallyHiddenWithoutFocus"
           >
             Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden käytön.
           </p>
           <button
-            class="accordionButton shownWithoutFocus"
+            class="accordionButton readMoreButton"
             type="button"
           >
-            Lue lisää
+            <span>
+              Lue lisää
+            </span>
+            <svg
+              aria-hidden="true"
+              class="icon s"
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 24h24V0H0z"
+                />
+                <path
+                  d="M12 11.5l5 5 1.5-1.5L12 8.5 5.5 15 7 16.5z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
           </button>
         </div>
         <button
@@ -902,7 +924,7 @@ exports[`<ModalContent /> spec renders the component 1`] = `
           </div>
         </div>
         <div
-          class="buttons"
+          class="buttons visuallyHiddenWithoutFocus"
         >
           <button
             class="button primary theme-default size-default"
