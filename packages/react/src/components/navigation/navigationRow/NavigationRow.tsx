@@ -33,12 +33,14 @@ export const NavigationRow = ({ variant = 'default', ariaLabel, children }: Navi
     const reactElement = child as React.ReactElement;
     const isActive = reactElement.props.active;
     const isDropdown = (reactElement.type as FCWithName).componentName === 'NavigationDropdown';
+    const isDropdownLink = (reactElement.type as FCWithName).componentName === 'NavigationDropdownLink';
 
     return isValidElement(child)
       ? cloneElement(child, {
           className: classNames(
-            !isDropdown && itemStyles.rowItem,
+            !isDropdown && !isDropdownLink && itemStyles.rowItem,
             isDropdown && itemStyles.dropdownItem,
+            isDropdownLink && itemStyles.dropdownLinkItem,
             isActive && itemStyles.active,
             child.props.className || '',
           ),

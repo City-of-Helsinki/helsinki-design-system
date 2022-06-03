@@ -57,9 +57,11 @@
 
 // dropdown item styles
 @import "../navigationDropdown/NavigationDropdown.module.scss";
+@import "../navigationDropdownLink/NavigationDropdownLink.module.scss";
 
 .rowItem,
-.dropdownItem {
+.dropdownItem,
+.dropdownLinkItem {
   align-items: center;
   box-sizing: border-box;
   color: inherit;
@@ -93,7 +95,8 @@
   }
 
   .rowItem,
-  .dropdownItem {
+  .dropdownItem,
+  .dropdownLinkItem {
     &:not(:first-child) {
       margin-top: var(--spacing-2-xs);
     }

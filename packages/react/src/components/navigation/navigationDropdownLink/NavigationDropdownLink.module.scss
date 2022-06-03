@@ -1,7 +1,7 @@
 @import "../navigation.common";
 @value x-small-down, small-down, small-only, medium-only, medium-up, large-only, large-up, x-large-only, x-large-up from "../../../styles/breakpoints.css";
 
-.dropdownItem.dropdownItem {
+.dropdownLinkItem.dropdownLinkItem {
   &:focus-within {
     box-shadow: none;
   }
@@ -26,22 +26,31 @@
   }
 }
 
-.label {
-  @extend %label;
-  padding: 0;
+.dropdownLinkItem {
+  a {
+    box-sizing: border-box;
+    color: inherit;
+    font-weight: 500;
+    outline: none;
+    text-decoration: none;
+  }
 }
 
 @media small-down {
-  .dropdownItem.dropdownItem:not(.shelved) {
+  .dropdownLinkItem.dropdownLinkItem:not(.shelved) {
     align-items: flex-start;
     border-radius: 0;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    > a {
+      flex: 1 0;
+    }
 
     // dropdown toggle button
-    > button {
+    > button, 
+    > a {
       height: var(--spacing-xl);
       padding: var(--spacing-2-xs);
-      width: 100%;
 
       // focus outline
       &:focus {
@@ -75,7 +84,7 @@
       margin-left: var(--spacing-l);
       max-width: unset;
       position: relative;
-      width: auto;
+      width: 100%;
       // override inline min-width and top styles applied by the MenuButton component
       min-width: auto !important;
       top: 0 !important;
@@ -92,7 +101,7 @@
 }
 
 @media medium-up {
-  .dropdownItem.dropdownItem > button {
+  .dropdownLinkItem.dropdownLinkItem > button {
       align-self: stretch;
   }
 }
