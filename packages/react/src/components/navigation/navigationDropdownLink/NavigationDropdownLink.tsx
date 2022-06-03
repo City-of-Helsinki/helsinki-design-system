@@ -9,6 +9,9 @@ export type NavigationDropdownLinkProps = MenuButtonProps & {
    */
   active?: boolean;
 
+  /**
+   * Dropdown Link url
+   */
   href?: string;
 };
 
