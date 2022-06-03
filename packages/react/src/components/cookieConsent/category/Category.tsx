@@ -37,8 +37,8 @@ export function Category(props: { category?: CategoryType; isRequired?: boolean 
   };
 
   return (
-    <div className={styles['consent-group-parent']}>
-      <div className={styles['title-with-checkbox']}>
+    <div className={styles.consentGroupParent}>
+      <div className={styles.titleWithCheckbox}>
         <Checkbox {...checkboxProps} />
       </div>
       <p aria-hidden>{text}</p>

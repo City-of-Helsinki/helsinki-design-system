@@ -9,8 +9,8 @@ export function Details(): React.ReactElement {
   const { title, text } = useCookieConsentSectionTexts('details');
   const { requiredCookies, optionalCookies } = content;
   return (
-    <div className={styles['text-content']} data-testid="cookie-consent-details">
-      <span className={styles['emulated-h2']} role="heading" aria-level={2}>
+    <div className={styles.textContent} data-testid="cookie-consent-details">
+      <span className={styles.emulatedH2} role="heading" aria-level={2}>
         {title}
       </span>
       <p>{text}</p>

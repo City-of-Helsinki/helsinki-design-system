@@ -29,7 +29,7 @@ export function ConsentGroupDataTable(props: { consents: CookieGroup['cookies'];
   };
 
   return (
-    <div className={classNames(styles['data-table-container'])}>
+    <div className={classNames(styles.dataTableContainer)}>
       <Table
         id={id}
         data-testid={id}

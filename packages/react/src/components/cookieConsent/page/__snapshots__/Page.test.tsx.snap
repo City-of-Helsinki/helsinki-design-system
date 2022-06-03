@@ -11,7 +11,7 @@ exports[`<Page /> spec renders the component 1`] = `
       id="cookie-consent-content"
     >
       <div
-        class="main-content"
+        class="mainContent"
         data-testid="cookie-consent-information"
       >
         <h1>
@@ -22,12 +22,12 @@ exports[`<Page /> spec renders the component 1`] = `
         </p>
       </div>
       <div
-        class="text-content"
+        class="textContent"
         data-testid="cookie-consent-details"
       >
         <span
           aria-level="2"
-          class="emulated-h2"
+          class="emulatedH2"
           role="heading"
         >
           Tietoa sivustolla käytetyistä evästeistä
@@ -36,10 +36,10 @@ exports[`<Page /> spec renders the component 1`] = `
           Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea tietoa jokaisesta kategoriasta ja sallia tai kieltää evästeiden käytön.
         </p>
         <div
-          class="consent-group-parent"
+          class="consentGroupParent"
         >
           <div
-            class="title-with-checkbox"
+            class="titleWithCheckbox"
           >
             <div
               class="checkbox"
@@ -81,10 +81,10 @@ exports[`<Page /> spec renders the component 1`] = `
           >
             <li>
               <div
-                class="consent-group"
+                class="consentGroup"
               >
                 <div
-                  class="title-with-checkbox"
+                  class="titleWithCheckbox"
                 >
                   <div
                     class="checkbox"
@@ -110,7 +110,7 @@ exports[`<Page /> spec renders the component 1`] = `
                   </div>
                 </div>
                 <div
-                  class="consent-group-content"
+                  class="consentGroupContent"
                 >
                   <p
                     aria-hidden="true"
@@ -127,7 +127,7 @@ exports[`<Page /> spec renders the component 1`] = `
                   <button
                     aria-expanded="false"
                     aria-label="expandAriaLabel for requiredCookieGroup0"
-                    class="accordion-button"
+                    class="accordionButton"
                     data-testid="required-consents-group-0-details-toggler"
                     type="button"
                   >
@@ -159,7 +159,7 @@ exports[`<Page /> spec renders the component 1`] = `
                     style="display: none;"
                   >
                     <div
-                      class="data-table-container"
+                      class="dataTableContainer"
                     >
                       <div
                         class="container"
@@ -253,10 +253,10 @@ exports[`<Page /> spec renders the component 1`] = `
             </li>
             <li>
               <div
-                class="consent-group"
+                class="consentGroup"
               >
                 <div
-                  class="title-with-checkbox"
+                  class="titleWithCheckbox"
                 >
                   <div
                     class="checkbox"
@@ -282,7 +282,7 @@ exports[`<Page /> spec renders the component 1`] = `
                   </div>
                 </div>
                 <div
-                  class="consent-group-content"
+                  class="consentGroupContent"
                 >
                   <p
                     aria-hidden="true"
@@ -299,7 +299,7 @@ exports[`<Page /> spec renders the component 1`] = `
                   <button
                     aria-expanded="false"
                     aria-label="expandAriaLabel for requiredCookieGroup1"
-                    class="accordion-button"
+                    class="accordionButton"
                     data-testid="required-consents-group-1-details-toggler"
                     type="button"
                   >
@@ -331,7 +331,7 @@ exports[`<Page /> spec renders the component 1`] = `
                     style="display: none;"
                   >
                     <div
-                      class="data-table-container"
+                      class="dataTableContainer"
                     >
                       <div
                         class="container"
@@ -404,10 +404,10 @@ exports[`<Page /> spec renders the component 1`] = `
           </ul>
         </div>
         <div
-          class="consent-group-parent"
+          class="consentGroupParent"
         >
           <div
-            class="title-with-checkbox"
+            class="titleWithCheckbox"
           >
             <div
               class="checkbox"
@@ -447,10 +447,10 @@ exports[`<Page /> spec renders the component 1`] = `
           >
             <li>
               <div
-                class="consent-group"
+                class="consentGroup"
               >
                 <div
-                  class="title-with-checkbox"
+                  class="titleWithCheckbox"
                 >
                   <div
                     class="checkbox"
@@ -474,7 +474,7 @@ exports[`<Page /> spec renders the component 1`] = `
                   </div>
                 </div>
                 <div
-                  class="consent-group-content"
+                  class="consentGroupContent"
                 >
                   <p
                     aria-hidden="true"
@@ -491,7 +491,7 @@ exports[`<Page /> spec renders the component 1`] = `
                   <button
                     aria-expanded="false"
                     aria-label="expandAriaLabel for optionalCookieGroups0"
-                    class="accordion-button"
+                    class="accordionButton"
                     data-testid="optional-consents-group-0-details-toggler"
                     type="button"
                   >
@@ -523,7 +523,7 @@ exports[`<Page /> spec renders the component 1`] = `
                     style="display: none;"
                   >
                     <div
-                      class="data-table-container"
+                      class="dataTableContainer"
                     >
                       <div
                         class="container"
@@ -595,10 +595,10 @@ exports[`<Page /> spec renders the component 1`] = `
             </li>
             <li>
               <div
-                class="consent-group"
+                class="consentGroup"
               >
                 <div
-                  class="title-with-checkbox"
+                  class="titleWithCheckbox"
                 >
                   <div
                     class="checkbox"
@@ -622,7 +622,7 @@ exports[`<Page /> spec renders the component 1`] = `
                   </div>
                 </div>
                 <div
-                  class="consent-group-content"
+                  class="consentGroupContent"
                 >
                   <p
                     aria-hidden="true"
@@ -639,7 +639,7 @@ exports[`<Page /> spec renders the component 1`] = `
                   <button
                     aria-expanded="false"
                     aria-label="expandAriaLabel for optionalCookieGroups1"
-                    class="accordion-button"
+                    class="accordionButton"
                     data-testid="optional-consents-group-1-details-toggler"
                     type="button"
                   >
@@ -671,7 +671,7 @@ exports[`<Page /> spec renders the component 1`] = `
                     style="display: none;"
                   >
                     <div
-                      class="data-table-container"
+                      class="dataTableContainer"
                     >
                       <div
                         class="container"
