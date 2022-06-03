@@ -225,67 +225,60 @@
   }
 }
 
-.shownWithoutFocus {
+.readMoreButton {
   display: none;
 }
 
 .shrinkOnBlur:not(:focus-within) {
   --common-spacing: var(--spacing-xs);
-  padding-top: var(--spacing-l);
-
-  .buttons {
-    padding-top: var(--spacing-l);
-  }
-  @media (min-width: 768px) {
-    display: flex;
-    align-items: center;
-    padding: var(--common-spacing) 200px var(--common-spacing) var(--common-spacing);
-
-    .mainContent {
-      width: 40%;
-      padding-right: var(--common-spacing);
-    }
-    .buttons {
-      width: 60%;
-      padding-top: 0;
-      button {
-        /* from button.css small variant*/
-        padding: 0;
-        margin-bottom: var(--common-spacing);
-        &:first-child {
-          margin-right: var(--common-spacing);
-        }
-        span {
-          margin: 0 var(--spacing-xs);
-          line-height: var(--lineheight-s);
-          padding: var(--spacing-2-xs) var(--spacing-xs);
-        }
-      }
-    }
-  }
+  padding-top: var(--common-spacing);
+  padding-bottom: var(--common-spacing);
   .visuallyHiddenWithoutFocus {
     position: absolute;
     opacity: 0;
     display: block;
     width: 1px;
     height: 1px;
-    left: -100px;
+    left: -1000px;
     line-height: 0;
+    clip-path: inset(0 0 0 0);
+    overflow: hidden;
   }
   .hiddenWithoutFocus {
     display: none;
   }
-  .shownWithoutFocus {
-    display: inline-block;
-    pointer-events: none;
+  .mainContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 0;
+    .emulatedH1 {
+      margin-right: 0;
+      font-size: var(--fontsize-heading-xs);
+    }
+    .readMoreButton {
+      display: flex;
+      pointer-events: none;
+      padding: var(--common-spacing) 0 0;
+      span {
+        padding-right: var(--spacing-xs);
+      }
+    }
   }
-  .cutTextWithoutFocus {
-    margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
-    overflow: hidden;
+  @media (min-width: 768px) {
+    --common-spacing: var(--spacing-l);
+    .mainContent {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      .emulatedH1 {
+        font-size: var(--fontsize-heading-s);
+      }
+      .readMoreButton {
+        padding: 0 var(--spacing-xs);
+        line-height: var(--fontsize-heading-s);
+      }
+    }
   }
 }
 

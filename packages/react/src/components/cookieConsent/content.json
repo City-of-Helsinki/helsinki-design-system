@@ -3,15 +3,15 @@
     "sections": {
       "main": {
         "fi": {
-          "title": "{{siteName}} eväste\u00ADsuostumukset",
+          "title": "{{siteName}} käyttää evästeitä",
           "text": "Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden käytön."
         },
         "sv": {
-          "title": "SV: {{siteName}} eväste\u00ADsuostumukset",
+          "title": "SV: {{siteName}} käyttää evästeitä",
           "text": "SV: Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden käytön."
         },
         "en": {
-          "title": "EN: {{siteName}} eväste\u00ADsuostumukset",
+          "title": "EN: {{siteName}} käyttää evästeitä",
           "text": "EN: Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden käytön."
         }
       },
@@ -37,7 +37,8 @@
         "approveAllConsents": "Hyväksy kaikki evästeet",
         "approveRequiredAndSelectedConsents": "Hyväksy valitut ja pakolliset evästeet",
         "approveOnlyRequiredConsents": "Hyväksy vain pakolliset evästeet",
-        "settingsSaved": "Asetukset tallennettu!"
+        "settingsSaved": "Asetukset tallennettu!",
+        "readMore": "Lue lisää"
       },
       "sv": {
         "showSettings": "SV: Näytä asetukset",
@@ -45,7 +46,8 @@
         "approveAllConsents": "SV: Hyväksy kaikki evästeet",
         "approveRequiredAndSelectedConsents": "SV: Hyväksy valitut ja pakolliset evästeet",
         "approveOnlyRequiredConsents": "SV: Hyväksy vain pakolliset evästeet",
-        "settingsSaved": "SV: Asetukset tallennettu!"
+        "settingsSaved": "SV: Asetukset tallennettu!",
+        "readMore": "SV: Lue lisää"
       },
       "en": {
         "showSettings": "EN: Näytä asetukset",
@@ -53,7 +55,8 @@
         "approveAllConsents": "EN: Hyväksy kaikki evästeet",
         "approveRequiredAndSelectedConsents": "EN: Hyväksy valitut ja pakolliset evästeet",
         "approveOnlyRequiredConsents": "EN: Hyväksy vain pakolliset evästeet",
-        "settingsSaved": "EN: Asetukset tallennettu!"
+        "settingsSaved": "EN: Asetukset tallennettu!",
+        "readMore": "EN: Lue lisää"
       }
     },
     "tableHeadings": {

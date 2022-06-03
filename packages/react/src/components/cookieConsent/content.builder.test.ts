@@ -131,7 +131,7 @@ describe(`content.builder.ts`, () => {
 
       const uiTexts = plainContent.texts.ui;
       const uiTextKeys = Object.keys(uiTexts);
-      expect(uiTextKeys).toHaveLength(6);
+      expect(uiTextKeys).toHaveLength(7);
       uiTextKeys.forEach((key) => {
         expect(uiTexts[key].length).toBeTruthy();
       });

@@ -32,6 +32,7 @@ export type UiTexts = {
   approveRequiredAndSelectedConsents: string;
   approveOnlyRequiredConsents: string;
   settingsSaved: string;
+  readMore: string;
 };
 
 export type SectionTexts = {

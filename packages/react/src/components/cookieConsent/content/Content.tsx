@@ -14,7 +14,7 @@ export function Content(): React.ReactElement {
   const { isOpen, buttonProps, contentProps } = useAccordion({
     initiallyOpen: false,
   });
-  const { hideSettings, showSettings } = useCookieConsentUiTexts();
+  const { hideSettings, showSettings, readMore } = useCookieConsentUiTexts();
   const { title, text } = useCookieConsentSectionTexts('main');
   const titleRef = useRef<HTMLHeadingElement>();
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
@@ -39,21 +39,19 @@ export function Content(): React.ReactElement {
       tabIndex={-1}
     >
       <div className={styles.mainContent} data-testid="cookie-consent-information">
-        <span
-          className={classNames(styles.emulatedH1, styles.visuallyHiddenWithoutFocus)}
-          role="heading"
-          aria-level={1}
-          tabIndex={-1}
-          ref={titleRef}
-        >
+        <span className={styles.emulatedH1} role="heading" aria-level={1} tabIndex={-1} ref={titleRef}>
           {title}
         </span>
-        <div className={styles.languageSwitcher} data-testid="cookie-consent-language-switcher">
+        <div
+          className={classNames(styles.languageSwitcher, styles.visuallyHiddenWithoutFocus)}
+          data-testid="cookie-consent-language-switcher"
+        >
           <LanguageSwitcher />
         </div>
-        <p className={styles.cutTextWithoutFocus}>{text}</p>
-        <button type="button" className={classNames(styles.accordionButton, styles.shownWithoutFocus)}>
-          Lue lisää
+        <p className={styles.visuallyHiddenWithoutFocus}>{text}</p>
+        <button type="button" className={classNames(styles.accordionButton, styles.readMoreButton)}>
+          <span>{readMore}</span>
+          <IconAngleUp aria-hidden />
         </button>
       </div>
       <button

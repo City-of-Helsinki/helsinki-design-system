@@ -15,7 +15,7 @@ exports[`<Page /> spec renders the component 1`] = `
         data-testid="cookie-consent-information"
       >
         <h1>
-          Test site eväste­suostumukset
+          Test site käyttää evästeitä
         </h1>
         <p>
           Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden käytön.
