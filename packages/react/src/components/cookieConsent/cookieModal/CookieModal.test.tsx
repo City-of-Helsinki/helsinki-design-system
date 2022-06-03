@@ -5,9 +5,9 @@ import { fireEvent, render, RenderResult, waitFor } from '@testing-library/react
 import { axe } from 'jest-axe';
 import { act } from 'react-dom/test-utils';
 
-import { Modal } from './Modal';
+import { CookieModal } from './CookieModal';
 import { COOKIE_NAME } from '../cookieConsentController';
-import { Content, Provider as CookieContextProvider } from '../CookieConsentContext';
+import { Content } from '../CookieConsentContext';
 import mockDocumentCookie from '../__mocks__/mockDocumentCookie';
 import {
   clickElement,
@@ -45,11 +45,7 @@ const renderCookieConsent = (
   content = createContent(contentSource);
   jest.useFakeTimers();
   mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(consentCookieWithInjectedUnknowns) });
-  const result = render(
-    <CookieContextProvider contentSource={contentSource}>
-      <Modal />
-    </CookieContextProvider>,
-  );
+  const result = render(<CookieModal contentSource={contentSource} />);
   act(() => {
     jest.runAllTimers();
   });
