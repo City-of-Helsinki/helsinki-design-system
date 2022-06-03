@@ -152,7 +152,7 @@
   padding-bottom: var(--common-spacing);
 }
 
-.consentGroupParent {
+.consentCategory {
   display: flex;
   padding-bottom: var(--spacing-l);
   flex-direction: column;
@@ -191,8 +191,8 @@
   margin-right: var(--spacing-2-xl);
 }
 
-.page .content .consentGroupParent .titleWithCheckbox label,
-.container .content .consentGroupParent .titleWithCheckbox label {
+.page .content .consentCategory .titleWithCheckbox label,
+.container .content .consentCategory .titleWithCheckbox label {
   font-weight: bold;
   color: var(--color-black);
 }
@@ -314,7 +314,7 @@
     margin-right: 200px;
   }
 
-  .consentGroupParent {
+  .consentCategory {
     padding-bottom: var(--spacing-2-xl);
   }
 
