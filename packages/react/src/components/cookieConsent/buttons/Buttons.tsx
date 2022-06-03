@@ -1,5 +1,6 @@
 import React from 'react';
 
+import classNames from '../../../utils/classNames';
 import { Button } from '../../button/Button';
 import styles from '../CookieConsent.module.scss';
 import { useCookieConsentActions, useCookieConsentUiTexts } from '../CookieConsentContext';
@@ -19,7 +20,7 @@ export function Buttons({ detailsAreShown, onClick = () => undefined }: Props): 
   const primaryButtonText = detailsAreShown ? approveRequiredAndSelectedConsents : approveAllConsents;
   const primaryButtonAction = detailsAreShown ? 'approveSelectedAndRequired' : 'approveAll';
   return (
-    <div className={styles.buttons}>
+    <div className={classNames(styles.buttons, detailsAreShown ? '' : styles.visuallyHiddenWithoutFocus)}>
       <Button
         variant="primary"
         onClick={() => {
