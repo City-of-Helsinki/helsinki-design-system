@@ -5,6 +5,7 @@ import { TextArea } from '../textarea/TextArea';
 import { TextInput } from '../textInput/TextInput';
 import { Dialog } from './Dialog';
 import { IconAlertCircle, IconInfoCircle, IconPlusCircle, IconTrash } from '../../icons';
+import { DateInput } from '../dateInput';
 
 export default {
   component: Dialog,
@@ -58,6 +59,8 @@ export const Default = (args) => {
             placeholder="E.g. Item 1 is the first item of the system."
             required
           />
+          <br />
+          <DateInput id="item-date" label="Item date" required helperText="Use format D.M.YYYY" />
         </Dialog.Content>
         <Dialog.ActionButtons>
           <Button
