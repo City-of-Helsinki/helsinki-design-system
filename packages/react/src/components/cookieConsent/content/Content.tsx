@@ -19,9 +19,14 @@ export function Content(): React.ReactElement {
   const titleRef = useRef<HTMLHeadingElement>();
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
   const settingsButtonText = isOpen ? hideSettings : showSettings;
-  const settingsButtonsClassName = isOpen
-    ? classNames(styles.accordionButton, styles.hiddenWithoutFocus)
-    : classNames(styles.accordionButton, styles.accordionButtonSettingsClosed, styles.hiddenWithoutFocus);
+  const detailsButtonClassName = isOpen
+    ? classNames(styles.detailsAccordionButton, styles.accordionButton, styles.hiddenWithoutFocus)
+    : classNames(
+        styles.detailsAccordionButton,
+        styles.accordionButton,
+        styles.accordionButtonSettingsClosed,
+        styles.hiddenWithoutFocus,
+      );
   useEffect(() => {
     if (titleRef.current) {
       titleRef.current.focus();
@@ -53,7 +58,7 @@ export function Content(): React.ReactElement {
       </div>
       <button
         type="button"
-        className={settingsButtonsClassName}
+        className={detailsButtonClassName}
         data-testid="cookie-consent-settings-toggler"
         {...buttonProps}
       >
