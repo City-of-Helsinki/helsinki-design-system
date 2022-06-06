@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 import { Buttons } from '../buttons/Buttons';
 import { IconAngleDown, IconAngleUp } from '../../../icons';
@@ -27,11 +27,17 @@ export function Content(): React.ReactElement {
         styles.accordionButtonSettingsClosed,
         styles.hiddenWithoutFocus,
       );
-  useEffect(() => {
+
+  const setFocusToTitle = useCallback(() => {
     if (titleRef.current) {
       titleRef.current.focus();
     }
   }, [titleRef]);
+
+  useEffect(() => {
+    setFocusToTitle();
+  }, [setFocusToTitle]);
+
   return (
     <div
       className={classNames(styles.content, isOpen ? '' : styles.shrinkOnBlur)}
@@ -49,7 +55,14 @@ export function Content(): React.ReactElement {
           <LanguageSwitcher />
         </div>
         <p className={styles.visuallyHiddenWithoutFocus}>{text}</p>
-        <button type="button" className={classNames(styles.accordionButton, styles.readMoreButton)}>
+        <button
+          type="button"
+          className={classNames(styles.accordionButton, styles.readMoreButton)}
+          onClick={(e) => {
+            e.preventDefault();
+            setFocusToTitle();
+          }}
+        >
           <span>{readMore}</span>
           <IconAngleUp aria-hidden />
         </button>
