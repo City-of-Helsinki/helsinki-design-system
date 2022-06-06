@@ -42,7 +42,7 @@ export type MenuButtonProps = React.PropsWithChildren<{
    */
   menuOffset?: number;
   /**
-   * label outside
+   * Render label outside button and open menu via hover.
    */
   hoverAndClick?: boolean;
 }>;
@@ -93,7 +93,7 @@ export const MenuButton = ({
     <div
       ref={mergeRefs<HTMLDivElement>([ref, containerRef])}
       className={classNames(styles.menuButton, className)}
-      {...(hoverAndClick && useHoverProps && hoverProps)}
+      {...(useHoverProps && hoverProps)}
     >
       {hoverAndClick && label}
       <button
