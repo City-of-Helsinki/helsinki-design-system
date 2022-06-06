@@ -44,7 +44,7 @@ const LiveErrorCore = ({ code }) => {
         setError(report.results[0].messages[0]);
       }
     }
-  }, [code]);
+  }, [code, htmlValidate]);
 
   if (!htmlValidate) {
     return null;
