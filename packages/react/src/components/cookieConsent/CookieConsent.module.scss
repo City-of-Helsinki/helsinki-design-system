@@ -5,6 +5,8 @@
   z-index: 999;
   bottom: 0;
   --common-spacing: var(--spacing-s);
+  --focus-outline-color: var(--color-coat-of-arms);
+  --outline-width: 3px;
 }
 
 .aligner {
@@ -109,6 +111,11 @@
   font-weight: bold;
   display: block;
   padding: 0;
+  outline: none;
+  &:focus {
+    box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .emulatedH2 {
@@ -136,6 +143,11 @@
   align-items: center;
   color: var(--color-bus);
   text-decoration: underline;
+  outline: none;
+  &:focus {
+    box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .detailsAccordionButton {
@@ -181,8 +193,13 @@
   button {
     position: absolute;
     right: 0;
-    top: var(--spacing-2-xs);
-    padding: var(--spacing-s);
+    top: var(--spacing-m);
+    padding: var(--spacing-3-xs);
+    outline: none;
+    &:focus {
+      box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+      transform: translate3d(0, 0, 0);
+    }
   }
 }
 
@@ -258,7 +275,6 @@
     }
     .readMoreButton {
       display: flex;
-      pointer-events: none;
       padding: var(--common-spacing) 0 0;
       span {
         padding-right: var(--spacing-xs);
