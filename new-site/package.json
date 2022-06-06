@@ -29,10 +29,13 @@
     "sass": "^1.49.9"
   },
   "devDependencies": {
+    "eslint-config-react-app": "^7.0.1",
     "hds-core": "^1.15.0",
     "hds-design-tokens": "^1.15.0",
     "hds-react": "^1.15.0",
-    "prettier": "2.5.1"
+    "prettier": "2.5.1",
+    "stylelint": "^14.8.3",
+    "stylelint-config-standard-scss": "^3.0.0"
   },
   "keywords": [
     "gatsby",
@@ -40,14 +43,17 @@
   ],
   "license": "0BSD",
   "scripts": {
-    "build": "gatsby build",
+    "build": "npm run lint && gatsby build",
     "develop": "gatsby develop -o",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "gatsby develop -o",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "link-react": "rm -rf node_modules/hds-react/* && cp -r ../packages/react/lib/* node_modules/hds-react/"
+    "link-react": "rm -rf node_modules/hds-react/* && cp -r ../packages/react/lib/* node_modules/hds-react/",
+    "lint:js": "eslint . --ext js",
+    "lint:scss": "stylelint \"**/*.scss\"",
+    "lint": "npm run lint:js && npm run lint:scss"
   },
   "repository": {
     "type": "git",
