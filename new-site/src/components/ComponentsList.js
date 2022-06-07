@@ -255,7 +255,7 @@ const ComponentsList = () => {
 
   return (
     <div className="components-list">
-      { componentData.map((component) => {
+      {componentData.map(( component) => {
         return (
           <div key={component.name} className="components-list-item">
             <Linkbox
