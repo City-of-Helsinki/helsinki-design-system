@@ -33,6 +33,11 @@ module.exports = {
             withDivider: true,
           },
           {
+            name: 'HDS 2.0',
+            link: '/getting-started/hds-2.0',
+            withDivider: true,
+          },
+          {
             name: 'Tutorials',
             link: '/getting-started/tutorials',
           },
