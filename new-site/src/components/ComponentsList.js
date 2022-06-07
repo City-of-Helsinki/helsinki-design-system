@@ -4,11 +4,10 @@ import { Linkbox } from 'hds-react';
 
 import './ComponentsList.scss';
 
-const ComponentsList = ({ data }) => {
-
+const ComponentsList = () => {
   const componentData = [
     {
-      name: 'Accordion',
+      name: "Accordion",
       text: 'Accordions can be used to hide and reveal information.',
       linkboxAriaLabel: 'Accordion component',
       linkAriaLabel: 'Go to the Accordion component page',
@@ -258,9 +257,9 @@ const ComponentsList = ({ data }) => {
     <div className="components-list">
       { componentData.map((component) => {
         return (
-          <div key={component.name} className="components-list__item">
+          <div key={component.name} className="components-list-item">
             <Linkbox
-              className="components-list__linkbox"
+              className="components-list-linkbox"
               size="small"
               noBackground
               linkboxAriaLabel={component.linkboxAriaLabel}
