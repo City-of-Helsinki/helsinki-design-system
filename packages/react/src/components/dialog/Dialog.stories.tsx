@@ -7,6 +7,14 @@ import { Dialog } from './Dialog';
 import { IconAlertCircle, IconInfoCircle, IconPlusCircle, IconTrash } from '../../icons';
 import { DateInput } from '../dateInput';
 
+const argTypes = {
+  variant: {
+    options: ['primary', 'danger'],
+    control: { type: 'radio' },
+    defaultValue: 'primary',
+  },
+};
+
 export default {
   component: Dialog,
   title: 'Components/Dialog',
@@ -16,7 +24,13 @@ export default {
   },
   args: {
     id: 'example-dialog',
+    scrollable: false,
+    boxShadow: false,
+    theme: {},
+    style: {},
+    closeButtonLabelText: 'Close',
   },
+  argTypes,
 };
 
 export const Default = (args) => {
@@ -33,12 +47,17 @@ export const Default = (args) => {
       </Button>
       <Dialog
         id={args.id}
+        scrollable={args.scrollable}
+        boxShadow={args.boxShadow}
+        theme={args.theme}
+        style={args.style}
+        variant={args.variant}
+        closeButtonLabelText={args.closeButtonLabelText}
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
         isOpen={open}
         focusAfterCloseRef={openButtonRef}
         close={close}
-        closeButtonLabelText="Close"
       >
         <Dialog.Header id={titleId} title="Add new item" iconLeft={<IconPlusCircle aria-hidden="true" />} />
         <Dialog.Content>
