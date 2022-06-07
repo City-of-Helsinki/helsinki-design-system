@@ -144,6 +144,7 @@
   color: var(--color-bus);
   text-decoration: underline;
   outline: none;
+  color: var(--color-black-90);
   &:focus {
     box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
     transform: translate3d(0, 0, 0);
