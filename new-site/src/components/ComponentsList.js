@@ -259,9 +259,9 @@ const ComponentsList = () => {
         return (
           <div key={component.name} className="components-list-item">
             <Linkbox
+              withBorder
               className="components-list-linkbox"
               size="small"
-              noBackground
               linkboxAriaLabel={component.linkboxAriaLabel}
               linkAriaLabel={component.linkAriaLabel}
               href={component.href}
