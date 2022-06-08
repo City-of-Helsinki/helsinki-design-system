@@ -5,6 +5,7 @@ nav_title: "What is HDS 2.0"
 ---
 
 import LeadParagraph from '../../../components/LeadParagraph';
+import Image from '../../../components/Image';
 
 # What is HDS 2.0?
 
@@ -22,17 +23,17 @@ HDS has now adapted to [the new typography styles](/foundation/design-tokens/typ
 
 It is important to note that this change affects many HDS components. If the component has used a heading style before, it has been visually changed in this update. This can cause the small size and spacing differences in many components.
 
-**TODO IMAGE**
+<Image src="/images/getting-started/hds-2.0/typography-before-after.png" alt="Typography - Before and after images" style="max-width:250px;" viewable />
 
 ### Accordion update
 The changes Hel.fi project has done to [the Accordion component](/components/accordion) have been brought to HDS. The accordion now supports an optional close button that will appear at the bottom of an expanded accordion. The component now also features three (3) size variants.
 
-**TODO IMAGE**
+<Image src="/images/getting-started/hds-2.0/accordion-before-after.png" alt="Accordion - Before and after images" style="max-width:250px;" viewable />
 
 ### Breakpoint token and the container component changes
 HDS breakpoint guidelines have been changed. While the breakpoint token values have stayed the same, the way how the maximum container width works in each breakpoint has been altered. Now there is only one maximum container width value, 1200 pixels. In other breakpoints, the content container takes all available space while the outside margins stay unchanged. This change will allow a better experience on smaller screens as all the possible screen estate will be utilised. The easiest way to follow the new container width guidelines is to use <Link size="M" href="/storybook/react/?path=/story/components-container--example">HDS Container component</Link>.
 
-**TODO IMAGE**
+<Image src="/images/getting-started/hds-2.0/container-before-after.png" alt="Container - Before and after images" style="max-width:250px;" viewable />
 
 ### Other minor changes
 - Supplementary button padding change
