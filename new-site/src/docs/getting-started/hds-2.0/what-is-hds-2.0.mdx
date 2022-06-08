@@ -9,7 +9,7 @@ import LeadParagraph from '../../../components/LeadParagraph';
 # What is HDS 2.0?
 
 <LeadParagraph>
-  HDS version 2.0 is a major release. The main goal of this update is to unify HDS and Hel.fi visual indentity. HDS components will adapt to the new typography style and many of the components are updated to match the Hel.fi visuals. 
+  HDS version 2.0 is a major release. The main goal of this update is to unify HDS and Hel.fi visual identity. HDS components will adapt to the new typography style and many of the components are updated to match the Hel.fi visuals. 
 </LeadParagraph>
 
 Reading this article will help you understand what has been changed in the HDS 2.0 update and how it will affect your project. If you are looking for a guide for migrating from HDS 1.X to 2.0, please refer to our [2.0 migration guide](/getting-started/hds-2.0/migrating-to-2.0).
@@ -18,9 +18,9 @@ Reading this article will help you understand what has been changed in the HDS 2
 The following are the major, breaking changes of the update. Most of the breaking changes are purely visual and there are no component API changes aside from a few deprecated React theme variables.
 
 ### Typography update
-HDS has now adapted to [the new typography styles](/foundation/design-tokens/typography) that have been made familiar by the Hel.fi renewing project. The most prominent change is the update to heading font weights. Large headings now use regular weight instead of bold and only small heading sizes use bold weight. Font sizes have also been slightly altered for each heading level to ensure smoother scale. The amount of supported heading levels has been increased from 5 to 6. As previously, a separate heading scale is still available for mobile devices.
+HDS has now adapted to [the new typography styles](/foundation/design-tokens/typography) that have been made familiar by the Hel.fi renewing project. The most prominent change is the update to heading font weights. Large headings now use regular weight instead of bold and only small heading sizes use bold weight. Font sizes have also been slightly altered for each heading level to ensure a smoother scale. The amount of supported heading levels has been increased from 5 to 6. As previously, a separate heading scale is still available for mobile devices.
 
-It is important to note that this change affect many HDS components. If the component has used a heading style before, it has been visually changed in this update. This can cause small size and spacing differences in many components.
+It is important to note that this change affects many HDS components. If the component has used a heading style before, it has been visually changed in this update. This can cause the small size and spacing differences in many components.
 
 **TODO IMAGE**
 
@@ -30,7 +30,7 @@ The changes Hel.fi project has done to [the Accordion component](/components/acc
 **TODO IMAGE**
 
 ### Breakpoint token and the container component changes
-HDS breakpoint guidelines have been changed. While the breakpoint token values have stayed the same, the way how the maximum container width works in each breakpoint has been altered. Now there is only one maximum container width value, 1200 pixels. In other breakpoints, the content container takes all available space while the outside margins stay unchanged. This change will allow better experience on smaller screens as all the possible screen estate will be utilised. The easiest way to follow the new container width guidelines is to use <Link size="M" href="/storybook/react/?path=/story/components-container--example">HDS Container component</Link>.
+HDS breakpoint guidelines have been changed. While the breakpoint token values have stayed the same, the way how the maximum container width works in each breakpoint has been altered. Now there is only one maximum container width value, 1200 pixels. In other breakpoints, the content container takes all available space while the outside margins stay unchanged. This change will allow a better experience on smaller screens as all the possible screen estate will be utilised. The easiest way to follow the new container width guidelines is to use <Link size="M" href="/storybook/react/?path=/story/components-container--example">HDS Container component</Link>.
 
 **TODO IMAGE**
 
@@ -43,7 +43,7 @@ HDS breakpoint guidelines have been changed. While the breakpoint token values h
 <Link href="" size="M" external>Read the full changelog in the HDS GitHub page</Link>
 
 ## What happens to HDS 1.X?
-**The HDS team will continue supporting the 1.X version at least until the end of year 2022.** Any new features will not be released but the version will be kept operational and fixes will be provided to critial bugs (that would prevent a project from using the package). We hope that most projects would migrate to the new version but we also understand that some projects may not have the development resources to do so immediately.
+**The HDS team will continue supporting the 1.X version at least until the end of the year 2022.** Any new features will not be released but the version will be kept operational and fixes will be provided to critical bugs (that would prevent a project from using the package). We hope that most projects would migrate to the new version but we also understand that some projects may not have the development resources to do so immediately.
 
 ## How HDS will be versioned in the future?
-The HDS versioning will stay the same after the 2.0 update. We will follow <Link size="M" href="https://semver.org/" external>semantic versioning</Link> and breaking changes can only be introduced in major releases. However, we are planning to release major releases more often in the future. The next major release, HDS 3.0, is currently planned to be release on the autumn 2022. After that, the team is aiming for 2 to 3 major releases per year.
+The HDS versioning will stay the same after the 2.0 update. We will follow <Link size="M" href="https://semver.org/" external>semantic versioning</Link> and breaking changes can only be introduced in major releases. However, we are planning to release major releases more often in the future. The next major release, HDS 3.0, is currently planned to be released in autumn 2022. After that, the team is aiming for 2 to 3 major releases per year.
