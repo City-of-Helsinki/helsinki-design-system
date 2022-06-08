@@ -42,6 +42,7 @@ const menu = [
 ];
 
 export default {
+  base: '/v1.0',
   dest: '/public',
   public: '/static',
   typescript: true,
