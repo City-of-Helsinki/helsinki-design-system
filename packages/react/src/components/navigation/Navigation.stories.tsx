@@ -8,7 +8,7 @@ import { NavigationUser } from './navigationUser/NavigationUser';
 import { NavigationSearch } from './navigationSearch/NavigationSearch';
 import { NavigationLanguageSelector } from './navigationLanguageSelector/NavigationLanguageSelector';
 import { NavigationDropdown } from './navigationDropdown/NavigationDropdown';
-import { IconSignout } from '../../icons';
+import { IconGlobe, IconSignout } from '../../icons';
 
 type LanguageOption = {
   label: string;
@@ -413,6 +413,60 @@ export const Example = ({ userName, ...args }) => {
                 />
               );
             })}
+          </Navigation.LanguageSelector>
+        </Navigation.Actions>
+      </Navigation>
+    </>
+  );
+};
+
+export const LanguageSelector = ({ ...args }) => {
+  return (
+    <>
+      {/* @ts-ignore */}
+      <Navigation {...args}>
+        {/* NAVIGATION ROW */}
+        <Navigation.Row ariaLabel="Main navigation">
+          <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Dropdown label="Dropdown">
+            <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+            <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+            <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+            <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          </Navigation.Dropdown>
+        </Navigation.Row>
+
+        {/* NAVIGATION ACTIONS */}
+        <Navigation.Actions>
+          {/* SEARCH */}
+          <Navigation.Search searchLabel="Search" searchPlaceholder="Search page" />
+
+          {/* USER */}
+          <Navigation.User label="Sign in">
+            <Navigation.Item label="Link" href="#" variant="secondary" onClick={(e) => e.preventDefault()} />
+            <Navigation.Item
+              label="Sign out"
+              href="#"
+              icon={<IconSignout aria-hidden />}
+              variant="supplementary"
+              onClick={(e) => e.preventDefault()}
+            />
+          </Navigation.User>
+
+          {/* LANGUAGE SELECTOR */}
+          <Navigation.LanguageSelector label="FI">
+            <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="fi" label="Suomeksi" />
+            <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="sv" label="På svenska" />
+            <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="en" label="In English" />
+          </Navigation.LanguageSelector>
+          {/* LANGUAGE SELECTOR 2 */}
+          <Navigation.LanguageSelector label={<IconGlobe size="s" />}>
+            <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="fr" label="En français" />
+            <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="de" label="Auf deutsch" />
+            <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="ru" label="По-русски" />
           </Navigation.LanguageSelector>
         </Navigation.Actions>
       </Navigation>

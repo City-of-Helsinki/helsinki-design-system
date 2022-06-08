@@ -1,5 +1,5 @@
 @import "../navigation.common";
-@value small-down from "../../../styles/breakpoints.css";
+@value x-small-down, small-down from "../../../styles/breakpoints.css";
 
 .languageDropdown {
   button {
@@ -19,6 +19,9 @@
 @media small-down {
   .languageDropdown {
     position: absolute;
-    right: var(--spacing-5-xl);
+    right: var(--spacing-4-xl);
+    &:nth-last-of-type(2) {
+      right: calc(var(--spacing-4-xl) * 2);
+    }
   }
 }

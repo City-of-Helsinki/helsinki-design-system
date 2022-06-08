@@ -25,3 +25,20 @@ export const getComponentFromChildren = (children: React.ReactNode, componentNam
   // return the component and the children without the removed component
   return [component, childrenAsArray];
 };
+
+/**
+ * Filters out all component from the children and returns it and the children without the filtered out component
+ * @param children      Children
+ * @param componentName Name of the component that should be filtered out
+ */
+export const getComponentsFromChildren = (children: React.ReactNode, componentName: string): React.ReactElement[][] => {
+  // copy and ensure that children is an array
+  const childrenAsArray = [...getChildrenAsArray(children)];
+  const components = childrenAsArray.filter((child) => {
+    return (child.type as FCWithName)?.componentName === componentName;
+  });
+  const remainingChildren = childrenAsArray.filter((child) => !components.find((item) => item === child));
+
+  // return the component and the children without the removed component
+  return [components, remainingChildren];
+};

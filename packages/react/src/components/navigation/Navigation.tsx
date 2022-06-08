@@ -14,7 +14,7 @@ import { NavigationDropdown } from './navigationDropdown/NavigationDropdown';
 import { useMobile } from '../../hooks/useMobile';
 import { IconCross, IconMenuHamburger } from '../../icons';
 import { NavigationTheme, NavigationVariant } from './Navigation.interface';
-import { getChildrenAsArray, getComponentFromChildren } from '../../utils/getChildren';
+import { getChildrenAsArray, getComponentFromChildren, getComponentsFromChildren } from '../../utils/getChildren';
 import { FCWithName } from '../../common/types';
 import { useTheme } from '../../hooks/useTheme';
 import { Visible } from '../../internal/visible/Visible';
@@ -191,7 +191,7 @@ export const Navigation = ({
   )?.props?.children;
 
   // filter out the NavigationLanguageSelector, so that it can be rendered in the header instead of the mobile menu
-  const [mobileLanguageSelector, mobileActionsWithoutLanguageSelector] = getComponentFromChildren(
+  const [mobileLanguageSelectors, mobileActionsWithoutLanguageSelector] = getComponentsFromChildren(
     mobileActions,
     'NavigationLanguageSelector',
   );
@@ -224,7 +224,7 @@ export const Navigation = ({
         </a>
         <Visible below="m">
           <HeaderWrapper {...headerWrapperProps}>
-            {mobileLanguageSelector}
+            {mobileLanguageSelectors}
             <button
               aria-label={menuToggleAriaLabel}
               aria-haspopup="true"
