@@ -1,7 +1,6 @@
 name: github pages
 
 on:
-  pull_request:
   push:
     branches:
       - master
