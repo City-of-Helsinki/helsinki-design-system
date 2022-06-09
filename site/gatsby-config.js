@@ -8,7 +8,7 @@ module.exports = {
     title: `Helsinki Design System`,
     description: `Documentation for the Helsinki Design System`,
     siteUrl: process.env.SITE_URL,
-    menuLinks: [  
+    menuLinks: [
       {
         name: 'Getting started',
         link: '/getting-started',
@@ -206,6 +206,16 @@ module.exports = {
       options: {
         sitemap: null,
         policy: [{userAgent: '*', disallow: '/v1'}]
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-matomo',
+      options: {
+        siteId: '831',
+        matomoUrl: 'https://webanalytics.digiaiiris.com/js',
+        siteUrl: 'https://hds.hel.fi',
+        matomoJsScript: 'piwik.min.js',
+        matomoPhpScript: 'tracker.php',
       }
     }
   ],
