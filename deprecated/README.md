@@ -1,13 +1,13 @@
-#Deprecated
+# Deprecated
 
-##Content
+## Content
 
 This folder holds the deprecated versions of the HDS:
 
 1. Old documentation site
 2. Deprecated versions of hds storybooks
 
-##Purpose
+## Purpose
 
 The deprecated versions are published under versioned folders.
 
@@ -22,7 +22,7 @@ production in the following manner:
 The deprecated versions are stored here as built code to speed up the release process
 by not needing to build them again.
 
-##Making changes
+## Making changes
 
 Do not rename the folders inside this folder without making corresponding changes
 to the release pipeline. In the rare case where you would need to make a change to the
