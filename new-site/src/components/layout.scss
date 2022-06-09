@@ -82,6 +82,17 @@ body {
   word-wrap: break-word;
 }
 
+.page-header-title {
+  align-items: center;
+  display: flex;
+}
+
+.page-header-title-badge {
+  align-items: center;
+  display: flex;
+  padding-top: 2px;
+}
+
 .page-heading-1 {
   margin: 0 0 var(--spacing-m) 0;
 }

@@ -178,6 +178,18 @@ const Layout = ({ children, pageContext }) => {
   }));
   const footerCopyRightLinks = siteData?.footerCopyrightLinks || [];
   const contentId = 'content';
+  const NavigationTitle = () => (
+    <div className="page-header-title">
+      <div>{siteTitle}</div>
+      <div className="page-header-title-badge">
+        <img
+          style={{ filter: 'invert(1)' }}
+          alt="GitHub release (latest SemVer)"
+          src="https://img.shields.io/github/v/release/City-of-Helsinki/helsinki-design-system?label=&style=for-the-badge&color=%23000"
+        />
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -186,7 +198,7 @@ const Layout = ({ children, pageContext }) => {
         <Navigation
           id="page-header"
           className="pageHeader"
-          title={siteTitle}
+          title={<NavigationTitle />}
           menuToggleAriaLabel="menu"
           skipTo={`#${contentId}`}
           skipToContentLabel="Skip to content"
