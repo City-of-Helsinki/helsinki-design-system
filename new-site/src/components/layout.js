@@ -185,7 +185,7 @@ const Layout = ({ children, pageContext }) => {
         <img
           style={{ filter: 'invert(1)' }}
           alt="GitHub release (latest SemVer)"
-          src="https://img.shields.io/github/v/release/City-of-Helsinki/helsinki-design-system?label=&style=for-the-badge&color=%23000"
+          src="https://img.shields.io/github/v/release/City-of-Helsinki/helsinki-design-system?label=&style=for-the-badge&color=1a1a1a"
         />
       </div>
     </div>
