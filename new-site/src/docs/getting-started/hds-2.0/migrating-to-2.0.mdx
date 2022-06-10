@@ -20,7 +20,7 @@ Reading this article will help you understand what you should consider and take 
 
 <Notification label="A summary for developers" className="siteNotification">
   <ol>
-    <li>Check components that have had their API (theme variables or default property values changed)</li>
+    <li>Check components that had their API slightly changed (Accordion, Link, and Table)</li>
     <li>Check your tests to see if any of the visual changes have caused them to break</li>
   </ol>
 </Notification>
@@ -35,10 +35,10 @@ There are only a few breaking API changes in the HDS 2.0.
 
 First, we have removed two (2) theme properties. These variables are not available for customisation anymore.
 
-| Component         | Removed theme variable        |
-| ----------------- | ----------------------------- |
-| [Accordion]()     | `--button-border-color-hover` |
-| [Table]()         | `--header-background-color`   |
+| Component                          | Removed theme variable        |
+| ---------------------------------- | ----------------------------- |
+| [Accordion](/components/accordion) | `--button-border-color-hover` |
+| [Table](/components/table)         | `--header-background-color`   |
 [Table 1:Removed theme variables]|
 
 Secondly, there has been one change to a React component's API. The default value of the Link component's property `size` has been changed from `S` to `M`. If you have used the Link component with the default size, from now on you need to specify that explicitly by using the property `size="S"`.
