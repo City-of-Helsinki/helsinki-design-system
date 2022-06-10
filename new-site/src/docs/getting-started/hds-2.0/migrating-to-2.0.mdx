@@ -21,6 +21,7 @@ Reading this article will help you understand what you should consider and take 
 <Notification label="A summary for developers" className="siteNotification">
   <ol>
     <li>Check components that had their API slightly changed (Accordion, Link, and Table)</li>
+    <li>Get familiar with updated typography tokens</li>
     <li>Check your tests to see if any of the visual changes have caused them to break</li>
   </ol>
 </Notification>
@@ -43,10 +44,34 @@ First, we have removed two (2) theme properties. These variables are not availab
 
 Secondly, there has been one change to a React component's API. The default value of the Link component's property `size` has been changed from `S` to `M`. If you have used the Link component with the default size, from now on you need to specify that explicitly by using the property `size="S"`.
 
+### Updated typography tokens
+HDS typography tokens have been changed to match the new Hel.fi visual identity. The following font size tokens have been changed:
+
+| Token                              | Old font-size value        | New font-size value
+| ---------------------------------- | -------------------------- | --------------------
+| `--fontsize-heading-xl`            | 52px (3.25rem)             | **48px (3.0rem)** 
+| `--fontsize-heading-l`             | 36px (2.25rem)             | **32px (2.0rem)** 
+[Table 2:Changed typography tokens]|
+
+We have also added two (2) new font size tokens; `--fontsize-heading-xxl` (64px) and `--fontsize-heading-xl-mobile` (40px). The `--fontsize-heading-xxl` token is meant to be used as the size of a heading level 1. The `--fontsize-heading-xl-mobile` is meant to be used as the size of a heading level 1 on mobile screens and information-heavy user interfaces. 
+
+To learn more about the typography usage, please refer to the [Typography design token documentation page](/foundation/design-tokens/typography).
+
 ### Visual changes to components
 
-Due to the typography change, most of the components have gotten minor visual changes. While these changes are very small, it is good to note that the changes may break your project's regression tests. 
+Due to the typography change, most of the components have gotten minor visual changes. While these changes are very small, it is good to note that the changes may break your project's regression tests.
 
+The following components have had slight visual changes due to the updated typography tokens: 
+- [Accordion](/components/accordion)
+- [Card](/components/card)
+- [Dialog](/components/dialog)
+- [Footer](/components/footer)
+- [Linkbox](/components/linkbox)
+- [Navigation](/components/navigation)
+- [Notification](/components/notification)
+- [Stepper](/components/stepper)
+- [Table](/components/table)
+- [Tooltip](/components/tooltip)
 
 ## Designers
 
@@ -54,9 +79,12 @@ Due to the typography change, most of the components have gotten minor visual ch
   <ol>
     <li>Get familiar with the visual changes by reading the 2.0 release posts</li>
     <li>Update to the newest HDS libraries in each of your project's Sketch files</li>
+    <li>Adapt your typography elements to the new style</li>
   </ol>
 </Notification>
 
 Before updating, we recommend to take a look at the [What is HDS 2.0 page](/getting-started/hds-2.0/what-is-hds-2.0) and <Link size="M" href="https://github.com/City-of-Helsinki/helsinki-design-system/releases/tag/v2.0.0" external>the official 2.0 changelog</Link>. This helps you to get an understanding of what has been changed and what kind of effects updating may have on your design files.
 
 The newest stable HDS version is always available as an Abstract shared library. If you have already included HDS Sketch libraries in your project, all you need to do is to go to each Sketch file of your project and update libraries to the newest version. If you need help with this process, please refer to our [Abstract tutorial page](/getting-started/tutorials/abstract-tutorial#how-to-update-hds-libraries). Note that because typography styles have changed, most of the components will get minor visual changes when you update libraries.
+
+After updating your libraries, it is a good time to check your project's typographies. To adapt them to new styles, you need to start using the new heading level 1 font sizes (64px and 40px respectively for desktop and mobile). To learn more about the typography usage, please refer to the [Typography design token documentation page](/foundation/design-tokens/typography).
