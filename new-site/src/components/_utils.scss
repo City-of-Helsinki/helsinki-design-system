@@ -19,3 +19,11 @@ $breakpoint-medium-above: $breakpoint-m + 1px;
     @content;
   }
 }
+
+$breakpoint-x-large-above: $breakpoint-xl + 1px;
+
+@mixin x-large-and-above-screen {
+  @media (min-width: $breakpoint-x-large-above) {
+    @content;
+  }
+}
