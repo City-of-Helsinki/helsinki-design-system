@@ -101,6 +101,6 @@
     position: absolute;
     top: var(--koros-height);
     transform-origin: center;
-    width: calc(100% + var(--koros-height));
+    width: calc(100% + var(--koros-height)) !important;
   }
 }

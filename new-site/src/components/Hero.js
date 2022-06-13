@@ -16,8 +16,8 @@ const Hero = ({ children, backgroundImageUrl, title, text }) => {
           {children}
         </div>
       </div>
-      <Koros className="hero-koros hero-koros-horizontal" flipHorizontal />
       <Koros className="hero-koros hero-koros-rotated" flipHorizontal rotate="45deg" />
+      <Koros className="hero-koros hero-koros-horizontal" flipHorizontal />
     </div>
   );
 };
