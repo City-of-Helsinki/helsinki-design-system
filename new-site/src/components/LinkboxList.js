@@ -18,6 +18,7 @@ const LinkboxList = ({ data, className }) => {
               linkboxAriaLabel={item.linkboxAriaLabel}
               linkAriaLabel={item.linkAriaLabel}
               href={item.href}
+              external={item.external}
               heading={item.name}
               text={item.text}
               onClick={(event) => {
@@ -39,6 +40,7 @@ LinkboxList.propTypes = {
       linkboxAriaLabel: PropTypes.string.isRequired,
       href: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
+      external: PropTypes.bool,
     }),
   ),
   className: PropTypes.string,
