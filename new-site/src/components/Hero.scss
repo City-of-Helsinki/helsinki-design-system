@@ -24,6 +24,7 @@
 .hero-content {
   --triangle-top-corner-x: calc(100% + var(--spacing-layout-xl));
   --triangle-bottom-corner-x: calc(100% + var(--koros-height) + var(--spacing-layout-xl));
+
   background-color: var(--color-coat-of-arms);
   box-sizing: border-box;
   padding: var(--spacing-layout-s);
