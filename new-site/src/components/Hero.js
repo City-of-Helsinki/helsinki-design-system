@@ -1,4 +1,5 @@
 import React from 'react';
+import { withPrefix } from 'gatsby';
 import { Koros } from 'hds-react';
 import PropTypes from 'prop-types';
 
@@ -6,7 +7,7 @@ import './Hero.scss';
 
 const Hero = ({ children, backgroundImageUrl, title, text }) => {
   return (
-    <div className={`hero`} style={{ backgroundImage: `url(${backgroundImageUrl})`}}>
+    <div className={`hero`} style={{ backgroundImage: `url(${withPrefix(backgroundImageUrl)})` }}>
       <div className="hero-content">
         <div className="hero-content-text">
           <div className="hero-content-shape" />
