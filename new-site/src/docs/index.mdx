@@ -4,6 +4,7 @@ title: 'Home page'
 ---
 
 import { Button } from 'hds-react';
+import { navigate } from 'gatsby';
 import Hero from '../components/Hero';
 import FrontPageLinksList from '../components/FrontPageLinkList';
 
@@ -13,7 +14,13 @@ import FrontPageLinksList from '../components/FrontPageLinkList';
       libraries for building a consistent and accessible digital brand across the city."
   backgroundImageUrl="/images/front-page/amos58.jpg"
 >
-  <Button variant="secondary" className="front-page-hero-button">
+  <Button
+    variant="secondary"
+    className="front-page-hero-button"
+    onClick={() => {
+      navigate('/getting-started');
+    }}
+  >
     Get started
   </Button>
 </Hero>
