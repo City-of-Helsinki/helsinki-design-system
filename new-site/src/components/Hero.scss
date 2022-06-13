@@ -1,0 +1,105 @@
+@import "./utils.scss";
+
+.hero {
+  --koros-height: 145px;
+  --hero-height: 540px;
+  --hero-width: 100%;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center right;
+  color: var(--color-white);
+  max-width: 100%;
+  overflow: hidden;
+  padding-bottom: 200px;
+  position: relative;
+  width: var(--hero-width);
+
+  @include x-large-and-above-screen {
+    min-height: var(--hero-height);
+    padding-bottom: 0;
+  }
+}
+
+.hero-content {
+  --triangle-top-corner-x: calc(100% + var(--spacing-layout-xl));
+  --triangle-bottom-corner-x: calc(100% + var(--koros-height) + var(--spacing-layout-xl));
+  background-color: var(--color-coat-of-arms);
+  box-sizing: border-box;
+  padding: var(--spacing-layout-s);
+  position: relative;
+  z-index: 1000;
+
+  &:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+
+  @include x-large-and-above-screen {
+    clip-path: polygon(0 0, var(--triangle-top-corner-x) 0, 0 var(--triangle-bottom-corner-x), 0% 50%);
+    height: 100%;
+    padding: var(--spacing-layout-m) 0 var(--spacing-layout-m) var(--spacing-layout-m);
+    width: 67%;
+  }
+}
+
+.hero-content-text {
+  height: 100%;
+  width: 100%;
+}
+
+.hero-content-shape {
+  @include x-large-and-above-screen {
+    float: right;
+    height: 100%;
+    min-height: var(--hero-height);
+    shape-outside: polygon(100% 0%, 100% 0%, 100% 100%, 0 100%);
+    width: 100%;
+  }
+}
+
+.hero-title {
+  font-weight: 400;
+  line-height: var(--lineheight-s);
+  margin: 0;
+
+  @include x-large-and-above-screen {
+    font-size: 72px;
+  }
+}
+
+.hero-text {
+  margin: var(--spacing-xl) 0;
+
+  @include x-large-and-above-screen {
+    font-size: var(--fontsize-body-xl);
+  }
+}
+
+.hero-koros {
+  fill: var(--color-coat-of-arms);
+}
+
+.hero-koros-horizontal {
+  display: block;
+  position: relative;
+  top: -50px;
+
+  @include x-large-and-above-screen {
+    display: none;
+  }
+}
+
+.hero-koros-rotated {
+  display: none;
+
+  @include x-large-and-above-screen {
+    display: block;
+    left: 0;
+    position: absolute;
+    top: var(--koros-height);
+    transform-origin: center;
+    width: calc(100% + var(--koros-height));
+  }
+}
