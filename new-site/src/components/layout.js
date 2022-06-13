@@ -30,27 +30,27 @@ const components = {
   tbody: Table.Tbody,
   th: Table.Th,
   h1: (props) => (
-    <h1 {...props} className={classNames('page-heading-1')}>
+    <h1 {...props} className={classNames('page-heading-1', props.className)}>
       {props.children}
     </h1>
   ),
   h2: (props) => (
-    <h2 {...props} className={classNames('page-heading-2')}>
+    <h2 {...props} className={classNames('page-heading-2', props.className)}>
       {props.children}
     </h2>
   ),
   h3: (props) => (
-    <h3 {...props} className={classNames('page-heading-3')}>
+    <h3 {...props} className={classNames('page-heading-3', props.className)}>
       {props.children}
     </h3>
   ),
   h4: (props) => (
-    <h4 {...props} className={classNames('page-heading-4')}>
+    <h4 {...props} className={classNames('page-heading-4', props.className)}>
       {props.children}
     </h4>
   ),
   h5: (props) => (
-    <h4 {...props} className={classNames('page-heading-5')}>
+    <h4 {...props} className={classNames('page-heading-5', props.className)}>
       {props.children}
     </h4>
   ),
