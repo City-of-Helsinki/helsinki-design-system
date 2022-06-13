@@ -1,8 +1,18 @@
 ---
-slug: "/"
-title: "Home page"
+slug: '/'
+title: 'Home page'
 ---
 
-# Home page
+import { Button } from 'hds-react';
+import Hero from '../components/Hero';
 
-Home page content
+<Hero
+  title="Helsinki Design System"
+  text="The central digital experience resource of Helsinki Design Language. Guidelines, design assets and component
+      libraries for building a consistent and accessible digital brand across the city."
+  backgroundImageUrl="/images/front-page/amos58.jpg"
+>
+  <Button variant="secondary" className="front-page-hero-button">
+    Get started
+  </Button>
+</Hero>
