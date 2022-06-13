@@ -106,6 +106,12 @@ body {
   font-size: var(--fontsize-heading-xs);
 }
 
+.front-page-link-list {
+  box-sizing: border-box;
+  margin: 0 0 var(--spacing-layout-2-xl);
+  padding: 0 2px;
+}
+
 .front-page-hero-button {
   --background-color: var(--color-white);
 }
