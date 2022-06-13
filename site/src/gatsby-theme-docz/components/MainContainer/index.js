@@ -9,8 +9,8 @@ export const MainContainer = ({ children, ...rest }) => {
     <Container sx={styles.container} {...rest}>
       {process.env.GATSBY_SHOW_DEPRECATED_WARNING === 'TRUE' &&
         <div style={{marginBottom: '24px', maxWidth: '800px'}}>
-          <Notification label={"Deprecated"} type="alert">
-            You are viewing a deprecated version (V1) of Helsinki Design System documentation. Please find the up to date version here: <Link size={"s"} href={"https://hds.hel.fi"}>HDS</Link>
+          <Notification label={"This is a deprecated version"} type="alert">
+            You are viewing an old version (V1) of the Helsinki Design System documentation. If you are using a newer version of the HDS, please refer to <Link size={"s"} href={"https://hds.hel.fi"}>the up to date documentation site</Link>. If you are looking for information on how to migrate to the new version, refer to the <Link size={"s"} href={"https://hds.hel.fi/getting-started/hds-2.0/migrating-to-2.0/"}>HDS 2.0 migration guide</Link>.
           </Notification>
         </div>
       }
