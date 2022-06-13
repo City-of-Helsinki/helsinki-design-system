@@ -22,8 +22,10 @@ const LinkboxList = ({ data, className }) => {
               heading={item.name}
               text={item.text}
               onClick={(event) => {
-                event.preventDefault();
-                navigate(item.href);
+                if(!item.external) {
+                  event.preventDefault();
+                  navigate(item.href);
+                }
               }}
             />
           </div>
