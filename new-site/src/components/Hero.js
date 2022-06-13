@@ -1,9 +1,8 @@
 import React from 'react';
-import { withPrefix } from 'gatsby';
 import { Koros } from 'hds-react';
+import PropTypes from 'prop-types';
 
 import './Hero.scss';
-import PropTypes from 'prop-types';
 
 const Hero = ({ children, backgroundImageUrl, title, text }) => {
   return (
