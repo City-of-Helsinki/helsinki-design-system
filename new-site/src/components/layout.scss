@@ -106,6 +106,10 @@ body {
   font-size: var(--fontsize-heading-xs);
 }
 
+.front-page-hero-button {
+  --background-color: var(--color-white);
+}
+
 .page {
   display: flex;
   flex-direction: column;
