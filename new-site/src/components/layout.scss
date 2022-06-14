@@ -1,6 +1,7 @@
 @charset "utf-8";
 @import "~hds-design-tokens/lib/all.scss";
 @import "~hds-core/lib/components/table/table.css";
+@import 'utils';
 
 :root {
   --page-border-color: var(--color-black-20);
@@ -108,8 +109,12 @@ body {
 
 .front-page-link-list {
   box-sizing: border-box;
-  margin: 0 0 var(--spacing-layout-2-xl);
+  margin: 0 0 var(--spacing-layout-xl);
   padding: 0 2px;
+
+  @include x-large-and-above-screen {
+    padding: 0 var(--spacing-layout-xs);
+  }
 }
 
 .front-page-hero-button {
