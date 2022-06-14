@@ -4,8 +4,9 @@ title: 'Home page'
 ---
 
 import { Button } from 'hds-react';
-import { navigate } from 'gatsby';
+import { navigate, withPrefix } from 'gatsby';
 import Hero from '../components/Hero';
+import Image from '../components/Image';
 import FrontPageLinksList from '../components/FrontPageLinkList';
 
 <Hero
@@ -26,3 +27,5 @@ import FrontPageLinksList from '../components/FrontPageLinkList';
 </Hero>
 
 <FrontPageLinksList />
+
+<Image size="M" src="/images/homepage/structure_graph.svg" alt="Helsinki Design System building blocks" style="width:100%; max-width:900px; margin: 0 auto;" viewable />
