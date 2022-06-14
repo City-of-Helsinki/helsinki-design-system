@@ -29,7 +29,7 @@
   box-sizing: border-box;
   padding: var(--spacing-layout-s);
   position: relative;
-  z-index: 1000;
+  z-index: 1;
 
   &:after {
     clear: both;
