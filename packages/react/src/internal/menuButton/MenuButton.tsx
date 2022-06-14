@@ -97,7 +97,7 @@ export const MenuButton = ({
       <button
         type="button"
         id={buttonId}
-        className={classNames(styles.toggleButton, hoverAndClick && styles.focusHere)}
+        className={styles.toggleButton}
         aria-label={buttonAriaLabel}
         aria-haspopup="true"
         aria-controls={menuId}

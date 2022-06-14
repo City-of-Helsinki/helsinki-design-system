@@ -16,10 +16,6 @@
 
   border-radius: 0;
   position: relative;
-
-  &:focus-within {
-    box-shadow: 0 0 0 3px var(--menu-button-focus-outline-color);
-  }
 }
 
 .toggleButton {
@@ -32,9 +28,6 @@
 
   > * {
     pointer-events: none;
-  }
-  &.focusHere:focus-within {
-    box-shadow: 0 0 0 3px var(--menu-button-focus-outline-color);
   }
 }
 
