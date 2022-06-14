@@ -11,6 +11,11 @@ const FrontPageLinkList = () => {
       linkAriaLabel: 'Go to the Brand guidelines page',
       href: 'https://brand.hel.fi/',
       external: true,
+      imgProps: {
+        src: '/images/brand_guidelines.svg',
+        height: 198,
+        width: 300,
+      },
     },
     {
       name: 'Foundation',
@@ -18,6 +23,11 @@ const FrontPageLinkList = () => {
       linkboxAriaLabel: 'Foundations',
       linkAriaLabel: 'Go to the Foundations page',
       href: '/foundation',
+      imgProps: {
+        src: '/images/foundation/foundation.svg',
+        height: 198,
+        width: 300,
+      },
     },
     {
       name: 'Components',
@@ -25,6 +35,11 @@ const FrontPageLinkList = () => {
       linkboxAriaLabel: 'Components',
       linkAriaLabel: 'Go to the Components page',
       href: '/components',
+      imgProps: {
+        src: '/images/components/components.svg',
+        height: 198,
+        width: 300,
+      },
     },
     {
       name: 'Patterns',
@@ -32,6 +47,11 @@ const FrontPageLinkList = () => {
       linkboxAriaLabel: 'Patterns',
       linkAriaLabel: 'Go to the Patterns page',
       href: '/patterns',
+      imgProps: {
+        src: '/images/patterns/patterns.svg',
+        height: 198,
+        width: 300,
+      },
     },
   ];
 
