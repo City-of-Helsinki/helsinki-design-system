@@ -115,7 +115,8 @@
 
   // focus outline
   .rowItem:focus::before,
-  .dropdownItem:focus-within::before {
+  .dropdownItem:focus-within::before,
+  .dropdownLinkItem button:focus-within::before {
     border-radius: 0;
     box-shadow: 0 0 0 var(--header-focus-outline-width) var(--item-focus-outline-color);
     content: '';
@@ -126,6 +127,10 @@
     top: 0;
     transform: translateY(calc(var(--header-focus-outline-width)));
     width: 100%;
+    z-index: 1;
+  }
+  .dropdownLinkItem button {
+    position: relative;
   }
 
   // focus outline - active
