@@ -83,8 +83,6 @@ export const MenuButton = ({
   const [useHoverProps, setUseHoverProps] = useState(!isMobile && hoverAndClick);
   const hoverProps = {
     onMouseOver: () => setMenuOpen(true),
-    onFocus: () => setMenuOpen(true),
-    onBlur: () => setMenuOpen(false),
     onMouseLeave: () => setMenuOpen(false),
   };
   useEffect(() => setUseHoverProps(!isMobile && hoverAndClick), [isMobile]);
@@ -99,7 +97,7 @@ export const MenuButton = ({
       <button
         type="button"
         id={buttonId}
-        className={styles.toggleButton}
+        className={classNames(styles.toggleButton, hoverAndClick && styles.focusHere)}
         aria-label={buttonAriaLabel}
         aria-haspopup="true"
         aria-controls={menuId}
