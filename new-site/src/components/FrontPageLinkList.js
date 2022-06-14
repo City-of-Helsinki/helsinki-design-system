@@ -12,7 +12,7 @@ const FrontPageLinkList = () => {
       href: 'https://brand.hel.fi/',
       external: true,
       imgProps: {
-        src: '/images/brand_guidelines.svg',
+        src: '/images/homepage/brand-guidelines.svg',
         height: 198,
         width: 300,
       },
