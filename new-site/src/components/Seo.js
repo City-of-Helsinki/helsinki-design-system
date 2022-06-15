@@ -35,7 +35,77 @@ function Seo({ lang, meta, title, description, pageTitle }) {
           content: `website`,
         },
       ].concat(meta)}
-    />
+    >
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="192x192"
+        href="/favicon/transparent_light_favicon_package/android-chrome-192x192.png"
+        media="(prefers-color-scheme: light)"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="256x256"
+        href="/favicon/transparent_light_favicon_package/android-chrome-256x256.png"
+        media="(prefers-color-scheme: light)"
+      />
+      <link
+        rel="apple-touch-icon"
+        href="/favicon/transparent_light_favicon_package/apple-touch-icon.png"
+        media="(prefers-color-scheme: light)"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="/favicon/transparent_light_favicon_package/favicon-32x32.png"
+        media="(prefers-color-scheme: light)"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="/favicon/transparent_light_favicon_package/favicon-16x16.png"
+        media="(prefers-color-scheme: light)"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="192x192"
+        href="/favicon/transparent_dark_favicon_package/android-chrome-192x192.png"
+        media="(prefers-color-scheme: dark)"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="256x256"
+        href="/favicon/transparent_dark_favicon_package/android-chrome-256x256.png"
+        media="(prefers-color-scheme: dark)"
+      />
+      <link
+        rel="apple-touch-icon"
+        href="/favicon/transparent_dark_favicon_package/apple-touch-icon.png"
+        media="(prefers-color-scheme: dark)"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="/favicon/transparent_dark_favicon_package/favicon-32x32.png"
+        media="(prefers-color-scheme: dark)"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="/favicon/transparent_dark_favicon_package/favicon-16x16.png"
+        media="(prefers-color-scheme: dark)"
+      />
+      <meta name="msapplication-TileColor" content="#da532c" />
+      <meta name="msapplication-TileImage" content="/favicon/transparent_light_favicon_package/mstile-150x150.png" />
+      <meta name="msapplication-config" content="/favicon/transparent_light_favicon_package/browserconfig.xml" />
+    </Helmet>
   );
 }
 
