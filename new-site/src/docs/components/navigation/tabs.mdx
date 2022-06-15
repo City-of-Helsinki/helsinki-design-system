@@ -3,7 +3,7 @@ slug: '/components/navigation/tabs'
 title: 'Navigation'
 ---
 
-import { StatusLabel } from 'hds-react';
+import { StatusLabel, Notification } from 'hds-react';
 
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout';
@@ -19,6 +19,10 @@ import PageTabs from '../../../components/PageTabs';
 <LeadParagraph>
   A navigation component is the main way for users to navigate and locate themselves when using a service. It includes some key features present in most services to keep user experience consistent between them.
 </LeadParagraph>
+
+<Notification label="A visual rework is coming soon!" className="siteNotification">
+  The HDS team will be unifying the Navigation component with the Hel.fi project navigation during 2022.
+</Notification>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
