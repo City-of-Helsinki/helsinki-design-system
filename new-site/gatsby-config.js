@@ -1,9 +1,13 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   pathPrefix: process.env.PATH_PREFIX,
   siteMetadata: {
     title: `Helsinki Design System`,
     description: `Documentation for the Helsinki Design System`,
-    siteUrl: `https://hds.hel.fi/`,
+    siteUrl: process.env.SITE_URL,
     menuLinks: [  
       {
         name: 'Getting started',
