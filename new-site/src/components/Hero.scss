@@ -1,15 +1,18 @@
-@import "./utils.scss";
+@import './utils.scss';
 
 .hero-container {
   --koros-height: 145px;
   --hero-height: 540px;
   --hero-width: 100%;
+  --hero-content-left: calc(((100vw + var(--spacing-s) - var(--container-width-xl)) / 2));
 
   background-color: var(--color-coat-of-arms);
   position: relative;
 
   @include x-large-and-above-screen {
-    left: calc(((100vw - 100%) / 2) * -1);
+    box-sizing: border-box;
+    left: calc((var(--hero-content-left) * -1));
+    padding-left: var(--spacing-s);
     width: 100vw;
     z-index: 1000;
   }
@@ -28,11 +31,10 @@
     background-position: center;
     height: 100%;
     margin-top: 0;
-    left: calc(((100vw - var(--container-width-xl)) / 2));
+    left: var(--hero-content-left);
     right: 0;
     position: absolute;
     top: 0;
-    width: 100%;
   }
 }
 
