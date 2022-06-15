@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useMDXScope } from 'gatsby-plugin-mdx/context';
 import { LiveProvider, LiveEditor, LiveError, LivePreview, withLive } from 'react-live';
-import DOMPurify from 'dompurify';
+import sanitizeHtml from 'sanitize-html';
 import { Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
 import theme from 'prism-react-renderer/themes/github';
 
@@ -54,7 +54,7 @@ const sanitize = (code) => {
 
 const HtmlLivePreview = ({ code }) => {
   const sanitizedHtml = () => ({
-    __html: DOMPurify.sanitize(code),
+    __html: sanitizeHtml(code),
   });
 
   return <PlaygroundPreviewComponent dangerouslySetInnerHTML={sanitizedHtml()} />;
