@@ -116,6 +116,7 @@
   // focus outline
   .rowItem:focus::before,
   .dropdownItem:focus-within::before,
+  .dropdownLinkItem a:focus-within::before,
   .dropdownLinkItem button:focus-within::before {
     border-radius: 0;
     box-shadow: 0 0 0 var(--header-focus-outline-width) var(--item-focus-outline-color);
