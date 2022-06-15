@@ -1,0 +1,34 @@
+@import "~hds-design-tokens/lib/all.scss";
+
+.image-container {
+  overflow-x: auto;
+}
+
+.image-container-link {
+  display: flex;
+  position: relative;
+  width: max-content;
+
+  @media screen and (min-width: $breakpoint-m) {
+    width: 100%;
+  }
+
+  &:focus:after {
+    border: 3px solid var(--color-coat-of-arms);
+    box-sizing: border-box;
+    content: "";
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
+.image-container-image {
+  max-width: $breakpoint-m;
+
+  @media screen and (min-width: $breakpoint-m) {
+    max-width: 100%;
+  }
+}

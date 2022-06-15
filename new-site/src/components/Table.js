@@ -35,7 +35,7 @@ const Table = (props) => {
   const [tableName, caption] = captionString ? resolveCaptionStrings(captionString) : [undefined, undefined];
 
   return (
-    <div className="hds-table-container docTable">
+    <div className="hds-table-container doc-table">
       <table className="hds-table hds-table--dark" aria-label={caption} tabIndex="0">
         {tableName && caption && (
           <caption className="hds-table__caption">

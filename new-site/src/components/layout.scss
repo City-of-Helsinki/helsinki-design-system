@@ -1,7 +1,6 @@
 @charset "utf-8";
-
-@import '~hds-design-tokens/lib/all.scss';
-@import '~hds-core/lib/components/table/table.css';
+@import "~hds-design-tokens/lib/all.scss";
+@import "~hds-core/lib/components/table/table.css";
 
 :root {
   --page-border-color: var(--color-black-20);
@@ -9,63 +8,65 @@
 
 @font-face {
   font-family: HelsinkiGrotesk;
-  src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/565d73a693abe0776c801607ac28f0bf.woff) format("woff");
+  src: url("https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/565d73a693abe0776c801607ac28f0bf.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
-  src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/5bb29e3b7b1d3ef30121229bbe67c3e1.woff) format("woff");
+  src: url("https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/5bb29e3b7b1d3ef30121229bbe67c3e1.woff") format("woff");
   font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
-  src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/7c46f288e8133b87e6b12b45dac71865.woff) format("woff");
+  src: url("https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/7c46f288e8133b87e6b12b45dac71865.woff") format("woff");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
-  src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/e62dc97e83a385e4d8cdc939cf1e4213.woff) format("woff");
+  src: url("https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/e62dc97e83a385e4d8cdc939cf1e4213.woff") format("woff");
   font-weight: 500;
   font-style: italic;
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
-  src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/533af26cf28d7660f24c2884d3c27eac.woff) format("woff");
+  src: url("https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/533af26cf28d7660f24c2884d3c27eac.woff") format("woff");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
-  src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/20d494430c87e15e194932b729d48270.woff) format("woff");
+  src: url("https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/20d494430c87e15e194932b729d48270.woff") format("woff");
   font-weight: 700;
   font-style: italic;
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
-  src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/a50a1bd245ce63abcc0d1da80ff790d2.woff) format("woff");
+  src: url("https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/a50a1bd245ce63abcc0d1da80ff790d2.woff") format("woff");
   font-weight: 900;
   font-style: normal;
 }
 
 @font-face {
   font-family: HelsinkiGrotesk;
-  src: url(https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/62a1781d8b396fbb025b0552cf6304d2.woff) format("woff");
+  src: url("https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/62a1781d8b396fbb025b0552cf6304d2.woff") format("woff");
   font-weight: 900;
   font-style: italic;
 }
 
 html {
+  /* stylelint-disable property-no-vendor-prefix  */
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  /* stylelint-enable property-no-vendor-prefix  */
   box-sizing: border-box;
   overflow-y: scroll;
 }
@@ -73,9 +74,11 @@ html {
 body {
   font-family: var(--font-default);
   margin: 0;
+  /* stylelint-disable property-no-vendor-prefix  */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  /* stylelint-enable property-no-vendor-prefix  */
+  text-rendering: optimizelegibility;
   word-wrap: break-word;
 }
 
@@ -99,7 +102,7 @@ body {
   margin: var(--spacing-l) 0 var(--spacing-3-xs) 0;
 }
 
-.mainContent div[role="heading"] {
+.main-content div[role="heading"] {
   font-size: var(--fontsize-heading-xs);
 }
 
@@ -109,7 +112,7 @@ body {
   min-height: 100vh;
 }
 
-.pageContent {
+.page-content {
   flex: 1;
   margin: 0 auto;
   padding: var(--spacing-m) 0;
@@ -117,48 +120,70 @@ body {
   width: 100%;
 }
 
-.sideContent {
+.side-content {
   margin-bottom: auto;
   min-width: 230px;
 }
 
-.mainContent {
+.main-content {
   overflow: hidden;
   width: 100%;
 }
 
 @media screen and (min-width: $breakpoint-m) {
-  .pageContent {
+  .page-content {
     display: flex;
   }
 
-  .sideContent {
+  .side-content {
     margin-bottom: auto;
     min-width: 230px;
     padding: var(--spacing-s) 0;
   }
 
-  .mainContent {
+  .main-content {
     flex: 1;
     padding: 0 0 var(--spacing-m);
   }
 
-  .sideContent + .mainContent {
+  .side-content + .main-content {
     border-left: 1px solid var(--page-border-color);
     padding: 0 var(--spacing-m) var(--spacing-m);
   }
 }
 
-.pageFooter {
+.page-footer {
   /* ensure footer stays on bottom of the page */
   margin-top: auto;
 }
 
-.docTable {
+.doc-table {
   margin: var(--spacing-l) 0;
 }
 
-.headerAnchor {
+.hds-anchor-icon {
+  visibility: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  &:hover {
+    .hds-anchor-icon {
+      visibility: visible;
+    }
+  }
+
+  &:focus {
+    .hds-anchor-icon {
+      visibility: visible;
+    }
+  }
+}
+
+.header-anchor {
   color: var(--color-black-90);
   padding-left: 0 !important;
   margin-left: var(--spacing-2-xs);
@@ -167,24 +192,8 @@ body {
 
   &:focus {
     outline: 3px solid var(--color-coat-of-arms);
-    .hdsAnchorIcon {
-      visibility: visible;
-    }
-  }
-}
 
-.hdsAnchorIcon {
-  visibility: hidden;
-}
-
-h1, h2, h3, h4, h5 {
-  &:hover {
-    .hdsAnchorIcon {
-      visibility: visible;
-    }
-  }
-  &:focus {
-    .hdsAnchorIcon {
+    .hds-anchor-icon {
       visibility: visible;
     }
   }

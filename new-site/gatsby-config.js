@@ -1,9 +1,13 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   pathPrefix: process.env.PATH_PREFIX,
   siteMetadata: {
     title: `Helsinki Design System`,
     description: `Documentation for the Helsinki Design System`,
-    siteUrl: `https://hds.hel.fi/`,
+    siteUrl: process.env.SITE_URL,
     menuLinks: [  
       {
         name: 'Getting started',
@@ -167,9 +171,9 @@ module.exports = {
           {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
-              icon: `<i class="hdsAnchorIcon hds-icon hds-icon--link hds-icon--size-xs" aria-hidden="true" style="vertical-align: middle"></i>`,
+              icon: `<i class="hds-anchor-icon hds-icon hds-icon--link hds-icon--size-xs" aria-hidden="true" style="vertical-align: middle"></i>`,
               isIconAfterHeader: true,
-              className: `headerAnchor`,
+              className: `header-anchor`,
             },
           },
         ],
