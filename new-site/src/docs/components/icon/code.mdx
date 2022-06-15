@@ -3,7 +3,7 @@ slug: '/components/icon/code'
 title: 'Icon - Code'
 ---
 
-import { IconFaceSmile } from 'hds-react';
+import { IconFaceSmile, IconPlusCircle } from 'hds-react';
 
 import Playground from '../../../components/Playground'
 import TabsLayout from './tabs.mdx';
@@ -53,6 +53,21 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   <i class="hds-icon hds-icon--face-smile hds-icon--size-l" aria-hidden="true"></i>
   <i class="hds-icon hds-icon--face-smile hds-icon--size-xl" aria-hidden="true"></i>
 </div>
+```
+
+</Playground>
+
+### Icon visible for assistive technologies
+
+<Playground>
+
+
+```jsx
+<IconPlusCircle aria-label="Add an item" />
+```
+
+```html
+<i class="hds-icon hds-icon--plus-circle hds-icon--size-s" aria-label="Add an item"></i>
 ```
 
 </Playground>
