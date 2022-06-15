@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
 import { Container, Footer, Link, Navigation, SideNavigation, IconCheckCircleFill, IconCrossCircle } from 'hds-react';
-import Seo from './seo';
+import Seo from './Seo';
 import { PlaygroundBlock, PlaygroundPreview } from './Playground';
 import SyntaxHighlighter from './SyntaxHighlighter';
 import Table from './Table';
@@ -108,6 +108,7 @@ const Layout = ({ children, pageContext }) => {
         siteMetadata {
           title
           description
+          siteUrl
           menuLinks {
             name
             link
@@ -143,6 +144,7 @@ const Layout = ({ children, pageContext }) => {
   const mdxPageData = queryData.allMdx?.edges || [];
   const allPages = mdxPageData.map(({ node }) => ({ ...node.frontmatter, ...node.fields }));
   const siteTitle = siteData?.title || 'Title';
+  const siteUrl = siteData?.siteUrl;
   const description = siteData?.description;
   const footerTitle = siteData?.footerTitle || siteTitle;
   const footerAriaLabel = siteData?.footerAriaLabel;
@@ -181,17 +183,26 @@ const Layout = ({ children, pageContext }) => {
 
   return (
     <>
-      <Seo title={siteTitle} pageTitle={pageTitle} description={description} />
+      <Seo title={siteTitle} pageTitle={pageTitle} description={description} meta={[{
+        property: 'og:url',
+        content: siteUrl,
+      },]} />
       <div className="page text-body">
         <Navigation
           id="page-header"
           className="pageHeader"
           title={siteTitle}
+          titleAriaLabel="Helsinki: Helsinki Design System"
+          titleUrl={siteUrl}
+          onTitleClick={(event) => {
+            event.preventDefault();
+            navigate('/');
+          }}
           menuToggleAriaLabel="menu"
           skipTo={`#${contentId}`}
           skipToContentLabel="Skip to content"
         >
-          <Navigation.Row>
+          <Navigation.Row ariaLabel="Site navigation">
             {uiMenuLinks.map(({ name, link, uiId }) => (
               <Navigation.Item
                 active={withPrefix(currentMenuItem?.link || '') === withPrefix(link)}
@@ -203,13 +214,14 @@ const Layout = ({ children, pageContext }) => {
             ))}
           </Navigation.Row>
         </Navigation>
-        <Container className="pageContent">
+        <Container className="page-content">
           {uiSubMenuLinks.length > 0 && (
-            <aside className="sideContent" key="side-navigation">
+            <aside className="side-content" key="side-navigation">
               <SideNavigation
                 defaultOpenMainLevels={[...Array(uiSubMenuLinks.length).keys()]}
                 id="side-navigation"
                 toggleButtonLabel="Navigate to page"
+                ariaLabel={`${currentMenuItem.name}`}
               >
                 {uiSubMenuLinks.map(({ name, link, prefixedLink, uiId, withDivider, subLevels }) => {
                   const hasSubLevels = subLevels.length > 0;
@@ -251,11 +263,11 @@ const Layout = ({ children, pageContext }) => {
               </SideNavigation>
             </aside>
           )}
-          <main id={contentId} className="mainContent">
+          <main id={contentId} className="main-content">
             <MDXProvider components={components}>{children}</MDXProvider>
           </main>
         </Container>
-        <Footer id="page-footer" className="pageFooter" title={footerTitle} footerAriaLabel={footerAriaLabel}>
+        <Footer id="page-footer" className="page-footer" title={footerTitle} footerAriaLabel={footerAriaLabel}>
           <Footer.Base copyrightHolder="Copyright">
             {footerCopyRightLinks.map(({ name, link }) => (
               <Footer.Item key={name} label={name} href={link} />

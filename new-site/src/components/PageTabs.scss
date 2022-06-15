@@ -1,6 +1,6 @@
-@import '~hds-design-tokens/lib/all.scss';
+@import "~hds-design-tokens/lib/all.scss";
 
-.pageTabsList {
+.page-tabs-list {
   margin: var(--spacing-2-xl) calc(-1 * var(--spacing-m)) var(--spacing-l);
   padding: 0 var(--spacing-m);
   position: relative;

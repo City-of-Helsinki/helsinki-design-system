@@ -48,7 +48,7 @@ export const Default = (args) => {
       </style>
       <div className="example-page">
         <div className="example-page-side-navigation">
-          <SideNavigation {...args}>
+          <SideNavigation ariaLabel="Getting started" {...args}>
             <SideNavigation.MainLevel id="main-level-link-1" label="Main level accordion">
               <SideNavigation.SubLevel
                 active={active === '/sub-level-1'}

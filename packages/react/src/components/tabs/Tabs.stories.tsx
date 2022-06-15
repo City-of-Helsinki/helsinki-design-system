@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { LoadingSpinner } from '../loadingSpinner';
 import { Tabs } from './Tabs';
 
 export default {
@@ -112,3 +113,51 @@ export const WithCustomTheme = () => {
     </Tabs>
   );
 };
+
+export const WithCustomOnClickAction = () => {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const content = {
+    education: 'Daytime care for people who cannot be fully independent, such as children or elderly people.',
+    university:
+      'The objective of basic education in Finland is to support pupils&#39; growth towards humanity and ethically responsible membership of society.',
+  };
+
+  const LoadingIndicator = () => (
+    <div style={{ alignItems: 'center', display: 'flex', gap: '1rem' }}>
+      <LoadingSpinner
+        loadingText="Tab content is loading"
+        loadingFinishedText="The tab content loading was finished"
+        small
+      />
+      <span>Tab content is loading</span>
+    </div>
+  );
+
+  const mockLoading = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+  };
+
+  const onTabClick = () => {
+    mockLoading();
+  };
+
+  React.useEffect(() => {
+    mockLoading();
+  }, []);
+
+  return (
+    <Tabs initiallyActiveTab={0}>
+      <Tabs.TabList className="example-tablist">
+        <Tabs.Tab onClick={() => onTabClick()}>Basic education</Tabs.Tab>
+        <Tabs.Tab onClick={() => onTabClick()}>University</Tabs.Tab>
+      </Tabs.TabList>
+      <Tabs.TabPanel>{isLoading ? <LoadingIndicator /> : content.education}</Tabs.TabPanel>
+      <Tabs.TabPanel>{isLoading ? <LoadingIndicator /> : content.university}</Tabs.TabPanel>
+    </Tabs>
+  );
+};
+
+WithCustomOnClickAction.parameters = { loki: { skip: true } };
