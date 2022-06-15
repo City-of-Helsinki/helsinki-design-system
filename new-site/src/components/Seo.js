@@ -7,6 +7,7 @@
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import * as React from 'react';
+import { withPrefix } from 'gatsby';
 
 function Seo({ lang, meta, title, description, pageTitle }) {
   const composedTitle = `${title} | ${pageTitle}`;
@@ -40,66 +41,66 @@ function Seo({ lang, meta, title, description, pageTitle }) {
         rel="icon"
         type="image/png"
         sizes="192x192"
-        href="/favicon/transparent_light_favicon_package/android-chrome-192x192.png"
+        href={withPrefix("/favicon/transparent_light_favicon_package/android-chrome-192x192.png")}
         media="(prefers-color-scheme: light)"
       />
       <link
         rel="icon"
         type="image/png"
         sizes="256x256"
-        href="/favicon/transparent_light_favicon_package/android-chrome-256x256.png"
+        href={withPrefix("/favicon/transparent_light_favicon_package/android-chrome-256x256.png")}
         media="(prefers-color-scheme: light)"
       />
       <link
         rel="apple-touch-icon"
-        href="/favicon/transparent_light_favicon_package/apple-touch-icon.png"
+        href={withPrefix("/favicon/transparent_light_favicon_package/apple-touch-icon.png")}
         media="(prefers-color-scheme: light)"
       />
       <link
         rel="icon"
         type="image/png"
         sizes="32x32"
-        href="/favicon/transparent_light_favicon_package/favicon-32x32.png"
+        href={withPrefix("/favicon/transparent_light_favicon_package/favicon-32x32.png")}
         media="(prefers-color-scheme: light)"
       />
       <link
         rel="icon"
         type="image/png"
         sizes="16x16"
-        href="/favicon/transparent_light_favicon_package/favicon-16x16.png"
+        href={withPrefix("/favicon/transparent_light_favicon_package/favicon-16x16.png")}
         media="(prefers-color-scheme: light)"
       />
       <link
         rel="icon"
         type="image/png"
         sizes="192x192"
-        href="/favicon/transparent_dark_favicon_package/android-chrome-192x192.png"
+        href={withPrefix("/favicon/transparent_dark_favicon_package/android-chrome-192x192.png")}
         media="(prefers-color-scheme: dark)"
       />
       <link
         rel="icon"
         type="image/png"
         sizes="256x256"
-        href="/favicon/transparent_dark_favicon_package/android-chrome-256x256.png"
+        href={withPrefix("/favicon/transparent_dark_favicon_package/android-chrome-256x256.png")}
         media="(prefers-color-scheme: dark)"
       />
       <link
         rel="apple-touch-icon"
-        href="/favicon/transparent_dark_favicon_package/apple-touch-icon.png"
+        href={withPrefix("/favicon/transparent_dark_favicon_package/apple-touch-icon.png")}
         media="(prefers-color-scheme: dark)"
       />
       <link
         rel="icon"
         type="image/png"
         sizes="32x32"
-        href="/favicon/transparent_dark_favicon_package/favicon-32x32.png"
+        href={withPrefix("/favicon/transparent_dark_favicon_package/favicon-32x32.png")}
         media="(prefers-color-scheme: dark)"
       />
       <link
         rel="icon"
         type="image/png"
         sizes="16x16"
-        href="/favicon/transparent_dark_favicon_package/favicon-16x16.png"
+        href={withPrefix("/favicon/transparent_dark_favicon_package/favicon-16x16.png")}
         media="(prefers-color-scheme: dark)"
       />
       <meta name="msapplication-TileColor" content="#da532c" />
