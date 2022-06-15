@@ -94,13 +94,8 @@ module.exports = {
         link: '/about',
         subMenuLinks: [
           {
-            name: 'Overview',
-            link: '/about',
-          },
-          {
             name: 'Support',
-            link: '/about/support',
-            withDivider: true,
+            link: '/about',
           },
           {
             name: 'Accessibility',
