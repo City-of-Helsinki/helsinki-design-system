@@ -1,23 +1,59 @@
 @import "./utils.scss";
 
-.hero {
+.hero-container {
   --koros-height: 145px;
   --hero-height: 540px;
   --hero-width: 100%;
 
-  background-size: cover;
+  background-color: var(--color-coat-of-arms);
+  position: relative;
+
+  @include x-large-and-above-screen {
+    left: calc(((100vw - 100%) / 2) * -1);
+    width: 100vw;
+    z-index: 1000;
+  }
+}
+
+.hero-bg-image {
+  aspect-ratio: 16 / 9;
   background-repeat: no-repeat;
-  background-position: center right;
+  background-size: cover;
+  background-position: center;
+  margin-top: calc(var(--koros-height) / -2);
+
+  @include x-large-and-above-screen {
+    aspect-ratio: unset;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    margin-top: 0;
+    left: calc(((100vw - var(--container-width-xl)) / 2));
+    right: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
+.hero-wrapper {
+  box-sizing: unset;
+
+  @include x-large-and-above-screen {
+    margin: 0 auto;
+  }
+}
+
+.hero {
   color: var(--color-white);
   max-width: 100%;
+  margin: 0 auto;
   overflow: hidden;
-  padding-bottom: 200px;
   position: relative;
   width: var(--hero-width);
 
   @include x-large-and-above-screen {
     min-height: var(--hero-height);
-    padding-bottom: 0;
   }
 }
 
@@ -29,7 +65,7 @@
   box-sizing: border-box;
   padding: var(--spacing-layout-s);
   position: relative;
-  z-index: 1;
+  z-index: 3;
 
   &:after {
     clear: both;
@@ -40,7 +76,7 @@
   @include x-large-and-above-screen {
     clip-path: polygon(0 0, var(--triangle-top-corner-x) 0, 0 var(--triangle-bottom-corner-x), 0% 50%);
     height: 100%;
-    padding: var(--spacing-layout-m) 0 var(--spacing-layout-m) var(--spacing-layout-m);
+    padding: var(--spacing-layout-m) 0 var(--spacing-layout-m) 0;
     width: 67%;
   }
 }
@@ -80,6 +116,7 @@
 
 .hero-koros {
   fill: var(--color-coat-of-arms);
+  z-index: 2;
 }
 
 .hero-koros-horizontal {
