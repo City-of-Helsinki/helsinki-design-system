@@ -133,6 +133,10 @@ body {
   padding: var(--spacing-m) 0;
   height: 100%;
   width: 100%;
+
+  &.front-page-content {
+    padding-top: 0;
+  }
 }
 
 .side-content {

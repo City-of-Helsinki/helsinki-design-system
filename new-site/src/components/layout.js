@@ -214,7 +214,7 @@ const Layout = ({ children, pageContext }) => {
             ))}
           </Navigation.Row>
         </Navigation>
-        <Container className="page-content">
+        <Container className={`page-content  ${pageSlug === '/' ? 'front-page-content' : ''}`}>
           {uiSubMenuLinks.length > 0 && (
             <aside className="side-content" key="side-navigation">
               <SideNavigation
