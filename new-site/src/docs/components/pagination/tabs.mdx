@@ -3,7 +3,7 @@ slug: '/components/pagination/tabs'
 title: 'Pagination'
 ---
 
-import { StatusLabel } from 'hds-react';
+import { StatusLabel, Notification } from 'hds-react';
 
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout';
@@ -11,7 +11,7 @@ import PageTabs from '../../../components/PageTabs';
 
 # Pagination
 
-<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="alert">Draft</StatusLabel>
 <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
   Accessible
 </StatusLabel>
@@ -19,6 +19,10 @@ import PageTabs from '../../../components/PageTabs';
 <LeadParagraph>
   The pagination component allows the user to navigate between pages when content is split into several pages.
 </LeadParagraph>
+
+<Notification label="Pagination coming soon to the HDS React package" className="siteNotification">
+  The pagination component is currently only part of the HDS Core package. The React implementation will be released soon.
+</Notification>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
