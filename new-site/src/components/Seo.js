@@ -34,6 +34,10 @@ function Seo({ lang, meta, title, description, pageTitle }) {
           property: `og:type`,
           content: `website`,
         },
+        {
+          property: `og:image`,
+          content: `https://hds.hel.fi/images/homepage/amos58.jpg`
+        }
       ].concat(meta)}
     />
   );
