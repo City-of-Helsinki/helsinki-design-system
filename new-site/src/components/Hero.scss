@@ -3,17 +3,20 @@
 .hero-container {
   --koros-height: 145px;
   --hero-height: 540px;
-  --hero-large-content-left: calc(((100vw + var(--spacing-s) - var(--container-width-xl)) / 2));
+  --hero-small-left: calc((100vw - 100%) / 2);
+  --hero-large-content-left: calc((100vw + var(--spacing-s) - var(--container-width-xl)) / 2);
 
   background-color: var(--color-coat-of-arms);
+  box-sizing: border-box;
   position: relative;
+  left: calc(var(--hero-small-left) * -1);
+  width: 100vw;
 
   @include x-large-and-above-screen {
-    box-sizing: border-box;
-    left: calc((var(--hero-large-content-left) * -1));
+    left: calc(var(--hero-large-content-left) * -1);
     padding-left: var(--spacing-s);
+    z-index: 1;
     width: 100vw;
-    z-index: 1000;
   }
 }
 
@@ -60,13 +63,19 @@
 
   background-color: var(--color-coat-of-arms);
   box-sizing: border-box;
-  padding: var(--spacing-layout-s);
+  left: var(--hero-small-left);
+  padding: var(--spacing-s) var(--spacing-s);
   position: relative;
   z-index: 3;
+
+  @include small-medium-and-above-screen {
+    padding: var(--spacing-s) var(--spacing-m);
+  }
 
   @include x-large-and-above-screen {
     clip-path: polygon(0 0, var(--triangle-top-corner-x) 0, 0 var(--triangle-bottom-corner-x), 0% 50%);
     height: 100%;
+    left: auto;
     padding: var(--spacing-layout-m) 0 var(--spacing-layout-m) 0;
     width: 67%;
 
