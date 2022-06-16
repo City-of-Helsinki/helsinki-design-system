@@ -15,11 +15,12 @@ import PlaygroundPreview from '../../../components/Playground';
 </LeadParagraph>
 
 <Notification label="TLDR (Too long, didn't read)" className="siteNotification">
-  <b>Use checkboxes</b> to select multiple parallel items. Use checkbox to single selections to confirm on/off selection.
-  <br /><br />
-  <b>Use radio buttons</b> to mutually exclusive options.
-  <br /><br />
-  <b>Use toggle</b> to selections affecting system settings or changing status.
+  <ul>
+    <li><b>Use checkboxes</b> to select multiple parallel items.</li>
+    <li><b>Use checkbox</b> for single selections to confirm on/off selection.</li>
+    <li><b>Use radio buttons</b> to select mutually exclusive options.</li>
+    <li><b>Use toggle</b> for selections affecting system settings or changing status.</li>
+  </ul>
 </Notification>
 
 ## When to use radio buttons?
@@ -129,7 +130,6 @@ export const ToggleExample = () => {
         checked={hasCustomTheme}
         theme={(hasCustomTheme ? customTheme.toggle : {})}
         onChange={() => setHasCustomTheme(!hasCustomTheme)} />
-      <br />
     </div>
   );
 };

@@ -1,0 +1,45 @@
+---
+slug: "/foundation/visual-assets/icons"
+title: "Icons"
+nav_title: "Icons"
+---
+
+import { Link } from 'hds-react';
+
+import Image from '../../../../components/Image';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+The HDS icon library follows the icon style defined in the Helsinki city brand guidelines but the forms of the icons are simplified and adjusted for legibility in smaller sizes and pixel resolutions. The icon library also provides the UI-specific icons missing from the Helsinki City brand icons.
+
+See the [Icon component documentation](/components/icon "Icon component") for instructions on using icons in implementation.
+
+If you need icons outside of HDS Core and React libraries, they are also available as a downloadable ZIP package. <Link size="M" href="https://github.com/City-of-Helsinki/helsinki-design-system/releases/latest/download/hds-icon-kit.zip" external>Download the latest HDS Icon kit from the HDS GitHub repository</Link>.
+
+## Visual principles
+To learn more about the visual principles behind the City of Helsinki icons, take a look at [the icon contribution guidelines](/getting-started/contributing/icons).
+
+## Usage
+### Icon types
+The HDS icon library is categorised into four types of icons designed to be used for different purposes:
+1. **UI icons** are mainly intended for providing visual cues for interaction, increasing discoverability and learnability. The UI icons can be used for example in buttons or navigation. Using UI icons for purely decorative purposes and illustrations should be avoided.
+2. **SoMe icons** are logos of Helsinki city social media channels and digital services as ways of logging in.
+
+### Illustrative icons and pictograms
+The icon set of HDS only features user interface and social media icons. If you need illustrative icons or pictograms, please refer to the <Link size="M" href="https://brand.hel.fi/kuvitusohjeisto/" external>Helsinki Visual Identity Guidelines - Imagery guidelines (in Finnish)</Link>.
+
+### Size
+The default size of the HDS icons is 24×24px.
+- If needed, other sizes matching the [layout spacing tokens](/foundation/design-tokens/spacing "Spacing documentation") can also be used.
+- When using the icons in 16×16px, make sure the icon is still clear and legible.
+- Larger sizes than 64×64px are not recommended.
+
+<Image src="/images/foundation/visual-assets/icons/icon-sizes.png" alt="HDS icon sizes" style="width:100%; max-width: 550px;" viewable />
+
+### Colour
+The default colour of the HDS icons is black or white, depending on the background.
+- Other colours should be used sparingly and serve a clear purpose, preferably only highlighting errors and other system statuses.
+- See [colour guidelines](/foundation/design-tokens/colour) for further information.
