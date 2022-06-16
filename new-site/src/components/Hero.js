@@ -1,6 +1,6 @@
 import React from 'react';
 import { withPrefix } from 'gatsby';
-import { Koros, Container } from 'hds-react';
+import { Koros } from 'hds-react';
 import PropTypes from 'prop-types';
 
 import './Hero.scss';
