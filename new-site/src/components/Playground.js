@@ -9,6 +9,58 @@ import theme from 'prism-react-renderer/themes/github';
 import './Playground.scss';
 import LiveErrorCore from './LiveErrorCore';
 
+const sanitizeConfig = {
+  allowedTags: false,
+  disallowedTagsMode: 'discard',
+  allowedAttributes: {
+    '*': [
+      'aria-describedby',
+      'aria-hidden',
+      'aria-label',
+      'aria-labelledby',
+      'aria-level',
+      'class',
+      'checked',
+      'd',
+      'disabled',
+      'fill',
+      'for',
+      'height',
+      'href',
+      'id',
+      'name',
+      'onclick',
+      'patternUnits',
+      'patternunits',
+      'placeholder',
+      'points',
+      'rel',
+      'required',
+      'role',
+      'scope',
+      'span',
+      'style',
+      'tabIndex',
+      'target',
+      'transform',
+      'type',
+      'value',
+      'width',
+      'x',
+      'xmlns',
+      'y',
+    ],
+    a: ['href', 'name', 'target'],
+    img: ['src', 'srcset', 'alt', 'title', 'width', 'height', 'loading'],
+  },
+  selfClosing: ['img', 'br', 'hr', 'area', 'base', 'basefont', 'input', 'link', 'meta'],
+  allowedSchemes: ['http', 'https', 'ftp', 'mailto', 'tel'],
+  allowedSchemesByTag: {},
+  allowedSchemesAppliedToAttributes: ['href', 'src', 'cite'],
+  allowProtocolRelative: true,
+  enforceHtmlBoundary: false,
+};
+
 const Playground = ({ children }) => {
   if (children) {
     return <pre>{children}</pre>;
@@ -54,7 +106,7 @@ const sanitize = (code) => {
 
 const HtmlLivePreview = ({ code }) => {
   const sanitizedHtml = () => ({
-    __html: sanitizeHtml(code),
+    __html: sanitizeHtml(code, sanitizeConfig),
   });
 
   return <PlaygroundPreviewComponent dangerouslySetInnerHTML={sanitizedHtml()} />;
