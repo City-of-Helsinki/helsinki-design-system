@@ -186,12 +186,24 @@ module.exports = {
         name: `gatsby-starter-default`,
         short_name: `starter`,
         start_url: `/`,
-        background_color: `#663399`,
         // This will impact how browsers show your PWA/website
         // https://css-tricks.com/meta-theme-color-and-trickery/
         // theme_color: `#663399`,
+        theme_color: `#ffffff`,
+        background_color: `#ffffff`,
         display: `minimal-ui`,
-        icon: `static/favicon/transparent_light_favicon_package/favicon-32x32.png`, // This path is relative to the root of the site.
+        icons: [
+          {
+            src: "static/favicon/transparent_light_favicon_package/android-chrome-192x192.png",
+            sizes: "192x192",
+            type: "image/png"
+          },
+          {
+            src: "static/favicon/transparent_light_favicon_package/android-chrome-256x256.png",
+            sizes: "256x256",
+            type: "image/png"
+          }
+        ],
         include_favicon: false,
       },
     },
