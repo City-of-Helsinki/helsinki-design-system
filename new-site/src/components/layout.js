@@ -214,7 +214,7 @@ const Layout = ({ children, pageContext }) => {
             ))}
           </Navigation.Row>
         </Navigation>
-        <Container className={`page-content  ${pageSlug === '/' ? 'front-page-content' : ''}`}>
+        <div className={`page-content ${pageSlug === '/' ? 'front-page-content' : ''}`}>
           {uiSubMenuLinks.length > 0 && (
             <aside className="side-content" key="side-navigation">
               <SideNavigation
@@ -266,7 +266,7 @@ const Layout = ({ children, pageContext }) => {
           <main id={contentId} className="main-content">
             <MDXProvider components={components}>{children}</MDXProvider>
           </main>
-        </Container>
+        </div>
         <Footer id="page-footer" className="page-footer" title={footerTitle} footerAriaLabel={footerAriaLabel}>
           <Footer.Base copyrightHolder="Copyright">
             {footerCopyRightLinks.map(({ name, link }) => (
