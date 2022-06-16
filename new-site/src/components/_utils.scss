@@ -6,6 +6,14 @@
   }
 }
 
+$breakpoint-small-medium-above: $breakpoint-s + 1px;
+
+@mixin small-medium-and-above-screen {
+  @media (min-width: $breakpoint-small-medium-above) {
+    @content;
+  }
+}
+
 @mixin medium-screen {
   @media (max-width: $breakpoint-m) {
     @content;
