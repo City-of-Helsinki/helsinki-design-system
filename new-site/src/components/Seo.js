@@ -103,9 +103,6 @@ function Seo({ lang, meta, title, description, pageTitle }) {
         href={withPrefix("/favicon/transparent_dark_favicon_package/favicon-16x16.png")}
         media="(prefers-color-scheme: dark)"
       />
-      <meta name="msapplication-TileColor" content="#da532c" />
-      <meta name="msapplication-TileImage" content="/favicon/transparent_light_favicon_package/mstile-150x150.png" />
-      <meta name="msapplication-config" content="/favicon/transparent_light_favicon_package/browserconfig.xml" />
     </Helmet>
   );
 }
