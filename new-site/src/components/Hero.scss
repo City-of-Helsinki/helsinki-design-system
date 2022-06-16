@@ -3,15 +3,14 @@
 .hero-container {
   --koros-height: 145px;
   --hero-height: 540px;
-  --hero-width: 100%;
-  --hero-content-left: calc(((100vw + var(--spacing-s) - var(--container-width-xl)) / 2));
+  --hero-large-content-left: calc(((100vw + var(--spacing-s) - var(--container-width-xl)) / 2));
 
   background-color: var(--color-coat-of-arms);
   position: relative;
 
   @include x-large-and-above-screen {
     box-sizing: border-box;
-    left: calc((var(--hero-content-left) * -1));
+    left: calc((var(--hero-large-content-left) * -1));
     padding-left: var(--spacing-s);
     width: 100vw;
     z-index: 1000;
@@ -31,7 +30,7 @@
     background-position: center;
     height: 100%;
     margin-top: 0;
-    left: var(--hero-content-left);
+    left: var(--hero-large-content-left);
     right: 0;
     position: absolute;
     top: 0;
@@ -39,20 +38,16 @@
 }
 
 .hero-wrapper {
-  box-sizing: unset;
-
-  @include x-large-and-above-screen {
-    margin: 0 auto;
-  }
+  margin: 0 auto;
+  max-width: var(--container-width-xl);
 }
 
 .hero {
   color: var(--color-white);
-  max-width: 100%;
   margin: 0 auto;
   overflow: hidden;
   position: relative;
-  width: var(--hero-width);
+  width: 100%;
 
   @include x-large-and-above-screen {
     min-height: var(--hero-height);
@@ -69,17 +64,17 @@
   position: relative;
   z-index: 3;
 
-  &:after {
-    clear: both;
-    content: "";
-    display: table;
-  }
-
   @include x-large-and-above-screen {
     clip-path: polygon(0 0, var(--triangle-top-corner-x) 0, 0 var(--triangle-bottom-corner-x), 0% 50%);
     height: 100%;
     padding: var(--spacing-layout-m) 0 var(--spacing-layout-m) 0;
     width: 67%;
+
+    &:after {
+      clear: both;
+      content: "";
+      display: table;
+    }
   }
 }
 
