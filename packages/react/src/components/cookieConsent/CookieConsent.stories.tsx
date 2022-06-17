@@ -487,7 +487,10 @@ export const DebugVersion = (args) => {
     },
   };
 
-  const getCategoryCookies = (category: Category): CookieData[] => {
+  const getCategoryCookies = (category?: Category): CookieData[] => {
+    if (!category) {
+      return [];
+    }
     let allCookies: CookieData[] = [];
     category.groups.forEach((group) => {
       allCookies = [...allCookies, ...group.cookies];

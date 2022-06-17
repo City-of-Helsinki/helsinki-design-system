@@ -5,7 +5,7 @@ import { render, RenderResult } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { COOKIE_NAME } from '../cookieConsentController';
-import { Content } from '../CookieConsentContext';
+import { Content, CookieGroup } from '../CookieConsentContext';
 import mockDocumentCookie from '../__mocks__/mockDocumentCookie';
 import {
   clickElement,
@@ -152,7 +152,9 @@ describe('<Page /> ', () => {
     it('all consents in the group are rendered', async () => {
       const result = renderCookieConsent(defaultConsentData);
       const checkConsentsExist = async (groupParent: TestGroupParent) => {
-        const list = groupParent === 'required' ? content.requiredCookies.groups : content.optionalCookies.groups;
+        const list = (groupParent === 'required'
+          ? content.requiredCookies?.groups
+          : content.optionalCookies?.groups) as CookieGroup[];
         let index = 0;
         // cannot use async/await with array.forEach
         // eslint-disable-next-line no-restricted-syntax
