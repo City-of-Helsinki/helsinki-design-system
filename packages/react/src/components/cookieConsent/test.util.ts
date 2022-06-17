@@ -89,6 +89,7 @@ export const getContentSource = (
     siteName: 'Test site',
     noCommonConsentCookie: true,
     currentLanguage: 'fi',
+    focusTargetSelector: '#focus-target',
     ...contentOverrides,
     ...contentSourceOverrides,
   };
@@ -149,8 +150,8 @@ export const commonTestProps = {
 
 function createConsentObject(consentList: ConsentList, source: TestConsentData, approved: boolean): ConsentObject {
   const flattenArrayReducer = (acc: unknown[], val: unknown) => acc.concat(val);
-  const flatRequired = source.requiredConsents.reduce(flattenArrayReducer, []) as ConsentList;
-  const flatOptional = source.optionalConsents.reduce(flattenArrayReducer, []) as ConsentList;
+  const flatRequired = source.requiredConsents?.reduce(flattenArrayReducer, []) as ConsentList;
+  const flatOptional = source.optionalConsents?.reduce(flattenArrayReducer, []) as ConsentList;
   const allConsents = [...flatRequired, ...flatOptional];
   const consents = allConsents.reduce((currentValue, currentConsent) => {
     // eslint-disable-next-line no-param-reassign
@@ -183,7 +184,9 @@ export async function openAllAccordions(
   dataTestIds: typeof commonTestProps['dataTestIds'],
 ): Promise<void> {
   const openAccordions = async (groupParent: TestGroupParent) => {
-    const list = groupParent === 'required' ? content.requiredCookies.groups : content.optionalCookies.groups;
+    const list = (groupParent === 'required'
+      ? content.requiredCookies?.groups
+      : content.optionalCookies?.groups) as CookieGroup[];
     let index = 0;
     /* eslint-disable no-restricted-syntax */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -198,3 +201,16 @@ export async function openAllAccordions(
   await openAccordions('required');
   await openAccordions('optional');
 }
+
+type ElementGetterResult = HTMLElement | Element | null;
+
+export const getActiveElement = (anyElement?: ElementGetterResult): Element | null =>
+  anyElement ? anyElement.ownerDocument.activeElement : null;
+
+export const waitForElementFocus = async (elementGetter: () => ElementGetterResult): Promise<void> =>
+  waitFor(() => {
+    const target = elementGetter();
+    if (target) {
+      expect(getActiveElement(target)).toEqual(target);
+    }
+  });

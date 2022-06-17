@@ -28,7 +28,6 @@ export default {
 export const ModalVersion = (args) => {
   const [language, setLanguage] = useState<SupportedLanguage>('fi');
   const onLanguageChange = (newLang) => setLanguage(newLang);
-  const focusedElementAfterCloseId = 'focused-element-after-cookie-consent-closed';
   const contentSource: ContentSource = {
     siteName: 'Sivusto XXX',
     currentLanguage: language,
@@ -122,10 +121,6 @@ export const ModalVersion = (args) => {
         // window._paq.push(['setConsentGiven']);
         // window._paq.push(['setCookieConsentGiven']);
       }
-      const focusEl = document.getElementById(focusedElementAfterCloseId);
-      if (focusEl) {
-        focusEl.focus();
-      }
     },
     onConsentsParsed: (consents, hasUserHandledAllConsents) => {
       if (consents.matomo === undefined) {
@@ -140,6 +135,7 @@ export const ModalVersion = (args) => {
         // cookie consent modal will not be shown
       }
     },
+    focusTargetSelector: '#focused-element-after-cookie-consent-closed',
   };
 
   const MatomoCookieTracker = () => {
@@ -171,7 +167,7 @@ export const ModalVersion = (args) => {
     return (
       <div>
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-        <h1 id={focusedElementAfterCloseId} tabIndex={0}>
+        <h1 id={contentSource.focusTargetSelector?.replace('#', '')} tabIndex={0}>
           This is an example application with cookie consent modal
         </h1>
         <p>The modal will be shown when required. If user has given consents, it will not be shown.</p>
@@ -195,7 +191,6 @@ export const ModalVersion = (args) => {
 export const SimpleModalVersion = (args) => {
   const [language, setLanguage] = useState<SupportedLanguage>('fi');
   const onLanguageChange = (newLang) => setLanguage(newLang);
-  const focusedElementAfterCloseId = 'focused-element-after-cookie-consent-closed';
   const contentSource: ContentSource = {
     siteName: `Site title ${language}`,
     currentLanguage: language,
@@ -210,13 +205,14 @@ export const SimpleModalVersion = (args) => {
     language: {
       onLanguageChange,
     },
+    focusTargetSelector: '#focused-element-after-cookie-consent-closed',
   };
 
   const Application = () => {
     return (
       <div>
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-        <h1 id={focusedElementAfterCloseId} tabIndex={0}>
+        <h1 id={contentSource.focusTargetSelector?.replace('#', '')} tabIndex={0}>
           Simplest cookie consent example
         </h1>
         <p>This is an example how the modal is shown with minimal content parameters.</p>

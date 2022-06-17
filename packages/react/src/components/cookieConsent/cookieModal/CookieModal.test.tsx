@@ -22,6 +22,8 @@ import {
   TestConsentData,
   TestGroupParent,
   createConsentObjectWithSelectedRejections,
+  getActiveElement,
+  waitForElementFocus,
 } from '../test.util';
 import { createContent } from '../content.builder';
 
@@ -45,7 +47,14 @@ const renderCookieConsent = (
   content = createContent(contentSource);
   jest.useFakeTimers();
   mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(consentCookieWithInjectedUnknowns) });
-  const result = render(<CookieModal contentSource={contentSource} />);
+  const result = render(
+    <div>
+      <CookieModal contentSource={contentSource} />
+      <button id="focus-target" type="button">
+        Focus me
+      </button>
+    </div>,
+  );
   act(() => {
     jest.runAllTimers();
   });
@@ -268,6 +277,28 @@ describe('<Modal /> ', () => {
       };
       await checkConsentsExist('required');
       await checkConsentsExist('optional');
+    });
+  });
+  describe('Focus is', () => {
+    it('shifted to the modal heading level 1 when modal is rendered', () => {
+      const result = renderCookieConsent(defaultConsentData, true);
+      const modalH1 = result.container.querySelector('[data-testId="cookie-consent-information"] [aria-level="1"]');
+      expect(getActiveElement(result.container)).toEqual(modalH1);
+    });
+    it('shifted to the element defined in content.focusTargetSelector when esc button is clicked', async () => {
+      const result = renderCookieConsent(defaultConsentData, true);
+      const elementGetter = () => result.container.querySelector(content.focusTargetSelector as string);
+      fireEvent.keyUp(result.container.ownerDocument, {
+        key: 'Escape',
+        code: 27,
+      });
+      await waitForElementFocus(elementGetter);
+    });
+    it('shifted to the element defined in content.focusTargetSelector when modal is closed', async () => {
+      const result = renderCookieConsent(defaultConsentData, true);
+      const elementGetter = () => result.container.querySelector(content.focusTargetSelector as string);
+      clickElement(result, dataTestIds.approveButton);
+      await waitForElementFocus(elementGetter);
     });
   });
 });

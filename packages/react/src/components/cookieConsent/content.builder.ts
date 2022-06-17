@@ -50,6 +50,7 @@ export type ContentSource = {
   noCommonConsentCookie?: boolean;
   onAllConsentsGiven?: Content['onAllConsentsGiven'];
   onConsentsParsed?: Content['onConsentsParsed'];
+  focusTargetSelector?: string;
 };
 
 type GenericContentObject = {
@@ -267,10 +268,12 @@ export function createContent(props: ContentSource): Content {
     requiredCookies,
     onConsentsParsed,
     onAllConsentsGiven,
+    focusTargetSelector,
   } = props;
   const content: Partial<Content> = {
     texts: getTexts(currentLanguage, siteName),
     language: getLanguage(currentLanguage, language),
+    focusTargetSelector,
   };
   if (props.texts) {
     mergeObjects(content.texts, props.texts, ['sections.main', 'sections.details', 'ui', 'tableHeadings']);
