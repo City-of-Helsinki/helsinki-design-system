@@ -15,9 +15,6 @@
 
   @include x-large-and-above-screen {
     left: calc(var(--hero-large-content-left) * -1);
-    padding-left: var(--spacing-s);
-    z-index: 1;
-    width: 100vw;
   }
 }
 
@@ -30,8 +27,6 @@
 
   @include x-large-and-above-screen {
     aspect-ratio: unset;
-    background-size: cover;
-    background-position: center;
     height: 100%;
     margin-top: 0;
     left: var(--hero-large-content-left);
@@ -48,10 +43,8 @@
 
 .hero {
   color: var(--color-white);
-  margin: 0 auto;
   overflow: hidden;
   position: relative;
-  width: 100%;
 
   @include x-large-and-above-screen {
     min-height: var(--hero-height);
@@ -75,7 +68,6 @@
 
   @include x-large-and-above-screen {
     clip-path: polygon(0 0, var(--triangle-top-corner-x) 0, 0 var(--triangle-bottom-corner-x), 0% 50%);
-    height: 100%;
     left: auto;
     padding: var(--spacing-layout-m) 0 var(--spacing-layout-m) var(--hero-large-content-padding);
     width: 67%;
@@ -88,15 +80,9 @@
   }
 }
 
-.hero-content-text {
-  height: 100%;
-  width: 100%;
-}
-
 .hero-content-shape {
   @include x-large-and-above-screen {
     float: right;
-    height: 100%;
     min-height: var(--hero-height);
     shape-outside: polygon(85% 0%, 100% 0%, 100% 100%, 35% 100%);
     width: 100%;
