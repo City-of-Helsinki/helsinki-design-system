@@ -7,7 +7,7 @@ import { act } from 'react-dom/test-utils';
 
 import { CookieModal } from './CookieModal';
 import { COOKIE_NAME } from '../cookieConsentController';
-import { Content } from '../CookieConsentContext';
+import { Content, CookieGroup } from '../CookieConsentContext';
 import mockDocumentCookie from '../__mocks__/mockDocumentCookie';
 import {
   clickElement,
@@ -148,8 +148,8 @@ describe('<Modal /> ', () => {
         ...defaultConsentData,
         contentSourceOverrides: { language: { onLanguageChange } },
       });
-      fireEvent.click(result.container.querySelector('#cookie-consent-language-selector-button'));
-      fireEvent.click(result.container.querySelector('a[lang="sv"]'));
+      fireEvent.click(result.container.querySelector('#cookie-consent-language-selector-button') as Element);
+      fireEvent.click(result.container.querySelector('a[lang="sv"]') as Element);
       expect(onLanguageChange).toHaveBeenLastCalledWith('sv');
     });
   });
@@ -249,7 +249,9 @@ describe('<Modal /> ', () => {
     it('all consents in the group are rendered', async () => {
       const result = await initDetailsView(defaultConsentData);
       const checkConsentsExist = async (groupParent: TestGroupParent) => {
-        const list = groupParent === 'required' ? content.requiredCookies.groups : content.optionalCookies.groups;
+        const list = (groupParent === 'required'
+          ? content.requiredCookies?.groups
+          : content.optionalCookies?.groups) as CookieGroup[];
         let index = 0;
         // cannot use async/await with array.forEach
         // eslint-disable-next-line no-restricted-syntax

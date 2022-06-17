@@ -49,8 +49,8 @@ describe('CookieConsentContext ', () => {
   }): TestConsentData => {
     const copyOfApprovedConsents = { ...allApprovedConsentData.consents };
     const copyOfApprovedConsentData = { ...allApprovedConsentData };
-    copyOfApprovedConsents.requiredConsent1 = requiredConsentCookieValue;
-    copyOfApprovedConsents.optionalConsent1 = optionalConsentCookieValue;
+    copyOfApprovedConsents.requiredConsent1 = requiredConsentCookieValue as boolean;
+    copyOfApprovedConsents.optionalConsent1 = optionalConsentCookieValue as boolean;
     return {
       ...copyOfApprovedConsentData,
       consents: copyOfApprovedConsents,
