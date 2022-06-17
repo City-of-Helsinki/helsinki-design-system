@@ -65,12 +65,12 @@
   background-color: var(--color-coat-of-arms);
   box-sizing: border-box;
   left: var(--hero-small-left);
-  padding: var(--spacing-s) var(--spacing-s);
+  padding: var(--spacing-m) var(--spacing-s);
   position: relative;
   z-index: 3;
 
   @include small-medium-and-above-screen {
-    padding: var(--spacing-s) var(--spacing-m);
+    padding: var(--spacing-m);
   }
 
   @include x-large-and-above-screen {
@@ -114,10 +114,11 @@
 }
 
 .hero-text {
-  margin: var(--spacing-4-xl) 0;
+  margin: var(--spacing-2-xl) 0;
 
   @include x-large-and-above-screen {
     font-size: var(--fontsize-body-xl);
+    margin: var(--spacing-4-xl) 0;
   }
 }
 
