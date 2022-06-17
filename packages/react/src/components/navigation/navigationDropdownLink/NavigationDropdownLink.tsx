@@ -18,10 +18,27 @@ export type NavigationDropdownLinkProps = MenuButtonProps & {
    * OnClick for the link
    */
   onClick?: MouseEventHandler;
+
+  /**
+   * Menu button label
+   */
+  buttonAriaLabel?: string;
 };
 
-export const NavigationDropdownLink = ({ label, href, children, onClick, ...rest }: NavigationDropdownLinkProps) => (
-  <MenuButton hoverAndClick label={<NavigationItem label={label} href={href} onClick={onClick} />} {...rest}>
+export const NavigationDropdownLink = ({
+  label,
+  href,
+  children,
+  onClick,
+  buttonAriaLabel,
+  ...rest
+}: NavigationDropdownLinkProps) => (
+  <MenuButton
+    hoverAndClick
+    label={<NavigationItem label={label} href={href} onClick={onClick} />}
+    buttonAriaLabel={buttonAriaLabel ?? `${label} dropdown`}
+    {...rest}
+  >
     {children}
   </MenuButton>
 );

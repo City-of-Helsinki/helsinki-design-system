@@ -446,7 +446,12 @@ export const DropdownLinks = ({ searchLabel, searchPlaceholder, authenticated, u
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
         </Navigation.DropdownLink>
-        <Navigation.DropdownLink label="Dropdown Link" href="#" onClick={(e) => e.preventDefault()}>
+        <Navigation.DropdownLink
+          label="Dropdown Link"
+          href="#"
+          onClick={(e) => e.preventDefault()}
+          buttonAriaLabel="Submenu"
+        >
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />

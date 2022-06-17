@@ -5,7 +5,7 @@ import { axe } from 'jest-axe';
 import { NavigationDropdownLink } from './NavigationDropdownLink';
 import { NavigationWrapper } from '../../../utils/test-utils';
 
-describe('<Navigation.Dropdown /> spec', () => {
+describe('<Navigation.DropdownLink /> spec', () => {
   it('renders the component', () => {
     const { asFragment } = render(<NavigationDropdownLink label="Foo" />, { wrapper: NavigationWrapper });
     expect(asFragment()).toMatchSnapshot();
