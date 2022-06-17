@@ -2,9 +2,10 @@
 
 .hero-container {
   --koros-height: 145px;
-  --hero-height: 540px;
+  --hero-height: 520px;
   --hero-small-left: calc((100vw - 100%) / 2);
-  --hero-large-content-left: calc((100vw + var(--spacing-s) - var(--container-width-xl)) / 2);
+  --hero-large-content-padding: var(--spacing-s);
+  --hero-large-content-left: calc((100vw + (2 * var(--hero-large-content-padding)) - var(--container-width-xl)) / 2);
 
   background-color: var(--color-coat-of-arms);
   box-sizing: border-box;
@@ -76,7 +77,7 @@
     clip-path: polygon(0 0, var(--triangle-top-corner-x) 0, 0 var(--triangle-bottom-corner-x), 0% 50%);
     height: 100%;
     left: auto;
-    padding: var(--spacing-layout-m) 0 var(--spacing-layout-m) 0;
+    padding: var(--spacing-layout-m) 0 var(--spacing-layout-m) var(--hero-large-content-padding);
     width: 67%;
 
     &:after {
@@ -97,7 +98,7 @@
     float: right;
     height: 100%;
     min-height: var(--hero-height);
-    shape-outside: polygon(100% 0%, 100% 0%, 100% 100%, 0 100%);
+    shape-outside: polygon(85% 0%, 100% 0%, 100% 100%, 35% 100%);
     width: 100%;
   }
 }
@@ -113,7 +114,7 @@
 }
 
 .hero-text {
-  margin: var(--spacing-xl) 0;
+  margin: var(--spacing-4-xl) 0;
 
   @include x-large-and-above-screen {
     font-size: var(--fontsize-body-xl);
