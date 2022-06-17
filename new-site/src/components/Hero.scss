@@ -14,7 +14,6 @@
 
   @include x-large-and-above-screen {
     background-color: var(--color-coat-of-arms);
-    left: calc(var(--hero-large-content-left) * -1);
   }
 }
 
@@ -132,10 +131,8 @@
 
   @include x-large-and-above-screen {
     display: block;
-    left: 0;
     position: absolute;
     top: var(--koros-height);
-    transform-origin: center;
     width: calc(100% + var(--koros-height)) !important;
   }
 }
