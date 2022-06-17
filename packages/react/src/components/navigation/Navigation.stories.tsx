@@ -100,7 +100,7 @@ export const Inline = ({ searchLabel, searchPlaceholder, authenticated, userName
     // @ts-ignore
     <Navigation {...args}>
       {/* NAVIGATION ROW */}
-      <Navigation.Row variant="inline">
+      <Navigation.Row variant="inline" ariaLabel="Main navigation">
         <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />
         <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
         <Navigation.Dropdown label="Dropdown">
@@ -147,7 +147,7 @@ export const CustomTheme = ({ searchLabel, searchPlaceholder, authenticated, use
     // @ts-ignore
     <Navigation {...args}>
       {/* NAVIGATION ROW */}
-      <Navigation.Row>
+      <Navigation.Row ariaLabel="Main navigation">
         <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />
         <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
         <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
@@ -223,6 +223,11 @@ export const Example = ({ userName, ...args }) => {
       fi: 'Helsinki: Helsingin kaupunki',
       sv: 'Helsingfors: Helsingfors stad',
       en: 'Helsinki: City of Helsinki',
+    },
+    menuName: {
+      fi: 'Päänavigointi',
+      sv: 'Huvudnavigering',
+      en: 'Main navigation',
     },
     menuToggleAria: {
       fi: 'Valikko',
@@ -336,7 +341,7 @@ export const Example = ({ userName, ...args }) => {
         menuToggleAriaLabel={i18n.menuToggleAria[language]}
       >
         {/* NAVIGATION ROW */}
-        <Navigation.Row>
+        <Navigation.Row ariaLabel={i18n.menuName[language]}>
           {i18n.navigation.map((item, index) => {
             return (
               <Navigation.Item
