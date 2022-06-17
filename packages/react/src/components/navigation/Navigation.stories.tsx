@@ -428,25 +428,25 @@ export const DropdownLinks = ({ searchLabel, searchPlaceholder, authenticated, u
       <Navigation.Row>
         <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
         <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
-        <Navigation.DropdownLink label="Dropdown Link" href="#">
+        <Navigation.DropdownLink label="Dropdown Link" href="#" onClick={(e) => e.preventDefault()}>
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
         </Navigation.DropdownLink>
-        <Navigation.DropdownLink label="Dropdown Link" href="#" active>
+        <Navigation.DropdownLink label="Dropdown Link" href="#" active onClick={(e) => e.preventDefault()}>
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
         </Navigation.DropdownLink>
-        <Navigation.DropdownLink label="Dropdown Link" href="#">
+        <Navigation.DropdownLink label="Dropdown Link" href="#" onClick={(e) => e.preventDefault()}>
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
         </Navigation.DropdownLink>
-        <Navigation.DropdownLink label="Dropdown Link" href="#">
+        <Navigation.DropdownLink label="Dropdown Link" href="#" onClick={(e) => e.preventDefault()}>
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
           <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
