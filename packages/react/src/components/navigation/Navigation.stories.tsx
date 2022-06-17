@@ -425,7 +425,7 @@ export const DropdownLinks = ({ searchLabel, searchPlaceholder, authenticated, u
     // @ts-ignore
     <Navigation {...args}>
       {/* NAVIGATION ROW */}
-      <Navigation.Row>
+      <Navigation.Row ariaLabel="Main navigation">
         <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
         <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
         <Navigation.DropdownLink label="Dropdown Link" href="#" onClick={(e) => e.preventDefault()}>
