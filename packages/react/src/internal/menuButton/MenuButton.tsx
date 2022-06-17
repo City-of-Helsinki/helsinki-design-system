@@ -18,6 +18,10 @@ export type MenuButtonProps = React.PropsWithChildren<{
    */
   buttonAriaLabel?: string;
   /**
+   * aria-labelledby for the dropdown toggle button
+   */
+  buttonAriaLabelledby?: string;
+  /**
    * Additional class names to apply to the dropdown
    */
   className?: string;
@@ -49,6 +53,7 @@ export type MenuButtonProps = React.PropsWithChildren<{
 
 export const MenuButton = ({
   buttonAriaLabel,
+  buttonAriaLabelledby,
   children,
   className,
   closeOnItemClick = false,
@@ -98,7 +103,8 @@ export const MenuButton = ({
         type="button"
         id={buttonId}
         className={styles.toggleButton}
-        aria-label={buttonAriaLabel}
+        aria-label={!buttonAriaLabelledby && buttonAriaLabel}
+        aria-labelledby={buttonAriaLabelledby}
         aria-haspopup="true"
         aria-controls={menuId}
         aria-expanded={menuOpen}
@@ -110,7 +116,7 @@ export const MenuButton = ({
       </button>
       <Menu
         id={menuId}
-        aria-labelledby={buttonId}
+        aria-labelledby={buttonAriaLabelledby ?? buttonId}
         menuContainerSize={menuContainerSize}
         menuOffset={menuOffset}
         menuOpen={menuOpen}

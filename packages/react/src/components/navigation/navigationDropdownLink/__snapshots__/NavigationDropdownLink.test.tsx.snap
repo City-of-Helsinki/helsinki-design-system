@@ -116,6 +116,7 @@ exports[`<Navigation.DropdownLink /> spec renders the component 1`] = `
             >
               <a
                 class=""
+                id="dropdownlink-1"
               >
                 <span
                   class="label"
@@ -124,12 +125,13 @@ exports[`<Navigation.DropdownLink /> spec renders the component 1`] = `
                 </span>
               </a>
               <button
-                aria-controls="hds-menu-button-1-menu"
+                aria-controls="hds-menu-button-2-menu"
                 aria-expanded="false"
                 aria-haspopup="true"
-                aria-label="Foo dropdown"
+                aria-label="false"
+                aria-labelledby="dropdownlink-1"
                 class="toggleButton"
-                id="hds-menu-button-1-button"
+                id="hds-menu-button-2-button"
                 type="button"
               >
                 <svg
@@ -154,9 +156,9 @@ exports[`<Navigation.DropdownLink /> spec renders the component 1`] = `
                 </svg>
               </button>
               <div
-                aria-labelledby="hds-menu-button-1-button"
+                aria-labelledby="dropdownlink-1"
                 class="menu"
-                id="hds-menu-button-1-menu"
+                id="hds-menu-button-2-menu"
                 role="region"
                 style="top: 0px; min-width: 190px;"
               />

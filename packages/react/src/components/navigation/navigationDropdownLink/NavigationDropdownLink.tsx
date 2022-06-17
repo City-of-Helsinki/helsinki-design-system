@@ -1,4 +1,5 @@
-import React, { MouseEventHandler } from 'react';
+import React, { MouseEventHandler, useState } from 'react';
+import uniqueId from 'lodash.uniqueid';
 
 import { MenuButton, MenuButtonProps } from '../../../internal/menuButton/MenuButton';
 import { NavigationItem } from '../navigationItem/NavigationItem';
@@ -20,9 +21,9 @@ export type NavigationDropdownLinkProps = MenuButtonProps & {
   onClick?: MouseEventHandler;
 
   /**
-   * Menu button label
+   * id
    */
-  buttonAriaLabel?: string;
+  id?: string;
 };
 
 export const NavigationDropdownLink = ({
@@ -30,16 +31,22 @@ export const NavigationDropdownLink = ({
   href,
   children,
   onClick,
-  buttonAriaLabel,
+  id,
   ...rest
-}: NavigationDropdownLinkProps) => (
-  <MenuButton
-    hoverAndClick
-    label={<NavigationItem label={label} href={href} onClick={onClick} />}
-    buttonAriaLabel={buttonAriaLabel ?? `${label} dropdown`}
-    {...rest}
-  >
-    {children}
-  </MenuButton>
-);
+}: NavigationDropdownLinkProps) => {
+  // Create a unique id if not provided via prop
+  const [dropdownLinkId] = useState(id || uniqueId('dropdownlink-'));
+
+  return (
+    <MenuButton
+      hoverAndClick
+      label={<NavigationItem label={label} href={href} onClick={onClick} id={dropdownLinkId} />}
+      buttonAriaLabelledby={dropdownLinkId}
+      {...rest}
+    >
+      {children}
+    </MenuButton>
+  );
+};
+
 NavigationDropdownLink.componentName = 'NavigationDropdownLink';
