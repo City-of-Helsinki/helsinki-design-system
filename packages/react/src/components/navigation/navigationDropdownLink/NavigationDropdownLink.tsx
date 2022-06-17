@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
 import { MenuButton, MenuButtonProps } from '../../../internal/menuButton/MenuButton';
 import { NavigationItem } from '../navigationItem/NavigationItem';
@@ -13,10 +13,15 @@ export type NavigationDropdownLinkProps = MenuButtonProps & {
    * Dropdown Link url
    */
   href?: string;
+
+  /**
+   * OnClick for the link
+   */
+  onClick?: MouseEventHandler;
 };
 
-export const NavigationDropdownLink = ({ label, href, children, ...rest }: NavigationDropdownLinkProps) => (
-  <MenuButton hoverAndClick label={<NavigationItem label={label} href={href} />} {...rest}>
+export const NavigationDropdownLink = ({ label, href, children, onClick, ...rest }: NavigationDropdownLinkProps) => (
+  <MenuButton hoverAndClick label={<NavigationItem label={label} href={href} onClick={onClick} />} {...rest}>
     {children}
   </MenuButton>
 );
