@@ -63,6 +63,7 @@ export type Content = {
   };
   onAllConsentsGiven?: (consents: ConsentObject) => void;
   onConsentsParsed?: (consents: ConsentObject, hasUserHandledAllConsents: boolean) => void;
+  focusTargetSelector?: string;
 };
 
 export type CookieConsentContextType = {
@@ -106,6 +107,17 @@ export const getConsentsFromCookieGroup = (groups: CookieGroup[]): ConsentList =
   }, []);
 };
 
+const forceFocusToElement = (elementSelector: string): void => {
+  const focusTarget = document.querySelector(elementSelector) as HTMLElement;
+  if (focusTarget && focusTarget.focus) {
+    focusTarget.focus();
+    if (document.activeElement !== focusTarget) {
+      focusTarget.setAttribute('tabindex', '-1');
+      focusTarget.focus();
+    }
+  }
+};
+
 export const Provider = ({ cookieDomain, children, contentSource }: CookieConsentContextProps): React.ReactElement => {
   const language = contentSource.currentLanguage;
   const content = useMemo(() => {
@@ -137,6 +149,9 @@ export const Provider = ({ cookieDomain, children, contentSource }: CookieConsen
   const notifyOnAllConsentsGiven = () => {
     if (content.onAllConsentsGiven && hasUserHandledAllConsents()) {
       content.onAllConsentsGiven(mergeConsents());
+    }
+    if (content.focusTargetSelector) {
+      forceFocusToElement(content.focusTargetSelector);
     }
   };
 
@@ -255,4 +270,14 @@ export const useCookieConsentTableData = (): TableData => {
 export const useCookieConsentLanguage = (): Content['language'] => {
   const content = useCookieConsentContent();
   return content.language;
+};
+
+export const useFocusShift = (): (() => void) => {
+  const { focusTargetSelector } = useCookieConsentContent();
+  if (!focusTargetSelector) {
+    throw new Error('Cookie consent modal requires a content.focusTargetSelector to be set');
+  }
+  return () => {
+    forceFocusToElement(focusTargetSelector);
+  };
 };
