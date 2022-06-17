@@ -864,11 +864,14 @@ describe(`content.builder.ts`, () => {
       const onConsentsParsed = jest.fn();
       const dummyObject = { cookie: false };
       const content = createContent({ ...commonContentTestProps, onAllConsentsGiven, onConsentsParsed });
-      content.onAllConsentsGiven(dummyObject);
+      if (content.onAllConsentsGiven) {
+        content.onAllConsentsGiven(dummyObject);
+      }
       expect(onAllConsentsGiven).toHaveBeenCalledTimes(1);
       expect(onAllConsentsGiven).toHaveBeenCalledWith(dummyObject);
-
-      content.onConsentsParsed(dummyObject, false);
+      if (content.onConsentsParsed) {
+        content.onConsentsParsed(dummyObject, false);
+      }
       expect(onConsentsParsed).toHaveBeenCalledTimes(1);
       expect(onConsentsParsed).toHaveBeenCalledWith(dummyObject, false);
     });
@@ -877,8 +880,8 @@ describe(`content.builder.ts`, () => {
     it('when noCommonConsentCookie is not true ', () => {
       const content = createContent({ siteName, currentLanguage: 'fi' });
       expect(content.requiredCookies).toBeDefined();
-      expect(content.requiredCookies.groups[0].title).toBe(commonContent.commonGroups.sharedConsents.fi.title);
-      expect(content.requiredCookies.groups[0].cookies[0].name).toBe(
+      expect(content.requiredCookies?.groups[0].title).toBe(commonContent.commonGroups.sharedConsents.fi.title);
+      expect(content.requiredCookies?.groups[0].cookies[0].name).toBe(
         commonContent.commonCookies.helConsentCookie.fi.name,
       );
     });
