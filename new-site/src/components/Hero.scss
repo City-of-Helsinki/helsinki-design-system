@@ -7,13 +7,13 @@
   --hero-large-content-padding: var(--spacing-s);
   --hero-large-content-left: calc((100vw + (2 * var(--hero-large-content-padding)) - var(--container-width-xl)) / 2);
 
-  background-color: var(--color-coat-of-arms);
   box-sizing: border-box;
   position: relative;
   left: calc(var(--hero-small-left) * -1);
   width: 100vw;
 
   @include x-large-and-above-screen {
+    background-color: var(--color-coat-of-arms);
     left: calc(var(--hero-large-content-left) * -1);
   }
 }
@@ -38,7 +38,10 @@
 
 .hero-wrapper {
   margin: 0 auto;
-  max-width: var(--container-width-xl);
+
+  @include x-large-and-above-screen {
+    max-width: var(--container-width-xl);
+  }
 }
 
 .hero {
