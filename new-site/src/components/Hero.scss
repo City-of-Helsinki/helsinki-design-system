@@ -104,7 +104,7 @@
 }
 
 .hero-text {
-  margin: var(--spacing-2-xl) 0;
+  margin: var(--spacing-4-xl) 0;
 
   @include x-large-and-above-screen {
     font-size: var(--fontsize-body-xl);
