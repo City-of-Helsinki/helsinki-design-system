@@ -252,6 +252,7 @@
   --common-spacing: var(--spacing-xs);
   padding-top: var(--common-spacing);
   padding-bottom: var(--common-spacing);
+  outline: none;
   .visuallyHiddenWithoutFocus {
     position: absolute;
     opacity: 0;
