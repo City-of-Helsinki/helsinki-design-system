@@ -79,7 +79,7 @@ const generateUiIdFromPath = (path, prefix) => {
   return `${prefix}-${pathStr}`;
 };
 
-const isNavPage = (page) => page.slug && page.nav_title;
+const isNavPage = (page) => page.slug && page.navTitle;
 const splitPathIntoParts = (path) => path.split('/').filter((l) => !!l);
 const isLinkParentForPage = (parentPath, level) => (page) => {
   const pathParts = splitPathIntoParts(page.slug);
@@ -132,7 +132,7 @@ const Layout = ({ children, pageContext }) => {
             frontmatter {
               title
               slug
-              nav_title
+              navTitle
             }
           }
         }
@@ -257,11 +257,11 @@ const Layout = ({ children, pageContext }) => {
                             },
                           })}
                     >
-                      {subLevels.map(({ nav_title, slug, prefixedLink: prefixedSubLevelLink, uiId }) => (
+                      {subLevels.map(({ navTitle, slug, prefixedLink: prefixedSubLevelLink, uiId }) => (
                         <SideNavigation.SubLevel
                           key={uiId}
                           href={prefixedSubLevelLink}
-                          label={nav_title}
+                          label={navTitle}
                           active={pageSlugWithPrefix === prefixedSubLevelLink || isMatchingParentLink(slug, pageSlug)}
                           onClick={(e) => {
                             e.preventDefault();
