@@ -1,6 +1,7 @@
 @charset "utf-8";
 @import "~hds-design-tokens/lib/all.scss";
 @import "~hds-core/lib/components/table/table.css";
+@import "utils.scss";
 
 :root {
   --page-border-color: var(--color-black-20);
@@ -117,6 +118,32 @@ body {
   font-size: var(--fontsize-heading-xs);
 }
 
+.front-page-link-list {
+  box-sizing: border-box;
+  margin: 0 0 var(--spacing-layout-xl);
+  padding: 0 2px;
+
+  @include x-large-and-above-screen {
+    padding: 0 var(--spacing-layout-xs);
+  }
+}
+
+.front-page-hero-button {
+  --background-color: var(--color-white) !important;
+  --background-color-hover: var(--color-bus-light) !important;
+  --background-color-focus: var(--color-bus-light) !important;
+  --background-color-hover-focus: var(--color-bus-light) !important;
+  --border-color: var(--color-white) !important;
+  --border-color-hover: var(--color-white) !important;
+  --border-color-focus: var(--color-white) !important;
+  --border-color-hover-focus: var(--color-white) !important;
+  --color: var(--color-bus-dark) !important;
+  --color-hover: var(--color-bus-dark) !important;
+  --color-focus: var(--color-bus-dark) !important;
+  --color-hover-focus: var(--color-bus-dark) !important;
+  --focus-outline-color: var(--color-bus-dark) !important;
+}
+
 .page {
   display: flex;
   flex-direction: column;
@@ -124,11 +151,26 @@ body {
 }
 
 .page-content {
+  box-sizing: border-box;
   flex: 1;
   margin: 0 auto;
-  padding: var(--spacing-m) 0;
-  height: 100%;
+  padding: var(--spacing-layout-xs) var(--spacing-layout-2-xs);
   width: 100%;
+
+  @include medium-and-above-screen {
+    padding-left: var(--spacing-layout-xs);
+    padding-right: var(--spacing-layout-xs);
+  }
+
+  @include x-large-and-above-screen {
+    max-width: var(--container-width-xl);
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &.front-page-content {
+    padding-top: 0;
+  }
 }
 
 .side-content {
@@ -137,7 +179,7 @@ body {
 }
 
 .main-content {
-  overflow: hidden;
+  overflow: visible;
   width: 100%;
 }
 

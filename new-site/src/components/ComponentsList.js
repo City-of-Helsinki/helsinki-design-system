@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { navigate } from 'gatsby';
-import { Linkbox } from 'hds-react';
 
-import './ComponentsList.scss';
+import LinkboxList from './LinkboxList';
 
 const ComponentsList = () => {
   const componentData = [
     {
-      name: "Accordion",
+      name: 'Accordion',
       text: 'Accordions can be used to hide and reveal information.',
       linkboxAriaLabel: 'Accordion component',
       linkAriaLabel: 'Go to the Accordion component page',
@@ -253,30 +251,7 @@ const ComponentsList = () => {
     },
   ];
 
-  return (
-    <div className="components-list">
-      {componentData.map(( component) => {
-        return (
-          <div key={component.name} className="components-list-item">
-            <Linkbox
-              withBorder
-              className="components-list-linkbox"
-              size="small"
-              linkboxAriaLabel={component.linkboxAriaLabel}
-              linkAriaLabel={component.linkAriaLabel}
-              href={component.href}
-              heading={component.name}
-              text={component.text}
-              onClick={(event) => {
-                event.preventDefault();
-                navigate(component.href);
-              }}
-            />
-          </div>
-        );
-      })}
-    </div>
-  );
-}
+  return <LinkboxList data={componentData} />;
+};
 
 export default ComponentsList;
