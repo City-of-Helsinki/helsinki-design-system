@@ -7,14 +7,11 @@
   --hero-large-content-padding: var(--spacing-s);
   --hero-large-content-left: calc((100vw + (2 * var(--hero-large-content-padding)) - var(--container-width-xl)) / 2);
 
+  background-color: var(--color-coat-of-arms);
   box-sizing: border-box;
   position: relative;
   left: calc(var(--hero-small-left) * -1);
   width: 100vw;
-
-  @include x-large-and-above-screen {
-    background-color: var(--color-coat-of-arms);
-  }
 }
 
 .hero-bg-image {
@@ -60,6 +57,7 @@
   background-color: var(--color-coat-of-arms);
   box-sizing: border-box;
   left: var(--hero-small-left);
+  max-width: 60ch;
   padding: var(--spacing-m) var(--spacing-s);
   position: relative;
   z-index: 3;
@@ -71,6 +69,7 @@
   @include x-large-and-above-screen {
     clip-path: polygon(0 0, var(--triangle-top-corner-x) 0, 0 var(--triangle-bottom-corner-x), 0% 50%);
     left: auto;
+    max-width: initial;
     padding: var(--spacing-layout-m) 0 var(--spacing-layout-m) var(--hero-large-content-padding);
     width: 67%;
 
