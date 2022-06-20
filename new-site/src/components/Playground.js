@@ -22,6 +22,7 @@ const sanitizeConfig = {
       'class',
       'checked',
       'd',
+      'data-*',
       'disabled',
       'fill',
       'for',
