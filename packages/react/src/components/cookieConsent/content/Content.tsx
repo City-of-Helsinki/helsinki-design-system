@@ -58,7 +58,7 @@ export function Content(): React.ReactElement {
         <button
           type="button"
           className={classNames(styles.accordionButton, styles.readMoreButton)}
-          onClick={(e) => {
+          onMouseDown={(e) => {
             e.preventDefault();
             setFocusToTitle();
           }}
