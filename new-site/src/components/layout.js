@@ -99,7 +99,7 @@ const isMatchingParentLink = (link, slug) => {
 };
 
 const Layout = ({ children, pageContext }) => {
-  const { title: pageTitle, slug: pageSlug, custom_layout: customLayout } = pageContext.frontmatter;
+  const { title: pageTitle, slug: pageSlug, customLayout } = pageContext.frontmatter;
   const pageSlugWithPrefix = withPrefix(pageSlug);
 
   const queryData = useStaticQuery(graphql`
