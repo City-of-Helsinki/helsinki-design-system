@@ -6,6 +6,14 @@
   }
 }
 
+$breakpoint-small-medium-above: $breakpoint-s + 1px;
+
+@mixin small-medium-and-above-screen {
+  @media (min-width: $breakpoint-small-medium-above) {
+    @content;
+  }
+}
+
 @mixin medium-screen {
   @media (max-width: $breakpoint-m) {
     @content;
@@ -16,6 +24,14 @@ $breakpoint-medium-above: $breakpoint-m + 1px;
 
 @mixin medium-and-above-screen {
   @media (min-width: $breakpoint-medium-above) {
+    @content;
+  }
+}
+
+$breakpoint-x-large-above: $breakpoint-xl + 1px;
+
+@mixin x-large-and-above-screen {
+  @media (min-width: $breakpoint-x-large-above) {
     @content;
   }
 }

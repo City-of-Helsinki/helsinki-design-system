@@ -9,7 +9,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
-import { Container, Footer, Link, Navigation, SideNavigation, IconCheckCircleFill, IconCrossCircle } from 'hds-react';
+import { Footer, Link, Navigation, SideNavigation, IconCheckCircleFill, IconCrossCircle } from 'hds-react';
 import Seo from './Seo';
 import { PlaygroundBlock, PlaygroundPreview } from './Playground';
 import SyntaxHighlighter from './SyntaxHighlighter';
@@ -30,27 +30,27 @@ const components = {
   tbody: Table.Tbody,
   th: Table.Th,
   h1: (props) => (
-    <h1 {...props} className={classNames('page-heading-1')}>
+    <h1 {...props} className={classNames('page-heading-1', props.className)}>
       {props.children}
     </h1>
   ),
   h2: (props) => (
-    <h2 {...props} className={classNames('page-heading-2')}>
+    <h2 {...props} className={classNames('page-heading-2', props.className)}>
       {props.children}
     </h2>
   ),
   h3: (props) => (
-    <h3 {...props} className={classNames('page-heading-3')}>
+    <h3 {...props} className={classNames('page-heading-3', props.className)}>
       {props.children}
     </h3>
   ),
   h4: (props) => (
-    <h4 {...props} className={classNames('page-heading-4')}>
+    <h4 {...props} className={classNames('page-heading-4', props.className)}>
       {props.children}
     </h4>
   ),
   h5: (props) => (
-    <h4 {...props} className={classNames('page-heading-5')}>
+    <h4 {...props} className={classNames('page-heading-5', props.className)}>
       {props.children}
     </h4>
   ),
@@ -226,7 +226,7 @@ const Layout = ({ children, pageContext }) => {
             ))}
           </Navigation.Row>
         </Navigation>
-        <Container className="page-content">
+        <div className={`page-content ${pageSlug === '/' ? 'front-page-content' : ''}`}>
           {uiSubMenuLinks.length > 0 && (
             <aside className="side-content" key="side-navigation">
               <SideNavigation
@@ -278,7 +278,7 @@ const Layout = ({ children, pageContext }) => {
           <main id={contentId} className="main-content">
             <MDXProvider components={components}>{children}</MDXProvider>
           </main>
-        </Container>
+        </div>
         <Footer id="page-footer" className="page-footer" title={footerTitle} footerAriaLabel={footerAriaLabel}>
           <Footer.Base copyrightHolder="Copyright">
             {footerCopyRightLinks.map(({ name, link }) => (
