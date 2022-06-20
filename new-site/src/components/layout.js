@@ -226,7 +226,7 @@ const Layout = ({ children, pageContext }) => {
             ))}
           </Navigation.Row>
         </Navigation>
-        <div className={customLayout ? 'custom-page-content' : 'page-content'}>
+        <div className={customLayout ? undefined : 'page-content'}>
           {uiSubMenuLinks.length > 0 && (
             <aside className="side-content" key="side-navigation">
               <SideNavigation
