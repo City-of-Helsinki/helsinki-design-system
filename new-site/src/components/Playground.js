@@ -2,12 +2,65 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useMDXScope } from 'gatsby-plugin-mdx/context';
 import { LiveProvider, LiveEditor, LiveError, LivePreview, withLive } from 'react-live';
-import DOMPurify from 'dompurify';
+import sanitizeHtml from 'sanitize-html';
 import { Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
 import theme from 'prism-react-renderer/themes/github';
 
 import './Playground.scss';
 import LiveErrorCore from './LiveErrorCore';
+
+const sanitizeConfig = {
+  allowedTags: false,
+  disallowedTagsMode: 'discard',
+  allowedAttributes: {
+    '*': [
+      'aria-describedby',
+      'aria-hidden',
+      'aria-label',
+      'aria-labelledby',
+      'aria-level',
+      'class',
+      'checked',
+      'd',
+      'data-*',
+      'disabled',
+      'fill',
+      'for',
+      'height',
+      'href',
+      'id',
+      'name',
+      'onclick',
+      'patternUnits',
+      'patternunits',
+      'placeholder',
+      'points',
+      'rel',
+      'required',
+      'role',
+      'scope',
+      'span',
+      'style',
+      'tabIndex',
+      'target',
+      'transform',
+      'type',
+      'value',
+      'width',
+      'x',
+      'xmlns',
+      'y',
+    ],
+    a: ['href', 'name', 'target'],
+    img: ['src', 'srcset', 'alt', 'title', 'width', 'height', 'loading'],
+  },
+  selfClosing: ['img', 'br', 'hr', 'area', 'base', 'basefont', 'input', 'link', 'meta'],
+  allowedSchemes: ['http', 'https', 'ftp', 'mailto', 'tel'],
+  allowedSchemesByTag: {},
+  allowedSchemesAppliedToAttributes: ['href', 'src', 'cite'],
+  allowProtocolRelative: true,
+  enforceHtmlBoundary: false,
+};
 
 const Playground = ({ children }) => {
   if (children) {
@@ -54,7 +107,7 @@ const sanitize = (code) => {
 
 const HtmlLivePreview = ({ code }) => {
   const sanitizedHtml = () => ({
-    __html: DOMPurify.sanitize(code),
+    __html: sanitizeHtml(code, sanitizeConfig),
   });
 
   return <PlaygroundPreviewComponent dangerouslySetInnerHTML={sanitizedHtml()} />;
