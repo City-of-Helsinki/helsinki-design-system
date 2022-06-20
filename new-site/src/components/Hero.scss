@@ -3,23 +3,11 @@
 .hero-container {
   --koros-height: 145px;
   --hero-height: 520px;
-  --hero-small-left: calc((100vw - 100%) / 2);
-  --hero-large-content-left: calc((100vw - var(--container-width-xl)) / 2);
 
   background-color: var(--color-coat-of-arms);
   box-sizing: border-box;
   position: relative;
-  left: calc(var(--spacing-s) * -1);
-  width: calc(100vw - var(--spacing-s) + 1px);
-
-  @include medium-and-above-screen {
-    left: calc(var(--spacing-m) * -1);
-  }
-
-  @include x-large-and-above-screen {
-    left: calc(var(--hero-large-content-left) * -1);
-    width: calc(100vw - var(--spacing-2-xs));
-  }
+  width: 100%;
 }
 
 .hero-bg-image {
@@ -33,7 +21,7 @@
     aspect-ratio: unset;
     height: 100%;
     margin-top: 0;
-    left: var(--hero-large-content-left);
+    left: calc((100% - var(--breakpoint-xl)) / 2);
     right: 0;
     position: absolute;
     top: 0;
@@ -44,7 +32,7 @@
   margin: 0 auto;
 
   @include x-large-and-above-screen {
-    max-width: var(--container-width-xl);
+    max-width: var(--breakpoint-xl);
   }
 }
 
@@ -74,7 +62,7 @@
     clip-path: polygon(0 0, var(--triangle-top-corner-x) 0, 0 var(--triangle-bottom-corner-x), 0% 50%);
     left: auto;
     max-width: initial;
-    padding: var(--spacing-layout-m) 0 var(--spacing-layout-m);
+    padding: var(--spacing-l) var(--spacing-m);
     width: 67%;
 
     &:after {
