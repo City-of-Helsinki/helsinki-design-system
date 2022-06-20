@@ -62,6 +62,11 @@ jobs:
       - name: move v1 storybooks under v1
         run: mv ./deprecated/v1/storybook ./site/public/v1/storybook
 
+      - name: release npm packages
+        run: yarn release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Deploy
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
