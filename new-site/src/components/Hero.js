@@ -11,12 +11,10 @@ const Hero = ({ children, backgroundImageUrl, title, text }) => {
       <div className="hero-wrapper">
         <div className="hero">
           <div className="hero-content">
-            <div className="hero-content-text">
-              <div className="hero-content-shape" />
-              <h1 className="hero-title">{title}</h1>
-              <p className="hero-text">{text}</p>
-              {children}
-            </div>
+            <div className="hero-content-shape" />
+            <h1 className="hero-title">{title}</h1>
+            <p className="hero-text">{text}</p>
+            {children}
           </div>
           <Koros className="hero-koros hero-koros-rotated" flipHorizontal rotate="45deg" />
           <Koros className="hero-koros hero-koros-horizontal" flipHorizontal />
