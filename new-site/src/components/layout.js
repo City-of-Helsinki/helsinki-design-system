@@ -99,7 +99,7 @@ const isMatchingParentLink = (link, slug) => {
 };
 
 const Layout = ({ children, pageContext }) => {
-  const { title: pageTitle, slug: pageSlug } = pageContext.frontmatter;
+  const { title: pageTitle, slug: pageSlug, custom_layout: customLayout } = pageContext.frontmatter;
   const pageSlugWithPrefix = withPrefix(pageSlug);
 
   const queryData = useStaticQuery(graphql`
@@ -226,7 +226,7 @@ const Layout = ({ children, pageContext }) => {
             ))}
           </Navigation.Row>
         </Navigation>
-        <div className={`page-content ${pageSlug === '/' ? 'front-page-content' : ''}`}>
+        <div className={customLayout ? 'custom-page-content' : 'page-content'}>
           {uiSubMenuLinks.length > 0 && (
             <aside className="side-content" key="side-navigation">
               <SideNavigation
@@ -275,9 +275,13 @@ const Layout = ({ children, pageContext }) => {
               </SideNavigation>
             </aside>
           )}
-          <main id={contentId} className="main-content">
+          {customLayout ? (
             <MDXProvider components={components}>{children}</MDXProvider>
-          </main>
+          ) : (
+            <main id={contentId} className="main-content">
+              <MDXProvider components={components}>{children}</MDXProvider>
+            </main>
+          )}
         </div>
         <Footer id="page-footer" className="page-footer" title={footerTitle} footerAriaLabel={footerAriaLabel}>
           <Footer.Base copyrightHolder="Copyright">
