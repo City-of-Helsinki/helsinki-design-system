@@ -64,5 +64,8 @@
   },
   "bugs": {
     "url": "https://github.com/City-of-Helsinki/helsinki-design-system/issues"
+  },
+  "resolutions": {
+    "gatsby/multer": "1.4.5-lts.1"
   }
 }
