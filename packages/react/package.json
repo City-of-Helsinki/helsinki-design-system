@@ -105,7 +105,7 @@
     "@popperjs/core": "2.5.3",
     "@react-aria/visually-hidden": "3.2.0",
     "date-fns": "2.16.1",
-    "downshift": "6.0.6",
+    "downshift": "6.1.7",
     "hds-core": "1.15.0",
     "lodash.isequal": "4.5.0",
     "lodash.isfunction": "3.0.9",
