@@ -1,10 +1,11 @@
 ---
 slug: '/'
 title: 'Home page'
+customLayout: true
 ---
 
-import { Button } from 'hds-react';
-import { navigate, withPrefix } from 'gatsby';
+import { Button, Container } from 'hds-react';
+import { navigate } from 'gatsby';
 import Hero from '../components/Hero';
 import Image from '../components/Image';
 import FrontPageLinksList from '../components/FrontPageLinkList';
@@ -27,6 +28,7 @@ import FrontPageLinksList from '../components/FrontPageLinkList';
   </Button>
 </Hero>
 
-<FrontPageLinksList />
-
-<Image size="M" src="/images/getting-started/structure-graph.svg" alt="Helsinki Design System helps project in three different ways. Design with the foundations and the user interface kit. Develop with the components and patterns. Learn about the standards and guidelines." style="display:block;width:100%;min-width:600px;max-width:915px;margin:0 auto;" viewable />
+<Container style={{ margin: '0 auto'}}>
+  <FrontPageLinksList />
+  <Image size="M" src="/images/getting-started/structure-graph.svg" alt="Helsinki Design System helps project in three different ways. Design with the foundations and the user interface kit. Develop with the components and patterns. Learn about the standards and guidelines." style="display:block;width:100%;min-width:600px;max-width:915px;margin:0 auto;" viewable />
+</Container>

@@ -3,7 +3,7 @@ slug: '/components/footer/tabs'
 title: 'Footer'
 ---
 
-import { StatusLabel } from 'hds-react';
+import { StatusLabel, Notification } from 'hds-react';
 
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout';
@@ -11,7 +11,7 @@ import PageTabs from '../../../components/PageTabs';
 
 # Footer
 
-<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="alert">Draft</StatusLabel>
 <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
   Accessible
 </StatusLabel>
@@ -19,6 +19,10 @@ import PageTabs from '../../../components/PageTabs';
 <LeadParagraph>
   The Footer component is located at the bottom of the page below the main body content. It provides a place for secondary navigation, site-wide actions, and additional information.
 </LeadParagraph>
+
+<Notification label="A visual rework is coming soon!" className="siteNotification">
+  The HDS team will be unifying the Footer component with the Hel.fi project footer in the near future.
+</Notification>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
