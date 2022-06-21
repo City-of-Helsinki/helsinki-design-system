@@ -79,7 +79,7 @@ const generateUiIdFromPath = (path, prefix) => {
   return `${prefix}-${pathStr}`;
 };
 
-const isNavPage = (page) => page.slug && page.nav_title;
+const isNavPage = (page) => page.slug && page.navTitle;
 const splitPathIntoParts = (path) => path.split('/').filter((l) => !!l);
 const isLinkParentForPage = (parentPath, level) => (page) => {
   const pathParts = splitPathIntoParts(page.slug);
@@ -99,7 +99,7 @@ const isMatchingParentLink = (link, slug) => {
 };
 
 const Layout = ({ children, pageContext }) => {
-  const { title: pageTitle, slug: pageSlug } = pageContext.frontmatter;
+  const { title: pageTitle, slug: pageSlug, customLayout } = pageContext.frontmatter;
   const pageSlugWithPrefix = withPrefix(pageSlug);
 
   const queryData = useStaticQuery(graphql`
@@ -132,7 +132,7 @@ const Layout = ({ children, pageContext }) => {
             frontmatter {
               title
               slug
-              nav_title
+              navTitle
             }
           }
         }
@@ -226,7 +226,7 @@ const Layout = ({ children, pageContext }) => {
             ))}
           </Navigation.Row>
         </Navigation>
-        <div className={`page-content ${pageSlug === '/' ? 'front-page-content' : ''}`}>
+        <div className={customLayout ? undefined : 'page-content'}>
           {uiSubMenuLinks.length > 0 && (
             <aside className="side-content" key="side-navigation">
               <SideNavigation
@@ -257,11 +257,11 @@ const Layout = ({ children, pageContext }) => {
                             },
                           })}
                     >
-                      {subLevels.map(({ nav_title, slug, prefixedLink: prefixedSubLevelLink, uiId }) => (
+                      {subLevels.map(({ navTitle, slug, prefixedLink: prefixedSubLevelLink, uiId }) => (
                         <SideNavigation.SubLevel
                           key={uiId}
                           href={prefixedSubLevelLink}
-                          label={nav_title}
+                          label={navTitle}
                           active={pageSlugWithPrefix === prefixedSubLevelLink || isMatchingParentLink(slug, pageSlug)}
                           onClick={(e) => {
                             e.preventDefault();
@@ -275,9 +275,13 @@ const Layout = ({ children, pageContext }) => {
               </SideNavigation>
             </aside>
           )}
-          <main id={contentId} className="main-content">
+          {customLayout ? (
             <MDXProvider components={components}>{children}</MDXProvider>
-          </main>
+          ) : (
+            <main id={contentId} className="main-content">
+              <MDXProvider components={components}>{children}</MDXProvider>
+            </main>
+          )}
         </div>
         <Footer id="page-footer" className="page-footer" title={footerTitle} footerAriaLabel={footerAriaLabel}>
           <Footer.Base copyrightHolder="Copyright">
