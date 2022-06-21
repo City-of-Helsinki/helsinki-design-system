@@ -15,7 +15,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Example
 <PlaygroundPreview>
   <TimeInput 
-    id="time"
+    id="timeinput"
     label="Label"
     hoursLabel="hours"
     minutesLabel="minutes"
@@ -51,7 +51,7 @@ HDS TimeInput allows manual and accurate input for times. It is the best choice 
 
 <PlaygroundPreview>
 <TimeInput 
-  id="time"
+  id="timeinput-default"
   label="Label"
   hoursLabel="hours"
   minutesLabel="minutes"
@@ -67,6 +67,7 @@ It is better to use [HDS Select](/components/dropdown#select-single-selection) f
 
 <PlaygroundPreview>
   <Select
+    id="timeinput-select"
     required
     label="Label"
     helper="Assistive text"
