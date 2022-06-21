@@ -198,12 +198,12 @@ module.exports = {
         display: `minimal-ui`,
         icons: [
           {
-            src: "static/favicon/transparent_light_favicon_package/android-chrome-192x192.png",
+            src: `/favicon/transparent_light_favicon_package/android-chrome-192x192.png`,
             sizes: "192x192",
             type: "image/png"
           },
           {
-            src: "static/favicon/transparent_light_favicon_package/android-chrome-256x256.png",
+            src: `/favicon/transparent_light_favicon_package/android-chrome-256x256.png`,
             sizes: "256x256",
             type: "image/png"
           }
