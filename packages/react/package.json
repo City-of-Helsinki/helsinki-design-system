@@ -105,7 +105,7 @@
     "@popperjs/core": "2.5.3",
     "@react-aria/visually-hidden": "3.2.0",
     "date-fns": "2.16.1",
-    "downshift": "6.1.7",
+    "downshift": "6.0.6",
     "hds-core": "1.15.0",
     "lodash.isequal": "4.5.0",
     "lodash.isfunction": "3.0.9",
@@ -123,6 +123,7 @@
     "@types/react": "17.0.2",
     "babel-jest": "^26.0.1",
     "jest": "^26.0.1",
+    "downshift/react-is": "^16.13.1",
     "ts-jest": "^26.0.1"
   },
   "peerDependencies": {
