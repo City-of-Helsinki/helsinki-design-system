@@ -186,7 +186,7 @@ const Layout = ({ children, pageContext }) => {
       <div className="page-header-title-badge">
         <img
           style={{ filter: 'invert(1)' }}
-          alt="GitHub release (latest SemVer)"
+          alt="HDS version number: 2.0.0"
           src="https://img.shields.io/github/v/release/City-of-Helsinki/helsinki-design-system?label=&style=for-the-badge&color=1a1a1a"
         />
       </div>
