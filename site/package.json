@@ -39,6 +39,10 @@
     "stylelint": "^14.8.3",
     "stylelint-config-standard-scss": "^3.0.0"
   },
+  "resolutions": {
+    "gatsby/**/multer": "1.4.4-lts.1",
+    "gatsby-plugin-sharp/**/jpeg-js": "0.4.4"
+  },
   "keywords": [
     "gatsby",
     "hds"
@@ -64,9 +68,5 @@
   },
   "bugs": {
     "url": "https://github.com/City-of-Helsinki/helsinki-design-system/issues"
-  },
-  "resolutions": {
-    "gatsby/multer": "1.4.5-lts.1",
-    "jpeg-js": "0.4.4"
   }
 }
