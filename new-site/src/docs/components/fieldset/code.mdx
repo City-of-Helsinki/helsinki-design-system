@@ -19,10 +19,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ```jsx
 <>
 <Fieldset heading="Child information" style={{ maxWidth: '400px' }}>
-  <TextInput id="first-name" name="first-name" label="First name" />
-  <TextInput id="last-name" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
+  <TextInput id="first-name-child" name="first-name" label="First name" />
+  <TextInput id="last-name-child" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
   <TextInput
-    id="social-security-number"
+    id="social-security-number-child"
     name="social-security-number"
     label="Social security number"
     placeholder="Eg. 111299-1234"
@@ -31,10 +31,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 </Fieldset>
 
 <Fieldset heading="Guardian information" style={{ maxWidth: '400px', marginTop: 'var(--spacing-s)' }}>
-  <TextInput id="first-name" name="first-name" label="First name" />
-  <TextInput id="last-name" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
+  <TextInput id="first-name-guardian" name="first-name" label="First name" />
+  <TextInput id="last-name-guardian" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
   <TextInput
-    id="social-security-number"
+    id="social-security-number-guardian"
     name="social-security-number"
     label="Social security number"
     placeholder="Eg. 111299-1234"
@@ -51,19 +51,19 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     <div class="hds-text-input">
       First name *
       <div class="hds-text-input__input-wrapper">
-        <input id="first-name" name="first-name" class="hds-text-input__input" type="text" />
+        <input id="first-name-child-1" name="first-name" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
       Last name *
       <div class="hds-text-input__input-wrapper">
-        <input id="last-name" name="last-name" class="hds-text-input__input" type="text" />
+        <input id="last-name-child-1" name="last-name" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
       Social security number *
       <div class="hds-text-input__input-wrapper">
-        <input id="social-security-number" name="social-security-number" class="hds-text-input__input" type="text" />
+        <input id="social-security-number-child-1" name="social-security-number" class="hds-text-input__input" type="text" />
       </div>
     </div>
   </fieldset>
@@ -72,19 +72,19 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     <div class="hds-text-input">
       First name *
       <div class="hds-text-input__input-wrapper">
-        <input id="first-name" name="first-name" class="hds-text-input__input" type="text" />
+        <input id="first-name-guardian-1" name="first-name" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
       Last name *
       <div class="hds-text-input__input-wrapper">
-        <input id="last-name" name="last-name" class="hds-text-input__input" type="text" />
+        <input id="last-name-guardian-1" name="last-name" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
       Social security number *
       <div class="hds-text-input__input-wrapper">
-        <input id="social-security-number" name="social-security-number" class="hds-text-input__input" type="text" />
+        <input id="social-security-number-guardian-1" name="social-security-number" class="hds-text-input__input" type="text" />
       </div>
     </div>
   </fieldset>
@@ -100,10 +100,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ```jsx
 <>
   <Fieldset heading="Applicant information" border style={{ maxWidth: '400px' }}>
-    <TextInput id="first-name" name="first-name" label="First name" />
-    <TextInput id="last-name" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
+    <TextInput id="first-name-child-2" name="first-name" label="First name" />
+    <TextInput id="last-name-child-2" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
     <TextInput
-      id="social-security-number"
+      id="social-security-number-child-2"
       name="social-security-number"
       label="Social security number"
       placeholder="Eg. 111299-1234"
@@ -112,10 +112,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   </Fieldset>
 
   <Fieldset heading="Guardian information" border style={{ maxWidth: '400px', marginTop: 'var(--spacing-s)' }}>
-    <TextInput id="first-name" name="first-name" label="First name" />
-    <TextInput id="last-name" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
+    <TextInput id="first-name-guardian-2" name="first-name" label="First name" />
+    <TextInput id="last-name-guardian-2" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
     <TextInput
-      id="social-security-number"
+      id="social-security-number-guardian-2"
       name="social-security-number"
       label="Social security number"
       placeholder="Eg. 111299-1234"
@@ -132,19 +132,19 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     <div class="hds-text-input">
       First name *
       <div class="hds-text-input__input-wrapper">
-        <input id="first-name" name="first-name" class="hds-text-input__input" type="text" />
+        <input id="first-name-child-3" name="first-name" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
       Last name *
       <div class="hds-text-input__input-wrapper">
-        <input id="last-name" name="last-name" class="hds-text-input__input" type="text" />
+        <input id="last-name-child-3" name="last-name" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
       Social security number *
       <div class="hds-text-input__input-wrapper">
-        <input id="social-security-number" name="social-security-number" class="hds-text-input__input" type="text" />
+        <input id="social-security-number-child-3" name="social-security-number" class="hds-text-input__input" type="text" />
       </div>
     </div>
   </fieldset>
@@ -154,19 +154,19 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     <div class="hds-text-input">
       First name *
       <div class="hds-text-input__input-wrapper">
-        <input id="first-name" name="first-name" class="hds-text-input__input" type="text" />
+        <input id="first-name-guardian-3" name="first-name" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
       Last name *
       <div class="hds-text-input__input-wrapper">
-        <input id="last-name" name="last-name" class="hds-text-input__input" type="text" />
+        <input id="last-name-guardian-3" name="last-name" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
       Social security number *
       <div class="hds-text-input__input-wrapper">
-        <input id="social-security-number" name="social-security-number" class="hds-text-input__input" type="text" />
+        <input id="social-security-number-guardian-3" name="social-security-number" class="hds-text-input__input" type="text" />
       </div>
     </div>
   </fieldset>
