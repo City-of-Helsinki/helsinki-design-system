@@ -34,6 +34,7 @@
     "hds-core": "^1.15.0",
     "hds-design-tokens": "^1.15.0",
     "hds-react": "^1.15.0",
+    "postcss": "8",
     "prettier": "2.5.1",
     "stylelint": "^14.8.3",
     "stylelint-config-standard-scss": "^3.0.0"
