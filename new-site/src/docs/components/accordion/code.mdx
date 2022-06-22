@@ -42,6 +42,20 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 </Playground>
 
 
+#### With the close button hidden
+
+<Playground>
+
+
+```jsx
+<Accordion card border heading="How to publish data?" style={{ maxWidth: '360px' }}>
+  To publish your data, open your profile settings and click the button 'Publish'.
+</Accordion>
+```
+
+</Playground>
+
+
 #### Custom accordion
 
 <Playground>
@@ -107,10 +121,11 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/docs/components-accordion--default" external>React Storybook.</Link>
 
-| Property        | Description                                                                | Values      | Default value |
-| --------------- | -------------------------------------------------------------------------- | ----------- | ------------- |
-| `heading`       | Heading of the accordion                                                   | -           | -             |
-| `headingLevel`  | Sets the aria-level of the accordion header.                               | 1-6         | 2             |
-| `border`        | If set to true, a border will be drawn around the accordion card.          | true, false | false         |
-| `card`          | If set to true, the accordion will use HDS Card as its background element. | true, false | false         |
-| `initiallyOpen` | If set to true, the accordion will be initially opened.                    | true, false | false         |
+| Property        | Description                                                                    | Values    | Default value |
+| --------------- | ------------------------------------------------------------------------------ | --------- | ------------- |
+| `heading`       | Heading of the accordion                                                       | -         | -             |
+| `headingLevel`  | Sets the aria-level of the accordion header.                                   | 1-6       | 2             |
+| `border`        | If set to true, a border will be drawn around the accordion card.              | `boolean` | false         |
+| `card`          | If set to true, the accordion will use HDS Card as its background element.     | `boolean` | false         |
+| `closeButton`   | If set to true, a close button is shown at the bottom of an expanded accordion | `boolean` | true          |
+| `initiallyOpen` | If set to true, the accordion will be initially opened.                        | `boolean` | false         |

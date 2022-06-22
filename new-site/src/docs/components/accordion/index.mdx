@@ -26,6 +26,8 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - **Accordions must be given a header that describes the accordion content.** This header also acts as the label for the expand button. The header level can be chosen depending on the structure of the page.
 - **Do not put essential or must-read information inside accordions.** If the user is expected to open all of the accordions while using the service, then it is likely that the information should not be inside accordions.
   - Accordions work well when the user usually needs only part of the information. You may also consider placing parts of lower importance inside accordions while the most important parts are always visible.
+- By default, accordions include a close button that is visible at the bottom of an expanded accordion. This is meant to allow the user to close the accordion quickly if needed.
+  - The close button can be hidden with the `closeButton` property. While it is recommended to include the button, it can be left out in accordions with very little content.
 - Do not use accordions to create step-by-step forms. You must not expect that the user opens all accordions in a specific order.
 - It is recommended to have accordions closed when the page is loaded.
   - If you need to have the accordion initially open, you can use the `initiallyOpen` property to achieve this.
@@ -57,6 +59,16 @@ If you have multiple accordions one below another or many accordions in the same
   <Accordion card border heading="How to publish data?" style={{ maxWidth: '360px' }}>
     To publish your data, open your profile settings and click the button 'Publish'.
   </Accordion>
+</PlaygroundPreview>
+
+#### With the close button hidden
+
+In accordions that have very little content the close button does not offer much utility to the user. In these cases the button can be hidden with the `closeButton` property.
+
+<PlaygroundPreview>
+  <Accordion heading="How to publish data?" style={{ maxWidth: '360px' }}>
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>  
 </PlaygroundPreview>
 
 #### Custom accordion
