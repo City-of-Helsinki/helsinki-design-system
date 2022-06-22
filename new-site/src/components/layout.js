@@ -190,10 +190,17 @@ const Layout = ({ children, pageContext }) => {
 
   return (
     <>
-      <Seo title={siteTitle} pageTitle={pageTitle} description={description} meta={[{
-        property: 'og:url',
-        content: siteUrl,
-      },]} />
+      <Seo
+        title={siteTitle}
+        pageTitle={pageTitle}
+        description={description}
+        meta={[
+          {
+            property: 'og:url',
+            content: siteUrl,
+          },
+        ]}
+      />
       <div className="page text-body">
         <Navigation
           id="page-header"
