@@ -120,10 +120,6 @@ const Layout = ({ children, pageContext }) => {
           }
           footerTitle
           footerAriaLabel
-          footerCopyrightLinks {
-            name
-            link
-          }
         }
       }
       allMdx {
@@ -178,7 +174,6 @@ const Layout = ({ children, pageContext }) => {
       }))
       .sort(sortByPageTitle),
   }));
-  const footerCopyRightLinks = siteData?.footerCopyrightLinks || [];
   const contentId = 'content';
   const NavigationTitle = () => (
     <div className="page-header-title">
@@ -285,9 +280,9 @@ const Layout = ({ children, pageContext }) => {
         </div>
         <Footer id="page-footer" className="page-footer" title={footerTitle} footerAriaLabel={footerAriaLabel}>
           <Footer.Base copyrightHolder="Copyright">
-            {footerCopyRightLinks.map(({ name, link }) => (
-              <Footer.Item key={name} label={name} href={link} />
-            ))}
+            <Footer.Item label="Contribution" href={withPrefix('/getting-started/contributing/before-contributing')} />
+            <Footer.Item label="Accessibility" href={withPrefix('/about/accessibility/statement')} />
+            <Footer.Item label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />
           </Footer.Base>
         </Footer>
       </div>

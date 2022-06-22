@@ -125,20 +125,6 @@ module.exports = {
     ],
     footerTitle: 'Helsinki Design System',
     footerAriaLabel: 'HDS footer',
-    footerCopyrightLinks: [
-      {
-        name: 'Contribution',
-        link: '/getting-started/contributing/before-contributing',
-      },
-      {
-        name: 'Accessibility',
-        link: '/about/accessibility/statement',
-      },
-      {
-        name: 'GitHub',
-        link: 'https://github.com/City-of-Helsinki/helsinki-design-system',
-      },
-    ],
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
