@@ -72,7 +72,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       openInExternalDomainAriaLabel,
       openInNewTabAriaLabel,
       style = {},
-      size = 'S',
+      size = 'M',
       ...rest
     }: LinkProps,
     ref: React.Ref<HTMLAnchorElement>,
