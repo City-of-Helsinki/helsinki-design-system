@@ -95,7 +95,7 @@
 
 .heading-s {
   font-size: var(--fontsize-heading-s);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.4;
   letter-spacing: 0.2px;
 }

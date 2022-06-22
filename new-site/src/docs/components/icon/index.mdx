@@ -1,10 +1,10 @@
 ---
 slug: '/components/icon'
 title: 'Icon'
-nav_title: 'Icon'
+navTitle: 'Icon'
 ---
 
-import { IconFaceSmile } from 'hds-react';
+import { IconFaceSmile, IconPlusCircle } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
@@ -15,12 +15,12 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Example
 
 <PlaygroundPreview>
-  <IconFaceSmile aria-hidden="true" />
+  <IconFaceSmile />
 </PlaygroundPreview>
 
 See the <Link size="M" href="visual-assets/icons">the icon library</Link> to browse a full list of HDS icons.
 
-## Principles
+### Principles
 
 - **An icon should always serve a distinct, easily understandable purpose.** Icons should not be used solely for decoration.
 - **An icon should preferably be accompanied with a text label to give context for interpretation.** The meaning of icons by them self can be ambiguous and change depending on the context. Label can be omitted only if the meaning of the icon is commonly established, or can be easily interpreted from the context, e.g. volume buttons in video playback.
@@ -28,13 +28,13 @@ See the <Link size="M" href="visual-assets/icons">the icon library</Link> to bro
 
 ### Variations
 
-### Default
+#### Default
 
 <PlaygroundPreview>
   <IconFaceSmile aria-hidden="true" />
 </PlaygroundPreview>
 
-### Icon sizes
+#### Icon sizes
 
 <PlaygroundPreview>
   <IconFaceSmile size="xs" aria-hidden="true" />
@@ -42,4 +42,11 @@ See the <Link size="M" href="visual-assets/icons">the icon library</Link> to bro
   <IconFaceSmile size="m" aria-hidden="true" />
   <IconFaceSmile size="l" aria-hidden="true" />
   <IconFaceSmile size="xl" aria-hidden="true" />
+</PlaygroundPreview>
+
+### Icon visible for assistive technologies
+If the icon has a meaning or is used as an interactive element, it should not be hidden from assistive technologies. This is important if, for example, you are using icons as buttons.
+
+<PlaygroundPreview>
+  <IconPlusCircle aria-label="Add an item" />
 </PlaygroundPreview>

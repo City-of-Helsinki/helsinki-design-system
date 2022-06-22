@@ -3,20 +3,31 @@ slug: '/foundation/design-tokens/breakpoints/tokens'
 title: 'Breakpoints tokens - Tokens'
 ---
 
+import { Notification } from 'hds-react';
+
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Tokens
 
-| CSS variable      | SASS variable    | PX value | Scaling method        |
-| ----------------- | ---------------- | -------: | --------------------- |
-| `--breakpoint-xs` | `$breakpoint-xs` | ≥ 320px  | Scale columns         |
-| `--breakpoint-s`  | `$breakpoint-s`  | ≥ 576px  | Scale outside margins |
-| `--breakpoint-m`  | `$breakpoint-m`  | ≥ 768px  | Scale outside margins |
-| `--breakpoint-l`  | `$breakpoint-l`  | ≥ 992px  | Scale outside margins |
-| `--breakpoint-xl` | `$breakpoint-xl` | ≥ 1248px | Scale outside margins |
+| CSS variable      | SASS variable    | PX value | Padding                | Scaling method                                  |
+| ----------------- | ---------------- | -------: | ---------------------: | ----------------------------------------------- |
+| `--breakpoint-xs` | `$breakpoint-xs` | ≥ 320px  | 16px                   | Scale content                                   |
+| `--breakpoint-s`  | `$breakpoint-s`  | ≥ 576px  | 16px                   | Scale content                                   |
+| `--breakpoint-m`  | `$breakpoint-m`  | ≥ 768px  | 24px                   | Scale content                                   |
+| `--breakpoint-l`  | `$breakpoint-l`  | ≥ 992px  | 24px                   | Scale content                                   |
+| `--breakpoint-xl` | `$breakpoint-xl` | ≥ 1248px | 24px, scales           | Scale padding                                   |
 [Table 1:Breakpoint tokens]|
+
+<Notification type="alert" label="Container width tokens have changed in HDS 2.0!" className="siteNotification">
+  Starting in HDS version 2.0, only the <code>container-width-xl</code> token is used as the maximum width of the content container. Other container width tokens are not used anymore - the content container will take all space available below the <code>content-width-xl</code> token. The rest of the tokens will are now deprecated and will be removed in a future update.
+</Notification>
+
+| CSS variable           | SASS variable         | PX value |
+| ---------------------- | --------------------- | -------: |
+| `--container-width-xl` | `$container-width-xl` | 1200px   |
+[Table 2:Container width tokens]|
 
 | CSS variable           | SASS variable         | PX value |
 | ---------------------- | --------------------- | -------: |
@@ -24,5 +35,4 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 | `--container-width-s`  | `$container-width-s`  | 544px    |
 | `--container-width-m`  | `$container-width-m`  | 720px    |
 | `--container-width-l`  | `$container-width-l`  | 944px    |
-| `--container-width-xl` | `$container-width-xl` | 1200px   |
-[Table 2:Container width tokens]|
+[Table 3:Container width tokens (deprecated)]|

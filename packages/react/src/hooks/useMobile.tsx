@@ -10,6 +10,7 @@ export const useMobile = (): boolean => {
     const updateState = () => setIsMobile(checkIfMobile());
 
     window.addEventListener('resize', updateState);
+    updateState();
 
     return () => window.removeEventListener('resize', updateState);
   }, []);

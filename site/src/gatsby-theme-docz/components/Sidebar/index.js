@@ -53,13 +53,10 @@ export const Sidebar = React.forwardRef((props, ref) => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                fontWeight: 'bold',
               }}
             >
-              <img
-                style={{ filter: 'invert(1)' }}
-                alt="GitHub release (latest SemVer)"
-                src="https://img.shields.io/github/v/release/City-of-Helsinki/helsinki-design-system?label=&style=for-the-badge&color=%23000"
-              />
+              V1.15.0
             </div>
           </Link>
         </div>

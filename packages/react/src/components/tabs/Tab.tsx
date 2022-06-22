@@ -56,6 +56,9 @@ export const Tab = ({ children, className, index, onClick, style }: TabProps) =>
     const isEnter = event.key === 'Enter' || event.keyCode === 13;
     const isSpace = event.key === ' ' || event.keyCode === 32;
     if (isEnter || isSpace) {
+      if (onClick) {
+        onClick();
+      }
       setActiveTab(index);
     }
   };

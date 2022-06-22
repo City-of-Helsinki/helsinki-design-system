@@ -114,6 +114,7 @@ exports[`<Navigation.Row /> spec renders the component 1`] = `
         </div>
       </div>
       <nav
+        aria-label="Main navigation"
         class="navigation subNav"
       />
     </div>
