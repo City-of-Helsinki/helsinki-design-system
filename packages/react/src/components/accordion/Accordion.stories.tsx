@@ -16,6 +16,7 @@ export default {
   },
   args: {
     heading: 'How to publish data?',
+    language: 'en',
     children: 'To publish your data, open your profile settings and click button "Publish".',
     style: { maxWidth: '360px' },
   },
@@ -23,13 +24,24 @@ export default {
 
 export const Default = (args) => <Accordion {...args} />;
 
+export const Small = (args) => <Accordion {...args} size="s" />;
+
+export const Medium = (args) => <Accordion {...args} size="m" />;
+
+export const Large = (args) => <Accordion {...args} size="l" />;
+
+export const WithoutCloseButton = (args) => <Accordion {...args} closeButton={false} />;
+WithoutCloseButton.storyName = 'Without close button';
+
 export const InitiallyOpen = (args) => <Accordion {...args} initiallyOpen />;
 InitiallyOpen.storyName = 'Initially open';
 
 export const CardAccordion = (args) => (
   <>
     <Accordion {...args} card />
-    <Accordion {...args} card border />
+    <Accordion {...args} card border size="s" />
+    <Accordion {...args} card border size="m" />
+    <Accordion {...args} card border size="l" />
   </>
 );
 CardAccordion.storyName = 'Card';
