@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { SearchInput } from './SearchInput';
+import { Button } from '../button';
 
 export default {
   component: SearchInput,
@@ -72,6 +73,61 @@ export const Default = (args) => {
 Default.args = {
   label: 'Search',
   helperText: 'Assistive text',
+  placeholder: 'Placeholder',
+};
+
+export const WithCustomSearchButton = (args) => {
+  const currentValue = useRef<string>('');
+
+  const onChange = (value: string) => {
+    console.log('Input value changed:', value);
+    currentValue.current = value;
+  };
+
+  const onSubmit = (string) => {
+    console.log('Search for:', string);
+  };
+
+  const doSearch = () => {
+    if (currentValue.current) console.log('Search:', currentValue.current);
+  };
+
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <style>
+        {`
+        .search-button {
+          margin-left: 10px;
+        }
+
+        @media only screen and (max-width: ${getComputedStyle(document.documentElement).getPropertyValue(
+          '--breakpoint-m',
+        )}) {
+          .search-input,
+          .search-button {
+            width: 100%;
+          }
+
+          .search-button {
+            margin-left: 0;
+            margin-top: 10px;
+          }
+        }
+      `}
+      </style>
+      <SearchInput
+        className="search-input"
+        {...args}
+        hideSearchButton
+        onSubmit={onSubmit}
+        onChange={onChange}
+        placeholder="Placeholder"
+      />
+      <Button className="search-button" onClick={doSearch}>
+        Search
+      </Button>
+    </div>
+  );
 };
 
 export const WithSuggestions = (args) => {
@@ -101,6 +157,7 @@ WithSuggestions.storyName = 'With suggestions';
 WithSuggestions.args = {
   label: 'Search for a fruit',
   helperText: 'Assistive text',
+  placeholder: 'Placeholder',
 };
 
 export const WithSuggestionsAndHighlighting = (args) => {
@@ -131,6 +188,7 @@ WithSuggestionsAndHighlighting.args = {
   label: 'Search for a fruit',
   helperText: 'Assistive text',
   highlightSuggestions: true,
+  placeholder: 'Placeholder',
 };
 
 export const WithSuggestionsSpinner = (args) => {
@@ -143,6 +201,10 @@ export const WithSuggestionsSpinner = (args) => {
     return suggestions;
   };
 
+  const onChange = (value: string) => {
+    console.log('input value changed:', value);
+  };
+
   const onSubmit = (value: string) => {
     console.log('Submitted value:', value);
   };
@@ -153,6 +215,7 @@ export const WithSuggestionsSpinner = (args) => {
       suggestionLabelField="value"
       getSuggestions={getSuggestions}
       onSubmit={onSubmit}
+      onChange={onChange}
     />
   );
 };
@@ -160,4 +223,5 @@ WithSuggestionsSpinner.storyName = 'With suggestions & spinner';
 WithSuggestionsSpinner.args = {
   label: 'Search for a fruit',
   helperText: 'Assistive text',
+  placeholder: 'Placeholder',
 };

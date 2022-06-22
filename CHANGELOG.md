@@ -6,6 +6,460 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.15.0] - May, 30, 2022
+
+### React Components
+
+#### Added
+
+- [Navigation] add ariaLabel property
+- [SideNavigation] add ariaLabel property
+
+#### Fixed
+
+- [Navigation] initializing of useMobile hook
+- [SideNavigation] Keyboard navigation on small screens
+- [Tabs] Tab OnClick callback is called also when a tab is selected with the keyboard
+
+### Design kit
+
+#### Changed
+
+- Updated HDS Sketch libraries to Sketch 88.1
+
+## [1.14.0] - May, 5, 2022
+
+### React Components
+
+#### Added
+
+- [Dialog] className prop for dialog action button container to enable customisation
+- [Link] ref prop to fix preloading content with Next.js framework
+- Added support for React 17
+
+#### Fixed
+
+- [Dialog] Wrapping of dialog action buttons on desktop
+
+### Design kit
+
+#### Changed
+
+- Updated HDS Sketch libraries to Sketch 86
+
+## [1.13.0] - Apr, 21, 2022
+
+### Core
+
+#### Added
+
+- Pagination
+
+### React Components
+
+#### Fixed
+
+- [Dialog] Prevent unnecessary re-rendering when content state changes
+
+### Design kit
+
+#### Added
+
+- New library: HDS Pagination
+- Includes symbols for a Pagination component
+
+#### Changed
+
+- Updated HDS Sketch libraries to Sketch 85 (85.1)
+- [Table] Removed smart layout from the Table Checkbox cell symbol (this allows hiding the Checkbox without changing the cell height)
+
+### Documentation
+
+#### Added
+
+- Documentation for the Pagination component
+
+## [1.12.0] - Mar, 22, 2022
+
+### Core
+
+#### Added
+
+- [Checkbox] Indeterminate state
+
+### React Components
+
+#### Added
+
+- [Checkbox] Indeterminate state
+- [Tabs] initiallyActiveTab property for setting initially active tab (default is the first tab)
+- [Tabs] Tab onClick property for adding callback for tab click
+
+#### Removed
+
+- Node engine restriction by replacing node-sass lib with sass
+
+### Design kit
+
+#### Added
+
+- [Form Components] Indeterminate state for the Checkbox component
+
+### Documentation
+
+#### Added
+
+- [Checkbox] Documentation for the indeterminate checkbox state
+
+## [1.11.1] - Mar, 8, 2022
+
+### Core
+
+#### Fixed
+
+- [Table] The header default background color
+
+## [1.11.0] - Feb, 23, 2022
+
+### Design Tokens
+
+#### Added
+
+- Box shadow design tokens
+
+### Core
+
+#### Added
+
+- [Koros] Dense property for rendering denser patterns
+- [Table] Add theme variable and a default value for table content cells' background-color
+- [Card, Notification] Add possibility to add a box-shadow to elevate component
+
+### React Components
+
+#### Added
+
+- Stepper
+- [Koros] Dense property for rendering denser patterns
+- [Table] ClassName property for table heading
+- [Select, Combobox] Add clear button to Select and Combobox in single select mode
+- [Card] Add possibility to customise heading aria-level
+- [Table] Add theme variable and a default value for table content cells' background-color
+- [Card, Dialog, Notification, Tooltip] Add possibility to add a box-shadow to elevate component
+
+#### Changed
+
+- [Select, Combobox] Set focus to input after the clear button is pressed
+
+#### Fixed
+
+- [ErrorSummary] Adds missing focus styles
+
+### Design kit
+
+#### Added
+
+- [Form Components] Multi-page form Stepper component
+- [Form Components] Multi-page form Stepper + heading templates
+- New library: HDS Shadow
+    - Includes three levels of shadow tokens; S, M and L
+    - **Please refer to the HDS token documentation before using shadows!**
+- [Koros] Dense koro variant
+- [Koros] Angled koro variant
+
+#### Changed
+
+- Updated HDS Sketch libraries to Sketch version 83.2
+- [Cards] An optional shadow to Card symbols
+- [Footer] Added a possibility to use the new dense koro variant
+- [Modals and Notifications] An optional shadow to Dialog symbols
+- [Modals and Notifications] An optional shadow to Notification (Toast) symbols
+- [Modals and Notifications] An optional shadow to Tooltip symbols
+- [Modals & Notifications] Changed Small Tooltip symbol smart layout alignment from Left to Center. This change makes it easier to use inside other components when the tooltip text is edited.
+
+#### Fixed
+
+- [Typography] Incorrect link colour of the Medium Regular Centered body text
+
+### Documentation
+
+#### Added
+
+- Multi-page form Stepper component documentation
+- Multi-page forms Pattern documentation
+- Box shadow token documentation
+- [Koros] Code and usage examples for the new dense koro variant
+- First draft of the inclusivity guidelines and best practices
+
+#### Changed
+
+- Set Fieldset, Number Input, Password Input, Phone Input, Time Input, and Toggle Button as stable components
+- Replace Playground stories knobs tab with controls
+
+#### Removed
+
+- Removed deprecated Storybook addon/knobs library. Removes knobs-tab from stories.
+
+## [1.10.0] - Jan, 31, 2022
+
+### Core
+
+#### Added
+
+- [Icons] Thumb icons
+
+#### Fixed
+
+- [TextInput, TextArea] Prevent rounded corners in iOS browsers
+
+### React
+
+#### Added
+
+- [Icons] Thumb icons
+
+#### Changed
+
+- [Tabs] Add support to use Tabs child components in Tabs namespace, for example, Tabs.TabList
+
+#### Fixed
+
+- [TextInput, TextArea] Prevent rounded corners in iOS browsers
+- [Footer] Back-to-top will focus on the first focusable element
+
+### Design kit
+
+#### Added
+
+- [Icons] Thumb icons
+  - Thumbs up
+  - Thumbs up filled
+  - Thumbs down
+  - Thumbs down filled
+
+#### Changed
+
+- Updated HDS Sketch libraries to Sketch 82 (82.1)
+
+### Documentation
+
+#### Added
+- [Icons] Thumb icons to the Visual assets documentation
+- [Koros] Guideline page on how to use Koro shapes
+
+#### Changed
+
+- [Tabs] Tabs child components use the Tabs namespace, for example, Tabs.TabList
+- Updated Roadmap section
+
+#### Fixed
+
+- [Koros] Remove confusing inline style rotate from example
+
+## [1.9.0] - Jan, 5, 2022
+
+### Core
+
+#### Added
+
+- [Koros] Added possibility to rotate Koros
+- [Search Input] Support for placeholder
+
+### React
+
+#### Added
+
+- [Koros] Added possibility to rotate Koros
+- [Search Input] Support for placeholder
+
+#### Changed
+
+- For local development of HDS React, restricted node version to supported versions 12-14
+
+### Design kit
+
+#### Changed
+
+- Updated HDS Sketch libraries to Sketch 81 (81.1)
+
+### Documentation
+
+#### Added
+
+- WP and Drupal notes to the developers’ Getting Started documentation
+- An example of asking the user’s gender in a form in the Form pattern documentation
+
+#### Changed
+
+- [Koros] Added an example of a rotated wave motif shape
+- [SearchInput] Added a placeholder text to all Playground and code examples
+
+#### Fixed
+
+- Resolved some critical dependency security threats for the new documentation site
+
+## [1.8.0] - Dec, 9, 2021
+
+### Core
+
+#### Added
+- [Icons] New icons
+  - 4 45 deg angled arrows
+  - Event
+  - Coffee
+  - Copy
+  - Restaurant
+  - Sitemap
+
+#### Fixed
+- [Buttons] Add active state to HDS buttons to add focus outline to Safari on click
+
+### React Components
+
+#### Added
+- [Icons] New icons
+  - 4 45 deg angled arrows
+  - Event
+  - Coffee
+  - Copy
+  - Restaurant
+  - Sitemap
+- [Search Input] Support for onChange property to listen to input value changes
+- [Search Input] Support hiding search button
+- [Tabs] Enable customisation through theme prop
+- [Dropdown] Add icon support for multi-select variants of Select and Combobox components
+
+#### Fixed
+- [Buttons] Add active state to HDS buttons to add focus outline to Safari on click
+- [Date Input] Fix previous and next month focus disappearing
+- [Search Input] Clicking suggestion triggers onSubmit
+- [Search Input] Removing selectedItem with an enter and a space keypress
+
+### Design kit
+
+**Added**
+- [Form Components] Multiselect (Select and Combobox) with icon variants
+- [Icons] New icons
+  - 4 45 deg angled arrows
+  - Event
+  - Coffee
+  - Copy
+  - Restaurant
+  - Sitemap
+- [Modals and Notifications] Added new arrow positions for Tooltip to better match the implementation. New arrow symbols allow setting the arrow closer to the edge of the Tooltip.
+- [Modals and Notifications] Examples of all possible arrow positions
+
+**Changed**
+- Updated HDS Sketch libraries to Sketch 80.1
+- [Modals and Notifications] Slightly altered the symbol structure of the internal Tooltip symbols
+- [Modals and Notifications] Renamed Above and Below Tooltips to Top and Bottom to better match terms used in the implementation
+- [Modals and Notifications] Swapped names of Left and Right Tooltips to better match terms used in the implementation
+
+### Documentation
+
+#### Added
+- New Icons: Icon set 12/2021
+- Example of custom-themed Tabs
+- Guidelines for using icons in Dropdown components
+
+## [1.7.1] - Nov, 29, 2021
+
+### React Components
+
+#### Fixed
+- [Table] Fixed duplicate id bug regarding table checkboxes
+
+### Documentation
+
+#### Fixed
+- Typo fixes
+- Fixed password input react storybook link
+
+## [1.7.0] - Nov, 25, 2021
+
+### React Components
+
+#### Added
+- Table
+- [Date Input] Support disabling dates with custom logic
+- [File Input] Support for tooltip
+
+#### Fixed
+- [Select] Accept null as component value
+- [Date Input] Fix Datepicker dates keyboard navigation when min or max date is set
+- [Linkbox] Pass custom className property to container element for easier styling
+
+### Design kit
+
+#### Added
+- [Logo] Added logo language versions and size variants (40px and 60px) for Swedish and Russian
+- [Tables] Symbols for table column sorting
+- [Tables] Symbols for row selection (checkbox) cells
+- [Tables] Symbols for empty header cells
+- [Tables] Symbols for row selection column (default and zebra)
+- [Tables] Detachable example tables for row selection
+
+#### Changed
+- Updated HDS Sketch libraries to Sketch version 80 (80.0)
+- [Logo] Changed the component name to have a 2 letter prefix for all logo language variants. Simplified the symbol structure: logo symbols now have only three (3) colour variants; Black, White and Brand colour. The colour cannot be overridden for Black and White logos. If you need a brand colour Logo, use the “Logo/Brand colour” symbol and override with the desired brand colour.
+- [Tables] Updated Table examples to show zebra colouring and selectable rows
+
+#### Removed
+- [Logo] Individual brand colour logo symbols. Use the new “Logo/Brand colour” symbol instead.
+
+### Documentation
+
+#### Added
+- Favicon documentation to the Visual assets section
+- [Tables] Documentation and examples of interactive (React) tables
+
+#### Changed
+- Updated Logo documentation to include the Russian language variant
+- Updated Roadmap
+- [Tables] Updated Table Playground examples to use React instead of HDS Core
+- [DateInput] Added a small note to the documentation about disabling DateInput dates
+
+## [1.6.0] - Oct, 28, 2021
+
+### React Components
+
+#### Fixed
+- [Notification] Animations not firing with some build configurations, often in production builds
+
+#### Added
+- [Koros] Calm variant of Koros
+
+### Core
+
+#### Added
+- [Table] Table component
+- [Koros] Calm variant of Koros
+
+### Design kit
+
+#### Added
+- [Tables] New Table symbols (new library file)
+  - Column symbols
+  - Cell symbols for custom tables
+  - Example table symbols
+- [Koros] M-sized Tyyni (Calm) variant
+- [Typography] Text styles for right aligned body text
+
+#### Changed
+- Updated HDS Sketch libraries to the Sketch version 78 (78.1)
+- [Koros] Clarified symbol layer naming in the override panel
+
+#### Removed
+- [Table] Marked old Table symbols as Deprecated. These will be removed in a future update
+
+### Documentation
+
+#### Added
+- [Table] Documentation for the Table component
+
+### Changed
+- [Form pattern] Updated form examples to explain required fields better
+
 ## [1.5.1] - Oct, 11, 2021
 
 ### React Components

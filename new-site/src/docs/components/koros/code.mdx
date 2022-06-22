@@ -1,0 +1,281 @@
+---
+slug: '/components/koros/code'
+title: 'Koros - Code'
+---
+
+import { Koros } from 'hds-react';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples 
+
+#### Default
+<Playground>
+
+```jsx
+<>
+<Koros type="basic" style={{marginBottom: 'var(--spacing-xs'}} aria-label="Basic koro example"/>
+<Koros type="beat" style={{marginBottom: 'var(--spacing-xs'}} />
+<Koros type="pulse" style={{marginBottom: 'var(--spacing-xs'}} />
+<Koros type="wave" style={{marginBottom: 'var(--spacing-xs'}} />
+<Koros type="storm" style={{marginBottom: 'var(--spacing-xs'}} />
+<Koros type="calm"/>
+</>
+```
+
+```html
+<div>
+<div class="hds-koros" style="margin-bottom: var(--spacing-xs)">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+    <defs>
+      <pattern id="korosBasic" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+        <path
+          transform="scale(5.3)"
+          d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
+        />
+      </pattern>
+    </defs>
+    <rect fill="url(#korosBasic)" width="100%" height="85" />
+  </svg>
+</div>
+<div class="hds-koros" style="margin-bottom: var(--spacing-xs)">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+    <defs>
+      <pattern id="korosBeat" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+      <path
+        transform="scale(5.3)"
+        d="M20,800H0V0c2.8,0,3.5,2.3,3.5,2.3l2.8,8.4c0.6,1.5,1.9,2.5,3.6,2.5c2.8,0,3.6-2.5,3.6-2.5s2.8-8.1,2.8-8.2 C17,1,18.3,0,20,0V800z"
+      />
+      </pattern>
+    </defs>
+    <rect fill="url(#korosBeat)" width="100%" height="85" />
+  </svg>
+</div>
+<div class="hds-koros" style="margin-bottom: var(--spacing-xs)">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+    <defs>
+      <pattern id="korosPulse" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+      <path
+        transform="scale(5.3)"
+        d="M0,800h20V0c-5.1,0-5.1,6.4-10,6.4S4.9,0,0,0V800z"
+      />
+      </pattern>
+    </defs>
+    <rect fill="url(#korosPulse)" width="100%" height="85" />
+  </svg>
+</div>
+<div class="hds-koros" style="margin-bottom: var(--spacing-xs)">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+    <defs>
+      <pattern id="korosWave" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+      <polygon
+        transform="scale(5.3)"
+        points="0,800 20,800 20,0 9.8,10.1 0,0 "
+      />
+      </pattern>
+    </defs>
+    <rect fill="url(#korosWave)" width="100%" height="85" />
+  </svg>
+</div>
+<div class="hds-koros" style="margin-bottom: var(--spacing-xs)">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+    <defs>
+      <pattern id="korosStorm" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+      <path
+        transform="scale(5.3)"
+        d="M20,800V0c-2.3,5.5-8.7,8.1-14.3,5.7C3.1,4.7,1.2,2.6,0,0v800H20z"
+      />
+      </pattern>
+    </defs>
+    <rect fill="url(#korosStorm)" width="100%" height="85" />
+  </svg>
+</div>
+<div class="hds-koros">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+    <defs>
+      <pattern id="korosCalm" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+      <path d="M788 0.279785H0V109.739H788V0.279785Z" />
+      </pattern>
+    </defs>
+    <rect fill="url(#korosCalm)" width="100%" height="85" />
+  </svg>
+</div>
+</div>
+```
+
+</Playground>
+
+#### Dense
+<Playground>
+
+```jsx
+<>
+<Koros dense type="basic" style={{marginBottom: 'var(--spacing-xs'}} />
+<Koros dense type="beat" style={{marginBottom: 'var(--spacing-xs'}} />
+<Koros dense type="pulse" style={{marginBottom: 'var(--spacing-xs'}} />
+<Koros dense type="wave" style={{marginBottom: 'var(--spacing-xs'}} />
+<Koros dense type="storm" style={{marginBottom: 'var(--spacing-xs'}} />
+<Koros dense type="calm"/>
+</>
+```
+
+```html
+<div>
+  <div class="hds-koros" style="margin-bottom: var(--spacing-xs)">
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+      <defs>
+        <pattern id="korosBasic" x="0" y="0" width="35" height="85" patternUnits="userSpaceOnUse">
+          <path
+            transform="scale(1.8)"
+            d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
+          />
+        </pattern>
+      </defs>
+      <rect fill="url(#korosBasic)" width="100%" height="85" />
+    </svg>
+  </div>
+  <div class="hds-koros" style="margin-bottom: var(--spacing-xs)">
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+      <defs>
+        <pattern id="korosBeat" x="0" y="0" width="35" height="85" patternUnits="userSpaceOnUse">
+        <path
+          transform="scale(1.8)"
+          d="M20,800H0V0c2.8,0,3.5,2.3,3.5,2.3l2.8,8.4c0.6,1.5,1.9,2.5,3.6,2.5c2.8,0,3.6-2.5,3.6-2.5s2.8-8.1,2.8-8.2 C17,1,18.3,0,20,0V800z"
+        />
+        </pattern>
+      </defs>
+      <rect fill="url(#korosBeat)" width="100%" height="85" />
+    </svg>
+  </div>
+  <div class="hds-koros" style="margin-bottom: var(--spacing-xs)">
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+      <defs>
+        <pattern id="korosPulse" x="0" y="0" width="35" height="85" patternUnits="userSpaceOnUse">
+        <path
+          transform="scale(1.8)"
+          d="M0,800h20V0c-5.1,0-5.1,6.4-10,6.4S4.9,0,0,0V800z"
+        />
+        </pattern>
+      </defs>
+      <rect fill="url(#korosPulse)" width="100%" height="85" />
+    </svg>
+  </div>
+  <div class="hds-koros" style="margin-bottom: var(--spacing-xs)">
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+      <defs>
+        <pattern id="korosWave" x="0" y="0" width="35" height="85" patternUnits="userSpaceOnUse">
+        <polygon
+          transform="scale(1.8)"
+          points="0,800 20,800 20,0 9.8,10.1 0,0 "
+        />
+        </pattern>
+      </defs>
+      <rect fill="url(#korosWave)" width="100%" height="85" />
+    </svg>
+  </div>
+  <div class="hds-koros" style="margin-bottom: var(--spacing-xs)">
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+      <defs>
+        <pattern id="korosStorm" x="0" y="0" width="35" height="85" patternUnits="userSpaceOnUse">
+        <path
+          transform="scale(1.8)"
+          d="M20,800V0c-2.3,5.5-8.7,8.1-14.3,5.7C3.1,4.7,1.2,2.6,0,0v800H20z"
+        />
+        </pattern>
+      </defs>
+      <rect fill="url(#korosStorm)" width="100%" height="85" />
+    </svg>
+  </div>
+  <div class="hds-koros">
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+    <defs>
+      <pattern id="korosCalm" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+      <path d="M788 0.279785H0V109.739H788V0.279785Z" />
+      </pattern>
+    </defs>
+    <rect fill="url(#korosCalm)" width="100%" height="85" />
+  </svg>
+</div>
+</div>
+```
+
+</Playground>
+
+### Angled
+<Playground>
+
+```jsx
+{() => {
+  const rootStyle = { '--koros-height': '85px', '--hero-height': '300px', '--hero-width': '100%' };
+  return (
+    <div
+      style={{
+        ...rootStyle,
+        backgroundColor: 'var(--color-silver-light)',
+        height: 'var(--hero-height)',
+        maxWidth: '100%',
+        overflow: 'hidden',
+        position: 'relative',
+        width: 'var(--hero-width)',
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: 'var(--color-coat-of-arms)',
+          clipPath: 'polygon(0 0, var(--hero-height) 0, 0 100%, 0% 100%)',
+          height: '100%',
+        }}
+      />
+      <Koros
+        style={{
+          fill: 'var(--color-coat-of-arms)',
+          left: 'calc(-1 * var(--koros-height))',
+          position: 'absolute',
+          top: 'var(--koros-height)',
+          transformOrigin: 'center',
+          width: 'calc(2 * var(--hero-height))',
+        }}
+        rotate="135deg"
+      />
+    </div>
+  );
+}}
+```
+
+```html
+<div style="--koros-height:85px; --hero-height:300px; --hero-width:500px; background-color: var(--color-silver-light); height: var(--hero-height); max-width: 100%; overflow: hidden; position: relative; width: var(--hero-width);">
+  <div style="background-color: var(--color-coat-of-arms); clip-path: polygon(0 0, var(--hero-height) 0, 0 100%, 0% 100%); height: 100%;"></div>
+  <div class="hds-koros hds-koros--135deg hds-custom-koros" style="fill: var(--color-coat-of-arms); left: calc(-1 * var(--koros-height)); position: absolute; top: var(--koros-height); transform-origin: center center; width: calc(2 * var(--hero-height)); transform: rotate(135deg) translateZ(0px);">
+   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
+     <defs>
+       <pattern id="korosBasic135deg" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
+         <path transform="scale(5.3)" d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z" />
+       </pattern>
+     </defs>
+     <rect fill="url(#korosBasic135deg)" width="100%" height="85" />
+   </svg>
+  </div>
+</div>
+```
+
+</Playground>
+
+### Packages
+| Package           | Included                      | Storybook link                                                                                                                      | Source link   |
+| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/core/?path=/story/components-koros--basic">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/koros">View source</Link> |
+| **HDS Core**      | <IconCheckCircleFill /> Yes     | <Link size="M" external href="/storybook/react/?path=/docs/components-koros--basic">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/koros">View source</Link> |
+
+### Properties
+Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/docs/components-koros--basic" external>React Storybook.</Link>
+
+| Property         | Description                                                  | Values                                                                           | Default value |
+| ---------------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------- | ------------- |
+| `dense`          | If set to true, the dense koro variant is used.              | `boolean`                                                                        | false         |
+| `flipHorizontal` | If set to true, the koro shape will be flipped horizontally. | `boolean`                                                                        | false         |
+| `rotate`         | Controls the rotation of the koro shape.                     | `"45deg"`, `"90deg"`, `"135deg"`, `"180deg"`, `"225deg"`, `"270deg"`, `"315deg"` | -             |
+| `type`           | Controls the type (shape) of the koro.                       | `"basic"`, `"beat"`, `"pulse"`, `"storm"`, `"wave"`, `"calm"`                    | `"basic"`     |

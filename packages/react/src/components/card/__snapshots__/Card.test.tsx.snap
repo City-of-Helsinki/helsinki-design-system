@@ -20,7 +20,7 @@ exports[`<Card /> spec renders with additional props and children 1`] = `
     >
       <div
         aria-level="2"
-        class="heading"
+        class="heading-m"
         role="heading"
       >
         Foo

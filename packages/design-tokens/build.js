@@ -119,4 +119,15 @@ Object.values({
     source: ['tokens/typography/line-height.json'],
     platforms: getPlatformConfig('line-height', 'typography'),
   }),
+
+  /* BOX SHADOW */
+
+  allBoxShadows: dictionary.extend({
+    source: ['tokens/shadow/*.json'],
+    platforms: getPlatformConfig('all', 'shadow'),
+  }),
+  boxShadow: dictionary.extend({
+    source: ['tokens/shadow/box-shadow.json'],
+    platforms: getPlatformConfig('box-shadow', 'shadow'),
+  }),
 }).forEach((item) => item.buildAllPlatforms());

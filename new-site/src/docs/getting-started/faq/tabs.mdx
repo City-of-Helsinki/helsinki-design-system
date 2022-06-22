@@ -1,0 +1,26 @@
+---
+slug: "/getting-started/faq/tabs"
+title: "Frequently asked questions"
+---
+
+import LeadParagraph from '../../../components/LeadParagraph';
+import Layout from '../../../components/layout'
+import PageTabs from '../../../components/PageTabs';
+
+# Frequently asked questions
+
+<LeadParagraph>
+  Here you will find frequently asked questions about HDS and answers to those questions. If you do not find an answer to your question on this page, you can always contact the HDS team for more information.
+</LeadParagraph>
+
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/">General</PageTabs.Tab>
+    <PageTabs.Tab href="/design">Design</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>
+
+export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

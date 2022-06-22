@@ -1,0 +1,16 @@
+---
+slug: '/components/tabs/accessibility'
+title: 'Tabs - Accessibility'
+---
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+### Pay attention to
+- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
+- The TabPanel must appear right below the TabList in the DOM tree. This means that the next focusable element after the TabList will be the tab's content.
+- While HDS Tabs are accessible, you must ensure that the content displayed in the TabPanel is also accessible.
+- HDS Tabs use manual activation. This means that when using tabs with a keyboard, each tab must be separately activated with Enter/Space, and they do not activate automatically. If you are creating custom tabs for your project, follow the same control scheme.

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import uniqueId from 'lodash.uniqueid';
 
 import { Button } from '../../button';
 import { Combobox } from './Combobox';
-import { IconFaceSmile } from '../../../icons';
+import { IconFaceSmile, IconLocation } from '../../../icons';
 
 type Option = { label: string };
 
@@ -43,7 +42,7 @@ function getRegionOptions() {
 export default {
   component: Combobox,
   title: 'Components/Dropdowns/Combobox',
-  decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '420px' }}>{storyFn()}</div>],
+  decorators: [(storyFn) => <div style={{ maxWidth: '420px' }}>{storyFn()}</div>],
   parameters: {
     controls: { expanded: true },
   },
@@ -52,6 +51,7 @@ export default {
     label: 'Element',
     helper: 'Choose an element',
     placeholder: 'Placeholder',
+    clearButtonAriaLabel: 'Clear selection',
     options,
     onBlur: action('onBlur'),
     onChange: (change) => action('onChange')(change),
@@ -61,6 +61,13 @@ export default {
 };
 
 export const Default = (args) => <Combobox {...args} />;
+
+export const WithClearButton = (args) => <Combobox {...args} />;
+WithClearButton.storyName = 'With clear button';
+WithClearButton.args = {
+  clearable: true,
+};
+WithClearButton.parameters = { loki: { skip: true } };
 
 export const Multiselect = (args) => <Combobox {...args} />;
 Multiselect.storyName = 'Multi-select';
@@ -152,6 +159,15 @@ DisabledOptions.storyName = 'With disabled options';
 
 export const Icon = (args) => <Combobox {...args} icon={<IconFaceSmile />} />;
 Icon.storyName = 'With icon';
+
+export const MultiselectWithIcon = (args) => <Combobox {...args} icon={<IconLocation />} />;
+MultiselectWithIcon.storyName = 'Multi-select with icon';
+MultiselectWithIcon.args = {
+  multiselect: true,
+  options: getRegionOptions(),
+};
+
+MultiselectWithIcon.parameters = { loki: { skip: true } };
 
 export const Tooltip = (args) => <Combobox {...args} />;
 Tooltip.storyName = 'With tooltip';

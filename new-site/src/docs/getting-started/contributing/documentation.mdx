@@ -1,0 +1,30 @@
+---
+slug: '/getting-started/contributing/documentation'
+title: 'Documentation'
+navTitle: 'Documentation'
+
+---
+
+import { Link } from 'hds-react';
+import LeadParagraph from '../../../components/LeadParagraph';
+
+# Contributing to the documentation
+
+<LeadParagraph>
+    Documentation is an essential part of HDS. In addition to component-specific documentation, HDS provides broader guidelines, instructions, and patterns for creating City of Helsinki digital services.
+</LeadParagraph>
+
+When contributing to documentation, there are a couple of ways of doing it.
+
+### Editing pages directly on the GitHub
+The easiest way to edit a page is with the Edit this page on Github link that appears at the bottom of every page. The link opens the specific Github page to edit the content and propose a change with a pull request.
+
+### Forking repository and setting up a local environment
+If you are planning regular or more comprehensive content updates, you will want to fork the repository and install some of the tools we use to build the website. This will create an easier workflow for you long term. Follow README in <Link size="M" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/site" external>documentation site package</Link> to get you started setting up local development environment.
+
+### General guidelines for writing documentation
+- HDS documentation is written in British English.
+- The audience of the documentation includes everyone at the City of Helsinki with the main focus on developers, designers, and product owners. Try to avoid technical jargon to keep documentation understandable for everyone.
+- HDS documentation aims to guide designers and developers and not restrict them. Most of the time the last word is left to the user of the design system. Keep this in mind - especially when writing component and token principles.
+- Documentation in Components and Design tokens sections always should have their counterpart both in design kit and implementation. HDS aims not to release documentation before implementation is released.
+- Documentation site styles take care of most of the accessibility issues. You mostly need to ensure that heading levels are used semantically (refer to [HDS typography documentation](/foundation/design-tokens/typography)) and external links are correctly visualized (you can use the HDS provided <Link size="M" href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/site/src/components/Link.js" external>Link component</Link>.

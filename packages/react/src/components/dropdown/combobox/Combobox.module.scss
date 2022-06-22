@@ -15,6 +15,10 @@
   display: flex;
 }
 
+.wrapper.wrapperWithMultiSelectAndIcon {
+  align-items: flex-start;
+}
+
 /**
  * TOGGLE BUTTON
  */
@@ -64,6 +68,14 @@
   // don't add additional right padding if toggle button is hidden
   &.noToggle {
     padding-right: var(--spacing-s);
+
+    &.withClearButton {
+      padding-right: calc(var(--spacing-l) + var(--icon-size));
+    }
+  }
+
+  &.withClearButton {
+    padding-right: calc(var(--spacing-2-xl) + var(--icon-size));
   }
 
   &::placeholder {
@@ -144,6 +156,24 @@
     &.adjustSpacing {
       margin-top: calc(var(--spacing-2-xs) * -1);
       padding: 0 var(--spacing-s);
+    }
+  }
+
+  .inputWithIcon.inputWithIcon {
+    padding-left: 0;
+  }
+
+  .multiselectIconAndInputWrapper {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+
+    &:not(:focus-within).hidden {
+      @extend %hiddenFromScreen;
+    }
+
+    .icon.adjustSpacingForIcon {
+      margin-top: calc(var(--spacing-2-xs) * -1);
     }
   }
 }

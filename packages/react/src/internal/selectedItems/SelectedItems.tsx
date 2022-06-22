@@ -155,6 +155,27 @@ const handleItemHiding = (
   }
 };
 
+type ClearButtonProps = {
+  onClear: () => void;
+  clearButtonAriaLabel: string;
+  toggleButtonHidden?: boolean;
+  onFocus?: () => void;
+};
+
+export const ClearButton = ({ toggleButtonHidden, onClear, clearButtonAriaLabel, onFocus }: ClearButtonProps) => {
+  return (
+    <button
+      type="button"
+      className={classNames(styles.clearButton, toggleButtonHidden && styles.noToggle)}
+      onClick={onClear}
+      aria-label={clearButtonAriaLabel}
+      onFocus={onFocus && onFocus}
+    >
+      <IconCrossCircle />
+    </button>
+  );
+};
+
 export const SelectedItems = <OptionType,>({
   activeIndex,
   className,
@@ -223,6 +244,7 @@ export const SelectedItems = <OptionType,>({
               className={styles.tag}
               id={tagId}
               labelProps={{ 'aria-labelledby': `${dropdownId}-label ${tagId}-label` }}
+              role="button"
               deleteButtonAriaLabel={replaceTokenWithValue(removeButtonAriaLabel, selectedItemLabel)}
               // remove delete button from focus order
               deleteButtonProps={{
@@ -239,6 +261,11 @@ export const SelectedItems = <OptionType,>({
                 onKeyDown: (event) => {
                   // some browsers navigate back when Backspace is pressed
                   if (event.key === 'Backspace') event.preventDefault();
+                  // Add support to remove an item with an enter or a space keypress
+                  else if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    onRemove(_selectedItem);
+                  }
                 },
                 onFocus: () => setActiveIndex(index),
               })}
@@ -256,11 +283,10 @@ export const SelectedItems = <OptionType,>({
       </div>
       {/* CLEAR BUTTON */}
       {clearable && (
-        <button
-          type="button"
-          className={classNames(styles.clearButton, toggleButtonHidden && styles.noToggle)}
-          onClick={onClear}
-          aria-label={clearButtonAriaLabel}
+        <ClearButton
+          toggleButtonHidden={toggleButtonHidden}
+          onClear={onClear}
+          clearButtonAriaLabel={clearButtonAriaLabel}
           onFocus={() => {
             // manually set the tabindex of the first selected item to "0",
             // when the clear button is focused, and the activeIndex is -1.
@@ -269,9 +295,7 @@ export const SelectedItems = <OptionType,>({
               (containerEl?.childNodes[0] as HTMLDivElement).setAttribute('tabindex', '0');
             }
           }}
-        >
-          <IconCrossCircle />
-        </button>
+        />
       )}
     </>
   );

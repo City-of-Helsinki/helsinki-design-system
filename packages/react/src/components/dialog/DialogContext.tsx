@@ -7,6 +7,7 @@ export type DialogContextProps = {
   scrollable?: boolean;
   close?: () => void;
   closeButtonLabelText?: string;
+  isReadyToShowDialog?: boolean;
 };
 
 export const DialogContext = React.createContext<DialogContextProps>({});

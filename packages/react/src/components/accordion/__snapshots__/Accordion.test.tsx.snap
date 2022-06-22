@@ -3,7 +3,7 @@
 exports[`<Accordion /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
-    class="accordion"
+    class="accordion m"
     id="accordion-1"
   >
     <div
@@ -47,12 +47,49 @@ exports[`<Accordion /> spec renders the component 1`] = `
     </div>
     <div
       aria-labelledby="accordion-1-heading"
-      class="accordionContent"
+      class="accordionContent contentWithCloseButton"
       id="accordion-1-content"
       role="region"
       style="display: none;"
     >
       Bar
+      <button
+        aria-label="Sulje Foo"
+        class="button supplementary theme-black size-small closeButton"
+        data-testid="accordion-1-closeButton"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Sulje
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            aria-hidden="true"
+            class="icon xs accordionButtonIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <path
+                d="M0 24h24V0H0z"
+              />
+              <path
+                d="M12 11.5l5 5 1.5-1.5L12 8.5 5.5 15 7 16.5z"
+                fill="currentColor"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
     </div>
   </div>
 </DocumentFragment>

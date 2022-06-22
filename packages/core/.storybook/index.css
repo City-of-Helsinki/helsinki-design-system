@@ -103,3 +103,8 @@ h4 {
 h5 {
   font-size: var(--fontsize-heading-xxs);
 }
+
+/* Hide args table for core, as there's no props */
+.sbdocs-content > :nth-child(3) {
+  display: none;
+}

@@ -45,6 +45,10 @@ export type SideNavigationProps = React.PropsWithChildren<{
    */
   id: string;
   /**
+   * aria-label for helping screen reader users to distinguish SideNavigation from other navigational components
+   */
+  ariaLabel?: string;
+  /**
    * Override or extend the styles applied to the component
    */
   style?: React.CSSProperties;
@@ -63,6 +67,7 @@ export const SideNavigation = ({
   className,
   defaultOpenMainLevels = [],
   id,
+  ariaLabel,
   style,
   theme,
   toggleButtonLabel,
@@ -73,6 +78,7 @@ export const SideNavigation = ({
   const [activeParentLevel, setActiveParentLevel] = React.useState<number>();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const isMobile = useMobile();
+  const shouldRenderMenu = !(isMobile && !mobileMenuOpen);
 
   const mainLevels = React.Children.map(children, (child, index) => {
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'MainLevel') {
@@ -126,6 +132,7 @@ export const SideNavigation = ({
       <nav
         className={classNames(styles.sideNavigation, customThemeClass, className)}
         id={id}
+        aria-label={ariaLabel}
         ref={container}
         style={style}
       >
@@ -143,16 +150,17 @@ export const SideNavigation = ({
         >
           {toggleButtonLabel}
         </Button>
-        <ul
-          {...{
-            className: classNames(styles.mainLevelList, mobileMenuOpen && styles.open),
-            'aria-label': toggleButtonLabel,
-            'aria-hidden': isMobile && !mobileMenuOpen,
-          }}
-          id={menuId}
-        >
-          {mainLevels}
-        </ul>
+        {shouldRenderMenu && (
+          <ul
+            {...{
+              className: classNames(styles.mainLevelList, mobileMenuOpen && styles.open),
+              'aria-label': toggleButtonLabel,
+            }}
+            id={menuId}
+          >
+            {mainLevels}
+          </ul>
+        )}
       </nav>
     </SideNavigationContext.Provider>
   );

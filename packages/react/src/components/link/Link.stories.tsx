@@ -130,7 +130,7 @@ export const inlineLinks = (args) => {
       <p style={{ fontSize: '14px' }}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        <Link {...args} external openInExternalDomainAriaLabel="Opens a different website">
+        <Link size="S" {...args} external openInExternalDomainAriaLabel="Opens a different website">
           Inline link
         </Link>
         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
@@ -140,7 +140,7 @@ export const inlineLinks = (args) => {
       <p style={{ fontSize: '16px' }}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        <Link {...args} size="M" external openInExternalDomainAriaLabel="Opens a different website">
+        <Link {...args} external openInExternalDomainAriaLabel="Opens a different website">
           Inline link
         </Link>
         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla

@@ -9,4 +9,4 @@ export default (element = document): HTMLElement[] =>
       'a, button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])',
     ),
     // filter out disabled elements
-  ].filter((el) => !el.hasAttribute('disabled'));
+  ].filter((el) => !el.hasAttribute('disabled') && el.offsetWidth > 0 && el.offsetHeight > 0);

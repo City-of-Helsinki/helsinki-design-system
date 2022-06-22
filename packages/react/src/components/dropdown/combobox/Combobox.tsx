@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-ignore */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable react/destructuring-assignment */
 import React, { useRef, useState, KeyboardEvent, FocusEvent, FocusEventHandler, useMemo, useCallback } from 'react';
 import { useCombobox, useMultipleSelection } from 'downshift';
@@ -12,7 +12,7 @@ import styles from './Combobox.module.scss';
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 import classNames from '../../../utils/classNames';
 import { IconAlertCircleFill, IconAngleDown } from '../../../icons';
-import { SelectedItems } from '../../../internal/selectedItems/SelectedItems';
+import { ClearButton, SelectedItems } from '../../../internal/selectedItems/SelectedItems';
 import { multiSelectReducer, onMultiSelectStateChange, SelectCustomTheme, SelectProps } from '../select';
 import { DROPDOWN_MENU_ITEM_HEIGHT, getIsInSelectedOptions } from '../dropdownUtils';
 import { DropdownMenu } from '../../../internal/dropdownMenu/DropdownMenu';
@@ -83,7 +83,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     catchEscapeKey,
     circularNavigation = false,
     className,
-    clearable = true,
+    clearable = props.multiselect,
     disabled = false,
     error,
     getA11ySelectionMessage = () => '',
@@ -121,6 +121,8 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
   const inputRef = useRef<HTMLInputElement>();
   // menu ref
   const menuRef = React.useRef<HTMLUListElement>();
+  // toggle button ref
+  const toggleButtonRef = React.useRef<HTMLButtonElement>(null);
   // whether active focus is within the dropdown
   const [hasFocus, setFocus] = useState<boolean>(false);
   // Tracks whether any combobox item is being clicked
@@ -181,6 +183,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     getToggleButtonProps,
     highlightedIndex,
     isOpen,
+    reset: resetCombobox,
     selectedItem,
     selectItem,
     closeMenu,
@@ -251,6 +254,8 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
       return changes;
     },
   });
+
+  const showClearButtonForSingleSelect = clearable && !props.multiselect && selectedItem;
 
   const setSelectedItems = (itemToBeSelected: OptionType) => {
     getIsInSelectedOptions(selectedItems, itemToBeSelected)
@@ -335,6 +340,54 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
   const inputAriaLabel =
     `${getLabelProps().id}${error ? ` ${id}-error` : ''}${helper ? ` ${id}-helper` : ''} ${getInputProps().id}`;
 
+  const renderInput = () => (
+    <input
+      {...getInputProps({
+        ...(invalid && { 'aria-invalid': true }),
+        ...(props.multiselect && {
+          ...getDropdownProps({
+            // Change Downshift's default behavior with space.
+            // Instead of typing a space character into the
+            // search input, it now selects an item without
+            // closing the dropdown menu.
+
+            // Our custom keyDown handler also blocks other
+            // dropdown key events when the menu is open. This
+            // would normally be done with the
+            // 'preventKeyAction' setting, but it would also
+            // block our custom handler from executing, which
+            // would break the special behavior we have
+            // implemented for space. We want to block other key
+            // actions in order to ensure that dropdown and
+            // input props don't conflict.
+            onKeyDown: handleMultiSelectInputKeyDown,
+            ref: inputRef,
+          }),
+        }),
+        type: 'text',
+        disabled,
+        required,
+        role: getComboboxProps().role,
+        'aria-expanded': getComboboxProps()['aria-expanded'],
+        'aria-haspopup': getComboboxProps()['aria-haspopup'],
+        'aria-owns': getComboboxProps()['aria-owns'],
+        'aria-labelledby': inputAriaLabel,
+        'aria-describedby': customAriaDescribedBy,
+      })}
+      placeholder={placeholder}
+      className={classNames(
+        styles.input,
+        !isInputVisible && styles.hidden,
+        !showToggleButton && styles.noToggle,
+        hasFocus && selectedItems.length > 0 && styles.adjustSpacing,
+        props.icon && props.multiselect && styles.inputWithIcon,
+        showClearButtonForSingleSelect && styles.withClearButton,
+      )}
+      autoCorrect="off"
+      autoComplete="off"
+    />
+  );
+
   return (
     <div
       className={classNames(
@@ -394,7 +447,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
         onFocus={ignoreFocusHandlerWhenClickingItem(handleWrapperFocus)}
         onBlur={ignoreFocusHandlerWhenClickingItem(handleWrapperBlur)}
         onClick={handleWrapperClick}
-        className={classNames(styles.wrapper)}
+        className={classNames(styles.wrapper, props.multiselect && props.icon && styles.wrapperWithMultiSelectAndIcon)}
         ref={getComboboxProps().ref}
       >
         {/* SELECTED ITEMS */}
@@ -410,6 +463,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
             onClear={() => {
               reset();
               setInputValue('');
+              toggleButtonRef.current.focus();
             }}
             onRemove={removeSelectedItem}
             optionLabelField={optionLabelField}
@@ -421,56 +475,25 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
             toggleButtonHidden={!showToggleButton}
           />
         )}
-        {/* icons are only supported by the single select combobox */}
         {props.multiselect === false && props.icon && (
           <span className={styles.icon} aria-hidden>
             {props.icon}
           </span>
         )}
         {/* FILTER INPUT */}
-        <input
-          {...getInputProps({
-            ...(invalid && { 'aria-invalid': true }),
-            ...(props.multiselect && {
-              ...getDropdownProps({
-                // Change Downshift's default behavior with space.
-                // Instead of typing a space character into the
-                // search input, it now selects an item without
-                // closing the dropdown menu.
-
-                // Our custom keyDown handler also blocks other
-                // dropdown key events when the menu is open. This
-                // would normally be done with the
-                // 'preventKeyAction' setting, but it would also
-                // block our custom handler from executing, which
-                // would break the special behavior we have
-                // implemented for space. We want to block other key
-                // actions in order to ensure that dropdown and
-                // input props don't conflict.
-                onKeyDown: handleMultiSelectInputKeyDown,
-                ref: inputRef,
-              }),
-            }),
-            type: 'text',
-            disabled,
-            required,
-            role: getComboboxProps().role,
-            'aria-expanded': getComboboxProps()['aria-expanded'],
-            'aria-haspopup': getComboboxProps()['aria-haspopup'],
-            'aria-owns': getComboboxProps()['aria-owns'],
-            'aria-labelledby': inputAriaLabel,
-            'aria-describedby': customAriaDescribedBy,
-          })}
-          placeholder={placeholder}
-          className={classNames(
-            styles.input,
-            !isInputVisible && styles.hidden,
-            !showToggleButton && styles.noToggle,
-            hasFocus && selectedItems.length > 0 && styles.adjustSpacing,
-          )}
-          autoCorrect="off"
-          autoComplete="off"
-        />
+        {props.multiselect && props.icon ? (
+          <div className={classNames(styles.multiselectIconAndInputWrapper, !isInputVisible && styles.hidden)}>
+            <span
+              className={classNames(styles.icon, hasFocus && selectedItems.length > 0 && styles.adjustSpacingForIcon)}
+              aria-hidden
+            >
+              {props.icon}
+            </span>
+            {renderInput()}
+          </div>
+        ) : (
+          renderInput()
+        )}
         {/* TOGGLE BUTTON */}
         <button
           type="button"
@@ -480,10 +503,21 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
             'aria-label': `${label}: ${toggleButtonAriaLabel}`,
             'aria-expanded': isOpen,
             ...(invalid && { 'aria-invalid': true }),
+            ref: toggleButtonRef,
           })}
         >
           <IconAngleDown className={styles.angleIcon} aria-hidden />
         </button>
+        {showClearButtonForSingleSelect && (
+          <ClearButton
+            toggleButtonHidden={!showToggleButton}
+            onClear={() => {
+              resetCombobox();
+              toggleButtonRef.current.focus();
+            }}
+            clearButtonAriaLabel={props.clearButtonAriaLabel}
+          />
+        )}
         {/* MENU */}
         <DropdownMenu<OptionType>
           getItemProps={(item, index, selected, optionDisabled, virtualRow) =>

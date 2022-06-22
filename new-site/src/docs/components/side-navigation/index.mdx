@@ -1,0 +1,256 @@
+---
+slug: '/components/side-navigation'
+title: 'SideNavigation'
+navTitle: 'SideNavigation'
+---
+
+import { SideNavigation, IconHome, IconMap, IconCogwheel } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+export const SideNavExample = () => {
+  const [active, setActive] = React.useState('/archive');
+  const setActivePage = (e) => {
+    e.preventDefault();
+    setActive(e.target.getAttribute('href'));
+  }
+  return (<div
+    style={{
+      backgroundColor: '#f5f5f5',
+      display: 'grid',
+    }}
+  >
+    <div
+      style={{
+        height: '100%',
+        maxWidth: '400px'
+      }}
+    >
+      <SideNavigation
+        defaultOpenMainLevels={[]}
+        id="side-navigation"
+        toggleButtonLabel="Navigate to page"
+      >
+        <SideNavigation.MainLevel
+          id="#main-level-1"
+          label="Events"
+        >
+          <SideNavigation.SubLevel
+            href="/events"
+            active={active === '/events'}
+            id="sub-level-1"
+            label="All events"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/archive"
+            active={active === '/archive'}
+            id="sub-level-2"
+            label="Archive"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/new-event"
+            active={active === '/new-event'}
+            id="sub-level-3"
+            label="Create a new event"
+            onClick={setActivePage}
+          />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel
+          id="main-level-2"
+          label="Events on map"
+        >
+          <SideNavigation.SubLevel
+            href="/map"
+            active={active === '/map'}
+            id="sub-level-4"
+            label="Map"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/edit-event-locations"
+            active={active === '/edit-event-locations'}
+            id="sub-level-5"
+            label="Edit event locations"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/new-location"
+            active={active === '/new-location'}
+            id="sub-level-6"
+            label="Create a new location"
+            onClick={setActivePage}
+          />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel
+          href="/settings"
+          active={active === '/settings'}
+          id="main-level-3"
+          label="Settings"
+          onClick={setActivePage}
+        />
+        <SideNavigation.MainLevel
+          external
+          href="https://tapahtumat.hel.fi/"
+          openInNewTab
+          openInNewTabAriaLabel="Opens in a new tab."
+          openInExternalDomainAriaLabel="Opens a different website."
+          id="main-level-4"
+          label="Tapahtumat.hel.fi"
+          openInExternalDomainAriaLabel="Opens a different website"
+          withDivider
+        />
+      </SideNavigation>
+    </div>
+  </div>);
+};
+
+<PlaygroundPreview>
+  <SideNavExample />
+</PlaygroundPreview>
+
+### Principles
+- **It is strongly recommended to always include the [main (top) navigation component](/components/navigation) in your service.**
+  - It is allowed to use the side navigation without the top navigation. However, please note that the top navigation includes important features such as language selection and login. If you rely on the side navigation only, you need to provide these functionalities somewhere else in the user interface.
+- If you use both main (top) and side navigation, do not repeat the same navigation items in both of them.
+- Always position the side navigation to the left-hand side of the page. Keep the navigation in place so the user can always easily locate it.
+- Keep navigation menu link labels clear and concise. Prefer max 1-2 word long labels. Avoid starting multiple menu link labels with the same word.
+- The side navigation allows the use of icons for the first-level links.
+  - If icons are used, all first-level links should have an icon.
+  - Pay attention to the icon choices. The icons should be easily recognisable and not used for decorative purposes only.
+  - The second-level links and external links must not include an icon.
+  - Labels are always required even if icons are used. Do not create icon-only navigations.
+- When including external links in the side navigation, follow guidelines of the [HDS Link component documentation](/components/link).
+
+#### When to use a side navigation?
+- **Do use the Side navigation when**
+  - the service has more than three (3) levels in its navigation hierarchy
+  - the user needs to be able to easily scan through and navigate between pages of a specific level (e.g. admin interfaces or documentation sites)
+  - you are uncertain of the number of the navigation items and you need room for growth and changes
+- **Don't use the Side navigation when**
+  - you need space for your content (the side navigation uses a large portion of the content area)
+  - your service has a low amount of navigation items and only one level deep navigation hierarchy
+
+### Variations
+
+#### Default
+The default side navigation has support for two (2) levels of navigation, icons, external links, and a divider to create logical groups for the navigation items.
+
+<PlaygroundPreview>
+  <SideNavExample />  
+</PlaygroundPreview>
+
+#### With icons
+Icons are allowed to be used with the main level navigation items and accordions. The second-level navigation items do not have icon support. Also, icons are not visible in the mobile side navigation variant.
+
+export const SideNavIconsExample = () =>  {
+  const [active, setActive] = React.useState('/archive');
+  const setActivePage = (e) => {
+    e.preventDefault();
+    setActive(e.target.getAttribute('href'));
+  }
+  return (<div
+    style={{
+      backgroundColor: '#f5f5f5',
+      display: 'grid',
+    }}
+  >
+    <div
+      style={{
+        height: '100%',
+        maxWidth: '400px'
+      }}
+    >
+      <SideNavigation
+        defaultOpenMainLevels={[]}
+        id="side-navigation-icons"
+        toggleButtonLabel="Navigate to page"
+      >
+        <SideNavigation.MainLevel
+          icon={<IconHome aria-hidden />}
+          id="main-level-icons-1"
+          label="Events"
+        >
+          <SideNavigation.SubLevel
+            href="/events"
+            id="sub-level-icons-1"
+            active={active === '/all-events'}
+            label="All events"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/archive"
+            id="sub-level-icons-2"
+            active={active === '/archive'}
+            label="Archive"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/new-event"
+            id="sub-level-icons-3"
+            active={active === '/new-event'}
+            label="Create a new event"
+            onClick={setActivePage}
+          />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel
+          icon={<IconMap aria-hidden />}
+          id="main-level-icons-2"
+          label="Events on map"
+        >
+          <SideNavigation.SubLevel
+            href="/map"
+            id="sub-level-icons-4"
+            active={active === '/map'}
+            label="Map"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/edit-event-locations"
+            id="sub-level-icons-5"
+            active={active === '/edit-event-locations'}
+            label="Edit event locations"
+            onClick={setActivePage}
+          />
+          <SideNavigation.SubLevel
+            href="/new-location"
+            id="sub-level-6"
+            active={active === '/new-location'}
+            label="Create a new location"
+            onClick={setActivePage}
+          />
+        </SideNavigation.MainLevel>
+        <SideNavigation.MainLevel
+          href="/settings"
+          icon={<IconCogwheel aria-hidden />}
+          id="main-level-icons-3"
+          active={active === '/settings'}
+          label="Settings"
+          onClick={setActivePage}
+        />
+        <SideNavigation.MainLevel
+          external
+          href="https://tapahtumat.hel.fi/"
+          openInNewTab
+          openInNewTabAriaLabel="Opens in a new tab."
+          openInExternalDomainAriaLabel="Opens a different website."
+          id="main-level-icons-4"
+          label="Tapahtumat.hel.fi"
+          openInExternalDomainAriaLabel="Opens a different website"
+          withDivider
+        />
+      </SideNavigation>
+    </div>
+  </div>);
+};
+
+<PlaygroundPreview>
+  <SideNavIconsExample />
+</PlaygroundPreview>

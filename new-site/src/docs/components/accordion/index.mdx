@@ -1,0 +1,64 @@
+---
+slug: '/components/accordion'
+title: 'Accordion'
+navTitle: 'Accordion'
+---
+
+import { Accordion } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+<PlaygroundPreview>
+  <Accordion heading="How to publish data?" style={{ maxWidth: '360px' }}>
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+</PlaygroundPreview>
+
+### Principles
+
+- Use accordions to allow the user to quickly glance at the information and then choose to open sections that are interesting to them.
+- **Accordions must be given a header that describes the accordion content.** This header also acts as the label for the expand button. The header level can be chosen depending on the structure of the page.
+- **Do not put essential or must-read information inside accordions.** If the user is expected to open all of the accordions while using the service, then it is likely that the information should not be inside accordions.
+  - Accordions work well when the user usually needs only part of the information. You may also consider placing parts of lower importance inside accordions while the most important parts are always visible.
+- Do not use accordions to create step-by-step forms. You must not expect that the user opens all accordions in a specific order.
+- It is recommended to have accordions closed when the page is loaded.
+  - If you need to have the accordion initially open, you can use the `initiallyOpen` property to achieve this.
+  - Having an accordion initially open could be needed e.g. when the user returns to a page and you want to retain accordions' states.
+  - Accordions should initially be closed when the page is loaded.
+- Expanding or closing the accordion should only affect the related accordion area. You also should not auto-close or auto-open accordions.
+
+### Variations
+
+#### Default
+
+Basic HDS Accordions provide two different visuals to choose from. These implementations are easy to take into use if you do not need any special functionality or styling.
+
+This style is visually less distracting and it works well when there are multiple accordions one below another or nearby.
+
+<PlaygroundPreview>
+  <Accordion heading="How to publish data?" style={{ maxWidth: '360px' }}>
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+</PlaygroundPreview>
+
+#### With a card
+
+You can also use HDS Cards as a container for your Accordions. Cards offer the same customizability options as default HDS Cards. To learn more about Cards and their customization, refer to [HDS Card documentation](/components/card).
+
+If you have multiple accordions one below another or many accordions in the same view, consider using the visually more light [default styling variant](#default-accordion) instead of this one.
+
+<PlaygroundPreview>
+  <Accordion card border heading="How to publish data?" style={{ maxWidth: '360px' }}>
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+</PlaygroundPreview>
+
+#### Custom accordion
+
+If the basic accordion components do not fit your needs, you can build a custom accordion by using HDS provided accordion elements.

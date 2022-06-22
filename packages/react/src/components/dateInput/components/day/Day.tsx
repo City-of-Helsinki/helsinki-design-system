@@ -6,8 +6,6 @@ import isBefore from 'date-fns/isBefore';
 import isSameDay from 'date-fns/isSameDay';
 import isToday from 'date-fns/isToday';
 import startOfMonth from 'date-fns/startOfMonth';
-import endOfDay from 'date-fns/endOfDay';
-import startOfDay from 'date-fns/startOfDay';
 
 import { DatePickerContext } from '../../context/DatePickerContext';
 import cn from '../../../../utils/classNames';
@@ -28,22 +26,21 @@ export const Day = ({ day }: DayProps) => {
   const {
     focusedDate,
     currentMonth,
+    currentMonthAvailableDays,
     selectedDate,
     setFocusedDate,
     locale,
     onDayClick,
     handleKeyboardNavigation,
-    minDate,
-    maxDate,
   } = React.useContext(DatePickerContext);
   const dayRef = React.useRef<HTMLButtonElement>();
   const isPreviousMonth = isBefore(day, startOfMonth(currentMonth));
   const isNextMonth = isAfter(day, endOfMonth(currentMonth));
   const isOutsideCurrentMonth = isPreviousMonth || isNextMonth;
-  const isBeforeMinDate = isBefore(day, startOfDay(minDate));
-  const isAfterMaxDate = isAfter(day, endOfDay(maxDate));
   const isHidden = isOutsideCurrentMonth;
-  const isDisabled = isOutsideCurrentMonth || isBeforeMinDate || isAfterMaxDate;
+  const dayNumber = day.getDate();
+  const isAvailable = currentMonthAvailableDays.includes(dayNumber);
+  const isDisabled = isOutsideCurrentMonth || !isAvailable;
   const isInteractive = onDayClick && !isDisabled;
 
   // Select the HTML element based on interactivity
@@ -55,7 +52,11 @@ export const Day = ({ day }: DayProps) => {
     focusedDate &&
     !isBefore(focusedDate, startOfMonth(currentMonth)) &&
     !isAfter(focusedDate, endOfMonth(currentMonth));
-  if ((!hasFocusedDate && day.getDate() === 1) || (hasFocusedDate && isSameDay(day, focusedDate))) {
+
+  if (
+    (!hasFocusedDate && (dayNumber === 1 || dayNumber === currentMonthAvailableDays[0])) ||
+    (hasFocusedDate && isSameDay(day, focusedDate))
+  ) {
     tabIndex = 0;
   }
 

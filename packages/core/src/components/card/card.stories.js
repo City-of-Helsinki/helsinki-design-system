@@ -5,7 +5,7 @@ export default {
 };
 
 const body = `<div class="hds-card__body">
-    <div class="hds-card__heading" role="heading" aria-level="2">Card</div>
+    <div class="heading-m" role="heading" aria-level="2">Card</div>
     <div class="hds-card__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
   </div>`;
 
@@ -18,6 +18,10 @@ export const Empty = () => `
   <br>
   <br>
   <div class="hds-card hds-card--border" role="region"></div>
+`;
+
+export const WithBoxShadow = () => `
+  <div class="hds-card hds-card--box-shadow" role="region"></div>
 `;
 
 export const TextHeading = () => `

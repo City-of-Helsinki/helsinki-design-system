@@ -14,6 +14,7 @@ export const Default = () => `
         id="example"
         class="hds-search-input__input"
         type="text"
+        placeholder="Placeholder"
       />
       <div class="hds-search-input__buttons">
         <button

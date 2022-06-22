@@ -1,9 +1,7 @@
 import React from 'react';
 
+import { LoadingSpinner } from '../loadingSpinner';
 import { Tabs } from './Tabs';
-import { TabList } from './TabList';
-import { Tab } from './Tab';
-import { TabPanel } from './TabPanel';
 
 export default {
   component: Tabs,
@@ -23,54 +21,143 @@ export default {
 
 export const Default = () => (
   <Tabs>
-    <TabList className="example-tablist">
-      <Tab>Daycare</Tab>
-      <Tab>Pre-school</Tab>
-      <Tab>Basic education</Tab>
-      <Tab>Upper secondary</Tab>
-      <Tab>University</Tab>
-    </TabList>
-    <TabPanel>Daytime care for people who cannot be fully independent, such as children or elderly people.</TabPanel>
-    <TabPanel>
+    <Tabs.TabList className="example-tablist">
+      <Tabs.Tab>Daycare</Tabs.Tab>
+      <Tabs.Tab>Pre-school</Tabs.Tab>
+      <Tabs.Tab>Basic education</Tabs.Tab>
+      <Tabs.Tab>Upper secondary</Tabs.Tab>
+      <Tabs.Tab>University</Tabs.Tab>
+    </Tabs.TabList>
+    <Tabs.TabPanel>
+      Daytime care for people who cannot be fully independent, such as children or elderly people.
+    </Tabs.TabPanel>
+    <Tabs.TabPanel>
       A pre-school is an educational establishment offering early childhood education to children before they begin
       compulsory education at primary school.
-    </TabPanel>
-    <TabPanel>
+    </Tabs.TabPanel>
+    <Tabs.TabPanel>
       The objective of basic education in Finland is to support pupils&#39; growth towards humanity and ethically
       responsible membership of society.
-    </TabPanel>
-    <TabPanel>
+    </Tabs.TabPanel>
+    <Tabs.TabPanel>
       Upper secondary school studies last three to four years, preparing the students for the matriculation examination.
-    </TabPanel>
-    <TabPanel>
+    </Tabs.TabPanel>
+    <Tabs.TabPanel>
       A high-level educational institution in which students study for degrees and academic research is done.
-    </TabPanel>
+    </Tabs.TabPanel>
   </Tabs>
 );
 
 export const Small = () => (
   <Tabs small>
-    <TabList className="example-tablist">
-      <Tab>Daycare</Tab>
-      <Tab>Pre-school</Tab>
-      <Tab>Basic education</Tab>
-      <Tab>Upper secondary</Tab>
-      <Tab>University</Tab>
-    </TabList>
-    <TabPanel>Daytime care for people who cannot be fully independent, such as children or elderly people.</TabPanel>
-    <TabPanel>
+    <Tabs.TabList className="example-tablist">
+      <Tabs.Tab>Daycare</Tabs.Tab>
+      <Tabs.Tab>Pre-school</Tabs.Tab>
+      <Tabs.Tab>Basic education</Tabs.Tab>
+      <Tabs.Tab>Upper secondary</Tabs.Tab>
+      <Tabs.Tab>University</Tabs.Tab>
+    </Tabs.TabList>
+    <Tabs.TabPanel>
+      Daytime care for people who cannot be fully independent, such as children or elderly people.
+    </Tabs.TabPanel>
+    <Tabs.TabPanel>
       A pre-school is an educational establishment offering early childhood education to children before they begin
       compulsory education at primary school.
-    </TabPanel>
-    <TabPanel>
+    </Tabs.TabPanel>
+    <Tabs.TabPanel>
       The objective of basic education in Finland is to support pupils&#39; growth towards humanity and ethically
       responsible membership of society.
-    </TabPanel>
-    <TabPanel>
+    </Tabs.TabPanel>
+    <Tabs.TabPanel>
       Upper secondary school studies last three to four years, preparing the students for the matriculation examination.
-    </TabPanel>
-    <TabPanel>
+    </Tabs.TabPanel>
+    <Tabs.TabPanel>
       A high-level educational institution in which students study for degrees and academic research is done.
-    </TabPanel>
+    </Tabs.TabPanel>
   </Tabs>
 );
+
+export const WithCustomTheme = () => {
+  const theme = {
+    '--tab-color': 'var(--color-black-90)',
+    '--tab-active-border-color': 'var(--color-metro)',
+  };
+
+  return (
+    <Tabs theme={theme}>
+      <Tabs.TabList className="example-tablist">
+        <Tabs.Tab>Daycare</Tabs.Tab>
+        <Tabs.Tab>Pre-school</Tabs.Tab>
+        <Tabs.Tab>Basic education</Tabs.Tab>
+        <Tabs.Tab>Upper secondary</Tabs.Tab>
+        <Tabs.Tab>University</Tabs.Tab>
+      </Tabs.TabList>
+      <Tabs.TabPanel>
+        Daytime care for people who cannot be fully independent, such as children or elderly people.
+      </Tabs.TabPanel>
+      <Tabs.TabPanel>
+        A pre-school is an educational establishment offering early childhood education to children before they begin
+        compulsory education at primary school.
+      </Tabs.TabPanel>
+      <Tabs.TabPanel>
+        The objective of basic education in Finland is to support pupils&#39; growth towards humanity and ethically
+        responsible membership of society.
+      </Tabs.TabPanel>
+      <Tabs.TabPanel>
+        Upper secondary school studies last three to four years, preparing the students for the matriculation
+        examination.
+      </Tabs.TabPanel>
+      <Tabs.TabPanel>
+        A high-level educational institution in which students study for degrees and academic research is done.
+      </Tabs.TabPanel>
+    </Tabs>
+  );
+};
+
+export const WithCustomOnClickAction = () => {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const content = {
+    education: 'Daytime care for people who cannot be fully independent, such as children or elderly people.',
+    university:
+      'The objective of basic education in Finland is to support pupils&#39; growth towards humanity and ethically responsible membership of society.',
+  };
+
+  const LoadingIndicator = () => (
+    <div style={{ alignItems: 'center', display: 'flex', gap: '1rem' }}>
+      <LoadingSpinner
+        loadingText="Tab content is loading"
+        loadingFinishedText="The tab content loading was finished"
+        small
+      />
+      <span>Tab content is loading</span>
+    </div>
+  );
+
+  const mockLoading = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+  };
+
+  const onTabClick = () => {
+    mockLoading();
+  };
+
+  React.useEffect(() => {
+    mockLoading();
+  }, []);
+
+  return (
+    <Tabs initiallyActiveTab={0}>
+      <Tabs.TabList className="example-tablist">
+        <Tabs.Tab onClick={() => onTabClick()}>Basic education</Tabs.Tab>
+        <Tabs.Tab onClick={() => onTabClick()}>University</Tabs.Tab>
+      </Tabs.TabList>
+      <Tabs.TabPanel>{isLoading ? <LoadingIndicator /> : content.education}</Tabs.TabPanel>
+      <Tabs.TabPanel>{isLoading ? <LoadingIndicator /> : content.university}</Tabs.TabPanel>
+    </Tabs>
+  );
+};
+
+WithCustomOnClickAction.parameters = { loki: { skip: true } };

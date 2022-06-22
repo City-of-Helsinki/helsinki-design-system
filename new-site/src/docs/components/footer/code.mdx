@@ -1,0 +1,159 @@
+---
+slug: '/components/footer/code'
+title: 'Footer - Code'
+---
+
+import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok } from 'hds-react';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples
+
+#### Default
+<Playground>
+
+
+```jsx
+ <Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+    </Footer.Navigation>
+    <Footer.Utilities backToTopLabel="Back to top">
+        <Footer.SoMe>
+          <Footer.Item icon={<IconFacebook />} />
+          <Footer.Item icon={<IconTwitter />} />
+          <Footer.Item icon={<IconInstagram />} />
+          <Footer.Item icon={<IconYoutube />} />
+          <Footer.Item icon={<IconTiktok />} />
+        </Footer.SoMe>
+        <Footer.Item label="Contact us" />
+        <Footer.Item label="Give feedback" />
+      </Footer.Utilities>
+      <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+        <Footer.Item label="Link" />
+        <Footer.Item label="Link" />
+        <Footer.Item label="Link" />
+        <Footer.Item label="Link" />
+        <Footer.Item label="Link" />
+      </Footer.Base>
+  </Footer>
+```
+
+</Playground>
+
+
+
+### Color variations
+<Playground>
+
+
+```jsx
+<>
+<Footer title="Helsinki Design System" footerAriaLabel="HDS Footer">
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+    </Footer.Navigation>
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+    </Footer.Base>
+  </Footer>
+  <br />
+  <Footer title="Helsinki Design System" theme="dark" footerAriaLabel="HDS Footer">
+    <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+        <Footer.Item label="Item" />
+    </Footer.Navigation>
+    <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+      <Footer.Item label="Link" />
+    </Footer.Base>
+</Footer>
+</>
+```
+
+
+</Playground>
+
+### Navigation section variations
+<Playground>
+
+
+```jsx
+<>
+<Footer title="Default" footerAriaLabel="HDS Footer">
+  <Footer.Navigation navigationAriaLabel="HDS Footer navigation">
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+  </Footer.Navigation>
+</Footer>
+<br />
+<Footer title="Minimal" footerAriaLabel="HDS Footer">
+  <Footer.Navigation variant="minimal" navigationAriaLabel="HDS Footer navigation">
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+      <Footer.Item label="Item" />
+  </Footer.Navigation>
+</Footer>
+<br />
+<Footer title="Sitemap" footerAriaLabel="HDS Footer">
+  <Footer.Navigation variant="sitemap" navigationAriaLabel="HDS Footer navigation">
+    {[1, 2, 3, 4].map((key) =>
+       <Footer.ItemGroup key={key}>
+          <Footer.Item label="Item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+          <Footer.Item subItem label="Sub item" />
+      </Footer.ItemGroup>
+    )}
+  </Footer.Navigation>
+</Footer>
+<br />
+<Footer title="Hidden" footerAriaLabel="HDS Footer" />
+</>
+```
+
+
+
+</Playground>
+
+### Packages
+| Package           | Included                      | Storybook link                                                                                                                      | Source link   |
+| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-footer--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/footer">View source</Link> |
+| **HDS Core**      | <IconCrossCircle /> No     | - | - |
+
+### Properties
+The Footer component consists of multiple components that all have their own properties. Refer to the <Link size="M" href="/storybook/react/?path=/story/components-footer--default" external>React Storybook</Link> to see properties of all Footer components.

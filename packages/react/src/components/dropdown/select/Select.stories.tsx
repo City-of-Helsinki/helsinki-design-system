@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import uniqueId from 'lodash.uniqueid';
 
 import { Button } from '../../button';
 import { Select } from './Select';
-import { IconFaceSmile } from '../../../icons';
+import { IconFaceSmile, IconLocation } from '../../../icons';
 
 type Option = { label: string };
 
@@ -32,7 +31,7 @@ const options = getOptions();
 export default {
   component: Select,
   title: 'Components/Dropdowns/Select',
-  decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '420px' }}>{storyFn()}</div>],
+  decorators: [(storyFn) => <div style={{ maxWidth: '420px' }}>{storyFn()}</div>],
   parameters: {
     controls: { expanded: true },
   },
@@ -41,6 +40,7 @@ export default {
     label: 'Element',
     helper: 'Choose an element',
     placeholder: 'Placeholder',
+    clearButtonAriaLabel: 'Clear selection',
     options,
     onBlur: action('onBlur'),
     onChange: (change) => action('onChange')(change),
@@ -49,6 +49,13 @@ export default {
 };
 
 export const Default = (args) => <Select {...args} />;
+
+export const WithClearButton = (args) => <Select {...args} />;
+WithClearButton.storyName = 'With clear button';
+WithClearButton.args = {
+  clearable: true,
+};
+WithClearButton.parameters = { loki: { skip: true } };
 
 export const Multiselect = (args) => <Select {...args} />;
 Multiselect.storyName = 'Multi-select';
@@ -139,6 +146,13 @@ DisabledOptions.storyName = 'With disabled options';
 
 export const Icon = (args) => <Select {...args} icon={<IconFaceSmile />} />;
 Icon.storyName = 'With icon';
+
+export const MultiselectWithIcon = (args) => <Select {...args} icon={<IconLocation />} />;
+MultiselectWithIcon.storyName = 'Multi-select with icon';
+MultiselectWithIcon.args = {
+  multiselect: true,
+};
+MultiselectWithIcon.parameters = { loki: { skip: true } };
 
 export const Tooltip = (args) => <Select {...args} />;
 Tooltip.storyName = 'With tooltip';

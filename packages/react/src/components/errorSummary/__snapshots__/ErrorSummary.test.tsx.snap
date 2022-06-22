@@ -12,7 +12,7 @@ exports[`<ErrorSummary /> spec renders the component 1`] = `
     >
       <div
         aria-level="2"
-        class="label"
+        class="label label"
         role="heading"
         tabindex="-1"
       >
