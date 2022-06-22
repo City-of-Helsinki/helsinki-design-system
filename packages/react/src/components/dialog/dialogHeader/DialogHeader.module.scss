@@ -23,7 +23,12 @@
   align-items: flex-start;
   box-sizing: border-box;
   display: flex;
-  font-size: var(--fontsize-heading-s);
+  font-weight: 700;
+  font-size: var(--fontsize-heading-xs);
+  line-height: 24px;
+  letter-spacing: 0.4px;
+
+
   margin: 0;
   order: 0;
   outline: none;
@@ -51,7 +56,6 @@
   .dialogTitleLeftIcon {
     display: inline-flex;
     margin-right: var(--spacing-2-xs);
-    margin-top: 2px;
   }
 }
 

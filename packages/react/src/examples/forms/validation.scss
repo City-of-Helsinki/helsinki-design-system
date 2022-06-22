@@ -3,14 +3,15 @@
   max-width: 792px;
 
   &__main-title {
-    font-size: var(--fontsize-heading-xl);
-    line-height: var(--lineheight-m);
+    composes: heading-xl from 'hds-core/lib/utils/helpers.css';
     margin: 0 0 var(--spacing-m) 0;
   }
 
   &__title {
     font-size: var(--fontsize-heading-l);
-    line-height: var(--lineheight-m);
+    font-weight: 400;
+    letter-spacing: -0.4px;
+    line-height: var(--lineheight-s);
     margin: 0 0 var(--spacing-m) 0;
   }
 
@@ -28,8 +29,7 @@
     margin-bottom: var(--spacing-xl);
 
     &-title {
-      font-size: var(--fontsize-heading-s);
-      line-height: var(--lineheight-m);
+      composes: heading-s from 'hds-core/lib/utils/helpers.css';
       margin: 0 0 var(--spacing-m);
     }
   }
