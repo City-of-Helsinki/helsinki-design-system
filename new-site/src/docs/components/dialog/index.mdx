@@ -59,7 +59,7 @@ export const DialogExample = () => {
   <DialogExample />
 </PlaygroundPreview>
 
-## Principles
+### Principles
 
 - Dialogs capture the browser focus and the user is forced to react to the dialog.
   - To emphasize this, a dark screen overlay must be used to cover the view content behind the dialog element.
@@ -74,7 +74,7 @@ export const DialogExample = () => {
   - Also make sure that the dialog is related to the current context.
   - It is not recommended to open dialogs on top of other dialogs. However, this is supported by HDS Dialogs if it is needed.
 
-### When to use each dialog type?
+#### When to use each dialog type?
 
 | Type                       | When to use it?                                                                                                    | Example                                                                                |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
@@ -84,7 +84,7 @@ export const DialogExample = () => {
 
 ### Variations
 
-### Info dialog
+#### Info dialog
 
 Info dialogs are used to convey important information to the user. Info dialogs only include one button which the user can use to acknowledge the information.
 
@@ -130,7 +130,7 @@ export const InfoDialogExample = () => {
   <InfoDialogExample />
 </PlaygroundPreview>
 
-### Confirm dialog
+#### Confirm dialog
 
 Confirm dialogs are used when an action is required from the user. Confirm dialogs always include at least two actions; one primary action (e.g. Confirm) and one secondary action (e.g. Cancel). However, more than two actions are allowed if it is needed.
 
@@ -178,7 +178,7 @@ export const ConfirmDialogExample = () => {
   <ConfirmDialogExample />
 </PlaygroundPreview>
 
-### Danger dialog
+#### Danger dialog
 
 Danger dialog is a variant of a confirm dialog. They are used in similar use cases but Danger dialogs are meant for situations where the action user is going to choose may be destructive or otherwise irreversible or very critical. Danger dialog emphasizes this by using HDS error status colours. Also, it reverses the action button order so that the destructive action is last in the button list.
 
@@ -235,7 +235,7 @@ export const DangerDialogExample = () => {
   <DangerDialogExample />
 </PlaygroundPreview>
 
-### Scrollable dialog
+#### Scrollable dialog
 
 While not recommended, HDS supports scrollable dialogs if there is a large amount of content (e.g. terms of use). **It is recommended to consider other options than a dialog to present the same data since it can be difficult for the user to form a clear understanding of the presented content.**
 

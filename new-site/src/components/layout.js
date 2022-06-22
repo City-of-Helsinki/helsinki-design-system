@@ -5,6 +5,7 @@
  * See: https://www.gatsbyjs.com/docs/use-static-query/
  */
 
+import "hds-core";
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
@@ -30,27 +31,27 @@ const components = {
   tbody: Table.Tbody,
   th: Table.Th,
   h1: (props) => (
-    <h1 {...props} className={classNames('page-heading-1', props.className)}>
+    <h1 {...props} className={classNames('page-heading-1 heading-xl-mobile', props.className)}>
       {props.children}
     </h1>
   ),
   h2: (props) => (
-    <h2 {...props} className={classNames('page-heading-2', props.className)}>
+    <h2 {...props} className={classNames('page-heading-2 heading-l', props.className)}>
       {props.children}
     </h2>
   ),
   h3: (props) => (
-    <h3 {...props} className={classNames('page-heading-3', props.className)}>
+    <h3 {...props} className={classNames('page-heading-3 heading-m', props.className)}>
       {props.children}
     </h3>
   ),
   h4: (props) => (
-    <h4 {...props} className={classNames('page-heading-4', props.className)}>
+    <h4 {...props} className={classNames('page-heading-4 heading-s', props.className)}>
       {props.children}
     </h4>
   ),
   h5: (props) => (
-    <h4 {...props} className={classNames('page-heading-5', props.className)}>
+    <h4 {...props} className={classNames('page-heading-5 heading-xs', props.className)}>
       {props.children}
     </h4>
   ),

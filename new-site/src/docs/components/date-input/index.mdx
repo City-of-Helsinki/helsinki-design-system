@@ -45,7 +45,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Variations
 
-### Date input with a picker
+#### Date input with a picker
 
 Out of the box, HDS date input will include an openable date picker which allows the user to select the date via a calendar view. The date can be also inputted manually, which is the recommended setup for most use cases.
 
@@ -63,7 +63,7 @@ Out of the box, HDS date input will include an openable date picker which allows
   </div>
 </PlaygroundPreview>
 
-### Date input without a confirmation
+#### Date input without a confirmation
 
 **Note!** Since this variant closes the date picker immediately after selection, it violates <Link size="M" href="https://www.w3.org/TR/WCAG21/#on-input" external>WCAG 3.2.2 On Input guideline</Link>. Therefore, this variant should only be used in administration and intranet type of services.
 
@@ -86,7 +86,7 @@ In all other types of services, it is recommended to not disable the confirmatio
   </div>
 </PlaygroundPreview>
 
-### Date input without a picker
+#### Date input without a picker
 
 It is possible to disable the date picker functionality by supplying a `disableDatePicker` prop to the input. To learn when the date picker should be hidden, see [when to use date picker](#when-to-use-the-date-picker) above.
 

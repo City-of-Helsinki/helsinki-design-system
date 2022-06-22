@@ -22,7 +22,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   />
 </PlaygroundPreview>
 
-## Principles
+### Principles
 
 - **Use Cards sparingly.** While they can drastically improve service's understandability and readability, overusing them may result in confusing and complex user interfaces.
 - **Cards work very well for listing heterogenous content** such as news items, blog posts, or upcoming events.
@@ -31,7 +31,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   - If you need the whole element to be interactable, use [HDS Linkbox](/components/linkbox) instead.
 - Currently, HDS offers base Cards that you can use to build custom Cards for your project's needs. For inspiration and guidelines, you can find custom card examples in <Link size="M" href="https://share.goabstract.com/e6aa2ebd-1a49-4cb1-90ef-a44a6486c28b" external>HDS Example Custom Components - Abstract collection</Link>.
 
-## Should I use a Card or a Linkbox?
+#### Should I use a Card or a Linkbox?
 
 - **Use the [Card component](/components/card) when**
   - the whole Card does not need to be interactable
@@ -42,7 +42,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Variations
 
-### Empty
+#### Empty
 
 Currently, HDS offers empty base Cards. These and other HDS components can be used to create custom Cards for your project. By default, HDS recommends Cards without border style.
 
@@ -51,7 +51,7 @@ Currently, HDS offers empty base Cards. These and other HDS components can be us
   <Card border style={{ marginTop: 'var(--spacing-s)' }} />
 </PlaygroundPreview>
 
-### With heading and body text
+#### With heading and body text
 
 Additionally, HDS offers styling for basic heading and body text inside the Card component. These can be used instead of custom elements.
 
@@ -68,7 +68,7 @@ Additionally, HDS offers styling for basic heading and body text inside the Card
   />
 </PlaygroundPreview>
 
-### Using with other HDS components
+#### Using with other HDS components
 
 Custom Cards can be easily built by using other HDS components and typography inside the Card.
 
