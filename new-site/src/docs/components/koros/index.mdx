@@ -1,7 +1,7 @@
 ---
 slug: '/components/koros'
 title: 'Koros'
-nav_title: 'Koros'
+navTitle: 'Koros'
 ---
 
 import { Koros } from 'hds-react';
@@ -15,7 +15,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Example
 
 <PlaygroundPreview>
-  <Koros type="basic" />
+  <div role="img" aria-label="Wave motif example">
+    <Koros type="basic" />
+  </div>
 </PlaygroundPreview>
 
 ### Principles
@@ -32,20 +34,32 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 #### Default
 
 There are six Koro styles. An added visual interest is brought to the identity by means of the Koros. Using Koros adds high visual impact and makes the user interface recognisable as part of Helsinki city services.
-You can read more about using Koros in <Link href="https://brand.hel.fi/en/wave-motifs/" external>Helsinki Visual Identity Guidelines - Wave motifs</Link>.
+You can read more about using Koros in <Link size="M" href="https://brand.hel.fi/en/wave-motifs/" external>Helsinki Visual Identity Guidelines - Wave motifs</Link>.
 
 <PlaygroundPreview>
-  <Koros type="basic" />
-  <br />
-  <Koros type="beat" />
-  <br />
-  <Koros type="pulse" />
-  <br />
-  <Koros type="wave" />
-  <br />
-  <Koros type="storm" />
-  <br />
-  <Koros type="calm" />
+  <div role="img" aria-label="Wave motif, shape examples">
+    <Koros type="basic" style={{marginBottom: 'var(--spacing-xs'}}/>
+    <Koros type="beat" style={{marginBottom: 'var(--spacing-xs'}} />
+    <Koros type="pulse" style={{marginBottom: 'var(--spacing-xs'}} />
+    <Koros type="wave" style={{marginBottom: 'var(--spacing-xs'}} />
+    <Koros type="storm" style={{marginBottom: 'var(--spacing-xs'}} />
+    <Koros type="calm" />
+  </div>
+</PlaygroundPreview>
+
+#### Dense
+
+The dense Koro variant introduces a smaller wave size with the same shapes. You can choose either the Default or the Dense variant for your project. Read more about Koro usage on the [HDS Foundation - Wave motifs page](/foundation/visual-assets/wave-motifs).
+
+<PlaygroundPreview>
+  <div role="img" aria-label="Wave motif, dense variant shape examples">
+    <Koros dense type="basic" style={{marginBottom: 'var(--spacing-xs'}} />
+    <Koros dense type="beat" style={{marginBottom: 'var(--spacing-xs'}} />
+    <Koros dense type="pulse" style={{marginBottom: 'var(--spacing-xs'}} />
+    <Koros dense type="wave" style={{marginBottom: 'var(--spacing-xs'}} />
+    <Koros dense type="storm" style={{marginBottom: 'var(--spacing-xs'}} />
+    <Koros dense type="calm" />
+  </div>
 </PlaygroundPreview>
 
 #### Angled
@@ -89,5 +103,7 @@ export const AngledVariation = () => {
 };
 
 <PlaygroundPreview>
-  <AngledVariation />
+  <div role="img" aria-label="Wave motif, angled variation example">
+    <AngledVariation />
+  </div>
 </PlaygroundPreview>
