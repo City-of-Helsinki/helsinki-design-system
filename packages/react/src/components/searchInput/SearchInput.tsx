@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useState, useRef } from 'react';
+import React, { KeyboardEvent, useState, useRef, useEffect, useCallback } from 'react';
 import { useCombobox } from 'downshift';
 
 // import core base styles
@@ -56,10 +56,23 @@ export type SearchInputProps<SuggestionItem> = {
    */
   onSubmit: (value: string) => void;
   /**
+   * Callback function fired after input value has changed.
+   */
+  onChange?: (value: string) => void;
+  /**
+   * Placeholder text for the search input
+   */
+  placeholder?: string;
+  /**
    * The aria-label for the search button.
    * @default Search
    */
   searchButtonAriaLabel?: string;
+  /**
+   * Hides the search button
+   * @default false
+   */
+  hideSearchButton?: boolean;
   /**
    * Override or extend the styles applied to the component
    */
@@ -86,16 +99,22 @@ export const SearchInput = <SuggestionItem,>({
   loadingSpinnerFinishedText = 'Finished loading suggestions',
   loadingSpinnerText = 'Loading suggestions',
   onSubmit,
+  placeholder,
   searchButtonAriaLabel = 'Search',
+  hideSearchButton = false,
   style,
   suggestionLabelField,
   visibleSuggestions = 8,
+  onChange,
 }: SearchInputProps<SuggestionItem>) => {
+  const didMount = useRef(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const isItemClicked = useRef<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
   const { suggestions, isLoading } = useSuggestions<SuggestionItem>(inputValue, getSuggestions, isSubmitted);
   const showLoadingSpinner = useShowLoadingSpinner(isLoading, 1500 - SUGGESTIONS_DEBOUNCE_VALUE);
+
   const {
     isOpen,
     getLabelProps,
@@ -110,13 +129,19 @@ export const SearchInput = <SuggestionItem,>({
     onInputValueChange: (e) => {
       setInputValue(e.inputValue);
     },
+    onStateChange(props) {
+      const { ItemClick } = useCombobox.stateChangeTypes;
+      if (props.type === ItemClick) {
+        isItemClicked.current = true;
+      }
+    },
     itemToString: (item) => (item ? `${item[suggestionLabelField]}` : ''),
   });
 
-  const submit = () => {
+  const submit = useCallback(() => {
     setIsSubmitted(true);
     onSubmit(inputValue);
-  };
+  }, [setIsSubmitted, onSubmit, inputValue]);
 
   const onInputKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
     const key = event.key || event.keyCode;
@@ -127,10 +152,30 @@ export const SearchInput = <SuggestionItem,>({
     }
   };
 
+  useEffect(() => {
+    if (isItemClicked.current) {
+      isItemClicked.current = false;
+      submit();
+    }
+  }, [isItemClicked, submit]);
+
   const clear = () => {
     reset();
     inputRef.current.focus();
   };
+
+  /**
+   * Call optional onChange if input value changes
+   */
+  useEffect(() => {
+    if (didMount.current) {
+      if (onChange) {
+        onChange(inputValue);
+      }
+    } else {
+      didMount.current = true;
+    }
+  }, [onChange, inputValue]);
 
   return (
     <div className={classNames(styles.root, isOpen && styles.open, className)} style={style}>
@@ -146,6 +191,7 @@ export const SearchInput = <SuggestionItem,>({
             'aria-owns': getComboboxProps()['aria-owns'],
           })}
           className={classNames(styles.input)}
+          placeholder={placeholder}
         />
         <div className={styles.buttons}>
           {inputValue.length > 0 && (
@@ -158,14 +204,16 @@ export const SearchInput = <SuggestionItem,>({
               <IconCrossCircle className={styles.searchIcon} aria-hidden />
             </button>
           )}
-          <button
-            type="button"
-            aria-label={searchButtonAriaLabel}
-            className={classNames(styles.button)}
-            onClick={submit}
-          >
-            <IconSearch className={styles.searchIcon} aria-hidden />
-          </button>
+          {!hideSearchButton && (
+            <button
+              type="button"
+              aria-label={searchButtonAriaLabel}
+              className={classNames(styles.button)}
+              onClick={submit}
+            >
+              <IconSearch className={styles.searchIcon} aria-hidden />
+            </button>
+          )}
         </div>
         {showLoadingSpinner && (
           <div className={styles.loadingSpinnerContainer} aria-hidden>

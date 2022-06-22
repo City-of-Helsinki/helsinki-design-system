@@ -20,14 +20,14 @@ export type DialogHeaderProps = {
 };
 
 export const DialogHeader = ({ id, title, iconLeft }: DialogHeaderProps) => {
-  const { close, closeButtonLabelText } = useContext(DialogContext);
-  const titleRef: RefObject<HTMLHeadingElement> = React.createRef();
+  const { close, closeButtonLabelText, isReadyToShowDialog } = useContext(DialogContext);
+  const titleRef: RefObject<HTMLHeadingElement> = React.useRef();
 
   useEffect(() => {
-    if (titleRef.current) {
+    if (titleRef && isReadyToShowDialog) {
       titleRef.current.focus();
     }
-  }, [titleRef]);
+  }, [titleRef, isReadyToShowDialog]);
 
   return (
     <div className={styles.dialogHeader}>

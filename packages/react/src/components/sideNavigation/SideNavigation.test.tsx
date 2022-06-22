@@ -18,7 +18,7 @@ const url = '#';
 
 const renderSideNavigation = () =>
   render(
-    <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
+    <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton} ariaLabel="Side navigation">
       <SideNavigation.MainLevel id="mainLevel1" icon={<IconHome />} label={labels.mainLevel1}>
         <SideNavigation.SubLevel id="subLevel1" active href={url} label={labels.subLevel1} />
       </SideNavigation.MainLevel>

@@ -47,6 +47,16 @@ Forms *should* be designed to be as clear and straightforward as possible, to al
                 <li>The user <em>should not</em> be made to input the same information twice.</li>
             </ul>
         </li>
+        <li><strong>Pre-populate known values</strong> if possible to make filling the form easier.
+            <ul style="margin-top:0;">
+                <li>The user <em>should not</em> be made to input the same information twice.</li>
+            </ul>
+        </li>
+        <li><strong>Use gender-neutral language.</strong>
+            <ul style="margin-top:0;">
+                <li>When asking for gender, refer to the <Link href="#asking-for-gender">example in the gender-neutrality chapter</Link>.</li>
+            </ul>
+        </li>
     </ul>
 </div>
 
@@ -178,7 +188,7 @@ Individual form controls can also have action buttons attached to them, that let
 | Control   | Name        | Usage         | Examples      |
 | --------- | ----------- | ------------- | ------------- |
 | <Image src="../../static/patterns/form/form-choosing-submit@2x.png" alt="Primary action button" style="max-width:250px;" viewable />               | Primary action        | **Submitting inputted data** to the defined form handler on the server. | Submit |
-| <Image src="../../static/patterns/form/form-choosing-secondary@2x.png" alt="Secondary action button" style="max-width:250px;" viewable />         | Secondary action      | Allowing user to perform **important and form wide actions** before submitting: <ul style="margin-bottom:0"><li>Navigating multi-page forms</li><li>Making batch changes to the form fields</li><li>Cancelling the process and returning to previous view.</li></ul> | <ul style="margin-bottom:0"><li>Next/previous page</li><li>Batch clear form fields.</li></ul> |
+| <Image src="../../static/patterns/form/form-choosing-secondary@2x.png" alt="Secondary action button" style="max-width:250px;" viewable />         | Secondary action      | Allowing user to perform **important and form-wide actions** before submitting: <ul style="margin-bottom:0"><li>Navigating multi-page forms</li><li>Making batch changes to the form fields</li><li>Cancelling the process and returning to previous view.</li></ul> | <ul style="margin-bottom:0"><li>Next/previous page</li><li>Batch clear form fields.</li></ul> |
 | <Image src="../../static/patterns/form/form-choosing-supplementary@2x.png" alt="Supplementary action button" style="max-width:250px;" viewable /> | Supplementary action  | Allows user to perform: <ul style="margin-bottom:0"><li><strong>Auxiliary functionalities</strong> that help the user but are not essential in filling the form</li><li><strong>Inline actions</strong> that affect smaller sections of a form (for example a fieldset)</li></ul> | <ul style="margin-bottom:0"><li>Printing</li><li>Saving a draft</li><li>Adding or removing instances or rows to a data list (for example persons to a participant list)</li><li>Inputting data to a form control from an outside source (for example uploading an image, or fetching a location from Google maps)</li></ul> |
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
@@ -303,9 +313,10 @@ Marking that indicates a form control for which **the user *must* enter a value*
     <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
     <ul style="margin-bottom:0;">
         <li><strong>aria-required="true" attribute <em>must</em> be always provided for required fields</strong>, even if they are not marked visually.</li>
+        <li>If your form has at least one required field, explain the asterisk before the form. E.g. "All fields marked with * are required".</li>
         <li>If all fields in the form are required
             <ul>
-                <li>This <em>should</em> be stated in the form wide instructions at the beginning of the form.</li>
+                <li>This <em>should</em> be stated in the form-wide instructions at the beginning of the form.</li>
                 <li>The submit button can also be disabled before all fields are filled.</li>
             </ul>
         </li>
@@ -429,7 +440,7 @@ Allowing the user enter a value either by input or selection is the **form contr
 To help the user enter the **right information in the right format**, guidance can be provided on different levels:
 
 1. **Form main and sub-heading** summarise the purpose of the form
-2. **Form wide instructions** to help the user to better understand the functionality of the form
+2. **Form-wide instructions** to help the user to better understand the functionality of the form
 3. **Contextual instructions** for helping the user to fill specific form controls
 
 
@@ -464,17 +475,19 @@ The form heading **summarises the purpose of the form** and indicates the user w
 
 ---
 
-### 2. Form wide instructions
+### 2. Form-wide instructions
 To help the user better understand the functionality of the form, instructions and other **information about filling the form and required information** should be provided in the beginning of the form. 
 
-<Image src="../../static/patterns/form/form-guiding-instructions@2x.png" alt="Form wide instructions" style="max-width:432px;" viewable /> 
+<Image src="../../static/patterns/form/form-guiding-instructions@2x.png" alt="Form-wide instructions" style="max-width:432px; display:block;" viewable /> 
 
+<Image src="../../static/patterns/form/form-guiding-instructions-required@2x.png" alt="Form-wide instructions with required fields" style="max-width:432px;" viewable /> 
 
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
     <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
     <ul style="margin-bottom:0;">
         <li>The instructions should be placed after the heading and sub-heading, before the first form control or fieldeset.</li>
-        <li>The inline notification component should be used for form wide instructions.</li>
+        <li>The inline notification component can be used for form-wide instructions if they contain something out of the ordinary.</li>
+        <li>If your form has at least one required field, explain the asterisk before the form. E.g. "All fields marked with * are required".</li>
     </ul>
 </div> 
 
@@ -628,13 +641,13 @@ Best practices for form layout.
 <div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
     <p>
         <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle', color: 'var(--color-success)' }} size="s"/>
-        <strong>Group form wide action buttons together.</strong> Best practice is to place action buttons at the end of the form, aligned to left and ordered by importance.
+        <strong>Group form-wide action buttons together.</strong> Best practice is to place action buttons at the end of the form, aligned to left and ordered by importance.
     </p>
     <ol>
         <li>Submit (primary action)</li>
         <li>Secondary actions</li>
     </ol>
-    <Image src="../../static/patterns/form/form-layout-actions-form@2x.png" alt="Align form wide action buttons at the end of the form" style="max-width:432px;" viewable /> 
+    <Image src="../../static/patterns/form/form-layout-actions-form@2x.png" alt="Align form-wide action buttons at the end of the form" style="max-width:432px;" viewable /> 
 </div>
 
 
@@ -834,3 +847,12 @@ For this reason it is essential to ensure that individual controls receive focus
         </li>
     </ul>
 </div>
+
+--- 
+
+## Gender-neutrality in forms
+
+### Asking for gender
+When asking for the user's gender, `Other` and `Do not want to answer` options must be provided. If these options are ordered, use order `Woman → Man → Other → Do not want to answer` since it is statistically the most probable. Using the [Selection group component](/components/selection-group) with radio buttons is recommended for this purpose.
+
+<Image src="../../static/patterns/form/form-asking-for-gender-example@2x.png" alt="An example of asking the user's gender" style="max-width:432px;" viewable />

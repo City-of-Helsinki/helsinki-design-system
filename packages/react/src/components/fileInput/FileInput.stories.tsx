@@ -1,5 +1,4 @@
 import React from 'react';
-import { boolean, number, radios, text } from '@storybook/addon-knobs';
 
 import { FileInput } from './FileInput';
 
@@ -95,6 +94,33 @@ WithDragAndDrop.args = {
   dragAndDrop: true,
 };
 
+export const WithTooltip = (args) => {
+  const [file, setFile] = React.useState<File[]>();
+  // eslint-disable-next-line no-console
+  console.log('selected file', file);
+
+  return (
+    <FileInput
+      id={args.id}
+      label={args.label}
+      buttonLabel={args.buttonLabel}
+      language={args.language}
+      onChange={setFile}
+      accept={args.accept}
+      maxSize={args.maxSize}
+      tooltipLabel={args.tooltipLabel}
+      tooltipButtonLabel={args.tooltipButtonLabel}
+      tooltipText={args.tooltipText}
+    />
+  );
+};
+WithTooltip.args = {
+  accept: 'image/*',
+  tooltipLabel: 'More info',
+  tooltipButtonLabel: 'Click to view more info',
+  tooltipText: 'The file input will accept most of the known image formats. Please notice the size limit.',
+};
+
 export const Disabled = (args) => {
   const [file, setFile] = React.useState<File[]>();
   // eslint-disable-next-line no-console
@@ -172,55 +198,30 @@ Required.args = {
   accept: 'image/*',
 };
 
-export const Playground = () => {
+export const Playground = (args) => {
   const onChange = (files) => {
     // eslint-disable-next-line no-console
     console.log('onChange callback files:', files);
   };
 
-  const id = text('id', 'file-input');
-  const label = text('Label', 'Choose files');
-  const buttonLabel = text('ButtonLabel', '');
-  const language = radios(
-    'language',
-    {
-      fi: 'fi',
-      en: 'en',
-      sv: 'sv',
-    },
-    'en',
-  );
-
-  const multiple = boolean('Multiple', false);
-  const maxSize = number('MaxSize', 300 * 1024);
-  const accept = text('Accept', '.png,.jpg,.pdf,.json');
-  const disabled = boolean('Disabled', false);
-  const required = boolean('Required', false);
-  const helperText = text('HelperText', '');
-  const errorText = text('ErrorText', '');
-  const infoText = text('InfoText', '');
-  const dragAndDrop = boolean('DragAndDrop', false);
-  const dragAndDropLabel = text('DragAndDropLabel', '');
-  const dragAndDropInputLabel = text('DragAndDropInputLabel', '');
-
   return (
     <FileInput
-      id={id}
-      label={label}
-      buttonLabel={buttonLabel}
-      maxSize={maxSize}
-      language={language}
+      id={args.id}
+      label={args.label}
+      buttonLabel={args.buttonLabel}
+      maxSize={args.maxSize}
+      language={args.language}
+      accept={args.accept}
+      disabled={args.disabled}
+      required={args.required}
+      multiple={args.multiple}
+      dragAndDrop={args.dragAndDrop}
+      dragAndDropLabel={args.dragAndDropLabel}
+      dragAndDropInputLabel={args.dragAndDropInputLabel}
+      helperText={args.helperText}
+      errorText={args.errorText}
+      infoText={args.infoText}
       onChange={onChange}
-      accept={accept}
-      disabled={disabled}
-      required={required}
-      multiple={multiple}
-      dragAndDrop={dragAndDrop}
-      dragAndDropLabel={dragAndDropLabel}
-      dragAndDropInputLabel={dragAndDropInputLabel}
-      helperText={helperText}
-      errorText={errorText}
-      infoText={infoText}
     />
   );
 };
@@ -232,5 +233,30 @@ Playground.parameters = {
   },
   docs: {
     disable: true,
+  },
+};
+
+Playground.args = {
+  id: 'file-input',
+  label: 'Choose files',
+  buttonLabel: '',
+  language: 'en',
+  multiple: false,
+  maxSize: 300 * 1024,
+  accept: '.png,.jpg,.pdf,.json',
+  disabled: false,
+  required: false,
+  helperText: '',
+  errorText: '',
+  infoText: '',
+  dragAndDrop: false,
+  dragAndDropLabel: 'DragAndDropLabel',
+  dragAndDropInputLabel: 'DragAndDropInputLabel',
+};
+
+Playground.argTypes = {
+  language: {
+    options: ['fi', 'en', 'sv'],
+    control: { type: 'radio' },
   },
 };

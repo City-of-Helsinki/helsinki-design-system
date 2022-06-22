@@ -134,10 +134,22 @@ export const MonthNavigation = ({ month }: MonthCaptionProps) => {
         </div>
       </div>
       <div className={styles['hds-datepicker__navigation__buttons']}>
-        <button disabled={!prevMonth} type="button" onClick={onPrevClick} aria-label={getPrevMonthLabel()}>
+        <button
+          tabIndex={!prevMonth ? -1 : 0}
+          aria-disabled={!prevMonth}
+          type="button"
+          onClick={onPrevClick}
+          aria-label={getPrevMonthLabel()}
+        >
           <IconAngleLeft aria-hidden />
         </button>
-        <button disabled={!nextMonth} type="button" onClick={onNextClick} aria-label={getNextMonthLabel()}>
+        <button
+          tabIndex={!nextMonth ? -1 : 0}
+          aria-disabled={!nextMonth}
+          type="button"
+          onClick={onNextClick}
+          aria-label={getNextMonthLabel()}
+        >
           <IconAngleRight aria-hidden />
         </button>
       </div>

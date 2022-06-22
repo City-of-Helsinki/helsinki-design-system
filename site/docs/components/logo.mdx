@@ -16,7 +16,7 @@ import Link from "../../src/components/Link";
 <StatusLabel type="success" style={{marginLeft: 'var(--spacing-xs)'}}>Accessible</StatusLabel>
 
 <LargeParagraph>
-    Logo is used to identify the site or application as an official City of Helsinki service.
+    The logo is used to identify the site or application as an official City of Helsinki service.
 </LargeParagraph>
 
 See the [logo visual asset documentation](/visual-assets/logo "City of Helsinki logo") for more information about principles of using the City of Helsinki logo.
@@ -42,24 +42,31 @@ See the [logo visual asset documentation](/visual-assets/logo "City of Helsinki 
 <Playground>
     <Logo language="fi" size="large" />
     <Logo language="sv" size="large" style={{marginLeft: 'var(--spacing-s)'}}/>
+    <Logo language="ru" size="large" style={{marginLeft: 'var(--spacing-s)'}}/>
 </Playground>
 
 #### React code example:
 ```tsx
 <Logo language="fi" size="large" />
 <Logo language="sv" size="large" />
+<Logo language="ru" size="large" />
 ```
 
 ### Logo sizes
 
 <Playground>
+    
     <Logo language="fi" size="small" />
     <Logo language="fi" size="medium" style={{marginLeft: 'var(--spacing-s)'}}/>
     <Logo language="fi" size="large" style={{marginLeft: 'var(--spacing-s)'}}/>
-
-    <Logo language="sv" size="small" style={{marginLeft: 'var(--spacing-l)'}}/>
+    < br />
+    <Logo language="sv" size="small" />
     <Logo language="sv" size="medium" style={{marginLeft: 'var(--spacing-s)'}}/>
     <Logo language="sv" size="large" style={{marginLeft: 'var(--spacing-s)'}}/>
+    < br />
+    <Logo language="ru" size="small" />
+    <Logo language="ru" size="medium" style={{marginLeft: 'var(--spacing-s)'}}/>
+    <Logo language="ru" size="large" style={{marginLeft: 'var(--spacing-s)'}}/>
 </Playground>
 
 #### React code example:
@@ -71,6 +78,10 @@ See the [logo visual asset documentation](/visual-assets/logo "City of Helsinki 
 <Logo language="sv" size="small" />
 <Logo language="sv" size="medium" />
 <Logo language="sv" size="large" />
+
+<Logo language="ru" size="small" />
+<Logo language="ru" size="medium" />
+<Logo language="ru" size="large" />
 ```
 
 ## Demos & API

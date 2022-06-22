@@ -1,0 +1,444 @@
+---
+slug: '/components/table'
+title: 'Table'
+navTitle: 'Table'
+---
+
+import { useState } from 'react';
+import { Table } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+export const TableExample = () => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+  const captionDark = (
+    <span>
+      <b>Table 1</b>: Service users (dark variant)
+    </span>
+  );
+  const captionLight = (
+    <span>
+      <b>Table 2</b>: Service users (light variant)
+    </span>
+  )
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table cols={cols} rows={rows} caption={captionDark} indexKey="id" renderIndexCol={false} />
+    </div>
+  );
+};
+
+<PlaygroundPreview>
+  <TableExample />
+</PlaygroundPreview>
+
+### Principles
+
+#### Basic tables (Core and React)
+- Use tables to organise and present data.
+- You should consider other presentation formats when the data is very simple, e.g. when the table would only have less than 4 rows or less than 3 columns.
+  - Also note that HDS Tables are not a spreadsheet application. If you expect the user to need complex data operations it may be wise to share the data as a spreadsheet file.
+- Do not use tables to create layouts. Tables are meant to present data.
+- Align text to the left and numerical data to the right. Header cells are always aligned to the left. HDS provides CSS classes to make this easier.
+- Utilise zebra lines when your table has long rows. Zebra lines help the user to follow a specific row.
+- Utilise vertical lines when your table has a lot of content and narrow cells. Number-heavy tables are an example of a situation where vertical lines may help the user.
+- HDS Table offers smaller font sizes and spacing on mobile screens.
+  - If your table has a large amount of data, you can use the `dense` property to force mobile spacing on all screen sizes.
+- Table container is allowed to be scrollable. This is common on smaller screens where it can be impossible to fit the full table on the device screen.
+  - On smaller screens, it may be beneficial to consider other presentation formats for table data. For example, a table can be broken into cards.
+
+#### Interactable tables (React)
+- HDS Tables support sorting. When a column is set to be sortable, a sorting button appears after its header.
+  - The sorting icon type can be changed depending on the type of data in the column.
+- Only use sorting when it is necessary or otherwise beneficial to the user. 
+- HDS Table's rows can be made selectable. In this case, HDS automatically provides actions for selecting and deselecting all rows.
+- If your table includes actions that can affect multiple rows (e.g. deleting selected rows or exporting a CSV file), these actions must be placed above the table. For more information, see [Selecting rows](#selecting-rows) and [Custom actions](#custom-table-actions) variant examples below.
+
+### Variations
+
+#### Default
+The default HDS table variant includes horizontal lines. The header row can be either dark or light depending on the brand colour used as a background. Whether you need a black or white text colour can be checked from [HDS Colour documentation page](/design-tokens/colour#brand-colour-combinations).
+
+export const TableDefaultExample = () => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+  const captionDark = (
+    <span>
+      <b>Table 2</b>: Service users (dark variant)
+    </span>
+  );
+  const captionLight = (
+    <span>
+      <b>Table 3</b>: Service users (light variant)
+    </span>
+  )
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table cols={cols} rows={rows} caption={captionDark} indexKey="id" renderIndexCol={false} />
+      <div style={{ marginTop: 'var(--spacing-l)' }}>
+        <Table cols={cols} rows={rows} caption={captionLight} variant="light" indexKey="id" renderIndexCol={false} />
+      </div>
+    </div>
+  );
+};
+
+<PlaygroundPreview>
+  <TableDefaultExample />
+</PlaygroundPreview>
+
+#### Vertical headers
+Vertical headers can be used to create tables that have both a header row and a header column. Note that the empty header cell on the top left corner has `role="presentation"` attribute.
+
+export const VerticalHeadersExample = () => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: '8-12', headerName: '8-12' },
+    { key: '12-14', headerName: '12-14' },
+    { key: '14-16', headerName: '14-16' },
+    { key: '16-18', headerName: '16-18' },
+  ];
+  const unitRows = [
+    { id: 'monday', '8-12': 324, '12-14': 562, '14-16': 280, '16-18': 94 },
+    { id: 'tuesday', '8-12': 341, '12-14': 688, '14-16': 425, '16-18': 113 },
+    { id: 'wednesday', '8-12': 294, '12-14': 492, '14-16': 280, '16-18': 67 },
+    { id: 'thursday', '8-12': 312, '12-14': 501, '14-16': 455, '16-18': 112 },
+    { id: 'friday', '8-12': 150, '12-14': 142, '14-16': 362, '16-18': 455 },
+  ];
+  const verticalHeaders = [
+    { key: 'monday', headerName: 'Monday' },
+    { key: 'tuesday', headerName: 'Tuesday' },
+    { key: 'wednesday', headerName: 'Wednesday' },
+    { key: 'thursday', headerName: 'Thursday' },
+    { key: 'friday', headerName: 'Friday' },
+  ];
+  const caption = (
+    <span>
+      <b>Table 4</b>: Units sold by weekday
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '486px' }}>
+      <Table
+        verticalHeaders={verticalHeaders}
+        cols={cols}
+        rows={unitRows}
+        caption={caption}
+        textAlignContentRight
+        indexKey="id"
+        renderIndexCol={false}
+      />
+    </div>
+  );
+};
+
+<PlaygroundPreview>
+  <VerticalHeadersExample />
+</PlaygroundPreview>
+
+#### Zebra rows
+Zebra rows (alternating row colours) should be used on tables that have very long rows. It makes it easier to visually scan the table and follow rows.
+
+export const ZebraExample = () => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'city', headerName: 'City' },
+    { key: 'profession', headerName: 'Profession' },
+    {
+      key: 'experience',
+      headerName: 'Experience (years)',
+      transform: ({ experience }) => {
+        return <div style={{ textAlign: 'right' }}>{experience}</div>;
+      },
+    },
+  ];
+  const rows = [
+    {
+      id: 1000,
+      firstName: 'Lauri',
+      surname: 'Kekkonen',
+      age: 39,
+      city: 'Helsinki',
+      profession: 'Engineer',
+      experience: 10,
+    },
+    {
+      id: 1001,
+      firstName: 'Maria',
+      surname: 'Sarasoja',
+      age: 62,
+      city: 'Tampere',
+      profession: 'Designer',
+      experience: 39,
+    },
+    {
+      id: 1002,
+      firstName: 'Anneli',
+      surname: 'Routa',
+      age: 50,
+      city: 'Turku',
+      profession: 'Meteorologist',
+      experience: 25,
+    },
+    {
+      id: 1003,
+      firstName: 'Osku',
+      surname: 'Rausku',
+      age: 18,
+      city: 'Oulu',
+      profession: 'Mail Carrier',
+      experience: 1,
+    },
+  ];
+  const caption = (
+    <span>
+      <b>Table 5</b>: Service users (zebra variant)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '800px' }}>
+      <Table rows={rows} cols={cols} caption={caption} zebra indexKey="id" renderIndexCol={false} />
+    </div>
+  );
+};
+
+<PlaygroundPreview>
+  <ZebraExample />
+</PlaygroundPreview>
+
+#### Vertical lines
+Vertical lines can be used on tables that have a lot of columns or a lot of similar data (e.g. numbers).
+
+export const VerticalExample = () => {
+  const cols = [
+    { key: 'day', headerName: 'Day' },
+    { key: 'product1',
+      headerName: 'Product 1',
+      transform: ({ product1 }) => {
+        return <div style={{ textAlign: 'right' }}>{product1}</div>;
+      },
+    },
+    { key: 'product2',
+      headerName: 'Product 2',
+      transform: ({ product2 }) => {
+        return <div style={{ textAlign: 'right' }}>{product2}</div>;
+      },
+    },
+    { key: 'product3',
+      headerName: 'Product 3',
+      transform: ({ product3 }) => {
+        return <div style={{ textAlign: 'right' }}>{product3}</div>;
+      },
+    },
+  ];
+  const rows = [
+    { day: 'Monday', product1: 12, product2: 24, product3: 5, },
+    { day: 'Tuesday', product1: 10, product2: 32, product3: 6, },
+    { day: 'Wednesday', product1: 14, product2: 35, product3: 6, },
+    { day: 'Thursday', product1: 11, product2: 18, product3: 2, },
+    { day: 'Friday', product1: 16, product2: 45, product3: 12, },
+  ];
+  const caption = (
+    <span>
+      <b>Table 6</b>: Units sold by weekday (vertical lines variant)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '496px' }}>
+      <Table verticalLines cols={cols} rows={rows} caption={caption} indexKey="day" renderIndexCol={true} />
+    </div>
+  );
+};
+
+<PlaygroundPreview>
+  <VerticalExample />
+</PlaygroundPreview>
+
+#### Dense tables
+If your table has a large amount of data, you can use the `dense` property to force mobile spacing on all screen sizes. This allows more data to fit into the view at the same time.
+
+export const DenseExample = () => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+  const caption = (
+    <span>
+      <b>Table 7</b>: Service users (dense variant)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '500px' }}>
+      <Table cols={cols} rows={rows} dense caption={caption} indexKey="id" renderIndexCol={false} />
+    </div>
+  );
+};
+
+<PlaygroundPreview>
+ <DenseExample />
+</PlaygroundPreview>
+
+#### Sorting
+Columns can be configured to be sortable which makes the sorting button appear after the column header. The sorting icon is different depending on the data type of the column (alphabetical or numeric/other).
+
+Currently, only one column can be sorted at a time.
+
+export const SortingExample = () => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name', isSortable: true },
+    { key: 'surname', headerName: 'Surname', isSortable: true },
+    {
+      key: 'age',
+      headerName: 'Age',
+      sortIconType: 'other',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+      isSortable: true,
+    },
+    { key: 'profession', headerName: 'Profession', isSortable: true },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
+  ];
+  const caption = (
+    <span>
+      <b>Table 8</b>: Service users (sorting, dark variant)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table
+        ariaLabelSortButtonUnset="Not sorted"
+        ariaLabelSortButtonAscending="Sorted in ascending order"
+        ariaLabelSortButtonDescending="Sorted in descending order"
+        indexKey="id"
+        renderIndexCol={false}
+        cols={cols}
+        rows={rows}
+        caption={caption}
+      />
+    </div>
+  );
+};
+
+<PlaygroundPreview>
+  <SortingExample />
+</PlaygroundPreview>
+
+#### Selecting rows
+HDS Table rows can be set to be selectable. This makes the first column to be a selection column. This also adds two (2) action buttons above the table; one button for selecting all rows and one button to clear selection.
+
+export const SelectionExample = () => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    {
+      key: 'age',
+      headerName: 'Age',
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+    },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+  ];
+  const [selectedRows, setSelectedRows] = useState([]);
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table
+        checkboxSelection
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
+        heading="Employees"
+        id="checkbox-selection"
+        indexKey="id"
+        renderIndexCol={false}
+        cols={cols}
+        rows={rows}
+        selectAllRowsText="Select all rows"
+        clearSelectionsText="Clear selections"
+        ariaLabelCheckboxSelection="Row selection"
+      />
+    </div>
+  );
+};
+
+<PlaygroundPreview>
+  <SelectionExample />
+</PlaygroundPreview>

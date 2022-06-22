@@ -1,0 +1,116 @@
+---
+slug: '/components/accordion/code'
+title: 'Accordion - Code'
+---
+
+import { Accordion, useAccordion, Button, Card, Select, IconAngleDown, IconAngleUp } from 'hds-react';
+
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples
+
+#### Default
+
+<Playground>
+
+
+```jsx
+<Accordion heading="How to publish data?" style={{ maxWidth: '360px' }}>
+  To publish your data, open your profile settings and click the button 'Publish'.
+</Accordion>
+```
+
+</Playground>
+
+
+#### With a card
+
+<Playground>
+
+
+```jsx
+<Accordion card border heading="How to publish data?" style={{ maxWidth: '360px' }}>
+  To publish your data, open your profile settings and click the button 'Publish'.
+</Accordion>
+```
+
+</Playground>
+
+
+#### Custom accordion
+
+<Playground>
+
+
+```jsx
+{
+  () => {
+    const initiallyOpen = false;
+    const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen });
+    const icon = isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />;
+    return (
+      <>
+        <Button iconLeft={icon} {...buttonProps}>
+          Advanced filters
+        </Button>
+        <Card border aria-label="Advanced filters" style={{ marginTop: 'var(--spacing-m)' }} {...contentProps}>
+          <Select
+            multiselect
+            label="Filter by event category"
+            placeholder="No selected categories"
+            options={[{ label: 'Culture & arts' }, { label: 'Sports' }, { label: 'Museums' }, { label: 'Music' }]}
+            clearButtonAriaLabel="Clear all selections"
+            selectedItemRemoveButtonAriaLabel="Remove"
+            style={{ maxWidth: '360px' }}
+          />
+          <Select
+            multiselect
+            label="Filter by event location"
+            placeholder="No selected locations"
+            options={[
+              { label: 'Haaga' },
+              { label: 'Herttoniemi' },
+              { label: 'Kallio' },
+              { label: 'Kamppi' },
+              { label: 'Laajasalo' },
+              { label: 'Lauttasaari' },
+              { label: 'Mellunkylä' },
+              { label: 'Pasila' },
+            ]}
+            clearButtonAriaLabel="Clear all selections"
+            selectedItemRemoveButtonAriaLabel="Remove"
+            style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)' }}
+          />
+        </Card>
+      </>
+    );
+  };
+}
+```
+
+</Playground>
+
+
+### Packages
+
+| Package       | Included                    | Storybook link                                                                                                      | Source link                                                                                                                                                                    |
+| ------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **HDS React** | <IconCheckCircleFill /> Yes | <Link size="M" external href="/storybook/react/?path=/story/components-accordion--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/accordion/Accordion.tsx">View source</Link> |
+| **HDS Core**  | <IconCrossCircle /> No      | -                                                                                                                   | -                                                                                                                                                                              |
+
+### Properties
+
+Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/docs/components-accordion--default" external>React Storybook.</Link>
+
+| Property        | Description                                                                | Values      | Default value |
+| --------------- | -------------------------------------------------------------------------- | ----------- | ------------- |
+| `heading`       | Heading of the accordion                                                   | -           | -             |
+| `headingLevel`  | Sets the aria-level of the accordion header.                               | 1-6         | 2             |
+| `border`        | If set to true, a border will be drawn around the accordion card.          | true, false | false         |
+| `card`          | If set to true, the accordion will use HDS Card as its background element. | true, false | false         |
+| `initiallyOpen` | If set to true, the accordion will be initially opened.                    | true, false | false         |

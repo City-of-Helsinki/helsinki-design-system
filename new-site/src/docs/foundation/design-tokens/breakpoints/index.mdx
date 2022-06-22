@@ -1,0 +1,35 @@
+---
+slug: '/foundation/design-tokens/breakpoints'
+title: 'Breakpoint tokens - Usage'
+navTitle: 'Breakpoints'
+---
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+HDS includes tokenized values for both breakpoints and a maximum container width. Breakpoint tokens can be also used alongside <Link size="M" href="#">HDS grid guidelines</Link> in order to create consistent designs and implementations.
+
+**HDS offers a Container component which follows breakpoint and container width tokens automatically.** It is recommended to use it if possible. For more info and examples, see <Link size="M" href="https://hds.hel.fi/storybook/react/?path=/story/components-container--example" external>Container - React documentation</Link> and <Link size="M" href="https://hds.hel.fi/storybook/core/?path=/story/components-container--default" external>Container - Core documentation</Link>.
+
+### Principles
+- Always use token of the same level for both the breakpoint and container width. This ensures consistency across all services using HDS breakpoint tokens. Read more about this in <Link size="M" href="#using-breakpoint-tokens">the breakpoint usage section.</Link>
+- Aim to provide all breakpoints listed in HDS tokens in your service. This way you ensure your service is usable with every common screen width.
+- For best results, test your designs and implementations at the edge of each HDS breakpoint.
+- HDS uses a simple method to scale content when the screen size changes. Below the `--container-width-xl` the content container always takes all available space.
+  - It is recommended to use scaling methods HDS suggests for each breakpoint (<Link size="M" href="/foundation/design-tokens/breakpoints/tokens#tokens">see Breakpoints token table</Link>). However, it is allowed to use different scaling methods if it works better for the service.
+
+### Accessibility
+- Carefully test your implementation at different breakpoints - especially at the edge values of a breakpoint.
+- Pay extra attention how your service behaves if browser zoom functionality is used. Read more about the <Link size="M" href="https://www.w3.org/WAI/WCAG21/Understanding/reflow.html" external>WCAG requirements considering reflow</Link>.
+
+### Using breakpoint tokens
+The breakpoint tokens are divided into two sets;
+
+- **Breakpoint tokens** define exact widths (in pixels) where the next breakpoint comes into effect.
+- **Container width token** defines maximum container width.
+
+When breakpoints change the left and right padding of the container changes. It is recommended to use the provided padding values because they match with [HDS Navigation](/components/navigation) and [HDS Footer](/components/footer) paddings. You can find these paddings on the [HDS Breakpoints tokens tab](/foundation/design-tokens/breakpoints/tokens).
+
+The maximum content container width is always `--container-width-xl` (1200px). When the viewport width is below this value, the content container always takes all available space.

@@ -4,6 +4,7 @@ import eachWeekOfInterval from 'date-fns/eachWeekOfInterval';
 import add from 'date-fns/add';
 import endOfMonth from 'date-fns/endOfMonth';
 import startOfMonth from 'date-fns/startOfMonth';
+import Locale from 'date-fns/locale';
 
 import { DatePickerContext } from '../../context/DatePickerContext';
 import { Head } from '../head';

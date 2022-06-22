@@ -1,0 +1,192 @@
+@value x-small-down, small-down from "../../styles/breakpoints.css";
+
+.table {
+  --content-background-color: var(--color-white);
+  composes: hds-table from 'hds-core/lib/components/table/table.css';
+
+  &.dark th {
+    color: var(--color-white);
+  }
+
+  &.light th {
+    color: var(--color-black-90);
+  }
+
+  .checkbox {
+    label {
+      padding-left: 0;
+    }
+  }
+}
+
+.caption {
+  composes: hds-table__caption from 'hds-core/lib/components/table/table.css';
+}
+
+.container {
+  composes: hds-table-container from 'hds-core/lib/components/table/table.css';
+  height: inherit;
+}
+
+.headerRow {
+  composes: hds-table__header-row from 'hds-core/lib/components/table/table.css';
+}
+
+.content {
+  composes: hds-table__content from 'hds-core/lib/components/table/table.css';
+}
+
+.dark {
+  --header-background-color: var(--color-bus);
+
+  .sortButton {
+    color: var(--color-white);
+
+    &:focus {
+      outline: 3px solid var(--color-white);
+    }
+  }
+}
+
+.light {
+  --header-background-color: var(--color-silver);
+
+  .sortButton {
+    color: var(--color-black-90);
+
+    &:focus {
+      outline: 3px solid var(--color-coat-of-arms);
+    }
+  }
+}
+
+.dense {
+  composes: hds-table--dense from 'hds-core/lib/components/table/table.css';
+
+  .sortButton {
+    font-size: var(--fontsize-body-s);
+    font-weight: bold;
+  }
+
+  .headerRow {
+    .sortingHeader {
+      padding-bottom: 7.5px !important;
+      padding-top: 7.5px !important;
+    }
+  }
+}
+
+.zebra {
+  composes: hds-table--zebra from 'hds-core/lib/components/table/table.css';
+}
+
+.verticalLines {
+  composes: hds-table--with-vertical-lines from 'hds-core/lib/components/table/table.css';
+}
+
+.verticalHeaderColumn {
+  composes: hds-table__vertical-header-column from 'hds-core/lib/components/table/table.css';
+}
+
+.textAlignRight {
+  composes: hds-table--text-align-right from 'hds-core/lib/components/table/table.css';
+}
+
+.textAlignContentRight {
+  composes: hds-table__content--text-align-td-right from 'hds-core/lib/components/table/table.css';
+}
+
+.sortButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  border: 0;
+  height: 100%;
+  overflow: hidden;
+  font-weight: 500;
+
+  .sortIcon {
+    margin-left: 10px;
+  }
+
+  &:focus {
+    outline: 3px solid var(--color-white);
+  }
+}
+
+/* MOBILE STYLES */
+
+@media small-down {
+  .sortButton {
+    font-size: var(--fontsize-body-s);
+    font-weight: bold;
+  }
+
+  .table {
+    .headerRow {
+      .sortingHeader {
+        padding-bottom: 7.5px;
+        padding-top: 7.5px;
+      }
+    }
+  }
+}
+
+.sortColumnCell {
+  display: flex;
+  align-items: center;
+}
+
+.checkboxHeader {
+  border-bottom: 1px solid var(--color-black-20);
+}
+
+.checkboxData {
+  width: 24px;
+}
+
+.actionContainer {
+  margin-bottom: var(--spacing-xs);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+
+  .heading {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 29px;
+  }
+
+  .actionButtonContainer {
+    display: flex;
+    gap: var(--spacing-2-xs);
+    flex-wrap: wrap;
+  }
+
+  .actionButton {
+    flex-grow: 0;
+  }
+}
+
+@media x-small-down {
+  .actionContainer {
+    .heading {
+      width: 100%;
+    }
+
+    .actionButtonContainer {
+      width: 100%;
+    }
+
+    .actionButton {
+      width: 100%;
+    }
+  }
+}

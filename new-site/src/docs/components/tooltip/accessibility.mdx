@@ -1,0 +1,15 @@
+---
+slug: '/components/tooltip/accessibility'
+title: 'Tooltip - Accessibility'
+---
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+### Pay attention to
+- Even though HDS Tooltip does not include a visual title, one must be included for screen readers via using `aria-label`. The label can be as simple as "Info" but it can also feature more detailed description such as "More information about filling your personal details".
+- If a Tooltip contains a link, always open them to a new window, so that the process of filling the form is not interrupted.
+- Do not make the tooltip open on hover. The user should be able to select the text inside the tooltip element.

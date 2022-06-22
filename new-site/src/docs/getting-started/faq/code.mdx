@@ -1,0 +1,34 @@
+---
+slug: "/getting-started/faq/code"
+title: "Frequently asked questions"
+---
+
+import { Accordion, Link } from 'hds-react';
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+<Accordion 
+  heading="How can I get the Helsinki Grotesk font in .hel.fi domain services?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  Please refer to <Link size="M" href="https://helsinkisolutionoffice.atlassian.net/wiki/spaces/DD/pages/296058881/Using+Helsinki+Grotesk+fonts" external>the internal font documentation in Confluence</Link>. If you do not have access to Confluence, ask your project’s city employee contact.
+</Accordion>
+
+<Accordion 
+  heading="Where to get help with Drupal and WordPress?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  While HDS does not currently offer WordPress or Drupal implementations, HDS cooperates with multiple WordPress and Drupal projects in the City of Helsinki. Many of these projects have already implemented HDS components which can be reused in other projects.
+
+  If your project is using either WordPress or Drupal, please contact ketu@hel.fi to learn about available implementations that follow HDS.
+</Accordion>

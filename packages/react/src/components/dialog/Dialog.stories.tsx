@@ -41,7 +41,7 @@ export const Default = (args) => {
       >
         <Dialog.Header id={titleId} title="Add new item" iconLeft={<IconPlusCircle aria-hidden="true" />} />
         <Dialog.Content>
-          <p id={descriptionId} className="text-body">
+          <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Add a new item by filling the information below. All fields are mandatory.
           </p>
           <TextInput
@@ -78,6 +78,83 @@ export const Default = (args) => {
 };
 
 // This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
+export const WithBoxShadow = (args) => {
+  const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
+  const openButtonRef = useRef(null);
+  const [open, setOpen] = useState<boolean>(true);
+  const close = () => setOpen(false);
+  const titleId = 'custom-dialog-title';
+  const descriptionId = 'custom-dialog-content';
+
+  return (
+    <>
+      <Button ref={openButtonRef} onClick={() => setOpen(true)}>
+        Open Dialog
+      </Button>
+      <Dialog
+        id={args.id}
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        boxShadow
+        isOpen={open}
+        focusAfterCloseRef={openButtonRef}
+        close={close}
+        closeButtonLabelText="Close"
+        targetElement={dialogTargetElement}
+      >
+        <Dialog.Header id={titleId} title="Add new item" iconLeft={<IconPlusCircle aria-hidden="true" />} />
+        <Dialog.Content>
+          <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
+            Add a new item by filling the information below. All fields are mandatory.
+          </p>
+          <TextInput
+            id="item-name"
+            label="Item name"
+            placeholder="E.g. Item 1"
+            helperText="Item's name must be unique."
+            required
+          />
+          <br />
+          <TextArea
+            id="item-description"
+            label="Item description"
+            placeholder="E.g. Item 1 is the first item of the system."
+            required
+          />
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button
+            onClick={() => {
+              // Add operations here
+              close();
+            }}
+          >
+            Add item
+          </Button>
+          <Button onClick={close} variant="secondary">
+            Cancel
+          </Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  );
+};
+
+WithBoxShadow.storyName = 'With box shadow';
+
+WithBoxShadow.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
+    },
+  },
+  docs: {
+    disable: true,
+  },
+  loki: { skip: false },
+};
+
+// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
 export const Confirmation = (args) => {
   const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
   const openConfirmationButtonRef = useRef(null);
@@ -101,7 +178,7 @@ export const Confirmation = (args) => {
       >
         <Dialog.Header id={titleId} title="Confirm dialog" iconLeft={<IconAlertCircle aria-hidden="true" />} />
         <Dialog.Content>
-          <p id={descriptionId} className="text-body">
+          <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Are you sure you want to continue?
           </p>
         </Dialog.Content>
@@ -138,6 +215,7 @@ Confirmation.parameters = {
   docs: {
     disable: true,
   },
+  loki: { skip: false },
 };
 
 // This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
@@ -165,7 +243,7 @@ export const Danger = (args) => {
       >
         <Dialog.Header id={titleId} title="Delete item" iconLeft={<IconAlertCircle aria-hidden="true" />} />
         <Dialog.Content>
-          <p id={descriptionId} className="text-body">
+          <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Are you sure you want to delete the item?
           </p>
         </Dialog.Content>
@@ -204,6 +282,7 @@ Danger.parameters = {
   docs: {
     disable: true,
   },
+  loki: { skip: false },
 };
 
 // This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
@@ -338,6 +417,67 @@ ScrollableConfirmation.parameters = {
   docs: {
     disable: true,
   },
+  loki: { skip: false },
+};
+
+// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
+export const LongButtonLabels = (args) => {
+  const dialogTargetElement = document.getElementById('root'); // Because of the story regression tests, we need to render the dialog into the root element
+  const openDialogButtonRef = useRef(null);
+  const [open, setOpen] = useState<boolean>(true);
+  const close = () => setOpen(false);
+  const titleId = 'dialog-with-long-labels-title';
+
+  return (
+    <>
+      <Button ref={openDialogButtonRef} onClick={() => setOpen(true)}>
+        Open dialog
+      </Button>
+      <Dialog
+        id={args.id}
+        aria-labelledby={titleId}
+        isOpen={open}
+        focusAfterCloseRef={openDialogButtonRef}
+        targetElement={dialogTargetElement}
+      >
+        <Dialog.Header id={titleId} title="Confirm dialog" iconLeft={<IconAlertCircle aria-hidden="true" />} />
+        <Dialog.Content>
+          <h3 style={{ marginTop: '0' }}>Are you sure you want to continue?</h3>
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button
+            onClick={() => {
+              // Add confirm operations here
+              close();
+            }}
+          >
+            Confirm this thing now with a long label
+          </Button>
+          <Button onClick={close} variant="secondary">
+            Cancel and go back to the beginning
+          </Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  );
+};
+
+LongButtonLabels.storyName = 'With long button labels';
+
+LongButtonLabels.args = {
+  id: 'dialog-with-long-button-labels',
+};
+
+LongButtonLabels.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
+    },
+  },
+  docs: {
+    disable: true,
+  },
+  loki: { skip: false },
 };
 
 // This dialog story is not part of the Storybooks' docs section.
@@ -373,7 +513,7 @@ export const ConfirmationWithTerms = (args) => {
           iconLeft={<IconAlertCircle aria-hidden="true" />}
         />
         <Dialog.Content>
-          <p id={confirmationDescriptionId} className="text-body">
+          <p id={confirmationDescriptionId} className="text-body" style={{ marginTop: '0' }}>
             Do you want to accept terms of the service?
             <br />
             <br />
@@ -461,4 +601,74 @@ ConfirmationWithTerms.parameters = {
   docs: {
     disable: true,
   },
+};
+
+export const WithControlledContent = (args) => {
+  const openButtonRef = useRef(null);
+  const [open, setOpen] = useState<boolean>(false);
+  const close = () => setOpen(false);
+  const titleId = 'custom-dialog-title';
+  const descriptionId = 'custom-dialog-content';
+  const [textInputValue, setTextInputValue] = useState('');
+  const [textAreaInputValue, setTextAreaInputValue] = useState('');
+
+  return (
+    <>
+      <Button ref={openButtonRef} onClick={() => setOpen(true)}>
+        Open Dialog
+      </Button>
+      <Dialog
+        id={args.id}
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        isOpen={open}
+        focusAfterCloseRef={openButtonRef}
+        close={close}
+        closeButtonLabelText="Close"
+      >
+        <Dialog.Header id={titleId} title="Add new item" iconLeft={<IconPlusCircle aria-hidden="true" />} />
+        <Dialog.Content>
+          <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
+            Add a new item by filling the information below. All fields are mandatory.
+          </p>
+          <TextInput
+            id="item-name"
+            label="Item name"
+            placeholder="E.g. Item 1"
+            helperText="Item's name must be unique."
+            onChange={(event) => setTextInputValue(event.target.value)}
+            value={textInputValue}
+            required
+          />
+          <br />
+          <TextArea
+            id="item-description"
+            label="Item description"
+            placeholder="E.g. Item 1 is the first item of the system."
+            onChange={(event) => setTextAreaInputValue(event.target.value)}
+            value={textAreaInputValue}
+            required
+          />
+        </Dialog.Content>
+        <Dialog.ActionButtons>
+          <Button
+            onClick={() => {
+              // Add operations here
+              close();
+            }}
+          >
+            Add item
+          </Button>
+          <Button onClick={close} variant="secondary">
+            Cancel
+          </Button>
+        </Dialog.ActionButtons>
+      </Dialog>
+    </>
+  );
+};
+
+WithControlledContent.storyName = 'With controlled content';
+WithControlledContent.parameters = {
+  loki: { skip: true },
 };

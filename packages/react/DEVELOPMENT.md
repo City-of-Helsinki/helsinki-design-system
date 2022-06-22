@@ -4,6 +4,12 @@
 
 > Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scripts across the repo as well as versioning and creating releases of the packages. [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) is used to manage dependencies. This allows the separate packages to reference each other via symlinks during local development.
 
+### Prerequisites
+- [Node](https://nodejs.org/en/) 
+- [Yarn](https://yarnpkg.com/) 
+- [Docker](https://www.docker.com/) (for visual regression tests)
+- [Git lfs](https://git-lfs.github.com/) (installation instructions below)
+
 ### Setting up local development environment
 
 0. Download and Install [git lfs](https://git-lfs.github.com/) which is used to store images outside repository.
@@ -75,10 +81,14 @@ yarn start:react
 ```
 Then leave the storybook on the background and switch to another terminal window. Go to packages/react and issue this command:
 ```
-yarn update-reference-images --storiesFilter "<name of the component or name of the story>"
+yarn update-reference-images --storiesFilter "<name or part of the name of the story>"
 ```
-
-You should pass the component name with `--storiesFilter` flag in order to update the reference images only for that single component.
+You should pass the component's story name with --storiesFilter flag to update the reference images only for that single component story.
+For example, to update Button story reference images, you can run:
+```
+yarn update-reference-images --storiesFilter "Button"
+```
+[Here](https://github.com/oblador/loki/blob/master/docs/command-line-arguments.md) is more info about Loki-tests' command-line arguments
 
 ## Workflow
 

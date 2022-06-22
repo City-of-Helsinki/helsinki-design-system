@@ -1,0 +1,37 @@
+---
+slug: '/components/side-navigation/tabs'
+title: 'SideNavigation'
+---
+
+import { StatusLabel, Notification } from 'hds-react';
+
+import LeadParagraph from '../../../components/LeadParagraph';
+import Layout from '../../../components/layout';
+import PageTabs from '../../../components/PageTabs';
+
+# SideNavigation
+
+<StatusLabel type="alert">Draft</StatusLabel>
+<StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+  Accessible
+</StatusLabel>
+
+<LeadParagraph>
+  A side navigation is an additional navigation element that is located at the left-hand side of the viewport. It provides an extra level of navigation and also can be helpful in situations where the traditional top navigation feels too clumsy. 
+</LeadParagraph>
+
+<Notification label="A visual rework is coming soon!" className="siteNotification">
+  The HDS team will be unifying the SideNavigation component with the Hel.fi project side navigation in the near future.
+</Notification>
+
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+    <PageTabs.Tab href="/customisation">Customisation</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>
+
+export default ({ pageContext, children }) => <Layout pageContext={pageContext}>{children}</Layout>;

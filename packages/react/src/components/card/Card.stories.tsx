@@ -1,5 +1,4 @@
 import React from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
 
 import { Card } from './Card';
 import { Button } from '../button';
@@ -7,7 +6,6 @@ import { Button } from '../button';
 export default {
   component: Card,
   title: 'Components/Card',
-  decorators: [withKnobs],
   parameters: {
     controls: { expanded: true },
   },
@@ -19,6 +17,12 @@ export const WithBorder = (args) => <Card {...args} />;
 WithBorder.storyName = 'With border';
 WithBorder.args = {
   border: true,
+};
+
+export const WithBoxShadow = (args) => <Card {...args} />;
+WithBoxShadow.storyName = 'With box shadow';
+WithBoxShadow.args = {
+  boxShadow: true,
 };
 
 export const TextHeading = (args) => <Card {...args} />;

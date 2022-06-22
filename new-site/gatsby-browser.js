@@ -5,3 +5,6 @@
  */
 
 import 'hds-core/lib/base.css';
+import 'hds-core/lib/icons/all.css';
+import 'hds-core/lib/icons/icon.css';
+import 'hds-core/lib/components/all.css';

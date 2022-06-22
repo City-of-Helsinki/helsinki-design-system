@@ -9,23 +9,11 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.4
-
-      - name: Create LFS file list
-        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
-
-      - name: Restore LFS cache
-        uses: actions/cache@v2
-        id: lfs-cache
-        with:
-          path: .git/lfs
-          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}-v1
-
-      - name: Git LFS Pull
-        run: git lfs pull
+      - name: Checkout code
+        uses: nschloe/action-checkout-with-lfs-cache@v1
 
       - name: setup node
-        uses: actions/setup-node@v2.4.1
+        uses: actions/setup-node@v2.5.1
         with:
           node-version: "12.x"
           registry-url: "https://registry.npmjs.org"
@@ -67,6 +55,12 @@ jobs:
 
       - name: move react storybook under docz
         run: mv ./packages/react/storybook-static ./site/public/storybook/react
+
+      - name: move v1 docz site under v1
+        run: cp -R ./deprecated/v1/docz-site ./site/public/v1
+
+      - name: move v1 storybooks under v1
+        run: cp -R ./deprecated/v1/storybook ./site/public/v1/storybook
 
       - name: release npm packages
         run: yarn release

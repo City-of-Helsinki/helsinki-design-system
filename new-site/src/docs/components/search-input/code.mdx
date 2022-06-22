@@ -1,0 +1,147 @@
+---
+slug: '/components/search-input/code'
+title: 'SearchInput - Code'
+---
+
+import { SearchInput } from 'hds-react';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples 
+
+#### Default
+<Playground>
+
+```jsx
+<SearchInput 
+  label="Search" 
+  placeholder="Placeholder text"
+  helperText="Assistive text" 
+  searchButtonAriaLabel="Search" 
+  clearButtonAriaLabel="Clear search field"
+  onSubmit={submittedValue => console.log('Submitted value:', submittedValue)}
+  style={{ maxWidth: '320px' }}
+/>
+```
+
+```html
+<div class="hds-search-input" style="max-width:320px;">
+  <label for="example" class="hds-search-input__label">Search</label>
+  <div class="hds-search-input__input-wrapper">
+    <input
+      id="example"
+      class="hds-search-input__input"
+      type="text"
+      placeholder="Placeholder text"
+    />
+    <div class="hds-search-input__buttons">
+      <button
+        type="button"
+        aria-label="Search"
+        class="hds-search-input__button"
+      >
+        <i class="hds-icon hds-icon--search hds-icon--size-s" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+  <span class="hds-search-input__helper-text">Assistive text</span>
+</div>
+```
+
+</Playground>
+
+#### With suggestions
+<Playground>
+
+
+```jsx
+{() => {
+  const fruits = ['Apple', 'Apricot', 'Avocado', 'Banana', 'Blackberry', 'Blueberry', 'Cherry', 'Coconut', 'Cranberry', 'Date', 'Dragonfruit', 'Fig', 'Gooseberry', 'Grape', 'Honeyberry', 'Jackfruit', 'Kiwifruit', 'Lemon', 'Lime', 'Mango', 'Melon', 'Nectarine', 'Orange', 'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Pineapple', 'Raspberry', 'Satsuma', 'Start fruit', 'Strawberry', 'Tangelo', 'Tomato'].map((fruit) => ({ value: fruit }));
+  
+  const getSuggestions = (inputValue) => new Promise((resolve, reject) => {
+    const filteredItems = fruits.filter((fruit) => {
+      return fruit.value.toLowerCase().indexOf(inputValue.toLowerCase()) > -1;
+    });
+    setTimeout(() => resolve(filteredItems), 3000);
+  });
+  
+  return (
+    <SearchInput 
+      label="Search for a fruit"
+      placeholder="E.g. Apple"
+      helperText="Assistive text" 
+      searchButtonAriaLabel="Search" 
+      clearButtonAriaLabel="Clear search field"
+      suggestionLabelField="value"
+      getSuggestions={getSuggestions}
+      onSubmit={submittedValue => console.log('Submitted value:', submittedValue)}
+      style={{ maxWidth: '320px' }}
+    />
+  );
+}}
+```
+
+</Playground>
+
+#### With suggestions and highlighting
+<Playground>
+
+
+```jsx
+{() => {
+  const educations = ['Daycare education', 'Preschool education', 'Basic education', 'Upper secondary education', 'Vocational education', 'Polytechnic education', 'University education', 'Adult education centre'].map((education) => ({ value: education }));
+  
+  const getSuggestions = (inputValue) => new Promise((resolve, reject) => {
+    const filteredItems = educations.filter((education) => {
+      return education.value.toLowerCase().indexOf(inputValue.toLowerCase()) > -1;
+    });
+    resolve(filteredItems);
+  });
+  
+  return (
+    <>
+      <div style={{ fontSize: 'var(--fontsize-body-m)', marginBottom: 'var(--spacing-m)' }}>To see highlighting in action, search for "education".</div>
+      <SearchInput 
+        label="Search education services" 
+        helperText="Assistive text" 
+        searchButtonAriaLabel="Search" 
+        clearButtonAriaLabel="Clear search field"
+        highlightSuggestions
+        suggestionLabelField="value"
+        getSuggestions={getSuggestions}
+        onSubmit={submittedValue => console.log('Submitted value:', submittedValue)}
+        style={{ maxWidth: '320px' }}
+      />
+    </>
+  );
+}}
+```
+
+</Playground>
+
+### Packages
+| Package           | Included                      | Storybook link                                                                                                                      | Source link   |
+| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-searchinput--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/searchInput">View source</Link> |
+| **HDS Core**      | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/core/?path=/story/components-search-input--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/search-input">View source</Link>  |
+
+### Properties
+Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/docs/components-searchinput--default" external>React Storybook.</Link>
+
+| Property                     | Description                                                                                                                                                                                                                           | Values                     | Default value                  |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | ------------------------------ |
+| `clearButtonAriaLabel`       | The aria-label for the clear button.                                                                                                                                                                                                  | `string`                   | "Clear"                        |
+| `getSuggestions`             | Callback function fired every time the input content changes. Receives the input value as a parameter. Must return a promise which resolves to an array of SuggestionItems.                                                           | `function`                 | -                              |
+| `highlightSuggestions`       | If set to true, the matching part of a suggestion will be highlighted.                                                                                                                                                                | `boolean`                  | false                          |
+| `label`                      | The label for the search field.                                                                                                                                                                                                       | `string`                   | -                              |
+| `loadingSpinnerText`         | Text to show for screen readers when loading spinner is visible.                                                                                                                                                                      | `string`                   | "Loading suggestions"          |
+| `loadingSpinnerFinishedText` | Text to show for screen readers when loading spinner is no longer visible.                                                                                                                                                            | `string`                   | "Finished loading suggestions" |
+| `searchButtonAriaLabel`      | The aria-label for the search button.                                                                                                                                                                                                 | `string`                   | "Search"                       |
+| `hideSearchButton`           | If set to true, the search button will be hidden.                                                                                                                                                                                     | `boolean`                  | false                          |
+| `suggestionLabelField`       | Field of the SuggestionItem that represents the item label. E.g. an `suggestionLabelField` value of `'foo'` and a suggestion item `{ foo: 'Label', bar: 'value' }`, would display `'Label'` in the menu for that specific suggestion. | `string` `number` `symbol` | false                          |
+| `visibleSuggestions`         | The number of suggestions that are visible in the menu before it becomes scrollable.                                                                                                                                                  | `number`                   | 8                              |
+[Table 1:SearchInput properties]|

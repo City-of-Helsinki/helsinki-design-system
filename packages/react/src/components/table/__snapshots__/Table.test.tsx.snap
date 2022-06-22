@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Table /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+    tabindex="0"
+  >
+    <table
+      class="table dark"
+      data-testid="hds-table-data-testid"
+      id="hds-table-id"
+    >
+      <caption
+        class="caption"
+      >
+        <span>
+          <b>
+            Table 1
+          </b>
+          : Table description
+        </span>
+      </caption>
+      <thead>
+        <tr
+          class="headerRow"
+        >
+          <th
+            scope="col"
+          >
+            First name
+          </th>
+          <th
+            scope="col"
+          >
+            Surname
+          </th>
+          <th
+            scope="col"
+          >
+            Age
+          </th>
+          <th
+            scope="col"
+          >
+            Profession
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="content"
+      >
+        <tr>
+          <td
+            data-testid="firstName-0"
+          >
+            Lauri
+          </td>
+          <td
+            data-testid="surname-0"
+          >
+            Kekkonen
+          </td>
+          <td
+            data-testid="age-0"
+          >
+            <div
+              style="text-align: right;"
+            >
+              39
+            </div>
+          </td>
+          <td
+            data-testid="profession-0"
+          >
+            Engineer
+          </td>
+        </tr>
+        <tr>
+          <td
+            data-testid="firstName-1"
+          >
+            Maria
+          </td>
+          <td
+            data-testid="surname-1"
+          >
+            Sarasoja
+          </td>
+          <td
+            data-testid="age-1"
+          >
+            <div
+              style="text-align: right;"
+            >
+              62
+            </div>
+          </td>
+          <td
+            data-testid="profession-1"
+          >
+            Designer
+          </td>
+        </tr>
+        <tr>
+          <td
+            data-testid="firstName-2"
+          >
+            Anneli
+          </td>
+          <td
+            data-testid="surname-2"
+          >
+            Routa
+          </td>
+          <td
+            data-testid="age-2"
+          >
+            <div
+              style="text-align: right;"
+            >
+              50
+            </div>
+          </td>
+          <td
+            data-testid="profession-2"
+          >
+            Meteorologist
+          </td>
+        </tr>
+        <tr>
+          <td
+            data-testid="firstName-3"
+          >
+            Osku
+          </td>
+          <td
+            data-testid="surname-3"
+          >
+            Rausku
+          </td>
+          <td
+            data-testid="age-3"
+          >
+            <div
+              style="text-align: right;"
+            >
+              18
+            </div>
+          </td>
+          <td
+            data-testid="profession-3"
+          >
+            Mail Carrier
+          </td>
+        </tr>
+        <tr>
+          <td
+            data-testid="firstName-4"
+          >
+            Linda
+          </td>
+          <td
+            data-testid="surname-4"
+          >
+            Koululainen
+          </td>
+          <td
+            data-testid="age-4"
+          >
+            <div
+              style="text-align: right;"
+            >
+              8
+            </div>
+          </td>
+          <td
+            data-testid="profession-4"
+          >
+            School student
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</DocumentFragment>
+`;

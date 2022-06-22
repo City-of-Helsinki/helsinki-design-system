@@ -11,16 +11,16 @@
   padding: var(--padding-vertical) var(--padding-horizontal);
 }
 
+.boxShadow {
+  composes: hds-card--box-shadow from 'hds-core/lib/components/card/card.css';
+}
+
 .border {
   composes: hds-card--border from 'hds-core/lib/components/card/card.css';
 }
 
 .body {
   composes: hds-card__body from 'hds-core/lib/components/card/card.css';
-}
-
-.heading {
-  composes: hds-card__heading from 'hds-core/lib/components/card/card.css';
 }
 
 .text {

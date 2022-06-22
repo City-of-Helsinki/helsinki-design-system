@@ -1,0 +1,29 @@
+---
+slug: '/components/link/accessibility'
+title: 'Link - Accessibility'
+---
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+### Pay attention to
+The HDS link component is primarily a native HTML hyperlink navigational element. The Enter key activates the link and causes the user agent to move focus to the link destination.
+
+- Remember to tell users if the link is going to open an entirely new site. In HDS React Link this feature is provided through external links (prop `external`). There is a default aria-label for screen readers. This can be overwritten by using the `openInExternalDomainAriaLabel` prop.
+In HDS Core, set a proper `aria-label` to the anchor tag as shown in the examples below.
+
+- Remember to tell users if the link is going to open in a new tab. In HDS React Link this feature is provided through prop `openInNewTab`. There is a default aria-label for screen readers. This can be overwritten by using the `openInNewTabAriaLabel` prop.
+In HDS Core, set a proper `aria-label` to the anchor tag as shown in the examples below.
+
+- Some assistive technologies provide a list of all links on the page to its user. If the text of the links does not clearly give the purpose, or if multiple links with the same name point to different targets (e.g., “read more”), users are forced to locate the link on the page and search surrounding information for context.
+
+Make sure that:
+
+- Link text is the visible label for the native HTML link and is used to provide the purpose of the link which is clear and easy to understand for all users.
+- The alt attribute for the img element is used to describe the purpose of a graphical link with an image inside the link.
+- The title attribute can be used to supplement the link text with any additional useful description.
+- The purpose of each link can be determined from the link text alone or from the link text together with its programmatically determined link context.
+- Icons should always be the same colour as the link text

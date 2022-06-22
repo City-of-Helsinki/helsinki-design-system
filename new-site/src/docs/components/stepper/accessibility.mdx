@@ -1,0 +1,18 @@
+---
+slug: '/components/stepper/accessibility'
+title: 'Stepper - Accessibility'
+---
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+### Pay attention to
+- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
+- Note that the step label is a mandatory property. This label will be set as the `aria-label` of the step.
+  - This label will also be in the step heading element below the stepper.
+- Each form step should have a heading element of the correct level. It is recommended to use `stepHeading` property to render the heading automatically.
+  - If you render the step heading separately, make sure the focus is moved to that heading when the user is moving between steps. This has been taken care of for you if you use the `stepHeading` variant.
+  - You can control the aria level of the heading with the `stepHeadingAriaLevel` property.

@@ -1,0 +1,65 @@
+---
+slug: '/components/loading-spinner'
+title: 'LoadingSpinner'
+navTitle: 'LoadingSpinner'
+---
+
+import { LoadingSpinner } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+<PlaygroundPreview>
+  <LoadingSpinner />
+</PlaygroundPreview>
+
+The loading spinner do not provide details about nature of the processing but it reassures the user that their action is being processed.
+
+### Principles
+
+- **Use the loading spinner only if the wait time is anticipated to be longer than three seconds.** A spinner that only quickly flashes in view can confuse the user.
+- Display the loading spinner in the same area and contextual level where the processing is taking place. For example, if only the loader indicates that data is being retrieved for a specific content area, display the spinner in that same area.
+- If possible, provide a descriptive visual label for the action being processed with the loading spinner.
+
+### Variations
+
+#### Default
+
+The loading spinner comes in two sizes:
+
+- Medium (64px) is used for larger content areas and for full-screen loading
+- Small (24px) can be used for indicating more local changes in content.
+
+<PlaygroundPreview>
+  <LoadingSpinner />
+  <br />
+  <LoadingSpinner small />
+</PlaygroundPreview>
+
+#### Customized loading spinner
+
+The colour of the spinner can be customised to fit the colour theme of the service. HDS Loading spinner even supports shifting between multiple colours. Colour shifting should be used sparingly and only if the theme of the service calls for it.
+
+Note! When using multicolour loading spinners, at least half of the colours must have sufficient contrast `3:1` against the spinner background.
+
+<PlaygroundPreview>
+  <LoadingSpinner
+    theme={{
+      '--spinner-color': 'var(--color-tram)',
+    }}
+  />
+  <br />
+  <LoadingSpinner
+    multicolor
+    theme={{
+      '--spinner-color-stage1': 'var(--color-coat-of-arms)',
+      '--spinner-color-stage2': 'var(--color-tram)',
+      '--spinner-color-stage3': 'var(--color-metro)',
+    }}
+  />
+</PlaygroundPreview>

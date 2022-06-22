@@ -1,0 +1,15 @@
+---
+slug: '/components/text-area/accessibility'
+title: 'TextArea - Accessibility'
+---
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+### Pay attention to
+- Placeholder text can be used to give hints and examples to the user what should be entered to the field. **However, all assistive technologies do not threat placeholder texts as labels and therefore they may ignore them completely.** Aim to provide the sufficient information to fill the input in the label.
+- It is required to use `autocomplete` attribute if input control is listed in the common input purposes list. You can read the full list of common input purposes at <Link size="M" href="https://www.w3.org/TR/WCAG21/#input-purposes" external>WCAG 2.1 documentation website</Link>. You can read more about the requirement from <Link size="M" href="https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose" external>WCAG 2.1 Identify Input Purpose guideline</Link>.
+- In the case of an erroneous input, aim to provide clear instructions to the user on how to correct the mistake. Always provide a text description of the error.

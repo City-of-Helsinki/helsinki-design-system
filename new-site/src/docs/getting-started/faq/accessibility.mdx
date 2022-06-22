@@ -1,0 +1,87 @@
+---
+slug: "/getting-started/faq/accessibility"
+title: "Frequently asked questions"
+---
+
+import { Accordion, Link } from 'hds-react';
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+<Accordion 
+  heading="If our project uses HDS, do we need to worry about accessibility?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  HDS ensures that its components are accessible. This does not mean that a project build with these components is accessible automatically. The project needs to make sure that the components are used in a correct way and the content is accessible. Using HDS components takes some workload away from your project and lets your project focus on project-specific accessibility. You can read more about the topic in the <Link size="M" href="/about/accessibility/hds-accessibility#accessibility-in-projects-using-hds">About - HDS Accessibility section</Link>.
+</Accordion>
+
+<Accordion 
+  heading="How HDS ensures accessibility of its components?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  HDS aims to ensure accessibility in every stage of component development. HDS components always meet at least WCAG 2.1 AA level and often also reach the AAA level. Please refer to the Accessibility section for more information about this process.
+</Accordion>
+
+<Accordion 
+  heading="We found an accessibility issue in our project's audit. What should we do?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  Please contact our team with any of the channels listed on the <Link size="M" href="/about/support">Support page</Link>. You can also open an issue in <Link size="M" href="https://github.com/City-of-Helsinki/helsinki-design-system/issues">GitHub</Link>. 
+  
+  Sometimes accessibility issues slip through our own audit. It is also common that accessibility experts interpret the accessibility guidelines in different ways - resulting differences in audit reports. Our team will go through your report and if needed, fix the issue as soon as possible.
+</Accordion>
+
+<Accordion 
+  heading="Which screen readers are tested in the accessibility audit?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  HDS components and patterns are tested with the newest NVDA on Windows and the newest VoiceOver on Mac and iOS.
+
+  On testing, the HDS team focuses more on ensuring that WCAG criteria and the HTML specification are followed properly, and not so much on individual assistive technologies. Then functionality is validated with a couple of selected assistive technologies. Different assistive technologies choose to obey standards in different ways so it is more important to follow standards than to support specific technologies.
+</Accordion>
+
+<Accordion 
+  heading="Why JAWS is not included in the list of tested screen readers?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  JAWS is quite rare to be tested within European countries. It is more common in English-speaking, non-European countries. JAWS also updates very often and is often incompatible with specific browser versions.
+
+  Since HDS is fully open-source, we also promote openness in our assistive technology choices. NVDA and VoiceOver are free to use for Windows and Mac users.
+</Accordion>
+
+<Accordion 
+  heading="I have an icon without a text label in my user interface. How do I ensure it is accessible?" 
+  headingLevel="3" 
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  <p>
+  HDS recommends always having a visible text label for icons. Users interpret icons in different ways so it is important to not forget to include a text label.
+
+  However, if your user interface for some reason includes icons that do not have a visible text label, at least ensure the following:
+  <ul>
+    <li>The icon includes an aria-label attribute that describes the purpose of the icon</li>
+    <li>The icon SVG itself is hidden with an aria-hidden="true" attribute</li>
+    <li>The icon SVG has a role="img" attribute</li>
+  </ul>
+  </p>
+</Accordion>

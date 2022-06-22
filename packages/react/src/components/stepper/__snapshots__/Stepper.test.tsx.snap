@@ -1,0 +1,191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Stepper /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="stepperContainer"
+    data-testid="hds-stepper"
+    lang="en"
+  >
+    <div
+      class="stepper"
+    >
+      <div
+        aria-hidden="true"
+        class="line"
+      >
+        <div
+          class="disabledLine"
+          style="width: calc( 100% / 4);"
+        />
+        <div
+          class="disabledLine"
+          style="width: calc( 100% / 4);"
+        />
+        <div
+          class="disabledLine"
+          style="width: calc( 100% / 4);"
+        />
+        <div
+          class="disabledLine"
+          style="width: calc( 100% / 4);"
+        />
+      </div>
+      <div
+        class="stepContainer"
+      >
+        <button
+          aria-current="step"
+          aria-label="Step 1. Step 1/5."
+          class="step selected"
+          data-testid="hds-stepper-step-0"
+          type="button"
+        >
+          <div
+            class="circleContainer"
+          >
+            <div
+              class="circle"
+            >
+              <span
+                class="number"
+              >
+                1
+              </span>
+            </div>
+          </div>
+          <p
+            class="label"
+          >
+            Step 1
+          </p>
+        </button>
+      </div>
+      <div
+        class="stepContainer"
+      >
+        <button
+          aria-current="false"
+          aria-label="Step 2. Step 2/5."
+          class="step disabled"
+          data-testid="hds-stepper-step-1"
+          disabled=""
+          type="button"
+        >
+          <div
+            class="circleContainer"
+          >
+            <div
+              class="circle"
+            >
+              <span
+                class="number"
+              >
+                2
+              </span>
+            </div>
+          </div>
+          <p
+            class="label"
+          >
+            Step 2
+          </p>
+        </button>
+      </div>
+      <div
+        class="stepContainer"
+      >
+        <button
+          aria-current="false"
+          aria-label="Step 3. Step 3/5."
+          class="step disabled"
+          data-testid="hds-stepper-step-2"
+          disabled=""
+          type="button"
+        >
+          <div
+            class="circleContainer"
+          >
+            <div
+              class="circle"
+            >
+              <span
+                class="number"
+              >
+                3
+              </span>
+            </div>
+          </div>
+          <p
+            class="label"
+          >
+            Step 3
+          </p>
+        </button>
+      </div>
+      <div
+        class="stepContainer"
+      >
+        <button
+          aria-current="false"
+          aria-label="Step 4 - longer text. Step 4/5."
+          class="step disabled"
+          data-testid="hds-stepper-step-3"
+          disabled=""
+          type="button"
+        >
+          <div
+            class="circleContainer"
+          >
+            <div
+              class="circle"
+            >
+              <span
+                class="number"
+              >
+                4
+              </span>
+            </div>
+          </div>
+          <p
+            class="label"
+          >
+            Step 4 - longer text
+          </p>
+        </button>
+      </div>
+      <div
+        class="stepContainer"
+      >
+        <button
+          aria-current="false"
+          aria-label="Step 5. Step 5/5."
+          class="step disabled"
+          data-testid="hds-stepper-step-4"
+          disabled=""
+          type="button"
+        >
+          <div
+            class="circleContainer"
+          >
+            <div
+              class="circle"
+            >
+              <span
+                class="number"
+              >
+                5
+              </span>
+            </div>
+          </div>
+          <p
+            class="label"
+          >
+            Step 5
+          </p>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

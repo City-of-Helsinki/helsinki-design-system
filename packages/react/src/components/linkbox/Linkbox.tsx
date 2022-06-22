@@ -108,7 +108,7 @@ export const Linkbox = ({
       onClick={() => {
         linkRef.current.click();
       }}
-      className={classNames(styles.linkbox, withBorder && styles.withBorder)}
+      className={classNames(styles.linkbox, withBorder && styles.withBorder, className)}
       aria-label={composeAriaLabel(linkboxAriaLabel)}
     >
       {imgProps && <img {...imgProps} className={styles.image} alt="" />}
@@ -131,7 +131,6 @@ export const Linkbox = ({
             role="heading"
             aria-level={headingAriaLevel}
             className={classNames(
-              styles.headingCommon,
               size === 'small' && styles.headingSmall,
               size === 'medium' && styles.headingMedium,
               size === 'large' && styles.headingLarge,
@@ -144,7 +143,7 @@ export const Linkbox = ({
         {children}
       </div>
       <a
-        className={classNames(styles.link, className)}
+        className={styles.link}
         aria-label={composeAriaLabel(linkAriaLabel)}
         ref={linkRef}
         tabIndex={-1}

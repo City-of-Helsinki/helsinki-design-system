@@ -1,0 +1,51 @@
+---
+slug: '/components/tooltip'
+title: 'Tooltip'
+navTitle: 'Tooltip'
+---
+
+import { Tooltip } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+<PlaygroundPreview>
+  <Tooltip>Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.</Tooltip>
+</PlaygroundPreview>
+
+### Principles
+- **Tooltip must not be the sole way to provide essential information that the user must know to perform a task (such as inputting a value).** This means Tooltip should display "nice to have" but not essential information.
+    - For more information on what elements should be used to present different kinds of information, refer to [HDS Form pattern - Providing instructions guideline](/)
+- **Be clear and consise in the Tooltip description.** Keep the description as short as two to three sentences. If longer explanations are needed, provide a link to a separate page.
+- HDS Tooltips come in two sizes; Default and Small. Only use the Small variant if the Tooltip text is less than 5 words long. Otherwise you should use the Default size variant.
+- HDS Tooltip implementation has an automatic placement feature that is the recommended option. You may also override the Tooltip positioning manually but always remember to test that the Tooltip is fully visible on all screen sizes.
+
+### Variations
+
+#### Default
+The default size Tooltip variant works in most situations where the Tooltip description is longer than a few words.
+
+<PlaygroundPreview>
+  <Tooltip>Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.</Tooltip>
+</PlaygroundPreview>
+
+#### Small
+A small size Tooltip variant can be used instead of the default one if the description is only a few words long (less than 5 words). Also, note that the small Tooltip should never replace labels (e.g. for icons). WCAG requires that labels are always visible and not hidden behind a Tooltip.
+
+<PlaygroundPreview>
+  <Tooltip small>Less than five words long</Tooltip>
+</PlaygroundPreview>
+
+#### Positioning
+HDS Tooltip implementation has automatic placement feature. It will automatically try to keep the Tooltip in the view and dynamically updates the positioning if the screen size changes. Tooltip positioning can also be overridden manually.
+
+There are 15 available position settings. Please refer to the Code tab for all examples.
+
+<PlaygroundPreview>
+  <Tooltip placement="top">Tooltip with top placement setting</Tooltip>
+  <Tooltip placement="bottom">Tooltip with bottom placement setting</Tooltip>
+</PlaygroundPreview>

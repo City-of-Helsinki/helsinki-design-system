@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { boolean, number, radios, text, withKnobs } from '@storybook/addon-knobs';
 
 import { Notification, NotificationSizeInline, NotificationSizeToast } from './Notification';
 import { Button } from '../button';
@@ -16,7 +15,7 @@ export default {
   parameters: {
     controls: { hideNoControlsWarning: true },
   },
-  decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
+  decorators: [(storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
 };
 
 export const Default = () => <Notification {...props}>{content}</Notification>;
@@ -50,6 +49,14 @@ export const Large = () => (
     {content}
   </Notification>
 );
+
+export const WithBoxShadow = () => (
+  <Notification {...props} boxShadow>
+    {content}
+  </Notification>
+);
+
+WithBoxShadow.storyName = 'With box shadow';
 
 export const Invisible = () => {
   const [open, setOpen] = useState(false);
@@ -110,55 +117,17 @@ export const AutoClose = () => {
   );
 };
 
-export const Playground = () => {
+export const Playground = (args) => {
   const [open, setOpen] = useState(true);
-  const label = text('Label', 'Label');
-  const body = text('Content', content);
-  const closeButtonLabelText = text('Close button label text', 'Close notification');
-  const type = radios(
-    'Type',
-    {
-      info: 'info',
-      success: 'success',
-      alert: 'alert',
-      error: 'error',
-    },
-    'info',
-  );
-  const size = radios(
-    'Size',
-    {
-      default: 'default',
-      small: 'small',
-      large: 'large',
-    },
-    'default',
-  );
-  const position = radios(
-    'Position',
-    {
-      inline: 'inline',
-      'top-left': 'top-left',
-      'top-center': 'top-center',
-      'top-right': 'top-right',
-      'bottom-left': 'bottom-left',
-      'bottom-center': 'bottom-center',
-      'bottom-right': 'bottom-right',
-    },
-    'inline',
-  );
-  const invisible = boolean('Invisible', false);
-  const dismissible = boolean('Dismissible', false);
-  const autoClose = boolean('Close automatically', false);
-  const displayAutoCloseProgress = boolean('Display auto close progress', true);
-  const autoCloseDuration = number('Auto close duration', 6000);
 
   useEffect(() => {
-    if (position === 'inline') setOpen(true);
-  }, [position]);
+    if (args.position === 'inline') setOpen(true);
+  }, [args.position]);
 
   let typedSize;
-  position === 'inline' ? (typedSize = size as NotificationSizeInline) : (typedSize = size as NotificationSizeToast);
+  args.position === 'inline'
+    ? (typedSize = args.size as NotificationSizeInline)
+    : (typedSize = args.size as NotificationSizeToast);
 
   return (
     <>
@@ -175,24 +144,25 @@ export const Playground = () => {
       </Button>
       {open && (
         <Notification
-          autoClose={autoClose}
-          autoCloseDuration={autoCloseDuration}
-          displayAutoCloseProgress={displayAutoCloseProgress}
-          invisible={invisible}
-          label={label}
-          type={type}
+          autoClose={args.autoClose}
+          autoCloseDuration={args.autoCloseDuration}
+          displayAutoCloseProgress={args.displayAutoCloseProgress}
+          invisible={args.invisible}
+          label={args.label}
+          type={args.type}
           onClose={() => setOpen(false)}
-          position={position}
+          position={args.position}
           size={typedSize}
-          dismissible={dismissible}
-          closeButtonLabelText={closeButtonLabelText}
+          dismissible={args.dismissible}
+          closeButtonLabelText={args.closeButtonLabelText}
         >
-          {body}
+          {args.body}
         </Notification>
       )}
     </>
   );
 };
+
 Playground.parameters = {
   previewTabs: {
     'storybook/docs/panel': {
@@ -201,5 +171,34 @@ Playground.parameters = {
   },
   docs: {
     disable: true,
+  },
+};
+
+Playground.args = {
+  label: 'Label',
+  body: content,
+  closeButtonLabelText: 'Close notification',
+  type: 'info',
+  size: 'default',
+  position: 'inline',
+  invisible: false,
+  dismissible: false,
+  autoClose: false,
+  displayAutoCloseProgress: true,
+  autoCloseDuration: 6000,
+};
+
+Playground.argTypes = {
+  type: {
+    options: ['info', 'success', 'alert', 'error'],
+    control: { type: 'radio' },
+  },
+  size: {
+    options: ['default', 'small', 'large'],
+    control: { type: 'radio' },
+  },
+  position: {
+    options: ['inline', 'top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'],
+    control: { type: 'radio' },
   },
 };

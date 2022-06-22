@@ -80,4 +80,8 @@ export interface DayPickerProps {
    * Event handler for the close button
    */
   onCloseButtonClick: React.MouseEventHandler;
+  /**
+   * Disables date(s) in datepicker calendar based on conditional function
+   */
+  isDateDisabledBy?: (Date) => boolean;
 }

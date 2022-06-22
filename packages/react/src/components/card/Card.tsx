@@ -17,6 +17,10 @@ export interface CardCustomTheme {
 
 export type CardProps = {
   /**
+   * Boolean indicating whether Card will have box shadow or not.
+   */
+  boxShadow?: boolean;
+  /**
    * If `true` border will be drawn around the card.
    */
   border?: boolean;
@@ -24,6 +28,10 @@ export type CardProps = {
    * Heading text.
    */
   heading?: string;
+  /**
+   * Heading aria-level.
+   */
+  headingAriaLevel?: number;
   /**
    * Body text.
    */
@@ -42,21 +50,37 @@ export type CardProps = {
   children?: React.ReactNode;
 } & React.HTMLProps<HTMLDivElement>;
 
-export const Card = ({ border, heading, text, className, theme, children, ...divProps }: CardProps) => {
+export const Card = ({
+  border,
+  heading,
+  headingAriaLevel = 2,
+  boxShadow = false,
+  text,
+  className,
+  theme,
+  children,
+  ...divProps
+}: CardProps) => {
   // custom theme
   const customThemeClass = useTheme<CardCustomTheme>(styles.card, theme);
 
   const hasBody = !!heading || !!text;
   return (
     <div
-      className={classNames(styles.card, border && styles.border, customThemeClass, className)}
+      className={classNames(
+        styles.card,
+        border && styles.border,
+        boxShadow && styles.boxShadow,
+        customThemeClass,
+        className,
+      )}
       role="region"
       {...divProps}
     >
       {hasBody && (
         <div className={styles.body}>
           {heading && (
-            <div className={styles.heading} role="heading" aria-level={2}>
+            <div className="heading-m" role="heading" aria-level={headingAriaLevel}>
               {heading}
             </div>
           )}

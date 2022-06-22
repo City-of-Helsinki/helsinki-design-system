@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { boolean, radios, text, withKnobs } from '@storybook/addon-knobs';
 
 import { ToggleButton } from './ToggleButton';
 
 export default {
   component: ToggleButton,
   title: 'Components/ToggleButton',
-  decorators: [withKnobs, (storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
+  decorators: [(storyFn) => <div style={{ maxWidth: '400px' }}>{storyFn()}</div>],
   parameters: {
     controls: { expanded: true },
   },
@@ -160,36 +159,20 @@ CustomTheme.args = {
 
 CustomTheme.storyName = 'Custom theme';
 
-export const Playground = () => {
-  const id = text('Id', 'toggle-button');
-  const label = text('Label', 'Toggle button');
-  const tooltipLabel = text('TooltipLabel', 'Tooltip label');
-  const tooltipButtonLabel = text('TooltipButtonLabel', 'Tooltip button label');
-  const tooltipText = text('TooltipText', 'Tooltip text');
-  const variant = radios(
-    'Variant',
-    {
-      default: 'default',
-      inline: 'inline',
-    },
-    'default',
-  );
-
-  const value = boolean('Value', true);
-  const [checked, setChecked] = useState(value);
-  const disabled = boolean('Disabled', false);
+export const Playground = (args) => {
+  const [checked, setChecked] = useState(args.value);
 
   return (
     <ToggleButton
-      id={id}
-      label={label}
+      id={args.id}
+      label={args.label}
       checked={checked}
       onChange={() => setChecked(!checked)}
-      disabled={disabled}
-      tooltipLabel={tooltipLabel}
-      tooltipButtonLabel={tooltipButtonLabel}
-      tooltipText={tooltipText}
-      variant={variant}
+      disabled={args.disabled}
+      tooltipLabel={args.tooltipLabel}
+      tooltipButtonLabel={args.tooltipButtonLabel}
+      tooltipText={args.tooltipText}
+      variant={args.variant}
     />
   );
 };
@@ -203,4 +186,21 @@ Playground.parameters = {
     disable: true,
   },
   loki: { skip: true },
+};
+
+Playground.args = {
+  id: 'toggle-button',
+  label: 'Toggle button',
+  tooltipLabel: 'Tooltip label',
+  tooltipButtonLabel: 'Tooltip button label',
+  tooltipText: 'Tooltip text',
+  variant: 'default',
+  disabled: false,
+};
+
+Playground.argTypes = {
+  variant: {
+    options: ['default', 'inline'],
+    control: { type: 'radio' },
+  },
 };

@@ -1,0 +1,7 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "rules": {
+    "selector-pseudo-element-colon-notation": "single",
+    "scss/at-import-partial-extension": "always"
+  }
+}
