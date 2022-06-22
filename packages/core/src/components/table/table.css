@@ -48,8 +48,7 @@
 /* DARK VARIANT */
 
 .hds-table--dark {
-  /* TODO: --background-color is deprecated. Remove when possible. */
-  --header-background-color: var(--background-color, var(--color-bus));
+  --header-background-color: var(--color-bus);
 }
 
 .hds-table.hds-table--dark th {
@@ -59,8 +58,7 @@
 /* LIGHT VARIANT */
 
 .hds-table--light {
-  /* TODO: --background-color is deprecated. Remove when possible. */
-  --header-background-color: var(--background-color, var(--color-silver));
+  --header-background-color: var(--color-silver);
 }
 
 .hds-table.hds-table--light th {

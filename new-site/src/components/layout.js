@@ -10,8 +10,8 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
-import { Container, Footer, Link, Navigation, SideNavigation, IconCheckCircleFill, IconCrossCircle } from 'hds-react';
-import Seo from './seo';
+import { Footer, Link, Navigation, SideNavigation, IconCheckCircleFill, IconCrossCircle } from 'hds-react';
+import Seo from './Seo';
 import { PlaygroundBlock, PlaygroundPreview } from './Playground';
 import SyntaxHighlighter from './SyntaxHighlighter';
 import Table from './Table';
@@ -80,7 +80,7 @@ const generateUiIdFromPath = (path, prefix) => {
   return `${prefix}-${pathStr}`;
 };
 
-const isNavPage = (page) => page.slug && page.nav_title;
+const isNavPage = (page) => page.slug && page.navTitle;
 const splitPathIntoParts = (path) => path.split('/').filter((l) => !!l);
 const isLinkParentForPage = (parentPath, level) => (page) => {
   const pathParts = splitPathIntoParts(page.slug);
@@ -100,7 +100,7 @@ const isMatchingParentLink = (link, slug) => {
 };
 
 const Layout = ({ children, pageContext }) => {
-  const { title: pageTitle, slug: pageSlug } = pageContext.frontmatter;
+  const { title: pageTitle, slug: pageSlug, customLayout } = pageContext.frontmatter;
   const pageSlugWithPrefix = withPrefix(pageSlug);
 
   const queryData = useStaticQuery(graphql`
@@ -109,6 +109,7 @@ const Layout = ({ children, pageContext }) => {
         siteMetadata {
           title
           description
+          siteUrl
           menuLinks {
             name
             link
@@ -132,7 +133,7 @@ const Layout = ({ children, pageContext }) => {
             frontmatter {
               title
               slug
-              nav_title
+              navTitle
             }
           }
         }
@@ -144,6 +145,7 @@ const Layout = ({ children, pageContext }) => {
   const mdxPageData = queryData.allMdx?.edges || [];
   const allPages = mdxPageData.map(({ node }) => ({ ...node.frontmatter, ...node.fields }));
   const siteTitle = siteData?.title || 'Title';
+  const siteUrl = siteData?.siteUrl;
   const description = siteData?.description;
   const footerTitle = siteData?.footerTitle || siteTitle;
   const footerAriaLabel = siteData?.footerAriaLabel;
@@ -179,15 +181,36 @@ const Layout = ({ children, pageContext }) => {
   }));
   const footerCopyRightLinks = siteData?.footerCopyrightLinks || [];
   const contentId = 'content';
+  const NavigationTitle = () => (
+    <div className="page-header-title">
+      <div>{siteTitle}</div>
+      <div className="page-header-title-badge">
+        <img
+          style={{ filter: 'invert(1)' }}
+          alt="GitHub release (latest SemVer)"
+          src="https://img.shields.io/github/v/release/City-of-Helsinki/helsinki-design-system?label=&style=for-the-badge&color=1a1a1a"
+        />
+      </div>
+    </div>
+  );
 
   return (
     <>
-      <Seo title={siteTitle} pageTitle={pageTitle} description={description} />
+      <Seo title={siteTitle} pageTitle={pageTitle} description={description} meta={[{
+        property: 'og:url',
+        content: siteUrl,
+      },]} />
       <div className="page text-body">
         <Navigation
           id="page-header"
           className="pageHeader"
-          title={siteTitle}
+          title={<NavigationTitle />}
+          titleAriaLabel="Helsinki: Helsinki Design System"
+          titleUrl={siteUrl}
+          onTitleClick={(event) => {
+            event.preventDefault();
+            navigate('/');
+          }}
           menuToggleAriaLabel="menu"
           skipTo={`#${contentId}`}
           skipToContentLabel="Skip to content"
@@ -204,9 +227,9 @@ const Layout = ({ children, pageContext }) => {
             ))}
           </Navigation.Row>
         </Navigation>
-        <Container className="pageContent">
+        <div className={customLayout ? undefined : 'page-content'}>
           {uiSubMenuLinks.length > 0 && (
-            <aside className="sideContent" key="side-navigation">
+            <aside className="side-content" key="side-navigation">
               <SideNavigation
                 defaultOpenMainLevels={[...Array(uiSubMenuLinks.length).keys()]}
                 id="side-navigation"
@@ -235,11 +258,11 @@ const Layout = ({ children, pageContext }) => {
                             },
                           })}
                     >
-                      {subLevels.map(({ nav_title, slug, prefixedLink: prefixedSubLevelLink, uiId }) => (
+                      {subLevels.map(({ navTitle, slug, prefixedLink: prefixedSubLevelLink, uiId }) => (
                         <SideNavigation.SubLevel
                           key={uiId}
                           href={prefixedSubLevelLink}
-                          label={nav_title}
+                          label={navTitle}
                           active={pageSlugWithPrefix === prefixedSubLevelLink || isMatchingParentLink(slug, pageSlug)}
                           onClick={(e) => {
                             e.preventDefault();
@@ -253,11 +276,15 @@ const Layout = ({ children, pageContext }) => {
               </SideNavigation>
             </aside>
           )}
-          <main id={contentId} className="mainContent">
+          {customLayout ? (
             <MDXProvider components={components}>{children}</MDXProvider>
-          </main>
-        </Container>
-        <Footer id="page-footer" className="pageFooter" title={footerTitle} footerAriaLabel={footerAriaLabel}>
+          ) : (
+            <main id={contentId} className="main-content">
+              <MDXProvider components={components}>{children}</MDXProvider>
+            </main>
+          )}
+        </div>
+        <Footer id="page-footer" className="page-footer" title={footerTitle} footerAriaLabel={footerAriaLabel}>
           <Footer.Base copyrightHolder="Copyright">
             {footerCopyRightLinks.map(({ name, link }) => (
               <Footer.Item key={name} label={name} href={link} />

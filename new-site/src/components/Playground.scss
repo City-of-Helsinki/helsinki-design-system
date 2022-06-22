@@ -1,16 +1,17 @@
 @charset "utf-8";
-
-@import '~hds-design-tokens/lib/all.scss';
-@import './utils';
+@import "~hds-design-tokens/lib/all.scss";
+@import "./utils.scss";
 
 .playground-block {
   --focus-border-width: 2px;
   --playground-component-border-color: var(--color-black-50);
+
   margin: var(--spacing-l) 0;
 }
 
 .playground-block-tabs {
   --tablist-border-color: transparent;
+
   background: var(--color-black-5);
 }
 
@@ -74,7 +75,7 @@
   &:after {
     border: var(--focus-border-width) solid transparent;
     box-sizing: border-box;
-    content: '';
+    content: "";
     height: 100%;
     pointer-events: none;
     position: absolute;

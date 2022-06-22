@@ -1,8 +1,34 @@
 ---
-slug: "/"
-title: "Home page"
+slug: '/'
+title: 'Home page'
+customLayout: true
 ---
 
-# Home page
+import { Button, Container } from 'hds-react';
+import { navigate } from 'gatsby';
+import Hero from '../components/Hero';
+import Image from '../components/Image';
+import FrontPageLinksList from '../components/FrontPageLinkList';
 
-Home page content
+<Hero
+  title="Helsinki Design System"
+  text="The central digital experience resource of Helsinki Design Language. Guidelines, design assets and component
+      libraries for building a consistent and accessible digital brand across the city."
+  backgroundImageUrl="/images/homepage/amos58.jpg"
+>
+  <Button
+    variant="primary"
+    className="front-page-hero-button"
+    role="link"
+    onClick={() => {
+      navigate('/getting-started');
+    }}
+  >
+    Getting started
+  </Button>
+</Hero>
+
+<Container style={{ margin: '0 auto'}}>
+  <FrontPageLinksList />
+  <Image size="M" src="/images/getting-started/structure-graph.svg" alt="Helsinki Design System structure graph" style="display:block;width:100%;min-width:600px;max-width:915px;margin:0 auto;" />
+</Container>

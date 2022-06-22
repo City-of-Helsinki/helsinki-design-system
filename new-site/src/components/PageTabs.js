@@ -29,7 +29,7 @@ const PageTabs = ({ pageContext, children }) => {
 
   return (
     <Tabs initiallyActiveTab={activeIndex}>
-      <Tabs.TabList className="pageTabsList">
+      <Tabs.TabList className="page-tabs-list">
         {tabs.map((tab) => (
           <Tabs.Tab
             key={tab.props.href}

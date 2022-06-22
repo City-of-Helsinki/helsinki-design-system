@@ -1,7 +1,7 @@
 ---
 slug: '/components/date-input'
 title: 'DateInput'
-nav_title: 'DateInput'
+navTitle: 'DateInput'
 ---
 
 import { DateInput } from 'hds-react';
@@ -18,7 +18,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   <div style={{ maxWidth: '400px' }}>
     <DateInput
       helperText="Use format D.M.YYYY"
-      id="date"
+      id="date-input-example-1"
       initialMonth={new Date()}
       label="Choose a date"
       language="en"
@@ -53,7 +53,7 @@ Out of the box, HDS date input will include an openable date picker which allows
   <div style={{ maxWidth: '400px' }}>
     <DateInput
       helperText="Use format D.M.YYYY"
-      id="date"
+      id="date-input-example-2"
       initialMonth={new Date()}
       label="Choose a date"
       language="en"
@@ -76,7 +76,7 @@ In all other types of services, it is recommended to not disable the confirmatio
     <DateInput
       disableConfirmation
       helperText="Use format D.M.YYYY"
-      id="date"
+      id="date-input-example-3"
       initialMonth={new Date()}
       label="Choose a date"
       language="en"
@@ -95,7 +95,7 @@ It is possible to disable the date picker functionality by supplying a `disableD
     <DateInput
       disableDatePicker
       helperText="Use format D.M.YYYY"
-      id="date"
+      id="date-input-example-4"
       initialMonth={new Date()}
       label="Choose a date"
       language="en"

@@ -1,9 +1,13 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   pathPrefix: process.env.PATH_PREFIX,
   siteMetadata: {
     title: `Helsinki Design System`,
     description: `Documentation for the Helsinki Design System`,
-    siteUrl: `https://hds.hel.fi/`,
+    siteUrl: process.env.SITE_URL,
     menuLinks: [  
       {
         name: 'Getting started',
@@ -30,6 +34,11 @@ module.exports = {
           {
             name: 'FAQ',
             link: '/getting-started/faq',
+            withDivider: true,
+          },
+          {
+            name: 'HDS 2.0',
+            link: '/getting-started/hds-2.0',
             withDivider: true,
           },
           {
@@ -90,13 +99,8 @@ module.exports = {
         link: '/about',
         subMenuLinks: [
           {
-            name: 'Overview',
-            link: '/about',
-          },
-          {
             name: 'Support',
-            link: '/about/support',
-            withDivider: true,
+            link: '/about',
           },
           {
             name: 'Accessibility',
@@ -167,9 +171,9 @@ module.exports = {
           {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
-              icon: `<i class="hdsAnchorIcon hds-icon hds-icon--link hds-icon--size-xs" aria-hidden="true" style="vertical-align: middle"></i>`,
+              icon: `<i class="hds-anchor-icon hds-icon hds-icon--link hds-icon--size-xs" aria-hidden="true" style="vertical-align: middle"></i>`,
               isIconAfterHeader: true,
-              className: `headerAnchor`,
+              className: `header-anchor`,
             },
           },
         ],
@@ -186,17 +190,37 @@ module.exports = {
         name: `gatsby-starter-default`,
         short_name: `starter`,
         start_url: `/`,
-        background_color: `#663399`,
         // This will impact how browsers show your PWA/website
         // https://css-tricks.com/meta-theme-color-and-trickery/
         // theme_color: `#663399`,
+        theme_color: `#ffffff`,
+        background_color: `#ffffff`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icons: [
+          {
+            src: `/favicon/transparent_light_favicon_package/android-chrome-192x192.png`,
+            sizes: "192x192",
+            type: "image/png"
+          },
+          {
+            src: `/favicon/transparent_light_favicon_package/android-chrome-256x256.png`,
+            sizes: "256x256",
+            type: "image/png"
+          }
+        ],
+        include_favicon: false,
       },
     },
     `gatsby-plugin-sass`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        sitemap: null,
+        policy: [{userAgent: '*', disallow: '/v1'}]
+      }
+    }
   ],
 };
