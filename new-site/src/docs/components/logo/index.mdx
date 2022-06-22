@@ -1,7 +1,7 @@
 ---
 slug: '/components/logo'
 title: 'Logo'
-nav_title: 'Logo'
+navTitle: 'Logo'
 ---
 
 import { Logo } from 'hds-react';
@@ -36,10 +36,8 @@ See the <Link size="M" href="/foundation/visual-assets/logo">logo visual asset d
 The Helsinki logo component is offered in three (3) languages.
 
 <PlaygroundPreview>
-  <Logo language="fi" size="medium" />
-  <br />
-  <Logo language="sv" size="medium" />
-  <br />
+  <Logo language="fi" size="medium" style={{marginRight: 'var(--spacing-xs)'}}/>
+  <Logo language="sv" size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
   <Logo language="ru" size="medium" />
 </PlaygroundPreview>
 
@@ -48,9 +46,7 @@ The Helsinki logo component is offered in three (3) languages.
 The component includes three (3) size variants to fit the context.
 
 <PlaygroundPreview>
-  <Logo language="fi" size="small" />
-  <br />
-  <Logo language="fi" size="medium" />
-  <br />
+  <Logo language="fi" size="small" style={{marginRight: 'var(--spacing-xs)'}} />
+  <Logo language="fi" size="medium" style={{marginRight: 'var(--spacing-xs)'}} />
   <Logo language="fi" size="large" />
 </PlaygroundPreview>

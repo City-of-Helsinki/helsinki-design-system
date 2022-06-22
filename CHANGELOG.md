@@ -6,6 +6,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.15.0] - May, 30, 2022
+
+### React Components
+
+#### Added
+
+- [Navigation] add ariaLabel property
+- [SideNavigation] add ariaLabel property
+
+#### Fixed
+
+- [Navigation] initializing of useMobile hook
+- [SideNavigation] Keyboard navigation on small screens
+- [Tabs] Tab OnClick callback is called also when a tab is selected with the keyboard
+
+### Design kit
+
+#### Changed
+
+- Updated HDS Sketch libraries to Sketch 88.1
+
 ## [1.14.0] - May, 5, 2022
 
 ### React Components
