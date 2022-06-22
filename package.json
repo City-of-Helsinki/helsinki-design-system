@@ -19,5 +19,9 @@
   },
   "devDependencies": {
     "lerna": "^3.16.4"
+  },
+  "resolutions": {
+    "multer": "1.4.4-lts.1",
+    "jpeg-js": "0.4.4"
   }
 }
