@@ -22,7 +22,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   const [file, setFile] = React.useState([]);
   console.log('selected file', file);
   return <FileInput
-    id="file-input"
+    id="file-input-default"
     label="Choose a file"
     language="en"
     maxSize={1.5 * 1024 * 1024}
@@ -45,7 +45,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   return <FileInput
     multiple
     dragAndDrop
-    id="file-input"
+    id="file-input-drag-and-drop"
     label="Drag and drop files here"
     language="en"
     accept=".png,.jpg"

@@ -25,7 +25,7 @@ style={{
   <PasswordInput
       concealPasswordButtonAriaLabel="Hide password"
       helperText="Assistive text"
-      id="input1"
+      id="password-input-1"
       includeShowPasswordButton
       label="Password"
       revealPasswordButtonAriaLabel="Show password"
@@ -36,13 +36,13 @@ style={{
 
 ```html
 <div class="hds-text-input" style="max-width:320px;">
-  <label for="input" class="hds-text-input__label">
+  <label for="password-input-2" class="hds-text-input__label">
     Password
     <span class="hds-text-input__required">*</span>
   </label>
   <div class="hds-text-input__input-wrapper">
     <input
-      id="input1"
+      id="password-input-2"
       class="hds-text-input__input"
       type="password"
       required
@@ -74,7 +74,7 @@ style={{
     <div style={{ display: "grid", gridTemplateColumns: "320px 240px", gap: "var(--spacing-s)" }}>
       <PasswordInput
         label="Password"
-        id="input2"
+        id="password-input-3"
         includeShowPasswordButton={false}
         helperText="Assistive text"
         type={revealPassword ? 'text' : 'password'}

@@ -17,7 +17,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 export const ToggleExample = () => {
   const [checked1, setChecked1] = React.useState(true);
   return (
-    <ToggleButton id="toggle-button-1" label="Label" checked={checked1} onChange={() => setChecked1(!checked1)} />
+    <ToggleButton id="toggle-button" label="Label" checked={checked1} onChange={() => setChecked1(!checked1)} />
   );
 };
 
@@ -44,7 +44,7 @@ The default HDS toggle button variant includes a label above the toggle button f
 export const DefaultToggleExample = () => {
   const [checked2, setChecked2] = React.useState(true);
   return (
-    <ToggleButton id="toggle-button-2" label="Label" checked={checked2} onChange={() => setChecked2(!checked2)} />
+    <ToggleButton id="toggle-button-default" label="Label" checked={checked2} onChange={() => setChecked2(!checked2)} />
   );
 };
 
@@ -59,7 +59,7 @@ export const HorizontalToggleExample = () => {
   const [checked2, setChecked2] = React.useState(true);
   return (
     <div style={{ maxWidth: '160px' }}>
-      <ToggleButton id="toggle-button-2" label="Label" variant="inline" checked={checked2} onChange={() => setChecked2(!checked2)} />
+      <ToggleButton id="toggle-button-horizontal" label="Label" variant="inline" checked={checked2} onChange={() => setChecked2(!checked2)} />
     </div>
   );
 };

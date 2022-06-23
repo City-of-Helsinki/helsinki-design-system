@@ -19,13 +19,14 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ```jsx
 <div style={{ maxWidth: '320px' }}>
 <TextInput
-  id="input"
+  id="textinput"
   label="Label"
   placeholder="Placeholder"
   helperText="Assistive text"
   required
 />
 <TextInput
+  id="textinput-invalid"
   label="Label"
   defaultValue="Text input value"
   helperText="Assistive text"
@@ -33,7 +34,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   disabled
 />
 <TextInput
-  id="input-invalid"
+  id="textinput-invalid"
   label="Label"
   defaultValue="Text input value"
   errorText="Error text"
@@ -47,32 +48,32 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ```html
 <div style="max-width:320px;">
   <div class="hds-text-input">
-    <label for="input" class="hds-text-input__label">
+    <label for="textinput-core" class="hds-text-input__label">
       Label
       <span class="hds-text-input__required">*</span>
     </label>
     <div class="hds-text-input__input-wrapper">
-      <input id="input" class="hds-text-input__input" type="text" placeholder="Placeholder" required />
+      <input id="textinput-core" class="hds-text-input__input" type="text" placeholder="Placeholder" required />
     </div>
     <span class="hds-text-input__helper-text">Assistive text</span>
   </div>
 
   <div class="hds-text-input" style="margin-top:var(--spacing-s);">
-    <label for="input-disabled" class="hds-text-input__label">
+    <label for="textinput-disabled-core" class="hds-text-input__label">
       Label
     </label>
     <div class="hds-text-input__input-wrapper">
-      <input id="input-disabled" class="hds-text-input__input" type="text" value="Text input value" disabled />
+      <input id="textinput-disabled-core" class="hds-text-input__input" type="text" value="Text input value" disabled />
     </div>
     <span class="hds-text-input__helper-text">Assistive text</span>
   </div>
 
   <div class="hds-text-input hds-text-input--invalid" style="margin-top:var(--spacing-s);">
-    <label for="input-invalid" class="hds-text-input__label">
+    <label for="textinput-invalid-core" class="hds-text-input__label">
       Label
     </label>
     <div class="hds-text-input__input-wrapper">
-      <input id="input-invalid" class="hds-text-input__input" type="text" value="Text input value" />
+      <input id="textinput-invalid-core" class="hds-text-input__input" type="text" value="Text input value" />
     </div>
     <span class="hds-text-input__error-text">Error text</span>
     <span class="hds-text-input__helper-text">Assistive text</span>
@@ -87,6 +88,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```jsx
 <TextInput
+  id="textinput-readonly"
   label="Label"
   defaultValue="Read-only value"
   helperText="Assistive text"
@@ -96,11 +98,11 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```html
 <div class="hds-text-input">
-  <label for="input" class="hds-text-input__label">
+  <label for="textinput-readonly-core" class="hds-text-input__label">
     Label
   </label>
   <div class="hds-text-input__input-wrapper">
-    <input id="input" class="hds-text-input__input" type="text" value="Text input value" readonly />
+    <input id="textinput-readonly-core" class="hds-text-input__input" type="text" value="Text input value" readonly />
   </div>
   <span class="hds-text-input__helper-text">Assistive text</span>
 </div>
@@ -113,7 +115,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```jsx
 <TextInput
-  id="input-tooltip"
+  id="textinput-tooltip"
   label="Label"
   placeholder="Placeholder"
   tooltipLabel="Tooltip label"
