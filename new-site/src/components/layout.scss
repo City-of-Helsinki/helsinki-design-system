@@ -151,6 +151,7 @@ body {
 }
 
 .page-content {
+  --side-content-min-width: 230px;
   box-sizing: border-box;
   flex: 1;
   margin: 0 auto;
@@ -171,7 +172,7 @@ body {
 
 .side-content {
   margin-bottom: auto;
-  min-width: 230px;
+  min-width: var(--side-content-min-width);
 }
 
 .main-content {
@@ -193,6 +194,7 @@ body {
   .main-content {
     flex: 1;
     padding: 0 0 var(--spacing-m);
+    max-width: calc(100% - var(--side-content-min-width));
   }
 
   .side-content + .main-content {
