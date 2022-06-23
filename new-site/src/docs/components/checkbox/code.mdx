@@ -244,27 +244,6 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 }}
 ```
 
-```html
-<script>
-  function setIndeterminate() {
-    var checkbox = document.querySelector('#checkboxparent');
-    checkbox.indeterminate = true;
-  }
-  function preventDefault(event) {
-    event.preventDefault();
-  }
-</script>
-<div onload="setIndeterminate()" class="hds-checkbox" onclick="preventDefault(event)">
-  <input
-    type="checkbox"
-    id="checkboxparent"
-    name="checkboxparent"
-    class="hds-checkbox__input"
-  />
-  <label for="checkboxparent"  class="hds-checkbox__label">Label</label>
-</div>
-```
-
 </Playground>
 
 
