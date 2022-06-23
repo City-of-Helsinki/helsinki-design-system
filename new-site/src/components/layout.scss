@@ -151,6 +151,8 @@ body {
 }
 
 .page-content {
+  --side-content-min-width: 230px;
+
   box-sizing: border-box;
   flex: 1;
   margin: 0 auto;
@@ -171,10 +173,11 @@ body {
 
 .side-content {
   margin-bottom: auto;
-  min-width: 230px;
+  min-width: var(--side-content-min-width);
 }
 
 .main-content {
+  box-sizing: border-box;
   overflow: visible;
   width: 100%;
 }
@@ -198,6 +201,7 @@ body {
   .side-content + .main-content {
     border-left: 1px solid var(--page-border-color);
     padding: 0 var(--spacing-m) var(--spacing-m);
+    max-width: calc(100% - var(--side-content-min-width));
   }
 }
 
