@@ -121,10 +121,6 @@ const Layout = ({ children, pageContext }) => {
           }
           footerTitle
           footerAriaLabel
-          footerCopyrightLinks {
-            name
-            link
-          }
         }
       }
       allMdx {
@@ -179,7 +175,6 @@ const Layout = ({ children, pageContext }) => {
       }))
       .sort(sortByPageTitle),
   }));
-  const footerCopyRightLinks = siteData?.footerCopyrightLinks || [];
   const contentId = 'content';
   const NavigationTitle = () => (
     <div className="page-header-title">
@@ -187,7 +182,7 @@ const Layout = ({ children, pageContext }) => {
       <div className="page-header-title-badge">
         <img
           style={{ filter: 'invert(1)' }}
-          alt="GitHub release (latest SemVer)"
+          alt="HDS version number: 2.0.0"
           src="https://img.shields.io/github/v/release/City-of-Helsinki/helsinki-design-system?label=&style=for-the-badge&color=1a1a1a"
         />
       </div>
@@ -196,10 +191,17 @@ const Layout = ({ children, pageContext }) => {
 
   return (
     <>
-      <Seo title={siteTitle} pageTitle={pageTitle} description={description} meta={[{
-        property: 'og:url',
-        content: siteUrl,
-      },]} />
+      <Seo
+        title={siteTitle}
+        pageTitle={pageTitle}
+        description={description}
+        meta={[
+          {
+            property: 'og:url',
+            content: siteUrl,
+          },
+        ]}
+      />
       <div className="page text-body">
         <Navigation
           id="page-header"
@@ -286,9 +288,9 @@ const Layout = ({ children, pageContext }) => {
         </div>
         <Footer id="page-footer" className="page-footer" title={footerTitle} footerAriaLabel={footerAriaLabel}>
           <Footer.Base copyrightHolder="Copyright">
-            {footerCopyRightLinks.map(({ name, link }) => (
-              <Footer.Item key={name} label={name} href={link} />
-            ))}
+            <Footer.Item label="Contribution" href={withPrefix('/getting-started/contributing/before-contributing')} />
+            <Footer.Item label="Accessibility" href={withPrefix('/about/accessibility/statement')} />
+            <Footer.Item label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />
           </Footer.Base>
         </Footer>
       </div>

@@ -15,7 +15,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Example
 <PlaygroundPreview>
   <TextInput
-    id="input"
+    id="textinput"
     label="Label"
     placeholder="Placeholder"
     helperText="Assistive text"
@@ -40,7 +40,7 @@ A text input serves in most use cases when the user needs to enter information. 
 
 <PlaygroundPreview>
   <TextInput
-    id="input"
+    id="textinput-default"
     label="Label"
     placeholder="Placeholder"
     helperText="Assistive text"
@@ -54,6 +54,7 @@ Read-only text input is used to indicate an input among other inputs that cannot
 
 <PlaygroundPreview>
   <TextInput
+    id="textinput-readonly"
     label="Label"
     defaultValue="Read-only value"  
     helperText="Assistive text"
@@ -67,7 +68,7 @@ A text input can be provided with additional tooltip. Tooltip information should
 
 <PlaygroundPreview>
   <TextInput
-    id="input-tooltip"
+    id="textinput-tooltip"
     label="Label"
     placeholder="Placeholder"
     tooltipLabel="Tooltip label"

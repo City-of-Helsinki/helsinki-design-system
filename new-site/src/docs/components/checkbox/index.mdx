@@ -63,28 +63,28 @@ export const CheckboxExample = () => {
 
 export const CheckboxDefaultExample = () => {
   const [checkedItems, setCheckedItems] = React.useState({
-    'checkbox-checked': true,
-    'checkbox-checked-disabled': true,
+    'checkbox-checked-2': true,
+    'checkbox-checked-disabled-2': true,
   });
-  const onChange = (event) => {
+  const onChange2 = (event) => {
     setCheckedItems({ ...checkedItems, [event.target.id]: event.target.checked });
   };
   return (
     <>
-      <Checkbox label="Label" id="checkbox-unchecked" checked={checkedItems['checkbox-unchecked']} onChange={onChange} />
-      <Checkbox label="Label" id="checkbox-checked" checked={checkedItems['checkbox-checked']} onChange={onChange} />
+      <Checkbox label="Label" id="checkbox-unchecked-2" checked={checkedItems['checkbox-unchecked-2']} onChange={onChange2} />
+      <Checkbox label="Label" id="checkbox-checked-2" checked={checkedItems['checkbox-checked-2']} onChange={onChange2} />
       <Checkbox
         label="Label"
-        id="checkbox-disabled"
-        checked={checkedItems['checkbox-disabled']}
-        onChange={onChange}
+        id="checkbox-disabled-2"
+        checked={checkedItems['checkbox-disabled-2']}
+        onChange={onChange2}
         disabled
       />
       <Checkbox
         label="Label"
-        id="checkbox-checked-disabled"
-        checked={checkedItems['checkbox-checked-disabled']}
-        onChange={onChange}
+        id="checkbox-checked-disabled-2"
+        checked={checkedItems['checkbox-checked-disabled-2']}
+        onChange={onChange2}
         disabled
       />
     </>
@@ -101,15 +101,15 @@ Related checkboxes can be grouped together with the Selection group component. S
 
 export const CheckboxGroupExample = () => {
   const [checkedItems, setCheckedItems] = React.useState({ "v-checkbox1": true, "v-checkbox2": true });
-  const onChange = (event) => {
+  const onChange3 = (event) => {
     setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
   };
   return (
     <SelectionGroup label="Checkbox group">
-      <Checkbox id="v-checkbox1" name="v-checkbox1" label="Option" checked={checkedItems["v-checkbox1"]} onChange={onChange} />
-      <Checkbox id="v-checkbox2" name="v-checkbox2" label="Option" checked={checkedItems["v-checkbox2"]} onChange={onChange} />
-      <Checkbox id="v-checkbox3" name="v-checkbox3" label="Option" checked={checkedItems["v-checkbox3"]} onChange={onChange} />
-      <Checkbox id="v-checkbox4" name="v-checkbox4" label="Option" checked={checkedItems["v-checkbox4"]} onChange={onChange} />
+      <Checkbox id="v-checkbox1" name="v-checkbox1" label="Option" checked={checkedItems["v-checkbox1"]} onChange={onChange3} />
+      <Checkbox id="v-checkbox2" name="v-checkbox2" label="Option" checked={checkedItems["v-checkbox2"]} onChange={onChange3} />
+      <Checkbox id="v-checkbox3" name="v-checkbox3" label="Option" checked={checkedItems["v-checkbox3"]} onChange={onChange3} />
+      <Checkbox id="v-checkbox4" name="v-checkbox4" label="Option" checked={checkedItems["v-checkbox4"]} onChange={onChange3} />
     </SelectionGroup>
   );
 };

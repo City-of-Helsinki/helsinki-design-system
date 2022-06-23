@@ -17,7 +17,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   <PasswordInput
     concealPasswordButtonAriaLabel="Hide password"
     helperText="Assistive text"
-    id="input1"
+    id="password-input-1"
     includeShowPasswordButton
     label="Password"
     revealPasswordButtonAriaLabel="Show password"
@@ -42,7 +42,7 @@ A default HDS password input includes an icon to mask and unmask the password.
   <PasswordInput
     concealPasswordButtonAriaLabel="Hide password"
     helperText="Assistive text"
-    id="input2"
+    id="password-input-2"
     includeShowPasswordButton
     label="Password"
     revealPasswordButtonAriaLabel="Show password"
@@ -60,7 +60,7 @@ export const ExternalButtonExample = () => {
     <div style={{ display: "grid", gridTemplateColumns: "320px 240px", gap: "var(--spacing-s)" }}>
       <PasswordInput
         label="Password"
-        id="input3"
+        id="password-input-3"
         includeShowPasswordButton={false}
         helperText="Assistive text"
         type={revealPassword ? 'text' : 'password'}
