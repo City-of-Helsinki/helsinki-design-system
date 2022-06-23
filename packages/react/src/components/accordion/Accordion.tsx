@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import uniqueId from 'lodash.uniqueid';
+import pickBy from 'lodash.pickby';
 
 // import core base styles
 import 'hds-core';
@@ -142,7 +143,12 @@ export const Accordion = ({
     '--content-line-height': theme['--content-line-height'],
   };
 
-  const sovereignThemeClass = useTheme<Partial<AccordionCustomTheme>>(styles.accordion, sovereignThemeVariables);
+  const filteredSovereignThemeVariables = pickBy(sovereignThemeVariables);
+
+  const sovereignThemeClass = useTheme<Partial<AccordionCustomTheme>>(
+    styles.accordion,
+    Object.keys(filteredSovereignThemeVariables).length > 0 ? filteredSovereignThemeVariables : undefined,
+  );
 
   const sizeDependentThemeVariables = theme && {
     '--header-font-size': theme['--header-font-size'],
@@ -154,7 +160,12 @@ export const Accordion = ({
     '--button-size': theme['--button-size'],
   };
 
-  const sizeDependentThemeClass = useTheme<Partial<AccordionCustomTheme>>(styles[size], sizeDependentThemeVariables);
+  const filteredSizeDependentThemeVariables = pickBy(sizeDependentThemeVariables);
+
+  const sizeDependentThemeClass = useTheme<Partial<AccordionCustomTheme>>(
+    styles[size],
+    Object.keys(filteredSizeDependentThemeVariables).length > 0 ? filteredSizeDependentThemeVariables : undefined,
+  );
 
   // Accordion logic
   const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen });
