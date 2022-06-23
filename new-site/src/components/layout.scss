@@ -196,12 +196,12 @@ body {
   .main-content {
     flex: 1;
     padding: 0 0 var(--spacing-m);
-    max-width: calc(100% - var(--side-content-min-width));
   }
 
   .side-content + .main-content {
     border-left: 1px solid var(--page-border-color);
     padding: 0 var(--spacing-m) var(--spacing-m);
+    max-width: calc(100% - var(--side-content-min-width));
   }
 }
 
