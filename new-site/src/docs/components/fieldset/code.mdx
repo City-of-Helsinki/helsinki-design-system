@@ -3,44 +3,47 @@ slug: '/components/fieldset/code'
 title: 'Fieldset - Code'
 ---
 
-import Playground from '../../../components/Playground'
+import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Code
 
-### Code examples 
+### Code examples
 
 #### Default
+
 <Playground>
 
 
 ```jsx
 <>
-<Fieldset heading="Child information" style={{ maxWidth: '400px' }}>
-  <TextInput id="first-name-child" name="first-name" label="First name" />
-  <TextInput id="last-name-child" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
-  <TextInput
-    id="social-security-number-child"
-    name="social-security-number"
-    label="Social security number"
-    placeholder="Eg. 111299-1234"
-    style={{ marginTop: '12px' }}
-  />
-</Fieldset>
+  <Fieldset heading="Child information" style={{ maxWidth: '400px' }}>
+    <TextInput id="first-name-child" name="first-name" label="First name" required />
+    <TextInput id="last-name-child" name="last-name" label="Last name" required style={{ marginTop: '12px' }} />
+    <TextInput
+      id="social-security-number-child"
+      name="social-security-number"
+      label="Social security number"
+      placeholder="Eg. 111299-1234"
+      required
+      style={{ marginTop: '12px' }}
+    />
+  </Fieldset>
 
-<Fieldset heading="Guardian information" style={{ maxWidth: '400px', marginTop: 'var(--spacing-s)' }}>
-  <TextInput id="first-name-guardian" name="first-name" label="First name" />
-  <TextInput id="last-name-guardian" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
-  <TextInput
-    id="social-security-number-guardian"
-    name="social-security-number"
-    label="Social security number"
-    placeholder="Eg. 111299-1234"
-    style={{ marginTop: '12px' }}
-  />
-</Fieldset>
+  <Fieldset heading="Guardian information" style={{ maxWidth: '400px', marginTop: 'var(--spacing-s)' }}>
+    <TextInput id="first-name-guardian" name="first-name" label="First name" required />
+    <TextInput id="last-name-guardian" name="last-name" label="Last name" required style={{ marginTop: '12px' }} />
+    <TextInput
+      id="social-security-number-guardian"
+      name="social-security-number"
+      label="Social security number"
+      placeholder="Eg. 111299-1234"
+      required
+      style={{ marginTop: '12px' }}
+    />
+  </Fieldset>
 </>
 ```
 
@@ -49,42 +52,71 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   <fieldset class="hds-fieldset" style="max-width: 400px">
     <legend class="hds-fieldset-legend">Child information</legend>
     <div class="hds-text-input">
-      First name *
+      <label for="first-name-child-1" class="hds-text-input__label">
+        First name
+        <span class="hds-text-input__required">*</span>
+      </label>
       <div class="hds-text-input__input-wrapper">
-        <input id="first-name-child-1" name="first-name" class="hds-text-input__input" type="text" />
+        <input id="first-name-child-1" name="first-name-child-1" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
-      Last name *
+      <label for="last-name-child-1" class="hds-text-input__label">
+        Last name
+        <span class="hds-text-input__required">*</span>
+      </label>
       <div class="hds-text-input__input-wrapper">
-        <input id="last-name-child-1" name="last-name" class="hds-text-input__input" type="text" />
+        <input id="last-name-child-1" name="last-name-child-1" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
-      Social security number *
+      <label for="social-security-number-child-1" class="hds-text-input__label">
+        Social security number
+        <span class="hds-text-input__required">*</span>
+      </label>
       <div class="hds-text-input__input-wrapper">
-        <input id="social-security-number-child-1" name="social-security-number" class="hds-text-input__input" type="text" />
+        <input
+          id="social-security-number-child-1"
+          name="social-security-number-child-1"
+          class="hds-text-input__input"
+          type="text"
+          placeholder="Eg. 111299-1234"
+        />
       </div>
     </div>
   </fieldset>
-  <fieldset class="hds-fieldset" style="max-width: 400px">
+  <fieldset class="hds-fieldset" style="max-width: 400px;margin-top: var(--spacing-s);">
     <legend class="hds-fieldset-legend">Guardian information</legend>
     <div class="hds-text-input">
-      First name *
+      <label for="first-name-guardian-1" class="hds-text-input__label">
+        First name
+        <span class="hds-text-input__required">*</span>
+      </label>
       <div class="hds-text-input__input-wrapper">
-        <input id="first-name-guardian-1" name="first-name" class="hds-text-input__input" type="text" />
+        <input id="first-name-guardian-1" name="first-name-guardian-1" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
-      Last name *
+      <label for="last-name-guardian-1" class="hds-text-input__label">
+        Last name
+        <span class="hds-text-input__required">*</span>
+      </label>
       <div class="hds-text-input__input-wrapper">
-        <input id="last-name-guardian-1" name="last-name" class="hds-text-input__input" type="text" />
+        <input id="last-name-guardian-1" name="last-name-guardian-1" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
-      Social security number *
+      <label for="social-security-number-guardian-1" class="hds-text-input__label">
+        Social security number
+        <span class="hds-text-input__required">*</span>
+      </label>
       <div class="hds-text-input__input-wrapper">
-        <input id="social-security-number-guardian-1" name="social-security-number" class="hds-text-input__input" type="text" />
+        <input
+          id="social-security-number-guardian-1"
+          name="social-security-number-guardian-1"
+          class="hds-text-input__input"
+          type="text"
+        />
       </div>
     </div>
   </fieldset>
@@ -93,32 +125,36 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 </Playground>
 
+
 ### With border
+
 <Playground>
 
 
 ```jsx
 <>
-  <Fieldset heading="Applicant information" border style={{ maxWidth: '400px' }}>
-    <TextInput id="first-name-child-2" name="first-name" label="First name" />
-    <TextInput id="last-name-child-2" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
+  <Fieldset heading="Child information" border style={{ maxWidth: '400px' }}>
+    <TextInput id="first-name-child-2" name="first-name" label="First name" required />
+    <TextInput id="last-name-child-2" name="last-name" label="Last name" required style={{ marginTop: '12px' }} />
     <TextInput
       id="social-security-number-child-2"
-      name="social-security-number"
+      name="social-security-number-child-2"
       label="Social security number"
       placeholder="Eg. 111299-1234"
+      required
       style={{ marginTop: '12px' }}
     />
   </Fieldset>
 
   <Fieldset heading="Guardian information" border style={{ maxWidth: '400px', marginTop: 'var(--spacing-s)' }}>
-    <TextInput id="first-name-guardian-2" name="first-name" label="First name" />
-    <TextInput id="last-name-guardian-2" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
+    <TextInput id="first-name-guardian-2" name="first-name" label="First name" required />
+    <TextInput id="last-name-guardian-2" name="last-name" label="Last name" required style={{ marginTop: '12px' }} />
     <TextInput
       id="social-security-number-guardian-2"
-      name="social-security-number"
+      name="social-security-number-guardian-"
       label="Social security number"
       placeholder="Eg. 111299-1234"
+      required
       style={{ marginTop: '12px' }}
     />
   </Fieldset>
@@ -127,46 +163,75 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```html
 <div>
-  <fieldset class="hds-fieldset hds-fieldset--border" style="max-width: 400px">
+  <fieldset class="hds-fieldset hds-fieldset--border" style="max-width: 400px;">
     <legend class="hds-fieldset-legend">Child information</legend>
     <div class="hds-text-input">
-      First name *
+      <label for="first-name-child-3" class="hds-text-input__label">
+        First name
+        <span class="hds-text-input__required">*</span>
+      </label>
       <div class="hds-text-input__input-wrapper">
-        <input id="first-name-child-3" name="first-name" class="hds-text-input__input" type="text" />
+        <input id="first-name-child-3" name="first-name-child-3" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
-      Last name *
+      <label for="last-name-child-3" class="hds-text-input__label">
+        Last name
+        <span class="hds-text-input__required">*</span>
+      </label>
       <div class="hds-text-input__input-wrapper">
-        <input id="last-name-child-3" name="last-name" class="hds-text-input__input" type="text" />
+        <input id="last-name-child-3" name="last-name-child-3" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
-      Social security number *
+      <label for="social-security-number-child-3" class="hds-text-input__label">
+        Social security number
+        <span class="hds-text-input__required">*</span>
+      </label>
       <div class="hds-text-input__input-wrapper">
-        <input id="social-security-number-child-3" name="social-security-number" class="hds-text-input__input" type="text" />
+        <input
+          id="social-security-number-child-3"
+          name="social-security-number-child-3"
+          class="hds-text-input__input"
+          type="text"
+          placeholder="Eg. 111299-1234"
+        />
       </div>
     </div>
   </fieldset>
-
-  <fieldset class="hds-fieldset hds-fieldset--border" style="max-width: 400px">
+  <fieldset class="hds-fieldset hds-fieldset--border" style="max-width: 400px;margin-top: var(--spacing-s);">
     <legend class="hds-fieldset-legend">Guardian information</legend>
     <div class="hds-text-input">
-      First name *
+      <label for="first-name-guardian-3" class="hds-text-input__label">
+        First name
+        <span class="hds-text-input__required">*</span>
+      </label>
       <div class="hds-text-input__input-wrapper">
-        <input id="first-name-guardian-3" name="first-name" class="hds-text-input__input" type="text" />
+        <input id="first-name-guardian-3" name="first-name-guardian-3" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
-      Last name *
+      <label for="last-name-guardian-3" class="hds-text-input__label">
+        Last name
+        <span class="hds-text-input__required">*</span>
+      </label>
       <div class="hds-text-input__input-wrapper">
-        <input id="last-name-guardian-3" name="last-name" class="hds-text-input__input" type="text" />
+        <input id="last-name-guardian-3" name="last-name-guardian-3" class="hds-text-input__input" type="text" />
       </div>
     </div>
     <div class="hds-text-input" style="margin-top: 12px">
-      Social security number *
+      <label for="social-security-number-guardian-3" class="hds-text-input__label">
+        Social security number
+        <span class="hds-text-input__required">*</span>
+      </label>
       <div class="hds-text-input__input-wrapper">
-        <input id="social-security-number-guardian-3" name="social-security-number" class="hds-text-input__input" type="text" />
+        <input
+          id="social-security-number-guardian-3"
+          name="social-security-number-guardian-3"
+          class="hds-text-input__input"
+          type="text"
+          placeholder="Eg. 111299-1234"
+        />
       </div>
     </div>
   </fieldset>
@@ -175,13 +240,16 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 </Playground>
 
+
 ### Packages
-| Package           | Included                      | Storybook link                                                                                                                      | Source link   |
-| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-dropdowns-select--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/fieldset/Fieldset.tsx">View source</Link> |
-| **HDS Core**      | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/core/?path=/story/components-fieldset--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/fieldset">View source</Link> |
+
+| Package       | Included                    | Storybook link                                                                                                             | Source link                                                                                                                                                                  |
+| ------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **HDS React** | <IconCheckCircleFill /> Yes | <Link size="M" external href="/storybook/react/?path=/story/components-dropdowns-select--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/fieldset/Fieldset.tsx">View source</Link> |
+| **HDS Core**  | <IconCheckCircleFill /> Yes | <Link size="M" external href="/storybook/core/?path=/story/components-fieldset--default">View in Storybook</Link>          | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/fieldset">View source</Link>               |
 
 ### Properties
+
 Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/story/components-dropdowns-select--default" external>React Storybook.</Link>
 
 | Property  | Description                                            | Values    | Default value |

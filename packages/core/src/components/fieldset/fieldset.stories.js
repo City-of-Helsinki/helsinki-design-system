@@ -6,7 +6,9 @@ export default {
 };
 
 const firstNameInput = `<div class='hds-text-input'>
-      First name *
+     <label for='first-name' class='hds-text-input__label'>
+        First name *
+      </label>
       <div class='hds-text-input__input-wrapper'>
         <input
           id='first-name'
@@ -19,7 +21,9 @@ const firstNameInput = `<div class='hds-text-input'>
     </div>`;
 
 const lastNameInput = `<div class='hds-text-input'>
-      Last name *
+      <label for='last-name' class='hds-text-input__label'>
+        Last name *
+      </label>
       <div class='hds-text-input__input-wrapper'>
         <input
           id='last-name'
@@ -31,7 +35,9 @@ const lastNameInput = `<div class='hds-text-input'>
     </div>`;
 
 const socialSecurityNumberInput = `<div class='hds-text-input'>
-      Social Security number *
+      <label for='social-security-number' class='hds-text-input__label'>
+        Social Security number *
+      </label>
       <div class='hds-text-input__input-wrapper'>
         <input
           id='social-security-number'
