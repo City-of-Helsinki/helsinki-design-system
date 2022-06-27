@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Typography] Line-height tokens are no longer used for headings. All headings now have their own line-height value. Use helper CSS classes from Core to easily follow the new values.
 
 #### Fixed
-- [Colour] The grayscale tokens hex value to match the percentage name
+- [Colour] The grayscale tokens' hex values to match the percentage names
 
 ### Core
 #### Breaking Changes
