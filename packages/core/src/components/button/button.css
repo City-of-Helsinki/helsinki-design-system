@@ -145,16 +145,16 @@ input[type="submit"].hds-button {
 
 /* supplementary with right icon */
 .hds-button--supplementary .hds-button__label:first-child {
-  padding-right: var(--spacing-3-xs);
+  padding-right: var(--spacing-2-xs);
 }
 /* supplementary with left icon */
 .hds-button--supplementary .hds-icon + .hds-button__label:last-child {
-  padding-left: var(--spacing-3-xs);
+  padding-left: var(--spacing-2-xs);
 }
 /* supplementary with both icons */
 .hds-button--supplementary .hds-icon + .hds-button__label:not(:last-child) {
-  padding-left: var(--spacing-3-xs);
-  padding-right: var(--spacing-3-xs);
+  padding-left: var(--spacing-2-xs);
+  padding-right: var(--spacing-2-xs);
 }
 
 /* SMALL */

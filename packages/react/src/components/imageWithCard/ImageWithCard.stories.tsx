@@ -10,7 +10,7 @@ const contentText =
 
 const content = (
   <>
-    <h2 style={{ fontSize: 'var(--fontsize-heading-l)' }}>{contentTitle}</h2>
+    <h2 className="heading-l">{contentTitle}</h2>
     <p style={{ margin: 'var(--spacing-l) 0' }}>{contentText}</p>
   </>
 );

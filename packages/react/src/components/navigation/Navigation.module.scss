@@ -119,6 +119,8 @@
   cursor: pointer;
   display: flex;
   font-size: var(--fontsize-heading-xxs);
+  line-height: var(--lineheight-l);
+  letter-spacing: 0.4px;
   font-weight: bold;
   height: calc(100% - var(--spacing-s) * 2);
   outline: none;
@@ -302,7 +304,7 @@
 
 @media x-large-up {
   .title {
-    font-size: var(--fontsize-heading-s);
+    composes: heading-s from 'hds-core/lib/utils/helpers.css';
     height: calc(100% - var(--spacing-xs) * 2);
 
     > span {

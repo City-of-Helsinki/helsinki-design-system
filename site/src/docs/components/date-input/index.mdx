@@ -1,0 +1,106 @@
+---
+slug: '/components/date-input'
+title: 'DateInput'
+navTitle: 'DateInput'
+---
+
+import { DateInput } from 'hds-react';
+import PlaygroundPreview from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Usage
+
+### Example
+
+<PlaygroundPreview>
+  <div style={{ maxWidth: '400px' }}>
+    <DateInput
+      helperText="Use format D.M.YYYY"
+      id="date-input-example-1"
+      initialMonth={new Date()}
+      label="Choose a date"
+      language="en"
+      onChange={function noRefCheck() {}}
+      required
+    />
+  </div>
+</PlaygroundPreview>
+
+### Principles
+
+- Only use a date input when you can expect the user to input a specific date. If it can be difficult for the user to determine which date they should choose or if the selected date can be vague, let the user choose, for example, a week, month or a date range.
+  - When selecting weeks or months, it is usually better to use <Link size="M" href="/components/dropdown#select-single-selection">the dropdown select component</Link>.
+- Pay close attention to the date input label. It should clearly describe the date the user is expected to input. A good label describes the input, such as "Arrival date".
+- The date input should be provided with an assistive text which tells the user the expected date format. Avoid relying on a placeholder text alone because it will disappear when the user starts typing. The recommended way to show the expected format is to use the assistive text below the input.
+  - As specified in <Link size="M" href="/guidelines/data-formats">the data format guidelines</Link>, Helsinki services will always use D.M.YYYY format. Do not use the English date format even if the user is using English locale.
+- When asking for date ranges, you should use two separate date inputs instead of using one input or picker for both dates.
+- HDS Date picker acts as a modal. This means that clicking outside of the date picker closes it. Closing the picker this way also cancels the selection made in the date picker.
+
+#### When to use the date picker?
+
+- **Use the date picker** (calendar) when it is useful for the user to see how the selected date is related to other dates and/or which weekday it is.
+- **Do not use the date picker** if the date is easily remembered or is obvious for the user or if the date is further into the past or the future. Date of birth is an example of a situation where the date picker should not be used.
+
+### Variations
+
+#### Date input with a picker
+
+Out of the box, HDS date input will include an openable date picker which allows the user to select the date via a calendar view. The date can be also inputted manually, which is the recommended setup for most use cases.
+
+<PlaygroundPreview>
+  <div style={{ maxWidth: '400px' }}>
+    <DateInput
+      helperText="Use format D.M.YYYY"
+      id="date-input-example-2"
+      initialMonth={new Date()}
+      label="Choose a date"
+      language="en"
+      onChange={function noRefCheck() {}}
+      required
+    />
+  </div>
+</PlaygroundPreview>
+
+#### Date input without a confirmation
+
+**Note!** Since this variant closes the date picker immediately after selection, it violates <Link size="M" href="https://www.w3.org/TR/WCAG21/#on-input" external>WCAG 3.2.2 On Input guideline</Link>. Therefore, this variant should only be used in administration and intranet type of services.
+
+The default HDS date picker requires a confirmation after the date has been selected from the calendar. If your service is mostly desktop or meant for administration, the confirmation can be disabled with `disableConfirmation` prop to allow more fluid ser experience when selecting multiple dates in a row.
+
+In all other types of services, it is recommended to not disable the confirmation step.
+
+<PlaygroundPreview>
+  <div style={{ maxWidth: '400px' }}>
+    <DateInput
+      disableConfirmation
+      helperText="Use format D.M.YYYY"
+      id="date-input-example-3"
+      initialMonth={new Date()}
+      label="Choose a date"
+      language="en"
+      onChange={function noRefCheck() {}}
+      required
+    />
+  </div>
+</PlaygroundPreview>
+
+#### Date input without a picker
+
+It is possible to disable the date picker functionality by supplying a `disableDatePicker` prop to the input. To learn when the date picker should be hidden, see [when to use date picker](#when-to-use-the-date-picker) above.
+
+<PlaygroundPreview>
+  <div style={{ maxWidth: '400px' }}>
+    <DateInput
+      disableDatePicker
+      helperText="Use format D.M.YYYY"
+      id="date-input-example-4"
+      initialMonth={new Date()}
+      label="Choose a date"
+      language="en"
+      onChange={function noRefCheck() {}}
+      required
+    />
+  </div>
+</PlaygroundPreview>

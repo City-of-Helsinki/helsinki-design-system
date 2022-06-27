@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import uniqueId from 'lodash.uniqueid';
+import pickBy from 'lodash.pickby';
 
 // import core base styles
 import 'hds-core';
@@ -9,6 +10,8 @@ import classNames from '../../utils/classNames';
 import { IconAngleDown, IconAngleUp } from '../../icons';
 import { useAccordion } from './useAccordion';
 import { useTheme } from '../../hooks/useTheme';
+import { Button } from '../button';
+import useHasMounted from '../../hooks/useHasMounted';
 
 export interface AccordionCustomTheme {
   '--background-color'?: string;
@@ -19,11 +22,12 @@ export interface AccordionCustomTheme {
   '--header-font-size'?: string;
   '--header-line-height'?: string;
   '--button-size'?: string;
-  '--button-border-color-hover'?: string; // Deprecated, use --header-focus-outline-color instead.
   '--header-focus-outline-color'?: string;
   '--content-font-size'?: string;
   '--content-line-height'?: string;
 }
+
+type Language = 'en' | 'fi' | 'sv';
 
 export type CommonAccordionProps = React.PropsWithChildren<{
   /**
@@ -38,6 +42,15 @@ export type CommonAccordionProps = React.PropsWithChildren<{
    * Additional class names for accordion
    */
   className?: string;
+  /**
+   * Boolean indicating whether there is a close button at the bottom of the accordion or not.
+   * @Default true
+   */
+  closeButton?: boolean;
+  /**
+   * className for close button to enable custom styling
+   */
+  closeButtonClassName?: string;
   /**
    * Heading text.
    */
@@ -56,6 +69,17 @@ export type CommonAccordionProps = React.PropsWithChildren<{
    * @default false
    */
   initiallyOpen?: boolean;
+  /**
+   * The language of the component. It affects which language is used for the close button text.
+   *
+   * @default "fi"
+   */
+  language?: Language;
+  /**
+   * Size
+   * @default m
+   */
+  size?: 's' | 'm' | 'l';
   /**
    * Additional styles
    */
@@ -79,35 +103,69 @@ export type CardAccordionProps = Omit<CommonAccordionProps, 'card' | 'border'> &
 
 export type AccordionProps = CommonAccordionProps | CardAccordionProps;
 
+const getCloseMessage = (language: Language): string => {
+  return {
+    en: `Close`,
+    fi: `Sulje`,
+    sv: `Stäng`,
+  }[language];
+};
+
 export const Accordion = ({
   border = false,
   card = false,
   children,
   className,
+  closeButtonClassName,
+  closeButton = true,
   heading,
   headingLevel = 2,
   id,
   initiallyOpen = false,
+  language = 'fi',
+  size = 'm',
   style,
   theme,
 }: AccordionProps) => {
-  if (theme && theme['--button-border-color-hover']) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      '--button-border-color-hover is deprecated, and will be removed in a future release. Please use --header-focus-outline-color instead',
-    );
-
-    /* eslint-disable no-param-reassign */
-    theme['--header-focus-outline-color'] = theme['--button-border-color-hover'];
-    delete theme['--button-border-color-hover'];
-    /* eslint-enable no-param-reassign */
-  }
-
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [beforeCloseButtonClick, setBeforeCloseButtonClick] = useState(false);
   // Create a unique id if not provided via prop
   const [accordionId] = useState(id || uniqueId('accordion-'));
 
-  // Custom theme
-  const customThemeClass = useTheme<AccordionCustomTheme>(styles.accordion, theme);
+  // Custom themes
+  const sovereignThemeVariables = theme && {
+    '--background-color': theme['--background-color'],
+    '--border-color': theme['--border-color'],
+    '--header-font-color': theme['--header-font-color'],
+    '--header-focus-outline-color': theme['--header-focus-outline-color'],
+    '--content-font-color': theme['--content-font-color'],
+    '--content-font-size': theme['--content-font-size'],
+    '--content-line-height': theme['--content-line-height'],
+  };
+
+  const filteredSovereignThemeVariables = pickBy(sovereignThemeVariables);
+
+  const sovereignThemeClass = useTheme<Partial<AccordionCustomTheme>>(
+    styles.accordion,
+    Object.keys(filteredSovereignThemeVariables).length > 0 ? filteredSovereignThemeVariables : undefined,
+  );
+
+  const sizeDependentThemeVariables = theme && {
+    '--header-font-size': theme['--header-font-size'],
+    '--padding-vertical': theme['--padding-vertical'],
+    '--padding-horizontal': theme['--padding-horizontal'],
+    '--header-font-weight': theme['--header-font-weight'],
+    '--header-letter-spacing': theme['--header-letter-spacing'],
+    '--header-line-height': theme['--header-line-height'],
+    '--button-size': theme['--button-size'],
+  };
+
+  const filteredSizeDependentThemeVariables = pickBy(sizeDependentThemeVariables);
+
+  const sizeDependentThemeClass = useTheme<Partial<AccordionCustomTheme>>(
+    styles[size],
+    Object.keys(filteredSizeDependentThemeVariables).length > 0 ? filteredSizeDependentThemeVariables : undefined,
+  );
 
   // Accordion logic
   const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen });
@@ -119,6 +177,35 @@ export const Accordion = ({
     <IconAngleDown aria-hidden className={styles.accordionButtonIcon} />
   );
 
+  const hasMounted = useHasMounted();
+
+  /*
+    Close button does not work well with different screen readers. To avoid issues, we had to:
+    1. Add aria-expanded to false before closing the accordion (state beforeCloseButtonClick)
+    2. Wait for the new rendering (useEffect + timeout)
+    3. Focus to the accordion main button to not lose focus when close button disappears
+    4. Finally call the regular button onClick, which updates state and hides the content.
+   */
+
+  useEffect(() => {
+    if (!hasMounted) {
+      return;
+    }
+    const timer = setTimeout(() => {
+      headerRef.current.focus();
+      if (beforeCloseButtonClick === true) {
+        setBeforeCloseButtonClick(false);
+        buttonProps.onClick();
+      }
+    }, 50);
+    // eslint-disable-next-line consistent-return
+    return () => clearTimeout(timer);
+  }, [beforeCloseButtonClick]);
+
+  const onCloseButtonActivate = () => {
+    setBeforeCloseButtonClick(true);
+  };
+
   return (
     <div
       className={classNames(
@@ -126,7 +213,9 @@ export const Accordion = ({
         card && styles.card,
         card && border && styles.border,
         isOpen && styles.isOpen,
-        customThemeClass,
+        styles[size],
+        sovereignThemeClass,
+        sizeDependentThemeClass,
         className,
       )}
       style={style}
@@ -134,6 +223,7 @@ export const Accordion = ({
     >
       <div className={classNames(styles.accordionHeader)}>
         <div
+          ref={headerRef}
           role="button"
           tabIndex={0}
           onKeyPress={(e) => {
@@ -144,6 +234,7 @@ export const Accordion = ({
           className={styles.headingContainer}
           aria-labelledby={`${accordionId}-heading`}
           {...buttonProps}
+          {...(beforeCloseButtonClick ? { 'aria-expanded': false } : {})}
         >
           <div role="heading" aria-level={headingLevel} id={`${accordionId}-heading`}>
             {heading}
@@ -155,10 +246,35 @@ export const Accordion = ({
         {...contentProps}
         id={`${accordionId}-content`}
         role="region"
-        className={classNames(styles.accordionContent, card && styles.card)}
+        className={classNames(
+          styles.accordionContent,
+          card && styles.card,
+          closeButton && styles.contentWithCloseButton,
+        )}
         aria-labelledby={`${accordionId}-heading`}
       >
         {children}
+        {closeButton && (
+          <Button
+            data-testid={`${accordionId}-closeButton`}
+            aria-label={`${getCloseMessage(language)} ${heading}`}
+            className={classNames(styles.closeButton, closeButtonClassName)}
+            theme="black"
+            size="small"
+            onKeyPress={(e) => {
+              if (e.key === ' ') {
+                onCloseButtonActivate();
+              }
+            }}
+            onClick={() => {
+              onCloseButtonActivate();
+            }}
+            variant="supplementary"
+            iconRight={<IconAngleUp aria-hidden size="xs" className={styles.accordionButtonIcon} />}
+          >
+            {getCloseMessage(language)}
+          </Button>
+        )}
       </div>
     </div>
   );

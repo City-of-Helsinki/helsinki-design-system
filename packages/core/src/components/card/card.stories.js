@@ -5,7 +5,7 @@ export default {
 };
 
 const body = `<div class="hds-card__body">
-    <div class="hds-card__heading" role="heading" aria-level="2">Card</div>
+    <div class="heading-m" role="heading" aria-level="2">Card</div>
     <div class="hds-card__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
   </div>`;
 

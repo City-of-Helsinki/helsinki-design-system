@@ -1,0 +1,52 @@
+---
+slug: '/getting-started/contributing/before-contributing'
+title: 'Before contributing'
+navTitle: 'Before contributing'
+---
+
+import { Link, Notification } from 'hds-react';
+import LeadParagraph from '../../../components/LeadParagraph';
+import Image from '../../../components/Image';
+
+# Before contributing
+
+<LeadParagraph>
+    You can contribute content to the HDS in different ways. Before you start contributing to HDS, please refer to following guidelines.
+</LeadParagraph>
+
+Every component in HDS includes three parts:
+1. Design 
+2. Implementation 
+3. Documentation 
+
+You may contribute in any part of these but all three parts have to be implemented and validated by HDS team before a feature can be released.
+
+<Notification size="small" label="HDS team response time" type="alert" className="siteNotification" style={{marginBottom: 'var(--spacing-m)'}}>
+The process of adding component to HDS can take a while. New feature request and proposed designs are first evaluated and prioritised on HDS roadmap. If the need for a feature is urgent, discuss this with HDS team.
+</Notification>
+
+The easiest way to start contributing to HDS is joining the City of Helsinki Slack channel (<Link size="M" href="https://helsinkicity.slack.com/archives/CHCV3KTHA" external>#designsystem</Link>) and send us a message.
+
+## Tools needed
+Depending on the feature you want to be working on, you will need access to at least some of these tools:
+- <Link size="M" href="https://www.sketch.com/" external>Sketch</Link>
+- City of Helsinki organisation in <Link size="M" href="https://www.abstract.com/" external>Abstract</Link>
+- City of Helsinki Slack (channel: <Link size="M" href="https://helsinkicity.slack.com/archives/CHCV3KTHA" external>#designsystem</Link>)
+- <Link size="M" href="https://github.com/City-of-Helsinki/helsinki-design-system" external>HDS GitHub repository</Link>
+
+## Contribution process
+When faced with a need for a component or feature, you can ask yourself a few simple questions to decide whether you should propose a new component or feature to be added in HDS, or design a custom implementation:
+
+<Image src="/images/getting-started/contributing-design/hds-contribution.png" alt="How to contribute to Helsinki Design System" style="display:block;width:100%;min-width:600px;max-width:915px;margin:0 auto;" viewable />
+
+### 1. Find out does it already exist?
+Before you start working or proposing a new component, it is important to check whether it already exists in HDS or in our roadmap.
+1. Check if it exists in [HDS components](/components).
+2. Check if it exists on [HDS roadmap](/about/roadmap).
+3. Check if someone else has already <Link size="M" href="https://github.com/City-of-Helsinki/helsinki-design-system/issues" external>proposed it in GitHub issues</Link>.
+
+### 2. If not, find out how easily could a existing component be altered to fulfill new requirements?
+Go through the list of existing [HDS components](/components). See if some of the components could be slightly altered to suit your needs while still fulfilling existing requirements. If yes, move on to making a proposal for the change.
+
+### 3. If not, find out if is this component something that is needed in several projects?
+Think outside of the scope of your project. Can this component be utilized in other projects as well? If not, could you make it something more generic to match the needs of other projects? Discuss with other projects and the community.

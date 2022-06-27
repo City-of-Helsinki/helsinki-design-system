@@ -41,7 +41,7 @@ export const Default = (args) => {
       >
         <Dialog.Header id={titleId} title="Add new item" iconLeft={<IconPlusCircle aria-hidden="true" />} />
         <Dialog.Content>
-          <p id={descriptionId} className="text-body">
+          <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Add a new item by filling the information below. All fields are mandatory.
           </p>
           <TextInput
@@ -104,7 +104,7 @@ export const WithBoxShadow = (args) => {
       >
         <Dialog.Header id={titleId} title="Add new item" iconLeft={<IconPlusCircle aria-hidden="true" />} />
         <Dialog.Content>
-          <p id={descriptionId} className="text-body">
+          <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Add a new item by filling the information below. All fields are mandatory.
           </p>
           <TextInput
@@ -178,7 +178,7 @@ export const Confirmation = (args) => {
       >
         <Dialog.Header id={titleId} title="Confirm dialog" iconLeft={<IconAlertCircle aria-hidden="true" />} />
         <Dialog.Content>
-          <p id={descriptionId} className="text-body">
+          <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Are you sure you want to continue?
           </p>
         </Dialog.Content>
@@ -243,7 +243,7 @@ export const Danger = (args) => {
       >
         <Dialog.Header id={titleId} title="Delete item" iconLeft={<IconAlertCircle aria-hidden="true" />} />
         <Dialog.Content>
-          <p id={descriptionId} className="text-body">
+          <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Are you sure you want to delete the item?
           </p>
         </Dialog.Content>
@@ -442,7 +442,7 @@ export const LongButtonLabels = (args) => {
       >
         <Dialog.Header id={titleId} title="Confirm dialog" iconLeft={<IconAlertCircle aria-hidden="true" />} />
         <Dialog.Content>
-          <h3>Are you sure you want to continue?</h3>
+          <h3 style={{ marginTop: '0' }}>Are you sure you want to continue?</h3>
         </Dialog.Content>
         <Dialog.ActionButtons>
           <Button
@@ -513,7 +513,7 @@ export const ConfirmationWithTerms = (args) => {
           iconLeft={<IconAlertCircle aria-hidden="true" />}
         />
         <Dialog.Content>
-          <p id={confirmationDescriptionId} className="text-body">
+          <p id={confirmationDescriptionId} className="text-body" style={{ marginTop: '0' }}>
             Do you want to accept terms of the service?
             <br />
             <br />
@@ -628,7 +628,7 @@ export const WithControlledContent = (args) => {
       >
         <Dialog.Header id={titleId} title="Add new item" iconLeft={<IconPlusCircle aria-hidden="true" />} />
         <Dialog.Content>
-          <p id={descriptionId} className="text-body">
+          <p id={descriptionId} className="text-body" style={{ marginTop: '0' }}>
             Add a new item by filling the information below. All fields are mandatory.
           </p>
           <TextInput

@@ -1,13 +1,21 @@
 {
   "fontsize": {
     "heading": {
+      "xxl": {
+        "value": "4rem",
+        "comment": "64px"
+      },
       "xl": {
-        "value": "3.25rem",
-        "comment": "52px"
+        "value": "3rem",
+        "comment": "48px"
+      },
+      "xl-mobile": {
+        "value": "2.5rem",
+        "comment": "40px"
       },
       "l": {
-        "value": "2.25rem",
-        "comment": "36px"
+        "value": "2rem",
+        "comment": "32px"
       },
       "m": {
         "value": "1.5rem",

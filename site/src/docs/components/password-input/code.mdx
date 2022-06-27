@@ -1,0 +1,120 @@
+---
+slug: '/components/password-input/code'
+title: 'PasswordInput - Code'
+---
+
+import { PasswordInput, IconEye, IconEyeCrossed } from 'hds-react';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+### Code examples 
+
+#### Default
+<Playground>
+
+
+```jsx
+<div
+style={{
+    maxWidth: '320px'
+}}
+>
+  <PasswordInput
+      concealPasswordButtonAriaLabel="Hide password"
+      helperText="Assistive text"
+      id="password-input-1"
+      includeShowPasswordButton
+      label="Password"
+      revealPasswordButtonAriaLabel="Show password"
+      required
+  />
+</div>
+```
+
+```html
+<div class="hds-text-input" style="max-width:320px;">
+  <label for="password-input-2" class="hds-text-input__label">
+    Password
+    <span class="hds-text-input__required">*</span>
+  </label>
+  <div class="hds-text-input__input-wrapper">
+    <input
+      id="password-input-2"
+      class="hds-text-input__input"
+      type="password"
+      required
+    />
+    <div class="hds-text-input__buttons">
+      <button
+        type="button"
+        aria-label="Show"
+        class="hds-text-input__button"
+      >
+        <i class="hds-icon hds-icon--eye hds-icon--size-s" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+  <span class="hds-text-input__helper-text">Assistive text</span>
+</div>
+```
+
+</Playground>
+
+#### With an external button
+<Playground>
+
+
+```jsx
+{() => {
+  const [revealPassword, setRevealPassword] = React.useState(false);
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "320px 240px", gap: "var(--spacing-s)" }}>
+      <PasswordInput
+        label="Password"
+        id="password-input-3"
+        includeShowPasswordButton={false}
+        helperText="Assistive text"
+        type={revealPassword ? 'text' : 'password'}
+        required
+        style={{maxWidth: '320px'}}
+      />
+      <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+        <Button
+          variant="supplementary"
+          onClick={() => setRevealPassword(!revealPassword)}
+          iconLeft={revealPassword ? <IconEyeCrossed aria-hidden /> : <IconEye aria-hidden />}
+        >
+          {revealPassword ? 'Hide password' : 'Show password'}
+        </Button>
+      </div>
+    </div>
+  );
+}}
+```
+
+</Playground>
+
+### Packages
+| Package           | Included                      | Storybook link                                                                                                                      | Source link   |
+| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| **HDS React**     | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/react/?path=/story/components-passwordinput--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/passwordInput">View source</Link> |
+| **HDS Core**      | <IconCheckCircleFill /> Yes   | <Link size="M" external href="/storybook/core/?path=/story/components-password-input--default">View in Storybook</Link> | <Link size="M" external href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/password-input">View source</Link> |
+
+### Properties
+Note! You can find the full list of properties in the <Link size="M" href="/storybook/react/?path=/story/components-passwordinput--default" external>React Storybook.</Link>
+
+Also, note that this component is an input. All features supported by the HDS TextInput are also supported by this component. See [TextInput documentation page](/components/text-input) for more information.
+
+| Property                         | Description                                                                                                                                                                                    | Values    | Default value |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------- |
+| `label`                          | The label for the input.                                                                                                                                                                       | `string`  | -             |
+| `type`                           | Type of the password input. Only applied when `includeShowPasswordButton` is false. Use this if you wish to not have show password button, or you wish to apply external show password button. | `string`  | -             |
+| `concealPasswordButtonAriaLabel` | The aria-label for conceal password button.                                                                                                                                                    | `string`  | -             |
+| `includeShowPasswordButton`      | If set to true, the component will include show / hide password button.                                                                                                                        | `boolean` | true          |
+| `initiallyRevealed`              | If set to true, the component will initially reveal the password. Only applied when `includeShowPasswordButton` is true.                                                                       | `boolean` | false         |
+| `revealPasswordButtonAriaLabel`  | The aria-label for the reveal password button.                                                                                                                                                 | `string`  | -             |
+[Table 1:PasswordInput properties]|
+

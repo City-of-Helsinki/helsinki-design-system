@@ -7,7 +7,7 @@ export default {
 };
 
 export const Default = () => `
-  <a href="/?path=/story/components-link--all" class="hds-link hds-link--small">Default link</a>
+  <a href="/?path=/story/components-link--all" class="hds-link hds-link--medium">Default link</a>
 `;
 
 export const InternalLinks = () => `
@@ -39,15 +39,15 @@ export const ExternalLinks = () => `
 ExternalLinks.storyName = 'External links';
 
 export const openInNewTabLink = () => `
-  <a href="https://hds.hel.fi" class="hds-link hds-link--small" rel="noopener" target="_blank" aria-label="Link that opens in a new tab. Opens in a new tab. Opens in external domain">
-    Link that opens in a new tab<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-hidden="true"></i>
+  <a href="https://hds.hel.fi" class="hds-link hds-link--medium" rel="noopener" target="_blank" aria-label="Link that opens in a new tab. Opens in a new tab. Opens in external domain">
+    Link that opens in a new tab<i class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon" aria-hidden="true"></i>
   </a>
 `
 
 openInNewTabLink.storyName = 'Link that opens in a new tab';
 
 export const visitedStylesDisabled = () => `
-  <a href="/?path=/story/components-link--all" class="hds-link hds-link--small hds-link--disable-visited-styles">Link without visited styles</a>
+  <a href="/?path=/story/components-link--all" class="hds-link hds-link--medium hds-link--disable-visited-styles">Link without visited styles</a>
 `;
 
 visitedStylesDisabled.storyName = 'Link without visited styles';

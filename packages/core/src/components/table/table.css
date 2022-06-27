@@ -18,7 +18,8 @@
   white-space: nowrap;
   text-align: left;
   font-weight: 500;
-  font-size: var(--fontsize-heading-xxs);
+  font-size: var(--fontsize-body-m);
+  line-height: var(--lineheight-l);
   padding: var(--spacing-xs) var(--spacing-m);
 }
 
@@ -28,6 +29,7 @@
   padding: var(--spacing-xs) var(--spacing-m);
   border-bottom: 1px solid var(--color-black-50);
   font-size: var(--fontsize-body-m);
+  line-height: 24px;
   color: var(--color-black-90);
 }
 
@@ -38,15 +40,15 @@
 .hds-table__caption {
   text-align: left;
   margin-bottom: var(--spacing-s);
-  font-size: var(--fontsize-heading-xs);
+  font-size: var(--fontsize-body-l);
+  font-weight: normal;
   line-height: var(--lineheight-l);
 }
 
 /* DARK VARIANT */
 
 .hds-table--dark {
-  /* TODO: --background-color is deprecated. Remove when possible. */
-  --header-background-color: var(--background-color, var(--color-bus));
+  --header-background-color: var(--color-bus);
 }
 
 .hds-table.hds-table--dark th {
@@ -56,8 +58,7 @@
 /* LIGHT VARIANT */
 
 .hds-table--light {
-  /* TODO: --background-color is deprecated. Remove when possible. */
-  --header-background-color: var(--background-color, var(--color-silver));
+  --header-background-color: var(--color-silver);
 }
 
 .hds-table.hds-table--light th {
@@ -79,7 +80,8 @@
 
 .hds-table--dense .hds-table__caption {
   margin-bottom: var(--spacing-xs);
-  font-size: var(--fontsize-heading-xxs);
+  font-size: var(--fontsize-body-m);
+  line-height: var(--lineheight-l);
 }
 
 /* ZEBRA VARIANT */
@@ -138,6 +140,7 @@
   .hds-table__caption {
     margin-bottom: var(--spacing-xs);
     font-size: var(--fontsize-heading-xxs);
+    line-height: var(--lineheight-l);
   }
 }
 
