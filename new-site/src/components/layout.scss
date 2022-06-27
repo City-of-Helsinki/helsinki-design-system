@@ -172,8 +172,12 @@ body {
 }
 
 .side-content {
-  margin-bottom: auto;
+  margin-bottom: var(--spacing-layout-xs);
   min-width: var(--side-content-min-width);
+
+  @include x-large-and-above-screen {
+    margin-bottom: auto;
+  }
 }
 
 .main-content {
