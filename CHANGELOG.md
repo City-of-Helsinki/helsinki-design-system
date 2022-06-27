@@ -25,6 +25,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Core
 #### Breaking Changes
+#### Added
+- [Typography] Heading helper classes
+
 #### Changed
 - [Card, Notification, Table] Typography styles updated
 - [Container] Only container-width-xl is restricting the container maximum width. Other maximum width restrictions for smaller screens have been removed.
