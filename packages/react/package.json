@@ -123,6 +123,7 @@
     "@types/react": "17.0.2",
     "babel-jest": "^26.0.1",
     "jest": "^26.0.1",
+    "downshift/react-is": "^16.13.1",
     "ts-jest": "^26.0.1"
   },
   "peerDependencies": {
