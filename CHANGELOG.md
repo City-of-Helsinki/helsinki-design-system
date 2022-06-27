@@ -32,6 +32,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Link] The default size of the link to medium font size from small font size
 - [Button] Update Supplementary button icon spacing
 
+#### Removed
+- [Accordion] Removed deprecated --button-border-color-hover theme variable
+- [Table] Removed deprecated --header-background-color theme variable
+
 ###  Design kit
 
 #### Added
