@@ -6,6 +6,138 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - June, 27, 2022
+
+### Design Tokens
+#### Breaking Changes
+#### Added
+- [Typography] New XXL heading size (64px)
+- [Typography] New XL-Mobile heading size (40px)
+
+#### Changed
+- [Typography] Made changes to HDS heading font sizes to match Hel.fi styles
+  - XL from 52 to 48px
+  - L from 36 to 32px
+- [Typography] Line-height tokens are no longer used for headings. All headings now have their own line-height value. Use helper CSS classes from Core to easily follow the new values.
+
+#### Fixed
+- [Colour] The grayscale tokens' hex values to match the percentage names
+
+### Core
+#### Breaking Changes
+#### Added
+- [Typography] Heading helper classes
+
+#### Changed
+- [Card, Notification, Table] Typography styles updated
+- [Container] Only container-width-xl is restricting the container maximum width. Other maximum width restrictions for smaller screens have been removed.
+- [Button] Update Supplementary button icon spacing
+
+### React Components
+#### Breaking Changes
+#### Changed
+- [Accordion, Card, Dialog, Footer, Linkbox, Navigation, Notification, Stepper, Table, Tooltip] Typography styles updated
+- [Container] Only container-width-xl is restricting the container maximum width. Other maximum width restrictions for smaller screens have been removed.
+- [Dialog] Updated Dialog header and content spacing to match the design
+- [Link] The default size of the link to medium font size from small font size
+- [Button] Update Supplementary button icon spacing
+
+#### Removed
+- [Accordion] Removed deprecated --button-border-color-hover theme variable
+- [Table] Removed deprecated --header-background-color theme variable
+
+###  Design kit
+
+#### Added
+- [Typography] HDS heading styles have been synced with the new Hel.fi styles
+- [Typography] New XXL heading size (64px)
+  - This also means that the total amount of heading levels has been increased from 5 to 6
+- [Typography] New XL-Mobile heading size (40px)
+- [Accordion] Two additional Accordion sizes, L (Large) and S (Small)
+- [Links] Two additional sizes for the Standalone link, S (Small) and M (Medium)
+
+#### Changed
+- [Typography] Made changes to HDS heading font sizes to match Hel.fi styles
+  - XL from 52 to 48px
+  - L from 36 to 32px
+- [Typography] Made changes to HDS heading line-heights to match Hel.fi styles
+  - XL from 62 to 48
+  - L from 43 to 32
+  - M from 29 to 32
+  - S from 24 to 28
+  - XS from 22 to 24
+- [Typography] Made changes to HDS heading font weights to match Hel.fi styles
+  - XL from Bold to Regular
+  - L from Bold to Regular
+  - M from Bold to Medium
+  - S from Bold to Medium
+- [Typography] Made changes to HDS body font sizes to match Hel.fi styles
+  - Sizes available sizes are now 14, 16, 18 and 20px
+  - The L size (18px) is now marked as the default size
+- [Typography] Made changes to HDS body text line heights to match Hel.fi styles
+  - S from 26 to 24
+  - L from 27 to 28
+  - XL from 30 to 32
+- [Typography] Updated line-height token descriptions
+- [Typography] Updated typography example artboards with new heading styles
+- Updated all HDS example artboards with new heading styles
+- [Accordion] Optional “Close” button at the bottom of Accordions
+- [Accordion] Renamed and grouped the current set of Accordions under “M” size
+- [Accordion] Increased the size of the collapse icon from 24x24 to 32x32 of M size symbols
+- [Accordion] Small spacing changes to “Empty” accordion symbols
+- [Grids and Breakpoints] Updated example artboards to reflect the new container width changes
+- [Accordion] Updated symbols with new heading styles
+- [Accordion] Small spacing changes to accommodate new heading styles
+- [Accordion] The symbol now properly supports multi-line headers
+- [Cards] Updated symbols with new heading styles
+- [Cards] Small spacing changes to accommodate new heading styles
+- [Footer] Updated symbols with new heading styles
+- [Form Components] Updated date picker and error summary with new heading styles
+- [Modals and Notifications] Updated symbols with new heading styles
+- [Modals and Notifications] Small spacing changes to Notifications to accommodate slightly altered heading styles
+- [Modals and Notifications] Small height changes to Dialogs to accommodate slightly altered body styles
+- [Navigation] Updated symbols with new heading styles
+- [Navigation] Updated the mobile symbol to use XSS heading token
+- [Table] Small spacing changes to accommodate newly sized labels
+
+#### Fixed
+- [Cards] Fixed smart layout scaling of Text + heading Card with borders
+- [Colour] Updated grayscale token hex values to match their exact percentage values
+  - color-black-70 from #4c4c4c to #4d4d4d
+  - color-black-40 from #999898 to #999999
+  - color-black-30 from #b2b2b2 to #b3b3b3
+  - color-black-10 from #e5e5e5 to #e6e6e6
+  - color-black-5 from #f1f1f1 to #f2f2f2
+
+#### Removed
+- [Typography] Heading styles with Bussi colour (in the future, Black and White styled headings are recommended)
+
+### Documentation
+- The HDS 2.0 update features a rebuilt documentation site. The old version 1 documentation site can still be accessed at hds.hel.fi/v1. All changes included in this update are targeted at the new documentation site. The old documentation site will stay unchanged.
+
+#### Added
+- New documentation site
+  - The new documentation site is entirely built with HDS components and is accessible. We hope that the new documentation site will act as an example both for using HDS components and building accessible websites with them.
+  - New documentation site features include; a new page structure, redesigned component pages, live code editing for component examples, component customisation documentation, redesigned design token pages, redesigned getting started section
+  - 2.0 guide pages (general explanation and migration guide)
+  - FAQ page with answers to general, design, implementation, and accessibility questions
+  - New HDS structure images to home and getting started pages
+  - A notification to Navigation, Footer, and SideNavigation about the upcoming Hel.fi update
+
+#### Changed
+- Updated the Typography documentation
+- Updated the Colour documentation to reflect new grayscale colour changes
+- Updated the Breakpoint design token documentation to reflect new Container component changes
+- Updated the Grid guidelines documentation to reflect new Container component changes
+- Updated the What is new page
+- Updated the Roadmap page
+- Updated the accessibility statement
+- Updated the following component statuses
+- DateInput, Dialog, Link, and Table from “Draft” to “Stable”
+
+#### Removed
+- Migration guide to the 1.0 version (can be still found at the version 1 documentation site)
+
 ## [1.15.0] - May, 30, 2022
 
 ### React Components
