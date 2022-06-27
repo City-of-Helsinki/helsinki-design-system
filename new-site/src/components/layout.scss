@@ -255,3 +255,11 @@ h5 {
     }
   }
 }
+
+code {
+  background-color: var(--color-black-5);
+  font-family: courier, monospace;
+  padding: var(--spacing-4-xs) var(--spacing-3-xs);
+  word-wrap: break-word;
+  box-decoration-break: clone;
+}
