@@ -13,7 +13,7 @@ exports[`<Linkbox /> spec external linkbox that is opened in to a new tab should
     >
       <div
         aria-level="2"
-        class="headingCommon headingMedium"
+        class="headingMedium"
         role="heading"
       >
         Linkbox title
@@ -70,7 +70,7 @@ exports[`<Linkbox /> spec renders the component 1`] = `
     >
       <div
         aria-level="2"
-        class="headingCommon headingMedium"
+        class="headingMedium"
         role="heading"
       >
         Linkbox title

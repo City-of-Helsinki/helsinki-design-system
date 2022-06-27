@@ -1,33 +1,79 @@
 {
   "name": "site",
-  "version": "1.15.0",
   "private": true,
   "description": "Documentation for Helsinki Design System",
-  "license": "MIT",
+  "version": "1.15.0",
   "workspaces": {
     "nohoist": [
       "gatsby",
-      "gatsby/**"
+      "gatsby/**",
+      "gatsby-*",
+      "gatsby-*/**"
     ]
   },
-  "scripts": {
-    "start": "rimraf .docz/ && docz dev",
-    "build": "rimraf .docz/ public/ && docz build"
-  },
   "dependencies": {
-    "docz": "2.3.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "@mdx-js/mdx": "^1.6.22",
+    "@mdx-js/react": "^1.6.22",
+    "gatsby": "^4.17.0",
+    "gatsby-plugin-image": "^2.17.0",
+    "gatsby-plugin-manifest": "^4.17.0",
+    "gatsby-plugin-mdx": "^3.17.0",
+    "gatsby-plugin-offline": "^5.17.0",
+    "gatsby-plugin-react-helmet": "^5.17.0",
+    "gatsby-plugin-robots-txt": "^1.7.1",
+    "gatsby-plugin-sass": "^5.17.0",
+    "gatsby-plugin-sharp": "^4.17.0",
+    "gatsby-remark-autolink-headers": "^5.17.0",
+    "gatsby-source-filesystem": "^4.17.0",
+    "gatsby-transformer-sharp": "^4.17.0",
+    "html-validate": "6.5.0",
+    "prism-react-renderer": "^1.3.1",
+    "prop-types": "^15.8.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
+    "react-live": "^2.4.1",
+    "sanitize-html": "^2.7.0",
+    "sass": "^1.49.9"
   },
   "devDependencies": {
-    "date-fns": "^2.23.0",
-    "gatsby-cli": "2.12.29",
-    "gatsby-plugin-matomo": "0.8.3",
-    "hds-core": "1.15.0",
-    "hds-design-tokens": "1.15.0",
-    "hds-react": "1.15.0",
-    "react-helmet": "6.0.0",
-    "react-markdown": "^6.0.3",
-    "rimraf": "3.0.2"
+    "eslint-config-react-app": "^7.0.1",
+    "hds-core": "^1.15.0",
+    "hds-design-tokens": "^1.15.0",
+    "hds-react": "^1.15.0",
+    "postcss": "8",
+    "prettier": "2.5.1",
+    "stylelint": "^14.8.3",
+    "stylelint-config-standard-scss": "^3.0.0"
+  },
+  "resolutions": {
+    "multer": "1.4.4-lts.1",
+    "jpeg-js": "0.4.4"
+  },
+  "keywords": [
+    "gatsby",
+    "hds"
+  ],
+  "license": "0BSD",
+  "scripts": {
+    "build": "yarn lint && gatsby build",
+    "develop": "gatsby develop -o",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "start": "gatsby develop -o",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "link-react": "rm -rf node_modules/hds-react/* && cp -r ../packages/react/lib/* node_modules/hds-react/",
+    "link-core": "rm -rf node_modules/hds-core/lib/* && cp -r ../packages/core/lib/* node_modules/hds-core/lib/",
+    "lint:js": "eslint . --ext js",
+    "lint:scss": "stylelint \"**/*.scss\"",
+    "lint": "yarn lint:js && yarn lint:scss"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/City-of-Helsinki/helsinki-design-system"
+  },
+  "bugs": {
+    "url": "https://github.com/City-of-Helsinki/helsinki-design-system/issues"
   }
 }

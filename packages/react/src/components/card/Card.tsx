@@ -80,7 +80,7 @@ export const Card = ({
       {hasBody && (
         <div className={styles.body}>
           {heading && (
-            <div className={styles.heading} role="heading" aria-level={headingAriaLevel}>
+            <div className="heading-m" role="heading" aria-level={headingAriaLevel}>
               {heading}
             </div>
           )}

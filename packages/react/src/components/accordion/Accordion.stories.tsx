@@ -16,6 +16,7 @@ export default {
   },
   args: {
     heading: 'How to publish data?',
+    language: 'en',
     children: 'To publish your data, open your profile settings and click button "Publish".',
     style: { maxWidth: '360px' },
   },
@@ -23,13 +24,24 @@ export default {
 
 export const Default = (args) => <Accordion {...args} />;
 
+export const Small = (args) => <Accordion {...args} size="s" />;
+
+export const Medium = (args) => <Accordion {...args} size="m" />;
+
+export const Large = (args) => <Accordion {...args} size="l" />;
+
+export const WithoutCloseButton = (args) => <Accordion {...args} closeButton={false} />;
+WithoutCloseButton.storyName = 'Without close button';
+
 export const InitiallyOpen = (args) => <Accordion {...args} initiallyOpen />;
 InitiallyOpen.storyName = 'Initially open';
 
 export const CardAccordion = (args) => (
   <>
     <Accordion {...args} card />
-    <Accordion {...args} card border />
+    <Accordion {...args} card border size="s" />
+    <Accordion {...args} card border size="m" />
+    <Accordion {...args} card border size="l" />
   </>
 );
 CardAccordion.storyName = 'Card';
@@ -50,7 +62,9 @@ export const CustomTheme = (args) => (
         '--padding-vertical': 'var(--spacing-m)',
         '--header-font-color': 'var(--color-black-90)',
         '--header-font-size': 'var(--fontsize-heading-l)',
-        '--header-line-height': 'var(--lineheight-l)',
+        '--header-font-weight': '400',
+        '--header-line-height': 'var(--lineheight-s)',
+        '--header-letter-spacing': '-0.4px',
         '--button-size': '28px',
         '--button-border-color-hover': 'var(--color-coat-of-arms)',
         '--content-font-color': 'var(--color-black-90)',
@@ -68,7 +82,9 @@ export const CustomTheme = (args) => (
         '--padding-vertical': '20px',
         '--header-font-color': 'var(--color-white)',
         '--header-font-size': 'var(--fontsize-heading-s)',
-        '--header-line-height': 'var(--lineheight-s)',
+        '--header-font-weight': '500',
+        '--header-letter-spacing': '0.2px',
+        '--header-line-height': '1.4',
         '--button-size': '28px',
         '--button-border-color-hover': 'var(--color-white)',
         '--content-font-color': 'var(--color-white)',

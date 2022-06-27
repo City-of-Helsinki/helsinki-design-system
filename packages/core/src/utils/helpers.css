@@ -55,3 +55,61 @@
   font-size: var(--fontsize-body-s);
   line-height: var(--lineheight-xl);
 }
+
+/* HEADINGS */
+
+.heading-xxl {
+  font-size: var(--fontsize-heading-xxl);
+  font-weight: 400;
+  line-height: var(--lineheight-s);
+  letter-spacing: -1.2px;
+}
+
+.heading-xl {
+  font-size: var(--fontsize-heading-xl);
+  font-weight: 400;
+  line-height: var(--lineheight-s);
+  letter-spacing: -1.0px;
+}
+
+.heading-xl-mobile {
+  font-size: var(--fontsize-heading-xl-mobile);
+  font-weight: 400;
+  line-height: var(--lineheight-s);
+  letter-spacing: -0.8px;
+}
+
+.heading-l {
+  font-size: var(--fontsize-heading-l);
+  font-weight: 400;
+  line-height: var(--lineheight-s);
+  letter-spacing: -0.4px;
+}
+
+.heading-m {
+  font-size: var(--fontsize-heading-m);
+  font-weight: 500;
+  line-height: 32px;
+  letter-spacing: -0.2px;
+}
+
+.heading-s {
+  font-size: var(--fontsize-heading-s);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.2px;
+}
+
+.heading-xs {
+  font-size: var(--fontsize-heading-xs);
+  font-weight: 700;
+  line-height: 1.33;
+  letter-spacing: 0.4px;
+}
+
+.heading-xxs {
+  font-size: var(--fontsize-heading-xxs);
+  font-weight: 700;
+  line-height: var(--lineheight-l);
+  letter-spacing: 0.4px;
+}

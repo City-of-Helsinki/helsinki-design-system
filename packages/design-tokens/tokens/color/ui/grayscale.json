@@ -9,11 +9,11 @@
       "type": "color"
     },
     "black-5": {
-      "value": "#f1f1f1",
+      "value": "#f2f2f2",
       "type": "color"
     },
     "black-10": {
-      "value": "#e5e5e5",
+      "value": "#e6e6e6",
       "type": "color"
     },
     "black-20": {
@@ -21,11 +21,11 @@
       "type": "color"
     },
     "black-30": {
-      "value": "#b2b2b2",
+      "value": "#b3b3b3",
       "type": "color"
     },
     "black-40": {
-      "value": "#999898",
+      "value": "#999999",
       "type": "color"
     },
     "black-50": {
@@ -37,7 +37,7 @@
       "type": "color"
     },
     "black-70": {
-      "value": "#4c4c4c",
+      "value": "#4d4d4d",
       "type": "color"
     },
     "black-80": {

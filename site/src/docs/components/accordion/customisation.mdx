@@ -1,0 +1,62 @@
+---
+slug: '/components/accordion/customisation'
+title: 'Accordion - Customisation'
+---
+
+import { Accordion } from 'hds-react';
+import Playground from '../../../components/Playground';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Customisation
+
+### Customisation properties
+
+You can use the `theme` property to customise the component. See all available theme variables in the table below.
+
+| Theme variable                            | Description                                     |
+| ----------------------------------------  | ----------------------------------------------- |
+| <code>--background-color</code>           | Background color of the accordion.              |
+| <code>--header-focus-outline-color</code> | Accordion header focus outline color. |
+| <code>--button-size</code>                | Size of the angle icon.                         |
+| <code>--content-font-color</code>         | Font colour of the accordion content.           |
+| <code>--content-font-size</code>          | Font size of the accordion content.             |
+| <code>--content-line-height</code>        | Line height of the accordion content.           |
+| <code>--header-font-color</code>          | Font colour of the accordion header.            |
+| <code>--header-font-size</code>           | Font size of the accodion header.               |
+| <code>--header-line-height</code>         | Line height of the accordion header.            |
+| <code>--padding-horizontal</code>         | Left and right padding of the accordion.        |
+| <code>--padding-vertical</code>           | Top and bottom padding of the accordion.        |
+
+
+### Customisation example
+<Playground>
+
+```jsx
+<Accordion
+  card
+  language="en"
+  heading="Customised accordion"
+  headingLevel={2}
+  style={{
+    maxWidth: '360px'
+  }}
+  theme={{
+    '--background-color': 'var(--color-bus)',
+    '--header-focus-outline-color': 'var(--color-white)',
+    '--button-size': '28px',
+    '--content-font-color': 'var(--color-white)',
+    '--content-font-size': 'var(--fontsize-body-m)',
+    '--content-line-height': 'var(--lineheight-l)',
+    '--header-font-color': 'var(--color-white)',
+    '--header-font-size': 'var(--fontsize-heading-s)',
+    '--header-line-height': 'var(--lineheight-s)',
+    '--padding-horizontal': 'var(--spacing-m)',
+    '--padding-vertical': '20px'
+  }}
+>
+  In order to customise the accordion component, use the theme property.
+</Accordion>
+```
+</Playground>

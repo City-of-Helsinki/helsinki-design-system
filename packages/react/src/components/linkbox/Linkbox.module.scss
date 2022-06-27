@@ -1,11 +1,9 @@
 .linkbox {
   cursor: pointer;
-  border: solid 2px transparent;
   position: relative;
 
   &:focus-within {
-    outline: var(--color-coat-of-arms) 1px solid;
-    border: var(--color-coat-of-arms) 2px solid;
+    outline: var(--color-coat-of-arms) 3px solid;
   }
 }
 
@@ -17,11 +15,11 @@
   background: transparent;
   padding-left: 0 !important;
   padding-right: 0 !important;
-  padding-bottom: 48px !important;
+  padding-bottom: var(--spacing-2-xl) !important;
 }
 
 .paddingWithoutImageAndWithBackground {
-  padding-top: 22px;
+  padding-top: var(--spacing-m);
 }
 
 .paddingWithoutImageAndWithoutBackground {
@@ -29,37 +27,65 @@
 }
 
 .withSmallImage {
-  padding-top: 16px;
+  padding-top: var(--spacing-s);
 }
 
 .withMediumImage {
-  padding-top: 16px;
+  padding-top: var(--spacing-s);
 }
 
 .withLargeImage {
-  padding-top: 24px;
+  padding-top: var(--spacing-m);
 }
 
 .contentSmall {
-  padding-left: 14px;
-  padding-right: 14px;
-  padding-bottom: 62px;
+  padding-left: var(--spacing-s);
+  padding-right: var(--spacing-s);
+  padding-bottom: var(--spacing-4-xl);
 }
 
 .contentMedium {
-  padding-left: 14px;
-  padding-right: 14px;
-  padding-bottom: 62px;
+  padding-left: var(--spacing-s);
+  padding-right: var(--spacing-s);
+  padding-bottom: var(--spacing-4-xl);
 }
 
 .contentLarge {
-  padding-left: 22px;
-  padding-right: 22px;
-  padding-bottom: 70px;
+  padding-left: var(--spacing-m);
+  padding-right: var(--spacing-m);
+  padding-bottom: var(--spacing-5-xl);
 }
 
 .withBorder {
-  border-color: var(--color-black-90);
+  .contentSmall {
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-bottom: 62px;
+  }
+
+  .contentMedium {
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-bottom: 62px;
+  }
+
+  .contentLarge {
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-bottom: 70px;
+  }
+
+  .paddingWithoutImageAndWithBackground {
+    padding-top: 22px;
+  }
+}
+
+.contentLarge .text {
+  margin-bottom: var(--spacing-m);
+}
+
+.withBorder {
+  border: solid 2px var(--color-black-90);
 
   &:focus-within {
     outline: var(--color-coat-of-arms) 3px solid;
@@ -67,33 +93,25 @@
   }
 }
 
-.headingCommon {
-  font-family: var(--font-default);
-  font-weight: bold;
-  color: var(--color-black-90);
-  line-height: var(--lineheight-m);
-}
-
 .headingSmall {
   padding-bottom: 0;
-  font-size: var(--fontsize-heading-s);
+  composes: heading-s from 'hds-core/lib/utils/helpers.css';
 }
 
 .headingMedium {
-  padding-bottom: 3px;
-  font-size: var(--fontsize-heading-m);
+  composes: heading-m from 'hds-core/lib/utils/helpers.css';
 }
 
 .headingLarge {
-  padding-bottom: 4px;
-  font-size: var(--fontsize-heading-l);
+  padding-bottom: var(--spacing-2-xs);
+  composes: heading-l from 'hds-core/lib/utils/helpers.css';
 }
 
 .text {
   font-family: var(--font-default);
   font-size: var(--fontsize-body-m);
-  margin-top: 8px;
-  margin-bottom: 16px;
+  margin-top: var(--spacing-2-xs);
+  margin-bottom: var(--spacing-s);
   line-height: var(--lineheight-l);
   color: var(--color-black-90);
 }
@@ -117,8 +135,15 @@
 .icon {
   vertical-align: bottom;
   position: absolute;
-  bottom: 14px;
-  left: 14px;
+  bottom: var(--spacing-s);
+  left: var(--spacing-s);
+}
+
+.withBorder {
+  .icon {
+    bottom: 14px;
+    left: 14px;
+  }
 }
 
 .iconWhenNoBackground {

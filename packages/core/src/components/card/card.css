@@ -24,18 +24,11 @@
 /* BODY */
 .hds-card__body {
   display: grid;
-  gap: var(--spacing-m);
+  gap: var(--spacing-s);
   margin-bottom: var(--spacing-l);
 }
 .hds-card__body:last-child {
   margin-bottom: 0;
-}
-
-/* HEADING */
-.hds-card__heading {
-  font-size: var(--fontsize-heading-m);
-  font-weight: bold;
-  line-height: var(--lineheight-m);
 }
 
 /* BODY TEXT */
