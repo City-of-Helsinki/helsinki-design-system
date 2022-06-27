@@ -33,10 +33,8 @@ jobs:
         run: yarn build
         working-directory: ./packages/react
 
-      - name: build docz site
-        run: |
-          yarn build
-          ./check_build.sh
+      - name: build documentation site
+        run: yarn build
         working-directory: ./site
       
       - name: Copy CNAME file
@@ -46,14 +44,14 @@ jobs:
         run: yarn build-storybook
         working-directory: ./packages/core
 
-      - name: move core storybook under docz
+      - name: move core storybook under site
         run: mkdir ./site/public/storybook && mv ./packages/core/storybook-static $_/core
 
       - name: build react storybook
         run: yarn build-storybook
         working-directory: ./packages/react
 
-      - name: move react storybook under docz
+      - name: move react storybook under site
         run: mv ./packages/react/storybook-static ./site/public/storybook/react
 
       - name: move v1 docz site under v1
