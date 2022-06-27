@@ -22,14 +22,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Card, Notification, Table] Typography styles updated
 - [Container] Only container-width-xl is restricting the container maximum width. Other maximum width restrictions for smaller screens have been removed.
 - [Button] Update Supplementary button icon spacing
-- 
+
 ### React Components
 #### Breaking Changes
 #### Changed
 - [Accordion, Card, Dialog, Footer, Linkbox, Navigation, Notification, Stepper, Table, Tooltip] Typography styles updated
 - [Container] Only container-width-xl is restricting the container maximum width. Other maximum width restrictions for smaller screens have been removed.
 - [Dialog] Updated Dialog header and content spacing to match the design
-- [Link] The default size of link to medium font size from small font size
+- [Link] The default size of the link to medium font size from small font size
 - [Button] Update Supplementary button icon spacing
 
 ###  Design kit
@@ -46,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Typography] Made changes to HDS heading font sizes to match Hel.fi styles
   - XL from 52 to 48px
   - L from 36 to 32px
-- [Typography] Made changes to HDS heading line heights to match Hel.fi styles
+- [Typography] Made changes to HDS heading line-heights to match Hel.fi styles
   - XL from 62 to 48
   - L from 43 to 32
   - M from 29 to 32
@@ -64,7 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - S from 26 to 24
   - L from 27 to 28
   - XL from 30 to 32
-- [Typography] Updated line height token descriptions
+- [Typography] Updated line-height token descriptions
 - [Typography] Updated typography example artboards with new heading styles
 - Updated all HDS example artboards with new heading styles
 - [Accordion] Optional “Close” button at the bottom of Accordions
@@ -104,11 +104,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 - New documentation site
   - The new documentation site is entirely built with HDS components and is accessible. We hope that the new documentation site will act as an example both for using HDS components and building accessible websites with them.
-  - New documentation site features include; new page structure, redesigned component pages, live code editing for component examples, component customisation documentation, redesigned design token pages, redesigned getting started section
+  - New documentation site features include; a new page structure, redesigned component pages, live code editing for component examples, component customisation documentation, redesigned design token pages, redesigned getting started section
   - 2.0 guide pages (general explanation and migration guide)
-  - FAQ page with answers to general, design, implementation and accessibility questions
+  - FAQ page with answers to general, design, implementation, and accessibility questions
   - New HDS structure images to home and getting started pages
-  - A notification to Navigation, Footer and SideNavigation about the upcoming Hel.fi update
+  - A notification to Navigation, Footer, and SideNavigation about the upcoming Hel.fi update
 
 #### Changed
 - Updated the Typography documentation
@@ -119,7 +119,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated the Roadmap page
 - Updated the accessibility statement
 - Updated the following component statuses
-- DateInput, Dialog, Link and Table from “Draft” to “Stable”
+- DateInput, Dialog, Link, and Table from “Draft” to “Stable”
 
 #### Removed
 - Migration guide to the 1.0 version (can be still found at the version 1 documentation site)
