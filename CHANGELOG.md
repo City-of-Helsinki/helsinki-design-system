@@ -10,8 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Design Tokens
 #### Breaking Changes
+#### Added
+- [Typography] New XXL heading size (64px)
+- [Typography] New XL-Mobile heading size (40px)
+
 #### Changed
-- [Typography] Typography tokens to match hel.fi new visual identity
+- [Typography] Made changes to HDS heading font sizes to match Hel.fi styles
+  - XL from 52 to 48px
+  - L from 36 to 32px
+- [Typography] Line-height tokens are no longer used for headings. All headings now have their own line-height value. Use helper CSS classes from Core to easily follow the new values.
 
 #### Fixed
 - [Colour] The grayscale tokens hex value to match the percentage name
