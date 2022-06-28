@@ -5,6 +5,7 @@ navTitle: 'Card'
 ---
 
 import { Button, Card, IconAngleRight, IconShare, IconTrash } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
@@ -29,7 +30,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - **Cards can also be used to emphasize important content** such as site CTA (Call To Action).
 - **Cards must not be used as interactive elements themselves.** This means that the whole Card should not be clickable. Elements inside the Card can still be interactable.
   - If you need the whole element to be interactable, use [HDS Linkbox](/components/linkbox) instead.
-- Currently, HDS offers base Cards that you can use to build custom Cards for your project's needs. For inspiration and guidelines, you can find custom card examples in <Link size="M" href="https://share.goabstract.com/e6aa2ebd-1a49-4cb1-90ef-a44a6486c28b" external>HDS Example Custom Components - Abstract collection</Link>.
+- Currently, HDS offers base Cards that you can use to build custom Cards for your project's needs. For inspiration and guidelines, you can find custom card examples in <ExternalLink href="https://share.goabstract.com/e6aa2ebd-1a49-4cb1-90ef-a44a6486c28b">HDS Example Custom Components - Abstract collection</ExternalLink>.
 
 #### Should I use a Card or a Linkbox?
 
