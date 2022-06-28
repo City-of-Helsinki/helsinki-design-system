@@ -52,5 +52,14 @@ HDS breakpoint guidelines have been changed. While the breakpoint token values h
 
 <p>Looking for HDS V1 documentation? Find it here: <Link size="M" href="https://hds.hel.fi/v1" openInNewTab>HDS V1 documentation</Link>.</p>
 
+### How to keep using the HDS V1 in Abstract?
+It is possible to keep using HDS version 1 if your project is not planning to update to 2.0 soon. We have released <Link href="https://share.goabstract.com/e0a49189-f9f7-470f-956b-c7217b576fb0" external>a separate Abstract project</Link> which contains library files of the latest version 1 release 1.15. You can link these libraries to your project and keep using components from them if you wish to keep using version 1. 
+
+Unfortunately, Abstract does not offer any easy way of swapping between the version 1 and the version 2 libraries. In our testing, the most recommended way of doing this is:
+1. Link HDS v1 libraries to your project.
+2. Unlink HDS v2 libraries from your project.
+
+Components' links to the original v2 library will break during this project but components will not detach which means all of your overrides will stay intact. After this, you can either replace your symbol links or leave them as they are.
+
 ## How HDS will be versioned in the future?
 The HDS versioning will stay the same after the 2.0 update. We will follow <Link size="M" href="https://semver.org/" external>semantic versioning</Link> and breaking changes can only be introduced in major releases. However, we are planning to release major releases more often in the future. The next major release, HDS 3.0, is currently planned to be released in autumn 2022.
