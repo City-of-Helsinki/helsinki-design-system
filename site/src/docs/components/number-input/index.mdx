@@ -5,6 +5,7 @@ navTitle: 'NumberInput'
 ---
 
 import { NumberInput } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
@@ -27,7 +28,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - **A label should always be provided with a number input.**
   - Make sure that the label is clear and concise. The user should immediately understand what number they are supposed to input.
 - HDS Number input also supports displaying an unit for the number. Displaying the unit is not mandatory. Only use it when you think it will help the user.
-    - Display the unit for <Link size="M" external href="https://en.wikipedia.org/wiki/International_System_of_Units">SI units</Link> (such as meters) and currencies.
+    - Display the unit for <ExternalLink href="https://en.wikipedia.org/wiki/International_System_of_Units">SI units</ExternalLink> (such as meters) and currencies.
     - The unit does not need to be displayed when it is self-evident for the user, such as in "Number of people"
 - It is recommended to give the number input a default value. Placeholders should be avoided in number inputs.
 - HDS Number input supports visual steppers that can be set to increase and decrease the number value by a set amount.

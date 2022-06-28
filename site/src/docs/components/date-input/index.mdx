@@ -5,6 +5,7 @@ navTitle: 'DateInput'
 ---
 
 import { DateInput } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
@@ -65,7 +66,7 @@ Out of the box, HDS date input will include an openable date picker which allows
 
 #### Date input without a confirmation
 
-**Note!** Since this variant closes the date picker immediately after selection, it violates <Link size="M" href="https://www.w3.org/TR/WCAG21/#on-input" external>WCAG 3.2.2 On Input guideline</Link>. Therefore, this variant should only be used in administration and intranet type of services.
+**Note!** Since this variant closes the date picker immediately after selection, it violates <ExternalLink href="https://www.w3.org/TR/WCAG21/#on-input">WCAG 3.2.2 On Input guideline</ExternalLink>. Therefore, this variant should only be used in administration and intranet type of services.
 
 The default HDS date picker requires a confirmation after the date has been selected from the calendar. If your service is mostly desktop or meant for administration, the confirmation can be disabled with `disableConfirmation` prop to allow more fluid ser experience when selecting multiple dates in a row.
 
