@@ -38,7 +38,7 @@ HDS Breakpoint -ohjeistukset ovat muuttuneet. Breakpoint-arvot ovat pysyneet enn
 
 ### Muita pienempiä muutoksia
 - Supplementary-painikkeen välistysmuutokset
-- Linkki-komponentin oletuskoko muutettu koosta S kokoon Merkittävin
+- Linkki-komponentin oletuskoko muutettu koosta S kokoon M
 - Harmaasävyn väriarvoja on hieman muutettu
 - Teemamuuttujat, jotka on aikaisemmin merkitty vanhentuneiksi on poistettu
 
@@ -50,6 +50,15 @@ HDS-tiimi jatkaa V1-versioiden tukemista ainakin vuoden 2022 loppuun saakka. Uus
 ### HDS V1 dokumentaatio
 
 <p>Etsitkö HDS V1 dokumentaatiota? Löydät sen täältä: <Link size="M" href="https://hds.hel.fi/v1" openInNewTab>HDS V1 dokumentaatio</Link>.</p>
+
+### Miten HDS V1 -kirjastoa käytetään Abstractissa?
+HDS versiota 1 on mahdollista käyttää, jos projektisi ei aio siirtyä käyttämään HDS 2.0 -versiota vielä hetkeen. Olemme julkaisseet <Link href="https://share.goabstract.com/e0a49189-f9f7-470f-956b-c7217b576fb0" external>erillisen Abstract-projektin</Link>, joka sisältää HDS:n kirjastotiedostot viimeisimmästä version 1 päivityksestä (1.15). Voit linkittää projektiisi nämä kirjastot, jos haluat vielä jatkaa version 1 käyttöä.
+
+Abstract ei valitettavasti tarjoa helppoa keinoa kahden eri kirjastoversion välillä vaihtamiseen. Testiemme mukaan suositeltu tapa vaihtaa kirjastojen välillä on:
+1. Linkitä HDS v1 -kirjastot projektiisi.
+2. Poista HDS v2 linkitykset projektistasi.
+
+Komponenttien linkit katkeavat V2-kirjastoon, mutta komponentit eivät irtoa (detach) master-komponentista. Tämän ansiosta kaikki yliajot (override) pysyvät ennallaan. Tämän jälkeen voit joko korvata symbolien linkit V1-symboleilla tai jättää ne ennalleen.
 
 ## Miten HDS-versiot tulevat toimimaan jatkossa?
 HDS-projektin versiointi tulee pysymään ennallaan 2.0-päivityksen jälkeen. Seuraamme <Link size="M" href="https://semver.org/" external>semanttista versiointia (englanniksi)</Link> ja rikkovia muutoksia julkaistaan vain suurissa päivityksissä. Aiomme kuitenkin tehdä suuria julkaisuja enemmän tulevaisuudessa. Seuraava suuri julkaisu, HDS 3.0, on arvioitu julkaistavan syksyllä 2022.
