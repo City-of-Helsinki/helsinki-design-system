@@ -3,6 +3,7 @@ slug: '/components/card/accessibility'
 title: 'Card - Accessibility'
 ---
 
+import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -12,4 +13,4 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Pay attention to
 - Card must have either a visual heading or `aria-label` as a title. This describes the Card's content for assistive technologies.
 - If you use buttons in your cards, pay attention to the button role. If you use the button as a link instead of an action (i.e. the button press causes a page load), you must specify a `role="link"` attribute to the button.
-- The colour contrast between the Card and its background must comply with <Link size="M" href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>WCAG AA Level contrast ratios</Link>. If needed, you may use a Card border to increase the contrast to its background.
+- The colour contrast between the Card and its background must comply with <ExternalLink href="https://www.w3.org/TR/WCAG21/#contrast-minimum">WCAG AA Level contrast ratios</ExternalLink>. If needed, you may use a Card border to increase the contrast to its background.
