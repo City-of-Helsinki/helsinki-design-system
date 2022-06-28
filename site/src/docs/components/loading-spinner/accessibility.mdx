@@ -11,7 +11,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ## Accessibility
 
 ### Pay attention to
-- The colour contrast between the loading spinner and its background must comply with <ExternalLink href="https://www.w3.org/TR/WCAG21/#contrast-minimum" external>AA Level contrast ratios</ExternalLink>. You can find more information about accessible colour combinations in [Colour design token documentation](/design-tokens/colour).
+- The colour contrast between the loading spinner and its background must comply with <ExternalLink href="https://www.w3.org/TR/WCAG21/#contrast-minimum">AA Level contrast ratios</ExternalLink>. You can find more information about accessible colour combinations in [Colour design token documentation](/design-tokens/colour).
 - Multiple simultaneous loading spinners can be very confusing for assistive technologies. **HDS Loading spinner React component is built in a way that only reads one alert for screen readers** - even if there were multiple on the screen. If you are unable to use this feature or it fits your needs poorly (e.g. your project does not use JavaScript), please consider using only one spinner at a time and giving that one spinner the most accurate possible description.
 - HDS Loading spinner must be given labels to describe the loading event. Use `loadingText` prop for description for loading and `loadingFinishedText` prop for description for loading finishing.
   - Descriptions should not be too detailed. You should use generic descriptions such as "_The page content is loading_" and "_The page content loading was finished_".
