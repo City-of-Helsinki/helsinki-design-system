@@ -32,6 +32,7 @@ export const NavigationDropdownLink = ({
   children,
   onClick,
   id,
+  active,
   ...rest
 }: NavigationDropdownLinkProps) => {
   // Create a unique id if not provided via prop
@@ -40,7 +41,7 @@ export const NavigationDropdownLink = ({
   return (
     <MenuButton
       hoverAndClick
-      label={<NavigationItem label={label} href={href} onClick={onClick} id={dropdownLinkId} />}
+      label={<NavigationItem label={label} href={href} onClick={onClick} id={dropdownLinkId} active={active} />}
       buttonAriaLabelledby={dropdownLinkId}
       {...rest}
     >
