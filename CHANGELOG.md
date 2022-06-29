@@ -44,7 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Removed
 - [Accordion] Removed deprecated --button-border-color-hover theme variable
-- [Table] Removed deprecated --header-background-color theme variable
+- [Table] Removed deprecated --background-color theme variable
 
 ###  Design kit
 
