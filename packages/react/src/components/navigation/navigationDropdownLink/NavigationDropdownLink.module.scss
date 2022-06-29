@@ -8,21 +8,7 @@
 
   // dropdown menu
   > div {
-    // remove margins from children
-    * {
-      margin: 0;
-    }
-
-    // dropdown menu item
-    > * {
-      font-weight: normal;
-
-      // dropdown menu item icon
-      span:first-of-type:not(:only-of-type) {
-        align-self: flex-start;
-        margin: 0 var(--spacing-2-xs) 0 calc(var(--spacing-3-xs) * -1);
-      }
-    }
+    @extend %dropDownItemMenuBase;
   }
 }
 
@@ -42,10 +28,8 @@
     border-radius: 0;
     flex-direction: row;
     flex-wrap: wrap;
-    // border-top: 1px solid var(--color-black-10);
     > a {
       flex: 1 0;
-      // border-bottom: 1px solid var(--color-black-10);
     }
     > button {
       border: 1px solid var(--color-black-10);
@@ -76,37 +60,20 @@
         margin: 0 var(--spacing-2-xs) 0 calc(var(--spacing-3-xs) * -1);
       }
     }
-
     // dropdown menu
     > div {
-      --menu-border-width: 0;
-      --menu-width: calc(100% - (var(--spacing-xl) + var(--header-focus-outline-width)));
-      --menu-item-background-color: transparent;
-      --menu-item-background-color-highlighted: transparent;
-      --menu-item-color: inherit;
-      --menu-item-color-highlighted: var(--menu-item-color);
-      align-self: stretch;
-      margin-left: var(--spacing-l);
-      max-width: unset;
-      position: relative;
       width: 100%;
-      // override inline min-width and top styles applied by the MenuButton component
-      min-width: auto !important;
-      top: 0 !important;
-
-      > * {
-        padding-left: var(--spacing-2-xs);
-
-        &:focus {
-          box-shadow: 0 0 0 var(--header-focus-outline-width) var(--header-focus-outline-color);
-        }
-      }
     }
   }
 }
 
 @media medium-up {
-  .dropdownLinkItem.dropdownLinkItem > button {
-      align-self: stretch;
+  .dropdownLinkItem.dropdownLinkItem {
+    > a,
+    > button {
+        align-self: stretch;
+        align-items: center;
+        display: flex;
+    }
   }
 }
