@@ -928,7 +928,7 @@ exports[`<ModalContent /> spec renders the component 1`] = `
             class="buttons visuallyHiddenWithoutFocus"
           >
             <button
-              class="button primary theme-default size-default"
+              class="button secondary theme-default size-default"
               data-testid="cookie-consent-approve-button"
               type="button"
             >
