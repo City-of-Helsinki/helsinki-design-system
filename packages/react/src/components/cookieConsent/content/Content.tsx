@@ -6,7 +6,11 @@ import { useAccordion } from '../../accordion';
 import { Details } from '../details/Details';
 import styles from '../CookieConsent.module.scss';
 import { Card } from '../../card/Card';
-import { useCookieConsentSectionTexts, useCookieConsentUiTexts } from '../CookieConsentContext';
+import {
+  useCookieConsentLanguage,
+  useCookieConsentSectionTexts,
+  useCookieConsentUiTexts,
+} from '../CookieConsentContext';
 import { LanguageSwitcher } from '../languageSwitcher/LanguageSwitcher';
 import classNames from '../../../utils/classNames';
 import { useEscKey } from '../useEscKey';
@@ -17,6 +21,7 @@ export function Content(): React.ReactElement {
   });
   const { hideSettings, showSettings, readMore } = useCookieConsentUiTexts();
   const { title, text } = useCookieConsentSectionTexts('main');
+  const { current: currentLanguage } = useCookieConsentLanguage();
   const titleRef = useRef<HTMLHeadingElement>();
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
   const settingsButtonText = isOpen ? hideSettings : showSettings;
@@ -33,7 +38,7 @@ export function Content(): React.ReactElement {
     if (titleRef.current) {
       titleRef.current.focus();
     }
-  }, [titleRef]);
+  }, [titleRef, currentLanguage]);
 
   useEffect(() => {
     setFocusToTitle();
