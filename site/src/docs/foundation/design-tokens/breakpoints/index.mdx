@@ -4,6 +4,7 @@ title: 'Breakpoint tokens - Usage'
 navTitle: 'Breakpoints'
 ---
 
+import ExternalLink from '../../../../components/ExternalLink'
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -11,7 +12,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ## Usage
 HDS includes tokenized values for both breakpoints and a maximum container width. Breakpoint tokens can be also used alongside <Link size="M" href="#">HDS grid guidelines</Link> in order to create consistent designs and implementations.
 
-**HDS offers a Container component which follows breakpoint and container width tokens automatically.** It is recommended to use it if possible. For more info and examples, see <Link size="M" href="https://hds.hel.fi/storybook/react/?path=/story/components-container--example" external>Container - React documentation</Link> and <Link size="M" href="https://hds.hel.fi/storybook/core/?path=/story/components-container--default" external>Container - Core documentation</Link>.
+**HDS offers a Container component which follows breakpoint and container width tokens automatically.** It is recommended to use it if possible. For more info and examples, see <ExternalLink href="https://hds.hel.fi/storybook/react/?path=/story/components-container--example">Container - React documentation</ExternalLink> and <ExternalLink href="https://hds.hel.fi/storybook/core/?path=/story/components-container--default">Container - Core documentation</ExternalLink>.
 
 ### Principles
 - Always use token of the same level for both the breakpoint and container width. This ensures consistency across all services using HDS breakpoint tokens. Read more about this in <Link size="M" href="#using-breakpoint-tokens">the breakpoint usage section.</Link>
@@ -22,7 +23,7 @@ HDS includes tokenized values for both breakpoints and a maximum container width
 
 ### Accessibility
 - Carefully test your implementation at different breakpoints - especially at the edge values of a breakpoint.
-- Pay extra attention how your service behaves if browser zoom functionality is used. Read more about the <Link size="M" href="https://www.w3.org/WAI/WCAG21/Understanding/reflow.html" external>WCAG requirements considering reflow</Link>.
+- Pay extra attention how your service behaves if browser zoom functionality is used. Read more about the <ExternalLink href="https://www.w3.org/WAI/WCAG21/Understanding/reflow.html">WCAG requirements considering reflow</ExternalLink>.
 
 ### Using breakpoint tokens
 The breakpoint tokens are divided into two sets;
