@@ -54,11 +54,13 @@ HDS-tiimi jatkaa V1-versioiden tukemista ainakin vuoden 2022 loppuun saakka. Uus
 ### Miten HDS V1 -kirjastoa käytetään Abstractissa?
 HDS versiota 1 on mahdollista käyttää, jos projektisi ei aio siirtyä käyttämään HDS 2.0 -versiota vielä hetkeen. Olemme julkaisseet <Link href="https://share.goabstract.com/e0a49189-f9f7-470f-956b-c7217b576fb0" external>erillisen Abstract-projektin</Link>, joka sisältää HDS:n kirjastotiedostot viimeisimmästä version 1 päivityksestä (1.15). Voit linkittää projektiisi nämä kirjastot, jos haluat vielä jatkaa version 1 käyttöä.
 
-Abstract ei valitettavasti tarjoa helppoa keinoa kahden eri kirjastoversion välillä vaihtamiseen. Testiemme mukaan suositeltu tapa vaihtaa kirjastojen välillä on:
-1. Linkitä HDS v1 -kirjastot projektiisi.
-2. Poista HDS v2 linkitykset projektistasi.
-
-Komponenttien linkit katkeavat V2-kirjastoon, mutta komponentit eivät irtoa (detach) master-komponentista. Tämän ansiosta kaikki yliajot (override) pysyvät ennallaan. Tämän jälkeen voit joko korvata symbolien linkit V1-symboleilla tai jättää ne ennalleen.
+Abstract ei valitettavasti tarjoa helppoa keinoa kahden eri kirjastoversion välillä vaihtamiseen. Vaihtamista voi kuitenkin sujuvoittaa käyttämällä <Link href="https://ashung.github.io/Automate-Sketch/" external>Automate Sketch-lisäosaa</Link>.
+1. Asenna <Link href="https://ashung.github.io/Automate-Sketch/" external>Automate-lisäosa</Link> Sketchiin.
+2. Poista projektisi linkitykset HDS-kirjastoihin Abstractissa.
+3. Linkitä <Link href="https://share.goabstract.com/e0a49189-f9f7-470f-956b-c7217b576fb0" external>HDS v1 -kirjastot</Link> projektiisi Abstractissa. Katso <Link href="getting-started/tutorials/abstract-tutorial#how-to-link-hds-libraries-to-a-project">Abstract oppaamme</Link>, jos tarvitset lisätietoja kirjastojen linkittämisestä.
+4. Avaa Abstractissa Sketch-dokumentti, joka käyttää HDS-kirjastojen komponentteja.
+5. Avaa Sketchissä "Plugins" -valikko ja valitse "Automate" → "Library" → "Replace library". Tämä korvaa symboli- ja tyyliviitteet HDS v1 kirjaston vastineilla. Muista tehdä commit muutoksista!
+6. Toista vaiheet 4 ja 5 jokaiselle Sketch-dokumentille projektissasi.
 
 Vaihtoehtoinen tapa on <Link href="https://github.com/City-of-Helsinki/helsinki-design-system/releases">ladata halutun HDS-version design kit -paketti julkaisulistasta</Link>. Tämä tapa ei ole suositeltu, mikäli projektia käytetään Abstractin kautta.
 
