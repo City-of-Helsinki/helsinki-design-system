@@ -5,6 +5,7 @@ import classNames from '../../../utils/classNames';
 import styles from '../CookieConsent.module.scss';
 import { CookieConsentContext, useCookieConsentUiTexts, useFocusShift } from '../CookieConsentContext';
 import { Content } from '../content/Content';
+import { useEscKey } from '../useEscKey';
 
 export function Modal(): React.ReactElement | null {
   const cookieConsentContext = useContext(CookieConsentContext);
@@ -17,24 +18,12 @@ export function Modal(): React.ReactElement | null {
   // if hasUserHandledAllConsents() was false at first and then later true, user must have saved consents.
   const showScreenReaderSaveNotification = isModalInitiallyShown && !shouldShowModal;
   const { settingsSaved } = useCookieConsentUiTexts();
-  const shiftFocus = useFocusShift();
 
   useEffect(() => {
     setTimeout(() => setPopupTimerComplete(true), popupDelayInMs);
   }, []);
-  useEffect(() => {
-    // Set focus outside when esc is pressed.
-    const handleEscKey = (event: KeyboardEvent) => {
-      const key = event.key || event.keyCode;
-      if (key === 'Escape' || key === 'Esc' || key === 27) {
-        shiftFocus();
-      }
-    };
-    document.addEventListener('keyup', handleEscKey);
-    return () => {
-      document.removeEventListener('keyup', handleEscKey);
-    };
-  });
+
+  useEscKey(useFocusShift());
 
   if (showScreenReaderSaveNotification) {
     return (
