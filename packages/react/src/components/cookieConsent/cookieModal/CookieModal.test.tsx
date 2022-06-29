@@ -253,6 +253,20 @@ describe('<Modal /> ', () => {
       verifyElementExistsByTestId(result, dataTestIds.screenReaderNotification);
       expect(mockedCookieControls.mockSet).toHaveBeenCalledTimes(1);
     });
+
+    it('esc button closes the accordion', async () => {
+      const result = await initDetailsView(defaultConsentData);
+      await waitFor(() => {
+        expect(result.getByTestId(dataTestIds.detailsComponent)).toBeVisible();
+      });
+      fireEvent.keyUp(result.container.ownerDocument, {
+        key: 'Escape',
+        code: 27,
+      });
+      await waitFor(() => {
+        expect(result.getByTestId(dataTestIds.detailsComponent)).not.toBeVisible();
+      });
+    });
   });
   describe('Accordions of each consent group can be opened and ', () => {
     it('all consents in the group are rendered', async () => {

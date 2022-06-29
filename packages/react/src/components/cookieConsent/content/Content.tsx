@@ -9,9 +9,10 @@ import { Card } from '../../card/Card';
 import { useCookieConsentSectionTexts, useCookieConsentUiTexts } from '../CookieConsentContext';
 import { LanguageSwitcher } from '../languageSwitcher/LanguageSwitcher';
 import classNames from '../../../utils/classNames';
+import { useEscKey } from '../useEscKey';
 
 export function Content(): React.ReactElement {
-  const { isOpen, buttonProps, contentProps } = useAccordion({
+  const { isOpen, buttonProps, contentProps, closeAccordion } = useAccordion({
     initiallyOpen: false,
   });
   const { hideSettings, showSettings, readMore } = useCookieConsentUiTexts();
@@ -37,6 +38,8 @@ export function Content(): React.ReactElement {
   useEffect(() => {
     setFocusToTitle();
   }, [setFocusToTitle]);
+
+  useEscKey(closeAccordion);
 
   return (
     <div
