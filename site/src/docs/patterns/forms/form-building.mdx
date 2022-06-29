@@ -5,6 +5,7 @@ navTitle: 'Building forms'
 ---
 
 import { Link } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/Image';
 
@@ -70,8 +71,8 @@ Forms *should* be designed to be as clear and straightforward as possible, to al
         <li><strong>To trigger any change in <em>context</em>, an button <em>must</em> be used.</strong></li>
         <li><em>A change in from control</em> happens for example when:
             <ul style="margin-top:0;">
-                <li>the control receives focus (<Link size="M" href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-receive-focus.html" external>WCAG 2.1 success criteria 3.2.1 On focus</Link>)</li>
-                <li>the value is changed (<Link size="M" href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-unpredictable-change.html" external>WCAG 2.1 success criteria 3.2.2 On input</Link>)</li>
+                <li>the control receives focus (<ExternalLink href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-receive-focus.html">WCAG 2.1 success criteria 3.2.1 On focus</ExternalLink>)</li>
+                <li>the value is changed (<ExternalLink href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-unpredictable-change.html">WCAG 2.1 success criteria 3.2.2 On input</ExternalLink>)</li>
             </ul>
         </li>
         <li>A change in <em>content</em> is for example:
@@ -420,7 +421,7 @@ Allowing the user enter a value either by input or selection is the **form contr
             <ul>
                 <li>The appropriate input purpose <em>should</em> be defined with autocomplete attribute where applicable.</li>
                 <li>The autocomplete attribute hints the browser that the field can be autocompleted, and the type of information required.</li>
-                <li>See more about <Link size="M" href="https://www.w3.org/TR/WCAG21/#input-purposes" external>input purpose terms used for autocomplete</Link>.</li>
+                <li>See more about <ExternalLink href="https://www.w3.org/TR/WCAG21/#input-purposes">input purpose terms used for autocomplete</ExternalLink>.</li>
             </ul>
         </li>
     </ul>
