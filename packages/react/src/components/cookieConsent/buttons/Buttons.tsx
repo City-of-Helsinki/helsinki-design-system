@@ -22,7 +22,7 @@ export function Buttons({ detailsAreShown, onClick = () => undefined }: Props): 
   return (
     <div className={classNames(styles.buttons, detailsAreShown ? '' : styles.visuallyHiddenWithoutFocus)}>
       <Button
-        variant="primary"
+        variant="secondary"
         onClick={() => {
           triggerAction(primaryButtonAction);
           onClick();
