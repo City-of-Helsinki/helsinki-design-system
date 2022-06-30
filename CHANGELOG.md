@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - June, 30, 2022
+
+### React Components
+#### Added
+- [Navigation] DropdownLink component to support NavigationItem that can act as a link and as a menu toggle
+
+#### Fixed
+- [Dialog] Enable content scrolling only when the scrollable property is set to true
+
 ## [2.0.0] - June, 27, 2022
 
 ### Design Tokens
