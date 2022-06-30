@@ -57,9 +57,11 @@
 
 // dropdown item styles
 @import "../navigationDropdown/NavigationDropdown.module.scss";
+@import "../navigationDropdownLink/NavigationDropdownLink.module.scss";
 
 .rowItem,
-.dropdownItem {
+.dropdownItem,
+.dropdownLinkItem {
   align-items: center;
   box-sizing: border-box;
   color: inherit;
@@ -93,7 +95,8 @@
   }
 
   .rowItem,
-  .dropdownItem {
+  .dropdownItem,
+  .dropdownLinkItem {
     &:not(:first-child) {
       margin-top: var(--spacing-2-xs);
     }
@@ -112,7 +115,9 @@
 
   // focus outline
   .rowItem:focus::before,
-  .dropdownItem:focus-within::before {
+  .dropdownItem:focus-within::before,
+  .dropdownLinkItem a:focus-within::before,
+  .dropdownLinkItem button:focus-within::before {
     border-radius: 0;
     box-shadow: 0 0 0 var(--header-focus-outline-width) var(--item-focus-outline-color);
     content: '';
@@ -123,12 +128,18 @@
     top: 0;
     transform: translateY(calc(var(--header-focus-outline-width)));
     width: 100%;
+    z-index: 1;
+  }
+  .dropdownLinkItem a,
+  .dropdownLinkItem button {
+    position: relative;
   }
 
   // focus outline - active
   .rowItem:active::before,
   .rowItem.active::before,
-  .dropdownItem.active::before {
+  .dropdownItem.active::before,
+  .dropdownLinkItem.active::before {
     height: calc(100% - var(--item-focus-outline-height-adjust));
   }
 
@@ -137,7 +148,9 @@
   .rowItem:active::after,
   .rowItem.active::after,
   .dropdownItem:hover:not(:focus-within)::after,
-  .dropdownItem.active::after {
+  .dropdownItem.active::after,
+  .dropdownLinkItem:hover:not(:focus-within)::after,
+  .dropdownLinkItem.active::after {
     background-color: var(--item-active-color);
     bottom: 0;
     content: '';

@@ -1,7 +1,7 @@
 @import "../navigation.common";
 @value x-small-down, small-down, small-only, medium-only, medium-up, large-only, large-up, x-large-only, x-large-up from "../../../styles/breakpoints.css";
 
-.dropdownItem.dropdownItem {
+.dropdownLinkItem.dropdownLinkItem {
   &:focus-within {
     box-shadow: none;
   }
@@ -12,17 +12,34 @@
   }
 }
 
+.dropdownLinkItem {
+  a {
+    box-sizing: border-box;
+    color: inherit;
+    font-weight: 500;
+    outline: none;
+    text-decoration: none;
+  }
+}
+
 @media small-down {
-  .dropdownItem.dropdownItem {
+  .dropdownLinkItem.dropdownLinkItem {
     align-items: flex-start;
     border-radius: 0;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    > a {
+      flex: 1 0;
+    }
+    > button {
+      border: 1px solid var(--color-black-10);
+    }
 
     // dropdown toggle button
-    > button {
+    > button,
+    > a {
       height: var(--spacing-xl);
       padding: var(--spacing-2-xs);
-      width: 100%;
 
       // focus outline
       &:focus {
@@ -43,11 +60,20 @@
         margin: 0 var(--spacing-2-xs) 0 calc(var(--spacing-3-xs) * -1);
       }
     }
+    // dropdown menu
+    > div {
+      width: 100%;
+    }
   }
 }
 
 @media medium-up {
-  .dropdownItem.dropdownItem > button {
-      align-self: stretch;
+  .dropdownLinkItem.dropdownLinkItem {
+    > a,
+    > button {
+        align-self: stretch;
+        align-items: center;
+        display: flex;
+    }
   }
 }
