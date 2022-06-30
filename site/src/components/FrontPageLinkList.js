@@ -10,6 +10,7 @@ const FrontPageLinkList = () => {
       linkboxAriaLabel: 'Brand guidelines',
       linkAriaLabel: 'Go to the Brand guidelines page',
       href: 'https://brand.hel.fi/',
+      openInExternalDomainAriaLabel: 'Opens a different website.',
       external: true,
       imgProps: {
         src: '/images/homepage/brand-guidelines.svg',
