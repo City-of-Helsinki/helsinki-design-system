@@ -3,6 +3,7 @@ slug: '/components/password-input/accessibility'
 title: 'PasswordInput - Accessibility'
 ---
 
+import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -11,5 +12,5 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Pay attention to
 - In the case of an insufficient password, aim to provide clear instructions to the user on how to correct the mistake. Always provide a text description of the error.
-- It is required to use `autocomplete` attribute if input control is listed in the common input purposes list. You can read the full list of common input purposes at <Link size="M" href="https://www.w3.org/TR/WCAG21/#input-purposes" external>WCAG 2.1 documentation website</Link>. You can read more about the requirement from <Link size="M" href="https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose" external>WCAG 2.1 Identify Input Purpose guideline</Link>.
+- It is required to use `autocomplete` attribute if input control is listed in the common input purposes list. You can read the full list of common input purposes at <ExternalLink href="https://www.w3.org/TR/WCAG21/#input-purposes">WCAG 2.1 documentation website</ExternalLink>. You can read more about the requirement from <ExternalLink href="https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose">WCAG 2.1 Identify Input Purpose guideline</ExternalLink>.
 - Place sign-in in its own `form` element and use `landmark` region to mark the login area. This allows assistive technologies to quickly locate and skip to the login section.

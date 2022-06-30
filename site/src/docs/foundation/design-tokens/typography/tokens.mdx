@@ -5,6 +5,7 @@ title: 'Typography tokens - Tokens'
 
 import { Notification } from "hds-react";
 
+import ExternalLink from '../../../../components/ExternalLink'
 import Playground from '../../../../components/Playground';
 import TextExample from '../../../../components/examples/TextExample';
 
@@ -15,7 +16,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ## Tokens
 
 <Notification label="Consider using helper classes" className="siteNotification">
-  Instead of using tokens directly to style your typography, consider using <Link size="S" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/utils/helpers.css" external>helper classes provided in the Core package</Link>. In these classes, you do not need to worry about matching the correct font weight, line height and letter spacing are matched to the chosen font size.
+  Instead of using tokens directly to style your typography, consider using <ExternalLink size="S" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/utils/helpers.css">helper classes provided in the Core package</ExternalLink>. In these classes, you do not need to worry about matching the correct font weight, line height and letter spacing are matched to the chosen font size.
 </Notification>
 
 CSS                          | SASS                        | Value            |
