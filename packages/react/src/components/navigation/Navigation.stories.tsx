@@ -100,7 +100,7 @@ export const Inline = ({ searchLabel, searchPlaceholder, authenticated, userName
     // @ts-ignore
     <Navigation {...args}>
       {/* NAVIGATION ROW */}
-      <Navigation.Row variant="inline">
+      <Navigation.Row variant="inline" ariaLabel="Main navigation">
         <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />
         <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
         <Navigation.Dropdown label="Dropdown">
@@ -147,7 +147,7 @@ export const CustomTheme = ({ searchLabel, searchPlaceholder, authenticated, use
     // @ts-ignore
     <Navigation {...args}>
       {/* NAVIGATION ROW */}
-      <Navigation.Row>
+      <Navigation.Row ariaLabel="Main navigation">
         <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />
         <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
         <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
@@ -223,6 +223,11 @@ export const Example = ({ userName, ...args }) => {
       fi: 'Helsinki: Helsingin kaupunki',
       sv: 'Helsingfors: Helsingfors stad',
       en: 'Helsinki: City of Helsinki',
+    },
+    menuName: {
+      fi: 'Päänavigointi',
+      sv: 'Huvudnavigering',
+      en: 'Main navigation',
     },
     menuToggleAria: {
       fi: 'Valikko',
@@ -336,7 +341,7 @@ export const Example = ({ userName, ...args }) => {
         menuToggleAriaLabel={i18n.menuToggleAria[language]}
       >
         {/* NAVIGATION ROW */}
-        <Navigation.Row>
+        <Navigation.Row ariaLabel={i18n.menuName[language]}>
           {i18n.navigation.map((item, index) => {
             return (
               <Navigation.Item
@@ -417,5 +422,72 @@ export const Example = ({ userName, ...args }) => {
         </Navigation.Actions>
       </Navigation>
     </>
+  );
+};
+
+export const DropdownLinks = ({ searchLabel, searchPlaceholder, authenticated, userName, ...args }) => {
+  return (
+    // @ts-ignore
+    <Navigation {...args}>
+      {/* NAVIGATION ROW */}
+      <Navigation.Row ariaLabel="Main navigation">
+        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        <Navigation.DropdownLink label="Dropdown Link" href="#" onClick={(e) => e.preventDefault()}>
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        </Navigation.DropdownLink>
+        <Navigation.DropdownLink label="Dropdown Link" href="#" active onClick={(e) => e.preventDefault()}>
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        </Navigation.DropdownLink>
+        <Navigation.DropdownLink label="Dropdown Link" href="#" onClick={(e) => e.preventDefault()}>
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        </Navigation.DropdownLink>
+        <Navigation.DropdownLink
+          label="Dropdown Link"
+          href="#"
+          onClick={(e) => e.preventDefault()}
+          buttonAriaLabel="Submenu"
+        >
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        </Navigation.DropdownLink>
+      </Navigation.Row>
+
+      {/* NAVIGATION ACTIONS */}
+      <Navigation.Actions>
+        {/* SEARCH */}
+        <Navigation.Search searchLabel={searchLabel} searchPlaceholder={searchPlaceholder} />
+
+        {/* USER */}
+        <Navigation.User authenticated={authenticated} label="Sign in" userName={userName}>
+          <Navigation.Item label="Link" href="#" variant="secondary" onClick={(e) => e.preventDefault()} />
+          <Navigation.Item
+            label="Sign out"
+            href="#"
+            icon={<IconSignout aria-hidden />}
+            variant="supplementary"
+            onClick={(e) => e.preventDefault()}
+          />
+        </Navigation.User>
+
+        {/* LANGUAGE SELECTOR */}
+        <Navigation.LanguageSelector label="FI">
+          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="fi" label="Suomeksi" />
+          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="sv" label="På svenska" />
+          <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="en" label="In English" />
+        </Navigation.LanguageSelector>
+      </Navigation.Actions>
+    </Navigation>
   );
 };
