@@ -1,0 +1,41 @@
+---
+slug: '/patterns/cookies/using-the-cookieconsent'
+title: 'Using the CookieConsent'
+navTitle: 'Using the CookieConsent'
+---
+
+import { Link, StatusLabel } from 'hds-react';
+import LeadParagraph from '../../../components/LeadParagraph';
+import Image from '../../../components/Image';
+
+# Using the CookieConsent
+
+<StatusLabel type="alert">Draft</StatusLabel>
+
+<LeadParagraph>
+  The cookie compliance pattern describes how the user is informed about the use of cookies. The pattern also offers a way to accept or decline non-necessary cookies and change the consent later if needed.
+</LeadParagraph>
+
+The cookie consent is asked using the HDS provided CookieConsent component. If the user has not given consent for cookies yet, this component will be shown when the service loads.
+
+### When and where to show the cookie consent modal?
+- The cookie consent modal must be shown if the user has not accepted or denied the optional cookies of the service.
+  - If cookies have changed since the last time the user accepted or denied them, the consent must be shown again.
+- Include the cookie consent component on every page of the service. The user may arrive on any page of the service (e.g. via a search machine).
+- Make sure that cookie consent is the first item in the page tab order.
+
+### How does the cookie consent modal affect other content of the service?
+- The cookie consent modal should not prevent the user from using the web page. Never use an overlay behind the banner or otherwise restrict the use of the site.
+- There may be elements or content on your page that do not work properly until the user gives consent to cookies. It is recommended to show clear error messages at the position of these elements to indicate why they are not available.
+  - If your page has a chat button in the lower right corner, keep the chat button hidden until cookie consent has been accepted and removed from the DOM.
+
+### What happens after the user has accepted or denied the optional cookies?
+- The user must be able to view and edit the cookie consent after they have initially submitted their choices. You must offer a separate cookies page that allows changing viewing the cookies and changing consent.
+  - The link to this page should be placed on the footer element of the page.
+  - Note that the HDS CookieConsent component offers functionality to render it as a page. This allows you to use the same component and data to construct a separate cookie page.
+- If new cookies are added or current ones changed, consent should be asked from the user again the next time the service is used.
+
+## Common cookies between *.hel.fi sites
+Using common cookie component brings the benefit of sharing consents. If user gives consents at site A, same consents does not have to be asked again at site B.
+
+TODO (the list of the common cookies?)
