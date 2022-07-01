@@ -481,6 +481,7 @@ export const DebugVersion = (args) => {
         },
       ],
     },
+    focusTargetSelector: '#focused-element-after-cookie-consent-closed',
   };
 
   const getCategoryCookies = (category?: Category): CookieData[] => {
@@ -506,7 +507,7 @@ export const DebugVersion = (args) => {
     };
     return (
       <div>
-        <h1>Debugging example</h1>
+        <h1 id={contentSource.focusTargetSelector?.replace('#', '')}>Debugging example</h1>
         <p>This is an example how to get all data from the cookie consent context.</p>
         <p>
           The same contentSource can be passed to the context and it provides access to the content built from the
