@@ -92,6 +92,10 @@ module.exports = {
             name: 'Forms',
             link: '/patterns/forms',
           },
+          {
+            name: 'Cookies',
+            link: '/patterns/cookies',
+          },
         ],
       },
       {

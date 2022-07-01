@@ -1,0 +1,45 @@
+---
+slug: '/patterns/cookies/common-helsinki-cookies'
+title: 'Common Helsinki cookies'
+navTitle: 'Common Helsinki cookies'
+---
+
+import { Link, StatusLabel } from 'hds-react';
+import LeadParagraph from '../../../components/LeadParagraph';
+import Image from '../../../components/Image';
+
+# Common Helsinki cookies
+
+<StatusLabel type="alert">Draft</StatusLabel>
+
+<LeadParagraph>
+  Using common Helsinki cookie consent brings the benefit of sharing consents. This is useful both for the user and the service. The user only has to give their consent once and it becomes easier for the service to manage its cookies.
+</LeadParagraph>
+
+## Key principles of using common cookies
+- You can use common Helsinki cookies if your service is using the *.hel.fi domain.
+- When common cookies are available, use them instead of creating custom cookies. This way the user only has to give their consent once between multiple Helsinki services.
+- When a common cookie is used, it must be used **exactly** as described on this page. If you modify the cookie in any way, it is no longer a common cookie.
+- If your service is using custom cookies alongside common cookies, you still need to ask for consent for the custom cookies (if they are considered optional).
+- You can either use all or a part of the common cookies.
+  - Note, that some of the services (e.g. Matomo) may require multiple common cookies for it to work.
+
+## Common cookies between *.hel.fi sites
+The following is a list of approved common cookies between services using *.hel.fi domain. You can find this list as a JSON object in the <Link href="" external>Helsinki Design System GitHub repository</Link>.
+
+### General
+General cookies are part of the **Preferences** category.
+
+| Cookie name            | Cookie set by   | Purpose of use                                    | Period of validity  |
+| ---------------------- | --------------- | ------------------------------------------------- | ------------------- |
+| `i18n-language`        | hel.fi          | Stores the user's selected language               | 1826 days           |
+[Table 1:Common preference cookies between *.hel.fi domain services]|
+
+### Matomo
+Matomo cookies are part of the **Analytics** category.
+
+| Cookie name            | Cookie set by   | Purpose of use                                    | Period of validity  |
+| ---------------------- | --------------- | ------------------------------------------------- | ------------------- |
+| `matomo-page-loads`    | hel.fi          | Tracking page loads                               | 393 days            |
+| `matomo-events`        | hel.fi          | Tracking what the user does in the user interface | 393 days            |
+[Table 2:Common Matomo cookies between *.hel.fi domain services]|
