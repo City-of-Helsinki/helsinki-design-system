@@ -18,7 +18,7 @@ exports[`<Page /> spec renders the component 1`] = `
           Test site käyttää evästeitä
         </h1>
         <p>
-          Tämä sivusto käyttää välttämättömiä evästeitä suorituskyvyn varmistamiseksi sekä yleisen käytön seurantaan. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja kohdistetun sisällön näyttämiseen. Jatkamalla sivuston käyttöä ilman asetusten muuttamista hyväksyt välttämättömien evästeiden käytön.
+          Tämä sivusto käyttää pakollisia evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen.
         </p>
       </div>
       <div
@@ -33,7 +33,7 @@ exports[`<Page /> spec renders the component 1`] = `
           Tietoa sivustolla käytetyistä evästeistä
         </span>
         <p>
-          Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea tietoa jokaisesta kategoriasta ja sallia tai kieltää evästeiden käytön.
+          Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea eri luokista ja sallia tai kieltää evästeiden käytön.
         </p>
         <div
           class="consentCategory"
@@ -181,12 +181,12 @@ exports[`<Page /> spec renders the component 1`] = `
                               <th
                                 scope="col"
                               >
-                                Osoite
+                                Evästeen asettaja
                               </th>
                               <th
                                 scope="col"
                               >
-                                Kuvaus
+                                Käyttötarkoitus
                               </th>
                               <th
                                 scope="col"
@@ -352,12 +352,12 @@ exports[`<Page /> spec renders the component 1`] = `
                               <th
                                 scope="col"
                               >
-                                Osoite
+                                Evästeen asettaja
                               </th>
                               <th
                                 scope="col"
                               >
-                                Kuvaus
+                                Käyttötarkoitus
                               </th>
                               <th
                                 scope="col"
@@ -543,12 +543,12 @@ exports[`<Page /> spec renders the component 1`] = `
                               <th
                                 scope="col"
                               >
-                                Osoite
+                                Evästeen asettaja
                               </th>
                               <th
                                 scope="col"
                               >
-                                Kuvaus
+                                Käyttötarkoitus
                               </th>
                               <th
                                 scope="col"
@@ -690,12 +690,12 @@ exports[`<Page /> spec renders the component 1`] = `
                               <th
                                 scope="col"
                               >
-                                Osoite
+                                Evästeen asettaja
                               </th>
                               <th
                                 scope="col"
                               >
-                                Kuvaus
+                                Käyttötarkoitus
                               </th>
                               <th
                                 scope="col"
@@ -773,7 +773,7 @@ exports[`<Page /> spec renders the component 1`] = `
           <span
             class="label"
           >
-            Hyväksy valitut ja pakolliset evästeet
+            Hyväksy valitut evästeet
           </span>
         </button>
         <button
