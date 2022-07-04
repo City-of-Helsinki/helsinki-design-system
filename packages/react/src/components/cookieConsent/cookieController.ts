@@ -34,6 +34,13 @@ function createCookieController(
     ...options,
   };
 
+  if (typeof window === 'undefined') {
+    return {
+      get: () => '',
+      set: () => '',
+    };
+  }
+
   const getCookie = (): string => getNamedCookie(cookieName) || '';
 
   const setCookie = (data: string): void => {
