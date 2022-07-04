@@ -65,7 +65,13 @@ function createConsentsString(consents: ConsentObject): string {
   return JSON.stringify(consents);
 }
 
-export const getCookieDomainFromUrl = (): string => window.location.hostname.split('.').slice(-2).join('.');
+export const getCookieDomainFromUrl = (): string => {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+
+  return window.location.hostname.split('.').slice(-2).join('.');
+};
 
 export function createStorage(
   initialValues: ConsentStorage,
