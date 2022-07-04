@@ -10,7 +10,7 @@ import Image from '../../../components/Image';
 
 # Basics
 
-<StatusLabel type="alert">Draft</StatusLabel>
+<StatusLabel type="alert">WIP</StatusLabel>
 
 <LeadParagraph>
   The cookie compliance pattern describes how the user is informed about the use of cookies. The pattern also offers a way to accept or decline non-necessary cookies and change the consent later if needed.
@@ -65,6 +65,10 @@ For each cookie, you need to gather and display the following information. This 
 | **Period of validity** | How long the cookie will be valid? This means time to expire from the creation of the cookie.     | "100 days"
 [Table 2:Information that needs to be shown for each cookie]|
 
+#### What if the user has given consent to my cookies in some other Helsinki service?
+
+Using common Helsinki cookie consent brings the benefit of sharing consents. If user gives consents at site A, same consents does not have to be asked again at site B. Sites sharing cookies must have the same domain. e.g. *.hel.fi. To learn more about common Helsinki service cookies, please refer to the <Link href="/patterns/cookies/common-helsinki-cookies">Common Helsinki cookies page</Link>.
+
 ### 2. Decide which cookies are necessary
 
 The next step is to determine which cookies can be considered necessary. Generally, you will need to ask consent for all cookies that are not vital to your service to operate. If you feel that the user can utilise the main functions of your service without a specific cookie, the cookie cannot be considered necessary.
@@ -94,7 +98,7 @@ To help the user understand the reasoning behind cookies, it is required to grou
 | **Third-party services**      | Cookies allow external services (such as social media platforms) to operate on this website.                                   | Not considered necessary unless cookies are used only after opening the third-party service (e.g. a chat window).                                                                                                                                                                            | Cookies used by embedded media such as videos or podcasts                                    |
 | **Content presentation**      | Cookies are used to display various types of content to the user.                                                              | Can be considered necessary if the cookie is strictly related to presenting the content and not gathering data.                                                                                                                                                                              | Monitoring how the user is using specific content                                            |
 | **Location**                  | Location cookies can be used to utilise location information (GPS) received from the user’s device.                            | Never necessary.                                                                                                                                                                                                                                                                             | Accurate GPS location                                                                        |
-| **Load balancing**            | Load-balancing cookies ensure that the service loads and works quickly and efficiently.                                        | Always necessary (as they ensure that the service is operating smoothly).                                                                                                                                                                                                                    | -                                                                                            |
+| **Load balancing**            | Load-balancing cookies ensure that the service loads and works quickly and efficiently.                                        | Always necessary (as they ensure that the service is operating smoothly).                                                                                                                                                                                                                    | A client identifying hash to enable better routing                                                                                            |
 [Table 3:Cookie categories]|
 
 #### Can I use a custom category?
@@ -105,6 +109,6 @@ If your cookies do not fit into any of the pre-defined categories, you are allow
 
 Yes, cookies always have to be put into a category. If you have a small number of cookies you can consider grouping them into a single category. Also, if most of the cookies are related to a single third-party service, you can group them per service (E.g. "Service: YouTube").
 
-#### What if the user has given consent to my cookies in some other Helsinki service?
+### Prepare your CookieConsent component
 
-Using common Helsinki cookie consent brings the benefit of sharing consents. If user gives consents at site A, same consents does not have to be asked again at site B. Sites sharing cookies must have the same domain. e.g. *.hel.fi. To learn more about common Helsinki service cookies, please refer to the <Link href="/patterns/cookies/common-helsinki-cookies">Common Helsinki cookies page</Link>.
+Now that you have gathered and categorised a list of cookies for your service, it is a time to learn how the HDS CookieConsent is used. To read more about the component, please refer to the <Link href="/patterns/cookies/using-the-cookieconsent">Using the CookieConsent page</Link>.
