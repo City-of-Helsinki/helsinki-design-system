@@ -33,7 +33,7 @@ The `contentSource` property lists all content, language options, and callbacks 
 [Table 1:ContentSource object properties]|
 
 ##### ContentSource examples
-TODO
+You can find examples of ContentSource property contents in <Link href="https://github.com/NikoHelle/helsinki-design-system/blob/feature/cookie-consent/packages/react/src/components/cookieConsent/CookieConsent.stories.tsx" external>the HDS CookieConsent Storybook examples (FIX LINK)</Link>.
 
 #### CookieDomain 
 Rarely used. Cookie consents are stored to a cookie whose domain is automatically set to accept subdomains: *.hel.fi or *.hel.ninja or *.domain.com. Some sites are included in the public suffix list and cookies for those sites cannot accept subdomain cookies. Github.io is one of those sites and HDS examples do not work there unless the cookie domain can be overridden. Therefore `cookieDomain` was added.
