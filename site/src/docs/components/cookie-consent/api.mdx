@@ -11,51 +11,125 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Component properties
 
-Common texts, groups and cookie data can be found in <Link href="">HDS-provided content file</Link>. The file contains all user interface strings, language options, descriptions for common cookie groups and details about common Helsinki cookies. By default, this content file is used. You can also override parts of it and add your project-specific groups and cookies. 
+Common texts, groups and cookie data can be found in <Link href="">HDS-provided content file</Link>. The file contains all user interface strings, language options, descriptions for common cookie groups, and details about common Helsinki cookies. By default, this content file is used. You can also override parts of it and add your project-specific groups and cookies. 
 
 #### ContentSource
-The `contentSource` property lists all content, language options and callbacks for the component. The given source is merged with the default `content.json` to create a content-object.
+The `contentSource` property lists all content, language options, and callbacks for the component. The given source is merged with the default `content.json` to create a content-object.
 
 | Property                                                                                                                         | Required | Description                                                                                                                                                                                                                                                                                                            |
 | -------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `siteName`                                                                                                                       | **Yes**  | Cookie consent main heading.                                                                                                                                                                                                                                                                                           |
-| `currentLanguage`                                                                                                                | **Yes**  | Currently selected language. Used for picking translations from `content.json`. Is also set to `content.language.current`. Supported values are `fi`, `sv` and `en`.                                                                                                                                                   |
+| `currentLanguage`                                                                                                                | **Yes**  | Currently selected language. Used for picking translations from `content.json`. Is also set to `content.language.current`. Supported values are `fi`, `sv`, and `en`.                                                                                                                                                   |
 | `requiredCookies`                                                                                                                | No       | Required cookies can have partial data or all data described in the table below. Missing texts are auto-filled. See examples below this table.                                                                                                                                                                         |
-| `optionalCookies`                                                                                                                | No       | Optional cookies can have partial data or all data described in the table below. Missing texs are auto-filled. See examples below this table.                                                                                                                                                                          |
-| `requiredConsents.groups`, `optionalConsents.groups`                                                                             | No       | List of cookie groups. All cookies must belong to a group. Groups with property `commonGroup` will be autofilled from `content.json`.                                                                                                                                                                                  |
+| `optionalCookies`                                                                                                                | No       | Optional cookies can have partial data or all data described in the table below. Missing texts are auto-filled. See examples below this table.                                                                                                                                                                          |
+| `requiredConsents.groups`, `optionalConsents.groups`                                                                             | No       | List of cookie groups. All cookies must belong to a group. Groups with property `commonGroup` will be auto-filled from `content.json`.                                                                                                                                                                                  |
 | `requiredConsents.groups[].cookies`, `requiredConsents.cookies`, `optionalConsents.groups[].cookies`, `optionalConsents.cookies` | No       | List of individual cookies. All cookies must belong to a group or they must have `propertycommonGroup` or `groupId`. The `groupId` must match `group.id` of a custom group and the `commonGroup` must match groups in `content.json`. Do not give both.                                                                |
-| `texts`                                                                                                                          | No       | User inferface string overrides. By default strings are fetched from `content.json` and this object overrides one or multiple texts.                                                                                                                                                                                   |
+| `texts`                                                                                                                          | No       | User interface string overrides. By default, strings are fetched from `content.json` and this object overrides one or multiple texts.                                                                                                                                                                                   |
 | `language`                                                                                                                       | No       | Overrides for default language options. By default, options are fetched from `content.json` and this object overrides one or more properties. `onLanguageChange` callback is also added here.                                                                                                                          |
 | `onAllConsentsGiven`                                                                                                             | No       | See Callbacks section below.                                                                                                                                                                                                                                                                                           |
 | `onConsentsParsed`                                                                                                               | No       | See Callbacks section below.                                                                                                                                                                                                                                                                                           |
-| `noCommonConsentCookie`                                                                                                          | No       | Consents are saved to a cookie and this option can prevent showing that cookie in the list of consents. If this is not true, `requiredConsents` are always shown and a common group “sharedConsents” added to it and also common cookie “helConsentCookie” to that group. All content for those are in `content.json`. |
-| `focusTargetSelector`                                                                                                            | No       | When modal is closed or the ESC key is pressed when it is open, focus must be shifted outside the modal. This defines the element to set focus to with this selector (string). Not needed when modal is not used. Throws an error is not set for modal.                                                                |
+| `noCommonConsentCookie`                                                                                                          | No       | Consents are saved to a cookie and this option can prevent showing that cookie in the list of consents. If this is not true, `requiredConsents` are always shown and a common group “sharedConsents” is added to it and also a common cookie “helConsentCookie” to that group. All content for those is in `content.json`. |
+| `focusTargetSelector`                                                                                                            | No       | When the modal is closed or the ESC key is pressed when it is open, the focus must be shifted outside the modal. This defines the element to set focus to with this selector (string). Not needed when modal is not used. Throws an error is not set for modal.                                                                |
 [Table 1:ContentSource object properties]|
 
 ##### ContentSource examples
+TODO
 
-
-#### CookieDomain
-Rarely used. Cookie consents are stored to a cookie whose domain is automatically set to accept subdomains: *.hel.fi or *.hel.ninja or *.domain.com. Some sites are included in the public suffix list and cookies for those sites cannot accept subdomain cookies. Github.io is one of those sites and HDS examples do not work there unless cookie domain can be overridden. Therefore `cookieDomain` was added.
+#### CookieDomain 
+Rarely used. Cookie consents are stored to a cookie whose domain is automatically set to accept subdomains: *.hel.fi or *.hel.ninja or *.domain.com. Some sites are included in the public suffix list and cookies for those sites cannot accept subdomain cookies. Github.io is one of those sites and HDS examples do not work there unless the cookie domain can be overridden. Therefore `cookieDomain` was added.
 
 #### Detailed info about properties
+
+##### Required and optional cookie categories
+
+| Property                    | Description                                               |
+| --------------------------- | --------------------------------------------------------- |
+| `requiredConsents`          | List of required consents and their descriptions.         |
+| `optionalConsents`          | List of optional consents and their descriptions.         |
+| `*.title`                   | Title for the consent group.                              |
+| `*.text`                    | Description for the consent group.                        |
+| `*.checkboxAriaDescription` | Aria description of the checkbox shown with the category. |
+| `*.groups`                  | Optional list of groups. More info is below.                 |
+| `*.cookies`                 | Optional list of cookies. More info is below.                |
+[Table 3:Cookie category properties]|
+
+##### Cookie groups
+
+| Property                                  | Description                                                                                                                                                                      |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `group[].groupId` / `group[].commonGroup` | Both optional. If a common group is used, then the `commonGroup`. If this is a custom group provide an `groupId`. Not required, if there are no cookies that have `groupId` set. |
+| `group[].title`                           | Only for custom groups. Title of the group. Cannot be set for a common group. **Must be unique.**                                                                                  |
+| `group[].text`                            | Only for custom groups.  Cannot be set for a common group. Description of the group.                                                                                                |
+| `group[].expandAriaLabel`                 | Only for custom groups. Cannot be set for a common group. Aria-label for the button to show more details of the group.                                                             |
+| `group[].checkboxAriaDescription`         | Only for custom groups. Cannot be set for a common group. Aria-description for the checkbox for giving consent for all cookies in the group                                       |
+| `group[].cookies`                         | Optional list of cookies in this group.                                                                                                                                          |
+[Table 3:Cookie group properties]|
+
+##### Cookie information
+
+| Property                                    | Description                                                                                                                                                                                                                           |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `cookie[].groupId` / `cookie[].commonGroup` | The group this cookie belongs to. Optional. Not needed when the cookie is defined in an `optionalCookies` / `requiredCookies.group` If `commonGroup` is used and the group itself is not listed, it is auto-added from `content.json`. |
+| `cookie[].commonCookie`                     | Optional. Use when the cookie is common.                                                                                                                                                                                     |
+| `cookie[].id`                               | The ID of the consent. This ID is saved in the consent cookie. **Must be unique.** Only for custom cookies.  Cannot be set for a common cookie.                                                                                         |
+| `cookie[].name`                             | Readable cookie name. Only for custom cookies.  Cannot be set for a common cookie.                                                                                                                                                      |
+| `cookie[].hostName`                         | Hostname where it is used. Only for custom cookies.  Cannot be set for a common cookie.                                                                                                                                                |
+| `cookie[].description`                      | Cookie usage description. Only for custom cookies.  Cannot be set for a common cookie.                                                                                                                                                  |
+| `cookie[].expiration`                       | When does the cookie expire. Only for custom cookies. Cannot be set for a common cookie.                                                                                                                                                |
+[Table 3:Cookie information properties]|
 
 ##### Callbacks
 The `content` object passed to the component can also include callback functions:
 
 | Property             | Usage                                                                                                 | Arguments                                                                                                                                                                                     |
 | -------------------- | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `onAllConsentsGiven` | Called when user has given all consents. Not called if consents are not asked for.                    | Object with cookie.id as the key and true/false as value `{matomo: true, marketing: false}`                                                                                                   |
-| `onConsentsParsed`   | Called when cookie consents are read from the browser. Called always even if consent have been given. | Object with cookie.id as the key and true/false as value `{matomo: true, marketing: false}` and boolean indicating are all consents handled. If true, there is no reason to ask for consents. |
-[Table 2:CookieConsent component object callbacks]|
+| `onAllConsentsGiven` | Called when the user has given all consents. Not called if consents are not asked for.                    | Object with cookie.id as the key and true/false as value `{matomo: true, marketing: false}`                                                                                                   |
+| `onConsentsParsed`   | Called when cookie consents are read from the browser. Called always even if consent has been given. | Object with cookie.id as the key and true/false as value `{matomo: true, marketing: false}` and boolean indicating are all consents handled. If true, there is no reason to ask for consent. |
+[Table 2:Component object callbacks]|
 
-### Language
-The `content` object passed to the component must also include the following language related data:
+##### Strings and language
+The following strings can be overridden if needed. Note that you also need to provide translations if you override these. It is recommended to use the provided strings.
 
-| Property                             | Usage                                                                                         | Example                                                                                                                    |
-| ------------------------------------ | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `language.languageOptions`           | List of selectable languages                                                                  | `[{ code: 'fi', label: 'Suomeksi (FI)' },{ code: 'sv', label: 'På svenska (SV)' }, { code: 'en', label: 'English (EN)' }]` |
-| `language.current`                   | Current language                                                                              | `fi`                                                                                                                       |
-| `language.languageSelectorAriaLabel` | Aria-label for the language selector button                                                   | Kieli: Suomi. Vaihda kieli. Change language. Ändra språk.                                                                  |
-| `language.onLanguageChange`          | Callback called when new language is selected. Called with new language.code as the argument. |                                                                                                                            |
-[Table 3:CookieConsent component language data]|
+| Property                              | Description                                                                      |
+| ------------------------------------- | -------------------------------------------------------------------------------- |
+| `texts.sections.main.title`           | Top level heading.                                                               |
+| `texts.sections.main.text`            | Main description. **The most common override because this is service-specific.** |
+| `texts.sections.details.title`        | Heading shown in the details. Seen when settings are opened.                     |
+| `texts.sections.details.text`         | Description shown in the details. Seen when settings are opened.                 |
+[Table 3:Main text content overrides]|
+
+| Property                                | Description                                                                                                           |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `ui.showSettings`                       | Text on the show/hide settings -button when settings are hidden.                                                      |
+| `ui.hideSettings`                       | Text on the show/hide settings -button when settings are shown.                                                       |
+| `ui.approveAllConsents`                 | Button text for giving consent to all cookies. Shown when settings are closed and the user cannot give optional consents. |
+| `ui.approveRequiredAndSelectedConsents` | Button text for giving consent to required cookies and selected cookies. Shown when settings are open.                |
+| `ui.approveOnlyRequiredConsents`        | Button text for giving consent to only to required cookies. All optional cookie consents are revoked.                |
+| `ui.readMore`                           | Text shown on a button when modal loses focus and is shrunk.                                                          |
+[Table 4:User interface string overrides]|
+
+| Property                    | Description                                                 |
+| --------------------------- | ----------------------------------------------------------- |
+| `tableHeadings.name`        | Title of the “hostname” column in the cookie description.  |
+| `tableHeadings.hostName`    | Title of the “path” column in the cookie description.       |
+| `tableHeadings.description` | Title of the “expiration” column in the cookie description. |
+| `tableHeadings.expiration`  | Title of the “name” column in the cookie description.       |
+[Table 5:Table heading string overrides]|
+
+The consent banner language is controlled via a language dropdown element. Note that the current language is passed in as `content.currentLanguage` and that value is stored into `language.current`.
+
+| Property                             | Description                                                                                   |
+| ------------------------------------ | --------------------------------------------------------------------------------------------- |
+| `language.languageOptions`           | List of selectable languages. Format: `[{ code: 'fi', label: 'Suomeksi (FI)' }]`              |
+| `language.current`                   | Current language.                                                                             |
+| `language.languageSelectorAriaLabel` | Aria-label for the language selector button.                                                  |
+| `language.onLanguageChange`          | Callback called when new language is selected. Called with new language.code as the argument. |
+[Table 5:Language properties]|
+
+### Saving consents
+
+Consents that the user has given are saved to a `city-of-helsinki-cookie-consents` cookie.
+
+Cookies are always strings and consents are stored as a JSON-formatted string such as `{"cookie-id":"true","another-cookie-id":"false"}`.
+
+The ID of the cookie is stored to `cookie.id`. `True` means the user has given consent for that cookie.  All required cookies are always stored `true` But other sites may list a common cookie optional, so the stored consent is not `true` by default. 
