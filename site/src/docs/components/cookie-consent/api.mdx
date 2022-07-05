@@ -51,7 +51,7 @@ Rarely used. Cookie consents are stored to a cookie whose domain is automaticall
 | `*.checkboxAriaDescription` | Aria description of the checkbox shown with the category. |
 | `*.groups`                  | Optional list of groups. More info is below.                 |
 | `*.cookies`                 | Optional list of cookies. More info is below.                |
-[Table 3:Cookie category properties]|
+[Table 2:Cookie category properties]|
 
 ##### Cookie groups
 
@@ -76,7 +76,7 @@ Rarely used. Cookie consents are stored to a cookie whose domain is automaticall
 | `cookie[].hostName`                         | Hostname where it is used. Only for custom cookies.  Cannot be set for a common cookie.                                                                                                                                                |
 | `cookie[].description`                      | Cookie usage description. Only for custom cookies.  Cannot be set for a common cookie.                                                                                                                                                  |
 | `cookie[].expiration`                       | When does the cookie expire. Only for custom cookies. Cannot be set for a common cookie.                                                                                                                                                |
-[Table 3:Cookie information properties]|
+[Table 4:Cookie information properties]|
 
 ##### Callbacks
 The `content` object passed to the component can also include callback functions:
@@ -85,7 +85,7 @@ The `content` object passed to the component can also include callback functions
 | -------------------- | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `onAllConsentsGiven` | Called when the user has given all consents. Not called if consents are not asked for.                    | Object with cookie.id as the key and true/false as value `{matomo: true, marketing: false}`                                                                                                   |
 | `onConsentsParsed`   | Called when cookie consents are read from the browser. Called always even if consent has been given. | Object with cookie.id as the key and true/false as value `{matomo: true, marketing: false}` and boolean indicating are all consents handled. If true, there is no reason to ask for consent. |
-[Table 2:Component object callbacks]|
+[Table 5:Component object callbacks]|
 
 ##### Strings and language
 The following strings can be overridden if needed. Note that you also need to provide translations if you override these. It is recommended to use the provided strings.
@@ -96,7 +96,7 @@ The following strings can be overridden if needed. Note that you also need to pr
 | `texts.sections.main.text`            | Main description. **The most common override because this is service-specific.** |
 | `texts.sections.details.title`        | Heading shown in the details. Seen when settings are opened.                     |
 | `texts.sections.details.text`         | Description shown in the details. Seen when settings are opened.                 |
-[Table 3:Main text content overrides]|
+[Table 6:Main text content overrides]|
 
 | Property                                | Description                                                                                                           |
 | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
@@ -106,7 +106,7 @@ The following strings can be overridden if needed. Note that you also need to pr
 | `ui.approveRequiredAndSelectedConsents` | Button text for giving consent to required cookies and selected cookies. Shown when settings are open.                |
 | `ui.approveOnlyRequiredConsents`        | Button text for giving consent to only to required cookies. All optional cookie consents are revoked.                |
 | `ui.readMore`                           | Text shown on a button when modal loses focus and is shrunk.                                                          |
-[Table 4:User interface string overrides]|
+[Table 7:User interface string overrides]|
 
 | Property                    | Description                                                 |
 | --------------------------- | ----------------------------------------------------------- |
@@ -114,7 +114,7 @@ The following strings can be overridden if needed. Note that you also need to pr
 | `tableHeadings.hostName`    | Title of the “path” column in the cookie description.       |
 | `tableHeadings.description` | Title of the “expiration” column in the cookie description. |
 | `tableHeadings.expiration`  | Title of the “name” column in the cookie description.       |
-[Table 5:Table heading string overrides]|
+[Table 8:Table heading string overrides]|
 
 The consent banner language is controlled via a language dropdown element. Note that the current language is passed in as `content.currentLanguage` and that value is stored into `language.current`.
 
@@ -124,7 +124,7 @@ The consent banner language is controlled via a language dropdown element. Note 
 | `language.current`                   | Current language.                                                                             |
 | `language.languageSelectorAriaLabel` | Aria-label for the language selector button.                                                  |
 | `language.onLanguageChange`          | Callback called when new language is selected. Called with new language.code as the argument. |
-[Table 5:Language properties]|
+[Table 9:Language properties]|
 
 ### Saving consents
 
