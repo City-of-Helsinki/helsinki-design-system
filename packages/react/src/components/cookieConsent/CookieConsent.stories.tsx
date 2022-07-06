@@ -574,3 +574,7 @@ export const DebugVersion = (args) => {
     </>
   );
 };
+
+DebugVersion.parameters = {
+  loki: { skip: true },
+};
