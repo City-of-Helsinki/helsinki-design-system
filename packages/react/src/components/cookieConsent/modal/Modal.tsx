@@ -19,7 +19,7 @@ export function Modal(): React.ReactElement | null {
   // if hasUserHandledAllConsents() was false at first and then later true, user must have saved consents.
   const showScreenReaderSaveNotification = isModalInitiallyShown && !shouldShowModal;
   const { settingsSaved } = useCookieConsentUiTexts();
-  const containerId = 'cookieConsentContainer';
+  const containerId = 'HdsCookieConsentContainer';
   const getContainerElement = (): HTMLElement | null => document.getElementById(containerId);
   const [isDomReady, setIsDomReady] = useState<boolean>(false);
 
