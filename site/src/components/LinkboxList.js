@@ -17,6 +17,7 @@ const LinkboxList = ({ data, className }) => (
             linkboxAriaLabel={item.linkboxAriaLabel}
             linkAriaLabel={item.linkAriaLabel}
             href={item.href}
+            openInExternalDomainAriaLabel={item.openInExternalDomainAriaLabel}
             external={item.external}
             heading={item.name}
             text={item.text}
@@ -41,6 +42,7 @@ LinkboxList.propTypes = {
       linkboxAriaLabel: PropTypes.string.isRequired,
       href: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
+      openInExternalDomainAriaLabel: PropTypes.string,
       external: PropTypes.bool,
       imgProps: PropTypes.shape({
         src: PropTypes.string.isRequired,
