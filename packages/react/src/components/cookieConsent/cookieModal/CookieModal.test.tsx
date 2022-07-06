@@ -77,8 +77,8 @@ describe('<ModalContent /> spec', () => {
   });
 
   it('renders the component', () => {
-    const { asFragment } = renderCookieConsent(defaultConsentData);
-    expect(asFragment()).toMatchSnapshot();
+    const { baseElement } = renderCookieConsent(defaultConsentData);
+    expect(baseElement).toMatchSnapshot();
   });
 
   it('should not have basic accessibility issues', async () => {
