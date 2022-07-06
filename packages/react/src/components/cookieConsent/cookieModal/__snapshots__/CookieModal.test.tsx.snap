@@ -1,8 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<ModalContent /> spec renders the component 1`] = `
-<DocumentFragment>
-  <div>
+<body>
+  <div
+    id="cookieConsentContainer"
+  >
     <div
       class="container modal animateIn"
       data-testid="cookie-consent"
@@ -953,12 +955,16 @@ exports[`<ModalContent /> spec renders the component 1`] = `
         </div>
       </div>
     </div>
-    <button
-      id="focus-target"
-      type="button"
-    >
-      Focus me
-    </button>
   </div>
-</DocumentFragment>
+  <div>
+    <div>
+      <button
+        id="focus-target"
+        type="button"
+      >
+        Focus me
+      </button>
+    </div>
+  </div>
+</body>
 `;

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import classNames from '../../../utils/classNames';
@@ -18,10 +19,24 @@ export function Modal(): React.ReactElement | null {
   // if hasUserHandledAllConsents() was false at first and then later true, user must have saved consents.
   const showScreenReaderSaveNotification = isModalInitiallyShown && !shouldShowModal;
   const { settingsSaved } = useCookieConsentUiTexts();
+  const containerId = 'cookieConsentContainer';
+  const getContainerElement = (): HTMLElement | null => document.getElementById(containerId);
+  const [isDomReady, setIsDomReady] = useState<boolean>(false);
 
   useEffect(() => {
     setTimeout(() => setPopupTimerComplete(true), popupDelayInMs);
   }, []);
+
+  useEffect(() => {
+    if (shouldShowModal && !isDomReady) {
+      if (!getContainerElement()) {
+        const htmlContainer = document.createElement('div');
+        htmlContainer.id = containerId;
+        document.body.insertBefore(htmlContainer, document.body.firstChild);
+      }
+      setIsDomReady(true);
+    }
+  }, [shouldShowModal, isDomReady, setIsDomReady]);
 
   useEscKey(useFocusShift());
 
@@ -35,11 +50,11 @@ export function Modal(): React.ReactElement | null {
     );
   }
 
-  if (!shouldShowModal) {
+  if (!shouldShowModal || !isDomReady) {
     return null;
   }
 
-  return (
+  const renderModal = (): JSX.Element => (
     <div
       className={classNames(styles.container, styles.modal, popupTimerComplete && styles.animateIn)}
       data-testid="cookie-consent"
@@ -47,4 +62,6 @@ export function Modal(): React.ReactElement | null {
       <div className={styles.aligner}>{popupTimerComplete && <Content />}</div>
     </div>
   );
+
+  return ReactDOM.createPortal(renderModal(), getContainerElement());
 }
