@@ -1,7 +1,8 @@
 /* eslint-disable jest/expect-expect */
 /* eslint-disable jest/no-mocks-import */
 import React from 'react';
-import { fireEvent, render, RenderResult, waitFor } from '@testing-library/react';
+import { fireEvent, render, RenderResult, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { act } from 'react-dom/test-utils';
 
@@ -153,12 +154,14 @@ describe('<Modal /> ', () => {
 
     it('changing language calls content.onLanguageChange', () => {
       const onLanguageChange = jest.fn();
-      const result = renderCookieConsent({
+      renderCookieConsent({
         ...defaultConsentData,
         contentSourceOverrides: { language: { onLanguageChange } },
       });
-      fireEvent.click(result.container.querySelector('#cookie-consent-language-selector-button') as Element);
-      fireEvent.click(result.container.querySelector('a[lang="sv"]') as Element);
+      userEvent.click(
+        screen.getByRole('button', { name: 'Kieli: Suomi. Vaihda kieli. Change language. Ändra språk.' }),
+      );
+      userEvent.click(screen.getByText('Svenska (SV)'));
       expect(onLanguageChange).toHaveBeenLastCalledWith('sv');
     });
   });
@@ -268,6 +271,7 @@ describe('<Modal /> ', () => {
       });
     });
   });
+
   describe('Accordions of each consent group can be opened and ', () => {
     it('all consents in the group are rendered', async () => {
       const result = await initDetailsView(defaultConsentData);
@@ -293,21 +297,21 @@ describe('<Modal /> ', () => {
       await checkConsentsExist('optional');
     });
   });
+
   describe('Focus is', () => {
     it('shifted to the modal heading level 1 when modal is rendered', () => {
       const result = renderCookieConsent(defaultConsentData, true);
-      const modalH1 = result.container.querySelector('[data-testId="cookie-consent-information"] [aria-level="1"]');
+      const modalH1 = screen.queryByRole('heading', { level: 1 });
       expect(getActiveElement(result.container)).toEqual(modalH1);
     });
+
     it('shifted to the element defined in content.focusTargetSelector when esc button is clicked', async () => {
       const result = renderCookieConsent(defaultConsentData, true);
       const elementGetter = () => result.container.querySelector(content.focusTargetSelector as string);
-      fireEvent.keyUp(result.container.ownerDocument, {
-        key: 'Escape',
-        code: 27,
-      });
+      userEvent.type(result.container, `{esc}`);
       await waitForElementFocus(elementGetter);
     });
+
     it('shifted to the element defined in content.focusTargetSelector when modal is closed', async () => {
       const result = renderCookieConsent(defaultConsentData, true);
       const elementGetter = () => result.container.querySelector(content.focusTargetSelector as string);
