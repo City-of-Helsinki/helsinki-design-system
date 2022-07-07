@@ -107,7 +107,7 @@
   },
   "optionalCookies": {
     "fi": {
-      "title": "Valinnainen evästeet",
+      "title": "Valinnaiset evästeet",
       "text": "Voit hyväksyä tai kieltää valinnaiset evästeet.",
       "checkboxAriaDescription": "Voit hyväksyä tai kieltää valinnaiset evästeet."
     },
