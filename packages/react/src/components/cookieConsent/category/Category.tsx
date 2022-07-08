@@ -43,9 +43,7 @@ export function Category(props: { category?: CategoryType; isRequired?: boolean 
         <Checkbox {...checkboxProps} />
       </div>
       <p aria-hidden>{text}</p>
-      <VisuallyHidden id={descriptionElementId}>
-        {checkboxAriaDescription || text}
-      </VisuallyHidden>
+      <VisuallyHidden id={descriptionElementId}>{checkboxAriaDescription || text}</VisuallyHidden>
       <ul className={styles.list}>
         {groups.map((group, index) => (
           <li key={group.title}>
