@@ -5,12 +5,13 @@
  * See: https://www.gatsbyjs.com/docs/use-static-query/
  */
 
-import "hds-core";
+import 'hds-core';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
-import { Footer, Link, Navigation, SideNavigation, IconCheckCircleFill, IconCrossCircle } from 'hds-react';
+import { CookieModal, Footer, Link, Navigation, SideNavigation, IconCheckCircleFill, IconCrossCircle } from 'hds-react';
+import getCookieConsent from './cookies/commonCookieConsent';
 import Seo from './Seo';
 import { PlaygroundBlock, PlaygroundPreview } from './Playground';
 import SyntaxHighlighter from './SyntaxHighlighter';
@@ -176,6 +177,9 @@ const Layout = ({ children, pageContext }) => {
       .sort(sortByPageTitle),
   }));
   const contentId = 'content';
+  const headerId = 'page-header';
+  const [language, setLanguage] = React.useState('en');
+
   const NavigationTitle = () => (
     <div className="page-header-title">
       <div>{siteTitle}</div>
@@ -202,9 +206,12 @@ const Layout = ({ children, pageContext }) => {
           },
         ]}
       />
+      {!pageSlug.includes('/cookie-settings') && (
+        <CookieModal contentSource={{ ...getCookieConsent(language, setLanguage), focusTargetSelector: headerId }} />
+      )}
       <div className="page text-body">
         <Navigation
-          id="page-header"
+          id={headerId}
           className="pageHeader"
           title={<NavigationTitle />}
           titleAriaLabel="Helsinki: Helsinki Design System"
