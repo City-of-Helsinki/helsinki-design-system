@@ -23,6 +23,7 @@ export function Category(props: { category?: CategoryType; isRequired?: boolean 
   const groupId = isRequired ? 'required' : 'optional';
   const getConsentGroupIdentifier = (suffix: string) => `${groupId}-consents-${suffix}`;
   const checkboxId = getConsentGroupIdentifier('checkbox');
+  const descriptionElementId = getConsentGroupIdentifier('description');
   const checkboxProps = {
     onChange: isRequired ? () => undefined : () => triggerAction(checked ? 'unapproveOptional' : 'approveOptional'),
     disabled: isRequired,
@@ -32,7 +33,7 @@ export function Category(props: { category?: CategoryType; isRequired?: boolean 
     'data-testid': checkboxId,
     name: checkboxId,
     label: title,
-    'aria-describedby': getConsentGroupIdentifier('description'),
+    'aria-describedby': descriptionElementId,
     style: checkboxStyle,
   };
 
@@ -42,7 +43,7 @@ export function Category(props: { category?: CategoryType; isRequired?: boolean 
         <Checkbox {...checkboxProps} />
       </div>
       <p aria-hidden>{text}</p>
-      <VisuallyHidden id={getConsentGroupIdentifier('description')} aria-hidden>
+      <VisuallyHidden id={descriptionElementId}>
         {checkboxAriaDescription || text}
       </VisuallyHidden>
       <ul className={styles.list}>
