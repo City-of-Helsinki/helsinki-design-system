@@ -233,7 +233,6 @@ exports[`<ModalContent /> spec renders the component 1`] = `
                   Text for required cookies
                 </p>
                 <div
-                  aria-hidden="true"
                   id="required-consents-description"
                   style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
                 >
@@ -597,7 +596,6 @@ exports[`<ModalContent /> spec renders the component 1`] = `
                   Text for optional cookies
                 </p>
                 <div
-                  aria-hidden="true"
                   id="optional-consents-description"
                   style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
                 >
