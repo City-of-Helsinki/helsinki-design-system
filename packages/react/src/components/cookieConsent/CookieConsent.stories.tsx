@@ -26,10 +26,10 @@ export default {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const ModalVersion = (args) => {
-  const [language, setLanguage] = useState<SupportedLanguage>('fi');
+  const [language, setLanguage] = useState<SupportedLanguage>('en');
   const onLanguageChange = (newLang) => setLanguage(newLang);
   const contentSource: ContentSource = {
-    siteName: 'Sivusto XXX',
+    siteName: 'Test website',
     currentLanguage: language,
     requiredCookies: {
       groups: [
@@ -189,7 +189,7 @@ export const ModalVersion = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const SimpleModalVersion = (args) => {
-  const [language, setLanguage] = useState<SupportedLanguage>('fi');
+  const [language, setLanguage] = useState<SupportedLanguage>('en');
   const onLanguageChange = (newLang) => setLanguage(newLang);
   const contentSource: ContentSource = {
     siteName: `Site title ${language}`,
@@ -234,8 +234,8 @@ export const SimpleModalVersion = (args) => {
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const PageVersion = (args) => {
   const contentSource: ContentSource = {
-    siteName: 'Sivuston XXX',
-    currentLanguage: 'fi',
+    siteName: 'Test website',
+    currentLanguage: 'en',
     texts: {
       sections: {
         main: {
@@ -253,11 +253,11 @@ export const PageVersion = (args) => {
             },
             {
               id: 'loadbalancer',
-              name: 'Kuormanjako',
-              hostName: 'Osoite',
+              name: 'loadbalancer cookie',
+              hostName: 'CDN service',
               description:
-                'Kuvaus lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
-              expiration: 'Voimassaoloaika',
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
             },
             {
               commonCookie: 'language-i18n',
@@ -281,11 +281,11 @@ export const PageVersion = (args) => {
           cookies: [
             {
               id: 'preferences',
-              name: 'Asetus 1',
-              hostName: 'Osoite',
+              name: 'Setting 1',
+              hostName: 'UserPreferences',
               description:
                 'Proin sodales maximus est, pulvinar tempus felis tempus quis. Aenean at vestibulum lectus. Aliquam erat volutpat. Nullam venenatis feugiat sem vitae cursus. ',
-              expiration: 'Voimassaoloaika',
+              expiration: '1 year',
             },
           ],
         },
@@ -297,10 +297,10 @@ export const PageVersion = (args) => {
             },
             {
               id: 'someOtherConsent',
-              name: 'Joku toinen',
-              hostName: 'Osoite',
+              name: 'Other analytics site',
+              hostName: 'Other analytics',
               description: 'Vel est molestie Quisque vel dui vel est molestie con con',
-              expiration: 'Voimassaoloaika',
+              expiration: '1 year',
             },
           ],
         },
@@ -328,7 +328,7 @@ export const PageVersion = (args) => {
 export const CustomContentVersion = (args) => {
   const contentSource: ContentSource = {
     siteName: 'Not shown if main title is overridden',
-    currentLanguage: 'fi',
+    currentLanguage: 'en',
     texts: {
       sections: {
         main: {
