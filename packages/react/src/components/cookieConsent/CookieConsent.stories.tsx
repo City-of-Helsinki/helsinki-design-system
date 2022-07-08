@@ -188,6 +188,143 @@ export const ModalVersion = (args) => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+export const FinnishModalVersion = (args) => {
+  const [language, setLanguage] = useState<SupportedLanguage>('fi');
+  const onLanguageChange = (newLang) => setLanguage(newLang);
+  const contentSource: ContentSource = {
+    siteName: 'Testisivusto',
+    currentLanguage: language,
+    requiredCookies: {
+      groups: [
+        {
+          commonGroup: 'essential',
+          cookies: [
+            {
+              commonCookie: 'tunnistamo',
+            },
+            {
+              id: 'loadbalancer',
+              name: 'loadbalancercookie',
+              hostName: 'CDN site',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+            {
+              commonCookie: 'language-i18n',
+            },
+          ],
+        },
+      ],
+    },
+    optionalCookies: {
+      groups: [
+        {
+          commonGroup: 'marketing',
+          cookies: [
+            {
+              commonCookie: 'marketing',
+            },
+          ],
+        },
+        {
+          commonGroup: 'statistics',
+          cookies: [
+            {
+              commonCookie: 'matomo',
+            },
+            {
+              id: 'someOtherConsent',
+              name: 'Analytics service cookie',
+              hostName: 'Analytics service',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+      ],
+    },
+
+    language: {
+      onLanguageChange,
+    },
+    onAllConsentsGiven: (consents) => {
+      if (consents.matomo) {
+        //  start tracking
+        // window._paq.push(['setConsentGiven']);
+        // window._paq.push(['setCookieConsentGiven']);
+      }
+    },
+    onConsentsParsed: (consents, hasUserHandledAllConsents) => {
+      if (consents.matomo === undefined) {
+        // tell matomo to wait for consent:
+        // window._paq.push(['requireConsent']);
+        // window._paq.push(['requireCookieConsent']);
+      } else if (consents.matomo === false) {
+        // tell matomo to forget conset
+        // window._paq.push(['forgetConsentGiven']);
+      }
+      if (hasUserHandledAllConsents) {
+        // cookie consent modal will not be shown
+      }
+    },
+    focusTargetSelector: '#focused-element-after-cookie-consent-closed',
+  };
+
+  const MatomoCookieTrackerFinnish = () => {
+    const { getAllConsents } = useCookies();
+    const getConsentStatus = (cookieId: string) => {
+      const consents = getAllConsents();
+      return consents[cookieId];
+    };
+    const isMatomoCookieApproved = getConsentStatus('matomo');
+    return (
+      <div>
+        <p>Esimerkki kuinka seurata yhden keksin hyväksyntää</p>
+        <p>Matomo keksi {isMatomoCookieApproved ? 'on' : <strong>EI OLE </strong>} asetettu.*</p>
+        <small>* Tämä ei päivity reaaliajassa</small>
+      </div>
+    );
+  };
+
+  const ForcePageScrollBarForModalTesting = () => {
+    return (
+      <div>
+        <div style={{ height: '100vh' }}>&nbsp;</div>
+        <p style={{ opacity: '0' }}>Bottom page</p>
+      </div>
+    );
+  };
+
+  const Application = () => {
+    return (
+      <div>
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+        <h1 id={contentSource.focusTargetSelector?.replace('#', '')} tabIndex={0}>
+          Tämä on esimerkkisovellus CookieConsent-komponentin käytöstä
+        </h1>
+        <p>
+          Keksienhallintaikkuna näytetään tarpeen vaatiessa. Jos käyttäjä on suorittanut keksien hyväksymisprosessin,
+          ikkunaa ei näytetä.
+        </p>
+        <p>Jos ikkuna on piilossa, poista keksit jotta se tulee näkyviin taas.</p>
+        <MatomoCookieTrackerFinnish />
+        <ForcePageScrollBarForModalTesting />
+      </div>
+    );
+  };
+
+  return (
+    <>
+      <CookieModal contentSource={contentSource} />
+      <Application />
+    </>
+  );
+};
+
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const SimpleModalVersion = (args) => {
   const [language, setLanguage] = useState<SupportedLanguage>('en');
   const onLanguageChange = (newLang) => setLanguage(newLang);
