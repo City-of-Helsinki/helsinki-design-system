@@ -25,6 +25,7 @@ export function ConsentGroup(props: { group: CookieGroup; isRequired: boolean; i
   } as React.CSSProperties;
   const getGroupIdentifier = (suffix: string) => `${id}-${suffix}`;
   const checkboxId = getGroupIdentifier('checkbox');
+  const descriptionElementId = getGroupIdentifier('description');
   const checkboxProps = {
     onChange: isRequired
       ? () => undefined
@@ -40,7 +41,7 @@ export function ConsentGroup(props: { group: CookieGroup; isRequired: boolean; i
     'data-testid': checkboxId,
     name: checkboxId,
     label: title,
-    'aria-describedby': getGroupIdentifier('description'),
+    'aria-describedby': descriptionElementId,
     style: checkboxStyle,
   };
 
@@ -51,7 +52,7 @@ export function ConsentGroup(props: { group: CookieGroup; isRequired: boolean; i
       </div>
       <div className={styles.consentGroupContent}>
         <p aria-hidden>{text}</p>
-        <VisuallyHidden id={getGroupIdentifier('description')}>{checkboxAriaDescription || text}</VisuallyHidden>
+        <VisuallyHidden id={descriptionElementId}>{checkboxAriaDescription || text}</VisuallyHidden>
         <button
           type="button"
           className={styles.accordionButton}
