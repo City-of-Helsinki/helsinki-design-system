@@ -308,7 +308,7 @@ export const FinnishModalVersion = (args) => {
           Keksienhallintaikkuna näytetään tarpeen vaatiessa. Jos käyttäjä on suorittanut keksien hyväksymisprosessin,
           ikkunaa ei näytetä.
         </p>
-        <p>Jos ikkuna on piilossa, poista keksit jotta se tulee näkyviin taas.</p>
+        <p>Jos ikkuna on piilossa, poista keksit jotta se tulee taas näkyviin.</p>
         <MatomoCookieTrackerFinnish />
         <ForcePageScrollBarForModalTesting />
       </div>
