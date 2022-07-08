@@ -220,6 +220,8 @@ module.exports = {
         siteUrl: 'https://hds.hel.fi',
         matomoJsScript: 'piwik.min.js',
         matomoPhpScript: 'tracker.php',
+        requireConsent: true,
+        requireCookieConsent: true,
       }
     }
   ],
