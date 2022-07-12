@@ -345,6 +345,15 @@ export const SimpleModalVersion = (args) => {
     focusTargetSelector: '#focused-element-after-cookie-consent-closed',
   };
 
+  const ForcePageScrollBarForModalTesting = () => {
+    return (
+        <div>
+          <div style={{ height: '100vh' }}>&nbsp;</div>
+          <p style={{ opacity: '0' }}>Bottom page</p>
+        </div>
+    );
+  };
+
   const Application = () => {
     return (
       <div>
@@ -355,6 +364,7 @@ export const SimpleModalVersion = (args) => {
         <p>This is an example how the modal is shown with minimal content parameters.</p>
         <p>If modal is not shown, remove the cookie to see the modal again.</p>
         <p>Note: it the cookie.required would be true, the modal would never be shown.</p>
+        <ForcePageScrollBarForModalTesting />
       </div>
     );
   };
