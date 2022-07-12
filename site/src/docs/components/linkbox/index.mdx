@@ -4,7 +4,7 @@ title: 'Linkbox'
 navTitle: 'Linkbox'
 ---
 
-import { Linkbox } from 'hds-react';
+import { Link, Linkbox } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
@@ -33,7 +33,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - **Use the Linkbox component when**
   - the whole element needs to be interactable
   - the element does not include multiple interactable elements
-- **Use the [Card component](/components/card) when**
+- **Use the <Link href="/components/card">Card component</Link> when**
   - the whole Card does not need to be interactable
   - the Card contains multiple interactable elements (e.g. buttons or links)
 
