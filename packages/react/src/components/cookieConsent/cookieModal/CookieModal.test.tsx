@@ -165,12 +165,14 @@ describe('<Modal /> ', () => {
       expect(onLanguageChange).toHaveBeenLastCalledWith('sv');
     });
 
-    it('will render html-container only when modal is visible', async () => {
+    it('will render HTML elements into page only when modal is visible', async () => {
       const result = renderCookieConsent(defaultConsentData);
       verifyElementExistsByTestId(result, dataTestIds.htmlContainer);
+      verifyElementExistsByTestId(result, dataTestIds.htmlPlaceholder);
       clickElement(result, dataTestIds.approveButton);
       await waitFor(() => {
         verifyElementDoesNotExistsByTestId(result, dataTestIds.htmlContainer);
+        verifyElementDoesNotExistsByTestId(result, dataTestIds.htmlPlaceholder);
       });
     });
   });

@@ -158,7 +158,7 @@ export const ModalVersion = (args) => {
     return (
       <div>
         <div style={{ height: '100vh' }}>&nbsp;</div>
-        <p style={{ opacity: '0' }}>Bottom page</p>
+        <p>Bottom page</p>
       </div>
     );
   };
@@ -292,7 +292,7 @@ export const FinnishModalVersion = (args) => {
     return (
       <div>
         <div style={{ height: '100vh' }}>&nbsp;</div>
-        <p style={{ opacity: '0' }}>Bottom page</p>
+        <p>Bottom page</p>
       </div>
     );
   };

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
@@ -19,9 +19,20 @@ export function Modal(): React.ReactElement | null {
   // if hasUserHandledAllConsents() was false at first and then later true, user must have saved consents.
   const showScreenReaderSaveNotification = isModalInitiallyShown && !shouldShowModal;
   const { settingsSaved } = useCookieConsentUiTexts();
-  const containerId = 'HdsCookieConsentContainer';
+  const containerId = 'HdsCookieConsentModalContainer';
+  const placeholderId = 'HdsCookieConsentModalPlaceholder';
   const getContainerElement = (): HTMLElement | null => document.getElementById(containerId);
+  const getPlaceholderElement = (): HTMLElement | null => document.getElementById(placeholderId);
   const [isDomReady, setIsDomReady] = useState<boolean>(false);
+  const [contentHeight, setContentHeight] = useState<number>(0);
+  const modalContentRef = useRef<HTMLDivElement>();
+  const bodyBottomPaddingStyleRef = React.useRef<string>(null);
+
+  const onContentChange = () => {
+    if (modalContentRef.current) {
+      setContentHeight(modalContentRef.current.getBoundingClientRect().height);
+    }
+  };
 
   useEffect(() => {
     setTimeout(() => setPopupTimerComplete(true), popupDelayInMs);
@@ -29,6 +40,7 @@ export function Modal(): React.ReactElement | null {
 
   useEffect(() => {
     const containerElement = getContainerElement();
+    const placeholderElement = getPlaceholderElement();
     if (shouldShowModal && !isDomReady) {
       if (!containerElement) {
         const htmlContainer = document.createElement('div');
@@ -36,14 +48,33 @@ export function Modal(): React.ReactElement | null {
         htmlContainer.setAttribute('data-testid', 'html-cookie-consent-container');
         document.body.insertBefore(htmlContainer, document.body.firstChild);
       }
+
+      if (!placeholderElement) {
+        const htmlPlaceholder = document.createElement('div');
+        htmlPlaceholder.setAttribute('id', placeholderId);
+        htmlPlaceholder.setAttribute('data-testid', 'html-cookie-consent-placeholder');
+        htmlPlaceholder.setAttribute('aria-hidden', 'true');
+        document.body.lastChild.after(htmlPlaceholder);
+      }
+
       setIsDomReady(true);
     } else if (!shouldShowModal && isDomReady) {
       if (containerElement) {
         document.body.removeChild(containerElement);
       }
+      if (placeholderElement) {
+        document.body.removeChild(placeholderElement);
+      }
       setIsDomReady(false);
     }
   }, [shouldShowModal, isDomReady, setIsDomReady]);
+
+  useEffect(() => {
+    const placeHolderElement = getPlaceholderElement();
+    if (shouldShowModal && placeHolderElement) {
+      placeHolderElement.style.height = `${bodyBottomPaddingStyleRef.current + Math.floor(contentHeight)}px`;
+    }
+  }, [shouldShowModal, contentHeight]);
 
   useEscKey(useFocusShift());
 
@@ -66,7 +97,9 @@ export function Modal(): React.ReactElement | null {
       className={classNames(styles.container, styles.modal, popupTimerComplete && styles.animateIn)}
       data-testid="cookie-consent"
     >
-      <div className={styles.aligner}>{popupTimerComplete && <Content />}</div>
+      <div className={styles.aligner} ref={modalContentRef}>
+        {popupTimerComplete && <Content onContentChange={onContentChange} />}
+      </div>
     </div>
   );
 

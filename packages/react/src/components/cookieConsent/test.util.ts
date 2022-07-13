@@ -122,6 +122,7 @@ export async function openAccordion(result: RenderResult, testId: string): Promi
 export const commonTestProps = {
   dataTestIds: {
     htmlContainer: 'html-cookie-consent-container',
+    htmlPlaceholder: 'html-cookie-consent-placeholder',
     container: 'cookie-consent',
     languageSwitcher: 'cookie-consent-language-switcher',
     approveButton: 'cookie-consent-approve-button',

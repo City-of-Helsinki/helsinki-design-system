@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { Buttons } from '../buttons/Buttons';
 import { IconAngleDown, IconAngleUp } from '../../../icons';
@@ -15,7 +15,8 @@ import { LanguageSwitcher } from '../languageSwitcher/LanguageSwitcher';
 import classNames from '../../../utils/classNames';
 import { useEscKey } from '../useEscKey';
 
-export function Content(): React.ReactElement {
+type ContentProps = { onContentChange: () => void };
+export function Content({ onContentChange }: ContentProps): React.ReactElement {
   const { isOpen, buttonProps, contentProps, closeAccordion } = useAccordion({
     initiallyOpen: false,
   });
@@ -34,6 +35,16 @@ export function Content(): React.ReactElement {
         styles.hiddenWithoutFocus,
       );
 
+  const [hasFocus, setHasFocus] = useState(false);
+
+  const eventHandlers = useMemo(
+    () => ({
+      onFocus: () => setHasFocus(true),
+      onBlur: () => setHasFocus(false),
+    }),
+    [],
+  );
+
   const setFocusToTitle = useCallback(() => {
     if (titleRef.current) {
       titleRef.current.focus();
@@ -44,6 +55,10 @@ export function Content(): React.ReactElement {
     setFocusToTitle();
   }, [setFocusToTitle]);
 
+  useEffect(() => {
+    onContentChange();
+  }, [hasFocus, isOpen]);
+
   useEscKey(closeAccordion);
 
   return (
@@ -51,6 +66,7 @@ export function Content(): React.ReactElement {
       className={classNames(styles.content, isOpen ? '' : styles.shrinkOnBlur)}
       id="cookie-consent-content"
       tabIndex={-1}
+      {...eventHandlers}
     >
       <div className={styles.mainContent} data-testid="cookie-consent-information">
         <span className={styles.emulatedH1} role="heading" aria-level={1} tabIndex={-1} ref={titleRef}>
