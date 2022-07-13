@@ -28,13 +28,20 @@ export function Modal(): React.ReactElement | null {
   }, []);
 
   useEffect(() => {
+    const containerElement = getContainerElement();
     if (shouldShowModal && !isDomReady) {
-      if (!getContainerElement()) {
+      if (!containerElement) {
         const htmlContainer = document.createElement('div');
-        htmlContainer.id = containerId;
+        htmlContainer.setAttribute('id', containerId);
+        htmlContainer.setAttribute('data-testid', 'html-cookie-consent-container');
         document.body.insertBefore(htmlContainer, document.body.firstChild);
       }
       setIsDomReady(true);
+    } else if (!shouldShowModal && isDomReady) {
+      if (containerElement) {
+        document.body.removeChild(containerElement);
+      }
+      setIsDomReady(false);
     }
   }, [shouldShowModal, isDomReady, setIsDomReady]);
 
