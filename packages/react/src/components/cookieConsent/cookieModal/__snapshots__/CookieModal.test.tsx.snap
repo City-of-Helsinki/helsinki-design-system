@@ -3,6 +3,7 @@
 exports[`<ModalContent /> spec renders the component 1`] = `
 <body>
   <div
+    data-testid="html-cookie-consent-container"
     id="HdsCookieConsentContainer"
   >
     <div

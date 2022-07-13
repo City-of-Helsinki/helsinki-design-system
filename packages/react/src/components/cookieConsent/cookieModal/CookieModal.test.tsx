@@ -164,6 +164,15 @@ describe('<Modal /> ', () => {
       userEvent.click(screen.getByText('Svenska (SV)'));
       expect(onLanguageChange).toHaveBeenLastCalledWith('sv');
     });
+
+    it('will render html-container only when modal is visible', async () => {
+      const result = renderCookieConsent(defaultConsentData);
+      verifyElementExistsByTestId(result, dataTestIds.htmlContainer);
+      clickElement(result, dataTestIds.approveButton);
+      await waitFor(() => {
+        verifyElementDoesNotExistsByTestId(result, dataTestIds.htmlContainer);
+      });
+    });
   });
 
   describe(`Approve button will 
