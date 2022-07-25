@@ -24,8 +24,8 @@ ExternalLink.propTypes = {
   href: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   openInNewTab: PropTypes.bool,
-  openInNewTabAriaLabel: PropTypes.string.isRequired,
-  openInExternalDomainAriaLabel: PropTypes.string.isRequired,
+  openInNewTabAriaLabel: PropTypes.string,
+  openInExternalDomainAriaLabel: PropTypes.string,
   size: PropTypes.string,
 };
 
