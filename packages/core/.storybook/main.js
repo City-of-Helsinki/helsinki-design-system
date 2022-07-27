@@ -7,4 +7,5 @@ module.exports = {
     '@storybook/addon-viewport',
     '@storybook/addon-storysource',
   ],
+  staticDirs: ['../src/fonts'],
 };
