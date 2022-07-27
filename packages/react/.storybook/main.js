@@ -15,6 +15,7 @@ module.exports = {
     '@storybook/addon-actions',
     '@storybook/addon-storysource',
   ],
+  staticDirs: ['../src/fonts'],
   webpack: async (config) => ({
     ...config,
     resolve: {
