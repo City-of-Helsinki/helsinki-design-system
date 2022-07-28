@@ -130,7 +130,6 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### With image
 <Playground>
 
-
 ```jsx
 <div style={{ backgroundColor: 'var(--color-black-5)', padding: 'var(--spacing-s)' }}>
   <div style={{ maxWidth: '384px' }}>
@@ -146,6 +145,48 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 </div>
 ```
 
+</Playground>
+
+### Linkbox size variants
+<Playground>
+
+```jsx
+<div style={{ backgroundColor: 'var(--color-black-5)', padding: 'var(--spacing-s)' }}>
+  <div style={{ maxWidth: '284px' }}>
+    <Linkbox
+      linkboxAriaLabel="Linkbox: Helsinki Design System"
+      linkAriaLabel="HDS"
+      href="https://hds.hel.fi"
+      heading="Linkbox title"
+      text="Linkbox text"
+      size="small"
+      imgProps={{ src: '/images/foundation/visual-assets/placeholders/image-m@3x.png', width: 284, height: 181 }}
+    />
+  </div>
+  <div style={{ maxWidth: '384px', marginTop: 'var(--spacing-s)' }}>
+    <Linkbox
+      linkboxAriaLabel="Linkbox: Helsinki Design System"
+      linkAriaLabel="HDS"
+      href="https://hds.hel.fi"
+      heading="Linkbox title"
+      text="Linkbox text"
+      size="medium"
+      imgProps={{ src: '/images/foundation/visual-assets/placeholders/image-m@3x.png', width: 384, height: 245 }}
+    />
+  </div>
+  <div style={{ maxWidth: '567px', marginTop: 'var(--spacing-s)' }}>
+    <Linkbox
+      linkboxAriaLabel="Linkbox: Helsinki Design System"
+      linkAriaLabel="HDS"
+      href="https://hds.hel.fi"
+      heading="Linkbox title"
+      text="Linkbox text"
+      size="large"
+      imgProps={{ src: '/images/foundation/visual-assets/placeholders/image-m@3x.png', width: 567, height: 363 }}
+    />
+  </div>
+</div>
+```
 
 </Playground>
 
