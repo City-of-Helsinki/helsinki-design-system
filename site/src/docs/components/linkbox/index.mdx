@@ -5,6 +5,7 @@ navTitle: 'Linkbox'
 ---
 
 import { Link, Linkbox } from 'hds-react';
+import { withPrefix } from "gatsby"
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
@@ -162,7 +163,7 @@ HDS offers styling for a Linkbox with an image as its content.
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      imgProps={{ src: '/images/foundation/visual-assets/placeholders/image-m@3x.png', width: 384, height: 245 }}
+      imgProps={{ src: withPrefix('/images/foundation/visual-assets/placeholders/image-m@3x.png'), width: 384, height: 245 }}
     />
   </div>
 </PlaygroundPreview>
@@ -183,7 +184,7 @@ Size variants differ in (default) heading size and inner spacing. Use the size p
       heading="Linkbox title"
       text="Linkbox text"
       size="small"
-      imgProps={{ src: '/images/foundation/visual-assets/placeholders/image-m@3x.png', width: 284, height: 181 }}
+      imgProps={{ src: withPrefix('/images/foundation/visual-assets/placeholders/image-m@3x.png'), width: 284, height: 181 }}
     />
   </div>
   <div style={{ maxWidth: '384px', marginTop: 'var(--spacing-s)' }}>
@@ -194,7 +195,7 @@ Size variants differ in (default) heading size and inner spacing. Use the size p
       heading="Linkbox title"
       text="Linkbox text"
       size="medium"
-      imgProps={{ src: '/images/foundation/visual-assets/placeholders/image-m@3x.png', width: 384, height: 245 }}
+      imgProps={{ src: withPrefix('/images/foundation/visual-assets/placeholders/image-m@3x.png'), width: 384, height: 245 }}
     />
   </div>
   <div style={{ maxWidth: '567px', marginTop: 'var(--spacing-s)' }}>
@@ -205,7 +206,7 @@ Size variants differ in (default) heading size and inner spacing. Use the size p
       heading="Linkbox title"
       text="Linkbox text"
       size="large"
-      imgProps={{ src: '/images/foundation/visual-assets/placeholders/image-m@3x.png', width: 567, height: 363 }}
+      imgProps={{ src: withPrefix('/images/foundation/visual-assets/placeholders/image-m@3x.png'), width: 567, height: 363 }}
     />
   </div>
 </PlaygroundPreview>
