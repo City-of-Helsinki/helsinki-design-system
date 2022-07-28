@@ -4,6 +4,7 @@ title: 'Linkbox - Code'
 ---
 
 import { Linkbox } from 'hds-react';
+import { withPrefix } from "gatsby"
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 
@@ -139,7 +140,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       href="https://hds.hel.fi"
       heading="Linkbox title"
       text="Linkbox text"
-      imgProps={{ src: "/images/foundation/visual-assets/placeholders/image-m@3x.png", width: 384, height: 245 }}
+      imgProps={{ src: withPrefix("/images/foundation/visual-assets/placeholders/image-m@3x.png"), width: 384, height: 245 }}
     />
   </div>
 </div>
@@ -160,7 +161,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       heading="Linkbox title"
       text="Linkbox text"
       size="small"
-      imgProps={{ src: '/images/foundation/visual-assets/placeholders/image-m@3x.png', width: 284, height: 181 }}
+      imgProps={{ src: withPrefix('/images/foundation/visual-assets/placeholders/image-m@3x.png'), width: 284, height: 181 }}
     />
   </div>
   <div style={{ maxWidth: '384px', marginTop: 'var(--spacing-s)' }}>
@@ -171,7 +172,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       heading="Linkbox title"
       text="Linkbox text"
       size="medium"
-      imgProps={{ src: '/images/foundation/visual-assets/placeholders/image-m@3x.png', width: 384, height: 245 }}
+      imgProps={{ src: withPrefix('/images/foundation/visual-assets/placeholders/image-m@3x.png'), width: 384, height: 245 }}
     />
   </div>
   <div style={{ maxWidth: '567px', marginTop: 'var(--spacing-s)' }}>
@@ -182,7 +183,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
       heading="Linkbox title"
       text="Linkbox text"
       size="large"
-      imgProps={{ src: '/images/foundation/visual-assets/placeholders/image-m@3x.png', width: 567, height: 363 }}
+      imgProps={{ src: withPrefix('/images/foundation/visual-assets/placeholders/image-m@3x.png'), width: 567, height: 363 }}
     />
   </div>
 </div>
