@@ -71,6 +71,22 @@ In accordions that have very little content the close button does not offer much
   </Accordion>  
 </PlaygroundPreview>
 
+#### Accordion size variants
+
+HDS Accordion includes three (3) size variants; small, default, and large. You can use different sizes depending on the screen size or use case. Use the `size` property to alter the size.
+
+<PlaygroundPreview>
+  <Accordion size="s" card border heading="How to publish data?" language="en" style={{ maxWidth: '360px' }}>
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+  <Accordion size="m" card border heading="How to publish data?" language="en" style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)' }}>
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+  <Accordion size="l" card border heading="How to publish data?" language="en" style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)' }}>
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+</PlaygroundPreview>
+
 #### Custom accordion
 
 If the basic accordion components do not fit your needs, you can build a custom accordion by using HDS provided accordion elements.

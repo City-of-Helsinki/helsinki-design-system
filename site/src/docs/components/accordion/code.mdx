@@ -56,6 +56,26 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 </Playground>
 
+#### Accordion size variants
+
+<Playground>
+
+```jsx
+<>
+  <Accordion size="s" card border heading="How to publish data?" language="en" style={{ maxWidth: '360px' }}>
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+  <Accordion size="m" card border heading="How to publish data?" language="en" style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)' }}>
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+  <Accordion size="l" card border heading="How to publish data?" language="en" style={{ maxWidth: '360px', marginTop: 'var(--spacing-s)' }}>
+    To publish your data, open your profile settings and click the button 'Publish'.
+  </Accordion>
+</>
+```
+
+</Playground>
+
 
 #### Custom accordion
 
