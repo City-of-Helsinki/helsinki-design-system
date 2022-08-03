@@ -1,0 +1,50 @@
+diff --git a/node_modules/used-styles/dist/es2015/index.js b/node_modules/used-styles/dist/es2015/index.js
+index 877216e..0ec8daa 100644
+--- a/node_modules/used-styles/dist/es2015/index.js
++++ b/node_modules/used-styles/dist/es2015/index.js
+@@ -4,6 +4,6 @@ import { getCriticalRules, extractCriticalRules, getCriticalStyles, getUsedStyle
+ import { alterProjectStyles } from './operations';
+ import { createCriticalStyleStream } from './reporters/critical';
+ import { createStyleStream } from './reporters/used';
+-import { discoverProjectStyles, loadStyleDefinitions, parseProjectStyles } from './scanForStyles';
++import { loadStyleDefinitions, parseProjectStyles } from './scanForStyles';
+ import { createUsedFilter as createUsedSelectorsFilter } from './utils/cache';
+-export { createUsedSelectorsFilter, loadStyleDefinitions, discoverProjectStyles, parseProjectStyles, alterProjectStyles, getUsedStyles, getCriticalStyles, getCriticalRules, extractCriticalRules, createStyleStream, createCriticalStyleStream, createLink, enableReactOptimization, };
++export { createUsedSelectorsFilter, loadStyleDefinitions, parseProjectStyles, alterProjectStyles, getUsedStyles, getCriticalStyles, getCriticalRules, extractCriticalRules, createStyleStream, createCriticalStyleStream, createLink, enableReactOptimization, };
+diff --git a/node_modules/used-styles/dist/es2015/scanForStyles.js b/node_modules/used-styles/dist/es2015/scanForStyles.js
+index ebb2784..6f28e97 100644
+--- a/node_modules/used-styles/dist/es2015/scanForStyles.js
++++ b/node_modules/used-styles/dist/es2015/scanForStyles.js
+@@ -1,13 +1,7 @@
+ import { __awaiter, __generator } from "tslib";
+-import { readFile } from 'fs';
+-import { extname, join, relative } from 'path';
+-import { promisify } from 'util';
+-import scanDirectory from 'scan-directory';
+ import { buildAst } from './parser/toAst';
+ import { flattenOrder } from './utils/order';
+ var RESOLVE_EXTENSIONS = ['.css'];
+-var pReadFile = promisify(readFile);
+-export var getFileContent = function (file) { return pReadFile(file, 'utf8'); };
+ var toFlattenArray = function (ast) {
+     return Object.keys(ast).reduce(function (acc, file) {
+         ast[file].selectors.forEach(function (sel) {
+@@ -113,18 +107,3 @@ export function loadStyleDefinitions(getStyleNames, loader, fileFilter) {
+     });
+     return result;
+ }
+-export function discoverProjectStyles(rootDir, fileFilter) {
+-    var _this = this;
+-    if (fileFilter === void 0) { fileFilter = passAll; }
+-    return loadStyleDefinitions(function () { return __awaiter(_this, void 0, void 0, function () {
+-        return __generator(this, function (_a) {
+-            switch (_a.label) {
+-                case 0: return [4, scanDirectory(rootDir, undefined, function () { return false; })];
+-                case 1: return [2, (_a.sent())
+-                        .filter(function (name) { return RESOLVE_EXTENSIONS.indexOf(extname(name)) >= 0; })
+-                        .map(function (file) { return relative(rootDir, file); })
+-                        .sort()];
+-            }
+-        });
+-    }); }, function (fileName) { return getFileContent(join(rootDir, fileName)); }, fileFilter);
+-}
