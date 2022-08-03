@@ -1,4 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import fs from 'fs';
+
 import includePaths from 'rollup-plugin-includepaths';
 import resolve from '@rollup/plugin-node-resolve';
 import ts from '@wessberg/rollup-plugin-ts';
@@ -8,6 +10,18 @@ import postcss from 'rollup-plugin-postcss';
 import { terser } from 'rollup-plugin-terser';
 import del from 'rollup-plugin-delete';
 import cssText from 'rollup-plugin-css-text';
+
+const insertCSS = () => {
+  return {
+    name: 'insert-css',
+    buildEnd: () => {
+      fs.appendFileSync(
+        `${__dirname}/lib/index.js`,
+        `import CSS_TEXT from './tmp/index.css-text'; export { CSS_TEXT as hdsStyles };`,
+      );
+    },
+  };
+};
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 const external = [
@@ -61,6 +75,7 @@ const getConfig = (format, extractCSS) => ({
     }),
     terser(),
     extractCSS ? cssText() : undefined,
+    extractCSS ? insertCSS() : undefined,
     // extractCSS
     //   ? del({
     //       targets: 'lib/tmp',
