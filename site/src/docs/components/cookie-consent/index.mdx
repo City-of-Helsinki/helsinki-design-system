@@ -4,18 +4,18 @@ title: 'CookieConsent'
 navTitle: 'CookieConsent'
 ---
 
-import { Link } from 'hds-react';
+import { withPrefix } from 'gatsby';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Usage
 
-This documentation page is about HDS CookieCompliance component. If you are looking for documentation about cookies in general, please refer to <a href="/patterns/cookies">HDS cookie pattern documentation page</a>.
+This documentation page is about HDS CookieCompliance component. If you are looking for documentation about cookies in general, please refer to [HDS cookie pattern documentation page](/patterns/cookies/basics).
 
 ### Example
 
-<Link href="/storybook/react/?path=/story/components-cookieconsent--modal-version">View modal example in Storybook</Link>
+<Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href={withPrefix('/storybook/react/?path=/story/components-cookieconsent--modal-version')}>View modal example in Storybook</Link>
 
 ### Principles
 - Include the cookie consent component on every page of the service. The user may arrive on any page of the service (e.g. via a search engine).
@@ -31,9 +31,9 @@ This documentation page is about HDS CookieCompliance component. If you are look
 ### Modal
 The default banner variant opens at the bottom of the viewport. It is opened if the consent for cookies has not been given or if the cookies have changed. The banner can be expanded to view and change cookie settings.
 
-<Link href="/storybook/react/?path=/story/components-cookieconsent--modal-version">View modal example in Storybook</Link>
+<Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href={withPrefix('/storybook/react/?path=/story/components-cookieconsent--modal-version')}>View modal example in Storybook</Link>
 
 ### Rendered on a page
 The cookie consent expanded settings page can be rendered as a separate page. This is used to create a cookie page that the user can access via a link in the [Footer](/components/footer) element. This allows the user to view or edit cookie settings after the initial consent has been given.
 
-<Link href="/storybook/react/?path=/story/components-cookieconsent--page-version">View page example in Storybook</Link>
+<Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href={withPrefix('/storybook/react/?path=/story/components-cookieconsent--page-version')}>View page example in Storybook</Link>
