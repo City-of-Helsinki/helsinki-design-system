@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 
 import createConsentController, { ConsentController, ConsentList, ConsentObject } from './cookieConsentController';
 import { ContentSource, createContent } from './content.builder';
@@ -277,7 +277,7 @@ export const useFocusShift = (): (() => void) => {
   if (!focusTargetSelector) {
     throw new Error('Cookie consent modal requires a content.focusTargetSelector to be set');
   }
-  return () => {
+  return useCallback(() => {
     forceFocusToElement(focusTargetSelector);
-  };
+  }, [focusTargetSelector]);
 };
