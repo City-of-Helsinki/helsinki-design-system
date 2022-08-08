@@ -109,8 +109,9 @@ export const PageVersion = () => {
 
 ### Properties
 Note! You can find the full list of properties in the <Link size="M" openInNewTab openInNewTabAriaLabel="Opens in a new tab" href={withPrefix('/storybook/react/?path=/story/components-cookieconsent--default')}>React Storybook.</Link>
+Also, you can find a detailed description of the `contentSource` property in the [API tab](/components/cookie-consent/api).
 
-| Property                                         | Description                                                    | Values                                       | Default value                                   |
-| ------------------------------------------------ | -------------------------------------------------------------- | -------------------------------------------- | ----------------------------------------------- |
-| `helperText`                                     | Helper text to be displayed below the input.                   | `string`                                     | -                                               |
-
+| Property                                            | Description                                                    | Values                                       | Default value                                   |
+| --------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------- | ----------------------------------------------- |
+| `contentSource`                                     | Main configurations of the Cookie Consent.                     | `object`                                     | -                                               |
+| `cookieDomain`                                      | A string representing the domain of the cookie.                | `string`                                     | Default value is the current domain             |
