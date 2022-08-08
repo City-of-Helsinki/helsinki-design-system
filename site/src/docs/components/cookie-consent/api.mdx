@@ -21,10 +21,10 @@ The `contentSource` property lists all content, language options, and callbacks 
 | -------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `siteName`                                                                                                                       | **Yes**  | Cookie consent main heading.                                                                                                                                                                                                                                                                                           |
 | `currentLanguage`                                                                                                                | **Yes**  | Currently selected language. Used for picking translations from `content.json`. Is also set to `content.language.current`. Supported values are `fi`, `sv`, and `en`.                                                                                                                                                   |
-| `requiredCookies`                                                                                                                | No       | Required cookies can have partial data or all data described in the table below. Missing texts are auto-filled. See examples below this table.                                                                                                                                                                         |
-| `optionalCookies`                                                                                                                | No       | Optional cookies can have partial data or all data described in the table below. Missing texts are auto-filled. See examples below this table.                                                                                                                                                                          |
-| `requiredConsents.groups`, `optionalConsents.groups`                                                                             | No       | List of cookie groups. All cookies must belong to a group. Groups with property `commonGroup` will be auto-filled from `content.json`.                                                                                                                                                                                  |
-| `requiredConsents.groups[].cookies`, `requiredConsents.cookies`, `optionalConsents.groups[].cookies`, `optionalConsents.cookies` | No       | List of individual cookies. All cookies must belong to a group or they must have `propertycommonGroup` or `groupId`. The `groupId` must match `group.id` of a custom group and the `commonGroup` must match groups in `content.json`. Do not give both.                                                                |
+| `requiredCookies`                                                                                                                | No       | Required cookies can have partial data or all data described in the table below. Missing texts are auto-filled. See examples below this table: [Required and optional cookies](/components/cookie-consent/api#required-and-optional-cookies)                                                                               |
+| `optionalCookies`                                                                                                                | No       | Optional cookies can have partial data or all data described in the table below. Missing texts are auto-filled. See examples below this table: [Required and optional cookies](/components/cookie-consent/api#required-and-optional-cookies)                                                                               |
+| `requiredCookies.groups`, `optionalCookies.groups`                                                                             | No       | List of cookie groups. All cookies must belong to a group. Groups with property `commonGroup` will be auto-filled from `content.json`.                                                                                                                                                                                  |
+| `requiredCookies.groups[].cookies`, `requiredCookies.cookies`, `optionalCookies.groups[].cookies`, `optionalCookies.cookies` | No       | List of individual cookies. All cookies must belong to a group or they must have property `commonGroup` or `groupId`. The `groupId` must match `group.id` of a custom group and the `commonGroup` must match groups in `content.json`. Do not give both.                                                                |
 | `texts`                                                                                                                          | No       | User interface string overrides. By default, strings are fetched from `content.json` and this object overrides one or multiple texts.                                                                                                                                                                                   |
 | `language`                                                                                                                       | No       | Overrides for default language options. By default, options are fetched from `content.json` and this object overrides one or more properties. `onLanguageChange` callback is also added here.                                                                                                                          |
 | `onAllConsentsGiven`                                                                                                             | No       | See Callbacks section below.                                                                                                                                                                                                                                                                                           |
@@ -41,17 +41,17 @@ Rarely used. Cookie consents are stored to a cookie whose domain is automaticall
 
 #### Detailed info about properties
 
-##### Required and optional cookie categories
+##### Required and optional cookies
 
-| Property                    | Description                                               |
-| --------------------------- | --------------------------------------------------------- |
-| `requiredConsents`          | List of required consents and their descriptions.         |
-| `optionalConsents`          | List of optional consents and their descriptions.         |
-| `*.title`                   | Title for the consent group.                              |
-| `*.text`                    | Description for the consent group.                        |
-| `*.checkboxAriaDescription` | Aria description of the checkbox shown with the category. |
-| `*.groups`                  | Optional list of groups. More info is below.                 |
-| `*.cookies`                 | Optional list of cookies. More info is below.                |
+| Property                    | Description                                                                                                          |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `requiredCookies`           | List of required consents and their descriptions.                                                                    |
+| `optionalCookies`           | List of optional consents and their descriptions.                                                                    |
+| `*.title`                   | Title for the consent group. Optional.                                                                               |
+| `*.text`                    | Description for the consent group. Optional.                                                                         |
+| `*.checkboxAriaDescription` | Aria description of the checkbox shown with the category. Optional.                                                  |
+| `*.groups`                  | Optional list of groups. More info is below: [Cookie groups](/components/cookie-consent/api#cookie-groups)           |
+| `*.cookies`                 | Optional list of cookies. More info is below: [Cookie information](/components/cookie-consent/api#cookie-information) |
 [Table 2:Cookie category properties]|
 
 ##### Cookie groups
@@ -80,7 +80,7 @@ Rarely used. Cookie consents are stored to a cookie whose domain is automaticall
 [Table 4:Cookie information properties]|
 
 ##### Callbacks
-The `content` object passed to the component can also include callback functions:
+The `contentSource` object passed to the component can also include callback functions:
 
 | Property             | Usage                                                                                                 | Arguments                                                                                                                                                                                     |
 | -------------------- | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -109,12 +109,12 @@ The following strings can be overridden if needed. Note that you also need to pr
 | `ui.readMore`                           | Text shown on a button when modal loses focus and is shrunk.                                                          |
 [Table 7:User interface string overrides]|
 
-| Property                    | Description                                                 |
-| --------------------------- | ----------------------------------------------------------- |
-| `tableHeadings.name`        | Title of the “hostname” column in the cookie description.  |
-| `tableHeadings.hostName`    | Title of the “path” column in the cookie description.       |
-| `tableHeadings.description` | Title of the “expiration” column in the cookie description. |
-| `tableHeadings.expiration`  | Title of the “name” column in the cookie description.       |
+| Property                    | Description                                                  |
+| --------------------------- | ------------------------------------------------------------ |
+| `tableHeadings.name`        | Title of the “name” column in the cookie description.        |
+| `tableHeadings.hostName`    | Title of the “hostName” column in the cookie description.    |
+| `tableHeadings.description` | Title of the “description” column in the cookie description. |
+| `tableHeadings.expiration`  | Title of the “expiration” column in the cookie description.  |
 [Table 8:Table heading string overrides]|
 
 The consent banner language is controlled via a language dropdown element. Note that the current language is passed in as `content.currentLanguage` and that value is stored into `language.current`.
@@ -133,4 +133,4 @@ Consents that the user has given are saved to a `city-of-helsinki-cookie-consent
 
 Cookies are always strings and consents are stored as a JSON-formatted string such as `{"cookie-id":"true","another-cookie-id":"false"}`.
 
-The ID of the cookie is stored to `cookie.id`. `True` means the user has given consent for that cookie.  All required cookies are always stored `true` But other sites may list a common cookie optional, so the stored consent is not `true` by default. 
+The ID of the cookie is stored to `cookie.id`. `True` means the user has given consent for that cookie.  All required cookies are always stored `true`, but other sites may list a common cookie optional, so the stored consent is not `true` by default.
