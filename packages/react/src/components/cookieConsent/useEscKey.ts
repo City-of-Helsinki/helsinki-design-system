@@ -12,5 +12,5 @@ export function useEscKey(callBack: (e?: KeyboardEvent) => void): void {
     return () => {
       document.removeEventListener('keyup', handleEscKey);
     };
-  });
+  }, [callBack]);
 }
