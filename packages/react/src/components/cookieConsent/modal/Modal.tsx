@@ -4,9 +4,8 @@ import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import classNames from '../../../utils/classNames';
 import styles from '../CookieConsent.module.scss';
-import { CookieConsentContext, useCookieConsentUiTexts, useFocusShift } from '../CookieConsentContext';
+import { CookieConsentContext, forceFocusToElement, useCookieConsentUiTexts } from '../CookieConsentContext';
 import { Content } from '../content/Content';
-import { useEscKey } from '../useEscKey';
 
 export function Modal(): React.ReactElement | null {
   const cookieConsentContext = useContext(CookieConsentContext);
@@ -45,7 +44,21 @@ export function Modal(): React.ReactElement | null {
     }
   }, [shouldShowModal, isDomReady, setIsDomReady]);
 
-  useEscKey(useFocusShift());
+  // focus target selector on esc key press
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      const key = event.key || event.keyCode;
+      if (key === 'Escape' || key === 'Esc' || key === 27) {
+        forceFocusToElement(cookieConsentContext.content.focusTargetSelector);
+      }
+    };
+    if (isDomReady) {
+      document.addEventListener('keyup', handleEscKey);
+    }
+    return () => {
+      document.removeEventListener('keyup', handleEscKey);
+    };
+  }, [isDomReady]);
 
   if (showScreenReaderSaveNotification) {
     return (

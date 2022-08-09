@@ -107,7 +107,7 @@ export const getConsentsFromCookieGroup = (groups: CookieGroup[]): ConsentList =
   }, []);
 };
 
-const forceFocusToElement = (elementSelector: string): void => {
+export const forceFocusToElement = (elementSelector: string): void => {
   const focusTarget = document.querySelector(elementSelector) as HTMLElement;
   if (focusTarget && focusTarget.focus) {
     focusTarget.focus();
