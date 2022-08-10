@@ -9,6 +9,7 @@ import { CookieContentSource } from './content.builder';
 import { Modal } from './modal/Modal';
 import { Accordion } from '../accordion';
 import { useCookies } from './useCookies';
+import { PortalModal } from './portalModal/PortalModal';
 
 export default {
   component: CookieModal,
@@ -17,6 +18,15 @@ export default {
     controls: { expanded: true },
   },
   args: {},
+};
+
+const ForcePageScrollBarForModalTesting = () => {
+  return (
+    <div>
+      <div style={{ height: '100vh' }}>&nbsp;</div>
+      <p>Bottom page</p>
+    </div>
+  );
 };
 
 // args is required for docs tab to show source code
@@ -284,15 +294,6 @@ export const ModalVersion = (args) => {
         <p>Example how to track single consent.</p>
         <p>Matomo cookie is {!isMatomoCookieApproved && <strong>NOT</strong>} set.*</p>
         <small>* This won&apos;t change in real time</small>
-      </div>
-    );
-  };
-
-  const ForcePageScrollBarForModalTesting = () => {
-    return (
-      <div>
-        <div style={{ height: '100vh' }}>&nbsp;</div>
-        <p style={{ opacity: '0' }}>Bottom page</p>
       </div>
     );
   };
@@ -589,15 +590,6 @@ export const FinnishModalVersion = (args) => {
     );
   };
 
-  const ForcePageScrollBarForModalTesting = () => {
-    return (
-      <div>
-        <div style={{ height: '100vh' }}>&nbsp;</div>
-        <p style={{ opacity: '0' }}>Bottom page</p>
-      </div>
-    );
-  };
-
   const Application = () => {
     return (
       <div>
@@ -644,15 +636,6 @@ export const SimpleModalVersion = (args) => {
       onLanguageChange,
     },
     focusTargetSelector: '#focused-element-after-cookie-consent-closed',
-  };
-
-  const ForcePageScrollBarForModalTesting = () => {
-    return (
-      <div>
-        <div style={{ height: '100vh' }}>&nbsp;</div>
-        <p style={{ opacity: '0' }}>Bottom page</p>
-      </div>
-    );
   };
 
   const Application = () => {
@@ -1032,6 +1015,142 @@ export const DebugVersion = (args) => {
         <Application />
         <Modal />
       </CookieConsentContext>
+    </>
+  );
+};
+
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+export const PortalVersion = (args) => {
+  const [language, setLanguage] = useState<SupportedLanguage>('en');
+  const onLanguageChange = (newLang) => setLanguage(newLang);
+  const contentSource: ContentSource = {
+    siteName: 'Test website',
+    currentLanguage: language,
+    requiredCookies: {
+      groups: [
+        {
+          commonGroup: 'essential',
+          cookies: [
+            {
+              commonCookie: 'tunnistamo',
+            },
+            {
+              id: 'loadbalancer',
+              name: 'Load balancer',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+            {
+              commonCookie: 'language-i18n',
+            },
+          ],
+        },
+      ],
+    },
+    optionalCookies: {
+      groups: [
+        {
+          commonGroup: 'marketing',
+          cookies: [
+            {
+              commonCookie: 'marketing',
+            },
+          ],
+        },
+        {
+          commonGroup: 'preferences',
+          cookies: [
+            {
+              id: 'preferences1',
+              name: 'Preference 1',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+            {
+              id: 'preferences2',
+              name: 'Preference 2',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1 years',
+            },
+            {
+              id: 'preferences3',
+              name: 'Preference 3',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '2h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'statistics',
+          cookies: [
+            {
+              commonCookie: 'matomo',
+            },
+            {
+              id: 'someOtherConsent',
+              name: 'Other consent',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+      ],
+    },
+
+    language: {
+      onLanguageChange,
+    },
+    onAllConsentsGiven: (consents) => {
+      if (consents.matomo) {
+        //  start tracking
+        // window._paq.push(['setConsentGiven']);
+        // window._paq.push(['setCookieConsentGiven']);
+      }
+    },
+    onConsentsParsed: (consents, hasUserHandledAllConsents) => {
+      if (consents.matomo === undefined) {
+        // tell matomo to wait for consent:
+        // window._paq.push(['requireConsent']);
+        // window._paq.push(['requireCookieConsent']);
+      } else if (consents.matomo === false) {
+        // tell matomo to forget conset
+        // window._paq.push(['forgetConsentGiven']);
+      }
+      if (hasUserHandledAllConsents) {
+        // cookie consent modal will not be shown
+      }
+    },
+    focusTargetSelector: '#focused-element-after-cookie-consent-closed',
+  };
+
+  const Application = () => {
+    return (
+      <div>
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+        <h1 id={contentSource.focusTargetSelector?.replace('#', '')} tabIndex={0}>
+          This is an example application with cookie consent modal in a Portal
+        </h1>
+        <p>Modal is rendered as a first child in the DOM.</p>
+        <ForcePageScrollBarForModalTesting />
+      </div>
+    );
+  };
+
+  return (
+    <>
+      <PortalModal contentSource={contentSource} />
+      <Application />
     </>
   );
 };
