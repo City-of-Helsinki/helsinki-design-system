@@ -65,6 +65,11 @@ type CommonProps = React.PropsWithChildren<{
    */
   label?: string | React.ReactNode;
   /**
+   * The aria label of the notification region
+   * @default "Notification"
+   */
+  notificationAriaLabel?: string;
+  /**
    * Callback fired when the notification is closed
    */
   onClose?: () => void;
@@ -186,6 +191,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
       displayAutoCloseProgress = true,
       invisible = false,
       label,
+      notificationAriaLabel = 'Notification',
       position = 'inline',
       onClose = () => null,
       size = 'default',
@@ -255,7 +261,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
             boxShadow && styles.boxShadow,
             className,
           )}
-          aria-label="Notification"
+          aria-label={notificationAriaLabel}
           aria-atomic="true"
           data-testid={dataTestId}
         >
