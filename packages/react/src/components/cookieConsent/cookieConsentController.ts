@@ -47,6 +47,24 @@ function mergeConsents(set1: ConsentObject, set2: ConsentObject, set3?: ConsentO
   return { ...set1, ...set2, ...set3 };
 }
 
+function createConsentsString(consents: ConsentObject): string {
+  if (!_isObject(consents)) {
+    return '{}';
+  }
+  return JSON.stringify(consents);
+}
+
+function verifyConsentProps({ optionalConsents, requiredConsents }: ConsentControllerProps) {
+  if (!requiredConsents || !optionalConsents) {
+    return;
+  }
+  requiredConsents.forEach((consent) => {
+    if (optionalConsents.includes(consent)) {
+      throw new Error(`optional consent '${consent}' found in requiredConsents.`);
+    }
+  });
+}
+
 export function parseConsents(jsonString: string | undefined): ConsentObject {
   if (!jsonString || jsonString.length < 2 || jsonString.charAt(0) !== '{') {
     return {};
@@ -56,13 +74,6 @@ export function parseConsents(jsonString: string | undefined): ConsentObject {
   } catch (e) {
     return {};
   }
-}
-
-function createConsentsString(consents: ConsentObject): string {
-  if (!_isObject(consents)) {
-    return '{}';
-  }
-  return JSON.stringify(consents);
 }
 
 export const getCookieDomainFromUrl = (): string => {
@@ -140,17 +151,6 @@ export function createStorage(
     approve,
     reject,
   };
-}
-
-function verifyConsentProps({ optionalConsents, requiredConsents }: ConsentControllerProps) {
-  if (!requiredConsents || !optionalConsents) {
-    return;
-  }
-  requiredConsents.forEach((consent) => {
-    if (optionalConsents.includes(consent)) {
-      throw new Error(`optional consent '${consent}' found in requiredConsents.`);
-    }
-  });
 }
 
 export default function createConsentController(props: ConsentControllerProps): ConsentController {
