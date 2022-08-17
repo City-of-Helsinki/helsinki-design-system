@@ -1,13 +1,10 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { CookieConsentContext } from '../CookieConsentContext';
+import { useModalRenderChecker } from '../useModalRenderChecker';
 
 export function Portal({ rootId, children }: { rootId: string; children: React.ReactChild | React.ReactChildren }) {
-  const cookieConsentContext = useContext(CookieConsentContext);
-  const hasOnlyRequiredConsents =
-    !cookieConsentContext.content.optionalCookies || cookieConsentContext.content.optionalCookies.groups.length === 0;
-  const shouldShowModal = !hasOnlyRequiredConsents && !cookieConsentContext.hasUserHandledAllConsents();
+  const shouldShowModal = useModalRenderChecker();
 
   const containerElementRef = useRef<HTMLElement | null>(null);
   const [isDomReady, setIsDomReady] = useState<boolean>(false);
