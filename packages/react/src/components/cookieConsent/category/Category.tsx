@@ -13,7 +13,7 @@ export function Category(props: { category?: CategoryType; isRequired?: boolean 
   if (!category) {
     return null;
   }
-  const selectPercentage = cookieConsentContext.countApprovedOptional();
+  const selectPercentage = cookieConsentContext.getApprovalPercentageForOptional();
   const allApproved = isRequired || selectPercentage === 1;
   const { title, text, groups, checkboxAriaDescription } = category;
   const checked = isRequired || allApproved;

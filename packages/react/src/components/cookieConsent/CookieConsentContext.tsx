@@ -70,7 +70,7 @@ export type CookieConsentContextType = {
   hasUserHandledAllConsents: () => boolean;
   content: Content;
   onAction: CookieConsentActionListener;
-  countApprovedOptional: () => number;
+  getApprovalPercentageForOptional: () => number;
   areGroupConsentsApproved: (consents: CookieData[]) => boolean;
 };
 
@@ -94,7 +94,7 @@ export const CookieConsentContext = createContext<CookieConsentContextType>({
   hasUserHandledAllConsents: () => false,
   content: {} as Content,
   onAction: () => undefined,
-  countApprovedOptional: () => 0,
+  getApprovalPercentageForOptional: () => 0,
   areGroupConsentsApproved: () => false,
 });
 
@@ -202,7 +202,7 @@ export const Provider = ({ cookieDomain, children, contentSource }: CookieConsen
     reRender();
   };
 
-  const countApprovedOptional: CookieConsentContextType['countApprovedOptional'] = () => {
+  const getApprovalPercentageForOptional: CookieConsentContextType['getApprovalPercentageForOptional'] = () => {
     let counter = 0;
     let approved = 0;
     Object.values(consentController.getOptional()).forEach((isApproved) => {
@@ -225,7 +225,7 @@ export const Provider = ({ cookieDomain, children, contentSource }: CookieConsen
     hasUserHandledAllConsents,
     content,
     onAction,
-    countApprovedOptional,
+    getApprovalPercentageForOptional,
     areGroupConsentsApproved,
   };
   if (content.onConsentsParsed) {
