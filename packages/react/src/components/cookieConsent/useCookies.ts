@@ -3,12 +3,12 @@ import { useMemo } from 'react';
 import { ConsentObject, COOKIE_NAME, getCookieDomainFromUrl, parseConsents } from './cookieConsentController';
 import { createCookieController } from './cookieController';
 
-type ReturnType = {
+export type UseCookiesHookReturnType = {
   getAllConsents: () => ConsentObject;
   getCookie: () => string;
 };
 
-export function useCookies(props?: { cookieDomain?: string; cookieName?: string }): ReturnType {
+export function useCookies(props?: { cookieDomain?: string; cookieName?: string }): UseCookiesHookReturnType {
   const { cookieDomain, cookieName } = props || {};
   const getters = useMemo(() => {
     const cookieController = createCookieController(
