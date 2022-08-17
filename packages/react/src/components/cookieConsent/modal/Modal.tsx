@@ -58,7 +58,7 @@ export function Modal(): React.ReactElement | null {
     return () => {
       document.removeEventListener('keyup', handleEscKey);
     };
-  }, [isDomReady]);
+  }, [isDomReady, cookieConsentContext.content.focusTargetSelector]);
 
   if (showScreenReaderSaveNotification) {
     return (
