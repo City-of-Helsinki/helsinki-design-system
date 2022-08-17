@@ -3,15 +3,12 @@ import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import classNames from '../../../utils/classNames';
 import styles from '../CookieConsent.module.scss';
-import { useCookieContentContext, useUiTexts } from '../contexts/ContentContext';
-import { useCookieConsentContext } from '../contexts/ConsentContext';
+import { useUiTexts } from '../contexts/ContentContext';
 import { Content } from '../content/Content';
+import { useModalRenderChecker } from '../useModalRenderChecker';
 
 export function Modal(): React.ReactElement | null {
-  const contentContext = useCookieContentContext();
-  const consentContext = useCookieConsentContext();
-  const hasOnlyRequiredConsents = !contentContext.optionalCookies || contentContext.optionalCookies.groups.length === 0;
-  const shouldShowModal = !hasOnlyRequiredConsents && !consentContext.hasUserHandledAllConsents();
+  const shouldShowModal = useModalRenderChecker();
   const [isModalInitiallyShown] = useState<boolean>(shouldShowModal);
   const [popupTimerComplete, setPopupTimerComplete] = useState<boolean>(false);
   const popupDelayInMs = 500;
