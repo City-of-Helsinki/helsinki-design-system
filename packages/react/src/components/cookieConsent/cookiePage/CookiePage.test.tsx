@@ -5,7 +5,7 @@ import { render, RenderResult } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { COOKIE_NAME } from '../cookieConsentController';
-import { Content, CookieGroup } from '../CookieConsentContext';
+import { Content, CookieGroup } from '../contexts/ContentContext';
 import mockDocumentCookie from '../__mocks__/mockDocumentCookie';
 import {
   clickElement,
