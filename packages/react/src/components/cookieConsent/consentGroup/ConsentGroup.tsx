@@ -1,13 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
-import { CookieGroup, CookieConsentContext, useCookieConsentActions } from '../CookieConsentContext';
 import styles from '../CookieConsent.module.scss';
 import { Checkbox } from '../../checkbox/Checkbox';
 import { useAccordion } from '../../accordion';
 import { IconAngleDown, IconAngleUp } from '../../../icons';
 import { Card } from '../../card/Card';
 import { ConsentGroupDataTable } from '../consentGroupDataTable/ConsentGroupDataTable';
+import { useConsentContext, useConsentActions } from '../contexts/ConsentContext';
+import { CookieGroup } from '../contexts/ContentContext';
 
 export function ConsentGroup(props: { group: CookieGroup; isRequired: boolean; id: string }): React.ReactElement {
   const { group, isRequired, id } = props;
@@ -15,8 +16,8 @@ export function ConsentGroup(props: { group: CookieGroup; isRequired: boolean; i
     initiallyOpen: false,
   });
   const groupConsents = group.cookies;
-  const cookieConsentContext = useContext(CookieConsentContext);
-  const triggerAction = useCookieConsentActions();
+  const cookieConsentContext = useConsentContext();
+  const triggerAction = useConsentActions();
   const areAllApproved = isRequired || cookieConsentContext.areGroupConsentsApproved(groupConsents);
   const { title, text, checkboxAriaDescription, expandAriaLabel } = group;
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
