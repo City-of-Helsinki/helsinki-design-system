@@ -57,9 +57,11 @@ export const WithTruncation = (args) => (
   </>
 );
 
+WithTruncation.storyName = 'With truncation';
+
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const withoutPrevAndNextButtons = (args) => {
+export const WithoutPrevAndNextButtons = (args) => {
   return (
     <Pagination
       hideNextButton
@@ -74,7 +76,7 @@ export const withoutPrevAndNextButtons = (args) => {
   );
 };
 
-withoutPrevAndNextButtons.storyName = 'Without prev and next buttons';
+WithoutPrevAndNextButtons.storyName = 'Without prev and next buttons';
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -96,3 +98,5 @@ export const InteractableExample = (args) => {
     />
   );
 };
+
+InteractableExample.storyName = 'Interactable example';
