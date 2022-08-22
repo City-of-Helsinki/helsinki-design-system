@@ -1,19 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import styles from '../CookieConsent.module.scss';
-import { CookieConsentContext, Category as CategoryType, useCookieConsentActions } from '../CookieConsentContext';
+import { ConsentContextType } from '../contexts/ConsentContext';
+import { Category as CategoryType } from '../contexts/ContentContext';
 import { ConsentGroup } from '../consentGroup/ConsentGroup';
 import { Checkbox } from '../../checkbox/Checkbox';
 
-export function Category(props: { category?: CategoryType; isRequired?: boolean }): React.ReactElement {
-  const { category, isRequired } = props;
-  const cookieConsentContext = useContext(CookieConsentContext);
-  const triggerAction = useCookieConsentActions();
+export function Category(props: {
+  category?: CategoryType;
+  isRequired?: boolean;
+  triggerAction?: ConsentContextType['onAction'];
+  selectPercentage?: number;
+}): React.ReactElement {
+  const { category, isRequired, triggerAction, selectPercentage = -1 } = props;
   if (!category) {
     return null;
   }
-  const selectPercentage = cookieConsentContext.getApprovalPercentageForOptional();
   const allApproved = isRequired || selectPercentage === 1;
   const { title, text, groups, checkboxAriaDescription } = category;
   const checked = isRequired || allApproved;
@@ -25,7 +28,7 @@ export function Category(props: { category?: CategoryType; isRequired?: boolean 
   const checkboxId = getConsentGroupIdentifier('checkbox');
   const descriptionElementId = getConsentGroupIdentifier('description');
   const checkboxProps = {
-    onChange: isRequired ? () => undefined : () => triggerAction(checked ? 'unapproveOptional' : 'approveOptional'),
+    onChange: triggerAction ? () => triggerAction(checked ? 'unapproveOptional' : 'approveOptional') : () => undefined,
     disabled: isRequired,
     checked,
     indeterminate: isRequired ? false : !Number.isInteger(selectPercentage),
@@ -54,3 +57,5 @@ export function Category(props: { category?: CategoryType; isRequired?: boolean 
     </div>
   );
 }
+
+export const MemoizedCategory = React.memo(Category);
