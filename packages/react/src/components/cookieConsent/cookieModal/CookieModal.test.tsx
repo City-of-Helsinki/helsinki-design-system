@@ -8,7 +8,7 @@ import { act } from 'react-dom/test-utils';
 
 import { CookieModal } from './CookieModal';
 import { COOKIE_NAME } from '../cookieConsentController';
-import { Content, CookieGroup } from '../CookieConsentContext';
+import { Content, CookieGroup } from '../contexts/ContentContext';
 import mockDocumentCookie from '../__mocks__/mockDocumentCookie';
 import {
   clickElement,
