@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Pagination /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 7"
+            class="itemLink"
+            href="#"
+            title="Page 7"
+          >
+            7
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 8"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            8
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 9"
+            class="itemLink"
+            href="#"
+            title="Page 9"
+          >
+            9
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 68"
+            class="itemLink"
+            href="#"
+            title="Page 68"
+          >
+            68
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;

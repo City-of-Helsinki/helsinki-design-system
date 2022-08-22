@@ -1,0 +1,43 @@
+.container {
+  composes: hds-pagination-container from 'hds-core/lib/components/pagination/pagination.css';
+}
+
+.pagination {
+  composes: hds-pagination from 'hds-core/lib/components/pagination/pagination.css';
+
+  .buttonNext {
+    div {
+      margin-right: var(--spacing-2-xs);
+    }
+  }
+
+  .buttonPrevious {
+    div {
+      margin-left: var(--spacing-2-xs);
+    }
+  }
+}
+
+.pages {
+  composes: hds-pagination__pages from 'hds-core/lib/components/pagination/pagination.css';
+}
+
+.itemEllipsis {
+  composes: hds-pagination__item-ellipsis from 'hds-core/lib/components/pagination/pagination.css';
+}
+
+.itemLink {
+  composes: hds-pagination__item-link from 'hds-core/lib/components/pagination/pagination.css';
+}
+
+.itemLinkActive {
+  composes: hds-pagination__item-link--active from 'hds-core/lib/components/pagination/pagination.css';
+}
+
+.buttonPrevious {
+  composes: hds-pagination__button-prev from 'hds-core/lib/components/pagination/pagination.css';
+}
+
+.buttonNext {
+  composes: hds-pagination__button-next from 'hds-core/lib/components/pagination/pagination.css';
+}
