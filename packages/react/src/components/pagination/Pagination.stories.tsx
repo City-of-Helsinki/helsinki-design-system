@@ -27,14 +27,34 @@ export const Basic = (args) => (
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const WithTruncation = (args) => (
-  <Pagination
-    onChange={() => null}
-    paginationAriaLabel="Pagination"
-    pageCount={68}
-    pageIndex={7}
-    pageHref={() => '#'}
-    language="en"
-  />
+  <>
+    <Pagination
+      onChange={() => null}
+      paginationAriaLabel="Pagination"
+      pageCount={68}
+      pageIndex={7}
+      pageHref={() => '#'}
+      language="en"
+      siblingCount={0}
+    />
+    <Pagination
+      onChange={() => null}
+      paginationAriaLabel="Pagination"
+      pageCount={68}
+      pageIndex={7}
+      pageHref={() => '#'}
+      language="en"
+    />
+    <Pagination
+      onChange={() => null}
+      paginationAriaLabel="Pagination"
+      pageCount={68}
+      pageIndex={7}
+      pageHref={() => '#'}
+      language="en"
+      siblingCount={2}
+    />
+  </>
 );
 
 // args is required for docs tab to show source code
