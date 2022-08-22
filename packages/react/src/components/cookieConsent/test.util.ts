@@ -2,7 +2,7 @@
 import cookie from 'cookie';
 import { RenderResult, waitFor } from '@testing-library/react';
 
-import { CookieGroup, Content } from './CookieConsentContext';
+import { CookieGroup, Content } from './contexts/ContentContext';
 import { ConsentList, ConsentObject, COOKIE_NAME } from './cookieConsentController';
 import { CookieSetOptions } from './cookieController';
 import { MockedDocumentCookieActions } from './__mocks__/mockDocumentCookie';

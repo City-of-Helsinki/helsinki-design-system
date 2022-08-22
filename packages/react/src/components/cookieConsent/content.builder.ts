@@ -9,7 +9,8 @@ import type {
   SupportedLanguage,
   UiTexts,
   TableData,
-} from './CookieConsentContext';
+  ContentContextType,
+} from './contexts/ContentContext';
 import commonContent from './content.json';
 import { COOKIE_NAME } from './cookieConsentController';
 
@@ -47,8 +48,8 @@ export type ContentSource = {
   texts?: ContentSourceTexts;
   language?: Partial<Content['language']>;
   noCommonConsentCookie?: boolean;
-  onAllConsentsGiven?: Content['onAllConsentsGiven'];
-  onConsentsParsed?: Content['onConsentsParsed'];
+  onAllConsentsGiven?: ContentContextType['callbacks']['onAllConsentsGiven'];
+  onConsentsParsed?: ContentContextType['callbacks']['onConsentsParsed'];
   focusTargetSelector?: string;
 };
 
@@ -284,16 +285,7 @@ function buildConsentCategories(
 }
 
 export function createContent(props: ContentSource): Content {
-  const {
-    siteName,
-    language,
-    currentLanguage,
-    optionalCookies,
-    requiredCookies,
-    onConsentsParsed,
-    onAllConsentsGiven,
-    focusTargetSelector,
-  } = props;
+  const { siteName, language, currentLanguage, optionalCookies, requiredCookies, focusTargetSelector } = props;
   const content: Partial<Content> = {
     texts: getTexts(currentLanguage, siteName),
     language: getLanguage(currentLanguage, language),
@@ -314,12 +306,6 @@ export function createContent(props: ContentSource): Content {
     requiredCookies,
     consentGroups.requiredCookies,
   );
-  if (onAllConsentsGiven) {
-    content.onAllConsentsGiven = onAllConsentsGiven;
-  }
-  if (onConsentsParsed) {
-    content.onConsentsParsed = onConsentsParsed;
-  }
   return content as Content;
 }
 

@@ -1,12 +1,16 @@
 import React from 'react';
 
 import styles from '../CookieConsent.module.scss';
-import { Category } from '../category/Category';
-import { useCookieConsentContent, useCookieConsentSectionTexts } from '../CookieConsentContext';
+import { MemoizedCategory } from '../category/Category';
+import { useContentContext, useSectionTexts } from '../contexts/ContentContext';
+import { useConsentActions, useConsentContext } from '../contexts/ConsentContext';
 
 export function Details(): React.ReactElement {
-  const content = useCookieConsentContent();
-  const { title, text } = useCookieConsentSectionTexts('details');
+  const content = useContentContext();
+  const consentContext = useConsentContext();
+  const triggerAction = useConsentActions();
+  const selectPercentage = consentContext.getApprovalPercentageForOptional();
+  const { title, text } = useSectionTexts('details');
   const { requiredCookies, optionalCookies } = content;
   return (
     <div className={styles.textContent} data-testid="cookie-consent-details">
@@ -14,8 +18,8 @@ export function Details(): React.ReactElement {
         {title}
       </span>
       <p>{text}</p>
-      <Category category={requiredCookies} isRequired />
-      <Category category={optionalCookies} />
+      <MemoizedCategory category={requiredCookies} isRequired />
+      <MemoizedCategory category={optionalCookies} triggerAction={triggerAction} selectPercentage={selectPercentage} />
     </div>
   );
 }
