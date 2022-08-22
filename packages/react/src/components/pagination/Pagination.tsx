@@ -109,9 +109,23 @@ export const createPaginationItemList = ({ pageCount, pageIndex, siblingCount }:
 
 export type PaginationProps = {
   /**
-   * Number of always visible pages before and after the current page.
+   * If true, hide the previous-page button
+   * @default false
+   */
+  hidePrevButton?: boolean;
+  /**
+   * If true, hide the next-page button
+   * @default false
+   */
+  hideNextButton?: boolean;
+  /**
+   * Number of always visible pages before and after the current page
+   * @default 1
    */
   siblingCount?: number;
+  /**
+   * Callback fired when the page is changed
+   */
   onChange?: (event: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>, index: number) => void;
   paginationAriaLabel: string;
   pageHref: (index: number) => string;
@@ -121,6 +135,8 @@ export type PaginationProps = {
 };
 
 export const Pagination = ({
+  hidePrevButton = false,
+  hideNextButton = false,
   siblingCount = 1,
   onChange,
   paginationAriaLabel,
@@ -142,21 +158,23 @@ export const Pagination = ({
   return (
     <div className={styles.container}>
       <nav
-        className={styles.pagination}
+        className={classNames(styles.pagination, hideNextButton ? styles.hideNextButton : '')}
         role="navigation"
         aria-label={paginationAriaLabel}
         data-next={mapLangToNext(language)}
       >
-        <Button
-          className={styles.buttonPrevious}
-          disabled={pageIndex === 0 || pageCount === 1}
-          onClick={(event) => onChange(event, pageIndex - 1)}
-          variant="supplementary"
-          theme="black"
-          iconLeft={<IconAngleLeft />}
-        >
-          {mapLangToPrevious(language)}
-        </Button>
+        {!hidePrevButton && (
+          <Button
+            className={styles.buttonPrevious}
+            disabled={pageIndex === 0 || pageCount === 1}
+            onClick={(event) => onChange(event, pageIndex - 1)}
+            variant="supplementary"
+            theme="black"
+            iconLeft={<IconAngleLeft />}
+          >
+            {mapLangToPrevious(language)}
+          </Button>
+        )}
         <ul className={styles.pages}>
           {itemList.map((pageItem) => {
             if (pageItem === 'start-ellipsis' || pageItem === 'end-ellipsis') {
@@ -183,16 +201,18 @@ export const Pagination = ({
             );
           })}
         </ul>
-        <Button
-          className={styles.buttonNext}
-          disabled={pageIndex === pageCount - 1 || pageCount === 1}
-          onClick={(event) => onChange(event, pageIndex + 1)}
-          variant="supplementary"
-          theme="black"
-          iconRight={<IconAngleRight className={styles.angleRightIcon} />}
-        >
-          {mapLangToNext(language)}
-        </Button>
+        {!hideNextButton && (
+          <Button
+            className={styles.buttonNext}
+            disabled={pageIndex === pageCount - 1 || pageCount === 1}
+            onClick={(event) => onChange(event, pageIndex + 1)}
+            variant="supplementary"
+            theme="black"
+            iconRight={<IconAngleRight className={styles.angleRightIcon} />}
+          >
+            {mapLangToNext(language)}
+          </Button>
+        )}
       </nav>
     </div>
   );
