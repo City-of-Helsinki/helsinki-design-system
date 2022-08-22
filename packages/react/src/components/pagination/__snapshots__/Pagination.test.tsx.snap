@@ -156,3 +156,273 @@ exports[`<Pagination /> spec renders the component 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is high 1`] = `
+Array [
+  1,
+  "start-ellipsis",
+  28,
+  29,
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is high 2`] = `
+Array [
+  1,
+  "start-ellipsis",
+  26,
+  27,
+  28,
+  29,
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is high 3`] = `
+Array [
+  1,
+  "start-ellipsis",
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is high 4`] = `
+Array [
+  1,
+  "start-ellipsis",
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is high 5`] = `
+Array [
+  1,
+  "start-ellipsis",
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is high 6`] = `
+Array [
+  1,
+  "start-ellipsis",
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is in the middle 1`] = `
+Array [
+  1,
+  "start-ellipsis",
+  16,
+  "end-ellipsis",
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is in the middle 2`] = `
+Array [
+  1,
+  "start-ellipsis",
+  15,
+  16,
+  17,
+  "end-ellipsis",
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is in the middle 3`] = `
+Array [
+  1,
+  "start-ellipsis",
+  14,
+  15,
+  16,
+  17,
+  18,
+  "end-ellipsis",
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is in the middle 4`] = `
+Array [
+  1,
+  "start-ellipsis",
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  "end-ellipsis",
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is in the middle 5`] = `
+Array [
+  1,
+  "start-ellipsis",
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  "end-ellipsis",
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is in the middle 6`] = `
+Array [
+  1,
+  "start-ellipsis",
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  "end-ellipsis",
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is low 1`] = `
+Array [
+  1,
+  2,
+  3,
+  "end-ellipsis",
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is low 2`] = `
+Array [
+  1,
+  2,
+  3,
+  4,
+  5,
+  "end-ellipsis",
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is low 3`] = `
+Array [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  "end-ellipsis",
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is low 4`] = `
+Array [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  "end-ellipsis",
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is low 5`] = `
+Array [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  "end-ellipsis",
+  30,
+]
+`;
+
+exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is low 6`] = `
+Array [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  "end-ellipsis",
+  30,
+]
+`;
