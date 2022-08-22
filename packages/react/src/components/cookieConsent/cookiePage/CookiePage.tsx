@@ -2,13 +2,13 @@ import React from 'react';
 
 import { Page } from '../page/Page';
 import { ContentSource } from '../content.builder';
-import { Provider as CookieContextProvider } from '../CookieConsentContext';
+import { Context } from '../contexts/ContextComponent';
 
 export function CookiePage(props: { contentSource: ContentSource; cookieDomain?: string }): React.ReactElement | null {
   const { cookieDomain, contentSource } = props;
   return (
-    <CookieContextProvider contentSource={contentSource} cookieDomain={cookieDomain}>
+    <Context contentSource={contentSource} cookieDomain={cookieDomain}>
       <Page />
-    </CookieContextProvider>
+    </Context>
   );
 }

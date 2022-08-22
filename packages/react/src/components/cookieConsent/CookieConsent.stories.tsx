@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 
-import {
-  Category,
-  CookieData,
-  Provider as CookieContextProvider,
-  SupportedLanguage,
-  useCookieConsentContext,
-} from './CookieConsentContext';
+import { useConsentContext } from './contexts/ConsentContext';
+import { Category, CookieData, SupportedLanguage, useContentContext } from './contexts/ContentContext';
+import { Context } from './contexts/ContextComponent';
 import { CookieModal } from './cookieModal/CookieModal';
 import { CookiePage } from './cookiePage/CookiePage';
 import { ContentSource } from './content.builder';
@@ -958,8 +954,9 @@ export const DebugVersion = (args) => {
   };
 
   const Application = () => {
-    const context = useCookieConsentContext();
-    const { hasUserHandledAllConsents, content } = context;
+    const consentContext = useConsentContext();
+    const content = useContentContext();
+    const { hasUserHandledAllConsents } = consentContext;
     const { requiredCookies, optionalCookies } = content;
     const willRenderCookieConsentDialog = hasUserHandledAllConsents();
     const { getAllConsents } = useCookies();
@@ -1031,10 +1028,10 @@ export const DebugVersion = (args) => {
 
   return (
     <>
-      <CookieContextProvider contentSource={contentSource}>
+      <Context contentSource={contentSource}>
         <Application />
         <Modal />
-      </CookieContextProvider>
+      </Context>
     </>
   );
 };
