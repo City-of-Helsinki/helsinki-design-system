@@ -1,5 +1,13 @@
 .container {
   composes: hds-pagination-container from 'hds-core/lib/components/pagination/pagination.css';
+
+  .hideNextButton {
+    &:before {
+      content: '';
+      padding-left: 0;
+      line-height: 0;
+    }
+  }
 }
 
 .pagination {
