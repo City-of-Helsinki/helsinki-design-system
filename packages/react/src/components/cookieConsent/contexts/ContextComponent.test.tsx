@@ -3,11 +3,12 @@
 import React, { useContext } from 'react';
 import { render, RenderResult } from '@testing-library/react';
 
-import { ConsentList, ConsentObject, COOKIE_NAME } from './cookieConsentController';
-import { CookieConsentContext, Provider as CookieContextProvider } from './CookieConsentContext';
-import mockWindowLocation from './__mocks__/mockWindowLocation';
-import mockDocumentCookie from './__mocks__/mockDocumentCookie';
-import { extractSetCookieArguments, getContentSource } from './test.util';
+import { ConsentList, ConsentObject, COOKIE_NAME } from '../cookieConsentController';
+import { ConsentContext } from './ConsentContext';
+import { Context } from './ContextComponent';
+import mockWindowLocation from '../__mocks__/mockWindowLocation';
+import mockDocumentCookie from '../__mocks__/mockDocumentCookie';
+import { extractSetCookieArguments, getContentSource } from '../test.util';
 
 type TestConsentData = {
   requiredConsents?: ConsentList;
@@ -16,7 +17,7 @@ type TestConsentData = {
   cookieDomain?: string;
 };
 
-describe('CookieConsentContext ', () => {
+describe('ContextComponent ', () => {
   const mockedCookieControls = mockDocumentCookie();
   const mockedWindowControls = mockWindowLocation();
   const getSetCookieArguments = (index = -1) => extractSetCookieArguments(mockedCookieControls, index);
@@ -58,7 +59,7 @@ describe('CookieConsentContext ', () => {
   };
 
   const ContextConsumer = ({ consumerId }: { consumerId: string }) => {
-    const { hasUserHandledAllConsents, onAction } = useContext(CookieConsentContext);
+    const { hasUserHandledAllConsents, onAction } = useContext(ConsentContext);
     const allUserConsentsAreHandled = hasUserHandledAllConsents();
     const shouldShowCookieConsents = !allUserConsentsAreHandled;
     const onButtonClick = () => {
@@ -140,10 +141,10 @@ describe('CookieConsentContext ', () => {
     );
     mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
     return render(
-      <CookieContextProvider cookieDomain={cookieDomain} contentSource={contentSource}>
+      <Context cookieDomain={cookieDomain} contentSource={contentSource}>
         <ContextConsumer consumerId="consumer-1" />
         <ContextConsumer consumerId="consumer-2" />
-      </CookieContextProvider>,
+      </Context>,
     );
   };
 
