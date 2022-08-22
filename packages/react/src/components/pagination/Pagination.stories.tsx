@@ -40,7 +40,7 @@ export const WithTruncation = (args) => (
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const InteractableExample = (args) => {
-  const [pageIndex, setPageIndex] = useState<number>(12);
+  const [pageIndex, setPageIndex] = useState<number>(5);
 
   return (
     <Pagination
