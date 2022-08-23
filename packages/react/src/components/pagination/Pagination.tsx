@@ -127,10 +127,26 @@ export type PaginationProps = {
    * Callback fired when the page is changed
    */
   onChange?: (event: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>, index: number) => void;
+  /**
+   * Aria-label for the pagination nav element
+   */
   paginationAriaLabel: string;
+  /**
+   * A function for generating the href of pages
+   */
   pageHref: (index: number) => string;
+  /**
+   * The active page index
+   */
   pageIndex: number;
+  /**
+   * The total number of pages
+   */
   pageCount: number;
+  /**
+   * The language of the pagination component.
+   * @default fi
+   */
   language?: Language;
 };
 
