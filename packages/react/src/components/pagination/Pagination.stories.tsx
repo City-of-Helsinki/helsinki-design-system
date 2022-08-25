@@ -15,12 +15,12 @@ export default {
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const Basic = (args) => (
   <Pagination
-    onChange={() => null}
-    paginationAriaLabel="Pagination"
-    pageCount={5}
-    pageIndex={0}
-    pageHref={() => '#'}
     language="en"
+    onChange={() => null}
+    pageCount={5}
+    pageHref={() => '#'}
+    pageIndex={0}
+    paginationAriaLabel="Pagination"
   />
 );
 
@@ -29,29 +29,29 @@ export const Basic = (args) => (
 export const WithTruncation = (args) => (
   <>
     <Pagination
-      onChange={() => null}
-      paginationAriaLabel="Pagination"
-      pageCount={68}
-      pageIndex={7}
-      pageHref={() => '#'}
       language="en"
+      onChange={() => null}
+      pageCount={68}
+      pageHref={() => '#'}
+      pageIndex={7}
+      paginationAriaLabel="Pagination"
       siblingCount={0}
     />
     <Pagination
-      onChange={() => null}
-      paginationAriaLabel="Pagination"
-      pageCount={68}
-      pageIndex={7}
-      pageHref={() => '#'}
       language="en"
+      onChange={() => null}
+      pageCount={68}
+      pageHref={() => '#'}
+      pageIndex={7}
+      paginationAriaLabel="Pagination"
     />
     <Pagination
-      onChange={() => null}
-      paginationAriaLabel="Pagination"
-      pageCount={68}
-      pageIndex={7}
-      pageHref={() => '#'}
       language="en"
+      onChange={() => null}
+      pageCount={68}
+      pageHref={() => '#'}
+      pageIndex={7}
+      paginationAriaLabel="Pagination"
       siblingCount={2}
     />
   </>
@@ -66,12 +66,12 @@ export const WithoutPrevAndNextButtons = (args) => {
     <Pagination
       hideNextButton
       hidePrevButton
-      onChange={() => null}
-      paginationAriaLabel="Pagination"
-      pageCount={68}
-      pageIndex={7}
-      pageHref={() => '#'}
       language="en"
+      onChange={() => null}
+      pageCount={68}
+      pageHref={() => '#'}
+      pageIndex={7}
+      paginationAriaLabel="Pagination"
     />
   );
 };
@@ -85,16 +85,16 @@ export const InteractableExample = (args) => {
 
   return (
     <Pagination
+      language="en"
       onChange={(event, index) => {
         event.preventDefault();
         setPageIndex(index);
       }}
-      paginationAriaLabel="Pagination"
       pageCount={25}
-      pageIndex={pageIndex}
       pageHref={() => '#'}
+      pageIndex={pageIndex}
+      paginationAriaLabel="Pagination"
       siblingCount={1}
-      language="en"
     />
   );
 };
@@ -110,13 +110,15 @@ export const CustomTheme = (args) => {
 
   return (
     <Pagination
-      onChange={() => null}
-      paginationAriaLabel="Pagination"
-      pageCount={5}
-      pageIndex={0}
-      pageHref={() => '#'}
       language="en"
+      onChange={() => null}
+      pageCount={5}
+      pageHref={() => '#'}
+      pageIndex={0}
+      paginationAriaLabel="Pagination"
       theme={theme}
     />
   );
 };
+
+CustomTheme.storyName = 'Custom theme';
