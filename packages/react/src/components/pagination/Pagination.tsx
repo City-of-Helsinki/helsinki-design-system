@@ -6,6 +6,7 @@ import styles from './Pagination.module.scss';
 import classNames from '../../utils/classNames';
 import { Button } from '../button';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
+import { useTheme } from '../../hooks/useTheme';
 
 type Language = 'en' | 'fi' | 'sv';
 
@@ -107,6 +108,13 @@ export const createPaginationItemList = ({ pageCount, pageIndex, siblingCount }:
   ];
 };
 
+export interface PaginationCustomTheme {
+  /**
+   * Colour of the active page background. Use black, white or any of the brand colours.
+   */
+  '--active-page-background-color'?: string;
+}
+
 export type PaginationProps = {
   /**
    * If true, hide the previous-page button
@@ -148,6 +156,10 @@ export type PaginationProps = {
    * @default fi
    */
   language?: Language;
+  /**
+   * Theme prop for customisation of the Pagination component
+   */
+  theme?: PaginationCustomTheme;
 };
 
 export const Pagination = ({
@@ -160,12 +172,15 @@ export const Pagination = ({
   pageIndex,
   pageHref,
   language = 'fi',
+  theme,
 }: PaginationProps) => {
   const itemList = useMemo(() => createPaginationItemList({ pageCount, pageIndex, siblingCount }), [
     pageCount,
     pageIndex,
     siblingCount,
   ]);
+
+  const customThemeClass = useTheme<PaginationCustomTheme>(styles.pagination, theme);
 
   if (pageCount <= 0) {
     return null;
@@ -174,7 +189,7 @@ export const Pagination = ({
   return (
     <div className={styles.container}>
       <nav
-        className={classNames(styles.pagination, hideNextButton ? styles.hideNextButton : '')}
+        className={classNames(styles.pagination, customThemeClass, hideNextButton ? styles.hideNextButton : '')}
         role="navigation"
         aria-label={paginationAriaLabel}
         data-next={mapLangToNext(language)}

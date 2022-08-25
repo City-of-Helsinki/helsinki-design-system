@@ -100,3 +100,23 @@ export const InteractableExample = (args) => {
 };
 
 InteractableExample.storyName = 'Interactable example';
+
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+export const CustomTheme = (args) => {
+  const theme = {
+    '--active-page-background-color': 'var(--color-bus)',
+  };
+
+  return (
+    <Pagination
+      onChange={() => null}
+      paginationAriaLabel="Pagination"
+      pageCount={5}
+      pageIndex={0}
+      pageHref={() => '#'}
+      language="en"
+      theme={theme}
+    />
+  );
+};
