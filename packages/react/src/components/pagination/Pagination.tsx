@@ -117,28 +117,28 @@ export interface PaginationCustomTheme {
 
 export type PaginationProps = {
   /**
-   * If true, hide the previous-page button
-   * @default false
-   */
-  hidePrevButton?: boolean;
-  /**
    * If true, hide the next-page button
    * @default false
    */
   hideNextButton?: boolean;
   /**
-   * Number of always visible pages before and after the current page
-   * @default 1
+   * If true, hide the previous-page button
+   * @default false
    */
-  siblingCount?: number;
+  hidePrevButton?: boolean;
+  /**
+   * The language of the pagination component.
+   * @default fi
+   */
+  language?: Language;
   /**
    * Callback fired when the page is changed
    */
   onChange?: (event: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>, index: number) => void;
   /**
-   * Aria-label for the pagination nav element
+   * The total number of pages
    */
-  paginationAriaLabel: string;
+  pageCount: number;
   /**
    * A function for generating the href of pages
    */
@@ -148,14 +148,14 @@ export type PaginationProps = {
    */
   pageIndex: number;
   /**
-   * The total number of pages
+   * Aria-label for the pagination nav element
    */
-  pageCount: number;
+  paginationAriaLabel: string;
   /**
-   * The language of the pagination component.
-   * @default fi
+   * Number of always visible pages before and after the current page
+   * @default 1
    */
-  language?: Language;
+  siblingCount?: number;
   /**
    * Theme prop for customisation of the Pagination component
    */
@@ -163,15 +163,15 @@ export type PaginationProps = {
 };
 
 export const Pagination = ({
-  hidePrevButton = false,
   hideNextButton = false,
-  siblingCount = 1,
-  onChange,
-  paginationAriaLabel,
-  pageCount,
-  pageIndex,
-  pageHref,
+  hidePrevButton = false,
   language = 'fi',
+  onChange,
+  pageCount,
+  pageHref,
+  pageIndex,
+  paginationAriaLabel,
+  siblingCount = 1,
   theme,
 }: PaginationProps) => {
   const itemList = useMemo(() => createPaginationItemList({ pageCount, pageIndex, siblingCount }), [
