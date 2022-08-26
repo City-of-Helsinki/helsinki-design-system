@@ -2,7 +2,9 @@
 slug: '/components/pagination/code'
 title: 'Pagination - Code'
 ---
+import { useState } from 'react';
 import { withPrefix } from 'gatsby';
+export { Pagination } from 'hds-react';
 import Playground from '../../../components/Playground';
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
@@ -15,6 +17,26 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Basic
 <Playground>
+
+```jsx
+{() => {
+  const [pageIndex, setPageIndex] = useState(0);
+  return (
+    <Pagination
+      language="en"
+      onChange={(event, index) => {
+        event.preventDefault();
+        setPageIndex(index);
+      }}
+      pageCount={9}
+      pageHref={() => '#'}
+      pageIndex={pageIndex}
+      paginationAriaLabel="Pagination 1"
+      siblingCount={9}
+    />
+  );
+}}
+```
 
 ```html
 <div class="hds-pagination-container">
@@ -83,6 +105,26 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 #### With truncation
 <Playground>
 
+```jsx
+{() => {
+  const [pageIndex, setPageIndex] = useState(31);
+  return (
+    <Pagination
+      language="en"
+      onChange={(event, index) => {
+        event.preventDefault();
+        setPageIndex(index);
+      }}
+      pageCount={68}
+      pageHref={() => '#'}
+      pageIndex={pageIndex}
+      paginationAriaLabel="Pagination 2"
+      siblingCount={2}
+    />
+  );
+}}
+```
+
 ```html
 <div class="hds-pagination-container">
   <nav class="hds-pagination" role="navigation" aria-label="Pagination" data-next="Next">
@@ -143,6 +185,33 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     </button>
   </nav>
 </div>
+```
+
+</Playground>
+
+#### Without previous and next buttons
+<Playground>
+
+```jsx
+{() => {
+  const [pageIndex, setPageIndex] = useState(31);
+  return (
+    <Pagination
+      hideNextButton
+      hidePrevButton
+      language="en"
+      onChange={(event, index) => {
+        event.preventDefault();
+        setPageIndex(index);
+      }}
+      pageCount={68}
+      pageHref={() => '#'}
+      pageIndex={pageIndex}
+      paginationAriaLabel="Pagination 3"
+      siblingCount={2}
+    />
+  );
+}}
 ```
 
 </Playground>
