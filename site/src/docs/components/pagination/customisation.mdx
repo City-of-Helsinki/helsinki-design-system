@@ -10,16 +10,39 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ## Customisation
 
 ### Customisation variables
-You can use the `style` variables to customise the component. See all available theme variables in the table below.
+You can use the `theme` variables to customise the component. See all available theme variables in the table below.
 
 | Theme variable                     | Description                                                                         |
 | ---------------------------------- | ----------------------------------------------------------------------------------- |
 | `--active-page-background-color`   | Colour of the active page background. Use black, white or any of the brand colours. |
-[Table 1:Pagination style variables]|
+[Table 1:Pagination theme variables]|
 
 ### Customisation example
 <Playground>
 
+```jsx
+{() => {
+  const [pageIndex, setPageIndex] = useState(0);
+  const theme = {
+    '--active-page-background-color': 'var(--color-bus)',
+  };
+  return (
+    <Pagination
+      language="en"
+      onChange={(event, index) => {
+        event.preventDefault();
+        setPageIndex(index);
+      }}
+      pageCount={9}
+      pageHref={() => '#'}
+      pageIndex={pageIndex}
+      paginationAriaLabel="Pagination 1"
+      siblingCount={9}
+      theme={theme}
+    />
+  );
+}}
+```
 
 ```html
 <style scoped>
