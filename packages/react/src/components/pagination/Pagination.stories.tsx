@@ -34,7 +34,7 @@ export const WithTruncation = (args) => (
       pageCount={68}
       pageHref={() => '#'}
       pageIndex={7}
-      paginationAriaLabel="Pagination"
+      paginationAriaLabel="Pagination 1"
       siblingCount={0}
     />
     <Pagination
@@ -43,7 +43,7 @@ export const WithTruncation = (args) => (
       pageCount={68}
       pageHref={() => '#'}
       pageIndex={7}
-      paginationAriaLabel="Pagination"
+      paginationAriaLabel="Pagination 2"
     />
     <Pagination
       language="en"
@@ -51,7 +51,7 @@ export const WithTruncation = (args) => (
       pageCount={68}
       pageHref={() => '#'}
       pageIndex={7}
-      paginationAriaLabel="Pagination"
+      paginationAriaLabel="Pagination 3"
       siblingCount={2}
     />
   </>
