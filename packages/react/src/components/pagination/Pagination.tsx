@@ -65,7 +65,16 @@ const range = (start, end) => {
   return Array.from({ length }, (_, i) => start + i);
 };
 
-export const createPaginationItemList = ({ pageCount, pageIndex, siblingCount }: Partial<PaginationProps>) => {
+enum Ellipsis {
+  start = 'start-ellipsis',
+  end = 'end-ellipsis',
+}
+
+export const createPaginationItemList = ({
+  pageCount,
+  pageIndex,
+  siblingCount,
+}: Partial<PaginationProps>): (Ellipsis | number)[] => {
   const endPages = range(Math.max(pageCount, 2), pageCount);
   const startPages = range(1, Math.min(1, pageCount));
 
@@ -208,7 +217,7 @@ export const Pagination = ({
         )}
         <ul className={styles.pages}>
           {itemList.map((pageItem) => {
-            if (pageItem === 'start-ellipsis' || pageItem === 'end-ellipsis') {
+            if (pageItem === Ellipsis.start || pageItem === Ellipsis.end) {
               return (
                 <li key={pageItem}>
                   <span className={styles.itemEllipsis}>...</span>
@@ -220,10 +229,10 @@ export const Pagination = ({
               <li key={pageItem}>
                 <a
                   className={classNames(styles.itemLink, pageIndex + 1 === pageItem ? styles.itemLinkActive : '')}
-                  href={pageHref(pageItem)}
-                  onClick={onChange ? (event) => onChange(event, pageItem - 1) : undefined}
-                  title={mapLangToPageTitle(pageItem, language, pageItem === pageIndex + 1)}
-                  aria-label={mapLangToPageAriaLabel(pageItem, language)}
+                  href={pageHref(pageItem as number)}
+                  onClick={onChange ? (event) => onChange(event, (pageItem as number) - 1) : undefined}
+                  title={mapLangToPageTitle(pageItem as number, language, pageItem === pageIndex + 1)}
+                  aria-label={mapLangToPageAriaLabel(pageItem as number, language)}
                   aria-current={pageIndex + 1 === pageItem ? 'page' : false}
                 >
                   {pageItem}
