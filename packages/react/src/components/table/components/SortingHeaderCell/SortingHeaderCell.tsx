@@ -17,6 +17,7 @@ export type SortingHeaderCellProps = React.ComponentPropsWithoutRef<'th'> & {
   ariaLabelSortButtonDescending: string;
   colKey: string;
   setSortingAndOrder: (colKey: string) => void;
+  onSort?: ({ direction, colKey }: { direction: string; colKey: string }) => void;
   order: 'unset' | 'asc' | 'desc';
   title: string;
   sortIconType: 'string' | 'other';
@@ -54,6 +55,14 @@ const renderSortIcon = ({
   return <IconSortDescending className={styles.sortIcon} aria-label={ariaLabelSortButtonDescending} />;
 };
 
+const resolveNewOrder = ({ previousOrder }) => {
+  if (previousOrder === 'unset') {
+    return 'asc';
+  }
+
+  return previousOrder === 'desc' ? 'asc' : 'desc';
+};
+
 export const SortingHeaderCell = ({
   ariaLabelSortButtonUnset,
   ariaLabelSortButtonAscending,
@@ -61,6 +70,7 @@ export const SortingHeaderCell = ({
   colKey,
   title,
   setSortingAndOrder,
+  onSort,
   order = 'unset',
   sortIconType = 'string',
   ...rest
@@ -76,6 +86,9 @@ export const SortingHeaderCell = ({
             // Prevent default to not submit form if we happen to be inside form
             event.preventDefault();
             setSortingAndOrder(colKey);
+            if (onSort) {
+              onSort({ direction: resolveNewOrder({ previousOrder: order }), colKey });
+            }
           }}
         >
           <span>{title}</span>
