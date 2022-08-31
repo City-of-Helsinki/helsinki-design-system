@@ -130,3 +130,52 @@ export const CustomTheme = (args) => {
 };
 
 CustomTheme.storyName = 'Custom theme';
+
+export const Playground = (args) => {
+  const [pageIndex, setPageIndex] = useState<number>(7);
+
+  return (
+    <Pagination
+      hideNextButton={args.hideNextButton}
+      hidePrevButton={args.hidePrevButton}
+      language={args.language}
+      onChange={(event, index) => {
+        event.preventDefault();
+        setPageIndex(index);
+      }}
+      pageCount={args.pageCount}
+      pageHref={() => '#'}
+      pageIndex={pageIndex}
+      paginationAriaLabel={args.paginationAriaLabel}
+      siblingCount={args.siblingCount}
+    />
+  );
+};
+
+Playground.parameters = {
+  previewTabs: {
+    'storybook/docs/panel': {
+      hidden: true,
+    },
+  },
+  docs: {
+    disable: true,
+  },
+  loki: { skip: true },
+};
+
+Playground.args = {
+  hideNextButton: false,
+  hidePrevButton: false,
+  language: 'en',
+  pageCount: 68,
+  siblingCount: 2,
+  paginationAriaLabel: 'Pagination',
+};
+
+Playground.argTypes = {
+  language: {
+    options: ['fi', 'en', 'sv'],
+    control: { type: 'radio' },
+  },
+};
