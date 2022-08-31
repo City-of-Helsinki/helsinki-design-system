@@ -139,6 +139,12 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
    */
   initialSortingOrder?: 'asc' | 'desc';
   /**
+   * Callback function that is called when sorting is applied.
+   * @param direction
+   * @param colKey
+   */
+  onSort?: ({ direction, colKey }: { direction: string; colKey: string }) => void;
+  /**
    * Boolean indicating whether index column is rendered in the table.
    * @default true
    */
@@ -254,6 +260,7 @@ export const Table = ({
   indexKey,
   initialSortingColumnKey,
   initialSortingOrder,
+  onSort,
   renderIndexCol = true,
   rows,
   selectAllRowsText = 'Valitse kaikki rivit',
@@ -400,6 +407,7 @@ export const Table = ({
                     ariaLabelSortButtonAscending={ariaLabelSortButtonAscending}
                     ariaLabelSortButtonDescending={ariaLabelSortButtonDescending}
                     setSortingAndOrder={setSortingAndOrder}
+                    onSort={onSort}
                     order={sorting === column.key ? order : 'unset'}
                     sortIconType={column.sortIconType}
                   />
