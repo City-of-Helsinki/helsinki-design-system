@@ -157,272 +157,3577 @@ exports[`<Pagination /> spec renders the component 1`] = `
 </DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is high 1`] = `
-Array [
-  1,
-  "start-ellipsis",
-  28,
-  29,
-  30,
-]
+exports[`<Pagination /> spec should render null when pageCount is zero 1`] = `<DocumentFragment />`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is high 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 28"
+            class="itemLink"
+            href="#"
+            title="Page 28"
+          >
+            28
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 29"
+            class="itemLink"
+            href="#"
+            title="Page 29"
+          >
+            29
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is high 2`] = `
-Array [
-  1,
-  "start-ellipsis",
-  26,
-  27,
-  28,
-  29,
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is high 2`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 26"
+            class="itemLink"
+            href="#"
+            title="Page 26"
+          >
+            26
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 27"
+            class="itemLink"
+            href="#"
+            title="Page 27"
+          >
+            27
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 28"
+            class="itemLink"
+            href="#"
+            title="Page 28"
+          >
+            28
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 29"
+            class="itemLink"
+            href="#"
+            title="Page 29"
+          >
+            29
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 30"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        aria-disabled="true"
+        class="button supplementary theme-black size-default buttonNext"
+        disabled=""
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is high 3`] = `
-Array [
-  1,
-  "start-ellipsis",
-  24,
-  25,
-  26,
-  27,
-  28,
-  29,
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is high 3`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 24"
+            class="itemLink"
+            href="#"
+            title="Page 24"
+          >
+            24
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 25"
+            class="itemLink"
+            href="#"
+            title="Page 25"
+          >
+            25
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 26"
+            class="itemLink"
+            href="#"
+            title="Page 26"
+          >
+            26
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 27"
+            class="itemLink"
+            href="#"
+            title="Page 27"
+          >
+            27
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 28"
+            class="itemLink"
+            href="#"
+            title="Page 28"
+          >
+            28
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 29"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            29
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is high 4`] = `
-Array [
-  1,
-  "start-ellipsis",
-  22,
-  23,
-  24,
-  25,
-  26,
-  27,
-  28,
-  29,
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is high 4`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 22"
+            class="itemLink"
+            href="#"
+            title="Page 22"
+          >
+            22
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 23"
+            class="itemLink"
+            href="#"
+            title="Page 23"
+          >
+            23
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 24"
+            class="itemLink"
+            href="#"
+            title="Page 24"
+          >
+            24
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 25"
+            class="itemLink"
+            href="#"
+            title="Page 25"
+          >
+            25
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 26"
+            class="itemLink"
+            href="#"
+            title="Page 26"
+          >
+            26
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 27"
+            class="itemLink"
+            href="#"
+            title="Page 27"
+          >
+            27
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 28"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            28
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 29"
+            class="itemLink"
+            href="#"
+            title="Page 29"
+          >
+            29
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is high 5`] = `
-Array [
-  1,
-  "start-ellipsis",
-  20,
-  21,
-  22,
-  23,
-  24,
-  25,
-  26,
-  27,
-  28,
-  29,
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is high 5`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 20"
+            class="itemLink"
+            href="#"
+            title="Page 20"
+          >
+            20
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 21"
+            class="itemLink"
+            href="#"
+            title="Page 21"
+          >
+            21
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 22"
+            class="itemLink"
+            href="#"
+            title="Page 22"
+          >
+            22
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 23"
+            class="itemLink"
+            href="#"
+            title="Page 23"
+          >
+            23
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 24"
+            class="itemLink"
+            href="#"
+            title="Page 24"
+          >
+            24
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 25"
+            class="itemLink"
+            href="#"
+            title="Page 25"
+          >
+            25
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 26"
+            class="itemLink"
+            href="#"
+            title="Page 26"
+          >
+            26
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 27"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            27
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 28"
+            class="itemLink"
+            href="#"
+            title="Page 28"
+          >
+            28
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 29"
+            class="itemLink"
+            href="#"
+            title="Page 29"
+          >
+            29
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is high 6`] = `
-Array [
-  1,
-  "start-ellipsis",
-  18,
-  19,
-  20,
-  21,
-  22,
-  23,
-  24,
-  25,
-  26,
-  27,
-  28,
-  29,
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is high 6`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 18"
+            class="itemLink"
+            href="#"
+            title="Page 18"
+          >
+            18
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 19"
+            class="itemLink"
+            href="#"
+            title="Page 19"
+          >
+            19
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 20"
+            class="itemLink"
+            href="#"
+            title="Page 20"
+          >
+            20
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 21"
+            class="itemLink"
+            href="#"
+            title="Page 21"
+          >
+            21
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 22"
+            class="itemLink"
+            href="#"
+            title="Page 22"
+          >
+            22
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 23"
+            class="itemLink"
+            href="#"
+            title="Page 23"
+          >
+            23
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 24"
+            class="itemLink"
+            href="#"
+            title="Page 24"
+          >
+            24
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 25"
+            class="itemLink"
+            href="#"
+            title="Page 25"
+          >
+            25
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 26"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            26
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 27"
+            class="itemLink"
+            href="#"
+            title="Page 27"
+          >
+            27
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 28"
+            class="itemLink"
+            href="#"
+            title="Page 28"
+          >
+            28
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 29"
+            class="itemLink"
+            href="#"
+            title="Page 29"
+          >
+            29
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is in the middle 1`] = `
-Array [
-  1,
-  "start-ellipsis",
-  16,
-  "end-ellipsis",
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is in the middle 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 16"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            16
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is in the middle 2`] = `
-Array [
-  1,
-  "start-ellipsis",
-  15,
-  16,
-  17,
-  "end-ellipsis",
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is in the middle 2`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 15"
+            class="itemLink"
+            href="#"
+            title="Page 15"
+          >
+            15
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 16"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            16
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 17"
+            class="itemLink"
+            href="#"
+            title="Page 17"
+          >
+            17
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is in the middle 3`] = `
-Array [
-  1,
-  "start-ellipsis",
-  14,
-  15,
-  16,
-  17,
-  18,
-  "end-ellipsis",
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is in the middle 3`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 14"
+            class="itemLink"
+            href="#"
+            title="Page 14"
+          >
+            14
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 15"
+            class="itemLink"
+            href="#"
+            title="Page 15"
+          >
+            15
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 16"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            16
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 17"
+            class="itemLink"
+            href="#"
+            title="Page 17"
+          >
+            17
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 18"
+            class="itemLink"
+            href="#"
+            title="Page 18"
+          >
+            18
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is in the middle 4`] = `
-Array [
-  1,
-  "start-ellipsis",
-  13,
-  14,
-  15,
-  16,
-  17,
-  18,
-  19,
-  "end-ellipsis",
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is in the middle 4`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 13"
+            class="itemLink"
+            href="#"
+            title="Page 13"
+          >
+            13
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 14"
+            class="itemLink"
+            href="#"
+            title="Page 14"
+          >
+            14
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 15"
+            class="itemLink"
+            href="#"
+            title="Page 15"
+          >
+            15
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 16"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            16
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 17"
+            class="itemLink"
+            href="#"
+            title="Page 17"
+          >
+            17
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 18"
+            class="itemLink"
+            href="#"
+            title="Page 18"
+          >
+            18
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 19"
+            class="itemLink"
+            href="#"
+            title="Page 19"
+          >
+            19
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is in the middle 5`] = `
-Array [
-  1,
-  "start-ellipsis",
-  12,
-  13,
-  14,
-  15,
-  16,
-  17,
-  18,
-  19,
-  20,
-  "end-ellipsis",
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is in the middle 5`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 12"
+            class="itemLink"
+            href="#"
+            title="Page 12"
+          >
+            12
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 13"
+            class="itemLink"
+            href="#"
+            title="Page 13"
+          >
+            13
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 14"
+            class="itemLink"
+            href="#"
+            title="Page 14"
+          >
+            14
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 15"
+            class="itemLink"
+            href="#"
+            title="Page 15"
+          >
+            15
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 16"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            16
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 17"
+            class="itemLink"
+            href="#"
+            title="Page 17"
+          >
+            17
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 18"
+            class="itemLink"
+            href="#"
+            title="Page 18"
+          >
+            18
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 19"
+            class="itemLink"
+            href="#"
+            title="Page 19"
+          >
+            19
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 20"
+            class="itemLink"
+            href="#"
+            title="Page 20"
+          >
+            20
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is in the middle 6`] = `
-Array [
-  1,
-  "start-ellipsis",
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  17,
-  18,
-  19,
-  20,
-  21,
-  "end-ellipsis",
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is in the middle 6`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 11"
+            class="itemLink"
+            href="#"
+            title="Page 11"
+          >
+            11
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 12"
+            class="itemLink"
+            href="#"
+            title="Page 12"
+          >
+            12
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 13"
+            class="itemLink"
+            href="#"
+            title="Page 13"
+          >
+            13
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 14"
+            class="itemLink"
+            href="#"
+            title="Page 14"
+          >
+            14
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 15"
+            class="itemLink"
+            href="#"
+            title="Page 15"
+          >
+            15
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 16"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            16
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 17"
+            class="itemLink"
+            href="#"
+            title="Page 17"
+          >
+            17
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 18"
+            class="itemLink"
+            href="#"
+            title="Page 18"
+          >
+            18
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 19"
+            class="itemLink"
+            href="#"
+            title="Page 19"
+          >
+            19
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 20"
+            class="itemLink"
+            href="#"
+            title="Page 20"
+          >
+            20
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 21"
+            class="itemLink"
+            href="#"
+            title="Page 21"
+          >
+            21
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is low 1`] = `
-Array [
-  1,
-  2,
-  3,
-  "end-ellipsis",
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is low 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 2"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            2
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 3"
+            class="itemLink"
+            href="#"
+            title="Page 3"
+          >
+            3
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is low 2`] = `
-Array [
-  1,
-  2,
-  3,
-  4,
-  5,
-  "end-ellipsis",
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is low 2`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 2"
+            class="itemLink"
+            href="#"
+            title="Page 2"
+          >
+            2
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 3"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            3
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 4"
+            class="itemLink"
+            href="#"
+            title="Page 4"
+          >
+            4
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 5"
+            class="itemLink"
+            href="#"
+            title="Page 5"
+          >
+            5
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is low 3`] = `
-Array [
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  "end-ellipsis",
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is low 3`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 2"
+            class="itemLink"
+            href="#"
+            title="Page 2"
+          >
+            2
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 3"
+            class="itemLink"
+            href="#"
+            title="Page 3"
+          >
+            3
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 4"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            4
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 5"
+            class="itemLink"
+            href="#"
+            title="Page 5"
+          >
+            5
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 6"
+            class="itemLink"
+            href="#"
+            title="Page 6"
+          >
+            6
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 7"
+            class="itemLink"
+            href="#"
+            title="Page 7"
+          >
+            7
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is low 4`] = `
-Array [
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  "end-ellipsis",
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is low 4`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 2"
+            class="itemLink"
+            href="#"
+            title="Page 2"
+          >
+            2
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 3"
+            class="itemLink"
+            href="#"
+            title="Page 3"
+          >
+            3
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 4"
+            class="itemLink"
+            href="#"
+            title="Page 4"
+          >
+            4
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 5"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            5
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 6"
+            class="itemLink"
+            href="#"
+            title="Page 6"
+          >
+            6
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 7"
+            class="itemLink"
+            href="#"
+            title="Page 7"
+          >
+            7
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 8"
+            class="itemLink"
+            href="#"
+            title="Page 8"
+          >
+            8
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 9"
+            class="itemLink"
+            href="#"
+            title="Page 9"
+          >
+            9
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is low 5`] = `
-Array [
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  "end-ellipsis",
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is low 5`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 2"
+            class="itemLink"
+            href="#"
+            title="Page 2"
+          >
+            2
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 3"
+            class="itemLink"
+            href="#"
+            title="Page 3"
+          >
+            3
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 4"
+            class="itemLink"
+            href="#"
+            title="Page 4"
+          >
+            4
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 5"
+            class="itemLink"
+            href="#"
+            title="Page 5"
+          >
+            5
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 6"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            6
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 7"
+            class="itemLink"
+            href="#"
+            title="Page 7"
+          >
+            7
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 8"
+            class="itemLink"
+            href="#"
+            title="Page 8"
+          >
+            8
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 9"
+            class="itemLink"
+            href="#"
+            title="Page 9"
+          >
+            9
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 10"
+            class="itemLink"
+            href="#"
+            title="Page 10"
+          >
+            10
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 11"
+            class="itemLink"
+            href="#"
+            title="Page 11"
+          >
+            11
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
 
-exports[`createPaginationItemList should create pagination item list correctly with different sibling counts when selected page is low 6`] = `
-Array [
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  "end-ellipsis",
-  30,
-]
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is low 6`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 2"
+            class="itemLink"
+            href="#"
+            title="Page 2"
+          >
+            2
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 3"
+            class="itemLink"
+            href="#"
+            title="Page 3"
+          >
+            3
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 4"
+            class="itemLink"
+            href="#"
+            title="Page 4"
+          >
+            4
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 5"
+            class="itemLink"
+            href="#"
+            title="Page 5"
+          >
+            5
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 6"
+            class="itemLink"
+            href="#"
+            title="Page 6"
+          >
+            6
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 7"
+            class="itemLink itemLinkActive"
+            href="#"
+            title="Current page"
+          >
+            7
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 8"
+            class="itemLink"
+            href="#"
+            title="Page 8"
+          >
+            8
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 9"
+            class="itemLink"
+            href="#"
+            title="Page 9"
+          >
+            9
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 10"
+            class="itemLink"
+            href="#"
+            title="Page 10"
+          >
+            10
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 11"
+            class="itemLink"
+            href="#"
+            title="Page 11"
+          >
+            11
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 12"
+            class="itemLink"
+            href="#"
+            title="Page 12"
+          >
+            12
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 13"
+            class="itemLink"
+            href="#"
+            title="Page 13"
+          >
+            13
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should return only first page when page count is 1 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      role="navigation"
+    >
+      <button
+        aria-disabled="true"
+        class="button supplementary theme-black size-default buttonPrevious"
+        disabled=""
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+      </ul>
+      <button
+        aria-disabled="true"
+        class="button supplementary theme-black size-default buttonNext"
+        disabled=""
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
 `;
