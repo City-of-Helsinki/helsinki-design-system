@@ -36,7 +36,7 @@ yarn build
 
 4. Install local dependencies.
 ```
-cd new-site
+cd site
 yarn
 ```
 
