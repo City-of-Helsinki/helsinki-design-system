@@ -70,7 +70,7 @@ enum Ellipsis {
   end = 'end-ellipsis',
 }
 
-export const createPaginationItemList = ({
+const createPaginationItemList = ({
   pageCount,
   pageIndex,
   siblingCount,
