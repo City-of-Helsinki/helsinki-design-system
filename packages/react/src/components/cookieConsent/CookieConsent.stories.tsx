@@ -974,7 +974,7 @@ export const DebugVersion = (args) => {
           <ul>
             {getCategoryCookies(requiredCookies).map((cookie) => {
               return (
-                <li>
+                <li key={cookie.id}>
                   <strong>{cookie.id}</strong> has consent stored in cookie: {String(getConsentStatus(cookie.id))}
                 </li>
               );
@@ -986,7 +986,7 @@ export const DebugVersion = (args) => {
           <ul>
             {getCategoryCookies(optionalCookies).map((cookie) => {
               return (
-                <li>
+                <li key={cookie.id}>
                   <strong>{cookie.id}</strong> has consent: {String(getConsentStatus(cookie.id))}
                 </li>
               );
@@ -998,7 +998,7 @@ export const DebugVersion = (args) => {
           <ul>
             {Object.keys(storedConsents).map((cookieId) => {
               return (
-                <li>
+                <li key={cookieId}>
                   <strong>{cookieId}</strong>: {String(getConsentStatus(cookieId))}
                 </li>
               );
