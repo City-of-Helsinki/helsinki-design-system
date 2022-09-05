@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useCookieConsentContext } from './contexts/ConsentContext';
 import { Category, CookieData, SupportedLanguage, useCookieContentContext } from './contexts/ContentContext';
 import { CookieConsentContext } from './contexts/ContextComponent';
-import { CookieModal } from './cookieModal/CookieModal';
 import { CookiePage } from './cookiePage/CookiePage';
 import { CookieContentSource } from './content.builder';
 import { Modal } from './modal/Modal';
@@ -12,7 +11,7 @@ import { useCookies } from './useCookies';
 import { PortalModal } from './portalModal/PortalModal';
 
 export default {
-  component: CookieModal,
+  component: PortalModal,
   title: 'Components/CookieConsent',
   parameters: {
     controls: { expanded: true },
@@ -32,7 +31,7 @@ const ForcePageScrollBarForModalTesting = () => {
 
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const ModalVersion = (args) => {
+export const EnglishModalVersion = (args) => {
   const [language, setLanguage] = useState<SupportedLanguage>('en');
   const onLanguageChange = (newLang) => setLanguage(newLang);
   const contentSource: CookieContentSource = {
@@ -293,7 +292,7 @@ export const ModalVersion = (args) => {
     return (
       <div>
         <p>Example how to track single consent.</p>
-        <p>Matomo cookie is {!isMatomoCookieApproved && <strong>NOT</strong>} set.*</p>
+        <p>Matomo onConsentsParsed is {!isMatomoCookieApproved && <strong>NOT</strong>} set.*</p>
         <small>* This won&apos;t change in real time</small>
       </div>
     );
@@ -316,7 +315,7 @@ export const ModalVersion = (args) => {
 
   return (
     <>
-      <CookieModal contentSource={contentSource} />
+      <PortalModal contentSource={contentSource} />
       <Application />
     </>
   );
@@ -584,8 +583,8 @@ export const FinnishModalVersion = (args) => {
     const isMatomoCookieApproved = getConsentStatus('matomo');
     return (
       <div>
-        <p>Esimerkki kuinka seurata yhden keksin hyväksyntää</p>
-        <p>Matomo keksi {isMatomoCookieApproved ? 'on' : <strong>EI OLE </strong>} asetettu.*</p>
+        <p>Esimerkki kuinka seurata yhden keksin suostumusta</p>
+        <p>Matomo suostumusta {isMatomoCookieApproved ? 'on' : <strong>EI OLE </strong>} asetettu.*</p>
         <small>* Tämä ei päivity reaaliajassa</small>
       </div>
     );
@@ -611,7 +610,7 @@ export const FinnishModalVersion = (args) => {
 
   return (
     <>
-      <CookieModal contentSource={contentSource} />
+      <PortalModal contentSource={contentSource} />
       <Application />
     </>
   );
@@ -656,7 +655,7 @@ export const SimpleModalVersion = (args) => {
 
   return (
     <>
-      <CookieModal contentSource={contentSource} />
+      <PortalModal contentSource={contentSource} />
       <Application />
     </>
   );
@@ -1016,142 +1015,6 @@ export const DebugVersion = (args) => {
         <Application />
         <Modal />
       </CookieConsentContext>
-    </>
-  );
-};
-
-// args is required for docs tab to show source code
-// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const PortalVersion = (args) => {
-  const [language, setLanguage] = useState<SupportedLanguage>('en');
-  const onLanguageChange = (newLang) => setLanguage(newLang);
-  const contentSource: ContentSource = {
-    siteName: 'Test website',
-    currentLanguage: language,
-    requiredCookies: {
-      groups: [
-        {
-          commonGroup: 'essential',
-          cookies: [
-            {
-              commonCookie: 'tunnistamo',
-            },
-            {
-              id: 'loadbalancer',
-              name: 'Load balancer',
-              hostName: 'Host name',
-              description:
-                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
-              expiration: '1h',
-            },
-            {
-              commonCookie: 'language-i18n',
-            },
-          ],
-        },
-      ],
-    },
-    optionalCookies: {
-      groups: [
-        {
-          commonGroup: 'marketing',
-          cookies: [
-            {
-              commonCookie: 'marketing',
-            },
-          ],
-        },
-        {
-          commonGroup: 'preferences',
-          cookies: [
-            {
-              id: 'preferences1',
-              name: 'Preference 1',
-              hostName: 'Host name',
-              description:
-                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
-              expiration: '1h',
-            },
-            {
-              id: 'preferences2',
-              name: 'Preference 2',
-              hostName: 'Host name',
-              description:
-                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
-              expiration: '1 years',
-            },
-            {
-              id: 'preferences3',
-              name: 'Preference 3',
-              hostName: 'Host name',
-              description:
-                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
-              expiration: '2h',
-            },
-          ],
-        },
-        {
-          commonGroup: 'statistics',
-          cookies: [
-            {
-              commonCookie: 'matomo',
-            },
-            {
-              id: 'someOtherConsent',
-              name: 'Other consent',
-              hostName: 'Host name',
-              description:
-                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
-              expiration: '1h',
-            },
-          ],
-        },
-      ],
-    },
-
-    language: {
-      onLanguageChange,
-    },
-    onAllConsentsGiven: (consents) => {
-      if (consents.matomo) {
-        //  start tracking
-        // window._paq.push(['setConsentGiven']);
-        // window._paq.push(['setCookieConsentGiven']);
-      }
-    },
-    onConsentsParsed: (consents, hasUserHandledAllConsents) => {
-      if (consents.matomo === undefined) {
-        // tell matomo to wait for consent:
-        // window._paq.push(['requireConsent']);
-        // window._paq.push(['requireCookieConsent']);
-      } else if (consents.matomo === false) {
-        // tell matomo to forget conset
-        // window._paq.push(['forgetConsentGiven']);
-      }
-      if (hasUserHandledAllConsents) {
-        // cookie consent modal will not be shown
-      }
-    },
-    focusTargetSelector: '#focused-element-after-cookie-consent-closed',
-  };
-
-  const Application = () => {
-    return (
-      <div>
-        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-        <h1 id={contentSource.focusTargetSelector?.replace('#', '')} tabIndex={0}>
-          This is an example application with cookie consent modal in a Portal
-        </h1>
-        <p>Modal is rendered as a first child in the DOM.</p>
-        <ForcePageScrollBarForModalTesting />
-      </div>
-    );
-  };
-
-  return (
-    <>
-      <PortalModal contentSource={contentSource} />
-      <Application />
     </>
   );
 };
