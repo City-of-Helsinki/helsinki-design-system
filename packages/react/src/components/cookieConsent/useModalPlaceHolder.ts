@@ -29,6 +29,14 @@ export function useModalPlaceHolder(): RefListener {
     [],
   );
 
+  const setPlaceHolderTransitionDelay = useCallback((placeHolderElement: HTMLElement | null) => {
+    if (!placeHolderElement) {
+      return;
+    }
+    // eslint-disable-next-line no-param-reassign
+    placeHolderElement.style.transition = 'height 0.1s ease 0.2s';
+  }, []);
+
   const onObservedElementChange = useCallback(() => {
     updatePlaceHolder(placeHolderRef.current, observedElementRef.current);
   }, [updatePlaceHolder, placeHolderRef, observedElementRef]);
@@ -63,6 +71,7 @@ export function useModalPlaceHolder(): RefListener {
   const createAndStorePlaceHolderElement = useCallback(() => {
     if (!placeHolderRef.current) {
       placeHolderRef.current = getPlaceHolderElement() || createPlaceholderElement();
+      setPlaceHolderTransitionDelay(placeHolderRef.current);
     }
   }, [placeHolderRef, getPlaceHolderElement, createPlaceholderElement]);
 
