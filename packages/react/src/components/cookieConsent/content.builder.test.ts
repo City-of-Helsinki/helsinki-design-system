@@ -1,12 +1,12 @@
 import _get from 'lodash.get';
 
-import { ContentSource, ContentSourceCookieGroup, createContent, setPropsToObject } from './content.builder';
+import { CookieContentSource, ContentSourceCookieGroup, createContent, setPropsToObject } from './content.builder';
 import commonContent from './content.json';
 import { CookieData, CookieGroup, Content, Category } from './contexts/ContentContext';
 
 describe(`content.builder.ts`, () => {
   const siteName = 'hel.fi';
-  const commonContentTestProps: ContentSource = {
+  const commonContentTestProps: CookieContentSource = {
     noCommonConsentCookie: true,
     siteName,
     currentLanguage: 'fi',
@@ -806,7 +806,7 @@ describe(`content.builder.ts`, () => {
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
     it('category texts can be overridden', () => {
-      const newCategoryTexts: Partial<ContentSource['requiredCookies']> = {
+      const newCategoryTexts: Partial<CookieContentSource['requiredCookies']> = {
         title: 'overridden title',
         text: 'overridden text',
         checkboxAriaDescription: 'overridden checkboxAriaDescription',

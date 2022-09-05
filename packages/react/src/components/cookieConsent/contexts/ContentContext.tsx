@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useMemo } from 'react';
 
-import { ContentSource, createContent } from '../content.builder';
+import { CookieContentSource, createContent } from '../content.builder';
 import { ConsentObject } from '../cookieConsentController';
 
 export type Description = {
@@ -76,7 +76,7 @@ export type Callbacks = {
 type ConsentContextProps = {
   cookieDomain?: string;
   children: React.ReactNode | React.ReactNode[] | null;
-  contentSource: ContentSource;
+  contentSource: CookieContentSource;
 };
 
 export const ContentContext = createContext<ContentContextType>({
