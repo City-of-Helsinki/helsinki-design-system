@@ -40,7 +40,7 @@
       Core Storybook
     </a>
     <span> | </span>
-    <a href="https://hds.hel.fi/contributing/before-contributing">
+    <a href="https://hds.hel.fi/getting-started/contributing/before-contributing">
       Contributing
     </a>
   </h4>
@@ -65,8 +65,8 @@ HDS is divided into three (3) separate packages:
 
 ## Getting started
 
-:wrench: **Are you a developer? If yes, start by checking out [HDS - For developers page](https://hds.hel.fi/developers).**<br />
-:art: **Are you a designer? If yes, start by checking out [HDS - For designers page](https://hds.hel.fi/designers).**
+:wrench: **Are you a developer? If yes, start by checking out [HDS - For developers page](https://hds.hel.fi/getting-started/developers).**<br />
+:art: **Are you a designer? If yes, start by checking out [HDS - For designers page](https://hds.hel.fi/getting-started/designers).**
 
 Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scripts across the repo as well as versioning and creating releases of the packages. [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) is used to manage dependencies. This allows the separate packages to reference each other via symlinks during local development.
 
@@ -122,11 +122,11 @@ Helsinki Design System has a public roadmap. For the long-term Roadmap, please r
 
 ## Contributing
 
-**Before contributing, it is recommended to read [HDS Contribution - Before contributing page](https://hds.hel.fi/contributing/before-contributing).**
+**Before contributing, it is recommended to read [HDS Contribution - Before contributing page](https://hds.hel.fi/getting-started/contributing/before-contributing.**
 
 We are accepting new features, feature requests and help with improving the documentation. There are multiple ways you can contribute:
 
 - Opening [issues](https://github.com/City-of-Helsinki/helsinki-design-system/issues) about bugs/improvements/new features/etc.
 - Opening [pull requests](https://github.com/City-of-Helsinki/helsinki-design-system/pulls) with changes/fixes/new features/etc.
-- Opening branches in Abstract to propose new component designs or design changes. More information about design contribution can be found in [HDS Contribution - Design page](https://hds.hel.fi/contributing/design).
-- Take part in discussion and commenting new HDS features. The easiest way to do this is to browse open [issues](https://github.com/City-of-Helsinki/helsinki-design-system/issues) and [pull requests](https://github.com/City-of-Helsinki/helsinki-design-system/pulls) and leave a comment! If you have an access to the City of Helsinki Slack, you may also join the discussion there. More info about the ways to contact us can be found in [HDS About - Support page](https://hds.hel.fi/about/support).
+- Opening branches in Abstract to propose new component designs or design changes. More information about design contribution can be found in [HDS Contribution - Design page](https://hds.hel.fi/getting-started/contributing/design).
+- Take part in discussion and commenting new HDS features. The easiest way to do this is to browse open [issues](https://github.com/City-of-Helsinki/helsinki-design-system/issues) and [pull requests](https://github.com/City-of-Helsinki/helsinki-design-system/pulls) and leave a comment! If you have an access to the City of Helsinki Slack, you may also join the discussion there. More info about the ways to contact us can be found in [HDS About - Support page](https://hds.hel.fi/about).
