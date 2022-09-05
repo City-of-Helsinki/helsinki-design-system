@@ -7,7 +7,7 @@ import { useAccordion } from '../../accordion';
 import { IconAngleDown, IconAngleUp } from '../../../icons';
 import { Card } from '../../card/Card';
 import { ConsentGroupDataTable } from '../consentGroupDataTable/ConsentGroupDataTable';
-import { useConsentContext, useConsentActions } from '../contexts/ConsentContext';
+import { useCookieConsentContext, useConsentActions } from '../contexts/ConsentContext';
 import { CookieGroup } from '../contexts/ContentContext';
 
 export function ConsentGroup(props: { group: CookieGroup; isRequired: boolean; id: string }): React.ReactElement {
@@ -16,7 +16,7 @@ export function ConsentGroup(props: { group: CookieGroup; isRequired: boolean; i
     initiallyOpen: false,
   });
   const groupConsents = group.cookies;
-  const cookieConsentContext = useConsentContext();
+  const cookieConsentContext = useCookieConsentContext();
   const triggerAction = useConsentActions();
   const areAllApproved = isRequired || cookieConsentContext.areGroupConsentsApproved(groupConsents);
   const { title, text, checkboxAriaDescription, expandAriaLabel } = group;

@@ -4,13 +4,13 @@ import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import classNames from '../../../utils/classNames';
 import styles from '../CookieConsent.module.scss';
-import { useContentContext, useUiTexts } from '../contexts/ContentContext';
-import { useConsentContext, forceFocusToElement } from '../contexts/ConsentContext';
+import { useCookieContentContext, useUiTexts } from '../contexts/ContentContext';
+import { useCookieConsentContext, forceFocusToElement } from '../contexts/ConsentContext';
 import { Content } from '../content/Content';
 
 export function Modal(): React.ReactElement | null {
-  const contentContext = useContentContext();
-  const consentContext = useConsentContext();
+  const contentContext = useCookieContentContext();
+  const consentContext = useCookieConsentContext();
   const hasOnlyRequiredConsents = !contentContext.optionalCookies || contentContext.optionalCookies.groups.length === 0;
   const shouldShowModal = !hasOnlyRequiredConsents && !consentContext.hasUserHandledAllConsents();
   const [isModalInitiallyShown] = useState<boolean>(shouldShowModal);

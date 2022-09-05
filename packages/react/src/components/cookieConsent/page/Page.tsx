@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { useContentContext } from '../contexts/ContentContext';
+import { useCookieContentContext } from '../contexts/ContentContext';
 import { Details } from '../details/Details';
 import styles from '../CookieConsent.module.scss';
 import { MemoizedButtons } from '../buttons/Buttons';
@@ -8,7 +8,7 @@ import { Notification } from '../../notification/index';
 import { useConsentActions } from '../contexts/ConsentContext';
 
 export function Page(): React.ReactElement | null {
-  const content = useContentContext();
+  const content = useCookieContentContext();
   const triggerAction = useConsentActions();
   const { title, text } = content.texts.sections.main;
   const { settingsSaved } = content.texts.ui;
