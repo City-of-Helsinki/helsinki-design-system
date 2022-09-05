@@ -6,6 +6,7 @@ import styles from '../CookieConsent.module.scss';
 import { useUiTexts } from '../contexts/ContentContext';
 import { Content } from '../content/Content';
 import { useModalRenderChecker } from '../useModalRenderChecker';
+import { useModalPlaceHolder } from '../useModalPlaceHolder';
 
 export function Modal(): React.ReactElement | null {
   const shouldShowModal = useModalRenderChecker();
@@ -15,6 +16,7 @@ export function Modal(): React.ReactElement | null {
   // if hasUserHandledAllConsents() was false at first and then later true, user must have saved consents.
   const showScreenReaderSaveNotification = isModalInitiallyShown && !shouldShowModal;
   const { settingsSaved } = useUiTexts();
+  const forwardedRef = useModalPlaceHolder();
   useEffect(() => {
     setTimeout(() => setPopupTimerComplete(true), popupDelayInMs);
   }, []);
@@ -38,7 +40,9 @@ export function Modal(): React.ReactElement | null {
       className={classNames(styles.container, styles.modal, popupTimerComplete && styles.animateIn)}
       data-testid="cookie-consent"
     >
-      <div className={styles.aligner}>{popupTimerComplete && <Content />}</div>
+      <div className={styles.aligner} ref={forwardedRef}>
+        {popupTimerComplete && <Content />}
+      </div>
     </div>
   );
 }
