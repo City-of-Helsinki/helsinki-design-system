@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
-type RefListener = (element: HTMLElement) => React.MutableRefObject<HTMLElement | undefined>;
+type RefListener = (element: HTMLElement) => React.MutableRefObject<HTMLElement | null>;
 
 export function useModalPlaceHolder(): RefListener {
   const placeHolderId = 'HdsCookieConsentModalPlaceholder';
@@ -13,7 +13,7 @@ export function useModalPlaceHolder(): RefListener {
     placeHolderElement.setAttribute('data-testid', 'html-cookie-consent-placeholder');
     placeHolderElement.setAttribute('aria-hidden', 'true');
     placeHolderElement.setAttribute('id', placeHolderId);
-    document.body.lastChild.after(placeHolderElement);
+    (document.body.lastChild as HTMLElement).after(placeHolderElement);
     return placeHolderElement;
   }, []);
 
@@ -72,7 +72,7 @@ export function useModalPlaceHolder(): RefListener {
   }, [removeContentObserver, removePlaceHolder]);
 
   const refListener = useCallback(
-    (observedElement: HTMLDivElement) => {
+    (observedElement: HTMLElement | null) => {
       if (observedElement && !placeHolderRef.current) {
         createAndStorePlaceHolderElement();
       }
