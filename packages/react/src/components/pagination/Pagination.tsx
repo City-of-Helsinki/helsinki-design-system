@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 // import core base styles
@@ -194,6 +194,17 @@ export const Pagination = ({
   siblingCount = 1,
   theme,
 }: PaginationProps) => {
+  const initialPageIndex = useRef(pageIndex);
+  const [hasUserChangedPage, setHasUserChangedPage] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (hasUserChangedPage === false) {
+      if (pageIndex !== initialPageIndex.current) {
+        setHasUserChangedPage(true);
+      }
+    }
+  }, [pageIndex, hasUserChangedPage]);
+
   const itemList = useMemo(() => createPaginationItemList({ pageCount, pageIndex, siblingCount }), [
     pageCount,
     pageIndex,
@@ -214,11 +225,13 @@ export const Pagination = ({
         aria-label={paginationAriaLabel}
         data-next={mapLangToNext(language)}
       >
-        <VisuallyHidden>
-          <span aria-atomic aria-live="polite">
-            {mapLangToOpenedPage(pageIndex + 1, language)}
-          </span>
-        </VisuallyHidden>
+        {hasUserChangedPage && (
+          <VisuallyHidden>
+            <span aria-atomic aria-live="polite">
+              {mapLangToOpenedPage(pageIndex + 1, language)}
+            </span>
+          </VisuallyHidden>
+        )}
         {!hidePrevButton && (
           <Button
             className={styles.buttonPrevious}
