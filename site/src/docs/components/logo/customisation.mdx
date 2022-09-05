@@ -3,14 +3,22 @@ slug: '/components/logo/customisation'
 title: 'Logo - Customisation'
 ---
 
-import { Logo } from 'hds-react';
+import { Logo, Notification } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Customisation
 
-Logo is an older HDS component, and therefore its customisation works slightly differently. Instead of the <code>theme</code> property, you need to use the <code>style</code> property. This will be fixed in a future update.
+<Notification type="alert" label="Logo customisation works differently!" className="siteNotification">
+  Logo is an older HDS component and therefore its customisation works slightly differently. Instead of the <code>theme</code> property, you need to use the <code>style</code> property. This will be fixed in a future update.
+</Notification>
+
+### Customisation properties
+In order to customise how the component looks, you can either use the `style` property or add the class containing your custom styles into the `className` property.
+
+See all available theme variables in the table below.
+
 
 ### Customisation example
 <Playground>
