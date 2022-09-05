@@ -981,6 +981,7 @@ exports[`<PortalModal /> spec renders the component 1`] = `
     aria-hidden="true"
     data-testid="html-cookie-consent-placeholder"
     id="HdsCookieConsentModalPlaceholder"
+    style="transition: height 0.1s ease 0.2s;"
   />
 </body>
 `;
