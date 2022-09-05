@@ -10,8 +10,7 @@ import { useUiTexts, useSectionTexts } from '../contexts/ContentContext';
 import { LanguageSwitcher } from '../languageSwitcher/LanguageSwitcher';
 import classNames from '../../../utils/classNames';
 import { useEscKey } from '../useEscKey';
-import { useModalPlaceHolder } from '../useModalPlaceHolder';
-import { useConsentActions } from '../contexts/ConsentContext';
+import { useConsentActions, useFocusShift } from '../contexts/ConsentContext';
 
 export function Content(): React.ReactElement {
   const { isOpen, buttonProps, contentProps, closeAccordion } = useAccordion({
@@ -43,14 +42,13 @@ export function Content(): React.ReactElement {
   }, [setFocusToTitle]);
 
   useEscKey(closeAccordion);
-  const forwardedRef = useModalPlaceHolder();
+  useEscKey(useFocusShift());
 
   return (
     <div
       className={classNames(styles.content, isOpen ? '' : styles.shrinkOnBlur)}
       id="cookie-consent-content"
       tabIndex={-1}
-      ref={forwardedRef}
     >
       <div className={styles.mainContent} data-testid="cookie-consent-information">
         <span className={styles.emulatedH1} role="heading" aria-level={1} tabIndex={-1} ref={titleRef}>
