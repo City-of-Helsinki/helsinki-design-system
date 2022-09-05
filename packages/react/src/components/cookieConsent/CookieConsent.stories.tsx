@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { useCookieConsentContext } from './contexts/ConsentContext';
 import { Category, CookieData, SupportedLanguage, useCookieContentContext } from './contexts/ContentContext';
-import { Context } from './contexts/ContextComponent';
+import { CookieConsentContext } from './contexts/ContextComponent';
 import { CookieModal } from './cookieModal/CookieModal';
 import { CookiePage } from './cookiePage/CookiePage';
 import { CookieContentSource } from './content.builder';
@@ -1028,10 +1028,10 @@ export const DebugVersion = (args) => {
 
   return (
     <>
-      <Context contentSource={contentSource}>
+      <CookieConsentContext contentSource={contentSource}>
         <Application />
         <Modal />
-      </Context>
+      </CookieConsentContext>
     </>
   );
 };
