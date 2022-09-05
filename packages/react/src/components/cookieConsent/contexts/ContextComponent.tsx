@@ -4,7 +4,7 @@ import { CookieContentSource } from '../content.builder';
 import { Provider as ContentProvider } from './ContentContext';
 import { Provider as ConsentProvider } from './ConsentContext';
 
-export function Context(props: {
+export function CookieConsentContext(props: {
   contentSource: CookieContentSource;
   cookieDomain?: string;
   children: React.ReactNode | React.ReactNode[] | null;

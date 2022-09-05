@@ -5,7 +5,7 @@ import { render, RenderResult } from '@testing-library/react';
 
 import { ConsentList, ConsentObject, COOKIE_NAME } from '../cookieConsentController';
 import { ConsentContext } from './ConsentContext';
-import { Context } from './ContextComponent';
+import { CookieConsentContext } from './ContextComponent';
 import mockWindowLocation from '../__mocks__/mockWindowLocation';
 import mockDocumentCookie from '../__mocks__/mockDocumentCookie';
 import { extractSetCookieArguments, getContentSource } from '../test.util';
@@ -141,10 +141,10 @@ describe('ContextComponent ', () => {
     );
     mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(cookieWithInjectedUnknowns) });
     return render(
-      <Context cookieDomain={cookieDomain} contentSource={contentSource}>
+      <CookieConsentContext cookieDomain={cookieDomain} contentSource={contentSource}>
         <ContextConsumer consumerId="consumer-1" />
         <ContextConsumer consumerId="consumer-2" />
-      </Context>,
+      </CookieConsentContext>,
     );
   };
 
