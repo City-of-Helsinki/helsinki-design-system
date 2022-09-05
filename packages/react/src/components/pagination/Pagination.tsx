@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 // import core base styles
 import 'hds-core';
@@ -58,6 +59,16 @@ const mapLangToPageTitle = (pageNumber: number, language: Language, currentPage:
   };
 
   return pageTitle[language];
+};
+
+const mapLangToOpenedPage = (pageNumber: number, language: Language): string => {
+  const openedPage = {
+    fi: `Avattu sivu ${pageNumber}`,
+    sv: `Öppnad sida ${pageNumber}`,
+    en: `Opened page ${pageNumber}`,
+  };
+
+  return openedPage[language];
 };
 
 const range = (start, end) => {
@@ -203,6 +214,11 @@ export const Pagination = ({
         aria-label={paginationAriaLabel}
         data-next={mapLangToNext(language)}
       >
+        <VisuallyHidden>
+          <span aria-atomic aria-live="polite">
+            {mapLangToOpenedPage(pageIndex + 1, language)}
+          </span>
+        </VisuallyHidden>
         {!hidePrevButton && (
           <Button
             className={styles.buttonPrevious}
