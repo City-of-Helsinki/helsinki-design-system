@@ -112,26 +112,26 @@ export const Provider = ({ children, contentSource }: ConsentContextProps): Reac
   return <ContentContext.Provider value={contextData}>{children}</ContentContext.Provider>;
 };
 
-export const useContentContext = (): ContentContextType => {
+export const useCookieContentContext = (): ContentContextType => {
   return useContext(ContentContext);
 };
 
 export const useUiTexts = (): UiTexts => {
-  const content = useContentContext();
+  const content = useCookieContentContext();
   return content.texts.ui;
 };
 
 export const useSectionTexts = (section: keyof SectionTexts): Description => {
-  const content = useContentContext();
+  const content = useCookieContentContext();
   return content.texts.sections[section];
 };
 
 export const useTableData = (): TableData => {
-  const content = useContentContext();
+  const content = useCookieContentContext();
   return content.texts.tableHeadings;
 };
 
 export const useContentLanguage = (): Content['language'] => {
-  const content = useContentContext();
+  const content = useCookieContentContext();
   return content.language;
 };

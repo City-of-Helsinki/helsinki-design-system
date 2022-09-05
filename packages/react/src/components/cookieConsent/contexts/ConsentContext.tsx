@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 
 import createConsentController, { ConsentController, ConsentList } from '../cookieConsentController';
-import { CookieData, CookieGroup, useContentContext } from './ContentContext';
+import { CookieData, CookieGroup, useCookieContentContext } from './ContentContext';
 
 export type Consents = {
   requiredCookies?: string[];
@@ -58,7 +58,7 @@ export const forceFocusToElement = (elementSelector: string): void => {
 };
 
 export const Provider = ({ cookieDomain, children }: ConsentContextProps): React.ReactElement => {
-  const content = useContentContext();
+  const content = useCookieContentContext();
   const cookies = useMemo(() => {
     return {
       requiredCookies: content.requiredCookies,
@@ -190,7 +190,7 @@ export const Provider = ({ cookieDomain, children }: ConsentContextProps): React
   return <ConsentContext.Provider value={contextData}>{children}</ConsentContext.Provider>;
 };
 
-export const useConsentContext = (): ConsentContextType => {
+export const useCookieConsentContext = (): ConsentContextType => {
   return useContext(ConsentContext);
 };
 
@@ -200,7 +200,7 @@ export const useConsentActions = (): ConsentContextType['onAction'] => {
 };
 
 export const useFocusShift = (): (() => void) => {
-  const { focusTargetSelector } = useContentContext();
+  const { focusTargetSelector } = useCookieContentContext();
   if (!focusTargetSelector) {
     throw new Error('Cookie consent modal requires a content.focusTargetSelector to be set');
   }
