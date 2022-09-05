@@ -5,7 +5,7 @@ import { Category, CookieData, SupportedLanguage, useCookieContentContext } from
 import { Context } from './contexts/ContextComponent';
 import { CookieModal } from './cookieModal/CookieModal';
 import { CookiePage } from './cookiePage/CookiePage';
-import { ContentSource } from './content.builder';
+import { CookieContentSource } from './content.builder';
 import { Modal } from './modal/Modal';
 import { Accordion } from '../accordion';
 import { useCookies } from './useCookies';
@@ -24,7 +24,7 @@ export default {
 export const ModalVersion = (args) => {
   const [language, setLanguage] = useState<SupportedLanguage>('en');
   const onLanguageChange = (newLang) => setLanguage(newLang);
-  const contentSource: ContentSource = {
+  const contentSource: CookieContentSource = {
     siteName: 'Test website',
     currentLanguage: language,
     requiredCookies: {
@@ -325,7 +325,7 @@ export const ModalVersion = (args) => {
 export const FinnishModalVersion = (args) => {
   const [language, setLanguage] = useState<SupportedLanguage>('fi');
   const onLanguageChange = (newLang) => setLanguage(newLang);
-  const contentSource: ContentSource = {
+  const contentSource: CookieContentSource = {
     siteName: 'Testisivusto',
     currentLanguage: language,
     requiredCookies: {
@@ -629,7 +629,7 @@ export const FinnishModalVersion = (args) => {
 export const SimpleModalVersion = (args) => {
   const [language, setLanguage] = useState<SupportedLanguage>('en');
   const onLanguageChange = (newLang) => setLanguage(newLang);
-  const contentSource: ContentSource = {
+  const contentSource: CookieContentSource = {
     siteName: `Site title ${language}`,
     currentLanguage: language,
     optionalCookies: {
@@ -681,7 +681,7 @@ export const SimpleModalVersion = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const PageVersion = (args) => {
-  const contentSource: ContentSource = {
+  const contentSource: CookieContentSource = {
     siteName: 'Test website',
     currentLanguage: 'en',
     texts: {
@@ -779,7 +779,7 @@ export const PageVersion = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const CustomContentVersion = (args) => {
-  const contentSource: ContentSource = {
+  const contentSource: CookieContentSource = {
     siteName: 'Not shown if main title is overridden',
     currentLanguage: 'en',
     texts: {
@@ -916,7 +916,7 @@ export const CustomContentVersion = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const DebugVersion = (args) => {
-  const contentSource: ContentSource = {
+  const contentSource: CookieContentSource = {
     siteName: 'Cookie consent debugging',
     currentLanguage: 'fi',
     requiredCookies: {
