@@ -16,6 +16,7 @@ export default {
   title: 'Components/CookieConsent',
   parameters: {
     controls: { expanded: true },
+    docs: { disable: true },
   },
   args: {},
 };
