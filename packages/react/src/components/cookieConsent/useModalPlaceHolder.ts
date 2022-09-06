@@ -73,7 +73,7 @@ export function useModalPlaceHolder(): RefListener {
       placeHolderRef.current = getPlaceHolderElement() || createPlaceholderElement();
       setPlaceHolderTransitionDelay(placeHolderRef.current);
     }
-  }, [placeHolderRef, getPlaceHolderElement, createPlaceholderElement]);
+  }, [placeHolderRef, getPlaceHolderElement, createPlaceholderElement, setPlaceHolderTransitionDelay]);
 
   const cleanUp = useCallback(() => {
     removeContentObserver();
