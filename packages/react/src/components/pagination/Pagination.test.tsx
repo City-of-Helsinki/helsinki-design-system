@@ -132,4 +132,46 @@ describe('<Pagination /> spec', () => {
     const bothEllipsisHighCase = getAllByText(bothEllipsisHighCaseFragment().firstChild as HTMLElement, '...');
     expect(bothEllipsisHighCase.length).toEqual(2);
   });
+
+  it('should show screen reader notification when user changes page', () => {
+    const { rerender, queryByText } = render(
+      <Pagination
+        onChange={() => null}
+        paginationAriaLabel="Pagination"
+        pageCount={25}
+        pageIndex={3}
+        pageHref={() => '#'}
+        language="en"
+        siblingCount={1}
+      />,
+    );
+    expect(queryByText('Opened page 4')).not.toBeInTheDocument();
+
+    rerender(
+      <Pagination
+        onChange={() => null}
+        paginationAriaLabel="Pagination"
+        pageCount={25}
+        pageIndex={3}
+        pageHref={() => '#'}
+        language="en"
+        siblingCount={1}
+      />,
+    );
+    // let's test that rerendering with the same selected page should not cause screen reader notification
+    expect(queryByText('Opened page 4')).not.toBeInTheDocument();
+
+    rerender(
+      <Pagination
+        onChange={() => null}
+        paginationAriaLabel="Pagination"
+        pageCount={25}
+        pageIndex={4} // increase pageIndex by one
+        pageHref={() => '#'}
+        language="en"
+        siblingCount={1}
+      />,
+    );
+    expect(queryByText('Opened page 5')).toBeInTheDocument();
+  });
 });
