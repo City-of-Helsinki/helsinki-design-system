@@ -11,6 +11,14 @@ exports[`<Pagination /> spec renders the component 1`] = `
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -170,6 +178,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -309,6 +325,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -472,6 +496,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -655,6 +687,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -860,6 +900,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -1087,6 +1135,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -1336,6 +1392,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -1471,6 +1535,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -1628,6 +1700,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -1807,6 +1887,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -2008,6 +2096,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -2231,6 +2327,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -2476,6 +2580,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -2615,6 +2727,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -2776,6 +2896,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -2959,6 +3087,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -3164,6 +3300,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -3391,6 +3535,14 @@ exports[`<Pagination /> spec should render pagination correctly with different s
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         class="button supplementary theme-black size-default buttonPrevious"
         type="button"
@@ -3640,6 +3792,14 @@ exports[`<Pagination /> spec should return only first page when page count is 1 
       data-next="Next"
       role="navigation"
     >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
       <button
         aria-disabled="true"
         class="button supplementary theme-black size-default buttonPrevious"
