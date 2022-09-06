@@ -148,6 +148,7 @@ export const Playground = (args) => {
       pageIndex={pageIndex}
       paginationAriaLabel={args.paginationAriaLabel}
       siblingCount={args.siblingCount}
+      theme={args.theme}
     />
   );
 };
@@ -171,6 +172,9 @@ Playground.args = {
   pageCount: 68,
   siblingCount: 2,
   paginationAriaLabel: 'Pagination',
+  theme: {
+    '--active-page-background-color': 'var(--color-bus)',
+  },
 };
 
 Playground.argTypes = {
