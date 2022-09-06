@@ -225,13 +225,11 @@ export const Pagination = ({
         aria-label={paginationAriaLabel}
         data-next={mapLangToNext(language)}
       >
-        {hasUserChangedPage && (
-          <VisuallyHidden>
-            <span aria-atomic aria-live="polite">
-              {mapLangToOpenedPage(pageIndex + 1, language)}
-            </span>
-          </VisuallyHidden>
-        )}
+        <VisuallyHidden>
+          <span aria-atomic aria-live="polite">
+            {hasUserChangedPage ? mapLangToOpenedPage(pageIndex + 1, language) : ''}
+          </span>
+        </VisuallyHidden>
         {!hidePrevButton && (
           <Button
             className={styles.buttonPrevious}
