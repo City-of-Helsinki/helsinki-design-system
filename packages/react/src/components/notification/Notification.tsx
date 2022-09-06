@@ -65,7 +65,7 @@ type CommonProps = React.PropsWithChildren<{
    */
   label?: string | React.ReactNode;
   /**
-   * The aria label of the notification region
+   * The aria-label of the notification region
    * @default "Notification"
    */
   notificationAriaLabel?: string;
