@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useMDXScope } from 'gatsby-plugin-mdx/context';
 import { LiveProvider, LiveEditor, LiveError, LivePreview, withLive } from 'react-live';
 import sanitizeHtml from 'sanitize-html';
-import { Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
+import { Notification, Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
 import theme from 'prism-react-renderer/themes/github';
 
 import './Playground.scss';
@@ -117,6 +117,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
   const viewPortRef = useRef();
   const copyButtonRef = useRef();
   const [resetCount, setResetCount] = useState(0);
+  const [showCopyNotification, setShowCopyNotification] = useState(false);
   const textAreaId = `code-block-textarea-${language}-${resetCount}`;
   const helperTextId = `code-block-helper-${language}-${resetCount}`;
   const getTextArea = useCallback((el) => el.querySelector(`#${textAreaId}`), [textAreaId]);
@@ -143,6 +144,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
         if (copyButtonRef.current) {
           copyButtonRef.current.focus();
         }
+        setShowCopyNotification(true);
       } catch (err) {
         console.warn('Oops, unable to copy');
       }
@@ -207,6 +209,19 @@ const Editor = ({ onChange, initialCode, code, language }) => {
         <Button ref={copyButtonRef} variant="secondary" size="small" onClick={copy}>
           Copy code
         </Button>
+        {showCopyNotification && (
+          <Notification
+            type="success"
+            label="The example code is copied to clipboard."
+            position="bottom-right"
+            autoClose
+            displayAutoCloseProgress={false}
+            dismissible
+            closeButtonLabelText="Close toast"
+            onClose={() => setShowCopyNotification(false)}
+            style={{ zIndex: 100 }}
+          />
+        )}
         <Button
           variant="secondary"
           iconLeft={<IconArrowUndo aria-hidden />}
