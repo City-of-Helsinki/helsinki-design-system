@@ -102,7 +102,7 @@ describe('<Table /> spec', () => {
     expect(ageOfSortedTableFirstRow).toHaveTextContent('8');
   });
 
-  it('Should successfully call onSort when table is sorted', () => {
+  it('Should successfully call onSort when sort button is pressed', () => {
     const colsWithSorting = [
       { key: 'id', headerName: 'Not rendered' },
       { key: 'firstName', headerName: 'First name', isSortable: true },
