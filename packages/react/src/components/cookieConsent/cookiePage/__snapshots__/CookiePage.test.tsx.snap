@@ -14,7 +14,9 @@ exports[`<Page /> spec renders the component 1`] = `
         class="mainContent"
         data-testid="cookie-consent-information"
       >
-        <h1>
+        <h1
+          class="heading-xl"
+        >
           Test site käyttää evästeitä
         </h1>
         <p>
