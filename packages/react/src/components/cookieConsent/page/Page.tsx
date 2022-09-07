@@ -18,7 +18,7 @@ export function Page(): React.ReactElement | null {
     <div className={styles.page} data-testid="cookie-consent">
       <div className={styles.content} id="cookie-consent-content">
         <div className={styles.mainContent} data-testid="cookie-consent-information">
-          <h1>{title}</h1>
+          <h1 className="heading-xl">{title}</h1>
           <p>{text}</p>
         </div>
         <Details />
