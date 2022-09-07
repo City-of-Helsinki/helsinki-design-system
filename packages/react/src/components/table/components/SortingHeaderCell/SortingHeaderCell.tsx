@@ -16,10 +16,10 @@ export type SortingHeaderCellProps = React.ComponentPropsWithoutRef<'th'> & {
   ariaLabelSortButtonAscending: string;
   ariaLabelSortButtonDescending: string;
   colKey: string;
-  setSortingAndOrder: (colKey: string) => void;
-  onSort?: ({ direction, colKey }: { direction: string; colKey: string }) => void;
+  onSort?: (order: 'asc' | 'desc', colKey: string, handleSort: () => void) => void;
   order: 'unset' | 'asc' | 'desc';
   title: string;
+  setSortingAndOrder: (colKey: string) => void;
   sortIconType: 'string' | 'other';
 };
 
@@ -68,13 +68,16 @@ export const SortingHeaderCell = ({
   ariaLabelSortButtonAscending,
   ariaLabelSortButtonDescending,
   colKey,
+  onSort,
   title,
   setSortingAndOrder,
-  onSort,
   order = 'unset',
   sortIconType = 'string',
   ...rest
 }: SortingHeaderCellProps) => {
+  const sortingCallback = () => {
+    setSortingAndOrder(colKey);
+  };
   return (
     <th className={styles.sortingHeader} scope="col" {...rest}>
       <div className={styles.sortColumnCell}>
@@ -85,9 +88,10 @@ export const SortingHeaderCell = ({
           onClick={(event) => {
             // Prevent default to not submit form if we happen to be inside form
             event.preventDefault();
-            setSortingAndOrder(colKey);
             if (onSort) {
-              onSort({ direction: resolveNewOrder({ previousOrder: order }), colKey });
+              onSort(resolveNewOrder({ previousOrder: order }), colKey, sortingCallback);
+            } else {
+              setSortingAndOrder(colKey);
             }
           }}
         >
