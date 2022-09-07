@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { parse, isBefore, isSameDay } from 'date-fns';
 
 import { Table } from './Table';
 import workTrial from './story-example-work-trial.json';
 import { Button } from '../button';
 import { IconTrash } from '../../icons';
+import { LoadingSpinner } from '../loadingSpinner';
 
 export default {
   component: Table,
@@ -510,6 +511,74 @@ export const CustomSortFunction = (args) => {
         caption={caption}
         dense
       />
+    </div>
+  );
+};
+
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+export const SortingSideEffects = (args) => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name', isSortable: true },
+    { key: 'surname', headerName: 'Surname', isSortable: true },
+    {
+      key: 'age',
+      headerName: 'Age',
+      sortIconType: 'other' as const,
+      transform: ({ age }) => {
+        return <div style={{ textAlign: 'right' }}>{age}</div>;
+      },
+      isSortable: true,
+    },
+    { key: 'profession', headerName: 'Profession', isSortable: true },
+  ];
+
+  const data: Array<object> = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
+  ];
+  const [loading, toggleLoading] = useState(false);
+  const [rows, setRows] = useState<object[]>(data);
+
+  useEffect(() => {
+    if (loading) {
+      setTimeout(() => {
+        toggleLoading((currentValue) => !currentValue);
+        setRows(data);
+      }, 1000);
+    }
+  }, [loading]);
+
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table with loading spinner
+    </span>
+  );
+
+  return (
+    <div style={{ maxWidth: '640px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Table
+        ariaLabelSortButtonUnset="Not sorted"
+        ariaLabelSortButtonAscending="Sorted in ascending order"
+        ariaLabelSortButtonDescending="Sorted in descending order"
+        indexKey="id"
+        renderIndexCol={false}
+        cols={cols}
+        rows={rows}
+        caption={caption}
+        onSort={(order, colKey, handleSort) => {
+          // Side effects
+          setRows([]);
+          toggleLoading((currentValue) => !currentValue);
+          // Call table's own sorting function
+          handleSort();
+        }}
+      />
+      {loading && <LoadingSpinner style={{ marginTop: 'var(--spacing-l)' }} />}
     </div>
   );
 };
