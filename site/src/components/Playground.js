@@ -117,7 +117,9 @@ const Editor = ({ onChange, initialCode, code, language }) => {
   const viewPortRef = useRef();
   const copyButtonRef = useRef();
   const [resetCount, setResetCount] = useState(0);
-  const [showCopyNotification, setShowCopyNotification] = useState(false);
+  const copySuccessState = 'COPY_SUCCESS';
+  const copyErrorState = 'COPY_ERROR';
+  const [copyState, setCopyState] = useState('');
   const textAreaId = `code-block-textarea-${language}-${resetCount}`;
   const helperTextId = `code-block-helper-${language}-${resetCount}`;
   const getTextArea = useCallback((el) => el.querySelector(`#${textAreaId}`), [textAreaId]);
@@ -138,15 +140,17 @@ const Editor = ({ onChange, initialCode, code, language }) => {
       const textArea = getTextArea(viewPortRef.current);
       textArea.focus();
       textArea.select();
+      setCopyState('');
 
       try {
         document.execCommand('copy');
         if (copyButtonRef.current) {
           copyButtonRef.current.focus();
         }
-        setShowCopyNotification(true);
+        setCopyState(copySuccessState);
       } catch (err) {
-        console.warn('Oops, unable to copy');
+        setCopyState(copyErrorState);
+        console.warn(`Copy failed: ${err}`);
       }
       clearSelection();
     }
@@ -209,7 +213,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
         <Button ref={copyButtonRef} variant="secondary" size="small" onClick={copy}>
           Copy code
         </Button>
-        {showCopyNotification && (
+        {copyState === copySuccessState && (
           <Notification
             type="success"
             label="The example code is copied to clipboard."
@@ -218,8 +222,19 @@ const Editor = ({ onChange, initialCode, code, language }) => {
             displayAutoCloseProgress={false}
             dismissible
             closeButtonLabelText="Close toast"
-            onClose={() => setShowCopyNotification(false)}
-            style={{ zIndex: 100 }}
+            onClose={() => setCopyState('')}
+          />
+        )}
+        {copyState === copyErrorState && (
+          <Notification
+            type="error"
+            label="Code copy failed."
+            position="bottom-right"
+            autoClose
+            displayAutoCloseProgress={false}
+            dismissible
+            closeButtonLabelText="Close toast"
+            onClose={() => setCopyState('')}
           />
         )}
         <Button
