@@ -14,3 +14,8 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - Each page number must have an `aria-label` to describe it. For example, `aria-label="Page 3"`.
 - The active page number must have an `aria-current="page"` attribute.
 - The truncation element ("..." or ellipsis) does not need to have an `aria-label`.
+- Pay attention to where to move focus after a user changes a page. In some cases, you might want to move the focus to the
+beginning of the search results. But in many cases, this is not advised.
+- Provide a screen reader notification (`aria-live` and `aria-atomic`) when a user changes a page. Especially this is
+important when the user changes the page by using the component's previous or next buttons. If you use the HDS React
+component of the pagination, this feature is automatically provided.
