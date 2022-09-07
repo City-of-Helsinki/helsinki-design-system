@@ -305,7 +305,7 @@ export const ModalVersion = (args) => {
     return (
       <div>
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-        <h1 id={contentSource.focusTargetSelector?.replace('#', '')} tabIndex={0}>
+        <h1 className="heading-xl" id={contentSource.focusTargetSelector?.replace('#', '')} tabIndex={0}>
           This is an example application with cookie consent modal
         </h1>
         <p>The modal will be shown when required. If user has given consents, it will not be shown.</p>
@@ -606,7 +606,7 @@ export const FinnishModalVersion = (args) => {
     return (
       <div>
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-        <h1 id={contentSource.focusTargetSelector?.replace('#', '')} tabIndex={0}>
+        <h1 className="heading-xl" id={contentSource.focusTargetSelector?.replace('#', '')} tabIndex={0}>
           Tämä on esimerkkisovellus CookieConsent-komponentin käytöstä
         </h1>
         <p>
@@ -663,7 +663,7 @@ export const SimpleModalVersion = (args) => {
     return (
       <div>
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-        <h1 id={contentSource.focusTargetSelector?.replace('#', '')} tabIndex={0}>
+        <h1 className="heading-xl" id={contentSource.focusTargetSelector?.replace('#', '')} tabIndex={0}>
           Simplest cookie consent example
         </h1>
         <p>This is an example how the modal is shown with minimal content parameters.</p>
@@ -969,7 +969,9 @@ export const DebugVersion = (args) => {
     };
     return (
       <div>
-        <h1 id={contentSource.focusTargetSelector?.replace('#', '')}>Debugging example</h1>
+        <h1 className="heading-xl" id={contentSource.focusTargetSelector?.replace('#', '')}>
+          Debugging example
+        </h1>
         <p>This is an example how to get all data from the cookie consent context.</p>
         <p>
           The same contentSource can be passed to the context and it provides access to the content built from the

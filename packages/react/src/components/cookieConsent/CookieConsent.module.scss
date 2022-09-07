@@ -107,8 +107,7 @@
 }
 
 .emulatedH1 {
-  font-size: var(--fontsize-heading-l);
-  font-weight: bold;
+  composes: heading-l from 'hds-core/lib/utils/helpers.css';
   display: block;
   padding: 0;
   outline: none;
@@ -119,8 +118,7 @@
 }
 
 .emulatedH2 {
-  font-size: var(--fontsize-heading-m);
-  font-weight: bold;
+  composes: heading-m from 'hds-core/lib/utils/helpers.css';
   display: block;
   padding: 1.2em 0 0.5em;
 }
@@ -212,7 +210,7 @@
 
 .page .content .consentCategory .titleWithCheckbox label,
 .container .content .consentCategory .titleWithCheckbox label {
-  font-weight: bold;
+  font-weight: 500;
   color: var(--color-black);
 }
 
