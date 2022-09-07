@@ -34,21 +34,60 @@ export const ModalVersion = (args) => {
     requiredCookies: {
       groups: [
         {
-          commonGroup: 'essential',
+          commonGroup: 'login',
           cookies: [
             {
               commonCookie: 'tunnistamo',
             },
             {
+              commonCookie: 'keycloak',
+            },
+          ],
+        },
+        {
+          commonGroup: 'essential',
+          cookies: [
+            {
+              commonCookie: 'cms-session',
+            },
+          ],
+        },
+        {
+          commonGroup: 'loadBalancing',
+          cookies: [
+            {
               id: 'loadbalancer',
-              name: 'Load balancer',
-              hostName: 'Host name',
+              name: 'Loadbalancer Cookie',
+              hostName: 'CDN site',
               description:
                 'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
               expiration: '1h',
             },
+          ],
+        },
+        {
+          commonGroup: 'accessibility',
+          cookies: [
             {
-              commonCookie: 'language-i18n',
+              id: 'accessibility',
+              name: 'Accessibility cookie',
+              hostName: 'CDN site',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'userInputs',
+          cookies: [
+            {
+              id: 'userInputs',
+              name: 'User inputs cookie',
+              hostName: 'CDN site',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
             },
           ],
         },
@@ -60,7 +99,12 @@ export const ModalVersion = (args) => {
           commonGroup: 'marketing',
           cookies: [
             {
-              commonCookie: 'marketing',
+              id: 'marketing',
+              name: 'Custom Marketing cookie',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
             },
           ],
         },
@@ -100,8 +144,102 @@ export const ModalVersion = (args) => {
               commonCookie: 'matomo',
             },
             {
+              commonCookie: 'cookiehub',
+            },
+            {
               id: 'someOtherConsent',
               name: 'Other consent',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'location',
+          cookies: [
+            {
+              id: 'location',
+              name: 'Location consent',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'content',
+          cookies: [
+            {
+              id: 'content',
+              name: 'Content consent',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'thirdParty',
+          cookies: [
+            {
+              id: 'thirdParty',
+              name: 'ThirdParty consent',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'chat',
+          cookies: [
+            {
+              id: 'chat',
+              name: 'Chat consent',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'deviceInfo',
+          cookies: [
+            {
+              id: 'deviceInfo',
+              name: 'Device info consent',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'socialMedia',
+          cookies: [
+            {
+              id: 'socialMedia',
+              name: 'Social media consent',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'informationSecurity',
+          cookies: [
+            {
+              id: 'informationSecurity',
+              name: 'Information security consent',
               hostName: 'Host name',
               description:
                 'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
@@ -197,21 +335,60 @@ export const FinnishModalVersion = (args) => {
     requiredCookies: {
       groups: [
         {
-          commonGroup: 'essential',
+          commonGroup: 'login',
           cookies: [
             {
               commonCookie: 'tunnistamo',
             },
             {
+              commonCookie: 'keycloak',
+            },
+          ],
+        },
+        {
+          commonGroup: 'essential',
+          cookies: [
+            {
+              commonCookie: 'cms-session',
+            },
+          ],
+        },
+        {
+          commonGroup: 'loadBalancing',
+          cookies: [
+            {
               id: 'loadbalancer',
-              name: 'loadbalancercookie',
+              name: 'Loadbalancer Cookie',
               hostName: 'CDN site',
               description:
                 'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
               expiration: '1h',
             },
+          ],
+        },
+        {
+          commonGroup: 'accessibility',
+          cookies: [
             {
-              commonCookie: 'language-i18n',
+              id: 'accessibility',
+              name: 'Accessibility cookie',
+              hostName: 'CDN site',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'userInputs',
+          cookies: [
+            {
+              id: 'userInputs',
+              name: 'User inputs cookie',
+              hostName: 'CDN site',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
             },
           ],
         },
@@ -223,7 +400,41 @@ export const FinnishModalVersion = (args) => {
           commonGroup: 'marketing',
           cookies: [
             {
-              commonCookie: 'marketing',
+              id: 'marketing',
+              name: 'Custom Marketing cookie',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'preferences',
+          cookies: [
+            {
+              id: 'preferences1',
+              name: 'Preference 1',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+            {
+              id: 'preferences2',
+              name: 'Preference 2',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1 years',
+            },
+            {
+              id: 'preferences3',
+              name: 'Preference 3',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '2h',
             },
           ],
         },
@@ -234,9 +445,103 @@ export const FinnishModalVersion = (args) => {
               commonCookie: 'matomo',
             },
             {
+              commonCookie: 'cookiehub',
+            },
+            {
               id: 'someOtherConsent',
-              name: 'Analytics service cookie',
-              hostName: 'Analytics service',
+              name: 'Other consent',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'location',
+          cookies: [
+            {
+              id: 'location',
+              name: 'Location consent',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'content',
+          cookies: [
+            {
+              id: 'content',
+              name: 'Content consent',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'thirdParty',
+          cookies: [
+            {
+              id: 'thirdParty',
+              name: 'ThirdParty consent',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'chat',
+          cookies: [
+            {
+              id: 'chat',
+              name: 'Chat consent',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'deviceInfo',
+          cookies: [
+            {
+              id: 'deviceInfo',
+              name: 'Device info consent',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'socialMedia',
+          cookies: [
+            {
+              id: 'socialMedia',
+              name: 'Social media consent',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
+            },
+          ],
+        },
+        {
+          commonGroup: 'informationSecurity',
+          cookies: [
+            {
+              id: 'informationSecurity',
+              name: 'Information security consent',
+              hostName: 'Host name',
               description:
                 'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
               expiration: '1h',
@@ -407,7 +712,7 @@ export const PageVersion = (args) => {
               expiration: '1h',
             },
             {
-              commonCookie: 'language-i18n',
+              commonCookie: 'keycloak',
             },
           ],
         },
@@ -419,7 +724,12 @@ export const PageVersion = (args) => {
           commonGroup: 'marketing',
           cookies: [
             {
-              commonCookie: 'marketing',
+              id: 'marketing',
+              name: 'Marketing 1',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
             },
           ],
         },
@@ -531,7 +841,12 @@ export const CustomContentVersion = (args) => {
           expandAriaLabel: 'Custom expand button aria label for custom cookies group',
           cookies: [
             {
-              commonCookie: 'marketing',
+              id: 'marketing',
+              name: 'Marketing 1',
+              hostName: 'Host name',
+              description:
+                'Description lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus',
+              expiration: '1h',
             },
           ],
         },

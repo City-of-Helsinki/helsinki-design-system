@@ -126,21 +126,21 @@
     "login": {
       "fi": {
         "title": "Kirjautuminen",
-        "text": "Näitä eväisteitä käytetään kirjautumisessa",
-        "expandAriaLabel": "Näytä kirjautumiseen littyvien evästeiden tiedot",
-        "checkboxAriaDescription": "Näitä eväisteitä käytetään kirjautumisessa. Kirjautumiseen littyvien evästeiden käyttöä ei voi kieltää."
+        "text": "Kirjautumisevästeitä käytetään käytetään käyttäjän kirjautuessa palveluun.",
+        "expandAriaLabel": "Näytä kirjautumiseen liittyvien evästeiden tiedot",
+        "checkboxAriaDescription": "Kirjautumisevästeitä käytetään käytetään käyttäjän kirjautuessa palveluun."
       },
       "sv": {
         "title": "Inloggning",
         "text": "Inloggningskakor används när användaren loggar in på tjänsten.",
-        "expandAriaLabel": "SV: Näytä kirjautumiseen littyvien evästeiden tiedot",
-        "checkboxAriaDescription": "SV: Näitä eväisteitä käytetään kirjautumisessa. Kirjautumiseen littyvien evästeiden käyttöä ei voi kieltää."
+        "expandAriaLabel": "Visa information om inloggningscookies",
+        "checkboxAriaDescription": "Inloggningskakor används när användaren loggar in på tjänsten."
       },
       "en": {
         "title": "Login",
         "text": "Login cookies are used when the user logs in to the service.",
-        "expandAriaLabel": "EN: Näytä kirjautumiseen littyvien evästeiden tiedot",
-        "checkboxAriaDescription": "EN: Näitä eväisteitä käytetään kirjautumisessa. Kirjautumiseen littyvien evästeiden käyttöä ei voi kieltää."
+        "expandAriaLabel": "Show cookie information related to login",
+        "checkboxAriaDescription": "Login cookies are used when the user logs in to the service."
       }
     },
     "marketing": {
@@ -148,19 +148,19 @@
         "title": "Mainonta ja markkinointi",
         "text": "Markkinointievästeiden avulla sivuston käyttäjille voidaan kohdentaa sisältöjä.",
         "expandAriaLabel": "Näytä mainontaan ja markkinointiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "Markkinointievästeillä kohdennetaan markkinointia. Hyväksy tai jätä hyväksymättä kaikki markkinointiin liittyvät evästeet"
+        "checkboxAriaDescription": "Markkinointievästeiden avulla sivuston käyttäjille voidaan kohdentaa sisältöjä."
       },
       "sv": {
         "title": "Reklam och marknadsföring",
         "text": "Med hjälp av marknadsföringskakor kan innehåll riktas till webbplatsens användare.",
-        "expandAriaLabel": "SV: Näytä markkinointievästeiden tiedot",
-        "checkboxAriaDescription": "SV: Markkinointievästeillä kohdennetaan markkinointia. Hyväksy tai jätä hyväksymättä kaikki markkinointiin liittyvät evästeet"
+        "expandAriaLabel": "Visa information om reklam- och marknadsföringscookies",
+        "checkboxAriaDescription": "Med hjälp av marknadsföringskakor kan innehåll riktas till webbplatsens användare."
       },
       "en": {
         "title": "Advertising and marketing",
         "text": "Marketing cookies can be used to target content to users of the website.",
-        "expandAriaLabel": "EN: Näytä markkinointievästeiden tiedot",
-        "checkboxAriaDescription": "EN: Markkinointievästeillä kohdennetaan markkinointia. Hyväksy tai jätä hyväksymättä kaikki markkinointiin liittyvät evästeet"
+        "expandAriaLabel": "Show cookie information related to advertising and marketing",
+        "checkboxAriaDescription": "Marketing cookies can be used to target content to users of the website."
       }
     },
     "preferences": {
@@ -168,19 +168,19 @@
         "title": "Mieltymykset",
         "text": "Mieltymysevästeet mukauttavat sivuston ulkoasua ja toimintaa käyttäjän tekemien valintojen perusteella.",
         "expandAriaLabel": "Näytä mieltymyksiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "checkboxAriaDescription": "Mieltymysevästeet mukauttavat sivuston ulkoasua ja toimintaa käyttäjän tekemien valintojen perusteella."
       },
       "sv": {
         "title": "Preferenser",
         "text": "Preferenskakor ändrar webbplatsens utseende och funktioner enligt användarens tidigare val.",
-        "expandAriaLabel": "SV: Näytä mieltymyksiin littyvien evästeiden tiedot",
-        "checkboxAriaDescription": "SV: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Visa information om preferenscookies",
+        "checkboxAriaDescription": "Preferenskakor ändrar webbplatsens utseende och funktioner enligt användarens tidigare val."
       },
       "en": {
         "title": "Preferences",
         "text": "Preference cookies customise the layout and operation of the website based on the choices made by the user.",
-        "expandAriaLabel": "EN: Näytä asetuksiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "EN: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Show cookie information related to preferences",
+        "checkboxAriaDescription": "Preference cookies customise the layout and operation of the website based on the choices made by the user."
       }
     },
     "userInputs": {
@@ -188,19 +188,19 @@
         "title": "Käyttäjän syötteet",
         "text": "Syöte-evästeillä voidaan tallentaa käyttäjän palveluun syöttämiä tietoja.",
         "expandAriaLabel": "Näytä käyttäjän syötteisiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "FI: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "checkboxAriaDescription": "Syöte-evästeillä voidaan tallentaa käyttäjän palveluun syöttämiä tietoja."
       },
       "sv": {
         "title": "Användarens input",
         "text": "Med inputskakor kan man lagra information som användaren matar in i tjänsten.",
-        "expandAriaLabel": "SV: Näytä käyttäjän syötteisiin littyvien evästeiden tiedot",
-        "checkboxAriaDescription": "SV: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Visa information om användarindatacookies",
+        "checkboxAriaDescription": "Med inputskakor kan man lagra information som användaren matar in i tjänsten."
       },
       "en": {
         "title": "User input",
         "text": "User-input cookies can be used to store information entered by the user in the service.",
-        "expandAriaLabel": "EN: Näytä asetuksiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "EN: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Show cookie information related to the user's input",
+        "checkboxAriaDescription": "User-input cookies can be used to store information entered by the user in the service."
       }
     },
     "informationSecurity": {
@@ -208,19 +208,19 @@
         "title": "Tietoturva",
         "text": "Tietoturvaevästeet mahdollistavat turvallisen tiedonsiirron käyttäjän ja palvelun välillä.",
         "expandAriaLabel": "Näytä tietoturvaan liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "FI: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "checkboxAriaDescription": "Tietoturvaevästeet mahdollistavat turvallisen tiedonsiirron käyttäjän ja palvelun välillä."
       },
       "sv": {
         "title": "Datasäkerhet",
         "text": "Datasäkerhetskakor möjliggör en säker dataöverföring mellan användaren och tjänsten.",
-        "expandAriaLabel": "SV: Näytä tietoturvaan littyvien evästeiden tiedot",
-        "checkboxAriaDescription": "SV: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Visa information om säkerhetscookies",
+        "checkboxAriaDescription": "Datasäkerhetskakor möjliggör en säker dataöverföring mellan användaren och tjänsten."
       },
       "en": {
         "title": "Information security",
         "text": "Security cookies enable secure data transfer between the user and the service.",
-        "expandAriaLabel": "EN: Näytä asetuksiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "EN: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Show cookie information related to information security",
+        "checkboxAriaDescription": "Security cookies enable secure data transfer between the user and the service."
       }
     },
     "socialMedia": {
@@ -228,19 +228,19 @@
         "title": "Sosiaalinen media",
         "text": "Sosiaalisen median evästeet liittyvät erilaisten sosiaalisen median palveluiden ominaisuuksiin.",
         "expandAriaLabel": "Näytä sosiaaliseen mediaan liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "FI: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "checkboxAriaDescription": "Sosiaalisen median evästeet liittyvät erilaisten sosiaalisen median palveluiden ominaisuuksiin."
       },
       "sv": {
         "title": "Sociala medier",
         "text": "Sociala medier-kakor förknippas med olika sociala medie-tjänsters egenskaper.",
-        "expandAriaLabel": "SV: Näytä sosiaaliseen mediaan littyvien evästeiden tiedot",
-        "checkboxAriaDescription": "SV: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Visa information om cookies för sociala medier",
+        "checkboxAriaDescription": "Sociala medier-kakor förknippas med olika sociala medie-tjänsters egenskaper."
       },
       "en": {
         "title": "Social media",
         "text": "Social media cookies are related to the characteristics of various social media services.",
-        "expandAriaLabel": "EN: Näytä asetuksiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "EN: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Show cookie information related to social media",
+        "checkboxAriaDescription": "Social media cookies are related to the characteristics of various social media services."
       }
     },
     "accessibility": {
@@ -248,19 +248,19 @@
         "title": "Saavutettavuus",
         "text": "Saavutettavuusevästeet mahdollistavat palvelun joitakin saavutettavuusominaisuuksia.",
         "expandAriaLabel": "Näytä saavutettavuuteen liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "FI: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "checkboxAriaDescription": "Saavutettavuusevästeet mahdollistavat palvelun joitakin saavutettavuusominaisuuksia."
       },
       "sv": {
         "title": "Tillgänglighet",
         "text": "Tillgänglighetskakor möjliggör vissa egenskaper för tjänstens tillgänglighet.",
-        "expandAriaLabel": "SV: Näytä saavutettavuuteen littyvien evästeiden tiedot",
-        "checkboxAriaDescription": "SV: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Visa information om cookies för att förbättra tillgänglighet",
+        "checkboxAriaDescription": "Tillgänglighetskakor möjliggör vissa egenskaper för tjänstens tillgänglighet."
       },
       "en": {
         "title": "Accessibility",
-        "text": "Accessibility cookies enable some of the service’s accessibility features.",
-        "expandAriaLabel": "EN: Näytä asetuksiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "EN: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "text": "Accessibility cookies enable some of the service's accessibility features.",
+        "expandAriaLabel": "Show cookie information related to accessibility",
+        "checkboxAriaDescription": "Accessibility cookies enable some of the service's accessibility features."
       }
     },
     "deviceInfo": {
@@ -268,19 +268,19 @@
         "title": "Laitetiedot",
         "text": "Laitetietoevästeet sisältävät sellaisia käyttäjän laitteelta kerättyjä tietoja, joilla varmistetaan palvelun toiminta.",
         "expandAriaLabel": "Näytä laitetietoihin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "FI: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "checkboxAriaDescription": "Laitetietoevästeet sisältävät sellaisia käyttäjän laitteelta kerättyjä tietoja, joilla varmistetaan palvelun toiminta."
       },
       "sv": {
         "title": "Enhetsuppgifter",
         "text": "Kakor för enhetsuppgifterna innehåller sådana uppgifter som samlats in från användarens enhet med vilka tjänstens funktioner säkerställs.",
-        "expandAriaLabel": "SV: Näytä laitetietohini littyvien evästeiden tiedot",
-        "checkboxAriaDescription": "SV: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Visa information om cookies för enhetsinformation",
+        "checkboxAriaDescription": "Kakor för enhetsuppgifterna innehåller sådana uppgifter som samlats in från användarens enhet med vilka tjänstens funktioner säkerställs."
       },
       "en": {
         "title": "Device information",
-        "text": "Device information cookies contain information collected from the user’s device that ensures the functionality of the service.",
-        "expandAriaLabel": "EN: Näytä asetuksiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "EN: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "text": "Device information cookies contain information collected from the user's device that ensures the functionality of the service.",
+        "expandAriaLabel": "Show cookie information related to device information",
+        "checkboxAriaDescription": "Device information cookies contain information collected from the user's device that ensures the functionality of the service."
       }
     },
     "chat": {
@@ -288,19 +288,19 @@
         "title": "Chat-palvelut",
         "text": "Chat-palveluiden evästeet mahdollistavat yhteydenpidon käyttäjän ja palvelun välillä.",
         "expandAriaLabel": "Näytä chat-palveluihin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "FI: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "checkboxAriaDescription": "Chat-palveluiden evästeet mahdollistavat yhteydenpidon käyttäjän ja palvelun välillä."
       },
       "sv": {
         "title": "Chattjänster",
         "text": "Kakor för chattjänsterna möjliggör kontakten mellan användaren och tjänsten.",
-        "expandAriaLabel": "SV: Näytä chat-palveluihin littyvien evästeiden tiedot",
-        "checkboxAriaDescription": "SV: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Visa information om cookies relaterade till chattjänster",
+        "checkboxAriaDescription": "Kakor för chattjänsterna möjliggör kontakten mellan användaren och tjänsten."
       },
       "en": {
         "title": "Chat services",
         "text": "Chat service cookies enable communication between the user and the service.",
-        "expandAriaLabel": "EN: Näytä asetuksiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "EN: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Show cookie information related to chat services",
+        "checkboxAriaDescription": "Chat service cookies enable communication between the user and the service."
       }
     },
     "thirdParty": {
@@ -308,19 +308,19 @@
         "title": "Kolmannen osapuolen palvelut",
         "text": "Evästeet mahdollistavat ulkopuolisten palvelujen (kuten sosiaalisen median alustojen) toiminnan tällä sivustolla.",
         "expandAriaLabel": "Näytä kolmansiin osapuoliin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "FI: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "checkboxAriaDescription": "Evästeet mahdollistavat ulkopuolisten palvelujen (kuten sosiaalisen median alustojen) toiminnan tällä sivustolla."
       },
       "sv": {
         "title": "Tredje parts tjänster",
         "text": "Kakor möjliggör utomstående tjänsters (såsom sociala medie-plattformar) funktioner på denna webbplats.",
-        "expandAriaLabel": "SV: Näytä kolmansiin osapuoliin littyvien evästeiden tiedot",
-        "checkboxAriaDescription": "SV: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Visa information om tredjepartscookies",
+        "checkboxAriaDescription": "Kakor möjliggör utomstående tjänsters (såsom sociala medie-plattformar) funktioner på denna webbplats."
       },
       "en": {
         "title": "Third-party services",
         "text": "Cookies allow external services (such as social media platforms) to operate on this website.",
-        "expandAriaLabel": "EN: Näytä asetuksiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "EN: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Show cookie information related to third parties",
+        "checkboxAriaDescription": "Cookies allow external services (such as social media platforms) to operate on this website."
       }
     },
     "content": {
@@ -328,19 +328,19 @@
         "title": "Sisällön esittäminen",
         "text": "Evästeitä hyödynnetään erilaisten sisältöjen näyttämiseen käyttäjälle.",
         "expandAriaLabel": "Näytä sisällön esittämiseen liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "FI: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "checkboxAriaDescription": "Evästeitä hyödynnetään erilaisten sisältöjen näyttämiseen käyttäjälle."
       },
       "sv": {
         "title": "Visning av innehåll",
         "text": "Kakor utnyttjas för att visa olika innehåll för användaren.",
-        "expandAriaLabel": "SV: Näytä sisällön esittämiseen littyvien evästeiden tiedot",
-        "checkboxAriaDescription": "SV: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Visa information om cookies relaterade till visning av innehåll",
+        "checkboxAriaDescription": "Kakor utnyttjas för att visa olika innehåll för användaren."
       },
       "en": {
         "title": "Content presentation",
         "text": "Cookies are used to display various types of content to the user.",
-        "expandAriaLabel": "EN: Näytä asetuksiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "EN: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Show cookie information related to content presentation",
+        "checkboxAriaDescription": "Cookies are used to display various types of content to the user."
       }
     },
     "location": {
@@ -348,19 +348,19 @@
         "title": "Sijainti",
         "text": "Sijaintievästeiden avulla voidaan hyödyntää käyttäjän laitteelta saatua sijaintitietoa (GPS).",
         "expandAriaLabel": "Näytä sijaintiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "FI: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "checkboxAriaDescription": "Sijaintievästeiden avulla voidaan hyödyntää käyttäjän laitteelta saatua sijaintitietoa (GPS)."
       },
       "sv": {
         "title": "Läge",
         "text": "Med hjälp av lägeskakor kan man utnyttja lägesdata som fåtts från användarens enhet (GPS).",
-        "expandAriaLabel": "SV: Näytä sijaintiin littyvien evästeiden tiedot",
-        "checkboxAriaDescription": "SV: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Visa information om cookies för geografisk positionering",
+        "checkboxAriaDescription": "Med hjälp av lägeskakor kan man utnyttja lägesdata som fåtts från användarens enhet (GPS)."
       },
       "en": {
         "title": "Location",
-        "text": "Location cookies can be used to utilise location information (GPS) received from the user’s device.",
-        "expandAriaLabel": "EN: Näytä asetuksiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "EN: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "text": "Location cookies can be used to utilise location information (GPS) received from the user's device.",
+        "expandAriaLabel": "Show cookie information related to location",
+        "checkboxAriaDescription": "Location cookies can be used to utilise location information (GPS) received from the user’s device."
       }
     },
     "loadBalancing": {
@@ -368,19 +368,19 @@
         "title": "Kuormantasaus",
         "text": "Kuormantasausevästeiden avulla varmistetaan, että palvelu latautuu ja toimii nopeasti ja tehokkaasti.",
         "expandAriaLabel": "Näytä kuormantasaukseen liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "FI: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "checkboxAriaDescription": "Kuormantasausevästeiden avulla varmistetaan, että palvelu latautuu ja toimii nopeasti ja tehokkaasti."
       },
       "sv": {
         "title": "Belastningsutjämning",
         "text": "Med hjälp av belastningsutjämningskakor säkerställer man att tjänsten laddas och fungerar snabbt och effektivt.",
-        "expandAriaLabel": "SV: Näytä sisällön esittämiseen littyvien evästeiden tiedot",
-        "checkboxAriaDescription": "SV: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Visa information om cookies för belastningsutjämning",
+        "checkboxAriaDescription": "Med hjälp av belastningsutjämningskakor säkerställer man att tjänsten laddas och fungerar snabbt och effektivt."
       },
       "en": {
         "title": "Load balancing",
         "text": "Load-balancing cookies ensure that the service loads and works quickly and efficiently.",
-        "expandAriaLabel": "EN: Näytä asetuksiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "EN: Evästeisiin tallennetaan käyttäjän tekemiä valintoja. Hyväksy tai jätä hyväksymättä kaikki asetuksiin liittyvät evästeet"
+        "expandAriaLabel": "Show cookie information related to load-balancing",
+        "checkboxAriaDescription": "Load-balancing cookies ensure that the service loads and works quickly and efficiently."
       }
     },
     "essential": {
@@ -391,16 +391,16 @@
         "checkboxAriaDescription": "essential checkboxAriaDescription"
       },
       "sv": {
-        "title": "SV: Perustoimintoihin liittyvät evästeet",
-        "text": "SV: Sivusto ei toimi ilman näitä",
-        "expandAriaLabel": "SV: essential expandAriaLabel",
-        "checkboxAriaDescription": "SV: essential checkboxAriaDescription"
+        "title": "Cookies relaterade till grundläggande funktioner",
+        "text": "Du kan inte förbjuda användningen av cookies relaterade till grundläggande funktioner. De möjliggör webbplatsens funktioner och påverkar användbarheten.",
+        "expandAriaLabel": "Visa information om cookies relaterade till grundläggande funktioner",
+        "checkboxAriaDescription": "Visa information om cookies relaterade till grundläggande funktioner"
       },
       "en": {
-        "title": "EN: Perustoimintoihin liittyvät evästeet",
-        "text": "EN: Sivusto ei toimi ilman näitä",
-        "expandAriaLabel": "EN: essential expandAriaLabel",
-        "checkboxAriaDescription": "EN: essential checkboxAriaDescription"
+        "title": "Cookies related to basic functionalities",
+        "text": "Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability",
+        "expandAriaLabel": "Show cookie information related to basic functionalities",
+        "checkboxAriaDescription": "Cookies related to basic functions are required, and the website will not function properly without them. "
       }
     },
     "statistics": {
@@ -408,39 +408,39 @@
         "title": "Tilastointi",
         "text": "Tilastointievästeiden keräämää tietoa käytetään verkkosivuston kehittämiseen.",
         "expandAriaLabel": "Näytä tilastointiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "Tilastoinnilla parannetaan sivustoa. Hyväksy tai jätä hyväksymättä kaikki tilastointiin liittyvät evästeet"
+        "checkboxAriaDescription": "Tilastointievästeiden keräämää tietoa käytetään verkkosivuston kehittämiseen."
       },
       "sv": {
         "title": "Statistik",
         "text": "Data från statistikkakorna används för att utveckla webbplatsen.",
-        "expandAriaLabel": "SV: Näytä tilastointiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "SV: Tilastoinnilla parannetaan sivustoa. Hyväksy tai jätä hyväksymättä kaikki tilastointiin liittyvät evästeet"
+        "expandAriaLabel": "Visa information om statistikcookies",
+        "checkboxAriaDescription": "Data från statistikkakorna används för att utveckla webbplatsen."
       },
       "en": {
         "title": "Statistics",
         "text": "The information collected by statistics cookies is used to develop the website.",
-        "expandAriaLabel": "EN: Näytä tilastointiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "EN: Tilastoinnilla parannetaan sivustoa. Hyväksy tai jätä hyväksymättä kaikki tilastointiin liittyvät evästeet"
+        "expandAriaLabel": "Show cookie information related to statistics",
+        "checkboxAriaDescription": "The information collected by statistics cookies is used to develop the website."
       }
     },
     "sharedConsents": {
       "fi": {
-        "title": "Yhteiset evästesuostumukset",
-        "text": "Tallennamme nämä suostumukset, jottei sinun tarvitse hyväksyä samoja uudelleen Helsingin kaupungin palveluissa",
+        "title": "Yhteiset evästeet",
+        "text": "Helsingin kaupungin palvelut käyttävät yhteisiä evästeitä. Tallennamme nämä suostumukset, jottei sinun tarvitse hyväksyä samoja evästeitä uudelleen kaupungin muissa palveluissa.",
         "expandAriaLabel": "Näytä yhteisiin evästesuostumuksiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "Yhteiset evästesuostumukset helpottavat sivuston käyttöä. Hyväksy tai jätä hyväksymättä kaikki tilastointiin liittyvät evästeet"
+        "checkboxAriaDescription": "Helsingin kaupungin palvelut käyttävät yhteisiä evästeitä. Tallennamme suostumuksen, jottei sinun tarvitse hyväksyä samoja evästeitä uudelleen muissa kaupungin palveluissa."
       },
       "sv": {
-        "title": "SV: Yhteiset evästesuostumukset",
-        "text": "SV: Tallennamme nämä suostumukset, jottei sinun tarvitse hyväksyä samoja uudelleen Helsingin kaupungin palveluissa",
-        "expandAriaLabel": "SV: Näytä yhteisiin evästesuostumuksiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "SV: Yhteiset evästesuostumukset helpottavat sivuston käyttöä. Hyväksy tai jätä hyväksymättä kaikki tilastointiin liittyvät evästeet"
+        "title": "Gemensamma cookies",
+        "text": "Helsingfors stads tjänster använder gemensamma cookies. Vi lagrar dessa samtycken så att du inte behöver godkänna samma cookies igen i stadens andra tjänster.",
+        "expandAriaLabel": "Visa information om cookies relaterade till gemensamma cookie-samtycken",
+        "checkboxAriaDescription": "Helsingfors stads tjänster använder gemensamma cookies. Vi lagrar samtycket så att du inte behöver godkänna samma cookies igen i stadens andra tjänster."
       },
       "en": {
-        "title": "EN: Yhteiset evästesuostumukset",
-        "text": "EN: Tallennamme nämä suostumukset, jottei sinun tarvitse hyväksyä samoja uudelleen Helsingin kaupungin palveluissa",
-        "expandAriaLabel": "EN: Näytä yhteisiin evästesuostumuksiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "EN: Yhteiset evästesuostumukset helpottavat sivuston käyttöä. Hyväksy tai jätä hyväksymättä kaikki tilastointiin liittyvät evästeet"
+        "title": "Shared consent",
+        "text": "City of Helsinki services use shared consent. We will store these consents so that you do not have to accept the same cookies again on other City services.",
+        "expandAriaLabel": "Show cookie information related to shared cookie consent",
+        "checkboxAriaDescription": "City of Helsinki services use shared consent. We will store the consent so that you do not have to accept the same cookies again on other City services."
       }
     }
   },
@@ -450,114 +450,114 @@
       "hostName": "*.hel.fi",
       "commonGroup": "SET_IN_CODE",
       "fi": {
-        "name": "Suostumusvalinnat",
-        "description": "Tallennetaan Helsingin kaupungin yhteiset evästesuostumukset.",
+        "name": "Evästesuostumukset",
+        "description": "Sivusto käyttää tätä evästettä tietojen tallentamiseen siitä, ovatko kävijät antaneet hyväksyntänsä tai kieltäytyneet evästeiden käytöstä.",
         "expiration": "1 vuosi"
       },
       "sv": {
-        "name": "SV: Suostumusvalinnat",
-        "description": "SV: Tallennetaan Helsingin kaupungin yhteiset evästesuostumukset.",
-        "expiration": "SV: 1 vuosi"
+        "name": "Cookie samtycke",
+        "description": "Webbplatsen använder denna cookie för att lagra information om huruvida besökare har godkänt användningen av cookies eller inte.",
+        "expiration": "Ett år"
       },
       "en": {
-        "name": "EN: Suostumusvalinnat",
-        "description": "EN: Tallennetaan Helsingin kaupungin yhteiset evästesuostumukset.",
-        "expiration": "EN: 1 vuosi"
+        "name": "Cookie consents",
+        "description": "Used by hel.fi to store information about whether visitors have given or declined the use of cookie categories used on the hel.fi site.",
+        "expiration": "1 year"
       }
     },
-    "tunnistamo": {
-      "id": "tunnistamo",
-      "hostName": "tunnistamo.com",
+    "cookiehub": {
+      "id": "cookiehub",
+      "hostName": "cookiehub.com",
       "fi": {
-        "name": "Tunnistamo cookie",
-        "description": "Kuvaus lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus",
-        "expiration": "Voimassaoloaika"
+        "name": "cookiehub",
+        "description": "Mahdollistaa evästehallinnan hel.fi sivuilla.",
+        "expiration": "365 päivää"
       },
       "sv": {
-        "name": "SV: Tunnistamo cookie",
-        "description": "SV: Kuvaus lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus",
-        "expiration": "SV: Voimassaoloaika"
+        "name": "cookiehub",
+        "description": "Cookie möjliggör hantering av cookies på hel.fi webbplatsen.",
+        "expiration": "365 dagar"
       },
       "en": {
-        "name": "EN: Tunnistamo cookie",
-        "description": "EN: Kuvaus lectus lacinia sed. Phasellus purus nisi, imperdiet id volutpat vel, pellentesque in ex. In pretium maximus finibus",
-        "expiration": "EN: Voimassaoloaika"
+        "name": "cookiehub",
+        "description": "Used by CookieHub to store information about whether visitors have given or declined the use of cookie categories used on the hel.fi site.",
+        "expiration": "365 days"
       }
     },
     "keycloak": {
       "id": "keycloak",
-      "hostName": "keycloak.com",
+      "hostName": "tunnistus.*.hel.fi",
       "fi": {
-        "name": "keycloak cookie",
-        "description": "Quisque vest molestie convallis. Don el dui vel.",
-        "expiration": "Voimassaoloaika"
+        "name": "AUTH_SESSION_ID",
+        "description": "Tunnistautumisistunnon säilymiseksi vaadittu eväste.",
+        "expiration": "Istunto"
       },
       "sv": {
-        "name": "SV: keycloak cookie",
-        "description": "SV: Quisque vest molestie convallis. Don el dui vel.",
-        "expiration": "SV: Voimassaoloaika"
+        "name": "AUTH_SESSION_ID",
+        "description": "Cookie som krävs för att bevara autentiseringssession.",
+        "expiration": "Session"
       },
       "en": {
-        "name": "EN: keycloak cookie",
-        "description": "EN: Quisque vest molestie convallis. Don el dui vel.",
-        "expiration": "EN: Voimassaoloaika"
-      }
-    },
-    "marketing": {
-      "id": "marketing",
-      "hostName": "marketing.com",
-      "fi": {
-        "name": "marketing cookie",
-        "description": "Quisque vest molestie convallis. Don el dui vel.",
-        "expiration": "Voimassaoloaika"
-      },
-      "sv": {
-        "name": "SV: marketing cookie",
-        "description": "SV: Quisque vest molestie convallis. Don el dui vel.",
-        "expiration": "SV: Voimassaoloaika"
-      },
-      "en": {
-        "name": "EN: marketing cookie",
-        "description": "EN: Quisque vest molestie convallis. Don el dui vel.",
-        "expiration": "EN: Voimassaoloaika"
-      }
-    },
-    "language-i18n": {
-      "id": "language-i18n",
-      "hostName": "hel.fi",
-      "fi": {
-        "name": "Kielvalinta",
-        "description": "Quisque vest molestie convallis. Don el dui vel.",
-        "expiration": "Voimassaoloaika"
-      },
-      "sv": {
-        "name": "SV: Kielvalinta",
-        "description": "SV: Quisque vest molestie convallis. Don el dui vel.",
-        "expiration": "SV: Voimassaoloaika"
-      },
-      "en": {
-        "name": "EN: Kielvalinta",
-        "description": "EN: Quisque vest molestie convallis. Don el dui vel.",
-        "expiration": "EN: Voimassaoloaika"
+        "name": "AUTH_SESSION_ID",
+        "description": "Required to persist the authentication session.",
+        "expiration": "Session"
       }
     },
     "matomo": {
       "id": "matomo",
       "hostName": "digia.fi",
       "fi": {
-        "name": "Analytiikan kerääminen Matomooon",
-        "description": "Quisque vest molestie convallis. Don el dui vel.",
-        "expiration": "Voimassaoloaika"
+        "name": "_pk_id.*",
+        "description": "Eväste kerää tietoa kävijän liikkeistä sivustolla.",
+        "expiration": "393 päivää"
       },
       "sv": {
-        "name": "SV: Analytiikan kerääminen Matomooon",
-        "description": "SV: Quisque vest molestie convallis. Don el dui vel.",
-        "expiration": "SV: Voimassaoloaika"
+        "name": "_pk_id.*",
+        "description": "Statistiksystemets kaka samlar information om hur webbplatsen används.",
+        "expiration": "393 dagar"
       },
       "en": {
-        "name": "EN: Analytiikan kerääminen Matomooon",
-        "description": "EN: Quisque vest molestie convallis. Don el dui vel.",
-        "expiration": "EN: Voimassaoloaika"
+        "name": "_pk_id.*",
+        "description": "This cookie is used to store a few details about the user such as the unique visitor ID.",
+        "expiration": "393 days"
+      }
+    },
+    "cms-session": {
+      "id": "cms-session",
+      "hostName": "hel.fi",
+      "fi": {
+        "name": "SSESS*",
+        "description": "Sisällönhallintajärjestelmän toimintaan liittyvä eväste.",
+        "expiration": "23 päivää"
+      },
+      "sv": {
+        "name": "SSESS*",
+        "description": "En cookie relaterad till driften av innehållshanteringssystemet.",
+        "expiration": "23 dagar"
+      },
+      "en": {
+        "name": "SSESS*",
+        "description": "A cookie related to the operation of the content management system.",
+        "expiration": "23 days"
+      }
+    },
+    "tunnistamo": {
+      "id": "tunnistamo",
+      "hostName": "tunnistamo.*.hel.fi",
+      "fi": {
+        "name": "sso-sessionid",
+        "description": "Tunnistautumisistunnon säilymiseksi vaadittu eväste.",
+        "expiration": "Istunto"
+      },
+      "sv": {
+        "name": "sso-sessionid",
+        "description": "Cookie som krävs för att bevara autentiseringssession.",
+        "expiration": "Session"
+      },
+      "en": {
+        "name": "sso-sessionid",
+        "description": "Required to persist the authentication session.",
+        "expiration": "Session"
       }
     }
   }
