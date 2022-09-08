@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
-- [Notification] Accepts custom ari-label for the notification section element
+- [Notification] Accepts a custom aria-label for the notification section element
 
 ## [2.1.1] - July, 12, 2022
 
