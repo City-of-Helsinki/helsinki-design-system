@@ -17,9 +17,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Table] Support for providing side effects before or after the Table component is done sorting
 - [Notification] Accepts a custom aria-label for the notification section element
 
-#### Fixed
+### Documentation
 
-- [Notification] Accepts a custom aria-label for the notification section element
+#### Added
+
+- Documentation for the React Pagination component
+- Documentation for Table component's onSort property
+- Documentation for Notification component's notificationAriaLabel property
 
 ## [2.1.1] - July, 12, 2022
 
