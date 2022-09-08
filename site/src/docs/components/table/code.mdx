@@ -13,193 +13,205 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ## Code
 
-### Code examples 
+### Code examples
 
 #### Default
+
 <Playground>
 
 ```jsx
-{() => {
-  const cols = [
-    { key: 'id', headerName: 'Not rendered' },
-    { key: 'firstName', headerName: 'First name' },
-    { key: 'surname', headerName: 'Surname' },
-    {
-      key: 'age',
-      headerName: 'Age',
-      transform: ({ age }) => {
-        return <div style={{ textAlign: 'right' }}>{age}</div>;
+{
+  () => {
+    const cols = [
+      { key: 'id', headerName: 'Not rendered' },
+      { key: 'firstName', headerName: 'First name' },
+      { key: 'surname', headerName: 'Surname' },
+      {
+        key: 'age',
+        headerName: 'Age',
+        transform: ({ age }) => {
+          return <div style={{ textAlign: 'right' }}>{age}</div>;
+        },
       },
-    },
-    { key: 'profession', headerName: 'Profession' },
-  ];
-  const rows = [
-    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
-  ];
-  const captionDark = (
-    <span>
-      <b>Table 1</b>: Service users (dark variant)
-    </span>
-  );
-  const captionLight = (
-    <span>
-      <b>Table 2</b>: Service users (light variant)
-    </span>
-  )
-  return (
-    <div style={{ maxWidth: '640px' }}>
-      <Table cols={cols} rows={rows} caption={captionDark} indexKey="id" renderIndexCol={false} />
-      <div style={{ marginTop: 'var(--spacing-l)' }}>
-        <Table cols={cols} rows={rows} caption={captionLight} variant="light" indexKey="id" renderIndexCol={false} />
+      { key: 'profession', headerName: 'Profession' },
+    ];
+    const rows = [
+      { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+      { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+      { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+      { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    ];
+    const captionDark = (
+      <span>
+        <b>Table 1</b>: Service users (dark variant)
+      </span>
+    );
+    const captionLight = (
+      <span>
+        <b>Table 2</b>: Service users (light variant)
+      </span>
+    );
+    return (
+      <div style={{ maxWidth: '640px' }}>
+        <Table cols={cols} rows={rows} caption={captionDark} indexKey="id" renderIndexCol={false} />
+        <div style={{ marginTop: 'var(--spacing-l)' }}>
+          <Table cols={cols} rows={rows} caption={captionLight} variant="light" indexKey="id" renderIndexCol={false} />
+        </div>
       </div>
-    </div>
-  );
-}}
+    );
+  };
+}
 ```
 
 ```html
 <div>
-<div class="hds-table-container" style="max-width:640px" tabindex="0">
-<table class="hds-table hds-table--dark" aria-label="Service users (dark variant)">
-  <caption class="hds-table__caption"><b>Table 1</b>: Service users (dark variant)</caption>
-  <thead>
-    <tr class="hds-table__header-row">
-      <th scope="col">First name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Age</th>
-      <th scope="col">Profession</th>
-    </tr>
-  </thead>
-  <tbody class="hds-table__content">
-    <tr>
-      <td>Lauri</td>
-      <td>Kekkonen</td>
-      <td class="hds-table--text-align-right">39</td>
-      <td>Engineer</td>
-    </tr>
-    <tr>
-      <td>Maria</td>
-      <td>Sarasoja</td>
-      <td class="hds-table--text-align-right">62</td>
-      <td>Designer</td>
-    </tr>
-    <tr>
-      <td>Anneli</td>
-      <td>Routa</td>
-      <td class="hds-table--text-align-right">50</td>
-      <td>Meteorologist</td>
-    </tr>
-    <tr>
-      <td>Osku</td>
-      <td>Rausku</td>
-      <td class="hds-table--text-align-right">18</td>
-      <td>Mail carrier</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+  <div class="hds-table-container" style="max-width:640px" tabindex="0">
+    <table class="hds-table hds-table--dark" aria-label="Service users (dark variant)">
+      <caption class="hds-table__caption">
+        <b>Table 1</b
+        >: Service users (dark variant)
+      </caption>
+      <thead>
+        <tr class="hds-table__header-row">
+          <th scope="col">First name</th>
+          <th scope="col">Surname</th>
+          <th scope="col">Age</th>
+          <th scope="col">Profession</th>
+        </tr>
+      </thead>
+      <tbody class="hds-table__content">
+        <tr>
+          <td>Lauri</td>
+          <td>Kekkonen</td>
+          <td class="hds-table--text-align-right">39</td>
+          <td>Engineer</td>
+        </tr>
+        <tr>
+          <td>Maria</td>
+          <td>Sarasoja</td>
+          <td class="hds-table--text-align-right">62</td>
+          <td>Designer</td>
+        </tr>
+        <tr>
+          <td>Anneli</td>
+          <td>Routa</td>
+          <td class="hds-table--text-align-right">50</td>
+          <td>Meteorologist</td>
+        </tr>
+        <tr>
+          <td>Osku</td>
+          <td>Rausku</td>
+          <td class="hds-table--text-align-right">18</td>
+          <td>Mail carrier</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<div class="hds-table-container" style="max-width:640px" tabindex="0">
-<table class="hds-table hds-table--light" aria-label="Service users (light variant)">
-  <caption class="hds-table__caption"><b>Table 2</b>: Service users (light variant)</caption>
-  <thead>
-    <tr class="hds-table__header-row">
-      <th scope="col">First name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Age</th>
-      <th scope="col">Profession</th>
-    </tr>
-  </thead>
-  <tbody class="hds-table__content">
-    <tr>
-      <td>Lauri</td>
-      <td>Kekkonen</td>
-      <td class="hds-table--text-align-right">39</td>
-      <td>Engineer</td>
-    </tr>
-    <tr>
-      <td>Maria</td>
-      <td>Sarasoja</td>
-      <td class="hds-table--text-align-right">62</td>
-      <td>Designer</td>
-    </tr>
-    <tr>
-      <td>Anneli</td>
-      <td>Routa</td>
-      <td class="hds-table--text-align-right">50</td>
-      <td>Meteorologist</td>
-    </tr>
-    <tr>
-      <td>Osku</td>
-      <td>Rausku</td>
-      <td class="hds-table--text-align-right">18</td>
-      <td>Mail carrier</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+  <div class="hds-table-container" style="max-width:640px" tabindex="0">
+    <table class="hds-table hds-table--light" aria-label="Service users (light variant)">
+      <caption class="hds-table__caption">
+        <b>Table 2</b
+        >: Service users (light variant)
+      </caption>
+      <thead>
+        <tr class="hds-table__header-row">
+          <th scope="col">First name</th>
+          <th scope="col">Surname</th>
+          <th scope="col">Age</th>
+          <th scope="col">Profession</th>
+        </tr>
+      </thead>
+      <tbody class="hds-table__content">
+        <tr>
+          <td>Lauri</td>
+          <td>Kekkonen</td>
+          <td class="hds-table--text-align-right">39</td>
+          <td>Engineer</td>
+        </tr>
+        <tr>
+          <td>Maria</td>
+          <td>Sarasoja</td>
+          <td class="hds-table--text-align-right">62</td>
+          <td>Designer</td>
+        </tr>
+        <tr>
+          <td>Anneli</td>
+          <td>Routa</td>
+          <td class="hds-table--text-align-right">50</td>
+          <td>Meteorologist</td>
+        </tr>
+        <tr>
+          <td>Osku</td>
+          <td>Rausku</td>
+          <td class="hds-table--text-align-right">18</td>
+          <td>Mail carrier</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 ```
 
 </Playground>
 
 #### Vertical headers
+
 <Playground>
 
 ```jsx
-{() => {
-  const cols = [
-    { key: 'id', headerName: 'Not rendered' },
-    { key: '8-12', headerName: '8-12' },
-    { key: '12-14', headerName: '12-14' },
-    { key: '14-16', headerName: '14-16' },
-    { key: '16-18', headerName: '16-18' },
-  ];
-  const unitRows = [
-    { id: 'monday', '8-12': 324, '12-14': 562, '14-16': 280, '16-18': 94 },
-    { id: 'tuesday', '8-12': 341, '12-14': 688, '14-16': 425, '16-18': 113 },
-    { id: 'wednesday', '8-12': 294, '12-14': 492, '14-16': 280, '16-18': 67 },
-    { id: 'thursday', '8-12': 312, '12-14': 501, '14-16': 455, '16-18': 112 },
-    { id: 'friday', '8-12': 150, '12-14': 142, '14-16': 362, '16-18': 455 },
-  ];
-  const verticalHeaders = [
-    { key: 'monday', headerName: 'Monday' },
-    { key: 'tuesday', headerName: 'Tuesday' },
-    { key: 'wednesday', headerName: 'Wednesday' },
-    { key: 'thursday', headerName: 'Thursday' },
-    { key: 'friday', headerName: 'Friday' },
-  ];
-  const caption = (
-    <span>
-      <b>Table 3</b>: Units sold by weekday
-    </span>
-  );
-  return (
-    <div style={{ maxWidth: '486px' }}>
-      <Table
-        verticalHeaders={verticalHeaders}
-        cols={cols}
-        rows={unitRows}
-        caption={caption}
-        textAlignContentRight
-        indexKey="id"
-        renderIndexCol={false}
-      />
-    </div>
-  );
-}}
+{
+  () => {
+    const cols = [
+      { key: 'id', headerName: 'Not rendered' },
+      { key: '8-12', headerName: '8-12' },
+      { key: '12-14', headerName: '12-14' },
+      { key: '14-16', headerName: '14-16' },
+      { key: '16-18', headerName: '16-18' },
+    ];
+    const unitRows = [
+      { id: 'monday', '8-12': 324, '12-14': 562, '14-16': 280, '16-18': 94 },
+      { id: 'tuesday', '8-12': 341, '12-14': 688, '14-16': 425, '16-18': 113 },
+      { id: 'wednesday', '8-12': 294, '12-14': 492, '14-16': 280, '16-18': 67 },
+      { id: 'thursday', '8-12': 312, '12-14': 501, '14-16': 455, '16-18': 112 },
+      { id: 'friday', '8-12': 150, '12-14': 142, '14-16': 362, '16-18': 455 },
+    ];
+    const verticalHeaders = [
+      { key: 'monday', headerName: 'Monday' },
+      { key: 'tuesday', headerName: 'Tuesday' },
+      { key: 'wednesday', headerName: 'Wednesday' },
+      { key: 'thursday', headerName: 'Thursday' },
+      { key: 'friday', headerName: 'Friday' },
+    ];
+    const caption = (
+      <span>
+        <b>Table 3</b>: Units sold by weekday
+      </span>
+    );
+    return (
+      <div style={{ maxWidth: '486px' }}>
+        <Table
+          verticalHeaders={verticalHeaders}
+          cols={cols}
+          rows={unitRows}
+          caption={caption}
+          textAlignContentRight
+          indexKey="id"
+          renderIndexCol={false}
+        />
+      </div>
+    );
+  };
+}
 ```
 
 ```html
 <div class="hds-table-container" style="max-width:496px;" tabindex="0">
-  <table
-    class="hds-table hds-table--dark hds-table--with-vertical-header"
-    aria-label="Units sold by weekday"
-  >
-    <caption class="hds-table__caption"><b>Table 3</b>: Units sold by weekday</caption>
+  <table class="hds-table hds-table--dark hds-table--with-vertical-header" aria-label="Units sold by weekday">
+    <caption class="hds-table__caption">
+      <b>Table 3</b
+      >: Units sold by weekday
+    </caption>
     <colgroup>
       <col span="1" class="hds-table__vertical-header-column" />
     </colgroup>
@@ -256,86 +268,92 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 </Playground>
 
 #### Zebra rows
+
 <Playground>
 
 ```jsx
-{() => {
-  const cols = [
-    { key: 'id', headerName: 'Not rendered' },
-    { key: 'firstName', headerName: 'First name' },
-    { key: 'surname', headerName: 'Surname' },
-    {
-      key: 'age',
-      headerName: 'Age',
-      transform: ({ age }) => {
-        return <div style={{ textAlign: 'right' }}>{age}</div>;
+{
+  () => {
+    const cols = [
+      { key: 'id', headerName: 'Not rendered' },
+      { key: 'firstName', headerName: 'First name' },
+      { key: 'surname', headerName: 'Surname' },
+      {
+        key: 'age',
+        headerName: 'Age',
+        transform: ({ age }) => {
+          return <div style={{ textAlign: 'right' }}>{age}</div>;
+        },
       },
-    },
-    { key: 'city', headerName: 'City' },
-    { key: 'profession', headerName: 'Profession' },
-    {
-      key: 'experience',
-      headerName: 'Experience (years)',
-      transform: ({ experience }) => {
-        return <div style={{ textAlign: 'right' }}>{experience}</div>;
+      { key: 'city', headerName: 'City' },
+      { key: 'profession', headerName: 'Profession' },
+      {
+        key: 'experience',
+        headerName: 'Experience (years)',
+        transform: ({ experience }) => {
+          return <div style={{ textAlign: 'right' }}>{experience}</div>;
+        },
       },
-    },
-  ];
-  const rows = [
-    {
-      id: 1000,
-      firstName: 'Lauri',
-      surname: 'Kekkonen',
-      age: 39,
-      city: 'Helsinki',
-      profession: 'Engineer',
-      experience: 10,
-    },
-    {
-      id: 1001,
-      firstName: 'Maria',
-      surname: 'Sarasoja',
-      age: 62,
-      city: 'Tampere',
-      profession: 'Designer',
-      experience: 39,
-    },
-    {
-      id: 1002,
-      firstName: 'Anneli',
-      surname: 'Routa',
-      age: 50,
-      city: 'Turku',
-      profession: 'Meteorologist',
-      experience: 25,
-    },
-    {
-      id: 1003,
-      firstName: 'Osku',
-      surname: 'Rausku',
-      age: 18,
-      city: 'Oulu',
-      profession: 'Mail Carrier',
-      experience: 1,
-    },
-  ];
-  const caption = (
-    <span>
-      <b>Table 4</b>: Service users (zebra variant)
-    </span>
-  );
-  return (
-    <div style={{ maxWidth: '800px' }}>
-      <Table rows={rows} cols={cols} caption={caption} zebra indexKey="id" renderIndexCol={false} />
-    </div>
-  );
-}}
+    ];
+    const rows = [
+      {
+        id: 1000,
+        firstName: 'Lauri',
+        surname: 'Kekkonen',
+        age: 39,
+        city: 'Helsinki',
+        profession: 'Engineer',
+        experience: 10,
+      },
+      {
+        id: 1001,
+        firstName: 'Maria',
+        surname: 'Sarasoja',
+        age: 62,
+        city: 'Tampere',
+        profession: 'Designer',
+        experience: 39,
+      },
+      {
+        id: 1002,
+        firstName: 'Anneli',
+        surname: 'Routa',
+        age: 50,
+        city: 'Turku',
+        profession: 'Meteorologist',
+        experience: 25,
+      },
+      {
+        id: 1003,
+        firstName: 'Osku',
+        surname: 'Rausku',
+        age: 18,
+        city: 'Oulu',
+        profession: 'Mail Carrier',
+        experience: 1,
+      },
+    ];
+    const caption = (
+      <span>
+        <b>Table 4</b>: Service users (zebra variant)
+      </span>
+    );
+    return (
+      <div style={{ maxWidth: '800px' }}>
+        <Table rows={rows} cols={cols} caption={caption} zebra indexKey="id" renderIndexCol={false} />
+      </div>
+    );
+  };
+}
 ```
 
 ```html
 <div class="hds-table-container" style="max-width:800px;" tabindex="0">
   <table class="hds-table hds-table--dark hds-table--zebra" aria-label="Service users (zebra variant)">
-    <caption class="hds-table__caption"><b>Table 4</b>: Service users (zebra variant)</caption>
+    <caption class="hds-table__caption">
+      <b>Table 4</b
+      >: Service users (zebra variant)
+    </caption>
     <thead>
       <tr class="hds-table__header-row">
         <th scope="col">First name</th>
@@ -387,49 +405,55 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 </Playground>
 
 #### Vertical lines
+
 <Playground>
 
 ```jsx
-{() => {
-  const cols = [
-    { key: 'day', headerName: 'Day' },
-    { key: 'product1',
-      headerName: 'Product 1',
-      transform: ({ product1 }) => {
-        return <div style={{ textAlign: 'right' }}>{product1}</div>;
+{
+  () => {
+    const cols = [
+      { key: 'day', headerName: 'Day' },
+      {
+        key: 'product1',
+        headerName: 'Product 1',
+        transform: ({ product1 }) => {
+          return <div style={{ textAlign: 'right' }}>{product1}</div>;
+        },
       },
-    },
-    { key: 'product2',
-      headerName: 'Product 2',
-      transform: ({ product2 }) => {
-        return <div style={{ textAlign: 'right' }}>{product2}</div>;
+      {
+        key: 'product2',
+        headerName: 'Product 2',
+        transform: ({ product2 }) => {
+          return <div style={{ textAlign: 'right' }}>{product2}</div>;
+        },
       },
-    },
-    { key: 'product3',
-      headerName: 'Product 3',
-      transform: ({ product3 }) => {
-        return <div style={{ textAlign: 'right' }}>{product3}</div>;
+      {
+        key: 'product3',
+        headerName: 'Product 3',
+        transform: ({ product3 }) => {
+          return <div style={{ textAlign: 'right' }}>{product3}</div>;
+        },
       },
-    },
-  ];
-  const rows = [
-    { day: 'Monday', product1: 12, product2: 24, product3: 5, },
-    { day: 'Tuesday', product1: 10, product2: 32, product3: 6, },
-    { day: 'Wednesday', product1: 14, product2: 35, product3: 6, },
-    { day: 'Thursday', product1: 11, product2: 18, product3: 2, },
-    { day: 'Friday', product1: 16, product2: 45, product3: 12, },
-  ];
-  const caption = (
-    <span>
-      <b>Table 5</b>: Units sold by weekday (vertical lines variant)
-    </span>
-  );
-  return (
-    <div style={{ maxWidth: '496px' }}>
-      <Table verticalLines cols={cols} rows={rows} caption={caption} indexKey="day" renderIndexCol={true} />
-    </div>
-  );
-}}
+    ];
+    const rows = [
+      { day: 'Monday', product1: 12, product2: 24, product3: 5 },
+      { day: 'Tuesday', product1: 10, product2: 32, product3: 6 },
+      { day: 'Wednesday', product1: 14, product2: 35, product3: 6 },
+      { day: 'Thursday', product1: 11, product2: 18, product3: 2 },
+      { day: 'Friday', product1: 16, product2: 45, product3: 12 },
+    ];
+    const caption = (
+      <span>
+        <b>Table 5</b>: Units sold by weekday (vertical lines variant)
+      </span>
+    );
+    return (
+      <div style={{ maxWidth: '496px' }}>
+        <Table verticalLines cols={cols} rows={rows} caption={caption} indexKey="day" renderIndexCol={true} />
+      </div>
+    );
+  };
+}
 ```
 
 ```html
@@ -483,53 +507,59 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 </Playground>
 
 #### Dense tables
+
 <Playground>
 
 ```jsx
-{() => {
-  const cols = [
-    { key: 'id', headerName: 'Not rendered' },
-    { key: 'firstName', headerName: 'First name' },
-    { key: 'surname', headerName: 'Surname' },
-    {
-      key: 'age',
-      headerName: 'Age',
-      transform: ({ age }) => {
-        return <div style={{ textAlign: 'right' }}>{age}</div>;
+{
+  () => {
+    const cols = [
+      { key: 'id', headerName: 'Not rendered' },
+      { key: 'firstName', headerName: 'First name' },
+      { key: 'surname', headerName: 'Surname' },
+      {
+        key: 'age',
+        headerName: 'Age',
+        transform: ({ age }) => {
+          return <div style={{ textAlign: 'right' }}>{age}</div>;
+        },
       },
-    },
-    { key: 'profession', headerName: 'Profession' },
-  ];
-  const rows = [
-    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
-  ];
-  const caption = (
-    <span>
-      <b>Table 6</b>: Service users (dense variant)
-    </span>
-  );
-  return (
-    <div style={{ maxWidth: '500px' }}>
-      <Table cols={cols} rows={rows} dense caption={caption} indexKey="id" renderIndexCol={false} />
-    </div>
-  );
-}}
+      { key: 'profession', headerName: 'Profession' },
+    ];
+    const rows = [
+      { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+      { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+      { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+      { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    ];
+    const caption = (
+      <span>
+        <b>Table 6</b>: Service users (dense variant)
+      </span>
+    );
+    return (
+      <div style={{ maxWidth: '500px' }}>
+        <Table cols={cols} rows={rows} dense caption={caption} indexKey="id" renderIndexCol={false} />
+      </div>
+    );
+  };
+}
 ```
 
 ```html
 <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
   <table class="hds-table hds-table--dark hds-table--dense" aria-label="People">
-    <caption class="hds-table__caption"><b>Table 6</b>: Service users (dense variant)</caption>
+    <caption class="hds-table__caption">
+      <b>Table 6</b
+      >: Service users (dense variant)
+    </caption>
     <thead>
-    <tr class="hds-table__header-row">
-      <th scope="col">First name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Age</th>
-      <th scope="col">Profession</th>
-    </tr>
+      <tr class="hds-table__header-row">
+        <th scope="col">First name</th>
+        <th scope="col">Surname</th>
+        <th scope="col">Age</th>
+        <th scope="col">Profession</th>
+      </tr>
     </thead>
     <tbody class="hds-table__content">
       <tr>
@@ -564,140 +594,148 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 </Playground>
 
 #### Sorting
+
 <Playground>
 
 ```jsx
-{() => {
-  const cols = [
-    { key: 'id', headerName: 'Not rendered' },
-    { key: 'firstName', headerName: 'First name', isSortable: true },
-    { key: 'surname', headerName: 'Surname', isSortable: true },
-    {
-      key: 'age',
-      headerName: 'Age',
-      sortIconType: 'other',
-      transform: ({ age }) => {
-        return <div style={{ textAlign: 'right' }}>{age}</div>;
+{
+  () => {
+    const cols = [
+      { key: 'id', headerName: 'Not rendered' },
+      { key: 'firstName', headerName: 'First name', isSortable: true },
+      { key: 'surname', headerName: 'Surname', isSortable: true },
+      {
+        key: 'age',
+        headerName: 'Age',
+        sortIconType: 'other',
+        transform: ({ age }) => {
+          return <div style={{ textAlign: 'right' }}>{age}</div>;
+        },
+        isSortable: true,
       },
-      isSortable: true,
-    },
-    { key: 'profession', headerName: 'Profession', isSortable: true },
-  ];
-  const rows = [
-    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
-    { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
-  ];
-  const caption = (
-    <span>
-      <b>Table 7</b>: Service users (sorting, dark variant)
-    </span>
-  );
-  return (
-    <div style={{ maxWidth: '640px' }}>
-      <Table
-        ariaLabelSortButtonUnset="Not sorted"
-        ariaLabelSortButtonAscending="Sorted in ascending order"
-        ariaLabelSortButtonDescending="Sorted in descending order"
-        indexKey="id"
-        renderIndexCol={false}
-        cols={cols}
-        rows={rows}
-        caption={caption}
-      />
-    </div>
-  );
-}}
+      { key: 'profession', headerName: 'Profession', isSortable: true },
+    ];
+    const rows = [
+      { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+      { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+      { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+      { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+      { id: 1004, firstName: 'Linda', surname: 'Koululainen', age: 8, profession: 'School student' },
+    ];
+    const caption = (
+      <span>
+        <b>Table 7</b>: Service users (sorting, dark variant)
+      </span>
+    );
+    return (
+      <div style={{ maxWidth: '640px' }}>
+        <Table
+          ariaLabelSortButtonUnset="Not sorted"
+          ariaLabelSortButtonAscending="Sorted in ascending order"
+          ariaLabelSortButtonDescending="Sorted in descending order"
+          indexKey="id"
+          renderIndexCol={false}
+          cols={cols}
+          rows={rows}
+          caption={caption}
+        />
+      </div>
+    );
+  };
+}
 ```
 
 </Playground>
 
 #### Selecting rows
+
 <Playground>
 
 ```jsx
-{() => {
-  const cols = [
-    { key: 'id', headerName: 'Not rendered' },
-    { key: 'firstName', headerName: 'First name' },
-    { key: 'surname', headerName: 'Surname' },
-    {
-      key: 'age',
-      headerName: 'Age',
-      transform: ({ age }) => {
-        return <div style={{ textAlign: 'right' }}>{age}</div>;
+{
+  () => {
+    const cols = [
+      { key: 'id', headerName: 'Not rendered' },
+      { key: 'firstName', headerName: 'First name' },
+      { key: 'surname', headerName: 'Surname' },
+      {
+        key: 'age',
+        headerName: 'Age',
+        transform: ({ age }) => {
+          return <div style={{ textAlign: 'right' }}>{age}</div>;
+        },
       },
-    },
-    { key: 'profession', headerName: 'Profession' },
-  ];
-  const rows = [
-    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
-    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
-    { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
-    { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
-  ];
-  const [selectedRows, setSelectedRows] = useState([]);
-  return (
-    <div style={{ maxWidth: '640px' }}>
-      <Table
-        checkboxSelection
-        selectedRows={selectedRows}
-        setSelectedRows={setSelectedRows}
-        heading="Employees"
-        id="checkbox-selection"
-        indexKey="id"
-        renderIndexCol={false}
-        cols={cols}
-        rows={rows}
-        selectAllRowsText="Select all rows"
-        clearSelectionsText="Clear selections"
-        ariaLabelCheckboxSelection="Row selection"
-      />
-    </div>
-  );
-}}
+      { key: 'profession', headerName: 'Profession' },
+    ];
+    const rows = [
+      { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', age: 39, profession: 'Engineer' },
+      { id: 1001, firstName: 'Maria', surname: 'Sarasoja', age: 62, profession: 'Designer' },
+      { id: 1002, firstName: 'Anneli', surname: 'Routa', age: 50, profession: 'Meteorologist' },
+      { id: 1003, firstName: 'Osku', surname: 'Rausku', age: 18, profession: 'Mail Carrier' },
+    ];
+    const [selectedRows, setSelectedRows] = useState([]);
+    return (
+      <div style={{ maxWidth: '640px' }}>
+        <Table
+          checkboxSelection
+          selectedRows={selectedRows}
+          setSelectedRows={setSelectedRows}
+          heading="Employees"
+          id="checkbox-selection"
+          indexKey="id"
+          renderIndexCol={false}
+          cols={cols}
+          rows={rows}
+          selectAllRowsText="Select all rows"
+          clearSelectionsText="Clear selections"
+          ariaLabelCheckboxSelection="Row selection"
+        />
+      </div>
+    );
+  };
+}
 ```
 
 </Playground>
 
 ### Packages
-| Package           | Included                      | Storybook link                                                                                                                      | Source link   |
-| ----------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| **HDS React**     | <IconCheckCircleFill /> Yes   | <ExternalLink href="/storybook/react/?path=/story/components-table--default">View in Storybook</ExternalLink> | <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/table">View source</ExternalLink> |
-| **HDS Core**      | <IconCheckCircleFill /> Yes   | <ExternalLink href="/storybook/core/?path=/story/components-table--dark">View in Storybook</ExternalLink> | <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/table">View source</ExternalLink> |
+
+| Package       | Included                                                                                        | Storybook link                                                                                                | Source link                                                                                                                                                |
+| ------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <ExternalLink href="/storybook/react/?path=/story/components-table--default">View in Storybook</ExternalLink> | <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/table">View source</ExternalLink> |
+| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <ExternalLink href="/storybook/core/?path=/story/components-table--dark">View in Storybook</ExternalLink>     | <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/table">View source</ExternalLink>  |
 
 ### Properties
+
 Note! You can find the full list of properties in the <ExternalLink href="/storybook/react/?path=/docs/components-table--default">React Storybook.</ExternalLink>
 
-
-| Property                        | Description                                                                                                                | Values             | Default value                         |
-| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------------------------------------- |
-| `ariaLabelCheckboxSelection`    | Aria-label for checkbox selection.                                                                                         | `string`           | "Rivin valinta"                       |
-| `ariaLabelSortButtonAscending`  | Aria-label for sort button in ascending state.                                                                             | `string`           | "Järjestetty nousevaan järjestykseen" |
-| `ariaLabelSortButtonDescending` | Aria-label for sort button in descending state.                                                                            | `string`           | "Järjestetty laskevaan järjestykseen" |
-| `ariaLabelSortButtonUnset`      | Aria-label for sort button in the unordered state.                                                                         | `string`           | -                                     |
-| `caption`                       | The caption of the table.                                                                                                  | `ReactNode`        | -                                     |
-| `checkboxSelection`             | If set to true, the table displays the checkbox selection column to select rows.                                           | `boolean`          | false                                 |
-| `clearSelectionsText`           | Text for clear selected rows button.                                                                                       | `string`           | "Tyhjennä valinnat"                   |
-| `cols`                          | Columns of the table header row. Defines header name, optional sort icon type and optional cell row transform function.    | `Header[]`         | -                                     |
-| `customActionButtons`           | Custom action buttons to place on top of the table.                                                                        | `ReactNode[]`      | -                                     |
-| `dense`                         | If set to true, the dense variant of the table is used.                                                                    | `boolean`          | false                                 |
-| `heading`                       | The table heading.                                                                                                         | `string`           | -                                     |
-| `headingAriaLevel`              | The table heading aria-level.                                                                                              | `number`           | 2                                     |
-| `headingId`                     | Table heading id. Used to name table to assistive technologies. Only applicable when heading prop is used.                 | `string`           | "hds-table-heading-id"                |
-| `indexKey`                      | Column key used as a unique identifier for a row                                                                           | `string`           | -                                     |
-| `initialSortingColumnKey`       | Key indicating a column that you wish to be initially sorted. Use undefined to have no column initially sorted.            | `string`           | -                                     |
-| `initialSortingOrder`           | Sorting order applied for initial sorting.                                                                                 | `"asc"` `"desc"`   | -                                     |
-| `renderIndexCol`                | If set to true, the index column is rendered in the table.                                                                 | `boolean`          | true                                  |
-| `rows`                          | Table rows. An array of objects where keys map with the keys of col.                                                       | `object[]`         | -                                     |
-| `selectAllRowsText`             | Text for the select all rows button.                                                                                       | `string`           | "Valitse kaikki rivit"                |
-| `selectedRows`                  | Selected table rows.                                                                                                       | `SelectedRow[]`    | -                                     |
-| `setSelectedRows`               | Callback that updates selected rows.                                                                                       | `function`         | -                                     |
-| `textAlignContentRight`         | When set to true, table data cell text content is aligned right. When set to false (default), the text is aligned to left. | `boolean`          | false                                 |
-| `variant`                       | Table variant. Use dark for dark brand background colors, and light for light brand background colors.                     | `"light"` `"dark"` | `"dark"`                              |
-| `verticalHeaders`               | Vertical headers of the table.                                                                                             | `Header[]`         | -                                     |
-| `verticalLines`                 | If set to true, the table displays vertical lines on columns.                                                              | `boolean`          | false                                 |
-| `zebra`                         | If set to true, the table uses alternating row colors zebra style.                                                         | `boolean`          | false                                 |
-[Table 1:Table properties]|
+| Property                        | Description                                                                                                                                                   | Values             | Default value                         |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------------------------------------- |
+| `ariaLabelCheckboxSelection`    | Aria-label for checkbox selection.                                                                                                                            | `string`           | "Rivin valinta"                       |
+| `ariaLabelSortButtonAscending`  | Aria-label for sort button in ascending state.                                                                                                                | `string`           | "Järjestetty nousevaan järjestykseen" |
+| `ariaLabelSortButtonDescending` | Aria-label for sort button in descending state.                                                                                                               | `string`           | "Järjestetty laskevaan järjestykseen" |
+| `ariaLabelSortButtonUnset`      | Aria-label for sort button in the unordered state.                                                                                                            | `string`           | -                                     |
+| `caption`                       | The caption of the table.                                                                                                                                     | `ReactNode`        | -                                     |
+| `checkboxSelection`             | If set to true, the table displays the checkbox selection column to select rows.                                                                              | `boolean`          | false                                 |
+| `clearSelectionsText`           | Text for clear selected rows button.                                                                                                                          | `string`           | "Tyhjennä valinnat"                   |
+| `cols`                          | Columns of the table header row. Defines header name, optional sort icon type and optional cell row transform function.                                       | `Header[]`         | -                                     |
+| `customActionButtons`           | Custom action buttons to place on top of the table.                                                                                                           | `ReactNode[]`      | -                                     |
+| `dense`                         | If set to true, the dense variant of the table is used.                                                                                                       | `boolean`          | false                                 |
+| `heading`                       | The table heading.                                                                                                                                            | `string`           | -                                     |
+| `headingAriaLevel`              | The table heading aria-level.                                                                                                                                 | `number`           | 2                                     |
+| `headingId`                     | Table heading id. Used to name table to assistive technologies. Only applicable when heading prop is used.                                                    | `string`           | "hds-table-heading-id"                |
+| `indexKey`                      | Column key used as a unique identifier for a row                                                                                                              | `string`           | -                                     |
+| `initialSortingColumnKey`       | Key indicating a column that you wish to be initially sorted. Use undefined to have no column initially sorted.                                               | `string`           | -                                     |
+| `initialSortingOrder`           | Sorting order applied for initial sorting.                                                                                                                    | `"asc"` `"desc"`   | -                                     |
+| `onSort`                        | Function for providing side effects before or after the sort. If you want to use the component's own sorting function, call the handleSort callback function. | `function`         | -                                     |
+| `renderIndexCol`                | If set to true, the index column is rendered in the table.                                                                                                    | `boolean`          | true                                  |
+| `rows`                          | Table rows. An array of objects where keys map with the keys of col.                                                                                          | `object[]`         | -                                     |
+| `selectAllRowsText`             | Text for the select all rows button.                                                                                                                          | `string`           | "Valitse kaikki rivit"                |
+| `selectedRows`                  | Selected table rows.                                                                                                                                          | `SelectedRow[]`    | -                                     |
+| `setSelectedRows`               | Callback that updates selected rows.                                                                                                                          | `function`         | -                                     |
+| `textAlignContentRight`         | When set to true, table data cell text content is aligned right. When set to false (default), the text is aligned to left.                                    | `boolean`          | false                                 |
+| `variant`                       | Table variant. Use dark for dark brand background colors, and light for light brand background colors.                                                        | `"light"` `"dark"` | `"dark"`                              |
+| `verticalHeaders`               | Vertical headers of the table.                                                                                                                                | `Header[]`         | -                                     |
+| `verticalLines`                 | If set to true, the table displays vertical lines on columns.                                                                                                 | `boolean`          | false                                 |
+| `zebra`                         | If set to true, the table uses alternating row colors zebra style.                                                                                            | `boolean`          | false                                 |
+| [Table 1:Table properties]      |

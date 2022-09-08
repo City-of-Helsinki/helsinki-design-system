@@ -101,6 +101,7 @@ export default [
       'components/Navigation/index': 'src/components/navigation/index.ts',
       'components/Notification/index': 'src/components/notification/index.ts',
       'components/NumberInput/index': 'src/components/numberInput/index.ts',
+      'components/Pagination/index': 'src/components/pagination/index.ts',
       'components/PasswordInput/index': 'src/components/passwordInput/index.ts',
       'components/PhoneInput/index': 'src/components/phoneInput/index.ts',
       'components/RadioButton/index': 'src/components/radioButton/index.ts',

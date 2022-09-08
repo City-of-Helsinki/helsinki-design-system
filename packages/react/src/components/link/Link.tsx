@@ -36,11 +36,11 @@ export type LinkProps = Omit<
    */
   openInNewTab?: boolean;
   /**
-   * Aria label for opening link in a new tab
+   * The aria-label for opening link in a new tab
    */
   openInNewTabAriaLabel?: string;
   /**
-   * Aria label for opening link in an external domain
+   * The aria-label for opening link in an external domain
    */
   openInExternalDomainAriaLabel?: string;
   /**

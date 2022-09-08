@@ -78,7 +78,7 @@ export type StepperProps = {
    */
   onStepClick?: (event: React.MouseEvent<HTMLButtonElement>, stepIndex: number) => void;
   /**
-   * A function for rendering a custom aria label for step's state
+   * A function for rendering a custom aria-label for step's state
    */
   renderCustomStateAriaLabel?: (stepIndex: number, state: StepState) => string;
   /**
