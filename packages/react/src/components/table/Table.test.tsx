@@ -137,21 +137,6 @@ describe('<Table /> spec', () => {
     userEvent.click(container.querySelector('[data-testid="hds-table-sorting-header-age"]'));
 
     expect(mockOnSort).toHaveBeenCalledTimes(1);
-    expect(mockOnSort).toHaveBeenCalledWith(
-      expect.objectContaining({
-        direction: 'asc',
-        colKey: 'age',
-      }),
-    );
-
-    userEvent.click(container.querySelector('[data-testid="hds-table-sorting-header-age"]'));
-    expect(mockOnSort).toHaveBeenCalledTimes(2);
-    expect(mockOnSort).toHaveBeenCalledWith(
-      expect.objectContaining({
-        direction: 'desc',
-        colKey: 'age',
-      }),
-    );
   });
 
   it('Should successfully select and deselect a single row', () => {
