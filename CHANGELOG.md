@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Pagination] component for React
 - [Table] Support for providing side effects before or after the Table component is done sorting
+- [Notification] Accepts a custom aria-label for the notification section element
 
 #### Fixed
 
