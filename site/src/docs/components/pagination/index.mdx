@@ -4,8 +4,10 @@ title: 'Pagination'
 navTitle: 'Pagination'
 ---
 
+import { useState } from 'react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import { Pagination } from 'hds-react';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -13,66 +15,26 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Example
 
+export const BasicPagination = () => {
+  const [pageIndex, setPageIndex] = useState(0);
+  return (
+    <Pagination
+      onChange={(event, index) => {
+        event.preventDefault();
+        setPageIndex(index);
+      }}
+      paginationAriaLabel="Pagination 1"
+      pageCount={9}
+      pageIndex={pageIndex}
+      pageHref={() => '#'}
+      language="en"
+      siblingCount={4}
+    />
+  );
+}
+
 <PlaygroundPreview>
-<div class="hds-pagination-container">
-  <nav class="hds-pagination" role="navigation" aria-label="Pagination" data-next="Next">
-    <button type="button" disabled class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-prev">
-      <span aria-hidden="true" class="hds-icon hds-icon--angle-left"></span>
-      <span class="hds-button__label">Previous</span>
-    </button>
-    <ul class="hds-pagination__pages">
-      <li>
-        <a class="hds-pagination__item-link hds-pagination__item-link--active" href="#" title="Current page" aria-label="Page 1" aria-current="page">
-          1
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 2" title="Go to page 2">
-          2
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#"  aria-label="Page 3" title="Go to page 3">
-          3
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 4" title="Go to page 4">
-          4
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 5" title="Go to page 5">
-          5
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 6" title="Go to page 6">
-          6
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 7" title="Go to page 7">
-          7
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 8" title="Go to page 8">
-          8
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 9" title="Go to page 9">
-          9
-        </a>
-      </li>
-    </ul>
-    <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-next">
-      <span class="hds-button__label">Next</span>
-      <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
-    </button>
-  </nav>
-</div>
+  <BasicPagination />
 </PlaygroundPreview>
 
 ### Principles
@@ -108,228 +70,93 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 By default, the HDS pagination shows a list of pages, and one page is marked as the active page. The previous and next buttons are always shown and they drop under the page number row on smaller screens.
 
 <PlaygroundPreview>
-<div class="hds-pagination-container">
-  <nav class="hds-pagination" role="navigation" aria-label="Pagination" data-next="Next">
-    <button type="button" disabled class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-prev">
-      <span aria-hidden="true" class="hds-icon hds-icon--angle-left"></span>
-      <span class="hds-button__label">Previous</span>
-    </button>
-    <ul class="hds-pagination__pages">
-      <li>
-        <a class="hds-pagination__item-link hds-pagination__item-link--active" href="#" title="Current page" aria-label="Page 1" aria-current="page">
-          1
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 2" title="Go to page 2">
-          2
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#"  aria-label="Page 3" title="Go to page 3">
-          3
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 4" title="Go to page 4">
-          4
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 5" title="Go to page 5">
-          5
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 6" title="Go to page 6">
-          6
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 7" title="Go to page 7">
-          7
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 8" title="Go to page 8">
-          8
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 9" title="Go to page 9">
-          9
-        </a>
-      </li>
-    </ul>
-    <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-next">
-      <span class="hds-button__label">Next</span>
-      <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
-    </button>
-  </nav>
-</div>
+  <BasicPagination />
 </PlaygroundPreview>
 
 #### With truncation
-In the truncated pagination variant some of the pages are hidden with the "..." (ellipsis) element. Truncation can happen either at the start, at the end, or at both ends - depending on the page the user is currently on. Note that you must keep the amount of shown pages consistent. For example, in the examples below 4 pages are always shown next to the currently active page.
+In the truncated pagination variant some of the pages are hidden with the "..." (ellipsis) element. In the React version,
+you can use the property `siblingCount` that tells the number of always visible pages before and after the current page.
+Truncation can happen either at the start, in the end, or at both ends - depending on the page the user is currently on.
+
+Note that you must keep the amount of shown pages and ellipsis consistent. For example, in the examples below,
+there are always at least 2 pages before and after the current page (`siblingCount` is 2). And the total number of
+pagination elements is 9, regardless of the page the user is currently on. This keeps the pagination element width
+consistent, which leads to a better user experience.
+
+
+export const TruncationPagination = () => {
+  const [pageIndexPagination2, setPageIndexPagination2] = useState(3);
+  const [pageIndexPagination3, setPageIndexPagination3] = useState(16);
+  const [pageIndexPagination4, setPageIndexPagination4] = useState(64);
+  return (
+    <div>
+      <Pagination
+        language="en"
+        onChange={(event, index) => {
+          event.preventDefault();
+          setPageIndexPagination2(index);
+        }}
+        pageCount={68}
+        pageHref={() => '#'}
+        pageIndex={pageIndexPagination2}
+        paginationAriaLabel="Pagination 2"
+        siblingCount={2}
+      />
+      <Pagination
+        language="en"
+        onChange={(event, index) => {
+          event.preventDefault();
+          setPageIndexPagination3(index);
+        }}
+        pageCount={68}
+        pageHref={() => '#'}
+        pageIndex={pageIndexPagination3}
+        paginationAriaLabel="Pagination 3"
+        siblingCount={2}
+      />
+      <Pagination
+        language="en"
+        onChange={(event, index) => {
+          event.preventDefault();
+          setPageIndexPagination4(index);
+        }}
+        pageCount={68}
+        pageHref={() => '#'}
+        pageIndex={pageIndexPagination4}
+        paginationAriaLabel="Pagination 4"
+        siblingCount={2}
+      />
+    </div>
+  );
+}
 
 <PlaygroundPreview>
-<div class="hds-pagination-container">
-  <nav class="hds-pagination" role="navigation" aria-label="Pagination" data-next="Next">
-    <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-prev">
-      <span aria-hidden="true" class="hds-icon hds-icon--angle-left"></span>
-      <span class="hds-button__label">Previous</span>
-    </button>
-    <ul class="hds-pagination__pages">
-      <li>
-        <a class="hds-pagination__item-link" href="#" title="Go to page 1" aria-label="Page 1">
-          1
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" title="Go to page 2" aria-label="Page 2">
-          2
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link hds-pagination__item-link--active" href="#" title="Current page" aria-label="Page 3" aria-current="page">
-          3
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" title="Go to page 4" aria-label="Page 4">
-          4
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" title="Go to page 5" aria-label="Page 5">
-          5
-        </a>
-      </li>
-      <li>
-        <span class="hds-pagination__item-ellipsis">
-          ...
-        </span>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 68" title="Go to page 68">
-          68
-        </a>
-      </li>
-    </ul>
-    <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-next">
-      <span class="hds-button__label">Next</span>
-      <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
-    </button>
-  </nav>
-</div>
+  <TruncationPagination />
+</PlaygroundPreview>
 
-<div class="hds-pagination-container">
-  <nav class="hds-pagination" role="navigation" aria-label="Pagination" data-next="Next">
-    <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-prev">
-      <span aria-hidden="true" class="hds-icon hds-icon--angle-left"></span>
-      <span class="hds-button__label">Previous</span>
-    </button>
-    <ul class="hds-pagination__pages">
-      <li>
-        <a class="hds-pagination__item-link" href="#" title="Go to page 1" aria-label="Page 1">
-          1
-        </a>
-      </li>
-      <li>
-        <span class="hds-pagination__item-ellipsis">
-          ...
-        </span>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 30" title="Go to page 30">
-          30
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 31" title="Go to page 31">
-          31
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link hds-pagination__item-link--active" href="#" aria-label="Page 32" title="Current page" aria-current="page">
-          32
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 33" title="Go to page 33">
-          33
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 34" title="Go to page 34">
-          34
-        </a>
-      </li>
-      <li>
-        <span class="hds-pagination__item-ellipsis">
-          ...
-        </span>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 68" title="Go to page 68">
-          68
-        </a>
-      </li>
-    </ul>
-    <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-next">
-      <span class="hds-button__label">Next</span>
-      <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
-    </button>
-  </nav>
-</div>
+#### Without previous and next buttons
 
-<div class="hds-pagination-container">
-  <nav class="hds-pagination" role="navigation" aria-label="Pagination" data-next="Next">
-    <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-prev">
-      <span aria-hidden="true" class="hds-icon hds-icon--angle-left"></span>
-      <span class="hds-button__label">Previous</span>
-    </button>
-    <ul class="hds-pagination__pages">
-      <li>
-        <a class="hds-pagination__item-link" href="#" title="Go to page 1" aria-label="Page 1">
-          1
-        </a>
-      </li>
-      <li>
-        <span class="hds-pagination__item-ellipsis">
-          ...
-        </span>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 64" title="Go to page 64">
-          64
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 65" title="Go to page 65">
-          65
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link hds-pagination__item-link--active" href="#" aria-label="Page 66" title="Current page" aria-current="page">
-          66
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 67" title="Go to page 67">
-          67
-        </a>
-      </li>
-      <li>
-        <a class="hds-pagination__item-link" href="#" aria-label="Page 68" title="Go to page 68">
-          68
-        </a>
-      </li>
-    </ul>
-    <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-next">
-      <span class="hds-button__label">Next</span>
-      <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
-    </button>
-  </nav>
-</div>
+While not recommended, it's possible to use the pagination component without the previous and next buttons.
+
+export const WithoutPrevAndNextButton = () => {
+  const [pageIndex, setPageIndex] = useState(7);
+  return (
+    <Pagination
+      hideNextButton
+      hidePrevButton
+      onChange={(event, index) => {
+        event.preventDefault();
+        setPageIndex(index);
+      }}
+      paginationAriaLabel="Pagination 5"
+      pageCount={68}
+      pageIndex={pageIndex}
+      pageHref={() => '#'}
+      language="en"
+    />
+  );
+}
+
+<PlaygroundPreview>
+  <WithoutPrevAndNextButton />
 </PlaygroundPreview>
