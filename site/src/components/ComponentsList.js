@@ -145,6 +145,13 @@ const ComponentsList = () => {
       href: '/components/number-input',
     },
     {
+      name: 'Pagination',
+      text: 'The pagination component allows the user to navigate between pages.',
+      linkboxAriaLabel: 'Pagination component',
+      linkAriaLabel: 'Go to the Pagination component page',
+      href: '/components/pagination',
+    },
+    {
       name: 'PasswordInput',
       text: 'A password field is an input field component that is used to input password data.',
       linkboxAriaLabel: 'PasswordInput component',

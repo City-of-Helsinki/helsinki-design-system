@@ -4,7 +4,7 @@ title: 'Card'
 navTitle: 'Card'
 ---
 
-import { Button, Card, IconAngleRight, IconShare, IconTrash } from 'hds-react';
+import { Button, Card, IconAngleRight, IconShare, IconTrash, Link } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
@@ -34,10 +34,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Should I use a Card or a Linkbox?
 
-- **Use the [Card component](/components/card) when**
+- **Use the Card component when**
   - the whole Card does not need to be interactable
   - the Card contains multiple interactable elements (e.g. buttons or links)
-- **Use the Linkbox component when**
+- **Use the <Link href="/components/linkbox">Linkbox component</Link> when**
   - the whole element needs to be interactable
   - the element does not include multiple interactable elements
 
