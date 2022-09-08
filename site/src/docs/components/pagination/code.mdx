@@ -226,15 +226,16 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 Note! You can find the full list of properties in the <ExternalLink href="/storybook/react/?path=/docs/components-pagination--basic">React Storybook.</ExternalLink>
 
-| Property              | Description                                                       | Values     | Default value |
-| --------------------- | ----------------------------------------------------------------- | ---------- | ------------- |
-| `hideNextButton`      | Hides the next button.                                            | `boolean`  | false         |
-| `hidePrevButton`      | Hides the previous button.                                        | `boolean`  | false         |
-| `language`            | Language of the component.                                        | `string`   | fi            |
-| `onChange`            | Callback fired when the page is changed.                          | `function` | -             |
-| `pageCount`           | The total number of pages.                                        | `number`   | -             |
-| `pageHref`            | A function for generating the href of pages.                      | `function` | -             |
-| `pageIndex`           | The active page index.                                            | `number`   | -             |
-| `paginationAriaLabel` | Aria-label for the pagination nav element.                        | `string`   | -             |
-| `siblingCount`        | Number of always visible pages before and after the current page. | `number`   | 1             |
-| `theme`               | Theme prop for customisation of the Pagination component.         | `object`   | -             |
+| Property              | Description                                                       | Values     | Default value  |
+| --------------------- | ----------------------------------------------------------------- | ---------- | -------------- |
+| `dataTestId`          | Data test id of pagination.                                       | `string`   | hds-pagination |
+| `hideNextButton`      | Hides the next button.                                            | `boolean`  | false          |
+| `hidePrevButton`      | Hides the previous button.                                        | `boolean`  | false          |
+| `language`            | Language of the component.                                        | `string`   | fi             |
+| `onChange`            | Callback fired when the page is changed.                          | `function` | -              |
+| `pageCount`           | The total number of pages.                                        | `number`   | -              |
+| `pageHref`            | A function for generating the href of pages.                      | `function` | -              |
+| `pageIndex`           | The active page index.                                            | `number`   | -              |
+| `paginationAriaLabel` | Aria-label for the pagination nav element.                        | `string`   | -              |
+| `siblingCount`        | Number of always visible pages before and after the current page. | `number`   | 1              |
+| `theme`               | Theme prop for customisation of the Pagination component.         | `object`   | -              |
