@@ -139,7 +139,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
    */
   initialSortingOrder?: 'asc' | 'desc';
   /**
-   * Function for custom sorting or providing side effects before or after the sort. If you want to use the component's own sorting function, call the handleSort callback function.
+   * Function for providing side effects before or after the sort. If you want to use the component's own sorting function, call the handleSort callback function.
    * @param order
    * @param colKey
    * @param handleSort
