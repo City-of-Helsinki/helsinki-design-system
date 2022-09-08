@@ -139,6 +139,13 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
    */
   initialSortingOrder?: 'asc' | 'desc';
   /**
+   * Function for custom sorting or providing side effects before or after the sort. If you want to use the component's own sorting function, call the handleSort callback function.
+   * @param order
+   * @param colKey
+   * @param handleSort
+   */
+  onSort?: (order: 'asc' | 'desc', colKey: string, handleSort: () => void) => void;
+  /**
    * Boolean indicating whether index column is rendered in the table.
    * @default true
    */
@@ -254,6 +261,7 @@ export const Table = ({
   indexKey,
   initialSortingColumnKey,
   initialSortingOrder,
+  onSort,
   renderIndexCol = true,
   rows,
   selectAllRowsText = 'Valitse kaikki rivit',
@@ -400,6 +408,7 @@ export const Table = ({
                     ariaLabelSortButtonAscending={ariaLabelSortButtonAscending}
                     ariaLabelSortButtonDescending={ariaLabelSortButtonDescending}
                     setSortingAndOrder={setSortingAndOrder}
+                    onSort={onSort}
                     order={sorting === column.key ? order : 'unset'}
                     sortIconType={column.sortIconType}
                   />
