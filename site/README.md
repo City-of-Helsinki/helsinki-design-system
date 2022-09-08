@@ -60,4 +60,4 @@ PATH_PREFIX='/hds-demo/docsite-fixes' yarn build -- --prefix-paths
 
 ## Troubleshooting
 - **Site build fails with error #11903 COMPILATION or something similar**. Gatsby's cache might not be in sync with the source files due to a checkout (chancing branches, etc.)  
-  **Solution:** Run `$(npm bin)/gatsby clean` to clean up caches etc. Then try to run the build again.
+  **Solution:** Run `$(npm bin)/gatsby clean` or manually remove .cache folder to clean up cache files. Then try to run the build again.
