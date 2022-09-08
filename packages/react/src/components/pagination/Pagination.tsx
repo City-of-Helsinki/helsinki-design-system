@@ -137,6 +137,10 @@ export interface PaginationCustomTheme {
 
 export type PaginationProps = {
   /**
+   * Data test id of pagination
+   */
+  dataTestId?: string;
+  /**
    * If true, hide the next-page button
    * @default false
    */
@@ -183,6 +187,7 @@ export type PaginationProps = {
 };
 
 export const Pagination = ({
+  dataTestId = 'hds-pagination',
   hideNextButton = false,
   hidePrevButton = false,
   language = 'fi',
@@ -224,6 +229,7 @@ export const Pagination = ({
         role="navigation"
         aria-label={paginationAriaLabel}
         data-next={mapLangToNext(language)}
+        data-testid={dataTestId}
       >
         <VisuallyHidden>
           <span aria-atomic aria-live="polite">
@@ -233,6 +239,7 @@ export const Pagination = ({
         {!hidePrevButton && (
           <Button
             className={styles.buttonPrevious}
+            data-testid={`${dataTestId}-previous-button`}
             disabled={pageIndex === 0 || pageCount === 1}
             onClick={(event) => onChange(event, pageIndex - 1)}
             variant="supplementary"
@@ -256,6 +263,7 @@ export const Pagination = ({
               <li key={pageItem}>
                 <a
                   className={classNames(styles.itemLink, pageIndex + 1 === pageItem ? styles.itemLinkActive : '')}
+                  data-testid={`${dataTestId}-page-${pageItem}`}
                   href={pageHref(pageItem as number)}
                   onClick={onChange ? (event) => onChange(event, (pageItem as number) - 1) : undefined}
                   title={mapLangToPageTitle(pageItem as number, language, pageItem === pageIndex + 1)}
@@ -271,6 +279,7 @@ export const Pagination = ({
         {!hideNextButton && (
           <Button
             className={styles.buttonNext}
+            data-testid={`${dataTestId}-next-button`}
             disabled={pageIndex === pageCount - 1 || pageCount === 1}
             onClick={(event) => onChange(event, pageIndex + 1)}
             variant="supplementary"

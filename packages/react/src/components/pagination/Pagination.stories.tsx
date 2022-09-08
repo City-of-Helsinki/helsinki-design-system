@@ -136,6 +136,7 @@ export const Playground = (args) => {
 
   return (
     <Pagination
+      dataTestId={args.dataTestId}
       hideNextButton={args.hideNextButton}
       hidePrevButton={args.hidePrevButton}
       language={args.language}
@@ -166,6 +167,7 @@ Playground.parameters = {
 };
 
 Playground.args = {
+  dataTestId: 'hds-pagination',
   hideNextButton: false,
   hidePrevButton: false,
   language: 'en',
