@@ -57,3 +57,7 @@ Running build with path prefixes example:
 PATH_PREFIX='/hds-demo/docsite-fixes' yarn build -- --prefix-paths
 ```
 [Here](https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/how-gatsby-works-with-github-pages/) is more info about hosting Gatsby site in Github pages.
+
+## Troubleshooting
+- **Site build fails with error #11903 COMPILATION or something similar**. Gatsby's cache might not be in sync with the source files due to a checkout (chancing branches, etc.)  
+  **Solution:** Run `$(npm bin)/gatsby clean` to clean up caches etc. Then try to run the build again.
