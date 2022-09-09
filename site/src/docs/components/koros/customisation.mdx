@@ -2,6 +2,7 @@
 slug: '/components/koros/customisation'
 title: 'Koros - Customisation'
 ---
+
 import { Notification } from 'hds-react';
 
 import TabsLayout from './tabs.mdx';
@@ -11,31 +12,30 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ## Customisation
 
 <Notification type="alert" label="Koros customisation works differently!" className="siteNotification">
-  Koros is an older HDS component and therefore its customisation works slightly differently. Instead of the <code>theme</code> property, you need to use the <code>style</code> property. This will be fixed in a future update.
+  Koros is an older HDS component and therefore its customisation works slightly differently. Instead of the{' '}
+  <code>theme</code> property, you need to use the <code>style</code> property. This will be fixed in a future update.
 </Notification>
 
 ### Customisation properties
-In order to customise how the component looks, you can either use the `style` property or add the class containing your custom styles into the `className` property.
+
+In Core version, you can either use the `style` or `class` attributes in the HTML to customise the component.
+
+In React version, you can either use the `style` or `className` properties to customise the component.
 
 ### Customisation example
+
 <Playground>
 
 ```jsx
-<Koros style={{ fill: 'var(--color-coat-of-arms)' }} />;
+<Koros style={{ fill: 'var(--color-coat-of-arms)' }} />
 ```
 
 ```html
-<div
-  class="hds-koros"
-  style="fill: var(--color-coat-of-arms);"
->
+<div class="hds-koros" style="fill: var(--color-coat-of-arms);">
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
     <defs>
       <pattern id="korosBasicCustom" x="0" y="0" width="106" height="85" patternUnits="userSpaceOnUse">
-        <path
-          transform="scale(5.3)"
-          d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z"
-        />
+        <path transform="scale(5.3)" d="M0,800h20V0c-4.9,0-5,2.6-9.9,2.6S5,0,0,0V800z" />
       </pattern>
     </defs>
     <rect fill="url(#korosBasicCustom)" width="100%" height="85" />
