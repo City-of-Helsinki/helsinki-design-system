@@ -117,7 +117,6 @@
     "lodash.isobject": "3.0.2",
     "lodash.isundefined": "3.0.1",
     "lodash.pick": "^4.4.0",
-    "lodash.set": "^4.3.2",
     "lodash.uniqueid": "4.0.1",
     "lodash.xor": "^4.5.0",
     "react-merge-refs": "1.1.0",

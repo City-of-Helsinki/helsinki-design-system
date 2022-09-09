@@ -1,6 +1,6 @@
 import _get from 'lodash.get';
 
-import { ContentSource, ContentSourceCookieGroup, createContent } from './content.builder';
+import { ContentSource, ContentSourceCookieGroup, createContent, setPropsToObject } from './content.builder';
 import commonContent from './content.json';
 import { CookieData, CookieGroup, Content, Category } from './CookieConsentContext';
 
@@ -884,6 +884,91 @@ describe(`content.builder.ts`, () => {
       expect(content.requiredCookies?.groups[0].cookies[0].name).toBe(
         commonContent.commonCookies.helConsentCookie.fi.name,
       );
+    });
+  });
+  describe('setPropsToObject merges given value/object to the target object', () => {
+    type AnyObject = { [key: string]: unknown };
+    type TargetObject = { [key: string]: TargetObject | string };
+    it('Path indicates where to merge. Path is a given as a comma delimetered path.', () => {
+      const target = setPropsToObject({}, 'a', 'valueOfA');
+      expect(target).toEqual({ a: 'valueOfA' });
+
+      const target2 = setPropsToObject({}, 'a.a', 'valueOfAA');
+      expect(target2).toEqual({ a: { a: 'valueOfAA' } });
+
+      const target3 = setPropsToObject({}, 'a.b.c.d.e.f', 'valueOfABCDEF');
+      expect(target3).toEqual({
+        a: {
+          b: {
+            c: {
+              d: {
+                e: {
+                  f: 'valueOfABCDEF',
+                },
+              },
+            },
+          },
+        },
+      });
+    });
+    it('existing props are not overridden or copied', () => {
+      const target: TargetObject & { obj1: { obj2?: AnyObject; newObj2?: { newObj3?: AnyObject } } } = {
+        prop1: 'valueOfProp1',
+        obj1: { obj2: { value: 'valueOfObj2' } },
+      };
+
+      // save refs to objects to check refs do not change
+      const { obj1: obj1Ref } = target;
+      const { obj2: obj2Ref } = target.obj1 as TargetObject;
+
+      // objects added later
+      const obj3 = { value: 'valueOfObj3' };
+      const newObj4 = { newObj5: 'valueOfNewObj5' };
+
+      setPropsToObject(target, 'prop2', 'valueOfProp2');
+      expect(target.prop2).toBe('valueOfProp2');
+
+      setPropsToObject(target.obj1.obj2 as AnyObject, 'obj3', obj3);
+      expect((target.obj1.obj2 as AnyObject).obj3).toBe(obj3);
+
+      setPropsToObject(target, 'obj1.newObj2.newObj3', newObj4);
+      expect((target.obj1.newObj2 as AnyObject).newObj3).toBe(newObj4);
+
+      // check initial values/refs have not changed
+      expect(target.prop1).toBe('valueOfProp1');
+      expect(target.obj1).toBe(obj1Ref);
+      expect(target.obj1.obj2).toBe(obj2Ref);
+      expect((target.obj1.obj2 as AnyObject).value).toBe('valueOfObj2');
+    });
+    it('object to merge is not copied, but assigned', () => {
+      const target: AnyObject = {};
+      const mergedObject1 = { obj: 'valueOfObj', object2: {} };
+      const mergedObject2 = { obj2: 'valueOfObj2' };
+      const finalObject1 = { obj3: 'valueOfObj3' };
+
+      setPropsToObject(target, 'object1', mergedObject1);
+      expect(target.object1).toEqual(mergedObject1);
+
+      setPropsToObject(target, 'object1.object2', mergedObject2);
+      expect((target.object1 as AnyObject).object2).toEqual(mergedObject2);
+
+      setPropsToObject(target, 'object1', finalObject1);
+      expect(target.object1).toEqual(finalObject1);
+      expect((target.object1 as AnyObject).object2).toBeUndefined();
+    });
+    it('merged value can be anything', () => {
+      const target: AnyObject = {};
+      const values = [null, undefined, 1, 'abc', () => undefined, new Map(), Object.create({})];
+      values.forEach((value, index) => {
+        const key = `value-${index}`;
+        setPropsToObject(target, key, value);
+        expect(target[key]).toBe(value);
+      });
+    });
+    it('Using "_" is prohibited to avoid prototype pollution', () => {
+      const target: AnyObject = {};
+      expect(() => setPropsToObject(target, '__proto__.toString', () => 'hello')).toThrow();
+      expect(target.toString()).not.toBe('hello');
     });
   });
 });
