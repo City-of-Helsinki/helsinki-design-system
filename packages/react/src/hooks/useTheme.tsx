@@ -64,7 +64,7 @@ export const useTheme = <T,>(selector: string, theme: T): string => {
   const customClass = useRef<string>(useCustomTheme ? uniqueId('custom-theme-') : '').current;
 
   useEffect(() => {
-    if (useCustomTheme) setComponentTheme<T>(selector, theme, customClass);
+    if (useCustomTheme) setComponentTheme<T>(selector && selector.split(' ')[0], theme, customClass);
   }, [selector, theme, customClass, useCustomTheme]);
 
   return customClass;

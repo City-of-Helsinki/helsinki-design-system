@@ -31,11 +31,11 @@ export type NumberInputProps = Omit<
    */
   min?: number;
   /**
-   * The aria label for minus step button
+   * The aria-label for minus step button
    */
   minusStepButtonAriaLabel?: string;
   /**
-   * The aria label for plus step button
+   * The aria-label for plus step button
    */
   plusStepButtonAriaLabel?: string;
   /**

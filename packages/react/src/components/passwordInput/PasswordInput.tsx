@@ -28,11 +28,11 @@ export type PasswordInputProps = Omit<
    */
   initiallyRevealed?: boolean;
   /**
-   * Aria label for reveal password button
+   * The aria-label for reveal password button
    */
   revealPasswordButtonAriaLabel?: string;
   /**
-   * Aria label for conceal password button
+   * The aria-label for conceal password button
    */
   concealPasswordButtonAriaLabel?: string;
   /**

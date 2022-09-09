@@ -86,7 +86,7 @@ we can not use this position for the actual button as it's in incorrect source o
 
 .hds-pagination__item-ellipsis {
   height: var(--link-height);
-  width: 24px;
+  width: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
