@@ -24,11 +24,11 @@ export type LinkboxProps = Omit<React.ComponentPropsWithoutRef<'a'>, 'tabIndex'>
    */
   imgProps?: React.ComponentPropsWithoutRef<'img'>;
   /**
-   * Aria label for the link (arrow or external icon) that is located at the bottom of the linkbox.
+   * The aria-label for the link (arrow or external icon) that is located at the bottom of the linkbox.
    */
   linkAriaLabel: string;
   /**
-   * Aria label for the whole linkbox region. Remember to tell users of assistive technology that they are inside
+   * The aria-label for the whole linkbox region. Remember to tell users of assistive technology that they are inside
    * a linkbox. Check storybook examples on how it can be done.
    */
   linkboxAriaLabel: string;
@@ -37,7 +37,7 @@ export type LinkboxProps = Omit<React.ComponentPropsWithoutRef<'a'>, 'tabIndex'>
    */
   noBackground?: boolean;
   /**
-   * Aria label for opening link in an external domain. Active when external prop is true.
+   * The aria-label for opening link in an external domain. Active when external prop is true.
    */
   openInExternalDomainAriaLabel?: string;
   /**
@@ -45,7 +45,7 @@ export type LinkboxProps = Omit<React.ComponentPropsWithoutRef<'a'>, 'tabIndex'>
    */
   openInNewTab?: boolean;
   /**
-   * Aria label for opening link in a new tab
+   * The aria-label for opening link in a new tab
    */
   openInNewTabAriaLabel?: string;
   /**

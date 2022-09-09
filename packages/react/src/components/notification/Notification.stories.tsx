@@ -117,6 +117,18 @@ export const AutoClose = () => {
   );
 };
 
+export const WithCustomAriaLabel = () => (
+  <Notification {...props} notificationAriaLabel="Custom aria label">
+    {content}
+  </Notification>
+);
+
+WithCustomAriaLabel.parameters = {
+  loki: { skip: true },
+};
+
+WithCustomAriaLabel.storyName = 'With a custom aria-label';
+
 export const Playground = (args) => {
   const [open, setOpen] = useState(true);
 

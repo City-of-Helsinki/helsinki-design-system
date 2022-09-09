@@ -1,0 +1,4115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Pagination /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 7"
+            class="itemLink"
+            data-testid="hds-pagination-page-7"
+            href="#"
+            title="Page 7"
+          >
+            7
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 8"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-8"
+            href="#"
+            title="Current page"
+          >
+            8
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 9"
+            class="itemLink"
+            data-testid="hds-pagination-page-9"
+            href="#"
+            title="Page 9"
+          >
+            9
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 68"
+            class="itemLink"
+            data-testid="hds-pagination-page-68"
+            href="#"
+            title="Page 68"
+          >
+            68
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render null when pageCount is zero 1`] = `<DocumentFragment />`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is high 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 28"
+            class="itemLink"
+            data-testid="hds-pagination-page-28"
+            href="#"
+            title="Page 28"
+          >
+            28
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 29"
+            class="itemLink"
+            data-testid="hds-pagination-page-29"
+            href="#"
+            title="Page 29"
+          >
+            29
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is high 2`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 26"
+            class="itemLink"
+            data-testid="hds-pagination-page-26"
+            href="#"
+            title="Page 26"
+          >
+            26
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 27"
+            class="itemLink"
+            data-testid="hds-pagination-page-27"
+            href="#"
+            title="Page 27"
+          >
+            27
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 28"
+            class="itemLink"
+            data-testid="hds-pagination-page-28"
+            href="#"
+            title="Page 28"
+          >
+            28
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 29"
+            class="itemLink"
+            data-testid="hds-pagination-page-29"
+            href="#"
+            title="Page 29"
+          >
+            29
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 30"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Current page"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        aria-disabled="true"
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        disabled=""
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is high 3`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 24"
+            class="itemLink"
+            data-testid="hds-pagination-page-24"
+            href="#"
+            title="Page 24"
+          >
+            24
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 25"
+            class="itemLink"
+            data-testid="hds-pagination-page-25"
+            href="#"
+            title="Page 25"
+          >
+            25
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 26"
+            class="itemLink"
+            data-testid="hds-pagination-page-26"
+            href="#"
+            title="Page 26"
+          >
+            26
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 27"
+            class="itemLink"
+            data-testid="hds-pagination-page-27"
+            href="#"
+            title="Page 27"
+          >
+            27
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 28"
+            class="itemLink"
+            data-testid="hds-pagination-page-28"
+            href="#"
+            title="Page 28"
+          >
+            28
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 29"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-29"
+            href="#"
+            title="Current page"
+          >
+            29
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is high 4`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 22"
+            class="itemLink"
+            data-testid="hds-pagination-page-22"
+            href="#"
+            title="Page 22"
+          >
+            22
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 23"
+            class="itemLink"
+            data-testid="hds-pagination-page-23"
+            href="#"
+            title="Page 23"
+          >
+            23
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 24"
+            class="itemLink"
+            data-testid="hds-pagination-page-24"
+            href="#"
+            title="Page 24"
+          >
+            24
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 25"
+            class="itemLink"
+            data-testid="hds-pagination-page-25"
+            href="#"
+            title="Page 25"
+          >
+            25
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 26"
+            class="itemLink"
+            data-testid="hds-pagination-page-26"
+            href="#"
+            title="Page 26"
+          >
+            26
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 27"
+            class="itemLink"
+            data-testid="hds-pagination-page-27"
+            href="#"
+            title="Page 27"
+          >
+            27
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 28"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-28"
+            href="#"
+            title="Current page"
+          >
+            28
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 29"
+            class="itemLink"
+            data-testid="hds-pagination-page-29"
+            href="#"
+            title="Page 29"
+          >
+            29
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is high 5`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 20"
+            class="itemLink"
+            data-testid="hds-pagination-page-20"
+            href="#"
+            title="Page 20"
+          >
+            20
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 21"
+            class="itemLink"
+            data-testid="hds-pagination-page-21"
+            href="#"
+            title="Page 21"
+          >
+            21
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 22"
+            class="itemLink"
+            data-testid="hds-pagination-page-22"
+            href="#"
+            title="Page 22"
+          >
+            22
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 23"
+            class="itemLink"
+            data-testid="hds-pagination-page-23"
+            href="#"
+            title="Page 23"
+          >
+            23
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 24"
+            class="itemLink"
+            data-testid="hds-pagination-page-24"
+            href="#"
+            title="Page 24"
+          >
+            24
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 25"
+            class="itemLink"
+            data-testid="hds-pagination-page-25"
+            href="#"
+            title="Page 25"
+          >
+            25
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 26"
+            class="itemLink"
+            data-testid="hds-pagination-page-26"
+            href="#"
+            title="Page 26"
+          >
+            26
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 27"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-27"
+            href="#"
+            title="Current page"
+          >
+            27
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 28"
+            class="itemLink"
+            data-testid="hds-pagination-page-28"
+            href="#"
+            title="Page 28"
+          >
+            28
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 29"
+            class="itemLink"
+            data-testid="hds-pagination-page-29"
+            href="#"
+            title="Page 29"
+          >
+            29
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is high 6`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 18"
+            class="itemLink"
+            data-testid="hds-pagination-page-18"
+            href="#"
+            title="Page 18"
+          >
+            18
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 19"
+            class="itemLink"
+            data-testid="hds-pagination-page-19"
+            href="#"
+            title="Page 19"
+          >
+            19
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 20"
+            class="itemLink"
+            data-testid="hds-pagination-page-20"
+            href="#"
+            title="Page 20"
+          >
+            20
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 21"
+            class="itemLink"
+            data-testid="hds-pagination-page-21"
+            href="#"
+            title="Page 21"
+          >
+            21
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 22"
+            class="itemLink"
+            data-testid="hds-pagination-page-22"
+            href="#"
+            title="Page 22"
+          >
+            22
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 23"
+            class="itemLink"
+            data-testid="hds-pagination-page-23"
+            href="#"
+            title="Page 23"
+          >
+            23
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 24"
+            class="itemLink"
+            data-testid="hds-pagination-page-24"
+            href="#"
+            title="Page 24"
+          >
+            24
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 25"
+            class="itemLink"
+            data-testid="hds-pagination-page-25"
+            href="#"
+            title="Page 25"
+          >
+            25
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 26"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-26"
+            href="#"
+            title="Current page"
+          >
+            26
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 27"
+            class="itemLink"
+            data-testid="hds-pagination-page-27"
+            href="#"
+            title="Page 27"
+          >
+            27
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 28"
+            class="itemLink"
+            data-testid="hds-pagination-page-28"
+            href="#"
+            title="Page 28"
+          >
+            28
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 29"
+            class="itemLink"
+            data-testid="hds-pagination-page-29"
+            href="#"
+            title="Page 29"
+          >
+            29
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is in the middle 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 16"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-16"
+            href="#"
+            title="Current page"
+          >
+            16
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is in the middle 2`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 15"
+            class="itemLink"
+            data-testid="hds-pagination-page-15"
+            href="#"
+            title="Page 15"
+          >
+            15
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 16"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-16"
+            href="#"
+            title="Current page"
+          >
+            16
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 17"
+            class="itemLink"
+            data-testid="hds-pagination-page-17"
+            href="#"
+            title="Page 17"
+          >
+            17
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is in the middle 3`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 14"
+            class="itemLink"
+            data-testid="hds-pagination-page-14"
+            href="#"
+            title="Page 14"
+          >
+            14
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 15"
+            class="itemLink"
+            data-testid="hds-pagination-page-15"
+            href="#"
+            title="Page 15"
+          >
+            15
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 16"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-16"
+            href="#"
+            title="Current page"
+          >
+            16
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 17"
+            class="itemLink"
+            data-testid="hds-pagination-page-17"
+            href="#"
+            title="Page 17"
+          >
+            17
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 18"
+            class="itemLink"
+            data-testid="hds-pagination-page-18"
+            href="#"
+            title="Page 18"
+          >
+            18
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is in the middle 4`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 13"
+            class="itemLink"
+            data-testid="hds-pagination-page-13"
+            href="#"
+            title="Page 13"
+          >
+            13
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 14"
+            class="itemLink"
+            data-testid="hds-pagination-page-14"
+            href="#"
+            title="Page 14"
+          >
+            14
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 15"
+            class="itemLink"
+            data-testid="hds-pagination-page-15"
+            href="#"
+            title="Page 15"
+          >
+            15
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 16"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-16"
+            href="#"
+            title="Current page"
+          >
+            16
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 17"
+            class="itemLink"
+            data-testid="hds-pagination-page-17"
+            href="#"
+            title="Page 17"
+          >
+            17
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 18"
+            class="itemLink"
+            data-testid="hds-pagination-page-18"
+            href="#"
+            title="Page 18"
+          >
+            18
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 19"
+            class="itemLink"
+            data-testid="hds-pagination-page-19"
+            href="#"
+            title="Page 19"
+          >
+            19
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is in the middle 5`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 12"
+            class="itemLink"
+            data-testid="hds-pagination-page-12"
+            href="#"
+            title="Page 12"
+          >
+            12
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 13"
+            class="itemLink"
+            data-testid="hds-pagination-page-13"
+            href="#"
+            title="Page 13"
+          >
+            13
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 14"
+            class="itemLink"
+            data-testid="hds-pagination-page-14"
+            href="#"
+            title="Page 14"
+          >
+            14
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 15"
+            class="itemLink"
+            data-testid="hds-pagination-page-15"
+            href="#"
+            title="Page 15"
+          >
+            15
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 16"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-16"
+            href="#"
+            title="Current page"
+          >
+            16
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 17"
+            class="itemLink"
+            data-testid="hds-pagination-page-17"
+            href="#"
+            title="Page 17"
+          >
+            17
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 18"
+            class="itemLink"
+            data-testid="hds-pagination-page-18"
+            href="#"
+            title="Page 18"
+          >
+            18
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 19"
+            class="itemLink"
+            data-testid="hds-pagination-page-19"
+            href="#"
+            title="Page 19"
+          >
+            19
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 20"
+            class="itemLink"
+            data-testid="hds-pagination-page-20"
+            href="#"
+            title="Page 20"
+          >
+            20
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is in the middle 6`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 11"
+            class="itemLink"
+            data-testid="hds-pagination-page-11"
+            href="#"
+            title="Page 11"
+          >
+            11
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 12"
+            class="itemLink"
+            data-testid="hds-pagination-page-12"
+            href="#"
+            title="Page 12"
+          >
+            12
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 13"
+            class="itemLink"
+            data-testid="hds-pagination-page-13"
+            href="#"
+            title="Page 13"
+          >
+            13
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 14"
+            class="itemLink"
+            data-testid="hds-pagination-page-14"
+            href="#"
+            title="Page 14"
+          >
+            14
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 15"
+            class="itemLink"
+            data-testid="hds-pagination-page-15"
+            href="#"
+            title="Page 15"
+          >
+            15
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 16"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-16"
+            href="#"
+            title="Current page"
+          >
+            16
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 17"
+            class="itemLink"
+            data-testid="hds-pagination-page-17"
+            href="#"
+            title="Page 17"
+          >
+            17
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 18"
+            class="itemLink"
+            data-testid="hds-pagination-page-18"
+            href="#"
+            title="Page 18"
+          >
+            18
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 19"
+            class="itemLink"
+            data-testid="hds-pagination-page-19"
+            href="#"
+            title="Page 19"
+          >
+            19
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 20"
+            class="itemLink"
+            data-testid="hds-pagination-page-20"
+            href="#"
+            title="Page 20"
+          >
+            20
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 21"
+            class="itemLink"
+            data-testid="hds-pagination-page-21"
+            href="#"
+            title="Page 21"
+          >
+            21
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is low 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 2"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-2"
+            href="#"
+            title="Current page"
+          >
+            2
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 3"
+            class="itemLink"
+            data-testid="hds-pagination-page-3"
+            href="#"
+            title="Page 3"
+          >
+            3
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is low 2`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 2"
+            class="itemLink"
+            data-testid="hds-pagination-page-2"
+            href="#"
+            title="Page 2"
+          >
+            2
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 3"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-3"
+            href="#"
+            title="Current page"
+          >
+            3
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 4"
+            class="itemLink"
+            data-testid="hds-pagination-page-4"
+            href="#"
+            title="Page 4"
+          >
+            4
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 5"
+            class="itemLink"
+            data-testid="hds-pagination-page-5"
+            href="#"
+            title="Page 5"
+          >
+            5
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is low 3`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 2"
+            class="itemLink"
+            data-testid="hds-pagination-page-2"
+            href="#"
+            title="Page 2"
+          >
+            2
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 3"
+            class="itemLink"
+            data-testid="hds-pagination-page-3"
+            href="#"
+            title="Page 3"
+          >
+            3
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 4"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-4"
+            href="#"
+            title="Current page"
+          >
+            4
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 5"
+            class="itemLink"
+            data-testid="hds-pagination-page-5"
+            href="#"
+            title="Page 5"
+          >
+            5
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 6"
+            class="itemLink"
+            data-testid="hds-pagination-page-6"
+            href="#"
+            title="Page 6"
+          >
+            6
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 7"
+            class="itemLink"
+            data-testid="hds-pagination-page-7"
+            href="#"
+            title="Page 7"
+          >
+            7
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is low 4`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 2"
+            class="itemLink"
+            data-testid="hds-pagination-page-2"
+            href="#"
+            title="Page 2"
+          >
+            2
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 3"
+            class="itemLink"
+            data-testid="hds-pagination-page-3"
+            href="#"
+            title="Page 3"
+          >
+            3
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 4"
+            class="itemLink"
+            data-testid="hds-pagination-page-4"
+            href="#"
+            title="Page 4"
+          >
+            4
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 5"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-5"
+            href="#"
+            title="Current page"
+          >
+            5
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 6"
+            class="itemLink"
+            data-testid="hds-pagination-page-6"
+            href="#"
+            title="Page 6"
+          >
+            6
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 7"
+            class="itemLink"
+            data-testid="hds-pagination-page-7"
+            href="#"
+            title="Page 7"
+          >
+            7
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 8"
+            class="itemLink"
+            data-testid="hds-pagination-page-8"
+            href="#"
+            title="Page 8"
+          >
+            8
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 9"
+            class="itemLink"
+            data-testid="hds-pagination-page-9"
+            href="#"
+            title="Page 9"
+          >
+            9
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is low 5`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 2"
+            class="itemLink"
+            data-testid="hds-pagination-page-2"
+            href="#"
+            title="Page 2"
+          >
+            2
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 3"
+            class="itemLink"
+            data-testid="hds-pagination-page-3"
+            href="#"
+            title="Page 3"
+          >
+            3
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 4"
+            class="itemLink"
+            data-testid="hds-pagination-page-4"
+            href="#"
+            title="Page 4"
+          >
+            4
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 5"
+            class="itemLink"
+            data-testid="hds-pagination-page-5"
+            href="#"
+            title="Page 5"
+          >
+            5
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 6"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-6"
+            href="#"
+            title="Current page"
+          >
+            6
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 7"
+            class="itemLink"
+            data-testid="hds-pagination-page-7"
+            href="#"
+            title="Page 7"
+          >
+            7
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 8"
+            class="itemLink"
+            data-testid="hds-pagination-page-8"
+            href="#"
+            title="Page 8"
+          >
+            8
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 9"
+            class="itemLink"
+            data-testid="hds-pagination-page-9"
+            href="#"
+            title="Page 9"
+          >
+            9
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 10"
+            class="itemLink"
+            data-testid="hds-pagination-page-10"
+            href="#"
+            title="Page 10"
+          >
+            10
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 11"
+            class="itemLink"
+            data-testid="hds-pagination-page-11"
+            href="#"
+            title="Page 11"
+          >
+            11
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should render pagination correctly with different sibling counts when selected page is low 6`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 2"
+            class="itemLink"
+            data-testid="hds-pagination-page-2"
+            href="#"
+            title="Page 2"
+          >
+            2
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 3"
+            class="itemLink"
+            data-testid="hds-pagination-page-3"
+            href="#"
+            title="Page 3"
+          >
+            3
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 4"
+            class="itemLink"
+            data-testid="hds-pagination-page-4"
+            href="#"
+            title="Page 4"
+          >
+            4
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 5"
+            class="itemLink"
+            data-testid="hds-pagination-page-5"
+            href="#"
+            title="Page 5"
+          >
+            5
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 6"
+            class="itemLink"
+            data-testid="hds-pagination-page-6"
+            href="#"
+            title="Page 6"
+          >
+            6
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="page"
+            aria-label="Page 7"
+            class="itemLink itemLinkActive"
+            data-testid="hds-pagination-page-7"
+            href="#"
+            title="Current page"
+          >
+            7
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 8"
+            class="itemLink"
+            data-testid="hds-pagination-page-8"
+            href="#"
+            title="Page 8"
+          >
+            8
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 9"
+            class="itemLink"
+            data-testid="hds-pagination-page-9"
+            href="#"
+            title="Page 9"
+          >
+            9
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 10"
+            class="itemLink"
+            data-testid="hds-pagination-page-10"
+            href="#"
+            title="Page 10"
+          >
+            10
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 11"
+            class="itemLink"
+            data-testid="hds-pagination-page-11"
+            href="#"
+            title="Page 11"
+          >
+            11
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 12"
+            class="itemLink"
+            data-testid="hds-pagination-page-12"
+            href="#"
+            title="Page 12"
+          >
+            12
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 13"
+            class="itemLink"
+            data-testid="hds-pagination-page-13"
+            href="#"
+            title="Page 13"
+          >
+            13
+          </a>
+        </li>
+        <li>
+          <span
+            class="itemEllipsis"
+          >
+            ...
+          </span>
+        </li>
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 30"
+            class="itemLink"
+            data-testid="hds-pagination-page-30"
+            href="#"
+            title="Page 30"
+          >
+            30
+          </a>
+        </li>
+      </ul>
+      <button
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Pagination /> spec should return only first page when page count is 1 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <nav
+      aria-label="Pagination"
+      class="pagination"
+      data-next="Next"
+      data-testid="hds-pagination"
+      role="navigation"
+    >
+      <div
+        style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+      >
+        <span
+          aria-atomic="true"
+          aria-live="polite"
+        />
+      </div>
+      <button
+        aria-disabled="true"
+        class="button supplementary theme-black size-default buttonPrevious"
+        data-testid="hds-pagination-previous-button"
+        disabled=""
+        type="button"
+      >
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="24 0 24 24 0 24 0 0"
+              />
+              <polygon
+                fill="currentColor"
+                points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+              />
+            </g>
+          </svg>
+        </div>
+        <span
+          class="label"
+        >
+          Previous
+        </span>
+      </button>
+      <ul
+        class="pages"
+      >
+        <li>
+          <a
+            aria-current="false"
+            aria-label="Page 1"
+            class="itemLink"
+            data-testid="hds-pagination-page-1"
+            href="#"
+            title="Page 1"
+          >
+            1
+          </a>
+        </li>
+      </ul>
+      <button
+        aria-disabled="true"
+        class="button supplementary theme-black size-default buttonNext"
+        data-testid="hds-pagination-next-button"
+        disabled=""
+        type="button"
+      >
+        <span
+          class="label"
+        >
+          Next
+        </span>
+        <div
+          aria-hidden="true"
+          class="icon"
+        >
+          <svg
+            class="icon s angleRightIcon"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </div>
+      </button>
+    </nav>
+  </div>
+</DocumentFragment>
+`;

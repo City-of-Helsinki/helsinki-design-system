@@ -16,9 +16,10 @@ export type SortingHeaderCellProps = React.ComponentPropsWithoutRef<'th'> & {
   ariaLabelSortButtonAscending: string;
   ariaLabelSortButtonDescending: string;
   colKey: string;
-  setSortingAndOrder: (colKey: string) => void;
+  onSort?: (order: 'asc' | 'desc', colKey: string, handleSort: () => void) => void;
   order: 'unset' | 'asc' | 'desc';
   title: string;
+  setSortingAndOrder: (colKey: string) => void;
   sortIconType: 'string' | 'other';
 };
 
@@ -54,17 +55,29 @@ const renderSortIcon = ({
   return <IconSortDescending className={styles.sortIcon} aria-label={ariaLabelSortButtonDescending} />;
 };
 
+const resolveNewOrder = ({ previousOrder }) => {
+  if (previousOrder === 'unset') {
+    return 'asc';
+  }
+
+  return previousOrder === 'desc' ? 'asc' : 'desc';
+};
+
 export const SortingHeaderCell = ({
   ariaLabelSortButtonUnset,
   ariaLabelSortButtonAscending,
   ariaLabelSortButtonDescending,
   colKey,
+  onSort,
   title,
   setSortingAndOrder,
   order = 'unset',
   sortIconType = 'string',
   ...rest
 }: SortingHeaderCellProps) => {
+  const sortingCallback = () => {
+    setSortingAndOrder(colKey);
+  };
   return (
     <th className={styles.sortingHeader} scope="col" {...rest}>
       <div className={styles.sortColumnCell}>
@@ -75,7 +88,11 @@ export const SortingHeaderCell = ({
           onClick={(event) => {
             // Prevent default to not submit form if we happen to be inside form
             event.preventDefault();
-            setSortingAndOrder(colKey);
+            if (onSort) {
+              onSort(resolveNewOrder({ previousOrder: order }), colKey, sortingCallback);
+            } else {
+              setSortingAndOrder(colKey);
+            }
           }}
         >
           <span>{title}</span>

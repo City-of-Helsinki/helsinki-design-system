@@ -102,6 +102,43 @@ describe('<Table /> spec', () => {
     expect(ageOfSortedTableFirstRow).toHaveTextContent('8');
   });
 
+  it('Should successfully call onSort when sort button is pressed', () => {
+    const colsWithSorting = [
+      { key: 'id', headerName: 'Not rendered' },
+      { key: 'firstName', headerName: 'First name', isSortable: true },
+      { key: 'surname', headerName: 'Surname', isSortable: true },
+      {
+        key: 'age',
+        headerName: 'Age',
+        transform: ({ age }) => {
+          return <div style={{ textAlign: 'right' }}>{age}</div>;
+        },
+        isSortable: true,
+      },
+      { key: 'profession', headerName: 'Profession', isSortable: true },
+    ];
+
+    const mockOnSort = jest.fn();
+
+    const { container } = render(
+      <Table
+        ariaLabelSortButtonUnset="Not sorted"
+        ariaLabelSortButtonAscending="Sorted in ascending order"
+        ariaLabelSortButtonDescending="Sorted in descending order"
+        caption={caption}
+        cols={colsWithSorting}
+        rows={rows}
+        indexKey={indexKey}
+        onSort={mockOnSort}
+        renderIndexCol={renderIndexCol}
+      />,
+    );
+
+    userEvent.click(container.querySelector('[data-testid="hds-table-sorting-header-age"]'));
+
+    expect(mockOnSort).toHaveBeenCalledTimes(1);
+  });
+
   it('Should successfully select and deselect a single row', () => {
     const TableWithSelection = () => {
       const [selectedRows, setSelectedRows] = useState([]);
