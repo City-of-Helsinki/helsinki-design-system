@@ -88,13 +88,12 @@ const getConfig = (format, extractCSS) => ({
     extractCSS ? cssText() : undefined,
     extractCSS ? moveCSS() : undefined,
     extractCSS ? insertCSS() : undefined,
-    // extractCSS
-    //   ? del({
-    //       targets: 'lib/tmp',
-    //       hook: 'closeBundle',
-    //       verbose: true,
-    //     })
-    //   : undefined,
+    extractCSS
+      ? del({
+          targets: 'lib/tmp',
+          hook: 'closeBundle',
+        })
+      : undefined,
   ],
   external: getExternal(format),
 });
