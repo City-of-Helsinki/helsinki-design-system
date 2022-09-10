@@ -17,8 +17,19 @@ const insertCSS = () => {
     buildEnd: () => {
       fs.appendFileSync(
         `${__dirname}/lib/index.js`,
-        `import CSS_TEXT from './tmp/index.css-text'; export { CSS_TEXT as hdsStyles };`,
+        `import CSS_TEXT from './index.css-text'; export { CSS_TEXT as hdsStyles };`,
       );
+    },
+  };
+};
+
+const moveCSS = () => {
+  return {
+    name: 'move-css',
+    closeBundle: () => {
+      fs.renameSync(`${__dirname}/lib/tmp/index.css`, `${__dirname}/lib/index.css`);
+      fs.renameSync(`${__dirname}/lib/tmp/index.css-text.d.ts`, `${__dirname}/lib/index.css-text.d.ts`);
+      fs.renameSync(`${__dirname}/lib/tmp/index.css-text.js`, `${__dirname}/lib/index.css-text.js`);
     },
   };
 };
@@ -75,6 +86,7 @@ const getConfig = (format, extractCSS) => ({
     }),
     terser(),
     extractCSS ? cssText() : undefined,
+    extractCSS ? moveCSS() : undefined,
     extractCSS ? insertCSS() : undefined,
     // extractCSS
     //   ? del({
