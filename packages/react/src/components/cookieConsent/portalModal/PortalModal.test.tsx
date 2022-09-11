@@ -7,7 +7,6 @@ import { act } from 'react-dom/test-utils';
 
 import { PortalModal } from './PortalModal';
 import { COOKIE_NAME } from '../cookieConsentController';
-import { Content } from '../CookieConsentContext';
 import mockDocumentCookie from '../__mocks__/mockDocumentCookie';
 import {
   clickElement,
@@ -23,6 +22,7 @@ import {
   waitForElementFocus,
 } from '../test.util';
 import { createContent } from '../content.builder';
+import { Content } from '../contexts/ContentContext';
 
 const { defaultConsentData, unknownConsents, dataTestIds } = commonTestProps;
 
