@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ModalContent /> spec renders the component 1`] = `
+exports[`<PortalModal /> spec renders the component 1`] = `
 <body>
   <div
     data-testid="html-cookie-consent-container"
@@ -963,7 +963,25 @@ exports[`<ModalContent /> spec renders the component 1`] = `
       >
         Focus me
       </button>
+      <div
+        data-testid="PortalTarget"
+        id="PortalTarget"
+      />
+      <div
+        data-testid="PortalTargetWithChildren"
+        id="PortalTargetWithChildren"
+      >
+        <p>
+          I am here to prevent auto-removal
+        </p>
+      </div>
     </div>
   </div>
+  <div
+    aria-hidden="true"
+    data-testid="html-cookie-consent-placeholder"
+    id="HdsCookieConsentModalPlaceholder"
+    style="transition: height 0.1s ease 0.2s;"
+  />
 </body>
 `;

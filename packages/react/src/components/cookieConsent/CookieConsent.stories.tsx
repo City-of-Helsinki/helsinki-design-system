@@ -3,25 +3,35 @@ import React, { useState } from 'react';
 import { useCookieConsentContext } from './contexts/ConsentContext';
 import { Category, CookieData, SupportedLanguage, useCookieContentContext } from './contexts/ContentContext';
 import { CookieConsentContext } from './contexts/ContextComponent';
-import { CookieModal } from './cookieModal/CookieModal';
 import { CookiePage } from './cookiePage/CookiePage';
 import { CookieContentSource } from './content.builder';
 import { Modal } from './modal/Modal';
 import { Accordion } from '../accordion';
 import { useCookies } from './useCookies';
+import { PortalModal } from './portalModal/PortalModal';
 
 export default {
-  component: CookieModal,
+  component: PortalModal,
   title: 'Components/CookieConsent',
   parameters: {
     controls: { expanded: true },
+    docs: { disable: true },
   },
   args: {},
 };
 
+const ForcePageScrollBarForModalTesting = () => {
+  return (
+    <div>
+      <div style={{ height: '100vh' }}>&nbsp;</div>
+      <p>Bottom page</p>
+    </div>
+  );
+};
+
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-export const ModalVersion = (args) => {
+export const EnglishModalVersion = (args) => {
   const [language, setLanguage] = useState<SupportedLanguage>('en');
   const onLanguageChange = (newLang) => setLanguage(newLang);
   const contentSource: CookieContentSource = {
@@ -282,17 +292,8 @@ export const ModalVersion = (args) => {
     return (
       <div>
         <p>Example how to track single consent.</p>
-        <p>Matomo cookie is {!isMatomoCookieApproved && <strong>NOT</strong>} set.*</p>
+        <p>Matomo onConsentsParsed is {!isMatomoCookieApproved && <strong>NOT</strong>} set.*</p>
         <small>* This won&apos;t change in real time</small>
-      </div>
-    );
-  };
-
-  const ForcePageScrollBarForModalTesting = () => {
-    return (
-      <div>
-        <div style={{ height: '100vh' }}>&nbsp;</div>
-        <p style={{ opacity: '0' }}>Bottom page</p>
       </div>
     );
   };
@@ -314,7 +315,7 @@ export const ModalVersion = (args) => {
 
   return (
     <>
-      <CookieModal contentSource={contentSource} />
+      <PortalModal contentSource={contentSource} />
       <Application />
     </>
   );
@@ -582,18 +583,9 @@ export const FinnishModalVersion = (args) => {
     const isMatomoCookieApproved = getConsentStatus('matomo');
     return (
       <div>
-        <p>Esimerkki kuinka seurata yhden keksin hyväksyntää</p>
-        <p>Matomo keksi {isMatomoCookieApproved ? 'on' : <strong>EI OLE </strong>} asetettu.*</p>
+        <p>Esimerkki kuinka seurata yhden keksin suostumusta</p>
+        <p>Matomo suostumusta {isMatomoCookieApproved ? 'on' : <strong>EI OLE </strong>} asetettu.*</p>
         <small>* Tämä ei päivity reaaliajassa</small>
-      </div>
-    );
-  };
-
-  const ForcePageScrollBarForModalTesting = () => {
-    return (
-      <div>
-        <div style={{ height: '100vh' }}>&nbsp;</div>
-        <p style={{ opacity: '0' }}>Bottom page</p>
       </div>
     );
   };
@@ -618,7 +610,7 @@ export const FinnishModalVersion = (args) => {
 
   return (
     <>
-      <CookieModal contentSource={contentSource} />
+      <PortalModal contentSource={contentSource} />
       <Application />
     </>
   );
@@ -646,15 +638,6 @@ export const SimpleModalVersion = (args) => {
     focusTargetSelector: '#focused-element-after-cookie-consent-closed',
   };
 
-  const ForcePageScrollBarForModalTesting = () => {
-    return (
-      <div>
-        <div style={{ height: '100vh' }}>&nbsp;</div>
-        <p style={{ opacity: '0' }}>Bottom page</p>
-      </div>
-    );
-  };
-
   const Application = () => {
     return (
       <div>
@@ -672,7 +655,7 @@ export const SimpleModalVersion = (args) => {
 
   return (
     <>
-      <CookieModal contentSource={contentSource} />
+      <PortalModal contentSource={contentSource} />
       <Application />
     </>
   );
@@ -991,7 +974,7 @@ export const DebugVersion = (args) => {
           <ul>
             {getCategoryCookies(requiredCookies).map((cookie) => {
               return (
-                <li>
+                <li key={cookie.id}>
                   <strong>{cookie.id}</strong> has consent stored in cookie: {String(getConsentStatus(cookie.id))}
                 </li>
               );
@@ -1003,7 +986,7 @@ export const DebugVersion = (args) => {
           <ul>
             {getCategoryCookies(optionalCookies).map((cookie) => {
               return (
-                <li>
+                <li key={cookie.id}>
                   <strong>{cookie.id}</strong> has consent: {String(getConsentStatus(cookie.id))}
                 </li>
               );
@@ -1015,7 +998,7 @@ export const DebugVersion = (args) => {
           <ul>
             {Object.keys(storedConsents).map((cookieId) => {
               return (
-                <li>
+                <li key={cookieId}>
                   <strong>{cookieId}</strong>: {String(getConsentStatus(cookieId))}
                 </li>
               );
