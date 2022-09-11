@@ -2,17 +2,17 @@
 import cookie from 'cookie';
 import { RenderResult, waitFor } from '@testing-library/react';
 
-import { CookieGroup, Content } from './CookieConsentContext';
+import { CookieGroup, Content } from './contexts/ContentContext';
 import { ConsentList, ConsentObject, COOKIE_NAME } from './cookieConsentController';
 import { CookieSetOptions } from './cookieController';
 import { MockedDocumentCookieActions } from './__mocks__/mockDocumentCookie';
-import { ContentSource } from './content.builder';
+import { CookieContentSource } from './content.builder';
 
 export type TestConsentData = {
   requiredConsents?: ConsentList[];
   optionalConsents?: ConsentList[];
   consents?: ConsentObject;
-  contentSourceOverrides?: Partial<ContentSource>;
+  contentSourceOverrides?: Partial<CookieContentSource>;
 };
 
 export type TestGroupParent = typeof requiredGroupParent | typeof optionalGroupParent;
@@ -63,9 +63,9 @@ const createCookieGroup = (id: string, consents: ConsentList): CookieGroup => {
 export const getContentSource = (
   requiredCookieGroups?: ConsentList[],
   optionalConsentsGroups?: ConsentList[],
-  contentSourceOverrides?: Partial<ContentSource>,
-): ContentSource => {
-  const contentOverrides: Partial<ContentSource> = {};
+  contentSourceOverrides?: Partial<CookieContentSource>,
+): CookieContentSource => {
+  const contentOverrides: Partial<CookieContentSource> = {};
 
   if (requiredCookieGroups) {
     contentOverrides.requiredCookies = {

@@ -1,23 +1,24 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
 import classNames from '../../../utils/classNames';
 import styles from '../CookieConsent.module.scss';
-import { CookieConsentContext, forceFocusToElement, useCookieConsentUiTexts } from '../CookieConsentContext';
+import { useCookieContentContext, useUiTexts } from '../contexts/ContentContext';
+import { useCookieConsentContext, forceFocusToElement } from '../contexts/ConsentContext';
 import { Content } from '../content/Content';
 
 export function Modal(): React.ReactElement | null {
-  const cookieConsentContext = useContext(CookieConsentContext);
-  const hasOnlyRequiredConsents =
-    !cookieConsentContext.content.optionalCookies || cookieConsentContext.content.optionalCookies.groups.length === 0;
-  const shouldShowModal = !hasOnlyRequiredConsents && !cookieConsentContext.hasUserHandledAllConsents();
+  const contentContext = useCookieContentContext();
+  const consentContext = useCookieConsentContext();
+  const hasOnlyRequiredConsents = !contentContext.optionalCookies || contentContext.optionalCookies.groups.length === 0;
+  const shouldShowModal = !hasOnlyRequiredConsents && !consentContext.hasUserHandledAllConsents();
   const [isModalInitiallyShown] = useState<boolean>(shouldShowModal);
   const [popupTimerComplete, setPopupTimerComplete] = useState<boolean>(false);
   const popupDelayInMs = 500;
   // if hasUserHandledAllConsents() was false at first and then later true, user must have saved consents.
   const showScreenReaderSaveNotification = isModalInitiallyShown && !shouldShowModal;
-  const { settingsSaved } = useCookieConsentUiTexts();
+  const { settingsSaved } = useUiTexts();
   const containerId = 'HdsCookieConsentContainer';
   const getContainerElement = (): HTMLElement | null => document.getElementById(containerId);
   const [isDomReady, setIsDomReady] = useState<boolean>(false);
@@ -49,7 +50,7 @@ export function Modal(): React.ReactElement | null {
     const handleEscKey = (event: KeyboardEvent) => {
       const key = event.key || event.keyCode;
       if (key === 'Escape' || key === 'Esc' || key === 27) {
-        forceFocusToElement(cookieConsentContext.content.focusTargetSelector);
+        forceFocusToElement(contentContext.focusTargetSelector);
       }
     };
     if (isDomReady) {
@@ -58,7 +59,7 @@ export function Modal(): React.ReactElement | null {
     return () => {
       document.removeEventListener('keyup', handleEscKey);
     };
-  }, [isDomReady, cookieConsentContext.content.focusTargetSelector]);
+  }, [isDomReady, contentContext.focusTargetSelector]);
 
   if (showScreenReaderSaveNotification) {
     return (

@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 
-import {
-  Category,
-  CookieData,
-  Provider as CookieContextProvider,
-  SupportedLanguage,
-  useCookieConsentContext,
-} from './CookieConsentContext';
+import { useCookieConsentContext } from './contexts/ConsentContext';
+import { Category, CookieData, SupportedLanguage, useCookieContentContext } from './contexts/ContentContext';
+import { CookieConsentContext } from './contexts/ContextComponent';
 import { CookieModal } from './cookieModal/CookieModal';
 import { CookiePage } from './cookiePage/CookiePage';
-import { ContentSource } from './content.builder';
+import { CookieContentSource } from './content.builder';
 import { Modal } from './modal/Modal';
 import { Accordion } from '../accordion';
 import { useCookies } from './useCookies';
@@ -28,7 +24,7 @@ export default {
 export const ModalVersion = (args) => {
   const [language, setLanguage] = useState<SupportedLanguage>('en');
   const onLanguageChange = (newLang) => setLanguage(newLang);
-  const contentSource: ContentSource = {
+  const contentSource: CookieContentSource = {
     siteName: 'Test website',
     currentLanguage: language,
     requiredCookies: {
@@ -329,7 +325,7 @@ export const ModalVersion = (args) => {
 export const FinnishModalVersion = (args) => {
   const [language, setLanguage] = useState<SupportedLanguage>('fi');
   const onLanguageChange = (newLang) => setLanguage(newLang);
-  const contentSource: ContentSource = {
+  const contentSource: CookieContentSource = {
     siteName: 'Testisivusto',
     currentLanguage: language,
     requiredCookies: {
@@ -633,7 +629,7 @@ export const FinnishModalVersion = (args) => {
 export const SimpleModalVersion = (args) => {
   const [language, setLanguage] = useState<SupportedLanguage>('en');
   const onLanguageChange = (newLang) => setLanguage(newLang);
-  const contentSource: ContentSource = {
+  const contentSource: CookieContentSource = {
     siteName: `Site title ${language}`,
     currentLanguage: language,
     optionalCookies: {
@@ -685,7 +681,7 @@ export const SimpleModalVersion = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const PageVersion = (args) => {
-  const contentSource: ContentSource = {
+  const contentSource: CookieContentSource = {
     siteName: 'Test website',
     currentLanguage: 'en',
     texts: {
@@ -783,7 +779,7 @@ export const PageVersion = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const CustomContentVersion = (args) => {
-  const contentSource: ContentSource = {
+  const contentSource: CookieContentSource = {
     siteName: 'Not shown if main title is overridden',
     currentLanguage: 'en',
     texts: {
@@ -920,7 +916,7 @@ export const CustomContentVersion = (args) => {
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const DebugVersion = (args) => {
-  const contentSource: ContentSource = {
+  const contentSource: CookieContentSource = {
     siteName: 'Cookie consent debugging',
     currentLanguage: 'fi',
     requiredCookies: {
@@ -958,8 +954,9 @@ export const DebugVersion = (args) => {
   };
 
   const Application = () => {
-    const context = useCookieConsentContext();
-    const { hasUserHandledAllConsents, content } = context;
+    const consentContext = useCookieConsentContext();
+    const content = useCookieContentContext();
+    const { hasUserHandledAllConsents } = consentContext;
     const { requiredCookies, optionalCookies } = content;
     const willRenderCookieConsentDialog = hasUserHandledAllConsents();
     const { getAllConsents } = useCookies();
@@ -1031,10 +1028,10 @@ export const DebugVersion = (args) => {
 
   return (
     <>
-      <CookieContextProvider contentSource={contentSource}>
+      <CookieConsentContext contentSource={contentSource}>
         <Application />
         <Modal />
-      </CookieContextProvider>
+      </CookieConsentContext>
     </>
   );
 };

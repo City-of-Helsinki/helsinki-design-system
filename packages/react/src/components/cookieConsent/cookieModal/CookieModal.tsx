@@ -1,14 +1,17 @@
 import React from 'react';
 
 import { Modal } from '../modal/Modal';
-import { ContentSource } from '../content.builder';
-import { Provider as CookieContextProvider } from '../CookieConsentContext';
+import { CookieContentSource } from '../content.builder';
+import { CookieConsentContext } from '../contexts/ContextComponent';
 
-export function CookieModal(props: { contentSource: ContentSource; cookieDomain?: string }): React.ReactElement | null {
+export function CookieModal(props: {
+  contentSource: CookieContentSource;
+  cookieDomain?: string;
+}): React.ReactElement | null {
   const { cookieDomain, contentSource } = props;
   return (
-    <CookieContextProvider contentSource={contentSource} cookieDomain={cookieDomain}>
+    <CookieConsentContext contentSource={contentSource} cookieDomain={cookieDomain}>
       <Modal />
-    </CookieContextProvider>
+    </CookieConsentContext>
   );
 }

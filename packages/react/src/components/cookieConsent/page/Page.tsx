@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
-import { useCookieConsentContent } from '../CookieConsentContext';
+import { useCookieContentContext } from '../contexts/ContentContext';
 import { Details } from '../details/Details';
 import styles from '../CookieConsent.module.scss';
-import { Buttons } from '../buttons/Buttons';
+import { MemoizedButtons } from '../buttons/Buttons';
 import { Notification } from '../../notification/index';
+import { useConsentActions } from '../contexts/ConsentContext';
 
 export function Page(): React.ReactElement | null {
-  const content = useCookieConsentContent();
+  const content = useCookieContentContext();
+  const triggerAction = useConsentActions();
   const { title, text } = content.texts.sections.main;
   const { settingsSaved } = content.texts.ui;
   const [showSaveNotification, setShowSaveNotification] = useState(false);
-  const onButtonClick = () => {
+  const onButtonClick = useCallback(() => {
     setShowSaveNotification(true);
-  };
+  }, [setShowSaveNotification]);
   return (
     <div className={styles.page} data-testid="cookie-consent">
       <div className={styles.content} id="cookie-consent-content">
@@ -33,7 +35,7 @@ export function Page(): React.ReactElement | null {
             {settingsSaved}
           </Notification>
         )}
-        <Buttons detailsAreShown onClick={onButtonClick} />
+        <MemoizedButtons detailsAreShown onClick={onButtonClick} triggerAction={triggerAction} />
       </div>
     </div>
   );
