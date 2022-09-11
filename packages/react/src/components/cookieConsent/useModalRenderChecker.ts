@@ -1,10 +1,9 @@
-import { useContext } from 'react';
-
-import { CookieConsentContext } from './CookieConsentContext';
+import { useCookieConsentContext } from './contexts/ConsentContext';
+import { useCookieContentContext } from './contexts/ContentContext';
 
 export function useModalRenderChecker() {
-  const cookieConsentContext = useContext(CookieConsentContext);
-  const hasOnlyRequiredConsents =
-    !cookieConsentContext.content.optionalCookies || cookieConsentContext.content.optionalCookies.groups.length === 0;
-  return !hasOnlyRequiredConsents && !cookieConsentContext.hasUserHandledAllConsents();
+  const consentContext = useCookieConsentContext();
+  const contentContext = useCookieContentContext();
+  const hasOnlyRequiredConsents = !contentContext.optionalCookies || contentContext.optionalCookies.groups.length === 0;
+  return !hasOnlyRequiredConsents && !consentContext.hasUserHandledAllConsents();
 }
