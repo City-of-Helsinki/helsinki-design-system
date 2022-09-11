@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { useCookieConsentLanguage } from '../CookieConsentContext';
+import { useContentLanguage } from '../contexts/ContentContext';
 import { Navigation } from '../../navigation/Navigation';
 import styles from '../CookieConsent.module.scss';
 
 export function LanguageSwitcher(): React.ReactElement {
-  const { current, languageOptions, languageSelectorAriaLabel, onLanguageChange } = useCookieConsentLanguage();
+  const { current, languageOptions, languageSelectorAriaLabel, onLanguageChange } = useContentLanguage();
   const setLanguage = (code: string, e: React.MouseEvent) => {
     e.preventDefault();
     onLanguageChange(code);

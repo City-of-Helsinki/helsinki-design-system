@@ -3,20 +3,17 @@ import React from 'react';
 import classNames from '../../../utils/classNames';
 import { Button } from '../../button/Button';
 import styles from '../CookieConsent.module.scss';
-import { useCookieConsentActions, useCookieConsentUiTexts } from '../CookieConsentContext';
+import { ConsentContextType } from '../contexts/ConsentContext';
+import { useUiTexts } from '../contexts/ContentContext';
 
 export type Props = {
   detailsAreShown: boolean;
   onClick?: () => void;
+  triggerAction: ConsentContextType['onAction'];
 };
 
-export function Buttons({ detailsAreShown, onClick = () => undefined }: Props): React.ReactElement {
-  const triggerAction = useCookieConsentActions();
-  const {
-    approveRequiredAndSelectedConsents,
-    approveOnlyRequiredConsents,
-    approveAllConsents,
-  } = useCookieConsentUiTexts();
+function Buttons({ detailsAreShown, onClick = () => undefined, triggerAction }: Props): React.ReactElement {
+  const { approveRequiredAndSelectedConsents, approveOnlyRequiredConsents, approveAllConsents } = useUiTexts();
   const primaryButtonText = detailsAreShown ? approveRequiredAndSelectedConsents : approveAllConsents;
   const primaryButtonAction = detailsAreShown ? 'approveSelectedAndRequired' : 'approveAll';
   return (
@@ -44,3 +41,5 @@ export function Buttons({ detailsAreShown, onClick = () => undefined }: Props): 
     </div>
   );
 }
+
+export const MemoizedButtons = React.memo(Buttons);

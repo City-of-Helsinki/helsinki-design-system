@@ -9,7 +9,8 @@ import type {
   SupportedLanguage,
   UiTexts,
   TableData,
-} from './CookieConsentContext';
+  ContentContextType,
+} from './contexts/ContentContext';
 import commonContent from './content.json';
 import { COOKIE_NAME } from './cookieConsentController';
 
@@ -39,7 +40,7 @@ type ContentSourceTexts = {
   tableHeadings?: Partial<TableData>;
 };
 
-export type ContentSource = {
+export type CookieContentSource = {
   currentLanguage: SupportedLanguage;
   siteName: string;
   requiredCookies?: ContentSourceCategory;
@@ -47,8 +48,8 @@ export type ContentSource = {
   texts?: ContentSourceTexts;
   language?: Partial<Content['language']>;
   noCommonConsentCookie?: boolean;
-  onAllConsentsGiven?: Content['onAllConsentsGiven'];
-  onConsentsParsed?: Content['onConsentsParsed'];
+  onAllConsentsGiven?: ContentContextType['callbacks']['onAllConsentsGiven'];
+  onConsentsParsed?: ContentContextType['callbacks']['onConsentsParsed'];
   focusTargetSelector?: string;
 };
 
@@ -79,7 +80,7 @@ function getTexts(language: SupportedLanguage, siteName: string): Content['texts
   textContent.sections.main.title = textContent.sections.main.title.replace('{{siteName}}', siteName);
   return textContent;
 }
-function getLanguage(lang: SupportedLanguage, overrides: ContentSource['language']): Content['language'] {
+function getLanguage(lang: SupportedLanguage, overrides: CookieContentSource['language']): Content['language'] {
   const { language } = commonContent;
   return {
     ...language,
@@ -163,7 +164,9 @@ function mergeObjects(target: MergableContent, source: MergableContent, paths: s
   });
 }
 
-function buildCookieGroups(props: ContentSource): { requiredCookies: CookieGroup[]; optionalCookies: CookieGroup[] } {
+function buildCookieGroups(
+  props: CookieContentSource,
+): { requiredCookies: CookieGroup[]; optionalCookies: CookieGroup[] } {
   const requiredCookies = [];
   const optionalCookies = [];
   const groupMap = new Map<string, CookieGroup>();
@@ -283,17 +286,8 @@ function buildConsentCategories(
   return data as Category;
 }
 
-export function createContent(props: ContentSource): Content {
-  const {
-    siteName,
-    language,
-    currentLanguage,
-    optionalCookies,
-    requiredCookies,
-    onConsentsParsed,
-    onAllConsentsGiven,
-    focusTargetSelector,
-  } = props;
+export function createContent(props: CookieContentSource): Content {
+  const { siteName, language, currentLanguage, optionalCookies, requiredCookies, focusTargetSelector } = props;
   const content: Partial<Content> = {
     texts: getTexts(currentLanguage, siteName),
     language: getLanguage(currentLanguage, language),
@@ -314,22 +308,16 @@ export function createContent(props: ContentSource): Content {
     requiredCookies,
     consentGroups.requiredCookies,
   );
-  if (onAllConsentsGiven) {
-    content.onAllConsentsGiven = onAllConsentsGiven;
-  }
-  if (onConsentsParsed) {
-    content.onConsentsParsed = onConsentsParsed;
-  }
   return content as Content;
 }
 
 export function pickConsentIdsFromContentSource(
-  contentSource: Partial<ContentSource>,
+  contentSource: Partial<CookieContentSource>,
 ): { required: string[]; optional: string[] } {
   let required: string[] = [];
   let optional: string[] = [];
 
-  const cookieGroups = buildCookieGroups(contentSource as ContentSource);
+  const cookieGroups = buildCookieGroups(contentSource as CookieContentSource);
 
   cookieGroups.requiredCookies.forEach((group) => {
     if (group.cookies) {

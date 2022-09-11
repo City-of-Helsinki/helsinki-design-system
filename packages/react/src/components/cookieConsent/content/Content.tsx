@@ -1,22 +1,24 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
-import { Buttons } from '../buttons/Buttons';
+import { MemoizedButtons } from '../buttons/Buttons';
 import { IconAngleDown, IconAngleUp } from '../../../icons';
 import { useAccordion } from '../../accordion';
 import { Details } from '../details/Details';
 import styles from '../CookieConsent.module.scss';
 import { Card } from '../../card/Card';
-import { useCookieConsentSectionTexts, useCookieConsentUiTexts } from '../CookieConsentContext';
+import { useUiTexts, useSectionTexts } from '../contexts/ContentContext';
 import { LanguageSwitcher } from '../languageSwitcher/LanguageSwitcher';
 import classNames from '../../../utils/classNames';
 import { useEscKey } from '../useEscKey';
+import { useConsentActions } from '../contexts/ConsentContext';
 
 export function Content(): React.ReactElement {
   const { isOpen, buttonProps, contentProps, closeAccordion } = useAccordion({
     initiallyOpen: false,
   });
-  const { hideSettings, showSettings, readMore } = useCookieConsentUiTexts();
-  const { title, text } = useCookieConsentSectionTexts('main');
+  const { hideSettings, showSettings, readMore } = useUiTexts();
+  const { title, text } = useSectionTexts('main');
+  const triggerAction = useConsentActions();
   const titleRef = useRef<HTMLHeadingElement>();
   const Icon = isOpen ? IconAngleUp : IconAngleDown;
   const settingsButtonText = isOpen ? hideSettings : showSettings;
@@ -88,7 +90,7 @@ export function Content(): React.ReactElement {
       >
         <Details />
       </Card>
-      <Buttons detailsAreShown={isOpen} />
+      <MemoizedButtons detailsAreShown={isOpen} triggerAction={triggerAction} />
     </div>
   );
 }
