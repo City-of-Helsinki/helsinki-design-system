@@ -1,17 +1,24 @@
 import React from 'react';
 
+import { Portal } from './Portal';
 import { Modal } from '../modal/Modal';
-import { CookieContentSource } from '../content.builder';
 import { CookieConsentContext } from '../contexts/ContextComponent';
+import { CookieContentSource } from '../content.builder';
 
-export function CookieModal(props: {
+export function PortalModal({
+  contentSource,
+  cookieDomain,
+  rootId = 'HdsCookieConsentContainer',
+}: {
   contentSource: CookieContentSource;
   cookieDomain?: string;
-}): React.ReactElement | null {
-  const { cookieDomain, contentSource } = props;
+  rootId?: string;
+}) {
   return (
     <CookieConsentContext contentSource={contentSource} cookieDomain={cookieDomain}>
-      <Modal />
+      <Portal rootId={rootId}>
+        <Modal />
+      </Portal>
     </CookieConsentContext>
   );
 }

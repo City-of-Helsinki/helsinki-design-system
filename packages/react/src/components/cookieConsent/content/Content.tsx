@@ -10,7 +10,7 @@ import { useUiTexts, useSectionTexts } from '../contexts/ContentContext';
 import { LanguageSwitcher } from '../languageSwitcher/LanguageSwitcher';
 import classNames from '../../../utils/classNames';
 import { useEscKey } from '../useEscKey';
-import { useConsentActions } from '../contexts/ConsentContext';
+import { useConsentActions, useFocusShift } from '../contexts/ConsentContext';
 
 export function Content(): React.ReactElement {
   const { isOpen, buttonProps, contentProps, closeAccordion } = useAccordion({
@@ -42,6 +42,7 @@ export function Content(): React.ReactElement {
   }, [setFocusToTitle]);
 
   useEscKey(closeAccordion);
+  useEscKey(useFocusShift());
 
   return (
     <div
