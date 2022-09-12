@@ -83,7 +83,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     ref: React.Ref<HTMLAnchorElement>,
   ) => {
     const composeAriaLabel = () => {
-      let childrenText = getTextFromReactChildren(children);
+      let childrenText = ariaLabel || getTextFromReactChildren(children);
       const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
       const externalText = external ? openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.' : '';
 
@@ -112,7 +112,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         href={href}
         style={style}
         {...(openInNewTab && { target: '_blank', rel: 'noopener' })}
-        {...((openInNewTab || external) && { 'aria-label': composeAriaLabel() })}
+        {...((openInNewTab || external || ariaLabel) && { 'aria-label': composeAriaLabel() })}
         ref={ref}
         {...rest}
       >
