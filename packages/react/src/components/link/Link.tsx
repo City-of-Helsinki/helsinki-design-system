@@ -12,6 +12,10 @@ export type LinkProps = Omit<
   'target' | 'href' | 'onPointerEnterCapture' | 'onPointerLeaveCapture' | 'aria-label'
 > & {
   /**
+   * aria-label for providing detailed information about a generic link text.
+   */
+  ariaLabel?: string;
+  /**
    * Link content
    */
   children: string;
@@ -62,6 +66,7 @@ type LinkToIconSizeMappingType = {
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   (
     {
+      ariaLabel,
       children,
       className,
       disableVisitedStyles = false,
@@ -97,6 +102,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 
     return (
       <a
+        aria-label={ariaLabel}
         className={classNames(
           styles.link,
           styles[`link${size}`],
