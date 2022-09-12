@@ -19,6 +19,15 @@ describe('<Notification /> spec', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  it('adds role="alert" for non-inline notifications', () => {
+    const { asFragment } = render(
+        <Notification label={label} position="bottom-center">
+          {body}
+        </Notification>,
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
   it('should not have basic accessibility issues', async () => {
     const { container } = render(<Notification label={label}>{body}</Notification>);
     const results = await axe(container);
