@@ -97,7 +97,7 @@
     "sv": {
       "title": "Nödvändig kakor",
       "text": "Du kan inte förbjuda användningen av nödvändiga kakorna. De möjliggör webbplatsens funktioner och påverkar användbarheten.",
-      "checkboxAriaDescription": "Du kan inte förbjuda användningen av nödvändiga kakor. De möjliggör webbplatsens funktioner och påverkar användbarheten."
+      "checkboxAriaDescription": "Du kan inte förbjuda användningen av nödvändiga kakorna. De möjliggör webbplatsens funktioner och påverkar användbarheten."
     },
     "en": {
       "title": "Necessary cookies",
@@ -174,7 +174,7 @@
         "title": "Preferenser",
         "text": "Preferenskakor ändrar webbplatsens utseende och funktioner enligt användarens tidigare val.",
         "expandAriaLabel": "Visa information om preferenscookies",
-        "checkboxAriaDescription": "Preferenskakor ändrar webbplatsens utseende och funktioner enligt användarens tidigare val."
+        "checkboxAriaDetextscription": "Preferenskakor ändrar webbplatsens utseende och funktioner enligt användarens tidigare val."
       },
       "en": {
         "title": "Preferences",
@@ -387,20 +387,20 @@
       "fi": {
         "title": "Perustoimintoihin liittyvät evästeet",
         "text": "Sivusto ei toimi ilman näitä",
-        "expandAriaLabel": "essential expandAriaLabel",
-        "checkboxAriaDescription": "essential checkboxAriaDescription"
+        "expandAriaLabel": "Näytä perustoimintoihin liittyvien evästeiden tiedot",
+        "checkboxAriaDescription": "Sivusto ei toimi ilman näitä"
       },
       "sv": {
         "title": "Cookies relaterade till grundläggande funktioner",
         "text": "Du kan inte förbjuda användningen av cookies relaterade till grundläggande funktioner. De möjliggör webbplatsens funktioner och påverkar användbarheten.",
         "expandAriaLabel": "Visa information om cookies relaterade till grundläggande funktioner",
-        "checkboxAriaDescription": "Visa information om cookies relaterade till grundläggande funktioner"
+        "checkboxAriaDescription": "Du kan inte förbjuda användningen av cookies relaterade till grundläggande funktioner. De möjliggör webbplatsens funktioner och påverkar användbarheten."
       },
       "en": {
         "title": "Cookies related to basic functionalities",
         "text": "Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability",
         "expandAriaLabel": "Show cookie information related to basic functionalities",
-        "checkboxAriaDescription": "Cookies related to basic functions are required, and the website will not function properly without them. "
+        "checkboxAriaDescription": "Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability"
       }
     },
     "statistics": {
@@ -428,19 +428,19 @@
         "title": "Yhteiset evästeet",
         "text": "Helsingin kaupungin palvelut käyttävät yhteisiä evästeitä. Tallennamme nämä suostumukset, jottei sinun tarvitse hyväksyä samoja evästeitä uudelleen kaupungin muissa palveluissa.",
         "expandAriaLabel": "Näytä yhteisiin evästesuostumuksiin liittyvien evästeiden tiedot",
-        "checkboxAriaDescription": "Helsingin kaupungin palvelut käyttävät yhteisiä evästeitä. Tallennamme suostumuksen, jottei sinun tarvitse hyväksyä samoja evästeitä uudelleen muissa kaupungin palveluissa."
+        "checkboxAriaDescription": "Helsingin kaupungin palvelut käyttävät yhteisiä evästeitä. Tallennamme nämä suostumukset, jottei sinun tarvitse hyväksyä samoja evästeitä uudelleen muissa kaupungin palveluissa."
       },
       "sv": {
         "title": "Gemensamma cookies",
         "text": "Helsingfors stads tjänster använder gemensamma cookies. Vi lagrar dessa samtycken så att du inte behöver godkänna samma cookies igen i stadens andra tjänster.",
         "expandAriaLabel": "Visa information om cookies relaterade till gemensamma cookie-samtycken",
-        "checkboxAriaDescription": "Helsingfors stads tjänster använder gemensamma cookies. Vi lagrar samtycket så att du inte behöver godkänna samma cookies igen i stadens andra tjänster."
+        "checkboxAriaDescription": "Helsingfors stads tjänster använder gemensamma cookies. Vi lagrar dessa samtycken så att du inte behöver godkänna samma cookies igen i stadens andra tjänster."
       },
       "en": {
         "title": "Shared consent",
         "text": "City of Helsinki services use shared consent. We will store these consents so that you do not have to accept the same cookies again on other City services.",
         "expandAriaLabel": "Show cookie information related to shared cookie consent",
-        "checkboxAriaDescription": "City of Helsinki services use shared consent. We will store the consent so that you do not have to accept the same cookies again on other City services."
+        "checkboxAriaDescription": "City of Helsinki services use shared consent. We will store these consents so that you do not have to accept the same cookies again on other City services."
       }
     }
   },
