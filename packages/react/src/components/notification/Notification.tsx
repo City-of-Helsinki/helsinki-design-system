@@ -244,7 +244,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
     const autoCloseTransition = useSpring(autoCloseTransitionProps);
 
     // Set role="alert" for non-inline notifications
-    const role = position !== 'inline' ? 'alert' : null;
+    const role: 'alert' | undefined = position !== 'inline' ? 'alert' : undefined;
 
     return (
       <ConditionalVisuallyHidden visuallyHidden={invisible}>
@@ -263,10 +263,11 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
           )}
           aria-label={notificationAriaLabel}
           aria-atomic="true"
+          role={role}
           data-testid={dataTestId}
         >
           {autoClose && <animated.div style={autoCloseTransition} className={styles.autoClose} />}
-          <div className={styles.content} role={role} ref={ref}>
+          <div className={styles.content} ref={ref}>
             {label && (
               <div className={styles.label} role="heading" aria-level={2}>
                 <Icon className={styles.icon} aria-hidden />
