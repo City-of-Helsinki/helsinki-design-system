@@ -51,13 +51,5 @@ describe('<Notification /> spec', () => {
     );
     expect(getByRole('button')).toBeDefined();
   });
-
-  it('adds role="alert" for non-inline notifications', () => {
-    const { getByRole } = render(
-      <Notification label={label} position="bottom-center">
-        {body}
-      </Notification>,
-    );
-    expect(getByRole('alert')).toBeDefined();
-  });
+  
 });
