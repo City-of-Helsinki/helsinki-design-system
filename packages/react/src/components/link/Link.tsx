@@ -12,7 +12,7 @@ export type LinkProps = Omit<
   'target' | 'href' | 'onPointerEnterCapture' | 'onPointerLeaveCapture' | 'aria-label'
 > & {
   /**
-   * aria-label for providing detailed information about a generic link text.
+   * aria-label for providing detailed information for screen readers about a link text.
    */
   ariaLabel?: string;
   /**
