@@ -47,6 +47,9 @@ export function Portal({ rootId, children }: { rootId: string; children: React.R
       removePortal();
     };
   }, [rootId, shouldShowModal, setIsDomReady, removePortal]);
+
+  if (typeof document === 'undefined') return null;
+
   if (getChildNodeCount() === 0 && (!shouldShowModal || !isDomReady)) {
     return null;
   }
