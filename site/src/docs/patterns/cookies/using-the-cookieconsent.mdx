@@ -94,3 +94,5 @@ There may be elements or content on your service that do not work properly until
 The user must be able to view and edit the cookie consent after they have initially submitted their choices. You must offer a separate cookies page that allows changing viewing the cookies and changing consent. The link to this page should be placed on the footer element of the page. Note that the HDS CookieConsent component offers functionality to render it as a page. This allows you to use the same component and data to construct a separate cookie page.
 
 If new cookies are added or current ones changed, consent should be asked from the user again the next time the service is used.
+
+The component will ask for consents if a new cookie is added or a `cookie.id` is changed and there is no stored value for that `cookie.id`. Note that if there are only required cookies, the modal is not shown.
