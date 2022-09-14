@@ -716,7 +716,7 @@ export const PageVersion = (args) => {
           commonGroup: 'preferences',
           cookies: [
             {
-              id: 'preferences',
+              id: 'preferences1',
               name: 'Setting 1',
               hostName: 'UserPreferences',
               description:
