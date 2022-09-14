@@ -40,7 +40,11 @@ You can find examples of ContentSource property contents in <Link openInNewTab o
 
 #### CookieDomain
 
-Rarely used. Cookie consents are stored to a cookie whose domain is automatically set to accept subdomains: _.hel.fi or _.hel.ninja or \*.domain.com. Some sites are included in the public suffix list and cookies for those sites cannot accept subdomain cookies. Github.io is one of those sites and HDS examples do not work there unless the cookie domain can be overridden. Therefore `cookieDomain` was added.
+The cookie domain is automatically detected from the site the component is on. By default, the component sets the cookie domain to be the root domain with `*.` This way the cookie consents can be read from all subdomains. For example `*.hel.fi`.
+
+If your site domain is included in the [public suffix list](https://publicsuffix.org/) or you do not wish to expose your cookies to subdomains, or you want to set the domain manually for some reason, then use the `cookieDomain` property.
+
+Cookies for domains on the public suffix list cannot accept subdomain cookies. E.g. `github.io`.
 
 #### Detailed info about properties
 
@@ -86,10 +90,10 @@ Rarely used. Cookie consents are stored to a cookie whose domain is automaticall
 
 The `contentSource` object passed to the component can also include callback functions:
 
-| Property                             | Usage                                                                                                | Arguments                                                                                                                                                                                    |
-| ------------------------------------ | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `onAllConsentsGiven`                 | Called when the user has given all consents. Not called if consents are not asked for.               | Object with cookie.id as the key and true/false as value `{matomo: true, marketing: false}`                                                                                                  |
-| `onConsentsParsed`                   | Called when cookie consents are read from the browser. Called always even if consent has been given. | Object with cookie.id as the key and true/false as value `{matomo: true, marketing: false}` and boolean indicating are all consents handled. If true, there is no reason to ask for consent. |
+| Property                             | Usage                                                                                                                                                | Arguments                                                                                                                                                                            |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `onAllConsentsGiven`                 | Called when the user has given all consents. Not called if consents are not asked for.                                                               | Object with `cookie.id` as the key and true/false as value `{matomo: true, marketing: false}`                                                                                        |
+| `onConsentsParsed`                   | Called when cookie consents are read from the browser, before the cookie modal will possibly be shown. Called always even if consent has been given. | Object with `cookie.id` as the key and true/false as value `{matomo: true, marketing: false}` and boolean indicating are all consents handled. If true, the modal will not be shown. |
 | [Table 5:Component object callbacks] |
 
 ##### Strings and language
