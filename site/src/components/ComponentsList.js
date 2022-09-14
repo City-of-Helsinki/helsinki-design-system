@@ -33,6 +33,13 @@ const ComponentsList = () => {
       href: '/components/checkbox',
     },
     {
+      name: 'CookieConsent',
+      text: 'The cookie compliance components informs users about cookie usage.',
+      linkboxAriaLabel: 'CookieConsent components',
+      linkAriaLabel: 'Go to the CookieConsent components page',
+      href: '/components/cookie-consent',
+    },
+    {
       name: 'DateInput',
       text: 'Date input allows the user to easily input a specific date or a date range. ',
       linkboxAriaLabel: 'DateInput component',

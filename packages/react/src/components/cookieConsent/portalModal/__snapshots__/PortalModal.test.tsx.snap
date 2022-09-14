@@ -1,0 +1,987 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PortalModal /> spec renders the component 1`] = `
+<body>
+  <div
+    data-testid="html-cookie-consent-container"
+    id="HdsCookieConsentContainer"
+  >
+    <div
+      class="container modal animateIn"
+      data-testid="cookie-consent"
+    >
+      <div
+        class="aligner"
+      >
+        <div
+          class="content shrinkOnBlur"
+          id="cookie-consent-content"
+          tabindex="-1"
+        >
+          <div
+            class="mainContent"
+            data-testid="cookie-consent-information"
+          >
+            <span
+              aria-level="1"
+              class="emulatedH1"
+              role="heading"
+              tabindex="-1"
+            >
+              Test site käyttää evästeitä
+            </span>
+            <div
+              class="languageSwitcher visuallyHiddenWithoutFocus"
+              data-testid="cookie-consent-language-switcher"
+            >
+              <div
+                class="menuButton languageSelectorOverride"
+              >
+                <button
+                  aria-controls="cookie-consent-language-selector-menu"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  aria-label="Kieli: Suomi. Vaihda kieli. Change language. Ändra språk."
+                  class="toggleButton"
+                  id="cookie-consent-language-selector-button"
+                  type="button"
+                >
+                  <span
+                    class="toggleButtonLabel"
+                  >
+                    Suomeksi (FI)
+                  </span>
+                  <svg
+                    aria-hidden="true"
+                    class="icon s"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      fill="none"
+                      fill-rule="evenodd"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                      />
+                      <path
+                        d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
+                        fill="currentColor"
+                      />
+                    </g>
+                  </svg>
+                </button>
+                <div
+                  aria-labelledby="cookie-consent-language-selector-button"
+                  class="menu"
+                  id="cookie-consent-language-selector-menu"
+                  role="region"
+                  style="top: 10px; min-width: 190px;"
+                >
+                  <a
+                    aria-current="page"
+                    class="item "
+                    href="#"
+                    lang="fi"
+                  >
+                    <span
+                      class="label"
+                    >
+                      Suomeksi (FI)
+                    </span>
+                  </a>
+                  <a
+                    class="item "
+                    href="#"
+                    lang="sv"
+                  >
+                    <span
+                      class="label"
+                    >
+                      Svenska (SV)
+                    </span>
+                  </a>
+                  <a
+                    class="item "
+                    href="#"
+                    lang="en"
+                  >
+                    <span
+                      class="label"
+                    >
+                      English (EN)
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <p
+              class="visuallyHiddenWithoutFocus"
+            >
+              Tämä sivusto käyttää pakollisia evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen.
+            </p>
+            <button
+              class="accordionButton readMoreButton"
+              type="button"
+            >
+              <span>
+                Lue lisää
+              </span>
+              <svg
+                aria-hidden="true"
+                class="icon s"
+                role="img"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  fill-rule="evenodd"
+                >
+                  <path
+                    d="M0 24h24V0H0z"
+                  />
+                  <path
+                    d="M12 11.5l5 5 1.5-1.5L12 8.5 5.5 15 7 16.5z"
+                    fill="currentColor"
+                  />
+                </g>
+              </svg>
+            </button>
+          </div>
+          <button
+            aria-expanded="false"
+            class="detailsAccordionButton accordionButton accordionButtonSettingsClosed hiddenWithoutFocus"
+            data-testid="cookie-consent-settings-toggler"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              class="icon s"
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M0 0h24v24H0z"
+                />
+                <path
+                  d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
+                  fill="currentColor"
+                />
+              </g>
+            </svg>
+            <span>
+              Näytä evästeasetukset
+            </span>
+          </button>
+          <div
+            class="card custom-theme-1"
+            role="region"
+            style="display: none;"
+          >
+            <div
+              class="textContent"
+              data-testid="cookie-consent-details"
+            >
+              <span
+                aria-level="2"
+                class="emulatedH2"
+                role="heading"
+              >
+                Tietoa sivustolla käytetyistä evästeistä
+              </span>
+              <p>
+                Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea eri luokista ja sallia tai kieltää evästeiden käytön.
+              </p>
+              <div
+                class="consentCategory"
+              >
+                <div
+                  class="titleWithCheckbox"
+                >
+                  <div
+                    class="checkbox"
+                    style="--label-font-size: var(--fontsize-heading-m);"
+                  >
+                    <input
+                      aria-describedby="required-consents-description"
+                      checked=""
+                      class="input"
+                      data-testid="required-consents-checkbox"
+                      disabled=""
+                      id="required-consents-checkbox"
+                      name="required-consents-checkbox"
+                      type="checkbox"
+                      value=""
+                    />
+                    <label
+                      class="label"
+                      for="required-consents-checkbox"
+                    >
+                      Title for required cookies
+                    </label>
+                  </div>
+                </div>
+                <p
+                  aria-hidden="true"
+                >
+                  Text for required cookies
+                </p>
+                <div
+                  id="required-consents-description"
+                  style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                >
+                  checkboxAriaLabel
+                </div>
+                <ul
+                  class="list"
+                >
+                  <li>
+                    <div
+                      class="consentGroup"
+                    >
+                      <div
+                        class="titleWithCheckbox"
+                      >
+                        <div
+                          class="checkbox"
+                          style="--label-font-size: var(--fontsize-heading-s);"
+                        >
+                          <input
+                            aria-describedby="required-consents-group-0-description"
+                            checked=""
+                            class="input"
+                            data-testid="required-consents-group-0-checkbox"
+                            disabled=""
+                            id="required-consents-group-0-checkbox"
+                            name="required-consents-group-0-checkbox"
+                            type="checkbox"
+                            value=""
+                          />
+                          <label
+                            class="label"
+                            for="required-consents-group-0-checkbox"
+                          >
+                            Cookie group title for requiredCookieGroup0
+                          </label>
+                        </div>
+                      </div>
+                      <div
+                        class="consentGroupContent"
+                      >
+                        <p
+                          aria-hidden="true"
+                        >
+                          Cookie group description for requiredCookieGroup0
+                        </p>
+                        <div
+                          id="required-consents-group-0-description"
+                          style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                        >
+                          checkboxAriaLabel for requiredCookieGroup0
+                        </div>
+                        <button
+                          aria-expanded="false"
+                          aria-label="expandAriaLabel for requiredCookieGroup0"
+                          class="accordionButton"
+                          data-testid="required-consents-group-0-details-toggler"
+                          type="button"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="icon s"
+                            role="img"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              fill="none"
+                              fill-rule="evenodd"
+                            >
+                              <path
+                                d="M0 0h24v24H0z"
+                              />
+                              <path
+                                d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
+                                fill="currentColor"
+                              />
+                            </g>
+                          </svg>
+                        </button>
+                        <div
+                          aria-label="Cookie group title for requiredCookieGroup0"
+                          class="card custom-theme-2"
+                          role="region"
+                          style="display: none;"
+                        >
+                          <div
+                            class="dataTableContainer"
+                          >
+                            <div
+                              class="container"
+                              tabindex="0"
+                            >
+                              <table
+                                class="table dark dense custom-theme-3"
+                                data-testid="required-consents-group-0-table"
+                                id="required-consents-group-0-table"
+                              >
+                                <thead>
+                                  <tr
+                                    class="headerRow"
+                                  >
+                                    <th
+                                      scope="col"
+                                    >
+                                      Nimi
+                                    </th>
+                                    <th
+                                      scope="col"
+                                    >
+                                      Evästeen asettaja
+                                    </th>
+                                    <th
+                                      scope="col"
+                                    >
+                                      Käyttötarkoitus
+                                    </th>
+                                    <th
+                                      scope="col"
+                                    >
+                                      Voimassaoloaika
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody
+                                  class="content"
+                                >
+                                  <tr>
+                                    <td
+                                      data-testid="name-0"
+                                    >
+                                      Name of requiredConsent1
+                                    </td>
+                                    <td
+                                      data-testid="hostName-0"
+                                    >
+                                      HostName of requiredConsent1
+                                    </td>
+                                    <td
+                                      data-testid="description-0"
+                                    >
+                                      Description of requiredConsent1
+                                    </td>
+                                    <td
+                                      data-testid="expiration-0"
+                                    >
+                                      Expiration of requiredConsent1
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td
+                                      data-testid="name-1"
+                                    >
+                                      Name of requiredConsent2
+                                    </td>
+                                    <td
+                                      data-testid="hostName-1"
+                                    >
+                                      HostName of requiredConsent2
+                                    </td>
+                                    <td
+                                      data-testid="description-1"
+                                    >
+                                      Description of requiredConsent2
+                                    </td>
+                                    <td
+                                      data-testid="expiration-1"
+                                    >
+                                      Expiration of requiredConsent2
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      class="consentGroup"
+                    >
+                      <div
+                        class="titleWithCheckbox"
+                      >
+                        <div
+                          class="checkbox"
+                          style="--label-font-size: var(--fontsize-heading-s);"
+                        >
+                          <input
+                            aria-describedby="required-consents-group-1-description"
+                            checked=""
+                            class="input"
+                            data-testid="required-consents-group-1-checkbox"
+                            disabled=""
+                            id="required-consents-group-1-checkbox"
+                            name="required-consents-group-1-checkbox"
+                            type="checkbox"
+                            value=""
+                          />
+                          <label
+                            class="label"
+                            for="required-consents-group-1-checkbox"
+                          >
+                            Cookie group title for requiredCookieGroup1
+                          </label>
+                        </div>
+                      </div>
+                      <div
+                        class="consentGroupContent"
+                      >
+                        <p
+                          aria-hidden="true"
+                        >
+                          Cookie group description for requiredCookieGroup1
+                        </p>
+                        <div
+                          id="required-consents-group-1-description"
+                          style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                        >
+                          checkboxAriaLabel for requiredCookieGroup1
+                        </div>
+                        <button
+                          aria-expanded="false"
+                          aria-label="expandAriaLabel for requiredCookieGroup1"
+                          class="accordionButton"
+                          data-testid="required-consents-group-1-details-toggler"
+                          type="button"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="icon s"
+                            role="img"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              fill="none"
+                              fill-rule="evenodd"
+                            >
+                              <path
+                                d="M0 0h24v24H0z"
+                              />
+                              <path
+                                d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
+                                fill="currentColor"
+                              />
+                            </g>
+                          </svg>
+                        </button>
+                        <div
+                          aria-label="Cookie group title for requiredCookieGroup1"
+                          class="card custom-theme-4"
+                          role="region"
+                          style="display: none;"
+                        >
+                          <div
+                            class="dataTableContainer"
+                          >
+                            <div
+                              class="container"
+                              tabindex="0"
+                            >
+                              <table
+                                class="table dark dense custom-theme-5"
+                                data-testid="required-consents-group-1-table"
+                                id="required-consents-group-1-table"
+                              >
+                                <thead>
+                                  <tr
+                                    class="headerRow"
+                                  >
+                                    <th
+                                      scope="col"
+                                    >
+                                      Nimi
+                                    </th>
+                                    <th
+                                      scope="col"
+                                    >
+                                      Evästeen asettaja
+                                    </th>
+                                    <th
+                                      scope="col"
+                                    >
+                                      Käyttötarkoitus
+                                    </th>
+                                    <th
+                                      scope="col"
+                                    >
+                                      Voimassaoloaika
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody
+                                  class="content"
+                                >
+                                  <tr>
+                                    <td
+                                      data-testid="name-0"
+                                    >
+                                      Name of requiredConsent3
+                                    </td>
+                                    <td
+                                      data-testid="hostName-0"
+                                    >
+                                      HostName of requiredConsent3
+                                    </td>
+                                    <td
+                                      data-testid="description-0"
+                                    >
+                                      Description of requiredConsent3
+                                    </td>
+                                    <td
+                                      data-testid="expiration-0"
+                                    >
+                                      Expiration of requiredConsent3
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div
+                class="consentCategory"
+              >
+                <div
+                  class="titleWithCheckbox"
+                >
+                  <div
+                    class="checkbox"
+                    style="--label-font-size: var(--fontsize-heading-m);"
+                  >
+                    <input
+                      aria-describedby="optional-consents-description"
+                      class="input"
+                      data-testid="optional-consents-checkbox"
+                      id="optional-consents-checkbox"
+                      name="optional-consents-checkbox"
+                      type="checkbox"
+                      value=""
+                    />
+                    <label
+                      class="label"
+                      for="optional-consents-checkbox"
+                    >
+                      Title for optional cookies
+                    </label>
+                  </div>
+                </div>
+                <p
+                  aria-hidden="true"
+                >
+                  Text for optional cookies
+                </p>
+                <div
+                  id="optional-consents-description"
+                  style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                >
+                  checkboxAriaLabel
+                </div>
+                <ul
+                  class="list"
+                >
+                  <li>
+                    <div
+                      class="consentGroup"
+                    >
+                      <div
+                        class="titleWithCheckbox"
+                      >
+                        <div
+                          class="checkbox"
+                          style="--label-font-size: var(--fontsize-heading-s);"
+                        >
+                          <input
+                            aria-describedby="optional-consents-group-0-description"
+                            class="input"
+                            data-testid="optional-consents-group-0-checkbox"
+                            id="optional-consents-group-0-checkbox"
+                            name="optional-consents-group-0-checkbox"
+                            type="checkbox"
+                            value=""
+                          />
+                          <label
+                            class="label"
+                            for="optional-consents-group-0-checkbox"
+                          >
+                            Cookie group title for optionalCookieGroups0
+                          </label>
+                        </div>
+                      </div>
+                      <div
+                        class="consentGroupContent"
+                      >
+                        <p
+                          aria-hidden="true"
+                        >
+                          Cookie group description for optionalCookieGroups0
+                        </p>
+                        <div
+                          id="optional-consents-group-0-description"
+                          style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                        >
+                          checkboxAriaLabel for optionalCookieGroups0
+                        </div>
+                        <button
+                          aria-expanded="false"
+                          aria-label="expandAriaLabel for optionalCookieGroups0"
+                          class="accordionButton"
+                          data-testid="optional-consents-group-0-details-toggler"
+                          type="button"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="icon s"
+                            role="img"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              fill="none"
+                              fill-rule="evenodd"
+                            >
+                              <path
+                                d="M0 0h24v24H0z"
+                              />
+                              <path
+                                d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
+                                fill="currentColor"
+                              />
+                            </g>
+                          </svg>
+                        </button>
+                        <div
+                          aria-label="Cookie group title for optionalCookieGroups0"
+                          class="card custom-theme-6"
+                          role="region"
+                          style="display: none;"
+                        >
+                          <div
+                            class="dataTableContainer"
+                          >
+                            <div
+                              class="container"
+                              tabindex="0"
+                            >
+                              <table
+                                class="table dark dense custom-theme-7"
+                                data-testid="optional-consents-group-0-table"
+                                id="optional-consents-group-0-table"
+                              >
+                                <thead>
+                                  <tr
+                                    class="headerRow"
+                                  >
+                                    <th
+                                      scope="col"
+                                    >
+                                      Nimi
+                                    </th>
+                                    <th
+                                      scope="col"
+                                    >
+                                      Evästeen asettaja
+                                    </th>
+                                    <th
+                                      scope="col"
+                                    >
+                                      Käyttötarkoitus
+                                    </th>
+                                    <th
+                                      scope="col"
+                                    >
+                                      Voimassaoloaika
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody
+                                  class="content"
+                                >
+                                  <tr>
+                                    <td
+                                      data-testid="name-0"
+                                    >
+                                      Name of optionalConsent1
+                                    </td>
+                                    <td
+                                      data-testid="hostName-0"
+                                    >
+                                      HostName of optionalConsent1
+                                    </td>
+                                    <td
+                                      data-testid="description-0"
+                                    >
+                                      Description of optionalConsent1
+                                    </td>
+                                    <td
+                                      data-testid="expiration-0"
+                                    >
+                                      Expiration of optionalConsent1
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      class="consentGroup"
+                    >
+                      <div
+                        class="titleWithCheckbox"
+                      >
+                        <div
+                          class="checkbox"
+                          style="--label-font-size: var(--fontsize-heading-s);"
+                        >
+                          <input
+                            aria-describedby="optional-consents-group-1-description"
+                            class="input"
+                            data-testid="optional-consents-group-1-checkbox"
+                            id="optional-consents-group-1-checkbox"
+                            name="optional-consents-group-1-checkbox"
+                            type="checkbox"
+                            value=""
+                          />
+                          <label
+                            class="label"
+                            for="optional-consents-group-1-checkbox"
+                          >
+                            Cookie group title for optionalCookieGroups1
+                          </label>
+                        </div>
+                      </div>
+                      <div
+                        class="consentGroupContent"
+                      >
+                        <p
+                          aria-hidden="true"
+                        >
+                          Cookie group description for optionalCookieGroups1
+                        </p>
+                        <div
+                          id="optional-consents-group-1-description"
+                          style="border: 0px; clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+                        >
+                          checkboxAriaLabel for optionalCookieGroups1
+                        </div>
+                        <button
+                          aria-expanded="false"
+                          aria-label="expandAriaLabel for optionalCookieGroups1"
+                          class="accordionButton"
+                          data-testid="optional-consents-group-1-details-toggler"
+                          type="button"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="icon s"
+                            role="img"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              fill="none"
+                              fill-rule="evenodd"
+                            >
+                              <path
+                                d="M0 0h24v24H0z"
+                              />
+                              <path
+                                d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
+                                fill="currentColor"
+                              />
+                            </g>
+                          </svg>
+                        </button>
+                        <div
+                          aria-label="Cookie group title for optionalCookieGroups1"
+                          class="card custom-theme-8"
+                          role="region"
+                          style="display: none;"
+                        >
+                          <div
+                            class="dataTableContainer"
+                          >
+                            <div
+                              class="container"
+                              tabindex="0"
+                            >
+                              <table
+                                class="table dark dense custom-theme-9"
+                                data-testid="optional-consents-group-1-table"
+                                id="optional-consents-group-1-table"
+                              >
+                                <thead>
+                                  <tr
+                                    class="headerRow"
+                                  >
+                                    <th
+                                      scope="col"
+                                    >
+                                      Nimi
+                                    </th>
+                                    <th
+                                      scope="col"
+                                    >
+                                      Evästeen asettaja
+                                    </th>
+                                    <th
+                                      scope="col"
+                                    >
+                                      Käyttötarkoitus
+                                    </th>
+                                    <th
+                                      scope="col"
+                                    >
+                                      Voimassaoloaika
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody
+                                  class="content"
+                                >
+                                  <tr>
+                                    <td
+                                      data-testid="name-0"
+                                    >
+                                      Name of optionalConsent2
+                                    </td>
+                                    <td
+                                      data-testid="hostName-0"
+                                    >
+                                      HostName of optionalConsent2
+                                    </td>
+                                    <td
+                                      data-testid="description-0"
+                                    >
+                                      Description of optionalConsent2
+                                    </td>
+                                    <td
+                                      data-testid="expiration-0"
+                                    >
+                                      Expiration of optionalConsent2
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td
+                                      data-testid="name-1"
+                                    >
+                                      Name of optionalConsent3
+                                    </td>
+                                    <td
+                                      data-testid="hostName-1"
+                                    >
+                                      HostName of optionalConsent3
+                                    </td>
+                                    <td
+                                      data-testid="description-1"
+                                    >
+                                      Description of optionalConsent3
+                                    </td>
+                                    <td
+                                      data-testid="expiration-1"
+                                    >
+                                      Expiration of optionalConsent3
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div
+            class="buttons visuallyHiddenWithoutFocus"
+          >
+            <button
+              class="button secondary theme-default size-default"
+              data-testid="cookie-consent-approve-button"
+              type="button"
+            >
+              <span
+                class="label"
+              >
+                Hyväksy kaikki evästeet
+              </span>
+            </button>
+            <button
+              class="button secondary theme-default size-default"
+              data-testid="cookie-consent-approve-required-button"
+              type="button"
+            >
+              <span
+                class="label"
+              >
+                Hyväksy vain pakolliset evästeet
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <button
+        id="focus-target"
+        type="button"
+      >
+        Focus me
+      </button>
+      <div
+        data-testid="PortalTarget"
+        id="PortalTarget"
+      />
+      <div
+        data-testid="PortalTargetWithChildren"
+        id="PortalTargetWithChildren"
+      >
+        <p>
+          I am here to prevent auto-removal
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    aria-hidden="true"
+    data-testid="html-cookie-consent-placeholder"
+    id="HdsCookieConsentModalPlaceholder"
+    style="transition: height 0.1s ease 0.2s;"
+  />
+</body>
+`;

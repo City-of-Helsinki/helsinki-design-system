@@ -1,0 +1,15 @@
+---
+slug: '/components/cookie-consent/accessibility'
+title: 'CookieConsent - Accessibility'
+---
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+### Pay attention to
+
+- Make sure that cookie consent is the first item in the page tab order. By default, the component adds itself as the first element. This can be overridden. More info on the [API tab](/components/cookie-consent/api).
+- The cookie consent modal should not prevent the user from using the web page. Never use an overlay behind the banner or otherwise restrict the use of the site. The component adds an element to the underlying page to compensate space it fills over the content.
