@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PortalModal /> spec renders the component 1`] = `
+exports[`<CookieModal /> spec renders the component 1`] = `
 <body>
   <div
     data-testid="html-cookie-consent-container"

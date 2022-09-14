@@ -5,7 +5,7 @@ import { render, RenderResult, screen, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { act } from 'react-dom/test-utils';
 
-import { PortalModal } from './PortalModal';
+import { CookieModal } from './CookieModal';
 import { COOKIE_NAME } from '../cookieConsentController';
 import mockDocumentCookie from '../__mocks__/mockDocumentCookie';
 import {
@@ -54,7 +54,7 @@ const renderCookieConsent = (
   mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(consentCookieWithInjectedUnknowns) });
   const result = render(
     <div>
-      <PortalModal contentSource={contentSource} rootId={rootId} />
+      <CookieModal contentSource={contentSource} rootId={rootId} />
       <button id="focus-target" type="button">
         Focus me
       </button>
@@ -76,7 +76,7 @@ const renderCookieConsent = (
   return result;
 };
 
-describe('<PortalModal /> spec', () => {
+describe('<CookieModal /> spec', () => {
   afterEach(() => {
     mockedCookieControls.clear();
   });
@@ -99,7 +99,7 @@ describe('<PortalModal /> spec', () => {
   }, 15000);
 });
 
-describe('<PortalModal /> ', () => {
+describe('<CookieModal /> ', () => {
   afterEach(() => {
     mockedCookieControls.clear();
   });
