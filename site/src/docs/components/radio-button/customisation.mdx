@@ -11,70 +11,78 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ## Customisation
 
 <Notification type="alert" label="RadioButton customisation works differently!" className="siteNotification">
-  RadioButton is an older HDS component and therefore its customisation works slightly differently. Instead of the <code>theme</code> property, you need to use the <code>style</code> property. This will be fixed in a future update.
+  RadioButton is an older HDS component and therefore its customisation works slightly differently. Instead of the 
+  <code>theme</code> property, you need to use the <code>style</code> property. This will be fixed in a future update.
 </Notification>
 
 ### Customisation properties
-You can use the `style` property to customise the component. See all available theme variables in the table below.
 
-| Theme variable                           | Description                                                 |
-| ---------------------------------------- | ----------------------------------------------------------- |
-| `--size`                                 | Size of the radio button                                    |
-| `--icon-scale`                           | Scale of the radio button check icon                        |
-| `--border-width`                         | Width of the radio button border                            |
-| `--outline-width`                        | Width of the radio button focus border                      |
-| `--border-color-selected`                | Colour of the radio button border when selected             |
-| `--border-color-selected-hover`          | Colour of the radio button border when selected and hovered |
-| `--border-color-selected-focus`          | Colour of the radio button border when selected and focused |
-| `--icon-color-selected`                  | Colour of the radio button selection circle                 |
-| `--icon-color-hover`                     | Colour of the radio button selection circle when hovered    |
-| `--focus-outline-color`                  | Colour of the radio button focus border                     |
+In Core version, you can either use the `style` or `class` attributes in the HTML to customise the component.
+
+In React version, you can either use the `style` or `className` properties to customise the component.
+
+See all available theme variables in the table below.
+
+| Theme variable                  | Description                                                 |
+| ------------------------------- | ----------------------------------------------------------- |
+| `--size`                        | Size of the radio button                                    |
+| `--icon-scale`                  | Scale of the radio button check icon                        |
+| `--border-width`                | Width of the radio button border                            |
+| `--outline-width`               | Width of the radio button focus border                      |
+| `--border-color-selected`       | Colour of the radio button border when selected             |
+| `--border-color-selected-hover` | Colour of the radio button border when selected and hovered |
+| `--border-color-selected-focus` | Colour of the radio button border when selected and focused |
+| `--icon-color-selected`         | Colour of the radio button selection circle                 |
+| `--icon-color-hover`            | Colour of the radio button selection circle when hovered    |
+| `--focus-outline-color`         | Colour of the radio button focus border                     |
 
 ### Customisation example
+
 <Playground>
 
-
 ```jsx
-{() => {
-  const [selectedItem, setSelectedItem] = React.useState("2");
-  const onChange = (event) => {
-    setSelectedItem(event.target.value);
+{
+  () => {
+    const [selectedItem, setSelectedItem] = React.useState('2');
+    const onChange = (event) => {
+      setSelectedItem(event.target.value);
+    };
+    const style = {
+      '--size': '36px',
+      '--icon-scale': 0.65,
+      '--border-width': '3px',
+      '--outline-width': '4px',
+      '--border-color-selected': 'var(--color-tram)',
+      '--border-color-selected-hover': 'var(--color-tram-dark)',
+      '--border-color-selected-focus': 'var(--color-coat-of-arms)',
+      '--icon-color-selected': 'var(--color-tram)',
+      '--icon-color-hover': 'var(--color-tram-dark)',
+      '--focus-outline-color': 'var(--color-coat-of-arms)',
+    };
+    return (
+      <>
+        <RadioButton
+          id="radio1"
+          name="example"
+          label="Label"
+          value="1"
+          checked={selectedItem === '1'}
+          style={style}
+          onChange={onChange}
+        />
+        <RadioButton
+          id="radio2"
+          name="example"
+          label="Label"
+          value="2"
+          checked={selectedItem === '2'}
+          style={style}
+          onChange={onChange}
+        />
+      </>
+    );
   };
-  const style = {
-    '--size': '36px',
-    '--icon-scale': 0.65,
-    '--border-width': '3px',
-    '--outline-width': '4px',
-    '--border-color-selected': 'var(--color-tram)',
-    '--border-color-selected-hover': 'var(--color-tram-dark)',
-    '--border-color-selected-focus': 'var(--color-coat-of-arms)',
-    '--icon-color-selected': 'var(--color-tram)',
-    '--icon-color-hover': 'var(--color-tram-dark)',
-    '--focus-outline-color': 'var(--color-coat-of-arms)',
-  };
-  return (
-    <>
-    <RadioButton 
-      id="radio1" 
-      name="example" 
-      label="Label" 
-      value="1" 
-      checked={selectedItem === "1"}
-      style={style}
-      onChange={onChange}
-    />
-    <RadioButton 
-      id="radio2" 
-      name="example" 
-      label="Label" 
-      value="2" 
-      checked={selectedItem === "2"}
-      style={style}
-      onChange={onChange}
-    />
-  </>
-  )
-}}
+}
 ```
 
 </Playground>

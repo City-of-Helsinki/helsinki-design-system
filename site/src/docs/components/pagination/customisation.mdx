@@ -9,110 +9,120 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ## Customisation
 
-### Customisation variables
-You can use the `theme` variables to customise the component. See all available theme variables in the table below.
+### Customisation properties
 
-| Theme variable                     | Description                                                                         |
-| ---------------------------------- | ----------------------------------------------------------------------------------- |
-| `--active-page-background-color`   | Colour of the active page background. Use black, white or any of the brand colours. |
-[Table 1:Pagination theme variables]|
+In Core version, you can either use the `style` or `class` attributes in the HTML to customise the component.
+
+In React version, you can use the `theme` property to customise the component.
+
+See all available theme variables in the table below.
+
+| Theme variable                       | Description                                                                         |
+| ------------------------------------ | ----------------------------------------------------------------------------------- |
+| `--active-page-background-color`     | Colour of the active page background. Use black, white or any of the brand colours. |
+| [Table 1:Pagination theme variables] |
 
 ### Customisation example
+
 <Playground>
 
 ```jsx
-{() => {
-  const [pageIndex, setPageIndex] = useState(0);
-  const theme = {
-    '--active-page-background-color': 'var(--color-bus)',
+{
+  () => {
+    const [pageIndex, setPageIndex] = useState(0);
+    const theme = {
+      '--active-page-background-color': 'var(--color-bus)',
+    };
+    return (
+      <Pagination
+        language="en"
+        onChange={(event, index) => {
+          event.preventDefault();
+          setPageIndex(index);
+        }}
+        pageCount={9}
+        pageHref={() => '#'}
+        pageIndex={pageIndex}
+        paginationAriaLabel="Pagination 1"
+        siblingCount={9}
+        theme={theme}
+      />
+    );
   };
-  return (
-    <Pagination
-      language="en"
-      onChange={(event, index) => {
-        event.preventDefault();
-        setPageIndex(index);
-      }}
-      pageCount={9}
-      pageHref={() => '#'}
-      pageIndex={pageIndex}
-      paginationAriaLabel="Pagination 1"
-      siblingCount={9}
-      theme={theme}
-    />
-  );
-}}
+}
 ```
 
 ```html
 <style scoped>
-    .custom-active-page-background-color {
-      --active-page-background-color: var(--color-bus);
-    }
+  .custom-active-page-background-color {
+    --active-page-background-color: var(--color-bus);
+  }
 </style>
 
 <div class="hds-pagination-container">
-  <nav class="hds-pagination custom-active-page-background-color" role="navigation" aria-label="Pagination" data-next="Next" style="--active-page-background-color: var(--color-bus);">
-      <button type="button" disabled class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-prev">
-        <span aria-hidden="true" class="hds-icon hds-icon--angle-left"></span>
-        <span class="hds-button__label">Previous</span>
+  <nav
+    class="hds-pagination custom-active-page-background-color"
+    role="navigation"
+    aria-label="Pagination"
+    data-next="Next"
+    style="--active-page-background-color: var(--color-bus);"
+  >
+    <button
+      type="button"
+      disabled
+      class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-prev"
+    >
+      <span aria-hidden="true" class="hds-icon hds-icon--angle-left"></span>
+      <span class="hds-button__label">Previous</span>
+    </button>
+    <ul class="hds-pagination__pages">
+      <li>
+        <a
+          class="hds-pagination__item-link hds-pagination__item-link--active"
+          href="#"
+          title="Current page"
+          aria-label="Page 1"
+          aria-current="page"
+        >
+          1
+        </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="#" aria-label="Page 2" title="Go to page 2"> 2 </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="#" aria-label="Page 3" title="Go to page 3"> 3 </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="#" aria-label="Page 4" title="Go to page 4"> 4 </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="#" aria-label="Page 5" title="Go to page 5"> 5 </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="#" aria-label="Page 6" title="Go to page 6"> 6 </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="#" aria-label="Page 7" title="Go to page 7"> 7 </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="#" aria-label="Page 8" title="Go to page 8"> 8 </a>
+      </li>
+      <li>
+        <a class="hds-pagination__item-link" href="#" aria-label="Page 9" title="Go to page 9"> 9 </a>
+      </li>
+    </ul>
+    <div class="hds-pagination__item hds-pagination__next-button">
+      <button
+        type="button"
+        class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-next"
+      >
+        <span class="hds-button__label">Next</span>
+        <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
       </button>
-      <ul class="hds-pagination__pages">
-        <li>
-          <a class="hds-pagination__item-link hds-pagination__item-link--active" href="#" title="Current page" aria-label="Page 1" aria-current="page">
-            1
-          </a>
-        </li>
-        <li>
-          <a class="hds-pagination__item-link" href="#" aria-label="Page 2" title="Go to page 2">
-            2
-          </a>
-        </li>
-        <li>
-          <a class="hds-pagination__item-link" href="#"  aria-label="Page 3" title="Go to page 3">
-            3
-          </a>
-        </li>
-        <li>
-          <a class="hds-pagination__item-link" href="#" aria-label="Page 4" title="Go to page 4">
-            4
-          </a>
-        </li>
-        <li>
-          <a class="hds-pagination__item-link" href="#" aria-label="Page 5" title="Go to page 5">
-            5
-          </a>
-        </li>
-        <li>
-          <a class="hds-pagination__item-link" href="#" aria-label="Page 6" title="Go to page 6">
-            6
-          </a>
-        </li>
-        <li>
-          <a class="hds-pagination__item-link" href="#" aria-label="Page 7" title="Go to page 7">
-            7
-          </a>
-        </li>
-        <li>
-          <a class="hds-pagination__item-link" href="#" aria-label="Page 8" title="Go to page 8">
-            8
-          </a>
-        </li>
-        <li>
-          <a class="hds-pagination__item-link" href="#" aria-label="Page 9" title="Go to page 9">
-            9
-          </a>
-        </li>
-      </ul>
-      <div class="hds-pagination__item hds-pagination__next-button">
-        <button type="button" class="hds-button hds-button--supplementary hds-button--theme-black hds-pagination__button-next">
-          <span class="hds-button__label">Next</span>
-          <span aria-hidden="true" class="hds-icon hds-icon--angle-right"></span>
-        </button>
-      </div>
+    </div>
   </nav>
 </div>
 ```
-
 
 </Playground>
