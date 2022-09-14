@@ -125,3 +125,7 @@ body {
 .stepper-card > div:first-child {
   margin-bottom: var(--spacing-m) !important;
 }
+
+#focused-element-after-cookie-consent-closed:focus {
+  outline: 2px black solid;
+}

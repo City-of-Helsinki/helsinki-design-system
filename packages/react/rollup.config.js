@@ -4,6 +4,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import ts from '@wessberg/rollup-plugin-ts';
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
 import postcss from 'rollup-plugin-postcss';
 import { terser } from 'rollup-plugin-terser';
 
@@ -40,6 +41,7 @@ const getConfig = (format) => ({
     commonjs({
       include: ['../../node_modules/**', 'node_modules/**'],
     }),
+    json(),
     postcss({
       modules: true,
       use: ['sass'],
@@ -81,6 +83,7 @@ export default [
       'components/Card/index': 'src/components/card/index.ts',
       'components/Checkbox/index': 'src/components/checkbox/index.ts',
       'components/Columns/index': 'src/components/columns/index.ts',
+      'components/CookieConsent/index': 'src/components/cookieConsent/index.ts',
       'components/Combobox/index': 'src/components/dropdown/combobox/index.ts',
       'components/Container/index': 'src/components/container/index.ts',
       'components/DateInput/index': 'src/components/dateInput/index.ts',

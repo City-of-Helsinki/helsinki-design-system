@@ -1,0 +1,119 @@
+---
+slug: '/patterns/cookies/basics'
+title: 'Basics'
+navTitle: 'Basics'
+---
+
+import { Link, StatusLabel, Notification } from 'hds-react';
+import LeadParagraph from '../../../components/LeadParagraph';
+import Image from '../../../components/Image';
+
+# Basics
+
+<StatusLabel type="alert">WIP</StatusLabel>
+
+<LeadParagraph>
+  The cookie compliance pattern describes how the user is informed about the use of cookies. The pattern also offers a
+  way to accept or decline non-necessary cookies and change the consent later if needed.
+</LeadParagraph>
+
+The city of Helsinki cookie pattern is based on <Link size="M" href="https://www.traficom.fi/en/regulations/guidance-use-web-cookies-service-providers" external>Traficom's cookie guidelines for service provider</Link>.
+
+## Cookie basics
+
+### What are cookies?
+
+Cookies are pieces of data that are stored on the user's device. They are a way to store persistent information about how the user is using the service. The use of cookies is controlled by law. The law requires that cookies that are not necessary for the service must be asked for consent from the user.
+
+### When the consent for cookies should be asked?
+
+The consent needs to be asked for a cookie that is not necessary for the use of the service. This means that the service's main functions are available even without these cookies. In the future, we refer to these cookies as **optional cookies**.
+
+If the service cannot be used or one of its main functions does not operate without a specific cookie, the cookie can be considered **necessary**. Necessary cookies do not need consent from the user but they still have to be informed. The user cannot deny the use of necessary cookies - these selections are grayed out in the cookie consent component. The table below demonstrates when consent is needed and when it is not.
+
+| Types of cookies                                              | Is consent needed?            | What needs to be done?                                                                                                                                    |
+| ------------------------------------------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Only necessary cookies                                        | No                            | The cookie consent banner does not need to be shown. The list of cookies has to be available on a separate cookies page.                                  |
+| Only optional cookies                                         | Yes                           | Show the cookie consent banner and ask for consent for each optional cookie category. The list of cookies has to be available on a separate cookies page. |
+| Both necessary and optional cookies                           | Yes, for all optional cookies | Show the cookie consent banner and ask for consent for each optional cookie category. The list of cookies has to be available on a separate cookies page. |
+| No cookies at all                                             | No                            | No actions needed.                                                                                                                                        |
+| [Table 1:Cases when the consent is needed and when it is not] |
+
+Refer to the next chapter to learn how to categorise your cookies and decide which cookies should be necessary and which should not.
+
+## Cookie information and categorisation
+
+The cookie consent needs to be asked when your service becomes public (even during alpha/beta periods).
+
+To prepare to use the HDS cookie compliance component, you have to:
+
+1. List all the cookies related to your service
+2. Decide which cookies are necessary
+3. Categorise cookies into predefined categories
+
+We will go over each step in the following chapters.
+
+### 1. List all the cookies related to your service
+
+First, you need to list all the cookies your service is using. It is also a good moment to review the list of cookies. Aim to use as few cookies as possible and only gather the information your service **currently** needs. You should easily be able to justify the need for each cookie to the user.
+
+For each cookie, you need to gather and display the following information. This information will be displayed in the cookie consent window if the user wishes to get more information about a specific cookie.
+
+| Cookie data                                                  | Description                                                                                   | Example                                                                                                                      |
+| ------------------------------------------------------------ | --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **Name**                                                     | What is the name of the cookie file?                                                          | "cookie-agreed"                                                                                                              |
+| **Cookie set by**                                            | What domain is the provider of this cookie?                                                   | "hel.fi"                                                                                                                     |
+| **Purpose of use**                                           | Why the cookie is needed? What purpose does it serve?                                         | "Used to store information about whether visitors have given or declined the use of cookie categories used on this service." |
+| **Period of validity**                                       | How long the cookie will be valid? This means time to expire from the creation of the cookie. | "100 days"                                                                                                                   |
+| [Table 2:Information that needs to be shown for each cookie] |
+
+#### What if the user has given consent to my cookies in some other Helsinki service?
+
+Using common Helsinki cookie consent brings the benefit of sharing consents. If user gives consents at site A, same consents does not have to be asked again at site B. Sites sharing cookies must have the same domain. e.g. \*.hel.fi. To learn more about common Helsinki service cookies, please refer to the [Common Helsinki cookies page](/patterns/cookies/common-helsinki-cookies).
+
+### 2. Decide which cookies are necessary
+
+The next step is to determine which cookies can be considered necessary. Generally, you will need to ask consent for all cookies that are not vital to your service to operate. If you feel that the user can utilise the main functions of your service without a specific cookie, the cookie cannot be considered necessary.
+
+If you have a hard time determining whether a cookie is a necessary cookie, refer to the cookie category table in the next chapter for more examples.
+
+<Notification label="A rule of thumb about necessary cookies" className="siteNotification">
+  As a general rule of thumb, if even one use case of the cookie is not necessary, then the cookie must be optional and
+  consent is needed. An example of this is Google's reCAPTHA. While the primary use of the cookie is for information
+  security and it could be considered necessary, Google will also gather data about the user. Due to this, the cookie
+  cannot be considered necessary and consent is needed.
+</Notification>
+
+### 3. Categorise cookies into predefined categories
+
+To help the user understand the reasoning behind cookies, it is required to group cookies into pre-determined categories. These categories are based on <Link size="M" href="https://www.traficom.fi/en/regulations/guidance-use-web-cookies-service-providers" external>Traficom's cookie guidelines for service provider</Link>.
+
+| Category                      | Description                                                                                                                    | Is necessary?                                                                                                                                                                                                                                                                                | Examples                                                                                     |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| **Login**                     | Login cookies are used when the user logs in to the service.                                                                   | Session-specific cookies are considered necessary. Permanent login cookies always need consent.                                                                                                                                                                                              | Session cookies                                                                              |
+| **Preferences**               | Preference cookies customise the layout and operation of the website based on the choices made by the user.                    | Preferences that improve usability between service uses (e.g. language) can be considered essential. As session-based these can be considered necessary. Preferences valid longer than one session can be considered necessary if they are required to ensure usability.                     | Language choices, appearance settings, accessibility preferences, cookie consent             |
+| **User input**                | User-input cookies can be used to store information entered by the user in the service.                                        | If using the service would not be possible without input-related cookies, they can be considered necessary.                                                                                                                                                                                  | Search history, last used search filters, shopping cart contents, saved form inputs          |
+| **Advertising and marketing** | Marketing cookies can be used to target content to users of the website.                                                       | Never necessary.                                                                                                                                                                                                                                                                             | User’s interests, service usage history                                                      |
+| **Information security**      | Security cookies enable secure data transfer between the user and the service.                                                 | Usually necessary unless the cookie has other use cases that are not related to security.                                                                                                                                                                                                    | CAPTCHA results                                                                              |
+| **Social media**              | Social media cookies are related to the characteristics of various social media services.                                      | Never necessary.                                                                                                                                                                                                                                                                             | Social media feeds, social media share buttons                                               |
+| **Accessibility**             | Accessibility cookies enable some of the service’s accessibility features.                                                     | Always necessary.                                                                                                                                                                                                                                                                            | Accessibility related preferences such as audio descriptions                                 |
+| **Statistics**                | The information collected by statistics cookies is used to develop the website.                                                | Usually not necessary. If analytics are considered absolutely necessary for the service, cookies can be considered essential and this must be informed to the user. When considered essential, this must be justified to the user. Gathered information must not be handed to third parties. | Unique visitor IP addresses, page views count, measurements of how the user uses the service |
+| **Device information**        | Device information cookies contain information collected from the user’s device that ensures the functionality of the service. | Never necessary.                                                                                                                                                                                                                                                                             | Device information, OS, and browser information                                              |
+| **Chat services**             | Chat service cookies enable communication between the user and the service.                                                    | Can only be considered necessary if real-time communication is the main purpose of the service. When the user opens the chat window, cookies related to it become necessary. Note that they are not necessary until the user opens the chat.                                                 | Chat provider cookies                                                                        |
+| **Third-party services**      | Cookies allow external services (such as social media platforms) to operate on this website.                                   | Not considered necessary unless cookies are used only after opening the third-party service (e.g. a chat window).                                                                                                                                                                            | Cookies used by embedded media such as videos or podcasts                                    |
+| **Content presentation**      | Cookies are used to display various types of content to the user.                                                              | Can be considered necessary if the cookie is strictly related to presenting the content and not gathering data.                                                                                                                                                                              | Monitoring how the user is using specific content                                            |
+| **Location**                  | Location cookies can be used to utilise location information (GPS) received from the user’s device.                            | Never necessary.                                                                                                                                                                                                                                                                             | Accurate GPS location                                                                        |
+| **Load balancing**            | Load-balancing cookies ensure that the service loads and works quickly and efficiently.                                        | Always necessary (as they ensure that the service is operating smoothly).                                                                                                                                                                                                                    | A client identifying hash to enable better routing                                           |
+| [Table 3:Cookie categories]   |
+
+#### Can I use a custom category?
+
+If your cookies do not fit into any of the pre-defined categories, you are allowed to use custom categories.
+
+#### We only have a handful of cookies. Do we still have to categorize them?
+
+Yes, cookies always have to be put into a category. If you have a small number of cookies you can consider grouping them into a single category. Also, if most of the cookies are related to a single third-party service, you can group them per service (E.g. "Service: YouTube").
+
+### Prepare your CookieConsent (CookieModal/CookiePage) component
+
+Now that you have gathered and categorised a list of cookies for your service, it is a time to learn how the HDS CookieConsent is used. To read more about the component, please refer to the [Using the CookieConsent page](/patterns/cookies/using-the-cookieconsent).
