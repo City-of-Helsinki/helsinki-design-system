@@ -5,7 +5,7 @@ import { Modal } from '../modal/Modal';
 import { CookieConsentContext } from '../contexts/ContextComponent';
 import { CookieContentSource } from '../content.builder';
 
-export function PortalModal({
+export function CookieModal({
   contentSource,
   cookieDomain,
   rootId = 'HdsCookieConsentContainer',
