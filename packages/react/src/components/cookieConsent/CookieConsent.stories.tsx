@@ -8,10 +8,10 @@ import { CookieContentSource } from './content.builder';
 import { Modal } from './modal/Modal';
 import { Accordion } from '../accordion';
 import { useCookies } from './useCookies';
-import { PortalModal } from './portalModal/PortalModal';
+import { CookieModal } from './cookieModal/CookieModal';
 
 export default {
-  component: PortalModal,
+  component: CookieModal,
   title: 'Components/CookieConsent',
   parameters: {
     controls: { expanded: true },
@@ -315,7 +315,7 @@ export const EnglishModalVersion = (args) => {
 
   return (
     <>
-      <PortalModal contentSource={contentSource} />
+      <CookieModal contentSource={contentSource} />
       <Application />
     </>
   );
@@ -610,7 +610,7 @@ export const FinnishModalVersion = (args) => {
 
   return (
     <>
-      <PortalModal contentSource={contentSource} />
+      <CookieModal contentSource={contentSource} />
       <Application />
     </>
   );
@@ -655,7 +655,7 @@ export const SimpleModalVersion = (args) => {
 
   return (
     <>
-      <PortalModal contentSource={contentSource} />
+      <CookieModal contentSource={contentSource} />
       <Application />
     </>
   );
