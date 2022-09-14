@@ -24,7 +24,7 @@ The `contentSource` property lists all content, language options, and callbacks 
 | `currentLanguage`                                                                                                            | **Yes**  | Currently selected language. Used for picking translations from `content.json`. Is also set to `content.language.current`. Supported values are `fi`, `sv`, and `en`.                                                                                                                                                      |
 | `requiredCookies`                                                                                                            | No       | Required cookies can have partial data or all data described in the table below. Missing texts are auto-filled. See examples below this table: [Required and optional cookies](/components/cookie-consent/api#required-and-optional-cookies)                                                                               |
 | `optionalCookies`                                                                                                            | No       | Optional cookies can have partial data or all data described in the table below. Missing texts are auto-filled. See examples below this table: [Required and optional cookies](/components/cookie-consent/api#required-and-optional-cookies)                                                                               |
-| `requiredCookies.groups`, `optionalCookies.groups`                                                                           | No       | List of cookie groups. All cookies must belong to a group. Groups with property `commonGroup` will be auto-filled from `content.json`.                                                                                                                                                                                     |
+| `requiredCookies.groups`, `optionalCookies.groups`                                                                           | No       | List of cookie groups. All cookies must belong to a group. Groups with the property `commonGroup` will be auto-filled from `content.json`.                                                                                                                                                                                 |
 | `requiredCookies.groups[].cookies`, `requiredCookies.cookies`, `optionalCookies.groups[].cookies`, `optionalCookies.cookies` | No       | List of individual cookies. All cookies must belong to a group or they must have property `commonGroup` or `groupId`. The `groupId` must match `group.id` of a custom group and the `commonGroup` must match groups in `content.json`. Do not give both.                                                                   |
 | `texts`                                                                                                                      | No       | User interface string overrides. By default, strings are fetched from `content.json` and this object overrides one or multiple texts.                                                                                                                                                                                      |
 | `language`                                                                                                                   | No       | Overrides for default language options. By default, options are fetched from `content.json` and this object overrides one or more properties. `onLanguageChange` callback is also added here.                                                                                                                              |
@@ -124,12 +124,12 @@ The following strings can be overridden if needed. Note that you also need to pr
 
 The consent banner language is controlled via a language dropdown element. Note that the current language is passed in as `content.currentLanguage` and that value is stored into `language.current`.
 
-| Property                             | Description                                                                                   |
-| ------------------------------------ | --------------------------------------------------------------------------------------------- |
-| `language.languageOptions`           | List of selectable languages. Format: `[{ code: 'fi', label: 'Suomeksi (FI)' }]`              |
-| `language.current`                   | Current language.                                                                             |
-| `language.languageSelectorAriaLabel` | Aria-label for the language selector button.                                                  |
-| `language.onLanguageChange`          | Callback called when new language is selected. Called with new language.code as the argument. |
+| Property                             | Description                                                                                     |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| `language.languageOptions`           | List of selectable languages. Format: `[{ code: 'fi', label: 'Suomeksi (FI)' }]`                |
+| `language.current`                   | Current language.                                                                               |
+| `language.languageSelectorAriaLabel` | Aria-label for the language selector button.                                                    |
+| `language.onLanguageChange`          | Callback called when a new language is selected. Called with new language.code as the argument. |
 | [Table 9:Language properties]        |
 
 ### Saving consents
@@ -138,4 +138,4 @@ Consents that the user has given are saved to a `city-of-helsinki-cookie-consent
 
 Cookies are always strings and consents are stored as a JSON-formatted string such as `{"cookie-id":"true","another-cookie-id":"false"}`.
 
-The ID of the cookie is stored to `cookie.id`. `True` means the user has given consent for that cookie. All required cookies are always stored `true`, but other sites may list a common cookie optional, so the stored consent is not `true` by default.
+The ID of the cookie is stored as `cookie.id`. `True` means the user has given consent for that cookie. All required cookies are always stored `true`, but other sites may list a common cookie optional, so the stored consent is not `true` by default.
