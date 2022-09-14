@@ -13,7 +13,8 @@ import Image from '../../../components/Image';
 <StatusLabel type="alert">WIP</StatusLabel>
 
 <LeadParagraph>
-  The cookie compliance pattern describes how the user is informed about the use of cookies. The pattern also offers a way to accept or decline non-necessary cookies and change the consent later if needed.
+  The cookie compliance pattern describes how the user is informed about the use of cookies. The pattern also offers a
+  way to accept or decline non-necessary cookies and change the consent later if needed.
 </LeadParagraph>
 
 The city of Helsinki cookie pattern is based on <Link size="M" href="https://www.traficom.fi/en/regulations/guidance-use-web-cookies-service-providers" external>Traficom's cookie guidelines for service provider</Link>.
@@ -30,13 +31,13 @@ The consent needs to be asked for a cookie that is not necessary for the use of 
 
 If the service cannot be used or one of its main functions does not operate without a specific cookie, the cookie can be considered **necessary**. Necessary cookies do not need consent from the user but they still have to be informed. The user cannot deny the use of necessary cookies - these selections are grayed out in the cookie consent component. The table below demonstrates when consent is needed and when it is not.
 
-| Types of cookies                    | Is consent needed?             | What needs to be done?
-| ----------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------ |
-| Only necessary cookies              | No                             | The cookie consent banner does not need to be shown. The list of cookies has to be available on a separate cookies page.                          
-| Only optional cookies               | Yes                            | Show the cookie consent banner and ask for consent for each optional cookie category. The list of cookies has to be available on a separate cookies page.                                                              
-| Both necessary and optional cookies | Yes, for all optional cookies  | Show the cookie consent banner and ask for consent for each optional cookie category. The list of cookies has to be available on a separate cookies page.                  
-| No cookies at all                   | No                             | No actions needed.                                                                                                  
-[Table 1:Cases when the consent is needed and when it is not]|
+| Types of cookies                                              | Is consent needed?            | What needs to be done?                                                                                                                                    |
+| ------------------------------------------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Only necessary cookies                                        | No                            | The cookie consent banner does not need to be shown. The list of cookies has to be available on a separate cookies page.                                  |
+| Only optional cookies                                         | Yes                           | Show the cookie consent banner and ask for consent for each optional cookie category. The list of cookies has to be available on a separate cookies page. |
+| Both necessary and optional cookies                           | Yes, for all optional cookies | Show the cookie consent banner and ask for consent for each optional cookie category. The list of cookies has to be available on a separate cookies page. |
+| No cookies at all                                             | No                            | No actions needed.                                                                                                                                        |
+| [Table 1:Cases when the consent is needed and when it is not] |
 
 Refer to the next chapter to learn how to categorise your cookies and decide which cookies should be necessary and which should not.
 
@@ -45,6 +46,7 @@ Refer to the next chapter to learn how to categorise your cookies and decide whi
 The cookie consent needs to be asked when your service becomes public (even during alpha/beta periods).
 
 To prepare to use the HDS cookie compliance component, you have to:
+
 1. List all the cookies related to your service
 2. Decide which cookies are necessary
 3. Categorise cookies into predefined categories
@@ -57,17 +59,17 @@ First, you need to list all the cookies your service is using. It is also a good
 
 For each cookie, you need to gather and display the following information. This information will be displayed in the cookie consent window if the user wishes to get more information about a specific cookie.
 
-| Cookie data            | Description                                                                                       | Example |
-| ---------------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| **Name**               | What is the name of the cookie file?                                                              | "cookie-agreed"
-| **Cookie set by**      | What domain is the provider of this cookie?                                                       | "hel.fi"
-| **Purpose of use**     | Why the cookie is needed? What purpose does it serve?                                             | "Used to store information about whether visitors have given or declined the use of cookie categories used on this service."
-| **Period of validity** | How long the cookie will be valid? This means time to expire from the creation of the cookie.     | "100 days"
-[Table 2:Information that needs to be shown for each cookie]|
+| Cookie data                                                  | Description                                                                                   | Example                                                                                                                      |
+| ------------------------------------------------------------ | --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **Name**                                                     | What is the name of the cookie file?                                                          | "cookie-agreed"                                                                                                              |
+| **Cookie set by**                                            | What domain is the provider of this cookie?                                                   | "hel.fi"                                                                                                                     |
+| **Purpose of use**                                           | Why the cookie is needed? What purpose does it serve?                                         | "Used to store information about whether visitors have given or declined the use of cookie categories used on this service." |
+| **Period of validity**                                       | How long the cookie will be valid? This means time to expire from the creation of the cookie. | "100 days"                                                                                                                   |
+| [Table 2:Information that needs to be shown for each cookie] |
 
 #### What if the user has given consent to my cookies in some other Helsinki service?
 
-Using common Helsinki cookie consent brings the benefit of sharing consents. If user gives consents at site A, same consents does not have to be asked again at site B. Sites sharing cookies must have the same domain. e.g. *.hel.fi. To learn more about common Helsinki service cookies, please refer to the [Common Helsinki cookies page](/patterns/cookies/common-helsinki-cookies).
+Using common Helsinki cookie consent brings the benefit of sharing consents. If user gives consents at site A, same consents does not have to be asked again at site B. Sites sharing cookies must have the same domain. e.g. \*.hel.fi. To learn more about common Helsinki service cookies, please refer to the [Common Helsinki cookies page](/patterns/cookies/common-helsinki-cookies).
 
 ### 2. Decide which cookies are necessary
 
@@ -76,7 +78,10 @@ The next step is to determine which cookies can be considered necessary. General
 If you have a hard time determining whether a cookie is a necessary cookie, refer to the cookie category table in the next chapter for more examples.
 
 <Notification label="A rule of thumb about necessary cookies" className="siteNotification">
-  As a general rule of thumb, if even one use case of the cookie is not necessary, then the cookie must be optional and consent is needed. An example of this is Google's reCAPTHA. While the primary use of the cookie is for information security and it could be considered necessary, Google will also gather data about the user. Due to this, the cookie cannot be considered necessary and consent is needed. 
+  As a general rule of thumb, if even one use case of the cookie is not necessary, then the cookie must be optional and
+  consent is needed. An example of this is Google's reCAPTHA. While the primary use of the cookie is for information
+  security and it could be considered necessary, Google will also gather data about the user. Due to this, the cookie
+  cannot be considered necessary and consent is needed.
 </Notification>
 
 ### 3. Categorise cookies into predefined categories
@@ -98,8 +103,8 @@ To help the user understand the reasoning behind cookies, it is required to grou
 | **Third-party services**      | Cookies allow external services (such as social media platforms) to operate on this website.                                   | Not considered necessary unless cookies are used only after opening the third-party service (e.g. a chat window).                                                                                                                                                                            | Cookies used by embedded media such as videos or podcasts                                    |
 | **Content presentation**      | Cookies are used to display various types of content to the user.                                                              | Can be considered necessary if the cookie is strictly related to presenting the content and not gathering data.                                                                                                                                                                              | Monitoring how the user is using specific content                                            |
 | **Location**                  | Location cookies can be used to utilise location information (GPS) received from the user’s device.                            | Never necessary.                                                                                                                                                                                                                                                                             | Accurate GPS location                                                                        |
-| **Load balancing**            | Load-balancing cookies ensure that the service loads and works quickly and efficiently.                                        | Always necessary (as they ensure that the service is operating smoothly).                                                                                                                                                                                                                    | A client identifying hash to enable better routing                                                                                            |
-[Table 3:Cookie categories]|
+| **Load balancing**            | Load-balancing cookies ensure that the service loads and works quickly and efficiently.                                        | Always necessary (as they ensure that the service is operating smoothly).                                                                                                                                                                                                                    | A client identifying hash to enable better routing                                           |
+| [Table 3:Cookie categories]   |
 
 #### Can I use a custom category?
 
