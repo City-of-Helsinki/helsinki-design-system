@@ -13,7 +13,8 @@ import Image from '../../../components/Image';
 <StatusLabel type="alert">WIP</StatusLabel>
 
 <LeadParagraph>
-  HDS offers a consistent way of informing the user about cookies and, if needed, asking for consent. The CookieConsent component is used for this. This page describes how the component is used.
+  HDS offers a consistent way of informing the user about cookies and, if needed, asking for consent. The CookieConsent
+  component is used for this. This page describes how the component is used.
 </LeadParagraph>
 
 If you are looking for technical documentation about the CookieConsent component, please refer to [the component page](/components/cookie-consent).
@@ -22,32 +23,62 @@ If you are looking for an explanation about gathering and categorising cookies, 
 
 ## Principles
 
-<div class="guideline-do" style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
-    <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);"><IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Do</strong></div>
-    <ul style="margin-bottom:0;">
-        <li><strong>The cookie consent banner must be shown if the user has not accepted or denied the optional cookies of the service.</strong>
-            <ul style="margin-top:0;">
-                <li>If cookies have changed since the last time the user accepted or denied them, the consent must be shown again.</li>
-            </ul>
+<div
+  class="guideline-do"
+  style="background: var(--color-success-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;"
+>
+  <div class="guideline-do-label" style="color:var(--color-success); margin-bottom:var(--spacing-s);">
+    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
+    <strong>Do</strong>
+  </div>
+  <ul style="margin-bottom:0;">
+    <li>
+      <strong>
+        The cookie consent banner must be shown if the user has not accepted or denied the optional cookies of the
+        service.
+      </strong>
+      <ul style="margin-top:0;">
+        <li>
+          If cookies have changed since the last time the user accepted or denied them, the consent must be shown again.
         </li>
-        <li><strong>Include the cookie consent component on every page of the service. The user may arrive on any page of the service (e.g. via a search machine).</strong></li>
-        <li><strong>Make sure that cookie consent is the first item in the page tab order.</strong>
-          <ul style="margin-top:0;">
-                <li>The cookie consent banner is automatically positioned to the bottom of the viewport.</li>
-            </ul>
-        </li>
-        <li><strong>Offer the cookie consent banner and cookie settings in all languages that your service supports.</strong></li>
-    </ul>
+      </ul>
+    </li>
+    <li>
+      <strong>
+        Include the cookie consent component on every page of the service. The user may arrive on any page of the
+        service (e.g. via a search machine).
+      </strong>
+    </li>
+    <li>
+      <strong>Make sure that cookie consent is the first item in the page tab order.</strong>
+      <ul style="margin-top:0;">
+        <li>The cookie consent banner is automatically positioned to the bottom of the viewport.</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Offer the cookie consent banner and cookie settings in all languages that your service supports.</strong>
+    </li>
+  </ul>
 </div>
 
-<div class="guideline-dont" style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;">
-    <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);"><IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle'}} size="s"/><strong>Don't</strong></div>
-    <ul style="margin-bottom:0;">
-        <li>The cookie consent banner should not prevent the user from using the web page. Never use an overlay behind the banner or otherwise restrict the use of the site.</li>
-    </ul>
+<div
+  class="guideline-dont"
+  style="background: var(--color-error-light); padding: var(--spacing-s); margin-bottom: var(--spacing-layout-2-xs); max-width:600px;"
+>
+  <div class="guideline-dont-label" style="color:var(--color-error); margin-bottom:var(--spacing-s);">
+    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="s" />
+    <strong>Don't</strong>
+  </div>
+  <ul style="margin-bottom:0;">
+    <li>
+      The cookie consent banner should not prevent the user from using the web page. Never use an overlay behind the
+      banner or otherwise restrict the use of the site.
+    </li>
+  </ul>
 </div>
 
 ## Cookie banner and cookie page
+
 The HDS CookieConsent features two (2) ways of displaying cookies and cookie settings; banner and page. The banner approach is used to inform the user about cookies and offer a quick way to accept or deny them. The cookie page uses the banner content but renders it as a full page. This page is used to present cookie settings. It also works as a place where the user can later return to review or change cookie settings.
 
 The banner also has a feature to expand to show cookie settings. This expanding settings menu can be used when the amount of cookies is low, e.g. less than five (5) individual cookies. Otherwise, it is recommended to open the full settings page. It is easier for the user to browse and manage.
@@ -55,9 +86,11 @@ The banner also has a feature to expand to show cookie settings. This expanding 
 No matter whether you use expanding cookie banner or not, you must always offer a full cookie settings page to the user. It is required to allow the user to review and edit cookie settings after the initial consent has been given. Place a link to the cookies page on the page footer element.
 
 ## How does the cookie consent banner affect other content of the service?
+
 There may be elements or content on your service that do not work properly until the user has given consent to optional cookies. It is recommended to either hide this content or show clear error messages at the position of these elements that indicate why they are not available.
 
 ## What happens after the user has accepted or denied the optional cookies?
+
 The user must be able to view and edit the cookie consent after they have initially submitted their choices. You must offer a separate cookies page that allows changing viewing the cookies and changing consent. The link to this page should be placed on the footer element of the page. Note that the HDS CookieConsent component offers functionality to render it as a page. This allows you to use the same component and data to construct a separate cookie page.
 
 If new cookies are added or current ones changed, consent should be asked from the user again the next time the service is used.
