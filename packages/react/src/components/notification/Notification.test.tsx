@@ -21,9 +21,9 @@ describe('<Notification /> spec', () => {
 
   it('adds role="alert" for non-inline notifications', () => {
     const { asFragment } = render(
-        <Notification label={label} position="bottom-center">
-          {body}
-        </Notification>,
+      <Notification label={label} position="bottom-center">
+        {body}
+      </Notification>,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -51,5 +51,4 @@ describe('<Notification /> spec', () => {
     );
     expect(getByRole('button')).toBeDefined();
   });
-  
 });
