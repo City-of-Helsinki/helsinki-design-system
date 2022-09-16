@@ -82,6 +82,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                   <a
                     aria-current="page"
                     class="item "
+                    data-testid="cookie-consent-language-option-fi"
                     href="#"
                     lang="fi"
                   >
@@ -93,6 +94,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                   </a>
                   <a
                     class="item "
+                    data-testid="cookie-consent-language-option-sv"
                     href="#"
                     lang="sv"
                   >
@@ -104,6 +106,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
                   </a>
                   <a
                     class="item "
+                    data-testid="cookie-consent-language-option-en"
                     href="#"
                     lang="en"
                   >

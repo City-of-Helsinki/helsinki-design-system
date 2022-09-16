@@ -107,6 +107,10 @@ export function clickElement(result: RenderResult, testId: string) {
   result.getByTestId(testId).click();
 }
 
+export function getElementById(result: RenderResult, id: string) {
+  return result.container.querySelector(`#${id}`);
+}
+
 export function isAccordionOpen(result: RenderResult, testId: string): boolean {
   const toggler = result.getByTestId(testId) as HTMLElement;
   return toggler.getAttribute('aria-expanded') === 'true';
