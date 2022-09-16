@@ -36,6 +36,10 @@ const moveCSS = () => {
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 const external = [
+  'crc-32',
+  'kashe',
+  'memoize-one',
+  'postcss',
   'react',
   'react-dom',
   'lodash.uniqueid',
@@ -46,7 +50,6 @@ const external = [
   'react-merge-refs',
   'react-virtual',
   'react-popper',
-  'used-styles',
   '@juggle/resize-observer',
   '@popperjs/core',
   '@react-aria/visually-hidden',
