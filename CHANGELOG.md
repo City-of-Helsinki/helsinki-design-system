@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - September, 14, 2022
+
+### React Components
+
+#### Added
+
+- [CookieModal] component for React
+- [CookiePage] component for React
+
+### Documentation
+
+#### Added
+
+- Documentation for the React CookieConsent components
+- Cookie compliance Pattern documentation
+- Common Helsinki cookies Pattern documentation
+- Cookie consent Pattern documentation
+
 ## [2.2.0] - September, 8, 2022
 
 ### React Components
