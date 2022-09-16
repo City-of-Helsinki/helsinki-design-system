@@ -12,9 +12,7 @@ exports[`<Notification /> spec adds role="alert" for non-inline notifications 1`
       class="content"
     >
       <div
-        aria-level="2"
         class="label"
-        role="heading"
       >
         <svg
           aria-hidden="true"
@@ -59,9 +57,7 @@ exports[`<Notification /> spec renders the component 1`] = `
       class="content"
     >
       <div
-        aria-level="2"
         class="label"
-        role="heading"
       >
         <svg
           aria-hidden="true"
