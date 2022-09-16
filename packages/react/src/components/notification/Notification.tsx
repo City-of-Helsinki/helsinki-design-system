@@ -262,7 +262,6 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
             className,
           )}
           aria-label={notificationAriaLabel}
-          aria-atomic="true"
           role={role}
           data-testid={dataTestId}
         >

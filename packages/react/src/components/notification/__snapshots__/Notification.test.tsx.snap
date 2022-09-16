@@ -3,7 +3,6 @@
 exports[`<Notification /> spec adds role="alert" for non-inline notifications 1`] = `
 <DocumentFragment>
   <section
-    aria-atomic="true"
     aria-label="Notification"
     class="bottom-center notification default info"
     role="alert"
@@ -53,7 +52,6 @@ exports[`<Notification /> spec adds role="alert" for non-inline notifications 1`
 exports[`<Notification /> spec renders the component 1`] = `
 <DocumentFragment>
   <section
-    aria-atomic="true"
     aria-label="Notification"
     class="inline notification default info"
   >
@@ -101,7 +99,6 @@ exports[`<Notification /> spec renders the component 1`] = `
 exports[`<Notification /> spec renders the component without optional label 1`] = `
 <DocumentFragment>
   <section
-    aria-atomic="true"
     aria-label="Notification"
     class="inline notification default info"
   >
