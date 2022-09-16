@@ -268,7 +268,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
           {autoClose && <animated.div style={autoCloseTransition} className={styles.autoClose} />}
           <div className={styles.content} ref={ref}>
             {label && (
-              <div className={styles.label} role="heading" aria-level={2}>
+              <div className={styles.label}>
                 <Icon className={styles.icon} aria-hidden />
                 <ConditionalVisuallyHidden visuallyHidden={size === 'small'}>{label}</ConditionalVisuallyHidden>
               </div>
