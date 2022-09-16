@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 
 import createConsentController, { ConsentController, ConsentList } from '../cookieConsentController';
-import { CookieData, CookieGroup, useCookieContentContext } from './ContentContext';
+import { CookieData, CookieGroup, forceFocusToElement, useCookieContentContext } from './ContentContext';
 
 export type Consents = {
   requiredCookies?: string[];
@@ -44,17 +44,6 @@ export const getConsentsFromCookieGroup = (groups: CookieGroup[]): ConsentList =
     });
     return ids;
   }, [] as string[]);
-};
-
-export const forceFocusToElement = (elementSelector: string): void => {
-  const focusTarget = document.querySelector(elementSelector) as HTMLElement;
-  if (focusTarget && focusTarget.focus) {
-    focusTarget.focus();
-    if (document.activeElement !== focusTarget) {
-      focusTarget.setAttribute('tabindex', '-1');
-      focusTarget.focus();
-    }
-  }
 };
 
 export const Provider = ({ cookieDomain, children }: ConsentContextProps): React.ReactElement => {
