@@ -24,3 +24,15 @@ To collect analytics from a subset of found repositories (for testing purposes),
 
 To collect analytics from all found repositories, run:
 ```node run-analytics.js```
+
+## Bonus content
+The bash script file `find-hds-react-version-usage.sh` calls Github API and finds all `hds-react` occurrences in code under the City of Helsinki organization and gets the corresponding repository name, Github URL and hds-react version and puts them in a JSON file. This could possibly be merged into the analytics scripts to provide even more refined analytics data.
+
+### How to use it
+You need bash and a Github account.
+
+The script uses an environment variable called `GITHUB_TOKEN` which is Personal Access Token (PAT for short) which you can obtain from your [Github settings](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token). If you can't be bothered, you can replace the `GITHUB_TOKEN` in the script with your PAT.
+
+Run the script in the terminal with `bash find-hds-react-version-usage.sh`
+
+The script produces a `hds-react-version-usage.json` file which contains an array of objects with the name and Github URL of the repository and which hds-react version it uses.
