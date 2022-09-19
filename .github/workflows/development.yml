@@ -75,7 +75,7 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v2.5.1
         with:
-          node-version: "12.x"
+          node-version: "14.x"
           registry-url: "https://registry.npmjs.org"
 
       - name: install dependencies for visual testing
