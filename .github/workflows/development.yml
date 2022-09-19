@@ -72,12 +72,6 @@ jobs:
         with:
           name: storybook-${{ github.sha }}
 
-      - name: setup node
-        uses: actions/setup-node@v2.5.1
-        with:
-          node-version: "12.x"
-          registry-url: "https://registry.npmjs.org"
-
       - name: install dependencies for visual testing
         run: |
           sudo apt update
