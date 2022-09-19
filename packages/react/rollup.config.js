@@ -12,13 +12,25 @@ import { terser } from 'rollup-plugin-terser';
 import del from 'rollup-plugin-delete';
 import cssText from 'rollup-plugin-css-text';
 
-const insertCSS = () => {
+const insertCSSEsm = () => {
   return {
-    name: 'insert-css',
+    name: 'insert-css-esm',
     buildEnd: () => {
       fs.appendFileSync(
         `${__dirname}/lib/index.js`,
         `import CSS_TEXT from './index.css-text'; export { CSS_TEXT as hdsStyles };`,
+      );
+    },
+  };
+};
+
+const insertCSSCjs = () => {
+  return {
+    name: 'insert-css-cjs',
+    closeBundle: () => {
+      fs.appendFileSync(
+        `${__dirname}/lib/cjs/index.js`,
+        `var hdsStyles = require("./index.css-text"); exports.hdsStyles = hdsStyles;`,
       );
     },
   };
@@ -92,13 +104,14 @@ const getConfig = (format, extractCSS) => ({
     terser(),
     extractCSS ? cssText() : undefined,
     extractCSS ? moveCSS() : undefined,
-    extractCSS ? insertCSS() : undefined,
+    extractCSS ? insertCSSEsm() : undefined,
     extractCSS
       ? del({
           targets: 'lib/tmp',
           hook: 'closeBundle',
         })
       : undefined,
+    format === 'cjs' ? insertCSSCjs() : undefined,
   ],
   external: getExternal(format),
 });
@@ -154,16 +167,6 @@ const esmInput = {
 
 export default [
   {
-    input: 'src/index.ts',
-    output: [
-      {
-        dir: 'lib/cjs',
-        format: 'cjs',
-      },
-    ],
-    ...getConfig('cjs', false),
-  },
-  {
     input: esmInput,
     output: [
       {
@@ -183,5 +186,15 @@ export default [
       },
     ],
     ...getConfig('esm', true),
+  },
+  {
+    input: ['src/index.ts', 'lib/index.css-text.js'],
+    output: [
+      {
+        dir: 'lib/cjs',
+        format: 'cjs',
+      },
+    ],
+    ...getConfig('cjs', false),
   },
 ];
