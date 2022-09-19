@@ -43,7 +43,7 @@ const setComponentTheme = <T,>(selector: string, theme: T, customClass: string):
       customRuleIndex = [...parentCssRules].findIndex(hasCustomRule);
     }
     // the rule that should be updated
-    const rule = parentCssRules.item(customRuleIndex) as CSSStyleRule;
+    const rule = parentCssRules[customRuleIndex] as CSSStyleRule;
     // set the theme
     Object.entries(theme).forEach(([property, value]) => rule.style.setProperty(property, value));
   } catch (e) {
