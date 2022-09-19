@@ -12,7 +12,7 @@ import { terser } from 'rollup-plugin-terser';
 import del from 'rollup-plugin-delete';
 import cssText from 'rollup-plugin-css-text';
 
-const insertCSSEsm = () => {
+const insertCssEsm = () => {
   return {
     name: 'insert-css-esm',
     buildEnd: () => {
@@ -24,7 +24,7 @@ const insertCSSEsm = () => {
   };
 };
 
-const insertCSSCjs = () => {
+const insertCssCjs = () => {
   return {
     name: 'insert-css-cjs',
     closeBundle: () => {
@@ -36,7 +36,7 @@ const insertCSSCjs = () => {
   };
 };
 
-const moveCSS = () => {
+const moveCss = () => {
   return {
     name: 'move-css',
     closeBundle: () => {
@@ -103,15 +103,15 @@ const getConfig = (format, extractCSS) => ({
     }),
     terser(),
     extractCSS ? cssText() : undefined,
-    extractCSS ? moveCSS() : undefined,
-    extractCSS ? insertCSSEsm() : undefined,
+    extractCSS ? moveCss() : undefined,
+    extractCSS ? insertCssEsm() : undefined,
     extractCSS
       ? del({
           targets: 'lib/tmp',
           hook: 'closeBundle',
         })
       : undefined,
-    format === 'cjs' ? insertCSSCjs() : undefined,
+    format === 'cjs' ? insertCssCjs() : undefined,
   ],
   external: getExternal(format),
 });
