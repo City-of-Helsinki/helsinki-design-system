@@ -19,7 +19,8 @@ describe('<Notification /> spec', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('adds role="alert" for non-inline notifications', () => {
+  // Replaces aria-atomic with role=alert and removes heading props for a better screen reader support
+  it('uses toast notification props in non-inline notifications', () => {
     const { asFragment } = render(
       <Notification label={label} position="bottom-center">
         {body}
