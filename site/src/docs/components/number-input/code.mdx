@@ -20,7 +20,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ```jsx
 <>
   <NumberInput
-    id="input"
+    id="default"
     helperText="Assistive text"
     label="Total compensation"
     unit="€"
@@ -30,7 +30,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
   <NumberInput
     disabled
-    id="input"
+    id="disabled"
     helperText="Assistive text"
     label="Total compensation"
     unit="€"
@@ -43,18 +43,18 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ```html
 <div style="max-width:320px;">
   <div class="hds-text-input">
-    <label for="input" class="hds-text-input__label"> Total compensation (€) </label>
+    <label for="core-default" class="hds-text-input__label"> Total compensation (€) </label>
     <div class="hds-text-input__input-wrapper">
-      <input id="input" value="1000" class="hds-text-input__input" type="number" placeholder="Placeholder" />
+      <input id="core-default" value="1000" class="hds-text-input__input" type="number" placeholder="Placeholder" />
     </div>
     <span class="hds-text-input__helper-text">Assistive text</span>
   </div>
 
   <div class="hds-text-input" style="margin-top:var(--spacing-s);">
-    <label for="input-disabled" class="hds-text-input__label"> Total compensation (€) </label>
+    <label for="core-disabled" class="hds-text-input__label"> Total compensation (€) </label>
     <div class="hds-text-input__input-wrapper">
       <input
-        id="input-disabled"
+        id="core-disabled"
         value="1000"
         class="hds-text-input__input"
         type="number"
@@ -88,9 +88,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```html
 <div class="hds-text-input" style="max-width:320px;">
-  <label for="input" class="hds-text-input__label"> Number of attendees </label>
+  <label for="core-stepper" class="hds-text-input__label"> Number of attendees </label>
   <div class="hds-text-input__input-wrapper">
-    <input id="input" value="5" class="hds-text-input__input" type="number" step="1" placeholder="Placeholder" />
+    <input id="core-stepper" value="5" class="hds-text-input__input" type="number" step="1" placeholder="Placeholder" />
   </div>
   <span class="hds-text-input__helper-text">Assistive text</span>
 </div>
@@ -104,7 +104,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```jsx
 <NumberInput
-  id="stepper"
+  id="stepper-minmax"
   helperText="At least 3 attendees are required"
   label="Number of attendees"
   min={3}
@@ -119,10 +119,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```html
 <div class="hds-text-input" style="max-width:320px;">
-  <label for="input" class="hds-text-input__label"> Number of attendees </label>
+  <label for="core-stepper-minmax" class="hds-text-input__label"> Number of attendees </label>
   <div class="hds-text-input__input-wrapper">
     <input
-      id="input"
+      id="core-stepper-minmax"
       value="3"
       class="hds-text-input__input"
       type="number"

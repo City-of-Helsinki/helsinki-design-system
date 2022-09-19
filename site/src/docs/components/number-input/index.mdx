@@ -17,7 +17,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 <PlaygroundPreview>
   <NumberInput
-    id="input"
+    id="example"
     helperText="Assistive text"
     label="Total compensation"
     unit="€"
@@ -48,7 +48,7 @@ When applicable, a unit can be set for the input by using the `unit` prop.
 
 <PlaygroundPreview>
   <NumberInput
-    id="input"
+    id="default"
     helperText="Assistive text"
     label="Total compensation"
     unit="€"
@@ -82,7 +82,7 @@ If your input has special requirements, it is a good practice to describe them i
 
 <PlaygroundPreview>
   <NumberInput
-    id="stepper"
+    id="stepper-minmax"
     helperText="At least 3 attendees are required"
     label="Number of attendees"
     min={3}
