@@ -200,15 +200,16 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
     }: NotificationProps,
     ref,
   ) => {
+    const isInline: boolean = position === 'inline';
     // only allow size 'large' for inline notifications
-    if (position !== 'inline' && size === 'large') {
+    if (!isInline && size === 'large') {
       // eslint-disable-next-line no-console
       console.warn(`Size '${size}' is only allowed for inline positioned notifications`);
       // eslint-disable-next-line no-param-reassign
       size = 'default';
     }
     // don't allow autoClose for inline notifications
-    if (position === 'inline' && autoClose) {
+    if (isInline && autoClose) {
       // eslint-disable-next-line no-console
       console.warn(`The 'autoClose' property is not allowed for inline positioned notifications`);
       // eslint-disable-next-line no-param-reassign
@@ -243,9 +244,6 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
     const notificationTransition = useSpring(open ? openTransitionProps : closeTransitionProps);
     const autoCloseTransition = useSpring(autoCloseTransitionProps);
 
-    // Set role="alert" for non-inline notifications
-    const role: 'alert' | undefined = position !== 'inline' ? 'alert' : undefined;
-
     return (
       <ConditionalVisuallyHidden visuallyHidden={invisible}>
         <animated.section
@@ -262,13 +260,13 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
             className,
           )}
           aria-label={notificationAriaLabel}
-          role={role}
           data-testid={dataTestId}
+          {...(isInline ? { 'aria-atomic': true } : { role: 'alert' })}
         >
           {autoClose && <animated.div style={autoCloseTransition} className={styles.autoClose} />}
           <div className={styles.content} ref={ref}>
             {label && (
-              <div className={styles.label}>
+              <div className={styles.label} {...(isInline ? { role: 'heading', 'aria-level': 2 } : {})}>
                 <Icon className={styles.icon} aria-hidden />
                 <ConditionalVisuallyHidden visuallyHidden={size === 'small'}>{label}</ConditionalVisuallyHidden>
               </div>
