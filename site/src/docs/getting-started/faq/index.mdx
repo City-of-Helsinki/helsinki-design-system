@@ -3,9 +3,10 @@ slug: '/getting-started/faq'
 title: 'Frequently asked questions'
 ---
 
-import { Accordion, Link } from 'hds-react';
+import { Accordion } from 'hds-react';
 
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -46,10 +47,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   }}
 >
   Yes! We appreciate all contributions both from inside and outside of the city organisations. Contributions can relate
-  to design, implementation or documentation. You can find our contribution guidelines in the{' '}
-  <Link size="M" href="/getting-started/contributing/before-contributing">
+  to design, implementation or documentation. You can find our contribution guidelines in the 
+  <InternalLink size="M" href="/getting-started/contributing/before-contributing">
     Getting started - Contribution section
-  </Link>
+  </InternalLink>
   .
 </Accordion>
 
@@ -62,10 +63,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   }}
 >
   We are always happy to help you and your project if you have issues with HDS. We also appreciate feedback. You can
-  find the recommended contact channels in the{' '}
-  <Link size="M" href="/about">
+  find the recommended contact channels in the 
+  <InternalLink size="M" href="/about">
     About - Support section
-  </Link>
+  </InternalLink>
   .
 </Accordion>
 
