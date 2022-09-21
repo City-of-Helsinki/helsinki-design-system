@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-mutable-exports
 let hdsStyles = '';
 hdsStyles +=
   '.icon_hds-icon__1YqNC{--icon-size:100%;display:inline-block;background-color:currentColor;width:var(--icon-size);height:var(--icon-size);mask-repeat:no-repeat;mask-position:center;mask-size:auto;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;-webkit-mask-size:auto}.icon_hds-icon__1YqNC.icon_hds-icon--size-xs__3dAMZ{--icon-size:var(--spacing-layout-2-xs)}.icon_hds-icon__1YqNC.icon_hds-icon--size-s__2Lkik{--icon-size:var(--spacing-layout-xs)}.icon_hds-icon__1YqNC.icon_hds-icon--size-m__1mcHv{--icon-size:var(--spacing-layout-s)}.icon_hds-icon__1YqNC.icon_hds-icon--size-l__3Zczy{--icon-size:var(--spacing-layout-m)}.icon_hds-icon__1YqNC.icon_hds-icon--size-xl__1Jes8{--icon-size:var(--spacing-layout-l)}.Icon-module_icon__1Jtzj{background-color:transparent}';
