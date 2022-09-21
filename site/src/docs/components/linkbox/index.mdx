@@ -4,10 +4,11 @@ title: 'Linkbox'
 navTitle: 'Linkbox'
 ---
 
-import { Link, Linkbox } from 'hds-react';
+import { Linkbox } from 'hds-react';
 import { withPrefix } from "gatsby"
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -25,7 +26,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 - **Linkbox must always be interactable in its entirety.** This means that Linkboxes must not include multiple interactable elements (e.g. buttons or multiple links). The Linkbox element only gets focused once.
 - To emphasize its interactability, the Linkbox includes a mandatory icon. Depending on the link type the icon is either an arrow or an external link icon. Do not remove or modify these icons.
-  - To read more about HDS recommendations about links, see [HDS Link documentation](/components/link).
+  - To read more about HDS recommendations about links, see <InternalLink href="/components/link">HDS Link documentation</InternalLink>.
 - **Linkboxes work very well for listing heterogenous content** such as news items, blog posts, or upcoming events.
 - **Use Linkboxes sparingly.** While they can drastically improve service's understandability and readability, overusing them may result in confusing and complex user interfaces.
 
@@ -34,7 +35,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - **Use the Linkbox component when**
   - the whole element needs to be interactable
   - the element does not include multiple interactable elements
-- **Use the <Link href="/components/card">Card component</Link> when**
+- **Use the <InternalLink href="/components/card">Card component</InternalLink> when**
   - the whole Card does not need to be interactable
   - the Card contains multiple interactable elements (e.g. buttons or links)
 

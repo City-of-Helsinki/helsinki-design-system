@@ -7,6 +7,7 @@ navTitle: 'SideNavigation'
 import { SideNavigation, IconHome, IconMap, IconCogwheel } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -117,7 +118,7 @@ export const SideNavExample = () => {
 </PlaygroundPreview>
 
 ### Principles
-- **It is strongly recommended to always include the [main (top) navigation component](/components/navigation) in your service.**
+- **It is strongly recommended to always include the <InternalLink href="/components/navigation">main (top) navigation component</InternalLink> in your service.**
   - It is allowed to use the side navigation without the top navigation. However, please note that the top navigation includes important features such as language selection and login. If you rely on the side navigation only, you need to provide these functionalities somewhere else in the user interface.
 - If you use both main (top) and side navigation, do not repeat the same navigation items in both of them.
 - Always position the side navigation to the left-hand side of the page. Keep the navigation in place so the user can always easily locate it.
@@ -127,7 +128,7 @@ export const SideNavExample = () => {
   - Pay attention to the icon choices. The icons should be easily recognisable and not used for decorative purposes only.
   - The second-level links and external links must not include an icon.
   - Labels are always required even if icons are used. Do not create icon-only navigations.
-- When including external links in the side navigation, follow guidelines of the [HDS Link component documentation](/components/link).
+- When including external links in the side navigation, follow guidelines of the <InternalLink href="/components/link">HDS Link component documentation</InternalLink>.
 
 #### When to use a side navigation?
 - **Do use the Side navigation when**

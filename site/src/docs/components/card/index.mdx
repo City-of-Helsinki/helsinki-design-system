@@ -4,10 +4,11 @@ title: 'Card'
 navTitle: 'Card'
 ---
 
-import { Button, Card, IconAngleRight, IconShare, IconTrash, Link } from 'hds-react';
+import { Button, Card, IconAngleRight, IconShare, IconTrash } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -37,7 +38,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - **Use the Card component when**
   - the whole Card does not need to be interactable
   - the Card contains multiple interactable elements (e.g. buttons or links)
-- **Use the <Link href="/components/linkbox">Linkbox component</Link> when**
+- **Use the <InternalLink href="/components/linkbox">Linkbox component</InternalLink> when**
   - the whole element needs to be interactable
   - the element does not include multiple interactable elements
 
