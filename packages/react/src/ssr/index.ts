@@ -28,7 +28,7 @@ const getCriticalRules = (html: string, def: StyleDefinition, filter: SelectionF
     .join('');
 };
 
-export async function getCriticalHdsRules(markup, allHDSStyles) {
+export async function getCriticalHdsRules(markup: string, allHDSStyles: string): Promise<string> {
   if (markup && markup.length > 0 && allHDSStyles && allHDSStyles.length > 0) {
     const styleData = loadStyleDefinitions(
       () => ['index.css'],
