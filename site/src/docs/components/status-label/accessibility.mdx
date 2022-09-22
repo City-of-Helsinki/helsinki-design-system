@@ -5,6 +5,7 @@ title: 'StatusLabel - Accessibility'
 
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -12,5 +13,5 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Pay attention to
 
-- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/foundation/design-tokens/colour 'Colour') to ensure accessibility.
+- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to <InternalLink href="/foundation/design-tokens/colour">colour guidelines</InternalLink> to ensure accessibility.
 - Remember that colour should never be the only way of conveying information. Make sure the meaning of the status label is clearly described by the label text. Refer to <ExternalLink href="https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html">WCAG 2.1 Use of Color guideline</ExternalLink> for more information.

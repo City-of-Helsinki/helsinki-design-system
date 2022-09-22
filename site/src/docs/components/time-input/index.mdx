@@ -7,6 +7,7 @@ navTitle: 'TimeInput'
 import { TimeInput, Select } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -34,9 +35,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - **HDS Time input does not validate time in any way.** This means you need to make sure to validate the input if your project requires it.
 - It is recommended to give the time input a default value.
 - Because HDS time input forces the input to a specific format, it is not required to describe the expected format in the assistive text.
-- As specified in [the data format guidelines](/foundation/guidelines/data-formats), Helsinki services use a 24-hour clock and can either use leading zeros or omit them. The time input will always show leading zeros.
+- As specified in <InternalLink href="/foundation/guidelines/data-formats">the data format guidelines</InternalLink>, Helsinki services use a 24-hour clock and can either use leading zeros or omit them. The time input will always show leading zeros.
 - When asking for time ranges, you should use two separate time inputs instead of trying to use one input or picker for both times.
-- Time is often asked alongside a date. Use the [HDS date input](/components/date-input) for asking dates.
+- Time is often asked alongside a date. Use the <InternalLink href="/components/date-input">HDS date input</InternalLink> for asking dates.
 
 #### Should I use a time input or a select?
 

@@ -4,9 +4,10 @@ title: 'Form validation'
 navTitle: 'Form validation'
 ---
 
-import { StatusLabel } from 'hds-react';
+import { Link, StatusLabel } from 'hds-react';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/Image';
+import InternalLink from '../../../components/InternalLink';
 
 # Form validation
 
@@ -55,9 +56,9 @@ In dynamic form validation the user input is **validated immediately after the f
 
 **Dynamic form validation is recommended way to do input validation in the City of Helsinki services**. The method allows the user to fix the error immediately rather than after the form has been submitted. This can greatly reduce cognitive load of the user since they neither do have to locate the erroneous input nor switch their context to the next input before fixing the error.
 
-[See interactive dynamic form validation example in HDS Storybook](/storybook/react/iframe.html?id=patterns-form-validation--dynamic&viewMode=story)
+<Link href="/storybook/react/iframe.html?id=patterns-form-validation--dynamic&viewMode=story" external openInNewTab openInNewTabAriaLabel="Opens in new tab">See interactive dynamic form validation example in HDS Storybook</Link>
 
-[See dynamic form validation code example in HDS Storybook](/storybook/react/?path=/docs/patterns-form-validation--static#dynamic)
+<Link href="/storybook/react/?path=/docs/patterns-form-validation--static#dynamic" external openInNewTab openInNewTabAriaLabel="Opens in new tab">See dynamic form validation code example in HDS Storybook</Link>
 
 ### Static validation
 
@@ -65,9 +66,10 @@ In static form validation the validation is done when the form is submitted or t
 
 The general issue of static validation is that it is possible that there are multiple erroneous inputs after the validation. To make it easier for the user to go through the errors, **HDS recommends using validation summary pattern** in which all errors are gathered to one list on top of the form. The list contains all errors found the the form and an anchor link to each form control. You can read more about the [validation summary pattern in its own section](#validation-summary-pattern).
 
-[See interactive static form validation example in HDS Storybook](/storybook/react/iframe.html?id=patterns-form-validation--static&viewMode=story)
+<Link href="/storybook/react/iframe.html?id=patterns-form-validation--static&viewMode=story" external openInNewTab openInNewTabAriaLabel="Opens in new tab">See interactive static form validation example in HDS Storybook</Link>
 
-[See static form validation code example in HDS Storybook](/storybook/react/?path=/docs/patterns-form-validation--static#static)
+<Link href="/storybook/react/?path=/docs/patterns-form-validation--static#static" external openInNewTab openInNewTabAriaLabel="Opens in new tab">See static form validation code example in HDS Storybook</Link>
+
 
 ### Hybrid validation
 
@@ -75,9 +77,9 @@ Dynamic and static validation methods can be also used in parallel. This is part
 
 The advantage of hybrid validation is that because form controls are validated dynamically, the user generally receives less errors after the form submit. **It is always recommended to use dynamic validation approach first** but if some static validation is required, the hybrid validation approach can be used.
 
-[See interactive hybrid form validation example in HDS Storybook](/storybook/react/iframe.html?id=patterns-form-validation--hybrid&viewMode=story)
+<Link href="/storybook/react/iframe.html?id=patterns-form-validation--hybrid&viewMode=story" external openInNewTab openInNewTabAriaLabel="Opens in new tab">See interactive hybrid form validation example in HDS Storybook</Link>
 
-[See hybrid form validation code example in HDS Storybook](/storybook/react/?path=/docs/patterns-form-validation--static#hybrid)
+<Link href="/storybook/react/?path=/docs/patterns-form-validation--static#hybrid" external openInNewTab openInNewTabAriaLabel="Opens in new tab">See hybrid form validation code example in HDS Storybook</Link>
 
 ---
 
@@ -224,7 +226,7 @@ described to the user from where the information is coming from.
 
 **When using static or hybrid validation methods, HDS recommends using a validation summary to clearly list errors found during the form submit**. Validation summary pattern uses an error summary component which is provided by HDS. The error summary is notification-like element which lists all errors (and their descriptions) found in the form and provides anchor links to each erroneous input for easy access.
 
-You can learn more about the error summary component in [HDS React Storybook](/storybook/react/?path=/story/components-errorsummary--default).
+You can learn more about the error summary component in <Link href="/storybook/react/?path=/story/components-errorsummary--default" external openInNewTab openInNewTabAriaLabel="Opens in new tab">HDS React Storybook.</Link>.
 
 <Image
   src="/images/patterns/form/validation/error-summary@2x.png"
@@ -248,7 +250,7 @@ The usage of the error summary component is triggered when the form is submitted
   viewable
 />
 
-You can see the validation summary pattern in action in HDS Storybook [static validation example](/storybook/react/iframe.html?id=patterns-form-validation--static&viewMode=story) and [hybrid validation example](/storybook/react/iframe.html?id=patterns-form-validation--hybrid&viewMode=story).
+You can see the validation summary pattern in action in HDS Storybook <Link href="/storybook/react/iframe.html?id=patterns-form-validation--static&viewMode=story" external openInNewTab openInNewTabAriaLabel="Opens in new tab">static validation example</Link> and <Link href="/storybook/react/iframe.html?id=patterns-form-validation--hybrid&viewMode=story" external openInNewTab openInNewTabAriaLabel="Opens in new tab">hybrid validation example</Link>.
 
 ### Validation of multiple input fields
 
@@ -263,7 +265,7 @@ An example of this could be having two date inputs for setting a start and an en
   viewable
 />
 
-When there are multiple related fields, a later field in the form can make an earlier field erroneous. In this case, it is important to note that the state change of the earlier field can go unnoticed for assistive technologies. It is recommended to notify assistive technologies of other inputs' state change by using the [HDS invisible notification](/components/notification#invisible).
+When there are multiple related fields, a later field in the form can make an earlier field erroneous. In this case, it is important to note that the state change of the earlier field can go unnoticed for assistive technologies. It is recommended to notify assistive technologies of other inputs' state change by using the <InternalLink href="/components/notification#invisible">HDS invisible notification.</InternalLink>
 
 ### Validation in multi-page forms
 
@@ -274,6 +276,6 @@ When there are multiple related fields, a later field in the form can make an ea
   <strong> The navigation component for multi-page forms has not yet been designed or implemented in HDS.</strong>
 </p>
 
-HDS Form pattern suggests dividing longer forms into separate steps. You can read more about this in the [HDS Form pattern documentation](/patterns/forms/form-building#4-dividing-long-forms-into-separate-steps).
+HDS Form pattern suggests dividing longer forms into separate steps. You can read more about this in the <InternalLink href="/patterns/forms/form-building#4-dividing-long-forms-into-separate-steps">HDS Form pattern documentation.</InternalLink>
 
 **Validation is strongly recommended to be done separately for each page of the form.** This means that the user should not be able to proceed to the next form step before all the input fields have been validated on the current step. If some selection can make a selection in a previous step invalid, this should be clearly indicated to the user.

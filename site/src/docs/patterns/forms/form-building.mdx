@@ -8,6 +8,7 @@ import { Link } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/Image';
+import InternalLink from '../../../components/InternalLink';
 
 # Building forms
 
@@ -76,10 +77,8 @@ Forms _should_ be designed to be as clear and straightforward as possible, to al
       <strong>Use gender-neutral language.</strong>
       <ul style="margin-top:0;">
         <li>
-          When asking for gender, refer to the{' '}
-          <Link size="M" href="#asking-for-gender">
-            example in the gender-neutrality chapter
-          </Link>
+          When asking for gender, refer to the 
+          [example in the gender-neutrality chapter](#asking-for-gender)
           .
         </li>
       </ul>
@@ -214,7 +213,7 @@ Enable user to **input textual data of a specific type**. While this kind of dat
       Adjust the width to reflect the intended length of the content.
       <ul style="margin-top:0;">
         <li>
-          Align the width to the <a href="/foundation/guidelines/grid">responsive column grid</a>.
+          Align the width to the <InternalLink href="/foundation/guidelines/grid">responsive column grid</InternalLink>.
         </li>
         <li>If an input is too long to be fully displayed in the field, truncate the value with ellipsis.</li>
       </ul>
@@ -232,7 +231,7 @@ Enable user to **input textual data of a specific type**. While this kind of dat
 
 Enable the user to enter an input by **selecting from a set of pre-defined options**.
 
-Each selection control has a specific use case. To learn which one to use, see [HDS Guideline Checkboxes, radio buttons, or toggles documentation page](/foundation/guidelines/checkbox-radiobutton-toggle).
+Each selection control has a specific use case. To learn which one to use, see <InternalLink href="/foundation/guidelines/checkbox-radiobutton-toggle">HDS Guideline Checkboxes, radio buttons, or toggles documentation page.</InternalLink>
 
 | Control                                                                                                                                         | Name               | Usage                                                      | Examples                                                                                         |
 | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
@@ -1537,7 +1536,7 @@ For this reason it is essential to ensure that individual controls receive focus
 
 ### Asking for gender
 
-When asking for the user's gender, `Other` and `Do not want to answer` options must be provided. If these options are ordered, use order `Woman → Man → Other → Do not want to answer` since it is statistically the most probable. Using the [Selection group component](/components/selection-group) with radio buttons is recommended for this purpose.
+When asking for the user's gender, `Other` and `Do not want to answer` options must be provided. If these options are ordered, use order `Woman → Man → Other → Do not want to answer` since it is statistically the most probable. Using the <InternalLink href="/components/selection-group">Selection group component</InternalLink> with radio buttons is recommended for this purpose.
 
 <Image
   src="/images/patterns/form/building/form-asking-for-gender-example@2x.png"

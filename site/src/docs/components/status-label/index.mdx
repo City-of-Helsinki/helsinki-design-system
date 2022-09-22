@@ -7,6 +7,7 @@ navTitle: 'StatusLabel'
 import { StatusLabel, IconInfoCircle, IconCheckCircle, IconAlertCircle, IconError } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -30,7 +31,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   - Icons inside status labels are allowed if they are accompanied with a text label.
     - Make sure the icon matches the visual label. Do not add an icon only for visual purposes.
 - Keep labels short and concise. Use 1-2 words at maximum and do not use labels expanding to two rows.
-- Use status colours consistently. You can find guidelines on when to use each status colour in the [colour guidelines](/foundation/design-tokens/colour#ui-colours 'UI colours').
+- Use status colours consistently. You can find guidelines on when to use each status colour in the <InternalLink href="/foundation/design-tokens/colour#ui-colours">colour guidelines.</InternalLink>
 - Status labels are often related to some other element on the page (e.g. table row). Aim to keep the status label and its related elements close to each other so the user can easily interpret the relation.
 
 ### Variations

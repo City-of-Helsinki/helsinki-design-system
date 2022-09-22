@@ -4,6 +4,8 @@ title: 'Footer - Accessibility'
 ---
 
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
+
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -11,5 +13,5 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Pay attention to
 
-- HDS Footer is designed to support many different brand colours. When customising colours, refer to [colour guidelines](/foundation/design-tokens/colour 'Colour') to ensure accessibility.
+- HDS Footer is designed to support many different brand colours. When customising colours, refer to <InternalLink href="/foundation/design-tokens/colour">colour guidelines</InternalLink> to ensure accessibility.
 - **When designing the footer link hierarchy, always think about keyboard and screen reader users.** Remember that keyboard users need to manually navigate to each element.

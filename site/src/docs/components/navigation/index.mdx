@@ -7,6 +7,7 @@ navTitle: 'Navigation'
 import { Navigation } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -36,7 +37,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 - **It is strongly recommended to always include the navigation component in your service.**
 - Always position navigation to the top of the page. Keep the navigation in place so the user can always easily locate it. It is recommended to include navigation on every page of the service.
-- Navigation component is built to follow HDS [breakpoint tokens](/foundation/design-tokens/breakpoints). While it is recommended to follow HDS breakpoint tokens, you may alter navigation width to fit your service's needs.
+- Navigation component is built to follow <InternalLink href="/foundation/design-tokens/breakpoints">HDS breakpoint tokens</InternalLink>. While it is recommended to follow HDS breakpoint tokens, you may alter navigation width to fit your service's needs.
 - **Try to keep the order of actions (search, user, language select) consistent in navigation.** Do not change the default order without a good reason.
   - If there are less than three available languages and the services navigation is simple, available languages can be listed as links in the action row instead of a language select dropdown for better usability. **Remember to provide a lang-attribute for each language option to help assistive technology to read the language correctly**.
 - Keep navigation menu link labels clear and concise. Prefer max 1-2 word long labels. Avoid starting multiple menu link labels with the same word.
@@ -109,7 +110,7 @@ HDS Navigation component supports many commonly used features out of the box. Th
 
 #### Colour variations
 
-HDS Navigation offers two variations with different background colours - one with white and one with black text elements. Use variation that achieves better contrast with the brand background colour of your choice. When customising colours, refer to [colour guidelines](/foundation/design-tokens/colour 'Colour') to ensure accessibility.
+HDS Navigation offers two variations with different background colours - one with white and one with black text elements. Use variation that achieves better contrast with the brand background colour of your choice. When customising colours, refer to <InternalLink href="/foundation/design-tokens/colour">colour guidelines</InternalLink> to ensure accessibility.
 
 <PlaygroundPreview>
   <Navigation

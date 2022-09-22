@@ -7,6 +7,7 @@ navTitle: 'PasswordInput'
 import { PasswordInput, Button, IconEye, IconEyeCrossed } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -30,7 +31,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Principles
 
 - A label should always be provided with password fields.
-- If possible, validate input in client-side real-time and provide the user with immediate feedback. See [HDS Form validation pattern page](/patterns/forms/form-validation) for more information and best practices with password fields.
+- If possible, validate input in client-side real-time and provide the user with immediate feedback. See <InternalLink href="/patterns/forms/form-validation">HDS Form validation pattern page</InternalLink> for more information and best practices with password fields.
 - Password fields should always be mandatory. It is recommended to mark it as a required field.
 - Verify that "paste" functionality, browser password helpers, and external password managers are allowed for the input.
 - HDS password input provides a way to mask/unmask the password. Do not disabled this functionality without a good reason.

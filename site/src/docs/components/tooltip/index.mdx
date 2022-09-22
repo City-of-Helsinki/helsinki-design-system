@@ -7,6 +7,7 @@ navTitle: 'Tooltip'
 import { Tooltip } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -24,7 +25,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Principles
 
 - **Tooltip must not be the sole way to provide essential information that the user must know to perform a task (such as inputting a value).** This means Tooltip should display "nice to have" but not essential information.
-  - For more information on what elements should be used to present different kinds of information, refer to [HDS Form pattern - Providing instructions guideline](/patterns/forms/form-building#providing-instructions)
+  - For more information on what elements should be used to present different kinds of information, refer to <InternalLink href="/patterns/forms/form-building#providing-instructions">HDS Form pattern - Providing instructions guideline</InternalLink>
 - **Be clear and consise in the Tooltip description.** Keep the description as short as two to three sentences. If longer explanations are needed, provide a link to a separate page.
 - HDS Tooltips come in two sizes; Default and Small. Only use the Small variant if the Tooltip text is less than 5 words long. Otherwise you should use the Default size variant.
 - HDS Tooltip implementation has an automatic placement feature that is the recommended option. You may also override the Tooltip positioning manually but always remember to test that the Tooltip is fully visible on all screen sizes.
