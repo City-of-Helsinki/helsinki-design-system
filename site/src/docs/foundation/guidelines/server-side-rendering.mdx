@@ -1,0 +1,169 @@
+---
+slug: "/foundation/guidelines/server-side-rendering"
+title: "Server-side rendering"
+navTitle: 'Server-side rendering'
+---
+import { Accordion, Notification } from 'hds-react';
+import LeadParagraph from '../../../components/LeadParagraph';
+
+# Server-side rendering
+
+<LeadParagraph>
+  The server-side rendering support of the Helsinki Design System makes the user's landing experience to pages smooth without
+  flashes of unstyled content.
+</LeadParagraph>
+
+## What is server-side rendering?
+
+Server-side rendering (SSR) is the process where the rendering of html pages is done on the server-side. The fully rendered html
+document is then sent to the browser to be viewed. The rendering of the html can happen at build time (Static site generation
+or pre-rendering), or during an HTTP request. The alternative to SSR is client-side rendering (CSR), where rendering of the
+html happens in the browser.
+
+## How does HDS support server-side rendering?
+
+For HDS components to work with server-side rendering, in server you need to inject the critical CSS styles
+of the HDS components that are being used into the initially rendered html. For hds-core, you must include the styles from
+provided CSS files yourself. For hds-react, HDS provides multiple options, that we will cover next.
+
+<Notification label="Critical CSS" className="siteNotification">
+  Critical CSS is the CSS applied to above-the-fold elements. It is the CSS responsible for content immediately
+  visible when a user opens your website. Pages can be long with scrollable content, that is not visible immediately.
+  There's no need to include the styles of elements that are not visible. There is one exception though, and that is
+  if you have anchor links on the page. When user opens website from an url that includes an anchor link, browser
+  automatically scrolls the page so that the link will be visible.
+</Notification>
+
+### Option 1: getCriticalHdsRules tool to get critical styles (recommended)
+
+HDS React components use CSS-in-JS in such a way, that the styles are by default injected to head tag in browser. If you
+use server-side rendering and do not include the critical styles on the server, this leads to flashes of unstyled
+content when user lands to the page.
+
+To include critical styles in server, HDS exposes a tool for extracting the used critical styles of HDS components.
+This should come handy in multiple ways:
+
+- Automatically extracts styles based on used Html.
+- If you add more HDS components later, you do not need to remember to add their styles separately.
+- If you happen to remove HDS components, you do not need to remember to remove their respective styles.
+
+Let's go through a simple example of the usage of the tool:
+
+```js
+import { getCriticalHdsRules, hdsStyles } from "hds-react";
+
+const criticalHdsRules = await getCriticalHdsRules(bodyHTML, hdsStyles);
+
+const finalHtml =
+<html>
+  <head>
+    ...
+    <style data-used-styles dangerouslySetInnerHTML={{ __html: criticalHdsRules }} />
+  </head>
+  <body>
+    ...
+  </body>
+<html>
+```
+
+First, we import the tool that is named `getCriticalHdsRules`. To be able to call it, we need two things:
+
+1. The initially to be rendered Html body code as a string.
+2. hdsStyles - a variable holding all the styles of the HDS react components.
+
+Calling it returns a string containing the critical CSS styles. The rest is easy, we set those styles into
+a style tag, that we will then inject into the finally rendered Html document. It can be wise to cache the result of
+`getCriticalHdsRules` based on the function parameters, to achieve higher performance.
+
+See below for more complete examples:
+
+<Accordion
+  heading="Next.js"
+  headingLevel="4"
+  size={"s"}
+  theme={{
+    '--padding-vertical': 'var(--spacing-s)',
+  }}
+>
+  In the Next.js framework, create a file called _document.js in folder pages, and add this code to it:
+
+  ```js
+  // pages/_document.js
+  import Document, { Html, Head, Main, NextScript } from 'next/document'
+  import { getCriticalHdsRules, hdsStyles } from 'hds-react';
+
+  class MyDocument extends Document {
+    static async getInitialProps(ctx) {
+      const initialProps = await Document.getInitialProps(ctx)
+      const hdsCriticalRules = await getCriticalHdsRules(initialProps.html, hdsStyles);
+
+      return {...initialProps, hdsCriticalRules}
+    }
+
+    render() {
+      return (
+        <Html>
+          <Head>
+            <style data-used-styles dangerouslySetInnerHTML={{ __html: this.props.hdsCriticalRules }} />
+          </Head>
+          <body>
+            <Main />
+            <NextScript />
+          </body>
+        </Html>
+      )
+    }
+  }
+
+  export default MyDocument
+  ```
+</Accordion>
+
+<Accordion
+  heading="Gatsby"
+  headingLevel="4"
+  size={"s"}
+  theme={{
+    '--padding-vertical': 'var(--spacing-s)',
+  }}
+>
+  In the Gatsby framework, create a file called gatsby-ssr.js at the root of the project, and add this code to it:
+
+  ```js
+  // gatsby-ssr.js
+  import React from 'react';
+  import { getCriticalHdsRules, hdsStyles } from 'hds-react';
+  import { renderToString } from 'react-dom/server';
+
+  export const replaceRenderer = async ({ bodyComponent, setHeadComponents }) => {
+    const bodyHTML = renderToString(bodyComponent);
+
+    if (hdsStyles && hdsStyles.length > 0 && bodyHTML && bodyHTML.length > 0) {
+      const cssRules = await getCriticalHdsRules(bodyHTML, hdsStyles);
+      const HeadComponents = [
+        <style data-used-styles dangerouslySetInnerHTML={{ __html: cssRules }} />
+      ];
+
+      return setHeadComponents(HeadComponents);
+    }
+
+    return;
+  }
+  ```
+</Accordion>
+
+### Option 2: Use index.css or hdsStyles (not recommended)
+
+HDS react provides all the styles of HDS components in a file called `index.css`, located at the root of the library.
+You can import that file and collect the critical CSS styles from there. Another alternative is to use exported variable
+called `hdsStyles`:
+
+```js
+import { hdsStyles } from 'hds-react';
+```
+This variable holds all the styles of HDS React components compiled into a single string. It might be tempting to include
+all the styles in `hdsStyles` or `index.css` to your Html, and call it a day. This is not optimal because the size of the
+HDS styles is large and probably growing as new components are added to it. Adding all the styles might have an impact on the
+performance of the app. Instead, you should collect only the necessary styles for the initial render. We recommend using
+the tool described in option 1. But if you are unable to use that, extracting the critical CSS styles from either
+`hdsStyles` or `index.css` might work out for you.
