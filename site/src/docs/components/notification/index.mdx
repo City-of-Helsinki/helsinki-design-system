@@ -7,6 +7,7 @@ navTitle: 'Notification'
 import { Notification, Button } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -33,7 +34,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### When to use each status colour (info, success, alert, error)?
 
-- You can find guidelines on when to use each status colour in the [colour guidelines](/foundation/design-tokens/colour#ui-colours 'UI colours'). Aim to use notification levels and colours consistently across your service.
+- You can find guidelines on when to use each status colour in the <InternalLink href="/foundation/design-tokens/colour#ui-colours">colour guidelines</InternalLink>. Aim to use notification levels and colours consistently across your service.
 
 ### Variations
 

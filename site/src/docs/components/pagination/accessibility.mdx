@@ -4,6 +4,7 @@ title: 'Pagination - Accessibility'
 ---
 
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -11,7 +12,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Pay attention to
 
-- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/foundation/design-tokens/colour 'Colour') to ensure accessibility.
+- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to <InternalLink href="/foundation/design-tokens/colour">colour guidelines</InternalLink> to ensure accessibility.
 - Each page number must have an `aria-label` to describe it. For example, `aria-label="Page 3"`.
 - The active page number must have an `aria-current="page"` attribute.
 - The truncation element ("..." or ellipsis) does not need to have an `aria-label`.

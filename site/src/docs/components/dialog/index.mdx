@@ -7,6 +7,7 @@ navTitle: 'Dialog'
 import { Dialog, Button, IconInfoCircle, IconTrash } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -66,8 +67,8 @@ export const DialogExample = () => {
 - **Dialogs are a very intrusive pattern and they should only be used when the immediate actions or focus from the user are needed.**
 - Be careful when including a separate close ("x") icon in the dialog. If there are more than one action available in the dialog, it can be ambiguous for the user which action is triggered when the close icon is pressed.
   - Generally, it is a good practise to omit the close icon if the dialog has more than one action available.
-- If your dialog contains form elements, follow [HDS form](/patterns/forms/form-building) and [form validation patterns](/patterns/forms/form-validation) similarly as you would in a regular forms.
-- As dialogs always contain buttons, pay close attention that the button labels describe the action it is going to trigger. You can read more information about this in the [HDS Button documentation page](/components/button).
+- If your dialog contains form elements, follow <InternalLink href="/patterns/forms/form-building">HDS form</InternalLink> and <InternalLink href="/patterns/forms/form-validation">form validation patterns</InternalLink> similarly as you would in a regular forms.
+- As dialogs always contain buttons, pay close attention that the button labels describe the action it is going to trigger. You can read more information about this in the <InternalLink href="/components/button">HDS Button documentation page.</InternalLink>
   - Following the same guidelines as the HDS Form pattern, dialog action buttons are placed at the left side of the dialog and the primary action will be the first one from the left.
   - If some of the actions are destructive or irreversible, the button order should be reversed so so that the destructive actions are last in the button list. See [Danger dialog example](#danger-dialog) for more information.
 - Opening a dialog should be always triggered by the user. Do not open dialogs without user action.

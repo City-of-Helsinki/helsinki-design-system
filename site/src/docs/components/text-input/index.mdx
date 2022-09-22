@@ -7,6 +7,7 @@ navTitle: 'TextInput'
 import { TextInput } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -28,7 +29,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Principles
 
 - **A label should always be provided with a text field.**
-- Use a text input when a single line of text is expected. For multiline inputs, use a [TextArea component](/components/text-area).
+- Use a text input when a single line of text is expected. For multiline inputs, use a <InternalLink href="/components/text-area">TextArea component.</InternalLink>
 - Allow the text input to reflect the length of the content you expect the user to enter.
 - If possible, add programmatic assistance. Detect and pre-fill inputs to reduce errors and save time. Use sentence-case for default values, detected values, and auto-completion text.
 - If possible, do input validation in client-side real-time and provide the user with immediate feedback. See [HDS Form validation pattern page](/patterns/forms/form-validation) for more information.
