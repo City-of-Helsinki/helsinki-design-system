@@ -4,6 +4,8 @@ title: 'CookieConsent - Code'
 ---
 
 import { withPrefix } from 'gatsby';
+import { Link } from 'hds-react';
+import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 import InternalLink from '../../../components/InternalLink';
 
@@ -64,13 +66,13 @@ export const SimpleModalVersion = () => {
 };
 ```
 
-<InternalLink
+<Link
   openInNewTab
   openInNewTabAriaLabel="Opens in a new tab"
-  href={'/storybook/react/?path=/story/components-cookieconsent--english-modal-version'}
+  href="/storybook/react/?path=/story/components-cookieconsent--english-modal-version"
 >
   View working modal demo in Storybook
-</InternalLink>
+</Link>
 
 ### Rendered on a page
 
@@ -106,24 +108,24 @@ export const PageVersion = () => {
 };
 ```
 
-<InternalLink
+<Link
   openInNewTab
   openInNewTabAriaLabel="Opens in a new tab"
-  href={'/storybook/react/?path=/story/components-cookieconsent--page-version'}
+  href="/storybook/react/?path=/story/components-cookieconsent--page-version"
 >
   View working page example in Storybook
-</InternalLink>
+</Link>
 
 ### Packages
 
 | Package       | Included                                                                                        | Storybook link                                                                                                                                                                             | Source link                                                                                                                                                                                                                                                                        |
 | ------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <InternalLink size="M" openInNewTab openInNewTabAriaLabel="Opens in a new tab" href={'/storybook/react/?path=/story/components-cookieconsent--english-modal-version'}>View in Storybook</InternalLink> | <Link size="M" external openInExternalDomainAriaLabel="Opens in a new domain" openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/cookieConsent">View source</Link> |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link size="M" openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-cookieconsent--english-modal-version">View in Storybook</Link> | <ExternalLink size="M" openInExternalDomainAriaLabel="Opens in a new domain" openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/cookieConsent">View source</ExternalLink> |
 | **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCrossCircle /> No </div>      | -                                                                                                                                                                                          | -                                                                                                                                                                                                                                                                                  |
 
 ### Properties
 
-Note! You can find the full list of properties in the <InternalLink size="M" openInNewTab openInNewTabAriaLabel="Opens in a new tab" href={'/storybook/react/?path=/story/components-cookieconsent--english-modal-version'}>React Storybook.</InternalLink>
+Note! You can find the full list of properties in the <Link size="M" openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-cookieconsent--english-modal-version">React Storybook.</Link>
 Also, you can find a detailed description of the `contentSource` property in the <InternalLink href="/components/cookie-consent/api">API tab</InternalLink>.
 
 | Property        | Description                                     | Values   | Default value                       |

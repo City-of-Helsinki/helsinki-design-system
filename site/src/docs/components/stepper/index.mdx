@@ -5,10 +5,9 @@ navTitle: 'Stepper'
 ---
 
 import { useReducer } from 'react';
-import { Stepper, StepState, Button, IconArrowLeft, IconArrowRight } from 'hds-react';
+import { Stepper, StepState, Button, IconArrowLeft, IconArrowRight, Link } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
-import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -140,7 +139,7 @@ export const StepperExample = () => {
   - You can use the default variant on small screens if the amount of steps is small (2-4 steps).
 - Do not span the stepper into multiple rows. If you are running out of space, consider using [the small variant](#small) or alter the spacing between steps.
   - HDS stepper also supports scrolling when it overflows outside the container. Generally, this should be the last resort option if it is not possible to fit the stepper on screen with other methods.
-- You can find an example of creating a complete form with the stepper in <InternalLink size="M" href="/storybook/react/?path=/docs/components-stepper--simple-form-example#simple-form-example">the HDS React Storybook</InternalLink>.
+- You can find an example of creating a complete form with the stepper in <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" size="M" href="/storybook/react/?path=/docs/components-stepper--simple-form-example#simple-form-example">the HDS React Storybook</Link>.
 
 ### Variations
 

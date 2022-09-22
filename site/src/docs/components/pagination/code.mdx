@@ -4,7 +4,7 @@ title: 'Pagination - Code'
 ---
 import { useState } from 'react';
 import { withPrefix } from 'gatsby';
-export { Pagination } from 'hds-react';
+export { Link, Pagination } from 'hds-react';
 import Playground from '../../../components/Playground';
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
@@ -219,12 +219,12 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Packages
 | Package           | Included                                                                                        | Storybook link                                                                                                                 | Source link                                                                                                                                                     |
 | ----------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **HDS React**     | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <ExternalLink href={withPrefix("/storybook/react/?path=/story/components-pagination--basic")}>View in Storybook</ExternalLink> | <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/pagination">View source</ExternalLink> |
-| **HDS Core**      | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <ExternalLink href={withPrefix("/storybook/core/?path=/story/components-pagination--basic")}>View in Storybook</ExternalLink>  | <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/pagination">View source</ExternalLink>  |
+| **HDS React**     | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-pagination--basic">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/pagination">View source</ExternalLink> |
+| **HDS Core**      | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-pagination--basic">View in Storybook</Link>  | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/pagination">View source</ExternalLink>  |
 
 ### Properties
 
-Note! You can find the full list of properties in the <ExternalLink href="/storybook/react/?path=/docs/components-pagination--basic">React Storybook.</ExternalLink>
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/docs/components-pagination--basic">React Storybook.</Link>
 
 | Property              | Description                                                       | Values     | Default value  |
 | --------------------- | ----------------------------------------------------------------- | ---------- | -------------- |
