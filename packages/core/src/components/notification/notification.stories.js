@@ -80,7 +80,7 @@ export const Toast = () =>
       (position) =>
         `
         <section aria-label="Notification" role="alert" class="hds-notification hds-notification--${position}">
-          <div role="alert" class="hds-notification__content">
+          <div class="hds-notification__content">
             ${getLabel('info', false)}
             ${position}
           </div>
@@ -137,8 +137,8 @@ export const WithBoxShadow = () => `
 WithBoxShadow.storyName = 'With box shadow';
 
 export const Invisible = () => `
-    <div class="hiddenFromScreen" aria-atomic="true" aria-live="assertive" role="status">
-      <section aria-label="Notification" class="hds-notification">
+    <div class="hiddenFromScreen">
+      <section aria-label="Notification" role="alert" class="hds-notification">
         <div class="hds-notification__content">
           ${getLabel('info')}
           This notification is only visible to screen readers
@@ -148,15 +148,15 @@ export const Invisible = () => `
 `;
 
 export const WithClose = () => `
-    <section aria-label="Notification" aria-atomic="true" class="hds-notification">
+    <section aria-label="Notification" role="alert" class="hds-notification">
       <div class="hds-notification__content">
-        ${getLabel('info')}
+        ${getLabel('info', false)}
         ${text}
       </div>
       ${closeButton}
     </section>
     <br>
-    <section aria-label="Notification" aria-atomic="true" class="hds-notification hds-notification--small">
+    <section aria-label="Notification" role="alert" class="hds-notification hds-notification--small">
       <div class="hds-notification__content">
         <div class="hds-notification__label">
           <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
@@ -166,9 +166,9 @@ export const WithClose = () => `
       ${closeButton}
     </section>
     <br>
-    <section aria-label="Notification" aria-atomic="true" class="hds-notification hds-notification--large">
+    <section aria-label="Notification" role="alert" class="hds-notification hds-notification--large">
       <div class="hds-notification__content">
-        ${getLabel('info')}
+        ${getLabel('info', false)}
         ${text}
       </div>
       ${closeButton}
