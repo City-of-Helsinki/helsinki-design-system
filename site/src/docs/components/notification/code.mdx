@@ -102,7 +102,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ```html
 <section aria-label="Notification" class="hds-notification hds-notification--top-right">
   <div role="alert" class="hds-notification__content">
-    <div class="hds-notification__label" role="heading" aria-level="2">
+    <div class="hds-notification__label">
       <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
       <span>New messages</span>
     </div>
@@ -174,10 +174,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ```
 
 ```html
-<div class="hiddenFromScreen" aria-atomic="true" aria-live="assertive" role="status">
+<div class="hiddenFromScreen" role="alert">
   <section aria-label="Notification" class="hds-notification">
     <div class="hds-notification__content">
-      <div class="hds-notification__label" role="heading" aria-level="2">
+      <div class="hds-notification__label">
         <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
         <span>New messages</span>
       </div>
