@@ -200,7 +200,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
     }: NotificationProps,
     ref,
   ) => {
-    const isToast:boolean = position !== 'inline';
+    const isToast: boolean = position !== 'inline';
     // only allow size 'large' for inline notifications
     if (isToast && size === 'large') {
       // eslint-disable-next-line no-console
