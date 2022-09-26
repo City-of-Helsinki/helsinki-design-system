@@ -28,6 +28,10 @@ const getCriticalRules = (html: string, def: StyleDefinition, filter: SelectionF
     .join('');
 };
 
+/**
+ * SSR tool based on used-styles npm library. We copied necessary code here instead of using the library, because
+ * the used-styles library contained unnecessary code which caused problems in browsers.
+ */
 export async function getCriticalHdsRules(markup: string, allHDSStyles: string): Promise<string> {
   if (markup && markup.length > 0 && allHDSStyles && allHDSStyles.length > 0) {
     const styleData = loadStyleDefinitions(
