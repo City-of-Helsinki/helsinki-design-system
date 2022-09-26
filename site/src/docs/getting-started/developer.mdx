@@ -4,6 +4,7 @@ title: "Developer"
 ---
 
 import { Link } from "hds-react";
+import { withPrefix, navigate } from "gatsby";
 import ExternalLink from '../../components/ExternalLink';
 import LeadParagraph from '../../components/LeadParagraph';
 
@@ -38,17 +39,33 @@ Helsinki Design System React library provides a collection of React components f
 
 ### Using the React component library
 
-#### Install the package:
+#### Install the package
 
 `yarn add hds-react`
 
-#### Import components:
+#### Import components
 
 `import { TextInput } from "hds-react";`
 
 or
 
 `import { TextInput } from "hds-react/components/TextInput";`
+
+#### Server-side rendering
+
+export const SSRGuideline = () => {
+  return (
+    <Link
+      onClick={(event) => {
+        event.preventDefault();
+        navigate('/foundation/guidelines/server-side-rendering');
+      }}
+      href={withPrefix('/foundation/guidelines/server-side-rendering')}>
+      guideline
+    </Link>
+)};
+
+Using server-side rendering? Check our <SSRGuideline /> on how to use HDS React components with server-side rendering.
 
 ## WordPress and Drupal
 While HDS does not currently offer WordPress or Drupal implementations, HDS cooperates with multiple WordPress and Drupal projects in the City of Helsinki. Many of these projects have already implemented HDS components which can be reused in other projects.
