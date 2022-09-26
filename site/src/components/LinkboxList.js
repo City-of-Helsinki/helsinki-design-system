@@ -21,7 +21,7 @@ const LinkboxList = ({ data, className }) => (
             external={item.external}
             heading={item.name}
             text={item.text}
-            imgProps={item.imgProps ? { ...item.imgProps, src: withPrefix(item.imgProps.src) } : undefined}
+            imgProps={{ src: withPrefix("/images/components/overview/" + item.name + "@2x.png"), width: 280, height: 180}}
             onClick={(event) => {
               if (!item.external) {
                 event.preventDefault();
