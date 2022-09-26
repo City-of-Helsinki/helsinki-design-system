@@ -269,7 +269,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
     const minuteInputId = `${id}-minutes`;
 
     return (
-      <InputWrapper {...wrapperProps} id={`${id}-hours`}>
+      <InputWrapper {...wrapperProps} id={id}>
         <div {...frameProps}>
           <input
             aria-hidden
