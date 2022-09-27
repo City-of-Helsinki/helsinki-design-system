@@ -29,9 +29,24 @@ To collect analytics from all found repositories, run:
 The bash script file `find-hds-react-version-usage.sh` calls Github API and finds all `hds-react` occurrences in code under the City of Helsinki organisation and gets the corresponding repository name, Github URL and hds-react version and puts them in a JSON file. This could possibly be merged into the analytics scripts to provide even more refined analytics data.
 
 ### How to use it
-You need bash and a Github account.
 
+Requirements for running the script:
+- Github account
+- Personal Access Token (PAT for short) for Github
+- [brew](https://brew.sh/)
+- [jq](https://stedolan.github.io/jq/) - for JSON handling
+- sponge library - for file management
+
+#### Github Personal Access Token
 The script uses an environment variable called `GITHUB_TOKEN` which is Personal Access Token (PAT for short) which you can obtain from your [Github settings](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token). If you can't be bothered, you can replace the `GITHUB_TOKEN` in the script with your PAT.
+The PAT token requires the following permissions: repo, admin:public_key and project.
+
+#### Brew, jq and sponge
+Install brew for MacOS and Linux with this command: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"``
+
+jq: `brew install jq`
+
+sponge: `brew install sponge`
 
 Run the script in the terminal with `bash find-hds-react-version-usage.sh`
 
