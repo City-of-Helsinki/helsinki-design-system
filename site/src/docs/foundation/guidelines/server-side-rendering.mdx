@@ -80,6 +80,7 @@ See below for more complete examples:
 <Accordion
   heading="Next.js"
   headingLevel="4"
+  language="en"
   size={"s"}
   theme={{
     '--padding-vertical': 'var(--spacing-s)',
@@ -88,7 +89,7 @@ See below for more complete examples:
   In the Next.js framework, create a file called _document.js in folder pages, and add this code to it:
 
   ```js
-  // pages/_document.js
+  // pages/_document.js - tested with next.js version: 10.0.5
   import Document, { Html, Head, Main, NextScript } from 'next/document'
   import { getCriticalHdsRules, hdsStyles } from 'hds-react';
 
@@ -122,6 +123,7 @@ See below for more complete examples:
 <Accordion
   heading="Gatsby"
   headingLevel="4"
+  language="en"
   size={"s"}
   theme={{
     '--padding-vertical': 'var(--spacing-s)',
@@ -130,7 +132,7 @@ See below for more complete examples:
   In the Gatsby framework, create a file called gatsby-ssr.js at the root of the project, and add this code to it:
 
   ```js
-  // gatsby-ssr.js
+  // gatsby-ssr.js - tested with gatsby version 4.17.0
   import React from 'react';
   import { getCriticalHdsRules, hdsStyles } from 'hds-react';
   import { renderToString } from 'react-dom/server';
