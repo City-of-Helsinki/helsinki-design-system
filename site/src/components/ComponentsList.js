@@ -10,6 +10,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Accordion component',
       linkAriaLabel: 'Go to the Accordion component page',
       href: '/components/accordion',
+      imgProps: { 
+        src: '/images/components/overview/accordion@2x.png', 
+        alt: 'An illustration of the Accordion component.'
+      },
     },
     {
       name: 'Button',
@@ -17,6 +21,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Button component',
       linkAriaLabel: 'Go to the Button component page',
       href: '/components/buttons',
+      imgProps: { 
+        src: '/images/components/overview/button@2x.png', 
+        alt: 'An illustration of the Button component.'
+      },
     },
     {
       name: 'Card',
@@ -24,6 +32,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Card component',
       linkAriaLabel: 'Go to the Card component page',
       href: '/components/card',
+      imgProps: { 
+        src: '/images/components/overview/card@2x.png', 
+        alt: 'An illustration of the Card component.'
+      },
     },
     {
       name: 'Checkbox',
@@ -31,6 +43,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Checkbox component',
       linkAriaLabel: 'Go to the Checkbox component page',
       href: '/components/checkbox',
+      imgProps: { 
+        src: '/images/components/overview/checkbox@2x.png', 
+        alt: 'An illustration of the Checkbox component.'
+      },
     },
     {
       name: 'CookieConsent',
@@ -38,6 +54,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'CookieConsent components',
       linkAriaLabel: 'Go to the CookieConsent components page',
       href: '/components/cookie-consent',
+      imgProps: { 
+        src: '/images/components/overview/cookieconsent@2x.png', 
+        alt: 'An illustration of the CookieConsent component.'
+      },
     },
     {
       name: 'DateInput',
@@ -45,6 +65,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'DateInput component',
       linkAriaLabel: 'Go to the DateInput component page',
       href: '/components/date-input',
+      imgProps: { 
+        src: '/images/components/overview/dateinput@2x.png', 
+        alt: 'An illustration of the DateInput component.'
+      },
     },
     {
       name: 'Dialog',
@@ -52,6 +76,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Dialog component',
       linkAriaLabel: 'Go to the Dialog component page',
       href: '/components/dialog',
+      imgProps: { 
+        src: '/images/components/overview/dialog@2x.png', 
+        alt: 'An illustration of the Dialog component.'
+      },
     },
     {
       name: 'Dropdown',
@@ -59,6 +87,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Dropdown component',
       linkAriaLabel: 'Go to the Dropdown component page',
       href: '/components/dropdown',
+      imgProps: { 
+        src: '/images/components/overview/dropdown@2x.png', 
+        alt: 'An illustration of the Dropdown component.'
+      },
     },
     {
       name: 'Fieldset',
@@ -66,6 +98,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Fieldset component',
       linkAriaLabel: 'Go to the Fieldset component page',
       href: '/components/fieldset',
+      imgProps: { 
+        src: '/images/components/overview/fieldset@2x.png', 
+        alt: 'An illustration of the Fieldset component.'
+      },
     },
     {
       name: 'FileInput',
@@ -73,6 +109,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'FileInput component',
       linkAriaLabel: 'Go to the FileInput component page',
       href: '/components/file-input',
+      imgProps: { 
+        src: '/images/components/overview/fileinput@2x.png', 
+        alt: 'An illustration of the FileInput component.'
+      },
     },
     {
       name: 'Footer',
@@ -80,6 +120,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Footer component',
       linkAriaLabel: 'Go to the Footer component page',
       href: '/components/footer',
+      imgProps: { 
+        src: '/images/components/overview/footer@2x.png', 
+        alt: 'An illustration of the Footer component.'
+      },
     },
     {
       name: 'Icon',
@@ -87,6 +131,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Icon component',
       linkAriaLabel: 'Go to the Icon component page',
       href: '/components/icon',
+      imgProps: { 
+        src: '/images/components/overview/icon@2x.png', 
+        alt: 'An illustration of the Icon component.'
+      },
     },
     {
       name: 'Koros',
@@ -94,6 +142,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Koros component',
       linkAriaLabel: 'Go to the Koros component page',
       href: '/components/koros',
+      imgProps: { 
+        src: '/images/components/overview/koros@2x.png', 
+        alt: 'An illustration of the Koros component.'
+      },
     },
     {
       name: 'Link',
@@ -101,6 +153,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Link component',
       linkAriaLabel: 'Go to the Link component page',
       href: '/components/link',
+      imgProps: { 
+        src: '/images/components/overview/link@2x.png', 
+        alt: 'An illustration of the Link component.'
+      },
     },
     {
       name: 'Linkbox',
@@ -108,6 +164,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Linkbox component',
       linkAriaLabel: 'Go to the Linkbox component page',
       href: '/components/linkbox',
+      imgProps: { 
+        src: '/images/components/overview/linkbox@2x.png', 
+        alt: 'An illustration of the Linkbox component.'
+      },
     },
     {
       name: 'LoadingSpinner',
@@ -115,6 +175,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'LoadingSpinner component',
       linkAriaLabel: 'Go to the LoadingSpinner component page',
       href: '/components/loading-spinner',
+      imgProps: { 
+        src: '/images/components/overview/loadingspinner@2x.png', 
+        alt: 'An illustration of the LoadingSpinner component.'
+      },
     },
     {
       name: 'Logo',
@@ -122,6 +186,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Logo component',
       linkAriaLabel: 'Go to the Logo component page',
       href: '/components/logo',
+      imgProps: { 
+        src: '/images/components/overview/logo@2x.png', 
+        alt: 'An illustration of the Logo component.'
+      },
     },
     {
       name: 'Navigation',
@@ -129,6 +197,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Navigation component',
       linkAriaLabel: 'Go to the Navigation component page',
       href: '/components/navigation',
+      imgProps: { 
+        src: '/images/components/overview/navigation@2x.png', 
+        alt: 'An illustration of the Navigation component.'
+      },
     },
     {
       name: 'Notification',
@@ -136,6 +208,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Notification component',
       linkAriaLabel: 'Go to the Notification component page',
       href: '/components/notification',
+      imgProps: { 
+        src: '/images/components/overview/notification@2x.png', 
+        alt: 'An illustration of the Notification component.'
+      },
     },
     {
       name: 'NumberInput',
@@ -143,6 +219,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'NumberInput component',
       linkAriaLabel: 'Go to the NumberInput component page',
       href: '/components/number-input',
+      imgProps: { 
+        src: '/images/components/overview/numberinput@2x.png', 
+        alt: 'An illustration of the NumberInput component.'
+      },
     },
     {
       name: 'Pagination',
@@ -150,6 +230,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Pagination component',
       linkAriaLabel: 'Go to the Pagination component page',
       href: '/components/pagination',
+      imgProps: { 
+        src: '/images/components/overview/pagination@2x.png', 
+        alt: 'An illustration of the Pagination component.'
+      },
     },
     {
       name: 'PasswordInput',
@@ -157,6 +241,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'PasswordInput component',
       linkAriaLabel: 'Go to the PasswordInput component page',
       href: '/components/password-input',
+      imgProps: { 
+        src: '/images/components/overview/passwordinput@2x.png', 
+        alt: 'An illustration of the PasswordInput component.'
+      },
     },
     {
       name: 'PhoneInput',
@@ -164,6 +252,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'PhoneInput component',
       linkAriaLabel: 'Go to the PhoneInput component page',
       href: '/components/phone-input',
+      imgProps: { 
+        src: '/images/components/overview/phoneinput@2x.png', 
+        alt: 'An illustration of the PhoneInput component.'
+      },
     },
     {
       name: 'RadioButton',
@@ -171,6 +263,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'RadioButton component',
       linkAriaLabel: 'Go to the RadioButton component page',
       href: '/components/radio-button',
+      imgProps: { 
+        src: '/images/components/overview/radiobutton@2x.png', 
+        alt: 'An illustration of the RadioButton component.'
+      },
     },
     {
       name: 'SearchInput',
@@ -178,6 +274,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'SearchInput component',
       linkAriaLabel: 'Go to the SearchInput component page',
       href: '/components/search-input',
+      imgProps: { 
+        src: '/images/components/overview/searchinput@2x.png', 
+        alt: 'An illustration of the SearchInput component.'
+      },
     },
     {
       name: 'SelectionGroup',
@@ -185,6 +285,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'SelectionGroup component',
       linkAriaLabel: 'Go to the SelectionGroup component page',
       href: '/components/selection-group',
+      imgProps: { 
+        src: '/images/components/overview/selectiongroup@2x.png', 
+        alt: 'An illustration of the SelectionGroup component.'
+      },
     },
     {
       name: 'SideNavigation',
@@ -192,6 +296,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'SideNavigation component',
       linkAriaLabel: 'Go to the SideNavigation component page',
       href: '/components/side-navigation',
+      imgProps: { 
+        src: '/images/components/overview/sidenavigation@2x.png', 
+        alt: 'An illustration of the SideNavigation component.'
+      },
     },
     {
       name: 'StatusLabel',
@@ -199,6 +307,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'StatusLabel component',
       linkAriaLabel: 'Go to the StatusLabel component page',
       href: '/components/status-label',
+      imgProps: { 
+        src: '/images/components/overview/statuslabel@2x.png', 
+        alt: 'An illustration of the StatusLabel component.'
+      },
     },
     {
       name: 'Stepper',
@@ -206,6 +318,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Stepper component',
       linkAriaLabel: 'Go to the Stepper component page',
       href: '/components/stepper',
+      imgProps: { 
+        src: '/images/components/overview/stepper@2x.png', 
+        alt: 'An illustration of the Stepper component.'
+      },
     },
     {
       name: 'Table',
@@ -213,6 +329,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Table component',
       linkAriaLabel: 'Go to the Table component page',
       href: '/components/table',
+      imgProps: { 
+        src: '/images/components/overview/table@2x.png', 
+        alt: 'An illustration of the Table component.'
+      },
     },
     {
       name: 'Tabs',
@@ -220,6 +340,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Tabs component',
       linkAriaLabel: 'Go to the Tabs component page',
       href: '/components/tabs',
+      imgProps: { 
+        src: '/images/components/overview/tabs@2x.png', 
+        alt: 'An illustration of the Tabs component.'
+      },
     },
     {
       name: 'Tag',
@@ -227,6 +351,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Tag component',
       linkAriaLabel: 'Go to the Tag component page',
       href: '/components/tag',
+      imgProps: { 
+        src: '/images/components/overview/tag@2x.png', 
+        alt: 'An illustration of the Tag component.'
+      },
     },
     {
       name: 'TextArea',
@@ -234,6 +362,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'TextArea component',
       linkAriaLabel: 'Go to the TextArea component page',
       href: '/components/text-area',
+      imgProps: { 
+        src: '/images/components/overview/textarea@2x.png', 
+        alt: 'An illustration of the TextArea component.'
+      },
     },
     {
       name: 'TextInput',
@@ -241,6 +373,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'TextInput component',
       linkAriaLabel: 'Go to the TextInput component page',
       href: '/components/text-input',
+      imgProps: { 
+        src: '/images/components/overview/textinput@2x.png', 
+        alt: 'An illustration of the TextInput component.'
+      },
     },
     {
       name: 'TimeInput',
@@ -248,6 +384,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'TimeInput component',
       linkAriaLabel: 'Go to the TimeInput component page',
       href: '/components/time-input',
+      imgProps: { 
+        src: '/images/components/overview/timeinput@2x.png', 
+        alt: 'An illustration of the TimeInput component.'
+      },
     },
     {
       name: 'ToggleButton',
@@ -255,6 +395,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'ToggleButton component',
       linkAriaLabel: 'Go to the ToggleButton component page',
       href: '/components/toggle-button',
+      imgProps: { 
+        src: '/images/components/overview/togglebutton@2x.png', 
+        alt: 'An illustration of the ToggleButton component.'
+      },
     },
     {
       name: 'Tooltip',
@@ -262,6 +406,10 @@ const ComponentsList = () => {
       linkboxAriaLabel: 'Tooltip component',
       linkAriaLabel: 'Go to the Tooltip component page',
       href: '/components/tooltip',
+      imgProps: { 
+        src: '/images/components/overview/tooltip@2x.png', 
+        alt: 'An illustration of the Tooltip component.'
+      },
     },
   ];
 
