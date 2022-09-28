@@ -7,6 +7,7 @@ navTitle: 'Footer'
 import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -53,7 +54,7 @@ Footer stays consistent throughout the site and is often the place where users s
 
 - **It is strongly recommended to always include the footer component in your service and on every page of the service.**
 - Always position the footer to the bottom of the page.
-- Footer component is built to follow HDS [breakpoint tokens](/foundation/design-tokens/breakpoints). While it is recommended to follow HDS breakpoint tokens, you may alter footer width to fit your service's needs.
+- Footer component is built to follow HDS <InternalLink href="/foundation/design-tokens/breakpoints">breakpoint tokens</InternalLink>. While it is recommended to follow HDS breakpoint tokens, you may alter footer width to fit your service's needs.
 - Keep the order of footer sections (navigation, utility, base) and actions consistent. Do not change the default order without a good reason.
 - The footer navigation should follow the same structure and labelling as the primary navigation. All top level pages included in the primary navigation should also be visible in footer navigation.
 - If sub-pages are included in the footer, they should also follow the same structure and labelling as in the primary navigation. All same-level sub-pages should be visible.
