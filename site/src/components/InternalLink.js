@@ -15,7 +15,7 @@ const InternalLink = ({ href, children, openInNewTab, openInNewTabAriaLabel, siz
       size={size}
       onClick={(event) => {
         event.preventDefault();
-        navigate(withPrefix(href));
+        navigate(href);
       }}
     >
       {children}
