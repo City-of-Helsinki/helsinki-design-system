@@ -85,5 +85,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: loki_images_${{ matrix.loki_configuration }}_${{ matrix.loki_test_group }}
-          path: .loki/*/*${{ matrix.loki_configuration }}/${{ matrix.loki_test_group }}*.*
+          path: packages/react/.loki/**/*${{ matrix.loki_configuration }}/${{ matrix.loki_test_group }}*.*
         if: failure()
