@@ -12,7 +12,9 @@ const ComponentsList = () => {
       href: '/components/accordion',
       imgProps: { 
         src: '/images/components/overview/accordion@2x.png', 
-        alt: 'An illustration of the Accordion component.'
+        alt: 'An illustration of the Accordion component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -23,7 +25,9 @@ const ComponentsList = () => {
       href: '/components/buttons',
       imgProps: { 
         src: '/images/components/overview/button@2x.png', 
-        alt: 'An illustration of the Button component.'
+        alt: 'An illustration of the Button component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -34,7 +38,9 @@ const ComponentsList = () => {
       href: '/components/card',
       imgProps: { 
         src: '/images/components/overview/card@2x.png', 
-        alt: 'An illustration of the Card component.'
+        alt: 'An illustration of the Card component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -45,7 +51,9 @@ const ComponentsList = () => {
       href: '/components/checkbox',
       imgProps: { 
         src: '/images/components/overview/checkbox@2x.png', 
-        alt: 'An illustration of the Checkbox component.'
+        alt: 'An illustration of the Checkbox component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -56,7 +64,9 @@ const ComponentsList = () => {
       href: '/components/cookie-consent',
       imgProps: { 
         src: '/images/components/overview/cookieconsent@2x.png', 
-        alt: 'An illustration of the CookieConsent component.'
+        alt: 'An illustration of the CookieConsent component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -67,7 +77,9 @@ const ComponentsList = () => {
       href: '/components/date-input',
       imgProps: { 
         src: '/images/components/overview/dateinput@2x.png', 
-        alt: 'An illustration of the DateInput component.'
+        alt: 'An illustration of the DateInput component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -78,7 +90,9 @@ const ComponentsList = () => {
       href: '/components/dialog',
       imgProps: { 
         src: '/images/components/overview/dialog@2x.png', 
-        alt: 'An illustration of the Dialog component.'
+        alt: 'An illustration of the Dialog component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -89,7 +103,9 @@ const ComponentsList = () => {
       href: '/components/dropdown',
       imgProps: { 
         src: '/images/components/overview/dropdown@2x.png', 
-        alt: 'An illustration of the Dropdown component.'
+        alt: 'An illustration of the Dropdown component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -100,7 +116,9 @@ const ComponentsList = () => {
       href: '/components/fieldset',
       imgProps: { 
         src: '/images/components/overview/fieldset@2x.png', 
-        alt: 'An illustration of the Fieldset component.'
+        alt: 'An illustration of the Fieldset component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -111,7 +129,9 @@ const ComponentsList = () => {
       href: '/components/file-input',
       imgProps: { 
         src: '/images/components/overview/fileinput@2x.png', 
-        alt: 'An illustration of the FileInput component.'
+        alt: 'An illustration of the FileInput component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -122,7 +142,9 @@ const ComponentsList = () => {
       href: '/components/footer',
       imgProps: { 
         src: '/images/components/overview/footer@2x.png', 
-        alt: 'An illustration of the Footer component.'
+        alt: 'An illustration of the Footer component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -133,7 +155,9 @@ const ComponentsList = () => {
       href: '/components/icon',
       imgProps: { 
         src: '/images/components/overview/icon@2x.png', 
-        alt: 'An illustration of the Icon component.'
+        alt: 'An illustration of the Icon component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -144,7 +168,9 @@ const ComponentsList = () => {
       href: '/components/koros',
       imgProps: { 
         src: '/images/components/overview/koros@2x.png', 
-        alt: 'An illustration of the Koros component.'
+        alt: 'An illustration of the Koros component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -155,7 +181,9 @@ const ComponentsList = () => {
       href: '/components/link',
       imgProps: { 
         src: '/images/components/overview/link@2x.png', 
-        alt: 'An illustration of the Link component.'
+        alt: 'An illustration of the Link component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -166,7 +194,9 @@ const ComponentsList = () => {
       href: '/components/linkbox',
       imgProps: { 
         src: '/images/components/overview/linkbox@2x.png', 
-        alt: 'An illustration of the Linkbox component.'
+        alt: 'An illustration of the Linkbox component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -177,7 +207,9 @@ const ComponentsList = () => {
       href: '/components/loading-spinner',
       imgProps: { 
         src: '/images/components/overview/loadingspinner@2x.png', 
-        alt: 'An illustration of the LoadingSpinner component.'
+        alt: 'An illustration of the LoadingSpinner component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -188,7 +220,9 @@ const ComponentsList = () => {
       href: '/components/logo',
       imgProps: { 
         src: '/images/components/overview/logo@2x.png', 
-        alt: 'An illustration of the Logo component.'
+        alt: 'An illustration of the Logo component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -199,7 +233,9 @@ const ComponentsList = () => {
       href: '/components/navigation',
       imgProps: { 
         src: '/images/components/overview/navigation@2x.png', 
-        alt: 'An illustration of the Navigation component.'
+        alt: 'An illustration of the Navigation component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -210,7 +246,9 @@ const ComponentsList = () => {
       href: '/components/notification',
       imgProps: { 
         src: '/images/components/overview/notification@2x.png', 
-        alt: 'An illustration of the Notification component.'
+        alt: 'An illustration of the Notification component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -221,7 +259,9 @@ const ComponentsList = () => {
       href: '/components/number-input',
       imgProps: { 
         src: '/images/components/overview/numberinput@2x.png', 
-        alt: 'An illustration of the NumberInput component.'
+        alt: 'An illustration of the NumberInput component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -232,7 +272,9 @@ const ComponentsList = () => {
       href: '/components/pagination',
       imgProps: { 
         src: '/images/components/overview/pagination@2x.png', 
-        alt: 'An illustration of the Pagination component.'
+        alt: 'An illustration of the Pagination component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -243,7 +285,9 @@ const ComponentsList = () => {
       href: '/components/password-input',
       imgProps: { 
         src: '/images/components/overview/passwordinput@2x.png', 
-        alt: 'An illustration of the PasswordInput component.'
+        alt: 'An illustration of the PasswordInput component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -254,7 +298,9 @@ const ComponentsList = () => {
       href: '/components/phone-input',
       imgProps: { 
         src: '/images/components/overview/phoneinput@2x.png', 
-        alt: 'An illustration of the PhoneInput component.'
+        alt: 'An illustration of the PhoneInput component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -265,7 +311,9 @@ const ComponentsList = () => {
       href: '/components/radio-button',
       imgProps: { 
         src: '/images/components/overview/radiobutton@2x.png', 
-        alt: 'An illustration of the RadioButton component.'
+        alt: 'An illustration of the RadioButton component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -276,7 +324,9 @@ const ComponentsList = () => {
       href: '/components/search-input',
       imgProps: { 
         src: '/images/components/overview/searchinput@2x.png', 
-        alt: 'An illustration of the SearchInput component.'
+        alt: 'An illustration of the SearchInput component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -287,7 +337,9 @@ const ComponentsList = () => {
       href: '/components/selection-group',
       imgProps: { 
         src: '/images/components/overview/selectiongroup@2x.png', 
-        alt: 'An illustration of the SelectionGroup component.'
+        alt: 'An illustration of the SelectionGroup component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -298,7 +350,9 @@ const ComponentsList = () => {
       href: '/components/side-navigation',
       imgProps: { 
         src: '/images/components/overview/sidenavigation@2x.png', 
-        alt: 'An illustration of the SideNavigation component.'
+        alt: 'An illustration of the SideNavigation component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -309,7 +363,9 @@ const ComponentsList = () => {
       href: '/components/status-label',
       imgProps: { 
         src: '/images/components/overview/statuslabel@2x.png', 
-        alt: 'An illustration of the StatusLabel component.'
+        alt: 'An illustration of the StatusLabel component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -320,7 +376,9 @@ const ComponentsList = () => {
       href: '/components/stepper',
       imgProps: { 
         src: '/images/components/overview/stepper@2x.png', 
-        alt: 'An illustration of the Stepper component.'
+        alt: 'An illustration of the Stepper component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -331,7 +389,9 @@ const ComponentsList = () => {
       href: '/components/table',
       imgProps: { 
         src: '/images/components/overview/table@2x.png', 
-        alt: 'An illustration of the Table component.'
+        alt: 'An illustration of the Table component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -342,7 +402,9 @@ const ComponentsList = () => {
       href: '/components/tabs',
       imgProps: { 
         src: '/images/components/overview/tabs@2x.png', 
-        alt: 'An illustration of the Tabs component.'
+        alt: 'An illustration of the Tabs component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -353,7 +415,9 @@ const ComponentsList = () => {
       href: '/components/tag',
       imgProps: { 
         src: '/images/components/overview/tag@2x.png', 
-        alt: 'An illustration of the Tag component.'
+        alt: 'An illustration of the Tag component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -364,7 +428,9 @@ const ComponentsList = () => {
       href: '/components/text-area',
       imgProps: { 
         src: '/images/components/overview/textarea@2x.png', 
-        alt: 'An illustration of the TextArea component.'
+        alt: 'An illustration of the TextArea component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -375,7 +441,9 @@ const ComponentsList = () => {
       href: '/components/text-input',
       imgProps: { 
         src: '/images/components/overview/textinput@2x.png', 
-        alt: 'An illustration of the TextInput component.'
+        alt: 'An illustration of the TextInput component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -386,7 +454,9 @@ const ComponentsList = () => {
       href: '/components/time-input',
       imgProps: { 
         src: '/images/components/overview/timeinput@2x.png', 
-        alt: 'An illustration of the TimeInput component.'
+        alt: 'An illustration of the TimeInput component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -397,7 +467,9 @@ const ComponentsList = () => {
       href: '/components/toggle-button',
       imgProps: { 
         src: '/images/components/overview/togglebutton@2x.png', 
-        alt: 'An illustration of the ToggleButton component.'
+        alt: 'An illustration of the ToggleButton component.',
+        height: 180,
+        width: 280,
       },
     },
     {
@@ -408,7 +480,9 @@ const ComponentsList = () => {
       href: '/components/tooltip',
       imgProps: { 
         src: '/images/components/overview/tooltip@2x.png', 
-        alt: 'An illustration of the Tooltip component.'
+        alt: 'An illustration of the Tooltip component.',
+        height: 180,
+        width: 280,
       },
     },
   ];
