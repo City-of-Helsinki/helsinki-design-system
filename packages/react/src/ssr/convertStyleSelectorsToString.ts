@@ -23,7 +23,7 @@ const renderRule = kashe(
   (rule: StyleSelector, style: StyleBody) => `${rule.selector} { ${declsToString(style.rules)} }`,
 );
 
-export const convertToString = (blocks: StyleSelector[], { bodies }: SingleStyleAst) => {
+export const convertStyleSelectorsToString = (blocks: StyleSelector[], { bodies }: SingleStyleAst) => {
   blocks.sort((ruleA, ruleB) => bodies[ruleA.declaration].id - bodies[ruleB.declaration].id);
 
   const result: string[] = [];

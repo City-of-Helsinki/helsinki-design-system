@@ -2,7 +2,7 @@ import { kashe } from 'kashe';
 import memoizeOne from 'memoize-one';
 
 import { SingleStyleAst, StyleDefinition, StyleSelector, SelectionFilter, StyleChunk } from './types';
-import { convertToString } from './convertToString';
+import { convertStyleSelectorsToString } from './convertStyleSelectorsToString';
 
 type FlagType = Record<string, boolean>;
 
@@ -72,7 +72,7 @@ const fromAst = (rules: string[], def: SingleStyleAst, filter?: SelectionFilter)
     ...findMatchingSelectors(lookup, def.selectors).filter((block) => !filter || filter(block.selector, block)),
   );
 
-  return convertToString(blocks, def);
+  return convertStyleSelectorsToString(blocks, def);
 };
 
 const astToStyles = kashe((styles: string[], def: StyleDefinition, filter?: SelectionFilter): StyleChunk[] => {

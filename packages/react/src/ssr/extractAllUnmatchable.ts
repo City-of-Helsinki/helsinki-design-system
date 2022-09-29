@@ -1,6 +1,6 @@
 import { kashe } from 'kashe';
 
-import { convertToString } from './convertToString';
+import { convertStyleSelectorsToString } from './convertStyleSelectorsToString';
 import { SelectionFilter, SingleStyleAst, StyleAst, StyleDefinition, StyleSelector, StyleChunk } from './types';
 
 const findUnmatchableSelectors = (selectors: StyleSelector[]): StyleSelector[] =>
@@ -12,7 +12,7 @@ const getUnmatchableRules = (def: SingleStyleAst, filter?: SelectionFilter): Sty
 const getAtRules = (def: SingleStyleAst) => def.atRules.reduce((acc, rule) => acc + rule.css, '');
 
 const extractUnmatchable = (def: SingleStyleAst, filter?: SelectionFilter) =>
-  convertToString(getUnmatchableRules(def, filter), def) + getAtRules(def);
+  convertStyleSelectorsToString(getUnmatchableRules(def, filter), def) + getAtRules(def);
 
 const extractUnmatchableFromAst = kashe((ast: StyleAst, filter?: SelectionFilter): StyleChunk[] =>
   Object.keys(ast || {})
