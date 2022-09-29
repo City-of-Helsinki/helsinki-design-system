@@ -25,7 +25,7 @@
     "build-storybook": "build-storybook --loglevel error",
     "test": "jest --env=jest-environment-jsdom-sixteen",
     "prepublishOnly": "cp -r ./lib/. .",
-    "visual-test": "loki test --requireReference --verboseRenderer --reactUri file:./storybook-static --diffingEngine looks-same --chromeDockerImage justinribeiro/chrome-headless:chromium",
+    "visual-test": "loki test --requireReference --verboseRenderer --reactUri file:./storybook-static --diffingEngine looks-same",
     "update-reference-images": "loki update"
   },
   "devDependencies": {
