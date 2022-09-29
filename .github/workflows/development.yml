@@ -78,12 +78,12 @@ jobs:
           sudo apt install graphicsmagick -y
           yarn add loki@0.30.3
 
-      - name: visually test react package with ${{ matrix.loki_configuration }}
-        run: ./node_modules/.bin/loki test --requireReference --verboseRenderer --reactUri file:./storybook-static --diffingEngine looks-same --chromeDockerImage yukinying/chrome-headless-browser-stable:latest --chromeTolerance 1 --storiesFilter ${{ matrix.loki_test_group }} ${{ matrix.loki_configuration }}
-
       - name: Sanitize artifact name. Backslash not allowed
         id: sanitize_artifact_name
-        run: echo ::set-output name=value::$(echo ${{ matrix.loki_test_group }} | tr '/'' '_')
+        run: echo ::set-output name=value::$(echo '${{ matrix.loki_test_group }}' | tr '/' '_')
+
+      - name: visually test react package with ${{ matrix.loki_configuration }}
+        run: ./node_modules/.bin/loki test --requireReference --verboseRenderer --reactUri file:./storybook-static --diffingEngine looks-same --chromeDockerImage yukinying/chrome-headless-browser-stable:latest --chromeTolerance 1 --storiesFilter ${{ matrix.loki_test_group }} ${{ matrix.loki_configuration }}
 
       - name: upload reference and actual images with ${{ matrix.loki_configuration }} and ${{ matrix.loki_test_group }} in case of failure
         uses: actions/upload-artifact@v2
