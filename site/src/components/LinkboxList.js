@@ -16,7 +16,7 @@ const LinkboxList = ({ data, className }) => (
             size="small"
             linkboxAriaLabel={item.linkboxAriaLabel}
             linkAriaLabel={item.linkAriaLabel}
-            href={item.href}
+            href={withPrefix(item.href)}
             openInExternalDomainAriaLabel={item.openInExternalDomainAriaLabel}
             external={item.external}
             heading={item.name}
