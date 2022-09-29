@@ -83,10 +83,7 @@ jobs:
 
       - name: Sanitize artifact name. Backslash not allowed
         id: sanitize_artifact_name
-        run: |
-        SANITIZED_ARTIFACT_NAME=$(echo -n ${{ matrix.loki_test_group }} | tr "/" "_")
-        echo "Sanitized artifact name: $SANITIZED_ARTIFACT_NAME"
-        echo ::set-env name=value::$SANITIZED_ARTIFACT_NAME;
+        run: echo ::set-output name=value::$(echo ${{ matrix.loki_test_group }} | tr '/'' '_')
 
       - name: upload reference and actual images with ${{ matrix.loki_configuration }} and ${{ matrix.loki_test_group }} in case of failure
         uses: actions/upload-artifact@v2
