@@ -16,7 +16,7 @@ import LeadParagraph from '../../../components/LeadParagraph';
 ## What is server-side rendering?
 
 Server-side rendering (SSR) is the process where the rendering of HTML pages is done on the server-side. The fully rendered HTML
-document is then sent to the browser to be viewed. The rendering of the HTML can happen at build time (Static site generation
+document is then sent to the browser. The rendering of the HTML can happen at build time (Static site generation
 or pre-rendering), or during an HTTP request. The alternative to SSR is client-side rendering (CSR), where most of the HTML
 content is composed and rendered in the browser using JavaScript.
 
@@ -26,16 +26,19 @@ For HDS components to work with server-side rendering, in server you need to inj
 of the HDS components that are being used into the initially rendered HTML. For hds-core, you must include the styles from
 provided CSS files yourself. For hds-react, HDS provides multiple options, that we will cover next.
 
-Critical CSS is the CSS applied to above-the-fold elements. It is the CSS of the immediately visible content in the browser viewport when the user opens your website. Critical CSS does not usually have the styles of the elements that are in the scrollable content outside of the browser viewport. There is one exception though...
-  if you have anchor links on the page. When user opens website from an url that includes an anchor link, browser
-  automatically scrolls the page so that the link will be visible.
+<Notification label="Critical CSS" className="siteNotification">
+Critical CSS is the CSS applied to above-the-fold elements. It is the CSS of the immediately visible content in the browser
+viewport when the user opens your website. Critical CSS does not usually have the styles of the elements that are in the
+scrollable content outside of the browser viewport. There is one exception though, and that is if you have anchor links on the page.
+When user opens website from an url that includes an anchor link, the browser automatically scrolls the page so that the link
+will be visible.
 </Notification>
 
 ### Option 1: getCriticalHdsRules tool to get critical styles (recommended)
 
-HDS React components use CSS-in-JS in a way where the styles are by default injected into the head tag in the browser
-use server-side rendering and do not include the critical styles on the server, this leads to flashes of unstyled
-content when user lands to the page.
+HDS React components use CSS-in-JS in a way where the styles are by default injected into the head tag in the browser.
+If you use server-side rendering and do not include the critical styles on the server, this leads to flashes of unstyled
+content when the user lands on the page.
 
 To include critical styles in server, HDS exposes a tool for extracting the used critical styles of HDS components.
 This should come handy in multiple ways:
@@ -66,7 +69,7 @@ const finalHTML =
 First, we import the tool that is named `getCriticalHdsRules`. To be able to call it, we need two things:
 
 1. The initially to be rendered HTML body code as a string.
-2. hdsStyles - a variable holding all the styles of the HDS react components.
+2. hdsStyles - a variable holding all the styles of the HDS react components as a string.
 
 Calling it returns a string containing the critical CSS styles. The rest is easy, we set those styles into
 a style tag, that we will then inject into the finally rendered HTML document. It can be wise to cache the result of
