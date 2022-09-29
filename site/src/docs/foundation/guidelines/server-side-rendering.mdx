@@ -26,10 +26,7 @@ For HDS components to work with server-side rendering, in server you need to inj
 of the HDS components that are being used into the initially rendered HTML. For hds-core, you must include the styles from
 provided CSS files yourself. For hds-react, HDS provides multiple options, that we will cover next.
 
-<Notification label="Critical CSS" className="siteNotification">
-  Critical CSS is the CSS applied to above-the-fold elements. It is the CSS responsible for content immediately
-  visible when a user opens your website. Pages can be long with scrollable content, that is not visible immediately.
-  There's no need to include the styles of elements that are not visible. There is one exception though, and that is
+Critical CSS is the CSS applied to above-the-fold elements. It is the CSS of the immediately visible content in the browser viewport when the user opens your website. Critical CSS does not usually have the styles of the elements that are in the scrollable content outside of the browser viewport. There is one exception though...
   if you have anchor links on the page. When user opens website from an url that includes an anchor link, browser
   automatically scrolls the page so that the link will be visible.
 </Notification>
