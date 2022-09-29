@@ -79,7 +79,7 @@ jobs:
           yarn add loki@0.30.3
 
       - name: visually test react package with ${{ matrix.loki_configuration }}
-        run: ./node_modules/.bin/loki test --requireReference --verboseRenderer --reactUri file:./storybook-static --diffingEngine looks-same --storiesFilter ${{ matrix.loki_test_group }} ${{ matrix.loki_configuration }}
+        run: ./node_modules/.bin/loki test --requireReference --verboseRenderer --reactUri file:./storybook-static --diffingEngine looks-same --chromeDockerImage yukinying/chrome-headless-browser-stable:latest --storiesFilter ${{ matrix.loki_test_group }} ${{ matrix.loki_configuration }}
 
       - name: upload reference and actual images with ${{ matrix.loki_configuration }} and ${{ matrix.loki_test_group }} in case of failure
         uses: actions/upload-artifact@v2
