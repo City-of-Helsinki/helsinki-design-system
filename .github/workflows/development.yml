@@ -81,9 +81,16 @@ jobs:
       - name: visually test react package with ${{ matrix.loki_configuration }}
         run: ./node_modules/.bin/loki test --requireReference --verboseRenderer --reactUri file:./storybook-static --diffingEngine looks-same --chromeDockerImage yukinying/chrome-headless-browser-stable:latest --chromeTolerance 1 --storiesFilter ${{ matrix.loki_test_group }} ${{ matrix.loki_configuration }}
 
+      - name: Sanitize artifact name. Backslash not allowed
+        id: sanitize_artifact_name
+        run: |
+        SANITIZED_ARTIFACT_NAME=$(echo -n ${{ matrix.loki_test_group }} | tr "/" "_")
+        echo "Sanitized artifact name: $SANITIZED_ARTIFACT_NAME"
+        echo ::set-env name=value::$SANITIZED_ARTIFACT_NAME;
+
       - name: upload reference and actual images with ${{ matrix.loki_configuration }} and ${{ matrix.loki_test_group }} in case of failure
         uses: actions/upload-artifact@v2
         with:
-          name: loki_images_${{ matrix.loki_configuration }}_${{ matrix.loki_test_group }}
+          name: loki_images_${{ matrix.loki_configuration }}_${{ steps.sanitize_artifact_name.outputs.value }}
           path: .loki/difference/*.*
         if: failure()
