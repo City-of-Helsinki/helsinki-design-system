@@ -15,15 +15,15 @@ import LeadParagraph from '../../../components/LeadParagraph';
 
 ## What is server-side rendering?
 
-Server-side rendering (SSR) is the process where the rendering of html pages is done on the server-side. The fully rendered html
-document is then sent to the browser to be viewed. The rendering of the html can happen at build time (Static site generation
+Server-side rendering (SSR) is the process where the rendering of HTML pages is done on the server-side. The fully rendered HTML
+document is then sent to the browser to be viewed. The rendering of the HTML can happen at build time (Static site generation
 or pre-rendering), or during an HTTP request. The alternative to SSR is client-side rendering (CSR), where rendering of the
-html happens in the browser.
+HTML happens in the browser.
 
 ## How does HDS support server-side rendering?
 
 For HDS components to work with server-side rendering, in server you need to inject the critical CSS styles
-of the HDS components that are being used into the initially rendered html. For hds-core, you must include the styles from
+of the HDS components that are being used into the initially rendered HTML. For hds-core, you must include the styles from
 provided CSS files yourself. For hds-react, HDS provides multiple options, that we will cover next.
 
 <Notification label="Critical CSS" className="siteNotification">
@@ -43,7 +43,7 @@ content when user lands to the page.
 To include critical styles in server, HDS exposes a tool for extracting the used critical styles of HDS components.
 This should come handy in multiple ways:
 
-- Automatically extracts styles based on used Html.
+- Automatically extracts styles based on used HTML.
 - If you add more HDS components later, you do not need to remember to add their styles separately.
 - If you happen to remove HDS components, you do not need to remember to remove their respective styles.
 
@@ -54,7 +54,7 @@ import { getCriticalHdsRules, hdsStyles } from "hds-react";
 
 const criticalHdsRules = await getCriticalHdsRules(bodyHTML, hdsStyles);
 
-const finalHtml =
+const finalHTML =
 <html>
   <head>
     ...
@@ -68,11 +68,11 @@ const finalHtml =
 
 First, we import the tool that is named `getCriticalHdsRules`. To be able to call it, we need two things:
 
-1. The initially to be rendered Html body code as a string.
+1. The initially to be rendered HTML body code as a string.
 2. hdsStyles - a variable holding all the styles of the HDS react components.
 
 Calling it returns a string containing the critical CSS styles. The rest is easy, we set those styles into
-a style tag, that we will then inject into the finally rendered Html document. It can be wise to cache the result of
+a style tag, that we will then inject into the finally rendered HTML document. It can be wise to cache the result of
 `getCriticalHdsRules` based on the function parameters, to improve performance.
 
 See below for more complete examples:
@@ -164,7 +164,7 @@ called `hdsStyles`:
 import { hdsStyles } from 'hds-react';
 ```
 This variable holds all the styles of HDS React components compiled into a single string. It might be tempting to include
-all the styles in `hdsStyles` or `index.css` to your Html, and call it a day. This is not optimal because the size of the
+all the styles in `hdsStyles` or `index.css` to your HTML, and call it a day. This is not optimal because the size of the
 HDS styles is large and probably growing as new components are added to it. Adding all the styles might have an impact on the
 performance of the app. Instead, you should collect only the necessary styles for the initial render. We recommend using
 the tool described in option 1. But if you are unable to use that, extracting the critical CSS styles from either
