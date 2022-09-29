@@ -65,7 +65,7 @@ const getAtRule = (rule: PostcssAtRule | Rule): string[] => {
   return [];
 };
 
-const classish = (str: string): boolean => !!str && str.indexOf('.') >= 0;
+const hasClassSelector = (str: string): boolean => !!str && str.indexOf('.') >= 0;
 
 const mapSelector = (selector: string): string[] => {
   // replace `something:not(.something)` to `something:not`
@@ -76,7 +76,7 @@ const mapSelector = (selector: string): string[] => {
 
   ruleSelection.reverse();
 
-  const effectiveMatcher: string = ruleSelection.find(classish) || '';
+  const effectiveMatcher: string = ruleSelection.find(hasClassSelector) || '';
   const selectors = effectiveMatcher.match(/(\.[^.>~+,$:{[\s]+)?/g);
 
   return (selectors || []).map((x) => x.replace(/[.\s.:]+/, '').replace(/PLUS_SYMBOL/g, '+')).filter(Boolean);
@@ -115,7 +115,7 @@ const extractParents = (selector: string): string[] => {
     // anything like "class"
     parts.join(' ').match(/\.([^>~+$:{[\s]+)?/g) || [];
 
-  const effectiveMatcher = ruleSelection.filter(classish);
+  const effectiveMatcher = ruleSelection.filter(hasClassSelector);
 
   return effectiveMatcher.map((x) => x.replace(/[.\s.:]+/, '').replace(/PLUS_SYMBOL/g, '+')).filter(Boolean);
 };
