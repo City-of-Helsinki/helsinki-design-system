@@ -15,15 +15,17 @@ It will strain the network and might exceed some Github rate limits. Running scr
 
 ### Prerequisites
 - [Node](https://nodejs.org/en/)
-- [Github cli](https://cli.github.com/)
+- Github account
+- [Github PAT for authentication](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 - [React-scanner](https://github.com/moroshko/react-scanner) as globally or locally installed
 
 ### Running the script
+Set your Github PAT to environment variable called `GITHUB_TOKEN` or inject it into the command below.
 To collect analytics from a subset of found repositories (for testing purposes), run:
-```OFFSET=0 LIMIT=1 node run-analytics.js```
+```OFFSET=0 LIMIT=1 TOKEN=$GITHUB_TOKEN node run-analytics.js```
 
 To collect analytics from all found repositories, run:
-```node run-analytics.js```
+```TOKEN=$GITHUB_TOKEN node run-analytics.js```
 
 ## Bonus content
 The bash script file `find-hds-react-version-usage.sh` calls Github API and finds all `hds-react` occurrences in code under the City of Helsinki organisation and gets the corresponding repository name, Github URL and hds-react version and puts them in a JSON file. This could possibly be merged into the analytics scripts to provide even more refined analytics data.

@@ -13,12 +13,19 @@ const removeTempReposDir = () => {
 
 const runAnalytics = async () => {
   if (fs.existsSync(reposDir)) {
-    removeTempReposDir()
+    removeTempReposDir();
   }
 
   console.log('Searching repos...');
-  const repos = await searchRepos();
-  const validRepos = repos.filter(({ name }) => name !== 'helsinki-design-system');
+  const githubToken = process.env.TOKEN;
+  const codeRepos = await searchRepos(githubToken);
+
+  /* Remove duplicate repositories and helsinki-design-system from the results. Also make a new array with just the repo information.
+  Duplicate repos happen because the search items are package.jsons where hds-react was mentioned. So a repo might have many package.jsons. */
+  const validRepos = codeRepos.items
+    .filter((value, index, self) => index === self.findIndex((t) => t.repository.id === value.repository.id))
+    .filter(({ repository: { name } }) => name !== 'helsinki-design-system')
+    .map(({ repository }) => repository);
   const sortedRepos = validRepos.sort((a, b) => a.name.localeCompare(b.name));
   const offset = process.env.OFFSET || 0;
   const limit = process.env.LIMIT || sortedRepos.length;
@@ -34,7 +41,7 @@ const runAnalytics = async () => {
   console.log('Scanning completed.');
 
   if (fs.existsSync(reposDir)) {
-    removeTempReposDir()
+    removeTempReposDir();
   }
 
   console.log(`Results are generated into ${resultsDir} folder.`);
