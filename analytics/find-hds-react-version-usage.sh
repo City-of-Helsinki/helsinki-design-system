@@ -2,7 +2,7 @@
 # Set environment variable to local variable
 TOKEN=$GITHUB_TOKEN
 # Call to Github API to find all occurrences of "hds-react" under City-of-Helsinki org.
-curl -H "Accept: application/vnd.github+json"  -H "Authorization: token $TOKEN" "https://api.github.com/search/code?q=hds-react+in:file+filename:package.json+org:City-of-Helsinki&per_page=100" | jq '. | .total_count as $total_count | { total_count: $total_count, repositories: [.items[] | {name: .repository.name, html_url: .repository.html_url, package_url: .git_url}]}' > hds-react-version-usage.json
+curl -H "Accept: application/vnd.github+json"  -H "Authorization: token $TOKEN" "https://api.github.com/search/code?q=hds-react+in:file+filename:package.json+org:City-of-Helsinki&per_page=100" | jq '. | .total_count as $total_count | { total_count: $total_count, repositories: [.items[] | {name: .repository.name, url: .repository.html_url, package_url: .git_url, path: .path}]}' > hds-react-version-usage.json
 
 
 # count variable is used to access the correct object inside hds-react-version-usage.json array
