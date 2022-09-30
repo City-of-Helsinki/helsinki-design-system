@@ -14,7 +14,7 @@
   },
   "skipStories": "Icons/.*",
   "pixelmatch": {
-    "threshold": 0.15,
+    "threshold": 0.18,
     "alpha": 1,
     "diffColor": [255, 0, 255]
   }
