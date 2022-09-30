@@ -1,7 +1,11 @@
-import { extractAllUnmatchable } from './extractAllUnmatchable';
-import { getRawCriticalRules, assertIsReady } from './getRawCriticalRules';
-import { loadStyleDefinitions } from './loadStyleDefinitions';
-import { StyleDefinition, StyleSelector, SelectionFilter } from './types';
+/**
+ * The code here is based on used-styles npm library: https://github.com/theKashey/used-styles
+ * Some of the code was leaking to browser causing problems, so we copied the code instead of using the library as is.
+ */
+import { extractAllUnmatchable } from './used-styles-hds/extractAllUnmatchable';
+import { getRawCriticalRules, assertIsReady } from './used-styles-hds/getRawCriticalRules';
+import { loadStyleDefinitions } from './used-styles-hds/loadStyleDefinitions';
+import { StyleDefinition, StyleSelector, SelectionFilter } from './used-styles-hds/types';
 
 const createUsedFilter = () => {
   const usedSelectors = new Set<string>();

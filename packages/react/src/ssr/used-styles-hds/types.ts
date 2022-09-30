@@ -1,3 +1,7 @@
+/**
+ * The code here is based on used-styles npm library: https://github.com/theKashey/used-styles
+ * Some of the code was leaking to browser causing problems, so we copied the code instead of using the library as is.
+ */
 export interface StyleSelector {
   selector: string;
   postfix: string;
