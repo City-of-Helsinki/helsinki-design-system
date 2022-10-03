@@ -15,6 +15,7 @@ It will strain the network and might exceed some Github rate limits. Running scr
 
 ### Prerequisites
 - [Node](https://nodejs.org/en/)
+- [Github cli](https://cli.github.com/)
 - Github account
 - [Github PAT for authentication](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 - [React-scanner](https://github.com/moroshko/react-scanner) as globally or locally installed
