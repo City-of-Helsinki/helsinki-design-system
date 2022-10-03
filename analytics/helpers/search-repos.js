@@ -22,12 +22,11 @@ async function searchRepos(githubToken, cumulativeValue, page = 1) {
     const data = JSON.parse(response.stdout);
     const totalCount = data.total_count;
     const returnObject = { totalCount, items: cumulativeValue ? cumulativeValue.items.concat(data.items) : data.items };
-    console.log(`Total amount of repos: ${totalCount}`);
 
     /* As long as total count of results is higher than the amount we have gathered so far,
     call this function again recursively until all the data has been gathered. */
     if (totalCount > returnObject.items.length) {
-      console.log('Call this function again');
+      console.log('Still more repositories left for fetching, please wait...');
       return await searchRepos(githubToken, returnObject, ++page);
     } else {
       console.log('Search is done.');

@@ -21,7 +21,8 @@ const runAnalytics = async () => {
   const codeRepos = await searchRepos(githubToken);
 
   /* Remove duplicate repositories and helsinki-design-system from the results. Also make a new array with just the repo information.
-  Duplicate repos happen because the search items are package.jsons where hds-react was mentioned. So a repo might have many package.jsons. */
+  Duplicate repos happen because the search items are package.jsons where hds-react was mentioned. 
+  So a repo might have many package.jsons in subfolders.*/
   const validRepos = codeRepos.items
     .filter((value, index, self) => index === self.findIndex((t) => t.repository.id === value.repository.id))
     .filter(({ repository: { name } }) => name !== 'helsinki-design-system')
