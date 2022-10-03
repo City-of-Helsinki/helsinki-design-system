@@ -12,8 +12,9 @@ const exec = util.promisify(require('child_process').exec);
  */
 async function searchRepos(githubToken, cumulativeValue, page = 1) {
   try {
+    /* Call to Github API. Retry max 5 times with 1 min timeout on transient errors and connection refusals. */
     const response = await exec(
-      'curl -H "Accept: application/vnd.github+json"  -H "Authorization: token ' +
+      'curl --retry 5 --retry-connrefused --retry-max-time 60 -H "Accept: application/vnd.github+json"  -H "Authorization: token ' +
         githubToken +
         '" "https://api.github.com/search/code?q=hds-react+in:file+filename:package.json+org:City-of-Helsinki&per_page=100&page=' +
         page +
