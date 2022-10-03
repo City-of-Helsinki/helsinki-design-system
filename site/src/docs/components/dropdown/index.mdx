@@ -7,6 +7,7 @@ navTitle: 'Dropdown'
 import { Combobox, Select } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -55,7 +56,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Principles
 
 - **A label should always be provided with dropdowns.** Aim for labels that are short, concise and easy to understand.
-- Dropdowns usually have four (4) or more options. When having only 2-3 options, it is usually better to use [radio buttons](/components/radio-button 'Radio button documentation') or [checkboxes](/components/checkbox 'Checkbox documentation'). Also, if options need to be easily comparable (for example, product pricing), prefer radio buttons over dropdown.
+- Dropdowns usually have four (4) or more options. When having only 2-3 options, it is usually better to use <InternalLink href="/components/radio-button">radio buttons</InternalLink> or <InternalLink href="/components/checkbox">checkboxes</InternalLink>. Also, if options need to be easily comparable (for example, product pricing), prefer radio buttons over dropdown.
 - It is recommended to set a default option for a single selection dropdown. If the default option is also the recommended option, you can mark the option with a text "_(recommended)_".
 - If your dropdown has 8 or more options, consider using the [Combobox](#combobox-single-selection) variant which offers filtering options by typing.
 - Try to avoid dropdown options that span over one line. Aim for short texts for all options.

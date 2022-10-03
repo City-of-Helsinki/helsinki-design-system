@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { Table } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -44,7 +45,7 @@ export const TableExample = () => {
     <span>
       <b>Table 2</b>: Service users (light variant)
     </span>
-  )
+  );
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table cols={cols} rows={rows} caption={captionDark} indexKey="id" renderIndexCol={false} />
@@ -59,6 +60,7 @@ export const TableExample = () => {
 ### Principles
 
 #### Basic tables (Core and React)
+
 - Use tables to organise and present data.
 - You should consider other presentation formats when the data is very simple, e.g. when the table would only have less than 4 rows or less than 3 columns.
   - Also note that HDS Tables are not a spreadsheet application. If you expect the user to need complex data operations it may be wise to share the data as a spreadsheet file.
@@ -72,16 +74,18 @@ export const TableExample = () => {
   - On smaller screens, it may be beneficial to consider other presentation formats for table data. For example, a table can be broken into cards.
 
 #### Interactable tables (React)
+
 - HDS Tables support sorting. When a column is set to be sortable, a sorting button appears after its header.
   - The sorting icon type can be changed depending on the type of data in the column.
-- Only use sorting when it is necessary or otherwise beneficial to the user. 
+- Only use sorting when it is necessary or otherwise beneficial to the user.
 - HDS Table's rows can be made selectable. In this case, HDS automatically provides actions for selecting and deselecting all rows.
 - If your table includes actions that can affect multiple rows (e.g. deleting selected rows or exporting a CSV file), these actions must be placed above the table. For more information, see [Selecting rows](#selecting-rows) and [Custom actions](#custom-table-actions) variant examples below.
 
 ### Variations
 
 #### Default
-The default HDS table variant includes horizontal lines. The header row can be either dark or light depending on the brand colour used as a background. Whether you need a black or white text colour can be checked from [HDS Colour documentation page](/design-tokens/colour#brand-colour-combinations).
+
+The default HDS table variant includes horizontal lines. The header row can be either dark or light depending on the brand colour used as a background. Whether you need a black or white text colour can be checked from <InternalLink href="/foundation/design-tokens/colour/accessibility#brand-colour-combinations">HDS Colour documentation page</InternalLink>
 
 export const TableDefaultExample = () => {
   const cols = [
@@ -112,7 +116,7 @@ export const TableDefaultExample = () => {
     <span>
       <b>Table 3</b>: Service users (light variant)
     </span>
-  )
+  );
   return (
     <div style={{ maxWidth: '640px' }}>
       <Table cols={cols} rows={rows} caption={captionDark} indexKey="id" renderIndexCol={false} />
@@ -128,6 +132,7 @@ export const TableDefaultExample = () => {
 </PlaygroundPreview>
 
 #### Vertical headers
+
 Vertical headers can be used to create tables that have both a header row and a header column. Note that the empty header cell on the top left corner has `role="presentation"` attribute.
 
 export const VerticalHeadersExample = () => {
@@ -177,6 +182,7 @@ export const VerticalHeadersExample = () => {
 </PlaygroundPreview>
 
 #### Zebra rows
+
 Zebra rows (alternating row colours) should be used on tables that have very long rows. It makes it easier to visually scan the table and follow rows.
 
 export const ZebraExample = () => {
@@ -256,24 +262,28 @@ export const ZebraExample = () => {
 </PlaygroundPreview>
 
 #### Vertical lines
+
 Vertical lines can be used on tables that have a lot of columns or a lot of similar data (e.g. numbers).
 
 export const VerticalExample = () => {
   const cols = [
     { key: 'day', headerName: 'Day' },
-    { key: 'product1',
+    {
+      key: 'product1',
       headerName: 'Product 1',
       transform: ({ product1 }) => {
         return <div style={{ textAlign: 'right' }}>{product1}</div>;
       },
     },
-    { key: 'product2',
+    {
+      key: 'product2',
       headerName: 'Product 2',
       transform: ({ product2 }) => {
         return <div style={{ textAlign: 'right' }}>{product2}</div>;
       },
     },
-    { key: 'product3',
+    {
+      key: 'product3',
       headerName: 'Product 3',
       transform: ({ product3 }) => {
         return <div style={{ textAlign: 'right' }}>{product3}</div>;
@@ -281,11 +291,11 @@ export const VerticalExample = () => {
     },
   ];
   const rows = [
-    { day: 'Monday', product1: 12, product2: 24, product3: 5, },
-    { day: 'Tuesday', product1: 10, product2: 32, product3: 6, },
-    { day: 'Wednesday', product1: 14, product2: 35, product3: 6, },
-    { day: 'Thursday', product1: 11, product2: 18, product3: 2, },
-    { day: 'Friday', product1: 16, product2: 45, product3: 12, },
+    { day: 'Monday', product1: 12, product2: 24, product3: 5 },
+    { day: 'Tuesday', product1: 10, product2: 32, product3: 6 },
+    { day: 'Wednesday', product1: 14, product2: 35, product3: 6 },
+    { day: 'Thursday', product1: 11, product2: 18, product3: 2 },
+    { day: 'Friday', product1: 16, product2: 45, product3: 12 },
   ];
   const caption = (
     <span>
@@ -304,6 +314,7 @@ export const VerticalExample = () => {
 </PlaygroundPreview>
 
 #### Dense tables
+
 If your table has a large amount of data, you can use the `dense` property to force mobile spacing on all screen sizes. This allows more data to fit into the view at the same time.
 
 export const DenseExample = () => {
@@ -339,10 +350,11 @@ export const DenseExample = () => {
 };
 
 <PlaygroundPreview>
- <DenseExample />
+  <DenseExample />
 </PlaygroundPreview>
 
 #### Sorting
+
 Columns can be configured to be sortable which makes the sorting button appear after the column header. The sorting icon is different depending on the data type of the column (alphabetical or numeric/other).
 
 Currently, only one column can be sorted at a time.
@@ -396,6 +408,7 @@ export const SortingExample = () => {
 </PlaygroundPreview>
 
 #### Selecting rows
+
 HDS Table rows can be set to be selectable. This makes the first column to be a selection column. This also adds two (2) action buttons above the table; one button for selecting all rows and one button to clear selection.
 
 export const SelectionExample = () => {

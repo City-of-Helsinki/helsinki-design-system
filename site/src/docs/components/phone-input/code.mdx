@@ -3,8 +3,10 @@ slug: '/components/phone-input/code'
 title: 'PhoneInput - Code'
 ---
 
+import { Link } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -87,13 +89,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Packages
 | Package           | Included                                                                                        | Storybook link                                                                                                     | Source link                                                                                                                                                     |
 | ----------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **HDS React**     | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <ExternalLink href="/storybook/react/?path=/story/components-phoneinput--default">View in Storybook</ExternalLink> | <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/phoneInput">View source</ExternalLink> |
-| **HDS Core**      | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <ExternalLink href="/storybook/core/?path=/story/components-phone-input--default">View in Storybook</ExternalLink> | <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/phone-input">View source</ExternalLink> |
+| **HDS React**     | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-phoneinput--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/phoneInput">View source</ExternalLink> |
+| **HDS Core**      | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-phone-input--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/phone-input">View source</ExternalLink> |
 
 ### Properties
-Note! You can find the full list of properties in the <ExternalLink href="/storybook/react/?path=/story/components-phoneinput--default">React Storybook.</ExternalLink>
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-phoneinput--default">React Storybook.</Link>
 
-Also, note that this component is an input. All features supported by the HDS TextInput are also supported by this component. See [TextInput documentation page](/components/text-input) for more information.
+Also, note that this component is an input. All features supported by the HDS TextInput are also supported by this component. See <InternalLink href="/components/text-input">TextInput documentation page</InternalLink> for more information.
 
 | Property                         | Description                                                                                                                                                                                    | Values    | Default value |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------- |

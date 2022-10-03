@@ -15,6 +15,8 @@ import Seo from './Seo';
 import { PlaygroundBlock, PlaygroundPreview } from './Playground';
 import SyntaxHighlighter from './SyntaxHighlighter';
 import Table from './Table';
+import InternalLink from './InternalLink';
+import ExternalLink from './ExternalLink';
 import './layout.scss';
 
 const classNames = (...args) => args.filter((e) => e).join(' ');
@@ -22,6 +24,8 @@ const classNames = (...args) => args.filter((e) => e).join(' ');
 const components = {
   IconCheckCircleFill,
   IconCrossCircle,
+  InternalLink,
+  ExternalLink,
   Link,
   Playground: PlaygroundBlock,
   PlaygroundPreview,

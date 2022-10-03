@@ -7,6 +7,7 @@ navTitle: 'RadioButton'
 import { RadioButton, SelectionGroup } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -15,14 +16,28 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Example
 
 export const RadioButtonExample = () => {
-  const [selectedItem, setSelectedItem] = React.useState("1");
+  const [selectedItem, setSelectedItem] = React.useState('1');
   const onChange = (event) => {
     setSelectedItem(event.target.value);
   };
   return (
     <>
-      <RadioButton id="radio1" name="example1" label="Label" value="1" checked={selectedItem === "1"} onChange={onChange}/>
-      <RadioButton id="radio2" name="example1" label="Label" value="2" checked={selectedItem === "2"} onChange={onChange} />
+      <RadioButton
+        id="radio1"
+        name="example1"
+        label="Label"
+        value="1"
+        checked={selectedItem === '1'}
+        onChange={onChange}
+      />
+      <RadioButton
+        id="radio2"
+        name="example1"
+        label="Label"
+        value="2"
+        checked={selectedItem === '2'}
+        onChange={onChange}
+      />
     </>
   );
 };
@@ -32,48 +47,92 @@ export const RadioButtonExample = () => {
 </PlaygroundPreview>
 
 ### Principles
-- If the user can select more than one option from a list, use [checkboxes](/components/checkbox) instead.
+
+- If the user can select more than one option from a list, use <InternalLink href="/components/checkbox">checkboxes</InternalLink> instead.
 - Radio button label should always clearly describe what will happen if the specific option is chosen. A good practice is to keep labels a maximum of three words long.
 - It is recommended to have a default option checked for radio button groups Radio button groups.
-- When there are more than 4 options, consider switching to [dropdown](/components/dropdown) component.
-- If the choices are not mutually exclusive, use [HDS Checkbox](/components/checkbox) component instead. Also see [guidelines for choosing between radiobuttons, checkboxes, and toggles.](/guidelines/checkboxes-radiobuttons-toggles)
-- If Radio buttons are related to each other, use [HDS Selection group](/components/selection-group) to achieve that. 
+- When there are more than 4 options, consider switching to <InternalLink href="/components/dropdown">dropdown</InternalLink> component.
+- If the choices are not mutually exclusive, use <InternalLink href="/components/checkbox">checkboxes</InternalLink> component instead. Also see <InternalLink href="/foundation/guidelines/checkbox-radiobutton-toggle">guidelines for choosing between radiobuttons, checkboxes, and toggles.</InternalLink>
+- If Radio buttons are related to each other, use <InternalLink href="/components/selection-group">selection group</InternalLink> to achieve that.
 
 ### Variations
 
 #### Default
 
 export const DefaultRadioButtonExample = () => {
-  const [selectedItem2, setSelectedItem2] = React.useState("1");
+  const [selectedItem2, setSelectedItem2] = React.useState('1');
   const onChange2 = (event) => {
     setSelectedItem2(event.target.value);
   };
   return (
     <>
-      <RadioButton id="radio3" name="example2" label="Label" value="1" checked={selectedItem2 === "1"} onChange={onChange2}/>
-      <RadioButton id="radio4" name="example2" label="Label" value="2" checked={selectedItem2 === "2"} onChange={onChange2} />
+      <RadioButton
+        id="radio3"
+        name="example2"
+        label="Label"
+        value="1"
+        checked={selectedItem2 === '1'}
+        onChange={onChange2}
+      />
+      <RadioButton
+        id="radio4"
+        name="example2"
+        label="Label"
+        value="2"
+        checked={selectedItem2 === '2'}
+        onChange={onChange2}
+      />
     </>
   );
 };
 
 <PlaygroundPreview>
- <DefaultRadioButtonExample />
+  <DefaultRadioButtonExample />
 </PlaygroundPreview>
 
 #### Group
-Related radio buttons can be grouped together with the Selection group component. See [HDS Selection group page](/components/selection-group) for full documentation.
+
+Related radio buttons can be grouped together with the Selection group component. See <InternalLink href="/components/selection-group">HDS selection group page</InternalLink> for full documentation.
 
 export const GroupExample = () => {
-  const [selectedItem, setSelectedItem] = React.useState("1");
+  const [selectedItem, setSelectedItem] = React.useState('1');
   const onChange = (event) => {
     setSelectedItem(event.target.value);
   };
   return (
     <SelectionGroup label="Radio button group">
-      <RadioButton id="v-radio1" name="v-radio" value="1" label="Option" checked={selectedItem === "1"} onChange={onChange} />
-      <RadioButton id="v-radio2" name="v-radio" value="2" label="Option" checked={selectedItem === "2"} onChange={onChange} />
-      <RadioButton id="v-radio3" name="v-radio" value="3" label="Option" checked={selectedItem === "3"} onChange={onChange} />
-      <RadioButton id="v-radio4" name="v-radio" value="4" label="Option" checked={selectedItem === "4"} onChange={onChange} />
+      <RadioButton
+        id="v-radio1"
+        name="v-radio"
+        value="1"
+        label="Option"
+        checked={selectedItem === '1'}
+        onChange={onChange}
+      />
+      <RadioButton
+        id="v-radio2"
+        name="v-radio"
+        value="2"
+        label="Option"
+        checked={selectedItem === '2'}
+        onChange={onChange}
+      />
+      <RadioButton
+        id="v-radio3"
+        name="v-radio"
+        value="3"
+        label="Option"
+        checked={selectedItem === '3'}
+        onChange={onChange}
+      />
+      <RadioButton
+        id="v-radio4"
+        name="v-radio"
+        value="4"
+        label="Option"
+        checked={selectedItem === '4'}
+        onChange={onChange}
+      />
     </SelectionGroup>
   );
 };
