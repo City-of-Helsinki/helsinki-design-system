@@ -3,7 +3,7 @@ slug: '/components/notification/code'
 title: 'Notification - Code'
 ---
 
-import { Notification } from 'hds-react';
+import { Link, Notification } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 
@@ -194,11 +194,11 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Packages
 | Package           | Included                                                                                        | Storybook link                                                                                                       | Source link                                                                                                                                                       |
 | ----------------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **HDS React**     | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <ExternalLink href="/storybook/react/?path=/story/components-notification--default">View in Storybook</ExternalLink> | <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/notification">View source</ExternalLink> |
-| **HDS Core**      | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <ExternalLink href="/storybook/core/?path=/story/components-notification--default">View in Storybook</ExternalLink>  | <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/notification">View source</ExternalLink>  |
+| **HDS React**     | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-notification--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/notification">View source</ExternalLink> |
+| **HDS Core**      | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-notification--default">View in Storybook</Link>  | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/notification">View source</ExternalLink>  |
 
 ### Properties
-Note! You can find the full list of properties in the <ExternalLink href="/storybook/react/?path=/story/components-notification--default">React Storybook.</ExternalLink>
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-notification--default">React Storybook.</Link>
 
 | Property                   | Description                                                                                                                 | Values                                                                                                        | Default value    |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ---------------- |

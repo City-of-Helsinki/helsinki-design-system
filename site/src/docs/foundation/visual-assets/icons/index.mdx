@@ -9,6 +9,7 @@ import { Link } from 'hds-react';
 import ExternalLink from '../../../../components/ExternalLink';
 import Image from '../../../../components/Image';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -16,12 +17,12 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 The HDS icon library follows the icon style defined in the Helsinki city brand guidelines but the forms of the icons are simplified and adjusted for legibility in smaller sizes and pixel resolutions. The icon library also provides the UI-specific icons missing from the Helsinki City brand icons.
 
-See the [Icon component documentation](/components/icon "Icon component") for instructions on using icons in implementation.
+See the <InternalLink href="/components/icon">Icon component documentation</InternalLink> for instructions on using icons in implementation.
 
 If you need icons outside of HDS Core and React libraries, they are also available as a downloadable ZIP package. <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/releases/latest/download/hds-icon-kit.zip">Download the latest HDS Icon kit from the HDS GitHub repository</ExternalLink>.
 
 ## Visual principles
-To learn more about the visual principles behind the City of Helsinki icons, take a look at [the icon contribution guidelines](/getting-started/contributing/icons).
+To learn more about the visual principles behind the City of Helsinki icons, take a look at <InternalLink href="/getting-started/contributing/icons">the icon contribution guidelines.</InternalLink>
 
 ## Usage
 ### Icon types
@@ -34,7 +35,7 @@ The icon set of HDS only features user interface and social media icons. If you 
 
 ### Size
 The default size of the HDS icons is 24×24px.
-- If needed, other sizes matching the [layout spacing tokens](/foundation/design-tokens/spacing "Spacing documentation") can also be used.
+- If needed, other sizes matching the <InternalLink href="/foundation/design-tokens/spacing">layout spacing tokens</InternalLink> can also be used.
 - When using the icons in 16×16px, make sure the icon is still clear and legible.
 - Larger sizes than 64×64px are not recommended.
 
@@ -43,4 +44,4 @@ The default size of the HDS icons is 24×24px.
 ### Colour
 The default colour of the HDS icons is black or white, depending on the background.
 - Other colours should be used sparingly and serve a clear purpose, preferably only highlighting errors and other system statuses.
-- See [colour guidelines](/foundation/design-tokens/colour) for further information.
+- See <InternalLink href="/foundation/design-tokens/colour">colour guidelines</InternalLink> for further information.

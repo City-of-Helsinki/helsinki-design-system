@@ -8,6 +8,7 @@ import { useReducer } from 'react';
 import { Checkbox, SelectionGroup, Fieldset } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -51,11 +52,11 @@ export const CheckboxExample = () => {
 
 ### Principles
 
-- If the user can only select one option from a list, use [radio buttons](/components/radio-button) instead.
+- If the user can only select one option from a list, use <InternalLink href="/components/radio-button">radio buttons</InternalLink> instead.
 - Checkbox label should always clearly describe what will happen if the specific option is chosen. A good practice is to keep labels a maximum of three words long.
 - Checkboxes work independently from each other. This means that checking one option should never affect other checkboxes.
-- If Checkboxes are related to each other, use [HDS Selection group](/components/selection-group) to achieve that.
-- Checkboxes should not have any immediate effects. The checkbox selection takes effect when the user presses a submit button (e.g. in a form). If you need the selection to have an immediate effect, use [HDS Toggle button component](/components/toggle-button) instead. Also see [guidelines for choosing between radio buttons, checkboxes, and toggles.](/guidelines/checkboxes-radiobuttons-toggles)
+- If Checkboxes are related to each other, use <InternalLink href="/components/selection-group">HDS Selection group</InternalLink> to achieve that.
+- Checkboxes should not have any immediate effects. The checkbox selection takes effect when the user presses a submit button (e.g. in a form). If you need the selection to have an immediate effect, use <InternalLink href="/components/toggle-button">HDS Toggle button component</InternalLink> instead. Also see <InternalLink href="/foundation/guidelines/checkbox-radiobutton-toggle">guidelines for choosing between radio buttons, checkboxes and toggles.</InternalLink>
 
 ### Variations
 
@@ -97,7 +98,7 @@ export const CheckboxDefaultExample = () => {
 
 #### Checkbox group
 
-Related checkboxes can be grouped together with the Selection group component. See [HDS Selection group page](/components/selection-group) for full documentation.
+Related checkboxes can be grouped together with the Selection group component. See <InternalLink href="components/selection-group">HDS Selection group page</InternalLink> for full documentation.
 
 export const CheckboxGroupExample = () => {
   const [checkedItems, setCheckedItems] = React.useState({ "v-checkbox1": true, "v-checkbox2": true });

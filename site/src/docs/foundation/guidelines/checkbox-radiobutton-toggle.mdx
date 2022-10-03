@@ -8,11 +8,12 @@ import { Notification, Checkbox, RadioButton, ToggleButton, SelectionGroup, Link
 import ExternalLink from '../../../components/ExternalLink';
 import LeadParagraph from '../../../components/LeadParagraph';
 import PlaygroundPreview from '../../../components/Playground';
+import InternalLink from '../../../components/InternalLink';
 
 # Checkboxes, radio buttons, or toggles?
 
 <LeadParagraph>
-  Helsinki Design System suggests formats for commonly presented data to keep Helsinki services more consistent.
+  Helsinki Design System has checkboxes, radio buttons and toggles that might seem similar to each other, but it is important to consider the use cases to decide which one to use.
 </LeadParagraph>
 
 <Notification label="TLDR (Too long, didn't read)" className="siteNotification">
@@ -25,7 +26,7 @@ import PlaygroundPreview from '../../../components/Playground';
 </Notification>
 
 ## When to use radio buttons?
-<Link size="M" href="/components/radio-button" >HDS RadioButton component documentation</Link>
+<InternalLink size="M" href="/components/radio-button" >HDS RadioButton component documentation</InternalLink>
 
 An application can use radio buttons when there is a list of two or more mutually exclusive choices and the user needs to select one of them. After clicking the non-selected radio button, whatever was previously selected is deselected. In traditional application design, the first radio button in the list was always selected by default. But not all modern websites follow this convention and rather use empty radio buttons by default. Websites today, forms, and applications inconsistently select one or leave all radio buttons blank by default. If none of the buttons is selected by default, users have no way to revert to this original state after they’ve made a selection. The lack of a standard can be confusing to users.
 
@@ -55,7 +56,7 @@ export const RadioButtonExample = () => {
 </PlaygroundPreview>
 
 ## When to use checkboxes?
-<Link size="M" href="/components/checkbox" >HDS checkbox component documentation</Link>
+<InternalLink size="M" href="/components/checkbox" >HDS checkbox component documentation</InternalLink>
 
 Checkboxes allow the user to select zero, one, or multiple selections from a list of options. In other words, each checkbox is independent of the other checkboxes, i.e. checking one does not uncheck the others.
 
@@ -98,7 +99,7 @@ export const SelectionGroupExample = () => {
 **HDS recommends using checkboxes when the user can select multiple options that are not excluding other options.**
 
 ## When to use toggles or switches?
-<Link size="M" href="/components/toggle-button">HDS toggle component documentation</Link>
+<InternalLink size="M" href="/components/toggle-button">HDS toggle component documentation</InternalLink>
 
 Toggle switches are digital On/Off switches. They prompt users to choose between two mutually exclusive options and always have a default value. Toggle buttons have been inspired by real-world physical switches (e.g. a light switch). Therefore users expect something to happen immediately when the toggle button is activated. Toggle buttons should do three things — change states, show the current state, and reveal unselected options. If your toggle button doesn’t do all these things, it has poor usability. Toggles are best used for switching between two opposing states of system functionality and preferences. They are similar to radio buttons or checkboxes in that they allow users to select from only two options.
 

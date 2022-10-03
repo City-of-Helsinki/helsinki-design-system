@@ -13,6 +13,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ## Usage
 
 ### Example
+
 <PlaygroundPreview>
   <Tabs>
     <Tabs.TabList style={{ marginBottom: 'var(--spacing-m)' }}>
@@ -43,17 +44,19 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 </PlaygroundPreview>
 
 ### Principles
+
 - **Contents of the tabs in a single tab list should have a relation to each other. Do not use tabs for only navigation purposes but actually group views within a context.**
 - **Pay close attention to tab labels.** They should clearly indicate the contents of the tab so the user can reliably guess what they will find inside the tab.
   - Keep tab labels short and concise - maximum of 1-2 words long. Do not use ALL CAPS in tab labels.
 - It is recommended that the maximum amount of tabs in a single tab list is six (6).
 - **When using tabs, keep in mind that the user should not be required to compare information between tabs.** Constantly switching between tabs can be a very cumbersome experience, so make sure that all information that the user needs is available in a single view.
 - **Do not use HDS Tabs to create step-by-step forms.** You must not expect that the user activates all tabs in a specific order.
-- Do not span tab lists into multiple rows. If you are running out of space, consider if using tabs is the correct option or use [the overflow functionality](#overflow-tabs) that HDS Tabs offer.
+- Do not span tab lists into multiple rows. If you are running out of space, consider if using tabs is the correct option or use [the overflow functionality](#overflow) that HDS Tabs offer.
 
 ### Variations
 
 #### Default
+
 Default tab variant is suitable for most use cases. It features tabs that are at equal width based on the widest tab label.
 
 <PlaygroundPreview>
@@ -86,6 +89,7 @@ Default tab variant is suitable for most use cases. It features tabs that are at
 </PlaygroundPreview>
 
 #### Small
+
 Small tabs variant can be used on smaller screens or when you are tight on space. Small tabs use space much more efficiently by reducing a single tab width and font size.
 
 <PlaygroundPreview>
@@ -118,6 +122,7 @@ Small tabs variant can be used on smaller screens or when you are tight on space
 </PlaygroundPreview>
 
 #### Overflow
+
 HDS Tabs have an automatic overflow functionality when the TabList does not fit into its container. In this case, an overflow indicator icon is shown at the edge of the TabList if there are tabs outside of the visible area. TabList scrolls automatically when the user selects tabs, presses the overflow icon or uses keyboard controls to move between tabs.
 
 Note! It is generally recommended that before relying on the overflow you attempt other solutions first. For example, you can try using the small tabs variant or reducing the number of tabs in the tablist.

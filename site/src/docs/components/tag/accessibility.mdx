@@ -5,18 +5,21 @@ title: 'Tag - Accessibility'
 
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Accessibility
 
 ### Pay attention to
+
 - For interactable Tags you must set a descriptive `aria-label` for assistive technologies so the user understands what happens if the Tag is clicked. For example `aria-label="Move to category: <category name>"`.
-- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
-- If you are customising tag colours, make sure they are easily distinguishable from [HDS UI Colours](/design-tokens/colour#ui-colours). These colours are reserved to present UI state and status information in applications using HDS.
+- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to <InternalLink href="/foundation/design-tokens/colour">colour guidelines</InternalLink> to ensure accessibility.
+- If you are customising tag colours, make sure they are easily distinguishable from <InternalLink href="/foundation/design-tokens/colour#ui-colours">HDS UI Colours.</InternalLink> These colours are reserved to present UI state and status information in applications using HDS.
 - Remember that colour should never be the only way of conveying information. Make sure the meaning of the status label is clearly described by the label text. Refer to <ExternalLink href="https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html">WCAG 2.1 Use of Color guideline</ExternalLink> for more information.
 
 ### Which role attribute should be used with Tags?
-- HDS Tags can be clickable. In this case, it needs either a `role=“link”` or  `role=“button”` as an attribute. The role value should be decided as follows:
+
+- HDS Tags can be clickable. In this case, it needs either a `role=“link”` or `role=“button”` as an attribute. The role value should be decided as follows:
   - If the user's focus is moved to another location or another page is opened, the role should be `link`. Example: The user clicks a Tag labelled as "News". The tag takes the user to a new page that lists all items tagged as "News".
   - If, however, the tag will result in the page's content being dynamically changed (i.e. Tag triggers an action), use `role=“button”`. Example: Clicking the tag will cause a search below to be filtered.
