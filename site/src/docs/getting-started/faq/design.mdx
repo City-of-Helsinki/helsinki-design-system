@@ -6,6 +6,7 @@ title: "Frequently asked questions"
 import { Accordion, Link } from 'hds-react';
 
 import ExternalLink from '../../../components/ExternalLink';
+import InternalLink from '../../../components/InternalLink';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -39,7 +40,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     '--header-font-size': 'var(--fontsize-heading-xs)',
     '--padding-vertical': 'var(--spacing-s)',
   }}>
-  In order to use the font in a design software, you need to have the font locally on your computer. Please refer to <ExternalLink href="https://helsinkisolutionoffice.atlassian.net/wiki/spaces/DD/pages/296058881/Using+Helsinki+Grotesk+fonts">the internal font documentation in Confluence</ExternalLink> and follow the desiger instructions. If you do not have access to Confluence, ask from your project’s city employee contact.
+  In order to use the font in a design software, you need to have the font locally on your computer. Please refer to <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" openInExternalDomainAriaLabel="Opens a different website" href="https://helsinkisolutionoffice.atlassian.net/wiki/spaces/DD/pages/296058881/Using+Helsinki+Grotesk+fonts">the internal font documentation in Confluence</ExternalLink> and follow the desiger instructions. If you do not have access to Confluence, ask from your project’s city employee contact.
 </Accordion>
 
 <Accordion 
@@ -52,12 +53,13 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   <p>
   Most often this is caused by large Sketch file sizes. Abstract recommends Sketch files to be below 50MB in size. If you files are larger than this, here are a couple of tips to reduce files' sizes:
   <ol>
-    <li><b>Reorganise your files.</b> This means creating multiple smaller files from one larger file. If many of your files use the same components, create one file to hold those components and use that file as a library. Read more about creating library files in the <Link
+    <li><b>Reorganise your files.</b> This means creating multiple smaller files from one larger file. If many of your files use the same components, create one file to hold those components and use that file as a library. Read more about creating library files in the <ExternalLink
       href="https://www.abstract.com/blog/the-designers-guide-to-sketch-libraries-in-abstract"
       size="M"
-      external
+      openInNewTab
+      openInNewTabAriaLabel="Opens in a new tab"
       openInExternalDomainAriaLabel="Opens a different website"
-    >Abstract’s documentation.</Link></li>
+    >Abstract’s documentation.</ExternalLink></li>
     <li>In Sketch, use <b>File → Reduce File Size</b> feature. This uses multiple methods to reduce the file size.</li>
     <li><b>Check your images and compress them if needed.</b> Prefer .png and .jpeg file formats. Images are often the largest source of file sizes in Sketch projects.</li>
   </ol>
@@ -92,7 +94,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     '--padding-vertical': 'var(--spacing-s)',
   }}>
   <p>
-  First, please take a look at <Link size="M" href="/foundation/design-tokens/colour">the Colour token documentation</Link> for general information about using the colours.
+  First, please take a look at <InternalLink size="M" href="/foundation/design-tokens/colour">the Colour token documentation</InternalLink> for general information about using the colours.
 
   There are a few rules of thumb that you can follow when customising colours:
 
@@ -113,12 +115,12 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     '--header-font-size': 'var(--fontsize-heading-xs)',
     '--padding-vertical': 'var(--spacing-s)',
   }}>
-  You can <Link
+  You can <ExternalLink
     href="https://github.com/City-of-Helsinki/helsinki-design-system/releases/latest/download/hds-icon-kit.zip"
     size="M"
     external
     openInNewTab
     openInExternalDomainAriaLabel="Opens a different website."
     openInNewTabAriaLabel="Opens in a new tab.">
-  download the newest HDS icon kit from GitHub.</Link>The kit contains all HDS icons in SVG, PNG, EPS and PDF formats.
+  download the newest HDS icon kit from GitHub.</ExternalLink> The kit contains all HDS icons in SVG, PNG, EPS and PDF formats.
 </Accordion>

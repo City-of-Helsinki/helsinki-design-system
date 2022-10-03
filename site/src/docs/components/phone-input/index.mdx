@@ -7,6 +7,7 @@ navTitle: 'PhoneInput'
 import { PhoneInput, Combobox } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -29,7 +30,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     - Generally it is recommended to allow all common formats and fix the format automatically for the user if needed.
 - Unless you can fill the input for the user automatically, a default value should not be set.
     - A placeholder text is often not used either. If a placeholder is used, it is a good practice to make them easily distinguishable from the actual input. A recommended way to do this is to format the placeholder text like this: "_E.g. 0401234567_".
-- If a country code must be inputted, a separate [HDS Combobox input](/components/dropdown#combobox-single-selection) should be used alongside the phone number input.
+- If a country code must be inputted, a separate <InternalLink href="/components/dropdown#combobox-single-selection">HDS Combobox input</InternalLink> should be used alongside the phone number input.
 
 ### Variations
 
@@ -48,7 +49,7 @@ Note! A default value is used here for demonstration purposes. It should not be 
 </PlaygroundPreview>
 
 #### With a country code selection
-If a country code is a required input (or otherwise critical), it should be asked in a separate input using [HDS Combobox](/components/dropdown#combobox-single-selection). 
+If a country code is a required input (or otherwise critical), it should be asked in a separate input using <InternalLink href="/components/dropdown#combobox-single-selection">HDS Combobox.</InternalLink>
 
 These two input are linked together using a fieldset title and `aria-desribedby` attribute. This way is is clear for screen readers which phone number these two inputs relate to.
 

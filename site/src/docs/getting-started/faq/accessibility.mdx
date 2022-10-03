@@ -3,8 +3,9 @@ slug: "/getting-started/faq/accessibility"
 title: "Frequently asked questions"
 ---
 
-import { Accordion, Link } from 'hds-react';
-
+import { Accordion } from 'hds-react';
+import InternalLink from '../../../components/InternalLink';
+import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -18,7 +19,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     '--header-font-size': 'var(--fontsize-heading-xs)',
     '--padding-vertical': 'var(--spacing-s)',
   }}>
-  HDS ensures that its components are accessible. This does not mean that a project build with these components is accessible automatically. The project needs to make sure that the components are used in a correct way and the content is accessible. Using HDS components takes some workload away from your project and lets your project focus on project-specific accessibility. You can read more about the topic in the <Link size="M" href="/about/accessibility/hds-accessibility#accessibility-in-projects-using-hds">About - HDS Accessibility section</Link>.
+  HDS ensures that its components are accessible. This does not mean that a project build with these components is accessible automatically. The project needs to make sure that the components are used in a correct way and the content is accessible. Using HDS components takes some workload away from your project and lets your project focus on project-specific accessibility. You can read more about the topic in the <InternalLink size="M" href="/about/accessibility/hds-accessibility#accessibility-in-projects-using-hds">About - HDS Accessibility section</InternalLink>.
 </Accordion>
 
 <Accordion 
@@ -38,7 +39,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     '--header-font-size': 'var(--fontsize-heading-xs)',
     '--padding-vertical': 'var(--spacing-s)',
   }}>
-  Please contact our team with any of the channels listed on the <Link size="M" href="/about/support">Support page</Link>. You can also open an issue in <Link size="M" href="https://github.com/City-of-Helsinki/helsinki-design-system/issues">GitHub</Link>. 
+  Please contact our team with any of the channels listed on the <InternalLink size="M" href="/about">Support page</InternalLink>. You can also open an issue in <ExternalLink size="M" href="https://github.com/City-of-Helsinki/helsinki-design-system/issues">GitHub</ExternalLink>. 
   
   Sometimes accessibility issues slip through our own audit. It is also common that accessibility experts interpret the accessibility guidelines in different ways - resulting differences in audit reports. Our team will go through your report and if needed, fix the issue as soon as possible.
 </Accordion>

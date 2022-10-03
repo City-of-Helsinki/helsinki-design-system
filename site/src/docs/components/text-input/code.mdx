@@ -3,7 +3,7 @@ slug: '/components/text-input/code'
 title: 'TextInput - Code'
 ---
 
-import { TextInput } from 'hds-react';
+import { Link, TextInput } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
@@ -130,11 +130,11 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Packages
 | Package           | Included                                                                                        | Storybook link                                                                                                    | Source link                                                                                                                                                    |
 | ----------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **HDS React**     | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <ExternalLink href="/storybook/react/?path=/story/components-textinput--default">View in Storybook</ExternalLink> | <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/textInput">View source</ExternalLink> |
-| **HDS Core**      | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <ExternalLink href="/storybook/core/?path=/story/components-text-input--default">View in Storybook</ExternalLink> | <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/text-input">View source</ExternalLink> |
+| **HDS React**     | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-textinput--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/textInput">View source</ExternalLink> |
+| **HDS Core**      | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-text-input--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/text-input">View source</ExternalLink> |
 
 ### Properties
-Note! You can find the full list of properties in the <ExternalLink href="/storybook/react/?path=/docs/components-textinput--default">React Storybook.</ExternalLink>
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/docs/components-textinput--default">React Storybook.</Link>
 
 | Property             | Description                                                      | Values      | Default value |
 | -------------------- | ---------------------------------------------------------------- | ----------- | ------------- |

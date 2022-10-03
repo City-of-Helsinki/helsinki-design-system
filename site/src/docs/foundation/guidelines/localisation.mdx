@@ -1,58 +1,60 @@
 ---
-slug: "/foundation/guidelines/localisation"
-title: "Localisation"
-navTitle: "Localisation"
+slug: '/foundation/guidelines/localisation'
+title: 'Localisation'
+navTitle: 'Localisation'
 ---
 
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/LeadParagraph';
+import InternalLink from '../../../components/InternalLink';
 
 # Localisation
 
 <LeadParagraph>
-  Localising services for different languages makes City of Helsinki services more approachable and easy to understand for wider audiences.
+  Localising services for different languages makes City of Helsinki services more approachable and easy to understand
+  for wider audiences.
 </LeadParagraph>
 
 Here are some recommendations for localising content and navigation:
 
 - **The default language of Helsinki digital services is Finnish (FI).**
-  - It is recommended that Helsinki digital services follow the Finnish date and time locale even if the user is using some other language. See the [HDS data format guidelines](/guidelines/data-formats "HDS data format guidelines") for more information.
+  - It is recommended that Helsinki digital services follow the Finnish date and time locale even if the user is using some other language. See the <InternalLink href="/foundation/guidelines/data-formats">HDS data format guidelines</InternalLink> for more information.
 - **Content should also be provided at least in Swedish (SV) and English (EN), if possible.**
   - Finnish (FI), Swedish (SV), and English (EN) languages should be treated as equal in content and language menus. For these languages, it is recommended to provide full content.
   - For the English (EN) locale, British English spelling should be used.
-  - For the Swedish (SV) locale, the Helsingfors version of the framed logo should be used. Other languages use the default Helsinki framed logo. See more in the [logo guidelines](/foundation/visual-assets/logo "HDS Visual assets logo guidelines").
+  - For the Swedish (SV) locale, the Helsingfors version of the framed logo should be used. Other languages use the default Helsinki framed logo. See more in the <InternalLink href="/foundation/visual-assets/logo">logo guidelines.</InternalLink>
 - **Additional languages**, sign language, and plain language versions of content can be added depending on the targeted user group of the service. The content provided in additional languages can be a subset or a summary of the main content.
 
 - **Let the user select their preferred language.**
-  - Do not auto-localise content or menus unless the user has picked a default language for themself. 
+  - Do not auto-localise content or menus unless the user has picked a default language for themself.
   - For logged-in users, the language selection can be stored in user information.
   - For non-logged-in users, the selection made in the language picker can be stored with a cookie.
 - **When the user switches languages, the page context should be preserved.**
   - When the user switches language on a sub-page, the corresponding page should be shown, instead of redirecting the user to the front page.
   - If a localised version of the content is not available, it is recommended to inform the user and provide possible next actions, instead of redirecting to the front page.
-- **The preferred method for switching languages is with the language picker action in [HDS Navigation component](/components/navigation "HDS Navigation component documentation").**
+- **The preferred method for switching languages is with the language picker action in <InternalLink href="/components/navigation">HDS Navigation component.</InternalLink>**
   - If there are less than three available languages and the services navigation is simple, available languages can be listed as links in the navigation bar action row instead of a language select dropdown.
 - **Use language code (`FI`, `SV`, `EN`...) to represent locales**
   - Do not use flags. Languages are not always country-specific.
   - The currently selected language (for example in navigation language picker) can be indicated with language code alone.
   - When listing languages for selection it is advised to also write out the locale in its corresponding language. Here are some common example locales:
 
-| Locale        | Language code | Verbose                                             |
-| ------------- | ------------- | --------------------------------------------------- |
-| Finnish       | `FI`          | <span lang="fi">Suomeksi (FI)</span>                |
-| Swedish       | `SV`          | <span lang="sv">På svenska (SV)</span>              |
-| English       | `EN`          | <span lang="en">In English (EN)</span>              |
-| German        | `DE`          | <span lang="de">Auf Deutsch (DE)</span>             |
-| French        | `FR`          | <span lang="fr">En français (FR)</span>             |
-| Estonian      | `ET`          | <span lang="et">Eesti keelel (ET)</span>            |
-| Spanish       | `ES`          | <span lang="es">En español (ES)</span>              |
-| Northern Sami | `SE`          | <span lang="se_no">Davvisámegillii (SE)</span>      |
-| Inari Sami    | `SMI`         | <span lang="se_fi">Anarâškielân (SMI)</span>        |
-| Skolt Sami    | `SKS`         | <span lang="se_se">Nuõrttsää´mǩiõ´lle (SKS)</span>  |
-| Somali        | `SO`          | <span lang="so">Af soomaali (SO)</span>             |
-| Russian       | `RU`          | <span lang="ru">По-русски (RU)</span>               |
-| Japanese      | `JA`          | <span lang="ja">日本語 (JA)</span>                   |
-| Chinese       | `ZH`          | <span lang="zh">中文</span> (ZH)                     |
-| Arabic        | `AR`          | <span lang="ar" dir="rtl">بالعربية</span> (AR)      |
-| Fārsī         | `FA`          | <span lang="fa" dir="rtl">فارسی</span> (FA)         |
-[Table 1:Language code and verbose for the most used languages in the Helsinki services]|
+| Locale                                                                                   | Language code | Verbose                                            |
+| ---------------------------------------------------------------------------------------- | ------------- | -------------------------------------------------- |
+| Finnish                                                                                  | `FI`          | <span lang="fi">Suomeksi (FI)</span>               |
+| Swedish                                                                                  | `SV`          | <span lang="sv">På svenska (SV)</span>             |
+| English                                                                                  | `EN`          | <span lang="en">In English (EN)</span>             |
+| German                                                                                   | `DE`          | <span lang="de">Auf Deutsch (DE)</span>            |
+| French                                                                                   | `FR`          | <span lang="fr">En français (FR)</span>            |
+| Estonian                                                                                 | `ET`          | <span lang="et">Eesti keelel (ET)</span>           |
+| Spanish                                                                                  | `ES`          | <span lang="es">En español (ES)</span>             |
+| Northern Sami                                                                            | `SE`          | <span lang="se_no">Davvisámegillii (SE)</span>     |
+| Inari Sami                                                                               | `SMI`         | <span lang="se_fi">Anarâškielân (SMI)</span>       |
+| Skolt Sami                                                                               | `SKS`         | <span lang="se_se">Nuõrttsää´mǩiõ´lle (SKS)</span> |
+| Somali                                                                                   | `SO`          | <span lang="so">Af soomaali (SO)</span>            |
+| Russian                                                                                  | `RU`          | <span lang="ru">По-русски (RU)</span>              |
+| Japanese                                                                                 | `JA`          | <span lang="ja">日本語 (JA)</span>                 |
+| Chinese                                                                                  | `ZH`          | <span lang="zh">中文</span> (ZH)                   |
+| Arabic                                                                                   | `AR`          | <span lang="ar" dir="rtl">بالعربية</span> (AR)     |
+| Fārsī                                                                                    | `FA`          | <span lang="fa" dir="rtl">فارسی</span> (FA)        |
+| [Table 1:Language code and verbose for the most used languages in the Helsinki services] |
