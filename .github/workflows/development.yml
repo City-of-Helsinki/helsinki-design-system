@@ -16,9 +16,9 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v2.5.1
         with:
-          node-version: "14.x"
-          registry-url: "https://registry.npmjs.org"
-      
+          node-version: '14.x'
+          registry-url: 'https://registry.npmjs.org'
+
       - name: install dependencies
         run: yarn
 
@@ -37,7 +37,7 @@ jobs:
       - name: test react package
         run: yarn test
         working-directory: ./packages/react
-      
+
       - name: build storybook for react
         if: ${{ !(contains(github.head_ref, 'hotfix') || contains(github.ref, 'hotfix')) }}
         run: yarn build-storybook
@@ -54,7 +54,7 @@ jobs:
             packages/react/.lokirc.json
           retention-days: 1
 
-  visual-tests: 
+  visual-tests:
     needs: build-test
     # No visual testing in hotfixes
     if: ${{ !(contains(github.head_ref, 'hotfix') || contains(github.ref, 'hotfix')) }}
@@ -63,8 +63,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        loki_configuration: [ 'laptop', 'iphone7']
-        loki_test_group: [ 'Components/[A-M]', 'Components/[N-Z]']
+        loki_configuration: ['laptop', 'iphone7']
+        loki_test_group: ['Components/[A-M]', 'Components/[N-Z]']
 
     steps:
       - name: download storybook
@@ -76,7 +76,11 @@ jobs:
         run: |
           sudo apt update
           sudo apt install graphicsmagick -y
-          yarn add loki@0.26.0
+          yarn add loki@0.30.3
+
+      - name: Sanitize artifact name. Backslash not allowed
+        id: sanitize_artifact_name
+        run: echo ::set-output name=value::$(echo '${{ matrix.loki_test_group }}' | tr '/' '_')
 
       - name: visually test react package with ${{ matrix.loki_configuration }}
         run: ./node_modules/.bin/loki test --requireReference --verboseRenderer --reactUri file:./storybook-static --storiesFilter ${{ matrix.loki_test_group }} ${{ matrix.loki_configuration }}
@@ -84,6 +88,6 @@ jobs:
       - name: upload reference and actual images with ${{ matrix.loki_configuration }} and ${{ matrix.loki_test_group }} in case of failure
         uses: actions/upload-artifact@v2
         with:
-          name: loki_images_${{ matrix.loki_configuration }}_${{ matrix.loki_test_group }}
-          path: .loki/*/*${{ matrix.loki_configuration }}/${{ matrix.loki_test_group }}*.*
+          name: loki_images_${{ matrix.loki_configuration }}_${{ steps.sanitize_artifact_name.outputs.value }}
+          path: .loki/difference/*.*
         if: failure()
