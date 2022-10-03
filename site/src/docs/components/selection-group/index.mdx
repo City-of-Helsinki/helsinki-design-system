@@ -7,6 +7,7 @@ navTitle: 'SelectionGroup'
 import { SelectionGroup, Checkbox, RadioButton } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
@@ -35,8 +36,8 @@ export const SelectionGroupExample = () => {
 
 ### Principles
 - Currently, Selection group can contain either Checkboxes or Radio buttons.
-  - If the user can select more than one option from a list, use [checkboxes](/components/checkbox).
-  - If the user can only select one option from a list, use [radio buttons](/components/radio-button).
+  - If the user can select more than one option from a list, use <InternalLink href="/components/checkbox">checkboxes.</InternalLink>
+  - If the user can only select one option from a list, use <InternalLink href="/components/radio-button">radio buttons.</InternalLink>
 - **Default option must be set for Radio button groups.** For Checkbox groups, this is recommended.
 - Visible label must be given to the Selection group. The label should be clear and describe the choice the user is about to make.
 - Selection group can be aligned both vertically and horizontally. **Vertical alignment is recommended.** Horizontal alignment can be used when there are less than 4 options.

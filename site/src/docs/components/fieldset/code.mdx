@@ -2,7 +2,7 @@
 slug: '/components/fieldset/code'
 title: 'Fieldset - Code'
 ---
-
+import { Link } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import Playground from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
@@ -246,12 +246,12 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 | Package       | Included                                                                                        | Storybook link                                                                                                   | Source link                                                                                                                                                                |
 | ------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <ExternalLink href="/storybook/react/?path=/story/components-fieldset--default">View in Storybook</ExternalLink> | <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/fieldset/Fieldset.tsx">View source</ExternalLink> |
-| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <ExternalLink href="/storybook/core/?path=/story/components-fieldset--default">View in Storybook</ExternalLink>  | <ExternalLink href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/fieldset">View source</ExternalLink>               |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-fieldset--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/fieldset/Fieldset.tsx">View source</ExternalLink> |
+| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-fieldset--default">View in Storybook</Link>  | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/fieldset">View source</ExternalLink>               |
 
 ### Properties
 
-Note! You can find the full list of properties in the <ExternalLink href="/storybook/react/?path=/story/components-dropdowns-select--default">React Storybook.</ExternalLink>
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-dropdowns-select--default">React Storybook.</Link>
 
 | Property  | Description                                            | Values    | Default value |
 | --------- | ------------------------------------------------------ | --------- | ------------- |

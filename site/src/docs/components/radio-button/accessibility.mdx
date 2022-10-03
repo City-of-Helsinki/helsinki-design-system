@@ -4,11 +4,13 @@ title: 'RadioButton - Accessibility'
 ---
 
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Accessibility
 
 ### Pay attention to
-- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour "Colour") to ensure accessibility.
-- When multiple Radio buttons are related to each other, group them together using [HDS Selection group](/components/selection-group). Selection group also includes a title for the group.
+
+- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to <InternalLink href="/foundation/design-tokens/colour">colour guidelines</InternalLink> to ensure accessibility.
+- When multiple Radio buttons are related to each other, group them together using <InternalLink href="/components/selection-group">HDS Selection group</InternalLink>. Selection group also includes a title for the group.

@@ -5,13 +5,15 @@ title: 'ToggleButton - Accessibility'
 
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
 ## Accessibility
 
 ### Pay attention to
-- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to [colour guidelines](/design-tokens/colour 'Colour') to ensure accessibility.
+
+- **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to <InternalLink href="/foundation/design-tokens/colour">colour guidelines</InternalLink> to ensure accessibility.
 - If the toggle button makes other elements appear on the view, those elements should be located next to the toggle button - preferably right after or below it.
-  - While not recommended, if a toggle button makes elements appear in other parts of the user interface, you need to make sure to notify assistive technologies about the change. You can use [HDS Notification component](/components/notification) for this purpose.
+  - While not recommended, if a toggle button makes elements appear in other parts of the user interface, you need to make sure to notify assistive technologies about the change. You can use <InternalLink href="/components/notification">HDS Notification component</InternalLink> for this purpose.
 - HDS Toggle button includes a small animation when the toggle state is changed. However, the animation is considered non-decorative and therefore it does not have to be able to be disabled. See <ExternalLink href="https://www.w3.org/WAI/WCAG21/Understanding/animation-from-interactions.html">WCAG 2.3.3 Animation from Interactions guideline</ExternalLink> for more information.
