@@ -23,39 +23,43 @@ See all available theme variables in the table below.
 | `--header-background-color`  | Custom background color for table headers.     |
 
 ### Customisation example
-<Playground>
 
+<Playground>
 
 ```jsx
 <div
   style={{
-    maxWidth: '640px'
+    maxWidth: '640px',
   }}
 >
   <Table
-    caption={<span><b>Table 1</b>: Table description</span>}
+    caption={
+      <span>
+        <b>Table 1</b>: Table description
+      </span>
+    }
     cols={[
       {
         headerName: 'Not rendered',
-        key: 'id'
+        key: 'id',
       },
       {
         headerName: 'First name',
-        key: 'firstName'
+        key: 'firstName',
       },
       {
         headerName: 'Surname',
-        key: 'surname'
+        key: 'surname',
       },
       {
         headerName: 'Age',
         key: 'age',
-        transform: function noRefCheck(){}
+        transform: function noRefCheck() {},
       },
       {
         headerName: 'Profession',
-        key: 'profession'
-      }
+        key: 'profession',
+      },
     ]}
     indexKey="id"
     rows={[
@@ -64,38 +68,37 @@ See all available theme variables in the table below.
         firstName: 'Lauri',
         id: 1000,
         profession: 'Engineer',
-        surname: 'Kekkonen'
+        surname: 'Kekkonen',
       },
       {
         age: 62,
         firstName: 'Maria',
         id: 1001,
         profession: 'Designer',
-        surname: 'Sarasoja'
+        surname: 'Sarasoja',
       },
       {
         age: 50,
         firstName: 'Anneli',
         id: 1002,
         profession: 'Meteorologist',
-        surname: 'Routa'
+        surname: 'Routa',
       },
       {
         age: 18,
         firstName: 'Osku',
         id: 1003,
         profession: 'Mail Carrier',
-        surname: 'Rausku'
-      }
+        surname: 'Rausku',
+      },
     ]}
     theme={{
       '--content-background-color': 'var(--color-black-5)',
-      '--header-background-color': 'var(--color-tram)'
+      '--header-background-color': 'var(--color-tram)',
     }}
     variant="dark"
   />
 </div>
 ```
-
 
 </Playground>

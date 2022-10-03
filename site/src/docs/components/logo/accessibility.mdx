@@ -11,7 +11,8 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ## Accessibility
 
 ### Pay attention to
+
 - A text alternative must always be provided for logos using the WAI-ARIA definition `aria-label`. See <ExternalLink href="https://www.w3.org/TR/WCAG21/#text-alternatives">WCAG 2.1 Text Alternatives guideline</ExternalLink> for more information.
-    - When using the logo alone without a service name, provide a localised `aria-label` _"City of Helsinki"_.
-    - When using the logo with the service name, provide a localised `aria-label` _"City of Helsinki: [Name of the service]"_.
-- The colour contrast between the logo and its background must comply with <ExternalLink href="https://www.w3.org/TR/WCAG21/#contrast-minimum">AA Level contrast ratios</ExternalLink>. You can find more information about accessible colour combinations in [Colour design token documentation](/design-tokens/colour).
+  - When using the logo alone without a service name, provide a localised `aria-label` _"City of Helsinki"_.
+  - When using the logo with the service name, provide a localised `aria-label` _"City of Helsinki: [Name of the service]"_.
+- The colour contrast between the logo and its background must comply with <ExternalLink href="https://www.w3.org/TR/WCAG21/#contrast-minimum">AA Level contrast ratios</ExternalLink>. You can find more information about accessible colour combinations in [Colour design token documentation](/foundation/design-tokens/colour).
