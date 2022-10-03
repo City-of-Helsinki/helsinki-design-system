@@ -10,7 +10,8 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ## Accessibility
 
 ### Pay attention to
+
 - HDS Phone number input supports HTML input `pattern` attribute. It can be used to specify an exact format for the phone number.
-    - **Note that pattern is not visible to regular users in any way.** Some of the screen readers informs the user if the input does not match the pattern. This attribute mostly increases user experience for screen reader users. 
+  - **Note that pattern is not visible to regular users in any way.** Some of the screen readers informs the user if the input does not match the pattern. This attribute mostly increases user experience for screen reader users.
 - If multiple phone numbers are asked in the same view, make sure they are labelled descriptively or have an extra fieldset label linked to the input with `aria-desribedby`.
-    - You can view an example of this on usage page [phone input with a country code selection variant](/components/phone-input/usage#with-a-country-code-selection)
+  - You can view an example of this on usage page [phone input with a country code selection variant](/components/phone-input#with-a-country-code-selection)

@@ -14,22 +14,23 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Example
 
 <PlaygroundPreview>
-<TextArea
-  id="textarea"
-  label="Label"
-  placeholder="Placeholder"
-  helperText="Assistive text"
-  required
-  style={{ maxWidth: '320px' }}
-/>
+  <TextArea
+    id="textarea"
+    label="Label"
+    placeholder="Placeholder"
+    helperText="Assistive text"
+    required
+    style={{ maxWidth: '320px' }}
+  />
 </PlaygroundPreview>
 
 ### Principles
+
 - **A label should always be provided with a text area.**
 - Use a text area when multiples lines of text is expected. For single line inputs, use a [TextInput component](/components/text-input).
 - Allow the text area to reflect the length of the content you expect the user to enter.
 - If possible, add programmatic assistance. Detect and pre-fill inputs to reduce errors and save time. Use sentence-case for default values, detected values, and auto-completion text.
-- If possible, do input validation in client-side real-time and provide the user with immediate feedback. See [HDS Form validation pattern page](/patterns/form-validation) for more information.
+- If possible, do input validation in client-side real-time and provide the user with immediate feedback. See [HDS Form validation pattern page](/patterns/forms/form-validation) for more information.
 - If possible, be forgiving of different input formats and small mistakes. It can greatly increase user experience of your product if you can fix common mistakes for the user.
 - To decrease a cognitive load of the user, it is recommended to mark all required fields. Remember to provide explanation of the required field indicator at the top of your form.
 - While not required, you can show the current and the expected amount of characters below the text area in the assistive text.
@@ -37,6 +38,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Variations
 
 #### Default
+
 A text area is meant for situations where inputted text is multiline or contains more than one sentence.
 
 <PlaygroundPreview>
@@ -51,6 +53,7 @@ A text area is meant for situations where inputted text is multiline or contains
 </PlaygroundPreview>
 
 #### With a tooltip
+
 A text area can be provided with additional tooltip. Tooltip information should be considered as extra information, for example, why is this information gathered or how is it used. The user should have sufficient information on how to fill the input field in label and assistive text. You can find more information about Tooltips how they are used from the [Tooltip documentation page](/components/tooltip).
 
 <PlaygroundPreview>
