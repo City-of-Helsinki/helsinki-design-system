@@ -169,3 +169,9 @@ HDS styles is large and probably growing as new components are added to it. Addi
 performance of the app. Instead, you should collect only the necessary styles for the initial render. We recommend using
 the tool described in option 1. But if you are unable to use that, extracting the critical CSS styles from either
 `hdsStyles` or `index.css` might work out for you.
+
+### Customising HDS components and server-side rendering
+
+If you customise hds-react components with the <code>theme</code> prop, the style changes will not be visible on the
+first render. The preferred way to customise hds-react components with server-side rendering is using the <code>className</code>
+prop.
