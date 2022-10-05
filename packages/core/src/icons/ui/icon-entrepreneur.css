@@ -1,0 +1,6 @@
+@svg-load icon url(../../svg/ui/entrepreneur.svg);
+
+.hds-icon--entrepreneuer {
+  mask-image: svg-inline(icon);
+  -webkit-mask-image: svg-inline(icon);
+}
