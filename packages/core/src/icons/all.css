@@ -15,6 +15,7 @@
 @import "some/icon-youtube.css";
 
 /* UI */
+@import "ui/icon-alert-circle-fill.css";
 @import "ui/icon-alert-circle.css";
 @import "ui/icon-angle-down.css";
 @import "ui/icon-angle-left.css";
@@ -38,11 +39,13 @@
 @import "ui/icon-calendar.css";
 @import "ui/icon-camera.css";
 @import "ui/icon-check.css";
+@import "ui/icon-childhood.css";
 @import "ui/icon-clock-cross.css";
 @import "ui/icon-clock-plus.css";
 @import "ui/icon-clock.css";
 @import "ui/icon-coffee-cup-saucer.css";
 @import "ui/icon-cogwheel.css";
+@import "ui/icon-company.css";
 @import "ui/icon-copy.css";
 @import "ui/icon-cross-circle.css";
 @import "ui/icon-cross.css";
@@ -53,6 +56,7 @@
 @import "ui/icon-document.css";
 @import "ui/icon-download-cloud.css";
 @import "ui/icon-download.css";
+@import "ui/icon-entrepreneur.css";
 @import "ui/icon-envelope.css";
 @import "ui/icon-error.css";
 @import "ui/icon-event.css";
@@ -61,6 +65,8 @@
 @import "ui/icon-face-neutral.css";
 @import "ui/icon-face-sad.css";
 @import "ui/icon-face-smile.css";
+@import "ui/icon-family.css";
+@import "ui/icon-genderless.css";
 @import "ui/icon-globe.css";
 @import "ui/icon-group.css";
 @import "ui/icon-headphones.css";
@@ -69,6 +75,7 @@
 @import "ui/icon-home-smoke.css";
 @import "ui/icon-home.css";
 @import "ui/icon-info-circle.css";
+@import "ui/icon-key.css";
 @import "ui/icon-link-external.css";
 @import "ui/icon-link.css";
 @import "ui/icon-locate.css";
@@ -83,6 +90,8 @@
 @import "ui/icon-minus-circle.css";
 @import "ui/icon-minus.css";
 @import "ui/icon-mobile.css";
+@import "ui/icon-mover.css";
+@import "ui/icon-occupation.css";
 @import "ui/icon-paperclip.css";
 @import "ui/icon-pen-line.css";
 @import "ui/icon-pen.css";
@@ -100,6 +109,7 @@
 @import "ui/icon-save-diskette-fill.css";
 @import "ui/icon-save-diskette.css";
 @import "ui/icon-search.css";
+@import "ui/icon-senior.css";
 @import "ui/icon-share.css";
 @import "ui/icon-signin.css";
 @import "ui/icon-signout.css";
@@ -117,11 +127,14 @@
 @import "ui/icon-thumbs-up.css";
 @import "ui/icon-ticket.css";
 @import "ui/icon-trash.css";
+@import "ui/icon-traveler.css";
 @import "ui/icon-upload-cloud.css";
 @import "ui/icon-upload.css";
 @import "ui/icon-user.css";
+@import "ui/icon-vaccine.css";
 @import "ui/icon-videocamera-crossed.css";
 @import "ui/icon-videocamera.css";
+@import "ui/icon-virus.css";
 @import "ui/icon-volume-high.css";
 @import "ui/icon-volume-low.css";
 @import "ui/icon-volume-minus.css";
@@ -129,10 +142,10 @@
 @import "ui/icon-volume-plus.css";
 @import "ui/icon-wifi-crossed.css";
 @import "ui/icon-wifi.css";
+@import "ui/icon-youth.css";
 @import "ui/icon-zoom-in.css";
 @import "ui/icon-zoom-out.css";
 @import "ui/icon-zoom-text.css";
-@import "ui/icon-alert-circle-fill.css";
 @import "ui/icon-cake.css";
 @import "ui/icon-calendar-recurring.css";
 @import "ui/icon-check-circle-fill.css";

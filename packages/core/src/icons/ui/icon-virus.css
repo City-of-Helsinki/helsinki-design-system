@@ -1,0 +1,6 @@
+@svg-load icon url(../../svg/ui/virus.svg);
+
+.hds-icon--virus {
+  mask-image: svg-inline(icon);
+  -webkit-mask-image: svg-inline(icon);
+}
