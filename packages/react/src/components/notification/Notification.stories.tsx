@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Notification, NotificationSizeInline, NotificationSizeToast } from './Notification';
 import { Button } from '../button';
@@ -74,11 +74,23 @@ export const Invisible = () => {
 
 export const Dismissible = () => {
   const [open, setOpen] = useState(true);
+  const showButtonRef = useRef(null);
+  const onClose = () => {
+    setOpen(false);
+    if (showButtonRef.current) {
+      showButtonRef.current.focus();
+    }
+  };
+
   return (
     <>
-      {!open && <Button onClick={() => setOpen(true)}>Open notification</Button>}
+      {!open && (
+        <Button ref={showButtonRef} onClick={() => setOpen(true)}>
+          Open notification
+        </Button>
+      )}
       {open && (
-        <Notification {...props} dismissible onClose={() => setOpen(false)} closeButtonLabelText="Close notification">
+        <Notification {...props} dismissible onClose={() => onClose()} closeButtonLabelText="Close notification">
           {content}
         </Notification>
       )}
@@ -88,9 +100,21 @@ export const Dismissible = () => {
 
 export const AutoClose = () => {
   const [open, setOpen] = useState(false);
+  const showButtonRef = useRef(null);
+  const onClose = () => {
+    setOpen(false);
+    if (showButtonRef.current) {
+      showButtonRef.current.focus();
+    }
+  };
+
   return (
     <>
-      {!open && <Button onClick={() => setOpen(true)}>Open notification</Button>}
+      {!open && (
+        <Button ref={showButtonRef} onClick={() => setOpen(true)}>
+          Open notification
+        </Button>
+      )}
       {open && (
         <>
           <Notification
@@ -98,7 +122,7 @@ export const AutoClose = () => {
             position="top-left"
             autoClose
             autoCloseDuration={3000}
-            onClose={() => setOpen(false)}
+            onClose={() => onClose()}
           >
             {content}
           </Notification>
