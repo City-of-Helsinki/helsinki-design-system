@@ -16,11 +16,13 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v2.5.1
         with:
-          node-version: "14.x"
-          registry-url: "https://registry.npmjs.org"
-      
+          node-version: '14.x'
+          registry-url: 'https://registry.npmjs.org'
+
       - name: install dependencies
-        run: yarn
+        run: |
+          yarn config set network-timeout 300000 
+          yarn
 
       - name: build design tokens package
         run: yarn build
@@ -37,7 +39,7 @@ jobs:
       - name: test react package
         run: yarn test
         working-directory: ./packages/react
-      
+
       - name: build storybook for react
         if: ${{ !(contains(github.head_ref, 'hotfix') || contains(github.ref, 'hotfix')) }}
         run: yarn build-storybook
@@ -54,7 +56,7 @@ jobs:
             packages/react/.lokirc.json
           retention-days: 1
 
-  visual-tests: 
+  visual-tests:
     needs: build-test
     # No visual testing in hotfixes
     if: ${{ !(contains(github.head_ref, 'hotfix') || contains(github.ref, 'hotfix')) }}
@@ -63,8 +65,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        loki_configuration: [ 'laptop', 'iphone7']
-        loki_test_group: [ 'Components/[A-M]', 'Components/[N-Z]']
+        loki_configuration: ['laptop', 'iphone7']
+        loki_test_group: ['Components/[A-M]', 'Components/[N-Z]']
 
     steps:
       - name: download storybook
