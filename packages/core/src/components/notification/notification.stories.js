@@ -7,12 +7,19 @@ const iconMapping = {
   error: 'error-fill',
 };
 
-const getLabel = (type, isInline = true) => {
-  const label = type[0].toUpperCase() + type.substring(1);
+const getLabelText = type => type[0].toUpperCase() + type.substring(1);
+const getInlineNotificationLabel = (type) => {
   return `
-    <div class="hds-notification__label" ${(isInline ? 'role="heading" aria-level="2"' : '')}>
+    <div class="hds-notification__label" role="heading" aria-level="2">
       <span class="hds-icon hds-icon--${iconMapping[type]}" aria-hidden="true"></span>
-      <span>${label}</span>
+      <span>${getLabelText(type)}</span>
+    </div>`;
+};
+const getToastLabel = (type) => {
+  return `
+    <div class="hds-notification__label">
+      <span class="hds-icon hds-icon--${iconMapping[type]}" aria-hidden="true"></span>
+      <span>${getLabelText(type)}</span>
     </div>`;
 };
 const text = `<div class="hds-notification__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>`;
@@ -35,7 +42,10 @@ export default {
 export const Default = () => `
     <section aria-label="Notification" class="hds-notification">
       <div class="hds-notification__content">
-        ${getLabel('info')}
+        <div class="hds-notification__label" role="heading" aria-level="2">
+            <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
+            <span>Info</span>
+        </div>
         ${text}
       </div>
     </section>
@@ -44,7 +54,10 @@ export const Default = () => `
 export const Success = () => `
     <section aria-label="Notification" class="hds-notification hds-notification--success">
       <div class="hds-notification__content">
-        ${getLabel('success')}
+        <div class="hds-notification__label" role="heading" aria-level="2">
+            <span class="hds-icon hds-icon--check-circle-fill" aria-hidden="true"></span>
+            <span>Success</span>
+        </div>
         ${text}
       </div>
     </section>
@@ -53,7 +66,10 @@ export const Success = () => `
 export const Alert = () => `
     <section aria-label="Notification" class="hds-notification hds-notification--alert">
       <div class="hds-notification__content">
-        ${getLabel('alert')}
+        <div class="hds-notification__label" role="heading" aria-level="2">
+            <span class="hds-icon hds-icon--alert-circle-fill" aria-hidden="true"></span>
+            <span>Alert</span>
+        </div>
         ${text}
       </div>
     </section>
@@ -62,7 +78,10 @@ export const Alert = () => `
 export const Error = () => `
     <section aria-label="Notification" class="hds-notification hds-notification--error">
       <div class="hds-notification__content">
-        ${getLabel('error')}
+        <div class="hds-notification__label" role="heading" aria-level="2">
+            <span class="hds-icon hds-icon--error-fill" aria-hidden="true"></span>
+            <span>Error</span>
+        </div>
         ${text}
       </div>
     </section>
@@ -75,7 +94,7 @@ export const Toast = () =>
         `
         <section aria-label="Notification" role="alert" class="hds-notification hds-notification--${position}">
           <div class="hds-notification__content">
-            ${getLabel('info', false)}
+            ${getToastLabel('info')}
             ${position}
           </div>
         </section>
@@ -92,10 +111,7 @@ export const Small = () =>
           type ? `hds-notification--${type}` : ''
         }">
           <div class="hds-notification__content">
-            <div class="hds-notification__label">
-              <span class="hds-icon hds-icon--${iconMapping[type]}" aria-hidden="true"></span>
-            </div>
-            <div class="hds-notification__body">${type[0].toUpperCase() + type.substring(1)}</div>
+             ${getToastLabel(type)}
           </div>
         </section>
     `,
@@ -111,7 +127,7 @@ export const Large = () =>
           type ? `hds-notification--${type}` : ''
         }">
           <div class="hds-notification__content">
-            ${getLabel(type)}
+            ${getInlineNotificationLabel( type )}
             ${text}
           </div>
         </section>
@@ -122,7 +138,10 @@ export const Large = () =>
 export const WithBoxShadow = () => `
     <section aria-label="Notification" class="hds-notification hds-notification--box-shadow">
       <div class="hds-notification__content">
-        ${getLabel('info')}
+        <div class="hds-notification__label" role="heading" aria-level="2">
+            <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
+            <span>Info</span>
+        </div>
         ${text}
       </div>
     </section>
@@ -134,7 +153,9 @@ export const Invisible = () => `
     <div class="hiddenFromScreen">
       <section aria-label="Notification" role="alert" class="hds-notification">
         <div class="hds-notification__content">
-          ${getLabel('info')}
+          <div class="hds-notification__label">
+            <span>Info</span>
+          </div>
           This notification is only visible to screen readers
         </div>
       </section>
@@ -144,7 +165,10 @@ export const Invisible = () => `
 export const WithClose = () => `
     <section aria-label="Notification" role="alert" class="hds-notification">
       <div class="hds-notification__content">
-        ${getLabel('info', false)}
+       <div class="hds-notification__label">
+          <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
+          <span>Info</span>
+        </div>
         ${text}
       </div>
       ${closeButton}
@@ -162,7 +186,10 @@ export const WithClose = () => `
     <br>
     <section aria-label="Notification" role="alert" class="hds-notification hds-notification--large">
       <div class="hds-notification__content">
-        ${getLabel('info', false)}
+       <div class="hds-notification__label">
+          <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
+          <span>Info</span>
+        </div>
         ${text}
       </div>
       ${closeButton}
