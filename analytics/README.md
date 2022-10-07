@@ -28,7 +28,7 @@ To collect analytics from a subset of found repositories (for testing purposes),
 To collect analytics from all found repositories, run:
 ```TOKEN=$GITHUB_TOKEN node run-analytics.js```
 
-## Bonus content: Search which City of Helsinki Github repositories use hds-react and what version
+## HDS version usage analytics: collect data of HDS versions in repos
 The bash script file `find-hds-react-version-usage.sh` calls Github API and finds all `hds-react` occurrences in code under the City of Helsinki organisation and gets the corresponding repository name, Github URL, path to the package.json file and hds-react version and puts them in a JSON file.
 
 ### How to use it
@@ -52,6 +52,6 @@ jq: `brew install jq`
 sponge: `brew install sponge`
 
 ### Running the script
-Run the script in the terminal with `bash find-hds-react-version-usage.sh`
+Run the script in the terminal with `TOKEN=$GITHUB_TOKEN bash find-hds-react-version-usage.sh`
 
 The script produces a `hds-react-version-usage.json` file which contains an array of objects with the name and Github URL of the repository, which hds-react version it uses and the path to the package.json file where hds-react was mentioned. The path is useful information to determine if subfolders of a repository use the same hds-react version.
