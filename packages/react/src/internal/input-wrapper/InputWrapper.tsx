@@ -12,7 +12,9 @@ type InputWrapperProps = {
   hideLabel?: boolean;
   id: string;
   invalid?: boolean;
+  isAriaLabelledBy?: boolean;
   label?: string | React.ReactNode;
+  labelId?: string;
   onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
   required?: boolean;
   style?: React.CSSProperties;
@@ -31,7 +33,9 @@ export const InputWrapper = ({
   hideLabel = false,
   id,
   invalid = false,
+  isAriaLabelledBy = false,
   label,
+  labelId,
   onBlur,
   required = false,
   style,
@@ -48,7 +52,9 @@ export const InputWrapper = ({
   >
     {label && (
       <FieldLabel
+        id={labelId}
         inputId={id}
+        isAriaLabelledBy={isAriaLabelledBy}
         hidden={hideLabel}
         label={label}
         required={required}

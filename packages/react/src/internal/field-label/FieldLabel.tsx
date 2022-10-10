@@ -6,7 +6,9 @@ import { Tooltip } from '../../components/tooltip';
 
 type FieldLabelProps = {
   hidden?: boolean;
+  id?: string;
   inputId: string;
+  isAriaLabelledBy?: boolean;
   label: string | React.ReactNode;
   required?: boolean;
   tooltipLabel?: string;
@@ -16,7 +18,9 @@ type FieldLabelProps = {
 
 export const FieldLabel = ({
   hidden,
+  id,
   inputId,
+  isAriaLabelledBy,
   label,
   required,
   tooltipLabel,
@@ -25,7 +29,12 @@ export const FieldLabel = ({
   ...rest
 }: FieldLabelProps) => (
   <>
-    <label htmlFor={inputId} className={`${styles.label} ${hidden ? styles.hidden : ''}`} {...rest}>
+    <label
+      id={id}
+      {...((!isAriaLabelledBy || !id) && { htmlFor: inputId })}
+      className={`${styles.label} ${hidden ? styles.hidden : ''}`}
+      {...rest}
+    >
       {label}
       {required && <RequiredIndicator />}
     </label>
