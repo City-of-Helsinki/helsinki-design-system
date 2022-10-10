@@ -12,6 +12,10 @@ export type LinkProps = Omit<
   'target' | 'href' | 'onPointerEnterCapture' | 'onPointerLeaveCapture' | 'aria-label'
 > & {
   /**
+   * aria-label for providing detailed information for screen readers about a link text.
+   */
+  ariaLabel?: string;
+  /**
    * Link content
    */
   children: string;
@@ -62,6 +66,7 @@ type LinkToIconSizeMappingType = {
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   (
     {
+      ariaLabel,
       children,
       className,
       disableVisitedStyles = false,
@@ -78,7 +83,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     ref: React.Ref<HTMLAnchorElement>,
   ) => {
     const composeAriaLabel = () => {
-      let childrenText = getTextFromReactChildren(children);
+      let childrenText = ariaLabel || getTextFromReactChildren(children);
       const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
       const externalText = external ? openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.' : '';
 
@@ -97,6 +102,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 
     return (
       <a
+        aria-label={ariaLabel}
         className={classNames(
           styles.link,
           styles[`link${size}`],
@@ -106,7 +112,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         href={href}
         style={style}
         {...(openInNewTab && { target: '_blank', rel: 'noopener' })}
-        {...((openInNewTab || external) && { 'aria-label': composeAriaLabel() })}
+        {...((openInNewTab || external || ariaLabel) && { 'aria-label': composeAriaLabel() })}
         ref={ref}
         {...rest}
       >
