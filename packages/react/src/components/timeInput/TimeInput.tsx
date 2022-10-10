@@ -271,7 +271,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
 
     return (
       <InputWrapper {...wrapperProps} id={id} labelId={labelId} isAriaLabelledBy>
-        <div {...frameProps} role="group" aria-labelledBy={labelId}>
+        <div {...frameProps} role="group" aria-labelledby={labelId}>
           <input
             aria-hidden
             readOnly
