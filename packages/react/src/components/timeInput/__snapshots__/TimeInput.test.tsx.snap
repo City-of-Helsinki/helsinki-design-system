@@ -9,7 +9,7 @@ exports[`<TimeInput /> spec renders the component 1`] = `
       class="inputWrapper"
     >
       <div
-        aria-labelledby="time-hours-label"
+        aria-labelledby="time-label"
         class="input timeInputFrame"
         role="group"
       >
