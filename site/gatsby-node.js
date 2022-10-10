@@ -13,6 +13,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
       alias: {
         fs$: path.resolve(__dirname, 'src/fs.js'),
         'hds-react': 'hds-react/lib',
+        'stream': false,
       },
     },
   });
