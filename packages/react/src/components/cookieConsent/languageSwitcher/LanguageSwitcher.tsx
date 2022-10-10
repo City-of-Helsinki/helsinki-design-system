@@ -5,9 +5,17 @@ import { Navigation } from '../../navigation/Navigation';
 import styles from '../CookieConsent.module.scss';
 
 export function LanguageSwitcher(): React.ReactElement {
+  const languageSelectorId = 'cookie-consent-language-selector';
   const { current, languageOptions, languageSelectorAriaLabel, onLanguageChange } = useContentLanguage();
   const setLanguage = (code: string, e: React.MouseEvent) => {
     e.preventDefault();
+    if (code === current) {
+      const languageMenuButton = document.getElementById(`${languageSelectorId}-button`);
+      if (languageMenuButton) {
+        languageMenuButton.focus();
+      }
+      return;
+    }
     onLanguageChange(code);
   };
   const currentOption = languageOptions.find((option) => option.code === current);
@@ -16,7 +24,7 @@ export function LanguageSwitcher(): React.ReactElement {
       label={currentOption.label}
       buttonAriaLabel={languageSelectorAriaLabel}
       className={styles.languageSelectorOverride}
-      id="cookie-consent-language-selector"
+      id={languageSelectorId}
     >
       {languageOptions.map((option) => (
         <Navigation.Item
@@ -26,6 +34,7 @@ export function LanguageSwitcher(): React.ReactElement {
           active={current === option.code}
           key={option.code}
           lang={option.code}
+          data-testid={`cookie-consent-language-option-${option.code}`}
         />
       ))}
     </Navigation.LanguageSelector>

@@ -1,6 +1,6 @@
 /* eslint-disable jest/expect-expect */
 /* eslint-disable jest/no-mocks-import */
-import React from 'react';
+import React, { useState } from 'react';
 import { render, RenderResult, screen, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { act } from 'react-dom/test-utils';
@@ -20,8 +20,9 @@ import {
   createConsentObjectWithSelectedRejections,
   getActiveElement,
   waitForElementFocus,
+  getElementById,
 } from '../test.util';
-import { createContent } from '../content.builder';
+import { CookieContentSource, createContent } from '../content.builder';
 import { Content } from '../contexts/ContentContext';
 
 const { defaultConsentData, unknownConsents, dataTestIds } = commonTestProps;
@@ -35,6 +36,9 @@ const testIds = {
   closeButton: 'cookie-consent-approve-button',
   target: 'PortalTarget',
   targetWithChildren: 'PortalTargetWithChildren',
+  languageSwitcherButton: 'cookie-consent-language-selector-button',
+  languageSwitcher: 'cookie-consent-language-switcher',
+  languageOptionPrefix: 'cookie-consent-language-option',
 };
 
 const renderCookieConsent = (
@@ -52,9 +56,20 @@ const renderCookieConsent = (
   content = createContent(contentSource);
   jest.useFakeTimers();
   mockedCookieControls.init({ [COOKIE_NAME]: JSON.stringify(consentCookieWithInjectedUnknowns) });
+
+  const WrapModalWithLanguageChanger = ({ contentSourceForModal }: { contentSourceForModal: CookieContentSource }) => {
+    const [lang, setLanguage] = useState<CookieContentSource['currentLanguage']>(contentSourceForModal.currentLanguage);
+    // eslint-disable-next-line no-param-reassign
+    contentSourceForModal.language = contentSourceForModal.language || {};
+    // eslint-disable-next-line no-param-reassign
+    contentSourceForModal.language.onLanguageChange = (newLang) =>
+      setLanguage(newLang as CookieContentSource['currentLanguage']);
+    return <CookieModal contentSource={{ ...contentSourceForModal, currentLanguage: lang }} rootId={rootId} />;
+  };
+
   const result = render(
     <div>
-      <CookieModal contentSource={contentSource} rootId={rootId} />
+      <WrapModalWithLanguageChanger contentSourceForModal={contentSource} />
       <button id="focus-target" type="button">
         Focus me
       </button>
@@ -74,6 +89,13 @@ const renderCookieConsent = (
   }
 
   return result;
+};
+
+const getModalH1 = () => screen.queryByRole('heading', { level: 1 });
+
+const getTitleText = () => {
+  const h1 = getModalH1();
+  return h1 ? h1.textContent : undefined;
 };
 
 describe('<CookieModal /> spec', () => {
@@ -140,7 +162,7 @@ describe('<CookieModal /> ', () => {
   describe('Auto-focusing works also with portal and focus is', () => {
     it('shifted to the modal heading level 1 when modal is rendered', () => {
       const result = renderCookieConsent(defaultConsentData, { withRealTimers: true });
-      const modalH1 = screen.queryByRole('heading', { level: 1 });
+      const modalH1 = getModalH1();
       expect(getActiveElement(result.container)).toEqual(modalH1);
     });
 
@@ -206,6 +228,36 @@ describe('<CookieModal /> ', () => {
       });
       expect(() => result.getByTestId(testIds.target)).not.toThrow();
       expect(() => result.getByTestId(testIds.targetWithChildren)).not.toThrow();
+    });
+  });
+  describe('Language change', () => {
+    it('moves the focus back to the main title', async () => {
+      const result = renderCookieConsent(defaultConsentData, { rootId: testIds.target });
+      const svOptionTestId = `${testIds.languageOptionPrefix}-sv`;
+      const currentTitle = getTitleText();
+      (getElementById(result, testIds.languageSwitcherButton) as HTMLLinkElement).click();
+      await waitFor(() => {
+        expect(() => result.getByTestId(svOptionTestId)).not.toThrow();
+      });
+      clickElement(result, svOptionTestId);
+      await waitFor(() => {
+        expect(getTitleText()).not.toBe(currentTitle);
+      });
+      await waitForElementFocus(getModalH1);
+    });
+    it('refocuses the language menu button if selected language is same as previous.', async () => {
+      const result = renderCookieConsent(defaultConsentData, { rootId: testIds.target });
+      const fiOptionTestId = `${testIds.languageOptionPrefix}-fi`;
+      const languageMenuButtonId = `cookie-consent-language-selector-button`;
+      (getElementById(result, testIds.languageSwitcherButton) as HTMLLinkElement).click();
+      await waitFor(() => {
+        expect(() => result.getByTestId(fiOptionTestId)).not.toThrow();
+      });
+      clickElement(result, fiOptionTestId);
+      await waitFor(() => {
+        expect(() => result.getByTestId(fiOptionTestId)).not.toThrow();
+      });
+      await waitForElementFocus(() => getElementById(result, languageMenuButtonId));
     });
   });
 });

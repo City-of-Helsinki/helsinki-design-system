@@ -32,10 +32,10 @@ export function Content(): React.ReactElement {
       );
 
   const setFocusToTitle = useCallback(() => {
-    if (titleRef.current) {
+    if (title && titleRef.current) {
       titleRef.current.focus();
     }
-  }, [titleRef]);
+  }, [titleRef, title]);
 
   useEffect(() => {
     setFocusToTitle();
