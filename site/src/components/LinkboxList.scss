@@ -1,7 +1,7 @@
 @import "~hds-design-tokens/lib/all.scss";
 
 .linkbox-list {
-  grid-template-columns: repeat(auto-fit, minmax(204px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(216px, 1fr));
   display: grid;
   column-gap: var(--spacing-layout-xs);
   row-gap: var(--spacing-layout-xs);
