@@ -267,10 +267,11 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
 
     const hourInputId = `${id}-hours`;
     const minuteInputId = `${id}-minutes`;
+    const labelId = `${id}-label`;
 
     return (
-      <InputWrapper {...wrapperProps} id={id}>
-        <div {...frameProps}>
+      <InputWrapper {...wrapperProps} id={id} labelId={labelId} isAriaLabelledBy>
+        <div {...frameProps} role="group" aria-labelledBy={labelId}>
           <input
             aria-hidden
             readOnly
