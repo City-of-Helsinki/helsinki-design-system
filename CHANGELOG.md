@@ -20,9 +20,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [CookieConsent] Cookie consent title is now refocused on language change and the banner won't shrink unexpectedly
 - [Link] Ability to pass an aria-label added to the Link component
-- [TimeInput] Fixed an accessibility bug by grouping hours and minutes inputs under the same label. Added group="role" to the parent div of TimeInput component's hours and minutes inputs.
-- [TimeInput] Fixed an accessibility bug by using the correct id with the helper texts. This way the screen readers can connect the helper text to inputs.
-- Fixed the issue with useTheme hook throwing a warning in jest/testing-library tests when an HDS component is using a theme property.
+- [TimeInput] Fixed an accessibility bug by grouping hours and minutes inputs under the same label. Added group="role" to the parent div of TimeInput component's hours and minutes inputs
+- [TimeInput] Fixed an accessibility bug by using the correct id with the helper texts. This way the screen readers can connect the helper text to inputs
+- Fixed the issue with useTheme hook throwing a warning in jest/testing-library tests when an HDS component is using a theme property
 - Loki package updated. Now the Loki tests won't fail with Apple Silicon (M1)
 
 ### Core
