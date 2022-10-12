@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# Path to file
-
-# jos toimii, nii kokeile suoraan stringissä $()
 date=$(date -u +"%Y-%m-%dT%H-%M-%SZ");
-echo $date;
+# Path to file
 FILE_NAME="./results/${date}_HDS_react_versions_in_use.json";
 
 # Call to Github API to find all occurrences of "hds-react" under City-of-Helsinki org.
