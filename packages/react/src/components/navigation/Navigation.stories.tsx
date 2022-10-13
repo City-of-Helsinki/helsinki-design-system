@@ -491,3 +491,70 @@ export const DropdownLinks = ({ searchLabel, searchPlaceholder, authenticated, u
     </Navigation>
   );
 };
+
+export const WithoutTitleUrl = ({ searchLabel, searchPlaceholder, authenticated, userName, ...args }) => (
+  // @ts-ignore
+  <Navigation {...args}>
+    {/* NAVIGATION ROW */}
+    <Navigation.Row ariaLabel="Main navigation">
+      <Navigation.Item href="#" label="Link" active onClick={(e) => e.preventDefault()} />
+      <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+      <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+      <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+      <Navigation.Dropdown label="Dropdown">
+        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+        <Navigation.Item href="#" label="Link" onClick={(e) => e.preventDefault()} />
+      </Navigation.Dropdown>
+    </Navigation.Row>
+
+    {/* NAVIGATION ACTIONS */}
+    <Navigation.Actions>
+      {/* SEARCH */}
+      <Navigation.Search searchLabel={searchLabel} searchPlaceholder={searchPlaceholder} />
+
+      {/* USER */}
+      <Navigation.User authenticated={authenticated} label="Sign in" userName={userName}>
+        <Navigation.Item label="Link" href="#" variant="secondary" onClick={(e) => e.preventDefault()} />
+        <Navigation.Item
+          label="Sign out"
+          href="#"
+          icon={<IconSignout aria-hidden />}
+          variant="supplementary"
+          onClick={(e) => e.preventDefault()}
+        />
+      </Navigation.User>
+
+      {/* LANGUAGE SELECTOR */}
+      <Navigation.LanguageSelector label="FI">
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="fi" label="Suomeksi" />
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="sv" label="På svenska" />
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="en" label="In English" />
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="fr" label="En français" />
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="de" label="Auf deutsch" />
+        <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="ru" label="По-русски" />
+      </Navigation.LanguageSelector>
+    </Navigation.Actions>
+  </Navigation>
+);
+
+WithoutTitleUrl.args = {
+  title: 'Helsinki Design System',
+  titleAriaLabel: 'Helsinki: Helsinki Design System',
+  titleUrl: undefined,
+  theme: 'light',
+  menuToggleAriaLabel: 'Menu',
+  skipTo: '#content',
+  skipToContentLabel: 'Skip to main content',
+  searchLabel: 'Search',
+  searchPlaceholder: 'Search page',
+  authenticated: false,
+  userName: 'John Doe',
+};
+
+WithoutTitleUrl.parameters = {
+  loki: { skip: true }, // The visuals are identical to Default
+};
+
+WithoutTitleUrl.storyName = 'Without title url';
