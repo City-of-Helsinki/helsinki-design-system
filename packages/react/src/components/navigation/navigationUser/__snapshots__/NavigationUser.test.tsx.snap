@@ -20,7 +20,7 @@ exports[`<Navigation.User /> spec renders the component 1`] = `
         <div
           class="headerContainer"
         >
-          <a
+          <div
             class="title"
           >
             <svg
@@ -43,7 +43,7 @@ exports[`<Navigation.User /> spec renders the component 1`] = `
             <span>
               Foo
             </span>
-          </a>
+          </div>
           <button
             aria-expanded="false"
             aria-haspopup="true"
@@ -84,7 +84,7 @@ exports[`<Navigation.User /> spec renders the component 1`] = `
         <div
           class="headerContainer"
         >
-          <a
+          <div
             class="title"
           >
             <svg
@@ -107,7 +107,7 @@ exports[`<Navigation.User /> spec renders the component 1`] = `
             <span>
               Foo
             </span>
-          </a>
+          </div>
           <div
             class="headerContent"
           >
