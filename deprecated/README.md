@@ -28,13 +28,13 @@ Do not rename the folders inside this folder without making corresponding change
 to the release pipeline. In the rare case where you would need to make a change to the
 old documentation site or storybooks in production, follow this:
 
-1. Checkout v1 from git
+1. Checkout v1-latest branch from git
 2. Make changes to components or the old documentation site.
 3. If you have changes to components, then release npm changes but do not publish 
 the old site from git v1, as it would override the new site. So you need to
 modify the gh-pages.yml workflow.
 4. Build storybooks
-5. Add `base: '/v1'` to old site doczrc.js export and build the site
+5. Build site
 6. Copy content of the built storybooks and old site somewhere out of the repo temporarily
 7. Checkout current version from git
 8. Move the built storybooks and old site code inside deprecated/v1/ respective folders
