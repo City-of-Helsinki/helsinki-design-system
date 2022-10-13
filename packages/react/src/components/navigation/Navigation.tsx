@@ -129,26 +129,44 @@ const getNavigationVariantFromChild = (children: React.ReactNode): NavigationVar
  * @param titleUrl
  * @param mobileMenuOpen
  */
-const HeaderWrapper = ({ children, logoLanguage, onTitleClick, title, titleAriaLabel, titleUrl }) => (
-  <div className={styles.headerBackgroundWrapper}>
-    <div className={styles.headerContainer}>
-      <a
-        className={styles.title}
-        href={titleUrl}
-        aria-label={titleAriaLabel}
-        onKeyPress={(e) => {
-          if ((e.key === 'Enter' || e.key === ' ') && onTitleClick) onTitleClick(e);
-        }}
-        onClick={(event) => onTitleClick && onTitleClick(event)}
-        {...(!titleUrl && onTitleClick && { tabIndex: 0 })}
-      >
+const HeaderWrapper = ({ children, logoLanguage, onTitleClick, title, titleAriaLabel, titleUrl }) => {
+  const isTitleLink = titleUrl || onTitleClick;
+
+  const renderLogoAndTitle = () => {
+    return (
+      <>
         <Logo className={styles.logo} language={logoLanguage} aria-hidden />
         {title && <span>{title}</span>}
-      </a>
-      {children}
+      </>
+    );
+  };
+
+  return (
+    <div className={styles.headerBackgroundWrapper}>
+      <div className={styles.headerContainer}>
+        {isTitleLink && (
+          <a
+            className={styles.title}
+            href={titleUrl}
+            aria-label={titleAriaLabel}
+            onKeyPress={(e) => {
+              if ((e.key === 'Enter' || e.key === ' ') && onTitleClick) onTitleClick(e);
+            }}
+            onClick={(event) => onTitleClick && onTitleClick(event)}
+          >
+            {renderLogoAndTitle()}
+          </a>
+        )}
+        {!isTitleLink && (
+          <div className={styles.title} aria-label={titleAriaLabel}>
+            {renderLogoAndTitle()}
+          </div>
+        )}
+        {children}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export const Navigation = ({
   children,
