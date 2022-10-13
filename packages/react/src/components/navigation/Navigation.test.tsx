@@ -11,6 +11,18 @@ describe('<Navigation /> spec', () => {
     );
     expect(asFragment()).toMatchSnapshot();
   });
+  it('renders the component with titleUrl', () => {
+    const { asFragment } = render(
+      <Navigation
+        titleUrl="hds.hel.fi"
+        menuToggleAriaLabel="menu"
+        skipTo="#content"
+        skipToContentLabel="Skip to content"
+        title="Foo"
+      />,
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
   it('should not have basic accessibility issues', async () => {
     const { container } = render(
       <Navigation menuToggleAriaLabel="menu" skipTo="#content" skipToContentLabel="Skip to content" title="Foo" />,
