@@ -12,14 +12,9 @@ const exec = util.promisify(require('child_process').exec);
  */
 async function searchRepos(githubToken, cumulativeValue, page = 1) {
   try {
+    
     /* Call to Github API. Retry max 5 times with 1 min timeout on transient errors and connection refusals. */
-    const response = await exec(
-      'curl --retry 5 --retry-connrefused --retry-max-time 60 -H "Accept: application/vnd.github+json"  -H "Authorization: token ' +
-        githubToken +
-        '" "https://api.github.com/search/code?q=hds-react+in:file+filename:package.json+org:City-of-Helsinki&per_page=100&page=' +
-        page +
-        '"',
-    );
+    const response = await exec(`TOKEN=${githubToken} PAGE=${page} bash github-api-call.sh`);
     const data = JSON.parse(response.stdout);
     const totalCount = data.total_count;
     const returnObject = { totalCount, items: cumulativeValue ? cumulativeValue.items.concat(data.items) : data.items };
@@ -27,15 +22,21 @@ async function searchRepos(githubToken, cumulativeValue, page = 1) {
     /* As long as total count of results is higher than the amount we have gathered so far,
     call this function again recursively until all the data has been gathered. */
     if (totalCount > returnObject.items.length) {
-      console.log('Still more repositories left for fetching, please wait...');
       return await searchRepos(githubToken, returnObject, ++page);
     } else {
-      console.log('Search is done.');
+      /* Fetching all the data is done */
+      console.log(JSON.stringify(returnObject))
       return returnObject;
     }
   } catch (e) {
     console.error(e);
   }
+}
+
+/* This is to support calling this function from the command line */
+if (process.argv[2]) {
+  const token = process.argv[2];
+  searchRepos(token);
 }
 
 module.exports = searchRepos;
