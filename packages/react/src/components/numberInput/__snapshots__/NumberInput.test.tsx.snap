@@ -37,6 +37,7 @@ exports[`<NumberInput /> spec renders the component with steppers 1`] = `
     <label
       class="label "
       for="numberInputTestId"
+      id="numberInputTestId-label"
     >
       Test label number input
     </label>
@@ -44,7 +45,9 @@ exports[`<NumberInput /> spec renders the component with steppers 1`] = `
       class="inputWrapper"
     >
       <div
+        aria-labelledby="numberInputTestId-label"
         class="numberInputContainer"
+        role="group"
       >
         <input
           class="input numberInputWithSteps"
