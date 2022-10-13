@@ -1,15 +1,16 @@
 #!/bin/bash
 
 date=$(date -u +"%Y-%m-%dT%H-%M-%SZ");
-# Path to file
-FILE_NAME="./results/${date}_HDS_react_versions_in_use.json";
+# Path to file that will be generated
+FILE_NAME="../results/${date}_HDS_react_versions_in_use.json";
 
 # Call to Github API to find all occurrences of "hds-react" under City-of-Helsinki org.
-curl -H  --retry 5 --retry-connrefused --retry-max-time 60 -H "Accept: application/vnd.github+json"  -H "Authorization: token $TOKEN" "https://api.github.com/search/code?q=hds-react+in:file+filename:package.json+org:City-of-Helsinki&per_page=100" | jq '. | .total_count as $total_count | { total_count: $total_count, repositories: [.items[] | {name: .repository.name, url: .repository.html_url, package_url: .git_url, path: .path}]}' > $FILE_NAME
+node search-repos.js $TOKEN | jq '. | .totalCount as $total_count | { total_count: $total_count, repositories: [.items[] | {name: .repository.name, url: .repository.html_url, package_url: .git_url, path: .path}]}' > $FILE_NAME
 
 # count variable is used to access the correct object inside the file array
 count=0;
 # Iterate through the generated file
+
 jq -c '.repositories[]' $FILE_NAME | while read i; do
 
     # Read the git url for package json
@@ -27,3 +28,4 @@ jq -c '.repositories[]' $FILE_NAME | while read i; do
 done
 # Remove package helsinki-design-system from the list
 jq 'del(.repositories[] | select(.name == "helsinki-design-system"))' $FILE_NAME | sponge $FILE_NAME
+
