@@ -14,7 +14,7 @@ async function searchRepos(githubToken, cumulativeValue, page = 1) {
   try {
     
     /* Call to Github API. Retry max 5 times with 1 min timeout on transient errors and connection refusals. */
-    const response = await exec(`TOKEN=${githubToken} PAGE=${page} bash github-api-call.sh`);
+    const response = await exec(`(cd helpers; TOKEN=${githubToken} PAGE=${page} bash github-api-call.sh)`);
     const data = JSON.parse(response.stdout);
     const totalCount = data.total_count;
     const returnObject = { totalCount, items: cumulativeValue ? cumulativeValue.items.concat(data.items) : data.items };

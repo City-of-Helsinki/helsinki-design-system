@@ -2,11 +2,11 @@
 
 date=$(date -u +"%Y-%m-%dT%H-%M-%SZ");
 # Path to file that will be generated
-FILE_NAME="../results/${date}_HDS_react_versions_in_use.json";
+FILE_NAME="./results/${date}_HDS_react_versions_in_use.json";
 
 # Call to Github API to find all occurrences of "hds-react" under City-of-Helsinki org.
-node search-repos.js $TOKEN | jq '. | .totalCount as $total_count | { total_count: $total_count, repositories: [.items[] | {name: .repository.name, url: .repository.html_url, package_url: .git_url, path: .path}]}' > $FILE_NAME
-
+cd helpers && node search-repos.js $TOKEN | jq '. | .totalCount as $total_count | { total_count: $total_count, repositories: [.items[] | {name: .repository.name, url: .repository.html_url, package_url: .git_url, path: .path}]}' > ".${FILE_NAME}"
+cd ..;
 # count variable is used to access the correct object inside the file array
 count=0;
 # Iterate through the generated file
