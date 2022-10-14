@@ -158,7 +158,7 @@ const HeaderWrapper = ({ children, logoLanguage, onTitleClick, title, titleAriaL
           </a>
         )}
         {!isTitleLink && (
-          <div className={styles.title} aria-label={titleAriaLabel}>
+          <div className={styles.title} aria-label={titleAriaLabel} role={titleAriaLabel ? 'img' : null}>
             {renderLogoAndTitle()}
           </div>
         )}
