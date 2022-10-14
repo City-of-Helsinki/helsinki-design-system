@@ -222,24 +222,24 @@ export const Accordion = ({
       id={accordionId}
     >
       <div className={classNames(styles.accordionHeader)}>
-        <div
-          ref={headerRef}
-          role="button"
-          tabIndex={0}
-          onKeyPress={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              buttonProps.onClick();
-            }
-          }}
-          className={styles.headingContainer}
-          aria-labelledby={`${accordionId}-heading`}
-          {...buttonProps}
-          {...(beforeCloseButtonClick ? { 'aria-expanded': false } : {})}
-        >
-          <div role="heading" aria-level={headingLevel} id={`${accordionId}-heading`}>
-            {heading}
+        <div role="heading" aria-level={headingLevel} id={`${accordionId}-heading`}>
+          <div
+            ref={headerRef}
+            role="button"
+            tabIndex={0}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                buttonProps.onClick();
+              }
+            }}
+            className={styles.headingContainer}
+            aria-labelledby={`${accordionId}-heading`}
+            {...buttonProps}
+            {...(beforeCloseButtonClick ? { 'aria-expanded': false } : {})}
+          >
+            <span className="label">{heading}</span>
+            {icon}
           </div>
-          {icon}
         </div>
       </div>
       <div
