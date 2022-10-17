@@ -220,8 +220,6 @@ const Editor = ({ onChange, initialCode, code, language }) => {
             position="bottom-right"
             autoClose
             displayAutoCloseProgress={false}
-            dismissible
-            closeButtonLabelText="Close toast"
             onClose={() => setCopyState('')}
           />
         )}
@@ -230,7 +228,6 @@ const Editor = ({ onChange, initialCode, code, language }) => {
             type="error"
             label="Code copy failed."
             position="bottom-right"
-            autoClose
             displayAutoCloseProgress={false}
             dismissible
             closeButtonLabelText="Close toast"
