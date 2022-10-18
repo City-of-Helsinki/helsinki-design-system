@@ -65,6 +65,9 @@ export interface SelectCustomTheme {
 }
 
 export type CommonSelectProps<OptionType> = {
+  /**
+   * The id of the external label element. Use this if you use external label instead of label.
+   */
   'aria-labelledby'?: string;
   /**
    * When `true`, allows moving from the first item to the last item with Arrow Up, and vice versa using Arrow Down.
