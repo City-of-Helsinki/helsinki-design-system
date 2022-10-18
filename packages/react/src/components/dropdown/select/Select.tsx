@@ -66,9 +66,10 @@ export interface SelectCustomTheme {
 
 interface Label {
   /**
-   * The label for the dropdown
+   * The label for the dropdown.
    */
   label: React.ReactNode;
+  'aria-labelledby'?: undefined;
 }
 
 interface LabelledBy {
@@ -76,6 +77,7 @@ interface LabelledBy {
    * The id of the external label element. Use this if you use external label instead of label.
    */
   'aria-labelledby': string;
+  label?: undefined;
 }
 
 type LabelType = Label | LabelledBy;
