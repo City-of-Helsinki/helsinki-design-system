@@ -70,3 +70,67 @@ exports[`<Combobox /> renders the component 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`<Combobox /> renders the component without label when aria-labelledby is given 1`] = `
+<DocumentFragment>
+  <div
+    class="root"
+  >
+    <div
+      class="wrapper"
+    >
+      <input
+        aria-autocomplete="list"
+        aria-controls="hds-combobox-4-menu"
+        aria-expanded="false"
+        aria-haspopup="listbox"
+        aria-labelledby="hds-combobox-4-label some-external-label-id hds-combobox-4-input"
+        aria-owns="hds-combobox-4-menu"
+        autocomplete="off"
+        autocorrect="off"
+        class="input"
+        id="hds-combobox-4-input"
+        role="combobox"
+        type="text"
+        value=""
+      />
+      <button
+        aria-expanded="false"
+        aria-label="undefined: Open the combobox"
+        class="button"
+        id="hds-combobox-4-toggle-button"
+        tabindex="-1"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="icon s angleIcon"
+          role="img"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <path
+              d="M0 0h24v24H0z"
+            />
+            <path
+              d="M12 13.5l5-5 1.5 1.5-6.5 6.5L5.5 10 7 8.5z"
+              fill="currentColor"
+            />
+          </g>
+        </svg>
+      </button>
+      <ul
+        aria-labelledby="hds-combobox-4-label"
+        class="menu"
+        id="hds-combobox-4-menu"
+        role="listbox"
+        style="max-height: 260px;"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
