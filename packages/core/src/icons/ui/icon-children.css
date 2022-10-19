@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/genderless.svg);
+@svg-load icon url(../../svg/ui/children.svg);
 
-.hds-icon--genderless {
+.hds-icon--children {
   mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
 }

@@ -1,6 +1,0 @@
-@svg-load icon url(../../svg/ui/childhood.svg);
-
-.hds-icon--childhood {
-  mask-image: svg-inline(icon);
-  -webkit-mask-image: svg-inline(icon);
-}
