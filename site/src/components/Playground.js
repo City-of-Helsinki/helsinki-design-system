@@ -135,15 +135,14 @@ const Editor = ({ onChange, initialCode, code, language }) => {
     [getTextArea],
   );
 
-  const copy = () => {
+  const copy = async () => {
     if (viewPortRef.current && copyButtonRef.current) {
       const textArea = getTextArea(viewPortRef.current);
       textArea.focus();
       textArea.select();
       setCopyState('');
-
       try {
-        document.execCommand('copy');
+        await navigator.clipboard.writeText(textArea.value);
         if (copyButtonRef.current) {
           copyButtonRef.current.focus();
         }
