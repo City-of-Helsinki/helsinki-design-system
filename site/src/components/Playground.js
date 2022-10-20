@@ -244,13 +244,8 @@ const Editor = ({ onChange, initialCode, code, language }) => {
           Reset example
         </Button>
       </div>
-      {language === 'jsx' &&
-        <LiveError />
-      }
-      {language !== 'jsx' &&
-        <LiveErrorCore code={code} />
-      }
-
+      {language === 'jsx' && <LiveError />}
+      {language !== 'jsx' && <LiveErrorCore code={code} />}
     </>
   );
 };
