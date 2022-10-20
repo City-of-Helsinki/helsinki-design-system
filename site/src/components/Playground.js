@@ -226,7 +226,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
         {copyState === copyErrorState && (
           <Notification
             type="error"
-            label="Code copy failed."
+            label="The code copy failed. Try again or copy the code using the clipboard."
             position="bottom-right"
             displayAutoCloseProgress={false}
             dismissible
