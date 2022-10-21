@@ -12,7 +12,7 @@ req.keys().forEach((fileName) => {
   const iconCapitalized = icon.charAt(0).toUpperCase() + icon.slice(1)
   const allSizes = () => {
     const all = ['xs', 's', 'm', 'l', 'xl'].reduce((acc, size) => {
-      acc += `\n<i class="hds-icon hds-icon--${icon} hds-icon--size-${size}" aria-hidden="true" style="vertical-align: middle"></i>`;
+      acc += `\n<span class="hds-icon hds-icon--${icon} hds-icon--size-${size}" aria-hidden="true" style="vertical-align: middle"></span>`;
       return acc;
     }, '');
 
