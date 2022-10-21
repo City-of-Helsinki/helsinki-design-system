@@ -225,7 +225,12 @@ const Editor = ({ onChange, initialCode, code, language }) => {
             displayAutoCloseProgress={false}
             dismissible
             closeButtonLabelText="Close toast"
-            onClose={() => setCopyState('')}
+            onClose={() => {
+              setCopyState('');
+              if (copyButtonRef.current) {
+                copyButtonRef.current.focus();
+              }
+            }}
           />
         )}
         <Button
