@@ -1,3 +1,9 @@
+@import "../../icons/icon.css";
+@import "../../icons/ui/icon-alert-circle-fill.css";
+@import "../../icons/ui/icon-check-circle-fill.css";
+@import "../../icons/ui/icon-error-fill.css";
+@import "../../icons/ui/icon-info-circle-fill.css";
+
 .hds-notification {
   --notification-background-color: var(--color-info-light);
   --notification-border-color: var(--color-info);

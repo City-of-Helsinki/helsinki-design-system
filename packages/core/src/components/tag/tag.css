@@ -1,3 +1,6 @@
+@import "../../icons/icon.css";
+@import "../../icons/ui/icon-cross.css";
+
 .hds-tag {
   --tag-background: var(--color-black-10);
   --tag-color: var(--color-black-90);

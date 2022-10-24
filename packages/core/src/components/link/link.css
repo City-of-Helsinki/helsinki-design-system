@@ -1,3 +1,6 @@
+@import "../../icons/icon.css";
+@import "../../icons/ui/icon-link-external.css";
+
 .hds-link {
   --link-visited-color: #551a8b;
   --link-color: var(--color-bus);
