@@ -1,5 +1,4 @@
 import './notification.css';
-import '../../icons/icon.css';
 
 const iconMapping = {
   info: 'info-circle-fill',
