@@ -1,5 +1,4 @@
 import './link.css';
-import '../../icons/icon.css';
 
 export default {
   title: 'Components/Link',
