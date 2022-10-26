@@ -96,16 +96,14 @@ export const LoadingOnClick = (args) => {
     };
   }, [isLoading]);
   return (
-    <>
-      <Button
-        {...{ ...args, iconLeft: args.variant === 'supplementary' ? <IconTrash /> : undefined }}
-        onClick={onButtonClick}
-        isLoading={isLoading}
-        loadingText="Saving your changes"
-      >
-        Button
-      </Button>
-    </>
+    <Button
+      {...{ ...args, iconLeft: args.variant === 'supplementary' ? <IconTrash /> : undefined }}
+      onClick={onButtonClick}
+      isLoading={isLoading}
+      loadingText="Saving your changes"
+    >
+      Button
+    </Button>
   );
 };
 LoadingOnClick.args = {
