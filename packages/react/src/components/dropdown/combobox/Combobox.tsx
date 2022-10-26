@@ -444,6 +444,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
         // As a hackfix, we track whether any item is being clicked in
         // the components state. If an item is clicked, we do not call
         // the blur/focus handlers at all.
+        // eslint-disable-next-line
         onFocus={ignoreFocusHandlerWhenClickingItem(handleWrapperFocus)}
         onBlur={ignoreFocusHandlerWhenClickingItem(handleWrapperBlur)}
         onClick={handleWrapperClick}
