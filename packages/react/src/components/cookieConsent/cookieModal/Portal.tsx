@@ -53,5 +53,5 @@ export function Portal({ rootId, children }: { rootId: string; children: React.R
   if (getChildNodeCount() === 0 && (!shouldShowModal || !isDomReady)) {
     return null;
   }
-  return createPortal(children, containerElementRef.current as HTMLElement);
+  return createPortal(<>children</>, containerElementRef.current as HTMLElement);
 }

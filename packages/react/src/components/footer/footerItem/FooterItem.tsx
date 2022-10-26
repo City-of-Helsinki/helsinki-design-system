@@ -37,9 +37,10 @@ export const FooterItem = <T extends React.ElementType = 'a'>({
   subItem = false,
   ...rest
 }: FooterItemProps<T>) => {
-  const Item: React.ElementType = as;
+  const Item: T = as;
 
   return (
+    // @ts-ignore
     <Item className={classNames(styles.item, subItem && styles.subItem, className)} {...rest}>
       {icon}
       {subItem && <IconAngleRight className={styles.subItemIcon} />}
