@@ -64,6 +64,7 @@
       }
     ],
     "@typescript-eslint/explicit-member-accessibility": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
     "react/state-in-constructor": [2, "never"],
     "no-constructor-return": [0],
     "no-setter-return": [0],
