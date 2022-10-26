@@ -70,7 +70,7 @@
     "babel-plugin-require-context-hook": "1.0.0",
     "chalk": "4.0.0",
     "eslint": "7.1.0",
-    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-airbnb": "18.2.1",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "23.13.1",
@@ -137,7 +137,7 @@
   "resolutions": {
     "@types/react": "17.0.2",
     "babel-jest": "^26.0.1",
-    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react": "7.27.1",
     "jest": "^26.0.1",
     "downshift/react-is": "^16.13.1",
     "react-scripts": "^5.0.0",
