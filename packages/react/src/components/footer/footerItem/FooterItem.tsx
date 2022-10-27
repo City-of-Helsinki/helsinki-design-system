@@ -37,7 +37,7 @@ export const FooterItem = <T extends React.ElementType = 'a'>({
   subItem = false,
   ...rest
 }: FooterItemProps<T>) => {
-  const Item: T = as;
+  const Item: React.ElementType = as;
 
   return (
     // @ts-ignore
