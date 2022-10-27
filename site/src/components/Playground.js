@@ -210,17 +210,19 @@ const Editor = ({ onChange, initialCode, code, language }) => {
         {copyState === copySuccessState && (
           <Notification
             type="success"
-            label="The example code is copied to clipboard."
+            label="Code copied"
             position="bottom-right"
             autoClose
             displayAutoCloseProgress={false}
             onClose={() => setCopyState('')}
-          />
+          >
+            Example code was copied to clipboard.
+          </Notification>
         )}
         {copyState === copyErrorState && (
           <Notification
             type="error"
-            label="The code copy failed. Try again or copy the code using the clipboard."
+            label="Copy failed"
             position="bottom-right"
             displayAutoCloseProgress={false}
             dismissible
@@ -231,7 +233,9 @@ const Editor = ({ onChange, initialCode, code, language }) => {
                 copyButtonRef.current.focus();
               }
             }}
-          />
+          >
+            Try again or copy the code using the clipboard.
+          </Notification>
         )}
         <Button
           variant="secondary"
