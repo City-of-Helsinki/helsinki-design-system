@@ -3,7 +3,6 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
@@ -13,7 +12,7 @@
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended" // this should always be the last item on this array
   ],
-  "plugins": ["react", "@typescript-eslint", "prettier", "jest", "import"],
+  "plugins": ["@typescript-eslint", "prettier", "jest", "import"],
   "parserOptions": {
     "ecmaVersion": 2018,
     "ecmaFeatures": {
