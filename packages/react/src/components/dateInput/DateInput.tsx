@@ -293,6 +293,13 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
               fallbackPlacements: ['bottom-start', 'top-end'],
             },
           },
+          {
+            name: 'eventListeners',
+            options: {
+              scroll: false,
+              resize: true,
+            },
+          },
         ],
       },
     );
