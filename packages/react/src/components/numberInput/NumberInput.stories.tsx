@@ -26,8 +26,8 @@ CustomStep.storyName = 'With a custom step value';
 CustomStep.args = {
   id: 'CustomStep',
   step: 10,
-  helperText: 'Assistive text',
-  label: 'Label for step 10',
+  helperText: 'Assistive text for input with steps of 10',
+  label: 'Label for step test',
   minusStepButtonAriaLabel: 'Decrease by ten',
   plusStepButtonAriaLabel: 'Increase by ten',
   unit: '€',
