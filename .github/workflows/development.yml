@@ -20,7 +20,9 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: install dependencies
-        run: yarn
+        run: |
+          yarn config set network-timeout 300000 
+          yarn
 
       - name: build design tokens package
         run: yarn build
