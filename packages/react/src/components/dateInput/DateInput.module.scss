@@ -1,27 +1,3 @@
 .wrapper {
   position: relative;
 }
-
-.pickerWrapper {
-  transition: opacity 150ms;
-  display: flex;
-  justify-content: flex-end;
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  will-change: opacity, visibility;
-  z-index: 900;
-  overflow: hidden;
-  height: 0;
-
-  &.isVisible {
-    opacity: 1;
-    visibility: visible;
-    height: auto;
-    overflow: visible;
-
-    > * {
-      pointer-events: auto;
-    }
-  }
-}
