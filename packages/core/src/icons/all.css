@@ -43,7 +43,7 @@
 @import "ui/icon-check-circle-fill.css";
 @import "ui/icon-check-circle.css";
 @import "ui/icon-check.css";
-@import "ui/icon-childhood.css";
+@import "ui/icon-children.css";
 @import "ui/icon-clock-cross.css";
 @import "ui/icon-clock-plus.css";
 @import "ui/icon-clock.css";
@@ -73,7 +73,6 @@
 @import "ui/icon-face-sad.css";
 @import "ui/icon-face-smile.css";
 @import "ui/icon-family.css";
-@import "ui/icon-genderless.css";
 @import "ui/icon-globe.css";
 @import "ui/icon-glyph-at.css";
 @import "ui/icon-glyph-euro.css";
@@ -108,6 +107,7 @@
 @import "ui/icon-pen-line.css";
 @import "ui/icon-pen.css";
 @import "ui/icon-person-female.css";
+@import "ui/icon-person-genderless.css";
 @import "ui/icon-person-male.css";
 @import "ui/icon-person-wheelchair.css";
 @import "ui/icon-phone.css";
