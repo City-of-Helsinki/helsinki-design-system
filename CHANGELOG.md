@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.5.0] - October, 31, 2022
+## [2.5.0] - November, 1, 2022
 
 ### React Components
 
