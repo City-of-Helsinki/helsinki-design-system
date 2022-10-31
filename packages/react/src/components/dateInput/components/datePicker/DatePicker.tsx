@@ -11,6 +11,7 @@ import isValid from 'date-fns/isValid';
 import english from 'date-fns/locale/en-GB';
 import finnish from 'date-fns/locale/fi';
 import swedish from 'date-fns/locale/sv';
+import { usePopper } from 'react-popper';
 
 import { defaultProps } from './defaults/defaultProps';
 import { DatePickerContext } from '../../context/DatePickerContext';
@@ -19,6 +20,8 @@ import { MonthTable } from '../monthTable';
 import { Button } from '../../../button';
 import { IconCheck, IconCross } from '../../../../icons';
 import styles from './DatePicker.module.scss';
+import classNames from '../../../../utils/classNames';
+import { scrollIntoViewIfNeeded } from '../../../../utils/scrollIntoViewIfNeeded';
 
 const keyCode = {
   TAB: 9,
@@ -44,6 +47,9 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     selectButtonLabel,
     closeButtonLabel,
     isDateDisabledBy,
+    open,
+    inputRef,
+    toggleButton,
   } = {
     ...defaultProps,
     ...providedProps,
@@ -54,6 +60,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
    */
   const datepickerRef = useRef<HTMLDivElement>();
 
+  const pickerWrapperRef = useRef<HTMLDivElement>();
   /**
    * Current month
    */
@@ -98,6 +105,91 @@ export const DatePicker = (providedProps: DayPickerProps) => {
       }
     }
   }, [focusedDate]);
+
+  /**
+   * Close datepicker when clicked outside
+   */
+  useEffect(() => {
+    const handleClickOutsideWrapper = (event: MouseEvent) => {
+      if (open === true) {
+        const isOutside = pickerWrapperRef.current && !pickerWrapperRef.current.contains(event.target as Node);
+        const isToggleButton =
+          toggleButton && (toggleButton === event.target || toggleButton.contains(event.target as Node));
+        if (isOutside && !isToggleButton) {
+          const focusToggleButton = document.activeElement === null || document.activeElement.tagName === 'BODY';
+          onCloseButtonClick(focusToggleButton);
+        }
+      }
+    };
+    window.addEventListener('click', handleClickOutsideWrapper);
+    return () => {
+      window.removeEventListener('click', handleClickOutsideWrapper);
+    };
+  });
+
+  /**
+   * Handle tab inside date picker
+   */
+  useEffect(() => {
+    const pickerModalElement = pickerWrapperRef.current;
+    const tabbleEventHandler = (event: KeyboardEvent) => {
+      // Skip if pressed key was not tab
+      const isTab = event.key === 'Tab' || event.keyCode === 9;
+      if (!isTab) {
+        return;
+      }
+      // Get all focusable elements inside the modal
+      const focusableElements = pickerModalElement.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      );
+      const firstFocusableElement = focusableElements[0];
+      const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+      // Check if shift key is pressed
+      if (event.shiftKey) {
+        // If currently focused element is the first element, move focus the last one
+        if (document.activeElement === firstFocusableElement) {
+          (lastFocusableElement as HTMLElement).focus();
+          event.preventDefault();
+        }
+      }
+      // If shift is not pressed and currently focused element is the last element,
+      // move focust the first one
+      else if (document.activeElement === lastFocusableElement) {
+        (firstFocusableElement as HTMLElement).focus();
+        event.preventDefault();
+      }
+    };
+    if (pickerModalElement) {
+      pickerModalElement.addEventListener('keydown', tabbleEventHandler);
+    }
+    return () => {
+      if (pickerModalElement) {
+        pickerModalElement.removeEventListener('keydown', tabbleEventHandler);
+      }
+    };
+  }, []);
+
+  /**
+   * Focus the first focusable element inside the datepicker
+   * when opened.
+   */
+  useEffect(() => {
+    let scrollTimeout;
+    if (open === true && pickerWrapperRef.current) {
+      const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+      const firstFocusableElement = pickerWrapperRef.current.querySelector(focusableElements);
+      if (firstFocusableElement) {
+        (firstFocusableElement as HTMLElement).focus();
+      }
+      scrollTimeout = setTimeout(() => {
+        scrollIntoViewIfNeeded(pickerWrapperRef.current);
+      }, 30);
+    }
+    return () => {
+      clearTimeout(scrollTimeout);
+    };
+  }, [open]);
 
   /**
    * Handle month change and call onMonthChange callback if provided
@@ -208,53 +300,87 @@ export const DatePicker = (providedProps: DayPickerProps) => {
 
   const currentMonthAvailableDays: number[] = currentMonthAvailableDates.map((date) => date.getDate());
 
+  // Initialize Popper.js
+  const { styles: datePickerPopperStyles, attributes: datePickerPopperAttributes } = usePopper(
+    inputRef.current,
+    pickerWrapperRef.current,
+    {
+      placement: 'bottom-end',
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: [0, 5],
+          },
+        },
+        {
+          name: 'flip',
+          options: {
+            rootBoundary: 'document',
+            fallbackPlacements: ['bottom-start', 'top-end'],
+          },
+        },
+      ],
+    },
+  );
+
   return (
-    <DatePickerContext.Provider
-      value={{
-        datepickerRef,
-        minDate,
-        maxDate,
-        currentMonth,
-        currentMonthAvailableDays,
-        focusedDate,
-        selectedDate,
-        locale: getLocaleByLanguage(language),
-        language,
-        isDateDisabledBy,
-        setCurrentMonth,
-        setFocusedDate,
-        setSelectedDate,
-        onDayClick: handleDayClick,
-        handleKeyboardNavigation,
-        handleMonthChange,
-      }}
+    <div
+      ref={pickerWrapperRef}
+      className={classNames(styles.pickerWrapper, open && styles.isVisible)}
+      role="dialog"
+      aria-modal="true"
+      aria-hidden={open ? undefined : true}
+      style={datePickerPopperStyles.popper}
+      {...datePickerPopperAttributes.popper}
     >
-      <div className={styles['hds-datepicker']} ref={datepickerRef}>
-        <MonthTable month={currentMonth} />
-        <div className={styles['hds-datepicker__bottom-buttons']}>
-          {!disableConfirmation && (
+      <DatePickerContext.Provider
+        value={{
+          datepickerRef,
+          minDate,
+          maxDate,
+          currentMonth,
+          currentMonthAvailableDays,
+          focusedDate,
+          selectedDate,
+          locale: getLocaleByLanguage(language),
+          language,
+          isDateDisabledBy,
+          setCurrentMonth,
+          setFocusedDate,
+          setSelectedDate,
+          onDayClick: handleDayClick,
+          handleKeyboardNavigation,
+          handleMonthChange,
+        }}
+      >
+        <div className={styles['hds-datepicker']} ref={datepickerRef}>
+          <MonthTable month={currentMonth} />
+          <div className={styles['hds-datepicker__bottom-buttons']}>
+            {!disableConfirmation && (
+              <Button
+                disabled={!selectedDate}
+                size="small"
+                variant="secondary"
+                iconLeft={<IconCheck aria-hidden />}
+                onClick={handleConfirmClick}
+                data-testid="selectButton"
+              >
+                {selectButtonLabel}
+              </Button>
+            )}
             <Button
-              disabled={!selectedDate}
               size="small"
-              variant="secondary"
-              iconLeft={<IconCheck aria-hidden />}
-              onClick={handleConfirmClick}
-              data-testid="selectButton"
+              variant="supplementary"
+              iconLeft={<IconCross aria-hidden />}
+              onClick={() => onCloseButtonClick()}
+              data-testid="closeButton"
             >
-              {selectButtonLabel}
+              {closeButtonLabel}
             </Button>
-          )}
-          <Button
-            size="small"
-            variant="supplementary"
-            iconLeft={<IconCross aria-hidden />}
-            onClick={onCloseButtonClick}
-            data-testid="closeButton"
-          >
-            {closeButtonLabel}
-          </Button>
+          </div>
         </div>
-      </div>
-    </DatePickerContext.Provider>
+      </DatePickerContext.Provider>
+    </div>
   );
 };
