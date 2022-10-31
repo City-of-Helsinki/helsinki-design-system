@@ -27,6 +27,7 @@
 
 .icon {
   composes: hds-icon from 'hds-core/lib/components/notification/notification.css';
+  background-color: transparent;
 }
 
 .label {
