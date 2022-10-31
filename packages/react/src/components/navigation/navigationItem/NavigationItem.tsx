@@ -50,6 +50,7 @@ export const NavigationItem = <T extends React.ElementType = 'a'>({
   const Item: React.ElementType = as;
 
   return (
+    // @ts-ignore
     <Item
       className={classNames(isMobile && styles[variant], className)}
       {...(active && { 'aria-current': 'page' })}

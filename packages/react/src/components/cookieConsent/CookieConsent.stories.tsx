@@ -1010,12 +1010,10 @@ export const DebugVersion = (args) => {
   };
 
   return (
-    <>
-      <CookieConsentContext contentSource={contentSource}>
-        <Application />
-        <Modal />
-      </CookieConsentContext>
-    </>
+    <CookieConsentContext contentSource={contentSource}>
+      <Application />
+      <Modal />
+    </CookieConsentContext>
   );
 };
 

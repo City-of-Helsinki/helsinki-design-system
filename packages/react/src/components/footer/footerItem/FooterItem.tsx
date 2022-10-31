@@ -40,6 +40,7 @@ export const FooterItem = <T extends React.ElementType = 'a'>({
   const Item: React.ElementType = as;
 
   return (
+    // @ts-ignore
     <Item className={classNames(styles.item, subItem && styles.subItem, className)} {...rest}>
       {icon}
       {subItem && <IconAngleRight className={styles.subItemIcon} />}

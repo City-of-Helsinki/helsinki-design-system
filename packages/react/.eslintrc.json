@@ -13,7 +13,7 @@
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended" // this should always be the last item on this array
   ],
-  "plugins": ["react", "@typescript-eslint", "prettier", "jest", "import"],
+  "plugins": ["@typescript-eslint", "prettier", "jest", "import"],
   "parserOptions": {
     "ecmaVersion": 2018,
     "ecmaFeatures": {
@@ -43,6 +43,11 @@
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
     "react/jsx-curly-newline": "off",
+    "react/default-props-match-prop-types": [0],
+    "react/destructuring-assignment": [0],
+    "react/jsx-no-constructed-context-values": [0],
+    "react/no-unstable-nested-components": [0],
+    "react/require-default-props": [0],
     "@typescript-eslint/explicit-function-return-type": "off",
     "react/prop-types": "off",
     "import/extensions": "off",
@@ -58,10 +63,16 @@
       }
     ],
     "@typescript-eslint/explicit-member-accessibility": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
     "react/state-in-constructor": [2, "never"],
-    "no-unused-expressions": [2, {
-      "allowTernary": true
-    }],
+    "no-constructor-return": [0],
+    "no-setter-return": [0],
+    "no-unused-expressions": [
+      2,
+      {
+        "allowTernary": true
+      }
+    ],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"]
   },
