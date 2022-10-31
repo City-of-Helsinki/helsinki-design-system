@@ -1,3 +1,5 @@
+@import "../../icons/icon.css";
+@import "../../icons/ui/icon-search.css";
 
 .hds-search-input {
   --border-width: 2px;

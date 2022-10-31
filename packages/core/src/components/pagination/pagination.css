@@ -1,3 +1,8 @@
+@import "../button//button.css";
+@import "../../icons/icon.css";
+@import "../../icons/ui/icon-angle-right.css";
+@import "../../icons/ui/icon-angle-left.css";
+
 .hds-pagination-container {
   text-align: center;
 }
