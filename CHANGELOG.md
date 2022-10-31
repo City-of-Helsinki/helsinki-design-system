@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Accordion] Fix heading accessibility  
 - [DateInput] Prevent Datepicker value from resetting on scroll
-- [Number] Fix stepper buttons accessibility
+- [NumberInput] Fix stepper buttons accessibility
 - [Notification] Fix title accessibility
 
 ### Core
