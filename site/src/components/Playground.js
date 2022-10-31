@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useMDXScope } from 'gatsby-plugin-mdx/context';
 import { LiveProvider, LiveEditor, LiveError, LivePreview, withLive } from 'react-live';
 import sanitizeHtml from 'sanitize-html';
-import { Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
+import { Notification, Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
 import theme from 'prism-react-renderer/themes/github';
 
 import './Playground.scss';
@@ -117,6 +117,9 @@ const Editor = ({ onChange, initialCode, code, language }) => {
   const viewPortRef = useRef();
   const copyButtonRef = useRef();
   const [resetCount, setResetCount] = useState(0);
+  const copySuccessState = 'COPY_SUCCESS';
+  const copyErrorState = 'COPY_ERROR';
+  const [copyState, setCopyState] = useState('');
   const textAreaId = `code-block-textarea-${language}-${resetCount}`;
   const helperTextId = `code-block-helper-${language}-${resetCount}`;
   const getTextArea = useCallback((el) => el.querySelector(`#${textAreaId}`), [textAreaId]);
@@ -132,19 +135,16 @@ const Editor = ({ onChange, initialCode, code, language }) => {
     [getTextArea],
   );
 
-  const copy = () => {
+  const copy = async () => {
     if (viewPortRef.current && copyButtonRef.current) {
       const textArea = getTextArea(viewPortRef.current);
-      textArea.focus();
-      textArea.select();
-
+      setCopyState('');
       try {
-        document.execCommand('copy');
-        if (copyButtonRef.current) {
-          copyButtonRef.current.focus();
-        }
+        await navigator.clipboard.writeText(textArea.value);
+        setCopyState(copySuccessState);
       } catch (err) {
-        console.warn('Oops, unable to copy');
+        setCopyState(copyErrorState);
+        console.warn(`Copy failed: ${err}`);
       }
       clearSelection();
     }
@@ -207,6 +207,36 @@ const Editor = ({ onChange, initialCode, code, language }) => {
         <Button ref={copyButtonRef} variant="secondary" size="small" onClick={copy}>
           Copy code
         </Button>
+        {copyState === copySuccessState && (
+          <Notification
+            type="success"
+            label="Code copied"
+            position="bottom-right"
+            autoClose
+            displayAutoCloseProgress={false}
+            onClose={() => setCopyState('')}
+          >
+            Example code was copied to clipboard.
+          </Notification>
+        )}
+        {copyState === copyErrorState && (
+          <Notification
+            type="error"
+            label="Copy failed"
+            position="bottom-right"
+            displayAutoCloseProgress={false}
+            dismissible
+            closeButtonLabelText="Close toast"
+            onClose={() => {
+              setCopyState('');
+              if (copyButtonRef.current) {
+                copyButtonRef.current.focus();
+              }
+            }}
+          >
+            Try again or copy the code using the clipboard.
+          </Notification>
+        )}
         <Button
           variant="secondary"
           iconLeft={<IconArrowUndo aria-hidden />}
@@ -217,13 +247,8 @@ const Editor = ({ onChange, initialCode, code, language }) => {
           Reset example
         </Button>
       </div>
-      {language === 'jsx' &&
-        <LiveError />
-      }
-      {language !== 'jsx' &&
-        <LiveErrorCore code={code} />
-      }
-
+      {language === 'jsx' && <LiveError />}
+      {language !== 'jsx' && <LiveErrorCore code={code} />}
     </>
   );
 };
