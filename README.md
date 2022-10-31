@@ -114,6 +114,7 @@ yarn start:react
 | yarn build:\<package>              | Builds a specific package (`tokens`, `core`, `react` or `site`).                   |
 | yarn start:\<platform>             | Starts the development environment for a specific platform (`core` or `react`).    |
 | release                            | Publishes packages that have changed since the last release.                       |
+| update-versions                    | Bump version of packages to publish.                                               |
 
 To ensure code quality in the repo, every package will have their `pre-commit` and `pre-push` scripts run automatically before git commit and push (added with [**Husky**](https://github.com/typicode/husky)).
 
