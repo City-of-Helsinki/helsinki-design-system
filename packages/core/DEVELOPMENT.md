@@ -29,13 +29,13 @@ yarn start:core
 
 This starts the storybook development environment. You can read about how to write storybook stories [here](https://storybook.js.org/docs/html/get-started/whats-a-story). The use of Storybook is recommended for component development.
 
-### Commands                                                                                                                
-                                                                                                                            
-| Command                            | Description                                          | 
-| ---------------------------------- | ---------------------------------------------------- | 
-| yarn                               | Install dependencies and link local packages.        | 
-| yarn build                         | Builds the package.                                  | 
-| yarn start                         | Starts the development environment.                  | 
+### Commands
+
+| Command                            | Description                                          |
+| ---------------------------------- | ---------------------------------------------------- |
+| yarn                               | Install dependencies and link local packages.        |
+| yarn build                         | Builds the package.                                  |
+| yarn start                         | Starts the development environment.                  |
 
 ### Design Tokens
 
@@ -52,41 +52,3 @@ This project uses the [Git Feature Branch Workflow](https://www.atlassian.com/gi
 - [PostCSS](https://github.com/postcss/postcss)
 - [Storybook](https://storybook.js.org/)
 - hds-core follows the [BEM methodology](http://getbem.com/)
-
-## Git
-
-Pull requests can be submitted from fork. [Read more from here.](https://guides.github.com/activities/forking/)
-
-### Developing a feature:
-
-```bash
-git checkout -b <branchname>
-git add <file1> <file2> ...
-git commit -m "My commit message"
-```
-
-### Pushing your feature to Github:
-
-```bash
-git checkout develop
-git pull
-git checkout <branchname>
-git rebase -i develop
-```
-
-- Resolve conflicts and continue:
-
-```bash
-git add <file1> <file2> ...
-git rebase --continue
-```
-
-- After no conflicts:
-
-```bash
-git push --force-with-lease
-```
-
-(If your remote does not accept your local new branch: `git push -u origin HEAD`)
-
-- Make a Pull Request at Github website.
