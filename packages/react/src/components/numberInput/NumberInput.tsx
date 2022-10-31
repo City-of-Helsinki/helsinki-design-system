@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-
+import React, { useEffect, useRef, useState } from 'react';
 import 'hds-core';
+import { VisuallyHidden } from '@react-aria/visually-hidden';
+
 import styles from './NumberInput.module.scss';
 import { IconMinus, IconPlus } from '../../icons';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
@@ -108,9 +109,14 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
+      labelId: step ? `${id}-label` : undefined,
     };
 
     const inputRef = useRef<HTMLInputElement>(null);
+    const [screenReaderValue, setScreenReaderValue] = useState<string>(null);
+    const notifyScreenReaderStepperChangedValue = () => {
+      setScreenReaderValue(String(inputRef.current.value));
+    };
 
     /**
      * Merge props.ref to the internal ref. This is needed because we need the ref ourself and cannot rely on
@@ -129,12 +135,24 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       inputRef.current.dispatchEvent(onChangeEvent);
     };
 
+    const onChangeListener = step
+      ? (e: React.ChangeEvent<HTMLInputElement>) => {
+          if (screenReaderValue !== null) {
+            setScreenReaderValue(null);
+          }
+          onChange(e);
+        }
+      : onChange;
+
     // Compose aria-describedby attribute
     const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
 
     return (
       <InputWrapper {...wrapperProps}>
-        <div className={styles.numberInputContainer}>
+        <div
+          className={styles.numberInputContainer}
+          {...(step && { role: 'group', 'aria-labelledby': wrapperProps.labelId })}
+        >
           <input
             className={classNames(textInputStyles.input, step ? styles.numberInputWithSteps : '')}
             defaultValue={defaultValue}
@@ -143,7 +161,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
             max={max}
             min={min}
             step={step}
-            onChange={onChange}
+            onChange={onChangeListener}
             ref={inputRef}
             required={required}
             type={type}
@@ -162,6 +180,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                     event.preventDefault();
                     inputRef.current.stepDown();
                     dispatchNativeOnChangeEvent();
+                    notifyScreenReaderStepperChangedValue();
                   }}
                   aria-label={minusStepButtonAriaLabel || 'Decrease by one'}
                 >
@@ -178,12 +197,18 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                     event.preventDefault();
                     inputRef.current.stepUp();
                     dispatchNativeOnChangeEvent();
+                    notifyScreenReaderStepperChangedValue();
                   }}
                   aria-label={plusStepButtonAriaLabel || 'Increase by one'}
                 >
                   <IconPlus aria-hidden="true" />
                 </button>
               </div>
+              {screenReaderValue !== null && (
+                <VisuallyHidden>
+                  <span aria-live="assertive">{screenReaderValue}</span>
+                </VisuallyHidden>
+              )}
             </>
           )}
         </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, RenderResult, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { act } from 'react-dom/test-utils';
@@ -14,6 +14,14 @@ const numberInputProps = {
 };
 
 describe('<NumberInput /> spec', () => {
+  const getAriaLiveElement = (result: RenderResult) => {
+    return result.container.querySelector('[aria-live="assertive"]');
+  };
+
+  const getNumberInputElement = () => {
+    return screen.getByLabelText('Test label number input', { selector: 'input' });
+  };
+
   it('renders the component', () => {
     const { asFragment } = render(<NumberInput {...numberInputProps} />);
     expect(asFragment()).toMatchSnapshot();
@@ -33,21 +41,21 @@ describe('<NumberInput /> spec', () => {
   it('should increase value correct amount when user clicks step up button', async () => {
     render(<NumberInput defaultValue={10} step={10} {...numberInputProps} />);
     userEvent.click(screen.getByRole('button', { name: 'Add 10 euros' }));
-    const numberInput = screen.getByLabelText('Test label number input', { selector: 'input' });
+    const numberInput = getNumberInputElement();
     expect(numberInput).toHaveValue(20);
   });
 
   it('should decrease value correct amount when user clicks step down button', async () => {
     render(<NumberInput defaultValue={10} step={10} {...numberInputProps} />);
-    userEvent.click(screen.getByRole('button', { name: 'Decrease 10 euros' }));
-    const numberInput = screen.getByLabelText('Test label number input', { selector: 'input' });
+    userEvent.click(screen.getByRole('button', { name: numberInputProps.minusStepButtonAriaLabel }));
+    const numberInput = getNumberInputElement();
     expect(numberInput).toHaveValue(0);
   });
 
   it('should call onChange when input value is changed directly from input field', async () => {
     const onChange = jest.fn();
     render(<NumberInput onChange={onChange} step={10} {...numberInputProps} />);
-    const numberInput = screen.getByLabelText('Test label number input', { selector: 'input' });
+    const numberInput = getNumberInputElement();
     await act(async () => {
       userEvent.type(numberInput, '20');
     });
@@ -68,7 +76,7 @@ describe('<NumberInput /> spec', () => {
     const onChange = jest.fn();
     render(<NumberInput onChange={onChange} defaultValue={10} step={10} {...numberInputProps} />);
     await act(async () => {
-      userEvent.click(screen.getByRole('button', { name: 'Decrease 10 euros' }));
+      userEvent.click(screen.getByRole('button', { name: numberInputProps.minusStepButtonAriaLabel }));
     });
     expect(onChange.mock.calls.length).toBe(1);
   });
@@ -95,7 +103,36 @@ describe('<NumberInput /> spec', () => {
     await act(async () => {
       userEvent.click(screen.getByRole('button', { name: 'Reset number input' }));
     });
-    const numberInput = screen.getByLabelText('Test label number input', { selector: 'input' });
+    const numberInput = getNumberInputElement();
     expect(numberInput).toHaveValue(null); // Empty string is converted to null by react/html
+  });
+
+  it('should notify screen reader when user clicks step down or up button', async () => {
+    const result = render(<NumberInput defaultValue={10} step={10} {...numberInputProps} />);
+    userEvent.click(screen.getByRole('button', { name: numberInputProps.minusStepButtonAriaLabel }));
+    expect(getAriaLiveElement(result)).toHaveTextContent('0');
+    userEvent.click(screen.getByRole('button', { name: numberInputProps.plusStepButtonAriaLabel }));
+    expect(getAriaLiveElement(result)).toHaveTextContent('10');
+  });
+
+  it('aria-live element is not rendered unless button is pressed and is removed when input changes without buttons.', async () => {
+    const result = render(<NumberInput defaultValue={10} step={10} {...numberInputProps} />);
+    expect(getAriaLiveElement(result)).toBeNull();
+    userEvent.click(screen.getByRole('button', { name: numberInputProps.minusStepButtonAriaLabel }));
+    expect(getAriaLiveElement(result)).not.toBeNull();
+    await act(async () => {
+      userEvent.type(getNumberInputElement(), '20');
+    });
+    expect(getAriaLiveElement(result)).toBeNull();
+  });
+
+  it('input and buttons are grouped when component has the step-attribute', async () => {
+    const resultWithStep = render(<NumberInput defaultValue={10} step={10} {...numberInputProps} />);
+    const group = resultWithStep.container.querySelector('[role="group"]');
+    expect(group).not.toBeNull();
+
+    const resultWithoutStep = render(<NumberInput defaultValue={10} {...numberInputProps} />);
+    const groupNotFound = resultWithoutStep.container.querySelector('[role="group"]');
+    expect(groupNotFound).toBeNull();
   });
 });
