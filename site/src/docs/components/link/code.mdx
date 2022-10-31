@@ -40,7 +40,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
   magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
   <a href="https://github.com/City-of-Helsinki/helsinki-design-system" class="hds-link hds-link--small" aria-label="HDS Github. Opens in external domain">
-  HDS Github<i class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-hidden="true"></i></a>
+  HDS Github<span class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon" aria-hidden="true"></span></a>
   laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
   Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 </p>
@@ -112,10 +112,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     aria-label="Opens a different website."
   >
     External link
-    <i
+    <span
       class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-or-medium-icon"
       aria-hidden="true"
-    ></i>
+    ></span>
   </a>
 
   <a
@@ -126,10 +126,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
     aria-label="Opens a different website. Opens in a new tab."
   >
     Link that opens in a new tab
-    <i
+    <span
       class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-or-medium-icon"
       aria-hidden="true"
-    ></i>
+    ></span>
   </a>
 </p>
 ```
@@ -182,22 +182,22 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ```html
 <p>
   <a href="/#" class="hds-link hds-link--medium">
-    <span class="hds-icon-left"><i class="hds-icon hds-icon--document hds-icon--size-s" aria-hidden="true"></i></span>
+    <span class="hds-icon-left"><span class="hds-icon hds-icon--document hds-icon--size-s" aria-hidden="true"></span></span>
     Document link
   </a>
 
   <a href="/#" class="hds-link hds-link--medium">
-    <span class="hds-icon-left"><i class="hds-icon hds-icon--phone hds-icon--size-s" aria-hidden="true"></i></span>
+    <span class="hds-icon-left"><span class="hds-icon hds-icon--phone hds-icon--size-s" aria-hidden="true"></span></span>
     Phone link
   </a>
 
   <a href="/#" class="hds-link hds-link--medium">
-    <span class="hds-icon-left"><i class="hds-icon hds-icon--envelope hds-icon--size-s" aria-hidden="true"></i></span>
+    <span class="hds-icon-left"><spani class="hds-icon hds-icon--envelope hds-icon--size-s" aria-hidden="true"></span></span>
     Envelope link
   </a>
 
   <a href="/#" class="hds-link hds-link--medium">
-    <span class="hds-icon-left"><i class="hds-icon hds-icon--photo hds-icon--size-s" aria-hidden="true"></i></span>
+    <span class="hds-icon-left"><span class="hds-icon hds-icon--photo hds-icon--size-s" aria-hidden="true"></span></span>
     Photo link
   </a>
 </p>
