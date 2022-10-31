@@ -3,7 +3,7 @@ slug: '/components/notification/code'
 title: 'Notification - Code'
 ---
 
-import { Link, Notification } from 'hds-react';
+import { Button, Link, Notification } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import TabsLayout from './tabs.mdx';
 
@@ -11,7 +11,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ## Code
 
-### Code examples 
+### Code examples
 
 #### Inline
 <Playground>
@@ -80,17 +80,31 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 {() => {
   const [open, setOpen] = React.useState(false)
   const [autoCloseOpen, setAutoCloseOpen] = React.useState(false)
+  const showButtonRef = React.useRef(null)
+  const showAutoCloseButtonRef = React.useRef(null)
+  const onClose = () => {
+    setOpen(false);
+    if(showButtonRef.current) {
+      showButtonRef.current.focus();
+    }
+  }
+  const onAutoClose = () => {
+    setAutoCloseOpen(false);
+    if(showAutoCloseButtonRef.current) {
+      showAutoCloseButtonRef.current.focus();
+    }
+  }
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Show toast</Button>
-      <Button onClick={() => setAutoCloseOpen(true)} style={{ display: "flex", marginTop: "var(--spacing-s)" }}>Show automatically disappearing toast</Button>
+      <Button ref={showButtonRef} onClick={() => setOpen(true)}>Show toast</Button>
+      <Button ref={showAutoCloseButtonRef} onClick={() => setAutoCloseOpen(true)} style={{ display: "flex", marginTop: "var(--spacing-s)" }}>Show automatically disappearing toast</Button>
       {open && (
-        <Notification label="New messages" position="top-right" dismissible closeButtonLabelText="Close toast" onClose={() => setOpen(false)} style={{ zIndex: 100 }}>
+        <Notification label="New messages" position="top-right" dismissible closeButtonLabelText="Close toast" onClose={() => onClose()} style={{ zIndex: 100 }}>
           You have received new messages.
         </Notification>
       )}
       {autoCloseOpen && (
-        <Notification label="New messages" position="top-right" dismissible autoClose closeButtonLabelText="Close toast" onClose={() => setAutoCloseOpen(false)} style={{ zIndex: 100 }}>
+        <Notification label="New messages" position="top-right" autoClose onClose={() => onAutoClose()} style={{ zIndex: 100 }}>
           You have received new messages.
         </Notification>
       )}
@@ -102,7 +116,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ```html
 <section aria-label="Notification" class="hds-notification hds-notification--top-right">
   <div role="alert" class="hds-notification__content">
-    <div class="hds-notification__label" role="heading" aria-level="2">
+    <div class="hds-notification__label">
       <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
       <span>New messages</span>
     </div>
@@ -174,10 +188,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ```
 
 ```html
-<div class="hiddenFromScreen" aria-atomic="true" aria-live="assertive" role="status">
+<div class="hiddenFromScreen" role="alert">
   <section aria-label="Notification" class="hds-notification">
     <div class="hds-notification__content">
-      <div class="hds-notification__label" role="heading" aria-level="2">
+      <div class="hds-notification__label">
         <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
         <span>New messages</span>
       </div>

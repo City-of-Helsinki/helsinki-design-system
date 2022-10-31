@@ -200,15 +200,16 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
     }: NotificationProps,
     ref,
   ) => {
+    const isToast: boolean = position !== 'inline';
     // only allow size 'large' for inline notifications
-    if (position !== 'inline' && size === 'large') {
+    if (isToast && size === 'large') {
       // eslint-disable-next-line no-console
       console.warn(`Size '${size}' is only allowed for inline positioned notifications`);
       // eslint-disable-next-line no-param-reassign
       size = 'default';
     }
     // don't allow autoClose for inline notifications
-    if (position === 'inline' && autoClose) {
+    if (!isToast && autoClose) {
       // eslint-disable-next-line no-console
       console.warn(`The 'autoClose' property is not allowed for inline positioned notifications`);
       // eslint-disable-next-line no-param-reassign
@@ -236,15 +237,12 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
     const Icon = icons[type];
 
     // notification transitions
-    const openTransitionProps = position !== 'inline' ? getOpenTransition(position) : {};
+    const openTransitionProps = isToast ? getOpenTransition(position) : {};
     const closeTransitionProps = getCloseTransition(closeAnimationDuration);
     const autoCloseTransitionProps = displayAutoCloseProgress ? getAutoCloseTransition(autoCloseDuration) : {};
 
     const notificationTransition = useSpring(open ? openTransitionProps : closeTransitionProps);
     const autoCloseTransition = useSpring(autoCloseTransitionProps);
-
-    // Set role="alert" for non-inline notifications
-    const role = position !== 'inline' ? 'alert' : null;
 
     return (
       <ConditionalVisuallyHidden visuallyHidden={invisible}>
@@ -262,13 +260,15 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
             className,
           )}
           aria-label={notificationAriaLabel}
-          aria-atomic="true"
           data-testid={dataTestId}
+          // Toast or invisible notifications require a role alert to ensure the screen readers will notify the content change.
+          role={isToast || invisible ? 'alert' : undefined}
         >
           {autoClose && <animated.div style={autoCloseTransition} className={styles.autoClose} />}
-          <div className={styles.content} role={role} ref={ref}>
+          <div className={styles.content} ref={ref}>
             {label && (
-              <div className={styles.label} role="heading" aria-level={2}>
+              // Toast or invisible notifications do not always notice heading if role heading or aria-level is present.
+              <div className={styles.label} {...(isToast || invisible ? {} : { role: 'heading', 'aria-level': 2 })}>
                 <Icon className={styles.icon} aria-hidden />
                 <ConditionalVisuallyHidden visuallyHidden={size === 'small'}>{label}</ConditionalVisuallyHidden>
               </div>

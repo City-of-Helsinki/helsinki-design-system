@@ -64,10 +64,24 @@ Toasts notifications provide lightweight feedback for changes in system status s
 export const ToastExample = () => {
   const [open, setOpen] = React.useState(false);
   const [autoCloseOpen, setAutoCloseOpen] = React.useState(false);
+  const showButtonRef = React.useRef(null)
+  const showAutoCloseButtonRef = React.useRef(null)
+  const onClose = () => {
+    setOpen(false);
+    if(showButtonRef.current) {
+      showButtonRef.current.focus();
+    }
+  }
+  const onAutoClose = () => {
+    setAutoCloseOpen(false);
+    if(showAutoCloseButtonRef.current) {
+      showAutoCloseButtonRef.current.focus();
+    }
+  }
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Show toast</Button>
-      <Button onClick={() => setAutoCloseOpen(true)} style={{ display: 'flex', marginTop: 'var(--spacing-s)' }}>
+      <Button ref={showButtonRef} onClick={() => setOpen(true)}>Show toast</Button>
+      <Button ref={showAutoCloseButtonRef} onClick={() => setAutoCloseOpen(true)} style={{ display: "flex", marginTop: "var(--spacing-s)" }}>
         Show automatically disappearing toast
       </Button>
       {open && (
@@ -76,9 +90,8 @@ export const ToastExample = () => {
           position="top-right"
           dismissible
           closeButtonLabelText="Close toast"
-          onClose={() => setOpen(false)}
-          style={{ zIndex: 100 }}
-        >
+          onClose={() => onClose()}
+          style={{ zIndex: 100 }}>
           You have received new messages.
         </Notification>
       )}
@@ -86,12 +99,9 @@ export const ToastExample = () => {
         <Notification
           label="New messages"
           position="top-right"
-          dismissible
           autoClose
-          closeButtonLabelText="Close toast"
-          onClose={() => setAutoCloseOpen(false)}
-          style={{ zIndex: 100 }}
-        >
+          onClose={() => onAutoClose()}
+          style={{ zIndex: 100 }}>
           You have received new messages.
         </Notification>
       )}

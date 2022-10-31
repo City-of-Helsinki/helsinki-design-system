@@ -19,6 +19,16 @@ describe('<Notification /> spec', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  // Replaces aria-atomic with role=alert and removes heading props for a better screen reader support
+  it('uses toast notification props in non-inline notifications', () => {
+    const { asFragment } = render(
+      <Notification label={label} position="bottom-center">
+        {body}
+      </Notification>,
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
   it('should not have basic accessibility issues', async () => {
     const { container } = render(<Notification label={label}>{body}</Notification>);
     const results = await axe(container);
@@ -41,14 +51,5 @@ describe('<Notification /> spec', () => {
       </Notification>,
     );
     expect(getByRole('button')).toBeDefined();
-  });
-
-  it('adds role="alert" for non-inline notifications', () => {
-    const { getByRole } = render(
-      <Notification label={label} position="bottom-center">
-        {body}
-      </Notification>,
-    );
-    expect(getByRole('alert')).toBeDefined();
   });
 });
