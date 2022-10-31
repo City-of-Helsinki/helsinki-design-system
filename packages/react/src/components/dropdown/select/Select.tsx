@@ -64,7 +64,25 @@ export interface SelectCustomTheme {
   '--placeholder-color'?: string;
 }
 
-export type CommonSelectProps<OptionType> = {
+interface Label {
+  /**
+   * The label for the dropdown.
+   */
+  label: React.ReactNode;
+  'aria-labelledby'?: undefined;
+}
+
+interface LabelledBy {
+  /**
+   * The id of the external label element. Use this if you use external label instead of label.
+   */
+  'aria-labelledby': string;
+  label?: undefined;
+}
+
+type LabelType = Label | LabelledBy;
+
+export type CommonSelectProps<OptionType> = LabelType & {
   /**
    * When `true`, allows moving from the first item to the last item with Arrow Up, and vice versa using Arrow Down.
    */
@@ -113,10 +131,6 @@ export type CommonSelectProps<OptionType> = {
    * A function used to detect whether an option is disabled
    */
   isOptionDisabled?: (option: OptionType, index: number) => boolean;
-  /**
-   * The label for the dropdown
-   */
-  label: React.ReactNode;
   /**
    * Callback function fired when the state is changed
    */
@@ -299,6 +313,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
   // we can't destructure all the props. after destructuring, the link
   // between the multiselect prop and the value, onChange etc. props would vanish
   const {
+    'aria-labelledby': ariaLabelledBy,
     circularNavigation = false,
     className,
     clearable = props.multiselect,
@@ -469,11 +484,11 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
   };
 
   // screen readers should read the labels in the following order:
-  // field label > helper text > error text > toggle button label
+  // field label > ariaLabelledBy > helper text > error text > toggle button label
   // helper and error texts should only be read if they have been defined
   // prettier-ignore
   const buttonAriaLabel =
-    `${getLabelProps().id}${error ? ` ${id}-error` : ''}${helper ? ` ${id}-helper` : ''} ${getToggleButtonProps().id}`;
+    `${getLabelProps().id}${ariaLabelledBy ? ` ${ariaLabelledBy}`: ''}${error ? ` ${id}-error` : ''}${helper ? ` ${id}-helper` : ''} ${getToggleButtonProps().id}`;
 
   // show placeholder if no value is selected
   const showPlaceholder = (props.multiselect && selectedItems.length === 0) || (!props.multiselect && !selectedItem);

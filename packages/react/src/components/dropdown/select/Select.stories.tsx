@@ -31,7 +31,11 @@ const options = getOptions();
 export default {
   component: Select,
   title: 'Components/Dropdowns/Select',
-  decorators: [(storyFn) => <div style={{ maxWidth: '420px' }}>{storyFn()}</div>],
+  decorators: [
+    (storyFn, context) => {
+      return <div style={{ maxWidth: `${context.name === 'With external label' ? 820 : 420}px` }}>{storyFn()}</div>;
+    },
+  ],
   parameters: {
     controls: { expanded: true },
   },
@@ -235,3 +239,25 @@ export const MultiSelectExample = ({ options: itemOptions, ...args }) => {
   );
 };
 MultiSelectExample.storyName = 'Multi-select example';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const WithExternalLabel = (args) => {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr' }}>
+      <p id="externalLabelId">External label for the select</p>
+      <Select
+        aria-labelledby="externalLabelId"
+        id={getId()}
+        helper="Choose an element"
+        placeholder="Placeholder"
+        clearButtonAriaLabel="Clear selection"
+        options={options}
+        onBlur={action('onBlur')}
+        onChange={(change) => action('onChange')(change)}
+        onFocus={action('onFocus')}
+      />
+    </div>
+  );
+};
+
+WithExternalLabel.storyName = 'With external label';

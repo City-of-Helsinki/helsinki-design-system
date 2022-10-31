@@ -27,6 +27,16 @@ describe('<Select /> spec', () => {
     const { asFragment } = getWrapper();
     expect(asFragment()).toMatchSnapshot();
   });
+  it('renders the component without label when aria-labelledby is given', () => {
+    const { asFragment } = render(
+      <Select
+        aria-labelledby="some-external-label-id"
+        options={options}
+        clearButtonAriaLabel={defaultProps.clearButtonAriaLabel}
+      />,
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
   it('should not have basic accessibility issues', async () => {
     const { container } = getWrapper();
     const results = await axe(container);
