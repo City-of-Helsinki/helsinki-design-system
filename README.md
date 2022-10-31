@@ -50,10 +50,10 @@
 
 ## Features
 
-- **Accessibility baked-in** – All HDS components are from the ground up designed to be as accessible as possible. Components go through a third-party accessibility audit before release.
-- **React & CSS** – Components are available both as React and CSS styles. Choose the one which suits the best for your project.
+- **Accessibility baked-in** – All HDS components are designed from the ground up to be as accessible as possible. Components go through a third-party accessibility audit before release.
+- **React & CSS** – Components are available both as React and CSS styles. Choose the one which suits best for your project.
 - **Customizable** – HDS components are designed to be customizable to allow expressing the vibrant Helsinki brand.
-- **Design and Implementation in sync** – Designers use a collection of Sketch libraries which are perfectly in sync with the implementation. 
+- **Design and Implementation in sync** – Designers use a collection of Sketch libraries which are perfectly in sync with the implementation.
 
 ## Packages
 
@@ -71,6 +71,7 @@ HDS is divided into three (3) separate packages:
 Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scripts across the repo as well as versioning and creating releases of the packages. [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) is used to manage dependencies. This allows the separate packages to reference each other via symlinks during local development.
 
 ### Using the packages in your project
+
 See the package specific instructions on how to get started using the packages.
 
 - [hds-design-tokens](./packages/design-tokens/README.md#getting-started)
@@ -112,7 +113,7 @@ yarn start:react
 | yarn build                         | Builds all the packages.                                                           |
 | yarn build:\<package>              | Builds a specific package (`tokens`, `core`, `react` or `site`).                   |
 | yarn start:\<platform>             | Starts the development environment for a specific platform (`core` or `react`).    |
-| lerna release                      | Publishes packages that have changed since the last release.                       |
+| release                            | Publishes packages that have changed since the last release.                       |
 
 To ensure code quality in the repo, every package will have their `pre-commit` and `pre-push` scripts run automatically before git commit and push (added with [**Husky**](https://github.com/typicode/husky)).
 
