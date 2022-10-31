@@ -1,4 +1,7 @@
 module.exports = {
+  core: {
+    builder: 'webpack5',
+  },
   stories: ['../src/**/*.stories.tsx'],
   addons: [
     '@storybook/preset-create-react-app',
@@ -25,6 +28,7 @@ module.exports = {
         // we need an alias for hds-core to point webpack to the package as we can't use tilde (~) with rollup
         './hds-core': require('path').resolve(__dirname, '../../../node_modules/hds-core'),
       },
+      plugins: config.resolve.plugins.filter((plugin) => plugin.constructor.name !== 'ModuleScopePlugin'),
     },
   }),
 };

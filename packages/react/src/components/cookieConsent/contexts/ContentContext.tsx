@@ -73,11 +73,13 @@ export type Callbacks = {
   onConsentsParsed?: (consents: ConsentObject, hasUserHandledAllConsents: boolean) => void;
 };
 
+/* eslint-disable */
 type ConsentContextProps = {
   cookieDomain?: string;
   children: React.ReactNode | React.ReactNode[] | null;
   contentSource: CookieContentSource;
 };
+/* eslint-enable */
 
 export const ContentContext = createContext<ContentContextType>({
   ...({ language: {}, texts: {} } as Content),
