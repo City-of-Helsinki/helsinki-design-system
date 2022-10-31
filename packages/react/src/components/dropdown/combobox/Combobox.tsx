@@ -79,6 +79,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
   // we can't destructure all the props. after destructuring, the link
   // between the multiselect prop and the value, onChange etc. props would vanish
   const {
+    'aria-labelledby': ariaLabelledBy,
     'aria-describedby': customAriaDescribedBy,
     catchEscapeKey,
     circularNavigation = false,
@@ -334,11 +335,11 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
   const isInputVisible = !props.multiselect || isOpen || (!isOpen && selectedItems.length === 0);
 
   // screen readers should read the labels in the following order:
-  // field label > helper text > error text > toggle button label
+  // field label > ariaLabelledBy > helper text > error text > toggle button label
   // helper and error texts should only be read if they have been defined
   // prettier-ignore
   const inputAriaLabel =
-    `${getLabelProps().id}${error ? ` ${id}-error` : ''}${helper ? ` ${id}-helper` : ''} ${getInputProps().id}`;
+    `${getLabelProps().id}${ariaLabelledBy ? ` ${ariaLabelledBy}` : ''}${error ? ` ${id}-error` : ''}${helper ? ` ${id}-helper` : ''} ${getInputProps().id}`;
 
   const renderInput = () => (
     <input

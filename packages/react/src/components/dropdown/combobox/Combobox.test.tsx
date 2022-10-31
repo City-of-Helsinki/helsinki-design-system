@@ -41,6 +41,18 @@ describe('<Combobox />', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  it('renders the component without label when aria-labelledby is given', () => {
+    const { asFragment } = render(
+      <Combobox
+        aria-labelledby="some-external-label-id"
+        options={options}
+        clearButtonAriaLabel={defaultProps.clearButtonAriaLabel}
+        toggleButtonAriaLabel={defaultProps.toggleButtonAriaLabel}
+      />,
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
   it('should not have basic accessibility issues', async () => {
     const { container } = getWrapper();
     const results = await axe(container);
