@@ -2,15 +2,15 @@
 
 This is the public documentation site of Helsinki Design System ([hds.hel.fi](https://hds.hel.fi/)). It is built with [Gatsby](https://www.gatsbyjs.com/) and it bases on [Gatsby's default starter](https://github.com/gatsbyjs/gatsby-starter-default).
 - General introduction of Helsinki Design System
-- Getting started section for designers and developers
+- Getting started section for product owners, designers and developers
 - Guidelines for accessibility, grid, localisation and more
 - Guidelines for visual assets such as icons and Helsinki logo
 - Design token documentation
 - Component documentation
-- About section with news, release notes and road map
+- Pattern documentation
+- About section with news, release notes and roadmap
 - Resources section
 - Contribution guidelines
-- Form examples and patterns
 
 ## Getting started
 
@@ -59,5 +59,5 @@ PATH_PREFIX='/hds-demo/docsite-fixes' yarn build -- --prefix-paths
 [Here](https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/how-gatsby-works-with-github-pages/) is more info about hosting Gatsby site in Github pages.
 
 ## Troubleshooting
-- **Site build fails with error #11903 COMPILATION or something similar**. Gatsby's cache might not be in sync with the source files due to a checkout (chancing branches, etc.)  
+- **Site build fails with error #11903 COMPILATION or something similar**. Gatsby's cache might not be in sync with the source files due to a checkout (chancing branches, etc.)
   **Solution:** Run `$(npm bin)/gatsby clean` or manually remove .cache folder to clean up cache files. Then try to run the build again.
