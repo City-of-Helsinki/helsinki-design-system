@@ -50,6 +50,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Time format documentation
 
+#### Changed
+
+- [Icons] Childhood icon renamed to Children
+- [Icons] Genderless renamed to Person-genderless
+
 #### Fixed
 
 - Accessibility issue i-tag was used in navigation link icons
