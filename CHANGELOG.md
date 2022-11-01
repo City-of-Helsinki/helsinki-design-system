@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
-- [Accordion] Fix heading accessibility  
+- [Accordion] Fix heading accessibility
 - [DateInput] Prevent Datepicker value from resetting on scroll
 - [Navigation] Fix title accessibility
 - [Notification] Fix toast accessibility
@@ -52,8 +52,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
-- Accessibility issue "i"-tag was used in navigation link icons
-- Accessibility issue "Copy code" - button did not show any feedback
+- Accessibility issue i-tag was used in navigation link icons
+- Accessibility issue Copy code - button did not show any feedback
 
 ## [2.4.0] - October, 10, 2022
 
