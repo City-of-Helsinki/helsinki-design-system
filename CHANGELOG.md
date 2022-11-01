@@ -7,6 +7,59 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.5.0] - November, 1, 2022
+
+### React Components
+
+#### Added
+
+- [Combobox, Select] Support for external label property
+
+#### Changed
+
+- [Icons] Childhood icon renamed to Children
+- [Icons] Genderless renamed to Person-genderless
+- React-scripts update to version 5
+
+#### Fixed
+
+- [Accordion] Fix heading accessibility
+- [DateInput] Prevent Datepicker value from resetting on scroll
+- [Navigation] Fix title accessibility
+- [Notification] Fix toast accessibility
+- [NumberInput] Fix stepper buttons accessibility
+
+### Core
+
+#### Changed
+
+- [Icons] Childhood icon renamed to Children
+- [Icons] Genderless renamed to Person-genderless
+- [Link, Notification, Pagination, SearchInput, Tag] Simplify component style imports
+
+### Design kit
+
+#### Changed
+
+- [Icons] Childhood icon renamed to Children
+- [Icons] Genderless renamed to Person-genderless
+
+### Documentation
+
+#### Added
+
+- Time format documentation
+
+#### Changed
+
+- [Icons] Childhood icon renamed to Children
+- [Icons] Genderless renamed to Person-genderless
+
+#### Fixed
+
+- Accessibility issue i-tag was used in navigation link icons
+- Accessibility issue Copy code - button did not show any feedback
+
 ## [2.4.0] - October, 10, 2022
 
 ### React Components
