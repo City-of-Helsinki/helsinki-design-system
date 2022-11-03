@@ -148,7 +148,6 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
       inputRef.current.focus();
     }
   };
-  var timer;
   // init multi-select
   const {
     activeIndex,
