@@ -203,9 +203,6 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     getA11ySelectionMessage,
     getA11yStatusMessage,
     itemToString: (item): string => (item ? item[optionLabelField] ?? '' : ''),
-    onHighlightedIndexChange: ({ highlightedIndex: _highlightedIndex }) => {
-      if (virtualized) virtualizer.scrollToIndex(_highlightedIndex);
-    },
     onSelectedItemChange: ({ selectedItem: _selectedItem }) =>
       props.multiselect === false && typeof props.onChange === 'function' && props.onChange(_selectedItem),
     onStateChange({ type, selectedItem: _selectedItem }) {
