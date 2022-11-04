@@ -236,7 +236,7 @@ export const SearchInput = <SuggestionItem,>({
           visibleOptions={visibleSuggestions}
           menuStyles={styles}
           options={suggestions}
-          optionLabelField={`${suggestionLabelField}`}
+          optionLabelField={`${String(suggestionLabelField)}`}
           menuProps={getMenuProps({
             style: { maxHeight: DROPDOWN_MENU_ITEM_HEIGHT * visibleSuggestions },
           })}
