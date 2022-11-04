@@ -1,21 +1,25 @@
-import { CSSProperties } from 'react';
-import { LitElement, html, css } from "lit";
-import uniqueId from 'lodash.uniqueid';
-import pickBy from 'lodash.pickby';
+import { LitElement, html, PropertyValueMap } from "lit";
+import { customElement } from 'lit/decorators'
+import { toString, uniqueId } from 'lodash'
+
+import { AccordionCustomTheme, Language } from './AccordionProps';
+import style from './accordionStyles'
 
 // import core base styles
 import 'hds-core';
 
-import { AccordionProps, AccordionCustomTheme, Language } from './AccordionProps';
+const booleanConverter = {
+  fromAttribute:  (value) => value == 'true',
+  toAttribute:    (value) => toString(value),
+}
 
-// FIXME: Remove and import from a common utility file or such
-const classNames = (...args) => args.filter(Boolean).join(' ');
 
+@customElement('hds-accordion')
 export default class AccordionHTMLElement extends LitElement {
 
   id: string;
-  border: boolean = false; // TODO
-  card: boolean = false; // TODO
+  card: boolean = false;
+  border: boolean = false;
   children: HTMLCollection;
   language: Language = 'fi';
   heading: string;
@@ -23,49 +27,58 @@ export default class AccordionHTMLElement extends LitElement {
   isOpen: boolean = false;
   closeButton: boolean = true;
   closeButtonClassName: string;
-  size: string = 'm';
+  size: SizeType = 'm';
   theme?: AccordionCustomTheme;
   // TODO style
 
   static get properties () {
     return {
       id: { type: String },
+      card: { type: Boolean, converter: booleanConverter },
+      border: { type: Boolean, converter: booleanConverter },
       children: { type: HTMLCollection },
       language: { type: String },
       heading: { type: String },
       headingLevel: { type: Number },
-      isOpen: { type: Boolean },
-      closeButton: { type: Boolean },
+      isOpen: { type: Boolean, converter: booleanConverter },
+      closeButton: { type: Boolean, converter: booleanConverter },
       closeButtonClassName: { type: String },
+      size: { type: String, },
     }
   }
 
-  get identifiers () {
-    const root        = this.id || uniqueId('accordion-');
-    const heading     = `${root}-heading`;
-    const content     = `${root}-content`;
-    const closeButton = `${root}-closeButton`;
+  _identifierPrefix: string;
+
+  private get identifiers () {
+    if (!this._identifierPrefix)
+      this._identifierPrefix = this.id || uniqueId('accordion-');
+    const heading     = `${this._identifierPrefix}-heading`;
+    const content     = `${this._identifierPrefix}-content`;
+    const closeButton = `${this._identifierPrefix}-closeButton`;
     return { heading, content, closeButton };
   }
 
   toggleOpen = () => {
-    console.log("toggling......");
     this.isOpen = !this.isOpen;
-    console.log(this);
   }
 
-  getIcon () {
-    return html``;
-  }
+  hasCloseButton = () =>
+    !!this.closeButton;
 
-  hasCloseButton () {
-    return !!this.closeButton;
+  protected willUpdate(_changedProperties: PropertyValueMap<unknown> | Map<PropertyKey, unknown>): void {
+    // TODO: Figure out how this side-effect-ish className would be better handled
+    //       e.g. best practices for non-ortogonal stuff in lit library.
+    const card = this.card && 'card'
+    const border = this.card && this.border && 'border'
+    const isOpen = this.isOpen && 'isOpen'
+    this.className = classNames('accordion', card, border, isOpen, this.size)
+    return super.willUpdate(_changedProperties)
   }
 
   render () {
     const handleKeyPress = (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
-        this.toggleOpen();
+        this.toggleOpen(); // FIXME
       }
     }
 
@@ -86,7 +99,7 @@ export default class AccordionHTMLElement extends LitElement {
             @click=${this.toggleOpen}>
 
             <span class='label'>${this.heading}</span>
-            ${this.getIcon()}
+            ${this.renderIcon()}
           </div>
 
         </div>
@@ -105,7 +118,11 @@ export default class AccordionHTMLElement extends LitElement {
     `;
   }
 
-  renderCloseButton () {
+  private renderIcon () {
+    return html``;
+  }
+
+  private renderCloseButton () {
     if (!this.hasCloseButton)
       return '';
 
@@ -119,6 +136,7 @@ export default class AccordionHTMLElement extends LitElement {
         this.toggleOpen(); // FIXME
       }
     }
+
     return html`
       <button
         data-testid=${this.identifiers.closeButton}
@@ -134,102 +152,17 @@ export default class AccordionHTMLElement extends LitElement {
     `
   }
 
-  static get styles () {
-    return css`
-      :host {
-        --background-color: var(--color-white);
-        --border-color: var(--color-black-60);
-        --header-font-color: var(--color-black-90);
-        --header-focus-outline-color: var(--color-coat-of-arms);
-        --content-font-color: var(--color-black-90);
-        --content-font-size: var(--fontsize-body-m);
-        --content-line-height: var(--lineheight-l);
-      }
+  static readonly styles = [style];
+}
 
-      .card {
-        background-color: var(--background-color);
-        padding-left: var(--padding-horizontal);
-        padding-right: var(--padding-horizontal);
-      }
-
-      .border {
-        border: 2px solid var(--border-color);
-      }
-
-      .s {
-        --header-font-size: var(--fontsize-heading-s);
-        --padding-vertical: var(--spacing-s);
-        --header-font-weight: 700;
-        --header-letter-spacing: 0.2px;
-        --header-line-height: 1.4;
-        --button-size: 28px;
-        --padding-horizontal: var(--spacing-2-xs);
-      }
-
-      .s .closeButton div {
-        margin-right: var(--spacing-4-xs);
-      }
-
-      .accordionHeader {
-        position: relative;
-        color: var(--header-font-color);
-        font-size: var(--header-font-size);
-        letter-spacing: var(--header-letter-spacing);
-        font-weight: var(--header-font-weight);
-        line-height: var(--header-line-height);
-        padding-top: var(--padding-vertical);
-        padding-bottom: var(--padding-vertical);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .accordionHeader > div {
-        flex: 1 1 auto;
-      }
-
-      .accordionContent {
-        position: relative;
-        font-size: var(--content-font-size);
-        line-height: var(--content-line-height);
-        padding-bottom: var(--spacing-m);
-        color: var(--content-font-color);
-      }
-
-      .accordionContent .closeButton {
-        color: var(--content-font-color);
-        position: absolute;
-        bottom: 0;
-        right: 0;
-      }
-
-      .contentWithCloseButton {
-        padding-bottom: 44px;
-      }
-
-      .headingContainer {
-        cursor: pointer;
-        width: 100%;
-        display: grid;
-        grid-template-columns: auto calc(var(--button-size));
-        box-sizing: border-box;
-        align-items: center;
-      }
-
-      .headingContainer:focus {
-        outline: 2px solid var(--header-focus-outline-color, transparent);
-      }
-
-      .accordionButtonIcon {
-        box-sizing: border-box;
-        border: 2px solid transparent;
-        width: var(--button-size) !important;
-        height: var(--button-size) !important;
-        margin: auto;
-      }
-    `;
+declare global {
+  interface HTMLElementTagNameMap {
+    "hds-accordion": AccordionHTMLElement;
   }
 }
+
+// FIXME: Remove and import from a common utility file or such
+const classNames = (...args) => args.filter(Boolean).join(' ');
 
 const getCloseMessage = (language: Language): string =>
   ({

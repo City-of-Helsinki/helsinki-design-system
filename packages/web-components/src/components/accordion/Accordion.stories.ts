@@ -1,23 +1,34 @@
 import { html } from 'lit';
+import { styleMap } from 'lit/directives/style-map';
 
-import '.';
+import './Accordion';
 
 export default {
+  component: 'hds-accordion',
   title: 'Components/Accordion',
-  decorators: [(storyFn) => html`<div style="maxWidth: 480px">${storyFn()}</div>`],
+  decorators: [(storyFn) => html`<div style="max-width: 480px">${storyFn()}</div>`],
   parameters: {
     controls: { hideNoControlsWarning: true },
-
   },
   args: {
-    heading: 'How to publish data?',
+    heading:  'How to publish data?',
     language: 'en',
     children: 'To publish your data, open your profile settings and click button "Publish".',
-    style: { maxWidth: '360px' }, // TODO
+    border:   false,
+    card:     false,
+    size:     'm',
+    style:    { 'max-width': '360px' },
   },
 };
 
 export const Default = (args) => html`
-  <hds-accordion heading=${args.heading} language=${args.language} headingLevel='1'>
+  <hds-accordion
+    heading=${args.heading}
+    language=${args.language}
+    card=${args.card}
+    border=${args.border}
+    size=${args.size}
+    style=${styleMap(args.style)}
+    headingLevel='1'>
     ${args.children}
   </hds-accordion>`
