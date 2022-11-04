@@ -1,0 +1,27 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "prettier", "jest", "import"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "ignorePatterns": ["*.module.css"],
+  "rules": {
+    "no-extra-semi": "warn",
+    "@typescript-eslint/no-inferrable-types": "off"
+  },
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "globals": {
+    "JSX": true,
+    "__dirname": true
+  }
+}
