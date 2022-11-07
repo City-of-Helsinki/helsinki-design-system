@@ -192,6 +192,7 @@ export const SearchInput = <SuggestionItem,>({
           })}
           className={classNames(styles.input)}
           placeholder={placeholder}
+          enterKeyHint="search"
         />
         <div className={styles.buttons}>
           {inputValue.length > 0 && (
