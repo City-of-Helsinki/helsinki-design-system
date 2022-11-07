@@ -55,7 +55,7 @@
     "gatsby",
     "hds"
   ],
-  "license": "0BSD",
+  "license": "MIT",
   "scripts": {
     "build": "yarn lint && gatsby build",
     "develop": "gatsby develop -o",
