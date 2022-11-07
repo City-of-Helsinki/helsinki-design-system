@@ -447,6 +447,10 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
         onFocus={ignoreFocusHandlerWhenClickingItem(handleWrapperFocus)}
         onBlur={ignoreFocusHandlerWhenClickingItem(handleWrapperBlur)}
         onClick={handleWrapperClick}
+        onMouseUp={() => {
+          setIsClicking(false);
+          focusInput();
+        }}
         className={classNames(styles.wrapper, props.multiselect && props.icon && styles.wrapperWithMultiSelectAndIcon)}
         ref={getComboboxProps().ref}
       >
