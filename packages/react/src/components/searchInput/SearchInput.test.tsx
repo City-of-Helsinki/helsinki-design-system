@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { SearchInput } from './SearchInput';
@@ -69,5 +69,23 @@ describe('<SearchInput /> spec', () => {
       userEvent.click(options[0]);
     });
     expect(onSubmit.mock.calls[0][0]).toBe('Apple');
+  });
+
+  it('renders the input with default value', async () => {
+    const onSubmit = jest.fn();
+    const onChange = jest.fn();
+    const value = 'Banana';
+    render(
+      <SearchInput<SuggestionItemType>
+        label="search"
+        suggestionLabelField="value"
+        getSuggestions={getSuggestions}
+        value={value}
+        onSubmit={onSubmit}
+        onChange={onChange}
+      />,
+    );
+
+    expect(screen.getByDisplayValue(value)).toBeInTheDocument();
   });
 });
