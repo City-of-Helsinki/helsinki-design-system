@@ -109,6 +109,10 @@ export type TextInputProps = React.ComponentPropsWithoutRef<'input'> & {
    */
   buttonAriaLabel?: string;
   /**
+   * Button dtyles
+   */
+  buttonStyle?: React.CSSProperties;
+  /**
    * Button click callback
    */
   onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -138,6 +142,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       type = 'text',
       buttonIcon,
       buttonAriaLabel,
+      buttonStyle,
       onButtonClick,
       ...rest
     }: TextInputProps,
@@ -183,6 +188,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           <div className={styles.buttonWrapper}>
             <button
               className={styles.button}
+              style={buttonStyle}
               disabled={disabled}
               type="button"
               onClick={onButtonClick}

@@ -187,8 +187,9 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       <div lang={language} className={styles.wrapper}>
         <TextInput
           {...textInputProps}
-          buttonIcon={disableDatePicker ? undefined : <IconCalendar aria-hidden />}
+          buttonIcon={disableDatePicker ? undefined : <IconCalendar aria-hidden style={{ padding: '1em' }} />}
           buttonAriaLabel={disableDatePicker ? undefined : getOpenButtonLabel()}
+          buttonStyle={{ width: 'auto', height: 'auto' }}
           onButtonClick={disableDatePicker ? undefined : onOpenButtonClick}
           onChange={(event) => {
             handleInputChange(event.target.value);

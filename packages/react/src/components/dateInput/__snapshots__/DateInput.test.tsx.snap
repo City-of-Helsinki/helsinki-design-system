@@ -31,12 +31,14 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
           <button
             aria-label="Choose date"
             class="button"
+            style="width: auto; height: auto;"
             type="button"
           >
             <svg
               aria-hidden="true"
               class="icon s"
               role="img"
+              style="padding: 1em;"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -1517,12 +1519,14 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
           <button
             aria-label="Choose date"
             class="button"
+            style="width: auto; height: auto;"
             type="button"
           >
             <svg
               aria-hidden="true"
               class="icon s"
               role="img"
+              style="padding: 1em;"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -3042,12 +3046,14 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
           <button
             aria-label="Choose date"
             class="button"
+            style="width: auto; height: auto;"
             type="button"
           >
             <svg
               aria-hidden="true"
               class="icon s"
               role="img"
+              style="padding: 1em;"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -4562,12 +4568,14 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
           <button
             aria-label="Valitse päivämäärä"
             class="button"
+            style="width: auto; height: auto;"
             type="button"
           >
             <svg
               aria-hidden="true"
               class="icon s"
               role="img"
+              style="padding: 1em;"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -6082,12 +6090,14 @@ exports[`<DateInput /> spec renders the component with different languages 1`] =
           <button
             aria-label="Välj datum"
             class="button"
+            style="width: auto; height: auto;"
             type="button"
           >
             <svg
               aria-hidden="true"
               class="icon s"
               role="img"
+              style="padding: 1em;"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
