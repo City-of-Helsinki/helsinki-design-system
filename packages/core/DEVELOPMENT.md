@@ -2,7 +2,7 @@
 
 ### Prerequisites
 
-Set up your local development environment by following the steps in the [development guide](../../DEVELOPMENT.md#setting-up-local-development-environment)
+Set up your local development environment by following the steps in the [development guide](../../DEVELOPMENT.md#setting-up-local-development-environment).
 
 ### Setting up local development environment
 
