@@ -4,7 +4,7 @@ Code ownership and a formal PR approval process is currently in draft phase. Any
 
 ## Sending a pull request
 
-Send pull requests to `master` branch. Right now all pull requests are welcome. If you do not feel that the PR is anywhere near ready, consider opening a draft pull request. Allowing edits from maintainers is also recommended.
+Send pull requests to `master` branch. Right now all pull requests are welcome. If you do not feel that the PR is anywhere near ready, consider opening a draft pull request. Allowing edits for maintainers is also recommended.
 
 Create branches with prefixes `bugfix/`, `feature/` and `hotfix/`.
 
@@ -16,15 +16,15 @@ We will review your pull request and either merge it, request changes to it, or 
 
 ### Before submitting a pull request, please make sure the following is done:
 
-1. Fork the repository and create your branch from proper branch.
+1. Fork the repository and create your branch from `master` branch.
 
 2. Run `yarn` in the repository root.
 
 3. If you’ve fixed a bug or added code that should be tested, add tests!
 
-4. Ensure the test suite passes (`yarn test`)
+4. Ensure the test suite passes (`yarn test`).
 
-- [ ] TODO: 5. Run `yarn test -- -u` to update jest snapshot and commit these changes as well (if has).
+- [ ] TODO: 5. Run `yarn test -- -u` to update jest snapshot and commit these changes as well (if there are any).
 
 6. Make sure your code lints (`yarn test:lint`). Tip: Lint runs automatically when you build.
 
