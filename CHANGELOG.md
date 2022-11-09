@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.6.0] - November, 9, 2022
+
+### React Components
+
+#### Added
+
+- [SearchInput] Support for external value property
+- [SearchInput] Search action label (or icon) on virtual keyboards
+
+#### Changed
+
+- Repository development guides content updated
+
+#### Fixed
+
+- [Combobox] Fix scrolling caused by moving the mouse
+- [Select] Error icon is same as with other components
+
+### Core
+
+#### Changed
+
+- Repository development guides content updated
+
+### Design kit
+
+#### Changed
+
+- [Icons] Documentation examples updated – Work in progress
+- [Logo] New favicons added
+- Repository development guides content updated
+
 ## [2.5.0] - November, 1, 2022
 
 ### React Components
