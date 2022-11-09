@@ -6,13 +6,13 @@ Set up your local development environment by following the steps in the [develop
 
 ### Setting up local development environment
 
-1. Build the design tokens.
+1. Build the design tokens in the root folder.
 
 ```bash
 yarn build:tokens
 ```
 
-2. Start the development server. This starts the storybook development environment. You can read about how to write storybook stories [here](https://storybook.js.org/docs/html/get-started/whats-a-story). The use of Storybook is recommended for component development.
+2. Start the development server. This starts the storybook development environment in the root folder. You can read about how to write storybook stories [here](https://storybook.js.org/docs/html/get-started/whats-a-story). The use of Storybook is recommended for component development.
 
 ```bash
 yarn start:core
