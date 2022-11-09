@@ -1,25 +1,12 @@
 # Development
 
-## Development environment
+### Prerequisites
 
-> Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scripts across the repo as well as versioning and creating releases of the packages. [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) is used to manage dependencies. This allows the separate packages to reference each other via symlinks during local development.
+Set up your local development environment by following the steps in the [development guide](../../DEVELOPMENT.md#setting-up-local-development-environment).
 
 ### Setting up local development environment
 
-1. Clone the HDS repository.
-
-```bash
-git clone https://github.com/City-of-Helsinki/helsinki-design-system.git
-```
-
-2. Go to the root of the project and install dependencies with `yarn`.
-
-```bash
-cd helsinki-design-system
-yarn
-```
-
-3. Build the design tokens.
+Build the design tokens in the root folder.
 
 ```bash
 yarn build:tokens
@@ -40,7 +27,7 @@ To add new tokens, you first need to create a `.json` file in the `tokens` direc
 
 After the `.json` file with the tokens is done, you'll need to include it in the build process for the tokens to be built. To do that you need to add a new property to the `build.js` file.
 
-#### Example:
+#### Example use
 
 Let’s say that we wanted to add a `bar.json` file at the location `tokens/foo` to the build process. In the `build.js` file we would add the following:
 
@@ -70,10 +57,6 @@ Find the token you want to update and replace the value in the `value` field wit
 
 To build the tokens run
 
-```
+```bash
 yarn build
 ```
-
-## Workflow
-
-This project uses the [Git Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow). Happy branching!

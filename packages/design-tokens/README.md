@@ -4,9 +4,9 @@ Design tokens for the Helsinki Design System.
 
 ## Getting started
 
-### Installing the package:
+Install the package.
 
-```
+```bash
 yarn add hds-design-tokens
 ```
 
@@ -24,11 +24,11 @@ hds-design-tokens/
     │    ├── all (.scss|.css)
     │    ├── brand (.scss|.css)             # brand color variables
     │    └── ui (.scss|.css)                # ui color variables
-    ├── spacing/                            
+    ├── spacing/
     │   ├── all (.scss|.css)
     │   ├── layout (.scss|.css)             # layout spacing variables
     │   └── spacing (.scss|.css)            # component spacing variables
-    ├── typography/                            
+    ├── typography/
     │   ├── all (.scss|.css)
     │   ├── font (.scss|.css)               # font variables
     │   ├── font-size (.scss|.css)          # font-size variables
@@ -37,6 +37,7 @@ hds-design-tokens/
 ```
 
 ### Using the tokens
+
 Import any of the available `.css` or `.scss` files. Imported CSS variables will be applied to the `:root` element.
 
 JS
@@ -51,8 +52,10 @@ SCSS
 ```
 
 ## Development
+
 Read more [here](DEVELOPMENT.md).
 
 ## Built with
+
 - [Style Dictionary](https://github.com/amzn/style-dictionary)
 - [clean-css](https://github.com/jakubpawlowicz/clean-css-cli)
