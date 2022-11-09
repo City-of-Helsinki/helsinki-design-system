@@ -148,7 +148,6 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
       inputRef.current.focus();
     }
   };
-
   // init multi-select
   const {
     activeIndex,
@@ -204,7 +203,6 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     getA11ySelectionMessage,
     getA11yStatusMessage,
     itemToString: (item): string => (item ? item[optionLabelField] ?? '' : ''),
-    onHighlightedIndexChange: ({ highlightedIndex: _highlightedIndex }) => virtualizer.scrollToIndex(_highlightedIndex),
     onSelectedItemChange: ({ selectedItem: _selectedItem }) =>
       props.multiselect === false && typeof props.onChange === 'function' && props.onChange(_selectedItem),
     onStateChange({ type, selectedItem: _selectedItem }) {
@@ -449,6 +447,10 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
         onFocus={ignoreFocusHandlerWhenClickingItem(handleWrapperFocus)}
         onBlur={ignoreFocusHandlerWhenClickingItem(handleWrapperBlur)}
         onClick={handleWrapperClick}
+        onMouseUp={() => {
+          setIsClicking(false);
+          focusInput();
+        }}
         className={classNames(styles.wrapper, props.multiselect && props.icon && styles.wrapperWithMultiSelectAndIcon)}
         ref={getComboboxProps().ref}
       >
