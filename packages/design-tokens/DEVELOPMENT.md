@@ -6,7 +6,7 @@ Set up your local development environment by following the steps in the [develop
 
 ### Setting up local development environment
 
-Build the design tokens.
+Build the design tokens in the root folder.
 
 ```bash
 yarn build:tokens
