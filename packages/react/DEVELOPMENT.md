@@ -6,13 +6,13 @@ Set up your local development environment by following the steps in the [develop
 
 ### Setting up local development environment
 
-1. Build the hds-core and hds-design-tokens packages. hds-react uses these packages as dependencies.
+1. Build the hds-core and hds-design-tokens packages in the root folder. hds-react uses these packages as dependencies.
 
 ```bash
 yarn build:tokens && yarn build:core
 ```
 
-2. Start the development server. This starts the storybook development environment. You can read about how to write storybook stories [here](https://storybook.js.org/docs/react/get-started/whats-a-story). The use of Storybook is recommended for component development.
+2. Start the development server in the root folder. This starts the storybook development environment. You can read about how to write storybook stories [here](https://storybook.js.org/docs/react/get-started/whats-a-story). The use of Storybook is recommended for component development.
 
 ```bash
 yarn start:react
@@ -53,8 +53,7 @@ To run the visual regression tests, you must first build the storybook by runnin
 
 ### Updating reference images
 
-When adding a new component or after making visual changes to some existing component, you must update the corresponding reference image.
-Before you can do this, you must start the local react storybook by issuing the following command in the root of the whole project:
+When adding a new component or after making visual changes to some existing component, you must update the corresponding reference image. Before you can do this, you must start the local react storybook by issuing the following command in the root of the whole project:
 
 ```bash
 yarn start:react
