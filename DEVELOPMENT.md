@@ -32,7 +32,7 @@ cd helsinki-design-system
 yarn
 ```
 
-4. Build packages with `yarn build`. This builds all packages; core, react, design-tokens and site (documentation).
+4. Build packages with `yarn build`. This builds all packages; core, react, design-tokens, and site (documentation).
 
 ```bash
 yarn build
@@ -55,13 +55,11 @@ yarn start:react
 | release                            | Publishes packages that have changed since the last release.                       |
 | update-versions                    | Bump version of packages to publish.                                               |
 
-To ensure code quality in the repo, every package will have their `pre-commit` and `pre-push` scripts run automatically before git commit and push (added with [**Husky**](https://github.com/typicode/husky)).
-
 ## Workflow
 
 This project uses the [Git Feature Branch Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow). Happy branching!
 
-1. Get latest updates from the `master` branch.
+1. Get the latest updates from the `master` branch.
 
 ```bash
 git checkout master
