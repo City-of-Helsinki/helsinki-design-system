@@ -35,8 +35,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-– [Icons] Documentation examples updated – Work in progress
-– [Logo] New favicons added
+- [Icons] Documentation examples updated – Work in progress
+- [Logo] New favicons added
 - Repository development guides content updated
 
 ## [2.5.0] - November, 1, 2022
