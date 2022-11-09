@@ -24,6 +24,7 @@ exports[`<SearchInput /> spec renders the component 1`] = `
         aria-owns="downshift-1-menu"
         autocomplete="off"
         class="input"
+        enterkeyhint="search"
         id="downshift-0-input"
         role="combobox"
         value=""
