@@ -122,7 +122,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
             <p
               class="visuallyHiddenWithoutFocus"
             >
-              Tämä sivusto käyttää pakollisia evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen.
+              Tämä sivusto käyttää välttämättömiä evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen.
             </p>
             <button
               class="accordionButton readMoreButton"
@@ -950,7 +950,7 @@ exports[`<CookieModal /> spec renders the component 1`] = `
               <span
                 class="label"
               >
-                Hyväksy vain pakolliset evästeet
+                Hyväksy vain välttämättömät evästeet
               </span>
             </button>
           </div>
