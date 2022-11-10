@@ -8,10 +8,7 @@ export default {
   parameters: {
     controls: { expanded: true },
   },
-  args: { theme: 'light' },
-  argTypes: {
-    theme: { control: { type: 'inline-radio', options: ['light', 'dark'] } },
-  },
+  args: {  },
 };
 
 export const Example = (args) => <Header {...args}>Header</Header>;
