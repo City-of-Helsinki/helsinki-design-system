@@ -20,7 +20,7 @@ exports[`<Page /> spec renders the component 1`] = `
           Test site käyttää evästeitä
         </h1>
         <p>
-          Tämä sivusto käyttää pakollisia evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen.
+          Tämä sivusto käyttää välttämättömiä evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen.
         </p>
       </div>
       <div
@@ -784,7 +784,7 @@ exports[`<Page /> spec renders the component 1`] = `
           <span
             class="label"
           >
-            Hyväksy vain pakolliset evästeet
+            Hyväksy vain välttämättömät evästeet
           </span>
         </button>
       </div>

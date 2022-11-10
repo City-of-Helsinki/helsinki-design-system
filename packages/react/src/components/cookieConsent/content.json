@@ -4,7 +4,7 @@
       "main": {
         "fi": {
           "title": "{{siteName}} käyttää evästeitä",
-          "text": "Tämä sivusto käyttää pakollisia evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen."
+          "text": "Tämä sivusto käyttää välttämättömiä evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen."
         },
         "sv": {
           "title": "{{siteName}} använder kakor",
@@ -36,7 +36,7 @@
         "hideSettings": "Piilota asetukset",
         "approveAllConsents": "Hyväksy kaikki evästeet",
         "approveRequiredAndSelectedConsents": "Hyväksy valitut evästeet",
-        "approveOnlyRequiredConsents": "Hyväksy vain pakolliset evästeet",
+        "approveOnlyRequiredConsents": "Hyväksy vain välttämättömät evästeet",
         "settingsSaved": "Asetukset tallennettu!",
         "readMore": "Lue lisää"
       },
