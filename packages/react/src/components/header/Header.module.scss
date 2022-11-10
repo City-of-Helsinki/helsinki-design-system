@@ -2,47 +2,18 @@
   --header-height: var(--spacing-4-xl);
   --header-focus-outline-width: 3px;
   --header-focus-outline-border-radius: 0;
-  --navigation-dropdown-menu-border-radius: 0;
-  --navigation-dropdown-menu-border-width: 1px;
-  --navigation-dropdown-menu-min-width: 11rem;
   --header-z-index: 10;
-  --mobile-menu-z-index: 9;
-
-  /* THEME VARS */
-
-  --header-background-color: var(--color-white);
-  --header-color: var(--color-black-90);
-  --header-divider-color: var(--color-black-20);
   --header-focus-outline-color: var(--color-coat-of-arms);
-  --mobile-menu-background-color: var(--color-white);
-  --mobile-menu-color: var(--color-black-90);
-  --navigation-row-background-color: var(--color-white);
-  --navigation-row-color: var(--color-black-90);
-  --navigation-row-focus-outline-color: var(--color-coat-of-arms);
 
   background-color: var(--navigation-row-background-color);
   color: var(--header-color);
   position: relative;
   width: 100%;
-
-  // light theme bottom border
-  // TO DO: put this in upcoming ActionBar component
-  /* &.theme-light .headerBackgroundWrapper {
-    border-bottom: 1px solid var(--header-divider-color);
-  } */
-
-  // dark theme overrides
-  &.theme-dark {
-    --header-background-color: var(--color-bus);
-    --header-color: var(--color-white);
-    --header-focus-outline-color: var(--color-white);
-  }
 }
 
 /* BACKGROUND WRAPPER */
 
 .headerBackgroundWrapper {
-  background-color: var(--header-background-color);
   position: relative;
   z-index: var(--header-z-index);
 }
