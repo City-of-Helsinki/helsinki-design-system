@@ -8,7 +8,7 @@ export default {
   parameters: {
     controls: { expanded: true },
   },
-  args: {  },
+  args: {},
 };
 
 export const Example = (args) => <Header {...args}>Header</Header>;
