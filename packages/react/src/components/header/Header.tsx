@@ -18,14 +18,14 @@ export type HeaderProps = React.PropsWithChildren<{
   id?: string;
 }>;
 
-export const Header = ({ children, className }: HeaderProps) => {
+export const Header = ({ children, className, id }: HeaderProps) => {
   const isMobile = useMobile();
   const context: HeaderContextProps = { isMobile };
   return (
     <HeaderContext.Provider value={context}>
-      <div className={classNames(styles.header, className)}>
+      <header id={id} className={classNames(styles.header, className)}>
         <div className={styles.headerBackgroundWrapper}>{children}</div>
-      </div>
+      </header>
     </HeaderContext.Provider>
   );
 };
