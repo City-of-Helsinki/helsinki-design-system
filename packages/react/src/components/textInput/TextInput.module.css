@@ -60,6 +60,5 @@
 }
 
 .button:focus {
-  outline: none;
-  box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+  outline: var(--outline-width) solid var(--focus-outline-color);
 }
