@@ -37,3 +37,14 @@ Read more [here](DEVELOPMENT.md).
 - [Prettier](https://github.com/prettier/prettier) for code formatting
 - [Jest](https://github.com/facebook/jest) with [React Testing Library](https://github.com/testing-library/react-testing-library) for testing
 - [Loki](https://loki.js.org/) for visual regression testing
+
+## Supported browsers
+Helsinki Design System uses the react-scripts library's default browserslist config to target a broad range of browsers.
+This means that the following browsers are supported:
+- Chrome
+- Firefox
+- Safari
+The supported browser versions are listed in [browserslists test page](https://browsersl.ist/#q=%3E+0.2%25%2C+not+dead%2C+not+op_mini+all&region=FI)
+
+More info about browser support:
+- [HDS documentation general FAQ](https://hds.hel.fi/getting-started/faq#general)
