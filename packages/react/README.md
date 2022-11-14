@@ -48,6 +48,8 @@ This means that the following browsers are supported:
 - Edge for Android ([uses same engine as Chrome for Android](https://github.com/browserslist/browserslist#browsers))
 - Edge for iOS ([uses same engine as Safari iOS](https://github.com/browserslist/browserslist#browsers))
 - Firefox
+- Firefox for Android
+- Firefox for iOS ([uses same engine as Safari iOS](https://github.com/browserslist/browserslist#browsers))
 - Safari
 - Safari iOS
 
