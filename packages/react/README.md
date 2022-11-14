@@ -42,14 +42,14 @@ Read more [here](DEVELOPMENT.md).
 Helsinki Design System uses the react-scripts library's default browserslist config to target a broad range of browsers.
 This means that the following browsers are supported:
 - Chrome
-- Firefox
-- Edge
-- Safari
 - Chrome for Android
-- Edge for Android ([uses same engine as Chrome for Android](https://github.com/browserslist/browserslist#browsers))
-- Safari iOS
 - Chrome for iOS ([uses same engine as Safari iOS](https://github.com/browserslist/browserslist#browsers))
+- Edge
+- Edge for Android ([uses same engine as Chrome for Android](https://github.com/browserslist/browserslist#browsers))
 - Edge for iOS ([uses same engine as Safari iOS](https://github.com/browserslist/browserslist#browsers))
+- Firefox
+- Safari
+- Safari iOS
 
 The supported browser versions are listed in [browserslists test page](https://browsersl.ist/#q=%3E+0.2%25%2C+not+dead%2C+not+op_mini+all&region=FI)
 
