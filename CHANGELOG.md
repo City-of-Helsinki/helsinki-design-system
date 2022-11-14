@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.6.1] - November, 14, 2022
+
+### Design kit
+
+#### Fixed
+
+- Compatibility issue with Abstract and Sketch by updating the linked library files to Sketch 94.1
+
 ## [2.6.0] - November, 9, 2022
 
 ### React Components
