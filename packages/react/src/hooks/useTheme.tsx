@@ -1,5 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import uniqueId from 'lodash.uniqueid';
+
+import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
 
 /**
  * Sets the given custom theme for the component
@@ -13,7 +15,6 @@ const setComponentTheme = <T,>(selector: string, theme: T, customClass: string):
 
   // checks if the given css rule contains the custom class selector
   const hasCustomRule = (rule: CSSStyleRule): boolean => rule.selectorText?.includes(`${selector}.${customClass}`);
-
   try {
     // the index of the parent stylesheet
     let parentIndex = [...document.styleSheets].findIndex((styleSheet) => {
@@ -63,7 +64,7 @@ export const useTheme = <T,>(selector: string, theme: T): string => {
   // create a unique selector for the custom theme
   const customClass = useRef<string>(useCustomTheme ? uniqueId('custom-theme-') : '').current;
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (useCustomTheme) setComponentTheme<T>(selector && selector.split(' ')[0], theme, customClass);
   }, [selector, theme, customClass, useCustomTheme]);
 
