@@ -57,4 +57,4 @@ The supported browser versions are listed in [browserslists test page](https://b
 
 More info about browser support:
 - [Create React App - Configuring Supported Browsers](https://create-react-app.dev/docs/supported-browsers-features/#configuring-supported-browsers)
-- [HDS documentation general FAQ](https://hds.hel.fi/getting-started/faq#general)
+- [HDS documentation general FAQ - What browser and browser versions are supported?](https://hds.hel.fi/getting-started/faq#general)
