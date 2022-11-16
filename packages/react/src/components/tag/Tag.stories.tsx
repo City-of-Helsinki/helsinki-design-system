@@ -1,7 +1,7 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 
-import { Tag, RoundedTag } from './Tag';
+import { Tag, RoundedTag as RoundedTagComponent, LargeRoundedTag } from './Tag';
 
 export default {
   component: Tag,
@@ -56,12 +56,28 @@ CustomTheme.args = {
   },
 };
 
-export const TagWithRoundedCorners = (args) => <RoundedTag {...args} />;
+export const RoundedTag = (args) => <RoundedTagComponent {...args} />;
 
-export const DeletableTagWithRoundedCorners = (args) => {
+export const RoundedDeletableTag = (args) => {
   return (
-    <RoundedTag {...args} deleteButtonAriaLabel="Delete item" onDelete={() => action(`Delete: ${args.children}`)()}>
+    <RoundedTagComponent
+      {...args}
+      deleteButtonAriaLabel="Delete item"
+      onDelete={() => action(`Delete: ${args.children}`)()}
+    >
       {args.children}
-    </RoundedTag>
+    </RoundedTagComponent>
+  );
+};
+
+export const LargeRoundedDeletableTag = (args) => {
+  return (
+    <LargeRoundedTag
+      {...args}
+      deleteButtonAriaLabel="Delete item"
+      onDelete={() => action(`Delete: ${args.children}`)()}
+    >
+      {args.children}
+    </LargeRoundedTag>
   );
 };

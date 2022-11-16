@@ -63,6 +63,7 @@ export type TagProps = {
 };
 
 const ROUNDED_CORNERS_CLASS_NAME = 'rounded-corners';
+const ROUNDED_CORNERS_LARGE_CLASS_NAME = 'rounded-corners-large';
 
 export const Tag = forwardRef<HTMLDivElement, TagProps>(
   (
@@ -125,4 +126,12 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
 
 export const RoundedTag = forwardRef<HTMLDivElement, TagProps>(({ className = '', ...props }, ref) => (
   <Tag className={classNames(styles[ROUNDED_CORNERS_CLASS_NAME], className)} {...props} ref={ref} />
+));
+
+export const LargeRoundedTag = forwardRef<HTMLDivElement, TagProps>(({ className = '', ...props }, ref) => (
+  <Tag
+    className={classNames(styles[ROUNDED_CORNERS_LARGE_CLASS_NAME], styles[ROUNDED_CORNERS_CLASS_NAME], className)}
+    {...props}
+    ref={ref}
+  />
 ));
