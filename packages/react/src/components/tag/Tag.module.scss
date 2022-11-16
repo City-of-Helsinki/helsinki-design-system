@@ -30,9 +30,14 @@
 }
 
 .tag.rounded-corners {
-  --tag-padding-h:  var(--spacing-s);
-  --tag-height:     40px;
   border-radius:    20px;
+  flex-direction:   row;
+}
+
+.tag.rounded-corners.rounded-corners-large {
+  --tag-padding-h:  var(--spacing-s);
+  --tag-height:     48px;
+  border-radius:    24px;
   flex-direction:   row;
 }
 
