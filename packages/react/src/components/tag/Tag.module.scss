@@ -4,6 +4,8 @@
   --tag-background: var(--color-black-10);
   --tag-color: var(--color-black-90);
   --tag-focus-outline-color: var(--color-coat-of-arms);
+  --tag-padding-v: var(--spacing-3-xs);
+  --tag-padding-h: var(--spacing-2-xs);
   --tag-height: 32px;
 
 
@@ -27,13 +29,29 @@
   cursor: pointer;
 }
 
+.tag.rounded-corners {
+  --tag-padding-h:  var(--spacing-s);
+  --tag-height:     40px;
+  border-radius:    20px;
+  flex-direction:   row;
+}
+
+.tag.rounded-corners >.label:not(:only-child) {
+  padding-right: 0;
+  padding-left: var(--tag-padding-h);
+}
+
+.tag.rounded-corners > button {
+  padding-right: calc(var(--tag-padding-h) / 2);
+}
+
 .label {
   line-height: var(--lineheight-m);
-  padding: var(--spacing-3-xs) var(--spacing-2-xs);
+  padding: 0 var(--tag-padding-h);
 }
 
 .label:not(:only-child) {
-  padding: 0 var(--spacing-2-xs) 0 0;
+  padding: 0 var(--tag-padding-h) 0 0;
 }
 
 .deleteButton {

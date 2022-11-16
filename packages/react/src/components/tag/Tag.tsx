@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/order
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 // import core base styles
 import 'hds-core';
@@ -62,7 +62,9 @@ export type TagProps = {
   theme?: TagCustomTheme;
 };
 
-export const Tag = React.forwardRef<HTMLDivElement, TagProps>(
+const ROUNDED_CORNERS_CLASS_NAME = 'rounded-corners';
+
+export const Tag = forwardRef<HTMLDivElement, TagProps>(
   (
     {
       children,
@@ -77,11 +79,12 @@ export const Tag = React.forwardRef<HTMLDivElement, TagProps>(
       srOnlyLabel,
       theme,
       ...rest
-    }: TagProps,
+    },
     ref: React.Ref<HTMLDivElement>,
   ) => {
     // custom theme class that is applied to the root element
     const customThemeClass = useTheme<TagCustomTheme>(styles.tag, theme);
+    const containerClassName = classNames(styles.tag, customThemeClass, className);
     const clickable = typeof onClick === 'function';
     const deletable = typeof onDelete === 'function';
 
@@ -93,7 +96,7 @@ export const Tag = React.forwardRef<HTMLDivElement, TagProps>(
     return (
       <div
         id={id}
-        className={classNames(styles.tag, customThemeClass, className)}
+        className={containerClassName}
         ref={ref}
         {...(clickable && { tabIndex: 0, role, onClick, onKeyDown })}
         {...rest}
@@ -102,6 +105,7 @@ export const Tag = React.forwardRef<HTMLDivElement, TagProps>(
           {srOnlyLabel && <span className={styles.visuallyHidden}>{srOnlyLabel}</span>}
           <span aria-hidden={!!srOnlyLabel}>{children}</span>
         </span>
+
         {deletable && (
           <button
             {...deleteButtonProps}
@@ -118,3 +122,7 @@ export const Tag = React.forwardRef<HTMLDivElement, TagProps>(
     );
   },
 );
+
+export const RoundedTag = forwardRef<HTMLDivElement, TagProps>(({ className = '', ...props }, ref) => (
+  <Tag className={classNames(styles[ROUNDED_CORNERS_CLASS_NAME], className)} {...props} ref={ref} />
+));
