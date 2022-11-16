@@ -39,3 +39,24 @@ Read more [here](DEVELOPMENT.md).
 - [Prettier](https://github.com/prettier/prettier) for code formatting
 - [Jest](https://github.com/facebook/jest) with [React Testing Library](https://github.com/testing-library/react-testing-library) for testing
 - [Loki](https://loki.js.org/) for visual regression testing
+
+## Supported browsers
+Helsinki Design System uses the react-scripts library's default browserslist config to target a broad range of browsers.
+This means that the following browsers are supported:
+- Chrome
+- Chrome for Android
+- Chrome for iOS ([uses same engine as Safari iOS](https://github.com/browserslist/browserslist#browsers))
+- Edge
+- Edge for Android ([uses same engine as Chrome for Android](https://github.com/browserslist/browserslist#browsers))
+- Edge for iOS ([uses same engine as Safari iOS](https://github.com/browserslist/browserslist#browsers))
+- Firefox
+- Firefox for Android
+- Firefox for iOS ([uses same engine as Safari iOS](https://github.com/browserslist/browserslist#browsers))
+- Safari
+- Safari iOS
+
+The supported browser versions are listed in [browserslists test page](https://browsersl.ist/#q=%3E+0.2%25%2C+not+dead%2C+not+op_mini+all&region=FI)
+
+More info about browser support:
+- [Create React App - Configuring Supported Browsers](https://create-react-app.dev/docs/supported-browsers-features/#configuring-supported-browsers)
+- [HDS documentation general FAQ - What browser and browser versions are supported?](https://hds.hel.fi/getting-started/faq#general)
