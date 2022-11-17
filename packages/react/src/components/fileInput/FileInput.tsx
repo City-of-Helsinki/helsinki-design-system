@@ -1,5 +1,3 @@
-import path from 'path';
-
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import uniqueId from 'lodash.uniqueid';
 
@@ -13,6 +11,15 @@ import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import styles from './FileInput.module.scss';
 
 type Language = 'en' | 'fi' | 'sv';
+
+// Return the extension of the path, from the last '.' to end of string in the last portion of the path.
+const getExtension = (path: string): string => {
+  if (!path || typeof path !== 'string' || '' === path) {
+    throw new TypeError('Path must be a non-empty string. Path is now' + JSON.stringify(path));
+  }
+  const lastDotIndex = path.lastIndexOf('.');
+  return path.substring(lastDotIndex + 1);
+};
 
 type FileInputProps = {
   /**
@@ -272,8 +279,8 @@ type ValidationError = {
 };
 
 const validateAccept = (language: Language, accept: string) => (file: File): true | ValidationError => {
-  const extension = path.extname(file.name);
-  const fileType = file.type;
+  const extension: string = getExtension(file.name);
+  const fileType: string = file.type;
   const acceptedExtensions = accept.split(',').map((str) => str.trim());
   const isMatchingType = !!acceptedExtensions.find(
     (acceptExtension) => acceptExtension.includes(fileType) || acceptExtension.includes(`${fileType.split('/')[0]}/*`),
