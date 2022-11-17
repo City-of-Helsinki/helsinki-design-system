@@ -17,8 +17,18 @@ const getExtension = (path: string): string => {
   if (!path || typeof path !== 'string' || path === '') {
     throw new TypeError(`Path must be a non-empty string. Path is now ${JSON.stringify(path)}`);
   }
+
   const lastDotIndex = path.lastIndexOf('.');
-  return path.substring(lastDotIndex + 1);
+  if(lastDotIndex === -1) {
+    throw new Error('File is missing extension');
+  }
+
+  const extensionWithDot = path.substring(lastDotIndex);
+  if (extensionWithDot.length <= 1) {
+    throw new Error('File is missing extension');
+  }
+
+  return extensionWithDot;
 };
 
 type FileInputProps = {
