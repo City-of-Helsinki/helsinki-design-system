@@ -18,11 +18,10 @@
 
 .buttons {
   composes: hds-text-input__buttons from 'hds-core/lib/components/text-input/text-input.css';
-  right: calc(-1 * var(--border-width));
 }
 
 .button {
-  composes: hds-text-input__button from 'hds-core/src/components/text-input/text-input.css';
+  composes: hds-text-input__button from 'hds-core/lib/components/text-input/text-input.css';
   color: var(--dropdown-color-default);
 
   &.hidden {
