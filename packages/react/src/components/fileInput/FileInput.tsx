@@ -14,8 +14,8 @@ type Language = 'en' | 'fi' | 'sv';
 
 // Return the extension of the path, from the last '.' to end of string in the last portion of the path.
 const getExtension = (path: string): string => {
-  if (!path || typeof path !== 'string' || '' === path) {
-    throw new TypeError('Path must be a non-empty string. Path is now' + JSON.stringify(path));
+  if (!path || typeof path !== 'string' || path === '') {
+    throw new TypeError(`Path must be a non-empty string. Path is now ${JSON.stringify(path)}`);
   }
   const lastDotIndex = path.lastIndexOf('.');
   return path.substring(lastDotIndex + 1);
