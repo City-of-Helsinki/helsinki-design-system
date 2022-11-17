@@ -2,9 +2,9 @@ import { createContext } from 'react';
 
 export type HeaderContextProps = {
   /**
-   * Flag for whether the mobile view is active
+   * Flag for whether the viewport is under breakpoint value small.
    */
-  isMobile?: boolean;
+  isSmallScreen?: boolean;
 };
 
 export const HeaderContext = createContext<HeaderContextProps>({});
