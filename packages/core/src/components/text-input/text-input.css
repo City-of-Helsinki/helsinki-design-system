@@ -258,7 +258,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: calc(var(--spacing-s) - var(--spacing-xs));
+  margin-right: calc(var(--spacing-s) - var(--spacing-xs) / 2);
   font-size: 1rem;
 }
 
@@ -272,8 +272,7 @@
   color: var(--dropdown-color-default);
   outline: none;
   display: flex;
-  margin-left: var(--spacing-3-xs);
-  padding: var(--spacing-xs);
+  padding: var(--spacing-xs) calc(var(--spacing-xs) / 2);
 }
 
 .hds-text-input__button:focus {
