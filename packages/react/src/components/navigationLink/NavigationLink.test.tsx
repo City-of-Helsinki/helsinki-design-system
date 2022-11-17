@@ -6,11 +6,11 @@ import { NavigationLink } from './NavigationLink';
 
 describe('<NavigationLink /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<NavigationLink />);
+    const { asFragment } = render(<NavigationLink href="#">Link</NavigationLink>);
     expect(asFragment()).toMatchSnapshot();
   });
   it('should not have basic accessibility issues', async () => {
-    const { container } = render(<NavigationLink />);
+    const { container } = render(<NavigationLink href="#">Link</NavigationLink>);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<HeaderUniversalBar /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="headerUniversalBar"
+  >
+    <a
+      class="link linkM navigationLink"
+      href="#"
+    >
+      hel.fi
+    </a>
+    <div
+      class="headerUniversalBarSecondaryLinksContainer"
+    />
+  </div>
+</DocumentFragment>
+`;

@@ -6,11 +6,11 @@ import { HeaderUniversalBar } from './HeaderUniversalBar';
 
 describe('<HeaderUniversalBar /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<HeaderUniversalBar />);
+    const { asFragment } = render(<HeaderUniversalBar primaryLinkText="hel.fi" primaryLinkHref="#" />);
     expect(asFragment()).toMatchSnapshot();
   });
   it('should not have basic accessibility issues', async () => {
-    const { container } = render(<HeaderUniversalBar />);
+    const { container } = render(<HeaderUniversalBar primaryLinkText="hel.fi" primaryLinkHref="#" />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
