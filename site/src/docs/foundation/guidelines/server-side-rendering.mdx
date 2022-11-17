@@ -174,4 +174,6 @@ the tool described in option 1. But if you are unable to use that, extracting th
 
 If you customise hds-react components with the <code>theme</code> prop, the style changes will not be visible on the
 first render. The preferred way to customise hds-react components with server-side rendering is using the <code>className</code>
-prop.
+prop. However, notice that sometimes CSS selector specificity of 0-1-0 may not be enough to overwrite default CSS variables.
+This depends on the CSS declaration order on the page or component's default styles selector specificity.
+You may have to use a more specific CSS selector for the custom styles class, for example, `#myComponent.custom-class`, `.custom-class.custom-class`, etc.
