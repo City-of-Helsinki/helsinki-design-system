@@ -12,8 +12,8 @@
   padding: 0 var(--spacing-m);
 }
 
-a {
-  font-size: var(--fontsize-body-m) !important;
+.universalBarLink.universalBarLink {
+  font-size: var(--fontsize-body-m);
 }
 
 .headerUniversalBarSecondaryLinksContainer {
@@ -22,6 +22,7 @@ a {
 
   a {
     margin-right: var(--spacing-l);
+    font-size: var(--fontsize-body-m);
   }
   a:last-child {
     margin-right: 0;
@@ -31,10 +32,11 @@ a {
 /* MEDIA */
 
 @media x-small-down {
-  a {
-    font-size: var(--fontsize-body-s) !important;
+  .universalBarLink.universalBarLink {
+    font-size: var(--fontsize-body-s);
   }
   .headerUniversalBarSecondaryLinksContainer a {
     margin-right: var(--spacing-m);
+    font-size: var(--fontsize-body-s);
   }
 }

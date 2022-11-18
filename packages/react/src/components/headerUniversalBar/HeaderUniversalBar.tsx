@@ -26,7 +26,9 @@ export const HeaderUniversalBar = ({ children, primaryLinkHref, primaryLinkText 
   if (isSmallScreen) return null;
   return (
     <div className={styles.headerUniversalBar}>
-      <NavigationLink href={primaryLinkHref}>{primaryLinkText}</NavigationLink>
+      <NavigationLink href={primaryLinkHref} className={styles.universalBarLink}>
+        {primaryLinkText}
+      </NavigationLink>
       <div className={styles.headerUniversalBarSecondaryLinksContainer}>{children}</div>
     </div>
   );
