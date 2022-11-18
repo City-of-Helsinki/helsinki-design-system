@@ -19,7 +19,7 @@ const getExtension = (path: string): string => {
   }
 
   const lastDotIndex = path.lastIndexOf('.');
-  if(lastDotIndex === -1) {
+  if (lastDotIndex === -1) {
     throw new Error('File is missing extension');
   }
 
