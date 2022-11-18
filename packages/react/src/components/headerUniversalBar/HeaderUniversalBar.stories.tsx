@@ -20,9 +20,18 @@ export const Default = (args) => (
   <>
     <StoryWIPAlert />
     <HeaderUniversalBar {...args}>
-      <NavigationLink href="#">Link 1</NavigationLink>
-      <NavigationLink href="#">Link 2</NavigationLink>
-      <NavigationLink href="#">Link 3</NavigationLink>
+      <>
+        <NavigationLink href="#">Link 1</NavigationLink>
+        <NavigationLink href="#">Link 2</NavigationLink>
+        <NavigationLink href="#">Link 3</NavigationLink>
+      </>
     </HeaderUniversalBar>
+  </>
+);
+
+export const WithoutSecondaryLinks = (args) => (
+  <>
+    <StoryWIPAlert />
+    <HeaderUniversalBar {...args} />
   </>
 );
