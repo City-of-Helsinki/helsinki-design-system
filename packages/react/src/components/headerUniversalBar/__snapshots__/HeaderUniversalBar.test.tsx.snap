@@ -6,7 +6,7 @@ exports[`<HeaderUniversalBar /> spec renders the component 1`] = `
     class="headerUniversalBar"
   >
     <a
-      class="link linkM navigationLink"
+      class="link linkM navigationLink universalBarLink"
       href="#"
     >
       hel.fi
