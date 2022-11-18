@@ -273,21 +273,21 @@ type ValidationError = {
 const getExtension = (path: string): string => {
   if (!path || typeof path !== 'string' || path === '') {
     // eslint-disable-next-line no-console
-    console.warn(`HDS FileInput: Path must be a non-empty string. Path is now ${JSON.stringify(path)}`);
+    console.warn(`FileInput: Path must be a non-empty string. Path is now ${JSON.stringify(path)}`);
     return '';
   }
 
   const lastDotIndex = path.lastIndexOf('.');
   if (lastDotIndex === -1) {
     // eslint-disable-next-line no-console
-    console.warn('HDS FileInput: File is missing extension');
+    console.warn('FileInput: File is missing extension');
     return '';
   }
 
   const extensionWithDot = path.substring(lastDotIndex);
   if (extensionWithDot.length <= 1) {
     // eslint-disable-next-line no-console
-    console.warn('HDS FileInput: File is missing extension');
+    console.warn('FileInput: File is missing extension');
     return '';
   }
 
