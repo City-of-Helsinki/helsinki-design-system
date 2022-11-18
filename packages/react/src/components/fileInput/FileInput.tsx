@@ -12,25 +12,6 @@ import styles from './FileInput.module.scss';
 
 type Language = 'en' | 'fi' | 'sv';
 
-// Return the extension of the path, from the last '.' to end of string in the last portion of the path.
-const getExtension = (path: string): string => {
-  if (!path || typeof path !== 'string' || path === '') {
-    throw new TypeError(`Path must be a non-empty string. Path is now ${JSON.stringify(path)}`);
-  }
-
-  const lastDotIndex = path.lastIndexOf('.');
-  if (lastDotIndex === -1) {
-    throw new Error('File is missing extension');
-  }
-
-  const extensionWithDot = path.substring(lastDotIndex);
-  if (extensionWithDot.length <= 1) {
-    throw new Error('File is missing extension');
-  }
-
-  return extensionWithDot;
-};
-
 type FileInputProps = {
   /**
    * A comma-separated list of unique file type specifiers describing file types to allow. If present, the filename extension or filetype property is validated against the list. If the file(s) do not match the acceptance criteria, the component will not add the file(s), and it will show an error message with the file name.
@@ -286,6 +267,28 @@ enum ValidationErrorType {
 type ValidationError = {
   type: ValidationErrorType;
   text: string;
+};
+
+// Return the extension of the path, from the last '.' to end of string in the last portion of the path.
+const getExtension = (path: string): string => {
+  if (!path || typeof path !== 'string' || path === '') {
+    console.error(`HDS FileInput: Path must be a non-empty string. Path is now ${JSON.stringify(path)}`);
+    return '';
+  }
+
+  const lastDotIndex = path.lastIndexOf('.');
+  if (lastDotIndex === -1) {
+    console.error('HDS FileInput: File is missing extension');
+    return '';
+  }
+
+  const extensionWithDot = path.substring(lastDotIndex);
+  if (extensionWithDot.length <= 1) {
+    console.error('HDS FileInput: File is missing extension');
+    return '';
+  }
+
+  return extensionWithDot;
 };
 
 const validateAccept = (language: Language, accept: string) => (file: File): true | ValidationError => {
