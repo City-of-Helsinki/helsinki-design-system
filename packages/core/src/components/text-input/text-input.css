@@ -269,7 +269,6 @@
   color: inherit;
   cursor: pointer;
   font: inherit;
-  color: var(--dropdown-color-default);
   outline: none;
   display: flex;
   padding: var(--spacing-xs) calc(var(--spacing-xs) / 2);
