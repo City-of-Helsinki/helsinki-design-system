@@ -148,7 +148,7 @@ export const DropdownMenu = <T,>({
   const listOptions: (VirtualItem | T)[] = isVirtualized ? virtualizer.virtualItems : options;
 
   return (
-    <ul {...menuProps} className={classNames(menuStyles.menu, menuStyles.overflow)}>
+    <ul {...menuProps} className={classNames(menuStyles.menu)}>
       {open && (
         <>
           {isVirtualized && <li key="total-size" aria-hidden style={{ height: virtualizer.totalSize }} />}

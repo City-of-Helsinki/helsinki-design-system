@@ -125,16 +125,13 @@
   left: 0;
   list-style: none;
   margin: 0;
+  overflow-y: auto;
   outline: none;
   padding: 0;
   position: absolute;
   transform: translate(calc(var(--border-width) * -1), 100%);
   width: 100%;
   z-index: var(--menu-z-index);
-
-  &.overflow {
-    overflow-y: auto;
-  }
 }
 
 /**
