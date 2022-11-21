@@ -612,7 +612,6 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
           selectedItem={selectedItem}
           selectedItems={selectedItems}
           virtualizer={virtualized && virtualizer}
-          visibleOptions={visibleOptions}
         />
       </div>
       {/* INVALID TEXT */}

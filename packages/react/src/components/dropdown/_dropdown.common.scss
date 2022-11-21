@@ -133,7 +133,7 @@
   z-index: var(--menu-z-index);
 
   &.overflow {
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 }
 

@@ -128,10 +128,6 @@ type DropdownMenuProps<T> = {
     virtualItems: VirtualItem[];
     totalSize: number;
   };
-  /**
-   * The number of options that are visible in the menu before it becomes scrollable
-   */
-  visibleOptions: number;
 };
 
 export const DropdownMenu = <T,>({
@@ -147,13 +143,12 @@ export const DropdownMenu = <T,>({
   selectedItem,
   selectedItems,
   virtualizer,
-  visibleOptions,
 }: DropdownMenuProps<T>) => {
   const isVirtualized = !!virtualizer;
   const listOptions: (VirtualItem | T)[] = isVirtualized ? virtualizer.virtualItems : options;
 
   return (
-    <ul {...menuProps} className={classNames(menuStyles.menu, options.length > visibleOptions && menuStyles.overflow)}>
+    <ul {...menuProps} className={classNames(menuStyles.menu, menuStyles.overflow)}>
       {open && (
         <>
           {isVirtualized && <li key="total-size" aria-hidden style={{ height: virtualizer.totalSize }} />}

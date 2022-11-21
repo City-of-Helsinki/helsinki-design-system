@@ -580,7 +580,6 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
           selectedItem={selectedItem}
           selectedItems={selectedItems}
           virtualizer={virtualized && virtualizer}
-          visibleOptions={visibleOptions}
         />
       </div>
       {/* INVALID TEXT */}

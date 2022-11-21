@@ -246,7 +246,6 @@ export const SearchInput = <SuggestionItem,>({
           selectedItem={null}
           selectedItems={[]}
           highlightValue={highlightSuggestions && inputValue.length >= 3 && inputValue}
-          visibleOptions={visibleSuggestions}
           menuStyles={styles}
           options={suggestions}
           optionLabelField={`${String(suggestionLabelField)}`}
