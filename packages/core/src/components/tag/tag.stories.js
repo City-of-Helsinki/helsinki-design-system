@@ -24,3 +24,27 @@ export const Deletable = () => `
     </button>
   </div>
 `;
+
+export const Rounded = () => `
+  <div class="hds-tag hds-tag-rounded-corners">
+    <span class="hds-tag__label">Label</span>
+  </div>
+`;
+
+export const RoundedDeletable = () => `
+  <div class="hds-tag hds-tag-rounded-corners">
+    <span class="hds-tag__label">Label</span>
+    <button aria-label="Delete item" class="hds-tag__delete-button button-reset">
+        <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
+    </button>
+  </div>
+`;
+
+export const LargeRoundedDeletable = () => `
+  <div class="hds-tag hds-tag-rounded-corners hds-tag-rounded-corners-large">
+    <span class="hds-tag__label">Label</span>
+    <button aria-label="Delete item" class="hds-tag__delete-button button-reset">
+        <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
+    </button>
+  </div>
+`;
