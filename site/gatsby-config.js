@@ -175,11 +175,11 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
-      resolve: `gatsby-plugin-manifest`,
+      resolve: 'gatsby-plugin-manifest',
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
-        start_url: `/`,
+        name: 'gatsby-starter-default',
+        short_name: 'starter',
+        start_url: '/',
         // This will impact how browsers show your PWA/website
         // https://css-tricks.com/meta-theme-color-and-trickery/
         // theme_color: `#663399`,
@@ -188,14 +188,21 @@ module.exports = {
         display: `minimal-ui`,
         icons: [
           {
-            src: `/favicon/light/favicon-192x192.png`,
-            sizes: "192x192",
-            type: "image/png"
+            src: '/favicon/light/favicon-32x32.ico',
+            sizes: 'any'
           },
           {
-            src: `/favicon/light/favicon-512x512.png`,
-            sizes: "512x512",
-            type: "image/png"
+            src: '/favicon/light/apple-touch-icon.png',
+          },
+          {
+            src: '/favicon/light/favicon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: '/favicon/light/favicon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
           }
         ],
         include_favicon: false,
