@@ -59,7 +59,9 @@ Remember to add descriptive `aria-label` to the delete button to clearly indicat
 ### Rounded variations
 
 #### Rounded default
-The new Tag variants come with rounded corners. By default, Tags are non-interactable elements. They only include a label and do not have any specific styling.
+Tags with rounded corners can be used in card patterns where a Tag categorizes the card content. A rounded Tag can also be helpful in tag groups when multiple categorizations are needed.
+
+By default, Tags are non-interactable elements. They only include a label and do not have any specific styling.
 
 <PlaygroundPreview>
 <RoundedTagComponent>News</RoundedTagComponent>
@@ -87,7 +89,7 @@ Remember to add descriptive `aria-label` to the delete button to clearly indicat
 </PlaygroundPreview>
 
 #### Large rounded deletable
-The large rounded Tag variant is for search and filter usage. Larger area and text are more accessible especially on mobile devices.
+The large rounded Tag variant is suited for search and filter usage. Larger area and text are more accessible especially on mobile devices.
 
 <PlaygroundPreview>
 <LargeRoundedTag onDelete={() => {}} deleteButtonAriaLabel="Delete filter: News">News</LargeRoundedTag>
