@@ -61,7 +61,7 @@ exports[`<Combobox /> renders the component 1`] = `
       </button>
       <ul
         aria-labelledby="hds-combobox-1-label"
-        class="menu"
+        class="menu overflow"
         id="hds-combobox-1-menu"
         role="listbox"
         style="max-height: 260px;"
@@ -125,7 +125,7 @@ exports[`<Combobox /> renders the component without label when aria-labelledby i
       </button>
       <ul
         aria-labelledby="hds-combobox-4-label"
-        class="menu"
+        class="menu overflow"
         id="hds-combobox-4-menu"
         role="listbox"
         style="max-height: 260px;"

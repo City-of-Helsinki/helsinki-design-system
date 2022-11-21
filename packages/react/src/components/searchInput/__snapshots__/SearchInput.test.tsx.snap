@@ -61,7 +61,7 @@ exports[`<SearchInput /> spec renders the component 1`] = `
       </div>
       <ul
         aria-labelledby="downshift-1-label"
-        class="menu"
+        class="menu overflow"
         id="downshift-1-menu"
         role="listbox"
         style="max-height: 416px;"
