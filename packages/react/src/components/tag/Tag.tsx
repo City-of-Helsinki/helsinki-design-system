@@ -62,8 +62,8 @@ export type TagProps = {
   theme?: TagCustomTheme;
 };
 
-const ROUNDED_CORNERS_CLASS_NAME = 'rounded-corners';
-const ROUNDED_CORNERS_LARGE_CLASS_NAME = 'rounded-corners-large';
+const ROUNDED_CORNERS_CLASS_NAME = 'tag-rounded-corners';
+const ROUNDED_CORNERS_LARGE_CLASS_NAME = 'tag-rounded-corners-large';
 
 export const Tag = forwardRef<HTMLDivElement, TagProps>(
   (
