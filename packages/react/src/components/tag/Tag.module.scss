@@ -4,6 +4,7 @@
   --tag-background: var(--color-black-10);
   --tag-color: var(--color-black-90);
   --tag-focus-outline-color: var(--color-coat-of-arms);
+  --tag-font-size: var(--fontsize-body-s);
   --tag-padding: var(--spacing-2-xs);
   --tag-height: 32px;
 
@@ -13,7 +14,7 @@
   color: var(--tag-color);
   display: inline-flex;
   flex-direction: row-reverse;
-  font-size: var(--fontsize-body-s);
+  font-size: var(--tag-font-size);
   min-height: var(--tag-height);
   line-height: var(--tag-height);
   outline: none;
@@ -35,6 +36,7 @@
 }
 
 .tag.rounded-corners.rounded-corners-large {
+  --tag-font-size:  var(--fontsize-body-m);
   --tag-padding:    var(--spacing-s);
   --tag-height:     48px;
   border-radius:    24px;
