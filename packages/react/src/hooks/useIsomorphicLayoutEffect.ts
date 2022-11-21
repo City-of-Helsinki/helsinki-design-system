@@ -1,4 +1,3 @@
-// use-isomorphic-layout-effect.js
 import { useLayoutEffect, useEffect } from 'react';
 
 /**
