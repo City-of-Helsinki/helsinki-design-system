@@ -3,7 +3,7 @@ slug: '/components/tag/tabs'
 title: 'Tag'
 ---
 
-import { StatusLabel } from 'hds-react';
+import { StatusLabel, Notification } from 'hds-react';
 
 import LeadParagraph from '../../../components/LeadParagraph';
 import Layout from '../../../components/layout';
@@ -11,7 +11,7 @@ import PageTabs from '../../../components/PageTabs';
 
 # Tag
 
-<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="alert">WIP</StatusLabel>
 <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
   Accessible
 </StatusLabel>
@@ -19,6 +19,10 @@ import PageTabs from '../../../components/PageTabs';
 <LeadParagraph>
   Tags are used to show attributes of an object or element such as categories. HDS also uses Tags to present filters selected for searches.
 </LeadParagraph>
+
+<Notification label="New tag variants added" className="siteNotification">
+  The HDS team has added rounded corner variants to the Tag component. The rectangular Tag variants are stable and still supported but may become obsolete in the future.
+</Notification>
 
 <PageTabs pageContext={props.pageContext}>
   <PageTabs.TabList>
