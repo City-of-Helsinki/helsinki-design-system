@@ -1,6 +1,6 @@
 # noscript support
 
-Helsinki city web services require Javascript to function as intended. If the web browsers has disabled or doesn't support JavaScript it should fallback gracefully by notifying the user to enable JavaScript. This is implemented by adding the `<noscript>` tag content below at the end of contents inside the `<body>` tag. It will display the text to the user if JavaScript is disabled.
+Helsinki city web services require Javascript to function as intended. If the web browsers has disabled or doesn't support JavaScript it should fallback gracefully by notifying the user to enable JavaScript. This is implemented by adding the `<noscript>` tag content below at the end of contents inside the `<body>` tag. It will display the text to the user if JavaScript is disabled. Include [core styles](packages/core/README.md) to display the text as a [Notification component](https://hds.hel.fi/components/notification).
 
 <noscript>
     <section aria-label="Notification" class="hds-notification hds-notification--alert">
