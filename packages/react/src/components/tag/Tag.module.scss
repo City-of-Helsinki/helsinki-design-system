@@ -1,45 +1,27 @@
 @import "../../styles/common";
+@import "tag.common";
 
 .tag {
-  --tag-background: var(--color-black-10);
-  --tag-color: var(--color-black-90);
-  --tag-focus-outline-color: var(--color-coat-of-arms);
-  --tag-height: 32px;
-
-
-  align-items: center;
-  background-color: var(--tag-background);
-  color: var(--tag-color);
-  display: inline-flex;
-  flex-direction: row-reverse;
-  font-size: var(--fontsize-body-s);
-  min-height: var(--tag-height);
-  line-height: var(--tag-height);
-  outline: none;
+  @extend %tag;
 }
 
-.tag:focus,
-.tag:focus-within {
-  box-shadow: 0 0 0 3px var(--tag-focus-outline-color);
+// Rounded corners variant
+.tag-rounded-corners {
+  @extend %roundedCorners;
 }
 
-.tag[tabindex='0'] {
-  cursor: pointer;
+.tag-rounded-corners-large {
+  @extend %roundedCornersLarge;
 }
 
+// Child nodes
 .label {
-  line-height: var(--lineheight-m);
-  padding: var(--spacing-3-xs) var(--spacing-2-xs);
-}
-
-.label:not(:only-child) {
-  padding: 0 var(--spacing-2-xs) 0 0;
+  @extend %label;
 }
 
 .deleteButton {
   @extend %buttonReset;
-  display: flex;
-  outline: none;
+  @extend %deleteButton;
 }
 
 .visuallyHidden {

@@ -4,7 +4,7 @@ title: 'Tag'
 navTitle: 'Tag'
 ---
 
-import { Tag } from 'hds-react';
+import { Tag, RoundedTag as RoundedTagComponent, LargeRoundedTag  } from 'hds-react';
 import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 import InternalLink from '../../../components/InternalLink';
@@ -26,7 +26,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 - Tags are often related to some other element on the page (e.g. table row or search field as filters). Aim to keep tags and their related elements close to each other so the user can easily interpret the relation.
 - Unlike status labels, **tags can be configured to be clickable and deletable**. You can use this feature to create removable filters/selections or links to category filtered pages.
 
-### Variations
+### Rectangular variations
 
 #### Default
 By default, Tags are non-interactable elements. They only include a label and do not have any specific styling.
@@ -39,7 +39,7 @@ By default, Tags are non-interactable elements. They only include a label and do
 #### Clickable
 Tags can be configured to be interactable by giving them an `onClick` function prop. This way Tags can act as links or actions. Since these Tags are fully interactable they can be also focused and receive default HDS focus indicator styling.
 
-Remember to add descriptive `aria-label` to clearly indicate the link target or action to assistive technologies.
+Remember to add a descriptive `aria-label` to clearly indicate the link target or action to assistive technologies.
 
 <PlaygroundPreview>
 <Tag role="link" onClick={() => {}} aria-label="Move to category: News">News</Tag>
@@ -49,9 +49,49 @@ Remember to add descriptive `aria-label` to clearly indicate the link target or 
 #### Deletable
 Tags can be configured to be deletable by giving them an `onDelete` function prop. This enables a delete icon inside the Tag. Deleting can be useful in situations where Tags are used as filters (e.g. for search).
 
-Remember to add descriptive `aria-label` to the delete button to clearly indicate what the user is deleting when triggering the action.
+Remember to add a descriptive `aria-label` to the delete button to clearly indicate what the user is deleting when triggering the action.
 
 <PlaygroundPreview>
 <Tag onDelete={() => {}} deleteButtonAriaLabel="Delete filter: News">News</Tag>
 <Tag onDelete={() => {}} deleteButtonAriaLabel="Delete filter: Announcements" style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</Tag>
+</PlaygroundPreview>
+
+### Rounded variations
+
+#### Rounded default
+Tags with rounded corners can be used in card patterns where a Tag categorizes the card content. A rounded Tag can also be helpful in tag groups when multiple categorizations are needed.
+
+By default, Tags are non-interactable elements. They only include a label and do not have any specific styling.
+
+<PlaygroundPreview>
+<RoundedTagComponent>News</RoundedTagComponent>
+<RoundedTagComponent style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</RoundedTagComponent>
+</PlaygroundPreview>
+
+#### Rounded clickable
+Tags with rounded corners can also be configured to be interactable by giving them an `onClick` function prop. This way Tags can act as links or actions. Since these Tags are fully interactable they can be also focused and receive default HDS focus indicator styling.
+
+Remember to add a descriptive `aria-label` to clearly indicate the link target or action to assistive technologies.
+
+<PlaygroundPreview>
+<RoundedTagComponent role="link" onClick={() => {}} aria-label="Move to category: News">News</RoundedTagComponent>
+<RoundedTagComponent role="link" onClick={() => {}} aria-label="Move to category: Announcements" style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</RoundedTagComponent>
+</PlaygroundPreview>
+
+#### Rounded deletable
+Tags with rounded corners can also be configured to be deletable by giving them an `onDelete` function prop. This enables a delete icon inside the Tag. The rounded corner Tags have the delete icon on the right side of the label. Deleting can be useful in situations where Tags are used as filters (e.g. for search).
+
+Remember to add a descriptive `aria-label` to the delete button to clearly indicate what the user is deleting when triggering the action.
+
+<PlaygroundPreview>
+<RoundedTagComponent onDelete={() => {}} deleteButtonAriaLabel="Delete filter: News">News</RoundedTagComponent>
+<RoundedTagComponent onDelete={() => {}} deleteButtonAriaLabel="Delete filter: Announcements" style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</RoundedTagComponent>
+</PlaygroundPreview>
+
+#### Large rounded deletable
+The large rounded Tag variant is suited for search and filter usage. Larger area and text are more accessible, especially on mobile devices.
+
+<PlaygroundPreview>
+<LargeRoundedTag onDelete={() => {}} deleteButtonAriaLabel="Delete filter: News">News</LargeRoundedTag>
+<LargeRoundedTag onDelete={() => {}} deleteButtonAriaLabel="Delete filter: Announcements" style={{ marginLeft: 'var(--spacing-s)' }}>Announcements</LargeRoundedTag>
 </PlaygroundPreview>
