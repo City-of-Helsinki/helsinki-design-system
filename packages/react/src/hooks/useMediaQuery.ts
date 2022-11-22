@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const breakpointValues = {
   xs: 320,
@@ -43,7 +43,7 @@ export const useMediaQuery = (breakpointCheck: () => boolean): boolean => {
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const updateState = () => {
       setIfMatches(breakpointCheck());
     };
