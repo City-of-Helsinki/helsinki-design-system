@@ -57,7 +57,7 @@
 
 /* FOCUS OUTLINE */
 .hds-search-input .hds-search-input__input:not([readonly]):focus {
-  box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+  outline: var(--outline-width) solid var(--focus-outline-color);
   transform: translate3d(0, 0, 0);
 }
 
@@ -65,28 +65,31 @@
 /* BUTTON */
 .hds-search-input__buttons {
   position: absolute;
-  right: var(--spacing-s);
-  top: var(--spacing-s);
-  transform: translateY(0);
+  top: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: calc(var(--spacing-s) - var(--spacing-xs));
+  font-size: 1rem;
 }
 .hds-search-input__buttons .hds-search-input__button {
+  appearance: none;
   background: none;
   border: none;
   color: inherit;
   cursor: pointer;
   font: inherit;
-  padding: 0;
   color: var(--dropdown-color-default);
   outline: none;
   display: flex;
-  margin-left: var(--spacing-xs);
+  margin-left: var(--spacing-3-xs);
+  padding: var(--spacing-xs);
 }
+
 .hds-search-input__buttons .hds-search-input__button:focus {
-  outline: none;
-  box-shadow: 0 0 0 var(--outline-width) var(--focus-outline-color);
+  outline: var(--outline-width) solid var(--focus-outline-color);
 }
 
 /* HELPER TEXT */

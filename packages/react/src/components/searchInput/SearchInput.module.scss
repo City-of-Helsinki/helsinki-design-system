@@ -17,27 +17,19 @@
 }
 
 .buttons {
-  position: absolute;
-  right: var(--spacing-s);
-  top: var(--spacing-xs);
-  transform: translateY(2px);
-  display: flex;
+  composes: hds-text-input__buttons from 'hds-core/lib/components/text-input/text-input.css';
 }
 
 .button {
-  @extend %buttonReset;
+  composes: hds-text-input__button from 'hds-core/lib/components/text-input/text-input.css';
   color: var(--dropdown-color-default);
-  outline: none;
-  display: flex;
-  margin-left: var(--spacing-xs);
 
   &.hidden {
     @extend %hiddenFromScreen;
   }
 
   &:focus {
-    outline: none;
-    box-shadow: 0 0 0 var(--focus-outline-width) var(--focus-outline-color);
+    outline: var(--focus-outline-width) solid var(--focus-outline-color);
   }
 }
 
@@ -101,7 +93,7 @@
 
   .highlighted {
     font-weight: bold;
-    
+
     mark {
       background: none;
       font-weight: normal;
