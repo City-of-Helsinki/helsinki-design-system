@@ -14,17 +14,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - [Icons] New icon UI/Navigation/swap-user
-- [Labels and Tags] New tag variants with rounded corners
+- [Tags] New tag variants with rounded corners
 
 ### React Components
 
 #### Added
 
-- [Labels and Tags] New tag variants with rounded corners
+- [Tags] New tag variants with rounded corners
 
 #### Changed
 
-- [Input fields] Input fields' buttons have larger clickable area around them
+- [DateInput, SearchInput, PasswordInput] Input fields' buttons have larger clickable area around them
 
 #### Fixed
 
@@ -35,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Labels and Tags] New tag variants with rounded corners
+- [Tags] New tag variants with rounded corners
 
 ### Documentation
 
