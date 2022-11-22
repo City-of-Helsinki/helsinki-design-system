@@ -39,7 +39,7 @@ export const HeaderUniversalBar = ({
   const { isSmallScreen } = useContext(HeaderContext);
   if (isSmallScreen) return null;
   const arrayChildren = Children.toArray(children);
-  const childrenHasContainer = arrayChildren.length === 1;
+  const childrenHasContainer = arrayChildren.length === 1 && Array.isArray(arrayChildren[0]);
   /* If user gives a container element, we dig out the child links in order to have correct styles for them. */
   const getChildElements = useCallback(() => {
     if (childrenHasContainer && React.isValidElement(arrayChildren[0])) {
