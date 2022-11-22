@@ -7,6 +7,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.7.0] - November, 22, 2022
+
+### Design kit
+
+#### Added
+
+- [Icons] New icon UI/Navigation/swap-user
+- [Tags] New tag variants with rounded corners
+
+### React Components
+
+#### Added
+
+- [Tags] New tag variants with rounded corners
+
+#### Changed
+
+- [DateInput, SearchInput, PasswordInput] Input fields' buttons have larger clickable area around them
+
+#### Fixed
+
+- [Theme] Fix useTheme hook
+- [FileInput] Fix an issue with FileInput crashing
+
+### Core
+
+#### Added
+
+- [Tags] New tag variants with rounded corners
+
+### Documentation
+
+#### Added
+
+- [Theme] Mention CSS specificity in the SSR guidelines customization part
+
+#### Changed
+
+- Favicon documentation improvement
+
 ## [2.6.1] - November, 14, 2022
 
 ### Design kit
