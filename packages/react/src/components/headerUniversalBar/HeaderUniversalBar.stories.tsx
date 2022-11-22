@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Header } from '../header/Header';
 import { HeaderUniversalBar } from './HeaderUniversalBar';
 import { NavigationLink } from '../navigationLink/NavigationLink';
 import { StoryWIPAlert } from '../../internal/storyWIPAlert/StoryWIPAlert';
@@ -19,13 +20,15 @@ export default {
 export const Default = (args) => (
   <>
     <StoryWIPAlert />
-    <HeaderUniversalBar {...args}>
-      <>
-        <NavigationLink href="#">Link 1</NavigationLink>
-        <NavigationLink href="#">Link 2</NavigationLink>
-        <NavigationLink href="#">Link 3</NavigationLink>
-      </>
-    </HeaderUniversalBar>
+    <Header>
+      <HeaderUniversalBar {...args}>
+        <>
+          <NavigationLink href="#">Link 1</NavigationLink>
+          <NavigationLink href="#">Link 2</NavigationLink>
+          <NavigationLink href="#">Link 3</NavigationLink>
+        </>
+      </HeaderUniversalBar>
+    </Header>
   </>
 );
 
