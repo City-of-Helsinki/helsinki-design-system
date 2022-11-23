@@ -5,7 +5,7 @@ import 'hds-core';
 import styles from './Header.module.scss';
 import classNames from '../../utils/classNames';
 import { HeaderContext, HeaderContextProps } from './HeaderContext';
-import { breakpoints, useMediaQuery } from '../../hooks/useMediaQuery';
+import { useMediaQueryLessThan } from '../../hooks/useMediaQuery';
 
 export type HeaderProps = React.PropsWithChildren<{
   /**
@@ -19,7 +19,7 @@ export type HeaderProps = React.PropsWithChildren<{
 }>;
 
 export const Header = ({ children, className, id }: HeaderProps) => {
-  const isSmallScreen = useMediaQuery(() => breakpoints.down('s'));
+  const isSmallScreen = useMediaQueryLessThan('s');
   const context: HeaderContextProps = { isSmallScreen };
   return (
     <HeaderContext.Provider value={context}>

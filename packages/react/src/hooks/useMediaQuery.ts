@@ -13,25 +13,13 @@ const getWindowInnerWidth: () => undefined | number = () =>
 const isEqualOrGreaterThan = (a: number, b: number | undefined) => (typeof b !== 'undefined' && b >= a) || false;
 const isLesserThan = (a: number, b: number | undefined) => (typeof b !== 'undefined' && b < a) || false;
 
-export type Breakpoint = 'xs' | 's' | 'm' | 'l' | 'xl';
-export const breakpoints = {
-  up(breakpoint: Breakpoint): boolean {
-    return isEqualOrGreaterThan(breakpointValues[breakpoint], getWindowInnerWidth());
-  },
-  down(breakpoint: Breakpoint): boolean {
-    return isLesserThan(breakpointValues[breakpoint], getWindowInnerWidth());
-  },
-};
-
 /**
  * Hook for checking if a certain viewport breakpoint has been met.
  *
- * For example, to check if screen width is equal to or greater than the breakpoint xl design token value, the code would be:
- * const isXlViewport = useMediaQuery(() => breakpoints.up('xl'));
- * @param breakpointCheck
+ * @param {() => boolean} breakpointCheck
  * @returns
  */
-export const useMediaQuery = (breakpointCheck: () => boolean): boolean => {
+const useMediaQuery = (breakpointCheck: () => boolean): boolean => {
   const [matches, _setIfMatches] = useState<boolean>(false);
   /* Use state ref to access current value inside event listener function. */
   const matchesRef = useRef(matches);
@@ -54,3 +42,21 @@ export const useMediaQuery = (breakpointCheck: () => boolean): boolean => {
   }, []);
   return matches;
 };
+
+export type Breakpoint = 'xs' | 's' | 'm' | 'l' | 'xl';
+
+/**
+ * Hook for listening to when the viewport is less than given breakpoint.
+ * @param {Breakpoint} breakpoint
+ * @returns
+ */
+export const useMediaQueryLessThan = (breakpoint: Breakpoint) =>
+  useMediaQuery(() => isLesserThan(breakpointValues[breakpoint], getWindowInnerWidth()));
+
+/**
+ * Hook for listening to when the viewport is greater than or equal to given breakpoint.
+ * @param {Breakpoint} breakpoint
+ * @returns
+ */
+export const useMediaQueryGreaterThan = (breakpoint: Breakpoint) =>
+  useMediaQuery(() => isEqualOrGreaterThan(breakpointValues[breakpoint], getWindowInnerWidth()));
