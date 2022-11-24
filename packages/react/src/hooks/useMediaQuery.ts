@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, MutableRefObject } from 'react';
 
 const breakpointValues = {
   xs: 320,
@@ -20,20 +20,20 @@ const isLesserThan = (a: number, b: number | undefined) => (typeof b !== 'undefi
  * @returns
  */
 const useMediaQuery = (breakpointCheck: () => boolean): boolean => {
-  const [matches, _setIfMatches] = useState<boolean>(false);
+  const [matches, setMatches] = useState<boolean>(false);
   /* Use state ref to access current value inside event listener function. */
-  const matchesRef = useRef(matches);
+  const matchesRef: MutableRefObject<boolean> = useRef<boolean>(matches);
 
-  const setIfMatches = (val: boolean) => {
+  const refreshIfMatches = (val: boolean) => {
     if (matchesRef.current !== val) {
       matchesRef.current = val;
-      _setIfMatches(val);
+      setMatches(val);
     }
   };
 
   useEffect(() => {
     const updateState = () => {
-      setIfMatches(breakpointCheck());
+      refreshIfMatches(breakpointCheck());
     };
 
     window.addEventListener('resize', updateState);
