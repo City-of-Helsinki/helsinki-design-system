@@ -3,7 +3,7 @@
     --link-color: var(--color-black-90);
     text-decoration: none;
 }
-.navigationLink:hover {
+.navigationLink:hover, .navigationLink:focus {
     text-decoration: underline;
     text-decoration-color: var(--color-black-90);
 }

@@ -5,8 +5,7 @@
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-  height: 48px;
-  border-radius: 0px;
+  min-height: 48px;
   background: var(--color-black-5);
   padding: 0 var(--spacing-m);
 }
