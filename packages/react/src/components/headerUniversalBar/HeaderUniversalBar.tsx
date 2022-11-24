@@ -39,7 +39,8 @@ export const HeaderUniversalBar = ({
   const { isSmallScreen } = useContext(HeaderContext);
   if (isSmallScreen) return null;
   const arrayChildren = Children.toArray(children);
-  const childrenHasContainer = arrayChildren.length === 1 && Array.isArray(arrayChildren[0]);
+  const childrenHasContainer =
+    arrayChildren.length === 1 && React.isValidElement(arrayChildren[0]) && Boolean(arrayChildren[0].props.children);
   /* If user gives a container element, we dig out the child links in order to have correct styles for them. */
   const getChildElements = useCallback(() => {
     if (childrenHasContainer && React.isValidElement(arrayChildren[0])) {
@@ -59,13 +60,11 @@ export const HeaderUniversalBar = ({
         {Children.map(getChildElements(), (child) => {
           if (React.isValidElement(child)) {
             return (
-              <>
-                <li className={styles.universalBarSecondaryLinkContainer}>
-                  {cloneElement(child, {
-                    className: classNames(child.props.className, styles.universalBarLink),
-                  })}
-                </li>
-              </>
+              <li className={styles.universalBarSecondaryLinkContainer}>
+                {cloneElement(child, {
+                  className: classNames(child.props.className, styles.universalBarLink),
+                })}
+              </li>
             );
           }
           return null;
