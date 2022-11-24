@@ -1,4 +1,4 @@
-@value x-small-down from "../../styles/breakpoints.css";
+@value x-small-down, small-down from "../../styles/breakpoints.css";
 
 .headerUniversalBar {
   display: flex;
@@ -40,12 +40,15 @@
 }
 
 /* MEDIA */
+@media small-down {
+  .universalBarSecondaryLinkContainer {
+    margin-right: var(--spacing-m);
+  }
+}
+
 
 @media x-small-down {
   .universalBarLink.universalBarLink {
     font-size: var(--fontsize-body-s);
-  }
-  .universalBarSecondaryLinkContainer {
-    margin-right: var(--spacing-m);
   }
 }
