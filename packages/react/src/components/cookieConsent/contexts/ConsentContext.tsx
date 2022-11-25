@@ -175,6 +175,7 @@ export const Provider = ({ cookieDomain, children }: ConsentContextProps): React
       consentControllerFunctions.mergeConsents(),
       consentControllerFunctions.hasUserHandledAllConsents(),
     );
+    content.callbacks.onConsentsParsed = undefined;
   }
   return <ConsentContext.Provider value={contextData}>{children}</ConsentContext.Provider>;
 };
