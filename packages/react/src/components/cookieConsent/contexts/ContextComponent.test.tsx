@@ -65,6 +65,12 @@ describe('ContextComponent ', () => {
     const onButtonClick = () => {
       onAction('approveAll');
     };
+    const approveOptional = () => {
+      onAction('approveOptional');
+    };
+    const unapproveOptional = () => {
+      onAction('unapproveOptional');
+    };
     return (
       <div>
         {allUserConsentsAreHandled && <span data-testid={`${consumerId}-all-handled`} />}
@@ -73,6 +79,16 @@ describe('ContextComponent ', () => {
         {!shouldShowCookieConsents && <span data-testid={`${consumerId}-should-not-render`} />}
         <button type="button" data-testid={`${consumerId}-approve-all-button`} onClick={() => onButtonClick()}>
           Approve all
+        </button>
+        <button type="button" data-testid={`${consumerId}-approve-optional-button`} onClick={() => approveOptional()}>
+          Approve optional
+        </button>
+        <button
+          type="button"
+          data-testid={`${consumerId}-unapprove-optional-button`}
+          onClick={() => unapproveOptional()}
+        >
+          Unapprove optional
         </button>
       </div>
     );
@@ -114,6 +130,8 @@ describe('ContextComponent ', () => {
   };
 
   const consumer1ApproveAllButtonSelector = 'consumer-1-approve-all-button';
+  const consumer1ApproveOptionalButtonSelector = 'consumer-1-approve-optional-button';
+  const consumer1UnapproveOptionalButtonSelector = 'consumer-1-unapprove-optional-button';
 
   const clickElement = (result: RenderResult, testId: string) => {
     result.getByTestId(testId).click();
@@ -196,6 +214,16 @@ describe('ContextComponent ', () => {
       renderCookieConsent(allApprovedConsentData);
       expect(onConsentsParsed).toHaveBeenCalledTimes(1);
       expect(onConsentsParsed).toHaveBeenLastCalledWith(allApprovedConsentData.consents, true);
+    });
+    it('callback is not called more than once', () => {
+      const result = renderCookieConsent(allNotApprovedConsentData);
+      expect(onConsentsParsed).toHaveBeenCalledTimes(1);
+      clickElement(result, consumer1ApproveAllButtonSelector);
+      expect(onAllConsentsGiven).toHaveBeenCalledTimes(1);
+      expect(onConsentsParsed).toHaveBeenCalledTimes(1);
+      clickElement(result, consumer1ApproveOptionalButtonSelector);
+      clickElement(result, consumer1UnapproveOptionalButtonSelector);
+      expect(onConsentsParsed).toHaveBeenCalledTimes(1);
     });
   });
 
