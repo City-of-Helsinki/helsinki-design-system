@@ -978,6 +978,12 @@ exports[`<CookieModal /> spec renders the component 1`] = `
           I am here to prevent auto-removal
         </p>
       </div>
+      <button
+        data-testid="render-second-modal"
+        type="button"
+      >
+        Render second modal
+      </button>
     </div>
   </div>
   <div
