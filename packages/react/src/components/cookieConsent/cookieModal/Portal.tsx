@@ -7,6 +7,7 @@ export function Portal({ rootId, children }: { rootId: string; children: React.R
   const shouldShowModal = useModalRenderChecker();
 
   const containerElementRef = useRef<HTMLElement | null>(null);
+  const wasPortalCreated = useRef<boolean>(false);
   const [isDomReady, setIsDomReady] = useState<boolean>(false);
 
   const getContainerElement = useCallback((): HTMLElement | null => {
@@ -53,5 +54,16 @@ export function Portal({ rootId, children }: { rootId: string; children: React.R
   if (getChildNodeCount() === 0 && (!shouldShowModal || !isDomReady)) {
     return null;
   }
+  // If containerElement has children, but this instance has never been rendered,
+  // the container was used by another Portal instance
+  // this is a failsafe to prevent rendering Portal again after screen reader notification is rendered
+  if (getChildNodeCount() > 0 && !wasPortalCreated.current) {
+    return null;
+  }
+  // just in case, prevent creating portal, if container element is not found.
+  if (!containerElementRef.current) {
+    return null;
+  }
+  wasPortalCreated.current = true;
   return createPortal(<>{children}</>, containerElementRef.current as HTMLElement);
 }
