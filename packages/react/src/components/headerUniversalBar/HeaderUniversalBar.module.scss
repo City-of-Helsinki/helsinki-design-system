@@ -16,6 +16,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  gap: 0 var(--spacing-l);
 }
 
 .universalBarMainLinkContainer {
@@ -27,7 +28,6 @@
 .universalBarSecondaryLinkContainer {
   display: flex;
   justify-self: end;
-  margin-right: var(--spacing-l);
 }
 
 .universalBarSecondaryLinkContainer:last-child {
@@ -40,8 +40,8 @@
 
 /* MEDIA */
 @media small-down {
-  .universalBarSecondaryLinkContainer {
-    margin-right: var(--spacing-m);
+  .headerUniversalBarList {
+    gap: 0 var(--spacing-m);
   }
 }
 
