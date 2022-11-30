@@ -13,9 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Icons] New icon UI/Navigation/swap-user
+- [Icons] New icon SwapUser
 
 ### React Components
+
+#### Added
+
+- [Icons] New icon SwapUser
 
 #### Changed
 
@@ -27,6 +31,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [DateInput] No more errors when minDate is over ten years in the future
 - [CookieConsent] No more errors from React.Portal if cookie consent modal is re-initialized or re-rendered after it has been closed.
 - [TimeInput] No more console warning about time format
+
+### Core
+
+#### Added
+
+- [Icons] New icon SwapUser
 
 ### Documentation
 
