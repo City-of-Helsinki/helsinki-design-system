@@ -28,19 +28,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [CookieConsent] No more errors from React.Portal if cookie consent modal is re-initialized or re-rendered after it has been closed.
 - [TimeInput] No more console warning about time format
 
-### Core
-
-#### Changed
-
-- [CookieConsent] Text changes for the Finnish and Swedish language versions
-
-#### Fixed
-
-- [Dropdown] Scrollbar becomes visible also with five options and the UI won't break
-- [DateInput] No more errors when minDate is over ten years in the future
-- [CookieConsent] No more errors from React.Portal if cookie consent modal is re-initialized or re-rendered after it has been closed.
-- [TimeInput] No more console warning about time format
-
 ### Documentation
 
 #### Added
