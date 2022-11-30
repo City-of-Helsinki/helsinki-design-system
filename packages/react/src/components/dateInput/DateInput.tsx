@@ -1,4 +1,4 @@
-import { format, parse, isValid, subYears, addYears, startOfMonth, endOfMonth } from 'date-fns';
+import { format, parse, isValid, subYears, addYears, startOfMonth, endOfMonth, max } from 'date-fns';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 
 import { IconCalendar } from '../../icons';
@@ -183,6 +183,10 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     // Get the current value as Date object
     const inputValueAsDate = stringToDate(inputValue);
     const toggleButton = getToggleButton();
+    const minDateToUse = minDate && isValid(minDate) ? minDate : startOfMonth(subYears(new Date(), 10));
+    const maxDateToUse =
+      maxDate && isValid(maxDate) ? maxDate : endOfMonth(addYears(max([minDateToUse, new Date()]), 10));
+
     return (
       <div lang={language} className={styles.wrapper}>
         <TextInput
@@ -210,8 +214,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
               onCloseButtonClick={(focusToggleButton) => closeDatePicker(focusToggleButton)}
               selectButtonLabel={getSelectButtonLabel()}
               closeButtonLabel={getCloseButtonLabel()}
-              minDate={minDate && isValid(minDate) ? minDate : startOfMonth(subYears(new Date(), 10))}
-              maxDate={maxDate && isValid(maxDate) ? maxDate : endOfMonth(addYears(new Date(), 10))}
+              minDate={minDateToUse}
+              maxDate={maxDateToUse}
               isDateDisabledBy={isDateDisabledBy}
               open={showPicker}
               inputRef={inputRef}
