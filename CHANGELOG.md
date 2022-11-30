@@ -7,13 +7,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.8.0] - November, 30, 2022
+
+### Design kit
+
+#### Added
+
+- [Icons] New icon SwapUser
+
+### React Components
+
+#### Added
+
+- [Icons] New icon SwapUser
+
+#### Changed
+
+- [CookieConsent] Text changes for the Finnish and Swedish language versions
+
+#### Fixed
+
+- [Dropdown] Menu scrollbar becomes visible when needed and the UI won't break
+- [DateInput] No more errors when minDate is over ten years in the future
+- [CookieConsent] No more errors from React. Portal if cookie consent modal is re-initialized or re-rendered after it has been closed.
+- [TimeInput] No more console warning about time format
+
+### Core
+
+#### Added
+
+- [Icons] New icon SwapUser
+
+### Documentation
+
+#### Added
+
+- [Noscript pattern] Provides a consistent way of notifying the user to enable JavaScript to guarantee full functionality and coherent user experience
+
 ## [2.7.0] - November, 22, 2022
 
 ### Design kit
 
 #### Added
 
-- [Icons] New icon UI/Navigation/swap-user
 - [Tags] New tag variants with rounded corners
 
 ### React Components
