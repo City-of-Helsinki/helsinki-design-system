@@ -27,9 +27,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
-- [Dropdown] Scrollbar becomes visible also with five options and the UI won't break
+- [Dropdown] Menu scrollbar becomes visible when needed and the UI won't break
 - [DateInput] No more errors when minDate is over ten years in the future
-- [CookieConsent] No more errors from React.Portal if cookie consent modal is re-initialized or re-rendered after it has been closed.
+- [CookieConsent] No more errors from React. Portal if cookie consent modal is re-initialized or re-rendered after it has been closed.
 - [TimeInput] No more console warning about time format
 
 ### Core
