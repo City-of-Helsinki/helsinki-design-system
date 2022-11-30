@@ -5,7 +5,7 @@ import 'hds-core';
 import styles from './Header.module.scss';
 import classNames from '../../utils/classNames';
 import { HeaderContext, HeaderContextProps } from './HeaderContext';
-import { useMobile } from '../../hooks/useMobile';
+import { useMediaQueryLessThan } from '../../hooks/useMediaQuery';
 
 export type HeaderProps = React.PropsWithChildren<{
   /**
@@ -19,8 +19,8 @@ export type HeaderProps = React.PropsWithChildren<{
 }>;
 
 export const Header = ({ children, className, id }: HeaderProps) => {
-  const isMobile = useMobile();
-  const context: HeaderContextProps = { isMobile };
+  const isSmallScreen = useMediaQueryLessThan('s');
+  const context: HeaderContextProps = { isSmallScreen };
   return (
     <HeaderContext.Provider value={context}>
       <header id={id} className={classNames(styles.header, className)}>
