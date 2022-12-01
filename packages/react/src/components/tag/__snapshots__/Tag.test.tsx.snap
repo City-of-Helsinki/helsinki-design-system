@@ -10,9 +10,7 @@ exports[`<Tag /> spec renders the component 1`] = `
       class="label"
       id="hds-tag-label"
     >
-      <span
-        aria-hidden="false"
-      >
+      <span>
         Foo
       </span>
     </span>
