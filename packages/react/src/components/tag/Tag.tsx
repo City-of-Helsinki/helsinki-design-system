@@ -111,7 +111,7 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
       >
         <span id={id && `${id}-label`} className={labelContainerClassName} {...labelProps}>
           {srOnlyLabel && <span className={styles.visuallyHidden}>{srOnlyLabel}</span>}
-          <span aria-hidden={!!srOnlyLabel}>{children}</span>
+          <span {...(srOnlyLabel ? { 'aria-hidden': true } : {})}>{children}</span>
         </span>
 
         {deletable && (
