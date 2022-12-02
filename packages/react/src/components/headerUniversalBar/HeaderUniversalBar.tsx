@@ -1,4 +1,4 @@
-import React, { Children, cloneElement, useCallback, useContext } from 'react';
+import React, { Children, cloneElement, useContext } from 'react';
 
 // import core base styles
 import 'hds-core';
@@ -6,6 +6,7 @@ import styles from './HeaderUniversalBar.module.scss';
 import { NavigationLink } from '../navigationLink';
 import { HeaderContext } from '../header/HeaderContext';
 import classNames from '../../utils/classNames';
+import { getChildElements } from '../../utils/getChildren';
 
 export type HeaderUniversalBarProps = React.PropsWithChildren<{
   /**
@@ -21,6 +22,10 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<{
    */
   children?: React.ReactNode;
   /**
+   * ID of the header element.
+   */
+  id?: string;
+  /**
    * Hypertext reference of the primary link.
    */
   primaryLinkHref: string;
@@ -33,31 +38,23 @@ export type HeaderUniversalBarProps = React.PropsWithChildren<{
 export const HeaderUniversalBar = ({
   ariaLabel,
   children,
+  id,
   primaryLinkHref,
   primaryLinkText,
 }: HeaderUniversalBarProps) => {
   const { isSmallScreen } = useContext(HeaderContext);
   if (isSmallScreen) return null;
-  const arrayChildren = Children.toArray(children);
-  const childrenHasContainer =
-    arrayChildren.length === 1 && React.isValidElement(arrayChildren[0]) && Boolean(arrayChildren[0].props.children);
-  /* If user gives a container element, we dig out the child links in order to have correct styles for them. */
-  const getChildElements = useCallback(() => {
-    if (childrenHasContainer && React.isValidElement(arrayChildren[0])) {
-      return Children.toArray(arrayChildren[0].props.children);
-    }
-    return arrayChildren;
-  }, [arrayChildren, childrenHasContainer]);
+  const childElements = getChildElements(children);
 
   return (
-    <nav role="navigation" aria-label={ariaLabel} className={styles.headerUniversalBar}>
+    <nav role="navigation" aria-label={ariaLabel} id={id} className={styles.headerUniversalBar}>
       <ul className={styles.headerUniversalBarList}>
         <li className={styles.universalBarMainLinkContainer}>
           <NavigationLink href={primaryLinkHref} className={styles.universalBarLink}>
             {primaryLinkText}
           </NavigationLink>
         </li>
-        {Children.map(getChildElements(), (child, index) => {
+        {Children.map(childElements, (child, index) => {
           if (React.isValidElement(child)) {
             return (
               // eslint-disable-next-line react/no-array-index-key
