@@ -19,7 +19,7 @@ export const Clickable = () => `
 export const Deletable = () => `
   <div class="hds-tag">
     <span class="hds-tag__label">Label</span>
-    <button aria-label="Delete item" class="hds-tag__delete-button button-reset">
+    <button aria-label="Delete item: Label" class="hds-tag__delete-button button-reset">
         <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
     </button>
   </div>
