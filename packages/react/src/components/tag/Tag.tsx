@@ -76,7 +76,7 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
       className,
       deleteButtonAriaLabel,
       deleteButtonProps,
-      id = 'hds-tag',
+      id,
       labelClassName,
       labelProps,
       onClick,
