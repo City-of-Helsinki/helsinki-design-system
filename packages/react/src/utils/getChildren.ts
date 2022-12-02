@@ -25,3 +25,19 @@ export const getComponentFromChildren = (children: React.ReactNode, componentNam
   // return the component and the children without the removed component
   return [component, childrenAsArray];
 };
+
+/**
+ * Get the child elements even if there is a parent container element.
+ * @param children
+ */
+export const getChildElements = (children) => {
+  const arrayChildren = React.Children.toArray(children);
+  const childrenHasContainer =
+    arrayChildren.length === 1 && React.isValidElement(arrayChildren[0]) && Boolean(arrayChildren[0].props.children);
+  /* If user gives a container element, we dig out the child links in order to have correct styles for them. */
+
+  if (childrenHasContainer && React.isValidElement(arrayChildren[0])) {
+    return React.Children.toArray(arrayChildren[0].props.children);
+  }
+  return arrayChildren;
+};
