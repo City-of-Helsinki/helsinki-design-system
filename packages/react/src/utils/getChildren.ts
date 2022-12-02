@@ -33,7 +33,10 @@ export const getComponentFromChildren = (children: React.ReactNode, componentNam
 export const getChildElements = (children) => {
   const arrayChildren = React.Children.toArray(children);
   const childrenHasContainer =
-    arrayChildren.length === 1 && React.isValidElement(arrayChildren[0]) && Boolean(arrayChildren[0].props.children);
+    arrayChildren.length === 1 &&
+    React.isValidElement(arrayChildren[0]) &&
+    Boolean(arrayChildren[0].props.children) &&
+    (React.isValidElement(arrayChildren[0].props.children) || Array.isArray(arrayChildren[0].props.children));
   /* If user gives a container element, we dig out the child links in order to have correct styles for them. */
 
   if (childrenHasContainer && React.isValidElement(arrayChildren[0])) {
