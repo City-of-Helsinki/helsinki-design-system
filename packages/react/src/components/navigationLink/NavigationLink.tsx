@@ -8,6 +8,10 @@ import { Link } from '../link';
 
 export type NavigationLinkProps = React.PropsWithChildren<{
   /**
+   * Indicator for active link. This is used in HeaderNavigationMenu.
+   */
+  active?: boolean;
+  /**
    * Link content.
    */
   children: string;
