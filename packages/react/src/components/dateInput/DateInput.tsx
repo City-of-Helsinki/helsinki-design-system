@@ -201,7 +201,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           ref={inputRef}
           inputMode="numeric"
         >
-          {disableDatePicker === false && (
+          {disableDatePicker === false && showPicker && (
             <DatePicker
               language={language}
               disableConfirmation={disableConfirmation}
