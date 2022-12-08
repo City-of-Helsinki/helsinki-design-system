@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-classes-per-file */
-import React from 'react';
+import React, { useState } from 'react';
 import { act } from 'react-dom/test-utils';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -298,22 +298,47 @@ describe('<DateInput /> spec', () => {
     expect(container.querySelector('[aria-pressed="true"]')).toBeNull();
   });
 
-  it('should be able to clear the value', async () => {
-    const { rerender } = render(<DateInput id="date" label="Foo" value="10.02.2022" />);
+  it('should be able to clear the value with external button', async () => {
+    const clearButtonText = 'Clear value';
+    const DatePickerWithClearButton = () => {
+      const [value, setValue] = useState<string>('10.02.2022');
+      return (
+        <>
+          <button type="button" onClick={() => setValue('')}>
+            {clearButtonText}
+          </button>
+          <DateInput id="date" label="Foo" value={value} />
+        </>
+      );
+    };
+    render(<DatePickerWithClearButton />);
 
     // The initial value should be there
     expect(screen.getByRole('textbox')).toHaveValue('10.02.2022');
+
+    // Click the calendar button to show datepicker
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Choose date'));
+    });
 
     expect(screen.getByLabelText('Month')).toHaveValue('1');
     expect(screen.getByLabelText('Year')).toHaveValue('2022');
 
     // Set an empty string as the input value
     await act(async () => {
-      rerender(<DateInput id="date" value="" />);
+      userEvent.click(
+        screen.getByRole('button', {
+          name: clearButtonText,
+        }),
+      );
     });
-
     // The initial value should be cleared
     expect(screen.getByRole('textbox')).toHaveValue('');
+
+    // Click the calendar button to show datepicker
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Choose date'));
+    });
 
     expect(screen.getByLabelText('Month')).toHaveValue('0');
     expect(screen.getByLabelText('Year')).toHaveValue('2021');
