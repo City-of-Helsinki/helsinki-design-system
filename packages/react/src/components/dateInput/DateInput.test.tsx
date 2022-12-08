@@ -53,9 +53,7 @@ describe('<DateInput /> spec', () => {
   });
 
   it('renders the component with Finnish language', async () => {
-    const { asFragment } = render(
-        <DateInput id="date" language="fi" />
-    );
+    const { asFragment } = render(<DateInput id="date" language="fi" />);
     await act(async () => {
       userEvent.click(screen.getByLabelText('Valitse päivämäärä'));
     });
@@ -63,9 +61,7 @@ describe('<DateInput /> spec', () => {
   });
 
   it('renders the component with Swedish language', async () => {
-    const { asFragment } = render(
-        <DateInput id="date" language="sv" />
-    );
+    const { asFragment } = render(<DateInput id="date" language="sv" />);
     await act(async () => {
       userEvent.click(screen.getByLabelText('Välj datum'));
     });
