@@ -36,24 +36,39 @@ describe('<DateInput /> spec', () => {
     global.Date = RealDate;
   });
 
-  it('renders the component with default props', () => {
+  it('renders the component with default props', async () => {
     const { asFragment } = render(<DateInput id="date" />);
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Choose date'));
+    });
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('renders the component with additional props', () => {
+  it('renders the component with additional props', async () => {
     const { asFragment } = render(<DateInput id="date" label="Foo" disableConfirmation />);
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Choose date'));
+    });
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('renders the component with different languages', () => {
+  it('renders the component with Finnish language', async () => {
     const { asFragment } = render(
-      <>
-        <DateInput id="date" language="en" />
         <DateInput id="date" language="fi" />
-        <DateInput id="date" language="sv" />
-      </>,
     );
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Valitse päivämäärä'));
+    });
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('renders the component with Swedish language', async () => {
+    const { asFragment } = render(
+        <DateInput id="date" language="sv" />
+    );
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Välj datum'));
+    });
     expect(asFragment()).toMatchSnapshot();
   });
 
