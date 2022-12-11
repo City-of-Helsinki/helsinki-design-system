@@ -1,5 +1,3 @@
-import path from 'path';
-
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import uniqueId from 'lodash.uniqueid';
 
@@ -271,9 +269,34 @@ type ValidationError = {
   text: string;
 };
 
+// Return the extension of the path, from the last '.' to end of string in the last portion of the path.
+const getExtension = (path: string): string => {
+  if (!path || typeof path !== 'string' || path === '') {
+    // eslint-disable-next-line no-console
+    console.warn(`FileInput: Path must be a non-empty string. Path is now ${JSON.stringify(path)}`);
+    return '';
+  }
+
+  const lastDotIndex = path.lastIndexOf('.');
+  if (lastDotIndex === -1) {
+    // eslint-disable-next-line no-console
+    console.warn('FileInput: File is missing extension');
+    return '';
+  }
+
+  const extensionWithDot = path.substring(lastDotIndex);
+  if (extensionWithDot.length <= 1) {
+    // eslint-disable-next-line no-console
+    console.warn('FileInput: File is missing extension');
+    return '';
+  }
+
+  return extensionWithDot;
+};
+
 const validateAccept = (language: Language, accept: string) => (file: File): true | ValidationError => {
-  const extension = path.extname(file.name);
-  const fileType = file.type;
+  const extension: string = getExtension(file.name);
+  const fileType: string = file.type;
   const acceptedExtensions = accept.split(',').map((str) => str.trim());
   const isMatchingType = !!acceptedExtensions.find(
     (acceptExtension) => acceptExtension.includes(fileType) || acceptExtension.includes(`${fileType.split('/')[0]}/*`),

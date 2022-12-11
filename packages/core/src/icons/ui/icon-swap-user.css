@@ -1,0 +1,6 @@
+@svg-load icon url(../../svg/ui/swap-user.svg);
+
+.hds-icon--swap-user {
+  mask-image: svg-inline(icon);
+  -webkit-mask-image: svg-inline(icon);
+}

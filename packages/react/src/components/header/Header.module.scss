@@ -1,0 +1,19 @@
+.header {
+  --header-height: var(--spacing-4-xl);
+  --header-focus-outline-width: 3px;
+  --header-focus-outline-border-radius: 0;
+  --header-z-index: 10;
+  --header-focus-outline-color: var(--color-coat-of-arms);
+
+  background-color: var(--navigation-row-background-color);
+  color: var(--header-color);
+  position: relative;
+  width: 100%;
+}
+
+/* BACKGROUND WRAPPER */
+
+.headerBackgroundWrapper {
+  position: relative;
+  z-index: var(--header-z-index);
+}

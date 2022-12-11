@@ -151,6 +151,7 @@ export { IconSpeechbubble } from './ui/IconSpeechbubble';
 export { IconSpeechbubbleText } from './ui/IconSpeechbubbleText';
 export { IconStar } from './ui/IconStar';
 export { IconStarFill } from './ui/IconStarFill';
+export { IconSwapUser } from './ui/IconSwapUser';
 export { IconTextBold } from './ui/IconTextBold';
 export { IconTextItalic } from './ui/IconTextItalic';
 export { IconTextTool } from './ui/IconTextTool';

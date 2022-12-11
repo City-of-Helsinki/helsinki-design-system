@@ -6,7 +6,7 @@ Base styles and individual HTML component styles for the Helsinki Design System.
 
 ## Getting started
 
-### Installing the package:
+Install the package.
 
 ```bash
 yarn add hds-core
@@ -56,6 +56,7 @@ The Helsinki fonts are not included in the package due to copyright reasons.
 Helsinki Design System uses CSS variables from the [hds-design-tokens](https://www.npmjs.com/package/hds-design-tokens) package to control coloring, spacing and layout. You can override these variables if necessary, but it is not recommended.
 
 ## Development
+
 Read more [here](DEVELOPMENT.md).
 
 ## Built with

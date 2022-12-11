@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> spec renders the component 1`] = `
+<DocumentFragment>
+  <header
+    class="header"
+  >
+    <div
+      class="headerBackgroundWrapper"
+    />
+  </header>
+</DocumentFragment>
+`;

@@ -52,8 +52,6 @@ const getHourAndMinuteValues = (value?: string): string[] | null => {
     if (valueString.match(/^\d{2}:\d{2}$/)) {
       return valueString.split(':');
     }
-    // eslint-disable-next-line no-console
-    console.warn('Invalid default value for TimeInput. The default value must be in hh:mm format');
   }
   return null;
 };

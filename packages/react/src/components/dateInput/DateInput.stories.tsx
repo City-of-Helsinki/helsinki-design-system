@@ -12,6 +12,15 @@ import { IconCrossCircle } from '../../icons';
 
 const formatHelperTextEnglish = 'Use format D.M.YYYY';
 
+const argTypes = {
+  minDate: {
+    control: 'date',
+  },
+  maxDate: {
+    control: 'date',
+  },
+};
+
 export default {
   component: DateInput,
   title: 'Components/DateInput',
@@ -19,6 +28,7 @@ export default {
   parameters: {
     controls: { hideNoControlsWarning: true },
   },
+  argTypes,
   args: {
     id: 'date',
     label: 'Choose a date',

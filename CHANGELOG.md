@@ -7,6 +7,86 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.7.0] - November, 22, 2022
+
+### Design kit
+
+#### Added
+
+- [Icons] New icon UI/Navigation/swap-user
+- [Tags] New tag variants with rounded corners
+
+### React Components
+
+#### Added
+
+- [Tags] New tag variants with rounded corners
+
+#### Changed
+
+- [DateInput, SearchInput, PasswordInput] Input fields' buttons have larger clickable area around them
+
+#### Fixed
+
+- [Theme] Fix useTheme hook
+- [FileInput] Fix an issue with FileInput crashing
+
+### Core
+
+#### Added
+
+- [Tags] New tag variants with rounded corners
+
+### Documentation
+
+#### Added
+
+- [Theme] Mention CSS specificity in the SSR guidelines customization part
+
+#### Changed
+
+- Favicon documentation improvement
+
+## [2.6.1] - November, 14, 2022
+
+### Design kit
+
+#### Fixed
+
+- Compatibility issue with Abstract and Sketch by updating the linked library files to Sketch 94.1
+
+## [2.6.0] - November, 9, 2022
+
+### React Components
+
+#### Added
+
+- [SearchInput] Support for external value property
+- [SearchInput] Search action label (or icon) on virtual keyboards
+
+#### Changed
+
+- Repository development guides content updated
+
+#### Fixed
+
+- [Combobox] Fix scrolling caused by moving the mouse
+- [Select] Error icon is same as with other components
+
+### Core
+
+#### Changed
+
+- Repository development guides content updated
+
+### Design kit
+
+#### Changed
+
+- [Icons] Documentation examples updated – Work in progress
+- [Logo] New favicons added
+- Repository development guides content updated
+
 ## [2.5.0] - November, 1, 2022
 
 ### React Components

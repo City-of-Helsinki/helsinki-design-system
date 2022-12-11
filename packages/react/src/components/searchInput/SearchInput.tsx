@@ -16,7 +16,7 @@ import { LoadingSpinner } from '../loadingSpinner';
 
 export type SearchInputProps<SuggestionItem> = {
   /**
-   * Additional class names to add to the component
+   * Additional class names to add to the component.
    */
   className?: string;
   /**
@@ -29,7 +29,7 @@ export type SearchInputProps<SuggestionItem> = {
    */
   getSuggestions?: GetSuggestionsFunction<SuggestionItem>;
   /**
-   * The helper text content that will be shown below the input
+   * The helper text content that will be shown below the input.
    */
   helperText?: string;
   /**
@@ -38,7 +38,7 @@ export type SearchInputProps<SuggestionItem> = {
    */
   highlightSuggestions?: boolean;
   /**
-   * The label for the search field
+   * The label for the search field.
    */
   label: React.ReactNode;
   /**
@@ -56,11 +56,11 @@ export type SearchInputProps<SuggestionItem> = {
    */
   onSubmit: (value: string) => void;
   /**
-   * Callback function fired after input value has changed.
+   * Callback function fired after input value has changed. Required for a controlled component.
    */
   onChange?: (value: string) => void;
   /**
-   * Placeholder text for the search input
+   * Placeholder text for the search input.
    */
   placeholder?: string;
   /**
@@ -69,12 +69,12 @@ export type SearchInputProps<SuggestionItem> = {
    */
   searchButtonAriaLabel?: string;
   /**
-   * Hides the search button
+   * Hides the search button.
    * @default false
    */
   hideSearchButton?: boolean;
   /**
-   * Override or extend the styles applied to the component
+   * Override or extend the styles applied to the component.
    */
   style?: React.CSSProperties;
   /**
@@ -82,6 +82,10 @@ export type SearchInputProps<SuggestionItem> = {
    * E.g. an `suggestionLabelField` value of `'foo'` and a suggestion item `{ foo: 'Label', bar: 'value' }`, would display `'Label'` in the menu for that specific suggestion.
    */
   suggestionLabelField?: keyof SuggestionItem;
+  /**
+   * The value of the input element, required for a controlled component. Remember to use onChange prop as well.
+   */
+  value?: string;
   /**
    * The number of suggestions that are visible in the menu before it becomes scrollable.
    * @default 8
@@ -106,14 +110,17 @@ export const SearchInput = <SuggestionItem,>({
   suggestionLabelField,
   visibleSuggestions = 8,
   onChange,
+  value,
 }: SearchInputProps<SuggestionItem>) => {
   const didMount = useRef(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const isItemClicked = useRef<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>('');
+  const [internalValue, setInternalValue] = useState<string>('');
+  const inputValue = value || internalValue;
   const { suggestions, isLoading } = useSuggestions<SuggestionItem>(inputValue, getSuggestions, isSubmitted);
   const showLoadingSpinner = useShowLoadingSpinner(isLoading, 1500 - SUGGESTIONS_DEBOUNCE_VALUE);
+  const isControlledComponent = value !== undefined && onChange;
 
   const {
     isOpen,
@@ -127,7 +134,11 @@ export const SearchInput = <SuggestionItem,>({
   } = useCombobox<SuggestionItem>({
     items: suggestions,
     onInputValueChange: (e) => {
-      setInputValue(e.inputValue);
+      if (isControlledComponent) {
+        onChange(e.inputValue);
+      } else {
+        setInternalValue(e.inputValue);
+      }
     },
     onStateChange(props) {
       const { ItemClick } = useCombobox.stateChangeTypes;
@@ -136,6 +147,7 @@ export const SearchInput = <SuggestionItem,>({
       }
     },
     itemToString: (item) => (item ? `${item[suggestionLabelField]}` : ''),
+    ...(isControlledComponent && { inputValue }),
   });
 
   const submit = useCallback(() => {
@@ -165,11 +177,11 @@ export const SearchInput = <SuggestionItem,>({
   };
 
   /**
-   * Call optional onChange if input value changes
+   * Call onChange here if internal value changes and this is uncontrolled component.
    */
   useEffect(() => {
     if (didMount.current) {
-      if (onChange) {
+      if (onChange && value === undefined) {
         onChange(inputValue);
       }
     } else {
@@ -192,6 +204,7 @@ export const SearchInput = <SuggestionItem,>({
           })}
           className={classNames(styles.input)}
           placeholder={placeholder}
+          enterKeyHint="search"
         />
         <div className={styles.buttons}>
           {inputValue.length > 0 && (
@@ -233,10 +246,9 @@ export const SearchInput = <SuggestionItem,>({
           selectedItem={null}
           selectedItems={[]}
           highlightValue={highlightSuggestions && inputValue.length >= 3 && inputValue}
-          visibleOptions={visibleSuggestions}
           menuStyles={styles}
           options={suggestions}
-          optionLabelField={`${suggestionLabelField}`}
+          optionLabelField={`${String(suggestionLabelField)}`}
           menuProps={getMenuProps({
             style: { maxHeight: DROPDOWN_MENU_ITEM_HEIGHT * visibleSuggestions },
           })}

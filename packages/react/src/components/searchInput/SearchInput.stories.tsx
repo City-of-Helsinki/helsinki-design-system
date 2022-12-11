@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { SearchInput } from './SearchInput';
 import { Button } from '../button';
@@ -224,4 +224,43 @@ WithSuggestionsSpinner.args = {
   label: 'Search for a fruit',
   helperText: 'Assistive text',
   placeholder: 'Placeholder',
+};
+
+export const WithDefaultValue = (args) => {
+  type SuggestionItemType = {
+    value: string;
+  };
+  const [searchValue, setSearchValue] = useState<string>(args.value);
+
+  const getSuggestions = async (inputValue: string): Promise<SuggestionItemType[]> => {
+    const suggestions = await asynchronousSearchOperation(inputValue);
+    return suggestions;
+  };
+
+  const onSubmit = (value: string) => {
+    console.log('Submitted value:', value);
+  };
+
+  const onChange = (value: string) => {
+    console.log('Changed value: ', value);
+    setSearchValue(value);
+  };
+
+  return (
+    <SearchInput<SuggestionItemType>
+      {...args}
+      suggestionLabelField="value"
+      getSuggestions={getSuggestions}
+      onSubmit={onSubmit}
+      value={searchValue}
+      onChange={onChange}
+    />
+  );
+};
+WithDefaultValue.storyName = 'With default value';
+WithDefaultValue.args = {
+  label: 'Search for a fruit',
+  helperText: 'Assistive text',
+  placeholder: 'Placeholder',
+  value: 'Banana',
 };

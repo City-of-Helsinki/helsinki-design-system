@@ -18,7 +18,7 @@ import 'hds-core';
 import styles from './Select.module.scss';
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 import classNames from '../../../utils/classNames';
-import { IconAlertCircle, IconAngleDown } from '../../../icons';
+import { IconAlertCircleFill, IconAngleDown } from '../../../icons';
 import { ClearButton, SelectedItems } from '../../../internal/selectedItems/SelectedItems';
 import { DROPDOWN_MENU_ITEM_HEIGHT, getIsInSelectedOptions } from '../dropdownUtils';
 import { DropdownMenu } from '../../../internal/dropdownMenu/DropdownMenu';
@@ -612,13 +612,12 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
           selectedItem={selectedItem}
           selectedItems={selectedItems}
           virtualizer={virtualized && virtualizer}
-          visibleOptions={visibleOptions}
         />
       </div>
       {/* INVALID TEXT */}
       {invalid && error && (
         <div id={`${id}-error`} className={styles.errorText} aria-hidden>
-          <IconAlertCircle className={styles.invalidIcon} />
+          <IconAlertCircleFill className={styles.invalidIcon} />
           {error}
         </div>
       )}

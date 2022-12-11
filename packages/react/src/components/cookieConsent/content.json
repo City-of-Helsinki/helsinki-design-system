@@ -4,7 +4,7 @@
       "main": {
         "fi": {
           "title": "{{siteName}} käyttää evästeitä",
-          "text": "Tämä sivusto käyttää pakollisia evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen."
+          "text": "Tämä sivusto käyttää välttämättömiä evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen."
         },
         "sv": {
           "title": "{{siteName}} använder kakor",
@@ -36,7 +36,7 @@
         "hideSettings": "Piilota asetukset",
         "approveAllConsents": "Hyväksy kaikki evästeet",
         "approveRequiredAndSelectedConsents": "Hyväksy valitut evästeet",
-        "approveOnlyRequiredConsents": "Hyväksy vain pakolliset evästeet",
+        "approveOnlyRequiredConsents": "Hyväksy vain välttämättömät evästeet",
         "settingsSaved": "Asetukset tallennettu!",
         "readMore": "Lue lisää"
       },
@@ -133,7 +133,7 @@
       "sv": {
         "title": "Inloggning",
         "text": "Inloggningskakor används när användaren loggar in på tjänsten.",
-        "expandAriaLabel": "Visa information om inloggningscookies",
+        "expandAriaLabel": "Visa information om inloggningskakor",
         "checkboxAriaDescription": "Inloggningskakor används när användaren loggar in på tjänsten."
       },
       "en": {
@@ -153,7 +153,7 @@
       "sv": {
         "title": "Reklam och marknadsföring",
         "text": "Med hjälp av marknadsföringskakor kan innehåll riktas till webbplatsens användare.",
-        "expandAriaLabel": "Visa information om reklam- och marknadsföringscookies",
+        "expandAriaLabel": "Visa information om reklam- och marknadsföringskakor",
         "checkboxAriaDescription": "Med hjälp av marknadsföringskakor kan innehåll riktas till webbplatsens användare."
       },
       "en": {
@@ -173,7 +173,7 @@
       "sv": {
         "title": "Preferenser",
         "text": "Preferenskakor ändrar webbplatsens utseende och funktioner enligt användarens tidigare val.",
-        "expandAriaLabel": "Visa information om preferenscookies",
+        "expandAriaLabel": "Visa information om preferenskakor",
         "checkboxAriaDetextscription": "Preferenskakor ändrar webbplatsens utseende och funktioner enligt användarens tidigare val."
       },
       "en": {
@@ -193,7 +193,7 @@
       "sv": {
         "title": "Användarens input",
         "text": "Med inputskakor kan man lagra information som användaren matar in i tjänsten.",
-        "expandAriaLabel": "Visa information om användarindatacookies",
+        "expandAriaLabel": "Visa information om inputskakor",
         "checkboxAriaDescription": "Med inputskakor kan man lagra information som användaren matar in i tjänsten."
       },
       "en": {
@@ -213,7 +213,7 @@
       "sv": {
         "title": "Datasäkerhet",
         "text": "Datasäkerhetskakor möjliggör en säker dataöverföring mellan användaren och tjänsten.",
-        "expandAriaLabel": "Visa information om säkerhetscookies",
+        "expandAriaLabel": "Visa information om datasäkerhetskakor",
         "checkboxAriaDescription": "Datasäkerhetskakor möjliggör en säker dataöverföring mellan användaren och tjänsten."
       },
       "en": {
@@ -233,7 +233,7 @@
       "sv": {
         "title": "Sociala medier",
         "text": "Sociala medier-kakor förknippas med olika sociala medie-tjänsters egenskaper.",
-        "expandAriaLabel": "Visa information om cookies för sociala medier",
+        "expandAriaLabel": "Visa information om kakor för sociala medier",
         "checkboxAriaDescription": "Sociala medier-kakor förknippas med olika sociala medie-tjänsters egenskaper."
       },
       "en": {
@@ -253,7 +253,7 @@
       "sv": {
         "title": "Tillgänglighet",
         "text": "Tillgänglighetskakor möjliggör vissa egenskaper för tjänstens tillgänglighet.",
-        "expandAriaLabel": "Visa information om cookies för att förbättra tillgänglighet",
+        "expandAriaLabel": "Visa information om tillgänglighetskakor",
         "checkboxAriaDescription": "Tillgänglighetskakor möjliggör vissa egenskaper för tjänstens tillgänglighet."
       },
       "en": {
@@ -273,7 +273,7 @@
       "sv": {
         "title": "Enhetsuppgifter",
         "text": "Kakor för enhetsuppgifterna innehåller sådana uppgifter som samlats in från användarens enhet med vilka tjänstens funktioner säkerställs.",
-        "expandAriaLabel": "Visa information om cookies för enhetsinformation",
+        "expandAriaLabel": "Visa information om kakor för enhetsuppgifterna",
         "checkboxAriaDescription": "Kakor för enhetsuppgifterna innehåller sådana uppgifter som samlats in från användarens enhet med vilka tjänstens funktioner säkerställs."
       },
       "en": {
@@ -293,7 +293,7 @@
       "sv": {
         "title": "Chattjänster",
         "text": "Kakor för chattjänsterna möjliggör kontakten mellan användaren och tjänsten.",
-        "expandAriaLabel": "Visa information om cookies relaterade till chattjänster",
+        "expandAriaLabel": "Visa information om kakor för chattjänsterna",
         "checkboxAriaDescription": "Kakor för chattjänsterna möjliggör kontakten mellan användaren och tjänsten."
       },
       "en": {
@@ -313,7 +313,7 @@
       "sv": {
         "title": "Tredje parts tjänster",
         "text": "Kakor möjliggör utomstående tjänsters (såsom sociala medie-plattformar) funktioner på denna webbplats.",
-        "expandAriaLabel": "Visa information om tredjepartscookies",
+        "expandAriaLabel": "Visa information om tredjepartskakor",
         "checkboxAriaDescription": "Kakor möjliggör utomstående tjänsters (såsom sociala medie-plattformar) funktioner på denna webbplats."
       },
       "en": {
@@ -333,7 +333,7 @@
       "sv": {
         "title": "Visning av innehåll",
         "text": "Kakor utnyttjas för att visa olika innehåll för användaren.",
-        "expandAriaLabel": "Visa information om cookies relaterade till visning av innehåll",
+        "expandAriaLabel": "Visa information om kakor för visning av innehåll",
         "checkboxAriaDescription": "Kakor utnyttjas för att visa olika innehåll för användaren."
       },
       "en": {
@@ -353,7 +353,7 @@
       "sv": {
         "title": "Läge",
         "text": "Med hjälp av lägeskakor kan man utnyttja lägesdata som fåtts från användarens enhet (GPS).",
-        "expandAriaLabel": "Visa information om cookies för geografisk positionering",
+        "expandAriaLabel": "Visa information om lägeskakor",
         "checkboxAriaDescription": "Med hjälp av lägeskakor kan man utnyttja lägesdata som fåtts från användarens enhet (GPS)."
       },
       "en": {
@@ -373,7 +373,7 @@
       "sv": {
         "title": "Belastningsutjämning",
         "text": "Med hjälp av belastningsutjämningskakor säkerställer man att tjänsten laddas och fungerar snabbt och effektivt.",
-        "expandAriaLabel": "Visa information om cookies för belastningsutjämning",
+        "expandAriaLabel": "Visa information om belastningsutjämningskakor",
         "checkboxAriaDescription": "Med hjälp av belastningsutjämningskakor säkerställer man att tjänsten laddas och fungerar snabbt och effektivt."
       },
       "en": {
@@ -391,10 +391,10 @@
         "checkboxAriaDescription": "Sivusto ei toimi ilman näitä"
       },
       "sv": {
-        "title": "Cookies relaterade till grundläggande funktioner",
-        "text": "Du kan inte förbjuda användningen av cookies relaterade till grundläggande funktioner. De möjliggör webbplatsens funktioner och påverkar användbarheten.",
-        "expandAriaLabel": "Visa information om cookies relaterade till grundläggande funktioner",
-        "checkboxAriaDescription": "Du kan inte förbjuda användningen av cookies relaterade till grundläggande funktioner. De möjliggör webbplatsens funktioner och påverkar användbarheten."
+        "title": "Kakor för grundläggande funktioner",
+        "text": "Du kan inte förbjuda användningen av kakor för grundläggande funktioner. De möjliggör webbplatsens funktioner och påverkar användbarheten.",
+        "expandAriaLabel": "Visa information om kakor för grundläggande funktioner",
+        "checkboxAriaDescription": "Du kan inte förbjuda användningen av kakor för grundläggande funktioner. De möjliggör webbplatsens funktioner och påverkar användbarheten."
       },
       "en": {
         "title": "Cookies related to basic functionalities",
@@ -413,7 +413,7 @@
       "sv": {
         "title": "Statistik",
         "text": "Data från statistikkakorna används för att utveckla webbplatsen.",
-        "expandAriaLabel": "Visa information om statistikcookies",
+        "expandAriaLabel": "Visa information om statistikkakor",
         "checkboxAriaDescription": "Data från statistikkakorna används för att utveckla webbplatsen."
       },
       "en": {
@@ -431,10 +431,10 @@
         "checkboxAriaDescription": "Helsingin kaupungin palvelut käyttävät yhteisiä evästeitä. Tallennamme nämä suostumukset, jottei sinun tarvitse hyväksyä samoja evästeitä uudelleen muissa kaupungin palveluissa."
       },
       "sv": {
-        "title": "Gemensamma cookies",
-        "text": "Helsingfors stads tjänster använder gemensamma cookies. Vi lagrar dessa samtycken så att du inte behöver godkänna samma cookies igen i stadens andra tjänster.",
-        "expandAriaLabel": "Visa information om cookies relaterade till gemensamma cookie-samtycken",
-        "checkboxAriaDescription": "Helsingfors stads tjänster använder gemensamma cookies. Vi lagrar dessa samtycken så att du inte behöver godkänna samma cookies igen i stadens andra tjänster."
+        "title": "Gemensamma kakor",
+        "text": "Helsingfors stads tjänster använder gemensamma kakor . Vi lagrar dessa samtycken så att du inte behöver godkänna samma kakor igen i stadens andra tjänster.",
+        "expandAriaLabel": "Visa information om kakor för gemensamt samtycke",
+        "checkboxAriaDescription": "Helsingfors stads tjänster använder gemensamma kakor . Vi lagrar dessa samtycken så att du inte behöver godkänna samma kakor igen i stadens andra tjänster."
       },
       "en": {
         "title": "Shared consent",
@@ -455,8 +455,8 @@
         "expiration": "1 vuosi"
       },
       "sv": {
-        "name": "Cookie samtycke",
-        "description": "Webbplatsen använder denna cookie för att lagra information om huruvida besökare har godkänt användningen av cookies eller inte.",
+        "name": "Samtycken till kakor",
+        "description": "Webbplatsen använder denna kaka för att lagra information om huruvida besökare har godkänt användningen av kakor eller inte.",
         "expiration": "Ett år"
       },
       "en": {
@@ -475,7 +475,7 @@
       },
       "sv": {
         "name": "cookiehub",
-        "description": "Cookie möjliggör hantering av cookies på hel.fi webbplatsen.",
+        "description": "Möjliggör hantering av kakor på hel.fi webbplatsen.",
         "expiration": "365 dagar"
       },
       "en": {
@@ -494,7 +494,7 @@
       },
       "sv": {
         "name": "AUTH_SESSION_ID",
-        "description": "Cookie som krävs för att bevara autentiseringssession.",
+        "description": "Kaka som krävs för att bevara autentiseringssession.",
         "expiration": "Session"
       },
       "en": {
@@ -532,7 +532,7 @@
       },
       "sv": {
         "name": "SSESS*",
-        "description": "En cookie relaterad till driften av innehållshanteringssystemet.",
+        "description": "En kaka för driften av innehållshanteringssystemet.",
         "expiration": "23 dagar"
       },
       "en": {
