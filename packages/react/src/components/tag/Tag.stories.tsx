@@ -36,7 +36,12 @@ export const ClickableTag = (args) => (
 
 export const DeletableTag = (args) => {
   return (
-    <Tag {...args} deleteButtonAriaLabel="Delete item" onDelete={() => action(`Delete item: ${args.children}`)()}>
+    <Tag
+      {...args}
+      deleteButtonAriaLabel={`Delete item: ${args.children}`}
+      srOnlyLabel
+      onDelete={() => action(`Delete item: ${args.children}`)()}
+    >
       {args.children}
     </Tag>
   );
@@ -62,7 +67,8 @@ export const RoundedDeletableTag = (args) => {
   return (
     <RoundedTagComponent
       {...args}
-      deleteButtonAriaLabel="Delete item"
+      deleteButtonAriaLabel={`Delete item: ${args.children}`}
+      srOnlyLabel
       onDelete={() => action(`Delete item: ${args.children}`)()}
     >
       {args.children}
