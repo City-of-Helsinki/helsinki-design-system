@@ -52,8 +52,8 @@ export default {
   },
   args: {
     id: getId(),
-    label: 'Element',
-    helper: 'Choose an element',
+    label: 'Item',
+    helper: 'Choose an item',
     placeholder: 'Placeholder',
     clearButtonAriaLabel: 'Clear selection',
     options,
@@ -78,12 +78,13 @@ Multiselect.storyName = 'Multi-select';
 Multiselect.args = {
   multiselect: true,
   options: getRegionOptions(),
+  selectedItemRemoveButtonAriaLabel: 'Remove {value}',
 };
 
 export const Invalid = (args) => <Combobox {...args} />;
 Invalid.args = {
   invalid: true,
-  error: 'Wrong element!',
+  error: 'Wrong item!',
 };
 
 export const Disabled = (args) => <Combobox {...args} />;
@@ -134,6 +135,7 @@ export const Controlled = (args) => {
         id={getId()}
         label="Multi-select combobox"
         multiselect
+        selectedItemRemoveButtonAriaLabel="Remove {value}"
         onChange={handleMultiSelectChange}
         value={selectedItems}
         style={{ marginTop: 'var(--spacing-s)' }}
@@ -153,6 +155,7 @@ export const DisabledOptions = (args) => {
         id={getId()}
         label="Multi-select combobox"
         multiselect
+        selectedItemRemoveButtonAriaLabel="Remove {value}"
         isOptionDisabled={getIsDisabled}
         style={{ marginTop: 'var(--spacing-s)' }}
       />
@@ -169,6 +172,7 @@ MultiselectWithIcon.storyName = 'Multi-select with icon';
 MultiselectWithIcon.args = {
   multiselect: true,
   options: getRegionOptions(),
+  selectedItemRemoveButtonAriaLabel: 'Remove {value}',
 };
 
 MultiselectWithIcon.parameters = { loki: { skip: true } };
@@ -182,7 +186,9 @@ Tooltip.args = {
     'Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.',
 };
 
-export const CustomTheme = (args) => <Combobox {...args} multiselect />;
+export const CustomTheme = (args) => (
+  <Combobox {...args} multiselect selectedItemRemoveButtonAriaLabel="Remove {value}" />
+);
 CustomTheme.storyName = 'With custom theme';
 CustomTheme.args = {
   theme: {
@@ -239,13 +245,13 @@ export const MultiSelectExample = (args) => {
   return (
     <Combobox<Option>
       {...args}
-      label="Elements"
-      helper="Choose elements"
+      label="Items"
+      helper="Choose items"
       placeholder="Type to search"
       multiselect
       clearButtonAriaLabel="Clear all selections"
-      selectedItemRemoveButtonAriaLabel="Remove element {value}"
-      selectedItemSrLabel="Selected element {value}"
+      selectedItemRemoveButtonAriaLabel="Remove {value}"
+      selectedItemSrLabel="Selected item {value}"
       getA11yRemovalMessage={({ removedSelectedItem }) => `${removedSelectedItem.label} was removed`}
     />
   );
@@ -260,7 +266,7 @@ export const WithExternalLabel = (args) => {
       <Combobox
         aria-labelledby="externalLabelId"
         id={getId()}
-        helper="Choose an element"
+        helper="Choose an item"
         placeholder="Placeholder"
         clearButtonAriaLabel="Clear selection"
         options={options}
