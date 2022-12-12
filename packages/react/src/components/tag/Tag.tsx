@@ -53,7 +53,7 @@ export type TagProps = {
    */
   role?: 'link' | 'button';
   /**
-   * Label that is only visible to screen readers. Can be used to to give screen reader users additional information about the tag.
+   * The label is only visible to screen readers.  Can be used to give screen reader users additional information about the tag.
    */
   srOnlyLabel?: string;
   /**
