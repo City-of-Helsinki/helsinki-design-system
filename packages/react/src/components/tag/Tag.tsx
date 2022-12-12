@@ -29,7 +29,7 @@ export type TagProps = {
    */
   deleteButtonAriaLabel?: string;
   /**
-   * Props that will be passed to the delete button `<button>` element.
+   * Prop will be passed to the delete button `<button>` element. It also hides the default label from screen readers to prevent confusion with labels when present.
    */
   deleteButtonProps?: React.ComponentPropsWithoutRef<'button'>;
   /**
@@ -93,6 +93,7 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
     const containerClassName = classNames(styles.tag, customThemeClass, className);
     const clickable = typeof onClick === 'function';
     const deletable = typeof onDelete === 'function';
+    const hideLabelFromScreenReaders = srOnlyLabel || deleteButtonAriaLabel;
 
     // handle key down
     const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -111,7 +112,7 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
       >
         <span id={id && `${id}-label`} className={labelContainerClassName} {...labelProps}>
           {srOnlyLabel && <span className={styles.visuallyHidden}>{srOnlyLabel}</span>}
-          <span {...(srOnlyLabel ? { 'aria-hidden': true } : {})}>{children}</span>
+          <span {...(hideLabelFromScreenReaders ? { 'aria-hidden': true } : {})}>{children}</span>
         </span>
 
         {deletable && (
