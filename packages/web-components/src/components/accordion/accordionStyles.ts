@@ -69,6 +69,10 @@ export default css`:host {
   margin-right: var(--spacing-xs);
 }
 
+:host(:not(.isOpen)) .headingContainer svg {
+  transform: rotate(180deg);
+}
+
 .accordionHeader {
   position: relative;
   color: var(--header-font-color);

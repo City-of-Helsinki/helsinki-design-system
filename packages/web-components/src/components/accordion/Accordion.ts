@@ -119,7 +119,15 @@ export default class AccordionHTMLElement extends LitElement {
   }
 
   private renderIcon () {
-    return html``;
+    return html`<svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      role="img">
+      <g fill="none" fillRule="evenodd">
+        <path d="M0 24h24V0H0z" />
+        <path fill="currentColor" d="M12 11.5l5 5 1.5-1.5L12 8.5 5.5 15 7 16.5z" />
+      </g>
+    </svg>`;
   }
 
   private renderCloseButton () {
@@ -138,8 +146,7 @@ export default class AccordionHTMLElement extends LitElement {
     }
 
     return html`
-      <button
-        data-testid=${this.identifiers.closeButton}
+      <hds-button
         class=${className}
         variant='supplementary'
         aria-label=${closeLabel}
@@ -148,7 +155,7 @@ export default class AccordionHTMLElement extends LitElement {
         @keypress=${handleKeyPress}
         @click=${this.toggleOpen}>
         ${closeMessage}
-      </button>
+      </hds-button>
     `
   }
 
