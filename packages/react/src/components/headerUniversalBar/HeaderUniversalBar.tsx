@@ -50,9 +50,7 @@ export const HeaderUniversalBar = ({
     <nav role="navigation" aria-label={ariaLabel} id={id} className={styles.headerUniversalBar}>
       <ul className={styles.headerUniversalBarList}>
         <li className={styles.universalBarMainLinkContainer}>
-          <NavigationLink href={primaryLinkHref} className={styles.universalBarLink}>
-            {primaryLinkText}
-          </NavigationLink>
+          <NavigationLink href={primaryLinkHref} label={primaryLinkText} className={styles.universalBarLink} />
         </li>
         {Children.map(childElements, (child, index) => {
           if (React.isValidElement(child)) {

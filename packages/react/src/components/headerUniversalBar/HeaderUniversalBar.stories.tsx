@@ -23,9 +23,9 @@ export const Default = (args) => (
     <Header>
       <HeaderUniversalBar {...args}>
         <>
-          <NavigationLink href="#">Link 1</NavigationLink>
-          <NavigationLink href="#">Link 2</NavigationLink>
-          <NavigationLink href="#">Link 3</NavigationLink>
+          <NavigationLink href="#" label="Link 1" />
+          <NavigationLink href="#" label="Link 2" />
+          <NavigationLink href="#" label="Link 3" />
         </>
       </HeaderUniversalBar>
     </Header>

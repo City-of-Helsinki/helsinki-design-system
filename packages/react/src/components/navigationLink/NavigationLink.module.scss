@@ -1,9 +1,17 @@
-.navigationLink.navigationLink  {
-    --link-visited-color: none;
-    --link-color: var(--color-black-90);
-    text-decoration: none;
+.navigationLink.navigationLink {
+  --link-visited-color: none;
+  --link-color: var(--color-black-90);
+  text-decoration: none;
+  display: flex;
 }
-.navigationLink:hover, .navigationLink:focus {
-    text-decoration: underline;
-    text-decoration-color: var(--color-black-90);
+.navigationLink:hover,
+.navigationLink:focus {
+  text-decoration: underline;
+  text-decoration-color: var(--color-black-90);
+}
+.navigationLinkWrapper {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  position: relative;
 }
