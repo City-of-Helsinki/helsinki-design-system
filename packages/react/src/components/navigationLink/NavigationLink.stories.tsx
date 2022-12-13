@@ -11,8 +11,7 @@ export default {
   args: {},
 };
 
-export const Default = (args) => (
-  <NavigationLink {...args} href="#">
-    NavigationLink
-  </NavigationLink>
-);
+export const Default = (args) => <NavigationLink {...args} href="#" />;
+Default.args = {
+  label: 'Link',
+};

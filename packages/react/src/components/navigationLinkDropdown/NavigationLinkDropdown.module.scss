@@ -1,0 +1,29 @@
+.navigationLinkDropdown {
+}
+.chevron {
+  transition: transform 0.2s ease-in;
+}
+.chevronOpen {
+  transform: rotate(180deg);
+}
+.hidden {
+  display: none;
+}
+.dropdownMenu {
+  position: absolute;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--color-black-20);
+  min-width: 280px;
+  .navigationLink {
+    width: 100%;
+  }
+}
+.button {
+  height: 24px;
+  width: 24px;
+  border: none;
+  padding: 0;
+  background-color: var(--color-black-5);
+}
