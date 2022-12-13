@@ -153,6 +153,18 @@ WithCustomAriaLabel.parameters = {
 
 WithCustomAriaLabel.storyName = 'With a custom aria-label';
 
+export const WithCustomHeadingLevel = () => (
+  <Notification {...props} headingLevel={3}>
+    {content}
+  </Notification>
+);
+
+WithCustomHeadingLevel.parameters = {
+  loki: { skip: true },
+};
+
+WithCustomHeadingLevel.storyName = 'With a custom aria-level';
+
 export const Playground = (args) => {
   const [open, setOpen] = useState(true);
 
@@ -191,6 +203,7 @@ export const Playground = (args) => {
           size={typedSize}
           dismissible={args.dismissible}
           closeButtonLabelText={args.closeButtonLabelText}
+          headingLevel={args.headingLevel}
         >
           {args.body}
         </Notification>
@@ -222,6 +235,7 @@ Playground.args = {
   autoClose: false,
   displayAutoCloseProgress: true,
   autoCloseDuration: 6000,
+  headingLevel: 2,
 };
 
 Playground.argTypes = {

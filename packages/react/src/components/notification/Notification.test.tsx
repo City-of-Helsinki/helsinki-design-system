@@ -52,4 +52,18 @@ describe('<Notification /> spec', () => {
     );
     expect(getByRole('button')).toBeDefined();
   });
+
+  it('if headingLevel-property is not set, the aria-level of the heading element is 2 by default', () => {
+    const { getByRole } = render(<Notification label={label}>{body}</Notification>);
+    expect((getByRole('heading') as HTMLElement).getAttribute('aria-level')).toBe('2');
+  });
+
+  it('headingLevel-property sets the aria-level -attribute of the heading element', () => {
+    const { getByRole } = render(
+      <Notification label={label} headingLevel={3}>
+        {body}
+      </Notification>,
+    );
+    expect((getByRole('heading') as HTMLElement).getAttribute('aria-level')).toBe('3');
+  });
 });
