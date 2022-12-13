@@ -74,7 +74,7 @@ export const Invisible = () => {
 
 export const Dismissible = () => {
   const [open, setOpen] = useState(true);
-  const showButtonRef = useRef(null);
+  const showButtonRef = useRef<HTMLButtonElement | null>(null);
   const onClose = () => {
     setOpen(false);
     if (showButtonRef.current) {
@@ -100,7 +100,7 @@ export const Dismissible = () => {
 
 export const AutoClose = () => {
   const [open, setOpen] = useState(false);
-  const showButtonRef = useRef(null);
+  const showButtonRef = useRef<HTMLButtonElement | null>(null);
   const onClose = () => {
     setOpen(false);
     if (showButtonRef.current) {
