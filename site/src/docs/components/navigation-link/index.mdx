@@ -21,9 +21,9 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Principles
 
-- **Navigation link component is meant to be used inside the header and footer components!** If you're looking for inline links, see the documentation about <InternalLink href="/components/link">HDS link components</InternalLink>.
-- Use navigation link component only inside <InternalLink href="/components/header-universal-bar">HeaderUniversalBar</InternalLink>, Navigation and Footer components.
-- Because navigation links are designed for the purpose of site navitation, they should not open in a new tab. However this may be desired if there is an external link in the universal bar or in the footer.
+- **The NavigationLink component is meant to be used inside the header and footer components!** If you're looking for inline links, see the documentation about <InternalLink href="/components/link">HDS link components</InternalLink>.
+- Use the NavigationLink component only inside <InternalLink href="/components/header-universal-bar">HeaderUniversalBar</InternalLink>, Navigation and Footer components.
+- Because navigation links are designed for site navigation, they should not open in a new tab. However, this may be desired if there is an external link in the HeaderUniversalBar or the Footer.
 - External links are not yet supported
 - Icons are not yet supported
 
@@ -31,10 +31,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Default
 
-Navigation link component uses the <InternalLink href="/components/link">HDS Link component</InternalLink> underneath.
+The NavigationLink component uses the <InternalLink href="/components/link">HDS Link component</InternalLink> underneath.
 
 <PlaygroundPreview>
-<NavigationLink href="#">Navigation link</NavigationLink>
+  <NavigationLink href="#">Navigation link</NavigationLink>
 </PlaygroundPreview>
 
 #### External links
