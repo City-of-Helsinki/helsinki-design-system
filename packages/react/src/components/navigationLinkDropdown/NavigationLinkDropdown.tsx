@@ -10,6 +10,11 @@ import classNames from '../../utils/classNames';
 
 export type NavigationLinkDropdownProps = React.PropsWithChildren<{
   /**
+   * Direction for dropdown position.
+   * @default 'down'
+   */
+  dropdownDirection?: 'down' | 'right';
+  /**
    * Element index given by parent mapping.
    * @internal
    */
@@ -18,17 +23,28 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
    * Is dropdown open.
    */
   open?: boolean;
+  /**
+   * Function that is called when open value is changed.
+   */
   setOpen?: (isOpen: boolean) => void;
 }>;
 
-export const NavigationLinkDropdown = ({ children, index, open, setOpen }: NavigationLinkDropdownProps) => {
+export const NavigationLinkDropdown = ({
+  children,
+  dropdownDirection = 'down',
+  index,
+  open,
+  setOpen,
+}: NavigationLinkDropdownProps) => {
   // State for which nested dropdown link is open
   const [openSubNavIndex, setOpenSubNavIndex] = useState<string | null>(null);
   const [ref] = useMeasure({ debounce: 0, scroll: false, polyfill: ResizeObserver });
   // menuContainerSize
   const containerRef = useRef<HTMLDivElement>(null);
   const chevronClasses = open ? classNames(styles.chevron, styles.chevronOpen) : styles.chevron;
-  const menuClasses = open ? styles.dropdownMenu : styles.hidden;
+  const dropdownDirectionClass =
+    dropdownDirection === 'right' ? classNames(styles.dropdownMenu, styles.side) : styles.dropdownMenu;
+  const menuClasses = open ? dropdownDirectionClass : styles.hidden;
 
   useEffect(() => {
     // closes the menu when a user clicks outside the container element
@@ -49,7 +65,7 @@ export const NavigationLinkDropdown = ({ children, index, open, setOpen }: Navig
     setOpen(!open);
   };
   return (
-    <div ref={mergeRefs<HTMLDivElement>([ref, containerRef])}>
+    <div className={styles.navigationLinkDropdownContainer} ref={mergeRefs<HTMLDivElement>([ref, containerRef])}>
       <button type="button" className={styles.button} onClick={handleOpenChange}>
         <IconAngleDown className={chevronClasses} />
       </button>

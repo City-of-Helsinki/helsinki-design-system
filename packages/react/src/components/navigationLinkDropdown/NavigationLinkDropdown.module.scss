@@ -1,5 +1,3 @@
-.navigationLinkDropdown {
-}
 .chevron {
   transition: transform 0.2s ease-in;
 }
@@ -16,11 +14,13 @@
   flex-direction: column;
   border: 2px solid var(--color-black-20);
   min-width: 280px;
-  .navigationLink {
-    width: 100%;
-  }
+}
+.side {
+  left: 281px;
+  top:0;
 }
 .button {
+  display: block;
   height: 24px;
   width: 24px;
   border: none;
