@@ -14,9 +14,10 @@
   flex-direction: column;
   border: 2px solid var(--color-black-20);
   min-width: 280px;
+  padding: var(--spacing-xs) var(--spacing-s);
 }
 .side {
-  left: 281px;
+  left: calc(281px + var(--spacing-s));
   top:0;
 }
 .button {
