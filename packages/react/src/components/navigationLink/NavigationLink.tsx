@@ -61,6 +61,7 @@ export type NavigationLinkProps = Omit<
 export const NavigationLink = ({
   active,
   className,
+  dropdownDirection = 'down',
   dropdownLinks,
   href,
   index,
@@ -109,7 +110,12 @@ export const NavigationLink = ({
   const renderDropdown = () => {
     if (dropdownLinks === undefined) return null;
     return (
-      <NavigationLinkDropdown open={isDropdownOpen} setOpen={handleDropdownClickedOpen} index={index}>
+      <NavigationLinkDropdown
+        open={isDropdownOpen}
+        setOpen={handleDropdownClickedOpen}
+        index={index}
+        dropdownDirection={dropdownDirection}
+      >
         {dropdownLinks}
       </NavigationLinkDropdown>
     );
