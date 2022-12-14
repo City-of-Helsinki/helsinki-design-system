@@ -76,7 +76,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
    */
   const [selectedDate, setSelectedDate] = useState<Date>(selected || null);
 
-  const [isReadyToShow, setIsReadyToShow] = useState<boolean>(false);
+  const [isPopperReady, setIsPopperReady] = useState<boolean>(false);
 
   /**
    * Update the selected date from props
@@ -169,7 +169,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
       if (pickerModalElement) {
         pickerModalElement.removeEventListener('keydown', tabbleEventHandler);
       }
-      setIsReadyToShow(false);
+      setIsPopperReady(false);
     };
   }, []);
 
@@ -303,18 +303,18 @@ export const DatePicker = (providedProps: DayPickerProps) => {
 
   const currentMonthAvailableDays: number[] = currentMonthAvailableDates.map((date) => date.getDate());
 
-  const onPopperRender = React.useCallback(() => {
-    if (!isReadyToShow) {
-      setIsReadyToShow(true);
+  const onPopperFirstUpdate = React.useCallback(() => {
+    if (!isPopperReady) {
+      setIsPopperReady(true);
     }
-  }, [isReadyToShow, setIsReadyToShow]);
+  }, [isPopperReady, setIsPopperReady]);
 
   // Initialize Popper.js
   const { styles: datePickerPopperStyles, attributes: datePickerPopperAttributes } = usePopper(
     inputRef.current,
     pickerWrapperRef.current,
     {
-      onFirstUpdate: onPopperRender,
+      onFirstUpdate: onPopperFirstUpdate,
       placement: 'bottom-end',
       modifiers: [
         {
@@ -337,7 +337,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
   return (
     <div
       ref={pickerWrapperRef}
-      className={classNames(styles.pickerWrapper, isReadyToShow && styles.isVisible)}
+      className={classNames(styles.pickerWrapper, isPopperReady && styles.isVisible)}
       role="dialog"
       aria-modal="true"
       aria-hidden={open ? undefined : true}
