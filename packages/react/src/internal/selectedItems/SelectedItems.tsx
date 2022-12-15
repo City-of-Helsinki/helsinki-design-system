@@ -129,6 +129,7 @@ const handleItemHiding = (
     const childNodes = [...containerEl.childNodes].filter(
       (node: HTMLDivElement | HTMLSpanElement) => node.tagName === 'DIV',
     ) as HTMLDivElement[];
+    containerEl.classList.remove(styles.truncateFirstChild);
     // width of the hidden item count indicator
     const hiddenCountWidth = hiddenCountEl.offsetWidth + childSpacing;
     // available container width
@@ -143,6 +144,12 @@ const handleItemHiding = (
     }, 0);
 
     if (hideItems) {
+      // if first item is too wide to show, no items are shown.
+      // Fix is to show first item anyway, but add a css class to container, which will trucate first child's text
+      if (!visibleItems.length && hiddenItems.length) {
+        visibleItems.push(hiddenItems.shift());
+        containerEl.classList.add(styles.truncateFirstChild);
+      }
       // remove 'hidden' class from visible child nodes
       visibleItems.forEach((item) => item.classList.remove(styles.hidden));
       // add 'hidden' class to child nodes that should be hidden
