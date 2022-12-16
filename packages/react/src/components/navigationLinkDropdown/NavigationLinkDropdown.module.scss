@@ -9,16 +9,25 @@
 }
 .dropdownMenu {
   position: absolute;
-  left: 0;
+  left: -10px;
+  top: 100%;
   display: flex;
   flex-direction: column;
-  border: 2px solid var(--color-black-20);
+  border: 1px solid var(--color-black-20);
   min-width: 280px;
-  padding: var(--spacing-xs) var(--spacing-s);
+  .dropdownLink {
+    font-size: var(--fontsize-body-l);
+    padding: 10px var(--spacing-s) 14px var(--spacing-s);
+    margin: 0;
+  }
+  .dropdownLink:hover, .activeLink {
+    border-left: 4px solid var(--color-black);
+    padding-left: var(--spacing-xs);
+  }
 }
 .side {
-  left: calc(281px + var(--spacing-s));
-  top:0;
+  left: 282px;
+  top:-1px;
 }
 .button {
   display: block;

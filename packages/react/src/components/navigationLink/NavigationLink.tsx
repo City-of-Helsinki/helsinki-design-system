@@ -76,10 +76,11 @@ export const NavigationLink = ({
   const { openMainNavIndex, setOpenMainNavIndex } = useContext(HeaderNavigationMenuContext);
 
   const handleDropdownOpen = (val: boolean) => {
-    // console.log('link open toggle', val);
     setDropdownOpen(val);
     // If sub navigation props given, call them
-    if (openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined) setOpenSubNavIndex(val ? index : null);
+    if (openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined) {
+      setOpenSubNavIndex(val ? index : null);
+    }
     // Otherwise it's safe to assume that this link is from main navigation and we can call context
     else {
       setOpenMainNavIndex(val ? index : null);
@@ -96,38 +97,31 @@ export const NavigationLink = ({
     handleDropdownOpen(val);
   };
 
+  const closeDropdown = () => {
+    setDropdownOpenedBy(null);
+    setDropdownOpen(false);
+  };
+
   useEffect(() => {
     // If sub navigation index is provided, we don't need to react to main nav context changes.
     if (openSubNavIndex === undefined) {
       // Since only one navigation link menu should be open, close this one if it's open when another one opens.
-      if (openMainNavIndex !== index && isDropdownOpen) {
-        setDropdownOpenedBy(null);
-        setDropdownOpen(false);
-      }
+      if (openMainNavIndex !== index && isDropdownOpen) closeDropdown();
     }
   }, [openMainNavIndex]);
 
-  const renderDropdown = () => {
-    if (dropdownLinks === undefined) return null;
-    return (
-      <NavigationLinkDropdown
-        open={isDropdownOpen}
-        setOpen={handleDropdownClickedOpen}
-        index={index}
-        dropdownDirection={dropdownDirection}
-      >
-        {dropdownLinks}
-      </NavigationLinkDropdown>
-    );
-  };
-  // console.log(`${index}, ${dropdownOpenedBy}`);
+  useEffect(() => {
+    // If nested nav index differs from this, this link's dropdown should close
+    if (openSubNavIndex !== index) closeDropdown();
+  }, [openSubNavIndex]);
+
   return (
     <span
       className={styles.navigationLinkWrapper}
       {...(dropdownLinks && dropdownOpenedBy === 'hover' && { onMouseLeave: () => handleDropdownHoveredOpen(false) })}
     >
       <Link
-        className={classNames(styles.navigationLink, className)}
+        className={classNames(styles.navigationLink, className, active ? styles.active : undefined)}
         href={href}
         size={size}
         {...rest}
@@ -136,7 +130,16 @@ export const NavigationLink = ({
       >
         {label}
       </Link>
-      {renderDropdown()}
+      {dropdownLinks && (
+        <NavigationLinkDropdown
+          open={isDropdownOpen}
+          setOpen={handleDropdownClickedOpen}
+          index={index}
+          dropdownDirection={dropdownDirection}
+        >
+          {dropdownLinks}
+        </NavigationLinkDropdown>
+      )}
     </span>
   );
 };
