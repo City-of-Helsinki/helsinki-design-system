@@ -26,57 +26,65 @@ export const Example = (args) => {
           active
           dropdownLinks={[
             <NavigationLink
+              href="#"
               label="Test"
               dropdownDirection="right"
               active
               dropdownLinks={[
-                <NavigationLink label="Test" />,
-                <NavigationLink label="Test" />,
-                <NavigationLink label="Test" />,
+                <NavigationLink href="#" label="Test" />,
+                <NavigationLink href="#" label="Test" />,
+                <NavigationLink href="#" label="Test" />,
               ]}
             />,
             <NavigationLink
+              href="#"
               label="Test"
               dropdownDirection="right"
-              dropdownLinks={[<NavigationLink label="Nested" />, <NavigationLink label="Nested" />]}
+              dropdownLinks={[<NavigationLink href="#" label="Nested" />, <NavigationLink href="#" label="Nested" />]}
             />,
           ]}
         />
         <NavigationLink
+          href="#"
           label="Test"
           dropdownLinks={[
             <NavigationLink
+              href="#"
               label="Test"
               dropdownDirection="right"
               dropdownLinks={[
-                <NavigationLink label="Test" />,
-                <NavigationLink label="Test" />,
-                <NavigationLink label="Test" />,
+                <NavigationLink href="#" label="Test" />,
+                <NavigationLink href="#" label="Test" />,
+                <NavigationLink href="#" label="Test" />,
               ]}
             />,
             <NavigationLink
+              href="#"
               label="Test"
               dropdownDirection="right"
-              dropdownLinks={[<NavigationLink label="Test" />, <NavigationLink label="Test" />]}
+              dropdownLinks={[<NavigationLink href="#" label="Test" />, <NavigationLink href="#" label="Test" />]}
             />,
           ]}
         />
         <NavigationLink
+          href="#"
           label="Test"
           dropdownLinks={[
             <NavigationLink
+              href="#"
               label="Test"
               dropdownDirection="right"
               dropdownLinks={[
-                <NavigationLink label="Test" />,
-                <NavigationLink label="Test" />,
-                <NavigationLink label="Test" />,
+                <NavigationLink href="#" label="Test" />,
+                <NavigationLink href="#" label="Test" />,
+                <NavigationLink href="#" label="Test" />,
               ]}
             />,
             <NavigationLink
+              href="#"
               label="Test"
               dropdownDirection="right"
-              dropdownLinks={[<NavigationLink label="Test" />, <NavigationLink label="Test" />]}
+              dropdownLinks={[<NavigationLink href="#" label="Test" />, <NavigationLink href="#" label="Test" />]}
             />,
           ]}
         />
