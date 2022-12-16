@@ -44,7 +44,6 @@ export const NavigationLinkDropdown = ({
   const chevronClasses = open ? classNames(styles.chevron, styles.chevronOpen) : styles.chevron;
   const dropdownDirectionClass =
     dropdownDirection === 'right' ? classNames(styles.dropdownMenu, styles.side) : styles.dropdownMenu;
-  const menuClasses = open ? dropdownDirectionClass : styles.hidden;
 
   useEffect(() => {
     // closes the menu when a user clicks outside the container element
@@ -69,20 +68,25 @@ export const NavigationLinkDropdown = ({
       <button type="button" className={styles.button} onClick={handleMenuButtonClick}>
         <IconAngleDown className={chevronClasses} />
       </button>
-      <div className={menuClasses}>
+      <ul className={open ? dropdownDirectionClass : styles.hidden}>
         {React.Children.map(children, (child, childIndex) => {
-          return isValidElement(child)
-            ? cloneElement(child, {
-                index: `${index}-nested-nav-${childIndex}`,
-                openSubNavIndex,
-                setOpenSubNavIndex,
-                className: child.props.active
-                  ? classNames(styles.dropdownLink, styles.activeLink)
-                  : styles.dropdownLink,
-              })
-            : child;
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <li key={`nested-nav-${index}`}>
+              {isValidElement(child)
+                ? cloneElement(child, {
+                    index: `${index}-nested-nav-${childIndex}`,
+                    openSubNavIndex,
+                    setOpenSubNavIndex,
+                    className: child.props.active
+                      ? classNames(styles.dropdownLink, styles.activeLink)
+                      : styles.dropdownLink,
+                  })
+                : child}
+            </li>
+          );
         })}
-      </div>
+      </ul>
     </div>
   );
 };
