@@ -23,10 +23,12 @@ export const Example = (args) => {
           href="#"
           label="Test"
           onClick={(event) => event.preventDefault()}
+          active
           dropdownLinks={[
             <NavigationLink
               label="Test"
               dropdownDirection="right"
+              active
               dropdownLinks={[
                 <NavigationLink label="Test" />,
                 <NavigationLink label="Test" />,
@@ -36,7 +38,7 @@ export const Example = (args) => {
             <NavigationLink
               label="Test"
               dropdownDirection="right"
-              dropdownLinks={[<NavigationLink label="Test" />, <NavigationLink label="Test" />]}
+              dropdownLinks={[<NavigationLink label="Nested" />, <NavigationLink label="Nested" />]}
             />,
           ]}
         />
