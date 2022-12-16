@@ -51,7 +51,6 @@ export const NavigationLinkDropdown = ({
     const handleOutsideClick = (e: MouseEvent) => {
       if (containerRef.current) {
         if (open && !containerRef.current.contains(e.target as Node)) {
-          console.log('Should close on click');
           setOpen(false);
         }
       }
@@ -61,21 +60,25 @@ export const NavigationLinkDropdown = ({
     return () => document.removeEventListener('click', handleOutsideClick);
   }, []);
 
-  const handleOpenChange = () => {
+  const handleMenuButtonClick = () => {
     setOpen(!open);
   };
+
   return (
     <div className={styles.navigationLinkDropdownContainer} ref={mergeRefs<HTMLDivElement>([ref, containerRef])}>
-      <button type="button" className={styles.button} onClick={handleOpenChange}>
+      <button type="button" className={styles.button} onClick={handleMenuButtonClick}>
         <IconAngleDown className={chevronClasses} />
       </button>
       <div className={menuClasses}>
-        {React.Children.map(children, (child) => {
+        {React.Children.map(children, (child, childIndex) => {
           return isValidElement(child)
             ? cloneElement(child, {
-                index: `${index}-nested${index}`,
+                index: `${index}-nested-nav-${childIndex}`,
                 openSubNavIndex,
                 setOpenSubNavIndex,
+                className: child.props.active
+                  ? classNames(styles.dropdownLink, styles.activeLink)
+                  : styles.dropdownLink,
               })
             : child;
         })}
