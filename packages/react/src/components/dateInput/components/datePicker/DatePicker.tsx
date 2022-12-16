@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useMemo, useState, useRef, useEffect } from 'react';
 import addDays from 'date-fns/addDays';
 import endOfDay from 'date-fns/endOfDay';
 import getDaysInMonth from 'date-fns/getDaysInMonth';
@@ -11,7 +11,7 @@ import isValid from 'date-fns/isValid';
 import english from 'date-fns/locale/en-GB';
 import finnish from 'date-fns/locale/fi';
 import swedish from 'date-fns/locale/sv';
-import { usePopper } from 'react-popper';
+import { Modifier, usePopper } from 'react-popper';
 
 import { defaultProps } from './defaults/defaultProps';
 import { DatePickerContext } from '../../context/DatePickerContext';
@@ -169,7 +169,6 @@ export const DatePicker = (providedProps: DayPickerProps) => {
       if (pickerModalElement) {
         pickerModalElement.removeEventListener('keydown', tabbleEventHandler);
       }
-      setIsPopperReady(false);
     };
   }, []);
 
@@ -303,21 +302,28 @@ export const DatePicker = (providedProps: DayPickerProps) => {
 
   const currentMonthAvailableDays: number[] = currentMonthAvailableDates.map((date) => date.getDate());
 
-  // We need to wait for the popper to count the position before we show the datepicker. The initial position might be off and repositioning causes the picker to move after user opens it.
-  const onPopperFirstUpdate = React.useCallback(() => {
-    if (!isPopperReady) {
-      setIsPopperReady(true);
-    }
-  }, [isPopperReady, setIsPopperReady]);
+  const beforePopperWrite: Partial<Modifier<string, object>> = useMemo(
+    () => ({
+      name: 'beforePopperWrite',
+      enabled: true,
+      phase: 'beforeWrite',
+      fn: () => {
+        if (!isPopperReady) {
+          setIsPopperReady(true);
+        }
+      },
+    }),
+    [],
+  );
 
   // Initialize Popper.js
   const { styles: datePickerPopperStyles, attributes: datePickerPopperAttributes } = usePopper(
     inputRef.current,
     pickerWrapperRef.current,
     {
-      onFirstUpdate: onPopperFirstUpdate,
       placement: 'bottom-end',
       modifiers: [
+        beforePopperWrite,
         {
           name: 'offset',
           options: {
