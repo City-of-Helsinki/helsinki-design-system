@@ -302,6 +302,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
 
   const currentMonthAvailableDays: number[] = currentMonthAvailableDates.map((date) => date.getDate());
 
+  // We need to wait for the popper to count the position before we show the datepicker. The initial position might be off and repositioning causes the picker to move after the user opens it.
   const beforePopperWrite: Partial<Modifier<string, object>> = useMemo(
     () => ({
       name: 'beforePopperWrite',
