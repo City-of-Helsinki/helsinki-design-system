@@ -11,6 +11,8 @@
   display: none;
 }
 .dropdownMenu {
+  list-style: none;
+  padding: 0;
   position: absolute;
   left: -10px;
   top: 100%;
@@ -18,12 +20,14 @@
   flex-direction: column;
   border: 1px solid var(--color-black-20);
   min-width: 280px;
+  background-color: var(--color-white);
+  z-index: 1;
   .dropdownLink {
     font-size: var(--fontsize-body-l);
     padding: 10px var(--spacing-s) 14px var(--spacing-s);
     margin: 0;
   }
-  .activeLink {
+  .activeLink::before {
     border-left: 4px solid var(--color-black);
     padding-left: var(--spacing-xs);
   }

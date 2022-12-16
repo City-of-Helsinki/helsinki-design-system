@@ -88,6 +88,11 @@ export const Example = (args) => {
             />,
           ]}
         />
+        <NavigationLink href="#" label="Test" onClick={(event) => event.preventDefault()} />
+        <NavigationLink href="#" label="Test" onClick={(event) => event.preventDefault()} />
+        <NavigationLink href="#" label="Test" onClick={(event) => event.preventDefault()} />
+        <NavigationLink href="#" label="Test" onClick={(event) => event.preventDefault()} />
+        <NavigationLink href="#" label="Test" onClick={(event) => event.preventDefault()} />
       </HeaderNavigationMenu>
     </Header>
   );
