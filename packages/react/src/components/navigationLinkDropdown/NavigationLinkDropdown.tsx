@@ -39,25 +39,22 @@ export const NavigationLinkDropdown = ({
   // State for which nested dropdown link is open
   const [openSubNavIndex, setOpenSubNavIndex] = useState<string | null>(null);
   const [ref] = useMeasure({ debounce: 0, scroll: false, polyfill: ResizeObserver });
-  // menuContainerSize
   const containerRef = useRef<HTMLDivElement>(null);
   const chevronClasses = open ? classNames(styles.chevron, styles.chevronOpen) : styles.chevron;
   const dropdownDirectionClass =
     dropdownDirection === 'right' ? classNames(styles.dropdownMenu, styles.side) : styles.dropdownMenu;
 
   useEffect(() => {
-    // closes the menu when a user clicks outside the container element
+    // Closes the menu when a user clicks outside the container element
     const handleOutsideClick = (e: MouseEvent) => {
-      if (containerRef.current) {
-        if (open && !containerRef.current.contains(e.target as Node)) {
-          setOpen(false);
-        }
+      if (open && containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
       }
     };
 
     document.addEventListener('click', handleOutsideClick);
     return () => document.removeEventListener('click', handleOutsideClick);
-  }, []);
+  });
 
   const handleMenuButtonClick = () => {
     setOpen(!open);
