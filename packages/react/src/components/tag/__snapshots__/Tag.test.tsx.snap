@@ -4,9 +4,11 @@ exports[`<Tag /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
     class="tag"
+    id="hds-tag"
   >
     <span
       class="label"
+      id="hds-tag-label"
     >
       <span>
         Foo
