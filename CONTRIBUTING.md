@@ -6,11 +6,11 @@ Contributions are open even if you don't have a finished solution yet. HDS team 
 
 Send pull requests to `master` branch. Right now all pull requests are welcome. If you do not feel that the PR is anywhere near ready, consider opening a draft pull request. Allowing edits for maintainers is also recommended.
 
-1. Set up your local development environment by following the steps in [DEVELOPMENT.md](/DEVELOPMENT.md).
+1. Set up your local development environment by following the steps in [DEVELOPMENT.md](/DEVELOPMENT.md). Use short and descriptive commit messages e.g. "Add rotate property for Koros component".
 
 2. Create a new branch with prefix `hds-<Ticket number>` if you have a ticket number, otherwise just use prefix `feature/` or `fix/` whichever is more approriate. When submitting large changes split them into light and coherent parts. This sometimes requires sending in multiple PRs.
 
-    * Feature – If you intend to change the public API or introduce new feature.
+    * Feature – If you intend to change the public API or introduce a new feature.
 
     * Fix – If you intend to make a code change to solve a production issue.
 
@@ -26,7 +26,7 @@ yarn test -- -u
 yarn test:lint
 ```
 
-5. Make a Pull Request on the [HDS Github website](https://github.com/City-of-Helsinki/helsinki-design-system/pulls). Please be sure to check the open PRs in case somebody is already working on a similar issue. Also to prevent overlapping work notify HDS team by Slack at #designsystem or via email hds@hel.fi.
+5. Make a Pull Request on the [HDS Github website](https://github.com/City-of-Helsinki/helsinki-design-system/pulls). If you have a ticket number name the PR e.g. "HDS-1377: number input accessibility fix" so it will automatically link to the ticket. Please be sure to check the open PRs in case somebody is already working on a similar issue. Also to prevent overlapping work notify HDS team by Slack at #designsystem or via email hds@hel.fi.
 
 6. HDS team will review the PR and either add it to the release queue, request changes to it or close it with an explanation. PRs are reviewed with the following quality criteria:
 
