@@ -1,44 +1,47 @@
 # Contributing Guidelines
 
-Code ownership and a formal PR approval process is currently in draft phase. Any suggestions and contributions are welcome at this point.
+Contributions are open even if you don't have a finished solution yet. HDS team will help in including your improvement to the system. Read this guide before contributing code to HDS.
 
 ## Sending a pull request
 
 Send pull requests to `master` branch. Right now all pull requests are welcome. If you do not feel that the PR is anywhere near ready, consider opening a draft pull request. Allowing edits for maintainers is also recommended.
 
-Create branches with prefixes `bugfix/`, `feature/` and `hotfix/`.
+1. Set up your local development environment by following the steps in [DEVELOPMENT.md](/DEVELOPMENT.md).
 
-If you decide to fix an issue, please be sure to check the comment thread in case somebody is already working on a fix.
+2. Create a new branch with prefix `hds-<Ticket number>` if you have a ticket number, otherwise just use prefix `feature/` or `fix/` whichever is more approriate. When submitting large changes split them into light and coherent parts. This sometimes requires sending in multiple PRs.
 
-If somebody claims an issue but doesn’t follow up for more than two weeks, it’s fine to take over it but you should still leave a comment.
+    * Feature – If you intend to change the public API or introduce new feature.
 
-We will review your pull request and either merge it, request changes to it, or close it with an explanation.
+    * Fix – If you intend to make a code change to solve a production issue.
 
-### Before submitting a pull request, please make sure the following is done:
+3. If you’ve added code that should be tested, add tests! Ensure the test suite passes and jest snapshot tests are updated by running the following command. Also commit the updated snapshot tests.
 
-1. Fork the repository and create your branch from `master` branch.
+```bash
+yarn test -- -u
+```
 
-2. Run `yarn` in the repository root.
+4. Lint your code. Tip: Lint runs automatically when you build.
 
-3. If you’ve fixed a bug or added code that should be tested, add tests!
+```bash
+yarn test:lint
+```
 
-4. Ensure the test suite passes (`yarn test`).
+5. Make a Pull Request on the [HDS Github website](https://github.com/City-of-Helsinki/helsinki-design-system/pulls). Please be sure to check the open PRs in case somebody is already working on a similar issue. Also to prevent overlapping work notify HDS team by Slack at #designsystem or via email hds@hel.fi.
 
-- [ ] TODO: 5. Run `yarn test -- -u` to update jest snapshot and commit these changes as well (if there are any).
+6. HDS team will review the PR and either add it to the release queue, request changes to it or close it with an explanation. PRs are reviewed with the following quality criteria:
 
-6. Make sure your code lints (`yarn test:lint`). Tip: Lint runs automatically when you build.
+    * Accessibility
 
-### Development workflow
+    * Usability
 
-See [DEVELOPMENT.md](/DEVELOPMENT.md).
+    * Visual consistency
 
-### Proposing a change
+    * Compatibility – [Supported browsers](/packages/react/README.md)
 
-If you intend to change the public API or introduce new feature, create a feature request issue.
+    * Performance
 
-### Evaluating a component candidate
+    * Security
 
-1. Code ownership and a formal PR approval process.
-2. Component contributions that are project specific should be discarded. Design System owners should assess this.
-3. If a component is used in 1-2 places in your project then it's probably not reusable.
-4. Components should be fully contained and not dependent on neighbour components.
+    * Maintainability – Components should be fully contained and not dependent on neighbour components.
+
+Note! Component contributions that are project specific should be discarded. If a component is used in at least 3 places then it's reusable enough to be added to HDS.
