@@ -1,10 +1,11 @@
 import _get from 'lodash.get';
 
 import { CookieContentSource, ContentSourceCookieGroup, createContent, setPropsToObject } from './content.builder';
-import commonContent from './content.json';
+import { getCookieContent } from './getContent';
 import { CookieData, CookieGroup, Content, Category } from './contexts/ContentContext';
 
 describe(`content.builder.ts`, () => {
+  const commonContent = getCookieContent();
   const siteName = 'hel.fi';
   const commonContentTestProps: CookieContentSource = {
     noCommonConsentCookie: true,
@@ -44,8 +45,9 @@ describe(`content.builder.ts`, () => {
   const tunnistamo: CookieData = {
     id: commonContent.commonCookies.tunnistamo.id,
     hostName: commonContent.commonCookies.tunnistamo.hostName,
+    name: commonContent.commonCookies.tunnistamo.name,
     ...commonContent.commonCookies.tunnistamo.fi,
-  };
+  } as CookieData;
 
   const requiredCookies: Category = {
     ...commonContent.requiredCookies.fi,

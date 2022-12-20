@@ -11,7 +11,7 @@ import type {
   TableData,
   ContentContextType,
 } from './contexts/ContentContext';
-import commonContent from './content.json';
+import { getCookieContent } from './getContent';
 import { COOKIE_NAME } from './cookieConsentController';
 
 type ContentSourceCookieData = Partial<CookieData> & {
@@ -58,6 +58,8 @@ type GenericContentObject = {
 };
 
 type MergableContent = Partial<GenericContentObject | ContentSourceCookieGroup | ContentSourceCategory>;
+
+const commonContent = getCookieContent();
 
 function getTexts(language: SupportedLanguage, siteName: string): Content['texts'] {
   const { texts } = commonContent;
