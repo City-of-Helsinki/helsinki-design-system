@@ -23,7 +23,7 @@ type ContentSourceCookieData = Partial<CookieData> & {
 export type ContentSourceCookieGroup = Omit<Partial<CookieGroup>, 'cookies'> & {
   commonGroup?: string;
   id?: string;
-  cookies: ContentSourceCookieData[];
+  cookies?: ContentSourceCookieData[];
 };
 
 export type ContentSourceCategory = Omit<Partial<Category>, 'groups'> & {
