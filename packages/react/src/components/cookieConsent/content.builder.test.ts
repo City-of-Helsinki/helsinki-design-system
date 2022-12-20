@@ -491,7 +491,7 @@ describe(`content.builder.ts`, () => {
 
       expect(filterContentWithoutFunctions(contentWithCookie)).toEqual(filterContentWithoutFunctions(expectedResult));
     });
-    it('common cookie texts cannoy be overridden', () => {
+    it('common cookie texts cannot be overridden', () => {
       const newCookieTexts: Partial<CookieData> = {
         name: 'New cookie name',
         description: 'New cookie description',
@@ -529,6 +529,28 @@ describe(`content.builder.ts`, () => {
           },
         }),
       ).toThrow();
+    });
+    it('commonCookies and cookies in a commonGroup are appended to the resulting group', () => {
+      const contentWithCookie = createContent({
+        ...commonContentTestProps,
+        requiredCookies: {
+          groups: [
+            {
+              commonGroup: 'tunnistamoLogin',
+              cookies: [{ ...matomo }],
+            },
+          ],
+        },
+      });
+
+      const expectedCookies = [...commonContent.commonGroups.tunnistamoLogin.cookies, matomo] as Record<
+        string,
+        string
+      >[];
+      const buildCookies = contentWithCookie.requiredCookies?.groups[0].cookies;
+
+      expect(expectedCookies.length > 0).toBeTruthy();
+      expect(expectedCookies.map((data) => data.commonCookie || data.id)).toEqual(buildCookies?.map((data) => data.id));
     });
   });
   describe('contentSource.<category>.groups[]', () => {
