@@ -1020,3 +1020,51 @@ export const DebugVersion = (args) => {
 DebugVersion.parameters = {
   loki: { skip: true },
 };
+
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+export const TunnistamoLoginCookies = (args) => {
+  const [language, setLanguage] = useState<SupportedLanguage>('en');
+  const onLanguageChange = (newLang) => setLanguage(newLang);
+  const contentSource: CookieContentSource = {
+    siteName: `Site title ${language}`,
+    texts: {
+      sections: {
+        main: {
+          title: 'List all cookies used in Tunnistamo login',
+          text:
+            'This is an example how to get consents for all cookies when using Tunnistamo login flow. All used session, language, load balancer and csrf cookies are listed. Tunnistamo uses Tunnistus and Suomi.fi services and cookies of those services are also listed as they have no consent queries of their own.',
+        },
+      },
+    },
+    currentLanguage: language,
+    requiredCookies: {
+      groups: [
+        { commonGroup: 'tunnistamoLogin' },
+        { commonGroup: 'loadBalancing', cookies: [{ commonCookie: 'tunnistamo-login-loadbalancer' }] },
+        {
+          commonGroup: 'informationSecurity',
+          cookies: [{ commonCookie: 'tunnistamo-csrftoken' }],
+        },
+        {
+          commonGroup: 'language',
+          cookies: [{ commonCookie: 'keycloak-language' }, { commonCookie: 'suomifi-language' }],
+        },
+      ],
+    },
+    language: {
+      onLanguageChange,
+    },
+    focusTargetSelector: '#focused-element-after-cookie-consent-closed',
+  };
+
+  return (
+    <>
+      <CookiePage contentSource={contentSource} />
+    </>
+  );
+};
+
+TunnistamoLoginCookies.parameters = {
+  loki: { skip: true },
+};
