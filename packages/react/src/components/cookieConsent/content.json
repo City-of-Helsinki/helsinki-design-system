@@ -442,6 +442,16 @@
         "expandAriaLabel": "Show cookie information related to shared cookie consent",
         "checkboxAriaDescription": "City of Helsinki services use shared consent. We will store these consents so that you do not have to accept the same cookies again on other City services."
       }
+    },
+    "tunnistamoLogin": {
+      "cookies": [
+        {
+          "commonCookie": "keycloak"
+        },
+        {
+          "commonCookie": "tunnistamo"
+        }
+      ]
     }
   },
   "commonCookies": {
