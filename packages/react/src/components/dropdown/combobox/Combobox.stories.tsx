@@ -274,3 +274,31 @@ export const WithExternalLabel = (args) => {
 };
 
 WithExternalLabel.storyName = 'With external label';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const MultiSelectWithDefaultValue = (args) => {
+  // this story also tests very long labels are displayed correctly.
+  const optionsWithLongText = [
+    { label: 'This is a long text that is wider than the container, but should still be visible' },
+    ...options,
+  ];
+  return (
+    <Combobox
+      aria-labelledby="externalLabelId"
+      id={getId()}
+      helper="Choose an element"
+      placeholder="Placeholder"
+      clearButtonAriaLabel="Clear selection"
+      options={optionsWithLongText}
+      onBlur={action('onBlur')}
+      onChange={(change) => action('onChange')(change)}
+      onFocus={action('onFocus')}
+      toggleButtonAriaLabel="Open the combobox"
+      defaultValue={[optionsWithLongText[0], optionsWithLongText[1], optionsWithLongText[4]]}
+      selectedItemRemoveButtonAriaLabel="Remove element {value}"
+      multiselect
+    />
+  );
+};
+
+MultiSelectWithDefaultValue.storyName = 'Multi-select with pre-selected values';

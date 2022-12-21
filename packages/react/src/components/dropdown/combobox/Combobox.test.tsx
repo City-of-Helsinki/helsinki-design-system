@@ -33,7 +33,7 @@ const defaultProps: ComboboxProps<{ label: string; value: string }> = {
   toggleButtonAriaLabel: 'Open the combobox',
 };
 
-const getWrapper = (props?: unknown) => render(<Combobox {...defaultProps} {...props} />);
+const getWrapper = (props?: Record<string, unknown>) => render(<Combobox {...defaultProps} {...props} />);
 
 describe('<Combobox />', () => {
   it('renders the component', () => {
@@ -61,7 +61,7 @@ describe('<Combobox />', () => {
 
   it('user should be able to search and choose an option ', async () => {
     const onChange = jest.fn();
-    const { getAllByLabelText, getAllByRole, queryByDisplayValue } = getWrapper({ onChange });
+    const { getAllByLabelText, getAllByRole, getByDisplayValue } = getWrapper({ onChange });
     const input = getAllByLabelText(label)[0];
     userEvent.type(input, 'Fi');
     const visibleOptions = getAllByRole('option');
@@ -72,7 +72,7 @@ describe('<Combobox />', () => {
     userEvent.click(visibleOptions[0]);
     await waitFor(() => {
       // Ensure that chosen option is shown as value of input
-      expect(queryByDisplayValue(options[0].label)).toBeDefined();
+      expect(getByDisplayValue(options[0].label)).toBeDefined();
       // Ensure that chosen option has been sent with the onChange event
       expect(onChange).toHaveBeenCalledWith(options[0]);
     });
