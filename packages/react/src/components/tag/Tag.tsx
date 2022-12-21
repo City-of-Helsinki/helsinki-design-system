@@ -37,6 +37,10 @@ export type TagProps = {
    */
   id?: string;
   /**
+   * Additional class names to apply to the tag's label element
+   */
+  labelClassName?: string;
+  /**
    * Props that will be passed to the label `<span>` element.
    */
   labelProps?: React.ComponentPropsWithoutRef<'span'>;
@@ -73,6 +77,7 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
       deleteButtonAriaLabel,
       deleteButtonProps,
       id = 'hds-tag',
+      labelClassName,
       labelProps,
       onClick,
       onDelete,
@@ -94,6 +99,8 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
       if (event.key === 'Enter' || event.key === ' ') onClick(event);
     };
 
+    const labelContainerClassName = classNames(styles.label, labelClassName);
+
     return (
       <div
         id={id}
@@ -102,7 +109,7 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
         {...(clickable && { tabIndex: 0, role, onClick, onKeyDown })}
         {...rest}
       >
-        <span id={id && `${id}-label`} className={styles.label} {...labelProps}>
+        <span id={id && `${id}-label`} className={labelContainerClassName} {...labelProps}>
           {srOnlyLabel && <span className={styles.visuallyHidden}>{srOnlyLabel}</span>}
           <span aria-hidden={!!srOnlyLabel}>{children}</span>
         </span>
