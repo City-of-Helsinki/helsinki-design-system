@@ -295,13 +295,13 @@ export const PlaygroundBlock = (props) => {
       libPackage: getPackage(childrenProps.className),
     };
   });
-  const codeByPackage = codeBlocks.reduce((acc, block) => {
+  const packageCodeObject = codeBlocks.reduce((acc, block) => {
     acc[block.libPackage] = block.code;
     return acc;
   }, {});
-  const [codeByPackageState, setCodeByPackageState] = useState(codeByPackage);
-  const setCodeByPackage = (libPackage) => (code) => {
-    setCodeByPackageState({ ...codeByPackageState, [libPackage]: code });
+  const [packageCodes, setPackageCodes] = useState(packageCodeObject);
+  const updatePackageCode = (libPackage) => (code) => {
+    setPackageCodes({ ...packageCodes, [libPackage]: code });
   };
 
   return (
@@ -313,8 +313,7 @@ export const PlaygroundBlock = (props) => {
           ))}
         </TabList>
         {codeBlocks.map(({ code, language, libPackage }) => {
-          const sanitizedCode = sanitize(codeByPackage[libPackage]);
-
+          const sanitizedCode = sanitize(packageCodes[libPackage]);
           return (
             <TabPanel key={libPackage}>
               <LiveProvider code={sanitizedCode} scope={scopeComponents} language={language}>
@@ -328,8 +327,8 @@ export const PlaygroundBlock = (props) => {
                     libPackage={libPackage}
                     initialCode={sanitize(code)}
                     language={language}
-                    onChange={setCodeByPackage(libPackage)}
-                    code={codeByPackageState[libPackage]}
+                    onChange={updatePackageCode(libPackage)}
+                    code={packageCodes[libPackage]}
                   />
                 </div>
               </LiveProvider>
