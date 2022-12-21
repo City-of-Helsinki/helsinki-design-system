@@ -251,6 +251,7 @@ export const SelectedItems = <OptionType,>({
               className={styles.tag}
               id={tagId}
               labelProps={{ 'aria-labelledby': `${dropdownId}-label ${tagId}-label` }}
+              labelClassName={styles.tagLabel}
               role="button"
               deleteButtonAriaLabel={replaceTokenWithValue(removeButtonAriaLabel, selectedItemLabel)}
               // remove delete button from focus order

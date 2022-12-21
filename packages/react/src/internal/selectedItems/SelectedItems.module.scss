@@ -34,10 +34,10 @@
 
   &.truncateFirstChild {
     flex-wrap: nowrap;
-    & > :first-child {
+    & > .tag:first-child {
       justify-content: flex-end;
       overflow: hidden;
-      > span {
+      .tagLabel {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
