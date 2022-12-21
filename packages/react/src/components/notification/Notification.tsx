@@ -82,6 +82,11 @@ type CommonProps = React.PropsWithChildren<{
    * @default 'info'
    */
   type?: NotificationType;
+  /**
+   * The aria-level of the heading element
+   * @default 2
+   */
+  headingLevel?: number;
 }>;
 
 type PositionAndSize =
@@ -197,6 +202,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
       size = 'default',
       style,
       type = 'info',
+      headingLevel = 2,
     }: NotificationProps,
     ref,
   ) => {
@@ -268,7 +274,10 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
           <div className={styles.content} ref={ref}>
             {label && (
               // Toast or invisible notifications do not always notice heading if role heading or aria-level is present.
-              <div className={styles.label} {...(isToast || invisible ? {} : { role: 'heading', 'aria-level': 2 })}>
+              <div
+                className={styles.label}
+                {...(isToast || invisible ? {} : { role: 'heading', 'aria-level': headingLevel })}
+              >
                 <Icon className={styles.icon} aria-hidden />
                 <ConditionalVisuallyHidden visuallyHidden={size === 'small'}>{label}</ConditionalVisuallyHidden>
               </div>
