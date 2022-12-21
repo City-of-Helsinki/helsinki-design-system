@@ -26,8 +26,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [DateInput] Datepicker performance improvements
 - [DateInput] Unnecessary error logs removed from the tests
 
-### Core
-
 ### Documentation
 
 #### Changed
