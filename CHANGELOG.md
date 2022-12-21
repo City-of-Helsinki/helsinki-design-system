@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.9.0] - December, 21, 2022
+
+### Design kit
+
+#### Added
+
+- [Tag] Possibility to override colours when using Tag symbols in Sketch
+
+### React Components
+
+#### Added
+
+- [Accordion] Possibility to set notification heading level
+- [Tag] Support for labelClass property
+
+#### Fixed
+
+- [DateInput] Datepicker performance improvements
+- [DateInput] Unnecessary error logs removed from the tests
+- [Dropdown] First dropdown tag is truncated if it's longer than the container
+
+### Documentation
+
+#### Changed
+
+- Contributing guide on Github has been updated to serve a more streamlined process
+
+#### Fixed
+
+- Navigation component's language selector is now focusable
+
 ## [2.8.0] - November, 30, 2022
 
 ### Design kit
