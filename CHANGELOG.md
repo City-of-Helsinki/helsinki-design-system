@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - [Accordion] Possibility to set notification heading level
+- [Tag] Support for labelClass property
 
 #### Fixed
 
