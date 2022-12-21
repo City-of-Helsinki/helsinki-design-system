@@ -41,8 +41,10 @@ Read more [here](DEVELOPMENT.md).
 - [Loki](https://loki.js.org/) for visual regression testing
 
 ## Supported browsers
+
 Helsinki Design System uses the react-scripts library's default browserslist config to target a broad range of browsers.
 This means that the following browsers are supported:
+
 - Chrome
 - Chrome for Android
 - Chrome for iOS ([uses same engine as Safari iOS](https://github.com/browserslist/browserslist#browsers))
@@ -58,5 +60,6 @@ This means that the following browsers are supported:
 The supported browser versions are listed in [browserslists test page](https://browsersl.ist/#q=%3E+0.2%25%2C+not+dead%2C+not+op_mini+all&region=FI)
 
 More info about browser support:
+
 - [Create React App - Configuring Supported Browsers](https://create-react-app.dev/docs/supported-browsers-features/#configuring-supported-browsers)
 - [HDS documentation general FAQ - What browser and browser versions are supported?](https://hds.hel.fi/getting-started/faq#general)
