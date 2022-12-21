@@ -14,7 +14,7 @@ Send pull requests to `master` branch. Right now all pull requests are welcome. 
 
     * Fix – If you intend to make a code change to solve a production issue.
 
-3. If you’ve added code that should be tested, add tests! Ensure the test suite passes and jest snapshot tests are updated by running the following command. Also commit the updated snapshot tests.
+3. If you’ve added code that should be tested, add tests! Ensure the test suite passes and Jest snapshot tests are updated by running the following command. Also commit the updated snapshot tests. HDS support includes responsive design so testing on different screen sizes on real devices, simulators, or browser tools is encouraged.
 
 ```bash
 yarn test -- -u
