@@ -30,6 +30,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
+#### Changed
+
+- Contributing guide on Github has been updated to serve a more streamlined process
+
 #### Fixed
 
 - Navigation component's language selector is now focusable
