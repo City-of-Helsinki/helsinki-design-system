@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-classes-per-file */
-import React from 'react';
+import React, { useState } from 'react';
 import { act } from 'react-dom/test-utils';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -36,24 +36,35 @@ describe('<DateInput /> spec', () => {
     global.Date = RealDate;
   });
 
-  it('renders the component with default props', () => {
+  it('renders the component with default props', async () => {
     const { asFragment } = render(<DateInput id="date" />);
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Choose date'));
+    });
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('renders the component with additional props', () => {
+  it('renders the component with additional props', async () => {
     const { asFragment } = render(<DateInput id="date" label="Foo" disableConfirmation />);
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Choose date'));
+    });
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('renders the component with different languages', () => {
-    const { asFragment } = render(
-      <>
-        <DateInput id="date" language="en" />
-        <DateInput id="date" language="fi" />
-        <DateInput id="date" language="sv" />
-      </>,
-    );
+  it('renders the component with Finnish language', async () => {
+    const { asFragment } = render(<DateInput id="date" language="fi" />);
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Valitse päivämäärä'));
+    });
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('renders the component with Swedish language', async () => {
+    const { asFragment } = render(<DateInput id="date" language="sv" />);
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Välj datum'));
+    });
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -298,22 +309,47 @@ describe('<DateInput /> spec', () => {
     expect(container.querySelector('[aria-pressed="true"]')).toBeNull();
   });
 
-  it('should be able to clear the value', async () => {
-    const { rerender } = render(<DateInput id="date" label="Foo" value="10.02.2022" />);
+  it('should be able to clear the value with external button', async () => {
+    const clearButtonText = 'Clear value';
+    const DatePickerWithClearButton = () => {
+      const [value, setValue] = useState<string>('10.02.2022');
+      return (
+        <>
+          <button type="button" onClick={() => setValue('')}>
+            {clearButtonText}
+          </button>
+          <DateInput id="date" label="Foo" value={value} />
+        </>
+      );
+    };
+    render(<DatePickerWithClearButton />);
 
     // The initial value should be there
     expect(screen.getByRole('textbox')).toHaveValue('10.02.2022');
+
+    // Click the calendar button to show datepicker
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Choose date'));
+    });
 
     expect(screen.getByLabelText('Month')).toHaveValue('1');
     expect(screen.getByLabelText('Year')).toHaveValue('2022');
 
     // Set an empty string as the input value
     await act(async () => {
-      rerender(<DateInput id="date" value="" />);
+      userEvent.click(
+        screen.getByRole('button', {
+          name: clearButtonText,
+        }),
+      );
     });
-
     // The initial value should be cleared
     expect(screen.getByRole('textbox')).toHaveValue('');
+
+    // Click the calendar button to show datepicker
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Choose date'));
+    });
 
     expect(screen.getByLabelText('Month')).toHaveValue('0');
     expect(screen.getByLabelText('Year')).toHaveValue('2021');

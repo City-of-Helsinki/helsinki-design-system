@@ -44,6 +44,7 @@ exports[`<TooltipNew /> spec opens the tooltip when button is clicked 1`] = `
       Tooltip content
       <div
         class="arrow"
+        style="position: absolute;"
       />
     </section>
   </div>

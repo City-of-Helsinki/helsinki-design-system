@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useMemo, useState, useRef, useEffect } from 'react';
 import addDays from 'date-fns/addDays';
 import endOfDay from 'date-fns/endOfDay';
 import getDaysInMonth from 'date-fns/getDaysInMonth';
@@ -11,7 +11,7 @@ import isValid from 'date-fns/isValid';
 import english from 'date-fns/locale/en-GB';
 import finnish from 'date-fns/locale/fi';
 import swedish from 'date-fns/locale/sv';
-import { usePopper } from 'react-popper';
+import { Modifier, usePopper } from 'react-popper';
 
 import { defaultProps } from './defaults/defaultProps';
 import { DatePickerContext } from '../../context/DatePickerContext';
@@ -75,6 +75,8 @@ export const DatePicker = (providedProps: DayPickerProps) => {
    * Currently selected date
    */
   const [selectedDate, setSelectedDate] = useState<Date>(selected || null);
+
+  const [isPopperReady, setIsPopperReady] = useState<boolean>(false);
 
   /**
    * Update the selected date from props
@@ -300,6 +302,21 @@ export const DatePicker = (providedProps: DayPickerProps) => {
 
   const currentMonthAvailableDays: number[] = currentMonthAvailableDates.map((date) => date.getDate());
 
+  // We need to wait for the popper to count the position before we show the datepicker. The initial position might be off and repositioning causes the picker to move after the user opens it.
+  const beforePopperWrite: Partial<Modifier<string, object>> = useMemo(
+    () => ({
+      name: 'beforePopperWrite',
+      enabled: true,
+      phase: 'beforeWrite',
+      fn: () => {
+        if (!isPopperReady) {
+          setIsPopperReady(true);
+        }
+      },
+    }),
+    [],
+  );
+
   // Initialize Popper.js
   const { styles: datePickerPopperStyles, attributes: datePickerPopperAttributes } = usePopper(
     inputRef.current,
@@ -307,6 +324,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     {
       placement: 'bottom-end',
       modifiers: [
+        beforePopperWrite,
         {
           name: 'offset',
           options: {
@@ -327,7 +345,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
   return (
     <div
       ref={pickerWrapperRef}
-      className={classNames(styles.pickerWrapper, open && styles.isVisible)}
+      className={classNames(styles.pickerWrapper, isPopperReady && styles.isVisible)}
       role="dialog"
       aria-modal="true"
       aria-hidden={open ? undefined : true}
