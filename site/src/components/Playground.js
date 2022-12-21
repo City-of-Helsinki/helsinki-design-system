@@ -96,8 +96,6 @@ const clearSelection = () => {
   }
 };
 
-const isJsx = (language) => language === 'jsx';
-
 const sanitize = (code) => {
   const trimmedCode = code.trim();
   return trimmedCode.startsWith('{') && trimmedCode.endsWith('}')
@@ -105,15 +103,15 @@ const sanitize = (code) => {
     : trimmedCode;
 };
 
-const HtmlLivePreview = ({ code }) => {
+const HtmlLivePreview = ({ libPackage, code }) => {
   const sanitizedHtml = () => ({
     __html: sanitizeHtml(code, sanitizeConfig),
   });
 
-  return <PlaygroundPreviewComponent dangerouslySetInnerHTML={sanitizedHtml()} />;
+  return <PlaygroundPreviewComponent key={libPackage} dangerouslySetInnerHTML={sanitizedHtml()} />;
 };
 
-const Editor = ({ onChange, initialCode, code, language }) => {
+const Editor = ({ onChange, initialCode, libPackage, code, language }) => {
   const viewPortRef = useRef();
   const copyButtonRef = useRef();
   const [resetCount, setResetCount] = useState(0);
@@ -174,7 +172,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
 
   return (
     <>
-      <div className="playground-block-editor">
+      <div className="playground-block-editor" key={libPackage}>
         <div // eslint-disable-line jsx-a11y/no-static-element-interactions
           className="playground-block-editor-viewport"
           tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
@@ -262,51 +260,76 @@ Editor.propTypes = {
 
 const EditorWithLive = withLive(Editor);
 
+const jsxLangaugeKey = 'jsx';
+const htmlLangaugeKey = 'html';
+
+const getLanguage = (className) => {
+  if (className.includes('web-components')) {
+    return htmlLangaugeKey;
+  } else if (className.includes('html')) {
+    return htmlLangaugeKey;
+  }
+  return jsxLangaugeKey;
+};
+
+const ReactPackage = 'React';
+const CorePackage = 'Core';
+const WebComponentsPackage = 'WebComponents';
+
+const getPackage = (className) => {
+  if (className.includes('web-components')) {
+    return WebComponentsPackage;
+  } else if (className.includes('html')) {
+    return CorePackage;
+  }
+  return ReactPackage;
+};
+
 export const PlaygroundBlock = (props) => {
   const scopeComponents = useMDXScope();
   const codeBlocks = React.Children.toArray(props.children).map(({ props }) => {
     const childrenProps = props.children.props;
     return {
       code: childrenProps.children,
-      language: childrenProps.className && childrenProps.className.split('-')[1],
+      language: getLanguage(childrenProps.className),
+      libPackage: getPackage(childrenProps.className),
     };
   });
-  const codeByLanguage = codeBlocks.reduce((acc, block) => {
-    acc[block.language] = block.code;
+  const codeByPackage = codeBlocks.reduce((acc, block) => {
+    acc[block.libPackage] = block.code;
     return acc;
   }, {});
-  const [codeByLanguageState, setCodeByLanguageState] = useState(codeByLanguage);
-  const setCodeByLanguage = (language) => (code) => {
-    setCodeByLanguageState({ ...codeByLanguageState, [language]: code });
+  const [codeByPackageState, setCodeByPackageState] = useState(codeByPackage);
+  const setCodeByPackage = (libPackage) => (code) => {
+    setCodeByPackageState({ ...codeByPackageState, [libPackage]: code });
   };
 
   return (
     <div className="playground-block">
       <Tabs>
         <TabList className="playground-block-tabs">
-          {codeBlocks.map(({ language }) => (
-            <Tab key={language}>{isJsx(language) ? 'React' : 'Core'}</Tab>
+          {codeBlocks.map(({ libPackage }) => (
+            <Tab key={libPackage}>{libPackage}</Tab>
           ))}
         </TabList>
-        {codeBlocks.map(({ code, language }) => {
-          const sanitizedCode = sanitize(codeByLanguageState[language]);
-          const PreviewComponent = () =>
-            isJsx(language) ? (
-              <LivePreview className={playgroundPreviewClassName} />
-            ) : (
-              <HtmlLivePreview code={sanitizedCode} />
-            );
+        {codeBlocks.map(({ code, language, libPackage }) => {
+          const sanitizedCode = sanitize(codeByPackage[libPackage]);
 
           return (
-            <TabPanel key={language}>
+            <TabPanel key={libPackage}>
               <LiveProvider code={sanitizedCode} scope={scopeComponents} language={language}>
                 <div className="playground-block-content">
-                  <PreviewComponent />
+                  {libPackage === ReactPackage ? (
+                    <LivePreview className={playgroundPreviewClassName} />
+                  ) : (
+                    <HtmlLivePreview libPackage={libPackage} code={sanitizedCode} />
+                  )}
                   <EditorWithLive
+                    libPackage={libPackage}
                     initialCode={sanitize(code)}
                     language={language}
-                    onChange={setCodeByLanguage(language)}
-                    code={codeByLanguageState[language]}
+                    onChange={setCodeByPackage(libPackage)}
+                    code={codeByPackageState[libPackage]}
                   />
                 </div>
               </LiveProvider>
