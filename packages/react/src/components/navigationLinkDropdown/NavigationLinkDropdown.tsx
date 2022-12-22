@@ -1,6 +1,4 @@
-import React, { cloneElement, isValidElement, useEffect, useRef, useState } from 'react';
-import useMeasure from 'react-use-measure';
-import mergeRefs from 'react-merge-refs';
+import React, { cloneElement, isValidElement, useState } from 'react';
 
 // import core base styles
 import 'hds-core';
@@ -38,34 +36,23 @@ export const NavigationLinkDropdown = ({
 }: NavigationLinkDropdownProps) => {
   // State for which nested dropdown link is open
   const [openSubNavIndex, setOpenSubNavIndex] = useState<string | null>(null);
-  const [ref] = useMeasure({ debounce: 0, scroll: false, polyfill: ResizeObserver });
-  const containerRef = useRef<HTMLDivElement>(null);
   const chevronClasses = open ? classNames(styles.chevron, styles.chevronOpen) : styles.chevron;
   const dropdownDirectionClass =
     dropdownDirection === 'right' ? classNames(styles.dropdownMenu, styles.side) : styles.dropdownMenu;
 
-  useEffect(() => {
-    // Closes the menu when a user clicks outside the container element
-    const handleOutsideClick = (e: MouseEvent) => {
-      if (open && containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-
-    document.addEventListener('click', handleOutsideClick);
-    return () => document.removeEventListener('click', handleOutsideClick);
-  });
-
-  const handleMenuButtonClick = () => {
-    setOpen(!open);
-  };
+  const handleMenuButtonClick = () => setOpen(!open);
 
   return (
-    <div className={styles.navigationLinkDropdownContainer} ref={mergeRefs<HTMLDivElement>([ref, containerRef])}>
-      <button type="button" className={styles.button} onClick={handleMenuButtonClick}>
+    <div className={styles.navigationLinkDropdownContainer}>
+      <button
+        type="button"
+        className={styles.button}
+        onClick={handleMenuButtonClick}
+        data-testid={`dropdown-button-${index}`}
+      >
         <IconAngleDown className={chevronClasses} />
       </button>
-      <ul className={open ? dropdownDirectionClass : styles.hidden}>
+      <ul className={open ? dropdownDirectionClass : styles.hidden} data-testid={`dropdown-menu-${index}`}>
         {React.Children.map(children, (child, childIndex) => {
           return (
             // eslint-disable-next-line react/no-array-index-key

@@ -1,4 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import useMeasure from 'react-use-measure';
+import mergeRefs from 'react-merge-refs';
 
 // import core base styles
 import 'hds-core';
@@ -26,7 +28,7 @@ export type NavigationLinkProps = Omit<
    */
   dropdownDirection?: 'down' | 'right';
   /**
-   * Array of NavigationLink components to render in a dropdown.
+   * Array of NavigationLink components to render in a dropdown. Can be used only inside navigation components.
    */
   dropdownLinks?: Array<React.ReactElement>;
   /**
@@ -74,7 +76,10 @@ export const NavigationLink = ({
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [dropdownOpenedBy, setDropdownOpenedBy] = useState<null | ('hover' | 'click')>(null);
   const { openMainNavIndex, setOpenMainNavIndex } = useContext(HeaderNavigationMenuContext);
+  const [ref] = useMeasure({ debounce: 0, scroll: false, polyfill: ResizeObserver });
+  const containerRef = useRef<HTMLDivElement>(null);
 
+  // Handle dropdown open state by calling either internal state or context
   const handleDropdownOpen = (val: boolean) => {
     setDropdownOpen(val);
     // If sub navigation props given, call them
@@ -83,30 +88,36 @@ export const NavigationLink = ({
     }
     // Otherwise it's safe to assume that this link is from main navigation and we can call context
     else {
-      setOpenMainNavIndex(val ? index : null);
+      // If closing dropdown, call context only if this is the open main nav dropdown. No need for checks if opening though.
+      // eslint-disable-next-line no-lonely-if
+      if ((val !== isDropdownOpen && openMainNavIndex === index) || val) {
+        setOpenMainNavIndex(val ? index : null);
+      }
     }
   };
 
   const handleDropdownClickedOpen = (val: boolean) => {
-    setDropdownOpenedBy(val === false ? null : 'click');
+    setDropdownOpenedBy(!val ? null : 'click');
     handleDropdownOpen(val);
   };
 
   const handleDropdownHoveredOpen = (val: boolean) => {
-    setDropdownOpenedBy(val === false ? null : 'hover');
+    setDropdownOpenedBy(!val ? null : 'hover');
     handleDropdownOpen(val);
   };
 
   const closeDropdown = () => {
-    setDropdownOpenedBy(null);
     setDropdownOpen(false);
+    setDropdownOpenedBy(null);
   };
 
   useEffect(() => {
     // If sub navigation index is provided, we don't need to react to main nav context changes.
     if (openSubNavIndex === undefined) {
       // Since only one navigation link menu should be open, close this one if it's open when another one opens.
-      if (openMainNavIndex !== index && isDropdownOpen) closeDropdown();
+      if (openMainNavIndex !== index && isDropdownOpen) {
+        closeDropdown();
+      }
     }
   }, [openMainNavIndex]);
 
@@ -115,10 +126,26 @@ export const NavigationLink = ({
     if (openSubNavIndex !== index) closeDropdown();
   }, [openSubNavIndex]);
 
+  const handleOutsideClick = useCallback(
+    (e: MouseEvent) => {
+      if (isDropdownOpen && containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        closeDropdown();
+      }
+    },
+    [isDropdownOpen],
+  );
+
+  /* Set event listener only when dropdown open */
+  useEffect(() => {
+    if (isDropdownOpen) document.addEventListener('click', handleOutsideClick);
+    return () => document.removeEventListener('click', handleOutsideClick);
+  }, [isDropdownOpen]);
+
   return (
     <span
       className={styles.navigationLinkWrapper}
       {...(dropdownLinks && dropdownOpenedBy === 'hover' && { onMouseLeave: () => handleDropdownHoveredOpen(false) })}
+      ref={mergeRefs<HTMLDivElement>([ref, containerRef])}
     >
       <Link
         className={classNames(styles.navigationLink, className, active ? styles.active : undefined)}
