@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<HeaderNavigationMenu /> spec renders the component 1`] = `
+<DocumentFragment>
+  <nav
+    class="headerNavigationMenu"
+    role="navigation"
+  >
+    <ul
+      class="headerNavigationMenuList"
+    />
+  </nav>
+</DocumentFragment>
+`;

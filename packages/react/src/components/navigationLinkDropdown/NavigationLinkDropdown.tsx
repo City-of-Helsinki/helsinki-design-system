@@ -52,7 +52,11 @@ export const NavigationLinkDropdown = ({
       >
         <IconAngleDown className={chevronClasses} />
       </button>
-      <ul className={open ? dropdownDirectionClass : styles.hidden} data-testid={`dropdown-menu-${index}`}>
+      <ul
+        className={dropdownDirectionClass}
+        {...(!open && { style: { display: 'none' } })}
+        data-testid={`dropdown-menu-${index}`}
+      >
         {React.Children.map(children, (child, childIndex) => {
           return (
             // eslint-disable-next-line react/no-array-index-key
