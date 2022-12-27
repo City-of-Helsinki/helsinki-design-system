@@ -122,6 +122,22 @@ export const SearchInput = <SuggestionItem,>({
   const showLoadingSpinner = useShowLoadingSpinner(isLoading, 1500 - SUGGESTIONS_DEBOUNCE_VALUE);
   const isControlledComponent = value !== undefined && onChange;
 
+  const dispatchValueChange = (changedValue: string) => {
+    if (isControlledComponent) {
+      onChange(changedValue);
+    } else {
+      setInternalValue(changedValue);
+    }
+  };
+
+  // onInputValueChange of the useCombobox hook is not used,
+  // because it causes some sort of async input value update.
+  // That causes input value to be out of sync in second re-render.
+  // That causes cursor to always jump to the end of the input.
+  const onInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatchValueChange(e.target.value);
+  };
+
   const {
     isOpen,
     getLabelProps,
@@ -133,17 +149,11 @@ export const SearchInput = <SuggestionItem,>({
     reset,
   } = useCombobox<SuggestionItem>({
     items: suggestions,
-    onInputValueChange: (e) => {
-      if (isControlledComponent) {
-        onChange(e.inputValue);
-      } else {
-        setInternalValue(e.inputValue);
-      }
-    },
     onStateChange(props) {
       const { ItemClick } = useCombobox.stateChangeTypes;
       if (props.type === ItemClick) {
         isItemClicked.current = true;
+        dispatchValueChange(props.inputValue);
       }
     },
     itemToString: (item) => (item ? `${item[suggestionLabelField]}` : ''),
@@ -196,6 +206,7 @@ export const SearchInput = <SuggestionItem,>({
         <input
           {...getInputProps({
             onKeyUp: onInputKeyUp,
+            onChange: onInputValueChange,
             ref: inputRef,
             role: getComboboxProps().role,
             'aria-expanded': getComboboxProps()['aria-expanded'],
