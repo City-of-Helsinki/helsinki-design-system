@@ -14,7 +14,11 @@ export default {
     HeaderUniversalBar,
     HeaderNavigationMenu,
     NavigationLink,
+<<<<<<< HEAD
   },
+=======
+  }
+>>>>>>> 3b32047e9 (Update loki reference images and set up proper subcomponents for stories)
   parameters: {
     controls: { expanded: true },
   },
