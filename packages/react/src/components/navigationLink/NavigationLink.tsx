@@ -1,6 +1,4 @@
 import React, { cloneElement, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import useMeasure from 'react-use-measure';
-import mergeRefs from 'react-merge-refs';
 
 // import core base styles
 import 'hds-core';
@@ -76,8 +74,7 @@ export const NavigationLink = ({
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [dropdownOpenedBy, setDropdownOpenedBy] = useState<null | ('hover' | 'click')>(null);
   const { openMainNavIndex, setOpenMainNavIndex } = useContext(HeaderNavigationMenuContext);
-  const [ref] = useMeasure({ debounce: 0, scroll: false, polyfill: ResizeObserver });
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLSpanElement>(null);
 
   // Handle dropdown open state by calling either internal state or context
   const handleDropdownOpen = (val: boolean) => {
@@ -123,7 +120,9 @@ export const NavigationLink = ({
 
   useEffect(() => {
     // If nested nav index differs from this, this link's dropdown should close
-    if (openSubNavIndex !== index) closeDropdown();
+    if (openSubNavIndex !== undefined && openSubNavIndex !== index) {
+      closeDropdown();
+    }
   }, [openSubNavIndex]);
 
   const handleOutsideClick = useCallback(
@@ -145,7 +144,7 @@ export const NavigationLink = ({
     <span
       className={styles.navigationLinkWrapper}
       {...(dropdownLinks && dropdownOpenedBy === 'hover' && { onMouseLeave: () => handleDropdownHoveredOpen(false) })}
-      ref={mergeRefs<HTMLDivElement>([ref, containerRef])}
+      ref={containerRef}
     >
       <Link
         className={classNames(styles.navigationLink, className, active ? styles.active : undefined)}
