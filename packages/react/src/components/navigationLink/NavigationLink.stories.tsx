@@ -11,11 +11,6 @@ export default {
   parameters: {
     controls: { expanded: true },
   },
-  subcomponents: {
-    Header,
-    HeaderNavigationMenu,
-    StoryWIPAlert,
-  },
   args: {
     label: 'NavigationLink',
     href: '#',

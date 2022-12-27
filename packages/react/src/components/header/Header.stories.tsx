@@ -9,6 +9,11 @@ import { HeaderNavigationMenu } from '../headerNavigationMenu';
 export default {
   component: Header,
   title: 'Components/Header',
+  subcomponents: {
+    HeaderUniversalBar,
+    HeaderNavigationMenu,
+    NavigationLink,
+  }
   parameters: {
     controls: { expanded: true },
   },
