@@ -13,7 +13,7 @@ export default {
     HeaderUniversalBar,
     HeaderNavigationMenu,
     NavigationLink,
-  }
+  },
   parameters: {
     controls: { expanded: true },
   },
