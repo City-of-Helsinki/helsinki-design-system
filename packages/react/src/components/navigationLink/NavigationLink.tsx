@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { cloneElement, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import useMeasure from 'react-use-measure';
 import mergeRefs from 'react-merge-refs';
 
@@ -164,7 +164,11 @@ export const NavigationLink = ({
           index={index}
           dropdownDirection={dropdownDirection}
         >
-          {dropdownLinks}
+          {React.Children.map(dropdownLinks, (child, childIndex) => {
+            return cloneElement(child, {
+              key: `nested-nav-${childIndex}`,
+            });
+          })}
         </NavigationLinkDropdown>
       )}
     </span>
