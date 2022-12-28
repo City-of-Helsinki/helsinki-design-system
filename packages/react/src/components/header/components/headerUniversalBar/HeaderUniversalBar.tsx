@@ -6,7 +6,7 @@ import styles from './HeaderUniversalBar.module.scss';
 import { NavigationLink } from '../navigationLink';
 import { HeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
-import { getChildElements } from '../../../../utils/getChildren';
+import { getChildElementsEvenIfContainerInbetween } from '../../../../utils/getChildren';
 
 export type HeaderUniversalBarProps = React.PropsWithChildren<{
   /**
@@ -44,7 +44,7 @@ export const HeaderUniversalBar = ({
 }: HeaderUniversalBarProps) => {
   const { isSmallScreen } = useContext(HeaderContext);
   if (isSmallScreen) return null;
-  const childElements = getChildElements(children);
+  const childElements = getChildElementsEvenIfContainerInbetween(children);
 
   return (
     <nav role="navigation" aria-label={ariaLabel} id={id} className={styles.headerUniversalBar}>

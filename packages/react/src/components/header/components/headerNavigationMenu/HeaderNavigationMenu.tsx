@@ -5,7 +5,7 @@ import 'hds-core';
 import styles from './HeaderNavigationMenu.module.scss';
 import { HeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
-import { getChildElements } from '../../../../utils/getChildren';
+import { getChildElementsEvenIfContainerInbetween } from '../../../../utils/getChildren';
 import { HeaderNavigationMenuContext, HeaderNavigationMenuContextProps } from './HeaderNavigationMenuContext';
 
 export type HeaderNavigationMenuProps = React.PropsWithChildren<{
@@ -30,7 +30,7 @@ export const HeaderNavigationMenu = ({ ariaLabel, children, id }: HeaderNavigati
   we could see if this component with its contents (altered for small screens) could be 
   sent to HeaderContext and used in ActionBar? */
   if (isSmallScreen) return null;
-  const childElements = getChildElements(children);
+  const childElements = getChildElementsEvenIfContainerInbetween(children);
   const context: HeaderNavigationMenuContextProps = { openMainNavIndex: openIndex, setOpenMainNavIndex: setOpenIndex };
 
   return (
