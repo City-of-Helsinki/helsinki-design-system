@@ -62,7 +62,7 @@ export const NavigationLinkDropdown = ({
             // eslint-disable-next-line react/no-array-index-key
             <li key={`nested-nav-${index}`}>
               {isValidElement(child)
-                ? cloneElement(child, {
+                ? cloneElement(child as React.ReactElement, {
                     index: `${index}-nested-nav-${childIndex}`,
                     openSubNavIndex,
                     setOpenSubNavIndex,
