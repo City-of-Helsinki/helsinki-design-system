@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useState, useRef, useEffect, useCallback } from 'react';
+import React, { KeyboardEvent, useState, useRef, useEffect } from 'react';
 import { useCombobox } from 'downshift';
 
 // import core base styles
@@ -138,6 +138,13 @@ export const SearchInput = <SuggestionItem,>({
     dispatchValueChange(e.target.value);
   };
 
+  const submitValue = (val?: string) => {
+    const inputElementValue = inputRef.current?.value;
+    const valueToSubmit = val !== undefined ? val : inputElementValue;
+    onSubmit(valueToSubmit);
+    setIsSubmitted(true);
+  };
+
   const {
     isOpen,
     getLabelProps,
@@ -154,32 +161,21 @@ export const SearchInput = <SuggestionItem,>({
       if (props.type === ItemClick) {
         isItemClicked.current = true;
         dispatchValueChange(props.inputValue);
+        submitValue(props.inputValue);
       }
     },
     itemToString: (item) => (item ? `${item[suggestionLabelField]}` : ''),
     ...(isControlledComponent && { inputValue }),
   });
 
-  const submit = useCallback(() => {
-    setIsSubmitted(true);
-    onSubmit(inputValue);
-  }, [setIsSubmitted, onSubmit, inputValue]);
-
   const onInputKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
     const key = event.key || event.keyCode;
     if (key === 'Enter' || key === 13) {
-      submit();
+      submitValue();
     } else {
       setIsSubmitted(false);
     }
   };
-
-  useEffect(() => {
-    if (isItemClicked.current) {
-      isItemClicked.current = false;
-      submit();
-    }
-  }, [isItemClicked, submit]);
 
   const clear = () => {
     reset();
@@ -233,7 +229,7 @@ export const SearchInput = <SuggestionItem,>({
               type="button"
               aria-label={searchButtonAriaLabel}
               className={classNames(styles.button)}
-              onClick={submit}
+              onClick={() => submitValue()}
             >
               <IconSearch className={styles.searchIcon} aria-hidden />
             </button>
