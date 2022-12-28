@@ -37,7 +37,7 @@ export type NavigationLinkProps = Omit<
    * Element index given by parent mapping.
    * @internal
    */
-  index?: string;
+  index?: number;
   /**
    * Label for link.
    */
@@ -46,12 +46,12 @@ export type NavigationLinkProps = Omit<
    * Which sub navigation index is open.
    * @internal
    */
-  openSubNavIndex?: string;
+  openSubNavIndex?: number;
   /**
    * Set which sub navigation index is open.
    * @internal
    */
-  setOpenSubNavIndex?: (val: string | null) => void;
+  setOpenSubNavIndex?: (val: number) => void;
   /**
    * Size of the link.
    */
@@ -81,14 +81,14 @@ export const NavigationLink = ({
     setDropdownOpen(val);
     // If sub navigation props given, call them
     if (openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined && index !== undefined) {
-      setOpenSubNavIndex(val ? index : null);
+      setOpenSubNavIndex(val ? index : -1);
     }
     // Otherwise it's safe to assume that this link is from main navigation and we can call context
     else {
       // If closing dropdown, call context only if this is the open main nav dropdown. No need for checks if opening though.
       // eslint-disable-next-line no-lonely-if
       if (((val !== isDropdownOpen && openMainNavIndex === index) || val) && setOpenMainNavIndex) {
-        setOpenMainNavIndex(val ? index : undefined);
+        setOpenMainNavIndex(val ? index : -1);
       }
     }
   };
@@ -109,9 +109,9 @@ export const NavigationLink = ({
   };
 
   useEffect(() => {
-    // If sub navigation index is provided, we don't need to react to main nav context changes.
+    // If sub navigation index is not provided, we need to react to main nav context changes.
     if (openSubNavIndex === undefined) {
-      // Since only one navigation link menu should be open, close this one if it's open when another one opens.
+      // Since only one navigation link menu should be open, close this one if it's not the one that's open.
       if (openMainNavIndex !== index && isDropdownOpen) {
         closeDropdown();
       }
@@ -120,7 +120,7 @@ export const NavigationLink = ({
 
   useEffect(() => {
     // If nested nav index differs from this, this link's dropdown should close
-    if (openSubNavIndex !== undefined && openSubNavIndex !== index) {
+    if (openSubNavIndex !== undefined && openSubNavIndex !== index && isDropdownOpen) {
       closeDropdown();
     }
   }, [openSubNavIndex]);
@@ -165,7 +165,7 @@ export const NavigationLink = ({
         >
           {React.Children.map(dropdownLinks, (child, childIndex) => {
             return cloneElement(child as React.ReactElement, {
-              key: `nested-nav-${childIndex}`,
+              key: childIndex,
             });
           })}
         </NavigationLinkDropdown>

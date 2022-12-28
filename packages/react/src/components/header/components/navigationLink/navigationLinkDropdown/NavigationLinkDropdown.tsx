@@ -16,7 +16,7 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
    * Element index given by parent mapping.
    * @internal
    */
-  index?: string;
+  index?: number;
   /**
    * Is dropdown open.
    */
@@ -35,7 +35,7 @@ export const NavigationLinkDropdown = ({
   setOpen,
 }: NavigationLinkDropdownProps) => {
   // State for which nested dropdown link is open
-  const [openSubNavIndex, setOpenSubNavIndex] = useState<string | null>(null);
+  const [openSubNavIndex, setOpenSubNavIndex] = useState<number>(-1);
   const chevronClasses = open ? classNames(styles.chevron, styles.chevronOpen) : styles.chevron;
   const dropdownDirectionClass =
     dropdownDirection === 'right' ? classNames(styles.dropdownMenu, styles.side) : styles.dropdownMenu;
@@ -60,10 +60,10 @@ export const NavigationLinkDropdown = ({
         {React.Children.map(children, (child, childIndex) => {
           return (
             // eslint-disable-next-line react/no-array-index-key
-            <li key={`nested-nav-${index}`}>
+            <li key={index}>
               {isValidElement(child)
                 ? cloneElement(child as React.ReactElement, {
-                    index: `${index}-nested-nav-${childIndex}`,
+                    index: childIndex,
                     openSubNavIndex,
                     setOpenSubNavIndex,
                     className: child.props.active
