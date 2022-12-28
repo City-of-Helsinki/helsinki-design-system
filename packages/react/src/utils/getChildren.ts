@@ -30,15 +30,15 @@ export const getComponentFromChildren = (children: React.ReactNode, componentNam
  * Get the child elements even if there is a parent container element.
  * @param children
  */
-export const getChildElements = (children) => {
+export const getChildElementsEvenIfContainerInbetween = (children: React.ReactNode) => {
   const arrayChildren = React.Children.toArray(children);
   const childrenHasContainer =
     arrayChildren.length === 1 &&
     React.isValidElement(arrayChildren[0]) &&
     Boolean(arrayChildren[0].props.children) &&
     (React.isValidElement(arrayChildren[0].props.children) || Array.isArray(arrayChildren[0].props.children));
-  /* If user gives a container element, we dig out the child links in order to have correct styles for them. */
 
+  /* If there's a container element in between, we dig out the child elements from within. */
   if (childrenHasContainer && React.isValidElement(arrayChildren[0])) {
     return React.Children.toArray(arrayChildren[0].props.children);
   }

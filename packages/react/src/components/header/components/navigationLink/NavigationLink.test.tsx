@@ -42,10 +42,13 @@ describe('<NavigationLink /> spec', () => {
     // Click the first main navigation link's dropdown button
     userEvent.click(screen.getByTestId('dropdown-button-main-nav-0'));
     expect(screen.getByTestId('dropdown-menu-main-nav-0')).toBeVisible();
+
     // Click the second main navigation link's dropdown button
     userEvent.click(screen.getByTestId('dropdown-button-main-nav-1'));
+
     // Now the second dropdown should show
     expect(screen.getByTestId('dropdown-menu-main-nav-1')).toBeVisible();
+
     // The first dropdown should not be visible. This can only be tested if display: none; is set inline!
     expect(screen.getByTestId('dropdown-menu-main-nav-0')).not.toBeVisible();
   });
