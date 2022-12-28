@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
 import { NavigationLink } from './NavigationLink';
-import { HeaderNavigationMenuWrapper } from '../../utils/test-utils';
+import { HeaderNavigationMenuWrapper } from '../../../../utils/test-utils';
 
 describe('<NavigationLink /> spec', () => {
   it('renders the component', () => {

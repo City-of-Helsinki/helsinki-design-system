@@ -34,7 +34,7 @@ export const HeaderNavigationMenu = ({ ariaLabel, children, id }: HeaderNavigati
   const context: HeaderNavigationMenuContextProps = { openMainNavIndex: openIndex, setOpenMainNavIndex: setOpenIndex };
 
   return (
-    <nav role="navigation" aria-label={ariaLabel} id={id} className={styles.navigationMenu}>
+    <nav role="navigation" aria-label={ariaLabel} id={id} className={styles.headerNavigationMenu}>
       <ul className={styles.headerNavigationMenuList}>
         <HeaderNavigationMenuContext.Provider value={context}>
           {Children.map(childElements, (child, index) => {
