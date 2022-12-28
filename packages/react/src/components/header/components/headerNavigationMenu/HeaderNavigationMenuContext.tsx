@@ -4,11 +4,11 @@ export type HeaderNavigationMenuContextProps = {
   /**
    * Which navigation item is open.
    */
-  openMainNavIndex?: string;
+  openMainNavIndex?: number;
   /**
    * Set index for which navigation item is open.
    */
-  setOpenMainNavIndex?: (arg?: string) => void;
+  setOpenMainNavIndex?: (arg: number) => void;
 };
 
 export const HeaderNavigationMenuContext = createContext<HeaderNavigationMenuContextProps>({});
