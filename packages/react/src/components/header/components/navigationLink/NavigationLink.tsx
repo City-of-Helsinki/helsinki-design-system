@@ -164,7 +164,7 @@ export const NavigationLink = ({
           dropdownDirection={dropdownDirection}
         >
           {React.Children.map(dropdownLinks, (child, childIndex) => {
-            return cloneElement(child, {
+            return cloneElement(child as React.ReactElement, {
               key: `nested-nav-${childIndex}`,
             });
           })}

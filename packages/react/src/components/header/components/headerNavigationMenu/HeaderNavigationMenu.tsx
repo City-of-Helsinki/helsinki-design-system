@@ -46,7 +46,7 @@ export const HeaderNavigationMenu = ({ ariaLabel, children, id }: HeaderNavigati
                 // eslint-disable-next-line react/no-array-index-key
                 <li key={`main-nav-${index}`} className={styles.headerNavigationMenuLinkContainer}>
                   <span className={linkContainerClasses}>
-                    {cloneElement(child, {
+                    {cloneElement(child as React.ReactElement, {
                       className: classNames(child.props.className, styles.headerNavigationMenuLink),
                       index: `main-nav-${index}`,
                     })}
