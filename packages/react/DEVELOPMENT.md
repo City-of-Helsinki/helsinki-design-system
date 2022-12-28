@@ -43,8 +43,7 @@ Also note the section below about visual regression tests and adding new compone
 
 ## Visual regression tests
 
-`hds-react` uses [Loki](https://loki.js.org/) for visual regression testing. Make sure [git lfs](https://git-lfs.github.com/) is installed properly
-before running visual tests or modifying reference images. Reference images are stored in this repository with git-lfs.
+`hds-react` uses [Loki](https://loki.js.org/) for visual regression testing.
 Loki is using the Chrome browser inside a Docker container, so Docker needs to also be available.
 
 ### Running visual tests

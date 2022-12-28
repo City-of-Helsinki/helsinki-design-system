@@ -9,36 +9,29 @@
 - [Node](https://nodejs.org/en/)
 - [Yarn](https://yarnpkg.com/)
 - [Docker](https://www.docker.com/) (for visual regression tests)
-- [Git lfs](https://git-lfs.github.com/) (installation instructions below)
 
 ### Setting up local development environment
 
-1. Download and Install [git lfs](https://git-lfs.github.com/) which is used to store images outside repository.
-
-```bash
-git lfs install
-```
-
-2. Clone the HDS repository.
+1. Clone the HDS repository.
 
 ```bash
 git clone https://github.com/City-of-Helsinki/helsinki-design-system.git
 ```
 
-3. Go to the root of the project and install dependencies with `yarn`.
+2. Go to the root of the project and install dependencies with `yarn`.
 
 ```bash
 cd helsinki-design-system
 yarn
 ```
 
-4. Build packages with `yarn build`. This builds all packages; core, react, design-tokens, and site (documentation).
+3. Build packages with `yarn build`. This builds all packages; core, react, design-tokens, and site (documentation).
 
 ```bash
 yarn build
 ```
 
-5. Start the development server. You can start these individually for each platform with `yarn start:<platform>`. For example, to start the React Storybook development environment, run:
+4. Start the development server. You can start these individually for each platform with `yarn start:<platform>`. For example, to start the React Storybook development environment, run:
 
 ```bash
 yarn start:react
