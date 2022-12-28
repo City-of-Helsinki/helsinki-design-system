@@ -3,10 +3,10 @@ import React, { cloneElement, useCallback, useContext, useEffect, useRef, useSta
 // import core base styles
 import 'hds-core';
 import styles from './NavigationLink.module.scss';
-import classNames from '../../utils/classNames';
-import { Link } from '../link';
+import classNames from '../../../../utils/classNames';
+import { Link } from '../../../link';
 import { HeaderNavigationMenuContext } from '../headerNavigationMenu/HeaderNavigationMenuContext';
-import { NavigationLinkDropdown } from '../navigationLinkDropdown';
+import { NavigationLinkDropdown } from './navigationLinkDropdown';
 
 export type NavigationLinkProps = Omit<
   React.ComponentPropsWithoutRef<'a'>,
@@ -32,7 +32,7 @@ export type NavigationLinkProps = Omit<
   /**
    * Hypertext Reference of the link.
    */
-  href?: string;
+  href: string;
   /**
    * Element index given by parent mapping.
    * @internal
@@ -51,7 +51,7 @@ export type NavigationLinkProps = Omit<
    * Set which sub navigation index is open.
    * @internal
    */
-  setOpenSubNavIndex?: (val: string) => void;
+  setOpenSubNavIndex?: (val: string | null) => void;
   /**
    * Size of the link.
    */
@@ -80,15 +80,15 @@ export const NavigationLink = ({
   const handleDropdownOpen = (val: boolean) => {
     setDropdownOpen(val);
     // If sub navigation props given, call them
-    if (openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined) {
+    if (openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined && index !== undefined) {
       setOpenSubNavIndex(val ? index : null);
     }
     // Otherwise it's safe to assume that this link is from main navigation and we can call context
     else {
       // If closing dropdown, call context only if this is the open main nav dropdown. No need for checks if opening though.
       // eslint-disable-next-line no-lonely-if
-      if ((val !== isDropdownOpen && openMainNavIndex === index) || val) {
-        setOpenMainNavIndex(val ? index : null);
+      if (((val !== isDropdownOpen && openMainNavIndex === index) || val) && setOpenMainNavIndex) {
+        setOpenMainNavIndex(val ? index : undefined);
       }
     }
   };

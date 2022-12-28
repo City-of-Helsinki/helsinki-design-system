@@ -4,9 +4,9 @@ import React, { Children, cloneElement, useContext } from 'react';
 import 'hds-core';
 import styles from './HeaderUniversalBar.module.scss';
 import { NavigationLink } from '../navigationLink';
-import { HeaderContext } from '../header/HeaderContext';
-import classNames from '../../utils/classNames';
-import { getChildElements } from '../../utils/getChildren';
+import { HeaderContext } from '../../HeaderContext';
+import classNames from '../../../../utils/classNames';
+import { getChildElements } from '../../../../utils/getChildren';
 
 export type HeaderUniversalBarProps = React.PropsWithChildren<{
   /**

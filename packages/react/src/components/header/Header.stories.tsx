@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Header } from './Header';
-import { HeaderUniversalBar } from '../headerUniversalBar/HeaderUniversalBar';
-import { NavigationLink } from '../navigationLink/NavigationLink';
+import { HeaderUniversalBar } from './components/headerUniversalBar/HeaderUniversalBar';
+import { NavigationLink } from './components/navigationLink/NavigationLink';
+import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { StoryWIPAlert } from '../../internal/storyWIPAlert/StoryWIPAlert';
-import { HeaderNavigationMenu } from '../headerNavigationMenu';
 
 export default {
   component: Header,
@@ -31,40 +31,68 @@ export const WithFullFeatures = (args) => (
   <>
     <StoryWIPAlert />
     <Header {...args}>
-      <HeaderUniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
-        <NavigationLink href="#" label="Link 1" />
-        <NavigationLink href="#" label="Link 2" />
-        <NavigationLink href="#" label="Link 3" />
-      </HeaderUniversalBar>
-      <HeaderNavigationMenu>
-        <NavigationLink
+      <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
+        <Header.NavigationLink href="#" label="Link 1" />
+        <Header.NavigationLink href="#" label="Link 2" />
+        <Header.NavigationLink href="#" label="Link 3" />
+      </Header.UniversalBar>
+      <Header.NavigationMenu>
+        <Header.NavigationLink
           href="#"
           label="Link 1"
           onClick={(event) => event.preventDefault()}
           active
           dropdownLinks={[
-            <NavigationLink
+            <Header.NavigationLink
               href="#"
               label="Test"
               dropdownDirection="right"
               active
               dropdownLinks={[
-                <NavigationLink href="#" label="Nested" />,
-                <NavigationLink href="#" label="Nested" />,
-                <NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
               ]}
             />,
-            <NavigationLink
+            <Header.NavigationLink
               href="#"
               label="Test"
               dropdownDirection="right"
-              dropdownLinks={[<NavigationLink href="#" label="Nested" />, <NavigationLink href="#" label="Nested" />]}
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+              ]}
             />,
           ]}
         />
-        <NavigationLink href="#" label="Link 2" />
-        <NavigationLink href="#" label="Link 3" />
-      </HeaderNavigationMenu>
+        <Header.NavigationLink
+          href="#"
+          label="Link 2"
+          dropdownLinks={[
+            <Header.NavigationLink
+              href="#"
+              label="Test"
+              dropdownDirection="right"
+              active
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+              ]}
+            />,
+            <Header.NavigationLink
+              href="#"
+              label="Test"
+              dropdownDirection="right"
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+              ]}
+            />,
+          ]}
+        />
+        <Header.NavigationLink href="#" label="Link 3" />
+      </Header.NavigationMenu>
     </Header>
   </>
 );
@@ -73,11 +101,11 @@ export const WithUniversalBar = (args) => (
   <>
     <StoryWIPAlert />
     <Header {...args}>
-      <HeaderUniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
-        <NavigationLink href="#" label="Link 1" />
-        <NavigationLink href="#" label="Link 2" />
-        <NavigationLink href="#" label="Link 3" />
-      </HeaderUniversalBar>
+      <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
+        <Header.NavigationLink href="#" label="Link 1" />
+        <Header.NavigationLink href="#" label="Link 2" />
+        <Header.NavigationLink href="#" label="Link 3" />
+      </Header.UniversalBar>
     </Header>
   </>
 );
@@ -86,35 +114,63 @@ export const WithNavigationMenu = (args) => (
   <>
     <StoryWIPAlert />
     <Header {...args}>
-      <HeaderNavigationMenu>
-        <NavigationLink
+      <Header.NavigationMenu>
+        <Header.NavigationLink
           href="#"
           label="Link 1"
           onClick={(event) => event.preventDefault()}
           active
           dropdownLinks={[
-            <NavigationLink
+            <Header.NavigationLink
               href="#"
               label="Test"
               dropdownDirection="right"
               active
               dropdownLinks={[
-                <NavigationLink href="#" label="Nested" />,
-                <NavigationLink href="#" label="Nested" />,
-                <NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
               ]}
             />,
-            <NavigationLink
+            <Header.NavigationLink
               href="#"
               label="Test"
               dropdownDirection="right"
-              dropdownLinks={[<NavigationLink href="#" label="Nested" />, <NavigationLink href="#" label="Nested" />]}
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+              ]}
             />,
           ]}
         />
-        <NavigationLink href="#" label="Link 2" />
-        <NavigationLink href="#" label="Link 3" />
-      </HeaderNavigationMenu>
+        <Header.NavigationLink
+          href="#"
+          label="Link 2"
+          dropdownLinks={[
+            <Header.NavigationLink
+              href="#"
+              label="Test"
+              dropdownDirection="right"
+              active
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+              ]}
+            />,
+            <Header.NavigationLink
+              href="#"
+              label="Test"
+              dropdownDirection="right"
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+              ]}
+            />,
+          ]}
+        />
+        <Header.NavigationLink href="#" label="Link 3" />
+      </Header.NavigationMenu>
     </Header>
   </>
 );

@@ -3,8 +3,8 @@ import React, { cloneElement, isValidElement, useState } from 'react';
 // import core base styles
 import 'hds-core';
 import styles from './NavigationLinkDropdown.module.scss';
-import { IconAngleDown } from '../../icons';
-import classNames from '../../utils/classNames';
+import { IconAngleDown } from '../../../../../icons';
+import classNames from '../../../../../utils/classNames';
 
 export type NavigationLinkDropdownProps = React.PropsWithChildren<{
   /**
@@ -20,11 +20,11 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
   /**
    * Is dropdown open.
    */
-  open?: boolean;
+  open: boolean;
   /**
    * Function that is called when open value is changed.
    */
-  setOpen?: (isOpen: boolean) => void;
+  setOpen: (isOpen: boolean) => void;
 }>;
 
 export const NavigationLinkDropdown = ({
