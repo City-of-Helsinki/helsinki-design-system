@@ -177,6 +177,20 @@ export const SearchInput = <SuggestionItem,>({
     }
   };
 
+  const onInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    // isOpen is sometimes true for no reason
+    if (isOpen && suggestions.length) {
+      return;
+    }
+    if (event.key === 'Home' || event.key === 'End') {
+      // When preventDownshiftDefault = true, downshift does not alter native behavior
+      // eslint-disable-next-line no-param-reassign
+      (event.nativeEvent as typeof event.nativeEvent & {
+        preventDownshiftDefault: boolean;
+      }).preventDownshiftDefault = true;
+    }
+  };
+
   const clear = () => {
     reset();
     inputRef.current.focus();
@@ -202,6 +216,7 @@ export const SearchInput = <SuggestionItem,>({
         <input
           {...getInputProps({
             onKeyUp: onInputKeyUp,
+            onKeyDown: onInputKeyDown,
             onChange: onInputValueChange,
             ref: inputRef,
             role: getComboboxProps().role,
