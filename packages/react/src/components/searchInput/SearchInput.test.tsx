@@ -71,6 +71,35 @@ describe('<SearchInput /> spec', () => {
     expect(onSubmit.mock.calls[0][0]).toBe('Apple');
   });
 
+  it('submits the selected value on enter press or icon click', async () => {
+    const onSubmit = jest.fn();
+    const { getByLabelText } = render(
+      <SearchInput<SuggestionItemType>
+        label="search"
+        suggestionLabelField="value"
+        getSuggestions={getSuggestions}
+        onSubmit={onSubmit}
+      />,
+    );
+
+    const input = getByLabelText('search', { selector: 'input' });
+    userEvent.type(input, 'abc{enter}');
+    await waitFor(() => {
+      expect(onSubmit.mock.calls[0][0]).toBe('abc');
+    });
+    const clearButton = getByLabelText('Clear', { selector: 'button' });
+    const submitButton = getByLabelText('Search', { selector: 'button' });
+    userEvent.click(clearButton);
+    await waitFor(() => {
+      expect(input.getAttribute('value')).toBe('');
+    });
+    userEvent.type(input, '1234');
+    userEvent.click(submitButton);
+    await waitFor(() => {
+      expect(onSubmit.mock.calls[1][0]).toBe('1234');
+    });
+  });
+
   it('renders the input with default value', async () => {
     const onSubmit = jest.fn();
     const onChange = jest.fn();
