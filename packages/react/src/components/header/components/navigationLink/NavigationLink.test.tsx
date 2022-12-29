@@ -11,11 +11,13 @@ describe('<NavigationLink /> spec', () => {
     const { asFragment } = render(<NavigationLink href="#" label="Link" />);
     expect(asFragment()).toMatchSnapshot();
   });
+
   it('should not have basic accessibility issues', async () => {
     const { container } = render(<NavigationLink href="#" label="Link" />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
   it('should open dropdown when the button is clicked', async () => {
     render(
       <NavigationLink
@@ -27,10 +29,11 @@ describe('<NavigationLink /> spec', () => {
       />,
       { wrapper: HeaderNavigationMenuWrapper },
     );
-    userEvent.click(screen.getByTestId('dropdown-button-main-nav-0'));
 
+    userEvent.click(screen.getByTestId('dropdown-button-main-nav-0'));
     expect(screen.getByTestId('dropdown-menu-main-nav-0')).toBeVisible();
   });
+
   it('should have only one main dropdown active', async () => {
     render(
       <>
@@ -39,6 +42,7 @@ describe('<NavigationLink /> spec', () => {
       </>,
       { wrapper: HeaderNavigationMenuWrapper },
     );
+
     // Click the first main navigation link's dropdown button
     userEvent.click(screen.getByTestId('dropdown-button-main-nav-0'));
     expect(screen.getByTestId('dropdown-menu-main-nav-0')).toBeVisible();

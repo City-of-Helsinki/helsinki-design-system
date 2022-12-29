@@ -9,6 +9,7 @@ describe('<HeaderUniversalBar /> spec', () => {
     const { asFragment } = render(<HeaderUniversalBar primaryLinkText="hel.fi" primaryLinkHref="#" />);
     expect(asFragment()).toMatchSnapshot();
   });
+
   it('should not have basic accessibility issues', async () => {
     const { container } = render(<HeaderUniversalBar primaryLinkText="hel.fi" primaryLinkHref="#" />);
     const results = await axe(container);

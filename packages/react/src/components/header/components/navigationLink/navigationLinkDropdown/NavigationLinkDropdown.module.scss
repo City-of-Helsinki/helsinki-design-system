@@ -1,71 +1,83 @@
 .navigationLinkDropdownContainer {
   outline: none;
 }
+
 .chevron {
   transition: transform 0.2s ease-in;
 }
+
 .chevronOpen {
   transform: rotate(180deg);
 }
+
 .hidden {
   display: none;
 }
+
 .dropdownMenu {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-black-20);
+  display: flex;
+  flex-direction: column;
   list-style: none;
+  min-width: 280px;
   padding: 0;
   position: absolute;
   left: -10px;
   top: 100%;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--color-black-20);
-  min-width: 280px;
-  background-color: var(--color-white);
   z-index: 1;
+
   .dropdownLink {
     font-size: var(--fontsize-body-l);
-    padding: 10px var(--spacing-s) 14px var(--spacing-s);
     margin: 0;
+    padding: 10px var(--spacing-s) 14px var(--spacing-s);
   }
+
   .activeLink::before {
     border-left: 4px solid var(--color-black);
     padding-left: var(--spacing-xs);
   }
+
   .dropdownLink::before {
     content: '';
     height: 100%;
-    position: absolute;
-    left: 0;
-    bottom: 0;
     margin: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 0;
   }
+
   .dropdownLink:hover::before {
     border-left: 4px solid var(--color-black);
     transition: border-left 100ms ease-in;
   }
 }
+
 .side {
   left: 282px;
   top: -1px;
 }
+
 .button {
+  background-color: var(--color-black-5);
+  border: none;
+  box-sizing: content-box;
   display: block;
   height: 24px;
-  width: 24px;
-  border: none;
   padding: 3px;
-  box-sizing: content-box;
-  background-color: var(--color-black-5);
+  width: 24px;
 }
+
 .button:hover {
   background-color: var(--color-black-20);
   cursor: pointer;
 }
+
 .button:focus {
   border: 3px solid var(--color-coat-of-arms);
-  outline: none;
-  margin: 0;
-  padding: 0;
   box-sizing: content-box;
+  margin: 0;
+  outline: none;
+  padding: 0;
 }
