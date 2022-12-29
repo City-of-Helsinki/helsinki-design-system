@@ -32,7 +32,7 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
   /**
    * Function that is called when open value is changed.
    */
-  setOpen: (isOpen: boolean, event: React.MouseEvent) => void;
+  setOpen: (isOpen: boolean, event: React.MouseEvent, interaction: NavigationLinkInteraction) => void;
 }>;
 
 export const NavigationLinkDropdown = ({
@@ -50,7 +50,7 @@ export const NavigationLinkDropdown = ({
     ? classNames(styles.dropdownMenu, styles[dynamicPosition])
     : styles.dropdownMenu;
 
-  const handleMenuButtonClick = (e: React.MouseEvent) => setOpen(!open, e);
+  const handleMenuButtonClick = (e: React.MouseEvent) => setOpen(!open, e, NavigationLinkInteraction.Click);
 
   return (
     <div className={styles.navigationLinkDropdownContainer}>
