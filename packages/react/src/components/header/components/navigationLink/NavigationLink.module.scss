@@ -1,10 +1,10 @@
 .navigationLink.navigationLink {
   --link-visited-color: none;
   --link-color: var(--color-black-90);
-  text-decoration: none;
   display: flex;
-  word-wrap: break-word;
   line-height: var(--lineheight-l);
+  text-decoration: none;
+  word-wrap: break-word;
 }
 
 .active {
