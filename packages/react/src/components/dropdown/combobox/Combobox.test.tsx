@@ -121,7 +121,7 @@ describe('<Combobox />', () => {
         multiselect: true,
       });
 
-      const input = getAllByLabelText(label)[0];
+      const input = getAllByLabelText(label)[0] as HTMLInputElement;
 
       // Search an option
       userEvent.type(input, 'Fi');
@@ -131,6 +131,8 @@ describe('<Combobox />', () => {
       // Choose one option
       userEvent.click(visibleOptions[0]);
       await waitFor(() => {
+        // input value is not cleared on selection
+        expect(input.value).toBe('Fi');
         // Ensure that it's visible in selected items
         expect(queryAllByText(options[0].label).length).toEqual(2);
         // Ensure that it has been passed upwards with onChange
@@ -138,10 +140,24 @@ describe('<Combobox />', () => {
         expect(onChange).toHaveBeenCalledWith([options[0]]);
       });
 
+      // clear input text
+      userEvent.clear(input);
       // Search another option
       userEvent.type(input, 'bo');
-      expect(getAllByRole('option').length).toBe(2);
-      userEvent.click(getAllByRole('option')[1]);
+      const newVisibleOptions = getAllByRole('option');
+      // Ensure that options are filtered correctly
+      expect(newVisibleOptions.length).toBe(2);
+      userEvent.click(newVisibleOptions[1]);
+      await waitFor(() => {
+        // input value is not cleared on selection
+        expect(input.value).toBe('bo');
+        // Ensure that it's visible in selected items
+        expect(queryAllByText(options[4].label).length).toEqual(2);
+        // Ensure that it has been passed upwards with onChange
+      });
+
+      // clear input text so all options will be visible again
+      userEvent.clear(input);
       await waitFor(() => {
         // Ensure that previous and current selection are visible in
         // selected items
