@@ -75,12 +75,13 @@ export const NavigationLink = ({
   const [dropdownOpenedBy, setDropdownOpenedBy] = useState<null | ('hover' | 'click')>(null);
   const { openMainNavIndex, setOpenMainNavIndex } = useContext(HeaderNavigationMenuContext);
   const containerRef = useRef<HTMLSpanElement>(null);
+  const isSubNavLink = openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined;
 
   // Handle dropdown open state by calling either internal state or context
   const handleDropdownOpen = (val: boolean) => {
     setDropdownOpen(val);
     // If sub navigation props given, call them
-    if (openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined && index !== undefined) {
+    if (isSubNavLink && index !== undefined) {
       setOpenSubNavIndex(val ? index : -1);
     }
     // Otherwise it's safe to assume that this link is from main navigation and we can call context
@@ -110,7 +111,7 @@ export const NavigationLink = ({
 
   useEffect(() => {
     // If sub navigation index is not provided, we need to react to main nav context changes.
-    if (openSubNavIndex === undefined) {
+    if (!isSubNavLink) {
       // Since only one navigation link menu should be open, close this one if it's not the one that's open.
       if (openMainNavIndex !== index && isDropdownOpen) {
         closeDropdown();
@@ -119,8 +120,8 @@ export const NavigationLink = ({
   }, [openMainNavIndex]);
 
   useEffect(() => {
-    // If nested nav index differs from this, this link's dropdown should close
-    if (openSubNavIndex !== undefined && openSubNavIndex !== index && isDropdownOpen) {
+    // If sub nav and it's index differs from this, this link's dropdown should close
+    if (isSubNavLink && openSubNavIndex !== index && isDropdownOpen) {
       closeDropdown();
     }
   }, [openSubNavIndex]);
