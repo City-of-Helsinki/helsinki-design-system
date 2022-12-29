@@ -5,13 +5,14 @@ import 'hds-core';
 import styles from './NavigationLinkDropdown.module.scss';
 import { IconAngleDown } from '../../../../../icons';
 import classNames from '../../../../../utils/classNames';
+import { DropdownDirection } from '../types';
 
 export type NavigationLinkDropdownProps = React.PropsWithChildren<{
   /**
    * Direction for dropdown position.
    * @default 'down'
    */
-  dropdownDirection?: 'down' | 'right';
+  dropdownDirection?: DropdownDirection;
   /**
    * Element index given by parent mapping.
    * @internal
@@ -29,7 +30,7 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
 
 export const NavigationLinkDropdown = ({
   children,
-  dropdownDirection = 'down',
+  dropdownDirection = DropdownDirection.Down,
   index,
   open,
   setOpen,
@@ -38,7 +39,7 @@ export const NavigationLinkDropdown = ({
   const [openSubNavIndex, setOpenSubNavIndex] = useState<number>(-1);
   const chevronClasses = open ? classNames(styles.chevron, styles.chevronOpen) : styles.chevron;
   const dropdownDirectionClass =
-    dropdownDirection === 'right' ? classNames(styles.dropdownMenu, styles.side) : styles.dropdownMenu;
+    dropdownDirection === DropdownDirection.Right ? classNames(styles.dropdownMenu, styles.side) : styles.dropdownMenu;
 
   const handleMenuButtonClick = () => setOpen(!open);
 

@@ -5,9 +5,14 @@ import 'hds-core';
 import styles from './NavigationLink.module.scss';
 import classNames from '../../../../utils/classNames';
 import { Link } from '../../../link';
-import { HeaderNavigationMenuContext } from '../headerNavigationMenu/HeaderNavigationMenuContext';
 import { NavigationLinkDropdown } from './navigationLinkDropdown';
+import { HeaderNavigationMenuContext } from '../headerNavigationMenu/HeaderNavigationMenuContext';
+import { DropdownDirection } from './types';
 
+enum NavigationLinkInteraction {
+  Hover = 'Hover',
+  Click = 'Click',
+}
 export type NavigationLinkProps = Omit<
   React.ComponentPropsWithoutRef<'a'>,
   'target' | 'href' | 'onPointerEnterCapture' | 'onPointerLeaveCapture' | 'aria-label'
@@ -24,7 +29,7 @@ export type NavigationLinkProps = Omit<
    * Set the direction for where the dropdown should appear.
    * @default 'down'
    */
-  dropdownDirection?: 'down' | 'right';
+  dropdownDirection?: DropdownDirection;
   /**
    * Array of NavigationLink components to render in a dropdown. Can be used only inside navigation components.
    */
@@ -61,7 +66,7 @@ export type NavigationLinkProps = Omit<
 export const NavigationLink = ({
   active,
   className,
-  dropdownDirection = 'down',
+  dropdownDirection = DropdownDirection.Down,
   dropdownLinks,
   href,
   index,
@@ -72,7 +77,7 @@ export const NavigationLink = ({
   ...rest
 }: NavigationLinkProps) => {
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
-  const [dropdownOpenedBy, setDropdownOpenedBy] = useState<null | ('hover' | 'click')>(null);
+  const [dropdownOpenedBy, setDropdownOpenedBy] = useState<null | NavigationLinkInteraction>(null);
   const { openMainNavIndex, setOpenMainNavIndex } = useContext(HeaderNavigationMenuContext);
   const containerRef = useRef<HTMLSpanElement>(null);
   const isSubNavLink = openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined;
@@ -95,12 +100,12 @@ export const NavigationLink = ({
   };
 
   const handleDropdownClickedOpen = (val: boolean) => {
-    setDropdownOpenedBy(!val ? null : 'click');
+    setDropdownOpenedBy(!val ? null : NavigationLinkInteraction.Click);
     handleDropdownOpen(val);
   };
 
   const handleDropdownHoveredOpen = (val: boolean) => {
-    setDropdownOpenedBy(!val ? null : 'hover');
+    setDropdownOpenedBy(!val ? null : NavigationLinkInteraction.Hover);
     handleDropdownOpen(val);
   };
 
@@ -144,7 +149,10 @@ export const NavigationLink = ({
   return (
     <span
       className={styles.navigationLinkWrapper}
-      {...(dropdownLinks && dropdownOpenedBy === 'hover' && { onMouseLeave: () => handleDropdownHoveredOpen(false) })}
+      {...(dropdownLinks &&
+        dropdownOpenedBy === NavigationLinkInteraction.Hover && {
+          onMouseLeave: () => handleDropdownHoveredOpen(false),
+        })}
       ref={containerRef}
     >
       <Link
@@ -153,7 +161,10 @@ export const NavigationLink = ({
         size={size}
         {...rest}
         {...(active && { active: 'true' })}
-        {...(dropdownLinks && dropdownOpenedBy !== 'click' && { onMouseEnter: () => handleDropdownHoveredOpen(true) })}
+        {...(dropdownLinks &&
+          dropdownOpenedBy !== NavigationLinkInteraction.Click && {
+            onMouseEnter: () => handleDropdownHoveredOpen(true),
+          })}
       >
         {label}
       </Link>
