@@ -5,6 +5,7 @@ import { HeaderUniversalBar } from './components/headerUniversalBar/HeaderUniver
 import { NavigationLink } from './components/navigationLink/NavigationLink';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { StoryWIPAlert } from '../../internal/storyWIPAlert/StoryWIPAlert';
+import { DropdownDirection } from './components/navigationLink/types';
 
 export default {
   component: Header,
@@ -46,7 +47,7 @@ export const WithFullFeatures = (args) => (
             <Header.NavigationLink
               href="#"
               label="Test"
-              dropdownDirection="right"
+              dropdownDirection={DropdownDirection.Dynamic}
               active
               dropdownLinks={[
                 <Header.NavigationLink href="#" label="Nested" />,
@@ -57,7 +58,7 @@ export const WithFullFeatures = (args) => (
             <Header.NavigationLink
               href="#"
               label="Test"
-              dropdownDirection="right"
+              dropdownDirection={DropdownDirection.Dynamic}
               dropdownLinks={[
                 <Header.NavigationLink href="#" label="Nested" />,
                 <Header.NavigationLink href="#" label="Nested" />,
@@ -72,7 +73,7 @@ export const WithFullFeatures = (args) => (
             <Header.NavigationLink
               href="#"
               label="Test"
-              dropdownDirection="right"
+              dropdownDirection={DropdownDirection.Dynamic}
               active
               dropdownLinks={[
                 <Header.NavigationLink href="#" label="Nested" />,
@@ -83,7 +84,7 @@ export const WithFullFeatures = (args) => (
             <Header.NavigationLink
               href="#"
               label="Test"
-              dropdownDirection="right"
+              dropdownDirection={DropdownDirection.Dynamic}
               dropdownLinks={[
                 <Header.NavigationLink href="#" label="Nested" />,
                 <Header.NavigationLink href="#" label="Nested" />,
@@ -92,6 +93,34 @@ export const WithFullFeatures = (args) => (
           ]}
         />
         <Header.NavigationLink href="#" label="Link 3" />
+        <Header.NavigationLink href="#" label="Link 3" />
+        <Header.NavigationLink href="#" label="Link 3" />
+        <Header.NavigationLink
+          href="#"
+          label="Link 2"
+          dropdownLinks={[
+            <Header.NavigationLink
+              href="#"
+              label="Test"
+              dropdownDirection={DropdownDirection.Dynamic}
+              active
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+              ]}
+            />,
+            <Header.NavigationLink
+              href="#"
+              label="Test"
+              dropdownDirection={DropdownDirection.Dynamic}
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+              ]}
+            />,
+          ]}
+        />
       </Header.NavigationMenu>
     </Header>
   </>
@@ -124,7 +153,7 @@ export const WithNavigationMenu = (args) => (
             <Header.NavigationLink
               href="#"
               label="Test"
-              dropdownDirection="right"
+              dropdownDirection={DropdownDirection.Dynamic}
               active
               dropdownLinks={[
                 <Header.NavigationLink href="#" label="Nested" />,
@@ -135,7 +164,7 @@ export const WithNavigationMenu = (args) => (
             <Header.NavigationLink
               href="#"
               label="Test"
-              dropdownDirection="right"
+              dropdownDirection={DropdownDirection.Dynamic}
               dropdownLinks={[
                 <Header.NavigationLink href="#" label="Nested" />,
                 <Header.NavigationLink href="#" label="Nested" />,
@@ -150,7 +179,7 @@ export const WithNavigationMenu = (args) => (
             <Header.NavigationLink
               href="#"
               label="Test"
-              dropdownDirection="right"
+              dropdownDirection={DropdownDirection.Dynamic}
               active
               dropdownLinks={[
                 <Header.NavigationLink href="#" label="Nested" />,
@@ -161,7 +190,7 @@ export const WithNavigationMenu = (args) => (
             <Header.NavigationLink
               href="#"
               label="Test"
-              dropdownDirection="right"
+              dropdownDirection={DropdownDirection.Dynamic}
               dropdownLinks={[
                 <Header.NavigationLink href="#" label="Nested" />,
                 <Header.NavigationLink href="#" label="Nested" />,
