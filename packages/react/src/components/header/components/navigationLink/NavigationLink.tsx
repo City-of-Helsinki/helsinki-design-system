@@ -22,7 +22,7 @@ export type NavigationLinkProps = Omit<
    */
   className?: string;
   /**
-   * Set the direction for where the dropdown should appear.
+   * Set the direction for where the dropdown should appear. Use DropdownDirection.Dynamic for nested dropdowns as it sets the dropdown menu to the right, but if there's no space it'll put it to the left.
    * @default DropdownDirection.Down;
    */
   dropdownDirection?: DropdownDirection;
