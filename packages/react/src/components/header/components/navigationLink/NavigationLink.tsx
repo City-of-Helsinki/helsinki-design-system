@@ -79,25 +79,8 @@ export const NavigationLink = ({
   const containerRef = useRef<HTMLSpanElement>(null);
   const isSubNavLink = openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined;
 
-  // Handle dropdown open state by calling either internal state or context
-  const handleDropdownOpen = (val: boolean) => {
-    setDropdownOpen(val);
-    // If sub navigation props given, call them
-    if (isSubNavLink && index !== undefined) {
-      setOpenSubNavIndex(val ? index : -1);
-    }
-    // Otherwise it's safe to assume that this link is from main navigation and we can call context
-    else {
-      // If closing dropdown, call context only if this is the open main nav dropdown. No need for checks if opening though.
-      // eslint-disable-next-line no-lonely-if
-      if (((val !== isDropdownOpen && openMainNavIndex === index) || val) && setOpenMainNavIndex) {
-        setOpenMainNavIndex(val ? index : -1);
-      }
-    }
-  };
-
-  const handleDynamicPosition = (val: boolean, e: React.MouseEvent) => {
-    // Null it when false so if user resizes browser, the calculation is done again
+  const handleDynamicMenuPosition = (val: boolean, e: React.MouseEvent) => {
+    // Null position when false so if user resizes browser, the calculation is done again
     if (!val) setDynamicPosition(null);
     else if (val && window === undefined) setDynamicPosition(DropdownMenuPosition.Right);
     else {
@@ -109,16 +92,24 @@ export const NavigationLink = ({
     }
   };
 
-  const handleDropdownClickedOpen = (val: boolean, e?: React.MouseEvent) => {
-    if (dropdownDirection === DropdownDirection.Dynamic) handleDynamicPosition(val, e);
-    setDropdownOpenedBy(!val ? null : NavigationLinkInteraction.Click);
-    handleDropdownOpen(val);
-  };
-
-  const handleDropdownHoveredOpen = (val: boolean, e?: React.MouseEvent) => {
-    if (dropdownDirection === DropdownDirection.Dynamic) handleDynamicPosition(val, e);
-    setDropdownOpenedBy(!val ? null : NavigationLinkInteraction.Hover);
-    handleDropdownOpen(val);
+  // Handle dropdown open state by calling either internal state or context
+  const handleDropdownOpen = (val: boolean, e?: React.MouseEvent, interaction?: NavigationLinkInteraction) => {
+    // Set menu position if needed and how menu was opened
+    if (dropdownDirection === DropdownDirection.Dynamic) handleDynamicMenuPosition(val, e);
+    setDropdownOpenedBy(!val ? null : interaction);
+    setDropdownOpen(val);
+    // If sub navigation props given, call them
+    if (isSubNavLink && index !== undefined) {
+      setOpenSubNavIndex(val ? index : -1);
+    }
+    // Otherwise it's safe to assume that this link is from main navigation and we can call context
+    else {
+      // eslint-disable-next-line no-lonely-if
+      if (((val !== isDropdownOpen && openMainNavIndex === index) || val) && setOpenMainNavIndex) {
+        // If closing dropdown, call context only if this is the open main nav dropdown. No need for checks if opening though.
+        setOpenMainNavIndex(val ? index : -1);
+      }
+    }
   };
 
   const closeDropdown = () => {
@@ -163,7 +154,7 @@ export const NavigationLink = ({
       className={styles.navigationLinkWrapper}
       {...(dropdownLinks &&
         dropdownOpenedBy === NavigationLinkInteraction.Hover && {
-          onMouseLeave: () => handleDropdownHoveredOpen(false),
+          onMouseLeave: () => handleDropdownOpen(false),
         })}
       ref={containerRef}
     >
@@ -175,7 +166,7 @@ export const NavigationLink = ({
         {...(active && { active: 'true' })}
         {...(dropdownLinks &&
           dropdownOpenedBy !== NavigationLinkInteraction.Click && {
-            onMouseEnter: (e: React.MouseEvent) => handleDropdownHoveredOpen(true, e),
+            onMouseEnter: (e: React.MouseEvent) => handleDropdownOpen(true, e, NavigationLinkInteraction.Hover),
           })}
       >
         {label}
@@ -183,7 +174,7 @@ export const NavigationLink = ({
       {dropdownLinks && (
         <NavigationLinkDropdown
           open={isDropdownOpen}
-          setOpen={handleDropdownClickedOpen}
+          setOpen={handleDropdownOpen}
           index={index}
           dynamicPosition={dynamicPosition}
         >
