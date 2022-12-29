@@ -9,6 +9,7 @@ describe('<HeaderNavigationMenu /> spec', () => {
     const { asFragment } = render(<HeaderNavigationMenu />);
     expect(asFragment()).toMatchSnapshot();
   });
+
   it('should not have basic accessibility issues', async () => {
     const { container } = render(<HeaderNavigationMenu />);
     const results = await axe(container);

@@ -1,28 +1,28 @@
 @value x-small-down, small-down from "../../../../styles/breakpoints.css";
 
 .headerUniversalBar {
-  display: flex;
   align-items: center;
-  width: 100%;
-  box-sizing: border-box;
-  min-height: 48px;
   background: var(--color-black-5);
+  box-sizing: border-box;
+  display: flex;
+  min-height: 48px;
   padding: 0 var(--spacing-m);
+  width: 100%;
 }
 
 .headerUniversalBarList {
-  width: 100%;
   display: flex;
+  gap: 0 var(--spacing-l);
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 0 var(--spacing-l);
+  width: 100%;
 }
 
 .universalBarMainLinkContainer {
+  flex: 1;
   display: flex;
   justify-self: start;
-  flex: 1;
 }
 
 .universalBarSecondaryLinkContainer {
@@ -44,7 +44,6 @@
     gap: 0 var(--spacing-m);
   }
 }
-
 
 @media x-small-down {
   .universalBarLink.universalBarLink {
