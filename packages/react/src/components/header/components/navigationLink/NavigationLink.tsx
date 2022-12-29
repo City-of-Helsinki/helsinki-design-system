@@ -5,14 +5,10 @@ import 'hds-core';
 import styles from './NavigationLink.module.scss';
 import classNames from '../../../../utils/classNames';
 import { Link } from '../../../link';
-import { NavigationLinkDropdown } from './navigationLinkDropdown';
+import { NavigationLinkDropdown, NavigationLinkInteraction, DropdownMenuPosition } from './navigationLinkDropdown';
 import { HeaderNavigationMenuContext } from '../headerNavigationMenu/HeaderNavigationMenuContext';
 import { DropdownDirection } from './types';
 
-enum NavigationLinkInteraction {
-  Hover = 'Hover',
-  Click = 'Click',
-}
 export type NavigationLinkProps = Omit<
   React.ComponentPropsWithoutRef<'a'>,
   'target' | 'href' | 'onPointerEnterCapture' | 'onPointerLeaveCapture' | 'aria-label'
@@ -27,7 +23,7 @@ export type NavigationLinkProps = Omit<
   className?: string;
   /**
    * Set the direction for where the dropdown should appear.
-   * @default 'down'
+   * @default DropdownDirection.Down;
    */
   dropdownDirection?: DropdownDirection;
   /**
@@ -78,6 +74,7 @@ export const NavigationLink = ({
 }: NavigationLinkProps) => {
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [dropdownOpenedBy, setDropdownOpenedBy] = useState<null | NavigationLinkInteraction>(null);
+  const [dynamicPosition, setDynamicPosition] = useState<null | DropdownMenuPosition>(null);
   const { openMainNavIndex, setOpenMainNavIndex } = useContext(HeaderNavigationMenuContext);
   const containerRef = useRef<HTMLSpanElement>(null);
   const isSubNavLink = openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined;
@@ -99,12 +96,27 @@ export const NavigationLink = ({
     }
   };
 
-  const handleDropdownClickedOpen = (val: boolean) => {
+  const handleDynamicPosition = (val: boolean, e: React.MouseEvent) => {
+    // Null it when false so if user resizes browser, the calculation is done again
+    if (!val) setDynamicPosition(null);
+    else if (val && window === undefined) setDynamicPosition(DropdownMenuPosition.Right);
+    else {
+      const { clientX } = e;
+      // Pardon the magic number. It's the dropdown menu's width
+      const menuWidth = 280;
+      const position = window.innerWidth - clientX < menuWidth ? DropdownMenuPosition.Left : DropdownMenuPosition.Right;
+      setDynamicPosition(position);
+    }
+  };
+
+  const handleDropdownClickedOpen = (val: boolean, e?: React.MouseEvent) => {
+    if (dropdownDirection === DropdownDirection.Dynamic) handleDynamicPosition(val, e);
     setDropdownOpenedBy(!val ? null : NavigationLinkInteraction.Click);
     handleDropdownOpen(val);
   };
 
-  const handleDropdownHoveredOpen = (val: boolean) => {
+  const handleDropdownHoveredOpen = (val: boolean, e?: React.MouseEvent) => {
+    if (dropdownDirection === DropdownDirection.Dynamic) handleDynamicPosition(val, e);
     setDropdownOpenedBy(!val ? null : NavigationLinkInteraction.Hover);
     handleDropdownOpen(val);
   };
@@ -163,7 +175,7 @@ export const NavigationLink = ({
         {...(active && { active: 'true' })}
         {...(dropdownLinks &&
           dropdownOpenedBy !== NavigationLinkInteraction.Click && {
-            onMouseEnter: () => handleDropdownHoveredOpen(true),
+            onMouseEnter: (e: React.MouseEvent) => handleDropdownHoveredOpen(true, e),
           })}
       >
         {label}
@@ -173,7 +185,7 @@ export const NavigationLink = ({
           open={isDropdownOpen}
           setOpen={handleDropdownClickedOpen}
           index={index}
-          dropdownDirection={dropdownDirection}
+          dynamicPosition={dynamicPosition}
         >
           {React.Children.map(dropdownLinks, (child, childIndex) => {
             return cloneElement(child as React.ReactElement, {

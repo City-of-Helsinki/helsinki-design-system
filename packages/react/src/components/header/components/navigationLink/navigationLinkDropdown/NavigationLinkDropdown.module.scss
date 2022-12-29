@@ -54,7 +54,12 @@
   }
 }
 
-.side {
+.left {
+  left: -282px;
+  top: -1px;
+}
+
+.right {
   left: 282px;
   top: -1px;
 }

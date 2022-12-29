@@ -1,18 +1,25 @@
-import React, { cloneElement, isValidElement, useState } from 'react';
+import React, { cloneElement, isValidElement, useRef, useState } from 'react';
 
 // import core base styles
 import 'hds-core';
 import styles from './NavigationLinkDropdown.module.scss';
 import { IconAngleDown } from '../../../../../icons';
 import classNames from '../../../../../utils/classNames';
-import { DropdownDirection } from '../types';
 
+export enum NavigationLinkInteraction {
+  Hover = 'hover',
+  Click = 'click',
+}
+export enum DropdownMenuPosition {
+  Left = 'left',
+  Right = 'right',
+}
 export type NavigationLinkDropdownProps = React.PropsWithChildren<{
   /**
    * Direction for dropdown position.
-   * @default 'down'
+   * @default DropdownMenuPosition.Right
    */
-  dropdownDirection?: DropdownDirection;
+  dynamicPosition?: DropdownMenuPosition;
   /**
    * Element index given by parent mapping.
    * @internal
@@ -25,23 +32,25 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
   /**
    * Function that is called when open value is changed.
    */
-  setOpen: (isOpen: boolean) => void;
+  setOpen: (isOpen: boolean, event: React.MouseEvent) => void;
 }>;
 
 export const NavigationLinkDropdown = ({
   children,
-  dropdownDirection = DropdownDirection.Down,
+  dynamicPosition = DropdownMenuPosition.Right,
   index,
   open,
   setOpen,
 }: NavigationLinkDropdownProps) => {
   // State for which nested dropdown link is open
   const [openSubNavIndex, setOpenSubNavIndex] = useState<number>(-1);
+  const ref = useRef<HTMLUListElement>(null);
   const chevronClasses = open ? classNames(styles.chevron, styles.chevronOpen) : styles.chevron;
-  const dropdownDirectionClass =
-    dropdownDirection === DropdownDirection.Right ? classNames(styles.dropdownMenu, styles.side) : styles.dropdownMenu;
+  const dropdownDirectionClass = dynamicPosition
+    ? classNames(styles.dropdownMenu, styles[dynamicPosition])
+    : styles.dropdownMenu;
 
-  const handleMenuButtonClick = () => setOpen(!open);
+  const handleMenuButtonClick = (e: React.MouseEvent) => setOpen(!open, e);
 
   return (
     <div className={styles.navigationLinkDropdownContainer}>
@@ -57,6 +66,7 @@ export const NavigationLinkDropdown = ({
         className={dropdownDirectionClass}
         {...(!open && { style: { display: 'none' } })}
         data-testid={`dropdown-menu-${index}`}
+        ref={ref}
       >
         {React.Children.map(children, (child, childIndex) => {
           return (
