@@ -19,19 +19,12 @@ describe('<NavigationLink /> spec', () => {
   });
 
   it('should open dropdown when the button is clicked', async () => {
-    render(
-      <NavigationLink
-        href="#"
-        label="Link"
-        dropdownLinks={[
-          <NavigationLink href="#" label="Test" dropdownLinks={[<NavigationLink href="#" label="Test" />]} />,
-        ]}
-      />,
-      { wrapper: HeaderNavigationMenuWrapper },
-    );
+    render(<NavigationLink href="#" label="Link" dropdownLinks={[<NavigationLink href="#" label="Test" />]} />, {
+      wrapper: HeaderNavigationMenuWrapper,
+    });
 
-    userEvent.click(screen.getByTestId('dropdown-button-main-nav-0'));
-    expect(screen.getByTestId('dropdown-menu-main-nav-0')).toBeVisible();
+    userEvent.click(screen.getByTestId('dropdown-button-0'));
+    expect(screen.getByTestId('dropdown-menu-0')).toBeVisible();
   });
 
   it('should have only one main dropdown active', async () => {
@@ -44,16 +37,16 @@ describe('<NavigationLink /> spec', () => {
     );
 
     // Click the first main navigation link's dropdown button
-    userEvent.click(screen.getByTestId('dropdown-button-main-nav-0'));
-    expect(screen.getByTestId('dropdown-menu-main-nav-0')).toBeVisible();
+    userEvent.click(screen.getByTestId('dropdown-button-0'));
+    expect(screen.getByTestId('dropdown-menu-0')).toBeVisible();
 
     // Click the second main navigation link's dropdown button
-    userEvent.click(screen.getByTestId('dropdown-button-main-nav-1'));
+    userEvent.click(screen.getByTestId('dropdown-button-1'));
 
     // Now the second dropdown should show
-    expect(screen.getByTestId('dropdown-menu-main-nav-1')).toBeVisible();
+    expect(screen.getByTestId('dropdown-menu-1')).toBeVisible();
 
     // The first dropdown should not be visible. This can only be tested if display: none; is set inline!
-    expect(screen.getByTestId('dropdown-menu-main-nav-0')).not.toBeVisible();
+    expect(screen.getByTestId('dropdown-menu-0')).not.toBeVisible();
   });
 });
