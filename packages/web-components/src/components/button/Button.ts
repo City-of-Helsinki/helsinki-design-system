@@ -1,5 +1,7 @@
 import { LitElement, html, PropertyValueMap } from 'lit';
-import { customElement } from 'lit/decorators';
+// eslint-disable-next-line import/extensions
+import { customElement } from 'lit/decorators.js';
+// eslint-disable-next-line import/extensions
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { toString } from 'lodash';
 
@@ -15,7 +17,6 @@ const booleanConverter = {
 
 // FIXME: Remove and import from a common utility file or such
 const classNames = (...args) => args.filter(Boolean).join(' ');
-
 
 export type ButtonSize = 'default' | 'small';
 export type ButtonTheme = 'default' | 'coat' | 'black';

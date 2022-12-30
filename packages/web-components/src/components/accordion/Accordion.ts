@@ -1,5 +1,6 @@
 import { LitElement, html, PropertyValueMap } from 'lit';
-import { customElement } from 'lit/decorators';
+// eslint-disable-next-line import/extensions
+import { customElement } from 'lit/decorators.js';
 import { toString, uniqueId } from 'lodash';
 
 import { AccordionCustomTheme, Language } from './AccordionProps';
