@@ -22,7 +22,7 @@ export type NavigationLinkProps = Omit<
    */
   className?: string;
   /**
-   * Set the direction for where the dropdown should appear. Use DropdownDirection.Dynamic for nested dropdowns as it sets the dropdown menu to the right, but if there's no space it'll put it to the left.
+   * Set the direction where the dropdown should appear. Use DropdownDirection.Dynamic for nested dropdowns as it sets the dropdown menu to the right but if there's no space it'll put it to the left.
    * @default DropdownDirection.Down;
    */
   dropdownDirection?: DropdownDirection;
@@ -79,23 +79,28 @@ export const NavigationLink = ({
   const containerRef = useRef<HTMLSpanElement>(null);
   const isSubNavLink = openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined;
 
-  const handleDynamicMenuPosition = (val: boolean, e: React.MouseEvent) => {
+  const handleDynamicMenuPosition = (val: boolean) => {
     // Null position when false so if user resizes browser, the calculation is done again
     if (!val) setDynamicPosition(null);
+    // In case of SSR just set the menu to the right
     else if (val && window === undefined) setDynamicPosition(DropdownMenuPosition.Right);
     else {
-      const { clientX } = e;
-      // Pardon the magic number. It's the dropdown menu's width
-      const menuWidth = 280;
-      const position = window.innerWidth - clientX < menuWidth ? DropdownMenuPosition.Left : DropdownMenuPosition.Right;
-      setDynamicPosition(position);
+      // eslint-disable-next-line no-lonely-if
+      if (containerRef.current) {
+        // Calculate which side has more space for the menu
+        const { x: leftPosition, width } = containerRef.current.getBoundingClientRect();
+        const rightPosition = leftPosition + width;
+        const position =
+          leftPosition > window.innerWidth - rightPosition ? DropdownMenuPosition.Left : DropdownMenuPosition.Right;
+        setDynamicPosition(position);
+      }
     }
   };
 
   // Handle dropdown open state by calling either internal state or context
-  const handleDropdownOpen = (val: boolean, e?: React.MouseEvent, interaction?: NavigationLinkInteraction) => {
+  const handleDropdownOpen = (val: boolean, interaction?: NavigationLinkInteraction) => {
     // Set menu position if needed and how menu was opened
-    if (dropdownDirection === DropdownDirection.Dynamic) handleDynamicMenuPosition(val, e);
+    if (dropdownDirection === DropdownDirection.Dynamic) handleDynamicMenuPosition(val);
     setDropdownOpenedBy(!val ? null : interaction);
     setDropdownOpen(val);
     // If sub navigation props given, call them
@@ -134,6 +139,7 @@ export const NavigationLink = ({
     }
   }, [openSubNavIndex]);
 
+  // Close dropdown menu when clicked outside
   const handleOutsideClick = useCallback(
     (e: MouseEvent) => {
       if (isDropdownOpen && containerRef.current && !containerRef.current.contains(e.target as Node)) {
@@ -166,7 +172,7 @@ export const NavigationLink = ({
         {...(active && { active: 'true' })}
         {...(dropdownLinks &&
           dropdownOpenedBy !== NavigationLinkInteraction.Click && {
-            onMouseEnter: (e: React.MouseEvent) => handleDropdownOpen(true, e, NavigationLinkInteraction.Hover),
+            onMouseEnter: () => handleDropdownOpen(true, NavigationLinkInteraction.Hover),
           })}
       >
         {label}
