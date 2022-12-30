@@ -28,13 +28,13 @@ Helsinki city web services require Javascript to function as intended. If the we
         <div class="hds-notification__content">
             <div class="hds-notification__label" role="heading" aria-level="2">
                 <span class="hds-icon hds-icon--alert-circle-fill" aria-hidden="true"></span>
-                <span class="hds-noscript-text" lang="fi">Ota JavaScript käyttöön selaimessasi</span>
-                <span class="hds-noscript-text" lang="sv">Aktivera JavaScript i din webbläsare</span>
+                <span class="hds-noscript-text" lang="fi">Ota JavaScript k&auml;ytt&ouml;&ouml;n selaimessasi</span>
+                <span class="hds-noscript-text" lang="sv">Aktivera JavaScript i din webbl&auml;sare</span>
                 <span class="hds-noscript-text" lang="en">Enable JavaScript in your browser</span>
             </div>
             <div class="hds-notification__body">
-                <div class="hds-noscript-text" lang="fi">Ole hyvä ja ota JavaScript käyttöön selaimessasi varmistaaksesi palvelun täyden toiminnallisuuden ja tarkoitetun käyttökokemuksen.</div>
-                <div class="hds-noscript-text" lang="sv">Vänligen aktivera JavaScript i din webbläsare för att garantera full funktionalitet och avsedd användarupplevelse.</div>
+                <div class="hds-noscript-text" lang="fi">Ole hyv&auml; ja ota JavaScript k&auml;ytt&ouml;&ouml;n selaimessasi varmistaaksesi palvelun t&auml;yden toiminnallisuuden ja tarkoitetun k&auml;ytt&ouml;kokemuksen.</div>
+                <div class="hds-noscript-text" lang="sv">V&auml;nligen aktivera JavaScript i din webbl&auml;sare f&ouml;r att garantera full funktionalitet och avsedd anv&auml;ndarupplevelse.</div>
                 <div class="hds-noscript-text" lang="en">Please enable JavaScript in your browser to guarantee full functionality and intended user experience.</div>
             </div>
         </div>
