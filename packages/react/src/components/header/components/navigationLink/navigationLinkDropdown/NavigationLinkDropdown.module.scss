@@ -55,12 +55,13 @@
 }
 
 .left {
-  left: -282px;
+  left: auto;
+  right: calc(100% + 2px);
   top: -1px;
 }
-
 .right {
-  left: 282px;
+  left: calc(100% + 2px);
+  right: auto;
   top: -1px;
 }
 
