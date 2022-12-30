@@ -1,0 +1,9 @@
+.*
+**/tsconfig.json
+**/babel.config.json
+**/rollup.config.js
+**/jest.config.js
+lib
+scripts
+src
+storybook-static

@@ -1,0 +1,131 @@
+@font-face {
+  font-family: 'HelsinkiGrotesk';
+  src: url('../src/fonts/565d73a693abe0776c801607ac28f0bf.woff') format('woff');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+  text-rendering: optimizeLegibility;
+}
+
+@font-face {
+  font-family: 'HelsinkiGrotesk';
+  src: url('../src/fonts/5bb29e3b7b1d3ef30121229bbe67c3e1.woff') format('woff');
+  font-display: swap;
+  font-weight: 400;
+  font-style: italic;
+  text-rendering: optimizeLegibility;
+}
+
+@font-face {
+  font-family: 'HelsinkiGrotesk';
+  src: url('../src/fonts/7c46f288e8133b87e6b12b45dac71865.woff') format('woff');
+  font-display: swap;
+  font-weight: 500;
+  font-style: normal;
+  text-rendering: optimizeLegibility;
+}
+
+@font-face {
+  font-family: 'HelsinkiGrotesk';
+  src: url('../src/fonts/e62dc97e83a385e4d8cdc939cf1e4213.woff') format('woff');
+  font-display: swap;
+  font-weight: 500;
+  font-style: italic;
+  text-rendering: optimizeLegibility;
+}
+
+@font-face {
+  font-family: 'HelsinkiGrotesk';
+  src: url('../src/fonts/533af26cf28d7660f24c2884d3c27eac.woff') format('woff');
+  font-display: swap;
+  font-weight: 700;
+  font-style: normal;
+  text-rendering: optimizeLegibility;
+}
+
+@font-face {
+  font-family: 'HelsinkiGrotesk';
+  src: url('../src/fonts/20d494430c87e15e194932b729d48270.woff') format('woff');
+  font-display: swap;
+  font-weight: 700;
+  font-style: italic;
+  text-rendering: optimizeLegibility;
+}
+
+@font-face {
+  font-family: 'HelsinkiGrotesk';
+  src: url('../src/fonts/a50a1bd245ce63abcc0d1da80ff790d2.woff') format('woff');
+  font-display: swap;
+  font-weight: 900;
+  font-style: normal;
+  text-rendering: optimizeLegibility;
+}
+
+@font-face {
+  font-family: 'HelsinkiGrotesk';
+  src: url('../src/fonts/62a1781d8b396fbb025b0552cf6304d2.woff') format('woff');
+  font-display: swap;
+  font-weight: 900;
+  font-style: italic;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-default);
+  font-size: var(--fontsize-body-m);
+  color: var(--color-black-90);
+  line-height: var(--lineheight-l);
+}
+
+.password-input--external-show-password-button,
+.date-input--external-clear-value-button {
+  display: grid;
+  grid-template-columns: 400px 200px;
+  gap: 20px;
+  align-items: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .password-input--external-show-password-button,
+  .date-input--external-clear-value-button {
+    grid-template-columns: 300px;
+  }
+}
+
+@media only screen and (max-width: 575.98px) {
+  .table-custom-action {
+    width: 100%;
+  }
+}
+
+/* STEPPER */
+
+.stepper-small {
+  max-width: 300px;
+}
+
+@media only screen and (max-width: 575.98px) {
+  .stepper-small {
+    max-width: 100%;
+  }
+}
+
+.stepper-margin {
+  margin-left: -35px;
+}
+
+.stepper-heading {
+  margin-left: 10px;
+}
+
+.stepper-form-validation {
+  margin-left: -18px;
+}
+
+.stepper-card > div:first-child {
+  margin-bottom: var(--spacing-m) !important;
+}
+
+#focused-element-after-cookie-consent-closed:focus {
+  outline: 2px black solid;
+}

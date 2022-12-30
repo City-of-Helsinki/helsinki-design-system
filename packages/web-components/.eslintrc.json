@@ -1,0 +1,43 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "plugin:jest/recommended",
+    "airbnb",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended" // this should always be the last item on this array
+  ],
+  "plugins": ["@typescript-eslint", "prettier", "jest", "import"],
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "ignorePatterns": ["*.module.css"],
+  "rules": {
+    "no-extra-semi": "warn",
+    "@typescript-eslint/no-inferrable-types": "off",
+    "padding-line-between-statements": [ "error", {
+      "blankLine": "always",
+      "prev": [ "const", "let", "var" ],
+      "next": "*"
+    }, {
+      "blankLine": "any",
+      "prev": [ "const", "let", "var" ],
+      "next": ["const", "let", "var" ]
+    }],
+    "lines-between-class-members": [ "error", "always", { "exceptAfterSingleLine": true }],
+    "comma-dangle": [ "warn", "only-multiline" ],
+    "brace-style": [ "error", "stroustrup" ]
+  },
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "globals": {
+    "__dirname": true
+  }
+}

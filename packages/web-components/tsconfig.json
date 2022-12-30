@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "module": "ES2015",
+    "moduleResolution": "Node",
+    "target": "es6",
+    "lib": ["es6", "dom", "dom.iterable"],
+    "outDir": "lib",
+    "allowSyntheticDefaultImports": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src/*"],
+  "compileOnSave": false,
+  "buildOnSave": false
+}

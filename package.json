@@ -13,9 +13,11 @@
     "build:react": "lerna run --scope hds-react build",
     "build:site": "lerna run --scope site build",
     "start:core": "lerna run --scope hds-core start",
-    "start:react": "lerna run --scope hds-react start",
+    "build:web-components": "lerna run --scope hds-web-components build",
+    "update-versions": "lerna version --exact --no-git-tag-version --no-push --amend --yes",
+    "start:web-components": "lerna run --scope hds-web-components start",
     "release": "lerna publish from-package --yes",
-    "update-versions": "lerna version --exact --no-git-tag-version --no-push --amend --yes"
+    "start:web-component": "lerna run --scope hds-web-components start"
   },
   "devDependencies": {
     "lerna": "^3.16.4"
