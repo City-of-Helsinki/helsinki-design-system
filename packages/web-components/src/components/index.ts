@@ -1,1 +1,3 @@
-export * from './accordion';
+import Accordion from './accordion';
+
+export { Accordion };

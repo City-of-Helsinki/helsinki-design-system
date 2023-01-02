@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { styleMap } from 'lit-html/directives/style-map.js';
+import { styleMap } from 'lit-html/directives/style-map';
 
 import './Accordion';
 

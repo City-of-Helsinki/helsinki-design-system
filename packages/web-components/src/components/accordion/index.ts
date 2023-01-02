@@ -1,1 +1,3 @@
-export * from './Accordion';
+import AccordionHTMLElement from './Accordion';
+
+export default AccordionHTMLElement;
