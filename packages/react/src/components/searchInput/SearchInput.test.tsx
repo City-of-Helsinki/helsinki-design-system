@@ -22,6 +22,8 @@ const getSuggestions = (inputValue: string): Promise<SuggestionItemType[]> => {
 
 describe('<SearchInput /> spec', () => {
   let renderResult: RenderResult;
+  const onSubmit = jest.fn();
+  const onChange = jest.fn();
   const defaultProps: Pick<
     SearchInputProps<SuggestionItemType>,
     'label' | 'suggestionLabelField' | 'getSuggestions'
@@ -47,7 +49,7 @@ describe('<SearchInput /> spec', () => {
     if (defaultValue) {
       const ControlledSearchInput = () => {
         const [stateValue, updateStateValue] = useState(defaultValue);
-        const onChange = (value: string) => {
+        const onChangeCallback = (value: string) => {
           if (props.onChange) {
             props.onChange(value);
           }
@@ -55,7 +57,7 @@ describe('<SearchInput /> spec', () => {
         };
         return (
           <div>
-            <SearchInput<SuggestionItemType> {...mergedProps} onChange={onChange} value={stateValue} />
+            <SearchInput<SuggestionItemType> {...mergedProps} onChange={onChangeCallback} value={stateValue} />
           </div>
         );
       };
@@ -66,17 +68,17 @@ describe('<SearchInput /> spec', () => {
     return renderResult;
   };
 
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
   it('renders the component', () => {
     const { asFragment } = render(<SearchInput label="Search" onSubmit={() => null} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('uncontrolled component calls onChange when input value changes', async () => {
-    const onChange = jest.fn();
-    // eslint-disable-next-line no-console
-    const onSubmit = () => console.log('submit');
     initTests({ onSubmit, onChange });
-
     const input = getInputByDefaultLabel();
     userEvent.type(input, 't');
     expect(onChange.mock.calls[0][0]).toBe('t');
@@ -89,9 +91,7 @@ describe('<SearchInput /> spec', () => {
   });
 
   it('submits the selected item on mouse click', async () => {
-    const onSubmit = jest.fn();
     const { getAllByRole } = initTests({ onSubmit });
-
     const input = getInputByDefaultLabel();
     userEvent.type(input, 'a');
     await waitFor(() => {
@@ -103,20 +103,15 @@ describe('<SearchInput /> spec', () => {
   });
 
   it('Controlled component submits the input value on enter press or icon click', async () => {
-    const onSubmit = jest.fn();
     const defaultValue = 'ab';
-
     const { getByLabelText } = initTests({ onSubmit }, defaultValue);
-
     const input = getInputByDefaultLabel();
-
     userEvent.type(input, 'c{enter}');
     await waitFor(() => {
       expect(input.getAttribute('value')).toBe('abc');
       expect(onSubmit.mock.calls[0][0]).toBe('abc');
       expect(onSubmit).toHaveBeenCalledTimes(1);
     });
-
     clickResetButton();
     await waitFor(() => {
       expect(input.getAttribute('value')).toBe('');
@@ -131,14 +126,11 @@ describe('<SearchInput /> spec', () => {
   });
 
   it('Controlled component submits the value when a dropdown item is selected with keyboard', async () => {
-    const onSubmit = jest.fn();
     const targetValue = suggestions[1].value;
     const inputValue = targetValue.substring(0, 2).toLowerCase();
     const defaultValue = 'Fruit';
     const backspacesToDeleteValue = '{backspace}'.repeat(defaultValue.length);
-
     const { getByDisplayValue, getAllByRole } = initTests({ onSubmit }, defaultValue);
-
     const input = getByDisplayValue(defaultValue);
     userEvent.type(input, backspacesToDeleteValue);
     userEvent.type(input, inputValue);
@@ -146,7 +138,6 @@ describe('<SearchInput /> spec', () => {
       const options = getAllByRole('option');
       expect(options).toHaveLength(2);
     });
-
     userEvent.type(input, '{arrowdown}{arrowdown}{enter}');
     await waitFor(() => {
       expect(onSubmit).toHaveBeenCalledTimes(1);
@@ -156,13 +147,10 @@ describe('<SearchInput /> spec', () => {
   });
 
   it('Controlled component submits once if selected value is same as input value', async () => {
-    const onSubmit = jest.fn();
-    const onChange = jest.fn();
     const targetValue = suggestions[1].value;
     const secondTargetValue = suggestions[3].value;
     const defaultValue = 'HereToMakeComponentControlled';
     const { getByDisplayValue, getAllByRole, getAllByText } = initTests({ onSubmit, onChange }, defaultValue);
-
     const input = getByDisplayValue(defaultValue);
     clickResetButton();
     userEvent.type(input, targetValue);
@@ -196,11 +184,8 @@ describe('<SearchInput /> spec', () => {
   });
 
   it('renders the input with default value', async () => {
-    const onSubmit = jest.fn();
-    const onChange = jest.fn();
     const value = 'Banana';
     render(<SearchInput<SuggestionItemType> {...defaultProps} value={value} onSubmit={onSubmit} onChange={onChange} />);
-
     expect(screen.getByDisplayValue(value)).toBeInTheDocument();
   });
 });
