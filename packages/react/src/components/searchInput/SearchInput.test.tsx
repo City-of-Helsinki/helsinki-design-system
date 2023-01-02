@@ -154,6 +154,64 @@ describe('<SearchInput /> spec', () => {
     });
   });
 
+  it('Controlled component submits once if selected value is same as input value', async () => {
+    const onSubmit = jest.fn();
+    const onChange = jest.fn();
+    const targetValue = suggestions[1].value;
+    const secondTargetValue = suggestions[3].value;
+    const defaultValue = 'HereToMakeComponentControlled';
+    const ControlledSearchInput = () => {
+      const [stateValue, updateStateValue] = useState(defaultValue);
+      return (
+        <div>
+          <SearchInput<SuggestionItemType>
+            label="search"
+            suggestionLabelField="value"
+            getSuggestions={getSuggestions}
+            onSubmit={onSubmit}
+            onChange={(value) => {
+              onChange(value);
+              updateStateValue(value);
+            }}
+            value={stateValue}
+          />
+        </div>
+      );
+    };
+    const { getByDisplayValue, getAllByRole, getByLabelText, getAllByText } = render(<ControlledSearchInput />);
+
+    const input = getByDisplayValue(defaultValue);
+    userEvent.click(getByLabelText('Clear', { selector: 'button' }));
+    userEvent.type(input, targetValue);
+    expect(input.getAttribute('value')).toBe(targetValue);
+    await waitFor(() => {
+      const options = getAllByRole('option');
+      userEvent.click(options[0]);
+    });
+    await waitFor(() => {
+      expect(onSubmit).toHaveBeenCalledTimes(1);
+      expect(onSubmit.mock.calls[0][0]).toBe(targetValue);
+      expect(onChange).toHaveBeenLastCalledWith(targetValue);
+    });
+
+    userEvent.click(getByLabelText('Clear', { selector: 'button' }));
+    await waitFor(() => {
+      expect(() => getAllByRole('option')).toThrow();
+    });
+    userEvent.type(input, secondTargetValue);
+
+    await waitFor(() => {
+      expect(onChange).toHaveBeenLastCalledWith(secondTargetValue);
+      expect(getAllByText(secondTargetValue, { selector: 'li' })).toHaveLength(1);
+      userEvent.type(input, '{arrowdown}{enter}');
+    });
+
+    await waitFor(() => {
+      expect(onSubmit).toHaveBeenCalledTimes(2);
+      expect(onSubmit.mock.calls[1][0]).toBe(secondTargetValue);
+    });
+  });
+
   it('renders the input with default value', async () => {
     const onSubmit = jest.fn();
     const onChange = jest.fn();

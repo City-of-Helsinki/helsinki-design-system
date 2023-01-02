@@ -168,9 +168,19 @@ export const SearchInput = <SuggestionItem,>({
       const { ItemClick, FunctionReset, InputKeyDownEnter } = useCombobox.stateChangeTypes;
       const handledChanges = [ItemClick, FunctionReset, InputKeyDownEnter] as UseComboboxStateChangeTypes[];
       if (handledChanges.includes(props.type)) {
-        dispatchValueChange(props.inputValue);
+        // if props.type === ItemClick and the value of the clicked item matches
+        // the value in the input element then props.inputValue does not exist.
+        const clickedValueMatchesCurrentValue = props.type === ItemClick && props.inputValue === undefined;
+        const newValue = clickedValueMatchesCurrentValue ? inputRef.current?.value : props.inputValue;
+        // additional check to make sure the value is never set to undefined
+        if (newValue === undefined) {
+          return;
+        }
+        if (!clickedValueMatchesCurrentValue) {
+          dispatchValueChange(newValue);
+        }
         if (props.type !== FunctionReset) {
-          submitValue(props.inputValue);
+          submitValue(newValue);
         }
         updateLastAction(props.type);
       } else {
