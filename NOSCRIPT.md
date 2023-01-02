@@ -36,7 +36,7 @@ Helsinki city web services require Javascript to function as intended. If the we
             <div class="hds-notification__body">
                 <div class="hds-noscript-text" lang="fi">Ole hyv&auml; ja ota JavaScript k&auml;ytt&ouml;&ouml;n selaimessasi varmistaaksesi palvelun t&auml;yden toiminnallisuuden ja tarkoitetun k&auml;ytt&ouml;kokemuksen.</div>
                 <div class="hds-noscript-text" lang="sv">V&auml;nligen aktivera JavaScript i din webbl&auml;sare f&ouml;r att garantera full funktionalitet och avsedd anv&auml;ndarupplevelse.</div>
-                <div class="hds-noscript-text" lang="en">Please enable JavaScript in your browser to guarantee full functionality and intended user experience.</div>
+                <div class="hds-noscript-text" lang="en">Please enable JavaScript in your browser to guarantee the full functionality and intended user experience.</div>
             </div>
         </div>
     </section>
