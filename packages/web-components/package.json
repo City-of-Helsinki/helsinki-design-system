@@ -6,6 +6,7 @@
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "main": "index.js",
   "scripts": {
+    "build": "rimraf lib/ && yarn run tcm && rollup -c",
     "start": "tcm src internal --watch & yarn storybook",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
@@ -43,7 +44,6 @@
     "@storybook/web-components": "^6.5.13",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
-    "@wessberg/rollup-plugin-ts": "^2.0.4",
     "babel-loader": "^8.2.5",
     "eslint": "^8.26.0",
     "eslint-plugin-import": "^2.26.0",
@@ -56,6 +56,7 @@
     "rollup-plugin-lit-css": "^4.0.0",
     "rollup-plugin-postcss": "3.1.8",
     "rollup-plugin-terser": "7.0.2",
+    "rollup-plugin-ts": "3.0.2",
     "typescript": "^4.8.4"
   },
   "dependencies": {
