@@ -41,6 +41,18 @@ describe('<SearchInput /> spec', () => {
     userEvent.click(renderResult.getByLabelText('Clear', { selector: 'button' }));
   };
 
+  const getMockFunctionArgument = (fn: jest.Mock, index: number) => {
+    return fn.mock.calls[index][0];
+  };
+
+  const getOnChangeArgumentByIndex = (index: number) => {
+    return getMockFunctionArgument(onChange, index);
+  };
+
+  const getOnSubmitArgumentByIndex = (index: number) => {
+    return getMockFunctionArgument(onSubmit, index);
+  };
+
   const initTests = (props: Partial<SearchInputProps<SuggestionItemType>>, defaultValue?: string): RenderResult => {
     const mergedProps = {
       ...defaultProps,
@@ -81,13 +93,13 @@ describe('<SearchInput /> spec', () => {
     initTests({ onSubmit, onChange });
     const input = getInputByDefaultLabel();
     userEvent.type(input, 't');
-    expect(onChange.mock.calls[0][0]).toBe('t');
+    expect(getOnChangeArgumentByIndex(0)).toBe('t');
     userEvent.type(input, 'e');
-    expect(onChange.mock.calls[1][0]).toBe('te');
+    expect(getOnChangeArgumentByIndex(1)).toBe('te');
     userEvent.type(input, 's');
-    expect(onChange.mock.calls[2][0]).toBe('tes');
+    expect(getOnChangeArgumentByIndex(2)).toBe('tes');
     userEvent.type(input, 't');
-    expect(onChange.mock.calls[3][0]).toBe('test');
+    expect(getOnChangeArgumentByIndex(3)).toBe('test');
   });
 
   it('submits the selected item on mouse click', async () => {
@@ -98,7 +110,7 @@ describe('<SearchInput /> spec', () => {
       const options = getAllByRole('option');
       userEvent.click(options[0]);
     });
-    expect(onSubmit.mock.calls[0][0]).toBe('Apple');
+    expect(getOnSubmitArgumentByIndex(0)).toBe('Apple');
     expect(onSubmit).toHaveBeenCalledTimes(1);
   });
 
@@ -109,7 +121,7 @@ describe('<SearchInput /> spec', () => {
     userEvent.type(input, 'c{enter}');
     await waitFor(() => {
       expect(input.getAttribute('value')).toBe('abc');
-      expect(onSubmit.mock.calls[0][0]).toBe('abc');
+      expect(getOnSubmitArgumentByIndex(0)).toBe('abc');
       expect(onSubmit).toHaveBeenCalledTimes(1);
     });
     clickResetButton();
@@ -120,7 +132,7 @@ describe('<SearchInput /> spec', () => {
     userEvent.click(getByLabelText('Search', { selector: 'button' }));
     await waitFor(() => {
       expect(input.getAttribute('value')).toBe('1234');
-      expect(onSubmit.mock.calls[1][0]).toBe('1234');
+      expect(getOnSubmitArgumentByIndex(1)).toBe('1234');
       expect(onSubmit).toHaveBeenCalledTimes(2);
     });
   });
@@ -141,7 +153,7 @@ describe('<SearchInput /> spec', () => {
     userEvent.type(input, '{arrowdown}{arrowdown}{enter}');
     await waitFor(() => {
       expect(onSubmit).toHaveBeenCalledTimes(1);
-      expect(onSubmit.mock.calls[0][0]).toBe(targetValue);
+      expect(getOnSubmitArgumentByIndex(0)).toBe(targetValue);
       expect(input.getAttribute('value')).toBe(targetValue);
     });
   });
@@ -161,7 +173,7 @@ describe('<SearchInput /> spec', () => {
     });
     await waitFor(() => {
       expect(onSubmit).toHaveBeenCalledTimes(1);
-      expect(onSubmit.mock.calls[0][0]).toBe(targetValue);
+      expect(getOnSubmitArgumentByIndex(0)).toBe(targetValue);
       expect(onChange).toHaveBeenLastCalledWith(targetValue);
     });
 
@@ -179,7 +191,7 @@ describe('<SearchInput /> spec', () => {
 
     await waitFor(() => {
       expect(onSubmit).toHaveBeenCalledTimes(2);
-      expect(onSubmit.mock.calls[1][0]).toBe(secondTargetValue);
+      expect(getOnSubmitArgumentByIndex(1)).toBe(secondTargetValue);
     });
   });
 
