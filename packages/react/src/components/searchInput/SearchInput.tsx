@@ -1,5 +1,5 @@
 import React, { KeyboardEvent, useState, useRef, useEffect } from 'react';
-import { useCombobox } from 'downshift';
+import { useCombobox, UseComboboxStateChangeTypes } from 'downshift';
 
 // import core base styles
 import 'hds-core';
@@ -114,7 +114,6 @@ export const SearchInput = <SuggestionItem,>({
 }: SearchInputProps<SuggestionItem>) => {
   const didMount = useRef(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const isItemClicked = useRef<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [internalValue, setInternalValue] = useState<string>('');
   const inputValue = value || internalValue;
@@ -157,11 +156,13 @@ export const SearchInput = <SuggestionItem,>({
   } = useCombobox<SuggestionItem>({
     items: suggestions,
     onStateChange(props) {
-      const { ItemClick } = useCombobox.stateChangeTypes;
-      if (props.type === ItemClick) {
-        isItemClicked.current = true;
+      const { ItemClick, FunctionReset, InputKeyDownEnter } = useCombobox.stateChangeTypes;
+      const handledChanges = [ItemClick, FunctionReset, InputKeyDownEnter] as UseComboboxStateChangeTypes[];
+      if (handledChanges.includes(props.type)) {
         dispatchValueChange(props.inputValue);
-        submitValue(props.inputValue);
+        if (props.type !== FunctionReset) {
+          submitValue(props.inputValue);
+        }
       }
     },
     itemToString: (item) => (item ? `${item[suggestionLabelField]}` : ''),

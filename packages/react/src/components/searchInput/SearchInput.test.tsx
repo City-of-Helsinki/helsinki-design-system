@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { render, waitFor, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -26,7 +26,7 @@ describe('<SearchInput /> spec', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('calls onChange when input value changes', async () => {
+  it('uncontrolled component calls onChange when input value changes', async () => {
     const onChange = jest.fn();
     // eslint-disable-next-line no-console
     const onSubmit = () => console.log('submit');
@@ -71,32 +71,82 @@ describe('<SearchInput /> spec', () => {
     expect(onSubmit.mock.calls[0][0]).toBe('Apple');
   });
 
-  it('submits the selected value on enter press or icon click', async () => {
+  it('Controlled component submits the input value on enter press or icon click', async () => {
     const onSubmit = jest.fn();
-    const { getByLabelText } = render(
-      <SearchInput<SuggestionItemType>
-        label="search"
-        suggestionLabelField="value"
-        getSuggestions={getSuggestions}
-        onSubmit={onSubmit}
-      />,
-    );
+    const defaultValue = 'ab';
+    const ControlledSearchInput = () => {
+      const [stateValue, updateStateValue] = useState(defaultValue);
+      return (
+        <div>
+          <SearchInput<SuggestionItemType>
+            label="search"
+            suggestionLabelField="value"
+            getSuggestions={getSuggestions}
+            onSubmit={onSubmit}
+            onChange={updateStateValue}
+            value={stateValue}
+          />
+        </div>
+      );
+    };
+
+    const { getByLabelText } = render(<ControlledSearchInput />);
 
     const input = getByLabelText('search', { selector: 'input' });
-    userEvent.type(input, 'abc{enter}');
+
+    userEvent.type(input, 'c{enter}');
     await waitFor(() => {
+      expect(input.getAttribute('value')).toBe('abc');
       expect(onSubmit.mock.calls[0][0]).toBe('abc');
     });
-    const clearButton = getByLabelText('Clear', { selector: 'button' });
-    const submitButton = getByLabelText('Search', { selector: 'button' });
-    userEvent.click(clearButton);
+
+    userEvent.click(getByLabelText('Clear', { selector: 'button' }));
     await waitFor(() => {
       expect(input.getAttribute('value')).toBe('');
     });
     userEvent.type(input, '1234');
-    userEvent.click(submitButton);
+    userEvent.click(getByLabelText('Search', { selector: 'button' }));
     await waitFor(() => {
+      expect(input.getAttribute('value')).toBe('1234');
       expect(onSubmit.mock.calls[1][0]).toBe('1234');
+    });
+  });
+
+  it('Controlled component submits the value when a dropdown item is selected with keyboard', async () => {
+    const onSubmit = jest.fn();
+    const targetValue = suggestions[1].value;
+    const inputValue = targetValue.substring(0, 2).toLowerCase();
+    const defaultValue = 'Fruit';
+    const backspacesToDeleteValue = '{backspace}'.repeat(defaultValue.length);
+    const ControlledSearchInput = () => {
+      const [stateValue, updateStateValue] = useState(defaultValue);
+      return (
+        <div>
+          <SearchInput<SuggestionItemType>
+            label="search"
+            suggestionLabelField="value"
+            getSuggestions={getSuggestions}
+            onSubmit={onSubmit}
+            onChange={updateStateValue}
+            value={stateValue}
+          />
+        </div>
+      );
+    };
+    const { getByDisplayValue, getAllByRole } = render(<ControlledSearchInput />);
+
+    const input = getByDisplayValue(defaultValue);
+    userEvent.type(input, backspacesToDeleteValue);
+    userEvent.type(input, inputValue);
+    await waitFor(() => {
+      const options = getAllByRole('option');
+      expect(options).toHaveLength(2);
+    });
+
+    userEvent.type(input, '{arrowdown}{arrowdown}{enter}');
+    await waitFor(() => {
+      expect(onSubmit.mock.calls[0][0]).toBe(targetValue);
+      expect(input.getAttribute('value')).toBe(targetValue);
     });
   });
 
