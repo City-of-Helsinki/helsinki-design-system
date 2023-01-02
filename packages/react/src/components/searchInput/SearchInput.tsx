@@ -114,10 +114,20 @@ export const SearchInput = <SuggestionItem,>({
 }: SearchInputProps<SuggestionItem>) => {
   const didMount = useRef(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const userEnterKeyAction = 'userEnterKeyAction';
+  const [lastAction, updateLastAction] = useState<UseComboboxStateChangeTypes | typeof userEnterKeyAction>(undefined);
   const [internalValue, setInternalValue] = useState<string>('');
   const inputValue = value || internalValue;
-  const { suggestions, isLoading } = useSuggestions<SuggestionItem>(inputValue, getSuggestions, isSubmitted);
+
+  const wasLastActionStateChangeEnterKey = () => {
+    return lastAction === useCombobox.stateChangeTypes.InputKeyDownEnter;
+  };
+
+  const wasSubmitted = () => {
+    return lastAction === userEnterKeyAction || wasLastActionStateChangeEnterKey();
+  };
+
+  const { suggestions, isLoading } = useSuggestions<SuggestionItem>(inputValue, getSuggestions, wasSubmitted());
   const showLoadingSpinner = useShowLoadingSpinner(isLoading, 1500 - SUGGESTIONS_DEBOUNCE_VALUE);
   const isControlledComponent = value !== undefined && onChange;
 
@@ -141,7 +151,6 @@ export const SearchInput = <SuggestionItem,>({
     const inputElementValue = inputRef.current?.value;
     const valueToSubmit = val !== undefined ? val : inputElementValue;
     onSubmit(valueToSubmit);
-    setIsSubmitted(true);
   };
 
   const {
@@ -163,6 +172,9 @@ export const SearchInput = <SuggestionItem,>({
         if (props.type !== FunctionReset) {
           submitValue(props.inputValue);
         }
+        updateLastAction(props.type);
+      } else {
+        updateLastAction(undefined);
       }
     },
     itemToString: (item) => (item ? `${item[suggestionLabelField]}` : ''),
@@ -171,10 +183,11 @@ export const SearchInput = <SuggestionItem,>({
 
   const onInputKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
     const key = event.key || event.keyCode;
-    if (key === 'Enter' || key === 13) {
+    if (!wasLastActionStateChangeEnterKey() && (key === 'Enter' || key === 13)) {
       submitValue();
+      updateLastAction(userEnterKeyAction);
     } else {
-      setIsSubmitted(false);
+      updateLastAction(undefined);
     }
   };
 

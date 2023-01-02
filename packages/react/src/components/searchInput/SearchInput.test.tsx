@@ -69,6 +69,7 @@ describe('<SearchInput /> spec', () => {
       userEvent.click(options[0]);
     });
     expect(onSubmit.mock.calls[0][0]).toBe('Apple');
+    expect(onSubmit).toHaveBeenCalledTimes(1);
   });
 
   it('Controlled component submits the input value on enter press or icon click', async () => {
@@ -98,6 +99,7 @@ describe('<SearchInput /> spec', () => {
     await waitFor(() => {
       expect(input.getAttribute('value')).toBe('abc');
       expect(onSubmit.mock.calls[0][0]).toBe('abc');
+      expect(onSubmit).toHaveBeenCalledTimes(1);
     });
 
     userEvent.click(getByLabelText('Clear', { selector: 'button' }));
@@ -109,6 +111,7 @@ describe('<SearchInput /> spec', () => {
     await waitFor(() => {
       expect(input.getAttribute('value')).toBe('1234');
       expect(onSubmit.mock.calls[1][0]).toBe('1234');
+      expect(onSubmit).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -145,6 +148,7 @@ describe('<SearchInput /> spec', () => {
 
     userEvent.type(input, '{arrowdown}{arrowdown}{enter}');
     await waitFor(() => {
+      expect(onSubmit).toHaveBeenCalledTimes(1);
       expect(onSubmit.mock.calls[0][0]).toBe(targetValue);
       expect(input.getAttribute('value')).toBe(targetValue);
     });
