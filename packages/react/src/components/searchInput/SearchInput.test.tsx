@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { render, waitFor, screen } from '@testing-library/react';
+import { render, waitFor, screen, RenderResult } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { SearchInput } from './SearchInput';
+import { SearchInput, SearchInputProps } from './SearchInput';
 
 type SuggestionItemType = {
   value: string;
@@ -21,6 +21,51 @@ const getSuggestions = (inputValue: string): Promise<SuggestionItemType[]> => {
 };
 
 describe('<SearchInput /> spec', () => {
+  let renderResult: RenderResult;
+  const defaultProps: Pick<
+    SearchInputProps<SuggestionItemType>,
+    'label' | 'suggestionLabelField' | 'getSuggestions'
+  > = {
+    label: 'search',
+    suggestionLabelField: 'value',
+    getSuggestions,
+  };
+
+  const getInputByDefaultLabel = () => {
+    return renderResult.getByLabelText(defaultProps.label as string, { selector: 'input' });
+  };
+
+  const clickResetButton = () => {
+    userEvent.click(renderResult.getByLabelText('Clear', { selector: 'button' }));
+  };
+
+  const initTests = (props: Partial<SearchInputProps<SuggestionItemType>>, defaultValue?: string): RenderResult => {
+    const mergedProps = {
+      ...defaultProps,
+      ...props,
+    } as SearchInputProps<SuggestionItemType>;
+    if (defaultValue) {
+      const ControlledSearchInput = () => {
+        const [stateValue, updateStateValue] = useState(defaultValue);
+        const onChange = (value: string) => {
+          if (props.onChange) {
+            props.onChange(value);
+          }
+          updateStateValue(value);
+        };
+        return (
+          <div>
+            <SearchInput<SuggestionItemType> {...mergedProps} onChange={onChange} value={stateValue} />
+          </div>
+        );
+      };
+      renderResult = render(<ControlledSearchInput />);
+    } else {
+      renderResult = render(<SearchInput<SuggestionItemType> {...mergedProps} />);
+    }
+    return renderResult;
+  };
+
   it('renders the component', () => {
     const { asFragment } = render(<SearchInput label="Search" onSubmit={() => null} />);
     expect(asFragment()).toMatchSnapshot();
@@ -30,17 +75,9 @@ describe('<SearchInput /> spec', () => {
     const onChange = jest.fn();
     // eslint-disable-next-line no-console
     const onSubmit = () => console.log('submit');
-    const { getAllByLabelText } = render(
-      <SearchInput<SuggestionItemType>
-        label="search"
-        suggestionLabelField="value"
-        getSuggestions={getSuggestions}
-        onChange={onChange}
-        onSubmit={onSubmit}
-      />,
-    );
+    initTests({ onSubmit, onChange });
 
-    const input = getAllByLabelText('search')[0];
+    const input = getInputByDefaultLabel();
     userEvent.type(input, 't');
     expect(onChange.mock.calls[0][0]).toBe('t');
     userEvent.type(input, 'e');
@@ -53,16 +90,9 @@ describe('<SearchInput /> spec', () => {
 
   it('submits the selected item on mouse click', async () => {
     const onSubmit = jest.fn();
-    const { getAllByLabelText, getAllByRole } = render(
-      <SearchInput<SuggestionItemType>
-        label="search"
-        suggestionLabelField="value"
-        getSuggestions={getSuggestions}
-        onSubmit={onSubmit}
-      />,
-    );
+    const { getAllByRole } = initTests({ onSubmit });
 
-    const input = getAllByLabelText('search')[0];
+    const input = getInputByDefaultLabel();
     userEvent.type(input, 'a');
     await waitFor(() => {
       const options = getAllByRole('option');
@@ -75,25 +105,10 @@ describe('<SearchInput /> spec', () => {
   it('Controlled component submits the input value on enter press or icon click', async () => {
     const onSubmit = jest.fn();
     const defaultValue = 'ab';
-    const ControlledSearchInput = () => {
-      const [stateValue, updateStateValue] = useState(defaultValue);
-      return (
-        <div>
-          <SearchInput<SuggestionItemType>
-            label="search"
-            suggestionLabelField="value"
-            getSuggestions={getSuggestions}
-            onSubmit={onSubmit}
-            onChange={updateStateValue}
-            value={stateValue}
-          />
-        </div>
-      );
-    };
 
-    const { getByLabelText } = render(<ControlledSearchInput />);
+    const { getByLabelText } = initTests({ onSubmit }, defaultValue);
 
-    const input = getByLabelText('search', { selector: 'input' });
+    const input = getInputByDefaultLabel();
 
     userEvent.type(input, 'c{enter}');
     await waitFor(() => {
@@ -102,7 +117,7 @@ describe('<SearchInput /> spec', () => {
       expect(onSubmit).toHaveBeenCalledTimes(1);
     });
 
-    userEvent.click(getByLabelText('Clear', { selector: 'button' }));
+    clickResetButton();
     await waitFor(() => {
       expect(input.getAttribute('value')).toBe('');
     });
@@ -121,22 +136,8 @@ describe('<SearchInput /> spec', () => {
     const inputValue = targetValue.substring(0, 2).toLowerCase();
     const defaultValue = 'Fruit';
     const backspacesToDeleteValue = '{backspace}'.repeat(defaultValue.length);
-    const ControlledSearchInput = () => {
-      const [stateValue, updateStateValue] = useState(defaultValue);
-      return (
-        <div>
-          <SearchInput<SuggestionItemType>
-            label="search"
-            suggestionLabelField="value"
-            getSuggestions={getSuggestions}
-            onSubmit={onSubmit}
-            onChange={updateStateValue}
-            value={stateValue}
-          />
-        </div>
-      );
-    };
-    const { getByDisplayValue, getAllByRole } = render(<ControlledSearchInput />);
+
+    const { getByDisplayValue, getAllByRole } = initTests({ onSubmit }, defaultValue);
 
     const input = getByDisplayValue(defaultValue);
     userEvent.type(input, backspacesToDeleteValue);
@@ -160,28 +161,10 @@ describe('<SearchInput /> spec', () => {
     const targetValue = suggestions[1].value;
     const secondTargetValue = suggestions[3].value;
     const defaultValue = 'HereToMakeComponentControlled';
-    const ControlledSearchInput = () => {
-      const [stateValue, updateStateValue] = useState(defaultValue);
-      return (
-        <div>
-          <SearchInput<SuggestionItemType>
-            label="search"
-            suggestionLabelField="value"
-            getSuggestions={getSuggestions}
-            onSubmit={onSubmit}
-            onChange={(value) => {
-              onChange(value);
-              updateStateValue(value);
-            }}
-            value={stateValue}
-          />
-        </div>
-      );
-    };
-    const { getByDisplayValue, getAllByRole, getByLabelText, getAllByText } = render(<ControlledSearchInput />);
+    const { getByDisplayValue, getAllByRole, getAllByText } = initTests({ onSubmit, onChange }, defaultValue);
 
     const input = getByDisplayValue(defaultValue);
-    userEvent.click(getByLabelText('Clear', { selector: 'button' }));
+    clickResetButton();
     userEvent.type(input, targetValue);
     expect(input.getAttribute('value')).toBe(targetValue);
     await waitFor(() => {
@@ -194,7 +177,7 @@ describe('<SearchInput /> spec', () => {
       expect(onChange).toHaveBeenLastCalledWith(targetValue);
     });
 
-    userEvent.click(getByLabelText('Clear', { selector: 'button' }));
+    clickResetButton();
     await waitFor(() => {
       expect(() => getAllByRole('option')).toThrow();
     });
@@ -216,16 +199,7 @@ describe('<SearchInput /> spec', () => {
     const onSubmit = jest.fn();
     const onChange = jest.fn();
     const value = 'Banana';
-    render(
-      <SearchInput<SuggestionItemType>
-        label="search"
-        suggestionLabelField="value"
-        getSuggestions={getSuggestions}
-        value={value}
-        onSubmit={onSubmit}
-        onChange={onChange}
-      />,
-    );
+    render(<SearchInput<SuggestionItemType> {...defaultProps} value={value} onSubmit={onSubmit} onChange={onChange} />);
 
     expect(screen.getByDisplayValue(value)).toBeInTheDocument();
   });
