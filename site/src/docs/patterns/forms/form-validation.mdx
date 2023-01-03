@@ -4,10 +4,11 @@ title: 'Form validation'
 navTitle: 'Form validation'
 ---
 
-import { Link, IconCheck, IconError, Notification, StatusLabel } from 'hds-react';
+import { Button, ErrorSummary, IconCheck, IconError, Notification, TextInput, Link, StatusLabel } from 'hds-react';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/Image';
 import InternalLink from '../../../components/InternalLink';
+import Playground from '../../../components/Playground';
 
 # Form validation
 
@@ -241,12 +242,79 @@ The usage of the error summary component is triggered when the form is submitted
 4. The user can use the error description anchor link to quickly jump and focus each of the erroneous inputs.
 5. When the user submits the form again and errors are still found, the contents of the error summary are updated and the focus is moved back to the summary heading again.
 
-<Image
-  src="/images/patterns/form/validation/validation-pattern-example@2x.png"
-  alt="Validation summary example"
-  style={{ maxWidth: 432 }}
-  viewable
-/>
+<Playground scope={{ Button, ErrorSummary, TextInput }} >
+
+```jsx
+import { Button, ErrorSummary, TextInput } from 'hds-react';
+
+{
+  () => {
+    const [formValues, setFormValues] = React.useState({});
+    const [formErrors, setFormErrors] = React.useState({});
+    const [isSubmitted, setIsSubmitted] = React.useState(false);
+    const errorList = Object.entries(formErrors);
+
+    const validate = (values) => {
+      const errors = {
+        ...(values['firstName'] ? {} : { firstName: 'Please enter your first name' }),
+        ...(values['lastName'] ? {} : { lastName: 'Please enter your last name' }),
+      };
+      setFormErrors(errors);
+    };
+
+    const onSubmit = (e) => {
+      e.preventDefault();
+      setIsSubmitted(true);
+    };
+
+    React.useEffect(() => {
+      validate(formValues);
+    }, [formValues]);
+
+    return (
+      <form onSubmit={onSubmit} style={{ maxWidth: '450px', margin: 'var(--spacing-xl) var(--spacing-m)' }}>
+        {isSubmitted && errorList.length > 0 && (
+          <ErrorSummary autofocus label="Form contains following errors">
+            {errorList.map(([key, value], index) => (
+              <li key={key}>
+                {`Error ${index + 1}: `}
+                <a href={`#validationExample-${key}`}>{value}</a>
+              </li>
+            ))}
+          </ErrorSummary>
+        )}
+        <div style={{ display: 'flex', gap: 'var(--spacing-m)', marginTop: 'var(--spacing-m)' }}>
+          <TextInput
+            id="validationExample-firstName"
+            name="firstName"
+            label="First name"
+            onBlur={(e) => setFormValues({ ...formValues, firstName: e.target.value })}
+            invalid={!!formErrors['firstName']}
+            errorText={formErrors['firstName']}
+            required
+          />
+          <TextInput
+            id="validationExample-lastName"
+            name="lastName"
+            label="Last name"
+            onBlur={(e) => setFormValues({ ...formValues, lastName: e.target.value })}
+            invalid={!!formErrors['lastName']}
+            errorText={formErrors['lastName']}
+            required
+          />
+        </div>
+        <div style={{ marginTop: 'var(--spacing-m)' }}>
+          <Button onClick={onSubmit} type="button">
+            Submit
+          </Button>
+        </div>
+      </form>
+    );
+  }
+}
+```
+
+</Playground>
 
 You can see the validation summary pattern in action in HDS Storybook <Link href="/storybook/react/iframe.html?id=patterns-form-validation--static&viewMode=story" external openInNewTab openInNewTabAriaLabel="Opens in new tab">static validation example</Link> and <Link href="/storybook/react/iframe.html?id=patterns-form-validation--hybrid&viewMode=story" external openInNewTab openInNewTabAriaLabel="Opens in new tab">hybrid validation example</Link>.
 
