@@ -1,10 +1,6 @@
 .navigationLink.navigationLink {
   --link-visited-color: none;
   --link-color: var(--color-black-90);
-  display: flex;
-  line-height: var(--lineheight-l);
-  text-decoration: none;
-  word-wrap: break-word;
 }
 
 .active {
@@ -22,7 +18,14 @@
   display: flex;
   height: 100%;
   position: relative;
+
   .navigationLink {
+    --link-visited-color: none;
+    --link-color: var(--color-black-90);
     flex-grow: 1;
+    display: flex;
+    line-height: var(--lineheight-l);
+    text-decoration: none;
+    word-wrap: break-word;
   }
 }

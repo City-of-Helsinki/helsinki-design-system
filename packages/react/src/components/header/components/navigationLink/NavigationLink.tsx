@@ -53,10 +53,6 @@ export type NavigationLinkProps = Omit<
    * @internal
    */
   setOpenSubNavIndex?: (val: number) => void;
-  /**
-   * Size of the link.
-   */
-  size?: 'S' | 'M' | 'L';
 };
 
 export const NavigationLink = ({
@@ -69,7 +65,6 @@ export const NavigationLink = ({
   label,
   openSubNavIndex,
   setOpenSubNavIndex,
-  size,
   ...rest
 }: NavigationLinkProps) => {
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
@@ -167,7 +162,6 @@ export const NavigationLink = ({
       <Link
         className={classNames(styles.navigationLink, className, active ? styles.active : undefined)}
         href={href}
-        size={size}
         {...rest}
         {...(active && { active: 'true' })}
         {...(dropdownLinks &&
