@@ -13,7 +13,7 @@ const footerNavAriaLabel = 'Footer navigation items';
 const createArray = (length: number): number[] => Array.from({ length }, (value, index) => index);
 
 const Utilities = () => (
-  <Footer.Utilities backToTopLabel="Back to top">
+  <Footer.Utilities>
     <Footer.SoMe>
       <Footer.Item
         title="Link to Facebook"
@@ -52,7 +52,7 @@ const Utilities = () => (
 );
 
 const Base = () => (
-  <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved">
+  <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
     {createArray(5).map((index) => (
       <Footer.Item key={index} href="https://google.com" onClick={(e) => e.preventDefault()} label="Link" />
     ))}
@@ -178,7 +178,7 @@ export const Example = (args) => (
       <Footer.Item href="https://helmet.fi/" label="Kirjastot verkossa" />
       <Footer.Item href="https://reittiopas.fi/" label="Reittiopas" />
     </Footer.Navigation>
-    <Footer.Utilities backToTopLabel="Sivun alkuun">
+    <Footer.Utilities>
       <Footer.SoMe soMeSectionProps={{ 'aria-label': 'Helsinki sosiaalisessa mediassa' }}>
         <Footer.Item
           title="Helsingin kaupungin Facebook-tili"
@@ -221,7 +221,11 @@ export const Example = (args) => (
       />
       <Footer.Item href="https://hel.fi/kanslia/neuvonta-fi" label="Chat-neuvonta" />
     </Footer.Utilities>
-    <Footer.Base copyrightHolder="Helsingin kaupunki" copyrightText="Kaikki oikeudet pidetään">
+    <Footer.Base
+      copyrightHolder="Helsingin kaupunki"
+      copyrightText="Kaikki oikeudet pidetään"
+      backToTopLabel="Sivun alkuun"
+    >
       <Footer.Item
         href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/tietoa-hel-fista/"
         label="Tietoa palvelusta"

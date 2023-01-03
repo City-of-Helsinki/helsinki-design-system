@@ -72,10 +72,6 @@ $koros-heights: (
   .titleWrapper {
     flex-direction: column;
   }
-
-  .title {
-    margin-top: var(--spacing-xs);
-  }
 }
 
 @media medium-up {
@@ -83,10 +79,6 @@ $koros-heights: (
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-  }
-
-  .title {
-    margin-left: var(--spacing-s);
   }
 }
 

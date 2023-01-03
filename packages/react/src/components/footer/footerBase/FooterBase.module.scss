@@ -1,8 +1,11 @@
 @import "../common.scss";
 @value x-small-only, small-down, small-only, small-up, medium-down, medium-only, medium-up, large-up from "../../../styles/breakpoints.scss";
 
-.divider {
-  @extend %divider;
+.backToTopButton {
+  @extend %footerItem;
+  align-self: unset;
+  margin-left: auto;
+  font-size: 20px;
 }
 
 .base {
@@ -10,20 +13,36 @@
   padding: 0 var(--spacing-m) var(--spacing-m);
 }
 
+.baseActions {
+  display: flex;
+  flex-grow: 1;
+}
+
+.baseLink {
+  font-size: var(--fontsize-body-s);
+  text-decoration: underline;
+  align-self: unset;
+}
+
 .copyright {
   display: grid;
   font-size: var(--fontsize-body-s);
+  margin-right: var(--spacing-2-xs);
+}
+
+.divider {
+  @extend %divider;
 }
 
 .links {
   display: grid;
   gap: var(--spacing-xs);
+  align-content: center;
+  justify-content: flex-start;
 }
 
-// link items
-.base .links > * {
-  font-size: var(--fontsize-body-s);
-  text-decoration: underline;
+.logoWrapper {
+  display: flex;
 }
 
 @media x-small-only {
@@ -32,25 +51,41 @@
       display: none;
     }
   }
+  .links {
+    justify-content: flex-start;
+  }
 }
 
 @media small-down {
+  .base {
+    flex-direction: column;
+  }
+
+  .baseActions {
+    flex-direction: column;
+  }
+
   .copyright {
-    justify-items: center;
+    margin-top: var(--spacing-s);
   }
 
   .links {
-    justify-content: center;
+    margin-top: var(--spacing-2-xs);
   }
 }
 
 @media small-only {
-  .base .links {
-    @include gridColumns(3);
+  .links {
+    grid-auto-flow: column;
+    justify-content: flex-start;
   }
 
   .copyright {
-    justify-content: center;
+    justify-content: flex-start;
+  }
+
+  .backToTopButton {
+    margin-top: var(--spacing-m)
   }
 }
 
@@ -66,15 +101,11 @@
     flex-direction: column;
   }
 
-  .links {
-    margin-top: var(--spacing-2-xs);
+  .copyright {
+    margin-top: var(--spacing-s);
+    margin-bottom: var(--spacing-xs);
   }
-}
 
-@media medium-only {
-  .links {
-    margin-top: var(--spacing-2-xs);
-  }
 }
 
 @media medium-up {
@@ -92,10 +123,8 @@
   .base {
     align-items: center;
     flex-wrap: wrap;
-    justify-content: flex-end;
   }
-
   .copyright {
-    margin-right: auto;
+    margin-left: var(--spacing-s);
   }
 }

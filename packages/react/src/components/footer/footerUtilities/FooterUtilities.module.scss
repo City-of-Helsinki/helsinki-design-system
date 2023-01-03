@@ -15,10 +15,6 @@
   justify-items: center;
 }
 
-.backToTopButton {
-  @extend %footerItem;
-}
-
 @media small-down {
   .utilities {
     justify-items: center;
