@@ -225,5 +225,52 @@ describe('<Combobox />', () => {
       const visibleOptions = getAllByRole('option');
       expect(visibleOptions.length).toBe(1);
     });
+
+    it('deleting an item while suggestions are shown, should only delete the item and not add an option', async () => {
+      const onChange = jest.fn();
+      const { getAllByLabelText, getAllByRole, queryAllByText } = getWrapper({
+        onChange,
+        multiselect: true,
+        options: multiWordOptions,
+      });
+
+      const getTags = () =>
+        getAllByRole('button').filter((t) => {
+          const child = t.firstChild as HTMLElement;
+          return child && String(child.getAttribute('id')).includes('hds-tag');
+        });
+
+      const input = getAllByLabelText(label)[0];
+
+      // Search an option
+      userEvent.type(input, 'hel');
+      const visibleOptions = getAllByRole('option');
+      // Choose three options, not the one at index 0!
+      // item at #0 would be added when a tag is deleted
+      // if tested bug was not fixed.
+      userEvent.click(visibleOptions[1]);
+      userEvent.click(visibleOptions[2]);
+      userEvent.click(visibleOptions[3]);
+      await waitFor(() => {
+        expect(getTags()).toHaveLength(3);
+        expect(onChange).toHaveBeenCalledTimes(3);
+      });
+      const tagForLabel2 = getTags().filter((t) => {
+        const span = (t.childNodes[0] as HTMLElement).childNodes[1] as HTMLElement;
+        return !!span && span.textContent === multiWordOptions[2].label;
+      })[0];
+
+      expect(tagForLabel2).not.toBeUndefined();
+      const deleteButtonForTag = tagForLabel2.querySelector('button') as HTMLButtonElement;
+      userEvent.click(deleteButtonForTag);
+      await waitFor(() => {
+        expect(onChange).toHaveBeenCalledTimes(4);
+        expect(getTags()).toHaveLength(2);
+        // deleteButtonClick causes onBlur and menu closes, so only tags are visible
+        expect(queryAllByText(multiWordOptions[1].label).length).toEqual(1);
+        expect(queryAllByText(multiWordOptions[2].label).length).toEqual(0);
+        expect(queryAllByText(multiWordOptions[3].label).length).toEqual(1);
+      });
+    });
   });
 });

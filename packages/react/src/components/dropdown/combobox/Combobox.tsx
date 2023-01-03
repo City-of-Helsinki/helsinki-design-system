@@ -274,6 +274,19 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
           };
         }
       }
+
+      // clear changes.selectedItem on blur, if state.selectedItem does not exist
+      // and therefore an item has not been selected. For some reason changes.selectedItem exists
+      // when deleting tag while suggestions are open.
+      if (type === InputBlur && props.multiselect && !state.selectedItem) {
+        return {
+          ...changes,
+          selectedItem: null,
+          // reset input value
+          inputValue: '',
+        };
+      }
+
       return changes;
     },
   });
