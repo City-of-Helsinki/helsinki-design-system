@@ -4,7 +4,17 @@ title: 'Form validation'
 navTitle: 'Form validation'
 ---
 
-import { Button, ErrorSummary, IconCheck, IconError, Notification, TextInput, Link, StatusLabel } from 'hds-react';
+import {
+  Button,
+  DateInput,
+  ErrorSummary,
+  IconCheck,
+  IconError,
+  Notification,
+  TextInput,
+  Link,
+  StatusLabel,
+} from 'hds-react';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/Image';
 import InternalLink from '../../../components/InternalLink';
@@ -324,12 +334,85 @@ In some cases, multiple input fields can be related to each other in a way that 
 
 An example of this could be having two date inputs for setting a start and an end time. If the end time is set to be earlier than the start time, both date inputs become erroneous. Since assistive technologies only see one input at a time, all related inputs should be set to an error state and given an appropriate error message. The error message can be the same for all inputs or more input specific if the situation allows so. All error messages are also added to the error summary list. This method has been illustrated in the image below.
 
-<Image
-  src="/images/patterns/form/validation/multiple-fields-validation@2x.png"
-  alt="Showing error messages of multiple input fields"
-  style={{ maxWidth: 482 }}
-  viewable
-/>
+<Playground scope={{ Button, ErrorSummary, DateInput }} >
+
+```jsx
+import { Button, ErrorSummary, DateInput } from 'hds-react';
+
+{
+  () => {
+    const [formValues, setFormValues] = React.useState({});
+    const [formErrors, setFormErrors] = React.useState({});
+    const [isSubmitted, setIsSubmitted] = React.useState(false);
+    const errorList = Object.entries(formErrors);
+
+    const isSameOrAfter = (dateA, dateB) => dateA && dateB && dateA.valueOf() >= dateB.valueOf();
+
+    const validate = (values) => {
+      const startDate = values['startDate'];
+      const endDate = values['endDate'];
+      const errors = {
+        ...(!startDate || isSameOrAfter(startDate, endDate) ? { startDate: 'Start date must be before end date' } : {}),
+        ...(!endDate || isSameOrAfter(startDate, endDate) ? { endDate: 'End date must be after start date' } : {}),
+      };
+      setFormErrors(errors);
+    };
+
+    const onSubmit = (e) => {
+      e.preventDefault();
+      setIsSubmitted(true);
+    };
+
+    React.useEffect(() => {
+      validate(formValues);
+    }, [formValues]);
+
+    return (
+      <form onSubmit={onSubmit} style={{ maxWidth: '450px', margin: 'var(--spacing-xl) var(--spacing-m)' }}>
+        {isSubmitted && errorList.length > 0 && (
+          <ErrorSummary autofocus label="Form contains following errors">
+            {errorList.map(([key, value], index) => (
+              <li key={key}>
+                {`Error ${index + 1}: `}
+                <a href={`#dateValidationExample-${key}`}>{value}</a>
+              </li>
+            ))}
+          </ErrorSummary>
+        )}
+        <div style={{ display: 'flex', gap: 'var(--spacing-m)', marginTop: 'var(--spacing-m)' }}>
+          <DateInput
+            id="dateValidationExample-startDate"
+            name="startDate"
+            label="Start date"
+            onChange={(date) => setFormValues({ ...formValues, startDate: date })}
+            invalid={!!formErrors['startDate']}
+            errorText={formErrors['startDate']}
+            required
+            disableConfirmation
+          />
+          <DateInput
+            id="dateValidationExample-endDate"
+            name="endDate"
+            label="End date"
+            onChange={(date) => setFormValues({ ...formValues, endDate: date })}
+            invalid={!!formErrors['endDate']}
+            errorText={formErrors['endDate']}
+            required
+            disableConfirmation
+          />
+        </div>
+        <div style={{ marginTop: 'var(--spacing-m)' }}>
+          <Button onClick={onSubmit} type="button">
+            Submit
+          </Button>
+        </div>
+      </form>
+    );
+  };
+}
+```
+
+</Playground>
 
 When there are multiple related fields, a later field in the form can make an earlier field erroneous. In this case, it is important to note that the state change of the earlier field can go unnoticed for assistive technologies. It is recommended to notify assistive technologies of other inputs' state change by using the <InternalLink href="/components/notification#invisible">HDS invisible notification.</InternalLink>
 
