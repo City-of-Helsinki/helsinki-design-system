@@ -1,7 +1,9 @@
 @import "../common.scss";
+@value small-down from "../../../styles/breakpoints.scss";
 
 .item {
   @extend %footerItem;
+  font-size: var(--fontsize-body-l);
 
   // spacing between icon and label
   & > *:nth-child(2) {
@@ -11,6 +13,13 @@
   &.subItem {
     font-weight: normal;
     margin-top: var(--spacing-3-xs);
+  }
+}
+
+
+@media small-down {
+  .item {
+    font-size: var(--fontsize-body-m);
   }
 }
 

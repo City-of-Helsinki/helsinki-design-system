@@ -62,7 +62,9 @@ $koros-heights: (
 }
 
 .title {
-  font-size: var(--fontsize-heading-xxs);
+  font-size: var(--fontsize-heading-m);
+  line-height: var(--lineheight-l);
+  letter-spacing: 0.4px;
   font-weight: bold;
   letter-spacing: 0.4px;
   line-height: var(--lineheight-l);
@@ -71,6 +73,9 @@ $koros-heights: (
 @media small-down {
   .titleWrapper {
     flex-direction: column;
+  }
+  .title {
+    font-size: var(--fontsize-heading-s);
   }
 }
 

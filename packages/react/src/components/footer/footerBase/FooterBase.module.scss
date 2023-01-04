@@ -19,12 +19,6 @@
   flex-grow: 1;
 }
 
-.baseLink {
-  align-self: unset;
-  font-size: var(--fontsize-body-s);
-  text-decoration: underline;
-}
-
 .copyright {
   display: flex;
   font-size: var(--fontsize-body-s);
@@ -41,6 +35,13 @@
   align-items: center;
   display: flex;
   gap: var(--spacing-xs);
+  
+  .baseLink {
+    align-self: unset;
+    font-size: var(--fontsize-body-s);
+    text-decoration: underline;
+    font-weight: 500;
+  }
 }
 
 .logoWrapper {
