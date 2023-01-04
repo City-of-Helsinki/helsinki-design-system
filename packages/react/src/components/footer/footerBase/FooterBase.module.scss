@@ -1,5 +1,5 @@
-@import "../common.scss";
-@value x-small-only, small-down, small-only, small-up, medium-down, medium-only, medium-up, large-up from "../../../styles/breakpoints.scss";
+@import '../common.scss';
+@value x-small-down, small-down, small-up, medium-down, medium-up, large-up from "../../../styles/breakpoints.scss";
 
 .backToTopButton {
   @extend %footerItem;
@@ -10,6 +10,7 @@
 
 .base {
   display: flex;
+  flex-direction: column;
   padding: 0 var(--spacing-m) var(--spacing-m);
 }
 
@@ -19,14 +20,16 @@
 }
 
 .baseLink {
+  align-self: unset;
   font-size: var(--fontsize-body-s);
   text-decoration: underline;
-  align-self: unset;
 }
 
 .copyright {
-  display: grid;
+  display: flex;
   font-size: var(--fontsize-body-s);
+  gap: var(--spacing-3-xs);
+  justify-content: flex-start;
   margin-right: var(--spacing-2-xs);
 }
 
@@ -35,93 +38,49 @@
 }
 
 .links {
-  display: grid;
+  align-items: center;
+  display: flex;
   gap: var(--spacing-xs);
-  align-content: center;
-  justify-content: flex-start;
 }
 
 .logoWrapper {
   display: flex;
 }
 
-@media x-small-only {
+@media x-small-down {
+  .links {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  
   .copyright {
     &Dot {
       display: none;
     }
   }
-  .links {
-    justify-content: flex-start;
-  }
 }
 
 @media small-down {
-  .base {
-    flex-direction: column;
-  }
-
   .baseActions {
     flex-direction: column;
   }
 
-  .copyright {
-    margin-top: var(--spacing-s);
-  }
-
-  .links {
-    margin-top: var(--spacing-2-xs);
-  }
-}
-
-@media small-only {
-  .links {
-    grid-auto-flow: column;
-    justify-content: flex-start;
-  }
-
-  .copyright {
-    justify-content: flex-start;
-  }
-
   .backToTopButton {
-    margin-top: var(--spacing-m)
-  }
-}
-
-@media small-up {
-  .copyright {
-    gap: var(--spacing-3-xs);
-    grid-auto-flow: column;
+    margin-top: var(--spacing-m);
   }
 }
 
 @media medium-down {
-  .base {
-    flex-direction: column;
-  }
-
   .copyright {
-    margin-top: var(--spacing-s);
     margin-bottom: var(--spacing-xs);
-  }
-
-}
-
-@media medium-up {
-  .copyright {
-    justify-content: start;
-  }
-
-  .links {
-    grid-auto-flow: column;
-    justify-content: start;
+    margin-top: var(--spacing-s);
   }
 }
 
 @media large-up {
   .base {
     align-items: center;
+    flex-direction: row;
     flex-wrap: wrap;
   }
   .copyright {
