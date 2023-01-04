@@ -676,7 +676,7 @@ export function getCookieContent() {
       },
       matomo: {
         id: 'matomo',
-        hostName: 'digia.fi',
+        hostName: '*.hel.fi',
         fi: {
           name: '_pk_id.*',
           description: 'Eväste kerää tietoa kävijän liikkeistä sivustolla.',
