@@ -35,7 +35,7 @@
   align-items: center;
   display: flex;
   gap: var(--spacing-xs);
-  
+
   .baseLink {
     align-self: unset;
     font-size: var(--fontsize-body-s);
@@ -76,6 +76,9 @@
     margin-bottom: var(--spacing-xs);
     margin-top: var(--spacing-s);
   }
+  .divider {
+    margin: 0 0 var(--spacing-m);
+  }  
 }
 
 @media large-up {

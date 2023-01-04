@@ -17,12 +17,9 @@
  */
 %footerItem {
   @extend %buttonReset;
-
-  align-items: center;
   align-self: start;
   color: inherit;
   display: flex;
-  justify-content: center;
   outline: none;
   position: relative;
   text-decoration: none;
