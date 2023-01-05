@@ -124,10 +124,18 @@ export const SearchInput = <SuggestionItem,>({
   };
 
   const wasSubmitted = () => {
-    return lastAction === userEnterKeyAction || wasLastActionStateChangeEnterKey();
+    return (
+      lastAction === useCombobox.stateChangeTypes.ItemClick ||
+      lastAction === userEnterKeyAction ||
+      wasLastActionStateChangeEnterKey()
+    );
   };
 
-  const { suggestions, isLoading } = useSuggestions<SuggestionItem>(inputValue, getSuggestions, wasSubmitted());
+  const { suggestions, isLoading, clearSuggestions } = useSuggestions<SuggestionItem>(
+    inputValue,
+    getSuggestions,
+    wasSubmitted(),
+  );
   const showLoadingSpinner = useShowLoadingSpinner(isLoading, 1500 - SUGGESTIONS_DEBOUNCE_VALUE);
   const isControlledComponent = value !== undefined && onChange;
 
@@ -151,6 +159,7 @@ export const SearchInput = <SuggestionItem,>({
     const inputElementValue = inputRef.current?.value;
     const valueToSubmit = val !== undefined ? val : inputElementValue;
     onSubmit(valueToSubmit);
+    clearSuggestions();
   };
 
   const {
@@ -218,6 +227,7 @@ export const SearchInput = <SuggestionItem,>({
   const clear = () => {
     reset();
     inputRef.current.focus();
+    clearSuggestions();
   };
 
   /**
