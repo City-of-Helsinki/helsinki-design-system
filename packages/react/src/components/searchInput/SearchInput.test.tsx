@@ -137,7 +137,7 @@ describe('<SearchInput /> spec', () => {
     });
   });
 
-  it('Controlled component submits the value when a dropdown item is selected with keyboard', async () => {
+  it('Controlled component submits the value when a dropdown item is selected with keyboard. Suggestions are closed.', async () => {
     const targetValue = suggestions[1].value;
     const inputValue = targetValue.substring(0, 2).toLowerCase();
     const defaultValue = 'Fruit';
@@ -147,8 +147,7 @@ describe('<SearchInput /> spec', () => {
     userEvent.type(input, backspacesToDeleteValue);
     userEvent.type(input, inputValue);
     await waitFor(() => {
-      const options = getAllByRole('option');
-      expect(options).toHaveLength(2);
+      expect(getAllByRole('option')).toHaveLength(2);
     });
     userEvent.type(input, '{arrowdown}{arrowdown}{enter}');
     await waitFor(() => {
@@ -156,6 +155,7 @@ describe('<SearchInput /> spec', () => {
       expect(getOnSubmitArgumentByIndex(0)).toBe(targetValue);
       expect(input.getAttribute('value')).toBe(targetValue);
     });
+    expect(() => getAllByRole('option')).toThrow();
   });
 
   it('Controlled component submits once if selected value is same as input value', async () => {
@@ -199,5 +199,37 @@ describe('<SearchInput /> spec', () => {
     const value = 'Banana';
     render(<SearchInput<SuggestionItemType> {...defaultProps} value={value} onSubmit={onSubmit} onChange={onChange} />);
     expect(screen.getByDisplayValue(value)).toBeInTheDocument();
+  });
+
+  it('Suggestions are closed when current value is submitted with enter press or icon click', async () => {
+    // make component controlled
+    const defaultValue = 'default';
+    const { getByLabelText, getAllByRole } = initTests({ onSubmit }, defaultValue);
+    const input = getInputByDefaultLabel();
+    const getOptions = () => getAllByRole('option');
+
+    clickResetButton();
+    userEvent.type(input, 'a');
+    await waitFor(() => {
+      expect(getOptions()).toHaveLength(4);
+    });
+
+    userEvent.type(input, '{enter}');
+    await waitFor(() => {
+      expect(getOnSubmitArgumentByIndex(0)).toBe('a');
+      expect(() => getOptions()).toThrow();
+    });
+
+    userEvent.type(input, 'p');
+    await waitFor(() => {
+      expect(getOptions()).toHaveLength(2);
+    });
+
+    userEvent.click(getByLabelText('Search', { selector: 'button' }));
+    await waitFor(() => {
+      expect(getOnSubmitArgumentByIndex(1)).toBe('ap');
+      expect(() => getOptions()).toThrow();
+    });
+    expect(onSubmit).toHaveBeenCalledTimes(2);
   });
 });

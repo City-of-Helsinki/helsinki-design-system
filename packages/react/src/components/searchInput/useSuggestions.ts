@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { cancellablePromise } from '../../utils/cancellablePromise';
 import { useDebouncedEffect } from '../../hooks/useDebouncedEffect';
@@ -20,6 +20,19 @@ export const useSuggestions = <SuggestionItemType>(
   const cancelSuggestionsFunction = useRef<() => void>(() => null);
   // Currently visible suggestion items
   const [suggestions, setSuggestions] = useState<SuggestionItemType[]>([]);
+
+  const clearSuggestions = useCallback(() => {
+    setSuggestions([]);
+    setIsLoading(false);
+    cancelSuggestionsFunction.current();
+  }, [setSuggestions, cancelSuggestionsFunction]);
+
+  // cancel possible suggestion promise on unload
+  useEffect(() => {
+    return () => {
+      cancelSuggestionsFunction.current();
+    };
+  }, [cancelSuggestionsFunction]);
 
   // If form is submitted, cancel all suggestions
   useEffect(() => {
@@ -60,5 +73,5 @@ export const useSuggestions = <SuggestionItemType>(
     [searchString, getSuggestions, setSuggestions],
   );
 
-  return { suggestions, isLoading: cancelAll.current ? false : isLoading };
+  return { suggestions, isLoading: cancelAll.current ? false : isLoading, clearSuggestions };
 };
