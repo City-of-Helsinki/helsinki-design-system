@@ -202,12 +202,11 @@ export const SearchInput = <SuggestionItem,>({
 
   const onInputKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
     const key = event.key || event.keyCode;
-    if (!wasLastActionStateChangeEnterKey() && (key === 'Enter' || key === 13)) {
+    const wasEnterKey = key === 'Enter' || key === 13;
+    if (!wasLastActionStateChangeEnterKey() && wasEnterKey) {
       submitValue();
-      updateLastAction(userEnterKeyAction);
-    } else {
-      updateLastAction(undefined);
     }
+    updateLastAction(wasEnterKey ? userEnterKeyAction : undefined);
   };
 
   const onInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
