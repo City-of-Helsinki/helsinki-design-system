@@ -2,16 +2,16 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { FooterItem } from './FooterItem';
+import { FooterNavigationLink } from './FooterNavigationLink';
 import { FooterWrapper } from '../../../utils/test-utils';
 
-describe('<Footer.Item /> spec', () => {
+describe('<Footer.NavigationLink /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<FooterItem />, { wrapper: FooterWrapper });
+    const { asFragment } = render(<FooterNavigationLink />, { wrapper: FooterWrapper });
     expect(asFragment()).toMatchSnapshot();
   });
   it('should not have basic accessibility issues', async () => {
-    const { container } = render(<FooterItem />, { wrapper: FooterWrapper });
+    const { container } = render(<FooterNavigationLink />, { wrapper: FooterWrapper });
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

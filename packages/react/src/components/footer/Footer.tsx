@@ -7,8 +7,9 @@ import styles from './Footer.module.scss';
 import { Koros, KorosType } from '../koros';
 import classNames from '../../utils/classNames';
 import { FooterNavigation } from './footerNavigation/FooterNavigation';
-import { FooterItemGroup } from './footerItemGroup/FooterItemGroup';
-import { FooterItem } from './footerItem/FooterItem';
+import { FooterNavigationGroup } from './footerNavigationGroup/FooterNavigationGroup';
+import { FooterNavigationHeading } from './footerNavigationHeading/FooterNavigationHeading';
+import { FooterNavigationLink } from './footerNavigationLink/FooterNavigationLink';
 import { FooterUtilities } from './footerUtilities/FooterUtilities';
 import { FooterSoMe } from './footerSoMe/FooterSoMe';
 import { FooterBase } from './footerBase/FooterBase';
@@ -97,8 +98,9 @@ export const Footer = ({
 };
 
 Footer.Navigation = FooterNavigation;
-Footer.ItemGroup = FooterItemGroup;
-Footer.Item = FooterItem;
+Footer.NavigationGroup = FooterNavigationGroup;
+Footer.NavigationHeading = FooterNavigationHeading;
+Footer.NavigationLink = FooterNavigationLink;
 Footer.Utilities = FooterUtilities;
 Footer.SoMe = FooterSoMe;
 Footer.Base = FooterBase;

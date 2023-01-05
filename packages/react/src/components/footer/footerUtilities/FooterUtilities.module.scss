@@ -1,15 +1,20 @@
-@import "../common.scss";
-@value x-small-down, small-down, small-only, medium-down, medium-only, medium-up, large-up from "../../../styles/breakpoints.scss";
+@import '../common.scss';
+@value x-small-down, small-down, small-only, medium-down, medium-only, medium-up, large-up, x-large-up from "../../../styles/breakpoints.scss";
 
 .divider {
   @extend %divider;
+}
+
+.groups {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: var(--spacing-m);
 }
 
 .links {
   display: grid;
   gap: var(--spacing-m);
   grid-auto-flow: column;
-  justify-items: center;
 }
 
 .utilities {
@@ -18,6 +23,12 @@
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 0 var(--spacing-m) var(--spacing-m);
+
+  .utilityGroupHeading {
+    font-size: var(--fontsize-heading-m);
+    font-weight: bold;
+    line-height: var(--lineheight-l);
+  }
 }
 
 @media x-small-down {
@@ -54,5 +65,11 @@
 @media large-up {
   .divider {
     margin: 0 0 var(--spacing-m);
+  }
+}
+
+@media x-large-up {
+  .groups {
+    column-gap: var(--spacing-layout-xl);
   }
 }

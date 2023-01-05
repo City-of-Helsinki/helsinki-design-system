@@ -1,0 +1,34 @@
+.heading {
+  font-size: var(--fontsize-heading-m);;
+  font-weight: bold;
+  line-height: var(--lineheight-m);
+  margin: 0;
+}
+
+.navigationGroup {
+  display: flex;
+  min-width: 212px;
+
+  .headingElement {
+    font-size: var(--fontsize-body-l);
+    font-weight: 500;
+    line-height: var(--lineheight-l);
+    margin: 0;
+  }
+
+  .navigationGroupLink {
+    align-items: center;
+    font-size: var(--fontsize-body-l);
+    line-height: var(--lineheight-l);
+  }
+}
+
+.navigationGroupList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-direction: column;
+  justify-items: start;
+}

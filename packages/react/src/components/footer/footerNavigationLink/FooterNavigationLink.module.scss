@@ -3,16 +3,12 @@
 
 .item {
   @extend %footerItem;
-  font-size: var(--fontsize-body-l);
+  font-weight: normal;
+  margin-top: var(--spacing-3-xs);
 
   // spacing between icon and label
   & > *:nth-child(2) {
     margin-left: var(--spacing-3-xs);
-  }
-
-  &.subItem {
-    font-weight: normal;
-    margin-top: var(--spacing-3-xs);
   }
 }
 

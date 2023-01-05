@@ -1,0 +1,13 @@
+@import "../common";
+
+.navigationHeadingLink {
+  @extend %footerItem;
+  font-weight: normal;
+}
+
+
+@media small-down {
+  .navigationHeading, .navigationHeadingLink {
+    font-size: var(--fontsize-body-m);
+  }
+}
