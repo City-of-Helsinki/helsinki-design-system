@@ -23,6 +23,8 @@
   outline: none;
   position: relative;
   text-decoration: none;
+  font-size: var(--fontsize-body-l);
+  line-height: var(--lineheight-l);
 
   &:hover:not(:focus) {
     text-decoration: underline;
