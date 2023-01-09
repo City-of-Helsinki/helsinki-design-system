@@ -1,2 +1,15 @@
 .breadcrumb {
+  display: flex;
+  flex-direction: row;
+}
+
+.item {
+  padding-right: var(--spacing-2-xs);
+  &.active {
+    font-weight: 600;
+  }
+}
+
+.separator {
+  padding-right: var(--spacing-2-xs);
 }

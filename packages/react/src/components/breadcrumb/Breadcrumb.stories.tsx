@@ -8,7 +8,13 @@ export default {
   parameters: {
     controls: { expanded: true },
   },
-  args: {},
+  args: {
+    list: [
+      { title: 'home', path: '/' },
+      { title: 'level 1', path: '/level1' },
+      { title: 'current', path: '/level1/current' },
+    ],
+  },
 };
 
 export const Example = (args) => <Breadcrumb {...args}>Breadcrumb</Breadcrumb>;
