@@ -87,14 +87,6 @@ $koros-heights: (
   }
 }
 
-@media large-up {
-  .navigationContainer.minimal {
-    align-items: center;
-    flex-direction: row;
-    padding-bottom: var(--spacing-l);
-  }
-}
-
 @media x-large-up {
   // set max-width of footer sections
   .footer > .footerContent > section,

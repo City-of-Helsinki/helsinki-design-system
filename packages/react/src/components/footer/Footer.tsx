@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 
 // import base styles
 import '../../styles/base.css';
@@ -13,8 +13,7 @@ import { FooterNavigationLink } from './footerNavigationLink/FooterNavigationLin
 import { FooterUtilities } from './footerUtilities/FooterUtilities';
 import { FooterSoMe } from './footerSoMe/FooterSoMe';
 import { FooterBase } from './footerBase/FooterBase';
-import { FooterContext, FooterContextProps } from './FooterContext';
-import { FooterReducerAction, FooterReducerState, FooterTheme } from './Footer.interface';
+import { FooterTheme } from './Footer.interface';
 import { getComponentFromChildren } from '../../utils/getChildren';
 import { useTheme } from '../../hooks/useTheme';
 
@@ -41,19 +40,6 @@ export type FooterProps = React.PropsWithChildren<{
   title?: React.ReactNode;
 }>;
 
-/**
- * Footer reducer
- * @param {ReducerState} state
- * @param {ReducerAction} action
- */
-const reducer = (state: FooterReducerState, action: FooterReducerAction): FooterReducerState =>
-  action.type === 'NAVIGATION_VARIANT'
-    ? {
-        ...state,
-        navigationVariant: action.value,
-      }
-    : state;
-
 export const Footer = ({
   children,
   className,
@@ -62,38 +48,31 @@ export const Footer = ({
   theme = 'light',
   title,
 }: FooterProps) => {
-  const [{ navigationVariant }, dispatch] = useReducer(reducer, {
-    navigationVariant: 'default',
-  });
   // custom theme class that is applied to the root element
   const customThemeClass = useTheme<FooterTheme>(styles.footer, theme);
-  // footer context
-  const context: FooterContextProps = { dispatch };
   // filter out navigation from other children so that they can be rendered separately
   const [navigation, childrenWithoutNavigation] = getComponentFromChildren(children, 'FooterNavigation');
 
   return (
-    <FooterContext.Provider value={context}>
-      <footer
-        {...footerProps}
-        className={classNames(
-          styles.footer,
-          styles[`koros-${korosType}`],
-          typeof theme === 'string' && styles[`theme-${theme}`],
-          customThemeClass,
-          className,
-        )}
-      >
-        <Koros className={classNames(styles.koros, styles[korosType])} type={korosType} />
-        <div className={styles.footerContent}>
-          <section className={classNames(styles.navigationContainer, styles[navigationVariant])}>
-            <div className={styles.titleWrapper}>{title && <h2 className={styles.title}>{title}</h2>}</div>
-            {navigation}
-          </section>
-          {childrenWithoutNavigation}
-        </div>
-      </footer>
-    </FooterContext.Provider>
+    <footer
+      {...footerProps}
+      className={classNames(
+        styles.footer,
+        styles[`koros-${korosType}`],
+        typeof theme === 'string' && styles[`theme-${theme}`],
+        customThemeClass,
+        className,
+      )}
+    >
+      <Koros className={classNames(styles.koros, styles[korosType])} type={korosType} />
+      <div className={styles.footerContent}>
+        <section className={classNames(styles.navigationContainer)}>
+          <div className={styles.titleWrapper}>{title && <h2 className={styles.title}>{title}</h2>}</div>
+          {navigation}
+        </section>
+        {childrenWithoutNavigation}
+      </div>
+    </footer>
   );
 };
 

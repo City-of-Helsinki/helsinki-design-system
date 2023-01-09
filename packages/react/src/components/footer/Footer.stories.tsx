@@ -101,23 +101,6 @@ export const Default = (args) => (
   </Footer>
 );
 
-export const Minimal = (args) => (
-  <Footer {...args}>
-    <Footer.Navigation navigationAriaLabel={footerNavAriaLabel} variant="minimal">
-      {createArray(4).map((index) => (
-        <Footer.NavigationLink
-          key={index}
-          href="https://google.com"
-          onClick={(e) => e.preventDefault()}
-          label="Nav item"
-        />
-      ))}
-    </Footer.Navigation>
-    <Utilities />
-    <Base />
-  </Footer>
-);
-
 export const NoNav = (args) => (
   <Footer {...args}>
     <Utilities />
