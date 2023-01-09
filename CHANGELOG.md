@@ -7,6 +7,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.10.0] - January, 10, 2023
+### Core
+
+#### Changed
+
+- [Button] Replace focus styles with focus-visible styles
+
+### React Components
+
+#### Added
+
+- [CookieConsent] Add Tunnistamo signing cookies into default settings
+
+#### Changed
+
+- [CookieConsent] Change Matomo default domain to
+
+#### Fixed
+
+- [Combobox] Keep available options visible after selecting
+- [Combobox] Fix removing selected items when the options list is open
+- [Tag] Remove false aria-hidden to improve accessibility in screen readers
+- [SearchInput] Fix cursor jumping to the end when typing into the start or to the middle of the value
+- [SearchInput] Trigger search on Enter keypress
+- [SearchInput] Fix Home and End keypress functionality
+
+### Documentation
+
+#### Added
+
+- [Noscript pattern] Add Finnish and Swedish translations to notification label and body texts
+- [Tag] Mention the importance of the delete button aria-label in Tag accessibility documentation
+
+#### Fixed
+
+- [Tag] Fix Core and React accessibility examples
+
 ## [2.9.0] - December, 21, 2022
 
 ### Design kit
