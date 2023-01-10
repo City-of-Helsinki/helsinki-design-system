@@ -223,29 +223,50 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
       const { ItemClick, InputBlur, FunctionSelectItem, InputKeyDownEnter } = useCombobox.stateChangeTypes;
       const { selectedItem: _selectedItem, inputValue } = changes;
 
-      // clear the selected item if the input value doesn't match the selected item label
-      if (!props.multiselect && _selectedItem && _selectedItem[optionLabelField] !== inputValue) {
-        return {
-          ...changes,
-          selectedItem: null,
-        };
-      }
-
-      if (type === InputBlur) {
-        // clear the input value on blur if
-        // it is a single select and there's no selected item
-        // it is in a multiselect combobox
-        const singleSelectWithoutSelection = !props.multiselect && !_selectedItem;
-        if (singleSelectWithoutSelection || props.multiselect) {
+      // special cases with singleselect only
+      if (!props.multiselect) {
+        // clear the selected item if the input value doesn't match the selected item label
+        if (_selectedItem && _selectedItem[optionLabelField] !== inputValue) {
           return {
             ...changes,
-            inputValue: '',
+            selectedItem: null,
           };
+        }
+
+        if (type === InputBlur) {
+          // clear the input value on blur if
+          // it is a single select and there's no selected item
+          if (!_selectedItem) {
+            return {
+              ...changes,
+              inputValue: '',
+            };
+          }
         }
       }
 
       // special cases with multiselect only
       if (props.multiselect) {
+        // clear changes.selectedItem on blur, if state.selectedItem does not exist
+        // and therefore an item has not been selected. For some reason changes.selectedItem exists
+        // when deleting tag while suggestions are open.
+        if (type === InputBlur) {
+          if (!state.selectedItem) {
+            return {
+              ...changes,
+              selectedItem: null,
+              // reset input value
+              inputValue: '',
+            };
+          }
+
+          // otherwise clear the input value on blur
+          return {
+            ...changes,
+            inputValue: '',
+          };
+        }
+
         // prevent the menu from being closed when the user selects an item by clicking
         if (type === ItemClick) {
           return {
@@ -274,6 +295,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
           };
         }
       }
+
       return changes;
     },
   });
