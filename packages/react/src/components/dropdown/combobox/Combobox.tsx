@@ -258,13 +258,13 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
               // reset input value
               inputValue: '',
             };
-          } else {
-            // clear the input value on blur
-            return {
-              ...changes,
-              inputValue: '',
-            };
           }
+
+          // otherwise clear the input value on blur
+          return {
+            ...changes,
+            inputValue: '',
+          };
         }
 
         // prevent the menu from being closed when the user selects an item by clicking
