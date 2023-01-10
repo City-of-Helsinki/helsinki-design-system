@@ -48,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Removed
 
 - Remove Git LFS instructions and guides since it is not used anymore in the repository
+- Removed obsolete roadmap and what-is-new pages
 
 ## [2.9.0] - December, 21, 2022
 
