@@ -111,15 +111,6 @@ module.exports = {
             link: '/about/accessibility',
           },
           {
-            name: 'What is new',
-            link: '/about/what-is-new',
-            withDivider: true,
-          },
-          {
-            name: 'Roadmap',
-            link: '/about/roadmap',
-          },
-          {
             name: 'Resources',
             link: '/about/resources',
             withDivider: true,
