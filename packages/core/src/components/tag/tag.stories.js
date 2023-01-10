@@ -18,8 +18,8 @@ export const Clickable = () => `
 
 export const Deletable = () => `
   <div class="hds-tag">
-    <span class="hds-tag__label">Label</span>
-    <button aria-label="Delete item" class="hds-tag__delete-button button-reset">
+    <span class="hds-tag__label" aria-hidden="true">Label</span>
+    <button aria-label="Delete item: Label" class="hds-tag__delete-button button-reset">
         <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
     </button>
   </div>
@@ -33,8 +33,8 @@ export const Rounded = () => `
 
 export const RoundedDeletable = () => `
   <div class="hds-tag hds-tag--rounded-corners">
-    <span class="hds-tag__label">Label</span>
-    <button aria-label="Delete item" class="hds-tag__delete-button button-reset">
+    <span class="hds-tag__label" aria-hidden="true">Label</span>
+    <button aria-label="Delete item: Label" class="hds-tag__delete-button button-reset">
         <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
     </button>
   </div>
@@ -42,8 +42,8 @@ export const RoundedDeletable = () => `
 
 export const LargeRoundedDeletable = () => `
   <div class="hds-tag hds-tag--rounded-corners hds-tag--rounded-corners-large">
-    <span class="hds-tag__label">Label</span>
-    <button aria-label="Delete item" class="hds-tag__delete-button button-reset">
+    <span class="hds-tag__label" aria-hidden="true">Label</span>
+    <button aria-label="Delete item: Label" class="hds-tag__delete-button button-reset">
         <span aria-hidden="true" class="hds-icon hds-icon--cross"></span>
     </button>
   </div>

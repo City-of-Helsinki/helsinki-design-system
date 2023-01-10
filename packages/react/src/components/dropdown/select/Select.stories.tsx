@@ -41,8 +41,8 @@ export default {
   },
   args: {
     id: getId(),
-    label: 'Element',
-    helper: 'Choose an element',
+    label: 'Item',
+    helper: 'Choose an item',
     placeholder: 'Placeholder',
     clearButtonAriaLabel: 'Clear selection',
     options,
@@ -65,12 +65,13 @@ export const Multiselect = (args) => <Select {...args} />;
 Multiselect.storyName = 'Multi-select';
 Multiselect.args = {
   multiselect: true,
+  selectedItemRemoveButtonAriaLabel: 'Remove {value}',
 };
 
 export const Invalid = (args) => <Select {...args} />;
 Invalid.args = {
   invalid: true,
-  error: 'Wrong element!',
+  error: 'Wrong item!',
 };
 
 export const Disabled = (args) => <Select {...args} />;
@@ -121,6 +122,7 @@ export const Controlled = (args) => {
         id={getId()}
         label="Multi-select"
         multiselect
+        selectedItemRemoveButtonAriaLabel="Remove {value}"
         onChange={handleMultiSelectChange}
         value={selectedItems}
         style={{ marginTop: 'var(--spacing-s)' }}
@@ -140,6 +142,7 @@ export const DisabledOptions = (args) => {
         id={getId()}
         label="Multi-select"
         multiselect
+        selectedItemRemoveButtonAriaLabel="Remove {value}"
         isOptionDisabled={getIsDisabled}
         style={{ marginTop: 'var(--spacing-s)' }}
       />
@@ -155,6 +158,7 @@ export const MultiselectWithIcon = (args) => <Select {...args} icon={<IconLocati
 MultiselectWithIcon.storyName = 'Multi-select with icon';
 MultiselectWithIcon.args = {
   multiselect: true,
+  selectedItemRemoveButtonAriaLabel: 'Remove {value}',
 };
 MultiselectWithIcon.parameters = { loki: { skip: true } };
 
@@ -225,12 +229,12 @@ export const MultiSelectExample = ({ options: itemOptions, ...args }) => {
   return (
     <Select<Option>
       {...args}
-      label="Elements"
-      helper="Choose elements"
+      label="Items"
+      helper="Choose items"
       multiselect
       clearButtonAriaLabel="Clear all selections"
-      selectedItemRemoveButtonAriaLabel="Remove element {value}"
-      selectedItemSrLabel="Selected element {value}"
+      selectedItemRemoveButtonAriaLabel="Remove {value}"
+      selectedItemSrLabel="Selected item {value}"
       getA11yRemovalMessage={({ removedSelectedItem }) => `${removedSelectedItem.label} was removed`}
       onChange={handleMultiSelectChange}
       value={selectedItems}
@@ -248,7 +252,7 @@ export const WithExternalLabel = (args) => {
       <Select
         aria-labelledby="externalLabelId"
         id={getId()}
-        helper="Choose an element"
+        helper="Choose an item"
         placeholder="Placeholder"
         clearButtonAriaLabel="Clear selection"
         options={options}

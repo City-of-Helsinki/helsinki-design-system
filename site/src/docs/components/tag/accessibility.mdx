@@ -14,6 +14,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Pay attention to
 
 - For interactable Tags you must set a descriptive `aria-label` for assistive technologies so the user understands what happens if the Tag is clicked. For example `aria-label="Move to category: <category name>"`.
+- Remember to add a descriptive aria-label for the delete button which does not have a visible label. For example deleteButtonAriaLabel="Delete item: Americum".
 - **It is advisable to use colour combinations provided by the implementation.** These combinations are ensured to comply with WCAG AA requirements. When customising colours, refer to <InternalLink href="/foundation/design-tokens/colour">colour guidelines</InternalLink> to ensure accessibility.
 - If you are customising tag colours, make sure they are easily distinguishable from <InternalLink href="/foundation/design-tokens/colour#ui-colours">HDS UI Colours.</InternalLink> These colours are reserved to present UI state and status information in applications using HDS.
 - Remember that colour should never be the only way of conveying information. Make sure the meaning of the status label is clearly described by the label text. Refer to <ExternalLink href="https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html">WCAG 2.1 Use of Color guideline</ExternalLink> for more information.
