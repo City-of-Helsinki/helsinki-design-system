@@ -45,6 +45,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Tag] Fix Core and React accessibility examples
 
+#### Removed
+- Remove LFS mentions since it is not used anymore in the repository
+
 ## [2.9.0] - December, 21, 2022
 
 ### Design kit
