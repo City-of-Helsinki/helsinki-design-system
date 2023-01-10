@@ -1,40 +1,53 @@
-import React, { useContext, useEffect } from 'react';
+import React, { Children, cloneElement } from 'react';
 
 // import base styles
 import '../../../styles/base.css';
 
 import styles from './FooterNavigation.module.scss';
-import { FooterContext } from '../FooterContext';
-import { FooterNavigationVariant } from '../Footer.interface';
 import classNames from '../../../utils/classNames';
+import { getChildElementsEvenIfContainerInbetween } from '../../../utils/getChildren';
+import { FCWithName } from '../../../common/types';
+import { useMediaQueryLessThan } from '../../../hooks/useMediaQuery';
 
 export type FooterNavigationProps = React.PropsWithChildren<{
   /**
    * The aria-label for the `<nav>` element. Describes the navigation to screen reader users.
    */
   navigationAriaLabel?: string;
-  /**
-   * Defines how the navigation items will be displayed in the footer
-   *
-   * Supported values:
-   *
-   * `default` - Items will be displayed beneath the logo and title
-   *
-   * `minimal` - Items will be displayed inline with the logo and title. Intended to be used with 4 items or less.
-   *
-   * `sitemap` - Items will be displayed beneath the logo and title as groups with items and sub-items...
-   */
-  variant?: FooterNavigationVariant;
 }>;
 
-export const FooterNavigation = ({ children, navigationAriaLabel, variant }: FooterNavigationProps) => {
-  const { dispatch } = useContext(FooterContext);
-
-  useEffect(() => dispatch({ type: 'NAVIGATION_VARIANT', value: variant }), [dispatch, variant]);
+export const FooterNavigation = ({ children, navigationAriaLabel }: FooterNavigationProps) => {
+  const isMediumScreen = useMediaQueryLessThan('m');
+  const groups = getChildElementsEvenIfContainerInbetween(children).filter(
+    (child) => (child.type as FCWithName).componentName === 'FooterNavigationGroup',
+  );
+  const hasGroups = groups && groups.length > 0;
 
   return (
-    <nav className={classNames(styles.navigation, styles[variant])} aria-label={navigationAriaLabel}>
-      {children}
+    <nav
+      className={classNames(styles.navigation, hasGroups && !isMediumScreen && styles.sitemap)}
+      aria-label={navigationAriaLabel}
+    >
+      {hasGroups && !isMediumScreen && (
+        <div className={styles.groups}>
+          {Children.map(groups, (child, index) => {
+            return cloneElement(child, {
+              key: index,
+              hasSubNavLinks: true,
+              headingClassName: styles.groupHeading,
+            });
+          })}
+        </div>
+      )}
+      {hasGroups &&
+        isMediumScreen &&
+        Children.map(groups, (group, index) => {
+          return cloneElement(group.props.children[0], {
+            key: index,
+            className: styles.link,
+          });
+        })}
+      {!hasGroups && children}
     </nav>
   );
 };

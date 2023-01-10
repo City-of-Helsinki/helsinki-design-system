@@ -1,6 +1,19 @@
 @import "../common.scss";
 @value small-down from "../../../styles/breakpoints.scss";
 
+.subItem.subItem {
+  font-size: var(--fontsize-body-s);
+  line-height: var(--lineheight-l)
+}
+
+.subItemIcon {
+  align-self: start;
+  height: var(--spacing-xs);
+  min-width: var(--spacing-xs);
+  transform: translateY(4px);
+  width: var(--spacing-xs);
+}
+
 .item {
   @extend %footerItem;
   font-weight: normal;
@@ -19,11 +32,3 @@
   }
 }
 
-// angle icon
-.subItemIcon {
-  align-self: start;
-  height: var(--spacing-xs);
-  min-width: var(--spacing-xs);
-  transform: translateY(4px);
-  width: var(--spacing-xs);
-}
