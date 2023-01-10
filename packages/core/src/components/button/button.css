@@ -33,7 +33,7 @@
 
 /* button transitions */
 .hds-button:hover,
-.hds-button:focus {
+.hds-button:focus-visible {
   transition-property: background-color, border-color, color;
   transition-duration: 85ms;
   transition-timing-function: ease-out;
@@ -44,7 +44,7 @@
   color: var(--color-hover);
 }
 
-.hds-button:focus {
+.hds-button:focus-visible {
   background-color: var(--background-color-focus, transparent);
   color: var(--color-focus);
   outline: none;
@@ -56,7 +56,7 @@
   outline: none;
 }
 
-.hds-button:focus:hover {
+.hds-button:focus-visible:hover {
   background-color: var(--background-color-hover-focus, transparent);
 }
 
@@ -79,7 +79,7 @@
   border-color: var(--border-color-hover, transparent);
 }
 
-.hds-button:not(:disabled):focus {
+.hds-button:not(:disabled):focus-visible {
   border-color: var(--border-color-focus, transparent);
 }
 
@@ -87,7 +87,7 @@
   border-color: var(--border-color-focus, transparent);
 }
 
-.hds-button:not(:disabled):focus:hover {
+.hds-button:not(:disabled):focus-visible:hover {
   border-color: var(--border-color-hover-focus, transparent);
   color: var(--color-hover-focus);
 }
@@ -109,7 +109,7 @@
   width: var(--size);
 }
 
-.hds-button:focus::after {
+.hds-button:focus-visible::after {
   --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
   border-color: var(--focus-outline-color);
 }
@@ -120,7 +120,7 @@
 }
 
 /* submit input */
-input[type="submit"].hds-button:focus {
+input[type="submit"].hds-button:focus-visible {
   box-shadow: 0 0 0 var(--outline-gutter) var(--submit-input-focus-gutter-color), 0 0 0 calc(var(--outline-gutter) + var(--outline-width)) var(--focus-outline-color);
 }
 
