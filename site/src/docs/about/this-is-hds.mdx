@@ -17,10 +17,16 @@ import { Card, Link, Table } from 'hds-react';
 
 ## Background
 The city of Helsinki provides a huge variety of digital services from applying for day care to renting a place for your boat, from business opportunities to museums and theathers, from event calendars to construction permissions.
-There are at least 287 recognized web sites, created separately across the city organization. There is a need to support these different services to create consistent, user friendly and accessible digital services.
+There are at least 287 recognized web sites, created separately across the city organization. There is a huge need to support these different services to create consistent, user friendly and accessible digital services.
+
 
 
 ## Goals
+
+Helsinki Design System aims to 
+<Image src="/images/about/this-is-hds/vision.png" alt="Text input" viewable />
+
+HDS is an important tool building the digital precence and brand of city of Helsinki. HDS supports creating equal and functional city services. 
 
 ## Results
 
@@ -28,6 +34,10 @@ There are at least 287 recognized web sites, created separately across the city 
     border
     heading="React"
     text="Usage of the React components"
+    style={{ 
+      marginTop: 'var(--spacing-s)',
+      width: '45%'
+    }}
   />
 
 
@@ -35,6 +45,10 @@ There are at least 287 recognized web sites, created separately across the city 
   border
   heading="Core"
   text="Usage of Core components"
+  style={{ 
+    marginTop: 'var(--spacing-s)',
+    width: '45%'
+  }}
 />
 
 
@@ -42,6 +56,11 @@ There are at least 287 recognized web sites, created separately across the city 
     border 
     heading="Design"
     text="Usage of Design kit"
+    style={{ 
+      marginTop: 'var(--spacing-s)',
+      width: '45%'
+      
+    }}
   />
 
 
@@ -49,10 +68,25 @@ There are at least 287 recognized web sites, created separately across the city 
   border
   heading="Documentation"
   text="Visitors on the documentation site"
+  style={{ 
+    marginTop: 'var(--spacing-s)',
+    width: '45%',
+  }}
 />
 
 ## How we work
-Helsinki Design System -team is a collaboration of professionals from different consultancies and City of Helsinki. This way City of Helsinki continues to maintain the design system.
+Helsinki Design System -team is a collaboration of professionals from different consultancies and City of Helsinki. City of Helsinki didn't buy ready design system but rather decided to gather the best professionals in the same team. This way City of Helsinki owns and continues to maintain the design system.
+When the people change, it is important that the processes but also the actual design system are well documented, so that it is possible to transfer the knowledge
+
+HDS is developed as open source project so anyone can benefit from it. The source code is available in <Link href="https://github.com/City-of-Helsinki/helsinki-design-system" external size="M" > Github </Link>free of charge and even the designs are shared for those who are interested. Building open source design system has many valuable points:
+- Open source is one way to share the benefits to larger community
+- Open source projects enables collaboration with other cities and companies as well, allowing contributions from the community
+- Open source creates transparency
+
+A key principle is to pay attention accessibility all the way from the first drafts to the final component. Accessibility specialists audit every component before we release it.
+(accessibility process image here).
+
+Collaboration and support are built-in in the processes. City of Helsinki has a dedicated slack-channel to handle discussion and requests from the projects across the city organization. 
 ## Basic information
 
 export const TableBasicInfo = () => {
@@ -73,7 +107,7 @@ export const TableBasicInfo = () => {
     { key: 'name', headerName: 'Name' },
     { key: 'link', headerName: 'Link' },
     { key: 'client', headerName: 'Client' },
-    { key: 'companies', headerName: 'Companies involved (in alphabetical order)' },
+    { key: 'companies', headerName: 'Companies involved since v1.0.0 (in alphabetical order)' },
     { key: 'competition', headerName: 'Competition category' },
   ];
   const caption = (
@@ -88,7 +122,6 @@ export const TableBasicInfo = () => {
         cols={cols}
         rows={unitRows}
         caption={caption}
-        textAlignContentLeft
         indexKey="id"
         renderIndexCol={false}
       />
