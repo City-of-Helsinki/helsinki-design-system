@@ -1,5 +1,5 @@
-import React, { KeyboardEvent, useState, useRef, useEffect, useCallback } from 'react';
-import { useCombobox } from 'downshift';
+import React, { KeyboardEvent, useState, useRef, useEffect } from 'react';
+import { useCombobox, UseComboboxStateChangeTypes } from 'downshift';
 
 // import core base styles
 import 'hds-core';
@@ -114,13 +114,53 @@ export const SearchInput = <SuggestionItem,>({
 }: SearchInputProps<SuggestionItem>) => {
   const didMount = useRef(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const isItemClicked = useRef<boolean>(false);
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const userEnterKeyAction = 'userEnterKeyAction';
+  const [lastAction, updateLastAction] = useState<UseComboboxStateChangeTypes | typeof userEnterKeyAction>(undefined);
   const [internalValue, setInternalValue] = useState<string>('');
   const inputValue = value || internalValue;
-  const { suggestions, isLoading } = useSuggestions<SuggestionItem>(inputValue, getSuggestions, isSubmitted);
+
+  const wasLastActionStateChangeEnterKey = () => {
+    return lastAction === useCombobox.stateChangeTypes.InputKeyDownEnter;
+  };
+
+  const wasSubmitted = () => {
+    return (
+      lastAction === useCombobox.stateChangeTypes.ItemClick ||
+      lastAction === userEnterKeyAction ||
+      wasLastActionStateChangeEnterKey()
+    );
+  };
+
+  const { suggestions, isLoading, clearSuggestions } = useSuggestions<SuggestionItem>(
+    inputValue,
+    getSuggestions,
+    wasSubmitted(),
+  );
   const showLoadingSpinner = useShowLoadingSpinner(isLoading, 1500 - SUGGESTIONS_DEBOUNCE_VALUE);
   const isControlledComponent = value !== undefined && onChange;
+
+  const dispatchValueChange = (changedValue: string) => {
+    if (isControlledComponent) {
+      onChange(changedValue);
+    } else {
+      setInternalValue(changedValue);
+    }
+  };
+
+  // onInputValueChange of the useCombobox hook is not used,
+  // because it causes some sort of async input value update.
+  // That causes input value to be out of sync in second re-render.
+  // That causes cursor to always jump to the end of the input.
+  const onInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatchValueChange(e.target.value);
+  };
+
+  const submitValue = (val?: string) => {
+    const inputElementValue = inputRef.current?.value;
+    const valueToSubmit = val !== undefined ? val : inputElementValue;
+    onSubmit(valueToSubmit);
+    clearSuggestions();
+  };
 
   const {
     isOpen,
@@ -133,47 +173,60 @@ export const SearchInput = <SuggestionItem,>({
     reset,
   } = useCombobox<SuggestionItem>({
     items: suggestions,
-    onInputValueChange: (e) => {
-      if (isControlledComponent) {
-        onChange(e.inputValue);
-      } else {
-        setInternalValue(e.inputValue);
-      }
-    },
     onStateChange(props) {
-      const { ItemClick } = useCombobox.stateChangeTypes;
-      if (props.type === ItemClick) {
-        isItemClicked.current = true;
+      const { ItemClick, FunctionReset, InputKeyDownEnter } = useCombobox.stateChangeTypes;
+      const handledChanges = [ItemClick, FunctionReset, InputKeyDownEnter] as UseComboboxStateChangeTypes[];
+      if (handledChanges.includes(props.type)) {
+        // if props.type === ItemClick and the value of the clicked item matches
+        // the value in the input element then props.inputValue does not exist.
+        const clickedValueMatchesCurrentValue = props.type === ItemClick && props.inputValue === undefined;
+        const newValue = clickedValueMatchesCurrentValue ? inputRef.current?.value : props.inputValue;
+        // additional check to make sure the value is never set to undefined
+        if (newValue === undefined) {
+          return;
+        }
+        if (!clickedValueMatchesCurrentValue) {
+          dispatchValueChange(newValue);
+        }
+        if (props.type !== FunctionReset) {
+          submitValue(newValue);
+        }
+        updateLastAction(props.type);
+      } else {
+        updateLastAction(undefined);
       }
     },
     itemToString: (item) => (item ? `${item[suggestionLabelField]}` : ''),
     ...(isControlledComponent && { inputValue }),
   });
 
-  const submit = useCallback(() => {
-    setIsSubmitted(true);
-    onSubmit(inputValue);
-  }, [setIsSubmitted, onSubmit, inputValue]);
-
   const onInputKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
     const key = event.key || event.keyCode;
-    if (key === 'Enter' || key === 13) {
-      submit();
-    } else {
-      setIsSubmitted(false);
+    const wasEnterKey = key === 'Enter' || key === 13;
+    if (!wasLastActionStateChangeEnterKey() && wasEnterKey) {
+      submitValue();
     }
+    updateLastAction(wasEnterKey ? userEnterKeyAction : undefined);
   };
 
-  useEffect(() => {
-    if (isItemClicked.current) {
-      isItemClicked.current = false;
-      submit();
+  const onInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    // isOpen is sometimes true for no reason
+    if (isOpen && suggestions.length) {
+      return;
     }
-  }, [isItemClicked, submit]);
+    if (event.key === 'Home' || event.key === 'End') {
+      // When preventDownshiftDefault = true, downshift does not alter native behavior
+      // eslint-disable-next-line no-param-reassign
+      (event.nativeEvent as typeof event.nativeEvent & {
+        preventDownshiftDefault: boolean;
+      }).preventDownshiftDefault = true;
+    }
+  };
 
   const clear = () => {
     reset();
     inputRef.current.focus();
+    clearSuggestions();
   };
 
   /**
@@ -196,6 +249,8 @@ export const SearchInput = <SuggestionItem,>({
         <input
           {...getInputProps({
             onKeyUp: onInputKeyUp,
+            onKeyDown: onInputKeyDown,
+            onChange: onInputValueChange,
             ref: inputRef,
             role: getComboboxProps().role,
             'aria-expanded': getComboboxProps()['aria-expanded'],
@@ -222,7 +277,7 @@ export const SearchInput = <SuggestionItem,>({
               type="button"
               aria-label={searchButtonAriaLabel}
               className={classNames(styles.button)}
-              onClick={submit}
+              onClick={() => submitValue()}
             >
               <IconSearch className={styles.searchIcon} aria-hidden />
             </button>
