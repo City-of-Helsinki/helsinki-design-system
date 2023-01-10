@@ -11,7 +11,7 @@ import type {
   TableData,
   ContentContextType,
 } from './contexts/ContentContext';
-import commonContent from './content.json';
+import { getCookieContent } from './getContent';
 import { COOKIE_NAME } from './cookieConsentController';
 
 type ContentSourceCookieData = Partial<CookieData> & {
@@ -23,7 +23,7 @@ type ContentSourceCookieData = Partial<CookieData> & {
 export type ContentSourceCookieGroup = Omit<Partial<CookieGroup>, 'cookies'> & {
   commonGroup?: string;
   id?: string;
-  cookies: ContentSourceCookieData[];
+  cookies?: ContentSourceCookieData[];
 };
 
 export type ContentSourceCategory = Omit<Partial<Category>, 'groups'> & {
@@ -58,6 +58,8 @@ type GenericContentObject = {
 };
 
 type MergableContent = Partial<GenericContentObject | ContentSourceCookieGroup | ContentSourceCategory>;
+
+const commonContent = getCookieContent();
 
 function getTexts(language: SupportedLanguage, siteName: string): Content['texts'] {
   const { texts } = commonContent;
@@ -100,12 +102,30 @@ function getCategoryDescriptions(
   };
 }
 
-function getCommonCookieGroup(language: string, id: string): Omit<CookieGroup, 'cookies'> {
+function getCommonCookieGroup(id: string): CookieGroup {
   const { commonGroups } = commonContent;
   if (!commonGroups[id]) {
     throw new Error(`Unknown common consent group ${id}`);
   }
-  return commonGroups[id][language];
+  return commonGroups[id];
+}
+
+function getCommonCookieGroupTexts(language: string, id: string): Omit<CookieGroup, 'cookies'> {
+  const group = getCommonCookieGroup(id);
+  return group[language];
+}
+
+function getCommonCookieGroupTextsCookies(id: string): CookieGroup['cookies'] {
+  const group = getCommonCookieGroup(id);
+  return group.cookies || [];
+}
+
+function mergeCookieGroupCookieSources(groupSource: ContentSourceCookieGroup): ContentSourceCookieGroup['cookies'] {
+  const cookiesFromCommonGroup = groupSource.commonGroup
+    ? getCommonCookieGroupTextsCookies(groupSource.commonGroup)
+    : [];
+  const cookiesFromSource = groupSource.cookies || [];
+  return [...cookiesFromCommonGroup, ...cookiesFromSource];
 }
 
 function getCommonCookie(language: string, id: string): CookieData {
@@ -117,6 +137,7 @@ function getCommonCookie(language: string, id: string): CookieData {
   const cookie: CookieData = {
     id: dataWithTranslations.id,
     hostName: dataWithTranslations.hostName,
+    name: dataWithTranslations.name,
     ...commonCookies[id][language],
   };
   return cookie;
@@ -184,7 +205,7 @@ function buildCookieGroups(
             throw new Error('Common group texts cannot be overridden.');
           }
         });
-        const groupTexts = getCommonCookieGroup(currentLanguage, groupSource.commonGroup);
+        const groupTexts = getCommonCookieGroupTexts(currentLanguage, groupSource.commonGroup);
         consentGroup = {
           ...groupTexts,
           cookies: [],
@@ -201,8 +222,10 @@ function buildCookieGroups(
       groupMap.set(mapId, consentGroup);
       isRequired ? requiredCookies.push(consentGroup) : optionalCookies.push(consentGroup);
     }
-    if (groupSource.cookies) {
-      groupSource.cookies.forEach((cookieSource) => {
+    const cookies = mergeCookieGroupCookieSources(groupSource);
+
+    if (cookies.length) {
+      cookies.forEach((cookieSource) => {
         /* eslint-disable @typescript-eslint/no-unused-vars */
         const { commonGroup, groupId, commonCookie, ...cookieProps } = cookieSource as ContentSourceCookieData;
         /* eslint-enable @typescript-eslint/no-unused-vars */
