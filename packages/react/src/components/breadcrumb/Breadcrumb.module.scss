@@ -23,14 +23,10 @@
   word-wrap: break-word;
 }
 
-.item,
-.backArrow {
-  line-height: var(--lineheight-l);
-}
-
 .item {
   align-items: center;
   display: flex;
+  line-height: var(--lineheight-l);
   .currentPage {
     font-weight: 700;
     // to match 3px border around links
@@ -58,6 +54,11 @@
   padding: 0 var(--spacing-3-xs);
 }
 
+.navigationLink.navigationLink {
+  --link-visited-color: none;
+  --link-color: var(--color-black-90);
+}
+
 @media medium-up {
   .mobileView {
     display: none;
@@ -69,13 +70,4 @@
     margin: 0;
     padding: 0;
   }
-}
-
-.navigationLink.navigationLink {
-  --link-visited-color: none;
-  --link-color: var(--color-black-90);
-}
-
-.active {
-  font-weight: 700;
 }
