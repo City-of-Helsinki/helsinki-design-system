@@ -13,6 +13,11 @@
 .breadcrumb {
   display: none;
 }
+.mobileView,
+.breadcrumb {
+  flex-direction: row;
+  align-items: center;
+}
 
 .item,
 .separator {
@@ -21,19 +26,23 @@
 }
 
 .item {
-  flex-grow: 1;
   word-wrap: break-word;
   .currentPage {
     font-weight: 700;
   }
-  .link {
-    --link-visited-color: none;
-    --link-color: var(--color-black-90);
-    &:hover,
-    &:focus {
-      text-decoration-color: var(--color-black-90);
-    }
+}
+
+.link {
+  --link-visited-color: none;
+  --link-color: var(--color-black-90);
+  &:hover,
+  &:focus {
+    text-decoration-color: var(--color-black-90);
   }
+}
+
+.separator {
+  display: flex;
 }
 
 @media medium-up {
@@ -42,7 +51,6 @@
   }
   .breadcrumb {
     display: flex;
-    flex-direction: row;
   }
 }
 
