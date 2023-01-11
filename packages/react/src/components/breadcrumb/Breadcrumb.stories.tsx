@@ -12,9 +12,12 @@ export default {
   },
   args: {
     list: [
-      { title: 'Home', path: '/' },
-      { title: 'Level 1', path: '/level1' },
-      { title: 'Current', path: null },
+      { title: 'Helsinki', path: '/' },
+      { title: 'Nuorten Helsinki', path: '/nuoret' },
+      { title: 'Hyvinvointi ja mielenterveysneuvonta ', path: '/nuoret/hyvinvointi' },
+      { title: 'Opiskelijan kehon- ja mielenhuolto-opas', path: '/nuoret/hyvinvointi/opiskelijat' },
+      { title: 'Kaikki Helsingin kaupungin tarpeelliset linkit', path: '/nuoret/hyvinvointi/opiskelijat/linkit' },
+      { title: 'Tämänhetkisen sivun pitkä otsikko', path: null },
     ],
   },
 };

@@ -18,31 +18,31 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
         >
           Home
         </a>
-      </li>
-      <span
-        aria-hidden="true"
-        class="separator"
-      >
-        <svg
-          class="icon xs"
-          role="img"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          aria-hidden="true"
+          class="separator"
         >
-          <g
-            fill="none"
-            fill-rule="evenodd"
+          <svg
+            class="icon xs"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <polygon
-              points="0 24 0 0 24 0 24 24"
-            />
-            <polygon
-              fill="currentColor"
-              points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-            />
-          </g>
-        </svg>
-      </span>
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </span>
+      </li>
       <li
         class="item"
       >
@@ -52,31 +52,31 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
         >
           Level 1
         </a>
-      </li>
-      <span
-        aria-hidden="true"
-        class="separator"
-      >
-        <svg
-          class="icon xs"
-          role="img"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          aria-hidden="true"
+          class="separator"
         >
-          <g
-            fill="none"
-            fill-rule="evenodd"
+          <svg
+            class="icon xs"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <polygon
-              points="0 24 0 0 24 0 24 24"
-            />
-            <polygon
-              fill="currentColor"
-              points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-            />
-          </g>
-        </svg>
-      </span>
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </span>
+      </li>
       <li
         class="item"
       >
@@ -86,31 +86,31 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
         >
           Level 2
         </a>
-      </li>
-      <span
-        aria-hidden="true"
-        class="separator"
-      >
-        <svg
-          class="icon xs"
-          role="img"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          aria-hidden="true"
+          class="separator"
         >
-          <g
-            fill="none"
-            fill-rule="evenodd"
+          <svg
+            class="icon xs"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <polygon
-              points="0 24 0 0 24 0 24 24"
-            />
-            <polygon
-              fill="currentColor"
-              points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-            />
-          </g>
-        </svg>
-      </span>
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </span>
+      </li>
       <li
         class="item"
       >
@@ -120,31 +120,31 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
         >
           Level 3
         </a>
-      </li>
-      <span
-        aria-hidden="true"
-        class="separator"
-      >
-        <svg
-          class="icon xs"
-          role="img"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          aria-hidden="true"
+          class="separator"
         >
-          <g
-            fill="none"
-            fill-rule="evenodd"
+          <svg
+            class="icon xs"
+            role="img"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <polygon
-              points="0 24 0 0 24 0 24 24"
-            />
-            <polygon
-              fill="currentColor"
-              points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
-            />
-          </g>
-        </svg>
-      </span>
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <polygon
+                points="0 24 0 0 24 0 24 24"
+              />
+              <polygon
+                fill="currentColor"
+                points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+              />
+            </g>
+          </svg>
+        </span>
+      </li>
       <li
         class="item"
       >
@@ -160,7 +160,7 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
     >
       <span
         aria-hidden="true"
-        class="separator"
+        class="backArrow"
       >
         <svg
           class="icon xs"
