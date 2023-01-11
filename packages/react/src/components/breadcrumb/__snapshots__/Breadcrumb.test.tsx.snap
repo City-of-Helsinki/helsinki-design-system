@@ -1,0 +1,194 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Breadcrumb /> spec renders the component 1`] = `
+<DocumentFragment>
+  <nav
+    aria-label="Murupolku"
+    class="container"
+  >
+    <ol
+      class="breadcrumb"
+    >
+      <li
+        class="item"
+      >
+        <a
+          class="link linkM link"
+          href="/"
+        >
+          Home
+        </a>
+      </li>
+      <span
+        aria-hidden="true"
+        class="separator"
+      >
+        <svg
+          class="icon xs"
+          role="img"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <polygon
+              points="0 24 0 0 24 0 24 24"
+            />
+            <polygon
+              fill="currentColor"
+              points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+            />
+          </g>
+        </svg>
+      </span>
+      <li
+        class="item"
+      >
+        <a
+          class="link linkM link"
+          href="/level1"
+        >
+          Level 1
+        </a>
+      </li>
+      <span
+        aria-hidden="true"
+        class="separator"
+      >
+        <svg
+          class="icon xs"
+          role="img"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <polygon
+              points="0 24 0 0 24 0 24 24"
+            />
+            <polygon
+              fill="currentColor"
+              points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+            />
+          </g>
+        </svg>
+      </span>
+      <li
+        class="item"
+      >
+        <a
+          class="link linkM link"
+          href="/level2"
+        >
+          Level 2
+        </a>
+      </li>
+      <span
+        aria-hidden="true"
+        class="separator"
+      >
+        <svg
+          class="icon xs"
+          role="img"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <polygon
+              points="0 24 0 0 24 0 24 24"
+            />
+            <polygon
+              fill="currentColor"
+              points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+            />
+          </g>
+        </svg>
+      </span>
+      <li
+        class="item"
+      >
+        <a
+          class="link linkM link"
+          href="/level3"
+        >
+          Level 3
+        </a>
+      </li>
+      <span
+        aria-hidden="true"
+        class="separator"
+      >
+        <svg
+          class="icon xs"
+          role="img"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <polygon
+              points="0 24 0 0 24 0 24 24"
+            />
+            <polygon
+              fill="currentColor"
+              points="13.5 12 8.5 7 10 5.5 16.5 12 10 18.5 8.5 17"
+            />
+          </g>
+        </svg>
+      </span>
+      <li
+        class="item"
+      >
+        <span
+          class="currentPage"
+        >
+          Current
+        </span>
+      </li>
+    </ol>
+    <div
+      class="mobileView"
+    >
+      <span
+        aria-hidden="true"
+        class="separator"
+      >
+        <svg
+          class="icon xs"
+          role="img"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <polygon
+              points="24 0 24 24 0 24 0 0"
+            />
+            <polygon
+              fill="currentColor"
+              points="10.5 12 15.5 17 14 18.5 7.5 12 14 5.5 15.5 7"
+            />
+          </g>
+        </svg>
+      </span>
+      <a
+        class="link linkM link"
+        href="/level3"
+      >
+        Level 3
+      </a>
+    </div>
+  </nav>
+</DocumentFragment>
+`;
