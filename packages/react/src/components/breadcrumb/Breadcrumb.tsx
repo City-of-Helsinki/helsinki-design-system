@@ -4,6 +4,7 @@ import React from 'react';
 import 'hds-core';
 import styles from './Breadcrumb.module.scss';
 import { Link } from '../link';
+import { IconAngleLeft, IconAngleRight } from '../../icons';
 
 export type BreadcrumbInfo = { title: string; path: string | null };
 export type BreadcrumbProps = { list: BreadcrumbInfo[] };
@@ -24,14 +25,22 @@ const BreadcrumbItem = ({ item }: { item: BreadcrumbInfo }) => {
 };
 
 const Separator = () => {
-  return <span className={styles.separator}>{'\u003e'}</span>;
+  return (
+    <span className={styles.separator}>
+      <IconAngleRight size="xs" aria-hidden />
+    </span>
+  );
 };
 
 const MobileView = ({ item }: { item: BreadcrumbInfo }) => {
   return (
     <div className={styles.mobileView}>
-      <span className={styles.separator}>{'\u2039'}</span>
-      <Link href={item.path}>{item.title}</Link>
+      <span className={styles.separator}>
+        <IconAngleLeft size="xs" aria-hidden />
+      </span>
+      <Link href={item.path} className={styles.link}>
+        {item.title}
+      </Link>
     </div>
   );
 };
