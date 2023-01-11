@@ -46,10 +46,10 @@ const DesktopListView = ({ list }: { list: BreadcrumbInfo[] }) => {
   return (
     <ol className={styles.breadcrumb}>
       {list.map((item, index) => (
-        <>
-          {index > 0 && <Separator />}
-          <BreadcrumbItem item={item} />
-        </>
+        <React.Fragment key={item.title}>
+          {index > 0 && <Separator key={`separator-${item.title}`} />}
+          <BreadcrumbItem key={item.title} item={item} />
+        </React.Fragment>
       ))}
     </ol>
   );
