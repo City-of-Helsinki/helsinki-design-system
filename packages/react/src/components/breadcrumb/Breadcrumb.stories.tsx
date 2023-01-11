@@ -1,18 +1,8 @@
 import React from 'react';
 
-import { Navigation } from '../navigation/Navigation';
-import { NavigationTheme } from '../navigation/Navigation.interface';
+import { DropdownDirection } from '../header/components/navigationLink';
+import { Header } from '../header/Header';
 import { Breadcrumb } from './Breadcrumb';
-
-const navigationProps = {
-  title: 'Helsinki Design System',
-  titleAriaLabel: 'Helsinki: Helsinki Design System',
-  titleUrl: 'https://hel.fi',
-  theme: 'light' as NavigationTheme,
-  menuToggleAriaLabel: 'Menu',
-  skipTo: '#content',
-  skipToContentLabel: 'Skip to main content',
-};
 
 export default {
   component: Breadcrumb,
@@ -29,23 +19,43 @@ export default {
   },
 };
 
-export const ExampleInNav = (args) => {
+export const ExampleInHeader = (args) => {
   return (
-    <>
-      <Navigation {...navigationProps}>
-        <Navigation.Row ariaLabel="Breadcrumb test">
-          <Breadcrumb {...args} />
-        </Navigation.Row>
-
-        {/* NAVIGATION ACTIONS */}
-        <Navigation.Actions>
-          <Navigation.LanguageSelector label="FI">
-            <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="fi" label="Suomeksi" />
-            <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="sv" label="På svenska" />
-          </Navigation.LanguageSelector>
-        </Navigation.Actions>
-      </Navigation>
-    </>
+    <Header>
+      <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#" />
+      <Header.NavigationMenu>
+        <Header.NavigationLink
+          href="#"
+          label="Link 1"
+          onClick={(event) => event.preventDefault()}
+          active
+          dropdownLinks={[
+            <Header.NavigationLink
+              href="#"
+              label="Test"
+              dropdownDirection={DropdownDirection.Dynamic}
+              active
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+              ]}
+            />,
+            <Header.NavigationLink
+              href="#"
+              label="Test"
+              dropdownDirection={DropdownDirection.Dynamic}
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+              ]}
+            />,
+          ]}
+        />
+        <Header.NavigationLink href="#" label="Link 2" />
+      </Header.NavigationMenu>
+      <Breadcrumb {...args} />
+    </Header>
   );
 };
 
