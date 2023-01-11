@@ -1,6 +1,18 @@
 import React from 'react';
 
+import { Navigation } from '../navigation/Navigation';
+import { NavigationTheme } from '../navigation/Navigation.interface';
 import { Breadcrumb } from './Breadcrumb';
+
+const navigationProps = {
+  title: 'Helsinki Design System',
+  titleAriaLabel: 'Helsinki: Helsinki Design System',
+  titleUrl: 'https://hel.fi',
+  theme: 'light' as NavigationTheme,
+  menuToggleAriaLabel: 'Menu',
+  skipTo: '#content',
+  skipToContentLabel: 'Skip to main content',
+};
 
 export default {
   component: Breadcrumb,
@@ -12,9 +24,29 @@ export default {
     list: [
       { title: 'home', path: '/' },
       { title: 'level 1', path: '/level1' },
-      { title: 'current', path: '/level1/current' },
+      { title: 'current', path: null },
     ],
   },
+};
+
+export const ExampleInNav = (args) => {
+  return (
+    <>
+      <Navigation {...navigationProps}>
+        <Navigation.Row ariaLabel="Breadcrumb test">
+          <Breadcrumb {...args} />
+        </Navigation.Row>
+
+        {/* NAVIGATION ACTIONS */}
+        <Navigation.Actions>
+          <Navigation.LanguageSelector label="FI">
+            <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="fi" label="Suomeksi" />
+            <Navigation.Item href="#" onClick={(e) => e.preventDefault()} lang="sv" label="På svenska" />
+          </Navigation.LanguageSelector>
+        </Navigation.Actions>
+      </Navigation>
+    </>
+  );
 };
 
 export const Example = (args) => <Breadcrumb {...args} />;
