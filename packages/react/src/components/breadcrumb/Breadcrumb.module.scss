@@ -13,6 +13,7 @@
 .breadcrumb {
   display: none;
 }
+
 .mobileView,
 .breadcrumb {
   flex-direction: row;
@@ -51,6 +52,10 @@
   }
   .breadcrumb {
     display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 }
 

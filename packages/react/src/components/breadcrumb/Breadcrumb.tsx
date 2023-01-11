@@ -19,17 +19,17 @@ const LinkItem = ({ item }: { item: BreadcrumbInfo }) => {
 const BreadcrumbItem = ({ item }: { item: BreadcrumbInfo }) => {
   const hasPath = item.path !== null;
   return (
-    <div className={styles.item}>
+    <li className={styles.item}>
       {hasPath ? <LinkItem item={item} /> : <span className={styles.currentPage}>{item.title}</span>}
-    </div>
+    </li>
   );
 };
 
 const Separator = ({ direction = 'right' }: { direction?: 'left' | 'right' }) => {
   const IconComponent = direction === 'right' ? IconAngleRight : IconAngleLeft;
   return (
-    <span className={styles.separator}>
-      <IconComponent size="xs" aria-hidden />
+    <span className={styles.separator} aria-hidden>
+      <IconComponent size="xs" />
     </span>
   );
 };
@@ -40,6 +40,18 @@ const MobileView = ({ item }: { item: BreadcrumbInfo }) => {
       <Separator direction="left" />
       <LinkItem item={item} />
     </div>
+  );
+};
+const DesktopListView = ({ list }: BreadcrumbProps) => {
+  return (
+    <ol className={styles.breadcrumb}>
+      {list.map((item, index) => (
+        <>
+          {index > 0 && <Separator />}
+          <BreadcrumbItem item={item} />
+        </>
+      ))}
+    </ol>
   );
 };
 
@@ -66,14 +78,7 @@ export const Breadcrumb = ({ list }: BreadcrumbProps) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.breadcrumb}>
-        {list.map((item, index) => (
-          <>
-            {index > 0 && <Separator />}
-            <BreadcrumbItem item={item} />
-          </>
-        ))}
-      </div>
+      <DesktopListView list={list} />
       <MobileView item={lastItemWithPath} />
     </div>
   );
