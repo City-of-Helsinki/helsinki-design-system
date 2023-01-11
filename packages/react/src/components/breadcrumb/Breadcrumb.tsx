@@ -16,21 +16,25 @@ const LinkItem = ({ item }: { item: BreadcrumbInfo }) => {
   );
 };
 
-const BreadcrumbItem = ({ item }: { item: BreadcrumbInfo }) => {
+const Separator = ({ direction = 'right' }: { direction?: 'left' | 'right' }) => {
+  const isRightArrow = direction === 'right';
+  const IconComponent = isRightArrow ? IconAngleRight : IconAngleLeft;
+  const classNames = isRightArrow ? styles.separator : styles.backArrow;
+  const size = isRightArrow ? 'xs' : 's';
+  return (
+    <span className={classNames} aria-hidden>
+      <IconComponent size={size} />
+    </span>
+  );
+};
+
+const BreadcrumbItem = ({ item, showSeparator }: { item: BreadcrumbInfo; showSeparator: boolean }) => {
   const hasPath = item.path !== null;
   return (
     <li className={styles.item}>
       {hasPath ? <LinkItem item={item} /> : <span className={styles.currentPage}>{item.title}</span>}
+      {showSeparator && <Separator key={`separator-${item.title}`} />}
     </li>
-  );
-};
-
-const Separator = ({ direction = 'right' }: { direction?: 'left' | 'right' }) => {
-  const IconComponent = direction === 'right' ? IconAngleRight : IconAngleLeft;
-  return (
-    <span className={styles.separator} aria-hidden>
-      <IconComponent size="xs" />
-    </span>
   );
 };
 
@@ -47,8 +51,7 @@ const DesktopListView = ({ list }: { list: BreadcrumbInfo[] }) => {
     <ol className={styles.breadcrumb}>
       {list.map((item, index) => (
         <React.Fragment key={item.title}>
-          {index > 0 && <Separator key={`separator-${item.title}`} />}
-          <BreadcrumbItem key={item.title} item={item} />
+          <BreadcrumbItem key={item.title} item={item} showSeparator={index < list.length - 1} />
         </React.Fragment>
       ))}
     </ol>
