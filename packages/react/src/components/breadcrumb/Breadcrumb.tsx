@@ -6,7 +6,7 @@ import { Link } from '../link';
 import { IconAngleLeft, IconAngleRight } from '../../icons';
 
 export type BreadcrumbInfo = { title: string; path: string | null };
-export type BreadcrumbProps = { list: BreadcrumbInfo[] };
+export type BreadcrumbProps = { list: BreadcrumbInfo[]; label?: string };
 
 const LinkItem = ({ item }: { item: BreadcrumbInfo }) => {
   return (
@@ -42,7 +42,7 @@ const MobileView = ({ item }: { item: BreadcrumbInfo }) => {
     </div>
   );
 };
-const DesktopListView = ({ list }: BreadcrumbProps) => {
+const DesktopListView = ({ list }: { list: BreadcrumbInfo[] }) => {
   return (
     <ol className={styles.breadcrumb}>
       {list.map((item, index) => (
@@ -67,7 +67,7 @@ const getLastItemWithPath = (list: BreadcrumbInfo[]): BreadcrumbInfo | undefined
   }, undefined);
 };
 
-export const Breadcrumb = ({ list }: BreadcrumbProps) => {
+export const Breadcrumb = ({ list, label = 'Murupolku' }: BreadcrumbProps) => {
   // The breadcrumb shows a list of links to parent pages and optionally can also show the title of the current page
   // If there are no items with paths, then the breadcrumb would only show the title of the current page
   // In this case there is no need to show the breadcrumb at all
@@ -77,9 +77,9 @@ export const Breadcrumb = ({ list }: BreadcrumbProps) => {
   }
 
   return (
-    <div className={styles.container}>
+    <nav aria-label={label} className={styles.container}>
       <DesktopListView list={list} />
       <MobileView item={lastItemWithPath} />
-    </div>
+    </nav>
   );
 };
