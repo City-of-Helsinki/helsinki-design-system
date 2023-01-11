@@ -17,4 +17,15 @@ export default {
   },
 };
 
-export const Example = (args) => <Breadcrumb {...args}>Breadcrumb</Breadcrumb>;
+export const Example = (args) => <Breadcrumb {...args} />;
+export const NonActiveLastItem = (args) => (
+  <Breadcrumb
+    {...args}
+    list={[
+      { title: 'home 0', path: '/' },
+      { title: 'level 1', path: '/level1' },
+      { title: 'level 2', path: '/level2' },
+      { title: 'Current page', path: null },
+    ]}
+  />
+);

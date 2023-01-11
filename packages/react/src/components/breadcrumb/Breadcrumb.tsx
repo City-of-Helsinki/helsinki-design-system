@@ -5,13 +5,14 @@ import 'hds-core';
 import styles from './Breadcrumb.module.scss';
 import { Link } from '../link';
 
-export type BreadcrumbInfo = { title: string; path: string };
+export type BreadcrumbInfo = { title: string; path: string | null };
 export type BreadcrumbProps = { list: BreadcrumbInfo[] };
 
-const BreadcrumbItem = ({ item, active }: { item: BreadcrumbInfo; active: boolean }) => {
+const BreadcrumbItem = ({ item }: { item: BreadcrumbInfo }) => {
+  const hasLink = item.path !== null;
   return (
     <div className={styles.item}>
-      {active ? <span className={styles.active}>{item.title}</span> : <Link href={item.path}>{item.title}</Link>}
+      {hasLink ? <Link href={item.path}>{item.title}</Link> : <span className={styles.active}>{item.title}</span>}
     </div>
   );
 };
@@ -30,7 +31,7 @@ export const Breadcrumb = ({ list }: BreadcrumbProps) => {
       {list.map((item, index) => (
         <>
           {index > 0 && <Separator />}
-          <BreadcrumbItem item={item} active={index === list.length - 1} />
+          <BreadcrumbItem item={item} />
         </>
       ))}
     </div>
