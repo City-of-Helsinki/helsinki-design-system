@@ -1,6 +1,5 @@
 import React from 'react';
 
-// import core base styles
 import 'hds-core';
 import styles from './Breadcrumb.module.scss';
 import { Link } from '../link';
@@ -9,25 +8,28 @@ import { IconAngleLeft, IconAngleRight } from '../../icons';
 export type BreadcrumbInfo = { title: string; path: string | null };
 export type BreadcrumbProps = { list: BreadcrumbInfo[] };
 
+const LinkItem = ({ item }: { item: BreadcrumbInfo }) => {
+  return (
+    <Link href={item.path} className={styles.link}>
+      {item.title}
+    </Link>
+  );
+};
+
 const BreadcrumbItem = ({ item }: { item: BreadcrumbInfo }) => {
   const hasPath = item.path !== null;
   return (
     <div className={styles.item}>
-      {hasPath ? (
-        <Link className={styles.link} href={item.path}>
-          {item.title}
-        </Link>
-      ) : (
-        <span className={styles.currentPage}>{item.title}</span>
-      )}
+      {hasPath ? <LinkItem item={item} /> : <span className={styles.currentPage}>{item.title}</span>}
     </div>
   );
 };
 
-const Separator = () => {
+const Separator = ({ direction = 'right' }: { direction?: 'left' | 'right' }) => {
+  const IconComponent = direction === 'right' ? IconAngleRight : IconAngleLeft;
   return (
     <span className={styles.separator}>
-      <IconAngleRight size="xs" aria-hidden />
+      <IconComponent size="xs" aria-hidden />
     </span>
   );
 };
@@ -35,12 +37,8 @@ const Separator = () => {
 const MobileView = ({ item }: { item: BreadcrumbInfo }) => {
   return (
     <div className={styles.mobileView}>
-      <span className={styles.separator}>
-        <IconAngleLeft size="xs" aria-hidden />
-      </span>
-      <Link href={item.path} className={styles.link}>
-        {item.title}
-      </Link>
+      <Separator direction="left" />
+      <LinkItem item={item} />
     </div>
   );
 };
