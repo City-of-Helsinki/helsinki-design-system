@@ -1,15 +1,34 @@
-.breadcrumb {
+@value small-down, medium-up from "../../styles/breakpoints.css";
+
+.container {
   display: flex;
-  flex-direction: row;
+}
+
+.mobileView {
+  display: flex;
+}
+
+.breadcrumb {
+  display: none;
 }
 
 .item {
   padding-right: var(--spacing-2-xs);
-  &.active {
+  &.currentPage {
     font-weight: 600;
   }
 }
 
 .separator {
   padding-right: var(--spacing-2-xs);
+}
+
+@media medium-up {
+  .mobileView {
+    display: none;
+  }
+  .breadcrumb {
+    display: flex;
+    flex-direction: row;
+  }
 }
