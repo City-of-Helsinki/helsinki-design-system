@@ -50,13 +50,22 @@ const Utilities = () => (
     </Footer.SoMe>
     <Footer.NavigationLink href="https://google.com" onClick={(e) => e.preventDefault()} label="Contact us" />
     <Footer.NavigationLink href="https://google.com" onClick={(e) => e.preventDefault()} label="Give feedback" />
+    <Footer.NavigationLink href="https://google.com" onClick={(e) => e.preventDefault()} label="Support" />
+    <Footer.NavigationLink href="https://google.com" onClick={(e) => e.preventDefault()} label="About" />
+    <Footer.NavigationLink href="https://google.com" onClick={(e) => e.preventDefault()} label="Github page" />
   </Footer.Utilities>
 );
 
 const Base = () => (
   <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
     {createArray(5).map((index) => (
-      <Footer.NavigationLink key={index} href="https://google.com" onClick={(e) => e.preventDefault()} label="Link" />
+      <Footer.NavigationLink
+        key={index}
+        href="https://google.com"
+        onClick={(e) => e.preventDefault()}
+        label="Link"
+        className="test"
+      />
     ))}
   </Footer.Base>
 );
@@ -267,7 +276,7 @@ export const UtilityGroups = (args) => (
         </Footer.UtilityGroup>
       ))}
       <Footer.UtilityGroup key={6}>
-        <Footer.NavigationHeading label="Social media pages" />
+        <Footer.NavigationHeading label="Social media" />
         <Footer.NavigationLink
           title="Helsingin kaupungin Facebook-tili"
           label="Facebook"

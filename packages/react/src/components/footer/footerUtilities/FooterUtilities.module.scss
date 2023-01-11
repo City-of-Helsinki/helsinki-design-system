@@ -12,9 +12,10 @@
 }
 
 .links {
-  display: grid;
-  gap: var(--spacing-m);
-  grid-auto-flow: column;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs) var(--spacing-m);
+  max-width: 60%;
 }
 
 .utilities {

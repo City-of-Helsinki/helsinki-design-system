@@ -7,12 +7,12 @@
   line-height: var(--lineheight-l);
 }
 
-.navigationHeading.utility {
-  font-size: var(--fontsize-heading-m);
+.navigation {
+  font-size: var(--fontsize-body-m);
 }
 
-.navigationHeading.navigation {
-  font-size: var(--fontsize-body-m);
+.utility {
+  font-size: var(--fontsize-heading-m);
 }
 
 @media medium-down {

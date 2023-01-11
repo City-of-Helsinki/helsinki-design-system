@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children, cloneElement } from 'react';
 
 // import base styles
 import '../../styles/base.css';
@@ -67,7 +67,7 @@ export const Footer = ({
     >
       <Koros className={classNames(styles.koros, styles[korosType])} type={korosType} />
       <div className={styles.footerContent}>
-        <section className={classNames(styles.navigationContainer)}>
+        <section className={classNames(styles.navigationContainer, styles.centeredNavigation)}>
           <div className={styles.titleWrapper}>{title && <h2 className={styles.title}>{title}</h2>}</div>
           {navigation}
         </section>

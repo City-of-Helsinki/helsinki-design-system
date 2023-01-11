@@ -1,4 +1,4 @@
-@value small-down, medium-up, large-up, x-large-up from "../../styles/breakpoints.scss";
+@value small-down, x-large-up from "../../styles/breakpoints.scss";
 
 $koros-heights: (
   'basic': 14px,
@@ -50,14 +50,12 @@ $koros-heights: (
 
 .navigationContainer {
   padding: var(--spacing-l) var(--spacing-m) var(--spacing-m);
-
-  > *:only-child {
-    margin-bottom: var(--spacing-2-xs);
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .titleWrapper {
-  align-items: center;
   display: flex;
 }
 
@@ -79,17 +77,9 @@ $koros-heights: (
   }
 }
 
-@media medium-up {
-  .navigationContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-}
-
 @media x-large-up {
   // set max-width of footer sections
-  .footer > .footerContent > section,
+  .centeredNavigation,
   .footer > .footerContent > div {
     margin: 0 auto;
     max-width: var(--container-width-xl);

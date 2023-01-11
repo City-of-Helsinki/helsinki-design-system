@@ -42,7 +42,6 @@ export const FooterNavigationHeading = <T extends React.ElementType = 'a'>({
   ...rest
 }: FooterNavigationHeadingProps<T>) => {
   const Item: React.ElementType = as || (href ? 'a' : 'span');
-  console.log(variant);
   return (
     <Item className={classNames(styles.navigationHeading, variant && styles[variant], className)} href={href} {...rest}>
       {label && label}

@@ -1,6 +1,38 @@
 @import "../common.scss";
 @value large-down from "../../../styles/breakpoints.scss";
 
+.item {
+  @extend %footerItem;
+  font-weight: normal;
+  margin-top: var(--spacing-3-xs);
+  line-height: var(--lineheight-l);
+
+  // spacing between icon and label
+  & > *:nth-child(2) {
+    margin-left: var(--spacing-3-xs);
+  }
+}
+
+.base {
+  align-self: unset;
+  font-size: var(--fontsize-body-s);
+  text-decoration: underline;
+  font-weight: 500;
+  margin: 0;
+}
+
+.navigation {
+  align-items: center;
+  font-size: var(--fontsize-body-l);
+}
+
+.utility {
+  align-items: center;
+  font-size: var(--fontsize-body-l);
+  width: 248px;
+  margin-right: var(--spacing-m);
+}
+
 .subItem.subItem {
   font-size: var(--fontsize-body-s);
   line-height: var(--lineheight-l)
@@ -14,19 +46,26 @@
   width: var(--spacing-xs);
 }
 
-.item {
-  @extend %footerItem;
-  font-weight: normal;
-  margin-top: var(--spacing-3-xs);
-
-  // spacing between icon and label
-  & > *:nth-child(2) {
-    margin-left: var(--spacing-3-xs);
+@media medium-up {
+  .utility {
+    width: 214px
   }
 }
 
 @media large-down {
-  .item.item {
+  .item:not(.base, .navigation, .utility) {
     font-size: var(--fontsize-body-m);
+  }
+}
+
+@media large-up {
+  .utility {
+    width: 204px
+  }
+}
+
+@media x-large-up {
+  .utility {
+    width: 268px
   }
 }

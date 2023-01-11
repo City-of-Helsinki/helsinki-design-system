@@ -7,8 +7,7 @@ import styles from './FooterBase.module.scss';
 import { Logo, LogoLanguage } from '../../logo';
 import { IconArrowUp } from '../../../icons';
 import getKeyboardFocusableElements from '../../../utils/getKeyboardFocusableElements';
-import classNames from '../../../utils/classNames';
-import { useMediaQueryGreaterThan } from '../../../hooks/useMediaQuery';
+import { FooterVariant } from '../Footer.interface';
 
 export type FooterBaseProps = React.PropsWithChildren<{
   /**
@@ -58,7 +57,6 @@ export const FooterBase = ({
   showBackToTopButton = true,
 }: FooterBaseProps) => {
   const year = new Date().getFullYear();
-  const isAtleastLargeScreen = useMediaQueryGreaterThan('l');
 
   return (
     <div className={styles.base}>
@@ -87,10 +85,10 @@ export const FooterBase = ({
                 return (
                   // eslint-disable-next-line react/no-array-index-key
                   <Fragment key={index}>
-                    {isAtleastLargeScreen && <span>|</span>}
+                    <span className={styles.separator}>|</span>
                     {cloneElement(child as React.ReactElement, {
                       key: index,
-                      className: classNames(child.props.className, styles.baseLink),
+                      variant: FooterVariant.Base,
                     })}
                   </Fragment>
                 );

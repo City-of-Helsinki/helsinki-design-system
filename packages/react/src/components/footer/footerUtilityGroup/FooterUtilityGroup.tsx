@@ -30,7 +30,6 @@ export const FooterUtilityGroup = ({ ariaLabel, className, children, id }: Foote
             // eslint-disable-next-line react/no-array-index-key
             <li key={index} className={styles.utilityGroupLinkContainer}>
               {cloneElement(child, {
-                className: classNames(child.props.className, styles.utilityGroupLink),
                 variant: FooterVariant.Utility,
               })}
             </li>
