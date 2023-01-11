@@ -12,7 +12,13 @@ const BreadcrumbItem = ({ item }: { item: BreadcrumbInfo }) => {
   const hasPath = item.path !== null;
   return (
     <div className={styles.item}>
-      {hasPath ? <Link href={item.path}>{item.title}</Link> : <span className={styles.currentPage}>{item.title}</span>}
+      {hasPath ? (
+        <Link className={styles.link} href={item.path}>
+          {item.title}
+        </Link>
+      ) : (
+        <span className={styles.currentPage}>{item.title}</span>
+      )}
     </div>
   );
 };
