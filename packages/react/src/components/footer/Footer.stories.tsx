@@ -7,6 +7,7 @@ import { FooterNavigationLink } from './footerNavigationLink/FooterNavigationLin
 import { FooterNavigationGroup } from './footerNavigationGroup/FooterNavigationGroup';
 import { FooterNavigation } from './footerNavigation/FooterNavigation';
 import { FooterUtilities } from './footerUtilities/FooterUtilities';
+import { FooterUtilityGroup } from './footerUtilityGroup/FooterUtilityGroup';
 import { FooterSoMe } from './footerSoMe/FooterSoMe';
 import { FooterBase } from './footerBase/FooterBase';
 
@@ -69,6 +70,7 @@ export default {
     FooterNavigationGroup,
     FooterNavigationHeading,
     FooterUtilities,
+    FooterUtilityGroup,
     FooterSoMe,
     FooterBase,
   },
@@ -250,7 +252,7 @@ export const UtilityGroups = (args) => (
     </Footer.Navigation>
     <Footer.Utilities>
       {createArray(3).map((index) => (
-        <Footer.NavigationGroup key={index}>
+        <Footer.UtilityGroup key={index}>
           <Footer.NavigationHeading href="https://google.com" onClick={(e) => e.preventDefault()} label="Main Page" />
           {createArray(6).map((subIndex) => {
             return (
@@ -262,9 +264,9 @@ export const UtilityGroups = (args) => (
               />
             );
           })}
-        </Footer.NavigationGroup>
+        </Footer.UtilityGroup>
       ))}
-      <Footer.NavigationGroup key={6}>
+      <Footer.UtilityGroup key={6}>
         <Footer.NavigationHeading label="Social media pages" />
         <Footer.NavigationLink
           title="Helsingin kaupungin Facebook-tili"
@@ -294,7 +296,7 @@ export const UtilityGroups = (args) => (
           icon={<IconInstagram aria-hidden="true" />}
           href="https://instagram.com/helsinki/"
         />
-      </Footer.NavigationGroup>
+      </Footer.UtilityGroup>
     </Footer.Utilities>
     <Footer.Base
       copyrightHolder="Helsingin kaupunki"

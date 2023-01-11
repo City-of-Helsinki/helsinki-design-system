@@ -1,94 +1,25 @@
+<<<<<<< HEAD
 @import "../common.scss";
 @value small-only, small-down, medium-only, medium-up, large-only, large-up, x-large-up from "../../../styles/breakpoints.scss";
+=======
+@value large-down from "../../../styles/breakpoints.css";
+@import '../common';
+>>>>>>> 467d0810f (Easier maintainability for footer link and group styles by using variants for utility and navigation sections)
 
 .groups {
   display: flex;
   flex-wrap: wrap;
   row-gap: var(--spacing-m);
-
-  .groupHeading {
-    font-size: var(--fontsize-body-m);
-    font-weight: bold;
-    line-height: var(--lineheight-l);
-  }
 }
 
 .navigation {
-  display: grid;
+  display: flex;
   gap: var(--spacing-xs) var(--spacing-m);
-  justify-items: center;
+  flex-wrap: wrap;
 
   &.sitemap {
     align-items: start;
     gap: var(--spacing-l) var(--spacing-m);
     justify-items: start;
-  }
-
-  .link {
-    font-weight: normal;
-  }
-}
-
-@media small-only {
-  .navigation:not(.sitemap) {
-    @include gridColumns(3);
-  }
-
-  .navigation.sitemap {
-    grid-template-columns: repeat(2, auto);
-  }
-}
-
-@media small-down {
-  .navigation {
-    justify-content: center;
-    margin-top: var(--spacing-m);
-
-    .link {
-      font-size: var(--fontsize-body-m);
-    }
-  }
-}
-
-@media medium-only {
-  .navigation {
-    margin-top: var(--spacing-m);
-
-    &.sitemap {
-      grid-template-columns: repeat(3, auto);
-    }
-  }
-}
-
-@media medium-up {
-  .navigation:not(.sitemap) {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0;
-    margin: var(--spacing-xs) 0 0 calc(var(--spacing-m) * -1);
-
-    > * {
-      margin: var(--spacing-xs) 0 0 var(--spacing-m);
-    }
-  }
-}
-
-@media large-only {
-  .navigation.sitemap {
-    grid-template-columns: repeat(4, auto);
-  }
-}
-
-@media large-up {
-  .navigation {
-    &:not(.minimal) {
-      margin-top: var(--spacing-m);
-    }
-  }
-}
-
-@media x-large-up {
-  .navigation.sitemap {
-    grid-template-columns: repeat(5, auto);
   }
 }

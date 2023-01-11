@@ -1,12 +1,22 @@
-@import "../common";
+@value x-small-down, small-down, medium-down from "../../../styles/breakpoints.css";
+@import '../common';
 
-.navigationHeadingLink {
+.navigationHeading {
   @extend %footerItem;
-  font-weight: normal;
+  font-weight: bold;
+  line-height: var(--lineheight-l);
 }
 
-@media small-down {
-  .navigationHeading, .navigationHeadingLink {
-    font-size: var(--fontsize-body-m);
+.navigationHeading.utility {
+  font-size: var(--fontsize-heading-m);
+}
+
+.navigationHeading.navigation {
+  font-size: var(--fontsize-body-m);
+}
+
+@media medium-down {
+  .navigationHeading.navigation {
+    font-weight: normal;
   }
 }

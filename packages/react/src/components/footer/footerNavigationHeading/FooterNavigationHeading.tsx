@@ -5,6 +5,7 @@ import 'hds-core';
 import styles from './FooterNavigationHeading.module.scss';
 import { MergeElementProps } from '../../../common/types';
 import classNames from '../../../utils/classNames';
+import { FooterVariant } from '../Footer.interface';
 
 type ItemProps<Element> = React.PropsWithChildren<{
   /**
@@ -19,6 +20,11 @@ type ItemProps<Element> = React.PropsWithChildren<{
    * The label for the heading.
    */
   label?: string | React.ReactNode;
+  /**
+   * Internal variant to change styles based on context.
+   * @internal
+   */
+  variant?: FooterVariant.Navigation | FooterVariant.Utility;
 }>;
 
 export type FooterNavigationHeadingProps<Element extends React.ElementType = 'a'> = MergeElementProps<
@@ -32,17 +38,13 @@ export const FooterNavigationHeading = <T extends React.ElementType = 'a'>({
   className,
   href,
   label,
+  variant,
   ...rest
 }: FooterNavigationHeadingProps<T>) => {
-  console.log(href);
   const Item: React.ElementType = as || (href ? 'a' : 'span');
-
+  console.log(variant);
   return (
-    <Item
-      className={classNames(styles.navigationHeading, href && styles.navigationHeadingLink, className)}
-      href={href}
-      {...rest}
-    >
+    <Item className={classNames(styles.navigationHeading, variant && styles[variant], className)} href={href} {...rest}>
       {label && label}
       {children}
     </Item>

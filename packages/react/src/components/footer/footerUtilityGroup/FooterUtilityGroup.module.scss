@@ -1,0 +1,41 @@
+@value medium-up, large-up, x-large-up from "../../../styles/breakpoints.css";
+
+.utilityGroup {
+  display: flex;
+}
+
+.utilityGroupLink {
+  align-items: center;
+  font-size: var(--fontsize-body-l);
+  line-height: var(--lineheight-l);
+  width: 308px;
+  margin-right: var(--spacing-m);
+}
+
+.utilityGroupList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-direction: column;
+  justify-items: start;
+}
+
+@media medium-up {
+  .utilityGroupLink {
+    width: 234px
+  }
+}
+
+@media large-up {
+  .utilityGroupLink {
+    width: 216px
+  }
+}
+
+@media x-large-up {
+  .utilityGroupLink {
+    width: 282px
+  }
+}

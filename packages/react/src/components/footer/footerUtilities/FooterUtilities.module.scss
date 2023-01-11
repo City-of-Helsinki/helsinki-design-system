@@ -23,12 +23,6 @@
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 0 var(--spacing-m) var(--spacing-m);
-
-  .utilityGroupHeading {
-    font-size: var(--fontsize-heading-m);
-    font-weight: bold;
-    line-height: var(--lineheight-l);
-  }
 }
 
 @media x-small-down {
@@ -65,11 +59,5 @@
 @media large-up {
   .divider {
     margin: 0 0 var(--spacing-m);
-  }
-}
-
-@media x-large-up {
-  .groups {
-    column-gap: var(--spacing-layout-xl);
   }
 }

@@ -4,9 +4,8 @@ import React, { Children, cloneElement } from 'react';
 import '../../../styles/base.css';
 
 import styles from './FooterUtilities.module.scss';
-import { getComponentFromChildren } from '../../../utils/getChildren';
+import { getComponentFromChildren, getChildElementsEvenIfContainerInbetween } from '../../../utils/getChildren';
 import { FCWithName } from '../../../common/types';
-import classNames from '../../../utils/classNames';
 
 export type FooterUtilitiesProps = {
   /**
@@ -18,8 +17,8 @@ export type FooterUtilitiesProps = {
 export const FooterUtilities = ({ children }: FooterUtilitiesProps) => {
   // filter out the SoMe group, so that other utils can be wrapped in a separate div
   const [soMeGroup, childrenWithoutSoMeGroup] = getComponentFromChildren(children, 'FooterSoMe');
-  const groups = childrenWithoutSoMeGroup.filter(
-    (child) => (child.type as FCWithName).componentName === 'FooterNavigationGroup',
+  const groups = getChildElementsEvenIfContainerInbetween(childrenWithoutSoMeGroup).filter(
+    (child) => (child.type as FCWithName).componentName === 'FooterUtilityGroup',
   );
 
   return (
@@ -29,7 +28,6 @@ export const FooterUtilities = ({ children }: FooterUtilitiesProps) => {
         <div className={styles.groups}>
           {Children.map(groups, (child, index) => {
             return cloneElement(child as React.ReactElement, {
-              headingClassName: classNames(child.props.headingClassName, styles.utilityGroupHeading),
               key: index,
             });
           })}

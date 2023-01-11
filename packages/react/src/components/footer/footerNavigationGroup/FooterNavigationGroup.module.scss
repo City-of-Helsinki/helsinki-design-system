@@ -1,24 +1,7 @@
-.heading {
-  font-size: var(--fontsize-heading-m);;
-  font-weight: bold;
-  line-height: var(--lineheight-m);
-  margin: 0;
-}
+@value x-large-up from "../../../styles/breakpoints.css";
 
 .navigationGroup {
   display: flex;
-  min-width: 212px;
-  
-  .denseList {
-    gap: unset;
-  }
-}
-
-.headingElement {
-  font-size: var(--fontsize-body-l);
-  font-weight: 500;
-  line-height: var(--lineheight-l);
-  margin: 0;
 }
 
 .navigationGroupLink {
@@ -32,7 +15,15 @@
   margin: 0;
   padding: 0;
   display: flex;
-  gap: var(--spacing-xs);
+  gap: unset;
   flex-direction: column;
   justify-items: start;
+  width: 137px;
+  margin-right: var(--spacing-m);
+}
+
+@media x-large-up {
+  .navigationGroupList {
+    width: 180px;
+  }
 }

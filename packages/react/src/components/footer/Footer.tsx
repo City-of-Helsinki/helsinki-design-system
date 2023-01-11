@@ -11,6 +11,7 @@ import { FooterNavigationGroup } from './footerNavigationGroup/FooterNavigationG
 import { FooterNavigationHeading } from './footerNavigationHeading/FooterNavigationHeading';
 import { FooterNavigationLink } from './footerNavigationLink/FooterNavigationLink';
 import { FooterUtilities } from './footerUtilities/FooterUtilities';
+import { FooterUtilityGroup } from './footerUtilityGroup/FooterUtilityGroup';
 import { FooterSoMe } from './footerSoMe/FooterSoMe';
 import { FooterBase } from './footerBase/FooterBase';
 import { FooterTheme } from './Footer.interface';
@@ -81,5 +82,6 @@ Footer.NavigationGroup = FooterNavigationGroup;
 Footer.NavigationHeading = FooterNavigationHeading;
 Footer.NavigationLink = FooterNavigationLink;
 Footer.Utilities = FooterUtilities;
+Footer.UtilityGroup = FooterUtilityGroup;
 Footer.SoMe = FooterSoMe;
 Footer.Base = FooterBase;

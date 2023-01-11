@@ -7,6 +7,7 @@ import styles from './FooterNavigationLink.module.scss';
 import { MergeElementProps } from '../../../common/types';
 import classNames from '../../../utils/classNames';
 import { IconAngleRight } from '../../../icons';
+import { FooterVariant } from '../Footer.interface';
 
 type ItemProps<Element> = React.PropsWithChildren<{
   /**
@@ -26,6 +27,11 @@ type ItemProps<Element> = React.PropsWithChildren<{
    * @internal
    */
   subItem?: boolean;
+  /**
+   * Internal variant to change styles based on context.
+   * @internal
+   */
+  variant?: FooterVariant.Navigation | FooterVariant.Utility;
 }>;
 
 export type FooterNavigationLinkProps<Element extends React.ElementType = 'a'> = MergeElementProps<
@@ -35,22 +41,24 @@ export type FooterNavigationLinkProps<Element extends React.ElementType = 'a'> =
 
 export const FooterNavigationLink = <T extends React.ElementType = 'a'>({
   as,
-  children,
   className,
   icon,
   label,
   subItem = false,
+  variant,
   ...rest
 }: FooterNavigationLinkProps<T>) => {
   const Item: React.ElementType = as;
 
   return (
     // @ts-ignore
-    <Item className={classNames(styles.item, subItem && styles.subItem, className)} {...rest}>
+    <Item
+      className={classNames(styles.item, subItem && styles.subItem, variant && styles[variant], className)}
+      {...rest}
+    >
       {icon}
       {subItem && <IconAngleRight className={styles.subItemIcon} />}
       {label && <span>{label}</span>}
-      {children}
     </Item>
   );
 };
