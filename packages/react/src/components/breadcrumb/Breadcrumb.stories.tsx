@@ -22,55 +22,74 @@ export default {
   },
 };
 
+export const Example = (args) => <Breadcrumb {...args} />;
+
 export const ExampleInHeader = (args) => {
   return (
-    <Header>
-      <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#" />
-      <Header.NavigationMenu>
-        <Header.NavigationLink
-          href="#"
-          label="Link 1"
-          onClick={(event) => event.preventDefault()}
-          active
-          dropdownLinks={[
-            <Header.NavigationLink
-              href="#"
-              label="Test"
-              dropdownDirection={DropdownDirection.Dynamic}
-              active
-              dropdownLinks={[
-                <Header.NavigationLink href="#" label="Nested" />,
-                <Header.NavigationLink href="#" label="Nested" />,
-                <Header.NavigationLink href="#" label="Nested" />,
-              ]}
-            />,
-            <Header.NavigationLink
-              href="#"
-              label="Test"
-              dropdownDirection={DropdownDirection.Dynamic}
-              dropdownLinks={[
-                <Header.NavigationLink href="#" label="Nested" />,
-                <Header.NavigationLink href="#" label="Nested" />,
-              ]}
-            />,
-          ]}
-        />
-        <Header.NavigationLink href="#" label="Link 2" />
-      </Header.NavigationMenu>
-      <Breadcrumb {...args} />
-    </Header>
+    <>
+      <style>
+        {`
+          @media only screen and (min-width: 576px) {
+            .breadcrumb-container {
+              margin-right: var(--spacing-xs);
+              margin-left: var(--spacing-xs);
+            }
+          }
+        `}
+      </style>
+      <Header>
+        <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#" />
+        <Header.NavigationMenu>
+          <Header.NavigationLink
+            href="#"
+            label="Link 1"
+            onClick={(event) => event.preventDefault()}
+            active
+            dropdownLinks={[
+              <Header.NavigationLink
+                href="#"
+                label="Test"
+                dropdownDirection={DropdownDirection.Dynamic}
+                active
+                dropdownLinks={[
+                  <Header.NavigationLink href="#" label="Nested" />,
+                  <Header.NavigationLink href="#" label="Nested" />,
+                  <Header.NavigationLink href="#" label="Nested" />,
+                ]}
+              />,
+              <Header.NavigationLink
+                href="#"
+                label="Test"
+                dropdownDirection={DropdownDirection.Dynamic}
+                dropdownLinks={[
+                  <Header.NavigationLink href="#" label="Nested" />,
+                  <Header.NavigationLink href="#" label="Nested" />,
+                ]}
+              />,
+            ]}
+          />
+          <Header.NavigationLink href="#" label="Link 2" />
+        </Header.NavigationMenu>
+        <div className="breadcrumb-container ">
+          <Breadcrumb {...args} />
+        </div>
+      </Header>
+    </>
   );
 };
 
-export const Example = (args) => <Breadcrumb {...args} />;
-export const NonActiveLastItem = (args) => (
+ExampleInHeader.storyName = 'Breadcrumb in header';
+
+export const LastItemIsLink = (args) => (
   <Breadcrumb
     {...args}
     list={[
-      { title: 'Home 0', path: '/' },
+      { title: 'Home', path: '/' },
       { title: 'Level 1', path: '/level1' },
-      { title: 'Level 2', path: '/level2' },
-      { title: 'Current page', path: null },
+      { title: 'Level 2', path: '/level1/level2' },
+      { title: 'Level 3', path: '/level1/level2/level3' },
     ]}
   />
 );
+
+LastItemIsLink.storyName = 'Last item a link';
