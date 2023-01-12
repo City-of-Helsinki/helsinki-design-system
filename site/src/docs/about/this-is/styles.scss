@@ -1,0 +1,17 @@
+@import '~hds-design-tokens/lib/all.scss';
+@import '../../../components/utils';
+
+.info-page-content {
+  margin: 0 auto;
+  padding: var(--spacing-layout-xs) var(--spacing-layout-2-xs);
+
+  @include medium-and-above-screen {
+    padding-left: var(--spacing-layout-xs);
+    padding-right: var(--spacing-layout-xs);
+  }
+
+  @include x-large-and-above-screen {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
