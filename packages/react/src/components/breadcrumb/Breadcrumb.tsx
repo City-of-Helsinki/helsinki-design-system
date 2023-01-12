@@ -31,8 +31,8 @@ const Separator = ({ direction = 'right' }: { direction?: 'left' | 'right' }) =>
 const BreadcrumbItem = ({ item, showSeparator }: { item: BreadcrumbInfo; showSeparator: boolean }) => {
   const hasPath = item.path !== null;
   return (
-    <li className={styles.item}>
-      {hasPath ? <LinkItem item={item} /> : <span className={styles.currentPage}>{item.title}</span>}
+    <li className={styles.listItem}>
+      {hasPath ? <LinkItem item={item} /> : <span className={styles.active}>{item.title}</span>}
       {showSeparator && <Separator key={`separator-${item.title}`} />}
     </li>
   );
@@ -46,6 +46,7 @@ const MobileView = ({ item }: { item: BreadcrumbInfo }) => {
     </div>
   );
 };
+
 const DesktopListView = ({ list }: { list: BreadcrumbInfo[] }) => {
   return (
     <ol className={styles.breadcrumb}>
