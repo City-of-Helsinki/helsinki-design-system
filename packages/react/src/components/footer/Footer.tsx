@@ -1,4 +1,4 @@
-import React, { Children, cloneElement } from 'react';
+import React from 'react';
 
 // import base styles
 import '../../styles/base.css';

@@ -30,16 +30,14 @@
     text-decoration: underline;
   }
 
-  &:focus:after {
+  &:focus {
     --focus-outline-size: calc(100% + var(--spacing-2-xs));
-
-    border: var(--footer-focus-outline-width) solid var(--footer-focus-outline-color);
+    
+    align-items: center;
     border-radius: var(--footer-focus-outline-border-radius);
-    box-sizing: border-box;
-    content: '';
     height: var(--focus-outline-size);
-    position: absolute;
-    width: var(--focus-outline-size);
+    outline-offset: 4px;
+    outline: var(--footer-focus-outline-width) solid var(--footer-focus-outline-color);
   }
 }
 

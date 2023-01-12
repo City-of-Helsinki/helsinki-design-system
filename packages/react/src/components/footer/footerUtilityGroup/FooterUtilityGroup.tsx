@@ -5,7 +5,6 @@ import 'hds-core';
 import styles from './FooterUtilityGroup.module.scss';
 import { getChildElementsEvenIfContainerInbetween } from '../../../utils/getChildren';
 import classNames from '../../../utils/classNames';
-import { FCWithName } from '../../../common/types';
 import { FooterVariant } from '../Footer.interface';
 
 type FooterUtilityGroupProps = React.PropsWithChildren<{
