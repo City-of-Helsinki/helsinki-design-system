@@ -1,8 +1,9 @@
-@value small-down, medium-up from "../../styles/breakpoints.css";
+@value medium-up from "../../styles/breakpoints.css";
 
 .container {
   display: flex;
   // margins added to match margins in menu above the breadcrumb
+  // this can be removed, if container provides spacing
   margin-left: var(--spacing-xs);
   margin-right: var(--spacing-xs);
   padding: var(--spacing-s) 0;
@@ -23,11 +24,11 @@
   word-wrap: break-word;
 }
 
-.item {
+.listItem {
   align-items: center;
   display: flex;
   line-height: var(--lineheight-l);
-  .currentPage {
+  .active {
     font-weight: 700;
     // to match 3px border around links
     padding: 3px;
@@ -43,20 +44,20 @@
   }
 }
 
+.mobileView .link {
+  font-size: var(--fontsize-body-l);
+}
+
 .backArrow {
-  display: flex;
+  display: inline-flex;
   // compensate the white space in the icon
   margin-left: -5px;
+  margin-right: -3px;
 }
 
 .separator {
   display: inline-flex;
-  padding: 0 var(--spacing-3-xs);
-}
-
-.navigationLink.navigationLink {
-  --link-visited-color: none;
-  --link-color: var(--color-black-90);
+  padding-left: var(--spacing-3-xs);
 }
 
 @media medium-up {

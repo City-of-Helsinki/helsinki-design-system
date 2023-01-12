@@ -10,7 +10,7 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
       class="breadcrumb"
     >
       <li
-        class="item"
+        class="listItem"
       >
         <a
           class="link linkM link"
@@ -44,7 +44,7 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
         </span>
       </li>
       <li
-        class="item"
+        class="listItem"
       >
         <a
           class="link linkM link"
@@ -78,7 +78,7 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
         </span>
       </li>
       <li
-        class="item"
+        class="listItem"
       >
         <a
           class="link linkM link"
@@ -112,7 +112,7 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
         </span>
       </li>
       <li
-        class="item"
+        class="listItem"
       >
         <a
           class="link linkM link"
@@ -146,10 +146,10 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
         </span>
       </li>
       <li
-        class="item"
+        class="listItem"
       >
         <span
-          class="currentPage"
+          class="active"
         >
           Current
         </span>
