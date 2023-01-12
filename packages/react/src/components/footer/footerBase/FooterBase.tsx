@@ -40,6 +40,10 @@ export type FooterBaseProps = React.PropsWithChildren<{
    * Whether the "Back to top" button should be shown
    */
   showBackToTopButton?: boolean;
+  /**
+   * Set the year for copyright text. This can be useful in automated tests when a static year is set so the tests don't fail after a new year.
+   */
+  year?: number;
 }>;
 
 /**
@@ -61,9 +65,8 @@ export const FooterBase = ({
   logoLanguage = 'fi',
   onBackToTopClick,
   showBackToTopButton = true,
+  year = new Date().getFullYear(),
 }: FooterBaseProps) => {
-  const year = new Date().getFullYear();
-
   return (
     <div className={styles.base}>
       <hr className={styles.divider} aria-hidden />
