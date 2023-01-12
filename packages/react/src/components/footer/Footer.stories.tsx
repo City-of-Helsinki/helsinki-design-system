@@ -52,7 +52,7 @@ const Utilities = () => (
     <Footer.NavigationLink href="https://google.com" onClick={(e) => e.preventDefault()} label="Give feedback" />
     <Footer.NavigationLink href="https://google.com" onClick={(e) => e.preventDefault()} label="Support" />
     <Footer.NavigationLink href="https://google.com" onClick={(e) => e.preventDefault()} label="About" />
-    <Footer.NavigationLink href="https://google.com" onClick={(e) => e.preventDefault()} label="Github page" />
+    <Footer.NavigationLink href="https://google.com" onClick={(e) => e.preventDefault()} label="Github page" external openInNewTab/>
   </Footer.Utilities>
 );
 
@@ -65,6 +65,7 @@ const Base = () => (
         onClick={(e) => e.preventDefault()}
         label="Link"
         className="test"
+        external
       />
     ))}
   </Footer.Base>

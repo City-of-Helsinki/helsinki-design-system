@@ -18,6 +18,7 @@
 %footerItem {
   @extend %buttonReset;
   align-self: start;
+  align-items: center;
   color: inherit;
   display: flex;
   outline: none;
@@ -33,7 +34,6 @@
   &:focus {
     --focus-outline-size: calc(100% + var(--spacing-2-xs));
     
-    align-items: center;
     border-radius: var(--footer-focus-outline-border-radius);
     height: var(--focus-outline-size);
     outline-offset: 4px;
