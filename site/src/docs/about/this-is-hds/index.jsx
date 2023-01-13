@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Container, Link, Table } from 'hds-react';
+import { Accordion, useAccordion, Button, Card, Container, IconAngleDown, IconAngleUp, Link, Linkbox, Table } from 'hds-react';
 import Hero from '../../../components/Hero';
 import Seo from '../../../components/Seo';
 
@@ -54,6 +54,38 @@ const TableBasicInfo = () => {
   );
 };
 
+export const AccordionExamples = () => {
+  const initiallyOpen = false;
+  const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen });
+  const icon = isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />;
+  return (
+    <>
+      <Button iconLeft={icon} {...buttonProps}>
+        Show me examples
+      </Button>
+      <Card aria-label="Show me examples" style={{ marginTop: 'var(--spacing-m)' }} {...contentProps}>
+        <h2>Citizens of Helsinki need to</h2>
+        <Linkbox linkboxAriaLabel="Linkbox: hel.fi main site" linkAriaLabel="hel.fi" href="https://hel.fi" withBorder>
+          <div style={{ height: '106px', marginTop: 'var(--spacing-m)' }} ><h3>Visit city of Helsinki main site</h3></div>
+        </Linkbox>
+        <Linkbox linkboxAriaLabel="Linkbox: Asti" linkAriaLabel="Asti" href="https://asti.hel.fi" withBorder>
+          <div style={{ height: '106px', marginTop: 'var(--spacing-m)' }} ><h3>Apply to daycare</h3></div>
+        </Linkbox>
+        <Linkbox linkboxAriaLabel="Linkbox: Boat Berts" linkAriaLabel="Boat Berths" href="https://hds.hel.fi" withBorder>
+              <div style={{ height: '106px', marginTop: 'var(--spacing-m)' }}><h3>Rent boat berths</h3></div>
+        </Linkbox>
+        <Linkbox linkboxAriaLabel="Linkbox: Culture Kids" linkAriaLabel="Asti" href="https://kummilapset.hel.fi/en/" withBorder>
+          <div style={{ height: '106px', marginTop: 'var(--spacing-m)' }}><h3>Enjoy culture with kids</h3></div>
+        </Linkbox>
+        <Linkbox linkboxAriaLabel="Linkbox: Events Helsinki" linkAriaLabel="Events Helsinki" href="https://hds.hel.fihttps://tapahtumat.hel.fi/en/home" withBorder>
+              <div style={{ height: '106px', marginTop: 'var(--spacing-m)' }}><h3>Find events in Helsinki</h3></div>
+        </Linkbox>
+
+      </Card>
+    </>
+  );
+};
+
 //<script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(e){if(void 0!==e.data["datawrapper-height"]){var t=document.querySelectorAll("iframe");for(var a in e.data["datawrapper-height"])for(var r=0;r<t.length;r++){if(t[r].contentWindow===e.source)t[r].style.height=e.data["datawrapper-height"][a]+"px"}}}))}();</script>
 
 const DemoPage = () => {
@@ -90,7 +122,7 @@ const DemoPage = () => {
           There is a huge need to support these different services to create consistent, user friendly and accessible
           digital services.
         </p>
-
+        <AccordionExamples />
         <h2 className="heading-l">Goals</h2>
         <p>
           HDS is an important tool building the digital precence and brand of city of Helsinki. HDS supports creating
@@ -133,26 +165,27 @@ const DemoPage = () => {
         </p>
 
         <h2 className="heading-l">Results</h2>
-        <Card
-          border
-          heading="React"
-          text="Usage of the React components"
-          style={{
-            marginTop: 'var(--spacing-s)',
-            width: '45%'
-          }}
-        />
-
 
         <Card
           border
-          heading="Core"
-          text="Usage of Core components"
+          heading="HDS React component usage"
+          text="lore ipsum"
           style={{
             marginTop: 'var(--spacing-s)',
-            width: '45%'
+
           }}
-        />
+        >
+          <iframe title="HDS React component usage" aria-label="Interactive bar chart" id="datawrapper-chart-X0PtN" src="https://datawrapper.dwcdn.net/X0PtN/8/" scrolling="no" frameborder="0" data-external="1"
+            style={{
+              width: "100%", 
+              //min-width: "100% !important",
+              border: "none", 
+              height:"620",
+            }}
+          >
+          </iframe>
+          
+        </Card>
 
 
         <Card
@@ -181,7 +214,7 @@ const DemoPage = () => {
               width: "100%", 
               //min-width: "100% !important",
               border: "none", 
-              height:"420",
+              height:"620",
             }}
           >
           </iframe>
