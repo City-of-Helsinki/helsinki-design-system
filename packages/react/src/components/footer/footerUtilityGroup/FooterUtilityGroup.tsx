@@ -11,7 +11,7 @@ type FooterUtilityGroupProps = React.PropsWithChildren<{
   /**
    * Description of the navigation group for screen readers.
    */
-  ariaLabelledBy?: string;
+  ariaLabel?: string;
   /**
    * Additional class names to apply.
    */
@@ -21,16 +21,11 @@ type FooterUtilityGroupProps = React.PropsWithChildren<{
    */
   id?: string;
 }>;
-export const FooterUtilityGroup = ({ ariaLabelledBy, className, children, id }: FooterUtilityGroupProps) => {
+export const FooterUtilityGroup = ({ ariaLabel, className, children, id }: FooterUtilityGroupProps) => {
   const childElements = getChildElementsEvenIfContainerInbetween(children);
 
   return (
-    <nav
-      role="navigation"
-      aria-labelledby={ariaLabelledBy}
-      id={id}
-      className={classNames(styles.utilityGroup, className)}
-    >
+    <nav aria-label={ariaLabel} id={id} className={classNames(styles.utilityGroup, className)}>
       <ul className={styles.utilityGroupList}>
         {Children.map(childElements, (child, index) => {
           return (

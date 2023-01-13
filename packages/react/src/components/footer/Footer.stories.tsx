@@ -259,7 +259,7 @@ export const Example = (args) => (
 
 export const UtilityGroups = (args) => (
   <Footer footerProps={{ lang: 'fi' }} {...args}>
-    <Footer.Navigation navigationAriaLabel="Nostoja palveluista">
+    <Footer.Navigation ariaLabel="Nostoja palveluista">
       <Footer.NavigationLink href="https://asiointi.hel.fi/wps/portal/login?locale=fi" label="Sähköinen asiointi" />
       <Footer.NavigationLink href="https://palvelukartta.hel.fi/" label="Palvelut kartalla" />
       <Footer.NavigationLink href="https://hel.fi/yritystenhelsinki" label="Yritysten Helsinki" />
@@ -348,7 +348,7 @@ export const CustomSection = (args) => (
     <Utilities />
     <Footer.Custom>
       <Footer.NavigationHeading label="Partners" id="partners" />
-      <div aria-labelledby="partners" style={{ display: 'flex', flexDirection: 'row', gap: '24px', marginTop: '8px' }}>
+      <div aria-label="partners" style={{ display: 'flex', flexDirection: 'row', gap: '24px', marginTop: '8px' }}>
         <Footer.NavigationLink href="www.google.com" label="Partner 1" />
         <Footer.NavigationLink href="www.google.com" label="Partner 1" />
         <Footer.NavigationLink href="www.google.com" label="Partner 1" />

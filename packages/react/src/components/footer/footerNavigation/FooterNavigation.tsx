@@ -14,10 +14,10 @@ export type FooterNavigationProps = React.PropsWithChildren<{
   /**
    * Description of the navigation for screen readers.
    */
-  ariaLabelledBy?: string;
+  ariaLabel?: string;
 }>;
 
-export const FooterNavigation = ({ children, ariaLabelledBy }: FooterNavigationProps) => {
+export const FooterNavigation = ({ children, ariaLabel }: FooterNavigationProps) => {
   const isSmallerThanLargeScreen = useMediaQueryLessThan('l');
   const groups = getChildElementsEvenIfContainerInbetween(children).filter(
     (child) => (child.type as FCWithName).componentName === 'FooterNavigationGroup',
@@ -27,7 +27,7 @@ export const FooterNavigation = ({ children, ariaLabelledBy }: FooterNavigationP
   return (
     <nav
       className={classNames(styles.navigation, hasGroups && !isSmallerThanLargeScreen && styles.sitemap)}
-      aria-labelledby={ariaLabelledBy}
+      aria-label={ariaLabel}
     >
       {hasGroups && !isSmallerThanLargeScreen && (
         <div className={styles.groups}>

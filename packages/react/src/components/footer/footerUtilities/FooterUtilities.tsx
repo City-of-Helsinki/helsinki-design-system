@@ -11,14 +11,14 @@ export type FooterUtilitiesProps = {
   /**
    * Description of the navigation links for screen readers.
    */
-  ariaLabelledBy?: string;
+  ariaLabel?: string;
   /**
    * Children elements to render.
    */
   children: React.ReactNode;
 };
 
-export const FooterUtilities = ({ ariaLabelledBy, children }: FooterUtilitiesProps) => {
+export const FooterUtilities = ({ ariaLabel, children }: FooterUtilitiesProps) => {
   // filter out the SoMe group, so that other utils can be wrapped in a separate div
   const [soMeGroup, childrenWithoutSoMeGroup] = getComponentFromChildren(children, 'FooterSoMe');
   const groups = getChildElementsEvenIfContainerInbetween(childrenWithoutSoMeGroup).filter(
@@ -37,7 +37,7 @@ export const FooterUtilities = ({ ariaLabelledBy, children }: FooterUtilitiesPro
           })}
         </div>
       ) : (
-        <nav role="navigation" aria-labelledby={ariaLabelledBy} className={styles.links}>
+        <nav aria-label={ariaLabel} className={styles.links}>
           {childrenWithoutSoMeGroup}
         </nav>
       )}
