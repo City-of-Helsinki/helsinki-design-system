@@ -14,6 +14,9 @@ export type FooterCustomProps = React.PropsWithChildren<{
    * Additional class names to apply.
    */
   className?: string;
+  /**
+   * ID of the navigation element.
+   */
   id?: string;
 }>;
 

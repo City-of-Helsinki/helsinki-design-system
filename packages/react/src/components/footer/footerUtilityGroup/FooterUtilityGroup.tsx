@@ -9,9 +9,9 @@ import { FooterVariant } from '../Footer.interface';
 
 type FooterUtilityGroupProps = React.PropsWithChildren<{
   /**
-   * aria-label for describing FooterUtilityGroup.
+   * Description of the navigation group for screen readers.
    */
-  ariaLabel?: string;
+  ariaLabelledBy?: string;
   /**
    * Additional class names to apply.
    */
@@ -21,11 +21,16 @@ type FooterUtilityGroupProps = React.PropsWithChildren<{
    */
   id?: string;
 }>;
-export const FooterUtilityGroup = ({ ariaLabel, className, children, id }: FooterUtilityGroupProps) => {
+export const FooterUtilityGroup = ({ ariaLabelledBy, className, children, id }: FooterUtilityGroupProps) => {
   const childElements = getChildElementsEvenIfContainerInbetween(children);
 
   return (
-    <nav role="navigation" aria-label={ariaLabel} id={id} className={classNames(styles.utilityGroup, className)}>
+    <nav
+      role="navigation"
+      aria-labelledby={ariaLabelledBy}
+      id={id}
+      className={classNames(styles.utilityGroup, className)}
+    >
       <ul className={styles.utilityGroupList}>
         {Children.map(childElements, (child, index) => {
           return (

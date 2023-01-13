@@ -10,19 +10,27 @@ import { FooterVariant } from '../Footer.interface';
 
 type FooterNavigationGroupProps = React.PropsWithChildren<{
   /**
-   * aria-label for describing FooterNavigationGroup.
+   * Description of the navigation group for screen readers.
    */
-  ariaLabel?: string;
+  ariaLabelledBy?: string;
+  /**
+   * Additional class names to apply.
+   */
   className?: string;
   /**
    * ID of the navigation element.
    */
   id?: string;
 }>;
-export const FooterNavigationGroup = ({ ariaLabel, className, children, id }: FooterNavigationGroupProps) => {
+export const FooterNavigationGroup = ({ ariaLabelledBy, className, children, id }: FooterNavigationGroupProps) => {
   const childElements = getChildElementsEvenIfContainerInbetween(children);
   return (
-    <nav role="navigation" aria-label={ariaLabel} id={id} className={classNames(styles.navigationGroup, className)}>
+    <nav
+      role="navigation"
+      aria-labelledby={ariaLabelledBy}
+      id={id}
+      className={classNames(styles.navigationGroup, className)}
+    >
       <ul className={classNames(styles.navigationGroupList, styles.denseList)}>
         {Children.map(childElements, (child, index) => {
           if (React.isValidElement(child)) {

@@ -12,12 +12,12 @@ import { FooterVariant } from '../Footer.interface';
 
 export type FooterNavigationProps = React.PropsWithChildren<{
   /**
-   * The aria-label for the `<nav>` element. Describes the navigation to screen reader users.
+   * Description of the navigation for screen readers.
    */
-  navigationAriaLabel?: string;
+  ariaLabelledBy?: string;
 }>;
 
-export const FooterNavigation = ({ children, navigationAriaLabel }: FooterNavigationProps) => {
+export const FooterNavigation = ({ children, ariaLabelledBy }: FooterNavigationProps) => {
   const isSmallerThanLargeScreen = useMediaQueryLessThan('l');
   const groups = getChildElementsEvenIfContainerInbetween(children).filter(
     (child) => (child.type as FCWithName).componentName === 'FooterNavigationGroup',
@@ -27,7 +27,7 @@ export const FooterNavigation = ({ children, navigationAriaLabel }: FooterNaviga
   return (
     <nav
       className={classNames(styles.navigation, hasGroups && !isSmallerThanLargeScreen && styles.sitemap)}
-      aria-label={navigationAriaLabel}
+      aria-labelledby={ariaLabelledBy}
     >
       {hasGroups && !isSmallerThanLargeScreen && (
         <div className={styles.groups}>

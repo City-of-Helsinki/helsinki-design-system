@@ -9,12 +9,16 @@ import { FCWithName } from '../../../common/types';
 
 export type FooterUtilitiesProps = {
   /**
+   * Description of the navigation links for screen readers.
+   */
+  ariaLabelledBy?: string;
+  /**
    * Children elements to render.
    */
   children: React.ReactNode;
 };
 
-export const FooterUtilities = ({ children }: FooterUtilitiesProps) => {
+export const FooterUtilities = ({ ariaLabelledBy, children }: FooterUtilitiesProps) => {
   // filter out the SoMe group, so that other utils can be wrapped in a separate div
   const [soMeGroup, childrenWithoutSoMeGroup] = getComponentFromChildren(children, 'FooterSoMe');
   const groups = getChildElementsEvenIfContainerInbetween(childrenWithoutSoMeGroup).filter(
@@ -33,7 +37,9 @@ export const FooterUtilities = ({ children }: FooterUtilitiesProps) => {
           })}
         </div>
       ) : (
-        <div className={styles.links}>{childrenWithoutSoMeGroup}</div>
+        <nav role="navigation" aria-labelledby={ariaLabelledBy} className={styles.links}>
+          {childrenWithoutSoMeGroup}
+        </nav>
       )}
       {soMeGroup}
     </div>
