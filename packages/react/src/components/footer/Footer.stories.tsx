@@ -10,6 +10,7 @@ import { FooterUtilities } from './footerUtilities/FooterUtilities';
 import { FooterUtilityGroup } from './footerUtilityGroup/FooterUtilityGroup';
 import { FooterSoMe } from './footerSoMe/FooterSoMe';
 import { FooterBase } from './footerBase/FooterBase';
+import { FooterCustom } from './footerCustom/FooterCustom';
 
 const footerNavAriaLabel = 'Footer navigation items';
 const createArray = (length: number): number[] => Array.from({ length }, (value, index) => index);
@@ -52,7 +53,13 @@ const Utilities = () => (
     <Footer.NavigationLink href="https://google.com" onClick={(e) => e.preventDefault()} label="Give feedback" />
     <Footer.NavigationLink href="https://google.com" onClick={(e) => e.preventDefault()} label="Support" />
     <Footer.NavigationLink href="https://google.com" onClick={(e) => e.preventDefault()} label="About" />
-    <Footer.NavigationLink href="https://google.com" onClick={(e) => e.preventDefault()} label="Github page" external openInNewTab/>
+    <Footer.NavigationLink
+      href="https://google.com"
+      onClick={(e) => e.preventDefault()}
+      label="Github page"
+      external
+      openInNewTab
+    />
   </Footer.Utilities>
 );
 
@@ -83,6 +90,7 @@ export default {
     FooterUtilityGroup,
     FooterSoMe,
     FooterBase,
+    FooterCustom,
   },
   parameters: {
     controls: { expanded: true },
@@ -322,5 +330,30 @@ export const UtilityGroups = (args) => (
         label="Saavutettavuusseloste"
       />
     </Footer.Base>
+  </Footer>
+);
+
+export const CustomSection = (args) => (
+  <Footer {...args}>
+    <Footer.Navigation navigationAriaLabel={footerNavAriaLabel}>
+      {createArray(8).map((index) => (
+        <Footer.NavigationLink
+          key={index}
+          href="https://google.com"
+          onClick={(e) => e.preventDefault()}
+          label="Nav item"
+        />
+      ))}
+    </Footer.Navigation>
+    <Utilities />
+    <Footer.Custom>
+      <Footer.NavigationHeading label="Partners" id="partners" />
+      <div aria-labelledby="partners" style={{ display: 'flex', flexDirection: 'row', gap: '24px', marginTop: '8px' }}>
+        <Footer.NavigationLink href="www.google.com" label="Partner 1" />
+        <Footer.NavigationLink href="www.google.com" label="Partner 1" />
+        <Footer.NavigationLink href="www.google.com" label="Partner 1" />
+      </div>
+    </Footer.Custom>
+    <Base />
   </Footer>
 );
