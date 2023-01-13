@@ -17,6 +17,10 @@ type ItemProps<Element> = React.PropsWithChildren<{
    */
   href?: string;
   /**
+   * Id for the heading element.
+   */
+  id?: string;
+  /**
    * The label for the heading.
    */
   label?: string | React.ReactNode;

@@ -40,9 +40,9 @@ type ItemProps<Element> = React.PropsWithChildren<{
    */
   openInExternalDomainAriaLabel?: string;
   /**
-   * The label for the item. Optionally, children can be passed
+   * The label for the item.
    */
-  label?: string | React.ReactNode;
+  label?: string;
   /**
    * Whether the item should be displayed as an sub item in a sitemap item group
    * @internal

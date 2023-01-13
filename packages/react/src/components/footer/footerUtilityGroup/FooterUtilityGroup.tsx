@@ -12,6 +12,9 @@ type FooterUtilityGroupProps = React.PropsWithChildren<{
    * aria-label for describing FooterUtilityGroup.
    */
   ariaLabel?: string;
+  /**
+   * Additional class names to apply.
+   */
   className?: string;
   /**
    * ID of the navigation element.

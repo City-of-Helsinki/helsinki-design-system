@@ -1,8 +1,6 @@
-import React from 'react';
-
 export default (
   ariaLabel: string,
-  label: React.ReactNode,
+  label: string,
   openInNewTabAriaLabel?: string,
   openInExternalDomainAriaLabel?: string,
   external?: boolean,
