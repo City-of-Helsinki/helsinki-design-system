@@ -54,6 +54,8 @@ const TableBasicInfo = () => {
   );
 };
 
+//<script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(e){if(void 0!==e.data["datawrapper-height"]){var t=document.querySelectorAll("iframe");for(var a in e.data["datawrapper-height"])for(var r=0;r<t.length;r++){if(t[r].contentWindow===e.source)t[r].style.height=e.data["datawrapper-height"][a]+"px"}}}))}();</script>
+
 const DemoPage = () => {
   return (
     <>
@@ -80,8 +82,8 @@ const DemoPage = () => {
       </Hero>
 
       <Container className="info-page-content">
-        <h2 className="page-heading-2">Background</h2>
-        <p>
+        <h2 className="heading-l">Background</h2>
+        <p >
           The city of Helsinki provides a huge variety of digital services from applying for day care to renting a place
           for your boat, from business opportunities to museums and theathers, from event calendars to construction
           permissions. There are at least 287 recognized web sites, created separately across the city organization.
@@ -89,13 +91,13 @@ const DemoPage = () => {
           digital services.
         </p>
 
-        <h2 className="page-heading-2">Goals</h2>
+        <h2 className="heading-l">Goals</h2>
         <p>
           HDS is an important tool building the digital precence and brand of city of Helsinki. HDS supports creating
           equal and functional city services.
         </p>
 
-        <h2 className="page-heading-2">How we work</h2>
+        <h2 className="heading-l">How we work</h2>
         <p>
           Helsinki Design System -team is a collaboration of professionals from different consultancies and City of
           Helsinki. City of Helsinki didn't buy ready design system but rather decided to gather the best professionals
@@ -130,7 +132,7 @@ const DemoPage = () => {
           handle discussion and requests from the projects across the city organization.
         </p>
 
-        <h2>Results</h2>
+        <h2 className="heading-l">Results</h2>
         <Card
           border
           heading="React"
@@ -167,16 +169,29 @@ const DemoPage = () => {
 
         <Card
           border
-          heading="Documentation"
-          text="Visitors on the documentation site"
+          heading="Unique visitors on hds.hel.fi"
+          text="Unique visitors on the documentation site between June 2020 to end of December 2022."
           style={{
             marginTop: 'var(--spacing-s)',
-            width: '45%',
+
           }}
-        />
+        >
+          <iframe title="Unique visitors on hds.hel.fi" aria-label="Interactive line chart" id="datawrapper-chart-LLonN" src="https://datawrapper.dwcdn.net/LLonN/3/" scrolling="no" frameborder="0" data-external="1"
+            style={{
+              width: "100%", 
+              //min-width: "100% !important",
+              border: "none", 
+              height:"420",
+            }}
+          >
+          </iframe>
+          
+        </Card>
+        
+          
 
 
-        <h2 className="page-heading-2">Basic Info</h2>
+        <h2 className="heading-l">Basic Info</h2>
         <TableBasicInfo />
       </Container>
     </>
@@ -184,3 +199,4 @@ const DemoPage = () => {
 };
 
 export default DemoPage;
+
