@@ -32,10 +32,7 @@
   }
 
   &:focus {
-    --focus-outline-size: calc(100% + var(--spacing-2-xs));
-    
     border-radius: var(--footer-focus-outline-border-radius);
-    height: var(--focus-outline-size);
     outline-offset: 4px;
     outline: var(--footer-focus-outline-width) solid var(--footer-focus-outline-color);
   }

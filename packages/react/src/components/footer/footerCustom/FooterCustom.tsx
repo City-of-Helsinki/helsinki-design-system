@@ -10,6 +10,9 @@ export type FooterCustomProps = React.PropsWithChildren<{
    * The aria-label for the custom section.
    */
   ariaLabel?: string;
+  /**
+   * Additional class names to apply.
+   */
   className?: string;
   id?: string;
 }>;

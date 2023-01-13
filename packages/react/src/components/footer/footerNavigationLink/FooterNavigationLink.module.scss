@@ -1,10 +1,9 @@
 @import "../common.scss";
-@value large-down from "../../../styles/breakpoints.scss";
+@value medium-down, medium-up, large-down, large-up, x-large-up from "../../../styles/breakpoints.acss";
 
 .item {
   @extend %footerItem;
   font-weight: normal;
-  margin-top: var(--spacing-3-xs);
   line-height: var(--lineheight-l);
 
   // spacing between icon and label
@@ -52,6 +51,12 @@
   min-width: var(--spacing-xs);
   transform: translateY(4px);
   width: var(--spacing-xs);
+}
+
+@media medium-down {
+  .utility {
+    font-size: var(--fontsize-body-m)
+  }
 }
 
 @media medium-up {

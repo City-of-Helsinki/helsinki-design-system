@@ -72,7 +72,7 @@ const Base = () => (
         onClick={(e) => e.preventDefault()}
         label="Link"
         className="test"
-        external
+        {...(index === 4 && { external: true })}
       />
     ))}
   </Footer.Base>
@@ -355,5 +355,11 @@ export const CustomSection = (args) => (
       </div>
     </Footer.Custom>
     <Base />
+  </Footer>
+);
+
+export const Minimal = (args) => (
+  <Footer {...args}>
+    <Footer.Base />
   </Footer>
 );

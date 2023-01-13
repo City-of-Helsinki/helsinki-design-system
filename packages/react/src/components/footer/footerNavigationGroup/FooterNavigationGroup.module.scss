@@ -9,7 +9,7 @@
   margin: 0;
   padding: 0;
   display: flex;
-  gap: unset;
+  gap: var(--spacing-3-xs);
   flex-direction: column;
   justify-items: start;
   width: 137px;
