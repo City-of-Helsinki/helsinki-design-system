@@ -50,11 +50,11 @@ export function getCookieContent() {
   const commonSecurityControlTranslations = {
     fi: {
       description: 'Tietoturvakontrolli',
-      expiration: '365 dagar',
+      expiration: '365 päivää',
     },
     sv: {
       description: 'Datasäkerhetskontroll',
-      expiration: 'Session',
+      expiration: '365 dagar',
     },
     en: {
       description: 'A security control',
@@ -620,6 +620,9 @@ export function getCookieContent() {
           },
           {
             commonCookie: 'suomifi-shib-idp-session',
+          },
+          {
+            commonCookie: 'suomifi-logtag',
           },
         ],
       },
