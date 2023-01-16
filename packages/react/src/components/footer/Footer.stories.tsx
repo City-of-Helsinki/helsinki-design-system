@@ -335,7 +335,7 @@ export const UtilityGroups = (args) => (
 
 export const CustomSection = (args) => (
   <Footer {...args}>
-    <Footer.Navigation navigationAriaLabel={footerNavAriaLabel}>
+    <Footer.Navigation ariaLabel={footerNavAriaLabel}>
       {createArray(8).map((index) => (
         <Footer.NavigationLink
           key={index}

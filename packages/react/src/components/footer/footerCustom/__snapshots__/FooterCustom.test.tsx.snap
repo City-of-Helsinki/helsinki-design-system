@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Footer.Utilities /> spec renders the component 1`] = `
+exports[`<Footer.Custom /> spec renders the component 1`] = `
 <DocumentFragment>
   <footer
     class="footer koros-basic theme-light"
@@ -53,40 +53,12 @@ exports[`<Footer.Utilities /> spec renders the component 1`] = `
         </div>
       </section>
       <div
-        class="utilities"
+        class="custom"
       >
         <hr
           aria-hidden="true"
           class="divider"
         />
-        <nav
-          class="links"
-        >
-          <a
-            class="item"
-            href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/ota-yhteytta/ota-yhteytta"
-          >
-            <span>
-              Yhteystiedot
-            </span>
-          </a>
-          <a
-            class="item"
-            href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/osallistu-ja-vaikuta/palaute/anna-palautetta"
-          >
-            <span>
-              Anna ja lue palautetta
-            </span>
-          </a>
-          <a
-            class="item"
-            href="https://hel.fi/kanslia/neuvonta-fi"
-          >
-            <span>
-              Chat-neuvonta
-            </span>
-          </a>
-        </nav>
       </div>
     </div>
   </footer>
