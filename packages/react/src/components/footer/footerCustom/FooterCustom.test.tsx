@@ -12,8 +12,9 @@ describe('<Footer.Custom /> spec', () => {
     });
     expect(asFragment()).toMatchSnapshot();
   });
+
   it('should not have basic accessibility issues', async () => {
-    const { container } = render(<FooterCustom  />, {
+    const { container } = render(<FooterCustom />, {
       wrapper: FooterWrapper,
     });
     const results = await axe(container);
