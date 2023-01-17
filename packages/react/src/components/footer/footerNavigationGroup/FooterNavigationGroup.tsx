@@ -14,6 +14,11 @@ type FooterNavigationGroupProps = React.PropsWithChildren<{
   ariaLabel?: string;
   className?: string;
   /**
+   * Does FooterNavigationGroup have sub links which will then be rendered differently.
+   * @internal
+   */
+  hasSubNavLinks?: boolean;
+  /**
    * Class name for heading item.
    * @internal
    */
@@ -23,10 +28,10 @@ type FooterNavigationGroupProps = React.PropsWithChildren<{
    */
   id?: string;
   /**
-   * Does FooterNavigationGroup have sub links which will then be rendered differently.
+   * Class name for link item.
    * @internal
    */
-  hasSubNavLinks?: boolean;
+  linkClassName?: string;
 }>;
 export const FooterNavigationGroup = ({
   ariaLabel,
@@ -35,6 +40,7 @@ export const FooterNavigationGroup = ({
   hasSubNavLinks,
   headingClassName,
   id,
+  linkClassName,
 }: FooterNavigationGroupProps) => {
   const childElements = getChildElementsEvenIfContainerInbetween(children);
   return (
@@ -50,6 +56,7 @@ export const FooterNavigationGroup = ({
                     child.props.className,
                     (child.type as FCWithName).componentName === 'FooterNavigationHeading' && headingClassName,
                     styles.navigationGroupLink,
+                    linkClassName,
                   ),
                   ...(hasSubNavLinks && { subItem: true }),
                 })}

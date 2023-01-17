@@ -144,7 +144,7 @@ CustomTheme.argTypes = {
 
 export const Sitemap = (args) => (
   <Footer {...args}>
-    <Footer.Navigation navigationAriaLabel={footerNavAriaLabel} variant="sitemap">
+    <Footer.Navigation navigationAriaLabel={footerNavAriaLabel}>
       {createArray(4).map((index) => (
         <Footer.NavigationGroup key={index}>
           <Footer.NavigationHeading href="https://google.com" onClick={(e) => e.preventDefault()} label="Main Page" />
