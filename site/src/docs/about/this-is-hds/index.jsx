@@ -27,6 +27,10 @@ const TableBasicInfo = () => {
       about: ' Futurice, Gofore, HiQ, Kodan, Nitor, SiteImprove, Solita, Suomen Ohjelmistokehitys OSK, Unicus ',
     },
     { id: 'competition', about: 'Best Design System' },
+    { id: 'tech', about: 'React, html+css (core)' },
+    { id: 'design', about: 'Sketch, Abstract' },
+    
+    
   ];
   const verticalHeaders = [
     { key: 'name', headerName: 'Name' },
@@ -34,6 +38,9 @@ const TableBasicInfo = () => {
     { key: 'client', headerName: 'Client' },
     { key: 'companies', headerName: 'Companies involved since v1.0.0 (in alphabetical order)' },
     { key: 'competition', headerName: 'Competition category' },
+    { key: 'tech', headerName: 'Technologies used' },
+    { key: 'design', headerName: 'Design tools used' },
+    
   ];
   const caption = (
     <span>
@@ -128,6 +135,12 @@ const DemoPage = () => {
           HDS is an important tool building the digital precence and brand of city of Helsinki. HDS supports creating
           equal and functional city services.
         </p>
+        <p>Digitalisation is a key enabler to city services and the new city strategy. 
+          The city strategy emphasises creating accessible services for all citizens, regardless the time and place. 
+          HDS provides building blocks for such services and enables projects to solve actual user problems instead of rebuilding basic elements. HDS has accessibility baked in so that the end user projects using the ready components are one step closer on accessible services.
+        </p>
+        <p>The brand of Helsinki is present in physical world and in digital world. These two should represent the same city and feel familiar and recognizable. HDS is a tool to build digital precence according to city of Helsinki brand.</p>
+      
 
         <h2 className="heading-l">How we work</h2>
         <p>
@@ -135,7 +148,7 @@ const DemoPage = () => {
           Helsinki. City of Helsinki didn't buy ready design system but rather decided to gather the best professionals
           in the same team. This way City of Helsinki owns and continues to maintain the design system. When the people
           change, it is important that the processes but also the actual design system are well documented, so that it
-          is possible to transfer the knowledge
+          is possible to transfer the knowledge. 
         </p>
 
         <p>
