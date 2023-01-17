@@ -40,7 +40,7 @@
       Core Storybook
     </a>
     <span> | </span>
-    <a href="https://hds.hel.fi/getting-started/contributing/before-contributing">
+    <a href="https://hds.hel.fi/getting-started/contributing/how-to-contribute">
       Contributing
     </a>
   </h4>
@@ -88,7 +88,7 @@ Helsinki Design System has a public roadmap. For the long-term Roadmap, please r
 
 ## Contributing
 
-**Before contributing, it is recommended to read [HDS Contribution - Before contributing page](https://hds.hel.fi/getting-started/contributing/before-contributing.**
+**Before contributing, it is recommended to read [HDS Contribution - Before contributing page](https://hds.hel.fi/getting-started/contributing/how-to-contribute.**
 
 We are accepting new features, feature requests and help with improving the documentation. There are multiple ways you can contribute:
 

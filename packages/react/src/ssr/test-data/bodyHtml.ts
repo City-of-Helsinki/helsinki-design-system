@@ -619,7 +619,7 @@ fill="currentColor"></path></svg><h2 class="Footer-module_title__269y7">Helsinki
 class="FooterBase-module_base__22gy0"><hr class="FooterBase-module_divider__3ji0_" aria-hidden="true"/><div
 class="FooterBase-module_copyright__1Cuhk"><span>© <!-- -->Copyright<!-- --> <!-- -->2022</span></div><div
 class="FooterBase-module_links__16QKO"><a class="FooterItem-module_item__1i8Z8"
-href="/getting-started/contributing/before-contributing"><span>Contribution</span></a><a class="FooterItem-module_item__1i8Z8"
+href="/getting-started/contributing/how-to-contribute"><span>Contribution</span></a><a class="FooterItem-module_item__1i8Z8"
 href="/about/accessibility/statement"><span>Accessibility</span></a><a class="FooterItem-module_item__1i8Z8"
 href="https://github.com/City-of-Helsinki/helsinki-design-system"><span>GitHub</span></a></div></div></div></footer></div></div><div
 id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0,
