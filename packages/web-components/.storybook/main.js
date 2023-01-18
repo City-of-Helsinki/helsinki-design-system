@@ -1,5 +1,4 @@
-
-const webpack = async (config) => ({
+const webpackFinal = async (config) => ({
   ...config,
   resolve: {
     ...config.resolve,
@@ -9,10 +8,46 @@ const webpack = async (config) => ({
       './hds-core': require('path').resolve(__dirname, '../../../node_modules/hds-core'),
     },
   },
-})
+  module: {
+    ...config.module,
+    rules: [
+      ...(config.module.rules ? config.module.rules : []),
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'lit-css-loader',
+            options: {
+              specifier: 'lit-element',
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    'postcss-modules',
+                    {
+                      global: true,
+                      generateScopedName: '[local]'
+                    },
+                  ],
+                ],
+              },
+            },
+          },
+          {
+            loader: 'sass-loader',
+          },
+        ],
+      },
+    ],
+  },
+});
 
 const addons = [
-  '@storybook/addon-postcss',
   '@storybook/addon-links',
   '@storybook/addon-essentials',
   '@storybook/addon-controls',
@@ -21,17 +56,17 @@ const addons = [
   '@storybook/addon-a11y',
   '@storybook/addon-actions',
   '@storybook/addon-storysource',
-]
+];
 
 const rollupConfig = {
   core: {
     builder: 'webpack5',
   },
-  staticDirs: [ '../src/fonts' ],
+  staticDirs: ['../src/fonts'],
   framework: '@storybook/web-components',
-  stories: [ '../src/**/*.stories.@(js|jsx|ts|tsx)' ],
+  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons,
-  webpack,
-}
+  webpackFinal,
+};
 
 module.exports = rollupConfig;
