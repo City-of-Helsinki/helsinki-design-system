@@ -1,13 +1,12 @@
-import { LitElement, html, PropertyValueMap } from 'lit';
+import { LitElement, css, html, PropertyValueMap, CSSResultGroup } from 'lit';
 // eslint-disable-next-line import/extensions
 import { customElement } from 'lit/decorators.js';
 import { toString, uniqueId } from 'lodash';
 
 import { AccordionCustomTheme, Language } from './AccordionProps';
-import style from './accordionStyles';
 
 // import core base styles
-import 'hds-core';
+import accordionStyles from './accordion.scss';
 
 const booleanConverter = {
   fromAttribute: (value) => value === 'true',
@@ -39,6 +38,12 @@ export default class AccordionHTMLElement extends LitElement {
   size: string; // SizeType = 'm';
   theme?: AccordionCustomTheme;
   // TODO style
+
+  static readonly styles = [
+    css`
+      ${accordionStyles as unknown as CSSResultGroup}
+    `,
+  ];
 
   static get properties() {
     return {
@@ -146,6 +151,7 @@ export default class AccordionHTMLElement extends LitElement {
       'hds-button--supplementary',
       'hds-button--theme-black',
       'hds-button--small',
+      'closeButton',
       this.closeButtonClassName,
     );
 
@@ -163,8 +169,6 @@ export default class AccordionHTMLElement extends LitElement {
       </button>
     `;
   }
-
-  static readonly styles = [style];
 }
 
 declare global {

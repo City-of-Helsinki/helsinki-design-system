@@ -1,7 +1,4 @@
-import { css } from "lit";
-
-// TODO: Use rollup plugin for css file imports so we can have this as an actual CSS file
-export default css`:host {
+:host {
   display: block;
   --background-color: var(--color-white);
   --border-color: var(--color-black-60);
@@ -99,8 +96,9 @@ export default css`:host {
   color: var(--content-font-color);
 }
 
-.accordionContent .closeButton {
-  color: var(--content-font-color);
+.closeButton {
+  composes: hds-button from 'hds-core/lib/components/button/button.css';
+
   position: absolute;
   bottom: 0;
   right: 0;
@@ -130,4 +128,3 @@ export default css`:host {
   height: var(--button-size) !important;
   margin: auto;
 }
-`
