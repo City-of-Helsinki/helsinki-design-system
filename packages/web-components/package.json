@@ -65,7 +65,7 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
-    "hds-core": "^2.5.0",
+    "hds-core": "2.10.0",
     "lit": "^2.4.0",
     "lit-html": "^2.4.0",
     "lodash": "4.17.21"
