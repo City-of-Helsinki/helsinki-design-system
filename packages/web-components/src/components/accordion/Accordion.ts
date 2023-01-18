@@ -5,7 +5,6 @@ import { toString, uniqueId } from 'lodash';
 
 import { AccordionCustomTheme, Language } from './AccordionProps';
 
-// import core base styles
 import accordionStyles from './accordion.scss';
 
 const booleanConverter = {
