@@ -2,8 +2,13 @@
   --header-height: var(--spacing-4-xl);
   --header-focus-outline-width: 3px;
   --header-focus-outline-border-radius: 0;
-  --header-z-index: 10;
   --header-focus-outline-color: var(--color-coat-of-arms);
+  --header-divider-color: var(--color-black-20);
+  --header-z-index: 10;
+
+  --action-bar-dropdown-menu-caret-width: 64px;
+  --action-bar-dropdown-menu-primary-item-height: 64px;
+  --action-bar-dropdown-menu-secondary-item-height: 48px;
 
   background-color: var(--navigation-row-background-color);
   color: var(--header-color);

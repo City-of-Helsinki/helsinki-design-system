@@ -24,6 +24,9 @@ export type NavigationLinkProps = Omit<
    * Additional class names to apply.
    */
   className?: string;
+  wrapperClassName?: string;
+  dropdownClassName?: string;
+  dropdownLinkClassName?: string;
   /**
    * Set the direction where the dropdown should appear. Use DropdownDirection.Dynamic for nested dropdowns as it sets the dropdown menu to the right but if there's no space it'll put it to the left.
    * @default DropdownDirection.Down;
@@ -61,8 +64,11 @@ export type NavigationLinkProps = Omit<
 export const NavigationLink = ({
   active,
   className,
+  wrapperClassName,
   dropdownDirection = DropdownDirection.Down,
+  dropdownClassName,
   dropdownLinks,
+  dropdownLinkClassName,
   href,
   index,
   label,
@@ -73,7 +79,7 @@ export const NavigationLink = ({
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [dropdownOpenedBy, setDropdownOpenedBy] = useState<null | NavigationLinkInteraction>(null);
   const [dynamicPosition, setDynamicPosition] = useState<null | DropdownMenuPosition>(null);
-  const { openMainNavIndex, setOpenMainNavIndex } = useContext(HeaderNavigationMenuContext);
+  const { openMainNavIndex, setOpenMainNavIndex } = useHeaderNavigationMenuContext();
   const containerRef = useRef<HTMLSpanElement>(null);
   const isSubNavLink = openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined;
 
@@ -155,7 +161,7 @@ export const NavigationLink = ({
 
   return (
     <span
-      className={styles.navigationLinkWrapper}
+      className={classNames(styles.navigationLinkWrapper, wrapperClassName)}
       {...(dropdownLinks &&
         dropdownOpenedBy === NavigationLinkInteraction.Hover && {
           onMouseLeave: () => handleDropdownOpen(false),
@@ -179,11 +185,15 @@ export const NavigationLink = ({
           open={isDropdownOpen}
           setOpen={handleDropdownOpen}
           index={index}
+          className={dropdownClassName}
           dynamicPosition={dynamicPosition}
         >
           {dropdownLinks.map((child) => {
             return cloneElement(child as React.ReactElement, {
               key: uuidv4(),
+              wrapperClassName,
+              dropdownClassName,
+              dropdownLinkClassName,
             });
           })}
         </NavigationLinkDropdown>

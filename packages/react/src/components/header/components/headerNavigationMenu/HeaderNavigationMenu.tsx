@@ -1,12 +1,12 @@
-import React, { cloneElement, useContext, useState } from 'react';
+import React, { Children, cloneElement, isValidElement, useEffect } from 'react';
 
 // import core base styles
 import 'hds-core';
-import styles from './HeaderNavigationMenu.module.scss';
-import { HeaderContext } from '../../HeaderContext';
+import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
-import { HeaderNavigationMenuContext, HeaderNavigationMenuContextProps } from './HeaderNavigationMenuContext';
+import { HeaderNavigationMenuContextProvider } from './HeaderNavigationMenuContext';
+import styles from './HeaderNavigationMenu.module.scss';
 
 export type HeaderNavigationMenuProps = React.PropsWithChildren<{
   /**
@@ -23,40 +23,59 @@ export type HeaderNavigationMenuProps = React.PropsWithChildren<{
   id?: string;
 }>;
 
+const activeLinkClassName = classNames(
+  styles.headerNavigationMenuLinkContent,
+  styles.headerNavigationMenuLinkContentActive,
+);
+
+const renderHeaderNavigationMenuItem = (child, index) => {
+  const linkContainerClasses = child.props.active ? activeLinkClassName : styles.headerNavigationMenuLinkContent;
+  const className = classNames(child.props.className, styles.headerNavigationMenuLink);
+  const node = cloneElement(child as React.ReactElement, {
+    className,
+    index,
+  });
+
+  return (
+    // eslint-disable-next-line react/no-array-index-key
+    <li key={index} className={styles.headerNavigationMenuLinkContainer}>
+      <span className={linkContainerClasses}>{node}</span>
+    </li>
+  );
+};
+
+const HeaderNavigationMenuContent = () => {
+  const { navigationContent } = useHeaderContext();
+  return (
+    <>
+      {Children.map(navigationContent, (child, index) => {
+        if (!isValidElement(child)) return null;
+        return renderHeaderNavigationMenuItem(child, index);
+      })}
+    </>
+  );
+};
+
 export const HeaderNavigationMenu = ({ ariaLabel, children, id }: HeaderNavigationMenuProps) => {
-  const { isMediumScreen } = useContext(HeaderContext);
-  const [openIndex, setOpenIndex] = useState<number>(-1);
+  const { isMediumScreen } = useHeaderContext();
+  const { setNavigationContent } = useSetHeaderContext();
+
+  useEffect(() => {
+    const navigationContent = getChildElementsEvenIfContainersInbetween(children);
+    setNavigationContent(navigationContent);
+  }, [children]);
+
   /* On medium screen return null for now. Later when ActionBar's first version is done,
-  we could see if this component with its contents (altered for medium screens) could be 
+  we could see if this component with its contents (altered for medium screens) could be
   sent to HeaderContext and used in ActionBar? */
   if (isMediumScreen) return null;
-  const childElements = getChildElementsEvenIfContainersInbetween(children);
-  const context: HeaderNavigationMenuContextProps = { openMainNavIndex: openIndex, setOpenMainNavIndex: setOpenIndex };
 
   return (
     <nav role="navigation" aria-label={ariaLabel} id={id} className={styles.headerNavigationMenu}>
       <ul className={styles.headerNavigationMenuList}>
-        <HeaderNavigationMenuContext.Provider value={context}>
-          {childElements.map((child, index) => {
-            if (React.isValidElement(child)) {
-              const linkContainerClasses = child.props.active
-                ? classNames(styles.headerNavigationMenuLinkContent, styles.headerNavigationMenuLinkContentActive)
-                : styles.headerNavigationMenuLinkContent;
-              return (
-                // eslint-disable-next-line react/no-array-index-key
-                <li key={index} className={styles.headerNavigationMenuLinkContainer}>
-                  <span className={linkContainerClasses}>
-                    {cloneElement(child as React.ReactElement, {
-                      className: classNames(child.props.className, styles.headerNavigationMenuLink),
-                      index,
-                    })}
-                  </span>
-                </li>
-              );
-            }
-            return null;
-          })}
-        </HeaderNavigationMenuContext.Provider>
+        <HeaderNavigationMenuContextProvider>
+          <HeaderNavigationMenuContent />
+        </HeaderNavigationMenuContextProvider>
       </ul>
     </nav>
   );

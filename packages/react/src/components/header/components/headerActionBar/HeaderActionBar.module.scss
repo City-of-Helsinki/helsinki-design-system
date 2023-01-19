@@ -1,0 +1,94 @@
+@import "../../../../styles/common";
+@value small-down from "../../../../styles/breakpoints.css";
+
+.headerActionBar {
+  --container-height: 88px;
+  --logo-height: 56px;
+  --icon-size: 24px;
+
+  --action-item-title-font-size: 14px;
+  --action-item-title-font-color: var(--color-black-90);
+
+  @media small-down {
+    --container-height: 64px;
+    --logo-height: 32px;
+  }
+
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: var(--container-height);
+  border-bottom: 1px solid var(--header-divider-color);
+}
+
+.headerActions {
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.titleAndLogoContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  outline: none;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0 var(--spacing-m);
+  gap: var(--spacing-s);
+
+  &:focus {
+    outline: 3px solid var(--color-coat-of-arms);
+  }
+
+  &:not([href]):not([tabindex="0"]) {
+    cursor: auto;
+  }
+}
+
+.title {
+  font-size: var(--fontsize-heading-xxs);
+  line-height: var(--lineheight-l);
+  letter-spacing: 0.4px;
+  font-weight: bold;
+  margin-top: -2px;
+}
+
+.logo {
+  box-sizing: content-box;
+  height: var(--logo-height);
+  padding: var(--spacing-s) 0;
+}
+
+
+.actionItem {
+  appearance: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius));
+}
+
+.actionItemIcon {
+  display: block;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  margin: 0 auto;
+
+  svg {
+    display: block;
+    width: auto;
+    height: 100%;
+  }
+}
+
+.actionItemTitle {
+  display: block;
+  margin: 0 auto;
+  font-size: var(--action-item-title-font-size);
+  color: var(--action-item-title-font-color);
+}

@@ -1,4 +1,6 @@
-import { createContext } from 'react';
+import React, { PropsWithChildren, createContext, useContext, useEffect, useState } from 'react';
+
+import { useMediaQueryLessThan } from '../../hooks/useMediaQuery';
 
 export type HeaderContextProps = {
   /**
@@ -9,6 +11,47 @@ export type HeaderContextProps = {
    * Flag for whether the viewport is under breakpoint value large.
    */
   isMediumScreen?: boolean;
+  mobileMenuOpen?: boolean;
+  hasNavigationContent?: boolean;
+  navigationContent?: React.ReactNode;
 };
 
-export const HeaderContext = createContext<HeaderContextProps>({});
+export type HeaderDispatchContextType = {
+  setNavigationContent?: (children: React.ReactNode) => void;
+  setMobileMenuOpen?: (state: boolean) => void;
+};
+
+const HeaderContext = createContext<HeaderContextProps>({ navigationContent: null });
+const HeaderDispatchContext = createContext<HeaderDispatchContextType>({
+  setNavigationContent() {}, // eslint-disable-line @typescript-eslint/no-empty-function
+  setMobileMenuOpen() {}, // eslint-disable-line @typescript-eslint/no-empty-function
+});
+HeaderContext.displayName = 'HeaderContext';
+HeaderDispatchContext.displayName = 'HeaderDispatchContext';
+
+export function HeaderContextProvider({ children }: PropsWithChildren<HeaderContextProps>) {
+  const isSmallScreen = useMediaQueryLessThan('s');
+  const [navigationContent, setNavigationContent] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => setMobileMenuOpen(false), [isSmallScreen]);
+
+  const hasNavigationContent = !!navigationContent;
+  const context: HeaderContextProps = { isSmallScreen, mobileMenuOpen, navigationContent, hasNavigationContent };
+  const dispatchContext: HeaderDispatchContextType = { setNavigationContent, setMobileMenuOpen };
+
+  return (
+    <HeaderContext.Provider value={context}>
+      <HeaderDispatchContext.Provider value={dispatchContext}>{children}</HeaderDispatchContext.Provider>
+    </HeaderContext.Provider>
+  );
+}
+
+export function useHeaderContext() {
+  const context = useContext(HeaderContext);
+  return context;
+}
+
+export function useSetHeaderContext() {
+  return useContext(HeaderDispatchContext);
+}

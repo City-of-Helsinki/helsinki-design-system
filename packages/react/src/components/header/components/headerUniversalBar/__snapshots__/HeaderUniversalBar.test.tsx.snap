@@ -2,28 +2,36 @@
 
 exports[`<HeaderUniversalBar /> spec renders the component 1`] = `
 <DocumentFragment>
-  <nav
-    class="headerUniversalBar"
-    role="navigation"
+  <header
+    class="header"
   >
-    <ul
-      class="headerUniversalBarList"
+    <div
+      class="headerBackgroundWrapper"
     >
-      <li
-        class="universalBarMainLinkContainer"
+      <nav
+        class="headerUniversalBar"
+        role="navigation"
       >
-        <span
-          class="navigationLinkWrapper"
+        <ul
+          class="headerUniversalBarList"
         >
-          <a
-            class="link linkM navigationLink universalBarLink"
-            href="#"
+          <li
+            class="universalBarMainLinkContainer"
           >
-            hel.fi
-          </a>
-        </span>
-      </li>
-    </ul>
-  </nav>
+            <span
+              class="navigationLinkWrapper"
+            >
+              <a
+                class="link linkM navigationLink universalBarLink"
+                href="#"
+              >
+                hel.fi
+              </a>
+            </span>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 </DocumentFragment>
 `;

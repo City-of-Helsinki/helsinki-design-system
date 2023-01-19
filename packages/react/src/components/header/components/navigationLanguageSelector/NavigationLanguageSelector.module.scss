@@ -1,0 +1,19 @@
+.languageSelector {
+  display: flex;
+  gap: var(--spacing-s);
+}
+
+.item {
+  appearance: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  line-height: var(--lineheight-l);
+}
+
+.activeItem {
+  font-weight: 700;
+  span {
+    border-bottom: 2px solid;
+  }
+}

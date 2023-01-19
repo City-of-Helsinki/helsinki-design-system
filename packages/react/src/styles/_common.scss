@@ -46,3 +46,17 @@
   font-weight: 500;
   margin-bottom: var(--spacing-3-xs);
 }
+
+
+/**
+ * Mixins
+ */
+
+ @mixin focusOutline($outline-color: var(--color-coat-of-arms), $outline-width: 3px, $outline-radius: false) {
+  &:focus {
+    @if $outline-radius {
+      border-radius: $outline-radius;
+    }
+    outline: $outline-width solid $outline-color;
+  }
+}
