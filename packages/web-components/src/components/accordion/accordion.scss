@@ -34,10 +34,6 @@
   --padding-horizontal: var(--spacing-2-xs);
 }
 
-:host(.s) .closeButton div {
-  margin-right: var(--spacing-4-xs);
-}
-
 :host(.m) {
   --header-font-size: var(--fontsize-heading-m);
   --padding-vertical: var(--spacing-m);
@@ -62,14 +58,6 @@
   --padding-horizontal: var(--spacing-l);
 }
 
-:host(.l) .closeButton div {
-  margin-right: var(--spacing-xs);
-}
-
-:host(:not(.isOpen)) .headingContainer svg {
-  transform: rotate(180deg);
-}
-
 .accordionHeader {
   position: relative;
   color: var(--header-font-color);
@@ -86,6 +74,13 @@
 
 .accordionHeader > div {
   flex: 1 1 auto;
+}
+
+.accordionHeaderIconWrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  line-height: 1;
 }
 
 .accordionContent {
@@ -119,12 +114,4 @@
 
 .headingContainer:focus {
   outline: 2px solid var(--header-focus-outline-color, transparent);
-}
-
-.accordionButtonIcon {
-  box-sizing: border-box;
-  border: 2px solid transparent;
-  width: var(--button-size) !important;
-  height: var(--button-size) !important;
-  margin: auto;
 }

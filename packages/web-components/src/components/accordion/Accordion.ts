@@ -1,11 +1,13 @@
 import { LitElement, css, html, PropertyValueMap, CSSResultGroup } from 'lit';
 // eslint-disable-next-line import/extensions
 import { customElement } from 'lit/decorators.js';
+import { styleMap } from 'lit-html/directives/style-map.js';
 import { toString, uniqueId } from 'lodash';
 
 import classNames from '../../utils/className';
 import { AccordionCustomTheme, Language } from './AccordionProps';
-
+import 'hds-core/lib/base.css';
+import '../../icons/IconAngleUp';
 import accordionStyles from './accordion.scss';
 
 const booleanConverter = {
@@ -108,11 +110,13 @@ export default class AccordionHTMLElement extends LitElement {
             aria-expanded=${this.isOpen}
             @keypress=${handleKeyPress}
             @click=${this.toggleOpen}>
-
             <span class='label'>${this.heading}</span>
-            ${this.renderIcon()}
+            <div class="accordionHeaderIconWrapper" style=${styleMap(
+              this.isOpen ? {} : { transform: 'rotate(180deg)' },
+            )}>
+              <hds-icon-angle-up></hds-icon-angle-up>
+            </div>
           </div>
-
         </div>
       </div>
 
@@ -129,15 +133,6 @@ export default class AccordionHTMLElement extends LitElement {
     `;
   }
 
-  private renderIcon() {
-    return html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img">
-      <g fill="none" fillRule="evenodd">
-        <path d="M0 24h24V0H0z" />
-        <path fill="currentColor" d="M12 11.5l5 5 1.5-1.5L12 8.5 5.5 15 7 16.5z" />
-      </g>
-    </svg>`;
-  }
-
   private renderCloseButton() {
     if (!this.hasCloseButton) return '';
 
@@ -151,8 +146,6 @@ export default class AccordionHTMLElement extends LitElement {
       this.closeButtonClassName,
     );
 
-    // TODO: .iconRight={<IconAngleUp aria-hidden size="xs" className={styles.accordionButtonIcon} />}
-
     const handleKeyPress = (e) => {
       if (e.key === ' ') {
         this.toggleOpen(); // FIXME
@@ -161,19 +154,8 @@ export default class AccordionHTMLElement extends LitElement {
 
     return html`
       <button class=${className} aria-label=${closeLabel} @keypress=${handleKeyPress} @click=${this.toggleOpen}>
-        ${closeMessage}
-        <svg class="hds-icon hds-icon--angle-right"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            style={style}
-            viewBox="0 0 24 24"
-            role="img"
-        >
-          <g fill="none" fill-rule="evenodd">
-            <path d="M0 24h24V0H0z" />
-            <path fill="currentColor" d="M12 11.5l5 5 1.5-1.5L12 8.5 5.5 15 7 16.5z" />
-          </g>
-        </svg>
+        <span class="hds-button__label">${closeMessage}</span>
+        <hds-icon-angle-up size="s"></hds-icon-angle-up>
       </button>
     `;
   }
