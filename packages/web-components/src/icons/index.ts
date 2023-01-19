@@ -1,3 +1,2 @@
-import * as x from './icons.css'
+export { IconAngleUp } from './IconAngleUp'
 
-export default x
