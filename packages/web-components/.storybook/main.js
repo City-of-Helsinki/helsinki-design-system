@@ -1,3 +1,14 @@
+const postcss = require('postcss');
+const postcssModules = require('postcss-modules');
+
+const processor = postcss(
+  postcssModules({
+    global: true,
+    generateScopedName: '[local]',
+    getJSON: () => {}
+  }),
+);
+
 const webpackFinal = async (config) => ({
   ...config,
   resolve: {
@@ -20,27 +31,14 @@ const webpackFinal = async (config) => ({
             loader: 'lit-css-loader',
             options: {
               specifier: 'lit-element',
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [
-                  [
-                    'postcss-modules',
-                    {
-                      global: true,
-                      generateScopedName: '[local]'
-                    },
-                  ],
-                ],
+              transform: async (css, { filePath }) => {
+                return processor.process(css, { from: filePath }).then((result) => {
+                  return result.css;
+                });
               },
             },
           },
-          {
-            loader: 'sass-loader',
-          },
+          'sass-loader'
         ],
       },
     ],
