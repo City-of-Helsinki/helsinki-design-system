@@ -29,7 +29,7 @@
 @media x-small-down {
   .links {
     gap: var(--spacing-xs);
-    grid-auto-flow: row;
+    flex-direction: column;
     justify-items: flex-start;
   }
 
