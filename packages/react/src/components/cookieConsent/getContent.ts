@@ -83,6 +83,12 @@ export function getCookieContent() {
     },
   };
 
+  const commonTrackingCookieDescription = {
+    fi: 'Eväste kerää tietoa kävijän liikkeistä sivustolla.',
+    sv: 'Statistiksystemets kaka samlar information om hur webbplatsen används.',
+    en: 'This cookie is used to store a few details about the user such as the unique visitor ID.',
+  };
+
   const tunnistamoUrl = 'tunnistamo.hel.fi';
   const keycloakUrl = 'tunnistus.hel.fi';
   const suomiFiUrl = 'suomi.fi';
@@ -682,18 +688,52 @@ export function getCookieContent() {
         hostName: '*.hel.fi',
         fi: {
           name: '_pk_id.*',
-          description: 'Eväste kerää tietoa kävijän liikkeistä sivustolla.',
+          description: commonTrackingCookieDescription.fi,
           expiration: '393 päivää',
         },
         sv: {
           name: '_pk_id.*',
-          description: 'Statistiksystemets kaka samlar information om hur webbplatsen används.',
+          description: commonTrackingCookieDescription.sv,
           expiration: '393 dagar',
         },
         en: {
           name: '_pk_id.*',
-          description: 'This cookie is used to store a few details about the user such as the unique visitor ID.',
+          description: commonTrackingCookieDescription.en,
           expiration: '393 days',
+        },
+      },
+      matomoSession: {
+        id: 'matomo-session',
+        hostName: '*.hel.fi',
+        name: '_pk_ses*',
+        fi: {
+          description: commonTrackingCookieDescription.fi,
+          expiration: '30 minuuttia',
+        },
+        sv: {
+          description: commonTrackingCookieDescription.sv,
+          expiration: '30 minuter',
+        },
+        en: {
+          description: commonTrackingCookieDescription.en,
+          expiration: '30 minutes',
+        },
+      },
+      matomoConsent: {
+        id: 'matomo-cookie-consent',
+        hostName: '*.hel.fi',
+        name: 'mtm_.*',
+        fi: {
+          description: 'Evästeeseen tallennetaan suostumus tilastointievästeisiin.',
+          expiration: '400 päivää',
+        },
+        sv: {
+          description: 'Kakan lagrar samtycke för användning av statistikkakorna.',
+          expiration: '400 dagar',
+        },
+        en: {
+          description: 'Cookie stores consent for using analytics cookies.',
+          expiration: '400 days',
         },
       },
       'cms-session': {
