@@ -52,7 +52,7 @@ type ItemProps<Element> = React.PropsWithChildren<{
    * Internal variant to change styles based on context.
    * @internal
    */
-  variant?: FooterVariant.Navigation | FooterVariant.Utility;
+  variant?: FooterVariant.Navigation | FooterVariant.Utility | FooterVariant.Base;
 }>;
 
 export type FooterNavigationLinkProps<Element extends React.ElementType = 'a'> = MergeElementProps<
@@ -102,7 +102,7 @@ export const FooterNavigationLink = <T extends React.ElementType = 'a'>({
       {label && <span>{label}</span>}
       {external && (
         <IconLinkExternal
-          size="s"
+          size={variant === FooterVariant.Base ? 'xs' : 's'}
           className={classNames(styles.icon, styles.verticalAlignSmallOrMediumIcon)}
           aria-hidden
         />
