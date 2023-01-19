@@ -3,6 +3,7 @@ import { LitElement, css, html, PropertyValueMap, CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { toString, uniqueId } from 'lodash';
 
+import classNames from '../../utils/className';
 import { AccordionCustomTheme, Language } from './AccordionProps';
 
 import accordionStyles from './accordion.scss';
@@ -11,9 +12,6 @@ const booleanConverter = {
   fromAttribute: (value) => value === 'true',
   toAttribute: (value) => toString(value),
 };
-
-// FIXME: Remove and import from a common utility file or such
-const classNames = (...args) => args.filter(Boolean).join(' ');
 
 const getCloseMessage = (language: Language): string =>
   ({
