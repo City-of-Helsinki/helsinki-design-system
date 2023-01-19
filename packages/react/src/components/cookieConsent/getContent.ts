@@ -660,18 +660,16 @@ export function getCookieContent() {
       cookiehub: {
         id: 'cookiehub',
         hostName: 'cookiehub.com',
+        name: 'cookiehub',
         fi: {
-          name: 'cookiehub',
           description: 'Mahdollistaa evästehallinnan hel.fi sivuilla.',
           expiration: '365 päivää',
         },
         sv: {
-          name: 'cookiehub',
           description: 'Möjliggör hantering av kakor på hel.fi webbplatsen.',
           expiration: '365 dagar',
         },
         en: {
-          name: 'cookiehub',
           description:
             'Used by CookieHub to store information about whether visitors have given or declined the use of cookie categories used on the hel.fi site.',
           expiration: '365 days',
@@ -686,18 +684,16 @@ export function getCookieContent() {
       matomo: {
         id: 'matomo',
         hostName: '*.hel.fi',
+        name: '_pk_id.*',
         fi: {
-          name: '_pk_id.*',
           description: commonTrackingCookieDescription.fi,
           expiration: '393 päivää',
         },
         sv: {
-          name: '_pk_id.*',
           description: commonTrackingCookieDescription.sv,
           expiration: '393 dagar',
         },
         en: {
-          name: '_pk_id.*',
           description: commonTrackingCookieDescription.en,
           expiration: '393 days',
         },
@@ -739,18 +735,16 @@ export function getCookieContent() {
       'cms-session': {
         id: 'cms-session',
         hostName: 'hel.fi',
+        name: 'SSESS*',
         fi: {
-          name: 'SSESS*',
           description: 'Sisällönhallintajärjestelmän toimintaan liittyvä eväste.',
           expiration: '23 päivää',
         },
         sv: {
-          name: 'SSESS*',
           description: 'En kaka för driften av innehållshanteringssystemet.',
           expiration: '23 dagar',
         },
         en: {
-          name: 'SSESS*',
           description: 'A cookie related to the operation of the content management system.',
           expiration: '23 days',
         },
