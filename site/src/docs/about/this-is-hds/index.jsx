@@ -1,5 +1,5 @@
 import React from 'react';
-import { Accordion, useAccordion, Button, Card, Container, IconAngleDown, IconAngleUp, Link, Linkbox, Table } from 'hds-react';
+import { Accordion, useAccordion, Button, Card, Container, IconAngleDown, IconAngleUp, ImageWithCard, Link, Linkbox, Table } from 'hds-react';
 import Hero from '../../../components/Hero';
 import Seo from '../../../components/Seo';
 
@@ -121,26 +121,30 @@ const DemoPage = () => {
       </Hero>
 
       <Container className="info-page-content">
-        <h2 className="heading-l">Background</h2>
-        <p >
-          The city of Helsinki provides a huge variety of digital services from applying for day care to renting a place
-          for your boat, from business opportunities to museums and theathers, from event calendars to construction
-          permissions. There are at least 287 recognized web sites, created separately across the city organization.
-          There is a huge need to support these different services to create consistent, user friendly and accessible
-          digital services.
-        </p>
-        <AccordionExamples />
-        <h2 className="heading-l">Goals</h2>
+        <ImageWithCard cardLayout="hover" src="/images/homepage/amos58.jpg" color="--silver-medium-light">
+         <h2 className="heading-l">Background</h2>
+          <p >
+          The City of Helsinki offers thousands of digital and non-digital services for different purposes. 
+          The common goal is to meet the needs of the users.
+          </p>
+        </ImageWithCard>
+
+        <ImageWithCard cardLayout="hover" src="/images/homepage/amos58.jpg" color="--silver-medium-light">
+         <h2 className="heading-l">Goals</h2>
+          <p >
+          The Helsinki Design System is a shared point of reference for designers, developers and product owners working for the City of Helsinki. HDS helps teams work and communicate more efficiently and assists the City of Helsinki in fulfilling its vision in the digital world. </p>
+        </ImageWithCard>
+        
+        <h2 className="heading-l">HDS is part of the city strategy</h2>
         <p>
-          HDS is an important tool building the digital precence and brand of city of Helsinki. HDS supports creating
-          equal and functional city services.
-        </p>
-        <p>Digitalisation is a key enabler to city services and the new city strategy. 
-          The city strategy emphasises creating accessible services for all citizens, regardless the time and place. 
-          HDS provides building blocks for such services and enables projects to solve actual user problems instead of rebuilding basic elements. HDS has accessibility baked in so that the end user projects using the ready components are one step closer on accessible services.
-        </p>
-        <p>The brand of Helsinki is present in physical world and in digital world. These two should represent the same city and feel familiar and recognizable. HDS is a tool to build digital precence according to city of Helsinki brand.</p>
-      
+        HDS is a tool for building the digital presence and brand of city of Helsinki. HDS supports creating equal and functional city services.</p>
+
+        <p>Digitalisation is a key enabler to city services and the new city strategy. The city strategy emphasises creating accessible services for all citizens, regardless the time and place. HDS provides building blocks for such services and enables projects to solve actual user problems instead of rebuilding basic elements. HDS has accessibility baked in so that the end user projects using the ready components are one step closer on accessible services.</p>
+
+        <p>HDS ensures accessibility in every stage of component development. HDS components always meet at least WCAG 2.1 AA level and often also reach the AAA level. HDS components and patterns are tested with the newest NVDA on Windows and the newest VoiceOver on Mac and iOS. </p>
+
+        <p>The brand of Helsinki is present in physical world and in digital world. These two should represent the same city and feel familiar and recognisable. HDS is a tool to build digital presence according to city of Helsinki brand.</p>
+        
 
         <h2 className="heading-l">How we work</h2>
         <p>
