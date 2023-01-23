@@ -61,37 +61,6 @@ const TableBasicInfo = () => {
   );
 };
 
-export const AccordionExamples = () => {
-  const initiallyOpen = false;
-  const { isOpen, buttonProps, contentProps } = useAccordion({ initiallyOpen });
-  const icon = isOpen ? <IconAngleUp aria-hidden /> : <IconAngleDown aria-hidden />;
-  return (
-    <>
-      <Button iconLeft={icon} {...buttonProps}>
-        Show me examples
-      </Button>
-      <Card aria-label="Show me examples" style={{ marginTop: 'var(--spacing-m)' }} {...contentProps}>
-        <h2>Citizens of Helsinki need to</h2>
-        <Linkbox linkboxAriaLabel="Linkbox: hel.fi main site" linkAriaLabel="hel.fi" href="https://hel.fi" withBorder>
-          <div style={{ height: '106px', marginTop: 'var(--spacing-m)' }} ><h3>Visit city of Helsinki main site</h3></div>
-        </Linkbox>
-        <Linkbox linkboxAriaLabel="Linkbox: Asti" linkAriaLabel="Asti" href="https://asti.hel.fi" withBorder>
-          <div style={{ height: '106px', marginTop: 'var(--spacing-m)' }} ><h3>Apply to daycare</h3></div>
-        </Linkbox>
-        <Linkbox linkboxAriaLabel="Linkbox: Boat Berts" linkAriaLabel="Boat Berths" href="https://hds.hel.fi" withBorder>
-              <div style={{ height: '106px', marginTop: 'var(--spacing-m)' }}><h3>Rent boat berths</h3></div>
-        </Linkbox>
-        <Linkbox linkboxAriaLabel="Linkbox: Culture Kids" linkAriaLabel="Asti" href="https://kummilapset.hel.fi/en/" withBorder>
-          <div style={{ height: '106px', marginTop: 'var(--spacing-m)' }}><h3>Enjoy culture with kids</h3></div>
-        </Linkbox>
-        <Linkbox linkboxAriaLabel="Linkbox: Events Helsinki" linkAriaLabel="Events Helsinki" href="https://hds.hel.fihttps://tapahtumat.hel.fi/en/home" withBorder>
-              <div style={{ height: '106px', marginTop: 'var(--spacing-m)' }}><h3>Find events in Helsinki</h3></div>
-        </Linkbox>
-
-      </Card>
-    </>
-  );
-};
 
 //<script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(e){if(void 0!==e.data["datawrapper-height"]){var t=document.querySelectorAll("iframe");for(var a in e.data["datawrapper-height"])for(var r=0;r<t.length;r++){if(t[r].contentWindow===e.source)t[r].style.height=e.data["datawrapper-height"][a]+"px"}}}))}();</script>
 
@@ -120,8 +89,9 @@ const DemoPage = () => {
         </Button>
       </Hero>
 
-      <Container className="info-page-content">
-        <ImageWithCard cardLayout="hover" src="/images/homepage/amos58.jpg" color="--silver-medium-light">
+      <Container className="info-page-content text-body">
+
+        <ImageWithCard cardLayout="hover" src="/images/homepage/amos58.jpg" style={{ height: '106px', marginTop: 'var(--spacing-m)', backgroundColor: 'var(--silver-medium-light !important'}}>
          <h2 className="heading-l">Background</h2>
           <p >
           The City of Helsinki offers thousands of digital and non-digital services for different purposes. 
@@ -129,7 +99,71 @@ const DemoPage = () => {
           </p>
         </ImageWithCard>
 
-        <ImageWithCard cardLayout="hover" src="/images/homepage/amos58.jpg" color="--silver-medium-light">
+        <h2 >For example, citizens of Helsinki need to</h2>
+        <div class="exampleContainer" style = {{ display: 'grid', columnGap: 'var(--spacing-s)', rowGap: ' var(--spacing-m)', gridTemplateColumns : "50% 50%" }} >
+          <Linkbox 
+            linkboxAriaLabel="Linkbox: Asti" 
+            linkAriaLabel="Asti" 
+            href="https://asti.hel.fi"  
+            heading = "Apply to daycare"
+            external
+            imgProps={{ src: "/images/foundation/visual-assets/placeholders/image-m@3x.png", width: 384, height: 245 }}
+            style={{backgroundColor: 'var(--color-coat-of-arms-light)', marginTop: 'var(--spacing-m)'}}>
+          </Linkbox>
+
+          <Linkbox 
+          linkboxAriaLabel="Linkbox: Events Helsinki" 
+          linkAriaLabel="Events Helsinki" 
+          href="https://hds.hel.fihttps://tapahtumat.hel.fi/en/home" 
+          external
+          heading = "Find events in Helsinki"
+          style={{backgroundColor: 'var(--color-metro)',marginTop: 'var(--spacing-m)'}}>
+                <div style={{ height: '106px', marginTop: 'var(--spacing-m)' }}><h3>Find events in Helsinki</h3></div>
+          </Linkbox>
+
+          <Linkbox 
+          linkboxAriaLabel="Linkbox: Boat Berts" 
+          linkAriaLabel="Boat Berths" 
+          href="https://hds.hel.fi" 
+          heading="Rent boat berth"
+          external
+          style={{backgroundColor: 'var(--color-suomenlinna-medium-light)', marginTop: 'var(--spacing-m)'}} >
+                <div style={{ height: '106px', marginTop: 'var(--spacing-m)' }}><h3>Rent boat berths</h3></div>
+          </Linkbox>
+
+          <Linkbox 
+          linkboxAriaLabel="Linkbox: Culture Kids" 
+          linkAriaLabel="Asti" 
+          href="https://kummilapset.hel.fi/en/" 
+          heading="Become Culture Kid"
+          external
+          style={{backgroundColor: 'var(--color-tram-light)', marginTop: 'var(--spacing-m)'}}>
+          </Linkbox>
+      
+          <Linkbox 
+          linkboxAriaLabel="Linkbox: hel.fi main site" 
+          linkAriaLabel="hel.fi" 
+          href="https://hel.fi" 
+          heading = "Visit the official site hel.fi"
+          external
+          style={{backgroundColor: 'var(--color-engel-light)', marginTop: 'var(--spacing-m)'}} >
+          </Linkbox>
+    
+          <Linkbox 
+          linkboxAriaLabel="Linkbox: Buy resident parking permits" 
+          linkAriaLabel="Resident parking permits" 
+          href="https://www.hel.fi/en/urban-environment-and-traffic/parking/resident-parking" 
+          heading = "Buy resident parking permits"
+          external
+          style={{backgroundColor: 'var(--color-metro-light)', marginTop: 'var(--spacing-m)'}} >
+          </Linkbox>
+        
+          
+      
+          
+        </div>
+
+        <ImageWithCard cardLayout="hover" src="/images/homepage/amos58.jpg" color="var(--silver-medium-light)">
          <h2 className="heading-l">Goals</h2>
           <p >
           The Helsinki Design System is a shared point of reference for designers, developers and product owners working for the City of Helsinki. HDS helps teams work and communicate more efficiently and assists the City of Helsinki in fulfilling its vision in the digital world. </p>
