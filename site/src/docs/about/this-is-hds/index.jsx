@@ -215,12 +215,19 @@ const DemoPage = () => {
           handle discussion and requests from the projects across the city organization.
         </p>
 
-        <h2 className="heading-l">Results</h2>
+        <ImageWithCard cardLayout="hover" src="/images/homepage/amos58.jpg" style={{ height: '106px', marginTop: 'var(--spacing-m)', backgroundColor: 'var(--silver-medium-light !important'}}>
+         <h2 className="heading-l">Results</h2>
+          <p >
+          Helsinki Design System is gaining more users and that way larger impact on the city of Helsinki digital user experiene.
+          </p>
+        </ImageWithCard>
+
+        <h2 class="heading-l">Some of the key metrics</h2>
 
         <Card
           border
           heading="HDS React component usage"
-          text="lore ipsum"
+          text="React component usage in 6 different times."
           style={{
             marginTop: 'var(--spacing-s)',
 
