@@ -41,7 +41,7 @@
 
 .info-page-card-grid-item {
   background-repeat: no-repeat;
-  background-position: right -2rem center;
+  background-position: right -1rem center;
   background-size: contain;
   display: flex;
   flex-direction: column;
@@ -65,9 +65,12 @@
 
   & [role^="heading"],
   & .info-page-card-grid-link-button {
+    @include medium-and-above-screen {
+      margin-right: 2rem;
+    }
+
     @include small-medium-and-above-screen {
       max-width: 50%;
-      margin-right: 2rem;
     }
   }
 }
@@ -77,16 +80,24 @@
   font-weight: 500;
   outline: 2px solid currentColor;
   padding: var(--spacing-s) var(--spacing-m);
-  text-decoration: none;
+  text-decoration: none !important;
   width: fit-content;
+
+  @media (hover: hover) {
+    &:active,
+    &:hover,{
+      background-color: var(--link-hover-color, var(--color-white));
+    }
+  }
 
   svg {
     color: currentColor !important;
     margin-top: 0 !important;
   }
 
-  &:visited svg,
-  &:visited svg * {
-    color: green !important;
+  &:visited {
+    svg * {
+      fill: currentColor !important;
+    }
   }
 }
