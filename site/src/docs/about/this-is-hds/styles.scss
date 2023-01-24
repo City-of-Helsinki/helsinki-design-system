@@ -58,12 +58,12 @@
     min-height: 350px;
   }
 
-  & [role^="heading"] {
+  & [role="heading"] {
     font-size: $fontsize-heading-l;
     line-height: $lineheight-l;
   }
 
-  & [role^="heading"],
+  & [role="heading"],
   & .info-page-card-grid-link-button {
     @include medium-and-above-screen {
       margin-right: 2rem;
