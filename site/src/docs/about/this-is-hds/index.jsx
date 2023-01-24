@@ -144,7 +144,7 @@ const DemoPage = () => {
               className="info-page-card-grid-link-button"
               href="https://hds.hel.fihttps://tapahtumat.hel.fi/en/home"
               external
-              style={{ color: 'var(--color-white)' }}
+              style={{ color: 'var(--color-white)', '--link-hover-color': 'var(--color-metro-dark)' }}
             >
               Learn more
             </Link>
