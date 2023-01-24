@@ -1,4 +1,5 @@
 @import "~hds-design-tokens/lib/all.scss";
+@import "~hds-design-tokens/lib/typography/all";
 @import "../../../components/utils.scss";
 
 .info-page-content {
@@ -13,5 +14,79 @@
   @include x-large-and-above-screen {
     padding-left: 0;
     padding-right: 0;
+  }
+}
+
+.info-page-image-card-container {
+  overflow: hidden;
+}
+
+.info-page-image-card [class^="ImageWithCard-module_card_"] {
+  background-color: var(--color-black-10);
+  min-height: auto;
+}
+
+.info-page-card-grid {
+  --gap: var(--spacing-m);
+  --max-item-width: calc(50% - var(--gap));
+  display: grid;
+  gap: var(--gap);
+  margin-bottom: var(--gap);
+  width: 100%;
+
+  @include medium-and-above-screen {
+    grid-template-columns: 50% 50%;
+  }
+}
+
+.info-page-card-grid-item {
+  background-repeat: no-repeat;
+  background-position: right -2rem center;
+  background-size: contain;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  min-height: 250px;
+
+  @include small-screen {
+    min-height: 200px;
+    background-image: none !important;
+  }
+
+  @include small-medium-and-above-screen {
+    min-height: 350px;
+  }
+
+  & [role^="heading"] {
+    font-size: $fontsize-heading-l;
+    line-height: $lineheight-l;
+  }
+
+  & [role^="heading"],
+  & .info-page-card-grid-link-button {
+    @include small-medium-and-above-screen {
+      max-width: 50%;
+      margin-right: 2rem;
+    }
+  }
+}
+
+.info-page-card-grid-link-button {
+  display: flex;
+  font-weight: 500;
+  outline: 2px solid currentColor;
+  padding: var(--spacing-s) var(--spacing-m);
+  text-decoration: none;
+  width: fit-content;
+
+  svg {
+    color: currentColor !important;
+    margin-top: 0 !important;
+  }
+
+  &:visited svg,
+  &:visited svg * {
+    color: green !important;
   }
 }
