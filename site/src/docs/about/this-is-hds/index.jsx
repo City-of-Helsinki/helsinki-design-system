@@ -142,7 +142,7 @@ const DemoPage = () => {
               openInNewTabAriaLabel="Opens in new tab"
               openInExternalDomainAriaLabel="Directs to another site"
               className="info-page-card-grid-link-button"
-              href="https://hds.hel.fihttps://tapahtumat.hel.fi/en/home"
+              href="https://tapahtumat.hel.fi/en/home"
               external
               style={{ color: 'var(--color-white)', '--link-hover-color': 'var(--color-metro-dark)' }}
             >
