@@ -1,5 +1,8 @@
 name: Icon library build
 
+on:
+  workflow_dispatch:
+
 jobs:
   build-icon-library:
     runs-on: ubuntu-latest
