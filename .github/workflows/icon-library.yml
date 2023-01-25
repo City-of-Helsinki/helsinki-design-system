@@ -13,6 +13,8 @@ jobs:
         registry-url: "https://registry.npmjs.org"
     - uses: actions/checkout@v3
     - name: Get icons
+      env:
+          FIGMA_API_KEY: ${{ secrets.HDS_UI_KIT }}
       run: node scripts/fetch-icon-library.js
     - name: Create PR
       run: echo 'done.'
