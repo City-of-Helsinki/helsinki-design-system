@@ -65,9 +65,9 @@ export function getCookieContent() {
   const commonLoginGroupTranslations = {
     fi: {
       title: 'Kirjautuminen',
-      text: 'Kirjautumisevästeitä käytetään käytetään käyttäjän kirjautuessa palveluun.',
+      text: 'Kirjautumisevästeitä käytetään käyttäjän kirjautuessa palveluun.',
       expandAriaLabel: 'Näytä kirjautumiseen liittyvien evästeiden tiedot',
-      checkboxAriaDescription: 'Kirjautumisevästeitä käytetään käytetään käyttäjän kirjautuessa palveluun.',
+      checkboxAriaDescription: 'Kirjautumisevästeitä käytetään käyttäjän kirjautuessa palveluun.',
     },
     sv: {
       title: 'Inloggning',
