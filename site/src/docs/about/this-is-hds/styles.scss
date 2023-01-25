@@ -36,11 +36,11 @@
   font-weight: 400;
   font-size: var(--fontsize-heading-l);
   letter-spacing: -0.01em;
-  margin-top: var(--spacing-layout-l);
-  margin-bottom: var(--spacing-layout-xs);
+  margin: var(--spacing-layout-l) 0 var(--spacing-layout-xs) 0;
 
   @include small-screen {
     font-size: var(--fontsize-heading-m);
+    margin-top: var(--spacing-layout-m);
   }
 }
 
@@ -84,6 +84,33 @@
 
 }
 
+.info-page-data-card {
+  margin-top: var(--spacing-s);
+  height: 480px;
+
+  @media only screen and (max-width: 414px) {
+    height: 578px;
+  }
+
+}
+
+
+.datawrapper-iframe {
+  width: 100%;
+  border: none;
+  height: 76%;
+
+  @media only screen and (max-width: 414px) {
+    height: 72%;
+  }
+
+  @media only screen and (max-width: 320px) {
+    height: 68%;
+  }
+
+}
+
+
 .info-page-table {
   padding: var(--spacing-layout-m) 0 0 0;
 }
@@ -91,7 +118,6 @@
 
 .info-page-image-card-container {
   overflow: hidden;
-  justify-content: center;
   margin-top: var(--spacing-layout-m);
 }
 
@@ -108,11 +134,9 @@
   }
 
   @include small-screen {
-    padding: var(--spacing-layout-m);
+    padding: var(--spacing-layout-s);
     margin-top: auto;
   }
-
-
 }
 
 .info-page-card-grid {
@@ -141,7 +165,7 @@
   @include small-screen {
     min-height: 200px;
     background-size: 44%;
-    background-position: right 0.2em center;
+    background-position: right top 0.72em;
     /*background-image: none !important;*/
   }
 
@@ -155,6 +179,53 @@
     line-height: $lineheight-m;
     font-weight: 400;
     letter-spacing: -0.004em;
+    
+    @include small-screen {
+      font-size: $fontsize-heading-m;
+      max-width: 60%;
+    }
+  }
+
+  & [role="heading"],
+  & .info-page-card-grid-link-button {
+    @include medium-and-above-screen {
+      margin-right: 2rem;
+    }
+
+    @include small-medium-and-above-screen {
+      max-width: 44%;
+    }
+  }
+}
+
+.info-page-card-grid-item-dark {
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: auto;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  min-height: 250px;
+
+  @include small-screen {
+    min-height: 200px;
+    background-size: 44%;
+    background-position: right top 0.72em;
+    /*background-image: none !important;*/
+  }
+
+  @include small-medium-and-above-screen {
+    min-height: 350px;
+    background-size: 64%;
+  }
+
+  & [role="heading"] {
+    font-size: $fontsize-heading-l;
+    line-height: $lineheight-m;
+    font-weight: 400;
+    letter-spacing: -0.004em;
+    color: var(--color-white);
     
     @include small-screen {
       font-size: $fontsize-heading-m;

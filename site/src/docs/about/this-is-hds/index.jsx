@@ -136,7 +136,7 @@ const DemoPage = () => {
             <Card
               style={{ backgroundImage: 'url(/images/about/this-is-hds/hki-illustration-dj.svg)' }}
               theme={{ '--background-color': 'var(--color-metro)' }}
-              className="info-page-card-grid-item"
+              className="info-page-card-grid-item-dark"
               heading="Find events in Helsinki"
             >
               <Link
@@ -317,17 +317,17 @@ const DemoPage = () => {
         
         <div className="info-page-subcontent">
 
-          <h3 className="heading-l">Some of the key metrics</h3>
+          <h3 className="heading-l">Some of our key metrics</h3>
 
           <Card
+            className="info-page-data-card"
             border
-            heading="HDS React component usage"
-            text="React component usage in 6 different times."
-            style={{
-              marginTop: 'var(--spacing-s)',
-            }}
+            heading="HDS component usage is increasing"
+            text="React component instances in the City of Helsinki's projects at nine times"
+
           >
             <iframe
+              className="datawrapper-iframe"
               title="HDS React component usage"
               aria-label="Interactive bar chart"
               id="datawrapper-chart-X0PtN"
@@ -335,34 +335,26 @@ const DemoPage = () => {
               scrolling="no"
               frameBorder="0"
               data-external="1"
-              style={{
-                width: '100%',
-                //min-width: "100% !important",
-                border: 'none',
-                height: '620',
-              }}
             ></iframe>
           </Card>
 
           <Card
+            className="info-page-data-card"
             border
-            heading="Design"
-            text="Usage of Design kit"
+            heading="HDS design kit usage"
+            text="Lorem ipsum..."
             style={{
-              marginTop: 'var(--spacing-s)',
-              width: '45%',
             }}
           />
 
           <Card
+            className="info-page-data-card"
             border
-            heading="Unique visitors on hds.hel.fi"
-            text="Unique visitors on the documentation site between June 2020 to end of December 2022."
-            style={{
-              marginTop: 'var(--spacing-s)',
-            }}
+            heading="HDS documentation is viewed more"
+            text="Unique visitors on hds.hel.fi from June 2020 to December 2022"
           >
             <iframe
+              className="datawrapper-iframe"
               title="Unique visitors on hds.hel.fi"
               aria-label="Interactive line chart"
               id="datawrapper-chart-LLonN"
@@ -370,12 +362,6 @@ const DemoPage = () => {
               scrolling="no"
               frameBorder="0"
               data-external="1"
-              style={{
-                width: '100%',
-                //min-width: "100% !important",
-                border: 'none',
-                height: '620',
-              }}
             ></iframe>
           </Card>
 
