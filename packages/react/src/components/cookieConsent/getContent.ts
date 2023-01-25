@@ -89,7 +89,7 @@ export function getCookieContent() {
     en: 'This cookie is used to store a few details about the user such as the unique visitor ID.',
   };
 
-  const tunnistamoUrl = 'tunnistamo.hel.fi';
+  const tunnistamoUrl = 'api.hel.fi';
   const keycloakUrl = 'tunnistus.hel.fi';
   const suomiFiUrl = 'suomi.fi';
 
@@ -817,7 +817,7 @@ export function getCookieContent() {
       },
       'profiili-csrftoken': {
         id: 'profiili-csrftoken',
-        hostName: 'api.hel.fi',
+        hostName: tunnistamoUrl,
         name: 'profiili-prod-csrftoken',
         ...commonSecurityControlTranslations,
       },
