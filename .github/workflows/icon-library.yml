@@ -1,0 +1,14 @@
+name: Icon library build
+
+jobs:
+  build-icon-library:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: "16"
+        registry-url: "https://registry.npmjs.org"
+    - name: Get icons
+      run: node scripts/fetch-icon-library.js
+    - name: Create PR
+      run: echo 'done.'
