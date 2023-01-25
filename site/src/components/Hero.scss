@@ -85,19 +85,26 @@
   font-size: var(--fontsize-heading-l);
   font-weight: 400;
   line-height: var(--lineheight-s);
+  letter-spacing: -0.012em;
   margin: 0;
 
   @include x-large-and-above-screen {
     font-size: 72px;
+    margin-top: var(--spacing-xl);
   }
 }
 
 .hero-text {
   margin: var(--spacing-4-xl) 0;
+  margin-top: var(--spacing-s);
+  line-height: var(--lineheight-l);
 
   @include x-large-and-above-screen {
     font-size: var(--fontsize-body-xl);
+    line-height: var(--lineheight-l);
     margin: var(--spacing-4-xl) 0;
+    margin-top: var(--spacing-l);
+    max-width: 460px;
   }
 }
 

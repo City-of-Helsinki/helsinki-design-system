@@ -15,15 +15,60 @@
     padding-left: 0;
     padding-right: 0;
   }
+
+  color: var(--color-black-90);
+
+}
+
+.info-page-content h2 {
+  font-weight: 400;
+  font-size: var(--fontsize-heading-xl);
+  letter-spacing: -0.01em;
+  margin-top: 0;
+  margin-bottom: var(--spacing-layout-xxs);
+
+  @include small-screen {
+    font-size: var(--fontsize-heading-l);
+  }
+}
+
+.info-page-content h3 {
+  font-weight: 400;
+  font-size: var(--fontsize-heading-l);
+  letter-spacing: -0.01em;
+  margin-top: var(--spacing-layout-l);
+  margin-bottom: var(--spacing-layout-xs);
+
+  @include small-screen {
+    font-size: var(--fontsize-heading-m);
+  }
+}
+
+.info-page-content p {
+  font-weight: 400;
+  font-size: var(--fontsize-body-xl);
+  line-height: var(--lineheight-l);
+  letter-spacing: -0.01em;
+  max-width: 768px;
+  padding-top: var(--spacing-layout-xxs);
+  margin-bottom: 0px;
+}
+
+.info-page-content {
+  margin: auto;
 }
 
 .info-page-image-card-container {
   overflow: hidden;
+  justify-content: center;
 }
 
 .info-page-image-card [class^="ImageWithCard-module_card_"] {
   background-color: var(--color-black-10);
   min-height: auto;
+  padding: 64px;
+  max-width: 352px;
+  justify-content: center;
 }
 
 .info-page-card-grid {
@@ -35,14 +80,14 @@
   width: 100%;
 
   @include medium-and-above-screen {
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 49% 49%;
   }
 }
 
 .info-page-card-grid-item {
   background-repeat: no-repeat;
-  background-position: right -1rem center;
-  background-size: contain;
+  background-position: right center;
+  background-size: auto;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -51,16 +96,26 @@
 
   @include small-screen {
     min-height: 200px;
-    background-image: none !important;
+    background-size: 44%;
+    background-position: right 0.2em center;
+    /*background-image: none !important;*/
   }
 
   @include small-medium-and-above-screen {
     min-height: 350px;
+    background-size: 64%;
   }
 
   & [role="heading"] {
     font-size: $fontsize-heading-l;
-    line-height: $lineheight-l;
+    line-height: $lineheight-m;
+    font-weight: 400;
+    letter-spacing: -0.004em;
+    
+    @include small-screen {
+      font-size: $fontsize-heading-m;
+      max-width: 60%;
+    }
   }
 
   & [role="heading"],
@@ -70,7 +125,7 @@
     }
 
     @include small-medium-and-above-screen {
-      max-width: 50%;
+      max-width: 44%;
     }
   }
 }
@@ -82,6 +137,10 @@
   padding: var(--spacing-s) var(--spacing-m);
   text-decoration: none !important;
   width: fit-content;
+
+  @include medium-screen {
+    padding: var(--spacing-xs) var(--spacing-s);
+  }
 
   @media (hover: hover) {
     &:active,

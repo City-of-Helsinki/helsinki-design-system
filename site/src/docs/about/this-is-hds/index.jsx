@@ -74,12 +74,12 @@ const DemoPage = () => {
   return (
     <>
       <Seo
-        title="Helsinki Design System"
+        title="Helsinki Design System (HDS)"
         pageTitle="Info page"
         description="Info page for Helsinki Design system"
       ></Seo>
       <Hero
-        title="Helsinki Design System"
+        title="Helsinki Design System (HDS)"
         text="The Helsinki Design System is focused on usability and accessibility and aims to improve the quality and consistency of City of Helsinki digital services – making the user experience better for everyone."
         backgroundImageUrl="/images/homepage/amos58.jpg"
       >
@@ -111,7 +111,7 @@ const DemoPage = () => {
           </ImageWithCard>
         </div>
 
-        <h2>For example, citizens of Helsinki need to:</h2>
+        <h3>For example, citizens of Helsinki need to:</h3>
         <div className="info-page-card-grid">
           <Card
             style={{ backgroundImage: 'url(/images/about/this-is-hds/hki-illustration-daycare.svg)' }}
@@ -239,7 +239,7 @@ const DemoPage = () => {
           </ImageWithCard>
         </div>
 
-        <h2 className="heading-l">HDS is part of the city strategy</h2>
+        <h3 className="heading-l">HDS is part of the city strategy</h3>
         <p>
           HDS is a tool for building the digital presence and brand of city of Helsinki. HDS supports creating equal and
           functional city services.
@@ -265,7 +265,7 @@ const DemoPage = () => {
           brand.
         </p>
 
-        <h2 className="heading-l">How we work</h2>
+        <h3 className="heading-l">How we work</h3>
         <p>
           Helsinki Design System -team is a collaboration of professionals from different consultancies and City of
           Helsinki. City of Helsinki didn't buy ready design system but rather decided to gather the best professionals
@@ -310,7 +310,7 @@ const DemoPage = () => {
           </ImageWithCard>
         </div>
 
-        <h2 className="heading-l">Some of the key metrics</h2>
+        <h3 className="heading-l">Some of the key metrics</h3>
 
         <Card
           border
