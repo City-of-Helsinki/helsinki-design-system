@@ -2,6 +2,39 @@
 @import "~hds-design-tokens/lib/typography/all";
 @import "../../../components/utils.scss";
 
+.info-page-hero-logo {
+  width: 100px;
+  margin-left: 0;
+
+  @include x-large-and-above-screen {
+    margin-left: 0;
+  }
+
+  @include medium-screen {
+    margin-left: var(--spacing-s);
+  }
+
+  @include small-screen {
+    margin-left: 0
+  }
+}
+
+.info-page-hero-title.hero-title {
+  margin-top: var(--spacing-m);
+
+  @include x-large-and-above-screen {
+    margin-top: var(--spacing-l);
+  }
+
+  @include medium-screen {
+    margin-top: var(--spacing-s);
+  }
+
+  @include small-screen {
+    margin-top: var(--spacing-s);
+  }
+}
+
 .info-page-content {
   margin: 0 auto;
   padding: var(--spacing-layout-xs) var(--spacing-layout-2-xs);

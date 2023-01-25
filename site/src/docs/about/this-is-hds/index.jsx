@@ -1,22 +1,20 @@
 import React from 'react';
 import {
-  Accordion,
-  useAccordion,
   Button,
   Card,
   Container,
-  IconAngleDown,
-  IconAngleUp,
   ImageWithCard,
+  Koros,
+  Logo,
   Link,
-  Linkbox,
   Table,
 } from 'hds-react';
-import Hero from '../../../components/Hero';
+
 import Seo from '../../../components/Seo';
 
 import './../../../components/layout.scss';
 import './styles.scss';
+import { navigate, withPrefix } from 'gatsby';
 
 const TableBasicInfo = () => {
   const cols = [
@@ -78,22 +76,37 @@ const DemoPage = () => {
         pageTitle="Info page"
         description="Info page for Helsinki Design system"
       ></Seo>
-      <Hero
-        title="Helsinki Design System (HDS)"
-        text="The Helsinki Design System is focused on usability and accessibility and aims to improve the quality and consistency of City of Helsinki digital services – making the user experience better for everyone."
-        backgroundImageUrl="/images/about/this-is-hds/tripla.jpg"
-      >
-        <Button
-          variant="primary"
-          className="front-page-hero-button"
-          role="link"
-          onClick={() => {
-            navigate('/getting-started');
-          }}
-        >
-          Learn more
-        </Button>
-      </Hero>
+      <div className="hero-container">
+        <div className="hero-wrapper">
+          <div className="hero">
+            <div className="hero-content">
+              <div className="hero-content-shape" />
+              <Logo aria-hidden="true" className="info-page-hero-logo"/>
+              <h1 className="hero-title info-page-hero-title">Helsinki Design System (HDS)</h1>
+              <p className="hero-text">
+                The Helsinki Design System is focused on usability and accessibility and aims to improve the quality and
+                consistency of City of Helsinki digital services – making the user experience better for everyone.
+              </p>
+              <Button
+                variant="primary"
+                className="front-page-hero-button"
+                role="link"
+                onClick={() => {
+                  navigate('/getting-started');
+                }}
+              >
+                Learn more
+              </Button>
+            </div>
+            <Koros className="hero-koros hero-koros-rotated" flipHorizontal rotate="45deg" />
+            <Koros className="hero-koros hero-koros-horizontal" flipHorizontal />
+          </div>
+        </div>
+        <div
+          className="hero-bg-image"
+          style={{ backgroundImage: `url(${withPrefix('/images/about/this-is-hds/tripla.jpg')}` }}
+        />
+      </div>
 
       <Container className="info-page-content text-body">
         <div className="info-page-image-card-container">
