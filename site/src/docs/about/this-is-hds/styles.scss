@@ -17,7 +17,6 @@
   }
 
   color: var(--color-black-90);
-
 }
 
 .info-page-content h2 {
@@ -51,15 +50,14 @@
   letter-spacing: -0.01em;
   max-width: 768px;
   padding-top: var(--spacing-layout-xxs);
-  margin-bottom: 0px;
+  margin-bottom: 0;
 
   @include small-screen {
     font-size: var(--fontsize-body-l);
   }
-
 }
 
-.info-page-content ul {  
+.info-page-content ul {
   max-width: 567px;
 }
 
@@ -80,8 +78,7 @@
 
   @include small-screen {
     padding: 0;
-  }  
-
+  }
 }
 
 .info-page-data-card {
@@ -91,9 +88,7 @@
   @media only screen and (max-width: 414px) {
     height: 578px;
   }
-
 }
-
 
 .datawrapper-iframe {
   width: 100%;
@@ -107,21 +102,18 @@
   @media only screen and (max-width: 320px) {
     height: 68%;
   }
-
 }
-
 
 .info-page-table {
   padding: var(--spacing-layout-m) 0 0 0;
 }
-
 
 .info-page-image-card-container {
   overflow: hidden;
   margin-top: var(--spacing-layout-m);
 }
 
-.info-page-image-card [class^="ImageWithCard-module_card_"] {
+.info-page-image-card [class^='ImageWithCard-module_card_'] {
   background-color: var(--color-black-10);
   min-height: auto;
   padding: var(--spacing-layout-l);
@@ -174,19 +166,19 @@
     background-size: 64%;
   }
 
-  & [role="heading"] {
+  & [role='heading'] {
     font-size: $fontsize-heading-l;
     line-height: $lineheight-m;
     font-weight: 400;
     letter-spacing: -0.004em;
-    
+
     @include small-screen {
       font-size: $fontsize-heading-m;
       max-width: 60%;
     }
   }
 
-  & [role="heading"],
+  & [role='heading'],
   & .info-page-card-grid-link-button {
     @include medium-and-above-screen {
       margin-right: 2rem;
@@ -220,20 +212,20 @@
     background-size: 64%;
   }
 
-  & [role="heading"] {
+  & [role='heading'] {
     font-size: $fontsize-heading-l;
     line-height: $lineheight-m;
     font-weight: 400;
     letter-spacing: -0.004em;
     color: var(--color-white);
-    
+
     @include small-screen {
       font-size: $fontsize-heading-m;
       max-width: 60%;
     }
   }
 
-  & [role="heading"],
+  & [role='heading'],
   & .info-page-card-grid-link-button {
     @include medium-and-above-screen {
       margin-right: 2rem;
@@ -259,7 +251,7 @@
 
   @media (hover: hover) {
     &:active,
-    &:hover,{
+    &:hover {
       background-color: var(--link-hover-color, var(--color-white));
     }
   }
