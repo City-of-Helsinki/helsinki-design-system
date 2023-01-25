@@ -11,7 +11,8 @@ jobs:
       with:
         node-version: "16"
         registry-url: "https://registry.npmjs.org"
-    - uses: actions/checkout@v3
+    - name: Get repo files
+      uses: actions/checkout@v3
     - name: Get icons
       run: FIGMA_API_KEY=${{ secrets.HDS_UI_KIT }} node scripts/fetch-icon-library.js
     - name: Create PR
