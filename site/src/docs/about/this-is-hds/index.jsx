@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button, Card, Container, Footer, ImageWithCard, Koros, Logo, Link, Table } from 'hds-react';
+import { Button, Card, Container,  IconGlobe,
+  IconPersonWheelchair, IconStar, IconFaceSmile, IconHeart,
+ Footer, ImageWithCard, Koros, Logo, Link, Table } from 'hds-react';
 
 import Seo from '../../../components/Seo';
 
@@ -260,16 +262,54 @@ const DemoPage = () => {
           </p>
 
           <p>
-            HDS ensures accessibility in every stage of component development. HDS components always meet at least WCAG
-            2.1 AA level and often also reach the AAA level. HDS components and patterns are tested with the newest NVDA
-            on Windows and the newest VoiceOver on Mac and iOS.{' '}
+            The brand of Helsinki is present in physical world and in digital world. 
+            One Helsinki is the guideline for creating the visual identity also in the digital services. The goal is that digital services and websites are recognized as city of Helsinki services at first glance. This emphasizes consistent user experience and trust towards city services.
+            HDS is an important corner stone for building this consistent user experience and bringing brand to digital world.
           </p>
 
-          <p>
-            The brand of Helsinki is present in physical world and in digital world. These two should represent the same
-            city and feel familiar and recognisable. HDS is a tool to build digital presence according to city of
-            Helsinki brand.
-          </p>
+          <h3>HDS team vision consists of five cornerstones</h3>
+          <div id="vision" className="info-page-card-grid">
+            <Card 
+              theme={{ '--background-color': 'var(--color-coat-of-arms)', '--color': 'var(--color-white)' }}
+              className="info-page-card-grid-item"
+              heading =  'Unity'
+              >
+                <IconGlobe />
+                We promote a consistent and whole city experience and maintain the digital appearance of the city.
+            </Card>
+            <Card 
+              theme={{ '--background-color': 'var(--color-coat-of-arms)', '--color': 'var(--color-white)' }}
+              className="info-page-card-grid-item"
+              heading =  'Equality'
+              >
+                <IconPersonWheelchair />
+                Together, we create a city that is accessible and worthy for every city dweller.
+            </Card>
+            <Card 
+              theme={{ '--background-color': 'var(--color-coat-of-arms)', '--color': 'var(--color-white)' }}
+              className="info-page-card-grid-item"
+              heading =  'Impact'
+              >
+                <IconStar />
+                We make the city more attractive and a point of pride. We enable evolution by inspiring and supporting.
+            </Card>
+            <Card 
+              theme={{ '--background-color': 'var(--color-coat-of-arms)', '--color': 'var(--color-white)' }}
+              className="info-page-card-grid-item"
+              heading =  'Joy'
+              >
+                <IconFaceSmile />
+                We enjoy building a better city for everyone and wish to share the delight with every user.
+            </Card>
+            <Card 
+              theme={{ '--background-color': 'var(--color-coat-of-arms)', '--color': 'var(--color-white)' }}
+              className="info-page-card-grid-item"
+              heading =  'Wellbeing'
+              >
+                <IconHeart />
+                We support the wellbeing of city employees by providing proper tools for digital development.
+            </Card>
+          </div>
 
           <h3 className="heading-l">How we work</h3>
           <p>
@@ -280,6 +320,7 @@ const DemoPage = () => {
             documented, so that it is possible to transfer the knowledge.
           </p>
 
+          
           <p>
             HDS is developed as open source project so anyone can benefit from it. The source code is available in{' '}
             <Link href="https://github.com/City-of-Helsinki/helsinki-design-system" external size="m">
@@ -300,6 +341,11 @@ const DemoPage = () => {
           <p>
             A key principle is to pay attention accessibility all the way from the first drafts to the final component.
             Accessibility specialists audit every component before we release it. (accessibility process image here).
+          </p>
+          <p>
+            HDS ensures accessibility in every stage of component development. HDS components always meet at least WCAG
+            2.1 AA level and often also reach the AAA level. HDS components and patterns are tested with the newest NVDA
+            on Windows and the newest VoiceOver on Mac and iOS.{' '}
           </p>
           <p>
             Collaboration and support are built-in in the processes. City of Helsinki has a dedicated slack-channel to
