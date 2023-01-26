@@ -107,7 +107,7 @@ const DemoPage = () => {
             className="info-page-image-card"
             cardLayout="hover"
             cardAlignment="left"
-            src="/images/about/this-is-hds/background.jpg"
+            src={withPrefix('/images/about/this-is-hds/background.jpg')}
           >
             <h2 className="heading-l">Background</h2>
             <p>
@@ -121,7 +121,7 @@ const DemoPage = () => {
           <h3>For example, citizens of Helsinki need to:</h3>
           <div className="info-page-card-grid">
             <Card
-              style={{ backgroundImage: 'url(/images/about/this-is-hds/hki-illustration-daycare.svg)' }}
+              style={{ backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-daycare.svg')}` }}
               theme={{ '--background-color': 'var(--color-coat-of-arms-medium-light)' }}
               className="info-page-card-grid-item"
               heading="Apply to daycare"
@@ -139,7 +139,7 @@ const DemoPage = () => {
               </Link>
             </Card>
             <Card
-              style={{ backgroundImage: 'url(/images/about/this-is-hds/hki-illustration-dj.svg)' }}
+              style={{ backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-dj.svg')}` }}
               theme={{ '--background-color': 'var(--color-metro)' }}
               className="info-page-card-grid-item-dark"
               heading="Find events in Helsinki"
@@ -157,7 +157,7 @@ const DemoPage = () => {
               </Link>
             </Card>
             <Card
-              style={{ backgroundImage: 'url(/images/about/this-is-hds/hki-illustration-boat.svg)' }}
+              style={{ backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-boat.svg')}` }}
               theme={{ '--background-color': 'var(--color-suomenlinna)' }}
               className="info-page-card-grid-item"
               heading="Rent a place for a boat"
@@ -175,7 +175,9 @@ const DemoPage = () => {
               </Link>
             </Card>
             <Card
-              style={{ backgroundImage: 'url(/images/about/this-is-hds/hki-illustration-culture-kids.svg)' }}
+              style={{
+                backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-culture-kids.svg')}`,
+              }}
               theme={{ '--background-color': 'var(--color-copper-light)' }}
               className="info-page-card-grid-item"
               heading="Become a Culture Kid"
@@ -193,7 +195,9 @@ const DemoPage = () => {
               </Link>
             </Card>
             <Card
-              style={{ backgroundImage: 'url(/images/about/this-is-hds/hki-illustration-havis-amanda.svg)' }}
+              style={{
+                backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-havis-amanda.svg')}`,
+              }}
               theme={{ '--background-color': 'var(--color-engel-light)' }}
               className="info-page-card-grid-item"
               heading="Visit the official site hel.fi"
@@ -211,7 +215,7 @@ const DemoPage = () => {
               </Link>
             </Card>
             <Card
-              style={{ backgroundImage: 'url(/images/about/this-is-hds/hki-illustration-truck.svg)' }}
+              style={{ backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-truck.svg')}` }}
               theme={{ '--background-color': 'var(--color-gold-light)' }}
               className="info-page-card-grid-item"
               heading="Buy a resident parking permit"
@@ -236,7 +240,7 @@ const DemoPage = () => {
             className="info-page-image-card"
             cardLayout="hover"
             cardAlignment="left"
-            src="/images/about/this-is-hds/goals.jpg"
+            src={withPrefix('/images/about/this-is-hds/goals.jpg')}
           >
             <h2 className="heading-l">Goals</h2>
             <p>
@@ -357,7 +361,7 @@ const DemoPage = () => {
           <ImageWithCard
             className="info-page-image-card"
             cardLayout="hover"
-            src="/images/about/this-is-hds/results.jpg"
+            src={withPrefix('/images/about/this-is-hds/results.jpg')}
           >
             <h2 className="heading-l">Results</h2>
             <p>
@@ -420,7 +424,7 @@ const DemoPage = () => {
             className="info-page-image-card"
             cardLayout="hover"
             cardAlignment="left"
-            src="/images/about/this-is-hds/basic-information.jpg"
+            src={withPrefix('/images/about/this-is-hds/basic-information.jpg')}
           >
             <h2 className="heading-l">Basic info</h2>
             <p>
