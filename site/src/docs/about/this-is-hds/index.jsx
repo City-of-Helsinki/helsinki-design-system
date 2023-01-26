@@ -136,8 +136,7 @@ const DemoPage = () => {
           <div className="info-page-card-grid">
             <Card
               style={{ backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-daycare.svg')}` }}
-              theme={{ '--background-color': 'var(--color-coat-of-arms-medium-light)' }}
-              className="info-page-card-grid-item"
+              className="info-page-card-grid-item info-page-card-grid-item-coat"
               heading="Apply to daycare"
             >
               <Link
@@ -154,8 +153,7 @@ const DemoPage = () => {
             </Card>
             <Card
               style={{ backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-dj.svg')}` }}
-              theme={{ '--background-color': 'var(--color-metro)' }}
-              className="info-page-card-grid-item-dark"
+              className="info-page-card-grid-item info-page-card-grid-item-dark info-page-card-grid-item-metro"
               heading="Find events in Helsinki"
             >
               <Link
@@ -172,8 +170,7 @@ const DemoPage = () => {
             </Card>
             <Card
               style={{ backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-boat.svg')}` }}
-              theme={{ '--background-color': 'var(--color-suomenlinna)' }}
-              className="info-page-card-grid-item"
+              className="info-page-card-grid-item info-page-card-grid-item-suomenlinna"
               heading="Rent a place for a boat"
             >
               <Link
@@ -192,8 +189,7 @@ const DemoPage = () => {
               style={{
                 backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-culture-kids.svg')}`,
               }}
-              theme={{ '--background-color': 'var(--color-copper-light)' }}
-              className="info-page-card-grid-item"
+              className="info-page-card-grid-item info-page-card-grid-item-copper"
               heading="Become a Culture Kid"
             >
               <Link
@@ -212,8 +208,7 @@ const DemoPage = () => {
               style={{
                 backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-havis-amanda.svg')}`,
               }}
-              theme={{ '--background-color': 'var(--color-engel-light)' }}
-              className="info-page-card-grid-item"
+              className="info-page-card-grid-item info-page-card-grid-item-engel"
               heading="Visit the official site hel.fi"
             >
               <Link
@@ -230,8 +225,7 @@ const DemoPage = () => {
             </Card>
             <Card
               style={{ backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-truck.svg')}` }}
-              theme={{ '--background-color': 'var(--color-gold-light)' }}
-              className="info-page-card-grid-item"
+              className="info-page-card-grid-item info-page-card-grid-item-gold"
               heading="Buy a resident parking permit"
             >
               <Link

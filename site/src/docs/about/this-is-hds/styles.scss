@@ -281,25 +281,24 @@
 .info-page-card-grid-item {
   background-repeat: no-repeat;
   background-position: right center;
-  background-size: auto;
+  background-size: 44%;
   display: flex;
   flex-direction: column;
   align-content: center;
   justify-content: center;
-  min-height: 250px;
+  min-height: 200px;
 
-  @include small-screen {
-    min-height: 200px;
-    background-size: 44%;
-    background-position: right top 0.72em;
+  @include medium-and-above-screen {
+    background-position: right top;
   }
 
-  @include small-medium-and-above-screen {
-    min-height: 350px;
+  @include large-and-above-screen {
+    background-position: right center;
     background-size: 64%;
+    min-height: 350px;
   }
 
-  & [role="heading"] {
+  & [role='heading'] {
     font-size: $fontsize-heading-l;
     line-height: $lineheight-m;
     font-weight: 400;
@@ -309,63 +308,51 @@
       font-size: $fontsize-heading-m;
       max-width: 60%;
     }
+
+    @include medium-and-above-screen {
+      max-width: 50%;
+    }
+
+    @include large-and-above-screen {
+      max-width: 44%;
+    }
   }
 
-  & [role="heading"],
+  & [role='heading'],
   & .info-page-card-grid-link-button {
     @include medium-and-above-screen {
       margin-right: 2rem;
     }
-
-    @include small-medium-and-above-screen {
-      max-width: 44%;
-    }
-  }
-}
-
-.info-page-card-grid-item-dark {
-  background-repeat: no-repeat;
-  background-position: right center;
-  background-size: auto;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
-  min-height: 250px;
-
-  @include small-screen {
-    min-height: 200px;
-    background-size: 44%;
-    background-position: right top 0.72em;
   }
 
-  @include small-medium-and-above-screen {
-    min-height: 350px;
-    background-size: 64%;
-  }
-
-  & [role="heading"] {
-    font-size: $fontsize-heading-l;
-    line-height: $lineheight-m;
-    font-weight: 400;
-    letter-spacing: -0.004em;
-    color: var(--color-white);
-
-    @include small-screen {
-      font-size: $fontsize-heading-m;
-      max-width: 60%;
+  &.info-page-card-grid-item-dark {
+    & [role='heading'] {
+      color: var(--color-white);
     }
   }
 
-  & [role="heading"],
-  & .info-page-card-grid-link-button {
-    @include medium-and-above-screen {
-      margin-right: 2rem;
-    }
+  &.info-page-card-grid-item-coat {
+    background-color: var(--color-coat-of-arms-light);
+  }
 
-    @include small-medium-and-above-screen {
-      max-width: 44%;
-    }
+  &.info-page-card-grid-item-metro {
+    background-color: var(--color-metro);
+  }
+
+  &.info-page-card-grid-item-suomenlinna {
+    background-color: var(--color-suomenlinna);
+  }
+
+  &.info-page-card-grid-item-copper {
+    background-color: var(--color-copper-light);
+  }
+
+  &.info-page-card-grid-item-engel {
+    background-color: var(--color-engel-light);
+  }
+
+  &.info-page-card-grid-item-gold {
+    background-color: var(--color-gold-light);
   }
 }
 
