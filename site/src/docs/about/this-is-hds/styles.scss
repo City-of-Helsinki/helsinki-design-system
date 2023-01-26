@@ -181,6 +181,14 @@
   grid-template-columns: 1fr 1fr 1fr;
   margin-bottom: var(--gap);
   width: 100%;
+  
+  @include large-screen {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include small-screen {
+    grid-template-columns: 1fr;
+  }
 }
 
 .info-page-card-grid {
@@ -332,19 +340,17 @@
       background: var(--color-coat-of-arms-light);
     }
   }
-
-  @include large-screen {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @include small-screen {
-    grid-template-columns: 1fr;
-  }
 }
 
-.visions {
+.vision {
   .grid-box {
     background: var(--color-coat-of-arms);
+    color: var(--color-white);
     height: 276px;
+
+    .box-heading {
+      margin-top: var(--spacing-m);
+      margin-bottom: var(--spacing-s);
+    }
   }
 }

@@ -372,47 +372,32 @@ const DemoPage = () => {
           </p>
 
           <h3>HDS team vision consists of five cornerstones</h3>
-          <div id="vision" className="info-page-card-grid">
-            <Card
-              theme={{ '--background-color': 'var(--color-coat-of-arms)', '--color': 'var(--color-white)' }}
-              className="info-page-card-grid-item"
-              heading="Unity"
-            >
-              <IconGlobe />
+          <div id="vision" className="info-page-box-grid vision">
+            <div className="grid-box">
+              <IconGlobe size="xl"/>
+              <div className="box-heading">Unity</div>
               We promote a consistent and whole city experience and maintain the digital appearance of the city.
-            </Card>
-            <Card
-              theme={{ '--background-color': 'var(--color-coat-of-arms)', '--color': 'var(--color-white)' }}
-              className="info-page-card-grid-item"
-              heading="Equality"
-            >
-              <IconPersonWheelchair />
+            </div>
+            <div className="grid-box">
+              <IconPersonWheelchair size="xl"/>
+              <div className="box-heading">Equality</div>
               Together, we create a city that is accessible and worthy for every city dweller.
-            </Card>
-            <Card
-              theme={{ '--background-color': 'var(--color-coat-of-arms)', '--color': 'var(--color-white)' }}
-              className="info-page-card-grid-item"
-              heading="Impact"
-            >
-              <IconStar />
+            </div>
+            <div className="grid-box">
+              <IconStar size="xl"/>
+              <div className="box-heading">Impact</div>
               We make the city more attractive and a point of pride. We enable evolution by inspiring and supporting.
-            </Card>
-            <Card
-              theme={{ '--background-color': 'var(--color-coat-of-arms)', '--color': 'var(--color-white)' }}
-              className="info-page-card-grid-item"
-              heading="Joy"
-            >
-              <IconFaceSmile />
+            </div>
+            <div className="grid-box">
+              <IconFaceSmile size="xl" />
+              <div className="box-heading">Joy</div>
               We enjoy building a better city for everyone and wish to share the delight with every user.
-            </Card>
-            <Card
-              theme={{ '--background-color': 'var(--color-coat-of-arms)', '--color': 'var(--color-white)' }}
-              className="info-page-card-grid-item"
-              heading="Wellbeing"
-            >
-              <IconHeart />
+            </div>
+            <div className="grid-box">
+              <IconHeart size="xl"/>
+              <div className="box-heading">Wellbeing</div>
               We support the wellbeing of city employees by providing proper tools for digital development.
-            </Card>
+            </div>
           </div>
 
           <h3 className="heading-l">How we work</h3>
