@@ -91,7 +91,8 @@ const DemoPage = () => {
               <Logo aria-hidden="true" className="info-page-hero-logo" />
               <h1 className="hero-title info-page-hero-title">Helsinki Design System (HDS)</h1>
               <p className="hero-text">
-                The Helsinki Design System focuses on usability and accessibility. It aims to improve the quality and consistency of the City of Helsinki's digital services – making the user experience better for everyone.
+                The Helsinki Design System focuses on usability and accessibility. It aims to improve the quality and
+                consistency of the City of Helsinki's digital services – making the user experience better for everyone.
               </p>
               <Button
                 variant="primary"
@@ -147,7 +148,7 @@ const DemoPage = () => {
                 style={{ color: 'var(--color-black)' }}
                 external
               >
-                Visit site 
+                Visit site
               </Link>
             </Card>
             <Card
@@ -246,38 +247,22 @@ const DemoPage = () => {
           <h3 className="heading-l">The Helsinki Design System was created to unify the user experience</h3>
           <div className="info-page-box-grid timeline">
             <div className="grid-box">
-              <RoundedTag
-                className="box-tag"
-              >
-                May 26, 2020
-              </RoundedTag>
+              <RoundedTag className="box-tag">May 26, 2020</RoundedTag>
               <div className="box-heading">HDS Alpha</div>
               <div className="box-text">Setting up the processes after a proof of concept.</div>
             </div>
             <div className="grid-box">
-              <RoundedTag
-                className="box-tag"
-              >
-                October 29, 2020
-              </RoundedTag>
+              <RoundedTag className="box-tag">October 29, 2020</RoundedTag>
               <div className="box-heading">HDS Beta</div>
               <div className="box-text">Providing a foundation of the library components.</div>
             </div>
             <div className="grid-box">
-              <RoundedTag
-                className="box-tag"
-              >
-                May 3, 2021
-              </RoundedTag>
+              <RoundedTag className="box-tag">May 3, 2021</RoundedTag>
               <div className="box-heading">HDS 1.0.0</div>
               <div className="box-text">Official support, continuous development, a city-wide acknowledged tool.</div>
-            </div>            
+            </div>
             <div className="grid-box">
-              <RoundedTag
-                className="box-tag"
-              >
-                June 27, 2022
-              </RoundedTag>
+              <RoundedTag className="box-tag">June 27, 2022</RoundedTag>
               <div className="box-heading">HDS 2.0.0</div>
               <div className="box-text">Design update for the entire component library.</div>
             </div>
@@ -315,31 +300,40 @@ const DemoPage = () => {
         <div className="info-page-subcontent">
           <h3 className="heading-l">HDS is part of the city strategy</h3>
           <p>
-            HDS is a tool for building the digital presence and brand of the City of Helsinki. HDS supports creating equal and functional city services.
+            HDS is a tool for building the digital presence and brand of the City of Helsinki. HDS supports creating
+            equal and functional city services.
           </p>
 
           <p>
-            Digitalisation is a key enabler of city services and the new city strategy. The city strategy emphasises creating accessible services for all citizens, regardless of the time and place. HDS provides building blocks for such services and enables projects to solve actual user problems instead of rebuilding essential elements. HDS has accessibility baked in so that the end user projects using the ready components are one step closer to accessible services.
+            Digitalisation is a key enabler of city services and the new city strategy. The city strategy emphasises
+            creating accessible services for all citizens, regardless of the time and place. HDS provides building
+            blocks for such services and enables projects to solve actual user problems instead of rebuilding essential
+            elements. HDS has accessibility baked in so that the end user projects using the ready components are one
+            step closer to accessible services.
           </p>
 
           <p>
-            The brand of Helsinki is present in the physical and digital worlds. One Helsinki is the guideline for visual identity in digital services. The goal is for digital services and websites to be recognised as the City of Helsinki services at first glance, emphasising consistent user experience and trust towards city services. HDS is a cornerstone for building this consistent user experience and bringing the brand to the digital world.
+            The brand of Helsinki is present in the physical and digital worlds. One Helsinki is the guideline for
+            visual identity in digital services. The goal is for digital services and websites to be recognised as the
+            City of Helsinki services at first glance, emphasising consistent user experience and trust towards city
+            services. HDS is a cornerstone for building this consistent user experience and bringing the brand to the
+            digital world.
           </p>
 
           <h3 className="heading-l">HDS team vision consists of five cornerstones</h3>
           <div id="vision" className="info-page-box-grid vision">
             <div className="grid-box">
-              <IconGlobe size="xl"/>
+              <IconGlobe size="xl" />
               <div className="box-heading">Unity</div>
               We promote a consistent and whole city experience and maintain the digital appearance of the city.
             </div>
             <div className="grid-box">
-              <IconPersonWheelchair size="xl"/>
+              <IconPersonWheelchair size="xl" />
               <div className="box-heading">Equality</div>
               Together, we create a city that is accessible and worthy for every city dweller.
             </div>
             <div className="grid-box">
-              <IconStar size="xl"/>
+              <IconStar size="xl" />
               <div className="box-heading">Impact</div>
               We make the city more attractive and a point of pride. We enable evolution by inspiring and supporting.
             </div>
@@ -349,14 +343,14 @@ const DemoPage = () => {
               We enjoy building a better city for everyone and wish to share the delight with every user.
             </div>
             <div className="grid-box">
-              <IconHeart size="xl"/>
+              <IconHeart size="xl" />
               <div className="box-heading">Wellbeing</div>
               We support the wellbeing of city employees by providing proper tools for digital development.
             </div>
           </div>
         </div>
-          
-          <div className="info-page-image-card-container">
+
+        <div className="info-page-image-card-container">
           <ImageWithCard
             className="info-page-image-card"
             cardLayout="hover"
@@ -365,8 +359,8 @@ const DemoPage = () => {
           >
             <h2 className="heading-l">How we work?</h2>
             <p>
-            The Helsinki Design System team is a collaboration of professionals from different consultancies and City of
-            Helsinki employees.
+              The Helsinki Design System team is a collaboration of professionals from different consultancies and City
+              of Helsinki employees.
             </p>
           </ImageWithCard>
         </div>
@@ -374,15 +368,19 @@ const DemoPage = () => {
         <div className="info-page-subcontent">
           <h3 className="heading-l">Multi-disciplinary collaboration</h3>
           <p>
-          The City of Helsinki didn't buy a ready design system but instead gathered the best professionals in the same team. This way, the City of Helsinki owns and maintains the design system. When team members change, the processes but also the existing design system must be well documented so that it's possible to transfer the knowledge.
-          </p>                    
+            The City of Helsinki didn't buy a ready design system but instead gathered the best professionals in the
+            same team. This way, the City of Helsinki owns and maintains the design system. When team members change,
+            the processes but also the existing design system must be well documented so that it's possible to transfer
+            the knowledge.
+          </p>
           <p>
-          HDS is developed as an open-source project so that anyone can benefit from it. The source code is available on
+            HDS is developed as an open-source project so that anyone can benefit from it. The source code is available
+            on
             <Link href="https://github.com/City-of-Helsinki/helsinki-design-system" external size="m">
-              
               GitHub
             </Link>
-            free of charge, and even the designs are shared for those interested. Building an open-source design system has many valuable points:
+            free of charge, and even the designs are shared for those interested. Building an open-source design system
+            has many valuable points:
           </p>
           <ul>
             <li>Open-source is one way to share the benefits to larger community</li>
@@ -393,16 +391,28 @@ const DemoPage = () => {
             <li>Open-source creates transparency</li>
           </ul>
           <p>
-            A fundamental principle is to pay attention to accessibility from the first drafts to the final component. Accessibility specialists audit every component before we release it.
+            A fundamental principle is to pay attention to accessibility from the first drafts to the final component.
+            Accessibility specialists audit every component before we release it.
           </p>
-          <h4>Accessibility is ensured throughout the process</h4>          
-          <img className="accessibility-chart-m" src={withPrefix('/images/about/accessibility-flowchart-m.svg')} alt="A flowchart illustrating the accessibility process" />
-          <img className="accessibility-chart-s" src={withPrefix('/images/about/accessibility-flowchart-s.svg')} alt="A flowchart illustrating the accessibility process" />
+          <h4>Accessibility is ensured throughout the process</h4>
+          <img
+            className="accessibility-chart-m"
+            src={withPrefix('/images/about/accessibility-flowchart-m.svg')}
+            alt="A flowchart illustrating the accessibility process"
+          />
+          <img
+            className="accessibility-chart-s"
+            src={withPrefix('/images/about/accessibility-flowchart-s.svg')}
+            alt="A flowchart illustrating the accessibility process"
+          />
           <p>
-            HDS ensures accessibility in every stage of component development. HDS components always meet at least the WCAG 2.1 AA level and often reach the AAA level. HDS components and patterns are tested with the newest NVDA on Windows and VoiceOver on Mac and iOS.
+            HDS ensures accessibility in every stage of component development. HDS components always meet at least the
+            WCAG 2.1 AA level and often reach the AAA level. HDS components and patterns are tested with the newest NVDA
+            on Windows and VoiceOver on Mac and iOS.
           </p>
           <p>
-          Collaboration and support are built-in into the processes. The City of Helsinki has a dedicated slack channel to handle discussions and requests from the projects across the city organization.
+            Collaboration and support are built-in into the processes. The City of Helsinki has a dedicated slack
+            channel to handle discussions and requests from the projects across the city organization.
           </p>
         </div>
 
@@ -447,7 +457,7 @@ const DemoPage = () => {
             heading="HDS design kit is in heavy use"
             text="Fifteen most used Sketch symbol categories as of January 2023"
           >
-            <iframe 
+            <iframe
               className="datawrapper-iframe"
               title="HDS design kit usage"
               aria-label="Interactive bar chart"
@@ -456,7 +466,7 @@ const DemoPage = () => {
               scrolling="no"
               frameBorder="0"
               data-external="1"
-              ></iframe>
+            ></iframe>
           </Card>
 
           <Card
@@ -487,7 +497,8 @@ const DemoPage = () => {
           >
             <h2 className="heading-l">Basic info</h2>
             <p>
-              Below you can find details about HDS in an accessible HDS Table component. This page also uses other accessible HDS components.
+              Below you can find details about HDS in an accessible HDS Table component. This page also uses other
+              accessible HDS components.
             </p>
           </ImageWithCard>
         </div>
