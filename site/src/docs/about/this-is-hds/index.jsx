@@ -102,7 +102,7 @@ const DemoPage = () => {
                   navigate('/getting-started');
                 }}
               >
-                Learn more
+                Visit hds.hel.fi
               </Button>
             </div>
             <Koros className="hero-koros hero-koros-rotated" flipHorizontal rotate="45deg" />
@@ -132,7 +132,7 @@ const DemoPage = () => {
         </div>
 
         <div className="info-page-subcontent">
-          <h3>For example, citizens of Helsinki need to:</h3>
+          <h3 classname="heading-l">For example, citizens of Helsinki need to:</h3>
           <div className="info-page-card-grid">
             <Card
               style={{ backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-daycare.svg')}` }}
@@ -148,12 +148,12 @@ const DemoPage = () => {
                 style={{ color: 'var(--color-black)' }}
                 external
               >
-                Learn more
+                Visit site 
               </Link>
             </Card>
             <Card
               style={{ backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-dj.svg')}` }}
-              className="info-page-card-grid-item info-page-card-grid-item-dark info-page-card-grid-item-metro"
+              className="info-page-card-grid-item info-page-card-grid-item info-page-card-grid-item-metro"
               heading="Find events in Helsinki"
             >
               <Link
@@ -163,26 +163,26 @@ const DemoPage = () => {
                 className="info-page-card-grid-link-button"
                 href="https://tapahtumat.hel.fi/en/home"
                 external
-                style={{ color: 'var(--color-white)', '--link-hover-color': 'var(--color-metro-dark)' }}
+                style={{ color: 'var(--color-black)' }}
               >
-                Learn more
+                See events
               </Link>
             </Card>
             <Card
               style={{ backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-boat.svg')}` }}
               className="info-page-card-grid-item info-page-card-grid-item-suomenlinna"
-              heading="Rent a place for a boat"
+              heading="Rent a berth for a boat"
             >
               <Link
-                ariaLabel="Learn more about renting a place for a boat"
+                ariaLabel="Learn more about renting a berth for a boat"
                 openInNewTabAriaLabel="Opens in new tab"
                 openInExternalDomainAriaLabel="Directs to another site"
                 className="info-page-card-grid-link-button"
-                href="https://hds.hel.fi"
+                href="https://venepaikat.hel.fi/fi/berths"
                 external
                 style={{ color: 'var(--color-black)' }}
               >
-                Learn more
+                Berth search
               </Link>
             </Card>
             <Card
@@ -209,7 +209,7 @@ const DemoPage = () => {
                 backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-havis-amanda.svg')}`,
               }}
               className="info-page-card-grid-item info-page-card-grid-item-engel"
-              heading="Visit the official site hel.fi"
+              heading="Visit the official site"
             >
               <Link
                 ariaLabel="Learn more about hel.fi site"
@@ -220,7 +220,7 @@ const DemoPage = () => {
                 external
                 style={{ color: 'var(--color-black)' }}
               >
-                Learn more
+                Visit hel.fi
               </Link>
             </Card>
             <Card
@@ -237,14 +237,14 @@ const DemoPage = () => {
                 external
                 style={{ color: 'var(--color-black)' }}
               >
-                Learn more
+                See how
               </Link>
             </Card>
           </div>
         </div>
 
         <div className="info-page-subcontent">
-          <h3>The Helsinki Design System was created to unify the user experience</h3>
+          <h3 classname="heading-l">The Helsinki Design System was created to unify the user experience</h3>
           <div className="info-page-box-grid timeline">
             <div className="grid-box">
               <RoundedTag
@@ -316,27 +316,18 @@ const DemoPage = () => {
         <div className="info-page-subcontent">
           <h3 className="heading-l">HDS is part of the city strategy</h3>
           <p>
-            HDS is a tool for building the digital presence and brand of city of Helsinki. HDS supports creating equal
-            and functional city services.
+            HDS is a tool for building the digital presence and brand of the City of Helsinki. HDS supports creating equal and functional city services.
           </p>
 
           <p>
-            Digitalisation is a key enabler to city services and the new city strategy. The city strategy emphasises
-            creating accessible services for all citizens, regardless the time and place. HDS provides building blocks
-            for such services and enables projects to solve actual user problems instead of rebuilding basic elements.
-            HDS has accessibility baked in so that the end user projects using the ready components are one step closer
-            on accessible services.
+            Digitalisation is a key enabler of city services and the new city strategy. The city strategy emphasises creating accessible services for all citizens, regardless of the time and place. HDS provides building blocks for such services and enables projects to solve actual user problems instead of rebuilding essential elements. HDS has accessibility baked in so that the end user projects using the ready components are one step closer to accessible services.
           </p>
 
           <p>
-            The brand of Helsinki is present in physical world and in digital world. One Helsinki is the guideline for
-            creating the visual identity also in the digital services. The goal is that digital services and websites
-            are recognized as city of Helsinki services at first glance. This emphasizes consistent user experience and
-            trust towards city services. HDS is an important corner stone for building this consistent user experience
-            and bringing brand to digital world.
+            The brand of Helsinki is present in the physical and digital worlds. One Helsinki is the guideline for visual identity in digital services. The goal is for digital services and websites to be recognised as the City of Helsinki services at first glance, emphasising consistent user experience and trust towards city services. HDS is a cornerstone for building this consistent user experience and bringing the brand to the digital world.
           </p>
 
-          <h3>HDS team vision consists of five cornerstones</h3>
+          <h3 classname="heading-l">HDS team vision consists of five cornerstones</h3>
           <div id="vision" className="info-page-box-grid vision">
             <div className="grid-box">
               <IconGlobe size="xl"/>
