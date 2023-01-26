@@ -397,8 +397,8 @@ const DemoPage = () => {
             A fundamental principle is to pay attention to accessibility from the first drafts to the final component. Accessibility specialists audit every component before we release it.
           </p>
           <h4>Accessibility is ensured throughout the process</h4>          
-          <img className="accessibility-chart-m" src="/images/about/accessibility-flowchart-m.svg" alt="A flowchart illustrating the accessibility process" />
-          <img className="accessibility-chart-s" src="/images/about/accessibility-flowchart-s.svg" alt="A flowchart illustrating the accessibility process" />
+          <img className="accessibility-chart-m" src={withPrefix('/images/about/accessibility-flowchart-m.svg')} alt="A flowchart illustrating the accessibility process" />
+          <img className="accessibility-chart-s" src={withPrefix('/images/about/accessibility-flowchart-s.svg')} alt="A flowchart illustrating the accessibility process" />
           <p>
             HDS ensures accessibility in every stage of component development. HDS components always meet at least the WCAG 2.1 AA level and often reach the AAA level. HDS components and patterns are tested with the newest NVDA on Windows and VoiceOver on Mac and iOS.{' '}
           </p>
