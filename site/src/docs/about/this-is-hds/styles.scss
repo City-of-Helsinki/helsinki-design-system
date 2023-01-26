@@ -152,8 +152,8 @@
   margin-top: var(--spacing-s);
   height: 480px;
 
-  @media only screen and (max-width: 414px) {
-    height: 578px;
+  @media only screen and (max-width: 428px) {
+    height: 596px;
   }
 }
 
@@ -161,7 +161,7 @@
   margin-top: var(--spacing-s);
   height: 552px;
 
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: 428px) {
     height: 596px;
   }
 
@@ -175,7 +175,7 @@
   border: none;
   height: 76%;
 
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: 428px) {
     height: 72%;
   }
 
@@ -366,10 +366,6 @@
   .grid-box {
     background: var(--color-silver-light);
     max-height: 248px;
-
-    @include small-screen {
-      background: var(--color-coat-of-arms-light);
-    }
   }
 }
 
