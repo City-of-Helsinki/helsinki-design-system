@@ -82,22 +82,48 @@
 }
 
 .hero-title {
-  font-size: var(--fontsize-heading-l);
+  font-size: var(--fontsize-heading-xxl);
   font-weight: 400;
   line-height: var(--lineheight-s);
-  margin: 0;
+  letter-spacing: -0.012em;
+  margin: var(--spacing-m) 0 0 var(--spacing-m);
 
   @include x-large-and-above-screen {
-    font-size: 72px;
+    font-size: var(--fontsize-heading-xxl);
+    margin: var(--spacing-xl) 0 0 0;
+  }
+
+  @include medium-screen {
+    font-size: var(--fontsize-heading-xl);
+    margin: var(--spacing-s) 0 0 var(--spacing-s);
+  }
+
+  @include small-screen {
+    font-size: var(--fontsize-heading-l);
+    margin: 0;
   }
 }
 
 .hero-text {
-  margin: var(--spacing-4-xl) 0;
+  margin: var(--spacing-s) 0 var(--spacing-l) var(--spacing-m);
+  line-height: var(--lineheight-l);
+  font-size: var(--fontsize-body-xl);
 
   @include x-large-and-above-screen {
     font-size: var(--fontsize-body-xl);
-    margin: var(--spacing-4-xl) 0;
+    line-height: var(--lineheight-l);
+    margin: var(--spacing-m) 0 var(--spacing-xl) 0;
+    max-width: 460px;
+  }
+
+  @include medium-screen {
+    font-size: var(--fontsize-body-l);
+    margin: var(--spacing-s) 0 var(--spacing-l) var(--spacing-s);
+  }
+
+  @include small-screen {
+    font-size: var(--fontsize-body-l);
+    margin: var(--spacing-xs) 0 var(--spacing-m) 0;
   }
 }
 
@@ -124,5 +150,21 @@
     position: absolute;
     top: var(--koros-height);
     width: calc(100% + var(--koros-height)) !important;
+  }
+}
+
+.front-page-hero-button {
+  margin: 0 0 0 var(--spacing-m);
+
+  @include x-large-and-above-screen {
+    margin: 0;
+  }
+
+  @include medium-screen {
+    margin: 0 0 0 var(--spacing-s);
+  }
+
+  @include small-screen {
+    margin: 0;
   }
 }
