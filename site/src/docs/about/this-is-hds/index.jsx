@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Button,
-  Card,
-  Container,
-  ImageWithCard,
-  Koros,
-  Logo,
-  Link,
-  Table,
-} from 'hds-react';
+import { Button, Card, Container, ImageWithCard, Koros, Logo, Link, Table } from 'hds-react';
 
 import Seo from '../../../components/Seo';
 
@@ -81,7 +72,7 @@ const DemoPage = () => {
           <div className="hero">
             <div className="hero-content">
               <div className="hero-content-shape" />
-              <Logo aria-hidden="true" className="info-page-hero-logo"/>
+              <Logo aria-hidden="true" className="info-page-hero-logo" />
               <h1 className="hero-title info-page-hero-title">Helsinki Design System (HDS)</h1>
               <p className="hero-text">
                 The Helsinki Design System is focused on usability and accessibility and aims to improve the quality and
@@ -125,7 +116,6 @@ const DemoPage = () => {
         </div>
 
         <div className="info-page-subcontent">
-
           <h3>For example, citizens of Helsinki need to:</h3>
           <div className="info-page-card-grid">
             <Card
@@ -237,7 +227,6 @@ const DemoPage = () => {
               </Link>
             </Card>
           </div>
-
         </div>
 
         <div className="info-page-image-card-container">
@@ -249,25 +238,25 @@ const DemoPage = () => {
           >
             <h2 className="heading-l">Goals</h2>
             <p>
-            The Helsinki Design System helps teams work and communicate more efficiently and supports the City of Helsinki in fulfilling its vision in the digital world.{' '}
+              The Helsinki Design System helps teams work and communicate more efficiently and supports the City of
+              Helsinki in fulfilling its vision in the digital world.{' '}
             </p>
           </ImageWithCard>
         </div>
 
         <div className="info-page-subcontent">
-
           <h3 className="heading-l">HDS is part of the city strategy</h3>
           <p>
-            HDS is a tool for building the digital presence and brand of city of Helsinki. HDS supports creating equal and
-            functional city services.
+            HDS is a tool for building the digital presence and brand of city of Helsinki. HDS supports creating equal
+            and functional city services.
           </p>
 
           <p>
             Digitalisation is a key enabler to city services and the new city strategy. The city strategy emphasises
-            creating accessible services for all citizens, regardless the time and place. HDS provides building blocks for
-            such services and enables projects to solve actual user problems instead of rebuilding basic elements. HDS has
-            accessibility baked in so that the end user projects using the ready components are one step closer on
-            accessible services.
+            creating accessible services for all citizens, regardless the time and place. HDS provides building blocks
+            for such services and enables projects to solve actual user problems instead of rebuilding basic elements.
+            HDS has accessibility baked in so that the end user projects using the ready components are one step closer
+            on accessible services.
           </p>
 
           <p>
@@ -278,17 +267,17 @@ const DemoPage = () => {
 
           <p>
             The brand of Helsinki is present in physical world and in digital world. These two should represent the same
-            city and feel familiar and recognisable. HDS is a tool to build digital presence according to city of Helsinki
-            brand.
+            city and feel familiar and recognisable. HDS is a tool to build digital presence according to city of
+            Helsinki brand.
           </p>
 
           <h3 className="heading-l">How we work</h3>
           <p>
             Helsinki Design System -team is a collaboration of professionals from different consultancies and City of
-            Helsinki. City of Helsinki didn't buy ready design system but rather decided to gather the best professionals
-            in the same team. This way City of Helsinki owns and continues to maintain the design system. When the people
-            change, it is important that the processes but also the actual design system are well documented, so that it
-            is possible to transfer the knowledge.
+            Helsinki. City of Helsinki didn't buy ready design system but rather decided to gather the best
+            professionals in the same team. This way City of Helsinki owns and continues to maintain the design system.
+            When the people change, it is important that the processes but also the actual design system are well
+            documented, so that it is possible to transfer the knowledge.
           </p>
 
           <p>
@@ -316,20 +305,23 @@ const DemoPage = () => {
             Collaboration and support are built-in in the processes. City of Helsinki has a dedicated slack-channel to
             handle discussion and requests from the projects across the city organization.
           </p>
-
         </div>
 
         <div className="info-page-image-card-container">
-          <ImageWithCard className="info-page-image-card" cardLayout="hover" src="/images/about/this-is-hds/results.jpg">
+          <ImageWithCard
+            className="info-page-image-card"
+            cardLayout="hover"
+            src="/images/about/this-is-hds/results.jpg"
+          >
             <h2 className="heading-l">Results</h2>
             <p>
-            The Helsinki Design System gains more users from the City of Helsinki teams and the impact on the city's digital user experience is constantly increasing.
+              The Helsinki Design System gains more users from the City of Helsinki teams and the impact on the city's
+              digital user experience is constantly increasing.
             </p>
           </ImageWithCard>
         </div>
-        
-        <div className="info-page-subcontent">
 
+        <div className="info-page-subcontent">
           <h3 className="heading-l">Some of our key metrics</h3>
 
           <Card
@@ -337,7 +329,6 @@ const DemoPage = () => {
             border
             heading="HDS component usage is increasing"
             text="React component instances in the City of Helsinki's projects at nine times"
-
           >
             <iframe
               className="datawrapper-iframe"
@@ -356,8 +347,7 @@ const DemoPage = () => {
             border
             heading="HDS design kit usage"
             text="Lorem ipsum..."
-            style={{
-            }}
+            style={{}}
           />
 
           <Card
@@ -377,7 +367,6 @@ const DemoPage = () => {
               data-external="1"
             ></iframe>
           </Card>
-
         </div>
 
         <div className="info-page-image-card-container">
@@ -389,7 +378,8 @@ const DemoPage = () => {
           >
             <h2 className="heading-l">Basic info</h2>
             <p>
-            Below you can find details about the Helsinki Design System in an accessible HDS Table component. This page uses HDS components solely.{' '}
+              Below you can find details about the Helsinki Design System in an accessible HDS Table component. This
+              page uses HDS components solely.{' '}
             </p>
           </ImageWithCard>
         </div>
