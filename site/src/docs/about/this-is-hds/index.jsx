@@ -80,8 +80,8 @@ const DemoPage = () => {
     <>
       <Seo
         title="Helsinki Design System (HDS)"
-        pageTitle="Info page"
-        description="Info page for the Helsinki Design System"
+        pageTitle="This is HDS"
+        description="The Helsinki Design System is a tool to create a consistent, user-friendly and accessible digital user experience for the City of Helsinki."
       ></Seo>
       <div className="hero-container">
         <div className="hero-wrapper">
