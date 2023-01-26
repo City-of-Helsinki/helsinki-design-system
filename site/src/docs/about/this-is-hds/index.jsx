@@ -307,7 +307,7 @@ const DemoPage = () => {
             <h2 className="heading-l">Goals</h2>
             <p>
               The Helsinki Design System helps teams work and communicate more efficiently and supports the City of
-              Helsinki in fulfilling its vision in the digital world.{' '}
+              Helsinki in fulfilling its vision in the digital world.
             </p>
           </ImageWithCard>
         </div>
@@ -366,7 +366,7 @@ const DemoPage = () => {
             <h2 className="heading-l">How we work?</h2>
             <p>
             The Helsinki Design System team is a collaboration of professionals from different consultancies and City of
-            Helsinki employees.{' '}
+            Helsinki employees.
             </p>
           </ImageWithCard>
         </div>
@@ -377,10 +377,10 @@ const DemoPage = () => {
           The City of Helsinki didn't buy a ready design system but instead gathered the best professionals in the same team. This way, the City of Helsinki owns and maintains the design system. When team members change, the processes but also the existing design system must be well documented so that it's possible to transfer the knowledge.
           </p>                    
           <p>
-          HDS is developed as an open-source project so that anyone can benefit from it. The source code is available on{' '}
+          HDS is developed as an open-source project so that anyone can benefit from it. The source code is available on
             <Link href="https://github.com/City-of-Helsinki/helsinki-design-system" external size="m">
-              {' '}
-              GitHub{' '}
+              
+              GitHub
             </Link>
             free of charge, and even the designs are shared for those interested. Building an open-source design system has many valuable points:
           </p>
@@ -399,7 +399,7 @@ const DemoPage = () => {
           <img className="accessibility-chart-m" src={withPrefix('/images/about/accessibility-flowchart-m.svg')} alt="A flowchart illustrating the accessibility process" />
           <img className="accessibility-chart-s" src={withPrefix('/images/about/accessibility-flowchart-s.svg')} alt="A flowchart illustrating the accessibility process" />
           <p>
-            HDS ensures accessibility in every stage of component development. HDS components always meet at least the WCAG 2.1 AA level and often reach the AAA level. HDS components and patterns are tested with the newest NVDA on Windows and VoiceOver on Mac and iOS.{' '}
+            HDS ensures accessibility in every stage of component development. HDS components always meet at least the WCAG 2.1 AA level and often reach the AAA level. HDS components and patterns are tested with the newest NVDA on Windows and VoiceOver on Mac and iOS.
           </p>
           <p>
           Collaboration and support are built-in into the processes. The City of Helsinki has a dedicated slack channel to handle discussions and requests from the projects across the city organization.
@@ -487,7 +487,7 @@ const DemoPage = () => {
           >
             <h2 className="heading-l">Basic info</h2>
             <p>
-              Below you can find details about HDS in an accessible HDS Table component. This page also uses other accessible HDS components.{' '}
+              Below you can find details about HDS in an accessible HDS Table component. This page also uses other accessible HDS components.
             </p>
           </ImageWithCard>
         </div>
