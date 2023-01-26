@@ -131,7 +131,7 @@ const DemoPage = () => {
         </div>
 
         <div className="info-page-subcontent">
-          <h3 classname="heading-l">For example, citizens of Helsinki need to:</h3>
+          <h3 className="heading-l">For example, citizens of Helsinki need to:</h3>
           <div className="info-page-card-grid">
             <Card
               style={{ backgroundImage: `url(${withPrefix('/images/about/this-is-hds/hki-illustration-daycare.svg')}` }}
@@ -243,7 +243,7 @@ const DemoPage = () => {
         </div>
 
         <div className="info-page-subcontent">
-          <h3 classname="heading-l">The Helsinki Design System was created to unify the user experience</h3>
+          <h3 className="heading-l">The Helsinki Design System was created to unify the user experience</h3>
           <div className="info-page-box-grid timeline">
             <div className="grid-box">
               <RoundedTag
@@ -326,7 +326,7 @@ const DemoPage = () => {
             The brand of Helsinki is present in the physical and digital worlds. One Helsinki is the guideline for visual identity in digital services. The goal is for digital services and websites to be recognised as the City of Helsinki services at first glance, emphasising consistent user experience and trust towards city services. HDS is a cornerstone for building this consistent user experience and bringing the brand to the digital world.
           </p>
 
-          <h3 classname="heading-l">HDS team vision consists of five cornerstones</h3>
+          <h3 className="heading-l">HDS team vision consists of five cornerstones</h3>
           <div id="vision" className="info-page-box-grid vision">
             <div className="grid-box">
               <IconGlobe size="xl"/>
@@ -454,7 +454,7 @@ const DemoPage = () => {
               id="datawrapper-chart-WztVi"
               src="https://datawrapper.dwcdn.net/WztVi/"
               scrolling="no"
-              frameborder="0"
+              frameBorder="0"
               data-external="1"
               ></iframe>
           </Card>
