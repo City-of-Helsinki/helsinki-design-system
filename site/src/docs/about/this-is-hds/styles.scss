@@ -5,7 +5,7 @@
 .box-heading {
   font-size: var(--fontsize-heading-m);
   font-weight: 500;
-  line-height: var(--line-height-heading-m)
+  line-height: var(--line-height-heading-m);
 }
 
 .box-tag {
@@ -172,7 +172,6 @@
     padding: var(--spacing-layout-s);
     margin-top: auto;
   }
-
 }
 
 .info-page-box-grid {
@@ -182,10 +181,6 @@
   grid-template-columns: 1fr 1fr 1fr;
   margin-bottom: var(--gap);
   width: 100%;
-
-/*   @include medium-and-above-screen {
-    grid-template-columns: 49% 49%;
-  } */
 }
 
 .info-page-card-grid {
@@ -332,12 +327,17 @@
   .grid-box {
     background: var(--color-silver-light);
     height: 240px;
+
+    @include small-screen {
+      background: var(--color-coat-of-arms-light);
+    }
   }
+
   @include large-screen {
     grid-template-columns: repeat(2, 1fr);
   }
+
   @include small-screen {
-    background: var(--color-vaakuna-light);
     grid-template-columns: 1fr;
   }
 }
