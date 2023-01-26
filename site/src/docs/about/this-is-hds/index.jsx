@@ -249,10 +249,6 @@ const DemoPage = () => {
             <div className="grid-box">
               <RoundedTag
                 className="box-tag"
-                theme={{
-                  '--tag-background': 'var(--color-coat-of-arms)',
-                  '--tag-color': 'var(--color-white)',
-                }}
               >
                 May 26, 2020
               </RoundedTag>
@@ -262,10 +258,6 @@ const DemoPage = () => {
             <div className="grid-box">
               <RoundedTag
                 className="box-tag"
-                theme={{
-                  '--tag-background': 'var(--color-coat-of-arms)',
-                  '--tag-color': 'var(--color-white)',
-                }}
               >
                 October 29, 2020
               </RoundedTag>
@@ -275,10 +267,6 @@ const DemoPage = () => {
             <div className="grid-box">
               <RoundedTag
                 className="box-tag"
-                theme={{
-                  '--tag-background': 'var(--color-coat-of-arms)',
-                  '--tag-color': 'var(--color-white)',
-                }}
               >
                 May 3, 2021
               </RoundedTag>
@@ -288,10 +276,6 @@ const DemoPage = () => {
             <div className="grid-box">
               <RoundedTag
                 className="box-tag"
-                theme={{
-                  '--tag-background': 'var(--color-coat-of-arms)',
-                  '--tag-color': 'var(--color-white)',
-                }}
               >
                 June 27, 2022
               </RoundedTag>
@@ -300,7 +284,7 @@ const DemoPage = () => {
             </div>
             <div className="grid-box">
               <RoundedTag
-                className="box-tag"
+                className="box-tag alert"
                 theme={{
                   '--tag-background': 'var(--color-alert)',
                   '--tag-color': 'var(--color-grey-90)',

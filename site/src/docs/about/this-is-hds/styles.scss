@@ -8,10 +8,6 @@
   line-height: var(--line-height-heading-m);
 }
 
-.box-tag {
-  margin-bottom: var(--spacing-s);
-}
-
 .box-text {
   margin-top: var(--spacing-s);
 }
@@ -362,6 +358,17 @@
 }
 
 .timeline {
+  .box-tag {
+    margin-bottom: var(--spacing-s);
+    background-color: var(--color-coat-of-arms);
+    color: var(--color-white);
+  }
+
+  .alert {
+    background-color: var(--color-alert);
+    color: var(--color-grey-90)
+  }
+
   .grid-box {
     background: var(--color-silver-light);
     max-height: 248px;
