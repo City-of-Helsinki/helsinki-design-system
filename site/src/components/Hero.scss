@@ -87,7 +87,6 @@
   line-height: var(--lineheight-s);
   letter-spacing: -0.012em;
   margin: var(--spacing-m) 0 0 var(--spacing-m);
-   
 
   @include x-large-and-above-screen {
     font-size: var(--fontsize-heading-xxl);
@@ -103,7 +102,6 @@
     font-size: var(--fontsize-heading-l);
     margin: 0;
   }
-
 }
 
 .hero-text {
@@ -127,7 +125,6 @@
     font-size: var(--fontsize-body-l);
     margin: var(--spacing-xs) 0 var(--spacing-m) 0;
   }
-
 }
 
 .hero-koros {
@@ -170,5 +167,4 @@
   @include small-screen {
     margin: 0;
   }
-
 }
