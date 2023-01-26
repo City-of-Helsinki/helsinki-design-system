@@ -263,7 +263,7 @@ const DemoPage = () => {
                 May 26, 2020
               </RoundedTag>
               <div className="box-heading">HDS Alpha</div>
-              <div className="box-text">A little something something.</div>
+              <div className="box-text">Setting up the processes after a proof of concept.</div>
             </div>
             <div className="grid-box">
               <RoundedTag
@@ -276,20 +276,7 @@ const DemoPage = () => {
                 October 29, 2020
               </RoundedTag>
               <div className="box-heading">HDS Beta</div>
-              <div className="box-text">A little something something.</div>
-            </div>
-            <div className="grid-box">
-              <RoundedTag
-                className="box-tag"
-                theme={{
-                  '--tag-background': 'var(--color-coat-of-arms)',
-                  '--tag-color': 'var(--color-white)',
-                }}
-              >
-                January, 2021
-              </RoundedTag>
-              <div className="box-heading">Continuous development</div>
-              <div className="box-text">A little something something.</div>
+              <div className="box-text">Providing a foundation of the library components.</div>
             </div>
             <div className="grid-box">
               <RoundedTag
@@ -302,8 +289,8 @@ const DemoPage = () => {
                 May 3, 2021
               </RoundedTag>
               <div className="box-heading">HDS 1.0.0</div>
-              <div className="box-text">A little something something.</div>
-            </div>
+              <div className="box-text">Official support, continuous development, a city-wide acknowledged tool.</div>
+            </div>            
             <div className="grid-box">
               <RoundedTag
                 className="box-tag"
@@ -315,7 +302,7 @@ const DemoPage = () => {
                 June 27, 2022
               </RoundedTag>
               <div className="box-heading">HDS 2.0.0</div>
-              <div className="box-text">A little something something.</div>
+              <div className="box-text">Design update for the entire component library.</div>
             </div>
             <div className="grid-box">
               <RoundedTag
@@ -328,7 +315,7 @@ const DemoPage = () => {
                 Coming soon
               </RoundedTag>
               <div className="box-heading">HDS 3.0.0</div>
-              <div className="box-text">A little something something.</div>
+              <div className="box-text">New navigation components and a navigation pattern.</div>
             </div>
           </div>
         </div>
@@ -399,45 +386,55 @@ const DemoPage = () => {
               We support the wellbeing of city employees by providing proper tools for digital development.
             </div>
           </div>
+        </div>
+          
+          <div className="info-page-image-card-container">
+          <ImageWithCard
+            className="info-page-image-card"
+            cardLayout="hover"
+            cardAlignment="left"
+            src="/images/about/this-is-hds/how-we-work.jpg"
+          >
+            <h2 className="heading-l">How we work?</h2>
+            <p>
+            The Helsinki Design System team is a collaboration of professionals from different consultancies and City of
+            Helsinki employees.{' '}
+            </p>
+          </ImageWithCard>
+        </div>
 
-          <h3 className="heading-l">How we work</h3>
+        <div className="info-page-subcontent">
+          <h3 className="heading-l">Multi-disciplinary collaboration</h3>
           <p>
-            Helsinki Design System -team is a collaboration of professionals from different consultancies and City of
-            Helsinki. City of Helsinki didn't buy ready design system but rather decided to gather the best
-            professionals in the same team. This way City of Helsinki owns and continues to maintain the design system.
-            When the people change, it is important that the processes but also the actual design system are well
-            documented, so that it is possible to transfer the knowledge.
-          </p>
-
+          The City of Helsinki didn't buy a ready design system but instead gathered the best professionals in the same team. This way, the City of Helsinki owns and maintains the design system. When team members change, the processes but also the existing design system must be well documented so that it's possible to transfer the knowledge.
+          </p>                    
           <p>
-            HDS is developed as open source project so anyone can benefit from it. The source code is available in{' '}
+          HDS is developed as an open-source project so that anyone can benefit from it. The source code is available on{' '}
             <Link href="https://github.com/City-of-Helsinki/helsinki-design-system" external size="m">
               {' '}
-              Github{' '}
+              GitHub{' '}
             </Link>
-            free of charge and even the designs are shared for those who are interested. Building open source design
-            system has many valuable points:
+            free of charge, and even the designs are shared for those interested. Building an open-source design system has many valuable points:
           </p>
           <ul>
-            <li>Open source is one way to share the benefits to larger community</li>
+            <li>Open-source is one way to share the benefits to larger community</li>
             <li>
-              Open source projects enables collaboration with other cities and companies as well, allowing contributions
+              Open-source projects enables collaboration with other cities and companies as well, allowing contributions
               from the community
             </li>
-            <li>Open source creates transparency</li>
+            <li>Open-source creates transparency</li>
           </ul>
           <p>
-            A key principle is to pay attention accessibility all the way from the first drafts to the final component.
-            Accessibility specialists audit every component before we release it. (accessibility process image here).
+            A fundamental principle is to pay attention to accessibility from the first drafts to the final component. Accessibility specialists audit every component before we release it.
+          </p>
+          <h4>Accessibility is ensured throughout the process</h4>          
+          <img className="accessibility-chart-m" src="/images/about/accessibility-flowchart-m.svg" alt="A flowchart illustrating the accessibility process" />
+          <img className="accessibility-chart-s" src="/images/about/accessibility-flowchart-s.svg" alt="A flowchart illustrating the accessibility process" />
+          <p>
+            HDS ensures accessibility in every stage of component development. HDS components always meet at least the WCAG 2.1 AA level and often reach the AAA level. HDS components and patterns are tested with the newest NVDA on Windows and VoiceOver on Mac and iOS.{' '}
           </p>
           <p>
-            HDS ensures accessibility in every stage of component development. HDS components always meet at least WCAG
-            2.1 AA level and often also reach the AAA level. HDS components and patterns are tested with the newest NVDA
-            on Windows and the newest VoiceOver on Mac and iOS.{' '}
-          </p>
-          <p>
-            Collaboration and support are built-in in the processes. City of Helsinki has a dedicated slack-channel to
-            handle discussion and requests from the projects across the city organization.
+          Collaboration and support are built-in into the processes. The City of Helsinki has a dedicated slack channel to handle discussions and requests from the projects across the city organization.
           </p>
         </div>
 
@@ -477,12 +474,22 @@ const DemoPage = () => {
           </Card>
 
           <Card
-            className="info-page-data-card"
+            className="info-page-data-card-design"
             border
-            heading="HDS design kit usage"
-            text="Lorem ipsum..."
-            style={{}}
-          />
+            heading="HDS design kit is in heavy use"
+            text="Fifteen most used Sketch symbol categories as of January 2023"
+          >
+            <iframe 
+              className="datawrapper-iframe"
+              title="HDS design kit usage"
+              aria-label="Interactive bar chart"
+              id="datawrapper-chart-WztVi"
+              src="https://datawrapper.dwcdn.net/WztVi/"
+              scrolling="no"
+              frameborder="0"
+              data-external="1"
+              ></iframe>
+          </Card>
 
           <Card
             className="info-page-data-card"

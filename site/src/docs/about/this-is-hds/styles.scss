@@ -90,6 +90,10 @@
   }
 }
 
+.info-page-content h4 {
+  margin: var(--spacing-layout-s) 0 0 0;
+}
+
 .info-page-content p {
   font-weight: 400;
   font-size: var(--fontsize-body-xl);
@@ -124,12 +128,49 @@
   }
 }
 
+.accessibility-chart-m {
+  display: block;
+  max-width: 720px;
+  height: auto;
+
+  @media only screen and (max-width: 768px) {
+    max-width: 564px;
+  }
+
+  @media only screen and (max-width: 576px) {
+    display: none;
+  }
+}
+
+.accessibility-chart-s {
+  display: none;
+
+  @media only screen and (max-width: 575px) {
+    display: block;
+    max-width: 288px;
+    height: auto;
+  }
+}
+
 .info-page-data-card {
   margin-top: var(--spacing-s);
   height: 480px;
 
   @media only screen and (max-width: 414px) {
     height: 578px;
+  }
+}
+
+.info-page-data-card-design {
+  margin-top: var(--spacing-s);
+  height: 552px;
+
+  @media only screen and (max-width: 414px) {
+    height: 596px;
+  }
+
+  @media only screen and (max-width: 320px) {
+    height: 628px;
   }
 }
 
@@ -328,13 +369,14 @@
 }
 
 .grid-box {
-  padding: var(--spacing-l) var(--spacing-l) var(--spacing-m);
+  padding: var(--spacing-m) var(--spacing-m) var(--spacing-m);
+  max-height: 248px;
 }
 
 .timeline {
   .grid-box {
     background: var(--color-silver-light);
-    height: 240px;
+    max-height: 248px;
 
     @include small-screen {
       background: var(--color-coat-of-arms-light);
