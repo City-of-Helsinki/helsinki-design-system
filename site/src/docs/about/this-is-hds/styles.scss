@@ -1,6 +1,20 @@
-@import "~hds-design-tokens/lib/all.scss";
-@import "~hds-design-tokens/lib/typography/all.css";
-@import "../../../components/utils.scss";
+@import '~hds-design-tokens/lib/all.scss';
+@import '~hds-design-tokens/lib/typography/all.css';
+@import '../../../components/utils.scss';
+
+.box-heading {
+  font-size: var(--fontsize-heading-m);
+  font-weight: 500;
+  line-height: var(--line-height-heading-m)
+}
+
+.box-tag {
+  margin-bottom: var(--spacing-s);
+}
+
+.box-text {
+  margin-top: var(--spacing-s);
+}
 
 .info-page-hero-logo {
   width: 100px;
@@ -142,7 +156,7 @@
   margin-top: var(--spacing-layout-m);
 }
 
-.info-page-image-card [class^="ImageWithCard-module_card_"] {
+.info-page-image-card [class^='ImageWithCard-module_card_'] {
   background-color: var(--color-black-10);
   min-height: auto;
   padding: var(--spacing-layout-l);
@@ -158,6 +172,20 @@
     padding: var(--spacing-layout-s);
     margin-top: auto;
   }
+
+}
+
+.info-page-box-grid {
+  --gap: var(--spacing-m);
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-bottom: var(--gap);
+  width: 100%;
+
+/*   @include medium-and-above-screen {
+    grid-template-columns: 49% 49%;
+  } */
 }
 
 .info-page-card-grid {
@@ -226,7 +254,7 @@
     background-size: 64%;
   }
 
-  & [role="heading"] {
+  & [role='heading'] {
     font-size: $fontsize-heading-l;
     line-height: $lineheight-m;
     font-weight: 400;
@@ -238,7 +266,7 @@
     }
   }
 
-  & [role="heading"],
+  & [role='heading'],
   & .info-page-card-grid-link-button {
     @include medium-and-above-screen {
       margin-right: 2rem;
@@ -271,7 +299,7 @@
     background-size: 64%;
   }
 
-  & [role="heading"] {
+  & [role='heading'] {
     font-size: $fontsize-heading-l;
     line-height: $lineheight-m;
     font-weight: 400;
@@ -284,7 +312,7 @@
     }
   }
 
-  & [role="heading"],
+  & [role='heading'],
   & .info-page-card-grid-link-button {
     @include medium-and-above-screen {
       margin-right: 2rem;
@@ -293,5 +321,30 @@
     @include small-medium-and-above-screen {
       max-width: 44%;
     }
+  }
+}
+
+.grid-box {
+  padding: var(--spacing-l) var(--spacing-l) var(--spacing-m);
+}
+
+.timeline {
+  .grid-box {
+    background: var(--color-silver-light);
+    height: 240px;
+  }
+  @include large-screen {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include small-screen {
+    background: var(--color-vaakuna-light);
+    grid-template-columns: 1fr;
+  }
+}
+
+.visions {
+  .grid-box {
+    background: var(--color-coat-of-arms);
+    height: 276px;
   }
 }

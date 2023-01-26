@@ -28,6 +28,12 @@ $breakpoint-medium-above: $breakpoint-m + 1px;
   }
 }
 
+@mixin large-screen {
+  @media (max-width: $breakpoint-l) {
+    @content;
+  }
+}
+
 $breakpoint-x-large-above: $breakpoint-xl + 1px;
 
 @mixin x-large-and-above-screen {
