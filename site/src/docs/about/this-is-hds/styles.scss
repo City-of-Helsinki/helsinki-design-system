@@ -20,15 +20,15 @@
   width: 100px;
   margin-left: 0;
 
-  @include x-large-and-above-screen {
-    margin-left: 0;
-  }
-
-  @include medium-screen {
+  @include small-medium-and-above-screen {
     margin-left: var(--spacing-s);
   }
 
-  @include small-screen {
+  @include medium-and-above-screen {
+    margin-left: var(--spacing-m);
+  }
+
+  @include x-large-and-above-screen {
     margin-left: 0;
   }
 }
