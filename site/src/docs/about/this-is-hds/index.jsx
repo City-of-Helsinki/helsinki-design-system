@@ -81,7 +81,7 @@ const DemoPage = () => {
       <Seo
         title="Helsinki Design System (HDS)"
         pageTitle="Info page"
-        description="Info page for Helsinki Design system"
+        description="Info page for the Helsinki Design System"
       ></Seo>
       <div className="hero-container">
         <div className="hero-wrapper">
@@ -91,8 +91,7 @@ const DemoPage = () => {
               <Logo aria-hidden="true" className="info-page-hero-logo" />
               <h1 className="hero-title info-page-hero-title">Helsinki Design System (HDS)</h1>
               <p className="hero-text">
-                The Helsinki Design System is focused on usability and accessibility and aims to improve the quality and
-                consistency of City of Helsinki digital services – making the user experience better for everyone.
+                The Helsinki Design System focuses on usability and accessibility. It aims to improve the quality and consistency of the City of Helsinki's digital services – making the user experience better for everyone.
               </p>
               <Button
                 variant="primary"
@@ -488,8 +487,7 @@ const DemoPage = () => {
           >
             <h2 className="heading-l">Basic info</h2>
             <p>
-              Below you can find details about the Helsinki Design System in an accessible HDS Table component. This
-              page uses HDS components solely.{' '}
+              Below you can find details about HDS in an accessible HDS Table component. This page also uses other accessible HDS components.{' '}
             </p>
           </ImageWithCard>
         </div>
