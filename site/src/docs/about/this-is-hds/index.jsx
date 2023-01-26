@@ -371,7 +371,7 @@ const DemoPage = () => {
             className="info-page-image-card"
             cardLayout="hover"
             cardAlignment="left"
-            src="/images/about/this-is-hds/how-we-work.jpg"
+            src={withPrefix('/images/about/this-is-hds/how-we-work.jpg')}
           >
             <h2 className="heading-l">How we work?</h2>
             <p>
