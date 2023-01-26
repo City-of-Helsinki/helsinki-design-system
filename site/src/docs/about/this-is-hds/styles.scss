@@ -298,7 +298,7 @@
     min-height: 350px;
   }
 
-  & [role='heading'] {
+  & [role="heading"] {
     font-size: $fontsize-heading-l;
     line-height: $lineheight-m;
     font-weight: 400;
@@ -318,7 +318,7 @@
     }
   }
 
-  & [role='heading'],
+  & [role="heading"],
   & .info-page-card-grid-link-button {
     @include medium-and-above-screen {
       margin-right: 2rem;
@@ -326,7 +326,7 @@
   }
 
   &.info-page-card-grid-item-dark {
-    & [role='heading'] {
+    & [role="heading"] {
       color: var(--color-white);
     }
   }
