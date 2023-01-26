@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Container, ImageWithCard, Koros, Logo, Link, Table } from 'hds-react';
+import { Button, Card, Container, Footer, ImageWithCard, Koros, Logo, Link, Table } from 'hds-react';
 
 import Seo from '../../../components/Seo';
 
@@ -390,6 +390,13 @@ const DemoPage = () => {
           </div>
         </div>
       </Container>
+      <Footer id="page-footer" className="page-footer" title="Helsinki Design System">
+        <Footer.Base copyrightHolder="Copyright">
+          <Footer.Item label="Contribution" href={withPrefix('/getting-started/contributing/before-contributing')} />
+          <Footer.Item label="Accessibility" href={withPrefix('/about/accessibility/statement')} />
+          <Footer.Item label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />
+        </Footer.Base>
+      </Footer>
     </>
   );
 };
