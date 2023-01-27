@@ -18,7 +18,7 @@ export type FooterNavigationProps = React.PropsWithChildren<{
 }>;
 
 export const FooterNavigation = ({ children, ariaLabel }: FooterNavigationProps) => {
-  const isSmallerThanLargeScreen = useMediaQueryLessThan('l');
+  const shouldRenderOnlyMainLinks = useMediaQueryLessThan('l');
   const groups = getChildElementsEvenIfContainerInbetween(children).filter(
     (child) => (child.type as FCWithName).componentName === 'FooterNavigationGroup',
   );
@@ -26,10 +26,10 @@ export const FooterNavigation = ({ children, ariaLabel }: FooterNavigationProps)
 
   return (
     <nav
-      className={classNames(styles.navigation, hasGroups && !isSmallerThanLargeScreen && styles.sitemap)}
+      className={classNames(styles.navigation, hasGroups && !shouldRenderOnlyMainLinks && styles.sitemap)}
       aria-label={ariaLabel}
     >
-      {hasGroups && !isSmallerThanLargeScreen && (
+      {hasGroups && !shouldRenderOnlyMainLinks && (
         <div className={styles.groups}>
           {Children.map(groups, (child, index) => {
             return cloneElement(child, {
@@ -39,7 +39,7 @@ export const FooterNavigation = ({ children, ariaLabel }: FooterNavigationProps)
         </div>
       )}
       {hasGroups &&
-        isSmallerThanLargeScreen &&
+        shouldRenderOnlyMainLinks &&
         Children.map(groups, (group, index) => {
           return cloneElement(group.props.children[0], {
             key: index,

@@ -13,10 +13,13 @@ import { FooterBase } from './footerBase/FooterBase';
 import { FooterCustom } from './footerCustom/FooterCustom';
 
 const footerNavAriaLabel = 'Footer navigation items';
+const footerCustomAriaLabel = 'Custom area';
+const footerUtilityAriaLabel = 'Utility links';
+const footerBaseAriaLabel = 'Copyright information';
 const createArray = (length: number): number[] => Array.from({ length }, (value, index) => index);
 
 const Utilities = () => (
-  <Footer.Utilities>
+  <Footer.Utilities ariaLabel={footerUtilityAriaLabel}>
     <Footer.SoMe>
       <Footer.NavigationLink
         title="Link to Facebook"
@@ -64,7 +67,12 @@ const Utilities = () => (
 );
 
 const Base = () => (
-  <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Back to top">
+  <Footer.Base
+    copyrightHolder="Copyright"
+    copyrightText="All rights reserved"
+    backToTopLabel="Back to top"
+    ariaLabel={footerBaseAriaLabel}
+  >
     {createArray(5).map((index) => (
       <Footer.NavigationLink
         key={index}
@@ -106,7 +114,7 @@ export default {
 
 export const Default = (args) => (
   <Footer {...args}>
-    <Footer.Navigation navigationAriaLabel={footerNavAriaLabel}>
+    <Footer.Navigation ariaLabel={footerNavAriaLabel}>
       {createArray(8).map((index) => (
         <Footer.NavigationLink
           key={index}
@@ -131,7 +139,7 @@ NoNav.storyName = 'No navigation';
 
 export const CustomTheme = (args) => (
   <Footer {...args}>
-    <Footer.Navigation navigationAriaLabel={footerNavAriaLabel}>
+    <Footer.Navigation ariaLabel={footerNavAriaLabel}>
       {createArray(8).map((index) => (
         <Footer.NavigationLink
           key={index}
@@ -164,7 +172,7 @@ CustomTheme.argTypes = {
 
 export const Sitemap = (args) => (
   <Footer {...args}>
-    <Footer.Navigation navigationAriaLabel={footerNavAriaLabel}>
+    <Footer.Navigation ariaLabel={footerNavAriaLabel}>
       {createArray(4).map((index) => (
         <Footer.NavigationGroup key={index}>
           <Footer.NavigationHeading href="https://google.com" onClick={(e) => e.preventDefault()} label="Main Page" />
@@ -188,7 +196,7 @@ export const Sitemap = (args) => (
 
 export const Example = (args) => (
   <Footer footerProps={{ lang: 'fi' }} {...args}>
-    <Footer.Navigation navigationAriaLabel="Nostoja palveluista">
+    <Footer.Navigation ariaLabel="Nostoja palveluista">
       <Footer.NavigationLink href="https://asiointi.hel.fi/wps/portal/login?locale=fi" label="Sähköinen asiointi" />
       <Footer.NavigationLink href="https://palvelukartta.hel.fi/" label="Palvelut kartalla" />
       <Footer.NavigationLink href="https://hel.fi/yritystenhelsinki" label="Yritysten Helsinki" />
@@ -197,7 +205,7 @@ export const Example = (args) => (
       <Footer.NavigationLink href="https://helmet.fi/" label="Kirjastot verkossa" />
       <Footer.NavigationLink href="https://reittiopas.fi/" label="Reittiopas" />
     </Footer.Navigation>
-    <Footer.Utilities>
+    <Footer.Utilities ariaLabel={footerUtilityAriaLabel}>
       <Footer.SoMe soMeSectionProps={{ 'aria-label': 'Helsinki sosiaalisessa mediassa' }}>
         <Footer.NavigationLink
           title="Helsingin kaupungin Facebook-tili"
@@ -244,6 +252,7 @@ export const Example = (args) => (
       copyrightHolder="Helsingin kaupunki"
       copyrightText="Kaikki oikeudet pidetään"
       backToTopLabel="Sivun alkuun"
+      ariaLabel={footerBaseAriaLabel}
     >
       <Footer.NavigationLink
         href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/tietoa-hel-fista/"
@@ -268,7 +277,7 @@ export const UtilityGroups = (args) => (
       <Footer.NavigationLink href="https://helmet.fi/" label="Kirjastot verkossa" />
       <Footer.NavigationLink href="https://reittiopas.fi/" label="Reittiopas" />
     </Footer.Navigation>
-    <Footer.Utilities>
+    <Footer.Utilities ariaLabel={footerUtilityAriaLabel}>
       {createArray(3).map((index) => (
         <Footer.UtilityGroup key={index}>
           <Footer.NavigationHeading href="https://google.com" onClick={(e) => e.preventDefault()} label="Main Page" />
@@ -320,6 +329,7 @@ export const UtilityGroups = (args) => (
       copyrightHolder="Helsingin kaupunki"
       copyrightText="Kaikki oikeudet pidetään"
       backToTopLabel="Sivun alkuun"
+      ariaLabel={footerBaseAriaLabel}
     >
       <Footer.NavigationLink
         href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/tietoa-hel-fista/"
@@ -346,7 +356,7 @@ export const CustomSection = (args) => (
       ))}
     </Footer.Navigation>
     <Utilities />
-    <Footer.Custom>
+    <Footer.Custom ariaLabel={footerCustomAriaLabel}>
       <Footer.NavigationHeading label="Partners" id="partners" />
       <div aria-label="partners" style={{ display: 'flex', flexDirection: 'row', gap: '24px', marginTop: '8px' }}>
         <Footer.NavigationLink href="www.google.com" label="Partner 1" />

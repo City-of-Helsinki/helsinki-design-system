@@ -5,15 +5,15 @@
 }
 
 .navigationGroupList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3-xs);
+  justify-items: start;
   list-style: none;
   margin: 0;
-  padding: 0;
-  display: flex;
-  gap: var(--spacing-3-xs);
-  flex-direction: column;
-  justify-items: start;
-  width: 137px;
   margin-right: var(--spacing-m);
+  padding: 0;
+  width: 137px;
 }
 
 @media x-large-up {

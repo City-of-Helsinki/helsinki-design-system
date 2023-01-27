@@ -1,5 +1,8 @@
 export type FooterTheme = 'light' | 'dark' | FooterCustomTheme;
 
+/**
+ * Internally used enum for giving proper styles for shared footer components.
+ */
 export enum FooterVariant {
   Base = 'base',
   Navigation = 'navigation',

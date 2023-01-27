@@ -12,6 +12,10 @@ import { FooterNavigationLink } from '../footerNavigationLink/FooterNavigationLi
 
 export type FooterBaseProps = React.PropsWithChildren<{
   /**
+   * Description of the base section for screen readers.
+   */
+  ariaLabel?: string;
+  /**
    * Label for the "Back to top" button
    */
   backToTopLabel?: string | React.ReactNode;
