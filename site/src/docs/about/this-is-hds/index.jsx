@@ -41,7 +41,7 @@ const TableBasicInfo = () => {
     { id: 'client', about: 'City of Helsinki' },
     {
       id: 'companies',
-      about: ' Futurice, Gofore, HiQ, Kodan, Nitor, SiteImprove, Solita, Suomen Ohjelmistokehitys OSK, Unicus ',
+      about: ' Gofore, HiQ, Kodan, Nitor, SiteImprove, Solita, Suomen Ohjelmistokehitys OSK, Unicus ',
     },
     { id: 'competition', about: 'Best Design System' },
     { id: 'tech', about: 'React, html+css (core)' },
