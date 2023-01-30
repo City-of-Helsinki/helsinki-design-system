@@ -24,12 +24,12 @@ export type HeaderNavigationMenuProps = React.PropsWithChildren<{
 }>;
 
 export const HeaderNavigationMenu = ({ ariaLabel, children, id }: HeaderNavigationMenuProps) => {
-  const { isSmallScreen } = useContext(HeaderContext);
+  const { isMediumScreen } = useContext(HeaderContext);
   const [openIndex, setOpenIndex] = useState<number>(-1);
-  /* On small screen return null for now. Later when ActionBar's first version is done,
-  we could see if this component with its contents (altered for small screens) could be 
+  /* On medium screen return null for now. Later when ActionBar's first version is done,
+  we could see if this component with its contents (altered for medium screens) could be 
   sent to HeaderContext and used in ActionBar? */
-  if (isSmallScreen) return null;
+  if (isMediumScreen) return null;
   const childElements = getChildElementsEvenIfContainerInbetween(children);
   const context: HeaderNavigationMenuContextProps = { openMainNavIndex: openIndex, setOpenMainNavIndex: setOpenIndex };
 
