@@ -1,1 +1,3 @@
-export default (...args) => args.filter((e) => e).join(' ');
+import classNames from 'classnames';
+
+export default classNames;

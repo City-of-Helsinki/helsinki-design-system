@@ -33,7 +33,13 @@
     padding: 10px var(--spacing-s) 14px var(--spacing-s);
   }
 
-  .activeLink:before {
+  .dropdownLink:focus {
+    border-color: transparent;
+    outline: 3px solid var(--color-coat-of-arms);
+    outline-offset: -3px;
+  }
+
+  .activeLink::before {
     border-left: 4px solid var(--color-black);
     padding-left: var(--spacing-xs);
   }
@@ -59,6 +65,7 @@
   right: calc(100% + 2px);
   top: -1px;
 }
+
 .right {
   left: calc(100% + 2px);
   right: auto;
@@ -81,8 +88,7 @@
 }
 
 .button:focus {
-  border: 3px solid var(--color-coat-of-arms);
+  outline: 3px solid var(--color-coat-of-arms);
+  outline-offset: -3px;
   margin: 0;
-  outline: none;
-  padding: 0;
 }

@@ -36,6 +36,8 @@ export type NavigationLinkDropdownProps = React.PropsWithChildren<{
    * Function that is called when open value is changed.
    */
   setOpen: (isOpen: boolean, interaction: NavigationLinkInteraction) => void;
+
+  depth: number;
 }>;
 
 export const NavigationLinkDropdown = ({
@@ -45,6 +47,7 @@ export const NavigationLinkDropdown = ({
   index,
   open,
   setOpen,
+  depth = 0,
 }: NavigationLinkDropdownProps) => {
   // State for which nested dropdown link is open
   const [openSubNavIndex, setOpenSubNavIndex] = useState<number>(-1);
@@ -83,6 +86,7 @@ export const NavigationLinkDropdown = ({
                     index: childIndex,
                     openSubNavIndex,
                     setOpenSubNavIndex,
+                    depth,
                     className: child.props.active
                       ? classNames(styles.dropdownLink, styles.activeLink)
                       : styles.dropdownLink,

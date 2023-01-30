@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { LanguageType, useActiveLanguage, useSetLanguage } from '../../../../context/languageContext';
+import {
+  LanguageOption,
+  useActiveLanguage,
+  useSetAvailableLanguages,
+  useSetLanguage,
+} from '../../../../context/languageContext';
 import classNames from '../../../../utils/classNames';
 import styles from './NavigationLanguageSelector.module.scss';
 
-export type LanguageOption = {
-  label: string;
-  value: LanguageType;
-};
-
 export const NavigationLanguageSelector = ({ languages }: { languages: LanguageOption[] }) => {
   const activeLanguage = useActiveLanguage();
+  const setAvailableLanguages = useSetAvailableLanguages();
   const setLanguage = useSetLanguage();
+
+  useEffect(() => {
+    setAvailableLanguages(languages);
+  }, [languages]);
 
   return (
     <div className={styles.languageSelector}>

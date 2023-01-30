@@ -1,3 +1,4 @@
+@import "../../../../styles/common";
 
 .headerNavigationMenu {
   max-height: 0;
@@ -29,11 +30,22 @@
   position: relative;
   margin: 0;
   padding: 0;
-  border: none;
   border-bottom: 1px solid var(--color-black-20);
   height: var(--action-bar-dropdown-menu-primary-item-height);
   line-height: var(--action-bar-dropdown-menu-primary-item-height);
+  box-sizing: border-box;
+
+  &:not(:focus) {
+    border-color: transparent;
+  }
+
+  &:focus {
+    outline: 3px solid var(--color-coat-of-arms);
+    outline-offset: -3px;
+    border-color: transparent;
+  }
 }
+
 
 .headerNavigationMenuDropdown {
   position: relative;

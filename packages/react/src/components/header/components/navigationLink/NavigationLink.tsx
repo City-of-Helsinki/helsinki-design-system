@@ -12,6 +12,25 @@ import { NavigationLinkDropdown, NavigationLinkInteraction, DropdownMenuPosition
 import { HeaderNavigationMenuContext } from '../headerNavigationMenu/HeaderNavigationMenuContext';
 import { DropdownDirection } from './types';
 
+export type LinkProps = {
+  /**
+   * Indicator for active link. This is used in HeaderNavigationMenu.
+   */
+  active?: boolean;
+  /**
+   * Additional class names to apply.
+   */
+  className?: string;
+  /**
+   * Hypertext Reference of the link.
+   */
+  href: string;
+  /**
+   * Label for link.
+   */
+  label: string;
+};
+
 export type NavigationLinkProps = Omit<
   React.ComponentPropsWithoutRef<'a'>,
   'target' | 'href' | 'onPointerEnterCapture' | 'onPointerLeaveCapture' | 'aria-label'
@@ -21,7 +40,7 @@ export type NavigationLinkProps = Omit<
    */
   active?: boolean;
   /**
-   * Additional class names to apply.
+   * Additional class names to apply for the link element.
    */
   className?: string;
   wrapperClassName?: string;
@@ -39,7 +58,7 @@ export type NavigationLinkProps = Omit<
   /**
    * Hypertext Reference of the link.
    */
-  href: string;
+  href?: string;
   /**
    * Element index given by parent mapping.
    * @internal
@@ -59,6 +78,19 @@ export type NavigationLinkProps = Omit<
    * @internal
    */
   setOpenSubNavIndex?: (val: number) => void;
+
+  depth?: number;
+};
+
+const getLinkComponent = ({ href, label, className, active, ...rest }: NavigationLinkProps) => {
+  const props = {
+    className: classNames(styles.navigationLink, className, active && styles.active),
+    active: active ? true : undefined,
+    href: href || '#',
+    ...rest,
+  };
+
+  return <Link {...props}>{label}</Link>;
 };
 
 export const NavigationLink = ({
@@ -74,6 +106,7 @@ export const NavigationLink = ({
   label,
   openSubNavIndex,
   setOpenSubNavIndex,
+  depth = 0,
   ...rest
 }: NavigationLinkProps) => {
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
@@ -159,32 +192,43 @@ export const NavigationLink = ({
     return () => document.removeEventListener('click', handleOutsideClick);
   }, [isDropdownOpen]);
 
+  const onMouseEnter =
+    dropdownLinks &&
+    dropdownOpenedBy !== NavigationLinkInteraction.Click &&
+    (() => handleDropdownOpen(true, NavigationLinkInteraction.Hover));
+
+  const linkProps = {
+    active,
+    className,
+    href,
+    label,
+    onMouseEnter,
+    ...rest,
+  };
+
+  const navigationLinkClassName = classNames(
+    'hds-navigation-link',
+    styles.navigationLinkWrapper,
+    wrapperClassName,
+    `nav-depth-${depth}`,
+  );
+
   return (
     <span
-      className={classNames(styles.navigationLinkWrapper, wrapperClassName)}
+      className={navigationLinkClassName}
       {...(dropdownLinks &&
         dropdownOpenedBy === NavigationLinkInteraction.Hover && {
           onMouseLeave: () => handleDropdownOpen(false),
         })}
       ref={containerRef}
     >
-      <Link
-        className={classNames(styles.navigationLink, className, active ? styles.active : undefined)}
-        href={href}
-        {...rest}
-        {...(active && { active: 'true' })}
-        {...(dropdownLinks &&
-          dropdownOpenedBy !== NavigationLinkInteraction.Click && {
-            onMouseEnter: () => handleDropdownOpen(true, NavigationLinkInteraction.Hover),
-          })}
-      >
-        {label}
-      </Link>
+      {getLinkComponent(linkProps)}
       {dropdownLinks && (
         <NavigationLinkDropdown
           open={isDropdownOpen}
           setOpen={handleDropdownOpen}
           index={index}
+          depth={depth + 1}
           className={dropdownClassName}
           dynamicPosition={dynamicPosition}
         >

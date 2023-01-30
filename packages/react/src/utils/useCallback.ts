@@ -1,4 +1,4 @@
-import { KeyboardEventHandler, useCallback } from 'react';
+import { EventHandler, KeyboardEventHandler, useCallback } from 'react';
 
 export const useEnterOrSpacePressCallback = (callback: KeyboardEventHandler) => {
   const handler: KeyboardEventHandler = (event) => {
@@ -16,3 +16,9 @@ export const useCallbackIfDefined = (callback) => {
 
   return useCallback(handler, [callback]);
 };
+
+export const withDefaultPrevented = (callback: EventHandler<never>) =>
+  function patchedCallback(event) {
+    event.preventDefault();
+    return callback.call(this, event);
+  };

@@ -5,9 +5,8 @@ import styles from './HeaderActionBar.module.scss';
 import { Logo } from '../../../logo';
 import { useActiveLanguage } from '../../../../context/languageContext';
 import { HeaderActionBarNavigationMenu } from './HeaderActionBarNavigationMenu';
-import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
-import { IconCross, IconMenuHamburger } from '../../../../icons';
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';
+import { HeaderActionBarMenuItem } from './HeaderActionBarItem';
 
 export type HeaderActionBarProps = PropsWithChildren<{
   /**
@@ -46,36 +45,15 @@ export type HeaderActionBarProps = PropsWithChildren<{
   titleUrl?: string;
 }>;
 
-export type HeaderActionBarMenuButtonProps = {
-  ariaLabel?: string;
-  onClick?: EventHandler<MouseEvent>;
-};
-
-const HeaderActionBarMenuButton = ({ ariaLabel, onClick }: HeaderActionBarMenuButtonProps) => {
-  const { hasNavigationContent, mobileMenuOpen, isSmallScreen } = useHeaderContext();
-  const { setMobileMenuOpen } = useSetHeaderContext();
-  const Icon = mobileMenuOpen ? IconCross : IconMenuHamburger;
-  const aria = {
-    'aria-label': ariaLabel,
-    'aria-haspopup': true,
-    'aria-expanded': mobileMenuOpen,
-  };
-  if (mobileMenuOpen) aria['aria-controls'] = 'hds-mobile-menu';
-
-  const handleClick = (event) => {
-    if (typeof onClick === 'function') onClick(event);
-    else setMobileMenuOpen(!mobileMenuOpen);
-  };
-
-  if (!hasNavigationContent || !isSmallScreen) return null;
+const TitleLogoArea = ({ title }) => {
+  const language = useActiveLanguage();
+  const logoLanguage = language === 'sv' ? 'sv' : 'fi';
 
   return (
-    <button {...aria} type="button" className={styles.actionItem} onClick={handleClick}>
-      <span className={styles.actionItemIcon}>
-        <Icon aria-hidden />
-      </span>
-      <span className={styles.actionItemTitle}>Menu</span>
-    </button>
+    <>
+      <Logo className={styles.logo} language={logoLanguage} aria-hidden />
+      {title && <span className={styles.title}>{title}</span>}
+    </>
   );
 };
 
@@ -88,20 +66,9 @@ export const HeaderActionBar = ({
   onMenuButtonClick,
   children,
 }: HeaderActionBarProps) => {
-  const language = useActiveLanguage();
   const handleClick = useCallbackIfDefined(onTitleClick);
   const handleKeyPress = useEnterOrSpacePressCallback(onTitleClick);
-  const logoLanguage = language === 'sv' ? 'sv' : 'fi';
   const isTitleLink = titleUrl || onTitleClick;
-
-  const renderLogoAndTitle = () => {
-    return (
-      <>
-        <Logo className={styles.logo} language={logoLanguage} aria-hidden />
-        {title && <span className={styles.title}>{title}</span>}
-      </>
-    );
-  };
 
   return (
     <>
@@ -114,7 +81,7 @@ export const HeaderActionBar = ({
             onKeyPress={handleKeyPress}
             onClick={handleClick}
           >
-            {renderLogoAndTitle()}
+            <TitleLogoArea title={title} />
           </a>
         ) : (
           <div
@@ -122,12 +89,12 @@ export const HeaderActionBar = ({
             aria-label={titleAriaLabel}
             role={titleAriaLabel ? 'img' : null}
           >
-            {renderLogoAndTitle()}
+            <TitleLogoArea title={title} />
           </div>
         )}
         <div className={styles.headerActions}>
           {children}
-          <HeaderActionBarMenuButton ariaLabel={menuButtonAriaLabel} onClick={onMenuButtonClick} />
+          <HeaderActionBarMenuItem ariaLabel={menuButtonAriaLabel} onClick={onMenuButtonClick} />
         </div>
       </div>
       <HeaderActionBarNavigationMenu />
