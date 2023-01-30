@@ -36,6 +36,7 @@ module.exports = {
     reactDocgenTypescriptOptions: {
       compilerOptions: {
         allowSyntheticDefaultImports: true,
+        esModuleInterop: false
       },
     }
   }
