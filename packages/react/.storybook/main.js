@@ -31,4 +31,12 @@ module.exports = {
       plugins: config.resolve.plugins.filter((plugin) => plugin.constructor.name !== 'ModuleScopePlugin'),
     },
   }),
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      compilerOptions: {
+        allowSyntheticDefaultImports: true,
+      },
+    }
+  }
 };
