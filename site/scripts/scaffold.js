@@ -77,6 +77,8 @@ const scaffold = async () => {
 
   appendToComponentsData(name, pathName);
 
+  logStep(`${chalk.bold(`${name} component included in components.json.`)}`);
+
   logStep(
     `${chalk.bold(`Scaffolding done.`)} Run ${chalk.yellow.italic('yarn start')} to see your component!`,
   );
