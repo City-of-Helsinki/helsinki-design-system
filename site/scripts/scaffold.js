@@ -53,14 +53,15 @@ const appendToComponentsData = (name, pathName) => {
     }
   }
 
-  const json = fs.readFileSync(path.resolve(__dirname, '../src/data/components.json'), 'utf-8');
+  const dataPath = path.resolve(__dirname, '../src/data/components.json');
+  const json = fs.readFileSync(dataPath, 'utf-8');
   const newJson = JSON.parse(json);
 
   newJson.push(newDataObject);
 
   const sortData = newJson.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
 
-  fs.writeFileSync(path.resolve(__dirname, '../src/data/components.json'), JSON.stringify(sortData))
+  fs.writeFileSync(dataPath, JSON.stringify(sortData))
 }
 
 const scaffold = async () => {
