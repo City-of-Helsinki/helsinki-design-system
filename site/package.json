@@ -38,10 +38,12 @@
     "sass": "^1.49.9"
   },
   "devDependencies": {
+    "chalk": "4.0.0",
     "eslint-config-react-app": "^7.0.1",
     "hds-core": "2.10.0",
     "hds-design-tokens": "2.10.0",
     "hds-react": "2.10.0",
+    "inquirer": "7.1.0",
     "postcss": "8",
     "prettier": "2.5.1",
     "stylelint": "^14.8.3",
@@ -68,7 +70,8 @@
     "link-core": "rm -rf node_modules/hds-core/lib/* && cp -r ../packages/core/lib/* node_modules/hds-core/lib/",
     "lint:js": "eslint . --ext js",
     "lint:scss": "stylelint \"**/*.scss\"",
-    "lint": "yarn lint:js && yarn lint:scss"
+    "lint": "yarn lint:js && yarn lint:scss",
+    "scaffold": "node scripts/scaffold.js"
   },
   "repository": {
     "type": "git",
