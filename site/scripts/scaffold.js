@@ -20,7 +20,7 @@ const createFolder = (path) => {
   return path;
 };
 
-const createComponentFiles = (templatePath, destination, name) => {
+const createComponentFiles = (templatePath, destination, name, pathName) => {
   const files = fs.readdirSync(templatePath);
 
   const newFiles = files.map((file) => {
@@ -28,7 +28,7 @@ const createComponentFiles = (templatePath, destination, name) => {
     const targetPath = `${destination}/${file}`
 
 
-    const data = fs.readFileSync(sourcePath, 'utf-8').split('{newComponent}').join(name);
+    const data = fs.readFileSync(sourcePath, 'utf-8').split('{newComponentPathName}').join(pathName).split('{newComponent}').join(name);
 
     fs.writeFileSync(targetPath, data);
 
@@ -58,7 +58,9 @@ const appendToComponentsData = (name, pathName) => {
 
   newJson.push(newDataObject);
 
-  fs.writeFileSync(path.resolve(__dirname, '../src/data/components.json'), JSON.stringify(newJson))
+  const sortData = newJson.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
+
+  fs.writeFileSync(path.resolve(__dirname, '../src/data/components.json'), JSON.stringify(sortData))
 }
 
 const scaffold = async () => {
@@ -70,7 +72,7 @@ const scaffold = async () => {
   const path = createFolder(`src/docs/components/${pathName}`)
   logStep(`${chalk.bold(`Created folder:`)}\n\t${chalk.italic(path)}`);
 
-  const files = createComponentFiles('.templates/new-component/', path, name)
+  const files = createComponentFiles('.templates/new-component/', path, name, pathName)
   logStep(`${chalk.bold(`Created files:`)}\n\t${chalk.italic(files.join('\n\t'))}`);
 
   appendToComponentsData(name, pathName);
