@@ -1,4 +1,5 @@
 @import "../../../../styles/common";
+@import "../../../../styles/typography";
 @value small-down from "../../../../styles/breakpoints.css";
 
 .headerActionBar {
@@ -48,6 +49,8 @@
   }
 
   @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius), calc(-1 * var(--header-focus-outline-width)));
+
+
 }
 
 .title {
@@ -56,6 +59,26 @@
   letter-spacing: 0.4px;
   font-weight: bold;
   margin-top: -2px;
+
+  .normal > & {
+    @include title-normal;
+  }
+  .bold > & {
+    @include title-bold;
+  }
+  .black > & {
+    @include title-black;
+  }
+}
+
+.normal {
+  @include title-normal;
+}
+.bold {
+  @include title-bold;
+}
+.black {
+  @include title-black;
 }
 
 .logo {

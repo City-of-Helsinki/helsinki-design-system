@@ -1,0 +1,84 @@
+@import './layout';
+
+@mixin title-base {
+  font-family: HelsinkiGrotesk;
+}
+
+
+@mixin title-large-normal {
+  font-size: var(--fontsize-heading-m);
+  font-weight: 500;
+  line-height: 32px;
+  letter-spacing: -0.2px;
+}
+@mixin title-large-bold {
+  font-size: var(--fontsize-heading-m);
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: -0.2px;
+}
+@mixin title-large-black {
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: 32px;
+  letter-spacing: -0.2px;
+}
+
+@mixin title-medium-normal {
+  font-size: var(--fontsize-heading-s);
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+}
+@mixin title-medium-bold {
+  font-size: var(--fontsize-heading-s);
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+}
+@mixin title-medium-black {
+  font-size: var(--fontsize-heading-m);
+  font-weight: 900;
+  line-height: 32px;
+  letter-spacing: -0.2px;
+}
+
+@mixin title-small-normal {
+  font-size: var(--fontsize-body-s);
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.1px;
+}
+@mixin title-small-bold {
+  font-size: var(--fontsize-body-s);
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: -0.1px;
+}
+@mixin title-small-black {
+  font-size: var(--fontsize-heading-xxs);
+  font-weight: 900;
+  line-height: 20px;
+  letter-spacing: -0.1px;
+}
+
+@mixin title-normal {
+  @include title-base;
+  @include title-large-normal;
+  @include respond-below($breakpoint-l) { @include title-medium-normal }
+  @include respond-below($breakpoint-m) { @include title-small-normal }
+}
+
+@mixin title-bold {
+  @include title-base;
+  @include title-large-bold;
+  @include respond-below($breakpoint-l) { @include title-medium-bold }
+  @include respond-below($breakpoint-m) { @include title-small-bold }
+}
+
+@mixin title-black {
+  @include title-base;
+  @include title-large-black;
+  @include respond-below($breakpoint-l) { @include title-medium-black }
+  @include respond-below($breakpoint-m) { @include title-small-black }
+}

@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 
 import { Header } from './Header';
 import { HeaderUniversalBar } from './components/headerUniversalBar/HeaderUniversalBar';
-import { HeaderActionBar } from './components/headerActionBar/HeaderActionBar';
+import { HeaderActionBar, TitleStyleType } from './components/headerActionBar/HeaderActionBar';
 import { NavigationLink } from './components/navigationLink/NavigationLink';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { StoryWIPAlert } from '../../internal/storyWIPAlert/StoryWIPAlert';
@@ -49,7 +49,12 @@ export const WithFullFeatures = (args) => (
         <Header.NavigationLink href="#" label="Link 3" />
       </Header.UniversalBar>
 
-      <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleUrl="https://hel.fi">
+      <Header.ActionBar
+        title="Helsingin kaupunki"
+        titleAriaLabel="Helsingin kaupunki"
+        titleUrl="https://hel.fi"
+        titleStyle={TitleStyleType.black}
+      >
         <Header.NavigationLanguageSelector languages={languages} onDidChangeLanguage={action('language:onChange')} />
         <Header.ActionButtonWithDropdown label="More" icon={IconGlobe} id="action-bar-globe">
           <p>Muita valintoja...</p>
@@ -234,7 +239,12 @@ export const WithNavigationMenu = (args) => (
 export const WithActionBar = (args) => {
   return (
     <Header {...args}>
-      <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleUrl="https://hel.fi">
+      <Header.ActionBar
+        title="Helsingin kaupunki"
+        titleAriaLabel="Helsingin kaupunki"
+        titleUrl="https://hel.fi"
+        titleStyle={TitleStyleType.black}
+      >
         <Header.NavigationLanguageSelector languages={languages} onDidChangeLanguage={action('language:onChange')} />
         <Header.ActionButtonWithDropdown label="Kirjaudu" icon={IconUser} style={{ order: 10 }} id="action-bar-login">
           <h3>Kirjautumisvalinnat</h3>

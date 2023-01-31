@@ -3,14 +3,13 @@ import React, { ButtonHTMLAttributes, EventHandler, MouseEvent } from 'react';
 import classNames from '../../../../utils/classNames';
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import { IconCross, IconMenuHamburger } from '../../../../icons';
-import { useMediaQueryLessThan } from '../../../../hooks/useMediaQuery';
 
+export type ButtonAttributes = ButtonHTMLAttributes<HTMLButtonElement>;
 export type HeaderActionBarMenuButtonProps = {
   ariaLabel?: string;
   onClick?: EventHandler<MouseEvent>;
 };
-
-export interface HeaderActionBarItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface HeaderActionBarItemProps extends ButtonAttributes {
   icon?: React.ElementType;
   label?: string;
 }
@@ -41,8 +40,7 @@ export const IconButton = ({
 };
 
 export const HeaderActionBarMenuItem = ({ ariaLabel, onClick }: HeaderActionBarMenuButtonProps) => {
-  const { hasNavigationContent, mobileMenuOpen } = useHeaderContext();
-  const isSmallScreen = useMediaQueryLessThan('s');
+  const { hasNavigationContent, mobileMenuOpen, isSmallScreen } = useHeaderContext();
   const { setMobileMenuOpen } = useSetHeaderContext();
   const Icon = mobileMenuOpen ? IconCross : IconMenuHamburger;
   const aria = {
