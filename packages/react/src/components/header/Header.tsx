@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-import classNames from '../../utils/classNames';
 import { HeaderContextProvider } from './HeaderContext';
 import { HeaderUniversalBar } from './components/headerUniversalBar';
 import { HeaderActionBar } from './components/headerActionBar';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { NavigationLink } from './components/navigationLink';
+import { WithDropdown } from './components/withDropdown';
+import { NavigationLanguageSelector } from './components/navigationLanguageSelector';
+import { NavigationSearch } from './components/navigationSearch';
 import { LanguageProvider } from '../../context/languageContext';
+import { useMediaQueryGreaterThan } from '../../hooks/useMediaQuery';
+import classNames from '../../utils/classNames';
+
 // Styles
 import 'hds-core';
 import './Header.scss';
 import styles from './Header.module.scss';
-import { useMediaQueryGreaterThan } from '../../hooks/useMediaQuery';
 
-export type HeaderProps = React.PropsWithChildren<{
+export type HeaderProps = PropsWithChildren<{
   /**
    * Additional class names to apply to the header.
    */
@@ -45,3 +49,6 @@ Header.UniversalBar = HeaderUniversalBar;
 Header.ActionBar = HeaderActionBar;
 Header.NavigationMenu = HeaderNavigationMenu;
 Header.NavigationLink = NavigationLink;
+Header.ActionButtonWithDropdown = WithDropdown;
+Header.NavigationLanguageSelector = NavigationLanguageSelector;
+Header.NavigationSearch = NavigationSearch;

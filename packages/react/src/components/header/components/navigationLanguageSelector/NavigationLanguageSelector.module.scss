@@ -13,7 +13,7 @@
   line-height: var(--lineheight-l);
   white-space: nowrap;
 
-  @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius));
+  @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius), calc(-1 * var(--header-focus-outline-width)));
 }
 
 .activeItem {

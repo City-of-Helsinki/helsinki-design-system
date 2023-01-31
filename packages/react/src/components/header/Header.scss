@@ -49,7 +49,7 @@
         border: none;
       }
 
-      @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius));
+      @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius), calc(-1 * var(--header-focus-outline-width)));
     }
   }
 
@@ -60,17 +60,16 @@
     appearance: none;
     border: none;
     background: transparent;
-
-
     cursor: pointer;
 
-    @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius));
+    @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius), calc(-1 * var(--header-focus-outline-width)));
 
     .icon {
       display: block;
       width: var(--icon-size);
       height: var(--icon-size);
       margin: 0 auto;
+      padding: 0 8px;
 
       & > svg {
         display: block;
@@ -87,5 +86,4 @@
       color: var(--action-item-title-font-color);
     }
   }
-
 }

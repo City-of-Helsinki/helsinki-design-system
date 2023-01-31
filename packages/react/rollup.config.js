@@ -3,7 +3,7 @@ import fs from 'fs';
 
 import includePaths from 'rollup-plugin-includepaths';
 import resolve from '@rollup/plugin-node-resolve';
-import ts from '@wessberg/rollup-plugin-ts';
+import ts from 'rollup-plugin-ts';
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
@@ -74,52 +74,59 @@ const external = [
 
 const getExternal = (format) => (format === 'esm' ? [...external, /@babel\/runtime/] : external);
 
-const getConfig = (format, extractCSS) => ({
-  plugins: [
-    includePaths({ paths: ['src'], extensions }),
-    resolve(),
-    ts(),
-    format === 'esm' &&
-      babel({
-        babelHelpers: 'runtime',
-        exclude: 'node_modules/**',
-        extensions,
+const getConfig = (format, extractCSS) => {
+  const babelPlugin = babel({
+    babelHelpers: 'runtime',
+    exclude: 'node_modules/**',
+    extensions,
+  });
+
+  const postcssConfig = {
+    modules: true,
+    use: ['sass'],
+    minimize: {
+      preset: [
+        'default',
+        {
+          calc: false,
+          discardUnused: true,
+          mergeIdents: true,
+          reduceIdents: true,
+        },
+      ],
+    },
+  };
+
+  if (extractCSS) {
+    // @ts-ignore
+    postcssConfig.extract = 'index.css';
+  }
+
+  return {
+    plugins: [
+      includePaths({ paths: ['src'], extensions }),
+      resolve(),
+      ts(),
+      format === 'esm' && babelPlugin,
+      commonjs({
+        include: ['../../node_modules/**', 'node_modules/**'],
       }),
-    commonjs({
-      include: ['../../node_modules/**', 'node_modules/**'],
-    }),
-    json(),
-    postcss({
-      extract: extractCSS ? 'index.css' : undefined,
-      modules: true,
-      use: ['sass'],
-      minimize: {
-        preset: [
-          'default',
-          {
-            calc: false,
-            discardUnused: true,
-            mergeIdents: true,
-            reduceIdents: true,
-          },
-        ],
-      },
-      plugins: [postcssImport()],
-    }),
-    terser(),
-    extractCSS ? cssText() : undefined,
-    extractCSS ? moveCss() : undefined,
-    extractCSS ? insertCssEsm() : undefined,
-    extractCSS
-      ? del({
+      json(),
+      postcss(postcssConfig),
+      terser(),
+      extractCSS && cssText(),
+      extractCSS && moveCss(),
+      extractCSS && insertCssEsm(),
+      extractCSS &&
+        del({
           targets: 'lib/tmp',
           hook: 'closeBundle',
-        })
-      : undefined,
-    format === 'cjs' ? insertCssCjs() : undefined,
-  ],
-  external: getExternal(format),
-});
+        }),
+      format === 'cjs' && insertCssCjs(),
+    ],
+    external: getExternal(format),
+  };
+};
 
 export default [
   {
@@ -149,6 +156,7 @@ export default [
       {
         dir: 'lib/cjs',
         format: 'cjs',
+        exports: 'auto',
       },
     ],
     ...getConfig('cjs', false),

@@ -1,3 +1,4 @@
 **/*.d.ts
 webpack.config.js
 .templates
+lib/

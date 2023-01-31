@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { action } from '@storybook/addon-actions';
 
 import { Header } from './Header';
 import { HeaderUniversalBar } from './components/headerUniversalBar/HeaderUniversalBar';
+import { HeaderActionBar } from './components/headerActionBar/HeaderActionBar';
 import { NavigationLink } from './components/navigationLink/NavigationLink';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { StoryWIPAlert } from '../../internal/storyWIPAlert/StoryWIPAlert';
 import { DropdownDirection } from './components/navigationLink/types';
 import { LanguageOption } from '../../context/languageContext';
-import { IconUser } from '../../icons';
-import { NavigationLanguageSelector } from './components/navigationLanguageSelector';
-import { NavigationContext } from '../navigation/NavigationContext';
-import { IconButton } from './components/headerActionBar/HeaderActionBarItem';
+import { IconGlobe, IconSearch, IconUser } from '../../icons';
 
 export default {
   component: Header,
@@ -18,6 +17,7 @@ export default {
   subcomponents: {
     HeaderUniversalBar,
     HeaderNavigationMenu,
+    HeaderActionBar,
     NavigationLink,
   },
   parameters: {
@@ -39,110 +39,119 @@ export const Example = (args) => (
   </>
 );
 
-export const WithFullFeatures = (args) => {
-  return (
-    <>
-      <StoryWIPAlert />
-      <Header {...args}>
-        <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
-          <Header.NavigationLink href="#" label="Link 1" />
-          <Header.NavigationLink href="#" label="Link 2" />
-          <Header.NavigationLink href="#" label="Link 3" />
-        </Header.UniversalBar>
+export const WithFullFeatures = (args) => (
+  <>
+    <StoryWIPAlert />
+    <Header {...args}>
+      <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
+        <Header.NavigationLink href="#" label="Link 1" />
+        <Header.NavigationLink href="#" label="Link 2" />
+        <Header.NavigationLink href="#" label="Link 3" />
+      </Header.UniversalBar>
 
-        <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleUrl="https://hel.fi">
-          <NavigationLanguageSelector languages={languages} />
-        </Header.ActionBar>
+      <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleUrl="https://hel.fi">
+        <Header.NavigationLanguageSelector languages={languages} onDidChangeLanguage={action('language:onChange')} />
+        <Header.ActionButtonWithDropdown label="More" icon={IconGlobe} id="action-bar-globe">
+          <p>Muita valintoja...</p>
+        </Header.ActionButtonWithDropdown>
+        <Header.ActionButtonWithDropdown label="Haku" icon={IconSearch} id="action-bar-search">
+          <Header.NavigationSearch
+            submitButtonAriaLabel="Hae"
+            inputPlaceholder="Hae…"
+            onChange={action('search:onChange')}
+            onSubmit={action('search:onSubmit')}
+          />
+        </Header.ActionButtonWithDropdown>
+      </Header.ActionBar>
 
-        <Header.NavigationMenu>
-          <Header.NavigationLink
-            href="#"
-            label="Link 1"
-            onClick={(event) => event.preventDefault()}
-            active
-            dropdownLinks={[
-              <Header.NavigationLink
-                href="#"
-                label="Test"
-                dropdownDirection={DropdownDirection.Dynamic}
-                active
-                dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Nested" />,
-                  <Header.NavigationLink href="#" label="Nested" />,
-                  <Header.NavigationLink href="#" label="Nested" />,
-                ]}
-              />,
-              <Header.NavigationLink
-                href="#"
-                label="Test"
-                dropdownDirection={DropdownDirection.Dynamic}
-                dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Nested" />,
-                  <Header.NavigationLink href="#" label="Nested" />,
-                ]}
-              />,
-            ]}
-          />
-          <Header.NavigationLink
-            href="#"
-            label="Link 2"
-            dropdownLinks={[
-              <Header.NavigationLink
-                href="#"
-                label="Test"
-                dropdownDirection={DropdownDirection.Dynamic}
-                active
-                dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Nested" />,
-                  <Header.NavigationLink href="#" label="Nested" />,
-                  <Header.NavigationLink href="#" label="Nested" />,
-                ]}
-              />,
-              <Header.NavigationLink
-                href="#"
-                label="Test"
-                dropdownDirection={DropdownDirection.Dynamic}
-                dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Nested" />,
-                  <Header.NavigationLink href="#" label="Nested" />,
-                ]}
-              />,
-            ]}
-          />
-          <Header.NavigationLink href="#" label="Link 3" />
-          <Header.NavigationLink href="#" label="Link 3" />
-          <Header.NavigationLink href="#" label="Link 3" />
-          <Header.NavigationLink
-            href="#"
-            label="Link 2"
-            dropdownLinks={[
-              <Header.NavigationLink
-                href="#"
-                label="Test"
-                dropdownDirection={DropdownDirection.Dynamic}
-                active
-                dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Nested" />,
-                  <Header.NavigationLink href="#" label="Nested" />,
-                  <Header.NavigationLink href="#" label="Nested" />,
-                ]}
-              />,
-              <Header.NavigationLink
-                href="#"
-                label="Test"
-                dropdownDirection={DropdownDirection.Dynamic}
-                dropdownLinks={[
-                  <Header.NavigationLink href="#" label="Nested" />,
-                  <Header.NavigationLink href="#" label="Nested" />,
-                ]}
-              />,
-            ]}
-          />
-        </Header.NavigationMenu>
-      </Header>
-    </>
-  );
-};
+      <Header.NavigationMenu>
+        <Header.NavigationLink
+          href="#"
+          label="Link 1"
+          onClick={(event) => event.preventDefault()}
+          active
+          dropdownLinks={[
+            <Header.NavigationLink
+              href="#"
+              label="Test"
+              dropdownDirection={DropdownDirection.Dynamic}
+              active
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+              ]}
+            />,
+            <Header.NavigationLink
+              href="#"
+              label="Test"
+              dropdownDirection={DropdownDirection.Dynamic}
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+              ]}
+            />,
+          ]}
+        />
+        <Header.NavigationLink
+          href="#"
+          label="Link 2"
+          dropdownLinks={[
+            <Header.NavigationLink
+              href="#"
+              label="Test"
+              dropdownDirection={DropdownDirection.Dynamic}
+              active
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+              ]}
+            />,
+            <Header.NavigationLink
+              href="#"
+              label="Test"
+              dropdownDirection={DropdownDirection.Dynamic}
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+              ]}
+            />,
+          ]}
+        />
+        <Header.NavigationLink href="#" label="Link 3" />
+        <Header.NavigationLink href="#" label="Link 3" />
+        <Header.NavigationLink href="#" label="Link 3" />
+        <Header.NavigationLink
+          href="#"
+          label="Link 2"
+          dropdownLinks={[
+            <Header.NavigationLink
+              href="#"
+              label="Test"
+              dropdownDirection={DropdownDirection.Dynamic}
+              active
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+              ]}
+            />,
+            <Header.NavigationLink
+              href="#"
+              label="Test"
+              dropdownDirection={DropdownDirection.Dynamic}
+              dropdownLinks={[
+                <Header.NavigationLink href="#" label="Nested" />,
+                <Header.NavigationLink href="#" label="Nested" />,
+              ]}
+            />,
+          ]}
+        />
+      </Header.NavigationMenu>
+    </Header>
+  </>
+);
 
 export const WithUniversalBar = (args) => (
   <>
@@ -223,21 +232,14 @@ export const WithNavigationMenu = (args) => (
 );
 
 export const WithActionBar = (args) => {
-  const [, setAuthenticated] = useState(false);
-  const context = {
-    setAuthenticated,
-    // setNavigationVariant: () => {},
-    isMobile: false,
-  };
-
   return (
     <Header {...args}>
-      <NavigationContext.Provider value={context}>
-        <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleUrl="https://hel.fi">
-          <NavigationLanguageSelector languages={languages} />
-          <IconButton label="Kirjaudu" icon={IconUser} style={{ order: 10 }} />
-        </Header.ActionBar>
-      </NavigationContext.Provider>
+      <Header.ActionBar title="Helsingin kaupunki" titleAriaLabel="Helsingin kaupunki" titleUrl="https://hel.fi">
+        <Header.NavigationLanguageSelector languages={languages} onDidChangeLanguage={action('language:onChange')} />
+        <Header.ActionButtonWithDropdown label="Kirjaudu" icon={IconUser} style={{ order: 10 }} id="action-bar-login">
+          <h3>Kirjautumisvalinnat</h3>
+        </Header.ActionButtonWithDropdown>
+      </Header.ActionBar>
       <Header.NavigationMenu>
         <Header.NavigationLink href="#" label="Link 1" />
         <Header.NavigationLink href="#" label="Link 2" />

@@ -52,10 +52,13 @@
  * Mixins
  */
 
- @mixin focusOutline($outline-color: var(--color-coat-of-arms), $outline-width: 3px, $outline-radius: false) {
+ @mixin focusOutline($outline-color: var(--color-coat-of-arms), $outline-width: 3px, $outline-radius: false, $outline-offset: 0px) {
   &:focus {
     @if $outline-radius {
       border-radius: $outline-radius;
+    }
+    @if $outline-offset {
+      outline-offset: $outline-offset;
     }
     outline: $outline-width solid $outline-color;
   }

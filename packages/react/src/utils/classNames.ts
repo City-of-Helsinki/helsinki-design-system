@@ -1,3 +1,3 @@
-import classNames from 'classnames';
+import classnames from 'classnames/dedupe';
 
-export default classNames;
+export default classnames;

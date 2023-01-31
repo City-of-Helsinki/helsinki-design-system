@@ -20,5 +20,5 @@ export const useCallbackIfDefined = (callback) => {
 export const withDefaultPrevented = (callback: EventHandler<never>) =>
   function patchedCallback(event) {
     event.preventDefault();
-    return callback.call(this, event);
+    return callback.call(callback, event);
   };

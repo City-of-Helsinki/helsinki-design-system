@@ -14,6 +14,7 @@
     --logo-height: 32px;
   }
 
+  position: relative;
   display: flex;
   align-items: stretch;
   justify-content: space-between;
@@ -46,7 +47,7 @@
     cursor: auto;
   }
 
-  @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius));
+  @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius), calc(-1 * var(--header-focus-outline-width)));
 }
 
 .title {
@@ -70,7 +71,7 @@
   background: transparent;
   cursor: pointer;
 
-  @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius));
+  @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius), calc(-1 * var(--header-focus-outline-width)));
 }
 
 .actionItemIcon {

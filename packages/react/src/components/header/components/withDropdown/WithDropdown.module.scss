@@ -1,0 +1,53 @@
+$animation-duration: 250ms;
+$animation-close-delay: 150ms;
+
+@layer withDropdown {
+
+  .container {
+    display: contents;
+
+    .dropdownWrapper {
+      max-height: 0;
+      padding-bottom: 0;
+      transition-delay: $animation-duration + $animation-close-delay;
+    }
+    &.visible .dropdownWrapper {
+      max-height: 1000vh;
+      padding-bottom: 20px;
+      transition-delay: 0ms;
+    }
+  }
+
+  .dropdownWrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    transform: translateY(100%) translateY(1px);
+    overflow: hidden;
+    transition-duration: 0ms;
+    transition-property: max-height, padding-bottom;
+  }
+
+  .dropdown {
+    background: white;
+    position: relative;
+    left: 0;
+    right: 0;
+    margin-top: -1px;
+    padding: var(--spacing-s) var(--spacing-m);
+    background: var(--color-black-5);
+    border: 1px solid var(--color-black-10);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-100%);
+    transition: $animation-duration transform $animation-close-delay, 0ms visibility ($animation-duration + $animation-close-delay);
+    visibility: hidden;
+
+    &.visible {
+      transform: translateY(0%);
+      visibility: visible;
+      transition: $animation-duration transform 0ms, 0ms visibility 0ms;
+    }
+  }
+}
