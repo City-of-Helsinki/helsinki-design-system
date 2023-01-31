@@ -4,6 +4,10 @@ title: '{newComponent}'
 navTitle: '{newComponent}'
 ---
 
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
 ## Usage
 
 ### Example

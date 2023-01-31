@@ -3,6 +3,10 @@ slug: '/components/{newComponentPathName}/code'
 title: '{newComponent} - Code'
 ---
 
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
 ## Code
 
 ### Code examples
