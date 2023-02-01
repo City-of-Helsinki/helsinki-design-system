@@ -90,9 +90,7 @@ const scaffold = async () => {
     validate: (input) => (input.split(' ').length > 2 ? true : `Description not long enough: ${input}`)
   });
 
-  const nameSplit = name.split(/(?=[A-Z])/);
-  const pathName = nameSplit.join('-').toLowerCase();
-
+  const pathName = name.split(/(?=[A-Z])/).join('-').toLowerCase();
   const path = createFolder(`src/docs/components/${pathName}`);
 
   logStep(`${chalk.bold(`Created folder:`)}\n\t${chalk.italic(path)}`);
