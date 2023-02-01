@@ -2,14 +2,14 @@
 
 exports[`<Dialog /> spec renders the component 1`] = `
 <body>
-  <div
-    class="hds-dialog-start-tab-barrier"
-    tabindex="0"
-  />
   <div />
   <div
     class="dialogContainer"
   >
+    <div
+      aria-hidden="true"
+      tabindex="0"
+    />
     <div
       aria-hidden="true"
       tabindex="0"
@@ -117,9 +117,5 @@ exports[`<Dialog /> spec renders the component 1`] = `
       tabindex="0"
     />
   </div>
-  <div
-    class="hds-dialog-end-tab-barrier"
-    tabindex="0"
-  />
 </body>
 `;

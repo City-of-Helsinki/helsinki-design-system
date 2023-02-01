@@ -3,8 +3,10 @@
 @value medium-up from "../../styles/breakpoints.css";
 
 .dialogVisibleBodyWithHiddenScrollbars {
-  height: 100vh !important;
+  touch-action: none;
+  -webkit-overflow-scrolling: none;
   overflow: hidden !important;
+  overscroll-behavior: none;
 }
 
 .dialogContainer {
@@ -24,6 +26,7 @@
 
   .dialogBackdrop {
     background: var(--overlay-color);
+    pointer-events: none;
   }
 
   .dialog {
