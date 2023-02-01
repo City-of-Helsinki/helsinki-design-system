@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Dialog /> spec renders the component 1`] = `
-<body>
+<body
+  class="dialogVisibleBodyWithHiddenScrollbars"
+>
   <div />
   <div
     class="dialogContainer"
