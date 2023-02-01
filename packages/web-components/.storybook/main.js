@@ -5,11 +5,11 @@ const processor = postcss(
   postcssModules({
     global: true,
     generateScopedName: '[local]',
-    getJSON: () => {}
+    getJSON: () => {},
   }),
 );
 
-const webpackFinal = async (config) => ({
+const webpackFinal = (config) => ({
   ...config,
   resolve: {
     ...config.resolve,
@@ -31,14 +31,10 @@ const webpackFinal = async (config) => ({
             loader: 'lit-css-loader',
             options: {
               specifier: 'lit-element',
-              transform: async (css, { filePath }) => {
-                return processor.process(css, { from: filePath }).then((result) => {
-                  return result.css;
-                });
-              },
+              transform: (css, { filePath }) => processor.process(css, { from: filePath }).then((res) => res.css),
             },
           },
-          'sass-loader'
+          'sass-loader',
         ],
       },
     ],
