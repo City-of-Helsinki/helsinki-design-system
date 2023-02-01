@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "experimentalDecorators": true,
-    "module": "ES2015",
-    "moduleResolution": "Node",
-    "target": "es6",
-    "lib": ["es6", "dom", "dom.iterable"],
+    "module": "es2015",
+    "moduleResolution": "node",
+    "target": "es2017",
+    "lib": ["es2017", "dom"],
     "outDir": "lib",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
