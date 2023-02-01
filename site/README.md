@@ -53,11 +53,14 @@ yarn start
 
 | Command                            | Description                                               |
 | ---------------------------------- | --------------------------------------------------------- |
-| yarn                               | Install dependencies.             |
+| yarn                               | Install dependencies.                                     |
 | yarn build                         | Lints and builds documentation.                           |
 | yarn start                         | Starts the development server.                            |
 | yarn test                          | Runs the tests.                                           |
 | yarn lint                          | Runs the linting.                                         |
+| yarn format                        | Format all code.                                          |
+| yarn serve                         | Serve production site.                                    |
+| yarn clean                         | Clear Gatsby cache.                                       |
 | yarn scaffold                      | Runs the scaffolding script for creating a new component. |
 
 ### Hosting in Github pages
