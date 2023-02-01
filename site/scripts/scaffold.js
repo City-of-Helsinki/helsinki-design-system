@@ -31,7 +31,8 @@ const createComponentFiles = (templatePath, destination, name, pathName) => {
       const data = fs
         .readFileSync(sourcePath, 'utf-8')
         .split('{newComponentPathName}')
-        .join(pathName).split('{newComponent}')
+        .join(pathName)
+        .split('{newComponent}')
         .join(name);
 
       fs.writeFileSync(targetPath, data);
