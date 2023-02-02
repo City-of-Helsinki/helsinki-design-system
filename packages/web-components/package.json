@@ -55,6 +55,8 @@
     "postcss": "^8.4.21",
     "postcss-loader": "^7.0.2",
     "postcss-modules": "^6.0.0",
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0",
     "rollup": "2.67.2",
     "rollup-plugin-css-text": "^1.0.3",
     "rollup-plugin-delete": "^2.0.0",
