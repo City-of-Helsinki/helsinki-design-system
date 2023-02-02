@@ -504,7 +504,8 @@ export function getCookieContent() {
       essential: {
         fi: {
           title: 'Perustoimintoihin liittyvät evästeet',
-          text: 'Sivusto ei toimi ilman näitä',
+          text:
+            'Perustoimintoihin liittyviä evästeitä ei voi hylätä. Ne mahdollistavat sivuston kunnollisen toimivuuden ja vaikuttavat käytettävyyteen.',
           expandAriaLabel: 'Näytä perustoimintoihin liittyvien evästeiden tiedot',
           checkboxAriaDescription: 'Sivusto ei toimi ilman näitä',
         },
@@ -519,7 +520,7 @@ export function getCookieContent() {
         en: {
           title: 'Cookies related to basic functionalities',
           text:
-            'Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability',
+            'Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability.',
           expandAriaLabel: 'Show cookie information related to basic functionalities',
           checkboxAriaDescription:
             'Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability',
