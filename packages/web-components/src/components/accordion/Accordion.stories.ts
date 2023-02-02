@@ -33,7 +33,7 @@ export const Default = (args) => html`<hds-accordion
   ${args.children}
 </hds-accordion>`;
 
-export const Demo = (args) => html`
+export const Custom = (args) => html`
   <div style="background: red">
     <hds-accordion
       heading=${args.heading}
