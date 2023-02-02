@@ -3,7 +3,6 @@
   "version": "2.10.0",
   "description": "Web components for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
-  "main": "./cjs/index.js",
   "module": "index.js",
   "types": "./index.d.ts",
   "scripts": {

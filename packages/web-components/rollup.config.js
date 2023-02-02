@@ -1,4 +1,3 @@
-import fs from 'fs';
 import includePaths from 'rollup-plugin-includepaths';
 import resolve from '@rollup/plugin-node-resolve';
 import ts from 'rollup-plugin-ts';
@@ -16,55 +15,7 @@ const processor = postcss(
   }),
 );
 
-const insertCssCjs = () => {
-  return {
-    name: 'insert-css-cjs',
-    closeBundle: () => {
-      fs.appendFileSync(
-        `${__dirname}/lib/cjs/index.js`,
-        `var hdsStyles = require("./index.css-text"); exports.hdsStyles = hdsStyles;`,
-      );
-    },
-  };
-};
-
 const extensions = ['.js', '.ts'];
-const external = ['postcss', 'lodash.uniqueid', 'lodash.isequal', 'lodash.isfunction', 'lodash.toString'];
-
-const getExternal = (format) => (format === 'esm' ? [...external, /@babel\/runtime/] : external);
-
-const getPlugins = (format) => {
-  const babelPlugin =
-    format === 'esm' &&
-    babel({
-      babelHelpers: 'runtime',
-      exclude: 'node_modules/**',
-      extensions,
-    });
-
-  const plugins = [
-    includePaths({ paths: ['src'], extensions }),
-    resolve(),
-    ts(),
-    babelPlugin,
-    commonjs({ include: ['../../node_modules/**', 'node_modules/**'] }),
-    litcss({
-      include: ['/**/*.css', '/**/*.scss'],
-      transform: (css, { filePath }) => processor.process(css, { from: filePath }).then((res) => res.css),
-    }),
-  ];
-
-  if (format === 'cjs') {
-    plugins.push(insertCssCjs());
-  }
-
-  return plugins;
-};
-
-const getConfig = (format, extractCSS) => ({
-  plugins: getPlugins(format, extractCSS),
-  external: getExternal(format),
-});
 
 export default [
   {
@@ -81,16 +32,28 @@ export default [
         exports: 'named',
       },
     ],
-    ...getConfig('esm'),
-  },
-  {
-    input: ['src/index.ts'],
-    output: [
-      {
-        dir: 'lib/cjs',
-        format: 'cjs',
-      },
+    plugins: [
+      includePaths({ paths: ['src'], extensions }),
+      resolve(),
+      ts(),
+      babel({
+        babelHelpers: 'runtime',
+        exclude: 'node_modules/**',
+        extensions,
+      }),
+      commonjs({ include: ['../../node_modules/**', 'node_modules/**'] }),
+      litcss({
+        include: ['/**/*.css', '/**/*.scss'],
+        transform: (css, { filePath }) => processor.process(css, { from: filePath }).then((res) => res.css),
+      }),
     ],
-    ...getConfig('cjs', false),
+    external: [
+      'postcss',
+      'lodash.uniqueid',
+      'lodash.isequal',
+      'lodash.isfunction',
+      'lodash.toString',
+      '@babel/runtime',
+    ],
   },
 ];
