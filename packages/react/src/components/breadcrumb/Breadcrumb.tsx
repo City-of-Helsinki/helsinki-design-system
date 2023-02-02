@@ -32,7 +32,13 @@ const BreadcrumbItem = ({ item, showSeparator }: { item: BreadcrumbInfo; showSep
   const hasPath = item.path !== null;
   return (
     <li className={styles.listItem}>
-      {hasPath ? <LinkItem item={item} /> : <span className={styles.active}>{item.title}</span>}
+      {hasPath ? (
+        <LinkItem item={item} />
+      ) : (
+        <span aria-current className={styles.active}>
+          {item.title}
+        </span>
+      )}
       {showSeparator && <Separator key={`separator-${item.title}`} />}
     </li>
   );
