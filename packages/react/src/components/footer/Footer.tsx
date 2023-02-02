@@ -37,7 +37,7 @@ export type FooterProps = React.PropsWithChildren<{
    */
   theme?: FooterTheme;
   /**
-   * The title of the service shown next to the logo
+   * The title of the service shown on top of the the footer
    */
   title?: React.ReactNode;
 }>;
