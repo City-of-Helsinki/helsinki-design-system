@@ -82,10 +82,6 @@ See the package specific instructions on how to get started using the packages.
 
 Start setting up your local development by going through the steps in [the development guide](./DEVELOPMENT.md).
 
-## Roadmap
-
-If you are interested what the team is currently working on, refer to the [Design System Roadmap in Github](https://github.com/City-of-Helsinki/helsinki-design-system/projects/1).
-
 ## Contributing
 
 **Before contributing, it is recommended to read [HDS Contribution - Before contributing page](https://hds.hel.fi/getting-started/contributing/how-to-contribute.**
