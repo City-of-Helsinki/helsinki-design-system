@@ -30,7 +30,7 @@ HeaderContext.displayName = 'HeaderContext';
 HeaderDispatchContext.displayName = 'HeaderDispatchContext';
 
 export function HeaderContextProvider({ children }: PropsWithChildren<HeaderContextType>) {
-  const isSmallScreen = useMediaQueryLessThan('s');
+  const isSmallScreen = useMediaQueryLessThan('m');
   const [navigationContent, setNavigationContent] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 

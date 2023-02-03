@@ -1,4 +1,5 @@
-import React, { cloneElement, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { MouseEventHandler, cloneElement, useCallback, useContext, useEffect, useRef, useState } from 'react';
+
 // import base styles
 import '../../../../styles/base.css';
 import { v4 as uuidv4 } from 'uuid';
@@ -29,6 +30,7 @@ export type LinkProps = {
    * Label for link.
    */
   label: string;
+  onMouseEnter?: MouseEventHandler;
 };
 
 export type NavigationLinkProps = Omit<
@@ -192,19 +194,16 @@ export const NavigationLink = ({
     return () => document.removeEventListener('click', handleOutsideClick);
   }, [isDropdownOpen]);
 
-  const onMouseEnter =
-    dropdownLinks &&
-    dropdownOpenedBy !== NavigationLinkInteraction.Click &&
-    (() => handleDropdownOpen(true, NavigationLinkInteraction.Hover));
-
-  const linkProps = {
-    active,
+  const linkProps: LinkProps = {
     className,
     href,
     label,
-    onMouseEnter,
     ...rest,
   };
+
+  if (active) linkProps.active = true;
+  if (dropdownLinks && dropdownOpenedBy !== NavigationLinkInteraction.Click)
+    linkProps.onMouseEnter = () => handleDropdownOpen(true, NavigationLinkInteraction.Hover);
 
   const navigationLinkClassName = classNames(
     'hds-navigation-link',
