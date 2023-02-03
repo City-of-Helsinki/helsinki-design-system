@@ -28,12 +28,10 @@ yarn add hds-web-components
 
 
 ### Using the components
-You can use the hds-web-components library as a node package or load it directly with a script tag. If
+You can use the hds-web-components library as a node package or load it directly with a script tag. You will need to load the library with the script tag if either of these conditions apply:
 
-- you're using the web components in an environment where the page isn't created dynamically at runtime; or
-- you want or need to use the components in your HTML files,
-
-you'll need to load the library with a script tag.
+- you're using the web components in an environment where the page isn't created dynamically at runtime
+- you want or need to use the components in your HTML files
 
 
 #### Using the components in a Node environment
