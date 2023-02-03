@@ -31,9 +31,9 @@ export default {
 const languageChangedAction = action('language:onChange');
 
 const languages: LanguageOption[] = [
-  { label: 'Suomeksi', value: 'fi' },
-  { label: 'På svenska', value: 'sv' },
-  { label: 'In English', value: 'en' },
+  { label: 'Suomi', value: 'fi' },
+  { label: 'Svenska', value: 'sv' },
+  { label: 'English', value: 'en' },
 ];
 
 export const Example = (args) => (
