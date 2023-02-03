@@ -148,17 +148,21 @@ export const Dialog = ({
   targetElement,
   ...props
 }: DialogProps) => {
+  const isBrowser = typeof window !== 'undefined';
   const [isReadyToShowDialog, setIsReadyToShowDialog] = useState<boolean>(false);
   const dialogContextProps: DialogContextProps = { isReadyToShowDialog, scrollable, close, closeButtonLabelText };
   const customThemeClass = useTheme<DialogCustomTheme>(styles.dialogContainer, theme);
   const dialogRef: RefObject<HTMLInputElement> = React.createRef();
-  const [focusedElement, setFocusedElement] = useState(document.activeElement);
+  const [focusedElement, setFocusedElement] = useState(isBrowser ? document.activeElement : null);
 
   useEffect(() => {
-    document.addEventListener('focusin', () => setFocusedElement(document.activeElement));
-    return () => {
-      document.removeEventListener('focusin', () => setFocusedElement(document.activeElement));
-    };
+    if (isBrowser) {
+      document.addEventListener('focusin', () => setFocusedElement(document.activeElement));
+      return () => {
+        document.removeEventListener('focusin', () => setFocusedElement(document.activeElement));
+      };
+    }
+    return null;
   }, []);
 
   useEffect(() => {
@@ -186,6 +190,7 @@ export const Dialog = ({
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add(styles.dialogVisibleBodyWithHiddenScrollbars);
+      document.documentElement.classList.add(styles.dialogVisibleBodyWithHiddenScrollbars);
       document.addEventListener('keydown', onKeyDown, false);
       setIsReadyToShowDialog(true);
     }
@@ -193,6 +198,7 @@ export const Dialog = ({
       if (isOpen) {
         setIsReadyToShowDialog(false);
         document.body.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
+        document.documentElement.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
         document.removeEventListener('keydown', onKeyDown, false);
         const elementToFocus: HTMLElement | undefined = getElementToFocusAfterClose();
         if (elementToFocus) {
