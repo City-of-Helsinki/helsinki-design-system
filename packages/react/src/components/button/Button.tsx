@@ -10,7 +10,7 @@ export type ButtonSize = 'default' | 'small';
 export type ButtonTheme = 'default' | 'coat' | 'black';
 export type ButtonVariant = 'primary' | 'secondary' | 'supplementary' | 'success' | 'danger';
 
-export type CommonButtonProps = React.ComponentPropsWithoutRef<'button'> & {
+export type CommonButtonProps = {
   /**
    * The content of the button
    */
@@ -55,7 +55,7 @@ export type CommonButtonProps = React.ComponentPropsWithoutRef<'button'> & {
    * Loading text to show alongside loading spinner
    */
   loadingText?: string;
-};
+} & React.ComponentPropsWithoutRef<'button'>;
 
 // Supplementary variant requires iconLeft or iconRight
 export type SupplementaryButtonProps = Omit<CommonButtonProps, 'variant'> & {

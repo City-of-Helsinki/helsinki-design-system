@@ -6,7 +6,7 @@ import styles from '../textInput/TextInput.module.css';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 
-export type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
+export type TextAreaProps = {
   /**
    * Additional class names to apply to the textarea
    */
@@ -87,7 +87,7 @@ export type TextAreaProps = React.ComponentPropsWithoutRef<'textarea'> & {
    * The `ref` is forwarded to the native textarea element.
    */
   ref?: React.Ref<HTMLTextAreaElement>;
-};
+} & React.ComponentPropsWithoutRef<'textarea'>;
 
 export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
   (

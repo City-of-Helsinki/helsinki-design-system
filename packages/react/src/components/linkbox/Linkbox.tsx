@@ -6,7 +6,7 @@ import styles from './Linkbox.module.scss';
 import { IconArrowRight, IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';
 
-export type LinkboxProps = Omit<React.ComponentPropsWithoutRef<'a'>, 'tabIndex'> & {
+export type LinkboxProps = {
   /**
    * Boolean indicating for external link that takes user to an entirely new web site. Defaults to false.
    */
@@ -60,7 +60,7 @@ export type LinkboxProps = Omit<React.ComponentPropsWithoutRef<'a'>, 'tabIndex'>
    * Size variant for the linkbox. Affects texts and paddings.
    */
   size?: 'small' | 'medium' | 'large';
-};
+} & Omit<React.ComponentPropsWithoutRef<'a'>, 'tabIndex'>;
 
 export const Linkbox = ({
   children,

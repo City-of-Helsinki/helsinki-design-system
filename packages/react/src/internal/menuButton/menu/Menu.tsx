@@ -9,12 +9,12 @@ type MenuStyles = {
   minWidth?: number;
 };
 
-type MenuProps = React.ComponentPropsWithoutRef<'div'> & {
+type MenuProps = {
   menuContainerSize: RectReadOnly;
   menuOffset?: number;
   menuOpen: boolean;
   onItemClick?: (event: MouseEvent<HTMLElement>) => void;
-};
+} & React.ComponentPropsWithoutRef<'div'>;
 
 const MENU_MIN_WIDTH = 190;
 
