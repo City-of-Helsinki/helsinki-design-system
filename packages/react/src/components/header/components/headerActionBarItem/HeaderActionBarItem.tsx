@@ -1,6 +1,7 @@
 import React, { ElementType, forwardRef } from 'react';
 
 import classNames from '../../../../utils/classNames';
+import classes from './HeaderActionBarItem.module.scss';
 
 type ButtonAttributes = JSX.IntrinsicElements['button'];
 
@@ -19,7 +20,7 @@ export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBar
     ...props
   } = properties;
 
-  const buttonClassName = classNames('hds-action-bar-link', className);
+  const buttonClassName = classNames(classes.actionBarItem, className);
 
   const aria = {
     'aria-label': ariaLabel || (typeof label === 'string' && label),
@@ -30,11 +31,11 @@ export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBar
   return (
     <button type="button" {...props} {...aria} className={buttonClassName} ref={ref}>
       {IconClass && (
-        <span className="icon">
+        <span className={classes.actionBarItemIcon}>
           <IconClass aria-hidden />
         </span>
       )}
-      {label && <span className="title">{label}</span>}
+      {label && <span className={classes.actionBarItemLabel}>{label}</span>}
     </button>
   );
 });

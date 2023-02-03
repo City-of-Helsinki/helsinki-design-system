@@ -52,38 +52,4 @@
       @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius), calc(-1 * var(--header-focus-outline-width)));
     }
   }
-
-  .hds-action-bar-link {
-    --action-item-title-font-size: 14px;
-    --action-item-title-font-color: var(--color-black-90);
-
-    appearance: none;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-
-    @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius), calc(-1 * var(--header-focus-outline-width)));
-
-    .icon {
-      display: block;
-      width: var(--icon-size);
-      height: var(--icon-size);
-      margin: 0 auto;
-      padding: 0 8px;
-
-      & > svg {
-        display: block;
-        width: auto;
-        height: 100%;
-      }
-    }
-
-    .title {
-      display: block;
-      margin: 0 auto;
-      white-space: nowrap;
-      font-size: var(--action-item-title-font-size);
-      color: var(--action-item-title-font-color);
-    }
-  }
 }
