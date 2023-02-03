@@ -9,7 +9,7 @@ import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { StoryWIPAlert } from '../../internal/storyWIPAlert/StoryWIPAlert';
 import { DropdownDirection } from './components/navigationLink/types';
 import { LanguageOption } from '../../context/languageContext';
-import { IconGlobe, IconSearch, IconUser } from '../../icons';
+import { IconSearch, IconUser } from '../../icons';
 
 export default {
   component: Header,
@@ -22,9 +22,13 @@ export default {
   },
   parameters: {
     controls: { expanded: true },
+    layout: 'fullscreen',
   },
   args: {},
+  argTypes: {},
 };
+
+const languageChangedAction = action('language:onChange');
 
 const languages: LanguageOption[] = [
   { label: 'Suomeksi', value: 'fi' },
@@ -42,7 +46,7 @@ export const Example = (args) => (
 export const WithFullFeatures = (args) => (
   <>
     <StoryWIPAlert />
-    <Header {...args}>
+    <Header {...args} onDidChangeLanguage={languageChangedAction}>
       <Header.UniversalBar primaryLinkText="Helsingin kaupunki" primaryLinkHref="#">
         <Header.NavigationLink href="#" label="Link 1" />
         <Header.NavigationLink href="#" label="Link 2" />
@@ -55,18 +59,19 @@ export const WithFullFeatures = (args) => (
         titleUrl="https://hel.fi"
         titleStyle={TitleStyleType.black}
       >
-        <Header.NavigationLanguageSelector languages={languages} onDidChangeLanguage={action('language:onChange')} />
-        <Header.ActionButtonWithDropdown label="More" icon={IconGlobe} id="action-bar-globe">
-          <p>Muita valintoja...</p>
-        </Header.ActionButtonWithDropdown>
-        <Header.ActionButtonWithDropdown label="Haku" icon={IconSearch} id="action-bar-search">
+        <Header.NavigationLanguageSelector languages={languages}>
+          <h3>Kielivalinnat</h3>
+          Infoteksti
+        </Header.NavigationLanguageSelector>
+
+        <Header.ActionBarItem label="Haku" icon={IconSearch} id="action-bar-search">
           <Header.NavigationSearch
             submitButtonAriaLabel="Hae"
             inputPlaceholder="Hae…"
             onChange={action('search:onChange')}
             onSubmit={action('search:onSubmit')}
           />
-        </Header.ActionButtonWithDropdown>
+        </Header.ActionBarItem>
       </Header.ActionBar>
 
       <Header.NavigationMenu>
@@ -238,18 +243,27 @@ export const WithNavigationMenu = (args) => (
 
 export const WithActionBar = (args) => {
   return (
-    <Header {...args}>
+    <Header {...args} onDidChangeLanguage={languageChangedAction}>
+      <StoryWIPAlert />
+
       <Header.ActionBar
         title="Helsingin kaupunki"
         titleAriaLabel="Helsingin kaupunki"
         titleUrl="https://hel.fi"
         titleStyle={TitleStyleType.black}
+        onMenuButtonClick={(event) => {
+          event.stopPropagation();
+        }}
       >
-        <Header.NavigationLanguageSelector languages={languages} onDidChangeLanguage={action('language:onChange')} />
-        <Header.ActionButtonWithDropdown label="Kirjaudu" icon={IconUser} style={{ order: 10 }} id="action-bar-login">
+        <Header.NavigationLanguageSelector languages={languages}>
+          <a href="#selkokieli">Selkokieli</a>
+        </Header.NavigationLanguageSelector>
+
+        <Header.ActionBarItem label="Kirjaudu" icon={IconUser} style={{ order: 10 }} id="action-bar-login">
           <h3>Kirjautumisvalinnat</h3>
-        </Header.ActionButtonWithDropdown>
+        </Header.ActionBarItem>
       </Header.ActionBar>
+
       <Header.NavigationMenu>
         <Header.NavigationLink href="#" label="Link 1" />
         <Header.NavigationLink href="#" label="Link 2" />

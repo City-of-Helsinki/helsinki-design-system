@@ -3,20 +3,21 @@ import React, { PropsWithChildren } from 'react';
 import { Navigation } from '../components/navigation';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
-import { HeaderNavigationMenu } from '../components/header/components/headerNavigationMenu';
 
-export const NavigationWrapper = ({ children }: PropsWithChildren<Record<string, unknown>>) => (
+type WrapperProps = PropsWithChildren<Record<string, unknown>>;
+
+export const NavigationWrapper = ({ children }: WrapperProps) => (
   <Navigation menuToggleAriaLabel="menu" skipTo="#content" skipToContentLabel="Skip to content" title="Foo">
     {children}
   </Navigation>
 );
 
-export const FooterWrapper = ({ children }: PropsWithChildren<Record<string, unknown>>) => (
-  <Footer title="Bar">{children}</Footer>
-);
+export const FooterWrapper = ({ children }: WrapperProps) => <Footer title="Bar">{children}</Footer>;
 
-export const HeaderNavigationMenuWrapper = ({ children }: PropsWithChildren<Record<string, unknown>>) => (
+export const HeaderWrapper = ({ children }: WrapperProps) => <Header>{children}</Header>;
+
+export const HeaderNavigationMenuWrapper = ({ children }: WrapperProps) => (
   <Header>
-    <HeaderNavigationMenu>{children}</HeaderNavigationMenu>
+    <Header.NavigationMenu>{children}</Header.NavigationMenu>
   </Header>
 );

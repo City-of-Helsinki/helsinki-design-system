@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Navigation.Search /> spec renders the component 1`] = `
+exports[`<Header.NavigationSearch /> spec renders the component 1`] = `
 <DocumentFragment>
   <header
     class="header theme-light"
@@ -25,7 +25,7 @@ exports[`<Navigation.Search /> spec renders the component 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="logo logo"
+              class="logo"
               role="img"
               title="Helsingin kaupunki"
               viewBox="0 0 78 36"
@@ -89,7 +89,7 @@ exports[`<Navigation.Search /> spec renders the component 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="logo logo"
+              class="logo"
               role="img"
               title="Helsingin kaupunki"
               viewBox="0 0 78 36"
@@ -111,45 +111,48 @@ exports[`<Navigation.Search /> spec renders the component 1`] = `
           <div
             class="headerContent"
           >
-            <div
-              class="search"
-              role="search"
+            <form
+              aria-label="Haku"
+              class="searchContainer"
             >
-              <div
-                class="aboveM"
+              <label>
+                <h3>
+                  Haku
+                </h3>
+                <input
+                  class="input"
+                  id="navigation-search"
+                  placeholder=""
+                  type="text"
+                />
+              </label>
+              <button
+                aria-label="Hae"
+                class="searchButton"
+                type="submit"
               >
-                <button
-                  class="searchToggleButton"
-                  type="button"
+                <svg
+                  aria-hidden="true"
+                  class="icon s"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <svg
-                    aria-hidden="true"
-                    class="icon s"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <g
+                    fill="none"
+                    fill-rule="evenodd"
                   >
-                    <g
-                      fill="none"
-                      fill-rule="evenodd"
-                    >
-                      <path
-                        d="M0 0h24v24H0z"
-                      />
-                      <path
-                        d="M15 1a8 8 0 11-4.798 14.402l-6.401 6.4-1.591-1.59 6.398-6.4A8 8 0 0115 1zm0 2a6 6 0 100 12 6 6 0 000-12z"
-                        fill="currentColor"
-                      />
-                    </g>
-                  </svg>
-                  <span
-                    class="label"
-                  >
-                    Search
-                  </span>
-                </button>
-              </div>
-            </div>
+                    <path
+                      d="M0 0h24v24H0z"
+                    />
+                    <path
+                      d="M15 1a8 8 0 11-4.798 14.402l-6.401 6.4-1.591-1.59 6.398-6.4A8 8 0 0115 1zm0 2a6 6 0 100 12 6 6 0 000-12z"
+                      fill="currentColor"
+                    />
+                  </g>
+                </svg>
+              </button>
+            </form>
           </div>
         </div>
       </div>

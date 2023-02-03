@@ -1,6 +1,6 @@
 @import "../../../../styles/common";
 @import "../../../../styles/typography";
-@value small-down from "../../../../styles/breakpoints.css";
+@value small-down, medium-down from "../../../../styles/breakpoints.css";
 
 .headerActionBar {
   --container-height: 88px;
@@ -9,6 +9,11 @@
 
   --action-item-title-font-size: 14px;
   --action-item-title-font-color: var(--color-black-90);
+
+  @media medium-down {
+    --container-height: 74px;
+    --logo-height: 48px;
+  }
 
   @media small-down {
     --container-height: 64px;

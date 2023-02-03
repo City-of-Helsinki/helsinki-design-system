@@ -43,14 +43,17 @@ export const NavigationSearch = ({
   };
 
   return (
-    <form className={styles.searchContainer} onSubmit={handleSubmit}>
-      <input
-        type="text"
-        id="navigation-search"
-        className={styles.input}
-        placeholder={inputPlaceholder}
-        onChange={handleChange}
-      />
+    <form className={styles.searchContainer} onSubmit={handleSubmit} aria-label="Haku">
+      <label>
+        <h3>Haku</h3>
+        <input
+          type="text"
+          id="navigation-search"
+          className={styles.input}
+          placeholder={inputPlaceholder}
+          onChange={handleChange}
+        />
+      </label>
       <button type="submit" aria-label={submitButtonAriaLabel} className={styles.searchButton}>
         <IconSearch aria-hidden />
       </button>

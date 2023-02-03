@@ -8,7 +8,7 @@ import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
 import { useActiveLanguage } from '../../../../context/languageContext';
 import { HeaderActionBarNavigationMenu } from './HeaderActionBarNavigationMenu';
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';
-import { HeaderActionBarMenuItem } from './HeaderActionBarItem';
+import { HeaderActionBarMenuItem } from '../headerActionBarItem';
 
 export enum TitleStyleType {
   normal = 'normal',
@@ -28,7 +28,7 @@ export type HeaderActionBarProps = PropsWithChildren<{
   title: string;
 
   /**
-   * Service name that is displayed next to the Helsinki logo.
+   * Style for the service name that is displayed next to the Helsinki logo.
    */
   titleStyle: TitleStyleType;
 
@@ -38,17 +38,19 @@ export type HeaderActionBarProps = PropsWithChildren<{
   titleAriaLabel?: string;
 
   /**
-   * The aria-label for the menu button to screen reader users.
-   */
-  menuButtonAriaLabel?: string;
-
-  /**
    * Callback fired when the title or logo is clicked
    */
   onTitleClick?: EventHandler<MouseEvent | KeyboardEvent>;
 
   /**
-   * Callback fired when the title or logo is clicked
+   * The aria-label for the menu button to screen reader users.
+   */
+  menuButtonAriaLabel?: string;
+
+  /**
+   * Callback fired when the menu button is clicked.
+   * Call event.stopPropagation() to disable calling
+   * the default menu toggling function.
    */
   onMenuButtonClick?: EventHandler<MouseEvent>;
 
@@ -58,62 +60,75 @@ export type HeaderActionBarProps = PropsWithChildren<{
   titleUrl?: string;
 }>;
 
-const TitleLogoArea = ({ title, titleStyle }) => {
+type TitleLogoAreaProps = {
+  children: string;
+  titleStyle: TitleStyleType;
+  href?: string;
+  ariaLabel?: string;
+  onClick?: EventHandler<MouseEvent | KeyboardEvent>;
+};
+
+const Title = ({ children }: { children: string }) => <span className={classNames(styles.title)}>{children}</span>;
+
+const TitleLogoArea = ({ children, titleStyle, href, ariaLabel, onClick }: TitleLogoAreaProps) => {
   const language = useActiveLanguage();
-  const logoLanguage = language === 'sv' ? 'sv' : 'fi';
+  const handleClick = useCallbackIfDefined(onClick);
+  const handleKeyPress = useEnterOrSpacePressCallback(onClick);
 
-  return (
-    <>
-      <Logo className={styles.logo} language={logoLanguage} aria-hidden />
-      {title && <span className={classNames(styles.title)}>{title}</span>}
-    </>
-  );
-};
-
-const ellipsizeTitle = (title: string, titleStyle: TitleStyleType): string => {
-  const maxChars = titleStyle === TitleStyleType.black ? 10 : 22;
-
-  if (title.length > maxChars) return title.substring(0, maxChars - 1);
-  return title;
-};
-
-export const HeaderActionBar = ({
-  title,
-  titleStyle,
-  titleAriaLabel,
-  menuButtonAriaLabel,
-  titleUrl,
-  onTitleClick,
-  onMenuButtonClick,
-  children,
-}: HeaderActionBarProps) => {
-  const handleClick = useCallbackIfDefined(onTitleClick);
-  const handleKeyPress = useEnterOrSpacePressCallback(onTitleClick);
-
-  const isTitleLink = titleUrl || onTitleClick;
-
-  const linkProps: LinkProps = {
-    'aria-label': titleAriaLabel,
-    href: titleUrl,
+  const props: LinkProps = {
+    href,
+    'aria-label': ariaLabel,
     className: classNames(styles.titleAndLogoContainer, styles[titleStyle]),
   };
 
-  if (!isTitleLink) {
-    linkProps.role = titleAriaLabel && 'img';
+  if (!(href || onClick)) {
+    props.role = ariaLabel && 'img';
   } else {
-    linkProps.onKeyPress = handleKeyPress;
-    linkProps.onClick = handleClick;
+    props.onKeyPress = handleKeyPress;
+    props.onClick = handleClick;
   }
+
+  return (
+    <LinkItem {...props}>
+      <Logo className={styles.logo} language={language} aria-hidden />
+      {children && <Title>{children}</Title>}
+    </LinkItem>
+  );
+};
+
+export const HeaderActionBar = (props: HeaderActionBarProps) => {
+  const {
+    title,
+    titleStyle = 'normal',
+    titleAriaLabel,
+    titleUrl,
+    onTitleClick,
+
+    menuButtonAriaLabel,
+    onMenuButtonClick,
+
+    children,
+  } = props;
+
+  const titleProps = {
+    titleStyle: TitleStyleType[titleStyle],
+    onClick: onTitleClick,
+    href: titleUrl,
+    ariaLabel: titleAriaLabel,
+  };
+
+  const menuButtonProps = {
+    ariaLabel: menuButtonAriaLabel,
+    onClick: onMenuButtonClick,
+  };
 
   return (
     <>
       <div className={styles.headerActionBar}>
-        <LinkItem {...linkProps}>
-          <TitleLogoArea title={ellipsizeTitle(title, titleStyle)} titleStyle={titleStyle} />
-        </LinkItem>
+        <TitleLogoArea {...titleProps}>{title}</TitleLogoArea>
         <div className={styles.headerActions}>
           {children}
-          <HeaderActionBarMenuItem ariaLabel={menuButtonAriaLabel} onClick={onMenuButtonClick} />
+          <HeaderActionBarMenuItem {...menuButtonProps} />
         </div>
       </div>
       <HeaderActionBarNavigationMenu />
@@ -122,5 +137,5 @@ export const HeaderActionBar = ({
 };
 
 HeaderActionBar.defaultProps = {
-  titleStyle: 'normal',
+  titleStyle: TitleStyleType.normal,
 };

@@ -16,7 +16,7 @@ exports[`<Notification /> spec renders the component 1`] = `
       >
         <svg
           aria-hidden="true"
-          class="icon s icon"
+          class="icon s"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +82,7 @@ exports[`<Notification /> spec uses toast notification props in non-inline notif
       >
         <svg
           aria-hidden="true"
-          class="icon s icon"
+          class="icon s"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"

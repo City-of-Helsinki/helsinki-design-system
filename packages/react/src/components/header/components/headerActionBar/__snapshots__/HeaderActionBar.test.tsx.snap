@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<HeaderUniversalBar /> spec renders the component 1`] = `
+exports[`<HeaderActionBar /> spec renders the component 1`] = `
 <DocumentFragment>
   <header
-    class="header"
+    class="hds-header header hds-header-navigation-bar-menu"
   >
     <div
       class="headerBackgroundWrapper"
@@ -11,12 +11,12 @@ exports[`<HeaderUniversalBar /> spec renders the component 1`] = `
       <div
         class="headerActionBar"
       >
-        <div
-          class="titleAndLogoContainer"
+        <span
+          class="titleAndLogoContainer normal"
         >
           <svg
             aria-hidden="true"
-            class="logo logo"
+            class="logo"
             role="img"
             title="Helsingin kaupunki"
             viewBox="0 0 78 36"
@@ -36,7 +36,7 @@ exports[`<HeaderUniversalBar /> spec renders the component 1`] = `
           >
             Test
           </span>
-        </div>
+        </span>
         <div
           class="headerActions"
         />

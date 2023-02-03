@@ -3,6 +3,18 @@
 .languageSelector {
   display: flex;
   gap: var(--spacing-s);
+
+}
+
+.languageSelectorDropdownIcon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.languageSelectorDropdown {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
 }
 
 .item {

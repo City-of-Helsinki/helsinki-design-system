@@ -7,39 +7,41 @@ export type LanguageOption = {
   label: string;
   value: LanguageType;
 };
-
 export type LanguageContextType = {
   activeLanguage: LanguageType;
   availableLanguages: Array<LanguageType>;
 };
 
-type LanguageDispatchContextType = {
+export type LanguageDispatchContextType = {
   setLanguage: (ln?: LanguageType) => void;
   setAvailableLanguages: (languages: LanguageOption[]) => void;
 };
-
-type LanguageProviderProps = PropsWithChildren<{
+export type LanguageProviderProps = PropsWithChildren<{
   defaultLanguage?: LanguageType;
+  onDidChangeLanguage?: (string) => void;
 }>;
 
 const LanguageContext = createContext<LanguageContextType>({
   activeLanguage: DEFAULT_LANGUAGE,
   availableLanguages: [],
 });
-
 const LanguageDispatchContext = createContext<LanguageDispatchContextType>({
   setLanguage: () => null,
   setAvailableLanguages: () => null,
 });
 
-export function LanguageProvider({ children, defaultLanguage = DEFAULT_LANGUAGE }: LanguageProviderProps) {
+export function LanguageProvider({ children, defaultLanguage, onDidChangeLanguage }: LanguageProviderProps) {
   const [activeLanguage, setActiveLanguage] = useState(defaultLanguage);
   const [languageOptions, setAvailableLanguages] = useState<LanguageOption[]>([]);
   const availableLanguages = useRef<LanguageType[]>([]);
 
   useEffect(() => {
     availableLanguages.current = languageOptions.map((option) => option.value);
-  }, [languageOptions.length]);
+  }, [languageOptions]);
+
+  useEffect(() => {
+    if (onDidChangeLanguage) onDidChangeLanguage(activeLanguage);
+  }, [activeLanguage]);
 
   const setLanguage = (language: LanguageType) => {
     if (availableLanguages.current.indexOf(language) === -1)
@@ -60,6 +62,10 @@ export function LanguageProvider({ children, defaultLanguage = DEFAULT_LANGUAGE 
     </LanguageContext.Provider>
   );
 }
+
+LanguageProvider.defaultProps = {
+  defaultLanguage: DEFAULT_LANGUAGE,
+};
 
 /**
  * Hook for getting currently active language

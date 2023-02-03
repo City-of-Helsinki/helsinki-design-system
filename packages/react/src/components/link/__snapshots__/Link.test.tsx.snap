@@ -12,7 +12,7 @@ exports[`<Link /> spec external link that is opened in to a new tab should not h
     Test link
     <svg
       aria-hidden="true"
-      class="icon s icon verticalAlignSmallOrMediumIcon"
+      class="icon s verticalAlignSmallOrMediumIcon"
       role="img"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"

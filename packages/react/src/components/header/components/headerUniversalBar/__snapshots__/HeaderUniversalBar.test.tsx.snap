@@ -3,7 +3,7 @@
 exports[`<HeaderUniversalBar /> spec renders the component 1`] = `
 <DocumentFragment>
   <header
-    class="header"
+    class="hds-header header hds-header-navigation-bar-menu"
   >
     <div
       class="headerBackgroundWrapper"
@@ -19,7 +19,7 @@ exports[`<HeaderUniversalBar /> spec renders the component 1`] = `
             class="universalBarMainLinkContainer"
           >
             <span
-              class="navigationLinkWrapper"
+              class="hds-navigation-link navigationLinkWrapper nav-depth-0"
             >
               <a
                 class="link linkM navigationLink universalBarLink"

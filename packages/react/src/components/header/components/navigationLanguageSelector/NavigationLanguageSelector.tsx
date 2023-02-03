@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
 
 import {
   LanguageOption,
@@ -8,39 +8,56 @@ import {
 } from '../../../../context/languageContext';
 import classNames from '../../../../utils/classNames';
 import { withDefaultPrevented } from '../../../../utils/useCallback';
-import styles from './NavigationLanguageSelector.module.scss';
+import { HeaderActionBarItemWithDropdown } from '../headerActionBarItem';
+import { IconAngleDown, IconAngleUp, IconGlobe } from '../../../../icons';
+import classes from './NavigationLanguageSelector.module.scss';
+import { useHeaderContext } from '../../HeaderContext';
 
-export const NavigationLanguageSelector = ({
-  languages,
-  onDidChangeLanguage,
-}: {
+export type LanguageSelectorProps = PropsWithChildren<{
   languages: LanguageOption[];
-  onDidChangeLanguage?: (string) => void;
-}) => {
+}>;
+
+const LanguageButton = ({ language }) => {
   const activeLanguage = useActiveLanguage();
-  const setAvailableLanguages = useSetAvailableLanguages();
   const setLanguage = useSetLanguage();
+  const className = classNames(classes.item, { [classes.activeItem]: activeLanguage === language.value });
+  const selectLanguage = withDefaultPrevented(() => setLanguage(language.value));
+
+  return (
+    <button key={language.value} onClick={selectLanguage} type="button" className={className}>
+      <span>{language.label}</span>
+    </button>
+  );
+};
+
+const renderLanguageNode = (language) => <LanguageButton language={language} />;
+
+export const NavigationLanguageSelector = ({ children, languages }: LanguageSelectorProps) => {
+  const setAvailableLanguages = useSetAvailableLanguages();
+  const { isSmallScreen } = useHeaderContext();
 
   useEffect(() => {
     setAvailableLanguages(languages);
   }, [languages]);
 
-  useEffect(() => {
-    if (onDidChangeLanguage) onDidChangeLanguage(activeLanguage);
-  }, [activeLanguage]);
+  const languageNodes = languages.map(renderLanguageNode);
 
   return (
-    <div className={styles.languageSelector}>
-      {languages.map((language) => {
-        const className = classNames(styles.item, { [styles.activeItem]: activeLanguage === language.value });
-        const selectLanguage = withDefaultPrevented(() => setLanguage(language.value));
+    <div className={classes.languageSelector}>
+      {!isSmallScreen && languageNodes}
 
-        return (
-          <button key={language.value} onClick={selectLanguage} type="button" className={className}>
-            <span>{language.label}</span>
-          </button>
-        );
-      })}
+      <HeaderActionBarItemWithDropdown
+        id="language-selection-more"
+        iconClassName={classes.languageSelectorDropdownIcon}
+        dropdownClassName={classes.languageSelectorDropdown}
+        label={<IconAngleDown />}
+        closeLabel={<IconAngleUp />}
+        icon={IconGlobe}
+        closeIcon={IconGlobe}
+      >
+        {isSmallScreen && languageNodes}
+        {children}
+      </HeaderActionBarItemWithDropdown>
     </div>
   );
 };

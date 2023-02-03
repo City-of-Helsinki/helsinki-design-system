@@ -2,7 +2,7 @@ import React, { PropsWithChildren, createContext, useContext, useEffect, useStat
 
 import { useMediaQueryLessThan } from '../../hooks/useMediaQuery';
 
-export type HeaderContextProps = {
+export type HeaderContextType = {
   /**
    * Flag for whether the viewport is under breakpoint value medium.
    */
@@ -21,7 +21,7 @@ export type HeaderDispatchContextType = {
   setMobileMenuOpen?: (state: boolean) => void;
 };
 
-const HeaderContext = createContext<HeaderContextProps>({ navigationContent: null });
+const HeaderContext = createContext<HeaderContextType>({ navigationContent: null });
 const HeaderDispatchContext = createContext<HeaderDispatchContextType>({
   setNavigationContent() {}, // eslint-disable-line @typescript-eslint/no-empty-function
   setMobileMenuOpen() {}, // eslint-disable-line @typescript-eslint/no-empty-function
@@ -29,7 +29,7 @@ const HeaderDispatchContext = createContext<HeaderDispatchContextType>({
 HeaderContext.displayName = 'HeaderContext';
 HeaderDispatchContext.displayName = 'HeaderDispatchContext';
 
-export function HeaderContextProvider({ children }: PropsWithChildren<HeaderContextProps>) {
+export function HeaderContextProvider({ children }: PropsWithChildren<HeaderContextType>) {
   const isSmallScreen = useMediaQueryLessThan('s');
   const [navigationContent, setNavigationContent] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -37,7 +37,7 @@ export function HeaderContextProvider({ children }: PropsWithChildren<HeaderCont
   useEffect(() => setMobileMenuOpen(false), [isSmallScreen]);
 
   const hasNavigationContent = !!navigationContent;
-  const context: HeaderContextProps = { isSmallScreen, mobileMenuOpen, navigationContent, hasNavigationContent };
+  const context: HeaderContextType = { isSmallScreen, mobileMenuOpen, navigationContent, hasNavigationContent };
   const dispatchContext: HeaderDispatchContextType = { setNavigationContent, setMobileMenuOpen };
 
   return (
