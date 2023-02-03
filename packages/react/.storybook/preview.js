@@ -39,5 +39,5 @@ export const parameters = {
       { name: 'Black', value: '#111' },
     ],
   },
-  controls: { expanded: true },
+  controls: { expanded: true, sort: 'alpha' },
 };
