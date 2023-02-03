@@ -11,7 +11,7 @@ export type HeaderActionBarMenuButtonProps = {
 };
 
 export const HeaderActionBarMenuItem = ({ ariaLabel, onClick }: HeaderActionBarMenuButtonProps) => {
-  const { hasNavigationContent, mobileMenuOpen, isSmallScreen } = useHeaderContext();
+  const { hasNavigationContent, mobileMenuOpen, isNotLargeScreen } = useHeaderContext();
   const { setMobileMenuOpen } = useSetHeaderContext();
   const Icon = mobileMenuOpen ? IconCross : IconMenuHamburger;
   const aria = {
@@ -25,7 +25,7 @@ export const HeaderActionBarMenuItem = ({ ariaLabel, onClick }: HeaderActionBarM
     if (!event.isPropagationStopped()) setMobileMenuOpen(!mobileMenuOpen);
   };
 
-  if (!hasNavigationContent || !isSmallScreen) return null;
+  if (!hasNavigationContent || !isNotLargeScreen) return null;
 
   return (
     <HeaderActionBarItem label="Menu" {...aria} onClick={handleClick} onClickCapture={handleClickCapture} icon={Icon} />

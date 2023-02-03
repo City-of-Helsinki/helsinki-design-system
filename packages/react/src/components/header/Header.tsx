@@ -35,9 +35,9 @@ export type HeaderProps = PropsWithChildren<
 >;
 
 const HeaderNode: ComponentType<HeaderNodeProps> = ({ children, className, ...props }) => {
-  const { isSmallScreen } = useHeaderContext();
+  const { isNotLargeScreen } = useHeaderContext();
   const headerClassNames = classNames('hds-header', styles.header, className, {
-    'hds-header-navigation-bar-menu': !isSmallScreen,
+    'hds-header-navigation-bar-menu': !isNotLargeScreen,
   });
   return (
     <header className={headerClassNames} {...props}>

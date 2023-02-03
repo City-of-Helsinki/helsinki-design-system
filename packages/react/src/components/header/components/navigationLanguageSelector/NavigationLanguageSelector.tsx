@@ -34,7 +34,7 @@ const renderLanguageNode = (language) => <LanguageButton language={language} />;
 
 export const NavigationLanguageSelector = ({ children, languages }: LanguageSelectorProps) => {
   const setAvailableLanguages = useSetAvailableLanguages();
-  const { isSmallScreen } = useHeaderContext();
+  const { isNotLargeScreen } = useHeaderContext();
 
   useEffect(() => {
     setAvailableLanguages(languages);
@@ -44,7 +44,7 @@ export const NavigationLanguageSelector = ({ children, languages }: LanguageSele
 
   return (
     <div className={classes.languageSelector}>
-      {!isSmallScreen && languageNodes}
+      {!isNotLargeScreen && languageNodes}
 
       <HeaderActionBarItemWithDropdown
         id="language-selection-more"
@@ -55,7 +55,7 @@ export const NavigationLanguageSelector = ({ children, languages }: LanguageSele
         icon={IconGlobe}
         closeIcon={IconGlobe}
       >
-        {isSmallScreen && languageNodes}
+        {isNotLargeScreen && languageNodes}
         {children}
       </HeaderActionBarItemWithDropdown>
     </div>

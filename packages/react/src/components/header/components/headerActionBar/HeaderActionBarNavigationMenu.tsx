@@ -45,10 +45,10 @@ const HeaderNavigationMenuContent = () => {
 };
 
 export const HeaderActionBarNavigationMenu = () => {
-  const { hasNavigationContent, isSmallScreen, mobileMenuOpen } = useHeaderContext();
+  const { hasNavigationContent, isNotLargeScreen, mobileMenuOpen } = useHeaderContext();
   const className = classNames(styles.headerNavigationMenu, mobileMenuOpen && styles.headerNavigationMenuOpen);
 
-  if (!hasNavigationContent || !isSmallScreen) return null;
+  if (!hasNavigationContent || !isNotLargeScreen) return null;
 
   return (
     <nav role="navigation" className={className}>

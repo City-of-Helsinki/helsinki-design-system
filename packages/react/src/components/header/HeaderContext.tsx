@@ -6,11 +6,7 @@ export type HeaderContextType = {
   /**
    * Flag for whether the viewport is under breakpoint value medium.
    */
-  isSmallScreen?: boolean;
-  /**
-   * Flag for whether the viewport is under breakpoint value large.
-   */
-  isMediumScreen?: boolean;
+  isNotLargeScreen?: boolean;
   mobileMenuOpen?: boolean;
   hasNavigationContent?: boolean;
   navigationContent?: React.ReactNode;
@@ -30,14 +26,14 @@ HeaderContext.displayName = 'HeaderContext';
 HeaderDispatchContext.displayName = 'HeaderDispatchContext';
 
 export function HeaderContextProvider({ children }: PropsWithChildren<HeaderContextType>) {
-  const isSmallScreen = useMediaQueryLessThan('m');
+  const isNotLargeScreen = useMediaQueryLessThan('m');
   const [navigationContent, setNavigationContent] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => setMobileMenuOpen(false), [isSmallScreen]);
+  useEffect(() => setMobileMenuOpen(false), [isNotLargeScreen]);
 
   const hasNavigationContent = !!navigationContent;
-  const context: HeaderContextType = { isSmallScreen, mobileMenuOpen, navigationContent, hasNavigationContent };
+  const context: HeaderContextType = { isNotLargeScreen, mobileMenuOpen, navigationContent, hasNavigationContent };
   const dispatchContext: HeaderDispatchContextType = { setNavigationContent, setMobileMenuOpen };
 
   return (
