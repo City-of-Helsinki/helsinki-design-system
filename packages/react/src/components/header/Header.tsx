@@ -1,8 +1,8 @@
-import React, { ComponentType, FC, PropsWithChildren } from 'react';
+import React, { ComponentType, FC } from 'react';
 
 import classNames from '../../utils/classNames';
 import { HeaderContextProvider, useHeaderContext } from './HeaderContext';
-import { HeaderUniversalBar, HeaderUniversalBarProps } from './components/headerUniversalBar';
+import { HeaderUniversalBar } from './components/headerUniversalBar';
 import { HeaderActionBar } from './components/headerActionBar';
 import { HeaderNavigationMenu } from './components/headerNavigationMenu';
 import { NavigationLink } from './components/navigationLink';
