@@ -1,34 +1,41 @@
 @import "../../../../styles/common";
 
-@layer actionBar {
-  .actionBarItem {
-    appearance: none;
-    border: none;
-    background: transparent;
-    cursor: pointer;
+button.actionBarItem {
+  appearance: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
 
-    @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius), calc(-1 * var(--header-focus-outline-width)));
-  }
+  @include focusVisible(
+    var(--header-focus-outline-color),
+    var(--header-focus-outline-width),
+    var(--header-focus-outline-border-radius),
+    calc(-1 * var(--header-focus-outline-width))
+  );
+}
 
-  .actionBarItemIcon {
+.actionBarItemIcon {
+  display: block;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  margin: 0 auto;
+  padding: 0 8px;
+
+  & > svg {
     display: block;
-    width: var(--icon-size);
-    height: var(--icon-size);
-    margin: 0 auto;
-    padding: 0 8px;
-
-    & > svg {
-      display: block;
-      width: auto;
-      height: 100%;
-    }
+    width: auto;
+    height: 100%;
   }
+}
 
-  .actionBarItemLabel {
+.actionBarItemLabel {
+  display: block;
+  margin: 0 auto;
+  white-space: nowrap;
+  font-size: var(--action-bar-item-title-font-size);
+  color: var(--action-bar-item-title-font-color);
+
+  & > svg {
     display: block;
-    margin: 0 auto;
-    white-space: nowrap;
-    font-size: var(--action-bar-item-title-font-size);
-    color: var(--action-bar-item-title-font-color);
   }
 }

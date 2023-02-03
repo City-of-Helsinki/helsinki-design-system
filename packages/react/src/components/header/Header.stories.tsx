@@ -64,13 +64,8 @@ export const WithFullFeatures = (args) => (
           Infoteksti
         </Header.NavigationLanguageSelector>
 
-        <Header.ActionBarItem label="Haku" icon={IconSearch} id="action-bar-search">
-          <Header.NavigationSearch
-            submitButtonAriaLabel="Hae"
-            inputPlaceholder="Hae…"
-            onChange={action('search:onChange')}
-            onSubmit={action('search:onSubmit')}
-          />
+        <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
+          <Header.NavigationSearch onChange={action('search:onChange')} onSubmit={action('search:onSubmit')} />
         </Header.ActionBarItem>
       </Header.ActionBar>
 
@@ -252,12 +247,18 @@ export const WithActionBar = (args) => {
         titleUrl="https://hel.fi"
         titleStyle={TitleStyleType.black}
         onMenuButtonClick={(event) => {
+          // TODO
           event.stopPropagation();
         }}
       >
         <Header.NavigationLanguageSelector languages={languages}>
-          <a href="#selkokieli">Selkokieli</a>
+          <h3>Kielivalinnat</h3>
+          Infoteksti
         </Header.NavigationLanguageSelector>
+
+        <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
+          <Header.NavigationSearch onChange={action('search:onChange')} onSubmit={action('search:onSubmit')} />
+        </Header.ActionBarItem>
 
         <Header.ActionBarItem label="Kirjaudu" icon={IconUser} style={{ order: 10 }} id="action-bar-login">
           <h3>Kirjautumisvalinnat</h3>

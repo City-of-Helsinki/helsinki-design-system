@@ -11,13 +11,24 @@ $animation-close-delay: 150ms;
       padding-bottom: 0;
       transition-delay: $animation-duration + $animation-close-delay;
     }
+
     &.visible .dropdownWrapper {
       max-height: 1000vh;
       padding-bottom: 20px;
       transition-delay: 0ms;
     }
+
     &:not(.hasContent) {
       display: none;
+    }
+
+    &:not(.fullWidth) {
+      display: flex;
+      position: relative;
+    }
+
+    &.fullWidth > .dropdownWrapper {
+      left: 0;
     }
   }
 
@@ -28,7 +39,6 @@ $animation-close-delay: 150ms;
   .dropdownWrapper {
     position: absolute;
     bottom: 0;
-    left: 0;
     right: 0;
     z-index: 20;
     transform: translateY(100%) translateY(1px);
@@ -40,7 +50,6 @@ $animation-close-delay: 150ms;
   .dropdown {
     background: white;
     position: relative;
-    left: 0;
     right: 0;
     margin-top: -1px;
     padding: var(--spacing-s) var(--spacing-m);
@@ -50,6 +59,10 @@ $animation-close-delay: 150ms;
     transform: translateY(-100%);
     transition: $animation-duration transform $animation-close-delay, 0ms visibility ($animation-duration + $animation-close-delay);
     visibility: hidden;
+
+    &.fullWidth {
+      left: 0;
+    }
 
     &.visible {
       transform: translateY(0%);

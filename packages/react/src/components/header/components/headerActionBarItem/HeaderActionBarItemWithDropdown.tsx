@@ -9,6 +9,7 @@ type DivAttributes = JSX.IntrinsicElements['div'];
 
 interface WithDropdownAttributes extends DivAttributes {
   id: string;
+  fullWidth?: boolean;
   iconClassName?: WithDropdownProps['className'];
   dropdownClassName?: WithDropdownProps['className'];
   label: string | JSX.Element;
@@ -24,10 +25,11 @@ export const HeaderActionBarItemWithDropdown: ComponentType<WithDropdownProps> =
     id,
     children,
     label,
+    fullWidth,
     className: classNameProp,
     iconClassName: iconClassNameProp,
     dropdownClassName: dropdownClassNameProp,
-    closeLabel = 'Sulje',
+    closeLabel,
     icon,
     closeIcon = IconCross,
     ...props
@@ -72,12 +74,16 @@ export const HeaderActionBarItemWithDropdown: ComponentType<WithDropdownProps> =
 
   const iconLabel = visible ? closeLabel : label;
   const iconClass = visible ? closeIcon : icon;
-  const visibleClass = { [classes.visible]: visible, visible };
-  const className = classNames(classes.container, classNameProp, visibleClass, hasContent && classes.hasContent);
+  const visibilityClasses = {
+    visible,
+    [classes.visible]: visible,
+    [classes.hasContent]: hasContent,
+    [classes.fullWidth]: fullWidth,
+  };
+  const className = classNames(classes.container, classNameProp, visibilityClasses);
   const iconClassName = classNames(classes.icon, iconClassNameProp);
-  const dropdownClassName = classNames(classes.dropdown, dropdownClassNameProp, 'hds-dropdown-content', visibleClass);
-
-  // if (!hasContent) return null;
+  const dropdownClassName = classNames(classes.dropdown, dropdownClassNameProp, visibilityClasses);
+  // containerRef.current.getBoundingClientRect()
 
   /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
   return (
@@ -96,4 +102,9 @@ export const HeaderActionBarItemWithDropdown: ComponentType<WithDropdownProps> =
       </div>
     </div>
   );
+};
+
+HeaderActionBarItemWithDropdown.defaultProps = {
+  fullWidth: false,
+  closeLabel: 'Sulje',
 };

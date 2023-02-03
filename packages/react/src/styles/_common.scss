@@ -52,14 +52,36 @@
  * Mixins
  */
 
- @mixin focusOutline($outline-color: var(--color-coat-of-arms), $outline-width: 3px, $outline-radius: false, $outline-offset: 0px) {
-  &:focus {
-    @if $outline-radius {
-      border-radius: $outline-radius;
+@mixin withFocus($selector: focus, $color: var(--color-coat-of-arms), $width: 3px, $radius: false, $offset: false) {
+  &:#{selector} {
+    @if $radius {
+      border-radius: $radius;
     }
-    @if $outline-offset {
-      outline-offset: $outline-offset;
+    @if $offset {
+      outline-offset: $offset;
     }
-    outline: $outline-width solid $outline-color;
+    outline: $width solid $color;
+  }
+}
+
+/*
+ * Add an outline attribute for element's &:focus pseudo class
+ */
+@mixin focusOutline($color: var(--focus-outline-color), $width: var(--outline-width), $radius: false, $offset: false) {
+  @include withFocus(focus, $color, $width, $offset, $radius)
+}
+
+/*
+ * Add an outline attribute for element's &:focus-visible pseudo class
+ */
+@mixin focusVisible($color: var(--focus-outline-color), $width: var(--outline-width), $radius: false, $offset: false) {
+  &:focus-visible {
+    @if $radius {
+      border-radius: $radius;
+    }
+    @if $offset {
+      outline-offset: $offset;
+    }
+    outline: $width solid $color;
   }
 }
