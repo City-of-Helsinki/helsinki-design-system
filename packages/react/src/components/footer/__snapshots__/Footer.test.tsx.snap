@@ -6,7 +6,7 @@ exports[`<Footer /> spec renders the component 1`] = `
     class="footer koros-basic theme-light"
   >
     <div
-      class="koros basic"
+      class="koros basic koros basic"
     >
       <svg
         aria-hidden="true"

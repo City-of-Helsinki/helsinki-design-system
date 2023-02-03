@@ -12,13 +12,13 @@ exports[`<ErrorSummary /> spec renders the component 1`] = `
     >
       <div
         aria-level="2"
-        class="label"
+        class="label label"
         role="heading"
         tabindex="-1"
       >
         <svg
           aria-hidden="true"
-          class="icon s"
+          class="icon s icon"
           role="img"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"

@@ -1,7 +1,5 @@
 import React, { EventHandler, PropsWithChildren, MouseEvent, KeyboardEvent } from 'react';
 
-import 'hds-core';
-import styles from './HeaderActionBar.module.scss';
 import { Logo } from '../../../logo';
 import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
 import { useActiveLanguage } from '../../../../context/languageContext';
@@ -9,6 +7,9 @@ import { HeaderActionBarNavigationMenu } from './HeaderActionBarNavigationMenu';
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';
 import { HeaderActionBarMenuItem } from '../headerActionBarItem';
 import classNames from '../../../../utils/classNames';
+import styles from './HeaderActionBar.module.scss';
+
+import 'hds-core';
 
 export enum TitleStyleType {
   normal = 'normal',
