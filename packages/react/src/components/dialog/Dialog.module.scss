@@ -3,7 +3,7 @@
 @value medium-up from "../../styles/breakpoints.css";
 
 .dialogVisibleBodyWithHiddenScrollbars {
-    overflow: hidden;
+    overflow: hidden !important;
 }
 
 .dialogContainer {
