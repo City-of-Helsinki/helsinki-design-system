@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import styles from './NavigationSearch.module.scss';
 import { SearchInput } from '../../../searchInput';
@@ -14,7 +14,7 @@ export type NavigationSearchProps = {
   onChange?: (inputValue: string) => void;
 };
 
-export const NavigationSearch = ({ onChange, onSubmit }: NavigationSearchProps): JSX.Element => {
+export const NavigationSearch: FC<NavigationSearchProps> = ({ onChange, onSubmit }) => {
   // search is always active in mobile
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -32,4 +32,5 @@ export const NavigationSearch = ({ onChange, onSubmit }: NavigationSearchProps):
     </div>
   );
 };
-NavigationSearch.componentName = 'NavigationSearch';
+
+NavigationSearch.displayName = 'NavigationSearch';

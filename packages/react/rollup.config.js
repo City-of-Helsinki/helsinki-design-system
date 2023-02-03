@@ -3,7 +3,7 @@ import fs from 'fs';
 
 import includePaths from 'rollup-plugin-includepaths';
 import resolve from '@rollup/plugin-node-resolve';
-import ts from 'rollup-plugin-ts';
+import ts from '@wessberg/rollup-plugin-ts';
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';

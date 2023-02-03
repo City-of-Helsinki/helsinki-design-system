@@ -25,7 +25,6 @@ export default {
     layout: 'fullscreen',
   },
   args: {},
-  argTypes: {},
 };
 
 const languageChangedAction = action('language:onChange');
@@ -57,7 +56,7 @@ export const WithFullFeatures = (args) => (
         title="Helsingin kaupunki"
         titleAriaLabel="Helsingin kaupunki"
         titleUrl="https://hel.fi"
-        titleStyle={TitleStyleType.black}
+        titleStyle={TitleStyleType.normal}
       >
         <Header.NavigationLanguageSelector languages={languages}>
           <h3>Kielivalinnat</h3>

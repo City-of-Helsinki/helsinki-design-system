@@ -53,9 +53,12 @@
     cursor: auto;
   }
 
-  @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius), calc(-1 * var(--header-focus-outline-width)));
-
-
+  @include focusVisible(
+    var(--header-focus-outline-color),
+    var(--header-focus-outline-width),
+    var(--header-focus-outline-border-radius),
+    calc(-1 * var(--header-focus-outline-width))
+  );
 }
 
 .title {
@@ -86,34 +89,4 @@
   box-sizing: content-box;
   height: var(--logo-height);
   padding: var(--spacing-s) 0;
-}
-
-
-.actionItem {
-  appearance: none;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-
-  @include focusOutline(var(--header-focus-outline-color), var(--header-focus-outline-width), var(--header-focus-outline-border-radius), calc(-1 * var(--header-focus-outline-width)));
-}
-
-.actionItemIcon {
-  display: block;
-  width: var(--icon-size);
-  height: var(--icon-size);
-  margin: 0 auto;
-
-  svg {
-    display: block;
-    width: auto;
-    height: 100%;
-  }
-}
-
-.actionItemTitle {
-  display: block;
-  margin: 0 auto;
-  font-size: var(--action-item-title-font-size);
-  color: var(--action-item-title-font-color);
 }

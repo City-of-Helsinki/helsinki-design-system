@@ -5,6 +5,7 @@ import { useHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import styles from './HeaderActionBarNavigationMenu.module.scss';
 
+// FIXME
 const dropdownLinkClassName = styles.headerNavigationMenuDropdownLink;
 const dropdownClassName = styles.headerNavigationMenuDropdown;
 const wrapperClassName = styles.headerNavigationMenuLinkWrapper;

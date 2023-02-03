@@ -25,8 +25,9 @@ export const HeaderActionBarItem = forwardRef<HTMLButtonElement, HeaderActionBar
   const aria = {
     'aria-label': ariaLabel || (typeof label === 'string' && label),
     'aria-haspopup': true,
-    'aria-expanded': !!ariaExpanded,
   };
+
+  if (ariaExpanded) aria['aria-expanded'] = true;
 
   return (
     <button type="button" {...props} {...aria} className={buttonClassName} ref={ref}>

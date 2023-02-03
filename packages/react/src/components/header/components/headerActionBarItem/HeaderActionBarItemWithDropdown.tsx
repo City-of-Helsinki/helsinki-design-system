@@ -83,7 +83,6 @@ export const HeaderActionBarItemWithDropdown: ComponentType<WithDropdownProps> =
   const className = classNames(classes.container, classNameProp, visibilityClasses);
   const iconClassName = classNames(classes.icon, iconClassNameProp);
   const dropdownClassName = classNames(classes.dropdown, dropdownClassNameProp, visibilityClasses);
-  // containerRef.current.getBoundingClientRect()
 
   /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
   return (
