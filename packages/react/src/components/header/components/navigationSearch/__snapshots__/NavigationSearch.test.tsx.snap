@@ -111,48 +111,76 @@ exports[`<Header.NavigationSearch /> spec renders the component 1`] = `
           <div
             class="headerContent"
           >
-            <form
-              aria-label="Haku"
+            <div
               class="searchContainer"
             >
-              <label>
-                <h3>
-                  Haku
-                </h3>
-                <input
-                  class="input"
-                  id="navigation-search"
-                  placeholder=""
-                  type="text"
-                />
-              </label>
-              <button
-                aria-label="Hae"
-                class="searchButton"
-                type="submit"
+              <div
+                class="root"
               >
-                <svg
-                  aria-hidden="true"
-                  class="icon s"
-                  role="img"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+                <label
+                  class="label "
+                  for="downshift-0-input"
+                  id="downshift-1-label"
                 >
-                  <g
-                    fill="none"
-                    fill-rule="evenodd"
+                  Search
+                </label>
+                <div
+                  class="wrapper"
+                >
+                  <input
+                    aria-autocomplete="list"
+                    aria-controls="downshift-1-menu"
+                    aria-expanded="false"
+                    aria-haspopup="listbox"
+                    aria-labelledby="downshift-1-label"
+                    aria-owns="downshift-1-menu"
+                    autocomplete="off"
+                    class="input"
+                    enterkeyhint="search"
+                    id="downshift-0-input"
+                    role="combobox"
+                    value=""
+                  />
+                  <div
+                    class="buttons"
                   >
-                    <path
-                      d="M0 0h24v24H0z"
-                    />
-                    <path
-                      d="M15 1a8 8 0 11-4.798 14.402l-6.401 6.4-1.591-1.59 6.398-6.4A8 8 0 0115 1zm0 2a6 6 0 100 12 6 6 0 000-12z"
-                      fill="currentColor"
-                    />
-                  </g>
-                </svg>
-              </button>
-            </form>
+                    <button
+                      aria-label="Search"
+                      class="button"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="icon s searchIcon"
+                        role="img"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <path
+                            d="M0 0h24v24H0z"
+                          />
+                          <path
+                            d="M15 1a8 8 0 11-4.798 14.402l-6.401 6.4-1.591-1.59 6.398-6.4A8 8 0 0115 1zm0 2a6 6 0 100 12 6 6 0 000-12z"
+                            fill="currentColor"
+                          />
+                        </g>
+                      </svg>
+                    </button>
+                  </div>
+                  <ul
+                    aria-labelledby="downshift-1-label"
+                    class="menu"
+                    id="downshift-1-menu"
+                    role="listbox"
+                    style="max-height: 416px;"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
