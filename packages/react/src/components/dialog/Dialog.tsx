@@ -32,21 +32,11 @@ const findFocusableDialogElements = (dialogElement: HTMLElement): NodeList =>
     'a, button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select',
   );
 
-const focusFirstDialogElement = (dialogElement?: HTMLElement) => {
-  if (dialogElement) {
-    const focusableElements = findFocusableDialogElements(dialogElement);
-
-    if (focusableElements.length) {
-      (focusableElements[0] as HTMLElement).focus();
-    }
-  }
-};
-
-const focusLastDialogElement = (dialogElement?: HTMLElement) => {
+const focusToDialogElement = (position: 'top' | 'bottom', dialogElement?: HTMLElement) => {
   if (dialogElement) {
     const focusableElements = findFocusableDialogElements(dialogElement);
     if (focusableElements.length) {
-      (focusableElements[focusableElements.length - 1] as HTMLElement).focus();
+      (focusableElements[position === 'top' ? 0 : focusableElements.length - 1] as HTMLElement).focus();
     }
   }
 };
@@ -54,6 +44,20 @@ const focusLastDialogElement = (dialogElement?: HTMLElement) => {
 const ContentTabBarrier = ({ onFocus }: { onFocus: () => void }): JSX.Element => {
   /* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */
   return <div {...defaultBarrierProps} onFocus={onFocus} />;
+};
+
+const addDocumentTabBarrier = (position: 'top' | 'bottom', dialogElement?: HTMLElement): HTMLDivElement => {
+  const element = document.createElement('div');
+  element.className = 'hds-dialog-tab-barrier';
+  element.tabIndex = defaultBarrierProps.tabIndex;
+  element['aria-hidden'] = defaultBarrierProps.tabIndex['aria-hidden'];
+  element.addEventListener('focus', () => focusToDialogElement(position, dialogElement));
+  if (position === 'top') {
+    document.body.insertBefore(element, document.body.firstChild);
+  } else {
+    document.body.appendChild(element);
+  }
+  return element;
 };
 
 export type DialogVariant = 'primary' | 'danger';
@@ -148,19 +152,25 @@ export const Dialog = ({
   targetElement,
   ...props
 }: DialogProps) => {
-  const isBrowser = typeof window !== 'undefined';
   const [isReadyToShowDialog, setIsReadyToShowDialog] = useState<boolean>(false);
   const dialogContextProps: DialogContextProps = { isReadyToShowDialog, scrollable, close, closeButtonLabelText };
   const customThemeClass = useTheme<DialogCustomTheme>(styles.dialogContainer, theme);
   const dialogRef: RefObject<HTMLInputElement> = React.createRef();
-  const [focusedElement, setFocusedElement] = useState(isBrowser ? document.activeElement : null);
 
   useEffect(() => {
-    // if currently focused element is not inside the Dialog
-    if (!dialogRef?.current?.contains(focusedElement)) {
-      focusFirstDialogElement(dialogRef.current);
+    if (isOpen && dialogRef !== undefined) {
+      addDocumentTabBarrier('top', dialogRef.current);
+      addDocumentTabBarrier('bottom', dialogRef.current);
+
+      return () => {
+        const barriers = document.querySelectorAll('.hds-dialog-tab-barrier');
+        barriers.forEach((element) => {
+          element.remove();
+        });
+      };
     }
-  }, [focusedElement]);
+    return null;
+  }, [dialogRef, isOpen]);
 
   const { 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby } = props;
 
@@ -179,9 +189,6 @@ export const Dialog = ({
 
   useEffect(() => {
     if (isOpen) {
-      if (isBrowser) {
-        document.addEventListener('focusin', () => setFocusedElement(document.activeElement));
-      }
       document.body.classList.add(styles.dialogVisibleBodyWithHiddenScrollbars);
       document.documentElement.classList.add(styles.dialogVisibleBodyWithHiddenScrollbars);
       document.addEventListener('keydown', onKeyDown, false);
@@ -189,9 +196,6 @@ export const Dialog = ({
     }
     return (): void => {
       if (isOpen) {
-        if (isBrowser) {
-          document.removeEventListener('focusin', () => setFocusedElement(document.activeElement));
-        }
         setIsReadyToShowDialog(false);
         document.body.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
         document.documentElement.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
@@ -208,7 +212,7 @@ export const Dialog = ({
   const renderDialogComponent = (): JSX.Element => (
     <DialogContext.Provider value={dialogContextProps}>
       <div className={classNames(styles.dialogContainer, customThemeClass)}>
-        <ContentTabBarrier onFocus={() => focusFirstDialogElement(dialogRef.current)} />
+        <ContentTabBarrier onFocus={() => focusToDialogElement('bottom', dialogRef.current)} />
         <div tabIndex={-1} className={styles.dialogBackdrop} />
         <div
           ref={dialogRef}
@@ -227,11 +231,9 @@ export const Dialog = ({
           aria-labelledby={ariaLabelledby}
           aria-describedby={ariaDescribedby}
         >
-          <ContentTabBarrier onFocus={() => focusLastDialogElement(dialogRef.current)} />
           {children}
-          <ContentTabBarrier onFocus={() => focusFirstDialogElement(dialogRef.current)} />
         </div>
-        <ContentTabBarrier onFocus={() => focusLastDialogElement(dialogRef.current)} />
+        <ContentTabBarrier onFocus={() => focusToDialogElement('top', dialogRef.current)} />
       </div>
     </DialogContext.Provider>
   );
