@@ -156,14 +156,14 @@ export const Dialog = ({
   const [focusedElement, setFocusedElement] = useState(isBrowser ? document.activeElement : null);
 
   useEffect(() => {
-    if (isBrowser) {
+    if (isBrowser && isOpen) {
       document.addEventListener('focusin', () => setFocusedElement(document.activeElement));
       return () => {
         document.removeEventListener('focusin', () => setFocusedElement(document.activeElement));
       };
     }
     return null;
-  }, []);
+  }, [isOpen]);
 
   useEffect(() => {
     // if currently focused element is not inside the Dialog
