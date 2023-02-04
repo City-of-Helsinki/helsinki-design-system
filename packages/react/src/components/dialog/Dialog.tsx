@@ -156,16 +156,6 @@ export const Dialog = ({
   const [focusedElement, setFocusedElement] = useState(isBrowser ? document.activeElement : null);
 
   useEffect(() => {
-    if (isBrowser && isOpen) {
-      document.addEventListener('focusin', () => setFocusedElement(document.activeElement));
-      return () => {
-        document.removeEventListener('focusin', () => setFocusedElement(document.activeElement));
-      };
-    }
-    return null;
-  }, [isOpen]);
-
-  useEffect(() => {
     // if currently focused element is not inside the Dialog
     if (!dialogRef?.current?.contains(focusedElement)) {
       focusFirstDialogElement(dialogRef.current);
@@ -189,6 +179,9 @@ export const Dialog = ({
 
   useEffect(() => {
     if (isOpen) {
+      if (isBrowser) {
+        document.addEventListener('focusin', () => setFocusedElement(document.activeElement));
+      }
       document.body.classList.add(styles.dialogVisibleBodyWithHiddenScrollbars);
       document.documentElement.classList.add(styles.dialogVisibleBodyWithHiddenScrollbars);
       document.addEventListener('keydown', onKeyDown, false);
@@ -196,6 +189,9 @@ export const Dialog = ({
     }
     return (): void => {
       if (isOpen) {
+        if (isBrowser) {
+          document.removeEventListener('focusin', () => setFocusedElement(document.activeElement));
+        }
         setIsReadyToShowDialog(false);
         document.body.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
         document.documentElement.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
@@ -213,7 +209,6 @@ export const Dialog = ({
     <DialogContext.Provider value={dialogContextProps}>
       <div className={classNames(styles.dialogContainer, customThemeClass)}>
         <ContentTabBarrier onFocus={() => focusFirstDialogElement(dialogRef.current)} />
-        <ContentTabBarrier onFocus={() => focusLastDialogElement(dialogRef.current)} />
         <div tabIndex={-1} className={styles.dialogBackdrop} />
         <div
           ref={dialogRef}
@@ -232,9 +227,11 @@ export const Dialog = ({
           aria-labelledby={ariaLabelledby}
           aria-describedby={ariaDescribedby}
         >
+          <ContentTabBarrier onFocus={() => focusLastDialogElement(dialogRef.current)} />
           {children}
+          <ContentTabBarrier onFocus={() => focusFirstDialogElement(dialogRef.current)} />
         </div>
-        <ContentTabBarrier onFocus={() => focusFirstDialogElement(dialogRef.current)} />
+        <ContentTabBarrier onFocus={() => focusLastDialogElement(dialogRef.current)} />
       </div>
     </DialogContext.Provider>
   );
