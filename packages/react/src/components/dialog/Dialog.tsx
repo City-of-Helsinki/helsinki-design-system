@@ -16,6 +16,11 @@ export interface DialogCustomTheme {
   '--overlay-color'?: string;
 }
 
+enum TabBarrierPosition {
+  top = 'top',
+  bottom = 'bottom',
+}
+
 type TabBarrierProps = {
   id: string;
   tabIndex: number;
@@ -32,11 +37,13 @@ const findFocusableDialogElements = (dialogElement: HTMLElement): NodeList =>
     'a, button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select',
   );
 
-const focusToDialogElement = (position: 'top' | 'bottom', dialogElement?: HTMLElement) => {
+const focusToDialogElement = (position: TabBarrierPosition, dialogElement?: HTMLElement) => {
   if (dialogElement) {
     const focusableElements = findFocusableDialogElements(dialogElement);
     if (focusableElements.length) {
-      (focusableElements[position === 'top' ? 0 : focusableElements.length - 1] as HTMLElement).focus();
+      (focusableElements[
+        position === TabBarrierPosition.top ? 0 : focusableElements.length - 1
+      ] as HTMLElement).focus();
     }
   }
 };
@@ -46,13 +53,13 @@ const ContentTabBarrier = ({ onFocus }: { onFocus: () => void }): JSX.Element =>
   return <div {...defaultBarrierProps} onFocus={onFocus} />;
 };
 
-const addDocumentTabBarrier = (position: 'top' | 'bottom', dialogElement?: HTMLElement): HTMLDivElement => {
+const addDocumentTabBarrier = (position: TabBarrierPosition, dialogElement?: HTMLElement): HTMLDivElement => {
   const element = document.createElement('div');
   element.className = 'hds-dialog-tab-barrier';
   element.tabIndex = defaultBarrierProps.tabIndex;
   element['aria-hidden'] = defaultBarrierProps.tabIndex['aria-hidden'];
   element.addEventListener('focus', () => focusToDialogElement(position, dialogElement));
-  if (position === 'top') {
+  if (position === TabBarrierPosition.top) {
     document.body.insertBefore(element, document.body.firstChild);
   } else {
     document.body.appendChild(element);
@@ -160,8 +167,8 @@ export const Dialog = ({
 
   useEffect(() => {
     if (isOpen && dialogRef !== undefined) {
-      addDocumentTabBarrier('top', dialogRef.current);
-      addDocumentTabBarrier('bottom', dialogRef.current);
+      addDocumentTabBarrier(TabBarrierPosition.top, dialogRef.current);
+      addDocumentTabBarrier(TabBarrierPosition.bottom, dialogRef.current);
 
       return () => {
         const barriers = document.querySelectorAll('.hds-dialog-tab-barrier');
@@ -220,7 +227,7 @@ export const Dialog = ({
   const renderDialogComponent = (): JSX.Element => (
     <DialogContext.Provider value={dialogContextProps}>
       <div className={classNames(styles.dialogContainer, customThemeClass)}>
-        <ContentTabBarrier onFocus={() => focusToDialogElement('bottom', dialogRef.current)} />
+        <ContentTabBarrier onFocus={() => focusToDialogElement(TabBarrierPosition.bottom, dialogRef.current)} />
         <div tabIndex={-1} className={styles.dialogBackdrop} />
         <div
           ref={dialogRef}
@@ -241,7 +248,7 @@ export const Dialog = ({
         >
           {children}
         </div>
-        <ContentTabBarrier onFocus={() => focusToDialogElement('top', dialogRef.current)} />
+        <ContentTabBarrier onFocus={() => focusToDialogElement(TabBarrierPosition.top, dialogRef.current)} />
       </div>
     </DialogContext.Provider>
   );
