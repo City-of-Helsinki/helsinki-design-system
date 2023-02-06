@@ -1,4 +1,4 @@
-import React, { useEffect, RefObject, useCallback, useState } from 'react';
+import React, { useEffect, RefObject, useCallback, useState, useRef, createRef } from 'react';
 import ReactDOM from 'react-dom';
 
 // import core base styles
@@ -155,7 +155,8 @@ export const Dialog = ({
   const [isReadyToShowDialog, setIsReadyToShowDialog] = useState<boolean>(false);
   const dialogContextProps: DialogContextProps = { isReadyToShowDialog, scrollable, close, closeButtonLabelText };
   const customThemeClass = useTheme<DialogCustomTheme>(styles.dialogContainer, theme);
-  const dialogRef: RefObject<HTMLInputElement> = React.createRef();
+  const dialogRef: RefObject<HTMLInputElement> = createRef();
+  const bodyRightPaddingStyleRef = useRef<string>(null);
 
   useEffect(() => {
     if (isOpen && dialogRef !== undefined) {
@@ -189,6 +190,12 @@ export const Dialog = ({
 
   useEffect(() => {
     if (isOpen) {
+      const documentScrollbarWidth = window.innerWidth - document.body.offsetWidth;
+      if (documentScrollbarWidth > 0) {
+        bodyRightPaddingStyleRef.current = document.body.style.paddingRight;
+        const bodyPaddingRightInPixels: number = parseInt(window.getComputedStyle(document.body).paddingRight, 10);
+        document.body.style.paddingRight = `${bodyPaddingRightInPixels + documentScrollbarWidth}px`;
+      }
       document.body.classList.add(styles.dialogVisibleBodyWithHiddenScrollbars);
       document.documentElement.classList.add(styles.dialogVisibleBodyWithHiddenScrollbars);
       document.addEventListener('keydown', onKeyDown, false);
@@ -200,6 +207,7 @@ export const Dialog = ({
         document.body.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
         document.documentElement.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
         document.removeEventListener('keydown', onKeyDown, false);
+        document.body.style.paddingRight = bodyRightPaddingStyleRef.current || '';
         const elementToFocus: HTMLElement | undefined = getElementToFocusAfterClose();
         if (elementToFocus) {
           elementToFocus.focus();
