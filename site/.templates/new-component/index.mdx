@@ -4,6 +4,7 @@ title: '{newComponent}'
 navTitle: '{newComponent}'
 ---
 
+import PlaygroundPreview from '../../../components/Playground';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -11,6 +12,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ## Usage
 
 ### Example
+
+<PlaygroundPreview>
+  <div></div>
+</PlaygroundPreview>
 
 ### Principles
 

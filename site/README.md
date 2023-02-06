@@ -56,7 +56,6 @@ yarn start
 | yarn                               | Install dependencies.                                     |
 | yarn build                         | Lints and builds documentation.                           |
 | yarn start                         | Starts the development server.                            |
-| yarn test                          | Runs the tests.                                           |
 | yarn lint                          | Runs the linting.                                         |
 | yarn format                        | Format all code.                                          |
 | yarn serve                         | Serve production site.                                    |
