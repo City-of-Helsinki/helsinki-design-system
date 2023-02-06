@@ -9,17 +9,18 @@
 .dialogContainer {
   --accent-line-color: var(--color-bus);
   --overlay-color: rgba(0, 0, 0, 0.3);
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: none;
   align-items: center;
   bottom: 0;
   display: flex;
   justify-content: center;
   left: 0;
   overflow: auto;
-  overscroll-behavior: contain;
+  overscroll-behavior: none;
   position: fixed;
   right: 0;
   top: 0;
+  touch-action: none;
   z-index: 800;
 
   .dialogBackdrop {
