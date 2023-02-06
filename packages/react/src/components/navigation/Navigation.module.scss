@@ -126,7 +126,7 @@
   outline: none;
   position: relative;
   text-decoration: none;
-  white-space: nowrap;
+  width: 100%;
 
   &:not([href]):not([tabindex="0"]) {
     cursor: auto;
