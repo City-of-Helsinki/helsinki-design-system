@@ -86,14 +86,18 @@ body {
 .page-header-title {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-
-  @include small-screen {
-    font-size: var(--fontsize-body-s);
-  }
 
   & > div:first-of-type {
     margin-right: var(--spacing-s);
+  }
+
+  @include small-screen {
+    font-size: var(--fontsize-body-s);
+    margin-right: var(--spacing-2-xs);
+
+    & > div:first-of-type {
+      margin-right: var(--spacing-2-xs);
+    }
   }
 }
 
