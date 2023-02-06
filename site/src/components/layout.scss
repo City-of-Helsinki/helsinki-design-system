@@ -86,6 +86,7 @@ body {
 .page-header-title {
   display: flex;
   align-items: center;
+  margin-right: var(--spacing-2-xs);
 
   & > div:first-of-type {
     margin-right: var(--spacing-s);
@@ -93,7 +94,6 @@ body {
 
   @include small-screen {
     font-size: var(--fontsize-body-s);
-    margin-right: var(--spacing-2-xs);
 
     & > div:first-of-type {
       margin-right: var(--spacing-2-xs);
