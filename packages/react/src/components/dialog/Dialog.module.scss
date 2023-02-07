@@ -9,7 +9,7 @@
 .dialogContainer {
   --accent-line-color: var(--color-bus);
   --overlay-color: rgba(0, 0, 0, 0.3);
-  -webkit-overflow-scrolling: none;
+  -webkit-overflow-scrolling: unset;
   align-items: center;
   bottom: 0;
   display: flex;
