@@ -58,6 +58,7 @@
     "@storybook/react": "6.4.22",
     "@testing-library/jest-dom": "5.11.6",
     "@testing-library/react": "11.2.0",
+    "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^12.8.1",
     "@types/cleave.js": "1.4.4",
     "@types/jest": "^26.0.1",
