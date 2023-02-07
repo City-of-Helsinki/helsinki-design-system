@@ -10,18 +10,22 @@ import InternalLink from '../../components/InternalLink';
 # Versions in HDS
 
 <LeadParagraph>
-    HDS follows <ExternalLink href="https://semver.org/">Semver versioning</ExternalLink>. This page describes HDS practices which versions are supported and what is considered as breaking changes.
+  HDS follows <ExternalLink href="https://semver.org/">Semver versioning</ExternalLink>. This page describes HDS
+  practices which versions are supported and what is considered as breaking changes.
 </LeadParagraph>
 
 ## Which versions are supported?
-HDS supports current and one previous major version. Older versions are not supported anymore. We recommend updating to the latest version. 
- 
+
+HDS supports current and one previous major version. Older versions are not supported anymore. We recommend updating to the latest version.
 
 ## What is considered as a breaking change?
+
 Breaking change can occur either in design or in the implementation or in both.
 
 ### Design
+
 These are breaking changes
+
 - if released symbol is removed completely
 - width of the released component changes (causing other elements possibly flowing to new row)
 - typography changes (e.g. font-size, font weight, letter-spacing ) on already existing styles
@@ -29,13 +33,16 @@ These are breaking changes
 - overridable elements are changed/removed (this causes overrides to be reset in symbol instances)
 
 These are not breaking changes
+
 - symbol structure is updated (e.g. layer order) but nothing is removed
 - changing padding inside the element, so that the outside stays the same size
 - symbol name or symbol hierarchy is changed
 - layer names are changed
 
 ### Implementation
+
 These are breaking changes
+
 - properties are removed completely
 - renaming existing components or properties
 - changes in component box model
@@ -43,15 +50,7 @@ These are breaking changes
 - updating dependency so that previous versions are not supported anymore
 
 These are not breaking changes
+
 - new optional properties or features are added
 - bug fixes that don’t change the names of the properties or remove functionality
-- marking something deprecated. It will become breaking change when it is actually removed
-
-
-
-
-
-
-
-
-
+- marking something deprecated. It will a become breaking change when it is actually removed
