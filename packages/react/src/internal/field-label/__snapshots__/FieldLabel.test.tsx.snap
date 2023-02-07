@@ -10,7 +10,7 @@ exports[`<FieldLabel /> spec renders the component 1`] = `
     <span
       class="indicator"
     >
-       *
+      *
     </span>
   </label>
 </DocumentFragment>
