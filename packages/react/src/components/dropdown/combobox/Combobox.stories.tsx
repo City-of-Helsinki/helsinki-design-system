@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { action } from '@storybook/addon-actions';
-import uniqueId from 'lodash.uniqueid';
 
 import { Button } from '../../button';
 import { Combobox } from './Combobox';
 import { IconFaceSmile, IconLocation } from '../../../icons';
+import uniqueId from '../../../utils/getUniqueId';
 
 type Option = { label: string };
 

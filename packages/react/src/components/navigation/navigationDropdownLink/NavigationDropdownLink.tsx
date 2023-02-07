@@ -1,8 +1,8 @@
 import React, { MouseEventHandler, useState } from 'react';
-import uniqueId from 'lodash.uniqueid';
 
 import { MenuButton, MenuButtonProps } from '../../../internal/menuButton/MenuButton';
 import { NavigationItem } from '../navigationItem/NavigationItem';
+import uniqueId from '../../../utils/getUniqueId';
 
 export type NavigationDropdownLinkProps = MenuButtonProps & {
   /**

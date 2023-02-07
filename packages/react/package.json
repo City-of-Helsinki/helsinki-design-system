@@ -124,7 +124,6 @@
     "lodash.isundefined": "3.0.1",
     "lodash.pick": "^4.4.0",
     "lodash.pickby": "^4.6.0",
-    "lodash.uniqueid": "4.0.1",
     "lodash.xor": "^4.5.0",
     "memoize-one": "5.2.1",
     "postcss": "7.0.36",

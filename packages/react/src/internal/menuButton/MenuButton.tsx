@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 // import core base styles
 import 'hds-core';
-import uniqueId from 'lodash.uniqueid';
 import mergeRefs from 'react-merge-refs';
 import useMeasure from 'react-use-measure';
 import { ResizeObserver } from '@juggle/resize-observer';
@@ -10,6 +9,7 @@ import styles from './MenuButton.module.scss';
 import { Menu } from './menu/Menu';
 import { IconAngleDown, IconAngleUp } from '../../icons';
 import classNames from '../../utils/classNames';
+import uniqueId from '../../utils/getUniqueId';
 import { useMobile } from '../../hooks/useMobile';
 
 export type MenuButtonProps = React.PropsWithChildren<{

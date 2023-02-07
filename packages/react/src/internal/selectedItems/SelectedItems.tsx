@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import mergeRefs from 'react-merge-refs';
 import useMeasure from 'react-use-measure';
-import uniqueId from 'lodash.uniqueid';
 import { ResizeObserver } from '@juggle/resize-observer';
 
 import styles from './SelectedItems.module.scss';
 import { Tag } from '../../components/tag';
 import classNames from '../../utils/classNames';
 import { IconCrossCircle } from '../../icons';
+import uniqueId from '../../utils/getUniqueId';
 
 type SelectedItemsProps<OptionType> = {
   /**

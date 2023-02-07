@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
-import uniqueId from 'lodash.uniqueid';
 
 // import core base styles
 import 'hds-core';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 import classNames from '../../utils/classNames';
+import uniqueId from '../../utils/getUniqueId';
 import { Button } from '../button';
 import { IconPlus, IconPhoto, IconCross, IconDocument, IconUpload } from '../../icons';
 import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';

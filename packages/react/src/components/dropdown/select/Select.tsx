@@ -10,7 +10,6 @@ import {
   UseMultipleSelectionState,
 } from 'downshift';
 import isEqual from 'lodash.isequal';
-import uniqueId from 'lodash.uniqueid';
 import { useVirtual } from 'react-virtual';
 
 import 'hds-core';
@@ -18,6 +17,7 @@ import 'hds-core';
 import styles from './Select.module.scss';
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 import classNames from '../../../utils/classNames';
+import uniqueId from '../../../utils/getUniqueId';
 import { IconAlertCircleFill, IconAngleDown } from '../../../icons';
 import { ClearButton, SelectedItems } from '../../../internal/selectedItems/SelectedItems';
 import { DROPDOWN_MENU_ITEM_HEIGHT, getIsInSelectedOptions } from '../dropdownUtils';
@@ -322,7 +322,7 @@ export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
     getA11ySelectionMessage = () => '',
     getA11yStatusMessage = () => '',
     helper,
-    id = uniqueId('hds-select-') as string,
+    id = uniqueId('hds-select-'),
     invalid,
     isOptionDisabled,
     label,

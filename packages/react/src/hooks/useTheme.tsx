@@ -1,7 +1,7 @@
 import { useRef } from 'react';
-import uniqueId from 'lodash.uniqueid';
 
 import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
+import uniqueId from '../utils/getUniqueId';
 
 /**
  * Sets the given custom theme for the component

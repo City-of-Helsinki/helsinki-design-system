@@ -3,7 +3,6 @@
 import React, { useRef, useState, KeyboardEvent, FocusEvent, FocusEventHandler, useMemo, useCallback } from 'react';
 import { useCombobox, useMultipleSelection } from 'downshift';
 import isEqual from 'lodash.isequal';
-import uniqueId from 'lodash.uniqueid';
 import { useVirtual } from 'react-virtual';
 
 import 'hds-core';
@@ -11,6 +10,7 @@ import 'hds-core';
 import styles from './Combobox.module.scss';
 import { FieldLabel } from '../../../internal/field-label/FieldLabel';
 import classNames from '../../../utils/classNames';
+import uniqueId from '../../../utils/getUniqueId';
 import { IconAlertCircleFill, IconAngleDown } from '../../../icons';
 import { ClearButton, SelectedItems } from '../../../internal/selectedItems/SelectedItems';
 import { multiSelectReducer, onMultiSelectStateChange, SelectCustomTheme, SelectProps } from '../select';
@@ -90,7 +90,7 @@ export const Combobox = <OptionType,>(props: ComboboxProps<OptionType>) => {
     getA11ySelectionMessage = () => '',
     getA11yStatusMessage = () => '',
     helper,
-    id = uniqueId('hds-combobox-') as string,
+    id = uniqueId('hds-combobox-'),
     invalid = false,
     isOptionDisabled,
     label,

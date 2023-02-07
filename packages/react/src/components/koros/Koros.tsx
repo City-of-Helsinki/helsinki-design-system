@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import uniqueId from 'lodash.uniqueid';
 
 // import core base styles
 import 'hds-core';
 import classNames from '../../utils/classNames';
+import uniqueId from '../../utils/getUniqueId';
 import styles from './Koros.module.css';
 
 export type KorosType = 'basic' | 'beat' | 'pulse' | 'storm' | 'wave' | 'calm';

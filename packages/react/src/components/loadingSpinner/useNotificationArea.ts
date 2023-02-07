@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import uniqueId from 'lodash.uniqueid';
 
 import styles from './LoadingSpinner.module.scss';
+import uniqueId from '../../utils/getUniqueId';
 
 const notificationAreaId = 'hds-loading-spinner-notification-area';
 const activeSpinnersAttrKey = 'data-active-spinners';
