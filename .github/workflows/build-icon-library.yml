@@ -27,7 +27,6 @@ jobs:
         filename: 'hds-icon-kit.zip'
         directory: './icon-library'
         path: './files'
-        token: ${{ secrets.GITHUB_TOKEN }}
     - name: Copy svg files to repo folders
       run: cp ./icon-library/svg/* ./packages/core/src/svg
     - name: Copy react files to repo folders
