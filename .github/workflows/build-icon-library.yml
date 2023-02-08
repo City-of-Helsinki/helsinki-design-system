@@ -9,8 +9,8 @@ jobs:
     - name: Setup node
       uses: actions/setup-node@v3
       with:
-        node-version: "16"
-        registry-url: "https://registry.npmjs.org"
+        node-version: '19.6.0'
+        registry-url: 'https://registry.npmjs.org'
     - name: Get repo files
       uses: actions/checkout@v3
     - name: Get icons
