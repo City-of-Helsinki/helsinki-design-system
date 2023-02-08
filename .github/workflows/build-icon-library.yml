@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Setup Node.js environment
-        uses: actions/setup-node@v3.6.0
-        with:
-          node-version: '19.6.0'
-          registry-url: 'https://registry.npmjs.org'
-          cache: yarn
+      uses: actions/setup-node@v3.6.0
+      with:
+        node-version: '19.6.0'
+        registry-url: 'https://registry.npmjs.org'
+        cache: yarn
     - name: Run Glypfig
       run: npx glypfig -a $API_KEY -k $FILE_KEY -n $NODE_ID -f png,svg,react -p -t tsx
       env:
