@@ -34,15 +34,23 @@ export type HeaderActionBarProps = PropsWithChildren<{
   titleStyle: TitleStyleType;
 
   /**
-   * The aria-label for the title describing the logo and service to screen reader users.
+   * The aria-label for the title describing the service to screen reader users.
    */
   titleAriaLabel?: string;
+
+  /**
+   * The aria-label for the logo to screen reader users.
+   */
   logoAriaLabel?: string;
 
   /**
-   * Callback fired when the title or logo is clicked
+   * Callback fired when the title is clicked
    */
   onTitleClick?: MouseEventHandler;
+
+  /**
+   * Callback fired when the logo is clicked
+   */
   onLogoClick?: MouseEventHandler;
 
   /**
@@ -56,9 +64,13 @@ export type HeaderActionBarProps = PropsWithChildren<{
   onMenuButtonClick?: MouseEventHandler;
 
   /**
-   * URL to navigate to when the logo or title is clicked
+   * URL to navigate to when the title is clicked
    */
   titleUrl?: string;
+
+  /**
+   * URL to navigate to when the logo is clicked
+   */
   logoUrl?: string;
 }>;
 

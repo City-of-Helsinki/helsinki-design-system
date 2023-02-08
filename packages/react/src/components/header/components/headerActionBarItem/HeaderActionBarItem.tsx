@@ -6,7 +6,14 @@ import classes from './HeaderActionBarItem.module.scss';
 type ButtonAttributes = JSX.IntrinsicElements['button'];
 
 export interface HeaderActionBarItemProps extends ButtonAttributes {
+  /**
+   * Icon for the action bar item.
+   */
   icon?: ElementType;
+
+  /**
+   * Label for the action bar item.
+   */
   label?: string | JSX.Element;
 }
 
