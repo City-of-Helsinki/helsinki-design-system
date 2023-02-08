@@ -18,7 +18,7 @@ export type LinkProps = Omit<
   /**
    * Link content
    */
-  children: string;
+  children: React.ReactNode;
   /**
    * Boolean indicating whether visited styles of the link are applied
    */

@@ -2,11 +2,15 @@
 
 exports[`<NavigationLink /> spec renders the component 1`] = `
 <DocumentFragment>
-  <a
-    class="link linkM navigationLink"
-    href="#"
+  <span
+    class="navigationLinkWrapper"
   >
-    Link
-  </a>
+    <a
+      class="link linkM navigationLink"
+      href="#"
+    >
+      Link
+    </a>
+  </span>
 </DocumentFragment>
 `;

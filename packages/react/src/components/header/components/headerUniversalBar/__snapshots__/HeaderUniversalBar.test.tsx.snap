@@ -12,12 +12,16 @@ exports[`<HeaderUniversalBar /> spec renders the component 1`] = `
       <li
         class="universalBarMainLinkContainer"
       >
-        <a
-          class="link linkM navigationLink universalBarLink"
-          href="#"
+        <span
+          class="navigationLinkWrapper"
         >
-          hel.fi
-        </a>
+          <a
+            class="link linkM navigationLink universalBarLink"
+            href="#"
+          >
+            hel.fi
+          </a>
+        </span>
       </li>
     </ul>
   </nav>

@@ -25,3 +25,22 @@ export const getComponentFromChildren = (children: React.ReactNode, componentNam
   // return the component and the children without the removed component
   return [component, childrenAsArray];
 };
+
+/**
+ * Get the child elements even if there is a parent container element.
+ * @param children
+ */
+export const getChildElementsEvenIfContainerInbetween = (children: React.ReactNode) => {
+  const arrayChildren = React.Children.toArray(children);
+  const childrenHasContainer =
+    arrayChildren.length === 1 &&
+    React.isValidElement(arrayChildren[0]) &&
+    Boolean(arrayChildren[0].props.children) &&
+    (React.isValidElement(arrayChildren[0].props.children) || Array.isArray(arrayChildren[0].props.children));
+
+  /* If there's a container element in between, we dig out the child elements from within. */
+  if (childrenHasContainer && React.isValidElement(arrayChildren[0])) {
+    return React.Children.toArray(arrayChildren[0].props.children);
+  }
+  return arrayChildren;
+};

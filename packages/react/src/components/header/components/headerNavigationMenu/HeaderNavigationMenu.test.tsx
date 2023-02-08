@@ -2,15 +2,16 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { NavigationLink } from './NavigationLink';
+import { HeaderNavigationMenu } from './HeaderNavigationMenu';
 
-describe('<NavigationLink /> spec', () => {
+describe('<HeaderNavigationMenu /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<NavigationLink href="#">Link</NavigationLink>);
+    const { asFragment } = render(<HeaderNavigationMenu />);
     expect(asFragment()).toMatchSnapshot();
   });
+
   it('should not have basic accessibility issues', async () => {
-    const { container } = render(<NavigationLink href="#">Link</NavigationLink>);
+    const { container } = render(<HeaderNavigationMenu />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
