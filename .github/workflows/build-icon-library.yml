@@ -8,6 +8,8 @@ jobs:
   build-icon-library:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout repo
+        uses: actions/checkout@v3
     - name: Setup Node.js environment
       uses: actions/setup-node@v3.6.0
       with:
