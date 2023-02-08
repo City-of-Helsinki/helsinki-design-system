@@ -12,7 +12,7 @@ exports[`<HeaderActionBar /> spec renders the component 1`] = `
         class="headerActionBar"
       >
         <span
-          class="titleAndLogoContainer normal"
+          class="titleAndLogoContainer logo"
         >
           <svg
             aria-hidden="true"
@@ -31,6 +31,10 @@ exports[`<HeaderActionBar /> spec renders the component 1`] = `
               fill="currentColor"
             />
           </svg>
+        </span>
+        <span
+          class="titleAndLogoContainer title normal"
+        >
           <span
             class="title"
           >
