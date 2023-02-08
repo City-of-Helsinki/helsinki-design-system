@@ -1,4 +1,4 @@
-import React, { EventHandler, PropsWithChildren, MouseEvent, KeyboardEvent, MouseEventHandler, KeyboardEventHandler } from 'react';
+import React, { PropsWithChildren, MouseEventHandler } from 'react';
 
 import { Logo } from '../../../logo';
 import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
