@@ -11,10 +11,11 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3.6.0
-        with:
-          node-version: '19.6.0'
-          registry-url: 'https://registry.npmjs.org'
+        - name: Setup Node.js environment
+            uses: actions/setup-node@v3.6.0
+            with:
+              node-version: '20.3.1'
+              registry-url: 'https://registry.npmjs.org'
       - name: Run Glypfig
         run: |
           npx glypfig \
