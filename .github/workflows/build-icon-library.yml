@@ -26,8 +26,9 @@ jobs:
         directory: './icon-library'
         path: './files'
         token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Copy icon files to repo folders
+    - name: Copy svg files to repo folders
       run: cp ./icon-library/svg/* ./packages/core/src/svg
+    - name: Copy react files to repo folders
       run: cp ./icon-library/react/* ./packages/react/src/icons
     - name: create pull request
       run: gh pr create -B master --title 'Icon library build' --body 'Created by Github action Icon library build'
