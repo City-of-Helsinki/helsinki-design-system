@@ -1,13 +1,14 @@
 ---
-slug: '/about/versions'
-title: 'Versions'
+slug: '/getting-started/versioning'
+title: 'Versioning'
+navTitle: 'Versioning'
 ---
 
 import ExternalLink from '../../components/ExternalLink';
 import LeadParagraph from '../../components/LeadParagraph';
 import InternalLink from '../../components/InternalLink';
 
-# Versions in HDS
+# Versioning in HDS
 
 <LeadParagraph>
   HDS follows <ExternalLink href="https://semver.org/">Semver versioning</ExternalLink>. This page describes HDS
@@ -26,18 +27,22 @@ Breaking change can occur either in design or in the implementation or in both.
 
 These are breaking changes
 
-- if released symbol is removed completely
+- if released component is removed completely
 - width of the released component changes (causing other elements possibly flowing to new row)
 - typography changes (e.g. font-size, font weight, letter-spacing ) on already existing styles
 - changing spacing outside the element (margins)
-- overridable elements are changed/removed (this causes overrides to be reset in symbol instances)
+- overridable elements are changed/removed (this causes overrides to be reset in component instances)
+- color token values are changed
 
 These are not breaking changes
 
-- symbol structure is updated (e.g. layer order) but nothing is removed
+- component structure is updated (e.g. layer order) but nothing is removed
 - changing padding inside the element, so that the outside stays the same size
 - symbol name or symbol hierarchy is changed
 - layer names are changed
+- border radius is changed
+- (default) color is changed inside the component
+- elevation of the component is changed
 
 ### Implementation
 
