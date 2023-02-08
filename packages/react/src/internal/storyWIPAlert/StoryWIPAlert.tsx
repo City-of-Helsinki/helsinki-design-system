@@ -5,7 +5,7 @@ import { Notification } from '../../components/notification/Notification';
 const style = {
   width: 400,
   marginTop: 20,
-  marginLeft: 20,
+  marginLeft: 0,
   marginBottom: 40,
 };
 

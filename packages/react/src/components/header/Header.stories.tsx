@@ -57,6 +57,9 @@ export const WithFullFeatures = (args) => (
         titleAriaLabel="Helsingin kaupunki"
         titleUrl="https://hel.fi"
         titleStyle={TitleStyleType.normal}
+        logoAriaLabel="https://hel.fi"
+        logoUrl="https://hel.fi"
+        menuButtonAriaLabel="Menu"
       >
         <Header.NavigationLanguageSelector languages={languages}>
           <h3>Kielivalinnat</h3>

@@ -1,4 +1,4 @@
-import { EventHandler, KeyboardEventHandler, useCallback } from 'react';
+import { EventHandler, useCallback } from 'react';
 
 export const useCallbackIfDefined = (callback) => {
   const handler = (event) => {
@@ -8,8 +8,8 @@ export const useCallbackIfDefined = (callback) => {
   return useCallback(handler, [callback]);
 };
 
-export const useEnterOrSpacePressCallback = (callback: KeyboardEventHandler) => {
-  const handler: KeyboardEventHandler = (event) => {
+export const useEnterOrSpacePressCallback = (callback) => {
+  const handler = (event) => {
     if (event.key === 'Enter' || event.key === ' ') callback(event);
   };
 
