@@ -6,7 +6,7 @@ import styles from './Checkbox.module.css';
 import classNames from '../../utils/classNames';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
 
-export type CheckboxProps = React.ComponentPropsWithoutRef<'input'> & {
+export type CheckboxProps = {
   /**
    * If `true`, the component is checked
    */
@@ -47,7 +47,7 @@ export type CheckboxProps = React.ComponentPropsWithoutRef<'input'> & {
    * The value of the component
    */
   value?: string;
-};
+} & React.ComponentPropsWithoutRef<'input'>;
 
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (

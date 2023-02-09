@@ -14,7 +14,7 @@ export enum StepState {
   paused,
 }
 
-export type StepProps = React.ComponentPropsWithoutRef<'button'> & {
+export type StepProps = {
   /**
    * Data test id of step
    */
@@ -59,7 +59,7 @@ export type StepProps = React.ComponentPropsWithoutRef<'button'> & {
    * The total number of steps
    */
   stepsTotal: number;
-};
+} & React.ComponentPropsWithoutRef<'button'>;
 
 type Language = 'en' | 'fi' | 'sv' | string;
 
