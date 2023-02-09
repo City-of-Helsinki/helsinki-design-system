@@ -1,4 +1,4 @@
-import React, { useEffect, RefObject, useRef, useCallback, useState } from 'react';
+import React, { useEffect, RefObject, useCallback, useState, useRef, createRef } from 'react';
 import ReactDOM from 'react-dom';
 
 // import core base styles
@@ -14,6 +14,11 @@ import { DialogContext, DialogContextProps } from './DialogContext';
 export interface DialogCustomTheme {
   '--accent-line-color'?: string;
   '--overlay-color'?: string;
+}
+
+enum TabBarrierPosition {
+  top = 'top',
+  bottom = 'bottom',
 }
 
 type TabBarrierProps = {
@@ -32,71 +37,34 @@ const findFocusableDialogElements = (dialogElement: HTMLElement): NodeList =>
     'a, button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select',
   );
 
-const focusFirstDialogElement = (dialogElement?: HTMLElement) => {
-  if (dialogElement) {
-    const focusableElements = findFocusableDialogElements(dialogElement);
-
-    if (focusableElements.length) {
-      (focusableElements[0] as HTMLElement).focus();
-    }
-  }
-};
-
-const focusLastDialogElement = (dialogElement?: HTMLElement) => {
+const focusToDialogElement = (position: TabBarrierPosition, dialogElement?: HTMLElement) => {
   if (dialogElement) {
     const focusableElements = findFocusableDialogElements(dialogElement);
     if (focusableElements.length) {
-      (focusableElements[focusableElements.length - 1] as HTMLElement).focus();
+      (focusableElements[
+        position === TabBarrierPosition.top ? 0 : focusableElements.length - 1
+      ] as HTMLElement).focus();
     }
   }
-};
-
-const addDocumentStartTabBarrier = (dialogElement?: HTMLElement): HTMLDivElement => {
-  const element = document.createElement('div');
-  element.className = 'hds-dialog-start-tab-barrier';
-  element.tabIndex = defaultBarrierProps.tabIndex;
-  element['aria-hidden'] = defaultBarrierProps.tabIndex['aria-hidden'];
-  element.addEventListener('focus', () => focusFirstDialogElement(dialogElement));
-  document.body.insertBefore(element, document.body.firstChild);
-  return element;
-};
-
-const addDocumentEndTabBarrier = (dialogElement?: HTMLElement): HTMLDivElement => {
-  const element = document.createElement('div');
-  element.className = 'hds-dialog-end-tab-barrier';
-  element.tabIndex = defaultBarrierProps.tabIndex;
-  element['aria-hidden'] = defaultBarrierProps.tabIndex['aria-hidden'];
-  element.addEventListener('focus', () => focusLastDialogElement(dialogElement));
-  document.body.appendChild(element);
-  return element;
-};
-
-const clearDocumentTabBarrier = (tabBarrier: HTMLDivElement): null => {
-  tabBarrier.parentElement.removeChild(tabBarrier);
-  return null;
-};
-
-export const useDocumentTabBarriers = (dialogRef: RefObject<HTMLDivElement>) => {
-  const firstBarrier = useRef<HTMLDivElement>(null);
-  const lastBarrier = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (dialogRef.current) {
-      firstBarrier.current = addDocumentStartTabBarrier(dialogRef.current);
-      lastBarrier.current = addDocumentEndTabBarrier(dialogRef.current);
-    }
-    return () => {
-      if (firstBarrier.current && lastBarrier.current) {
-        firstBarrier.current = clearDocumentTabBarrier(firstBarrier.current);
-        lastBarrier.current = clearDocumentTabBarrier(lastBarrier.current);
-      }
-    };
-  }, [dialogRef]);
 };
 
 const ContentTabBarrier = ({ onFocus }: { onFocus: () => void }): JSX.Element => {
   /* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */
   return <div {...defaultBarrierProps} onFocus={onFocus} />;
+};
+
+const addDocumentTabBarrier = (position: TabBarrierPosition, dialogElement?: HTMLElement): HTMLDivElement => {
+  const element = document.createElement('div');
+  element.className = 'hds-dialog-tab-barrier';
+  element.tabIndex = defaultBarrierProps.tabIndex;
+  element['aria-hidden'] = defaultBarrierProps.tabIndex['aria-hidden'];
+  element.addEventListener('focus', () => focusToDialogElement(position, dialogElement));
+  if (position === TabBarrierPosition.top) {
+    document.body.insertBefore(element, document.body.firstChild);
+  } else {
+    document.body.appendChild(element);
+  }
+  return element;
 };
 
 export type DialogVariant = 'primary' | 'danger';
@@ -194,8 +162,23 @@ export const Dialog = ({
   const [isReadyToShowDialog, setIsReadyToShowDialog] = useState<boolean>(false);
   const dialogContextProps: DialogContextProps = { isReadyToShowDialog, scrollable, close, closeButtonLabelText };
   const customThemeClass = useTheme<DialogCustomTheme>(styles.dialogContainer, theme);
-  const dialogRef: RefObject<HTMLInputElement> = React.createRef();
-  const bodyRightPaddingStyleRef = React.useRef<string>(null);
+  const dialogRef: RefObject<HTMLInputElement> = createRef();
+  const bodyRightPaddingStyleRef = useRef<string>(null);
+
+  useEffect(() => {
+    if (isOpen && dialogRef !== undefined) {
+      addDocumentTabBarrier(TabBarrierPosition.top, dialogRef.current);
+      addDocumentTabBarrier(TabBarrierPosition.bottom, dialogRef.current);
+
+      return () => {
+        const barriers = document.querySelectorAll('.hds-dialog-tab-barrier');
+        barriers.forEach((element) => {
+          element.remove();
+        });
+      };
+    }
+    return null;
+  }, [dialogRef, isOpen]);
 
   const { 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby } = props;
 
@@ -214,25 +197,23 @@ export const Dialog = ({
 
   useEffect(() => {
     if (isOpen) {
-      if (document.body.scrollHeight > document.documentElement.clientHeight) {
-        const documentScrollbarWidth: number = window.innerWidth - document.documentElement.clientWidth;
-        if (documentScrollbarWidth > 0) {
-          // Store body element's right padding declaration.
-          bodyRightPaddingStyleRef.current = document.body.style.paddingRight;
-          const bodyPaddingRightInPixels: number = parseInt(window.getComputedStyle(document.body).paddingRight, 10);
-          document.body.style.paddingRight = `${bodyPaddingRightInPixels + documentScrollbarWidth}px`;
-        }
-        document.body.classList.add(styles.dialogVisibleBodyWithHiddenScrollbars);
+      const documentScrollbarWidth = window.innerWidth - document.body.offsetWidth;
+      if (documentScrollbarWidth > 0) {
+        bodyRightPaddingStyleRef.current = document.body.style.paddingRight;
+        const bodyPaddingRightInPixels: number = parseInt(window.getComputedStyle(document.body).paddingRight, 10);
+        document.body.style.paddingRight = `${bodyPaddingRightInPixels + documentScrollbarWidth}px`;
       }
+      document.body.classList.add(styles.dialogVisibleBodyWithHiddenScrollbars);
+      document.documentElement.classList.add(styles.dialogVisibleBodyWithHiddenScrollbars);
       document.addEventListener('keydown', onKeyDown, false);
       setIsReadyToShowDialog(true);
     }
     return (): void => {
       if (isOpen) {
         setIsReadyToShowDialog(false);
-        document.removeEventListener('keydown', onKeyDown, false);
         document.body.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
-        // Reset body elements right padding.
+        document.documentElement.classList.remove(styles.dialogVisibleBodyWithHiddenScrollbars);
+        document.removeEventListener('keydown', onKeyDown, false);
         document.body.style.paddingRight = bodyRightPaddingStyleRef.current || '';
         const elementToFocus: HTMLElement | undefined = getElementToFocusAfterClose();
         if (elementToFocus) {
@@ -243,12 +224,10 @@ export const Dialog = ({
     // Omitting onKeyDown on purpose; adding it will break the Dialog with controlled child components
   }, [isOpen, getElementToFocusAfterClose]);
 
-  useDocumentTabBarriers(dialogRef);
-
   const renderDialogComponent = (): JSX.Element => (
     <DialogContext.Provider value={dialogContextProps}>
       <div className={classNames(styles.dialogContainer, customThemeClass)}>
-        <ContentTabBarrier onFocus={() => focusLastDialogElement(dialogRef.current)} />
+        <ContentTabBarrier onFocus={() => focusToDialogElement(TabBarrierPosition.bottom, dialogRef.current)} />
         <div tabIndex={-1} className={styles.dialogBackdrop} />
         <div
           ref={dialogRef}
@@ -269,7 +248,7 @@ export const Dialog = ({
         >
           {children}
         </div>
-        <ContentTabBarrier onFocus={() => focusFirstDialogElement(dialogRef.current)} />
+        <ContentTabBarrier onFocus={() => focusToDialogElement(TabBarrierPosition.top, dialogRef.current)} />
       </div>
     </DialogContext.Provider>
   );
