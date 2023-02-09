@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.11.0] - February, 9, 2023
+
+### React 
+
+#### Changed
+
+- [CookieConsent] Updated missing Matomo cookies
+- [CookieConsent] Improved translations
+
+#### Fixed
+
+- Updated dependencies
+- [Dialog] Fixed background position jumping on some specific environments
+
+### Design
+
+#### Changed
+
+- Update Design kit to Sketch 95.2
+
+### Documentation
+
+#### Added
+
+- More component properties available in Storybook
+- FAQ section about keyboard focus on Safari
+
+#### Fixed
+
+- Fix broken links in documentation
+
 ## [2.10.0] - January, 10, 2023
 
 ### Core
