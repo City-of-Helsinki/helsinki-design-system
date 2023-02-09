@@ -32,7 +32,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - More component properties available in Storybook
-- Added documentation on HDS versions and breaking changes
 - FAQ section about keyboard focus on Safari
 
 #### Fixed
