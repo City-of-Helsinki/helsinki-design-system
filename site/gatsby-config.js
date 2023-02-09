@@ -37,8 +37,8 @@ module.exports = {
             withDivider: true,
           },
           {
-            name: 'HDS 2.0',
-            link: '/getting-started/hds-2.0',
+            name: 'Versioning',
+            link: '/getting-started/versioning',
             withDivider: true,
           },
           {
