@@ -150,6 +150,12 @@ export const EnglishModalVersion = (args) => {
               commonCookie: 'matomo',
             },
             {
+              commonCookie: 'matomoSession',
+            },
+            {
+              commonCookie: 'matomoConsent',
+            },
+            {
               commonCookie: 'cookiehub',
             },
             {
@@ -442,6 +448,12 @@ export const FinnishModalVersion = (args) => {
               commonCookie: 'matomo',
             },
             {
+              commonCookie: 'matomoSession',
+            },
+            {
+              commonCookie: 'matomoConsent',
+            },
+            {
               commonCookie: 'cookiehub',
             },
             {
@@ -730,6 +742,12 @@ export const PageVersion = (args) => {
           cookies: [
             {
               commonCookie: 'matomo',
+            },
+            {
+              commonCookie: 'matomoSession',
+            },
+            {
+              commonCookie: 'matomoConsent',
             },
             {
               id: 'someOtherConsent',
