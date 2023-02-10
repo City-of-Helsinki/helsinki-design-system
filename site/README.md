@@ -49,6 +49,19 @@ yarn start
 
 **Note!** You may need to rerun `yarn build` if you make changes to config files or if other HDS packages are updated.
 
+### Commands
+
+| Command                            | Description                                               |
+| ---------------------------------- | --------------------------------------------------------- |
+| yarn                               | Install dependencies.                                     |
+| yarn build                         | Lints and builds documentation.                           |
+| yarn start                         | Starts the development server.                            |
+| yarn lint                          | Runs the linting.                                         |
+| yarn format                        | Format all code.                                          |
+| yarn serve                         | Serve production site.                                    |
+| yarn clean                         | Clear Gatsby cache.                                       |
+| yarn scaffold                      | Runs the scaffolding script for creating a new component. |
+
 ### Hosting in Github pages
 
 There might be a need to prefix asset and pages paths when the site is hosted in Github pages. This can be done by giving the pathPrefix as a command-line argument or by replacing the pathPrefix configuration in gatsby-config.js
