@@ -33,6 +33,13 @@ export const Disabled = () => <Checkbox id="disabled" label="Label" disabled />;
 
 export const Invalid = () => <Checkbox id="invalid" label="Label" errorText="Error text" />;
 
+export const WithToolTip = (args) => (<Checkbox id="with-tooltip" label="Label" {...args}/>);
+WithToolTip.args = {
+  tooltipText: 'tooltip text for checkbox',
+  tooltipLabel: 'tooltip aria label for checkbox',
+  tooltipButtonLabel: 'tooltip aria label'  
+}
+
 export const SelectedDisabled = () => <Checkbox id="selected-disabled" label="Label" checked disabled />;
 SelectedDisabled.storyName = 'Selected & disabled';
 

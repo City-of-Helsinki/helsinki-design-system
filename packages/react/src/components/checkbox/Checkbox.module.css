@@ -13,3 +13,7 @@
 .errorText {
   composes: hds-checkbox__error-text from 'hds-core/lib/components/checkbox/checkbox.css';
 }
+.tooltipButton {
+  margin-left: var(--spacing-2-xs);
+  display: inline-block;
+}

@@ -5,6 +5,7 @@ import 'hds-core';
 import styles from './Checkbox.module.css';
 import classNames from '../../utils/classNames';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
+import { Tooltip } from '../tooltip';
 
 export type CheckboxProps = {
   /**
@@ -47,6 +48,18 @@ export type CheckboxProps = {
    * The value of the component
    */
   value?: string;
+  /**
+   * Tooltip text for the checkbox
+   */
+  tooltipText?: string;
+  /**
+   * Aria-label text for the tooltip
+   */
+  tooltipLabel?: string;
+  /**
+   * Aria-label text for the tooltip trigger button
+   */
+  tooltipButtonLabel?: string;
 } & React.ComponentPropsWithoutRef<'input'>;
 
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
@@ -62,6 +75,9 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       onChange = () => null,
       style,
       value,
+      tooltipText,
+      tooltipLabel,
+      tooltipButtonLabel,
       ...rest
     }: CheckboxProps,
     ref: React.Ref<HTMLInputElement>,
@@ -102,7 +118,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         />
         <label htmlFor={id} className={classNames(styles.label)}>
           {label}
-        </label>
+        </label>  
+        {tooltipText && (<Tooltip buttonClassName={styles.tooltipButton} tooltipLabel={tooltipLabel} buttonLabel={tooltipButtonLabel}>{tooltipText}</Tooltip>)}      
         {errorText && (
           <div className={styles.errorText} id={`${id}-error`}>
             {errorText}
