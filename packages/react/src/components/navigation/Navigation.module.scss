@@ -1,4 +1,4 @@
-@import '../../styles/common';
+@import "../../styles/common";
 @value x-small-only, small-down, small-only, small-up, medium-up, large-up, x-large-up from "../../styles/breakpoints.css";
 
 @keyframes mobileMenuAnimation {
@@ -127,7 +127,7 @@
   position: relative;
   text-decoration: none;
 
-  &:not([href]):not([tabindex='0']) {
+  &:not([href]):not([tabindex="0"]) {
     cursor: auto;
   }
 }
