@@ -86,3 +86,21 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   </ul>
   </p>
 </Accordion>
+
+<Accordion
+  heading="Why does not Safari focus on elements like other browsers?"
+  headingLevel="3"
+  theme={{
+    '--header-font-size': 'var(--fontsize-heading-xs)',
+    '--padding-vertical': 'var(--spacing-s)',
+  }}>
+  <p>
+    Safari default settings don’t show the focus on elements.
+    You can highlight the elements with option-key while navigating with the tab-key or you can change the behaviour in the settings:<br/>
+    <b>Advanced -> Press Tab to highlight each item on a web page</b>
+  </p>
+  <p>
+    There is also an operating level setting for this in MacOS, at the moment:<br/>
+    <b>System Preferences -> Keyboard -> Shortcuts -> Use keyboard navigation to move focus between controls</b>
+  </p>
+</Accordion>

@@ -50,11 +50,11 @@ export function getCookieContent() {
   const commonSecurityControlTranslations = {
     fi: {
       description: 'Tietoturvakontrolli',
-      expiration: '365 dagar',
+      expiration: '365 päivää',
     },
     sv: {
       description: 'Datasäkerhetskontroll',
-      expiration: 'Session',
+      expiration: '365 dagar',
     },
     en: {
       description: 'A security control',
@@ -65,9 +65,9 @@ export function getCookieContent() {
   const commonLoginGroupTranslations = {
     fi: {
       title: 'Kirjautuminen',
-      text: 'Kirjautumisevästeitä käytetään käytetään käyttäjän kirjautuessa palveluun.',
+      text: 'Kirjautumisevästeitä käytetään käyttäjän kirjautuessa palveluun.',
       expandAriaLabel: 'Näytä kirjautumiseen liittyvien evästeiden tiedot',
-      checkboxAriaDescription: 'Kirjautumisevästeitä käytetään käytetään käyttäjän kirjautuessa palveluun.',
+      checkboxAriaDescription: 'Kirjautumisevästeitä käytetään käyttäjän kirjautuessa palveluun.',
     },
     sv: {
       title: 'Inloggning',
@@ -83,7 +83,13 @@ export function getCookieContent() {
     },
   };
 
-  const tunnistamoUrl = 'tunnistamo.hel.fi';
+  const commonTrackingCookieDescription = {
+    fi: 'Eväste kerää tietoa kävijän liikkeistä sivustolla.',
+    sv: 'Statistiksystemets kaka samlar information om hur webbplatsen används.',
+    en: 'This cookie is used to store a few details about the user such as the unique visitor ID.',
+  };
+
+  const tunnistamoUrl = 'api.hel.fi';
   const keycloakUrl = 'tunnistus.hel.fi';
   const suomiFiUrl = 'suomi.fi';
 
@@ -498,7 +504,8 @@ export function getCookieContent() {
       essential: {
         fi: {
           title: 'Perustoimintoihin liittyvät evästeet',
-          text: 'Sivusto ei toimi ilman näitä',
+          text:
+            'Perustoimintoihin liittyviä evästeitä ei voi hylätä. Ne mahdollistavat sivuston kunnollisen toimivuuden ja vaikuttavat käytettävyyteen.',
           expandAriaLabel: 'Näytä perustoimintoihin liittyvien evästeiden tiedot',
           checkboxAriaDescription: 'Sivusto ei toimi ilman näitä',
         },
@@ -513,7 +520,7 @@ export function getCookieContent() {
         en: {
           title: 'Cookies related to basic functionalities',
           text:
-            'Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability',
+            'Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability.',
           expandAriaLabel: 'Show cookie information related to basic functionalities',
           checkboxAriaDescription:
             'Cookies related to basic functionalities cannot be rejected. They enable the proper functioning of the website and affect the usability',
@@ -621,6 +628,9 @@ export function getCookieContent() {
           {
             commonCookie: 'suomifi-shib-idp-session',
           },
+          {
+            commonCookie: 'suomifi-logtag',
+          },
         ],
       },
     },
@@ -651,18 +661,16 @@ export function getCookieContent() {
       cookiehub: {
         id: 'cookiehub',
         hostName: 'cookiehub.com',
+        name: 'cookiehub',
         fi: {
-          name: 'cookiehub',
           description: 'Mahdollistaa evästehallinnan hel.fi sivuilla.',
           expiration: '365 päivää',
         },
         sv: {
-          name: 'cookiehub',
           description: 'Möjliggör hantering av kakor på hel.fi webbplatsen.',
           expiration: '365 dagar',
         },
         en: {
-          name: 'cookiehub',
           description:
             'Used by CookieHub to store information about whether visitors have given or declined the use of cookie categories used on the hel.fi site.',
           expiration: '365 days',
@@ -677,37 +685,67 @@ export function getCookieContent() {
       matomo: {
         id: 'matomo',
         hostName: '*.hel.fi',
+        name: '_pk_id.*',
         fi: {
-          name: '_pk_id.*',
-          description: 'Eväste kerää tietoa kävijän liikkeistä sivustolla.',
+          description: commonTrackingCookieDescription.fi,
           expiration: '393 päivää',
         },
         sv: {
-          name: '_pk_id.*',
-          description: 'Statistiksystemets kaka samlar information om hur webbplatsen används.',
+          description: commonTrackingCookieDescription.sv,
           expiration: '393 dagar',
         },
         en: {
-          name: '_pk_id.*',
-          description: 'This cookie is used to store a few details about the user such as the unique visitor ID.',
+          description: commonTrackingCookieDescription.en,
           expiration: '393 days',
+        },
+      },
+      matomoSession: {
+        id: 'matomo-session',
+        hostName: '*.hel.fi',
+        name: '_pk_ses*',
+        fi: {
+          description: commonTrackingCookieDescription.fi,
+          expiration: '30 minuuttia',
+        },
+        sv: {
+          description: commonTrackingCookieDescription.sv,
+          expiration: '30 minuter',
+        },
+        en: {
+          description: commonTrackingCookieDescription.en,
+          expiration: '30 minutes',
+        },
+      },
+      matomoConsent: {
+        id: 'matomo-cookie-consent',
+        hostName: '*.hel.fi',
+        name: 'mtm_.*',
+        fi: {
+          description: 'Evästeeseen tallennetaan suostumus tilastointievästeisiin.',
+          expiration: '400 päivää',
+        },
+        sv: {
+          description: 'Kakan lagrar samtycke för användning av statistikkakorna.',
+          expiration: '400 dagar',
+        },
+        en: {
+          description: 'Cookie stores consent for using analytics cookies.',
+          expiration: '400 days',
         },
       },
       'cms-session': {
         id: 'cms-session',
         hostName: 'hel.fi',
+        name: 'SSESS*',
         fi: {
-          name: 'SSESS*',
           description: 'Sisällönhallintajärjestelmän toimintaan liittyvä eväste.',
           expiration: '23 päivää',
         },
         sv: {
-          name: 'SSESS*',
           description: 'En kaka för driften av innehållshanteringssystemet.',
           expiration: '23 dagar',
         },
         en: {
-          name: 'SSESS*',
           description: 'A cookie related to the operation of the content management system.',
           expiration: '23 days',
         },
@@ -780,7 +818,7 @@ export function getCookieContent() {
       },
       'profiili-csrftoken': {
         id: 'profiili-csrftoken',
-        hostName: 'api.hel.fi',
+        hostName: tunnistamoUrl,
         name: 'profiili-prod-csrftoken',
         ...commonSecurityControlTranslations,
       },

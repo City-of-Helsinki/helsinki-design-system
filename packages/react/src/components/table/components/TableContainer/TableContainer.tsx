@@ -5,7 +5,7 @@ import 'hds-core';
 import classNames from '../../../../utils/classNames';
 import styles from '../../Table.module.scss';
 
-export type TableContainerProps = React.ComponentPropsWithoutRef<'table'> & {
+export type TableContainerProps = {
   children: React.ReactNode;
   dataTestId?: string;
   variant?: 'dark' | 'light';
@@ -15,7 +15,7 @@ export type TableContainerProps = React.ComponentPropsWithoutRef<'table'> & {
   verticalLines?: boolean;
   customThemeClass?: string;
   headingId?: string;
-};
+} & React.ComponentPropsWithoutRef<'table'>;
 
 export const TableContainer = ({
   children,

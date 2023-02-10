@@ -6,7 +6,7 @@ import classNames from '../../utils/classNames';
 export type LogoLanguage = 'fi' | 'sv' | 'ru';
 export type LogoSize = 'full' | 'small' | 'medium' | 'large';
 
-export type LogoProps = React.ComponentPropsWithoutRef<'svg'> & {
+export type LogoProps = {
   /**
    * Additional class names to apply to the logo
    */
@@ -29,7 +29,7 @@ export type LogoProps = React.ComponentPropsWithoutRef<'svg'> & {
    * Override or extend the styles applied to the component
    */
   style?: React.CSSProperties;
-};
+} & React.ComponentPropsWithoutRef<'svg'>;
 
 const LogoFI = (props): React.ReactElement => (
   <svg viewBox="0 0 78 36" title="Helsingin kaupunki" role="img" xmlns="http://www.w3.org/2000/svg" {...props}>

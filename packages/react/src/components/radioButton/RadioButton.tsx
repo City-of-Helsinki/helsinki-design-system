@@ -5,7 +5,7 @@ import 'hds-core';
 import styles from './RadioButton.module.css';
 import classNames from '../../utils/classNames';
 
-export type RadioButtonProps = React.ComponentPropsWithoutRef<'input'> & {
+export type RadioButtonProps = {
   /**
    * If `true`, the component is checked
    */
@@ -38,7 +38,7 @@ export type RadioButtonProps = React.ComponentPropsWithoutRef<'input'> & {
    * The value of the component
    */
   value?: string;
-};
+} & React.ComponentPropsWithoutRef<'input'>;
 
 export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
   (

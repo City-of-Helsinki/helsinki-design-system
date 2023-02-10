@@ -6,6 +6,9 @@ import styles from './Header.module.scss';
 import classNames from '../../utils/classNames';
 import { HeaderContext, HeaderContextProps } from './HeaderContext';
 import { useMediaQueryLessThan } from '../../hooks/useMediaQuery';
+import { HeaderUniversalBar } from './components/headerUniversalBar';
+import { HeaderNavigationMenu } from './components/headerNavigationMenu';
+import { NavigationLink } from './components/navigationLink';
 
 export type HeaderProps = React.PropsWithChildren<{
   /**
@@ -19,8 +22,9 @@ export type HeaderProps = React.PropsWithChildren<{
 }>;
 
 export const Header = ({ children, className, id }: HeaderProps) => {
-  const isSmallScreen = useMediaQueryLessThan('s');
-  const context: HeaderContextProps = { isSmallScreen };
+  const isSmallScreen = useMediaQueryLessThan('m');
+  const isMediumScreen = useMediaQueryLessThan('l');
+  const context: HeaderContextProps = { isSmallScreen, isMediumScreen };
   return (
     <HeaderContext.Provider value={context}>
       <header id={id} className={classNames(styles.header, className)}>
@@ -29,3 +33,7 @@ export const Header = ({ children, className, id }: HeaderProps) => {
     </HeaderContext.Provider>
   );
 };
+
+Header.UniversalBar = HeaderUniversalBar;
+Header.NavigationMenu = HeaderNavigationMenu;
+Header.NavigationLink = NavigationLink;

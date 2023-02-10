@@ -1,6 +1,6 @@
 {
   "name": "hds-react",
-  "version": "2.10.0",
+  "version": "2.11.0",
   "description": "React components for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
@@ -101,11 +101,11 @@
     "sass": "1.39.2",
     "ts-jest": "^26.0.1",
     "typed-css-modules": "0.6.4",
-    "typescript": "4.5.5",
+    "typescript": "4.6.4",
     "yup": "^0.32.9"
   },
   "dependencies": {
-    "@babel/runtime": "7.11.2",
+    "@babel/runtime": "7.17.9",
     "@emotion/styled-base": "^11.0.0",
     "@juggle/resize-observer": "3.2.0",
     "@popperjs/core": "2.11.5",
@@ -115,7 +115,7 @@
     "crc-32": "1.2.0",
     "date-fns": "2.16.1",
     "downshift": "6.0.6",
-    "hds-core": "2.10.0",
+    "hds-core": "2.11.0",
     "kashe": "1.0.4",
     "lodash.get": "^4.4.2",
     "lodash.isequal": "4.5.0",
@@ -132,7 +132,7 @@
     "react-popper": "2.2.5",
     "react-spring": "9.3.0",
     "react-use-measure": "2.0.1",
-    "react-virtual": "2.2.7"
+    "react-virtual": "2.10.4"
   },
   "resolutions": {
     "@types/react": "17.0.2",

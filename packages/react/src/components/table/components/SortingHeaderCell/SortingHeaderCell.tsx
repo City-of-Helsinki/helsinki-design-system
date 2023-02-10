@@ -11,7 +11,7 @@ import {
   IconSortDescending,
 } from '../../../../icons';
 
-export type SortingHeaderCellProps = React.ComponentPropsWithoutRef<'th'> & {
+export type SortingHeaderCellProps = {
   ariaLabelSortButtonUnset: string;
   ariaLabelSortButtonAscending: string;
   ariaLabelSortButtonDescending: string;
@@ -21,7 +21,7 @@ export type SortingHeaderCellProps = React.ComponentPropsWithoutRef<'th'> & {
   title: string;
   setSortingAndOrder: (colKey: string) => void;
   sortIconType: 'string' | 'other';
-};
+} & React.ComponentPropsWithoutRef<'th'>;
 
 type SortingIconProps = {
   ariaLabelSortButtonUnset: string;

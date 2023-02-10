@@ -39,6 +39,7 @@ describe(`content.builder.ts`, () => {
   const matomo: CookieData = {
     id: commonContent.commonCookies.matomo.id,
     hostName: commonContent.commonCookies.matomo.hostName,
+    name: commonContent.commonCookies.matomo.name,
     ...commonContent.commonCookies.matomo.fi,
   };
 
