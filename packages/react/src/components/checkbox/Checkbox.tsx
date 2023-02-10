@@ -102,6 +102,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       );
     }
     const tooltipProps = {
+      className: styles.tooltipButton,
       tooltipButtonLabel,
       tooltipLabel,
     };
@@ -123,11 +124,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         <label htmlFor={id} className={classNames(styles.label)}>
           {label}
         </label>
-        {tooltipText && (
-          <Tooltip className={styles.tooltipButton} {...tooltipProps}>
-            {tooltipText}
-          </Tooltip>
-        )}
+        {tooltipText && <Tooltip {...tooltipProps}>{tooltipText}</Tooltip>}
         {errorText && (
           <div className={styles.errorText} id={`${id}-error`}>
             {errorText}
