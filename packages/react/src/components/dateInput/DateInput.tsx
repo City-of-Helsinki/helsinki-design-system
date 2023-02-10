@@ -43,7 +43,7 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
    */
   selectButtonLabel?: string;
   /**
-   * Minumum date to show in the datepicker calendar. Defaults to start of the month ten years before current date.
+   * Minimum date to show in the datepicker calendar. Defaults to start of the month ten years before current date.
    */
   minDate?: Date;
   /**
