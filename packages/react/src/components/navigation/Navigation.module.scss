@@ -1,4 +1,4 @@
-@import "../../styles/common";
+@import '../../styles/common';
 @value x-small-only, small-down, small-only, small-up, medium-up, large-up, x-large-up from "../../styles/breakpoints.css";
 
 @keyframes mobileMenuAnimation {
@@ -126,9 +126,8 @@
   outline: none;
   position: relative;
   text-decoration: none;
-  width: 100%;
 
-  &:not([href]):not([tabindex="0"]) {
+  &:not([href]):not([tabindex='0']) {
     cursor: auto;
   }
 }
@@ -259,6 +258,10 @@
 @media small-down {
   .header.menuOpen .mobileMenu {
     animation: mobileMenuAnimation 225ms ease-out;
+  }
+
+  .title {
+    width: 100%;
   }
 }
 
