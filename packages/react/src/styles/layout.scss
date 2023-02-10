@@ -1,4 +1,4 @@
-@import '~hds-design-tokens/lib/all.scss';
+@import '~hds-design-tokens/lib/all';
 
 //  MEDIA QUERIES
 
@@ -43,3 +43,7 @@ $breakpoints: (
     }
   }
 }
+
+@mixin below-small() { @include respond-below($breakpoint-s) { @content; }}
+@mixin below-medium() { @include respond-below($breakpoint-m) { @content; }}
+@mixin below-large() { @include respond-below($breakpoint-l) { @content; }}
