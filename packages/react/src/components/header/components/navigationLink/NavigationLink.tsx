@@ -7,13 +7,17 @@ import { v4 as uuidv4 } from 'uuid';
 // import core base styles
 import 'hds-core';
 import styles from './NavigationLink.module.scss';
-import classNames from '../../../../utils/classNames';
+import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Link } from '../../../link';
 import { NavigationLinkDropdown, NavigationLinkInteraction, DropdownMenuPosition } from './navigationLinkDropdown';
 import { HeaderNavigationMenuContext } from '../headerNavigationMenu/HeaderNavigationMenuContext';
 import { DropdownDirection } from './types';
+import { useHeaderContext } from '../../HeaderContext';
+
+const classNames = styleBoundClassNames(styles);
 
 export type LinkProps = {
+  depth: number;
   /**
    * Indicator for active link. This is used in HeaderNavigationMenu.
    */
@@ -84,11 +88,23 @@ export type NavigationLinkProps = Omit<
   depth?: number;
 };
 
-const getLinkComponent = ({ href, label, className, active, ...rest }: NavigationLinkProps) => {
+const getLinkComponent = ({
+  href = '#',
+  label,
+  className: classNameProp,
+  depth,
+  active,
+  ...rest
+}: NavigationLinkProps) => {
+  const { isNotLargeScreen } = useHeaderContext();
+  const className = classNames(styles.navigationLink, styles[`depth-${depth}`], classNameProp, {
+    active,
+    isNotLargeScreen,
+  });
   const props = {
-    className: classNames(styles.navigationLink, className, active && styles.active),
     active: active ? true : undefined,
-    href: href || '#',
+    className,
+    href,
     ...rest,
   };
 
@@ -111,6 +127,7 @@ export const NavigationLink = ({
   depth = 0,
   ...rest
 }: NavigationLinkProps) => {
+  const { isNotLargeScreen } = useHeaderContext();
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [dropdownOpenedBy, setDropdownOpenedBy] = useState<null | NavigationLinkInteraction>(null);
   const [dynamicPosition, setDynamicPosition] = useState<null | DropdownMenuPosition>(null);
@@ -198,6 +215,7 @@ export const NavigationLink = ({
     className,
     href,
     label,
+    depth,
     ...rest,
   };
 
@@ -206,10 +224,10 @@ export const NavigationLink = ({
     linkProps.onMouseEnter = () => handleDropdownOpen(true, NavigationLinkInteraction.Hover);
 
   const navigationLinkClassName = classNames(
-    'hds-navigation-link',
+    { isNotLargeScreen },
     styles.navigationLinkWrapper,
+    styles[`depth-${depth}`],
     wrapperClassName,
-    `nav-depth-${depth}`,
   );
 
   return (

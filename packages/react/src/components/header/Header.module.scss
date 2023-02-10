@@ -1,3 +1,16 @@
+@use "../../styles/common";
+@use "../../styles/layout";
+
+@mixin element-focus-state {
+  @include common.focusVisible(
+    var(--header-focus-outline-color),
+    var(--header-focus-outline-width),
+    var(--header-focus-outline-border-radius),
+    calc(-1 * var(--header-focus-outline-width))
+  )
+}
+
+
 .header {
   --header-height: var(--spacing-4-xl);
   --header-focus-outline-width: 3px;
@@ -6,13 +19,29 @@
   --header-divider-color: var(--color-black-20);
   --header-z-index: 10;
 
-  --action-bar-button-size: 64px;
+  --action-bar-container-height: 88px;
+  --action-bar-margin: var(--spacing-xs);
+  --action-bar-section-gutter: 4px;
   --action-bar-dropdown-menu-caret-width: 64px;
   --action-bar-dropdown-menu-primary-item-height: 64px;
   --action-bar-dropdown-menu-secondary-item-height: 48px;
-
+  --action-bar-button-size: 64px;
+  --action-bar-item-gutter: 12px;
   --action-bar-item-title-font-size: 14px;
   --action-bar-item-title-font-color: var(--color-black-90);
+
+  --logo-height: 56px;
+  --icon-size: 24px;
+
+  @include layout.below-medium {
+    --action-bar-container-height: 74px;
+    --logo-height: 48px;
+  }
+
+  @include layout.below-small {
+    --action-bar-container-height: 64px;
+    --logo-height: 32px;
+  }
 
   background-color: var(--navigation-row-background-color);
   color: var(--header-color);

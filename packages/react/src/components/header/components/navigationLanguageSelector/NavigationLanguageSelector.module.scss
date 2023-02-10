@@ -1,3 +1,4 @@
+@use "../../Header.module.scss" as header;
 @import "../../../../styles/common";
 
 .languageSelector {
@@ -25,12 +26,7 @@
   line-height: var(--lineheight-l);
   white-space: nowrap;
 
-  @include focusVisible(
-    var(--header-focus-outline-color),
-    var(--header-focus-outline-width),
-    var(--header-focus-outline-border-radius),
-    calc(-1 * var(--header-focus-outline-width))
-  );
+  @include header.element-focus-state;
 }
 
 .activeItem {

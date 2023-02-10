@@ -1,6 +1,6 @@
 import React, { ComponentType, FC } from 'react';
 
-import classNames from '../../utils/classNames';
+import { styleBoundClassNames } from '../../utils/classNames';
 import { HeaderContextProvider, useHeaderContext } from './HeaderContext';
 import { HeaderUniversalBar } from './components/headerUniversalBar';
 import { HeaderActionBar } from './components/headerActionBar';
@@ -13,8 +13,9 @@ import { LanguageProvider } from '../../context/languageContext';
 import classNames from '../../utils/classNames';
 // Styles
 import 'hds-core';
-import './Header.scss';
 import styles from './Header.module.scss';
+
+const classNames = styleBoundClassNames(styles);
 
 type HeaderAttributes = JSX.IntrinsicElements['header'];
 
@@ -35,9 +36,7 @@ export interface HeaderProps extends HeaderNodeProps {
 
 const HeaderNode: ComponentType<HeaderNodeProps> = ({ children, className, ...props }) => {
   const { isNotLargeScreen } = useHeaderContext();
-  const headerClassNames = classNames('hds-header', styles.header, className, {
-    'hds-header-navigation-bar-menu': !isNotLargeScreen,
-  });
+  const headerClassNames = classNames('hds-header', styles.header, className, { isNotLargeScreen });
   return (
     <header className={headerClassNames} {...props}>
       <div className={styles.headerBackgroundWrapper}>{children}</div>

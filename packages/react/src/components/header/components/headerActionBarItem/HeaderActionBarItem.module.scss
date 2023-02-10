@@ -1,4 +1,4 @@
-@import "../../../../styles/common";
+@use "../../../../styles/common";
 
 button.actionBarItem {
   appearance: none;
@@ -6,7 +6,7 @@ button.actionBarItem {
   background: transparent;
   cursor: pointer;
 
-  @include focusVisible(
+  @include common.focusVisible(
     var(--header-focus-outline-color),
     var(--header-focus-outline-width),
     var(--header-focus-outline-border-radius),

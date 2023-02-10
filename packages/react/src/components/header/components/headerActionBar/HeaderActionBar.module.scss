@@ -1,62 +1,43 @@
-@import "../../../../styles/common";
-@import "../../../../styles/typography";
-@value small-down, medium-down from "../../../../styles/breakpoints.css";
+@use "../../../../styles/common";
+@use "../../../../styles/typography";
+
 
 .headerActionBar {
-  --container-height: 88px;
-  --logo-height: 56px;
-  --icon-size: 24px;
-
-  --action-item-title-font-size: 14px;
-  --action-item-title-font-color: var(--color-black-90);
-  --action-bar-padding: var(--spacing-xs);
-  --action-item-gap: 4px;
-
-  @media medium-down {
-    --container-height: 74px;
-    --logo-height: 48px;
-  }
-
-  @media small-down {
-    --container-height: 64px;
-    --logo-height: 32px;
-  }
-
-  position: relative;
-  display: flex;
   align-items: stretch;
-  justify-content: space-between;
-  box-sizing: border-box;
-  height: var(--container-height);
   border-bottom: 1px solid var(--header-divider-color);
-  padding-left: var(--action-bar-padding);
-  gap: var(--action-item-gap);
+  box-sizing: border-box;
+  display: flex;
+  gap: var(--action-bar-section-12px);
+  height: var(--action-bar-container-height);
+  justify-content: space-between;
+  padding-left: var(--action-bar-margin);
+  position: relative;
 }
 
 .headerActions {
-  display: flex;
   align-items: stretch;
+  display: flex;
+  gap: var(--action-bar-item-gutter);
   justify-content: flex-end;
-  gap: 12px;
   flex-grow: 1;
 }
 
 .titleAndLogoContainer {
-  position: relative;
-  display: flex;
   align-items: center;
-  white-space: nowrap;
-  outline: none;
   color: inherit;
-  text-decoration: none;
   cursor: pointer;
+  display: flex;
   flex: 0 0 auto;
+  position: relative;
+  outline: none;
+  text-decoration: none;
+  white-space: nowrap;
 
   &:not([href]):not([tabindex="0"]) {
     cursor: auto;
   }
 
-  @include focusVisible(
+  @include common.focusVisible(
     var(--header-focus-outline-color),
     var(--header-focus-outline-width),
     var(--header-focus-outline-border-radius),
@@ -65,24 +46,18 @@
 }
 
 .title {
-  margin-top: -2px;
-  padding: 4px;
   align-self: center;
+  padding: 4px;
+  margin-top: -2px;
 
-  .normal > & {
-    @include title-normal;
-  }
-  .bold > & {
-    @include title-bold;
-  }
-  .black > & {
-    @include title-black;
-  }
+  .normal > & { @include typography.title-normal }
+  .bold > & { @include typography.title-bold }
+  .black > & { @include typography.title-black }
 }
 
 .logo {
+  align-self: center;
   box-sizing: content-box;
   height: var(--logo-height);
-  align-self: center;
   padding: 12px 4px;
 }

@@ -4,6 +4,8 @@ import React, { cloneElement, isValidElement, useRef, useState } from 'react';
 import 'hds-core';
 import styles from './NavigationLinkDropdown.module.scss';
 import { IconAngleDown } from '../../../../../icons';
+import { styleBoundClassNames } from '../../../../../utils/classNames';
+import { useHeaderContext } from '../../../HeaderContext';
 import classNames from '../../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../../utils/getChildren';
 
@@ -17,7 +19,6 @@ export enum DropdownMenuPosition {
 }
 export type NavigationLinkDropdownProps = React.PropsWithChildren<{
   className?: string;
-
   /**
    * Direction for dropdown position.
    * @default DropdownMenuPosition.Right
@@ -50,9 +51,11 @@ export const NavigationLinkDropdown = ({
   depth = 0,
 }: NavigationLinkDropdownProps) => {
   // State for which nested dropdown link is open
+  const { isNotLargeScreen } = useHeaderContext();
   const [openSubNavIndex, setOpenSubNavIndex] = useState<number>(-1);
   const ref = useRef<HTMLUListElement>(null);
   const chevronClasses = open ? classNames(styles.chevron, styles.chevronOpen) : styles.chevron;
+  const depthClassName = styles[`depth-${depth - 1}`];
   const dropdownDirectionClass = dynamicPosition
     ? classNames(styles.dropdownMenu, styles[dynamicPosition])
     : styles.dropdownMenu;
@@ -65,14 +68,14 @@ export const NavigationLinkDropdown = ({
     <>
       <button
         type="button"
-        className={styles.button}
+        className={classNames(styles.button, { isNotLargeScreen }, depthClassName)}
         onClick={handleMenuButtonClick}
         data-testid={`dropdown-button-${index}`}
       >
         <IconAngleDown className={chevronClasses} />
       </button>
       <ul
-        className={classNames(dropdownDirectionClass, className)}
+        className={classNames(dropdownDirectionClass, { isNotLargeScreen }, className)}
         {...(!open && { style: { display: 'none' } })}
         data-testid={`dropdown-menu-${index}`}
         ref={ref}
