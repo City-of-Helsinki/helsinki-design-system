@@ -1,37 +1,38 @@
-# Build icon library, zip file for release and create PR
+# Build icon library, create zip file for release and create PR
 name: icon library
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
 
 jobs:
   build-icon-library:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v3.6.0
-      with:
-        node-version: '19.6.0'
-        registry-url: 'https://registry.npmjs.org'
-    - name: Run Glypfig
-      run: npx glypfig -a $API_KEY -k $FILE_KEY -n $NODE_ID -f png,svg,react -p -t tsx -l './release/LICENSE.txt' -b 2.66 -c 2.66
-      env:
-        API_KEY: ${{ secrets.HDS_ICON_KIT }}
-        FILE_KEY: 'Kxwg3R0zNRHj55nQqFu6VS'
-        NODE_ID: '172:2478'
-    - name: Create release zip file
-      uses: TheDoctor0/zip-release@0.7.1
-      with:
-        filename: 'hds-icon-kit.zip'
-        path: './icon-library'
-    - name: View directory files
-      run: ls -la
-    - name: Copy svg files to repo folders
-      run: cp ./icon-library/svg/* ./packages/core/src/svg
-    - name: Copy react files to repo folders
-      run: cp ./icon-library/react/* ./packages/react/src/icons
-    - name: create pull request
-      run: gh pr create -B master --title 'Icon library build' --body 'Created by Github action icon library'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: '19.6.0'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Run Glypfig
+        run: npx glypfig -a $API_KEY -k $FILE_KEY -n $NODE_ID -f png,svg,react -p -t tsx -l './release/LICENSE.txt' -c 2.66
+        env:
+          API_KEY: ${{ secrets.HDS_ICON_KIT }}
+          FILE_KEY: 'Kxwg3R0zNRHj55nQqFu6VS'
+          NODE_ID: '172:2478'
+      - name: Create release zip file
+        uses: TheDoctor0/zip-release@0.7.1
+        with:
+          filename: 'hds-icon-kit.zip'
+          path: './icon-library'
+      - name: View directory files
+        run: ls -la
+      - name: Copy svg files to repo folders
+        run: cp ./icon-library/svg/* ./packages/core/src/svg
+      - name: Copy react files to repo folders
+        run: cp ./icon-library/react/* ./packages/react/src/icons
+      - name: create pull request
+        run: gh pr create -B master --title 'Icon library build' --body 'Created by Github action icon library'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
