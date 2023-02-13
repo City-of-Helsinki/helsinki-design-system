@@ -25,7 +25,8 @@ jobs:
       with:
         filename: 'hds-icon-kit.zip'
         path: './icon-library'
-    - run: ls -la
+    - name: View directory files
+      run: ls -la
     - name: Copy svg files to repo folders
       run: cp ./icon-library/svg/* ./packages/core/src/svg
     - name: Copy react files to repo folders
