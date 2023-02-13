@@ -101,11 +101,6 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         'Using ReactElement as a label is against good usability and accessibility practices. Please prefer plain strings.',
       );
     }
-    const tooltipProps = {
-      className: styles.tooltipButton,
-      tooltipButtonLabel,
-      tooltipLabel,
-    };
 
     return (
       <div className={classNames(styles.checkbox, className)} style={style}>
@@ -124,7 +119,11 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         <label htmlFor={id} className={classNames(styles.label)}>
           {label}
         </label>
-        {tooltipText && <Tooltip {...tooltipProps}>{tooltipText}</Tooltip>}
+        {tooltipText && (
+          <Tooltip className={styles.tooltipButton} buttonLabel={tooltipButtonLabel} tooltipLabel={tooltipLabel}>
+            {tooltipText}
+          </Tooltip>
+        )}
         {errorText && (
           <div className={styles.errorText} id={`${id}-error`}>
             {errorText}
