@@ -1,8 +1,7 @@
 # Build icon library, zip file for release and create PR
 name: icon library
 
-on:
-  workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
   build-icon-library:
