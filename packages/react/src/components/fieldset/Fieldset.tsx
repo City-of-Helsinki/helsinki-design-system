@@ -28,12 +28,8 @@ export const Fieldset = ({ heading, border, className, helperText, children, ...
   <fieldset className={classNames(styles.fieldset, border && styles.border, className)} {...fieldSetProps}>
     <legend className={styles.legend}>
       <div>{heading}</div>
-      {helperText && (
-        <div className={styles.helperText} id={`${new Date().getTime()}-helper`}>
-          {helperText}
-        </div>
-      )}
     </legend>
     {children}
+    {helperText && <div className={styles.helperText}>{helperText}</div>}
   </fieldset>
 );

@@ -207,12 +207,11 @@ WithParent.storyName = 'With a parent';
 
 export const WithHelperText = () => `
   <fieldset class="hds-selection-group">
-    <legend class="hds-selection-group__legend"><div>Label</div>
-    ${getHelperText()}
-    </legend>
+    <legend class="hds-selection-group__legend">Label</legend>
     <div class="hds-selection-group__items">
       ${getCheckboxes('Default')}
     </div>
+    ${getHelperText()}
   </fieldset>
   <br/>
   <br/>
@@ -221,5 +220,6 @@ export const WithHelperText = () => `
     <div class="hds-selection-group__items">
       ${getRadios('Default')}
     </div>
+    ${getHelperText()}
   </fieldset>
 `;

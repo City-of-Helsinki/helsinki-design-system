@@ -86,14 +86,7 @@ export const SelectionGroup = ({
   return (
     <fieldset className={classNames(styles.selectionGroup, className)} {...fieldSetProps}>
       <legend className={styles.label}>
-        <div>
-          {label} {required && <RequiredIndicator />}
-        </div>
-        {helperText && (
-          <div className={styles.helperText} id={`${new Date().getTime()}-helper`}>
-            {helperText}
-          </div>
-        )}
+        {label} {required && <RequiredIndicator />}
       </legend>
       {tooltipText && (
         <Tooltip buttonClassName={styles.tooltipButton} tooltipLabel={tooltipLabel} buttonLabel={tooltipButtonLabel}>
@@ -106,6 +99,7 @@ export const SelectionGroup = ({
         ))}
       </div>
       {errorText && <div className={styles.errorText}>{errorText}</div>}
+      {helperText && <div className={styles.helperText}>{helperText}</div>}
     </fieldset>
   );
 };
