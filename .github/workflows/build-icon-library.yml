@@ -24,7 +24,7 @@ jobs:
       - name: Create release zip file
         uses: TheDoctor0/zip-release@0.7.1
         with:
-          filename: 'hds-icon-kit.zip'
+          filename: 'release/hds-icon-kit.zip'
           path: './icon-library'
       - name: View directory files
         run: ls -la
@@ -32,6 +32,10 @@ jobs:
         run: cp ./icon-library/svg/* ./packages/core/src/svg
       - name: Copy react files to repo folders
         run: cp ./icon-library/react/* ./packages/react/src/icons
+      - name: Add changed files
+        run: git add .
+      - name: Commit changed files
+        run: git commit -m 'Updated icon library'
       - name: create pull request
         run: gh pr create -B master --title 'Icon library build' --body 'Created by Github action icon library'
         env:
