@@ -64,7 +64,7 @@ export const Custom = () => {
 };
 Custom.storyName = 'With custom styles';
 
-export const WithHelperText = () => <RadioButton id="radio-with-helper" label="Label" helperText="helper text" />;
+export const WithHelperText = () => <RadioButton id="radio-with-helper" label="Label" helperText="Assistive text" />;
 
 export const Playground = (args) => {
   const [radioValue, setRadioValue] = useState(null);

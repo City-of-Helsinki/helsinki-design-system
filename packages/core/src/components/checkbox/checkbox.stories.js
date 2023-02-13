@@ -126,6 +126,6 @@ export const WithHelperText = () => `
     <div class="hds-checkbox">
       <input type="checkbox" id="checkbox7" class="hds-checkbox__input" value="foo" />
       ${getLabel('checkbox7')}
-      ${getHelperText('checkbox7')}
+      ${getHelperText()}
     </div>
 `;

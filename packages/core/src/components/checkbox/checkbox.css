@@ -122,7 +122,7 @@
   display: block;
   font-size: var(--fontsize-body-m);
   margin-top: var(--spacing-2-xs);
-  padding-left: calc(var(--icon-size) + var(--spacing-2-xs));
+  padding-left: var(--spacing-2-xs);
   flex-basis: 100%;
 }
 

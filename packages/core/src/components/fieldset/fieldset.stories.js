@@ -80,7 +80,7 @@ export const WithHelperText = () => `
     <fieldset class='hds-fieldset'>
       <legend class='hds-fieldset-legend'>
         <div>Applicant information</div>
-        ${getHelperText('fieldsetWithHelperText')}
+        ${getHelperText()}
       </legend>
       <div style='display: grid; grid-gap: 12px 16px; grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));'>
        ${firstNameInput}

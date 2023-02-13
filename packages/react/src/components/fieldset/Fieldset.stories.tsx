@@ -134,6 +134,6 @@ export const WithHelperText = (args) => {
   );
 };
 WithHelperText.args = {
-  heading: 'Fieldset with helper text',
-  helperText: 'Helper text',
+  heading: 'Fieldset with Assistive text',
+  helperText: 'Assistive text',
 };

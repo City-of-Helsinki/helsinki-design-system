@@ -41,6 +41,6 @@ export const WithHelperText = () => `
     <div class="hds-radio-button">
       <input type="radio" id="radio3" class="hds-radio-button__input" name="example" value="baz" disabled />
       ${getLabel('radio5')}
-      ${getHelperText('radio5')}
+      ${getHelperText()}
     </div>
 `;

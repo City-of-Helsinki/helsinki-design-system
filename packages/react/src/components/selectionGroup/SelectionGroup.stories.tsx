@@ -346,5 +346,5 @@ export const WithHelperText = ({ numberOfItems, ...args }) => {
   );
 };
 WithHelperText.args = {
-  helperText: 'Helper text',
+  helperText: 'Assistive text',
 };
