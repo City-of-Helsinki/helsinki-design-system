@@ -13,3 +13,7 @@
 .errorText {
   composes: hds-checkbox__error-text from 'hds-core/lib/components/checkbox/checkbox.css';
 }
+
+.helperText {
+  composes: hds-checkbox__helper-text from 'hds-core/lib/components/checkbox/checkbox.css';
+}

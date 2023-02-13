@@ -9,3 +9,7 @@
 .legend {
   composes: hds-fieldset-legend from 'hds-core/lib/components/fieldset/fieldset.css';
 }
+
+.helperText {
+  composes: hds-fieldset__helper-text from 'hds-core/lib/components/fieldset/fieldset.css';
+}

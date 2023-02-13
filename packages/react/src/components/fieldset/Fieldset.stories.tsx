@@ -108,3 +108,32 @@ WithSelectionGroup.args = {
   border: true,
   heading: 'File information',
 };
+
+export const WithHelperText = (args) => {
+  return (
+    <Fieldset {...args}>
+      <div
+        style={{ display: 'grid', gridGap: '12px 16px', gridTemplateColumns: 'repeat(auto-fill, minmax(245px, 1fr))' }}
+      >
+        <TextInput id="first-name" name="first-name" label="First name" />
+        <TextInput id="last-name" name="last-name" label="Last name" />
+      </div>
+      <div
+        style={{
+          marginTop: '12px',
+        }}
+      >
+        <TextInput
+          id="social-security-number"
+          name="social-security-number"
+          label="Social security number"
+          placeholder="Eg. 111299-1234"
+        />
+      </div>
+    </Fieldset>
+  );
+};
+WithHelperText.args = {
+  heading: 'Fieldset with helper text',
+  helperText: 'Helper text',
+};

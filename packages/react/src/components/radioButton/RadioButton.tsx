@@ -19,6 +19,10 @@ export type RadioButtonProps = {
    */
   disabled?: boolean;
   /**
+   * The helper text content that will be shown below the input
+   */
+  helperText?: string;
+  /**
    * The id of the input element
    */
   id: string;
@@ -46,6 +50,7 @@ export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
       checked = false,
       className = '',
       disabled = false,
+      helperText,
       id,
       label,
       onChange = () => null,
@@ -78,6 +83,11 @@ export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
         <label htmlFor={id} className={classNames(styles.label)}>
           {label}
         </label>
+        {helperText && (
+          <div className={styles.helperText} id={`${id}-helper`}>
+            {helperText}
+          </div>
+        )}
       </div>
     );
   },

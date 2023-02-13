@@ -41,3 +41,6 @@
   composes: hds-selection-group__error-text from 'hds-core/lib/components/selection-group/selection-group.css';
 }
 
+.helperText {
+  composes: hds-selection-group__helper-text from 'hds-core/lib/components/selection-group/selection-group.css';
+}

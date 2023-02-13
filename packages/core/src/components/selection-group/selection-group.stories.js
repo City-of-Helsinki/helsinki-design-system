@@ -4,6 +4,8 @@ import '../../icons/ui/icon-share.css';
 import '../../icons/ui/icon-angle-right.css';
 import {useEffect} from "@storybook/client-api";
 
+const getHelperText = (text = 'Assistive text') => `<div class="hds-selection-group__helper-text">${text}</div>`;
+
 const getCheckboxLabel = (id = 'input', label = 'Option') =>
   `<label for="${id}"  class="hds-checkbox__label">${label}</label>`;
 
@@ -202,3 +204,22 @@ export const WithParent = () => {
 }
 
 WithParent.storyName = 'With a parent';
+
+export const WithHelperText = () => `
+  <fieldset class="hds-selection-group">
+    <legend class="hds-selection-group__legend"><div>Label</div>
+    ${getHelperText('selecitonGroupWithHelperText')}
+    </legend>
+    <div class="hds-selection-group__items">
+      ${getCheckboxes('Default')}
+    </div>
+  </fieldset>
+  <br/>
+  <br/>
+  <fieldset class="hds-selection-group">
+    <legend class="hds-selection-group__legend">Label</legend>
+    <div class="hds-selection-group__items">
+      ${getRadios('Default')}
+    </div>
+  </fieldset>
+`;

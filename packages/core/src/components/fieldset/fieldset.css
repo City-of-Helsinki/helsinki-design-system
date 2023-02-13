@@ -23,3 +23,11 @@
   margin-left: calc(var(--padding-sides) / -2);
   padding: 0 6px 0 6px;
 }
+/* HELPER TEXT */
+.hds-fieldset__helper-text {
+  color: var(--color-black-60);
+  display: block;
+  font-weight: normal;
+  font-size: var(--fontsize-body-m);
+  margin-top: 0;
+}

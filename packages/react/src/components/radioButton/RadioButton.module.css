@@ -9,3 +9,7 @@
 .label {
   composes: hds-radio-button__label from 'hds-core/lib/components/radio-button/radio-button.css';
 }
+
+.helperText {
+  composes: hds-radio-button__helper-text from 'hds-core/lib/components/radio-button/radio-button.css';
+}

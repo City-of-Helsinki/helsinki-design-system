@@ -323,3 +323,28 @@ WithParent.storyName = 'With a parent';
 WithParent.parameters = {
   loki: { skip: true }, // There is an identical story in checkbox
 };
+export const WithHelperText = ({ numberOfItems, ...args }) => {
+  const [checkedItems, setCheckedItems] = useState({});
+  const [radioValue, setRadioValue] = useState('radio0');
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const item = e.target.name;
+    const isChecked = e.target.checked;
+    setCheckedItems({ ...checkedItems, [item]: isChecked });
+  };
+  const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setRadioValue(e.target.value);
+  };
+  const checkboxes = getCheckboxItems(numberOfItems, checkedItems, handleCheckboxChange);
+  const radiobuttons = getRadioButtonItems(numberOfItems, radioValue, handleRadioChange);
+  return (
+    <>
+      <SelectionGroup {...args}>{checkboxes}</SelectionGroup>
+      <br />
+      <br />
+      <SelectionGroup {...args}>{radiobuttons}</SelectionGroup>
+    </>
+  );
+};
+WithHelperText.args = {
+  helperText: 'Helper text',
+};
