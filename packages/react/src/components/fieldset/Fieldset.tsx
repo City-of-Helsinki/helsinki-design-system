@@ -26,9 +26,7 @@ export type FieldsetProps = {
 
 export const Fieldset = ({ heading, border, className, helperText, children, ...fieldSetProps }: FieldsetProps) => (
   <fieldset className={classNames(styles.fieldset, border && styles.border, className)} {...fieldSetProps}>
-    <legend className={styles.legend}>
-      <div>{heading}</div>
-    </legend>
+    <legend className={styles.legend}>{heading}</legend>
     {children}
     {helperText && <div className={styles.helperText}>{helperText}</div>}
   </fieldset>
