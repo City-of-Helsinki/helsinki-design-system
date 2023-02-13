@@ -186,8 +186,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const minDateToUse = minDate && isValid(minDate) ? minDate : startOfMonth(subYears(new Date(), 10));
     const maxDateToUse =
       maxDate && isValid(maxDate) ? maxDate : endOfMonth(addYears(max([minDateToUse, new Date()]), 10));
-    // set inputmode to "text" on all Mac* devices to avoid decimal "," -problem
-    const inputMode = navigator.userAgent.toLowerCase().includes('mac') ? 'text' : 'decimal';
 
     return (
       <div lang={language} className={styles.wrapper}>
@@ -201,7 +199,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           }}
           value={inputValue}
           ref={inputRef}
-          inputMode={inputMode}
         >
           {disableDatePicker === false && showPicker && (
             <DatePicker
