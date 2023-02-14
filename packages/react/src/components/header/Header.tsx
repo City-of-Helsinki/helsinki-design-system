@@ -9,8 +9,7 @@ import { NavigationLink } from './components/navigationLink';
 import { HeaderActionBarItemWithDropdown } from './components/headerActionBarItem';
 import { NavigationLanguageSelector } from './components/navigationLanguageSelector';
 import { NavigationSearch } from './components/navigationSearch';
-import { LanguageProvider } from '../../context/languageContext';
-import classNames from '../../utils/classNames';
+import { LanguageProvider, LanguageProviderProps } from '../../context/languageContext';
 // Styles
 import 'hds-core';
 import styles from './Header.module.scss';
@@ -54,10 +53,14 @@ interface HeaderInterface extends FC<HeaderProps> {
   NavigationSearch: typeof NavigationSearch;
 }
 
-export const Header: HeaderInterface = ({ onDidChangeLanguage, ...props }: HeaderProps) => {
+export const Header: HeaderInterface = ({
+  onDidChangeLanguage,
+  defaultLanguage,
+  ...props
+}: HeaderProps & LanguageProviderProps) => {
   return (
     <HeaderContextProvider>
-      <LanguageProvider onDidChangeLanguage={onDidChangeLanguage}>
+      <LanguageProvider onDidChangeLanguage={onDidChangeLanguage} defaultLanguage={defaultLanguage}>
         <HeaderNode {...props} />
       </LanguageProvider>
     </HeaderContextProvider>

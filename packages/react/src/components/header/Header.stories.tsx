@@ -59,7 +59,7 @@ export const WithFullFeatures = (args) => (
         titleAriaLabel="Helsingin kaupunki"
         titleUrl="https://hel.fi"
         titleStyle={TitleStyleType.normal}
-        logoAriaLabel="https://hel.fi"
+        logoAriaLabel="Service logo"
         logoUrl="https://hel.fi"
         menuButtonAriaLabel="Menu"
       >

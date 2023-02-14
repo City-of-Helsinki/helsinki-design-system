@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, createContext, useContext, useEffect, useRef, useState } from 'react';
 
-const DEFAULT_LANGUAGE = 'fi';
+export const DEFAULT_LANGUAGE = 'fi';
 
 export type LanguageType = string;
 export type LanguageOption = {

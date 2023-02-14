@@ -30,7 +30,7 @@ const LanguageButton = ({ language }) => {
   );
 };
 
-const renderLanguageNode = (language) => <LanguageButton language={language} />;
+const renderLanguageNode = (language: LanguageOption) => <LanguageButton key={language.value} language={language} />;
 
 export const NavigationLanguageSelector = ({ children, languages }: LanguageSelectorProps) => {
   const setAvailableLanguages = useSetAvailableLanguages();

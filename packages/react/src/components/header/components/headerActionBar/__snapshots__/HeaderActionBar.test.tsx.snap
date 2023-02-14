@@ -17,6 +17,7 @@ exports[`<HeaderActionBar /> spec renders the component 1`] = `
           <svg
             aria-hidden="true"
             class="logo logo"
+            data-testid="action-bar-logo"
             role="img"
             title="Helsingin kaupunki"
             viewBox="0 0 78 36"
