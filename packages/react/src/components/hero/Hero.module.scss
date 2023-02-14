@@ -1,2 +1,21 @@
+@value heroCss: "../../../../core/src/components/hero/hero.css";
+
 .hero {
+  composes: hds-hero from heroCss;
+}
+
+.content {
+  composes: hds-hero__content from heroCss;
+}
+
+.singleColumn {
+  composes: hds-hero__content--single-column from heroCss;
+}
+
+.card {
+  composes: hds-hero__card from heroCss;
+}
+
+.centeredContent {
+  composes: hds-hero__card--centered-content from heroCss;
 }
