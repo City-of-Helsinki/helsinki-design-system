@@ -34,6 +34,7 @@ export interface HeroCustomTheme {
 export type ChildProps = {
   imageChildIndex: number;
   cardChildIndex: number;
+  wideImageChildIndex?: number;
   components: React.ReactElement[];
 };
 
@@ -50,6 +51,10 @@ const pickChildProps = (children: React.ReactNode): ChildProps => {
     switch (componentName) {
       case 'ImageContainer': {
         childProps.imageChildIndex = index;
+        break;
+      }
+      case 'WideImage': {
+        childProps.wideImageChildIndex = index;
         break;
       }
       case 'Card': {
@@ -91,8 +96,16 @@ const ImageContainer = (props: ImgElementAttributes) => {
 
 ImageContainer.componentName = 'ImageContainer';
 
+const WideImage = (props: ImgElementAttributes) => {
+  return <ImageContainer {...props} />;
+};
+
+WideImage.componentName = 'WideImage';
+
 export const Hero = ({ children, theme, koros, ...elementAttributes }: HeroProps) => {
-  const { components, imageChildIndex, cardChildIndex } = pickChildProps(children);
+  const { components, imageChildIndex, backgroundChildIndex, wideImageChildIndex, cardChildIndex } = pickChildProps(
+    children,
+  );
   const editableTheme = { ...theme };
   if (!editableTheme['--koros-color']) {
     editableTheme['--koros-color'] = 'var(--background-color)';
@@ -103,6 +116,9 @@ export const Hero = ({ children, theme, koros, ...elementAttributes }: HeroProps
   const canKorosBeFlipped = koros?.flipHorizontal !== false;
 
   const getHeroType = () => {
+    if (wideImageChildIndex > -1) {
+      return 'wideImage';
+    }
     if (imageChildIndex === -1) {
       return 'textOnly';
     }
@@ -130,16 +146,20 @@ export const Hero = ({ children, theme, koros, ...elementAttributes }: HeroProps
             </div>
           );
         }
+        if (index === wideImageChildIndex) {
+          return null;
+        }
         return c;
       })}
     </>
   );
 
   const ImageClone = () => {
-    if (imageChildIndex === -1) {
+    const imageIndex = type === 'wideImage' ? wideImageChildIndex : imageChildIndex;
+    if (imageIndex === -1) {
       return null;
     }
-    const imageComponent = components[imageChildIndex];
+    const imageComponent = components[imageIndex];
     const clonedProps = { ...imageComponent.props };
     if (clonedProps.id) {
       clonedProps.id = `${clonedProps.id}-clone`;
@@ -165,3 +185,4 @@ export const Hero = ({ children, theme, koros, ...elementAttributes }: HeroProps
 };
 Hero.Card = Card;
 Hero.Image = ImageContainer;
+Hero.WideImage = WideImage;

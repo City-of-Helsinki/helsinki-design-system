@@ -127,6 +127,16 @@ WithoutImage.argTypes = {
     description: 'Choose a preset hero type',
   },
 };
+
+export const BottomWideImage = (args) => (
+  <Hero koros={args.koros} theme={{ '--background-color': '#fff', '--image-position': 'bottom left', ...args.theme }}>
+    <Hero.Card>
+      <DefaultCardContent />
+    </Hero.Card>
+    <Hero.WideImage src={imageFile} />
+  </Hero>
+);
+
 export const PlaygroundForKoros = (args) => {
   const heroProps: HeroProps = {
     koros: {
@@ -177,11 +187,12 @@ PlaygroundForKoros.argTypes = {
 const componentTypes = {
   imageOnSide: 'image on side',
   withoutImage: 'without image',
+  wideImage: 'wide image',
 };
 
 export const EmbeddedToPage = (args) => {
   const { componentType, variant } = args;
-  const { imageOnSide, withoutImage } = componentTypes;
+  const { imageOnSide, withoutImage, wideImage } = componentTypes;
   const BasicImageVersion = () => {
     const imagePosition = variant === '1' ? 'left' : 'right';
     return <ImageLeftOrRight imagePosition={imagePosition} />;
@@ -195,6 +206,7 @@ export const EmbeddedToPage = (args) => {
       <NavigationComponent />
       {componentType === imageOnSide && <BasicImageVersion />}
       {componentType === withoutImage && <NoImage />}
+      {componentType === wideImage && <BottomWideImage />}
       <Section color="secondary">
         <h1 className="heading-xl">Component after hero</h1>
         This component shows padding after hero
