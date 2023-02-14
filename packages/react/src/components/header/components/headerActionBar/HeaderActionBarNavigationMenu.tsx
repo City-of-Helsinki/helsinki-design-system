@@ -2,8 +2,10 @@ import React, { Children, cloneElement, isValidElement } from 'react';
 
 import { HeaderNavigationMenuContextProvider } from '../headerNavigationMenu/HeaderNavigationMenuContext';
 import { useHeaderContext } from '../../HeaderContext';
-import classNames from '../../../../utils/classNames';
+import { styleBoundClassNames } from '../../../../utils/classNames';
 import styles from './HeaderActionBarNavigationMenu.module.scss';
+
+const classNames = styleBoundClassNames(styles);
 
 // FIXME
 const dropdownLinkClassName = styles.headerNavigationMenuDropdownLink;
@@ -47,7 +49,7 @@ const HeaderNavigationMenuContent = () => {
 
 export const HeaderActionBarNavigationMenu = () => {
   const { hasNavigationContent, isNotLargeScreen, mobileMenuOpen } = useHeaderContext();
-  const className = classNames(styles.headerNavigationMenu, mobileMenuOpen && styles.headerNavigationMenuOpen);
+  const className = classNames(styles.headerNavigationMenu, { mobileMenuOpen });
 
   if (!hasNavigationContent || !isNotLargeScreen) return null;
 

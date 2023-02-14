@@ -1,15 +1,15 @@
-import React, { PropsWithChildren, MouseEventHandler } from 'react';
+import React, { PropsWithChildren, MouseEventHandler, ComponentType } from 'react';
 
+import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Logo } from '../../../logo';
 import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
 import { useActiveLanguage } from '../../../../context/languageContext';
 import { HeaderActionBarNavigationMenu } from './HeaderActionBarNavigationMenu';
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';
 import { HeaderActionBarMenuItem } from '../headerActionBarItem';
-import classNames from '../../../../utils/classNames';
 import styles from './HeaderActionBar.module.scss';
 
-import 'hds-core';
+const classNames = styleBoundClassNames(styles);
 
 export enum TitleStyleType {
   normal = 'normal',
@@ -44,24 +44,9 @@ export type HeaderActionBarProps = PropsWithChildren<{
   logoAriaLabel?: string;
 
   /**
-   * Callback fired when the title is clicked
-   */
-  onTitleClick?: MouseEventHandler;
-
-  /**
-   * Callback fired when the logo is clicked
-   */
-  onLogoClick?: MouseEventHandler;
-
-  /**
    * The aria-label for the menu button to screen reader users.
    */
   menuButtonAriaLabel?: string;
-
-  /**
-   * Callback fired when the title or logo is clicked
-   */
-  onMenuButtonClick?: MouseEventHandler;
 
   /**
    * URL to navigate to when the title is clicked
@@ -72,9 +57,26 @@ export type HeaderActionBarProps = PropsWithChildren<{
    * URL to navigate to when the logo is clicked
    */
   logoUrl?: string;
+
+  /**
+   * Callback fired when the title is clicked
+   */
+  onTitleClick?: MouseEventHandler;
+
+  /**
+   * Callback fired when the logo is clicked
+   */
+  onLogoClick?: MouseEventHandler;
+
+  /**
+   * Callback fired when the menu button is clicked.
+   * Call event.stopPropagation() to disable calling
+   * the default menu toggling function.
+   */
+  onMenuButtonClick?: MouseEventHandler;
 }>;
 
-export const HeaderActionBar = (props: HeaderActionBarProps) => {
+export const HeaderActionBar: ComponentType<HeaderActionBarProps> = (props) => {
   const {
     title,
     titleStyle = 'normal',
@@ -87,6 +89,7 @@ export const HeaderActionBar = (props: HeaderActionBarProps) => {
     onLogoClick,
     onMenuButtonClick,
     children,
+    className,
   } = props;
   const language = useActiveLanguage();
   const handleClick = useCallbackIfDefined(onTitleClick);
@@ -119,7 +122,7 @@ export const HeaderActionBar = (props: HeaderActionBarProps) => {
 
   return (
     <>
-      <div className={styles.headerActionBar}>
+      <div className={classNames(styles.headerActionBar, className)}>
         <LinkItem {...logoProps}>
           <Logo className={styles.logo} language={language} aria-hidden />
         </LinkItem>
