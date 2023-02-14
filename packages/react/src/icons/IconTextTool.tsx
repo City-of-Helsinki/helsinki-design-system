@@ -1,6 +1,5 @@
 import React from 'react';
-
-import styles from './Icon.module.css';
+import styles from '../../templates/Icon.module.css';
 
 interface IconProps {
   ariaLabel?: string;
@@ -32,11 +31,6 @@ export const IconTextTool = ({
     color={color}
     style={style}
   >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M8 20V18H11V6H6V8H4V4H20V8H18V6H13V18H16V20H8Z"
-      fill="currentColor"
-    ></path>
+    <path fillRule="evenodd" clipRule="evenodd" d="M8 20V18H11V6H6V8H4V4H20V8H18V6H13V18H16V20H8Z" fill="currentColor"></path>
   </svg>
 );
