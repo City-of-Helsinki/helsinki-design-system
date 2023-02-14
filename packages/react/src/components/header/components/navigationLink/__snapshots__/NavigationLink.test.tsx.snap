@@ -3,10 +3,10 @@
 exports[`<NavigationLink /> spec renders the component 1`] = `
 <DocumentFragment>
   <span
-    class="hds-navigation-link navigationLinkWrapper nav-depth-0"
+    class="navigationLinkWrapper depth-0"
   >
     <a
-      class="link linkM navigationLink"
+      class="link linkM navigationLink depth-0"
       href="#"
     >
       Link
