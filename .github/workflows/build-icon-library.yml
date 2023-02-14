@@ -21,17 +21,19 @@ jobs:
           API_KEY: ${{ secrets.HDS_ICON_KIT }}
           FILE_KEY: 'Kxwg3R0zNRHj55nQqFu6VS'
           NODE_ID: '172:2478'
+      - name: Copy Changelog file
+        run: cp ./release/CHANGELOG.txt ./icon-library
       - name: Create release zip file
         uses: TheDoctor0/zip-release@0.7.1
         with:
           filename: 'release/hds-icon-kit.zip'
           path: './icon-library'
-      - name: View directory files
-        run: ls -la
       - name: Copy svg files to repo folders
         run: cp ./icon-library/svg/* ./packages/core/src/svg
       - name: Copy react files to repo folders
         run: cp ./icon-library/react/* ./packages/react/src/icons
+      - name: Remove icon library build directory
+        run: rm -rf ./icon-library
       - name: Add changed files
         run: git add .
       - name: Commit changed files
