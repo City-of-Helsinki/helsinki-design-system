@@ -34,10 +34,13 @@ jobs:
         run: cp ./icon-library/react/* ./packages/react/src/icons
       - name: Remove icon library build directory
         run: rm -rf ./icon-library
-      - name: Add changed files
-        run: git add .
       - name: Commit changed files
-        run: git commit -m 'Updated icon library'
+        run: |
+          git config --global user.email "hds@hel.fi"
+          git config --global user.name "Github Actions"
+          git add .
+          git commit -m 'Updated icon library'
+          git push
       - name: create pull request
         run: gh pr create -B master --title 'Icon library build' --body 'Created by Github action icon library'
         env:
