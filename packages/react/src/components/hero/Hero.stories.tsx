@@ -107,6 +107,51 @@ WithoutImage.argTypes = {
     description: 'Choose a preset hero type',
   },
 };
+export const PlaygroundForKoros = (args) => {
+  const heroProps: HeroProps = {
+    koros: {
+      type: args.type,
+      hide: !!args.hide,
+      dense: !!args.dense,
+      flipHorizontal: args.flipHorizontal,
+      ...args.koros,
+    },
+    theme: {
+      '--background-color': '#9fc9eb',
+      '--koros-color': args.color || '#9fc9eb',
+      ...args.theme,
+    },
+  };
+
+  return (
+    <Hero {...heroProps}>
+      <Hero.Card>
+        <DefaultCardContent />
+      </Hero.Card>
+    </Hero>
+  );
+};
+
+PlaygroundForKoros.argTypes = {
+  type: {
+    defaultValue: 'basic',
+    control: {
+      type: 'select',
+      options: ['basic', 'beat', 'pulse', 'storm', 'wave', 'calm'],
+    },
+  },
+  color: { control: { type: 'color' } },
+  hide: {
+    control: 'boolean',
+  },
+  dense: {
+    control: 'boolean',
+  },
+  flipHorizontal: {
+    defaultValue: true,
+    control: 'boolean',
+  },
+};
 
 const componentTypes = {
   withoutImage: 'without image',
@@ -157,5 +202,95 @@ EmbeddedToPage.argTypes = {
     table: {
       type: { summary: 'Changes to another variant of the selected component.' },
     },
+  },
+};
+
+const demoPadding = '55px';
+const demoBgColor = '#f5a3c7';
+
+export const PlaygroundForTheme = (args) => {
+  const argsAsTheme = {
+    '--background-color': args.backgroundColor,
+    '--color': args.color,
+    '--koros-color': args.korosColor,
+    '--horizontal-padding-small': args.horizontalPaddingSmall,
+    '--horizontal-padding-medium': args.horizontalPaddingMedium,
+    '--horizontal-padding-large': args.horizontalPaddingLarge,
+    '--horizontal-padding-x-large': args.horizontalPaddingXLarge,
+  };
+
+  const theme = Object.fromEntries(Object.entries(argsAsTheme).filter(([, value]) => !!value));
+
+  return (
+    <div>
+      <style>
+        {`
+        .oddly-padded {
+          padding: 20px ${demoPadding};
+          background:${demoBgColor};
+        }
+        .theme {
+          padding: 20px 20px 20px ${demoPadding};
+          font-size:10px;
+          border:1px solid #000;
+        }
+       
+      `}
+      </style>
+      <Hero koros={args.koros} theme={theme}>
+        <Hero.Card>
+          <DefaultCardContent />
+        </Hero.Card>
+      </Hero>
+      <div className="oddly-padded">
+        <p>This text should align with the hero content box on all screen sizes</p>
+      </div>
+      <div className="theme">
+        <p>Applied theme:</p>
+        <pre>{JSON.stringify(theme, null, 2)}</pre>
+      </div>
+    </div>
+  );
+};
+
+PlaygroundForTheme.argTypes = {
+  theme: {
+    description: '*** Theme is not used here ***',
+    control: false,
+  },
+  backgroundColor: {
+    defaultValue: demoBgColor,
+    control: 'color',
+    description: 'Background / koros color',
+  },
+  color: {
+    defaultValue: '',
+    control: 'color',
+    description: 'Text color',
+  },
+  korosColor: {
+    defaultValue: '',
+    control: 'color',
+    description: 'Optional koros color',
+  },
+  horizontalPaddingSmall: {
+    defaultValue: demoPadding,
+    control: 'text',
+    description: 'Horizontal padding on small screens <768px',
+  },
+  horizontalPaddingMedium: {
+    defaultValue: demoPadding,
+    control: 'text',
+    description: 'Horizontal padding on medium screens >=768px',
+  },
+  horizontalPaddingLarge: {
+    defaultValue: demoPadding,
+    control: 'text',
+    description: 'Horizontal padding on large screens >=992px',
+  },
+  horizontalPaddingXLarge: {
+    defaultValue: demoPadding,
+    control: 'text',
+    description: 'Horizontal padding on x-large screens >=1248px',
   },
 };
