@@ -33,12 +33,12 @@
   --logo-height: 56px;
   --icon-size: 24px;
 
-  @include layout.below-medium {
+  @include layout.below-large {
     --action-bar-container-height: 74px;
     --logo-height: 48px;
   }
 
-  @include layout.below-small {
+  @include layout.below-medium {
     --action-bar-container-height: 64px;
     --logo-height: 32px;
   }
