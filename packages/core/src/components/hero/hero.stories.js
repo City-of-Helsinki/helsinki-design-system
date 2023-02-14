@@ -50,6 +50,47 @@ export const BottomWideImage = () => `
 
 BottomWideImage.storyName = 'Bottom wide image';
 
+export const AngledKoros = () => `
+<style type="text/css">
+  .custom-theme {
+    content: "";
+    --background-color: #f5a3c7;
+    --koros-color: var(--background-color);
+    --color: #000;
+  }
+  /*
+    Koros is very high by default, so height is defined here. Padding is set in the container.
+    Koros should also "pull" next sibling upwards so koros overflows it.
+    These are not in the css file as the amounts depend on the koros height.
+    React version calculates these automatically.
+    Heights of differents koros are in https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/koros/Koros.tsx
+  */
+  .shifted-koros{
+    margin-bottom: -14px;
+    height: 14px;
+  }  
+  @media only screen and (min-width: 992px){
+    .shifted-koros{
+      margin-bottom: 0;
+      height: auto;
+    }  
+  }
+  </style>
+<div class="hds-hero custom-theme hds-hero--angled-koros">
+   <div class="hds-hero--with-background__container">
+      <div class="hds-hero__content">
+        ${card}
+      </div>
+      <div class="hds-koros shifted-koros hds-hero--angled-koros__koros-and-background" style="fill: var(--koros-color);">
+         ${getKorosSVG()}
+      </div>
+      <div class="hds-hero--with-background__background">
+        ${image}
+      </div>
+   </div>
+</div>`;
+AngledKoros.storyName = 'Angled koros and background';
+
 export const WithoutImage = () => `
   <style type="text/css">
     .custom-theme {

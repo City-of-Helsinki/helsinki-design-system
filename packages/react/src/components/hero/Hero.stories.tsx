@@ -130,10 +130,18 @@ WithoutImage.argTypes = {
 
 export const WithBackgroundImage = (args) => {
   const heroProps: HeroProps = {};
-  heroProps.theme = { '--background-color': '#fff', ...args.theme };
+  if (args.imagePosition === 'top') {
+    heroProps.theme = { '--background-color': '#fff', ...args.theme };
+  } else if (args.imagePosition === 'right') {
+    heroProps.theme = { '--background-color': '#f5a3c7', '--color': '#000', ...args.theme };
+  }
+
+  heroProps.theme = { ...heroProps.theme, ...args.theme };
   heroProps.koros = { ...args.koros };
+
   return (
     <Hero {...heroProps}>
+      {args?.imagePosition === 'top' && <Hero.BackgroundImage src={imageFile} />}
       <Hero.Card>
         {!args.demoLongContent ? (
           <DefaultCardContent
@@ -155,12 +163,17 @@ export const WithBackgroundImage = (args) => {
           </Hero.Card>
         )}
       </Hero.Card>
-      <Hero.BackgroundImage src={imageFile} />
+      {args?.imagePosition === 'right' && <Hero.BackgroundImage src={imageFile} />}
     </Hero>
   );
 };
 
 WithBackgroundImage.argTypes = {
+  imagePosition: {
+    options: ['top', 'right'],
+    control: { type: 'radio' },
+    defaultValue: 'top',
+  },
   demoLongContent: {
     control: 'boolean',
   },
@@ -179,9 +192,9 @@ export const PlaygroundForKoros = (args) => {
   const heroProps: HeroProps = {
     koros: {
       type: args.type,
-      hide: !!args.hide,
       dense: !!args.dense,
-      flipHorizontal: args.flipHorizontal,
+      hide: !!args.hide,
+      forcedDirection: args.forcedDirection || undefined,
       ...args.koros,
     },
     theme: {
@@ -237,8 +250,9 @@ export const EmbeddedToPage = (args) => {
     return <ImageLeftOrRight imagePosition={imagePosition} />;
   };
   const BackgroundImageVersion = () => {
-    const theme = { '--bottom-koros-color': 'var(--color-fog)' };
-    return <WithBackgroundImage theme={theme} />;
+    const imagePosition = variant === '1' ? 'top' : 'right';
+    const theme = imagePosition === 'top' ? { '--bottom-koros-color': 'var(--color-fog)' } : {};
+    return <WithBackgroundImage imagePosition={imagePosition} theme={theme} />;
   };
   const NoImage = () => {
     const heroTypes = ['blueAndGreen', 'whiteWithoutKoros', 'blackAndWhite'];
@@ -287,6 +301,57 @@ EmbeddedToPage.argTypes = {
   },
 };
 
+export const PlaygroundForAngledKoros = (args) => (
+  <div>
+    <style>
+      {`
+        .hero {
+          --angled-koros-inset: ${args.korosInset};
+        }
+        .hero-card h1{
+          max-width: ${args.headingMaxWidth};
+        }
+        #hero .hero-card > p {
+          padding-right: ${args.paragraphPadding};
+        }
+      `}
+    </style>
+    <Hero
+      id="hero"
+      koros={args.koros}
+      className="hero"
+      theme={{ '--background-color': '#f5a3c7', '--color': '#000', ...args.theme }}
+    >
+      <Hero.Card id="hero-card" className="hero-card">
+        <DefaultCardContent
+          title="This hero layout is broken intentionally"
+          text="When angled koros is visible*, heading or text may overflow the koros and image. Can be fixed by adding padding to the elements with css. Can also be fixed by changing theme property 'angled-koros-inset'"
+        />
+      </Hero.Card>
+      <Hero.BackgroundImage id="hero-image" src={imageFile} />
+    </Hero>
+    <p>*On large screens, resolution &gt;=992px</p>
+  </div>
+);
+
+PlaygroundForAngledKoros.argTypes = {
+  korosInset: {
+    defaultValue: 'auto auto 30% -40%',
+    control: 'text',
+    description: 'Position of the koros',
+  },
+  headingMaxWidth: {
+    defaultValue: '35vw',
+    control: 'text',
+    description: 'Max width of the heading',
+  },
+  paragraphPadding: {
+    defaultValue: '0%',
+    control: 'text',
+    description: 'Padding of the p element',
+  },
+};
+
 const demoPadding = '55px';
 const demoBgColor = '#f5a3c7';
 
@@ -297,6 +362,7 @@ export const PlaygroundForTheme = (args) => {
     '--image-position': args.imagePosition,
     '--koros-color': args.korosColor,
     '--bottom-koros-color': args.bottomKorosColor,
+    '--angled-koros-inset': args.angledKorosInset,
     '--horizontal-padding-small': args.horizontalPaddingSmall,
     '--horizontal-padding-medium': args.horizontalPaddingMedium,
     '--horizontal-padding-large': args.horizontalPaddingLarge,
@@ -380,6 +446,11 @@ PlaygroundForTheme.argTypes = {
         '',
       ],
     },
+  },
+  korosInset: {
+    defaultValue: demoPadding,
+    control: 'text',
+    description: 'Position of the koros. Used only with angled koros.',
   },
   horizontalPaddingSmall: {
     defaultValue: demoPadding,

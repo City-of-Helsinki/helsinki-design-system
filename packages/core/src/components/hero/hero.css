@@ -3,6 +3,7 @@
   --color: var(--color-black-90);
   --image-position: bottom right;
   --koros-color: var(--color-white);
+  --angled-koros-inset: auto auto 10% -33%;
   --horizontal-padding-small: var(--spacing-s);
   --horizontal-padding-medium: var(--spacing-m);
   --horizontal-padding-large: var(--spacing-2-xl);
@@ -78,6 +79,29 @@
   display: none;
 }
 
+.hds-hero--angled-koros .hds-hero--with-background__container {
+  display: flex;
+  position: relative;
+  background-color: transparent;
+  overflow: hidden;
+  z-index: 1;
+  flex-direction: column;
+}
+.hds-hero--angled-koros .hds-hero__content {
+  display: block;
+  z-index: 2;
+  width: 100%;
+  padding: 0;
+}
+.hds-hero--angled-koros .hds-hero__card {
+  background-color: var(--background-color);
+  padding: var(--padding-vertical) var(--padding-horizontal);
+}
+.hds-hero--angled-koros .hds-hero--angled-koros__koros-and-background {
+  transform: scaleY(-1);
+  overflow: hidden;
+}
+
 .hds-hero--with-background__background,
 .hds-hero__image-below-koros {
   height: 300px;
@@ -142,6 +166,37 @@
     height: auto;
     width: auto;
   }
+  .hds-hero--angled-koros .hds-hero__content {
+    background-color: transparent;
+    width: 50%;
+    padding: var(--padding-vertical) var(--padding-horizontal);
+  }
+  .hds-hero--angled-koros .hds-hero__card {
+    padding: 0;
+    background: none;
+  }
+
+  .hds-hero--angled-koros .hds-hero--angled-koros__koros-and-background {
+    transform: rotate(135deg);
+    transform-origin: center;
+    width: 150%;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    inset: var(--angled-koros-inset);
+    overflow: visible;
+  }
+  .hds-hero--angled-koros__koros-and-background:after {
+    content: '';
+    background-color: var(--koros-color);
+    display: block;
+    width: 100%;
+    height: 200%;
+    left: 0;
+    position: absolute;
+    top: 50px;
+  }
 }
 @media only screen and (min-width: 1248px) {
   .hds-hero {
@@ -150,6 +205,12 @@
   .hds-hero h1 {
     font-size: var(--fontsize-heading-xxl);
     letter-spacing: -1.2px;
+  }
+  .hds-hero--angled-koros .hds-hero__content {
+    width: 45%;
+  }
+  .hds-hero--angled-koros .hds-hero__content p {
+    padding-right: var(--spacing-l);
   }
   .hds-hero__content--two-columns > *:first-child {
     margin-right: var(--spacing-2-xl);

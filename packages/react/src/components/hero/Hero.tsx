@@ -27,6 +27,8 @@ export interface HeroCustomTheme {
   '--koros-color'?: string;
   // used only with top bg image!
   '--bottom-koros-color'?: string;
+  // used only with angled bg image!
+  '--angled-koros-inset'?: string;
   '--horizontal-padding-small'?: string;
   '--horizontal-padding-medium'?: string;
   '--horizontal-padding-large'?: string;
@@ -133,7 +135,9 @@ export const Hero = ({ children, theme, koros, ...elementAttributes }: HeroProps
       return 'wideImage';
     }
     if (backgroundChildIndex > -1) {
-      return 'backgroundTop';
+      // if background is first, then the Hero version is the one where card is floating over background image
+      // if background is not first, then the Hero version is the one with angled Koros
+      return backgroundChildIndex === 0 ? 'backgroundTop' : 'angledKoros';
     }
     if (imageChildIndex === -1) {
       return 'textOnly';
@@ -224,6 +228,22 @@ export const Hero = ({ children, theme, koros, ...elementAttributes }: HeroProps
     );
   }
 
+  if (type === 'angledKoros') {
+    return (
+      <div {...heroElementAttributes}>
+        <div className={styles.angledKorosWithBackgroundContainer}>
+          <div className={styles.content}>
+            <Content />
+            <div className={styles.angledKorosMobileKoros}>
+              <Koros {...koros} flipHorizontal shift compact style={korosStyle} />
+            </div>
+          </div>
+          <Koros {...koros} className={styles.angledKorosAndBackground} style={korosStyle} />
+          <ImageAsBackground className={styles.angledKorosBackgroundContainer} />
+        </div>
+      </div>
+    );
+  }
   const columnStyle = imageChildIndex > -1 && cardChildIndex > -1 ? styles.twoColumns : styles.singleColumn;
   return (
     <div {...heroElementAttributes}>
