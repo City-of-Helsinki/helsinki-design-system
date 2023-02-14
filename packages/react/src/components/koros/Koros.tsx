@@ -74,6 +74,22 @@ const getSVG = (dense: boolean, type: string, patternName: string): React.SVGPro
   );
 };
 
+// first number is default, second for dense
+const waveHeights: Record<KorosType, [number, number]> = {
+  basic: [14, 5],
+  beat: [70, 24],
+  pulse: [34, 12],
+  storm: [35, 12],
+  wave: [54, 18],
+  calm: [0, 0],
+};
+
+export const getShapeHeight = ({ dense = false, type = 'basic' }: Pick<KorosProps, 'dense' | 'type'>): number => {
+  const waveData = waveHeights[type];
+  const index = dense ? 1 : 0;
+  return (waveData && waveData[index]) || 0;
+};
+
 export const Koros = ({
   dense = false,
   flipHorizontal = false,
@@ -87,7 +103,6 @@ export const Koros = ({
   const cssTransforms: string[] = [flipHorizontal && 'scaleY(-1)', rotate && `rotate(${rotate}) translateZ(0)`].filter(
     (t) => !!t,
   );
-
   return (
     <div
       className={classNames(styles.koros, styles[type], rotate && styles.rotate, className)}
