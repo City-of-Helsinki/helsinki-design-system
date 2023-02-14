@@ -128,6 +128,44 @@ WithoutImage.argTypes = {
   },
 };
 
+export const WithBackgroundImage = (args) => {
+  const heroProps: HeroProps = {};
+  heroProps.theme = { '--background-color': '#fff', ...args.theme };
+  heroProps.koros = { ...args.koros };
+  return (
+    <Hero {...heroProps}>
+      <Hero.Card>
+        {!args.demoLongContent ? (
+          <DefaultCardContent
+            buttonStyle={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
+          />
+        ) : (
+          <Hero.Card>
+            <h1>This is a header with too much text for single line</h1>
+            <p>{defaultText}</p>
+            <p>{defaultText}</p>
+            <Button variant="secondary" role="link">
+              Click me once!
+            </Button>
+            <p>
+              <Button variant="secondary" role="link">
+                Never click me!
+              </Button>
+            </p>
+          </Hero.Card>
+        )}
+      </Hero.Card>
+      <Hero.BackgroundImage src={imageFile} />
+    </Hero>
+  );
+};
+
+WithBackgroundImage.argTypes = {
+  demoLongContent: {
+    control: 'boolean',
+  },
+};
+
 export const BottomWideImage = (args) => (
   <Hero koros={args.koros} theme={{ '--background-color': '#fff', '--image-position': 'bottom left', ...args.theme }}>
     <Hero.Card>
@@ -186,16 +224,21 @@ PlaygroundForKoros.argTypes = {
 
 const componentTypes = {
   imageOnSide: 'image on side',
+  backgroundImage: 'background image',
   withoutImage: 'without image',
   wideImage: 'wide image',
 };
 
 export const EmbeddedToPage = (args) => {
   const { componentType, variant } = args;
-  const { imageOnSide, withoutImage, wideImage } = componentTypes;
+  const { imageOnSide, backgroundImage, withoutImage, wideImage } = componentTypes;
   const BasicImageVersion = () => {
     const imagePosition = variant === '1' ? 'left' : 'right';
     return <ImageLeftOrRight imagePosition={imagePosition} />;
+  };
+  const BackgroundImageVersion = () => {
+    const theme = { '--bottom-koros-color': 'var(--color-fog)' };
+    return <WithBackgroundImage theme={theme} />;
   };
   const NoImage = () => {
     const heroTypes = ['blueAndGreen', 'whiteWithoutKoros', 'blackAndWhite'];
@@ -205,6 +248,7 @@ export const EmbeddedToPage = (args) => {
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <NavigationComponent />
       {componentType === imageOnSide && <BasicImageVersion />}
+      {componentType === backgroundImage && <BackgroundImageVersion />}
       {componentType === withoutImage && <NoImage />}
       {componentType === wideImage && <BottomWideImage />}
       <Section color="secondary">
@@ -252,6 +296,7 @@ export const PlaygroundForTheme = (args) => {
     '--color': args.color,
     '--image-position': args.imagePosition,
     '--koros-color': args.korosColor,
+    '--bottom-koros-color': args.bottomKorosColor,
     '--horizontal-padding-small': args.horizontalPaddingSmall,
     '--horizontal-padding-medium': args.horizontalPaddingMedium,
     '--horizontal-padding-large': args.horizontalPaddingLarge,
@@ -277,7 +322,7 @@ export const PlaygroundForTheme = (args) => {
       `}
       </style>
       <Hero koros={args.koros} theme={theme}>
-        <Hero.Image src={imageFile} />
+        <Hero.BackgroundImage src={imageFile} />
         <Hero.Card>
           <DefaultCardContent />
         </Hero.Card>
@@ -312,6 +357,11 @@ PlaygroundForTheme.argTypes = {
     defaultValue: '',
     control: 'color',
     description: 'Optional koros color',
+  },
+  bottomKorosColor: {
+    defaultValue: '',
+    control: 'color',
+    description: 'Optional bottom koros color. Used only with top bg image.',
   },
   imagePosition: {
     defaultValue: '',

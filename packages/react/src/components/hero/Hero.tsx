@@ -25,6 +25,8 @@ export interface HeroCustomTheme {
   '--color'?: string;
   '--image-position'?: string;
   '--koros-color'?: string;
+  // used only with top bg image!
+  '--bottom-koros-color'?: string;
   '--horizontal-padding-small'?: string;
   '--horizontal-padding-medium'?: string;
   '--horizontal-padding-large'?: string;
@@ -34,6 +36,7 @@ export interface HeroCustomTheme {
 export type ChildProps = {
   imageChildIndex: number;
   cardChildIndex: number;
+  backgroundChildIndex: number;
   wideImageChildIndex?: number;
   components: React.ReactElement[];
 };
@@ -42,6 +45,7 @@ const pickChildProps = (children: React.ReactNode): ChildProps => {
   const childProps: ChildProps = {
     imageChildIndex: -1,
     cardChildIndex: -1,
+    backgroundChildIndex: -1,
     components: [],
   };
 
@@ -59,6 +63,10 @@ const pickChildProps = (children: React.ReactNode): ChildProps => {
       }
       case 'Card': {
         childProps.cardChildIndex = index;
+        break;
+      }
+      case 'BackgroundImage': {
+        childProps.backgroundChildIndex = index;
         break;
       }
       default: {
@@ -102,6 +110,11 @@ const WideImage = (props: ImgElementAttributes) => {
 
 WideImage.componentName = 'WideImage';
 
+const BackgroundImage = (props: ImgElementAttributes) => {
+  return <ImageContainer {...props} />;
+};
+BackgroundImage.componentName = 'BackgroundImage';
+
 export const Hero = ({ children, theme, koros, ...elementAttributes }: HeroProps) => {
   const { components, imageChildIndex, backgroundChildIndex, wideImageChildIndex, cardChildIndex } = pickChildProps(
     children,
@@ -118,6 +131,9 @@ export const Hero = ({ children, theme, koros, ...elementAttributes }: HeroProps
   const getHeroType = () => {
     if (wideImageChildIndex > -1) {
       return 'wideImage';
+    }
+    if (backgroundChildIndex > -1) {
+      return 'backgroundTop';
     }
     if (imageChildIndex === -1) {
       return 'textOnly';
@@ -146,7 +162,7 @@ export const Hero = ({ children, theme, koros, ...elementAttributes }: HeroProps
             </div>
           );
         }
-        if (index === wideImageChildIndex) {
+        if (index === backgroundChildIndex || index === wideImageChildIndex) {
           return null;
         }
         return c;
@@ -167,6 +183,47 @@ export const Hero = ({ children, theme, koros, ...elementAttributes }: HeroProps
     return React.cloneElement(imageComponent, clonedProps);
   };
 
+  const ImageAsBackground = (props: HTMLElementAttributes) => {
+    if (backgroundChildIndex === -1) {
+      return null;
+    }
+    return (
+      <div className={classNames(styles.withBackgroundBackground, props && props.className)}>
+        {components[backgroundChildIndex]}
+      </div>
+    );
+  };
+
+  if (type === 'backgroundTop') {
+    const CommonKoros = ({ top }: { top?: boolean }) => {
+      const className = top ? styles.topKoros : styles.bottomKoros;
+      const topKorosFillColor =
+        !top && theme && theme['--bottom-koros-color'] ? theme['--bottom-koros-color'] : 'var(--koros-color)';
+      return (
+        <Koros
+          {...koros}
+          shift
+          compact
+          className={`${(koros && koros.className) || ''} ${className}`}
+          style={{ fill: topKorosFillColor }}
+        />
+      );
+    };
+
+    return (
+      <div {...heroElementAttributes}>
+        <div className={styles.withBackgroundContainer}>
+          <ImageAsBackground />
+          <CommonKoros top />
+          <div className={classNames(styles.content, styles.singleColumn)}>
+            <Content />
+          </div>
+        </div>
+        <CommonKoros />
+      </div>
+    );
+  }
+
   const columnStyle = imageChildIndex > -1 && cardChildIndex > -1 ? styles.twoColumns : styles.singleColumn;
   return (
     <div {...heroElementAttributes}>
@@ -185,4 +242,5 @@ export const Hero = ({ children, theme, koros, ...elementAttributes }: HeroProps
 };
 Hero.Card = Card;
 Hero.Image = ImageContainer;
+Hero.BackgroundImage = BackgroundImage;
 Hero.WideImage = WideImage;

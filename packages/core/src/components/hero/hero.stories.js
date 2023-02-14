@@ -116,3 +116,28 @@ export const ImageLeft = () => `
    <div class="hds-hero__image-below-koros">${image}</div>
 </div>`;
 ImageLeft.storyName = 'Image left';
+
+export const BackgroundImage = () => `
+    <style type="text/css">
+      .custom-theme {
+        content: "";
+        --background-color: #fff;
+        --color: #000;
+        --koros-color: var(--background-color);
+      }
+    </style>
+    <div class="hds-hero custom-theme hds-hero--background-top">
+        <div class="hds-hero--with-background__container">
+          <div class="hds-hero--with-background__background">${image}</div>
+          <div class="hds-koros hds-hero--background-top__top-koros" style="fill: var(--koros-color); margin-top: -14px; height: 14px; overflow: hidden;">
+            ${getKorosSVG()}
+          </div>
+          <div class="hds-hero__content hds-hero__content--single-column">
+              ${card}
+          </div>
+        </div>
+        <div class="hds-koros hds-hero--background-top__bottom-koros" style="fill: var(--koros-color); margin-top: -14px; height: 14px; overflow: hidden;">
+          ${getKorosSVG()}
+        </div>
+    </div>`;
+BackgroundImage.storyName = 'Background image';

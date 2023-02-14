@@ -36,6 +36,28 @@
   composes: hds-hero__image-below-koros from heroCss;
 }
 
+.withBackgroundContainer {
+  composes: hds-hero--with-background__container from heroCss;
+}
+
+.withBackgroundBackground {
+  composes: hds-hero--with-background__background from heroCss;
+}
+
+/* backgroundTop specific styles */
+
+.backgroundTop {
+  composes: hds-hero--background-top from heroCss;
+}
+
+.topKoros {
+  composes: hds-hero--background-top__top-koros from heroCss;
+}
+
+.bottomKoros {
+  composes: hds-hero--background-top__bottom-koros from heroCss;
+}
+
 /* imageLeft/Right specific styles */
 
 .imageLeft {
