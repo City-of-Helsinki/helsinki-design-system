@@ -12,10 +12,35 @@
   composes: hds-hero__content--single-column from heroCss;
 }
 
+.twoColumns {
+  composes: hds-hero__content--two-columns from heroCss;
+}
+
+.twoColumnsImageContainer {
+  composes: hds-hero__content--two-columns__image-container from heroCss;
+}
+
 .card {
   composes: hds-hero__card from heroCss;
 }
 
 .centeredContent {
   composes: hds-hero__card--centered-content from heroCss;
+}
+
+.image {
+  composes: hds-hero__image from heroCss;
+}
+
+.imageBelowKoros {
+  composes: hds-hero__image-below-koros from heroCss;
+}
+
+/* imageLeft/Right specific styles */
+
+.imageLeft {
+  composes: hds-hero--image-left from heroCss;
+}
+.imageRight {
+  composes: hds-hero--image-right from heroCss;
 }

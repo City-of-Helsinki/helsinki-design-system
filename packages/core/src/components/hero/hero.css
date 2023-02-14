@@ -1,6 +1,7 @@
 .hds-hero {
   --background-color: var(--color-white);
   --color: var(--color-black-90);
+  --image-position: bottom right;
   --koros-color: var(--color-white);
   --horizontal-padding-small: var(--spacing-s);
   --horizontal-padding-medium: var(--spacing-m);
@@ -28,11 +29,17 @@
   padding: var(--padding-vertical) var(--padding-horizontal);
   background-color: var(--background-color);
 }
-.hds-hero__content--single-column {
+.hds-hero__content--single-column,
+.hds-hero__content--two-columns {
   display: flex;
   flex-direction: column;
 }
-
+.hds-hero__content--two-columns {
+  align-items: center;
+}
+.hds-hero__content--two-columns__image-container {
+  display: none;
+}
 .hds-hero__card {
   display: block;
   max-width: var(--container-width-xl);
@@ -41,14 +48,29 @@
   width: 100%;
   text-align: center;
 }
-.hds-koros__spacer {
-  display: flex;
+.hds-hero__image {
+  display: block;
+  width: 100%;
+}
+.hds-hero__image-below-koros {
+  display: block;
+}
+.hds-hero__image-below-koros .hds-hero__image {
+  object-fit: cover;
+  height: 100%;
+  object-position: var(--image-position);
 }
 
+.hds-hero__image-below-koros {
+  height: 300px;
+}
 @media only screen and (min-width: 768px) {
   .hds-hero {
     --padding-horizontal: var(--horizontal-padding-medium);
     --padding-vertical: var(--spacing-layout-m);
+  }
+  .hds-hero__image-below-koros {
+    height: 400px;
   }
 }
 @media only screen and (min-width: 992px) {
@@ -59,6 +81,25 @@
   .hds-hero p {
     font-size: var(--fontsize-body-xl);
   }
+  .hds-hero--image-left .hds-hero__image-below-koros,
+  .hds-hero--image-right .hds-hero__image-below-koros {
+    display: none;
+  }
+  .hds-hero__content--two-columns {
+    flex-direction: row;
+  }
+  .hds-hero__content--two-columns > * {
+    width: 50%;
+  }
+  .hds-hero__content--two-columns > *:first-child {
+    margin-right: var(--spacing-xl);
+  }
+  .hds-hero__content--two-columns > *:last-child {
+    margin-left: var(--spacing-xl);
+  }
+  .hds-hero__content--two-columns__image-container {
+    display: block;
+  }
 }
 @media only screen and (min-width: 1248px) {
   .hds-hero {
@@ -67,5 +108,11 @@
   .hds-hero h1 {
     font-size: var(--fontsize-heading-xxl);
     letter-spacing: -1.2px;
+  }
+  .hds-hero__content--two-columns > *:first-child {
+    margin-right: var(--spacing-2-xl);
+  }
+  .hds-hero__content--two-columns > *:last-child {
+    margin-left: var(--spacing-2-xl);
   }
 }

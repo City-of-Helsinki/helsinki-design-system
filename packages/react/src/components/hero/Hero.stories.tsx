@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Hero, HeroProps } from './Hero';
 import { Button } from '../button/Button';
+// @ts-ignore
+import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
 import { Navigation } from '../navigation/Navigation';
 import { Section } from '../section/Section';
 
@@ -74,6 +76,24 @@ const NavigationComponent = () => (
   </Navigation>
 );
 
+export const ImageLeftOrRight = (args) => (
+  <Hero koros={args.koros} theme={{ '--background-color': '#c2a251', '--color': '#000', ...args.theme }}>
+    {args?.imagePosition === 'left' && <Hero.Image src={imageFile} />}
+    <Hero.Card>
+      <DefaultCardContent buttonStyle={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }} />
+    </Hero.Card>
+    {args?.imagePosition === 'right' && <Hero.Image src={imageFile} />}
+  </Hero>
+);
+
+ImageLeftOrRight.argTypes = {
+  imagePosition: {
+    options: ['right', 'left'],
+    control: { type: 'radio' },
+    defaultValue: 'right',
+  },
+};
+
 export const WithoutImage = (args) => {
   const heroProps: HeroProps = {};
   const defaultContentProps: DefaultCardContentProps = {};
@@ -125,6 +145,7 @@ export const PlaygroundForKoros = (args) => {
 
   return (
     <Hero {...heroProps}>
+      <Hero.Image src={imageFile} />
       <Hero.Card>
         <DefaultCardContent />
       </Hero.Card>
@@ -154,13 +175,17 @@ PlaygroundForKoros.argTypes = {
 };
 
 const componentTypes = {
+  imageOnSide: 'image on side',
   withoutImage: 'without image',
 };
 
 export const EmbeddedToPage = (args) => {
   const { componentType, variant } = args;
-  const { withoutImage } = componentTypes;
-
+  const { imageOnSide, withoutImage } = componentTypes;
+  const BasicImageVersion = () => {
+    const imagePosition = variant === '1' ? 'left' : 'right';
+    return <ImageLeftOrRight imagePosition={imagePosition} />;
+  };
   const NoImage = () => {
     const heroTypes = ['blueAndGreen', 'whiteWithoutKoros', 'blackAndWhite'];
     return <WithoutImage heroType={heroTypes[parseInt(variant, 10) - 1]} />;
@@ -168,6 +193,7 @@ export const EmbeddedToPage = (args) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <NavigationComponent />
+      {componentType === imageOnSide && <BasicImageVersion />}
       {componentType === withoutImage && <NoImage />}
       <Section color="secondary">
         <h1 className="heading-xl">Component after hero</h1>
@@ -212,6 +238,7 @@ export const PlaygroundForTheme = (args) => {
   const argsAsTheme = {
     '--background-color': args.backgroundColor,
     '--color': args.color,
+    '--image-position': args.imagePosition,
     '--koros-color': args.korosColor,
     '--horizontal-padding-small': args.horizontalPaddingSmall,
     '--horizontal-padding-medium': args.horizontalPaddingMedium,
@@ -238,6 +265,7 @@ export const PlaygroundForTheme = (args) => {
       `}
       </style>
       <Hero koros={args.koros} theme={theme}>
+        <Hero.Image src={imageFile} />
         <Hero.Card>
           <DefaultCardContent />
         </Hero.Card>
@@ -272,6 +300,24 @@ PlaygroundForTheme.argTypes = {
     defaultValue: '',
     control: 'color',
     description: 'Optional koros color',
+  },
+  imagePosition: {
+    defaultValue: '',
+    control: {
+      type: 'select',
+      options: [
+        'top left',
+        'top center',
+        'top right',
+        'center left',
+        'center center',
+        'center right',
+        'bottom left',
+        'bottom center',
+        'bottom right',
+        '',
+      ],
+    },
   },
   horizontalPaddingSmall: {
     defaultValue: demoPadding,
