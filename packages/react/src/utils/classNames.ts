@@ -1,3 +1,6 @@
+type ClassNameArgumentType = string | number | Record<string, string | number | boolean | object>;
+type ClassNameArgType = ClassNameArgumentType | ClassNameArgumentType[];
+
 const hasOwn = {}.hasOwnProperty;
 
 const parseObject = (obj, styles = null) => {
@@ -19,7 +22,7 @@ const parseObject = (obj, styles = null) => {
     .join(' ');
 };
 
-function parseClassName(arg) {
+function parseClassName(arg: ClassNameArgType) {
   const argType = typeof arg;
 
   if (!arg) return null;
@@ -45,7 +48,7 @@ function parseClassName(arg) {
  * - For objects, every key with a truthy value is appended to the resulting string.
  * @returns string A space delimited string parsed from the given arguments.
  */
-export default (...args) => args.map(parseClassName).filter(Boolean).join(' ');
+export default (...args: Array<ClassNameArgumentType>) => args.map(parseClassName).filter(Boolean).join(' ');
 
 /**
  * Generate a classNames function that is bound to a set of class names imported from a css file.
@@ -54,7 +57,7 @@ export default (...args) => args.map(parseClassName).filter(Boolean).join(' ');
  * @param styles A css class name object.
  * @returns A classNames function bound to the given css class name object.
  */
-export const styleBoundClassNames = (styles) => {
+export const styleBoundClassNames = (styles: Record<string, unknown>) => {
   const boundClassNames = parseClassName.bind(styles);
   return (...args) => args.map(boundClassNames).filter(Boolean).join(' ');
 };
