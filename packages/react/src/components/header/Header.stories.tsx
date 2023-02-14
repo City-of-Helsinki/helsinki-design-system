@@ -28,6 +28,8 @@ export default {
 };
 
 const languageChangedAction = action('language:onChange');
+const searchSubmitAction = action('search:onSubmit');
+const searchChangeAction = action('search:onChange');
 
 const languages: LanguageOption[] = [
   { label: 'Suomi', value: 'fi' },
@@ -67,7 +69,7 @@ export const WithFullFeatures = (args) => (
         </Header.NavigationLanguageSelector>
 
         <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
-          <Header.NavigationSearch onChange={action('search:onChange')} onSubmit={action('search:onSubmit')} />
+          <Header.NavigationSearch onChange={searchChangeAction} onSubmit={searchSubmitAction} />
         </Header.ActionBarItem>
       </Header.ActionBar>
 
@@ -259,7 +261,7 @@ export const WithActionBar = (args) => {
         </Header.NavigationLanguageSelector>
 
         <Header.ActionBarItem fullWidth label="Haku" icon={IconSearch} id="action-bar-search">
-          <Header.NavigationSearch onChange={action('search:onChange')} onSubmit={action('search:onSubmit')} />
+          <Header.NavigationSearch onChange={searchChangeAction} onSubmit={searchSubmitAction} />
         </Header.ActionBarItem>
 
         <Header.ActionBarItem label="Kirjaudu" icon={IconUser} style={{ order: 10 }} id="action-bar-login">

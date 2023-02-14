@@ -31,7 +31,7 @@ export type HeaderActionBarProps = PropsWithChildren<{
   /**
    * Service name that is displayed next to the Helsinki logo.
    */
-  titleStyle: TitleStyleType;
+  titleStyle?: TitleStyleType;
 
   /**
    * The aria-label for the title describing the service to screen reader users.
@@ -79,7 +79,7 @@ export type HeaderActionBarProps = PropsWithChildren<{
 export const HeaderActionBar: ComponentType<HeaderActionBarProps> = (props) => {
   const {
     title,
-    titleStyle = 'normal',
+    titleStyle,
     titleAriaLabel,
     logoAriaLabel,
     menuButtonAriaLabel,
