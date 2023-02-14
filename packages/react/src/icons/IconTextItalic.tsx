@@ -1,6 +1,5 @@
 import React from 'react';
-
-import styles from './Icon.module.css';
+import styles from '../../templates/Icon.module.css';
 
 interface IconProps {
   ariaLabel?: string;
@@ -32,11 +31,6 @@ export const IconTextItalic = ({
     color={color}
     style={style}
   >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M16 4V6H13.75L12.25 18H14V20H8V18H10.25L11.75 6H10V4H16Z"
-      fill="currentColor"
-    ></path>
+    <path fillRule="evenodd" clipRule="evenodd" d="M16 4V6H13.75L12.25 18H14V20H8V18H10.25L11.75 6H10V4H16Z" fill="currentColor"></path>
   </svg>
 );
