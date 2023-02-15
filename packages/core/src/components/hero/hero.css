@@ -78,6 +78,17 @@
   height: 100%;
   object-position: var(--image-position);
 }
+
+.hds-hero--with-background__contentColumns {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hds-hero--with-background__emptyColumn {
+  display: none;
+}
+
 .hds-hero--background-top .hds-hero__content {
   background-color: var(--background-color);
 }
@@ -100,6 +111,7 @@
   z-index: 2;
   width: 100%;
   padding: 0;
+  box-sizing: border-box;
 }
 .hds-hero--angled-koros .hds-hero__card {
   background-color: var(--background-color);
@@ -173,14 +185,19 @@
     height: auto;
     width: auto;
   }
+
+  .hds-hero--with-background__emptyColumn {
+    display: block;
+    width: 45%;
+  }
   .hds-hero--angled-koros .hds-hero__content {
     background-color: transparent;
-    width: 50%;
-    padding: var(--padding-vertical) var(--padding-horizontal);
+    padding: var(--padding-vertical) 0;
   }
   .hds-hero--angled-koros .hds-hero__card {
-    padding: 0;
+    padding: 0 var(--padding-horizontal);
     background: none;
+    width: 55%;
   }
 
   .hds-hero--angled-koros .hds-hero--angled-koros__koros-and-background {
@@ -212,9 +229,6 @@
   .hds-hero h1 {
     font-size: var(--fontsize-heading-xxl);
     letter-spacing: -1.2px;
-  }
-  .hds-hero--angled-koros .hds-hero__content {
-    width: 45%;
   }
   .hds-hero--angled-koros .hds-hero__content p {
     padding-right: var(--spacing-l);

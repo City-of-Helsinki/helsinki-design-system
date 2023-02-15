@@ -80,8 +80,11 @@ export const AngledKoros = () => `
   </style>
 <div class="hds-hero custom-theme hds-hero--angled-koros">
    <div class="hds-hero--with-background__container">
+   <div class="hds-hero--with-background__contentColumns">
       <div class="hds-hero__content">
         ${card}
+      </div>
+      <div class="hds-hero--with-background__emptyColumn"></div>
       </div>
       <div class="hds-koros shifted-koros hds-hero--angled-koros__koros-and-background" style="fill: var(--koros-color);">
          ${getKorosSVG()}

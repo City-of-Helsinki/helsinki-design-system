@@ -233,11 +233,15 @@ export const Hero = ({ children, theme, koros, ...elementAttributes }: HeroProps
       <div {...heroElementAttributes}>
         <div className={styles.angledKorosWithBackgroundContainer}>
           <div className={styles.content}>
-            <Content />
+            <div className={styles.contentColums}>
+              <Content />
+              <div className={styles.emptyColumn} />
+            </div>
             <div className={styles.angledKorosMobileKoros}>
               <Koros {...koros} flipHorizontal shift compact style={korosStyle} />
             </div>
           </div>
+
           <Koros {...koros} className={styles.angledKorosAndBackground} style={korosStyle} />
           <ImageAsBackground className={styles.angledKorosBackgroundContainer} />
         </div>

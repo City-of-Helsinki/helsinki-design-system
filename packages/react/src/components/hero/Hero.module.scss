@@ -78,6 +78,13 @@
   composes: hds-hero--angled-koros hds-hero--angled-koros__koros-and-background from heroCss;
 }
 
+.contentColums {
+  composes: hds-hero--with-background__contentColumns from heroCss;
+}
+.emptyColumn {
+  composes: hds-hero--with-background__emptyColumn from heroCss;
+}
+
 .angledKorosMobileKoros {
   display: block;
 }
