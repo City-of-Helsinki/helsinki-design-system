@@ -12,25 +12,32 @@ exports[`<Hero /> spec renders the component 1`] = `
         class="content"
       >
         <div
-          class="card"
+          class="contentColums"
         >
-          <h1>
-            This is the heading
-          </h1>
-          <p>
-            Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
-          </p>
-          <button
-            class="button secondary theme-default size-default"
-            role="link"
-            type="button"
+          <div
+            class="card"
           >
-            <span
-              class="label"
+            <h1>
+              This is the heading
+            </h1>
+            <p>
+              Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
+            </p>
+            <button
+              class="button secondary theme-default size-default"
+              role="link"
+              type="button"
             >
-              Click me
-            </span>
-          </button>
+              <span
+                class="label"
+              >
+                Click me
+              </span>
+            </button>
+          </div>
+          <div
+            class="emptyColumn"
+          />
         </div>
         <div
           class="angledKorosMobileKoros"
@@ -167,7 +174,7 @@ exports[`<Hero /> spec renders the component 2`] = `
         </svg>
       </div>
       <div
-        class="content singleColumn"
+        class="content"
       >
         <div
           class="card"
@@ -190,6 +197,9 @@ exports[`<Hero /> spec renders the component 2`] = `
             </span>
           </button>
         </div>
+        <div
+          class="emptyColumn"
+        />
       </div>
     </div>
     <div
