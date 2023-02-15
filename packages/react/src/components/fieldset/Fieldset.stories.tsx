@@ -108,3 +108,38 @@ WithSelectionGroup.args = {
   border: true,
   heading: 'File information',
 };
+
+export const WithTooltip = (args) => {
+  return (
+    <Fieldset {...args}>
+      <div
+        style={{
+          display: 'grid',
+          gridGap: '12px 16px',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(245px, 1fr))',
+        }}
+      >
+        <TextInput id="first-name" name="first-name" label="First name" />
+        <TextInput id="last-name" name="last-name" label="Last name" />
+      </div>
+      <div
+        style={{
+          marginTop: '12px',
+        }}
+      >
+        <TextInput
+          id="social-security-number"
+          name="social-security-number"
+          label="Social security number"
+          placeholder="Eg. 111299-1234"
+        />
+      </div>
+    </Fieldset>
+  );
+};
+
+WithTooltip.args = {
+  tooltipText: 'tooltip text',
+  tooltipLabel: 'tooltip text aria label',
+  tooltipButtonLabel: 'tooltip button aria label',
+};
