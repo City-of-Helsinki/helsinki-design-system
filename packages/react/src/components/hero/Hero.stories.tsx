@@ -473,3 +473,30 @@ PlaygroundForTheme.argTypes = {
     description: 'Horizontal padding on x-large screens >=1248px',
   },
 };
+
+export const AllHeroes = () => {
+  const Divider = () => {
+    return <div style={{ height: '50px' }} />;
+  };
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#adf1c3' }}>
+      <NavigationComponent />
+      <ImageLeftOrRight imagePosition="left" />
+      <Divider />
+      <WithBackgroundImage imagePosition="top" theme={{ '--bottom-koros-color': '#adf1c3' }} />
+      <Divider />
+      <ImageLeftOrRight imagePosition="right" />
+      <Divider />
+      <WithoutImage heroType="blueAndGreen" />
+      <Divider />
+      <WithBackgroundImage imagePosition="right" />
+      <Divider />
+      <WithoutImage heroType="blackAndWhite" />
+      <Divider />
+      <BottomWideImage />
+      <Divider />
+      <WithoutImage heroType="whiteWithoutKoros" />
+      <Divider />
+    </div>
+  );
+};
