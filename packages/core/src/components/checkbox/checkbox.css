@@ -34,7 +34,6 @@
   --label-color-disabled: var(--color-black-40);
 
   --icon-size: var(--spacing-m);
-  --helper-color-default: var(--color-black-60);
   
   display: flex;
   flex-wrap: wrap;
@@ -114,15 +113,6 @@
   left: 0;
   top: 0;
   width: var(--icon-size);
-}
-
-/* HELPER TEXT */
-.hds-checkbox__helper-text {
-  color: var(--helper-color-default);
-  display: block;
-  font-size: var(--fontsize-body-m);
-  margin-top: var(--spacing-2-xs);
-  flex-basis: 100%;
 }
 
 /* CUSTOM CHECKBOX */

@@ -30,7 +30,6 @@
 
   --label-color: var(--color-black-90);
   --label-color-disabled: var(--color-black-40);
-  --helper-color-default: var(--color-black-60);
 
   display: flex;
   flex-wrap: wrap;
@@ -178,12 +177,4 @@
 .hds-radio-button .hds-radio-button__input:disabled,
 .hds-radio-button .hds-radio-button__input:disabled + .hds-radio-button__label {
   cursor: not-allowed;
-}
-/* HELPER TEXT */
-.hds-radio-button__helper-text {
-  color: var(--helper-color-default);
-  display: block;
-  font-size: var(--fontsize-body-m);
-  margin-top: var(--spacing-2-xs);
-  flex-basis: 100%;
 }

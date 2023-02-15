@@ -66,12 +66,3 @@
   top: 0;
   width: var(--icon-size);
 }
-/* HELPER TEXT */
-.hds-selection-group__helper-text {
-  color: var(--color-black-60);
-  display: block;
-  font-size: var(--fontsize-body-m);
-  margin-top: var(--spacing-xs);
-  font-weight: normal;
-}
-
