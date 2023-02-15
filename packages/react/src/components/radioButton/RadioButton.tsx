@@ -78,6 +78,7 @@ export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
           type="radio"
           disabled={disabled}
           checked={checked}
+          aria-describedby={helperText ? `${id}-helper` : null}
           {...rest}
         />
         <label htmlFor={id} className={classNames(styles.label)}>

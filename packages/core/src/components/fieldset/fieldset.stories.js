@@ -1,5 +1,5 @@
 import './fieldset.css';
-const getHelperText = (text = 'Assistive text') => `<div class="hds-fieldset__helper-text">${text}</div>`;
+const getHelperText = (text = 'Assistive text') => `<div class="helper-text">${text}</div>`;
 
 export default {
   title: 'Components/Fieldset',

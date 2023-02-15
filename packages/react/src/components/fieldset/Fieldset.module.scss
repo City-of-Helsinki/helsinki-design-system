@@ -11,5 +11,5 @@
 }
 
 .helperText {
-  composes: hds-fieldset__helper-text from 'hds-core/lib/components/fieldset/fieldset.css';
+  composes: helper-text from 'hds-core/lib/utils/helpers.css';
 }

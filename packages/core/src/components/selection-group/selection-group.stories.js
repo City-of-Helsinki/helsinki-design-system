@@ -4,7 +4,7 @@ import '../../icons/ui/icon-share.css';
 import '../../icons/ui/icon-angle-right.css';
 import {useEffect} from "@storybook/client-api";
 
-const getHelperText = (text = 'Assistive text') => `<div class="hds-selection-group__helper-text">${text}</div>`;
+const getHelperText = (text = 'Assistive text') => `<div class="helper-text">${text}</div>`;
 
 const getCheckboxLabel = (id = 'input', label = 'Option') =>
   `<label for="${id}"  class="hds-checkbox__label">${label}</label>`;

@@ -15,5 +15,5 @@
 }
 
 .helperText {
-  composes: hds-checkbox__helper-text from 'hds-core/lib/components/checkbox/checkbox.css';
+  composes: helper-text from 'hds-core/lib/utils/helpers.css';
 }

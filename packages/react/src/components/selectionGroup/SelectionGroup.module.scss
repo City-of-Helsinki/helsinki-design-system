@@ -42,5 +42,5 @@
 }
 
 .helperText {
-  composes: hds-selection-group__helper-text from 'hds-core/lib/components/selection-group/selection-group.css';
+  composes: helper-text from 'hds-core/lib/utils/helpers.css';
 }

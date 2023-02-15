@@ -1,8 +1,9 @@
 import './radio-button.css';
 
+const helperTextId = 'radiobutton-helper-text';
 const getLabel = (id = 'input', label = 'Option') =>
   `<label for="${id}" class="hds-radio-button__label">${label}</label>`;
-const getHelperText = (text = 'Assistive text') => `<span class="hds-radio-button__helper-text">${text}</span>`;
+const getHelperText = (text = 'Assistive text') => `<span id="${helperTextId}" class="helper-text">${text}</span>`;
 
 export default {
   title: 'Components/Radio button',
@@ -39,7 +40,7 @@ SelectedDisabled.storyName = 'Selected & disabled';
 
 export const WithHelperText = () => `
     <div class="hds-radio-button">
-      <input type="radio" id="radio3" class="hds-radio-button__input" name="example" value="baz" disabled />
+      <input type="radio" id="radio3" class="hds-radio-button__input" name="example" value="baz" aria-describedby="${helperTextId}"/>
       ${getLabel('radio5')}
       ${getHelperText()}
     </div>

@@ -11,5 +11,5 @@
 }
 
 .helperText {
-  composes: hds-radio-button__helper-text from 'hds-core/lib/components/radio-button/radio-button.css';
+  composes: helper-text from 'hds-core/lib/utils/helpers.css';
 }

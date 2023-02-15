@@ -2,8 +2,9 @@ import { useEffect } from "@storybook/client-api";
 import './checkbox.css';
 import '../selection-group/selection-group.css';
 
+const helperTextId = 'checkbox-helper-text';
 const getLabel = (id = 'input', label = 'Option') => `<label for="${id}"  class="hds-checkbox__label">${label}</label>`;
-const getHelperText = (text = 'Assistive text') => `<span class="hds-radio-button__helper-text">${text}</span>`;
+const getHelperText = (text = 'Assistive text') => `<span id="${helperTextId}" class="helper-text">${text}</span>`;
 
 export default {
   title: 'Components/Checkbox',
@@ -124,7 +125,7 @@ GroupWithParent.storyName = 'Group with a parent';
 
 export const WithHelperText = () => `
     <div class="hds-checkbox">
-      <input type="checkbox" id="checkbox7" class="hds-checkbox__input" value="foo" />
+      <input type="checkbox" id="checkbox7" class="hds-checkbox__input" value="foo" aria-describedby="${helperTextId}"/>
       ${getLabel('checkbox7')}
       ${getHelperText()}
     </div>
