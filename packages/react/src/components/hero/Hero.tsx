@@ -247,9 +247,11 @@ export const Hero = ({ children, theme, koros, ...elementAttributes }: HeroProps
   const columnStyle = imageChildIndex > -1 && cardChildIndex > -1 ? styles.twoColumns : styles.singleColumn;
   return (
     <div {...heroElementAttributes}>
-      <div key="content" className={classNames(styles.content, columnStyle)}>
-        <Content />
-        {!hideKoros && !canKorosBeFlipped && <KorosShiftSpacer {...koros} />}
+      <div className={styles.container}>
+        <div key="content" className={classNames(styles.content, columnStyle)}>
+          <Content />
+          {!hideKoros && !canKorosBeFlipped && <KorosShiftSpacer {...koros} />}
+        </div>
       </div>
       {!hideKoros && <Koros {...koros} flipHorizontal={canKorosBeFlipped} style={korosStyle} />}
       {type !== 'textOnly' && (

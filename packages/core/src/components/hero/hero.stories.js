@@ -39,8 +39,10 @@ const image = `<img class="hds-hero__image" src="https://hds.hel.fi/images/homep
 
 export const BottomWideImage = () => `
 <div class="hds-hero hds-hero--wide-image">
-  <div class="hds-hero__content hds-hero__content--single-column">
-    ${card}
+  <div class="hds-hero__container">
+    <div class="hds-hero__content hds-hero__content--single-column">
+      ${card}
+    </div>
   </div>
   ${koros}
   <div class="hds-hero__image-below-koros">
@@ -63,7 +65,7 @@ export const AngledKoros = () => `
     Koros should also "pull" next sibling upwards so koros overflows it.
     These are not in the css file as the amounts depend on the koros height.
     React version calculates these automatically.
-    Heights of differents koros are in https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/koros/Koros.tsx
+    Heights of different koros are in https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/koros/Koros.tsx
   */
   .shifted-koros{
     margin-bottom: -14px;
@@ -101,9 +103,11 @@ export const WithoutImage = () => `
     }
     </style>
     <div class="hds-hero custom-theme">
-      <div class="hds-hero__content hds-hero__content--single-column">
-        ${card}
-        <div class="hds-koros__spacer" style="height: 34px;"></div>
+      <div class="hds-hero__container">
+        <div class="hds-hero__content hds-hero__content--single-column">
+          ${card}
+          <div class="hds-koros__spacer" style="height: 34px;"></div>
+        </div>
       </div>
       <div class="hds-koros" style="fill: var(--koros-color); margin-top: -34px;">
           <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="85">
@@ -130,10 +134,12 @@ export const ImageRight = () => `
     }
     </style>
 <div class="hds-hero custom-theme hds-hero--image-right">
-   <div class="hds-hero__content hds-hero__content--two-columns">
+  <div class="hds-hero__container">
+    <div class="hds-hero__content hds-hero__content--two-columns">
       ${card}
       <div class="hds-hero__content--two-columns__image-container">${image}</div>
-   </div>
+    </div>
+  </div>
    ${koros}
    <div class="hds-hero__image-below-koros">${image}</div>
 </div>`;
@@ -149,10 +155,12 @@ export const ImageLeft = () => `
     }
     </style>
 <div class="hds-hero custom-theme hds-hero--image-left">
-   <div class="hds-hero__content hds-hero__content--two-columns">
-    <div class="hds-hero__content--two-columns__image-container">${image}</div>
-      ${card}
-   </div>
+    <div class="hds-hero__container">
+      <div class="hds-hero__content hds-hero__content--two-columns">
+        <div class="hds-hero__content--two-columns__image-container">${image}</div>
+          ${card}
+      </div>
+    </div>
    ${koros}
    <div class="hds-hero__image-below-koros">${image}</div>
 </div>`;

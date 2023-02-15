@@ -6,6 +6,10 @@
   composes: hds-hero from heroCss;
 }
 
+.container {
+  composes: hds-hero__container from heroCss;
+}
+
 .content {
   composes: hds-hero__content from heroCss;
 }

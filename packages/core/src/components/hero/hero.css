@@ -4,16 +4,18 @@
   --image-position: bottom right;
   --koros-color: var(--color-white);
   --angled-koros-inset: auto auto 10% -33%;
-  --horizontal-padding-small: var(--spacing-s);
-  --horizontal-padding-medium: var(--spacing-m);
-  --horizontal-padding-large: var(--spacing-2-xl);
-  --horizontal-padding-x-large: var(--spacing-2-xl);
+  --horizontal-padding-small: var(--spacing-layout-2-xs);
+  --horizontal-padding-medium: var(--spacing-layout-xs);
+  --horizontal-padding-large: var(--spacing-layout-xs);
+  --horizontal-padding-x-large: var(--spacing-layout-xs);
   --padding-horizontal: var(--horizontal-padding-small);
   --padding-vertical: var(--spacing-xl);
   color: var(--color);
   display: flex;
   flex-direction: column;
+  position: relative;
   z-index: 1;
+  background-color: var(--background-color);
 }
 .hds-hero h1 {
   font-size: var(--fontsize-heading-xl);
@@ -25,10 +27,14 @@
 .hds-hero p {
   font-size: var(--fontsize-body-l);
 }
+.hds-hero__container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(--container-width-xl);
+}
 .hds-hero__content {
   display: flex;
   padding: var(--padding-vertical) var(--padding-horizontal);
-  background-color: var(--background-color);
 }
 .hds-hero__content--single-column,
 .hds-hero__content--two-columns {
@@ -72,6 +78,9 @@
   height: 100%;
   object-position: var(--image-position);
 }
+.hds-hero--background-top .hds-hero__content {
+  background-color: var(--background-color);
+}
 .hds-hero--background-top__top-koros {
   display: block;
 }
@@ -82,7 +91,6 @@
 .hds-hero--angled-koros .hds-hero--with-background__container {
   display: flex;
   position: relative;
-  background-color: transparent;
   overflow: hidden;
   z-index: 1;
   flex-direction: column;
@@ -151,7 +159,6 @@
   }
   .hds-hero--background-top .hds-hero__content {
     --padding-vertical: var(--spacing-2-xl);
-    --padding-horizontal: var(--spacing-xl);
   }
   .hds-hero--background-top__top-koros {
     display: none;

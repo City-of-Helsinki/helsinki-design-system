@@ -234,38 +234,42 @@ exports[`<Hero /> spec renders the component 3`] = `
     class="hero custom-theme-7 imageLeft"
   >
     <div
-      class="content twoColumns"
+      class="container"
     >
       <div
-        class="twoColumnsImageContainer"
+        class="content twoColumns"
       >
-        <img
-          alt=""
-          aria-hidden="true"
-          class="image"
-          src="http://image.com/image.jpg"
-        />
-      </div>
-      <div
-        class="card"
-      >
-        <h1>
-          This is the heading
-        </h1>
-        <p>
-          Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
-        </p>
-        <button
-          class="button secondary theme-default size-default"
-          role="link"
-          type="button"
+        <div
+          class="twoColumnsImageContainer"
         >
-          <span
-            class="label"
+          <img
+            alt=""
+            aria-hidden="true"
+            class="image"
+            src="http://image.com/image.jpg"
+          />
+        </div>
+        <div
+          class="card"
+        >
+          <h1>
+            This is the heading
+          </h1>
+          <p>
+            Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
+          </p>
+          <button
+            class="button secondary theme-default size-default"
+            role="link"
+            type="button"
           >
-            Click me
-          </span>
-        </button>
+            <span
+              class="label"
+            >
+              Click me
+            </span>
+          </button>
+        </div>
       </div>
     </div>
     <div
@@ -320,38 +324,42 @@ exports[`<Hero /> spec renders the component 4`] = `
     class="hero custom-theme-9 imageRight"
   >
     <div
-      class="content twoColumns"
+      class="container"
     >
       <div
-        class="card"
+        class="content twoColumns"
       >
-        <h1>
-          This is the heading
-        </h1>
-        <p>
-          Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
-        </p>
-        <button
-          class="button secondary theme-default size-default"
-          role="link"
-          type="button"
+        <div
+          class="card"
         >
-          <span
-            class="label"
+          <h1>
+            This is the heading
+          </h1>
+          <p>
+            Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
+          </p>
+          <button
+            class="button secondary theme-default size-default"
+            role="link"
+            type="button"
           >
-            Click me
-          </span>
-        </button>
-      </div>
-      <div
-        class="twoColumnsImageContainer"
-      >
-        <img
-          alt=""
-          aria-hidden="true"
-          class="image"
-          src="http://image.com/image.jpg"
-        />
+            <span
+              class="label"
+            >
+              Click me
+            </span>
+          </button>
+        </div>
+        <div
+          class="twoColumnsImageContainer"
+        >
+          <img
+            alt=""
+            aria-hidden="true"
+            class="image"
+            src="http://image.com/image.jpg"
+          />
+        </div>
       </div>
     </div>
     <div
@@ -406,28 +414,32 @@ exports[`<Hero /> spec renders the component 5`] = `
     class="hero custom-theme-11 textOnly"
   >
     <div
-      class="content singleColumn"
+      class="container"
     >
       <div
-        class="card"
+        class="content singleColumn"
       >
-        <h1>
-          This is the heading
-        </h1>
-        <p>
-          Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
-        </p>
-        <button
-          class="button secondary theme-default size-default"
-          role="link"
-          type="button"
+        <div
+          class="card"
         >
-          <span
-            class="label"
+          <h1>
+            This is the heading
+          </h1>
+          <p>
+            Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
+          </p>
+          <button
+            class="button secondary theme-default size-default"
+            role="link"
+            type="button"
           >
-            Click me
-          </span>
-        </button>
+            <span
+              class="label"
+            >
+              Click me
+            </span>
+          </button>
+        </div>
       </div>
     </div>
     <div
@@ -472,28 +484,32 @@ exports[`<Hero /> spec renders the component 6`] = `
     class="hero custom-theme-13 wideImage"
   >
     <div
-      class="content singleColumn"
+      class="container"
     >
       <div
-        class="card"
+        class="content singleColumn"
       >
-        <h1>
-          This is the heading
-        </h1>
-        <p>
-          Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
-        </p>
-        <button
-          class="button secondary theme-default size-default"
-          role="link"
-          type="button"
+        <div
+          class="card"
         >
-          <span
-            class="label"
+          <h1>
+            This is the heading
+          </h1>
+          <p>
+            Nullam ut nunc consectetur, accumsan nunc sed, luctus nisl. Curabitur lacinia!
+          </p>
+          <button
+            class="button secondary theme-default size-default"
+            role="link"
+            type="button"
           >
-            Click me
-          </span>
-        </button>
+            <span
+              class="label"
+            >
+              Click me
+            </span>
+          </button>
+        </div>
       </div>
     </div>
     <div
