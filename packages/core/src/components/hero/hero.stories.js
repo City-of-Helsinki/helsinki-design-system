@@ -184,8 +184,9 @@ export const BackgroundImage = () => `
           <div class="hds-koros hds-hero--background-top__top-koros" style="fill: var(--koros-color); margin-top: -14px; height: 14px; overflow: hidden;">
             ${getKorosSVG()}
           </div>
-          <div class="hds-hero__content hds-hero__content--single-column">
+          <div class="hds-hero__content">
               ${card}
+              <div class="hds-hero--with-background__emptyColumn"></div>
           </div>
         </div>
         <div class="hds-koros hds-hero--background-top__bottom-koros" style="fill: var(--koros-color); margin-top: -14px; height: 14px; overflow: hidden;">

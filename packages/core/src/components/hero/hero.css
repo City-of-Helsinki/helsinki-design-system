@@ -90,7 +90,12 @@
 }
 
 .hds-hero--background-top .hds-hero__content {
+  padding: 0;
+}
+
+.hds-hero--background-top .hds-hero__card {
   background-color: var(--background-color);
+  padding: var(--padding-vertical) var(--padding-horizontal);
 }
 .hds-hero--background-top__top-koros {
   display: block;
@@ -166,11 +171,16 @@
   .hds-hero--background-top .hds-hero--with-background__container {
     padding: var(--padding-vertical) var(--padding-horizontal);
   }
-  .hds-hero--background-top .hds-hero__content--single-column {
-    width: 50%;
-  }
+
   .hds-hero--background-top .hds-hero__content {
     --padding-vertical: var(--spacing-2-xl);
+    display: flex;
+    flex-direction: row;
+    max-width: var(--container-width-xl);
+    margin: 0 auto;
+  }
+  .hds-hero--background-top .hds-hero__card {
+    width: 50%;
   }
   .hds-hero--background-top__top-koros {
     display: none;

@@ -219,8 +219,9 @@ export const Hero = ({ children, theme, koros, ...elementAttributes }: HeroProps
         <div className={styles.withBackgroundContainer}>
           <ImageAsBackground />
           <CommonKoros top />
-          <div className={classNames(styles.content, styles.singleColumn)}>
+          <div className={classNames(styles.content)}>
             <Content />
+            <div className={styles.emptyColumn} />
           </div>
         </div>
         <CommonKoros />
