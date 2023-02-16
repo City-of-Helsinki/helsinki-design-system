@@ -1,6 +1,6 @@
 @svg-load icon url("../../svg/ui/check.svg");
-@svg-load minusIcon url("../../svg/ui/minus.svg");
-@svg-load errorIcon url("../../svg/ui/alert-circle-fill.svg");
+@svg-load minusicon url("../../svg/ui/minus.svg");
+@svg-load erroricon url("../../svg/ui/alert-circle-fill.svg");
 
 .hds-checkbox {
   --size: 24px;
@@ -184,7 +184,7 @@
   content: '';
   height: var(--icon-size);
   left: 0;
-  -webkit-mask-image: svg-inline(erroricon);
+  -webkit-mask-image: svg-inline(errorIcon);
   mask-image: svg-inline(erroricon);
   pointer-events: none;
   position: absolute;

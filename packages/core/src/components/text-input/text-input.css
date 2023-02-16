@@ -1,7 +1,7 @@
 @import url("../../utils/animations.css");
 
 @svg-load icon url("../../svg/ui/alert-circle-fill.svg");
-@svg-load successIcon url("../../svg/ui/check-circle-fill.svg");
+@svg-load successicon url("../../svg/ui/check-circle-fill.svg");
 
 .hds-text-input {
   --border-width: 2px;
