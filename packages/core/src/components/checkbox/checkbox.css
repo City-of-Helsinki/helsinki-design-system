@@ -184,7 +184,7 @@
   content: '';
   height: var(--icon-size);
   left: 0;
-  -webkit-mask-image: svg-inline(errorIcon);
+  -webkit-mask-image: svg-inline(erroricon);
   mask-image: svg-inline(erroricon);
   pointer-events: none;
   position: absolute;
