@@ -1,4 +1,4 @@
-@import "../../styles/common";
+@import "../../styles/common.scss";
 @value x-small-only, small-down, small-only, small-up, medium-up, large-up, x-large-up from "../../styles/breakpoints.scss";
 
 @keyframes mobileMenuAnimation {

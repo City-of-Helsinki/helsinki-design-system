@@ -1,5 +1,5 @@
-@import "../../styles/layout";
-@import '~hds-design-tokens/lib/all';
+@import "../../styles/layout.scss";
+@import '~hds-design-tokens/lib/all.scss';
 
 .aboveS {
   @include respond_below($breakpoint-s) {

@@ -1,5 +1,5 @@
-@import '../../../styles/common';
-@import '../dialog.common';
+@import '../../../styles/common.scss';
+@import '../dialog.common.scss';
 
 .dialogContent {
   @include dialogComponentSidePaddings;
