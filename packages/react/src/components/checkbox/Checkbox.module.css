@@ -17,3 +17,8 @@
 .helperText {
   composes: helper-text from 'hds-core/lib/utils/helpers.css';
 }
+
+.tooltipButton {
+  margin-left: var(--spacing-2-xs);
+  display: inline-block;
+}
