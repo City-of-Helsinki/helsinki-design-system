@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/bell.svg);
+@svg-load icon url("../../svg/ui/bell.svg");
 
 .hds-icon--bell {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/home-smoke.svg);
+@svg-load icon url("../../svg/ui/home-smoke.svg");
 
 .hds-icon--home-smoke {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

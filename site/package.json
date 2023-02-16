@@ -47,7 +47,8 @@
     "postcss": "8",
     "prettier": "2.5.1",
     "stylelint": "^14.8.3",
-    "stylelint-config-standard-scss": "^3.0.0"
+    "stylelint-config-standard-scss": "^3.0.0",
+    "stylelint-order": "^6.0.2"
   },
   "resolutions": {
     "multer": "1.4.4-lts.1",

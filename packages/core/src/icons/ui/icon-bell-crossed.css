@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/bell-crossed.svg);
+@svg-load icon url("../../svg/ui/bell-crossed.svg");
 
 .hds-icon--bell-crossed {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

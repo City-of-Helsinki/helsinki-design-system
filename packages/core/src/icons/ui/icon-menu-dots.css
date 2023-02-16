@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/menu-dots.svg);
+@svg-load icon url("../../svg/ui/menu-dots.svg");
 
 .hds-icon--menu-dots {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

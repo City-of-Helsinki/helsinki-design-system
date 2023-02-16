@@ -1,10 +1,11 @@
 @import "../../styles/common";
+
 $componentMaxWidth: 500px;
 
 .dragAndDrop {
   align-items: center;
-  box-sizing: border-box;
   border: 2px dotted var(--color-coat-of-arms);
+  box-sizing: border-box;
   color: var(--color-coat-of-arms);
   cursor: pointer;
   display: flex;
@@ -38,6 +39,7 @@ $componentMaxWidth: 500px;
 
 .dragAndDropHelperText {
   @extend %inputLabel;
+
   margin: var(--spacing-s) 0 var(--spacing-2-xs);
 }
 
@@ -53,6 +55,7 @@ $componentMaxWidth: 500px;
   // We need to manually add focus styles to the button when the input has focus.
   &:focus-within > button:after {
     --size: calc(100% + calc(var(--outline-width) * 2 + var(--border-width) * 2 + var(--outline-gutter) * 2));
+
     border-color: var(--focus-outline-color);
   }
 }
@@ -73,8 +76,8 @@ $componentMaxWidth: 500px;
   border-bottom: 2px dotted var(--color-coat-of-arms);
   box-sizing: border-box;
   display: flex;
-  padding: var(--spacing-s) var(--spacing-2-xs);
   max-width: 100%;
+  padding: var(--spacing-s) var(--spacing-2-xs);
   width: $componentMaxWidth;
 
   & + & {
@@ -104,6 +107,7 @@ $componentMaxWidth: 500px;
 
 .fileListItemButton {
   --file-list-item-button-y-offset: calc(-1 * var(--spacing-2-xs) - 2px);
+
   display: flex;
   margin: var(--file-list-item-button-y-offset) auto var(--file-list-item-button-y-offset) 0;
 }

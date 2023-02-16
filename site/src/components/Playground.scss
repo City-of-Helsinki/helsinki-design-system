@@ -63,8 +63,8 @@
 
   textarea {
     &:focus {
-      outline: 0 none;
       border-color: var(--color-coat-of-arms) !important;
+      outline: 0 none;
     }
   }
 }
@@ -79,8 +79,8 @@
     height: 100%;
     pointer-events: none;
     position: absolute;
-    width: 100%;
     top: 0;
+    width: 100%;
   }
 
   &:focus {

@@ -1,13 +1,14 @@
 @import '../../../styles/common';
-@import '../_dialog.common';
+@import '../dialog.common';
 
 .dialogContent {
   @include dialogComponentSidePaddings;
+
   padding-bottom: var(--spacing-2-xs);
 }
 
 .dialogContentScrollable {
-  border-top: 1px solid;
   border-bottom: 1px solid;
+  border-top: 1px solid;
   overflow-y: auto;
 }

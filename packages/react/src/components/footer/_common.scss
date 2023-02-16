@@ -17,6 +17,7 @@
  */
 %footerItem {
   @extend %buttonReset;
+
   align-items: center;
   align-self: start;
   color: inherit;
@@ -31,8 +32,9 @@
     text-decoration: underline;
   }
 
-  &:focus::after {
+  &:focus:after {
     --focus-outline-size: calc(100% + var(--spacing-2-xs));
+
     border: var(--footer-focus-outline-width) solid var(--footer-focus-outline-color);
     border-radius: var(--footer-focus-outline-border-radius);
     box-sizing: border-box;

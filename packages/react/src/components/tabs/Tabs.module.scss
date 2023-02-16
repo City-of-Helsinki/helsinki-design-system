@@ -13,6 +13,7 @@
   --tab-focus-outline-size: 2px;
   --tab-focus-outline-color: var(--color-coat-of-arms);
 }
+
 .tabs.small {
   --tab-min-width: 0;
   --tab-font-size: var(--fontsize-body-s);
@@ -25,89 +26,90 @@
 }
 
 .scrollButton {
-  width: 26px;
-  display: flex;
   align-items: center;
-  justify-content: center;
   color: var(--tab-color);
-  position: relative;
+  display: flex;
+  justify-content: center;
   margin-bottom: var(--tablist-border-size);
+  position: relative;
+  width: 26px;
 
   &:before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: var(--tablist-border-size);
     background: var(--tablist-border-color);
     bottom: 0;
+    content: '';
+    height: var(--tablist-border-size);
+    position: absolute;
+    width: 100%;
     z-index: 100;
   }
 
   button {
     @extend %buttonReset;
-    box-sizing: border-box;
-    width: 100%;
-    height: 26px;
-    overflow: hidden;
-    border-radius: unset;
-    border: var(--tab-focus-outline-size) solid transparent;
-    display: inline-flex;
+
     align-items: center;
+    border: var(--tab-focus-outline-size) solid transparent;
+    border-radius: unset;
+    box-sizing: border-box;
+    display: inline-flex;
+    height: 26px;
     justify-content: center;
+    overflow: hidden;
+    width: 100%;
 
     &:focus {
-      outline: none;
       border: var(--tab-focus-outline-size) solid var(--tab-focus-outline-color);
+      outline: none;
     }
   }
 }
 
 .tablist {
-  flex-grow: 1;
-  position: relative;
   box-sizing: border-box;
+  flex-grow: 1;
   margin-bottom: -1px;
   overflow-x: hidden;
+  position: relative;
 
   ul {
     box-sizing: border-box;
+    list-style: none;
     margin: 0;
     padding: 0;
-    list-style: none;
-    white-space: nowrap;
     padding: var(--tab-focus-outline-size) 0;
+    white-space: nowrap;
   }
 }
 
 .tab {
   display: inline-block;
   margin: 0;
-  padding: 0;
   outline: none;
+  padding: 0;
 
   span {
-    font-size: var(--tab-font-size);
-    position: relative;
-    box-sizing: border-box;
-    display: flex;
-    margin: 0;
-    padding: 0;
-    min-width: var(--tab-min-width);
-    height: var(--tab-height);
     align-items: center;
+    box-sizing: border-box;
+    color: var(--tab-color);
+    cursor: pointer;
+    display: flex;
+    font-size: var(--tab-font-size);
+    height: var(--tab-height);
     justify-content: center;
+    margin: 0;
+    min-width: var(--tab-min-width);
+    padding: 0;
     padding-left: var(--tab-spacing);
     padding-right: var(--tab-spacing);
-    cursor: pointer;
-    color: var(--tab-color);
+    position: relative;
 
     &:before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: var(--tablist-border-size);
       background: var(--tablist-border-color);
       bottom: 0;
+      content: '';
+      height: var(--tablist-border-size);
+      position: absolute;
+      width: 100%;
       z-index: 100;
     }
   }
@@ -117,27 +119,28 @@
 
     &:after {
       --size: calc(100% + var(--tab-focus-outline-size) * 2);
-      box-sizing: border-box;
-      position: absolute;
-      content: '';
-      width: 100%;
-      height: var(--size);
+
       border: var(--tab-focus-outline-size) solid var(--tab-focus-outline-color);
-      outline: none;
-      top: calc(-1 * var(--tab-focus-outline-size));
+      box-sizing: border-box;
+      content: '';
+      height: var(--size);
       left: 0;
+      outline: none;
+      position: absolute;
+      top: calc(-1 * var(--tab-focus-outline-size));
+      width: 100%;
       z-index: 200;
     }
   }
 
   &.active {
     span:before {
+      background-color: var(--tab-active-border-color);
+      bottom: 0;
       content: '';
+      height: var(--tab-active-border-size);
       position: absolute;
       width: 100%;
-      height: var(--tab-active-border-size);
-      bottom: 0;
-      background-color: var(--tab-active-border-color);
       z-index: 100;
     }
   }

@@ -1,6 +1,7 @@
 @import "../../styles/common";
 
 .stepperContainer {
+  background-color: var(--hds-stepper-background-color);
   position: relative;
 
   --hds-stepper-color: var(--color-bus);
@@ -14,21 +15,20 @@
   --hds-step-width: 120px;
   --circle-container-size: 36px;
   --progress-line-height: 2px;
-
-  background-color: var(--hds-stepper-background-color);
 }
 
 .stepper {
-  display: flex;
-  position: relative;
-  justify-content: space-between;
   align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
   overflow: scroll;
-  width: 100%;
+
   // Hide horizontal scrollbar on overflow
   -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  position: relative;
   scroll-behavior: smooth;
+  scrollbar-width: none;  /* Firefox */
+  width: 100%;
 
   &:focus {
     outline: var(--hds-stepper-focus-border-color) 3px solid;
@@ -44,38 +44,101 @@
 }
 
 .stepContainer {
-  display: flex;
-  justify-content: center;
-  width: var(--hds-step-width);
-  flex-shrink: 0;
-  padding: 3px;
-  box-sizing: border-box;
   background-color: var(--hds-stepper-background-color);
+  box-sizing: border-box;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  padding: 3px;
+  width: var(--hds-step-width);
+}
+
+.label {
+  color: var(--hds-not-selected-step-label-color);
+  font-size: var(--fontsize-body-m);
+  font-weight: 500;
+  line-height: var(--lineheight-l);
+  margin-bottom: 0;
+  margin-top: 6px;
+  padding-left: var(--spacing-4-xs);
+  padding-right: var(--spacing-4-xs);
+  text-decoration: underline;
+}
+
+.disabled .label {
+  color: var(--hds-stepper-disabled-color);
+  text-decoration: none;
+}
+
+.circle {
+  align-items: center;
+  background-color: var(--hds-step-background-color);
+  border: 2px solid var(--hds-stepper-color);
+  border-radius: 16px;
+  color: var(--hds-step-content-color);
+  display: flex;
+  height: 28px;
+  justify-content: center;
+  outline: 2px solid var(--hds-stepper-background-color);
+  text-align: center;
+  width: 28px;
+}
+
+.disabled .circle {
+  background-color: var(--hds-stepper-background-color);
+  border: 2px solid var(--hds-stepper-disabled-color);
+  color: var(--hds-stepper-disabled-color);
+}
+
+.selected .circle {
+  border: 4px solid var(--hds-stepper-color);
+  border-radius: 18px;
+  outline: none;
+}
+
+.selected .label {
+  color: var(--hds-selected-step-label-color);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.completedContainer {
+  background-color: var(--hds-stepper-color);
+  border-radius: 16px;
+  outline: 2px solid var(--hds-stepper-background-color);
+  padding: 4px;
+
+  .completedIcon {
+    color: var(--hds-step-background-color);
+    vertical-align: middle;
+  }
 }
 
 .step {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 0;
   appearance: none;
   background: transparent;
-  cursor: pointer;
   border: 0;
-  height: 100%;
-  overflow: visible;
   color: var(--hds-stepper-color);
-  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
   outline: none;
+  overflow: visible;
+  padding: 0;
+  position: relative;
 
   &:focus {
     .circle {
       outline: 2px solid var(--hds-stepper-focus-border-color);
     }
+
     .label {
       outline: 2px solid var(--hds-stepper-focus-border-color);
     }
+
     .completedContainer {
       outline: 2px solid var(--hds-stepper-focus-border-color);
     }
@@ -91,145 +154,84 @@
   cursor: not-allowed;
 }
 
-.disabled .label {
-  text-decoration: none;
-}
-
-.circle {
-  border-radius: 16px;
-  border: 2px solid var(--hds-stepper-color);
-  text-align: center;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--hds-step-background-color);
-  outline: 2px solid var(--hds-stepper-background-color);
-  color: var(--hds-step-content-color);
-}
-
-.disabled .circle {
-  border: 2px solid var(--hds-stepper-disabled-color);
-  color: var(--hds-stepper-disabled-color);
-  background-color: var(--hds-stepper-background-color);
-}
-
-.selected .circle {
-  border: 4px solid var(--hds-stepper-color);
-  outline: none;
-  border-radius: 18px;
-}
-
 .number {
-  font-weight: 500;
   font-size: var(--fontsize-body-m);
+  font-weight: 500;
   line-height: 1.15;
 }
 
-.label {
-  font-weight: 500;
-  font-size: var(--fontsize-body-m);
-  text-decoration: underline;
-  line-height: var(--lineheight-l);
-  margin-top: 6px;
-  margin-bottom: 0;
-  padding-left: var(--spacing-4-xs);
-  padding-right: var(--spacing-4-xs);
-  color: var(--hds-not-selected-step-label-color);
-}
-
-.selected .label {
-  color: var(--hds-selected-step-label-color);
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.disabled .label {
-  color: var(--hds-stepper-disabled-color);
-}
-
-.completedContainer {
-  background-color: var(--hds-stepper-color);
-  padding: 4px;
-  border-radius: 16px;
-  outline: 2px solid var(--hds-stepper-background-color);
-
-  .completedIcon {
-    color: var(--hds-step-background-color);
-    vertical-align: middle;
-  }
-}
-
 .circleContainer {
-  z-index: 2;
-  width: var(--circle-container-size);
-  height: var(--circle-container-size);
-  display: flex;
   align-items: center;
+  display: flex;
+  height: var(--circle-container-size);
   justify-content: center;
+  width: var(--circle-container-size);
+  z-index: 2;
 }
 
 .line {
   display: inline;
-  position: absolute;
-  line-height: var(--lineheight-l);
-  left: calc(var(--hds-step-width) / 2.0);
   height: var(--progress-line-height);
-  z-index: 1;
+  left: calc(var(--hds-step-width) / 2.0);
+  line-height: var(--lineheight-l);
+  position: absolute;
   transform: translateY(calc((var(--circle-container-size) / 2) + (var(--progress-line-height) / 2)));
+  z-index: 1;
 
 
   @mixin lineStep {
-    position: relative;
-    top: -15px;
     display: inline-block;
     height: 100%;
+    position: relative;
+    top: -15px;
   }
 
   .disabledLine {
     @include lineStep;
+
     background-color: var(--hds-stepper-disabled-color);
   }
 
   .enabledLine {
     @include lineStep;
+
     background-color: var(--hds-stepper-color);
   }
 }
 
 .heading {
-  margin-top: 26px;
   composes: heading-l from 'hds-core/lib/utils/helpers.css';
+  margin-top: 26px;
   width: fit-content;
 
   &:focus {
-    outline: 3px solid var(--hds-stepper-focus-border-color);
     border: none;
+    outline: 3px solid var(--hds-stepper-focus-border-color);
   }
 }
 
 .scrollButton {
-  z-index: 10;
+  background-color: var(--hds-stepper-background-color);
   color: var(--hds-stepper-color);
   position: absolute;
   top: 3px;
-  background-color: var(--hds-stepper-background-color);
+  z-index: 10;
 
   button {
     @extend %buttonReset;
-    box-sizing: border-box;
-    width: 100%;
-    overflow: hidden;
-    border-radius: unset;
-    border: 2px solid transparent;
-    display: inline-flex;
+
     align-items: center;
+    border: 2px solid transparent;
+    border-radius: unset;
+    box-sizing: border-box;
+    display: inline-flex;
     justify-content: center;
+    overflow: hidden;
+    width: 100%;
 
     &:focus {
-      outline: none;
       border: 2px solid var(--hds-stepper-focus-border-color);
+      outline: none;
     }
   }
 }

@@ -7,19 +7,19 @@
 
   & > a,
   & > button {
-    box-sizing: border-box;
-    display: flex;
-    width: 100%;
-    margin: 0;
-    padding: var(--spacing-2-xs) var(--side-navigation-level-inset);
-    min-height: var(--spacing-2-xl);
     align-items: center;
+    background-color: var(--side-navigation-level-background-color);
+    border: var(--side-navigation-level-border-width) solid var(--side-navigation-level-border-color);
+    box-sizing: border-box;
+    color: var(--side-navigation-level-color);
+    display: flex;
+    margin: 0;
+    min-height: var(--spacing-2-xl);
+    outline: none;
+    padding: var(--spacing-2-xs) var(--side-navigation-level-inset);
     text-align: left;
     text-decoration: none;
-    border: var(--side-navigation-level-border-width) solid var(--side-navigation-level-border-color);
-    background-color: var(--side-navigation-level-background-color);
-    color: var(--side-navigation-level-color);
-    outline: none;
+    width: 100%;
 
     &:hover {
       background-color: var(--side-navigation-level-background-color-hover);
@@ -40,22 +40,21 @@
 %activeLevel {
   & > a,
   & > button {
-    position: relative;
-
-    &::before {
-      position: absolute;
-      display: block;
-      content: '';
-      width: var(--spacing-3-xs);
-      background: var(--side-navigation-active-indicator-background-color);
-      top: calc(0px - var(--side-navigation-level-border-width));
-      bottom: calc(0px - var(--side-navigation-level-border-width));
-      left: calc(0px - var(--side-navigation-level-border-width));
-    }
-
-    font-weight: 600;
     background-color: var(--side-navigation-level-background-color-active);
     border-color: var(--side-navigation-level-background-color-active);
     color: var(--side-navigation-level-color-active);
+    font-weight: 600;
+    position: relative;
+
+    &:before {
+      background: var(--side-navigation-active-indicator-background-color);
+      bottom: calc(0px - var(--side-navigation-level-border-width));
+      content: '';
+      display: block;
+      left: calc(0px - var(--side-navigation-level-border-width));
+      position: absolute;
+      top: calc(0px - var(--side-navigation-level-border-width));
+      width: var(--spacing-3-xs);
+    }
   }
 }

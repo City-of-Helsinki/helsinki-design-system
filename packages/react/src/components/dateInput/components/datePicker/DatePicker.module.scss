@@ -1,18 +1,14 @@
 @import "../../../../styles/common";
-@value small-up from "../../../../styles/breakpoints.css";
+@value small-up from "../../../../styles/breakpoints.scss";
 
 :root {
   --date-background: transparent;
   --date-color: var(--color-black-90);
-
   --outside-date-background: transparent;
   --outside-date-color: var(--color-black-40);
-
   --selected-date-background: var(--color-bus);
   --selected-date-color: #fff;
-
   --table-width: 100%;
-
   --horizontal-spacing: var(--spacing-s);
   --vertical-spacing: var(--spacing-s);
 
@@ -22,11 +18,11 @@
 }
 
 .pickerWrapper {
-  transition: opacity 150ms;
   display: flex;
   justify-content: flex-end;
-  pointer-events: none;
   opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms;
   visibility: hidden;
   will-change: opacity, visibility;
   z-index: 900;
@@ -44,13 +40,13 @@
 
 .hds-datepicker {
   background: #fff;
-  position: relative;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.5);
   box-sizing: border-box;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
   display: inline-block;
-  width: 100%;
   min-width: calc(100vw - 2 * var(--spacing-s));
   padding: var(--vertical-spacing) var(--horizontal-spacing);
+  position: relative;
+  width: 100%;
 
   @media small-up {
     min-width: calc(var(--table-width) + 2 * var(--spacing-s));
@@ -60,16 +56,16 @@
 .hds-datepicker__month-table {
   border-collapse: collapse;
   border-spacing: 2px;
-  width: 100%;
   max-width: var(--table-width);
+  width: 100%;
 }
 
 .hds-datepicker__head {
   &__weekday {
     font-size: var(--fontsize-body-m);
     font-weight: bold;
-    text-transform: uppercase;
     padding-bottom: 6px;
+    text-transform: uppercase;
 
     &-vhidden {
       @extend %hiddenFromScreen;
@@ -78,26 +74,26 @@
 }
 
 .hds-datepicker__day-cell {
-  width: calc(100%/7);
+  line-height: 0;
   margin: 0 4px 0 0;
   padding: 3px;
-  line-height: 0;
+  width: calc(100% / 7);
 }
 
 .hds-datepicker__day {
   align-items: center;
-  box-sizing: border-box;
-  width: 100%;
-  padding: 0 0 100% 0;
-  margin: 0;
-  position: relative;
   appearance: none;
-  border: 0;
   background: transparent;
+  border: 0;
+  box-sizing: border-box;
   display: inline-flex;
   line-height: 1;
+  margin: 0;
   overflow: hidden;
+  padding: 0 0 100%;
+  position: relative;
   vertical-align: middle;
+  width: 100%;
 
   --background-color: var(--date-background);
   --color: var(--date-color);
@@ -109,40 +105,41 @@
 
   &--outside {
     pointer-events: none;
+
     --background-color: var(--outside-date-background);
     --color: var(--outside-date-color);
   }
 
   &--today {
     &:after {
-      content: '';
-      position: absolute;
-      left: 8px;
-      right: 8px;
-      bottom: 7px;
-      height: 2px;
       background: var(--color);
+      bottom: 7px;
+      content: '';
+      height: 2px;
+      left: 8px;
+      position: absolute;
+      right: 8px;
     }
   }
 
   &:focus {
-    outline: none;
     box-shadow: 0 0 0 3px var(--color-coat-of-arms);
+    outline: none;
   }
 
   &__wrapper {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    bottom: 2px;
-    left: 2px;
-    display: flex;
     align-items: center;
-    justify-content: center;
     background: var(--background-color);
+    bottom: 2px;
     color: var(--color);
+    display: flex;
     font-size: 1rem;
+    justify-content: center;
+    left: 2px;
     line-height: 1rem;
+    position: absolute;
+    right: 2px;
+    top: 2px;
 
     &-vhidden {
       @extend %hiddenFromScreen;
@@ -151,32 +148,34 @@
 }
 
 .hds-datepicker__navigation {
-  display: flex;
   align-items: center;
+  display: flex;
   margin-bottom: var(--spacing-s);
 
   &__select {
     --icon-size: 24px;
-    position: relative;
+
     margin-right: var(--spacing-s);
+    position: relative;
 
     select {
-      position: absolute;
-      top: 0;
+      height: 100%;
       left: 0;
       opacity: 0;
-      width: 100%;
-      height: 100%;
+      position: absolute;
       text-transform: capitalize;
+      top: 0;
+      width: 100%;
     }
 
     &-label {
       --label-spacing: 0.3rem;
-      position: relative;
-      padding: 0.15rem calc(var(--icon-size)) 0.15rem 0.3rem;
+
       font-size: var(--fontsize-body-xl);
-      pointer-events: none;
       font-weight: bold;
+      padding: 0.15rem calc(var(--icon-size)) 0.15rem 0.3rem;
+      pointer-events: none;
+      position: relative;
       text-transform: capitalize;
     }
 
@@ -185,26 +184,26 @@
     }
 
     &-icon {
-      position: absolute;
-      pointer-events: none;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: var(--icon-size);
-      display: flex;
       align-items: center;
+      bottom: 0;
+      display: flex;
       justify-content: center;
+      pointer-events: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: var(--icon-size);
 
       svg {
-        width: var(--icon-size);
         height: var(--icon-size);
+        width: var(--icon-size);
       }
     }
   }
 
   &__buttons {
-    flex-grow: 1;
     display: flex;
+    flex-grow: 1;
     justify-content: flex-end;
     transform: translateY(-3px);
 
@@ -214,19 +213,19 @@
     }
 
     button {
-      cursor: pointer;
-      padding: 0.15rem;
+      align-items: center;
       background: transparent;
       border: 0;
+      cursor: pointer;
       display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: calc(25px + 0.15rem);
       height: calc(25px + 0.15rem);
+      justify-content: center;
+      padding: 0.15rem;
+      width: calc(25px + 0.15rem);
 
       &:focus {
-        outline: none;
         box-shadow: 0 0 0 3px var(--color-coat-of-arms);
+        outline: none;
       }
     }
   }

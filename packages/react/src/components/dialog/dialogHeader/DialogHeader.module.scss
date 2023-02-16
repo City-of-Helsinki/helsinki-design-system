@@ -1,19 +1,20 @@
 @import '../../../styles/common';
-@import '../_dialog.common';
-@value medium-up from "../../../styles/breakpoints.css";
+@import '../dialog.common';
+@value medium-up from "../../../styles/breakpoints.scss";
 
 .dialogHeader {
   @include dialogComponentSidePaddings;
+
   display: block;
-  padding-top: var(--spacing-m);
   padding-bottom: 0;
+  padding-top: var(--spacing-m);
 }
 
 .dialogHeaderContent {
-  min-height: 36px;
   align-items: flex-start;
   display: flex;
   justify-content: space-between;
+  min-height: 36px;
 }
 
 .dialogTitle {
@@ -24,21 +25,19 @@
   align-items: flex-start;
   box-sizing: border-box;
   display: flex;
-  font-weight: 700;
   font-size: var(--fontsize-heading-xs);
-  line-height: 24px;
+  font-weight: 700;
   letter-spacing: 0.4px;
-
-
+  line-height: 24px;
   margin: 0;
   order: 0;
   outline: none;
   padding-right: var(--spacing-3-xs);
   position: relative;
 
-  &::after {
-    box-sizing: border-box;
+  &:after {
     border: var(--outline-width) solid transparent;
+    box-sizing: border-box;
     content: '';
     display: block;
     height: 100%;
@@ -48,7 +47,7 @@
     width: 100%;
   }
 
-  &:focus::after {
+  &:focus:after {
     border-color: var(--color-coat-of-arms);
     height: calc(100% + calc((var(--outline-width) + var(--outline-y-gutter)) * 2));
     width: calc(100% + calc((var(--outline-width) + var(--outline-x-gutter)) * 2));
@@ -62,10 +61,11 @@
 
 .dialogHeaderClose {
   @extend %buttonReset;
+
   color: var(--dialog-close-button-color);
   display: block;
-  height: 44px;
   font-size: 0;
+  height: 44px;
   line-height: 1;
   margin-left: var(--spacing-2-xs);
   margin-top: calc(-1 * var(--spacing-2-xs));

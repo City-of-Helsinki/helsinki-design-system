@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/some/tiktok.svg);
+@svg-load icon url("../../svg/some/tiktok.svg");
 
 .hds-icon--tiktok {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

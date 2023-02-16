@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/star-fill.svg);
+@svg-load icon url("../../svg/ui/star-fill.svg");
 
 .hds-icon--star-fill {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/some/facebook.svg);
+@svg-load icon url("../../svg/some/facebook.svg");
 
 .hds-icon--facebook {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

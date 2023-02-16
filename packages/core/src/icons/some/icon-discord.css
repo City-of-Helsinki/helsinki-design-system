@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/some/discord.svg);
+@svg-load icon url("../../svg/some/discord.svg");
 
 .hds-icon--discord {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

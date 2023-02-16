@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/heart-fill.svg);
+@svg-load icon url("../../svg/ui/heart-fill.svg");
 
 .hds-icon--heart-fill {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

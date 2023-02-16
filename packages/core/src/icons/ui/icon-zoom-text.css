@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/zoom-text.svg);
+@svg-load icon url("../../svg/ui/zoom-text.svg");
 
 .hds-icon--zoom-text {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

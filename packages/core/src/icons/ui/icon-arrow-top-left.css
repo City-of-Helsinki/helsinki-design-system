@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/arrow-top-left.svg);
+@svg-load icon url("../../svg/ui/arrow-top-left.svg");
 
 .hds-icon--arrow-top-left {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }

@@ -1,6 +1,6 @@
-@svg-load icon url(../../svg/ui/volume-mute.svg);
+@svg-load icon url("../../svg/ui/volume-mute.svg");
 
 .hds-icon--volume-mute {
-  mask-image: svg-inline(icon);
   -webkit-mask-image: svg-inline(icon);
+  mask-image: svg-inline(icon);
 }
