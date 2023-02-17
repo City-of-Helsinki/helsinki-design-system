@@ -115,7 +115,7 @@
   position: relative;
   text-decoration: none;
 
-  &:not([href]), &:not([tabindex="0"]) {
+  &:not([href]):not([tabindex="0"]) {
     cursor: auto;
   }
 }
