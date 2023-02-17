@@ -21,6 +21,8 @@ export const Alert = () => <StatusLabel type="alert">Alert</StatusLabel>;
 
 export const Error = () => <StatusLabel type="error">Error</StatusLabel>;
 
+export const WithRoundedCorners = () => <StatusLabel variant="rounded">Rounded</StatusLabel>;
+
 export const Icons = () => (
   <>
     <StatusLabel iconLeft={<IconInfoCircle />}>Default</StatusLabel>
@@ -43,6 +45,11 @@ export const Icons = () => (
     <br />
     <StatusLabel type="error" iconLeft={<IconError />}>
       Error
+    </StatusLabel>
+    <br />
+    <br />
+    <StatusLabel type="info" variant="rounded" iconLeft={<IconInfoCircle />}>
+      Rounded
     </StatusLabel>
   </>
 );
