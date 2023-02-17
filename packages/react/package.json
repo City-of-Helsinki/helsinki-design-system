@@ -21,7 +21,7 @@
     "tcm": "tcm src",
     "ts-check": "tcm src internal && tsc --skipLibCheck --noEmit --project tsconfig.json",
     "lint": "yarn ts-check && yarn eslint \"src/**/*.{ts,tsx}\" && yarn lint:styles",
-    "lint:styles": "yarn stylelint \"src/**/*.{scss}\"",
+    "lint:styles": "yarn stylelint \"src/**/*.scss\"",
     "storybook": "start-storybook -p 6006 --quiet",
     "build-storybook": "build-storybook --loglevel error",
     "test": "jest --env=jest-environment-jsdom-sixteen",
