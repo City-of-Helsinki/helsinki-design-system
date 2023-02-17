@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 
 import { Navigation } from '../components/navigation';
-import { Footer } from '../components/footer';
+import { Footer, FooterVariant } from '../components/footer';
 import { Header } from '../components/header';
 
 type WrapperProps = PropsWithChildren<Record<string, unknown>>;
@@ -23,7 +23,13 @@ export const FooterNavigationWrapper = ({ children }: PropsWithChildren<Record<s
 export const FooterNavigationGroupsWrapper = ({ children }: PropsWithChildren<Record<string, unknown>>) => (
   <Footer title="Bar">
     <Footer.Navigation>
-      <Footer.NavigationGroup>{children}</Footer.NavigationGroup>
+      <Footer.NavigationGroup
+        headingLink={
+          <Footer.GroupHeading href="https://google.com" label="Main Page" variant={FooterVariant.Navigation} />
+        }
+      >
+        {children}
+      </Footer.NavigationGroup>
     </Footer.Navigation>
   </Footer>
 );

@@ -66,9 +66,6 @@
   .backToTopButton {
     margin-top: var(--spacing-m);
   }
-  .separator {
-    display: none;
-  }
 }
 
 @media medium-down {
@@ -78,9 +75,6 @@
   }
   .divider {
     margin: 0 0 var(--spacing-m);
-  }  
-  .separator:first-of-type {
-    display: none;
   }
 }
 

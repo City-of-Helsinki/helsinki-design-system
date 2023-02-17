@@ -62,7 +62,7 @@ exports[`<Footer.NavigationGroup /> spec renders the navigation groups 1`] = `
             >
               <a
                 class="heading navigation"
-                href="https://yourpath.com"
+                href="https://google.com"
               >
                 Main Page
               </a>

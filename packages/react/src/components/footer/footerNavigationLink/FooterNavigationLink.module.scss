@@ -1,15 +1,10 @@
 @import "../common.scss";
-@value medium-down, medium-up, large-down, large-up, x-large-up from "../../../styles/breakpoints.acss";
+@value small-down, medium-down, large-down from "../../../styles/breakpoints.scss";
 
 .item {
   @extend %footerItem;
   font-weight: normal;
   line-height: var(--lineheight-l);
-
-  // spacing between icon and label
-  & > *:nth-child(2) {
-    margin-left: var(--spacing-3-xs);
-  }
 }
 
 .base {
@@ -22,6 +17,7 @@
 
 .icon {
   composes: icon from 'hds-core/lib/components/link/link.css';
+  margin-left: var(--spacing-3-xs);
 }
 
 .verticalAlignSmallOrMediumIcon {
@@ -38,6 +34,10 @@
   font-size: var(--fontsize-body-l);
 }
 
+.separator {
+  margin-right: var(--spacing-xs);
+}
+
 .subItem.subItem {
   font-size: var(--fontsize-body-s);
   line-height: var(--lineheight-l)
@@ -51,9 +51,19 @@
   width: var(--spacing-xs);
 }
 
+@media small-down {
+
+  .separator {
+    display: none;
+  }
+}
+
 @media medium-down {
   .utility, .navigation {
     font-size: var(--fontsize-body-m)
+  }
+  .separator:first-of-type {
+    display: none;
   }
 }
 

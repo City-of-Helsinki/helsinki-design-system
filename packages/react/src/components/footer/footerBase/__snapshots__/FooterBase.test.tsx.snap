@@ -94,6 +94,11 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
             <a
               class="item base"
             >
+              <span
+                class="separator"
+              >
+                |
+              </span>
               <span>
                 Link 1
               </span>
@@ -101,6 +106,11 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
             <a
               class="item base"
             >
+              <span
+                class="separator"
+              >
+                |
+              </span>
               <span>
                 Link 2
               </span>
@@ -108,6 +118,11 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
             <a
               class="item base"
             >
+              <span
+                class="separator"
+              >
+                |
+              </span>
               <span>
                 Link 3
               </span>

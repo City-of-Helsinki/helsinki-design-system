@@ -107,6 +107,7 @@ const Base = () => (
         label="Link"
         className="test"
         variant={FooterVariant.Base}
+        separator
         {...(index === 4 && { external: true })}
       />
     ))}
@@ -326,11 +327,13 @@ export const Example = (args) => (
         href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/tietoa-hel-fista/"
         label="Tietoa palvelusta"
         variant={FooterVariant.Base}
+        separator
       />
       <Footer.NavigationLink
         href="https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/saavutettavuus/saavutettavuus-helfi-sivustolla/"
         label="Saavutettavuusseloste"
         variant={FooterVariant.Base}
+        separator
       />
     </Footer.Base>
   </Footer>
@@ -435,11 +438,13 @@ export const UtilityGroups = (args) => (
         href="https://hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/tietoa-hel-fista/"
         label="Tietoa palvelusta"
         variant={FooterVariant.Base}
+        separator
       />
       <Footer.NavigationLink
         href="https://www.hel.fi/helsinki/fi/kaupunki-ja-hallinto/tietoa-helsingista/saavutettavuus/saavutettavuus-helfi-sivustolla/"
         label="Saavutettavuusseloste"
         variant={FooterVariant.Base}
+        separator
       />
     </Footer.Base>
   </Footer>

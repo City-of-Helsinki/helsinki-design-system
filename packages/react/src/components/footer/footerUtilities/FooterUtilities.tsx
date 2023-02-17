@@ -30,14 +30,6 @@ export const FooterUtilities = ({ ariaLabel, children, soMeLinks, soMeSectionPro
   return (
     <div className={styles.utilities} aria-label={ariaLabel}>
       <hr className={styles.divider} aria-hidden />
-<<<<<<< HEAD
-      {groups && groups.length > 0 ? (
-        <div className={styles.groups}>
-          {Children.map(groups, (child, index) => {
-            return cloneElement(child as React.ReactElement, {
-              key: index,
-            });
-=======
       <div className={classNames(styles.links, !soMeLinks && styles.widerLinks)}>{children}</div>
       {soMeLinks && (
         <section className={styles.soMe} {...soMeSectionProps}>
@@ -47,7 +39,6 @@ export const FooterUtilities = ({ ariaLabel, children, soMeLinks, soMeSectionPro
               return cloneElement(link, { variant: null });
             }
             return null;
->>>>>>> b02c3cfc1 (Refactor away from Children API. Update tests)
           })}
         </section>
       )}

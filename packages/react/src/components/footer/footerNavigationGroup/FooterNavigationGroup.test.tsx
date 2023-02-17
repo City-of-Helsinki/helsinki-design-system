@@ -12,7 +12,7 @@ describe('<Footer.NavigationGroup /> spec', () => {
     const { asFragment } = render(
       <FooterNavigationGroup
         headingLink={
-          <Footer.GroupHeading href="https://yourpath.com" label="Main Page" variant={FooterVariant.Navigation} />
+          <Footer.GroupHeading href="https://google.com" label="Main Page" variant={FooterVariant.Navigation} />
         }
       >
         <Footer.NavigationLink label="Link 1" />
@@ -27,7 +27,7 @@ describe('<Footer.NavigationGroup /> spec', () => {
     const { container } = render(
       <FooterNavigationGroup
         headingLink={
-          <Footer.GroupHeading href="https://yourpath.com" label="Main Page" variant={FooterVariant.Navigation} />
+          <Footer.GroupHeading href="https://google.com" label="Main Page" variant={FooterVariant.Navigation} />
         }
         ariaLabel="Navigation group"
       >

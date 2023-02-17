@@ -25,9 +25,9 @@ describe('<Footer.Base /> spec', () => {
   it('renders the component', () => {
     const { asFragment } = render(
       <FooterBase>
-        <Footer.NavigationLink label="Link 1" variant={FooterVariant.Base} />
-        <Footer.NavigationLink label="Link 2" variant={FooterVariant.Base} />
-        <Footer.NavigationLink label="Link 3" variant={FooterVariant.Base} />
+        <Footer.NavigationLink label="Link 1" variant={FooterVariant.Base} separator />
+        <Footer.NavigationLink label="Link 2" variant={FooterVariant.Base} separator />
+        <Footer.NavigationLink label="Link 3" variant={FooterVariant.Base} separator />
       </FooterBase>,
       {
         wrapper: FooterWrapper,

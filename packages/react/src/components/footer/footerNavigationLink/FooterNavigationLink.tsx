@@ -44,6 +44,10 @@ type ItemProps<Element> = React.PropsWithChildren<{
    */
   label?: string;
   /**
+   * Set this to display a separating line before the link. Used in Footer.Base
+   */
+  separator?: boolean;
+  /**
    * Set this if this item appears in footer navigation group.
    */
   subItem?: boolean;
@@ -64,10 +68,11 @@ export const FooterNavigationLink = <T extends React.ElementType = 'a'>({
   className,
   icon,
   external = false,
+  label,
   openInNewTab = false,
   openInExternalDomainAriaLabel,
   openInNewTabAriaLabel,
-  label,
+  separator,
   subItem = false,
   variant,
   ...rest
@@ -91,6 +96,7 @@ export const FooterNavigationLink = <T extends React.ElementType = 'a'>({
       {...((openInNewTab || external || ariaLabel) && { 'aria-label': composedAriaLabel })}
       {...rest}
     >
+      {separator && <span className={styles.separator}>|</span>}
       {icon}
       {subItem && <IconAngleRight className={styles.subItemIcon} />}
       {label && <span>{label}</span>}
