@@ -24,6 +24,10 @@
   white-space: nowrap;
 }
 
+.hds-table__content--text-align-td-right td {
+  text-align: right;
+}
+
 .hds-table__content tr td {
   background-color: var(--content-background-color);
   border-bottom: 1px solid var(--color-black-50);
@@ -66,11 +70,11 @@
   color: var(--color-black-90);
 }
 
-/* DENSE VARIANT */
-
 .hds-table--with-vertical-lines .hds-table__content td {
   border-right: 1px solid var(--color-black-50);
 }
+
+/* DENSE VARIANT */
 
 .hds-table--dense.hds-table th {
   font-size: var(--fontsize-body-s);
@@ -131,10 +135,6 @@
     font-size: var(--fontsize-body-s);
     font-weight: bold;
     padding: 9px var(--spacing-s);
-  }
-
-  .hds-table__content--text-align-td-right td {
-    text-align: right;
   }
 
   .hds-table__content tr td {
