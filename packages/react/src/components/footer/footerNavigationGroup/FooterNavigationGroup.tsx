@@ -1,16 +1,15 @@
-import React, { Children, cloneElement } from 'react';
+import React from 'react';
 
 // import core base styles
 import 'hds-core';
+import { useMediaQueryLessThan } from '../../../hooks/useMediaQuery';
 import styles from './FooterNavigationGroup.module.scss';
-import { getChildElementsEvenIfContainerInbetween } from '../../../utils/getChildren';
 import classNames from '../../../utils/classNames';
-import { FCWithName } from '../../../common/types';
-import { FooterVariant } from '../Footer.interface';
 
 type FooterNavigationGroupProps = React.PropsWithChildren<{
   /**
-   * Description of the navigation group for screen readers.
+   * Description of the navigation group
+   * for screen readers.
    */
   ariaLabel?: string;
   /**
@@ -18,33 +17,40 @@ type FooterNavigationGroupProps = React.PropsWithChildren<{
    */
   className?: string;
   /**
-   * ID of the navigation element.
+   * ID of the navigation group element.
    */
   id?: string;
+  /**
+   * FooterGroupHeading component to display at the top of the group. On smaller screens only this will be displayed.
+   * @example
+   * heading={<Footer.GroupHeading
+            href="https://yourpath.com"
+            label="Main Page"
+            variant={FooterVariant.Navigation}
+          />}
+   */
+  headingLink: React.ReactNode;
 }>;
-export const FooterNavigationGroup = ({ ariaLabel, className, children, id }: FooterNavigationGroupProps) => {
-  const childElements = getChildElementsEvenIfContainerInbetween(children);
-  return (
-    <nav aria-label={ariaLabel} id={id} className={classNames(styles.navigationGroup, className)}>
-      <ul className={classNames(styles.navigationGroupList, styles.denseList)}>
-        {Children.map(childElements, (child, index) => {
-          if (React.isValidElement(child)) {
-            return (
-              // eslint-disable-next-line react/no-array-index-key
-              <li key={index}>
-                {cloneElement(child, {
-                  ...((child.type as FCWithName).componentName !== 'FooterNavigationHeading' && {
-                    subItem: true,
-                  }),
-                  variant: FooterVariant.Navigation,
-                })}
-              </li>
-            );
-          }
-          return null;
-        })}
-      </ul>
-    </nav>
+export const FooterNavigationGroup = ({
+  ariaLabel,
+  className,
+  children,
+  id,
+  headingLink,
+}: FooterNavigationGroupProps) => {
+  // Show only main links in smaller screens
+  const shouldRenderOnlyMainLinks = useMediaQueryLessThan('l');
+
+  // Return headingLink inside a Fragment to avoid erronous return type 'Element | { headingLink: ReactNode; }'.
+  return shouldRenderOnlyMainLinks ? (
+    <>{headingLink}</>
+  ) : (
+    <div aria-label={ariaLabel} id={id} className={classNames(styles.navigationGroup, className)}>
+      <div className={styles.navigationGroupList}>
+        {headingLink}
+        {children}
+      </div>
+    </div>
   );
 };
 FooterNavigationGroup.componentName = 'FooterNavigationGroup';

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Footer.NavigationGroup /> spec renders the component 1`] = `
+exports[`<Footer.NavigationGroup /> spec renders the navigation groups 1`] = `
 <DocumentFragment>
   <footer
     class="footer koros-basic theme-light"
@@ -51,14 +51,46 @@ exports[`<Footer.NavigationGroup /> spec renders the component 1`] = `
             Bar
           </h2>
         </div>
+        <nav
+          class="navigation"
+        >
+          <div
+            class="navigationGroup"
+          >
+            <div
+              class="navigationGroupList"
+            >
+              <a
+                class="heading navigation"
+                href="https://yourpath.com"
+              >
+                Main Page
+              </a>
+              <a
+                class="item"
+              >
+                <span>
+                  Link 1
+                </span>
+              </a>
+              <a
+                class="item"
+              >
+                <span>
+                  Link 2
+                </span>
+              </a>
+              <a
+                class="item"
+              >
+                <span>
+                  Link 3
+                </span>
+              </a>
+            </div>
+          </div>
+        </nav>
       </section>
-      <nav
-        class="navigationGroup"
-      >
-        <ul
-          class="navigationGroupList denseList"
-        />
-      </nav>
     </div>
   </footer>
 </DocumentFragment>

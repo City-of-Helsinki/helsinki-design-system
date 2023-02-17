@@ -8,11 +8,10 @@ import { Koros, KorosType } from '../koros';
 import classNames from '../../utils/classNames';
 import { FooterNavigation } from './footerNavigation/FooterNavigation';
 import { FooterNavigationGroup } from './footerNavigationGroup/FooterNavigationGroup';
-import { FooterNavigationHeading } from './footerNavigationHeading/FooterNavigationHeading';
+import { FooterGroupHeading } from './footerGroupHeading/FooterGroupHeading';
 import { FooterNavigationLink } from './footerNavigationLink/FooterNavigationLink';
 import { FooterUtilities } from './footerUtilities/FooterUtilities';
 import { FooterUtilityGroup } from './footerUtilityGroup/FooterUtilityGroup';
-import { FooterSoMe } from './footerSoMe/FooterSoMe';
 import { FooterBase } from './footerBase/FooterBase';
 import { FooterCustom } from './footerCustom/FooterCustom';
 import { FooterTheme } from './Footer.interface';
@@ -80,10 +79,9 @@ export const Footer = ({
 
 Footer.Navigation = FooterNavigation;
 Footer.NavigationGroup = FooterNavigationGroup;
-Footer.NavigationHeading = FooterNavigationHeading;
+Footer.GroupHeading = FooterGroupHeading;
 Footer.NavigationLink = FooterNavigationLink;
 Footer.Utilities = FooterUtilities;
 Footer.UtilityGroup = FooterUtilityGroup;
-Footer.SoMe = FooterSoMe;
 Footer.Base = FooterBase;
 Footer.Custom = FooterCustom;

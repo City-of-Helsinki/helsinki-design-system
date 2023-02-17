@@ -44,13 +44,11 @@ type ItemProps<Element> = React.PropsWithChildren<{
    */
   label?: string;
   /**
-   * Whether the item should be displayed as an sub item in a sitemap item group
-   * @internal
+   * Set this if this item appears in footer navigation group.
    */
   subItem?: boolean;
   /**
    * Internal variant to change styles based on context.
-   * @internal
    */
   variant?: FooterVariant.Navigation | FooterVariant.Utility | FooterVariant.Base;
 }>;
@@ -89,10 +87,6 @@ export const FooterNavigationLink = <T extends React.ElementType = 'a'>({
     <Item
       aria-label={ariaLabel}
       className={classNames(styles.item, subItem && styles.subItem, variant && styles[variant], className)}
-      external={external}
-      openInNewTab={openInNewTab}
-      openInExternalDomainAriaLabel={openInExternalDomainAriaLabel}
-      openInNewTabAriaLabel={openInNewTabAriaLabel}
       {...(openInNewTab && { target: '_blank', rel: 'noopener' })}
       {...((openInNewTab || external || ariaLabel) && { 'aria-label': composedAriaLabel })}
       {...rest}

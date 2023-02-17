@@ -1,16 +1,46 @@
-@value medium-up, large-up, x-large-up from "../../../styles/breakpoints.css";
+@value x-small-down, small-only, medium-up, large-up, x-large-up from "../../../styles/breakpoints.css";
 
 .utilityGroup {
   display: flex;
-}
-
-.utilityGroupList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  gap: var(--spacing-xs);
   flex-direction: column;
+  gap: var(--spacing-xs);
   justify-items: start;
+  list-style: none;
+  padding: 0;
+  width: 248px;
+  margin-bottom: var(--spacing-xs);
 }
 
+@media x-small-down {
+  .utilityGroup:nth-last-child(-n+1) {
+    margin-bottom: 0;
+  }
+}
+
+@media small-only {
+  .utilityGroup:nth-last-child(-n+2) {
+    margin-bottom: 0;
+  }
+}
+
+@media medium-up {
+  .utilityGroup {
+    width: 214px
+  }
+  .utilityGroup:nth-last-child(-n+1) {
+    margin-bottom: 0;
+  }
+}
+
+@media large-up {
+  .utilityGroup {
+    width: 204px;
+    margin-bottom: 0;
+  }
+}
+
+@media x-large-up {
+  .utilityGroup {
+    width: 268px
+  }
+}

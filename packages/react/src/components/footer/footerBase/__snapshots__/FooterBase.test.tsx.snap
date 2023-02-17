@@ -86,33 +86,38 @@ exports[`<Footer.Base /> spec renders the component 1`] = `
           </a>
         </div>
         <div
-          class="copyright"
-        >
-          <span
-            class="copyrightHolder"
-          >
-            © Copyright 2020
-          </span>
-          <span
-            class="copyrightDot"
-          >
-            •
-          </span>
-          <span
-            class="copyrightText"
-          >
-            All rights reserved
-          </span>
-        </div>
-        <div
           class="baseActions"
         >
+          <div
+            class="links"
+          >
+            <a
+              class="item base"
+            >
+              <span>
+                Link 1
+              </span>
+            </a>
+            <a
+              class="item base"
+            >
+              <span>
+                Link 2
+              </span>
+            </a>
+            <a
+              class="item base"
+            >
+              <span>
+                Link 3
+              </span>
+            </a>
+          </div>
           <button
             class="backToTopButton"
             role="link"
             type="button"
           >
-            Ylös
             <svg
               aria-hidden="true"
               class="icon s"

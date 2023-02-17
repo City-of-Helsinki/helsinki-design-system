@@ -1,7 +1,7 @@
 @value medium-down from "../../../styles/breakpoints.css";
 @import '../common';
 
-.navigationHeading {
+.heading {
   @extend %footerItem;
   font-weight: bold;
   line-height: var(--lineheight-l);
@@ -16,7 +16,7 @@
 }
 
 @media medium-down {
-  .navigationHeading.navigation {
+  .heading.navigation {
     font-weight: normal;
   }
 }

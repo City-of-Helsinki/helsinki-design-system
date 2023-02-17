@@ -2,7 +2,7 @@ import React from 'react';
 
 // import core base styles
 import 'hds-core';
-import styles from './FooterNavigationHeading.module.scss';
+import styles from './FooterGroupHeading.module.scss';
 import { MergeElementProps } from '../../../common/types';
 import classNames from '../../../utils/classNames';
 import { FooterVariant } from '../Footer.interface';
@@ -26,17 +26,16 @@ type ItemProps<Element> = React.PropsWithChildren<{
   label?: string | React.ReactNode;
   /**
    * Internal variant to change styles based on context.
-   * @internal
    */
   variant?: FooterVariant.Navigation | FooterVariant.Utility;
 }>;
 
-export type FooterNavigationHeadingProps<Element extends React.ElementType = 'a'> = MergeElementProps<
+export type FooterGroupHeadingProps<Element extends React.ElementType = 'a'> = MergeElementProps<
   Element,
   ItemProps<Element>
 >;
 
-export const FooterNavigationHeading = <T extends React.ElementType = 'a'>({
+export const FooterGroupHeading = <T extends React.ElementType = 'a'>({
   as,
   children,
   className,
@@ -44,13 +43,13 @@ export const FooterNavigationHeading = <T extends React.ElementType = 'a'>({
   label,
   variant,
   ...rest
-}: FooterNavigationHeadingProps<T>) => {
+}: FooterGroupHeadingProps<T>) => {
   const Item: React.ElementType = as || (href ? 'a' : 'span');
   return (
-    <Item className={classNames(styles.navigationHeading, variant && styles[variant], className)} href={href} {...rest}>
+    <Item className={classNames(styles.heading, variant && styles[variant], className)} href={href} {...rest}>
       {label && label}
       {children}
     </Item>
   );
 };
-FooterNavigationHeading.componentName = 'FooterNavigationHeading';
+FooterGroupHeading.componentName = 'FooterGroupHeading';

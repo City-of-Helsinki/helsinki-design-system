@@ -18,12 +18,39 @@
   max-width: 60%;
 }
 
+.soMe {
+  display: grid;
+  gap: var(--spacing-xs);
+  grid-auto-flow: column;
+
+  /* display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; */
+
+  > * {
+    align-self: center;
+  }
+}
+
 .utilities {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 0 var(--spacing-m) var(--spacing-m);
+}
+
+.utilityLinks {
+  display: grid;
+  grid-auto-flow: column;
+  /* display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; */
+  position: relative;
+}
+
+.widerLinks {
+  max-width: none;
 }
 
 @media x-small-down {

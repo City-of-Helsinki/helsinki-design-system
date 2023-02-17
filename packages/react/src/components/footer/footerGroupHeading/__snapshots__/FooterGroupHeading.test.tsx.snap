@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Footer.NavigationHeading /> spec renders the component 1`] = `
+exports[`<Footer.FooterGroupHeading /> spec renders the component 1`] = `
 <DocumentFragment>
   <footer
     class="footer koros-basic theme-light"
@@ -53,9 +53,31 @@ exports[`<Footer.NavigationHeading /> spec renders the component 1`] = `
         </div>
       </section>
       <span
-        class="navigationHeading"
-      />
+        class="heading"
+      >
+        Test
+      </span>
     </div>
   </footer>
+</DocumentFragment>
+`;
+
+exports[`<Footer.FooterGroupHeading /> spec renders the navigation variant 1`] = `
+<DocumentFragment>
+  <span
+    class="heading navigation"
+  >
+    Test
+  </span>
+</DocumentFragment>
+`;
+
+exports[`<Footer.FooterGroupHeading /> spec renders the utility variant 1`] = `
+<DocumentFragment>
+  <span
+    class="heading utility"
+  >
+    Test
+  </span>
 </DocumentFragment>
 `;

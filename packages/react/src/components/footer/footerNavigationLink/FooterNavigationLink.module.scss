@@ -36,8 +36,6 @@
 .utility {
   align-items: center;
   font-size: var(--fontsize-body-l);
-  width: 248px;
-  margin-right: var(--spacing-m);
 }
 
 .subItem.subItem {
@@ -54,14 +52,8 @@
 }
 
 @media medium-down {
-  .utility {
+  .utility, .navigation {
     font-size: var(--fontsize-body-m)
-  }
-}
-
-@media medium-up {
-  .utility {
-    width: 214px
   }
 }
 
@@ -71,14 +63,3 @@
   }
 }
 
-@media large-up {
-  .utility {
-    width: 204px
-  }
-}
-
-@media x-large-up {
-  .utility {
-    width: 268px
-  }
-}

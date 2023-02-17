@@ -59,8 +59,8 @@ exports[`<Footer.Utilities /> spec renders the component 1`] = `
           aria-hidden="true"
           class="divider"
         />
-        <nav
-          class="links"
+        <div
+          class="links widerLinks"
         >
           <a
             class="item"
@@ -86,7 +86,7 @@ exports[`<Footer.Utilities /> spec renders the component 1`] = `
               Chat-neuvonta
             </span>
           </a>
-        </nav>
+        </div>
       </div>
     </div>
   </footer>

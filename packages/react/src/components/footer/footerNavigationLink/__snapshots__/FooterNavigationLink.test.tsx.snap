@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<Footer.NavigationLink /> spec renders the base variant 1`] = `
+<DocumentFragment>
+  <a
+    class="item base"
+  >
+    <span>
+      Link
+    </span>
+  </a>
+</DocumentFragment>
+`;
+
 exports[`<Footer.NavigationLink /> spec renders the component 1`] = `
 <DocumentFragment>
   <footer
@@ -54,8 +66,36 @@ exports[`<Footer.NavigationLink /> spec renders the component 1`] = `
       </section>
       <a
         class="item"
-      />
+      >
+        <span>
+          Link
+        </span>
+      </a>
     </div>
   </footer>
+</DocumentFragment>
+`;
+
+exports[`<Footer.NavigationLink /> spec renders the navigation variant 1`] = `
+<DocumentFragment>
+  <a
+    class="item navigation"
+  >
+    <span>
+      Link
+    </span>
+  </a>
+</DocumentFragment>
+`;
+
+exports[`<Footer.NavigationLink /> spec renders the utility variant 1`] = `
+<DocumentFragment>
+  <a
+    class="item utility"
+  >
+    <span>
+      Link
+    </span>
+  </a>
 </DocumentFragment>
 `;

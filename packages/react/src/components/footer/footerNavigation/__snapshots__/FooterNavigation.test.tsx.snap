@@ -54,7 +54,29 @@ exports[`<Footer.Navigation /> spec renders the component 1`] = `
         <nav
           aria-label="Foo"
           class="navigation"
-        />
+        >
+          <a
+            class="item"
+          >
+            <span>
+              Link 1
+            </span>
+          </a>
+          <a
+            class="item"
+          >
+            <span>
+              Link 2
+            </span>
+          </a>
+          <a
+            class="item"
+          >
+            <span>
+              Link 3
+            </span>
+          </a>
+        </nav>
       </section>
     </div>
   </footer>

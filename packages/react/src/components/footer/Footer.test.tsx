@@ -6,7 +6,11 @@ import { Footer } from './Footer';
 
 describe('<Footer /> spec', () => {
   it('renders the component', () => {
-    const { asFragment } = render(<Footer title="Bar" />);
+    const { asFragment } = render(
+      <Footer title="Bar">
+        <Footer.Base copyrightHolder="Copyright" copyrightText="All rights reserved" backToTopLabel="Ylös" />
+      </Footer>,
+    );
     expect(asFragment()).toMatchSnapshot();
   });
   it('should not have basic accessibility issues', async () => {

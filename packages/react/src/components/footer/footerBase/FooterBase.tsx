@@ -1,4 +1,4 @@
-import React, { Children, cloneElement, Fragment } from 'react';
+import React from 'react';
 
 // import base styles
 import '../../../styles/base.css';
@@ -7,7 +7,6 @@ import styles from './FooterBase.module.scss';
 import { Logo, LogoLanguage } from '../../logo';
 import { IconArrowUp } from '../../../icons';
 import getKeyboardFocusableElements from '../../../utils/getKeyboardFocusableElements';
-import { FooterVariant } from '../Footer.interface';
 import { FooterNavigationLink } from '../footerNavigationLink/FooterNavigationLink';
 
 export type FooterBaseProps = React.PropsWithChildren<{
@@ -96,25 +95,7 @@ export const FooterBase = ({
         </div>
       )}
       <div className={styles.baseActions}>
-        {children && (
-          <div className={styles.links}>
-            {Children.map(children, (child, index) => {
-              if (React.isValidElement(child)) {
-                return (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <Fragment key={index}>
-                    <span className={styles.separator}>|</span>
-                    {cloneElement(child as React.ReactElement, {
-                      key: index,
-                      variant: FooterVariant.Base,
-                    })}
-                  </Fragment>
-                );
-              }
-              return null;
-            })}
-          </div>
-        )}
+        {children && <div className={styles.links}>{children}</div>}
         {showBackToTopButton && (
           <button
             type="button"
