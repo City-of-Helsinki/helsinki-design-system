@@ -64,19 +64,19 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```html
 <div id="labels-no-icon-rounded">
-  <span class="hds-status-label hds-status-label-rounded-corners">
+  <span class="hds-status-label hds-status-label--rounded-corners">
     Neutral
   </span>
-  <span class="hds-status-label hds-status-label--info hds-status-label-rounded-corners">
+  <span class="hds-status-label hds-status-label--info hds-status-label--rounded-corners">
     Info
   </span>
-  <span class="hds-status-label hds-status-label--success hds-status-label-rounded-corners">
+  <span class="hds-status-label hds-status-label--success hds-status-label--rounded-corners">
     Success
   </span>
-  <span class="hds-status-label hds-status-label--alert hds-status-label-rounded-corners">
+  <span class="hds-status-label hds-status-label--alert hds-status-label--rounded-corners">
     Alert
   </span>
-  <span class="hds-status-label hds-status-label--error hds-status-label-rounded-corners">
+  <span class="hds-status-label hds-status-label--error hds-status-label--rounded-corners">
     Error
   </span>
 </div>
@@ -141,23 +141,23 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ```html
 <div id="labels-with-icon">
-  <span class='hds-status-label hds-status-label--with-icon hds-status-label-rounded-corners'>
+  <span class='hds-status-label hds-status-label--with-icon hds-status-label--rounded-corners'>
     <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--info-circle'></span>
     Neutral
   </span>
-  <span class='hds-status-label hds-status-label--with-icon hds-status-label--info hds-status-label-rounded-corners'>
+  <span class='hds-status-label hds-status-label--with-icon hds-status-label--info hds-status-label--rounded-corners'>
   <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--info-circle'></span>
     Info
   </span>
-  <span class='hds-status-label hds-status-label--with-icon hds-status-label--success hds-status-label-rounded-corners'>
+  <span class='hds-status-label hds-status-label--with-icon hds-status-label--success hds-status-label--rounded-corners'>
     <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--check-circle'></span>
     Success
   </span>
-  <span class='hds-status-label hds-status-label--with-icon hds-status-label--alert hds-status-label-rounded-corners'>
+  <span class='hds-status-label hds-status-label--with-icon hds-status-label--alert hds-status-label--rounded-corners'>
     <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--alert-circle'></span>
     Alert
   </span>
-  <span class='hds-status-label hds-status-label--with-icon hds-status-label--error hds-status-label-rounded-corners'>
+  <span class='hds-status-label hds-status-label--with-icon hds-status-label--error hds-status-label--rounded-corners'>
     <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--error'></span>
     Error
   </span>
@@ -180,4 +180,5 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | ---------- | ---------------------------------------------------- | ---------------------------------------------------- | ------------- |
 | `type`     | The type of the status label.                        | `"neutral"` `"success"` `"info"` `"alert"` `"error"` | `"neutral"`   |
 | `iconLeft` | Element placed on the left side of the status label. | `ReactNode`                                          | -             |
+| `variant`  | The variant of the status label.                     | `"rounded"`                                          | -             |
 [Table 1:StatusLabel properties]|

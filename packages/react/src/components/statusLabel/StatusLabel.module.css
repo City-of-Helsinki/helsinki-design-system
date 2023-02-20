@@ -27,5 +27,5 @@
 }
 
 .rounded {
-  composes: hds-status-label-rounded-corners from 'hds-core/lib/components/status-label/status-label.css';
+  composes: hds-status-label--rounded-corners from 'hds-core/lib/components/status-label/status-label.css';
 }

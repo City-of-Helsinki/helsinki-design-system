@@ -35,7 +35,7 @@ export const Error = () => `
 `;
 
 export const WithRoundedCorners = () => `
-  <span class="hds-status-label hds-status-label-rounded-corners">
+  <span class="hds-status-label hds-status-label--rounded-corners">
     Rounded
   </span>
 `;
@@ -81,7 +81,7 @@ export const Icons = () => `
   <br />
   <br />
 
-  <span class='hds-status-label hds-status-label--with-icon hds-status-label-rounded-corners'>
+  <span class='hds-status-label hds-status-label--with-icon hds-status-label--rounded-corners'>
     <span aria-hidden='true' class='hds-status-label-icon hds-icon hds-icon--info-circle'></span>
     Rounded
   </span>
