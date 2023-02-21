@@ -15,7 +15,6 @@ exports[`<DateInput /> spec renders the component with Finnish language 1`] = `
         <input
           class="input hasButton"
           id="date"
-          inputmode="numeric"
           type="text"
           value=""
         />
@@ -1542,7 +1541,6 @@ exports[`<DateInput /> spec renders the component with Swedish language 1`] = `
         <input
           class="input hasButton"
           id="date"
-          inputmode="numeric"
           type="text"
           value=""
         />
@@ -3075,7 +3073,6 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
         <input
           class="input hasButton"
           id="date"
-          inputmode="numeric"
           type="text"
           value=""
         />
@@ -4563,7 +4560,6 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
         <input
           class="input hasButton"
           id="date"
-          inputmode="numeric"
           type="text"
           value=""
         />

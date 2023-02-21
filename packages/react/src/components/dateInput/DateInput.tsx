@@ -199,7 +199,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           }}
           value={inputValue}
           ref={inputRef}
-          inputMode="numeric"
         >
           {disableDatePicker === false && showPicker && (
             <DatePicker
