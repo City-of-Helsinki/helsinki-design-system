@@ -84,14 +84,26 @@ body {
 }
 
 .page-header-title {
-  align-items: center;
   display: flex;
+  align-items: center;
+  margin-right: var(--spacing-2-xs);
+
+  & > div:first-of-type {
+    margin-right: var(--spacing-s);
+  }
+
+  @include small-screen {
+    font-size: var(--fontsize-body-s);
+
+    & > div:first-of-type {
+      margin-right: var(--spacing-2-xs);
+    }
+  }
 }
 
 .page-header-title-badge {
   align-items: center;
   display: flex;
-  margin-left: var(--spacing-s);
 }
 
 .page-heading-1 {

@@ -126,7 +126,6 @@
   outline: none;
   position: relative;
   text-decoration: none;
-  white-space: nowrap;
 
   &:not([href]):not([tabindex="0"]) {
     cursor: auto;
@@ -214,6 +213,7 @@
 
         .logo {
           opacity: 0;
+          height: 0;
           pointer-events: none;
           transform: translate3d(0, -150%, 0);
         }
@@ -258,6 +258,10 @@
 @media small-down {
   .header.menuOpen .mobileMenu {
     animation: mobileMenuAnimation 225ms ease-out;
+  }
+
+  .title {
+    width: 100%;
   }
 }
 
