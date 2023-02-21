@@ -11,24 +11,24 @@ import InternalLink from '../../components/InternalLink';
 
 <LeadParagraph>
   HDS follows <ExternalLink href="https://semver.org/">Semver versioning</ExternalLink>. This page describes HDS
-  practices which versions are supported and what is considered as breaking changes.
+  practices which versions are supported and what is considered breaking changes.
 </LeadParagraph>
 
 ## Which versions are supported?
 
-HDS supports current and one previous major version. Older versions are not supported anymore. We recommend updating to the latest version.
+HDS supports the current and one previous major version. Older versions are not supported anymore. We recommend updating to the latest version.
 
-## What is considered as a breaking change?
+## What is considered a breaking change?
 
-Breaking change can occur either in design or in the implementation or in both.
+Breaking change can occur either in design or implementation or in both.
 
 ### Design
 
 These are breaking changes
 
-- if released component is removed completely
-- width of the released component changes (causing other elements possibly flowing to new row)
-- typography changes (e.g. font-size, font weight, letter-spacing ) on already existing styles
+- if a released component is removed completely
+- width of the released component changes (causing other elements to flow to a new row)
+- typography changes (e.g. font-size, font-weight, letter-spacing ) on already existing styles
 - changing spacing outside the element (margins)
 - overridable elements are changed/removed (this causes overrides to be reset in component instances)
 - color token values are changed
@@ -49,7 +49,7 @@ These are breaking changes
 
 - properties are removed completely
 - renaming existing components or properties
-- changes in component box model affecting how the components align with each other or the width of the element
+- changes in the component box model affecting how the components align with each other or the width of the element
 - if it is a breaking change in design, it most likely is also in the implementation
 - updating dependency so that previous versions are not supported anymore
 
