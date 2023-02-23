@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.12.1] - February, 23, 2023
+
+### React 
+
+#### Fixed
+
+- Added missing helper texts and tooltips
+
+### Documentation
+
+- Added documentation for helper texts and tooltips
+- Fixed version documentation
+
 ## [2.12.0] - February, 21, 2023
 
 ### React 
