@@ -1,4 +1,5 @@
 import './fieldset.css';
+const getHelperText = (text = 'Assistive text') => `<div class="helper-text">${text}</div>`;
 
 export default {
   title: 'Components/Fieldset',
@@ -72,5 +73,21 @@ export const WithBorder = () => `
       <div style='margin-top: 12px'>
        ${socialSecurityNumberInput}
       </div>
+    </fieldset>
+`;
+
+export const WithHelperText = () => `
+    <fieldset class='hds-fieldset'>
+      <legend class='hds-fieldset-legend'>
+        Applicant information
+      </legend>
+      <div style='display: grid; grid-gap: 12px 16px; grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));'>
+       ${firstNameInput}
+       ${lastNameInput}
+       </div>
+      <div style='margin-top: 12px'>
+       ${socialSecurityNumberInput}
+      </div>
+      ${getHelperText()}
     </fieldset>
 `;

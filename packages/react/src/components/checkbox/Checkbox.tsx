@@ -6,6 +6,7 @@ import styles from './Checkbox.module.css';
 import classNames from '../../utils/classNames';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
 import { Tooltip } from '../tooltip';
+import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 
 export type CheckboxProps = {
   /**
@@ -24,6 +25,10 @@ export type CheckboxProps = {
    * The error text content that will be shown below the checkbox
    */
   errorText?: string;
+  /**
+   * The helper text content that will be shown below the checkbox
+   */
+  helperText?: string;
   /**
    * The id of the input element
    */
@@ -69,6 +74,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       className,
       disabled = false,
       errorText,
+      helperText,
       id,
       indeterminate,
       label,
@@ -102,6 +108,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       );
     }
 
+    const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, undefined, undefined);
+
     return (
       <div className={classNames(styles.checkbox, className)} style={style}>
         <input
@@ -113,7 +121,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           type="checkbox"
           disabled={disabled}
           checked={checked}
-          aria-describedby={errorText ? `${id}-error` : null}
+          aria-describedby={ariaDescribedBy.length > 0 ? ariaDescribedBy : null}
           {...rest}
         />
         <label htmlFor={id} className={classNames(styles.label)}>
@@ -127,6 +135,11 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         {errorText && (
           <div className={styles.errorText} id={`${id}-error`}>
             {errorText}
+          </div>
+        )}
+        {helperText && (
+          <div className={styles.helperText} id={`${id}-helper`}>
+            {helperText}
           </div>
         )}
       </div>

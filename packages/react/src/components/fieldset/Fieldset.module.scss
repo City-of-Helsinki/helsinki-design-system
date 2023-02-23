@@ -10,6 +10,10 @@
   composes: hds-fieldset-legend from 'hds-core/lib/components/fieldset/fieldset.css';
 }
 
+.helperText {
+  composes: helper-text from 'hds-core/lib/utils/helpers.css';
+}
+
 .legendWithTooltip {
   composes: hds-fieldset-legend from 'hds-core/lib/components/fieldset/fieldset.css';
   display: flex;
