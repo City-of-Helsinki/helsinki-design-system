@@ -113,3 +113,11 @@
   line-height: var(--lineheight-l);
   letter-spacing: 0.4px;
 }
+
+.helper-text {
+  color: var(--color-black-60);
+  display: block;
+  font-size: var(--fontsize-body-m);
+  margin-top: var(--spacing-2-xs);
+  flex-basis: 100%;
+}
